@@ -1,25 +1,35 @@
-Return-Path: <linville@tuxdriver.com>
+Return-Path: <tony.luck@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 26E004C6
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 6B3BD21
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 May 2014 21:19:47 +0000 (UTC)
-Received: from smtp.tuxdriver.com (charlotte.tuxdriver.com [70.61.120.58])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A30B31FD45
+	Fri,  2 May 2014 21:21:11 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 5DE711FB59
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 May 2014 21:19:46 +0000 (UTC)
-Date: Fri, 2 May 2014 16:33:22 -0400
-From: "John W. Linville" <linville@tuxdriver.com>
-To: Jiri Kosina <jkosina@suse.cz>
-Message-ID: <20140502203322.GS3687@tuxdriver.com>
-References: <alpine.LNX.2.00.1405022121070.29834@pobox.suse.cz>
+	Fri,  2 May 2014 21:21:10 +0000 (UTC)
+From: "Luck, Tony" <tony.luck@intel.com>
+To: Dave Jones <davej@redhat.com>, Mark Brown <broonie@kernel.org>
+Date: Fri, 2 May 2014 21:21:07 +0000
+Message-ID: <3908561D78D1C84285E8C5FCA982C28F327F60C8@ORSMSX114.amr.corp.intel.com>
+References: <20140502173309.GB725@redhat.com>
+	<20140502190301.GW3245@sirena.org.uk>
+	<3908561D78D1C84285E8C5FCA982C28F327F5D80@ORSMSX114.amr.corp.intel.com>
+	<20140502210340.GZ3245@sirena.org.uk>
+	<20140502210851.GC13536@redhat.com>
+In-Reply-To: <20140502210851.GC13536@redhat.com>
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <alpine.LNX.2.00.1405022121070.29834@pobox.suse.cz>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] "depth" of the tree of
-	maintainers
+Cc: Sarah Sharp <sarah@minilop.net>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	Julia Lawall <julia.lawall@lip6.fr>, Darren
+	Hart <darren@dvhart.com>, Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Kernel tinification: shrinking
+ the kernel and avoiding size regressions
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,43 +39,24 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, May 02, 2014 at 09:42:12PM +0200, Jiri Kosina wrote:
-> Is our tree too flat? This might turn into just a question to Linus than 
-> really a discussion topic.
-> 
-> It seems to me (and it has been the case for a few past years, so it's 
-> probably not an issue at the end of the day) like there are many places 
-> where we are violating a natural tree-like hierarchy our development model 
-> has, with many people sending pull requests directly to Linus instead of 
-> going through sub-maintainers. Is this really a problem? If so, how to 
-> deal with it?
+> Sounds like something you could use tracepoints for maybe ?
+> Failing that, kprobes ?
+>
+> I'm pretty sure I've seen systemtap examples of this very thing years
+> ago, but who knows if they even work any more.
 
-Probably only Linus can decide if the maintainer tree is too flat.
-That would largely be reflected in his own feelings about "free time",
-his capacity for "big picture" stuff, etc -- I won't speculate too
-much on that.  Still, it probably is a good idea to ensure a certain
-amount of depth both for maintaining everyone's sanity and for insuring
-against the 'eaten by raptors' problem.
+If we do head to a world where systems are configured with
+a subset of system calls - it would be useful for application
+packages to come with a list of syscall dependencies. So you
+could avoid much sadness from installing a package that won't
+actually work.
 
-The wireless tree that I run feeds up to Dave Miller rather than going
-to Linus.  I also have a number of trees that others maintain and push
-through me, including the mac80211 and bluetooth trees among others.
-I'm not sure how many people are in the position I am in, although
-I suspect that there are a few more around than there used to be?
-Anyone?  Bueller?
+But to get this right you'd need to do more than just strace/
+kprobe/systemtap scan to see what they *typically* do. The
+system calls used will depend on the arguments given and the
+input data.  E.g. a trivial test might conclude that bash(1) doesn't
+use the pipe(2) system call ... which it doesn't until some user
+types:
+  $ dmesg | grep ixgbe
 
-Adding levels to the maintainer tree can introduce some problems,
-of course.  Merging latency is probably obvious, as well as simple
-matters like making sure everyone manages their trees in a compatible
-way for merging operations.  There are many ways to use git, and some
-cause problems for up- or down-stream trees...
-
-Anyway, I'd love to see more of a discussion here.
-
-John
-
-P.S.  It's always good to see an early topic where I feel like an
-expert... :-)
--- 
-John W. Linville		Someday the world will need a hero, and you
-linville@tuxdriver.com			might be all we have.  Be ready.
+-Tony
