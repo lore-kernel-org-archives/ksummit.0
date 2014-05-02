@@ -1,33 +1,35 @@
-Return-Path: <tony.luck@intel.com>
+Return-Path: <jkosina@suse.cz>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 6B3BD21
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 0196E21
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 May 2014 21:21:11 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [143.182.124.21])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 5DE711FB59
+	Fri,  2 May 2014 21:23:38 +0000 (UTC)
+Received: from mx2.suse.de (cantor2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7E09C1F8D1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 May 2014 21:21:10 +0000 (UTC)
-From: "Luck, Tony" <tony.luck@intel.com>
-To: Dave Jones <davej@redhat.com>, Mark Brown <broonie@kernel.org>
-Date: Fri, 2 May 2014 21:21:07 +0000
-Message-ID: <3908561D78D1C84285E8C5FCA982C28F327F60C8@ORSMSX114.amr.corp.intel.com>
-References: <20140502173309.GB725@redhat.com>
-	<20140502190301.GW3245@sirena.org.uk>
-	<3908561D78D1C84285E8C5FCA982C28F327F5D80@ORSMSX114.amr.corp.intel.com>
-	<20140502210340.GZ3245@sirena.org.uk>
-	<20140502210851.GC13536@redhat.com>
-In-Reply-To: <20140502210851.GC13536@redhat.com>
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	Fri,  2 May 2014 21:23:37 +0000 (UTC)
+Date: Fri, 2 May 2014 23:23:34 +0200 (CEST)
+From: Jiri Kosina <jkosina@suse.cz>
+To: Josh Boyer <jwboyer@fedoraproject.org>
+In-Reply-To: <CA+5PVA6oTQy5j1XyQG_h6Vk1kW8UrA_j61ouPfm_kvZMQ9ZqEA@mail.gmail.com>
+Message-ID: <alpine.LNX.2.00.1405022321250.29834@pobox.suse.cz>
+References: <20140502164438.GA1423@jtriplet-mobl1>
+	<20140502171103.GA725@redhat.com>
+	<1399051229.2202.49.camel@dabdike>
+	<20140502173309.GB725@redhat.com>
+	<CA+5PVA78SFLWWnA+wPG54X6Uvo6R8CWjF43pZEDGGHUGbkpz1A@mail.gmail.com>
+	<5363E8E1.9030806@zytor.com>
+	<CAKgNAkjueYU9fyiZ46OZG9unOsGTkkJJF5ndVsR6KbLr=OFRAQ@mail.gmail.com>
+	<20140502193314.GA24108@thunk.org>
+	<20140502194935.GA9766@redhat.com>
+	<20140502204141.GB24108@thunk.org>
+	<20140502210123.GA13536@redhat.com>
+	<CA+5PVA6oTQy5j1XyQG_h6Vk1kW8UrA_j61ouPfm_kvZMQ9ZqEA@mail.gmail.com>
 MIME-Version: 1.0
-Cc: Sarah Sharp <sarah@minilop.net>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	Julia Lawall <julia.lawall@lip6.fr>, Darren
-	Hart <darren@dvhart.com>, Dan Carpenter <dan.carpenter@oracle.com>
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+Cc: Sarah Sharp <sarah@minilop.net>, ksummit-discuss@lists.linuxfoundation.org,
+	Greg KH <gregkh@linuxfoundation.org>, Julia Lawall <julia.lawall@lip6.fr>,
+	Darren Hart <darren@dvhart.com>, Dan Carpenter <dan.carpenter@oracle.com>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Kernel tinification: shrinking
  the kernel and avoiding size regressions
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -39,24 +41,24 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-> Sounds like something you could use tracepoints for maybe ?
-> Failing that, kprobes ?
->
-> I'm pretty sure I've seen systemtap examples of this very thing years
-> ago, but who knows if they even work any more.
+On Fri, 2 May 2014, Josh Boyer wrote:
 
-If we do head to a world where systems are configured with
-a subset of system calls - it would be useful for application
-packages to come with a list of syscall dependencies. So you
-could avoid much sadness from installing a package that won't
-actually work.
+> >  > And I think we can also further break this down into the classes of
+> >  > code which require root privs (i.e., like kexec), and those which can
+> >  > be used by any userid.
+> >
+> > In the brave new world of secure boot, we kind of have to care about
+> > even the root cases now too [*], but I agree in the general case.
+> 
+> Speaking of that... is it worth my time to propose a "What to do about
+> the secure_modules/trusted_kernel/whatever patch set that distros are
+> carrying to support Secure Boot?  I thought we had agreement and a
+> path forward at LPC last year, but things seem to have gotten derailed
+> again.
 
-But to get this right you'd need to do more than just strace/
-kprobe/systemtap scan to see what they *typically* do. The
-system calls used will depend on the arguments given and the
-input data.  E.g. a trivial test might conclude that bash(1) doesn't
-use the pipe(2) system call ... which it doesn't until some user
-types:
-  $ dmesg | grep ixgbe
+I believe the biggest remaining thing on the plate is basically just 
+kexec/kdump ... is there anything else comparably major?
 
--Tony
+-- 
+Jiri Kosina
+SUSE Labs
