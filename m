@@ -1,43 +1,27 @@
-Return-Path: <jwboyer@gmail.com>
+Return-Path: <olof@lixom.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 6973270A
+	by mail.linuxfoundation.org (Postfix) with ESMTP id B630D4C6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 May 2014 21:39:17 +0000 (UTC)
-Received: from mail-ob0-f173.google.com (mail-ob0-f173.google.com
-	[209.85.214.173])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D24E11FB23
+	Fri,  2 May 2014 21:42:08 +0000 (UTC)
+Received: from mail-qa0-f48.google.com (mail-qa0-f48.google.com
+	[209.85.216.48])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4B2131FB23
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 May 2014 21:39:16 +0000 (UTC)
-Received: by mail-ob0-f173.google.com with SMTP id wm4so2616899obc.32
+	Fri,  2 May 2014 21:42:08 +0000 (UTC)
+Received: by mail-qa0-f48.google.com with SMTP id i13so91144qae.21
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 02 May 2014 14:39:16 -0700 (PDT)
+	Fri, 02 May 2014 14:42:07 -0700 (PDT)
 MIME-Version: 1.0
-Sender: jwboyer@gmail.com
-In-Reply-To: <1399066024.2202.72.camel@dabdike>
-References: <20140502164438.GA1423@jtriplet-mobl1>
-	<20140502171103.GA725@redhat.com>
-	<1399051229.2202.49.camel@dabdike>
-	<20140502173309.GB725@redhat.com>
-	<CA+5PVA78SFLWWnA+wPG54X6Uvo6R8CWjF43pZEDGGHUGbkpz1A@mail.gmail.com>
-	<5363E8E1.9030806@zytor.com>
-	<CAKgNAkjueYU9fyiZ46OZG9unOsGTkkJJF5ndVsR6KbLr=OFRAQ@mail.gmail.com>
-	<20140502193314.GA24108@thunk.org>
-	<20140502194935.GA9766@redhat.com>
-	<20140502204141.GB24108@thunk.org>
-	<20140502210123.GA13536@redhat.com>
-	<CA+5PVA6oTQy5j1XyQG_h6Vk1kW8UrA_j61ouPfm_kvZMQ9ZqEA@mail.gmail.com>
-	<1399066024.2202.72.camel@dabdike>
-Date: Fri, 2 May 2014 17:39:16 -0400
-Message-ID: <CA+5PVA7VQzdMRuMARmAR=c6MnDg-bFg16Hgk=bCNzKmokRUAPQ@mail.gmail.com>
-From: Josh Boyer <jwboyer@fedoraproject.org>
-To: James Bottomley <James.Bottomley@hansenpartnership.com>
-Content-Type: text/plain; charset=ISO-8859-1
-Cc: Sarah Sharp <sarah@minilop.net>, ksummit-discuss@lists.linuxfoundation.org,
-	Greg KH <gregkh@linuxfoundation.org>, Julia Lawall <julia.lawall@lip6.fr>,
-	Darren Hart <darren@dvhart.com>, Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Kernel tinification: shrinking
- the kernel and avoiding size regressions
+Date: Fri, 2 May 2014 14:42:07 -0700
+Message-ID: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>
+From: Olof Johansson <olof@lixom.net>
+To: ksummit-discuss@lists.linuxfoundation.org
+Content-Type: text/plain; charset=UTF-8
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, dvhart@dvhart.com,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+Subject: [Ksummit-discuss] [TECH TOPIC] Driver model/resources, ACPI, DT,
+	etc (sigh)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -47,46 +31,50 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, May 2, 2014 at 5:27 PM, James Bottomley
-<James.Bottomley@hansenpartnership.com> wrote:
-> On Fri, 2014-05-02 at 17:19 -0400, Josh Boyer wrote:
->> On Fri, May 2, 2014 at 5:01 PM, Dave Jones <davej@redhat.com> wrote:
->> > On Fri, May 02, 2014 at 04:41:41PM -0400, Theodore Ts'o wrote:
->> >
->> >  > And I think we can also further break this down into the classes of
->> >  > code which require root privs (i.e., like kexec), and those which can
->> >  > be used by any userid.
->> >
->> > In the brave new world of secure boot, we kind of have to care about
->> > even the root cases now too [*], but I agree in the general case.
->>
->> Speaking of that... is it worth my time to propose a "What to do about
->> the secure_modules/trusted_kernel/whatever patch set that distros are
->> carrying to support Secure Boot?  I thought we had agreement and a
->> path forward at LPC last year, but things seem to have gotten derailed
->> again.
->
-> Would you believe we're just discussing with the distros how we might
-> re-engineer the Linux secure boot process.  Unfortunately the details
+I'm about as tired of this as everybody else, but that won't make the
+issues go away...
 
-I would believe it.
+I think we resolved a bunch of stuff around DT last year (and since),
+but there are still things left to figure out and agree on in these
+areas. In particular in the intersection of Intel platforms with ACPI
+and embedded are where there are issues and model mismatches, and
+doing it in person might be much easier than doing centithreads.
+There's been some various hallway talk at conferences about proposals
+to make this work better, but the full set of people have never been
+in the same room at the same time.
 
-> depend on a UEFI forum proposal that are UEFI confidential at this time,
-> but you can probably pick them up from Peter Jones, since you're a Red
-> Hat employee.  One of the side effects of this, if it happens, will be
+I labelled this as a tech topic. Feel free to upgrade it to a workshop
+or relabel it if needed. Base set of people I'd like to see involved
+are:
 
-OK.
+* Darren Hart, who is doing things to make ACPI more DT-like for
+embedded use cases.
+* Rafael Wysocki, who also has had some ideas on how to make the
+models fit together.
+* Grant Likely, since he's in the intersection as well.
+* Greg K-H would be much appreciated as well, since he'd have to deal
+with some of the resulting mess.
+* Dave Woodhouse would also be good to have there.
 
-> to separate Linux secure boot policy from Microsoft's binary signing
-> requirements which might take some of the heat out of the arguments
-> about which parts of the patch are to please microsoft and refocus the
-> debate towards how we make better use of secure boot.  I'll try and
-> ensure that either the proposals are public by KS or that we have
-> permission to share the details.
+.. I'm probably missing names but they're bound to reply to this email
+anyway with opinions.
 
-The objectionable parts having to do with signing aren't even in the
-patchset Matthew has posted.  That's the initial set he tried to get
-pulled in and failed.  If the proposal drastically changes that
-approach I'd be surprised (maybe pleasantly).
 
-josh
+Some of the ideas I have heard discussed are:
+* Adding a new common API for resource management which will have
+backends for ACPI or DT depending on platform
+* Adding ACPI and DT probing to drivers that lack on or the other
+today (giving them a total of three probe methods: platform_device,
+DT, ACPI).
+* Converting either of them to use platform device model
+(platform_data) to register drivers, and leave them unaware of either
+hardware description
+* [... I'm likely missing something here as well]
+
+All solutions above have trade-offs, and neither is an obvious choice.
+We could likely spend between now and KS arguing this every day on the
+lists if we wanted to. Getting the people into the same room for a
+couple of hours is likely to be a much better way to resolve it.
+
+
+-Olof
