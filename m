@@ -1,26 +1,37 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <davej@redhat.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 92AC721
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 1F8E9681
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 May 2014 20:57:32 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 35CAA1FB59
+	Fri,  2 May 2014 21:01:38 +0000 (UTC)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id B1D301F8D1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 May 2014 20:57:32 +0000 (UTC)
-Date: Fri, 2 May 2014 13:57:22 -0700
-From: Mark Brown <broonie@kernel.org>
-To: Jiri Kosina <jkosina@suse.cz>
-Message-ID: <20140502205721.GY3245@sirena.org.uk>
-References: <alpine.LNX.2.00.1405022113300.29834@pobox.suse.cz>
+	Fri,  2 May 2014 21:01:37 +0000 (UTC)
+Date: Fri, 2 May 2014 17:01:23 -0400
+From: Dave Jones <davej@redhat.com>
+To: "Theodore Ts'o" <tytso@mit.edu>
+Message-ID: <20140502210123.GA13536@redhat.com>
+References: <20140502164438.GA1423@jtriplet-mobl1>
+	<20140502171103.GA725@redhat.com>
+	<1399051229.2202.49.camel@dabdike>
+	<20140502173309.GB725@redhat.com>
+	<CA+5PVA78SFLWWnA+wPG54X6Uvo6R8CWjF43pZEDGGHUGbkpz1A@mail.gmail.com>
+	<5363E8E1.9030806@zytor.com>
+	<CAKgNAkjueYU9fyiZ46OZG9unOsGTkkJJF5ndVsR6KbLr=OFRAQ@mail.gmail.com>
+	<20140502193314.GA24108@thunk.org>
+	<20140502194935.GA9766@redhat.com>
+	<20140502204141.GB24108@thunk.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="KHOyfQ0Vs3k2+qDI"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <alpine.LNX.2.00.1405022113300.29834@pobox.suse.cz>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
+In-Reply-To: <20140502204141.GB24108@thunk.org>
+Cc: Josh Boyer <jwboyer@fedoraproject.org>, Sarah Sharp <sarah@minilop.net>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Greg KH <gregkh@linuxfoundation.org>, Julia Lawall <julia.lawall@lip6.fr>,
+	Darren Hart <darren@dvhart.com>, Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Kernel tinification: shrinking
+ the kernel and avoiding size regressions
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,61 +41,31 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Fri, May 02, 2014 at 04:41:41PM -0400, Theodore Ts'o wrote:
 
---KHOyfQ0Vs3k2+qDI
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+ > And I think we can also further break this down into the classes of
+ > code which require root privs (i.e., like kexec), and those which can
+ > be used by any userid.
 
-On Fri, May 02, 2014 at 09:42:04PM +0200, Jiri Kosina wrote:
+In the brave new world of secure boot, we kind of have to care about
+even the root cases now too [*], but I agree in the general case.
 
-> I am a responsible maintainer of kernels for SUSE enterprise products. As=
-=20
-> such, I am dealing with -stable trees on a regular basis. Hence, if there=
-=20
-> is any discussion related to -stable tree process going to happen, I am=
-=20
-> highly interested in that discussion.
+ > So perhaps what that means it that _these_ are the features which
+ > require the most amount of paranoia and testing before we let them
+ > into the mainline kernel in the first place.  Otherwise, once they get
+ > in, there's always a chance that systemd or some other piece of
+ > userspace will strict strictly requiring said optional feature, and it
+ > doesn't matter whether we put in a CONFIG option to disable the
+ > feature --- we'll never be able to do it.
 
-Likewise for me with my work hat on, I maintain a stable kernel for
-Linaro for use on ARM systems.
+This is starting to tread into the other thread about userspace
+mandating 'optional' facilities, but is that even a problem, given
+the proliferation of init's (taking the systemd example).
+Yes, systemd "won" by now being the default in all the general purpose
+distributions, but with my upstream hat on, I think we still care
+about embedded systems etc that don't need anywhere near the
+functionality that systemd provides.
 
-> I'd like to re-iterate my usual question / discussion topic of=20
-> responsibility distribution for -stable patches; my proposal again would=
-=20
-> be to align the -stable tree workflow with Linus' tree workflow -- i.e.=
-=20
-> subsystem maintainers preparing 'for-stable' branches and sending pull=20
-> requests to the stable team, instead of rather random cherry-picking of=
-=20
-> the patches from the air as they fly by the stable team members.
+	Dave
 
-With my upstream hat on I have to say this seems like a lot of work and
-probably means that most stable fixes that currently go out probably
-just won't happen - there are quite a lot of stable trees being
-maintained and I personally have next to no immediate interest in most
-of them.
-
---KHOyfQ0Vs3k2+qDI
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2.0.22 (GNU/Linux)
-
-iQIcBAEBAgAGBQJTZAaqAAoJELSic+t+oim9aa4P+wSdm7Y7XBKrrAgTzCHvNeM+
-VamuhiDkTYXfV7nZ7z8IxRK1zbIwXvz6e21O9ybfxF+3dGyE2qLfo+XqmvlV5+hw
-yGuvXO2k2x00iiS2YAkVyOgz1OajdJWSmsP9RhUnj48kTakUNE5hkTx42vwGGTnX
-QV3RZmVlW2LDHBxk1JSI0KY0iB71x2ZwB/6CJ7T5ha8RaovBasBsSkumAFEt8ZIF
-2yoYCcQAyk6yf3Ul0Nv0IqwfqP/splT/qte4KM/4jw0l99bdSSkgfXJ6GCtHXYUB
-E7CP4Fe+rlX+RmwfOu/mZuWGShrlsNxLJYeFkf29rDsQapYc5zGfqLyW3OzMHoXd
-ggIvUJMcpl+ZNj4JXmw0S09gTKYTzGbibTKorRfOlHRAVqGxKCamFusE7KEw8XFx
-2SUpgfgwJj7PQzBl2xZLhA52YuczipZTdlEC63xeTsvEYWgCqafgz6CT1S1K1qLu
-KqiZ6tBCqOUITsp3FwAv8HyL5COSTnDd/J2eEntK+zpgiPf+sc2/+yTUTsgYXfYw
-fW/saPC9C23P90IgQE8ebWA5UabPqXmnNAt/ba5XYQVoauS2TX7/NEL8Ec/DbmZj
-zWSBStAw3NbVAQPFXzlGLqeLbo5NCt+6NfhTg+BdwueM6wA/oQZm3EQsREZ2iij+
-Oe1K1BO+LBdxZ+QQ/NnF
-=NvPK
------END PGP SIGNATURE-----
-
---KHOyfQ0Vs3k2+qDI--
+[*] oh god, ioctl.
