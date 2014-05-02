@@ -1,24 +1,28 @@
-Return-Path: <jkosina@suse.cz>
+Return-Path: <jwboyer@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 56A07875
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 9552D21
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 May 2014 19:42:22 +0000 (UTC)
-Received: from mx2.suse.de (cantor2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 099DD1FC59
+	Fri,  2 May 2014 19:43:31 +0000 (UTC)
+Received: from mail-ob0-f179.google.com (mail-ob0-f179.google.com
+	[209.85.214.179])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D14FB1FDEC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 May 2014 19:42:21 +0000 (UTC)
-Received: from relay1.suse.de (charybdis-ext.suse.de [195.135.220.254])
-	by mx2.suse.de (Postfix) with ESMTP id B9417AD24
+	Fri,  2 May 2014 19:43:29 +0000 (UTC)
+Received: by mail-ob0-f179.google.com with SMTP id vb8so5691583obc.24
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 May 2014 19:42:20 +0000 (UTC)
-Date: Fri, 2 May 2014 21:42:20 +0200 (CEST)
-From: Jiri Kosina <jkosina@suse.cz>
-To: ksummit-discuss@lists.linuxfoundation.org
-Message-ID: <alpine.LNX.2.00.1405022123320.29834@pobox.suse.cz>
+	Fri, 02 May 2014 12:43:29 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
-Subject: [Ksummit-discuss] [CORE TOPIC] [TECH TOPIC] live kernel patching
+Sender: jwboyer@gmail.com
+In-Reply-To: <alpine.LNX.2.00.1405022113300.29834@pobox.suse.cz>
+References: <alpine.LNX.2.00.1405022113300.29834@pobox.suse.cz>
+Date: Fri, 2 May 2014 15:43:29 -0400
+Message-ID: <CA+5PVA4hH=vko33CaiVOD1Ek30byxfFTF1KtVNyXOBRAx4FzaA@mail.gmail.com>
+From: Josh Boyer <jwboyer@fedoraproject.org>
+To: Jiri Kosina <jkosina@suse.cz>
+Content-Type: text/plain; charset=ISO-8859-1
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -28,22 +32,22 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Runtime/live kernel patching is becoming a topic these days. There are 
-several parallel implementations currently evolving in parallel (kpatch, 
-kgraft, criu-based solution, ksplice to some extent), all of them having 
-their pros and cons. 
+On Fri, May 2, 2014 at 3:42 PM, Jiri Kosina <jkosina@suse.cz> wrote:
+> I am a responsible maintainer of kernels for SUSE enterprise products. As
+> such, I am dealing with -stable trees on a regular basis. Hence, if there
+> is any discussion related to -stable tree process going to happen, I am
+> highly interested in that discussion.
+>
+> I'd like to re-iterate my usual question / discussion topic of
+> responsibility distribution for -stable patches; my proposal again would
+> be to align the -stable tree workflow with Linus' tree workflow -- i.e.
+> subsystem maintainers preparing 'for-stable' branches and sending pull
+> requests to the stable team, instead of rather random cherry-picking of
+> the patches from the air as they fly by the stable team members.
+>
+> Suggested participants: stable team, major distro kernel maintainers
 
-It's clear that what is going to get merged at the end of the day would 
-have to be some super-position of the currently existing solutions. 
+I'd be very interested in this as well, since Fedora continually
+rebases to the newer stable releases.
 
-Finding a reasonable compromise might be challenging. Having discussion 
-between the groups working on those solutions (tech topic) and with 
-"general maintainer audience" to face the flame^W^W^Wobtain feedback 
-(core topic) would be very valuable step in converging to unified 
-solution.
-
-Suggested participants: see the list of "competing" projects above
-
--- 
-Jiri Kosina
-SUSE Labs
+josh
