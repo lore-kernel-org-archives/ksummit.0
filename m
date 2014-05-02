@@ -1,33 +1,24 @@
-Return-Path: <tytso@thunk.org>
+Return-Path: <jack@suse.cz>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 3D7F0875
+	by mail.linuxfoundation.org (Postfix) with ESMTP id C5AD370A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 May 2014 21:56:49 +0000 (UTC)
-Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4682E1FC59
+	Fri,  2 May 2014 22:04:06 +0000 (UTC)
+Received: from mx2.suse.de (cantor2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 347831FA9C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 May 2014 21:56:48 +0000 (UTC)
-Date: Fri, 2 May 2014 21:56:44 +0000
-From: tytso@mit.edu
+	Fri,  2 May 2014 22:04:06 +0000 (UTC)
+Date: Sat, 3 May 2014 00:04:03 +0200
+From: Jan Kara <jack@suse.cz>
 To: Dave Jones <davej@redhat.com>
-Message-ID: <20140502215644.GA9856@thunk.org>
-References: <20140502171103.GA725@redhat.com>
-	<1399051229.2202.49.camel@dabdike>
-	<20140502173309.GB725@redhat.com>
-	<CA+5PVA78SFLWWnA+wPG54X6Uvo6R8CWjF43pZEDGGHUGbkpz1A@mail.gmail.com>
-	<5363E8E1.9030806@zytor.com>
-	<CAKgNAkjueYU9fyiZ46OZG9unOsGTkkJJF5ndVsR6KbLr=OFRAQ@mail.gmail.com>
-	<20140502193314.GA24108@thunk.org>
-	<20140502194935.GA9766@redhat.com>
-	<20140502204141.GB24108@thunk.org>
-	<20140502210123.GA13536@redhat.com>
+Message-ID: <20140502220403.GE23636@quack.suse.cz>
+References: <20140502164438.GA1423@jtriplet-mobl1>
+	<20140502171103.GA725@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20140502210123.GA13536@redhat.com>
-Cc: Josh Boyer <jwboyer@fedoraproject.org>, Sarah Sharp <sarah@minilop.net>,
-	ksummit-discuss@lists.linuxfoundation.org,
+In-Reply-To: <20140502171103.GA725@redhat.com>
+Cc: Sarah Sharp <sarah@minilop.net>, ksummit-discuss@lists.linuxfoundation.org,
 	Greg KH <gregkh@linuxfoundation.org>, Julia Lawall <julia.lawall@lip6.fr>,
 	Darren Hart <darren@dvhart.com>, Dan Carpenter <dan.carpenter@oracle.com>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Kernel tinification: shrinking
@@ -41,24 +32,40 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, May 02, 2014 at 05:01:23PM -0400, Dave Jones wrote:
-> This is starting to tread into the other thread about userspace
-> mandating 'optional' facilities, but is that even a problem, given
-> the proliferation of init's (taking the systemd example).
+On Fri 02-05-14 13:11:03, Dave Jones wrote:
+> On Fri, May 02, 2014 at 09:44:42AM -0700, Josh Triplett wrote:
+>  
+>  > Topics:
+>  > - Kconfig, and avoiding excessive configurability in the pursuit of tiny
+>  > - Optimizing a kernel for its exact target userspace.
+>  > - Examples of shrinking the kernel
+> 
+> Something that's partially related here: Making stuff optional
+> reduces attack surface the kernel presents. We're starting to grow
+> more and more CONFIG options to disable syscalls. I'd like to hear
+> peoples reactions on introducing even more optionality in this area.
+> 
+> I first started thinking about this at LSF/MM where the subject of
+> sys_remap_file_pages came up. "What even uses this?" "hardly anything".
+> But for all the users that don't need it, there's this syscall always
+> built in that does horrible things with VM internals.  It's fortunate
+> that there hasn't been anything particularly awful beyond simple DoS
+> bugs in r_f_p.
+> 
+> Distribution kernels are in the sad position of having to always enable
+> this stuff, but at least for people building their own kernels, or
+> kernels for appliances, we could make their lives a little better by
+> not even building this stuff in.
+  So I always thought various security modules or audit are there exactly
+to limit attack surface like this (now please pardon my ignorance if I'm
+wrong because I know close to nothing about the security stuff). So in my
+imagination I'd say you could ship even a distro with a default policy
+where e.g. r_f_p would be prohibited and if you ever found an application
+that needs it, you could create a separate policy for it (and in the ideal
+case where the application is packaged by the distro the policy would come
+with it). Am I dreaming too much?
 
-For the record, there is no "other thread" because as Jiri pointed out
-(and I agree) it's not at all clear there's anything we as kernel
-developers can do about this.  Once some kind of system call interface
-is made available in mainline, it's not at all realistic to say that
-"it's only for this use case".
-
-If someone thinks that it might be worthwhile to start such a thread
-and/or propose that that might be a worthy topic for the kernel
-summit, feel free to start such a thread --- but I'd suggest doing so
-after coming up with a proposed solution to how we could even
-influence what facilities various bits of userspace might want to
-mandate.
-
-Cheers,
-
-					- Ted
+								Honza
+-- 
+Jan Kara <jack@suse.cz>
+SUSE Labs, CR
