@@ -1,28 +1,32 @@
-Return-Path: <jwboyer@gmail.com>
+Return-Path: <tony.luck@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 9552D21
+	by mail.linuxfoundation.org (Postfix) with ESMTP id C90682B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 May 2014 19:43:31 +0000 (UTC)
-Received: from mail-ob0-f179.google.com (mail-ob0-f179.google.com
-	[209.85.214.179])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D14FB1FDEC
+	Fri,  2 May 2014 19:46:07 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 774B01FC59
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 May 2014 19:43:29 +0000 (UTC)
-Received: by mail-ob0-f179.google.com with SMTP id vb8so5691583obc.24
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 02 May 2014 12:43:29 -0700 (PDT)
+	Fri,  2 May 2014 19:46:07 +0000 (UTC)
+From: "Luck, Tony" <tony.luck@intel.com>
+To: Mark Brown <broonie@kernel.org>, Dave Jones <davej@redhat.com>
+Date: Fri, 2 May 2014 19:45:44 +0000
+Message-ID: <3908561D78D1C84285E8C5FCA982C28F327F5D80@ORSMSX114.amr.corp.intel.com>
+References: <20140502173309.GB725@redhat.com>
+	<20140502190301.GW3245@sirena.org.uk>
+In-Reply-To: <20140502190301.GW3245@sirena.org.uk>
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Sender: jwboyer@gmail.com
-In-Reply-To: <alpine.LNX.2.00.1405022113300.29834@pobox.suse.cz>
-References: <alpine.LNX.2.00.1405022113300.29834@pobox.suse.cz>
-Date: Fri, 2 May 2014 15:43:29 -0400
-Message-ID: <CA+5PVA4hH=vko33CaiVOD1Ek30byxfFTF1KtVNyXOBRAx4FzaA@mail.gmail.com>
-From: Josh Boyer <jwboyer@fedoraproject.org>
-To: Jiri Kosina <jkosina@suse.cz>
-Content-Type: text/plain; charset=ISO-8859-1
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
+Cc: Sarah Sharp <sarah@minilop.net>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	Julia Lawall <julia.lawall@lip6.fr>, Darren
+	Hart <darren@dvhart.com>, Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Kernel tinification: shrinking
+ the kernel and avoiding size regressions
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,22 +36,10 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, May 2, 2014 at 3:42 PM, Jiri Kosina <jkosina@suse.cz> wrote:
-> I am a responsible maintainer of kernels for SUSE enterprise products. As
-> such, I am dealing with -stable trees on a regular basis. Hence, if there
-> is any discussion related to -stable tree process going to happen, I am
-> highly interested in that discussion.
->
-> I'd like to re-iterate my usual question / discussion topic of
-> responsibility distribution for -stable patches; my proposal again would
-> be to align the -stable tree workflow with Linus' tree workflow -- i.e.
-> subsystem maintainers preparing 'for-stable' branches and sending pull
-> requests to the stable team, instead of rather random cherry-picking of
-> the patches from the air as they fly by the stable team members.
->
-> Suggested participants: stable team, major distro kernel maintainers
+> It would be useful for the smaller build case to have a way of auditing
+> which syscalls are actually in use on a system so you can then go
+> through and construct a minimal config.
 
-I'd be very interested in this as well, since Fedora continually
-rebases to the newer stable releases.
+"strace -c" ?
 
-josh
+-Tony
