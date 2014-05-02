@@ -1,33 +1,29 @@
-Return-Path: <davej@redhat.com>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id BEC3D21
+	by mail.linuxfoundation.org (Postfix) with ESMTP id A722A21
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 May 2014 21:03:23 +0000 (UTC)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 6BED01FB59
+	Fri,  2 May 2014 21:03:54 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 54A611FB59
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 May 2014 21:03:23 +0000 (UTC)
-Date: Fri, 2 May 2014 17:03:08 -0400
-From: Dave Jones <davej@redhat.com>
-To: Ben Hutchings <ben@decadent.org.uk>
-Message-ID: <20140502210308.GB13536@redhat.com>
-References: <20140502164438.GA1423@jtriplet-mobl1>
-	<20140502171103.GA725@redhat.com>
-	<1399051229.2202.49.camel@dabdike>
-	<20140502173309.GB725@redhat.com>
-	<CA+5PVA78SFLWWnA+wPG54X6Uvo6R8CWjF43pZEDGGHUGbkpz1A@mail.gmail.com>
-	<5363E8E1.9030806@zytor.com>
-	<CAKgNAkjueYU9fyiZ46OZG9unOsGTkkJJF5ndVsR6KbLr=OFRAQ@mail.gmail.com>
-	<20140502193314.GA24108@thunk.org>
-	<20140502194935.GA9766@redhat.com>
-	<1399063518.24523.43.camel@deadeye.wl.decadent.org.uk>
+	Fri,  2 May 2014 21:03:54 +0000 (UTC)
+Date: Fri, 2 May 2014 14:03:40 -0700
+From: Mark Brown <broonie@kernel.org>
+To: "Luck, Tony" <tony.luck@intel.com>
+Message-ID: <20140502210340.GZ3245@sirena.org.uk>
+References: <20140502173309.GB725@redhat.com>
+	<20140502190301.GW3245@sirena.org.uk>
+	<3908561D78D1C84285E8C5FCA982C28F327F5D80@ORSMSX114.amr.corp.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="l1Ga9FRlYJwFJxwF"
 Content-Disposition: inline
-In-Reply-To: <1399063518.24523.43.camel@deadeye.wl.decadent.org.uk>
-Cc: Josh Boyer <jwboyer@fedoraproject.org>, Sarah Sharp <sarah@minilop.net>,
-	ksummit-discuss@lists.linuxfoundation.org,
+In-Reply-To: <3908561D78D1C84285E8C5FCA982C28F327F5D80@ORSMSX114.amr.corp.intel.com>
+Cc: Sarah Sharp <sarah@minilop.net>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
 	Greg KH <gregkh@linuxfoundation.org>, Julia Lawall <julia.lawall@lip6.fr>,
 	Darren Hart <darren@dvhart.com>, Dan Carpenter <dan.carpenter@oracle.com>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Kernel tinification: shrinking
@@ -41,31 +37,45 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, May 02, 2014 at 09:45:18PM +0100, Ben Hutchings wrote:
- > On Fri, 2014-05-02 at 15:49 -0400, Dave Jones wrote:
- 
- > > To use just one example, on certain systems I'd love to be able to just
- > > turn off sys_perf_event_open given what a trainwreck of vulnerabilities it's been
- > > over the last few years [comedy: it is actually a config option, but x86
- > > 'selects' it, so you'll have it and you'll like it].
- > > Thankfully at least the scarier parts of it are now hidden behind the
- > > paranoid sysctl.
- > 
- > I have considered proposing perf_event_paranoid=3 to disable it
- > completely for non-root.
 
-Doesn't seem too crazy an idea to me.
+--l1Ga9FRlYJwFJxwF
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
- > > It's this "not used by every user" code that tends to scare me, because
- > > it's written with 1-2 well behaved bits of userspace in mind, which
- > > usually means "has so many unchecked corner cases it's not even funny"
- > [...]
- > 
- > Since Michael often seems to be the one testing those corner cases while
- > writing documentation, it seems like you're getting back to the old
- > issue of whether lack of documentation should be a blocker for adding
- > new system calls.
+On Fri, May 02, 2014 at 07:45:44PM +0000, Luck, Tony wrote:
 
-That, and test cases.
+> > It would be useful for the smaller build case to have a way of auditing
+> > which syscalls are actually in use on a system so you can then go
+> > through and construct a minimal config.
 
-	Dave
+> "strace -c" ?
+
+That works for specific processes but I don't immediately see a
+straightforward way to do it system wide (I guess a wrapper that straces
+init and children might do the trick but it's not particularly nice).
+Part of the trick for getting the general security win is to lower the
+barrier to entry.`
+
+--l1Ga9FRlYJwFJxwF
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.22 (GNU/Linux)
+
+iQIcBAEBAgAGBQJTZAgpAAoJELSic+t+oim9ntMP/i48+9QwJ4I4uF1pNlb89K6o
+Mecoolqrg863iL3HltE0qhpCkYWahfu/f8WIrL5kSTj7CDwqAvLQw73wWenULr5l
+yoVeeDfb2XC7u/yQfqgMGNZnZgU0sFVw6YsR+1KGthZ+Xo55YvNbj1qt9if5TPxc
+Nqs7Tdd8hu037oLVyzduTb6W98KROsS++9Ovf/ko/owtgVRa4BDCAL+GT+3ehg7K
+MbFBhS1KqWTvYny7vHtJQvOiQQXtHkKAIUgDLCI9I0lun7gO4uU0hqLvGQTVv+6l
+tKYPgc16agbIMGmeXQ3HCYCksQx+O63MQBxDu0qFaolBCdZjXQ+FFYoIsjdWgdRs
+R0vM7xCA4zFLtnfkbQTOO4bK5ZbjhWV/sUKI3r4KwHtW4nckwBur44/7dYk16XBC
+hY1WTgU7CrAA9xTDhgrbMA6hJWR7vcIdrrL+B+1tKA3c54OGceAPIMS2xc98Lqn9
+b7JNIW9OdMepq3c9QWIemkCjARL68usCc9K0Y503+pJfb4kAMKzj4shJiJUlsEX5
+T0P+vHVMRLyUdsOpvrywQ7AQk0QajlZAY9g7bGGTLqcWhyy9pxoM1Ofsn/Ib/W5h
+QXgecXHMpAMp78mTwO56vKe5A0h6Nhzmd9X79DtdnKgcnuyOLrepcEHyB4ki21cw
+dYyI81wlPYhxYGbCZDKp
+=VQ8f
+-----END PGP SIGNATURE-----
+
+--l1Ga9FRlYJwFJxwF--
