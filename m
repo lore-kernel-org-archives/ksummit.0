@@ -1,25 +1,36 @@
-Return-Path: <ben@decadent.org.uk>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id BC7CD21
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 078A04C6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 May 2014 20:33:55 +0000 (UTC)
-Received: from shadbolt.e.decadent.org.uk (shadbolt.e.decadent.org.uk
-	[88.96.1.126])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3D1621FB59
+	Fri,  2 May 2014 20:41:48 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 75F1B1FB59
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 May 2014 20:33:55 +0000 (UTC)
-Message-ID: <1399062823.24523.38.camel@deadeye.wl.decadent.org.uk>
-From: Ben Hutchings <ben@decadent.org.uk>
-To: Jiri Kosina <jkosina@suse.cz>
-Date: Fri, 02 May 2014 21:33:43 +0100
-In-Reply-To: <alpine.LNX.2.00.1405022113300.29834@pobox.suse.cz>
-References: <alpine.LNX.2.00.1405022113300.29834@pobox.suse.cz>
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-HNazqvSZk91c9WmIgLKX"
-Mime-Version: 1.0
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
+	Fri,  2 May 2014 20:41:47 +0000 (UTC)
+Date: Fri, 2 May 2014 16:41:41 -0400
+From: Theodore Ts'o <tytso@mit.edu>
+To: Dave Jones <davej@redhat.com>
+Message-ID: <20140502204141.GB24108@thunk.org>
+References: <20140502164438.GA1423@jtriplet-mobl1>
+	<20140502171103.GA725@redhat.com>
+	<1399051229.2202.49.camel@dabdike>
+	<20140502173309.GB725@redhat.com>
+	<CA+5PVA78SFLWWnA+wPG54X6Uvo6R8CWjF43pZEDGGHUGbkpz1A@mail.gmail.com>
+	<5363E8E1.9030806@zytor.com>
+	<CAKgNAkjueYU9fyiZ46OZG9unOsGTkkJJF5ndVsR6KbLr=OFRAQ@mail.gmail.com>
+	<20140502193314.GA24108@thunk.org>
+	<20140502194935.GA9766@redhat.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20140502194935.GA9766@redhat.com>
+Cc: Josh Boyer <jwboyer@fedoraproject.org>, Sarah Sharp <sarah@minilop.net>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Greg KH <gregkh@linuxfoundation.org>, Julia Lawall <julia.lawall@lip6.fr>,
+	Darren Hart <darren@dvhart.com>, Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Kernel tinification: shrinking
+ the kernel and avoiding size regressions
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,67 +40,39 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Fri, May 02, 2014 at 03:49:35PM -0400, Dave Jones wrote:
+> 
+> I may have a vested interest in syscalls :)
 
---=-HNazqvSZk91c9WmIgLKX
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Well, yes, fair enough.  :-)
 
-On Fri, 2014-05-02 at 21:42 +0200, Jiri Kosina wrote:
-> I am a responsible maintainer of kernels for SUSE enterprise products. As=
-=20
-> such, I am dealing with -stable trees on a regular basis. Hence, if there=
-=20
-> is any discussion related to -stable tree process going to happen, I am=
-=20
-> highly interested in that discussion.
->=20
-> I'd like to re-iterate my usual question / discussion topic of=20
-> responsibility distribution for -stable patches; my proposal again would=
-=20
-> be to align the -stable tree workflow with Linus' tree workflow -- i.e.=
-=20
-> subsystem maintainers preparing 'for-stable' branches and sending pull=
-=20
-> requests to the stable team, instead of rather random cherry-picking of=
-=20
-> the patches from the air as they fly by the stable team members.
->=20
-> Suggested participants: stable team, major distro kernel maintainers
+> And then we have "enable boatload of code" syscalls that are typically
+> used by a few standalone apps/features. kexec, checkpointing, whatever
+> db it was that cares about remap_file_pages, mempolicy, etc. etc.
 
-I won't be able to participate as I'm going to other events which clash
-with kernel summit this year.
+Sure, that's fair enough.  I would just use a somewhat broader
+definition of "boatload of code", since not all of these boatloads are
+accessed via system calls.  Some are accessed via new pseudo-file
+systems, some via new ioctls, some via new fallocate code points, etc.
 
-The problem remains that most subsystem maintainers don't seem to want
-to do this, so I think this would have to be opt-in for them.
+> It's this "not used by every user" code that tends to scare me, because
+> it's written with 1-2 well behaved bits of userspace in mind, which
+> usually means "has so many unchecked corner cases it's not even funny"
 
-Ben.
+And I think we can also further break this down into the classes of
+code which require root privs (i.e., like kexec), and those which can
+be used by any userid.  It's the latter which is much more problematic
+from a security perspective --- as well from a "it's much harder to
+change the ABI without breaking large numbers of userspace programms".
+(Where as if it's only being used by 1-2 well behaved bits of
+privileged userspace, it's actually a tiny bit easier to evolve the ABI.)
 
---=20
-Ben Hutchings
-Lowery's Law:
-             If it jams, force it. If it breaks, it needed replacing anyway=
-.
+So perhaps what that means it that _these_ are the features which
+require the most amount of paranoia and testing before we let them
+into the mainline kernel in the first place.  Otherwise, once they get
+in, there's always a chance that systemd or some other piece of
+userspace will strict strictly requiring said optional feature, and it
+doesn't matter whether we put in a CONFIG option to disable the
+feature --- we'll never be able to do it.
 
---=-HNazqvSZk91c9WmIgLKX
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2.0.22 (GNU/Linux)
-
-iQIVAwUAU2QBLOe/yOyVhhEJAQrkzQ//XL5AK1drXf+oKJ7LCSaDpOKRBVpz7RbP
-Yfd4g3+0hdHNFysifxdaav3y7GaE4SHENkY/xfSnZNg6opkyHHr1ZVS99VUFGAdT
-RFg/UEy81QjQK84FWfcSQCWMesU1fwAwuhIAqko0lUF5dABw+h1oxXDpGP44pEBM
-4+7hCWrLC3MDNWZy+Ys1CF31SxcwyMBj8ol4RoIZcaTY+QRs4RYuB+jdccD1GeJQ
-gOI0xetorcwqmZByxr0I7nggHgIuf4Ej12Ssp9vyxB0xiusGIeHC0mNfes+AnoAV
-4zOssNxYk+EFKmAX48X5NldeM5gbkXcBSAW732XJOIp6VZDT9bH6kc5roPTPPwgc
-7hvbF5w0PoUn8wqVHrg2rVcK/9IGrHA6cHQvN4sBN8bRFGeWJl4QuAlw0pzUtTHQ
-FQTcz0fWKEQ1gDGUjHN49+m4YcEH8QHRqc82e7G92wrrpa9XgOA5RQ+6GelgWoav
-ChNIpz+hs9o9t7OIvJwMLONRO5HGv6NkWix+EkTbqosZLOLvh8+ofE1lborqwriL
-ZSQc1WQUGxdFziIe/XWDVXdBOUdMwLbEHQHTbcOCMaUEiZtSNqW9zs0MiD+RdX+p
-gcafBPTvSnukXJz3cCi67kOySjUpU/XJnobwAR64lq3MWjTIGIONeCDRcPmwNzfq
-gBqImsoV4Bc=
-=AVbx
------END PGP SIGNATURE-----
-
---=-HNazqvSZk91c9WmIgLKX--
+	    	  	   	      - Ted
