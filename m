@@ -1,36 +1,25 @@
-Return-Path: <luto@amacapital.net>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 1D7D321
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 2963E21
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 May 2014 21:15:00 +0000 (UTC)
-Received: from mail-ve0-f171.google.com (mail-ve0-f171.google.com
-	[209.85.128.171])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A69BB1FB59
+	Fri,  2 May 2014 21:17:27 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id CAC4C1FC50
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 May 2014 21:14:59 +0000 (UTC)
-Received: by mail-ve0-f171.google.com with SMTP id jy13so6089374veb.30
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 02 May 2014 14:14:58 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <20140502210851.GC13536@redhat.com>
-References: <20140502173309.GB725@redhat.com>
-	<20140502190301.GW3245@sirena.org.uk>
-	<3908561D78D1C84285E8C5FCA982C28F327F5D80@ORSMSX114.amr.corp.intel.com>
-	<20140502210340.GZ3245@sirena.org.uk>
-	<20140502210851.GC13536@redhat.com>
-From: Andy Lutomirski <luto@amacapital.net>
-Date: Fri, 2 May 2014 14:14:37 -0700
-Message-ID: <CALCETrUU5Nt5E8+XmmqG4Mv-9UN2TqbRhnbLrzq1hxwoUjGzXw@mail.gmail.com>
-To: Dave Jones <davej@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: Sarah Sharp <sarah@minilop.net>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Greg KH <gregkh@linuxfoundation.org>, Julia Lawall <julia.lawall@lip6.fr>,
-	Darren Hart <darren@dvhart.com>, Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Kernel tinification: shrinking
- the kernel and avoiding size regressions
+	Fri,  2 May 2014 21:17:26 +0000 (UTC)
+Message-ID: <1399065442.2202.66.camel@dabdike>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Jiri Kosina <jkosina@suse.cz>
+Date: Fri, 02 May 2014 14:17:22 -0700
+In-Reply-To: <alpine.LNX.2.00.1405022123320.29834@pobox.suse.cz>
+References: <alpine.LNX.2.00.1405022123320.29834@pobox.suse.cz>
+Content-Type: text/plain; charset="ISO-8859-15"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] [TECH TOPIC] live kernel patching
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,31 +29,35 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, May 2, 2014 at 2:08 PM, Dave Jones <davej@redhat.com> wrote:
-> On Fri, May 02, 2014 at 02:03:40PM -0700, Mark Brown wrote:
->  > On Fri, May 02, 2014 at 07:45:44PM +0000, Luck, Tony wrote:
->  >
->  > > > It would be useful for the smaller build case to have a way of auditing
->  > > > which syscalls are actually in use on a system so you can then go
->  > > > through and construct a minimal config.
->  >
->  > > "strace -c" ?
->  >
->  > That works for specific processes but I don't immediately see a
->  > straightforward way to do it system wide (I guess a wrapper that straces
->  > init and children might do the trick but it's not particularly nice).
->  > Part of the trick for getting the general security win is to lower the
->  > barrier to entry.`
->
-> Sounds like something you could use tracepoints for maybe ?
-> Failing that, kprobes ?
->
-> I'm pretty sure I've seen systemtap examples of this very thing years
-> ago, but who knows if they even work any more.
->
+On Fri, 2014-05-02 at 21:42 +0200, Jiri Kosina wrote:
+> Runtime/live kernel patching is becoming a topic these days. There are 
+> several parallel implementations currently evolving in parallel (kpatch, 
+> kgraft, criu-based solution, ksplice to some extent), all of them having 
+> their pros and cons. 
+> 
+> It's clear that what is going to get merged at the end of the day would 
+> have to be some super-position of the currently existing solutions. 
+> 
+> Finding a reasonable compromise might be challenging. Having discussion 
+> between the groups working on those solutions (tech topic) and with 
+> "general maintainer audience" to face the flame^W^W^Wobtain feedback 
+> (core topic) would be very valuable step in converging to unified 
+> solution.
+> 
+> Suggested participants: see the list of "competing" projects above
 
-It's actually pretty easy to do this with seccomp -- program it to
-send SIGSYS and watch the kernel logs. Admittedly, the lack of log +
-ENOSYS as a seccomp action might make this a little bit annoying.
+I can certainly dig up people on our CRIU team to discuss this if
+there's interest.  I'm obviously biased, but in the interest of full
+disclosure, the CRIU solution (our commercial product is called
+"rebootless updates") isn't really a "patch" solution per se.  The end
+result is a new kernel not a patched old kernel and we can update major
+kernel versions.
 
---Andy
+Our big pro is that you don't have to generate patch files (this is what
+sold it to us in the first place, since we did scope producing our own
+ksplice patches) and that we can upgrade from any version to any
+version.  Our big Con is that while we call the technology "rebootless"
+there's a small hiatus when we complete the CRIU checkpoint, kexec to
+the new kernel and resume the system.
+
+James
