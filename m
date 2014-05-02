@@ -1,22 +1,27 @@
-Return-Path: <josh@joshtriplett.org>
+Return-Path: <davej@redhat.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 5C63F8AF
+	by mail.linuxfoundation.org (Postfix) with ESMTP id D9FC38B4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 May 2014 16:57:09 +0000 (UTC)
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
-	[217.70.183.195])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C83231FC50
+	Fri,  2 May 2014 17:11:20 +0000 (UTC)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 81EF2201CE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 May 2014 16:57:08 +0000 (UTC)
-Date: Fri, 2 May 2014 09:56:59 -0700
-From: Josh Triplett <josh@joshtriplett.org>
-To: ksummit-discuss@lists.linuxfoundation.org
-Message-ID: <20140502165658.GA1962@jtriplet-mobl1>
+	Fri,  2 May 2014 17:11:20 +0000 (UTC)
+Date: Fri, 2 May 2014 13:11:03 -0400
+From: Dave Jones <davej@redhat.com>
+To: Josh Triplett <josh@joshtriplett.org>
+Message-ID: <20140502171103.GA725@redhat.com>
+References: <20140502164438.GA1423@jtriplet-mobl1>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: [Ksummit-discuss] Nominations for Kernel Summit
+In-Reply-To: <20140502164438.GA1423@jtriplet-mobl1>
+Cc: Sarah Sharp <sarah@minilop.net>, ksummit-discuss@lists.linuxfoundation.org,
+	Greg KH <gregkh@linuxfoundation.org>, Julia Lawall <julia.lawall@lip6.fr>,
+	Darren Hart <darren@dvhart.com>, Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Kernel tinification: shrinking
+ the kernel and avoiding size regressions
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -26,20 +31,40 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-I'd like to nominate the following people:
+On Fri, May 02, 2014 at 09:44:42AM -0700, Josh Triplett wrote:
+ 
+ > Topics:
+ > - Kconfig, and avoiding excessive configurability in the pursuit of tiny
+ > - Optimizing a kernel for its exact target userspace.
+ > - Examples of shrinking the kernel
 
-- Tom Zanussi <tom.zanussi@linux.intel.com> - doing extensive work on
-  shrinking the kernel and embedded userspace to fit in shockingly tiny
-  spaces.
-- Julia Lawall <julia.lawall@lip6.fr> - maintainer of cocinelle, the
-  semantic patch tool, which has collectively saved an incredible amount
-  of kernel maintainer time and effort.
-- Andi Kleen <ak@linux.intel.com> - working on LTO and many other kernel
-  projects.
+Something that's partially related here: Making stuff optional
+reduces attack surface the kernel presents. We're starting to grow
+more and more CONFIG options to disable syscalls. I'd like to hear
+peoples reactions on introducing even more optionality in this area.
 
-I'd also like to nominate myself; in addition to the kernel tinification
-topic I've already proposed, I plan to coordinate RCU topics with Paul
-McKenney.
+I first started thinking about this at LSF/MM where the subject of
+sys_remap_file_pages came up. "What even uses this?" "hardly anything".
+But for all the users that don't need it, there's this syscall always
+built in that does horrible things with VM internals.  It's fortunate
+that there hasn't been anything particularly awful beyond simple DoS
+bugs in r_f_p.
 
-Thanks,
-Josh Triplett
+Distribution kernels are in the sad position of having to always enable
+this stuff, but at least for people building their own kernels, or
+kernels for appliances, we could make their lives a little better by
+not even building this stuff in.
+
+I had a patch to make this particular syscall a cond_syscall, but then
+XFS ate my homework and I haven't had chance to revisit this.
+So, my questions are:
+- are there other obvious syscalls we could make optional without userspace
+  freaking out when they suddenly start getting ENOSYS ?
+- how much configurability here is too much ?
+  r_f_p was an obvious candidate because it's.. well, nasty.  Some of the
+  more straightforward syscalls may not be such a big deal, but then we
+  have CONFIG's for kcmp and other 'simple' syscalls already..
+
+thoughts?
+
+	Dave
