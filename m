@@ -1,41 +1,25 @@
-Return-Path: <jwboyer@gmail.com>
+Return-Path: <linville@tuxdriver.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id C300A21
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 26E004C6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 May 2014 21:19:02 +0000 (UTC)
-Received: from mail-oa0-f41.google.com (mail-oa0-f41.google.com
-	[209.85.219.41])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 56C451FB59
+	Fri,  2 May 2014 21:19:47 +0000 (UTC)
+Received: from smtp.tuxdriver.com (charlotte.tuxdriver.com [70.61.120.58])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A30B31FD45
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 May 2014 21:19:02 +0000 (UTC)
-Received: by mail-oa0-f41.google.com with SMTP id m1so3333809oag.28
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 02 May 2014 14:19:01 -0700 (PDT)
+	Fri,  2 May 2014 21:19:46 +0000 (UTC)
+Date: Fri, 2 May 2014 16:33:22 -0400
+From: "John W. Linville" <linville@tuxdriver.com>
+To: Jiri Kosina <jkosina@suse.cz>
+Message-ID: <20140502203322.GS3687@tuxdriver.com>
+References: <alpine.LNX.2.00.1405022121070.29834@pobox.suse.cz>
 MIME-Version: 1.0
-Sender: jwboyer@gmail.com
-In-Reply-To: <20140502210123.GA13536@redhat.com>
-References: <20140502164438.GA1423@jtriplet-mobl1>
-	<20140502171103.GA725@redhat.com>
-	<1399051229.2202.49.camel@dabdike>
-	<20140502173309.GB725@redhat.com>
-	<CA+5PVA78SFLWWnA+wPG54X6Uvo6R8CWjF43pZEDGGHUGbkpz1A@mail.gmail.com>
-	<5363E8E1.9030806@zytor.com>
-	<CAKgNAkjueYU9fyiZ46OZG9unOsGTkkJJF5ndVsR6KbLr=OFRAQ@mail.gmail.com>
-	<20140502193314.GA24108@thunk.org>
-	<20140502194935.GA9766@redhat.com>
-	<20140502204141.GB24108@thunk.org>
-	<20140502210123.GA13536@redhat.com>
-Date: Fri, 2 May 2014 17:19:01 -0400
-Message-ID: <CA+5PVA6oTQy5j1XyQG_h6Vk1kW8UrA_j61ouPfm_kvZMQ9ZqEA@mail.gmail.com>
-From: Josh Boyer <jwboyer@fedoraproject.org>
-To: Dave Jones <davej@redhat.com>
-Content-Type: text/plain; charset=ISO-8859-1
-Cc: Sarah Sharp <sarah@minilop.net>, ksummit-discuss@lists.linuxfoundation.org,
-	Greg KH <gregkh@linuxfoundation.org>, Julia Lawall <julia.lawall@lip6.fr>,
-	Darren Hart <darren@dvhart.com>, Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Kernel tinification: shrinking
- the kernel and avoiding size regressions
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alpine.LNX.2.00.1405022121070.29834@pobox.suse.cz>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] "depth" of the tree of
+	maintainers
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -45,20 +29,43 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, May 2, 2014 at 5:01 PM, Dave Jones <davej@redhat.com> wrote:
-> On Fri, May 02, 2014 at 04:41:41PM -0400, Theodore Ts'o wrote:
->
->  > And I think we can also further break this down into the classes of
->  > code which require root privs (i.e., like kexec), and those which can
->  > be used by any userid.
->
-> In the brave new world of secure boot, we kind of have to care about
-> even the root cases now too [*], but I agree in the general case.
+On Fri, May 02, 2014 at 09:42:12PM +0200, Jiri Kosina wrote:
+> Is our tree too flat? This might turn into just a question to Linus than 
+> really a discussion topic.
+> 
+> It seems to me (and it has been the case for a few past years, so it's 
+> probably not an issue at the end of the day) like there are many places 
+> where we are violating a natural tree-like hierarchy our development model 
+> has, with many people sending pull requests directly to Linus instead of 
+> going through sub-maintainers. Is this really a problem? If so, how to 
+> deal with it?
 
-Speaking of that... is it worth my time to propose a "What to do about
-the secure_modules/trusted_kernel/whatever patch set that distros are
-carrying to support Secure Boot?  I thought we had agreement and a
-path forward at LPC last year, but things seem to have gotten derailed
-again.
+Probably only Linus can decide if the maintainer tree is too flat.
+That would largely be reflected in his own feelings about "free time",
+his capacity for "big picture" stuff, etc -- I won't speculate too
+much on that.  Still, it probably is a good idea to ensure a certain
+amount of depth both for maintaining everyone's sanity and for insuring
+against the 'eaten by raptors' problem.
 
-josh
+The wireless tree that I run feeds up to Dave Miller rather than going
+to Linus.  I also have a number of trees that others maintain and push
+through me, including the mac80211 and bluetooth trees among others.
+I'm not sure how many people are in the position I am in, although
+I suspect that there are a few more around than there used to be?
+Anyone?  Bueller?
+
+Adding levels to the maintainer tree can introduce some problems,
+of course.  Merging latency is probably obvious, as well as simple
+matters like making sure everyone manages their trees in a compatible
+way for merging operations.  There are many ways to use git, and some
+cause problems for up- or down-stream trees...
+
+Anyway, I'd love to see more of a discussion here.
+
+John
+
+P.S.  It's always good to see an early topic where I feel like an
+expert... :-)
+-- 
+John W. Linville		Someday the world will need a hero, and you
+linville@tuxdriver.com			might be all we have.  Be ready.
