@@ -1,20 +1,26 @@
-Return-Path: <tytso@thunk.org>
+Return-Path: <josh@joshtriplett.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 28AB2A05
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 9F3F98B4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 May 2014 15:13:15 +0000 (UTC)
-Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 95AAE1FD49
+	Fri,  2 May 2014 16:45:16 +0000 (UTC)
+Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
+	[217.70.183.195])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1B6DB1FD44
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 May 2014 15:13:10 +0000 (UTC)
-From: Theodore Ts'o <tytso@mit.edu>
-To: linux-kernel@vger.kernel.org, ksummit-discuss@lists.linuxfoundation.org
-Date: Fri, 02 May 2014 11:13:08 -0400
-Message-ID: <nsxoazg1aez.fsf@closure.thunk.org>
+	Fri,  2 May 2014 16:45:16 +0000 (UTC)
+Date: Fri, 2 May 2014 09:44:42 -0700
+From: Josh Triplett <josh@joshtriplett.org>
+To: ksummit-discuss@lists.linuxfoundation.org
+Message-ID: <20140502164438.GA1423@jtriplet-mobl1>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
-Subject: [Ksummit-discuss] Kernel Summit 2014 Call for Topics
+Content-Disposition: inline
+Cc: Sarah Sharp <sarah@minilop.net>, Greg KH <gregkh@linuxfoundation.org>,
+	Julia Lawall <julia.lawall@lip6.fr>, Darren Hart <darren@dvhart.com>,
+	Dan Carpenter <dan.carpenter@oracle.com>
+Subject: [Ksummit-discuss] [CORE TOPIC] Kernel tinification: shrinking the
+ kernel and avoiding size regressions
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -24,102 +30,41 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+Over time, the Linux kernel has grown far more featureful, but it has
+also grown significantly larger, even with all the optional features
+turned off.  For the last several years, I've been working to make the
+kernel smaller, and mentoring/coordinating projects to do the same, to
+enable ridiculously small embedded applications and other fun uses.  I'd
+like to discuss that work at Kernel Summit, get size regressions on the
+radar of kernel developers and subsystem maintainers, and solicit
+discussion on future possibilities to shrink the kernel further.
 
-The annual Kernel Summit for 2014 will be held August 18th through the
-20th in Chicago, overlapping with LinuxCon North America (which will
-be held August 20th through the 22nd) at the Sheraton Chicago Hotel
-and Towers.
+Topics:
+- An overview of why the kernel's size still matters today ("but don't
+  we all have tons of memory and storage?")
+- Tiny in RAM versus tiny on storage.
+- How much the kernel has grown over time.
+- How size regressions happen and how to avoid them
+- Size measurement, bloat-o-meter, allnoconfig, and other tools
+- Compression and the decompression stub
+- Kconfig, and avoiding excessive configurability in the pursuit of tiny
+- Optimizing a kernel for its exact target userspace.
+- Examples of shrinking the kernel
+- Discussion on proposed ways to make the kernel tiny, how much they
+  might save, how much work they'd require, and how to implement them
+  with minimal impact to the un-shrunken common case.
 
-The format of the Kernel Summit will be:
+After the session, I'll prepare and maintain a detailed summary of the
+proposed ideas, ordered by how much space they'd save versus how much
+work they'd be.  I plan to maintain that list on an ongoing basis, to
+coordinate tinification projects for ongoing work by people working on
+embedded applications, and for the benefit of mentorship projects such
+as OPW and SoC.
 
-* Monday: Core attendee's plenary sessions
-* Tuesday: Workshops and break out sessions
-* Wednesday: Dual-track technical sessions  in parallel with LinuxCon
+The set of people on the CC list would be good to have at the
+discussion.  I marked this as "CORE TOPIC", but I'd also be happy to
+discuss it on the dual-track day if that's preferable.
 
-The Core plenary day will be focused on topics which are not
-appropriate for any of the subsystem-specific workshops or
-minisummits, and which cannot be easily resolved using the normal
-e-mail and IRC channels.  These include issues about our overall
-development process, and topics which span multiple subsystems.
+(I'm currenly on the auto-generated nomination list.)
 
-The workshops are intended for kernel subsystems or other topics where
-10-30 people need to have some intensive discussions for half or full
-day.  There will also be a room for specialized discussions that are
-come up at the last minute, or which perhaps don't require as much
-time as a workshop.
-
-The technical sessions will be open to all workshop attendees as well
-as the core attendees; program committee will also consider
-"information sharing" topics if they are clearly of interest to the
-wider development community (i.e., topics that could be considered
-advanced training for subsystem maintainers: memory barriers, RCU, git
-workflows, etc.)
-
-
-For space reasons, we try to cap the attendence of the core plenary
-day to around 80-100 people.  We have created an initial list of
-nominations for that core plenary day, based on the top 3rd or 4th
-percentile of commit authors or reviewers over the past 16 months.
-You can see that list here:
-
-	http://goo.gl/FsVUFX
-
-Since it is a mechnically generated list, it's obviously going to be
-incomplete (even if it has 200 people).  So if you think that there
-are people who should be on the list, you can nominate people (self
-nominations are ok), by sending a note to:
-
-	ksummit-discuss@lists.linuxfoundation.org
-
-As in past years, people who suggest particularly interesting topics
-and who actively and positively in engage in the discussion of those
-topics will get special consideration by the program committee.
-
-If you would like to suggest a topic, please send a separate e-mail
-for each topic, so we can more easily track the discussion, and plase
-tag your e-mail with [CORE TOPIC] or [TECH TOPIC] depending on whether
-the topic would be a better fit for the Monday sessions or the
-Wednesday sessions.  Also include a list of people who you think would
-be valuable in participating in the discussion.
-
-If possible, please send topic requests before May 15th, since that's
-about when we will start evaluating the list of potential attendees.
-Obviously, if new topics come up after that, please still send them to
-us!  For one thing, invites will be going out in stages.  For another,
-we want to make sure the kernel summit will be as useful as possible,
-and that means if you think there's something that would be valuable
-for the kernel community needs to consider, we'd like to know about it!
-
-
-
-You can subscribe to the discuss list using mailman:
-
-   https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
-
-For reference, previous years' kernel summit agendas can be found here:
-
-2013 agenda:  http://goo.gl/L3YOiX
-2012 agenda:  https://sites.google.com/site/kernelsummit2012/agenda
-
-
-If you are interested in leading one of the workshops on Tuesday,
-please contact the kernel summit program committee with your proposal
-at:
-
-	ksummit-pc@lists.linux-foundation.org.
-
-
-The 2014 Kernel Summit Program Committee
-========================================
-
-James Bottomley
-Jonathan Corbet
-Mel Gorman
-Dirk Hohndel
-Grant Likely
-Greg Kroah-Hartman
-Martin K. Petersen
-Paul McKenney
-Andrew Morton
-Steven Rostedt
-Theodore Ts'o
+- Josh Triplett
