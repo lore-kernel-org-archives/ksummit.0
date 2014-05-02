@@ -1,25 +1,41 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <jwboyer@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 2963E21
+	by mail.linuxfoundation.org (Postfix) with ESMTP id C300A21
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 May 2014 21:17:27 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id CAC4C1FC50
+	Fri,  2 May 2014 21:19:02 +0000 (UTC)
+Received: from mail-oa0-f41.google.com (mail-oa0-f41.google.com
+	[209.85.219.41])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 56C451FB59
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 May 2014 21:17:26 +0000 (UTC)
-Message-ID: <1399065442.2202.66.camel@dabdike>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Jiri Kosina <jkosina@suse.cz>
-Date: Fri, 02 May 2014 14:17:22 -0700
-In-Reply-To: <alpine.LNX.2.00.1405022123320.29834@pobox.suse.cz>
-References: <alpine.LNX.2.00.1405022123320.29834@pobox.suse.cz>
-Content-Type: text/plain; charset="ISO-8859-15"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] [TECH TOPIC] live kernel patching
+	Fri,  2 May 2014 21:19:02 +0000 (UTC)
+Received: by mail-oa0-f41.google.com with SMTP id m1so3333809oag.28
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 02 May 2014 14:19:01 -0700 (PDT)
+MIME-Version: 1.0
+Sender: jwboyer@gmail.com
+In-Reply-To: <20140502210123.GA13536@redhat.com>
+References: <20140502164438.GA1423@jtriplet-mobl1>
+	<20140502171103.GA725@redhat.com>
+	<1399051229.2202.49.camel@dabdike>
+	<20140502173309.GB725@redhat.com>
+	<CA+5PVA78SFLWWnA+wPG54X6Uvo6R8CWjF43pZEDGGHUGbkpz1A@mail.gmail.com>
+	<5363E8E1.9030806@zytor.com>
+	<CAKgNAkjueYU9fyiZ46OZG9unOsGTkkJJF5ndVsR6KbLr=OFRAQ@mail.gmail.com>
+	<20140502193314.GA24108@thunk.org>
+	<20140502194935.GA9766@redhat.com>
+	<20140502204141.GB24108@thunk.org>
+	<20140502210123.GA13536@redhat.com>
+Date: Fri, 2 May 2014 17:19:01 -0400
+Message-ID: <CA+5PVA6oTQy5j1XyQG_h6Vk1kW8UrA_j61ouPfm_kvZMQ9ZqEA@mail.gmail.com>
+From: Josh Boyer <jwboyer@fedoraproject.org>
+To: Dave Jones <davej@redhat.com>
+Content-Type: text/plain; charset=ISO-8859-1
+Cc: Sarah Sharp <sarah@minilop.net>, ksummit-discuss@lists.linuxfoundation.org,
+	Greg KH <gregkh@linuxfoundation.org>, Julia Lawall <julia.lawall@lip6.fr>,
+	Darren Hart <darren@dvhart.com>, Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Kernel tinification: shrinking
+ the kernel and avoiding size regressions
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,35 +45,20 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, 2014-05-02 at 21:42 +0200, Jiri Kosina wrote:
-> Runtime/live kernel patching is becoming a topic these days. There are 
-> several parallel implementations currently evolving in parallel (kpatch, 
-> kgraft, criu-based solution, ksplice to some extent), all of them having 
-> their pros and cons. 
-> 
-> It's clear that what is going to get merged at the end of the day would 
-> have to be some super-position of the currently existing solutions. 
-> 
-> Finding a reasonable compromise might be challenging. Having discussion 
-> between the groups working on those solutions (tech topic) and with 
-> "general maintainer audience" to face the flame^W^W^Wobtain feedback 
-> (core topic) would be very valuable step in converging to unified 
-> solution.
-> 
-> Suggested participants: see the list of "competing" projects above
+On Fri, May 2, 2014 at 5:01 PM, Dave Jones <davej@redhat.com> wrote:
+> On Fri, May 02, 2014 at 04:41:41PM -0400, Theodore Ts'o wrote:
+>
+>  > And I think we can also further break this down into the classes of
+>  > code which require root privs (i.e., like kexec), and those which can
+>  > be used by any userid.
+>
+> In the brave new world of secure boot, we kind of have to care about
+> even the root cases now too [*], but I agree in the general case.
 
-I can certainly dig up people on our CRIU team to discuss this if
-there's interest.  I'm obviously biased, but in the interest of full
-disclosure, the CRIU solution (our commercial product is called
-"rebootless updates") isn't really a "patch" solution per se.  The end
-result is a new kernel not a patched old kernel and we can update major
-kernel versions.
+Speaking of that... is it worth my time to propose a "What to do about
+the secure_modules/trusted_kernel/whatever patch set that distros are
+carrying to support Secure Boot?  I thought we had agreement and a
+path forward at LPC last year, but things seem to have gotten derailed
+again.
 
-Our big pro is that you don't have to generate patch files (this is what
-sold it to us in the first place, since we did scope producing our own
-ksplice patches) and that we can upgrade from any version to any
-version.  Our big Con is that while we call the technology "rebootless"
-there's a small hiatus when we complete the CRIU checkpoint, kexec to
-the new kernel and resume the system.
-
-James
+josh
