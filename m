@@ -1,35 +1,27 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <mtk.manpages@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id CCE78918
+	by mail.linuxfoundation.org (Postfix) with ESMTP id D10C295A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  3 May 2014 01:50:15 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 12E8B1F950
+	Sat,  3 May 2014 15:00:23 +0000 (UTC)
+Received: from mail-ee0-f41.google.com (mail-ee0-f41.google.com [74.125.83.41])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 32ED61FB23
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  3 May 2014 01:50:15 +0000 (UTC)
-Date: Fri, 2 May 2014 18:21:58 -0700
-From: Mark Brown <broonie@sirena.org.uk>
-To: Dave Jones <davej@redhat.com>
-Message-ID: <20140503012158.GA22111@sirena.org.uk>
-References: <20140502173309.GB725@redhat.com>
-	<20140502190301.GW3245@sirena.org.uk>
-	<3908561D78D1C84285E8C5FCA982C28F327F5D80@ORSMSX114.amr.corp.intel.com>
-	<20140502210340.GZ3245@sirena.org.uk>
-	<20140502210851.GC13536@redhat.com>
+	Sat,  3 May 2014 15:00:23 +0000 (UTC)
+Received: by mail-ee0-f41.google.com with SMTP id t10so333845eei.28
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sat, 03 May 2014 08:00:21 -0700 (PDT)
+Message-ID: <5365047E.7020907@gmail.com>
+Date: Sat, 03 May 2014 17:00:14 +0200
+From: "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="fUYQa+Pmc3FrFX/N"
-Content-Disposition: inline
-In-Reply-To: <20140502210851.GC13536@redhat.com>
-Cc: Sarah Sharp <sarah@minilop.net>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Greg KH <gregkh@linuxfoundation.org>, Julia Lawall <julia.lawall@lip6.fr>,
-	Darren Hart <darren@dvhart.com>, Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Kernel tinification: shrinking
- the kernel and avoiding size regressions
+To: ksummit-discuss@lists.linuxfoundation.org
+References: <mailman.1841.1399124228.1428.ksummit-discuss@lists.linuxfoundation.org>
+In-Reply-To: <mailman.1841.1399124228.1428.ksummit-discuss@lists.linuxfoundation.org>
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Ksummit-discuss] Your message to Ksummit-discuss awaits
+	moderator approval
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,48 +31,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+Can we get this limit lifted? Otherwise, we have to play silly games working out 
+who (and how many) to trim from CC, or live with delayed messages to the list...
 
---fUYQa+Pmc3FrFX/N
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Fri, May 02, 2014 at 05:08:51PM -0400, Dave Jones wrote:
-> On Fri, May 02, 2014 at 02:03:40PM -0700, Mark Brown wrote:
+-------- Original Message --------
+Subject: Your message to Ksummit-discuss awaits moderator approval
+Date: Sat, 03 May 2014 13:37:08 +0000
+From: ksummit-discuss-bounces@lists.linuxfoundation.org
+To: mtk.manpages@gmail.com
 
->  > That works for specific processes but I don't immediately see a
->  > straightforward way to do it system wide (I guess a wrapper that straces
->  > init and children might do the trick but it's not particularly nice).
->  > Part of the trick for getting the general security win is to lower the
->  > barrier to entry.`
+Your mail to 'Ksummit-discuss' with the subject
 
-> Sounds like something you could use tracepoints for maybe ?
-> Failing that, kprobes ?
+    Re: [Ksummit-discuss] [CORE TOPIC] Kernel tinification: shrinking
+the kernel and avoiding size regressions
 
-Tracepoints do run the risk of overflowing the buffer if run for too
-long but if it's the only thing running and/or is monitored that should
-be OK, it's more managable than strace.  kprobes should definitely work
-I think if there's a suitably canned way of setting it up.
+Is being held until the list moderator can review it for approval.
 
---fUYQa+Pmc3FrFX/N
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
+The reason it is being held:
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2.0.22 (GNU/Linux)
+    Too many recipients to the message
 
-iQIcBAEBAgAGBQJTZESwAAoJELSic+t+oim9ngIP+wRFvNunTPiqyy97Umk5gL5K
-BYL6o6DyMDlk+Fp8f7nyUNBZdceod/wqBZaFlrXcymNWH67pf8UgnOBZca+q19rd
-1peNPDse+8A7TqpPJxCgmniWaWPY+kzuwPYYE9LJbTPHAWtxU0SREGgUkKZxWj4l
-riOmXMYHRn7Cj/5mcLr2k89E9hVpsgILVDu/r5T7WDsR10rMcna1WYuRddRuptIp
-sYWn1yt/HGebXZX1INK1OOFfPwTQVAfuKPAQ9vo3XDX+GRHQRB4qxc+vjF3wqKu2
-QVbAqucrCvEork3X//CJ6CeK78VI5JjKh0XUm2k7Qs7c3Cx2T5WQxMRThu3c+adr
-44czh+csTU4BH57BSvxODRngyBeH92MwMwwKzChwW0M+ZOs/yU6fXoHY2i6gReAb
-fgt3iPe4umxvLAgu8TzyXSqPtBy6bS85GYmqpBefZ60zvPm5VIOA8VbLVl3mQCqI
-K6KFVWaikxmh4ZERP4WKdPQJ/ewaRL2in2/EUY4Ydb20PAcsdG4tkli7Q0oATluI
-h7DdYFMgor0H1oRRLz6QqSZLlee0UZs4CtVjcVNjRRZ7sd0t20TYEBhO98q2Srmh
-rm8SEtNIl+fx0MDgPCMdabcq7/tLcYUHImncf9NUa3SIKmoHP/Ccl1zl9y1niWPY
-iOJSBGsIRpWJunaWlQIQ
-=4jFg
------END PGP SIGNATURE-----
+Either the message will get posted to the list, or you will receive
+notification of the moderator's decision.  If you would like to cancel
+this posting, please visit the following URL:
 
---fUYQa+Pmc3FrFX/N--
+    https://lists.linuxfoundation.org/mailman/confirm/ksummit-discuss/70a2eceee0647eaa98330bf48de5a5d85e73b95c
