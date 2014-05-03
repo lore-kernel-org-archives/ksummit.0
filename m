@@ -1,32 +1,38 @@
-Return-Path: <greg@kroah.com>
+Return-Path: <mtk.manpages@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 893BB8B4
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 7168C9A3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  3 May 2014 15:40:07 +0000 (UTC)
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
-	[66.111.4.29])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D37091F950
+	Sat,  3 May 2014 13:32:16 +0000 (UTC)
+Received: from mail-ee0-f44.google.com (mail-ee0-f44.google.com [74.125.83.44])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A9FC420248
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  3 May 2014 15:40:06 +0000 (UTC)
-Received: from compute2.internal (compute2.nyi.mail.srv.osa [10.202.2.42])
-	by gateway1.nyi.mail.srv.osa (Postfix) with ESMTP id 0013720DF7
+	Sat,  3 May 2014 13:32:15 +0000 (UTC)
+Received: by mail-ee0-f44.google.com with SMTP id c41so3950240eek.3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  3 May 2014 11:40:03 -0400 (EDT)
-Date: Sat, 3 May 2014 11:40:02 -0400
-From: Greg Kroah-Hartman <greg@kroah.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-Message-ID: <20140503154002.GA13523@kroah.com>
-References: <alpine.LNX.2.00.1405022113300.29834@pobox.suse.cz>
-	<20140502160959.48b71dec@gandalf.local.home>
-	<alpine.LNX.2.00.1405022211310.29834@pobox.suse.cz>
-	<20140502162703.0e8ce876@gandalf.local.home>
+	Sat, 03 May 2014 06:32:14 -0700 (PDT)
+Message-ID: <5364EFD5.10603@gmail.com>
+Date: Sat, 03 May 2014 15:32:05 +0200
+From: "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20140502162703.0e8ce876@gandalf.local.home>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
+To: Theodore Ts'o <tytso@mit.edu>
+References: <20140502164438.GA1423@jtriplet-mobl1>
+	<20140502171103.GA725@redhat.com>
+	<1399051229.2202.49.camel@dabdike>
+	<20140502173309.GB725@redhat.com>
+	<CA+5PVA78SFLWWnA+wPG54X6Uvo6R8CWjF43pZEDGGHUGbkpz1A@mail.gmail.com>
+	<5363E8E1.9030806@zytor.com>
+	<CAKgNAkjueYU9fyiZ46OZG9unOsGTkkJJF5ndVsR6KbLr=OFRAQ@mail.gmail.com>
+	<20140502193314.GA24108@thunk.org>
+In-Reply-To: <20140502193314.GA24108@thunk.org>
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
+Cc: Josh Boyer <jwboyer@fedoraproject.org>, Sarah Sharp <sarah@minilop.net>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Greg KH <gregkh@linuxfoundation.org>, Julia Lawall <julia.lawall@lip6.fr>,
+	Darren Hart <darren@dvhart.com>, Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Kernel tinification: shrinking
+ the kernel and avoiding size regressions
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,47 +42,38 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, May 02, 2014 at 04:27:03PM -0400, Steven Rostedt wrote:
-> On Fri, 2 May 2014 22:12:50 +0200 (CEST)
-> Jiri Kosina <jkosina@suse.cz> wrote:
-> 
->  
-> > Hmm, I don't see how maintainer cherry-picking into 'for-stable' branch is 
-> > different from stable team cherry-picking from Linus' tree.
-> 
-> I think it's more a level of trust. IIRC (and Greg, please chime in
-> here) there's been more than one instance that people would send Greg
-> something for stable that hasn't hit mainline.
+On 05/02/2014 09:33 PM, Theodore Ts'o wrote:
+> There's been a huge focus on system calls in this discussion, and I
+> suspect this is a bit of a red herring.  Taking a look at "git log
+> arch/x86/syscalls/syscall_64.tbl" --- since all the world's is no
+> longer a Vax, but rather an x86_64 :-P --- there really hasn't been
+> that many new system calls lately.  Yes, we recently added
+> renameat(2), but the next addition was half a year earlier, when the
+> new schedular parameters syscalls went in.
 
-Yes, that has happened more times than I like.  I also get maintainers
-sending me patches that say they match a specific git id in Linus's
-tree, when they really aren't that at all, or are patches mushed
-together, and other horrible things.
+A minor correction: that wasn't 6 months ago -- it was 3.14, released 
+at the end of March, that added sched_getattr() and sched_setattr().
 
-So I want a git id list, if you forget to mark the stable cc: in the
-patch.  Or a patch with the git id in it, which I will verify really is
-the patch in question.
+> There's much more in the way of kernel functionality and complexity
+> which isn't really syscall related --- for example, all of the control
+> group stuff, and security hair caused by things like user namespaces,
+> and new fallocate(2) modes --- we've added PUNCH_HOLE, COLLAPSE_RANGE,
+> and ZERO_RANGE, and there are threats to add INSERT_RANGE in the next
+> release or two.
 
-As I said last year, I do take git pulls from subsystem maintainers that
-I "trust".  David Miller does great things with him sending mboxes full
-of patches.  There's other subsystems that also send me pull requests at
-times.  If you, or any other subsystem maintainer wants to do this for
-stable trees, that's wonderful, I'll be glad to work with anyone on
-this.
+Yes, that's a much bigger part of the growing surface. (Just by the 
+bye, I try to track the growth of the surface at 
+http://man7.org/tlpi/api_changes/ . Corrections and additions are 
+welcome. It's reasonably complete with respect to system calls, 
+partially complete on /proc and socket options, and rather out to 
+lunch on other pieces such as /sys and other pseudo filesystems
 
-But again, I don't want to cause _ANY_ extra burden on subsystem
-maintainers for the stable kernel work.  Adding a Cc: is all I will ever
-ask for.  Maintainers are our most limited resource right now, and I
-will not ask them to spend cycles on something that takes away from
-their mainline work.
+Cheers,
 
-It's up to the person who is willing to be a stable maintainer to do the
-work maintaining that kernel.  That's a responsibility they asked for,
-and it's up to them to figure out the easiest way for them to do it.
+Michael
 
-Asking subsystem maintainers to do work for the stable maintainers is
-not acceptable at all.
 
-thanks,
-
-greg k-h
+-- 
+Michael Kerrisk
+Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
+Linux/UNIX System Programming Training: http://man7.org/training/
