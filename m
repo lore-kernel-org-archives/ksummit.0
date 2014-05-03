@@ -1,30 +1,27 @@
-Return-Path: <groeck7@gmail.com>
+Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 367408AF
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 7504D875
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 May 2014 23:35:39 +0000 (UTC)
-Received: from mail-pa0-f51.google.com (mail-pa0-f51.google.com
-	[209.85.220.51])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C058F1FC50
+	Fri,  2 May 2014 23:48:50 +0000 (UTC)
+Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id 324491FAA9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 May 2014 23:35:38 +0000 (UTC)
-Received: by mail-pa0-f51.google.com with SMTP id fb1so6200206pad.38
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 02 May 2014 16:35:38 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Fri, 2 May 2014 16:35:31 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Mark Brown <broonie@kernel.org>
-Message-ID: <20140502233531.GC5157@roeck-us.net>
-References: <alpine.LNX.2.00.1405022113300.29834@pobox.suse.cz>
-	<20140502205721.GY3245@sirena.org.uk>
+	Fri,  2 May 2014 23:48:48 +0000 (UTC)
+From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+To: Olof Johansson <olof@lixom.net>
+Date: Sat, 03 May 2014 02:05:21 +0200
+Message-ID: <1583732.MIn3aNNoTS@vostro.rjw.lan>
+In-Reply-To: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>
+References: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20140502205721.GY3245@sirena.org.uk>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, dvhart@dvhart.com,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Driver model/resources, ACPI, DT,
+	etc (sigh)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,43 +31,81 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, May 02, 2014 at 01:57:22PM -0700, Mark Brown wrote:
-> On Fri, May 02, 2014 at 09:42:04PM +0200, Jiri Kosina wrote:
-> 
-> > I am a responsible maintainer of kernels for SUSE enterprise products. As 
-> > such, I am dealing with -stable trees on a regular basis. Hence, if there 
-> > is any discussion related to -stable tree process going to happen, I am 
-> > highly interested in that discussion.
-> 
-> Likewise for me with my work hat on, I maintain a stable kernel for
-> Linaro for use on ARM systems.
-> 
-I wold be interested in this subject as kernel maintainer for Juniper,
-and because I run a series of automated tests on the 'official' stable
-release candidates.
+Hi Olof,
 
-> > I'd like to re-iterate my usual question / discussion topic of 
-> > responsibility distribution for -stable patches; my proposal again would 
-> > be to align the -stable tree workflow with Linus' tree workflow -- i.e. 
-> > subsystem maintainers preparing 'for-stable' branches and sending pull 
-> > requests to the stable team, instead of rather random cherry-picking of 
-> > the patches from the air as they fly by the stable team members.
+Thanks for submitting this!
+
+I was about to submit it too, but you beat me to that. :-)
+
+On Friday, May 02, 2014 02:42:07 PM Olof Johansson wrote:
+> I'm about as tired of this as everybody else, but that won't make the
+> issues go away...
 > 
-> With my upstream hat on I have to say this seems like a lot of work and
-> probably means that most stable fixes that currently go out probably
-> just won't happen - there are quite a lot of stable trees being
-> maintained and I personally have next to no immediate interest in most
-> of them.
+> I think we resolved a bunch of stuff around DT last year (and since),
+> but there are still things left to figure out and agree on in these
+> areas. In particular in the intersection of Intel platforms with ACPI
+> and embedded are where there are issues and model mismatches, and
+> doing it in person might be much easier than doing centithreads.
 
-Same here. If I (or Jean) think that some patch should be applied to -stable,
-I add Cc: stable to the patch before I send it to Linus, or I send a request
-to the stable mailing list. Sending pull requests for each of those releases
-would add a lot of overhead to that process. And I agree with the comment
-that some 'bad' commits might sneak in.
+Agreed.
 
-The other side, of course, is that especially Greg must spend a lot of his
-time on maintaining stable releases. If there is a way to offload some of
-this work from him, I would be all for it; I am just not convinced that
-pull requests would be the solution.
+> There's been some various hallway talk at conferences about proposals
+> to make this work better, but the full set of people have never been
+> in the same room at the same time.
 
-Guenter
+Yes.
+
+> I labelled this as a tech topic. Feel free to upgrade it to a workshop
+> or relabel it if needed. Base set of people I'd like to see involved
+> are:
+> 
+> * Darren Hart, who is doing things to make ACPI more DT-like for
+> embedded use cases.
+> * Rafael Wysocki, who also has had some ideas on how to make the
+> models fit together.
+> * Grant Likely, since he's in the intersection as well.
+> * Greg K-H would be much appreciated as well, since he'd have to deal
+> with some of the resulting mess.
+> * Dave Woodhouse would also be good to have there.
+
++ H. Peter Anvin
+
+> .. I'm probably missing names but they're bound to reply to this email
+> anyway with opinions.
+> 
+> 
+> Some of the ideas I have heard discussed are:
+> * Adding a new common API for resource management which will have
+> backends for ACPI or DT depending on platform
+
+I would like to do this, personally, because I believe that drivers
+should not need to add support for any particular firmware interfaces
+directly (except for listing matching device IDs).
+
+> * Adding ACPI and DT probing to drivers that lack on or the other
+> today (giving them a total of three probe methods: platform_device,
+> DT, ACPI).
+
+But that is not about platform devices only.  There also are SPI and I2C
+devices (and likely other bus types too) that require similar kind of
+information from the platform firmware (e.g. are not natively enumerable).
+
+> * Converting either of them to use platform device model
+> (platform_data) to register drivers, and leave them unaware of either
+> hardware description
+> * [... I'm likely missing something here as well]
+> 
+> All solutions above have trade-offs, and neither is an obvious choice.
+> We could likely spend between now and KS arguing this every day on the
+> lists if we wanted to. Getting the people into the same room for a
+> couple of hours is likely to be a much better way to resolve it.
+
+For what it's worth, we are working on extending ACPI to allow DT-style
+information to be included into ACPI tables.
+
+Thanks!
+
+
+-- 
+I speak only for myself.
+Rafael J. Wysocki, Intel Open Source Technology Center.
