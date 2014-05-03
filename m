@@ -1,32 +1,18 @@
-Return-Path: <mtk.manpages@gmail.com>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 59F219B1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  3 May 2014 13:37:07 +0000 (UTC)
-Received: from mail-ee0-f45.google.com (mail-ee0-f45.google.com [74.125.83.45])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C949720221
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  3 May 2014 13:37:06 +0000 (UTC)
-Received: by mail-ee0-f45.google.com with SMTP id d17so3866726eek.18
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 03 May 2014 06:37:05 -0700 (PDT)
-Message-ID: <5364F0FF.5080206@gmail.com>
-Date: Sat, 03 May 2014 15:37:03 +0200
-From: "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
+Return-Path: <gregkh@linuxfoundation.org>
+Date: Sat, 3 May 2014 11:20:40 -0400
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+Message-ID: <20140503152040.GE11837@kroah.com>
+References: <alpine.LNX.2.00.1405022113300.29834@pobox.suse.cz>
+	<20140502160959.48b71dec@gandalf.local.home>
+	<alpine.LNX.2.00.1405022211310.29834@pobox.suse.cz>
+	<20140502162703.0e8ce876@gandalf.local.home>
 MIME-Version: 1.0
-To: Dave Jones <davej@redhat.com>, Ben Hutchings <ben@decadent.org.uk>
-References: <20140502164438.GA1423@jtriplet-mobl1>	<20140502171103.GA725@redhat.com>	<1399051229.2202.49.camel@dabdike>	<20140502173309.GB725@redhat.com>	<CA+5PVA78SFLWWnA+wPG54X6Uvo6R8CWjF43pZEDGGHUGbkpz1A@mail.gmail.com>	<5363E8E1.9030806@zytor.com>	<CAKgNAkjueYU9fyiZ46OZG9unOsGTkkJJF5ndVsR6KbLr=OFRAQ@mail.gmail.com>	<20140502193314.GA24108@thunk.org>	<20140502194935.GA9766@redhat.com>	<1399063518.24523.43.camel@deadeye.wl.decadent.org.uk>
-	<20140502210308.GB13536@redhat.com>
-In-Reply-To: <20140502210308.GB13536@redhat.com>
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
-Cc: Josh Boyer <jwboyer@fedoraproject.org>, Sarah Sharp <sarah@minilop.net>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	Greg KH <gregkh@linuxfoundation.org>, Julia Lawall <julia.lawall@lip6.fr>,
-	Darren Hart <darren@dvhart.com>, Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Kernel tinification: shrinking
- the kernel and avoiding size regressions
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20140502162703.0e8ce876@gandalf.local.home>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,36 +22,47 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 05/02/2014 11:03 PM, Dave Jones wrote:
-> On Fri, May 02, 2014 at 09:45:18PM +0100, Ben Hutchings wrote:
->  > On Fri, 2014-05-02 at 15:49 -0400, Dave Jones wrote:
-
-[...]
-
->  > > It's this "not used by every user" code that tends to scare me, because
->  > > it's written with 1-2 well behaved bits of userspace in mind, which
->  > > usually means "has so many unchecked corner cases it's not even funny"
->  > [...]
->  > 
->  > Since Michael often seems to be the one testing those corner cases while
->  > writing documentation, it seems like you're getting back to the old
->  > issue of whether lack of documentation should be a blocker for adding
->  > new system calls.
+On Fri, May 02, 2014 at 04:27:03PM -0400, Steven Rostedt wrote:
+> On Fri, 2 May 2014 22:12:50 +0200 (CEST)
+> Jiri Kosina <jkosina@suse.cz> wrote:
 > 
-> That, and test cases.
+>  
+> > Hmm, I don't see how maintainer cherry-picking into 'for-stable' branch is 
+> > different from stable team cherry-picking from Linus' tree.
+> 
+> I think it's more a level of trust. IIRC (and Greg, please chime in
+> here) there's been more than one instance that people would send Greg
+> something for stable that hasn't hit mainline.
 
-Form my point of view, test cases and documentation go hand in glove 
-(see my last mail).
+Yes, that has happened more times than I like.  I also get maintainers
+sending me patches that say they match a specific git id in Linus's
+tree, when they really aren't that at all, or are patches mushed
+together, and other horrible things.
 
-Hmmm -- this almost starts to smell like a topic to revisit
-at Ksummit.
+So I want a git id list, if you forget to mark the stable cc: in the
+patch.  Or a patch with the git id in it, which I will verify really is
+the patch in question.
 
-Thanks,
+As I said last year, I do take git pulls from subsystem maintainers that
+I "trust".  David Miller does great things with him sending mboxes full
+of patches.  There's other subsystems that also send me pull requests at
+times.  If you, or any other subsystem maintainer wants to do this for
+stable trees, that's wonderful, I'll be glad to work with anyone on
+this.
 
-Michael
+But again, I don't want to cause _ANY_ extra burden on subsystem
+maintainers for the stable kernel work.  Adding a Cc: is all I will ever
+ask for.  Maintainers are our most limited resource right now, and I
+will not ask them to spend cycles on something that takes away from
+their mainline work.
 
+It's up to the person who is willing to be a stable maintainer to do the
+work maintaining that kernel.  That's a responsibility they asked for,
+and it's up to them to figure out the easiest way for them to do it.
 
--- 
-Michael Kerrisk
-Linux man-pages maintainer; http://www.kernel.org/doc/man-pages/
-Linux/UNIX System Programming Training: http://man7.org/training/
+Asking subsystem maintainers to do work for the stable maintainers is
+not acceptable at all.
+
+thanks,
+
+greg k-h
