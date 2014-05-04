@@ -1,25 +1,29 @@
-Return-Path: <linux@roeck-us.net>
+Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id B130F8B4
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 174298CC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  4 May 2014 12:04:14 +0000 (UTC)
-Received: from mail.active-venture.com (mail.active-venture.com
-	[67.228.131.205])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 30C4E1FAA9
+	Sun,  4 May 2014 12:12:24 +0000 (UTC)
+Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id 4D8441FAA9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  4 May 2014 12:04:14 +0000 (UTC)
-Message-ID: <53662CB8.90202@roeck-us.net>
-Date: Sun, 04 May 2014 05:04:08 -0700
-From: Guenter Roeck <linux@roeck-us.net>
+	Sun,  4 May 2014 12:12:23 +0000 (UTC)
+From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+To: Mark Brown <broonie@kernel.org>
+Date: Sun, 04 May 2014 14:28:59 +0200
+Message-ID: <3007964.pJHjDrtZps@vostro.rjw.lan>
+In-Reply-To: <20140503020242.GD22111@sirena.org.uk>
+References: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>
+	<1583732.MIn3aNNoTS@vostro.rjw.lan>
+	<20140503020242.GD22111@sirena.org.uk>
 MIME-Version: 1.0
-To: Li Zefan <lizefan@huawei.com>, ksummit-discuss@lists.linuxfoundation.org
-References: <53662254.9060100@huawei.com>
-In-Reply-To: <53662254.9060100@huawei.com>
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: lizf.kern@gmail.com
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable issues
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, dvhart@dvhart.com,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Driver model/resources, ACPI, DT,
+	etc (sigh)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,51 +33,38 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 05/04/2014 04:19 AM, Li Zefan wrote:
-> I've been dealing with stable kernels. There are some issues that I noticed
-> and may be worth discussing.
->
-> - Too many LTS kernels?
->
-> 2.6.32  Willy Tarreau
-> 3.2     Ben Huchings
-> 3.4     Greg
-> 3.10    Greg
-> 3.12    Jiry Slaby
->
-> Too many or not? Is it good or bad? One of the problem is the maintenance
-> burden. For example, DaveM has to prepare stable patches for 5 stable
-> kernels: 3.2, 3.4, 3.10, 3.12 and 3.14.
->
-> - Equip Greg with a sub-maintainer?
->
-> I found 3.4.x lacked hundreds of fixes compared to 3.2.x. It's mainly
-> because Ben has been manually backporting patches which don't apply
-> cleanly, while Greg just doesn't have the time budget. Is it possible
-> that we find a sub-maintainer to do this work?
->
-> - Are there still sub-systems/maintainers not doing very good in stable stuff?
->
-> Once I looked into "git log --no-merges v3.4.. kernel/sched/rt.c", out of
-> 22 commits, only 2 fixes have stable tag, and finally I backported 4 commits
-> to 3.4.x.
->
-> - Add a known_issues.txt?
->
-> There are stable rules to what patch is acceptable, and besides a maintainer
-> may decide not send a fix for stable for some reason, or an issue is taken
-> care by no one.
->
-> So how about add a known_issues.txt, then anyone who needs to bulid his
-> own kernel based on LTS may find it useful.
->
-> - Testing stable kernels
->
-> The testing of stable kernels when a new version is under review seems
-> quite limited. We have Dave's Trinity and Fengguang's 0day, but they
-> are run on mainline/for-next only. Would be useful to also have them
-> run on stable kernels?
+On Friday, May 02, 2014 07:02:42 PM Mark Brown wrote:
+> 
+> --sXc4Kmr5FA7axrvy
+> Content-Type: text/plain; charset=us-ascii
+> Content-Disposition: inline
+> 
+> On Sat, May 03, 2014 at 02:05:21AM +0200, Rafael J. Wysocki wrote:
+> > On Friday, May 02, 2014 02:42:07 PM Olof Johansson wrote:
+> 
+> > > Some of the ideas I have heard discussed are:
+> > > * Adding a new common API for resource management which will have
+> > > backends for ACPI or DT depending on platform
+> 
+> > I would like to do this, personally, because I believe that drivers
+> > should not need to add support for any particular firmware interfaces
+> > directly (except for listing matching device IDs).
+> 
+> The trouble with this is that the different firmware interfaces have
+> rather different ideas about how things should work.  Basic things like
+> interrupts are generally fine but more complex things like the way that
+> devices integrate with system power management are much more up in the
+> air.
 
-For my part I would love to do that, I just don't have the time to set it up.
+In my opinion, device drivers should not be concerned about that really.
+The layers of code above them (bus types etc.) should, but not drivers
+themselves, because that makes it difficult to use the same driver
+for the same piece of hardware on two systems with different firmware
+interfaces.
 
-Guenter
+Thanks!
+
+
+-- 
+I speak only for myself.
+Rafael J. Wysocki, Intel Open Source Technology Center.
