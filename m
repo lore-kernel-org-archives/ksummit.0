@@ -1,29 +1,28 @@
-Return-Path: <rjw@rjwysocki.net>
+Return-Path: <jwboyer@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 174298CC
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 460DB927
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  4 May 2014 12:12:24 +0000 (UTC)
-Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id 4D8441FAA9
+	Sun,  4 May 2014 12:54:33 +0000 (UTC)
+Received: from mail-ob0-f178.google.com (mail-ob0-f178.google.com
+	[209.85.214.178])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id ADC241FD46
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  4 May 2014 12:12:23 +0000 (UTC)
-From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-To: Mark Brown <broonie@kernel.org>
-Date: Sun, 04 May 2014 14:28:59 +0200
-Message-ID: <3007964.pJHjDrtZps@vostro.rjw.lan>
-In-Reply-To: <20140503020242.GD22111@sirena.org.uk>
-References: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>
-	<1583732.MIn3aNNoTS@vostro.rjw.lan>
-	<20140503020242.GD22111@sirena.org.uk>
+	Sun,  4 May 2014 12:54:32 +0000 (UTC)
+Received: by mail-ob0-f178.google.com with SMTP id va2so3971538obc.23
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sun, 04 May 2014 05:54:32 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, dvhart@dvhart.com,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Driver model/resources, ACPI, DT,
-	etc (sigh)
+Sender: jwboyer@gmail.com
+In-Reply-To: <53662254.9060100@huawei.com>
+References: <53662254.9060100@huawei.com>
+Date: Sun, 4 May 2014 08:54:31 -0400
+Message-ID: <CA+5PVA6sCLej9hhrRtaAw8hgrM7rw_R9-rWrH=VERdHY_fXGUg@mail.gmail.com>
+From: Josh Boyer <jwboyer@fedoraproject.org>
+To: Li Zefan <lizefan@huawei.com>
+Content-Type: text/plain; charset=ISO-8859-1
+Cc: lizf.kern@gmail.com, ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,38 +32,76 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Friday, May 02, 2014 07:02:42 PM Mark Brown wrote:
-> 
-> --sXc4Kmr5FA7axrvy
-> Content-Type: text/plain; charset=us-ascii
-> Content-Disposition: inline
-> 
-> On Sat, May 03, 2014 at 02:05:21AM +0200, Rafael J. Wysocki wrote:
-> > On Friday, May 02, 2014 02:42:07 PM Olof Johansson wrote:
-> 
-> > > Some of the ideas I have heard discussed are:
-> > > * Adding a new common API for resource management which will have
-> > > backends for ACPI or DT depending on platform
-> 
-> > I would like to do this, personally, because I believe that drivers
-> > should not need to add support for any particular firmware interfaces
-> > directly (except for listing matching device IDs).
-> 
-> The trouble with this is that the different firmware interfaces have
-> rather different ideas about how things should work.  Basic things like
-> interrupts are generally fine but more complex things like the way that
-> devices integrate with system power management are much more up in the
-> air.
+On Sun, May 4, 2014 at 7:19 AM, Li Zefan <lizefan@huawei.com> wrote:
+> I've been dealing with stable kernels. There are some issues that I noticed
+> and may be worth discussing.
+>
+> - Too many LTS kernels?
+>
+> 2.6.32  Willy Tarreau
+> 3.2     Ben Huchings
+> 3.4     Greg
+> 3.10    Greg
+> 3.12    Jiry Slaby
+>
+> Too many or not? Is it good or bad? One of the problem is the maintenance
+> burden. For example, DaveM has to prepare stable patches for 5 stable
+> kernels: 3.2, 3.4, 3.10, 3.12 and 3.14.
 
-In my opinion, device drivers should not be concerned about that really.
-The layers of code above them (bus types etc.) should, but not drivers
-themselves, because that makes it difficult to use the same driver
-for the same piece of hardware on two systems with different firmware
-interfaces.
+To be fair, he doesn't have to.  He chooses to, and it's great.
 
-Thanks!
+> - Equip Greg with a sub-maintainer?
+>
+> I found 3.4.x lacked hundreds of fixes compared to 3.2.x. It's mainly
+> because Ben has been manually backporting patches which don't apply
+> cleanly, while Greg just doesn't have the time budget. Is it possible
+> that we find a sub-maintainer to do this work?
 
+I think you've already shown exactly how we can handle that.  It just
+takes someone willing to do the work to dig in.  Greg seemed very
+pleased with the patches for 3.4 being sent to him, and I know he's
+thanked me each time I send a report of what Fedora is carrying on top
+of a stable release.  Do we need something more formal that what
+either of us have already done (or continue to do)?
 
--- 
-I speak only for myself.
-Rafael J. Wysocki, Intel Open Source Technology Center.
+> - Are there still sub-systems/maintainers not doing very good in stable stuff?
+>
+> Once I looked into "git log --no-merges v3.4.. kernel/sched/rt.c", out of
+> 22 commits, only 2 fixes have stable tag, and finally I backported 4 commits
+> to 3.4.x.
+
+This one is a problem.  I actually think your "sub-maintainer" idea
+applies more here than it does to a particular stable release.  If
+people were working through each subsystem and finding patches that
+should go back to stable, even if they aren't marked as such
+initially, then we'd be better off overall.
+
+> - Add a known_issues.txt?
+>
+> There are stable rules to what patch is acceptable, and besides a maintainer
+> may decide not send a fix for stable for some reason, or an issue is taken
+> care by no one.
+>
+> So how about add a known_issues.txt, then anyone who needs to bulid his
+> own kernel based on LTS may find it useful.
+
+One per subsystem, or one per stable kernel?  I'm not sure which you mean.
+
+> - Testing stable kernels
+>
+> The testing of stable kernels when a new version is under review seems
+> quite limited. We have Dave's Trinity and Fengguang's 0day, but they
+> are run on mainline/for-next only. Would be useful to also have them
+> run on stable kernels?
+
+Yes, but I don't think that's the main problem.  The regressions we
+see in stable releases tend to come from patches that trinity and 0day
+don't cover.  Things like backlights not working, or specific devices
+acting strangely, etc.
+
+Put another way, if trinity and 0day are running on mainline and
+linux-next already, and we still see those issues introduced into a
+stable kernel later, then trinity and 0day didn't find the original
+problem to being with.
+
+josh
