@@ -1,30 +1,32 @@
-Return-Path: <benh@kernel.crashing.org>
+Return-Path: <panto@antoniou-consulting.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id C5F46995
+	by mail.linuxfoundation.org (Postfix) with ESMTP id CC85C996
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  5 May 2014 11:31:17 +0000 (UTC)
-Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1C01B20224
+	Mon,  5 May 2014 02:50:39 +0000 (UTC)
+Received: from li42-95.members.linode.com (li42-95.members.linode.com
+	[209.123.162.95])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B1C292022C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  5 May 2014 11:31:16 +0000 (UTC)
-Message-ID: <1399289464.20388.57.camel@pasglop>
-From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-Date: Mon, 05 May 2014 21:31:04 +1000
-In-Reply-To: <1762614.9EREcPdfhF@vostro.rjw.lan>
+	Mon,  5 May 2014 02:50:38 +0000 (UTC)
+Mime-Version: 1.0 (Apple Message framework v1085)
+Content-Type: text/plain; charset=us-ascii
+From: Pantelis Antoniou <panto@antoniou-consulting.com>
+In-Reply-To: <7701777.LWanFdz802@vostro.rjw.lan>
+Date: Sun, 4 May 2014 19:44:27 -0700
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <93AA3E28-F354-42D8-B8F2-F2517493CE23@antoniou-consulting.com>
 References: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>
-	<1753987.hbb65qFWcl@vostro.rjw.lan> <1399279435.20388.36.camel@pasglop>
-	<1762614.9EREcPdfhF@vostro.rjw.lan>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"dvhart@dvhart.com" <dvhart@dvhart.com>,
+	<20140504171807.GA4418@quad.lixom.net>
+	<5366789F.4090800@roeck-us.net> <7701777.LWanFdz802@vostro.rjw.lan>
+To: Rafael J. Wysocki <rjw@rjwysocki.net>
+Cc: "dvhart@dvhart.com" <dvhart@dvhart.com>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Georgi Vlaev <georgi.vlaev@konsulko.com>,
 	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	ksummit-discuss@lists.linuxfoundation.org
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Driver model/resources, ACPI, DT,
- etc (sigh)
+	etc (sigh)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,67 +36,65 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 2014-05-05 at 13:32 +0200, Rafael J. Wysocki wrote:
-> The interpretation - yes, the translation - not necessarily.  By putting
-> the translation part into drivers we'll duplicate a lot of code used for
-> that.  In my opinion there needs to be a layer doing the translation
-> automatically.
+Hi Rafael,
 
-I'm afraid I don't understand. How can you do the translation
-automatically if you have fundamentally different representation of
-device-specific concepts ?
+On May 4, 2014, at 3:02 PM, Rafael J. Wysocki wrote:
 
-> > Also if the bindings evolve, you just created a 3rd way dependency.
-> > Instead of just having to deal with DT/ACPI binding version vs. driver
-> > version, we now have to also handle quirk versioning.
-> 
-> The bindings should not depend on the translation.  In the end the bindings
-> are what the driver will ask for.  If it asks for an integer property called
-> "fred", for example, it should get that property from the upper layer
-> regardless of the firmware interface used on that platform (if the property
-> is there, of course).
+> Hi,
+>=20
+> On Sunday, May 04, 2014 10:27:59 AM Guenter Roeck wrote:
+>> On 05/04/2014 10:18 AM, Olof Johansson wrote:
+>=20
+> [cut]
+>=20
+>>> I think it's very optimistic to assume that there will ever be a =
+common
+>>> solution for both ends of the spectrum (embedded - enterprise), but =
+we
+>>> should make sure we can stay sane and not have more solutions than =
+we need
+>>> in parallel, and that things will work together where there is =
+overlap.
+>>>=20
+>> We (Juniper) are moving towards a partial conversion from ACPI to DT, =
+pretty
+>> much just enough to let us work with DT overlays on X86. If there is =
+interest
+>> to discuss this, it might make sense to invite Pantelis Antoniou and =
+possibly
+>> Georgi Vlaev, since both are instrumental to making it work.
+>=20
+> I actually wonder how you are going to handle things like references =
+from
+> a DT overlay to ACPI device objects in the namespace (like various =
+things
+> controllers etc).
+>=20
 
-Except that the DT will have something like ibm,fred as a 32-bit cell
-and ACPI will have it named subtly differently in a different format and
-thing will not be consistent accross devices, bindings or even FW
-variants.
+At the moment we got dynamic PCI DT node creation; i.e. the PCI bus(es) =
+is probed
+and the platform's pci bios creates DT nodes; PCI nodes that already =
+defined do not
+get created from scratch, rather DT properties are appended to them.
 
-> Otherwise every driver has to know about all of the possible firmware interfaces
-> that can be used with it and may I call that suboptimal?
+It is not a whole-sale conversion (yet), but it seems to work find as a =
+target for
+DT overlays.
 
-Well as I said, it depends what we are talking about here. For well
-defined resources such as MMIO regions, interrupts, and we might
-possibly manage to classify things like GPIO, etc... in that bucket, yes
-we can most definitely find a common ground.
+All this is on vanilla x86-64 btw, with very small fixes to get booted =
+using an DT blob.
 
-However in that case it's less likely to be a "translation" from one
-representation to another than it is to be the core interpreting both
-representation and turning them into something linux specific such as
-struct resource or higher level representations of linkage between
-subsystems.
+So far we didn't have to deal with ACPI device objects; perhaps it will =
+be required
+for when we tackle pure platform devices. But TBH it doesn't seem that =
+difficult.
 
-But then there's everything else ... The various device specific
-properties which *are* going to be represented differently left right
-and center, the buggy firmwares with bad ACPI tables or bad device-tree,
-the representation for some new linkage to a subsytem that doesn't have
-stable bindings yet, etc...
+> Thanks!
+>=20
+> --=20
+> I speak only for myself.
+> Rafael J. Wysocki, Intel Open Source Technology Center.
 
-In the end, it's an evolutionary process. That stuff starts in the
-drivers. If enough drivers do the same thing for a given category of
-"properties" (in the generic meaning of the word, not specifically a
-device-tree prop), then we can move that part into the core, either in
-the form of helpers, or pre-parsing into some new type of struct
-resource or whatever else match.
+Regards
 
-It's time and experience that will tell us what works. There is only so
-much we can "design" for when what we're going to deal with is vendor
-firwmare mostly developed behind closed doors.
-
->   With two of them on
-> the table it would be workable I guess, but what if someone invents a *third*
-> firmware interface to use with device drivers?  Are we going to change all of
-> them, then?
-
-Yes. Though the odds of that happening are fairly low at this point.
-
-Ben.
+-- Pantelis
