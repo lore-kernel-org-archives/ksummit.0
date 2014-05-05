@@ -1,34 +1,33 @@
-Return-Path: <Tim.Bird@sonymobile.com>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 97089AEE
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 89C5D92F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  5 May 2014 23:45:57 +0000 (UTC)
-Received: from seldrel01.sonyericsson.com (seldrel01.sonyericsson.com
-	[212.209.106.2])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9D0361FB51
+	Tue,  6 May 2014 00:57:49 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4B0191F950
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  5 May 2014 23:45:56 +0000 (UTC)
-From: "Bird, Tim" <Tim.Bird@sonymobile.com>
-To: Dave Jones <davej@redhat.com>, Josh Triplett <josh@joshtriplett.org>
-Date: Tue, 6 May 2014 01:45:52 +0200
-Message-ID: <F5184659D418E34EA12B1903EE5EF5FDEE1B9D0108@seldmbx02.corpusers.net>
-References: <20140502164438.GA1423@jtriplet-mobl1>,
-	<20140502171103.GA725@redhat.com>
-In-Reply-To: <20140502171103.GA725@redhat.com>
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	Tue,  6 May 2014 00:57:49 +0000 (UTC)
+Date: Mon, 5 May 2014 12:06:22 -0700
+From: Mark Brown <broonie@kernel.org>
+To: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Message-ID: <20140505190622.GH22111@sirena.org.uk>
+References: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>
+	<1583732.MIn3aNNoTS@vostro.rjw.lan>
+	<20140503020242.GD22111@sirena.org.uk>
+	<3007964.pJHjDrtZps@vostro.rjw.lan>
+	<1399279528.20388.37.camel@pasglop>
 MIME-Version: 1.0
-Cc: Sarah Sharp <sarah@minilop.net>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	"al.stone@linaro.org" <al.stone@linaro.org>,
-	Julia Lawall <julia.lawall@lip6.fr>, Darren Hart <darren@dvhart.com>,
-	Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Kernel tinification: shrinking
- the kernel and avoiding size regressions
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="hAW+M2+FUO+onfmf"
+Content-Disposition: inline
+In-Reply-To: <1399279528.20388.37.camel@pasglop>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, dvhart@dvhart.com,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Driver model/resources, ACPI, DT,
+ etc (sigh)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,91 +37,51 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Friday, May 02, 2014 10:11 AM, Dave Jones wrote:
->=20
-> On Fri, May 02, 2014 at 09:44:42AM -0700, Josh Triplett wrote:
->=20
->  > Topics:
->  > - Kconfig, and avoiding excessive configurability in the pursuit of ti=
-ny
->  > - Optimizing a kernel for its exact target userspace.
->  > - Examples of shrinking the kernel
->=20
-> Something that's partially related here: Making stuff optional
-> reduces attack surface the kernel presents. We're starting to grow
-> more and more CONFIG options to disable syscalls. I'd like to hear
-> peoples reactions on introducing even more optionality in this area.
->=20
-> I first started thinking about this at LSF/MM where the subject of
-> sys_remap_file_pages came up. "What even uses this?" "hardly anything".
-> But for all the users that don't need it, there's this syscall always
-> built in that does horrible things with VM internals.  It's fortunate
-> that there hasn't been anything particularly awful beyond simple DoS
-> bugs in r_f_p.
->=20
-> Distribution kernels are in the sad position of having to always enable
-> this stuff, but at least for people building their own kernels, or
-> kernels for appliances, we could make their lives a little better by
-> not even building this stuff in.
->=20
-> I had a patch to make this particular syscall a cond_syscall, but then
-> XFS ate my homework and I haven't had chance to revisit this.
-> So, my questions are:
-> - are there other obvious syscalls we could make optional without userspa=
-ce
->   freaking out when they suddenly start getting ENOSYS ?
-> - how much configurability here is too much ?
->   r_f_p was an obvious candidate because it's.. well, nasty.  Some of the
->   more straightforward syscalls may not be such a big deal, but then we
->   have CONFIG's for kcmp and other 'simple' syscalls already..
->=20
-> thoughts?
 
-For deeply embedded, I think a good technique is to fine-tune the syscalls =
-to the exact set of programs
-that will be run.  For my size research last year (See http://elinux.org/Sy=
-stem_Size_Auto-Reduction
-and http://elinux.org/images/9/9e/Bird-Kernel-Size-Optimization-LCJ-2013.pd=
-f), I discussed
-some results from doing the following:
- - scanning the all the binaries in the file system
- - generating a list of used and unused system calls
- - adding a kernel mechanism to eliminate any unused syscalls, at compile t=
-ime
-   (using LTO, all I had to do was make the syscall unreachable, and the co=
-mpiler
-   eliminated the calls automatically.  Some of the work was removing parts=
- of Andy Kleen's LTO
-   patches which prevented unreferenced code from being optimized out.)
+--hAW+M2+FUO+onfmf
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-The syscalls were detected with a tool that scanned the program's assembly =
-code on ARM,
-and found all syscall sequences.  Binaries were statically linked for analy=
-sis.
+On Mon, May 05, 2014 at 06:45:28PM +1000, Benjamin Herrenschmidt wrote:
+> On Sun, 2014-05-04 at 14:28 +0200, Rafael J. Wysocki wrote:
 
-On a default-configured kernel, the system eliminated 161 syscalls, and sav=
-ed about 95k.
-On a minimally configured kernel, the system eliminated 120 syscalls, and s=
-aved 48K.
+> > In my opinion, device drivers should not be concerned about that
+> > really.
+> > The layers of code above them (bus types etc.) should, but not drivers
+> > themselves, because that makes it difficult to use the same driver
+> > for the same piece of hardware on two systems with different firmware
+> > interfaces.
 
-The remaining syscalls for my minimal system consisting of busybox and a we=
-b server
-was 184 syscalls.  with additional coding and refactoring of the app and bu=
-sybox, additional
-syscalls could have been eliminated.
+> Only for standardized resource types, such as mmio ranges or interrupts.
 
-Some syscalls that were unused, still ended up hanging around due to a few =
-funny references.
-With some code refactoring, some additional savings might be possible.
+> Anything else is absolutely in the domain of competence of the driver
+> and I would argue *only* in the domain of competence of the driver.
 
-Note that this system required no new kernel CONFIGs, and used macros to hi=
-de most of the
-complexity from the rest of the kernel source.
+> This is a dirty enough table, don't invite a 3rd party to it :-)
 
-I did some other automatic code elimination techniques, with varying result=
-s.  These can be seen
-in the presentation.
- -- Tim
+Right - boring and easy stuff is boring and easy but that's not all the
+world and we need to acknowledge that.
 
-P.S. I realize this technique is not suitable for general-purpose distribut=
-ions of Linux.
+--hAW+M2+FUO+onfmf
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.22 (GNU/Linux)
+
+iQIcBAEBAgAGBQJTZ+ErAAoJELSic+t+oim9CrEP/0LOFikfaA5lSACWvMB/YqRP
+wwJhb8MWVc95CRxWl22jEw036hD4xXNhXsC6jjRowzVIW7KBUQHT8CWKbpHLo7zj
+B0mhxU1BpMm1qrTYaSGvGV5oOn3MGYODNRcn7tKel81TTYQJtrpYWdC5fUPHkkAK
+1+1XTr+0RtKRr2CfdhfQJjYtzE875VL7Jno/MNhvfJU1M0Bb+qk4pjicUVW6Dj02
+OCr8RS7ysBuM3sofv6/T84cblLap0xpm+9RWLw7eYR5CqZPvsmlX/WLpjAvoZ1yh
+MGV9nZwgEnC+JsWfKFH/B7HPM/yEJMoLXf0Bp4BLzo8R39Cijm/rgI2bkXYggPvQ
+UM5DdJjT11Tkuz30NdKPPuahncI4ERjXDVRo88wDA6ZjMwbCy9xHM2dRSkJr0lt7
+5YtTK6Dhot0UXF/XDcLoCAE+jkChrNDVZhhDh2LzRb0O5ypkuH0WjLQ9UjZl+YHb
+1RrEzBuavGBToPOFKgiHub0dV304Cgk/gnG1B9CACJVen4YQ1Ne221kl1SKyQNeZ
+a+pnnWJJyoeBvhH9jeeKPHk+pjUNdNymqPn7rp7J0yGyxZ4oDNKRh1d7OHjvL0NH
+k8zc+UnZ3EptrBOZTwDZ0iB29dSEAMwG6F0HqWuCptS1bU/p2Jl1TwDapOj1QVWO
+IdYSElGpygx4xnIN0o7P
+=ptCx
+-----END PGP SIGNATURE-----
+
+--hAW+M2+FUO+onfmf--
