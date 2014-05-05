@@ -1,25 +1,39 @@
-Return-Path: <Steven.Hill@imgtec.com>
+Return-Path: <pantelis.antoniou@konsulko.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 37E7582A
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 27577AEE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 May 2014 21:33:17 +0000 (UTC)
-Received: from mailapp01.imgtec.com (unknown [195.89.28.114])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id A68EA2020F
+	Mon,  5 May 2014 23:10:30 +0000 (UTC)
+Received: from mail-pd0-f178.google.com (mail-pd0-f178.google.com
+	[209.85.192.178])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CB265200A4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 May 2014 21:33:16 +0000 (UTC)
-Received: from KLMAIL01.kl.imgtec.org (unknown [192.168.5.35])
-	by Websense Email Security Gateway with ESMTPS id 3E2FCEACEE9DF
+	Mon,  5 May 2014 23:10:28 +0000 (UTC)
+Received: by mail-pd0-f178.google.com with SMTP id r10so4838580pdi.9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 May 2014 22:33:10 +0100 (IST)
-Message-ID: <53695513.4000603@imgtec.com>
-Date: Tue, 6 May 2014 16:33:07 -0500
-From: "Steven J. Hill" <Steven.Hill@imgtec.com>
-MIME-Version: 1.0
-To: <ksummit-discuss@lists.linuxfoundation.org>
-Content-Type: text/plain; charset="windows-1252"
-Content-Transfer-Encoding: 7bit
-Subject: [Ksummit-discuss] Nomination Request for Steven Hill.
+	Mon, 05 May 2014 16:10:28 -0700 (PDT)
+Mime-Version: 1.0 (Apple Message framework v1085)
+Content-Type: text/plain; charset=us-ascii
+From: Pantelis Antoniou <pantelis.antoniou@konsulko.com>
+In-Reply-To: <536711D4.5030006@roeck-us.net>
+Date: Mon, 5 May 2014 16:05:19 -0700
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <9214AC29-C5F9-4A1A-9204-D8F1453A466C@antoniou-consulting.com>
+References: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>	<1583732.MIn3aNNoTS@vostro.rjw.lan>
+	<6728604.hICTKAEWzt@wuerfel>	<20140504111436.GC15180@arm.com>
+	<20140504171807.GA4418@quad.lixom.net>
+	<5366789F.4090800@roeck-us.net>
+	<ADDF0307-B7DE-4CCD-AA78-F973BFA2C7B3@antoniou-consulting.com>
+	<536711D4.5030006@roeck-us.net>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: "dvhart@dvhart.com" <dvhart@dvhart.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Georgi Vlaev <georgi.vlaev@konsulko.com>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Driver model/resources, ACPI, DT,
+	etc (sigh)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,20 +43,40 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-I would like to nominate myself for attendance of the Kernel Summit in
-Chicago. I worked for MIPS, which was acquired by Imagination
-Technlogies Ltd. I continue to work for IMGTEC doing Linux kernel
-development for our MIPS processor cores, upstreaming of our patches and
-being the liaison between IMGTEC and upstream kernel maintainers. My
-LinkedIn profile is at the URL below. If you do not have a LinkedIn
-account, please let me know. I listed a couple other qualifications.
-Thank you for the consideration.
 
-Steve
+On May 4, 2014, at 9:21 PM, Guenter Roeck wrote:
 
-* LinkedIn <http://www.linkedin.com/pub/steve-hill/1/925/939>
-* Did original Linux kernel module support for the MIPS architecture
-* Wrote the uClibc dynamic linker/loader for the MIPS architecture
-* Did first port of NPTL to uClibc, also for the MIPS architecture
-* Original team member for GCW Zero <http://www.gcw-zero.com/> gaming
-  handheld with MIPS core. Kickstarter page <http://goo.gl/jKQhY3>
+> Hi Pantelis,
+>=20
+> On 05/04/2014 07:52 PM, Pantelis Antoniou wrote:
+>>=20
+>> I can see that Intel makes yet another push to embedded. It remains =
+to be seen
+>> how committed they are this time. A lot of people got burned the last =
+time
+>> when Intel abandoned the market, so expect lots of skepticism this =
+time.
+>>=20
+>=20
+> <soapbox>
+>=20
+> Intel marketing is like BMW marketing ... Intel doesn't sell the CPUs =
+I would
+> buy (like affordable 6- or 8-core Haswell CPUs), just like BMW doesn't =
+sell
+> the cars I would buy (like the 50 mpg 5-series they only sell in =
+Germany).
+>=20
+> </soapbox>
+>=20
+
+It's not easy working on BMW stuff, let me tell you stories :)
+
+> Cheers,
+> Guenter
+>=20
+>=20
+
+Regards
+
+-- Pantelis
