@@ -1,47 +1,29 @@
-Return-Path: <benh@au1.ibm.com>
+Return-Path: <jason@lakedaemon.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 9EEAB9A0
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 3400FAEC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  5 May 2014 08:54:20 +0000 (UTC)
-Received: from e23smtp04.au.ibm.com (e23smtp04.au.ibm.com [202.81.31.146])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D5885201BB
+	Mon,  5 May 2014 13:20:44 +0000 (UTC)
+Received: from mho-01-ewr.mailhop.org (mho-03-ewr.mailhop.org [204.13.248.66])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A66201FB23
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  5 May 2014 08:54:18 +0000 (UTC)
-Received: from /spool/local
-	by e23smtp04.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use
-	Only! Violators will be prosecuted
-	for <ksummit-discuss@lists.linuxfoundation.org> from <benh@au1.ibm.com>;
-	Mon, 5 May 2014 18:44:09 +1000
-Received: from d23relay03.au.ibm.com (d23relay03.au.ibm.com [9.190.235.21])
-	by d23dlp02.au.ibm.com (Postfix) with ESMTP id AAB982BB0040
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  5 May 2014 18:44:05 +1000 (EST)
-Received: from d23av02.au.ibm.com (d23av02.au.ibm.com [9.190.235.138])
-	by d23relay03.au.ibm.com (8.13.8/8.13.8/NCO v10.0) with ESMTP id
-	s458hoC43473828 for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 5 May 2014 18:43:50 +1000
-Received: from d23av02.au.ibm.com (localhost [127.0.0.1])
-	by d23av02.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
-	s458i4Cg006472 for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 5 May 2014 18:44:05 +1000
-Message-ID: <1399279435.20388.36.camel@pasglop>
-From: Benjamin Herrenschmidt <benh@au1.ibm.com>
-To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-Date: Mon, 05 May 2014 18:43:55 +1000
-In-Reply-To: <1753987.hbb65qFWcl@vostro.rjw.lan>
-References: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>
-	<20140504111436.GC15180@arm.com> <20140504171807.GA4418@quad.lixom.net>
-	<1753987.hbb65qFWcl@vostro.rjw.lan>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"dvhart@dvhart.com" <dvhart@dvhart.com>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Mon,  5 May 2014 13:20:42 +0000 (UTC)
+Date: Mon, 5 May 2014 07:31:27 -0400
+From: Jason Cooper <jason@lakedaemon.net>
+To: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <20140505113127.GJ28159@titan.lakedaemon.net>
+References: <53662254.9060100@huawei.com>
+	<CA+5PVA6sCLej9hhrRtaAw8hgrM7rw_R9-rWrH=VERdHY_fXGUg@mail.gmail.com>
+	<53664E31.6030706@roeck-us.net>
+	<CA+5PVA4Apnr-V=a3g103RO2L8mRjzVzte_5GH9p0GKRpMC=4-Q@mail.gmail.com>
+	<536709BA.7070809@roeck-us.net>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <536709BA.7070809@roeck-us.net>
+Cc: Josh Boyer <jwboyer@fedoraproject.org>, lizf.kern@gmail.com,
 	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Driver model/resources, ACPI, DT,
- etc (sigh)
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -51,31 +33,39 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sun, 2014-05-04 at 23:33 +0200, Rafael J. Wysocki wrote:
-> 
-> 
-> But we have such quirks for some bus types already, like PCI and PNP.
+On Sun, May 04, 2014 at 08:47:06PM -0700, Guenter Roeck wrote:
+> This may be seen as somewhat strong definition of the term "severe",
+> but in my work environment the attitude is to never update the kernel under
+> any circumstances. Or, in other words, it is quite hostile to someone who
+> advocates following upstream kernel releases. Each new bug, as minor as it
+> may be in a practical sense, is seen as argument (or ammunition) against
+> kernel updates. Note that this specifically includes performance regressions,
+> as minor as they may be. Given that, I would love to see Fengguang's
+> performance tests run on stable releases, simply because that would give me
+> confidence (and proof) that no performance regressions were introduced.
 
-And they suck big time. They duplicate definitions from the driver,
-they get missed at grep time, they bit rot, etc...
+Along this line, I keep coming back to an idea that I really need to
+implement.  Say your shop is running v3.12.3, and you'd like to migrate
+to v3.12.7 because of a bugfix for your subsystem.
 
-There are a few cases where that's justified simply because the driver
-can be a module but the quirk needs to run early and always, but mostly
-these quirks are about working around HW bugs that would otherwise cause
-the system to misbehave even in absence of the driver.
+I imagine it would make the argument easier if you could quantify the
+changes from v3.12.3 to v3.12.7 relevant to your kernel config.  eg:
 
-For example, bad class code in bridges, BAR issues, etc...
+$ git diff v3.12.3..v3.12.7 | ./scripts/diff-filter mydefconfig
 
-Generally speaking though, quirks like that are a bad idea and in this
-case, totally unjustified since the code performing whatever translation
-is necessary (or interpretation) is entirely specific to the driver
-anyway.
+(no, diff-filter doesn't exist, yet)
 
-Also if the bindings evolve, you just created a 3rd way dependency.
-Instead of just having to deal with DT/ACPI binding version vs. driver
-version, we now have to also handle quirk versioning.
+I could also see using ./scripts/objdiff for this as well.  Anything
+that would help the engineer quantify the differences between the two
+releases so he could ask the question, "Show me *which* change you're
+uncomfortable with."
 
+That's a much better position to be in than, "I swear, the -stable
+process is legit.  You can trust a bunch of people you've never met who
+won't suffer any repercussions if our product fails."
 
-Cheers,
-Ben.
- 
+This assumes a fairly minimal config, of course.  ;-)
+
+thx,
+
+Jason.
