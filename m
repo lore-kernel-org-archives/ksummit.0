@@ -1,31 +1,31 @@
-Return-Path: <benh@kernel.crashing.org>
+Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 41A1899D
+	by mail.linuxfoundation.org (Postfix) with ESMTP id A155998F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  5 May 2014 08:47:51 +0000 (UTC)
-Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 545BF201B5
+	Mon,  5 May 2014 11:05:28 +0000 (UTC)
+Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id 724F920214
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  5 May 2014 08:47:49 +0000 (UTC)
-Message-ID: <1399279156.20388.32.camel@pasglop>
-From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: Olof Johansson <olof@lixom.net>
-Date: Mon, 05 May 2014 18:39:16 +1000
-In-Reply-To: <20140504171807.GA4418@quad.lixom.net>
+	Mon,  5 May 2014 11:05:26 +0000 (UTC)
+From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+To: Pantelis Antoniou <panto@antoniou-consulting.com>
+Date: Mon, 05 May 2014 13:22:02 +0200
+Message-ID: <7305827.ZucddAVROE@vostro.rjw.lan>
+In-Reply-To: <93AA3E28-F354-42D8-B8F2-F2517493CE23@antoniou-consulting.com>
 References: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>
-	<1583732.MIn3aNNoTS@vostro.rjw.lan> <6728604.hICTKAEWzt@wuerfel>
-	<20140504111436.GC15180@arm.com> <20140504171807.GA4418@quad.lixom.net>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+	<7701777.LWanFdz802@vostro.rjw.lan>
+	<93AA3E28-F354-42D8-B8F2-F2517493CE23@antoniou-consulting.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 Cc: "dvhart@dvhart.com" <dvhart@dvhart.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Georgi Vlaev <georgi.vlaev@konsulko.com>,
 	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Driver model/resources, ACPI, DT,
- etc (sigh)
+	etc (sigh)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,44 +35,55 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sun, 2014-05-04 at 10:18 -0700, Olof Johansson wrote:
+On Sunday, May 04, 2014 07:44:27 PM Pantelis Antoniou wrote:
+> Hi Rafael,
 > 
-> Also, even if we do a common API with different backends, there will
-> need to be some knowledge somewhere about custom bindings and what they mean,
-> how to translate them and how the different descriptions correlate.
-> I personally think we're best off putting that in the drivers, instead of
-> making some part of the driver core aware of a bunch of quirks/hooks for
-> various devices.
+> On May 4, 2014, at 3:02 PM, Rafael J. Wysocki wrote:
+> 
+> > Hi,
+> > 
+> > On Sunday, May 04, 2014 10:27:59 AM Guenter Roeck wrote:
+> >> On 05/04/2014 10:18 AM, Olof Johansson wrote:
+> > 
+> > [cut]
+> > 
+> >>> I think it's very optimistic to assume that there will ever be a common
+> >>> solution for both ends of the spectrum (embedded - enterprise), but we
+> >>> should make sure we can stay sane and not have more solutions than we need
+> >>> in parallel, and that things will work together where there is overlap.
+> >>> 
+> >> We (Juniper) are moving towards a partial conversion from ACPI to DT, pretty
+> >> much just enough to let us work with DT overlays on X86. If there is interest
+> >> to discuss this, it might make sense to invite Pantelis Antoniou and possibly
+> >> Georgi Vlaev, since both are instrumental to making it work.
+> > 
+> > I actually wonder how you are going to handle things like references from
+> > a DT overlay to ACPI device objects in the namespace (like various things
+> > controllers etc).
+> > 
+> 
+> At the moment we got dynamic PCI DT node creation; i.e. the PCI bus(es) is probed
+> and the platform's pci bios creates DT nodes; PCI nodes that already defined do not
+> get created from scratch, rather DT properties are appended to them.
 
-I tend to agree.
+Well, what you're describing is not a DT overlay on top of an otherwise ACPI-based
+system.  It is DT support for PCI.
 
-In the end, there is no silver bullet, however, it would make things easier
-of the drivers could be structured such that for most things, when they need
-a piece of information they use a single accessor to get named properties,
-and if needed, they can have a single conversion function that converts ACPI
-"stuff" into these (provided the ACPI extension for passing properties isn't
-present, or possibly for translating "keys" between the bindings etc...).
+> It is not a whole-sale conversion (yet), but it seems to work find as a target for
+> DT overlays.
+> 
+> All this is on vanilla x86-64 btw, with very small fixes to get booted using an DT blob.
+> 
+> So far we didn't have to deal with ACPI device objects; perhaps it will be required
+> for when we tackle pure platform devices. But TBH it doesn't seem that difficult.
 
-IE. A single point of translation is less messy imho than sprinkling things
-all over the driver, and we *will* need translation.
+In the context of DT-over-ACPI overlays it doesn't matter what devices you're
+considering.  The problem is the translation of phandles into ACPI device object
+pointers (paths) or the other way around.
 
-Now for standard stuff such as MMIO ranges etc... we all agree I believe to
-stick to the existing Linux struct resource & co and have the parsing happen
-at the core level, but for everything else, the trick is to see what we can
-do to make driver life easier.
+Thanks!
 
-They *will* have to deal with the dual world, we can't completely hide it,
-but we can make it less painful via good practices.
 
-The other option is to have both the DT representation and the ACPI
-representation reach the drivers and leave it to the them (the drivers) to get
-through two different functions at probe time to "translates" that into a
-"3rd" driver private one (a structure, in a way akin to the old platform data
-but of course completely local to the driver scope).
-
-I know of the drawbacks but for many drivers who already just pick these
-things up at probe time just to copy/encode them into their driver private
-structure, that's a fairly workable and simple approach.
-
-Cheers,
-Ben.
+-- 
+I speak only for myself.
+Rafael J. Wysocki, Intel Open Source Technology Center.
