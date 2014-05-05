@@ -1,28 +1,24 @@
-Return-Path: <linux@roeck-us.net>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id D46F2ACC
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 9D86FAE6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  5 May 2014 13:40:28 +0000 (UTC)
-Received: from mail.active-venture.com (mail.active-venture.com
-	[67.228.131.205])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 4EC422022F
+	Mon,  5 May 2014 13:41:38 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0D6C82022F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  5 May 2014 13:40:28 +0000 (UTC)
-Message-ID: <536794C6.8090001@roeck-us.net>
-Date: Mon, 05 May 2014 06:40:22 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-MIME-Version: 1.0
-To: Jason Cooper <jason@lakedaemon.net>
+	Mon,  5 May 2014 13:41:37 +0000 (UTC)
+Date: Mon, 5 May 2014 09:41:26 -0400
+From: Theodore Ts'o <tytso@mit.edu>
+To: Li Zefan <lizefan@huawei.com>
+Message-ID: <20140505134126.GA22287@thunk.org>
 References: <53662254.9060100@huawei.com>
 	<CA+5PVA6sCLej9hhrRtaAw8hgrM7rw_R9-rWrH=VERdHY_fXGUg@mail.gmail.com>
-	<53664E31.6030706@roeck-us.net>
-	<CA+5PVA4Apnr-V=a3g103RO2L8mRjzVzte_5GH9p0GKRpMC=4-Q@mail.gmail.com>
-	<536709BA.7070809@roeck-us.net>
-	<20140505113127.GJ28159@titan.lakedaemon.net>
-In-Reply-To: <20140505113127.GJ28159@titan.lakedaemon.net>
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+	<5366FBDB.7090705@huawei.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5366FBDB.7090705@huawei.com>
 Cc: Josh Boyer <jwboyer@fedoraproject.org>, lizf.kern@gmail.com,
 	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable issues
@@ -35,45 +31,45 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 05/05/2014 04:31 AM, Jason Cooper wrote:
-> On Sun, May 04, 2014 at 08:47:06PM -0700, Guenter Roeck wrote:
->> This may be seen as somewhat strong definition of the term "severe",
->> but in my work environment the attitude is to never update the kernel under
->> any circumstances. Or, in other words, it is quite hostile to someone who
->> advocates following upstream kernel releases. Each new bug, as minor as it
->> may be in a practical sense, is seen as argument (or ammunition) against
->> kernel updates. Note that this specifically includes performance regressions,
->> as minor as they may be. Given that, I would love to see Fengguang's
->> performance tests run on stable releases, simply because that would give me
->> confidence (and proof) that no performance regressions were introduced.
->
-> Along this line, I keep coming back to an idea that I really need to
-> implement.  Say your shop is running v3.12.3, and you'd like to migrate
-> to v3.12.7 because of a bugfix for your subsystem.
->
-> I imagine it would make the argument easier if you could quantify the
-> changes from v3.12.3 to v3.12.7 relevant to your kernel config.  eg:
->
-> $ git diff v3.12.3..v3.12.7 | ./scripts/diff-filter mydefconfig
->
-> (no, diff-filter doesn't exist, yet)
->
-> I could also see using ./scripts/objdiff for this as well.  Anything
-> that would help the engineer quantify the differences between the two
-> releases so he could ask the question, "Show me *which* change you're
-> uncomfortable with."
->
-> That's a much better position to be in than, "I swear, the -stable
-> process is legit.  You can trust a bunch of people you've never met who
-> won't suffer any repercussions if our product fails."
->
+On Mon, May 05, 2014 at 10:47:55AM +0800, Li Zefan wrote:
+> 
+> Yeah, but we can't expect other maintainers to do this. As Greg has been
+> emphasizing, we'd want to add as little burden as possible for subsystem
+> maintainers. With this in mind, focusing on fewer LTS kernels might make
+> sense?
 
-The idea is good, but it would not help in my case.
+An LTS kernel becomes important when distributions or manufacturers
+need to depend on one for their stable/enterprise distribution or for
+some product release.  The problem comes when a stable kernel such as
+3.10 gets declared, but some feature which is badly needed doesn't
+make it into 3.11, say, or at the time when 3.10 gets declared, some
+internal team had already decided to use 3.11.
 
-One of the arguments is that only patches which are relevant and can
-be proven to exist in the build/image should be applied. Therefore,
-such a script could and would be used as argument to only apply such
-patches. This would leave me with a baseline image which wasn't tested
-by anyone and would deviate more and more from the stable release.
+So what might help is if companies or distributions who need a LTS
+kernel were willing to disclose that fact ahead of time, and see if
+they can find like-minded associates who also might need a LTS kernel
+around about the same time.  Obviously if a company is willing to
+dedicate resources to maintaining the LTS kernel they should have a
+bit more say about which LTS kernel they would be willing to support.
 
-Guenter
+I am aware of companies or distributions which are using 3.10, 3.11,
+and 3.12 (yes, all three!) for different long-term product/production
+kernels.  The company that used 3.11 didn't talk to anyone externally
+before selecting 3.11, and so it's only right that this company live
+with the consequences of that particular engineering decision.  But
+yeah, with a bit of communication, I suspect it could have resulted in
+a bit less work all around.
+
+The challenge is that companies generally need to be able to make that
+decision at least 3-6 months ahead of time for planning purposes, and
+this requires that companies be willing to actually communicate their
+stablization plans externally ahead of time.  Which, unfortuantely,
+may or may not always be practical.
+
+And of course, depending on how many patches get integrated into said
+"enterprise" kernel, it might end up being very far from the official
+upstream stable kernel, so it might or might not matter in any case.
+
+Cheers,
+
+					- Ted
