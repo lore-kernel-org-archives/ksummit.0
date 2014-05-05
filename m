@@ -1,34 +1,47 @@
-Return-Path: <panto@antoniou-consulting.com>
+Return-Path: <benh@au1.ibm.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 3AE27995
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 9EEAB9A0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  5 May 2014 02:53:01 +0000 (UTC)
-Received: from li42-95.members.linode.com (li42-95.members.linode.com
-	[209.123.162.95])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9A29B2024F
+	Mon,  5 May 2014 08:54:20 +0000 (UTC)
+Received: from e23smtp04.au.ibm.com (e23smtp04.au.ibm.com [202.81.31.146])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D5885201BB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  5 May 2014 02:53:00 +0000 (UTC)
-Mime-Version: 1.0 (Apple Message framework v1085)
-Content-Type: text/plain; charset=us-ascii
-From: Pantelis Antoniou <panto@antoniou-consulting.com>
-In-Reply-To: <5366789F.4090800@roeck-us.net>
-Date: Sun, 4 May 2014 19:52:53 -0700
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <ADDF0307-B7DE-4CCD-AA78-F973BFA2C7B3@antoniou-consulting.com>
-References: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>	<1583732.MIn3aNNoTS@vostro.rjw.lan>
-	<6728604.hICTKAEWzt@wuerfel>	<20140504111436.GC15180@arm.com>
-	<20140504171807.GA4418@quad.lixom.net>
-	<5366789F.4090800@roeck-us.net>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: "dvhart@dvhart.com" <dvhart@dvhart.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Georgi Vlaev <georgi.vlaev@konsulko.com>,
+	Mon,  5 May 2014 08:54:18 +0000 (UTC)
+Received: from /spool/local
+	by e23smtp04.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use
+	Only! Violators will be prosecuted
+	for <ksummit-discuss@lists.linuxfoundation.org> from <benh@au1.ibm.com>;
+	Mon, 5 May 2014 18:44:09 +1000
+Received: from d23relay03.au.ibm.com (d23relay03.au.ibm.com [9.190.235.21])
+	by d23dlp02.au.ibm.com (Postfix) with ESMTP id AAB982BB0040
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon,  5 May 2014 18:44:05 +1000 (EST)
+Received: from d23av02.au.ibm.com (d23av02.au.ibm.com [9.190.235.138])
+	by d23relay03.au.ibm.com (8.13.8/8.13.8/NCO v10.0) with ESMTP id
+	s458hoC43473828 for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 5 May 2014 18:43:50 +1000
+Received: from d23av02.au.ibm.com (localhost [127.0.0.1])
+	by d23av02.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+	s458i4Cg006472 for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 5 May 2014 18:44:05 +1000
+Message-ID: <1399279435.20388.36.camel@pasglop>
+From: Benjamin Herrenschmidt <benh@au1.ibm.com>
+To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+Date: Mon, 05 May 2014 18:43:55 +1000
+In-Reply-To: <1753987.hbb65qFWcl@vostro.rjw.lan>
+References: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>
+	<20140504111436.GC15180@arm.com> <20140504171807.GA4418@quad.lixom.net>
+	<1753987.hbb65qFWcl@vostro.rjw.lan>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"dvhart@dvhart.com" <dvhart@dvhart.com>,
 	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Driver model/resources, ACPI, DT,
-	etc (sigh)
+ etc (sigh)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,160 +51,31 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Guenter,
+On Sun, 2014-05-04 at 23:33 +0200, Rafael J. Wysocki wrote:
+> 
+> 
+> But we have such quirks for some bus types already, like PCI and PNP.
 
-Replies inline.
+And they suck big time. They duplicate definitions from the driver,
+they get missed at grep time, they bit rot, etc...
 
-On May 4, 2014, at 10:27 AM, Guenter Roeck wrote:
+There are a few cases where that's justified simply because the driver
+can be a module but the quirk needs to run early and always, but mostly
+these quirks are about working around HW bugs that would otherwise cause
+the system to misbehave even in absence of the driver.
 
-> On 05/04/2014 10:18 AM, Olof Johansson wrote:
->> Hi,
->>=20
->> [BTW, I forgot to mention that BenH of course would be one person we =
-need
->> involved in all this. Adding him to the cc list here, but I know he's =
-seen the
->> thread already :)]
->>=20
->> On Sun, May 04, 2014 at 12:14:36PM +0100, Catalin Marinas wrote:
->>> On Sat, May 03, 2014 at 04:14:51PM +0100, Arnd Bergmann wrote:
->>>> On Saturday 03 May 2014 02:05:21 Rafael J. Wysocki wrote:
->>>>> On Friday, May 02, 2014 02:42:07 PM Olof Johansson wrote:
->>>>>> * Converting either of them to use platform device model
->>>>>> (platform_data) to register drivers, and leave them unaware of =
-either
->>>>>> hardware description
->>>>>> * [... I'm likely missing something here as well]
->>>>=20
->>>> Olof, funny you missed the proposal you made yourself:
->>>>=20
->>>>  * convert ACPI data into DT format at boot time
->>>=20
->>> I thought this was discussed at length and agreed it's not a way
->>> forward, given the differences between ACPI and DT, especially on =
-the
->>> AML feature which DT does not have (making one-off boot-time =
-conversion
->>> not feasible).
->>=20
->> I'm explicitly choosing to not discuss the ARM64 situation here =
-myself,
->> I am more interested in solving the issues around Intel's forage into
->> embedded.
->>=20
->> ACPI on ARM64/SBSA is in many ways a different problem, and one that
->> I don't know what there is to talk about, to be honest. Mostly =
-because
->> we're still talking hypotheticals and not-yet-published docs, and all
->> vendors are still under deep NDA on product plans and what they're
->> planning on doing. It means we're playing games of telephone right =
-now
->> and it's better to just wait until we have something concrete to =
-center
->> the discussions around.
->>=20
->> Intel, on the other hand, are already shipping this hardware, and =
-have
->> a platforms to do the work on (Minnowboard and Galieo, for example).
->>=20
->> So, to address Arnd's original question:
->>=20
->> Yes, it could make more sense to translate the data to a common
->> format and use the existing accessors for that data format, instead
->> of reinventing the accessors and still needing to represent the data
->> some way. I think it depends on how some of the other things develop =
---
->> I don't know enough about what Darren's current approach is, for =
-example,
->> to tell if it would be easier to do it that way.
->>=20
->> Also, even if we do a common API with different backends, there will
->> need to be some knowledge somewhere about custom bindings and what =
-they mean,
->> how to translate them and how the different descriptions correlate.
->> I personally think we're best off putting that in the drivers, =
-instead of
->> making some part of the driver core aware of a bunch of quirks/hooks =
-for
->> various devices.
->>=20
+For example, bad class code in bridges, BAR issues, etc...
 
-As far as I can tell, if you forgo ACPI's AML execution hooks a =
-conversion of the
-ACPI tables to DT is completely doable. The standard PC platform is not =
-that diverse
-really, especially compared with the wild differences between ARM =
-platforms.
+Generally speaking though, quirks like that are a bad idea and in this
+case, totally unjustified since the code performing whatever translation
+is necessary (or interpretation) is entirely specific to the driver
+anyway.
 
->>>>> For what it's worth, we are working on extending ACPI to allow =
-DT-style
->>>>> information to be included into ACPI tables.
->>>>=20
->>>> I think it's important to understand that we have people coming =
-from
->>>> two sides here: Intel x86 embedded systems with ACPI wanting to the
->>>> same things we do on embbeded PowerPC and ARM systems with DT, and =
-ARM64
->>>> servers trying to do the same things that x86 servers do by moving
->>>> to ACPI.
->>>>=20
->>>> These two have very different requirements and while there is some
->>>> overlap, I suspect we will end up with different solutions as well.
->>>=20
->>> I think the middle ground is that for x86 to get into embedded and =
-ARM64
->>> into servers, the ACPI spec is not enough as hardware description.
->>> Traditionally, the x86 hardware is rather standard and ACPI didn't =
-need
->>> to describe so many things. On ARM, OTOH, we have lots of variation =
-and
->>> DT provides such flexibility. Even if ARM is pushing for more =
-standard
->>> server hardware like SBSA, it's still relaxed enough not to look =
-like a
->>> PC platform. So even if the aims are different, the x86 efforts on =
-more
->>> hw description in ACPI help both Intel and ARM. Given the =
-collaboration
->>> between the two on ACPI forums already, I think there are good =
-chances
->>> of ending up with a common solution for Linux. Of course, x86 may =
-decide
->>> to go the DT route all the way (and ARM in the other direction ;)).
->>=20
->> I think it's very optimistic to assume that there will ever be a =
-common
->> solution for both ends of the spectrum (embedded - enterprise), but =
-we
->> should make sure we can stay sane and not have more solutions than we =
-need
->> in parallel, and that things will work together where there is =
-overlap.
->>=20
-> We (Juniper) are moving towards a partial conversion from ACPI to DT, =
-pretty
-> much just enough to let us work with DT overlays on X86. If there is =
-interest
-> to discuss this, it might make sense to invite Pantelis Antoniou and =
-possibly
-> Georgi Vlaev, since both are instrumental to making it work.
->=20
-
-I can see that Intel makes yet another push to embedded. It remains to =
-be seen
-how committed they are this time. A lot of people got burned the last =
-time
-when Intel abandoned the market, so expect lots of skepticism this time.=20=
+Also if the bindings evolve, you just created a 3rd way dependency.
+Instead of just having to deal with DT/ACPI binding version vs. driver
+version, we now have to also handle quirk versioning.
 
 
-Due to the crazy variety in embedded applications any rigid solution is =
-going to
-have a hard time/lead to hacks that for ever shall be maintained out of =
-mainline.
-=20
-> Guenter
->=20
-
-Regards
-
--- Pantelis=
+Cheers,
+Ben.
+ 
