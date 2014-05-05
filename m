@@ -1,31 +1,30 @@
-Return-Path: <rjw@rjwysocki.net>
+Return-Path: <jwboyer@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id DE5F596D
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 95455918
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  4 May 2014 21:45:59 +0000 (UTC)
-Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id 085E32033B
+	Mon,  5 May 2014 00:37:58 +0000 (UTC)
+Received: from mail-oa0-f51.google.com (mail-oa0-f51.google.com
+	[209.85.219.51])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2B3662019C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  4 May 2014 21:45:58 +0000 (UTC)
-From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Mon, 05 May 2014 00:02:35 +0200
-Message-ID: <7701777.LWanFdz802@vostro.rjw.lan>
-In-Reply-To: <5366789F.4090800@roeck-us.net>
-References: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>
-	<20140504171807.GA4418@quad.lixom.net>
-	<5366789F.4090800@roeck-us.net>
+	Mon,  5 May 2014 00:37:58 +0000 (UTC)
+Received: by mail-oa0-f51.google.com with SMTP id n16so737450oag.24
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sun, 04 May 2014 17:37:57 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
-Cc: "dvhart@dvhart.com" <dvhart@dvhart.com>,
-	Georgi Vlaev <georgi.vlaev@konsulko.com>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Pantelis Antoniou <panto@antoniou-consulting.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Driver model/resources, ACPI, DT,
-	etc (sigh)
+Sender: jwboyer@gmail.com
+In-Reply-To: <53664E31.6030706@roeck-us.net>
+References: <53662254.9060100@huawei.com>
+	<CA+5PVA6sCLej9hhrRtaAw8hgrM7rw_R9-rWrH=VERdHY_fXGUg@mail.gmail.com>
+	<53664E31.6030706@roeck-us.net>
+Date: Sun, 4 May 2014 20:37:57 -0400
+Message-ID: <CA+5PVA4Apnr-V=a3g103RO2L8mRjzVzte_5GH9p0GKRpMC=4-Q@mail.gmail.com>
+From: Josh Boyer <jwboyer@fedoraproject.org>
+To: Guenter Roeck <linux@roeck-us.net>
+Content-Type: text/plain; charset=ISO-8859-1
+Cc: lizf.kern@gmail.com, ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,29 +34,35 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi,
+On Sun, May 4, 2014 at 10:26 AM, Guenter Roeck <linux@roeck-us.net> wrote:
+> On 05/04/2014 05:54 AM, Josh Boyer wrote:>
+>>> - Testing stable kernels
+>>>
+>>> The testing of stable kernels when a new version is under review seems
+>>> quite limited. We have Dave's Trinity and Fengguang's 0day, but they
+>>> are run on mainline/for-next only. Would be useful to also have them
+>>> run on stable kernels?
+>>
+>>
+>> Yes, but I don't think that's the main problem.  The regressions we
+>> see in stable releases tend to come from patches that trinity and 0day
+>> don't cover.  Things like backlights not working, or specific devices
+>> acting strangely, etc.
+>>
+>> Put another way, if trinity and 0day are running on mainline and
+>> linux-next already, and we still see those issues introduced into a
+>> stable kernel later, then trinity and 0day didn't find the original
+>> problem to being with.
+>>
+>
+> Not necessarily. Sometimes bugs are introduced by missing patches or
+> bad/incoomplete backports. Sure, I catch the compile errors, and others
+> run basic real-system testing, at least with x86, but we could use more
+> run-time testing, especially on non-x86 architectures.
 
-On Sunday, May 04, 2014 10:27:59 AM Guenter Roeck wrote:
-> On 05/04/2014 10:18 AM, Olof Johansson wrote:
+Right, I agreed we should run more testing on stable.  I just don't
+think it will result in a massive amount of issues found.  Trinity and
+0day aren't going to have the same impact on stable kernels that they
+do upstream.  Simply setting expectations.
 
-[cut]
-
-> > I think it's very optimistic to assume that there will ever be a common
-> > solution for both ends of the spectrum (embedded - enterprise), but we
-> > should make sure we can stay sane and not have more solutions than we need
-> > in parallel, and that things will work together where there is overlap.
-> >
-> We (Juniper) are moving towards a partial conversion from ACPI to DT, pretty
-> much just enough to let us work with DT overlays on X86. If there is interest
-> to discuss this, it might make sense to invite Pantelis Antoniou and possibly
-> Georgi Vlaev, since both are instrumental to making it work.
-
-I actually wonder how you are going to handle things like references from
-a DT overlay to ACPI device objects in the namespace (like various things
-controllers etc).
-
-Thanks!
-
--- 
-I speak only for myself.
-Rafael J. Wysocki, Intel Open Source Technology Center.
+josh
