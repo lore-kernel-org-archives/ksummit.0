@@ -1,39 +1,27 @@
-Return-Path: <pantelis.antoniou@konsulko.com>
+Return-Path: <peterz@infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 27577AEE
+	by mail.linuxfoundation.org (Postfix) with ESMTP id A76868AF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  5 May 2014 23:10:30 +0000 (UTC)
-Received: from mail-pd0-f178.google.com (mail-pd0-f178.google.com
-	[209.85.192.178])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CB265200A4
+	Tue,  6 May 2014 14:25:47 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2C3861FC53
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  5 May 2014 23:10:28 +0000 (UTC)
-Received: by mail-pd0-f178.google.com with SMTP id r10so4838580pdi.9
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 05 May 2014 16:10:28 -0700 (PDT)
-Mime-Version: 1.0 (Apple Message framework v1085)
-Content-Type: text/plain; charset=us-ascii
-From: Pantelis Antoniou <pantelis.antoniou@konsulko.com>
-In-Reply-To: <536711D4.5030006@roeck-us.net>
-Date: Mon, 5 May 2014 16:05:19 -0700
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <9214AC29-C5F9-4A1A-9204-D8F1453A466C@antoniou-consulting.com>
-References: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>	<1583732.MIn3aNNoTS@vostro.rjw.lan>
-	<6728604.hICTKAEWzt@wuerfel>	<20140504111436.GC15180@arm.com>
-	<20140504171807.GA4418@quad.lixom.net>
-	<5366789F.4090800@roeck-us.net>
-	<ADDF0307-B7DE-4CCD-AA78-F973BFA2C7B3@antoniou-consulting.com>
-	<536711D4.5030006@roeck-us.net>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: "dvhart@dvhart.com" <dvhart@dvhart.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Georgi Vlaev <georgi.vlaev@konsulko.com>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Driver model/resources, ACPI, DT,
-	etc (sigh)
+	Tue,  6 May 2014 14:25:47 +0000 (UTC)
+Date: Tue, 6 May 2014 15:49:09 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+Message-ID: <20140506134909.GM11096@twins.programming.kicks-ass.net>
+References: <1998761.B2k0A5OtQR@vostro.rjw.lan>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="2F7AbV2suvT8PGoH"
+Content-Disposition: inline
+In-Reply-To: <1998761.B2k0A5OtQR@vostro.rjw.lan>
+Cc: Len Brown <len.brown@intel.com>, ksummit-discuss@lists.linuxfoundation.org,
+	Daniel Lezcano <daniel.lezcano@linaro.org>, Ingo Molnar <mingo@kernel.org>
+Subject: Re: [Ksummit-discuss] [TECH(CORE?) TOPIC] Energy conservation bias
+	interfaces
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -44,39 +32,84 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
-On May 4, 2014, at 9:21 PM, Guenter Roeck wrote:
+--2F7AbV2suvT8PGoH
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> Hi Pantelis,
+On Tue, May 06, 2014 at 02:54:03PM +0200, Rafael J. Wysocki wrote:
+> Hi All,
 >=20
-> On 05/04/2014 07:52 PM, Pantelis Antoniou wrote:
->>=20
->> I can see that Intel makes yet another push to embedded. It remains =
-to be seen
->> how committed they are this time. A lot of people got burned the last =
-time
->> when Intel abandoned the market, so expect lots of skepticism this =
-time.
->>=20
+> During a recent discussion on linux-pm/LKML regarding the integration of =
+the
+> scheduler with cpuidle (http://marc.info/?t=3D139834240600003&r=3D1&w=3D4=
+) it became
+> apparent that the kernel might benefit from adding interfaces to let it k=
+now
+> how far it should go with saving energy, possibly at the expense of perfo=
+rmance.
 >=20
-> <soapbox>
+> First of all, it would be good to have a place where subsystems and device
+> drivers can go and check what the current "energy conservation bias" is in
+> case they need to make a decision between delivering more performance and
+> using less energy.  Second, it would be good to provide user space with
+> a means to tell the kernel whether it should care more about performance =
+or
+> energy.  Finally, it would be good to be able to adjust the overall "ener=
+gy
+> conservation bias" automatically in response to certain "power" events su=
+ch
+> as "battery is low/critical" etc.
 >=20
-> Intel marketing is like BMW marketing ... Intel doesn't sell the CPUs =
-I would
-> buy (like affordable 6- or 8-core Haswell CPUs), just like BMW doesn't =
-sell
-> the cars I would buy (like the 50 mpg 5-series they only sell in =
-Germany).
->=20
-> </soapbox>
->=20
+> It doesn't seem to be clear currently what level and scope of such interf=
+aces
+> is appropriate and where to place them.  Would a global knob be useful?  =
+Or
+> should they be per-subsystem, per-driver, per-task, per-cgroup etc?
 
-It's not easy working on BMW stuff, let me tell you stories :)
+per-task and per-cgroup doesn't seem to make sense to me; its the
+hardware that consumes energy.
 
-> Cheers,
-> Guenter
->=20
->=20
+per-subsystem sounds right to me; I don't care which particular instance
+of graphics cards I have, I want whichever one(s) I have to obey.
 
-Regards
+global doesn't make sense, like stated earlier I absolutely detest
+automagic backlight dimming, whereas I don't particularly care about
+compute speed at all.
 
--- Pantelis
+So while I might want a energy conserving bias for say the CPU and GPU,
+I most definitely don't want that to dim the screen.
+
+> It also is not particularly clear what representation of "energy conserva=
+tion
+> bias" would be most useful.  Should that be a number or a set of well-def=
+ined
+> discrete levels that can be given names (like "max performance", "high
+> prerformance", "balanced" etc.)?  If a number, then what units to use and
+> how many different values to take into account?
+
+Yeah, fun.. we're not even sure how to make it do the 0,1 variants, and
+now you want a sliding scale to make it do in-betweens ;-)
+
+--2F7AbV2suvT8PGoH
+Content-Type: application/pgp-signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.12 (GNU/Linux)
+
+iQIcBAEBAgAGBQJTaOhVAAoJEHZH4aRLwOS6iq0P/ihsPqIH6WqP3dDLgVYM6rRQ
+dc6frI+jiFZJpOGV6BwZ1FWOfPYXlah9tNa/fnC5eivVDN4aHZ2l+UspatftFNFq
+htCQU4Sh4m46+BiH9fdsbzTDa0uJ6fmgPl+ZvttNrBoOtEraP564ZZvL2ecP2GU+
+oXOFHbPgdC8xIQscT9RoD1kLNDYnUKax3G8xkOGJn+Ha0TVbtLiCG9i7teCOffA8
+M0n4bY5zpqeHtybHDkn1GVaui1FmBwQvrD4i3RK/nlvNN+73ZNc8AOOLKPtyOlBI
+U9zdFAltaVO+1L16lblcVpLICj1QefxkuUdPaokjGNlvFFy/p90RjyRB5QSKtuIe
+iNpp0X2PkM55g5fAB2jmql/2d4wuyFPl4RbGiJHdiO2+JoIy0qc+CTzyGxlXenqx
+F1V/hTPSBFF3IZfvOYeCg3oZ9pUBwl6uW0Vx18TPMsRFTDiRu+oe4e9sgzQXfOVL
++cFGq4viAnPu9C0PN86/A4mLRN/cBhcPWiOTlDD8ZeDKJVj93v9QTKuW2T5I1sSy
+a9t0NzheikDPQ2UVIUzcUfr2YwvOcXs+V3PBLL5a+dSuovbYQ+qQNwfFaukRccNB
+1Roix6BpWYac8JqAzMb8T4qCYBJhcNtbwvm1VCMsUGQ8tWgwQ9ltSHt2+4F+Isef
+qR+7nGgbcY8ULTc9X1xE
+=vviI
+-----END PGP SIGNATURE-----
+
+--2F7AbV2suvT8PGoH--
