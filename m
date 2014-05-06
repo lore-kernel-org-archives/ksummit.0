@@ -1,38 +1,49 @@
-Return-Path: <josh@joshtriplett.org>
+Return-Path: <zohar@linux.vnet.ibm.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 61B7B82A
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 35BAE82A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 May 2014 17:18:14 +0000 (UTC)
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
-	[217.70.183.195])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6C1C6201A9
+	Tue,  6 May 2014 17:22:18 +0000 (UTC)
+Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 41738201A2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 May 2014 17:18:13 +0000 (UTC)
-Date: Tue, 6 May 2014 10:18:07 -0700
-From: josh@joshtriplett.org
-To: Andy Lutomirski <luto@amacapital.net>
-Message-ID: <20140506171807.GA20776@cloud>
-References: <5363E8E1.9030806@zytor.com>
-	<CAKgNAkjueYU9fyiZ46OZG9unOsGTkkJJF5ndVsR6KbLr=OFRAQ@mail.gmail.com>
-	<20140502193314.GA24108@thunk.org>
-	<20140502194935.GA9766@redhat.com>
-	<20140502204141.GB24108@thunk.org>
-	<20140502210123.GA13536@redhat.com>
-	<CA+5PVA6oTQy5j1XyQG_h6Vk1kW8UrA_j61ouPfm_kvZMQ9ZqEA@mail.gmail.com>
-	<1399066024.2202.72.camel@dabdike>
-	<CA+5PVA7VQzdMRuMARmAR=c6MnDg-bFg16Hgk=bCNzKmokRUAPQ@mail.gmail.com>
-	<CALCETrVZJ5swLixykH_qn4K7GDDRqKkXtPeJqdM1LXToRW+uyA@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CALCETrVZJ5swLixykH_qn4K7GDDRqKkXtPeJqdM1LXToRW+uyA@mail.gmail.com>
-Cc: Josh Boyer <jwboyer@fedoraproject.org>, Sarah Sharp <sarah@minilop.net>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	Greg KH <gregkh@linuxfoundation.org>, Julia Lawall <julia.lawall@lip6.fr>,
-	Darren Hart <darren@dvhart.com>, Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Kernel tinification: shrinking
- the kernel and avoiding size regressions
+	Tue,  6 May 2014 17:22:17 +0000 (UTC)
+Received: from /spool/local
+	by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+	Violators will be prosecuted
+	for <ksummit-discuss@lists.linuxfoundation.org> from
+	<zohar@linux.vnet.ibm.com>; Tue, 6 May 2014 11:12:13 -0600
+Received: from b03cxnp08025.gho.boulder.ibm.com
+	(b03cxnp08025.gho.boulder.ibm.com [9.17.130.17])
+	by d03dlp02.boulder.ibm.com (Postfix) with ESMTP id 2522B3E40040
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue,  6 May 2014 11:12:11 -0600 (MDT)
+Received: from d03av02.boulder.ibm.com (d03av02.boulder.ibm.com [9.17.195.168])
+	by b03cxnp08025.gho.boulder.ibm.com (8.13.8/8.13.8/NCO v10.0) with
+	ESMTP id s46HC3nt56426574
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 6 May 2014 19:12:11 +0200
+Received: from d03av02.boulder.ibm.com (localhost [127.0.0.1])
+	by d03av02.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP
+	id s46HBcSG013780 for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 6 May 2014 11:11:38 -0600
+Message-ID: <1399396272.9468.15.camel@dhcp-9-2-203-236.watson.ibm.com>
+From: Mimi Zohar <zohar@linux.vnet.ibm.com>
+To: Kees Cook <keescook@chromium.org>
+Date: Tue, 06 May 2014 13:11:12 -0400
+In-Reply-To: <CAGXu5jLpd4NUm5eOEmcbkHc1wNf+=Cr3vQYu5Zv_4Ho046fP2g@mail.gmail.com>
+References: <alpine.LNX.2.00.1405022123320.29834@pobox.suse.cz>
+	<CAGXu5j+oo0iga2AwyeH0OiW=LLWMyeDUDry7HpNrfv=O+bZd_Q@mail.gmail.com>
+	<alpine.LNX.2.00.1405060901460.3969@pobox.suse.cz>
+	<CAGXu5jKAcDrjUtrEdPjVY3dqYhX=UrZctH1-7=qRnGqaRcVcPw@mail.gmail.com>
+	<1399382930.2237.16.camel@dabdike.int.hansenpartnership.com>
+	<CAGXu5jLpd4NUm5eOEmcbkHc1wNf+=Cr3vQYu5Zv_4Ho046fP2g@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] [TECH TOPIC] live kernel patching
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -42,62 +53,74 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, May 02, 2014 at 03:35:28PM -0700, Andy Lutomirski wrote:
-> On Fri, May 2, 2014 at 2:39 PM, Josh Boyer <jwboyer@fedoraproject.org> wrote:
-> > On Fri, May 2, 2014 at 5:27 PM, James Bottomley
-> > <James.Bottomley@hansenpartnership.com> wrote:
-> >> On Fri, 2014-05-02 at 17:19 -0400, Josh Boyer wrote:
-> >>> On Fri, May 2, 2014 at 5:01 PM, Dave Jones <davej@redhat.com> wrote:
-> >>> > On Fri, May 02, 2014 at 04:41:41PM -0400, Theodore Ts'o wrote:
-> >>> >
-> >>> >  > And I think we can also further break this down into the classes of
-> >>> >  > code which require root privs (i.e., like kexec), and those which can
-> >>> >  > be used by any userid.
-> >>> >
-> >>> > In the brave new world of secure boot, we kind of have to care about
-> >>> > even the root cases now too [*], but I agree in the general case.
-> >>>
-> >>> Speaking of that... is it worth my time to propose a "What to do about
-> >>> the secure_modules/trusted_kernel/whatever patch set that distros are
-> >>> carrying to support Secure Boot?  I thought we had agreement and a
-> >>> path forward at LPC last year, but things seem to have gotten derailed
-> >>> again.
+On Tue, 2014-05-06 at 06:41 -0700, Kees Cook wrote: 
+> On Tue, May 6, 2014 at 6:28 AM, James Bottomley
+> <James.Bottomley@hansenpartnership.com> wrote:
+> > On Tue, 2014-05-06 at 06:18 -0700, Kees Cook wrote:
+> >> On Tue, May 6, 2014 at 12:05 AM, Jiri Kosina <jkosina@suse.cz> wrote:
+> >> > On Mon, 5 May 2014, Kees Cook wrote:
+> >> >
+> >> >> I'm very interested in this, especially as it may relate to security
+> >> >> exploit mitigation work, both in the sense of being able to arbitrarily
+> >> >> patch the kernel against flaws, and to defend against attackers being
+> >> >> able to ... er ... arbitrarily patch the kernel... :)
+> >> >
+> >> > :) Well, for performing the patching, the attacker would either have to be
+> >> > able to modprobe module (kpatch, kgraft, ksplice) or kexec to a new kernel
+> >> > (criu-based solution). In either case, the system would be owned anyway
+> >> > already, independently on any live patching mechanism.
 > >>
-> >> Would you believe we're just discussing with the distros how we might
-> >> re-engineer the Linux secure boot process.  Unfortunately the details
+> >> Right -- this is the current limitation with this kind of thing. I'd
+> >> like to have both arbitrarily module loading blocked and the ability
+> >> to load generated modules at a later time. I'm hoping there can be
+> >> some discussion around providing a verification process for the newly
+> >> created modules (e.g. signing the module on a separate machine that
+> >> has private key material, etc).
 > >
-> > I would believe it.
-> >
-> >> depend on a UEFI forum proposal that are UEFI confidential at this time,
-> >> but you can probably pick them up from Peter Jones, since you're a Red
-> >> Hat employee.  One of the side effects of this, if it happens, will be
-> >
-> > OK.
-> >
-> >> to separate Linux secure boot policy from Microsoft's binary signing
-> >> requirements which might take some of the heat out of the arguments
-> >> about which parts of the patch are to please microsoft and refocus the
-> >> debate towards how we make better use of secure boot.  I'll try and
-> >> ensure that either the proposals are public by KS or that we have
-> >> permission to share the details.
-> >
-> > The objectionable parts having to do with signing aren't even in the
-> > patchset Matthew has posted.  That's the initial set he tried to get
-> > pulled in and failed.  If the proposal drastically changes that
-> > approach I'd be surprised (maybe pleasantly).
-> 
-> FWIW, I really don't like the approach where we say that the kernel
-> must be inviolate but that user code can do whatever it likes as long
-> as the kernel isn't compromised.  This may be needed to comply with
-> current MS/UEFI policy, but I think it largely misses the point wrt
-> actual security.
-> 
-> If the policy can change, then that might be a huge win.
+> > This really belongs to the Secure Boot discussion not the live kernel
+> > patching one ...
 
-We shouldn't give up on securing userspace, either; protecting the
-kernel is necessary but not sufficient.  But I do think it's worthwhile
-to enforce "root != kernel", quite apart from any "secure boot"
-requirements.  That's what Matthew's patches primarily serve to do: make
-root not kernel-equivalent.
+Anything that is added to the linux kernel needs to be measured and
+appraised, before being applied.  Making sure there is a hook that does
+this for live kernel patching is important. 
 
-- Josh Triplett
+> > As you know, the problem has always been third party modules (what you
+> > call "generated modules at a later time").  It's not really technical,
+> > it's political: how do you arrive at the trusted key public key?  The
+> > distros didn't want to be in the business of signing modules (or keys).
+> > The Red Hat kernel generation process even destroys the in-kernel key,
+> > so it can't be used to sign them (although a validated RH key with trust
+> > rooted somewhere in the secure boot system could).  We've seen a lot of
+> > "interesting" suggestions in this regard, like packaging the module up
+> > into a windows like binary and getting Microsoft to sign it.  At the end
+> > of the day, I think we need a gpg like trust model: the distros all
+> > assign public trust to vendor keys and the administrator has to decide
+> > whether they want to install that vendor key based on the computed trust
+> > from all the distros (so no signing, just assignment of trust).
+
+We're currently working on adding file signatures to packages (eg. rpm,
+deb).  Assuming packages come signed, we would only need to load the
+associated public key on a trusted _ima keyring (trusted _ima keyring
+needs to be upstreamed).  The system owner would decide which 3rd public
+keys they want to trust.  IMA-appraisal would enforce file integrity.
+
+> I'd like to be careful to avoid UEFI-specific thinking when dealing
+> with this. Module verification can also be done without signatures
+> (e.g. using the LSM to make sure they load from a read-only device).
+> Extending this so that a device with a known-good kernel environment
+> (be it UEFI Secure Boot, Chrome OS verified mode, or booting from a
+> CD-ROM) can extend itself with generated modules that the system owner
+> trusts in some additional way. (This is likely just adding a key for
+> module signing, but there's more to discuss: I don't want to have to
+> have ALL modules signed, for example, if I can already trust the
+> location where kernel-build-time modules are being loaded from, etc.)
+
+IMA-apppraisal verifies file integrity based on policy.  You could
+prevent files being appraised based on fsuuid.
+
+dont_appraise func=BPRM_CHECK fsuuid=38b7a203-6763-4563-b1f8-4c1f557dc54f
+appraise func=BPRM_CHECK fowner=0 appraise_type=imasig
+
+thanks,
+
+Mimi
