@@ -1,31 +1,26 @@
-Return-Path: <luto@amacapital.net>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 3E3F9979
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 242F09A0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 May 2014 20:13:29 +0000 (UTC)
-Received: from mail-vc0-f172.google.com (mail-vc0-f172.google.com
-	[209.85.220.172])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9445F2022C
+	Tue,  6 May 2014 20:20:04 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BE9EB20254
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 May 2014 20:13:28 +0000 (UTC)
-Received: by mail-vc0-f172.google.com with SMTP id hr9so1661884vcb.17
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 06 May 2014 13:13:27 -0700 (PDT)
+	Tue,  6 May 2014 20:20:03 +0000 (UTC)
+Date: Tue, 6 May 2014 16:19:59 -0400
+From: Theodore Ts'o <tytso@mit.edu>
+To: Arnd Bergmann <arnd@arndb.de>
+Message-ID: <20140506201959.GD5012@thunk.org>
+References: <5367D989.1000504@linaro.org> <20140506125741.GB17586@thunk.org>
+	<536921B5.8090100@linaro.org> <5252732.F3YIzHDqI3@wuerfel>
 MIME-Version: 1.0
-In-Reply-To: <CAKMK7uHT0S0fGnaf2CesCJcG--pZxd=0xtk08KwAuGAj53-RqA@mail.gmail.com>
-References: <CALCETrU_xrdgUNF55YU+8rfq2xK0cU3QybQhqvX4L8OgsiwG5A@mail.gmail.com>
-	<20140506175842.GF20776@cloud>
-	<1399404095.4218.51.camel@jlt4.sipsolutions.net>
-	<CAKMK7uHT0S0fGnaf2CesCJcG--pZxd=0xtk08KwAuGAj53-RqA@mail.gmail.com>
-From: Andy Lutomirski <luto@amacapital.net>
-Date: Tue, 6 May 2014 13:13:07 -0700
-Message-ID: <CALCETrV=0E+F8bLKr59uWB=-DKgZM3gkdz1M5m8Y1_Xi_WC79A@mail.gmail.com>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Content-Type: text/plain; charset=UTF-8
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Reviewing new API/ABI
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5252732.F3YIzHDqI3@wuerfel>
+Cc: John Stultz <john.stultz@linaro.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Dealing with 2038
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,56 +30,20 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, May 6, 2014 at 1:10 PM, Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
-> On Tue, May 6, 2014 at 9:21 PM, Johannes Berg <johannes@sipsolutions.net> wrote:
->> On Tue, 2014-05-06 at 10:58 -0700, josh@joshtriplett.org wrote:
->>
->>> We need to have better processes for vetting new syscalls and ABIs far
->>> more carefully than we currently do.
->>
->> How far would you want to take this? New syscalls is one thing, but
->> there are frequently additions to "subsystem APIs", e.g. in networking,
->> that aren't really syscalls but part of netlink etc. Trying to vet all
->> of that might very well end up just overwhelming the process, but on the
->> other hand it's still something that probably should be done in some
->> form.
->
-> drm drivers add massive amounts of per-driver ioctls/sysfs files/...
-> and of course we've done all the usual (and a lot of the unusual) api
-> design mistakes. For i915 I've got fed up with all that and we've
-> switched to a fairly strict regime:
->
-> 1. Patches that add new abi need to have full userspace ready before
-> the kernel side gets merged. Usually that means an (open source)
-> implementation of the OpenGL feature for that feature in mesa,
-> including all the functionality tests mesa requires (which are again
-> open source in piglit). New interfaces without fully validated and
-> working userspace parts get rejected.
->
-> 2. I also require detailed testcases of all the corner-cases (reserved
-> bits/fields, signal handling, corener-cases/interactions with other
-> interfaces, overflow/array bounds issues, ...). Those low-level tests
-> are in intel-gpu-tools. I also have a lenghty blog with all the
-> mistakes we've done thus far wrt userspace interface design and what
-> kind of test coverage I expect:
-> http://blog.ffwll.ch/2013/11/botching-up-ioctls.html
->
-> 3. Patches which require a testcase should have a Testcase: tag to
-> make sure both pieces (kernel patch + testcase) are linked together.
-> They usually also get reviewed in tandem by the same person.
->
-> I've made it very clear (and enforced this a bunch of times already)
-> that patches which don't follow this will be rejected. In my
-> experience (we've been doing this since about a year or so) this takes
-> care of the abi design fun completely.
->
-> I guess in a year or so I'll also add
->
-> 4. Create/update the relevant manpage.
->
-> But currently we don't yet have that part set up (and also higher
-> priorities for documentation elsewhere in the stack).
+On Tue, May 06, 2014 at 08:20:47PM +0200, Arnd Bergmann wrote:
+> Medical equipment (and I assume military, which is often in the same
+> category) is probably a big thing. I remember we had a big discussion
+> about a product at a former employer when a customer asked for support
+> beyond 2038. I think we ended up saying that the hardware is fine but
+> no supported distro would handle this.
 
-I would love to see this at least for any new syscalls.
+The question for the kernel summit is what sort of solutions can we
+suggest where we as kernel developers could help provide a solution
+for this problem?
 
---Andy
+If the answer is "the kernel is fine (or could be trivially made
+fine)" but the problems are all at the glibc and/or distro level, then
+it's a problem, but I'm not sure we'd be able to make progress on
+solving it in this venue.
+
+					- Ted
