@@ -1,28 +1,33 @@
-Return-Path: <linux@roeck-us.net>
+Return-Path: <darren@apps.dvhart.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 5835F996
+	by mail.linuxfoundation.org (Postfix) with ESMTP id B18698B4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 May 2014 04:04:27 +0000 (UTC)
-Received: from mail.active-venture.com (mail.active-venture.com
-	[67.228.131.205])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 2C8841F968
+	Tue,  6 May 2014 05:02:16 +0000 (UTC)
+Received: from mail-qg0-f52.google.com (mail-qg0-f52.google.com
+	[209.85.192.52])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 29CB32019B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 May 2014 04:04:26 +0000 (UTC)
-Message-ID: <53685F44.3040305@roeck-us.net>
-Date: Mon, 05 May 2014 21:04:20 -0700
-From: Guenter Roeck <linux@roeck-us.net>
+	Tue,  6 May 2014 05:02:15 +0000 (UTC)
+Received: by mail-qg0-f52.google.com with SMTP id a108so2252515qge.39
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 05 May 2014 22:02:15 -0700 (PDT)
 MIME-Version: 1.0
-To: Steven Rostedt <rostedt@goodmis.org>, Greg KH <greg@kroah.com>
-References: <53662254.9060100@huawei.com>	<CA+5PVA6sCLej9hhrRtaAw8hgrM7rw_R9-rWrH=VERdHY_fXGUg@mail.gmail.com>	<5366FBDB.7090705@huawei.com>
-	<20140505134126.GA22287@thunk.org>	<20140505223324.GA5298@kroah.com>
-	<20140505232010.26a67845@gandalf.local.home>
-In-Reply-To: <20140505232010.26a67845@gandalf.local.home>
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: Josh Boyer <jwboyer@fedoraproject.org>, lizf.kern@gmail.com,
+Sender: darren@apps.dvhart.com
+In-Reply-To: <CACRpkdbiurS=m=2wH4-9G8pjVwDZfKykVW+12UWMpHjNBm8ppg@mail.gmail.com>
+References: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>
+	<CACRpkdbiurS=m=2wH4-9G8pjVwDZfKykVW+12UWMpHjNBm8ppg@mail.gmail.com>
+Date: Mon, 5 May 2014 22:02:15 -0700
+Message-ID: <CAGChsmPbAHA0ARhVNz8DR+yA1+MYNT-R91FZbgeQFutyot6RKA@mail.gmail.com>
+From: Darren Hart <darren@dvhart.com>
+To: Linus Walleij <linus.walleij@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"dvhart@dvhart.com" <dvhart@dvhart.com>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
 	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable issues
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Driver model/resources, ACPI, DT,
+ etc (sigh)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,29 +37,35 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 05/05/2014 08:20 PM, Steven Rostedt wrote:
-> On Mon, 5 May 2014 15:33:24 -0700
-> Greg KH <greg@kroah.com> wrote:
+On Mon, May 5, 2014 at 9:58 AM, Linus Walleij <linus.walleij@linaro.org> wrote:
+> On this topic I need to add:
 >
+> how are the ACPI HW descriptions really happening?
 >
->> And as for announcing it ahead of time, I'm never going to do that
->> again, the aftermath was horrid of people putting stuff that shouldn't
->> be there.  Heck, when people know about what the enterprise kernels are
->> going to be, they throw stuff into upstream "early", so it's a
->> well-known pattern and issue.
+> I as subsystem maintainer have no real contact with these people,
+> I can only get a *vague* feeling that sometimes, they live in an ancient
+> world of assumptions that do not hold.
 >
-> Perhaps you can announce that 3.X "might" be the LTS tree. And just as
-> 3.X merge window opens, announce that 3.(X-1) is the new LTS tree. It
-> would be too late to have people pushing "unfinished" code into the LTS.
->
+> Specifically I am worried when seeing some ACPI stuff that their idea
+> of pin control is "some sort of fancy GPIO-bolt on" and I fear they will
+> attempt to model and implement this with an ugly interface that we
+> will have to account for later, instead of reading say
+> Documentation/pinctrl.txt and learn something about how software
+> engineers go about handling such hardware.
 
-After the first time this happens people would know or assume that
-it is going to be 3.(X-1), and push the unfinished stuff into that
-release. Then 3.(X-1) would be in such a bad shape that using it as
-stable release would be a bad idea. And if 3.(X-1) doesn't make it,
-you would have even more people push unfinished crap into 3.X.
-Ultimately you would end up with two bad releases instead of one.
+I was talking with someone just last week about how this might be
+done. I'll see if I can get the person looking into it to reach out to
+you.
 
-In other words, I don't think this kind of reverse psychology would work.
+> Where is the communication entry port for a driver subsystem
+> maintainer that want to bring a message to the ACPI HW bindings
+> people?
 
-Guenter
+Rafael and I would be a good start. He and I, along with others, have
+been spending some time lately in the ACPI Specification Working Group
+and have some idea of how this stuff works. Matthew Garrett is another
+good contact for how to get involved.
+
+
+-- 
+Darren Hart
