@@ -1,27 +1,26 @@
-Return-Path: <greg@kroah.com>
+Return-Path: <shuahkhan@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 814C082A
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 439F3681
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 May 2014 19:00:28 +0000 (UTC)
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
-	[66.111.4.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8133F1FB59
+	Tue,  6 May 2014 19:12:12 +0000 (UTC)
+Received: from mail-qg0-f53.google.com (mail-qg0-f53.google.com
+	[209.85.192.53])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id AABFE201B4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 May 2014 19:00:27 +0000 (UTC)
-Received: from compute2.internal (compute2.nyi.mail.srv.osa [10.202.2.42])
-	by gateway1.nyi.mail.srv.osa (Postfix) with ESMTP id 7E7CE2113D
+	Tue,  6 May 2014 19:12:11 +0000 (UTC)
+Received: by mail-qg0-f53.google.com with SMTP id f51so8862465qge.26
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 May 2014 15:00:26 -0400 (EDT)
-Date: Tue, 6 May 2014 12:00:24 -0700
-From: Greg KH <greg@kroah.com>
-To: Andy Lutomirski <luto@amacapital.net>
-Message-ID: <20140506190024.GA1004@kroah.com>
-References: <CALCETrU_xrdgUNF55YU+8rfq2xK0cU3QybQhqvX4L8OgsiwG5A@mail.gmail.com>
+	Tue, 06 May 2014 12:12:10 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CALCETrU_xrdgUNF55YU+8rfq2xK0cU3QybQhqvX4L8OgsiwG5A@mail.gmail.com>
+In-Reply-To: <20140506175842.GF20776@cloud>
+References: <CALCETrU_xrdgUNF55YU+8rfq2xK0cU3QybQhqvX4L8OgsiwG5A@mail.gmail.com>
+	<20140506175842.GF20776@cloud>
+Date: Tue, 6 May 2014 13:12:10 -0600
+Message-ID: <CAKocOON-kH3n7iQrdOcwU_Qwq5xxi6Ws2MnXJHLBz0NOQDSfug@mail.gmail.com>
+From: Shuah Khan <shuahkhan@gmail.com>
+To: josh@joshtriplett.org
+Content-Type: text/plain; charset=UTF-8
 Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Reviewing new API/ABI
@@ -34,39 +33,32 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, May 06, 2014 at 10:45:05AM -0700, Andy Lutomirski wrote:
-> There doesn't currently seem to be any real process for reviewing new
-> core APIs for sanity of design, appropriateness to solve the problem
-> they're targetting, or correctness of implementation.  Some examples
-> that come to mind recently:
-> 
->  - A lot of people seem to think that O_TMPFILE is a terrible
-> interface, despite the fact that the functionality it provides is very
-> useful.  It was also rather badly broken until -rc8 or so.
-> 
->  - The x86 32-bit vdso clock functions almost made it in with a
-> questionable symbol version.
-> 
->  - 3.15 is currently slated to include an unfortunate ABI glitch in
-> the MIPS seccomp filter interface.  There's a patch.
-> 
->  - There are some aspects of the keyring API that seem to me to be quite bad.
-> 
->  - An impressive number of new APIs are missing -EINVAL returns if
-> reserved parameters are set.
-> 
-> (I'm not trying to point a finger at anyone with these examples;
-> they're just things that I was involved in to some extent.)
-> 
-> The current process is confused.   For example, I currently plan on
-> trying to remember to ask Linus to revert the MIPS seccomp stuff or
-> fix it sometime around -rc6 if the patch hasn't landed, but this
-> sucks.
-> 
-> I think that the process could be improved.  I think that there are
-> people who are willing to spend time to read API docs and thinking
-> about these kinds of issues.  (I am, and Michael Kerrisk seems to do a
-> fair amount of it.)
+On Tue, May 6, 2014 at 11:58 AM,  <josh@joshtriplett.org> wrote:
+>
+> I'm interested in this topic, and I'll second that nomination.  I'd
+> like to partipate in this discussion.
+>
+> We need to have better processes for vetting new syscalls and ABIs far
+> more carefully than we currently do.  Right now, we require benchmarks
+> for any claimed performance increase; it's almost a given that if you
+> post an optimization without including benchmarks in the commit message,
+> it'll get rejected with a request to come back with numbers.  We need
+> similar standards for new syscalls or other userspace ABIs: come back
+> with test programs, test coverage information, etc.
+>
 
-We do have linux-api, which should be cc:ed for new api additions.  But
-it usually isn't :(
+I am interested in this topic as well. To be effective and keep the
+momentum going long term , we will need a way to regression test when
+new APIs, new syscalls and ABIs are introduced. That would require a
+look at existing tests and look into putting in some kind of framework
+to easily test for regressions. It would also mean, when new API, ABIs
+get added, "strongly" encourage developers add documentation and tests
+cases.
+
+-- Shuah
+
+
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
