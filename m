@@ -1,27 +1,26 @@
-Return-Path: <shuahkhan@gmail.com>
+Return-Path: <luto@amacapital.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 631F882A
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 1942782A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 May 2014 19:37:50 +0000 (UTC)
-Received: from mail-qc0-f179.google.com (mail-qc0-f179.google.com
-	[209.85.216.179])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C4BBD201B4
+	Tue,  6 May 2014 19:44:10 +0000 (UTC)
+Received: from mail-ve0-f178.google.com (mail-ve0-f178.google.com
+	[209.85.128.178])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 86FEC1FD46
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 May 2014 19:37:49 +0000 (UTC)
-Received: by mail-qc0-f179.google.com with SMTP id x3so6613864qcv.24
+	Tue,  6 May 2014 19:44:09 +0000 (UTC)
+Received: by mail-ve0-f178.google.com with SMTP id sa20so4878978veb.23
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 06 May 2014 12:37:49 -0700 (PDT)
+	Tue, 06 May 2014 12:44:08 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CALCETrVB=w1XzYfnugAEvPO2uTKChTDNvJrXN_-92LZ61bBAww@mail.gmail.com>
+In-Reply-To: <1399404095.4218.51.camel@jlt4.sipsolutions.net>
 References: <CALCETrU_xrdgUNF55YU+8rfq2xK0cU3QybQhqvX4L8OgsiwG5A@mail.gmail.com>
 	<20140506175842.GF20776@cloud>
-	<CAKocOON-kH3n7iQrdOcwU_Qwq5xxi6Ws2MnXJHLBz0NOQDSfug@mail.gmail.com>
-	<CALCETrVB=w1XzYfnugAEvPO2uTKChTDNvJrXN_-92LZ61bBAww@mail.gmail.com>
-Date: Tue, 6 May 2014 13:37:48 -0600
-Message-ID: <CAKocOOMH2FFVN4JhpqfZuAMSpOC7CEPLunAJ42i43=aOvbXN4w@mail.gmail.com>
-From: Shuah Khan <shuahkhan@gmail.com>
-To: Andy Lutomirski <luto@amacapital.net>
+	<1399404095.4218.51.camel@jlt4.sipsolutions.net>
+From: Andy Lutomirski <luto@amacapital.net>
+Date: Tue, 6 May 2014 12:43:48 -0700
+Message-ID: <CALCETrVwW4werwNieVuqUKcUP-HRkBM2+kS5jor56NoGG1+4Hw@mail.gmail.com>
+To: Johannes Berg <johannes@sipsolutions.net>
 Content-Type: text/plain; charset=UTF-8
 Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
@@ -35,36 +34,33 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, May 6, 2014 at 1:16 PM, Andy Lutomirski <luto@amacapital.net> wrote:
-> On Tue, May 6, 2014 at 12:12 PM, Shuah Khan <shuahkhan@gmail.com> wrote:
->> On Tue, May 6, 2014 at 11:58 AM,  <josh@joshtriplett.org> wrote:
->>>
->>> I'm interested in this topic, and I'll second that nomination.  I'd
->>> like to partipate in this discussion.
->>>
->>> We need to have better processes for vetting new syscalls and ABIs far
->>> more carefully than we currently do.  Right now, we require benchmarks
->>> for any claimed performance increase; it's almost a given that if you
->>> post an optimization without including benchmarks in the commit message,
->>> it'll get rejected with a request to come back with numbers.  We need
->>> similar standards for new syscalls or other userspace ABIs: come back
->>> with test programs, test coverage information, etc.
->>>
->>
->> I am interested in this topic as well. To be effective and keep the
->> momentum going long term , we will need a way to regression test when
->> new APIs, new syscalls and ABIs are introduced. That would require a
->> look at existing tests and look into putting in some kind of framework
->> to easily test for regressions. It would also mean, when new API, ABIs
->> get added, "strongly" encourage developers add documentation and tests
->> cases.
+On Tue, May 6, 2014 at 12:21 PM, Johannes Berg
+<johannes@sipsolutions.net> wrote:
+> On Tue, 2014-05-06 at 10:58 -0700, josh@joshtriplett.org wrote:
 >
-> I think there was some discussion about in-tree kernel tests.  This
-> might fit in.
+>> We need to have better processes for vetting new syscalls and ABIs far
+>> more carefully than we currently do.
+>
+> How far would you want to take this? New syscalls is one thing, but
+> there are frequently additions to "subsystem APIs", e.g. in networking,
+> that aren't really syscalls but part of netlink etc. Trying to vet all
+> of that might very well end up just overwhelming the process, but on the
+> other hand it's still something that probably should be done in some
+> form.
 >
 
-I am proposing adding regression test angle to this discussion. Review
-is a good first step, however to ensure breakages don't occur, we have
-to go one step further.
+The snarky answer is: CVE-2014-0181.  I don't like netlink for
+anything other than broadcasts from kernel space to user space.
 
--- Shuah
+A possibly better answer is that I think there are things that are
+worthy of more care and things that are worthy of less care.  I also
+think that it's more a question of the scope of the API than the
+mechanism.  A debugfs thing, a sysfs entry for a particular device or
+obscure configuration setting, or an ioctl on a device node are
+possibly of less broad applicability.  Something like AF_ALG really is
+a global API, though.  I would tend to classify many things that use
+netlink in more-review category, since I don't think that the fact
+that a new API uses netlink should exempt it from the same kind of
+review it would need if it used a different mechanism.
+
+--Andy
