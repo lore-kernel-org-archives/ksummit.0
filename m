@@ -1,40 +1,26 @@
 Return-Path: <luto@amacapital.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 9C4B58AF
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 403CE8AF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 May 2014 17:32:03 +0000 (UTC)
-Received: from mail-ve0-f169.google.com (mail-ve0-f169.google.com
-	[209.85.128.169])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BDB27201B3
+	Tue,  6 May 2014 17:45:28 +0000 (UTC)
+Received: from mail-ve0-f173.google.com (mail-ve0-f173.google.com
+	[209.85.128.173])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1E7861FC59
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 May 2014 17:32:02 +0000 (UTC)
-Received: by mail-ve0-f169.google.com with SMTP id jx11so11341097veb.28
+	Tue,  6 May 2014 17:45:27 +0000 (UTC)
+Received: by mail-ve0-f173.google.com with SMTP id pa12so9835658veb.4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 06 May 2014 10:32:02 -0700 (PDT)
+	Tue, 06 May 2014 10:45:26 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20140506171807.GA20776@cloud>
-References: <5363E8E1.9030806@zytor.com>
-	<CAKgNAkjueYU9fyiZ46OZG9unOsGTkkJJF5ndVsR6KbLr=OFRAQ@mail.gmail.com>
-	<20140502193314.GA24108@thunk.org> <20140502194935.GA9766@redhat.com>
-	<20140502204141.GB24108@thunk.org> <20140502210123.GA13536@redhat.com>
-	<CA+5PVA6oTQy5j1XyQG_h6Vk1kW8UrA_j61ouPfm_kvZMQ9ZqEA@mail.gmail.com>
-	<1399066024.2202.72.camel@dabdike>
-	<CA+5PVA7VQzdMRuMARmAR=c6MnDg-bFg16Hgk=bCNzKmokRUAPQ@mail.gmail.com>
-	<CALCETrVZJ5swLixykH_qn4K7GDDRqKkXtPeJqdM1LXToRW+uyA@mail.gmail.com>
-	<20140506171807.GA20776@cloud>
 From: Andy Lutomirski <luto@amacapital.net>
-Date: Tue, 6 May 2014 10:31:40 -0700
-Message-ID: <CALCETrUDEi=Q2k_CMZGdizfUkTpObKrggP-XPsCOBndRGuX7tQ@mail.gmail.com>
-To: Josh Triplett <josh@joshtriplett.org>
-Content-Type: text/plain; charset=UTF-8
-Cc: Josh Boyer <jwboyer@fedoraproject.org>, Sarah Sharp <sarah@minilop.net>,
-	"ksummit-discuss@lists.linuxfoundation.org"
+Date: Tue, 6 May 2014 10:45:05 -0700
+Message-ID: <CALCETrU_xrdgUNF55YU+8rfq2xK0cU3QybQhqvX4L8OgsiwG5A@mail.gmail.com>
+To: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	Greg KH <gregkh@linuxfoundation.org>, Julia Lawall <julia.lawall@lip6.fr>,
-	Darren Hart <darren@dvhart.com>, Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Kernel tinification: shrinking
- the kernel and avoiding size regressions
+	Michael Kerrisk-manpages <mtk.manpages@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Subject: [Ksummit-discuss] [CORE TOPIC] Reviewing new API/ABI
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -44,89 +30,52 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, May 6, 2014 at 10:18 AM,  <josh@joshtriplett.org> wrote:
-> On Fri, May 02, 2014 at 03:35:28PM -0700, Andy Lutomirski wrote:
->> On Fri, May 2, 2014 at 2:39 PM, Josh Boyer <jwboyer@fedoraproject.org> wrote:
->> > On Fri, May 2, 2014 at 5:27 PM, James Bottomley
->> > <James.Bottomley@hansenpartnership.com> wrote:
->> >> On Fri, 2014-05-02 at 17:19 -0400, Josh Boyer wrote:
->> >>> On Fri, May 2, 2014 at 5:01 PM, Dave Jones <davej@redhat.com> wrote:
->> >>> > On Fri, May 02, 2014 at 04:41:41PM -0400, Theodore Ts'o wrote:
->> >>> >
->> >>> >  > And I think we can also further break this down into the classes of
->> >>> >  > code which require root privs (i.e., like kexec), and those which can
->> >>> >  > be used by any userid.
->> >>> >
->> >>> > In the brave new world of secure boot, we kind of have to care about
->> >>> > even the root cases now too [*], but I agree in the general case.
->> >>>
->> >>> Speaking of that... is it worth my time to propose a "What to do about
->> >>> the secure_modules/trusted_kernel/whatever patch set that distros are
->> >>> carrying to support Secure Boot?  I thought we had agreement and a
->> >>> path forward at LPC last year, but things seem to have gotten derailed
->> >>> again.
->> >>
->> >> Would you believe we're just discussing with the distros how we might
->> >> re-engineer the Linux secure boot process.  Unfortunately the details
->> >
->> > I would believe it.
->> >
->> >> depend on a UEFI forum proposal that are UEFI confidential at this time,
->> >> but you can probably pick them up from Peter Jones, since you're a Red
->> >> Hat employee.  One of the side effects of this, if it happens, will be
->> >
->> > OK.
->> >
->> >> to separate Linux secure boot policy from Microsoft's binary signing
->> >> requirements which might take some of the heat out of the arguments
->> >> about which parts of the patch are to please microsoft and refocus the
->> >> debate towards how we make better use of secure boot.  I'll try and
->> >> ensure that either the proposals are public by KS or that we have
->> >> permission to share the details.
->> >
->> > The objectionable parts having to do with signing aren't even in the
->> > patchset Matthew has posted.  That's the initial set he tried to get
->> > pulled in and failed.  If the proposal drastically changes that
->> > approach I'd be surprised (maybe pleasantly).
->>
->> FWIW, I really don't like the approach where we say that the kernel
->> must be inviolate but that user code can do whatever it likes as long
->> as the kernel isn't compromised.  This may be needed to comply with
->> current MS/UEFI policy, but I think it largely misses the point wrt
->> actual security.
->>
->> If the policy can change, then that might be a huge win.
->
-> We shouldn't give up on securing userspace, either; protecting the
-> kernel is necessary but not sufficient.  But I do think it's worthwhile
-> to enforce "root != kernel", quite apart from any "secure boot"
-> requirements.  That's what Matthew's patches primarily serve to do: make
-> root not kernel-equivalent.
->
+There doesn't currently seem to be any real process for reviewing new
+core APIs for sanity of design, appropriateness to solve the problem
+they're targetting, or correctness of implementation.  Some examples
+that come to mind recently:
 
-I have two main objections to "root != kernel".  The bigger is that
-I'd like to see the security argument for it so that people can think
-about whether it makes sense.  The smaller is that "root != kernel"
-isn't necessarily well-defined.
+ - A lot of people seem to think that O_TMPFILE is a terrible
+interface, despite the fact that the functionality it provides is very
+useful.  It was also rather badly broken until -rc8 or so.
 
-For example, should root be able to write to the filesystem from which
-the kernel loads?  Should root be able to kexec a new kernel, if that
-clears some key known to the current kernel in the process?  Should
-root be able to start a KVM instance that passes essentially all
-hardware through?  Should root be able to talk directly to the
-system's embedded controller?  Should root be able to read all
-physical memory?  How about reading just enough to learn the kernel's
-semi-secret randomized addresses?  How about running perf without
-restrictions?
+ - The x86 32-bit vdso clock functions almost made it in with a
+questionable symbol version.
 
-In the past, the actual security goal seems to have been "root shall
-not be able to do anything that would anger Microsoft and/or
-Verisign", which is far-enough removed from actual security that I
-don't want it anywhere near my system.  But if I could have a
-reasonable policy that "root shall not be able to persistently
-compromise the machine", then I think this could be great.
+ - 3.15 is currently slated to include an unfortunate ABI glitch in
+the MIPS seccomp filter interface.  There's a patch.
 
-Note that the latter goal does not actually require that root be
-unable to modify the running kernel.
+ - There are some aspects of the keyring API that seem to me to be quite bad.
+
+ - An impressive number of new APIs are missing -EINVAL returns if
+reserved parameters are set.
+
+(I'm not trying to point a finger at anyone with these examples;
+they're just things that I was involved in to some extent.)
+
+The current process is confused.   For example, I currently plan on
+trying to remember to ask Linus to revert the MIPS seccomp stuff or
+fix it sometime around -rc6 if the patch hasn't landed, but this
+sucks.
+
+I think that the process could be improved.  I think that there are
+people who are willing to spend time to read API docs and thinking
+about these kinds of issues.  (I am, and Michael Kerrisk seems to do a
+fair amount of it.)
+
+I would like to discuss what we could change to make this work better
+in the future.  In an ideal world, I would like to see every core API
+change come with documentation, tests (possibly simple ones), and a
+post, with acks, to a list that covers just API changes.  This might
+be tough, but it could add a lot of value.
+
+I've occasionally thought that API docs should live in the kernel tree
+in some reasonably well organized place so that patch sets can include
+doc patches.  I realize that this is contentious.
+
+I'm sure that other people have other suggestions here.
 
 --Andy
+
+P.S.  I'm not on the invitation nominee list, so if people like this
+topic, I'd appreciate a nomination :)
