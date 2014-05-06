@@ -1,35 +1,29 @@
-Return-Path: <linus.walleij@linaro.org>
+Return-Path: <rostedt@goodmis.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 35B6F98F
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 40237927
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 May 2014 02:41:06 +0000 (UTC)
-Received: from mail-oa0-f44.google.com (mail-oa0-f44.google.com
-	[209.85.219.44])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C27A91F950
+	Tue,  6 May 2014 03:20:13 +0000 (UTC)
+Received: from cdptpa-oedge-vip.email.rr.com
+	(cdptpa-outbound-snat.email.rr.com [107.14.166.225])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 9E9E21FC50
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 May 2014 02:41:05 +0000 (UTC)
-Received: by mail-oa0-f44.google.com with SMTP id i11so3010078oag.31
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 05 May 2014 19:41:05 -0700 (PDT)
+	Tue,  6 May 2014 03:20:12 +0000 (UTC)
+Date: Mon, 5 May 2014 23:20:10 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Greg KH <greg@kroah.com>
+Message-ID: <20140505232010.26a67845@gandalf.local.home>
+In-Reply-To: <20140505223324.GA5298@kroah.com>
+References: <53662254.9060100@huawei.com>
+	<CA+5PVA6sCLej9hhrRtaAw8hgrM7rw_R9-rWrH=VERdHY_fXGUg@mail.gmail.com>
+	<5366FBDB.7090705@huawei.com> <20140505134126.GA22287@thunk.org>
+	<20140505223324.GA5298@kroah.com>
 MIME-Version: 1.0
-In-Reply-To: <3443151.uQIbj9tkE3@vostro.rjw.lan>
-References: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>
-	<1655995.vGcMNE2bRf@vostro.rjw.lan>
-	<20140504172318.GB4418@quad.lixom.net>
-	<3443151.uQIbj9tkE3@vostro.rjw.lan>
-Date: Mon, 5 May 2014 19:41:04 -0700
-Message-ID: <CACRpkdYjVduPPMp9D53ocE8B-Mva5qUo4E-R=iYdSCmFLoaz_A@mail.gmail.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-Content-Type: text/plain; charset=UTF-8
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"dvhart@dvhart.com" <dvhart@dvhart.com>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Driver model/resources, ACPI, DT,
- etc (sigh)
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: Josh Boyer <jwboyer@fedoraproject.org>, lizf.kern@gmail.com,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,36 +33,23 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sun, May 4, 2014 at 2:58 PM, Rafael J. Wysocki <rjw@rjwysocki.net> wrote:
-> On Sunday, May 04, 2014 10:23:18 AM Olof Johansson wrote:
+On Mon, 5 May 2014 15:33:24 -0700
+Greg KH <greg@kroah.com> wrote:
 
->> Same for pin control, where we have frameworks in the kernel on ARM, but
->> x86/ACPI tends to let firmware handle it all...
->
-> I would say if pin control information is made available to us by the firmware,
-> we can use it.  If it is not, we need to live without it.
 
-I would like to know *how* it will be made available in that case.
+> And as for announcing it ahead of time, I'm never going to do that
+> again, the aftermath was horrid of people putting stuff that shouldn't
+> be there.  Heck, when people know about what the enterprise kernels are
+> going to be, they throw stuff into upstream "early", so it's a
+> well-known pattern and issue.
 
-What I think will actually happen is this:
+Perhaps you can announce that 3.X "might" be the LTS tree. And just as
+3.X merge window opens, announce that 3.(X-1) is the new LTS tree. It
+would be too late to have people pushing "unfinished" code into the LTS.
 
-- Handling pin control is deemed unnecessary for the kernel in the same
-way that early reviews of the subsystem was received: "well we only set
-up this once at boot and never touch it, ideally the boot loader/ROM/BIOS
-do this and we need not care"
+But, they would still push unfinished code into 3.X, but that is why
+you announce it just as (or before) the merge window, so people can say
+"oh crap", and then delay their half baked projects to when they are
+really ready.
 
-- Further down the road a "uh oh" moment - we *need* to screw around
-with pin control - usually due to firmware bugs and power savings - "we
-only need to augment this or these pins a little bit here ..."
-
-- Ugliness threatens to invade, pin control subsystem maintainer get
-angry.
-
-The thing is: with things like BayTrail I already *know* the pin control
-registers are there, they are just not implemented any handling of.
-I know very well how much the HW implementers think that a kernel
-"should never touch" these registers, and I know it will invariably happen
-sooner or later but like to be proven wrong.
-
-Yours,
-Linus Walleij
+-- Steve
