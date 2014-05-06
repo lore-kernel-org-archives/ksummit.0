@@ -1,26 +1,30 @@
-Return-Path: <luto@amacapital.net>
+Return-Path: <john.stultz@linaro.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 403CE8AF
+	by mail.linuxfoundation.org (Postfix) with ESMTP id D81E8875
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 May 2014 17:45:28 +0000 (UTC)
-Received: from mail-ve0-f173.google.com (mail-ve0-f173.google.com
-	[209.85.128.173])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1E7861FC59
+	Tue,  6 May 2014 17:54:01 +0000 (UTC)
+Received: from mail-pa0-f43.google.com (mail-pa0-f43.google.com
+	[209.85.220.43])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 75976201D7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 May 2014 17:45:27 +0000 (UTC)
-Received: by mail-ve0-f173.google.com with SMTP id pa12so9835658veb.4
+	Tue,  6 May 2014 17:54:01 +0000 (UTC)
+Received: by mail-pa0-f43.google.com with SMTP id hz1so797547pad.16
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 06 May 2014 10:45:26 -0700 (PDT)
+	Tue, 06 May 2014 10:54:01 -0700 (PDT)
+Message-ID: <536921B5.8090100@linaro.org>
+Date: Tue, 06 May 2014 10:53:57 -0700
+From: John Stultz <john.stultz@linaro.org>
 MIME-Version: 1.0
-From: Andy Lutomirski <luto@amacapital.net>
-Date: Tue, 6 May 2014 10:45:05 -0700
-Message-ID: <CALCETrU_xrdgUNF55YU+8rfq2xK0cU3QybQhqvX4L8OgsiwG5A@mail.gmail.com>
-To: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Michael Kerrisk-manpages <mtk.manpages@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Subject: [Ksummit-discuss] [CORE TOPIC] Reviewing new API/ABI
+To: Theodore Ts'o <tytso@mit.edu>, Josh Triplett <josh@joshtriplett.org>
+References: <5367D989.1000504@linaro.org> <20140505205339.GB15815@cloud>
+	<53684526.7060507@zytor.com> <20140506022158.GA1499@thin>
+	<20140506125741.GB17586@thunk.org>
+In-Reply-To: <20140506125741.GB17586@thunk.org>
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Dealing with 2038
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,52 +34,36 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-There doesn't currently seem to be any real process for reviewing new
-core APIs for sanity of design, appropriateness to solve the problem
-they're targetting, or correctness of implementation.  Some examples
-that come to mind recently:
+On 05/06/2014 05:57 AM, Theodore Ts'o wrote:
+> I suspect the only real way of dealing with the problem for 32-bit
+> architectures is to consider doing a major version bump for all shared
+> libraries, and for a while, 32-bit distributions might have to ship
+> two versions of all of the more popular shared libraries.
+...
+> OTOH, if the main issue is "industrial control and security systems"
+> as stated in the original problem description,, I very much doubt they
+> would need GNOME shared libraries.  :-)
 
- - A lot of people seem to think that O_TMPFILE is a terrible
-interface, despite the fact that the functionality it provides is very
-useful.  It was also rather badly broken until -rc8 or so.
+Well, there's also things like in-car-infotainment systems (which would
+annoy future car collectors should they stop working), which may require
+GUI toolkits. But I suspect the most problematic cases will be embedded
+systems in the literal sense of "embedded in the wall".
 
- - The x86 32-bit vdso clock functions almost made it in with a
-questionable symbol version.
+But the point being that I think we'll have to consider all existing
+32bit applications as broken after 2038 (of course there may be some
+which don't use time a t all, or if they do only use relative offsets -
+but as a general interface, the existing Linux 32bit ABI is broken). So
+if we do something like an ABI break, while providing a compat
+personality for existing applications, duplicated libraries would be
+necessary, but that extra cost might help motivate vendors to get their
+applications ported to the new ABI.
 
- - 3.15 is currently slated to include an unfortunate ABI glitch in
-the MIPS seccomp filter interface.  There's a patch.
+And of course, while rebuilding for the new ABI might be one of the
+easier ways to address things, there's no magic bullet to fix all the
+places where applications might be casting or storing time_ts as longs
+either internally or on fixed wire or on-disk formats. (So folks who
+have been planning their retirement around lucrative Y2K-like
+contracting work, will still have things to do!).
 
- - There are some aspects of the keyring API that seem to me to be quite bad.
-
- - An impressive number of new APIs are missing -EINVAL returns if
-reserved parameters are set.
-
-(I'm not trying to point a finger at anyone with these examples;
-they're just things that I was involved in to some extent.)
-
-The current process is confused.   For example, I currently plan on
-trying to remember to ask Linus to revert the MIPS seccomp stuff or
-fix it sometime around -rc6 if the patch hasn't landed, but this
-sucks.
-
-I think that the process could be improved.  I think that there are
-people who are willing to spend time to read API docs and thinking
-about these kinds of issues.  (I am, and Michael Kerrisk seems to do a
-fair amount of it.)
-
-I would like to discuss what we could change to make this work better
-in the future.  In an ideal world, I would like to see every core API
-change come with documentation, tests (possibly simple ones), and a
-post, with acks, to a list that covers just API changes.  This might
-be tough, but it could add a lot of value.
-
-I've occasionally thought that API docs should live in the kernel tree
-in some reasonably well organized place so that patch sets can include
-doc patches.  I realize that this is contentious.
-
-I'm sure that other people have other suggestions here.
-
---Andy
-
-P.S.  I'm not on the invitation nominee list, so if people like this
-topic, I'd appreciate a nomination :)
+thanks
+-john
