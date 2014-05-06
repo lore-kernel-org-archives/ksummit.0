@@ -1,29 +1,27 @@
-Return-Path: <rostedt@goodmis.org>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 324F9AAC
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 2EC04990
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 May 2014 20:42:04 +0000 (UTC)
-Received: from cdptpa-oedge-vip.email.rr.com
-	(cdptpa-outbound-snat.email.rr.com [107.14.166.231])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 6880520118
+	Tue,  6 May 2014 20:50:59 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 281D120240
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 May 2014 20:42:03 +0000 (UTC)
-Date: Tue, 6 May 2014 16:42:01 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Josh Triplett <josh@joshtriplett.org>
-Message-ID: <20140506164201.69611e7d@gandalf.local.home>
-In-Reply-To: <20140506203426.GA15428@jtriplet-mobl1>
-References: <CALCETrU_xrdgUNF55YU+8rfq2xK0cU3QybQhqvX4L8OgsiwG5A@mail.gmail.com>
-	<20140506190024.GA1004@kroah.com>
-	<20140506160740.1245d1f4@gandalf.local.home>
-	<20140506203426.GA15428@jtriplet-mobl1>
+	Tue,  6 May 2014 20:50:58 +0000 (UTC)
+Date: Tue, 6 May 2014 16:50:52 -0400
+From: Theodore Ts'o <tytso@mit.edu>
+To: josh@joshtriplett.org
+Message-ID: <20140506205052.GF5012@thunk.org>
+References: <5367D989.1000504@linaro.org> <20140506125741.GB17586@thunk.org>
+	<536921B5.8090100@linaro.org> <5252732.F3YIzHDqI3@wuerfel>
+	<20140506201959.GD5012@thunk.org> <20140506203337.GE21332@cloud>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Reviewing new API/ABI
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20140506203337.GE21332@cloud>
+Cc: John Stultz <john.stultz@linaro.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Dealing with 2038
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,62 +31,44 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, 6 May 2014 13:34:26 -0700
-Josh Triplett <josh@joshtriplett.org> wrote:
-
-> On Tue, May 06, 2014 at 04:07:40PM -0400, Steven Rostedt wrote:
-> > On Tue, 6 May 2014 12:00:24 -0700
-> > Greg KH <greg@kroah.com> wrote:
-> > 
-> > 
-> > > We do have linux-api, which should be cc:ed for new api additions.  But
-> > > it usually isn't :(
-> > 
-> > That's the first I've heard of that list. Maybe that's the reason it
-> > hasn't been cc'd much. Hard to Cc lists that you don't know about.
-> > 
-> > /me goes to look in MAINTAINERS for linux-api mailing list. Nope, not
-> > there.
+On Tue, May 06, 2014 at 01:33:37PM -0700, josh@joshtriplett.org wrote:
 > 
-> Here's a patch:
+> I don't think it's entirely trivial to make the kernel fine.  Two topics
+> that *do* make sense for Kernel Summit:
 > 
-> ---8<---
-> >From 424c7365ed5ed64190a1d08fe30c8e86832368b4 Mon Sep 17 00:00:00 2001
-> From: Josh Triplett <josh@joshtriplett.org>
-> Date: Tue, 6 May 2014 13:20:25 -0700
-> Subject: [PATCH] MAINTAINERS: Add linux-api for review of API/ABI changes
-> 
-> This makes it more likely that patch submitters will CC API/ABI changes
-> to the linux-api list, and tools like get_maintainer.pl will do so
-> automatically.
-> 
+> - How do we fix existing ABIs while making it minimally painful to
+>   transition existing userspace to the new ABI?  Should we just
+>   introduce a replacement for every system call that includes a time_t
+>   and deprecate the old ones, or should we introduce some more
+>   systematic migration mechanism?
 
-Although patches need to go to LKML.
+It might be useful if someone were to do a bit of homework first.  How
+many system calls (and there will be some ioctl's too, but system
+calls will probably be the hard part) that are using a 32-bit time_t
+(including struct timeval and struct timespec) or clock_t?  Can
+someone produce a list so we know how many interfaces we're talking
+about here?
 
-Acked-by: Steven Rostedt <rostedt@goodmis.org>
+> - Can the kernel do anything to make the transition easier for libc or
+>   other userspace programs?
 
--- Steve
+My experience is that mailing list discussions (like this one) are
+better at this kind of brain-storming than the actual face-to-face
+summit meeting.  Summit meetings are good for weighing tradeoffs
+between different possible solutions, but in general, things go much
+more smoothly if someone has done some homework and outlined a few
+possible proposals (even if they are strawman proposals) to prime the
+discussion.
 
-> Signed-off-by: Josh Triplett <josh@joshtriplett.org>
-> ---
->  MAINTAINERS | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 7578deb..52a282b 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -210,6 +210,13 @@ S:	Supported
->  F:	Documentation/scsi/aacraid.txt
->  F:	drivers/scsi/aacraid/
->  
-> +ABI/API
-> +L:	linux-api@vger.kernel.org
-> +F:	Documentation/ABI/
-> +F:	include/linux/syscalls.h
-> +F:	include/uapi/
-> +F:	kernel/sys_ni.c
-> +
->  ABIT UGURU 1,2 HARDWARE MONITOR DRIVER
->  M:	Hans de Goede <hdegoede@redhat.com>
->  L:	lm-sensors@lm-sensors.org
+So I'm not just picking on this topic, but in general --- if we have
+topics of the form, "we should bell the cat", the program committee
+will be more likely to consider it a good use of everyone's time if
+there is evidence that some potential technologies for applying the
+bell to the cat (and how to handle minor problems like the cat's teeth
+and claws) have been considered raised ahead of time.  (And of course,
+if someone sends a patch making the whole discussion moot, that's even
+better.  :-)
+
+Cheers,
+
+						- Ted
