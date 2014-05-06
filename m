@@ -1,28 +1,28 @@
 Return-Path: <josh@joshtriplett.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 12E56A83
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 5677FAAB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 May 2014 20:33:43 +0000 (UTC)
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
-	[217.70.183.195])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 968A6201A9
+	Tue,  6 May 2014 20:34:34 +0000 (UTC)
+Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
+	[217.70.183.196])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 086CF20213
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 May 2014 20:33:42 +0000 (UTC)
-Date: Tue, 6 May 2014 13:33:37 -0700
-From: josh@joshtriplett.org
-To: Theodore Ts'o <tytso@mit.edu>
-Message-ID: <20140506203337.GE21332@cloud>
-References: <5367D989.1000504@linaro.org> <20140506125741.GB17586@thunk.org>
-	<536921B5.8090100@linaro.org> <5252732.F3YIzHDqI3@wuerfel>
-	<20140506201959.GD5012@thunk.org>
+	Tue,  6 May 2014 20:34:33 +0000 (UTC)
+Date: Tue, 6 May 2014 13:34:26 -0700
+From: Josh Triplett <josh@joshtriplett.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+Message-ID: <20140506203426.GA15428@jtriplet-mobl1>
+References: <CALCETrU_xrdgUNF55YU+8rfq2xK0cU3QybQhqvX4L8OgsiwG5A@mail.gmail.com>
+	<20140506190024.GA1004@kroah.com>
+	<20140506160740.1245d1f4@gandalf.local.home>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20140506201959.GD5012@thunk.org>
-Cc: John Stultz <john.stultz@linaro.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Dealing with 2038
+In-Reply-To: <20140506160740.1245d1f4@gandalf.local.home>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Reviewing new API/ABI
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,40 +32,54 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, May 06, 2014 at 04:19:59PM -0400, Theodore Ts'o wrote:
-> On Tue, May 06, 2014 at 08:20:47PM +0200, Arnd Bergmann wrote:
-> > Medical equipment (and I assume military, which is often in the same
-> > category) is probably a big thing. I remember we had a big discussion
-> > about a product at a former employer when a customer asked for support
-> > beyond 2038. I think we ended up saying that the hardware is fine but
-> > no supported distro would handle this.
+On Tue, May 06, 2014 at 04:07:40PM -0400, Steven Rostedt wrote:
+> On Tue, 6 May 2014 12:00:24 -0700
+> Greg KH <greg@kroah.com> wrote:
 > 
-> The question for the kernel summit is what sort of solutions can we
-> suggest where we as kernel developers could help provide a solution
-> for this problem?
 > 
-> If the answer is "the kernel is fine (or could be trivially made
-> fine)" but the problems are all at the glibc and/or distro level, then
-> it's a problem, but I'm not sure we'd be able to make progress on
-> solving it in this venue.
+> > We do have linux-api, which should be cc:ed for new api additions.  But
+> > it usually isn't :(
+> 
+> That's the first I've heard of that list. Maybe that's the reason it
+> hasn't been cc'd much. Hard to Cc lists that you don't know about.
+> 
+> /me goes to look in MAINTAINERS for linux-api mailing list. Nope, not
+> there.
 
-I don't think it's entirely trivial to make the kernel fine.  Two topics
-that *do* make sense for Kernel Summit:
+Here's a patch:
 
-- How do we fix existing ABIs while making it minimally painful to
-  transition existing userspace to the new ABI?  Should we just
-  introduce a replacement for every system call that includes a time_t
-  and deprecate the old ones, or should we introduce some more
-  systematic migration mechanism?
+---8<---
+>From 424c7365ed5ed64190a1d08fe30c8e86832368b4 Mon Sep 17 00:00:00 2001
+From: Josh Triplett <josh@joshtriplett.org>
+Date: Tue, 6 May 2014 13:20:25 -0700
+Subject: [PATCH] MAINTAINERS: Add linux-api for review of API/ABI changes
 
-- Can the kernel do anything to make the transition easier for libc or
-  other userspace programs?
+This makes it more likely that patch submitters will CC API/ABI changes
+to the linux-api list, and tools like get_maintainer.pl will do so
+automatically.
 
-One possible approach to that second point that might be worth exploring
-independently, though I'd expect it to prove controversial:
+Signed-off-by: Josh Triplett <josh@joshtriplett.org>
+---
+ MAINTAINERS | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-- Could we move some of the userspace compatibility code out of the
-  kernel and into low-level userspace shipped with the kernel?
-
-
-- Josh Triplett
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 7578deb..52a282b 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -210,6 +210,13 @@ S:	Supported
+ F:	Documentation/scsi/aacraid.txt
+ F:	drivers/scsi/aacraid/
+ 
++ABI/API
++L:	linux-api@vger.kernel.org
++F:	Documentation/ABI/
++F:	include/linux/syscalls.h
++F:	include/uapi/
++F:	kernel/sys_ni.c
++
+ ABIT UGURU 1,2 HARDWARE MONITOR DRIVER
+ M:	Hans de Goede <hdegoede@redhat.com>
+ L:	lm-sensors@lm-sensors.org
+-- 
+2.0.0.rc0
