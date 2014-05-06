@@ -1,28 +1,32 @@
-Return-Path: <davej@redhat.com>
+Return-Path: <keescook@google.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 15DFE996
+	by mail.linuxfoundation.org (Postfix) with ESMTP id A6742AFD
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 May 2014 13:37:35 +0000 (UTC)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id B11091FAA9
+	Tue,  6 May 2014 13:41:54 +0000 (UTC)
+Received: from mail-ob0-f178.google.com (mail-ob0-f178.google.com
+	[209.85.214.178])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2810E1FAA9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 May 2014 13:37:34 +0000 (UTC)
-Date: Tue, 6 May 2014 09:37:01 -0400
-From: Dave Jones <davej@redhat.com>
-To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-Message-ID: <20140506133701.GB16222@redhat.com>
-References: <1998761.B2k0A5OtQR@vostro.rjw.lan>
+	Tue,  6 May 2014 13:41:54 +0000 (UTC)
+Received: by mail-ob0-f178.google.com with SMTP id va2so6811006obc.23
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 06 May 2014 06:41:53 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1998761.B2k0A5OtQR@vostro.rjw.lan>
-Cc: Len Brown <len.brown@intel.com>, ksummit-discuss@lists.linuxfoundation.org,
-	Peter Zijlstra <peterz@infradead.org>,
-	Daniel Lezcano <daniel.lezcano@linaro.org>,
-	Amit Kucheria <amit.kucheria@linaro.org>, Ingo Molnar <mingo@kernel.org>
-Subject: Re: [Ksummit-discuss] [TECH(CORE?) TOPIC] Energy conservation bias
- interfaces
+Sender: keescook@google.com
+In-Reply-To: <1399382930.2237.16.camel@dabdike.int.hansenpartnership.com>
+References: <alpine.LNX.2.00.1405022123320.29834@pobox.suse.cz>
+	<CAGXu5j+oo0iga2AwyeH0OiW=LLWMyeDUDry7HpNrfv=O+bZd_Q@mail.gmail.com>
+	<alpine.LNX.2.00.1405060901460.3969@pobox.suse.cz>
+	<CAGXu5jKAcDrjUtrEdPjVY3dqYhX=UrZctH1-7=qRnGqaRcVcPw@mail.gmail.com>
+	<1399382930.2237.16.camel@dabdike.int.hansenpartnership.com>
+Date: Tue, 6 May 2014 06:41:53 -0700
+Message-ID: <CAGXu5jLpd4NUm5eOEmcbkHc1wNf+=Cr3vQYu5Zv_4Ho046fP2g@mail.gmail.com>
+From: Kees Cook <keescook@chromium.org>
+To: James Bottomley <James.Bottomley@hansenpartnership.com>
+Content-Type: text/plain; charset=UTF-8
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] [TECH TOPIC] live kernel patching
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,55 +36,59 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, May 06, 2014 at 02:54:03PM +0200, Rafael J. Wysocki wrote:
+On Tue, May 6, 2014 at 6:28 AM, James Bottomley
+<James.Bottomley@hansenpartnership.com> wrote:
+> On Tue, 2014-05-06 at 06:18 -0700, Kees Cook wrote:
+>> On Tue, May 6, 2014 at 12:05 AM, Jiri Kosina <jkosina@suse.cz> wrote:
+>> > On Mon, 5 May 2014, Kees Cook wrote:
+>> >
+>> >> I'm very interested in this, especially as it may relate to security
+>> >> exploit mitigation work, both in the sense of being able to arbitrarily
+>> >> patch the kernel against flaws, and to defend against attackers being
+>> >> able to ... er ... arbitrarily patch the kernel... :)
+>> >
+>> > :) Well, for performing the patching, the attacker would either have to be
+>> > able to modprobe module (kpatch, kgraft, ksplice) or kexec to a new kernel
+>> > (criu-based solution). In either case, the system would be owned anyway
+>> > already, independently on any live patching mechanism.
+>>
+>> Right -- this is the current limitation with this kind of thing. I'd
+>> like to have both arbitrarily module loading blocked and the ability
+>> to load generated modules at a later time. I'm hoping there can be
+>> some discussion around providing a verification process for the newly
+>> created modules (e.g. signing the module on a separate machine that
+>> has private key material, etc).
+>
+> This really belongs to the Secure Boot discussion not the live kernel
+> patching one ...
+>
+> As you know, the problem has always been third party modules (what you
+> call "generated modules at a later time").  It's not really technical,
+> it's political: how do you arrive at the trusted key public key?  The
+> distros didn't want to be in the business of signing modules (or keys).
+> The Red Hat kernel generation process even destroys the in-kernel key,
+> so it can't be used to sign them (although a validated RH key with trust
+> rooted somewhere in the secure boot system could).  We've seen a lot of
+> "interesting" suggestions in this regard, like packaging the module up
+> into a windows like binary and getting Microsoft to sign it.  At the end
+> of the day, I think we need a gpg like trust model: the distros all
+> assign public trust to vendor keys and the administrator has to decide
+> whether they want to install that vendor key based on the computed trust
+> from all the distros (so no signing, just assignment of trust).
 
- > First of all, it would be good to have a place where subsystems and device
- > drivers can go and check what the current "energy conservation bias" is in
- > case they need to make a decision between delivering more performance and
- > using less energy.  Second, it would be good to provide user space with
- > a means to tell the kernel whether it should care more about performance or
- > energy.  Finally, it would be good to be able to adjust the overall "energy
- > conservation bias" automatically in response to certain "power" events such
- > as "battery is low/critical" etc.
- > 
- > It doesn't seem to be clear currently what level and scope of such interfaces
- > is appropriate and where to place them.  Would a global knob be useful?  Or
- > should they be per-subsystem, per-driver, per-task, per-cgroup etc?
+I'd like to be careful to avoid UEFI-specific thinking when dealing
+with this. Module verification can also be done without signatures
+(e.g. using the LSM to make sure they load from a read-only device).
+Extending this so that a device with a known-good kernel environment
+(be it UEFI Secure Boot, Chrome OS verified mode, or booting from a
+CD-ROM) can extend itself with generated modules that the system owner
+trusts in some additional way. (This is likely just adding a key for
+module signing, but there's more to discuss: I don't want to have to
+have ALL modules signed, for example, if I can already trust the
+location where kernel-build-time modules are being loaded from, etc.)
 
-I had thoughts about something along these lines a few years ago, when I
-was still doing cpufreq stuff.
+-Kees
 
-Using s/cpuidle/cpufreq/ but same principles..
-
- > It also is not particularly clear what representation of "energy conservation
- > bias" would be most useful.  Should that be a number or a set of well-defined
- > discrete levels that can be given names (like "max performance", "high
- > prerformance", "balanced" etc.)?  If a number, then what units to use and
- > how many different values to take into account?
-
-I always thought that exposing frequencies to userspace was cpufreq's
-biggest mistake.  If I were to do it all over again, I would do
-something probably like the latter example above.
-
-Switching governors from working system-wide to per-process would allow
-users to make a lot more decisions like "don't ever change speed for
-this pid", which isn't really do-able with our existing framework.
-
-What /proc/pid/power/policy defaults to for each new pid would likely
-still need to be configurable, but having users able to set the global
-policy to dynamic (ie, on-demand) scaling, while also being able to do
-
- echo powersave > /proc/$(pidof seti-alien-detector)/power/policy
-
-would I think be a much more deterministic interface over what we have now.
-(Plus apps themselves could set their own policy this way).
-
-The advantage of moving to policy names vs frequencies also means that
-we could use a single power saving policy for cpufreq, cpuidle, and
-whatever else we come up with.
-
-The scheduler might also be able to make better decisions if we maintain
-separate lists for each policy-type, prioritizing performance over
-power-save etc.
-
-	Dave
+-- 
+Kees Cook
+Chrome OS Security
