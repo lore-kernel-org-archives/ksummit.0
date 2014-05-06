@@ -1,33 +1,29 @@
-Return-Path: <morten.rasmussen@arm.com>
+Return-Path: <prvs=02036418cc=clm@fb.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id AD84B8CC
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 2D67B875
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 May 2014 16:04:39 +0000 (UTC)
-Received: from collaborate-mta1.arm.com (fw-tnat.austin.arm.com
-	[217.140.110.23])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 8E9FE2026F
+	Tue,  6 May 2014 17:01:03 +0000 (UTC)
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
+	[67.231.153.30])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 0535520245
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 May 2014 16:04:38 +0000 (UTC)
-Date: Tue, 6 May 2014 17:04:25 +0100
-From: Morten Rasmussen <morten.rasmussen@arm.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Message-ID: <20140506160425.GC2779@e103034-lin>
-References: <1998761.B2k0A5OtQR@vostro.rjw.lan>
-	<20140506134909.GM11096@twins.programming.kicks-ass.net>
-	<20140506145125.GB2779@e103034-lin>
-	<20140506153956.GV26782@laptop.programming.kicks-ass.net>
+	Tue,  6 May 2014 17:01:01 +0000 (UTC)
+Message-ID: <536915C1.7020902@fb.com>
+Date: Tue, 6 May 2014 13:02:57 -0400
+From: Chris Mason <clm@fb.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20140506153956.GV26782@laptop.programming.kicks-ass.net>
-Cc: Len Brown <len.brown@intel.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Daniel Lezcano <daniel.lezcano@linaro.org>,
-	Amit Kucheria <amit.kucheria@linaro.org>, Ingo Molnar <mingo@kernel.org>
-Subject: Re: [Ksummit-discuss] [TECH(CORE?) TOPIC] Energy conservation bias
-	interfaces
+To: Pavel Emelyanov <xemul@parallels.com>
+References: <alpine.LNX.2.00.1405022123320.29834@pobox.suse.cz>
+	<53679974.60206@fb.com>
+	<CALCETrWmeMOHXu_Jk8mh41i-Fkp5kszMxcRamtAjbJkjbez37Q@mail.gmail.com>
+	<5368ECB7.50205@fb.com> <53690340.4020007@parallels.com>
+In-Reply-To: <53690340.4020007@parallels.com>
+Content-Type: text/plain; charset="ISO-8859-1"; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] [TECH TOPIC] live kernel patching
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,39 +33,25 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, May 06, 2014 at 04:39:56PM +0100, Peter Zijlstra wrote:
-> On Tue, May 06, 2014 at 03:51:25PM +0100, Morten Rasmussen wrote:
-> > On Tue, May 06, 2014 at 02:49:09PM +0100, Peter Zijlstra wrote:
-> > > On Tue, May 06, 2014 at 02:54:03PM +0200, Rafael J. Wysocki wrote:
-> > > > Hi All,
-> > > > 
-> > > > During a recent discussion on linux-pm/LKML regarding the integration of the
-> > > > scheduler with cpuidle (http://marc.info/?t=139834240600003&r=1&w=4) it became
-> > > > apparent that the kernel might benefit from adding interfaces to let it know
-> > > > how far it should go with saving energy, possibly at the expense of performance.
-> > > > 
-> > > > First of all, it would be good to have a place where subsystems and device
-> > > > drivers can go and check what the current "energy conservation bias" is in
-> > > > case they need to make a decision between delivering more performance and
-> > > > using less energy.  Second, it would be good to provide user space with
-> > > > a means to tell the kernel whether it should care more about performance or
-> > > > energy.  Finally, it would be good to be able to adjust the overall "energy
-> > > > conservation bias" automatically in response to certain "power" events such
-> > > > as "battery is low/critical" etc.
-> > > > 
-> > > > It doesn't seem to be clear currently what level and scope of such interfaces
-> > > > is appropriate and where to place them.  Would a global knob be useful?  Or
-> > > > should they be per-subsystem, per-driver, per-task, per-cgroup etc?
-> > > 
-> > > per-task and per-cgroup doesn't seem to make sense to me; its the
-> > > hardware that consumes energy.
-> > 
-> > True. But performance requirements are associated with tasks or groups
-> > of tasks. We also need an interface to get input from userspace to tell
-> > us when it is acceptable to potentially loose performance to save
-> > energy. IIUC, that is Rafael's second point above.
-> 
-> That's the QoS thing. While related I don't think we should confuse the
-> two.
+On 05/06/2014 11:44 AM, Pavel Emelyanov wrote:
+> On 05/06/2014 06:07 PM, Chris Mason wrote:
+>
+>>>> Tons of interest in this topic here, mostly for the in-memory database
+>>>> workloads.
+>>>
+>>> Would in-memory databases be happier if there were a way to kexec
+>>> without losing your data?
+>>
+>> Yes, for these apps we could just define a chunk of ram that was
+>> supposed to stay the same after kexec and they would be happy.
+>
+> +1, I'd be happy to have this as well.
+>
+> One question about the chunk of memory you want to preserve -- is it anonymous
+> memory or part of a page cache?
 
-Fully agree. We need both.
+We have plain old memcached, and other fancier stuff is that is page 
+cache based.  I think for memcached they've set it up to use shm so app 
+restarts don't toss the ram.
+
+-chris
