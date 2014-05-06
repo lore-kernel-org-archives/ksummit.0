@@ -1,34 +1,27 @@
-Return-Path: <hpa@zytor.com>
+Return-Path: <josh@joshtriplett.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 7B3FD98F
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 4021D96D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 May 2014 02:15:05 +0000 (UTC)
-Received: from mail.zytor.com (terminus.zytor.com [198.137.202.10])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 446AB1FA9C
+	Tue,  6 May 2014 02:22:08 +0000 (UTC)
+Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
+	[217.70.183.198])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A29541F950
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 May 2014 02:15:05 +0000 (UTC)
-Message-ID: <53684592.1020704@zytor.com>
-Date: Mon, 05 May 2014 19:14:42 -0700
-From: "H. Peter Anvin" <hpa@zytor.com>
+	Tue,  6 May 2014 02:22:07 +0000 (UTC)
+Date: Mon, 5 May 2014 19:21:59 -0700
+From: Josh Triplett <josh@joshtriplett.org>
+To: "H. Peter Anvin" <hpa@zytor.com>
+Message-ID: <20140506022158.GA1499@thin>
+References: <5367D989.1000504@linaro.org> <20140505205339.GB15815@cloud>
+	<53684526.7060507@zytor.com>
 MIME-Version: 1.0
-To: "Bird, Tim" <Tim.Bird@sonymobile.com>, Dave Jones <davej@redhat.com>,
-	Josh Triplett <josh@joshtriplett.org>
-References: <20140502164438.GA1423@jtriplet-mobl1>,
-	<20140502171103.GA725@redhat.com>
-	<F5184659D418E34EA12B1903EE5EF5FDEE1B9D0108@seldmbx02.corpusers.net>
-In-Reply-To: <F5184659D418E34EA12B1903EE5EF5FDEE1B9D0108@seldmbx02.corpusers.net>
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
-Cc: Sarah Sharp <sarah@minilop.net>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	"al.stone@linaro.org" <al.stone@linaro.org>,
-	Julia Lawall <julia.lawall@lip6.fr>, Darren Hart <darren@dvhart.com>,
-	Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Kernel tinification: shrinking
- the kernel and avoiding size regressions
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <53684526.7060507@zytor.com>
+Cc: John Stultz <john.stultz@linaro.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Dealing with 2038
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,12 +31,34 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 05/05/2014 04:45 PM, Bird, Tim wrote:
->  - adding a kernel mechanism to eliminate any unused syscalls, at compile time
->    (using LTO, all I had to do was make the syscall unreachable, and the compiler
->    eliminated the calls automatically.  Some of the work was removing parts of Andy Kleen's LTO
->    patches which prevented unreferenced code from being optimized out.)
+On Mon, May 05, 2014 at 07:12:54PM -0700, H. Peter Anvin wrote:
+> On 05/05/2014 01:53 PM, josh@joshtriplett.org wrote:
+> > 
+> > I would be interested in this, not just because of time_t itself, but as
+> > a general pattern for "how can we transition away from an old and broken
+> > ABI".  Whether by introducing new system calls, new personalities,
+> > seccomp filters, or other mechanisms, we should have some ways to start
+> > such transitions and to smooth them out.  Sure, we never break
+> > userspace, but that just means we need an appropriate
+> > CONFIG_OLD_AND_BUSTED option for as long as people still need the old
+> > ABI.
+> > 
+> 
+> There is absolutely nothing new here... we have dealt with these kinds
+> of transitions for most of Linux' existence.
+> 
+> However, time_t is a particularly nontrivial issue, because it is not
+> just a matter of changing the kernel ABI but a *lot* of user space ABIs
+> also contain this type.  The kernel/glibc interfaces are pretty well set
+> up to handle this properly these days, but I have very little hope that
+> all the user space libraries will properly handle having two versions of
+> a bunch of APIs with different version numbers.
 
-There is some irony here.
+64-bit off_t support seems like a similar issue; all the kernel
+interfaces support 64-bit off_t, and glibc has #defines for
+64-bit off_t, but a large number of userspace programs don't bother to
+define them.
 
-	-hpa
+That seems like the right path to transition time_t as well.
+
+- Josh Triplett
