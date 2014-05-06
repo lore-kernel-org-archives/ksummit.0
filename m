@@ -1,26 +1,25 @@
-Return-Path: <josh@joshtriplett.org>
+Return-Path: <arnd@arndb.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id B617A875
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 09307918
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 May 2014 17:58:46 +0000 (UTC)
-Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
-	[217.70.183.196])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 464BB201A2
+	Tue,  6 May 2014 18:20:52 +0000 (UTC)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.10])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4C712201A2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 May 2014 17:58:46 +0000 (UTC)
-Date: Tue, 6 May 2014 10:58:42 -0700
-From: josh@joshtriplett.org
-To: Andy Lutomirski <luto@amacapital.net>
-Message-ID: <20140506175842.GF20776@cloud>
-References: <CALCETrU_xrdgUNF55YU+8rfq2xK0cU3QybQhqvX4L8OgsiwG5A@mail.gmail.com>
+	Tue,  6 May 2014 18:20:51 +0000 (UTC)
+From: Arnd Bergmann <arnd@arndb.de>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Tue, 06 May 2014 20:20:47 +0200
+Message-ID: <5252732.F3YIzHDqI3@wuerfel>
+In-Reply-To: <536921B5.8090100@linaro.org>
+References: <5367D989.1000504@linaro.org> <20140506125741.GB17586@thunk.org>
+	<536921B5.8090100@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CALCETrU_xrdgUNF55YU+8rfq2xK0cU3QybQhqvX4L8OgsiwG5A@mail.gmail.com>
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Reviewing new API/ABI
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: John Stultz <john.stultz@linaro.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Dealing with 2038
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,42 +29,26 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, May 06, 2014 at 10:45:05AM -0700, Andy Lutomirski wrote:
-> There doesn't currently seem to be any real process for reviewing new
-> core APIs for sanity of design, appropriateness to solve the problem
-> they're targetting, or correctness of implementation.
-[...]
-> I think that the process could be improved.  I think that there are
-> people who are willing to spend time to read API docs and thinking
-> about these kinds of issues.  (I am, and Michael Kerrisk seems to do a
-> fair amount of it.)
+On Tuesday 06 May 2014 10:53:57 John Stultz wrote:
+> On 05/06/2014 05:57 AM, Theodore Ts'o wrote:
+> > I suspect the only real way of dealing with the problem for 32-bit
+> > architectures is to consider doing a major version bump for all shared
+> > libraries, and for a while, 32-bit distributions might have to ship
+> > two versions of all of the more popular shared libraries.
+> ...
+> > OTOH, if the main issue is "industrial control and security systems"
+> > as stated in the original problem description,, I very much doubt they
+> > would need GNOME shared libraries.  :-)
 > 
-> I would like to discuss what we could change to make this work better
-> in the future.  In an ideal world, I would like to see every core API
-> change come with documentation, tests (possibly simple ones), and a
-> post, with acks, to a list that covers just API changes.  This might
-> be tough, but it could add a lot of value.
-> 
-> I've occasionally thought that API docs should live in the kernel tree
-> in some reasonably well organized place so that patch sets can include
-> doc patches.  I realize that this is contentious.
-> 
-> I'm sure that other people have other suggestions here.
-> 
-> --Andy
-> 
-> P.S.  I'm not on the invitation nominee list, so if people like this
-> topic, I'd appreciate a nomination :)
+> Well, there's also things like in-car-infotainment systems (which would
+> annoy future car collectors should they stop working), which may require
+> GUI toolkits. But I suspect the most problematic cases will be embedded
+> systems in the literal sense of "embedded in the wall".
 
-I'm interested in this topic, and I'll second that nomination.  I'd
-like to partipate in this discussion.
+Medical equipment (and I assume military, which is often in the same
+category) is probably a big thing. I remember we had a big discussion
+about a product at a former employer when a customer asked for support
+beyond 2038. I think we ended up saying that the hardware is fine but
+no supported distro would handle this.
 
-We need to have better processes for vetting new syscalls and ABIs far
-more carefully than we currently do.  Right now, we require benchmarks
-for any claimed performance increase; it's almost a given that if you
-post an optimization without including benchmarks in the commit message,
-it'll get rejected with a request to come back with numbers.  We need
-similar standards for new syscalls or other userspace ABIs: come back
-with test programs, test coverage information, etc.
-
-- Josh Triplett
+	Arnd
