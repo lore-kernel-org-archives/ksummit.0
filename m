@@ -1,24 +1,31 @@
-Return-Path: <jkosina@suse.cz>
+Return-Path: <rostedt@goodmis.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 2BAE7AEB
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 63381AF7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 May 2014 07:05:56 +0000 (UTC)
-Received: from mx2.suse.de (cantor2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B30241FC59
+	Tue,  6 May 2014 10:49:53 +0000 (UTC)
+Received: from cdptpa-oedge-vip.email.rr.com
+	(cdptpa-outbound-snat.email.rr.com [107.14.166.227])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id D77E11FD4A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 May 2014 07:05:55 +0000 (UTC)
-Date: Tue, 6 May 2014 09:05:53 +0200 (CEST)
-From: Jiri Kosina <jkosina@suse.cz>
-To: Kees Cook <keescook@chromium.org>
-In-Reply-To: <CAGXu5j+oo0iga2AwyeH0OiW=LLWMyeDUDry7HpNrfv=O+bZd_Q@mail.gmail.com>
-Message-ID: <alpine.LNX.2.00.1405060901460.3969@pobox.suse.cz>
-References: <alpine.LNX.2.00.1405022123320.29834@pobox.suse.cz>
-	<CAGXu5j+oo0iga2AwyeH0OiW=LLWMyeDUDry7HpNrfv=O+bZd_Q@mail.gmail.com>
+	Tue,  6 May 2014 10:49:52 +0000 (UTC)
+Date: Tue, 6 May 2014 06:49:50 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <20140506064950.03f66d96@gandalf.local.home>
+In-Reply-To: <53685F44.3040305@roeck-us.net>
+References: <53662254.9060100@huawei.com>
+	<CA+5PVA6sCLej9hhrRtaAw8hgrM7rw_R9-rWrH=VERdHY_fXGUg@mail.gmail.com>
+	<5366FBDB.7090705@huawei.com> <20140505134126.GA22287@thunk.org>
+	<20140505223324.GA5298@kroah.com>
+	<20140505232010.26a67845@gandalf.local.home>
+	<53685F44.3040305@roeck-us.net>
 MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] [TECH TOPIC] live kernel patching
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: Josh Boyer <jwboyer@fedoraproject.org>, lizf.kern@gmail.com,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -28,18 +35,15 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 5 May 2014, Kees Cook wrote:
+On Mon, 05 May 2014 21:04:20 -0700
+Guenter Roeck <linux@roeck-us.net> wrote:
 
-> I'm very interested in this, especially as it may relate to security 
-> exploit mitigation work, both in the sense of being able to arbitrarily 
-> patch the kernel against flaws, and to defend against attackers being 
-> able to ... er ... arbitrarily patch the kernel... :)
+> On 05/05/2014 08:20 PM, Steven Rostedt wrote:
 
-:) Well, for performing the patching, the attacker would either have to be 
-able to modprobe module (kpatch, kgraft, ksplice) or kexec to a new kernel 
-(criu-based solution). In either case, the system would be owned anyway 
-already, independently on any live patching mechanism.
+> In other words, I don't think this kind of reverse psychology would work.
 
--- 
-Jiri Kosina
-SUSE Labs
+I don't know. It's kind of like Linus closing the merge window early.
+
+But yeah, people will always play the system.
+
+-- Steve
