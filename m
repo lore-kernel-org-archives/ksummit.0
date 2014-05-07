@@ -1,25 +1,28 @@
-Return-Path: <masami.hiramatsu.pt@hitachi.com>
+Return-Path: <sundar.iyer@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 6D0D6681
+	by mail.linuxfoundation.org (Postfix) with ESMTP id DC8064C6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  7 May 2014 03:31:41 +0000 (UTC)
-Received: from mail9.hitachi.co.jp (mail9.hitachi.co.jp [133.145.228.44])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id A8E5A20116
+	Wed,  7 May 2014 05:21:59 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 5403920274
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  7 May 2014 03:31:40 +0000 (UTC)
-Message-ID: <5369A916.4000206@hitachi.com>
-Date: Wed, 07 May 2014 12:31:34 +0900
-From: Masami Hiramatsu <masami.hiramatsu.pt@hitachi.com>
+	Wed,  7 May 2014 05:21:59 +0000 (UTC)
+From: "Iyer, Sundar" <sundar.iyer@intel.com>
+To: Peter Zijlstra <peterz@infradead.org>, "Rafael J. Wysocki"
+	<rjw@rjwysocki.net>
+Date: Wed, 7 May 2014 05:20:59 +0000
+Message-ID: <2FABAEF0D3DCAF4F9C9628D6E2F9684533B4C781@BGSMSX102.gar.corp.intel.com>
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-To: Li Zefan <lizefan@huawei.com>
-References: <53662254.9060100@huawei.com> <53699F27.9040403@hitachi.com>
-	<5369A311.2030001@huawei.com>
-In-Reply-To: <5369A311.2030001@huawei.com>
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable issues
+Cc: "Brown, Len" <len.brown@intel.com>,
+	Daniel Lezcano <daniel.lezcano@linaro.org>, Ingo Molnar <mingo@kernel.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [TECH(CORE?) TOPIC] Energy conservation bias
+ interfaces
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,39 +32,78 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-(2014/05/07 12:05), Li Zefan wrote:
-> On 2014/5/7 10:49, Masami Hiramatsu wrote:
->> (2014/05/04 20:19), Li Zefan wrote:
->>> - Testing stable kernels
->>>
->>> The testing of stable kernels when a new version is under review seems
->>> quite limited. We have Dave's Trinity and Fengguang's 0day, but they
->>> are run on mainline/for-next only. Would be useful to also have them
->>> run on stable kernels?
->>
->> This might be a kind of off-topic, but I'm interested in the testing
->> on the linux kernel, especially standard framework of unit-tests
->> for each feature.
->>
->> I see the Trinity and Fengguang's 0day test are useful. But for newer
->> introduced features/bugfixes, would we have a standard tests?
->> (for some subsystems have own selftests, but not unified.)
->>
-> 
-> I kind of remember Andrew once suggested a new feature can't be accepted
-> unless it comes with test cases?
+> -----Original Message-----
+> From: ksummit-discuss-bounces@lists.linuxfoundation.org [mailto:ksummit-
+> discuss-bounces@lists.linuxfoundation.org] On Behalf Of Peter Zijlstra
 
-Yeah, that's a good suggestion :)
+> > (http://marc.info/?t=3D139834240600003&r=3D1&w=3D4) it became apparent =
+that
 
-And I think we should have a unified test framework which can drive
-such test cases, and document how to add a test case within
-a series of patches. It would be great if we can point out
-which feature/commit is broken because of a test-case failure. :)
+> > First of all, it would be good to have a place where subsystems and
+> > device drivers can go and check what the current "energy conservation
+> > bias" is in case they need to make a decision between delivering more
+> > performance and using less energy.  Second, it would be good to
 
-Thank you,
+It might sound a stupid question, but isn't this entirely dependent on the =
+platform?
 
--- 
-Masami HIRAMATSU
-Software Platform Research Dept. Linux Technology Research Center
-Hitachi, Ltd., Yokohama Research Laboratory
-E-mail: masami.hiramatsu.pt@hitachi.com
+A higher performance will translate into better energy only if the "race to=
+ halt" was
+true and the system/platform had a nice power/performance/energy curve. E.g=
+. if the
+task got completed quicker enough (reduced t) to offset the most probably i=
+ncreased
+current consumption (increased i @ constant v).
+
+Am I wrong? What would happen on a platform, where more performance means
+using more energy?
+
+> > provide user space with a means to tell the kernel whether it should
+> > care more about performance or energy.  Finally, it would be good to
+> > be able to adjust the overall "energy conservation bias" automatically
+
+Instead of either energy or performance, would it be easier to look if
+it were a "just enough performance" metric? Rather than worry about a reduc=
+ed
+performance to save energy, it would be IMO better to try to optimize the e=
+nergy
+within the constraints of the required performance. Of course, those constr=
+aints
+could be changed.
+
+e.g. if the display would communicate it doesn't need to refresh more than =
+60fps,
+this could be communicated to the GPU/CPU to control the bias for these sub=
+-systems
+accordingly.
+
+> > in response to certain "power" events such as "battery is low/critical"=
+ etc.
+
+Would I be wrong if I said the thermal throttling is already an example of =
+this?
+When the battery is critical/temperature is unbearable, the system cuts dow=
+n
+the performance of sub-systems like CPU, display etc.
+
+> per-subsystem sounds right to me; I don't care which particular instance =
+of
+> graphics cards I have, I want whichever one(s) I have to obey.
+>=20
+> global doesn't make sense, like stated earlier I absolutely detest automa=
+gic
+> backlight dimming, whereas I don't particularly care about compute speed =
+at
+> all.
+
+That calls for highly customized preferences for what to control: in most c=
+ases
+the dimmed backlight itself saves a considerable amount of energy which wou=
+ldn't
+be matched by a CPU (or a GPU) control. On a battery device, the first pref=
+erence
+would be to dim out the screen but still allow the user a good battery life=
+ and=20
+user experience.
+
+Cheers!
