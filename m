@@ -1,32 +1,28 @@
-Return-Path: <davidlohr@hp.com>
+Return-Path: <luto@amacapital.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id B871DB1D
+	by mail.linuxfoundation.org (Postfix) with ESMTP id E80F9B05
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  7 May 2014 18:40:14 +0000 (UTC)
-Received: from g2t1383g.austin.hp.com (g2t1383g.austin.hp.com [15.217.136.92])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 45DE52026C
+	Wed,  7 May 2014 18:53:36 +0000 (UTC)
+Received: from mail-vc0-f171.google.com (mail-vc0-f171.google.com
+	[209.85.220.171])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6A8C020250
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  7 May 2014 18:40:14 +0000 (UTC)
-Received: from g6t1524.atlanta.hp.com (g6t1524.atlanta.hp.com [15.193.200.67])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by g2t1383g.austin.hp.com (Postfix) with ESMTPS id 36FE68AB
+	Wed,  7 May 2014 18:53:36 +0000 (UTC)
+Received: by mail-vc0-f171.google.com with SMTP id lc6so1877243vcb.16
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  7 May 2014 18:21:00 +0000 (UTC)
-Message-ID: <1399488009.4567.20.camel@buesod1.americas.hpqcorp.net>
-From: Davidlohr Bueso <davidlohr@hp.com>
-To: Masami Hiramatsu <masami.hiramatsu.pt@hitachi.com>
-Date: Wed, 07 May 2014 11:40:09 -0700
-In-Reply-To: <5369EE59.9040805@hitachi.com>
-References: <53662254.9060100@huawei.com> <53699F27.9040403@hitachi.com>
-	<1399431538.2581.30.camel@buesod1.americas.hpqcorp.net>
-	<5369EE59.9040805@hitachi.com>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable issues
+	Wed, 07 May 2014 11:53:35 -0700 (PDT)
+MIME-Version: 1.0
+In-Reply-To: <20140507180315.GA926@srcf.ucam.org>
+References: <20140507180315.GA926@srcf.ucam.org>
+From: Andy Lutomirski <luto@amacapital.net>
+Date: Wed, 7 May 2014 11:53:15 -0700
+Message-ID: <CALCETrULGiH=Afoqu8W06x=e2EQr6v7t10OSgYdxdu3df__pTQ@mail.gmail.com>
+To: Matthew Garrett <mjg59@srcf.ucam.org>
+Content-Type: text/plain; charset=UTF-8
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Trusted kernel patchset
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,63 +32,31 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 2014-05-07 at 17:27 +0900, Masami Hiramatsu wrote:
-> (2014/05/07 11:58), Davidlohr Bueso wrote:
-> > On Wed, 2014-05-07 at 11:49 +0900, Masami Hiramatsu wrote:
-> >> (2014/05/04 20:19), Li Zefan wrote:
-> >>> - Testing stable kernels
-> >>>
-> >>> The testing of stable kernels when a new version is under review seems
-> >>> quite limited. We have Dave's Trinity and Fengguang's 0day, but they
-> >>> are run on mainline/for-next only. Would be useful to also have them
-> >>> run on stable kernels?
-> >>
-> >> This might be a kind of off-topic, but I'm interested in the testing
-> >> on the linux kernel, especially standard framework of unit-tests
-> >> for each feature.
-> > 
-> > I tend to think of LTP as a nice way of doing unit-tests for the uapi.
-> > Fengguang's scripts do include it, iirc, but I'm referring more to unit
-> > level tests. It serves well for changes in ipc, and should also for
-> > other subsystems.
-> 
-> Hm, yes, uapi tests can be done in LTP. However, I have some considerations;
-> - What uapi means? syscall, ioctl are OK, but what about procfs, sysfs, kernfs,
->   etc?
+On Wed, May 7, 2014 at 11:03 AM, Matthew Garrett <mjg59@srcf.ucam.org> wrote:
+> (Posting as core rather than tech because I suspect this is more
+> political than technical at this point)
+>
+> Most major distributions ship these. There is strong demand from Google,
+> who want to use them in a use-case that has nothing to do with UEFI
+> Secure Boot. Making a distinction between root and kernel security is a
+> necessary part of securing a boot chain[1].
+>
+> Yet, after apparently gaining at least a rough consensus at LPC last
+> year, we're now at the point where there's yet another suggestion for
+> how to rewrite them but absolutely nobody showing any signs of being
+> willing to do that work or any agreement from anyone in the security
+> community that entirely reworking capabilities is either practical or
+> desirable.
 
-Yeah, I'm mostly referring to syscalls and ioctls here. I believe LTP
-also covers procfs in some cases, but it's not the norm.
+I am very interested in this, both from the POV of how capabilities do
+and/or should work, and of what trusted boot should do.
 
-> - There could be some non-uapi features/bugfixes, in kernel. e.g. kmodule
->   interface. How LTP handles it?
+There is a lot of very vocal opposition to any change in the way that
+capabilities work, and I think that, at some point, it might be
+helpful if enough people who think that capabilities can change
+reached some kind of consensus so that something can be done.
 
-That's kind of beyond the idea of LTP, afaik.
+That being said, capabilities are a giant mess, and it might be really
+hard to fix them.
 
-> - I'm not sure how LTP synchronize the version of test cases with target
->   kernel version. 
-
-Well, again this is uapi, which doesn't/shouldn't change from version to
-version. That's the whole point, make sure we don't break userspace.
-
-> Is that possible to update the test cases as patch-level?
->   And also, for stable trees, we'll need different test-sets (branches) for
->   each tree.
-> 
-> IOW, would the test cases be better to be out-of-tree or in-tree? If it is
-> out-of-tree(like LTP), how can we maintain both test-cases and upstream kernels?
-
-Out of tree projects have their place, such as LTP, which has proven
-itself in the past.
-
-> Those are my interests :)
-
-In general I'm very interested in this topic and would like to
-participate in the discussion. In addition, there are areas within
-futexes that could use some serious unit testing... perhaps in
-selftests, dunno, would have to think about that. Right now we've got
-some tests in perf-bench, but that's more performance than correctness.
-The rest relies on Darren's out of tree futextests suite. However, this,
-unfortunately, isn't at a unit granularity.
-
-Thanks,
-Davidlohr
+--Andy
