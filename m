@@ -1,28 +1,24 @@
-Return-Path: <jwboyer@gmail.com>
+Return-Path: <will.deacon@arm.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 1A014AF1
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 59A73B05
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  7 May 2014 18:14:11 +0000 (UTC)
-Received: from mail-ob0-f179.google.com (mail-ob0-f179.google.com
-	[209.85.214.179])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 63E402026E
+	Wed,  7 May 2014 18:29:57 +0000 (UTC)
+Received: from cam-admin0.cambridge.arm.com (cam-admin0.cambridge.arm.com
+	[217.140.96.50])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 005322026B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  7 May 2014 18:14:10 +0000 (UTC)
-Received: by mail-ob0-f179.google.com with SMTP id gq1so1676293obb.24
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 07 May 2014 11:14:09 -0700 (PDT)
+	Wed,  7 May 2014 18:29:55 +0000 (UTC)
+Date: Wed, 7 May 2014 19:29:16 +0100
+From: Will Deacon <will.deacon@arm.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Message-ID: <20140507182916.GG3694@arm.com>
 MIME-Version: 1.0
-Sender: jwboyer@gmail.com
-In-Reply-To: <20140507180315.GA926@srcf.ucam.org>
-References: <20140507180315.GA926@srcf.ucam.org>
-Date: Wed, 7 May 2014 14:14:09 -0400
-Message-ID: <CA+5PVA6W1ffAq6EsEQS7LfJm7oJxVbmKiGh2bWW+kTL4JDyFTQ@mail.gmail.com>
-From: Josh Boyer <jwboyer@fedoraproject.org>
-To: Matthew Garrett <mjg59@srcf.ucam.org>
-Content-Type: text/plain; charset=ISO-8859-1
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Trusted kernel patchset
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Cc: peterz@infradead.org, waiman.long@hp.com
+Subject: [Ksummit-discuss] [TECH TOPIC] asm-generic implementations of
+ low-level synchronisation constructs
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,34 +28,109 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, May 7, 2014 at 2:03 PM, Matthew Garrett <mjg59@srcf.ucam.org> wrote:
-> (Posting as core rather than tech because I suspect this is more
-> political than technical at this point)
->
-> Most major distributions ship these. There is strong demand from Google,
-> who want to use them in a use-case that has nothing to do with UEFI
-> Secure Boot. Making a distinction between root and kernel security is a
-> necessary part of securing a boot chain[1].
->
-> Yet, after apparently gaining at least a rough consensus at LPC last
-> year, we're now at the point where there's yet another suggestion for
-> how to rewrite them but absolutely nobody showing any signs of being
-> willing to do that work or any agreement from anyone in the security
-> community that entirely reworking capabilities is either practical or
-> desirable.
->
-> It'd be nice to have this done before August, but given that all
-> previous attempts to actually get it unblocked on mailing lists have
-> failed maybe we should talk about it in person. Again.
+Hi all,
 
-I think it's fairly obvious I'd like to attend this.  Other suggested
-people would be:
+Traditionally, low-level synchronisation and atomic constructs have been
+buried away in arch-specific code, with new arch maintainers having to
+wrestle with Documentation/{memory-barriers,atomic_ops}.txt to ensure
+they provide the (somewhat arbitrary) semantics expected by the kernel.
 
-James Bottomley
-James Morris
-Kees Cook
-Joey Li
-Gary Lin
-Vojtech Pavlik
+However, over the past year, there have been some notable events in this
+area:
 
-josh
+  (1) The addition of smp_load_acquire/smp_store_release across all
+      architectures (including asm-generic)
+      https://lwn.net/Articles/576486/
+
+  (2) Merging of generic MCS spinlocks into kernel/locking, built using
+      the macros introduced by (1). There are other similar patches for
+      queued spinlocks and rwlocks, but they're not completely generic
+      afaict.
+      http://lwn.net/Articles/590243/
+
+  (3) C11 atomics seem to be more prominent on people's radar.
+      http://lwn.net/Articles/586838/
+
+In light of these developments, I'd like to revisit what we expect from
+architectures in the way of atomics and locks. Ultimately, this means
+trying to construct efficient (not just functional!) spinlock, rwlock,
+futex and bitop implementations in asm-generic which would be build out
+of suitable, simple(r) atomic operations implemented by each architecture.
+
+For example, a dumb spinlock can be constructed with our [cmp]xchg:
+
+  dumb_spin_lock(atomic_t *lock)
+  {
+	while (atomic_cmpxchg(lock, 0, 1))
+		cpu_relax();
+  }
+
+  dumb_spin_unlock(atomic_t *lock)
+  {
+	atomic_xchg(lock, 0);
+  }
+
+but nobody is going to flock to such an implementation. It's unfair and
+has additional barrier overhead on weakly-ordered architectures.
+
+What we'd like to write is something like (just trying to show the atomics
+-- this is likely not endian-clean at least):
+
+#define TICKET_SHIFT	16
+#define TICKET_MASK	((1 << TICKET_SHIFT) - 1)
+
+  better_spin_lock(atomic_t *lock)
+  {
+	/*
+	 * Atomic add to lock with acquire semantics, returning original
+	 * value.
+	 */
+	int old = atomic_xchg_add(ACQUIRE, lock, 1 << TICKET_SHIFT);
+	if ((old << TICKET_SHIFT) == (old & (TICKET_MASK << TICKET_SHIFT)))
+		return; /* Got the lock */
+
+	while (smp_load_acquire((u16 *)lock) != (old >> TICKET_SHIFT))
+		cpu_relax();
+  }
+
+  better_spin_unlock(atomic_t *lock)
+  {
+	smp_store_release((u16 *)lock, atomic_read(lock) + 1);
+  }
+
+which isn't perfect, but is much better than before and made possible by
+the addition of atomic_xchg_add. The remaining parts to address are things
+like power saving when spinning and synchronising unlock with I/O accesses,
+but they will likely remain arch-specific. We should be able to do a similar
+thing for other locking constructs.
+
+Increasing the number of atomic operations would also help us to define
+a cleaner interface to them, potentially easing any adoption of C11 atomics
+in future. For example, rather than saying "atomic_set() does not imply
+barriers" and "atomic_xchg() requires explicit memory barriers around the
+operation", we could have store/release/store+release variants of them both
+(similar to C11 and OpenCL). As it stands, there are a couple of cases
+where atomic_xchg is used in preference to atomic_set + appropriate barriers
+(just look for uses of xchg where the return value is ignored).
+
+Another related area to clean up is the semantics around conditional
+atomics (cmpxchg, add_unless, dec_if_positive etc) and barriers on the
+failure paths.
+
+Anyway, I've proposed this as a [TECH TOPIC] because I think sitting down
+for half a day with other people interested in this problem could result
+in us deciding on an initial set of atomic operations from which to build
+efficient, generic locking constructs. That later part can definitely
+happen on LKML, but the first steps will be a lot easier face-to-face.
+
+Key people for this would be:
+
+  - Peter Zijlstra
+  - Ben Herrenschmidt
+  - Paul McKenney
+  - Waiman Long
+  - Arnd Bergmann
+
+Cheers,
+
+Will
