@@ -1,27 +1,31 @@
-Return-Path: <tytso@thunk.org>
+Return-Path: <masami.hiramatsu.pt@hitachi.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 23179681
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 0E36A4C6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  7 May 2014 02:07:51 +0000 (UTC)
-Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4C7EA20212
+	Wed,  7 May 2014 02:49:18 +0000 (UTC)
+Received: from mail9.hitachi.co.jp (mail9.hitachi.co.jp [133.145.228.44])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 9E86C201A1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  7 May 2014 02:07:50 +0000 (UTC)
-Date: Tue, 6 May 2014 22:07:43 -0400
-From: Theodore Ts'o <tytso@mit.edu>
-To: John Stultz <john.stultz@linaro.org>
-Message-ID: <20140507020743.GA6461@thunk.org>
-References: <5367D989.1000504@linaro.org> <20140506125741.GB17586@thunk.org>
-	<536921B5.8090100@linaro.org> <5252732.F3YIzHDqI3@wuerfel>
-	<20140506201959.GD5012@thunk.org> <20140506203337.GE21332@cloud>
-	<20140506205052.GF5012@thunk.org> <53695CE3.5090005@linaro.org>
+	Wed,  7 May 2014 02:49:17 +0000 (UTC)
+Received: from mlsv6.hitachi.co.jp (unknown [133.144.234.166])
+	by mail9.hitachi.co.jp (Postfix) with ESMTP id 726F437C83
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed,  7 May 2014 11:49:16 +0900 (JST)
+Received: from vshuts01.hitachi.co.jp (vshuts01.hitachi.co.jp [10.201.6.83])
+	by mfilter04.hitachi.co.jp (Switch-3.3.4/Switch-3.3.4) with ESMTP id
+	s472nFYK032051 for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 7 May 2014 11:49:16 +0900
+Message-ID: <53699F27.9040403@hitachi.com>
+Date: Wed, 07 May 2014 11:49:11 +0900
+From: Masami Hiramatsu <masami.hiramatsu.pt@hitachi.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <53695CE3.5090005@linaro.org>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Dealing with 2038
+To: ksummit-discuss@lists.linuxfoundation.org
+References: <53662254.9060100@huawei.com>
+In-Reply-To: <53662254.9060100@huawei.com>
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,47 +35,30 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, May 06, 2014 at 03:06:27PM -0700, John Stultz wrote:
+(2014/05/04 20:19), Li Zefan wrote:
+> - Testing stable kernels
 > 
-> Sure. If its preferred I can try to get some mail on the list outlining
-> my and Thomas' proposals w/ various pros and cons to the list prior to
-> the discussion. And I can make a point to provide specific data on the #
-> of syscall and ioctl structures that embed time_t (or embed structures
-> which contain time_t), etc.
+> The testing of stable kernels when a new version is under review seems
+> quite limited. We have Dave's Trinity and Fengguang's 0day, but they
+> are run on mainline/for-next only. Would be useful to also have them
+> run on stable kernels?
 
-It also might be useful to also consider which interfaces are mediated
-by glibc, and which aren't (i.e., ioctl's).  We might be able to
-separate what might be doable by negotaitons between glibc and the
-kernel, and between applications and the shared library ecosystem,
-which would allow a soft/slow cutover, but with all or most of the
-compatibility in glibc.
+This might be a kind of off-topic, but I'm interested in the testing
+on the linux kernel, especially standard framework of unit-tests
+for each feature.
 
-> Thomas (at least as far as my understanding last we spoke) would prefer
-> not to introduce a whole new ABI, but to introduce new syscalls in
-> addition existing syscalls which would provide something like ktime_t
-> (u64 nanosecond value) as main time type. Eventually deprecating all the
-> syscalls that use time_t.
+I see the Trinity and Fengguang's 0day test are useful. But for newer
+introduced features/bugfixes, would we have a standard tests?
+(for some subsystems have own selftests, but not unified.)
 
-One of the questions to evaluate this proposal is how many syscalls
-this would take.  And if we the goal is to "avoid a hard ABI break",
-then that also means doing something like the Large File Support hack
-(i.e., open64, read64, etc.) which is application visible.  Right?
-But the problem is unless you get all applications to use these
-non-standard, non-POSIX interfaces --- or you need to get them to use
-a magic #define, ala the LFS --- and good luck getting all
-applications to do make that change, or to get distributions to modify
-their build scrpits to include that --- and then it's equivalent to a
-hard ABI break, since it means time_t changes size.
+I guess tools/testing/selftest will be an answer. If so, I think
+we'd better send bugfixes with a test-case to check the bug is fixed
+(and ensure no regression in future), wouldn't it?
 
-> Right. So clearly I don't have all the details ready right this moment,
-> but I hope providing more detail above gives you a better sense of the
-> current proposals and some confidence that I'll try to do my homework
-> and have some discussions on lkml before the Kernel Summit discussion.
+Thank you,
 
-Something else to consider is whether we would need to have some glibc
-folks present at the kernel summit if we want to discuss it there, and
-whether we should also think about also planning some discussions at
-the Plumber's Conference --- because there will certainly be userspace
-impacts that will need to be taken into account.
-
-						- Ted
+-- 
+Masami HIRAMATSU
+Software Platform Research Dept. Linux Technology Research Center
+Hitachi, Ltd., Yokohama Research Laboratory
+E-mail: masami.hiramatsu.pt@hitachi.com
