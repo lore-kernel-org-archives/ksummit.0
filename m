@@ -1,27 +1,27 @@
-Return-Path: <masami.hiramatsu.pt@hitachi.com>
+Return-Path: <jkosina@suse.cz>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 2616D8B4
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 875A3875
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  7 May 2014 11:45:14 +0000 (UTC)
-Received: from mail7.hitachi.co.jp (mail7.hitachi.co.jp [133.145.228.42])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 7CF1D1FB51
+	Wed,  7 May 2014 11:48:07 +0000 (UTC)
+Received: from mx2.suse.de (cantor2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 55EE31FB51
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  7 May 2014 11:45:13 +0000 (UTC)
-Message-ID: <536A1CC3.5090506@hitachi.com>
-Date: Wed, 07 May 2014 20:45:07 +0900
-From: Masami Hiramatsu <masami.hiramatsu.pt@hitachi.com>
+	Wed,  7 May 2014 11:48:06 +0000 (UTC)
+Date: Wed, 7 May 2014 13:48:03 +0200 (CEST)
+From: Jiri Kosina <jkosina@suse.cz>
+To: Josh Triplett <josh@joshtriplett.org>
+In-Reply-To: <20140506203426.GA15428@jtriplet-mobl1>
+Message-ID: <alpine.LNX.2.00.1405071343390.3969@pobox.suse.cz>
+References: <CALCETrU_xrdgUNF55YU+8rfq2xK0cU3QybQhqvX4L8OgsiwG5A@mail.gmail.com>
+	<20140506190024.GA1004@kroah.com>
+	<20140506160740.1245d1f4@gandalf.local.home>
+	<20140506203426.GA15428@jtriplet-mobl1>
 MIME-Version: 1.0
-To: Matt Fleming <matt@console-pimps.org>
-References: <53662254.9060100@huawei.com> <53699F27.9040403@hitachi.com>
-	<1399431538.2581.30.camel@buesod1.americas.hpqcorp.net>
-	<5369EE59.9040805@hitachi.com>
-	<20140507083936.GY26088@console-pimps.org>
-In-Reply-To: <20140507083936.GY26088@console-pimps.org>
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable issues
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Reviewing new API/ABI
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,29 +31,46 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-(2014/05/07 17:39), Matt Fleming wrote:
-> On Wed, 07 May, at 05:27:05PM, Masami Hiramatsu wrote:
->>
->> IOW, would the test cases be better to be out-of-tree or in-tree? If it is
->> out-of-tree(like LTP), how can we maintain both test-cases and upstream kernels?
->> What infrastructure should we have (e.g. bugzilla which provides a database for
->> relationship between bug# and test-case) ?
->> Those are my interests :)
-> 
-> There's definitely huge merit in having in-tree tests like the current
-> selftests stuff because it allows you to roll up fixes and regression
-> tests into a single commit, see commit 123abd76edf5 ("efivars:
-> efivarfs_valid_name() should handle pstore syntax").
-> 
+On Tue, 6 May 2014, Josh Triplett wrote:
 
-Ah, that's a good example for adding new feature/bugfix with test case! :)
-I think this type of combined patch will be good to run tests with git-bisect.
-At least out-of-tree test should work with git-bisect.
+> From 424c7365ed5ed64190a1d08fe30c8e86832368b4 Mon Sep 17 00:00:00 2001
+> From: Josh Triplett <josh@joshtriplett.org>
+> Date: Tue, 6 May 2014 13:20:25 -0700
+> Subject: [PATCH] MAINTAINERS: Add linux-api for review of API/ABI changes
+> 
+> This makes it more likely that patch submitters will CC API/ABI changes
+> to the linux-api list, and tools like get_maintainer.pl will do so
+> automatically.
+> 
+> Signed-off-by: Josh Triplett <josh@joshtriplett.org>
+> ---
+>  MAINTAINERS | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 7578deb..52a282b 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -210,6 +210,13 @@ S:	Supported
+>  F:	Documentation/scsi/aacraid.txt
+>  F:	drivers/scsi/aacraid/
+>  
+> +ABI/API
+> +L:	linux-api@vger.kernel.org
+> +F:	Documentation/ABI/
+> +F:	include/linux/syscalls.h
+> +F:	include/uapi/
+> +F:	kernel/sys_ni.c
+> +
 
-Thank you,
+It'd be nice to have also sysfs changes covered as well if this is not 
+just about API, but also ABI; I am not sure whether this could be covered 
+by MAINTAINERS pattern, but at least mentioning this list in 
+Documentation/ABI/README seems appropriate.
+
+(I am also wondering who is actually subsribed to the linux-api@ 
+mailinglist, given the low general awareness of its existance :) ).
 
 -- 
-Masami HIRAMATSU
-Software Platform Research Dept. Linux Technology Research Center
-Hitachi, Ltd., Yokohama Research Laboratory
-E-mail: masami.hiramatsu.pt@hitachi.com
+Jiri Kosina
+SUSE Labs
