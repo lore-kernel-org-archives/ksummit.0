@@ -1,24 +1,32 @@
-Return-Path: <will.deacon@arm.com>
+Return-Path: <davidlohr@hp.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 59A73B05
+	by mail.linuxfoundation.org (Postfix) with ESMTP id B871DB1D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  7 May 2014 18:29:57 +0000 (UTC)
-Received: from cam-admin0.cambridge.arm.com (cam-admin0.cambridge.arm.com
-	[217.140.96.50])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 005322026B
+	Wed,  7 May 2014 18:40:14 +0000 (UTC)
+Received: from g2t1383g.austin.hp.com (g2t1383g.austin.hp.com [15.217.136.92])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 45DE52026C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  7 May 2014 18:29:55 +0000 (UTC)
-Date: Wed, 7 May 2014 19:29:16 +0100
-From: Will Deacon <will.deacon@arm.com>
-To: ksummit-discuss@lists.linuxfoundation.org
-Message-ID: <20140507182916.GG3694@arm.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Cc: peterz@infradead.org, waiman.long@hp.com
-Subject: [Ksummit-discuss] [TECH TOPIC] asm-generic implementations of
- low-level synchronisation constructs
+	Wed,  7 May 2014 18:40:14 +0000 (UTC)
+Received: from g6t1524.atlanta.hp.com (g6t1524.atlanta.hp.com [15.193.200.67])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by g2t1383g.austin.hp.com (Postfix) with ESMTPS id 36FE68AB
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed,  7 May 2014 18:21:00 +0000 (UTC)
+Message-ID: <1399488009.4567.20.camel@buesod1.americas.hpqcorp.net>
+From: Davidlohr Bueso <davidlohr@hp.com>
+To: Masami Hiramatsu <masami.hiramatsu.pt@hitachi.com>
+Date: Wed, 07 May 2014 11:40:09 -0700
+In-Reply-To: <5369EE59.9040805@hitachi.com>
+References: <53662254.9060100@huawei.com> <53699F27.9040403@hitachi.com>
+	<1399431538.2581.30.camel@buesod1.americas.hpqcorp.net>
+	<5369EE59.9040805@hitachi.com>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -28,109 +36,63 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi all,
+On Wed, 2014-05-07 at 17:27 +0900, Masami Hiramatsu wrote:
+> (2014/05/07 11:58), Davidlohr Bueso wrote:
+> > On Wed, 2014-05-07 at 11:49 +0900, Masami Hiramatsu wrote:
+> >> (2014/05/04 20:19), Li Zefan wrote:
+> >>> - Testing stable kernels
+> >>>
+> >>> The testing of stable kernels when a new version is under review seems
+> >>> quite limited. We have Dave's Trinity and Fengguang's 0day, but they
+> >>> are run on mainline/for-next only. Would be useful to also have them
+> >>> run on stable kernels?
+> >>
+> >> This might be a kind of off-topic, but I'm interested in the testing
+> >> on the linux kernel, especially standard framework of unit-tests
+> >> for each feature.
+> > 
+> > I tend to think of LTP as a nice way of doing unit-tests for the uapi.
+> > Fengguang's scripts do include it, iirc, but I'm referring more to unit
+> > level tests. It serves well for changes in ipc, and should also for
+> > other subsystems.
+> 
+> Hm, yes, uapi tests can be done in LTP. However, I have some considerations;
+> - What uapi means? syscall, ioctl are OK, but what about procfs, sysfs, kernfs,
+>   etc?
 
-Traditionally, low-level synchronisation and atomic constructs have been
-buried away in arch-specific code, with new arch maintainers having to
-wrestle with Documentation/{memory-barriers,atomic_ops}.txt to ensure
-they provide the (somewhat arbitrary) semantics expected by the kernel.
+Yeah, I'm mostly referring to syscalls and ioctls here. I believe LTP
+also covers procfs in some cases, but it's not the norm.
 
-However, over the past year, there have been some notable events in this
-area:
+> - There could be some non-uapi features/bugfixes, in kernel. e.g. kmodule
+>   interface. How LTP handles it?
 
-  (1) The addition of smp_load_acquire/smp_store_release across all
-      architectures (including asm-generic)
-      https://lwn.net/Articles/576486/
+That's kind of beyond the idea of LTP, afaik.
 
-  (2) Merging of generic MCS spinlocks into kernel/locking, built using
-      the macros introduced by (1). There are other similar patches for
-      queued spinlocks and rwlocks, but they're not completely generic
-      afaict.
-      http://lwn.net/Articles/590243/
+> - I'm not sure how LTP synchronize the version of test cases with target
+>   kernel version. 
 
-  (3) C11 atomics seem to be more prominent on people's radar.
-      http://lwn.net/Articles/586838/
+Well, again this is uapi, which doesn't/shouldn't change from version to
+version. That's the whole point, make sure we don't break userspace.
 
-In light of these developments, I'd like to revisit what we expect from
-architectures in the way of atomics and locks. Ultimately, this means
-trying to construct efficient (not just functional!) spinlock, rwlock,
-futex and bitop implementations in asm-generic which would be build out
-of suitable, simple(r) atomic operations implemented by each architecture.
+> Is that possible to update the test cases as patch-level?
+>   And also, for stable trees, we'll need different test-sets (branches) for
+>   each tree.
+> 
+> IOW, would the test cases be better to be out-of-tree or in-tree? If it is
+> out-of-tree(like LTP), how can we maintain both test-cases and upstream kernels?
 
-For example, a dumb spinlock can be constructed with our [cmp]xchg:
+Out of tree projects have their place, such as LTP, which has proven
+itself in the past.
 
-  dumb_spin_lock(atomic_t *lock)
-  {
-	while (atomic_cmpxchg(lock, 0, 1))
-		cpu_relax();
-  }
+> Those are my interests :)
 
-  dumb_spin_unlock(atomic_t *lock)
-  {
-	atomic_xchg(lock, 0);
-  }
+In general I'm very interested in this topic and would like to
+participate in the discussion. In addition, there are areas within
+futexes that could use some serious unit testing... perhaps in
+selftests, dunno, would have to think about that. Right now we've got
+some tests in perf-bench, but that's more performance than correctness.
+The rest relies on Darren's out of tree futextests suite. However, this,
+unfortunately, isn't at a unit granularity.
 
-but nobody is going to flock to such an implementation. It's unfair and
-has additional barrier overhead on weakly-ordered architectures.
-
-What we'd like to write is something like (just trying to show the atomics
--- this is likely not endian-clean at least):
-
-#define TICKET_SHIFT	16
-#define TICKET_MASK	((1 << TICKET_SHIFT) - 1)
-
-  better_spin_lock(atomic_t *lock)
-  {
-	/*
-	 * Atomic add to lock with acquire semantics, returning original
-	 * value.
-	 */
-	int old = atomic_xchg_add(ACQUIRE, lock, 1 << TICKET_SHIFT);
-	if ((old << TICKET_SHIFT) == (old & (TICKET_MASK << TICKET_SHIFT)))
-		return; /* Got the lock */
-
-	while (smp_load_acquire((u16 *)lock) != (old >> TICKET_SHIFT))
-		cpu_relax();
-  }
-
-  better_spin_unlock(atomic_t *lock)
-  {
-	smp_store_release((u16 *)lock, atomic_read(lock) + 1);
-  }
-
-which isn't perfect, but is much better than before and made possible by
-the addition of atomic_xchg_add. The remaining parts to address are things
-like power saving when spinning and synchronising unlock with I/O accesses,
-but they will likely remain arch-specific. We should be able to do a similar
-thing for other locking constructs.
-
-Increasing the number of atomic operations would also help us to define
-a cleaner interface to them, potentially easing any adoption of C11 atomics
-in future. For example, rather than saying "atomic_set() does not imply
-barriers" and "atomic_xchg() requires explicit memory barriers around the
-operation", we could have store/release/store+release variants of them both
-(similar to C11 and OpenCL). As it stands, there are a couple of cases
-where atomic_xchg is used in preference to atomic_set + appropriate barriers
-(just look for uses of xchg where the return value is ignored).
-
-Another related area to clean up is the semantics around conditional
-atomics (cmpxchg, add_unless, dec_if_positive etc) and barriers on the
-failure paths.
-
-Anyway, I've proposed this as a [TECH TOPIC] because I think sitting down
-for half a day with other people interested in this problem could result
-in us deciding on an initial set of atomic operations from which to build
-efficient, generic locking constructs. That later part can definitely
-happen on LKML, but the first steps will be a lot easier face-to-face.
-
-Key people for this would be:
-
-  - Peter Zijlstra
-  - Ben Herrenschmidt
-  - Paul McKenney
-  - Waiman Long
-  - Arnd Bergmann
-
-Cheers,
-
-Will
+Thanks,
+Davidlohr
