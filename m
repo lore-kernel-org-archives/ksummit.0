@@ -1,27 +1,29 @@
-Return-Path: <Paul.Gortmaker@windriver.com>
+Return-Path: <will.deacon@arm.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 2B2354C6
+	by mail.linuxfoundation.org (Postfix) with ESMTP id ABEDC9A0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  7 May 2014 21:03:49 +0000 (UTC)
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id ABD7620279
+	Wed,  7 May 2014 21:20:40 +0000 (UTC)
+Received: from cam-admin0.cambridge.arm.com (cam-admin0.cambridge.arm.com
+	[217.140.96.50])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id F2CCA1FC53
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  7 May 2014 21:03:48 +0000 (UTC)
-Message-ID: <536A9FA9.3030705@windriver.com>
-Date: Wed, 7 May 2014 17:03:37 -0400
-From: Paul Gortmaker <paul.gortmaker@windriver.com>
+	Wed,  7 May 2014 21:20:39 +0000 (UTC)
+Date: Wed, 7 May 2014 22:20:01 +0100
+From: Will Deacon <will.deacon@arm.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Message-ID: <20140507212001.GA5311@arm.com>
+References: <20140507182916.GG3694@arm.com>
+	<20140507191208.GZ30445@twins.programming.kicks-ass.net>
 MIME-Version: 1.0
-To: "Rafael J. Wysocki" <rjw@rjwysocki.net>,
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20140507191208.GZ30445@twins.programming.kicks-ass.net>
+Cc: "waiman.long@hp.com" <waiman.long@hp.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
-References: <1998761.B2k0A5OtQR@vostro.rjw.lan>
-In-Reply-To: <1998761.B2k0A5OtQR@vostro.rjw.lan>
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: 7bit
-Cc: Peter Zijlstra <peterz@infradead.org>, Len Brown <len.brown@intel.com>,
-	Daniel Lezcano <daniel.lezcano@linaro.org>, Ingo Molnar <mingo@kernel.org>
-Subject: Re: [Ksummit-discuss] [TECH(CORE?) TOPIC] Energy conservation bias
- interfaces
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] asm-generic implementations of
+ low-level synchronisation constructs
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,59 +33,59 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 14-05-06 08:54 AM, Rafael J. Wysocki wrote:
-> Hi All,
-> 
-> During a recent discussion on linux-pm/LKML regarding the integration of the
-> scheduler with cpuidle (http://marc.info/?t=139834240600003&r=1&w=4) it became
-> apparent that the kernel might benefit from adding interfaces to let it know
-> how far it should go with saving energy, possibly at the expense of performance.
+Hi Peter,
 
-These links from last year might be of general interest:
+On Wed, May 07, 2014 at 08:12:08PM +0100, Peter Zijlstra wrote:
+> On Wed, May 07, 2014 at 07:29:16PM +0100, Will Deacon wrote:
+> >   better_spin_lock(atomic_t *lock)
+> >   {
+> > 	/*
+> > 	 * Atomic add to lock with acquire semantics, returning original
+> > 	 * value.
+> > 	 */
+> > 	int old = atomic_xchg_add(ACQUIRE, lock, 1 << TICKET_SHIFT);
+> > 	if ((old << TICKET_SHIFT) == (old & (TICKET_MASK << TICKET_SHIFT)))
+> > 		return; /* Got the lock */
+> > 
+> > 	while (smp_load_acquire((u16 *)lock) != (old >> TICKET_SHIFT))
+> > 		cpu_relax();
+> >   }
+> 
+> So xchg_add and atomic_add_return() are pretty much an identity map
+> because the add operation is reversible. The other popular name for this
+> operation is fetch_add() fwiw.
 
-http://lwn.net/Articles/571414/
+Yup, and we could implement atomic_xchg_add (or atomic_fetch_add :) in
+asm-generic using atomic_add_return followed by a subtraction. However,
+architectures might be able to avoid the sub (especially on LL/SC
+implementations like ARM).
 
-http://etherpad.osuosl.org/energy-aware-scheduling-ks-2013
+> In any case, something that's been brewing in the back of my mind is an
+> ATOMIC_OP() and ATOMIC_RET_OP() macro construct that takes a lambda
+> function (expr-stmt is I think the closes we get in C) and either
+> generates the appropriate ll/sc loop or a cmpxchg loop, depending on
+> arch.
 
-Paul.
---
+I've been thinking along the same lines but decided it was a bit too
+abstract to propose here. I'd certainly be interested in talking about it
+though. Another cool thing would be to allow for arbitrary compositions of
+different atomic operations, then apply barrier semantics to the whole lot.
+Not sure how much mileage there is in that though, especially given the
+typical architectural restrictions on what you can in a LL/SC loop (and
+if they get too big, you shoot yourself in the foot).
 
-> 
-> First of all, it would be good to have a place where subsystems and device
-> drivers can go and check what the current "energy conservation bias" is in
-> case they need to make a decision between delivering more performance and
-> using less energy.  Second, it would be good to provide user space with
-> a means to tell the kernel whether it should care more about performance or
-> energy.  Finally, it would be good to be able to adjust the overall "energy
-> conservation bias" automatically in response to certain "power" events such
-> as "battery is low/critical" etc.
-> 
-> It doesn't seem to be clear currently what level and scope of such interfaces
-> is appropriate and where to place them.  Would a global knob be useful?  Or
-> should they be per-subsystem, per-driver, per-task, per-cgroup etc?
-> 
-> It also is not particularly clear what representation of "energy conservation
-> bias" would be most useful.  Should that be a number or a set of well-defined
-> discrete levels that can be given names (like "max performance", "high
-> prerformance", "balanced" etc.)?  If a number, then what units to use and
-> how many different values to take into account?
-> 
-> The people involved in the scheduler/cpuidle discussion mentioned above were:
->  * Amit Kucheria
->  * Ingo Molnar
->  * Daniel Lezcano
->  * Morten Rasmussen
->  * Peter Zijlstra
-> and me, but I think that this topic may be interesting to others too (especially
-> to Len who proposed a global "enefgy conservation bias" interface a few years ago).
-> 
-> Please let me know what you think.
-> 
-> Kind regards,
-> Rafael
-> 
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
-> 
+> Its fairly sad that many of the generic atomic operations we do with
+> cmpxchg loops where ll/sc archs can do better using their ll/sc
+> primitive and I just feel there must be a semi-sane way to express all
+> that, despite C :-)
+
+Hehe, yeah. It's like trying to implement a functional programming language
+in the preprocessor...
+
+> That also reminds me, I should send round 2 of the arch atomic cleanups
+> (I've got the patches), and write changelogs for round 3, and start on
+> the patches for round 4 :-)
+
+Excellent! Please stick me on CC when you send them out.
+
+Will
