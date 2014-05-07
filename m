@@ -1,30 +1,32 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <john.stultz@linaro.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 553FD70A
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 01CC48B4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  7 May 2014 16:38:44 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 17FD61FC59
+	Wed,  7 May 2014 17:28:39 +0000 (UTC)
+Received: from mail-pa0-f42.google.com (mail-pa0-f42.google.com
+	[209.85.220.42])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DAAF31FD4A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  7 May 2014 16:38:44 +0000 (UTC)
-Message-ID: <1399480721.2227.31.camel@dabdike.int.hansenpartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: David Woodhouse <dwmw2@infradead.org>
-Date: Wed, 07 May 2014 09:38:41 -0700
-In-Reply-To: <1399462342.2996.99.camel@shinybook.infradead.org>
-References: <20140502164438.GA1423@jtriplet-mobl1>
-	<20140502171103.GA725@redhat.com> <1399051229.2202.49.camel@dabdike>
-	<1399462342.2996.99.camel@shinybook.infradead.org>
-Content-Type: text/plain; charset="ISO-8859-15"
-Mime-Version: 1.0
+	Wed,  7 May 2014 17:28:37 +0000 (UTC)
+Received: by mail-pa0-f42.google.com with SMTP id rd3so1470384pab.29
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 07 May 2014 10:28:37 -0700 (PDT)
+Message-ID: <536A6D43.6020300@linaro.org>
+Date: Wed, 07 May 2014 10:28:35 -0700
+From: John Stultz <john.stultz@linaro.org>
+MIME-Version: 1.0
+To: Theodore Ts'o <tytso@mit.edu>
+References: <5367D989.1000504@linaro.org> <20140506125741.GB17586@thunk.org>
+	<536921B5.8090100@linaro.org> <5252732.F3YIzHDqI3@wuerfel>
+	<20140506201959.GD5012@thunk.org> <20140506203337.GE21332@cloud>
+	<20140506205052.GF5012@thunk.org> <53695CE3.5090005@linaro.org>
+	<20140507020743.GA6461@thunk.org>
+In-Reply-To: <20140507020743.GA6461@thunk.org>
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 7bit
-Cc: Sarah Sharp <sarah@minilop.net>, ksummit-discuss@lists.linuxfoundation.org,
-	Greg KH <gregkh@linuxfoundation.org>, Julia Lawall <julia.lawall@lip6.fr>,
-	Darren Hart <darren@dvhart.com>, Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Kernel tinification: shrinking
- the kernel and avoiding size regressions
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Dealing with 2038
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,18 +36,25 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 2014-05-07 at 12:32 +0100, David Woodhouse wrote:
-> On Fri, 2014-05-02 at 10:20 -0700, James Bottomley wrote:
-> > If we do this, I think we should have a small number of options related
-> > to use case ... say something like a secure router kernel
-> > CONFIG_SECURE_ROUTER which disables anything a secure router wouldn't
-> > need.
-> 
-> Have you seen the amount of stuff that OpenWRT packages? :)
+On 05/06/2014 07:07 PM, Theodore Ts'o wrote:
+> On Tue, May 06, 2014 at 03:06:27PM -0700, John Stultz wrote:
+>> Right. So clearly I don't have all the details ready right this moment,
+>> but I hope providing more detail above gives you a better sense of the
+>> current proposals and some confidence that I'll try to do my homework
+>> and have some discussions on lkml before the Kernel Summit discussion.
+> Something else to consider is whether we would need to have some glibc
+> folks present at the kernel summit if we want to discuss it there, and
+> whether we should also think about also planning some discussions at
+> the Plumber's Conference --- because there will certainly be userspace
+> impacts that will need to be taken into account.
 
-Yes ... I use it (and actually had to build it a while ago for one of my
-unsupported routers).  *I* like running the kitchen sink from my router,
-but that's probably not the *normal* use, so CONFIG_SECURE_ROUTER would
-probably not be for general OpenWRT.
+Do you have a sense of who might be a good glibc contact for this sort
+of thing?
 
-James
+And yes, When I ran into Thomas at lsf-mm, we talked about splitting the
+duty here, with me bringing it up at Kernel Summit as Thomas cannot
+attend, and since I cannot attend Plumbers this year having Thomas
+covering it there.
+
+thanks
+-john
