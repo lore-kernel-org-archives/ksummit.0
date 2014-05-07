@@ -1,27 +1,25 @@
-Return-Path: <will.deacon@arm.com>
+Return-Path: <peterz@infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id ABEDC9A0
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 21A8E9B1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  7 May 2014 21:20:40 +0000 (UTC)
-Received: from cam-admin0.cambridge.arm.com (cam-admin0.cambridge.arm.com
-	[217.140.96.50])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id F2CCA1FC53
+	Wed,  7 May 2014 21:26:39 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BC2E0201F4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  7 May 2014 21:20:39 +0000 (UTC)
-Date: Wed, 7 May 2014 22:20:01 +0100
-From: Will Deacon <will.deacon@arm.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Message-ID: <20140507212001.GA5311@arm.com>
+	Wed,  7 May 2014 21:26:38 +0000 (UTC)
+Date: Wed, 7 May 2014 23:26:26 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Waiman Long <waiman.long@hp.com>
+Message-ID: <20140507212626.GD2844@laptop.programming.kicks-ass.net>
 References: <20140507182916.GG3694@arm.com>
-	<20140507191208.GZ30445@twins.programming.kicks-ass.net>
+ <536AA2FC.6070006@hp.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20140507191208.GZ30445@twins.programming.kicks-ass.net>
-Cc: "waiman.long@hp.com" <waiman.long@hp.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <536AA2FC.6070006@hp.com>
+Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] asm-generic implementations of
  low-level synchronisation constructs
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -33,59 +31,32 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Peter,
+On Wed, May 07, 2014 at 05:17:48PM -0400, Waiman Long wrote:
+> On 05/07/2014 02:29 PM, Will Deacon wrote:
+> >Hi all,
+> >
+> >Traditionally, low-level synchronisation and atomic constructs have been
+> >buried away in arch-specific code, with new arch maintainers having to
+> >wrestle with Documentation/{memory-barriers,atomic_ops}.txt to ensure
+> >they provide the (somewhat arbitrary) semantics expected by the kernel.
+> >
+> >However, over the past year, there have been some notable events in this
+> >area:
+> >
+> >   (1) The addition of smp_load_acquire/smp_store_release across all
+> >       architectures (including asm-generic)
+> >       https://lwn.net/Articles/576486/
+> >
+> >   (2) Merging of generic MCS spinlocks into kernel/locking, built using
+> >       the macros introduced by (1). There are other similar patches for
+> >       queued spinlocks and rwlocks, but they're not completely generic
+> >       afaict.
+> >       http://lwn.net/Articles/590243/
+>=20
+> It is true that the current qspinlock patch is not completely generic.
+> However, I think it can still be used by most architectures with the
+> exception of, perhaps just, the pre-EV56 alpha.
 
-On Wed, May 07, 2014 at 08:12:08PM +0100, Peter Zijlstra wrote:
-> On Wed, May 07, 2014 at 07:29:16PM +0100, Will Deacon wrote:
-> >   better_spin_lock(atomic_t *lock)
-> >   {
-> > 	/*
-> > 	 * Atomic add to lock with acquire semantics, returning original
-> > 	 * value.
-> > 	 */
-> > 	int old = atomic_xchg_add(ACQUIRE, lock, 1 << TICKET_SHIFT);
-> > 	if ((old << TICKET_SHIFT) == (old & (TICKET_MASK << TICKET_SHIFT)))
-> > 		return; /* Got the lock */
-> > 
-> > 	while (smp_load_acquire((u16 *)lock) != (old >> TICKET_SHIFT))
-> > 		cpu_relax();
-> >   }
-> 
-> So xchg_add and atomic_add_return() are pretty much an identity map
-> because the add operation is reversible. The other popular name for this
-> operation is fetch_add() fwiw.
-
-Yup, and we could implement atomic_xchg_add (or atomic_fetch_add :) in
-asm-generic using atomic_add_return followed by a subtraction. However,
-architectures might be able to avoid the sub (especially on LL/SC
-implementations like ARM).
-
-> In any case, something that's been brewing in the back of my mind is an
-> ATOMIC_OP() and ATOMIC_RET_OP() macro construct that takes a lambda
-> function (expr-stmt is I think the closes we get in C) and either
-> generates the appropriate ll/sc loop or a cmpxchg loop, depending on
-> arch.
-
-I've been thinking along the same lines but decided it was a bit too
-abstract to propose here. I'd certainly be interested in talking about it
-though. Another cool thing would be to allow for arbitrary compositions of
-different atomic operations, then apply barrier semantics to the whole lot.
-Not sure how much mileage there is in that though, especially given the
-typical architectural restrictions on what you can in a LL/SC loop (and
-if they get too big, you shoot yourself in the foot).
-
-> Its fairly sad that many of the generic atomic operations we do with
-> cmpxchg loops where ll/sc archs can do better using their ll/sc
-> primitive and I just feel there must be a semi-sane way to express all
-> that, despite C :-)
-
-Hehe, yeah. It's like trying to implement a functional programming language
-in the preprocessor...
-
-> That also reminds me, I should send round 2 of the arch atomic cleanups
-> (I've got the patches), and write changelogs for round 3, and start on
-> the patches for round 4 :-)
-
-Excellent! Please stick me on CC when you send them out.
-
-Will
+Its going to be a massive pain on virt archs like PPC and s390. So while
+those archs don't suffer the same problem Alpha does, they have problem
+with fair locks.
