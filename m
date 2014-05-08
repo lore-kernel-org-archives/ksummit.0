@@ -1,28 +1,29 @@
 Return-Path: <lizefan@huawei.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 0977521
+	by mail.linuxfoundation.org (Postfix) with ESMTP id CCB0870A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  8 May 2014 03:38:37 +0000 (UTC)
-Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [119.145.14.66])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4E9761FB23
+	Thu,  8 May 2014 06:35:45 +0000 (UTC)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [119.145.14.64])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BFFA91FA9C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  8 May 2014 03:38:31 +0000 (UTC)
-Message-ID: <536AFC26.2080907@huawei.com>
-Date: Thu, 8 May 2014 11:38:14 +0800
+	Thu,  8 May 2014 06:35:44 +0000 (UTC)
+Message-ID: <536B25AD.8040502@huawei.com>
+Date: Thu, 8 May 2014 14:35:25 +0800
 From: Li Zefan <lizefan@huawei.com>
 MIME-Version: 1.0
-To: Jan Kara <jack@suse.cz>
-References: <53662254.9060100@huawei.com> <53699F27.9040403@hitachi.com>
-	<1399431538.2581.30.camel@buesod1.americas.hpqcorp.net>
-	<20140507090628.GZ26890@mwanda>
-	<20140507141503.GB12433@quack.suse.cz>
-In-Reply-To: <20140507141503.GB12433@quack.suse.cz>
+To: Jiri Kosina <jkosina@suse.cz>
+References: <CALCETrU_xrdgUNF55YU+8rfq2xK0cU3QybQhqvX4L8OgsiwG5A@mail.gmail.com>
+	<20140506190024.GA1004@kroah.com>
+	<20140506160740.1245d1f4@gandalf.local.home>
+	<20140506203426.GA15428@jtriplet-mobl1>
+	<alpine.LNX.2.00.1405071343390.3969@pobox.suse.cz>
+In-Reply-To: <alpine.LNX.2.00.1405071343390.3969@pobox.suse.cz>
 Content-Type: text/plain; charset="ISO-8859-1"
 Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable issues
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Reviewing new API/ABI
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,28 +33,49 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 2014/5/7 22:15, Jan Kara wrote:
-> On Wed 07-05-14 12:06:28, Dan Carpenter wrote:
->> On Tue, May 06, 2014 at 07:58:58PM -0700, Davidlohr Bueso wrote:
->>> I tend to think of LTP as a nice way of doing unit-tests for the uapi.
->>> Fengguang's scripts do include it, iirc, but I'm referring more to unit
->>> level tests. It serves well for changes in ipc, and should also for
->>> other subsystems.
+On 2014/5/7 19:48, Jiri Kosina wrote:
+> On Tue, 6 May 2014, Josh Triplett wrote:
+> 
+>> From 424c7365ed5ed64190a1d08fe30c8e86832368b4 Mon Sep 17 00:00:00 2001
+>> From: Josh Triplett <josh@joshtriplett.org>
+>> Date: Tue, 6 May 2014 13:20:25 -0700
+>> Subject: [PATCH] MAINTAINERS: Add linux-api for review of API/ABI changes
 >>
->> LTP is too complicated and enterprisey.  With trinity you don't can just
->> type:
+>> This makes it more likely that patch submitters will CC API/ABI changes
+>> to the linux-api list, and tools like get_maintainer.pl will do so
+>> automatically.
 >>
->> 	./configure.sh && make && ./trinity
+>> Signed-off-by: Josh Triplett <josh@joshtriplett.org>
+>> ---
+>>  MAINTAINERS | 7 +++++++
+>>  1 file changed, 7 insertions(+)
 >>
->> With LTP you have to read the install documents.  You can't run it
->> from your home directory so you have to build a virtual machine which
->> you don't care about before you install it.
->   Actually, I'm occasionally using LTP and it doesn't seem too bad to me.
-> And it seems LTP is improving over time so I'm mostly happy about it.
+>> diff --git a/MAINTAINERS b/MAINTAINERS
+>> index 7578deb..52a282b 100644
+>> --- a/MAINTAINERS
+>> +++ b/MAINTAINERS
+>> @@ -210,6 +210,13 @@ S:	Supported
+>>  F:	Documentation/scsi/aacraid.txt
+>>  F:	drivers/scsi/aacraid/
+>>  
+>> +ABI/API
+>> +L:	linux-api@vger.kernel.org
+>> +F:	Documentation/ABI/
+>> +F:	include/linux/syscalls.h
+>> +F:	include/uapi/
+>> +F:	kernel/sys_ni.c
+>> +
+> 
+> It'd be nice to have also sysfs changes covered as well if this is not 
+> just about API, but also ABI; I am not sure whether this could be covered 
+> by MAINTAINERS pattern, but at least mentioning this list in 
+> Documentation/ABI/README seems appropriate.
+> 
 
-But how useful LTP is in finding kernel bugs? It seems to me we seldom
-see bug reports which say the bug was found by LTP?
+If sysfs is in, what about cgroupfs? Which has been under dramatic changes.
 
-That said, recently I tried to run cgroup test suits in LTP, one of which
-was written by myself many years ago, and then I figured out there was a
-kernel bug in cgroup. :)
+> (I am also wondering who is actually subsribed to the linux-api@ 
+> mailinglist, given the low general awareness of its existance :) ).
+> 
+
+Maybe we should force all core deveopers to subscribe linux-api?
