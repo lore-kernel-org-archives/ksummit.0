@@ -1,30 +1,33 @@
-Return-Path: <masami.hiramatsu.pt@hitachi.com>
+Return-Path: <benh@kernel.crashing.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id C6A4F92F
+	by mail.linuxfoundation.org (Postfix) with ESMTP id F288221
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  8 May 2014 03:20:28 +0000 (UTC)
-Received: from mail9.hitachi.co.jp (mail9.hitachi.co.jp [133.145.228.44])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 9207E1FD49
+	Thu,  8 May 2014 03:27:50 +0000 (UTC)
+Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7943A1F940
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  8 May 2014 03:20:27 +0000 (UTC)
-Message-ID: <536AF7F4.6010608@hitachi.com>
-Date: Thu, 08 May 2014 12:20:20 +0900
-From: Masami Hiramatsu <masami.hiramatsu.pt@hitachi.com>
-MIME-Version: 1.0
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-References: <53662254.9060100@huawei.com> <53699F27.9040403@hitachi.com>
-	<1399431538.2581.30.camel@buesod1.americas.hpqcorp.net>
-	<5369EE59.9040805@hitachi.com>
-	<20140507083936.GY26088@console-pimps.org>
-	<536A1CC3.5090506@hitachi.com>
-	<CAKMK7uG8Ly92uMavqS-abq=06FXCDMCae7mbv1EusG7pF9HAOg@mail.gmail.com>
-In-Reply-To: <CAKMK7uG8Ly92uMavqS-abq=06FXCDMCae7mbv1EusG7pF9HAOg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+	Thu,  8 May 2014 03:27:50 +0000 (UTC)
+Message-ID: <1399519636.4161.57.camel@pasglop>
+From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+To: David Woodhouse <dwmw2@infradead.org>
+Date: Thu, 08 May 2014 13:27:16 +1000
+In-Reply-To: <1399460702.2996.89.camel@shinybook.infradead.org>
+References: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>
+	<1583732.MIn3aNNoTS@vostro.rjw.lan> <6728604.hICTKAEWzt@wuerfel>
+	<20140504111436.GC15180@arm.com> <20140504171807.GA4418@quad.lixom.net>
+	<1399279156.20388.32.camel@pasglop>
+	<1399460702.2996.89.camel@shinybook.infradead.org>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"dvhart@dvhart.com" <dvhart@dvhart.com>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable issues
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Driver model/resources, ACPI, DT,
+ etc (sigh)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,59 +37,42 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-(2014/05/07 21:45), Daniel Vetter wrote:
-> On Wed, May 7, 2014 at 1:45 PM, Masami Hiramatsu
-> <masami.hiramatsu.pt@hitachi.com> wrote:
->> (2014/05/07 17:39), Matt Fleming wrote:
->>> On Wed, 07 May, at 05:27:05PM, Masami Hiramatsu wrote:
->>>>
->>>> IOW, would the test cases be better to be out-of-tree or in-tree? If it is
->>>> out-of-tree(like LTP), how can we maintain both test-cases and upstream kernels?
->>>> What infrastructure should we have (e.g. bugzilla which provides a database for
->>>> relationship between bug# and test-case) ?
->>>> Those are my interests :)
->>>
->>> There's definitely huge merit in having in-tree tests like the current
->>> selftests stuff because it allows you to roll up fixes and regression
->>> tests into a single commit, see commit 123abd76edf5 ("efivars:
->>> efivarfs_valid_name() should handle pstore syntax").
->>>
->>
->> Ah, that's a good example for adding new feature/bugfix with test case! :)
->> I think this type of combined patch will be good to run tests with git-bisect.
->> At least out-of-tree test should work with git-bisect.
+On Wed, 2014-05-07 at 12:05 +0100, David Woodhouse wrote:
+> On Mon, 2014-05-05 at 18:39 +1000, Benjamin Herrenschmidt wrote:
+> > 
+> > The other option is to have both the DT representation and the ACPI
+> > representation reach the drivers and leave it to the them (the drivers) to get
+> > through two different functions at probe time to "translates" that into a
+> > "3rd" driver private one (a structure, in a way akin to the old platform data
+> > but of course completely local to the driver scope).
 > 
-> At least for drm/i915 I don't think merging the tests into the kernel
-> would be beneficial, at least now:
+> I don't like that much. For "leaf-node" device drivers, I think we're
+> better off with a simple set of "device_get_property" functions which
+> are a little more type-safe than the existing of_* ones, thus helping us
+> to deal with the details of 32-bit cells vs. ACPI integers, etc.
 
-Hm, it seems some other subsystems have their own testsuites, I think we'd
-better clarify the testing policy for each subsystem,
-using dedicated testing tools or in-kernel selftest.
+Fair enough. I was mostly putting all options on the table. It is still
+not completely clear on my mind how we'll get the properties from ACPI
+(via that new scheme Darren's working on ?) and how good we'll manage to
+keep the bindings in sync sufficiently to avoid a bunch of:
 
-> - Our tests are integrated into the regression test framework used by
-> graphics people in general (piglit), and that most certainly won't
-> move into the kernel.
-> - We have lots of debug tools in the same repo (with shared code), and
-> it tends to be less scary for bug reporters to grab
-> intel-gpu-tools.git to run one of them instead of the entire kernel.
-> - Documentation tooling in userspace sucks a lot less than kerneldoc.
-> Which is important since we use testcases and tooling as getting
-> started tasks for newcomers.
-> - Also I want much stricter review requirements on kernel patches than
-> testcase patches, separate git trees helps with that.
-> 
-> Hence why we thus far just link the kernel patch to its testcase with
-> an Testcase: tag.
+	if (OF)
+		get_property("foo"...)
+	else
+		get_property("bar"...)
 
-Ah, that's also nice to find an appropriate testcases. I think adding a
-link(or git hash) to testcase allows us to automate test configuration
-when git-bisecting, even if the test is out-of-tree. :)
+Because of subtle differences in property names, format, content, etc...
 
-Thank you,
+It might end up working out ... but it's going to be a constant battle
+at least initially.
 
+I'm mostly concerned here about device specific random attributes. I
+think we all agree that the "common" stuff such as memory and irq is
+going to be translated by the core into Linux native representation.
 
--- 
-Masami HIRAMATSU
-Software Platform Research Dept. Linux Technology Research Center
-Hitachi, Ltd., Yokohama Research Laboratory
-E-mail: masami.hiramatsu.pt@hitachi.com
+Of course there is going to be a pile of work defining the right
+representation & translation for some of that "common" stuff in areas
+like clocks, gpios, etc...
+
+Cheers,
+Ben.
