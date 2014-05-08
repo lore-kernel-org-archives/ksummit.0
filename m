@@ -1,27 +1,33 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <luto@amacapital.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 0A319995
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 97FB79B1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  8 May 2014 19:56:38 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id B285A20320
+	Thu,  8 May 2014 20:36:07 +0000 (UTC)
+Received: from mail-ve0-f173.google.com (mail-ve0-f173.google.com
+	[209.85.128.173])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 684021FA42
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  8 May 2014 19:56:37 +0000 (UTC)
-Message-ID: <1399578994.2171.51.camel@dabdike.int.hansenpartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: David Woodhouse <dwmw2@infradead.org>
-Date: Thu, 08 May 2014 12:56:34 -0700
-In-Reply-To: <1399552623.17118.22.camel@i7.infradead.org>
-References: <1399552623.17118.22.camel@i7.infradead.org>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	Thu,  8 May 2014 20:36:06 +0000 (UTC)
+Received: by mail-ve0-f173.google.com with SMTP id pa12so4019064veb.18
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 08 May 2014 13:36:05 -0700 (PDT)
+MIME-Version: 1.0
+In-Reply-To: <20140508094109.GA3685@quack.suse.cz>
+References: <53662254.9060100@huawei.com> <53699F27.9040403@hitachi.com>
+	<1399431538.2581.30.camel@buesod1.americas.hpqcorp.net>
+	<20140507090628.GZ26890@mwanda>
+	<20140507141503.GB12433@quack.suse.cz> <536AFC26.2080907@huawei.com>
+	<20140508094109.GA3685@quack.suse.cz>
+From: Andy Lutomirski <luto@amacapital.net>
+Date: Thu, 8 May 2014 13:35:45 -0700
+Message-ID: <CALCETrX344Yqd7G2v7nJ36jtgXFjFfQy=g6X8-JD=6MAhN0T-w@mail.gmail.com>
+To: Jan Kara <jack@suse.cz>
+Content-Type: text/plain; charset=UTF-8
+Cc: Dan Carpenter <dan.carpenter@oracle.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Device error handling /
- reporting / isolation
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,48 +37,38 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, 2014-05-08 at 13:37 +0100, David Woodhouse wrote:
-> I'd like to have a discussion about handling device errors.
-> 
-> IOMMUs are becoming more common, and we've seen some failure modes where
-> we just end up with an endless stream of fault reports from a given
-> device, and the kernel can do nothing else.
+On Thu, May 8, 2014 at 2:41 AM, Jan Kara <jack@suse.cz> wrote:
+> On Thu 08-05-14 11:38:14, Li Zefan wrote:
+>> On 2014/5/7 22:15, Jan Kara wrote:
+>> > On Wed 07-05-14 12:06:28, Dan Carpenter wrote:
+>> >> On Tue, May 06, 2014 at 07:58:58PM -0700, Davidlohr Bueso wrote:
+>> >>> I tend to think of LTP as a nice way of doing unit-tests for the uapi.
+>> >>> Fengguang's scripts do include it, iirc, but I'm referring more to unit
+>> >>> level tests. It serves well for changes in ipc, and should also for
+>> >>> other subsystems.
+>> >>
+>> >> LTP is too complicated and enterprisey.  With trinity you don't can just
+>> >> type:
+>> >>
+>> >>    ./configure.sh && make && ./trinity
+>> >>
+>> >> With LTP you have to read the install documents.  You can't run it
+>> >> from your home directory so you have to build a virtual machine which
+>> >> you don't care about before you install it.
+>> >   Actually, I'm occasionally using LTP and it doesn't seem too bad to me.
+>> > And it seems LTP is improving over time so I'm mostly happy about it.
+>>
+>> But how useful LTP is in finding kernel bugs? It seems to me we seldom
+>> see bug reports which say the bug was found by LTP?
+>   I'm handling a few (3-5) per year. I'm also extending the coverage (e.g.
+> recently I've added fanotify interface coverage) when doing more involved
+> changes to some code so that LTP can be reasonably used for regression
+> checking.
 
-This is when the addresses being sent by the bus don't have IOTLB
-entries?
+There was some talk about having some kind of 'make test' that you can
+type in a kernel tree.  I'm not sure what the plan is, if any.
 
-> We may have various options for shutting it up — a PCI function level
-> reset, power cycling the offending device, or maybe just configuring the
-> IOMMU to *ignore* further errors from it, which would at least let the
-> system get on with doing something useful (and if we do, when do we
-> re-enable reporting?).
-> 
-> But I absolutely don't want us to be implementing policies like that in
-> an individual IOMMU driver; this needs to be handled by generic device
-> code. Once upon a time I might have said PCI code, but this is actually
-> relevant for non-PCI devices too.
+I've been working on a tool called virtme that might be a useful thing
+to build on.
 
-Right, with my PARISC hat on, our IOMMUs sit adjacent to the CPUs.  The
-PCI busses (if we have any) are a couple of layers down.
-
-> I want the IOMMU to report errors, and let the system do the appropriate
-> thing. Which requires some discussion about what the "appropriate thing"
-> can be in various circumstances, and indeed what options are available
-> to us on various platforms.
-> 
-> Participants would be those working with IOMMUs on various platforms,
-> including Jörg Rödel, myself, and hopefully someone with a fairly
-> intimate knowledge of EEH as used on POWER systems.
-> 
-> We probably also want KVM folks to weigh in on how, if at all, they'd
-> want errors on assigned devices to be reported to guests.
-> 
-> I strongly suspect that once we start looking at it, we'll find other
-> triggers than "IOMMU faults" for starting to isolate and reset
-> misbehaving devices. Interrupt storms perhaps being one of them — we've
-> never been particularly robust to those, either.
-
-I'd be interested ... if just to make sure that whatever's agreed to
-isn't just intel IOMMU centric.
-
-James
+--Andy
