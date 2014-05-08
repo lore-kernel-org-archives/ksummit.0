@@ -1,28 +1,28 @@
-Return-Path: <BATV+a68295c2e7b646669333+3910+infradead.org+dwmw2@casper.srs.infradead.org>
+Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 144B4995
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 9E294995
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  8 May 2014 12:37:07 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [85.118.1.10])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 818E120193
+	Thu,  8 May 2014 12:41:26 +0000 (UTC)
+Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id D764D20193
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  8 May 2014 12:37:06 +0000 (UTC)
-Received: from i7.infradead.org ([2001:8b0:10b:1:225:64ff:fee8:e9df])
-	by casper.infradead.org with esmtpsa (Exim 4.80.1 #2 (Red Hat Linux))
-	id 1WiNZQ-0007yH-Ky for ksummit-discuss@lists.linuxfoundation.org;
-	Thu, 08 May 2014 12:37:04 +0000
-Message-ID: <1399552623.17118.22.camel@i7.infradead.org>
-From: David Woodhouse <dwmw2@infradead.org>
-To: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Date: Thu, 08 May 2014 13:37:03 +0100
-Content-Type: multipart/signed; micalg="sha-1";
-	protocol="application/x-pkcs7-signature";
-	boundary="=-7LNEzT2LA/3CjRB3fLqB"
-Mime-Version: 1.0
-Subject: [Ksummit-discuss] [CORE TOPIC] Device error handling / reporting /
-	isolation
+	Thu,  8 May 2014 12:41:24 +0000 (UTC)
+From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+To: Preeti U Murthy <preeti@linux.vnet.ibm.com>
+Date: Thu, 08 May 2014 14:58:04 +0200
+Message-ID: <1664398.kOfsDrBujV@vostro.rjw.lan>
+In-Reply-To: <53692127.7040603@linux.vnet.ibm.com>
+References: <1998761.B2k0A5OtQR@vostro.rjw.lan>
+	<53692127.7040603@linux.vnet.ibm.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
+Cc: Len Brown <len.brown@intel.com>, ksummit-discuss@lists.linuxfoundation.org,
+	Peter Zijlstra <peterz@infradead.org>,
+	Daniel Lezcano <daniel.lezcano@linaro.org>, Ingo Molnar <mingo@kernel.org>
+Subject: Re: [Ksummit-discuss] [TECH(CORE?) TOPIC] Energy conservation bias
+	interfaces
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,157 +32,202 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Tuesday, May 06, 2014 11:21:35 PM Preeti U Murthy wrote:
+> Hi,
+> 
+> On 05/06/2014 06:24 PM, Rafael J. Wysocki wrote:
+> > Hi All,
+> >
+> > During a recent discussion on linux-pm/LKML regarding the integration
+> of the
+> > scheduler with cpuidle (http://marc.info/?t=139834240600003&r=1&w=4)
+> it became
+> > apparent that the kernel might benefit from adding interfaces to let
+> it know
+> > how far it should go with saving energy, possibly at the expense of
+> performance.
+> >
+> > First of all, it would be good to have a place where subsystems and device
+> > drivers can go and check what the current "energy conservation bias" is in
+> > case they need to make a decision between delivering more performance and
+> > using less energy.  Second, it would be good to provide user space with
+> > a means to tell the kernel whether it should care more about
+> performance or
+> > energy.  Finally, it would be good to be able to adjust the overall
+> "energy
+> > conservation bias" automatically in response to certain "power" events
+> such
+> > as "battery is low/critical" etc.
+> 
+> With respect to the point around user space being able to tell the
+> kernel what it wants I have the following idea.This is actually
+> extending what Dave quoted in his reply to this thread:
+> 
+> "
+> The advantage of moving to policy names vs frequencies also means that
+> we could use a single power saving policy for cpufreq, cpuidle, and
+> whatever else we come up with.
+> 
+> The scheduler might also be able to make better decisions if we maintain
+> separate lists for each policy-type, prioritizing performance over
+> power-save etc."
 
---=-7LNEzT2LA/3CjRB3fLqB
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+I generally agree with this.
 
-I'd like to have a discussion about handling device errors.
+> Tuned today exposes profiles like powersave, performance which set
+> kernel parameters, cpu-freq and cpu idle governors for these extreme use
+> cases. In powersave policy we do not worry about performance and vice
+> versa. However if one finds these as aggressive approaches to their
+> goals, there is balanced profile as well, which switches to powersave at
+> low load and to performance at high load. Even if latency sensitive
+> workloads run in this profile they will get hit only during the switch
+> from powersave to performance mode, but thereafter will get their way.
+> 
+> The advantage of having the concept of profiles is as Dave mentions,if
+> the user chooses a specific tuned profile, *multiple sub-system settings
+> can be taken care of in one place*. The profile could make way for
+> cpufreq, cpuidle, scheduler, device driver settings provided each of
+> these expose parameters which allow tuning of their decisions. So to
+> answer your question of if device drivers must probe the user settings,
+> I don't think so. These profiles can set the required driver parameters
+> which should automatically then kick in?
 
-IOMMUs are becoming more common, and we've seen some failure modes where
-we just end up with an endless stream of fault reports from a given
-device, and the kernel can do nothing else.
+That's something I was thinking about too, but the difficulty here is in
+how to define the profiles (that is, what settings in each subsystem are
+going to be affected by a profile change) and in deciding when to switch
+profiles and which profile is the most appropriate going forward.
 
-We may have various options for shutting it up =E2=80=94 a PCI function lev=
-el
-reset, power cycling the offending device, or maybe just configuring the
-IOMMU to *ignore* further errors from it, which would at least let the
-system get on with doing something useful (and if we do, when do we
-re-enable reporting?).
+IOW, the high-level concept looks nice, but the details of the implementation
+are important too. :-)
 
-But I absolutely don't want us to be implementing policies like that in
-an individual IOMMU driver; this needs to be handled by generic device
-code. Once upon a time I might have said PCI code, but this is actually
-relevant for non-PCI devices too.
+> Today cpuidle and cpufreq already expose these settings through
+> governors.
 
-I want the IOMMU to report errors, and let the system do the appropriate
-thing. Which requires some discussion about what the "appropriate thing"
-can be in various circumstances, and indeed what options are available
-to us on various platforms.
+cpufreq governors are kind of tied to specific "energy efficiency" profiles,
+performance, powersave, on-demand.  However, cpuidle governors are rather
+different in that respect.
 
-Participants would be those working with IOMMUs on various platforms,
-including J=C3=B6rg R=C3=B6del, myself, and hopefully someone with a fairly
-intimate knowledge of EEH as used on POWER systems.
+> I am also assuming device drivers have scope for tuning their
+> functions through some such user exposed parameters. Memory can come
+> under this ambit too. Now lets consider scheduler which is set to join
+> this league.
+>    We could discuss and come up with some suitable parameters like
+> discrete levels of Perf/Watt which will allow the scheduler to take
 
-We probably also want KVM folks to weigh in on how, if at all, they'd
-want errors on assigned devices to be reported to guests.
+I prefer the amout of work per energy unit to perf/Watt (which is the same
+number BTW), but that's just a detail.
 
-I strongly suspect that once we start looking at it, we'll find other
-triggers than "IOMMU faults" for starting to isolate and reset
-misbehaving devices. Interrupt storms perhaps being one of them =E2=80=94 w=
-e've
-never been particularly robust to those, either.
+> appropriate decisions. (Of course we will need to work on this decision
+> making part of the scheduler.) So the tuned profiles could further
+> include the scheduler settings as well.
+> 
+> The point is that, profiles is a nice way of allowing the user to make
+> his choices. If he does not want to put in too much effort apart from
+> making a choice of profile, he can simply switch the currently active
+> profile to the one that meets his goal and not bother about the settings
+> it is doing internally. If he instead wants to have more fine grained
+> control over the settings, he can create a custom profile deriving out
+> of the existing tuned profiles.
+> 
+> Look at an example for a tuned profile for performance:
+> start() gets called when the profile is switched to and stop() when its
+> turned off. We could include the scheduling parameters in the profile
+> when we come up with the set of them.
+> 
+>  start() {
+>      [ "$USB_AUTOSUSPEND" = 1 ] && enable_usb_autosuspend
+>      set_disk_alpm min_power
+>      enable_cpu_multicore_powersave
+>      set_cpu_governor ondemand
+>      enable_snd_ac97_powersave
+>      set_hda_intel_powersave 10
+>      enable_wifi_powersave
+>      set_radeon_powersave auto
+>      return 0
+>  }
+> 
+>  stop() {
+>      [ "$USB_AUTOSUSPEND" = 1 ] && disable_usb_autosuspend
+>      set_disk_alpm max_performance
+>      disable_cpu_multicore_powersave
+>      restore_cpu_governor
+>      restore_snd_ac97_powersave
+>      restore_hda_intel_powersave
+>      disable_wifi_powersave
+>      restore_radeon_powersave
+>      return 0
+>  }
 
---=20
-David Woodhouse                            Open Source Technology Centre
-David.Woodhouse@intel.com                              Intel Corporation
+You seem to think that user space would operate those profiles, but the
+experience so far is that user space is not actually good at doing things
+like that.  We have exposed a number of PM-related knobs to user space,
+but in may cases it actively refuses to use them (we have dropped a couple
+of them too for this very reason).
 
---=-7LNEzT2LA/3CjRB3fLqB
-Content-Type: application/x-pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
+This means expecting user space *alone* to do the right thing and tell the
+kernel what to do next with the help of all of the individual knobs spread
+all over the place is not entirely realistic in my view.
 
-MIAGCSqGSIb3DQEHAqCAMIACAQExCzAJBgUrDgMCGgUAMIAGCSqGSIb3DQEHAQAAoIISxDCCBjQw
-ggQcoAMCAQICAR4wDQYJKoZIhvcNAQEFBQAwfTELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0YXJ0
-Q29tIEx0ZC4xKzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRlIFNpZ25pbmcxKTAn
-BgNVBAMTIFN0YXJ0Q29tIENlcnRpZmljYXRpb24gQXV0aG9yaXR5MB4XDTA3MTAyNDIxMDE1NVoX
-DTE3MTAyNDIxMDE1NVowgYwxCzAJBgNVBAYTAklMMRYwFAYDVQQKEw1TdGFydENvbSBMdGQuMSsw
-KQYDVQQLEyJTZWN1cmUgRGlnaXRhbCBDZXJ0aWZpY2F0ZSBTaWduaW5nMTgwNgYDVQQDEy9TdGFy
-dENvbSBDbGFzcyAxIFByaW1hcnkgSW50ZXJtZWRpYXRlIENsaWVudCBDQTCCASIwDQYJKoZIhvcN
-AQEBBQADggEPADCCAQoCggEBAMcJg8zOLdgasSmkLhOrlr6KMoOMpohBllVHrdRvEg/q6r8jR+EK
-75xCGhR8ToREoqe7zM9/UnC6TS2y9UKTpT1v7RSMzR0t6ndl0TWBuUr/UXBhPk+Kmy7bI4yW4urC
-+y7P3/1/X7U8ocb8VpH/Clt+4iq7nirMcNh6qJR+xjOhV+VHzQMALuGYn5KZmc1NbJQYclsGkDxD
-z2UbFqE2+6vIZoL+jb9x4Pa5gNf1TwSDkOkikZB1xtB4ZqtXThaABSONdfmv/Z1pua3FYxnCFmdr
-/+N2JLKutIxMYqQOJebr/f/h5t95m4JgrM3Y/w7YX9d7YAL9jvN4SydHsU6n65cCAwEAAaOCAa0w
-ggGpMA8GA1UdEwEB/wQFMAMBAf8wDgYDVR0PAQH/BAQDAgEGMB0GA1UdDgQWBBRTcu2SnODaywFc
-fH6WNU7y1LhRgjAfBgNVHSMEGDAWgBROC+8apEBbpRdphzDKNGhD0EGu8jBmBggrBgEFBQcBAQRa
-MFgwJwYIKwYBBQUHMAGGG2h0dHA6Ly9vY3NwLnN0YXJ0c3NsLmNvbS9jYTAtBggrBgEFBQcwAoYh
-aHR0cDovL3d3dy5zdGFydHNzbC5jb20vc2ZzY2EuY3J0MFsGA1UdHwRUMFIwJ6AloCOGIWh0dHA6
-Ly93d3cuc3RhcnRzc2wuY29tL3Nmc2NhLmNybDAnoCWgI4YhaHR0cDovL2NybC5zdGFydHNzbC5j
-b20vc2ZzY2EuY3JsMIGABgNVHSAEeTB3MHUGCysGAQQBgbU3AQIBMGYwLgYIKwYBBQUHAgEWImh0
-dHA6Ly93d3cuc3RhcnRzc2wuY29tL3BvbGljeS5wZGYwNAYIKwYBBQUHAgEWKGh0dHA6Ly93d3cu
-c3RhcnRzc2wuY29tL2ludGVybWVkaWF0ZS5wZGYwDQYJKoZIhvcNAQEFBQADggIBAAqDCH14qywG
-XLhjjF6uHLkjd02hcdh9hrw+VUsv+q1eeQWB21jWj3kJ96AUlPCoEGZ/ynJNScWy6QMVQjbbMXlt
-UfO4n4bGGdKo3awPWp61tjAFgraLJgDk+DsSvUD6EowjMTNx25GQgyYJ5RPIzKKR9tQW8gGK+2+R
-HxkUCTbYFnL6kl8Ch507rUdPPipJ9CgJFws3kDS3gOS5WFMxcjO5DwKfKSETEPrHh7p5shuuNktv
-sv6hxHTLhiMKX893gxdT3XLS9OKmCv87vkINQcNEcIIoFWbP9HORz9v3vQwR4e3ksLc2JZOAFK+s
-sS5XMEoznzpihEP0PLc4dCBYjbvSD7kxgDwZ+Aj8Q9PkbvE9sIPP7ON0fz095HdThKjiVJe6vofq
-+n6b1NBc8XdrQvBmunwxD5nvtTW4vtN6VY7mUCmxsCieuoBJ9OlqmsVWQvifIYf40dJPZkk9YgGT
-zWLpXDSfLSplbY2LL9C9U0ptvjcDjefLTvqSFc7tw1sEhF0n/qpA2r0GpvkLRDmcSwVyPvmjFBGq
-Up/pNy8ZuPGQmHwFi2/14+xeSUDG2bwnsYJQG2EdJCB6luQ57GEnTA/yKZSTKI8dDQa8Sd3zfXb1
-9mOgSF0bBdXbuKhEpuP9wirslFe6fQ1t5j5R0xi72MZ8ikMu1RQZKCyDbMwazlHiMIIGQjCCBSqg
-AwIBAgIDCdkyMA0GCSqGSIb3DQEBBQUAMIGMMQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRD
-b20gTHRkLjErMCkGA1UECxMiU2VjdXJlIERpZ2l0YWwgQ2VydGlmaWNhdGUgU2lnbmluZzE4MDYG
-A1UEAxMvU3RhcnRDb20gQ2xhc3MgMSBQcmltYXJ5IEludGVybWVkaWF0ZSBDbGllbnQgQ0EwHhcN
-MTQwNTA0MTczMDIyWhcNMTUwNTA0MjM0MTAxWjBdMRkwFwYDVQQNExAzODNCMTVkSHFQSUR0cDZO
-MRwwGgYDVQQDDBNkd213MkBpbmZyYWRlYWQub3JnMSIwIAYJKoZIhvcNAQkBFhNkd213MkBpbmZy
-YWRlYWQub3JnMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAy7K+t+REIdZGFUfgR8Io
-QrJ/VLZil9I00JcwqTo8BiGy1dqSIB2y923siya5SDKMh1YurtCPsX96cNzwPmmN2cs0MKeVPQWz
-iQhHk3uKcB6LvvS7pzTahRWMRmTyW3CH+RphRM9plvyClY23GEeEnpBnGz4GaJJiPcJjGgzyZ/tI
-q473pOlSrDPZnZk43vt/5CJN46nIZOZ2I+PzlgINI+EbiwsXVn3VohHB7nVTwGaRLk5oywGt8ZT7
-tDdxn3BQ3inO1sr5MtkV1o2cHlenIC8mlU8nL/mrqqVve7Vib1YQUycW+Pj4CBYm4FTeuctAvNzK
-U/daeBclOZ8ofgQe2wIDAQABo4IC2TCCAtUwCQYDVR0TBAIwADALBgNVHQ8EBAMCBLAwHQYDVR0l
-BBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMB0GA1UdDgQWBBRAjCSCV70BpLBeXge5DXi+mPhHTTAf
-BgNVHSMEGDAWgBRTcu2SnODaywFcfH6WNU7y1LhRgjAeBgNVHREEFzAVgRNkd213MkBpbmZyYWRl
-YWQub3JnMIIBTAYDVR0gBIIBQzCCAT8wggE7BgsrBgEEAYG1NwECAzCCASowLgYIKwYBBQUHAgEW
-Imh0dHA6Ly93d3cuc3RhcnRzc2wuY29tL3BvbGljeS5wZGYwgfcGCCsGAQUFBwICMIHqMCcWIFN0
-YXJ0Q29tIENlcnRpZmljYXRpb24gQXV0aG9yaXR5MAMCAQEagb5UaGlzIGNlcnRpZmljYXRlIHdh
-cyBpc3N1ZWQgYWNjb3JkaW5nIHRvIHRoZSBDbGFzcyAxIFZhbGlkYXRpb24gcmVxdWlyZW1lbnRz
-IG9mIHRoZSBTdGFydENvbSBDQSBwb2xpY3ksIHJlbGlhbmNlIG9ubHkgZm9yIHRoZSBpbnRlbmRl
-ZCBwdXJwb3NlIGluIGNvbXBsaWFuY2Ugb2YgdGhlIHJlbHlpbmcgcGFydHkgb2JsaWdhdGlvbnMu
-MDYGA1UdHwQvMC0wK6ApoCeGJWh0dHA6Ly9jcmwuc3RhcnRzc2wuY29tL2NydHUxLWNybC5jcmww
-gY4GCCsGAQUFBwEBBIGBMH8wOQYIKwYBBQUHMAGGLWh0dHA6Ly9vY3NwLnN0YXJ0c3NsLmNvbS9z
-dWIvY2xhc3MxL2NsaWVudC9jYTBCBggrBgEFBQcwAoY2aHR0cDovL2FpYS5zdGFydHNzbC5jb20v
-Y2VydHMvc3ViLmNsYXNzMS5jbGllbnQuY2EuY3J0MCMGA1UdEgQcMBqGGGh0dHA6Ly93d3cuc3Rh
-cnRzc2wuY29tLzANBgkqhkiG9w0BAQUFAAOCAQEAWS2KNN7O3vZVtNHXVqgbmijeptKwt+8b6yiF
-wT3kJoywInPl5U+OeKRZfQKTHghM4Ohof6lF244ZMxhir/xp7l/zkZ/BUbxLwp6kIL27Gi5pgP4D
-KLnTZheQL9N5Yi/vMONxMWcpcW+ZNv5hnDCfEsfVcLXC8sNLPjx2ezfMIhSSPwBuJpmOun70te4E
-P0YBqjSalPfvc5fC5KgaYtqTDFwo9Mw25X5HHDC0r6BK5aNrF1nD/xYTX7cdvZZWl7cUApr4PCrn
-uI2DEn7OWQ/rY407ytV1c5pjvmuv/IT/ZUb/kXV6Q47UvrJp2Ifi2VhsBcnHHasKavjtRCmpDsGM
-rTCCBkIwggUqoAMCAQICAwnZMjANBgkqhkiG9w0BAQUFADCBjDELMAkGA1UEBhMCSUwxFjAUBgNV
-BAoTDVN0YXJ0Q29tIEx0ZC4xKzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRlIFNp
-Z25pbmcxODA2BgNVBAMTL1N0YXJ0Q29tIENsYXNzIDEgUHJpbWFyeSBJbnRlcm1lZGlhdGUgQ2xp
-ZW50IENBMB4XDTE0MDUwNDE3MzAyMloXDTE1MDUwNDIzNDEwMVowXTEZMBcGA1UEDRMQMzgzQjE1
-ZEhxUElEdHA2TjEcMBoGA1UEAwwTZHdtdzJAaW5mcmFkZWFkLm9yZzEiMCAGCSqGSIb3DQEJARYT
-ZHdtdzJAaW5mcmFkZWFkLm9yZzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMuyvrfk
-RCHWRhVH4EfCKEKyf1S2YpfSNNCXMKk6PAYhstXakiAdsvdt7IsmuUgyjIdWLq7Qj7F/enDc8D5p
-jdnLNDCnlT0Fs4kIR5N7inAei770u6c02oUVjEZk8ltwh/kaYUTPaZb8gpWNtxhHhJ6QZxs+BmiS
-Yj3CYxoM8mf7SKuO96TpUqwz2Z2ZON77f+QiTeOpyGTmdiPj85YCDSPhG4sLF1Z91aIRwe51U8Bm
-kS5OaMsBrfGU+7Q3cZ9wUN4pztbK+TLZFdaNnB5XpyAvJpVPJy/5q6qlb3u1Ym9WEFMnFvj4+AgW
-JuBU3rnLQLzcylP3WngXJTmfKH4EHtsCAwEAAaOCAtkwggLVMAkGA1UdEwQCMAAwCwYDVR0PBAQD
-AgSwMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDBDAdBgNVHQ4EFgQUQIwkgle9AaSwXl4H
-uQ14vpj4R00wHwYDVR0jBBgwFoAUU3Ltkpzg2ssBXHx+ljVO8tS4UYIwHgYDVR0RBBcwFYETZHdt
-dzJAaW5mcmFkZWFkLm9yZzCCAUwGA1UdIASCAUMwggE/MIIBOwYLKwYBBAGBtTcBAgMwggEqMC4G
-CCsGAQUFBwIBFiJodHRwOi8vd3d3LnN0YXJ0c3NsLmNvbS9wb2xpY3kucGRmMIH3BggrBgEFBQcC
-AjCB6jAnFiBTdGFydENvbSBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0eTADAgEBGoG+VGhpcyBjZXJ0
-aWZpY2F0ZSB3YXMgaXNzdWVkIGFjY29yZGluZyB0byB0aGUgQ2xhc3MgMSBWYWxpZGF0aW9uIHJl
-cXVpcmVtZW50cyBvZiB0aGUgU3RhcnRDb20gQ0EgcG9saWN5LCByZWxpYW5jZSBvbmx5IGZvciB0
-aGUgaW50ZW5kZWQgcHVycG9zZSBpbiBjb21wbGlhbmNlIG9mIHRoZSByZWx5aW5nIHBhcnR5IG9i
-bGlnYXRpb25zLjA2BgNVHR8ELzAtMCugKaAnhiVodHRwOi8vY3JsLnN0YXJ0c3NsLmNvbS9jcnR1
-MS1jcmwuY3JsMIGOBggrBgEFBQcBAQSBgTB/MDkGCCsGAQUFBzABhi1odHRwOi8vb2NzcC5zdGFy
-dHNzbC5jb20vc3ViL2NsYXNzMS9jbGllbnQvY2EwQgYIKwYBBQUHMAKGNmh0dHA6Ly9haWEuc3Rh
-cnRzc2wuY29tL2NlcnRzL3N1Yi5jbGFzczEuY2xpZW50LmNhLmNydDAjBgNVHRIEHDAahhhodHRw
-Oi8vd3d3LnN0YXJ0c3NsLmNvbS8wDQYJKoZIhvcNAQEFBQADggEBAFktijTezt72VbTR11aoG5oo
-3qbSsLfvG+sohcE95CaMsCJz5eVPjnikWX0Ckx4ITODoaH+pRduOGTMYYq/8ae5f85GfwVG8S8Ke
-pCC9uxouaYD+Ayi502YXkC/TeWIv7zDjcTFnKXFvmTb+YZwwnxLH1XC1wvLDSz48dns3zCIUkj8A
-biaZjrp+9LXuBD9GAao0mpT373OXwuSoGmLakwxcKPTMNuV+RxwwtK+gSuWjaxdZw/8WE1+3Hb2W
-Vpe3FAKa+Dwq57iNgxJ+zlkP62ONO8rVdXOaY75rr/yE/2VG/5F1ekOO1L6yadiH4tlYbAXJxx2r
-Cmr47UQpqQ7BjK0xggNvMIIDawIBATCBlDCBjDELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0YXJ0
-Q29tIEx0ZC4xKzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRlIFNpZ25pbmcxODA2
-BgNVBAMTL1N0YXJ0Q29tIENsYXNzIDEgUHJpbWFyeSBJbnRlcm1lZGlhdGUgQ2xpZW50IENBAgMJ
-2TIwCQYFKw4DAhoFAKCCAa8wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUx
-DxcNMTQwNTA4MTIzNzAzWjAjBgkqhkiG9w0BCQQxFgQUSqyNOCRNKLRnjBqJZgos3tqeGO0wgaUG
-CSsGAQQBgjcQBDGBlzCBlDCBjDELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0YXJ0Q29tIEx0ZC4x
-KzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRlIFNpZ25pbmcxODA2BgNVBAMTL1N0
-YXJ0Q29tIENsYXNzIDEgUHJpbWFyeSBJbnRlcm1lZGlhdGUgQ2xpZW50IENBAgMJ2TIwgacGCyqG
-SIb3DQEJEAILMYGXoIGUMIGMMQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRkLjEr
-MCkGA1UECxMiU2VjdXJlIERpZ2l0YWwgQ2VydGlmaWNhdGUgU2lnbmluZzE4MDYGA1UEAxMvU3Rh
-cnRDb20gQ2xhc3MgMSBQcmltYXJ5IEludGVybWVkaWF0ZSBDbGllbnQgQ0ECAwnZMjANBgkqhkiG
-9w0BAQEFAASCAQA0IzoVpR8K7JdyTztl2HKbeTf6z9+9qUOcxeYZa3swOzVL5GkNOM+Y9G/JfLbw
-WGmYmvX058gsk5dnUm33kpxBq60Kd5DG5x65NRk9rQLquvBnsjP/EQdRrA21txEUFokK1x6rm/Uo
-8NRDt7NpOoucmvt/3ptGYyg8Tj+zoW1pLULR0EGII8Sk53vNMBWKml7+jpug8DD23mVLr9l4EBaT
-D7hFwFs6OO+8k7npK6HxKaEUkIFjZAZX7+1lmVF/wxwlcxkT99hRTCHbqJcAqXeeKqXaMKagP2Kt
-/2Ik9j0aofeRcjxOizL+n0+fAkYXXq1e5EO9WmB/1vVTWPXBnUG9AAAAAAAA
+Yes, I think there should be ways for user space to indicate what its
+current preference (or policy if you will) is, but those should be
+relatively simple and starightforward to use.
+
+For example, we have a per-device knob that user space can use to indicate
+whether or not runtime PM should be used for the devices, if available.
+As a result, if a user wants to enable runtime PM for all devices, she or
+he has to go through all of them and switch the knob for each one individually,
+which it would be easier to use a common big switch for that.  And that big
+switch would be more likely to be actually used just because it is big
+and makes a big difference.
+
+> > It doesn't seem to be clear currently what level and scope of such
+> interfaces
+> > is appropriate and where to place them.  Would a global knob be
+> useful?  Or
+> > should they be per-subsystem, per-driver, per-task, per-cgroup etc?
+> 
+> A global knob would be useful in the case where the user chooses
+> performance policy for example. It means he expects the kernel to
+> *never* sacrifice performance for powersave. Now assume that a set of
+> tasks is running on 4 cpus out of 10. If the user has chosen performance
+> policy, *none of the 10 cpus should enter deep idle states* lest they
+> affect the latency of the tasks. Here a global knob would do well.
+> 
+> For less aggressive policies like balanced policy, a per-task policy
+> would do very well. Assume the above same scenario, we would want to
+> disable deep idle states only for those 4 cpus that we are running on
+> and allow the remaining 6 to enter deep idle states. Of course this
+> would mean that if the task gets scheduled on one of those 6, it would
+> take a latency hit, but only initially. The per-task knob would then
+> prevent that cpu from entering deep idle states henceforth. Or we could
+> use cgroups to prevent even such a thing from happening and make it a
+> per-cgroup knob if even the initial latency hit cannot be tolerated.
+
+I'm still seeing a problem with mixing tasks with different "energy"
+settings.  If there are "performance" and "energy friendly" tasks to
+run at the same time, it is not particularly clear how to the load
+balancer should handle them, for one example.
+
+> So having both per-task and global knobs may help depending on the profiles.
+> >
+> > It also is not particularly clear what representation of "energy
+> conservation
+> > bias" would be most useful.  Should that be a number or a set of
+> well-defined
+> > discrete levels that can be given names (like "max performance", "high
+> > prerformance", "balanced" etc.)?  If a number, then what units to use and
+> > how many different values to take into account?
+> 
+> Currently tuned has a good set of initial profiles. We could start with
+> them and add tunings which could be discrete values or could be policy
+> names depending on the sub-system. As for scheduler we could start with
+> with auto, power, performance and then move on to discrete values I guess.
+
+What you're suggesting seems to be to start with the "levels" that are
+defined currently, by cpufreq governors for one example, and then to add
+more over time as needed.  Is that correct?
 
 
---=-7LNEzT2LA/3CjRB3fLqB--
+-- 
+I speak only for myself.
+Rafael J. Wysocki, Intel Open Source Technology Center.
