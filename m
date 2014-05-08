@@ -1,31 +1,27 @@
 Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 8E968942
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 0F881927
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  8 May 2014 11:51:32 +0000 (UTC)
+	Thu,  8 May 2014 12:13:12 +0000 (UTC)
 Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id 6D5CA1FD46
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id E60D11FB51
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  8 May 2014 11:51:30 +0000 (UTC)
+	Thu,  8 May 2014 12:13:10 +0000 (UTC)
 From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-To: Linus Walleij <linus.walleij@linaro.org>
-Date: Thu, 08 May 2014 14:08:10 +0200
-Message-ID: <3041099.5bD9dETY7Z@vostro.rjw.lan>
-In-Reply-To: <CACRpkdZvh9ZVMO-oAL-UDTOGKN28x1eKoSMBetfEn9wk=jEOWg@mail.gmail.com>
-References: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>
-	<5037921.rt2to5ZgBB@vostro.rjw.lan>
-	<CACRpkdZvh9ZVMO-oAL-UDTOGKN28x1eKoSMBetfEn9wk=jEOWg@mail.gmail.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Date: Thu, 08 May 2014 14:29:51 +0200
+Message-ID: <3530193.D853G801VB@vostro.rjw.lan>
+In-Reply-To: <20140506134909.GM11096@twins.programming.kicks-ass.net>
+References: <1998761.B2k0A5OtQR@vostro.rjw.lan>
+	<20140506134909.GM11096@twins.programming.kicks-ass.net>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="utf-8"
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"dvhart@dvhart.com" <dvhart@dvhart.com>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Driver model/resources, ACPI, DT,
-	etc (sigh)
+Cc: Len Brown <len.brown@intel.com>, ksummit-discuss@lists.linuxfoundation.org,
+	Daniel Lezcano <daniel.lezcano@linaro.org>, Ingo Molnar <mingo@kernel.org>
+Subject: Re: [Ksummit-discuss] [TECH(CORE?) TOPIC] Energy conservation bias
+	interfaces
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,45 +31,84 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thursday, May 08, 2014 01:36:03 PM Linus Walleij wrote:
-> On Tue, May 6, 2014 at 1:41 PM, Rafael J. Wysocki <rjw@rjwysocki.net> wrote:
-> > On Monday, May 05, 2014 07:41:04 PM Linus Walleij wrote:
-> (...)
-> >> The thing is: with things like BayTrail I already *know* the pin control
-> >> registers are there, they are just not implemented any handling of.
-> >> I know very well how much the HW implementers think that a kernel
-> >> "should never touch" these registers, and I know it will invariably happen
-> >> sooner or later but like to be proven wrong.
-> (...)
+On Tuesday, May 06, 2014 03:49:09 PM Peter Zijlstra wrote:
 > 
-> > That doesn't mean that we can switch x86 to over DTs (that currently is not an
-> > option for various reasons, not necessarily techical), but we may be able to put
-> > DT-style information that the current code expects to be there into the ACPI
-> > tables.
+> --2F7AbV2suvT8PGoH
+> Content-Type: text/plain; charset=us-ascii
+> Content-Disposition: inline
+> Content-Transfer-Encoding: quoted-printable
 > 
-> In this case I don't care so much about DT or ACPI or whatever, what
-> I would like to see is that the hardware is adequately described to
-> the kernel, and the subsystem has a pretty good idea about how to
-> describe such hardware, and the idea is *not* per-pin properties
-> tied to some "GPIO" like I have seen, but concepts like groups and
-> functions and per-pin configuration tied in to a certain use case.
+> On Tue, May 06, 2014 at 02:54:03PM +0200, Rafael J. Wysocki wrote:
+> > Hi All,
+> >=20
+> > During a recent discussion on linux-pm/LKML regarding the integration of =
+> the
+> > scheduler with cpuidle (http://marc.info/?t=3D139834240600003&r=3D1&w=3D4=
+> ) it became
+> > apparent that the kernel might benefit from adding interfaces to let it k=
+> now
+> > how far it should go with saving energy, possibly at the expense of perfo=
+> rmance.
+> >=20
+> > First of all, it would be good to have a place where subsystems and device
+> > drivers can go and check what the current "energy conservation bias" is in
+> > case they need to make a decision between delivering more performance and
+> > using less energy.  Second, it would be good to provide user space with
+> > a means to tell the kernel whether it should care more about performance =
+> or
+> > energy.  Finally, it would be good to be able to adjust the overall "ener=
+> gy
+> > conservation bias" automatically in response to certain "power" events su=
+> ch
+> > as "battery is low/critical" etc.
+> >=20
+> > It doesn't seem to be clear currently what level and scope of such interf=
+> aces
+> > is appropriate and where to place them.  Would a global knob be useful?  =
+> Or
+> > should they be per-subsystem, per-driver, per-task, per-cgroup etc?
 > 
-> I know DT is doing it right but that is just because the person who
-> did the heavy lifting, Stephen Warren, was also a co-author of the
-> pin control subsystem.
+> per-task and per-cgroup doesn't seem to make sense to me; its the
+> hardware that consumes energy.
+> 
+> per-subsystem sounds right to me; I don't care which particular instance
+> of graphics cards I have, I want whichever one(s) I have to obey.
+> 
+> global doesn't make sense, like stated earlier I absolutely detest
+> automagic backlight dimming, whereas I don't particularly care about
+> compute speed at all.
 
-I haven't been following the development of the pin control subsystem and
-I'm not familiar with those things, so I'm not sure how I can aswer this.
+Except that subsustems may not be as independent as they may seem to be.
+Take the graphics and the CPU.  They may share thermal constraints, for
+example, and other things like clocks and voltage regulators.
 
->From the firmware interface perspective, though, ACPI has no means of
-exposing pin control to the OS today and they way for it I can see,
-personally, would be to re-use what is done in the DT space.
+Per-subsystem settings may not be adequate in such cases.
 
-That's why I was asking the questions about pin control in the other LKML
-thread.  [Thanks for you reply BTW, sorry for not responding there, but
-I haven't had a chance to read it carefully yet.]
+> So while I might want a energy conserving bias for say the CPU and GPU,
+> I most definitely don't want that to dim the screen.
 
-Thanks!
+That happens because user space has its own ideas about what's appropriate. :-)
+
+The question here is whether or not we want the kernel to react to events
+like "we're on battery now" or "battery is low" which are global.
+
+So while knobs may be per subsystem, there needs to be some kind of coordination
+it seems or at least a notification mechanism that the subsystems can subscribe
+to.
+
+> > It also is not particularly clear what representation of "energy conserva=
+> tion
+> > bias" would be most useful.  Should that be a number or a set of well-def=
+> ined
+> > discrete levels that can be given names (like "max performance", "high
+> > prerformance", "balanced" etc.)?  If a number, then what units to use and
+> > how many different values to take into account?
+> 
+> Yeah, fun.. we're not even sure how to make it do the 0,1 variants, and
+> now you want a sliding scale to make it do in-betweens ;-)
+
+Well, if we don't think we can do better that 0,1, that will be the choice
+I guess. :-)
 
 -- 
 I speak only for myself.
