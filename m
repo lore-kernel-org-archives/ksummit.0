@@ -1,32 +1,32 @@
-Return-Path: <BATV+a68295c2e7b646669333+3910+infradead.org+dwmw2@casper.srs.infradead.org>
+Return-Path: <sundar.iyer@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 4568C996
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 22E9A9A3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  8 May 2014 14:44:03 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [85.118.1.10])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id AFCEE2027D
+	Thu,  8 May 2014 14:57:14 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 12C771FD4A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  8 May 2014 14:44:02 +0000 (UTC)
-Message-ID: <1399560239.17118.46.camel@i7.infradead.org>
-From: David Woodhouse <dwmw2@infradead.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Date: Thu, 08 May 2014 15:43:59 +0100
-In-Reply-To: <20140508142734.GF13658@twins.programming.kicks-ass.net>
-References: <20140507182916.GG3694@arm.com>
-	<20140507191208.GZ30445@twins.programming.kicks-ass.net>
-	<20140507212001.GA5311@arm.com>
-	<20140508091312.GH2844@laptop.programming.kicks-ass.net>
-	<20140508142734.GF13658@twins.programming.kicks-ass.net>
-Content-Type: multipart/signed; micalg="sha-1";
-	protocol="application/x-pkcs7-signature";
-	boundary="=-5DyE9fvT89n61OjQvLUT"
-Mime-Version: 1.0
-Cc: "waiman.long@hp.com" <waiman.long@hp.com>,
+	Thu,  8 May 2014 14:57:12 +0000 (UTC)
+From: "Iyer, Sundar" <sundar.iyer@intel.com>
+To: "Rafael J. Wysocki" <rjw@rjwysocki.net>, Preeti U Murthy
+	<preeti@linux.vnet.ibm.com>
+Date: Thu, 8 May 2014 14:57:08 +0000
+Message-ID: <2FABAEF0D3DCAF4F9C9628D6E2F9684533B4DB65@BGSMSX102.gar.corp.intel.com>
+References: <1998761.B2k0A5OtQR@vostro.rjw.lan>
+	<53692127.7040603@linux.vnet.ibm.com>
+	<1664398.kOfsDrBujV@vostro.rjw.lan>
+In-Reply-To: <1664398.kOfsDrBujV@vostro.rjw.lan>
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Cc: Peter Zijlstra <peterz@infradead.org>, "Brown, Len" <len.brown@intel.com>,
+	Daniel Lezcano <daniel.lezcano@linaro.org>, Ingo Molnar <mingo@kernel.org>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] asm-generic implementations of
- low-level synchronisation constructs
+Subject: Re: [Ksummit-discuss] [TECH(CORE?) TOPIC] Energy conservation
+	bias	interfaces
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,155 +36,110 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-
---=-5DyE9fvT89n61OjQvLUT
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, 2014-05-08 at 16:27 +0200, Peter Zijlstra wrote:
+> -----Original Message-----
+> From: ksummit-discuss-bounces@lists.linuxfoundation.org [mailto:ksummit-
+> discuss-bounces@lists.linuxfoundation.org] On Behalf Of Rafael J.
+> Wysocki
+> Sent: Thursday, May 8, 2014 6:28 PM
+=20
+> That's something I was thinking about too, but the difficulty here is in =
+how to
+> define the profiles (that is, what settings in each subsystem are going t=
+o be
+> affected by a profile change) and in deciding when to switch profiles and
+> which profile is the most appropriate going forward.
 >=20
-> So the most common constraint (which you've confirmed is true for ARM as
-> well) is that we should not have memory accesses in between an LL/SC.
->=20
-> Making sure GCC doesn't do any is tricky, the best I can come up with is
-> tagging all variables with the register qualifier, like:
->=20
-> ATOMIC_RET(ptr, __ret, stmt)
-> ({
->         register typeof(*ptr) __new, __val;
->=20
->         smp_mb__before_llsc();
->=20
->         do {
->                 __val =3D load_locked(ptr);
->                 stmt;
->         } while (!store_conditional(ptr, __new));
->=20
->         smp_mb__after_llsc();
->=20
->         __ret;
-> })
->=20
-> Now, I'm not at all sure if register still means anything to GCC, but in
-> the faint hope that it still sees it as a hint this might just work.
+> IOW, the high-level concept looks nice, but the details of the implementa=
+tion
+> are important too. :-)
 
-No. Please no. Not even if you sacrifice a goat to the gods of GCC
-undefined behaviour.
+I agree. Defining these profiles and trying to fit them into a system defin=
+ition,=20
+system usage policy and above all user usage policy is where the sticking p=
+oint is.
 
-Acting on condition flags from inline asm is also hard or suboptimal in
-some cases too. You're probably better off just having this done in asm
-directly.
+> > Today cpuidle and cpufreq already expose these settings through
+> > governors.
+>=20
+> cpufreq governors are kind of tied to specific "energy efficiency" profil=
+es,
+> performance, powersave, on-demand.  However, cpuidle governors are
 
---=20
-David Woodhouse                            Open Source Technology Centre
-David.Woodhouse@intel.com                              Intel Corporation
+I am not sure if that is correct. IMO Cpufreq governors function simply as =
+per
+policies defined to meet user experience. A system may choose to sacrifice
+user experience @ the cost of running the CPU at the lowest frequency, but =
+the
+governor has no idea if it was really energy efficient for the platform. Si=
+milarly,
+the governor might decide to run at a higher turbo frequency for better use=
+r
+responsiveness, but it still doesn't know if it was energy efficient runnin=
+g @ those
+frequencies. I am coming back to the point that energy efficiency is counta=
+ble
+_only_ at the platform level: if it results in a longer battery life w/o ne=
+eding to plug in.
 
---=-5DyE9fvT89n61OjQvLUT
-Content-Type: application/x-pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
+> > Look at an example for a tuned profile for performance:
+> > start() gets called when the profile is switched to and stop() when
+> > its turned off. We could include the scheduling parameters in the
+> > profile when we come up with the set of them.
+> >
+> >  start() {
+> >      [ "$USB_AUTOSUSPEND" =3D 1 ] && enable_usb_autosuspend
+> >      set_disk_alpm min_power
+> >      enable_cpu_multicore_powersave
+> >      set_cpu_governor ondemand
+> >      enable_snd_ac97_powersave
+> >      set_hda_intel_powersave 10
+> >      enable_wifi_powersave
+> >      set_radeon_powersave auto
+> >      return 0
+> >  }
+> >
+> >  stop() {
+> >      [ "$USB_AUTOSUSPEND" =3D 1 ] && disable_usb_autosuspend
+> >      set_disk_alpm max_performance
+> >      disable_cpu_multicore_powersave
+> >      restore_cpu_governor
+> >      restore_snd_ac97_powersave
+> >      restore_hda_intel_powersave
+> >      disable_wifi_powersave
+> >      restore_radeon_powersave
+> >      return 0
+> >  }
+>=20
+> You seem to think that user space would operate those profiles, but the
+> experience so far is that user space is not actually good at doing things=
+ like
+> that.  We have exposed a number of PM-related knobs to user space, but in
+> may cases it actively refuses to use them (we have dropped a couple of
+> them too for this very reason).
 
-MIAGCSqGSIb3DQEHAqCAMIACAQExCzAJBgUrDgMCGgUAMIAGCSqGSIb3DQEHAQAAoIISxDCCBjQw
-ggQcoAMCAQICAR4wDQYJKoZIhvcNAQEFBQAwfTELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0YXJ0
-Q29tIEx0ZC4xKzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRlIFNpZ25pbmcxKTAn
-BgNVBAMTIFN0YXJ0Q29tIENlcnRpZmljYXRpb24gQXV0aG9yaXR5MB4XDTA3MTAyNDIxMDE1NVoX
-DTE3MTAyNDIxMDE1NVowgYwxCzAJBgNVBAYTAklMMRYwFAYDVQQKEw1TdGFydENvbSBMdGQuMSsw
-KQYDVQQLEyJTZWN1cmUgRGlnaXRhbCBDZXJ0aWZpY2F0ZSBTaWduaW5nMTgwNgYDVQQDEy9TdGFy
-dENvbSBDbGFzcyAxIFByaW1hcnkgSW50ZXJtZWRpYXRlIENsaWVudCBDQTCCASIwDQYJKoZIhvcN
-AQEBBQADggEPADCCAQoCggEBAMcJg8zOLdgasSmkLhOrlr6KMoOMpohBllVHrdRvEg/q6r8jR+EK
-75xCGhR8ToREoqe7zM9/UnC6TS2y9UKTpT1v7RSMzR0t6ndl0TWBuUr/UXBhPk+Kmy7bI4yW4urC
-+y7P3/1/X7U8ocb8VpH/Clt+4iq7nirMcNh6qJR+xjOhV+VHzQMALuGYn5KZmc1NbJQYclsGkDxD
-z2UbFqE2+6vIZoL+jb9x4Pa5gNf1TwSDkOkikZB1xtB4ZqtXThaABSONdfmv/Z1pua3FYxnCFmdr
-/+N2JLKutIxMYqQOJebr/f/h5t95m4JgrM3Y/w7YX9d7YAL9jvN4SydHsU6n65cCAwEAAaOCAa0w
-ggGpMA8GA1UdEwEB/wQFMAMBAf8wDgYDVR0PAQH/BAQDAgEGMB0GA1UdDgQWBBRTcu2SnODaywFc
-fH6WNU7y1LhRgjAfBgNVHSMEGDAWgBROC+8apEBbpRdphzDKNGhD0EGu8jBmBggrBgEFBQcBAQRa
-MFgwJwYIKwYBBQUHMAGGG2h0dHA6Ly9vY3NwLnN0YXJ0c3NsLmNvbS9jYTAtBggrBgEFBQcwAoYh
-aHR0cDovL3d3dy5zdGFydHNzbC5jb20vc2ZzY2EuY3J0MFsGA1UdHwRUMFIwJ6AloCOGIWh0dHA6
-Ly93d3cuc3RhcnRzc2wuY29tL3Nmc2NhLmNybDAnoCWgI4YhaHR0cDovL2NybC5zdGFydHNzbC5j
-b20vc2ZzY2EuY3JsMIGABgNVHSAEeTB3MHUGCysGAQQBgbU3AQIBMGYwLgYIKwYBBQUHAgEWImh0
-dHA6Ly93d3cuc3RhcnRzc2wuY29tL3BvbGljeS5wZGYwNAYIKwYBBQUHAgEWKGh0dHA6Ly93d3cu
-c3RhcnRzc2wuY29tL2ludGVybWVkaWF0ZS5wZGYwDQYJKoZIhvcNAQEFBQADggIBAAqDCH14qywG
-XLhjjF6uHLkjd02hcdh9hrw+VUsv+q1eeQWB21jWj3kJ96AUlPCoEGZ/ynJNScWy6QMVQjbbMXlt
-UfO4n4bGGdKo3awPWp61tjAFgraLJgDk+DsSvUD6EowjMTNx25GQgyYJ5RPIzKKR9tQW8gGK+2+R
-HxkUCTbYFnL6kl8Ch507rUdPPipJ9CgJFws3kDS3gOS5WFMxcjO5DwKfKSETEPrHh7p5shuuNktv
-sv6hxHTLhiMKX893gxdT3XLS9OKmCv87vkINQcNEcIIoFWbP9HORz9v3vQwR4e3ksLc2JZOAFK+s
-sS5XMEoznzpihEP0PLc4dCBYjbvSD7kxgDwZ+Aj8Q9PkbvE9sIPP7ON0fz095HdThKjiVJe6vofq
-+n6b1NBc8XdrQvBmunwxD5nvtTW4vtN6VY7mUCmxsCieuoBJ9OlqmsVWQvifIYf40dJPZkk9YgGT
-zWLpXDSfLSplbY2LL9C9U0ptvjcDjefLTvqSFc7tw1sEhF0n/qpA2r0GpvkLRDmcSwVyPvmjFBGq
-Up/pNy8ZuPGQmHwFi2/14+xeSUDG2bwnsYJQG2EdJCB6luQ57GEnTA/yKZSTKI8dDQa8Sd3zfXb1
-9mOgSF0bBdXbuKhEpuP9wirslFe6fQ1t5j5R0xi72MZ8ikMu1RQZKCyDbMwazlHiMIIGQjCCBSqg
-AwIBAgIDCdkyMA0GCSqGSIb3DQEBBQUAMIGMMQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRD
-b20gTHRkLjErMCkGA1UECxMiU2VjdXJlIERpZ2l0YWwgQ2VydGlmaWNhdGUgU2lnbmluZzE4MDYG
-A1UEAxMvU3RhcnRDb20gQ2xhc3MgMSBQcmltYXJ5IEludGVybWVkaWF0ZSBDbGllbnQgQ0EwHhcN
-MTQwNTA0MTczMDIyWhcNMTUwNTA0MjM0MTAxWjBdMRkwFwYDVQQNExAzODNCMTVkSHFQSUR0cDZO
-MRwwGgYDVQQDDBNkd213MkBpbmZyYWRlYWQub3JnMSIwIAYJKoZIhvcNAQkBFhNkd213MkBpbmZy
-YWRlYWQub3JnMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAy7K+t+REIdZGFUfgR8Io
-QrJ/VLZil9I00JcwqTo8BiGy1dqSIB2y923siya5SDKMh1YurtCPsX96cNzwPmmN2cs0MKeVPQWz
-iQhHk3uKcB6LvvS7pzTahRWMRmTyW3CH+RphRM9plvyClY23GEeEnpBnGz4GaJJiPcJjGgzyZ/tI
-q473pOlSrDPZnZk43vt/5CJN46nIZOZ2I+PzlgINI+EbiwsXVn3VohHB7nVTwGaRLk5oywGt8ZT7
-tDdxn3BQ3inO1sr5MtkV1o2cHlenIC8mlU8nL/mrqqVve7Vib1YQUycW+Pj4CBYm4FTeuctAvNzK
-U/daeBclOZ8ofgQe2wIDAQABo4IC2TCCAtUwCQYDVR0TBAIwADALBgNVHQ8EBAMCBLAwHQYDVR0l
-BBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMB0GA1UdDgQWBBRAjCSCV70BpLBeXge5DXi+mPhHTTAf
-BgNVHSMEGDAWgBRTcu2SnODaywFcfH6WNU7y1LhRgjAeBgNVHREEFzAVgRNkd213MkBpbmZyYWRl
-YWQub3JnMIIBTAYDVR0gBIIBQzCCAT8wggE7BgsrBgEEAYG1NwECAzCCASowLgYIKwYBBQUHAgEW
-Imh0dHA6Ly93d3cuc3RhcnRzc2wuY29tL3BvbGljeS5wZGYwgfcGCCsGAQUFBwICMIHqMCcWIFN0
-YXJ0Q29tIENlcnRpZmljYXRpb24gQXV0aG9yaXR5MAMCAQEagb5UaGlzIGNlcnRpZmljYXRlIHdh
-cyBpc3N1ZWQgYWNjb3JkaW5nIHRvIHRoZSBDbGFzcyAxIFZhbGlkYXRpb24gcmVxdWlyZW1lbnRz
-IG9mIHRoZSBTdGFydENvbSBDQSBwb2xpY3ksIHJlbGlhbmNlIG9ubHkgZm9yIHRoZSBpbnRlbmRl
-ZCBwdXJwb3NlIGluIGNvbXBsaWFuY2Ugb2YgdGhlIHJlbHlpbmcgcGFydHkgb2JsaWdhdGlvbnMu
-MDYGA1UdHwQvMC0wK6ApoCeGJWh0dHA6Ly9jcmwuc3RhcnRzc2wuY29tL2NydHUxLWNybC5jcmww
-gY4GCCsGAQUFBwEBBIGBMH8wOQYIKwYBBQUHMAGGLWh0dHA6Ly9vY3NwLnN0YXJ0c3NsLmNvbS9z
-dWIvY2xhc3MxL2NsaWVudC9jYTBCBggrBgEFBQcwAoY2aHR0cDovL2FpYS5zdGFydHNzbC5jb20v
-Y2VydHMvc3ViLmNsYXNzMS5jbGllbnQuY2EuY3J0MCMGA1UdEgQcMBqGGGh0dHA6Ly93d3cuc3Rh
-cnRzc2wuY29tLzANBgkqhkiG9w0BAQUFAAOCAQEAWS2KNN7O3vZVtNHXVqgbmijeptKwt+8b6yiF
-wT3kJoywInPl5U+OeKRZfQKTHghM4Ohof6lF244ZMxhir/xp7l/zkZ/BUbxLwp6kIL27Gi5pgP4D
-KLnTZheQL9N5Yi/vMONxMWcpcW+ZNv5hnDCfEsfVcLXC8sNLPjx2ezfMIhSSPwBuJpmOun70te4E
-P0YBqjSalPfvc5fC5KgaYtqTDFwo9Mw25X5HHDC0r6BK5aNrF1nD/xYTX7cdvZZWl7cUApr4PCrn
-uI2DEn7OWQ/rY407ytV1c5pjvmuv/IT/ZUb/kXV6Q47UvrJp2Ifi2VhsBcnHHasKavjtRCmpDsGM
-rTCCBkIwggUqoAMCAQICAwnZMjANBgkqhkiG9w0BAQUFADCBjDELMAkGA1UEBhMCSUwxFjAUBgNV
-BAoTDVN0YXJ0Q29tIEx0ZC4xKzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRlIFNp
-Z25pbmcxODA2BgNVBAMTL1N0YXJ0Q29tIENsYXNzIDEgUHJpbWFyeSBJbnRlcm1lZGlhdGUgQ2xp
-ZW50IENBMB4XDTE0MDUwNDE3MzAyMloXDTE1MDUwNDIzNDEwMVowXTEZMBcGA1UEDRMQMzgzQjE1
-ZEhxUElEdHA2TjEcMBoGA1UEAwwTZHdtdzJAaW5mcmFkZWFkLm9yZzEiMCAGCSqGSIb3DQEJARYT
-ZHdtdzJAaW5mcmFkZWFkLm9yZzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMuyvrfk
-RCHWRhVH4EfCKEKyf1S2YpfSNNCXMKk6PAYhstXakiAdsvdt7IsmuUgyjIdWLq7Qj7F/enDc8D5p
-jdnLNDCnlT0Fs4kIR5N7inAei770u6c02oUVjEZk8ltwh/kaYUTPaZb8gpWNtxhHhJ6QZxs+BmiS
-Yj3CYxoM8mf7SKuO96TpUqwz2Z2ZON77f+QiTeOpyGTmdiPj85YCDSPhG4sLF1Z91aIRwe51U8Bm
-kS5OaMsBrfGU+7Q3cZ9wUN4pztbK+TLZFdaNnB5XpyAvJpVPJy/5q6qlb3u1Ym9WEFMnFvj4+AgW
-JuBU3rnLQLzcylP3WngXJTmfKH4EHtsCAwEAAaOCAtkwggLVMAkGA1UdEwQCMAAwCwYDVR0PBAQD
-AgSwMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDBDAdBgNVHQ4EFgQUQIwkgle9AaSwXl4H
-uQ14vpj4R00wHwYDVR0jBBgwFoAUU3Ltkpzg2ssBXHx+ljVO8tS4UYIwHgYDVR0RBBcwFYETZHdt
-dzJAaW5mcmFkZWFkLm9yZzCCAUwGA1UdIASCAUMwggE/MIIBOwYLKwYBBAGBtTcBAgMwggEqMC4G
-CCsGAQUFBwIBFiJodHRwOi8vd3d3LnN0YXJ0c3NsLmNvbS9wb2xpY3kucGRmMIH3BggrBgEFBQcC
-AjCB6jAnFiBTdGFydENvbSBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0eTADAgEBGoG+VGhpcyBjZXJ0
-aWZpY2F0ZSB3YXMgaXNzdWVkIGFjY29yZGluZyB0byB0aGUgQ2xhc3MgMSBWYWxpZGF0aW9uIHJl
-cXVpcmVtZW50cyBvZiB0aGUgU3RhcnRDb20gQ0EgcG9saWN5LCByZWxpYW5jZSBvbmx5IGZvciB0
-aGUgaW50ZW5kZWQgcHVycG9zZSBpbiBjb21wbGlhbmNlIG9mIHRoZSByZWx5aW5nIHBhcnR5IG9i
-bGlnYXRpb25zLjA2BgNVHR8ELzAtMCugKaAnhiVodHRwOi8vY3JsLnN0YXJ0c3NsLmNvbS9jcnR1
-MS1jcmwuY3JsMIGOBggrBgEFBQcBAQSBgTB/MDkGCCsGAQUFBzABhi1odHRwOi8vb2NzcC5zdGFy
-dHNzbC5jb20vc3ViL2NsYXNzMS9jbGllbnQvY2EwQgYIKwYBBQUHMAKGNmh0dHA6Ly9haWEuc3Rh
-cnRzc2wuY29tL2NlcnRzL3N1Yi5jbGFzczEuY2xpZW50LmNhLmNydDAjBgNVHRIEHDAahhhodHRw
-Oi8vd3d3LnN0YXJ0c3NsLmNvbS8wDQYJKoZIhvcNAQEFBQADggEBAFktijTezt72VbTR11aoG5oo
-3qbSsLfvG+sohcE95CaMsCJz5eVPjnikWX0Ckx4ITODoaH+pRduOGTMYYq/8ae5f85GfwVG8S8Ke
-pCC9uxouaYD+Ayi502YXkC/TeWIv7zDjcTFnKXFvmTb+YZwwnxLH1XC1wvLDSz48dns3zCIUkj8A
-biaZjrp+9LXuBD9GAao0mpT373OXwuSoGmLakwxcKPTMNuV+RxwwtK+gSuWjaxdZw/8WE1+3Hb2W
-Vpe3FAKa+Dwq57iNgxJ+zlkP62ONO8rVdXOaY75rr/yE/2VG/5F1ekOO1L6yadiH4tlYbAXJxx2r
-Cmr47UQpqQ7BjK0xggNvMIIDawIBATCBlDCBjDELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0YXJ0
-Q29tIEx0ZC4xKzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRlIFNpZ25pbmcxODA2
-BgNVBAMTL1N0YXJ0Q29tIENsYXNzIDEgUHJpbWFyeSBJbnRlcm1lZGlhdGUgQ2xpZW50IENBAgMJ
-2TIwCQYFKw4DAhoFAKCCAa8wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUx
-DxcNMTQwNTA4MTQ0MzU5WjAjBgkqhkiG9w0BCQQxFgQUyrt0b1sPOjgHuP3aA0SFak2RhV0wgaUG
-CSsGAQQBgjcQBDGBlzCBlDCBjDELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0YXJ0Q29tIEx0ZC4x
-KzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRlIFNpZ25pbmcxODA2BgNVBAMTL1N0
-YXJ0Q29tIENsYXNzIDEgUHJpbWFyeSBJbnRlcm1lZGlhdGUgQ2xpZW50IENBAgMJ2TIwgacGCyqG
-SIb3DQEJEAILMYGXoIGUMIGMMQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRkLjEr
-MCkGA1UECxMiU2VjdXJlIERpZ2l0YWwgQ2VydGlmaWNhdGUgU2lnbmluZzE4MDYGA1UEAxMvU3Rh
-cnRDb20gQ2xhc3MgMSBQcmltYXJ5IEludGVybWVkaWF0ZSBDbGllbnQgQ0ECAwnZMjANBgkqhkiG
-9w0BAQEFAASCAQCTaMhxG35hxycjQgrjgIfQZxAWMQuFT260couZFL0Zv9CPAxDI+GGiwIcxkyMT
-eSwRBxgvLOA4USytwa9IvaUaGHGCiYITMEiGBenAM02OPRvJ8e1MV5MAOxC0kEOyHln24EkusOGl
-DjokfSmvraX54QAyCTy4ghC+qepCjwqE8/HMraXfHHW9b0whcAN64yOmg9mpyP2tb1AHt8wEkU1U
-09kZn76TsMoJXm0gGxfvMFZIczRGjkCa5XueoYfqPq/MhU/W9ajyrfrEOT002MT8yvdHANL+TwTH
-QEMFcPgU2/mGzEI9xbw9Vrf62PL3o0+thZP+i78NrmfpyIHETABeAAAAAAAA
+Please correct me if I am wrong, but items like wifi_powersave are somethin=
+g
+default on most systems especially with per-device runtime power management=
+.
+Most devices are runtime managed and I don't see a strong reason to switch
+device policies as energy saving methods.
 
+> > A global knob would be useful in the case where the user chooses
+> > performance policy for example. It means he expects the kernel to
+> > *never* sacrifice performance for powersave. Now assume that a set of
+> > tasks is running on 4 cpus out of 10. If the user has chosen
+> > performance policy, *none of the 10 cpus should enter deep idle
+> > states* lest they affect the latency of the tasks. Here a global knob w=
+ould
+> do well.
 
---=-5DyE9fvT89n61OjQvLUT--
+For this specific example, when you say the *user* has chosen the policy, d=
+o
+you mean a user space daemon that takes care of this or the application its=
+elf?
+
+How are we going to know if we will really save energy by limiting deep idl=
+e states
+on all the 10 CPUs? Please help me understand this.
+
+Cheers!
