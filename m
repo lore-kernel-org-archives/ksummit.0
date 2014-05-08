@@ -1,44 +1,30 @@
-Return-Path: <paulmck@linux.vnet.ibm.com>
+Return-Path: <masami.hiramatsu.pt@hitachi.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 8C27E70A
+	by mail.linuxfoundation.org (Postfix) with ESMTP id C6A4F92F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  8 May 2014 00:16:30 +0000 (UTC)
-Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5F7A420212
+	Thu,  8 May 2014 03:20:28 +0000 (UTC)
+Received: from mail9.hitachi.co.jp (mail9.hitachi.co.jp [133.145.228.44])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 9207E1FD49
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  8 May 2014 00:16:29 +0000 (UTC)
-Received: from /spool/local
-	by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
-	Violators will be prosecuted
-	for <ksummit-discuss@lists.linuxfoundation.org> from
-	<paulmck@linux.vnet.ibm.com>; Wed, 7 May 2014 18:16:28 -0600
-Received: from b03cxnp08028.gho.boulder.ibm.com
-	(b03cxnp08028.gho.boulder.ibm.com [9.17.130.20])
-	by d03dlp03.boulder.ibm.com (Postfix) with ESMTP id 49D9619D8026
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  7 May 2014 18:16:20 -0600 (MDT)
-Received: from d03av06.boulder.ibm.com (d03av06.boulder.ibm.com [9.17.195.245])
-	by b03cxnp08028.gho.boulder.ibm.com (8.13.8/8.13.8/NCO v10.0) with
-	ESMTP id s480GQMh65011830
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 8 May 2014 02:16:26 +0200
-Received: from d03av06.boulder.ibm.com (loopback [127.0.0.1])
-	by d03av06.boulder.ibm.com (8.14.4/8.13.1/NCO v10.0 AVout) with ESMTP
-	id s480KGxX030039 for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 7 May 2014 18:20:16 -0600
-Date: Wed, 7 May 2014 17:16:24 -0700
-From: "Paul E. McKenney" <paulmck@linux.vnet.ibm.com>
-To: Josh Triplett <josh@joshtriplett.org>
-Message-ID: <20140508001624.GA21038@linux.vnet.ibm.com>
-References: <20140502165658.GA1962@jtriplet-mobl1>
+	Thu,  8 May 2014 03:20:27 +0000 (UTC)
+Message-ID: <536AF7F4.6010608@hitachi.com>
+Date: Thu, 08 May 2014 12:20:20 +0900
+From: Masami Hiramatsu <masami.hiramatsu.pt@hitachi.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20140502165658.GA1962@jtriplet-mobl1>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Nominations for Kernel Summit
-Reply-To: paulmck@linux.vnet.ibm.com
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+References: <53662254.9060100@huawei.com> <53699F27.9040403@hitachi.com>
+	<1399431538.2581.30.camel@buesod1.americas.hpqcorp.net>
+	<5369EE59.9040805@hitachi.com>
+	<20140507083936.GY26088@console-pimps.org>
+	<536A1CC3.5090506@hitachi.com>
+	<CAKMK7uG8Ly92uMavqS-abq=06FXCDMCae7mbv1EusG7pF9HAOg@mail.gmail.com>
+In-Reply-To: <CAKMK7uG8Ly92uMavqS-abq=06FXCDMCae7mbv1EusG7pF9HAOg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -48,40 +34,59 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, May 02, 2014 at 09:56:59AM -0700, Josh Triplett wrote:
-> I'd like to nominate the following people:
+(2014/05/07 21:45), Daniel Vetter wrote:
+> On Wed, May 7, 2014 at 1:45 PM, Masami Hiramatsu
+> <masami.hiramatsu.pt@hitachi.com> wrote:
+>> (2014/05/07 17:39), Matt Fleming wrote:
+>>> On Wed, 07 May, at 05:27:05PM, Masami Hiramatsu wrote:
+>>>>
+>>>> IOW, would the test cases be better to be out-of-tree or in-tree? If it is
+>>>> out-of-tree(like LTP), how can we maintain both test-cases and upstream kernels?
+>>>> What infrastructure should we have (e.g. bugzilla which provides a database for
+>>>> relationship between bug# and test-case) ?
+>>>> Those are my interests :)
+>>>
+>>> There's definitely huge merit in having in-tree tests like the current
+>>> selftests stuff because it allows you to roll up fixes and regression
+>>> tests into a single commit, see commit 123abd76edf5 ("efivars:
+>>> efivarfs_valid_name() should handle pstore syntax").
+>>>
+>>
+>> Ah, that's a good example for adding new feature/bugfix with test case! :)
+>> I think this type of combined patch will be good to run tests with git-bisect.
+>> At least out-of-tree test should work with git-bisect.
 > 
-> - Tom Zanussi <tom.zanussi@linux.intel.com> - doing extensive work on
->   shrinking the kernel and embedded userspace to fit in shockingly tiny
->   spaces.
-> - Julia Lawall <julia.lawall@lip6.fr> - maintainer of cocinelle, the
->   semantic patch tool, which has collectively saved an incredible amount
->   of kernel maintainer time and effort.
-> - Andi Kleen <ak@linux.intel.com> - working on LTO and many other kernel
->   projects.
+> At least for drm/i915 I don't think merging the tests into the kernel
+> would be beneficial, at least now:
+
+Hm, it seems some other subsystems have their own testsuites, I think we'd
+better clarify the testing policy for each subsystem,
+using dedicated testing tools or in-kernel selftest.
+
+> - Our tests are integrated into the regression test framework used by
+> graphics people in general (piglit), and that most certainly won't
+> move into the kernel.
+> - We have lots of debug tools in the same repo (with shared code), and
+> it tends to be less scary for bug reporters to grab
+> intel-gpu-tools.git to run one of them instead of the entire kernel.
+> - Documentation tooling in userspace sucks a lot less than kerneldoc.
+> Which is important since we use testcases and tooling as getting
+> started tasks for newcomers.
+> - Also I want much stricter review requirements on kernel patches than
+> testcase patches, separate git trees helps with that.
 > 
-> I'd also like to nominate myself; in addition to the kernel tinification
-> topic I've already proposed, I plan to coordinate RCU topics with Paul
-> McKenney.
+> Hence why we thus far just link the kernel patch to its testcase with
+> an Testcase: tag.
 
-Sounds very good!  The RCU topics that occur to me immediately include:
+Ah, that's also nice to find an appropriate testcases. I think adding a
+link(or git hash) to testcase allows us to automate test configuration
+when git-bisecting, even if the test is out-of-tree. :)
 
-o	How do we tell compilers about RCU's memory-ordering requirements?
-	Follow up to http://lwn.net/Articles/586838/ and
-	https://lwn.net/Articles/588300/.  This could potentially
-	converge before August, but the odds do not look all that
-	favorable.  Might be an interesting discussion of the
-	interaction between the kernel and compiler, though perhaps
-	in the Chinese sense.  ;-)
+Thank you,
 
-o	What use cases are not supported well, and what should we be
-	doing to better support them, in RCU or otherwise?  Without
-	some reasonably controversial proposals, this aspect seems
-	unlikely to be LKS material.
 
-o	Can we do a better job of automatically catching RCU usage
-	bugs?  Or, for that matter, RCU bugs!
-
-Other thoughts for topics?
-
-							Thanx, Paul
+-- 
+Masami HIRAMATSU
+Software Platform Research Dept. Linux Technology Research Center
+Hitachi, Ltd., Yokohama Research Laboratory
+E-mail: masami.hiramatsu.pt@hitachi.com
