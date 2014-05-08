@@ -1,29 +1,35 @@
-Return-Path: <jack@suse.cz>
+Return-Path: <linus.walleij@linaro.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 1705282A
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 81614942
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  8 May 2014 09:41:13 +0000 (UTC)
-Received: from mx2.suse.de (cantor2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1B65D1F89A
+	Thu,  8 May 2014 11:36:05 +0000 (UTC)
+Received: from mail-oa0-f50.google.com (mail-oa0-f50.google.com
+	[209.85.219.50])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 772961F89A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  8 May 2014 09:41:12 +0000 (UTC)
-Date: Thu, 8 May 2014 11:41:09 +0200
-From: Jan Kara <jack@suse.cz>
-To: Li Zefan <lizefan@huawei.com>
-Message-ID: <20140508094109.GA3685@quack.suse.cz>
-References: <53662254.9060100@huawei.com> <53699F27.9040403@hitachi.com>
-	<1399431538.2581.30.camel@buesod1.americas.hpqcorp.net>
-	<20140507090628.GZ26890@mwanda>
-	<20140507141503.GB12433@quack.suse.cz>
-	<536AFC26.2080907@huawei.com>
+	Thu,  8 May 2014 11:36:04 +0000 (UTC)
+Received: by mail-oa0-f50.google.com with SMTP id i7so2871594oag.37
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 08 May 2014 04:36:03 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <536AFC26.2080907@huawei.com>
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable issues
+In-Reply-To: <5037921.rt2to5ZgBB@vostro.rjw.lan>
+References: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>
+	<3443151.uQIbj9tkE3@vostro.rjw.lan>
+	<CACRpkdYjVduPPMp9D53ocE8B-Mva5qUo4E-R=iYdSCmFLoaz_A@mail.gmail.com>
+	<5037921.rt2to5ZgBB@vostro.rjw.lan>
+Date: Thu, 8 May 2014 13:36:03 +0200
+Message-ID: <CACRpkdZvh9ZVMO-oAL-UDTOGKN28x1eKoSMBetfEn9wk=jEOWg@mail.gmail.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+Content-Type: text/plain; charset=UTF-8
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"dvhart@dvhart.com" <dvhart@dvhart.com>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Driver model/resources, ACPI, DT,
+ etc (sigh)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,34 +39,31 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu 08-05-14 11:38:14, Li Zefan wrote:
-> On 2014/5/7 22:15, Jan Kara wrote:
-> > On Wed 07-05-14 12:06:28, Dan Carpenter wrote:
-> >> On Tue, May 06, 2014 at 07:58:58PM -0700, Davidlohr Bueso wrote:
-> >>> I tend to think of LTP as a nice way of doing unit-tests for the uapi.
-> >>> Fengguang's scripts do include it, iirc, but I'm referring more to unit
-> >>> level tests. It serves well for changes in ipc, and should also for
-> >>> other subsystems.
-> >>
-> >> LTP is too complicated and enterprisey.  With trinity you don't can just
-> >> type:
-> >>
-> >> 	./configure.sh && make && ./trinity
-> >>
-> >> With LTP you have to read the install documents.  You can't run it
-> >> from your home directory so you have to build a virtual machine which
-> >> you don't care about before you install it.
-> >   Actually, I'm occasionally using LTP and it doesn't seem too bad to me.
-> > And it seems LTP is improving over time so I'm mostly happy about it.
-> 
-> But how useful LTP is in finding kernel bugs? It seems to me we seldom
-> see bug reports which say the bug was found by LTP?
-  I'm handling a few (3-5) per year. I'm also extending the coverage (e.g.
-recently I've added fanotify interface coverage) when doing more involved
-changes to some code so that LTP can be reasonably used for regression
-checking.
- 
-								Honza
--- 
-Jan Kara <jack@suse.cz>
-SUSE Labs, CR
+On Tue, May 6, 2014 at 1:41 PM, Rafael J. Wysocki <rjw@rjwysocki.net> wrote:
+> On Monday, May 05, 2014 07:41:04 PM Linus Walleij wrote:
+(...)
+>> The thing is: with things like BayTrail I already *know* the pin control
+>> registers are there, they are just not implemented any handling of.
+>> I know very well how much the HW implementers think that a kernel
+>> "should never touch" these registers, and I know it will invariably happen
+>> sooner or later but like to be proven wrong.
+(...)
+
+> That doesn't mean that we can switch x86 to over DTs (that currently is not an
+> option for various reasons, not necessarily techical), but we may be able to put
+> DT-style information that the current code expects to be there into the ACPI
+> tables.
+
+In this case I don't care so much about DT or ACPI or whatever, what
+I would like to see is that the hardware is adequately described to
+the kernel, and the subsystem has a pretty good idea about how to
+describe such hardware, and the idea is *not* per-pin properties
+tied to some "GPIO" like I have seen, but concepts like groups and
+functions and per-pin configuration tied in to a certain use case.
+
+I know DT is doing it right but that is just because the person who
+did the heavy lifting, Stephen Warren, was also a co-author of the
+pin control subsystem.
+
+Yours,
+Linus Walleij
