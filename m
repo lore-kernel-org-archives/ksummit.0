@@ -1,29 +1,31 @@
-Return-Path: <will.deacon@arm.com>
+Return-Path: <sundar.iyer@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id AF543979
+	by mail.linuxfoundation.org (Postfix) with ESMTP id ACB49927
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  8 May 2014 14:17:05 +0000 (UTC)
-Received: from cam-admin0.cambridge.arm.com (cam-admin0.cambridge.arm.com
-	[217.140.96.50])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 107FF20116
+	Thu,  8 May 2014 14:24:03 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 6037F201A1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  8 May 2014 14:17:04 +0000 (UTC)
-Date: Thu, 8 May 2014 15:16:27 +0100
-From: Will Deacon <will.deacon@arm.com>
-To: Waiman Long <waiman.long@hp.com>
-Message-ID: <20140508141627.GA8981@arm.com>
-References: <20140507182916.GG3694@arm.com>
- <536AA2FC.6070006@hp.com>
+	Thu,  8 May 2014 14:24:03 +0000 (UTC)
+From: "Iyer, Sundar" <sundar.iyer@intel.com>
+To: Preeti U Murthy <preeti@linux.vnet.ibm.com>, Peter Zijlstra
+	<peterz@infradead.org>, "Rafael J. Wysocki" <rjw@rjwysocki.net>
+Date: Thu, 8 May 2014 14:23:58 +0000
+Message-ID: <2FABAEF0D3DCAF4F9C9628D6E2F9684533B4DABB@BGSMSX102.gar.corp.intel.com>
+References: <2FABAEF0D3DCAF4F9C9628D6E2F9684533B4C781@BGSMSX102.gar.corp.intel.com>
+	<536B477B.2030800@linux.vnet.ibm.com>
+In-Reply-To: <536B477B.2030800@linux.vnet.ibm.com>
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <536AA2FC.6070006@hp.com>
-Cc: "peterz@infradead.org" <peterz@infradead.org>,
+Cc: "Brown, Len" <len.brown@intel.com>,
+	Daniel Lezcano <daniel.lezcano@linaro.org>, Ingo Molnar <mingo@kernel.org>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] asm-generic implementations of
- low-level synchronisation constructs
+Subject: Re: [Ksummit-discuss] [TECH(CORE?) TOPIC] Energy conservation bias
+ interfaces
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,38 +35,36 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, May 07, 2014 at 10:17:48PM +0100, Waiman Long wrote:
-> On 05/07/2014 02:29 PM, Will Deacon wrote:
-> >    better_spin_unlock(atomic_t *lock)
-> >    {
-> > 	smp_store_release((u16 *)lock, atomic_read(lock) + 1);
-> >    }
-> 
-> There is a problem that the current smp_store_release() supports only an 
-> int or long data types. So the compilation will fail for a short or char 
-> data types. It will make thing easier if short and char are also 
-> supported, but that won't work in architectures like pre-EV56 alphas 
-> which has no native 8 and 16 bits load/store instructions. Perhaps we 
-> should think about retiring Linux support for those architectures.
+> -----Original Message-----
+> From: Preeti U Murthy [mailto:preeti@linux.vnet.ibm.com]
+> Sent: Thursday, May 8, 2014 2:30 PM
+> To: Iyer, Sundar; Peter Zijlstra; Rafael J. Wysocki
+> Cc: Brown, Len; Daniel Lezcano; Ingo Molnar; ksummit-
 
-I confess to having some Alphas from that timeframe, and it would be sad to
-see them go :(
+> True that 'race to halt' also ends up saving energy. But when the kernel =
+goes
+> conservative on energy, the scheduler would look at racing to idle *withi=
+n a
+> power domain* as much as possible. Only if the load crosses a certain
+> threshold would it spread across to other power domains.
 
-Despite that, if we could define some acquire/release accessors to work on a
-bunch of native types then we could actually build atomic_t and atomic64_t
-operations on top of those. So atomic_read(ACQUIRE, a) would be an
-smp_load_acquire(a), where the latter can be used for u8/u16/u32/u64 too.
+I think Rafael mentioned in an another thread about shared supplies and res=
+ources.
+In such a case, the race-to-idle within a power domain may actually negate =
+the overall
+platform savings.
 
-> > Another related area to clean up is the semantics around conditional
-> > atomics (cmpxchg, add_unless, dec_if_positive etc) and barriers on the
-> > failure paths.
-> 
-> The cmpxchg() function (xchg to a lesser extent) is frequently used in 
-> synchronization primitives. If there are less costly instructions in 
-> other architectures that implement that with just the acq or rel 
-> semantics, we may consider adding the _acq() and _rel() versions.
+And to confirm, you are referring to generic power domains beyond the CPU r=
+ight?
 
-I think Peter's approach of treating LL/SC and cmpxchg() as two different
-ways to build other atomics probably works best here.
+> These are general heuristics. These simple heuristics must work out for m=
+ost
+> platforms but may not work for all. If it works for majority of the cases=
+ then
+> I believe we can safely call it a success.
 
-Will
+And which is why I mentioned that this is heavily platform dependent. This =
+is=20
+completely dependent on how the rest of the system power management works.
+
+Cheers!
