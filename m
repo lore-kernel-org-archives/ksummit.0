@@ -1,29 +1,41 @@
-Return-Path: <jwboyer@gmail.com>
+Return-Path: <davej@redhat.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 74FC5AE5
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 34504A89
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 17:00:59 +0000 (UTC)
-Received: from mail-oa0-f41.google.com (mail-oa0-f41.google.com
-	[209.85.219.41])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id EFDE220361
+	Fri,  9 May 2014 17:07:18 +0000 (UTC)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id CEBB020259
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 17:00:58 +0000 (UTC)
-Received: by mail-oa0-f41.google.com with SMTP id m1so5202041oag.14
+	Fri,  9 May 2014 17:07:17 +0000 (UTC)
+Received: from int-mx13.intmail.prod.int.phx2.redhat.com
+	(int-mx13.intmail.prod.int.phx2.redhat.com [10.5.11.26])
+	by mx1.redhat.com (8.14.4/8.14.4) with ESMTP id s49H7G18020141
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=OK) for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 9 May 2014 13:07:17 -0400
+Received: from gelk.kernelslacker.org ([10.3.113.11])
+	by int-mx13.intmail.prod.int.phx2.redhat.com (8.14.4/8.14.4) with ESMTP
+	id s49H7AWx005832
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=NO) for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 9 May 2014 13:07:15 -0400
+Received: from gelk.kernelslacker.org (localhost [127.0.0.1])
+	by gelk.kernelslacker.org (8.14.8/8.14.7) with ESMTP id s49H79Vw009926
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 09 May 2014 10:00:58 -0700 (PDT)
+	Fri, 9 May 2014 13:07:09 -0400
+Received: (from davej@localhost)
+	by gelk.kernelslacker.org (8.14.8/8.14.8/Submit) id s49H79TJ009925
+	for ksummit-discuss@lists.linuxfoundation.org;
+	Fri, 9 May 2014 13:07:09 -0400
+Date: Fri, 9 May 2014 13:07:09 -0400
+From: Dave Jones <davej@redhat.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Message-ID: <20140509170709.GA9747@redhat.com>
 MIME-Version: 1.0
-Sender: jwboyer@gmail.com
-In-Reply-To: <20140509165519.GA8289@cloud>
-References: <CA+5PVA4AtLtf_XKpWOjpqkWGmm6Hg1kZExs-2K15RJiYsbgnkQ@mail.gmail.com>
-	<20140509165519.GA8289@cloud>
-Date: Fri, 9 May 2014 13:00:58 -0400
-Message-ID: <CA+5PVA7ivGZj1J4iV7rCBWLmEh9p8ePOnuMK0Jm0rc5MNVcyEA@mail.gmail.com>
-From: Josh Boyer <jwboyer@fedoraproject.org>
-To: Josh Triplett <josh@joshtriplett.org>
-Content-Type: text/plain; charset=ISO-8859-1
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Nominations for per topic people
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Subject: [Ksummit-discuss] coverity, static checking etc.
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,12 +45,17 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, May 9, 2014 at 12:55 PM,  <josh@joshtriplett.org> wrote:
-> Kernel tinification had several more mentioned.  (Some of them are already
-> a given, but not all.)
+I gave a lightning talk on this last year. This year I have a bit more data
+so could probably fill a whole session.
 
-Literally everyone in your initial email that was on CC was already on
-the list.  Most of the thread participants were as well.  If I've
-missed someone, please nominate!
+Last year I had been doing the coverity scans on an almost daily basis
+for 2-3 months.  Now that we're a year in, I'd like to share some
+results, and show some of the more common trends and bug patterns that
+seem to pop up.
 
-josh
+[ spoiler: For the most part, it's all pretty positive, but we still suck ]
+
+It would also be good to have some more discussion about other tools
+we could be making more use of.  (Nomination: Dan Carpenter for smatch).
+
+	Dave
