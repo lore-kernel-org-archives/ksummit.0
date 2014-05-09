@@ -1,27 +1,28 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <will.deacon@arm.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 510BE927
+	by mail.linuxfoundation.org (Postfix) with ESMTP id EC744AB3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 18:04:27 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0053E20277
+	Fri,  9 May 2014 18:05:34 +0000 (UTC)
+Received: from cam-admin0.cambridge.arm.com (cam-admin0.cambridge.arm.com
+	[217.140.96.50])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 37CFC20271
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 18:04:26 +0000 (UTC)
-Date: Fri, 9 May 2014 19:04:10 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Johannes Berg <johannes@sipsolutions.net>
-Message-ID: <20140509180410.GV12304@sirena.org.uk>
-References: <20140509170709.GA9747@redhat.com> <20140509171954.GC8289@cloud>
-	<1399656674.4136.12.camel@jlt4.sipsolutions.net>
+	Fri,  9 May 2014 18:05:34 +0000 (UTC)
+Date: Fri, 9 May 2014 19:05:10 +0100
+From: Will Deacon <will.deacon@arm.com>
+To: David Woodhouse <dwmw2@infradead.org>
+Message-ID: <20140509180510.GD23083@arm.com>
+References: <1399552623.17118.22.camel@i7.infradead.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="HOD+N50ROCogxB9o"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <1399656674.4136.12.camel@jlt4.sipsolutions.net>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] coverity, static checking etc.
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <1399552623.17118.22.camel@i7.infradead.org>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Device error handling /
+ reporting / isolation
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,45 +32,41 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+Hi David,
 
---HOD+N50ROCogxB9o
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On Thu, May 08, 2014 at 01:37:03PM +0100, David Woodhouse wrote:
+> I'd like to have a discussion about handling device errors.
+> 
+> IOMMUs are becoming more common, and we've seen some failure modes where
+> we just end up with an endless stream of fault reports from a given
+> device, and the kernel can do nothing else.
+> 
+> We may have various options for shutting it up — a PCI function level
+> reset, power cycling the offending device, or maybe just configuring the
+> IOMMU to *ignore* further errors from it, which would at least let the
+> system get on with doing something useful (and if we do, when do we
+> re-enable reporting?).
 
-On Fri, May 09, 2014 at 07:31:14PM +0200, Johannes Berg wrote:
+There's also the fun of non-PCI devices, where even if you can kill the
+offending device, there's not a specified way to ensure that it not longer
+has transactions in flight. Also, the fault reports have to go somewhere,
+so queues can fill up etc. etc.
 
-> Seconded, I'm also interested in general in whether people still think
-> sparse is useful and we should give it attention, or should focus more
-> on really getting everything into gcc - we have a number of sparse
-> warnings in very low-level header files that get used everywhere, for
-> example the one I just fixed in [1] or the one I tried to fix but that
-> ended up being buggy ([2]), but there doesn't seem to be much attention
-> to these during the patch submission etc.
+> But I absolutely don't want us to be implementing policies like that in
+> an individual IOMMU driver; this needs to be handled by generic device
+> code. Once upon a time I might have said PCI code, but this is actually
+> relevant for non-PCI devices too.
+> 
+> I want the IOMMU to report errors, and let the system do the appropriate
+> thing. Which requires some discussion about what the "appropriate thing"
+> can be in various circumstances, and indeed what options are available
+> to us on various platforms.
+> 
+> Participants would be those working with IOMMUs on various platforms,
+> including Jörg Rödel, myself, and hopefully someone with a fairly
+> intimate knowledge of EEH as used on POWER systems.
 
-I certainly do all my builds with sparse and routinely find it
-identifies useful issues, though obviously getting the same capabilities
-in the compiler directly would be just as useful.
+I'd certainly be interested in this from the ARM side (I'm involved in the
+architecture of our next SMMU and we've discussed this a lot internally).
 
---HOD+N50ROCogxB9o
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2.0.22 (GNU/Linux)
-
-iQIcBAEBAgAGBQJTbRiXAAoJELSic+t+oim9sfUP/35suWQgQ+bnz9lGClnUTsvt
-wYzs+5OjkfmiGD7UiYEETHww1ifAKZ1h0ZVPVAz4zbIz510Jx9GT5oPIyHiN5uA0
-jXb9VKWdOftnwfyPuv7OFCbZ7WTUaq8jdxNaQcRVMIR6rsKihy1uMUGdLNXkIKlV
-UUPmc4Y5ofg1dDEyeQPfhABfTARlvfKeSMsum9d7jxrccBNxs0DMZs0Z6waX+Rc4
-OSysgiNjrbnxFgBg6/pQwjHhdo+/2MA0BnFPTrmcP8RKxgKTKplIH8gj9RY7tWrt
-DT4W5LCSQM86N4TlAPC58MIe2GshNn/IweLogo3G/BADp0wfksdb/XdJ2xQ2365U
-u6AFt9VCqqQRtSjABs/SkHDD+U2GnaoA3SDXT8u8BzjAXOSdei6H0LheQ5YemarF
-f9Z0kFjCmmYghtFHp+YojmDzOITMojdB4oIcliUfsWL5dSBL3A+a2nI9Nh+KdIug
-YaBYfzrPoJ46puKf+F98IpYI8O/rZmxJcYHF4ULhvmgtNLwtxaUs+cLPGFztCqp+
-V+5J/Yri/NJ949p8Y3Mg2/ybepSCGdg4k3ONf2ChMpRWcXSRw4EZNJG+F4qKF1xw
-v1p6TUiWTBAqOAdYWcvLVNrqH6aZMl5C5FpAkiTyPeEaGnyY4wawNp5UuGuXGCry
-qb3u62rg5dwJhBpAWtHu
-=V9V9
------END PGP SIGNATURE-----
-
---HOD+N50ROCogxB9o--
+Will
