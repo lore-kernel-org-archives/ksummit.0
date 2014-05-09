@@ -1,32 +1,32 @@
-Return-Path: <rostedt@goodmis.org>
+Return-Path: <jwboyer@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 5293E70A
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 113C6995
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 16:24:56 +0000 (UTC)
-Received: from cdptpa-oedge-vip.email.rr.com
-	(cdptpa-outbound-snat.email.rr.com [107.14.166.227])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id A4E99200D3
+	Fri,  9 May 2014 16:35:41 +0000 (UTC)
+Received: from mail-ob0-f179.google.com (mail-ob0-f179.google.com
+	[209.85.214.179])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7516B201B3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 16:24:54 +0000 (UTC)
-Date: Fri, 9 May 2014 12:24:51 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Christoph Lameter <cl@linux.com>
-Message-ID: <20140509122451.5228a038@gandalf.local.home>
-In-Reply-To: <alpine.DEB.2.10.1405090940080.11318@gentwo.org>
-References: <alpine.DEB.2.10.1405081124000.24271@gentwo.org>
-	<1399595490.2230.13.camel@dabdike.int.hansenpartnership.com>
-	<alpine.DEB.2.10.1405090940080.11318@gentwo.org>
+	Fri,  9 May 2014 16:35:40 +0000 (UTC)
+Received: by mail-ob0-f179.google.com with SMTP id gq1so5139138obb.10
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 09 May 2014 09:35:39 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: Sarah Sharp <sarah@minilop.net>, ksummit-discuss@lists.linuxfoundation.org,
-	Greg KH <gregkh@linuxfoundation.org>,
-	James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Julia Lawall <julia.lawall@lip6.fr>, Darren Hart <darren@dvhart.com>,
-	Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Kernel tinification: shrinking
- the kernel and avoiding size regressions
+Sender: jwboyer@gmail.com
+In-Reply-To: <CA+5PVA7PHGmVvyq3iuqx=-SFZ3edo1+5UVCVdyFMbU+nLsmcZA@mail.gmail.com>
+References: <20140509152319.GA26823@thunk.org>
+	<CA+5PVA4NmUXtxFyR3FeXCj9YshtSMgweOBFpLfki+78xBn6H0A@mail.gmail.com>
+	<20140509154035.GE15523@thunk.org>
+	<20140509120144.3ce5657e@gandalf.local.home>
+	<CA+5PVA7PHGmVvyq3iuqx=-SFZ3edo1+5UVCVdyFMbU+nLsmcZA@mail.gmail.com>
+Date: Fri, 9 May 2014 12:35:39 -0400
+Message-ID: <CA+5PVA5F8tK0W+rmoT_scmbdE0TpHqKd=RpmXMKjCqS5_E+3bA@mail.gmail.com>
+From: Josh Boyer <jwboyer@fedoraproject.org>
+To: Steven Rostedt <rostedt@goodmis.org>, "Theodore Ts'o" <tytso@mit.edu>
+Content-Type: text/plain; charset=ISO-8859-1
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] Reminder for kernel summit nominations
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,54 +36,37 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, 9 May 2014 09:48:19 -0500 (CDT)
-Christoph Lameter <cl@linux.com> wrote:
+On Fri, May 9, 2014 at 12:12 PM, Josh Boyer <jwboyer@fedoraproject.org> wrote:
+> On Fri, May 9, 2014 at 12:01 PM, Steven Rostedt <rostedt@goodmis.org> wrote:
+>> On Fri, 9 May 2014 11:40:35 -0400
+>> Theodore Ts'o <tytso@mit.edu> wrote:
+>>
+>>> -linux-kernel
+>>>
+>>
+>>> I deliberately didn't include lists of names of "people that would be
+>>> useful if we're going to have discussion X", since we that presupposes
+>>> that we are definitely going to have a particular discussion.  If you
+>>> see someone who you think should attend regardless of whether we
+>>> decide to include topic X, please send a separate nomination.
+>>
+>> I don't know why not. Even if we do not decide to talk about discussion
+>> X, it does not hurt to add people that are useful to the discussion in
+>> the nomination list. Just because they were mentioned, means they
+>> probably have some importance to the kernel and should be considered.
+>>
+>> That doesn't mean that we are going to invite them, any more than we
+>> would invite others on the list.
+>
+> That was kind of my thinking as well.  Put another way, not having
+> their name on any list guarantees they won't get an invite.  I'd
+> rather at least allow for the possibility...
+>
+> If it would be helpful, I can go back through the threads today and
+> draft a topic specific nomination list of those not already on the
+> list otherwise.
 
-> Static branching means that it is removed from the code path but the
-> overall code size still is increased because the function need to be
-> somewhere. And usually the additional functions are mixed with other
-> functions that are essential. Which means increased need for TLB entries
-> to do the virtual mappings. Plus there are noop holes here and there that
-> increase the size of the function still.
-> 
-> One improvement would be to sort the functions by functionality. All the
-> important functions in the first 2M of the code covered by one huge tlb
-> f.e.
+It was easier to just do it before I forgot about it, so I'll send a
+new thread shortly.
 
-I thought pretty much all of kernel core memory is mapped in by huge
-tlbs? At least for kernel core code (not modules), the size should not
-impact tlbs.
-
-> 
-> Maybe we could reduce the number of cachelines used by critical functions
-> too? Arent there some tools that can automatize this in gcc?
-
-As I believe James has mentioned. This only helps if we keep the
-critical functions tight in a cacheline. I did some benchmarks moving
-the tracepoint code more out of line to help in cachelines, and I
-haven't seen anything above the noise. Which is the reason I haven't
-pushed that work further.
-
-Size may not be as important as having reuse of code. Perhaps if you
-can tweak several functions to call one helper function, which may
-actually increase the total size of the kernel, but having more helper
-functions that live in cache longer may be of benefit.
-
-
-> 
-> Syscalls are often essential to performance in particular if one wants to
-> use the I/O services of the kernel instead of relying on something like
-> RDMA that bypasses the kernel.
-> 
-> In general the ability to reduce the size of the kernel to a minimum is a
-> desirable feature. I still see deployments of older kernels in the
-> financial industry because they have a higher performance and lower
-> latency. The only way to get those guys would be to keep the kernel size
-> and the size of the data touched the same.
-
-I actually wonder if that performance is really on "size" of the kernel
-and not just less features. Usually with features, we add more function
-calls and branches, which I believe may be the culprit of the slowdowns
-we are seeing.
-
--- Steve
+josh
