@@ -1,36 +1,26 @@
-Return-Path: <julia.lawall@lip6.fr>
+Return-Path: <davej@redhat.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 7475582A
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 24E9070A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 19:12:39 +0000 (UTC)
-Received: from mail3-relais-sop.national.inria.fr
-	(mail3-relais-sop.national.inria.fr [192.134.164.104])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 811A320264
+	Fri,  9 May 2014 20:52:23 +0000 (UTC)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id BE4E6200A4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 19:12:38 +0000 (UTC)
-Date: Fri, 9 May 2014 21:02:26 +0200 (CEST)
-From: Julia Lawall <julia.lawall@lip6.fr>
-To: Steven Rostedt <rostedt@goodmis.org>
-In-Reply-To: <20140509143247.56c2a924@gandalf.local.home>
-Message-ID: <alpine.DEB.2.02.1405092100290.2019@localhost6.localdomain6>
-References: <alpine.DEB.2.10.1405081124000.24271@gentwo.org>
-	<1399595490.2230.13.camel@dabdike.int.hansenpartnership.com>
-	<alpine.DEB.2.10.1405090940080.11318@gentwo.org>
-	<20140509122451.5228a038@gandalf.local.home>
-	<alpine.DEB.2.10.1405091150410.11810@gentwo.org>
-	<1399657343.2166.61.camel@dabdike.int.hansenpartnership.com>
-	<alpine.DEB.2.10.1405091251130.13438@gentwo.org>
-	<20140509143247.56c2a924@gandalf.local.home>
+	Fri,  9 May 2014 20:52:22 +0000 (UTC)
+Date: Fri, 9 May 2014 16:52:13 -0400
+From: Dave Jones <davej@redhat.com>
+To: Roland Dreier <roland@kernel.org>
+Message-ID: <20140509205213.GA21354@redhat.com>
+References: <20140509170709.GA9747@redhat.com>
+	<CAG4TOxONfcd=c+78yxUVj4iOQ_n7+RShPeir9HWUQ_zGDWYJig@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
-Cc: Sarah Sharp <sarah@minilop.net>, ksummit-discuss@lists.linuxfoundation.org,
-	Greg KH <gregkh@linuxfoundation.org>,
-	James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Julia Lawall <julia.lawall@lip6.fr>, Darren Hart <darren@dvhart.com>,
-	Christoph Lameter <cl@linux.com>, Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Kernel tinification: shrinking
- the kernel and avoiding size regressions
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAG4TOxONfcd=c+78yxUVj4iOQ_n7+RShPeir9HWUQ_zGDWYJig@mail.gmail.com>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] coverity, static checking etc.
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,30 +30,45 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, 9 May 2014, Steven Rostedt wrote:
+On Fri, May 09, 2014 at 01:33:46PM -0700, Roland Dreier wrote:
+ > On Fri, May 9, 2014 at 10:07 AM, Dave Jones <davej@redhat.com> wrote:
+ > > Last year I had been doing the coverity scans on an almost daily basis
+ > > for 2-3 months.  Now that we're a year in, I'd like to share some
+ > > results, and show some of the more common trends and bug patterns that
+ > > seem to pop up.
+ > 
+ > This probably doesn't add too much to the discussion, but as a
+ > subsystem maintainer, I like having easy-to-run analysis tools (or
+ > easily available scan results like coverity).  It seems to lead to
+ > interesting patches from people who aren't really interested in the
+ > subsystem but just trawl through scan results.
+ > 
+ > It's pretty cool getting fixes for subtle (but in retrospect obvious)
+ > bugs from people who say "compile tested only because I have no
+ > hardware."
 
-> On Fri, 9 May 2014 12:52:00 -0500 (CDT)
-> Christoph Lameter <cl@linux.com> wrote:
-> 
-> > On Fri, 9 May 2014, James Bottomley wrote:
-> > 
-> > > > Global optimization may allow the folding of small functions into a larger
-> > > > one when advantageous (which is not simple to determine).
-> > >
-> > > It's possible, but complex ... I'd really like to see proof that it
-> > > helps before thinking about it.
-> > 
-> > The proof may mean that one will have to do the work.
-> 
-> Hello Chicken, meet Egg!
-> 
-> 
-> This is what proof of concepts are for.
+I've been apprehensive about approving some of the people signing up
+for coverity. There's been a large influx of people over the last few
+months whose only prior kernel commits have been things like checkpatch
+fixes. On one hand, it's great to see people wanting to progress beyond
+that, but I know some maintainers have had a less than positive reaction
+with getting crap patches based on coverity results. It's a tricky
+balance, but I think for the most part my judgment is erring on the
+right side of the approve/deny fence.
 
-Which kinds of functions are being discussed?  For example, similar 
-drivers may use similar functions, but if one has only one instance of a 
-driver that has a particular functionality, only one of those functions 
-may ever be executed.  Is there only a benefit if similar functions are 
-all executed frequently in practice?
+The one thing I can't wait for Coverity to implement is the ability
+to say "bugs for this subsystem go to this mailing list".  At that point
+the mails it sends out should be a lot more useful, and maintainers
+themselves will be able to take action. (I know some people hate the
+web UI, so this will hopefully appease them).
 
-julia
+Most people have got a lot better at jumping on things as they get
+introduced, which is great.  The stuff that sucks is the old reports
+that have been in their database forever.  I've (along with several
+other people) been periodically going through these trying to weed
+out the real bugs from the false positive/intentionals.
+
+I'll need to come up with some way to periodically send a bunch of
+those to lists too.
+
+	Dave
