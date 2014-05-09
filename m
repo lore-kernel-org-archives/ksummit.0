@@ -1,30 +1,22 @@
 Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id AFF0192F
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 2AAB6918
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 15:10:46 +0000 (UTC)
+	Fri,  9 May 2014 15:23:23 +0000 (UTC)
 Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5B84A201D7
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 958DC20319
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 15:10:46 +0000 (UTC)
-Date: Fri, 9 May 2014 11:10:43 -0400
+	Fri,  9 May 2014 15:23:22 +0000 (UTC)
+Date: Fri, 9 May 2014 11:23:19 -0400
 From: Theodore Ts'o <tytso@mit.edu>
-To: Ben Hutchings <ben@decadent.org.uk>
-Message-ID: <20140509151043.GC15523@thunk.org>
-References: <5367D989.1000504@linaro.org> <20140506125741.GB17586@thunk.org>
-	<536921B5.8090100@linaro.org> <5252732.F3YIzHDqI3@wuerfel>
-	<20140506201959.GD5012@thunk.org> <20140506203337.GE21332@cloud>
-	<20140506205052.GF5012@thunk.org> <53695CE3.5090005@linaro.org>
-	<20140507020743.GA6461@thunk.org>
-	<1399581426.11946.12.camel@deadeye.wl.decadent.org.uk>
+To: linux-kernel@vger.kernel.org, ksummit-discuss@lists.linuxfoundation.org
+Message-ID: <20140509152319.GA26823@thunk.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <1399581426.11946.12.camel@deadeye.wl.decadent.org.uk>
-Cc: John Stultz <john.stultz@linaro.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Dealing with 2038
+Content-Transfer-Encoding: 8bit
+Subject: [Ksummit-discuss] Reminder for kernel summit nominations
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,28 +26,242 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, May 08, 2014 at 09:37:06PM +0100, Ben Hutchings wrote:
-> 
-> LFS is far from universally supported by applications, 17 years after it
-> was standardised.  In fact, many applications recently regressed due to
-> a broken test for LFS in autoconf <https://bugs.debian.org/742780>.  It
-> doesn't seem like a good example to follow.
+Thanks for all of the discussions on the kernel summit discuss list.
+Thanks also for the three (3) nomination e-mails (and one person who
+said they definitely weren't attending, so we could remove him from
+consideration) which people have sent in.
 
-Yes, that was my point.
+The program committee will be starting its deliberations shortly, with
+the first round of invites going out somtime towards the end of May.
+If you could take a look at this list and let us know who we should
+include, please send nominations to:
 
-> However this is done, almost every library that includes time_t in its
-> API will change ABI.  I say 'almost' because glibc will probably use
-> symbol versioning or mangling to maintain binary compatibility, but most
-> library maintainers won't go to that trouble.
+	kernel-summit@lists.linuxfoundation.org
 
-Agreed.  This is why I'm not sure anything other than a hard ABI break
-is realistic.  Yes, it's incredibly painful, and the distro's will
-probably be very unhappy, but I suspect the alternatives are worse.
-The only real question is do we start trying to deal with the pain
-now, or in 2020, or in 2030, or 2035, or even worse, in 2037....
+We committee will attempt to add people that we notice are missing, or
+were mentioned as being necessarily for topics that seem to have
+gotten traction on the discuss list, but if you want to make sure
+someone that you think really should be considered isn't overlooked,
+we would greatly appreciate it if you could send us suggestions to us
+in the next few days.
 
-Given what what I saw with Y2K, if I was going to participate in a
-betting pool on the question, I'd probably put my money down for 2035
-or so.  :-/
+Also, if you have time to double check the e-mail addresses that we
+have, the Google Spreadsheet is here: 
 
-     	   	       	     	      	 - Ted
+      http://goo.gl/FsVUFX
+
+Many thanks!!
+
+						- Ted
+
+
+People selected algorithmically
+===============================
+
+Aaro Koskinen
+Adrian Hunter
+Al Viro
+Alan Stern
+Alex Deucher
+Alex Elder
+Alexander Graf
+Alexander Shiyan
+Andreas Dilger
+Andrew Morton
+Andy Shevchenko
+Antti Palosaari
+Arend van Spriel
+Arnaldo Carvalho de Melo
+Arnd Bergmann
+Artem Bityutskiy
+Axel Lin
+Ben Hutchings
+Ben Myers
+Ben Skeggs
+Ben Widawsky
+Benjamin Herrenschmidt
+Bing Zhao
+Bjorn Helgaas
+Bob Moore
+Borislav Petkov
+Brian Norris
+Catalin Marinas
+Charles Keepax
+Chris Ball
+Chris Mason
+Chris Wilson
+Christoph Hellwig
+Damien Lespiau
+Dan Carpenter
+Daniel Borkmann
+Daniel Lezcano
+Daniel Vetter
+Dave Airlie
+Dave Chinner
+David Herrmann
+David Howells
+David S. Miller
+David Woodhouse
+Dmitry Torokhov
+Eduardo Valentin
+Emmanuel Grumbach
+Eric Dumazet
+Eric W. Biederman
+Ezequiel Garcia
+Fabio Estevam
+Felipe Balbi
+Felix Fietkau
+Florian Fainelli
+Frederic Weisbecker
+Gabor Juhos
+Geert Uytterhoeven
+Gleb Natapov
+Greg Kroah-Hartman
+Guennadi Liakhovetski
+Guenter Roeck
+Gustavo Padovan
+H Hartley Sweeten
+H. Peter Anvin
+Hannes Frederic Sowa
+Hans Verkuil
+Hans de Goede
+Hante Meuleman
+Hauke Mehrtens
+Heiko Carstens
+Herbert Xu
+Ian Abbott
+Imre Deak
+Ingo Molnar
+Inki Dae
+J. Bruce Fields
+Jaegeuk Kim
+James Bottomley
+James Hogan
+Jan Kara
+Jani Nikula
+Jason Cooper
+Jeff Kirsher
+Jeff Layton
+Jens Axboe
+Jesse Barnes
+Jesse Brandeburg
+Jiang Liu
+Jingoo Han
+Jiri Kosina
+Jiri Olsa
+Joe Perches
+Johan Hedberg
+Johan Hovold
+Johannes Berg
+John Crispin
+John Stultz
+John W. Linville
+Jonathan Cameron
+Josef Bacik
+Josh Durgin
+Josh Triplett
+Kalle Valo
+Kees Cook
+Kent Overstreet
+Kevin Hilman
+Konrad Rzeszutek Wilk
+Kukjin Kim
+Kuninori Morimoto
+Kyungmin Park
+Larry Finger
+Lars-Peter Clausen
+Laurent Pinchart
+Lee Jones
+Li Zefan
+Linus Torvalds
+Linus Walleij
+Lv Zheng
+Magnus Damm
+Malcolm Priestley
+Marc Zyngier
+Marcel Holtmann
+Marcelo Tosatti
+Mark Brown
+Martin Schwidefsky
+Mauro Carvalho Chehab
+Maxime Ripard
+Mel Gorman
+Miao Xie
+Michal Hocko
+Michal Kazior
+Michal Simek
+Mike Turquette
+Namhyung Kim
+Nicholas Bellinger
+Nicolas Ferre
+Oleg Nesterov
+Olof Johansson
+Pablo Neira Ayuso
+Paolo Bonzini
+Paul Bolle
+Paul E. McKenney
+Paul Gortmaker
+Paulo Zanoni
+Peter Hurley
+Peter P Waskiewicz Jr
+Peter Ujfalusi
+Peter Zijlstra
+Philipp Zabel
+Pieter-Paul Giesberts
+Rafael J. Wysocki
+Ralf Baechle
+Rashika Kheria
+Rik van Riel
+Rob Herring
+Roland Dreier
+Russell King
+Rusty Russell
+Sachin Kamat
+Sage Weil
+Samuel Ortiz
+Santosh Shilimkar
+Sarah Sharp
+Sascha Hauer
+Scott Wood
+Sebastian Hesselbarth
+Shawn Guo
+Simon Horman
+Stanislaw Gruszka
+Stephen Boyd
+Stephen Hemminger
+Stephen Warren
+Steven Rostedt
+Sujith Manoharan
+Sylwester Nawrocki
+Takashi Iwai
+Tejun Heo
+Theodore Ts'o
+Thierry Reding
+Thomas Gleixner
+Thomas Petazzoni
+Tomasz Figa
+Tomi Valkeinen
+Tony Lindgren
+Trond Myklebust
+Ulf Hansson
+Ville Syrjälä
+Vineet Gupta
+Vinod Koul
+Viresh Kumar
+Wei Yongjun
+Will Deacon
+Wim Van Sebroeck
+Wolfram Sang
+Xenia Ragiadakou
+Zhang Rui
+
+
+Nominations
+===========
+
+Stephen Rothwell
+Tom Zanussi
+Julia Lawall
+Andi Kleen
+Josh Triplett
+Steven J. Hill
