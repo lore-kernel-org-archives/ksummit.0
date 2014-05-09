@@ -1,46 +1,32 @@
-Return-Path: <paulmck@linux.vnet.ibm.com>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 1FABAA83
+	by mail.linuxfoundation.org (Postfix) with ESMTP id B138FA83
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 17:40:00 +0000 (UTC)
-Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0F8C320388
+	Fri,  9 May 2014 17:42:25 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 1865C203A4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 17:39:58 +0000 (UTC)
-Received: from /spool/local
-	by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
-	Violators will be prosecuted
-	for <ksummit-discuss@lists.linuxfoundation.org> from
-	<paulmck@linux.vnet.ibm.com>; Fri, 9 May 2014 11:39:58 -0600
-Received: from b03cxnp08027.gho.boulder.ibm.com
-	(b03cxnp08027.gho.boulder.ibm.com [9.17.130.19])
-	by d03dlp03.boulder.ibm.com (Postfix) with ESMTP id E8FE519D8026
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 11:39:50 -0600 (MDT)
-Received: from d03av06.boulder.ibm.com (d03av06.boulder.ibm.com [9.17.195.245])
-	by b03cxnp08027.gho.boulder.ibm.com (8.13.8/8.13.8/NCO v10.0) with
-	ESMTP id s49Hd7xO8520176
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 9 May 2014 19:39:07 +0200
-Received: from d03av06.boulder.ibm.com (loopback [127.0.0.1])
-	by d03av06.boulder.ibm.com (8.14.4/8.13.1/NCO v10.0 AVout) with ESMTP
-	id s49HhlYo016113 for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 9 May 2014 11:43:47 -0600
-Date: Fri, 9 May 2014 10:39:56 -0700
-From: "Paul E. McKenney" <paulmck@linux.vnet.ibm.com>
-To: Paul Gortmaker <paul.gortmaker@windriver.com>
-Message-ID: <20140509173956.GW8754@linux.vnet.ibm.com>
-References: <20140502165658.GA1962@jtriplet-mobl1>
-	<20140508001624.GA21038@linux.vnet.ibm.com>
-	<536D064C.3050308@windriver.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <536D064C.3050308@windriver.com>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Nominations for Kernel Summit
-Reply-To: paulmck@linux.vnet.ibm.com
+	Fri,  9 May 2014 17:42:25 +0000 (UTC)
+Message-ID: <1399657343.2166.61.camel@dabdike.int.hansenpartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Christoph Lameter <cl@linux.com>
+Date: Fri, 09 May 2014 10:42:23 -0700
+In-Reply-To: <alpine.DEB.2.10.1405091150410.11810@gentwo.org>
+References: <alpine.DEB.2.10.1405081124000.24271@gentwo.org>
+	<1399595490.2230.13.camel@dabdike.int.hansenpartnership.com>
+	<alpine.DEB.2.10.1405090940080.11318@gentwo.org>
+	<20140509122451.5228a038@gandalf.local.home>
+	<alpine.DEB.2.10.1405091150410.11810@gentwo.org>
+Content-Type: text/plain; charset="ISO-8859-15"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Cc: Sarah Sharp <sarah@minilop.net>, ksummit-discuss@lists.linuxfoundation.org,
+	Greg KH <gregkh@linuxfoundation.org>, Julia Lawall <julia.lawall@lip6.fr>,
+	Darren Hart <darren@dvhart.com>, Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Kernel tinification: shrinking
+ the kernel and avoiding size regressions
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -50,75 +36,71 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, May 09, 2014 at 12:46:04PM -0400, Paul Gortmaker wrote:
-> On 14-05-07 08:16 PM, Paul E. McKenney wrote:
-> > On Fri, May 02, 2014 at 09:56:59AM -0700, Josh Triplett wrote:
-> >> I'd like to nominate the following people:
-> >>
-> >> - Tom Zanussi <tom.zanussi@linux.intel.com> - doing extensive work on
-> >>   shrinking the kernel and embedded userspace to fit in shockingly tiny
-> >>   spaces.
-> >> - Julia Lawall <julia.lawall@lip6.fr> - maintainer of cocinelle, the
-> >>   semantic patch tool, which has collectively saved an incredible amount
-> >>   of kernel maintainer time and effort.
-> >> - Andi Kleen <ak@linux.intel.com> - working on LTO and many other kernel
-> >>   projects.
-> >>
-> >> I'd also like to nominate myself; in addition to the kernel tinification
-> >> topic I've already proposed, I plan to coordinate RCU topics with Paul
-> >> McKenney.
-> > 
-> > Sounds very good!  The RCU topics that occur to me immediately include:
-> > 
-> > o	How do we tell compilers about RCU's memory-ordering requirements?
-> > 	Follow up to http://lwn.net/Articles/586838/ and
-> > 	https://lwn.net/Articles/588300/.  This could potentially
-> > 	converge before August, but the odds do not look all that
-> > 	favorable.  Might be an interesting discussion of the
-> > 	interaction between the kernel and compiler, though perhaps
-> > 	in the Chinese sense.  ;-)
-> > 
-> > o	What use cases are not supported well, and what should we be
-> > 	doing to better support them, in RCU or otherwise?  Without
-> > 	some reasonably controversial proposals, this aspect seems
-> > 	unlikely to be LKS material.
-> > 
-> > o	Can we do a better job of automatically catching RCU usage
-> > 	bugs?  Or, for that matter, RCU bugs!
-> > 
-> > Other thoughts for topics?
+On Fri, 2014-05-09 at 11:55 -0500, Christoph Lameter wrote:
+> On Fri, 9 May 2014, Steven Rostedt wrote:
 > 
-> It seems, from a user's perspective, that an RCU stall is one
-> the most user unfriendly things to be on the receiving end of.
-> Since it trips an NMI to backtrace each core, on a larger system
-> a person is faced with screens and screens of (mostly irrelevant)
-> backtrace.  I'm not sure what to suggest to improve things, and
-> maybe there really isn't anything that can be done, but IMHO it
-> might be worth discussing...
-
-Certainly an area needing improvement, no argument there!
-
-I could imagine boot-time or run-time selection of the stack-dump
-strategy (no stack dump, dump current stack, dump only stacks of
-stalled CPUs and/or tasks, dump all CPU stacks, dump all task
-stacks, dump randomly selected subset of one of the above) as
-well as the mechanism (NMI vs. grovel around in other CPU's/task's
-stack).  Maybe other things as well.
-
-Other thoughts?
-
-							Thanx, Paul
-
-> Paul.
-> --
+> > > One improvement would be to sort the functions by functionality. All the
+> > > important functions in the first 2M of the code covered by one huge tlb
+> > > f.e.
+> >
+> > I thought pretty much all of kernel core memory is mapped in by huge
+> > tlbs? At least for kernel core code (not modules), the size should not
+> > impact tlbs.
 > 
+> Yes, but processor only support a limited amount of 2m tlbs and
+> applications also want to use them. A large 100M sized kernel would
+> require 50 tlbs and cause tlb trashing if functions are accessed over all
+> the code. Loadable modules are using vmalloc areas that use 4k pages which
+> is another issue.
+
+In theory, we could use link time optimization to place all the most
+used functions in the first TLB entry.  However, as Steve said, have you
+got measurements showing this helps?  If it's down in the noise, it's a
+lot of work for no benefit.
+
+> > > Maybe we could reduce the number of cachelines used by critical functions
+> > > too? Arent there some tools that can automatize this in gcc?
+> >
+> > As I believe James has mentioned. This only helps if we keep the
+> > critical functions tight in a cacheline. I did some benchmarks moving
+> > the tracepoint code more out of line to help in cachelines, and I
+> > haven't seen anything above the noise. Which is the reason I haven't
+> > pushed that work further.
+> >
+> > Size may not be as important as having reuse of code. Perhaps if you
+> > can tweak several functions to call one helper function, which may
+> > actually increase the total size of the kernel, but having more helper
+> > functions that live in cache longer may be of benefit.
 > 
-> > 
-> > 							Thanx, Paul
-> > 
-> > _______________________________________________
-> > Ksummit-discuss mailing list
-> > Ksummit-discuss@lists.linuxfoundation.org
-> > https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
-> > 
+> More helper functions means more use of l1 cache lines which reduces
+> performance.
+
+Not if the compiler inlines them. Plus if we have five critical
+functions and we make them share a helper (which the compiler doesn't
+inline) then we get a 4xsize of helper reduction in code which outweighs
+the additional function call overhead ... this is what Steve is
+referring to.  Correct use of helper functions should reduce our L1
+cache footprint, but the key is "correct".
+
+> > > In general the ability to reduce the size of the kernel to a minimum is a
+> > > desirable feature. I still see deployments of older kernels in the
+> > > financial industry because they have a higher performance and lower
+> > > latency. The only way to get those guys would be to keep the kernel size
+> > > and the size of the data touched the same.
+> >
+> > I actually wonder if that performance is really on "size" of the kernel
+> > and not just less features. Usually with features, we add more function
+> > calls and branches, which I believe may be the culprit of the slowdowns
+> > we are seeing.
 > 
+> That too... But James said they were using static branching.
+
+Cgroups are, yes ... after you complained a lot.
+
+> Global optimization may allow the folding of small functions into a larger
+> one when advantageous (which is not simple to determine).
+
+It's possible, but complex ... I'd really like to see proof that it
+helps before thinking about it.
+
+James
