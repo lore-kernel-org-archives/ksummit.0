@@ -1,25 +1,25 @@
-Return-Path: <josh@joshtriplett.org>
+Return-Path: <hverkuil@xs4all.nl>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 329B6AF1
+	by mail.linuxfoundation.org (Postfix) with ESMTP id A5941AF8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 17:19:59 +0000 (UTC)
-Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
-	[217.70.183.196])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BA59120359
+	Fri,  9 May 2014 17:20:52 +0000 (UTC)
+Received: from smtp-vbr8.xs4all.nl (smtp-vbr8.xs4all.nl [194.109.24.28])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 086A320314
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 17:19:58 +0000 (UTC)
-Date: Fri, 9 May 2014 10:19:54 -0700
-From: josh@joshtriplett.org
-To: Dave Jones <davej@redhat.com>
-Message-ID: <20140509171954.GC8289@cloud>
-References: <20140509170709.GA9747@redhat.com>
+	Fri,  9 May 2014 17:20:51 +0000 (UTC)
+Message-ID: <536D0E5F.4030605@xs4all.nl>
+Date: Fri, 09 May 2014 19:20:31 +0200
+From: Hans Verkuil <hverkuil@xs4all.nl>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20140509170709.GA9747@redhat.com>
+To: Josh Boyer <jwboyer@fedoraproject.org>, "Theodore Ts'o" <tytso@mit.edu>,
+	Steven Rostedt <rostedt@goodmis.org>
+References: <CA+5PVA4AtLtf_XKpWOjpqkWGmm6Hg1kZExs-2K15RJiYsbgnkQ@mail.gmail.com>
+In-Reply-To: <CA+5PVA4AtLtf_XKpWOjpqkWGmm6Hg1kZExs-2K15RJiYsbgnkQ@mail.gmail.com>
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
 Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] coverity, static checking etc.
+Subject: Re: [Ksummit-discuss] Nominations for per topic people
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,26 +29,49 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, May 09, 2014 at 01:07:09PM -0400, Dave Jones wrote:
-> I gave a lightning talk on this last year. This year I have a bit more data
-> so could probably fill a whole session.
+On 05/09/2014 06:49 PM, Josh Boyer wrote:
+> Below are people that have been nominated in the submitted topic
+> threads that aren't already on the list.
 > 
-> Last year I had been doing the coverity scans on an almost daily basis
-> for 2-3 months.  Now that we're a year in, I'd like to share some
-> results, and show some of the more common trends and bug patterns that
-> seem to pop up.
+> Josh Poimboeuf (live kernel patching)
+> Seth Jennings (live kernel patching)
+> Vojtech Pavlik (live kernel patching, trusted kernel patchset)
+> Pavel Emelyanov (live kernel patching)
+> Masami Hiramatsu (live kernel patching)
+> Jiri Slaby (live kernel patching, stable)
+> Michael Matz (live kernel patching)
+> Josh Boyer (trusted kernel patchset, stable)
+> Joey Li (trusted kernel patchset)
+> Gary Lin (trusted kernel patchset)
+> James Morris (trusted kernel patchset)
+> Matthew Garret (trusted kernel patchset)
+> Darren Hart (driver model and ACPI/DT)
+> Grant Likely (driver model and ACPI/DT, also on the ksummit committee so...)
+> Al Stone (driver model and ACPI/DT)
+> Amit Kucheria (energy conservation bias)
+> Morten Rasmussen (energy conservation bias)
+> Waiman Long (asm-generic low levels)
+> Jörg Rödel (device error handling)
+> Michael Kerrisk (API/ABI review)
+> Shuah Khan (API/ABI review)
+
+Hans Verkuil (API/ABI review)
+
+I find this a very interesting topic and I've made, reviewed, documented
+and created tests for a lot of the API/ABIs within the media subsystem.
+
+Regards,
+
+	Hans
+
+> Dave Jones (kernel tinification, energy conservation bias, and trinity work)
+> Andy Lutomirski (virtually every topic thread thus far)
 > 
-> [ spoiler: For the most part, it's all pretty positive, but we still suck ]
+> Hope that helps.
 > 
-> It would also be good to have some more discussion about other tools
-> we could be making more use of.  (Nomination: Dan Carpenter for smatch).
-
-I'd like to see this topic as well.  I think we could do a lot better
-here than we do.  And don't forget that GCC is one of our top static
-analysis tools, if only because it's the only one *everyone* runs; that
-includes both warnings and the possibility of shipping and building our
-own GCC plugin.
-
-I'd also like to nominate Christopher Li, for Sparse.
-
-- Josh Triplett
+> josh
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+> 
