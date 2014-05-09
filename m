@@ -1,27 +1,23 @@
-Return-Path: <BATV+3c9f8896b847019a7119+3911+infradead.org+dwmw2@twosheds.srs.infradead.org>
+Return-Path: <arnd@arndb.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id C8FDEAAC
+	by mail.linuxfoundation.org (Postfix) with ESMTP id CF016AB3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 20:18:35 +0000 (UTC)
-Received: from twosheds.infradead.org (twosheds.infradead.org [90.155.92.209])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5B2282022C
+	Fri,  9 May 2014 20:18:44 +0000 (UTC)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.13])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2F77F2022C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 20:18:35 +0000 (UTC)
-Message-ID: <3656ff5748d3775edb585ed5f1a48baa.squirrel@twosheds.infradead.org>
-In-Reply-To: <20140509193712.GD13050@jtriplet-mobl1>
-References: <1399552623.17118.22.camel@i7.infradead.org>
-	<20140509193712.GD13050@jtriplet-mobl1>
-Date: Fri, 9 May 2014 19:44:37 -0000
-From: "David Woodhouse" <dwmw2@infradead.org>
-To: "Josh Triplett" <josh@joshtriplett.org>
+	Fri,  9 May 2014 20:18:44 +0000 (UTC)
+From: Arnd Bergmann <arnd@arndb.de>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Fri, 09 May 2014 22:18:40 +0200
+Message-ID: <5857276.jy6b86PZuN@wuerfel>
+In-Reply-To: <20140509170709.GA9747@redhat.com>
+References: <20140509170709.GA9747@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain;charset=utf-8
-Content-Transfer-Encoding: 8bit
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Device error handling /
- reporting / isolation
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Subject: Re: [Ksummit-discuss] coverity, static checking etc.
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,16 +27,24 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Friday 09 May 2014 13:07:09 Dave Jones wrote:
+> I gave a lightning talk on this last year. This year I have a bit more data
+> so could probably fill a whole session.
+> 
+> Last year I had been doing the coverity scans on an almost daily basis
+> for 2-3 months.  Now that we're a year in, I'd like to share some
+> results, and show some of the more common trends and bug patterns that
+> seem to pop up.
+> 
+> [ spoiler: For the most part, it's all pretty positive, but we still suck ]
+> 
+> It would also be good to have some more discussion about other tools
+> we could be making more use of.  (Nomination: Dan Carpenter for smatch).
 
-> I'm interested in a related topic: we should systematically use IOMMUs
-> and similar hardware features to protect against buggy or *malicious*
-> hardware devices.  Consider a laptop with an ExpressCard port: plug in a
-> device and you have full PCIe access.  (The same goes for other systems
-> if you open up the case.)  We should ensure that devices with no device
-> driver have zero privileges, and devices with a device driver have
-> carefully whitelisted privileges.
+I'd be interested in this. One thing I'd been meaning to ask you about
+for ages is what I can do to get scan results for ARM (or any other
+architecture for that matter) specific code. We have a lot of that these
+days, and as I understand it, the results on the public website are just
+for x86 builds.
 
-That is precisely what we do by default when an IOMMU is enabled.
-
--- 
-dwmw2
+	Arnd
