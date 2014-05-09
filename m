@@ -1,28 +1,28 @@
-Return-Path: <BATV+d5c75bdff966a850b79b+3911+infradead.org+dwmw2@casper.srs.infradead.org>
+Return-Path: <laurent.pinchart@ideasonboard.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 0E9E4979
+	by mail.linuxfoundation.org (Postfix) with ESMTP id B7D3B96D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 08:55:18 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [85.118.1.10])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8E9E12031B
+	Fri,  9 May 2014 11:31:38 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+	[95.142.166.194])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F2CEC1FB59
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 08:55:17 +0000 (UTC)
-Message-ID: <1399625714.879.9.camel@i7.infradead.org>
-From: David Woodhouse <dwmw2@infradead.org>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Date: Fri, 09 May 2014 09:55:14 +0100
-In-Reply-To: <1399578994.2171.51.camel@dabdike.int.hansenpartnership.com>
+	Fri,  9 May 2014 11:31:37 +0000 (UTC)
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Fri, 09 May 2014 13:31:35 +0200
+Message-ID: <3098666.qf3pAh5N1u@avalon>
+In-Reply-To: <1399625714.879.9.camel@i7.infradead.org>
 References: <1399552623.17118.22.camel@i7.infradead.org>
 	<1399578994.2171.51.camel@dabdike.int.hansenpartnership.com>
-Content-Type: multipart/signed; micalg="sha-1";
-	protocol="application/x-pkcs7-signature";
-	boundary="=-v/XyHXhJqudoWgOY6lLr"
-Mime-Version: 1.0
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+	<1399625714.879.9.camel@i7.infradead.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Device error handling /
- reporting / isolation
+	reporting / isolation
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,169 +32,115 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-
---=-v/XyHXhJqudoWgOY6lLr
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, 2014-05-08 at 12:56 -0700, James Bottomley wrote:
-> On Thu, 2014-05-08 at 13:37 +0100, David Woodhouse wrote:
-> > I'd like to have a discussion about handling device errors.
+On Friday 09 May 2014 09:55:14 David Woodhouse wrote:
+> On Thu, 2014-05-08 at 12:56 -0700, James Bottomley wrote:
+> > On Thu, 2014-05-08 at 13:37 +0100, David Woodhouse wrote:
+> > > I'd like to have a discussion about handling device errors.
+> > >=20
+> > > IOMMUs are becoming more common, and we've seen some failure mode=
+s where
+> > > we just end up with an endless stream of fault reports from a giv=
+en
+> > > device, and the kernel can do nothing else.
 > >=20
-> > IOMMUs are becoming more common, and we've seen some failure modes wher=
-e
-> > we just end up with an endless stream of fault reports from a given
-> > device, and the kernel can do nothing else.
+> > This is when the addresses being sent by the bus don't have IOTLB
+> > entries?
 >=20
-> This is when the addresses being sent by the bus don't have IOTLB
-> entries?
-
-You speak as if you have a software-filled IOTLB. I'd have phrased that
-as "don't have page table entries". But yes, that.
-
-Or they have read-only IOTLB entries, and they're trying to write.
-
-And as I said, once we start looking at it I suspect we'll end up
-finding other offences that need to be taken into consideration. Which
-is why I think this warrants a wider discussion rather than the IOMMU
-owners sitting in a darkened room doing it amongst themselves.
-
-> > But I absolutely don't want us to be implementing policies like that in
-> > an individual IOMMU driver; this needs to be handled by generic device
-> > code. Once upon a time I might have said PCI code, but this is actually
-> > relevant for non-PCI devices too.
+> You speak as if you have a software-filled IOTLB. I'd have phrased th=
+at
+> as "don't have page table entries". But yes, that.
 >=20
-> Right, with my PARISC hat on, our IOMMUs sit adjacent to the CPUs.  The
-> PCI busses (if we have any) are a couple of layers down.
+> Or they have read-only IOTLB entries, and they're trying to write.
 
-Even the Intel IOMMU can do mappings (and take faults) for ACPI devices,
-these days.
+Or they're trying to perform secure access on non-secure IOTLB entries.=
 
-> > I want the IOMMU to report errors, and let the system do the appropriat=
-e
-> > thing. Which requires some discussion about what the "appropriate thing=
-"
-> > can be in various circumstances, and indeed what options are available
-> > to us on various platforms.
+
+I've recently run into IOMMU issues that resulted in endless messages b=
+eing=20
+printed to the kernel log, exactly as you've mentioned, and found out t=
+he=20
+error reporting mechanisms to be less than adequate.
+
+The problem is twofold: we first need a mechanism to associate errors w=
+ith=20
+devices, and then a second mechanism to handle those errors.
+
+I doubt the former could be made completely generic, but we should at l=
+east be=20
+able to implement those mechanisms in subsystem core code. For instance=
+, in=20
+the IOMMU case, we will need to map I/O VAs to struct device, and I don=
+'t want=20
+to see that being  scattered across individual IOMMU drivers or bus mas=
+ter=20
+drivers. Better locations would be either the IOMMU core or the DMA map=
+ping=20
+implementation.
+
+The latter will likely require a mix of generic code for device isolati=
+on=20
+and/or reset (when possible) and driver-specific code for proper recove=
+ry. A=20
+fast reaction to prevent more faults from being generated should be cou=
+pled=20
+with a slower reaction to fix the actual cause of the problem. I expect=
+ the=20
+problem to be fatal in most cases, and, for IOMMUs again, usually cause=
+d by a=20
+software bug rather than a hardware misbehaviour (although the latter c=
+an of=20
+course happen). From an overall system point of view preventing the den=
+ial of=20
+service that follows such errors (caused by kernel log flooding for ins=
+tance,=20
+or by the IOMMU being unable to serve other bus masters) could be our f=
+irst=20
+priority.
+
+I'm interested to take part in this discussion.
+
+> And as I said, once we start looking at it I suspect we'll end up
+> finding other offences that need to be taken into consideration. Whic=
+h
+> is why I think this warrants a wider discussion rather than the IOMMU=
+
+> owners sitting in a darkened room doing it amongst themselves.
+>=20
+> > > But I absolutely don't want us to be implementing policies like t=
+hat in
+> > > an individual IOMMU driver; this needs to be handled by generic d=
+evice
+> > > code. Once upon a time I might have said PCI code, but this is ac=
+tually
+> > > relevant for non-PCI devices too.
 > >=20
-> > Participants would be those working with IOMMUs on various platforms,
-> > including J=C3=B6rg R=C3=B6del, myself, and hopefully someone with a fa=
+> > Right, with my PARISC hat on, our IOMMUs sit adjacent to the CPUs. =
+ The
+> > PCI busses (if we have any) are a couple of layers down.
+>=20
+> Even the Intel IOMMU can do mappings (and take faults) for ACPI devic=
+es,
+> these days.
+>=20
+> > > I want the IOMMU to report errors, and let the system do the appr=
+opriate
+> > > thing. Which requires some discussion about what the "appropriate=
+ thing"
+> > > can be in various circumstances, and indeed what options are avai=
+lable
+> > > to us on various platforms.
+> > >=20
+> > > Participants would be those working with IOMMUs on various platfo=
+rms,
+> > > including J=F6rg R=F6del, myself, and hopefully someone with a fa=
 irly
-> > intimate knowledge of EEH as used on POWER systems.
+> > > intimate knowledge of EEH as used on POWER systems.
+>=20
+> I note that J=F6rg isn't actually on the nominations list. I think he=
 
-I note that J=C3=B6rg isn't actually on the nominations list. I think he
-should be...
+> should be...
 
 --=20
-David Woodhouse                            Open Source Technology Centre
-David.Woodhouse@intel.com                              Intel Corporation
+Regards,
 
---=-v/XyHXhJqudoWgOY6lLr
-Content-Type: application/x-pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExCzAJBgUrDgMCGgUAMIAGCSqGSIb3DQEHAQAAoIISxDCCBjQw
-ggQcoAMCAQICAR4wDQYJKoZIhvcNAQEFBQAwfTELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0YXJ0
-Q29tIEx0ZC4xKzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRlIFNpZ25pbmcxKTAn
-BgNVBAMTIFN0YXJ0Q29tIENlcnRpZmljYXRpb24gQXV0aG9yaXR5MB4XDTA3MTAyNDIxMDE1NVoX
-DTE3MTAyNDIxMDE1NVowgYwxCzAJBgNVBAYTAklMMRYwFAYDVQQKEw1TdGFydENvbSBMdGQuMSsw
-KQYDVQQLEyJTZWN1cmUgRGlnaXRhbCBDZXJ0aWZpY2F0ZSBTaWduaW5nMTgwNgYDVQQDEy9TdGFy
-dENvbSBDbGFzcyAxIFByaW1hcnkgSW50ZXJtZWRpYXRlIENsaWVudCBDQTCCASIwDQYJKoZIhvcN
-AQEBBQADggEPADCCAQoCggEBAMcJg8zOLdgasSmkLhOrlr6KMoOMpohBllVHrdRvEg/q6r8jR+EK
-75xCGhR8ToREoqe7zM9/UnC6TS2y9UKTpT1v7RSMzR0t6ndl0TWBuUr/UXBhPk+Kmy7bI4yW4urC
-+y7P3/1/X7U8ocb8VpH/Clt+4iq7nirMcNh6qJR+xjOhV+VHzQMALuGYn5KZmc1NbJQYclsGkDxD
-z2UbFqE2+6vIZoL+jb9x4Pa5gNf1TwSDkOkikZB1xtB4ZqtXThaABSONdfmv/Z1pua3FYxnCFmdr
-/+N2JLKutIxMYqQOJebr/f/h5t95m4JgrM3Y/w7YX9d7YAL9jvN4SydHsU6n65cCAwEAAaOCAa0w
-ggGpMA8GA1UdEwEB/wQFMAMBAf8wDgYDVR0PAQH/BAQDAgEGMB0GA1UdDgQWBBRTcu2SnODaywFc
-fH6WNU7y1LhRgjAfBgNVHSMEGDAWgBROC+8apEBbpRdphzDKNGhD0EGu8jBmBggrBgEFBQcBAQRa
-MFgwJwYIKwYBBQUHMAGGG2h0dHA6Ly9vY3NwLnN0YXJ0c3NsLmNvbS9jYTAtBggrBgEFBQcwAoYh
-aHR0cDovL3d3dy5zdGFydHNzbC5jb20vc2ZzY2EuY3J0MFsGA1UdHwRUMFIwJ6AloCOGIWh0dHA6
-Ly93d3cuc3RhcnRzc2wuY29tL3Nmc2NhLmNybDAnoCWgI4YhaHR0cDovL2NybC5zdGFydHNzbC5j
-b20vc2ZzY2EuY3JsMIGABgNVHSAEeTB3MHUGCysGAQQBgbU3AQIBMGYwLgYIKwYBBQUHAgEWImh0
-dHA6Ly93d3cuc3RhcnRzc2wuY29tL3BvbGljeS5wZGYwNAYIKwYBBQUHAgEWKGh0dHA6Ly93d3cu
-c3RhcnRzc2wuY29tL2ludGVybWVkaWF0ZS5wZGYwDQYJKoZIhvcNAQEFBQADggIBAAqDCH14qywG
-XLhjjF6uHLkjd02hcdh9hrw+VUsv+q1eeQWB21jWj3kJ96AUlPCoEGZ/ynJNScWy6QMVQjbbMXlt
-UfO4n4bGGdKo3awPWp61tjAFgraLJgDk+DsSvUD6EowjMTNx25GQgyYJ5RPIzKKR9tQW8gGK+2+R
-HxkUCTbYFnL6kl8Ch507rUdPPipJ9CgJFws3kDS3gOS5WFMxcjO5DwKfKSETEPrHh7p5shuuNktv
-sv6hxHTLhiMKX893gxdT3XLS9OKmCv87vkINQcNEcIIoFWbP9HORz9v3vQwR4e3ksLc2JZOAFK+s
-sS5XMEoznzpihEP0PLc4dCBYjbvSD7kxgDwZ+Aj8Q9PkbvE9sIPP7ON0fz095HdThKjiVJe6vofq
-+n6b1NBc8XdrQvBmunwxD5nvtTW4vtN6VY7mUCmxsCieuoBJ9OlqmsVWQvifIYf40dJPZkk9YgGT
-zWLpXDSfLSplbY2LL9C9U0ptvjcDjefLTvqSFc7tw1sEhF0n/qpA2r0GpvkLRDmcSwVyPvmjFBGq
-Up/pNy8ZuPGQmHwFi2/14+xeSUDG2bwnsYJQG2EdJCB6luQ57GEnTA/yKZSTKI8dDQa8Sd3zfXb1
-9mOgSF0bBdXbuKhEpuP9wirslFe6fQ1t5j5R0xi72MZ8ikMu1RQZKCyDbMwazlHiMIIGQjCCBSqg
-AwIBAgIDCdkyMA0GCSqGSIb3DQEBBQUAMIGMMQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRD
-b20gTHRkLjErMCkGA1UECxMiU2VjdXJlIERpZ2l0YWwgQ2VydGlmaWNhdGUgU2lnbmluZzE4MDYG
-A1UEAxMvU3RhcnRDb20gQ2xhc3MgMSBQcmltYXJ5IEludGVybWVkaWF0ZSBDbGllbnQgQ0EwHhcN
-MTQwNTA0MTczMDIyWhcNMTUwNTA0MjM0MTAxWjBdMRkwFwYDVQQNExAzODNCMTVkSHFQSUR0cDZO
-MRwwGgYDVQQDDBNkd213MkBpbmZyYWRlYWQub3JnMSIwIAYJKoZIhvcNAQkBFhNkd213MkBpbmZy
-YWRlYWQub3JnMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAy7K+t+REIdZGFUfgR8Io
-QrJ/VLZil9I00JcwqTo8BiGy1dqSIB2y923siya5SDKMh1YurtCPsX96cNzwPmmN2cs0MKeVPQWz
-iQhHk3uKcB6LvvS7pzTahRWMRmTyW3CH+RphRM9plvyClY23GEeEnpBnGz4GaJJiPcJjGgzyZ/tI
-q473pOlSrDPZnZk43vt/5CJN46nIZOZ2I+PzlgINI+EbiwsXVn3VohHB7nVTwGaRLk5oywGt8ZT7
-tDdxn3BQ3inO1sr5MtkV1o2cHlenIC8mlU8nL/mrqqVve7Vib1YQUycW+Pj4CBYm4FTeuctAvNzK
-U/daeBclOZ8ofgQe2wIDAQABo4IC2TCCAtUwCQYDVR0TBAIwADALBgNVHQ8EBAMCBLAwHQYDVR0l
-BBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMB0GA1UdDgQWBBRAjCSCV70BpLBeXge5DXi+mPhHTTAf
-BgNVHSMEGDAWgBRTcu2SnODaywFcfH6WNU7y1LhRgjAeBgNVHREEFzAVgRNkd213MkBpbmZyYWRl
-YWQub3JnMIIBTAYDVR0gBIIBQzCCAT8wggE7BgsrBgEEAYG1NwECAzCCASowLgYIKwYBBQUHAgEW
-Imh0dHA6Ly93d3cuc3RhcnRzc2wuY29tL3BvbGljeS5wZGYwgfcGCCsGAQUFBwICMIHqMCcWIFN0
-YXJ0Q29tIENlcnRpZmljYXRpb24gQXV0aG9yaXR5MAMCAQEagb5UaGlzIGNlcnRpZmljYXRlIHdh
-cyBpc3N1ZWQgYWNjb3JkaW5nIHRvIHRoZSBDbGFzcyAxIFZhbGlkYXRpb24gcmVxdWlyZW1lbnRz
-IG9mIHRoZSBTdGFydENvbSBDQSBwb2xpY3ksIHJlbGlhbmNlIG9ubHkgZm9yIHRoZSBpbnRlbmRl
-ZCBwdXJwb3NlIGluIGNvbXBsaWFuY2Ugb2YgdGhlIHJlbHlpbmcgcGFydHkgb2JsaWdhdGlvbnMu
-MDYGA1UdHwQvMC0wK6ApoCeGJWh0dHA6Ly9jcmwuc3RhcnRzc2wuY29tL2NydHUxLWNybC5jcmww
-gY4GCCsGAQUFBwEBBIGBMH8wOQYIKwYBBQUHMAGGLWh0dHA6Ly9vY3NwLnN0YXJ0c3NsLmNvbS9z
-dWIvY2xhc3MxL2NsaWVudC9jYTBCBggrBgEFBQcwAoY2aHR0cDovL2FpYS5zdGFydHNzbC5jb20v
-Y2VydHMvc3ViLmNsYXNzMS5jbGllbnQuY2EuY3J0MCMGA1UdEgQcMBqGGGh0dHA6Ly93d3cuc3Rh
-cnRzc2wuY29tLzANBgkqhkiG9w0BAQUFAAOCAQEAWS2KNN7O3vZVtNHXVqgbmijeptKwt+8b6yiF
-wT3kJoywInPl5U+OeKRZfQKTHghM4Ohof6lF244ZMxhir/xp7l/zkZ/BUbxLwp6kIL27Gi5pgP4D
-KLnTZheQL9N5Yi/vMONxMWcpcW+ZNv5hnDCfEsfVcLXC8sNLPjx2ezfMIhSSPwBuJpmOun70te4E
-P0YBqjSalPfvc5fC5KgaYtqTDFwo9Mw25X5HHDC0r6BK5aNrF1nD/xYTX7cdvZZWl7cUApr4PCrn
-uI2DEn7OWQ/rY407ytV1c5pjvmuv/IT/ZUb/kXV6Q47UvrJp2Ifi2VhsBcnHHasKavjtRCmpDsGM
-rTCCBkIwggUqoAMCAQICAwnZMjANBgkqhkiG9w0BAQUFADCBjDELMAkGA1UEBhMCSUwxFjAUBgNV
-BAoTDVN0YXJ0Q29tIEx0ZC4xKzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRlIFNp
-Z25pbmcxODA2BgNVBAMTL1N0YXJ0Q29tIENsYXNzIDEgUHJpbWFyeSBJbnRlcm1lZGlhdGUgQ2xp
-ZW50IENBMB4XDTE0MDUwNDE3MzAyMloXDTE1MDUwNDIzNDEwMVowXTEZMBcGA1UEDRMQMzgzQjE1
-ZEhxUElEdHA2TjEcMBoGA1UEAwwTZHdtdzJAaW5mcmFkZWFkLm9yZzEiMCAGCSqGSIb3DQEJARYT
-ZHdtdzJAaW5mcmFkZWFkLm9yZzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMuyvrfk
-RCHWRhVH4EfCKEKyf1S2YpfSNNCXMKk6PAYhstXakiAdsvdt7IsmuUgyjIdWLq7Qj7F/enDc8D5p
-jdnLNDCnlT0Fs4kIR5N7inAei770u6c02oUVjEZk8ltwh/kaYUTPaZb8gpWNtxhHhJ6QZxs+BmiS
-Yj3CYxoM8mf7SKuO96TpUqwz2Z2ZON77f+QiTeOpyGTmdiPj85YCDSPhG4sLF1Z91aIRwe51U8Bm
-kS5OaMsBrfGU+7Q3cZ9wUN4pztbK+TLZFdaNnB5XpyAvJpVPJy/5q6qlb3u1Ym9WEFMnFvj4+AgW
-JuBU3rnLQLzcylP3WngXJTmfKH4EHtsCAwEAAaOCAtkwggLVMAkGA1UdEwQCMAAwCwYDVR0PBAQD
-AgSwMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDBDAdBgNVHQ4EFgQUQIwkgle9AaSwXl4H
-uQ14vpj4R00wHwYDVR0jBBgwFoAUU3Ltkpzg2ssBXHx+ljVO8tS4UYIwHgYDVR0RBBcwFYETZHdt
-dzJAaW5mcmFkZWFkLm9yZzCCAUwGA1UdIASCAUMwggE/MIIBOwYLKwYBBAGBtTcBAgMwggEqMC4G
-CCsGAQUFBwIBFiJodHRwOi8vd3d3LnN0YXJ0c3NsLmNvbS9wb2xpY3kucGRmMIH3BggrBgEFBQcC
-AjCB6jAnFiBTdGFydENvbSBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0eTADAgEBGoG+VGhpcyBjZXJ0
-aWZpY2F0ZSB3YXMgaXNzdWVkIGFjY29yZGluZyB0byB0aGUgQ2xhc3MgMSBWYWxpZGF0aW9uIHJl
-cXVpcmVtZW50cyBvZiB0aGUgU3RhcnRDb20gQ0EgcG9saWN5LCByZWxpYW5jZSBvbmx5IGZvciB0
-aGUgaW50ZW5kZWQgcHVycG9zZSBpbiBjb21wbGlhbmNlIG9mIHRoZSByZWx5aW5nIHBhcnR5IG9i
-bGlnYXRpb25zLjA2BgNVHR8ELzAtMCugKaAnhiVodHRwOi8vY3JsLnN0YXJ0c3NsLmNvbS9jcnR1
-MS1jcmwuY3JsMIGOBggrBgEFBQcBAQSBgTB/MDkGCCsGAQUFBzABhi1odHRwOi8vb2NzcC5zdGFy
-dHNzbC5jb20vc3ViL2NsYXNzMS9jbGllbnQvY2EwQgYIKwYBBQUHMAKGNmh0dHA6Ly9haWEuc3Rh
-cnRzc2wuY29tL2NlcnRzL3N1Yi5jbGFzczEuY2xpZW50LmNhLmNydDAjBgNVHRIEHDAahhhodHRw
-Oi8vd3d3LnN0YXJ0c3NsLmNvbS8wDQYJKoZIhvcNAQEFBQADggEBAFktijTezt72VbTR11aoG5oo
-3qbSsLfvG+sohcE95CaMsCJz5eVPjnikWX0Ckx4ITODoaH+pRduOGTMYYq/8ae5f85GfwVG8S8Ke
-pCC9uxouaYD+Ayi502YXkC/TeWIv7zDjcTFnKXFvmTb+YZwwnxLH1XC1wvLDSz48dns3zCIUkj8A
-biaZjrp+9LXuBD9GAao0mpT373OXwuSoGmLakwxcKPTMNuV+RxwwtK+gSuWjaxdZw/8WE1+3Hb2W
-Vpe3FAKa+Dwq57iNgxJ+zlkP62ONO8rVdXOaY75rr/yE/2VG/5F1ekOO1L6yadiH4tlYbAXJxx2r
-Cmr47UQpqQ7BjK0xggNvMIIDawIBATCBlDCBjDELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0YXJ0
-Q29tIEx0ZC4xKzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRlIFNpZ25pbmcxODA2
-BgNVBAMTL1N0YXJ0Q29tIENsYXNzIDEgUHJpbWFyeSBJbnRlcm1lZGlhdGUgQ2xpZW50IENBAgMJ
-2TIwCQYFKw4DAhoFAKCCAa8wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUx
-DxcNMTQwNTA5MDg1NTE0WjAjBgkqhkiG9w0BCQQxFgQUiNXlCtpmKA9rbUOZfyG8/BxVrpkwgaUG
-CSsGAQQBgjcQBDGBlzCBlDCBjDELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0YXJ0Q29tIEx0ZC4x
-KzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRlIFNpZ25pbmcxODA2BgNVBAMTL1N0
-YXJ0Q29tIENsYXNzIDEgUHJpbWFyeSBJbnRlcm1lZGlhdGUgQ2xpZW50IENBAgMJ2TIwgacGCyqG
-SIb3DQEJEAILMYGXoIGUMIGMMQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRkLjEr
-MCkGA1UECxMiU2VjdXJlIERpZ2l0YWwgQ2VydGlmaWNhdGUgU2lnbmluZzE4MDYGA1UEAxMvU3Rh
-cnRDb20gQ2xhc3MgMSBQcmltYXJ5IEludGVybWVkaWF0ZSBDbGllbnQgQ0ECAwnZMjANBgkqhkiG
-9w0BAQEFAASCAQCOsJLY9Cbr2PMUlR0bAInUjC3hfPSTHQQ9RG8HjpvLLrQXGfe92i51mBwuRkrM
-CO0sCMaJgkOkNiNYqAweWkoWzCOjoakjVjXCxFXwH0Ulartohr4pWdEIW8mWtAGdc3JVVg7NszbG
-KAH9M+bjhUuge0aDDgHaCIw9DJuRlDRyVO+C4uqbA8DHutgCvjBxNFvAQv4RdDNTaH8QWensJeU4
-+m9XyxW+XBis21G+TfGOgnJbJEzPoyeeRggimBU1LVjllLvuNTfAbpv7c9j22HoXlF0b7wiByuOH
-B9ekUqvHtLcmRDDeUA64L3Ckh/ZpCP8+Elu6XE3x1jy2mgzmnZHOAAAAAAAA
-
-
---=-v/XyHXhJqudoWgOY6lLr--
+Laurent Pinchart
