@@ -1,25 +1,27 @@
-Return-Path: <Paul.Gortmaker@windriver.com>
+Return-Path: <jwboyer@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 03F04ADD
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 29FA29C3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 16:45:36 +0000 (UTC)
-Received: from mail.windriver.com (mail.windriver.com [147.11.1.11])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 689CE20362
+	Fri,  9 May 2014 16:49:09 +0000 (UTC)
+Received: from mail-ob0-f170.google.com (mail-ob0-f170.google.com
+	[209.85.214.170])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A74A22036D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 16:45:35 +0000 (UTC)
-Message-ID: <536D064C.3050308@windriver.com>
-Date: Fri, 9 May 2014 12:46:04 -0400
-From: Paul Gortmaker <paul.gortmaker@windriver.com>
+	Fri,  9 May 2014 16:49:08 +0000 (UTC)
+Received: by mail-ob0-f170.google.com with SMTP id uy5so5110145obc.15
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 09 May 2014 09:49:08 -0700 (PDT)
 MIME-Version: 1.0
-To: <paulmck@linux.vnet.ibm.com>, Josh Triplett <josh@joshtriplett.org>
-References: <20140502165658.GA1962@jtriplet-mobl1>
-	<20140508001624.GA21038@linux.vnet.ibm.com>
-In-Reply-To: <20140508001624.GA21038@linux.vnet.ibm.com>
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: 7bit
+Sender: jwboyer@gmail.com
+Date: Fri, 9 May 2014 12:49:07 -0400
+Message-ID: <CA+5PVA4AtLtf_XKpWOjpqkWGmm6Hg1kZExs-2K15RJiYsbgnkQ@mail.gmail.com>
+From: Josh Boyer <jwboyer@fedoraproject.org>
+To: "Theodore Ts'o" <tytso@mit.edu>, Steven Rostedt <rostedt@goodmis.org>
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
 Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Nominations for Kernel Summit
+Subject: [Ksummit-discuss] Nominations for per topic people
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,60 +31,35 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 14-05-07 08:16 PM, Paul E. McKenney wrote:
-> On Fri, May 02, 2014 at 09:56:59AM -0700, Josh Triplett wrote:
->> I'd like to nominate the following people:
->>
->> - Tom Zanussi <tom.zanussi@linux.intel.com> - doing extensive work on
->>   shrinking the kernel and embedded userspace to fit in shockingly tiny
->>   spaces.
->> - Julia Lawall <julia.lawall@lip6.fr> - maintainer of cocinelle, the
->>   semantic patch tool, which has collectively saved an incredible amount
->>   of kernel maintainer time and effort.
->> - Andi Kleen <ak@linux.intel.com> - working on LTO and many other kernel
->>   projects.
->>
->> I'd also like to nominate myself; in addition to the kernel tinification
->> topic I've already proposed, I plan to coordinate RCU topics with Paul
->> McKenney.
-> 
-> Sounds very good!  The RCU topics that occur to me immediately include:
-> 
-> o	How do we tell compilers about RCU's memory-ordering requirements?
-> 	Follow up to http://lwn.net/Articles/586838/ and
-> 	https://lwn.net/Articles/588300/.  This could potentially
-> 	converge before August, but the odds do not look all that
-> 	favorable.  Might be an interesting discussion of the
-> 	interaction between the kernel and compiler, though perhaps
-> 	in the Chinese sense.  ;-)
-> 
-> o	What use cases are not supported well, and what should we be
-> 	doing to better support them, in RCU or otherwise?  Without
-> 	some reasonably controversial proposals, this aspect seems
-> 	unlikely to be LKS material.
-> 
-> o	Can we do a better job of automatically catching RCU usage
-> 	bugs?  Or, for that matter, RCU bugs!
-> 
-> Other thoughts for topics?
+Below are people that have been nominated in the submitted topic
+threads that aren't already on the list.
 
-It seems, from a user's perspective, that an RCU stall is one
-the most user unfriendly things to be on the receiving end of.
-Since it trips an NMI to backtrace each core, on a larger system
-a person is faced with screens and screens of (mostly irrelevant)
-backtrace.  I'm not sure what to suggest to improve things, and
-maybe there really isn't anything that can be done, but IMHO it
-might be worth discussing...
+Josh Poimboeuf (live kernel patching)
+Seth Jennings (live kernel patching)
+Vojtech Pavlik (live kernel patching, trusted kernel patchset)
+Pavel Emelyanov (live kernel patching)
+Masami Hiramatsu (live kernel patching)
+Jiri Slaby (live kernel patching, stable)
+Michael Matz (live kernel patching)
+Josh Boyer (trusted kernel patchset, stable)
+Joey Li (trusted kernel patchset)
+Gary Lin (trusted kernel patchset)
+James Morris (trusted kernel patchset)
+Matthew Garret (trusted kernel patchset)
+Darren Hart (driver model and ACPI/DT)
+Grant Likely (driver model and ACPI/DT, also on the ksummit committee so...=
+)
+Al Stone (driver model and ACPI/DT)
+Amit Kucheria (energy conservation bias)
+Morten Rasmussen (energy conservation bias)
+Waiman Long (asm-generic low levels)
+J=F6rg R=F6del (device error handling)
+Michael Kerrisk (API/ABI review)
+Shuah Khan (API/ABI review)
+Dave Jones (kernel tinification, energy conservation bias, and trinity work=
+)
+Andy Lutomirski (virtually every topic thread thus far)
 
-Paul.
---
+Hope that helps.
 
-
-> 
-> 							Thanx, Paul
-> 
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
-> 
+josh
