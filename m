@@ -1,34 +1,27 @@
-Return-Path: <daniel.vetter@ffwll.ch>
+Return-Path: <cl@linux.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 66D1DADD
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 7FA5E92F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 12:32:01 +0000 (UTC)
-Received: from mail-ie0-f172.google.com (mail-ie0-f172.google.com
-	[209.85.223.172])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D77C4201BA
+	Fri,  9 May 2014 14:48:22 +0000 (UTC)
+Received: from qmta10.emeryville.ca.mail.comcast.net
+	(qmta10.emeryville.ca.mail.comcast.net [76.96.30.17])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 1F41520277
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 12:32:00 +0000 (UTC)
-Received: by mail-ie0-f172.google.com with SMTP id as1so4009975iec.31
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 09 May 2014 05:32:00 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <536AF7F4.6010608@hitachi.com>
-References: <53662254.9060100@huawei.com> <53699F27.9040403@hitachi.com>
-	<1399431538.2581.30.camel@buesod1.americas.hpqcorp.net>
-	<5369EE59.9040805@hitachi.com>
-	<20140507083936.GY26088@console-pimps.org>
-	<536A1CC3.5090506@hitachi.com>
-	<CAKMK7uG8Ly92uMavqS-abq=06FXCDMCae7mbv1EusG7pF9HAOg@mail.gmail.com>
-	<536AF7F4.6010608@hitachi.com>
-Date: Fri, 9 May 2014 14:32:00 +0200
-Message-ID: <CAKMK7uGB7QTPfq-dswq9-aB1Na+==mCNNL2gX_zr5srDBVnCeA@mail.gmail.com>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-To: Masami Hiramatsu <masami.hiramatsu.pt@hitachi.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable issues
+	Fri,  9 May 2014 14:48:22 +0000 (UTC)
+Date: Fri, 9 May 2014 09:48:19 -0500 (CDT)
+From: Christoph Lameter <cl@linux.com>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+In-Reply-To: <1399595490.2230.13.camel@dabdike.int.hansenpartnership.com>
+Message-ID: <alpine.DEB.2.10.1405090940080.11318@gentwo.org>
+References: <alpine.DEB.2.10.1405081124000.24271@gentwo.org>
+	<1399595490.2230.13.camel@dabdike.int.hansenpartnership.com>
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+Cc: Sarah Sharp <sarah@minilop.net>, ksummit-discuss@lists.linuxfoundation.org,
+	Greg KH <gregkh@linuxfoundation.org>, Julia Lawall <julia.lawall@lip6.fr>,
+	Darren Hart <darren@dvhart.com>, Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Kernel tinification: shrinking
+ the kernel and avoiding size regressions
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,26 +31,59 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, May 8, 2014 at 5:20 AM, Masami Hiramatsu
-<masami.hiramatsu.pt@hitachi.com> wrote:
->>> Ah, that's a good example for adding new feature/bugfix with test case! :)
->>> I think this type of combined patch will be good to run tests with git-bisect.
->>> At least out-of-tree test should work with git-bisect.
->>
->> At least for drm/i915 I don't think merging the tests into the kernel
->> would be beneficial, at least now:
->
-> Hm, it seems some other subsystems have their own testsuites, I think we'd
-> better clarify the testing policy for each subsystem,
-> using dedicated testing tools or in-kernel selftest.
+On Thu, 8 May 2014, James Bottomley wrote:
 
-What I'd like to discuss for the overall kernel is minimal standards
-that apply everywhere. And process issues like where external test
-suites should be documented (they're useless if people can't find
-them) and how much pressure we should apply to get them into the
-kernel git tree. And whether that makes sense in all cases or not.
--Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-+41 (0) 79 365 57 48 - http://blog.ffwll.ch
+> > >   we all have tons of memory and storage?")
+> >
+> > Kernel size matters quite a bit for performance. Processor caches are key
+> > to performance and therefore the cache footprint of a function determines
+> > the the possible performance. The smaller the functions and the less data
+> > they access the faster they will run.
+>
+> This is about footprint, though, it's about optimizing a code path to
+> run in the fewest instructions possible, right?
+
+Code speed depends on where the instructions and data can be retrieved
+from. The fewest instructions no longer cut it.
+
+> > Therefore it needs to be possible to reduce the size of the kernel by
+> > disabling unwanted functionality (f.e. cgroups). In order for that to
+> > happen features need to be as independent as possible and also the user
+> > space tools (like systemd) need to be able to handle a kernel with reduced
+> > functionality.
+>
+> I don't believe that follows.  As long as the added code doesn't cause
+> the cache footprint of the working set to expand, there's no performance
+> reason to compile it out.   If you choose not to use syscalls, then the
+> paths are inert from a performance point of view and it doesn't matter
+> if they are config'd in or out.  Cgroups, on the other hand impacts
+> performance because it adds to the execution path of several syscalls.
+> We were careful to use static branching to minimise this, but obviously
+> it does expand the cache footprint.  Do you have any figures for the
+> performance issues it's causing (being compiled in but unused)?  If it's
+> significant, we could try static branching to out of line areas which
+> shouldn't impact the cache footprint.
+
+Static branching means that it is removed from the code path but the
+overall code size still is increased because the function need to be
+somewhere. And usually the additional functions are mixed with other
+functions that are essential. Which means increased need for TLB entries
+to do the virtual mappings. Plus there are noop holes here and there that
+increase the size of the function still.
+
+One improvement would be to sort the functions by functionality. All the
+important functions in the first 2M of the code covered by one huge tlb
+f.e.
+
+Maybe we could reduce the number of cachelines used by critical functions
+too? Arent there some tools that can automatize this in gcc?
+
+Syscalls are often essential to performance in particular if one wants to
+use the I/O services of the kernel instead of relying on something like
+RDMA that bypasses the kernel.
+
+In general the ability to reduce the size of the kernel to a minimum is a
+desirable feature. I still see deployments of older kernels in the
+financial industry because they have a higher performance and lower
+latency. The only way to get those guys would be to keep the kernel size
+and the size of the data touched the same.
