@@ -1,24 +1,31 @@
-Return-Path: <johannes@sipsolutions.net>
+Return-Path: <cl@linux.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id ECFCB9B1
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 58227AF6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 17:51:49 +0000 (UTC)
-Received: from sipsolutions.net (s3.sipsolutions.net [5.9.151.49])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CDCB92034F
+	Fri,  9 May 2014 17:52:04 +0000 (UTC)
+Received: from qmta11.emeryville.ca.mail.comcast.net
+	(qmta11.emeryville.ca.mail.comcast.net [76.96.27.211])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id C99D92034B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 17:51:48 +0000 (UTC)
-Message-ID: <1399656674.4136.12.camel@jlt4.sipsolutions.net>
-From: Johannes Berg <johannes@sipsolutions.net>
-To: josh@joshtriplett.org
-Date: Fri, 09 May 2014 19:31:14 +0200
-In-Reply-To: <20140509171954.GC8289@cloud>
-References: <20140509170709.GA9747@redhat.com> <20140509171954.GC8289@cloud>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] coverity, static checking etc.
+	Fri,  9 May 2014 17:52:03 +0000 (UTC)
+Date: Fri, 9 May 2014 12:52:00 -0500 (CDT)
+From: Christoph Lameter <cl@linux.com>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+In-Reply-To: <1399657343.2166.61.camel@dabdike.int.hansenpartnership.com>
+Message-ID: <alpine.DEB.2.10.1405091251130.13438@gentwo.org>
+References: <alpine.DEB.2.10.1405081124000.24271@gentwo.org>
+	<1399595490.2230.13.camel@dabdike.int.hansenpartnership.com>
+	<alpine.DEB.2.10.1405090940080.11318@gentwo.org>
+	<20140509122451.5228a038@gandalf.local.home>
+	<alpine.DEB.2.10.1405091150410.11810@gentwo.org>
+	<1399657343.2166.61.camel@dabdike.int.hansenpartnership.com>
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+Cc: Sarah Sharp <sarah@minilop.net>, ksummit-discuss@lists.linuxfoundation.org,
+	Greg KH <gregkh@linuxfoundation.org>, Julia Lawall <julia.lawall@lip6.fr>,
+	Darren Hart <darren@dvhart.com>, Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Kernel tinification: shrinking
+ the kernel and avoiding size regressions
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -28,25 +35,12 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, 2014-05-09 at 10:19 -0700, josh@joshtriplett.org wrote:
+On Fri, 9 May 2014, James Bottomley wrote:
 
-> I'd like to see this topic as well.  I think we could do a lot better
-> here than we do.  And don't forget that GCC is one of our top static
-> analysis tools, if only because it's the only one *everyone* runs; that
-> includes both warnings and the possibility of shipping and building our
-> own GCC plugin.
-> 
-> I'd also like to nominate Christopher Li, for Sparse.
+> > Global optimization may allow the folding of small functions into a larger
+> > one when advantageous (which is not simple to determine).
+>
+> It's possible, but complex ... I'd really like to see proof that it
+> helps before thinking about it.
 
-Seconded, I'm also interested in general in whether people still think
-sparse is useful and we should give it attention, or should focus more
-on really getting everything into gcc - we have a number of sparse
-warnings in very low-level header files that get used everywhere, for
-example the one I just fixed in [1] or the one I tried to fix but that
-ended up being buggy ([2]), but there doesn't seem to be much attention
-to these during the patch submission etc.
-
-johannes
-
-[1] http://thread.gmane.org/gmane.linux.kernel/1699192
-[2] http://thread.gmane.org/gmane.linux.kernel/1642101/focus=1642108
+The proof may mean that one will have to do the work.
