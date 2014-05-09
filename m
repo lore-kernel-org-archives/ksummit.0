@@ -1,38 +1,25 @@
-Return-Path: <rostedt@goodmis.org>
+Return-Path: <davej@redhat.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 29D56A83
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 3B67070A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 20:31:55 +0000 (UTC)
-Received: from cdptpa-oedge-vip.email.rr.com
-	(cdptpa-outbound-snat.email.rr.com [107.14.166.228])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 81A5020242
+	Fri,  9 May 2014 20:33:20 +0000 (UTC)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id E30102020E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 20:31:54 +0000 (UTC)
-Date: Fri, 9 May 2014 16:31:50 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Julia Lawall <julia.lawall@lip6.fr>
-Message-ID: <20140509163150.04840a1b@gandalf.local.home>
-In-Reply-To: <alpine.DEB.2.02.1405092100290.2019@localhost6.localdomain6>
-References: <alpine.DEB.2.10.1405081124000.24271@gentwo.org>
-	<1399595490.2230.13.camel@dabdike.int.hansenpartnership.com>
-	<alpine.DEB.2.10.1405090940080.11318@gentwo.org>
-	<20140509122451.5228a038@gandalf.local.home>
-	<alpine.DEB.2.10.1405091150410.11810@gentwo.org>
-	<1399657343.2166.61.camel@dabdike.int.hansenpartnership.com>
-	<alpine.DEB.2.10.1405091251130.13438@gentwo.org>
-	<20140509143247.56c2a924@gandalf.local.home>
-	<alpine.DEB.2.02.1405092100290.2019@localhost6.localdomain6>
+	Fri,  9 May 2014 20:33:18 +0000 (UTC)
+Date: Fri, 9 May 2014 16:33:07 -0400
+From: Dave Jones <davej@redhat.com>
+To: Arnd Bergmann <arnd@arndb.de>
+Message-ID: <20140509203307.GA20593@redhat.com>
+References: <20140509170709.GA9747@redhat.com>
+ <5857276.jy6b86PZuN@wuerfel>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: Sarah Sharp <sarah@minilop.net>, ksummit-discuss@lists.linuxfoundation.org,
-	Greg KH <gregkh@linuxfoundation.org>,
-	James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Darren Hart <darren@dvhart.com>, Christoph Lameter <cl@linux.com>,
-	Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Kernel tinification: shrinking
- the kernel and avoiding size regressions
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5857276.jy6b86PZuN@wuerfel>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] coverity, static checking etc.
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -42,17 +29,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, 9 May 2014 21:02:26 +0200 (CEST)
-Julia Lawall <julia.lawall@lip6.fr> wrote:
- 
-> Which kinds of functions are being discussed?  For example, similar 
-> drivers may use similar functions, but if one has only one instance of a 
-> driver that has a particular functionality, only one of those functions 
-> may ever be executed.  Is there only a benefit if similar functions are 
-> all executed frequently in practice?
+On Fri, May 09, 2014 at 10:18:40PM +0200, Arnd Bergmann wrote:
+ > On Friday 09 May 2014 13:07:09 Dave Jones wrote:
+ > > I gave a lightning talk on this last year. This year I have a bit more data
+ > > so could probably fill a whole session.
+ > > 
+ > > Last year I had been doing the coverity scans on an almost daily basis
+ > > for 2-3 months.  Now that we're a year in, I'd like to share some
+ > > results, and show some of the more common trends and bug patterns that
+ > > seem to pop up.
+ > > 
+ > > [ spoiler: For the most part, it's all pretty positive, but we still suck ]
+ > > 
+ > > It would also be good to have some more discussion about other tools
+ > > we could be making more use of.  (Nomination: Dan Carpenter for smatch).
+ > 
+ > I'd be interested in this. One thing I'd been meaning to ask you about
+ > for ages is what I can do to get scan results for ARM (or any other
+ > architecture for that matter) specific code. We have a lot of that these
+ > days, and as I understand it, the results on the public website are just
+ > for x86 builds.
 
-I wasn't thinking about drivers, but more core kernel code, like the
-scheduler or system call interface. Things that do have similar designs
-and are called frequently.
+yeah, right now their tool (definitely front-end, but back-end too iirc)
+is x86 only.   So unless it's something that CONFIG_COMPILE_TEST would pick up,
+it's not going to be in the scans.
 
--- Steve
+	Dave
