@@ -1,26 +1,31 @@
-Return-Path: <josh@joshtriplett.org>
+Return-Path: <cl@linux.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id AF86DADD
+	by mail.linuxfoundation.org (Postfix) with ESMTP id C05AFAED
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 16:55:24 +0000 (UTC)
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
-	[217.70.183.195])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 34FF02036D
+	Fri,  9 May 2014 16:55:26 +0000 (UTC)
+Received: from qmta04.emeryville.ca.mail.comcast.net
+	(qmta04.emeryville.ca.mail.comcast.net [76.96.30.40])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 618E72036D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 16:55:24 +0000 (UTC)
-Date: Fri, 9 May 2014 09:55:19 -0700
-From: josh@joshtriplett.org
-To: Josh Boyer <jwboyer@fedoraproject.org>
-Message-ID: <20140509165519.GA8289@cloud>
-References: <CA+5PVA4AtLtf_XKpWOjpqkWGmm6Hg1kZExs-2K15RJiYsbgnkQ@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CA+5PVA4AtLtf_XKpWOjpqkWGmm6Hg1kZExs-2K15RJiYsbgnkQ@mail.gmail.com>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Nominations for per topic people
+	Fri,  9 May 2014 16:55:26 +0000 (UTC)
+Date: Fri, 9 May 2014 11:55:23 -0500 (CDT)
+From: Christoph Lameter <cl@linux.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+In-Reply-To: <20140509122451.5228a038@gandalf.local.home>
+Message-ID: <alpine.DEB.2.10.1405091150410.11810@gentwo.org>
+References: <alpine.DEB.2.10.1405081124000.24271@gentwo.org>
+	<1399595490.2230.13.camel@dabdike.int.hansenpartnership.com>
+	<alpine.DEB.2.10.1405090940080.11318@gentwo.org>
+	<20140509122451.5228a038@gandalf.local.home>
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+Cc: Sarah Sharp <sarah@minilop.net>, ksummit-discuss@lists.linuxfoundation.org,
+	Greg KH <gregkh@linuxfoundation.org>,
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Julia Lawall <julia.lawall@lip6.fr>, Darren Hart <darren@dvhart.com>,
+	Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Kernel tinification: shrinking
+ the kernel and avoiding size regressions
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,38 +35,51 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, May 09, 2014 at 12:49:07PM -0400, Josh Boyer wrote:
-> Below are people that have been nominated in the submitted topic
-> threads that aren't already on the list.
-> 
-> Josh Poimboeuf (live kernel patching)
-> Seth Jennings (live kernel patching)
-> Vojtech Pavlik (live kernel patching, trusted kernel patchset)
-> Pavel Emelyanov (live kernel patching)
-> Masami Hiramatsu (live kernel patching)
-> Jiri Slaby (live kernel patching, stable)
-> Michael Matz (live kernel patching)
-> Josh Boyer (trusted kernel patchset, stable)
-> Joey Li (trusted kernel patchset)
-> Gary Lin (trusted kernel patchset)
-> James Morris (trusted kernel patchset)
-> Matthew Garret (trusted kernel patchset)
-> Darren Hart (driver model and ACPI/DT)
+On Fri, 9 May 2014, Steven Rostedt wrote:
 
-And kernel tinification.
+> > One improvement would be to sort the functions by functionality. All the
+> > important functions in the first 2M of the code covered by one huge tlb
+> > f.e.
+>
+> I thought pretty much all of kernel core memory is mapped in by huge
+> tlbs? At least for kernel core code (not modules), the size should not
+> impact tlbs.
 
-> Grant Likely (driver model and ACPI/DT, also on the ksummit committee so...)
-> Al Stone (driver model and ACPI/DT)
-> Amit Kucheria (energy conservation bias)
-> Morten Rasmussen (energy conservation bias)
-> Waiman Long (asm-generic low levels)
-> Jörg Rödel (device error handling)
-> Michael Kerrisk (API/ABI review)
-> Shuah Khan (API/ABI review)
-> Dave Jones (kernel tinification, energy conservation bias, and trinity work)
-> Andy Lutomirski (virtually every topic thread thus far)
+Yes, but processor only support a limited amount of 2m tlbs and
+applications also want to use them. A large 100M sized kernel would
+require 50 tlbs and cause tlb trashing if functions are accessed over all
+the code. Loadable modules are using vmalloc areas that use 4k pages which
+is another issue.
 
-Kernel tinification had several more mentioned.  (Some of them are already
-a given, but not all.)
+> > Maybe we could reduce the number of cachelines used by critical functions
+> > too? Arent there some tools that can automatize this in gcc?
+>
+> As I believe James has mentioned. This only helps if we keep the
+> critical functions tight in a cacheline. I did some benchmarks moving
+> the tracepoint code more out of line to help in cachelines, and I
+> haven't seen anything above the noise. Which is the reason I haven't
+> pushed that work further.
+>
+> Size may not be as important as having reuse of code. Perhaps if you
+> can tweak several functions to call one helper function, which may
+> actually increase the total size of the kernel, but having more helper
+> functions that live in cache longer may be of benefit.
 
-- Josh Triplett
+More helper functions means more use of l1 cache lines which reduces
+performance.
+
+> > In general the ability to reduce the size of the kernel to a minimum is a
+> > desirable feature. I still see deployments of older kernels in the
+> > financial industry because they have a higher performance and lower
+> > latency. The only way to get those guys would be to keep the kernel size
+> > and the size of the data touched the same.
+>
+> I actually wonder if that performance is really on "size" of the kernel
+> and not just less features. Usually with features, we add more function
+> calls and branches, which I believe may be the culprit of the slowdowns
+> we are seeing.
+
+That too... But James said they were using static branching.
+
+Global optimization may allow the folding of small functions into a larger
+one when advantageous (which is not simple to determine).
