@@ -1,28 +1,29 @@
-Return-Path: <laurent.pinchart@ideasonboard.com>
+Return-Path: <jlayton@poochiereds.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id B7D3B96D
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 388C896D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 11:31:38 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
-	[95.142.166.194])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F2CEC1FB59
+	Fri,  9 May 2014 11:33:32 +0000 (UTC)
+Received: from mail-qg0-f43.google.com (mail-qg0-f43.google.com
+	[209.85.192.43])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 906FA1FB59
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 11:31:37 +0000 (UTC)
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Fri, 09 May 2014 13:31:35 +0200
-Message-ID: <3098666.qf3pAh5N1u@avalon>
-In-Reply-To: <1399625714.879.9.camel@i7.infradead.org>
-References: <1399552623.17118.22.camel@i7.infradead.org>
-	<1399578994.2171.51.camel@dabdike.int.hansenpartnership.com>
-	<1399625714.879.9.camel@i7.infradead.org>
+	Fri,  9 May 2014 11:33:31 +0000 (UTC)
+Received: by mail-qg0-f43.google.com with SMTP id 63so4236310qgz.16
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 09 May 2014 04:33:30 -0700 (PDT)
+Date: Fri, 9 May 2014 07:33:28 -0400
+From: Jeff Layton <jlayton@poochiereds.net>
+To: Andy Lutomirski <luto@amacapital.net>
+Message-ID: <20140509073328.36ac0b42@tlielax.poochiereds.net>
+In-Reply-To: <CALCETrU_xrdgUNF55YU+8rfq2xK0cU3QybQhqvX4L8OgsiwG5A@mail.gmail.com>
+References: <CALCETrU_xrdgUNF55YU+8rfq2xK0cU3QybQhqvX4L8OgsiwG5A@mail.gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Device error handling /
-	reporting / isolation
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Reviewing new API/ABI
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,115 +33,80 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Friday 09 May 2014 09:55:14 David Woodhouse wrote:
-> On Thu, 2014-05-08 at 12:56 -0700, James Bottomley wrote:
-> > On Thu, 2014-05-08 at 13:37 +0100, David Woodhouse wrote:
-> > > I'd like to have a discussion about handling device errors.
-> > >=20
-> > > IOMMUs are becoming more common, and we've seen some failure mode=
-s where
-> > > we just end up with an endless stream of fault reports from a giv=
-en
-> > > device, and the kernel can do nothing else.
-> >=20
-> > This is when the addresses being sent by the bus don't have IOTLB
-> > entries?
->=20
-> You speak as if you have a software-filled IOTLB. I'd have phrased th=
-at
-> as "don't have page table entries". But yes, that.
->=20
-> Or they have read-only IOTLB entries, and they're trying to write.
+On Tue, 6 May 2014 10:45:05 -0700
+Andy Lutomirski <luto@amacapital.net> wrote:
 
-Or they're trying to perform secure access on non-secure IOTLB entries.=
+> There doesn't currently seem to be any real process for reviewing new
+> core APIs for sanity of design, appropriateness to solve the problem
+> they're targetting, or correctness of implementation.  Some examples
+> that come to mind recently:
+> 
+>  - A lot of people seem to think that O_TMPFILE is a terrible
+> interface, despite the fact that the functionality it provides is very
+> useful.  It was also rather badly broken until -rc8 or so.
+> 
+>  - The x86 32-bit vdso clock functions almost made it in with a
+> questionable symbol version.
+> 
+>  - 3.15 is currently slated to include an unfortunate ABI glitch in
+> the MIPS seccomp filter interface.  There's a patch.
+> 
+>  - There are some aspects of the keyring API that seem to me to be quite bad.
+> 
+>  - An impressive number of new APIs are missing -EINVAL returns if
+> reserved parameters are set.
+> 
+> (I'm not trying to point a finger at anyone with these examples;
+> they're just things that I was involved in to some extent.)
+> 
+> The current process is confused.   For example, I currently plan on
+> trying to remember to ask Linus to revert the MIPS seccomp stuff or
+> fix it sometime around -rc6 if the patch hasn't landed, but this
+> sucks.
+> 
+> I think that the process could be improved.  I think that there are
+> people who are willing to spend time to read API docs and thinking
+> about these kinds of issues.  (I am, and Michael Kerrisk seems to do a
+> fair amount of it.)
+> 
+> I would like to discuss what we could change to make this work better
+> in the future.  In an ideal world, I would like to see every core API
+> change come with documentation, tests (possibly simple ones), and a
+> post, with acks, to a list that covers just API changes.  This might
+> be tough, but it could add a lot of value.
+> 
+> I've occasionally thought that API docs should live in the kernel tree
+> in some reasonably well organized place so that patch sets can include
+> doc patches.  I realize that this is contentious.
+> 
+> I'm sure that other people have other suggestions here.
+> 
+> --Andy
+> 
+> P.S.  I'm not on the invitation nominee list, so if people like this
+> topic, I'd appreciate a nomination :)
 
 
-I've recently run into IOMMU issues that resulted in endless messages b=
-eing=20
-printed to the kernel log, exactly as you've mentioned, and found out t=
-he=20
-error reporting mechanisms to be less than adequate.
+I'd be interested in discussing this as well.
 
-The problem is twofold: we first need a mechanism to associate errors w=
-ith=20
-devices, and then a second mechanism to handle those errors.
+I just went through a bunch of gyrations with the file-private -> OFD
+file lock renaming. I originally posted these patches over several
+months, but it wasn't until it was merged that people started speaking
+out over the name. Perhaps if I had known about linux-api@ and had
+cc'ed it on those patches, we might have gotten that squared away
+earlier?
 
-I doubt the former could be made completely generic, but we should at l=
-east be=20
-able to implement those mechanisms in subsystem core code. For instance=
-, in=20
-the IOMMU case, we will need to map I/O VAs to struct device, and I don=
-'t want=20
-to see that being  scattered across individual IOMMU drivers or bus mas=
-ter=20
-drivers. Better locations would be either the IOMMU core or the DMA map=
-ping=20
-implementation.
+Also, I'm still interested in getting this driven back into POSIX spec,
+so having a more well-defined way to interact with the POSIX folks
+would be helpful.
 
-The latter will likely require a mix of generic code for device isolati=
-on=20
-and/or reset (when possible) and driver-specific code for proper recove=
-ry. A=20
-fast reaction to prevent more faults from being generated should be cou=
-pled=20
-with a slower reaction to fix the actual cause of the problem. I expect=
- the=20
-problem to be fatal in most cases, and, for IOMMUs again, usually cause=
-d by a=20
-software bug rather than a hardware misbehaviour (although the latter c=
-an of=20
-course happen). From an overall system point of view preventing the den=
-ial of=20
-service that follows such errors (caused by kernel log flooding for ins=
-tance,=20
-or by the IOMMU being unable to serve other bus masters) could be our f=
-irst=20
-priority.
+There are some open questions here too, notably: How are we defining
+API/ABI? Clearly a new syscall is a change that needs to be carefully
+vetted. What about a new mount option? Does that qualify?
 
-I'm interested to take part in this discussion.
+While I think having a lot of eyes on userland-visible changes is a
+good thing, we need to take heed not to make such a process too formal
+or it'll become painful to deal with.
 
-> And as I said, once we start looking at it I suspect we'll end up
-> finding other offences that need to be taken into consideration. Whic=
-h
-> is why I think this warrants a wider discussion rather than the IOMMU=
-
-> owners sitting in a darkened room doing it amongst themselves.
->=20
-> > > But I absolutely don't want us to be implementing policies like t=
-hat in
-> > > an individual IOMMU driver; this needs to be handled by generic d=
-evice
-> > > code. Once upon a time I might have said PCI code, but this is ac=
-tually
-> > > relevant for non-PCI devices too.
-> >=20
-> > Right, with my PARISC hat on, our IOMMUs sit adjacent to the CPUs. =
- The
-> > PCI busses (if we have any) are a couple of layers down.
->=20
-> Even the Intel IOMMU can do mappings (and take faults) for ACPI devic=
-es,
-> these days.
->=20
-> > > I want the IOMMU to report errors, and let the system do the appr=
-opriate
-> > > thing. Which requires some discussion about what the "appropriate=
- thing"
-> > > can be in various circumstances, and indeed what options are avai=
-lable
-> > > to us on various platforms.
-> > >=20
-> > > Participants would be those working with IOMMUs on various platfo=
-rms,
-> > > including J=F6rg R=F6del, myself, and hopefully someone with a fa=
-irly
-> > > intimate knowledge of EEH as used on POWER systems.
->=20
-> I note that J=F6rg isn't actually on the nominations list. I think he=
-
-> should be...
-
---=20
-Regards,
-
-Laurent Pinchart
+-- 
+Jeff Layton <jlayton@poochiereds.net>
