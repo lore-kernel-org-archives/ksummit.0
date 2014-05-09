@@ -1,24 +1,28 @@
-Return-Path: <davej@redhat.com>
+Return-Path: <roland.dreier@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 3B67070A
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 5CC00A83
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 20:33:20 +0000 (UTC)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id E30102020E
+	Fri,  9 May 2014 20:34:07 +0000 (UTC)
+Received: from mail-qc0-f177.google.com (mail-qc0-f177.google.com
+	[209.85.216.177])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F1BFF2020E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 20:33:18 +0000 (UTC)
-Date: Fri, 9 May 2014 16:33:07 -0400
-From: Dave Jones <davej@redhat.com>
-To: Arnd Bergmann <arnd@arndb.de>
-Message-ID: <20140509203307.GA20593@redhat.com>
-References: <20140509170709.GA9747@redhat.com>
- <5857276.jy6b86PZuN@wuerfel>
+	Fri,  9 May 2014 20:34:06 +0000 (UTC)
+Received: by mail-qc0-f177.google.com with SMTP id i17so5135162qcy.22
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 09 May 2014 13:34:06 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5857276.jy6b86PZuN@wuerfel>
-Cc: ksummit-discuss@lists.linuxfoundation.org
+Sender: roland.dreier@gmail.com
+In-Reply-To: <20140509170709.GA9747@redhat.com>
+References: <20140509170709.GA9747@redhat.com>
+From: Roland Dreier <roland@kernel.org>
+Date: Fri, 9 May 2014 13:33:46 -0700
+Message-ID: <CAG4TOxONfcd=c+78yxUVj4iOQ_n7+RShPeir9HWUQ_zGDWYJig@mail.gmail.com>
+To: Dave Jones <davej@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] coverity, static checking etc.
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -29,29 +33,20 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, May 09, 2014 at 10:18:40PM +0200, Arnd Bergmann wrote:
- > On Friday 09 May 2014 13:07:09 Dave Jones wrote:
- > > I gave a lightning talk on this last year. This year I have a bit more data
- > > so could probably fill a whole session.
- > > 
- > > Last year I had been doing the coverity scans on an almost daily basis
- > > for 2-3 months.  Now that we're a year in, I'd like to share some
- > > results, and show some of the more common trends and bug patterns that
- > > seem to pop up.
- > > 
- > > [ spoiler: For the most part, it's all pretty positive, but we still suck ]
- > > 
- > > It would also be good to have some more discussion about other tools
- > > we could be making more use of.  (Nomination: Dan Carpenter for smatch).
- > 
- > I'd be interested in this. One thing I'd been meaning to ask you about
- > for ages is what I can do to get scan results for ARM (or any other
- > architecture for that matter) specific code. We have a lot of that these
- > days, and as I understand it, the results on the public website are just
- > for x86 builds.
+On Fri, May 9, 2014 at 10:07 AM, Dave Jones <davej@redhat.com> wrote:
+> Last year I had been doing the coverity scans on an almost daily basis
+> for 2-3 months.  Now that we're a year in, I'd like to share some
+> results, and show some of the more common trends and bug patterns that
+> seem to pop up.
 
-yeah, right now their tool (definitely front-end, but back-end too iirc)
-is x86 only.   So unless it's something that CONFIG_COMPILE_TEST would pick up,
-it's not going to be in the scans.
+This probably doesn't add too much to the discussion, but as a
+subsystem maintainer, I like having easy-to-run analysis tools (or
+easily available scan results like coverity).  It seems to lead to
+interesting patches from people who aren't really interested in the
+subsystem but just trawl through scan results.
 
-	Dave
+It's pretty cool getting fixes for subtle (but in retrospect obvious)
+bugs from people who say "compile tested only because I have no
+hardware."
+
+ - R.
