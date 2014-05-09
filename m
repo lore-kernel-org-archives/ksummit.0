@@ -1,36 +1,30 @@
-Return-Path: <willy6545@gmail.com>
+Return-Path: <groeck7@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 48178A83
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 42F819B1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 17:52:36 +0000 (UTC)
-Received: from mail-yh0-f44.google.com (mail-yh0-f44.google.com
-	[209.85.213.44])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CFAE02034B
+	Fri,  9 May 2014 17:54:43 +0000 (UTC)
+Received: from mail-pa0-f54.google.com (mail-pa0-f54.google.com
+	[209.85.220.54])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D202A20357
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 17:52:33 +0000 (UTC)
-Received: by mail-yh0-f44.google.com with SMTP id b6so4032781yha.3
+	Fri,  9 May 2014 17:54:42 +0000 (UTC)
+Received: by mail-pa0-f54.google.com with SMTP id bj1so3394072pad.13
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 09 May 2014 10:52:33 -0700 (PDT)
+	Fri, 09 May 2014 10:54:42 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Fri, 9 May 2014 10:54:33 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Johannes Berg <johannes@sipsolutions.net>
+Message-ID: <20140509175433.GA25690@roeck-us.net>
+References: <20140509170709.GA9747@redhat.com> <20140509171954.GC8289@cloud>
+	<1399656674.4136.12.camel@jlt4.sipsolutions.net>
 MIME-Version: 1.0
-In-Reply-To: <1399657343.2166.61.camel@dabdike.int.hansenpartnership.com>
-References: <alpine.DEB.2.10.1405081124000.24271@gentwo.org>
-	<1399595490.2230.13.camel@dabdike.int.hansenpartnership.com>
-	<alpine.DEB.2.10.1405090940080.11318@gentwo.org>
-	<20140509122451.5228a038@gandalf.local.home>
-	<alpine.DEB.2.10.1405091150410.11810@gentwo.org>
-	<1399657343.2166.61.camel@dabdike.int.hansenpartnership.com>
-Date: Fri, 9 May 2014 13:52:32 -0400
-Message-ID: <CAFhKne_uYKisSCcvJB124zvFifHV9=wOCC=PbHQgwqcHC=SCQg@mail.gmail.com>
-From: Matthew Wilcox <willy6545@gmail.com>
-To: James Bottomley <James.Bottomley@hansenpartnership.com>
-Content-Type: multipart/alternative; boundary=089e014952961b4d2204f8fb43d3
-Cc: Sarah Sharp <sarah@minilop.net>, ksummit-discuss@lists.linuxfoundation.org,
-	Greg KH <gregkh@linuxfoundation.org>, Julia Lawall <julia.lawall@lip6.fr>,
-	Darren Hart <darren@dvhart.com>, Christoph Lameter <cl@linux.com>,
-	Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Kernel tinification: shrinking
- the kernel and avoiding size regressions
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1399656674.4136.12.camel@jlt4.sipsolutions.net>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] coverity, static checking etc.
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,46 +34,25 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---089e014952961b4d2204f8fb43d3
-Content-Type: text/plain; charset=UTF-8
+On Fri, May 09, 2014 at 07:31:14PM +0200, Johannes Berg wrote:
+> On Fri, 2014-05-09 at 10:19 -0700, josh@joshtriplett.org wrote:
+> 
+> > I'd like to see this topic as well.  I think we could do a lot better
+> > here than we do.  And don't forget that GCC is one of our top static
+> > analysis tools, if only because it's the only one *everyone* runs; that
+> > includes both warnings and the possibility of shipping and building our
+> > own GCC plugin.
+> > 
+> > I'd also like to nominate Christopher Li, for Sparse.
+> 
+> Seconded, I'm also interested in general in whether people still think
+> sparse is useful and we should give it attention, or should focus more
+> on really getting everything into gcc - we have a number of sparse
+> warnings in very low-level header files that get used everywhere, for
+> example the one I just fixed in [1] or the one I tried to fix but that
+> ended up being buggy ([2]), but there doesn't seem to be much attention
+> to these during the patch submission etc.
+> 
+I use it (together with smatch) as part of my automated sanity tests.
 
-On 2014-05-09 1:42 PM, "James Bottomley" <
-James.Bottomley@hansenpartnership.com> wrote:
-> In theory, we could use link time optimization to place all the most
-> used functions in the first TLB entry.  However, as Steve said, have you
-> got measurements showing this helps?  If it's down in the noise, it's a
-> lot of work for no benefit.
-
-It's going to be highly workload dependent. For example, TPC-C randomly
-accesses all of memory. Even doubling the number of 2MB TLB entries isn't
-going to help more than a couple of percent. On the other hand, for a
-scientific workload which juuuust overflows the number of 2MB entries, you
-might see a 100% speedup with the freeing of a single 2MB entry to
-userspace. And there are many workloads in between (most exhibit at least
-some locality of reference).
-
---089e014952961b4d2204f8fb43d3
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<p>On 2014-05-09 1:42 PM, &quot;James Bottomley&quot; &lt;<a href=3D"mailto=
-:James.Bottomley@hansenpartnership.com">James.Bottomley@hansenpartnership.c=
-om</a>&gt; wrote:<br>
-&gt; In theory, we could use link time optimization to place all the most<b=
-r>
-&gt; used functions in the first TLB entry. =C2=A0However, as Steve said, h=
-ave you<br>
-&gt; got measurements showing this helps? =C2=A0If it&#39;s down in the noi=
-se, it&#39;s a<br>
-&gt; lot of work for no benefit.</p>
-<p>It&#39;s going to be highly workload dependent. For example, TPC-C rando=
-mly accesses all of memory. Even doubling the number of 2MB TLB entries isn=
-&#39;t going to help more than a couple of percent. On the other hand, for =
-a scientific workload which juuuust overflows the number of 2MB entries, yo=
-u might see a 100% speedup with the freeing of a single 2MB entry to usersp=
-ace. And there are many workloads in between (most exhibit at least some lo=
-cality of reference).<br>
-
-</p>
-
---089e014952961b4d2204f8fb43d3--
+Guenter
