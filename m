@@ -1,26 +1,24 @@
-Return-Path: <rostedt@goodmis.org>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 009D9AED
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 846B3AED
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 15:38:20 +0000 (UTC)
-Received: from cdptpa-oedge-vip.email.rr.com
-	(cdptpa-outbound-snat.email.rr.com [107.14.166.229])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id DE74C20330
+	Fri,  9 May 2014 15:40:39 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C047A20330
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 15:38:18 +0000 (UTC)
-Date: Fri, 9 May 2014 11:38:17 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
+	Fri,  9 May 2014 15:40:38 +0000 (UTC)
+Date: Fri, 9 May 2014 11:40:35 -0400
+From: Theodore Ts'o <tytso@mit.edu>
 To: Josh Boyer <jwboyer@fedoraproject.org>
-Message-ID: <20140509113817.4a205543@gandalf.local.home>
-In-Reply-To: <CA+5PVA4NmUXtxFyR3FeXCj9YshtSMgweOBFpLfki+78xBn6H0A@mail.gmail.com>
+Message-ID: <20140509154035.GE15523@thunk.org>
 References: <20140509152319.GA26823@thunk.org>
 	<CA+5PVA4NmUXtxFyR3FeXCj9YshtSMgweOBFpLfki+78xBn6H0A@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>,
-	ksummit-discuss@lists.linuxfoundation.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CA+5PVA4NmUXtxFyR3FeXCj9YshtSMgweOBFpLfki+78xBn6H0A@mail.gmail.com>
+Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] Reminder for kernel summit nominations
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -31,9 +29,9 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, 9 May 2014 11:28:05 -0400
-Josh Boyer <jwboyer@fedoraproject.org> wrote:
+-linux-kernel
 
+On Fri, May 09, 2014 at 11:28:05AM -0400, Josh Boyer wrote:
 > On Fri, May 9, 2014 at 11:23 AM, Theodore Ts'o <tytso@mit.edu> wrote:
 > > Thanks for all of the discussions on the kernel summit discuss list.
 > > Thanks also for the three (3) nomination e-mails (and one person who
@@ -44,13 +42,22 @@ Josh Boyer <jwboyer@fedoraproject.org> wrote:
 > There were a few suggestions for attendees made in the topic threads
 > that don't seem to be reflected in the nominations list.
 
-They were not required to be, but it's most likely they may have just
-been missed.
+It's possible I missed some, which is why separate nomination threads
+is easier.
 
-I believe Ted is asking everyone to help us find those that were
-missed. Please, send us an email for those that were nominated in the
-threads and are not on the list.
+I deliberately didn't include lists of names of "people that would be
+useful if we're going to have discussion X", since we that presupposes
+that we are definitely going to have a particular discussion.  If you
+see someone who you think should attend regardless of whether we
+decide to include topic X, please send a separate nomination.
 
-Thanks,
+(Also note that we can't necessarily include everyone listed on a
+"useful for topic X" list even if we are going to include that topic
+on the agenda.  We'll try to use some good judgement, but some kind of
+priority listing or annotation of why someone was included, i.e., "we
+need at least one of Foo and Bar from the glibc community, and either
+Quux or Baz from the systemd community, etc.)
 
--- Steve
+Thanks!!
+
+						- Ted
