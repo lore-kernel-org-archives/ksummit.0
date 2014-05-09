@@ -1,26 +1,36 @@
-Return-Path: <arnd@arndb.de>
+Return-Path: <julia.lawall@lip6.fr>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id E00C2942
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 7475582A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 20:39:19 +0000 (UTC)
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.130])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 35D391FAA1
+	Fri,  9 May 2014 19:12:39 +0000 (UTC)
+Received: from mail3-relais-sop.national.inria.fr
+	(mail3-relais-sop.national.inria.fr [192.134.164.104])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 811A320264
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  9 May 2014 20:39:19 +0000 (UTC)
-From: Arnd Bergmann <arnd@arndb.de>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Fri, 09 May 2014 22:39:13 +0200
-Message-ID: <4440149.cMfuUKn6MV@wuerfel>
-In-Reply-To: <20140509151043.GC15523@thunk.org>
-References: <5367D989.1000504@linaro.org>
-	<1399581426.11946.12.camel@deadeye.wl.decadent.org.uk>
-	<20140509151043.GC15523@thunk.org>
+	Fri,  9 May 2014 19:12:38 +0000 (UTC)
+Date: Fri, 9 May 2014 21:02:26 +0200 (CEST)
+From: Julia Lawall <julia.lawall@lip6.fr>
+To: Steven Rostedt <rostedt@goodmis.org>
+In-Reply-To: <20140509143247.56c2a924@gandalf.local.home>
+Message-ID: <alpine.DEB.2.02.1405092100290.2019@localhost6.localdomain6>
+References: <alpine.DEB.2.10.1405081124000.24271@gentwo.org>
+	<1399595490.2230.13.camel@dabdike.int.hansenpartnership.com>
+	<alpine.DEB.2.10.1405090940080.11318@gentwo.org>
+	<20140509122451.5228a038@gandalf.local.home>
+	<alpine.DEB.2.10.1405091150410.11810@gentwo.org>
+	<1399657343.2166.61.camel@dabdike.int.hansenpartnership.com>
+	<alpine.DEB.2.10.1405091251130.13438@gentwo.org>
+	<20140509143247.56c2a924@gandalf.local.home>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-Cc: John Stultz <john.stultz@linaro.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Dealing with 2038
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+Cc: Sarah Sharp <sarah@minilop.net>, ksummit-discuss@lists.linuxfoundation.org,
+	Greg KH <gregkh@linuxfoundation.org>,
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Julia Lawall <julia.lawall@lip6.fr>, Darren Hart <darren@dvhart.com>,
+	Christoph Lameter <cl@linux.com>, Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Kernel tinification: shrinking
+ the kernel and avoiding size regressions
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,46 +40,30 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Friday 09 May 2014 11:10:43 Theodore Ts'o wrote:
-> On Thu, May 08, 2014 at 09:37:06PM +0100, Ben Hutchings wrote:
+On Fri, 9 May 2014, Steven Rostedt wrote:
+
+> On Fri, 9 May 2014 12:52:00 -0500 (CDT)
+> Christoph Lameter <cl@linux.com> wrote:
+> 
+> > On Fri, 9 May 2014, James Bottomley wrote:
 > > 
-> > LFS is far from universally supported by applications, 17 years after it
-> > was standardised.  In fact, many applications recently regressed due to
-> > a broken test for LFS in autoconf <https://bugs.debian.org/742780>.  It
-> > doesn't seem like a good example to follow.
+> > > > Global optimization may allow the folding of small functions into a larger
+> > > > one when advantageous (which is not simple to determine).
+> > >
+> > > It's possible, but complex ... I'd really like to see proof that it
+> > > helps before thinking about it.
+> > 
+> > The proof may mean that one will have to do the work.
 > 
-> Yes, that was my point.
+> Hello Chicken, meet Egg!
 > 
-> > However this is done, almost every library that includes time_t in its
-> > API will change ABI.  I say 'almost' because glibc will probably use
-> > symbol versioning or mangling to maintain binary compatibility, but most
-> > library maintainers won't go to that trouble.
 > 
-> Agreed.  This is why I'm not sure anything other than a hard ABI break
-> is realistic.  Yes, it's incredibly painful, and the distro's will
-> probably be very unhappy, but I suspect the alternatives are worse.
-> The only real question is do we start trying to deal with the pain
-> now, or in 2020, or in 2030, or 2035, or even worse, in 2037....
-> 
-> Given what what I saw with Y2K, if I was going to participate in a
-> betting pool on the question, I'd probably put my money down for 2035
-> or so.  :-/
+> This is what proof of concepts are for.
 
-I think an important distinction is that the majority of systems that
-will be seriously affected are embedded machines, which run a custom
-user space anyway.
+Which kinds of functions are being discussed?  For example, similar 
+drivers may use similar functions, but if one has only one instance of a 
+driver that has a particular functionality, only one of those functions 
+may ever be executed.  Is there only a benefit if similar functions are 
+all executed frequently in practice?
 
-x86-32 PCs and end-user distros are going to be largely extinct
-in a couple of years and replaced by x64-64 or arm64 depending
-on who you ask, and arm32 Android phones are going to be
-replaced with arm64 hardware shortly after, or they see an ABI
-break before then anyway.
-The typical embedded machines don't even use glibc, and they
-cross-build everything from source.
-
-While I'm sure there will be the odd case where people run into the
-2038 problem on existing software, we can for now solve a lot of
-problems just by getting the kernel interfaces in place and making
-it as easy as possible to build a user space that uses the new types.
-
-	Arnd
+julia
