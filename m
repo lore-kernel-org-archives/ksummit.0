@@ -1,28 +1,29 @@
-Return-Path: <saharabeara@gmail.com>
+Return-Path: <teobaluta@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 948232FA
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 0F49A3C6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 11 May 2014 17:49:38 +0000 (UTC)
-Received: from mail-ie0-f170.google.com (mail-ie0-f170.google.com
-	[209.85.223.170])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CD7711F950
+	Sun, 11 May 2014 17:52:14 +0000 (UTC)
+Received: from mail-qg0-f42.google.com (mail-qg0-f42.google.com
+	[209.85.192.42])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DFB421FA42
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 11 May 2014 17:49:37 +0000 (UTC)
-Received: by mail-ie0-f170.google.com with SMTP id ar20so2649807iec.29
+	Sun, 11 May 2014 17:52:12 +0000 (UTC)
+Received: by mail-qg0-f42.google.com with SMTP id q107so6742865qgd.15
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 11 May 2014 10:49:37 -0700 (PDT)
+	Sun, 11 May 2014 10:52:12 -0700 (PDT)
 MIME-Version: 1.0
-Sender: saharabeara@gmail.com
-In-Reply-To: <1995824.rdvEX5SOIt@avalon>
+In-Reply-To: <20140511171824.GB2527@linux.com>
 References: <20140511041449.GP12708@titan.lakedaemon.net>
 	<CABe+QzBVC=dRZO4+v93A_Cy2nFuf_ajcq8KO20f5PPzVUf2bkg@mail.gmail.com>
 	<20140511162918.GA2527@linux.com> <1995824.rdvEX5SOIt@avalon>
-Date: Sun, 11 May 2014 10:49:37 -0700
-Message-ID: <CABe+QzCPNma6Hjcb-rDBDEQVH4qW7A3Z-ij5emn9tQhwbPY9Fg@mail.gmail.com>
-From: Sarah A Sharp <sarah@thesharps.us>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Content-Type: multipart/alternative; boundary=047d7bdc0dc64bc5ca04f9237482
+	<20140511171824.GB2527@linux.com>
+Date: Sun, 11 May 2014 20:52:12 +0300
+Message-ID: <CACV2jQACREM61UYrR0=AGDMQ8WYguwaX6HyPFR+wc5oXTRpheA@mail.gmail.com>
+From: =?UTF-8?B?VGVvZG9yYSBCxINsdcWjxIM=?= <teobaluta@gmail.com>
+To: Levente Kurusa <levex@linux.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 Cc: PJ Waskiewicz <pjwaskiewicz@gmail.com>,
 	Dirk Hohndel <hohndel@infradead.org>,
 	ksummit-discuss@lists.linuxfoundation.org, Anton Arapov <arapov@gmail.com>,
@@ -37,175 +38,183 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---047d7bdc0dc64bc5ca04f9237482
-Content-Type: text/plain; charset=UTF-8
+Hi,
 
-On May 11, 2014 9:37 AM, "Laurent Pinchart" <
-laurent.pinchart@ideasonboard.com> wrote:
+On Sun, May 11, 2014 at 8:18 PM, Levente Kurusa <levex@linux.com> wrote:
+> Hi,
 >
-> On Sunday 11 May 2014 18:29:18 Levente Kurusa wrote:
-> > On Sun, May 11, 2014 at 08:57:01AM -0700, Sarah A Sharp wrote:
-> > > On Sat, May 10, 2014 at 9:14 PM, Jason Cooper wrote:
-> > > > All,
-> > > >
-> > > > I recently came across a patch series attempting to implement
-encoding
-> > > > kernel oops into a QR code [1].  The QR code is then dumped to the
-> > > >
-> > > > framebuffer.  The QR code is a URL of the form:
-> > > >   https://oops.kernel.org/?qr=<base64 compressed oops>
-> > > >
-> > > > This proposal is interesting because it fundamentally changes the
+> On Sun, May 11, 2014 at 06:37:47PM +0200, Laurent Pinchart wrote:
+>> On Sunday 11 May 2014 18:29:18 Levente Kurusa wrote:
+>> > On Sun, May 11, 2014 at 08:57:01AM -0700, Sarah A Sharp wrote:
+>> > > On Sat, May 10, 2014 at 9:14 PM, Jason Cooper wrote:
+>> > > > All,
+>> > > >
+>> > > > I recently came across a patch series attempting to implement enco=
+ding
+>> > > > kernel oops into a QR code [1].  The QR code is then dumped to the
+>> > > >
+>> > > > framebuffer.  The QR code is a URL of the form:
+>> > > >   https://oops.kernel.org/?qr=3D<base64 compressed oops>
+>> > > >
+>> > > > This proposal is interesting because it fundamentally changes the =
 way
-> > > > users report bugs to the kernel community.  First and foremost, it
-makes
-> > > > it much easier.
-> > > >
-> > > >   1) oops occurs
-> > > >   2) user pulls out phone, scans QR code
-> > > >       - at this point, the oops is recorded on the server.  Nothing
-more
-> > > >         is required of the user.
-> >
-> > To be precise, most scanners don't automatically open the links
-> > found in QR codes and hence a tap/click from the user is required. :-)
-> >
-> > > >   optionally:
-> > > >
-> > > >   3) user fills out a minimal web form
-> > > >       - Name
-> > > >       - email address (do you want to receive emails re this oops?)
-> > > >       - what were you doing when it occurred?
-> > > >       - is it repeatable?
-> > >
-> > > By "web form", do you mean a new form or something that's part of
-> > > kerneloops.org?
-> > >
-> > > It would be great if we could allow users to open a new
-> > > bugzilla.kernel.org entry for the oops.  I believe Teodora is working
-> > > on an Android app that could do this.  Hopefully it could store
-> > > information about the person's system, and pre-propagate the bugzilla
-> > > entry with this information.
-> >
-> > Yes, opening a bugzilla entry might be a good idea if the user fills
-> > out the form. To be honest, I think for that to work we would need to
-> > clean up bugzilla a bit. I try to do some work there every now and
-> > then, but nobody is closing the bugs I have fixed...
-> >
-> > Not sure about how would we create the bugzilla entry? I mean, which
-> > section, urgency, etc. how would we decide on those solely based on
-> > the OOPS? Or should we ask the user to fill it out?
+>> > > > users report bugs to the kernel community.  First and foremost, it=
+ makes
+>> > > > it much easier.
+>> > > >
+>> > > >   1) oops occurs
+>> > > >   2) user pulls out phone, scans QR code
+>> > > >       - at this point, the oops is recorded on the server.  Nothin=
+g more
+>> > > >         is required of the user.
+>> >
+>> > To be precise, most scanners don't automatically open the links
+>> > found in QR codes and hence a tap/click from the user is required. :-)
+
+That's correct, you still need a click, so maybe a special Android app
+could do the work so you don't need to turn the compressed oops into
+base64.
+
+>> >
+>> > > >   optionally:
+>> > > >
+>> > > >   3) user fills out a minimal web form
+>> > > >       - Name
+>> > > >       - email address (do you want to receive emails re this oops?=
+)
+>> > > >       - what were you doing when it occurred?
+>> > > >       - is it repeatable?
+>> > >
+>> > > By "web form", do you mean a new form or something that's part of
+>> > > kerneloops.org?
+>> > >
+>> > > It would be great if we could allow users to open a new
+>> > > bugzilla.kernel.org entry for the oops.  I believe Teodora is workin=
+g
+>> > > on an Android app that could do this.  Hopefully it could store
+>> > > information about the person's system, and pre-propagate the bugzill=
+a
+>> > > entry with this information.
+
+I am and I've got the part of scanning and decompressing the QR oops
+into text done. The way I see it, you may want to simply read the oops
+on the phone or tablet so you should be able to keep a local history
+of Oops that you've scanned. You can add your profile information for
+bugzilla.kernel.org and then set an option to automatically send Oops
+messages you scanned or save them and send them later. I've sent an
+email to Konstantin, the maintainer of bugzilla.kernel.org, asking for
+more details on the actual sending of the Oops message.
+
+>> >
+>> > Yes, opening a bugzilla entry might be a good idea if the user fills
+>> > out the form. To be honest, I think for that to work we would need to
+>> > clean up bugzilla a bit. I try to do some work there every now and
+>> > then, but nobody is closing the bugs I have fixed...
+>> >
+>> > Not sure about how would we create the bugzilla entry? I mean, which
+>> > section, urgency, etc. how would we decide on those solely based on
+>> > the OOPS? Or should we ask the user to fill it out?
+>>
+>> Filling a complex form on a handheld device can be pretty tedious. A two=
+ steps
+>> procedure that would allow entering long text on a real computer could b=
+e an
+>> interesting option.
+
+I think you could receive an email with a link to a partially
+completed bug report (which you sent when scanning the QR code) and
+follow that link on you computer to add stuff to your report. That'd
+be nice, wouldn't it?
+
+>>
 >
-> Filling a complex form on a handheld device can be pretty tedious. A two
-steps
-> procedure that would allow entering long text on a real computer could be
-an
-> interesting option.
-
-It would be interesting to see if the app could use Google voice
-recognition to fill in the text fields. Even just partially filling out the
-bugzilla form and allowing it to be edited later would be useful.
-
-To be clear: I'm suggesting the bugzilla entry be an *optional* part of the
-Android app. I suspect that if we automatically uploaded every oops,
-maintainers would shortly make a mail filter to ignore the reports from
-bugzilla.
-
-Sarah Sharp
-
---047d7bdc0dc64bc5ca04f9237482
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<p dir=3D"ltr">On May 11, 2014 9:37 AM, &quot;Laurent Pinchart&quot; &lt;<a=
- href=3D"mailto:laurent.pinchart@ideasonboard.com">laurent.pinchart@ideason=
-board.com</a>&gt; wrote:<br>
-&gt;<br>
-&gt; On Sunday 11 May 2014 18:29:18 Levente Kurusa wrote:<br>
-&gt; &gt; On Sun, May 11, 2014 at 08:57:01AM -0700, Sarah A Sharp wrote:<br=
+> Makes sense.
 >
-&gt; &gt; &gt; On Sat, May 10, 2014 at 9:14 PM, Jason Cooper wrote:<br>
-&gt; &gt; &gt; &gt; All,<br>
-&gt; &gt; &gt; &gt;<br>
-&gt; &gt; &gt; &gt; I recently came across a patch series attempting to imp=
-lement encoding<br>
-&gt; &gt; &gt; &gt; kernel oops into a QR code [1]. =C2=A0The QR code is th=
-en dumped to the<br>
-&gt; &gt; &gt; &gt;<br>
-&gt; &gt; &gt; &gt; framebuffer. =C2=A0The QR code is a URL of the form:<br=
+> What about only asking for an email address and then sending them
+> an automated message with a link where they can continue to add more
+> information to the report? (i.e. fill out the bugzilla)
+
+Indeed, if you have too much to fill in on your smartphone it could be
+inefficient.
+
 >
-&gt; &gt; &gt; &gt; =C2=A0 <a href=3D"https://oops.kernel.org/?qr=3D">https=
-://oops.kernel.org/?qr=3D</a>&lt;base64 compressed oops&gt;<br>
-&gt; &gt; &gt; &gt;<br>
-&gt; &gt; &gt; &gt; This proposal is interesting because it fundamentally c=
-hanges the way<br>
-&gt; &gt; &gt; &gt; users report bugs to the kernel community. =C2=A0First =
-and foremost, it makes<br>
-&gt; &gt; &gt; &gt; it much easier.<br>
-&gt; &gt; &gt; &gt;<br>
-&gt; &gt; &gt; &gt; =C2=A0 1) oops occurs<br>
-&gt; &gt; &gt; &gt; =C2=A0 2) user pulls out phone, scans QR code<br>
-&gt; &gt; &gt; &gt; =C2=A0 =C2=A0 =C2=A0 - at this point, the oops is recor=
-ded on the server. =C2=A0Nothing more<br>
-&gt; &gt; &gt; &gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 is required of the user.<br=
+> I guess we should also be careful with the bugzilla. We really don't
+> want propertiary driver crashes added to the bugzilla automatically.
+> Nor do we want the same oops added twice, right? How would we
+> differentiate between the two - essentially the same - oopses?
+> Obviously, if we find two 'same' oopses then we can add the new
+> info to the old bug.
 >
-&gt; &gt;<br>
-&gt; &gt; To be precise, most scanners don&#39;t automatically open the lin=
-ks<br>
-&gt; &gt; found in QR codes and hence a tap/click from the user is required=
-. :-)<br>
-&gt; &gt;<br>
-&gt; &gt; &gt; &gt; =C2=A0 optionally:<br>
-&gt; &gt; &gt; &gt;<br>
-&gt; &gt; &gt; &gt; =C2=A0 3) user fills out a minimal web form<br>
-&gt; &gt; &gt; &gt; =C2=A0 =C2=A0 =C2=A0 - Name<br>
-&gt; &gt; &gt; &gt; =C2=A0 =C2=A0 =C2=A0 - email address (do you want to re=
-ceive emails re this oops?)<br>
-&gt; &gt; &gt; &gt; =C2=A0 =C2=A0 =C2=A0 - what were you doing when it occu=
-rred?<br>
-&gt; &gt; &gt; &gt; =C2=A0 =C2=A0 =C2=A0 - is it repeatable?<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; By &quot;web form&quot;, do you mean a new form or something=
- that&#39;s part of<br>
-&gt; &gt; &gt; <a href=3D"http://kerneloops.org">kerneloops.org</a>?<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; It would be great if we could allow users to open a new<br>
-&gt; &gt; &gt; <a href=3D"http://bugzilla.kernel.org">bugzilla.kernel.org</=
-a> entry for the oops. =C2=A0I believe Teodora is working<br>
-&gt; &gt; &gt; on an Android app that could do this. =C2=A0Hopefully it cou=
-ld store<br>
-&gt; &gt; &gt; information about the person&#39;s system, and pre-propagate=
- the bugzilla<br>
-&gt; &gt; &gt; entry with this information.<br>
-&gt; &gt;<br>
-&gt; &gt; Yes, opening a bugzilla entry might be a good idea if the user fi=
-lls<br>
-&gt; &gt; out the form. To be honest, I think for that to work we would nee=
-d to<br>
-&gt; &gt; clean up bugzilla a bit. I try to do some work there every now an=
-d<br>
-&gt; &gt; then, but nobody is closing the bugs I have fixed...<br>
-&gt; &gt;<br>
-&gt; &gt; Not sure about how would we create the bugzilla entry? I mean, wh=
-ich<br>
-&gt; &gt; section, urgency, etc. how would we decide on those solely based =
-on<br>
-&gt; &gt; the OOPS? Or should we ask the user to fill it out?<br>
-&gt;<br>
-&gt; Filling a complex form on a handheld device can be pretty tedious. A t=
-wo steps<br>
-&gt; procedure that would allow entering long text on a real computer could=
- be an<br>
-&gt; interesting option.</p>
-<p dir=3D"ltr">It would be interesting to see if the app could use Google v=
-oice recognition to fill in the text fields. Even just partially filling ou=
-t the bugzilla form and allowing it to be edited later would be useful.</p>
+> Maybe add filter based on 'P' taint to solve the propertiary issue.
+>
+> Oh and of course the email address thing would be optional.
+>
+>> > > > I recall discussing this with some RedHat devs at the 2012 KS, so =
+I know
+>> > > > there is some interest in this capability.
+>> > > >
+>> > > > I'd be interested in having this as a tech topic for several reaso=
+ns.
+>> > > > First, to raise awareness of the project among the kernel communit=
+y
+>> > > > (where did all these oops reports start coming from?).  Second, to
+>> > > > solicit opinions on how to feed those oops reports into the commun=
+ity.
+>> > > > And last, to sit down with the maintainer of oops.kernel.org and s=
+cope
+>> > > > out what work needs to be done to support this on the server side.
+>> > > >
+>> > > > Of course, all of this assumes the patches get accepted.  There's =
+been
+>> > > > no rejections so far, though. :)
+>> > > >
+>> > > > If accepted, I would expect the authors to be the ones leading the
+>> > > > discussion (Levente, Teodora).
+>> > >
+>> > > I would recommend that Teodora lead the discussion, since this is he=
+r
+>> > > project.  Levente has been provided helpful commentary and additiona=
+l
+>> > > patches, and should definitely participate in the discussion as well=
+.
 
-<p dir=3D"ltr">To be clear: I&#39;m suggesting the bugzilla entry be an *op=
-tional* part of the Android app. I suspect that if we automatically uploade=
-d every oops, maintainers would shortly make a mail filter to ignore the re=
-ports from bugzilla.</p>
+I think it'd be a great experience if I could hold a presentation! :)
+The feedback was really great especially since this is a first for me!
 
-<p dir=3D"ltr">Sarah Sharp</p>
+>> >
+>> > I was just about to say that the order might not be the most correct. =
+:-)
+>> >
+>> > However, I am more than happy to help Teodora lead the discussion if
+>> > she decides so.
+>> >
+>> > > > Nominations:
+>> > > >
+>> > > > Levente Kurusa <levex@linux.com>
+>> > > > Teodora B=C4=83lu=C5=A3=C4=83 <teobaluta@gmail.com>
+>> > > >
+>> > > > Relevant folks:
+>> > > >
+>> > > > Konstantin Ryabitsev <mricon@kernel.org>
+>> > > > Jason Cooper <jason@lakedaemon.net>             (auto-nominated)
+>> > >
+>> > > Another relevant person to include would be PJ Waskiewicz.  Teo work=
+ed
+>> > > on the QR code generator during her internship with the FOSS Outreac=
+h
+>> > > Program for Women (OPW) and PJ was her mentor for the project.
+>> > >
+>> > > You mentioned the kerneloops.org maintainer, but didn't list him her=
+e?
+>> > >
+>> > >  Anton Arapov looks to be the maintainer, since he's the only
+>> > >
+>> > > contributor to the kerneloops.org github repo.
+>> > >
+>> > > The idea for the oops QR code generator came from Peter Anvin and Di=
+rk
+>> > > Hohndel, so they may want to participate in the discussion as well.
+>>
 
---047d7bdc0dc64bc5ca04f9237482--
+Thanks,
+Teodora
