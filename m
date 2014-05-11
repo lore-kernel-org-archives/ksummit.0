@@ -1,26 +1,21 @@
 Return-Path: <jason@lakedaemon.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 3CCF3681
+	by mail.linuxfoundation.org (Postfix) with ESMTP id E1FC12FA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 11 May 2014 03:00:25 +0000 (UTC)
-Received: from mho-01-ewr.mailhop.org (mho-03-ewr.mailhop.org [204.13.248.66])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8EA2D1FA42
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 11 May 2014 03:00:24 +0000 (UTC)
-Date: Sat, 10 May 2014 23:00:09 -0400
+	Sun, 11 May 2014 04:14:53 +0000 (UTC)
+Date: Sun, 11 May 2014 00:14:49 -0400
 From: Jason Cooper <jason@lakedaemon.net>
-To: Arnd Bergmann <arnd@arndb.de>, Olof Johansson <olof@lixom.net>,
-	Kevin Hilman <khilman@linaro.org>
-Message-ID: <20140511030009.GO12708@titan.lakedaemon.net>
+To: Levente Kurusa <levex@linux.com>,
+	Teodora =?utf-8?B?QsSDbHXFo8SD?= <teobaluta@gmail.com>,
+	Konstantin Ryabitsev <mricon@kernel.org>
+Message-ID: <20140511041449.GP12708@titan.lakedaemon.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Cc: Rob Herring <robh@kernel.org>,
-	Linux ARM Kernel <linux-arm-kernel@lists.infradead.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: [Ksummit-discuss] [TECH TOPIC] ARM legacy board DT conversion
-	finalization
+Content-Transfer-Encoding: quoted-printable
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: [Ksummit-discuss] [TECH TOPIC] QR encoded oops for the kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,51 +27,59 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 
 All,
 
-Over the past couple of years, the ARM sub-arch maintainers have been
-doing a great amount of work migrating to devicetree.
+I recently came across a patch series attempting to implement encoding
+kernel oops into a QR code [1].  The QR code is then dumped to the
+framebuffer.  The QR code is a URL of the form:
 
-In conjunction with this effort, we've been slowly migrating the
-existing legacy platforms (board files) over to devicetree.  For the
-small part the mvebu maintainers are responsible for, we can see the
-light at the end of the tunnel now. :-)
+  https://oops.kernel.org/?qr=3D<base64 compressed oops>
 
-I imagine several other sub-arches are in a similar situation.  I think
-it would be useful for us all to sit down, compare notes, and pool our
-resources/experiences to coordinate a final push.
+This proposal is interesting because it fundamentally changes the way
+users report bugs to the kernel community.  First and foremost, it makes
+it much easier.
 
-So, I'm proposing a session where each sub-arch gives a brief run-down
-of the status of the legacy board conversion, and wraps up with a todo
-list.  After all of the sub-arches have given their status (5 - 10
-minutes each?), we hash out helping each other with the final pieces.
+  1) oops occurs
+  2) user pulls out phone, scans QR code
+      - at this point, the oops is recorded on the server.  Nothing more
+        is required of the user.
 
-Also on the agenda, discussing the fate of the legacy sub-arches that
-haven't even begun conversion to devicetree.
+  optionally:
 
-The intended outcome would be to have a sorted list of remaining
-conversions, and who is pitching in to help out for each item.  Also, a
-sorted list of unconverted sub-arches, broken down into 'deprecate',
-'convert', and 'seek info'.
+  3) user fills out a minimal web form
+      - Name
+      - email address (do you want to receive emails re this oops?)
+      - what were you doing when it occurred?
+      - is it repeatable?
 
-On a final note, I'd like to include a hobbyist voice or two in here.
-Since a lot of the legacy platforms are supported by embedded Debian,
-OpenWRT, and similar, getting an idea of which ones we can deprecate
-would save quite a bit of work.
+I recall discussing this with some RedHat devs at the 2012 KS, so I know
+there is some interest in this capability.
 
-I haven't heard word of an ARM mini-summit yet.  If that happens,
-obviously this topic would be most appropriate there.
+I'd be interested in having this as a tech topic for several reasons.
+First, to raise awareness of the project among the kernel community
+(where did all these oops reports start coming from?).  Second, to
+solicit opinions on how to feed those oops reports into the community.
+And last, to sit down with the maintainer of oops.kernel.org and scope
+out what work needs to be done to support this on the server side.
+
+Of course, all of this assumes the patches get accepted.  There's been
+no rejections so far, though. :)
+
+If accepted, I would expect the authors to be the ones leading the
+discussion (Levente, Teodora).
 
 Nominations:
 
-Jason Cooper		(auto-nominated)
-Andrew Lunn
-Gregory Clement
-Sebastian Hesselbarth	(auto-nominated)
-Thomas Petazzoni	(auto-nominated)
+Levente Kurusa <levex@linux.com>
+Teodora B=C4=83lu=C5=A3=C4=83 <teobaluta@gmail.com>
 
-I can think of several names from the ARM Linux mailinglist, but since I
-can't create a conclusive list, I'll leave it up to the individuals to
-pipe up if they are interested.
+Relevant folks:
+
+Konstantin Ryabitsev <mricon@kernel.org>
+Jason Cooper <jason@lakedaemon.net>		(auto-nominated)
+...
+
 
 thx,
 
 Jason.
+
+[1] https://lkml.org/lkml/2014/3/17/525
