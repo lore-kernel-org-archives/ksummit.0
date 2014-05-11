@@ -1,31 +1,25 @@
-Return-Path: <jason@lakedaemon.net>
+Return-Path: <wsa@the-dreams.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 41EA14D3
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 4506348E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 11 May 2014 05:30:41 +0000 (UTC)
-Received: from mho-01-ewr.mailhop.org (mho-03-ewr.mailhop.org [204.13.248.66])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 147FF201E1
+	Sun, 11 May 2014 11:39:21 +0000 (UTC)
+Received: from pokefinder.org (sauhun.de [89.238.76.85])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id AB6F21FD42
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 11 May 2014 05:30:40 +0000 (UTC)
-Received: from pool-96-249-243-124.nrflva.fios.verizon.net ([96.249.243.124]
-	helo=titan)
-	by mho-01-ewr.mailhop.org with esmtpsa (TLSv1:AES256-SHA:256)
-	(Exim 4.72) (envelope-from <jason@lakedaemon.net>)
-	id 1WjMLP-000E8V-7i for ksummit-discuss@lists.linuxfoundation.org;
-	Sun, 11 May 2014 05:30:39 +0000
-Received: from titan.lakedaemon.net (localhost [127.0.0.1])
-	by titan (Postfix) with ESMTP id 09199571A50
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 11 May 2014 01:30:38 -0400 (EDT)
-Date: Sun, 11 May 2014 01:30:37 -0400
-From: Jason Cooper <jason@lakedaemon.net>
-To: ksummit-discuss@lists.linuxfoundation.org
-Message-ID: <20140511053037.GQ12708@titan.lakedaemon.net>
+	Sun, 11 May 2014 11:39:20 +0000 (UTC)
+Date: Sun, 11 May 2014 13:10:34 +0200
+From: Wolfram Sang <wsa@the-dreams.de>
+To: Dave Jones <davej@redhat.com>
+Message-ID: <20140511111034.GA6400@katana>
+References: <20140509170709.GA9747@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="sm4nu43k4a2Rpi4c"
 Content-Disposition: inline
-Subject: [Ksummit-discuss] [CORE TOPIC] hobbyist recruiting
+In-Reply-To: <20140509170709.GA9747@redhat.com>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] coverity, static checking etc.
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,58 +29,61 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-All,
 
-During the proposal period for last year's KS, there was quite a bit of
-talk regarding maintainer survivorship.  imho, the best solution
-involves continuously bringing in new maintainers and developers as they
-crop up.  Should we encounter the unfortunate situation of needing to
-find a replacement, having plenty of pre-trained developers on hand
-gives us more flexibility.
+--sm4nu43k4a2Rpi4c
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-As a hobbyist, I of course think the answer is recruiting more hobbyists
-into the ranks :)
 
-Unfortunately, we ran out of time during the lightning round last year
-for me to give a short presentation on the topic of hobbyist recruiting.
+> Last year I had been doing the coverity scans on an almost daily basis
+> for 2-3 months.  Now that we're a year in, I'd like to share some
+> results, and show some of the more common trends and bug patterns that
+> seem to pop up.
+>=20
+> [ spoiler: For the most part, it's all pretty positive, but we still suck=
+ ]
+>=20
+> It would also be good to have some more discussion about other tools
+> we could be making more use of.  (Nomination: Dan Carpenter for smatch).
 
-I'm not a fan of reaching out in the direct sense.  I much prefer to
-keep my eye out for new comers who seek out the community and make sure
-they don't get ignored.  I know a lot of us have pretty aggressive mail
-filtering out of necessity.  For those interested in assisting me, I'd
-like to discuss creating some basic resources to facilitate spotting new
-comers and directing them as appropriate.
+I'm definately interested.
 
-Something as simple as creating a separate mailbox and ruleset for
-senders we haven't seen before (with a few keywords to filter out the
-spam) would help greatly.
+In my workflow, I use sparse/smatch/coccicheck/cppcheck before applying
+my own work, or patches to the i2c branches. (Oh, and rats and flawfinder,
+too, but so far, they didn't point to something worthwhile.)
 
-On a related topic, I've also started receiving patches from first time
-contributors who are taking part in the Eudyptula Challenge [1].  No, I
-hadn't heard of it either.  It's very similar to the Matasano Crypto
-Challenge [2], except that it builds up to contributing patches to the
-kernel.
+I am interested in workflows and experiences from other people, how
+usage of static analyzers could be spread (gcc inclusion sounds great),
+how to make them more robust, etc... And by doing that, get a better
+feeling when an issue left the scope of static code checking and needs
+some proper handling.
 
-If this topic is accepted, I'll give a status update on the hobbyists
-I've seen since the last KS, what work they've done (hint: those
-Chromecasts can boot mainline now ;-), I'll also compile some rough
-stats on first-time posters to the most popular email lists.  eg was it
-legit, did anyone respond, did the poster return?  Currently, I'm
-thinking lkml and lakml would be most relevant.  There may be other
-lists I'm not aware of.  Please let me know if that's the case.
+Thanks,
 
-If anyone is already doing work in this area, I'd be interested in
-hearing from you as well.
+   Wolfram
 
-Nominations:
 
-Jason Cooper		(auto-nominated)
-Andrew Lunn
-Sebastian Hesselbarth	(auto-nominated)
+--sm4nu43k4a2Rpi4c
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
 
-thx,
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.15 (GNU/Linux)
 
-Jason.
+iQIcBAEBAgAGBQJTb1qqAAoJEBQN5MwUoCm2qSsP/0mRCuJAM/gfMZRrs45z1t8x
+kaQQ6HY+w00gi6jUgpG0kfphaud/+MmHapym9tOtRY7oh+YTcYEfa/4cz8MxEY3w
+v4cMnqKphppsxYUNnfeQA1gS2132K/rfQxtt6L15f085INSPq1yYGNi10f3aBFCm
+yX2rb/oe2OV0R+lPSqEAPb3D5gl+m6LAImf8brwkVXGpdkJsethDWmdIlcNsfAnK
+A/ZyYvI9oJrRkNmbPLxDKaiSdeAk9q5ddsg85pbmRPTG+qKC9QQ8ZtxqPcRq31vD
+9khkLubd1ZnNZm8OyA8E2NnMpTHahnePg+wRVHQqIS/vrWHgEE8z0zRHpuhp1hIx
+eYKlSnBzWVKc0yvKPFekQJdfR+HwriF78ZNkoAAiX0VQeENHY/P5BMrCQRZh+L4k
+6/0sSptjhEGuTCU8kC5JfmS6PXSd8QYiUOzE7+a7SPPHrZmZiuOepdqxQQw5cHMc
+xsczFn9rSqbfy8lRSnMenvSHFwJ1cqFK7BTRIIoTjZOcFas4Mf2rw79GamwMLcGg
+6X9njgqWbsAVFjf0vk9vOnqHbLV7nE1UkXocOx1gL6gPY/nWsgE8dlTlfEqErXrS
+bJf2N3Cm9bUuuXyhY48spCtcTuZUadgjsvrTEKA5aC7GTm8N2XpwpQ8niOwAAwQ/
+oK89WV4PkgwP3lai+hqG
+=AhxN
+-----END PGP SIGNATURE-----
 
-[1] http://eudyptula-challenge.org/
-[2] http://www.matasano.com/articles/crypto-challenges/
+--sm4nu43k4a2Rpi4c--
