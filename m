@@ -1,24 +1,30 @@
-Return-Path: <tytso@thunk.org>
+Return-Path: <laurent.pinchart@ideasonboard.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 329FF3C6
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 6D0A12FA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 11 May 2014 21:35:45 +0000 (UTC)
-Date: Sun, 11 May 2014 17:35:39 -0400
-From: Theodore Ts'o <tytso@mit.edu>
-To: Hans Verkuil <hverkuil@xs4all.nl>
-Message-ID: <20140511213539.GB5480@thunk.org>
-References: <20140511053037.GQ12708@titan.lakedaemon.net>
-	<536FBA0E.5090301@gmail.com> <20140511190752.GC2527@linux.com>
-	<20140511192630.GA14115@kroah.com>
-	<20140511195011.GD2527@linux.com> <536FDE91.3050708@xs4all.nl>
+	Sun, 11 May 2014 21:49:35 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+	[95.142.166.194])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 33C4A1F9D3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sun, 11 May 2014 21:49:34 +0000 (UTC)
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Teodora =?utf-8?B?QsSDbHXFo8SD?= <teobaluta@gmail.com>
+Date: Sun, 11 May 2014 23:49:32 +0200
+Message-ID: <3518968.MnEXZBTKnT@avalon>
+In-Reply-To: <CACV2jQACREM61UYrR0=AGDMQ8WYguwaX6HyPFR+wc5oXTRpheA@mail.gmail.com>
+References: <20140511041449.GP12708@titan.lakedaemon.net>
+	<20140511171824.GB2527@linux.com>
+	<CACV2jQACREM61UYrR0=AGDMQ8WYguwaX6HyPFR+wc5oXTRpheA@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <536FDE91.3050708@xs4all.nl>
-Cc: Jason Cooper <jason@lakedaemon.net>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] hobbyist recruiting
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Cc: PJ Waskiewicz <pjwaskiewicz@gmail.com>,
+	Dirk Hohndel <hohndel@infradead.org>,
+	ksummit-discuss@lists.linuxfoundation.org, Anton Arapov <arapov@gmail.com>,
+	Jason Cooper <jason@lakedaemon.net>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] QR encoded oops for the kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -28,87 +34,217 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sun, May 11, 2014 at 10:33:21PM +0200, Hans Verkuil wrote:
-> It certainly wouldn't hurt, but I'm not sure if this will really solve
-> much. In general all you have to do is find the subsystem mailinglist
-> (or email of the subsystem maintainer) you are interested in and post
-> an email offering to help. Generally there are always jobs available
-> that need doing.
-> 
-> My experience though is that there is a big gap between offering to do
-> some work and actually doing that, and at least as large a gap from
-> going from posting a single patch to becoming a regular contributor.
+Hi,
 
-Perhaps something that's worth considering is the standard advice
-given to people considering mentoring GSOC --- which is that you need
-to spend at least 6-8 hours on your mentoring duties --- and after
-doing that, about 25% of your mentees will end up hanging around
-enough to contribute more to the project than the time invested in
-said mentee; another 25% or so would more or less break even in terms
-of time ROI, and then other 50% will end up being a net loss in terms
-of time invested[1].  And that's for a student who is getting paid to
-work full time for a few months.
+On Sunday 11 May 2014 20:52:12 Teodora B=C4=83lu=C5=A3=C4=83 wrote:
+> On Sun, May 11, 2014 at 8:18 PM, Levente Kurusa <levex@linux.com> wro=
+te:
+> > On Sun, May 11, 2014 at 06:37:47PM +0200, Laurent Pinchart wrote:
+> >> On Sunday 11 May 2014 18:29:18 Levente Kurusa wrote:
+> >> > On Sun, May 11, 2014 at 08:57:01AM -0700, Sarah A Sharp wrote:
+> >> > > On Sat, May 10, 2014 at 9:14 PM, Jason Cooper wrote:
+> >> > > > All,
+> >> > > >=20
+> >> > > > I recently came across a patch series attempting to implemen=
+t
+> >> > > > encoding kernel oops into a QR code [1].  The QR code is the=
+n
+> >> > > > dumped to the
+> >> > > >=20
+> >> > > > framebuffer.  The QR code is a URL of the form:
+> >> > > >   https://oops.kernel.org/?qr=3D<base64 compressed oops>
+> >> > > >=20
+> >> > > > This proposal is interesting because it fundamentally change=
+s the
+> >> > > > way users report bugs to the kernel community.  First and fo=
+remost,
+> >> > > > it makes it much easier.
+> >> > > >=20
+> >> > > >   1) oops occurs
+> >> > > >   2) user pulls out phone, scans QR code
+> >> > > >       - at this point, the oops is recorded on the server.  =
+Nothing
+> >> > > >         more is required of the user.
+> >> >=20
+> >> > To be precise, most scanners don't automatically open the links
+> >> > found in QR codes and hence a tap/click from the user is require=
+d. :-)
+>=20
+> That's correct, you still need a click, so maybe a special Android ap=
+p
+> could do the work so you don't need to turn the compressed oops into
+> base64.
+>=20
+> >> > > >   optionally:
+> >> > > >  =20
+> >> > > >   3) user fills out a minimal web form
+> >> > > >       - Name
+> >> > > >       - email address (do you want to receive emails re this=
+ oops?)
+> >> > > >       - what were you doing when it occurred?
+> >> > > >       - is it repeatable?
+> >> > >=20
+> >> > > By "web form", do you mean a new form or something that's part=
+ of
+> >> > > kerneloops.org?
+> >> > >=20
+> >> > > It would be great if we could allow users to open a new
+> >> > > bugzilla.kernel.org entry for the oops.  I believe Teodora is =
+working
+> >> > > on an Android app that could do this.  Hopefully it could stor=
+e
+> >> > > information about the person's system, and pre-propagate the b=
+ugzilla
+> >> > > entry with this information.
+>=20
+> I am and I've got the part of scanning and decompressing the QR oops
+> into text done. The way I see it, you may want to simply read the oop=
+s
+> on the phone or tablet so you should be able to keep a local history
+> of Oops that you've scanned. You can add your profile information for=
 
-[1] blogs.gnome.org/bolsh/2011/05/31/effective-mentoring-programs/
+> bugzilla.kernel.org and then set an option to automatically send Oops=
 
-What this implies is that people who approach mentoring should do so
-with some other goal than trying to get sh*t done.  A montor might be
-trying to encourage more women to participate in open source, for
-example.  And just as stock options in startup, if it pays off in
-other ways, that's pure gravy --- but it's not anything should count
-upon.
+> messages you scanned or save them and send them later. I've sent an
+> email to Konstantin, the maintainer of bugzilla.kernel.org, asking fo=
+r
+> more details on the actual sending of the Oops message.
+>=20
+> >> > Yes, opening a bugzilla entry might be a good idea if the user f=
+ills
+> >> > out the form. To be honest, I think for that to work we would ne=
+ed to
+> >> > clean up bugzilla a bit. I try to do some work there every now a=
+nd
+> >> > then, but nobody is closing the bugs I have fixed...
+> >> >=20
+> >> > Not sure about how would we create the bugzilla entry? I mean, w=
+hich
+> >> > section, urgency, etc. how would we decide on those solely based=
+ on
+> >> > the OOPS? Or should we ask the user to fill it out?
+> >>=20
+> >> Filling a complex form on a handheld device can be pretty tedious.=
+ A two
+> >> steps procedure that would allow entering long text on a real comp=
+uter
+> >> could be an interesting option.
+>=20
+> I think you could receive an email with a link to a partially
+> completed bug report (which you sent when scanning the QR code) and
+> follow that link on you computer to add stuff to your report. That'd
+> be nice, wouldn't it?
 
-The same is true in many work environments, by the way.  In general, a
-new employee needs at least 3 months, sometimes more, learning how to
-use the build and debugging environent, before they can really be
-counted upon to contribute in significant ways.  And that's for an
-employee who is working full time!
+Yes, that would do it I believe. It would also allow easier spam filter=
+ing, as=20
+oops submissions would need to be followed up by a user action before t=
+he=20
+bugzilla bug gets created.
 
-The challenge with a hobbyist is from the perspective of the
-maintainer, is that there is absolutely no guarantee that any
-particular hobbyist is going to stick around.  And unlike a summer
-intern or a new hire, the hobbist is in general not going to be
-working full time.
+> > Makes sense.
+> >=20
+> > What about only asking for an email address and then sending them
+> > an automated message with a link where they can continue to add mor=
+e
+> > information to the report? (i.e. fill out the bugzilla)
+>=20
+> Indeed, if you have too much to fill in on your smartphone it could b=
+e
+> inefficient.
+>=20
+> > I guess we should also be careful with the bugzilla. We really don'=
+t
+> > want propertiary driver crashes added to the bugzilla automatically=
+.
+> > Nor do we want the same oops added twice, right? How would we
+> > differentiate between the two - essentially the same - oopses?
+> > Obviously, if we find two 'same' oopses then we can add the new
+> > info to the old bug.
+> >=20
+> > Maybe add filter based on 'P' taint to solve the propertiary issue.=
 
-As a result, it simply doesn't make any sense to expect most
-maintainers to spend as much time as a intern mentor; since the
-expected returns for a hobbyist showing up asking for help is most
-likely going to be much less than for an summer intern.
+> >=20
+> > Oh and of course the email address thing would be optional.
+> >=20
+> >> > > > I recall discussing this with some RedHat devs at the 2012 K=
+S, so I
+> >> > > > know there is some interest in this capability.
+> >> > > >=20
+> >> > > > I'd be interested in having this as a tech topic for several=
 
-> I guess my point is that I wonder what the real problem is: are we driving
-> away newbies because of some bad practices on our side, or is it just
-> simply hard to find qualified and motivated developers?
+> >> > > > reasons. First, to raise awareness of the project among the =
+kernel
+> >> > > > community (where did all these oops reports start coming fro=
+m?).=20
+> >> > > > Second, to solicit opinions on how to feed those oops report=
+s into
+> >> > > > the community. And last, to sit down with the maintainer of
+> >> > > > oops.kernel.org and scope out what work needs to be done to =
+support
+> >> > > > this on the server side.
+> >> > > >=20
+> >> > > > Of course, all of this assumes the patches get accepted.  Th=
+ere's
+> >> > > > been no rejections so far, though. :)
+> >> > > >=20
+> >> > > > If accepted, I would expect the authors to be the ones leadi=
+ng the
+> >> > > > discussion (Levente, Teodora).
+> >> > >=20
+> >> > > I would recommend that Teodora lead the discussion, since this=
+ is her
+> >> > > project.  Levente has been provided helpful commentary and add=
+itional
+> >> > > patches, and should definitely participate in the discussion a=
+s well.
+>=20
+> I think it'd be a great experience if I could hold a presentation! :)=
 
-I'd say that it is extremely hard to find someone who is self-starting
-enough who is able get started hacking on a subsystem or any open
-source project on a part time basis, with minimal assistance from
-maintainers who are, after all, trying to make sure they can scale
-properly.
+> The feedback was really great especially since this is a first for me=
+!
+>=20
+> >> > I was just about to say that the order might not be the most cor=
+rect.
+> >> > :-)
+> >> >=20
+> >> > However, I am more than happy to help Teodora lead the discussio=
+n if
+> >> > she decides so.
+> >> >=20
+> >> > > > Nominations:
+> >> > > >=20
+> >> > > > Levente Kurusa <levex@linux.com>
+> >> > > > Teodora B=C4=83lu=C5=A3=C4=83 <teobaluta@gmail.com>
+> >> > > >=20
+> >> > > > Relevant folks:
+> >> > > >=20
+> >> > > > Konstantin Ryabitsev <mricon@kernel.org>
+> >> > > > Jason Cooper <jason@lakedaemon.net>             (auto-nomina=
+ted)
+> >> > >=20
+> >> > > Another relevant person to include would be PJ Waskiewicz.  Te=
+o
+> >> > > worked on the QR code generator during her internship with the=
+ FOSS
+> >> > > Outreach Program for Women (OPW) and PJ was her mentor for the=
 
-So some of this may be a matter of setting expectations.  I started
-out as a hobbyist.  But I was spending at least 20+ hours/week of my
-free time learning Linux on my free time --- 12 hours or so on the
-weekends, plus 2-3 hours every evening or in the early mornings.  I
-got essentially zero "support" from the project (which at the time,
-was just Linus and a few other poeple like myself).  Linus did nothing
-special to support me as a hobbyist, other than accepting patches if
-they were good ones.  After all, he was a hobbyist himself at the time!  :-)
+> >> > > project.
+> >> > >=20
+> >> > > You mentioned the kerneloops.org maintainer, but didn't list h=
+im
+> >> > > here?
+> >> > >=20
+> >> > >  Anton Arapov looks to be the maintainer, since he's the only
+> >> > >=20
+> >> > > contributor to the kerneloops.org github repo.
+> >> > >=20
+> >> > > The idea for the oops QR code generator came from Peter Anvin =
+and
+> >> > > Dirk Hohndel, so they may want to participate in the discussio=
+n as
+> >> > > well.
 
-The one difference from the way things were in 1991 is that kernel has
-gotten much more complicated, so it is true that it's a lot harder for
-someone to get started from ground zero than I had.  (Although in my
-case, it's true that also had several years of BSD 4.3 development
-experience as a paid student systems programmer, had contributed
-patches to perl and tcsh, and was the tech lead for Kerberos --- so as
-far as an open source hobbyist was concerned, I was admittedly in a
-fairly privileged position, even before I started working on Linux.)
+--=20
+Regards,
 
-However, the dynamic in terms of time and the return on investment
-hasn't changed.  From a purely self-interested perspective, if you
-have the choice of investing time bringing someone who has been
-assigned to work full-time on your subsystem, perhaps at your company,
-or perhaps at some other company, or taking that same time, and
-investing it in a hobbyist --- what choice makes sense from a
-rational, economically self-interested point of view?
-
-							- Ted
+Laurent Pinchart
