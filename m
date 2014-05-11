@@ -1,29 +1,20 @@
-Return-Path: <ilevex.linux@gmail.com>
+Return-Path: <hverkuil@xs4all.nl>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 341143C6
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 20AAE2FA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 11 May 2014 19:50:19 +0000 (UTC)
-Received: from mail-ee0-f52.google.com (mail-ee0-f52.google.com [74.125.83.52])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 288CB1FD49
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 11 May 2014 19:50:16 +0000 (UTC)
-Received: by mail-ee0-f52.google.com with SMTP id e53so4080427eek.39
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 11 May 2014 12:50:15 -0700 (PDT)
-Sender: Levente Kurusa <ilevex.linux@gmail.com>
-Date: Sun, 11 May 2014 21:50:11 +0200
-From: Levente Kurusa <levex@linux.com>
-To: Greg KH <greg@kroah.com>
-Message-ID: <20140511195011.GD2527@linux.com>
-References: <20140511053037.GQ12708@titan.lakedaemon.net>
-	<536FBA0E.5090301@gmail.com> <20140511190752.GC2527@linux.com>
-	<20140511192630.GA14115@kroah.com>
+	Sun, 11 May 2014 20:33:44 +0000 (UTC)
+Message-ID: <536FDE91.3050708@xs4all.nl>
+Date: Sun, 11 May 2014 22:33:21 +0200
+From: Hans Verkuil <hverkuil@xs4all.nl>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="a+b56+3nqLzpiR9O"
-Content-Disposition: inline
-In-Reply-To: <20140511192630.GA14115@kroah.com>
+To: Levente Kurusa <levex@linux.com>, Greg KH <greg@kroah.com>
+References: <20140511053037.GQ12708@titan.lakedaemon.net>	<536FBA0E.5090301@gmail.com>
+	<20140511190752.GC2527@linux.com>	<20140511192630.GA14115@kroah.com>
+	<20140511195011.GD2527@linux.com>
+In-Reply-To: <20140511195011.GD2527@linux.com>
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
 Cc: Jason Cooper <jason@lakedaemon.net>,
 	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] hobbyist recruiting
@@ -36,69 +27,92 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On 05/11/2014 09:50 PM, Levente Kurusa wrote:
+> On Sun, May 11, 2014 at 09:26:30PM +0200, Greg KH wrote:
+>> On Sun, May 11, 2014 at 09:16:02PM +0200, Levente Kurusa wrote:
+>>> Of course, the Eudyptula challenge did bring some new developers,
+>>> but as far as I see most of them posted only one patch/patchset.
+>>
+>> How do you know who is doing this challenge and who isn't?  I see a lot
+>> of new people coming in with multiple sets of patches for cleanups and
+>> good fixes over the past month or so.  Trying to track where they
+>> actually come from is nothing I really care about, and is probably
+>> impossible.
+> 
+> I've been thinking about the people who have said so in their
+> emails.
+> 
+>>
+>> If you track the number of unique people I take patches from, it's
+>> going up, as is our number of unique contributors to the kernel overall.
+>> It's been constantly increasing for the past 8 years, ever since I
+>> started tracking the kernel development statistics.
+>>
+>>> Maybe, there is a way so that they will stay and work more?
+>>
+>> I have loads of work for people to do if they want to do it:
+>> 	drivers/staging/*/TODO
+>>
+> 
+> I talk from my own experiences. I gave a talk recently and after the
+> talk people asked me how could they start. The problem, they say, is
+> that there really is no central TODO list. Maybe there could be a 
+> Documentation/NewcomersStartHere-like file that would list for
+> instance the TODO files in drivers/staging? It's nothing big, but
+> would certainly help people find their ways.
 
---a+b56+3nqLzpiR9O
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+It certainly wouldn't hurt, but I'm not sure if this will really solve
+much. In general all you have to do is find the subsystem mailinglist
+(or email of the subsystem maintainer) you are interested in and post
+an email offering to help. Generally there are always jobs available
+that need doing.
 
-On Sun, May 11, 2014 at 09:26:30PM +0200, Greg KH wrote:
-> On Sun, May 11, 2014 at 09:16:02PM +0200, Levente Kurusa wrote:
-> > Of course, the Eudyptula challenge did bring some new developers,
-> > but as far as I see most of them posted only one patch/patchset.
->=20
-> How do you know who is doing this challenge and who isn't?  I see a lot
-> of new people coming in with multiple sets of patches for cleanups and
-> good fixes over the past month or so.  Trying to track where they
-> actually come from is nothing I really care about, and is probably
-> impossible.
+My experience though is that there is a big gap between offering to do
+some work and actually doing that, and at least as large a gap from
+going from posting a single patch to becoming a regular contributor.
 
-I've been thinking about the people who have said so in their
-emails.
+One issue might be that as a 'newbie' the problems you can work on
+initially tend to be simple and often relatively boring ones (code cleanup,
+sparse fixes, etc). Any work on core code often requires substantial
+experience. And any work on specific drivers requires access to the right
+hardware, which is often expensive to arrange or just plain hard to find.
 
->=20
-> If you track the number of unique people I take patches from, it's
-> going up, as is our number of unique contributors to the kernel overall.
-> It's been constantly increasing for the past 8 years, ever since I
-> started tracking the kernel development statistics.
->=20
-> > Maybe, there is a way so that they will stay and work more?
->=20
-> I have loads of work for people to do if they want to do it:
-> 	drivers/staging/*/TODO
->=20
+I guess that this might be why most of the regular contributors started
+out trying to support their own or their company's hardware. Which tends
+to be a project at the right level: challenging yet typically not overly
+difficult, and you learn a lot about the subsystem (software, process and
+people).
 
-I talk from my own experiences. I gave a talk recently and after the
-talk people asked me how could they start. The problem, they say, is
-that there really is no central TODO list. Maybe there could be a=20
-Documentation/NewcomersStartHere-like file that would list for
-instance the TODO files in drivers/staging? It's nothing big, but
-would certainly help people find their ways.
+In the media subsystem I work in there are enough drivers that need a lot
+of TLC and would be an ideal starting point for a newbie. But how would
+they obtain the hardware to test with and would they even be interested in
+working on a driver for hardware that was already out of date 5 years ago,
+let alone today?
 
-> > Keep them somehow in the game, i.e. badges? Mozilla's Open Badges?
->=20
-> Gamifaction?  Really?  No.
->=20
+I guess my point is that I wonder what the real problem is: are we driving
+away newbies because of some bad practices on our side, or is it just
+simply hard to find qualified and motivated developers?
 
-Fedora is doing something like this as well.
+Answers on a postcard...
 
-Thanks,
-    Levente Kurusa.
+Regards,
 
---a+b56+3nqLzpiR9O
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
+	Hans
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v1.4.11 (GNU/Linux)
-
-iQEcBAEBAgAGBQJTb9RzAAoJELBqK2lO9dZBDdUIALHyUUx/7E8s2CdnRkXkyPUF
-/8BDW2WTqN0OBpltL+zhq9cLMW8z5jl/yJWdUOyip40jf1GwuXeC6MBUwrHX42lO
-S+lJviDaCQic9mMqQKS/xCkBMEsn3DmrXvb3jFmAdYYy9hObzEAVjUeeD/sD4aqo
-Vouyl9lELkZacZmRTWrQ81pgE8PxNvmF/fa7LFiS/HHdOWg4OtDH/YmsS4iG77Sw
-JfAgvSg9lb0Ni+bDKf8v0Gyw5wNVHuzzgSNIfrG2eKb4AI3i19dWiyM3+tuVbcF3
-8KTM08lwhz0sOf4g4MAID+YFGTU5YsLQaEksTveooC5eULmKBDw/odC8zmevIy8=
-=O261
------END PGP SIGNATURE-----
-
---a+b56+3nqLzpiR9O--
+>>> Keep them somehow in the game, i.e. badges? Mozilla's Open Badges?
+>>
+>> Gamifaction?  Really?  No.
+>>
+> 
+> Fedora is doing something like this as well.
+> 
+> Thanks,
+>     Levente Kurusa.
+> 
+> 
+> 
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+> 
