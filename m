@@ -1,30 +1,29 @@
-Return-Path: <benh@kernel.crashing.org>
+Return-Path: <jkosina@suse.cz>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 21883AFC
+	by mail.linuxfoundation.org (Postfix) with ESMTP id C3E9D523
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 06:21:50 +0000 (UTC)
-Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 96F5420117
+	Mon, 12 May 2014 06:37:35 +0000 (UTC)
+Received: from mx2.suse.de (cantor2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4DBDF20193
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 06:21:49 +0000 (UTC)
-Message-ID: <1399875693.17624.95.camel@pasglop>
-From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: Arnd Bergmann <arnd@arndb.de>
-Date: Mon, 12 May 2014 16:21:33 +1000
-In-Reply-To: <11391971.y9GOPHmK72@wuerfel>
-References: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>
-	<1399289464.20388.57.camel@pasglop> <1560013.xlOCHMZ3P0@vostro.rjw.lan>
-	<11391971.y9GOPHmK72@wuerfel>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"dvhart@dvhart.com" <dvhart@dvhart.com>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Driver model/resources, ACPI, DT,
- etc (sigh)
+	Mon, 12 May 2014 06:37:35 +0000 (UTC)
+Date: Mon, 12 May 2014 08:37:32 +0200 (CEST)
+From: Jiri Kosina <jkosina@suse.cz>
+To: Li Zefan <lizefan@huawei.com>
+In-Reply-To: <536B25AD.8040502@huawei.com>
+Message-ID: <alpine.LNX.2.00.1405120833540.5813@pobox.suse.cz>
+References: <CALCETrU_xrdgUNF55YU+8rfq2xK0cU3QybQhqvX4L8OgsiwG5A@mail.gmail.com>
+	<20140506190024.GA1004@kroah.com>
+	<20140506160740.1245d1f4@gandalf.local.home>
+	<20140506203426.GA15428@jtriplet-mobl1>
+	<alpine.LNX.2.00.1405071343390.3969@pobox.suse.cz>
+	<536B25AD.8040502@huawei.com>
+MIME-Version: 1.0
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Reviewing new API/ABI
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,35 +33,45 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, 2014-05-06 at 15:35 +0200, Arnd Bergmann wrote:
+On Thu, 8 May 2014, Li Zefan wrote:
+
+> >> diff --git a/MAINTAINERS b/MAINTAINERS
+> >> index 7578deb..52a282b 100644
+> >> --- a/MAINTAINERS
+> >> +++ b/MAINTAINERS
+> >> @@ -210,6 +210,13 @@ S:	Supported
+> >>  F:	Documentation/scsi/aacraid.txt
+> >>  F:	drivers/scsi/aacraid/
+> >>  
+> >> +ABI/API
+> >> +L:	linux-api@vger.kernel.org
+> >> +F:	Documentation/ABI/
+> >> +F:	include/linux/syscalls.h
+> >> +F:	include/uapi/
+> >> +F:	kernel/sys_ni.c
+> >> +
+> > 
+> > It'd be nice to have also sysfs changes covered as well if this is not 
+> > just about API, but also ABI; I am not sure whether this could be covered 
+> > by MAINTAINERS pattern, but at least mentioning this list in 
+> > Documentation/ABI/README seems appropriate.
 > 
-> With ACPI (or a server running OF for that matter), you assume that the
-> PCI host is operational and all buses are fully probed and then you
-> have methods for doing hotplugging, you just look at the device that
-> are already initialized by the firmware.
-> 
-> With embedded systems, you (in general, some steps may get skipped
-> in practice) go through a lot more steps:
-> - detect the presence of the host bridge device
-> - enable clocks, voltages, phys, resets, etc.
-> - set up inbound and outbound MMIO and PIO address translation windows
-> - perform a full bus scan and assign bus and device resources
-> 
-> We probably woulnd't go through that hassle on ACPI systems. I think
-> we shouldn't attempt any translation here, and keep the code completely
-> separate, with the common parts being handled by the PCI core as we
-> do today.
+> If sysfs is in, 
 
-Well, you said it "or a server running OF for that matter" ...
+Well, sysfs definitely is considered kernel ABI.
 
-PCI Hotplug is a whole separate can of worms, let's not get there :-)
+> what about cgroupfs? Which has been under dramatic changes.
 
-Even on OF machine, it's very platform specific. I don't think we can
-use it as an example of something that's widely different between DT
-and ACPI per-se as it's going to be widely different between everything
-non-ACPI.
+This is of course interesting (and important) question per se -- the 
+amount of interfaces between userspace and kernelspace is growing at a 
+rapid pace (especially a lot of crap gets added into debugfs I guess), and 
+it's not always clearly defined what is considered proper ABI and thus 
+should be maintained stable.
 
-This is a case of ACPI-does-methods being actually somewhat useful.
+Is "if we ever get a report about userspace regression because of kernel 
+interface change" enough well-defined criteria? What if there is userspace 
+depending on the contents of the kernel ringbuffer? Etc etc ...
 
-Cheers,
-Ben.
+-- 
+Jiri Kosina
+SUSE Labs
