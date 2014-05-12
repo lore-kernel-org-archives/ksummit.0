@@ -1,22 +1,30 @@
-Return-Path: <jason@lakedaemon.net>
+Return-Path: <hpa@zytor.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 8BEEE2FA
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 18381A8A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 16:38:41 +0000 (UTC)
-Date: Mon, 12 May 2014 12:38:38 -0400
-From: Jason Cooper <jason@lakedaemon.net>
-To: Greg KH <greg@kroah.com>
-Message-ID: <20140512163838.GA12708@titan.lakedaemon.net>
-References: <20140511053037.GQ12708@titan.lakedaemon.net>
-	<536FBA0E.5090301@gmail.com> <20140511190752.GC2527@linux.com>
-	<20140511192630.GA14115@kroah.com>
+	Mon, 12 May 2014 16:46:36 +0000 (UTC)
+Received: from mail.zytor.com (terminus.zytor.com [198.137.202.10])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BD9CE20206
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 12 May 2014 16:46:35 +0000 (UTC)
+Message-ID: <5370FAC7.6040707@zytor.com>
+Date: Mon, 12 May 2014 09:45:59 -0700
+From: "H. Peter Anvin" <hpa@zytor.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20140511192630.GA14115@kroah.com>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] hobbyist recruiting
+To: Jason Cooper <jason@lakedaemon.net>, =?UTF-8?B?THVrw6HFoSBDemVybmVy?=
+	<lczerner@redhat.com>
+References: <20140511041449.GP12708@titan.lakedaemon.net>	<CABe+QzBVC=dRZO4+v93A_Cy2nFuf_ajcq8KO20f5PPzVUf2bkg@mail.gmail.com>	<53703416.5070400@zytor.com>
+	<20140512061332.GA10134@thin>	<1399886585.879.108.camel@i7.infradead.org>	<alpine.LFD.2.00.1405121543440.8008@localhost.localdomain>
+	<20140512162430.GZ12708@titan.lakedaemon.net>
+In-Reply-To: <20140512162430.GZ12708@titan.lakedaemon.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: PJ Waskiewicz <pjwaskiewicz@gmail.com>, Anton Arapov <arapov@gmail.com>,
+	Sarah A Sharp <sarah@minilop.net>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Dirk Hohndel <hohndel@infradead.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] QR encoded oops for the kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -26,52 +34,15 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sun, May 11, 2014 at 09:26:30PM +0200, Greg KH wrote:
-> On Sun, May 11, 2014 at 09:16:02PM +0200, Levente Kurusa wrote:
-> > Of course, the Eudyptula challenge did bring some new developers,
-> > but as far as I see most of them posted only one patch/patchset.
+On 05/12/2014 09:24 AM, Jason Cooper wrote:
 > 
-> How do you know who is doing this challenge and who isn't?  I see a lot
-> of new people coming in with multiple sets of patches for cleanups and
-> good fixes over the past month or so.
-
-Is it mostly in the staging tree?  That's where I really got my feet wet
-when I started.  Assisting with code cleanup isn't glamorous, but it's a
-good place to learn the ropes.  And the staging tree is, imho, a more
-receptive place for cleanup patches.  Since the code isn't kernel
-qwality to begin with.
-
-> Trying to track where they actually come from is nothing I really care
-> about, and is probably impossible.
-
-Agreed.
-
-> If you track the number of unique people I take patches from, it's
-> going up, as is our number of unique contributors to the kernel overall.
-> It's been constantly increasing for the past 8 years, ever since I
-> started tracking the kernel development statistics.
-
-Cool, I didn't know you were actively tracking that.  Is the data
-publicly hosted?  Is that based on merged patches, or posted emails?
-
-> > Maybe, there is a way so that they will stay and work more?
+> Well, the QR code can only hold one oops anyway.  Printing the code for
+> the first should be pretty simple to implement.
 > 
-> I have loads of work for people to do if they want to do it:
-> 	drivers/staging/*/TODO
-> 
-> > Keep them somehow in the game, i.e. badges? Mozilla's Open Badges?
-> 
-> Gamifaction?  Really?  No.
 
-Pointing to the TODO lists is sufficient.  I don't think we would be
-doing the community any favors by encouraging developers who want a
-cookie for everything they did.
+A QR code can hold a certain amount of data, which may or may not be
+more than one Oops and/or kernel log messages before it.  Compressing
+the data would allow for more information, although it involves more
+code running on a dodgy kernel.
 
-My primary goal is to draw attention to the issue of aggressive mail
-filtering, new devs can pop up anywhere, and acknowledging them.  By
-acknowledge, I mean answering the email, and treating them like everyone
-else.  But we have to spot the emails first.
-
-thx,
-
-Jason.
+	-hpa
