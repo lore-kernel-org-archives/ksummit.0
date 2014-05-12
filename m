@@ -1,32 +1,31 @@
-Return-Path: <joro@8bytes.org>
+Return-Path: <davidlohr@hp.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id DD831ACB
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 52294ACC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 15:03:48 +0000 (UTC)
-Received: from mail.8bytes.org (8bytes.org [85.214.48.195])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 7433C20319
+	Mon, 12 May 2014 15:05:43 +0000 (UTC)
+Received: from g2t1383g.austin.hp.com (g2t1383g.austin.hp.com [15.217.136.92])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4958D20266
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 15:03:48 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
-	by mail.8bytes.org (Postfix) with SMTP id 10E5612B16B
+	Mon, 12 May 2014 15:05:42 +0000 (UTC)
+Received: from g6t1525.atlanta.hp.com (g6t1525.atlanta.hp.com [15.193.200.68])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by g2t1383g.austin.hp.com (Postfix) with ESMTPS id 6FD562F44
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 17:03:47 +0200 (CEST)
-Date: Mon, 12 May 2014 17:03:46 +0200
-From: Joerg Roedel <joro@8bytes.org>
-To: Will Deacon <will.deacon@arm.com>
-Message-ID: <20140512150346.GN12376@8bytes.org>
-References: <1399552623.17118.22.camel@i7.infradead.org>
-	<20140509180510.GD23083@arm.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20140509180510.GD23083@arm.com>
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Device error handling /
- reporting / isolation
+	Mon, 12 May 2014 14:46:27 +0000 (UTC)
+Message-ID: <1399907137.2648.18.camel@buesod1.americas.hpqcorp.net>
+From: Davidlohr Bueso <davidlohr@hp.com>
+To: Chris Mason <clm@fb.com>
+Date: Mon, 12 May 2014 08:05:37 -0700
+In-Reply-To: <5370DB7B.2040706@fb.com>
+References: <5370DB7B.2040706@fb.com>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TOPIC] Application performance: regressions,
+ controlling preemption
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,28 +35,48 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, May 09, 2014 at 07:05:10PM +0100, Will Deacon wrote:
-> On Thu, May 08, 2014 at 01:37:03PM +0100, David Woodhouse wrote:
-> > We may have various options for shutting it up — a PCI function level
-> > reset, power cycling the offending device, or maybe just configuring the
-> > IOMMU to *ignore* further errors from it, which would at least let the
-> > system get on with doing something useful (and if we do, when do we
-> > re-enable reporting?).
+On Mon, 2014-05-12 at 10:32 -0400, Chris Mason wrote:
+> Hi everyone,
 > 
-> There's also the fun of non-PCI devices, where even if you can kill the
-> offending device, there's not a specified way to ensure that it not longer
-> has transactions in flight. Also, the fault reports have to go somewhere,
-> so queues can fill up etc. etc.
+> We're in the middle of upgrading the tiers here from older kernels 
+> (2.6.38, 3.2) into 3.10 and higher.
+> 
+> I've been doing this upgrade game for a number of years now, with 
+> different business cards taped to my forehead and with different target 
+> workloads.
+> 
+> The result is always the same...if I'm really lucky the system isn't 
+> slower, but usually I'm left with a steaming pile of 10-30% regressions.
 
-I am of course also interested in this discussion. Fault handling is
-currently implemented per IOMMU driver. There is no reason we should not
-unify the way we report faults and handle misbehaving devices.
+Please consider me for this discussion. At HP we've been working on
+different performance issues in the kernel, including a lot of locking
+improvements and optimizations, which have boosted performance for a
+wide variety of workloads. There are plenty of really interesting
+results and I'd be happy to share some of them and other findings.
 
-> I'd certainly be interested in this from the ARM side (I'm involved in the
-> architecture of our next SMMU and we've discussed this a lot internally).
+Furthermore, I'm always on the lookout for new performance issues so I'd
+be interested in knowing some of the seen regressions and if they are
+still present today (lots of changes since 3.10).
 
-Interesting. I strongly hope the next SMMU will still work with the
-current in-kernel SMMU driver :)
+> The KS dates should put us right at the end of our regression hunt, I 
+> can talk through the main problems we hit, how (if) we fixed them and 
+> hopefully offer tests to keep them from coming back.
+> 
+> We've split the tiers up between Josef Bacik, Jens Axboe, myself and a 
+> few others.  I'd nominate Josef and Jens to come share their findings as 
+> well.
 
+I'd also like to include PeterZ and Ingo.
 
-	Joerg
+> Another topic here is controlling preemption from userland without 
+> needing to go full real time.  CPU intensive in-memory databases are 
+> leaving a ton of performance on the floor in context switches.  I'm 
+> hoping to experiment with better preemption controls and the userland 
+> RCU project to improve things.
+
+Hmm specifically for this, it would also be good to have Khalid Aziz in
+the discussion. He's been trying to add userspace controlled preemption
+for a while now.
+
+Thanks,
+Davidlohr
