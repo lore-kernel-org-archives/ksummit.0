@@ -1,35 +1,28 @@
-Return-Path: <teobaluta@gmail.com>
+Return-Path: <shuahkhan@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 78047A89
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 78B444D3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 17:50:28 +0000 (UTC)
-Received: from mail-qc0-f179.google.com (mail-qc0-f179.google.com
-	[209.85.216.179])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 03B4520398
+	Mon, 12 May 2014 17:51:55 +0000 (UTC)
+Received: from mail-qa0-f49.google.com (mail-qa0-f49.google.com
+	[209.85.216.49])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0BEB12039F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 17:50:27 +0000 (UTC)
-Received: by mail-qc0-f179.google.com with SMTP id x3so8138177qcv.38
+	Mon, 12 May 2014 17:51:54 +0000 (UTC)
+Received: by mail-qa0-f49.google.com with SMTP id cm18so7336290qab.22
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 10:50:27 -0700 (PDT)
+	Mon, 12 May 2014 10:51:54 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <53710053.4040100@zytor.com>
-References: <20140511041449.GP12708@titan.lakedaemon.net>
-	<CABe+QzBVC=dRZO4+v93A_Cy2nFuf_ajcq8KO20f5PPzVUf2bkg@mail.gmail.com>
-	<20140511162918.GA2527@linux.com> <1995824.rdvEX5SOIt@avalon>
-	<20140511171824.GB2527@linux.com>
-	<20140512155320.GW12708@titan.lakedaemon.net>
-	<20140512164921.GB3509@linux.com> <53710053.4040100@zytor.com>
-Date: Mon, 12 May 2014 20:50:27 +0300
-Message-ID: <CACV2jQDDu91ug=xeJ235W4jMunvfAY1rSXLjFGqw0hoTS4gmxg@mail.gmail.com>
-From: =?UTF-8?B?VGVvZG9yYSBCxINsdcWjxIM=?= <teobaluta@gmail.com>
-To: "H. Peter Anvin" <hpa@zytor.com>
+In-Reply-To: <1872038.43ncqEMWSx@avalon>
+References: <1872038.43ncqEMWSx@avalon>
+Date: Mon, 12 May 2014 11:51:54 -0600
+Message-ID: <CAKocOOMk-jVW9-M+6SOzAJ3-6-i-5TWwLmQE6CRqf7tFGTM=jw@mail.gmail.com>
+From: Shuah Khan <shuahkhan@gmail.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 Content-Type: text/plain; charset=UTF-8
-Cc: PJ Waskiewicz <pjwaskiewicz@gmail.com>,
-	Dirk Hohndel <hohndel@infradead.org>,
-	ksummit-discuss@lists.linuxfoundation.org, Anton Arapov <arapov@gmail.com>,
-	Jason Cooper <jason@lakedaemon.net>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] QR encoded oops for the kernel
+Cc: Tomasz Figa <tomasz.figa@gmail.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] PM dependencies
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,34 +32,42 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, May 12, 2014 at 8:09 PM, H. Peter Anvin <hpa@zytor.com> wrote:
-> On 05/12/2014 09:49 AM, Levente Kurusa wrote:
->>
->> What I wonder is how could we get the server back-end to not allow
->> the same oopses from bad users.
->>
->> Having a link like:
->>
->> oops.kernel.org/submit_oops.php?qr=$ENTROPY$BASE64DATA
->>
->> would mean that malicious users could edit the $ENTROPY part and
->> hence effectively report the same oops twice. Maybe some checksum?
->>  Or will it be too much for an already damaged kernel?
->>
+On Mon, May 12, 2014 at 11:43 AM, Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+> Hello,
 >
-> What did the old kerneloops system do for these kinds of things?
+> On modern systems many PM dependencies don't follow the Linux kernel device
+> model based on parent-child relationships from a control bus point of view.
+> For instance a GPU will need the IOMMU that services its memory requests to be
+> powered on to perform DMA operations.
 >
-> Again, I'm concerned that a KS session for this will turn into an
-> implementation discussion, which is better done by email.
+> Ad-hoc solutions with subsystem-specific or even driver-specific APIs have
+> been implemented (see omap_iommu_save_ctx and omap_iommu_restore_ctx in
+> include/linux/omap-iommu.h for instance, that push the burden of saving and
+> restoring the IOMMU registers to bus master drivers), but they make automatic
+> handling of hardware resources difficult. In the IOMMU case again, the goal is
+> to hide IOMMU handling inside the DMA mapping API and make its usage
+> completely transparent to bus master drivers in most of the cases. An IOMMU-
+> specific API to explicitly control IOMMU power from the bus master driver
+> would make that goal impossible to reach.
+>
+> The problem is not limited to IOMMUs. We have similar dependencies at
+> suspend/resume time with camera interfaces for instance, where two completely
+> unrelated device in the Linux device hierarchy (a camera interface platform
+> device in the SoC and an I2C camera sensor) need to be suspended and resumed
+> in a controlled order. I'm sure many more use cases exist.
 
-Well, the discussion got a bit technical, but as Josh said, I see no
-point in doing that sort of talk (for technical discussion there's
-always the RFC thread [0]). I think what would be of interest is the
-way the workflow changes and the infrastructure you need to maintain.
-For example, at the moment, can you actually send an Oops directly to
-kernel.org by posting it in a query?
+We discussed this topic briefly at the Media Mini-summit.  I looking
+into similar
+use-cases in media devices. Suspend/resume of a tuner for example should only
+be done once as opposed multiple times by drivers that think they have exclusive
+access to the tuner on a media device.
 
-Thanks,
-Teodora
+I am interested in this discussion and would like to participate.
+Requesting nomination.
 
-[0] https://lkml.org/lkml/2014/3/17/525
+-- Shuah
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
