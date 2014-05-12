@@ -1,27 +1,22 @@
 Return-Path: <wsa@the-dreams.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 904FB7B9
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 2D0DA2FA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 08:20:06 +0000 (UTC)
-Received: from pokefinder.org (sauhun.de [89.238.76.85])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 741EB20116
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 08:20:05 +0000 (UTC)
-Date: Mon, 12 May 2014 10:19:46 +0200
+	Mon, 12 May 2014 08:38:30 +0000 (UTC)
+Date: Mon, 12 May 2014 10:38:26 +0200
 From: Wolfram Sang <wsa@the-dreams.de>
-To: Theodore Ts'o <tytso@mit.edu>
-Message-ID: <20140512081945.GA2665@katana>
+To: Hans Verkuil <hverkuil@xs4all.nl>
+Message-ID: <20140512083825.GB2665@katana>
 References: <20140511053037.GQ12708@titan.lakedaemon.net>
 	<536FBA0E.5090301@gmail.com> <20140511190752.GC2527@linux.com>
 	<20140511192630.GA14115@kroah.com>
 	<20140511195011.GD2527@linux.com> <536FDE91.3050708@xs4all.nl>
-	<20140511213539.GB5480@thunk.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="6c2NcOVqGQ03X4Wi"
+	protocol="application/pgp-signature"; boundary="Pd0ReVV5GZGQvF3a"
 Content-Disposition: inline
-In-Reply-To: <20140511213539.GB5480@thunk.org>
+In-Reply-To: <536FDE91.3050708@xs4all.nl>
 Cc: Jason Cooper <jason@lakedaemon.net>,
 	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] hobbyist recruiting
@@ -35,43 +30,81 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---6c2NcOVqGQ03X4Wi
+--Pd0ReVV5GZGQvF3a
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
 
-> The one difference from the way things were in 1991 is that kernel has
-> gotten much more complicated, so it is true that it's a lot harder for
-> someone to get started from ground zero than I had.i
+> > that there really is no central TODO list. Maybe there could be a=20
+> > Documentation/NewcomersStartHere-like file that would list for
+> > instance the TODO files in drivers/staging? It's nothing big, but
+> > would certainly help people find their ways.
 
-I tend to disagree partly. Sure, the the kernel core is much more
-complicated these days. Still, if one likes playing with hardware, some
-driver subsystems are still easy to get into, and most need help, too.
-Stuff like I2C, SPI, 1wire and their slave devices, especially sensors.
-Yes, it needs people with this amount of motivation to spend some time
-and a few bucks.
+To be honest, I think it is something big. Keeping a file up-to-date
+which has detailed information from various subsystems is quite some
+task. More subsystem specific TODO files might be helpful, iff the
+maintainer manages to keep it up to date. From a newbie, I'd expect to
+find out how to find all TODO files in a kernel tree ;)
+
+> It certainly wouldn't hurt, but I'm not sure if this will really solve
+> much. In general all you have to do is find the subsystem mailinglist
+> (or email of the subsystem maintainer) you are interested in and post
+> an email offering to help. Generally there are always jobs available
+> that need doing.
+
+If you lurk around a mailing list of a subsystem (or read the gmane
+archives), you will easily find out about its issues and shortcomings.
+
+> My experience though is that there is a big gap between offering to do
+> some work and actually doing that, and at least as large a gap from
+> going from posting a single patch to becoming a regular contributor.
+
++1
+
+> One issue might be that as a 'newbie' the problems you can work on
+> initially tend to be simple and often relatively boring ones (code cleanu=
+p,
+> sparse fixes, etc). Any work on core code often requires substantial
+> experience.
+
+For me, I am not so much short of patches, I am short of reviewers. And
+that needs some time and good will of a new person to get into it.
+Reading old reviews, playing with the subsystem ("why is it done this
+way?"), digging through git history to understand the organic growth...
+
+> I guess that this might be why most of the regular contributors started
+> out trying to support their own or their company's hardware. Which tends
+> to be a project at the right level: challenging yet typically not overly
+> difficult, and you learn a lot about the subsystem (software, process and
+> people).
+
+Agree. That is why I point people to OpenWRT which has tons of hardware
+support which is not mainline. And old routers can quite easily be
+obtained. Yet, one must be willing enough to get support of a mostly
+outdated HW into the kernel, just for the fun of it.
 
 
---6c2NcOVqGQ03X4Wi
+--Pd0ReVV5GZGQvF3a
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.15 (GNU/Linux)
 
-iQIcBAEBAgAGBQJTcIQhAAoJEBQN5MwUoCm2oGEP/iVvYFjFa3DRuRwI9L+2CpHN
-7UNmij5wTUvf4Ete15Rqyb2XHJWMJHJeBvP/W2AHvm+qBfFaqgnoQiF8ig12izGC
-WXZXR1ijMkcQed6WEtdLVxZdgCkYw00ukAMuNiodNqn+LbpH9HgcAbot+JRH5tfw
-U8/Sv2ltsXAPv2UOvVQpZBGYnegRkYYl2cli67gmeTnkaHG3C9/7aRdfVfEZD0/C
-CgOaROrIXZNUle38iVCeU/ZmEcApSKx/Fm0o5ACWZC+V4/PKJrG/lHqwwknVZvd9
-H5p/RRRr1TyNWc7NuXC5zFS5X79X06jmUS077kYEMyBCf97ia3rSmSsKOVavWqlH
-V8NTF2OKh1QwqSv27Y7DN/lb5gnagIWYQKzEwk3UgrUAuHtQqU1an6fbhLmlGPLU
-VxQypaB58rTwoJ2tCbDWtOl91WoPrBqZgR5V0UeGzTQ/g5mRpvhvudDh7w/t/suW
-3wReXZg0jBKuUCP7VMdAM8dhEHAsg3XTi8+NjFKLSoAb8fvNPO8BKlUYSfahpUlw
-QnJvzBc56WMMYAWGYmb+4JUOZeMfyA7Q0yahcx2XRr/lzAG/u/KNzMjTe/QSFrs7
-HZMJgqjKAUFQGAi+26BZnQRBm96mlipmdMBeyUMgEkaASl/xH0S16LjWAzzdRXfC
-jSjIhtifFKJAMVPuYtds
-=AsRx
+iQIcBAEBAgAGBQJTcIiBAAoJEBQN5MwUoCm2HvwP/2r6lpy/UA5VUhACSmFIDqzd
+oovbbJoTZuVxkqjxY8kcxL1T3yh359CQdTdIVaeZYhlJmKFb/RDbH2JTkflt+cVI
+yPyFll0opmu+XTW/BORZOJRj1Ulbao5lp6bb6YwYR5CiM7Rl3ZvEuWnnyTEcSDfe
+RrF3PwOrpWwhVWjWzuiyD2d9gMqtqibhOaewQi63ngSqT+5PZNGWpSxSnYy35786
+4O5eu4Tztg/RD640ZZL/dhAyG0RZb2/hQtKQA8pFfAkHIb0bQty5awdeNEkHXd80
+wPK2p0AttvR3jtVPX0pGwiPzmH0JmGxoZZfkkOMOqWMbUFg9XxjvsyWSPEL6iXMa
+8nT59uhFdBmydzYNhe9I08RLEQQadlyA3vv5Un9fL0e5b0wJLe4+7S6IYe5tcZra
+rOtcx7fd83GAzhDJxOPO61BodFeaEEv/ZLn1anOjkL2gHnnVY2qw3SHy4AFlB+A/
+LkNRSCVdAcoK0lyZOt0M7NkfT27I0WyYrBlfVaN20dQRUE5qWThRa5RzPoz3gVIa
+njxcYbIyavM9lKOrIP15bHpMnxAjwz3uO13YfFFk9OVwU6HLvMYZZSQY6qZf/BUi
+RLhbfpfVXwtOSaZ0E88HogsyYpFO2HZNW3k/++VKPe7t0oLCRVUN52uDQLTOqiU5
+LxdQ62fNrrrOgO0uKi6T
+=m31g
 -----END PGP SIGNATURE-----
 
---6c2NcOVqGQ03X4Wi--
+--Pd0ReVV5GZGQvF3a--
