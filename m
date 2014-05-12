@@ -1,30 +1,33 @@
-Return-Path: <wsa@the-dreams.de>
+Return-Path: <masami.hiramatsu.pt@hitachi.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id B003F99D
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 556D34C6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 09:54:17 +0000 (UTC)
-Received: from pokefinder.org (sauhun.de [89.238.76.85])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9B5161FAA9
+	Mon, 12 May 2014 10:13:13 +0000 (UTC)
+Received: from mail7.hitachi.co.jp (mail7.hitachi.co.jp [133.145.228.42])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 91AF51FD46
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 09:54:16 +0000 (UTC)
-Date: Mon, 12 May 2014 11:54:10 +0200
-From: Wolfram Sang <wsa@the-dreams.de>
-To: Li Zefan <lizefan@huawei.com>
-Message-ID: <20140512095410.GB2872@katana>
-References: <20140511053037.GQ12708@titan.lakedaemon.net>
-	<536FBA0E.5090301@gmail.com> <20140511190752.GC2527@linux.com>
-	<20140511192630.GA14115@kroah.com>
-	<20140511195011.GD2527@linux.com> <536FDE91.3050708@xs4all.nl>
-	<20140512083825.GB2665@katana> <53708F74.3070200@huawei.com>
+	Mon, 12 May 2014 10:13:12 +0000 (UTC)
+Received: from mlsv4.hitachi.co.jp (unknown [133.144.234.166])
+	by mail7.hitachi.co.jp (Postfix) with ESMTP id 9FB3637AC4
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 12 May 2014 19:13:11 +0900 (JST)
+Received: from vshuts01.hitachi.co.jp (vshuts01.hitachi.co.jp [10.201.6.83])
+	by mfilter03.hitachi.co.jp (Switch-3.3.4/Switch-3.3.4) with ESMTP id
+	s4CADAn9003390 for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 12 May 2014 19:13:11 +0900
+Message-ID: <53709EB2.20400@hitachi.com>
+Date: Mon, 12 May 2014 19:13:06 +0900
+From: Masami Hiramatsu <masami.hiramatsu.pt@hitachi.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="i9LlY+UWpKt15+FH"
-Content-Disposition: inline
-In-Reply-To: <53708F74.3070200@huawei.com>
-Cc: Jason Cooper <jason@lakedaemon.net>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] hobbyist recruiting
+To: ksummit-discuss@lists.linuxfoundation.org
+References: <20140511041449.GP12708@titan.lakedaemon.net>
+	<CABe+QzBVC=dRZO4+v93A_Cy2nFuf_ajcq8KO20f5PPzVUf2bkg@mail.gmail.com>
+	<20140511162918.GA2527@linux.com>
+In-Reply-To: <20140511162918.GA2527@linux.com>
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] QR encoded oops for the kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,52 +37,44 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+(2014/05/12 1:29), Levente Kurusa wrote:
+> Hi,
+> 
+> On Sun, May 11, 2014 at 08:57:01AM -0700, Sarah A Sharp wrote:
+>> On Sat, May 10, 2014 at 9:14 PM, Jason Cooper <jason@lakedaemon.net> wrote:
+>>> All,
+>>>
+>>> I recently came across a patch series attempting to implement encoding
+>>> kernel oops into a QR code [1].  The QR code is then dumped to the
+>>> framebuffer.  The QR code is a URL of the form:
+>>>
+>>>   https://oops.kernel.org/?qr=<base64 compressed oops>
+>>>
+>>> This proposal is interesting because it fundamentally changes the way
+>>> users report bugs to the kernel community.  First and foremost, it makes
+>>> it much easier.
+>>>
+>>>   1) oops occurs
+>>>   2) user pulls out phone, scans QR code
+>>>       - at this point, the oops is recorded on the server.  Nothing more
+>>>         is required of the user.
+>>>
+> 
+> To be precise, most scanners don't automatically open the links
+> found in QR codes and hence a tap/click from the user is required. :-)
 
---i9LlY+UWpKt15+FH
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I guess we might need a smartphone application for sending oops
+to correct server. So, I'd like to suggest following; at step 0,
+user downloads oops-report application and he/she might sign-up the
+server with his mail via the application(optional). And at step2,
+run the app to scan the QR code. The app decodes it and reports to
+server via user's account (anonymous is ok). :)
+Thus, they don't need to fill the additional forms.
 
+Thank you,
 
-> >>> that there really is no central TODO list. Maybe there could be a=20
-> >>> Documentation/NewcomersStartHere-like file that would list for
-> >>> instance the TODO files in drivers/staging? It's nothing big, but
-> >>> would certainly help people find their ways.
-> >=20
-> > To be honest, I think it is something big. Keeping a file up-to-date
-> > which has detailed information from various subsystems is quite some
-> > task. More subsystem specific TODO files might be helpful, iff the
-> > maintainer manages to keep it up to date. From a newbie, I'd expect to
-> > find out how to find all TODO files in a kernel tree ;)
-> >=20
->=20
-> This was once discussed in Kernel Summit.
->=20
-> http://lwn.net/Articles/412639/
-
-Unsurprisingly, all that stands well today :)
-
-
---i9LlY+UWpKt15+FH
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v1.4.15 (GNU/Linux)
-
-iQIcBAEBAgAGBQJTcJpBAAoJEBQN5MwUoCm22AgQAIj2nFSinbBkJguJgKYYY+ba
-17WMQ/jyyULrJEm2rrGRuZkeaMzZrjEhMMHL/CpdFlfum6Xu+TXlsy0pqa2x7LIu
-Uqv96ReKCcy0trR510UTYcNicfTvWDcj62QrZbzdcv5kk0Erq7AruFPRbnVAci7k
-eaZB68DYGCWy55NQXJsLd7x/GUcgQFdFgIarEjwBq2H2lF7a3ax5Ddjj2g4+ma1c
-rbga+lnRtrt/yKiAWneE6GYbklo7nI6L1gsw+m/tk3hHyZ6WqeA4L/OQ3hAkCTDD
-djPEnghCrB07CV/uYgk+ZMrczbOyN44D1xkXVxkKFfbdO6Ju+iEnHrvlonbHtQQJ
-QwOiChXOTFcik5vxBcb/iodYMqIhrZIMLyRcVHOzuLw+xqGseqnc4wdbHD8m6Siq
-Kj6bt+u28fxYodfvtCzpTB6e5apP58aa4k7i0omYaaXvs7hCypkjxqAemkgsTMrK
-RmELofAMmHtHNUF9U+4IjDLExY/T3ZlTuvits9efkqc5WHf3HYp6MYigHHls/ndv
-7YyG0QFSHvEfkCKVqo9yJW/TpSqsHpiFh4SPJgcln4rvH2subNmquugO6oiVz0eg
-zF1K/eZ6j6+kSS4GKwnEDE6ScpZhwOwh/uYCVSZxgq/IWEVkFS5NoDg6Fb3RBCcm
-fUoO1rx2Qd2fUNpIjNIX
-=ObQD
------END PGP SIGNATURE-----
-
---i9LlY+UWpKt15+FH--
+-- 
+Masami HIRAMATSU
+Software Platform Research Dept. Linux Technology Research Center
+Hitachi, Ltd., Yokohama Research Laboratory
+E-mail: masami.hiramatsu.pt@hitachi.com
