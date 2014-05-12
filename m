@@ -1,25 +1,28 @@
-Return-Path: <wsa@the-dreams.de>
+Return-Path: <peter.senna@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 2D0DA2FA
+	by mail.linuxfoundation.org (Postfix) with ESMTP id DCFE72FA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 08:38:30 +0000 (UTC)
-Date: Mon, 12 May 2014 10:38:26 +0200
-From: Wolfram Sang <wsa@the-dreams.de>
-To: Hans Verkuil <hverkuil@xs4all.nl>
-Message-ID: <20140512083825.GB2665@katana>
-References: <20140511053037.GQ12708@titan.lakedaemon.net>
-	<536FBA0E.5090301@gmail.com> <20140511190752.GC2527@linux.com>
-	<20140511192630.GA14115@kroah.com>
-	<20140511195011.GD2527@linux.com> <536FDE91.3050708@xs4all.nl>
+	Mon, 12 May 2014 08:58:43 +0000 (UTC)
+Received: from mail-qa0-f45.google.com (mail-qa0-f45.google.com
+	[209.85.216.45])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 477371F977
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 12 May 2014 08:58:43 +0000 (UTC)
+Received: by mail-qa0-f45.google.com with SMTP id hw13so6638008qab.4
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 12 May 2014 01:58:42 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="Pd0ReVV5GZGQvF3a"
-Content-Disposition: inline
-In-Reply-To: <536FDE91.3050708@xs4all.nl>
-Cc: Jason Cooper <jason@lakedaemon.net>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] hobbyist recruiting
+In-Reply-To: <20140511111034.GA6400@katana>
+References: <20140509170709.GA9747@redhat.com> <20140511111034.GA6400@katana>
+Date: Mon, 12 May 2014 10:58:42 +0200
+Message-ID: <CA+MoWDpbRGn4sL2K29EHvbasu7BfS-OXM9oLRqJgjpj-bD_RHg@mail.gmail.com>
+From: Peter Senna Tschudin <peter.senna@gmail.com>
+To: Wolfram Sang <wsa@the-dreams.de>
+Content-Type: text/plain; charset=UTF-8
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	Julia Lawall <Julia.Lawall@lip6.fr>
+Subject: Re: [Ksummit-discuss] coverity, static checking etc.
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,82 +32,45 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+I think that Julia Lawall would be interested in this topic. I've
+added her in CC.
 
---Pd0ReVV5GZGQvF3a
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-
-> > that there really is no central TODO list. Maybe there could be a=20
-> > Documentation/NewcomersStartHere-like file that would list for
-> > instance the TODO files in drivers/staging? It's nothing big, but
-> > would certainly help people find their ways.
-
-To be honest, I think it is something big. Keeping a file up-to-date
-which has detailed information from various subsystems is quite some
-task. More subsystem specific TODO files might be helpful, iff the
-maintainer manages to keep it up to date. From a newbie, I'd expect to
-find out how to find all TODO files in a kernel tree ;)
-
-> It certainly wouldn't hurt, but I'm not sure if this will really solve
-> much. In general all you have to do is find the subsystem mailinglist
-> (or email of the subsystem maintainer) you are interested in and post
-> an email offering to help. Generally there are always jobs available
-> that need doing.
-
-If you lurk around a mailing list of a subsystem (or read the gmane
-archives), you will easily find out about its issues and shortcomings.
-
-> My experience though is that there is a big gap between offering to do
-> some work and actually doing that, and at least as large a gap from
-> going from posting a single patch to becoming a regular contributor.
-
-+1
-
-> One issue might be that as a 'newbie' the problems you can work on
-> initially tend to be simple and often relatively boring ones (code cleanu=
-p,
-> sparse fixes, etc). Any work on core code often requires substantial
-> experience.
-
-For me, I am not so much short of patches, I am short of reviewers. And
-that needs some time and good will of a new person to get into it.
-Reading old reviews, playing with the subsystem ("why is it done this
-way?"), digging through git history to understand the organic growth...
-
-> I guess that this might be why most of the regular contributors started
-> out trying to support their own or their company's hardware. Which tends
-> to be a project at the right level: challenging yet typically not overly
-> difficult, and you learn a lot about the subsystem (software, process and
-> people).
-
-Agree. That is why I point people to OpenWRT which has tons of hardware
-support which is not mainline. And old routers can quite easily be
-obtained. Yet, one must be willing enough to get support of a mostly
-outdated HW into the kernel, just for the fun of it.
+On Sun, May 11, 2014 at 1:10 PM, Wolfram Sang <wsa@the-dreams.de> wrote:
+>
+>> Last year I had been doing the coverity scans on an almost daily basis
+>> for 2-3 months.  Now that we're a year in, I'd like to share some
+>> results, and show some of the more common trends and bug patterns that
+>> seem to pop up.
+>>
+>> [ spoiler: For the most part, it's all pretty positive, but we still suck ]
+>>
+>> It would also be good to have some more discussion about other tools
+>> we could be making more use of.  (Nomination: Dan Carpenter for smatch).
+>
+> I'm definately interested.
+>
+> In my workflow, I use sparse/smatch/coccicheck/cppcheck before applying
+> my own work, or patches to the i2c branches. (Oh, and rats and flawfinder,
+> too, but so far, they didn't point to something worthwhile.)
+>
+> I am interested in workflows and experiences from other people, how
+> usage of static analyzers could be spread (gcc inclusion sounds great),
+> how to make them more robust, etc... And by doing that, get a better
+> feeling when an issue left the scope of static code checking and needs
+> some proper handling.
+>
+> Thanks,
+>
+>    Wolfram
+>
+>
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+>
 
 
---Pd0ReVV5GZGQvF3a
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v1.4.15 (GNU/Linux)
-
-iQIcBAEBAgAGBQJTcIiBAAoJEBQN5MwUoCm2HvwP/2r6lpy/UA5VUhACSmFIDqzd
-oovbbJoTZuVxkqjxY8kcxL1T3yh359CQdTdIVaeZYhlJmKFb/RDbH2JTkflt+cVI
-yPyFll0opmu+XTW/BORZOJRj1Ulbao5lp6bb6YwYR5CiM7Rl3ZvEuWnnyTEcSDfe
-RrF3PwOrpWwhVWjWzuiyD2d9gMqtqibhOaewQi63ngSqT+5PZNGWpSxSnYy35786
-4O5eu4Tztg/RD640ZZL/dhAyG0RZb2/hQtKQA8pFfAkHIb0bQty5awdeNEkHXd80
-wPK2p0AttvR3jtVPX0pGwiPzmH0JmGxoZZfkkOMOqWMbUFg9XxjvsyWSPEL6iXMa
-8nT59uhFdBmydzYNhe9I08RLEQQadlyA3vv5Un9fL0e5b0wJLe4+7S6IYe5tcZra
-rOtcx7fd83GAzhDJxOPO61BodFeaEEv/ZLn1anOjkL2gHnnVY2qw3SHy4AFlB+A/
-LkNRSCVdAcoK0lyZOt0M7NkfT27I0WyYrBlfVaN20dQRUE5qWThRa5RzPoz3gVIa
-njxcYbIyavM9lKOrIP15bHpMnxAjwz3uO13YfFFk9OVwU6HLvMYZZSQY6qZf/BUi
-RLhbfpfVXwtOSaZ0E88HogsyYpFO2HZNW3k/++VKPe7t0oLCRVUN52uDQLTOqiU5
-LxdQ62fNrrrOgO0uKi6T
-=m31g
------END PGP SIGNATURE-----
-
---Pd0ReVV5GZGQvF3a--
+-- 
+Peter
