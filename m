@@ -1,51 +1,35 @@
-Return-Path: <preeti@linux.vnet.ibm.com>
+Return-Path: <ilevex.linux@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id D30EA4D4
+	by mail.linuxfoundation.org (Postfix) with ESMTP id E5177A8A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 16:48:52 +0000 (UTC)
-Received: from e35.co.us.ibm.com (e35.co.us.ibm.com [32.97.110.153])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8814720206
+	Mon, 12 May 2014 16:49:26 +0000 (UTC)
+Received: from mail-ee0-f50.google.com (mail-ee0-f50.google.com [74.125.83.50])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4777A20311
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 16:48:51 +0000 (UTC)
-Received: from /spool/local
-	by e35.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
-	Violators will be prosecuted
-	for <ksummit-discuss@lists.linuxfoundation.org> from
-	<preeti@linux.vnet.ibm.com>; Mon, 12 May 2014 10:48:51 -0600
-Received: from b03cxnp08028.gho.boulder.ibm.com
-	(b03cxnp08028.gho.boulder.ibm.com [9.17.130.20])
-	by d03dlp01.boulder.ibm.com (Postfix) with ESMTP id C565F1FF003F
+	Mon, 12 May 2014 16:49:26 +0000 (UTC)
+Received: by mail-ee0-f50.google.com with SMTP id e51so4978954eek.9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 10:48:48 -0600 (MDT)
-Received: from d03av06.boulder.ibm.com (d03av06.boulder.ibm.com [9.17.195.245])
-	by b03cxnp08028.gho.boulder.ibm.com (8.13.8/8.13.8/NCO v10.0) with
-	ESMTP id s4CGmmMn7864708
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 18:48:48 +0200
-Received: from d03av06.boulder.ibm.com (loopback [127.0.0.1])
-	by d03av06.boulder.ibm.com (8.14.4/8.13.1/NCO v10.0 AVout) with ESMTP
-	id s4CGqeqh001493 for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 10:52:40 -0600
-Message-ID: <5370FA68.6020100@linux.vnet.ibm.com>
-Date: Mon, 12 May 2014 22:14:24 +0530
-From: Preeti U Murthy <preeti@linux.vnet.ibm.com>
+	Mon, 12 May 2014 09:49:24 -0700 (PDT)
+Sender: Levente Kurusa <ilevex.linux@gmail.com>
+Date: Mon, 12 May 2014 18:49:21 +0200
+From: Levente Kurusa <levex@linux.com>
+To: Jason Cooper <jason@lakedaemon.net>
+Message-ID: <20140512164921.GB3509@linux.com>
+References: <20140511041449.GP12708@titan.lakedaemon.net>
+	<CABe+QzBVC=dRZO4+v93A_Cy2nFuf_ajcq8KO20f5PPzVUf2bkg@mail.gmail.com>
+	<20140511162918.GA2527@linux.com> <1995824.rdvEX5SOIt@avalon>
+	<20140511171824.GB2527@linux.com>
+	<20140512155320.GW12708@titan.lakedaemon.net>
 MIME-Version: 1.0
-To: "Iyer, Sundar" <sundar.iyer@intel.com>
-References: <1998761.B2k0A5OtQR@vostro.rjw.lan>
-	<53692127.7040603@linux.vnet.ibm.com>
-	<1664398.kOfsDrBujV@vostro.rjw.lan>
-	<2FABAEF0D3DCAF4F9C9628D6E2F9684533B4DB65@BGSMSX102.gar.corp.intel.com>
-In-Reply-To: <2FABAEF0D3DCAF4F9C9628D6E2F9684533B4DB65@BGSMSX102.gar.corp.intel.com>
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
-Cc: "Brown, Len" <len.brown@intel.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Daniel Lezcano <daniel.lezcano@linaro.org>, Ingo Molnar <mingo@kernel.org>
-Subject: Re: [Ksummit-discuss] [TECH(CORE?) TOPIC] Energy conservation bias
- interfaces
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="St7VIuEGZ6dlpu13"
+Content-Disposition: inline
+In-Reply-To: <20140512155320.GW12708@titan.lakedaemon.net>
+Cc: PJ Waskiewicz <pjwaskiewicz@gmail.com>,
+	Dirk Hohndel <hohndel@infradead.org>,
+	ksummit-discuss@lists.linuxfoundation.org, Anton Arapov <arapov@gmail.com>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] QR encoded oops for the kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -55,128 +39,89 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 05/08/2014 08:27 PM, Iyer, Sundar wrote:
->> -----Original Message-----
->> From: ksummit-discuss-bounces@lists.linuxfoundation.org [mailto:ksummit-
->> discuss-bounces@lists.linuxfoundation.org] On Behalf Of Rafael J.
->> Wysocki
->> Sent: Thursday, May 8, 2014 6:28 PM
->  
->> That's something I was thinking about too, but the difficulty here is in how to
->> define the profiles (that is, what settings in each subsystem are going to be
->> affected by a profile change) and in deciding when to switch profiles and
->> which profile is the most appropriate going forward.
->>
->> IOW, the high-level concept looks nice, but the details of the implementation
->> are important too. :-)
-> 
-> I agree. Defining these profiles and trying to fit them into a system definition, 
-> system usage policy and above all user usage policy is where the sticking point is.
-> 
->>> Today cpuidle and cpufreq already expose these settings through
->>> governors.
->>
->> cpufreq governors are kind of tied to specific "energy efficiency" profiles,
->> performance, powersave, on-demand.  However, cpuidle governors are
-> 
-> I am not sure if that is correct. IMO Cpufreq governors function simply as per
-> policies defined to meet user experience. A system may choose to sacrifice
-> user experience @ the cost of running the CPU at the lowest frequency, but the
-> governor has no idea if it was really energy efficient for the platform. Similarly,
 
-The governor will never know if it was energy efficient. It will only
-take decisions from the data it has at its behest. And from the data
-that is exposed by the platform, if it appears that running the cpus at
-lowest frequency is the best bet to meet the system policy, it will do
-so. It cannot do better than this IMO and as I pointed in the previous
-mail this should be good enough too. Better than not having a governor no?
+--St7VIuEGZ6dlpu13
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> the governor might decide to run at a higher turbo frequency for better user
-> responsiveness, but it still doesn't know if it was energy efficient running @ those
-> frequencies. I am coming back to the point that energy efficiency is countable
-> _only_ at the platform level: if it results in a longer battery life w/o needing to plug in.
+Hi,
 
-Not every profile above is catering to energy savings. The very fact
-that the governor decided to run the cpus at turbo frequency means that
-it not looking at energy efficiency but merely at short bursts of high
-performance. This will definitely drop down battery life. But if the
-user chose a profile where turbo mode is enabled it means he is ok with
-these side effects.
+On Mon, May 12, 2014 at 11:53:20AM -0400, Jason Cooper wrote:
+> On Sun, May 11, 2014 at 07:18:24PM +0200, Levente Kurusa wrote:
+> > Hi,
+> >=20
+> > On Sun, May 11, 2014 at 06:37:47PM +0200, Laurent Pinchart wrote:
+> > > On Sunday 11 May 2014 18:29:18 Levente Kurusa wrote:
+> ...
+> > > > Not sure about how would we create the bugzilla entry? I mean, which
+> > > > section, urgency, etc. how would we decide on those solely based on
+> > > > the OOPS? Or should we ask the user to fill it out?
+> > >=20
+> > > Filling a complex form on a handheld device can be pretty tedious. A =
+two steps=20
+> > > procedure that would allow entering long text on a real computer coul=
+d be an=20
+> > > interesting option.
+> > >=20
+> >=20
+> > Makes sense.
+> >=20
+> > What about only asking for an email address and then sending them
+> > an automated message with a link where they can continue to add more
+> > information to the report? (i.e. fill out the bugzilla)
+>=20
+> Agree.
+>=20
+> > I guess we should also be careful with the bugzilla. We really don't
+> > want propertiary driver crashes added to the bugzilla automatically.
+>=20
+> Correct, but the data is still worth recording.
+>=20
+> > Nor do we want the same oops added twice, right?
+>=20
+> We don't want two bugzilla entries, but we do want to know how many
+> times this event has happened.
+>=20
+> > How would we differentiate between the two - essentially the same -
+> > oopses?
+>=20
+> Hmm, oops cookie?  hex string of 32/64 bits read off of the entropy
+> pool?  This would give us an accurate number of events even if a user
+> scans multiple times.
 
-We know certain general facts about cpu frequencies. Like running in
-turbo mode would mean the cpus could possibly get throttled and lead to
-eventual drop in performance. These are platform level. But having an
-idea about these things help us design the algorithms in the kernel.
+Hmm, I've been wondering about this too. I guess 32 bits are enough to
+differentiate between oopses, and adding this to the QR code is
+relatively easy as well.
 
-> 
->>> Look at an example for a tuned profile for performance:
->>> start() gets called when the profile is switched to and stop() when
->>> its turned off. We could include the scheduling parameters in the
->>> profile when we come up with the set of them.
->>>
->>>  start() {
->>>      [ "$USB_AUTOSUSPEND" = 1 ] && enable_usb_autosuspend
->>>      set_disk_alpm min_power
->>>      enable_cpu_multicore_powersave
->>>      set_cpu_governor ondemand
->>>      enable_snd_ac97_powersave
->>>      set_hda_intel_powersave 10
->>>      enable_wifi_powersave
->>>      set_radeon_powersave auto
->>>      return 0
->>>  }
->>>
->>>  stop() {
->>>      [ "$USB_AUTOSUSPEND" = 1 ] && disable_usb_autosuspend
->>>      set_disk_alpm max_performance
->>>      disable_cpu_multicore_powersave
->>>      restore_cpu_governor
->>>      restore_snd_ac97_powersave
->>>      restore_hda_intel_powersave
->>>      disable_wifi_powersave
->>>      restore_radeon_powersave
->>>      return 0
->>>  }
->>
->> You seem to think that user space would operate those profiles, but the
->> experience so far is that user space is not actually good at doing things like
->> that.  We have exposed a number of PM-related knobs to user space, but in
->> may cases it actively refuses to use them (we have dropped a couple of
->> them too for this very reason).
-> 
-> Please correct me if I am wrong, but items like wifi_powersave are something
-> default on most systems especially with per-device runtime power management.
-> Most devices are runtime managed and I don't see a strong reason to switch
-> device policies as energy saving methods.
+What I wonder is how could we get the server back-end to not
+allow the same oopses from bad users.
 
-Hmm I am not aware of this. This was a sample tuned profile on Fedora
-that I used as an example.
+Having a link like:
 
-> 
->>> A global knob would be useful in the case where the user chooses
->>> performance policy for example. It means he expects the kernel to
->>> *never* sacrifice performance for powersave. Now assume that a set of
->>> tasks is running on 4 cpus out of 10. If the user has chosen
->>> performance policy, *none of the 10 cpus should enter deep idle
->>> states* lest they affect the latency of the tasks. Here a global knob would
->> do well.
-> 
-> For this specific example, when you say the *user* has chosen the policy, do
-> you mean a user space daemon that takes care of this or the application itself?
+oops.kernel.org/submit_oops.php?qr=3D$ENTROPY$BASE64DATA
 
-I mean the "user"; i.e. whoever is in charge of deciding the system
-policies. For virtualized systems it could be the system administrator
-who could decide a specific policy for a VM. For laptops it is us, users.
-> 
-> How are we going to know if we will really save energy by limiting deep idle states
-> on all the 10 CPUs? Please help me understand this.
+would mean that malicious users could edit the $ENTROPY part and
+hence effectively report the same oops twice. Maybe some checksum?
+Or will it be too much for an already damaged kernel?
 
-We will not save energy by limiting idle states.By limiting idle states
-we ensure that we do not affect the latency requirement of the task
-running on the cpu.
+Thanks,
+    Levente Kurusa
 
-Regards
-Preeti U Murthy
-> 
-> Cheers!
-> 
+--St7VIuEGZ6dlpu13
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.11 (GNU/Linux)
+
+iQEcBAEBAgAGBQJTcPuRAAoJELBqK2lO9dZB4DgIAKCDvOH0hCgUu48uwHvNRqB5
+oe3GwSQCqC9LjgBGZYwBRJTruy4zdQ38Qe91ofxsYJmGwZaNwAVo/wFYtybpgVt6
+oXJbJm+IR1CcFgOH1loVmggzu/xOywoxQh8A4rH3WRK5KwRy3a4C2R+1CtXVrSLi
+/EOGVY7xkMiWRw27OmPInpiXVm7JxrcZgGel9/4jLWHKPWrljXWbRe8eucRXJKG9
+vAE4MLaGLK8zrtzluGAelgZOLu83PbibgZi6Ei8BYrewgjf58NQLcb+od6KGr74R
+/RLyflQ80EJ/vj8siIygCxYNaRXfjKzRxi+wYuWjZ0Xdl+vBQwCqFrBvQS9CnyE=
+=7ZIb
+-----END PGP SIGNATURE-----
+
+--St7VIuEGZ6dlpu13--
