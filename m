@@ -1,35 +1,23 @@
-Return-Path: <joro@8bytes.org>
+Return-Path: <morten.rasmussen@arm.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 70E0B48E
+	by mail.linuxfoundation.org (Postfix) with ESMTP id E88C2AB4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 15:07:24 +0000 (UTC)
-Received: from mail.8bytes.org (8bytes.org [85.214.48.195])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 0C40E20318
+	Mon, 12 May 2014 15:32:45 +0000 (UTC)
+Received: from collaborate-mta1.arm.com (fw-tnat.austin.arm.com
+	[217.140.110.23])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id BDE5520337
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 15:07:24 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
-	by mail.8bytes.org (Postfix) with SMTP id 2C3C312B187
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 17:07:23 +0200 (CEST)
-Date: Mon, 12 May 2014 17:07:22 +0200
-From: Joerg Roedel <joro@8bytes.org>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <20140512150722.GO12376@8bytes.org>
-References: <1399552623.17118.22.camel@i7.infradead.org>
-	<3908561D78D1C84285E8C5FCA982C28F328000EE@ORSMSX114.amr.corp.intel.com>
-	<1399666748.2166.68.camel@dabdike.int.hansenpartnership.com>
-	<4433093.MSzoqdJDMf@avalon>
-	<CAKMK7uFcWsZyGoxLx=2xH-vgRq1nD3cZjeqeRLsvKGrHt--VHA@mail.gmail.com>
+	Mon, 12 May 2014 15:32:44 +0000 (UTC)
+Date: Mon, 12 May 2014 16:32:34 +0100
+From: Morten Rasmussen <morten.rasmussen@arm.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Message-ID: <20140512153234.GE23253@e103034-lin>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAKMK7uFcWsZyGoxLx=2xH-vgRq1nD3cZjeqeRLsvKGrHt--VHA@mail.gmail.com>
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Device error handling /
- reporting / isolation
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>
+Subject: [Ksummit-discuss] Energy-aware Scheduling Workshop
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,15 +27,62 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, May 12, 2014 at 12:43:09AM +0200, Daniel Vetter wrote:
-> So I think having some iommu storm handling (like we have for
-> interrupts in general and a lot of other things) would go a long way
-> towards the goal of enabling iommus everywhere.
+Hi,
 
-Right, the developer use-case needs also be taken into account. We could
-easily ignore a device after it did something wrong to get rid of
-io-page-fault or interupt storms. But we also need a way to tell the
-kernel to unignore the device later :)
+Last year's Energy-Aware Scheduling workshop [1,2] was a good
+opportunity for interested parties to discuss some of the open issues in
+this area face to face. While work is still ongoing on many of the
+topics that were discussed, it might be worth having workshop again this
+year to follow up, revise the plans if necessary, and discuss topics
+that were not covered last year.
 
-	
-	Joerg
+Before submitting a workshop proposal to the Ksummit PC I would like to
+probe the interest. IMO, it is important that we have scheduler
+maintainers present.
+
+Workshop topic proposals:
+
+Test cases
+Use-cases for high-end phones (which some of us care about) consist of
+rather complex software stacks which are not suitable for quick patch
+testing [3]. While we can't avoid testing using the full software stack
+in the end, it would be useful to have configurable micro-benchmarks for
+initial testing and to reproduce specific scheduling patterns from the
+full use-case for debugging purposes.
+
+Energy Evaluation
+A hot topic last year. We need a way to evaluate energy-awareness
+patches. Work has started on an idle state analysis tool [4], but we are
+not there yet.
+
+Platform Performance/Energy data
+Currently the kernel has quite limited knowledge about energy costs of
+the platform where it is running. Without this information it is rather
+hard to make energy-efficient scheduling decisions. It seems that
+various energy-saving techniques don't work equally well on all
+platforms and might even depend on the use-case. Should we give the
+kernel enough information to construct a simple energy-model to guide
+decisions?
+
+CPU utilization and cpu_power
+The entity load tracking has given us a much better indication of
+individual task loadi. However, priority scaling makes it less suitable
+for low load scenarios [5] where we care more about actual cpu
+utilization per task when trying to figure out an energy-efficient load
+balance. Do we need entity utilization tracking as well? Related to this
+topic is the representation of cpu compute capacity. The current
+representation, cpu_power, can't deal with heterogeneous systems
+correctly. Can we come up with a solution that can handle SMT, SMP, and
+heterogeneous systems?
+
+
+All comments and topic proposals are welcome.
+
+Thanks,
+Morten
+
+[1] http://lwn.net/Articles/571414/
+[2] http://etherpad.osuosl.org/energy-aware-scheduling-ks-2013
+[3] https://lkml.org/lkml/2014/1/7/355
+[4] https://lkml.org/lkml/2014/3/24/363
+[5] https://lkml.org/lkml/2014/1/7/503 
