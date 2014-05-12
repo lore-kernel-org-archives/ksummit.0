@@ -1,31 +1,29 @@
 Return-Path: <teobaluta@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 6B52D979
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 78047A89
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 17:46:18 +0000 (UTC)
-Received: from mail-qc0-f180.google.com (mail-qc0-f180.google.com
-	[209.85.216.180])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id EFDCE20297
+	Mon, 12 May 2014 17:50:28 +0000 (UTC)
+Received: from mail-qc0-f179.google.com (mail-qc0-f179.google.com
+	[209.85.216.179])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 03B4520398
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 17:46:17 +0000 (UTC)
-Received: by mail-qc0-f180.google.com with SMTP id i17so8076746qcy.25
+	Mon, 12 May 2014 17:50:27 +0000 (UTC)
+Received: by mail-qc0-f179.google.com with SMTP id x3so8138177qcv.38
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 10:46:17 -0700 (PDT)
+	Mon, 12 May 2014 10:50:27 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1399914053.4337.21.camel@jlt4.sipsolutions.net>
+In-Reply-To: <53710053.4040100@zytor.com>
 References: <20140511041449.GP12708@titan.lakedaemon.net>
 	<CABe+QzBVC=dRZO4+v93A_Cy2nFuf_ajcq8KO20f5PPzVUf2bkg@mail.gmail.com>
 	<20140511162918.GA2527@linux.com> <1995824.rdvEX5SOIt@avalon>
 	<20140511171824.GB2527@linux.com>
-	<CACV2jQACREM61UYrR0=AGDMQ8WYguwaX6HyPFR+wc5oXTRpheA@mail.gmail.com>
-	<20140512161539.GX12708@titan.lakedaemon.net>
-	<20140512163643.GA3509@linux.com>
-	<1399914053.4337.21.camel@jlt4.sipsolutions.net>
-Date: Mon, 12 May 2014 20:46:17 +0300
-Message-ID: <CACV2jQBJS_rm+1OFyp=BusbmM=KGu+JbCBOuJ=B_pZt0U6iF3Q@mail.gmail.com>
+	<20140512155320.GW12708@titan.lakedaemon.net>
+	<20140512164921.GB3509@linux.com> <53710053.4040100@zytor.com>
+Date: Mon, 12 May 2014 20:50:27 +0300
+Message-ID: <CACV2jQDDu91ug=xeJ235W4jMunvfAY1rSXLjFGqw0hoTS4gmxg@mail.gmail.com>
 From: =?UTF-8?B?VGVvZG9yYSBCxINsdcWjxIM=?= <teobaluta@gmail.com>
-To: Johannes Berg <johannes@sipsolutions.net>
+To: "H. Peter Anvin" <hpa@zytor.com>
 Content-Type: text/plain; charset=UTF-8
 Cc: PJ Waskiewicz <pjwaskiewicz@gmail.com>,
 	Dirk Hohndel <hohndel@infradead.org>,
@@ -41,35 +39,34 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, May 12, 2014 at 8:00 PM, Johannes Berg
-<johannes@sipsolutions.net> wrote:
-> On Mon, 2014-05-12 at 18:36 +0200, Levente Kurusa wrote:
->
->> > I'd like the URL to be valid (meaning base64 the compressed data) so
->> > that we can get the data to the kernel.org server as easily as possible.
->> > Making the app a requirement for reporting is too onerous for
->> > non-developers.  I see no reason we can't link to (Open in/Install) it
->> > on the webform though.
+On Mon, May 12, 2014 at 8:09 PM, H. Peter Anvin <hpa@zytor.com> wrote:
+> On 05/12/2014 09:49 AM, Levente Kurusa wrote:
 >>
->> +1, the app is a good idea but shouldn't at all be mandatory. If we
->> add that as a requirement people might just get lazy and don't
->> download the app at which point we lose the report. Of course,
->> adding the app as a plus is a great idea, since then the geeky people
->> can take a look at what really happenned if the QR code has messed up
->> their stack traces or whatever they see on their screen.
+>> What I wonder is how could we get the server back-end to not allow
+>> the same oopses from bad users.
+>>
+>> Having a link like:
+>>
+>> oops.kernel.org/submit_oops.php?qr=$ENTROPY$BASE64DATA
+>>
+>> would mean that malicious users could edit the $ENTROPY part and
+>> hence effectively report the same oops twice. Maybe some checksum?
+>>  Or will it be too much for an already damaged kernel?
+>>
 >
-> If you have a well-known URL prefix then as far as I know you can (at
-> least on Android) still have a URL and invoke an app if it's installed,
-> via the intents system. You could thus still have a URL that displays
-> the information, or a local app that does it and can do more.
+> What did the old kerneloops system do for these kinds of things?
+>
+> Again, I'm concerned that a KS session for this will turn into an
+> implementation discussion, which is better done by email.
 
-That's right.You can select to see the text of the Oops or just send
-it to a predefined server. :)
+Well, the discussion got a bit technical, but as Josh said, I see no
+point in doing that sort of talk (for technical discussion there's
+always the RFC thread [0]). I think what would be of interest is the
+way the workflow changes and the infrastructure you need to maintain.
+For example, at the moment, can you actually send an Oops directly to
+kernel.org by posting it in a query?
 
->
-> johannes
->
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+Thanks,
+Teodora
+
+[0] https://lkml.org/lkml/2014/3/17/525
