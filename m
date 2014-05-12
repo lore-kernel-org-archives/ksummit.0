@@ -1,32 +1,30 @@
-Return-Path: <masami.hiramatsu.pt@hitachi.com>
+Return-Path: <wsa@the-dreams.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 500C2979
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 904FB7B9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 06:55:48 +0000 (UTC)
-Received: from mail9.hitachi.co.jp (mail9.hitachi.co.jp [133.145.228.44])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id AA14E20117
+	Mon, 12 May 2014 08:20:06 +0000 (UTC)
+Received: from pokefinder.org (sauhun.de [89.238.76.85])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 741EB20116
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 06:55:47 +0000 (UTC)
-Message-ID: <5370706E.6000108@hitachi.com>
-Date: Mon, 12 May 2014 15:55:42 +0900
-From: Masami Hiramatsu <masami.hiramatsu.pt@hitachi.com>
+	Mon, 12 May 2014 08:20:05 +0000 (UTC)
+Date: Mon, 12 May 2014 10:19:46 +0200
+From: Wolfram Sang <wsa@the-dreams.de>
+To: Theodore Ts'o <tytso@mit.edu>
+Message-ID: <20140512081945.GA2665@katana>
+References: <20140511053037.GQ12708@titan.lakedaemon.net>
+	<536FBA0E.5090301@gmail.com> <20140511190752.GC2527@linux.com>
+	<20140511192630.GA14115@kroah.com>
+	<20140511195011.GD2527@linux.com> <536FDE91.3050708@xs4all.nl>
+	<20140511213539.GB5480@thunk.org>
 MIME-Version: 1.0
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-References: <53662254.9060100@huawei.com> <53699F27.9040403@hitachi.com>
-	<1399431538.2581.30.camel@buesod1.americas.hpqcorp.net>
-	<5369EE59.9040805@hitachi.com>
-	<20140507083936.GY26088@console-pimps.org>
-	<536A1CC3.5090506@hitachi.com>
-	<CAKMK7uG8Ly92uMavqS-abq=06FXCDMCae7mbv1EusG7pF9HAOg@mail.gmail.com>
-	<536AF7F4.6010608@hitachi.com>
-	<CAKMK7uGB7QTPfq-dswq9-aB1Na+==mCNNL2gX_zr5srDBVnCeA@mail.gmail.com>
-In-Reply-To: <CAKMK7uGB7QTPfq-dswq9-aB1Na+==mCNNL2gX_zr5srDBVnCeA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable issues
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="6c2NcOVqGQ03X4Wi"
+Content-Disposition: inline
+In-Reply-To: <20140511213539.GB5480@thunk.org>
+Cc: Jason Cooper <jason@lakedaemon.net>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] hobbyist recruiting
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,34 +34,44 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-(2014/05/09 21:32), Daniel Vetter wrote:
-> On Thu, May 8, 2014 at 5:20 AM, Masami Hiramatsu
-> <masami.hiramatsu.pt@hitachi.com> wrote:
->>>> Ah, that's a good example for adding new feature/bugfix with test case! :)
->>>> I think this type of combined patch will be good to run tests with git-bisect.
->>>> At least out-of-tree test should work with git-bisect.
->>>
->>> At least for drm/i915 I don't think merging the tests into the kernel
->>> would be beneficial, at least now:
->>
->> Hm, it seems some other subsystems have their own testsuites, I think we'd
->> better clarify the testing policy for each subsystem,
->> using dedicated testing tools or in-kernel selftest.
-> 
-> What I'd like to discuss for the overall kernel is minimal standards
-> that apply everywhere. And process issues like where external test
-> suites should be documented (they're useless if people can't find
-> them) and how much pressure we should apply to get them into the
-> kernel git tree. And whether that makes sense in all cases or not.
 
-Agreed. I'd like to suggest adding UT: tag or TS: tag for unit test
-for testsuite to MAINTAINERS file, which will make clear how to test
-that subsystem when submitting patches. :)
+--6c2NcOVqGQ03X4Wi
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Thank you,
 
--- 
-Masami HIRAMATSU
-Software Platform Research Dept. Linux Technology Research Center
-Hitachi, Ltd., Yokohama Research Laboratory
-E-mail: masami.hiramatsu.pt@hitachi.com
+> The one difference from the way things were in 1991 is that kernel has
+> gotten much more complicated, so it is true that it's a lot harder for
+> someone to get started from ground zero than I had.i
+
+I tend to disagree partly. Sure, the the kernel core is much more
+complicated these days. Still, if one likes playing with hardware, some
+driver subsystems are still easy to get into, and most need help, too.
+Stuff like I2C, SPI, 1wire and their slave devices, especially sensors.
+Yes, it needs people with this amount of motivation to spend some time
+and a few bucks.
+
+
+--6c2NcOVqGQ03X4Wi
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.15 (GNU/Linux)
+
+iQIcBAEBAgAGBQJTcIQhAAoJEBQN5MwUoCm2oGEP/iVvYFjFa3DRuRwI9L+2CpHN
+7UNmij5wTUvf4Ete15Rqyb2XHJWMJHJeBvP/W2AHvm+qBfFaqgnoQiF8ig12izGC
+WXZXR1ijMkcQed6WEtdLVxZdgCkYw00ukAMuNiodNqn+LbpH9HgcAbot+JRH5tfw
+U8/Sv2ltsXAPv2UOvVQpZBGYnegRkYYl2cli67gmeTnkaHG3C9/7aRdfVfEZD0/C
+CgOaROrIXZNUle38iVCeU/ZmEcApSKx/Fm0o5ACWZC+V4/PKJrG/lHqwwknVZvd9
+H5p/RRRr1TyNWc7NuXC5zFS5X79X06jmUS077kYEMyBCf97ia3rSmSsKOVavWqlH
+V8NTF2OKh1QwqSv27Y7DN/lb5gnagIWYQKzEwk3UgrUAuHtQqU1an6fbhLmlGPLU
+VxQypaB58rTwoJ2tCbDWtOl91WoPrBqZgR5V0UeGzTQ/g5mRpvhvudDh7w/t/suW
+3wReXZg0jBKuUCP7VMdAM8dhEHAsg3XTi8+NjFKLSoAb8fvNPO8BKlUYSfahpUlw
+QnJvzBc56WMMYAWGYmb+4JUOZeMfyA7Q0yahcx2XRr/lzAG/u/KNzMjTe/QSFrs7
+HZMJgqjKAUFQGAi+26BZnQRBm96mlipmdMBeyUMgEkaASl/xH0S16LjWAzzdRXfC
+jSjIhtifFKJAMVPuYtds
+=AsRx
+-----END PGP SIGNATURE-----
+
+--6c2NcOVqGQ03X4Wi--
