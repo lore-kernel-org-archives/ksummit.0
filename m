@@ -1,43 +1,34 @@
-Return-Path: <preeti@linux.vnet.ibm.com>
+Return-Path: <sundar.iyer@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 2EBBFADE
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 2756CADE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 17:28:48 +0000 (UTC)
-Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 820D320259
+	Mon, 12 May 2014 17:31:46 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id C4DEB20352
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 17:28:47 +0000 (UTC)
-Received: from /spool/local
-	by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
-	Violators will be prosecuted
-	for <ksummit-discuss@lists.linuxfoundation.org> from
-	<preeti@linux.vnet.ibm.com>; Mon, 12 May 2014 11:28:46 -0600
-Received: from b03cxnp08025.gho.boulder.ibm.com
-	(b03cxnp08025.gho.boulder.ibm.com [9.17.130.17])
-	by d03dlp01.boulder.ibm.com (Postfix) with ESMTP id 564751FF0040
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 11:28:44 -0600 (MDT)
-Received: from d03av03.boulder.ibm.com (d03av03.boulder.ibm.com [9.17.195.169])
-	by b03cxnp08025.gho.boulder.ibm.com (8.13.8/8.13.8/NCO v10.0) with
-	ESMTP id s4CHSan063766658
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 19:28:44 +0200
-Received: from d03av03.boulder.ibm.com (localhost [127.0.0.1])
-	by d03av03.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP
-	id s4CHSB5R015648 for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 11:28:11 -0600
-Message-ID: <53710391.6000504@linux.vnet.ibm.com>
-Date: Mon, 12 May 2014 22:53:29 +0530
-From: Preeti U Murthy <preeti@linux.vnet.ibm.com>
+	Mon, 12 May 2014 17:31:45 +0000 (UTC)
+From: "Iyer, Sundar" <sundar.iyer@intel.com>
+To: Preeti U Murthy <preeti@linux.vnet.ibm.com>, Morten Rasmussen
+	<morten.rasmussen@arm.com>
+Date: Mon, 12 May 2014 17:30:58 +0000
+Message-ID: <2FABAEF0D3DCAF4F9C9628D6E2F9684533B51950@BGSMSX102.gar.corp.intel.com>
+References: <2FABAEF0D3DCAF4F9C9628D6E2F9684533B4C781@BGSMSX102.gar.corp.intel.com>
+	<536B477B.2030800@linux.vnet.ibm.com>
+	<20140512111407.GB5540@e103034-lin>
+	<53710132.60506@linux.vnet.ibm.com>
+In-Reply-To: <53710132.60506@linux.vnet.ibm.com>
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-To: Josh Boyer <jwboyer@fedoraproject.org>
-References: <CA+5PVA4AtLtf_XKpWOjpqkWGmm6Hg1kZExs-2K15RJiYsbgnkQ@mail.gmail.com>
-In-Reply-To: <CA+5PVA4AtLtf_XKpWOjpqkWGmm6Hg1kZExs-2K15RJiYsbgnkQ@mail.gmail.com>
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 8bit
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Nominations for per topic people
+Cc: "Brown, Len" <len.brown@intel.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Daniel Lezcano <daniel.lezcano@linaro.org>, Ingo Molnar <mingo@kernel.org>
+Subject: Re: [Ksummit-discuss] [TECH(CORE?) TOPIC] Energy conservation bias
+ interfaces
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -47,66 +38,45 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 05/09/2014 10:19 PM, Josh Boyer wrote:
-> Below are people that have been nominated in the submitted topic
-> threads that aren't already on the list.
-> 
-> Josh Poimboeuf (live kernel patching)
-> Seth Jennings (live kernel patching)
-> Vojtech Pavlik (live kernel patching, trusted kernel patchset)
-> Pavel Emelyanov (live kernel patching)
-> Masami Hiramatsu (live kernel patching)
-> Jiri Slaby (live kernel patching, stable)
-> Michael Matz (live kernel patching)
-> Josh Boyer (trusted kernel patchset, stable)
-> Joey Li (trusted kernel patchset)
-> Gary Lin (trusted kernel patchset)
-> James Morris (trusted kernel patchset)
-> Matthew Garret (trusted kernel patchset)
-> Darren Hart (driver model and ACPI/DT)
-> Grant Likely (driver model and ACPI/DT, also on the ksummit committee so...)
-> Al Stone (driver model and ACPI/DT)
-> Amit Kucheria (energy conservation bias)
-> Morten Rasmussen (energy conservation bias)
+> -----Original Message-----
+> From: Preeti U Murthy [mailto:preeti@linux.vnet.ibm.com]
+> Sent: Monday, May 12, 2014 10:43 PM
+> To: Morten Rasmussen
+>=20
+> You are right. We shouldn't be exposing so many knobs to user-space and
+> expect the kernel to make good decisions based on these knobs being
+> tweaked by user space. How about a high level classification of profiles =
+like
+> balanced, performance, powersave? These alone can be chosen by the user
+> and the lower end tunings left to the discretion of the kernel.
 
-I would like to nominate myself for the topic "Energy Conservation Bias".
+Also, may I suggest to try to limit the discussion preliminary to CPU only?=
+ Should
+we try to see if we can get a detailed policy, conditions specifically w.r.=
+t CPU scheduling?
 
-I have been working on improving Energy management on PowerPC over the
-last year. Specifically I have worked on extending the tick broadcast
-framework in the kernel to support deep idle states and helped review
-and improvise the cpufreq driver for PowerNV platforms.
+I am trying to sum up thoughts in my mind; please correct/add/edit as neede=
+d.
 
-https://lkml.org/lkml/2014/2/7/608
-http://thread.gmane.org/gmane.linux.power-management.general/44175
+Scheduler options:
+a. Spread wide: Utilize as much as CPUs as possible for tasks
+b. Limit Local: Utilize as less as CPUs as possible.
 
-Besides this I have been helping out in efforts to integrate cpuidle
-with scheduler over the last year. The year before that I spent time
-analysing the advantage that the per-entity load tracking metric brings
-to the scheduler and its role in designing the power aware scheduler.
-I presented a talk at the Linux Foundation Collaboration Summit 2013 on
-the same.
+Resources impacting these options:
+a. if CPUs share common resources like power;
+b. if CPUs share common cache; OIOW, cost of moving data around CPUs
+c. CPU Energy efficiency profiles (BIG or little or xyz)
 
-I wish to be a part of this discussion and look forward to sharing my
-ideas on Energy management in the kernel. I am very interested in
-bringing to the table, the challenges and solutions that we have on
-PowerPC in the area of Energy Management. Please consider my
-participation in this discussion.
+Factors affecting these options:
 
-Regards
-Preeti U Murthy
+Ideally, we would like to spread wide if:
+a. tasks/processes are heavily multi-threaded and parallelized;
+b. asynchronous tasks that are single threaded and shifting them to multipl=
+e CPUs will
+avoid boosting CPU load and hence P-states;
+c. there is explicit hint from the application/user space about lack of dat=
+a dependency;
 
-> Waiman Long (asm-generic low levels)
-> Jörg Rödel (device error handling)
-> Michael Kerrisk (API/ABI review)
-> Shuah Khan (API/ABI review)
-> Dave Jones (kernel tinification, energy conservation bias, and trinity work)
-> Andy Lutomirski (virtually every topic thread thus far)
-> 
-> Hope that helps.
-> 
-> josh
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
-> 
+does the list seem good to start?
+
+Cheers!
