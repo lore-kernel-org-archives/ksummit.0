@@ -1,30 +1,30 @@
-Return-Path: <josh@joshtriplett.org>
+Return-Path: <benh@kernel.crashing.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 943F92FA
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 21883AFC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 06:13:46 +0000 (UTC)
-Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
-	[217.70.183.196])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1AC7720117
+	Mon, 12 May 2014 06:21:50 +0000 (UTC)
+Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 96F5420117
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 06:13:45 +0000 (UTC)
-Date: Sun, 11 May 2014 23:13:32 -0700
-From: Josh Triplett <josh@joshtriplett.org>
-To: "H. Peter Anvin" <hpa@zytor.com>
-Message-ID: <20140512061332.GA10134@thin>
-References: <20140511041449.GP12708@titan.lakedaemon.net>
-	<CABe+QzBVC=dRZO4+v93A_Cy2nFuf_ajcq8KO20f5PPzVUf2bkg@mail.gmail.com>
-	<53703416.5070400@zytor.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <53703416.5070400@zytor.com>
-Cc: PJ Waskiewicz <pjwaskiewicz@gmail.com>,
-	Dirk Hohndel <hohndel@infradead.org>,
-	ksummit-discuss@lists.linuxfoundation.org, Anton Arapov <arapov@gmail.com>,
-	Jason Cooper <jason@lakedaemon.net>, Sarah A Sharp <sarah@minilop.net>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] QR encoded oops for the kernel
+	Mon, 12 May 2014 06:21:49 +0000 (UTC)
+Message-ID: <1399875693.17624.95.camel@pasglop>
+From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+To: Arnd Bergmann <arnd@arndb.de>
+Date: Mon, 12 May 2014 16:21:33 +1000
+In-Reply-To: <11391971.y9GOPHmK72@wuerfel>
+References: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>
+	<1399289464.20388.57.camel@pasglop> <1560013.xlOCHMZ3P0@vostro.rjw.lan>
+	<11391971.y9GOPHmK72@wuerfel>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"dvhart@dvhart.com" <dvhart@dvhart.com>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Driver model/resources, ACPI, DT,
+ etc (sigh)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,17 +34,35 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sun, May 11, 2014 at 07:38:14PM -0700, H. Peter Anvin wrote:
-> As valuable as I obviously believe this project is, is there actually
-> anything that warrants discussion at the Kernel Summit?  It seems like
-> something to Just Do[TM].
+On Tue, 2014-05-06 at 15:35 +0200, Arnd Bergmann wrote:
+> 
+> With ACPI (or a server running OF for that matter), you assume that the
+> PCI host is operational and all buses are fully probed and then you
+> have methods for doing hotplugging, you just look at the device that
+> are already initialized by the firmware.
+> 
+> With embedded systems, you (in general, some steps may get skipped
+> in practice) go through a lot more steps:
+> - detect the presence of the host bridge device
+> - enable clocks, voltages, phys, resets, etc.
+> - set up inbound and outbound MMIO and PIO address translation windows
+> - perform a full bus scan and assign bus and device resources
+> 
+> We probably woulnd't go through that hassle on ACPI systems. I think
+> we shouldn't attempt any translation here, and keep the code completely
+> separate, with the common parts being handled by the PCI core as we
+> do today.
 
-I believe there is actually a key part of this discussion to have at
-Kernel Summit.  We don't need to discuss the technical details of the
-implementation; we do need to discuss the implications of enabling mass
-oops-reporting, the infrastructure and information we want to include in
-codes valid for the next decade or so, the tradeoffs between ease of
-reporting and value of the reports, some potential approaches to
-aggregate the date, and similar.
+Well, you said it "or a server running OF for that matter" ...
 
-- Josh Triplett
+PCI Hotplug is a whole separate can of worms, let's not get there :-)
+
+Even on OF machine, it's very platform specific. I don't think we can
+use it as an example of something that's widely different between DT
+and ACPI per-se as it's going to be widely different between everything
+non-ACPI.
+
+This is a case of ACPI-does-methods being actually somewhat useful.
+
+Cheers,
+Ben.
