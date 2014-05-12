@@ -1,28 +1,31 @@
-Return-Path: <shuahkhan@gmail.com>
+Return-Path: <dave@sr71.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 78B444D3
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 814FF99D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 17:51:55 +0000 (UTC)
-Received: from mail-qa0-f49.google.com (mail-qa0-f49.google.com
-	[209.85.216.49])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0BEB12039F
+	Mon, 12 May 2014 18:15:22 +0000 (UTC)
+Received: from blackbird.sr71.net (www.sr71.net [198.145.64.142])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 461B620394
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 17:51:54 +0000 (UTC)
-Received: by mail-qa0-f49.google.com with SMTP id cm18so7336290qab.22
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 10:51:54 -0700 (PDT)
+	Mon, 12 May 2014 18:15:22 +0000 (UTC)
+Message-ID: <53710D95.6080900@sr71.net>
+Date: Mon, 12 May 2014 11:06:13 -0700
+From: Dave Hansen <dave@sr71.net>
 MIME-Version: 1.0
-In-Reply-To: <1872038.43ncqEMWSx@avalon>
-References: <1872038.43ncqEMWSx@avalon>
-Date: Mon, 12 May 2014 11:51:54 -0600
-Message-ID: <CAKocOOMk-jVW9-M+6SOzAJ3-6-i-5TWwLmQE6CRqf7tFGTM=jw@mail.gmail.com>
-From: Shuah Khan <shuahkhan@gmail.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: Tomasz Figa <tomasz.figa@gmail.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] PM dependencies
+To: Christoph Lameter <cl@linux.com>,
+ Steven Rostedt <rostedt@goodmis.org>
+References: <alpine.DEB.2.10.1405081124000.24271@gentwo.org>	<1399595490.2230.13.camel@dabdike.int.hansenpartnership.com>	<alpine.DEB.2.10.1405090940080.11318@gentwo.org>	<20140509122451.5228a038@gandalf.local.home>
+	<alpine.DEB.2.10.1405091150410.11810@gentwo.org>
+In-Reply-To: <alpine.DEB.2.10.1405091150410.11810@gentwo.org>
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
+Cc: Sarah Sharp <sarah@minilop.net>, ksummit-discuss@lists.linuxfoundation.org,
+	Greg KH <gregkh@linuxfoundation.org>,
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Julia Lawall <julia.lawall@lip6.fr>, Darren Hart <darren@dvhart.com>,
+	Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Kernel tinification: shrinking
+ the kernel and avoiding size regressions
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,42 +35,27 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, May 12, 2014 at 11:43 AM, Laurent Pinchart
-<laurent.pinchart@ideasonboard.com> wrote:
-> Hello,
->
-> On modern systems many PM dependencies don't follow the Linux kernel device
-> model based on parent-child relationships from a control bus point of view.
-> For instance a GPU will need the IOMMU that services its memory requests to be
-> powered on to perform DMA operations.
->
-> Ad-hoc solutions with subsystem-specific or even driver-specific APIs have
-> been implemented (see omap_iommu_save_ctx and omap_iommu_restore_ctx in
-> include/linux/omap-iommu.h for instance, that push the burden of saving and
-> restoring the IOMMU registers to bus master drivers), but they make automatic
-> handling of hardware resources difficult. In the IOMMU case again, the goal is
-> to hide IOMMU handling inside the DMA mapping API and make its usage
-> completely transparent to bus master drivers in most of the cases. An IOMMU-
-> specific API to explicitly control IOMMU power from the bus master driver
-> would make that goal impossible to reach.
->
-> The problem is not limited to IOMMUs. We have similar dependencies at
-> suspend/resume time with camera interfaces for instance, where two completely
-> unrelated device in the Linux device hierarchy (a camera interface platform
-> device in the SoC and an I2C camera sensor) need to be suspended and resumed
-> in a controlled order. I'm sure many more use cases exist.
+On 05/09/2014 09:55 AM, Christoph Lameter wrote:
+> On Fri, 9 May 2014, Steven Rostedt wrote:
+>>> > > One improvement would be to sort the functions by functionality. All the
+>>> > > important functions in the first 2M of the code covered by one huge tlb
+>>> > > f.e.
+>> >
+>> > I thought pretty much all of kernel core memory is mapped in by huge
+>> > tlbs? At least for kernel core code (not modules), the size should not
+>> > impact tlbs.
+> Yes, but processor only support a limited amount of 2m tlbs and
+> applications also want to use them. A large 100M sized kernel would
+> require 50 tlbs and cause tlb trashing if functions are accessed over all
+> the code.
 
-We discussed this topic briefly at the Media Mini-summit.  I looking
-into similar
-use-cases in media devices. Suspend/resume of a tuner for example should only
-be done once as opposed multiple times by drivers that think they have exclusive
-access to the tuner on a media device.
+Is this taking in to account that second-level TLB on Haswell can now
+hold 2M entries?  That should pretty drastically change the landscape here.
 
-I am interested in this discussion and would like to participate.
-Requesting nomination.
+> Loadable modules are using vmalloc areas that use 4k pages which
+> is another issue.
 
--- Shuah
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+Isn't this just another case where we need to try kmalloc() and fall
+back to vmalloc() when it fails?  Most modules are loaded way before we
+see any kind of possibility of memory fragmentation so I'd expect that
+to be pretty successful in the common case.
