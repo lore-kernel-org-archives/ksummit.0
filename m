@@ -1,27 +1,30 @@
 Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 236D0979
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 5B682979
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 20:32:07 +0000 (UTC)
+	Mon, 12 May 2014 20:59:12 +0000 (UTC)
 Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
 	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B5EEA2033B
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C0E8E201B3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 20:32:06 +0000 (UTC)
-Date: Mon, 12 May 2014 21:31:53 +0100
-From: Mark Brown <broonie@sirena.org.uk>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Message-ID: <20140512203153.GH12304@sirena.org.uk>
-References: <1872038.43ncqEMWSx@avalon> <20140512201438.GE12304@sirena.org.uk>
-	<1890814.sS5FutD9xo@avalon>
+	Mon, 12 May 2014 20:59:11 +0000 (UTC)
+Date: Mon, 12 May 2014 21:58:54 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Amit Kucheria <amit.kucheria@linaro.org>
+Message-ID: <20140512205854.GQ12304@sirena.org.uk>
+References: <1998761.B2k0A5OtQR@vostro.rjw.lan>
+	<CAP245DV9U+L2D-LPHd-M=zuT_Jh2cuxXzo59-=GLbaMdfCjGeA@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="ff6ksNNlJWENvJ9B"
+	protocol="application/pgp-signature"; boundary="yfIbrPjRokFEZXK3"
 Content-Disposition: inline
-In-Reply-To: <1890814.sS5FutD9xo@avalon>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] PM dependencies
+In-Reply-To: <CAP245DV9U+L2D-LPHd-M=zuT_Jh2cuxXzo59-=GLbaMdfCjGeA@mail.gmail.com>
+Cc: Len Brown <len.brown@intel.com>, ksummit-discuss@lists.linuxfoundation.org,
+	Peter Zijlstra <peterz@infradead.org>,
+	Daniel Lezcano <daniel.lezcano@linaro.org>, Ingo Molnar <mingo@kernel.org>
+Subject: Re: [Ksummit-discuss] [TECH(CORE?) TOPIC] Energy conservation bias
+ interfaces
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,46 +35,56 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---ff6ksNNlJWENvJ9B
+--yfIbrPjRokFEZXK3
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, May 12, 2014 at 10:27:14PM +0200, Laurent Pinchart wrote:
-> On Monday 12 May 2014 21:14:38 Mark Brown wrote:
+On Mon, May 12, 2014 at 05:23:11PM +0530, Amit Kucheria wrote:
+> On Tue, May 6, 2014 at 6:24 PM, Rafael J. Wysocki <rjw@rjwysocki.net> wrote:
 
-> > This is something ASoC has been resolving since forever with the machine
-> > drivers, Russell King recently created a generic version of the code
-> > that does the dependency deferral glue (see linux/component.h).  It's
-> > not a model of elegance but it ends up getting the job done.
+> > First of all, it would be good to have a place where subsystems and device
+> > drivers can go and check what the current "energy conservation bias" is in
+> > case they need to make a decision between delivering more performance and
+> > using less energy.  Second, it would be good to provide user space with
 
-> That solves the probe time dependencies, but unfortunately not the runtim=
-e PM=20
-> dependencies.
+> Drivers are always designed to go as fast as possible until there is
+> nothing to do and runtime PM kicks in. Do we really want drivers that
+> slow down file copy to the USB stick because we are on battery? Or
+> degrade audio/video quality to save power? The only usecase I can come
+> up with where this makes sense is the wifi connection where the driver
+> should perhaps throttle bitrates if the network isn't being used
+> actively. But that is a driver-internal decision.
 
-It also solves the system suspend dependencies.  Why don't the runtime
-PM dependencies just work with reference counting?
+There's some tradeoffs around audio as well actually - typically there
+is a lot of room for degrading performance without much impact on real
+world users.  That said of course hardware manufacturers are constantly
+working to eliminate the need for such tradeoffs so the longer we leave
+this stuff the less relevant it becomes.  I'd guess this is fairly
+common for analogue circuits, a similar thing used to be the case with
+PMICs though for modern devices the need for explict tuning has been
+mostly eliminated and the hardware can do it autonomously (at least for
+the bits that burn most power).
 
---ff6ksNNlJWENvJ9B
+--yfIbrPjRokFEZXK3
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2.0.22 (GNU/Linux)
 
-iQIcBAEBAgAGBQJTcS+2AAoJELSic+t+oim9/N4P/irOlB0sZRQhPtBGJtTy8Fbc
-w5IyfM47W5NmJ9WwsEDqhcbryVW8135nVGHcF/wJvYV/593eA2tBEqonxmOc8DeH
-dtxr31sEJAwdSWkdNX1RjqskW+ed1cUMB+MbfVHRUiMHC+kTCaUkuHB4pXhq1ard
-gBRMNFuI11xhPp40rZZx4aA9Q9CjFYqVOfdFcz3y0UKOj8esA+hDA9Y3x9b8kjwv
-qlsEManZtsnG/UrwmEYakjgolK+wqX3IzTrF2PDOh/EAHOl3KoISigqqZi2hB+Iy
-dKfAtxt+ZnPBqtx9bfIQ99ib7G1u15CfK8SPHGmhWdRFJZZyS5zVhMLVdemjJ0J2
-SLSRd5IxQC3xvduSAOLTff5ILP+MeLinrDXoXWsa/JumBrXaSazmb8CrAj1boRG7
-H5qFt7+cxuMCW32LjqpH99wZR0nBsEW8uAsRkgctH8CdNd8GESWVqQ161aWh9Z3R
-weoXgtLWZTqn6UVdvG0I388I+QrXJ+vhYBeQOogyq7UcefwHvmDnuPuuj/G23Vaf
-cgSduCkuwftyEc5FoSRMKPdsK5BsI8UqaxjgkGvZdtqoGI8fEIqIDRSJORutFc3U
-lvj3o4CtL6yKGh0Be1ro666nw48hyO9psMZGsOucTo8zRmu3+sfZeCNjwYFYBHY8
-ALON7l8tP0XxPMwnY3pe
-=xRxI
+iQIcBAEBAgAGBQJTcTYLAAoJELSic+t+oim9GUMQAJbYBHBY1uH0VGkT1YL/8qFc
+jL8ApTbDrfskATGUs8u1TLK7e6m+TqsE2wF3oV9qiRtz53EXJNqSJCUdQAcnYg8L
+KY6K5eL9rRntiVrJR0QrE0tHj5ZlkviRA9SWzAA/JBdlKdbIBfPfFYt9gBvXGHdb
+jlstmXuQE1gMbz+2lMWGDStAU53RQtjV5SaEqCxi26BCXZwdF1NLHS381ZD/McVA
+X4O5vExemNmX29mftAlbLWZkdEob/fJ23p+a+2SbxwHYJqLbcG6S5iqtxjL90XdW
+fB9xvMZ548iaTABTAEa/OLSDuvmVsjMdENkZ6VJWROhKcuyT3FPro/jrtoIK+f9E
+ACNdim0moBnpkHICxA6sgohaBd3TrbcXltfkpyfu+53IgfYzw5+FES/IbJAS84Jh
+rcN7K1vONgysE1/6EMSI3gJyIe65ZK+e4ITJcgr2r+fIJ+snfSBP7EF7T1kDFsLY
+GAKRpQzIk78hpvFK+l9j/9TF3y+9kzQwiNrPTiPpr9voqlTTxWgyihUmsdrdQ3XP
+3he5eQfFM2KrxHj2wBhqGOq4/LrEDSLFIY1dUpMMGcv/RS+6sq/s8KBAXmoY+O5G
+W7nXq98LXegd0dqBwa3RG7g74o4rGOIlyhNPaXXtfzepYPHh2sVDjqPUnzc1Fgjy
+OJ9eUcUy5TSh5Yen0Zjb
+=AeLL
 -----END PGP SIGNATURE-----
 
---ff6ksNNlJWENvJ9B--
+--yfIbrPjRokFEZXK3--
