@@ -1,33 +1,32 @@
-Return-Path: <masami.hiramatsu.pt@hitachi.com>
+Return-Path: <morten.rasmussen@arm.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 556D34C6
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 4CAE34C6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 10:13:13 +0000 (UTC)
-Received: from mail7.hitachi.co.jp (mail7.hitachi.co.jp [133.145.228.42])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 91AF51FD46
+	Mon, 12 May 2014 10:32:08 +0000 (UTC)
+Received: from collaborate-mta1.arm.com (fw-tnat.austin.arm.com
+	[217.140.110.23])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 247421F977
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 10:13:12 +0000 (UTC)
-Received: from mlsv4.hitachi.co.jp (unknown [133.144.234.166])
-	by mail7.hitachi.co.jp (Postfix) with ESMTP id 9FB3637AC4
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 19:13:11 +0900 (JST)
-Received: from vshuts01.hitachi.co.jp (vshuts01.hitachi.co.jp [10.201.6.83])
-	by mfilter03.hitachi.co.jp (Switch-3.3.4/Switch-3.3.4) with ESMTP id
-	s4CADAn9003390 for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 19:13:11 +0900
-Message-ID: <53709EB2.20400@hitachi.com>
-Date: Mon, 12 May 2014 19:13:06 +0900
-From: Masami Hiramatsu <masami.hiramatsu.pt@hitachi.com>
+	Mon, 12 May 2014 10:31:55 +0000 (UTC)
+Date: Mon, 12 May 2014 11:31:44 +0100
+From: Morten Rasmussen <morten.rasmussen@arm.com>
+To: "Iyer, Sundar" <sundar.iyer@intel.com>
+Message-ID: <20140512103144.GA5540@e103034-lin>
+References: <2FABAEF0D3DCAF4F9C9628D6E2F9684533B4C781@BGSMSX102.gar.corp.intel.com>
+	<536B477B.2030800@linux.vnet.ibm.com>
+	<2FABAEF0D3DCAF4F9C9628D6E2F9684533B4DABB@BGSMSX102.gar.corp.intel.com>
 MIME-Version: 1.0
-To: ksummit-discuss@lists.linuxfoundation.org
-References: <20140511041449.GP12708@titan.lakedaemon.net>
-	<CABe+QzBVC=dRZO4+v93A_Cy2nFuf_ajcq8KO20f5PPzVUf2bkg@mail.gmail.com>
-	<20140511162918.GA2527@linux.com>
-In-Reply-To: <20140511162918.GA2527@linux.com>
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] QR encoded oops for the kernel
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2FABAEF0D3DCAF4F9C9628D6E2F9684533B4DABB@BGSMSX102.gar.corp.intel.com>
+Cc: "Brown, Len" <len.brown@intel.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Daniel Lezcano <daniel.lezcano@linaro.org>, Ingo Molnar <mingo@kernel.org>
+Subject: Re: [Ksummit-discuss] [TECH(CORE?) TOPIC] Energy conservation bias
+ interfaces
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,44 +36,34 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-(2014/05/12 1:29), Levente Kurusa wrote:
-> Hi,
+On Thu, May 08, 2014 at 03:23:58PM +0100, Iyer, Sundar wrote:
+> > -----Original Message-----
+> > From: Preeti U Murthy [mailto:preeti@linux.vnet.ibm.com]
+> > Sent: Thursday, May 8, 2014 2:30 PM
+> > To: Iyer, Sundar; Peter Zijlstra; Rafael J. Wysocki
+> > Cc: Brown, Len; Daniel Lezcano; Ingo Molnar; ksummit-
 > 
-> On Sun, May 11, 2014 at 08:57:01AM -0700, Sarah A Sharp wrote:
->> On Sat, May 10, 2014 at 9:14 PM, Jason Cooper <jason@lakedaemon.net> wrote:
->>> All,
->>>
->>> I recently came across a patch series attempting to implement encoding
->>> kernel oops into a QR code [1].  The QR code is then dumped to the
->>> framebuffer.  The QR code is a URL of the form:
->>>
->>>   https://oops.kernel.org/?qr=<base64 compressed oops>
->>>
->>> This proposal is interesting because it fundamentally changes the way
->>> users report bugs to the kernel community.  First and foremost, it makes
->>> it much easier.
->>>
->>>   1) oops occurs
->>>   2) user pulls out phone, scans QR code
->>>       - at this point, the oops is recorded on the server.  Nothing more
->>>         is required of the user.
->>>
+> > True that 'race to halt' also ends up saving energy. But when the kernel goes
+> > conservative on energy, the scheduler would look at racing to idle *within a
+> > power domain* as much as possible. Only if the load crosses a certain
+> > threshold would it spread across to other power domains.
 > 
-> To be precise, most scanners don't automatically open the links
-> found in QR codes and hence a tap/click from the user is required. :-)
+> I think Rafael mentioned in an another thread about shared supplies and resources.
+> In such a case, the race-to-idle within a power domain may actually negate the overall
+> platform savings.
+> 
+> And to confirm, you are referring to generic power domains beyond the CPU right?
+> 
+> > These are general heuristics. These simple heuristics must work out for most
+> > platforms but may not work for all. If it works for majority of the cases then
+> > I believe we can safely call it a success.
+> 
+> And which is why I mentioned that this is heavily platform dependent. This is 
+> completely dependent on how the rest of the system power management works.
 
-I guess we might need a smartphone application for sending oops
-to correct server. So, I'd like to suggest following; at step 0,
-user downloads oops-report application and he/she might sign-up the
-server with his mail via the application(optional). And at step2,
-run the app to scan the QR code. The app decodes it and reports to
-server via user's account (anonymous is ok). :)
-Thus, they don't need to fill the additional forms.
-
-Thank you,
-
--- 
-Masami HIRAMATSU
-Software Platform Research Dept. Linux Technology Research Center
-Hitachi, Ltd., Yokohama Research Laboratory
-E-mail: masami.hiramatsu.pt@hitachi.com
+Agree. Race to halt/idle is not universally a good idea. It depends of
+the platform energy efficiency at the higher performance states, idle
+power consumption, system topology, use-case, and anything else that
+consumes power while the tasks are running. For example, if your energy
+efficiency is really bad in the turbo states, it might be worth going a
+bit slower if the total energy can be reduced.
