@@ -1,25 +1,25 @@
-Return-Path: <jason@lakedaemon.net>
+Return-Path: <jack@suse.cz>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id CB71CA8A
+	by mail.linuxfoundation.org (Postfix) with ESMTP id BD7EDAB4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 15:53:24 +0000 (UTC)
-Date: Mon, 12 May 2014 11:53:20 -0400
-From: Jason Cooper <jason@lakedaemon.net>
-To: Levente Kurusa <levex@linux.com>
-Message-ID: <20140512155320.GW12708@titan.lakedaemon.net>
-References: <20140511041449.GP12708@titan.lakedaemon.net>
-	<CABe+QzBVC=dRZO4+v93A_Cy2nFuf_ajcq8KO20f5PPzVUf2bkg@mail.gmail.com>
-	<20140511162918.GA2527@linux.com> <1995824.rdvEX5SOIt@avalon>
-	<20140511171824.GB2527@linux.com>
+	Mon, 12 May 2014 15:57:04 +0000 (UTC)
+Received: from mx2.suse.de (cantor2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 155EE20335
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 12 May 2014 15:57:04 +0000 (UTC)
+Date: Mon, 12 May 2014 17:57:01 +0200
+From: Jan Kara <jack@suse.cz>
+To: Chris Mason <clm@fb.com>
+Message-ID: <20140512155701.GC3685@quack.suse.cz>
+References: <5370DB7B.2040706@fb.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20140511171824.GB2527@linux.com>
-Cc: PJ Waskiewicz <pjwaskiewicz@gmail.com>,
-	Dirk Hohndel <hohndel@infradead.org>,
-	ksummit-discuss@lists.linuxfoundation.org, Anton Arapov <arapov@gmail.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] QR encoded oops for the kernel
+In-Reply-To: <5370DB7B.2040706@fb.com>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TOPIC] Application performance: regressions,
+ controlling preemption
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,46 +29,27 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sun, May 11, 2014 at 07:18:24PM +0200, Levente Kurusa wrote:
-> Hi,
+  Hello,
+
+On Mon 12-05-14 10:32:27, Chris Mason wrote:
+> We're in the middle of upgrading the tiers here from older kernels
+> (2.6.38, 3.2) into 3.10 and higher.
 > 
-> On Sun, May 11, 2014 at 06:37:47PM +0200, Laurent Pinchart wrote:
-> > On Sunday 11 May 2014 18:29:18 Levente Kurusa wrote:
-...
-> > > Not sure about how would we create the bugzilla entry? I mean, which
-> > > section, urgency, etc. how would we decide on those solely based on
-> > > the OOPS? Or should we ask the user to fill it out?
-> > 
-> > Filling a complex form on a handheld device can be pretty tedious. A two steps 
-> > procedure that would allow entering long text on a real computer could be an 
-> > interesting option.
-> > 
+> I've been doing this upgrade game for a number of years now, with
+> different business cards taped to my forehead and with different
+> target workloads.
 > 
-> Makes sense.
-> 
-> What about only asking for an email address and then sending them
-> an automated message with a link where they can continue to add more
-> information to the report? (i.e. fill out the bugzilla)
+> The result is always the same...if I'm really lucky the system isn't
+> slower, but usually I'm left with a steaming pile of 10-30%
+> regressions.
+  I'd be interested in this discussion as well. We are in a similar
+situation in SUSE now when moving our enterprise kernel from 3.0 to 3.12
+base. So me, Jiri Kosina, or Mel Gorman can fill in things we found and you
+didn't ;) Plus we are slowly working on setting up some more systematic and
+continuous way of tracking performance in kernels so sharing experiences
+with what is useful to run would be interesting as well.
 
-Agree.
-
-> I guess we should also be careful with the bugzilla. We really don't
-> want propertiary driver crashes added to the bugzilla automatically.
-
-Correct, but the data is still worth recording.
-
-> Nor do we want the same oops added twice, right?
-
-We don't want two bugzilla entries, but we do want to know how many
-times this event has happened.
-
-> How would we differentiate between the two - essentially the same -
-> oopses?
-
-Hmm, oops cookie?  hex string of 32/64 bits read off of the entropy
-pool?  This would give us an accurate number of events even if a user
-scans multiple times.
-
-thx,
-
-Jason.
+								Honza
+-- 
+Jan Kara <jack@suse.cz>
+SUSE Labs, CR
