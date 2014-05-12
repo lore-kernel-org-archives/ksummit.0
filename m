@@ -1,34 +1,32 @@
-Return-Path: <sundar.iyer@intel.com>
+Return-Path: <jason@lakedaemon.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 2756CADE
+	by mail.linuxfoundation.org (Postfix) with ESMTP id A0A02AE5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 17:31:46 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id C4DEB20352
+	Mon, 12 May 2014 17:32:26 +0000 (UTC)
+Received: from mho-02-ewr.mailhop.org (mho-02-ewr.mailhop.org [204.13.248.72])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2BED420354
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 17:31:45 +0000 (UTC)
-From: "Iyer, Sundar" <sundar.iyer@intel.com>
-To: Preeti U Murthy <preeti@linux.vnet.ibm.com>, Morten Rasmussen
-	<morten.rasmussen@arm.com>
-Date: Mon, 12 May 2014 17:30:58 +0000
-Message-ID: <2FABAEF0D3DCAF4F9C9628D6E2F9684533B51950@BGSMSX102.gar.corp.intel.com>
-References: <2FABAEF0D3DCAF4F9C9628D6E2F9684533B4C781@BGSMSX102.gar.corp.intel.com>
-	<536B477B.2030800@linux.vnet.ibm.com>
-	<20140512111407.GB5540@e103034-lin>
-	<53710132.60506@linux.vnet.ibm.com>
-In-Reply-To: <53710132.60506@linux.vnet.ibm.com>
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	Mon, 12 May 2014 17:32:26 +0000 (UTC)
+Date: Mon, 12 May 2014 13:32:20 -0400
+From: Jason Cooper <jason@lakedaemon.net>
+To: "H. Peter Anvin" <hpa@zytor.com>
+Message-ID: <20140512173220.GC12708@titan.lakedaemon.net>
+References: <20140511041449.GP12708@titan.lakedaemon.net>
+	<CABe+QzBVC=dRZO4+v93A_Cy2nFuf_ajcq8KO20f5PPzVUf2bkg@mail.gmail.com>
+	<53703416.5070400@zytor.com> <20140512061332.GA10134@thin>
+	<1399886585.879.108.camel@i7.infradead.org>
+	<20140512162229.GY12708@titan.lakedaemon.net>
+	<5370FAF8.7070209@zytor.com>
 MIME-Version: 1.0
-Cc: "Brown, Len" <len.brown@intel.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Daniel Lezcano <daniel.lezcano@linaro.org>, Ingo Molnar <mingo@kernel.org>
-Subject: Re: [Ksummit-discuss] [TECH(CORE?) TOPIC] Energy conservation bias
- interfaces
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5370FAF8.7070209@zytor.com>
+Cc: PJ Waskiewicz <pjwaskiewicz@gmail.com>,
+	Dirk Hohndel <hohndel@infradead.org>,
+	ksummit-discuss@lists.linuxfoundation.org, Anton Arapov <arapov@gmail.com>,
+	Sarah A Sharp <sarah@minilop.net>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] QR encoded oops for the kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,45 +36,26 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-> -----Original Message-----
-> From: Preeti U Murthy [mailto:preeti@linux.vnet.ibm.com]
-> Sent: Monday, May 12, 2014 10:43 PM
-> To: Morten Rasmussen
->=20
-> You are right. We shouldn't be exposing so many knobs to user-space and
-> expect the kernel to make good decisions based on these knobs being
-> tweaked by user space. How about a high level classification of profiles =
-like
-> balanced, performance, powersave? These alone can be chosen by the user
-> and the lower end tunings left to the discretion of the kernel.
+On Mon, May 12, 2014 at 09:46:48AM -0700, H. Peter Anvin wrote:
+> On 05/12/2014 09:22 AM, Jason Cooper wrote:
+> > 
+> > Something like this?
+> > 
+> >  
+> > -	pr_warn("------------[ cut here ]------------\n");
+> > +	pr_warn("------------[ cut 10 lines above here ]------------\n");
+> >  	pr_warn("WARNING: CPU: %d PID: %d at %s:%d %pS()\n",
+> >  		raw_smp_processor_id(), current->pid, file, line, caller);
+> >  
+> 
+> Why not just drop it?
 
-Also, may I suggest to try to limit the discussion preliminary to CPU only?=
- Should
-we try to see if we can get a detailed policy, conditions specifically w.r.=
-t CPU scheduling?
+I think there's value in being specific.  First time reporters tend to
+quote too little when left to their own devices.  When I was more active
+in the Gentoo community, I recall many times getting only the
+"make[1]:..." lines or the "emerge" bits.  By the time you ask for more,
+the data was lost.
 
-I am trying to sum up thoughts in my mind; please correct/add/edit as neede=
-d.
+thx,
 
-Scheduler options:
-a. Spread wide: Utilize as much as CPUs as possible for tasks
-b. Limit Local: Utilize as less as CPUs as possible.
-
-Resources impacting these options:
-a. if CPUs share common resources like power;
-b. if CPUs share common cache; OIOW, cost of moving data around CPUs
-c. CPU Energy efficiency profiles (BIG or little or xyz)
-
-Factors affecting these options:
-
-Ideally, we would like to spread wide if:
-a. tasks/processes are heavily multi-threaded and parallelized;
-b. asynchronous tasks that are single threaded and shifting them to multipl=
-e CPUs will
-avoid boosting CPU load and hence P-states;
-c. there is explicit hint from the application/user space about lack of dat=
-a dependency;
-
-does the list seem good to start?
-
-Cheers!
+Jason.
