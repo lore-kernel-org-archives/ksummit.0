@@ -1,23 +1,25 @@
-Return-Path: <laurent.pinchart@ideasonboard.com>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 9AAEC6FC
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 236D0979
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 20:27:20 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
-	[95.142.166.194])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2A8892039A
+	Mon, 12 May 2014 20:32:07 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B5EEA2033B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 20:27:20 +0000 (UTC)
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Mark Brown <broonie@kernel.org>
-Date: Mon, 12 May 2014 22:27:14 +0200
-Message-ID: <1890814.sS5FutD9xo@avalon>
-In-Reply-To: <20140512201438.GE12304@sirena.org.uk>
+	Mon, 12 May 2014 20:32:06 +0000 (UTC)
+Date: Mon, 12 May 2014 21:31:53 +0100
+From: Mark Brown <broonie@sirena.org.uk>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Message-ID: <20140512203153.GH12304@sirena.org.uk>
 References: <1872038.43ncqEMWSx@avalon> <20140512201438.GE12304@sirena.org.uk>
+	<1890814.sS5FutD9xo@avalon>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPart107708403.DWJZrKsOhC";
-	micalg="pgp-sha1"; protocol="application/pgp-signature"
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="ff6ksNNlJWENvJ9B"
+Content-Disposition: inline
+In-Reply-To: <1890814.sS5FutD9xo@avalon>
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] PM dependencies
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -30,69 +32,46 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---nextPart107708403.DWJZrKsOhC
+--ff6ksNNlJWENvJ9B
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="us-ascii"
 
-Hi Mark,
+On Mon, May 12, 2014 at 10:27:14PM +0200, Laurent Pinchart wrote:
+> On Monday 12 May 2014 21:14:38 Mark Brown wrote:
 
-On Monday 12 May 2014 21:14:38 Mark Brown wrote:
-> On Mon, May 12, 2014 at 07:43:22PM +0200, Laurent Pinchart wrote:
-> > The problem is not limited to IOMMUs. We have similar dependencies =
-at
-> > suspend/resume time with camera interfaces for instance, where two
-> > completely unrelated device in the Linux device hierarchy (a camera=
+> > This is something ASoC has been resolving since forever with the machine
+> > drivers, Russell King recently created a generic version of the code
+> > that does the dependency deferral glue (see linux/component.h).  It's
+> > not a model of elegance but it ends up getting the job done.
 
-> > interface platform device in the SoC and an I2C camera sensor) need=
- to be
-> > suspended and resumed in a controlled order. I'm sure many more use=
- cases
-> > exist.
-> >=20
-> > Whether we can (partly) reuse existing infrastructure for this is n=
-ot
-> > clear. I'd like to gather use cases, to first find out exactly how
-> > widespread the need is, and whether we can come up with a common so=
-lution
-> > or we are really faced with different classes of similarly looking =
-but
-> > distinct issues.
->
-> This is something ASoC has been resolving since forever with the mach=
-ine
-> drivers, Russell King recently created a generic version of the code
-> that does the dependency deferral glue (see linux/component.h).  It's=
+> That solves the probe time dependencies, but unfortunately not the runtim=
+e PM=20
+> dependencies.
 
-> not a model of elegance but it ends up getting the job done.
+It also solves the system suspend dependencies.  Why don't the runtime
+PM dependencies just work with reference counting?
 
-That solves the probe time dependencies, but unfortunately not the runt=
-ime PM=20
-dependencies.
-
-> Anyway, I'm definitely interested in this - a couple of the subsystem=
-s I
-> maintain are affected and it's something I've thought about a bit.
-
-=2D-=20
-Regards,
-
-Laurent Pinchart
-
---nextPart107708403.DWJZrKsOhC
+--ff6ksNNlJWENvJ9B
 Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
+Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2.0.22 (GNU/Linux)
 
-iQEcBAABAgAGBQJTcS6nAAoJEIkPb2GL7hl1ftsH/RRUwZwwen7gP7y/WgchW324
-wRO3XzBr1xbfponyvypMZEhM3vsbCjQMu9bFGrs8VMOGb3egiz/YRVAA4iLp4HD0
-CzDW5v3MX4rfceLfsVf2Nei1r/fVkTRZoJZ5gO9kY1JF4UakCLoCZdAjN+A3eFL/
-/C8nfve7KGrX6Ww1uE4X+0EyAL7PsyMU2KOzgJYUQeNbaxXTnoLX47s0X5r7ZhT4
-AJZ+bMWmLjkrPA0QX7yE3maQDxNVSREeXq/QBdt7mXKsxrk1A9W1INFps57JWXe/
-b8DaoV2XHKXuB2RhYZZgRyoM7HpPtGRxoLHTaI36nfA944dnVIaeqDzLrD/2VjA=
-=V/27
+iQIcBAEBAgAGBQJTcS+2AAoJELSic+t+oim9/N4P/irOlB0sZRQhPtBGJtTy8Fbc
+w5IyfM47W5NmJ9WwsEDqhcbryVW8135nVGHcF/wJvYV/593eA2tBEqonxmOc8DeH
+dtxr31sEJAwdSWkdNX1RjqskW+ed1cUMB+MbfVHRUiMHC+kTCaUkuHB4pXhq1ard
+gBRMNFuI11xhPp40rZZx4aA9Q9CjFYqVOfdFcz3y0UKOj8esA+hDA9Y3x9b8kjwv
+qlsEManZtsnG/UrwmEYakjgolK+wqX3IzTrF2PDOh/EAHOl3KoISigqqZi2hB+Iy
+dKfAtxt+ZnPBqtx9bfIQ99ib7G1u15CfK8SPHGmhWdRFJZZyS5zVhMLVdemjJ0J2
+SLSRd5IxQC3xvduSAOLTff5ILP+MeLinrDXoXWsa/JumBrXaSazmb8CrAj1boRG7
+H5qFt7+cxuMCW32LjqpH99wZR0nBsEW8uAsRkgctH8CdNd8GESWVqQ161aWh9Z3R
+weoXgtLWZTqn6UVdvG0I388I+QrXJ+vhYBeQOogyq7UcefwHvmDnuPuuj/G23Vaf
+cgSduCkuwftyEc5FoSRMKPdsK5BsI8UqaxjgkGvZdtqoGI8fEIqIDRSJORutFc3U
+lvj3o4CtL6yKGh0Be1ro666nw48hyO9psMZGsOucTo8zRmu3+sfZeCNjwYFYBHY8
+ALON7l8tP0XxPMwnY3pe
+=xRxI
 -----END PGP SIGNATURE-----
 
---nextPart107708403.DWJZrKsOhC--
+--ff6ksNNlJWENvJ9B--
