@@ -1,40 +1,37 @@
-Return-Path: <joro@8bytes.org>
+Return-Path: <saharabeara@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 2B4F8A89
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 15CBB6FC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 17:40:32 +0000 (UTC)
-Received: from mail.8bytes.org (8bytes.org [85.214.48.195])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id A6E082035E
+	Mon, 12 May 2014 17:42:56 +0000 (UTC)
+Received: from mail-ig0-f175.google.com (mail-ig0-f175.google.com
+	[209.85.213.175])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8F55420398
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 17:40:31 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
-	by mail.8bytes.org (Postfix) with SMTP id 6FAF712B187
+	Mon, 12 May 2014 17:42:55 +0000 (UTC)
+Received: by mail-ig0-f175.google.com with SMTP id uq10so4127513igb.8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 19:40:30 +0200 (CEST)
-Date: Mon, 12 May 2014 19:40:29 +0200
-From: Joerg Roedel <joro@8bytes.org>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <20140512174029.GT12376@8bytes.org>
-References: <1399552623.17118.22.camel@i7.infradead.org>
-	<3908561D78D1C84285E8C5FCA982C28F328000EE@ORSMSX114.amr.corp.intel.com>
-	<1399666748.2166.68.camel@dabdike.int.hansenpartnership.com>
-	<4433093.MSzoqdJDMf@avalon>
-	<CAKMK7uFcWsZyGoxLx=2xH-vgRq1nD3cZjeqeRLsvKGrHt--VHA@mail.gmail.com>
-	<20140512150722.GO12376@8bytes.org>
-	<CAKMK7uHs9QBA_SCCNP_PSS3i2pRGJuQyj_8ngA6vgQU2wENTWw@mail.gmail.com>
-	<CALCETrXo7Zqg9EadLHTniLhAB9f13C9wzFWZAqTSG=4z0ocgQg@mail.gmail.com>
-	<20140512162814.GR12376@8bytes.org>
-	<CAKMK7uFX=3sYXXMZtnBz-umYqBNm8W=1cSHoy=oRPRG_zcsKNQ@mail.gmail.com>
+	Mon, 12 May 2014 10:42:55 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAKMK7uFX=3sYXXMZtnBz-umYqBNm8W=1cSHoy=oRPRG_zcsKNQ@mail.gmail.com>
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Device error handling /
- reporting / isolation
+Sender: saharabeara@gmail.com
+In-Reply-To: <20140512173220.GC12708@titan.lakedaemon.net>
+References: <20140511041449.GP12708@titan.lakedaemon.net>
+	<CABe+QzBVC=dRZO4+v93A_Cy2nFuf_ajcq8KO20f5PPzVUf2bkg@mail.gmail.com>
+	<53703416.5070400@zytor.com> <20140512061332.GA10134@thin>
+	<1399886585.879.108.camel@i7.infradead.org>
+	<20140512162229.GY12708@titan.lakedaemon.net>
+	<5370FAF8.7070209@zytor.com>
+	<20140512173220.GC12708@titan.lakedaemon.net>
+Date: Mon, 12 May 2014 10:42:54 -0700
+Message-ID: <CABe+QzAkq+b87Y+AONEuwKfwGON=+YNZD35Rpm0AaXLoYerhSQ@mail.gmail.com>
+From: Sarah A Sharp <sarah@thesharps.us>
+To: Jason Cooper <jason@lakedaemon.net>
+Content-Type: text/plain; charset=UTF-8
+Cc: PJ Waskiewicz <pjwaskiewicz@gmail.com>,
+	Dirk Hohndel <hohndel@infradead.org>,
+	ksummit-discuss@lists.linuxfoundation.org, Anton Arapov <arapov@gmail.com>,
+	Sarah A Sharp <sarah@minilop.net>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] QR encoded oops for the kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -44,28 +41,28 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, May 12, 2014 at 07:11:46PM +0200, Daniel Vetter wrote:
-> I was actually thinking of fully disabling the IOMMU if it only has
-> one child device to isolate the possible damage.
+On Mon, May 12, 2014 at 10:32 AM, Jason Cooper <jason@lakedaemon.net> wrote:
+> On Mon, May 12, 2014 at 09:46:48AM -0700, H. Peter Anvin wrote:
+>> On 05/12/2014 09:22 AM, Jason Cooper wrote:
+>> >
+>> > Something like this?
+>> >
+>> >
+>> > -   pr_warn("------------[ cut here ]------------\n");
+>> > +   pr_warn("------------[ cut 10 lines above here ]------------\n");
+>> >     pr_warn("WARNING: CPU: %d PID: %d at %s:%d %pS()\n",
+>> >             raw_smp_processor_id(), current->pid, file, line, caller);
+>> >
+>>
+>> Why not just drop it?
+>
+> I think there's value in being specific.  First time reporters tend to
+> quote too little when left to their own devices.  When I was more active
+> in the Gentoo community, I recall many times getting only the
+> "make[1]:..." lines or the "emerge" bits.  By the time you ask for more,
+> the data was lost.
 
-If you disable the IOMMU you also disable the protection from the child.
-This also changes the address space of the device by disabling the IOTLB
-and might make the device overwrite random memory.
+Wasn't the "cut here" line put in for people to know which chunk of
+log to feed to scripts/markup_oops.pl?  Or is it smarter these days?
 
-> But maybe we need a bit more clevernesss and a driver notifer. In
-> drm/i915 we could use that to declare the gpu wedged, which should be
-> about the optimal outcome:
-> - We can do that from any atomic context.
-> - It will stop userspace from submitting more commands, and userspace
-> falls back to software rendering if this happens.
-> - Kernel modeset should keep on working, increasing chances that the
-> user/developer can grab crucial information from the life system.
-> 
-> I think we'd need to play around with some real bugs to know what will
-> actually work.
-
-Sure. What we can provide from the IOMMU side is to disable the faults
-and/or isolate the device so that it can't harm the system anymore.
-
-
-	Joerg
+Sarah Sharp
