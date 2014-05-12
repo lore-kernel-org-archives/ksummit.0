@@ -1,31 +1,37 @@
-Return-Path: <jason@lakedaemon.net>
+Return-Path: <joro@8bytes.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 1FD68A8A
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 04794AB4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 16:24:35 +0000 (UTC)
-Received: from mho-01-ewr.mailhop.org (mho-03-ewr.mailhop.org [204.13.248.66])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B00DE2027B
+	Mon, 12 May 2014 16:26:32 +0000 (UTC)
+Received: from mail.8bytes.org (8bytes.org [85.214.48.195])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 7200720278
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 16:24:34 +0000 (UTC)
-Date: Mon, 12 May 2014 12:24:30 -0400
-From: Jason Cooper <jason@lakedaemon.net>
-To: =?utf-8?B?THVrw6HFoQ==?= Czerner <lczerner@redhat.com>
-Message-ID: <20140512162430.GZ12708@titan.lakedaemon.net>
-References: <20140511041449.GP12708@titan.lakedaemon.net>
-	<CABe+QzBVC=dRZO4+v93A_Cy2nFuf_ajcq8KO20f5PPzVUf2bkg@mail.gmail.com>
-	<53703416.5070400@zytor.com> <20140512061332.GA10134@thin>
-	<1399886585.879.108.camel@i7.infradead.org>
-	<alpine.LFD.2.00.1405121543440.8008@localhost.localdomain>
+	Mon, 12 May 2014 16:26:31 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.8bytes.org (Postfix) with SMTP id E3E6112B187
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 12 May 2014 18:26:29 +0200 (CEST)
+Date: Mon, 12 May 2014 18:26:28 +0200
+From: Joerg Roedel <joro@8bytes.org>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <20140512162628.GQ12376@8bytes.org>
+References: <1399552623.17118.22.camel@i7.infradead.org>
+	<3908561D78D1C84285E8C5FCA982C28F328000EE@ORSMSX114.amr.corp.intel.com>
+	<1399666748.2166.68.camel@dabdike.int.hansenpartnership.com>
+	<4433093.MSzoqdJDMf@avalon>
+	<CAKMK7uFcWsZyGoxLx=2xH-vgRq1nD3cZjeqeRLsvKGrHt--VHA@mail.gmail.com>
+	<20140512150722.GO12376@8bytes.org>
+	<CAKMK7uHs9QBA_SCCNP_PSS3i2pRGJuQyj_8ngA6vgQU2wENTWw@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <alpine.LFD.2.00.1405121543440.8008@localhost.localdomain>
-Content-Transfer-Encoding: quoted-printable
-Cc: PJ Waskiewicz <pjwaskiewicz@gmail.com>, Sarah A Sharp <sarah@minilop.net>,
-	ksummit-discuss@lists.linuxfoundation.org, Anton Arapov <arapov@gmail.com>,
-	Dirk Hohndel <hohndel@infradead.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] QR encoded oops for the kernel
+In-Reply-To: <CAKMK7uHs9QBA_SCCNP_PSS3i2pRGJuQyj_8ngA6vgQU2wENTWw@mail.gmail.com>
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Device error handling /
+ reporting / isolation
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,52 +41,24 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, May 12, 2014 at 03:48:32PM +0200, Luk=C3=A1=C5=A1 Czerner wrote:
-> On Mon, 12 May 2014, David Woodhouse wrote:
->=20
-> > Date: Mon, 12 May 2014 10:23:05 +0100
-> > From: David Woodhouse <dwmw2@infradead.org>
-> > To: Josh Triplett <josh@joshtriplett.org>
-> > Cc: PJ Waskiewicz <pjwaskiewicz@gmail.com>,
-> >     Jason Cooper <jason@lakedaemon.net>,
-> >     ksummit-discuss@lists.linuxfoundation.org,
-> >     Anton Arapov <arapov@gmail.com>, Sarah A Sharp <sarah@minilop.net=
->,
-> >     Dirk Hohndel <hohndel@infradead.org>
-> > Subject: Re: [Ksummit-discuss] [TECH TOPIC] QR encoded oops for the k=
-ernel
-> >=20
-> > On Sun, 2014-05-11 at 23:13 -0700, Josh Triplett wrote:
-> > > On Sun, May 11, 2014 at 07:38:14PM -0700, H. Peter Anvin wrote:
-> > > > As valuable as I obviously believe this project is, is there actu=
-ally
-> > > > anything that warrants discussion at the Kernel Summit?  It seems=
- like
-> > > > something to Just Do[TM].
-> > >=20
-> > > I believe there is actually a key part of this discussion to have a=
-t
-> > > Kernel Summit.  We don't need to discuss the technical details of t=
-he
-> > > implementation; we do need to discuss the implications of enabling =
-mass
-> > > oops-reporting, the infrastructure and information we want to inclu=
-de in
-> > > codes valid for the next decade or so, the tradeoffs between ease o=
-f
-> > > reporting and value of the reports, some potential approaches to
-> > > aggregate the date, and similar.
-> >=20
-> > In particular, can we avoid the silly trap of the ---[cut here]--- wh=
-ich
-> > comes between a kernel oops, and the potentially useful messages that
-> > were printed right before it.
->=20
-> Also how to communicate that we usually need the first oops ?
+On Mon, May 12, 2014 at 05:35:15PM +0200, Daniel Vetter wrote:
+> A disable/enable cycle of the pci bus master setting should be a good
+> enough signal? Presuming you can say for sure which devices is doing
+> the offending dma transactions ofc ... Or maybe we should just be
+> optimists and re-enable the IOMMU if _any_ child device gets
+> re-enabled (or bus master re-enabled for pci) in the hopes that the
+> developers just reloaded the driver. Worst case the storm handling
+> will kick in again shortly.
 
-Well, the QR code can only hold one oops anyway.  Printing the code for
-the first should be pretty simple to implement.
+The PCI bus master setting is specific to the PCI bus, not all IOMMUs
+Linux supports are for PCI. So probably a new driver-bind event for a
+device is a more generic signal.
 
-thx,
+Back to PCI, the right way to handle faulty legacy 32 bit PCI devices
+needs to be discussed. If any of those devices goes crazy the isolation
+will hit all devices on the same bus. A re-bind signal for a single
+device on that bus is not a good enough signal so we have to keep it
+isolated even then.
 
-Jason.
+
+	Joerg
