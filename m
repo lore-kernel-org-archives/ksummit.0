@@ -1,30 +1,30 @@
-Return-Path: <rafael.j.wysocki@intel.com>
+Return-Path: <greg@kroah.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id AF4EF942
+	by mail.linuxfoundation.org (Postfix) with ESMTP id B6984942
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 22:03:46 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 55B4D20367
+	Mon, 12 May 2014 23:16:51 +0000 (UTC)
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
+	[66.111.4.29])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F1DEC201A1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 22:03:46 +0000 (UTC)
-Message-ID: <5371453E.2070108@intel.com>
-Date: Tue, 13 May 2014 00:03:42 +0200
-From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+	Mon, 12 May 2014 23:16:50 +0000 (UTC)
+Received: from compute2.internal (compute2.nyi.mail.srv.osa [10.202.2.42])
+	by gateway1.nyi.mail.srv.osa (Postfix) with ESMTP id B7B9C21F54
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 12 May 2014 19:16:49 -0400 (EDT)
+Date: Tue, 13 May 2014 01:16:48 +0200
+From: Greg KH <greg@kroah.com>
+To: Chris Mason <clm@fb.com>
+Message-ID: <20140512231648.GA17027@kroah.com>
+References: <5370DB7B.2040706@fb.com>
 MIME-Version: 1.0
-To: Mark Brown <broonie@kernel.org>, "Rafael J. Wysocki" <rjw@rjwysocki.net>
-References: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>
-	<3007964.pJHjDrtZps@vostro.rjw.lan>
-	<1399279528.20388.37.camel@pasglop>
-	<2059176.eyfmTsLPbt@vostro.rjw.lan>
-	<20140512215925.GY12304@sirena.org.uk>
-In-Reply-To: <20140512215925.GY12304@sirena.org.uk>
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: dvhart@dvhart.com, ksummit-discuss@lists.linuxfoundation.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Driver model/resources, ACPI, DT,
- etc (sigh)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5370DB7B.2040706@fb.com>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TOPIC] Application performance: regressions,
+ controlling preemption
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,25 +34,27 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 5/12/2014 11:59 PM, Mark Brown wrote:
-> On Tue, May 06, 2014 at 02:22:15PM +0200, Rafael J. Wysocki wrote:
->> On Monday, May 05, 2014 06:45:28 PM Benjamin Herrenschmidt wrote:
->>> On Sun, 2014-05-04 at 14:28 +0200, Rafael J. Wysocki wrote:
->>>> In my opinion, device drivers should not be concerned about that
->>>> really.
->>>> The layers of code above them (bus types etc.) should, but not drivers
->>>> themselves, because that makes it difficult to use the same driver
->>>> for the same piece of hardware on two systems with different firmware
->>>> interfaces.
->>> Only for standardized resource types, such as mmio ranges or interrupts.
->>> Anything else is absolutely in the domain of competence of the driver
->>> and I would argue *only* in the domain of competence of the driver.
->> But why can't we treat DT bindings as a standard?
-> Aside from the whole question of people bothering to pay attention to
-> the specs when writing their BIOSs DTs (as used in modern systems) and
-> ACPI have quite different models for what should be handled where - FDT
-> is pure data and expects the kernel to do everything while ACPI expects
-> to be used with active firmware.
+On Mon, May 12, 2014 at 10:32:27AM -0400, Chris Mason wrote:
+> Hi everyone,
+> 
+> We're in the middle of upgrading the tiers here from older kernels 
+> (2.6.38, 3.2) into 3.10 and higher.
+> 
+> I've been doing this upgrade game for a number of years now, with 
+> different business cards taped to my forehead and with different target 
+> workloads.
+> 
+> The result is always the same...if I'm really lucky the system isn't 
+> slower, but usually I'm left with a steaming pile of 10-30% regressions.
 
-While in practice ACPI is used on systems with active firmware usually, 
-there's no expectation like this in ACPI itself in principle.
+How long have we been having this discussion?  8 years?  It's not like
+people don't know that performance testing needs to be constantly
+happening, we've been saying that for a long time.  It's just that no
+one seems to listen to us :(
+
+And that is the larger problem, what can we do about that issue.
+Honestly, I don't think much, as it takes money from companies to commit
+to do this work, which no one seems to ever want to do.  What make this
+year the year that something different happens?
+
+greg k-h
