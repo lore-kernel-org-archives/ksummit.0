@@ -1,31 +1,31 @@
-Return-Path: <rjw@rjwysocki.net>
+Return-Path: <neilb@suse.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id D48B84D4
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 65CDB4D4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 May 2014 23:38:59 +0000 (UTC)
-Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id D2996200D6
+	Tue, 13 May 2014 23:49:50 +0000 (UTC)
+Received: from mx2.suse.de (cantor2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C85F11FDEC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 May 2014 23:38:57 +0000 (UTC)
-From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-To: Morten Rasmussen <morten.rasmussen@arm.com>
-Date: Wed, 14 May 2014 01:55:45 +0200
-Message-ID: <1963221.UGZYU13xOX@vostro.rjw.lan>
-In-Reply-To: <20140513095929.GD5540@e103034-lin>
-References: <1998761.B2k0A5OtQR@vostro.rjw.lan>
-	<CAP245DXHnmSBnBdcKzuzFUCQc4Q5XpukenE3Zz+jSeB7Cd=_1g@mail.gmail.com>
-	<20140513095929.GD5540@e103034-lin>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
-Cc: Len Brown <len.brown@intel.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Daniel Lezcano <daniel.lezcano@linaro.org>, Ingo Molnar <mingo@kernel.org>
-Subject: Re: [Ksummit-discuss] [TECH(CORE?) TOPIC] Energy conservation bias
-	interfaces
+	Tue, 13 May 2014 23:49:49 +0000 (UTC)
+Received: from relay1.suse.de (charybdis-ext.suse.de [195.135.220.254])
+	by mx2.suse.de (Postfix) with ESMTP id 5807AAD11
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 13 May 2014 23:49:48 +0000 (UTC)
+Date: Wed, 14 May 2014 09:49:41 +1000
+From: NeilBrown <neilb@suse.de>
+To: Jiri Kosina <jkosina@suse.cz>
+Message-ID: <20140514094941.41a13b26@notabene.brown>
+In-Reply-To: <alpine.LNX.2.00.1405140127240.16459@pobox.suse.cz>
+References: <s5hvbt9izdm.wl%tiwai@suse.de>
+	<20140514092340.24ab4c9e@notabene.brown>
+	<alpine.LNX.2.00.1405140127240.16459@pobox.suse.cz>
+Mime-Version: 1.0
+Content-Type: multipart/signed; micalg=PGP-SHA1;
+	boundary="Sig_/BxGWGsFWLkcuhGgjYGkhpbD";
+	protocol="application/pgp-signature"
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TOPIC] Metadata addendum to git commit
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,107 +35,63 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tuesday, May 13, 2014 10:59:29 AM Morten Rasmussen wrote:
-> On Tue, May 13, 2014 at 06:52:01AM +0100, Amit Kucheria wrote:
-> > On Mon, May 12, 2014 at 6:01 PM, Morten Rasmussen
-> > <morten.rasmussen@arm.com> wrote:
-> > > On Mon, May 12, 2014 at 12:53:11PM +0100, Amit Kucheria wrote:
-> > >> On Tue, May 6, 2014 at 6:24 PM, Rafael J. Wysocki <rjw@rjwysocki.net> wrote:
-> > 
-> > <snip>
-> > 
-> > > The middleware power manager as you mention above seems to be a good
-> > > candidate. The kernel wouldn't know which tasks are trusted to behave
-> > > nicely so I think that is a user-space/middleware problem to deal with.
-> > >
-> > >>
-> > >> > It also is not particularly clear what representation of "energy conservation
-> > >> > bias" would be most useful.  Should that be a number or a set of well-defined
-> > >> > discrete levels that can be given names (like "max performance", "high
-> > >> > prerformance", "balanced" etc.)?  If a number, then what units to use and
-> > >> > how many different values to take into account?
-> > >>
-> > >> I have a hard time figuring out how to map these levels to performance
-> > >> / power optimisations I care about. Say I have the following
-> > >> optimisation techniques available today that I can change at runtime.
-> > >>
-> > >> #define XX_TASK_PACKING              0x00000001  /* opposite of the
-> > >> default spread policy */
-> > >> #define XX_DISABLE_OVERDRIVE    0x00000002  /* disables expensive P-states */
-> > >> #define XX_FORCE_DEEP_IDLE        0x00000004  /* go to deep idle
-> > >> states even if activity on system dictates low-latency idling - useful
-> > >> for thermal throttling aka idle injection */
-> > >> #define XX_FORCE_SHALLOW_IDLE 0x00000008  /* keep cpu in low-latency
-> > >> idle states for performance reasons */
-> > >> #define XX_FOO_TECHNIQUE           0x00000010
-> > >>
-> > >> This is a mix of power and performance objectives that apply on a
-> > >> per-cpu and/or per-cluster level. The challenge here is the lack of
-> > >> consistency - some of these conflict with each other but are not
-> > >> necessary opposites of each other. Some of them are good for
-> > >> performance and power. How do I categorize them into 'max
-> > >> performance', 'balanced' or 'power save' ?
-> > >
-> > > You can't. Since platforms are different, different techniques will have
-> > > different impacts on the performance/energy trade-off. As I have said in
-> > > the original thread, we need to distinguish between techniques to change
-> > > behaviour (like the ones you have listed above) and optimization goals.
-> > > Whether a specific technique can bring us closer to our current
-> > > optimization goal (performance/energy trade-off) depends on the
-> > > platform.
-> > 
-> > Right. So we are saying that state names like "powersave",
-> > "balanced/auto", "performance" will be platform-defined. Is it worth
-> > defining them at all then?
-> 
-> No. I see "powersave", "auto", and "balance/auto" as objectives.
-> Objectives are platform independent. If we want stay within a certain
-> energy budget, for example consume less than X joules for playing one
-> hour of music, we set the performance/energy knob accordingly. It is
-> then up to the kernel to apply the right techniques to achieve the
-> objective on the particular platform. That will of course mean that the
-> kernel needs to be better informed about the platform energy
-> characteristics than it is today.
-> 
-> It is really a question of where we want to put all the details about
-> the platform. In user-space and let some daemon control a long list of
-> kernel parameters, or in the kernel and have a simple objective
-> user-space interface where the performance/energy trade-off can be
-> tuned (like the energy cost target as Rafael proposed).
-> 
-> > I expect that these techniques can be counted on our fingers, so why
-> > not just expose them directly to the system? The middleware and even
-> > other kernel subsystems can directly toggle their state based on
-> > current conditions.
-> 
-> It might make sense for controlling subsystems like (GPU, wifi,
-> modem,...) as middleware should often have a very good idea about which
-> subsystems that are in use. However, the techniques for scheduling might
-> not be either on or off. For example, task packing might make sense to
-> a certain degree under certain circumstances that cannot been seen from
-> user-space. The scheduler has access to detailed task information like
-> load averages and wake-up counts, which might necessary to determine
-> when to apply a specific technique. Forcing deep idle to reduce power
-> could potentially have the exact opposite effect if applied in scenarios
-> with frequent wake-ups as you risk burning more energy during the
-> transitions than you save while in deep idle.
-> 
-> IMHO, exposing the techniques to user-space implies exporting most of
-> the energy-awarness problem to user-space. My concern is that the
-> interface will become complicated and the user-space daemon needs to be
-> strictly in sync with the kernel. A simple(r) objective interface
-> (energy cost target for scheduling/idle/freq, subsystems not in use,
-> ...) might be easier use and maintain.
+--Sig_/BxGWGsFWLkcuhGgjYGkhpbD
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Precisely.
+On Wed, 14 May 2014 01:29:29 +0200 (CEST) Jiri Kosina <jkosina@suse.cz> wro=
+te:
 
-In addition to that, the CPU scheduler is not the only subsystem where
-things may not be either on or off.  Take the graphics for example (at
-least in the case of more complicated adapters).  There certainly are
-energy efficiency vs performance tradeoffs there.
+> On Wed, 14 May 2014, NeilBrown wrote:
+>=20
+> > A particular practical issue is that when doing a git-bisect there migh=
+t=20
+> > be a range of commits that only compile/run if some later commit is=20
+> > applied. If I'm bisecting in that range, I have to repeatedly apply tha=
+t=20
+> > commit by hand.
+>=20
+> You can just have it stored in a separate branch and perform the bisectio=
+n=20
+> using a script that will always first merge the branch, and reset after=20
+> good/bad verification is done.
+>=20
+> If the fix is already applied (because you are testing a state of the tre=
+e=20
+> which has the commit already), git handles the merge of the=20
+> already-applied patch with grace even if they don't have the same SHA-1.
+>=20
 
-Thanks!
+True.  But every extra step I have to add to a script is an extra barrier to
+performing what is already a somewhat tedious task.
 
--- 
-I speak only for myself.
-Rafael J. Wysocki, Intel Open Source Technology Center.
+If fixes were always Strongly-Attached to the commit they fix, then I
+wouldn't even need to find these "fix-up" patches.  One person commits the
+fix in the "right" way, and everyone benefits.
+
+Thanks,
+NeilBrown
+
+--Sig_/BxGWGsFWLkcuhGgjYGkhpbD
+Content-Type: application/pgp-signature; name=signature.asc
+Content-Disposition: attachment; filename=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.22 (GNU/Linux)
+
+iQIVAwUBU3KvlTnsnt1WYoG5AQLO1A/+Jkl4stKL5C8o3PUanZsdGlp/lYzdGkdi
+gzsmQsZ5rjECqm+r/DJ6SzMnbhQxAnexJJHviY6UWxvCgcsjSsBK4wf2uaABedfY
+nbIsav4KteSaWYs/PCAnWHC65rVLnt2B3DxSq6WTivXHPWTPfdQHn8uJBAWZ/yd7
+gxXLTge9pTHQ1Y0h1qB5FUHusIyldgtyYF+QMKZIfbz5rssYtaH/dFmA4yrROeXv
+3Nwio+G12t4srej8DIyLAdah3A2XWCPcTWMdWHbdtrm7LrKIhymx3QoFnnlB2Hik
+hts08BZbDumuwKdjmcnvPbTPO8D3/3j7LEZyvQC5fQr0CKS3Gc2KArqKyyFAucyi
+RD3mJ3/jAs5CucrALEY1ZCyRtsI7Tkm2WEku7/k+gfoyx6Yk16m+vwHmbKnzbODm
+vE4rY0JFoYIvmhB3YVOMTKGRQwRB1hK2GBxS5WRAmezAbI4HVuQLPf6s916jY/PV
+QEsG0goVW5m1/L8LlE+brxjxrWKQoUmexF1/xhyhtdJn7hbD2rlNAG0HvQcgdOLQ
+jpk/ffWQx99Mng8ertNR+GZF5bsy6mK2RN+GKdm6p9spkdbpmTzM+91crKbueKA/
+qwCWlz0WF7K/ccW7Hp+mGfrRNlUPTEN9ZzHo2bhfDC5EszC+8cx9N2FE8O26+MOo
+0ufeQYjDniY=
+=v7Gj
+-----END PGP SIGNATURE-----
+
+--Sig_/BxGWGsFWLkcuhGgjYGkhpbD--
