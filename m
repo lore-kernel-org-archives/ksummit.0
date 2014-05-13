@@ -1,26 +1,28 @@
-Return-Path: <rostedt@goodmis.org>
+Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 94AA1979
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 9E00F99F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 May 2014 20:46:56 +0000 (UTC)
-Received: from cdptpa-oedge-vip.email.rr.com
-	(cdptpa-outbound-snat.email.rr.com [107.14.166.229])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id DB1A41FA42
+	Tue, 13 May 2014 21:02:16 +0000 (UTC)
+Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id EB0B1201F4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 May 2014 20:46:55 +0000 (UTC)
-Date: Tue, 13 May 2014 16:46:54 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Li Zefan <lizefan@huawei.com>
-Message-ID: <20140513164654.68a5e4bf@gandalf.local.home>
-In-Reply-To: <5369A311.2030001@huawei.com>
-References: <53662254.9060100@huawei.com> <53699F27.9040403@hitachi.com>
-	<5369A311.2030001@huawei.com>
+	Tue, 13 May 2014 21:02:14 +0000 (UTC)
+From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+To: Mark Brown <broonie@kernel.org>
+Date: Tue, 13 May 2014 23:19 +0200
+Message-ID: <1461572.JtpPDPW8DH@vostro.rjw.lan>
+In-Reply-To: <20140513193146.GR12304@sirena.org.uk>
+References: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>
+	<4341089.iLfxP0nJG8@wuerfel> <20140513193146.GR12304@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable issues
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, dvhart@dvhart.com,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Driver model/resources, ACPI, DT,
+	etc (sigh)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,30 +32,73 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 7 May 2014 11:05:53 +0800
-Li Zefan <lizefan@huawei.com> wrote:
+On Tuesday, May 13, 2014 08:31:46 PM Mark Brown wrote:
+> 
+> --CHuL9rjfPiigWdCj
+> Content-Type: text/plain; charset=us-ascii
+> Content-Disposition: inline
+> 
+> On Tue, May 13, 2014 at 03:08:29PM +0200, Arnd Bergmann wrote:
+> > On Tuesday 13 May 2014 13:11:48 Mark Brown wrote:
+> 
+> > > There's also the possibility that the driver is going to have to figure
+> > > out at runtime if it's on a system with active ACPI or a system with
+> > > passsive ACPI, though I expect we can just do something like check what
+> > > properties are there for that assuming people don't end up doing
+> > > mix'n'match type things.  People are interested in ACPI for embedded
+> > > cases outside of x86 to a large extent so that they don't have to deal
+> > > with two different firmware interfaces if they also work on the server
+> > > cases.
+> 
+> > To be clear, I was only talking about embedded x86 above, there is
+> > no reason to introduce ACPI on any new architecture really.
+> 
+> > While we will likely get ACPI on ARM64 in the future, I definitely don't
+> > want to have two incompatible ACPI implementations, especially for the
+> > same chip. While AMD recently announced they are also going after
+> > embedded markets with their ARM64 products, they should either
+> > just use DT in that case, or they should use the same firmware they
+> > have on their servers.
+> 
+> I'd heard mutterings like that from elsewhere (I don't know anything
+> about AMD's thoughts), and of course there's nothing stopping ARM people
+> just picking up the out of tree ACPI stuff and using that if they decide
+> they want to work that way.
+> 
+> In any case that was more a comment about it being an area of broader
+> interest than just some future Intel stuff - my main concern is that
+> we've already got upstream embedded ACPI stuff for x86 which doesn't
+> look *particularly* like what we do for DT but more like what seems
+> idiomatic for ACPI (some of the Haswell and Baytrail laptops have
+> embedded style audio subsystems) and as far as I am aware those systems
+> are in the active ACPI model rather than a passive ACPI model.
 
-> I kind of remember Andrew once suggested a new feature can't be accepted
-> unless it comes with test cases?
+They are, but the ACPI stuff that was added there is not exactly what I would
+like it to be, due to gaps in ACPI itself to some extent.
 
-This is a good idea. But where should we place it. I'm not sure I care
-for the tools/testing/selftest/* to run all the tests. Hmm, does a test
-in this directory need to be run from the top level? That is, if I add
-tracing here, I expect it to be ignored by the top level makefile.
+Of course, ACPI "support" can be shoehorned into a limited number of things
+this way, but it really doesn't scale and very often the result is really
+disgusting.  Also ACPI in its current form may not even be able to provide
+information expected by device drivers in the first place, because ACPI
+doesn't have means to encode that information in any sensible way today
+(that includes clocks, voltage regulators, PWMs, pin control and even GPIOs
+to some extent).
 
-Perhaps the "run all" shouldn't be the default but have to be
-specified.
+If ACPI is extended so that such information can be put into the tables,
+there is no reason why the interface for extracting it should be much different
+from the of_ one, except that instead of calling of_get_something(device_node, ...)
+drivers will call fw_get_something(device, ...).  And that can use the old good
+of_ for systems with DT, so it really is a matter of getting the ACPI side of
+things to match it.
 
-Do people like to test everything? Or just what they modify. To me,
-this should be something for developers to use. If you modify the
-memory subsystem, you should run the memory tests before submitting.
-Network? Then run network tests. And so on. I don't see the normal user
-of the selftests wanting to run tests for every subsystem.
+And if you're asking why things are currently done in different ways, the
+reason is simple: ACPI has not been extended yet and the fw_get_something(device, ...)
+interface doesn't exist, so people have to use what is available today and there are
+products to support in the meatime.
 
-And things like network may require more work to get the tests running
-(another machine perhaps). But having a place to put tests that
-subsystem maintainers use to verify their work would be useful. I
-believe it should be more for those working on the code than another
-LTP.
+Thanks!
 
--- Steve
+
+-- 
+I speak only for myself.
+Rafael J. Wysocki, Intel Open Source Technology Center.
