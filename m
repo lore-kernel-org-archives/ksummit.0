@@ -1,28 +1,31 @@
-Return-Path: <jkosina@suse.cz>
+Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 5CD80979
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 687D0979
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 May 2014 23:29:32 +0000 (UTC)
-Received: from mx2.suse.de (cantor2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DFD9720215
+	Tue, 13 May 2014 23:31:37 +0000 (UTC)
+Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id C1DE020221
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 May 2014 23:29:31 +0000 (UTC)
-Received: from relay1.suse.de (charybdis-ext.suse.de [195.135.220.254])
-	by mx2.suse.de (Postfix) with ESMTP id 8BCD3AD11
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 May 2014 23:29:30 +0000 (UTC)
-Date: Wed, 14 May 2014 01:29:29 +0200 (CEST)
-From: Jiri Kosina <jkosina@suse.cz>
-To: NeilBrown <neilb@suse.de>
-In-Reply-To: <20140514092340.24ab4c9e@notabene.brown>
-Message-ID: <alpine.LNX.2.00.1405140127240.16459@pobox.suse.cz>
-References: <s5hvbt9izdm.wl%tiwai@suse.de>
-	<20140514092340.24ab4c9e@notabene.brown>
+	Tue, 13 May 2014 23:31:35 +0000 (UTC)
+From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+To: "Iyer, Sundar" <sundar.iyer@intel.com>
+Date: Wed, 14 May 2014 01:48:21 +0200
+Message-ID: <2318151.NuuLSnU6l6@vostro.rjw.lan>
+In-Reply-To: <2FABAEF0D3DCAF4F9C9628D6E2F9684533B513B5@BGSMSX102.gar.corp.intel.com>
+References: <2FABAEF0D3DCAF4F9C9628D6E2F9684533B4C781@BGSMSX102.gar.corp.intel.com>
+	<20140512103144.GA5540@e103034-lin>
+	<2FABAEF0D3DCAF4F9C9628D6E2F9684533B513B5@BGSMSX102.gar.corp.intel.com>
 MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TOPIC] Metadata addendum to git commit
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
+Cc: "Brown, Len" <len.brown@intel.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Daniel Lezcano <daniel.lezcano@linaro.org>, Ingo Molnar <mingo@kernel.org>
+Subject: Re: [Ksummit-discuss] [TECH(CORE?) TOPIC] Energy conservation bias
+	interfaces
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,21 +35,53 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 14 May 2014, NeilBrown wrote:
+On Monday, May 12, 2014 10:55:23 AM Iyer, Sundar wrote:
+> > -----Original Message-----
+> > From: Morten Rasmussen [mailto:morten.rasmussen@arm.com]
+> > Sent: Monday, May 12, 2014 4:02 PM
+> >
+> > > And which is why I mentioned that this is heavily platform dependent.
+> > > This is completely dependent on how the rest of the system power
+> > management works.
+> > 
+> > Agree. Race to halt/idle is not universally a good idea. It depends of the
+> > platform energy efficiency at the higher performance states, idle power
+> > consumption, system topology, use-case, and anything else that consumes
+> > power while the tasks are running. For example, if your energy efficiency is
+> > really bad in the turbo states, it might be worth going a bit slower if the total
+> > energy can be reduced.
+> 
+> Apart from the specifics of the CPU/topology, race to halt doesn't contribute significant
+> to workloads which are offloaded/accelerated: e.g. video, media workloads.
+> 
+> That said, I think the energy conservation boils down to (not limited to):
+> 
+> a. should we schedule wide (multiple CPUs) vs local (fewer CPUs);
+> b. should we burst (higher P-states) vs run slow (lower P-states); 
+> c. is the control resource (power, clock etc.) shared wide or local to the unit;
+> d. Is the "local good" aka sub-system conservation resulting in "global good" aka
+> platform conservation?
+> e. what is the extent of options we want to load the user with: is the user going to toggle
+> some 200 switches to get the best experience or the user space/kernel will abstract a bulk
+> of these and provide more intelligent actions/decisions?
+> 
+> And I think the following should be the general outline of any efforts:
+> 
+> a. if the savings result in violation of any user defined quality-of-service for the experience (
+> finite FPS, finite computational requirements like encode/decode compute requirement etc.)
+> b. if we can conserve energy at the "platform" level vs "sub-system" level;
+> c. If we do save @ the "sub-system" level, how much of this is dependent on the specific
+> system architecture/topology/ vs "generic"; or in other words, how much of hit will a different
+> architecture suffer (?)
 
-> A particular practical issue is that when doing a git-bisect there might 
-> be a range of commits that only compile/run if some later commit is 
-> applied. If I'm bisecting in that range, I have to repeatedly apply that 
-> commit by hand.
+All of these things are worth considering, I agree.
 
-You can just have it stored in a separate branch and perform the bisection 
-using a script that will always first merge the branch, and reset after 
-good/bad verification is done.
+That said, my original question was about what kind of interfaces related to
+energy conservation bias were needed.
 
-If the fix is already applied (because you are testing a state of the tree 
-which has the commit already), git handles the merge of the 
-already-applied patch with grace even if they don't have the same SHA-1.
+Can you derive any suggestions from the above?
+
 
 -- 
-Jiri Kosina
-SUSE Labs
+I speak only for myself.
+Rafael J. Wysocki, Intel Open Source Technology Center.
