@@ -1,31 +1,39 @@
-Return-Path: <olof@lixom.net>
+Return-Path: <daniel.vetter@ffwll.ch>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id BB87F9B1
+	by mail.linuxfoundation.org (Postfix) with ESMTP id BFEADAEB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 May 2014 16:53:22 +0000 (UTC)
-Received: from mail-qc0-f169.google.com (mail-qc0-f169.google.com
-	[209.85.216.169])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 801AC20254
+	Tue, 13 May 2014 17:25:59 +0000 (UTC)
+Received: from mail-ig0-f177.google.com (mail-ig0-f177.google.com
+	[209.85.213.177])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A94AC2020C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 May 2014 16:53:21 +0000 (UTC)
-Received: by mail-qc0-f169.google.com with SMTP id e16so781641qcx.0
+	Tue, 13 May 2014 17:25:58 +0000 (UTC)
+Received: by mail-ig0-f177.google.com with SMTP id l13so684256iga.10
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 May 2014 09:53:20 -0700 (PDT)
+	Tue, 13 May 2014 10:25:58 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20140513162844.GA1647@cloud>
-References: <s5htx8tizaf.wl%tiwai@suse.de>
-	<alpine.LNX.2.00.1405131627480.16459@pobox.suse.cz>
-	<CABe+QzDMfRzedp+HROr7jqycCMueF=OWiUMEoFraVSVV+CTL2Q@mail.gmail.com>
-	<20140513162844.GA1647@cloud>
-Date: Tue, 13 May 2014 09:53:20 -0700
-Message-ID: <CAOesGMg_iEfcR8D76Nk9ZsQzbwwmwm9BwNw3YHuAf-Pfw4Jb+g@mail.gmail.com>
-From: Olof Johansson <olof@lixom.net>
-To: josh@joshtriplett.org
+In-Reply-To: <1399980453.879.177.camel@i7.infradead.org>
+References: <1399552623.17118.22.camel@i7.infradead.org>
+	<3908561D78D1C84285E8C5FCA982C28F328000EE@ORSMSX114.amr.corp.intel.com>
+	<1399666748.2166.68.camel@dabdike.int.hansenpartnership.com>
+	<4433093.MSzoqdJDMf@avalon>
+	<CAKMK7uFcWsZyGoxLx=2xH-vgRq1nD3cZjeqeRLsvKGrHt--VHA@mail.gmail.com>
+	<20140512150722.GO12376@8bytes.org>
+	<CAKMK7uHs9QBA_SCCNP_PSS3i2pRGJuQyj_8ngA6vgQU2wENTWw@mail.gmail.com>
+	<CALCETrXo7Zqg9EadLHTniLhAB9f13C9wzFWZAqTSG=4z0ocgQg@mail.gmail.com>
+	<CAKMK7uHgQKgHoeGDAkTBVwzSA7X+XrCRO9zXYwKsGUCJZOk-Dw@mail.gmail.com>
+	<1399980453.879.177.camel@i7.infradead.org>
+Date: Tue, 13 May 2014 19:25:57 +0200
+Message-ID: <CAKMK7uEnGHUecRYL2LDisUfFX6JcBykAQpUAw+NPFqgO8fbSgA@mail.gmail.com>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+To: David Woodhouse <dwmw2@infradead.org>
 Content-Type: text/plain; charset=UTF-8
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TOPIC] Guidance for subsystem maintainers
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Device error handling /
+ reporting / isolation
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,70 +43,33 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, May 13, 2014 at 9:28 AM,  <josh@joshtriplett.org> wrote:
-> On Tue, May 13, 2014 at 07:57:16AM -0700, Sarah A Sharp wrote:
->> Technical workflows will always be different.  I believe what Takashi
->> is talking about is a social problem, not a technical problem.  Each
->> maintainer needs some level of confidence in the patch, and thus some
->> maintainers will wait a while before merging a patch, or wait for
->> additional reviewers to ack it.  And sometimes that means the patch
->> falls through the cracks.  Others will just throw the patch at their
->> -next branch, do some quick testing, and catch bugs in the next -rc
->> cycle.
+On Tue, May 13, 2014 at 1:27 PM, David Woodhouse <dwmw2@infradead.org> wrote:
+> On Mon, 2014-05-12 at 19:04 +0200, Daniel Vetter wrote:
+>> On Mon, May 12, 2014 at 6:16 PM, Andy Lutomirski <luto@amacapital.net> wrote:
+>> > Just to check: are you talking about disabling the IOMMU if there's a
+>> > fault storm or disabling reporting of IOMMU faults?
 >>
->> Patch testing and review is a social problem, and trying to mandate a
->> workflow or even a set of technical tools will not help solve the
->> social problem of patches getting dropped or ignored.
+>> Re-enabling of the IOMMU after it was completely shut off to isolate a
+>> fault storm from a rouge device. Since if I as a developer still have
+>> to reboot if I wreak havoc in my driver it's only marginally better
+>> than a box that went down in a iommu page fault storm. But if I can
+>> just reload the driver (with the bug fixed) and get back a working
+>> device because the IOMMU was re-enabling then that would help. Not
+>> sure yet how feasible this really is.
 >
-> Perhaps, but part of why Linus switched to git (and BK before that) was
-> to avoid the resend-patches-until-Linus-doesn't-drop-them-on-the-floor
-> problem.  It seems like we haven't so much *fixed* that problem as moved
-> it further down the chain to a subset of maintainers.
->
-> This holds even more true if you're trying to make a cross-subsystem
-> change: if you have 30 patches across 15 subsystems, you'll have a few
-> merged right away with an explicit email acknowledgement (notably Andrew
-> and Greg who have automated that), a few merged with no acknowledgement
-> (have fun finding where they got merged or figuring out where they'll go
-> from there), most of them disappear into a black hole until they
-> magically show up in Linus's tree two major versions in the future, and
-> a few just fall into /dev/null.  And I don't see an obvious way to
-> distinguish between the last three cases.
->
-> Two thoughts on that:
->
-> 1) The cross-subsystem difficulties sometimes tempt me to queue up
-> patches into my own git tree and send direct pull requests to Linus once
-> I have a patch series that gets no objections from maintainers, but I'm
-> concerned about doing that for cross-subsystem "topics" and drawing
-> flames from subsystem maintainers about not going through their tree(s).
-> Is that a real problem, or is it considered reasonable to maintain a
-> repository by topic rather than by subsystem?  (I would, for instance,
-> be quite willing to maintain a "tiny" tree, and accept tinification
-> patches from others to merge upstream.)
+> You probably don't want to completely isolate it in that case. If it's
+> doing some bad DMA *and* it's also doing some good DMA to display its
+> framebuffer, why stop the latter?
 
-In your case I suspect we have little to no overlap between the code
-we carry and merge and what you're looking to do, but for the sake of
-general discussion:
-
-We've been somewhat careful with these with arm-soc, since we merge
-quite a bit of code from a lot of various platforms, and maybe once a
-year we get something that isn't coordinated well enough and it
-explodes into a very painful conflict-ridden mess the week before the
-merge window opens.
-
-The way we've chosen to avoid some of that is to merge in such topic
-branches (once they're stable) as a base to have other platform
-maintainers either base their branches off of, or at least we'll merge
-in their branches on top of it so we catch the conflicts early and can
-resolve them within our tree.
-
-I.e. we're OK with doing it your way, but we want to know about it,
-and if there's substantial overlap with other parts of our tree we'd
-prefer to bring in the same branch into our tree as well. This of
-course assumes it's not a controversial patch set and that it has been
-out for proper reviews (and that it isn't done as an end-run around a
-disagreeing maintainer).
-
-
--Olof
+Yeah, I think some coordination between driver and iommu subsystem
+when bad things happen would be useful. One example is that i915 could
+block further command submission once a storm happens to prevent more
+damage. And if the IOMMU can disabled fault reporting while everything
+else keeps on working as best as possible that's indeed useful. But
+imo the first line should be damage control, if we can save a few bits
+that's just the icing on the cake.
+-Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
