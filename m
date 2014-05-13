@@ -1,28 +1,25 @@
-Return-Path: <rjw@rjwysocki.net>
+Return-Path: <laurent.pinchart@ideasonboard.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id BF0C44D3
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 1F50C4D3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 May 2014 10:30:50 +0000 (UTC)
-Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id ED9332019D
+	Tue, 13 May 2014 10:31:56 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+	[95.142.166.194])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 735012019C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 May 2014 10:30:49 +0000 (UTC)
-From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-To: Arnd Bergmann <arnd@arndb.de>
-Date: Tue, 13 May 2014 12:47:35 +0200
-Message-ID: <1818400.5bDoGrcPeW@vostro.rjw.lan>
-In-Reply-To: <6686293.8G8KACfUS3@wuerfel>
-References: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>
-	<5371453E.2070108@intel.com> <6686293.8G8KACfUS3@wuerfel>
+	Tue, 13 May 2014 10:31:56 +0000 (UTC)
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Tue, 13 May 2014 12:31:55 +0200
+Message-ID: <15219046.LHbmDh0AgC@avalon>
+In-Reply-To: <CAKMK7uEYw+tuLNTu+pSimEewnuEakGQEsvRmq-hx_dunfBSVUg@mail.gmail.com>
+References: <1872038.43ncqEMWSx@avalon> <20140512220729.GZ12304@sirena.org.uk>
+	<CAKMK7uEYw+tuLNTu+pSimEewnuEakGQEsvRmq-hx_dunfBSVUg@mail.gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	dvhart@dvhart.com, ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Driver model/resources, ACPI, DT,
-	etc (sigh)
+Content-Type: text/plain; charset="us-ascii"
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] PM dependencies
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,44 +29,50 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tuesday, May 13, 2014 09:34:35 AM Arnd Bergmann wrote:
-> On Tuesday 13 May 2014 00:03:42 Rafael J. Wysocki wrote:
-> > On 5/12/2014 11:59 PM, Mark Brown wrote:
-> > > On Tue, May 06, 2014 at 02:22:15PM +0200, Rafael J. Wysocki wrote:
-> > >> On Monday, May 05, 2014 06:45:28 PM Benjamin Herrenschmidt wrote:
-> > >>> On Sun, 2014-05-04 at 14:28 +0200, Rafael J. Wysocki wrote:
-> > >>> Only for standardized resource types, such as mmio ranges or interrupts.
-> > >>> Anything else is absolutely in the domain of competence of the driver
-> > >>> and I would argue *only* in the domain of competence of the driver.
-> > >>
-> > >> But why can't we treat DT bindings as a standard?
-> > >
-> > > Aside from the whole question of people bothering to pay attention to
-> > > the specs when writing their BIOSs DTs (as used in modern systems) and
-> > > ACPI have quite different models for what should be handled where - FDT
-> > > is pure data and expects the kernel to do everything while ACPI expects
-> > > to be used with active firmware.
+On Tuesday 13 May 2014 09:43:05 Daniel Vetter wrote:
+> On Tue, May 13, 2014 at 12:07 AM, Mark Brown <broonie@kernel.org> wrote:
+> > On Mon, May 12, 2014 at 11:16:57PM +0200, Tomasz Figa wrote:
+> >> On 12.05.2014 22:31, Mark Brown wrote:
+> >> > It also solves the system suspend dependencies.  Why don't the
+> >> > runtime PM dependencies just work with reference counting?
+> >> 
+> >> Runtime PM dependencies work with reference counting just fine, but
+> >> only for topologies matching Linux driver model, e.g. devices with
+> >> exactly one device they depend on, e.g. SPI controller and SPI devices
+> >> on the bus driven by it. Add there an IOMMU and other various strange
+> >> things that should be transparent to the drivers and it stops working.
 > > 
-> > While in practice ACPI is used on systems with active firmware usually, 
-> > there's no expectation like this in ACPI itself in principle.
-> 
-> Right. Open Firmware already has multiple ways of running code from the
-> firmware (client calls, RTAS, FCODE, ...), which are used all the time,
-> but we intentionally chose to not allow them for embedded systems with
-> the FDT subset.
-> 
-> It should be entirely possible and reasonable to do the same thing for
-> ACPI on embedded systems. I believe this is what SFI attempted to
-> do, but that seems to have been discarded for some reason.
+> > There's no reason why runtime PM references have to follow the topology
+> > - you do get a default reference count up to any parent (though we break
+> > that sometimes, as is the case with SPI controllers being suspended even
+> > though the devices below them are active) but there's nothing stopping
+> > references being taken outside the topology.
 
-The reason was that the SFI turned out to be too simplistic and had to be
-supplemented with things like board files.
+One of the issues is that we need API(s) to take/release those references. In 
+some cases the depender doesn't have direct access to the dependee, like in 
+the IOMMU case where the DMA mapping API hides the IOMMU. One of the questions 
+here is whether this kind of problems should be solved with ad-hoc solutions 
+(for instance adding PM support to the DMA mapping API in this specific case), 
+or in a more generic fashion. Answering that will require a comprehensive list 
+of use cases to detect common patterns.
 
-HW Reduced ACPI is a step in that direction too.  It doesn't preclude active
-firmware, but it makes it difficult to coordinate with that firmware if it
-does exist.
+> I guess some helpers to grab/drop runtime PM references on all parts
+> of a componentized device should resolve this?
 
+That could help in some cases, but there might be ordering issues.
+
+> We propably don't want to bake this into the driver core since often the
+> driver will know that it e.g. doesn't need a specific encoder block (if it's
+> not enabled), so doesn't to grab a reference. But for simple drivers, and
+> to get runtime PM off the ground when enabling new hardware this could
+> be rather useful.
+
+This won't solve the IOMMU problem, as the component framework isn't used 
+there. I'm not advocating for a common solution to all non parent/child PM 
+dependencies just for the sake of it, we could find out that several distinct 
+solutions to distinct classes of issues is the way to go.
 
 -- 
-I speak only for myself.
-Rafael J. Wysocki, Intel Open Source Technology Center.
+Regards,
+
+Laurent Pinchart
