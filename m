@@ -1,31 +1,25 @@
 Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 567B4979
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 15F149A0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 May 2014 21:35:00 +0000 (UTC)
+	Tue, 13 May 2014 22:11:02 +0000 (UTC)
 Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id DF85220273
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id 8F9EC20310
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 May 2014 21:34:58 +0000 (UTC)
+	Tue, 13 May 2014 22:11:00 +0000 (UTC)
 From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-To: Olof Johansson <olof@lixom.net>
-Date: Tue, 13 May 2014 23:51:45 +0200
-Message-ID: <6339662.3mIpLKDMAO@vostro.rjw.lan>
-In-Reply-To: <CAOesGMhLrheCFYiZycHnOPWZDJSzM44i4Kxh2doGO6LapLa6Gw@mail.gmail.com>
-References: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>
-	<1490957.7A98jlv5Y2@vostro.rjw.lan>
-	<CAOesGMhLrheCFYiZycHnOPWZDJSzM44i4Kxh2doGO6LapLa6Gw@mail.gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Date: Wed, 14 May 2014 00:27:47 +0200
+Message-ID: <11117951.ql3xek1vCB@vostro.rjw.lan>
+In-Reply-To: <20140512220729.GZ12304@sirena.org.uk>
+References: <1872038.43ncqEMWSx@avalon> <53713A49.9070400@gmail.com>
+	<20140512220729.GZ12304@sirena.org.uk>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="utf-8"
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"dvhart@dvhart.com" <dvhart@dvhart.com>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Driver model/resources, ACPI, DT,
-	etc (sigh)
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] PM dependencies
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,148 +29,47 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tuesday, May 13, 2014 02:28:05 PM Olof Johansson wrote:
-> On Tue, May 13, 2014 at 2:40 PM, Rafael J. Wysocki <rjw@rjwysocki.net> wrote:
-> > On Tuesday, May 13, 2014 02:14:42 PM Olof Johansson wrote:
-> >> On Tue, May 06, 2014 at 03:35:41PM +0200, Arnd Bergmann wrote:
-> >> > On Tuesday 06 May 2014 14:18:56 Rafael J. Wysocki wrote:
-> >> > > On Monday, May 05, 2014 09:31:04 PM Benjamin Herrenschmidt wrote:
-> >> > > > On Mon, 2014-05-05 at 13:32 +0200, Rafael J. Wysocki wrote:
-> >> > > > > The interpretation - yes, the translation - not necessarily.  By putting
-> >> > > > > the translation part into drivers we'll duplicate a lot of code used for
-> >> > > > > that.  In my opinion there needs to be a layer doing the translation
-> >> > > > > automatically.
-> >> > > >
-> >> > > > I'm afraid I don't understand. How can you do the translation
-> >> > > > automatically if you have fundamentally different representation of
-> >> > > > device-specific concepts ?
-> >> > >
-> >> > > I'm not entirely sure how fundamentally different it is to be honest, but in
-> >> > > any case I'm talking about the situation in which the hardware is the same
-> >> > > and the driver is the same, only the firmware interface is different.  In
-> >> > > that case either the firmware supplies the information the driver needs, or
-> >> > > it doesn't (and as long as the information is supplied, the format doesn't
-> >> > > really matter, because it only is a matter of translation).
-> >> >
-> >> > One example for something that is fundamentally different between an
-> >> > embedded system using DT and any ACPI system is how a PCI(e) host bridge
-> >> > gets treated, we are currently having long discussions about this elsewhere.
-> >> >
-> >> > With ACPI (or a server running OF for that matter), you assume that the
-> >> > PCI host is operational and all buses are fully probed and then you
-> >> > have methods for doing hotplugging, you just look at the device that
-> >> > are already initialized by the firmware.
-> >> >
-> >> > With embedded systems, you (in general, some steps may get skipped
-> >> > in practice) go through a lot more steps:
-> >> > - detect the presence of the host bridge device
-> >> > - enable clocks, voltages, phys, resets, etc.
-> >> > - set up inbound and outbound MMIO and PIO address translation windows
-> >> > - perform a full bus scan and assign bus and device resources
-> >> >
-> >> > We probably woulnd't go through that hassle on ACPI systems. I think
-> >> > we shouldn't attempt any translation here, and keep the code completely
-> >> > separate, with the common parts being handled by the PCI core as we
-> >> > do today.
-> >> >
-> >> > An example about a subsystem where translate complex information
-> >> > from both DT and ACPI into a common format is the dmaengine: We can
-> >> > have references to dma channels in completely incompatible ways
-> >> > but still use the same dma_request_slave_channel() interface for
-> >> > both. The ACPI path currently is lacking a bit (e.g. there is no
-> >> > way to specify the channel name in ACPI, so the code makes
-> >> > assumptions that don't hold true in general), but that's fixable.
-> >> >
-> >> > I assume we will see more of the second kind in the future, and this
-> >> > would be limited to embedded systems on both ACPI and DT, since you
-> >> > shouldn't see dma slave devices on general purpose systems with
-> >> > either.
-> >> >
-> >> > > Bottom line: I'd like to avoid modifying drivers that use the of_ interface
-> >> > > today if possible.  Instead, I'd prefer to modify the firmware layer so that
-> >> > > those drivers can get what they ask for regardless of what firmware interface
-> >> > > the platform is using.
-> >> >
-> >> > Looking at the most trivial example:
-> >> >
-> >> > bool of_property_read_bool(const struct device_node *np,                                                                        const char *propname);
-> >> >
-> >> > We should definitely be able to have an interface like this for
-> >> > ACPI, but you don't have a 'struct device_node' pointer then.
-> >> > We can add a new
-> >> >
-> >> > bool dev_property_read_bool(const struct device *dev,
-> >> >                             const char *propname);
-> >>
-> >> >
-> >> > that handles both, but then you have to change every driver
-> >> > that is already using of_property_read_bool() and that can
-> >> > get used with ACPI.
-> >>
-> >> It's actually not that easy in practice. There's not a one-to-one
-> >> correspondence between device tree nodes and struct devices in the
-> >> kernel. There are many bindings that use subnodes for sections of their
-> >> information, and so on.
-> >>
-> >> > An advantage of the dev_property_read_bool()
-> >> > interface however is that it would also work for platform
-> >> > devices that are created in platform code using
-> >> > platform_device_register_full() or similar if we add a way
-> >> > to define simple properties in C code. That would also simplify
-> >> > a lot of drivers that use both (simple) platform_data and DT
-> >> > today.
-> >>
-> >> I'm not a fan of this "grand unified abstraction layer". Driver writes are
-> >> already complaining that things are too complicated with the move to device
-> >> tree, and we're making things even more abstracted and complicated here. People
-> >> will need to peel back even more layers to figure out what's actually going on.
-> >>
-> >>
-> >> For the truly trivial stuff, there are some quite simple ways to handle this:
-> >>
-> >> 1. Make sure that anything that can be a named IORESOURCE_* is so. Which could
-> >>    mean moving over GPIO and possibly clocks to that, and use those for lookup.
-> >>
-> >> 2. If Rafael's arguments are to be believed, that the translation should be
-> >>    trivial and easy to do, then we might as well reuse the structures and APIs
-> >>    that are already in the kernel. In other words, allocate a struct
-> >>    device_node, populate it with the properties from the ACPI structure, and
-> >>    attach it to the struct device. Then there's no need for any churn in the
-> >>    drivers (until they need ACPI-specific tweaks, which they will all need).
-> >
-> > The problem with that is that we have either device_node or acpi_node.companion
-> > under struct device and they are mutually exclusive.  So this isn't going to fly.
-> > [And it doesn't make sense to duplicate information already available from
-> > acpi_node.companion this way IMHO.]
-> >
-> > Also device references are problematic here, because both interfaces use
-> > different ways to do that (phandles vs object paths in the ACPI namespace).
-> >
-> > So actually, what Arnd proposed seems to be the simplest approach.
+On Monday, May 12, 2014 11:07:29 PM Mark Brown wrote:
+> On Mon, May 12, 2014 at 11:16:57PM +0200, Tomasz Figa wrote:
+> > On 12.05.2014 22:31, Mark Brown wrote:
 > 
-> Again, that suggestion assumes a 1:1 mapping between device nodes and
-> struct devices, which does not exist.
-
-I suppose your concern is that there may be device nodes without struct device,
-right?  So drivers may need to access those device nodes directly?
-
-Can you please point me to code where this is the case?
-
-> And we won't churn bindings nor drivers to make it fit since the whole point
-> of your proposal is to avoid doing that.
-
-Yes.
-
-> >> The real problem is the non-trivial stuff. There, I think there's no real
-> >> alternative than to teach the drivers about both firmware interfaces.
-> >
-> > I'm not sure about that.  I won't say "this isn't the case" until I actually
-> > try things out, but it *may* be avoidable AFAICS today.
+> > > It also solves the system suspend dependencies.  Why don't the
+> > > runtime PM dependencies just work with reference counting?
 > 
-> Do you have a rough idea of when you can do that?
+> > Runtime PM dependencies work with reference counting just fine, but
+> > only for topologies matching Linux driver model, e.g. devices with
+> > exactly one device they depend on, e.g. SPI controller and SPI devices
+> > on the bus driven by it. Add there an IOMMU and other various strange
+> > things that should be transparent to the drivers and it stops working.
+> 
+> There's no reason why runtime PM references have to follow the topology
+> - you do get a default reference count up to any parent (though we break
+> that sometimes, as is the case with SPI controllers being suspended even
+> though the devices below them are active) but there's nothing stopping
+> references being taken outside the topology.
 
-Next month?  That time frame, more or less.
+Precisely.
 
-Surely before August. :-)
+> > I'm still investigating this issue, so more uses cases are yet to be
+> > found, but I also guess this is the purpose of this thread. Anyway,
+> > for some reason .suspend_late() and .resume_early() callbacks exist in
+> > dev_pm_ops struct and I believe that at least some of the cases
+> > "solved" by them might be related to the issue being discussed here.
+> 
+> Yes, they're partly solving a particular common case for this sort of
+> interdependency (though I guess they do also do things like allow us to
+> make sure the hardware came back in a state where it won't be harmful
+> to the rest of the system if we start enabling things).
 
-Rafael
+The original reason why .suspend_late/.resume_early were introduced was to
+allow the same callback routines to be run for runtime and for system-wide PM.
+Specifically, the idea was that .suspend_late may point to the same routine
+as .runtime_suspend, for example, because of the analogy of the conditions
+in which they are called (the device is known to be not in use).
+
+That didn't work out perfectly, but those callbacks turn out to be useful
+nonetheless.
+
+And yes, I'm interested in this topic too.
+
+Rafael (who wonders why he wasn't CCed in this thread to start with)
