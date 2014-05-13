@@ -1,25 +1,31 @@
 Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 33CFD70A
+	by mail.linuxfoundation.org (Postfix) with ESMTP id CFF0C95A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 May 2014 22:58:03 +0000 (UTC)
+	Tue, 13 May 2014 23:12:20 +0000 (UTC)
 Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id 17D0E201AA
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id A29FB201AA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 May 2014 22:58:01 +0000 (UTC)
+	Tue, 13 May 2014 23:12:19 +0000 (UTC)
 From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-To: Morten Rasmussen <morten.rasmussen@arm.com>
-Date: Wed, 14 May 2014 01:14:48 +0200
-Message-ID: <18927107.3rlNmEK8uL@vostro.rjw.lan>
-In-Reply-To: <20140512153234.GE23253@e103034-lin>
-References: <20140512153234.GE23253@e103034-lin>
+To: Preeti U Murthy <preeti@linux.vnet.ibm.com>
+Date: Wed, 14 May 2014 01:29:06 +0200
+Message-ID: <1422044.uKrgYIuT6Q@vostro.rjw.lan>
+In-Reply-To: <5370F177.7080109@linux.vnet.ibm.com>
+References: <2FABAEF0D3DCAF4F9C9628D6E2F9684533B4C781@BGSMSX102.gar.corp.intel.com>
+	<2FABAEF0D3DCAF4F9C9628D6E2F9684533B4DABB@BGSMSX102.gar.corp.intel.com>
+	<5370F177.7080109@linux.vnet.ibm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="utf-8"
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>
-Subject: Re: [Ksummit-discuss] Energy-aware Scheduling Workshop
+Cc: "Brown, Len" <len.brown@intel.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Daniel Lezcano <daniel.lezcano@linaro.org>, Ingo Molnar <mingo@kernel.org>
+Subject: Re: [Ksummit-discuss] [TECH(CORE?) TOPIC] Energy conservation bias
+	interfaces
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,72 +35,43 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Monday, May 12, 2014 04:32:34 PM Morten Rasmussen wrote:
-> Hi,
+On Monday, May 12, 2014 09:36:15 PM Preeti U Murthy wrote:
+> On 05/08/2014 07:53 PM, Iyer, Sundar wrote:
+> >> -----Original Message-----
+> >> From: Preeti U Murthy [mailto:preeti@linux.vnet.ibm.com]
+> >> Sent: Thursday, May 8, 2014 2:30 PM
+> >> To: Iyer, Sundar; Peter Zijlstra; Rafael J. Wysocki
+> >> Cc: Brown, Len; Daniel Lezcano; Ingo Molnar; ksummit-
 
-Hi,
+[cut]
 
-> Last year's Energy-Aware Scheduling workshop [1,2] was a good
-> opportunity for interested parties to discuss some of the open issues in
-> this area face to face. While work is still ongoing on many of the
-> topics that were discussed, it might be worth having workshop again this
-> year to follow up, revise the plans if necessary, and discuss topics
-> that were not covered last year.
 > 
-> Before submitting a workshop proposal to the Ksummit PC I would like to
-> probe the interest. IMO, it is important that we have scheduler
-> maintainers present.
-> 
-> Workshop topic proposals:
-> 
-> Test cases
-> Use-cases for high-end phones (which some of us care about) consist of
-> rather complex software stacks which are not suitable for quick patch
-> testing [3]. While we can't avoid testing using the full software stack
-> in the end, it would be useful to have configurable micro-benchmarks for
-> initial testing and to reproduce specific scheduling patterns from the
-> full use-case for debugging purposes.
-> 
-> Energy Evaluation
-> A hot topic last year. We need a way to evaluate energy-awareness
-> patches. Work has started on an idle state analysis tool [4], but we are
-> not there yet.
-> 
-> Platform Performance/Energy data
-> Currently the kernel has quite limited knowledge about energy costs of
-> the platform where it is running. Without this information it is rather
-> hard to make energy-efficient scheduling decisions. It seems that
-> various energy-saving techniques don't work equally well on all
-> platforms and might even depend on the use-case. Should we give the
-> kernel enough information to construct a simple energy-model to guide
-> decisions?
-> 
-> CPU utilization and cpu_power
-> The entity load tracking has given us a much better indication of
-> individual task loadi. However, priority scaling makes it less suitable
-> for low load scenarios [5] where we care more about actual cpu
-> utilization per task when trying to figure out an energy-efficient load
-> balance. Do we need entity utilization tracking as well? Related to this
-> topic is the representation of cpu compute capacity. The current
-> representation, cpu_power, can't deal with heterogeneous systems
-> correctly. Can we come up with a solution that can handle SMT, SMP, and
-> heterogeneous systems?
-> 
-> 
-> All comments and topic proposals are welcome.
+> The cpuidle sub-system is behaving fairly well on some of the platforms.
+> A lot of CPU  power management is platform specific. But by exposing
+> arch specific details like the details about the idle states that are
+> present, through the cpuidle drivers, the kernel is able to make
+> reasonably good predictions about the duration of idleness of a cpu and
+> choose the idle state that it must enter into.
+>   The point is that we have succeeded in the past in getting the high
+> level power management reasonably right in the kernel although they were
+> platform dependent.
 
-I would be interested in participating in that discussion (which also is
-related to the energy conservation bias interfaces KS topic proposed by
-me).
+The problem had fewer dimensions then (so to speak), however.
+
+The set of available C-states might be different, but that pretty much was
+all that needed to be taken into account.
+
+Today, there are C-states per core, per package (also per module on some
+platforms and so on) and there may be platform dependencies (like some
+C-states are not available if certain I/O devices are not in the "right"
+states).  That makes the picture a bit less clean and there are more
+places where tradeoffs come into play, at least potentially.
+
+Let alone the whole C-states vs P-states issue (Is it better to run at a
+lower frequency for time X, or is it better to run at a higher frequency
+for time Y, Y < X?).
 
 Thanks!
-
-
-> [1] http://lwn.net/Articles/571414/
-> [2] http://etherpad.osuosl.org/energy-aware-scheduling-ks-2013
-> [3] https://lkml.org/lkml/2014/1/7/355
-> [4] https://lkml.org/lkml/2014/3/24/363
-> [5] https://lkml.org/lkml/2014/1/7/503 
 
 -- 
 I speak only for myself.
