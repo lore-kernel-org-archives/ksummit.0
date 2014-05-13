@@ -1,24 +1,25 @@
-Return-Path: <mhocko@suse.cz>
+Return-Path: <swarren@wwwdotorg.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 6BA4D96D
+	by mail.linuxfoundation.org (Postfix) with ESMTP id B2A8B9C3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 May 2014 15:16:09 +0000 (UTC)
-Received: from mx2.suse.de (cantor2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F2DDB2020D
+	Tue, 13 May 2014 15:40:20 +0000 (UTC)
+Received: from avon.wwwdotorg.org (avon.wwwdotorg.org [70.85.31.133])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 67321201BA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 May 2014 15:16:08 +0000 (UTC)
-Date: Tue, 13 May 2014 17:16:07 +0200
-From: Michal Hocko <mhocko@suse.cz>
-To: Theodore Ts'o <tytso@mit.edu>, linux-kernel@vger.kernel.org,
-	ksummit-discuss@lists.linuxfoundation.org
-Message-ID: <20140513151607.GE25996@dhcp22.suse.cz>
-References: <20140509152319.GA26823@thunk.org>
+	Tue, 13 May 2014 15:40:20 +0000 (UTC)
+Message-ID: <53723AF0.704@wwwdotorg.org>
+Date: Tue, 13 May 2014 09:32:00 -0600
+From: Stephen Warren <swarren@wwwdotorg.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20140509152319.GA26823@thunk.org>
-Subject: Re: [Ksummit-discuss] Reminder for kernel summit nominations
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+References: <s5htx8tizaf.wl%tiwai@suse.de>	<alpine.LNX.2.00.1405131627480.16459@pobox.suse.cz>	<CABe+QzDMfRzedp+HROr7jqycCMueF=OWiUMEoFraVSVV+CTL2Q@mail.gmail.com>
+	<2841648.YvDH29bsdC@avalon>
+In-Reply-To: <2841648.YvDH29bsdC@avalon>
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Ksummit-discuss] [TOPIC] Guidance for subsystem maintainers
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -28,16 +29,17 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri 09-05-14 11:23:19, Theodore Ts'o wrote:
-[...]
-> People selected algorithmically
-> ===============================
-> Michal Hocko
+On 05/13/2014 09:11 AM, Laurent Pinchart wrote:
+...
+> Wouldn't it help if we could write down whatever rules that each subsystem 
+> maintainer found best ? For instance some maintainers expect to be CC'ed on 
+> patch submission, other prefer not to be CC'ed. When sending a patch to a new 
+> subsystem developers currently have no easy way to find this kind of 
+> information.
 
-I won't be able to attend this year because I will on vacation at that
-time. As much as I would like to attend the plans for were set a long
-time ago and rescheduling would be a problem for other people travelling
-with me.
--- 
-Michal Hocko
-SUSE Labs
+Well, get_maintainers.pl spits out the list of destination email
+addresses to send to. It should be easy enough to augment MAINTAINERS
+entries with a flag (or different tag type) to say "I'm the maintainer
+of this area, but I don't want to be CC'd on the email; just send it to
+the list and I'll see it.", and have get_maintainers.pl print out that
+information.
