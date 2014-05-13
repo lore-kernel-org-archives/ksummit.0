@@ -1,21 +1,22 @@
-Return-Path: <davidlohr@hp.com>
+Return-Path: <prvs=0210b108c3=clm@fb.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id C736FA89
+	by mail.linuxfoundation.org (Postfix) with ESMTP id E5A1270A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 May 2014 00:31:24 +0000 (UTC)
-Received: from g2t2352.austin.hp.com (g2t2352.austin.hp.com [15.217.128.51])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 30A732031A
+	Tue, 13 May 2014 01:41:46 +0000 (UTC)
+Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
+	[67.231.153.30])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 4B16F20245
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 May 2014 00:31:24 +0000 (UTC)
-Message-ID: <1399941081.2648.51.camel@buesod1.americas.hpqcorp.net>
-From: Davidlohr Bueso <davidlohr@hp.com>
-To: Josh Triplett <josh@joshtriplett.org>
-Date: Mon, 12 May 2014 17:31:21 -0700
-In-Reply-To: <20140512235430.GA16440@thin>
-References: <5370DB7B.2040706@fb.com> <20140512235430.GA16440@thin>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
+	Tue, 13 May 2014 01:41:46 +0000 (UTC)
+Message-ID: <537178CA.60303@fb.com>
+Date: Mon, 12 May 2014 21:43:38 -0400
+From: Chris Mason <clm@fb.com>
+MIME-Version: 1.0
+To: Greg KH <greg@kroah.com>
+References: <5370DB7B.2040706@fb.com> <20140512231648.GA17027@kroah.com>
+In-Reply-To: <20140512231648.GA17027@kroah.com>
+Content-Type: text/plain; charset="ISO-8859-1"
 Content-Transfer-Encoding: 7bit
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [TOPIC] Application performance: regressions,
@@ -29,45 +30,42 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 2014-05-12 at 16:54 -0700, Josh Triplett wrote:
+On 05/12/2014 07:16 PM, Greg KH wrote:
 > On Mon, May 12, 2014 at 10:32:27AM -0400, Chris Mason wrote:
-> > Hi everyone,
-> > 
-> > We're in the middle of upgrading the tiers here from older kernels (2.6.38,
-> > 3.2) into 3.10 and higher.
-> > 
-> > I've been doing this upgrade game for a number of years now, with different
-> > business cards taped to my forehead and with different target workloads.
-> > 
-> > The result is always the same...if I'm really lucky the system isn't slower,
-> > but usually I'm left with a steaming pile of 10-30% regressions.
+>> Hi everyone,
+>>
+>> We're in the middle of upgrading the tiers here from older kernels 
+>> (2.6.38, 3.2) into 3.10 and higher.
+>>
+>> I've been doing this upgrade game for a number of years now, with 
+>> different business cards taped to my forehead and with different target 
+>> workloads.
+>>
+>> The result is always the same...if I'm really lucky the system isn't 
+>> slower, but usually I'm left with a steaming pile of 10-30% regressions.
 > 
-> How automated are your benchmark workloads, how long do they take, and
-> how consistent are they from run to run (on a system running nothing
-> else)?  What about getting them into Fengguang Wu's automated patch
-> checker, or a similar system that checks every patch or pull rather than
-> just full releases?  If we had feedback at the time of patch submission
-> that a specific patch made the kernel x% slower for a specific
-> well-defined workload, that would prove much easier to act on than just
-> a comparison of 3.x and 3.y.
+> How long have we been having this discussion?  8 years?  It's not like
+> people don't know that performance testing needs to be constantly
+> happening, we've been saying that for a long time.  It's just that no
+> one seems to listen to us :(
+> 
 
-This sounds ideal, but reality is very very different.
+Yes and no.  Intel listened, and I think they have had a huge positive
+impact here.  Others have as well, maybe not as consistently, but still.
 
-Fengguang's scripts are quite nice and work for a number of scenarios,
-but cannot possibly cover everything. And the regressions Chris mentions
-are quite common, depending what and where you're looking at. Just
-consider proprietary tools and benchmarks (ie: Oracle -- and no, I'm not
-talking about pgbench only). Or just about anything that's not synthetic
-and easy to setup (ie: Hadoop). Subtle architecture specific changes
-(ie: non x86) are also beyond this scope and can trigger major
-performance regressions. And even common benchmarks and systems such as
-aim7 (which I know Fengguang runs) and x86 can bypass the automated
-checks, just look at https://lkml.org/lkml/2014/3/17/587.
-There are just too many variables to control.
+I do find it really interesting that even with huge improvements all
+over the place, we have a very hard time upgrading production workloads
+without hitting big regressions.
 
-That said, I do agree that we could do better, and yeah, adding more
-workloads to Fengguang's scripts are always a good thing -- perhaps even
-adding stuff from perf-bench.
+Sometimes it is just a few .config entries, and sometimes we paper over
+it with improvements in other areas, but it's almost always worse.
 
-Thanks,
-Davidlohr
+> And that is the larger problem, what can we do about that issue.
+> Honestly, I don't think much, as it takes money from companies to commit
+> to do this work, which no one seems to ever want to do.  What make this
+> year the year that something different happens?
+
+I can't promise different.  At best we'll tease out some new benchmarks
+and try to get them into a format that get run often.
+
+-chris
