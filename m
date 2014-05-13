@@ -1,26 +1,34 @@
-Return-Path: <prvs=0210b108c3=clm@fb.com>
+Return-Path: <amit.kucheria@linaro.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id E5A1270A
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 665D52FA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 May 2014 01:41:46 +0000 (UTC)
-Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
-	[67.231.153.30])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 4B16F20245
+	Tue, 13 May 2014 05:52:03 +0000 (UTC)
+Received: from mail-vc0-f177.google.com (mail-vc0-f177.google.com
+	[209.85.220.177])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id AE8CA1F968
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 May 2014 01:41:46 +0000 (UTC)
-Message-ID: <537178CA.60303@fb.com>
-Date: Mon, 12 May 2014 21:43:38 -0400
-From: Chris Mason <clm@fb.com>
+	Tue, 13 May 2014 05:52:02 +0000 (UTC)
+Received: by mail-vc0-f177.google.com with SMTP id if17so5591299vcb.8
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 12 May 2014 22:52:01 -0700 (PDT)
 MIME-Version: 1.0
-To: Greg KH <greg@kroah.com>
-References: <5370DB7B.2040706@fb.com> <20140512231648.GA17027@kroah.com>
-In-Reply-To: <20140512231648.GA17027@kroah.com>
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TOPIC] Application performance: regressions,
- controlling preemption
+In-Reply-To: <20140512123134.GC5540@e103034-lin>
+References: <1998761.B2k0A5OtQR@vostro.rjw.lan>
+	<CAP245DV9U+L2D-LPHd-M=zuT_Jh2cuxXzo59-=GLbaMdfCjGeA@mail.gmail.com>
+	<20140512123134.GC5540@e103034-lin>
+Date: Tue, 13 May 2014 11:22:01 +0530
+Message-ID: <CAP245DXHnmSBnBdcKzuzFUCQc4Q5XpukenE3Zz+jSeB7Cd=_1g@mail.gmail.com>
+From: Amit Kucheria <amit.kucheria@linaro.org>
+To: Morten Rasmussen <morten.rasmussen@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Cc: Len Brown <len.brown@intel.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Daniel Lezcano <daniel.lezcano@linaro.org>, Ingo Molnar <mingo@kernel.org>
+Subject: Re: [Ksummit-discuss] [TECH(CORE?) TOPIC] Energy conservation bias
+	interfaces
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,42 +38,64 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 05/12/2014 07:16 PM, Greg KH wrote:
-> On Mon, May 12, 2014 at 10:32:27AM -0400, Chris Mason wrote:
->> Hi everyone,
+On Mon, May 12, 2014 at 6:01 PM, Morten Rasmussen
+<morten.rasmussen@arm.com> wrote:
+> On Mon, May 12, 2014 at 12:53:11PM +0100, Amit Kucheria wrote:
+>> On Tue, May 6, 2014 at 6:24 PM, Rafael J. Wysocki <rjw@rjwysocki.net> wrote:
+
+<snip>
+
+> The middleware power manager as you mention above seems to be a good
+> candidate. The kernel wouldn't know which tasks are trusted to behave
+> nicely so I think that is a user-space/middleware problem to deal with.
+>
 >>
->> We're in the middle of upgrading the tiers here from older kernels 
->> (2.6.38, 3.2) into 3.10 and higher.
+>> > It also is not particularly clear what representation of "energy conservation
+>> > bias" would be most useful.  Should that be a number or a set of well-defined
+>> > discrete levels that can be given names (like "max performance", "high
+>> > prerformance", "balanced" etc.)?  If a number, then what units to use and
+>> > how many different values to take into account?
 >>
->> I've been doing this upgrade game for a number of years now, with 
->> different business cards taped to my forehead and with different target 
->> workloads.
+>> I have a hard time figuring out how to map these levels to performance
+>> / power optimisations I care about. Say I have the following
+>> optimisation techniques available today that I can change at runtime.
 >>
->> The result is always the same...if I'm really lucky the system isn't 
->> slower, but usually I'm left with a steaming pile of 10-30% regressions.
-> 
-> How long have we been having this discussion?  8 years?  It's not like
-> people don't know that performance testing needs to be constantly
-> happening, we've been saying that for a long time.  It's just that no
-> one seems to listen to us :(
-> 
+>> #define XX_TASK_PACKING              0x00000001  /* opposite of the
+>> default spread policy */
+>> #define XX_DISABLE_OVERDRIVE    0x00000002  /* disables expensive P-states */
+>> #define XX_FORCE_DEEP_IDLE        0x00000004  /* go to deep idle
+>> states even if activity on system dictates low-latency idling - useful
+>> for thermal throttling aka idle injection */
+>> #define XX_FORCE_SHALLOW_IDLE 0x00000008  /* keep cpu in low-latency
+>> idle states for performance reasons */
+>> #define XX_FOO_TECHNIQUE           0x00000010
+>>
+>> This is a mix of power and performance objectives that apply on a
+>> per-cpu and/or per-cluster level. The challenge here is the lack of
+>> consistency - some of these conflict with each other but are not
+>> necessary opposites of each other. Some of them are good for
+>> performance and power. How do I categorize them into 'max
+>> performance', 'balanced' or 'power save' ?
+>
+> You can't. Since platforms are different, different techniques will have
+> different impacts on the performance/energy trade-off. As I have said in
+> the original thread, we need to distinguish between techniques to change
+> behaviour (like the ones you have listed above) and optimization goals.
+> Whether a specific technique can bring us closer to our current
+> optimization goal (performance/energy trade-off) depends on the
+> platform.
 
-Yes and no.  Intel listened, and I think they have had a huge positive
-impact here.  Others have as well, maybe not as consistently, but still.
+Right. So we are saying that state names like "powersave",
+"balanced/auto", "performance" will be platform-defined. Is it worth
+defining them at all then?
 
-I do find it really interesting that even with huge improvements all
-over the place, we have a very hard time upgrading production workloads
-without hitting big regressions.
+I expect that these techniques can be counted on our fingers, so why
+not just expose them directly to the system? The middleware and even
+other kernel subsystems can directly toggle their state based on
+current conditions.
 
-Sometimes it is just a few .config entries, and sometimes we paper over
-it with improvements in other areas, but it's almost always worse.
+I'm assuming here that cpufreq and cpuidle mechanism will get merged
+into the scheduler core at some point in the near future.
 
-> And that is the larger problem, what can we do about that issue.
-> Honestly, I don't think much, as it takes money from companies to commit
-> to do this work, which no one seems to ever want to do.  What make this
-> year the year that something different happens?
-
-I can't promise different.  At best we'll tease out some new benchmarks
-and try to get them into a format that get run often.
-
--chris
+Regards,
+Amit
