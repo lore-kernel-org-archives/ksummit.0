@@ -1,25 +1,25 @@
 Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 687D0979
+	by mail.linuxfoundation.org (Postfix) with ESMTP id D48B84D4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 May 2014 23:31:37 +0000 (UTC)
+	Tue, 13 May 2014 23:38:59 +0000 (UTC)
 Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id C1DE020221
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id D2996200D6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 May 2014 23:31:35 +0000 (UTC)
+	Tue, 13 May 2014 23:38:57 +0000 (UTC)
 From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-To: "Iyer, Sundar" <sundar.iyer@intel.com>
-Date: Wed, 14 May 2014 01:48:21 +0200
-Message-ID: <2318151.NuuLSnU6l6@vostro.rjw.lan>
-In-Reply-To: <2FABAEF0D3DCAF4F9C9628D6E2F9684533B513B5@BGSMSX102.gar.corp.intel.com>
-References: <2FABAEF0D3DCAF4F9C9628D6E2F9684533B4C781@BGSMSX102.gar.corp.intel.com>
-	<20140512103144.GA5540@e103034-lin>
-	<2FABAEF0D3DCAF4F9C9628D6E2F9684533B513B5@BGSMSX102.gar.corp.intel.com>
+To: Morten Rasmussen <morten.rasmussen@arm.com>
+Date: Wed, 14 May 2014 01:55:45 +0200
+Message-ID: <1963221.UGZYU13xOX@vostro.rjw.lan>
+In-Reply-To: <20140513095929.GD5540@e103034-lin>
+References: <1998761.B2k0A5OtQR@vostro.rjw.lan>
+	<CAP245DXHnmSBnBdcKzuzFUCQc4Q5XpukenE3Zz+jSeB7Cd=_1g@mail.gmail.com>
+	<20140513095929.GD5540@e103034-lin>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="utf-8"
-Cc: "Brown, Len" <len.brown@intel.com>,
+Cc: Len Brown <len.brown@intel.com>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
 	Peter Zijlstra <peterz@infradead.org>,
@@ -35,52 +35,106 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Monday, May 12, 2014 10:55:23 AM Iyer, Sundar wrote:
-> > -----Original Message-----
-> > From: Morten Rasmussen [mailto:morten.rasmussen@arm.com]
-> > Sent: Monday, May 12, 2014 4:02 PM
-> >
-> > > And which is why I mentioned that this is heavily platform dependent.
-> > > This is completely dependent on how the rest of the system power
-> > management works.
+On Tuesday, May 13, 2014 10:59:29 AM Morten Rasmussen wrote:
+> On Tue, May 13, 2014 at 06:52:01AM +0100, Amit Kucheria wrote:
+> > On Mon, May 12, 2014 at 6:01 PM, Morten Rasmussen
+> > <morten.rasmussen@arm.com> wrote:
+> > > On Mon, May 12, 2014 at 12:53:11PM +0100, Amit Kucheria wrote:
+> > >> On Tue, May 6, 2014 at 6:24 PM, Rafael J. Wysocki <rjw@rjwysocki.net> wrote:
 > > 
-> > Agree. Race to halt/idle is not universally a good idea. It depends of the
-> > platform energy efficiency at the higher performance states, idle power
-> > consumption, system topology, use-case, and anything else that consumes
-> > power while the tasks are running. For example, if your energy efficiency is
-> > really bad in the turbo states, it might be worth going a bit slower if the total
-> > energy can be reduced.
+> > <snip>
+> > 
+> > > The middleware power manager as you mention above seems to be a good
+> > > candidate. The kernel wouldn't know which tasks are trusted to behave
+> > > nicely so I think that is a user-space/middleware problem to deal with.
+> > >
+> > >>
+> > >> > It also is not particularly clear what representation of "energy conservation
+> > >> > bias" would be most useful.  Should that be a number or a set of well-defined
+> > >> > discrete levels that can be given names (like "max performance", "high
+> > >> > prerformance", "balanced" etc.)?  If a number, then what units to use and
+> > >> > how many different values to take into account?
+> > >>
+> > >> I have a hard time figuring out how to map these levels to performance
+> > >> / power optimisations I care about. Say I have the following
+> > >> optimisation techniques available today that I can change at runtime.
+> > >>
+> > >> #define XX_TASK_PACKING              0x00000001  /* opposite of the
+> > >> default spread policy */
+> > >> #define XX_DISABLE_OVERDRIVE    0x00000002  /* disables expensive P-states */
+> > >> #define XX_FORCE_DEEP_IDLE        0x00000004  /* go to deep idle
+> > >> states even if activity on system dictates low-latency idling - useful
+> > >> for thermal throttling aka idle injection */
+> > >> #define XX_FORCE_SHALLOW_IDLE 0x00000008  /* keep cpu in low-latency
+> > >> idle states for performance reasons */
+> > >> #define XX_FOO_TECHNIQUE           0x00000010
+> > >>
+> > >> This is a mix of power and performance objectives that apply on a
+> > >> per-cpu and/or per-cluster level. The challenge here is the lack of
+> > >> consistency - some of these conflict with each other but are not
+> > >> necessary opposites of each other. Some of them are good for
+> > >> performance and power. How do I categorize them into 'max
+> > >> performance', 'balanced' or 'power save' ?
+> > >
+> > > You can't. Since platforms are different, different techniques will have
+> > > different impacts on the performance/energy trade-off. As I have said in
+> > > the original thread, we need to distinguish between techniques to change
+> > > behaviour (like the ones you have listed above) and optimization goals.
+> > > Whether a specific technique can bring us closer to our current
+> > > optimization goal (performance/energy trade-off) depends on the
+> > > platform.
+> > 
+> > Right. So we are saying that state names like "powersave",
+> > "balanced/auto", "performance" will be platform-defined. Is it worth
+> > defining them at all then?
 > 
-> Apart from the specifics of the CPU/topology, race to halt doesn't contribute significant
-> to workloads which are offloaded/accelerated: e.g. video, media workloads.
+> No. I see "powersave", "auto", and "balance/auto" as objectives.
+> Objectives are platform independent. If we want stay within a certain
+> energy budget, for example consume less than X joules for playing one
+> hour of music, we set the performance/energy knob accordingly. It is
+> then up to the kernel to apply the right techniques to achieve the
+> objective on the particular platform. That will of course mean that the
+> kernel needs to be better informed about the platform energy
+> characteristics than it is today.
 > 
-> That said, I think the energy conservation boils down to (not limited to):
+> It is really a question of where we want to put all the details about
+> the platform. In user-space and let some daemon control a long list of
+> kernel parameters, or in the kernel and have a simple objective
+> user-space interface where the performance/energy trade-off can be
+> tuned (like the energy cost target as Rafael proposed).
 > 
-> a. should we schedule wide (multiple CPUs) vs local (fewer CPUs);
-> b. should we burst (higher P-states) vs run slow (lower P-states); 
-> c. is the control resource (power, clock etc.) shared wide or local to the unit;
-> d. Is the "local good" aka sub-system conservation resulting in "global good" aka
-> platform conservation?
-> e. what is the extent of options we want to load the user with: is the user going to toggle
-> some 200 switches to get the best experience or the user space/kernel will abstract a bulk
-> of these and provide more intelligent actions/decisions?
+> > I expect that these techniques can be counted on our fingers, so why
+> > not just expose them directly to the system? The middleware and even
+> > other kernel subsystems can directly toggle their state based on
+> > current conditions.
 > 
-> And I think the following should be the general outline of any efforts:
+> It might make sense for controlling subsystems like (GPU, wifi,
+> modem,...) as middleware should often have a very good idea about which
+> subsystems that are in use. However, the techniques for scheduling might
+> not be either on or off. For example, task packing might make sense to
+> a certain degree under certain circumstances that cannot been seen from
+> user-space. The scheduler has access to detailed task information like
+> load averages and wake-up counts, which might necessary to determine
+> when to apply a specific technique. Forcing deep idle to reduce power
+> could potentially have the exact opposite effect if applied in scenarios
+> with frequent wake-ups as you risk burning more energy during the
+> transitions than you save while in deep idle.
 > 
-> a. if the savings result in violation of any user defined quality-of-service for the experience (
-> finite FPS, finite computational requirements like encode/decode compute requirement etc.)
-> b. if we can conserve energy at the "platform" level vs "sub-system" level;
-> c. If we do save @ the "sub-system" level, how much of this is dependent on the specific
-> system architecture/topology/ vs "generic"; or in other words, how much of hit will a different
-> architecture suffer (?)
+> IMHO, exposing the techniques to user-space implies exporting most of
+> the energy-awarness problem to user-space. My concern is that the
+> interface will become complicated and the user-space daemon needs to be
+> strictly in sync with the kernel. A simple(r) objective interface
+> (energy cost target for scheduling/idle/freq, subsystems not in use,
+> ...) might be easier use and maintain.
 
-All of these things are worth considering, I agree.
+Precisely.
 
-That said, my original question was about what kind of interfaces related to
-energy conservation bias were needed.
+In addition to that, the CPU scheduler is not the only subsystem where
+things may not be either on or off.  Take the graphics for example (at
+least in the case of more complicated adapters).  There certainly are
+energy efficiency vs performance tradeoffs there.
 
-Can you derive any suggestions from the above?
-
+Thanks!
 
 -- 
 I speak only for myself.
