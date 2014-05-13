@@ -1,29 +1,31 @@
-Return-Path: <neilb@suse.de>
+Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id E211996D
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 304BE979
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 May 2014 23:23:49 +0000 (UTC)
-Received: from mx2.suse.de (cantor2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 755C920215
+	Tue, 13 May 2014 23:24:47 +0000 (UTC)
+Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id 484DA20215
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 May 2014 23:23:49 +0000 (UTC)
-Received: from relay2.suse.de (charybdis-ext.suse.de [195.135.220.254])
-	by mx2.suse.de (Postfix) with ESMTP id 8E462AD21
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 May 2014 23:23:47 +0000 (UTC)
-Date: Wed, 14 May 2014 09:23:40 +1000
-From: NeilBrown <neilb@suse.de>
-To: Takashi Iwai <tiwai@suse.de>
-Message-ID: <20140514092340.24ab4c9e@notabene.brown>
-In-Reply-To: <s5hvbt9izdm.wl%tiwai@suse.de>
-References: <s5hvbt9izdm.wl%tiwai@suse.de>
-Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=PGP-SHA1;
-	boundary="Sig_/pnWptBcblR2X6JFCsrEoBDR";
-	protocol="application/pgp-signature"
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TOPIC] Metadata addendum to git commit
+	Tue, 13 May 2014 23:24:46 +0000 (UTC)
+From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+To: Preeti U Murthy <preeti@linux.vnet.ibm.com>
+Date: Wed, 14 May 2014 01:41:33 +0200
+Message-ID: <4212156.95Ek3E3WsK@vostro.rjw.lan>
+In-Reply-To: <53710132.60506@linux.vnet.ibm.com>
+References: <2FABAEF0D3DCAF4F9C9628D6E2F9684533B4C781@BGSMSX102.gar.corp.intel.com>
+	<20140512111407.GB5540@e103034-lin>
+	<53710132.60506@linux.vnet.ibm.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
+Cc: "Brown, Len" <len.brown@intel.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Daniel Lezcano <daniel.lezcano@linaro.org>, Ingo Molnar <mingo@kernel.org>
+Subject: Re: [Ksummit-discuss] [TECH(CORE?) TOPIC] Energy conservation bias
+	interfaces
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,67 +35,55 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---Sig_/pnWptBcblR2X6JFCsrEoBDR
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+On Monday, May 12, 2014 10:43:22 PM Preeti U Murthy wrote:
+> On 05/12/2014 04:44 PM, Morten Rasmussen wrote:
+> > On Thu, May 08, 2014 at 09:59:39AM +0100, Preeti U Murthy wrote:
+> >> On 05/07/2014 10:50 AM, Iyer, Sundar wrote:
 
-On Tue, 13 May 2014 15:25:57 +0200 Takashi Iwai <tiwai@suse.de> wrote:
+[cut]
 
-> I think this has been already raised a few times, but I'm still
-> dreaming one thing in our git management: having some metadata
-> collection / link for each commit.
->=20
-> I don't mean for a thing like post-commit sign-off, but rather for
-> tracking the information that has been revealed after commit, e.g. a
-> regression the commit causes, the later fix commit, or a bugzilla or
-> ML link for the further discussion or debugging session.  The
-> regression markers would be especially helpful to avoid a pitfall
-> through performing bisection.
->=20
-> IMO, it would be convenient if such information can be embedded in the
-> published git tree, something like (infamous) git-notes.  But, I'd
-> like to hear any other options as well.
->=20
+> > While I agree that there are mechanisms to deal with thermal throttling
+> > already, I think it is somewhat related to energy-awareness. If you need
+> > throttling due to thermal constraints you are burning too much power in
+> > your system. If you factor in energy-effiency and the requirements for
+> > the current use-case you might be able to stay within the power budget
+> > with a smaller performance impact than blindly throttling all
+> > subsystems.
+> 
+> True. I was intending to distinguish the who and the why in the above
+> two situations. My only point was that thermal throttling is undertaken
+> by platform and is a safety mechanism whereas switching to energy saving
+> mode when battery is low is undertaken by the kernel and will lead to
+> better end-user experience i.e.battery longevity. Yes the kernel is
+> expected to prevent the system from being throttled as much as possible.
 
-+1
+The kernel may very well be responsible for thermal throttling in some cases.
+At least it needs to be able to respond to "do not draw more power than this"
+type of requests.
 
-A particular practical issue is that when doing a git-bisect there might be=
- a
-range of commits that only compile/run if some later commit is applied.
-If I'm bisecting in that range, I have to repeatedly apply that commit by
-hand.
+[cut]
 
-If would really like it if a new commit could be marked as "a really
-important successor to the first parent" so that git could keep the extra
-metadata to easily find the parent->child link, and so that "git-bisect"
-could be told --always-include-important-children
+> > 
+> > IIUC, you are proposing to have profiles setting a lot of kernel
+> > tunables rather than a single knob to control energy-awareness?
+> > 
+> > My concern with profiles is that it basically exports most of the
+> > energy-awareness decision problems to user-space. Maybe I'm missing
+> > something? IMHO, it would be better to have more accurate energy related
+> > topology information in the kernel so it would be able to take the
+> > decisions.
+> 
+> You are right. We shouldn't be exposing so many knobs to user-space and
+> expect the kernel to make good decisions based on these knobs being
+> tweaked by user space. How about a high level classification of profiles
+> like balanced, performance, powersave? These alone can be chosen by the
+> user and the lower end tunings left to the discretion of the kernel.
 
-This linkage would be enough to add anything else as "important successors".
+Well, so we're actually back to a central knob with three levels effectively. :-)
 
-Yes, I know I should send a patch rather than a suggestion.  Sorry.
+Thanks!
 
-NeilBrown
 
---Sig_/pnWptBcblR2X6JFCsrEoBDR
-Content-Type: application/pgp-signature; name=signature.asc
-Content-Disposition: attachment; filename=signature.asc
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2.0.22 (GNU/Linux)
-
-iQIVAwUBU3KpfDnsnt1WYoG5AQIg6hAAwAWPOQIbjzWQeKR0eOWfsM/f058SEwPm
-zqFmx9AMyzJo39ki4301KwKY0+Zk38H5HkFplF57YpA/WtjOXl3z2UrC8zLNhHiq
-WD5ye3w1TKEkJ3JB1U1dNGF+fatTeVaaL41n5tPbTCuwYEHLAMctrQF2T6yk3L3h
-MpmownPn3pJ2iFyDKcn2Pupi2nMxAhtoVUcViC8AVoqJkTy0MfMZq4IGp4/WVsqh
-NCtcrfGUBKvOdCIzQCsAlhzGoNGMRt33U6sHzOItqSazTabKEv5iWvwxYiJiFnok
-G2opVQKtN61vL0YJAgZ85C2BLqdg+7G8uK4sRXGUnghwkIa6/Fn2+3snUq4Uf5Mu
-PjZdYe+FS9ScevYmum74IAbq+Gy/dU5fHq2vP8Wy1/5r9rSOsLLVgvfz6Wr37tcN
-h0UDSL9Sfmr3dTxwKKtLckgxZDl/Ad4kttbeNuKfwjW54DpdSMZ3JlBt/LHqvMt1
-zn5ExfKI3H/uW8Ovw/CsWD6/wjdVAmnLc9WY8taXDW0hUf6l9eSz2h4OUixeBHrT
-y6rR+nsRZelrYNqXuy1kz/zEWb4y3p0MvxGmmcY4M9423iRp5h35EQRGV3QzH84j
-8o2hEx47HnUJQkq0yuY75vsliX+kYfziAKKdDVD8VBSnBvHfuNWHhpZ+wonlaSH3
-CwODknJghT8=
-=vZs2
------END PGP SIGNATURE-----
-
---Sig_/pnWptBcblR2X6JFCsrEoBDR--
+-- 
+I speak only for myself.
+Rafael J. Wysocki, Intel Open Source Technology Center.
