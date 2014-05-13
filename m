@@ -1,21 +1,21 @@
 Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id CFF0C95A
+	by mail.linuxfoundation.org (Postfix) with ESMTP id CB25595A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 May 2014 23:12:20 +0000 (UTC)
+	Tue, 13 May 2014 23:19:33 +0000 (UTC)
 Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id A29FB201AA
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id CE6152020F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 May 2014 23:12:19 +0000 (UTC)
+	Tue, 13 May 2014 23:19:32 +0000 (UTC)
 From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
 To: Preeti U Murthy <preeti@linux.vnet.ibm.com>
-Date: Wed, 14 May 2014 01:29:06 +0200
-Message-ID: <1422044.uKrgYIuT6Q@vostro.rjw.lan>
-In-Reply-To: <5370F177.7080109@linux.vnet.ibm.com>
-References: <2FABAEF0D3DCAF4F9C9628D6E2F9684533B4C781@BGSMSX102.gar.corp.intel.com>
-	<2FABAEF0D3DCAF4F9C9628D6E2F9684533B4DABB@BGSMSX102.gar.corp.intel.com>
-	<5370F177.7080109@linux.vnet.ibm.com>
+Date: Wed, 14 May 2014 01:36:19 +0200
+Message-ID: <1704878.GgvXpHngnm@vostro.rjw.lan>
+In-Reply-To: <5370FA68.6020100@linux.vnet.ibm.com>
+References: <1998761.B2k0A5OtQR@vostro.rjw.lan>
+	<2FABAEF0D3DCAF4F9C9628D6E2F9684533B4DB65@BGSMSX102.gar.corp.intel.com>
+	<5370FA68.6020100@linux.vnet.ibm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="utf-8"
@@ -35,43 +35,91 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Monday, May 12, 2014 09:36:15 PM Preeti U Murthy wrote:
-> On 05/08/2014 07:53 PM, Iyer, Sundar wrote:
+On Monday, May 12, 2014 10:14:24 PM Preeti U Murthy wrote:
+> On 05/08/2014 08:27 PM, Iyer, Sundar wrote:
 > >> -----Original Message-----
-> >> From: Preeti U Murthy [mailto:preeti@linux.vnet.ibm.com]
-> >> Sent: Thursday, May 8, 2014 2:30 PM
-> >> To: Iyer, Sundar; Peter Zijlstra; Rafael J. Wysocki
-> >> Cc: Brown, Len; Daniel Lezcano; Ingo Molnar; ksummit-
+> >> From: ksummit-discuss-bounces@lists.linuxfoundation.org [mailto:ksummit-
+> >> discuss-bounces@lists.linuxfoundation.org] On Behalf Of Rafael J.
+> >> Wysocki
+> >> Sent: Thursday, May 8, 2014 6:28 PM
+> >  
+> >> That's something I was thinking about too, but the difficulty here is in how to
+> >> define the profiles (that is, what settings in each subsystem are going to be
+> >> affected by a profile change) and in deciding when to switch profiles and
+> >> which profile is the most appropriate going forward.
+> >>
+> >> IOW, the high-level concept looks nice, but the details of the implementation
+> >> are important too. :-)
+> > 
+> > I agree. Defining these profiles and trying to fit them into a system definition, 
+> > system usage policy and above all user usage policy is where the sticking point is.
+> > 
+> >>> Today cpuidle and cpufreq already expose these settings through
+> >>> governors.
+> >>
+> >> cpufreq governors are kind of tied to specific "energy efficiency" profiles,
+> >> performance, powersave, on-demand.  However, cpuidle governors are
+> > 
+> > I am not sure if that is correct. IMO Cpufreq governors function simply as per
+> > policies defined to meet user experience. A system may choose to sacrifice
+> > user experience @ the cost of running the CPU at the lowest frequency, but the
+> > governor has no idea if it was really energy efficient for the platform. Similarly,
+> 
+> The governor will never know if it was energy efficient. It will only
+> take decisions from the data it has at its behest. And from the data
+> that is exposed by the platform, if it appears that running the cpus at
+> lowest frequency is the best bet to meet the system policy, it will do
+> so. It cannot do better than this IMO and as I pointed in the previous
+> mail this should be good enough too. Better than not having a governor no?
+> 
+> > the governor might decide to run at a higher turbo frequency for better user
+> > responsiveness, but it still doesn't know if it was energy efficient running @ those
+> > frequencies. I am coming back to the point that energy efficiency is countable
+> > _only_ at the platform level: if it results in a longer battery life w/o needing to plug in.
+> 
+> Not every profile above is catering to energy savings. The very fact
+> that the governor decided to run the cpus at turbo frequency means that
+> it not looking at energy efficiency but merely at short bursts of high
+> performance. This will definitely drop down battery life. But if the
+> user chose a profile where turbo mode is enabled it means he is ok with
+> these side effects.
+
+You seem to be assuming a bit about the user.  Who may be a kid playing a game
+on his phone or tablet and having no idea what "turbo" is whatsoever. :-)
+
+> We know certain general facts about cpu frequencies. Like running in
+> turbo mode would mean the cpus could possibly get throttled and lead to
+> eventual drop in performance. These are platform level. But having an
+> idea about these things help us design the algorithms in the kernel.
+
+That I can agree with, but I wouldn't count on user input too much.
+
+Of course, I'm for giving users who know what they are doing as much power
+as reasonably possible, but on the other hand they are not really likely
+to use that power, on the average at least.
 
 [cut]
 
+> > 
+> > For this specific example, when you say the *user* has chosen the policy, do
+> > you mean a user space daemon that takes care of this or the application itself?
 > 
-> The cpuidle sub-system is behaving fairly well on some of the platforms.
-> A lot of CPU  power management is platform specific. But by exposing
-> arch specific details like the details about the idle states that are
-> present, through the cpuidle drivers, the kernel is able to make
-> reasonably good predictions about the duration of idleness of a cpu and
-> choose the idle state that it must enter into.
->   The point is that we have succeeded in the past in getting the high
-> level power management reasonably right in the kernel although they were
-> platform dependent.
+> I mean the "user"; i.e. whoever is in charge of deciding the system
+> policies. For virtualized systems it could be the system administrator
+> who could decide a specific policy for a VM. For laptops it is us, users.
 
-The problem had fewer dimensions then (so to speak), however.
+What about phones, tablets, Android-based TV sets, Tizen-based watches??
 
-The set of available C-states might be different, but that pretty much was
-all that needed to be taken into account.
+> > How are we going to know if we will really save energy by limiting deep idle states
+> > on all the 10 CPUs? Please help me understand this.
+> 
+> We will not save energy by limiting idle states.By limiting idle states
+> we ensure that we do not affect the latency requirement of the task
+> running on the cpu.
 
-Today, there are C-states per core, per package (also per module on some
-platforms and so on) and there may be platform dependencies (like some
-C-states are not available if certain I/O devices are not in the "right"
-states).  That makes the picture a bit less clean and there are more
-places where tradeoffs come into play, at least potentially.
+OK, so now, to be a little more specific, how is the task supposed to specify
+that latency requirement?
 
-Let alone the whole C-states vs P-states issue (Is it better to run at a
-lower frequency for time X, or is it better to run at a higher frequency
-for time Y, Y < X?).
-
-Thanks!
 
 -- 
 I speak only for myself.
