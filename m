@@ -1,35 +1,36 @@
-Return-Path: <amit.kucheria@linaro.org>
+Return-Path: <teobaluta@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 2F0444D3
+	by mail.linuxfoundation.org (Postfix) with ESMTP id CB6F24D3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 May 2014 06:28:47 +0000 (UTC)
-Received: from mail-ve0-f182.google.com (mail-ve0-f182.google.com
-	[209.85.128.182])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C3ACF1F940
+	Tue, 13 May 2014 06:44:27 +0000 (UTC)
+Received: from mail-qc0-f176.google.com (mail-qc0-f176.google.com
+	[209.85.216.176])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F323A1F9D3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 May 2014 06:28:46 +0000 (UTC)
-Received: by mail-ve0-f182.google.com with SMTP id sa20so10076615veb.41
+	Tue, 13 May 2014 06:44:26 +0000 (UTC)
+Received: by mail-qc0-f176.google.com with SMTP id r5so9145235qcx.35
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 May 2014 23:28:46 -0700 (PDT)
+	Mon, 12 May 2014 23:44:26 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <53710132.60506@linux.vnet.ibm.com>
-References: <2FABAEF0D3DCAF4F9C9628D6E2F9684533B4C781@BGSMSX102.gar.corp.intel.com>
-	<536B477B.2030800@linux.vnet.ibm.com>
-	<20140512111407.GB5540@e103034-lin>
-	<53710132.60506@linux.vnet.ibm.com>
-Date: Tue, 13 May 2014 11:58:45 +0530
-Message-ID: <CAP245DUZWbsEdkqVzYCZaVDO+nqjJrtaGiUh90asDHVhsmoPQw@mail.gmail.com>
-From: Amit Kucheria <amit.kucheria@linaro.org>
-To: Preeti U Murthy <preeti@linux.vnet.ibm.com>
+In-Reply-To: <CACV2jQCV=rRFg-+x1B3H1=GM5rB_YWp1UU1p7xXkozHKv1Ewvg@mail.gmail.com>
+References: <20140511041449.GP12708@titan.lakedaemon.net>
+	<CABe+QzBVC=dRZO4+v93A_Cy2nFuf_ajcq8KO20f5PPzVUf2bkg@mail.gmail.com>
+	<20140511162918.GA2527@linux.com> <1995824.rdvEX5SOIt@avalon>
+	<20140511171824.GB2527@linux.com>
+	<CACV2jQACREM61UYrR0=AGDMQ8WYguwaX6HyPFR+wc5oXTRpheA@mail.gmail.com>
+	<20140512161539.GX12708@titan.lakedaemon.net>
+	<CACV2jQCV=rRFg-+x1B3H1=GM5rB_YWp1UU1p7xXkozHKv1Ewvg@mail.gmail.com>
+Date: Tue, 13 May 2014 09:44:26 +0300
+Message-ID: <CACV2jQCPpi=18-CMCyhy3qdJgxgwBGKA=DDOWocVubqJWCU3rg@mail.gmail.com>
+From: =?UTF-8?B?VGVvZG9yYSBCxINsdcWjxIM=?= <teobaluta@gmail.com>
+To: PJ Waskiewicz <pjwaskiewicz@gmail.com>,
+	Dirk Hohndel <hohndel@infradead.org>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Anton Arapov <arapov@gmail.com>, Sarah A Sharp <sarah@minilop.net>
 Content-Type: text/plain; charset=UTF-8
-Cc: "Brown, Len" <len.brown@intel.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Daniel Lezcano <daniel.lezcano@linaro.org>, Ingo Molnar <mingo@kernel.org>
-Subject: Re: [Ksummit-discuss] [TECH(CORE?) TOPIC] Energy conservation bias
-	interfaces
+Content-Transfer-Encoding: quoted-printable
+Subject: [Ksummit-discuss] Fwd: [TECH TOPIC] QR encoded oops for the kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,40 +40,86 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, May 12, 2014 at 10:43 PM, Preeti U Murthy
-<preeti@linux.vnet.ibm.com> wrote:
-> On 05/12/2014 04:44 PM, Morten Rasmussen wrote:
->> On Thu, May 08, 2014 at 09:59:39AM +0100, Preeti U Murthy wrote:
->>> On 05/07/2014 10:50 AM, Iyer, Sundar wrote:
++ everyone else
 
-<snip>
-
->>> Thats why I suggested the concept of profiles. If the user does not like
->>> the existing system profiles, he can derive from one of them that comes
->>> closes to his requirements and amend his preferences.
+On Mon, May 12, 2014 at 7:15 PM, Jason Cooper <jason@lakedaemon.net> wrote:
+> On Sun, May 11, 2014 at 08:52:12PM +0300, Teodora B=C4=83lu=C5=A3=C4=83 w=
+rote:
+>> On Sun, May 11, 2014 at 8:18 PM, Levente Kurusa <levex@linux.com> wrote:
+>> > On Sun, May 11, 2014 at 06:37:47PM +0200, Laurent Pinchart wrote:
+>> >> On Sunday 11 May 2014 18:29:18 Levente Kurusa wrote:
+>> >> > On Sun, May 11, 2014 at 08:57:01AM -0700, Sarah A Sharp wrote:
+>> >> > > On Sat, May 10, 2014 at 9:14 PM, Jason Cooper wrote:
+>> >> > > > All,
+>> >> > > >
+>> >> > > > I recently came across a patch series attempting to implement e=
+ncoding
+>> >> > > > kernel oops into a QR code [1].  The QR code is then dumped to =
+the
+>> >> > > >
+>> >> > > > framebuffer.  The QR code is a URL of the form:
+>> >> > > >   https://oops.kernel.org/?qr=3D<base64 compressed oops>
+>> >> > > >
+>> >> > > > This proposal is interesting because it fundamentally changes t=
+he way
+>> >> > > > users report bugs to the kernel community.  First and foremost,=
+ it makes
+>> >> > > > it much easier.
+>> >> > > >
+>> >> > > >   1) oops occurs
+>> >> > > >   2) user pulls out phone, scans QR code
+>> >> > > >       - at this point, the oops is recorded on the server.  Not=
+hing more
+>> >> > > >         is required of the user.
+>> >> >
+>> >> > To be precise, most scanners don't automatically open the links
+>> >> > found in QR codes and hence a tap/click from the user is required. =
+:-)
 >>
->> IIUC, you are proposing to have profiles setting a lot of kernel
->> tunables rather than a single knob to control energy-awareness?
->>
->> My concern with profiles is that it basically exports most of the
->> energy-awareness decision problems to user-space. Maybe I'm missing
->> something? IMHO, it would be better to have more accurate energy related
->> topology information in the kernel so it would be able to take the
->> decisions.
+>> That's correct, you still need a click, so maybe a special Android app
+>> could do the work so you don't need to turn the compressed oops into
+>> base64.
 >
-> You are right. We shouldn't be exposing so many knobs to user-space and
-> expect the kernel to make good decisions based on these knobs being
-> tweaked by user space. How about a high level classification of profiles
-> like balanced, performance, powersave? These alone can be chosen by the
-> user and the lower end tunings left to the discretion of the kernel.
+> I'd like the URL to be valid (meaning base64 the compressed data) so
+> that we can get the data to the kernel.org server as easily as possible.
+> Making the app a requirement for reporting is too onerous for
+> non-developers.  I see no reason we can't link to (Open in/Install) it
+> on the webform though.
 
-Hi Preeti,
+So from what I can understand, the QR code has an URL that has the
+base64 of the compressed Oops message. Right? I see three problems
+with this approach:
 
-In the other sub-thread, I'm arguing against such categorisation. :)
+- base64 adds about 33% overhead (it's turning 3 octets into 4 encoded
+characters + padding). One issue with QR codes is that they have a
+limited amount of characters they can hold so that's why I do the
+compression in the first place
+- besides doing compression in a kernel that's had issues, you add the
+base64 encoding inside the kernel
+- you would still use a device with a camera (smartphone, tablet) to
+scan the QR from the framebuffer, so basically that means an app,
+right? What is the point of doing the URL validation inside the kernel
+when an app can do that? It doesn't add to the difficulty of sending
+the Oops to kernel.org (just one button away)
 
-The optimisation techniques we have at our disposal don't neatly fit
-into the "balanced", "performance", "powersave" baskets. And there
-aren't really that many of them that we shouldn't directly expose
-them, IMHO.
+>
+> I see your app as a great tool for people developing the kernel or
+> curious about what happened, but there will be a significant number of
+> users who don't develop (possibly anything) who won't go to the effort
+> to install an app just to help us out.  Knowing how many of those folks
+> are affected by the bug is, imho, a very important data point when
+> triaging bugs.
 
-/Amit
+Am I missing something here? You still have to scan the QR, right?...
+A significant number of users won't have access to the framebuffer to
+scan it - the Oops is dumped to the console or inside the
+/var/log/dmesg, so the main target is geeky developer people.
+
+>
+> Even though these 'users' don't talk on lkml, they *do* exist.  And they
+> say mean things like "Linux crashes on my $LAPTOP, it sucks."  I'd rather
+> not have to get a facebook account to learn that. :)
+>
+> thx,
+>
+> Jason.
