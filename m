@@ -1,31 +1,29 @@
-Return-Path: <rjw@rjwysocki.net>
+Return-Path: <neilb@suse.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id CB25595A
+	by mail.linuxfoundation.org (Postfix) with ESMTP id E211996D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 May 2014 23:19:33 +0000 (UTC)
-Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id CE6152020F
+	Tue, 13 May 2014 23:23:49 +0000 (UTC)
+Received: from mx2.suse.de (cantor2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 755C920215
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 May 2014 23:19:32 +0000 (UTC)
-From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-To: Preeti U Murthy <preeti@linux.vnet.ibm.com>
-Date: Wed, 14 May 2014 01:36:19 +0200
-Message-ID: <1704878.GgvXpHngnm@vostro.rjw.lan>
-In-Reply-To: <5370FA68.6020100@linux.vnet.ibm.com>
-References: <1998761.B2k0A5OtQR@vostro.rjw.lan>
-	<2FABAEF0D3DCAF4F9C9628D6E2F9684533B4DB65@BGSMSX102.gar.corp.intel.com>
-	<5370FA68.6020100@linux.vnet.ibm.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
-Cc: "Brown, Len" <len.brown@intel.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Daniel Lezcano <daniel.lezcano@linaro.org>, Ingo Molnar <mingo@kernel.org>
-Subject: Re: [Ksummit-discuss] [TECH(CORE?) TOPIC] Energy conservation bias
-	interfaces
+	Tue, 13 May 2014 23:23:49 +0000 (UTC)
+Received: from relay2.suse.de (charybdis-ext.suse.de [195.135.220.254])
+	by mx2.suse.de (Postfix) with ESMTP id 8E462AD21
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 13 May 2014 23:23:47 +0000 (UTC)
+Date: Wed, 14 May 2014 09:23:40 +1000
+From: NeilBrown <neilb@suse.de>
+To: Takashi Iwai <tiwai@suse.de>
+Message-ID: <20140514092340.24ab4c9e@notabene.brown>
+In-Reply-To: <s5hvbt9izdm.wl%tiwai@suse.de>
+References: <s5hvbt9izdm.wl%tiwai@suse.de>
+Mime-Version: 1.0
+Content-Type: multipart/signed; micalg=PGP-SHA1;
+	boundary="Sig_/pnWptBcblR2X6JFCsrEoBDR";
+	protocol="application/pgp-signature"
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TOPIC] Metadata addendum to git commit
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,92 +33,67 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Monday, May 12, 2014 10:14:24 PM Preeti U Murthy wrote:
-> On 05/08/2014 08:27 PM, Iyer, Sundar wrote:
-> >> -----Original Message-----
-> >> From: ksummit-discuss-bounces@lists.linuxfoundation.org [mailto:ksummit-
-> >> discuss-bounces@lists.linuxfoundation.org] On Behalf Of Rafael J.
-> >> Wysocki
-> >> Sent: Thursday, May 8, 2014 6:28 PM
-> >  
-> >> That's something I was thinking about too, but the difficulty here is in how to
-> >> define the profiles (that is, what settings in each subsystem are going to be
-> >> affected by a profile change) and in deciding when to switch profiles and
-> >> which profile is the most appropriate going forward.
-> >>
-> >> IOW, the high-level concept looks nice, but the details of the implementation
-> >> are important too. :-)
-> > 
-> > I agree. Defining these profiles and trying to fit them into a system definition, 
-> > system usage policy and above all user usage policy is where the sticking point is.
-> > 
-> >>> Today cpuidle and cpufreq already expose these settings through
-> >>> governors.
-> >>
-> >> cpufreq governors are kind of tied to specific "energy efficiency" profiles,
-> >> performance, powersave, on-demand.  However, cpuidle governors are
-> > 
-> > I am not sure if that is correct. IMO Cpufreq governors function simply as per
-> > policies defined to meet user experience. A system may choose to sacrifice
-> > user experience @ the cost of running the CPU at the lowest frequency, but the
-> > governor has no idea if it was really energy efficient for the platform. Similarly,
-> 
-> The governor will never know if it was energy efficient. It will only
-> take decisions from the data it has at its behest. And from the data
-> that is exposed by the platform, if it appears that running the cpus at
-> lowest frequency is the best bet to meet the system policy, it will do
-> so. It cannot do better than this IMO and as I pointed in the previous
-> mail this should be good enough too. Better than not having a governor no?
-> 
-> > the governor might decide to run at a higher turbo frequency for better user
-> > responsiveness, but it still doesn't know if it was energy efficient running @ those
-> > frequencies. I am coming back to the point that energy efficiency is countable
-> > _only_ at the platform level: if it results in a longer battery life w/o needing to plug in.
-> 
-> Not every profile above is catering to energy savings. The very fact
-> that the governor decided to run the cpus at turbo frequency means that
-> it not looking at energy efficiency but merely at short bursts of high
-> performance. This will definitely drop down battery life. But if the
-> user chose a profile where turbo mode is enabled it means he is ok with
-> these side effects.
+--Sig_/pnWptBcblR2X6JFCsrEoBDR
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-You seem to be assuming a bit about the user.  Who may be a kid playing a game
-on his phone or tablet and having no idea what "turbo" is whatsoever. :-)
+On Tue, 13 May 2014 15:25:57 +0200 Takashi Iwai <tiwai@suse.de> wrote:
 
-> We know certain general facts about cpu frequencies. Like running in
-> turbo mode would mean the cpus could possibly get throttled and lead to
-> eventual drop in performance. These are platform level. But having an
-> idea about these things help us design the algorithms in the kernel.
+> I think this has been already raised a few times, but I'm still
+> dreaming one thing in our git management: having some metadata
+> collection / link for each commit.
+>=20
+> I don't mean for a thing like post-commit sign-off, but rather for
+> tracking the information that has been revealed after commit, e.g. a
+> regression the commit causes, the later fix commit, or a bugzilla or
+> ML link for the further discussion or debugging session.  The
+> regression markers would be especially helpful to avoid a pitfall
+> through performing bisection.
+>=20
+> IMO, it would be convenient if such information can be embedded in the
+> published git tree, something like (infamous) git-notes.  But, I'd
+> like to hear any other options as well.
+>=20
 
-That I can agree with, but I wouldn't count on user input too much.
++1
 
-Of course, I'm for giving users who know what they are doing as much power
-as reasonably possible, but on the other hand they are not really likely
-to use that power, on the average at least.
+A particular practical issue is that when doing a git-bisect there might be=
+ a
+range of commits that only compile/run if some later commit is applied.
+If I'm bisecting in that range, I have to repeatedly apply that commit by
+hand.
 
-[cut]
+If would really like it if a new commit could be marked as "a really
+important successor to the first parent" so that git could keep the extra
+metadata to easily find the parent->child link, and so that "git-bisect"
+could be told --always-include-important-children
 
-> > 
-> > For this specific example, when you say the *user* has chosen the policy, do
-> > you mean a user space daemon that takes care of this or the application itself?
-> 
-> I mean the "user"; i.e. whoever is in charge of deciding the system
-> policies. For virtualized systems it could be the system administrator
-> who could decide a specific policy for a VM. For laptops it is us, users.
+This linkage would be enough to add anything else as "important successors".
 
-What about phones, tablets, Android-based TV sets, Tizen-based watches??
+Yes, I know I should send a patch rather than a suggestion.  Sorry.
 
-> > How are we going to know if we will really save energy by limiting deep idle states
-> > on all the 10 CPUs? Please help me understand this.
-> 
-> We will not save energy by limiting idle states.By limiting idle states
-> we ensure that we do not affect the latency requirement of the task
-> running on the cpu.
+NeilBrown
 
-OK, so now, to be a little more specific, how is the task supposed to specify
-that latency requirement?
+--Sig_/pnWptBcblR2X6JFCsrEoBDR
+Content-Type: application/pgp-signature; name=signature.asc
+Content-Disposition: attachment; filename=signature.asc
 
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.22 (GNU/Linux)
 
--- 
-I speak only for myself.
-Rafael J. Wysocki, Intel Open Source Technology Center.
+iQIVAwUBU3KpfDnsnt1WYoG5AQIg6hAAwAWPOQIbjzWQeKR0eOWfsM/f058SEwPm
+zqFmx9AMyzJo39ki4301KwKY0+Zk38H5HkFplF57YpA/WtjOXl3z2UrC8zLNhHiq
+WD5ye3w1TKEkJ3JB1U1dNGF+fatTeVaaL41n5tPbTCuwYEHLAMctrQF2T6yk3L3h
+MpmownPn3pJ2iFyDKcn2Pupi2nMxAhtoVUcViC8AVoqJkTy0MfMZq4IGp4/WVsqh
+NCtcrfGUBKvOdCIzQCsAlhzGoNGMRt33U6sHzOItqSazTabKEv5iWvwxYiJiFnok
+G2opVQKtN61vL0YJAgZ85C2BLqdg+7G8uK4sRXGUnghwkIa6/Fn2+3snUq4Uf5Mu
+PjZdYe+FS9ScevYmum74IAbq+Gy/dU5fHq2vP8Wy1/5r9rSOsLLVgvfz6Wr37tcN
+h0UDSL9Sfmr3dTxwKKtLckgxZDl/Ad4kttbeNuKfwjW54DpdSMZ3JlBt/LHqvMt1
+zn5ExfKI3H/uW8Ovw/CsWD6/wjdVAmnLc9WY8taXDW0hUf6l9eSz2h4OUixeBHrT
+y6rR+nsRZelrYNqXuy1kz/zEWb4y3p0MvxGmmcY4M9423iRp5h35EQRGV3QzH84j
+8o2hEx47HnUJQkq0yuY75vsliX+kYfziAKKdDVD8VBSnBvHfuNWHhpZ+wonlaSH3
+CwODknJghT8=
+=vZs2
+-----END PGP SIGNATURE-----
+
+--Sig_/pnWptBcblR2X6JFCsrEoBDR--
