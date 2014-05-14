@@ -1,25 +1,26 @@
 Return-Path: <benh@kernel.crashing.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 954BA942
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 277D97B9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 May 2014 01:25:33 +0000 (UTC)
+	Wed, 14 May 2014 01:28:40 +0000 (UTC)
 Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F3779201A1
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7C34F1FD42
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 May 2014 01:25:32 +0000 (UTC)
-Message-ID: <1400030694.17624.206.camel@pasglop>
+	Wed, 14 May 2014 01:28:39 +0000 (UTC)
+Message-ID: <1400030908.17624.209.camel@pasglop>
 From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: David Woodhouse <dwmw2@infradead.org>
-Date: Wed, 14 May 2014 11:24:54 +1000
-In-Reply-To: <1399552623.17118.22.camel@i7.infradead.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Date: Wed, 14 May 2014 11:28:28 +1000
+In-Reply-To: <3098666.qf3pAh5N1u@avalon>
 References: <1399552623.17118.22.camel@i7.infradead.org>
+	<1399578994.2171.51.camel@dabdike.int.hansenpartnership.com>
+	<1399625714.879.9.camel@i7.infradead.org> <3098666.qf3pAh5N1u@avalon>
 Content-Type: text/plain; charset="UTF-8"
 Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Cc: Gavin Shan <gwshan@linux.vnet.ibm.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Device error handling /
  reporting / isolation
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -31,29 +32,32 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, 2014-05-08 at 13:37 +0100, David Woodhouse wrote:
-> I'd like to have a discussion about handling device errors.
+On Fri, 2014-05-09 at 13:31 +0200, Laurent Pinchart wrote:
 > 
-> IOMMUs are becoming more common, and we've seen some failure modes where
-> we just end up with an endless stream of fault reports from a given
-> device, and the kernel can do nothing else.
+> The latter will likely require a mix of generic code for device isolation 
+> and/or reset (when possible) and driver-specific code for proper recovery.
 
- .../...
+We already have some amount of hooks that drivers can implement for that
+but most of the core and policy are a mixture of HW facilities and
+platform specific code, at least for PowerPC EEH. But ACPI/AER somewhat
+biggy-backs in the same hooks today so I think the driver side interface
+is a good start.
 
-I'm definitely interested in this, and would nominate Gavin Shan from
-IBM as well who is our EEH expert for the kernel.
+We do want to improve reporting if possible (ie, some IOMMUs will tell
+us more about the actual error than others).
+>  A
+> fast reaction to prevent more faults from being generated should be coupled 
+> with a slower reaction to fix the actual cause of the problem. I expect the 
+> problem to be fatal in most cases, and, for IOMMUs again, usually caused by a 
+> software bug rather than a hardware misbehaviour (although the latter can of 
+> course happen). From an overall system point of view preventing the denial of 
+> service that follows such errors (caused by kernel log flooding for instance, 
+> or by the IOMMU being unable to serve other bus masters) could be our first 
+> priority.
 
-To cut a long story short, we have an extensive set of HW facilities
-in our PCI host bridges to detect errors and freeze all operations
-in and out of devices upon detection of errors, in order to prevent
-propagation of bad data.
-
-In addition, we have a recovery process involving the few drivers
-who support the corresponding hooks. We could describe the process,
-it can be fairly convoluted.
-
-We fallback to simulating an unplug of the device (unbind the driver),
-a reset and a re-bind for devices that don't have the hooks.
+Don't discount HW issues and the effect of random bit flips on crappy HW
+using cheap latches and no ECC or even parity on its internal busses inside
+very noisy environments such as ... your computer :-)
 
 Cheers,
 Ben.
