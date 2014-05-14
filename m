@@ -1,29 +1,31 @@
-Return-Path: <lizefan@huawei.com>
+Return-Path: <johannes@sipsolutions.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 66422942
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 48B7848E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 May 2014 02:40:24 +0000 (UTC)
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [119.145.14.65])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id D7FF41F89A
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 May 2014 02:40:22 +0000 (UTC)
-Message-ID: <5372D6E4.2080009@huawei.com>
-Date: Wed, 14 May 2014 10:37:24 +0800
-From: Li Zefan <lizefan@huawei.com>
-MIME-Version: 1.0
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-References: <alpine.DEB.2.10.1405081124000.24271@gentwo.org>
-	<1399595490.2230.13.camel@dabdike.int.hansenpartnership.com>
-In-Reply-To: <1399595490.2230.13.camel@dabdike.int.hansenpartnership.com>
-Content-Type: text/plain; charset="ISO-8859-1"
+	Wed, 14 May 2014 08:21:06 +0000 (UTC)
+Message-ID: <1400055652.4759.6.camel@jlt4.sipsolutions.net>
+From: Johannes Berg <johannes@sipsolutions.net>
+To: josh@joshtriplett.org
+Date: Wed, 14 May 2014 10:20:52 +0200
+In-Reply-To: <20140513201858.GB2911@cloud>
+References: <CABe+QzBVC=dRZO4+v93A_Cy2nFuf_ajcq8KO20f5PPzVUf2bkg@mail.gmail.com>
+	<20140511162918.GA2527@linux.com> <1995824.rdvEX5SOIt@avalon>
+	<20140511171824.GB2527@linux.com>
+	<CACV2jQACREM61UYrR0=AGDMQ8WYguwaX6HyPFR+wc5oXTRpheA@mail.gmail.com>
+	<20140512161539.GX12708@titan.lakedaemon.net>
+	<CACV2jQCV=rRFg-+x1B3H1=GM5rB_YWp1UU1p7xXkozHKv1Ewvg@mail.gmail.com>
+	<CACV2jQCPpi=18-CMCyhy3qdJgxgwBGKA=DDOWocVubqJWCU3rg@mail.gmail.com>
+	<20140513070851.GA20002@thin> <20140513155207.GA3538@linux.com>
+	<20140513201858.GB2911@cloud>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Cc: Sarah Sharp <sarah@minilop.net>, ksummit-discuss@lists.linuxfoundation.org,
-	Greg KH <gregkh@linuxfoundation.org>,
-	Julia Lawall <julia.lawall@lip6.fr>, Darren
-	Hart <darren@dvhart.com>, Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Kernel tinification: shrinking
- the kernel and avoiding size regressions
+Cc: PJ Waskiewicz <pjwaskiewicz@gmail.com>, Sarah A Sharp <sarah@minilop.net>,
+	ksummit-discuss@lists.linuxfoundation.org, Anton Arapov <arapov@gmail.com>,
+	Dirk Hohndel <hohndel@infradead.org>
+Subject: Re: [Ksummit-discuss] Fwd: [TECH TOPIC] QR encoded oops for the
+ kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,44 +35,34 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 2014/5/9 8:31, James Bottomley wrote:
-> 
-> On Thu, 2014-05-08 at 11:24 -0500, Christoph Lameter wrote:
->> On Fri, 2 May 2014, Josh Triplett wrote:
->>
->>> - An overview of why the kernel's size still matters today ("but don't
->>>   we all have tons of memory and storage?")
->>
->> Kernel size matters quite a bit for performance. Processor caches are key
->> to performance and therefore the cache footprint of a function determines
->> the the possible performance. The smaller the functions and the less data
->> they access the faster they will run.
-> 
-> This is about footprint, though, it's about optimizing a code path to
-> run in the fewest instructions possible, right?      
-> 
->> Therefore it needs to be possible to reduce the size of the kernel by
->> disabling unwanted functionality (f.e. cgroups). In order for that to
->> happen features need to be as independent as possible and also the user
->> space tools (like systemd) need to be able to handle a kernel with reduced
->> functionality.
-> 
-> I don't believe that follows.  As long as the added code doesn't cause
-> the cache footprint of the working set to expand, there's no performance
-> reason to compile it out.   If you choose not to use syscalls, then the
-> paths are inert from a performance point of view and it doesn't matter
-> if they are config'd in or out.  Cgroups, on the other hand impacts
-> performance because it adds to the execution path of several syscalls.
-> We were careful to use static branching to minimise this, but obviously
-> it does expand the cache footprint.  Do you have any figures for the
-> performance issues it's causing (being compiled in but unused)?  If it's
-> significant, we could try static branching to out of line areas which
-> shouldn't impact the cache footprint.
-> 
+On Tue, 2014-05-13 at 13:18 -0700, josh@joshtriplett.org wrote:
 
-Mel has recently working on a patchset for mm optimization, and I
-just noticed one particular patch adds static_key to eliminate cpuset
-overhead in mm code path. We sure can use static_key more in cgroup.
+> > Base32 does sound good until you realize that it requires roughly 20%
+> > more space than Base64 does. We would need some calculations to
+> > decide if we were to go down this path.
+> 
+> QR has several encoding modes; it doesn't matter that base32 uses more
+> space in terms of characters, because QR itself has an alphanumeric
+> encoding mode that only uses 5.5 bits per character to encode 45
+> possible alphanumeric/symbol characters.  base64 wastes far more
+> relative to bytes (6 versus 8 bits) than base32 wastes relative to QR
+> alphanumeric (5 versus 5.5 bits).
 
-New features tend to add new stuff to structures like task_struct, which
-static_key or any other mechanisms can't help.
+This subthread is kinda going on a tangent now, but ...
+
+The valid characters seem to be
+
+0-9A-Z $%*+-./:
+
+so you'll need to be careful to not use a ? for URL parameters [1],
+otherwise the QR encoder will likely have to pick binary/byte encoding.
+
+Since you really wouldn't want to use % due to URL-encoding
+difficulties, and $ and space also seem a bit questionable, you could
+still extend the encoding alphabet to at least base36 (0-9A-Z) and even
+add +-./: without much difficulty to get to base41.
+
+johannes
+
+[1] i.e. the previously suggested https://oops.kernel.org/?qr=... will
+not work
