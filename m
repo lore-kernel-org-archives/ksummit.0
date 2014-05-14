@@ -1,25 +1,25 @@
-Return-Path: <dan.carpenter@oracle.com>
+Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 4356A4D3
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 3896A2FA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 May 2014 11:10:11 +0000 (UTC)
-Received: from aserp1040.oracle.com (aserp1040.oracle.com [141.146.126.69])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 374191F9D3
+	Wed, 14 May 2014 11:54:39 +0000 (UTC)
+Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id 504351FA97
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 May 2014 11:10:10 +0000 (UTC)
-Date: Wed, 14 May 2014 14:09:57 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Wolfram Sang <wsa@the-dreams.de>
-Message-ID: <20140514110957.GC22735@mwanda>
-References: <20140509170709.GA9747@redhat.com> <20140511111034.GA6400@katana>
-	<53706EAB.7010601@monstr.eu> <20140512093235.GA2872@katana>
+	Wed, 14 May 2014 11:54:37 +0000 (UTC)
+From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+To: Mark Brown <broonie@sirena.org.uk>
+Date: Wed, 14 May 2014 14:11:25 +0200
+Message-ID: <1904209.2bUKgQ0eOo@vostro.rjw.lan>
+In-Reply-To: <20140512203153.GH12304@sirena.org.uk>
+References: <1872038.43ncqEMWSx@avalon> <1890814.sS5FutD9xo@avalon>
+	<20140512203153.GH12304@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20140512093235.GA2872@katana>
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] coverity, static checking etc.
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] PM dependencies
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,16 +29,20 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, May 12, 2014 at 11:32:35AM +0200, Wolfram Sang wrote:
+On Monday, May 12, 2014 09:31:53 PM Mark Brown wrote:
+> On Mon, May 12, 2014 at 10:27:14PM +0200, Laurent Pinchart wrote:
+> > On Monday 12 May 2014 21:14:38 Mark Brown wrote:
 > 
-> > is sent. Why not just tell them run this in-kernel tool with all
-> > that checking enabled before you send the patch?
+> > > This is something ASoC has been resolving since forever with the machine
+> > > drivers, Russell King recently created a generic version of the code
+> > > that does the dependency deferral glue (see linux/component.h).  It's
+> > > not a model of elegance but it ends up getting the job done.
 > 
-> make C=1 ? That could be perhaps updated to call sparse *and* smatch if
-> it finds them installed.
+> > That solves the probe time dependencies, but unfortunately not the runtime PM 
+> > dependencies.
+> 
+> It also solves the system suspend dependencies.
 
-Smatch doesn't install very well...  :(  I should try fix that before
-kernel summit.
+Well, I'm not sure about that.  How does it do that, exactly?
 
-regards,
-dan carpenter
+Rafael
