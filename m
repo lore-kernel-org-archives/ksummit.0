@@ -1,28 +1,26 @@
-Return-Path: <wsa@the-dreams.de>
+Return-Path: <laurent.pinchart@ideasonboard.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 900BC48E
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 6F167AB3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 May 2014 15:22:31 +0000 (UTC)
-Received: from pokefinder.org (sauhun.de [89.238.76.85])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A80521F940
+	Wed, 14 May 2014 15:26:19 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+	[95.142.166.194])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 58B061F940
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 May 2014 15:22:29 +0000 (UTC)
-Date: Wed, 14 May 2014 17:22:25 +0200
-From: Wolfram Sang <wsa@the-dreams.de>
-To: Guenter Roeck <linux@roeck-us.net>
-Message-ID: <20140514152224.GA12911@katana>
-References: <20140509170709.GA9747@redhat.com> <20140511111034.GA6400@katana>
-	<53706EAB.7010601@monstr.eu> <20140512093235.GA2872@katana>
-	<1400074363.4759.8.camel@jlt4.sipsolutions.net>
-	<537374D0.8020307@roeck-us.net>
+	Wed, 14 May 2014 15:26:18 +0000 (UTC)
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Wed, 14 May 2014 17:26:20 +0200
+Message-ID: <7582809.t9iBxJcjvo@avalon>
+In-Reply-To: <20140514115745.GZ12304@sirena.org.uk>
+References: <1872038.43ncqEMWSx@avalon> <1904209.2bUKgQ0eOo@vostro.rjw.lan>
+	<20140514115745.GZ12304@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="PEIAKu/WMn1b1Hv9"
-Content-Disposition: inline
-In-Reply-To: <537374D0.8020307@roeck-us.net>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] coverity, static checking etc.
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: Mark Brown <broonie@sirena.org.uk>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] PM dependencies
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,44 +30,32 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Wednesday 14 May 2014 12:57:45 Mark Brown wrote:
+> On Wed, May 14, 2014 at 02:11:25PM +0200, Rafael J. Wysocki wrote:
+> > On Monday, May 12, 2014 09:31:53 PM Mark Brown wrote:
+> > > On Mon, May 12, 2014 at 10:27:14PM +0200, Laurent Pinchart wrote:
+> > > > That solves the probe time dependencies, but unfortunately not the
+> > > > runtime PM dependencies.
+> > > 
+> > > It also solves the system suspend dependencies.
+> > 
+> > Well, I'm not sure about that.  How does it do that, exactly?
+> 
+> Since the core device probe is deferred until everything it depends on
+> is ready it'll get pushed along the device list so that it appears after
+> everything it needs and hence is suspended first.
 
---PEIAKu/WMn1b1Hv9
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+That might solve (part of) the master vs. components dependencies (and even in 
+that case I'm pretty sure that there will be cases where the master needs to 
+be suspended first and cases where th slave(s) need to be suspended first), 
+but it doesn't handle inter-slaves dependencies.
 
+In the V4L subsystem we've implemented an explicit power management API that 
+"slaves" (called subdevices in V4L) must implement, to be called by the 
+master. That's of course more of a workaround than a perfect (or even good) 
+solution.
 
-Ditto. I personally use 'C=1 CHECK="ninja-check"' which is a wrapper
-which calls all static analyzers I know of.
+-- 
+Regards,
 
-Still, to make it easier for other developers not so much interested in
-static analyzing, brushing up C=1 to automatically use sparse and smatch
-if installed might be worthwhile.
-
-Great to hear that Dan wants to improve installing smatch. I'll add the
-C=1 extension to my todo-list, yet I won't be angry if somebody else
-gets around to do it sooner.
-
-
---PEIAKu/WMn1b1Hv9
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v1.4.15 (GNU/Linux)
-
-iQIcBAEBAgAGBQJTc4owAAoJEBQN5MwUoCm2UxkP/jYAZ1meZu15MPpoWdh58Qda
-mY9WaHthHQ/lbVVir6iiQJJ1/Yyt4LSVHfApPHueVHZgh0LV/3uT21gSpOzsDBPo
-w3mQs9a9BD2nnezgltcg6C2iGDx5aUPkPey2LoXXcl4zWO+f4vI4+zui0199me5z
-gKnui1fneqnZKgVV5ClCPmH3NM3h0ik8/I3yEondNV47KUOFNoWOqbd8iZ2cMpLn
-vyhMdF/URPlHX80ZkEPDuTXdzYrFqApIxPFSn1luEQvZJEeON2cyZCFilL8HZQcS
-82md962oyijHMM9tcZy20usiPL13e//Uf5XKwWKw7CirlFBrk8LsmOJ9beTzr2/N
-xb80pnCjvbC6+fnqlGjnS2u5QzozLFkIP5nL4DFbSWrblZXZk39VfsMd0nsojVqc
-YJnbTPKUMK6x05AkW9ZvBz6oE4IuVrAdS0qBGPiZ2eKzvkSuUxJbPV3vxD1oZmQ3
-rzjV+tS2piX8EzGqOEqxnZEbd4zFrL/05y1YiVN8NJtyAMLLpTf/9LYfze7XQ6rw
-nFq+WyWWQ6a4a9oA8iI0VcYWv6QegNIMVGtFt1RJ3FpNU41xWwrYkFG4bbWMHIyx
-eyX6qldoXIB7JS+B/x4s1E9mbgLN0qRHkCx0THVCqk/kcYqyxZCNm2JYdmiHz5uS
-rgYSHdRzAEmCRG07XjLr
-=ldYt
------END PGP SIGNATURE-----
-
---PEIAKu/WMn1b1Hv9--
+Laurent Pinchart
