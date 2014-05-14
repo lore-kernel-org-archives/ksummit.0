@@ -1,28 +1,28 @@
-Return-Path: <linux@roeck-us.net>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id E94514C6
+	by mail.linuxfoundation.org (Postfix) with ESMTP id D522748E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 May 2014 13:51:22 +0000 (UTC)
-Received: from mail.active-venture.com (mail.active-venture.com
-	[67.228.131.205])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id BD1572010F
+	Wed, 14 May 2014 15:14:46 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 615C61FA42
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 May 2014 13:51:21 +0000 (UTC)
-Message-ID: <537374D0.8020307@roeck-us.net>
-Date: Wed, 14 May 2014 06:51:12 -0700
-From: Guenter Roeck <linux@roeck-us.net>
+	Wed, 14 May 2014 15:14:46 +0000 (UTC)
+Date: Wed, 14 May 2014 16:14:31 +0100
+From: Mark Brown <broonie@kernel.org>
+To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+Message-ID: <20140514151431.GD12304@sirena.org.uk>
+References: <1872038.43ncqEMWSx@avalon> <1904209.2bUKgQ0eOo@vostro.rjw.lan>
+	<20140514115745.GZ12304@sirena.org.uk>
+	<2969644.G2RFXhV3FE@vostro.rjw.lan>
 MIME-Version: 1.0
-To: Johannes Berg <johannes@sipsolutions.net>,
-	Wolfram Sang <wsa@the-dreams.de>
-References: <20140509170709.GA9747@redhat.com>	<20140511111034.GA6400@katana>
-	<53706EAB.7010601@monstr.eu>	<20140512093235.GA2872@katana>
-	<1400074363.4759.8.camel@jlt4.sipsolutions.net>
-In-Reply-To: <1400074363.4759.8.camel@jlt4.sipsolutions.net>
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="A8vqqruzBrZVziFN"
+Content-Disposition: inline
+In-Reply-To: <2969644.G2RFXhV3FE@vostro.rjw.lan>
 Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] coverity, static checking etc.
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] PM dependencies
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,25 +32,43 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 05/14/2014 06:32 AM, Johannes Berg wrote:
-> On Mon, 2014-05-12 at 11:32 +0200, Wolfram Sang wrote:
->>> is sent. Why not just tell them run this in-kernel tool with all
->>> that checking enabled before you send the patch?
->>
->> make C=1 ? That could be perhaps updated to call sparse *and* smatch if
->> it finds them installed.
->
-> I do that with a simple wrapper:
->
-> ~/bin/sparse:
-> #!/bin/sh
->
-> /path/to/real/sparse "$@" || exit 100
-> /path/to/smatch -p=kernel "$@" || exit 200
->
 
-I use "make C=1 ..." for sparse, followed by
-"make C=1 CHECK="${SMATCH_PATH}/smatch --project=kernel ..."
-for smatch.
+--A8vqqruzBrZVziFN
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Guenter
+On Wed, May 14, 2014 at 02:32:07PM +0200, Rafael J. Wysocki wrote:
+> On Wednesday, May 14, 2014 12:57:45 PM Mark Brown wrote:
+
+> > Since the core device probe is deferred until everything it depends on
+> > is ready it'll get pushed along the device list so that it appears after
+> > everything it needs and hence is suspended first.
+
+> Except for async suspend, that is?
+
+Gah, I'd not actually seen that before - few of the systems I've worked
+on would have changed it anyway.  Yes, that'll break things too.
+
+--A8vqqruzBrZVziFN
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.22 (GNU/Linux)
+
+iQIcBAEBAgAGBQJTc4hUAAoJELSic+t+oim9qxwP/3Tm+L1yigPC+6O67o6E2NhY
+fh7AMQV4nCZ+6txUROrAgtwP/hLC86QT8zLYKhz023GafAHvcVKA8tC0b2rzt8rD
+lZSV4s1Gpi8K2LRc7lD3Pdp/7xuqB6Ci1RKlJqnvwhBK6wpeCZ92rF9sw1wlLcL8
+qLoHcHeVvwK0HMGNvqTj8EQb0ycQI/Sz/QyJfgLQDUD/6TOn0EdHEq0nlNvPlUvh
+jD7TSIXOlF5swHNGA5TcJOcr/mzQ+kK9zlRtDcYjcOSsU+ONHefWfvew4ThxRWOX
+j5lzWtCRnmhrS9usojE3Tm6FRMfk97fbRFsFFZUbz/TmmYoo4ZeMgsQahnF2p1g5
+Feuk0b8gQ4GmxJqVF8AVXFHsF2EsbdqEzTlbpIwz8Upyu3dpA8FPHvbSdPbPo/Ze
+mmm9bH/WINbHVAHHhHJf69yLyA++CrjSJ9XOQ+qf2S5cxVEY6x8cUGVe85oxoQrA
+ow/75i6qjIfOoqSZfWgIDt68TJD7dgAjOOYJptViWG0e5qdAObm8trojJ2Bb7osX
+D9VNbd9W6xbJHZ0cRldIoi2P3ZdMIdplP+fiv0QBSugVOxd0UK2bzuPRYFqQBua/
+YjHk31yIH/E0KbW64tPBGoVNO06eF53AJZH5AiTmqzPCu/pQxUcJgP/+GhfbP23M
+bpIhlazx8mbRrI2QUEnV
+=TFYv
+-----END PGP SIGNATURE-----
+
+--A8vqqruzBrZVziFN--
