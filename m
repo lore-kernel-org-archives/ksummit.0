@@ -1,27 +1,30 @@
-Return-Path: <prvs=0211dc5819=clm@fb.com>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 87EBC4C6
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 430C04C6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 May 2014 12:25:46 +0000 (UTC)
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
-	[67.231.145.42])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 206641FA42
+	Wed, 14 May 2014 12:25:49 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C17351FB50
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 May 2014 12:25:46 +0000 (UTC)
-Message-ID: <5373611B.5080008@fb.com>
-Date: Wed, 14 May 2014 08:27:07 -0400
-From: Chris Mason <clm@fb.com>
+	Wed, 14 May 2014 12:25:48 +0000 (UTC)
+Date: Wed, 14 May 2014 13:25:20 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Arnd Bergmann <arnd@arndb.de>
+Message-ID: <20140514122520.GB12304@sirena.org.uk>
+References: <4779952.HbUGmSHJeO@wuerfel>
 MIME-Version: 1.0
-To: Li Zefan <lizefan@huawei.com>
-References: <5370DB7B.2040706@fb.com> <20140512231648.GA17027@kroah.com>
-	<537178CA.60303@fb.com> <5372C779.8070602@huawei.com>
-In-Reply-To: <5372C779.8070602@huawei.com>
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TOPIC] Application performance: regressions,
- controlling preemption
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="6h+r8nc3kJSVyGAy"
+Content-Disposition: inline
+In-Reply-To: <4779952.HbUGmSHJeO@wuerfel>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"dvhart@dvhart.com" <dvhart@dvhart.com>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Driver model/resources, ACPI, DT,
+ etc (sigh)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,42 +34,43 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 05/13/2014 09:31 PM, Li Zefan wrote:
-> On 2014/5/13 9:43, Chris Mason wrote:
->> On 05/12/2014 07:16 PM, Greg KH wrote:
->>> On Mon, May 12, 2014 at 10:32:27AM -0400, Chris Mason wrote:
->>>> Hi everyone,
->>>>
->>>> We're in the middle of upgrading the tiers here from older kernels 
->>>> (2.6.38, 3.2) into 3.10 and higher.
->>>>
->>>> I've been doing this upgrade game for a number of years now, with 
->>>> different business cards taped to my forehead and with different target 
->>>> workloads.
->>>>
->>>> The result is always the same...if I'm really lucky the system isn't 
->>>> slower, but usually I'm left with a steaming pile of 10-30% regressions.
->>>
->>> How long have we been having this discussion?  8 years?  It's not like
->>> people don't know that performance testing needs to be constantly
->>> happening, we've been saying that for a long time.  It's just that no
->>> one seems to listen to us :(
->>>
->>
->> Yes and no.  Intel listened, and I think they have had a huge positive
->> impact here.  Others have as well, maybe not as consistently, but still.
->>
->> I do find it really interesting that even with huge improvements all
->> over the place, we have a very hard time upgrading production workloads
->> without hitting big regressions.
->>
->> Sometimes it is just a few .config entries,
-> 
-> Do you mean some regressions are introduced by new configs i.e. new
-> features? If so, I don't think that can be strictly called regressions.
-> 
 
-Agreed, at least unless the .config choice that makes it slow is the new
-default.  +/- slub, I haven't hit this case.
+--6h+r8nc3kJSVyGAy
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
--chris
+On Wed, May 14, 2014 at 02:06:10PM +0200, Arnd Bergmann wrote:
+
+> The way I see things moving forward for ACPI is to add a standard way to
+> name things (GPIOs, IRQs, DMAs, ...) so we can have a generic 'give me
+> a pointer to the X object for this device' for each subsystem we want to
+> have it for. Note that this would probably not be a combined interface
+> across subsystems though.
+
+And indeed we already have that interface in the kernel for most APIs
+newer than GPIOs so in implementation terms this normally boils down to
+adding an ACPI backend for looking things up.
+
+--6h+r8nc3kJSVyGAy
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.22 (GNU/Linux)
+
+iQIcBAEBAgAGBQJTc2CtAAoJELSic+t+oim95PIP/0rVtFxDzRiWgCM8zjyU3CB3
+SiitwoTq7kfaPfi5wq5uXXNrKpqkQUVnJbTI3k7zmr9WQuQa0TQum3hbC8KkXvlw
+h/9zbVgsfpa3HIKaBE5raXOyS9iVh7otuFwB+u7ovqlzZbdyNZVAjU3OzfvJBGrc
+cBoOALMevXAz5fmTz7tPWTEsCOQk5JBLooViOBZmGNVd1/Ow9WjdqdLEofK7HAEq
+kqKhiBoa2vByt6S2hoS5QhrRTNCD63p9HDZAPu5MS7D9tVJ+To7WzmH7RE0Hf/61
+tY+h85EX/O8WMTAUcVASm11ekWdX/xYqceiSJGMyoqwWo05eukFPfx7ZQMfWG6tX
+vZUzSo0cG0Bk0EtUiizJ24vS8PfxP92HKKjO2YixYKaQpF2G2Kk+/yEPzE0dIdPk
+Kjb/7MxTESXVwbD6n843yvTmUfENgdONpcQ6xVdPcD0hXjQxsV640pGlBCDV2HNQ
+sWhZ6fAJiAoHv8HlqcN53SG6DDEow0nl7mryfwAJ0H3VDj/b1YhB3VbUJOds2iuD
+Bf6p/Ip7HuhoKGxpLsd9PGHnWX+2uRj0r/dXqJpqHnuyFR/LcMklJGJZvfB5wFYr
+eNrS/Ma22IF6izEXO9DO7CPzg92HIVZfxRXoHtN5q+QBjxNU/IQZC8PN9faaAI3r
+Jxr4YL8tOtqq55FaVnHT
+=H/Yn
+-----END PGP SIGNATURE-----
+
+--6h+r8nc3kJSVyGAy--
