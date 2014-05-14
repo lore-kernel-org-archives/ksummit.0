@@ -1,27 +1,33 @@
 Return-Path: <benh@kernel.crashing.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id CDC597B9
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 689CD942
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 May 2014 01:46:20 +0000 (UTC)
+	Wed, 14 May 2014 01:50:43 +0000 (UTC)
 Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 583511F950
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C49BC201A1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 May 2014 01:46:20 +0000 (UTC)
-Message-ID: <1400031970.17624.221.camel@pasglop>
+	Wed, 14 May 2014 01:50:42 +0000 (UTC)
+Message-ID: <1400032208.17624.225.camel@pasglop>
 From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Date: Wed, 14 May 2014 11:46:10 +1000
-In-Reply-To: <1399666748.2166.68.camel@dabdike.int.hansenpartnership.com>
+To: David Woodhouse <dwmw2@infradead.org>
+Date: Wed, 14 May 2014 11:50:08 +1000
+In-Reply-To: <1399980453.879.177.camel@i7.infradead.org>
 References: <1399552623.17118.22.camel@i7.infradead.org>
-	<20140509193712.GD13050@jtriplet-mobl1>
-	<CAG4TOxM=d=L4XSP8GM2trYSbcSR2jgt-3jmbky0qyLADgeu0Hw@mail.gmail.com>
 	<3908561D78D1C84285E8C5FCA982C28F328000EE@ORSMSX114.amr.corp.intel.com>
 	<1399666748.2166.68.camel@dabdike.int.hansenpartnership.com>
+	<4433093.MSzoqdJDMf@avalon>
+	<CAKMK7uFcWsZyGoxLx=2xH-vgRq1nD3cZjeqeRLsvKGrHt--VHA@mail.gmail.com>
+	<20140512150722.GO12376@8bytes.org>
+	<CAKMK7uHs9QBA_SCCNP_PSS3i2pRGJuQyj_8ngA6vgQU2wENTWw@mail.gmail.com>
+	<CALCETrXo7Zqg9EadLHTniLhAB9f13C9wzFWZAqTSG=4z0ocgQg@mail.gmail.com>
+	<CAKMK7uHgQKgHoeGDAkTBVwzSA7X+XrCRO9zXYwKsGUCJZOk-Dw@mail.gmail.com>
+	<1399980453.879.177.camel@i7.infradead.org>
 Content-Type: text/plain; charset="UTF-8"
 Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Device error handling /
  reporting / isolation
@@ -34,29 +40,32 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, 2014-05-09 at 13:19 -0700, James Bottomley wrote:
-> > Defending against buggy hardware is interesting from a RAS perspective.
-> > You don't want a card with a stuck address line scribbling on memory
-> > that you didn't want it to touch.
-> 
-> But for a laptop or desktop kernel, how far do we want to go?  In
-> theory, once the iommu is turned on, it corrals the device, since access
-> to non programmed addresses (those without IOTLB entries) produces a
-> fault.  Is there anything extra we need to do beyond turning on the
-> IOMMU?
+On Tue, 2014-05-13 at 12:27 +0100, David Woodhouse wrote:
+> You probably don't want to completely isolate it in that case. If it's
+> doing some bad DMA *and* it's also doing some good DMA to display its
+> framebuffer, why stop the latter?
 
-These tend to be the ones with the cheapest/buggiest hardware and less
-prone to be affected by a 100ns overhead on PCIe transactions.
+I don't think you can go to that level of granularity. We certainly
+can't on power.
 
-So they are the prime candidate for defaulting to a stricter protection
-model.
+Propagation of bad data due to faulty adapters or simple bit flips
+is a real big issue on servers and the policy for us is simple, on the
+first "hint" of an error, block *all* traffic to an from the adapter.
 
-They are also the ones likely to have an evil express card or whatever
-that new PCIe-on-the-wire pushed by Apple & Intel or similar plugged into
-them that tries to steal their data.
+Then the driver can get into the dance to figure out what's up (we can
+selectively enable MMIO under driver control to try to get at diagnostic
+registers for example) and reset / reconfigure things.
 
-On the contrary, servers in controlled data centers using high end adapters
-might wish to disable the IOMMU for performance reasons.
+> The Intel IOMMU at least can be configured to avoid reporting faults for
+> a given device (well, requester-id). So valid transactions still happen,
+> while invalid transactions are still blocked. But silently, without
+> bothering the host with the details and causing a fault-IRQ storm.
+
+I would argue against that sort of policy. At least in server contexts.
+
+It could well be that this is appropriate for laptops/desktops, I don't know,
+but once an adapter starts doing bad DMAs, I think you can't really trust
+much out of it anymore at all.
 
 Cheers,
 Ben.
