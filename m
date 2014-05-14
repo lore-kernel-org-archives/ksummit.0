@@ -1,36 +1,29 @@
-Return-Path: <benh@kernel.crashing.org>
+Return-Path: <lizefan@huawei.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 689CD942
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 66422942
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 May 2014 01:50:43 +0000 (UTC)
-Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C49BC201A1
+	Wed, 14 May 2014 02:40:24 +0000 (UTC)
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [119.145.14.65])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id D7FF41F89A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 May 2014 01:50:42 +0000 (UTC)
-Message-ID: <1400032208.17624.225.camel@pasglop>
-From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: David Woodhouse <dwmw2@infradead.org>
-Date: Wed, 14 May 2014 11:50:08 +1000
-In-Reply-To: <1399980453.879.177.camel@i7.infradead.org>
-References: <1399552623.17118.22.camel@i7.infradead.org>
-	<3908561D78D1C84285E8C5FCA982C28F328000EE@ORSMSX114.amr.corp.intel.com>
-	<1399666748.2166.68.camel@dabdike.int.hansenpartnership.com>
-	<4433093.MSzoqdJDMf@avalon>
-	<CAKMK7uFcWsZyGoxLx=2xH-vgRq1nD3cZjeqeRLsvKGrHt--VHA@mail.gmail.com>
-	<20140512150722.GO12376@8bytes.org>
-	<CAKMK7uHs9QBA_SCCNP_PSS3i2pRGJuQyj_8ngA6vgQU2wENTWw@mail.gmail.com>
-	<CALCETrXo7Zqg9EadLHTniLhAB9f13C9wzFWZAqTSG=4z0ocgQg@mail.gmail.com>
-	<CAKMK7uHgQKgHoeGDAkTBVwzSA7X+XrCRO9zXYwKsGUCJZOk-Dw@mail.gmail.com>
-	<1399980453.879.177.camel@i7.infradead.org>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
+	Wed, 14 May 2014 02:40:22 +0000 (UTC)
+Message-ID: <5372D6E4.2080009@huawei.com>
+Date: Wed, 14 May 2014 10:37:24 +0800
+From: Li Zefan <lizefan@huawei.com>
+MIME-Version: 1.0
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+References: <alpine.DEB.2.10.1405081124000.24271@gentwo.org>
+	<1399595490.2230.13.camel@dabdike.int.hansenpartnership.com>
+In-Reply-To: <1399595490.2230.13.camel@dabdike.int.hansenpartnership.com>
+Content-Type: text/plain; charset="ISO-8859-1"
 Content-Transfer-Encoding: 7bit
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Device error handling /
- reporting / isolation
+Cc: Sarah Sharp <sarah@minilop.net>, ksummit-discuss@lists.linuxfoundation.org,
+	Greg KH <gregkh@linuxfoundation.org>,
+	Julia Lawall <julia.lawall@lip6.fr>, Darren
+	Hart <darren@dvhart.com>, Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Kernel tinification: shrinking
+ the kernel and avoiding size regressions
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,32 +33,44 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, 2014-05-13 at 12:27 +0100, David Woodhouse wrote:
-> You probably don't want to completely isolate it in that case. If it's
-> doing some bad DMA *and* it's also doing some good DMA to display its
-> framebuffer, why stop the latter?
+On 2014/5/9 8:31, James Bottomley wrote:
+> 
+> On Thu, 2014-05-08 at 11:24 -0500, Christoph Lameter wrote:
+>> On Fri, 2 May 2014, Josh Triplett wrote:
+>>
+>>> - An overview of why the kernel's size still matters today ("but don't
+>>>   we all have tons of memory and storage?")
+>>
+>> Kernel size matters quite a bit for performance. Processor caches are key
+>> to performance and therefore the cache footprint of a function determines
+>> the the possible performance. The smaller the functions and the less data
+>> they access the faster they will run.
+> 
+> This is about footprint, though, it's about optimizing a code path to
+> run in the fewest instructions possible, right?      
+> 
+>> Therefore it needs to be possible to reduce the size of the kernel by
+>> disabling unwanted functionality (f.e. cgroups). In order for that to
+>> happen features need to be as independent as possible and also the user
+>> space tools (like systemd) need to be able to handle a kernel with reduced
+>> functionality.
+> 
+> I don't believe that follows.  As long as the added code doesn't cause
+> the cache footprint of the working set to expand, there's no performance
+> reason to compile it out.   If you choose not to use syscalls, then the
+> paths are inert from a performance point of view and it doesn't matter
+> if they are config'd in or out.  Cgroups, on the other hand impacts
+> performance because it adds to the execution path of several syscalls.
+> We were careful to use static branching to minimise this, but obviously
+> it does expand the cache footprint.  Do you have any figures for the
+> performance issues it's causing (being compiled in but unused)?  If it's
+> significant, we could try static branching to out of line areas which
+> shouldn't impact the cache footprint.
+> 
 
-I don't think you can go to that level of granularity. We certainly
-can't on power.
+Mel has recently working on a patchset for mm optimization, and I
+just noticed one particular patch adds static_key to eliminate cpuset
+overhead in mm code path. We sure can use static_key more in cgroup.
 
-Propagation of bad data due to faulty adapters or simple bit flips
-is a real big issue on servers and the policy for us is simple, on the
-first "hint" of an error, block *all* traffic to an from the adapter.
-
-Then the driver can get into the dance to figure out what's up (we can
-selectively enable MMIO under driver control to try to get at diagnostic
-registers for example) and reset / reconfigure things.
-
-> The Intel IOMMU at least can be configured to avoid reporting faults for
-> a given device (well, requester-id). So valid transactions still happen,
-> while invalid transactions are still blocked. But silently, without
-> bothering the host with the details and causing a fault-IRQ storm.
-
-I would argue against that sort of policy. At least in server contexts.
-
-It could well be that this is appropriate for laptops/desktops, I don't know,
-but once an adapter starts doing bad DMAs, I think you can't really trust
-much out of it anymore at all.
-
-Cheers,
-Ben.
+New features tend to add new stuff to structures like task_struct, which
+static_key or any other mechanisms can't help.
