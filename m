@@ -1,41 +1,30 @@
-Return-Path: <daniel.vetter@ffwll.ch>
+Return-Path: <khilman@linaro.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 779F898F
+	by mail.linuxfoundation.org (Postfix) with ESMTP id AA6B0AAB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 May 2014 20:24:57 +0000 (UTC)
-Received: from mail-ie0-f178.google.com (mail-ie0-f178.google.com
-	[209.85.223.178])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 73E151FD4A
+	Wed, 14 May 2014 21:08:15 +0000 (UTC)
+Received: from mail-pb0-f46.google.com (mail-pb0-f46.google.com
+	[209.85.160.46])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4E8761FB4F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 May 2014 20:24:55 +0000 (UTC)
-Received: by mail-ie0-f178.google.com with SMTP id rd18so97043iec.9
+	Wed, 14 May 2014 21:08:15 +0000 (UTC)
+Received: by mail-pb0-f46.google.com with SMTP id rq2so105923pbb.19
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 May 2014 13:24:54 -0700 (PDT)
+	Wed, 14 May 2014 14:08:15 -0700 (PDT)
+From: Kevin Hilman <khilman@linaro.org>
+To: Mark Brown <broonie@kernel.org>
+References: <1872038.43ncqEMWSx@avalon> <20140512201438.GE12304@sirena.org.uk>
+	<1890814.sS5FutD9xo@avalon> <20140512203153.GH12304@sirena.org.uk>
+	<53713A49.9070400@gmail.com> <20140512220729.GZ12304@sirena.org.uk>
+Date: Wed, 14 May 2014 14:08:13 -0700
+In-Reply-To: <20140512220729.GZ12304@sirena.org.uk> (Mark Brown's message of
+	"Mon, 12 May 2014 23:07:29 +0100")
+Message-ID: <7h38gc2hmq.fsf@paris.lan>
 MIME-Version: 1.0
-In-Reply-To: <20140514200043.GA2516@linux.com>
-References: <20140511162918.GA2527@linux.com> <1995824.rdvEX5SOIt@avalon>
-	<20140511171824.GB2527@linux.com>
-	<CACV2jQACREM61UYrR0=AGDMQ8WYguwaX6HyPFR+wc5oXTRpheA@mail.gmail.com>
-	<20140512161539.GX12708@titan.lakedaemon.net>
-	<CACV2jQCV=rRFg-+x1B3H1=GM5rB_YWp1UU1p7xXkozHKv1Ewvg@mail.gmail.com>
-	<CACV2jQCPpi=18-CMCyhy3qdJgxgwBGKA=DDOWocVubqJWCU3rg@mail.gmail.com>
-	<20140513070851.GA20002@thin> <53739333.30108@zytor.com>
-	<20140514185449.GB4475@jtriplet-mobl1>
-	<20140514200043.GA2516@linux.com>
-Date: Wed, 14 May 2014 22:24:54 +0200
-Message-ID: <CAKMK7uE5F+_kwtRKjkjbr0d+-r8VjVD7UD5b1rGizhkfCVRkxQ@mail.gmail.com>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-To: Levente Kurusa <levex@linux.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: PJ Waskiewicz <pjwaskiewicz@gmail.com>,
-	Dirk Hohndel <hohndel@infradead.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Anton Arapov <arapov@gmail.com>, David Herrmann <dh.herrmann@gmail.com>,
-	Sarah A Sharp <sarah@minilop.net>
-Subject: Re: [Ksummit-discuss] Fwd: [TECH TOPIC] QR encoded oops for the
-	kernel
+Content-Type: text/plain
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] PM dependencies
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -45,50 +34,63 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, May 14, 2014 at 10:00 PM, Levente Kurusa <levex@linux.com> wrote:
-> On Wed, May 14, 2014 at 11:54:49AM -0700, Josh Triplett wrote:
->> On Wed, May 14, 2014 at 09:00:51AM -0700, H. Peter Anvin wrote:
->> > On 05/13/2014 12:08 AM, Josh Triplett wrote:
->> > >
->> > > Many users will already have a QR-code scanning app installed, and such
->> > > apps always support loading URLs in a browser.
->> > >
->> >
->> > Let me disavow you of the notion that stock scanning apps handle large
->> > QR symbols.
->>
->> That's certainly true.  On the other hand, I'd really like to see a
->> version of the oops-as-QR-code bits that uses VGA block characters to
->> work in non-graphics, non-framebuffer mode, which would require fitting
->> in at most 80x50 (using the half-block characters).  That wouldn't allow
->> nearly as much data, but likely enough for a somewhat useful crash
->> report, especially in aggregate.
->
-> Not really possible, from my experiences the QR code that results from
-> a random oops is ranging from 100x100 to 150x150 depending on the size
-> of stack trace and stuff like that. Of course, we can decrease the
-> error recovery region and that might make it smaller. I'll take a look
-> at this a bit later. If that doesn't work, then that means that we can't
-> shuffle that into the textmode's 80x25. Not to mention that the block
-> characters in the ASCII table (I think you meant that, if not please
-> correct me) are not neccessarily square, which is needed for maximum
-> scannability.
->
-> One thing that we currently support and can be a solution is Micro QR
-> code. It removes two of the three coordinators and does some more
-> compression AFAIK. It might be possible to shuffle that into textmode.
->
-> I as well would love to support QR codes in textmode, but I think that
-> it's really not possible at the moment.
+Mark Brown <broonie@kernel.org> writes:
 
-David Herrman is working on some new infrastructure for emergency log
-services on top of drm/kms drivers since we really, really want to
-move away from the horrors called fbcon. His design is fairly neat and
-there shouldn't be that big an issue with replacing the current
-character-painting code he has with some oops-painting code. Adding
-him to the discussion so he can point at some of the patches.
--Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-+41 (0) 79 365 57 48 - http://blog.ffwll.ch
+> On Mon, May 12, 2014 at 11:16:57PM +0200, Tomasz Figa wrote:
+>> On 12.05.2014 22:31, Mark Brown wrote:
+>
+>> > It also solves the system suspend dependencies.  Why don't the
+>> > runtime PM dependencies just work with reference counting?
+>
+>> Runtime PM dependencies work with reference counting just fine, but
+>> only for topologies matching Linux driver model, e.g. devices with
+>> exactly one device they depend on, e.g. SPI controller and SPI devices
+>> on the bus driven by it. Add there an IOMMU and other various strange
+>> things that should be transparent to the drivers and it stops working.
+>
+> There's no reason why runtime PM references have to follow the topology
+> - you do get a default reference count up to any parent (though we break
+> that sometimes, as is the case with SPI controllers being suspended even
+> though the devices below them are active) but there's nothing stopping
+> references being taken outside the topology.
+
+I'm very interested in this topic as well.
+
+Though, I'm reluctant to see new APIs invented when I think already have
+the infrastructure to handle this (though admittedly, I haven't seen all
+the use-cases where this is problematic either.)
+
+In my experience with this, it seems to me the root cause here is simply
+that there are still lots of drivers/subsytems that are not runtime PM
+adapted.
+
+IOW, even if device X has a non-parent/child relationship with device Y,
+if both are runtime PM adapted, the simple fact of X *using* Y (or using
+the framework hiding Y) will be enough to ensure Y is powered up when
+used.  
+
+Yes, we could hack up the ability for X to directly refcount Y, but why
+should we do that instead of adapdting Y to use runtime PM itself so
+that when ever it's requested/used, it's powered up by the runtime PM
+infrastructure.
+
+What am I missing ?
+
+>> I'm still investigating this issue, so more uses cases are yet to be
+>> found, but I also guess this is the purpose of this thread. Anyway,
+>> for some reason .suspend_late() and .resume_early() callbacks exist in
+>> dev_pm_ops struct and I believe that at least some of the cases
+>> "solved" by them might be related to the issue being discussed here.
+>
+> Yes, they're partly solving a particular common case for this sort of
+> interdependency (though I guess they do also do things like allow us to
+> make sure the hardware came back in a state where it won't be harmful
+> to the rest of the system if we start enabling things).
+
+IMO, the suspend_late/resume_early callbacks are useful for turning
+drivers/subsystems into what I call "runtime PM centric".  That means
+the driver/subsytem can focus on a runtime PM centric view of the world,
+and then implement suspend/resume using the late/early callbacks to call
+the same functions as the runtime suspend/resume.
+
+Kevin
