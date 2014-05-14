@@ -1,34 +1,26 @@
-Return-Path: <masami.hiramatsu.pt@hitachi.com>
+Return-Path: <lizefan@huawei.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 2FE647B9
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 8716D7B9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 May 2014 01:30:59 +0000 (UTC)
-Received: from mail7.hitachi.co.jp (mail7.hitachi.co.jp [133.145.228.42])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 78DF31FC59
+	Wed, 14 May 2014 01:32:54 +0000 (UTC)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [119.145.14.64])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1ECF31FC59
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 May 2014 01:30:58 +0000 (UTC)
-Message-ID: <5372C74C.8010708@hitachi.com>
-Date: Wed, 14 May 2014 10:30:52 +0900
-From: Masami Hiramatsu <masami.hiramatsu.pt@hitachi.com>
+	Wed, 14 May 2014 01:32:51 +0000 (UTC)
+Message-ID: <5372C779.8070602@huawei.com>
+Date: Wed, 14 May 2014 09:31:37 +0800
+From: Li Zefan <lizefan@huawei.com>
 MIME-Version: 1.0
-To: Steven Rostedt <rostedt@goodmis.org>
-References: <53662254.9060100@huawei.com> <53699F27.9040403@hitachi.com>
-	<1399431538.2581.30.camel@buesod1.americas.hpqcorp.net>
-	<5369EE59.9040805@hitachi.com>
-	<20140507083936.GY26088@console-pimps.org>
-	<536A1CC3.5090506@hitachi.com>
-	<CAKMK7uG8Ly92uMavqS-abq=06FXCDMCae7mbv1EusG7pF9HAOg@mail.gmail.com>
-	<536AF7F4.6010608@hitachi.com>
-	<CAKMK7uGB7QTPfq-dswq9-aB1Na+==mCNNL2gX_zr5srDBVnCeA@mail.gmail.com>
-	<5370706E.6000108@hitachi.com>
-	<20140513163648.55e7bab3@gandalf.local.home>
-In-Reply-To: <20140513163648.55e7bab3@gandalf.local.home>
-Content-Type: text/plain; charset=ISO-8859-1
+To: Chris Mason <clm@fb.com>
+References: <5370DB7B.2040706@fb.com> <20140512231648.GA17027@kroah.com>
+	<537178CA.60303@fb.com>
+In-Reply-To: <537178CA.60303@fb.com>
+Content-Type: text/plain; charset="ISO-8859-1"
 Content-Transfer-Encoding: 7bit
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable issues
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TOPIC] Application performance: regressions,
+ controlling preemption
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,44 +30,39 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-(2014/05/14 5:36), Steven Rostedt wrote:
-> On Mon, 12 May 2014 15:55:42 +0900
-> Masami Hiramatsu <masami.hiramatsu.pt@hitachi.com> wrote:
+On 2014/5/13 9:43, Chris Mason wrote:
+> On 05/12/2014 07:16 PM, Greg KH wrote:
+>> On Mon, May 12, 2014 at 10:32:27AM -0400, Chris Mason wrote:
+>>> Hi everyone,
+>>>
+>>> We're in the middle of upgrading the tiers here from older kernels 
+>>> (2.6.38, 3.2) into 3.10 and higher.
+>>>
+>>> I've been doing this upgrade game for a number of years now, with 
+>>> different business cards taped to my forehead and with different target 
+>>> workloads.
+>>>
+>>> The result is always the same...if I'm really lucky the system isn't 
+>>> slower, but usually I'm left with a steaming pile of 10-30% regressions.
+>>
+>> How long have we been having this discussion?  8 years?  It's not like
+>> people don't know that performance testing needs to be constantly
+>> happening, we've been saying that for a long time.  It's just that no
+>> one seems to listen to us :(
+>>
 > 
+> Yes and no.  Intel listened, and I think they have had a huge positive
+> impact here.  Others have as well, maybe not as consistently, but still.
 > 
->> Agreed. I'd like to suggest adding UT: tag or TS: tag for unit test
->> for testsuite to MAINTAINERS file, which will make clear how to test
->> that subsystem when submitting patches. :)
+> I do find it really interesting that even with huge improvements all
+> over the place, we have a very hard time upgrading production workloads
+> without hitting big regressions.
 > 
-> That's a good idea.
-> 
-> I still need to post my ftrace tests somewhere. I could add it to
-> tools/testing/selftests, but I break rule #1:
-> 
->  *  Do as much as you can if you're not root
-> 
-> because ftrace only works with root.
-> 
-> Some of my tests take a bit of time to run as well.
+> Sometimes it is just a few .config entries,
 
-I see. I'd like to have an option to run the test shortly or
-full (which takes very long time). For example, probing all kernel
-functions with kprobes may take very long time, but I'd like to add
-it to kernel tree for stability check. Or should we separate such
-time-consuming test from selftest?
+Do you mean some regressions are introduced by new configs i.e. new
+features? If so, I don't think that can be strictly called regressions.
 
-> Maybe it's OK to
-> just add a tools/testing/tracing directory to place my tests (after
-> they get cleaned up to be "public"). Or perhaps just send them to the
-> LTP project.
-
-IMHO the tests for debugfs things would better to go into kernel tree,
-since their uapi is unstable (not ensured to be stable).
-
-Thank you,
-
--- 
-Masami HIRAMATSU
-Software Platform Research Dept. Linux Technology Research Center
-Hitachi, Ltd., Yokohama Research Laboratory
-E-mail: masami.hiramatsu.pt@hitachi.com
+> and sometimes we paper over
+> it with improvements in other areas, but it's almost always worse.
+> 
