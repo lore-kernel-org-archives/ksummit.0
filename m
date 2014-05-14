@@ -1,38 +1,36 @@
-Return-Path: <benh@kernel.crashing.org>
+Return-Path: <daniel.lezcano@linaro.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 24A40995
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 77D0A48E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 15 May 2014 01:09:18 +0000 (UTC)
-Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8A1071FD49
+	Wed, 14 May 2014 09:15:23 +0000 (UTC)
+Received: from mail-we0-f175.google.com (mail-we0-f175.google.com
+	[74.125.82.175])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id AF8F31F940
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 15 May 2014 01:09:17 +0000 (UTC)
-Message-ID: <1400116117.28987.1.camel@pasglop>
-From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Thu, 15 May 2014 11:08:37 +1000
-In-Reply-To: <CAKMK7uGLkyyYjjOrD0Eyz4D7DUiXrOrUPtqVPXyNNYTFHGS9Dw@mail.gmail.com>
-References: <1399552623.17118.22.camel@i7.infradead.org>
-	<3908561D78D1C84285E8C5FCA982C28F328000EE@ORSMSX114.amr.corp.intel.com>
-	<1399666748.2166.68.camel@dabdike.int.hansenpartnership.com>
-	<4433093.MSzoqdJDMf@avalon>
-	<CAKMK7uFcWsZyGoxLx=2xH-vgRq1nD3cZjeqeRLsvKGrHt--VHA@mail.gmail.com>
-	<20140512150722.GO12376@8bytes.org>
-	<CAKMK7uHs9QBA_SCCNP_PSS3i2pRGJuQyj_8ngA6vgQU2wENTWw@mail.gmail.com>
-	<CALCETrXo7Zqg9EadLHTniLhAB9f13C9wzFWZAqTSG=4z0ocgQg@mail.gmail.com>
-	<CAKMK7uHgQKgHoeGDAkTBVwzSA7X+XrCRO9zXYwKsGUCJZOk-Dw@mail.gmail.com>
-	<1399980453.879.177.camel@i7.infradead.org>
-	<1400032208.17624.225.camel@pasglop>
-	<CAKMK7uGLkyyYjjOrD0Eyz4D7DUiXrOrUPtqVPXyNNYTFHGS9Dw@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Wed, 14 May 2014 09:15:22 +0000 (UTC)
+Received: by mail-we0-f175.google.com with SMTP id t61so1626077wes.34
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 14 May 2014 02:15:21 -0700 (PDT)
+Message-ID: <53733432.5050106@linaro.org>
+Date: Wed, 14 May 2014 11:15:30 +0200
+From: Daniel Lezcano <daniel.lezcano@linaro.org>
+MIME-Version: 1.0
+To: "Rafael J. Wysocki" <rjw@rjwysocki.net>,
+	Preeti U Murthy <preeti@linux.vnet.ibm.com>
+References: <2FABAEF0D3DCAF4F9C9628D6E2F9684533B4C781@BGSMSX102.gar.corp.intel.com>
+	<20140512111407.GB5540@e103034-lin>
+	<53710132.60506@linux.vnet.ibm.com>
+	<4212156.95Ek3E3WsK@vostro.rjw.lan>
+In-Reply-To: <4212156.95Ek3E3WsK@vostro.rjw.lan>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Cc: "Brown, Len" <len.brown@intel.com>,
 	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Device error handling /
- reporting / isolation
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>
+Subject: Re: [Ksummit-discuss] [TECH(CORE?) TOPIC] Energy conservation bias
+ interfaces
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -42,26 +40,59 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 2014-05-14 at 22:09 +0200, Daniel Vetter wrote:
+On 05/14/2014 01:41 AM, Rafael J. Wysocki wrote:
+> On Monday, May 12, 2014 10:43:22 PM Preeti U Murthy wrote:
+>> On 05/12/2014 04:44 PM, Morten Rasmussen wrote:
+>>> On Thu, May 08, 2014 at 09:59:39AM +0100, Preeti U Murthy wrote:
+>>>> On 05/07/2014 10:50 AM, Iyer, Sundar wrote:
+>
+> [cut]
+>
+>>> While I agree that there are mechanisms to deal with thermal throttling
+>>> already, I think it is somewhat related to energy-awareness. If you need
+>>> throttling due to thermal constraints you are burning too much power in
+>>> your system. If you factor in energy-effiency and the requirements for
+>>> the current use-case you might be able to stay within the power budget
+>>> with a smaller performance impact than blindly throttling all
+>>> subsystems.
+>>
+>> True. I was intending to distinguish the who and the why in the above
+>> two situations. My only point was that thermal throttling is undertaken
+>> by platform and is a safety mechanism whereas switching to energy saving
+>> mode when battery is low is undertaken by the kernel and will lead to
+>> better end-user experience i.e.battery longevity. Yes the kernel is
+>> expected to prevent the system from being throttled as much as possible.
+>
+> The kernel may very well be responsible for thermal throttling in some cases.
+> At least it needs to be able to respond to "do not draw more power than this"
+> type of requests.
+>
+> [cut]
+>
+>>>
+>>> IIUC, you are proposing to have profiles setting a lot of kernel
+>>> tunables rather than a single knob to control energy-awareness?
+>>>
+>>> My concern with profiles is that it basically exports most of the
+>>> energy-awareness decision problems to user-space. Maybe I'm missing
+>>> something? IMHO, it would be better to have more accurate energy related
+>>> topology information in the kernel so it would be able to take the
+>>> decisions.
+>>
+>> You are right. We shouldn't be exposing so many knobs to user-space and
+>> expect the kernel to make good decisions based on these knobs being
+>> tweaked by user space. How about a high level classification of profiles
+>> like balanced, performance, powersave? These alone can be chosen by the
+>> user and the lower end tunings left to the discretion of the kernel.
+>
+> Well, so we're actually back to a central knob with three levels effectively. :-)
 
-> I'm not sure we really need to make a server/desktop disdinction here
-> but more whether the driver (and all the stuff relying on it) care
-> about data integrity all that much. With gpus we can forward such
-> information to userspace and through some opengl extensions to
-> applications, and the expectation is very much that if you want robust
-> opengl, you need to be able to cope. The extension essentially tells
-> you "oops, sorry something bad happened, please throw away all your
-> gpu buffers".
-> 
-> Of course if a gpu reset does not fix the situation the driver should
-> be able to tell the iommu to give up and fully isolate it. Also, to
-> really make this work we'd need a way to tell the iommu to re-allow
-> everything again and track faults again. Otherwise we can't tell
-> whether the gpu reset worked in resolving the fault storm.
+May be we can consider adding the large number of knobs with debugfs ?
 
-Right, though arguably in that context, doing an unconditional freeze
-on error is still perfectly fine as long as the driver has the option
-to unfreeze selectively.
 
-Cheers,
-Ben.
+-- 
+  <http://www.linaro.org/> Linaro.org │ Open source software for ARM SoCs
+
+Follow Linaro:  <http://www.facebook.com/pages/Linaro> Facebook |
+<http://twitter.com/#!/linaroorg> Twitter |
+<http://www.linaro.org/linaro-blog/> Blog
