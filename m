@@ -1,28 +1,30 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <arnd@arndb.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 44D542FA
+	by mail.linuxfoundation.org (Postfix) with ESMTP id A50BF4D4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 May 2014 11:58:01 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A32491FD44
+	Wed, 14 May 2014 12:06:17 +0000 (UTC)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.187])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BC2C020193
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 May 2014 11:58:00 +0000 (UTC)
-Date: Wed, 14 May 2014 12:57:45 +0100
-From: Mark Brown <broonie@sirena.org.uk>
-To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-Message-ID: <20140514115745.GZ12304@sirena.org.uk>
-References: <1872038.43ncqEMWSx@avalon> <1890814.sS5FutD9xo@avalon>
-	<20140512203153.GH12304@sirena.org.uk>
-	<1904209.2bUKgQ0eOo@vostro.rjw.lan>
+	Wed, 14 May 2014 12:06:16 +0000 (UTC)
+From: Arnd Bergmann <arnd@arndb.de>
+To: Olof Johansson <olof@lixom.net>
+Date: Wed, 14 May 2014 14:06:10 +0200
+Message-ID: <4779952.HbUGmSHJeO@wuerfel>
+In-Reply-To: <20140513211442.GB28268@quad.lixom.net>
+References: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>
+	<11391971.y9GOPHmK72@wuerfel>
+	<20140513211442.GB28268@quad.lixom.net>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="MtuVShbwdGyfByg+"
-Content-Disposition: inline
-In-Reply-To: <1904209.2bUKgQ0eOo@vostro.rjw.lan>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] PM dependencies
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"dvhart@dvhart.com" <dvhart@dvhart.com>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Driver model/resources, ACPI, DT,
+	etc (sigh)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,48 +34,89 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Tuesday 13 May 2014 14:14:42 Olof Johansson wrote:
+> On Tue, May 06, 2014 at 03:35:41PM +0200, Arnd Bergmann wrote:
+> > On Tuesday 06 May 2014 14:18:56 Rafael J. Wysocki wrote:
+> > 
+> > We should definitely be able to have an interface like this for
+> > ACPI, but you don't have a 'struct device_node' pointer then.
+> > We can add a new
+> > 
+> > bool dev_property_read_bool(const struct device *dev,
+> >                             const char *propname);
+> 
+> > 
+> > that handles both, but then you have to change every driver
+> > that is already using of_property_read_bool() and that can
+> > get used with ACPI.
+> 
+> It's actually not that easy in practice. There's not a one-to-one
+> correspondence between device tree nodes and struct devices in the
+> kernel. There are many bindings that use subnodes for sections of their
+> information, and so on.
 
---MtuVShbwdGyfByg+
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I also don't think we can have a grand unified solution to the general
+problem, but doing the above would solve a lot of individual problems
+for all the simple drivers that don't use sub-nodes in DT.
 
-On Wed, May 14, 2014 at 02:11:25PM +0200, Rafael J. Wysocki wrote:
-> On Monday, May 12, 2014 09:31:53 PM Mark Brown wrote:
-> > On Mon, May 12, 2014 at 10:27:14PM +0200, Laurent Pinchart wrote:
+I really don't see any downsides to using a common named property
+API for simple values in drivers that can.
 
-> > > That solves the probe time dependencies, but unfortunately not the ru=
-ntime PM=20
-> > > dependencies.
+Devices with sub-nodes are by definition complex to handle, and
+I think we will always have cases that are too complex to use
+a common interface. At the moment, we can share drivers that
+have only memory and irq resources, which is a significant share
+already. We can over time extend this to drivers that use strings,
+booleans, integers, or arrays of those. We can also extend it
+for things like gpios and dma-channels (both of which partly work
+already but are limited when it comes to naming) and a few other
+things.
 
-> > It also solves the system suspend dependencies.
+> > An advantage of the dev_property_read_bool()
+> > interface however is that it would also work for platform
+> > devices that are created in platform code using
+> > platform_device_register_full() or similar if we add a way
+> > to define simple properties in C code. That would also simplify
+> > a lot of drivers that use both (simple) platform_data and DT
+> > today.
+> 
+> I'm not a fan of this "grand unified abstraction layer". Driver writes are
+> already complaining that things are too complicated with the move to device
+> tree, and we're making things even more abstracted and complicated here. People
+> will need to peel back even more layers to figure out what's actually going on.
+> 
+> 
+> For the truly trivial stuff, there are some quite simple ways to handle this:
+> 
+> 1. Make sure that anything that can be a named IORESOURCE_* is so. Which could
+>    mean moving over GPIO and possibly clocks to that, and use those for lookup.
 
-> Well, I'm not sure about that.  How does it do that, exactly?
+We are actually moving away from IORESOURCE_* for things that are not
+originally handled as resources. I don't think we should reverse that
+course.
 
-Since the core device probe is deferred until everything it depends on
-is ready it'll get pushed along the device list so that it appears after
-everything it needs and hence is suspended first.
+For both the examples I mentioned above (GPIO and DMA), people have in the
+past put them into resource structures with a platform specific
+interpretation. With the move to DT, we have actually broken this
+because there is no longer a global number space for them in general.
 
---MtuVShbwdGyfByg+
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
+Instead, you have a device pointer and a local name that you can use
+to resolve a pointer to a structure (gpio descriptor or dma channel).
+For GPIOs, we keep the integer based API for compatibility, but it would
+be nice to move to the descriptor interface over time.
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2.0.22 (GNU/Linux)
+If it were not so much work, we'd probably also move away from IRQ numbers
+towards passing IRQ descriptor pointers.
 
-iQIcBAEBAgAGBQJTc1o2AAoJELSic+t+oim92T0P/jgq3nPJAPRxDZw8gdJUAy4p
-71gQk+hJfZICCi6zAIhjKVfnJJOSBpAxzxCqqxuTLMgv3dpuvNvPdAK4xWY1pe9G
-4vYeIsxlOoNGKvLTMORNf1h5TjchFEMHiNiiI2WJx6BxmfBPe2Yx9mY/Uf5oQMiF
-Le/vYIrKpx5UBTdeobfnSWlkx7rC179G7XAvKclP3EOJ6h0m7EzswZK6wEMXZmk5
-oBpn9B9mSDgcrC471OqBZIfmCDzha5g9wH1T43jvBZgjU/6i92Hc6nr21miC4Gq1
-ckdBCP1b24H4TkPEZGCqet2ziHpCC8crx/ar0XH+BQt8VIEdD+2N3+2G4p3GWWLE
-EWQrG6zCu/2fsMSjTfIK/rSIzKRD5MTqbPSEnVGoT0G/YekswtNYcEuDNH6SPPUC
-fFPxfrDibWGA5x7XVitturNE2NzMy/++c8bMzGHZ2FNSIuiieWKVy91XzRA46wrN
-wadQu/oMar4VlcCwB82CuuFDJ4MXwZDcTZQarpjH3JuBy38nAYGRARUwS1bPeYyj
-6bt4jJXKAt7klvvkdRRhFkYRl5weueHoghK2KNcV3DBKCCAIzTeUsQ+aXRpirKTw
-osOnW1EBdtAyCSyYobMfo/LFdrH8ai06oUrHyNiN9bC3YkFNRHAAd6ULJWcz5bUt
-xd21YLbYdpeZ9MCpYdSU
-=wmNP
------END PGP SIGNATURE-----
+The way I see things moving forward for ACPI is to add a standard way to
+name things (GPIOs, IRQs, DMAs, ...) so we can have a generic 'give me
+a pointer to the X object for this device' for each subsystem we want to
+have it for. Note that this would probably not be a combined interface
+across subsystems though.
 
---MtuVShbwdGyfByg+--
+> The real problem is the non-trivial stuff. There, I think there's no real
+> alternative than to teach the drivers about both firmware interfaces.
+
+Agreed. 
+
+	Arnd
