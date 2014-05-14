@@ -1,28 +1,28 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <wsa@the-dreams.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id D522748E
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 900BC48E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 May 2014 15:14:46 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 615C61FA42
+	Wed, 14 May 2014 15:22:31 +0000 (UTC)
+Received: from pokefinder.org (sauhun.de [89.238.76.85])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A80521F940
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 May 2014 15:14:46 +0000 (UTC)
-Date: Wed, 14 May 2014 16:14:31 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-Message-ID: <20140514151431.GD12304@sirena.org.uk>
-References: <1872038.43ncqEMWSx@avalon> <1904209.2bUKgQ0eOo@vostro.rjw.lan>
-	<20140514115745.GZ12304@sirena.org.uk>
-	<2969644.G2RFXhV3FE@vostro.rjw.lan>
+	Wed, 14 May 2014 15:22:29 +0000 (UTC)
+Date: Wed, 14 May 2014 17:22:25 +0200
+From: Wolfram Sang <wsa@the-dreams.de>
+To: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <20140514152224.GA12911@katana>
+References: <20140509170709.GA9747@redhat.com> <20140511111034.GA6400@katana>
+	<53706EAB.7010601@monstr.eu> <20140512093235.GA2872@katana>
+	<1400074363.4759.8.camel@jlt4.sipsolutions.net>
+	<537374D0.8020307@roeck-us.net>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="A8vqqruzBrZVziFN"
+	protocol="application/pgp-signature"; boundary="PEIAKu/WMn1b1Hv9"
 Content-Disposition: inline
-In-Reply-To: <2969644.G2RFXhV3FE@vostro.rjw.lan>
+In-Reply-To: <537374D0.8020307@roeck-us.net>
 Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] PM dependencies
+Subject: Re: [Ksummit-discuss] coverity, static checking etc.
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,42 +33,43 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---A8vqqruzBrZVziFN
+--PEIAKu/WMn1b1Hv9
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Wed, May 14, 2014 at 02:32:07PM +0200, Rafael J. Wysocki wrote:
-> On Wednesday, May 14, 2014 12:57:45 PM Mark Brown wrote:
 
-> > Since the core device probe is deferred until everything it depends on
-> > is ready it'll get pushed along the device list so that it appears after
-> > everything it needs and hence is suspended first.
+Ditto. I personally use 'C=1 CHECK="ninja-check"' which is a wrapper
+which calls all static analyzers I know of.
 
-> Except for async suspend, that is?
+Still, to make it easier for other developers not so much interested in
+static analyzing, brushing up C=1 to automatically use sparse and smatch
+if installed might be worthwhile.
 
-Gah, I'd not actually seen that before - few of the systems I've worked
-on would have changed it anyway.  Yes, that'll break things too.
+Great to hear that Dan wants to improve installing smatch. I'll add the
+C=1 extension to my todo-list, yet I won't be angry if somebody else
+gets around to do it sooner.
 
---A8vqqruzBrZVziFN
+
+--PEIAKu/WMn1b1Hv9
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
-Version: GnuPG v2.0.22 (GNU/Linux)
+Version: GnuPG v1.4.15 (GNU/Linux)
 
-iQIcBAEBAgAGBQJTc4hUAAoJELSic+t+oim9qxwP/3Tm+L1yigPC+6O67o6E2NhY
-fh7AMQV4nCZ+6txUROrAgtwP/hLC86QT8zLYKhz023GafAHvcVKA8tC0b2rzt8rD
-lZSV4s1Gpi8K2LRc7lD3Pdp/7xuqB6Ci1RKlJqnvwhBK6wpeCZ92rF9sw1wlLcL8
-qLoHcHeVvwK0HMGNvqTj8EQb0ycQI/Sz/QyJfgLQDUD/6TOn0EdHEq0nlNvPlUvh
-jD7TSIXOlF5swHNGA5TcJOcr/mzQ+kK9zlRtDcYjcOSsU+ONHefWfvew4ThxRWOX
-j5lzWtCRnmhrS9usojE3Tm6FRMfk97fbRFsFFZUbz/TmmYoo4ZeMgsQahnF2p1g5
-Feuk0b8gQ4GmxJqVF8AVXFHsF2EsbdqEzTlbpIwz8Upyu3dpA8FPHvbSdPbPo/Ze
-mmm9bH/WINbHVAHHhHJf69yLyA++CrjSJ9XOQ+qf2S5cxVEY6x8cUGVe85oxoQrA
-ow/75i6qjIfOoqSZfWgIDt68TJD7dgAjOOYJptViWG0e5qdAObm8trojJ2Bb7osX
-D9VNbd9W6xbJHZ0cRldIoi2P3ZdMIdplP+fiv0QBSugVOxd0UK2bzuPRYFqQBua/
-YjHk31yIH/E0KbW64tPBGoVNO06eF53AJZH5AiTmqzPCu/pQxUcJgP/+GhfbP23M
-bpIhlazx8mbRrI2QUEnV
-=TFYv
+iQIcBAEBAgAGBQJTc4owAAoJEBQN5MwUoCm2UxkP/jYAZ1meZu15MPpoWdh58Qda
+mY9WaHthHQ/lbVVir6iiQJJ1/Yyt4LSVHfApPHueVHZgh0LV/3uT21gSpOzsDBPo
+w3mQs9a9BD2nnezgltcg6C2iGDx5aUPkPey2LoXXcl4zWO+f4vI4+zui0199me5z
+gKnui1fneqnZKgVV5ClCPmH3NM3h0ik8/I3yEondNV47KUOFNoWOqbd8iZ2cMpLn
+vyhMdF/URPlHX80ZkEPDuTXdzYrFqApIxPFSn1luEQvZJEeON2cyZCFilL8HZQcS
+82md962oyijHMM9tcZy20usiPL13e//Uf5XKwWKw7CirlFBrk8LsmOJ9beTzr2/N
+xb80pnCjvbC6+fnqlGjnS2u5QzozLFkIP5nL4DFbSWrblZXZk39VfsMd0nsojVqc
+YJnbTPKUMK6x05AkW9ZvBz6oE4IuVrAdS0qBGPiZ2eKzvkSuUxJbPV3vxD1oZmQ3
+rzjV+tS2piX8EzGqOEqxnZEbd4zFrL/05y1YiVN8NJtyAMLLpTf/9LYfze7XQ6rw
+nFq+WyWWQ6a4a9oA8iI0VcYWv6QegNIMVGtFt1RJ3FpNU41xWwrYkFG4bbWMHIyx
+eyX6qldoXIB7JS+B/x4s1E9mbgLN0qRHkCx0THVCqk/kcYqyxZCNm2JYdmiHz5uS
+rgYSHdRzAEmCRG07XjLr
+=ldYt
 -----END PGP SIGNATURE-----
 
---A8vqqruzBrZVziFN--
+--PEIAKu/WMn1b1Hv9--
