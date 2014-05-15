@@ -1,33 +1,36 @@
-Return-Path: <robherring2@gmail.com>
+Return-Path: <hpa@zytor.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 787097B9
+	by mail.linuxfoundation.org (Postfix) with ESMTP id A897348E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 15 May 2014 18:50:04 +0000 (UTC)
-Received: from mail-ve0-f173.google.com (mail-ve0-f173.google.com
-	[209.85.128.173])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C73E820111
+	Thu, 15 May 2014 19:19:04 +0000 (UTC)
+Received: from mail.zytor.com (terminus.zytor.com [198.137.202.10])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7098B20327
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 15 May 2014 18:50:03 +0000 (UTC)
-Received: by mail-ve0-f173.google.com with SMTP id pa12so1853903veb.32
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 15 May 2014 11:50:02 -0700 (PDT)
+	Thu, 15 May 2014 19:19:04 +0000 (UTC)
+Message-ID: <53751303.3010000@zytor.com>
+Date: Thu, 15 May 2014 12:18:27 -0700
+From: "H. Peter Anvin" <hpa@zytor.com>
 MIME-Version: 1.0
-Sender: robherring2@gmail.com
-In-Reply-To: <20140515121546.3A06AC40B0E@trevor.secretlab.ca>
-References: <20140511030009.GO12708@titan.lakedaemon.net>
-	<20140511083729.211e9b5f@lwn.net>
-	<20140515121546.3A06AC40B0E@trevor.secretlab.ca>
-Date: Thu, 15 May 2014 13:50:02 -0500
-Message-ID: <CAL_JsqJw11fZBbLVi=xxC559iWdwCMFOJ4XYM-8EjykttoWsOg@mail.gmail.com>
-From: Rob Herring <robh@kernel.org>
-To: Grant Likely <grant.likely@secretlab.ca>
+To: Josh Triplett <josh@joshtriplett.org>
+References: <CABe+QzBVC=dRZO4+v93A_Cy2nFuf_ajcq8KO20f5PPzVUf2bkg@mail.gmail.com>
+	<20140511162918.GA2527@linux.com> <1995824.rdvEX5SOIt@avalon>
+	<20140511171824.GB2527@linux.com>
+	<CACV2jQACREM61UYrR0=AGDMQ8WYguwaX6HyPFR+wc5oXTRpheA@mail.gmail.com>
+	<20140512161539.GX12708@titan.lakedaemon.net>
+	<CACV2jQCV=rRFg-+x1B3H1=GM5rB_YWp1UU1p7xXkozHKv1Ewvg@mail.gmail.com>
+	<CACV2jQCPpi=18-CMCyhy3qdJgxgwBGKA=DDOWocVubqJWCU3rg@mail.gmail.com>
+	<20140513070851.GA20002@thin> <53739333.30108@zytor.com>
+	<20140514185449.GB4475@jtriplet-mobl1>
+In-Reply-To: <20140514185449.GB4475@jtriplet-mobl1>
 Content-Type: text/plain; charset=UTF-8
-Cc: Linux ARM Kernel <linux-arm-kernel@lists.infradead.org>,
-	Jason Cooper <jason@lakedaemon.net>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] ARM legacy board DT conversion
-	finalization
+Content-Transfer-Encoding: 7bit
+Cc: PJ Waskiewicz <pjwaskiewicz@gmail.com>,
+	Dirk Hohndel <hohndel@infradead.org>,
+	ksummit-discuss@lists.linuxfoundation.org, Anton Arapov <arapov@gmail.com>,
+	Sarah A Sharp <sarah@minilop.net>
+Subject: Re: [Ksummit-discuss] Fwd: [TECH TOPIC] QR encoded oops for the
+	kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,42 +40,24 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, May 15, 2014 at 7:15 AM, Grant Likely <grant.likely@secretlab.ca> wrote:
-> On Sun, 11 May 2014 08:37:29 -0400, Jonathan Corbet <corbet@lwn.net> wrote:
->> On Sat, 10 May 2014 23:00:09 -0400
->> Jason Cooper <jason@lakedaemon.net> wrote:
->>
->> > So, I'm proposing a session where each sub-arch gives a brief run-down
->> > of the status of the legacy board conversion, and wraps up with a todo
->> > list.  After all of the sub-arches have given their status (5 - 10
->> > minutes each?), we hash out helping each other with the final pieces.
->>
->> This *really* looks like an ARM minisummit topic to me; hopefully one
->> of those is in the works?
->
-> It does, doesn't it? I wouldn't want this as a main ksummit topic.
->
-> The problem with ARM minisummits these days is it is very easy to
-> devolve into a nothing-but-dt meeting with a bunch of people sitting
-> around looking either annoyed or bored. We weren't able to pull enough
-> topics together when we tried to do an ARM minisummit at the ELC.
->
-> Instead of a traditional ARM minisummit, perhaps we should do an ARM
-> platforms minisprint instead. Light on any kind of presentations, but
-> have the right people in the room to try and knock out some of the
-> legacy backlog (which is kind of what Jason described)
+On 05/14/2014 11:54 AM, Josh Triplett wrote:
+> 
+> That's certainly true.  On the other hand, I'd really like to see a
+> version of the oops-as-QR-code bits that uses VGA block characters to
+> work in non-graphics, non-framebuffer mode, which would require fitting
+> in at most 80x50 (using the half-block characters).  That wouldn't allow
+> nearly as much data, but likely enough for a somewhat useful crash
+> report, especially in aggregate.
+> 
 
-Isn't a large part of the backlog cases of we need DT bindings for X?
-There are cases like moving platforms to common clk, but is there
-anything to discuss for those? Most of those cases need bodies to work
-on them. It seems like the rest of the todo lists could become an all
-DT discussion. I'm not saying it shouldn't happen, just pointing out
-where I think sprint discussions will go.
+Now we're getting into a funny area, which is "what is the lowest common
+denominator".  If the lowest common denominator is VGA, a simple VGA
+driver could force the screen to 640x480 graphics mode, or reprogram the
+font to allow for an 160x100 pixel pseudographic mode (more if we allow
+the font size to be adjusted).  It is not at all clear that using IBM
+pseudographics with no other programming is a useful point on that spectrum.
 
-I do think having todo lists would be valuable. I would like to see
-more than a one off list and have a living document. Linus W had a
-great spreadsheet on this for multi-platform enablement. Perhaps this
-would spur people to do some of the clean-ups (or it will just bit rot
-:( ).
+Either way, this is *way* past turning into a technical conversation,
+and belongs on LKML and not ksummit-discuss.
 
-Rob
+	-hpa
