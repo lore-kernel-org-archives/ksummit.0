@@ -1,29 +1,30 @@
 Return-Path: <grant.likely@secretlab.ca>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 57E5A947
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 2942E942
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 15 May 2014 12:15:56 +0000 (UTC)
-Received: from mail-ee0-f48.google.com (mail-ee0-f48.google.com [74.125.83.48])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 84AAB20111
+	Thu, 15 May 2014 12:19:09 +0000 (UTC)
+Received: from mail-ee0-f41.google.com (mail-ee0-f41.google.com [74.125.83.41])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6A02A20114
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 15 May 2014 12:15:55 +0000 (UTC)
-Received: by mail-ee0-f48.google.com with SMTP id e49so589005eek.21
+	Thu, 15 May 2014 12:19:08 +0000 (UTC)
+Received: by mail-ee0-f41.google.com with SMTP id t10so616124eei.28
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 15 May 2014 05:15:54 -0700 (PDT)
+	Thu, 15 May 2014 05:19:07 -0700 (PDT)
 Sender: Grant Likely <glikely@secretlab.ca>
 From: Grant Likely <grant.likely@secretlab.ca>
-To: Jonathan Corbet <corbet@lwn.net>, Jason Cooper <jason@lakedaemon.net>
-In-Reply-To: <20140511083729.211e9b5f@lwn.net>
-References: <20140511030009.GO12708@titan.lakedaemon.net>
-	<20140511083729.211e9b5f@lwn.net>
-Date: Thu, 15 May 2014 13:15:46 +0100
-Message-Id: <20140515121546.3A06AC40B0E@trevor.secretlab.ca>
-Cc: Rob Herring <robh@kernel.org>,
-	Linux ARM Kernel <linux-arm-kernel@lists.infradead.org>,
+To: "H. Peter Anvin" <hpa@zytor.com>, Josh Triplett <josh@joshtriplett.org>,
+	Arnd Bergmann <arnd@arndb.de>
+In-Reply-To: <536D6FE2.5050503@zytor.com>
+References: <5367D989.1000504@linaro.org>
+	<1399581426.11946.12.camel@deadeye.wl.decadent.org.uk>
+	<20140509151043.GC15523@thunk.org> <4440149.cMfuUKn6MV@wuerfel>
+	<20140509223315.GA5725@thin> <536D6FE2.5050503@zytor.com>
+Date: Thu, 15 May 2014 13:18:59 +0100
+Message-Id: <20140515121859.BEC80C40B0E@trevor.secretlab.ca>
+Cc: John Stultz <john.stultz@linaro.org>,
 	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] ARM legacy board DT conversion
- finalization
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Dealing with 2038
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,28 +34,41 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sun, 11 May 2014 08:37:29 -0400, Jonathan Corbet <corbet@lwn.net> wrote:
-> On Sat, 10 May 2014 23:00:09 -0400
-> Jason Cooper <jason@lakedaemon.net> wrote:
+On Fri, 09 May 2014 17:16:34 -0700, "H. Peter Anvin" <hpa@zytor.com> wrote:
+> On 05/09/2014 03:33 PM, Josh Triplett wrote:
+> >>
+> >> I think an important distinction is that the majority of systems that
+> >> will be seriously affected are embedded machines, which run a custom
+> >> user space anyway.
+> >>
+> >> x86-32 PCs and end-user distros are going to be largely extinct
+> >> in a couple of years and replaced by x64-64 or arm64 depending
+> >> on who you ask, and arm32 Android phones are going to be
+> >> replaced with arm64 hardware shortly after, or they see an ABI
+> >> break before then anyway.
+> >> The typical embedded machines don't even use glibc, and they
+> >> cross-build everything from source.
+> > 
+> > In particular, even systems that want some of the properties of 32-bit
+> > on 64-bit hardware can use x32; the concern is with new systems that
+> > don't support 64-bit at all.  Hence why we need to solve the problem
+> > *today*, so that the devices we're building in the next few years will
+> > survive 2038.
+> > 
 > 
-> > So, I'm proposing a session where each sub-arch gives a brief run-down
-> > of the status of the legacy board conversion, and wraps up with a todo
-> > list.  After all of the sub-arches have given their status (5 - 10
-> > minutes each?), we hash out helping each other with the final pieces.
+> I used to think 32-bit devices would be extinct by the mid-2020s.  It is
+> now obvious that not only will that be wrong, it will be wrong in the
+> most dramatic way possible... simply because all the places where we
+> currently have $0.25 8-bit microcontrollers running trivial operating
+> systems we'll have $0.25 32-bit microcontrollers and a fair chunk of
+> them will run Linux.  As we're getting to the point where the most
+> expensive part of the microcontroller is the package, there is simply no
+> reason to not have a powerful CPU with a real OS and minimize the amount
+> of time spent programming the damned thing.
 > 
-> This *really* looks like an ARM minisummit topic to me; hopefully one
-> of those is in the works?
+> Not to mention that the Internet of Things is going to mean many of them
+> are going to want to be Internet-connected.
 
-It does, doesn't it? I wouldn't want this as a main ksummit topic.
-
-The problem with ARM minisummits these days is it is very easy to
-devolve into a nothing-but-dt meeting with a bunch of people sitting
-around looking either annoyed or bored. We weren't able to pull enough
-topics together when we tried to do an ARM minisummit at the ELC.
-
-Instead of a traditional ARM minisummit, perhaps we should do an ARM
-platforms minisprint instead. Light on any kind of presentations, but
-have the right people in the room to try and knock out some of the
-legacy backlog (which is kind of what Jason described)
+And yet still, once deployed will never get updated. :-(
 
 g.
