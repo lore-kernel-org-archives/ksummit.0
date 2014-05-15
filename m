@@ -1,50 +1,30 @@
-Return-Path: <preeti@linux.vnet.ibm.com>
+Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 43B8B4C6
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 350F94D4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 15 May 2014 10:42:18 +0000 (UTC)
-Received: from e8.ny.us.ibm.com (e8.ny.us.ibm.com [32.97.182.138])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6C7B01F986
+	Thu, 15 May 2014 11:48:57 +0000 (UTC)
+Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id 341371FB50
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 15 May 2014 10:42:17 +0000 (UTC)
-Received: from /spool/local
-	by e8.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
-	Violators will be prosecuted
-	for <ksummit-discuss@lists.linuxfoundation.org> from
-	<preeti@linux.vnet.ibm.com>; Thu, 15 May 2014 06:42:16 -0400
-Received: from b01cxnp23032.gho.pok.ibm.com (b01cxnp23032.gho.pok.ibm.com
-	[9.57.198.27])
-	by d01dlp03.pok.ibm.com (Postfix) with ESMTP id 42210C9004A
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 15 May 2014 06:42:09 -0400 (EDT)
-Received: from d01av04.pok.ibm.com (d01av04.pok.ibm.com [9.56.224.64])
-	by b01cxnp23032.gho.pok.ibm.com (8.13.8/8.13.8/NCO v10.0) with ESMTP id
-	s4FAgEoB8847618 for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 15 May 2014 10:42:14 GMT
-Received: from d01av04.pok.ibm.com (localhost [127.0.0.1])
-	by d01av04.pok.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
-	s4FAgDNk017246 for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 15 May 2014 06:42:14 -0400
-Message-ID: <537498FC.6010006@linux.vnet.ibm.com>
-Date: Thu, 15 May 2014 16:07:48 +0530
-From: Preeti U Murthy <preeti@linux.vnet.ibm.com>
+	Thu, 15 May 2014 11:48:55 +0000 (UTC)
+From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+To: Mark Brown <broonie@kernel.org>
+Date: Thu, 15 May 2014 14:05:43 +0200
+Message-ID: <1527482.CPBrbWbyLU@vostro.rjw.lan>
+In-Reply-To: <20140514130401.GC12304@sirena.org.uk>
+References: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>
+	<1461572.JtpPDPW8DH@vostro.rjw.lan>
+	<20140514130401.GC12304@sirena.org.uk>
 MIME-Version: 1.0
-To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-References: <1998761.B2k0A5OtQR@vostro.rjw.lan>
-	<2FABAEF0D3DCAF4F9C9628D6E2F9684533B4DB65@BGSMSX102.gar.corp.intel.com>
-	<5370FA68.6020100@linux.vnet.ibm.com>
-	<1704878.GgvXpHngnm@vostro.rjw.lan>
-In-Reply-To: <1704878.GgvXpHngnm@vostro.rjw.lan>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Cc: "Brown, Len" <len.brown@intel.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Daniel Lezcano <daniel.lezcano@linaro.org>, Ingo Molnar <mingo@kernel.org>
-Subject: Re: [Ksummit-discuss] [TECH(CORE?) TOPIC] Energy conservation bias
- interfaces
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
+Cc: dvhart@dvhart.com, ksummit-discuss@lists.linuxfoundation.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Driver model/resources, ACPI, DT,
+	etc (sigh)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -54,118 +34,110 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 05/14/2014 05:06 AM, Rafael J. Wysocki wrote:
-> On Monday, May 12, 2014 10:14:24 PM Preeti U Murthy wrote:
->> On 05/08/2014 08:27 PM, Iyer, Sundar wrote:
->>>> -----Original Message-----
->>>> From: ksummit-discuss-bounces@lists.linuxfoundation.org [mailto:ksummit-
->>>> discuss-bounces@lists.linuxfoundation.org] On Behalf Of Rafael J.
->>>> Wysocki
->>>> Sent: Thursday, May 8, 2014 6:28 PM
->>>  
->>>> That's something I was thinking about too, but the difficulty here is in how to
->>>> define the profiles (that is, what settings in each subsystem are going to be
->>>> affected by a profile change) and in deciding when to switch profiles and
->>>> which profile is the most appropriate going forward.
->>>>
->>>> IOW, the high-level concept looks nice, but the details of the implementation
->>>> are important too. :-)
->>>
->>> I agree. Defining these profiles and trying to fit them into a system definition, 
->>> system usage policy and above all user usage policy is where the sticking point is.
->>>
->>>>> Today cpuidle and cpufreq already expose these settings through
->>>>> governors.
->>>>
->>>> cpufreq governors are kind of tied to specific "energy efficiency" profiles,
->>>> performance, powersave, on-demand.  However, cpuidle governors are
->>>
->>> I am not sure if that is correct. IMO Cpufreq governors function simply as per
->>> policies defined to meet user experience. A system may choose to sacrifice
->>> user experience @ the cost of running the CPU at the lowest frequency, but the
->>> governor has no idea if it was really energy efficient for the platform. Similarly,
->>
->> The governor will never know if it was energy efficient. It will only
->> take decisions from the data it has at its behest. And from the data
->> that is exposed by the platform, if it appears that running the cpus at
->> lowest frequency is the best bet to meet the system policy, it will do
->> so. It cannot do better than this IMO and as I pointed in the previous
->> mail this should be good enough too. Better than not having a governor no?
->>
->>> the governor might decide to run at a higher turbo frequency for better user
->>> responsiveness, but it still doesn't know if it was energy efficient running @ those
->>> frequencies. I am coming back to the point that energy efficiency is countable
->>> _only_ at the platform level: if it results in a longer battery life w/o needing to plug in.
->>
->> Not every profile above is catering to energy savings. The very fact
->> that the governor decided to run the cpus at turbo frequency means that
->> it not looking at energy efficiency but merely at short bursts of high
->> performance. This will definitely drop down battery life. But if the
->> user chose a profile where turbo mode is enabled it means he is ok with
->> these side effects.
+On Wednesday, May 14, 2014 02:04:01 PM Mark Brown wrote:
 > 
-> You seem to be assuming a bit about the user.  Who may be a kid playing a game
-> on his phone or tablet and having no idea what "turbo" is whatsoever. :-)
+> --7Mplw3OCI4oLNRBG
+> Content-Type: text/plain; charset=us-ascii
+> Content-Disposition: inline
 > 
->> We know certain general facts about cpu frequencies. Like running in
->> turbo mode would mean the cpus could possibly get throttled and lead to
->> eventual drop in performance. These are platform level. But having an
->> idea about these things help us design the algorithms in the kernel.
+> On Tue, May 13, 2014 at 11:19:00PM +0200, Rafael J. Wysocki wrote:
 > 
-> That I can agree with, but I wouldn't count on user input too much.
+> > Of course, ACPI "support" can be shoehorned into a limited number of things
+> > this way, but it really doesn't scale and very often the result is really
+> > disgusting.  Also ACPI in its current form may not even be able to provide
+> > information expected by device drivers in the first place, because ACPI
+> > doesn't have means to encode that information in any sensible way today
+> > (that includes clocks, voltage regulators, PWMs, pin control and even GPIOs
+> > to some extent).
 > 
-> Of course, I'm for giving users who know what they are doing as much power
-> as reasonably possible, but on the other hand they are not really likely
-> to use that power, on the average at least.
+> > If ACPI is extended so that such information can be put into the tables,
+> > there is no reason why the interface for extracting it should be much different
+> > from the of_ one, except that instead of calling of_get_something(device_node, ...)
+> > drivers will call fw_get_something(device, ...).  And that can use the old good
+> > of_ for systems with DT, so it really is a matter of getting the ACPI side of
+> > things to match it.
+> 
+> Of course, and for all of these things other than GPIOs we already
+> handle the lookups without any DT code at all in the drivers (and GPIOs
+> are moving away from needing explicit code too).  Things like that just
+> aren't an issue and I'd say that if we are adding new fw_ interfaces for
+> resource lookup like you describe we're doing things wrong, we already
+> have the idiom of looking up by device and some key which works well.
 
-Hmm..but then who helps the kernel in decisions like "should i spread
-the load vs pack the load"? In an earlier attempt towards power aware
-scheduler, a user policy would help it decide this.
-  This time in addition to user policy or the user policy apart,
-sufficient platform level details about the energy impact of spreading
-vs packing should help the kernel decide. Is this what you are
-suggesting with regard to the energy aware decisions by the kernel ?
+The "key" think doesn't really work in ACPI if it is a string, however.
 
-> 
-> [cut]
-> 
->>>
->>> For this specific example, when you say the *user* has chosen the policy, do
->>> you mean a user space daemon that takes care of this or the application itself?
->>
->> I mean the "user"; i.e. whoever is in charge of deciding the system
->> policies. For virtualized systems it could be the system administrator
->> who could decide a specific policy for a VM. For laptops it is us, users.
-> 
-> What about phones, tablets, Android-based TV sets, Tizen-based watches??
+That's a real problem, because, for example, ACPI says "I have these GPIO
+connections between your device and controller X" and it gives you pin
+numbers.  Now the driver (or someone else) needs to figure out which pin
+is used for what.
 
-In these cases I guess the kernel has to monitor the system by itself
-and decide appropriately?
-> 
->>> How are we going to know if we will really save energy by limiting deep idle states
->>> on all the 10 CPUs? Please help me understand this.
->>
->> We will not save energy by limiting idle states.By limiting idle states
->> we ensure that we do not affect the latency requirement of the task
->> running on the cpu.
-> 
-> OK, so now, to be a little more specific, how is the task supposed to specify
-> that latency requirement?
+If there's only one pin per device, all is fine, but if there are more of
+them things get very ugly quite quickly.
 
-Coming to think of it, a per task latency requirement is not making
-sense for the following reason.
+So in "native" ACPI something like gpiod_get() cannot really be implemented
+to use con_id and if you look at acpi_find_gpio() (the one in gpiolib.c),
+you'll see that it actually only uses the index for this very reason.
 
-As long as a task is running on a cpu, the cpu will not enter any idle
-state. The issue of latency comes up when the task sleeps. If the task
-is guaranteed to wake up on the same cpu as that it slept on, we could
-use the task latency requirement to decide the idle states that the cpu
-could enter into.
-   However in the scheduler today the task can wake up on *any cpu*. We
-can't possibly disable the deep idle states on every cpu for this
-reason. So looks like this needs more thought.
+It may look good on the surface, but if you go deeper into things, it really
+doesn't.
 
-Regards
-Preeti U Murthy
+Same goes for similar "resources".
 
+> It gets more interesting with compound devices like multimedia; there's
+> not really a clear general model for handling these in kernel in the
+> first place plus also some ongoing discussion about how they are best
+> represented in DT.  Those might well fall into the too hard to handle
+> generically category though.
+
+Well, that's hard to say wihtout looking at specific examples.
+
+If something proves too hard to be addressed in a common fashion, which is
+not unlikely, we'll need to find some other way to address it, but as long
+as we *can* do things in common ways, we should do that in my opinion.
+
+> > And if you're asking why things are currently done in different ways, the
+> > reason is simple: ACPI has not been extended yet and the fw_get_something(device, ...)
+> > interface doesn't exist, so people have to use what is available today and there are
+> > products to support in the meatime.
 > 
+> Not really, the issue is more about the model and applies just as much
+> to things like device specific properties as it does to resource lookup
+> (to be honest resource lookup is the easiest thing here - it's not a
+> relevant issue with the in tree stuff).
 > 
+> Active ACPI systems have the idea that the firmware is going to go and
+> interact with the hardware directly itself, one of the goals being to
+> allow the hardware to be extended in ways that the OS would otherwise
+> need to be modified to support.
+
+I agree.
+
+Nevertheless, it often turns out that the OS needs to interact with that
+hardware too for various reasons.
+
+> In contrast FDT and the new passive
+> ACPI model you are describing just provide data and leave everything up
+> to the OS in terms of interacting with the hardware.  What's tasteful
+> and what system integrators expect to work with both seem to vary
+> between the two - one of the most common I'm seeing is that with active
+> firmware configuration written into the device on startup may actually
+> be real and worth paying attention to while with passive firmware it's
+> usually best to ignore the device state.
+
+Again, I agree.  The PCI host bridge is actually a good example of that.
+
+> Some of what's going on is limitations in current ACPI and it does make
+> sense to address those in as generic a fashion as possible but it isn't
+> clear to me that all ACPI users want to have something that looks like
+> DT.
+
+For things that are not covered by ACPI either directly or indirectly today,
+that seems to be the only approach feasible in a reasonable time frame.
+
+For things that are covered by ACPI that is less clear.  Even in that case,
+though, if there's a binding (defined as a set of keys and value data types
+associated with them) that a driver expects to be used, it makes a little
+sense to create a second binding for it just for the purpose of using it with
+a different firmware interface.
+
+Rafael
