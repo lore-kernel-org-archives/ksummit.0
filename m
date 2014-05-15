@@ -1,36 +1,48 @@
-Return-Path: <daniel.lezcano@linaro.org>
+Return-Path: <preeti@linux.vnet.ibm.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 77D0A48E
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 217974C6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 May 2014 09:15:23 +0000 (UTC)
-Received: from mail-we0-f175.google.com (mail-we0-f175.google.com
-	[74.125.82.175])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id AF8F31F940
+	Thu, 15 May 2014 10:07:04 +0000 (UTC)
+Received: from e37.co.us.ibm.com (e37.co.us.ibm.com [32.97.110.158])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3410D1F986
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 May 2014 09:15:22 +0000 (UTC)
-Received: by mail-we0-f175.google.com with SMTP id t61so1626077wes.34
+	Thu, 15 May 2014 10:07:02 +0000 (UTC)
+Received: from /spool/local
+	by e37.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+	Violators will be prosecuted
+	for <ksummit-discuss@lists.linuxfoundation.org> from
+	<preeti@linux.vnet.ibm.com>; Thu, 15 May 2014 04:07:01 -0600
+Received: from b03cxnp08027.gho.boulder.ibm.com
+	(b03cxnp08027.gho.boulder.ibm.com [9.17.130.19])
+	by d03dlp02.boulder.ibm.com (Postfix) with ESMTP id 8BE623E40044
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 May 2014 02:15:21 -0700 (PDT)
-Message-ID: <53733432.5050106@linaro.org>
-Date: Wed, 14 May 2014 11:15:30 +0200
-From: Daniel Lezcano <daniel.lezcano@linaro.org>
+	Thu, 15 May 2014 04:06:58 -0600 (MDT)
+Received: from d03av02.boulder.ibm.com (d03av02.boulder.ibm.com [9.17.195.168])
+	by b03cxnp08027.gho.boulder.ibm.com (8.13.8/8.13.8/NCO v10.0) with
+	ESMTP id s4FA5wfI11469212
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 15 May 2014 12:06:06 +0200
+Received: from d03av02.boulder.ibm.com (localhost [127.0.0.1])
+	by d03av02.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP
+	id s4FA6P4v016793 for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 15 May 2014 04:06:25 -0600
+Message-ID: <5374908B.8070603@linux.vnet.ibm.com>
+Date: Thu, 15 May 2014 15:31:47 +0530
+From: Preeti U Murthy <preeti@linux.vnet.ibm.com>
 MIME-Version: 1.0
-To: "Rafael J. Wysocki" <rjw@rjwysocki.net>,
-	Preeti U Murthy <preeti@linux.vnet.ibm.com>
-References: <2FABAEF0D3DCAF4F9C9628D6E2F9684533B4C781@BGSMSX102.gar.corp.intel.com>
-	<20140512111407.GB5540@e103034-lin>
-	<53710132.60506@linux.vnet.ibm.com>
-	<4212156.95Ek3E3WsK@vostro.rjw.lan>
-In-Reply-To: <4212156.95Ek3E3WsK@vostro.rjw.lan>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Cc: "Brown, Len" <len.brown@intel.com>,
+To: Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+	Amit Kucheria <amit.kucheria@linaro.org>
+References: <20140512153234.GE23253@e103034-lin>
+	<53733EE4.4080605@linux.vnet.ibm.com>
+	<20140514103717.GA20860@e102568-lin.cambridge.arm.com>
+In-Reply-To: <20140514103717.GA20860@e102568-lin.cambridge.arm.com>
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: 7bit
+Cc: Peter Zijlstra <peterz@infradead.org>,
 	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>
-Subject: Re: [Ksummit-discuss] [TECH(CORE?) TOPIC] Energy conservation bias
- interfaces
+	<ksummit-discuss@lists.linuxfoundation.org>, Ingo Molnar <mingo@kernel.org>
+Subject: Re: [Ksummit-discuss] Energy-aware Scheduling Workshop
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,59 +52,94 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 05/14/2014 01:41 AM, Rafael J. Wysocki wrote:
-> On Monday, May 12, 2014 10:43:22 PM Preeti U Murthy wrote:
->> On 05/12/2014 04:44 PM, Morten Rasmussen wrote:
->>> On Thu, May 08, 2014 at 09:59:39AM +0100, Preeti U Murthy wrote:
->>>> On 05/07/2014 10:50 AM, Iyer, Sundar wrote:
->
-> [cut]
->
->>> While I agree that there are mechanisms to deal with thermal throttling
->>> already, I think it is somewhat related to energy-awareness. If you need
->>> throttling due to thermal constraints you are burning too much power in
->>> your system. If you factor in energy-effiency and the requirements for
->>> the current use-case you might be able to stay within the power budget
->>> with a smaller performance impact than blindly throttling all
->>> subsystems.
+Hi Amit, Lorenzo,
+
+On 05/14/2014 04:07 PM, Lorenzo Pieralisi wrote:
+> Hi Preeti,
+> 
+> On Wed, May 14, 2014 at 11:01:08AM +0100, Preeti U Murthy wrote:
+>> Hi Morten,
 >>
->> True. I was intending to distinguish the who and the why in the above
->> two situations. My only point was that thermal throttling is undertaken
->> by platform and is a safety mechanism whereas switching to energy saving
->> mode when battery is low is undertaken by the kernel and will lead to
->> better end-user experience i.e.battery longevity. Yes the kernel is
->> expected to prevent the system from being throttled as much as possible.
->
-> The kernel may very well be responsible for thermal throttling in some cases.
-> At least it needs to be able to respond to "do not draw more power than this"
-> type of requests.
->
-> [cut]
->
->>>
->>> IIUC, you are proposing to have profiles setting a lot of kernel
->>> tunables rather than a single knob to control energy-awareness?
->>>
->>> My concern with profiles is that it basically exports most of the
->>> energy-awareness decision problems to user-space. Maybe I'm missing
->>> something? IMHO, it would be better to have more accurate energy related
->>> topology information in the kernel so it would be able to take the
->>> decisions.
+>> Thank you for initiating this.
 >>
->> You are right. We shouldn't be exposing so many knobs to user-space and
->> expect the kernel to make good decisions based on these knobs being
->> tweaked by user space. How about a high level classification of profiles
->> like balanced, performance, powersave? These alone can be chosen by the
->> user and the lower end tunings left to the discretion of the kernel.
->
-> Well, so we're actually back to a central knob with three levels effectively. :-)
+>> On 05/12/2014 09:02 PM, Morten Rasmussen wrote:
+>>> Hi,
+>>>
+>>> Last year's Energy-Aware Scheduling workshop [1,2] was a good
+>>> opportunity for interested parties to discuss some of the open issues in
+>>> this area face to face. While work is still ongoing on many of the
+>>> topics that were discussed, it might be worth having workshop again this
+>>> year to follow up, revise the plans if necessary, and discuss topics
+>>> that were not covered last year.
+>>>
+>>> Before submitting a workshop proposal to the Ksummit PC I would like to
+>>> probe the interest. IMO, it is important that we have scheduler
+>>> maintainers present.
+>>>
+>>> Workshop topic proposals:
+>>>
+>>> Test cases
+>>> Use-cases for high-end phones (which some of us care about) consist of
+>>> rather complex software stacks which are not suitable for quick patch
+>>> testing [3]. While we can't avoid testing using the full software stack
+>>> in the end, it would be useful to have configurable micro-benchmarks for
+>>> initial testing and to reproduce specific scheduling patterns from the
+>>> full use-case for debugging purposes.
+>>>
+>>> Energy Evaluation
+>>> A hot topic last year. We need a way to evaluate energy-awareness
+>>> patches. Work has started on an idle state analysis tool [4], but we are
+>>> not there yet.
+>>>
+>>
+>> An interesting sub topic pertaining to evaluation would be deciding the
+>> target residency of idle states. How do we know if the target residency
+>> set for the different idle states is set optimally? The cpuidle governor
+>> bases its decisions of the idle state to enter into based on numbers
+>> such as these. If it is too stringent we would be hampering power savings.
+>>
+>> We could run different benchmarks with different degree of utilization.
+>> And observe how much of the idle time is spent in different idle states.
+>> If it is too less in a particular idle state we can up the target
+>> residency of that idle state to begin with. This is static setting and
+>> we hard code the target residency like now. Will a dynamic setting of
+>> metrics like these help us in any way?
+> 
+> It might, as long as you are able to monitor energy in the kernel.
+> target_residency is expressed in time, but must be evaluated in energy
+> terms, it is a break-even point. It strictly depends on the dynamic state
+> of the CPU when it goes idle, hence not really easy to factor in.
+> 
+> On ARM, it depends on a slew of factors, inclusive of the number of
+> dirty caches lines (ie memory writebacks), running CPU frequency, memory
+> frequency and the list goes on and on and on.
+> 
+> I am not even taking into account CPU idle states (C-states) whose power
+> domains span devices such as GPUs.
+> 
+> It is certainly an interesting topic, I gave a presentation on this
+> at Linaro Connect in 2013, I would be happy to share the results and debate
+> it if I am able to attend.
+> 
+>> This was just an example to show that there are interesting problems
+>> around "tuning" of power management metrics. It would be very helpful if
+>> the maintainers relevant to this workshop guide us on this.
+> 
+> I would be certainly happy to explain to you how idle states work on ARM
+> systems and the factors contributing to target_residency and other idle
+> states parameters.
 
-May be we can consider adding the large number of knobs with debugfs ?
+Thanks for sharing your ideas about this.
 
+Lorenzo,
+Sure I will be glad if we are able to meet to discuss this.
 
--- 
-  <http://www.linaro.org/> Linaro.org │ Open source software for ARM SoCs
+Amit,
+I will take a look at idle stat and verify if I can use it for my purpose.
 
-Follow Linaro:  <http://www.facebook.com/pages/Linaro> Facebook |
-<http://twitter.com/#!/linaroorg> Twitter |
-<http://www.linaro.org/linaro-blog/> Blog
+Regards
+Preeti U Murthy
+> 
+> Thanks,
+> Lorenzo
+> 
