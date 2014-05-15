@@ -1,35 +1,38 @@
-Return-Path: <josh@joshtriplett.org>
+Return-Path: <benh@kernel.crashing.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 1FDA2979
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 24A40995
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 May 2014 22:55:35 +0000 (UTC)
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
-	[217.70.183.195])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 506FD201A9
+	Thu, 15 May 2014 01:09:18 +0000 (UTC)
+Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8A1071FD49
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 May 2014 22:55:34 +0000 (UTC)
-Date: Wed, 14 May 2014 15:55:23 -0700
-From: Josh Triplett <josh@joshtriplett.org>
-To: Levente Kurusa <levex@linux.com>
-Message-ID: <20140514225523.GA10344@jtriplet-mobl1>
-References: <1995824.rdvEX5SOIt@avalon> <20140511171824.GB2527@linux.com>
-	<CACV2jQACREM61UYrR0=AGDMQ8WYguwaX6HyPFR+wc5oXTRpheA@mail.gmail.com>
-	<20140512161539.GX12708@titan.lakedaemon.net>
-	<CACV2jQCV=rRFg-+x1B3H1=GM5rB_YWp1UU1p7xXkozHKv1Ewvg@mail.gmail.com>
-	<CACV2jQCPpi=18-CMCyhy3qdJgxgwBGKA=DDOWocVubqJWCU3rg@mail.gmail.com>
-	<20140513070851.GA20002@thin> <53739333.30108@zytor.com>
-	<20140514185449.GB4475@jtriplet-mobl1>
-	<20140514200043.GA2516@linux.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20140514200043.GA2516@linux.com>
-Cc: PJ Waskiewicz <pjwaskiewicz@gmail.com>, Sarah A Sharp <sarah@minilop.net>,
-	ksummit-discuss@lists.linuxfoundation.org, Anton Arapov <arapov@gmail.com>,
-	Dirk Hohndel <hohndel@infradead.org>
-Subject: Re: [Ksummit-discuss] Fwd: [TECH TOPIC] QR encoded oops for the
- kernel
+	Thu, 15 May 2014 01:09:17 +0000 (UTC)
+Message-ID: <1400116117.28987.1.camel@pasglop>
+From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Thu, 15 May 2014 11:08:37 +1000
+In-Reply-To: <CAKMK7uGLkyyYjjOrD0Eyz4D7DUiXrOrUPtqVPXyNNYTFHGS9Dw@mail.gmail.com>
+References: <1399552623.17118.22.camel@i7.infradead.org>
+	<3908561D78D1C84285E8C5FCA982C28F328000EE@ORSMSX114.amr.corp.intel.com>
+	<1399666748.2166.68.camel@dabdike.int.hansenpartnership.com>
+	<4433093.MSzoqdJDMf@avalon>
+	<CAKMK7uFcWsZyGoxLx=2xH-vgRq1nD3cZjeqeRLsvKGrHt--VHA@mail.gmail.com>
+	<20140512150722.GO12376@8bytes.org>
+	<CAKMK7uHs9QBA_SCCNP_PSS3i2pRGJuQyj_8ngA6vgQU2wENTWw@mail.gmail.com>
+	<CALCETrXo7Zqg9EadLHTniLhAB9f13C9wzFWZAqTSG=4z0ocgQg@mail.gmail.com>
+	<CAKMK7uHgQKgHoeGDAkTBVwzSA7X+XrCRO9zXYwKsGUCJZOk-Dw@mail.gmail.com>
+	<1399980453.879.177.camel@i7.infradead.org>
+	<1400032208.17624.225.camel@pasglop>
+	<CAKMK7uGLkyyYjjOrD0Eyz4D7DUiXrOrUPtqVPXyNNYTFHGS9Dw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Device error handling /
+ reporting / isolation
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,49 +42,26 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, May 14, 2014 at 10:00:43PM +0200, Levente Kurusa wrote:
-> On Wed, May 14, 2014 at 11:54:49AM -0700, Josh Triplett wrote:
-> > On Wed, May 14, 2014 at 09:00:51AM -0700, H. Peter Anvin wrote:
-> > > On 05/13/2014 12:08 AM, Josh Triplett wrote:
-> > > > 
-> > > > Many users will already have a QR-code scanning app installed, and such
-> > > > apps always support loading URLs in a browser.
-> > > > 
-> > > 
-> > > Let me disavow you of the notion that stock scanning apps handle large
-> > > QR symbols.
-> > 
-> > That's certainly true.  On the other hand, I'd really like to see a
-> > version of the oops-as-QR-code bits that uses VGA block characters to
-> > work in non-graphics, non-framebuffer mode, which would require fitting
-> > in at most 80x50 (using the half-block characters).  That wouldn't allow
-> > nearly as much data, but likely enough for a somewhat useful crash
-> > report, especially in aggregate.
+On Wed, 2014-05-14 at 22:09 +0200, Daniel Vetter wrote:
+
+> I'm not sure we really need to make a server/desktop disdinction here
+> but more whether the driver (and all the stuff relying on it) care
+> about data integrity all that much. With gpus we can forward such
+> information to userspace and through some opengl extensions to
+> applications, and the expectation is very much that if you want robust
+> opengl, you need to be able to cope. The extension essentially tells
+> you "oops, sorry something bad happened, please throw away all your
+> gpu buffers".
 > 
-> Not really possible, from my experiences the QR code that results from
-> a random oops is ranging from 100x100 to 150x150 depending on the size
-> of stack trace and stuff like that. Of course, we can decrease the
-> error recovery region and that might make it smaller. I'll take a look
-> at this a bit later. If that doesn't work, then that means that we can't
-> shuffle that into the textmode's 80x25. Not to mention that the block
-> characters in the ASCII table (I think you meant that, if not please
-> correct me) are not neccessarily square, which is needed for maximum
-> scannability.
+> Of course if a gpu reset does not fix the situation the driver should
+> be able to tell the iommu to give up and fully isolate it. Also, to
+> really make this work we'd need a way to tell the iommu to re-allow
+> everything again and track faults again. Otherwise we can't tell
+> whether the gpu reset worked in resolving the fault storm.
 
-In the standard EGA/VGA/DOS character font, see characters DB (solid
-block), DC (lower half block), and DF (upper half block).  Those allow
-drawing 80x50 on an 80x25 console.  Unicode has those as well, and also
-supports a full set of quarter-character blocks which would allow
-160x50; see U+2580 through U+259F.
+Right, though arguably in that context, doing an unconditional freeze
+on error is still perfectly fine as long as the driver has the option
+to unfreeze selectively.
 
-I've also seen discussions about removing less useful information from
-the oops backtrace (simplifying it to just the backtrace itself, and
-less of the guessed-at information).
-
-> One thing that we currently support and can be a solution is Micro QR
-> code. It removes two of the three coordinators and does some more
-> compression AFAIK. It might be possible to shuffle that into textmode.
-
-How widely do stock barcode reader apps support that?
-
-- Josh Triplett
+Cheers,
+Ben.
