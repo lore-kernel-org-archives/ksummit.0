@@ -1,27 +1,35 @@
-Return-Path: <jason@lakedaemon.net>
+Return-Path: <olof@lixom.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 06C704D3
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 916EF6FC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 May 2014 03:18:15 +0000 (UTC)
-Received: from mho-01-ewr.mailhop.org (mho-03-ewr.mailhop.org [204.13.248.66])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 010B81FB58
+	Fri, 16 May 2014 03:30:12 +0000 (UTC)
+Received: from mail-qc0-f171.google.com (mail-qc0-f171.google.com
+	[209.85.216.171])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 587AA20212
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 May 2014 03:18:13 +0000 (UTC)
-Date: Thu, 15 May 2014 23:18:10 -0400
-From: Jason Cooper <jason@lakedaemon.net>
-To: josh@joshtriplett.org
-Message-ID: <20140516031810.GW27822@titan.lakedaemon.net>
-References: <s5htx8tizaf.wl%tiwai@suse.de>
-	<alpine.LNX.2.00.1405131627480.16459@pobox.suse.cz>
-	<CABe+QzDMfRzedp+HROr7jqycCMueF=OWiUMEoFraVSVV+CTL2Q@mail.gmail.com>
-	<20140513162844.GA1647@cloud>
+	Fri, 16 May 2014 03:30:11 +0000 (UTC)
+Received: by mail-qc0-f171.google.com with SMTP id x13so3433320qcv.30
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 15 May 2014 20:30:10 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20140513162844.GA1647@cloud>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TOPIC] Guidance for subsystem maintainers
+In-Reply-To: <20140515194215.GR27822@titan.lakedaemon.net>
+References: <20140511030009.GO12708@titan.lakedaemon.net>
+	<20140511083729.211e9b5f@lwn.net>
+	<20140515121546.3A06AC40B0E@trevor.secretlab.ca>
+	<CAL_JsqJw11fZBbLVi=xxC559iWdwCMFOJ4XYM-8EjykttoWsOg@mail.gmail.com>
+	<20140515194215.GR27822@titan.lakedaemon.net>
+Date: Thu, 15 May 2014 20:30:10 -0700
+Message-ID: <CAOesGMi0JrTp9kUVDod4duBOCZ+wNRJ0dMmgvBX7jEQRjE5cCA@mail.gmail.com>
+From: Olof Johansson <olof@lixom.net>
+To: Jason Cooper <jason@lakedaemon.net>
+Content-Type: text/plain; charset=UTF-8
+Cc: Rob Herring <robh@kernel.org>,
+	Linux ARM Kernel <linux-arm-kernel@lists.infradead.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] ARM legacy board DT conversion
+	finalization
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,28 +39,75 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, May 13, 2014 at 09:28:44AM -0700, josh@joshtriplett.org wrote:
-...
-> 2) We could improve the experience for patch submitters without
-> necessarily pushing changes to maintainer workflows.  I wonder if we
-> could do a better job of providing automated tools that make life easier
-> for maintainers and patch submitters?  For instance, what about having
-> easy-to-enable git hooks on git.kernel.org similar to those Andrew and
-> Greg use, notifying the patch submitter when a maintainer merges their
-> patch?  Maintainers could opt into those hooks specifically for
-> whichever repository has their "will go upstream eventually" branches,
-> and supply a short description of where patches typically flow from
-> their tree so submitters know what to expect.
-> 
-> Would that be useful?  Would maintainers want it?  What properties would
-> it need to have?  Could kernel.org support that?  And would anyone be
-> interested in helping to write it?  (I'm willing to help, given answers
-> to those questions to make sure it'll actually get *used*.)
+Hi,
 
-tip-bot might be a good place to start:
+On Thu, May 15, 2014 at 12:42 PM, Jason Cooper <jason@lakedaemon.net> wrote:
+> On Thu, May 15, 2014 at 01:50:02PM -0500, Rob Herring wrote:
+>> On Thu, May 15, 2014 at 7:15 AM, Grant Likely <grant.likely@secretlab.ca> wrote:
+>> > On Sun, 11 May 2014 08:37:29 -0400, Jonathan Corbet <corbet@lwn.net> wrote:
+>> >> On Sat, 10 May 2014 23:00:09 -0400
+>> >> Jason Cooper <jason@lakedaemon.net> wrote:
+>> >>
+>> >> > So, I'm proposing a session where each sub-arch gives a brief run-down
+>> >> > of the status of the legacy board conversion, and wraps up with a todo
+>> >> > list.  After all of the sub-arches have given their status (5 - 10
+>> >> > minutes each?), we hash out helping each other with the final pieces.
+>> >>
+>> >> This *really* looks like an ARM minisummit topic to me; hopefully one
+>> >> of those is in the works?
+>> >
+>> > It does, doesn't it? I wouldn't want this as a main ksummit topic.
+>> >
+>> > The problem with ARM minisummits these days is it is very easy to
+>> > devolve into a nothing-but-dt meeting with a bunch of people sitting
+>> > around looking either annoyed or bored. We weren't able to pull enough
+>> > topics together when we tried to do an ARM minisummit at the ELC.
+>> >
+>> > Instead of a traditional ARM minisummit, perhaps we should do an ARM
+>> > platforms minisprint instead. Light on any kind of presentations, but
+>> > have the right people in the room to try and knock out some of the
+>> > legacy backlog (which is kind of what Jason described)
+>>
+>> Isn't a large part of the backlog cases of we need DT bindings for X?
+>> There are cases like moving platforms to common clk, but is there
+>> anything to discuss for those? Most of those cases need bodies to work
+>> on them. It seems like the rest of the todo lists could become an all
+>> DT discussion. I'm not saying it shouldn't happen, just pointing out
+>> where I think sprint discussions will go.
+>
+> As gregkh mentioned for the staging tree:
+>
+> $ ls arch/arm/*/TODO
+>
+> would be helpful for folks who aren't familiar with an SoC, but can
+> easily generate patches.  imho, this is work for *after* the proposed
+> discussion.  We don't currently have a good idea which directories to
+> deprecate, convert, or leave to bit rot.  Once we do, I think the TODO
+> list would be helpful.
 
-  http://git.zytor.com/linux/tip-bot.git
+Anyone should feel free to add a TODO file and list in their machine
+directory at any given time. I don't think there's need for discussion
+before that happens. There's also the elinux.org wikis if you want to
+keep it out of the kernel -- keeping the TODO around for old kernel
+versions might not be very useful so having it out of tree might be
+just as fine.
 
-thx,
+> My main reason for raising this topic was the proximity to LinuxCon.
+> There's a better chance of getting some distro representation to give us
+> valuable feedback: "This SoC is quiet, no patches, but is actively used"
+> and "We thought the kernel guys had a reason for keeping that one."
 
-Jason.
+Funny, I would have thought ELC to have been a much more suitable
+venue for that, especially since the older ARM platforms tend to be
+embedded, and not generic compute ones. :)
+
+> eg: I know ixp4xx had an active community around it at one time for the
+> NSLU2, and the Gateworks boards used that SoC.  Are there people still
+> running it?  Well, my Dad is, but I can fix that if needed. ;-)
+
+I suspect it'll be hard to get that answered at LinuxCon, nor at an
+ARM maintainer summit since the fringe platforms tend to not be
+represented there either.
+
+
+-Olof
