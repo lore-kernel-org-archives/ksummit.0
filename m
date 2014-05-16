@@ -1,25 +1,30 @@
-Return-Path: <josh@joshtriplett.org>
+Return-Path: <jason@lakedaemon.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 7722648E
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 331E0523
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 May 2014 00:13:12 +0000 (UTC)
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
-	[217.70.183.195])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3F5B920264
+	Fri, 16 May 2014 02:50:08 +0000 (UTC)
+Received: from mho-02-ewr.mailhop.org (mho-02-ewr.mailhop.org [204.13.248.72])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8A64B1FD4A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 May 2014 00:13:11 +0000 (UTC)
-Date: Thu, 15 May 2014 17:13:07 -0700
-From: josh@joshtriplett.org
-To: Josh Boyer <jwboyer@fedoraproject.org>
-Message-ID: <20140516001306.GA16883@cloud>
-References: <CA+5PVA4AtLtf_XKpWOjpqkWGmm6Hg1kZExs-2K15RJiYsbgnkQ@mail.gmail.com>
+	Fri, 16 May 2014 02:50:07 +0000 (UTC)
+Date: Thu, 15 May 2014 22:50:01 -0400
+From: Jason Cooper <jason@lakedaemon.net>
+To: "H. Peter Anvin" <hpa@zytor.com>
+Message-ID: <20140516025001.GU27822@titan.lakedaemon.net>
+References: <5367D989.1000504@linaro.org>
+	<1399581426.11946.12.camel@deadeye.wl.decadent.org.uk>
+	<20140509151043.GC15523@thunk.org> <4440149.cMfuUKn6MV@wuerfel>
+	<20140509223315.GA5725@thin> <536D6FE2.5050503@zytor.com>
+	<20140515121859.BEC80C40B0E@trevor.secretlab.ca>
+	<5374F758.7020204@zytor.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CA+5PVA4AtLtf_XKpWOjpqkWGmm6Hg1kZExs-2K15RJiYsbgnkQ@mail.gmail.com>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Nominations for per topic people
+In-Reply-To: <5374F758.7020204@zytor.com>
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	John Stultz <john.stultz@linaro.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Dealing with 2038
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,11 +34,23 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, May 09, 2014 at 12:49:07PM -0400, Josh Boyer wrote:
-> Below are people that have been nominated in the submitted topic
-> threads that aren't already on the list.
-[...]
+On Thu, May 15, 2014 at 10:20:24AM -0700, H. Peter Anvin wrote:
+> On 05/15/2014 05:18 AM, Grant Likely wrote:
+> > 
+> > And yet still, once deployed will never get updated. :-(
+> > 
+> 
+> That is a whole separate problem.  I'm not quite convinced that it will
+> work that way... maybe ubiquitous upgrades will be a solved problem by then.
 
-I'd like to make an additional nomination:
+With the infrastructure to support verification, which brings in key
+management.  Otherwise, it'll be an easy attack surface.  I'm not
+optimistic...
 
-Tom Zanussi <tom.zanussi@linux.intel.com> (Tinification/embedded)
+The alternative is to make the devices so trivially disposable that
+outdated/vulnerable devices are rejected from the network.  The user
+then orders a replacement.
+
+thx,
+
+Jason.
