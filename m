@@ -1,28 +1,34 @@
-Return-Path: <rdunlap@infradead.org>
+Return-Path: <ben@decadent.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 30F9F96D
+	by mail.linuxfoundation.org (Postfix) with ESMTP id BC8A2711
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 May 2014 18:31:50 +0000 (UTC)
-Received: from merlin.infradead.org (merlin.infradead.org [205.233.59.134])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CBBEB201E1
+	Fri, 16 May 2014 18:32:09 +0000 (UTC)
+Received: from shadbolt.e.decadent.org.uk (shadbolt.e.decadent.org.uk
+	[88.96.1.126])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 38972201E1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 May 2014 18:31:49 +0000 (UTC)
-Message-ID: <5376598A.4050407@infradead.org>
-Date: Fri, 16 May 2014 11:31:38 -0700
-From: Randy Dunlap <rdunlap@infradead.org>
-MIME-Version: 1.0
-To: Chris Mason <clm@fb.com>, NeilBrown <neilb@suse.de>,
-	Dan Williams <dan.j.williams@gmail.com>
-References: <CAA9_cmdc86KLimJXEVQCJiBH_YM1wWDfpe78EttWwQUW7Re8aA@mail.gmail.com>	<20140516125611.06633446@notabene.brown>
-	<537628ED.1020208@fb.com>
-In-Reply-To: <537628ED.1020208@fb.com>
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
-Cc: Dan J Williams <dan.j.williams@intel.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] [nomination] Move Fast and Oops
- Things
+	Fri, 16 May 2014 18:32:09 +0000 (UTC)
+Message-ID: <1400265111.2647.54.camel@deadeye.wl.decadent.org.uk>
+From: Ben Hutchings <ben@decadent.org.uk>
+To: Jason Cooper <jason@lakedaemon.net>
+Date: Fri, 16 May 2014 19:31:51 +0100
+In-Reply-To: <20140516041022.GY27822@titan.lakedaemon.net>
+References: <20140511030009.GO12708@titan.lakedaemon.net>
+	<20140511083729.211e9b5f@lwn.net>
+	<20140515121546.3A06AC40B0E@trevor.secretlab.ca>
+	<CAL_JsqJw11fZBbLVi=xxC559iWdwCMFOJ4XYM-8EjykttoWsOg@mail.gmail.com>
+	<20140515194215.GR27822@titan.lakedaemon.net>
+	<CAOesGMi0JrTp9kUVDod4duBOCZ+wNRJ0dMmgvBX7jEQRjE5cCA@mail.gmail.com>
+	<20140516041022.GY27822@titan.lakedaemon.net>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-f198Ebg9GamzCEWchtbE"
+Mime-Version: 1.0
+Cc: Rob Herring <robh@kernel.org>, "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Linux ARM Kernel <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] ARM legacy board DT conversion
+ finalization
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,81 +38,60 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 05/16/2014 08:04 AM, Chris Mason wrote:
-> -----BEGIN PGP SIGNED MESSAGE-----
-> Hash: SHA1
-> 
-> On 05/15/2014 10:56 PM, NeilBrown wrote:
->> On Thu, 15 May 2014 16:13:58 -0700 Dan Williams
->> <dan.j.williams@gmail.com> wrote:
->>
->>> What would it take and would we even consider moving 2x faster
->>> than we are now?
->>
->> Hi Dan, you seem to be suggesting that there is some limit other
->> than "competent engineering time" which is slowing Linux "progress"
->> down.
->>
->> Are you really suggesting that?  What might these other limits be?
->>
->> Certainly there are limits to minimum gap between conceptualisation
->> and release (at least one release cycle), but is there really a
->> limit to the parallelism that can be achieved?
-> 
-> I haven't compared the FB commit rates with the kernel, but I'll
-> pretend Dan's basic thesis is right and talk about which parts of the
-> facebook model may move faster than the kernel.
 
-Thanks for the summary.
+--=-f198Ebg9GamzCEWchtbE
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> The facebook is pretty similar to the way the kernel works.  The merge
-> window lasts a few days and the major releases are every week, but
-> overall it isn't too far away.
-> 
-> The biggest difference is that we have a centralized tool for
-> reviewing the patches, and once it has been reviewed by a specific
-> number of people, you push it in.
-> 
-> The patch submission tool runs the patch through lint and various
-> static analysis to make sure it follows proper coding style and
-> doesn't include patterns of known bugs.  This cuts down on the review
-> work because the silly coding style mistakes are gone before it gets
-> to the tool.
+On Fri, 2014-05-16 at 00:10 -0400, Jason Cooper wrote:
+[...]
+> Ok, I assumed *everybody* in the Linux ecosystem went to LinuxCon.  I've
+> never actually been to one, but that museum was really crowded in
+> Edinburgh.  I figured that _must_ be everybody. :)
 
-Yes, this is very nice.  Reviewers should not be burdened with checking
-coding style or common issues or build problems or kconfig problems.
-They should just be able to review the merits and correctness of the
-patch.  (Yes, that would mean that I would find something different
-to do on most days. :)
+I find it rather less useful than Plumbers'.
 
-> When you put in a patch, you have to put in reviewers, and they get a
-> little notification that your patch needs review.  Once the reviewers
-> are happy, you push the patch in.
-> 
-> The biggest difference: there are no maintainers.  If I want to go
-> change the calendar tool to fix a bug, I patch it, get someone else to
-> sign off and push.
-> 
-> All of which is my way of saying the maintainers (me included) are the
-> biggest bottleneck.  There are a lot of reasons I think the maintainer
+> Joking aside, I concede your point.  It looks like the last two mvebu
+> legacy platforms (dove, mv78xx0) might get merged into mach-mvebu during
+> the next cycle.  After that, we can reach out to the Debian and OpenWRT
+> guys and see what legacy platforms are in use or rotting.  We can go
+> from there.
 
-I have to agree (me included).
+I just removed ixp4xx from Debian as the kernel image wouldn't fit in
+the NSLU2's kernel partition any more (even after disabling quite a few
+features that are enabled in most other configurations).  iop32x was
+removed for the same reason, a while ago.
 
-> model fits the kernel better, but at least for btrfs I'm trying to
-> speed up the patch review process and use patchwork more effectively.
-> 
-> Facebook controls risk with new features using gatekeepers in the
-> code.  That way we can beta test larger changes against an expanding
-> group of unsuspecting people without turning it on for everyone at once.
-> 
-> It's also much easier to accept risk when you have complete control
-> over deployment.  facebook.com rolls out twice a day, which is
-> basically a stable tree cherry-picked from tip, and there are plenty
-> of chances to fix problems.
-> 
-> Anrdoid/iphone releases can't be controlled the same way, and so they
-> have longer testing periods.
+Our 'legacy' (which I take to mean pre-v7) configurations are now
+kirkwood, mv78xx0, orion5x (all about to converge to mvebu) and
+versatile.
 
+Ben.
 
--- 
-~Randy
+--=20
+Ben Hutchings
+If you seem to know what you are doing, you'll be given more to do.
+
+--=-f198Ebg9GamzCEWchtbE
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.22 (GNU/Linux)
+
+iQIVAwUAU3ZZnOe/yOyVhhEJAQpfqhAA0ZivFJcoffrDDtg44x+Fw1B5q0Pg+aCI
+ksTYpT8AxmbUHnQEZPSdN4mPw/z1crmibijVj+2mI6mcf0wMp1luDiBvbkpZVFPh
+Wh1OTe4F/7d3En3IL6plI3EfpxqRZ/+qnYS63WPrfi8WLPHmb2Tg7m8EI+Cu4DF5
+BNWWac2Yh+J50TjRuStNe4a20D/kjVHJ8UQtPe40iRBp5dV6sfTgugyJMJ3jNiJ1
+57w/6yvzRM6f3mDrnZ1uYqProniGFRE2tuVrInmWBNcU/CtRjNmk5xj0q96CDzDM
+FaTbH3U8W0rNZZ7OEq1fdFdfebFxYXmDSM5DuznOf3YecKhOcKIH4WK0K73xyDeg
+pUjWr7YuhqwI7vNXjCKKzs/87C00Oe3qYjfi7d6C4CIsSddrj7jbNgS/g12WqnN2
+6QYBSZgq3kx+ratLyHSxtBRYeqJmxZPwXqYQ32dD/sISpjCH+jx4b8eV5cDXgqLk
+rmcSTktmiLrKca6GLkQekiA70g51mI8hMAxz08xc5RJUv4NrW55uBICT/+CGZ5EX
+pEDRzNglN6kdq8UVFzHbQpGJr/Zm8pdzzvHS/HaCtkFKH6FuvAlbDUL8EBx9M04s
+uzcToeZQQhuZC2rit/5PIOhQlfGl5LbZZr9ChFClxnJ96yj/hyTJyNNAPmpPU0se
+8ov/3MaSyCM=
+=sf3E
+-----END PGP SIGNATURE-----
+
+--=-f198Ebg9GamzCEWchtbE--
