@@ -1,28 +1,25 @@
-Return-Path: <linus.walleij@linaro.org>
+Return-Path: <lizefan@huawei.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 11BFB2FA
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 295F72FA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 May 2014 09:19:07 +0000 (UTC)
-Received: from mail-ob0-f171.google.com (mail-ob0-f171.google.com
-	[209.85.214.171])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D00A91FA42
+	Fri, 16 May 2014 09:24:20 +0000 (UTC)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [119.145.14.64])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 052D3201A9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 May 2014 09:19:05 +0000 (UTC)
-Received: by mail-ob0-f171.google.com with SMTP id wn1so2657173obc.16
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 May 2014 02:19:05 -0700 (PDT)
+	Fri, 16 May 2014 09:24:18 +0000 (UTC)
+Message-ID: <5375D934.6070109@huawei.com>
+Date: Fri, 16 May 2014 17:24:04 +0800
+From: Li Zefan <lizefan@huawei.com>
 MIME-Version: 1.0
-In-Reply-To: <CA+5PVA4AtLtf_XKpWOjpqkWGmm6Hg1kZExs-2K15RJiYsbgnkQ@mail.gmail.com>
-References: <CA+5PVA4AtLtf_XKpWOjpqkWGmm6Hg1kZExs-2K15RJiYsbgnkQ@mail.gmail.com>
-Date: Fri, 16 May 2014 11:19:04 +0200
-Message-ID: <CACRpkdbg8T5jYZ1hL-09oigpNz1C-ApSpja_0bj1b0NyWzG2Vw@mail.gmail.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-To: Josh Boyer <jwboyer@fedoraproject.org>
-Content-Type: text/plain; charset=UTF-8
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] Nominations for per topic people
+To: Jason Cooper <jason@lakedaemon.net>
+References: <s5hvbt9izdm.wl%tiwai@suse.de>
+	<20140516030708.GV27822@titan.lakedaemon.net>
+In-Reply-To: <20140516030708.GV27822@titan.lakedaemon.net>
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: 7bit
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TOPIC] Metadata addendum to git commit
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,24 +29,26 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, May 9, 2014 at 6:49 PM, Josh Boyer <jwboyer@fedoraproject.org> wrote:
+On 2014/5/16 11:07, Jason Cooper wrote:
+> Takashi,
+> 
+> On Tue, May 13, 2014 at 03:25:57PM +0200, Takashi Iwai wrote:
+>> I think this has been already raised a few times, but I'm still
+>> dreaming one thing in our git management: having some metadata
+>> collection / link for each commit.
+>>
+>> I don't mean for a thing like post-commit sign-off, but rather for
+>> tracking the information that has been revealed after commit, e.g. a
+>> regression the commit causes, the later fix commit, 
+> 
+> For the stuff flying by me, I've been adding the:
+> 
+> Fixes: <12-char hash>: ('Offending patch subject')
+> 
+> On patches fixing a regression.  It helps the stable team (when Cc
+> stable is also added) and in your scenario, you could grep the commits
+> for the result of your bisect.
+> 
 
-> Darren Hart (driver model and ACPI/DT)
-> Grant Likely (driver model and ACPI/DT, also on the ksummit committee so...)
-> Al Stone (driver model and ACPI/DT)
-
-I nominate
-Catalin Marinas <catalin.marinas@arm.com>
-Will Deacon <will.deacon@arm.com>
-as they're maintaining the one architecture I know that will
-deploy both ACPI and DT.
-
-And:
-Rafael J. Wysocki <rjw@rjwysocki.net>
-as he's such an ACPI chaos pilot.
-
-There is seemingly no end to hardware description talk so
-let's do this.
-
-Yours,
-Linus Walleij
+Yeah, but the problem with this is you can't add this "Fixes" tag
+to git-log after the patch has been applied to the git tree.
