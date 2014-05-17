@@ -1,36 +1,32 @@
-Return-Path: <ben@decadent.org.uk>
+Return-Path: <darren@apps.dvhart.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 6D5F748E
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 35A496FC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 May 2014 22:21:08 +0000 (UTC)
-Received: from shadbolt.e.decadent.org.uk (shadbolt.e.decadent.org.uk
-	[88.96.1.126])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CEE161FDEC
+	Sat, 17 May 2014 00:32:05 +0000 (UTC)
+Received: from mail-pa0-f48.google.com (mail-pa0-f48.google.com
+	[209.85.220.48])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C09EA2022C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 May 2014 22:21:07 +0000 (UTC)
-Message-ID: <1400278842.2647.62.camel@deadeye.wl.decadent.org.uk>
-From: Ben Hutchings <ben@decadent.org.uk>
-To: Jason Cooper <jason@lakedaemon.net>
-Date: Fri, 16 May 2014 23:20:42 +0100
-In-Reply-To: <20140516184205.GL27822@titan.lakedaemon.net>
-References: <20140511030009.GO12708@titan.lakedaemon.net>
-	<20140511083729.211e9b5f@lwn.net>
-	<20140515121546.3A06AC40B0E@trevor.secretlab.ca>
-	<CAL_JsqJw11fZBbLVi=xxC559iWdwCMFOJ4XYM-8EjykttoWsOg@mail.gmail.com>
-	<20140515194215.GR27822@titan.lakedaemon.net>
-	<CAOesGMi0JrTp9kUVDod4duBOCZ+wNRJ0dMmgvBX7jEQRjE5cCA@mail.gmail.com>
-	<20140516041022.GY27822@titan.lakedaemon.net>
-	<1400265111.2647.54.camel@deadeye.wl.decadent.org.uk>
-	<20140516184205.GL27822@titan.lakedaemon.net>
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-GlB6/8EpPwBks/ZqsxyX"
+	Sat, 17 May 2014 00:32:04 +0000 (UTC)
+Received: by mail-pa0-f48.google.com with SMTP id rd3so3196982pab.21
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 16 May 2014 17:32:04 -0700 (PDT)
+Sender: Darren Hart <darren@apps.dvhart.com>
+Message-ID: <1400286766.9575.18.camel@wasp-deb.dvhart.com>
+From: Darren Vincent Hart <darren@dvhart.com>
+To: Olof Johansson <olof@lixom.net>
+Date: Fri, 16 May 2014 17:32:46 -0700
+In-Reply-To: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>
+References: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Mime-Version: 1.0
-Cc: Rob Herring <robh@kernel.org>, "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Linux ARM Kernel <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] ARM legacy board DT conversion
- finalization
+Content-Transfer-Encoding: 7bit
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Driver model/resources, ACPI, DT,
+	etc (sigh)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,76 +36,99 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Fri, 2014-05-02 at 14:42 -0700, Olof Johansson wrote:
+> I'm about as tired of this as everybody else, but that won't make the
+> issues go away...
+> 
+> I think we resolved a bunch of stuff around DT last year (and since),
+> but there are still things left to figure out and agree on in these
+> areas. In particular in the intersection of Intel platforms with ACPI
+> and embedded are where there are issues and model mismatches, and
+> doing it in person might be much easier than doing centithreads.
+> There's been some various hallway talk at conferences about proposals
+> to make this work better, but the full set of people have never been
+> in the same room at the same time.
+> 
+> I labelled this as a tech topic. Feel free to upgrade it to a workshop
+> or relabel it if needed. Base set of people I'd like to see involved
+> are:
+> 
+> * Darren Hart, who is doing things to make ACPI more DT-like for
+> embedded use cases.
 
---=-GlB6/8EpPwBks/ZqsxyX
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+I've been buried, so I apologize for not being able to respond until
+now. I'm very interested in participating, and will start catching up
+and responding now.
 
-On Fri, 2014-05-16 at 14:42 -0400, Jason Cooper wrote:
-> On Fri, May 16, 2014 at 07:31:51PM +0100, Ben Hutchings wrote:
-> > On Fri, 2014-05-16 at 00:10 -0400, Jason Cooper wrote:
-> > > Joking aside, I concede your point.  It looks like the last two mvebu
-> > > legacy platforms (dove, mv78xx0) might get merged into mach-mvebu dur=
-ing
-> > > the next cycle.  After that, we can reach out to the Debian and OpenW=
-RT
-> > > guys and see what legacy platforms are in use or rotting.  We can go
-> > > from there.
-> >=20
-> > I just removed ixp4xx from Debian as the kernel image wouldn't fit in
-> > the NSLU2's kernel partition any more (even after disabling quite a few
-> > features that are enabled in most other configurations).  iop32x was
-> > removed for the same reason, a while ago.
->=20
-> Hmmm, I have two NSLU2's, they might make a good platform for the
-> tinification/IoT work.  Small flash, small RAM, slow.
+> * Rafael Wysocki, who also has had some ideas on how to make the
+> models fit together.
 
-Yes, whereas Debian is a general purpose distribution where we don't
-attempt to guess which applications will be used on which platforms.
+Maybe this is obvious, but Rafael and I are working very closely
+together on this from the Intel perspective.
 
-> > Our 'legacy' (which I take to mean pre-v7) configurations are now
-> > kirkwood, mv78xx0, orion5x (all about to converge to mvebu) and
-> > versatile.
->=20
-> I'm not familiar with versatile, the others I've seen a few times. ;-)
+> * Grant Likely, since he's in the intersection as well.
+> * Greg K-H would be much appreciated as well, since he'd have to deal
+> with some of the resulting mess.
+> * Dave Woodhouse would also be good to have there.
 
-Versatile is one of ARM's own development boards, but more importantly
-it's something QEMU can emulate.
+David as well as H. Peter Anvin have also been working closely with
+Rafael and I.
 
-> Does Debian see any user activity with mv78xx0?  I know your build
-> system used to have boards with that SoC family, but are there any other
-> users?
+> 
+> .. I'm probably missing names but they're bound to reply to this email
+> anyway with opinions.
 
-There is still one build server (ancina.debian.org) using that board,
-but I don't know that there are any other users.  The kernel package was
-only added to support those build servers.
+I saw Al Stone and Linus W. later in the dialog, so I think you have a
+good list.
 
-Ben.
+Matthew Garrett offered some valuable insight here in Edinburgh last
+year, I imagine he would still want to be involved, although has been
+fairly quiet on the subject. 
 
---=20
-Ben Hutchings
-If you seem to know what you are doing, you'll be given more to do.
+> 
+> 
+> Some of the ideas I have heard discussed are:
+> * Adding a new common API for resource management which will have
+> backends for ACPI or DT depending on platform
+> * Adding ACPI and DT probing to drivers that lack on or the other
+> today (giving them a total of three probe methods: platform_device,
+> DT, ACPI).
 
---=-GlB6/8EpPwBks/ZqsxyX
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+Both of the above are the direction we have been exploring.
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2.0.22 (GNU/Linux)
+We should of course include the ACPI Device Properties (_PRP -> now
+_DSD) mechanism in here, which I'm sure Rafael and others have already
+brought up. I'll follow-up with any technical discussion under those
+responses.
 
-iQIVAwUAU3aPSee/yOyVhhEJAQoAvA//W9vgTR0wD9rRoHPSMfvz541esd9jEJdM
-4TP0roppYjhFFbV80jYyfZz+M2XkR3cvqpzuxgCtsfdFTLbYSX4sXFJmoA3MIyyw
-FsNjuIRLOQJueLzKVn/UzM5bSmIDblHV7p7XtNbtRi+bUknQreMTcwAwgMX/jOP6
-CawaP9oDgNUbpAF+ATvip/qIZ9PypbUvjddlllz46goGNNrDH8+1n1LSits2B0u/
-mfpBW+vbanQAijbJaY8Yz/9SumBdVw7aPBi+gg63sqZ1NKxrXJLtw4pFuMqfjKgo
-C7EUNdBFHxtOGjaANf6HtSONGKRORdjuVZWrQrSXxxSkhu62uRSxzYlALe+9G87Y
-msrjgwrESJI88e9C23g2mJkx/X4EfnIlol1Ixf1d/nh8d6HoflfLNKZiGD93+rMM
-iQBiNageiaGMDLby8dg83y3waeDUVe7g0EhLR5Uj4ubbeGSD7qxB9KiL74akKf4H
-p9cV7rf9h4XczPM9fLSdL3zFL02P0crCThwJoalQrXD/TNxkQcACvq5s1L0rU+ho
-yK7CPfUrs0ScerOo3F0xIccHOdRKQcNlvw728TuYbFb3+j+JffEoecKU73Irhj55
-MO+pygrxtrmRP+me4P05XKNsiwaSaYrTzZ7g5mub/g1Yc2gocxkfoDl/xFiGtDZZ
-w6cO6lnJXAM=
-=UAkX
------END PGP SIGNATURE-----
+> * Converting either of them to use platform device model
+> (platform_data) to register drivers, and leave them unaware of either
+> hardware description
 
---=-GlB6/8EpPwBks/ZqsxyX--
+I've heard this proposed elsewhere and while the platform device model
+can certainly be used, if we want to have self-enumerating
+hardware/firmware, that would mean moving the parameterization outside
+of the driver - which doesn't make sense to me from an encapsulation
+perspective. Board files are what they are, but if we are going to
+create pdata structures from firmware descriptions, that translation
+should occur in the driver where the domain knowledge is.
+
+That's my high-level interest / position here. I'll follow-up now on the
+already very active discussion :-)
+
+
+> * [... I'm likely missing something here as well]
+> 
+> All solutions above have trade-offs, and neither is an obvious choice.
+> We could likely spend between now and KS arguing this every day on the
+> lists if we wanted to. Getting the people into the same room for a
+> couple of hours is likely to be a much better way to resolve it.
+> 
+> 
+> -Olof
+
+Thank you for proposing this Olof.
+
+-- 
+Darren Hart
+Intel Open Source Technology Center
