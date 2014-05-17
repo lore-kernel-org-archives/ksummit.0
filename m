@@ -1,33 +1,32 @@
 Return-Path: <darren@apps.dvhart.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id E79054C6
+	by mail.linuxfoundation.org (Postfix) with ESMTP id BE7D7942
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 17 May 2014 03:41:04 +0000 (UTC)
-Received: from mail-pb0-f54.google.com (mail-pb0-f54.google.com
-	[209.85.160.54])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0A4D61F977
+	Sat, 17 May 2014 04:16:10 +0000 (UTC)
+Received: from mail-pb0-f45.google.com (mail-pb0-f45.google.com
+	[209.85.160.45])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 24FA91F986
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 17 May 2014 03:41:03 +0000 (UTC)
-Received: by mail-pb0-f54.google.com with SMTP id jt11so3408314pbb.13
+	Sat, 17 May 2014 04:16:10 +0000 (UTC)
+Received: by mail-pb0-f45.google.com with SMTP id um1so3423541pbc.4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 May 2014 20:41:03 -0700 (PDT)
+	Fri, 16 May 2014 21:16:09 -0700 (PDT)
 Sender: Darren Hart <darren@apps.dvhart.com>
-Message-ID: <1400296973.9575.114.camel@wasp-deb.dvhart.com>
+Message-ID: <1400299079.9575.140.camel@wasp-deb.dvhart.com>
 From: Darren Vincent Hart <darren@dvhart.com>
-To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-Date: Fri, 16 May 2014 20:22:53 -0700
-In-Reply-To: <6339662.3mIpLKDMAO@vostro.rjw.lan>
+To: Mark Brown <broonie@kernel.org>
+Date: Fri, 16 May 2014 20:57:59 -0700
+In-Reply-To: <20140513121148.GI12304@sirena.org.uk>
 References: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>
-	<1490957.7A98jlv5Y2@vostro.rjw.lan>
-	<CAOesGMhLrheCFYiZycHnOPWZDJSzM44i4Kxh2doGO6LapLa6Gw@mail.gmail.com>
-	<6339662.3mIpLKDMAO@vostro.rjw.lan>
+	<20140512215925.GY12304@sirena.org.uk> <5371453E.2070108@intel.com>
+	<6686293.8G8KACfUS3@wuerfel> <20140513121148.GI12304@sirena.org.uk>
 Content-Type: text/plain; charset="UTF-8"
 Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Driver model/resources, ACPI, DT,
  etc (sigh)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -39,157 +38,121 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, 2014-05-13 at 23:51 +0200, Rafael J. Wysocki wrote:
-> On Tuesday, May 13, 2014 02:28:05 PM Olof Johansson wrote:
-> > On Tue, May 13, 2014 at 2:40 PM, Rafael J. Wysocki <rjw@rjwysocki.net> wrote:
-> > > On Tuesday, May 13, 2014 02:14:42 PM Olof Johansson wrote:
-> > >> On Tue, May 06, 2014 at 03:35:41PM +0200, Arnd Bergmann wrote:
-> > >> > On Tuesday 06 May 2014 14:18:56 Rafael J. Wysocki wrote:
-> > >> > > On Monday, May 05, 2014 09:31:04 PM Benjamin Herrenschmidt wrote:
-> > >> > > > On Mon, 2014-05-05 at 13:32 +0200, Rafael J. Wysocki wrote:
-> > >> > > > > The interpretation - yes, the translation - not necessarily.  By putting
-> > >> > > > > the translation part into drivers we'll duplicate a lot of code used for
-> > >> > > > > that.  In my opinion there needs to be a layer doing the translation
-> > >> > > > > automatically.
-> > >> > > >
-> > >> > > > I'm afraid I don't understand. How can you do the translation
-> > >> > > > automatically if you have fundamentally different representation of
-> > >> > > > device-specific concepts ?
-> > >> > >
-> > >> > > I'm not entirely sure how fundamentally different it is to be honest, but in
-> > >> > > any case I'm talking about the situation in which the hardware is the same
-> > >> > > and the driver is the same, only the firmware interface is different.  In
-> > >> > > that case either the firmware supplies the information the driver needs, or
-> > >> > > it doesn't (and as long as the information is supplied, the format doesn't
-> > >> > > really matter, because it only is a matter of translation).
-> > >> >
-> > >> > One example for something that is fundamentally different between an
-> > >> > embedded system using DT and any ACPI system is how a PCI(e) host bridge
-> > >> > gets treated, we are currently having long discussions about this elsewhere.
-> > >> >
-> > >> > With ACPI (or a server running OF for that matter), you assume that the
-> > >> > PCI host is operational and all buses are fully probed and then you
-> > >> > have methods for doing hotplugging, you just look at the device that
-> > >> > are already initialized by the firmware.
-> > >> >
-> > >> > With embedded systems, you (in general, some steps may get skipped
-> > >> > in practice) go through a lot more steps:
-> > >> > - detect the presence of the host bridge device
-> > >> > - enable clocks, voltages, phys, resets, etc.
-> > >> > - set up inbound and outbound MMIO and PIO address translation windows
-> > >> > - perform a full bus scan and assign bus and device resources
-> > >> >
-> > >> > We probably woulnd't go through that hassle on ACPI systems. I think
-> > >> > we shouldn't attempt any translation here, and keep the code completely
-> > >> > separate, with the common parts being handled by the PCI core as we
-> > >> > do today.
-> > >> >
-> > >> > An example about a subsystem where translate complex information
-> > >> > from both DT and ACPI into a common format is the dmaengine: We can
-> > >> > have references to dma channels in completely incompatible ways
-> > >> > but still use the same dma_request_slave_channel() interface for
-> > >> > both. The ACPI path currently is lacking a bit (e.g. there is no
-> > >> > way to specify the channel name in ACPI, so the code makes
-> > >> > assumptions that don't hold true in general), but that's fixable.
-> > >> >
-> > >> > I assume we will see more of the second kind in the future, and this
-> > >> > would be limited to embedded systems on both ACPI and DT, since you
-> > >> > shouldn't see dma slave devices on general purpose systems with
-> > >> > either.
-> > >> >
-> > >> > > Bottom line: I'd like to avoid modifying drivers that use the of_ interface
-> > >> > > today if possible.  Instead, I'd prefer to modify the firmware layer so that
-> > >> > > those drivers can get what they ask for regardless of what firmware interface
-> > >> > > the platform is using.
-> > >> >
-> > >> > Looking at the most trivial example:
-> > >> >
-> > >> > bool of_property_read_bool(const struct device_node *np,                                                                        const char *propname);
-> > >> >
-> > >> > We should definitely be able to have an interface like this for
-> > >> > ACPI, but you don't have a 'struct device_node' pointer then.
-> > >> > We can add a new
-> > >> >
-> > >> > bool dev_property_read_bool(const struct device *dev,
-> > >> >                             const char *propname);
-> > >>
-> > >> >
-> > >> > that handles both, but then you have to change every driver
-> > >> > that is already using of_property_read_bool() and that can
-> > >> > get used with ACPI.
-> > >>
-> > >> It's actually not that easy in practice. There's not a one-to-one
-> > >> correspondence between device tree nodes and struct devices in the
-> > >> kernel. There are many bindings that use subnodes for sections of their
-> > >> information, and so on.
-> > >>
-> > >> > An advantage of the dev_property_read_bool()
-> > >> > interface however is that it would also work for platform
-> > >> > devices that are created in platform code using
-> > >> > platform_device_register_full() or similar if we add a way
-> > >> > to define simple properties in C code. That would also simplify
-> > >> > a lot of drivers that use both (simple) platform_data and DT
-> > >> > today.
-> > >>
-> > >> I'm not a fan of this "grand unified abstraction layer". Driver writes are
-> > >> already complaining that things are too complicated with the move to device
-> > >> tree, and we're making things even more abstracted and complicated here. People
-> > >> will need to peel back even more layers to figure out what's actually going on.
-> > >>
-> > >>
-> > >> For the truly trivial stuff, there are some quite simple ways to handle this:
-> > >>
-> > >> 1. Make sure that anything that can be a named IORESOURCE_* is so. Which could
-> > >>    mean moving over GPIO and possibly clocks to that, and use those for lookup.
-> > >>
-> > >> 2. If Rafael's arguments are to be believed, that the translation should be
-> > >>    trivial and easy to do, then we might as well reuse the structures and APIs
-> > >>    that are already in the kernel. In other words, allocate a struct
-> > >>    device_node, populate it with the properties from the ACPI structure, and
-> > >>    attach it to the struct device. Then there's no need for any churn in the
-> > >>    drivers (until they need ACPI-specific tweaks, which they will all need).
-> > >
-> > > The problem with that is that we have either device_node or acpi_node.companion
-> > > under struct device and they are mutually exclusive.  So this isn't going to fly.
-> > > [And it doesn't make sense to duplicate information already available from
-> > > acpi_node.companion this way IMHO.]
-> > >
-> > > Also device references are problematic here, because both interfaces use
-> > > different ways to do that (phandles vs object paths in the ACPI namespace).
-> > >
-> > > So actually, what Arnd proposed seems to be the simplest approach.
-> > 
-> > Again, that suggestion assumes a 1:1 mapping between device nodes and
-> > struct devices, which does not exist.
+On Tue, 2014-05-13 at 13:11 +0100, Mark Brown wrote:
+> On Tue, May 13, 2014 at 09:34:35AM +0200, Arnd Bergmann wrote:
+> > On Tuesday 13 May 2014 00:03:42 Rafael J. Wysocki wrote:
+> > > On 5/12/2014 11:59 PM, Mark Brown wrote:
+> > > > On Tue, May 06, 2014 at 02:22:15PM +0200, Rafael J. Wysocki wrote:
 > 
-> I suppose your concern is that there may be device nodes without struct device,
-> right?  So drivers may need to access those device nodes directly?
+> > > > Aside from the whole question of people bothering to pay attention to
+> > > > the specs when writing their BIOSs DTs (as used in modern systems) and
+> > > > ACPI have quite different models for what should be handled where - FDT
+> > > > is pure data and expects the kernel to do everything while ACPI expects
+> > > > to be used with active firmware.
 > 
-> Can you please point me to code where this is the case?
+> > > While in practice ACPI is used on systems with active firmware usually, 
+> > > there's no expectation like this in ACPI itself in principle.
+> 
+> > Right. Open Firmware already has multiple ways of running code from the
+> > firmware (client calls, RTAS, FCODE, ...), which are used all the time,
+> > but we intentionally chose to not allow them for embedded systems with
+> > the FDT subset.
+> 
+> I wouldn't say they're used all the time these days - the platforms with
+> runtime OF aren't terribly active any more and don't have much overlap
+> with other systems.
+> 
+> > It should be entirely possible and reasonable to do the same thing for
+> > ACPI on embedded systems. I believe this is what SFI attempted to
+> > do, but that seems to have been discarded for some reason.
+> 
+> SFI didn't provide any way of giving data to devices other than
+> registering them which meant that it ended up with the pain of firmware
+> based device registration requring firmware updates to get the device
+> present being combined with the need for board files to actually get the
+> devices to do anything useful.  On the bright side this got around the
+> fact that in my experience the firmware was frequently not modifiable by
+> people directly working on Linux.
+> 
+> This might be another issue for the model where we treat ACPI as DT.
+> One of the things that makes the DT model workable in the embedded case
+> is that most of the time as far as the rest of the system is concerned
+> the DT is essentially part of the kernel - it's built from the same tree
+> and so on.  If ACPI goes the same way for embedded systems that'd work
+> just as well but that's obviously not how ACPI has historically been
+> done and if systems end up being built like they have been that might
+> not make people happy.
 
-gpio-keys.c is a good example, and the one I chose for the MinnowBoard
-example last year.
+Which people do you mean?
 
-This is a really good point. My thinking was that we iterate through the
-devices - but I had my ACPI glasses on at the time  and wasn't thinking
-about how that iteration would work for DT in with the properties
-abstraction.
+It is clear that for ACPI to be a viable mechanism in the embedded
+space, we need the ability to add additional device descriptions beyond
+what ships in the firmware on the board. We could stick with the old
+monolithic model by enabling people to easily rebuild the firmware
+(something I personally think we need to do anyway), but just because
+people *can* rebuild the firmware, doesn't mean they are going to want
+to! Alternatively, tooling could be provided to modify these tables
+without technically rebuilding the firmware image in the traditional
+sense - and similar tooling exists in industry today.
 
-The ACPI sub-devices do have something in common with the DT sub-nodes,
-they are not themselves "compatible" with a specific driver, nor are the
-known by the acpi_platform match table.
+The other option of course is the FDT approach where we enable the
+ability to provide an ACPI SSDT as an independent item from the board
+firmware. This could be similar to what we do today for wholesale
+replacement of the tables, but instead load and rescan the ACPI
+namespace based on the newly provided data.
 
-So in both cases we have effectively a hierarchy of properties. Could we
-not support such a concept in the properties interface? The basic
-signature might be something more like:
+While some folks are exploring using DT on Intel platforms, I personally
+think it makes more sense to incrementally improve ACPI to provide the
+necessary flexibility (it really doesn't need much) than to throw it all
+out and have to tackle all the issues that raises. For one thing, it
+maintains the integrity of the platform and all the compatibility, etc.
+that it brings you.
 
-device_get_property(dev, NULL, "foo") // for the top level properties
+My intersection with this stuff is my work on the MinnowBoard program,
+which is a divergence from the static motherboard model typical to Intel
+designs where expansion is only done over enumerable self-describing
+buses, to what I call a "dynamic base-board" (is there a real industry
+term for this?) where we expose the other buses and GPIOs people have to
+expect in developer boards like these. Response to the MinnowBoard-Max
+suggests to me that we're on the right track here.
 
-We could have some kind of a foreach iterator for children, and
+> One of the things that active firmware is doing
+> is decoupling the firmware from the kernel which is a real and useful
+> benefit in many embedded situations, otherwise you just end up either
+> doing board quirks or just hacking things to be system specific in code.
+> 
+> There's also the possibility that the driver is going to have to figure
+> out at runtime if it's on a system with active ACPI or a system with
+> passsive ACPI, though I expect we can just do something like check what
+> properties are there for that assuming people don't end up doing
+> mix'n'match type things.  People are interested in ACPI for embedded
+> cases outside of x86 to a large extent so that they don't have to deal
+> with two different firmware interfaces if they also work on the server
+> cases.
 
-device_get_property(dev, child, "baz")
+We can determine which method is used based on which device struct
+pointers are populated.
 
-Thoughts?
+> I'm worried that there's more to the model for using a given firmware
+> interface than just the in kernel API but we're only thinking about
+> what's convenient in kernel here.
+
+>From the ACPI side of things at least, we've definitely been thinking
+more broadly than that. In fact the kernel interface, like the one Arnd
+mentioned which happens to be the same thing Rafael and I have
+suggested, is intended to solve a problem we are seeing in industry
+where we can't reuse drivers on ACPI platforms without a lot of driver
+development. The new API is intended to minimize that effort.
+
+Other non-kernel considerations include the format of the changes to the
+ACPI specification being flexible enough to allow reuse of the existing
+DT bindings/schemas and keeping the definition of these schemas in the
+hands of the hardware vendors.
+
+There's more... but rather than just dump here... could you elaborate on
+your concerns here? Are there some specific things we might be
+overlooking - would like to hear your thoughts as I agree, this is
+bigger than the kernel changes.
 
 -- 
 Darren Hart
