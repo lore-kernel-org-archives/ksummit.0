@@ -1,37 +1,33 @@
 Return-Path: <darren@apps.dvhart.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 4D2B770A
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 3DAB995A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 17 May 2014 02:23:44 +0000 (UTC)
-Received: from mail-pb0-f49.google.com (mail-pb0-f49.google.com
-	[209.85.160.49])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E23E11FD4A
+	Sat, 17 May 2014 02:51:04 +0000 (UTC)
+Received: from mail-pa0-f52.google.com (mail-pa0-f52.google.com
+	[209.85.220.52])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 76C911F8A0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 17 May 2014 02:23:43 +0000 (UTC)
-Received: by mail-pb0-f49.google.com with SMTP id jt11so3329475pbb.22
+	Sat, 17 May 2014 02:51:03 +0000 (UTC)
+Received: by mail-pa0-f52.google.com with SMTP id fa1so3294119pad.25
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 May 2014 19:23:43 -0700 (PDT)
+	Fri, 16 May 2014 19:51:03 -0700 (PDT)
 Sender: Darren Hart <darren@apps.dvhart.com>
-Message-ID: <1400292337.9575.70.camel@wasp-deb.dvhart.com>
+Message-ID: <1400293976.9575.87.camel@wasp-deb.dvhart.com>
 From: Darren Vincent Hart <darren@dvhart.com>
-To: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-Date: Fri, 16 May 2014 19:05:37 -0700
-In-Reply-To: <1399519636.4161.57.camel@pasglop>
+To: Benjamin Herrenschmidt <benh@au1.ibm.com>
+Date: Fri, 16 May 2014 19:32:56 -0700
+In-Reply-To: <1399279435.20388.36.camel@pasglop>
 References: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>
-	<1583732.MIn3aNNoTS@vostro.rjw.lan> <6728604.hICTKAEWzt@wuerfel>
 	<20140504111436.GC15180@arm.com> <20140504171807.GA4418@quad.lixom.net>
-	<1399279156.20388.32.camel@pasglop>
-	<1399460702.2996.89.camel@shinybook.infradead.org>
-	<1399519636.4161.57.camel@pasglop>
+	<1753987.hbb65qFWcl@vostro.rjw.lan> <1399279435.20388.36.camel@pasglop>
 Content-Type: text/plain; charset="UTF-8"
 Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Cc: "dvhart@dvhart.com" <dvhart@dvhart.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"dvhart@dvhart.com" <dvhart@dvhart.com>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Driver model/resources, ACPI, DT,
  etc (sigh)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -43,68 +39,66 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, 2014-05-08 at 13:27 +1000, Benjamin Herrenschmidt wrote:
-> On Wed, 2014-05-07 at 12:05 +0100, David Woodhouse wrote:
-> > On Mon, 2014-05-05 at 18:39 +1000, Benjamin Herrenschmidt wrote:
-> > > 
-> > > The other option is to have both the DT representation and the ACPI
-> > > representation reach the drivers and leave it to the them (the drivers) to get
-> > > through two different functions at probe time to "translates" that into a
-> > > "3rd" driver private one (a structure, in a way akin to the old platform data
-> > > but of course completely local to the driver scope).
+On Mon, 2014-05-05 at 18:43 +1000, Benjamin Herrenschmidt wrote:
+> On Sun, 2014-05-04 at 23:33 +0200, Rafael J. Wysocki wrote:
 > > 
-> > I don't like that much. For "leaf-node" device drivers, I think we're
-> > better off with a simple set of "device_get_property" functions which
-> > are a little more type-safe than the existing of_* ones, thus helping us
-> > to deal with the details of 32-bit cells vs. ACPI integers, etc.
+> > 
+> > But we have such quirks for some bus types already, like PCI and PNP.
 > 
-> Fair enough. I was mostly putting all options on the table. It is still
-> not completely clear on my mind how we'll get the properties from ACPI
-> (via that new scheme Darren's working on ?) and how good we'll manage to
-> keep the bindings in sync sufficiently to avoid a bunch of:
+> And they suck big time. They duplicate definitions from the driver,
+> they get missed at grep time, they bit rot, etc...
 > 
-> 	if (OF)
-> 		get_property("foo"...)
-> 	else
-> 		get_property("bar"...)
+> There are a few cases where that's justified simply because the driver
+> can be a module but the quirk needs to run early and always, but mostly
+> these quirks are about working around HW bugs that would otherwise cause
+> the system to misbehave even in absence of the driver.
 > 
-> Because of subtle differences in property names, format, content, etc...
+> For example, bad class code in bridges, BAR issues, etc...
 > 
-
-Right, we have to avoid this. I'd rather see:
-
-get_of_pdata() and get_acpi_pdata() than a slew of if/else blocks
-implementing slightly skewed schemas.
-
-
-> It might end up working out ... but it's going to be a constant battle
-> at least initially.
+> Generally speaking though, quirks like that are a bad idea and in this
+> case, totally unjustified since the code performing whatever translation
+> is necessary (or interpretation) is entirely specific to the driver
+> anyway.
 > 
+> Also if the bindings evolve, you just created a 3rd way dependency.
+> Instead of just having to deal with DT/ACPI binding version vs. driver
+> version, we now have to also handle quirk versioning.
 
-For the of-capable platform devices we have today, the above doesn't
-even become an option. We switch to the new API dev_get_property("foo")
-and people wanting to use these drivers with ACPI WILL use that schema.
-I'm talking with a few of these folks a lot lately, and they absolutely
-do not want to have to special case / rewrite all these drivers. All
-they will have to do is add the DEVICE and Package() to the ASL and the
-driver works. So it is in their best interest NOT to fragment the
-schema. 
+Hrm, I think I might have been answering only half of the question
+earlier, and I might be confused about what Arnd, Olof, and you are
+saying here.
 
-> I'm mostly concerned here about device specific random attributes. I
+I think the scope is larger than the specific problem I have been
+focused on (which is the arbitrary device properties not covered by the
+irq/mmio/gpio/etc mechanisms we already have), and making that
+compatible with DT bindings.
 
-Right, and this the area we're focused on with the new ACPI properties
-mechanism. If ACPI already provides a specific object type, like for
-GPIO, we continue to use that.
+Of course DT bindings include more than those arbitrary properties, and
+I think it's here where we entered this format translation discussion?
+As in:
 
-> think we all agree that the "common" stuff such as memory and irq is
-> going to be translated by the core into Linux native representation.
-> 
-> Of course there is going to be a pile of work defining the right
-> representation & translation for some of that "common" stuff in areas
-> like clocks, gpios, etc...
+ACPI:GpioIO and DT:gpios being possibly wrapped by another
+representation? That is then translated into using the gpiod framework?
+If so... yeah, that doesn't appeal to me very much either :-)
 
-Nodding... :-)
+I said earlier that I would like to be able to collect this information
+without having to know about the underlying firmware implementation in
+the driver itself, ... is this necessarily the same thing as that third
+representation?
 
+It seems to me rather than parsing gpios or GpioIO representation,
+drivers could instead ask dev_get_property_gpiod("volume_up"), and get
+back a gpio descriptor, which is the interface they ultimately need to
+use to do anything with it anyway.
+
+I fear I might have veered way off into the weeds here... are we talking
+past eachother?
+
+> Yes, it could make more sense to translate the data to a common
+> format and use the existing accessors for that data format, instead
+> of reinventing the accessors and still needing to represent the data
+> some way. I think it depends on how some of the other things develop
 
 -- 
-Darren
+Darren Hart
+Intel Open Source Technology Center
