@@ -1,30 +1,31 @@
 Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 1075670A
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 2DF6E4D3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 17 May 2014 13:10:15 +0000 (UTC)
+	Sat, 17 May 2014 13:24:50 +0000 (UTC)
 Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
 	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 049711FAAA
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 961BE1FAAA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 17 May 2014 13:10:12 +0000 (UTC)
-Date: Sat, 17 May 2014 14:09:49 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Darren Vincent Hart <darren@dvhart.com>
-Message-ID: <20140517130949.GW22111@sirena.org.uk>
+	Sat, 17 May 2014 13:24:49 +0000 (UTC)
+Date: Sat, 17 May 2014 14:24:23 +0100
+From: Mark Brown <broonie@sirena.org.uk>
+To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+Message-ID: <20140517132423.GX22111@sirena.org.uk>
 References: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>
-	<20140512215925.GY12304@sirena.org.uk> <5371453E.2070108@intel.com>
-	<6686293.8G8KACfUS3@wuerfel> <20140513121148.GI12304@sirena.org.uk>
-	<1400299079.9575.140.camel@wasp-deb.dvhart.com>
+	<1461572.JtpPDPW8DH@vostro.rjw.lan>
+	<20140514130401.GC12304@sirena.org.uk>
+	<1527482.CPBrbWbyLU@vostro.rjw.lan>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="/X7s3i+qRyIJm2VP"
+	protocol="application/pgp-signature"; boundary="ucW7QTJbHsz5ya91"
 Content-Disposition: inline
-In-Reply-To: <1400299079.9575.140.camel@wasp-deb.dvhart.com>
-Cc: ksummit-discuss@lists.linuxfoundation.org,
+In-Reply-To: <1527482.CPBrbWbyLU@vostro.rjw.lan>
+Cc: dvhart@dvhart.com, ksummit-discuss@lists.linuxfoundation.org,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Driver model/resources, ACPI, DT,
  etc (sigh)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -37,104 +38,76 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---/X7s3i+qRyIJm2VP
+--ucW7QTJbHsz5ya91
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Fri, May 16, 2014 at 08:57:59PM -0700, Darren Vincent Hart wrote:
-> On Tue, 2014-05-13 at 13:11 +0100, Mark Brown wrote:
+On Thu, May 15, 2014 at 02:05:43PM +0200, Rafael J. Wysocki wrote:
+> On Wednesday, May 14, 2014 02:04:01 PM Mark Brown wrote:
 
-> > and so on.  If ACPI goes the same way for embedded systems that'd work
-> > just as well but that's obviously not how ACPI has historically been
-> > done and if systems end up being built like they have been that might
-> > not make people happy.
+> > Of course, and for all of these things other than GPIOs we already
+> > handle the lookups without any DT code at all in the drivers (and GPIOs
+> > are moving away from needing explicit code too).  Things like that just
+> > aren't an issue and I'd say that if we are adding new fw_ interfaces for
+> > resource lookup like you describe we're doing things wrong, we already
+> > have the idiom of looking up by device and some key which works well.
 
-> Which people do you mean?
+> The "key" think doesn't really work in ACPI if it is a string, however.
 
-Systems integrators in the embedded space, I'm mostly thinking from the
-perspective of people who make consumer electronics but the issues apply
-in other embedded sitautions.
+> That's a real problem, because, for example, ACPI says "I have these GPIO
+> connections between your device and controller X" and it gives you pin
+> numbers.  Now the driver (or someone else) needs to figure out which pin
+> is used for what.
 
-> It is clear that for ACPI to be a viable mechanism in the embedded
-> space, we need the ability to add additional device descriptions beyond
-> what ships in the firmware on the board. We could stick with the old
-> monolithic model by enabling people to easily rebuild the firmware
-> (something I personally think we need to do anyway), but just because
-> people *can* rebuild the firmware, doesn't mean they are going to want
-> to! Alternatively, tooling could be provided to modify these tables
+> If there's only one pin per device, all is fine, but if there are more of
+> them things get very ugly quite quickly.
 
-Right, and there are frequently process issues which make it difficult
-to do this - in larger organisations the firmware may well be maintained
-by a different team to the kernel team which can make getting changes
-done harder for non-technical resons.
+> So in "native" ACPI something like gpiod_get() cannot really be implemented
+> to use con_id and if you look at acpi_find_gpio() (the one in gpiolib.c),
+> you'll see that it actually only uses the index for this very reason.
 
-> > There's also the possibility that the driver is going to have to figure
-> > out at runtime if it's on a system with active ACPI or a system with
-> > passsive ACPI, though I expect we can just do something like check what
-> > properties are there for that assuming people don't end up doing
-> > mix'n'match type things.  People are interested in ACPI for embedded
-> > cases outside of x86 to a large extent so that they don't have to deal
-> > with two different firmware interfaces if they also work on the server
-> > cases.
+Surely all we need to do for these cases is provide a way for drivers to
+supply the name to number mappings for usage with ACPI (probably with
+per device and per board overrides possible due to all the failures
+usually associated with numbers)?  That's much less invasive than making
+new APIs.
 
-> We can determine which method is used based on which device struct
-> pointers are populated.
+> > It gets more interesting with compound devices like multimedia; there's
+> > not really a clear general model for handling these in kernel in the
+> > first place plus also some ongoing discussion about how they are best
+> > represented in DT.  Those might well fall into the too hard to handle
+> > generically category though.
 
-Not at present - we can tell if we are running on ACPI but that's not
-the issue.
+> Well, that's hard to say wihtout looking at specific examples.
 
-> > I'm worried that there's more to the model for using a given firmware
-> > interface than just the in kernel API but we're only thinking about
-> > what's convenient in kernel here.
+> If something proves too hard to be addressed in a common fashion, which is
+> not unlikely, we'll need to find some other way to address it, but as long
+> as we *can* do things in common ways, we should do that in my opinion.
 
-> From the ACPI side of things at least, we've definitely been thinking
-> more broadly than that. In fact the kernel interface, like the one Arnd
-> mentioned which happens to be the same thing Rafael and I have
-> suggested, is intended to solve a problem we are seeing in industry
-> where we can't reuse drivers on ACPI platforms without a lot of driver
-> development. The new API is intended to minimize that effort.
+That does make sense.  The complex examples I thinking of are things
+like Documentation/devicetree/bindings/sound/simple-card.txt and the
+more complex versions of such subsystems.
 
-I'm surprised it's a *lot* of development TBH - or rather that the hard
-bit is not mostly putting new back ends on existing APIs.
-
-> There's more... but rather than just dump here... could you elaborate on
-> your concerns here? Are there some specific things we might be
-> overlooking - would like to hear your thoughts as I agree, this is
-> bigger than the kernel changes.
-
-The most immediate thing is if the tooling around ACPI based systems is
-going to be able to support people providing configuration to the system
-without undule pain, otherwise it becomes more likely that people won't
-use the new infrastructure.
-
-The thing I'm less clear on is if there are going to be problems down
-the line with people trying to do things that they currently do with
-ACPI like hide details of new board versions causing conflicts with code
-that assumes the firmware is just providing data.  This may end up being
-nothing to worry about, hopefully it is, but right now as a driver
-author I'd expect to approach things differently with a different
-firmware.
-
---/X7s3i+qRyIJm2VP
+--ucW7QTJbHsz5ya91
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2.0.22 (GNU/Linux)
 
-iQIcBAEBAgAGBQJTd1+aAAoJELSic+t+oim9x/cP/AuOorLB+8K43bNVn47QZ3fK
-hYupwAj/TTlwjJwLweTEtXjRqa/hUdihrQqmBkJKukOZwZpICQf2NLsOD2zoUrPj
-yRwTL0Z307nECriQGJheq4bYyOkKhIF9+22Mc/C3g7XCHv9XGwN8QjqNODbTom+C
-EyJxPNdt4KXZhsXCq6gCMOQxpHpqrWOyAkiAkXAKRJ5dQf4gK9uz8lhgHogeJje6
-qMDUhlrTX237vSbCmLlg+xVCFFvGYhn83lkCqDqL+YmQW6BRYgUt1vEf+zytfq+n
-67zq6udth7rccbHm7jTMUcXYzqXZrHsn+Df4XGWGAnTS/sMg8JO8W44NuxrZBM/Z
-mmoCrCbypLvb29Tim0w1fiiLyX30yTo1f7ZiAk7HC1U4SAbdZS/ZP3VWF0Ck3KFM
-zByxvXmz2eCug4DDqhQjPGb+uP4gebuV4H1p1YVCH39PU55RqrnPBl/DWzpJgth8
-jbZosuSSDHHnR3Pw/PzrSVdWYZ4NZLegY5gqfcWeiFrKb33mhIg6sNY/RYdzsObL
-WG/nbJabaYs2hpFNaEajwty/sM72pZYQ8bLusJN+0Yx6bclSquJTrT8Rnrhk8Id8
-ZDN2qMXyyAhTje6mnU4Ce6G0GoYC4WPfYPhQohe6EWxlkiOH7aeyHbtv42ammp/J
-ZgoP/kFNO6IpZ0Wpucx0
-=TykP
+iQIcBAEBAgAGBQJTd2MEAAoJELSic+t+oim9SuAQAIOH6r9B4K93LE5FpD9bWWuW
+cO512PiFJkxP2KdWxnWYJ4MC9O+F9wZ5plKEY740aI627VBBd7dbIHptYr0UZ6UD
+VDKWClADIjoZZ9EfvLWJvyGhCQZX+xs8/9eJ0xyy6ARICBSz6vhcjzXqi4//tDTO
+JVWvm8J3UZf5mRTf76DheS0caQS4yDJs6CXv3MpKfruwHCb4Qj6lh8OP9Zn8pgZT
+dc1v+P4b/zIeVM+Ad3g+uDggCqvCT1u7M9RiBe4qk9358gD/vLt+i13rOXmGxaPO
+x0Q3y748s5NglwumJK6ncZr/0MR+7dQ+Bmwqrg2DJeKNo+TLIyc3JVggJtWEpj+H
+tONRf0CCkDaezF6DRJmvm03kFH/Oni0wFFEvwnatXV2jcabf4b7omYYIyM3WqC11
+RgxM34NIU37Z3nmOthBoBbWNou0GmCw5v9Ib9rYukMBGjZc4Zi/roHguWtda3JWH
+R0zBCgQjQf4BRza/LY/esSzRZuZML0dakI/Ag76spwZQvJy+HrXFZMAPRQ0iMlFL
+zJxiUNHb7G4n6Va+wGK+TaGcF6cSQYgwcV6wB05oO01fiINru63/rZ8UDdgIa7lj
+SoVusp8kFH0mqd19B/Z35UlI9fe+zshfsTMiZSOcKQI1F7QROby7enT7v599z3AD
+Bx+x/8GomIIM46QQJU5Y
+=vkle
 -----END PGP SIGNATURE-----
 
---/X7s3i+qRyIJm2VP--
+--ucW7QTJbHsz5ya91--
