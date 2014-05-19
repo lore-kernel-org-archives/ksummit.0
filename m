@@ -1,21 +1,21 @@
 Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id A2E723C6
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 6AFEB4C6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 18 May 2014 23:39:41 +0000 (UTC)
+	Sun, 18 May 2014 23:45:33 +0000 (UTC)
 Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id 6CB2D1FAAA
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id 6FFD81FA9C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 18 May 2014 23:39:40 +0000 (UTC)
+	Sun, 18 May 2014 23:45:32 +0000 (UTC)
 From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-To: Mark Brown <broonie@sirena.org.uk>
-Date: Mon, 19 May 2014 01:56:33 +0200
-Message-ID: <1785175.GYZBbEJPJC@vostro.rjw.lan>
-In-Reply-To: <20140517132423.GX22111@sirena.org.uk>
+To: Darren Vincent Hart <darren@dvhart.com>
+Date: Mon, 19 May 2014 02:02:26 +0200
+Message-ID: <29190889.bIH6D7yf6C@vostro.rjw.lan>
+In-Reply-To: <1400289090.9575.37.camel@wasp-deb.dvhart.com>
 References: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>
 	<1527482.CPBrbWbyLU@vostro.rjw.lan>
-	<20140517132423.GX22111@sirena.org.uk>
+	<1400289090.9575.37.camel@wasp-deb.dvhart.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="utf-8"
@@ -34,56 +34,50 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Saturday, May 17, 2014 02:24:23 PM Mark Brown wrote:
-> 
-> --ucW7QTJbHsz5ya91
-> Content-Type: text/plain; charset=us-ascii
-> Content-Disposition: inline
-> 
-> On Thu, May 15, 2014 at 02:05:43PM +0200, Rafael J. Wysocki wrote:
+On Friday, May 16, 2014 06:11:30 PM Darren Vincent Hart wrote:
+> On Thu, 2014-05-15 at 14:05 +0200, Rafael J. Wysocki wrote:
 > > On Wednesday, May 14, 2014 02:04:01 PM Mark Brown wrote:
+> > > 
+> > > Some of what's going on is limitations in current ACPI and it does make
+> > > sense to address those in as generic a fashion as possible but it isn't
+> > > clear to me that all ACPI users want to have something that looks like
+> > > DT.
+> > 
+> > For things that are not covered by ACPI either directly or indirectly today,
+> > that seems to be the only approach feasible in a reasonable time frame.
+> > 
+> > For things that are covered by ACPI that is less clear.  Even in that case,
+> > though, if there's a binding (defined as a set of keys and value data types
+> > associated with them) that a driver expects to be used, it makes a little
+> > sense to create a second binding for it just for the purpose of using it with
+> > a different firmware interface.
+> > 
+> > Rafael
+> > 
 > 
-> > > Of course, and for all of these things other than GPIOs we already
-> > > handle the lookups without any DT code at all in the drivers (and GPIOs
-> > > are moving away from needing explicit code too).  Things like that just
-> > > aren't an issue and I'd say that if we are adding new fw_ interfaces for
-> > > resource lookup like you describe we're doing things wrong, we already
-> > > have the idiom of looking up by device and some key which works well.
+> As Mark has pointed out, there are many ways in which ACPI is used (and
+> sometimes abused), and we agree that "all" ACPI users may not want to
+> use something that looks like DT. This gives us the flexibility to do
+> so, and solves a couple critical issies.
 > 
-> > The "key" think doesn't really work in ACPI if it is a string, however.
+> What we are starting to see is people developing with ACPI-based systems
+> that need to use both 1) drivers with some kind of parameterization that
+> isn't explicitly covered in the ACPI specification and 2) DT-aware
+> platform drivers without ACPI support.
 > 
-> > That's a real problem, because, for example, ACPI says "I have these GPIO
-> > connections between your device and controller X" and it gives you pin
-> > numbers.  Now the driver (or someone else) needs to figure out which pin
-> > is used for what.
+> For 1, without any kind of clear guiding principles like a DT Binding,
+> we are seeing lots of custom non-reusable implementations ranging from
+> all kinds of _DSM implementations to named objects (ACPI pdata
+> basically), all with driver-specific validation, parsing, formats, etc.
 > 
-> > If there's only one pin per device, all is fine, but if there are more of
-> > them things get very ugly quite quickly.
+> For 2, we tend to see more board files.
 > 
-> > So in "native" ACPI something like gpiod_get() cannot really be implemented
-> > to use con_id and if you look at acpi_find_gpio() (the one in gpiolib.c),
-> > you'll see that it actually only uses the index for this very reason.
-> 
-> Surely all we need to do for these cases is provide a way for drivers to
-> supply the name to number mappings for usage with ACPI (probably with
-> per device and per board overrides possible due to all the failures
-> usually associated with numbers)?
+> With a standardized mechanism in ACPI to provide property data, we can
+> enhance ACPI-aware drivers while abstracting the parsing, validation,
+> etc. into something that can be shared across the drivers. The idea
+> being we reduce code duplication and the associated bugs and maintenance
+> overhead that brings with it.
 
-Yes, we can do that for things like gpiod_get() that already abstract the
-firmware interface away from device drivers.
-
-> That's much less invasive than making new APIs.
-
-But for drivers that call of_get_something() directly I don't see any other
-sensible way forward.  Otherwise each of them will need to do something like
-
-if (dev->of_node)
-	use of_get_X()
-else if (ACPI_COMPANION(dev))
-	use acpi_get_X()
-else
-	use black magic
-
-possibly in several places.
+I obviously agree. :-)
 
 Rafael
