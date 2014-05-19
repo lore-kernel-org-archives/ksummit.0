@@ -1,32 +1,35 @@
-Return-Path: <tytso@thunk.org>
+Return-Path: <peter.maydell@linaro.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id A30448A7
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 7228A8A7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 20 May 2014 14:48:06 +0000 (UTC)
-Date: Tue, 20 May 2014 10:47:57 -0400
-From: Theodore Ts'o <tytso@mit.edu>
-To: Levente Kurusa <levex@linux.com>
-Message-ID: <20140520144757.GA20288@thunk.org>
-References: <CACV2jQDDu91ug=xeJ235W4jMunvfAY1rSXLjFGqw0hoTS4gmxg@mail.gmail.com>
-	<20140513112525.GB10733@kroah.com>
-	<CABe+QzALCqDLEJn9LawN2+SxEwzoNN5mYxY-Ko0z37oJowzYMA@mail.gmail.com>
-	<20140513150520.GA15857@kroah.com>
-	<CABe+QzDo9PudGCPOQnEabnwL=M8L261x_GjB2xrkCgLhJi+ewQ@mail.gmail.com>
-	<CA+5PVA5k=mVtR+gb+hfpc_05J_yP-TruX2DXFZdQkY+Nzq4p+w@mail.gmail.com>
-	<20140513160743.GA11391@thunk.org>
-	<CACMb8d0mtbYM4rUEJgkXCJ=MptU8X0JzvoOZriQYOEWmJSE2uw@mail.gmail.com>
-	<20140515154112.GA24028@thunk.org> <53779022.6080508@linux.com>
+	Mon, 19 May 2014 22:41:28 +0000 (UTC)
+Received: from mail-la0-f53.google.com (mail-la0-f53.google.com
+	[209.85.215.53])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 32CB22036B
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 19 May 2014 22:41:26 +0000 (UTC)
+Received: by mail-la0-f53.google.com with SMTP id ec20so4655130lab.12
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 19 May 2014 15:41:25 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <53779022.6080508@linux.com>
-Cc: PJ Waskiewicz <pjwaskiewicz@gmail.com>,
-	Josh Boyer <jwboyer@fedoraproject.org>,
-	Dirk Hohndel <hohndel@infradead.org>,
-	ksummit-discuss@lists.linuxfoundation.org, Anton Arapov <arapov@gmail.com>,
-	Sarah A Sharp <sarah@minilop.net>, Jason Cooper <jason@lakedaemon.net>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] QR encoded oops for the kernel
+In-Reply-To: <4931877.zNfKfvcgox@wuerfel>
+References: <20140511030009.GO12708@titan.lakedaemon.net>
+	<20140516184205.GL27822@titan.lakedaemon.net>
+	<1400278842.2647.62.camel@deadeye.wl.decadent.org.uk>
+	<4931877.zNfKfvcgox@wuerfel>
+From: Peter Maydell <peter.maydell@linaro.org>
+Date: Mon, 19 May 2014 23:41:04 +0100
+Message-ID: <CAFEAcA-1d_47g3Z3R=CNyE8U5+huJ0yDvAMU+BRacajxE5qPXw@mail.gmail.com>
+To: Arnd Bergmann <arnd@arndb.de>
+Content-Type: text/plain; charset=UTF-8
+Cc: Rob Herring <robh@kernel.org>, Jason Cooper <jason@lakedaemon.net>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Linus Walleij <linus.ml.walleij@gmail.com>,
+	arm-mail-list <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] ARM legacy board DT conversion
+	finalization
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,25 +39,23 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, May 17, 2014 at 06:36:50PM +0200, Levente Kurusa wrote:
-> 
-> Of course we did identify the team. It's me and Teodora. For this QR
-> encoding work we need a lot of framework work and while at it we could
-> also tie up some loose ends in the error reporting workflow. I, for
-> myself, would love to clean up Bugzilla a bit. It has a lot of open bugs
-> that have been fixed for ages, just for example.
+On 19 May 2014 13:20, Arnd Bergmann <arnd@arndb.de> wrote:
+> On Friday 16 May 2014 23:20:42 Ben Hutchings wrote:
+>> Versatile is one of ARM's own development boards, but more importantly
+>> it's something QEMU can emulate.
+>
+> We should really have this in multiplatform soon, I think the last issue
+> for versatile is common clock support, but Linus Walleij may have more
+> details about what remains here.
+>
+> We should also make it possible to enable ARCH_VIRT for pre-ARMv7 to
+> get qemu users to move over to that.
 
-Just to be clear, since my understanding is that you are university
-students --- your primary goal is to clean up the QR encoding work,
-yes?  Do you anticipate having time to talk about working on some of
-the larger, grander suggestions that some people have raised on this
-thread?  That is, some kind of web backend to for which these QR's
-could be submitted and then analyzed?
+I think the main reason many people still use QEMU's versatilepb
+model is that it has PCI. If you want people to move off that then
+getting those "generic device-tree driven PCI" patches into the
+kernel would probably be a good start :-)  At that point we can
+reasonably easily add PCI support to the QEMU 'virt' board.
 
-Or is what you plan to be focusing on is more tightly focused on the
-the actual generation of the QR barcode?  What help would you need in
-order to bring the use of the QR barcode to its fullest potential?
-
-Regards,
-
-						- Ted
+thanks
+-- PMM
