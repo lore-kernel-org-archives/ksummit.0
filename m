@@ -1,35 +1,29 @@
-Return-Path: <peter.maydell@linaro.org>
+Return-Path: <josh@joshtriplett.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 7228A8A7
+	by mail.linuxfoundation.org (Postfix) with ESMTP id A0AD8892
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 19 May 2014 22:41:28 +0000 (UTC)
-Received: from mail-la0-f53.google.com (mail-la0-f53.google.com
-	[209.85.215.53])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 32CB22036B
+	Tue, 20 May 2014 16:07:02 +0000 (UTC)
+Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
+	[217.70.183.197])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 44D3E2027B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 19 May 2014 22:41:26 +0000 (UTC)
-Received: by mail-la0-f53.google.com with SMTP id ec20so4655130lab.12
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 19 May 2014 15:41:25 -0700 (PDT)
+	Tue, 20 May 2014 16:07:01 +0000 (UTC)
+Date: Tue, 20 May 2014 09:06:51 -0700
+From: Josh Triplett <josh@joshtriplett.org>
+To: Mauro Carvalho Chehab <m.chehab@samsung.com>
+Message-ID: <20140520160651.GD15681@thin>
+References: <s5htx8tizaf.wl%tiwai@suse.de>
+	<alpine.LNX.2.00.1405131627480.16459@pobox.suse.cz>
+	<CABe+QzDMfRzedp+HROr7jqycCMueF=OWiUMEoFraVSVV+CTL2Q@mail.gmail.com>
+	<20140513162844.GA1647@cloud>
+	<20140518120956.02696ea5.m.chehab@samsung.com>
 MIME-Version: 1.0
-In-Reply-To: <4931877.zNfKfvcgox@wuerfel>
-References: <20140511030009.GO12708@titan.lakedaemon.net>
-	<20140516184205.GL27822@titan.lakedaemon.net>
-	<1400278842.2647.62.camel@deadeye.wl.decadent.org.uk>
-	<4931877.zNfKfvcgox@wuerfel>
-From: Peter Maydell <peter.maydell@linaro.org>
-Date: Mon, 19 May 2014 23:41:04 +0100
-Message-ID: <CAFEAcA-1d_47g3Z3R=CNyE8U5+huJ0yDvAMU+BRacajxE5qPXw@mail.gmail.com>
-To: Arnd Bergmann <arnd@arndb.de>
-Content-Type: text/plain; charset=UTF-8
-Cc: Rob Herring <robh@kernel.org>, Jason Cooper <jason@lakedaemon.net>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Linus Walleij <linus.ml.walleij@gmail.com>,
-	arm-mail-list <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] ARM legacy board DT conversion
-	finalization
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20140518120956.02696ea5.m.chehab@samsung.com>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TOPIC] Guidance for subsystem maintainers
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,23 +33,97 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 19 May 2014 13:20, Arnd Bergmann <arnd@arndb.de> wrote:
-> On Friday 16 May 2014 23:20:42 Ben Hutchings wrote:
->> Versatile is one of ARM's own development boards, but more importantly
->> it's something QEMU can emulate.
->
-> We should really have this in multiplatform soon, I think the last issue
-> for versatile is common clock support, but Linus Walleij may have more
-> details about what remains here.
->
-> We should also make it possible to enable ARCH_VIRT for pre-ARMv7 to
-> get qemu users to move over to that.
+On Sun, May 18, 2014 at 12:09:56PM -0300, Mauro Carvalho Chehab wrote:
+> Em Tue, 13 May 2014 09:28:44 -0700 josh@joshtriplett.org escreveu:
+> > On Tue, May 13, 2014 at 07:57:16AM -0700, Sarah A Sharp wrote:
+> > > Technical workflows will always be different.  I believe what Takashi
+> > > is talking about is a social problem, not a technical problem.  Each
+> > > maintainer needs some level of confidence in the patch, and thus some
+> > > maintainers will wait a while before merging a patch, or wait for
+> > > additional reviewers to ack it.  And sometimes that means the patch
+> > > falls through the cracks.  Others will just throw the patch at their
+> > > -next branch, do some quick testing, and catch bugs in the next -rc
+> > > cycle.
+> > > 
+> > > Patch testing and review is a social problem, and trying to mandate a
+> > > workflow or even a set of technical tools will not help solve the
+> > > social problem of patches getting dropped or ignored.
+> > 
+> > Perhaps, but part of why Linus switched to git (and BK before that) was
+> > to avoid the resend-patches-until-Linus-doesn't-drop-them-on-the-floor
+> > problem.  It seems like we haven't so much *fixed* that problem as moved
+> > it further down the chain to a subset of maintainers.
+> > 
+> > This holds even more true if you're trying to make a cross-subsystem
+> > change: if you have 30 patches across 15 subsystems, you'll have a few
+> > merged right away with an explicit email acknowledgement (notably Andrew
+> > and Greg who have automated that), a few merged with no acknowledgement
+> > (have fun finding where they got merged or figuring out where they'll go
+> > from there), most of them disappear into a black hole until they
+> > magically show up in Linus's tree two major versions in the future, and
+> > a few just fall into /dev/null.  And I don't see an obvious way to
+> > distinguish between the last three cases.
+> > 
+> > Two thoughts on that:
+> > 
+> > 1) The cross-subsystem difficulties sometimes tempt me to queue up
+> > patches into my own git tree and send direct pull requests to Linus once
+> > I have a patch series that gets no objections from maintainers, but I'm
+> > concerned about doing that for cross-subsystem "topics" and drawing
+> > flames from subsystem maintainers about not going through their tree(s).
+> 
+> The thing is that several of those cross-subsystem patches can cause
+> merging issues, especially if they're changing some API that might
+> also be used by other patches at the maintainer's trees/branches.
 
-I think the main reason many people still use QEMU's versatilepb
-model is that it has PCI. If you want people to move off that then
-getting those "generic device-tree driven PCI" patches into the
-kernel would probably be a good start :-)  At that point we can
-reasonably easily add PCI support to the QEMU 'virt' board.
+Certainly true.
 
-thanks
--- PMM
+> That's the hole point, IMHO, of having the acked-by tag: the maintainer
+> is aware that such patch will be merged elsewhere, and will take the
+> precautions to avoid issues at linux-next and upstream, if needed, when
+> the patch gets merged.
+> 
+> I remember that I had to nack more than once some trivial patches that
+> were touching a file that was about to be removed upstream, or whose
+> lines of code it touched vanished.
+
+Explicit acks and naks help, but it can be problematic to send 50
+patches, get 10 acks, 3 naks, and 37 dead silences.
+
+> > Is that a real problem, or is it considered reasonable to maintain a
+> > repository by topic rather than by subsystem?  (I would, for instance,
+> > be quite willing to maintain a "tiny" tree, and accept tinification
+> > patches from others to merge upstream.)
+> 
+> Provided that you have the submaintainers ack, I don't see any problem
+> on having such cross-subsystem topic branches.
+
+That much makes sense, but I'm talking about the case of silence rather
+than an ack.  Given a stack of patches with no objections but no
+maintainer ack, does it make sense to just prepare a direct pull request
+for Linus or Andrew, and assume that lack of objections suffices?
+
+> > 2) We could improve the experience for patch submitters without
+> > necessarily pushing changes to maintainer workflows.  I wonder if we
+> > could do a better job of providing automated tools that make life easier
+> > for maintainers and patch submitters?  For instance, what about having
+> > easy-to-enable git hooks on git.kernel.org similar to those Andrew and
+> > Greg use, notifying the patch submitter when a maintainer merges their
+> > patch?  Maintainers could opt into those hooks specifically for
+> > whichever repository has their "will go upstream eventually" branches,
+> > and supply a short description of where patches typically flow from
+> > their tree so submitters know what to expect.
+> 
+> > Would that be useful?  Would maintainers want it?  What properties would
+> > it need to have?  Could kernel.org support that?  And would anyone be
+> > interested in helping to write it?  (I'm willing to help, given answers
+> > to those questions to make sure it'll actually get *used*.)
+> 
+> I like the idea of git hooks. I use it on the media tree I maintain. I can
+> share the code of it, if you want.
+
+That might help.  But I think point (2) is one that doesn't need
+discussing at kernel summit; it just needs doing, by someone working in
+cooperation with the kernel.org admins.
+
+- Josh Triplett
