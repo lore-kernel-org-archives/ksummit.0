@@ -1,30 +1,34 @@
-Return-Path: <geert.uytterhoeven@gmail.com>
+Return-Path: <greg@kroah.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 4DA3B8AD
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 6ABB58DE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 21 May 2014 11:16:52 +0000 (UTC)
-Received: from mail-ie0-f169.google.com (mail-ie0-f169.google.com
-	[209.85.223.169])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9C54B1F950
+	Wed, 21 May 2014 12:52:28 +0000 (UTC)
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
+	[66.111.4.27])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 550451F9D3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 21 May 2014 11:16:51 +0000 (UTC)
-Received: by mail-ie0-f169.google.com with SMTP id at1so1796253iec.0
+	Wed, 21 May 2014 12:52:26 +0000 (UTC)
+Received: from compute3.internal (compute3.nyi.mail.srv.osa [10.202.2.43])
+	by gateway1.nyi.mail.srv.osa (Postfix) with ESMTP id BCE4621131
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 21 May 2014 04:16:51 -0700 (PDT)
+	Wed, 21 May 2014 08:52:21 -0400 (EDT)
+Date: Wed, 21 May 2014 21:52:18 +0900
+From: Greg KH <greg@kroah.com>
+To: Matt Fleming <matt@console-pimps.org>
+Message-ID: <20140521125218.GA1206@kroah.com>
+References: <CAA9_cmdc86KLimJXEVQCJiBH_YM1wWDfpe78EttWwQUW7Re8aA@mail.gmail.com>
+	<20140516125611.06633446@notabene.brown> <537628ED.1020208@fb.com>
+	<CAPcyv4ivq-03wGAarZFxJZa2wXD2zja251v6YQD86BaHvu6h4w@mail.gmail.com>
+	<20140521075547.GA20121@kroah.com>
+	<20140521090513.GK4798@console-pimps.org>
 MIME-Version: 1.0
-Sender: geert.uytterhoeven@gmail.com
-In-Reply-To: <7hwqdgqtg5.fsf@paris.lan>
-References: <1872038.43ncqEMWSx@avalon> <11117951.ql3xek1vCB@vostro.rjw.lan>
-	<15562464.UYP7rKZIQt@vostro.rjw.lan> <6546269.8BCSq47QAR@avalon>
-	<7hwqdgqtg5.fsf@paris.lan>
-Date: Wed, 21 May 2014 13:16:50 +0200
-Message-ID: <CAMuHMdV9ZTLrTHyXLMEovRK3M9rCcg=o118tDdv1YinP+ZKw=Q@mail.gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-To: Kevin Hilman <khilman@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20140521090513.GK4798@console-pimps.org>
 Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] PM dependencies
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] [nomination] Move Fast and Oops
+ Things
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,78 +38,52 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, May 20, 2014 at 6:57 PM, Kevin Hilman <khilman@linaro.org> wrote:
->> Furthermore, if the sensor is resumed first, it might try to access the
->> device, which requires the clock output by the ISP to be available, and thus
->> requires the ISP to be resumed. To solve this problem the ISP driver only
->> restarts the clocks in its PM resume callback, and restarts the video stream
->> (following the sequence described above) in its PM complete callback.
->
-> For most devices, input clocks are modeled by the clock framework (or
-> managed by the SoC's runtime PM core), and therefore, a pm_runtime_get()
-> (or possibly an explict clk_enable()) is used to ensure the input clock
-> is running.  In this external device example, it sounds to me like the
-> sensor driver has no knowledge of its input clock so it has to rely on
-> some other layer to resume things in the right order for correct
-> functionality.
->
-> Maybe I'm wrong here (likely, since I haven't looked at the code, and am
-> admittedly very ignorant of the camera and display subsystems) but it
-> sounds to me like what's missing is the sensor driver having knowledge
-> of it's input clock and/or a way for it to request it's input clock to
-> be enabled (e.g. clk_get/clk_enable.)
+On Wed, May 21, 2014 at 10:05:13AM +0100, Matt Fleming wrote:
+> On Wed, 21 May, at 04:55:47PM, Greg KH wrote:
+> > On Wed, May 21, 2014 at 12:48:48AM -0700, Dan Williams wrote:
+> > > With regards to saying "no" faster, it seems kernel code rarely comes
+> > > with tests.  However, maintainers today are already able to reduce the
+> > > latency to "no" when the 0-day-kbuild robot emits a negative test.
+> > > Why not arm that system with tests it can autodiscover?  What has held
+> > > back unit test culture in the kernel?
+> > 
+> > The fact that no one has stepped up and taken maintainership of the
+> > tests and ensure that they continue to work.
+> 
+> That's not usually how unit tests work. They're supposed to be owned by
+> everyone, i.e. if your change breaks the test you are responsible for
+> fixing your change, or the test, or both. Everyone needs to ensure the
+> tests continue to work.
 
-For static configuration, this could indeed be put in DT.
+Ideal world meet the real world.
 
-> Alternatively, what would proably be even better would be that the
-> sensor driver has a reference to the actual device that provides its
-> input clock (possibly via a DT phandle?) so that the sensor driver can
-> simply do a pm_runtime_get() on the device providing the clock.
+Today, the in-kernel tests are broken.  Now if that is a kernel problem,
+or a test problem, no one seems to be stepping up to figure that out.
+Someone needs to be on top of it to do that.  Given that no one has done
+that for, well, ever, this needs to be fixed.
 
-Why not a clocks property instead of a phandle?
-Of course the actual device providing the clock needs to advertise
-itself as a clock (e.g. in DT).
+> Likewise, the person implementing a new feature is the most well
+> equipped to write tests for it. Unfortunately that does require a
+> certain amount of "buy-in" from the community.
 
->> When adding more external devices to the mix the problem just becomes more
->> complex, especially when the devices are chained (for instance sensor -> video
->> processor -> ISP). The problem is similar on the display side, possibly with a
->> different resume ordering (it should be noted that the external devices vs.
->> internal device ordering might vary even inside the same class of devices -
->> camera or display).
->
-> IMO, I still think that properly modeling the device dependenies
-> combined with a "runtime PM centric" view of suspend/resume should allow
-> the dependencies to be handled correctly for system suspend/resume and
-> runtime PM.
->
-> I think what complicates things here is not the PM specifics but
-> probably the fact that the device hierarchy (and dependencies) may be
-> dynamic depending on many factors like which sensors are in use,
-> post-processing, etc. etc.
->
-> Above, I suggested possibly using DT phandles to model these non
-> parent/child relationships.  That's all fine if the dependencies are not
-> changing, but if they are dynamic, we'll probably need something
-> different.
->
-> At least for starters though, static dependencies like this should be
-> (relatively) easy to model in DT and combined with runtime PM
-> refcounding on the dependencies, should be able to address the problem.
+We have that "buy-in", and have had it for a long time.  I've been
+asking for this for years, and finally have the ear of people who are
+able to allocate resources for it.  Which is a very nice chance that I
+do not want to blow it.
 
-I'm still looking for a more generic way to handle such clocks, perhaps in
-the driver core. Right now the driver is supposed to handle this, so it needs
-to be aware of the existence of the clock, which may be optional.
-E.g. if device modules in a new SoC suddenly gets gateable clocks,
-do we have to modify all affected drivers? It would be nice if it would
-"just work" by adding the clocks to DT.
+> However, a maintainer role might make sense for collating test results,
+> reporting failures or running the tests on a large number of hardware
+> configurations, like how Fengguang Wu says "The 0-day infrastructure
+> shows your commit introduced a regression" or Stephen Rothwell says "A
+> merge of your tree causes these conflicts".
+> 
+> For anything other than trivial cases I wouldn't expect these guys to
+> have to fixup the breakage to ensure the tests continue working - that
+> kind of never ending battle would make a person's head explode.
 
-Gr{oetje,eeting}s,
+Agreed, but given that no one has even tried, and that I know of someone
+who has agreed to do this work, let's give it a chance.
 
-                        Geert
+thanks,
 
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+greg k-h
