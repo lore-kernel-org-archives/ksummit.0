@@ -1,27 +1,26 @@
 Return-Path: <matt@arkanian.console-pimps.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 31B332FA
+	by mail.linuxfoundation.org (Postfix) with ESMTP id E994C4D3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 21 May 2014 08:53:33 +0000 (UTC)
+	Wed, 21 May 2014 09:05:17 +0000 (UTC)
 Received: from arkanian.console-pimps.org (arkanian.console-pimps.org
 	[212.110.184.194])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 802BE1F80A
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 8E1221F8A0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 21 May 2014 08:53:31 +0000 (UTC)
-Date: Wed, 21 May 2014 09:53:28 +0100
+	Wed, 21 May 2014 09:05:17 +0000 (UTC)
+Date: Wed, 21 May 2014 10:05:13 +0100
 From: Matt Fleming <matt@console-pimps.org>
-To: Dan Williams <dan.j.williams@intel.com>
-Message-ID: <20140521085328.GJ4798@console-pimps.org>
+To: Greg KH <greg@kroah.com>
+Message-ID: <20140521090513.GK4798@console-pimps.org>
 References: <CAA9_cmdc86KLimJXEVQCJiBH_YM1wWDfpe78EttWwQUW7Re8aA@mail.gmail.com>
 	<20140516125611.06633446@notabene.brown> <537628ED.1020208@fb.com>
 	<CAPcyv4ivq-03wGAarZFxJZa2wXD2zja251v6YQD86BaHvu6h4w@mail.gmail.com>
-	<20140521182552.2ed57ad7@notabene.brown>
-	<CAPcyv4iJ8vO_7BfqyPSpOm3AcdYvoJS8kzbiqfAwH77wO_-auA@mail.gmail.com>
+	<20140521075547.GA20121@kroah.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAPcyv4iJ8vO_7BfqyPSpOm3AcdYvoJS8kzbiqfAwH77wO_-auA@mail.gmail.com>
+In-Reply-To: <20140521075547.GA20121@kroah.com>
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] [nomination] Move Fast and Oops
  Things
@@ -34,29 +33,35 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 21 May, at 01:36:55AM, Dan Williams wrote:
+On Wed, 21 May, at 04:55:47PM, Greg KH wrote:
+> On Wed, May 21, 2014 at 12:48:48AM -0700, Dan Williams wrote:
+> > With regards to saying "no" faster, it seems kernel code rarely comes
+> > with tests.  However, maintainers today are already able to reduce the
+> > latency to "no" when the 0-day-kbuild robot emits a negative test.
+> > Why not arm that system with tests it can autodiscover?  What has held
+> > back unit test culture in the kernel?
 > 
-> My straw man is something like the following for driver "foo"
-> 
-> if (gatekeeper_foo_new_awesome_sauce)
->    do_new_thing();
-> 
-> Where setting gatekeeper_foo_new_awesome_sauce taints the kernel and
-> warns that there is no guarantee of this functionality being present
-> in the same form or at all going forward.
+> The fact that no one has stepped up and taken maintainership of the
+> tests and ensure that they continue to work.
 
-This kind of thing is done all the time for web developemnt - I think
-it's given the name "feature bit".
+That's not usually how unit tests work. They're supposed to be owned by
+everyone, i.e. if your change breaks the test you are responsible for
+fixing your change, or the test, or both. Everyone needs to ensure the
+tests continue to work.
 
-It makes sense when you control the execution environment, like a web
-server, and if things explode you can detect that on the web server end,
-and not necessarily require your user to report the problem. It also
-makes a lot of sense for continuous deployment, where the master branch
-is always the branch used in production.
+Likewise, the person implementing a new feature is the most well
+equipped to write tests for it. Unfortunately that does require a
+certain amount of "buy-in" from the community.
 
-When a user needs to actively enable this feature and report problems
-it's just like another CONFIG_* option, and I'm not sure that's an
-improvement.
+However, a maintainer role might make sense for collating test results,
+reporting failures or running the tests on a large number of hardware
+configurations, like how Fengguang Wu says "The 0-day infrastructure
+shows your commit introduced a regression" or Stephen Rothwell says "A
+merge of your tree causes these conflicts".
+
+For anything other than trivial cases I wouldn't expect these guys to
+have to fixup the breakage to ensure the tests continue working - that
+kind of never ending battle would make a person's head explode.
 
 -- 
 Matt Fleming, Intel Open Source Technology Center
