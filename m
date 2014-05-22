@@ -1,35 +1,27 @@
-Return-Path: <dan.j.williams@intel.com>
+Return-Path: <chriscool@tuxfamily.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 4F96726
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 1291726
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 22 May 2014 04:04:29 +0000 (UTC)
-Received: from mail-ve0-f177.google.com (mail-ve0-f177.google.com
-	[209.85.128.177])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C1D161FD46
+	Thu, 22 May 2014 04:49:14 +0000 (UTC)
+Received: from mail-1y.bbox.fr (mail-1y.bbox.fr [194.158.98.14])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 3043F1F8BA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 22 May 2014 04:04:28 +0000 (UTC)
-Received: by mail-ve0-f177.google.com with SMTP id db11so3681242veb.36
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 21 May 2014 21:04:28 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <20140522094835.3bf5ba5a@notabene.brown>
-References: <CAA9_cmdc86KLimJXEVQCJiBH_YM1wWDfpe78EttWwQUW7Re8aA@mail.gmail.com>
-	<20140516125611.06633446@notabene.brown> <537628ED.1020208@fb.com>
-	<CAPcyv4ivq-03wGAarZFxJZa2wXD2zja251v6YQD86BaHvu6h4w@mail.gmail.com>
-	<20140521182552.2ed57ad7@notabene.brown>
-	<CAPcyv4iJ8vO_7BfqyPSpOm3AcdYvoJS8kzbiqfAwH77wO_-auA@mail.gmail.com>
-	<20140521201108.76ab84af@notabene.brown>
-	<CAPcyv4itcQzi1CMFYR-+rRovccwMzg0V0B0smU8KMNLVM5SEVg@mail.gmail.com>
-	<20140522094835.3bf5ba5a@notabene.brown>
-Date: Wed, 21 May 2014 21:04:27 -0700
-Message-ID: <CAPcyv4i3Kki80QRzEszGNC__-NLY_K_QdbMNp0BFzDkSkoc-_w@mail.gmail.com>
-From: Dan Williams <dan.j.williams@intel.com>
-To: NeilBrown <neilb@suse.de>
-Content-Type: text/plain; charset=UTF-8
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] [nomination] Move Fast and Oops
-	Things
+	Thu, 22 May 2014 04:49:13 +0000 (UTC)
+Date: Thu, 22 May 2014 06:49:10 +0200 (CEST)
+Message-Id: <20140522.064910.1233749401586905587.chriscool@tuxfamily.org>
+To: tiwai@suse.de
+From: Christian Couder <chriscool@tuxfamily.org>
+In-Reply-To: <s5h1tvuf4ov.wl%tiwai@suse.de>
+References: <s5hvbt9izdm.wl%tiwai@suse.de>
+	<20140516030708.GV27822@titan.lakedaemon.net>
+	<s5h1tvuf4ov.wl%tiwai@suse.de>
+Mime-Version: 1.0
+Content-Type: Text/Plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Cc: johan@herland.net, gitster@pobox.com, jason@lakedaemon.net,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TOPIC] Metadata addendum to git commit
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,15 +31,68 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, May 21, 2014 at 4:48 PM, NeilBrown <neilb@suse.de> wrote:
-[..]
-> What might the control interface look like
-> I imagine something like dynamic_debug, which a file that lists all the
-> dynamic_config options.  Writing some message to the file would enable the
-> selected options, and so the dynamic code editing required to enable it.
 
-Ooh, yes, an interface similar to dynamic debug control seems like a good fit.
+I told Junio and Johan about this discussion, and Junio, as he did not
+find a good way to subscribe to the list as a newcomer and still send
+a response to an existing thread, said that I can forward the
+following.
 
-> I think it is probably worth trying - see what sort of take-up it gets.
+Johan agrees with Junio about this. I don't agree with their opinion
+about "replace".
 
-Thanks Neil! ...as everyone else moans, "don't encourage him". ;-)
+From: Junio C Hamano <gitster@pobox.com>:
+
+-- >8 --
+
+Takashi Iwai says, in response to what Jason cooper wrote:
+
+>> For the stuff flying by me, I've been adding the:
+>> 
+>> Fixes: <12-char hash>: ('Offending patch subject')
+>> ...
+>> I've also been contemplating adding
+>> 
+>> Coverletter: https://lkml.kernel.org/r/<First Reference Msg-Id>
+>> 
+>> for large series where the patch submitter has done a thorough
+>> writeup
+>> in the coverletter.
+>
+> Yes, this kind of information is helpful for checking patches at
+> later point, indeed.
+
+I tend to think that:
+
+ * "replace" is too heavy-handed tool to use in general.  Nobody
+   sane should publish history full of replacements for public
+   consumption, especially if that is done merely to help
+   bisection.
+
+ * "notes" is very handy and may be an efficient mechanism to add
+   information after the fact to existing commits, but merging two
+   or more lines of notes histories together is cumbersome.
+
+A good way forward to solve Iwai-san's original issue might be
+
+ * Establish the "Fixes:" mentioned above as a standard practice.
+   Polishing Christian's interpret-trailers tool might be a good way
+   to encourage developers to do so.
+
+ * Have an easy way for developers to scan incoming commits for
+   these "Fixes:" footer, and record the reverse mapping locally, so
+   that we can go from a commit whose brokenness is discovered later
+   to the commit that fixes its breakage efficiently.  "notes" may
+   be a good mechanism to implement this mapping, and we do not have
+   to worry about sharing the notes trees among developers.
+
+ * The information is visible with "log --show-notes" if it is
+   stored in local notes.  When an earlier commit that was later
+   found to be broken is shown, the note that points at the commit
+   that fixes it will be shown.
+
+ * Teach "bisect" to also take notice of this information, and
+   temporarily cherry-pick while testing commits with fixes that
+   were discovered later, in a way similar to what was suggested by
+   Jiri Kosina in an earlier message.
+
+-- >8 --
