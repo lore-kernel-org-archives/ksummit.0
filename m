@@ -1,25 +1,35 @@
-Return-Path: <rjw@rjwysocki.net>
+Return-Path: <dan.j.williams@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 4D7F826
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 4F96726
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 22 May 2014 00:02:39 +0000 (UTC)
-Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id 305371FAA6
+	Thu, 22 May 2014 04:04:29 +0000 (UTC)
+Received: from mail-ve0-f177.google.com (mail-ve0-f177.google.com
+	[209.85.128.177])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C1D161FD46
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 22 May 2014 00:02:37 +0000 (UTC)
-From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-To: Kevin Hilman <khilman@linaro.org>
-Date: Thu, 22 May 2014 02:19:35 +0200
-Message-ID: <6638836.llWl1tdgvD@vostro.rjw.lan>
-In-Reply-To: <7hwqdgqtg5.fsf@paris.lan>
-References: <1872038.43ncqEMWSx@avalon> <6546269.8BCSq47QAR@avalon>
-	<7hwqdgqtg5.fsf@paris.lan>
+	Thu, 22 May 2014 04:04:28 +0000 (UTC)
+Received: by mail-ve0-f177.google.com with SMTP id db11so3681242veb.36
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 21 May 2014 21:04:28 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+In-Reply-To: <20140522094835.3bf5ba5a@notabene.brown>
+References: <CAA9_cmdc86KLimJXEVQCJiBH_YM1wWDfpe78EttWwQUW7Re8aA@mail.gmail.com>
+	<20140516125611.06633446@notabene.brown> <537628ED.1020208@fb.com>
+	<CAPcyv4ivq-03wGAarZFxJZa2wXD2zja251v6YQD86BaHvu6h4w@mail.gmail.com>
+	<20140521182552.2ed57ad7@notabene.brown>
+	<CAPcyv4iJ8vO_7BfqyPSpOm3AcdYvoJS8kzbiqfAwH77wO_-auA@mail.gmail.com>
+	<20140521201108.76ab84af@notabene.brown>
+	<CAPcyv4itcQzi1CMFYR-+rRovccwMzg0V0B0smU8KMNLVM5SEVg@mail.gmail.com>
+	<20140522094835.3bf5ba5a@notabene.brown>
+Date: Wed, 21 May 2014 21:04:27 -0700
+Message-ID: <CAPcyv4i3Kki80QRzEszGNC__-NLY_K_QdbMNp0BFzDkSkoc-_w@mail.gmail.com>
+From: Dan Williams <dan.j.williams@intel.com>
+To: NeilBrown <neilb@suse.de>
+Content-Type: text/plain; charset=UTF-8
 Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] PM dependencies
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] [nomination] Move Fast and Oops
+	Things
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,76 +39,15 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tuesday, May 20, 2014 09:57:14 AM Kevin Hilman wrote:
-> Laurent Pinchart <laurent.pinchart@ideasonboard.com> writes:
-> 
-> > On Wednesday 14 May 2014 00:34:56 Rafael J. Wysocki wrote:
-> >> On Wednesday, May 14, 2014 12:27:47 AM Rafael J. Wysocki wrote:
-> >> > On Monday, May 12, 2014 11:07:29 PM Mark Brown wrote:
-> >> > > On Mon, May 12, 2014 at 11:16:57PM +0200, Tomasz Figa wrote:
-> >> > > > On 12.05.2014 22:31, Mark Brown wrote:
-> >> > > > > It also solves the system suspend dependencies.  Why don't the
-> >> > > > > runtime PM dependencies just work with reference counting?
-> >> > > > 
-> >> > > > Runtime PM dependencies work with reference counting just fine, but
-> >> > > > only for topologies matching Linux driver model, e.g. devices with
-> >> > > > exactly one device they depend on, e.g. SPI controller and SPI devices
-> >> > > > on the bus driven by it. Add there an IOMMU and other various strange
-> >> > > > things that should be transparent to the drivers and it stops working.
-> >> > > 
-> >> > > There's no reason why runtime PM references have to follow the topology
-> >> > > - you do get a default reference count up to any parent (though we break
-> >> > > that sometimes, as is the case with SPI controllers being suspended even
-> >> > > though the devices below them are active) but there's nothing stopping
-> >> > > references being taken outside the topology.
-> >> > 
-> >> > Precisely.
-> >> 
-> >> BTW, I guess that the problem is resume and specifically the fact that if
-> >> a child device resumes, the parent will also resume automatically, but the
-> >> other devices the child may depend on will not (the child's resume may need
-> >> to resume them directly).
-> >> 
-> >> But I'm not sure why that is a problem, so can anyone please share some
-> >> details?
-> >
-> > Here are two real life examples.
-> >
-> > 1. IOMMU and bus master
-> >
-> > Bus master devices connected to an IOMMU need the IOMMU to be powered on in 
-> > order to access memory. In order to save power the IOMMU should of course be 
-> > powered off as much as possible.
-> >
-> > The tricky part here comes from the fact that the IOMMU is hidden behind the 
-> > DMA API. The bus master driver can't manage the IOMMU power state eplicitly by 
-> > taking/releasing references to the IOMMU device.
-> >
-> > This could easily be solved in an ad-hoc fashion by extending the DMA mapping 
-> > API, but I'm wondering whether similar issues wouldn't benefit from a common 
-> > solution (I'm not sure yet what all the similar issues are, hence the topic 
-> > proposal to try and gather use cases).
-> 
-> I'll continue to beat the runtime PM drum...
+On Wed, May 21, 2014 at 4:48 PM, NeilBrown <neilb@suse.de> wrote:
+[..]
+> What might the control interface look like
+> I imagine something like dynamic_debug, which a file that lists all the
+> dynamic_config options.  Writing some message to the file would enable the
+> selected options, and so the dynamic code editing required to enable it.
 
-What about async system suspend/resume, then?
+Ooh, yes, an interface similar to dynamic debug control seems like a good fit.
 
-> This would also easily be solved if the bus master device, the IOMMU and
-> the dmaengine (or the platform-specific dma driver) were all using
-> runtime PM.  e.g. bus master device is a user of dmaengine, which is a
-> user of the IOMMU.  If all are using runtime PM, the fact that a device
-> is "in use", means runtime PM would keep them active when needed.  In
-> this example, it wouldn't matter that the bus master device doesn't know
-> about the IOMMU. It suffices that the dmaengine driver knows about the
-> IOMMU.
+> I think it is probably worth trying - see what sort of take-up it gets.
 
-That requires it to be able to say "now I'm not using you any more" whenever
-the device in question suspend and "now I'm going to use you again" when that
-device resumes.  Does something like that happen today?
-
-There are more weird cases still.  For example, we have the _DEP object in
-ACPI that basically says "this device depends on that one" and there may be
-no other relationship between the two whatsoever.  How are we supposed to
-implement this within the existing frameworks?
-
-Rafael
+Thanks Neil! ...as everyone else moans, "don't encourage him". ;-)
