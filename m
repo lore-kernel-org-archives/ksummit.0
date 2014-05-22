@@ -1,29 +1,41 @@
-Return-Path: <tytso@thunk.org>
+Return-Path: <johan@herland.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id A56D1988
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 0490A7FE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 22 May 2014 15:49:08 +0000 (UTC)
-Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CB01B2020C
+	Thu, 22 May 2014 07:05:02 +0000 (UTC)
+Received: from mail12.copyleft.no (mail12.copyleft.no [188.94.218.224])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0B1C01FAA6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 22 May 2014 15:49:07 +0000 (UTC)
-Date: Thu, 22 May 2014 11:48:59 -0400
-From: Theodore Ts'o <tytso@mit.edu>
-To: Dan Williams <dan.j.williams@intel.com>
-Message-ID: <20140522154859.GA28971@thunk.org>
-References: <CAA9_cmdc86KLimJXEVQCJiBH_YM1wWDfpe78EttWwQUW7Re8aA@mail.gmail.com>
-	<20140521201108.76ab84af@notabene.brown>
-	<CAPcyv4itcQzi1CMFYR-+rRovccwMzg0V0B0smU8KMNLVM5SEVg@mail.gmail.com>
-	<2980546.hqgiQV7seV@vostro.rjw.lan>
-	<CAPcyv4hJvjY94-agCi8Twz-Np8_vxv3G7+eFSaAPjVOVyQ0gOQ@mail.gmail.com>
+	Thu, 22 May 2014 07:05:00 +0000 (UTC)
+Received: from locusts.copyleft.no ([188.94.218.116] helo=mail.mailgateway.no)
+	by mail12.copyleft.no with esmtp (Exim 4.76)
+	(envelope-from <johan@herland.net>) id 1WnMUb-0003NN-79
+	for ksummit-discuss@lists.linuxfoundation.org;
+	Thu, 22 May 2014 08:28:41 +0200
+Received: from mail-ob0-f173.google.com ([209.85.214.173])
+	by mail.mailgateway.no with esmtpsa (TLSv1:RC4-SHA:128)
+	(Exim 4.72 (FreeBSD)) (envelope-from <johan@herland.net>)
+	id 1WnMUa-000F8J-PG for ksummit-discuss@lists.linuxfoundation.org;
+	Thu, 22 May 2014 08:28:40 +0200
+Received: by mail-ob0-f173.google.com with SMTP id wm4so3317412obc.32
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 21 May 2014 23:28:37 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAPcyv4hJvjY94-agCi8Twz-Np8_vxv3G7+eFSaAPjVOVyQ0gOQ@mail.gmail.com>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] [nomination] Move Fast and Oops
- Things
+In-Reply-To: <s5h4n0igxs1.wl%tiwai@suse.de>
+References: <s5hvbt9izdm.wl%tiwai@suse.de>
+	<20140516030708.GV27822@titan.lakedaemon.net>
+	<s5h1tvuf4ov.wl%tiwai@suse.de>
+	<20140522.064910.1233749401586905587.chriscool@tuxfamily.org>
+	<s5h4n0igxs1.wl%tiwai@suse.de>
+Date: Thu, 22 May 2014 08:28:37 +0200
+Message-ID: <CALKQrgfK7xosKvDHBS3HPoHtjZY09mt04MSbVDpEFhOcy8UqQg@mail.gmail.com>
+From: Johan Herland <johan@herland.net>
+To: Takashi Iwai <tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	Junio C Hamano <gitster@pobox.com>, jason@lakedaemon.net
+Subject: Re: [Ksummit-discuss] [TOPIC] Metadata addendum to git commit
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,62 +45,48 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, May 21, 2014 at 04:03:49PM -0700, Dan Williams wrote:
-> Simply, if an end user knows how to override a "gatekeeper" that user
-> can test features that we are otherwise still debating upstream.  They
-> can of course also apply the patches directly, but I am proposing we
-> formalize a mechanism to encourage more experimentation in-tree.
-> 
-> I'm fully aware we do not have the tactical data nor operational
-> control to run the kernel like a website, that's not my concern.  My
-> concern is with expanding a maintainer's options for mitigating risk.
+On Thu, May 22, 2014 at 7:58 AM, Takashi Iwai <tiwai@suse.de> wrote:
+>> From: Junio C Hamano <gitster@pobox.com>:
+>> A good way forward to solve Iwai-san's original issue might be
+>>
+>>  * Establish the "Fixes:" mentioned above as a standard practice.
+>>    Polishing Christian's interpret-trailers tool might be a good way
+>>    to encourage developers to do so.
+>>
+>>  * Have an easy way for developers to scan incoming commits for
+>>    these "Fixes:" footer, and record the reverse mapping locally, so
+>>    that we can go from a commit whose brokenness is discovered later
+>>    to the commit that fixes its breakage efficiently.  "notes" may
+>>    be a good mechanism to implement this mapping, and we do not have
+>>    to worry about sharing the notes trees among developers.
+>>
+>>  * The information is visible with "log --show-notes" if it is
+>>    stored in local notes.  When an earlier commit that was later
+>>    found to be broken is shown, the note that points at the commit
+>>    that fixes it will be shown.
+>>
+>>  * Teach "bisect" to also take notice of this information, and
+>>    temporarily cherry-pick while testing commits with fixes that
+>>    were discovered later, in a way similar to what was suggested by
+>>    Jiri Kosina in an earlier message.
+>
+> These sound like a good plan, indeed.
+>
+> But, one missing, and maybe often happening thing is: people forget to
+> tag at the right time.  In the scenario above, if a maintainer forgets
+> to add Fixes: tag in the fix commit, it's all gone?
 
-Various maintainers are doing this sort of thing already.  For
-example, file system developers stage new file system features in
-precisely this way.  Both xfs and ext4 have done this sort of thing,
-and certainly SuSE has used this technique with btrfs to only support
-those file system features which they are prepared to support.
+Yes, unless you add it (using git-notes) as an annotation to the fix
+commit, but then you're back to the (perceived) problem of sharing
+those notes.
 
-The problem is using this sort of gatekeeper is something that a
-maintainer has to use in combination with existing techniques, and it
-doesn't necessarliy accelerate development by all that much.  In
-particular, if it has any kind of kernel ABI or file system format
-implications, we need to make sure the interfaces are set in stone
-before we can let it into the mainline kernel, even if it is not
-enabled by default.  (Consider the avidity that userspace application
-developers can sometimes have for using even debugging interfaces such
-as ftrace, and the "no userspace breakages" rule.  So not only do you
-have to worry about userspace applicaitons not using a feature which
-is protected by a gatekeeper, you also have to worry about premature
-pervasive use of a feature such that you can't change the interface
-any more.)
+Alternatively, you would have to find a different mechanism for
+developers to insert entries into their reverse mappings from
+post-facto/missing "Fixes:" tags.
 
-That by the way is the singular huge advangtage that centralized code
-bases such as those found at Google and Facebook have --- if I need to
-make a kernel change for some feature that hasn't made it upstream
-yet, all of the users of some particular Google-specific kernel<->user
-space interface is under a single source tree, and while I do need to
-worry about staged deployments, I can be extremely confident that I
-can identify all of the users of a particular interface, and put in
-appropriate measures to update an interface.  It still might take
-several release candences, but that's typically far shorter than what
-it would take to obsolete a published upstream interface.
 
-As a result, I am much more willing to let a ugly, but operationally
-necessary new feature (such as say a netlink interface to export
-information about file system errors, for example) into an internal
-Google kernel interface, but I'd be much less willing to let something
-like that go upstream, because while it's annoying to have to forward
-port such an out-of-tree patch, having to deal with fixing or
-upgrading a published interface is at least an order or two more work.
+...Johan
 
-In addition, both Google and Facebook can afford to make changes that
-only need to worry about their data center environment, where as an
-upstream change has to work in a much larger variety of situations and
-circumstances.
-
-The bottom line is just because you can do something at Facebook or
-Google does not necessarily mean that the same technique will port
-over easily into the upstream development model.
-
-						- Ted
+-- 
+Johan Herland, <johan@herland.net>
+www.herland.net
