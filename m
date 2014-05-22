@@ -1,27 +1,37 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <robherring2@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id B647B85D
+	by mail.linuxfoundation.org (Postfix) with ESMTP id D75A5979
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 22 May 2014 10:15:08 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A66981F80A
+	Thu, 22 May 2014 14:44:31 +0000 (UTC)
+Received: from mail-vc0-f169.google.com (mail-vc0-f169.google.com
+	[209.85.220.169])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 37FD61FB24
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 22 May 2014 10:15:07 +0000 (UTC)
-Date: Thu, 22 May 2014 11:14:49 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-Message-ID: <20140522101449.GB12304@sirena.org.uk>
-References: <1872038.43ncqEMWSx@avalon> <6546269.8BCSq47QAR@avalon>
-	<7hwqdgqtg5.fsf@paris.lan> <6638836.llWl1tdgvD@vostro.rjw.lan>
+	Thu, 22 May 2014 14:44:29 +0000 (UTC)
+Received: by mail-vc0-f169.google.com with SMTP id ij19so4611956vcb.28
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 22 May 2014 07:44:28 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="msuMhlVPES9Pz2Dp"
-Content-Disposition: inline
-In-Reply-To: <6638836.llWl1tdgvD@vostro.rjw.lan>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] PM dependencies
+Sender: robherring2@gmail.com
+In-Reply-To: <4921873.t2F8plV493@wuerfel>
+References: <20140511030009.GO12708@titan.lakedaemon.net>
+	<4931877.zNfKfvcgox@wuerfel>
+	<CAL_Jsq+kOu82okhJn0_ftwemE_m4nsTRawrF-fWAU2XTJ9xRcA@mail.gmail.com>
+	<4921873.t2F8plV493@wuerfel>
+Date: Thu, 22 May 2014 09:44:27 -0500
+Message-ID: <CAL_JsqKfc82GT3BNQa0PJ3=kCHmYrZWQEuxjPxRfESR+5Ubj9g@mail.gmail.com>
+From: Rob Herring <robh@kernel.org>
+To: Arnd Bergmann <arnd@arndb.de>
+Content-Type: text/plain; charset=UTF-8
+Cc: "linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>,
+	Linus Walleij <linus.ml.walleij@gmail.com>,
+	Jason Cooper <jason@lakedaemon.net>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] ARM legacy board DT conversion
+	finalization
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,60 +41,65 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Tue, May 20, 2014 at 3:08 AM, Arnd Bergmann <arnd@arndb.de> wrote:
+> On Monday 19 May 2014 18:06:02 Rob Herring wrote:
+>> > On Friday 16 May 2014 23:20:42 Ben Hutchings wrote:
+>> >> On Fri, 2014-05-16 at 14:42 -0400, Jason Cooper wrote:
+>> >> > On Fri, May 16, 2014 at 07:31:51PM +0100, Ben Hutchings wrote:
+>> >> > > Our 'legacy' (which I take to mean pre-v7) configurations are now
+>> >> > > kirkwood, mv78xx0, orion5x (all about to converge to mvebu) and
+>> >> > > versatile.
+>> >> >
+>> >> > I'm not familiar with versatile, the others I've seen a few times.
+>> >>
+>> >> Versatile is one of ARM's own development boards, but more importantly
+>> >> it's something QEMU can emulate.
+>> >
+>> > We should really have this in multiplatform soon, I think the last issue
+>> > for versatile is common clock support, but Linus Walleij may have more
+>> > details about what remains here.
+>>
+>> While not necessarily the same thing, but does move versatile in the
+>> right direction, I've got patches in progress which fully move
+>> versatile over to DT. The main issues there are:
+>>
+>> common clock
+>> irq cntlr init from DT
+>> Move PCI to DT and platform driver
+>>
+>> I'd like to do this all in one step to avoid doing things like non-DT
+>> common clock init.
+>
+> Sounds good, yes.
+>
+>> It's blocked on the common DT PCI code and my free
+>> time.
+>>
+>> There are then a few bits related to mach/plat headers needed move
+>> versatile to multiplatform. I think these issues are mostly the same
+>> changes that have been done or are needed on integrator which is what
+>> Linus has been working on.
+>
+> Ah, right. I see these two includes from mach-versatile to plat/*.h headers:
+>
+> arch/arm/mach-versatile/core.c:#include <plat/clcd.h>
+> arch/arm/mach-versatile/core.c:#include <plat/sched_clock.h>
+>
+> We can deal with those by adding
+>
+> ccflags-y := -I$(srctree)/arch/arm/plat-versatile/include
+>
+> to mach-versatile/Makefile, or we can rearrange the code. The opposite
+> direction would be harder, but I don't see any remaining dependencies
+> there.
 
---msuMhlVPES9Pz2Dp
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+It looked like more work when I started this, but thanks to Linus's
+work on plat dir, it is pretty straight-forward to finish the
+conversion. Here's a branch that enables multi-platform for versatile:
 
-On Thu, May 22, 2014 at 02:19:35AM +0200, Rafael J. Wysocki wrote:
-> On Tuesday, May 20, 2014 09:57:14 AM Kevin Hilman wrote:
+git://git.kernel.org/pub/scm/linux/kernel/git/robh/linux.git
+versatile-multiplatform
 
-> > This would also easily be solved if the bus master device, the IOMMU and
-> > the dmaengine (or the platform-specific dma driver) were all using
-> > runtime PM.  e.g. bus master device is a user of dmaengine, which is a
-> > user of the IOMMU.  If all are using runtime PM, the fact that a device
-> > is "in use", means runtime PM would keep them active when needed.  In
-> > this example, it wouldn't matter that the bus master device doesn't know
-> > about the IOMMU. It suffices that the dmaengine driver knows about the
-> > IOMMU.
+So it is PCI and LEDs that have to be sorted out first.
 
-> That requires it to be able to say "now I'm not using you any more" whenever
-> the device in question suspend and "now I'm going to use you again" when that
-> device resumes.  Does something like that happen today?
-
-The easiest thing to do with this sort of thing is usually to put the
-referencing into the API that abstracts things (it really ought to know
-when things are actually being used anyway after all) - there are some
-APIs that do this already.
-
-> There are more weird cases still.  For example, we have the _DEP object in
-> ACPI that basically says "this device depends on that one" and there may be
-> no other relationship between the two whatsoever.  How are we supposed to
-> implement this within the existing frameworks?
-
-That sounds like something that should be baked into however ACPI is
-hooked in already?
-
---msuMhlVPES9Pz2Dp
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2.0.22 (GNU/Linux)
-
-iQIcBAEBAgAGBQJTfc4WAAoJELSic+t+oim9Q/gQAJBrIxDMlYl94/pIndJB+CBD
-h5FK+TMlwl5HBG5kVdld1c80ivMeD0G7e7CpUiYywRHojdavUQeVZS3h4RvKU9Do
-e8/Or9yvO9gHg07hcLxS6eNtk/GiNQYqhhNV2GAnVcweV+Vs/vpZA7NG/O/heRR3
-9YL23hwGHRwifDyBx6U3XcuP3eZRRwHx5zIziwqky2VRYkTN+k36g9dKWaZvNAyw
-hMeWFlu+fG+XKc2y+T72FnUN8fWKULi1Q4OXRs7nPbJMGnQeqgBNtIVFY1IWiQdW
-9LV8C79rHqmG563ivLJbjMhjYz3e9z5Np6zoxI+f2b5lE0GIsJjTUWT51QHlf3+5
-wWPFAMcFCV+LS+ws2H2RAP4C8xkRAN4jB40dTqgCaWfaWIHKdB5TxbXAIt+7SRI3
-ZaCJb8+8jyP3LE0HJMEmtDFWBUrpQnQ7NZYB0FA3wgwugaE+ClQDnPSfCv6vZb4f
-A4IMt+r7I1Ye9IQtbrgDvTGP2Xn4tYSjdMvaXCPJNWjcVKe/EpN14c4AmoOz915L
-HndAZGbR+Od7t++DN4HlVpZmCw8Ec54736vcWy1h+V9wyn0VnePUG9kK0FtBBaKK
-cXVqqyqxXM+/3iGrlU4wqchq+MyypIGQC5g+jZi4xMk/5z10NE+17Q0niQ5YT/zW
-BAIHFtyVm3/lFR7HjHL0
-=Ascg
------END PGP SIGNATURE-----
-
---msuMhlVPES9Pz2Dp--
+Rob
