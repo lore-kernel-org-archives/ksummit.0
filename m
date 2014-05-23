@@ -1,34 +1,26 @@
-Return-Path: <linus.walleij@linaro.org>
+Return-Path: <arnd@arndb.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id EE31226
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 09DEE82D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 23 May 2014 13:48:22 +0000 (UTC)
-Received: from mail-ob0-f178.google.com (mail-ob0-f178.google.com
-	[209.85.214.178])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A1EEB1FA7D
+	Fri, 23 May 2014 13:57:25 +0000 (UTC)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.24])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8AC411FAB5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 23 May 2014 13:48:18 +0000 (UTC)
-Received: by mail-ob0-f178.google.com with SMTP id va2so5431491obc.9
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 23 May 2014 06:48:18 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <4921873.t2F8plV493@wuerfel>
+	Fri, 23 May 2014 13:57:23 +0000 (UTC)
+From: Arnd Bergmann <arnd@arndb.de>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Fri, 23 May 2014 15:57:19 +0200
+Message-ID: <32559195.sfqtkZmVxi@wuerfel>
+In-Reply-To: <CACRpkdZEyHpnmfdXRQjt3mgZu4Nx62osLv+7f5TKtURW8YXZ+Q@mail.gmail.com>
 References: <20140511030009.GO12708@titan.lakedaemon.net>
-	<4931877.zNfKfvcgox@wuerfel>
-	<CAL_Jsq+kOu82okhJn0_ftwemE_m4nsTRawrF-fWAU2XTJ9xRcA@mail.gmail.com>
-	<4921873.t2F8plV493@wuerfel>
-Date: Fri, 23 May 2014 15:48:17 +0200
-Message-ID: <CACRpkdZ6oAO0sx-OwA-31FCPVWYeGH7zxmiog7OooMw_2_jzFA@mail.gmail.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-To: Arnd Bergmann <arnd@arndb.de>
-Content-Type: text/plain; charset=UTF-8
-Cc: "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, Rob Herring <robh@kernel.org>,
-	Jason Cooper <jason@lakedaemon.net>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Linus Walleij <linus.ml.walleij@gmail.com>
+	<CAL_JsqJw11fZBbLVi=xxC559iWdwCMFOJ4XYM-8EjykttoWsOg@mail.gmail.com>
+	<CACRpkdZEyHpnmfdXRQjt3mgZu4Nx62osLv+7f5TKtURW8YXZ+Q@mail.gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: Rob Herring <robh@kernel.org>, Jason Cooper <jason@lakedaemon.net>,
+	Linux ARM Kernel <linux-arm-kernel@lists.infradead.org>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] ARM legacy board DT conversion
 	finalization
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -40,19 +32,33 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, May 20, 2014 at 10:08 AM, Arnd Bergmann <arnd@arndb.de> wrote:
+On Friday 23 May 2014 15:40:15 Linus Walleij wrote:
+> On Thu, May 15, 2014 at 8:50 PM, Rob Herring <robh@kernel.org> wrote:
+> 
+> > I do think having todo lists would be valuable. I would like to see
+> > more than a one off list and have a living document. Linus W had a
+> > great spreadsheet on this for multi-platform enablement. Perhaps this
+> > would spur people to do some of the clean-ups (or it will just bit rot
+> >  ).
+> 
+> It's still there:
+> https://docs.google.com/spreadsheet/ccc?key=0Aj_PQh-9xwkMdHRHYzRzOEhyMEt5b3UtOFIwcHRpWEE
+> 
+> However I don't think there is much to discuss really. It's just work,
+> we know how to do it.
+> 
+> The real problem is that of somebody doing the work, and when maintainers
+> don't want to do the work, how to proceed by leaving the platform as-is
+> (legacy), delete it (lacking active maintainer) or have some custodian
+> like me acquire the hardware and fix it up myself.
+> 
+> Arnd and I have discussed this and we basically think that the StrongARM
+> stuff (RISC PC, Netwinder, SA1100-based handhelds etc) are legacy
+> systems while all ARMv4T and later are target for modernization if
+> and only if an active maintainer is available to pursue the work.
 
-> Ah, right. I see these two includes from mach-versatile to plat/*.h headers:
->
-> arch/arm/mach-versatile/core.c:#include <plat/clcd.h>
+I was also including the XScale based platforms (ixp, iop, pxa) in the
+same category as StrongARM, although PXA sticks out a bit as there is new
+development going on for that platform.
 
-I have a patch for this one.
-
-> arch/arm/mach-versatile/core.c:#include <plat/sched_clock.h>
-
-In the Integrator I solved this by inlining that code into the
-machine. After the introduction of sched_clock_register()
-this becomes very few lines of code really.
-
-Yours,
-Linus Walleij
+	Arnd
