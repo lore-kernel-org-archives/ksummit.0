@@ -1,31 +1,27 @@
-Return-Path: <linus.walleij@linaro.org>
+Return-Path: <dan.carpenter@oracle.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 93FF0979
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 6BE62988
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 23 May 2014 08:02:02 +0000 (UTC)
-Received: from mail-ob0-f170.google.com (mail-ob0-f170.google.com
-	[209.85.214.170])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1FAB020242
+	Fri, 23 May 2014 08:12:04 +0000 (UTC)
+Received: from aserp1040.oracle.com (aserp1040.oracle.com [141.146.126.69])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 076451F90C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 23 May 2014 08:02:02 +0000 (UTC)
-Received: by mail-ob0-f170.google.com with SMTP id uy5so5071716obc.29
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 23 May 2014 01:02:01 -0700 (PDT)
+	Fri, 23 May 2014 08:12:03 +0000 (UTC)
+Date: Fri, 23 May 2014 11:11:46 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Andy Grover <agrover@redhat.com>
+Message-ID: <20140523081146.GS15585@mwanda>
+References: <CAA9_cmdc86KLimJXEVQCJiBH_YM1wWDfpe78EttWwQUW7Re8aA@mail.gmail.com>
+	<20140516125611.06633446@notabene.brown> <537628ED.1020208@fb.com>
+	<5376465F.2040508@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20140513162844.GA1647@cloud>
-References: <s5htx8tizaf.wl%tiwai@suse.de>
-	<alpine.LNX.2.00.1405131627480.16459@pobox.suse.cz>
-	<CABe+QzDMfRzedp+HROr7jqycCMueF=OWiUMEoFraVSVV+CTL2Q@mail.gmail.com>
-	<20140513162844.GA1647@cloud>
-Date: Fri, 23 May 2014 10:02:01 +0200
-Message-ID: <CACRpkdYfpLfqTVu9h2ktL2B-4ofBjEhu2sc5F1yphGs81rkA9A@mail.gmail.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-To: josh@joshtriplett.org
-Content-Type: text/plain; charset=UTF-8
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TOPIC] Guidance for subsystem maintainers
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5376465F.2040508@redhat.com>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] [nomination] Move Fast and Oops
+ Things
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,17 +31,28 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, May 13, 2014 at 6:28 PM,  <josh@joshtriplett.org> wrote:
+On Fri, May 16, 2014 at 10:09:51AM -0700, Andy Grover wrote:
+> * If the maintainer is unresponsive, what recourse does a submitter
+> have? (Is this written down somewhere?) Is taking recourse actually
+> culturally acceptable? How would the gone-around maintainer treat
+> future submissions?
 
->  For instance, what about having
-> easy-to-enable git hooks on git.kernel.org similar to those Andrew and
-> Greg use, notifying the patch submitter when a maintainer merges their
-> patch?  Maintainers could opt into those hooks specifically for
-> whichever repository has their "will go upstream eventually" branches,
-> and supply a short description of where patches typically flow from
-> their tree so submitters know what to expect.
+You ping the maintainer after a month of no response.  If there is still
+no response after month two then you try to send it through Andrew.
 
-That would be awesome.
+If the maintainer responds but requests changes then you have to do what
+he says.  If the maintainer responds but just NAKs your patch, then
+you're pretty much screwed.  If you really care, then you have to carry
+those patches out of tree.
 
-Yours,
-Linus Walleij
+> 
+> * At what point does it make sense to field a sub- or co-maintainer?
+
+I don't maintain a git tree but the mechanical bit don't seem that hard
+to me.  It's reviewing the code which is tricky.  All patches should be
+going to a list (LKML doesn't count) so anyone can help review patches.
+
+But how to get people to review each other's patches?
+
+regards,
+dan carpenter
