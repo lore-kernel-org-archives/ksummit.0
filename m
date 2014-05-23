@@ -1,32 +1,31 @@
 Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id D0CE3928
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 82BBBAAB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 23 May 2014 17:22:09 +0000 (UTC)
+	Fri, 23 May 2014 17:34:21 +0000 (UTC)
 Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
 	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 632122027D
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 20E0A2026E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 23 May 2014 17:22:09 +0000 (UTC)
-Date: Fri, 23 May 2014 18:21:38 +0100
+	Fri, 23 May 2014 17:34:21 +0000 (UTC)
+Date: Fri, 23 May 2014 18:33:44 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Darren Vincent Hart <darren@dvhart.com>
-Message-ID: <20140523172138.GF22111@sirena.org.uk>
+To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+Message-ID: <20140523173344.GG22111@sirena.org.uk>
 References: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>
-	<20140512215925.GY12304@sirena.org.uk> <5371453E.2070108@intel.com>
-	<6686293.8G8KACfUS3@wuerfel> <20140513121148.GI12304@sirena.org.uk>
-	<1400299079.9575.140.camel@wasp-deb.dvhart.com>
-	<20140517130949.GW22111@sirena.org.uk>
-	<1400309542.9575.203.camel@wasp-deb.dvhart.com>
+	<1527482.CPBrbWbyLU@vostro.rjw.lan>
+	<20140517132423.GX22111@sirena.org.uk>
+	<1785175.GYZBbEJPJC@vostro.rjw.lan>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="u66JbuNldyJ4Fdqk"
+	protocol="application/pgp-signature"; boundary="wQFNOvpuONRGomCw"
 Content-Disposition: inline
-In-Reply-To: <1400309542.9575.203.camel@wasp-deb.dvhart.com>
-Cc: ksummit-discuss@lists.linuxfoundation.org,
+In-Reply-To: <1785175.GYZBbEJPJC@vostro.rjw.lan>
+Cc: dvhart@dvhart.com, ksummit-discuss@lists.linuxfoundation.org,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Driver model/resources, ACPI, DT,
  etc (sigh)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -39,98 +38,52 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---u66JbuNldyJ4Fdqk
+--wQFNOvpuONRGomCw
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, May 16, 2014 at 11:52:22PM -0700, Darren Vincent Hart wrote:
-> On Sat, 2014-05-17 at 14:09 +0100, Mark Brown wrote:
-> > On Fri, May 16, 2014 at 08:57:59PM -0700, Darren Vincent Hart wrote:
-> > > On Tue, 2014-05-13 at 13:11 +0100, Mark Brown wrote:
+On Mon, May 19, 2014 at 01:56:33AM +0200, Rafael J. Wysocki wrote:
+> On Saturday, May 17, 2014 02:24:23 PM Mark Brown wrote:
 
-> Can you elaborate on the issues you're trying to call out regarding
-> active versus passive ACPI?
+> > That's much less invasive than making new APIs.
 
-As far as I can tell a big part of what people see themselves getting
-=66rom ACPI is the ability to use the executable methods to handle
-hardware updates without software updates, including things you can't do
-by just changing the data you supply to the system.  Device drivers can
-do things to play nicely with this, such as assuming that configuration
-in the device when they start is sane and should be preserved unless
-they know what they're doing, but in a data only model it's generally
-safer to just discard any such configuration and get the hardware into a
-known good state by resetting it or similar (this is the most common
-pattern that has a practical impact which I'm aware of).  Things like
-configuring the features on a new variant of a device for example, or
-turning on a previously unsupported feature.
+> But for drivers that call of_get_something() directly I don't see any other
+> sensible way forward.  Otherwise each of them will need to do something like
 
-In the embedded case it's generally relatively straightforward to add a
-new property, add the code to handle it and rebuild the world.  If
-updating the OS isn't an option that gets a lot more tricky and doing
-things via firmware methods more sensible.
+> if (dev->of_node)
+> 	use of_get_X()
+> else if (ACPI_COMPANION(dev))
+> 	use acpi_get_X()
+> else
+> 	use black magic
 
-> At the individual driver level, it is trivial. However, there are
-> thousands of drivers, and as we discussed above, many of the integrators
-> of these things don't do any driver development. Making those drivers
-> available to ACPI based platforms then becomes a large task in
-> aggregate.
+> possibly in several places.
 
-> The property abstraction layer being discussed is aimed at making that
-> aggregate task as small as possible - partly via new backends as you
-> describe.
+OK, but that's basically just the property reading cases (unless we're
+doing something fancy involving phandles which is a bit more fun and
+less clear that it'll Just Work) - it seems a bit of a shame to have to
+churn all the APIs to do it.
 
-OK, but then can't ACPI just present via the OF APIs rather than
-requiring us to go and search and replace all the property parsing code?
-
-> > The thing I'm less clear on is if there are going to be problems down
-> > the line with people trying to do things that they currently do with
-> > ACPI like hide details of new board versions causing conflicts with code
-> > that assumes the firmware is just providing data.
-
-> OK, this goes back to your concerns on active/passive ACPI I guess?
-
-Yes.
-
-> I believe our best weapon against (new) nasty firmware hacks is to
-> provide a flexible mechanism with excellent documentation and examples
-> that make it easier to follow them than to contrive some gross
-> workaround.
-
-> In the past, this is something that ACPI has been lacking. When I first
-> started looking into this, I kept asking for a Manual, and all I would
-> get was a Specification.
-
-> As part of the ACPI properties update to the specification, we are also
-> preparing independent documentation for how to use it.
-
-That should help, though obviously documentation is not always consulted
-with the frequency and dilligency that one may desire (and to be fair
-it's not always very discoverable).  However a part of my worry is that
-given what at least some people are trying to achieve the things they
-get up to aren't that tasteless, they just happen to have different aims
-and use cases to the embedded one.
-
---u66JbuNldyJ4Fdqk
+--wQFNOvpuONRGomCw
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2.0.22 (GNU/Linux)
 
-iQIcBAEBAgAGBQJTf4OfAAoJELSic+t+oim9UJIP/A2lVqKfAoRP9LtFAxCGhzCe
-jZAGfD9TUgk7ZQgY+2muQEc3bzsvcpo1Cv2XvzdU4A+1KIJ5r8ijDDxSE/PR8dfI
-saZGmhpDvW5ZN2lCkfMzO4nk4KwLjmzBwrpEzxtzqhpTWr53T8wDgXD6SPpfYx3z
-/BmDDLmNrtLM+cvy4BF29WTYe66vN5VSGrHgheveIcyU0pmhfxo/oNj7xNPqm40j
-uwDkag/EoYeq38y3LX35qATn+Dp7E4iLgkRWjmr6BOuIRNQNCk1Ol6uXTlzB+Fx6
-pLR3xLCoBVWN4MVqQSgnoPorolU/7HGCnYlqt383Dk8on54PtP7UD0A+jCMhF372
-h4s0c1MoYKj43+MQxS8YLeybsUR1AsXrKe6a/04ztoAAqUthr4kuOIMWDHB0tk1i
-qLFJTbzj+DPpPJ+7IfIJINom+sPQAxcoh96G7lIXMBPieTWKX+dVrbY4hBMe7AQS
-QiYs1n6k65Hnb4RNk5SeSXCV42FPXn/Jv1j+I90+ZOvXIwLsTW9kmRJVMwRg1+Ap
-FT2f5vDArsturScNvpjA7/5Fw1Z3Yg+BECD5c4beztrqUDyD6wG6fbCz3+uQdykZ
-vg8DChMkCTnAXf3NGH1yt+fzq+up/k26sLIPiXwX0kGDLw5JPZhp0ofKk0k6ZRDY
-/2t0NigOryks234ypNEM
-=akIw
+iQIcBAEBAgAGBQJTf4Z1AAoJELSic+t+oim9cvkP/2JKWA1Feyeg4r0Hon3DjDZZ
+yznYlCR6DH3Z8KiBhJt7JFO++ftdF1vdrXfmNvB6eyzneEaEccc7SIisr6AsoHmp
+sQhJLGe9n3gaRsBRhu1BOskO1tmIwjKkfdsUT3VbH8wqWXmlNPTVecV+JDIDBdl/
+pWLA6hIHs6ntM4MYSZjfmD8XgLnvFjrT9DTi7EkyCA844kDs4E1vyOSYliBghpr7
+4aE89xYPRZ4w846GvAc21WzsP8t6vqYqxbePskoI405513IR8uKoIkvU+SPX35GP
+Yjm730nT0b16Th1VArDbdMUKKwp0HcTSP/4yT+T/lT9B+Ersna7sPtCcYuiayUzB
+XUPVScn/9phgKHCLAt07otueI7ck4E7PnDsWDAowKwPY+BCiwi/pLLYh4Ow6P89C
+i9i3S9iRVj8k/KEpvODzP+We4xdh4FxhY31qGk7clXXIFdIJKzZqS0+H5tQbpNLv
+QrxtzdxRZqi8lmfReqLh9hFaJqDO7zxqqSXJqBMektZgnPxBTdSSm4WlkiF+N8Kd
+5ZJLJyKpFCiS5lBwL0L/oDirY76kV48oGmce7t3sxuvCbuhNGczZAePVaYhDEUUp
+OxlXkz977TpJIKDCnxZDA1eOukl3bdudiX13Qc/A/BqL6RJT5xJrvSZlKeLqY5By
+ZACEhVbpfslNoTXVuLax
+=y9yo
 -----END PGP SIGNATURE-----
 
---u66JbuNldyJ4Fdqk--
+--wQFNOvpuONRGomCw--
