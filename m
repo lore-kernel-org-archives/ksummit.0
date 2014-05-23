@@ -1,30 +1,36 @@
-Return-Path: <khilman@linaro.org>
+Return-Path: <greg@kroah.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 49AB39A3
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 78B807FE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 23 May 2014 00:39:08 +0000 (UTC)
-Received: from mail-pb0-f42.google.com (mail-pb0-f42.google.com
-	[209.85.160.42])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9D0F82020F
+	Fri, 23 May 2014 02:13:52 +0000 (UTC)
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
+	[66.111.4.27])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C745520346
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 23 May 2014 00:39:07 +0000 (UTC)
-Received: by mail-pb0-f42.google.com with SMTP id md12so3288770pbc.29
+	Fri, 23 May 2014 02:13:51 +0000 (UTC)
+Received: from compute6.internal (compute6.nyi.mail.srv.osa [10.202.2.46])
+	by gateway1.nyi.mail.srv.osa (Postfix) with ESMTP id A1FF221E84
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 22 May 2014 17:39:07 -0700 (PDT)
-From: Kevin Hilman <khilman@linaro.org>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-References: <1872038.43ncqEMWSx@avalon> <6546269.8BCSq47QAR@avalon>
-	<7hwqdgqtg5.fsf@paris.lan> <31131010.huPvrnkcye@avalon>
-Date: Thu, 22 May 2014 17:39:05 -0700
-In-Reply-To: <31131010.huPvrnkcye@avalon> (Laurent Pinchart's message of "Fri,
-	23 May 2014 02:18:59 +0200")
-Message-ID: <7h61kxgwgm.fsf@paris.lan>
+	Thu, 22 May 2014 22:13:50 -0400 (EDT)
+Date: Fri, 23 May 2014 11:13:47 +0900
+From: Greg KH <greg@kroah.com>
+To: Dan Williams <dan.j.williams@intel.com>
+Message-ID: <20140523021347.GB26799@kroah.com>
+References: <CAA9_cmdc86KLimJXEVQCJiBH_YM1wWDfpe78EttWwQUW7Re8aA@mail.gmail.com>
+	<20140521201108.76ab84af@notabene.brown>
+	<CAPcyv4itcQzi1CMFYR-+rRovccwMzg0V0B0smU8KMNLVM5SEVg@mail.gmail.com>
+	<2980546.hqgiQV7seV@vostro.rjw.lan>
+	<CAPcyv4hJvjY94-agCi8Twz-Np8_vxv3G7+eFSaAPjVOVyQ0gOQ@mail.gmail.com>
+	<20140522154859.GA28971@thunk.org>
+	<CAPcyv4jxFM=gqDbEmyaXhot4OehsM6B3hsBVLcuq+ueE6i_z5A@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAPcyv4jxFM=gqDbEmyaXhot4OehsM6B3hsBVLcuq+ueE6i_z5A@mail.gmail.com>
 Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] PM dependencies
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] [nomination] Move Fast and Oops
+ Things
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,129 +40,65 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Laurent Pinchart <laurent.pinchart@ideasonboard.com> writes:
+On Thu, May 22, 2014 at 09:31:44AM -0700, Dan Williams wrote:
+> On Thu, May 22, 2014 at 8:48 AM, Theodore Ts'o <tytso@mit.edu> wrote:
+> > On Wed, May 21, 2014 at 04:03:49PM -0700, Dan Williams wrote:
+> >> Simply, if an end user knows how to override a "gatekeeper" that user
+> >> can test features that we are otherwise still debating upstream.  They
+> >> can of course also apply the patches directly, but I am proposing we
+> >> formalize a mechanism to encourage more experimentation in-tree.
+> >>
+> >> I'm fully aware we do not have the tactical data nor operational
+> >> control to run the kernel like a website, that's not my concern.  My
+> >> concern is with expanding a maintainer's options for mitigating risk.
+> >
+> > Various maintainers are doing this sort of thing already.  For
+> > example, file system developers stage new file system features in
+> > precisely this way.  Both xfs and ext4 have done this sort of thing,
+> > and certainly SuSE has used this technique with btrfs to only support
+> > those file system features which they are prepared to support.
+> >
+> > The problem is using this sort of gatekeeper is something that a
+> > maintainer has to use in combination with existing techniques, and it
+> > doesn't necessarliy accelerate development by all that much.  In
+> > particular, if it has any kind of kernel ABI or file system format
+> > implications, we need to make sure the interfaces are set in stone
+> > before we can let it into the mainline kernel, even if it is not
+> > enabled by default.  (Consider the avidity that userspace application
+> > developers can sometimes have for using even debugging interfaces such
+> > as ftrace, and the "no userspace breakages" rule.  So not only do you
+> > have to worry about userspace applicaitons not using a feature which
+> > is protected by a gatekeeper, you also have to worry about premature
+> > pervasive use of a feature such that you can't change the interface
+> > any more.)
+> 
+> I agree that something like this is prickly once it gets entangled
+> with ABI concerns.  But, I disagree with the speed argument... unless
+> you believe -staging has not increased the velocity of kernel
+> development?
 
-> Hi Kevin,
->
-> On Tuesday 20 May 2014 09:57:14 Kevin Hilman wrote:
->> Laurent Pinchart <laurent.pinchart@ideasonboard.com> writes:
+As the maintainer of drivers/staging/ I don't think it has increased the
+speed of the development of other parts of the kernel at all.  Do you
+have numbers that show otherwise?
 
-[...]
+> Neil already disabused me of the idea that a "gatekeeper" could be
+> used to beneficial effect in the core kernel, and I can see it's
+> equally difficult to use this in filesystems that need to be careful
+> of ABI changes.  However, nothing presented so far has swayed me from
+> my top of mind concern which is the ability to ship pre-production
+> driver features in the upstream kernel. I'm thinking of it as
+> "-staging for otherwise established drivers".
 
-I'll respond to the DMA/IOMMU part separately, as I need some time to
-digest it.
+The thing you need to realize is that the large majority of people who
+would ever use that new "feature" will not until it ends up in an
+"enterprise" kernel release.  And that will not be for another few
+years, so while you think you got it all right, we really don't know who
+is using it, or how well it works, for a few years.
 
->> > Furthermore, if the sensor is resumed first, it might try to access the
->> > device, which requires the clock output by the ISP to be available, and
->> > thus requires the ISP to be resumed. To solve this problem the ISP dri=
-ver
->> > only restarts the clocks in its PM resume callback, and restarts the
->> > video stream (following the sequence described above) in its PM comple=
-te
->> > callback.
->>
->> For most devices, input clocks are modeled by the clock framework (or
->> managed by the SoC's runtime PM core), and therefore, a pm_runtime_get()
->> (or possibly an explict clk_enable()) is used to ensure the input clock
->> is running.  In this external device example, it sounds to me like the
->> sensor driver has no knowledge of its input clock so it has to rely on
->> some other layer to resume things in the right order for correct
->> functionality.
->>=20
->> Maybe I'm wrong here (likely, since I haven't looked at the code, and am
->> admittedly very ignorant of the camera and display subsystems) but it
->> sounds to me like what's missing is the sensor driver having knowledge
->> of it's input clock and/or a way for it to request it's input clock to
->> be enabled (e.g. clk_get/clk_enable.)
->
-> I'm glad that you point out likely being wrong yourself, as you are ;-)=20
+But feel free to try to do this in your subsystem, as Ted points out, it
+can be done for somethings, but be careful about thinking things are ok
+when you don't have many real users :)
 
-Touch=C3=A9.
+thanks,
 
-It's good to have a low standard for oneself. ;)
-
-> The sensor driver manages the sensor input clock explicitly through
-> CCF (or at least it should, not all drivers do their homework
-> properly, but that's just a matter of fixing them), so it can
-> enable/disable the clock when needed. If the clock provider driver
-> becomes runtime PM centric then part of the problem would be fixed.
-
-Great, that simplifies things a bit, except...
-
->> Alternatively, what would proably be even better would be that the
->> sensor driver has a reference to the actual device that provides its
->> input clock (possibly via a DT phandle?) so that the sensor driver can
->> simply do a pm_runtime_get() on the device providing the clock.
->
-> Isn't it better for the sensor DT node to reference its input clock throu=
-gh=20
-> the clocks property and enable/disable the clock on demand instead of=20
-> explicitly calling pm_runtime_(get|put) on the clock provider device ?
-
-Possibly, but I suspect that's not going to be good enough.
-
-As I mentioned in an earlier response to Geert, I don't think managing
-clocks alone is enough.  I can imagine many platforms where a simple
-clk_enable() of an input clock is not enough to bring the device
-providing that clock out of a low power state.  For this to be generic
-enough to handle those cases, I suspect runtime PM get/put is the right
-way to go.
-
-Of course, for many "simple" platforms, runtime PM get/put just ends up
-doing a clk_enable/disable, but on the platforms where runtime PM is
-slightly more... um, "interesting"... just doing a clk enable/disable
-won't do what you hope.
-
->> > When adding more external devices to the mix the problem just becomes =
-more
->> > complex, especially when the devices are chained (for instance sensor =
-->
->> > video processor -> ISP). The problem is similar on the display side,
->> > possibly with a different resume ordering (it should be noted that the
->> > external devices vs. internal device ordering might vary even inside t=
-he
->> > same class of devices - camera or display).
->>=20
->> IMO, I still think that properly modeling the device dependenies
->> combined with a "runtime PM centric" view of suspend/resume should allow
->> the dependencies to be handled correctly for system suspend/resume and
->> runtime PM.
->
-> I definitely need to give this a bit more thought. I agree that it would=
-=20
-> likely solve part of the issue, but I'm not sure whether the rest is solv=
-able=20
-> with the infrastructure we have now.
-
-Not without some enhancments, but IMO ensuring the frameworks are
-runtime PM centric, and possibly extending runtime PM slightly where
-needed is a better route than creating something new.  Whatever that
-"something new" would be would end up duplicating much of the use
-counting already done by runtime PM anyways.
-
->> I think what complicates things here is not the PM specifics but
->> probably the fact that the device hierarchy (and dependencies) may be
->> dynamic depending on many factors like which sensors are in use,
->> post-processing, etc. etc.
->>=20
->> Above, I suggested possibly using DT phandles to model these non
->> parent/child relationships.  That's all fine if the dependencies are not
->> changing, but if they are dynamic, we'll probably need something
->> different.
->
-> They can be dynamic, yes. However, we already model the video data stream=
-s=20
-> dependencies using phandles in the V4L2 bindings, so the required informa=
-tion=20
-> is there. It would thus "just" be a matter of orchestrating all the invol=
-ved=20
-> components. If we go the runtime PM way the problem might be simplified, =
-but=20
-> as Ulf Hansson mentioned interactions between runtime PM and system=20
-> suspend/resume need to be taken care of.
-
-I'm unfortunately all too familiar with the interactions between system
-PM and runtime PM, but I believe we have a pretty good grip on that now,
-and the infrastructure is in place to solve those problems.
-
-Kevin
+greg k-h
