@@ -1,34 +1,27 @@
-Return-Path: <khilman@linaro.org>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 1581999F
+	by mail.linuxfoundation.org (Postfix) with ESMTP id D9607A89
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 23 May 2014 15:26:16 +0000 (UTC)
-Received: from mail-pb0-f44.google.com (mail-pb0-f44.google.com
-	[209.85.160.44])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 905132022D
+	Fri, 23 May 2014 16:05:07 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D0132201AA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 23 May 2014 15:26:14 +0000 (UTC)
-Received: by mail-pb0-f44.google.com with SMTP id rq2so4319068pbb.3
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 23 May 2014 08:26:14 -0700 (PDT)
-From: Kevin Hilman <khilman@linaro.org>
-To: Linus Walleij <linus.walleij@linaro.org>
-References: <1872038.43ncqEMWSx@avalon> <6546269.8BCSq47QAR@avalon>
-	<7hwqdgqtg5.fsf@paris.lan> <31131010.huPvrnkcye@avalon>
-	<7h61kxgwgm.fsf@paris.lan>
-	<CACRpkdabUuhebq=Pi3v277TVYRfN1KdqYcytZqFft2qYH5eJCg@mail.gmail.com>
-Date: Fri, 23 May 2014 08:26:12 -0700
-In-Reply-To: <CACRpkdabUuhebq=Pi3v277TVYRfN1KdqYcytZqFft2qYH5eJCg@mail.gmail.com>
-	(Linus Walleij's message of "Fri, 23 May 2014 10:32:24 +0200")
-Message-ID: <7hioowfre3.fsf@paris.lan>
+	Fri, 23 May 2014 16:05:05 +0000 (UTC)
+Date: Fri, 23 May 2014 17:04:35 +0100
+From: Mark Brown <broonie@kernel.org>
+To: "Justin M. Forbes" <jforbes@fedoraproject.org>
+Message-ID: <20140523160435.GC22111@sirena.org.uk>
+References: <537F3551.2070104@hitachi.com>
+	<1400853902.31124.5.camel@fedora64.linuxtx.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-Cc: Peter De Schrijver <pdeschrijver@nvidia.com>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] PM dependencies
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="BoUrqPsY9G3pZ2SW"
+Content-Disposition: inline
+In-Reply-To: <1400853902.31124.5.camel@fedora64.linuxtx.org>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] kernel testing standard
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,38 +31,44 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Linus Walleij <linus.walleij@linaro.org> writes:
 
-> On Fri, May 23, 2014 at 2:39 AM, Kevin Hilman <khilman@linaro.org> wrote:
->
->> Of course, for many "simple" platforms, runtime PM get/put just ends up
->> doing a clk_enable/disable, but on the platforms where runtime PM is
->> slightly more... um, "interesting"... just doing a clk enable/disable
->> won't do what you hope.
->
-> And drivers/base/power/clock_ops.c as invoked from
-> drivers/sh/pm_runtime.c does exactly that simple thing using
-> PM domains. Quite elegantly too, I'd say.
->
-> But now I get curious - can we define the "interesting PM" more
-> generally, like get the details out? And I mean like for a few different
-> platforms, I know OMAP with its hwmod is one such thing, but how
-> much interesting stuff do we have out there that we know we must
-> be able to handle?
+--BoUrqPsY9G3pZ2SW
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-By "interesting", I was referring to some of the more complicated ones
-we have, such as OMAP (though I suspect other SoCs are equally
-complicated but just don't have their stuff documented and/or upstream
-yet so we don't know.)
+On Fri, May 23, 2014 at 09:05:02AM -0500, Justin M. Forbes wrote:
+> On Fri, 2014-05-23 at 20:47 +0900, Masami Hiramatsu wrote:
 
-That being said, I think any SoC that requires more than a clk_enable()
-to bring an IP block out of a low-power state, or clk_disable() to put
-it into a low-power state qualifies as "interesting" because it can no
-longer rely on the "simple" clock_ops.c you refer to above.
+> > Suggested participants: greg k.h., Li Zefan, test-tool maintainers and
+> >                        subsystem maintainers.
 
-Stated differently, for most SoCs, fine-grained PM is a lot more than
-just clock management.  As soon as you have to do more than manage
-clocks, the generic clock_ops.c isn't good enough and you need your own
-PM domain (or use genpd.)
+> I would love to be a part of this discussion, and creating a working
+> solution.
 
-Kevin
+Probably distro and stable kernel maintainers too (I'll raise my hand
+for the Linaro one) - they're likely to want to be using any testsuites
+they reasonably can.
+
+--BoUrqPsY9G3pZ2SW
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.22 (GNU/Linux)
+
+iQIcBAEBAgAGBQJTf3GJAAoJELSic+t+oim9UzwP/1sT42EbJJ/DnTMcQTcSeRCo
+Tefzh8o5l+eDybjZ8KqPuwZcHa3gJ8J6xkxJmE4AlazKgLWAZQkNylndI/E/TKfS
+0KWrjbn9YLizqYn6v1Ond6FbLjIv5POe8W/iBVRfohmPpNFs2BOy70BnKSPuFqPb
+RYAj/FB/34oOxt+V3vNqe7vGS9RD2J79Tam5VBOg1ooAvPTqWVY+ehkDL4pDQDQH
+/z1KiyK1xjL2uxWTWy9Os5cdtbch1ad4ox6nHh2L0b3YgGrl2H8FfLdHCqYmP4En
+mWJaa0w0pFROCI61sX9p2ITDt6UFDSEDKDvtUBBO120RF5WdGS7Dj7/sMAzu2pPx
+r9hKZGl5VrSj9rLsy9KD6FAxi8nagH/BZFp6+d82VcR2YcJw0361qGxcRn4td7xg
+lsioflZeaGVlDqVzW5lMnE2qy0OIRlry2zE+d1Tbm2LpdFNwLxhz1y/yctq/SZ3A
+Uht/D6t06ebRSLJZtRMGbEXYtX0hrxX9tNQzOMFgjxHWCsG15pta7jiaKU01S+Qn
+xTb8E1ItAnobIS8lm+9how4iRucJAEpv8uug3pWKYY6y/d6CHAozsTrMMDqQHAat
+3appR7UhHZN7DPuDUY50BHF+k8UmU92jSg6j0kGDwUW9hnk4YfZlKhClggFG0Dau
+1eTJGce5NkgiHx5pEQ4e
+=Lp9y
+-----END PGP SIGNATURE-----
+
+--BoUrqPsY9G3pZ2SW--
