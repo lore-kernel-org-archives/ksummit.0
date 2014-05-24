@@ -1,37 +1,35 @@
 Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 4B14726
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 5F7327FE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 24 May 2014 09:14:08 +0000 (UTC)
+	Sat, 24 May 2014 09:53:50 +0000 (UTC)
 Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
 	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id B02081F89A
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 0D2571F90C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 24 May 2014 09:14:07 +0000 (UTC)
-Message-ID: <1400922840.6956.10.camel@dabdike.int.hansenpartnership.com>
+	Sat, 24 May 2014 09:53:49 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+	by bedivere.hansenpartnership.com (Postfix) with ESMTP id 95F8B8EE1C1
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sat, 24 May 2014 02:53:49 -0700 (PDT)
+Received: from bedivere.hansenpartnership.com ([127.0.0.1])
+	by localhost (bedivere.hansenpartnership.com [127.0.0.1]) (amavisd-new,
+	port 10024) with ESMTP id 8W1A7Vy47vwQ
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sat, 24 May 2014 02:53:49 -0700 (PDT)
+Received: from [10.10.76.114] (unknown [81.211.18.246])
+	by bedivere.hansenpartnership.com (Postfix) with ESMTPSA id 2D2768EE0C5
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sat, 24 May 2014 02:53:47 -0700 (PDT)
+Message-ID: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
 From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: "John W. Linville" <linville@tuxdriver.com>
-Date: Sat, 24 May 2014 13:14:00 +0400
-In-Reply-To: <20140523141111.GA13311@tuxdriver.com>
-References: <CAA9_cmdc86KLimJXEVQCJiBH_YM1wWDfpe78EttWwQUW7Re8aA@mail.gmail.com>
-	<20140521201108.76ab84af@notabene.brown>
-	<CAPcyv4itcQzi1CMFYR-+rRovccwMzg0V0B0smU8KMNLVM5SEVg@mail.gmail.com>
-	<2980546.hqgiQV7seV@vostro.rjw.lan>
-	<CAPcyv4hJvjY94-agCi8Twz-Np8_vxv3G7+eFSaAPjVOVyQ0gOQ@mail.gmail.com>
-	<20140522154859.GA28971@thunk.org>
-	<CAPcyv4jxFM=gqDbEmyaXhot4OehsM6B3hsBVLcuq+ueE6i_z5A@mail.gmail.com>
-	<20140522203103.GM15585@mwanda>
-	<CAMuHMdW1KgvP9EpHfVykHEskdeDZ-p_zGy6AuY05-6Y-XEB2MQ@mail.gmail.com>
-	<1400826095.2259.38.camel@dabdike.int.hansenpartnership.com>
-	<20140523141111.GA13311@tuxdriver.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Sat, 24 May 2014 13:53:45 +0400
 Content-Type: text/plain; charset="ISO-8859-15"
 Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] [nomination] Move Fast and Oops
- Things
+Subject: [Ksummit-discuss] [TOPIC] Encouraging more reviewers
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,64 +39,45 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, 2014-05-23 at 10:11 -0400, John W. Linville wrote:
-> On Thu, May 22, 2014 at 11:21:35PM -0700, James Bottomley wrote:
-> > On Thu, 2014-05-22 at 22:56 +0200, Geert Uytterhoeven wrote:
-> > > On Thu, May 22, 2014 at 10:31 PM, Dan Carpenter
-> > > <dan.carpenter@oracle.com> wrote:
-> > > > On Thu, May 22, 2014 at 09:31:44AM -0700, Dan Williams wrote:
-> > > >> I agree that something like this is prickly once it gets entangled
-> > > >> with ABI concerns.  But, I disagree with the speed argument... unless
-> > > >> you believe -staging has not increased the velocity of kernel
-> > > >> development?
-> > > >
-> > > > Staging is good because it brings more developers, but in many cases it
-> > > > is a slow down.  Merged codes has stricter rules where you have to write
-> > > > reviewable patches.  If there is a bug early in a patch series then you
-> > > > can't just fix it in a later patch, you need to redo the whole series.
-> > > 
-> > > In theory...
-> > > 
-> > > These days many fixes end up as separate commits in various subsystem
-> > > trees, due to "no rebase" rules and other regulations.
-> > 
-> > No, pretty much in practise.  I've no qualms about dropping a patch
-> > series if one of the git tree tests shows problems and, since I have a
-> > mostly linear tree, that means a rebase.
-> > 
-> >   I also don't believe in "preserving" history which is simply bug fixes
-> > that should have been in the series.  Sometimes, if the fix took a while
-> > to track down, I might keep the separate patch for credit + learning,
-> > but most of the time I'd fold it into a commit and annotate the commit.
-> 
-> That's all well and good, but rebasing causes a lot of pain.
+A lot of the problems accepting patches into the kernel stem from trying
+to get them reviewed ... some patch series even go for months without
+being reviewed.  This is caused by a couple of problems.  The first one
+is a submission issue, where you get a long N patch series (usually N >
+10) you review and provide feedback, then you get a long N+Y series back
+eventually with no indication what disposition was taken on any of the
+review points ... even the most hardy reviewers get a bit demotivated at
+this point. The second is an actual lack of reviewers in particular
+fields, meaning that a small number of people tend to be the ones
+reviewing patches in particular subsystems.
 
-Not usually if you manage it right.
+The former is probably just an addition to SubmittingPatches explaining
+how to resend after addressing review comments.  The latter was supposed
+to be helped by having the Reviewed-by: tag so we gave credit to
+reviewers.  I've found the Reviewed-by tag to be a bit of a double edged
+sword: it is a good way of giving review credits, but I also see patches
+that come in initially with it on (usually the signoff and the
+reviewed-by are from people in the same company) ... it's not
+necessarily a bad thing, but it doesn't add much value to the kernel
+review process, because we're looking for independent reviews.  The
+other thing I find problematic is that some people respond to a patch
+with a Reviewed-by: tag and nothing more.  I'm really looking for
+evidence of actually having read (and understood) the patch, so the best
+review usually comes with a sequence of comments, questions and minor
+nits and a reviewed-by at the end.
 
->   This is particularly true when you have downstream trees.
+However, the fundamental problem is we still need to increase our review
+pool, so we need more than the Reviewed-by: tag.  It has been suggested
+that people who submit patches should also be required to review patches
+from other people ... I think that's a bit drastic, but it is a
+possibility. Another possibility for the kernel summit might be to have
+review time instead of hack time: we each nominate a patch set needing
+review and it gets reviewed by others in that time ... if that one's
+successful, we could extend the concept to other conferences and
+development sprints which do hack time.  Another possibility is to
+publish a subsystem to review list (similar to the to do list idea).
+This at least shows submitters why their patch series is languishing and
+could serve as a call to arms if it gets too long.
 
-What I find is that people rarely actually need to base development on
-my tree as upstream.  We do sometimes get the odd entangled patch (code
-that changes something that changed in my tree), but we haven't had that
-for a while now.  The rule therefore is use an upstream Linus tree to
-develop unless you specifically have entangled patches.  If you need to
-test with my tree, you can still pull it in as a merge.
-
-I also have specific methodologies where I keep head and tail branches
-of my trees, so for <x> development branch I have an <x>-base branch as
-well, so I can simply do a
-
-git checkout <x>
-git rebase --onto origin/master <x>-base
-git branch -f <x>-base origin/master
-
-> In any case, bugs will eventually show-up -- probably on the day after
-> you merge the 'final' series.  Hopefully those are not 'brown paper bag'
-> bugs, but you can only stall a series so long in hopes of shaking
-> those out.  You can only extend yourself so far in pursuit of bisectability.
-
-Right, you have to have a "history commit" point ... for me that's when
-I send the tree to Linus ... then the history becomes immutable and any
-breakage discovered afterwards has to be fixed by separate patches.
+I'm sure there are many other things people could suggest.
 
 James
