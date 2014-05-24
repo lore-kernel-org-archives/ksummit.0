@@ -1,28 +1,25 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <wsa@the-dreams.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id F23197FE
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 743287FE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 24 May 2014 10:54:38 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 91EE01F895
+	Sat, 24 May 2014 11:19:33 +0000 (UTC)
+Received: from pokefinder.org (sauhun.de [89.238.76.85])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D748F1F9F9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 24 May 2014 10:54:38 +0000 (UTC)
-Date: Sat, 24 May 2014 11:53:28 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-Message-ID: <20140524105328.GO22111@sirena.org.uk>
-References: <1872038.43ncqEMWSx@avalon> <6638836.llWl1tdgvD@vostro.rjw.lan>
-	<20140522101449.GB12304@sirena.org.uk>
-	<1638523.rqHsXd5Z1n@vostro.rjw.lan>
+	Sat, 24 May 2014 11:19:32 +0000 (UTC)
+Date: Sat, 24 May 2014 13:19:28 +0200
+From: Wolfram Sang <wsa@the-dreams.de>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Message-ID: <20140524111927.GA3455@katana>
+References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="6o5AAeie4QQ7Mfd3"
+	protocol="application/pgp-signature"; boundary="FL5UXtIhxfXey3p5"
 Content-Disposition: inline
-In-Reply-To: <1638523.rqHsXd5Z1n@vostro.rjw.lan>
+In-Reply-To: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
 Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] PM dependencies
+Subject: Re: [Ksummit-discuss] [TOPIC] Encouraging more reviewers
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,53 +30,77 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---6o5AAeie4QQ7Mfd3
+--FL5UXtIhxfXey3p5
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Sat, May 24, 2014 at 01:15:56AM +0200, Rafael J. Wysocki wrote:
-> On Thursday, May 22, 2014 11:14:49 AM Mark Brown wrote:
 
-> > > There are more weird cases still.  For example, we have the _DEP object in
-> > > ACPI that basically says "this device depends on that one" and there may be
-> > > no other relationship between the two whatsoever.  How are we supposed to
-> > > implement this within the existing frameworks?
+> A lot of the problems accepting patches into the kernel stem from trying
+> to get them reviewed
 
-> > That sounds like something that should be baked into however ACPI is
-> > hooked in already?
+So true.
 
-> No, it is not.  It is a relatively new addition to ACPI and we don't support
-> it today.  That's because it hasn't been present in the ACPI tables of any
-> production systems until recently.
+> I'm really looking for evidence of actually having read (and
+> understood) the patch, so the best review usually comes with a
+> sequence of comments, questions and minor nits and a reviewed-by at
+> the end.
 
-> However, today we have systems with it shipping and we need to add support
-> for it.
+Yes, this is good (and as much needed as describing the tests done for a
+patch by the submitter). Still, trust is an issue here. Even with
+comments you described above, if it is from a person you don't know the
+review needs to be reviewed. Depending on the reviewer that might take
+more time than to do the review on your own. Which pays off if the
+person stays. If not, well, then I still see this as something a
+maintainer should do, simply to educate people. It just might not help
+getting patches reviewed faster.
 
-Sorry, I wasn't clear - what I meant was that it should be something
-that can be handled based on information the ACPI implementation already
-has, I had been under the impression it got notification of all the
-basic PM transitions already?
+> review pool, so we need more than the Reviewed-by: tag.  It has been
+> suggested that people who submit patches should also be required to
+> review patches from other people
 
---6o5AAeie4QQ7Mfd3
+Eeks. Enforced reviews are likely to be sloppy IMO. And sloppy reviews
+can easily cause more work, just like sloppy documentation.
+
+> conferences and development sprints which do hack time.  Another
+> possibility is to publish a subsystem to review list (similar to the
+> to do list idea). This at least shows submitters why their patch
+> series is languishing and could serve as a call to arms if it gets too
+> long.
+
+For those using patchwork, such lists are on the web and referenced in
+MAINTAINERS. Submitters don't use it much (yet), according to my
+experiences.
+
+The thing I'd like to see way more in the Linux ecosystem:
+
+Paid reviewers/maintainers (selected people, no hiring offers). The
+number of developers increases faster than the number of quality
+keepers. So, the latter should be given the chance to focus on it, if
+they want to.
+
+   Wolfram
+
+
+--FL5UXtIhxfXey3p5
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
-Version: GnuPG v2.0.22 (GNU/Linux)
+Version: GnuPG v1.4.15 (GNU/Linux)
 
-iQIcBAEBAgAGBQJTgHogAAoJELSic+t+oim9mPsP/jZIkA3I87cbuGKj3hZfEelG
-so4Y6SKa4GPTa8rG8AlobTHpc6FgzLf9qumN77pCkE5aFUPE81yRfUhi1PA5Z4E7
-+OYiuxxFd0lXpcEE94hXu4NpclaDreqbCDHDNRpQBMGJ91Fs4Oaz7kOnuIhxSp5M
-nish2rYJ4aA1Em35kSJktm8jNeXvsJmYE6l9SqBpdT8xCnPMWH8JLlNyaw0qwfZu
-6ZLV9koIQEMjJgV2vcFNzSCYdeKJigZxdCzun0oouFmFHqdcsA5gkvp4y4qa4cDf
-9jA24E0cii5j9s9XnZ+yVFh4wKEE6lGNxPaRFdxpuZeHJ/SjGyqaSu7nbdHL8456
-OARhbZ1jDhsMxWgfZsEbkcOSwuTkzkqk0l0t+qLC1W8UEl3LYTtRAW+J3+hqGfs1
-WwxwemHJwXbRCGU/tWHkVpmeNVd7xnZs9MzCOe1c4raVY9a3v0lPd/PiPNWwxnnb
-rxep105yKQcFpaZDib04iBswI6X5AFH89bJNzvp+r+R+5JRZr2SITuEA8ONoSEhy
-01ARHHaa5ZG22RRZLShOGxmJljbjMFVcm/7Ol0z7JfTQaAPqceYS9yK6rgauwWsE
-b57otxW49p+sA/igzIItFGgFDcaIGCgBb2cq/fZ4y8oBq8mkpruX5kNoLs+tbcoA
-DdE7s5uN3mTblQw2mL9I
-=Xmze
+iQIcBAEBAgAGBQJTgIA/AAoJEBQN5MwUoCm25toP/RxlxxxN9+U8LWE93gldCdFc
+dMt5ATg09agczjONhclIo4rHXcIwZAh8Nb1LVtem5IrD32N+CbkMCvhxtzJnTk7N
+STam8iths0cefFR8MuVYGiBP+sxwz9wCrVgsxyL8/OwgK3YezdxMfPi3PK+oa40P
+3MlNF7JNbx6DEiUEtj1mlO6Qzw/fBWBa1Jx3XE2G67wZp1FlXWrYZrDhuWMnDgn3
+w076zDyWTZIGJyF/Sng9AYbRreQL8Dr4LuEtCujikcWmx+bpJVkf+Ejfd5IT/Ghe
+bwIqcv8Jw4cgGQSI9BKofR5ZshIv074GjEkjSNyDDqhit8g1/xDuuYFEOapIFsNH
+5Bv8iqdUGfsN5V3yPVd/Ztxp8A2ZXKtrnENWFmsaPeT/wGgx71Fu4GzK5+l1rvPr
+YTakDBN2Q4aJ7zyMaLeegRwkoo7M/6JxGZwNF1dQT2Uul/5DtMZGjlR3CE47tecy
+NedkWQsPHX4uBfL9otfDrrw9unng+FTnWDN7ofJMOUzb0CZBNMnrC/hpjRpEJYjV
+so4ETVdu5iAHMpv1Wz0qCe2wXrFsOEpJHrsolezYEvbyPMAQh4/wb6/drTdwmnQp
+PFiufvr/k1C+63ZqT3BzWX0ZbDTOog4j09dv/lQERiwj/kwflWaojJohE24ybYWf
+7g8Ey17ZivjRZ7i9mhDc
+=gXob
 -----END PGP SIGNATURE-----
 
---6o5AAeie4QQ7Mfd3--
+--FL5UXtIhxfXey3p5--
