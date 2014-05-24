@@ -1,28 +1,25 @@
-Return-Path: <rjw@rjwysocki.net>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 9575087A
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 6A01587A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 23 May 2014 23:56:27 +0000 (UTC)
-Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id 906301FB24
+	Sat, 24 May 2014 00:30:40 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C3ED51FD46
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 23 May 2014 23:56:26 +0000 (UTC)
-From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-To: Kevin Hilman <khilman@linaro.org>
-Date: Sat, 24 May 2014 02:13:26 +0200
-Message-ID: <3549079.1nLkKeSWWW@vostro.rjw.lan>
-In-Reply-To: <7hioowfre3.fsf@paris.lan>
-References: <1872038.43ncqEMWSx@avalon>
-	<CACRpkdabUuhebq=Pi3v277TVYRfN1KdqYcytZqFft2qYH5eJCg@mail.gmail.com>
-	<7hioowfre3.fsf@paris.lan>
+	Sat, 24 May 2014 00:30:39 +0000 (UTC)
+Date: Fri, 23 May 2014 20:30:36 -0400
+From: Theodore Ts'o <tytso@mit.edu>
+To: "Justin M. Forbes" <jforbes@fedoraproject.org>
+Message-ID: <20140524003036.GB26422@thunk.org>
+References: <537F3551.2070104@hitachi.com>
+	<1400853902.31124.5.camel@fedora64.linuxtx.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
-Cc: Magnus Damm <magnus.damm@gmail.com>,
-	Peter De Schrijver <pdeschrijver@nvidia.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] PM dependencies
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1400853902.31124.5.camel@fedora64.linuxtx.org>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] kernel testing standard
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,46 +29,23 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Friday, May 23, 2014 08:26:12 AM Kevin Hilman wrote:
-> Linus Walleij <linus.walleij@linaro.org> writes:
-> 
-> > On Fri, May 23, 2014 at 2:39 AM, Kevin Hilman <khilman@linaro.org> wrote:
-> >
-> >> Of course, for many "simple" platforms, runtime PM get/put just ends up
-> >> doing a clk_enable/disable, but on the platforms where runtime PM is
-> >> slightly more... um, "interesting"... just doing a clk enable/disable
-> >> won't do what you hope.
-> >
-> > And drivers/base/power/clock_ops.c as invoked from
-> > drivers/sh/pm_runtime.c does exactly that simple thing using
-> > PM domains. Quite elegantly too, I'd say.
-> >
-> > But now I get curious - can we define the "interesting PM" more
-> > generally, like get the details out? And I mean like for a few different
-> > platforms, I know OMAP with its hwmod is one such thing, but how
-> > much interesting stuff do we have out there that we know we must
-> > be able to handle?
-> 
-> By "interesting", I was referring to some of the more complicated ones
-> we have, such as OMAP (though I suspect other SoCs are equally
-> complicated but just don't have their stuff documented and/or upstream
-> yet so we don't know.)
-> 
-> That being said, I think any SoC that requires more than a clk_enable()
-> to bring an IP block out of a low-power state, or clk_disable() to put
-> it into a low-power state qualifies as "interesting" because it can no
-> longer rely on the "simple" clock_ops.c you refer to above.
-> 
-> Stated differently, for most SoCs, fine-grained PM is a lot more than
-> just clock management.  As soon as you have to do more than manage
-> clocks, the generic clock_ops.c isn't good enough and you need your own
-> PM domain (or use genpd.)
+On Fri, May 23, 2014 at 09:05:02AM -0500, Justin M. Forbes wrote:
+> All good suggestions. As nice as it would be if tests were in tree, this
+> might be unmanageable. But even out of tree tests could be automatically
+> brought in provided they are listed somewhere in tree.  Ideally you
+> would be able to "make tests" and get all in tree tests run, or "make
+> alltests" and have it grab/build/run out of tree tests with git urls as
+> well. 
 
-Well stated.
+Um.... how long do you expect "make alltests" to run?
 
-Also, as I said in one of the previous messages, if you consider a driver
-as a piece of code that should work with different platforms (or different
-SoCs if you will, but there's more to that), then it's quite clear that the
-driver is probably not the right place to do all PM that's needed.
+And how do you deal with tests that require specific hardware?
 
-Rafael
+For ext4, just doing a light smoke test takes about 30 minutes.  For
+me to run the full set of tests using multiple file system
+configurations, it takes about 12 to 16 hours.  And that's just for
+one file system.  (I do the tests using KVM, with a 90 megabyte
+compressed root file system, and 55 gigabytes worth of scratch
+partitions.)
+
+						- Ted
