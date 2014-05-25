@@ -1,28 +1,25 @@
-Return-Path: <geert.uytterhoeven@gmail.com>
+Return-Path: <wsa@the-dreams.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id EA81B26
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 8EAC226
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 25 May 2014 08:53:12 +0000 (UTC)
-Received: from mail-ie0-f170.google.com (mail-ie0-f170.google.com
-	[209.85.223.170])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BA1811F9F9
+	Sun, 25 May 2014 08:59:14 +0000 (UTC)
+Received: from pokefinder.org (sauhun.de [89.238.76.85])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1E0B71F9F9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 25 May 2014 08:53:11 +0000 (UTC)
-Received: by mail-ie0-f170.google.com with SMTP id at1so6668147iec.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 25 May 2014 01:53:11 -0700 (PDT)
-MIME-Version: 1.0
-Sender: geert.uytterhoeven@gmail.com
-In-Reply-To: <20140525141725.54db587a@canb.auug.org.au>
+	Sun, 25 May 2014 08:59:14 +0000 (UTC)
+Date: Sun, 25 May 2014 10:59:09 +0200
+From: Wolfram Sang <wsa@the-dreams.de>
+To: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <20140525085909.GA2702@katana>
 References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
-	<20140525141725.54db587a@canb.auug.org.au>
-Date: Sun, 25 May 2014 10:53:11 +0200
-Message-ID: <CAMuHMdXEEJnuV5tdv8kc=uaFxwTYn-Bh=T-e6n5zC4uFvRT3Ag@mail.gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-To: Stephen Rothwell <sfr@canb.auug.org.au>
-Content-Type: text/plain; charset=UTF-8
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	<20140524111927.GA3455@katana> <5380F092.3070600@roeck-us.net>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="nFreZHaLTZJo0R7j"
+Content-Disposition: inline
+In-Reply-To: <5380F092.3070600@roeck-us.net>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
 	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [TOPIC] Encouraging more reviewers
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -34,49 +31,43 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Stephen,
 
-On Sun, May 25, 2014 at 6:17 AM, Stephen Rothwell <sfr@canb.auug.org.au> wrote:
-> On Sat, 24 May 2014 13:53:45 +0400 James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
->>
->> The latter was supposed
->> to be helped by having the Reviewed-by: tag so we gave credit to
->> reviewers.  I've found the Reviewed-by tag to be a bit of a double edged
->> sword: it is a good way of giving review credits, but I also see patches
->> that come in initially with it on (usually the signoff and the
->> reviewed-by are from people in the same company) ... it's not
->> necessarily a bad thing, but it doesn't add much value to the kernel
->> review process, because we're looking for independent reviews.  The
->> other thing I find problematic is that some people respond to a patch
->> with a Reviewed-by: tag and nothing more.  I'm really looking for
->> evidence of actually having read (and understood) the patch, so the best
->> review usually comes with a sequence of comments, questions and minor
->> nits and a reviewed-by at the end.
->
-> Some stats (I know you all love stats :-)):
->
-> for next-20140523, no merge commits, origin/master..HEAD^ (exclude
-> Linus' tree and my Next files commit)
->
-> commits: 7717
-> commits with more than one Signed-off-by: 6291
-> commits with Reviewed-by: 1369
-> commits with Tested-by: 354
->
-> Not sure what these show ...
+--nFreZHaLTZJo0R7j
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Thanks for the numbers!
 
-How many Acked-by? Sometimes there's only a thin line between Acked-by
-and Reviewed-by.
+> Problem with that is that in most company hierarchies code reviewers
+> get little  if no credit for their work.
 
-Gr{oetje,eeting}s,
+I was more aiming for upstream reviewers being paid for upstream review.
+And not so much aiming for work on company level. Without knowing
+details, GregKH being hired by the Linux Foundation looks like a good
+example to me. There are so many $$$ around in the Linux market, there
+should be some left to keep (and better: improve) the quality we all
+appreciate.
 
-                        Geert
 
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+--nFreZHaLTZJo0R7j
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.15 (GNU/Linux)
+
+iQIcBAEBAgAGBQJTgbDdAAoJEBQN5MwUoCm25OQQALWiGXgb0QNpHRNp/CbVPwQz
+m3+poaKbH+/8OvReWA8sHd8t7pYsnaoeJZHry7F5Mf1YMkLMwKaZeDv5YDlxhWaS
+eYe5kzAufvVM6duxd7XGMWS2U8m30QlINstE1+MLmWISmw+8ZiidD8ULzXzw9z1l
+G34vDPwADXxNPfZT1W2l1kooMpzlNO5VXjgYjcp0KN/jDzeK0LXPz+Cix5GghyFb
+F8ZGdUIleMVlw2WJdw/9Fc3oYAb+68AusP7t6O5sFBUtQfPzMgyM+zKux2Jmx8Tl
+km/q8xZDddC9Oq8VdZLlq4uOkPW9DhAEPuljhdr1X7j+xPlviYt0wYjsPvgGidRe
+oyDUM5B7HhhB0ch6R4UfjjV/SiyLceSBRIw6n/Pca5Rzk5pduQmD5PLe/cWqowr+
+xfDBLUsl7FAmTaxbybZ2KoXDitPEhil1g2ZkHYoGnQHJoC/0hUTCU87D8kHbMtyX
+ts2tdd42FAhMsY5gpAAcq33X+RpY9GtuGqsm5SZI0dMHWfvi4EOuUNX2d64MhqeT
+kGDsOMHqk73M/csXtomLL76jzLdnPYsnMau9jrnAmrlZztH5KA/w2/Fkfe/1+k8W
+EY8xtMcAqTIwZnr9BSB5bvsGvbzyqIR4UyuVqUvoqgwnxc87G/gKafuMvXK2H1JX
++yKgb38ZC1QIOAN3AiXw
+=xaqf
+-----END PGP SIGNATURE-----
+
+--nFreZHaLTZJo0R7j--
