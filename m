@@ -1,24 +1,24 @@
 Return-Path: <wsa@the-dreams.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 8EAC226
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 9341426
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 25 May 2014 08:59:14 +0000 (UTC)
+	Sun, 25 May 2014 09:09:18 +0000 (UTC)
 Received: from pokefinder.org (sauhun.de [89.238.76.85])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1E0B71F9F9
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2C4D71F9F8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 25 May 2014 08:59:14 +0000 (UTC)
-Date: Sun, 25 May 2014 10:59:09 +0200
+	Sun, 25 May 2014 09:09:18 +0000 (UTC)
+Date: Sun, 25 May 2014 11:09:12 +0200
 From: Wolfram Sang <wsa@the-dreams.de>
-To: Guenter Roeck <linux@roeck-us.net>
-Message-ID: <20140525085909.GA2702@katana>
+To: Stephen Rothwell <sfr@canb.auug.org.au>
+Message-ID: <20140525090912.GB2702@katana>
 References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
-	<20140524111927.GA3455@katana> <5380F092.3070600@roeck-us.net>
+	<20140525141725.54db587a@canb.auug.org.au>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="nFreZHaLTZJo0R7j"
+	protocol="application/pgp-signature"; boundary="8GpibOaaTibBMecb"
 Content-Disposition: inline
-In-Reply-To: <5380F092.3070600@roeck-us.net>
+In-Reply-To: <20140525141725.54db587a@canb.auug.org.au>
 Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
 	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [TOPIC] Encouraging more reviewers
@@ -32,42 +32,42 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---nFreZHaLTZJo0R7j
+--8GpibOaaTibBMecb
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
 
-> Problem with that is that in most company hierarchies code reviewers
-> get little  if no credit for their work.
+> Some stats (I know you all love stats :-)):
 
-I was more aiming for upstream reviewers being paid for upstream review.
-And not so much aiming for work on company level. Without knowing
-details, GregKH being hired by the Linux Foundation looks like a good
-example to me. There are so many $$$ around in the Linux market, there
-should be some left to keep (and better: improve) the quality we all
-appreciate.
+Some more stats here ;)
+
+http://elinux.org/images/b/b0/Sang-ELCE2013_WolframSang_WeHaveAScalingProblem.pdf
+
+One thing that you can see there is that the number of authors increases
+faster than the number of reviewers and committers (= gatekeepers/maintainers).
+So, IMO the situation is likely to get worse.
 
 
---nFreZHaLTZJo0R7j
+--8GpibOaaTibBMecb
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.15 (GNU/Linux)
 
-iQIcBAEBAgAGBQJTgbDdAAoJEBQN5MwUoCm25OQQALWiGXgb0QNpHRNp/CbVPwQz
-m3+poaKbH+/8OvReWA8sHd8t7pYsnaoeJZHry7F5Mf1YMkLMwKaZeDv5YDlxhWaS
-eYe5kzAufvVM6duxd7XGMWS2U8m30QlINstE1+MLmWISmw+8ZiidD8ULzXzw9z1l
-G34vDPwADXxNPfZT1W2l1kooMpzlNO5VXjgYjcp0KN/jDzeK0LXPz+Cix5GghyFb
-F8ZGdUIleMVlw2WJdw/9Fc3oYAb+68AusP7t6O5sFBUtQfPzMgyM+zKux2Jmx8Tl
-km/q8xZDddC9Oq8VdZLlq4uOkPW9DhAEPuljhdr1X7j+xPlviYt0wYjsPvgGidRe
-oyDUM5B7HhhB0ch6R4UfjjV/SiyLceSBRIw6n/Pca5Rzk5pduQmD5PLe/cWqowr+
-xfDBLUsl7FAmTaxbybZ2KoXDitPEhil1g2ZkHYoGnQHJoC/0hUTCU87D8kHbMtyX
-ts2tdd42FAhMsY5gpAAcq33X+RpY9GtuGqsm5SZI0dMHWfvi4EOuUNX2d64MhqeT
-kGDsOMHqk73M/csXtomLL76jzLdnPYsnMau9jrnAmrlZztH5KA/w2/Fkfe/1+k8W
-EY8xtMcAqTIwZnr9BSB5bvsGvbzyqIR4UyuVqUvoqgwnxc87G/gKafuMvXK2H1JX
-+yKgb38ZC1QIOAN3AiXw
-=xaqf
+iQIcBAEBAgAGBQJTgbM4AAoJEBQN5MwUoCm2fnEP/01Xsr+Z5ACOQENoTsMfuhEL
+Y4K/HT6a3QxytayIO4bxphToMprs+wYWHAGf7ZhSFPaO86nbV45cCUsXMhJyoqqW
+sZmsdhV1H9lAGB6eWYuc1WsjkXK8A4l9wBscqTwgDlfdykoKPRrwZ0Hr9fRyVVGV
+ooFi7wNfxD95AhOC2qwEPYuPzsmUCT8eLZujHijVlF8vG3Kzm7d9v5j/2WzF9JtB
+oVcycPg2ElQsQRC4nZtsP8nuoK90woXZ5I/L/xdSQjPSJp/u9CZ+3gT0E1D8IS6R
+TTe2oeSADI/hhTfFQPAFwF0CA0kdIeUj6bJgiYPduivThKaNqZKEKSFXDEer8/ge
+i2L/rTW8nvJjxgZCcxMGb1YvZk6hxnYzlWBuNJVietHZJvjAvr8BKEkxT6je/AQ2
+eVJsQth2AS6+ZaRE4aBQpgQE7A32qWjHgE0BJvZt5RpMaQkYXlwMEZtFdUp/7qSN
+y0Qa/VvzwOJnYiiOy8xljYzLy34THfzP4iVnnOWifhhOXaYAQacyYcLN41L7D5cW
+lQ5qdiq9ag5mYm5mw/A6eKo//pmvq+pm3Of9idoUs+pcdUfaN2X9skxxN3yXopr8
+nCDDvM60gSFQHqjRHv1ywu6dAusn4V5UNSTKKMo8dh23pcSmGmYGe9z+NKg/IyW+
+zN4j/bsot3Wm7eUJt8QF
+=5PVr
 -----END PGP SIGNATURE-----
 
---nFreZHaLTZJo0R7j--
+--8GpibOaaTibBMecb--
