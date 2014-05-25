@@ -1,25 +1,26 @@
-Return-Path: <wsa@the-dreams.de>
+Return-Path: <sfr@canb.auug.org.au>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 9341426
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 758D926
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 25 May 2014 09:09:18 +0000 (UTC)
-Received: from pokefinder.org (sauhun.de [89.238.76.85])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2C4D71F9F8
+	Sun, 25 May 2014 09:11:52 +0000 (UTC)
+Received: from ozlabs.org (ozlabs.org [103.22.144.67])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id EA5EB1F9F8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 25 May 2014 09:09:18 +0000 (UTC)
-Date: Sun, 25 May 2014 11:09:12 +0200
-From: Wolfram Sang <wsa@the-dreams.de>
-To: Stephen Rothwell <sfr@canb.auug.org.au>
-Message-ID: <20140525090912.GB2702@katana>
+	Sun, 25 May 2014 09:11:51 +0000 (UTC)
+Date: Sun, 25 May 2014 19:11:44 +1000
+From: Stephen Rothwell <sfr@canb.auug.org.au>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Message-ID: <20140525191144.7ff91b31@canb.auug.org.au>
+In-Reply-To: <CAMuHMdXEEJnuV5tdv8kc=uaFxwTYn-Bh=T-e6n5zC4uFvRT3Ag@mail.gmail.com>
 References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
 	<20140525141725.54db587a@canb.auug.org.au>
+	<CAMuHMdXEEJnuV5tdv8kc=uaFxwTYn-Bh=T-e6n5zC4uFvRT3Ag@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="8GpibOaaTibBMecb"
-Content-Disposition: inline
-In-Reply-To: <20140525141725.54db587a@canb.auug.org.au>
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	boundary="Sig_/0oA7tZkZ+jMB1E.nIuv85sy";
+	protocol="application/pgp-signature"
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
 	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [TOPIC] Encouraging more reviewers
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -31,43 +32,61 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+--Sig_/0oA7tZkZ+jMB1E.nIuv85sy
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
---8GpibOaaTibBMecb
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Hi Geert,
 
+On Sun, 25 May 2014 10:53:11 +0200 Geert Uytterhoeven <geert@linux-m68k.org=
+> wrote:
+>
+> On Sun, May 25, 2014 at 6:17 AM, Stephen Rothwell <sfr@canb.auug.org.au> =
+wrote:
+> >
+> > Some stats (I know you all love stats :-)):
+> >
+> > for next-20140523, no merge commits, origin/master..HEAD^ (exclude
+> > Linus' tree and my Next files commit)
+> >
+> > commits: 7717
+> > commits with more than one Signed-off-by: 6291
+> > commits with Reviewed-by: 1369
+> > commits with Tested-by: 354
+> >
+> > Not sure what these show ...
+>=20
+> Thanks for the numbers!
+>=20
+> How many Acked-by? Sometimes there's only a thin line between Acked-by
+> and Reviewed-by.
 
-> Some stats (I know you all love stats :-)):
+commits with Acked-by: 1192
 
-Some more stats here ;)
+--=20
+Cheers,
+Stephen Rothwell                    sfr@canb.auug.org.au
 
-http://elinux.org/images/b/b0/Sang-ELCE2013_WolframSang_WeHaveAScalingProblem.pdf
-
-One thing that you can see there is that the number of authors increases
-faster than the number of reviewers and committers (= gatekeepers/maintainers).
-So, IMO the situation is likely to get worse.
-
-
---8GpibOaaTibBMecb
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
+--Sig_/0oA7tZkZ+jMB1E.nIuv85sy
+Content-Type: application/pgp-signature; name=signature.asc
+Content-Disposition: attachment; filename=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
-Version: GnuPG v1.4.15 (GNU/Linux)
+Version: GnuPG v2.0.22 (GNU/Linux)
 
-iQIcBAEBAgAGBQJTgbM4AAoJEBQN5MwUoCm2fnEP/01Xsr+Z5ACOQENoTsMfuhEL
-Y4K/HT6a3QxytayIO4bxphToMprs+wYWHAGf7ZhSFPaO86nbV45cCUsXMhJyoqqW
-sZmsdhV1H9lAGB6eWYuc1WsjkXK8A4l9wBscqTwgDlfdykoKPRrwZ0Hr9fRyVVGV
-ooFi7wNfxD95AhOC2qwEPYuPzsmUCT8eLZujHijVlF8vG3Kzm7d9v5j/2WzF9JtB
-oVcycPg2ElQsQRC4nZtsP8nuoK90woXZ5I/L/xdSQjPSJp/u9CZ+3gT0E1D8IS6R
-TTe2oeSADI/hhTfFQPAFwF0CA0kdIeUj6bJgiYPduivThKaNqZKEKSFXDEer8/ge
-i2L/rTW8nvJjxgZCcxMGb1YvZk6hxnYzlWBuNJVietHZJvjAvr8BKEkxT6je/AQ2
-eVJsQth2AS6+ZaRE4aBQpgQE7A32qWjHgE0BJvZt5RpMaQkYXlwMEZtFdUp/7qSN
-y0Qa/VvzwOJnYiiOy8xljYzLy34THfzP4iVnnOWifhhOXaYAQacyYcLN41L7D5cW
-lQ5qdiq9ag5mYm5mw/A6eKo//pmvq+pm3Of9idoUs+pcdUfaN2X9skxxN3yXopr8
-nCDDvM60gSFQHqjRHv1ywu6dAusn4V5UNSTKKMo8dh23pcSmGmYGe9z+NKg/IyW+
-zN4j/bsot3Wm7eUJt8QF
-=5PVr
+iQIcBAEBCAAGBQJTgbPVAAoJEMDTa8Ir7ZwVhXgP/3xk7Ynvf0zydDOZpkYn4D1k
+pWBYz4pkoVLWuYYZvhhHOoYp6UKxXNY0+R2nIhF+WL8Nzj+Se62a1h6elfoaCczB
+gPJ0kJ6wz9rA5aRSbz2BWAfOIUcPB/TXVDOH/yMwD9VmCdiPrfQCk9oMGhzJVzVq
+iS62VUIXD+J5RK4ZmM53/4Sr8Lxt6XyRhDoLOZRblANxGS7umx6D3vtSEJ5S7ZBr
+pyoTePb6ccb+VWNqweNRE/G8O0oyvEynGW56yOYJSoeZh5x4hZaz4K/DvcsWfBRd
+1OJ7zlNF1bB0lczgVxNlN3A/ggqQjvUNAapjfCO0nfr7R4wKNJ4ilsyo85zDRnW4
+77fLsiBspPH3xocTZFZ81NeQgRiiUH4uoZqWewp0zdo/0jT2IM3N0o4YkholEPxt
+dQbisqCEHmCU7yBzSc+QBa/oW8tv2fDUPtGdbEIUl4LxzXIk/oNcP3PQuBZVM0uv
+ZzeZi1rW+NYBXiuFL+mpdKCnzok8d0aLkaH2ca0oEtB70hO6TIPuAoCRUXRL5O14
+EQiLqapmnK0LwkhKVEDZcGGOrIOAK5O5wgEdo6TPB+zN5JCzc+zYJe5nNbkXG65C
+AfEOrSKHk0MhcRzJJxV9bayD4aNvl/Pzhqo2Bq0Lq6lxD9kWZ4/9uJML9/5Ol8k7
+uIJ7+EEmuCZ7YoKCuo1H
+=oClI
 -----END PGP SIGNATURE-----
 
---8GpibOaaTibBMecb--
+--Sig_/0oA7tZkZ+jMB1E.nIuv85sy--
