@@ -1,25 +1,29 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <geert.uytterhoeven@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 4892426
+	by mail.linuxfoundation.org (Postfix) with ESMTP id EA81B26
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 25 May 2014 04:57:14 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id F2DAC1F8A0
+	Sun, 25 May 2014 08:53:12 +0000 (UTC)
+Received: from mail-ie0-f170.google.com (mail-ie0-f170.google.com
+	[209.85.223.170])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BA1811F9F9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 25 May 2014 04:57:13 +0000 (UTC)
-Message-ID: <1400993829.2322.13.camel@dabdike.int.hansenpartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Date: Sun, 25 May 2014 08:57:09 +0400
-In-Reply-To: <5380F092.3070600@roeck-us.net>
+	Sun, 25 May 2014 08:53:11 +0000 (UTC)
+Received: by mail-ie0-f170.google.com with SMTP id at1so6668147iec.1
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sun, 25 May 2014 01:53:11 -0700 (PDT)
+MIME-Version: 1.0
+Sender: geert.uytterhoeven@gmail.com
+In-Reply-To: <20140525141725.54db587a@canb.auug.org.au>
 References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
-	<20140524111927.GA3455@katana> <5380F092.3070600@roeck-us.net>
-Content-Type: text/plain; charset="ISO-8859-15"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org
+	<20140525141725.54db587a@canb.auug.org.au>
+Date: Sun, 25 May 2014 10:53:11 +0200
+Message-ID: <CAMuHMdXEEJnuV5tdv8kc=uaFxwTYn-Bh=T-e6n5zC4uFvRT3Ag@mail.gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+To: Stephen Rothwell <sfr@canb.auug.org.au>
+Content-Type: text/plain; charset=UTF-8
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [TOPIC] Encouraging more reviewers
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -30,57 +34,49 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, 2014-05-24 at 12:18 -0700, Guenter Roeck wrote:
-> >
-> > The thing I'd like to see way more in the Linux ecosystem:
-> >
-> > Paid reviewers/maintainers (selected people, no hiring offers). The
-> > number of developers increases faster than the number of quality
-> > keepers. So, the latter should be given the chance to focus on it, if
-> > they want to.
-> >
-> 
-> Problem with that is that in most company hierarchies code reviewers
-> get little  if no credit for their work.
+Hi Stephen,
 
-I could see this in start up type companies.  Older companies learned
-long ago that customers value quality over features so they tend to have
-elaborate review processes. (As an aside, customers say they value
-features, but if you deliver one with a regression, it's the regression
-you'll hear about the whole time).
+On Sun, May 25, 2014 at 6:17 AM, Stephen Rothwell <sfr@canb.auug.org.au> wrote:
+> On Sat, 24 May 2014 13:53:45 +0400 James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
+>>
+>> The latter was supposed
+>> to be helped by having the Reviewed-by: tag so we gave credit to
+>> reviewers.  I've found the Reviewed-by tag to be a bit of a double edged
+>> sword: it is a good way of giving review credits, but I also see patches
+>> that come in initially with it on (usually the signoff and the
+>> reviewed-by are from people in the same company) ... it's not
+>> necessarily a bad thing, but it doesn't add much value to the kernel
+>> review process, because we're looking for independent reviews.  The
+>> other thing I find problematic is that some people respond to a patch
+>> with a Reviewed-by: tag and nothing more.  I'm really looking for
+>> evidence of actually having read (and understood) the patch, so the best
+>> review usually comes with a sequence of comments, questions and minor
+>> nits and a reviewed-by at the end.
+>
+> Some stats (I know you all love stats :-)):
+>
+> for next-20140523, no merge commits, origin/master..HEAD^ (exclude
+> Linus' tree and my Next files commit)
+>
+> commits: 7717
+> commits with more than one Signed-off-by: 6291
+> commits with Reviewed-by: 1369
+> commits with Tested-by: 354
+>
+> Not sure what these show ...
 
->  If anything, I have seen
-> the opposite - code reviewers, if they take their responsibility
-> serious, end up getting blamed for project delays because they keep
-> finding problems in the code.
+Thanks for the numbers!
 
-I've worked for a couple of large companies over my career (and a few
-start ups).  I've got to say that's not my experience.  I've always seen
-us blame the submitter for bad code, not the reviewer.
+How many Acked-by? Sometimes there's only a thin line between Acked-by
+and Reviewed-by.
 
-> Imagine a project where one employee writes the code and another
-> reviews it. Who do you think will get the credit (and bonus) ?
-> I bet it will be the person who wrote the code, not the person
-> who made sure that it is clean and free of bugs.
+Gr{oetje,eeting}s,
 
-This is certainly true that credit goes to features.  However, if your
-company only incents that way, QA rapidly gets disillusioned, so only
-giving credit to features wouldn't work long term which is why no
-company I know does it.
+                        Geert
 
-To give a counter point: every product we produce has defect metrics and
-I've seen QA get all the prizes in the case where the initial submit was
-too buggy and they turned around the reviews and tests fast enough to
-meet the shipping deadlines and reduce the defects to within the
-metrics.
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-In all things in life, it's a balance.  I've seen cockups where QA is
-solely incented on defects found and minor UI bugs get classified as
-critical feature defects (because that's what gets the bonus).
-
-But anyway, back to the problem at hand, I think you're suggesting that
-paying for reviews might not work, and I think I agree because it's back
-to incenting QA solely on finding defects.  However, if others thought
-there was merit, we might persuade the LF to offer a small incentive.
-
-James
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
