@@ -1,25 +1,27 @@
-Return-Path: <rjw@rjwysocki.net>
+Return-Path: <wsa@the-dreams.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 782DF996
+	by mail.linuxfoundation.org (Postfix) with ESMTP id D74FB98F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 26 May 2014 12:21:15 +0000 (UTC)
-Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id 77A3D1FA42
+	Mon, 26 May 2014 12:52:22 +0000 (UTC)
+Received: from pokefinder.org (sauhun.de [89.238.76.85])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5FF751FA1F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 26 May 2014 12:21:14 +0000 (UTC)
-From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Mon, 26 May 2014 14:38:18 +0200
-Message-ID: <1849144.CmpsQG9Pds@vostro.rjw.lan>
-In-Reply-To: <CAErSpo4XtYN2x6LWcpvdtgC-eXu0FSnZRp2tkwAGCD9eak5upw@mail.gmail.com>
+	Mon, 26 May 2014 12:52:22 +0000 (UTC)
+Date: Mon, 26 May 2014 14:52:16 +0200
+From: Wolfram Sang <wsa@the-dreams.de>
+To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+Message-ID: <20140526125216.GA2656@katana>
 References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
-	<1400952709.6956.50.camel@dabdike.int.hansenpartnership.com>
-	<CAErSpo4XtYN2x6LWcpvdtgC-eXu0FSnZRp2tkwAGCD9eak5upw@mail.gmail.com>
+	<5380F092.3070600@roeck-us.net> <20140525085909.GA2702@katana>
+	<1529835.H0O99ObTAN@vostro.rjw.lan>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="DocE+STaALJfprDB"
+Content-Disposition: inline
+In-Reply-To: <1529835.H0O99ObTAN@vostro.rjw.lan>
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [TOPIC] Encouraging more reviewers
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -30,24 +32,54 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Saturday, May 24, 2014 10:15:52 PM Bjorn Helgaas wrote:
-> On Sat, May 24, 2014 at 11:31 AM, James Bottomley
-> <James.Bottomley@hansenpartnership.com> wrote:
 
-[cut]
+--DocE+STaALJfprDB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> Better tools are always nice, but I agree they won't address the "lack
-> of reviewers" problem.  I'm a little concerned that the real problem
-> is that the complexity of the system makes it unapproachable except to
-> the few who can afford to work in one area full-time (I'm talking
-> about the complexity of accumulated warts, not the unavoidable
-> complexity of the hardware itself).
+On Mon, May 26, 2014 at 02:23:50PM +0200, Rafael J. Wysocki wrote:
+> On Sunday, May 25, 2014 10:59:09 AM Wolfram Sang wrote:
+> >=20
+> > > Problem with that is that in most company hierarchies code reviewers
+> > > get little  if no credit for their work.
+> >=20
+> > I was more aiming for upstream reviewers being paid for upstream review.
+> > And not so much aiming for work on company level. Without knowing
+> > details, GregKH being hired by the Linux Foundation looks like a good
+> > example to me. There are so many $$$ around in the Linux market, there
+> > should be some left to keep (and better: improve) the quality we all
+> > appreciate.
+>=20
+> There is one more angle to that.  Namely, it would be good if at least so=
+me
+> reviewers were seen as independent of any particular company.
 
-I agree.
+Agreed. This would be easiest, without friction. However, with enough
+credibility, this becomes less important IMO. I'd name akpm here, for
+example.
 
-If a change is deep enough, you need to know a lot about the code that's
-already there to review it, and not just about one subsystem usually, and you
-also need to know *why* it is there which in many cases is undocumented and may
-be specific to certain special cases.
 
-Rafael
+--DocE+STaALJfprDB
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.15 (GNU/Linux)
+
+iQIcBAEBAgAGBQJTgzkAAAoJEBQN5MwUoCm28DsQAJurrOrx5Gi/y2TT7ojRaYDq
+q3oWwdKxrmipSMgsqxfjh47i2A2Abf2ob+HO0WVoDAtKCYa0RZyf7SzZkgycszNz
+iUoeOrUZuOuOGCL++wfJxWzTJCYNFaCkkaQXJsvoFj90lCUuNd+/1VE6OfsL9IVa
+RCYrwjgucL4vg+J1s/6QAY0R0fmtU3NpizwkWmfqYmE+ZTUf/gvVHGJzZvF6une7
+1c3S0kiXmqTFJdQRfCWSO0nqRyI/cgL0U8zcwBANDIuLA1Q6kKAZ7C1WqXFyYLU9
+ZZcm6tZk4yMtVCd6n9PxWxXXLjDOJHNe7BIU8XeRxroWeqrCruZebLW3SmnRhBEU
+Lznl/f8tPBfHu4CL1UR5DbTZ+FrhAVxltePDW0iEA/VwG/sZev1XH0Ll3UKIvbH/
+sZAOCBY6my2MPojBorZxZWYYSmeH2Zv62wEqNbDyFOAUnfMduh0SuXSNODZDVH3l
+Qy3mk3h4g9Qvhc3Pj84LzKSD9mjltIehvWg7YfHZWLEO0fE9x0bPEWS+ZQctMsfF
+oERMo9BkS3WUMHv/IjB+ttOZK4JslI1/Nul300oRHNvctySoQ85J6p4+QUW1FEw5
+taqXRLRJUbr/aBnW4/5fA2MbB6E8X/RGkpn1Q6bAurOLohvpQJLx4EV15BZT7BwV
+ubXr5zUznGpFI08jl+Ps
+=h1gx
+-----END PGP SIGNATURE-----
+
+--DocE+STaALJfprDB--
