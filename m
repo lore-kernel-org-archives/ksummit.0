@@ -1,24 +1,25 @@
 Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id A9870982
+	by mail.linuxfoundation.org (Postfix) with ESMTP id C32718A7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 26 May 2014 12:06:47 +0000 (UTC)
+	Mon, 26 May 2014 12:14:06 +0000 (UTC)
 Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id B98DA1FA42
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id C34DA1F9F8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 26 May 2014 12:06:46 +0000 (UTC)
+	Mon, 26 May 2014 12:14:05 +0000 (UTC)
 From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Mon, 26 May 2014 14:23:50 +0200
-Message-ID: <1529835.H0O99ObTAN@vostro.rjw.lan>
-In-Reply-To: <20140525085909.GA2702@katana>
+To: Dan Williams <dan.j.williams@intel.com>
+Date: Mon, 26 May 2014 14:31:09 +0200
+Message-ID: <1834928.T4y9K36Tks@vostro.rjw.lan>
+In-Reply-To: <CAPcyv4gjnBzDAeSnpjfC73CRr4KRZE2PNj705G6_YSN1vyyP0A@mail.gmail.com>
 References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
-	<5380F092.3070600@roeck-us.net> <20140525085909.GA2702@katana>
+	<CAPcyv4gjnBzDAeSnpjfC73CRr4KRZE2PNj705G6_YSN1vyyP0A@mail.gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="utf-8"
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [TOPIC] Encouraging more reviewers
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -29,19 +30,71 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sunday, May 25, 2014 10:59:09 AM Wolfram Sang wrote:
+On Saturday, May 24, 2014 07:24:15 AM Dan Williams wrote:
+> On Sat, May 24, 2014 at 2:53 AM, James Bottomley
+> <James.Bottomley@hansenpartnership.com> wrote:
+> > A lot of the problems accepting patches into the kernel stem from trying
+> > to get them reviewed ... some patch series even go for months without
+> > being reviewed.  This is caused by a couple of problems.  The first one
+> > is a submission issue, where you get a long N patch series (usually N >
+> > 10) you review and provide feedback, then you get a long N+Y series back
+> > eventually with no indication what disposition was taken on any of the
+> > review points ... even the most hardy reviewers get a bit demotivated at
+> > this point. The second is an actual lack of reviewers in particular
+> > fields, meaning that a small number of people tend to be the ones
+> > reviewing patches in particular subsystems.
+> >
+> > The former is probably just an addition to SubmittingPatches explaining
+> > how to resend after addressing review comments.  The latter was supposed
+> > to be helped by having the Reviewed-by: tag so we gave credit to
+> > reviewers.  I've found the Reviewed-by tag to be a bit of a double edged
+> > sword: it is a good way of giving review credits, but I also see patches
+> > that come in initially with it on (usually the signoff and the
+> > reviewed-by are from people in the same company) ... it's not
+> > necessarily a bad thing, but it doesn't add much value to the kernel
+> > review process, because we're looking for independent reviews.  The
+> > other thing I find problematic is that some people respond to a patch
+> > with a Reviewed-by: tag and nothing more.  I'm really looking for
+> > evidence of actually having read (and understood) the patch, so the best
+> > review usually comes with a sequence of comments, questions and minor
+> > nits and a reviewed-by at the end.
+> >
+> > However, the fundamental problem is we still need to increase our review
+> > pool, so we need more than the Reviewed-by: tag.  It has been suggested
+> > that people who submit patches should also be required to review patches
+> > from other people ... I think that's a bit drastic, but it is a
+> > possibility. Another possibility for the kernel summit might be to have
+> > review time instead of hack time: we each nominate a patch set needing
+> > review and it gets reviewed by others in that time ... if that one's
+> > successful, we could extend the concept to other conferences and
+> > development sprints which do hack time.  Another possibility is to
+> > publish a subsystem to review list (similar to the to do list idea).
+> > This at least shows submitters why their patch series is languishing and
+> > could serve as a call to arms if it gets too long.
 > 
-> > Problem with that is that in most company hierarchies code reviewers
-> > get little  if no credit for their work.
-> 
-> I was more aiming for upstream reviewers being paid for upstream review.
-> And not so much aiming for work on company level. Without knowing
-> details, GregKH being hired by the Linux Foundation looks like a good
-> example to me. There are so many $$$ around in the Linux market, there
-> should be some left to keep (and better: improve) the quality we all
-> appreciate.
+> Mandatory patchwork?  If no one can perceive the patch queue depth how
+> do they know where to help?  Would also be nice if patchwork had
+> states like "needs review from another fibre channel developer" to
+> make it explicit the class of review that is being sought from the
+> maintainer.
 
-There is one more angle to that.  Namely, it would be good if at least some
-reviewers were seen as independent of any particular company.
+I agree that adding something like this to Patchwork would be a good idea (just
+another status value, like "Review Required" should be sufficient), but making
+it mandatory is a bit over the top to me.
+
+> > I'm sure there are many other things people could suggest.
+> 
+> Forgive the co-opt / tie-in to my own topic proposal, but I think one
+> way to increase review is to do it after the code is merged.
+
+Excuse me, but who's going to have the incentive then?  And what exactly is
+the incentive going to be?
+
+> Quality reviews tend to also show up after bug reports.
+
+I wouldn't call that "reviews", honestly, but rather code analyses.  Yes, bug
+reports often cause people to analyse the code more in depth and understand it
+better, but confusing after-the-fact analysis with review is like confusing
+prevention with healing a disease that's already developed.
 
 Rafael
