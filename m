@@ -1,33 +1,27 @@
-Return-Path: <rjw@rjwysocki.net>
+Return-Path: <lizefan@huawei.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 5C95C82D
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 1EA15988
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 26 May 2014 21:38:10 +0000 (UTC)
-Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id 24CA120247
+	Tue, 27 May 2014 08:17:06 +0000 (UTC)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [119.145.14.64])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CA0EC1F895
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 26 May 2014 21:38:08 +0000 (UTC)
-From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-To: Linus Walleij <linus.walleij@linaro.org>
-Date: Mon, 26 May 2014 23:55:12 +0200
-Message-ID: <2124384.HfxQDmGqGO@vostro.rjw.lan>
-In-Reply-To: <CACRpkdaBxnSpXqntLSeBK1Zo+iUxLV2K0h=3vr-HCQJtgxvq0g@mail.gmail.com>
-References: <CAOesGMghcsw+xeGRBoTSNwWnADTJfF=hgtFUQfnu9L3Lg1cCjA@mail.gmail.com>
-	<1785175.GYZBbEJPJC@vostro.rjw.lan>
-	<CACRpkdaBxnSpXqntLSeBK1Zo+iUxLV2K0h=3vr-HCQJtgxvq0g@mail.gmail.com>
+	Tue, 27 May 2014 08:17:03 +0000 (UTC)
+Message-ID: <538449D2.5000508@huawei.com>
+Date: Tue, 27 May 2014 16:16:18 +0800
+From: Li Zefan <lizefan@huawei.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
-Cc: "dvhart@dvhart.com" <dvhart@dvhart.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Mark Brown <broonie@sirena.org.uk>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Driver model/resources, ACPI, DT,
-	etc (sigh)
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
+	<20140525141725.54db587a@canb.auug.org.au>
+	<CAMuHMdXEEJnuV5tdv8kc=uaFxwTYn-Bh=T-e6n5zC4uFvRT3Ag@mail.gmail.com>
+In-Reply-To: <CAMuHMdXEEJnuV5tdv8kc=uaFxwTYn-Bh=T-e6n5zC4uFvRT3Ag@mail.gmail.com>
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: 7bit
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TOPIC] Encouraging more reviewers
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,118 +31,48 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Monday, May 26, 2014 11:19:26 PM Linus Walleij wrote:
-> On Mon, May 19, 2014 at 1:56 AM, Rafael J. Wysocki <rjw@rjwysocki.net> wrote:
-> > On Saturday, May 17, 2014 02:24:23 PM Mark Brown wrote:
+On 2014/5/25 16:53, Geert Uytterhoeven wrote:
+> Hi Stephen,
 > 
-> >> That's much less invasive than making new APIs.
-> >
-> > But for drivers that call of_get_something() directly I don't see any other
-> > sensible way forward.  Otherwise each of them will need to do something like
-> >
-> > if (dev->of_node)
-> >         use of_get_X()
-> > else if (ACPI_COMPANION(dev))
-> >         use acpi_get_X()
-> > else
-> >         use black magic
+> On Sun, May 25, 2014 at 6:17 AM, Stephen Rothwell <sfr@canb.auug.org.au> wrote:
+>> On Sat, 24 May 2014 13:53:45 +0400 James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
+>>>
+>>> The latter was supposed
+>>> to be helped by having the Reviewed-by: tag so we gave credit to
+>>> reviewers.  I've found the Reviewed-by tag to be a bit of a double edged
+>>> sword: it is a good way of giving review credits, but I also see patches
+>>> that come in initially with it on (usually the signoff and the
+>>> reviewed-by are from people in the same company) ... it's not
+>>> necessarily a bad thing, but it doesn't add much value to the kernel
+>>> review process, because we're looking for independent reviews.  The
+>>> other thing I find problematic is that some people respond to a patch
+>>> with a Reviewed-by: tag and nothing more.  I'm really looking for
+>>> evidence of actually having read (and understood) the patch, so the best
+>>> review usually comes with a sequence of comments, questions and minor
+>>> nits and a reviewed-by at the end.
+>>
+>> Some stats (I know you all love stats :-)):
+>>
+>> for next-20140523, no merge commits, origin/master..HEAD^ (exclude
+>> Linus' tree and my Next files commit)
+>>
+>> commits: 7717
+>> commits with more than one Signed-off-by: 6291
+>> commits with Reviewed-by: 1369
+>> commits with Tested-by: 354
+>>
+>> Not sure what these show ...
 > 
-> So there is currently net/rfkill/rfkill-gpio.c,
-> and there is a patch to add device tree support out there:
-> http://marc.info/?l=devicetree&m=139754665715639&w=2
+> Thanks for the numbers!
 > 
-> And after that it looks like that:
+> How many Acked-by? Sometimes there's only a thin line between Acked-by
+> and Reviewed-by.
 > 
-> static int rfkill_gpio_acpi_probe(struct device *dev,
->                                   struct rfkill_gpio_data *rfkill)
-> {
->         const struct acpi_device_id *id;
-> 
->         id = acpi_match_device(dev->driver->acpi_match_table, dev);
->         if (!id)
->                 return -ENODEV;
-> 
->         rfkill->name = dev_name(dev);
->         rfkill->type = (unsigned)id->driver_data;
-> 
->         return 0;
-> }
-> 
-> static int rfkill_gpio_dt_probe(struct device *dev, struct
-> rfkill_gpio_data *rfkill)
-> {
->         struct device_node * np = dev->of_node;
-> 
->         rfkill->name = np->name;
->         of_property_read_string(np, "rfkill-name", &rfkill->name);
->         of_property_read_u32(np, "rfkill-type", &rfkill->type);
-> 
->         return 0;
-> }
-> 
-> static int rfkill_gpio_probe(struct platform_device *pdev)
-> {
-> (...)
->         if (ACPI_HANDLE(&pdev->dev)) {
->                 ret = rfkill_gpio_acpi_probe(&pdev->dev, rfkill);
->                 if (ret)
->                         return ret;
->         } else if (&pdev->dev.of_node) {
->                ret = rfkill_gpio_dt_probe(&pdev->dev, rfkill);
->                if (ret)
->                        return ret;
->         } else if (pdata) {
->                 rfkill->name = pdata->name;
->                 rfkill->type = pdata->type;
->         } else {
->                 return -ENODEV;
->         }
-> }
-> 
-> Whopee-do. The semantic differences are not so subtle. In
-> one case the type is defined in the driver itself by ACPI's match
-> data, in the DT case it is explicitly provided in a node in the DT
-> itself. DT can also explicitly name the rfkill, whereas ACPI will
-> just use the device name.
-> 
-> What should we do? How will the interface look? I mean for real.
 
-This is talking about *current* ACPI, which may be different from future
-ACPI (where I mean 5.1).  And future ACPI may be able to do the same thing
-as DT does.  So why don't we get back to that when ACPI 5.1 is out
-(which should be some time in the summer)?
+Correct. Some Acked-by's are actually Reviewed-by's, and somethimes people
+reviewed the code withouting providing Reviewed-by's.
 
-> This is the discussion we need to have. Admittedly I do not see anything
-> clean enough :-(
-> 
-> And this is a DEAD SIMPLE example.
-> 
-> And even if there can be something clean and nice in the probe path,
-> we still have this:
-> 
-> #ifdef CONFIG_ACPI
-> static const struct acpi_device_id rfkill_acpi_match[] = {
->         { "BCM2E1A", RFKILL_TYPE_BLUETOOTH },
->         { "BCM2E39", RFKILL_TYPE_BLUETOOTH },
->         { "BCM2E3D", RFKILL_TYPE_BLUETOOTH },
->         { "BCM4752", RFKILL_TYPE_GPS },
->         { "LNV4752", RFKILL_TYPE_GPS },
->         { },
-> };
-> #endif
-> #ifdef CONFIG_OF
-> static const struct of_device_id rfkill_of_match[] = {
->        { .compatible = "rfkill-gpio", },
->        {},
-> };
-> #endif
-> (...)
->                 .acpi_match_table = ACPI_PTR(rfkill_acpi_match),
->                 .of_match_table = of_match_ptr(rfkill_of_match),
-> (...)
-> 
-> This stuff we don't even talk about unifiing right?
-
-We haven't been talking about that so far.
-
-Rafael
+For me, Tejun and I are co-maintaining cgroup. At first I said acked-by
+to some of his patches and said reviewed-by to others, and that made it
+hard for Tejun to add tags to his patches, so we agreed that I'll just
+always stick to acked-by.
