@@ -1,26 +1,25 @@
-Return-Path: <jkosina@suse.cz>
+Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 27329982
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 592D2AB3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 27 May 2014 21:22:21 +0000 (UTC)
-Received: from mx2.suse.de (cantor2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CC3D6201B3
+	Tue, 27 May 2014 22:40:27 +0000 (UTC)
+Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id 645C0201E1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 27 May 2014 21:22:19 +0000 (UTC)
-Date: Tue, 27 May 2014 23:22:16 +0200 (CEST)
-From: Jiri Kosina <jkosina@suse.cz>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-In-Reply-To: <1401224020.14454.92.camel@dabdike>
-Message-ID: <alpine.LNX.2.00.1405272316000.17241@pobox.suse.cz>
+	Tue, 27 May 2014 22:40:25 +0000 (UTC)
+From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Wed, 28 May 2014 00:57:30 +0200
+Message-ID: <4700397.FLxRVChBLf@vostro.rjw.lan>
+In-Reply-To: <alpine.LFD.2.00.1405271920580.2055@localhost.localdomain>
 References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
-	<20140525222923.GW15585@mwanda> <1401119598.3303.6.camel@dabdike>
-	<alpine.LNX.2.00.1405271634080.28869@pobox.suse.cz>
-	<1401224020.14454.92.camel@dabdike>
+	<20140524111927.GA3455@katana>
+	<alpine.LFD.2.00.1405271920580.2055@localhost.localdomain>
 MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
-Cc: Dan Carpenter <dan.carpenter@oracle.com>,
-	ksummit-discuss@lists.linuxfoundation.org
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>
 Subject: Re: [Ksummit-discuss] [TOPIC] Encouraging more reviewers
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -31,47 +30,40 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 28 May 2014, James Bottomley wrote:
+On Tuesday, May 27, 2014 07:27:06 PM Luk=C3=A1=C5=A1 Czerner wrote:
+> On Sat, 24 May 2014, Wolfram Sang wrote:
 
-> > With my distro person hat on, I'd really like to call at least for pushing 
-> > driver maintainers much harder to be a lot more verbose in their 
-> > changelogs (if splitting the commits into smaller chunks is not an 
-> > option). Without that, trying to find out what change might potentially 
-> > cause what kind of behavior turns into a nightmare.
-> > 
-> > For an example picked up in a completely in random, look at this one
-> > 
-> > 	commit 1ba981fd3ad1f91b8bb205ce6aac6aad45f2fa7a
-> > 	Author: James Smart <james.smart@emulex.com>
-> > 	Date:   Thu Feb 20 09:56:45 2014 -0500
-> > 
-> > 	    [SCSI] lpfc 8.3.45: Incorporated support of a low-latency io path
-> 
-> Well, I don't disagree, but getting driver writers to supply changelogs
-> is hard.  
+[cut]
 
-I know. But there just a one single force on planet Earth that can make 
-this happen, and that's maintainer saying "No, you have to do better".
+> >=20
+> > Paid reviewers/maintainers (selected people, no hiring offers). The=
 
-> For the ones I understand, I've rewritten (or even composed) quite a few 
-> change logs myself because I often don't get anything usable back when I 
-> request a rewrite.
+> > number of developers increases faster than the number of quality
+> > keepers. So, the latter should be given the chance to focus on it, =
+if
+> > they want to.
+>=20
+> That does not make much sense to me. In order to review the code you
+> need to understand it and if you already understand the code, you
+> can write it as well. I do not think that having dedicated reviewers
+> is realistic in the long run.
 
-Are you implying that Linux is still not in a position to force HW vendor 
-companies to rather invest 30 man-minutes in order to have a proper 
-changelog and driver merged in Linus' tree compared to receiving bad 
-public press when they are being rejected (especially for such negligible 
-reason as changelog text)?
+That's correct and dedicated reviewers who don't really write code will=
 
-> My intolerance for bad changelogs is high in shared code, but for single 
-> vendor drivers it's often hard just to get the code and keep it in sync, 
-> so I have a lot lower tolerance.
+become less and less reliable over time.  So they will have to be peopl=
+e
+who actively work on the code *and* review patch submissions from other=
 
-Unfortunately this doesn't make much of a difference for distro vendors 
-when chasing unknown bugs.
+developers.
 
-Thanks,
+> However encouraging reviewers by treating reviewed-by tag with equal
+> "respect" as signed-off-by seems like the better way.
 
--- 
-Jiri Kosina
-SUSE Labs
+I would even argue that it should be treated more seriously than sign-o=
+ffs.
+After all, there are more patches applied (and all of them are signed-o=
+ff
+by at least one person) than there are commits with the Reviewed-by tag=
+.
+
+Rafael
