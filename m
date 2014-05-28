@@ -1,28 +1,27 @@
-Return-Path: <laurent.pinchart@ideasonboard.com>
+Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 9C2D685D
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 1B121910
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 28 May 2014 23:02:42 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
-	[95.142.166.194])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7F47420306
+	Wed, 28 May 2014 23:16:26 +0000 (UTC)
+Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id 054CF2010F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 28 May 2014 23:02:40 +0000 (UTC)
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+	Wed, 28 May 2014 23:16:24 +0000 (UTC)
+From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
 To: ksummit-discuss@lists.linuxfoundation.org
-Date: Thu, 29 May 2014 01:02:59 +0200
-Message-ID: <1734054.557RqAjsBf@avalon>
-In-Reply-To: <1442785.duAJunkqTR@dtor-d630.eng.vmware.com>
+Date: Thu, 29 May 2014 01:33:29 +0200
+Message-ID: <42496225.fDD1eO9ThQ@vostro.rjw.lan>
+In-Reply-To: <yq1zji2hif7.fsf@sermon.lab.mkp.net>
 References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
-	<20140528201228.GA14247@cloud>
-	<1442785.duAJunkqTR@dtor-d630.eng.vmware.com>
+	<alpine.LNX.2.00.1405272316000.17241@pobox.suse.cz>
+	<yq1zji2hif7.fsf@sermon.lab.mkp.net>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>
-Subject: Re: [Ksummit-discuss] Reforming Acked-by (was Re: [TOPIC]
-	Encouraging more reviewers)
+Content-Type: text/plain; charset="utf-8"
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [Ksummit-discuss] [TOPIC] Encouraging more reviewers
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,42 +31,19 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wednesday 28 May 2014 13:22:42 Dmitry Torokhov wrote:
-> On Wednesday, May 28, 2014 01:12:28 PM josh@joshtriplett.org wrote:
-> > On Wed, May 28, 2014 at 06:48:47PM +0000, Paul Walmsley wrote:
-> > > Also long-overdue is a clarification on exactly what "Acked-by" means.
-> > > Right now it is being used for at least two distinct and
-> > > mutually-incompatible purposes:
-> > > 
-> > > 1. A maintainer A for code affected by a patch, who is distinct from a
-> > > maintainer B queuing a patch, has reviewed the patch and has cleared it
-> > > as being OK for maintainer B to send upstream
-> > > 
-> > > 2. A casual review has been done by someone who is not a maintainer for
-> > > the code in question
-> > > 
-> > > What I would propose is to have the first use replaced by a new tag,
-> > > "Maintainer-acked-by:", and the second use abolished, along with
-> > > "Acked-by:", and replaced by "Reviewed-by:".
-> > 
-> > In practice, (2) seems to have been mostly replaced by "Reviewed-by"; I
-> > rarely see Acked-by used for cases other than (1): "I'm the maintainer
-> > or an affected subsystem developer, I approve of this patch, but I don't
-> > intend to take it through my own tree."
+On Tuesday, May 27, 2014 08:10:36 PM Martin K. Petersen wrote:
+> >>>>> "Jiri" == Jiri Kosina <jkosina@suse.cz> writes:
 > 
-> I believe we still need a separate mark for casual review. I can scan
-> a patch and find a few item that i might now like, but if I do not
-> do full review in the first pass and then again after the issues
-> that have been pointed out have been corrected I won't be stamping
-> "Reviewed-by" on the patch.
+
+[cut]
+
 > 
-> Nitpicked-by? :)
+> We have had a several discussions about this problem the last 6 months,
+> including at LSF/MM. I have had meetings with several hw vendors this
+> spring trying to educate them about our "new" rules of engagement. It's
+> not easy, but I feel we're making progress. Worst case we'll send gregkh
+> wielding a clue bat...
 
-Do such casual reviews need to be recorded in the git history ? I tend to just 
-reply with "looks good to me" when I just skim through a patch, and I don't 
-think that deserves being recorded for posterity.
+Rather, the Point-of-View Gun featured in the "Hitchhiker's Guide to the Galaxy" ...
 
--- 
-Regards,
-
-Laurent Pinchart
+Rafael
