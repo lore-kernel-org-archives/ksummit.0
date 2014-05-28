@@ -1,29 +1,34 @@
-Return-Path: <laurent.pinchart@ideasonboard.com>
+Return-Path: <josh@joshtriplett.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 9FF2685D
+	by mail.linuxfoundation.org (Postfix) with ESMTP id EA14B96E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 28 May 2014 23:29:09 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
-	[95.142.166.194])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F05711FD47
+	Wed, 28 May 2014 23:32:03 +0000 (UTC)
+Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
+	[217.70.183.196])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BB7A41FD47
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 28 May 2014 23:29:08 +0000 (UTC)
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Date: Thu, 29 May 2014 01:29:29 +0200
-Message-ID: <2513219.zeNxM5s3Dn@avalon>
-In-Reply-To: <20140528231845.GA8518@core.coreip.homeip.net>
+	Wed, 28 May 2014 23:31:50 +0000 (UTC)
+Date: Wed, 28 May 2014 16:31:45 -0700
+From: josh@joshtriplett.org
+To: Thomas Gleixner <tglx@linutronix.de>
+Message-ID: <20140528233145.GA14933@cloud>
 References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
-	<1734054.557RqAjsBf@avalon>
-	<20140528231845.GA8518@core.coreip.homeip.net>
+	<20140524111927.GA3455@katana>
+	<alpine.LFD.2.00.1405271920580.2055@localhost.localdomain>
+	<4700397.FLxRVChBLf@vostro.rjw.lan>
+	<CAKMK7uEquB=bv5jj=K-8Nv_9S2Y8qh2=3eKjJSjgR4Vrn9fbaA@mail.gmail.com>
+	<1401294020.13546.95.camel@dhcp-9-2-203-236.watson.ibm.com>
+	<20140528162833.GA23815@thin>
+	<alpine.DEB.2.10.1405282332430.3952@nanos>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.10.1405282332430.3952@nanos>
 Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Reforming Acked-by (was Re: [TOPIC]
-	Encouraging more reviewers)
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [TOPIC] Encouraging more reviewers
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,52 +38,55 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wednesday 28 May 2014 16:18:45 Dmitry Torokhov wrote:
-> On Thu, May 29, 2014 at 01:02:59AM +0200, Laurent Pinchart wrote:
-> > On Wednesday 28 May 2014 13:22:42 Dmitry Torokhov wrote:
-> > > On Wednesday, May 28, 2014 01:12:28 PM josh@joshtriplett.org wrote:
-> > > > On Wed, May 28, 2014 at 06:48:47PM +0000, Paul Walmsley wrote:
-> > > > > Also long-overdue is a clarification on exactly what "Acked-by"
-> > > > > means. Right now it is being used for at least two distinct and
-> > > > > mutually-incompatible purposes:
-> > > > > 
-> > > > > 1. A maintainer A for code affected by a patch, who is distinct from
-> > > > > a maintainer B queuing a patch, has reviewed the patch and has
-> > > > > cleared it as being OK for maintainer B to send upstream
-> > > > > 
-> > > > > 2. A casual review has been done by someone who is not a maintainer
-> > > > > for the code in question
-> > > > > 
-> > > > > What I would propose is to have the first use replaced by a new tag,
-> > > > > "Maintainer-acked-by:", and the second use abolished, along with
-> > > > > "Acked-by:", and replaced by "Reviewed-by:".
-> > > > 
-> > > > In practice, (2) seems to have been mostly replaced by "Reviewed-by";
-> > > > I rarely see Acked-by used for cases other than (1): "I'm the
-> > > > maintainer or an affected subsystem developer, I approve of this
-> > > > patch, but I don't intend to take it through my own tree."
-> > > 
-> > > I believe we still need a separate mark for casual review. I can scan
-> > > a patch and find a few item that i might now like, but if I do not
-> > > do full review in the first pass and then again after the issues
-> > > that have been pointed out have been corrected I won't be stamping
-> > > "Reviewed-by" on the patch.
-> > > 
-> > > Nitpicked-by? :)
-> > 
-> > Do such casual reviews need to be recorded in the git history ? I tend to
-> > just reply with "looks good to me" when I just skim through a patch, and
-> > I don't think that deserves being recorded for posterity.
+On Wed, May 28, 2014 at 11:59:02PM +0200, Thomas Gleixner wrote:
+> You need to look at the underlying problem. And that's at least
+> related by the commit statistics. The flood of crappy patches and the
+> amount of review cycles it takes to get even trivial stuff into an
+> acceptable shape is what makes the live of a maintainer and reviewer a
+> nightmare.
 > 
-> I personally do not care if it gets recorded or not as long as issue is
-> resolved but we are talking about giving more credit to reviewers to
-> make process more appealing...
+> The goals of some organizations, to reach a top X contributor level in
+> 201X, results in a frency of half baken "works for me" patches,
+> completely unreviewed inside of the organization and let lose on the
+> maintainers/reviewers who are burdened to educate the submitters.
 
-We most certainly do, but if we want that credit to be an incentive, it has to 
-have value. A casual review tag could even be seen as having a negative value. 
-My opinion is most probably strongly biased on that subject though.
+While I do think that problem exists, I don't think the presence or
+absence of commit statistics particularly motivate it.  Either way,
+you'll have random driver/patch submissions motivated by "I need to ship
+a product" or "entity X made it a requirement to get my driver
+upstream".
 
--- 
-Regards,
+> That's the real issue. And this needs to be fixed first.
+> 
+> I really started to put breaks into this cycle of hell, where I get
+> spammed with a 30+ patch series in the morning and after I spent some
+> quality time looking at it and replying to a particular patch, I get
+> another spam bomb within a few hours, which is not much better than
+> the previous one.
 
-Laurent Pinchart
+That's definitely a good workflow question.  We tell people to break
+huge patches down into pieces, and that can turn substantial changes
+into long patch series.  Which of the following is your primary concern:
+
+- That people update the patch series before you're done submitting
+  feedback on it?  That does seem like an annoying problem, and I
+  haven't seen anyone explicitly talk about it; we should document it,
+  and develop some standard boilerplate saying "If you get feedback on
+  patch 04/25, don't send out v2 of the whole series until you get the
+  remaining feedback on the patches".  And until users are reasonably
+  educated on that problem, frequent reviewers may want to include that
+  boilerplate in their patch reviews.
+
+- That people send patch series with too many problems, and you're
+  frustrated having to educate them on a dozen fundamental problems
+  (formatting, standard API usage, etc) rather than just what's specific
+  to your subsystem?  It seems completely reasonable to remind people of
+  the standard tools, improve those standard tools as needed, and
+  ideally set up more automation to run those tools before patches hit
+  reviewers.  You shouldn't need to waste your time reviewing patches
+  that don't build, for instance.
+
+- That a 30-patch series is painful to review via email?  Agreed
+  completely; I think we need better git-based workflows that don't
+  always have to fall back to the least-common-denominator of patchbomb
+  threads.
