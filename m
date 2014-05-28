@@ -1,30 +1,23 @@
-Return-Path: <greg@kroah.com>
+Return-Path: <paul@pwsan.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 786BA7FE
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 567B0ADD
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 28 May 2014 18:54:17 +0000 (UTC)
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
-	[66.111.4.25])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DB5FB20394
+	Wed, 28 May 2014 18:54:27 +0000 (UTC)
+Received: from utopia.booyaka.com (utopia.booyaka.com [74.50.51.50])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3014120398
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 28 May 2014 18:54:16 +0000 (UTC)
-Received: from compute4.internal (compute4.nyi.mail.srv.osa [10.202.2.44])
-	by gateway1.nyi.mail.srv.osa (Postfix) with ESMTP id 95B322151C
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 28 May 2014 14:54:13 -0400 (EDT)
-Date: Wed, 28 May 2014 11:57:48 -0700
-From: Greg KH <greg@kroah.com>
-To: Mel Gorman <mgorman@suse.de>
-Message-ID: <20140528185748.GA30673@kroah.com>
-References: <537F3551.2070104@hitachi.com>
- <20140528153702.GU23991@suse.de>
+	Wed, 28 May 2014 18:54:25 +0000 (UTC)
+Date: Wed, 28 May 2014 18:47:43 +0000 (UTC)
+From: Paul Walmsley <paul@pwsan.com>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+In-Reply-To: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
+Message-ID: <alpine.DEB.2.02.1405281832550.1280@utopia.booyaka.com>
+References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20140528153702.GU23991@suse.de>
+Content-Type: TEXT/PLAIN; charset=US-ASCII
 Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] kernel testing standard
+Subject: Re: [Ksummit-discuss] [TOPIC] Encouraging more reviewers
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,24 +27,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, May 28, 2014 at 04:37:02PM +0100, Mel Gorman wrote:
-> make test will be fine for feature verification and some functional
-> verification that does not depend on hardware. So new APIs should have test
-> cases that demonstrate the feature works and make test would be great for
-> that which is something that is not enforced today. As LTP is reported to
-> be sane these days for some tests, it could conceivably be wrapped by "make
-> test" to avoid duplicating effort there. I think that would be worthwhile
-> if someone had the time to push it because it would be an unconditional win.
+On Sat, 24 May 2014, James Bottomley wrote:
 
-That is what I have been asking for for _years_.  Hopefully someday
-someone does this...
+> I'm sure there are many other things people could suggest.
 
-> However, beware of attempting to put all testing under its banner as
-> performance testing is never going to fully fit under its umbrella.
+What's needed is to bring quality reviewers up to the same level of 
+recognition and control as maintainers.
 
-No one is saying this is going to be true, but at the least, we want a
-way to document _how_ one can run the performance tests if you want to.
+Ideally, maintainers would recognize quality reviewers, and list them in 
+the MAINTAINERS file - perhaps with an "R:" tag?  Maintainers would be 
+expected to designate at least one quality reviewer, but ideally more, for 
+a given subsystem.  
 
-thanks,
+Then we should require every patch to have at least one "Reviewed-by:", 
+aside from the maintainer's "Signed-off-by:" before being merged.  This 
+"Reviewed-by:" could come from the maintainer, but ideally would come from 
+a quality reviewer.
 
-greg k-h
+Patch submitters would need to get their patches reviewed by at least one 
+of the recognized reviewers before expecting it to be merged.
+
+Part of the goal here would also be to convert quality reviewers into 
+co-maintainers over time, so maintainership duties can be spread among a 
+larger group of people.
+
+
+- Paul
