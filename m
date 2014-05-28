@@ -1,34 +1,24 @@
-Return-Path: <daniel.vetter@ffwll.ch>
+Return-Path: <mgorman@suse.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id EC71A9A8
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 573AD85D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 28 May 2014 14:39:16 +0000 (UTC)
-Received: from mail-ig0-f180.google.com (mail-ig0-f180.google.com
-	[209.85.213.180])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6647C1FDEC
+	Wed, 28 May 2014 15:37:08 +0000 (UTC)
+Received: from mx2.suse.de (cantor2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CAD482019B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 28 May 2014 14:39:16 +0000 (UTC)
-Received: by mail-ig0-f180.google.com with SMTP id c1so2525658igq.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 28 May 2014 07:39:15 -0700 (PDT)
+	Wed, 28 May 2014 15:37:07 +0000 (UTC)
+Date: Wed, 28 May 2014 16:37:02 +0100
+From: Mel Gorman <mgorman@suse.de>
+To: Masami Hiramatsu <masami.hiramatsu.pt@hitachi.com>
+Message-ID: <20140528153702.GU23991@suse.de>
+References: <537F3551.2070104@hitachi.com>
 MIME-Version: 1.0
-In-Reply-To: <20140528143246.GV15585@mwanda>
-References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
-	<20140524111927.GA3455@katana>
-	<alpine.LFD.2.00.1405271920580.2055@localhost.localdomain>
-	<4700397.FLxRVChBLf@vostro.rjw.lan>
-	<CAKMK7uEquB=bv5jj=K-8Nv_9S2Y8qh2=3eKjJSjgR4Vrn9fbaA@mail.gmail.com>
-	<20140528143246.GV15585@mwanda>
-Date: Wed, 28 May 2014 16:39:15 +0200
-Message-ID: <CAKMK7uGkURkwFdQQhrs1oi5Hpfk4SCuH0jv6x07vJ6cyAfEvwQ@mail.gmail.com>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-To: Dan Carpenter <dan.carpenter@oracle.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TOPIC] Encouraging more reviewers
+Content-Type: text/plain; charset=iso-8859-15
+Content-Disposition: inline
+In-Reply-To: <537F3551.2070104@hitachi.com>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] kernel testing standard
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,24 +28,67 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, May 28, 2014 at 4:32 PM, Dan Carpenter <dan.carpenter@oracle.com> wrote:
-> We should have a special tag for reviewers who find actual bugs because
-> that is the best sort of reviewer.
+On Fri, May 23, 2014 at 08:47:29PM +0900, Masami Hiramatsu wrote:
+> Hi,
+> 
+> As I discussed with Greg K.H. at LinuxCon Japan yesterday,
+> I'd like to propose kernel testing standard as a separated topic.
+> 
+> Issue:
+> There are many ways to test the kernel but it's neither well documented
+> nor standardized/organized.
+> 
+> As you may know, testing kernel is important on each phase of kernel
+> life-cycle. For example, even at the designing phase, actual test-case
+> shows us what the new feature/design does, how is will work, and how
+> to use it. This can improve the quality of the discussion.
+> 
+> Through the previous discussion I realized there are many different methods/
+> tools/functions for testing kernel, LTP, trinity, tools/testing/selftest,
+> in-kernel selftest etc. Each has good points and bad points.
+> 
+> So, I'd like to discuss how we can standardize them for each subsystem
+> at this kernel summit.
+> 
+> My suggestion are,
+> - Organizing existing in-tree kernel test frameworks (as "make test")
+> - Documenting the standard testing method, including how to run,
+>   how to add test-cases, and how to report.
+> - Commenting standard testing for each subsystem, maybe by adding
+>   UT: or TS: tags to MAINTAINERS, which describes the URL of
+>   out-of-tree tests or the directory of the selftest.
+> 
 
-My approach has been to insist on an in-patch revision log which gets
-included in the commit. And that for any changes and bugs spotted the
-reviewer/commenter must be acknowleged. See e.g.
-d978ef14456a38034f6c0e for a very nice example of that. But that's
-also a good example for no tag to acknowledge all the work that went
-into this review/patch, since I've done the final review myself and
-only put my sob onto the patch.
+I'm not sure we can ever standardise all forms of kernel testing. Even
+a simple "make test" is going to run into problems and it will be
+hamstrung. It'll either be too short-lived with poor coverage in which case
+it catches nothing useful or too long-lived in which case no one will run it.
 
-Something more standardized here would indeed be nice. There's still
-the problem that some review takes a really long time (e.g. if there's
-lots of design considerations), and other patches can be reviewed
-quickly. So a binary tag will always be lacking.
--Daniel
+For example, I have infrastructure that conducts automated performance
+tests which I periodically dig through looking for problems. IMO, it is
+only testing the basics of the areas I tend to work in and even then it
+takes about 4-5 days to test a single kernel. Something like that will
+never fit in "make test".
+
+make test will be fine for feature verification and some functional
+verification that does not depend on hardware. So new APIs should have test
+cases that demonstrate the feature works and make test would be great for
+that which is something that is not enforced today. As LTP is reported to
+be sane these days for some tests, it could conceivably be wrapped by "make
+test" to avoid duplicating effort there. I think that would be worthwhile
+if someone had the time to push it because it would be an unconditional win.
+
+However, beware of attempting to put all testing under its banner as
+performance testing is never going to fully fit under its umbrella.
+I'd even be wary of attempting to mandate a "standard testing method"
+because it's situational. I'd even be wary of specifying particular
+benchmarks as the same benchmark in different configurations may test
+completely different things. fsmark with the most basic tuning options can
+test metadata update performance, in-memory page cache performance or IO
+performance depending on the parameters given. Similarly, attempting to
+define tests on a per-subsystem basis will also be hazardous because any
+interesting test is going to cross multiple subsystems.
+
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-+41 (0) 79 365 57 48 - http://blog.ffwll.ch
+Mel Gorman
+SUSE Labs
