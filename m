@@ -1,30 +1,36 @@
-Return-Path: <tglx@linutronix.de>
+Return-Path: <daniel.vetter@ffwll.ch>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id EBA64988
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 171E2910
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 28 May 2014 21:59:12 +0000 (UTC)
-Received: from Galois.linutronix.de (www.linutronix.de [62.245.132.108])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5DC5D1FFF3
+	Wed, 28 May 2014 22:48:33 +0000 (UTC)
+Received: from mail-ig0-f175.google.com (mail-ig0-f175.google.com
+	[209.85.213.175])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1099C2027E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 28 May 2014 21:59:12 +0000 (UTC)
-Date: Wed, 28 May 2014 23:59:02 +0200 (CEST)
-From: Thomas Gleixner <tglx@linutronix.de>
-To: Josh Triplett <josh@joshtriplett.org>
-In-Reply-To: <20140528162833.GA23815@thin>
-Message-ID: <alpine.DEB.2.10.1405282332430.3952@nanos>
+	Wed, 28 May 2014 22:48:32 +0000 (UTC)
+Received: by mail-ig0-f175.google.com with SMTP id uq10so3074244igb.14
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 28 May 2014 15:48:31 -0700 (PDT)
+MIME-Version: 1.0
+In-Reply-To: <20140528163902.GA5099@sirena.org.uk>
 References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
 	<20140524111927.GA3455@katana>
 	<alpine.LFD.2.00.1405271920580.2055@localhost.localdomain>
 	<4700397.FLxRVChBLf@vostro.rjw.lan>
 	<CAKMK7uEquB=bv5jj=K-8Nv_9S2Y8qh2=3eKjJSjgR4Vrn9fbaA@mail.gmail.com>
-	<1401294020.13546.95.camel@dhcp-9-2-203-236.watson.ibm.com>
-	<20140528162833.GA23815@thin>
-MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
+	<20140528143246.GV15585@mwanda>
+	<CAKMK7uGkURkwFdQQhrs1oi5Hpfk4SCuH0jv6x07vJ6cyAfEvwQ@mail.gmail.com>
+	<20140528163902.GA5099@sirena.org.uk>
+Date: Thu, 29 May 2014 00:48:31 +0200
+Message-ID: <CAKMK7uGB8toTgmRJg4akj73CWBdKcUBH6CHt3TGHov5hHODwFA@mail.gmail.com>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
 	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Dan Carpenter <dan.carpenter@oracle.com>
 Subject: Re: [Ksummit-discuss] [TOPIC] Encouraging more reviewers
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -35,46 +41,36 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 28 May 2014, Josh Triplett wrote:
-> 
-> Or perhaps in LWN's statistics, which focus on Signed-off-by but don't
-> mention Reviewed-by at all.
+On Wed, May 28, 2014 at 6:39 PM, Mark Brown <broonie@kernel.org> wrote:
+> On Wed, May 28, 2014 at 04:39:15PM +0200, Daniel Vetter wrote:
+>> My approach has been to insist on an in-patch revision log which gets
+>> included in the commit. And that for any changes and bugs spotted the
+>> reviewer/commenter must be acknowleged. See e.g.
+>> d978ef14456a38034f6c0e for a very nice example of that. But that's
+>> also a good example for no tag to acknowledge all the work that went
+>> into this review/patch, since I've done the final review myself and
+>> only put my sob onto the patch.
+>
+> This does mean that the final changelogs that get included in the kernel
+> get very large and noisy and is relying on the submitters doing a good
+> job paying attention to review comments in the first place, recording
+> exactly what changed and so on.  They are sometimes useful but normally
+> I'm finding very little value in the changelogs in the first place,
+> generally it doesn't really matter what the problems were in any
+> previous versions.
 
-Oh no. The existing madness about the LWN stats is bad enough. We
-don't want to encourage another excel sheet accountable competition.
+Thus far it didn't annoy me - it's at the bottom with the sob section.
+And occasionally I've found it useful to follow some of the steps laid
+out in there to understand why a patch looks what it looks like. I
+know that a lot of other maintainers want the patch revision log below
+the scissors.
 
-It's bad enough that the stats already foster a metric ton of horrible
-patches. The least we need is a metric ton of horrible reviews
-conducted just to show up in the rankings.
-
-You cannot fix the lack of capable reviewers or the lack of time of
-those who are capable by any tags, statitics or whatever.
-
-You need to look at the underlying problem. And that's at least
-related by the commit statistics. The flood of crappy patches and the
-amount of review cycles it takes to get even trivial stuff into an
-acceptable shape is what makes the live of a maintainer and reviewer a
-nightmare.
-
-The goals of some organizations, to reach a top X contributor level in
-201X, results in a frency of half baken "works for me" patches,
-completely unreviewed inside of the organization and let lose on the
-maintainers/reviewers who are burdened to educate the submitters.
-
-That's the real issue. And this needs to be fixed first.
-
-I really started to put breaks into this cycle of hell, where I get
-spammed with a 30+ patch series in the morning and after I spent some
-quality time looking at it and replying to a particular patch, I get
-another spam bomb within a few hours, which is not much better than
-the previous one.
-
-Hell no, that does not work. No matter how many maintainers/reviewers
-you have there is no way that they can scale to that global effort
-which is obviously conducted to prove a newfangled variant of the
-Infinite-Monkey-Theorem: Computers instead of typewriters and well
-written kernel patches instead of Shakespeares writings.
-
-Thanks,
-
-	tglx
+And it also gives me a really good tool to scold patch authors if they
+don't follow up on all review comments, which is the other useful
+aspect. Including it in the commit makes it look a bit more valued imo
+and hopefully makes sure people take this all serious.
+-Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
