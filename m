@@ -1,36 +1,34 @@
-Return-Path: <lizefan@huawei.com>
+Return-Path: <daniel.vetter@ffwll.ch>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id E8C979B1
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 81CFF9A0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 29 May 2014 09:29:42 +0000 (UTC)
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [119.145.14.65])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 927581F9BE
+	Thu, 29 May 2014 10:31:56 +0000 (UTC)
+Received: from mail-ig0-f181.google.com (mail-ig0-f181.google.com
+	[209.85.213.181])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5124C1F9F9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 29 May 2014 09:29:41 +0000 (UTC)
-Message-ID: <5386FDAB.3010106@huawei.com>
-Date: Thu, 29 May 2014 17:28:11 +0800
-From: Li Zefan <lizefan@huawei.com>
+	Thu, 29 May 2014 10:31:53 +0000 (UTC)
+Received: by mail-ig0-f181.google.com with SMTP id h3so174673igd.14
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 29 May 2014 03:31:53 -0700 (PDT)
 MIME-Version: 1.0
-To: Thomas Gleixner <tglx@linutronix.de>
-References: <20140524111927.GA3455@katana>
+In-Reply-To: <20140528233145.GA14933@cloud>
+References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
+	<20140524111927.GA3455@katana>
 	<alpine.LFD.2.00.1405271920580.2055@localhost.localdomain>
 	<4700397.FLxRVChBLf@vostro.rjw.lan>
 	<CAKMK7uEquB=bv5jj=K-8Nv_9S2Y8qh2=3eKjJSjgR4Vrn9fbaA@mail.gmail.com>
-	<20140528143246.GV15585@mwanda>
-	<CAKMK7uGkURkwFdQQhrs1oi5Hpfk4SCuH0jv6x07vJ6cyAfEvwQ@mail.gmail.com>
-	<20140528163902.GA5099@sirena.org.uk>
-	<1401295862.13546.109.camel@dhcp-9-2-203-236.watson.ibm.com>
-	<20140528173553.GE5099@sirena.org.uk>
-	<3908561D78D1C84285E8C5FCA982C28F328205B1@ORSMSX114.amr.corp.intel.com>
-	<20140528183825.GA21477@sirena.org.uk>
-	<alpine.DEB.2.10.1405282325020.3952@nanos>
-In-Reply-To: <alpine.DEB.2.10.1405282325020.3952@nanos>
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: 7bit
+	<1401294020.13546.95.camel@dhcp-9-2-203-236.watson.ibm.com>
+	<20140528162833.GA23815@thin>
+	<alpine.DEB.2.10.1405282332430.3952@nanos>
+	<20140528233145.GA14933@cloud>
+Date: Thu, 29 May 2014 12:31:52 +0200
+Message-ID: <CAKMK7uEiCP_XVr4G_NtyDxZXBtWqE_X54ynpxi75saCOWHZnRQ@mail.gmail.com>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+To: Josh Triplett <josh@joshtriplett.org>
+Content-Type: text/plain; charset=UTF-8
 Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Dan Carpenter <dan.carpenter@oracle.com>,
-	Mark Brown <broonie@sirena.org.uk>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [TOPIC] Encouraging more reviewers
@@ -43,35 +41,89 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 2014/5/29 5:32, Thomas Gleixner wrote:
-> On Wed, 28 May 2014, Mark Brown wrote:
-> 
->> On Wed, May 28, 2014 at 05:44:41PM +0000, Luck, Tony wrote:
->>
->>>> There's a world of difference between thanking people for review and a
->>>> detailed account of all the changes made in every single iteration of
->>>> the review.
->>
->>> This is already covered in Documentation/SubmittingPatches. Quoting
->>> lines 585-592 (see last sentence):
->>
->> Right, but Daniel is proposing lifting that above the --- and including
->> it in git.
-> 
-> What you really want is:
-> 
-> Link: https://lkml.kernel.org/r/MESSAGE_ID_OF_PATCH
-> 
-> It's way more useful than any of the v1-n writeups, which are most of
-> the time just a completely waste of electrons. Even if written well,
-> without the actual review context they are pretty pointless.
-> 
+On Thu, May 29, 2014 at 1:31 AM,  <josh@joshtriplett.org> wrote:
+>> I really started to put breaks into this cycle of hell, where I get
+>> spammed with a 30+ patch series in the morning and after I spent some
+>> quality time looking at it and replying to a particular patch, I get
+>> another spam bomb within a few hours, which is not much better than
+>> the previous one.
+>
+> That's definitely a good workflow question.  We tell people to break
+> huge patches down into pieces, and that can turn substantial changes
+> into long patch series.  Which of the following is your primary concern:
+>
+> - That people update the patch series before you're done submitting
+>   feedback on it?  That does seem like an annoying problem, and I
+>   haven't seen anyone explicitly talk about it; we should document it,
+>   and develop some standard boilerplate saying "If you get feedback on
+>   patch 04/25, don't send out v2 of the whole series until you get the
+>   remaining feedback on the patches".  And until users are reasonably
+>   educated on that problem, frequent reviewers may want to include that
+>   boilerplate in their patch reviews.
 
-A QA asked me about kernel development process. One of his question is,
-he found some valuable information in the discussion of the patch often
-won't be added to the changelog, so providing the commit how to find
-the discussion?
+What I enforce on our mailing list is that for updates for issues in
+specific patches submitters should resend only that patch in-reply-to
+the old one. It means a bit more work of fiddling out the msg-id and
+submitters complain (but meh), but it does nicely keep the discussion
+together. And it allows submitters to chase reviewer's feedback while
+the review is still ongoing without causing hell on the m-l. This
+makes for a bit of fun when applying patches, but if it gets messy I
+just ask for a full resend with r-b tags and all included once it's
+all done.
 
-You can simply google the subject or use the link in the changelog,
-and the latter is much more convinient. I'd like to see the use of
-link is more widely adopted by other maintainers.
+Of course patchbombs which are fundamentally wrong need to be resent
+hole. And for those I tell submitters I tell them pretty sternly that
+they need to wait with resending until the review round concluded if
+they fail to do so.
+
+If course
+
+> - That people send patch series with too many problems, and you're
+>   frustrated having to educate them on a dozen fundamental problems
+>   (formatting, standard API usage, etc) rather than just what's specific
+>   to your subsystem?  It seems completely reasonable to remind people of
+>   the standard tools, improve those standard tools as needed, and
+>   ideally set up more automation to run those tools before patches hit
+>   reviewers.  You shouldn't need to waste your time reviewing patches
+>   that don't build, for instance.
+
+Imo checkpatch makes this worse since with that you get patches that
+look pretty but are still shit. Imo we need to push back on companies
+who consistenly submit crap patches and tell them to get some good
+internal mentoring going. Or throw money at lf/linaro/whatever to get
+such expertise if they completely lack it.
+
+And for me hobbyist/gsoc/... are completely different and I'll give
+them much more leeway simply because I've started like that myself.
+
+Of course for both these points Intel mostly gets this and I only have
+issues with new people joining upstream from e.g. Android teams If
+they don't get it I escalate through their managers _real_ quickly.
+Maybe we should require from companies some "you have a loose cannon,
+take care of it" contact, at least those in lf/linaro/... to make sure
+this gets addressed quickly? Since ime sternly written mails at
+engineers is usually not sufficient, escalation is usually required.
+
+> - That a 30-patch series is painful to review via email?  Agreed
+>   completely; I think we need better git-based workflows that don't
+>   always have to fall back to the least-common-denominator of patchbomb
+>   threads.
+
+Nope if you mean tools like gerrit. The android gfx guys use it and I
+think it's horrible. Mail-based patchbomb review works, and tool like
+gerrit has all the sigils of a working review process but imo
+completely misses the point. From a UI perspective the web thing is a
+disaster, and everything else has too many indirections until you can
+finally look at the patch. The only upside I see is that managers like
+it since it helps to them to keep track of things. Not something
+upstream cares about.
+
+For our review we're looking into augmenting mail-based review with
+stuff like patchwork, but atm patchwork is still lacking a lot. But at
+least it's opt-in for everyone (even if a given maintainer uses it)
+and doesn't replace the main mail discussions at all.
+-Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
