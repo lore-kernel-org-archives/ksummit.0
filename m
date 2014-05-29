@@ -1,34 +1,28 @@
-Return-Path: <rostedt@goodmis.org>
+Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id B9AE1996
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 4877C910
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 29 May 2014 18:58:54 +0000 (UTC)
-Received: from cdptpa-oedge-vip.email.rr.com
-	(cdptpa-outbound-snat.email.rr.com [107.14.166.228])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 383891FFF3
+	Thu, 29 May 2014 20:46:23 +0000 (UTC)
+Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id 4D33A1FD42
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 29 May 2014 18:58:54 +0000 (UTC)
-Date: Thu, 29 May 2014 14:58:52 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Message-ID: <20140529145852.0e62ffa6@gandalf.local.home>
-In-Reply-To: <1401344001.27691.4.camel@dabdike>
+	Thu, 29 May 2014 20:46:21 +0000 (UTC)
+From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+To: Theodore Ts'o <tytso@mit.edu>
+Date: Thu, 29 May 2014 23:03:28 +0200
+Message-ID: <700704721.GMn4j9GJx9@vostro.rjw.lan>
+In-Reply-To: <20140529182753.GJ25041@thunk.org>
 References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
-	<20140524111927.GA3455@katana>
-	<alpine.LFD.2.00.1405271920580.2055@localhost.localdomain>
-	<4700397.FLxRVChBLf@vostro.rjw.lan>
-	<CAKMK7uEquB=bv5jj=K-8Nv_9S2Y8qh2=3eKjJSjgR4Vrn9fbaA@mail.gmail.com>
-	<1401294020.13546.95.camel@dhcp-9-2-203-236.watson.ibm.com>
-	<20140528162833.GA23815@thin>
-	<alpine.DEB.2.10.1405282332430.3952@nanos>
-	<20140528233145.GA14933@cloud> <1401344001.27691.4.camel@dabdike>
+	<alpine.DEB.2.02.1405281847450.1280@utopia.booyaka.com>
+	<20140529182753.GJ25041@thunk.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TOPIC] Encouraging more reviewers
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] Reforming Acked-by (was Re: [TOPIC]
+	Encouraging more reviewers)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,27 +32,43 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, 29 May 2014 10:13:21 +0400
-James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
+On Thursday, May 29, 2014 02:27:53 PM Theodore Ts'o wrote:
+> On Wed, May 28, 2014 at 06:48:47PM +0000, Paul Walmsley wrote:
+> > 
+> > Also long-overdue is a clarification on exactly what "Acked-by" means.
+> > Right now it is being used for at least two distinct and
+> > mutually-incompatible purposes:
+> > 
+> > 1. A maintainer A for code affected by a patch, who is distinct from a
+> > maintainer B queuing a patch, has reviewed the patch and has cleared it as
+> > being OK for maintainer B to send upstream
+> > 
+> > 2. A casual review has been done by someone who is not a maintainer for
+> > the code in question
+> > 
+> > What I would propose is to have the first use replaced by a new tag, 
+> > "Maintainer-acked-by:", and the second use abolished, along with 
+> > "Acked-by:", and replaced by "Reviewed-by:".
+> 
+> I agree in general, but if we're going to abolish the 2nd use
+> entirely, then it's much simpler to keep Acked-by for its original
+> meaning; it's easier to type, after all.
+> 
+> This is basically I do for ext4 patches today; if someone sends me an
+> acked-by in the #2 sense, I simply won't add it to the s-o-b section,
+> and I don't let the fact that someone has asserted that they have done
+> a casual review to give me a false sense of security; if I still have
+> to do a deep review, I'm going to catch the casual stuff anyway, and
+> the fact that a casual review doesn't obviate the need for a careful
+> review.
+> 
+> But if a senior ext4 developer adds a Reviewed-by:, that does lend a
+> lot of value to me as a maintainer, since I can trust that certain
+> folks like Jan and Eric and Lukas and others will do a good job doing
+> the review, and that actually *does* offload significant amounts of
+> work off my shoulders.
 
+Well, perhaps we can reserve the Acked-by for maintainers and add
+something like Supported-by for the 2nd meaning.
 
-> This is a taste question.  I really appreciate a well split patch series
-> tackling a hard problem because it makes working out what changed and
-> why a lot easier than in a single monolith ... and as a reviewer, that's
-> gold dust.  I don't appreciate 30 patches changing the same thing in 30
-> different files.
-
-
-I don't care for those either, but when I do a cross-the-board change,
-I sometimes am guilty of this myself. The rational reason is that I
-will Cc the maintainer of the change. Usually it's a trivial change on
-something tracing related, where I don't really need the Acked-by from
-them (appreciated if they do), but a Cc just to let them know it was
-changed.
-
-When you deal with 30 different subsystems you don't want one patch
-with 30 different Cc's. That will put you over the LKML Cc limit and
-the patch never makes it to LKML. Thus, you need to break it up into 30
-different patches each with one Cc to the respective maintainer.
-
--- Steve
+Rafael
