@@ -1,14 +1,14 @@
 Return-Path: <martin.petersen@oracle.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 64866B1D
+	by mail.linuxfoundation.org (Postfix) with ESMTP id A1DFDB22
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 29 May 2014 04:01:40 +0000 (UTC)
-Received: from aserp1040.oracle.com (aserp1040.oracle.com [141.146.126.69])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D2B9E201AA
+	Thu, 29 May 2014 04:36:40 +0000 (UTC)
+Received: from userp1040.oracle.com (userp1040.oracle.com [156.151.31.81])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0C14D1FD4A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 29 May 2014 04:01:37 +0000 (UTC)
-To: Dan Williams <dan.j.williams@intel.com>
+	Thu, 29 May 2014 04:36:39 +0000 (UTC)
+To: Ben Hutchings <ben@decadent.org.uk>
 From: "Martin K. Petersen" <martin.petersen@oracle.com>
 References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
 	<20140525222923.GW15585@mwanda> <1401119598.3303.6.camel@dabdike>
@@ -16,14 +16,14 @@ References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
 	<1401224020.14454.92.camel@dabdike>
 	<alpine.LNX.2.00.1405272316000.17241@pobox.suse.cz>
 	<yq1zji2hif7.fsf@sermon.lab.mkp.net>
-	<CAPcyv4jOzqu8g2gEhAf2tdNY0P=D-p6L8kz_zX9WgqPh-d8C_w@mail.gmail.com>
-Date: Thu, 29 May 2014 00:01:28 -0400
-In-Reply-To: <CAPcyv4jOzqu8g2gEhAf2tdNY0P=D-p6L8kz_zX9WgqPh-d8C_w@mail.gmail.com>
-	(Dan Williams's message of "Wed, 28 May 2014 16:25:05 -0700")
-Message-ID: <yq1lhtldyhz.fsf@sermon.lab.mkp.net>
+	<1401323745.14007.51.camel@deadeye.wl.decadent.org.uk>
+Date: Thu, 29 May 2014 00:36:20 -0400
+In-Reply-To: <1401323745.14007.51.camel@deadeye.wl.decadent.org.uk> (Ben
+	Hutchings's message of "Thu, 29 May 2014 01:35:45 +0100")
+Message-ID: <yq1ha49dwvv.fsf@sermon.lab.mkp.net>
 MIME-Version: 1.0
 Content-Type: text/plain
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
 	Dan Carpenter <dan.carpenter@oracle.com>,
 	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [TOPIC] Encouraging more reviewers
@@ -36,27 +36,34 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
->>>>> "Dan" == Dan Williams <dan.j.williams@intel.com> writes:
+>>>>> "Ben" == Ben Hutchings <ben@decadent.org.uk> writes:
 
-Dan,
+Ben> I seem to recall one OEM formally requiring in-tree drivers for all
+Ben> components aside from graphics.  But they usually wanted
+Ben> out-of-tree driver packages *as well*, since 'enterprise' customers
+Ben> do like to run old kernel versions.
 
-Dan> Isn't the fundamental problem:
+Cc: stable :)
 
-Dan> HW Vendor: "Are you saying you may hold up driver updates for an
-Dan> indefinite period of time?"
+Ben> Driver development for a new generation of hardware may begin long
+Ben> before it is publicly announced, and may contain many false starts
+Ben> or temporary hacks to work around pre-release hardware or
+Ben> simulations.  Somehow, that messy development branch needs to be
+Ben> turned into some semblance of coherent refactoring when sending
+Ben> upstream.  Either that or you fork and rename the driver for the
+Ben> new generation, and send it upstream with no history at all.
 
-Dan> Kernel community: "Yes"
+I agree that the history situation is different for completely new
+drivers. However, the problem at hand is code we've had in the kernel
+for a long time. It is still widely used but has bitrotted or is in a
+shape that would never get accepted into the kernel by today's
+standards.
 
-There's a big difference between a driver bug fix and "value added"
-features that are deemed too ugly to be included upstream.
-
-
-Dan> HW Vendor: "Ok, we'll keep sending our official updates direct to
-Dan> customers as an out-of-tree tarball and let that 'upstream-thing'
-Dan> happen in the background."
-
-Well, and thus forcing the customer to void their distro support. I
-don't think that's doing anyone a favor.
+Vendors use arguments like "we developed and tested this outbox driver
+version x.y.z thoroughly in a 2.6.15 environment on i386. Didn't see any
+problems, therefore it works with every kernel a customer might
+run". Such a statement may carry some weight in a stable kernel
+interface world but it is completely meaningless in our case.
 
 -- 
 Martin K. Petersen	Oracle Linux Engineering
