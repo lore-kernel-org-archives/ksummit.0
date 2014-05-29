@@ -1,21 +1,18 @@
-Return-Path: <frowand.list@gmail.com>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 2702226
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 977A326
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 29 May 2014 21:57:45 +0000 (UTC)
-Received: from mail-wg0-f45.google.com (mail-wg0-f45.google.com [74.125.82.45])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6E8331FFF4
+	Thu, 29 May 2014 23:13:18 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3A8251FA26
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 29 May 2014 21:57:44 +0000 (UTC)
-Received: by mail-wg0-f45.google.com with SMTP id m15so1098012wgh.16
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 29 May 2014 14:57:42 -0700 (PDT)
-Message-ID: <5387AD52.1040702@gmail.com>
-Date: Thu, 29 May 2014 14:57:38 -0700
-From: Frank Rowand <frowand.list@gmail.com>
-MIME-Version: 1.0
-To: Mark Brown <broonie@kernel.org>
+	Thu, 29 May 2014 23:13:18 +0000 (UTC)
+Date: Fri, 30 May 2014 00:12:56 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Frank Rowand <frowand.list@gmail.com>
+Message-ID: <20140529231256.GR5099@sirena.org.uk>
 References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
 	<20140525222923.GW15585@mwanda> <1401119598.3303.6.camel@dabdike>
 	<alpine.LNX.2.00.1405271634080.28869@pobox.suse.cz>
@@ -23,15 +20,16 @@ References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
 	<alpine.LNX.2.00.1405272316000.17241@pobox.suse.cz>
 	<yq1zji2hif7.fsf@sermon.lab.mkp.net>
 	<1401323745.14007.51.camel@deadeye.wl.decadent.org.uk>
-	<20140529164600.GO5099@sirena.org.uk>
-In-Reply-To: <20140529164600.GO5099@sirena.org.uk>
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
+	<20140529164600.GO5099@sirena.org.uk> <5387AD52.1040702@gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="rE45P3aZNSuYx5ND"
+Content-Disposition: inline
+In-Reply-To: <5387AD52.1040702@gmail.com>
 Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
 	Dan Carpenter <dan.carpenter@oracle.com>,
 	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [TOPIC] Encouraging more reviewers
-Reply-To: frowand.list@gmail.com
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,36 +39,50 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 5/29/2014 9:46 AM, Mark Brown wrote:
-> On Thu, May 29, 2014 at 01:35:45AM +0100, Ben Hutchings wrote:
->> On Tue, 2014-05-27 at 20:10 -0400, Martin K. Petersen wrote:
-> 
->>> There are a few companies in the enterprise space that get it. But in
->>> general it can be quite the challenge to get these vendors to see the
->>> value of being good Linux citizens. And these companies are much less
->>> susceptible to phoronix rants than entities producing consumer widgets.
-> 
->> For consumer widgets, it appears that most vendors don't update the
->> software, so they won't care that any out-of-tree drivers may break on
->> the next kernel version.  In fact, they're likely to be starting with
->> their SoC vendor's kernel tree which was forked a few years ago and has
->> a ton of dirty performance hacks in the core.
-> 
-> This is very true, to a good approximation nobody in the consumer
-> electronics space cares in the slightest about upstream - it's just not
-> useful as-is.  These days it's likely to be the current Android kernel
-> at the time the SoC was current.  There is some pressure from some of
-> the more clueful system integrators to be working with upstream, partly
-> for bringing things forwards on new devices and partly for leveraging
-> the review.
 
-I must be nobody then.  For many years I have been pushing for being as
-close to mainline as possible.  Even to the point of using an -rc1
-release as the beginning point of new product development, knowing that
-we would need to follow the churn through the rc versions.
+--rE45P3aZNSuYx5ND
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-And we encourage and are supportive of our SoC vendors working in mainline
-instead of vendor trees.
+On Thu, May 29, 2014 at 02:57:38PM -0700, Frank Rowand wrote:
+> On 5/29/2014 9:46 AM, Mark Brown wrote:
 
--Frank Rowand
-(for random parts of Sony)
+> > This is very true, to a good approximation nobody in the consumer
+> > electronics space cares in the slightest about upstream - it's just not
+> > useful as-is.  These days it's likely to be the current Android kernel
+
+> I must be nobody then.  For many years I have been pushing for being as
+> close to mainline as possible.  Even to the point of using an -rc1
+> release as the beginning point of new product development, knowing that
+> we would need to follow the churn through the rc versions.
+
+> And we encourage and are supportive of our SoC vendors working in mainline
+> instead of vendor trees.
+
+Right, there's a very small number of people doing this sort of thing
+(hence the "approximation") and you're not the only ones but it really
+is very rare.
+
+--rE45P3aZNSuYx5ND
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.22 (GNU/Linux)
+
+iQIcBAEBAgAGBQJTh771AAoJELSic+t+oim97zYP/i+f5+ofwRF+Lfurt1vxe/pd
+wKjCrV5z9+Mc7NC0rQFOwxl1RRdnDNu6dkEoeN+c3+RGifjWUHlG5dhsd18mv52b
+FuYEcz4/fiuLxaTXwloOxQGmE7D4te2Je8qrRD7RlLYEKN81uO/pOoVX6zqtHUzH
+50jTUMQlopVAkYHjIWARu3Kdc0mHFSHRsgSpmJgdFAL+/zzTP5SOYbS5Tgi5A4Ik
+tN+syy9As8AFfB16la+eHPCgqvjixfoLC2pnp5PbyzEYx04yyP7jj+OtAR9RbLnf
+l9/LpMHDhgCRbylCVQ2l9LCeqetcOXgYcbnK4RoekiqRqnjRdZuBdpbhCRIkVMn4
++m9J+Pghwy09ZC8NkbUwBkZiJdRiT93W7pKENJNImJptw5ZOde8BFpJG7h/Xn55h
+XbKMJ6zR3Sjk1CwZcvHu4ig7wBnOqTznN7lhO9dZRdHT0DFEAUBc3vcYST77Oihk
+qKIh/dO033c43OEb6d82rwxtiJJo0l6/TvgX6U+/gre3rp+CzX6FABWlkXyIojif
+CrFNQBlMNcU2Bm8z2xpnvQYmldBofKrqwY/pLzH0gqCvW9RFUzyrrDEEZ8P2Di4b
+U87SW5Ac252I1A292UzcmPCsx36oAAtGa8vk97/r9e/AXr8tMJPwlOsMTo57/UyP
+E3h+My3QVHxPCdPFBbMF
+=ABpS
+-----END PGP SIGNATURE-----
+
+--rE45P3aZNSuYx5ND--
