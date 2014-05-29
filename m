@@ -1,27 +1,36 @@
-Return-Path: <tytso@thunk.org>
+Return-Path: <greg@kroah.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id CA2B398F
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 3083298F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 29 May 2014 18:27:56 +0000 (UTC)
-Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 436D4200A9
+	Thu, 29 May 2014 18:32:37 +0000 (UTC)
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+	[66.111.4.25])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8009120114
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 29 May 2014 18:27:56 +0000 (UTC)
-Date: Thu, 29 May 2014 14:27:53 -0400
-From: Theodore Ts'o <tytso@mit.edu>
-To: Paul Walmsley <paul@pwsan.com>
-Message-ID: <20140529182753.GJ25041@thunk.org>
+	Thu, 29 May 2014 18:32:36 +0000 (UTC)
+Date: Thu, 29 May 2014 11:36:11 -0700
+From: Greg KH <greg@kroah.com>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <20140529183611.GA30922@kroah.com>
 References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
-	<alpine.DEB.2.02.1405281847450.1280@utopia.booyaka.com>
+	<20140524111927.GA3455@katana>
+	<alpine.LFD.2.00.1405271920580.2055@localhost.localdomain>
+	<4700397.FLxRVChBLf@vostro.rjw.lan>
+	<CAKMK7uEquB=bv5jj=K-8Nv_9S2Y8qh2=3eKjJSjgR4Vrn9fbaA@mail.gmail.com>
+	<1401294020.13546.95.camel@dhcp-9-2-203-236.watson.ibm.com>
+	<20140528162833.GA23815@thin>
+	<alpine.DEB.2.10.1405282332430.3952@nanos>
+	<20140528233145.GA14933@cloud>
+	<CAKMK7uEiCP_XVr4G_NtyDxZXBtWqE_X54ynpxi75saCOWHZnRQ@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.02.1405281847450.1280@utopia.booyaka.com>
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Reforming Acked-by (was Re: [TOPIC]
- Encouraging more reviewers)
+In-Reply-To: <CAKMK7uEiCP_XVr4G_NtyDxZXBtWqE_X54ynpxi75saCOWHZnRQ@mail.gmail.com>
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [TOPIC] Encouraging more reviewers
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,41 +40,19 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, May 28, 2014 at 06:48:47PM +0000, Paul Walmsley wrote:
-> 
-> Also long-overdue is a clarification on exactly what "Acked-by" means.
-> Right now it is being used for at least two distinct and
-> mutually-incompatible purposes:
-> 
-> 1. A maintainer A for code affected by a patch, who is distinct from a
-> maintainer B queuing a patch, has reviewed the patch and has cleared it as
-> being OK for maintainer B to send upstream
-> 
-> 2. A casual review has been done by someone who is not a maintainer for
-> the code in question
-> 
-> What I would propose is to have the first use replaced by a new tag, 
-> "Maintainer-acked-by:", and the second use abolished, along with 
-> "Acked-by:", and replaced by "Reviewed-by:".
+On Thu, May 29, 2014 at 12:31:52PM +0200, Daniel Vetter wrote:
+> Of course for both these points Intel mostly gets this and I only have
+> issues with new people joining upstream from e.g. Android teams If
+> they don't get it I escalate through their managers _real_ quickly.
+> Maybe we should require from companies some "you have a loose cannon,
+> take care of it" contact, at least those in lf/linaro/... to make sure
+> this gets addressed quickly? Since ime sternly written mails at
+> engineers is usually not sufficient, escalation is usually required.
 
-I agree in general, but if we're going to abolish the 2nd use
-entirely, then it's much simpler to keep Acked-by for its original
-meaning; it's easier to type, after all.
+The LF does have such a list, email me, or the LF Tech board if you need
+such a contact for an issue like this.  We've done it in the past and
+have no problem doing it in the future :)
 
-This is basically I do for ext4 patches today; if someone sends me an
-acked-by in the #2 sense, I simply won't add it to the s-o-b section,
-and I don't let the fact that someone has asserted that they have done
-a casual review to give me a false sense of security; if I still have
-to do a deep review, I'm going to catch the casual stuff anyway, and
-the fact that a casual review doesn't obviate the need for a careful
-review.
+thanks,
 
-But if a senior ext4 developer adds a Reviewed-by:, that does lend a
-lot of value to me as a maintainer, since I can trust that certain
-folks like Jan and Eric and Lukas and others will do a good job doing
-the review, and that actually *does* offload significant amounts of
-work off my shoulders.
-
-Cheers,
-
-						- Ted
+greg k-h
