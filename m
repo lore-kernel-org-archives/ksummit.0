@@ -1,29 +1,34 @@
-Return-Path: <greg@kroah.com>
+Return-Path: <martin.petersen@oracle.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id ABE9082D
+	by mail.linuxfoundation.org (Postfix) with ESMTP id A493B82D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 29 May 2014 23:43:20 +0000 (UTC)
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
-	[66.111.4.25])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3AF431FD49
+	Thu, 29 May 2014 23:57:01 +0000 (UTC)
+Received: from aserp1040.oracle.com (aserp1040.oracle.com [141.146.126.69])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0A0F11F887
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 29 May 2014 23:43:20 +0000 (UTC)
-Date: Thu, 29 May 2014 16:43:11 -0700
-From: Greg KH <greg@kroah.com>
-To: Daniel Phillips <d.phillips@partner.samsung.com>
-Message-ID: <20140529234311.GB12450@kroah.com>
-References: <53877319.5060407@partner.samsung.com>
-	<20140529181319.GA24218@kroah.com>
-	<538778C5.7010505@partner.samsung.com>
-	<20140529182341.GA6410@kroah.com>
-	<53877FBD.7060003@partner.samsung.com>
+	Thu, 29 May 2014 23:57:00 +0000 (UTC)
+To: Dan Williams <dan.j.williams@intel.com>
+From: "Martin K. Petersen" <martin.petersen@oracle.com>
+References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
+	<20140525222923.GW15585@mwanda> <1401119598.3303.6.camel@dabdike>
+	<alpine.LNX.2.00.1405271634080.28869@pobox.suse.cz>
+	<1401224020.14454.92.camel@dabdike>
+	<alpine.LNX.2.00.1405272316000.17241@pobox.suse.cz>
+	<yq1zji2hif7.fsf@sermon.lab.mkp.net>
+	<CAPcyv4jOzqu8g2gEhAf2tdNY0P=D-p6L8kz_zX9WgqPh-d8C_w@mail.gmail.com>
+	<yq1lhtldyhz.fsf@sermon.lab.mkp.net>
+	<CAPcyv4itiMAzfRp4=msYskfn8ArQ6vE3=JLj9=Vt4mFQmOZWxw@mail.gmail.com>
+Date: Thu, 29 May 2014 19:56:51 -0400
+In-Reply-To: <CAPcyv4itiMAzfRp4=msYskfn8ArQ6vE3=JLj9=Vt4mFQmOZWxw@mail.gmail.com>
+	(Dan Williams's message of "Wed, 28 May 2014 22:17:53 -0700")
+Message-ID: <yq138fscf5o.fsf@sermon.lab.mkp.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <53877FBD.7060003@partner.samsung.com>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [topic] Richer internal block API
+Content-Type: text/plain
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Dan Carpenter <dan.carpenter@oracle.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TOPIC] Encouraging more reviewers
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,16 +38,18 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, May 29, 2014 at 11:43:09AM -0700, Daniel Phillips wrote:
-> >> Not like btrfs is doing, the opposite really.
-> > Good, post patches then :)
-> >
-> Is that a recommendation to develop a core API extension in a vacuum?
+>>>>> "Dan" == Dan Williams <dan.j.williams@intel.com> writes:
 
-No, do it like any other core api changes, post patches that explain
-what you want to do, and people will review them.
+Dan> Yes, ill conceived "value add" is indeed toxic.  Is that the only
+Dan> contributor factor to indefinite patch acceptance latency?  We're
+Dan> missing a mechanism to allow for experimentation without 1/ risking
+Dan> the quality of the rest of the kernel 2/ committing to carrying the
+Dan> experiment upstream indefinitely. 
 
-Come on, you know how this all works, we don't have to have meetings in
-order to do design decisions that are "large".
+Another problem in the value-add department is what hw vendor FOO is
+unlikely to collaborate with main competitor BAR on a common
+interface. Friendly collaboration works for us Linux folks but is rare
+(although it does happen) in the driver space.
 
-greg k-h
+-- 
+Martin K. Petersen	Oracle Linux Engineering
