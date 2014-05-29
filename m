@@ -1,36 +1,35 @@
-Return-Path: <greg@kroah.com>
+Return-Path: <d.phillips@partner.samsung.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 3083298F
+	by mail.linuxfoundation.org (Postfix) with ESMTP id D9F65996
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 29 May 2014 18:32:37 +0000 (UTC)
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
-	[66.111.4.25])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8009120114
+	Thu, 29 May 2014 18:43:13 +0000 (UTC)
+Received: from usmailout1.samsung.com (mailout1.w2.samsung.com
+	[211.189.100.11])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6367120119
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 29 May 2014 18:32:36 +0000 (UTC)
-Date: Thu, 29 May 2014 11:36:11 -0700
-From: Greg KH <greg@kroah.com>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <20140529183611.GA30922@kroah.com>
-References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
-	<20140524111927.GA3455@katana>
-	<alpine.LFD.2.00.1405271920580.2055@localhost.localdomain>
-	<4700397.FLxRVChBLf@vostro.rjw.lan>
-	<CAKMK7uEquB=bv5jj=K-8Nv_9S2Y8qh2=3eKjJSjgR4Vrn9fbaA@mail.gmail.com>
-	<1401294020.13546.95.camel@dhcp-9-2-203-236.watson.ibm.com>
-	<20140528162833.GA23815@thin>
-	<alpine.DEB.2.10.1405282332430.3952@nanos>
-	<20140528233145.GA14933@cloud>
-	<CAKMK7uEiCP_XVr4G_NtyDxZXBtWqE_X54ynpxi75saCOWHZnRQ@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAKMK7uEiCP_XVr4G_NtyDxZXBtWqE_X54ynpxi75saCOWHZnRQ@mail.gmail.com>
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TOPIC] Encouraging more reviewers
+	Thu, 29 May 2014 18:43:13 +0000 (UTC)
+Received: from uscpsbgex2.samsung.com
+	(u123.gpu85.samsung.co.kr [203.254.195.123]) by mailout1.w2.samsung.com
+	(Oracle Communications Messaging Server 7u4-24.01(7.0.4.24.0) 64bit
+	(built Nov
+	17 2011)) with ESMTP id <0N6C00HTUMNZ8W90@mailout1.w2.samsung.com> for
+	ksummit-discuss@lists.linuxfoundation.org; Thu,
+	29 May 2014 14:43:11 -0400 (EDT)
+Message-id: <53877FBD.7060003@partner.samsung.com>
+Date: Thu, 29 May 2014 11:43:09 -0700
+From: Daniel Phillips <d.phillips@partner.samsung.com>
+MIME-version: 1.0
+To: Greg KH <greg@kroah.com>
+References: <53877319.5060407@partner.samsung.com>
+	<20140529181319.GA24218@kroah.com>
+	<538778C5.7010505@partner.samsung.com>
+	<20140529182341.GA6410@kroah.com>
+In-reply-to: <20140529182341.GA6410@kroah.com>
+Content-type: text/plain; charset=ISO-8859-1; format=flowed
+Content-transfer-encoding: 7bit
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [topic] Richer internal block API
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,19 +39,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, May 29, 2014 at 12:31:52PM +0200, Daniel Vetter wrote:
-> Of course for both these points Intel mostly gets this and I only have
-> issues with new people joining upstream from e.g. Android teams If
-> they don't get it I escalate through their managers _real_ quickly.
-> Maybe we should require from companies some "you have a loose cannon,
-> take care of it" contact, at least those in lf/linaro/... to make sure
-> this gets addressed quickly? Since ime sternly written mails at
-> engineers is usually not sufficient, escalation is usually required.
+On 05/29/2014 11:23 AM, Greg KH wrote:
+> On Thu, May 29, 2014 at 11:13:25AM -0700, Daniel Phillips wrote:
+>> ...I wonder though, why
+>> power management is regarded as a summit-worthy topic, but core
+>> functionality of the block layer is not.
+> power management covers the whole tree, the block layer is "just" the
+> block layer.
+Power management does not cover more of the tree than the block layer 
+plus memory management plus filesystem plus vfs do, all of which are 
+impacted, and all of which raise user visible API questions.
+>
+>>>> Full disclosure dept: I have an agenda. I want to add the equivalent of
+>>>> Raidz etc to Tux3 without reimplementing a logical volume manager in the
+>>>> filesystem.
+>>> Like btrfs is doing?  :)
+>>>
+>>> greg k-h
+>> Not like btrfs is doing, the opposite really.
+> Good, post patches then :)
+>
+> greg k-h
+Is that a recommendation to develop a core API extension in a vacuum?
 
-The LF does have such a list, email me, or the LF Tech board if you need
-such a contact for an issue like this.  We've done it in the past and
-have no problem doing it in the future :)
+Regards,
 
-thanks,
-
-greg k-h
+Daniel
