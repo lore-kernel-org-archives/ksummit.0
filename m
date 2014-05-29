@@ -1,35 +1,40 @@
-Return-Path: <d.phillips@partner.samsung.com>
+Return-Path: <rostedt@goodmis.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id D9F65996
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 154FB996
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 29 May 2014 18:43:13 +0000 (UTC)
-Received: from usmailout1.samsung.com (mailout1.w2.samsung.com
-	[211.189.100.11])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6367120119
+	Thu, 29 May 2014 18:43:36 +0000 (UTC)
+Received: from cdptpa-oedge-vip.email.rr.com
+	(cdptpa-outbound-snat.email.rr.com [107.14.166.225])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id C3C8A2019A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 29 May 2014 18:43:13 +0000 (UTC)
-Received: from uscpsbgex2.samsung.com
-	(u123.gpu85.samsung.co.kr [203.254.195.123]) by mailout1.w2.samsung.com
-	(Oracle Communications Messaging Server 7u4-24.01(7.0.4.24.0) 64bit
-	(built Nov
-	17 2011)) with ESMTP id <0N6C00HTUMNZ8W90@mailout1.w2.samsung.com> for
-	ksummit-discuss@lists.linuxfoundation.org; Thu,
-	29 May 2014 14:43:11 -0400 (EDT)
-Message-id: <53877FBD.7060003@partner.samsung.com>
-Date: Thu, 29 May 2014 11:43:09 -0700
-From: Daniel Phillips <d.phillips@partner.samsung.com>
-MIME-version: 1.0
-To: Greg KH <greg@kroah.com>
-References: <53877319.5060407@partner.samsung.com>
-	<20140529181319.GA24218@kroah.com>
-	<538778C5.7010505@partner.samsung.com>
-	<20140529182341.GA6410@kroah.com>
-In-reply-to: <20140529182341.GA6410@kroah.com>
-Content-type: text/plain; charset=ISO-8859-1; format=flowed
-Content-transfer-encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [topic] Richer internal block API
+	Thu, 29 May 2014 18:43:34 +0000 (UTC)
+Date: Thu, 29 May 2014 14:43:32 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Thomas Gleixner <tglx@linutronix.de>
+Message-ID: <20140529144332.570be36a@gandalf.local.home>
+In-Reply-To: <alpine.DEB.2.10.1405282325020.3952@nanos>
+References: <20140524111927.GA3455@katana>
+	<alpine.LFD.2.00.1405271920580.2055@localhost.localdomain>
+	<4700397.FLxRVChBLf@vostro.rjw.lan>
+	<CAKMK7uEquB=bv5jj=K-8Nv_9S2Y8qh2=3eKjJSjgR4Vrn9fbaA@mail.gmail.com>
+	<20140528143246.GV15585@mwanda>
+	<CAKMK7uGkURkwFdQQhrs1oi5Hpfk4SCuH0jv6x07vJ6cyAfEvwQ@mail.gmail.com>
+	<20140528163902.GA5099@sirena.org.uk>
+	<1401295862.13546.109.camel@dhcp-9-2-203-236.watson.ibm.com>
+	<20140528173553.GE5099@sirena.org.uk>
+	<3908561D78D1C84285E8C5FCA982C28F328205B1@ORSMSX114.amr.corp.intel.com>
+	<20140528183825.GA21477@sirena.org.uk>
+	<alpine.DEB.2.10.1405282325020.3952@nanos>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Dan Carpenter <dan.carpenter@oracle.com>,
+	Mark Brown <broonie@sirena.org.uk>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [TOPIC] Encouraging more reviewers
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,29 +44,31 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 05/29/2014 11:23 AM, Greg KH wrote:
-> On Thu, May 29, 2014 at 11:13:25AM -0700, Daniel Phillips wrote:
->> ...I wonder though, why
->> power management is regarded as a summit-worthy topic, but core
->> functionality of the block layer is not.
-> power management covers the whole tree, the block layer is "just" the
-> block layer.
-Power management does not cover more of the tree than the block layer 
-plus memory management plus filesystem plus vfs do, all of which are 
-impacted, and all of which raise user visible API questions.
->
->>>> Full disclosure dept: I have an agenda. I want to add the equivalent of
->>>> Raidz etc to Tux3 without reimplementing a logical volume manager in the
->>>> filesystem.
->>> Like btrfs is doing?  :)
->>>
->>> greg k-h
->> Not like btrfs is doing, the opposite really.
-> Good, post patches then :)
->
-> greg k-h
-Is that a recommendation to develop a core API extension in a vacuum?
+On Wed, 28 May 2014 23:32:11 +0200 (CEST)
+Thomas Gleixner <tglx@linutronix.de> wrote:
+\
+> What you really want is:
+> 
+> Link: https://lkml.kernel.org/r/MESSAGE_ID_OF_PATCH
+> 
+> It's way more useful than any of the v1-n writeups, which are most of
+> the time just a completely waste of electrons. Even if written well,
+> without the actual review context they are pretty pointless.
 
-Regards,
+Agreed!
 
-Daniel
+And unfortunately, even that doesn't work because version patches
+usually start a new thread, and you lose out on what discussions were
+made before it.
+
+Lately, I've been adding more than one Link: tag. It may be overkill,
+but when I post a v2 patch series, I try to have changes to the
+patches have a Link tag that point to the discussion that caused the
+changes.
+
+If I have v5 (which I haven't had more than a v2 lately), I would
+recommend having 4 Link tags that point to the posting of all previous
+versions of the patch in order to be able to read the entire discussion
+in the future.
+
+-- Steve
