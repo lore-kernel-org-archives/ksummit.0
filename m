@@ -1,31 +1,35 @@
-Return-Path: <paul@pwsan.com>
+Return-Path: <lizefan@huawei.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 3A6FF85D
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 3C59A8A7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 May 2014 01:12:08 +0000 (UTC)
-Received: from utopia.booyaka.com (utopia.booyaka.com [74.50.51.50])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BAF091FA28
+	Fri, 30 May 2014 02:25:19 +0000 (UTC)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [119.145.14.64])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 297CD1FA42
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 May 2014 01:12:07 +0000 (UTC)
-Date: Fri, 30 May 2014 01:12:06 +0000 (UTC)
-From: Paul Walmsley <paul@pwsan.com>
-To: Greg KH <greg@kroah.com>
-In-Reply-To: <20140529233004.GB11741@kroah.com>
-Message-ID: <alpine.DEB.2.02.1405300056000.8897@utopia.booyaka.com>
-References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
-	<alpine.DEB.2.02.1405281847450.1280@utopia.booyaka.com>
-	<20140529182753.GJ25041@thunk.org>
-	<700704721.GMn4j9GJx9@vostro.rjw.lan>
-	<CAOesGMgmFkMRurwKdLpmFSOqz-tZ51Phws5ZAA71dieVbHPRFQ@mail.gmail.com>
-	<20140529233004.GB11741@kroah.com>
+	Fri, 30 May 2014 02:25:17 +0000 (UTC)
+Message-ID: <5387EBB3.8060800@huawei.com>
+Date: Fri, 30 May 2014 10:23:47 +0800
+From: Li Zefan <lizefan@huawei.com>
 MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+To: Greg KH <greg@kroah.com>
+References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
+	<20140524111927.GA3455@katana>
+	<alpine.LFD.2.00.1405271920580.2055@localhost.localdomain>
+	<4700397.FLxRVChBLf@vostro.rjw.lan>
+	<CAKMK7uEquB=bv5jj=K-8Nv_9S2Y8qh2=3eKjJSjgR4Vrn9fbaA@mail.gmail.com>
+	<1401294020.13546.95.camel@dhcp-9-2-203-236.watson.ibm.com>
+	<20140528162833.GA23815@thin>
+	<alpine.DEB.2.10.1405282332430.3952@nanos>
+	<20140528233145.GA14933@cloud> <1401344001.27691.4.camel@dabdike>
+	<20140529233459.GD11741@kroah.com>
+In-Reply-To: <20140529233459.GD11741@kroah.com>
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: 7bit
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] Reforming Acked-by (was Re: [TOPIC]
- Encouraging more reviewers)
+Subject: Re: [Ksummit-discuss] [TOPIC] Encouraging more reviewers
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,45 +39,55 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, 29 May 2014, Greg KH wrote:
-
-> On Thu, May 29, 2014 at 02:03:16PM -0700, Olof Johansson wrote:
-> > What are we really trying to fix here? Is the current process really
-> > broken or are we trying to create more process that's not needed for
-> > some other reason?
+On 2014/5/30 7:34, Greg KH wrote:
+> On Thu, May 29, 2014 at 10:13:21AM +0400, James Bottomley wrote:
+>> I suspect, but cannot prove, it is somewhat driven by the patch
+>> statistics.  I know in Parallels, I track features accepted into the
+>> kernel, not patches, but we do have a patch metric as well for people
+>> who do incidental bug fixing as they push features, so we're not 100%
+>> pure on this.
+>>
+>> When I recently gave a comparison of OpenStack and the Kernel, one thing
+>> that stood out starkly was that they just don't have our volume of one
+>> line, one patch per file hundreds of times and trivial changes, so we
+>> definitely have a problem in this area.
+>>
+>> The reason OpenStack has so few trivial and multiply split patches is
+>> mostly grounded in the difficulty of submitting a patch to their tree.
 > 
-> I think the latter.
+> And I would argue that this is going to be a long-term problem for them.
 > 
-> Somehow, we seem to be constantly increasing our rate of change, are
-> people thinking we are having problems here?  If so, exactly where?
+>> Just preparing it for gerrit takes a long time (around ten minutes per
+>> patch), which really reduces the volume of trivial patches, just because
+>> no-one has that much energy (although some would argue it reduces the
+>> volume too far).
+>>
+>> It's human nature to spend more time on the easy problems, so a flood of
+>> trivial patches which are "obviously" correct is easier to review and
+>> include than one patch which alters something deep within mm and needs
+>> careful thought.  At best, excessively split trivial patches are a
+>> dilution of our review effort and at worst, they're actively sucking
+>> people away from tackling the hard problems.
+> 
+> I have not heard of these "cleanup" patches taking anyone's review
+> cycles up for the "harder" patches, do you have examples of it?
+> 
+> In fact, I would argue the fact that we do so easily accept cleanups
+> across the board that keeps our developer community engaged and new
+> people joining in easy.  It's _really_ hard to get involved in
+> OpenStack, by design.  The kernel is not that way, and hopefully never
+> will be, as we want to succeed...
+> 
 
-If "increasing our rate of change" was the only metric that we cared 
-about, we wouldn't be discussing how to attract more reviewers.
+Yeah, we've been encouraging our people working on upstream kernel, and
+many of them started by making cleanup patches, but then they moved to
+bug fixes and other work. However it's hard to ask them to join a subsystem
+development by also reviewing patches. I can think of some possible
+reasons:
 
-But, on the other hand, if "increasing our rate of change" is the primary 
-metric that's important to some folks, it might explain why we keep 
-asking ourselves how to increase the review bandwidth every year, with 
-little apparent positive result.
-
-> This thread has taken an odd turn into trying to make some new kind of 
-> process for an unknown issue (i.e. the people on this list are not going 
-> to recognize the reviewers more, it's up to you to educate your managers 
-> / company more.)
-
-There's no additional process suggested for the Acked-by: discussion - so 
-I guess you're not referring to the $SUBJECT thread, but rather to the 
-"designated reviewer" proposal.
-
-In that case, the issue seems fairly obvious:
-
-   How do we encourage and recognize people who take the time to review 
-   code, and who do it well from the point of view of maintainers?
-
-...
-
-Regarding the "managers/company" comment: I don't think it matters whether 
-good reviews come from hobbyists or corporate employees - humans like 
-being formally recognized for their contributions.
-
-
-- Paul
+- Not confident enough?
+- Language barrier.
+- Asian culture issue. We don't like discussions, so we tend to avoid
+discussing and arguing with other kernel developers and maintainers.
+- Credit and the feeling of achievement is not high in reviewing patches.
+- We are busy with internal jobs. :)
