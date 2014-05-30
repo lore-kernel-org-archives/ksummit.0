@@ -1,31 +1,28 @@
-Return-Path: <keescook@google.com>
+Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 24493B12
+	by mail.linuxfoundation.org (Postfix) with ESMTP id AD4C69F6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 May 2014 20:59:10 +0000 (UTC)
-Received: from mail-ob0-f172.google.com (mail-ob0-f172.google.com
-	[209.85.214.172])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6D3B42035B
+	Fri, 30 May 2014 21:09:30 +0000 (UTC)
+Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id EA24D20278
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 May 2014 20:59:09 +0000 (UTC)
-Received: by mail-ob0-f172.google.com with SMTP id wp18so2387704obc.31
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 May 2014 13:59:08 -0700 (PDT)
-MIME-Version: 1.0
-Sender: keescook@google.com
-In-Reply-To: <20140530143530.5816c980@gandalf.local.home>
-References: <537F3551.2070104@hitachi.com>
-	<1400853902.31124.5.camel@fedora64.linuxtx.org>
-	<20140524003036.GB26422@thunk.org> <53832692.9020802@hitachi.com>
-	<20140530143530.5816c980@gandalf.local.home>
-Date: Fri, 30 May 2014 13:59:08 -0700
-Message-ID: <CAGXu5jLqm1QDH4doN5pU0+MS_mTT3mwAdfiYvwwgqkBGzz3y9g@mail.gmail.com>
-From: Kees Cook <keescook@chromium.org>
+	Fri, 30 May 2014 21:09:29 +0000 (UTC)
+From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
 To: Steven Rostedt <rostedt@goodmis.org>
-Content-Type: text/plain; charset=UTF-8
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] kernel testing standard
+Date: Fri, 30 May 2014 23:26:38 +0200
+Message-ID: <1505533.GV2VtpdML7@vostro.rjw.lan>
+In-Reply-To: <20140530110640.70d6ae02@gandalf.local.home>
+References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
+	<700704721.GMn4j9GJx9@vostro.rjw.lan>
+	<20140530110640.70d6ae02@gandalf.local.home>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] Reforming Acked-by (was Re: [TOPIC]
+	Encouraging more reviewers)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,56 +32,37 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, May 30, 2014 at 11:35 AM, Steven Rostedt <rostedt@goodmis.org> wrote:
-> On Mon, 26 May 2014 20:33:38 +0900
-> Masami Hiramatsu <masami.hiramatsu.pt@hitachi.com> wrote:
->
->
->> If we force to unify the test frameworks, it will neither be maintained
->> nor used. Instead, if maintainers state what test they will run and how
->> to maintain it, we are sure that each test will be done on the each
->> subsystem branch, and before release, we can avoid to run all tests which
->> requires many hardware and long time but just run a small number of tests
->> (e.g. LTP, trinity, etc.)
->
-> I agree with this. Just having a single place to put tests or tell
-> people where the tests are would be a huge improvement. If I wanted to
-> run my own tests on ext file systems, I should be able to set up the
-> same environment that Ted uses. If someone wants to run my ftrace
-> tests, then they should be able to as well (which I need to make
-> available to the general public). Better yet, this can open up a door
-> for people to contribute to new tests for a particular subsystem. I
-> would love it if people added tests for me to run on ftrace. I have a
-> bunch of hacks to test various functionality (as they are hacky, that's
-> the reason I haven't posted them yet).
->
-> This shouldn't be about "make tests" which I think is silly. But a way
-> to standardize tests, or at least have a single repository to show how
-> different parts of the kernel is tested. My tests require running as
-> root, other tests should not require that. This is just an example of
-> how different tests have different requirements and no one size fits
-> all.
+On Friday, May 30, 2014 11:06:40 AM Steven Rostedt wrote:
+> On Thu, 29 May 2014 23:03:28 +0200
+> "Rafael J. Wysocki" <rjw@rjwysocki.net> wrote:
+> 
+> 
+> > Well, perhaps we can reserve the Acked-by for maintainers and add
+> > something like Supported-by for the 2nd meaning.
+> 
+> Or add a new tag for maintainers. I like:
+> 
+>  Approved-by:
+> 
+> As that is what the meaning of the maintainer acked-by is.  I sometimes
+> use Acked-by when I'm not the maintainer of the code but the code
+> changes something related to tracing, or something else I dabble in
+> (interrupts, scheduler, etc). Code that I may not maintain, but
+> something I do work with. Acked-by to me isn't limited to a maintainer,
+> but for those that deal with the code, and agree with the change.
+> Supported-by gives the meaning that I'm funding that change.
 
-I've been adding stuff in tools/testing/selftests when ever I can.
-Based on the stuff living in there, I think there several things
-needed for being able to hook stuff up to a framework:
+Right.
 
-common reporting/exit code handling: right now "make run_tests" mostly
-requires a human to read everything and decide if something failed.
-That's no good.
+> Where as, a maintainer could pass in an "Approved-by" which means "Yes,
+> I approve this change and it may go through another tree instead of
+> mine".
 
-common "starting state" documentation: the various tests require
-changes to CONFIG items, sysctls, uid, etc. Having a common format for
-describing these states mean a framework would be able to, say, build
-randconfig and then pick the correct subset of tests to run. Or
-changing sysctls before running a test.
+That's what an ACK means, though, isn't it?
 
-(And as an example of code work to be done: on my TODO list is taking
-the seccomp-bpf test suite, currently living on github, and getting it
-added to the selftests tree.)
+To me, really, Acked-by from a non-maintainer is something like a "+1" in G+.
 
--Kees
+I would prefer the new tag to suggest that meaning more directly.  Something
+like "Fine-by", maybe?
 
--- 
-Kees Cook
-Chrome OS Security
+Rafael
