@@ -1,33 +1,32 @@
 Return-Path: <linville@tuxdriver.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id C0A9B98F
+	by mail.linuxfoundation.org (Postfix) with ESMTP id AB79F9A3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 May 2014 14:15:10 +0000 (UTC)
+	Fri, 30 May 2014 14:45:11 +0000 (UTC)
 Received: from smtp.tuxdriver.com (charlotte.tuxdriver.com [70.61.120.58])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5CD302019A
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id EE79520114
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 May 2014 14:15:10 +0000 (UTC)
-Date: Fri, 30 May 2014 10:14:55 -0400
+	Fri, 30 May 2014 14:45:10 +0000 (UTC)
+Date: Fri, 30 May 2014 10:34:50 -0400
 From: "John W. Linville" <linville@tuxdriver.com>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Message-ID: <20140530141455.GB24054@tuxdriver.com>
-References: <CAKMK7uEquB=bv5jj=K-8Nv_9S2Y8qh2=3eKjJSjgR4Vrn9fbaA@mail.gmail.com>
-	<1401294020.13546.95.camel@dhcp-9-2-203-236.watson.ibm.com>
-	<20140528162833.GA23815@thin>
-	<alpine.DEB.2.10.1405282332430.3952@nanos>
-	<20140528233145.GA14933@cloud> <1401344001.27691.4.camel@dabdike>
-	<20140529233459.GD11741@kroah.com>
-	<1401423973.2163.26.camel@dabdike>
-	<20140530050220.GA2505@kroah.com>
-	<1401427998.2163.37.camel@dabdike>
+To: Greg KH <greg@kroah.com>
+Message-ID: <20140530143449.GC24054@tuxdriver.com>
+References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
+	<alpine.DEB.2.02.1405281847450.1280@utopia.booyaka.com>
+	<20140529182753.GJ25041@thunk.org>
+	<700704721.GMn4j9GJx9@vostro.rjw.lan>
+	<CAOesGMgmFkMRurwKdLpmFSOqz-tZ51Phws5ZAA71dieVbHPRFQ@mail.gmail.com>
+	<20140529233004.GB11741@kroah.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1401427998.2163.37.camel@dabdike>
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
+In-Reply-To: <20140529233004.GB11741@kroah.com>
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TOPIC] Encouraging more reviewers
+Subject: Re: [Ksummit-discuss] Reforming Acked-by (was Re: [TOPIC]
+ Encouraging more reviewers)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,26 +36,37 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, May 30, 2014 at 09:33:18AM +0400, James Bottomley wrote:
-
-> We need to design programs for new people that draw them in, not keep
-> them on the periphery.  That's why I think bug fixing is a better
-> activity: it means they have to understand some of the code; the change
-> can be small and isolated, so they don't have to understand all the code
-> and it often encourages people to find out more about whatever they're
-> fixing, hence draws them in.
+On Thu, May 29, 2014 at 04:30:04PM -0700, Greg KH wrote:
+> On Thu, May 29, 2014 at 02:03:16PM -0700, Olof Johansson wrote:
+> > What are we really trying to fix here? Is the current process really
+> > broken or are we trying to create more process that's not needed for
+> > some other reason?
 > 
-> We're way off the topic of encouraging reviewers, but the bottom line
-> for me is I don't believe starting people out with cleanup type changes
-> is a good way to get wider engagement.  It is a good way to increase the
-> number of overall patches, all of which need to be reviewed, hence the
-> need for more reviewers.
+> I think the latter.
+> 
+> Somehow, we seem to be constantly increasing our rate of change, are
+> people thinking we are having problems here?  If so, exactly where?
+> This thread has taken an odd turn into trying to make some new kind of
+> process for an unknown issue (i.e. the people on this list are not going
+> to recognize the reviewers more, it's up to you to educate your managers
+> / company more.)
+> 
+> Are maintainers who deal with huge number of patches (i.e. 1000+ a year)
+> crying out for help that this is somehow going to reduce their burden?
+> 
+> I don't think so, but hey, what do I know about this development
+> process...
 
-You may have a good point -- people that have spent time finding
-and fixing bugs may actually have an incentive to keep new bugs out.
-But someone looking to boost their patch count may be perfectly happy
-to observe _some_ (hopefully only minor) things slip through only
-for the observer to later post a patch to correct them.
+I think I'm in that group.  FWIW, all this talk of new and vaguely
+differentiated "Foo-by" tags gives me heartburn.  I try to be
+dilligent about collecting any such tags that get posted before a
+patch is merged, but it can be a bit painful.
+
+Those tags still come down to trust anyway -- just
+because someone replies with a Reviewed-by, Tested-by,
+Built-and-run-with-ten-other-pathes-by or whatnot doesn't provide
+any guarantee at all unless you know the person and trust what they
+are saying in the first place.
 
 John
 -- 
