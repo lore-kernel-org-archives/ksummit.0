@@ -1,34 +1,24 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <lczerner@redhat.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 618788A7
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 33450910
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 May 2014 05:39:18 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 140871F8C2
+	Fri, 30 May 2014 09:56:33 +0000 (UTC)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 60A4E1FAB5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 May 2014 05:39:18 +0000 (UTC)
-Message-ID: <1401428346.2163.43.camel@dabdike>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
+	Fri, 30 May 2014 09:56:32 +0000 (UTC)
+Date: Fri, 30 May 2014 11:56:21 +0200 (CEST)
+From: =?ISO-8859-15?Q?Luk=E1=A8_Czerner?= <lczerner@redhat.com>
 To: Greg KH <greg@kroah.com>
-Date: Fri, 30 May 2014 09:39:06 +0400
-In-Reply-To: <20140530050448.GB2505@kroah.com>
-References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
-	<alpine.DEB.2.02.1405281847450.1280@utopia.booyaka.com>
-	<20140529182753.GJ25041@thunk.org>
-	<700704721.GMn4j9GJx9@vostro.rjw.lan>
-	<CAOesGMgmFkMRurwKdLpmFSOqz-tZ51Phws5ZAA71dieVbHPRFQ@mail.gmail.com>
-	<20140529233004.GB11741@kroah.com>
-	<alpine.DEB.2.02.1405300056000.8897@utopia.booyaka.com>
-	<20140530050448.GB2505@kroah.com>
-Content-Type: text/plain; charset="ISO-8859-15"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] Reforming Acked-by (was Re: [TOPIC]
- Encouraging more reviewers)
+In-Reply-To: <20140529181319.GA24218@kroah.com>
+Message-ID: <alpine.LFD.2.00.1405301149330.2009@localhost.localdomain>
+References: <53877319.5060407@partner.samsung.com>
+	<20140529181319.GA24218@kroah.com>
+MIME-Version: 1.0
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [topic] Richer internal block API
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,38 +28,51 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, 2014-05-29 at 22:04 -0700, Greg KH wrote:
-> On Fri, May 30, 2014 at 01:12:06AM +0000, Paul Walmsley wrote:
-> > On Thu, 29 May 2014, Greg KH wrote:
-> > 
-> > > On Thu, May 29, 2014 at 02:03:16PM -0700, Olof Johansson wrote:
-> > > > What are we really trying to fix here? Is the current process really
-> > > > broken or are we trying to create more process that's not needed for
-> > > > some other reason?
-> > > 
-> > > I think the latter.
-> > > 
-> > > Somehow, we seem to be constantly increasing our rate of change, are
-> > > people thinking we are having problems here?  If so, exactly where?
-> > 
-> > If "increasing our rate of change" was the only metric that we cared 
-> > about, we wouldn't be discussing how to attract more reviewers.
+On Thu, 29 May 2014, Greg KH wrote:
+
+> Date: Thu, 29 May 2014 11:13:19 -0700
+> From: Greg KH <greg@kroah.com>
+> To: Daniel Phillips <d.phillips@partner.samsung.com>
+> Cc: ksummit-discuss@lists.linuxfoundation.org
+> Subject: Re: [Ksummit-discuss] [topic] Richer internal block API
 > 
-> I'm not saying it's the only metric, but just pointing out that while we
-> constantly ask for more reviewers, it doesn't seem to be slowing us
-> down.
+> On Thu, May 29, 2014 at 10:49:13AM -0700, Daniel Phillips wrote:
+> > Hi Neil,
+> > 
+> > This will be my annual proposal to open a general discussion about improving
+> > the internal block API, to be capable of doing all the things that the ZFS
+> > crowd claim are impossible without rampantly violating filesystem/raid
+> > layering. Attacking this in a storage-specific venue would also be good,
+> > however I view this issue as being at least as central as a number of topics
+> > already raised for general consideration.
+> 
+> Why didn't you bring this up at the filesystem summit a few months ago?
+> That's the best place for it, not at the kernel summit.
 
-It depends whether you believe every patch has to be reviewed.  If you
-do (and I certainly believe we have to in order to maintain code
-quality), we have to increase our review bandwidth at the same rate we
-increase our commits, otherwise the imbalance causes a backlog of
-unreviewed patches.
+Actually we've sort-of started the discussion about this topic at
+LSF. Dave Chinner was the one who brought this up, the only problem
+was that his idea was in really early stage and I suppose it still
+is because I have not heard about this since then.
 
-What I see at the moment is that the number of patches exceeds the
-number of reviewers quite substantially.  By and large the reviewers
-mostly get through the backlog between merge windows (but the process is
-an exhausting one which will lead to reviewer burn out), but I can see a
-time arriving soon when they can't and we start wrapping ourselves
-around the axle because of too few reviewers.
+But I agree that this kind of discussion is more suited for LSF
+rather than kernel summit since it's much more targeted to block vs.
+file systems interactions.
 
-James
+> 
+> > Full disclosure dept: I have an agenda. I want to add the equivalent of
+> > Raidz etc to Tux3 without reimplementing a logical volume manager in the
+> > filesystem.
+> 
+> Like btrfs is doing?  :)
+
+Well, we want exactly what btrfs is _not_ doing :)
+
+-Lukas
+
+> 
+> greg k-h
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+> 
