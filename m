@@ -1,24 +1,31 @@
 Return-Path: <lczerner@redhat.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 33450910
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 178AE976
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 May 2014 09:56:33 +0000 (UTC)
+	Fri, 30 May 2014 10:08:22 +0000 (UTC)
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 60A4E1FAB5
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 79F101F9BE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 May 2014 09:56:32 +0000 (UTC)
-Date: Fri, 30 May 2014 11:56:21 +0200 (CEST)
+	Fri, 30 May 2014 10:08:19 +0000 (UTC)
+Date: Fri, 30 May 2014 12:08:12 +0200 (CEST)
 From: =?ISO-8859-15?Q?Luk=E1=A8_Czerner?= <lczerner@redhat.com>
 To: Greg KH <greg@kroah.com>
-In-Reply-To: <20140529181319.GA24218@kroah.com>
-Message-ID: <alpine.LFD.2.00.1405301149330.2009@localhost.localdomain>
-References: <53877319.5060407@partner.samsung.com>
-	<20140529181319.GA24218@kroah.com>
+In-Reply-To: <20140529233004.GB11741@kroah.com>
+Message-ID: <alpine.LFD.2.00.1405301201020.2009@localhost.localdomain>
+References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
+	<alpine.DEB.2.02.1405281847450.1280@utopia.booyaka.com>
+	<20140529182753.GJ25041@thunk.org>
+	<700704721.GMn4j9GJx9@vostro.rjw.lan>
+	<CAOesGMgmFkMRurwKdLpmFSOqz-tZ51Phws5ZAA71dieVbHPRFQ@mail.gmail.com>
+	<20140529233004.GB11741@kroah.com>
 MIME-Version: 1.0
 Content-Type: TEXT/PLAIN; charset=US-ASCII
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [topic] Richer internal block API
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] Reforming Acked-by (was Re: [TOPIC]
+ Encouraging more reviewers)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,45 +37,49 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 
 On Thu, 29 May 2014, Greg KH wrote:
 
-> Date: Thu, 29 May 2014 11:13:19 -0700
+> Date: Thu, 29 May 2014 16:30:04 -0700
 > From: Greg KH <greg@kroah.com>
-> To: Daniel Phillips <d.phillips@partner.samsung.com>
-> Cc: ksummit-discuss@lists.linuxfoundation.org
-> Subject: Re: [Ksummit-discuss] [topic] Richer internal block API
+> To: Olof Johansson <olof@lixom.net>
+> Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+>     "ksummit-discuss@lists.linuxfoundation.org"
+>     <ksummit-discuss@lists.linuxfoundation.org>
+> Subject: Re: [Ksummit-discuss] Reforming Acked-by (was Re: [TOPIC] Encouraging
+>      more reviewers)
 > 
-> On Thu, May 29, 2014 at 10:49:13AM -0700, Daniel Phillips wrote:
-> > Hi Neil,
-> > 
-> > This will be my annual proposal to open a general discussion about improving
-> > the internal block API, to be capable of doing all the things that the ZFS
-> > crowd claim are impossible without rampantly violating filesystem/raid
-> > layering. Attacking this in a storage-specific venue would also be good,
-> > however I view this issue as being at least as central as a number of topics
-> > already raised for general consideration.
+> On Thu, May 29, 2014 at 02:03:16PM -0700, Olof Johansson wrote:
+> > What are we really trying to fix here? Is the current process really
+> > broken or are we trying to create more process that's not needed for
+> > some other reason?
 > 
-> Why didn't you bring this up at the filesystem summit a few months ago?
-> That's the best place for it, not at the kernel summit.
+> I think the latter.
+> 
+> Somehow, we seem to be constantly increasing our rate of change, are
+> people thinking we are having problems here?  If so, exactly where?
+> This thread has taken an odd turn into trying to make some new kind of
+> process for an unknown issue (i.e. the people on this list are not going
+> to recognize the reviewers more, it's up to you to educate your managers
+> / company more.)
 
-Actually we've sort-of started the discussion about this topic at
-LSF. Dave Chinner was the one who brought this up, the only problem
-was that his idea was in really early stage and I suppose it still
-is because I have not heard about this since then.
-
-But I agree that this kind of discussion is more suited for LSF
-rather than kernel summit since it's much more targeted to block vs.
-file systems interactions.
+This is not only about managers / company. Reviewers does not seem
+to have much recognition in upstream community either. For example
+we do take into account s-o-b when creating preliminary list of
+people to get invited to kernel summit, but we do _not_ take into
+account reviewd-by (or has anything changed?)...
 
 > 
-> > Full disclosure dept: I have an agenda. I want to add the equivalent of
-> > Raidz etc to Tux3 without reimplementing a logical volume manager in the
-> > filesystem.
-> 
-> Like btrfs is doing?  :)
+> Are maintainers who deal with huge number of patches (i.e. 1000+ a year)
+> crying out for help that this is somehow going to reduce their burden?
 
-Well, we want exactly what btrfs is _not_ doing :)
+It is going to help. More reviews is less work for a maintainer to
+do on it's own.
 
 -Lukas
 
+> 
+> I don't think so, but hey, what do I know about this development
+> process...
+> 
+> grumble,
 > 
 > greg k-h
 > _______________________________________________
