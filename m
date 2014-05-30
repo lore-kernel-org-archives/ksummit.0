@@ -1,28 +1,27 @@
-Return-Path: <rjw@rjwysocki.net>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 5CF1BADE
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 8BC0E99F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 May 2014 21:59:02 +0000 (UTC)
-Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id 8EB7B2027B
+	Fri, 30 May 2014 22:53:30 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0B68A20246
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 May 2014 21:59:01 +0000 (UTC)
-From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+	Fri, 30 May 2014 22:53:30 +0000 (UTC)
+Date: Fri, 30 May 2014 18:53:21 -0400
+From: Theodore Ts'o <tytso@mit.edu>
 To: Steven Rostedt <rostedt@goodmis.org>
-Date: Sat, 31 May 2014 00:16:10 +0200
-Message-ID: <2009259.LqT1atvLeM@vostro.rjw.lan>
-In-Reply-To: <20140530172921.569cf7bf@gandalf.local.home>
-References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
-	<1505533.GV2VtpdML7@vostro.rjw.lan>
-	<20140530172921.569cf7bf@gandalf.local.home>
+Message-ID: <20140530225321.GA20492@thunk.org>
+References: <537F3551.2070104@hitachi.com>
+	<1400853902.31124.5.camel@fedora64.linuxtx.org>
+	<20140524003036.GB26422@thunk.org> <53832692.9020802@hitachi.com>
+	<20140530143530.5816c980@gandalf.local.home>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Reforming Acked-by (was Re: [TOPIC]
-	Encouraging more reviewers)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20140530143530.5816c980@gandalf.local.home>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] kernel testing standard
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,47 +31,36 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Friday, May 30, 2014 05:29:21 PM Steven Rostedt wrote:
-> On Fri, 30 May 2014 23:26:38 +0200
-> "Rafael J. Wysocki" <rjw@rjwysocki.net> wrote:
+On Fri, May 30, 2014 at 02:35:30PM -0400, Steven Rostedt wrote:
 > 
->  
-> > > Where as, a maintainer could pass in an "Approved-by" which means "Yes,
-> > > I approve this change and it may go through another tree instead of
-> > > mine".
-> > 
-> > That's what an ACK means, though, isn't it?
-> 
-> I would argue that it means that as well as other meanings.
-> 
-> > 
-> > To me, really, Acked-by from a non-maintainer is something like a "+1" in G+.
-> > 
-> > I would prefer the new tag to suggest that meaning more directly.  Something
-> > like "Fine-by", maybe?
-> 
-> I actually disagree with this analysis. I like to see Acked-by from
-> those that may not be the maintainer, but have some stake in the change
-> that is being made. A Acked-by from a random person that I don't know
-> is more of a "+1" check, which I agree is useless and I don't even
-> bother adding them.
-> 
-> Thus, my point is to distinguish between a "Acked-by" that comes from
-> someone that has a stake in the code and approves the change (which to
-> me is the real meaning of Acked-by) and a stronger "Approved-by" which
-> comes from a maintainer that is stating that they are OK with you
-> pushing it through your tree even though it touches their code.
-> 
-> I'm not saying people have to use "Approved-by", but I would like to be
-> able to us it myself when people make a change in my code and I would
-> like to let the maintainer of the tree it is going in to know they have
-> my OK to pull it.
-> 
-> I ask for Acked-bys from people if they can't give me a Reviewed-by
-> but they still have a stake in the code that is being modified, and I
-> want to know it's still OK with them. But they are not a maintainer
-> telling me it's OK to take their code into my tree.
+> I agree with this. Just having a single place to put tests or tell
+> people where the tests are would be a huge improvement. If I wanted to
+> run my own tests on ext file systems, I should be able to set up the
+> same environment that Ted uses.
 
-That makes sense.
+And you can!
 
-Rafael
+	https://git.kernel.org/cgit/fs/ext2/xfstests-bld.git/tree/README
+
+My test environment has been designed so it's fully reproducible, and
+I've been pushing ext4 developers to use it before submitting me
+patches.  And if they don't, and I detect a problem which bisects back
+to one of their patches, I let them know gently that if they had used
+kvm-xfstests, they would have detected earlier.
+
+Maybe just adding a field in the MAINTAINERS file which contains a
+pointer to the tests is the simplest solution?
+
+> If someone wants to run my ftrace tests, then they should be able to
+> as well (which I need to make available to the general
+> public). Better yet, this can open up a door for people to
+> contribute to new tests for a particular subsystem. I would love it
+> if people added tests for me to run on ftrace. I have a bunch of
+> hacks to test various functionality (as they are hacky, that's the
+> reason I haven't posted them yet).
+
+Yeah, it took a while before I had done enough cleanup that I was
+willing to make thme fully public.  Now that I have, it's saved me a
+lot of time, most definitely.
+
+					- Ted
