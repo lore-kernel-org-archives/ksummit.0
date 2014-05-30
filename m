@@ -1,34 +1,56 @@
-Return-Path: <tytso@thunk.org>
+Return-Path: <paulmck@linux.vnet.ibm.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 89598B13
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 4AC61B27
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 May 2014 16:56:50 +0000 (UTC)
-Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F09D320351
+	Fri, 30 May 2014 17:29:04 +0000 (UTC)
+Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2A16720356
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 May 2014 16:56:49 +0000 (UTC)
-Date: Fri, 30 May 2014 12:56:46 -0400
-From: Theodore Ts'o <tytso@mit.edu>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Message-ID: <20140530165646.GZ25041@thunk.org>
-References: <CAKMK7uEquB=bv5jj=K-8Nv_9S2Y8qh2=3eKjJSjgR4Vrn9fbaA@mail.gmail.com>
-	<1401294020.13546.95.camel@dhcp-9-2-203-236.watson.ibm.com>
-	<20140528162833.GA23815@thin>
-	<alpine.DEB.2.10.1405282332430.3952@nanos>
-	<20140528233145.GA14933@cloud> <1401344001.27691.4.camel@dabdike>
-	<20140529233459.GD11741@kroah.com>
-	<1401423973.2163.26.camel@dabdike>
-	<20140530050220.GA2505@kroah.com>
-	<1401427998.2163.37.camel@dabdike>
+	Fri, 30 May 2014 17:29:03 +0000 (UTC)
+Received: from /spool/local
+	by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+	Violators will be prosecuted
+	for <ksummit-discuss@lists.linuxfoundation.org> from
+	<paulmck@linux.vnet.ibm.com>; Fri, 30 May 2014 11:29:02 -0600
+Received: from b03cxnp08025.gho.boulder.ibm.com
+	(b03cxnp08025.gho.boulder.ibm.com [9.17.130.17])
+	by d03dlp03.boulder.ibm.com (Postfix) with ESMTP id 204D219D803E
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 30 May 2014 11:28:53 -0600 (MDT)
+Received: from d03av06.boulder.ibm.com (d03av06.boulder.ibm.com [9.17.195.245])
+	by b03cxnp08025.gho.boulder.ibm.com (8.13.8/8.13.8/NCO v10.0) with
+	ESMTP id s4UHT0Ix8454410
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 30 May 2014 19:29:00 +0200
+Received: from d03av06.boulder.ibm.com (loopback [127.0.0.1])
+	by d03av06.boulder.ibm.com (8.14.4/8.13.1/NCO v10.0 AVout) with ESMTP
+	id s4UHWw4t000456 for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 30 May 2014 11:32:59 -0600
+Date: Fri, 30 May 2014 10:28:58 -0700
+From: "Paul E. McKenney" <paulmck@linux.vnet.ibm.com>
+To: Greg KH <greg@kroah.com>
+Message-ID: <20140530172858.GA16343@linux.vnet.ibm.com>
+References: <20140528143246.GV15585@mwanda>
+	<CAKMK7uGkURkwFdQQhrs1oi5Hpfk4SCuH0jv6x07vJ6cyAfEvwQ@mail.gmail.com>
+	<20140528163902.GA5099@sirena.org.uk>
+	<1401295862.13546.109.camel@dhcp-9-2-203-236.watson.ibm.com>
+	<20140528173553.GE5099@sirena.org.uk>
+	<3908561D78D1C84285E8C5FCA982C28F328205B1@ORSMSX114.amr.corp.intel.com>
+	<20140528183825.GA21477@sirena.org.uk>
+	<alpine.DEB.2.10.1405282325020.3952@nanos>
+	<5386FDAB.3010106@huawei.com> <20140529174122.GC7889@kroah.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1401427998.2163.37.camel@dabdike>
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
+In-Reply-To: <20140529174122.GC7889@kroah.com>
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Dan Carpenter <dan.carpenter@oracle.com>,
+	Mark Brown <broonie@sirena.org.uk>,
+	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: [Ksummit-discuss] More productive uses of enthusiastic new kernel
- developers (was: Re: [TOPIC] Encouraging more reviewers)
+Subject: Re: [Ksummit-discuss] [TOPIC] Encouraging more reviewers
+Reply-To: paulmck@linux.vnet.ibm.com
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,39 +60,42 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Thinking about this some more, what if instead of, or in addition to,
-having newcomers work on cleanup patches, what if we encouraged some
-of them to help to manually backport patches to the stable kernels
-that don't apply automatically?
+On Thu, May 29, 2014 at 10:41:22AM -0700, Greg KH wrote:
+> On Thu, May 29, 2014 at 05:28:11PM +0800, Li Zefan wrote:
+> > On 2014/5/29 5:32, Thomas Gleixner wrote:
+> > > On Wed, 28 May 2014, Mark Brown wrote:
+> > > 
+> > >> On Wed, May 28, 2014 at 05:44:41PM +0000, Luck, Tony wrote:
+> > >>
+> > >>>> There's a world of difference between thanking people for review and a
+> > >>>> detailed account of all the changes made in every single iteration of
+> > >>>> the review.
+> > >>
+> > >>> This is already covered in Documentation/SubmittingPatches. Quoting
+> > >>> lines 585-592 (see last sentence):
+> > >>
+> > >> Right, but Daniel is proposing lifting that above the --- and including
+> > >> it in git.
+> > > 
+> > > What you really want is:
+> > > 
+> > > Link: https://lkml.kernel.org/r/MESSAGE_ID_OF_PATCH
+> > > 
+> > > It's way more useful than any of the v1-n writeups, which are most of
+> > > the time just a completely waste of electrons. Even if written well,
+> > > without the actual review context they are pretty pointless.
+> > > 
+> > 
+> > A QA asked me about kernel development process. One of his question is,
+> > he found some valuable information in the discussion of the patch often
+> > won't be added to the changelog, so providing the commit how to find
+> > the discussion?
+> 
+> A research group has created a tool that takes a given git commit, finds
+> the mailing list discussion for that patch.  It was posted to lkml 6 or
+> so months ago, you should point them at that tool if they want to do
+> this.
 
-Currently the stable maintainers will typically send a notification
-subsystem maintainer / mailing lists that a particular patch didn't
-apply and that it's up some subsystem developers to handle resolving
-the patch conflict.
+This one?  https://lkml.org/lkml/2014/3/11/2
 
-What if those patches were also cc'ed to a separate mailing list which
-was also monitored by patchwork, and newcomers were encouraged to grab
-patches and try to make a determination whether it's really needed,
-and how to handle doing the backport, and once the patch was properly
-backported they could cc the subsystem mailing list asking for
-approval before the patch could get fed into a long-term stable tree?
-
-It does mean more patches to reviews, but I'd much rather review a
-patch going into a long-term stable tree that would otherwise get
-dropped (and thus avoid whiny entitled users and/or embedded engineers
-who think it's the maintainer's job to backport to N different stable
-kernels), rather than review whitespace patches.
-
-If this worked out, I could also imagine encouraging more advanced
-newcomers to look for bug fix patches that didn't have an explicit cc:
-stable@vger.kernel.org, and look to see if they should be backported.
-This would help for certain subsystems that have elected not to
-automatically mark their patches.  There are subsystems which don't
-like anyone but their experienced developers to handle doing
-backports, but I suspect there would also be many subsystems that
-would welcome the extra help, especially if it was much more likely to
-result in additional reviewers / subsystem developers.
-
-Cheers,
-
-						- Ted
+							Thanx, Paul
