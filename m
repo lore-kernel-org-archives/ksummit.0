@@ -1,34 +1,33 @@
-Return-Path: <640e9920@gmail.com>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 1DB7CB0A
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 484D3B13
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 May 2014 16:05:21 +0000 (UTC)
-Received: from mail-pa0-f46.google.com (mail-pa0-f46.google.com
-	[209.85.220.46])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 330E620279
+	Fri, 30 May 2014 16:40:10 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C31822033C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 May 2014 16:05:20 +0000 (UTC)
-Received: by mail-pa0-f46.google.com with SMTP id kq14so1860812pab.33
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 May 2014 09:05:20 -0700 (PDT)
-Sender: mgross <640e9920@gmail.com>
-From: mark gross <markgross@thegnar.org>
-Date: Fri, 30 May 2014 09:05:17 -0700
-To: Guenter Roeck <linux@roeck-us.net>
-Message-ID: <20140530160517.GA28078@yp2>
-References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
-	<20140524111927.GA3455@katana> <5380F092.3070600@roeck-us.net>
-	<1400993829.2322.13.camel@dabdike.int.hansenpartnership.com>
-	<538360B1.8000807@roeck-us.net>
+	Fri, 30 May 2014 16:40:09 +0000 (UTC)
+Date: Fri, 30 May 2014 12:40:05 -0400
+From: Theodore Ts'o <tytso@mit.edu>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Message-ID: <20140530164005.GX25041@thunk.org>
+References: <CAKMK7uEquB=bv5jj=K-8Nv_9S2Y8qh2=3eKjJSjgR4Vrn9fbaA@mail.gmail.com>
+	<1401294020.13546.95.camel@dhcp-9-2-203-236.watson.ibm.com>
+	<20140528162833.GA23815@thin>
+	<alpine.DEB.2.10.1405282332430.3952@nanos>
+	<20140528233145.GA14933@cloud> <1401344001.27691.4.camel@dabdike>
+	<20140529233459.GD11741@kroah.com>
+	<1401423973.2163.26.camel@dabdike>
+	<20140530050220.GA2505@kroah.com>
+	<1401427998.2163.37.camel@dabdike>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <538360B1.8000807@roeck-us.net>
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	ksummit-discuss@lists.linuxfoundation.org
+In-Reply-To: <1401427998.2163.37.camel@dabdike>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [TOPIC] Encouraging more reviewers
-Reply-To: markgross@thegnar.org
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,63 +37,40 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, May 26, 2014 at 08:41:37AM -0700, Guenter Roeck wrote:
-> On 05/24/2014 09:57 PM, James Bottomley wrote:
-> >On Sat, 2014-05-24 at 12:18 -0700, Guenter Roeck wrote:
-> >>>
-> >>>The thing I'd like to see way more in the Linux ecosystem:
-> >>>
-> >>>Paid reviewers/maintainers (selected people, no hiring offers). The
-> >>>number of developers increases faster than the number of quality
-> >>>keepers. So, the latter should be given the chance to focus on it, if
-> >>>they want to.
-> >>>
-> >>
-> >>Problem with that is that in most company hierarchies code reviewers
-> >>get little  if no credit for their work.
-> >
-> >I could see this in start up type companies.  Older companies learned
-> >long ago that customers value quality over features so they tend to have
-> >elaborate review processes. (As an aside, customers say they value
-> >features, but if you deliver one with a regression, it's the regression
-> >you'll hear about the whole time).
-> >
-> 
-> I am not sure if all those companies learned the lesson. Agreed, many
-> of them do, but I have seen the opposite. But that is not really
-> the point here.
-> 
-> You can actually take the Linux kernel at a case in point: Let's assume
-> someone wants to hire a kernel engineer and looks up kernel commits for
-> reference. What do you think that person will look for ? Patch authors
-> or  "Reviewed-by" tags ? I would argue it is going to be patch authors.
-> 
-> Really, again, the point (or question) here is how much credit an engineer
-> gets for doing code reviews (or fixing bugs, for that matter) vs. for
-> writing code. I would argue that there is very little incentive for
-> senior engineers (ie those who are best suited to do code reviews)
-> to actually _do_ code reviews more or less for a living, or at least
-> for a substantial amount of their time.
->
-I got a significant promotion at intel this year largely because I do a lot of
-internal code reviews.  I think you are looking at things in a short sited
-manner.
+On Fri, May 30, 2014 at 09:33:18AM +0400, James Bottomley wrote:
+> We need to design programs for new people that draw them in, not keep
+> them on the periphery.  That's why I think bug fixing is a better
+> activity: it means they have to understand some of the code; the change
+> can be small and isolated, so they don't have to understand all the code
+> and it often encourages people to find out more about whatever they're
+> fixing, hence draws them in.
 
-Doing a lot of reviews and getting pretty good at it will make one a leader in
-setting the priorities and quality metrics for the code written by everyone else.
-This is a significant power over any organization.  It sets you apart as a leader
-and mentor, how could you not be recognized for it.  If you keep it up long
-enough to pay off.  Which is a challenge.
+When I need to bring a Noogler (or intern) up to speed, and they are
+new to kernel coding or new to the storage subsystem, the two
+activities that seem to work the best is (a) bug fixing, and (b)
+participating in a rebase to forward port patches to a newer upstream
+kernel.
 
-A solid code reviewer has project global sway over how things get designed and
-implemented and over time grows trust and confidence between the reviewer and the
-organization.  From a world dominion point of view this is vector I would
-recommend to anyone wanting to be important.
+Obviously, the latter isn't applicable for upstream development (but
+probably has at least some relevance for companies maintaining
+community or enterprise distros).  Also note that one key enabling
+technology to let relatively experienced developers do rebases is that
+every single commit that they need to rebase is annotated with either
+the name of the automated test or test suite, or manual testing
+instructions.
 
-Further I find arguments like the above to be pathetic and distasteful.  Profit
-motives are getting out of control IMO.  (yeah, I know its too easy for me to say
-while getting well paid)  But, still if that is your motive you are still doing
-it wrong if you ignore reviewer value.  Its easier to get money through having
-authority than any other way.
+We don't even *bother* having Nooglers or interns work on whitespace
+or spelling fix ups, even as a "my first patch" so they can learn how
+to use Gerrit and other internal tools.  They can learn all of that
+while doing work that actually adds real value, such as working on a
+backlogged bug report or by forward porting patches.
 
---mark
+Cheers,
+
+					- Ted
+
+> We're way off the topic of encouraging reviewers, but the bottom line
+> for me is I don't believe starting people out with cleanup type changes
+> is a good way to get wider engagement.  It is a good way to increase the
+> number of overall patches, all of which need to be reviewed, hence the
+> need for more reviewers.
