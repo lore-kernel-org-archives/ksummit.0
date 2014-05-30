@@ -1,34 +1,36 @@
 Return-Path: <lizefan@huawei.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 3C59A8A7
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 3649F8A7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 May 2014 02:25:19 +0000 (UTC)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [119.145.14.64])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 297CD1FA42
+	Fri, 30 May 2014 02:41:41 +0000 (UTC)
+Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [119.145.14.66])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8CEE91FA42
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 May 2014 02:25:17 +0000 (UTC)
-Message-ID: <5387EBB3.8060800@huawei.com>
-Date: Fri, 30 May 2014 10:23:47 +0800
+	Fri, 30 May 2014 02:41:39 +0000 (UTC)
+Message-ID: <5387EFBC.4080108@huawei.com>
+Date: Fri, 30 May 2014 10:41:00 +0800
 From: Li Zefan <lizefan@huawei.com>
 MIME-Version: 1.0
 To: Greg KH <greg@kroah.com>
-References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
-	<20140524111927.GA3455@katana>
-	<alpine.LFD.2.00.1405271920580.2055@localhost.localdomain>
-	<4700397.FLxRVChBLf@vostro.rjw.lan>
-	<CAKMK7uEquB=bv5jj=K-8Nv_9S2Y8qh2=3eKjJSjgR4Vrn9fbaA@mail.gmail.com>
-	<1401294020.13546.95.camel@dhcp-9-2-203-236.watson.ibm.com>
-	<20140528162833.GA23815@thin>
-	<alpine.DEB.2.10.1405282332430.3952@nanos>
-	<20140528233145.GA14933@cloud> <1401344001.27691.4.camel@dabdike>
-	<20140529233459.GD11741@kroah.com>
-In-Reply-To: <20140529233459.GD11741@kroah.com>
+References: <CAKMK7uEquB=bv5jj=K-8Nv_9S2Y8qh2=3eKjJSjgR4Vrn9fbaA@mail.gmail.com>
+	<20140528143246.GV15585@mwanda>
+	<CAKMK7uGkURkwFdQQhrs1oi5Hpfk4SCuH0jv6x07vJ6cyAfEvwQ@mail.gmail.com>
+	<20140528163902.GA5099@sirena.org.uk>
+	<1401295862.13546.109.camel@dhcp-9-2-203-236.watson.ibm.com>
+	<20140528173553.GE5099@sirena.org.uk>
+	<3908561D78D1C84285E8C5FCA982C28F328205B1@ORSMSX114.amr.corp.intel.com>
+	<20140528183825.GA21477@sirena.org.uk>
+	<alpine.DEB.2.10.1405282325020.3952@nanos>
+	<5386FDAB.3010106@huawei.com> <20140529174122.GC7889@kroah.com>
+In-Reply-To: <20140529174122.GC7889@kroah.com>
 Content-Type: text/plain; charset="ISO-8859-1"
 Content-Transfer-Encoding: 7bit
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Mark Brown <broonie@sirena.org.uk>,
+	Dan Carpenter <dan.carpenter@oracle.com>
 Subject: Re: [Ksummit-discuss] [TOPIC] Encouraging more reviewers
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -39,55 +41,54 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 2014/5/30 7:34, Greg KH wrote:
-> On Thu, May 29, 2014 at 10:13:21AM +0400, James Bottomley wrote:
->> I suspect, but cannot prove, it is somewhat driven by the patch
->> statistics.  I know in Parallels, I track features accepted into the
->> kernel, not patches, but we do have a patch metric as well for people
->> who do incidental bug fixing as they push features, so we're not 100%
->> pure on this.
+On 2014/5/30 1:41, Greg KH wrote:
+> On Thu, May 29, 2014 at 05:28:11PM +0800, Li Zefan wrote:
+>> On 2014/5/29 5:32, Thomas Gleixner wrote:
+>>> On Wed, 28 May 2014, Mark Brown wrote:
+>>>
+>>>> On Wed, May 28, 2014 at 05:44:41PM +0000, Luck, Tony wrote:
+>>>>
+>>>>>> There's a world of difference between thanking people for review and a
+>>>>>> detailed account of all the changes made in every single iteration of
+>>>>>> the review.
+>>>>
+>>>>> This is already covered in Documentation/SubmittingPatches. Quoting
+>>>>> lines 585-592 (see last sentence):
+>>>>
+>>>> Right, but Daniel is proposing lifting that above the --- and including
+>>>> it in git.
+>>>
+>>> What you really want is:
+>>>
+>>> Link: https://lkml.kernel.org/r/MESSAGE_ID_OF_PATCH
+>>>
+>>> It's way more useful than any of the v1-n writeups, which are most of
+>>> the time just a completely waste of electrons. Even if written well,
+>>> without the actual review context they are pretty pointless.
+>>>
 >>
->> When I recently gave a comparison of OpenStack and the Kernel, one thing
->> that stood out starkly was that they just don't have our volume of one
->> line, one patch per file hundreds of times and trivial changes, so we
->> definitely have a problem in this area.
->>
->> The reason OpenStack has so few trivial and multiply split patches is
->> mostly grounded in the difficulty of submitting a patch to their tree.
+>> A QA asked me about kernel development process. One of his question is,
+>> he found some valuable information in the discussion of the patch often
+>> won't be added to the changelog, so providing the commit how to find
+>> the discussion?
 > 
-> And I would argue that this is going to be a long-term problem for them.
-> 
->> Just preparing it for gerrit takes a long time (around ten minutes per
->> patch), which really reduces the volume of trivial patches, just because
->> no-one has that much energy (although some would argue it reduces the
->> volume too far).
->>
->> It's human nature to spend more time on the easy problems, so a flood of
->> trivial patches which are "obviously" correct is easier to review and
->> include than one patch which alters something deep within mm and needs
->> careful thought.  At best, excessively split trivial patches are a
->> dilution of our review effort and at worst, they're actively sucking
->> people away from tackling the hard problems.
-> 
-> I have not heard of these "cleanup" patches taking anyone's review
-> cycles up for the "harder" patches, do you have examples of it?
-> 
-> In fact, I would argue the fact that we do so easily accept cleanups
-> across the board that keeps our developer community engaged and new
-> people joining in easy.  It's _really_ hard to get involved in
-> OpenStack, by design.  The kernel is not that way, and hopefully never
-> will be, as we want to succeed...
+> A research group has created a tool that takes a given git commit, finds
+> the mailing list discussion for that patch.  It was posted to lkml 6 or
+> so months ago, you should point them at that tool if they want to do
+> this.
 > 
 
-Yeah, we've been encouraging our people working on upstream kernel, and
-many of them started by making cleanup patches, but then they moved to
-bug fixes and other work. However it's hard to ask them to join a subsystem
-development by also reviewing patches. I can think of some possible
-reasons:
+Thanks for the information!
 
-- Not confident enough?
-- Language barrier.
-- Asian culture issue. We don't like discussions, so we tend to avoid
-discussing and arguing with other kernel developers and maintainers.
-- Credit and the feeling of achievement is not high in reviewing patches.
-- We are busy with internal jobs. :)
+So I believe not many people know about that tool and I have to try it
+out to see how well it works.
+
+I think many people want to do this, and the link tag is better than
+an out-of-tree tool, which people just don't know about.
+
+We may also use the link tag for stable commits. So for those commits
+that were not backported automatically but requested specifically,
+people can easily find the history about why it got merged.
+
+If it were there, our previous backporting work for 3.4.x would have
+been eaiser.
