@@ -1,29 +1,33 @@
-Return-Path: <laurent.pinchart@ideasonboard.com>
+Return-Path: <dan.carpenter@oracle.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id CA0DE982
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 87C1885D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 May 2014 10:58:28 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
-	[95.142.166.194])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4B9A91FD4A
+	Fri, 30 May 2014 11:17:48 +0000 (UTC)
+Received: from userp1040.oracle.com (userp1040.oracle.com [156.151.31.81])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 223761F895
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 May 2014 10:58:28 +0000 (UTC)
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Christoph Lameter <cl@gentwo.org>
-Date: Fri, 30 May 2014 12:58:47 +0200
-Message-ID: <3613898.QzNNH3fhMT@avalon>
-In-Reply-To: <alpine.DEB.2.10.1405291132010.12545@gentwo.org>
-References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
-	<4313963.MgakXbDg9t@avalon>
-	<alpine.DEB.2.10.1405291132010.12545@gentwo.org>
+	Fri, 30 May 2014 11:17:47 +0000 (UTC)
+Date: Fri, 30 May 2014 14:17:30 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Message-ID: <20140530111730.GH15585@mwanda>
+References: <alpine.LFD.2.00.1405271920580.2055@localhost.localdomain>
+	<4700397.FLxRVChBLf@vostro.rjw.lan>
+	<CAKMK7uEquB=bv5jj=K-8Nv_9S2Y8qh2=3eKjJSjgR4Vrn9fbaA@mail.gmail.com>
+	<1401294020.13546.95.camel@dhcp-9-2-203-236.watson.ibm.com>
+	<20140528162833.GA23815@thin>
+	<alpine.DEB.2.10.1405282332430.3952@nanos>
+	<20140528233145.GA14933@cloud> <1401344001.27691.4.camel@dabdike>
+	<20140529233459.GD11741@kroah.com>
+	<1401423973.2163.26.camel@dabdike>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Reforming Acked-by (was Re: [TOPIC]
-	Encouraging more reviewers)
+Content-Type: multipart/mixed; boundary="wac7ysb48OaltWcw"
+Content-Disposition: inline
+In-Reply-To: <1401423973.2163.26.camel@dabdike>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [TOPIC] Encouraging more reviewers
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,28 +37,247 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thursday 29 May 2014 11:33:15 Christoph Lameter wrote:
-> On Thu, 29 May 2014, Laurent Pinchart wrote:
-> > On the other hand, this can be an issue for developers and/or maintainers
-> > who want to ensure that all parts of a patch have received proper review.
-> > That's why I sometimes split patches that perform a simple change to
-> > multiple drivers in a series with one patch per driver, and then squash
-> > everything into a single patch before submitting a pull request. That
-> > workflow could probably be improved.
-> 
-> Well that in turn may lead to breakage if modifications to only some files
-> are merged.
 
-This can of course only be done when the patches don't depend on each other in 
-a circular way.
+--wac7ysb48OaltWcw
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> If the modifications in multiple files are not depending on one another then
-> they could go in as separate patches in the first place.
+I use a script to help review cleanup patches.  It chops out the white
+space, the comment changes and bracing changes.  If there is a variable
+renamed then I can strip that out as well when you
+`cat patch | rename_rev.pl OldName new_name`.
 
-They could, but some maintainers prefer them not to as they find it easier to 
-handle this kind of change in a single patch.
+Attached.
 
--- 
-Regards,
+regards,
+dan carpenter
 
-Laurent Pinchart
+
+--wac7ysb48OaltWcw
+Content-Type: text/x-perl; charset=us-ascii
+Content-Disposition: attachment; filename="rename_rev.pl"
+
+#!/usr/bin/perl
+
+# This is a tool to help review variable rename patches. The goal is
+# to strip out the automatic sed renames and the white space changes
+# and leaves the interesting code changes.
+#
+# Example 1: A patch renames openInfo to open_info:
+#     cat diff | rename_review.pl openInfo open_info
+#
+# Example 2: A patch swaps the first two arguments to some_func():
+#     cat diff | rename_review.pl \
+#                    -e 's/some_func\((.*?),(.*?),/some_func\($2, $1,/'
+#
+# Example 3: A patch removes the xkcd_ prefix from some but not all the
+# variables.  Instead of trying to figure out which variables were renamed
+# just remove the prefix from them all:
+#     cat diff | rename_review.pl -ea 's/xkcd_//g'
+#
+# Example 4: A patch renames 20 CamelCase variables.  To review this let's
+# just ignore all case changes and all '_' chars.
+#     cat diff | rename_review -ea 'tr/[A-Z]/[a-z]/' -ea 's/_//g'
+#
+# The other arguments are:
+# -nc removes comments
+# -ns removes '\' chars if they are at the end of the line.
+
+use strict;
+use File::Temp qw/ :mktemp  /;
+
+sub usage() {
+    print "usage: cat diff | $0 old new old new old new...\n";
+    print "   or: cat diff | $0 -e 's/old/new/g'\n";
+    print " -e : execute on old lines\n";
+    print " -ea: execute on all lines\n";
+    print " -nc: no comments\n";
+    print " -nb: no unneeded braces\n";
+    print " -ns: no slashes at the end of a line\n";
+    exit(1);
+}
+my @subs;
+my @cmds;
+my $strip_comments;
+my $strip_braces;
+my $strip_slashes;
+
+sub filter($) {
+    my $_ = shift();
+    my $old = 0;
+    if ($_ =~ /^-/) {
+        $old = 1;
+    }
+    # remove the first char
+    s/^[ +-]//;
+    if ($strip_comments) {
+        s/\/\*.*?\*\///g;
+        s/\/\/.*//;
+    }
+    foreach my $cmd (@cmds) {
+        if ($old || $cmd->[0] =~ /^-ea$/) {
+            eval $cmd->[1];
+        }
+    }
+    foreach my $sub (@subs) {
+        if ($old) {
+            s/$sub->[0]/$sub->[1]/g;
+        }
+    }
+
+    # remove the newline so we can move curly braces here if we want.
+    s/\n//;
+    return $_;
+}
+
+while (my $param1 = shift()) {
+    if ($param1 =~ /^-nc$/) {
+        $strip_comments = 1;
+        next;
+    }
+    if ($param1 =~ /^-nb$/) {
+        $strip_braces = 1;
+        next;
+    }
+    if ($param1 =~ /^-ns$/) {
+        $strip_slashes = 1;
+        next;
+    }
+    my $param2 = shift();
+    if ($param2 =~ /^$/) {
+        usage();
+    }
+    if ($param1 =~ /^-e(a|)$/) {
+        push @cmds, [$param1, $param2];
+        next;
+    }
+    push @subs, [$param1, $param2];
+}
+
+my ($oldfh, $oldfile) = mkstemp("/tmp/oldXXXXX");
+my ($newfh, $newfile) = mkstemp("/tmp/newXXXXX");
+
+my $started = 0;
+my $output;
+
+#recreate an old file and a new file
+while (<>) {
+    if ($_ =~ /^(---|\+\+\+)/) {
+        next;
+    }
+    if ($_ =~ /^@/) {
+        $started = 1;
+    }
+    if ($started && !($_ =~ /^[- @+]/)) {
+        last;
+    }
+    $output = filter($_);
+
+    if ($strip_braces && $_ =~ /^(\+|-)\W+{/) {
+        $output =~ s/^[\t ]+(.*)/ $1/;
+    } else {
+        $output = "\n" . $output;
+    }
+
+    if ($_ =~ /^-/) {
+        print $oldfh $output;
+        next;
+    }
+    if ($_ =~ /^\+/) {
+        print $newfh $output;
+        next;
+    }
+    print $oldfh $output;
+    print $newfh $output;
+
+}
+print $oldfh "\n";
+print $newfh "\n";
+# git diff puts a -- and version at the end of the diff.  put the -- into the
+# new file as well so it's ignored
+if ($output =~ /\n-/) {
+    print $newfh "-\n";
+}
+
+my $hunk;
+my $old_txt;
+my $new_txt;
+
+open diff, "diff -uw $oldfile $newfile |";
+while (<diff>) {
+    if ($_ =~ /^(---|\+\+\+)/) {
+        next;
+    }
+
+    if ($_ =~ /^@/) {
+
+        if ($strip_comments) {
+            $old_txt =~ s/\/\*.*?\*\///g;
+            $new_txt =~ s/\/\*.*?\*\///g;
+        }
+        if ($strip_braces) {
+            $old_txt =~ s/{([^;{]*?);}/$1;/g;
+            $new_txt =~ s/{([^;{]*?);}/$1;/g;
+            # this is a hack because i don't know how to replace nested
+            # unneeded curly braces.
+            $old_txt =~ s/{([^;{]*?);}/$1;/g;
+            $new_txt =~ s/{([^;{]*?);}/$1;/g;
+        }
+
+        if ($old_txt ne $new_txt) {
+            print $hunk;
+            print $_;
+        }
+        $hunk = "";
+        $old_txt = "";
+        $new_txt = "";
+        next;
+    }
+
+    $hunk = $hunk . $_;
+
+    if ($strip_slashes) {
+        s/\\$//;
+    }
+
+    if ($_ =~ /^-/) {
+        s/-//;
+        s/[ \t\n]//g;
+        $old_txt = $old_txt . $_;
+        next;
+    }
+    if ($_ =~ /^\+/) {
+        s/\+//;
+        s/[ \t\n]//g;
+        $new_txt = $new_txt . $_;
+        next;
+    }
+    if ($_ =~ /^ /) {
+        s/^ //;
+        s/[ \t\n]//g;
+        $old_txt = $old_txt . $_;
+        $new_txt = $new_txt . $_;
+    }
+}
+
+if ($old_txt ne $new_txt) {
+    if ($strip_comments) {
+        $old_txt =~ s/\/\*.*?\*\///g;
+        $new_txt =~ s/\/\*.*?\*\///g;
+    }
+    if ($strip_braces) {
+        $old_txt =~ s/{([^;{]*?);}/$1;/g;
+        $new_txt =~ s/{([^;{]*?);}/$1;/g;
+        $old_txt =~ s/{([^;{]*?);}/$1;/g;
+        $new_txt =~ s/{([^;{]*?);}/$1;/g;
+    }
+
+    print $hunk;
+}
+
+unlink($oldfile);
+unlink($newfile);
+
+print "\ndone.\n";
+
+--wac7ysb48OaltWcw--
