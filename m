@@ -1,27 +1,27 @@
-Return-Path: <rostedt@goodmis.org>
+Return-Path: <linville@tuxdriver.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id E68119C9
+	by mail.linuxfoundation.org (Postfix) with ESMTP id B16F19AE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 May 2014 15:06:42 +0000 (UTC)
-Received: from cdptpa-oedge-vip.email.rr.com
-	(cdptpa-outbound-snat.email.rr.com [107.14.166.227])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 6FCCA1FC59
+	Fri, 30 May 2014 15:15:14 +0000 (UTC)
+Received: from smtp.tuxdriver.com (charlotte.tuxdriver.com [70.61.120.58])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D0CC0200A9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 May 2014 15:06:42 +0000 (UTC)
-Date: Fri, 30 May 2014 11:06:40 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-Message-ID: <20140530110640.70d6ae02@gandalf.local.home>
-In-Reply-To: <700704721.GMn4j9GJx9@vostro.rjw.lan>
+	Fri, 30 May 2014 15:15:12 +0000 (UTC)
+Date: Fri, 30 May 2014 11:10:27 -0400
+From: "John W. Linville" <linville@tuxdriver.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+Message-ID: <20140530151026.GE24054@tuxdriver.com>
 References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>
 	<alpine.DEB.2.02.1405281847450.1280@utopia.booyaka.com>
-	<20140529182753.GJ25041@thunk.org>
-	<700704721.GMn4j9GJx9@vostro.rjw.lan>
+	<1401304315.13546.142.camel@dhcp-9-2-203-236.watson.ibm.com>
+	<20140528191514.GE13255@tuxdriver.com>
+	<20140530105938.62fd566d@gandalf.local.home>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20140530105938.62fd566d@gandalf.local.home>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
 	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] Reforming Acked-by (was Re: [TOPIC]
  Encouraging more reviewers)
@@ -34,27 +34,24 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, 29 May 2014 23:03:28 +0200
-"Rafael J. Wysocki" <rjw@rjwysocki.net> wrote:
+On Fri, May 30, 2014 at 10:59:38AM -0400, Steven Rostedt wrote:
+> On Wed, 28 May 2014 15:15:14 -0400
+> "John W. Linville" <linville@tuxdriver.com> wrote:
 
+> > I hate to bikeshed this, but "Maintainer-acked-by" seems too long to type...
+> > 
+> 
+> Yeah, I wouldn't want to type that. What about:
+> 
+> Approved-by: ...
+> 
+> That is reserved for maintainers only?
 
-> Well, perhaps we can reserve the Acked-by for maintainers and add
-> something like Supported-by for the 2nd meaning.
+If we need such a tag, I like this verion better.
 
-Or add a new tag for maintainers. I like:
+Thanks,
 
- Approved-by:
-
-As that is what the meaning of the maintainer acked-by is.  I sometimes
-use Acked-by when I'm not the maintainer of the code but the code
-changes something related to tracing, or something else I dabble in
-(interrupts, scheduler, etc). Code that I may not maintain, but
-something I do work with. Acked-by to me isn't limited to a maintainer,
-but for those that deal with the code, and agree with the change.
-Supported-by gives the meaning that I'm funding that change.
-
-Where as, a maintainer could pass in an "Approved-by" which means "Yes,
-I approve this change and it may go through another tree instead of
-mine".
-
--- Steve
+John
+-- 
+John W. Linville		Someday the world will need a hero, and you
+linville@tuxdriver.com			might be all we have.  Be ready.
