@@ -1,27 +1,34 @@
 Return-Path: <rostedt@goodmis.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 0EFACB24
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 9FBF6B24
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 May 2014 18:35:34 +0000 (UTC)
+	Fri, 30 May 2014 18:55:11 +0000 (UTC)
 Received: from cdptpa-oedge-vip.email.rr.com
-	(cdptpa-outbound-snat.email.rr.com [107.14.166.227])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 817BE20323
+	(cdptpa-outbound-snat.email.rr.com [107.14.166.226])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 7000020359
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 May 2014 18:35:33 +0000 (UTC)
-Date: Fri, 30 May 2014 14:35:30 -0400
+	Fri, 30 May 2014 18:55:10 +0000 (UTC)
+Date: Fri, 30 May 2014 14:55:08 -0400
 From: Steven Rostedt <rostedt@goodmis.org>
-To: Masami Hiramatsu <masami.hiramatsu.pt@hitachi.com>
-Message-ID: <20140530143530.5816c980@gandalf.local.home>
-In-Reply-To: <53832692.9020802@hitachi.com>
-References: <537F3551.2070104@hitachi.com>
-	<1400853902.31124.5.camel@fedora64.linuxtx.org>
-	<20140524003036.GB26422@thunk.org> <53832692.9020802@hitachi.com>
+To: "H. Peter Anvin" <hpa@zytor.com>
+Message-ID: <20140530145508.0b3816d7@gandalf.local.home>
+In-Reply-To: <5370FC94.5040806@zytor.com>
+References: <20140511041449.GP12708@titan.lakedaemon.net>
+	<CABe+QzBVC=dRZO4+v93A_Cy2nFuf_ajcq8KO20f5PPzVUf2bkg@mail.gmail.com>
+	<20140511162918.GA2527@linux.com> <1995824.rdvEX5SOIt@avalon>
+	<20140511171824.GB2527@linux.com>
+	<CACV2jQACREM61UYrR0=AGDMQ8WYguwaX6HyPFR+wc5oXTRpheA@mail.gmail.com>
+	<20140512161539.GX12708@titan.lakedaemon.net>
+	<20140512163643.GA3509@linux.com> <5370FC94.5040806@zytor.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] kernel testing standard
+Cc: PJ Waskiewicz <pjwaskiewicz@gmail.com>,
+	Dirk Hohndel <hohndel@infradead.org>,
+	ksummit-discuss@lists.linuxfoundation.org, Anton Arapov <arapov@gmail.com>,
+	Jason Cooper <jason@lakedaemon.net>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] QR encoded oops for the kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,33 +38,26 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 26 May 2014 20:33:38 +0900
-Masami Hiramatsu <masami.hiramatsu.pt@hitachi.com> wrote:
+On Mon, 12 May 2014 09:53:40 -0700
+"H. Peter Anvin" <hpa@zytor.com> wrote:
 
- 
-> If we force to unify the test frameworks, it will neither be maintained
-> nor used. Instead, if maintainers state what test they will run and how
-> to maintain it, we are sure that each test will be done on the each
-> subsystem branch, and before release, we can avoid to run all tests which
-> requires many hardware and long time but just run a small number of tests
-> (e.g. LTP, trinity, etc.)
+> On 05/12/2014 09:36 AM, Levente Kurusa wrote:
+> > 
+> > If only, I had counted how many bad quality photos of people's
+> > screens did I get so far. :-)
+> > 
+> 
+> This is not at all surprising.
+> 
+> Keep in mind that the QR code stuff is only going to be helpful if it
+> contains more information and/or decodes better than text screen photos.
 
-I agree with this. Just having a single place to put tests or tell
-people where the tests are would be a huge improvement. If I wanted to
-run my own tests on ext file systems, I should be able to set up the
-same environment that Ted uses. If someone wants to run my ftrace
-tests, then they should be able to as well (which I need to make
-available to the general public). Better yet, this can open up a door
-for people to contribute to new tests for a particular subsystem. I
-would love it if people added tests for me to run on ftrace. I have a
-bunch of hacks to test various functionality (as they are hacky, that's
-the reason I haven't posted them yet).
+What would be nice is if it recorded the first part of a bug oops, and
+ignored the later part of the dmesg. You know, the important stuff that
+scrolls off the console. I hate it when people send me the last oops
+message that was caused by three oops messages that happened before it.
 
-This shouldn't be about "make tests" which I think is silly. But a way
-to standardize tests, or at least have a single repository to show how
-different parts of the kernel is tested. My tests require running as
-root, other tests should not require that. This is just an example of
-how different tests have different requirements and no one size fits
-all.
+Pretty much every screen shot that I received was of an oops that was
+caused by a prior oops and was deemed useless.
 
 -- Steve
