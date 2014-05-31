@@ -1,27 +1,37 @@
-Return-Path: <rjw@rjwysocki.net>
+Return-Path: <d.phillips@partner.samsung.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 7E4D1990
+	by mail.linuxfoundation.org (Postfix) with ESMTP id CA26F85D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 31 May 2014 22:36:08 +0000 (UTC)
-Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id 6B61A20264
+	Sat, 31 May 2014 22:44:56 +0000 (UTC)
+Received: from usmailout3.samsung.com (mailout3.w2.samsung.com
+	[211.189.100.13])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B6EA7201D6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 31 May 2014 22:36:07 +0000 (UTC)
-From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-To: Theodore Ts'o <tytso@mit.edu>
-Date: Sun, 01 Jun 2014 00:53:16 +0200
-Message-ID: <5405523.QqPgB6FUft@vostro.rjw.lan>
-In-Reply-To: <20140531022106.GE20492@thunk.org>
-References: <alpine.DEB.2.10.1405282332430.3952@nanos>
-	<5389363F.7090808@roeck-us.net> <20140531022106.GE20492@thunk.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] More productive uses of enthusiastic new
-	kernel developers
+	Sat, 31 May 2014 22:44:55 +0000 (UTC)
+Received: from uscpsbgex1.samsung.com
+	(u122.gpu85.samsung.co.kr [203.254.195.122]) by usmailout3.samsung.com
+	(Oracle Communications Messaging Server 7u4-24.01(7.0.4.24.0) 64bit
+	(built Nov
+	17 2011)) with ESMTP id <0N6G009N1N6UU780@usmailout3.samsung.com> for
+	ksummit-discuss@lists.linuxfoundation.org; Sat,
+	31 May 2014 18:44:54 -0400 (EDT)
+Message-id: <538A5B64.10203@partner.samsung.com>
+Date: Sat, 31 May 2014 15:44:52 -0700
+From: Daniel Phillips <d.phillips@partner.samsung.com>
+MIME-version: 1.0
+To: Greg KH <greg@kroah.com>
+References: <53877319.5060407@partner.samsung.com>
+	<20140529181319.GA24218@kroah.com>
+	<538778C5.7010505@partner.samsung.com>
+	<20140529182341.GA6410@kroah.com>
+	<53877FBD.7060003@partner.samsung.com>
+	<20140529234311.GB12450@kroah.com>
+In-reply-to: <20140529234311.GB12450@kroah.com>
+Content-type: text/plain; charset=ISO-8859-1; format=flowed
+Content-transfer-encoding: 7bit
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [topic] Richer internal block API
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,43 +41,20 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Friday, May 30, 2014 10:21:06 PM Theodore Ts'o wrote:
-> On Fri, May 30, 2014 at 06:54:07PM -0700, Guenter Roeck wrote:
-> > 
-> > I don't think this is a matter of being enthusiastic or not. Much more
-> > one of expertise. As a user of stable kernels, I would very much prefer
-> > to have it maintained by an expert (or by experts), not by a newcomer.
-> > Of course, that may be just me.
-> 
-> The stable kernel tree would still be maintained by experts.  Even if
-> newcomers supplied some of the backports, they would still get
-> reviewed by experts.  Granted, for the first few patches it might not
-> save me that much time compared to my just doing the backport myself,
-> but it's IMHO much more likely to result in a capable programmer in
-> the long run (at least compared to people who are just encouraged to
-> do drive-by whitespace / spelling patch submissions). 
-> 
-> And if we have newcomers looking for bug fix patches that weren't
-> properly marked with "cc: stable@vger.kernel.org", and calling those
-> patches to the stable tree and subsystem maintainers, again, I think
-> it's healthier and certainly more productive than traning them to look
-> for whitespace and checkpatch.pl warnings.
-> 
-> If the argument is that newcomers aren't motivated to do this sort of
-> grunt work, recall how much grunt work maintainers have to do.  How
-> much time do you think most maintainers spend writing new sexy
-> features?  As opposed to the less fun bits, such as reviewing code and
-> running integration tests and bisecting through submitted patches to
-> find the buggy "cleanup" patch someone sent me?  
-> 
-> If I can find people who don't mind sharing in some of the more less
-> glory-filled aspects of being an open source developer, and who isn't
-> afraid to do some of the less fun but still vitally important bits,
-> speaking personally, those are the people that I would be more
-> motivated to mentor.  In contrast, someone who sends thousands of
-> whitespace patches is ***not*** someone I'm personally going to be
-> much inclined to spend time mentoring.
+On 05/29/2014 04:43 PM, Greg KH wrote:
+> ...you know how this all works, we don't have to have meetings in 
+> order to do design decisions that are "large".
 
-I totally agree.
 
-Rafael
+Perhaps there is something wrong with that approach. Certainly in 
+regards to how to bridge the gap between what we now have for logical 
+volume support, and what we should have, or what BSD has, that approach 
+is demonstrably a perennial failure. After all these years, we still 
+have dm and md as separate islands, no usable snapshotting block device, 
+and roughly zero interaction between filesystems and volume managers. 
+The larger issue would be, why is there no design process in Linux for 
+large design issues? Maybe that is the core topic that is really missing.
+
+Regards,
+
+Daniel
