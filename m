@@ -1,37 +1,30 @@
-Return-Path: <d.phillips@partner.samsung.com>
+Return-Path: <rdunlap@infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id CA26F85D
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 28AB3988
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 31 May 2014 22:44:56 +0000 (UTC)
-Received: from usmailout3.samsung.com (mailout3.w2.samsung.com
-	[211.189.100.13])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B6EA7201D6
+	Sat, 31 May 2014 23:30:31 +0000 (UTC)
+Received: from merlin.infradead.org (merlin.infradead.org [205.233.59.134])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8EED620216
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 31 May 2014 22:44:55 +0000 (UTC)
-Received: from uscpsbgex1.samsung.com
-	(u122.gpu85.samsung.co.kr [203.254.195.122]) by usmailout3.samsung.com
-	(Oracle Communications Messaging Server 7u4-24.01(7.0.4.24.0) 64bit
-	(built Nov
-	17 2011)) with ESMTP id <0N6G009N1N6UU780@usmailout3.samsung.com> for
-	ksummit-discuss@lists.linuxfoundation.org; Sat,
-	31 May 2014 18:44:54 -0400 (EDT)
-Message-id: <538A5B64.10203@partner.samsung.com>
-Date: Sat, 31 May 2014 15:44:52 -0700
-From: Daniel Phillips <d.phillips@partner.samsung.com>
-MIME-version: 1.0
-To: Greg KH <greg@kroah.com>
-References: <53877319.5060407@partner.samsung.com>
-	<20140529181319.GA24218@kroah.com>
-	<538778C5.7010505@partner.samsung.com>
-	<20140529182341.GA6410@kroah.com>
-	<53877FBD.7060003@partner.samsung.com>
-	<20140529234311.GB12450@kroah.com>
-In-reply-to: <20140529234311.GB12450@kroah.com>
-Content-type: text/plain; charset=ISO-8859-1; format=flowed
-Content-transfer-encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [topic] Richer internal block API
+	Sat, 31 May 2014 23:30:30 +0000 (UTC)
+Message-ID: <538A660E.40202@infradead.org>
+Date: Sat, 31 May 2014 16:30:22 -0700
+From: Randy Dunlap <rdunlap@infradead.org>
+MIME-Version: 1.0
+To: paulmck@linux.vnet.ibm.com, Greg KH <greg@kroah.com>
+References: <20140528143246.GV15585@mwanda>	<CAKMK7uGkURkwFdQQhrs1oi5Hpfk4SCuH0jv6x07vJ6cyAfEvwQ@mail.gmail.com>	<20140528163902.GA5099@sirena.org.uk>	<1401295862.13546.109.camel@dhcp-9-2-203-236.watson.ibm.com>	<20140528173553.GE5099@sirena.org.uk>	<3908561D78D1C84285E8C5FCA982C28F328205B1@ORSMSX114.amr.corp.intel.com>	<20140528183825.GA21477@sirena.org.uk>	<alpine.DEB.2.10.1405282325020.3952@nanos>	<5386FDAB.3010106@huawei.com>
+	<20140529174122.GC7889@kroah.com>
+	<20140530172858.GA16343@linux.vnet.ibm.com>
+In-Reply-To: <20140530172858.GA16343@linux.vnet.ibm.com>
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Mark Brown <broonie@sirena.org.uk>,
+	Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [Ksummit-discuss] [TOPIC] Encouraging more reviewers
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,20 +34,47 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 05/29/2014 04:43 PM, Greg KH wrote:
-> ...you know how this all works, we don't have to have meetings in 
-> order to do design decisions that are "large".
+On 05/30/2014 10:28 AM, Paul E. McKenney wrote:
+> On Thu, May 29, 2014 at 10:41:22AM -0700, Greg KH wrote:
+>> On Thu, May 29, 2014 at 05:28:11PM +0800, Li Zefan wrote:
+>>> On 2014/5/29 5:32, Thomas Gleixner wrote:
+>>>> On Wed, 28 May 2014, Mark Brown wrote:
+>>>>
+>>>>> On Wed, May 28, 2014 at 05:44:41PM +0000, Luck, Tony wrote:
+>>>>>
+>>>>>>> There's a world of difference between thanking people for review and a
+>>>>>>> detailed account of all the changes made in every single iteration of
+>>>>>>> the review.
+>>>>>
+>>>>>> This is already covered in Documentation/SubmittingPatches. Quoting
+>>>>>> lines 585-592 (see last sentence):
+>>>>>
+>>>>> Right, but Daniel is proposing lifting that above the --- and including
+>>>>> it in git.
+>>>>
+>>>> What you really want is:
+>>>>
+>>>> Link: https://lkml.kernel.org/r/MESSAGE_ID_OF_PATCH
+>>>>
+>>>> It's way more useful than any of the v1-n writeups, which are most of
+>>>> the time just a completely waste of electrons. Even if written well,
+>>>> without the actual review context they are pretty pointless.
+>>>>
+>>>
+>>> A QA asked me about kernel development process. One of his question is,
+>>> he found some valuable information in the discussion of the patch often
+>>> won't be added to the changelog, so providing the commit how to find
+>>> the discussion?
+>>
+>> A research group has created a tool that takes a given git commit, finds
+>> the mailing list discussion for that patch.  It was posted to lkml 6 or
+>> so months ago, you should point them at that tool if they want to do
+>> this.
+> 
+> This one?  https://lkml.org/lkml/2014/3/11/2
+
+Thanks, I didn't find it.
 
 
-Perhaps there is something wrong with that approach. Certainly in 
-regards to how to bridge the gap between what we now have for logical 
-volume support, and what we should have, or what BSD has, that approach 
-is demonstrably a perennial failure. After all these years, we still 
-have dm and md as separate islands, no usable snapshotting block device, 
-and roughly zero interaction between filesystems and volume managers. 
-The larger issue would be, why is there no design process in Linux for 
-large design issues? Maybe that is the core topic that is really missing.
-
-Regards,
-
-Daniel
+-- 
+~Randy
