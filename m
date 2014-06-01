@@ -1,30 +1,31 @@
-Return-Path: <rdunlap@infradead.org>
+Return-Path: <greg@kroah.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 28AB3988
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 35CA698F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 31 May 2014 23:30:31 +0000 (UTC)
-Received: from merlin.infradead.org (merlin.infradead.org [205.233.59.134])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8EED620216
+	Sun,  1 Jun 2014 02:35:02 +0000 (UTC)
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+	[66.111.4.25])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 97FCE20337
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 31 May 2014 23:30:30 +0000 (UTC)
-Message-ID: <538A660E.40202@infradead.org>
-Date: Sat, 31 May 2014 16:30:22 -0700
-From: Randy Dunlap <rdunlap@infradead.org>
+	Sun,  1 Jun 2014 02:35:01 +0000 (UTC)
+Date: Sat, 31 May 2014 19:34:58 -0700
+From: Greg KH <greg@kroah.com>
+To: Daniel Phillips <d.phillips@partner.samsung.com>
+Message-ID: <20140601023458.GA5243@kroah.com>
+References: <53877319.5060407@partner.samsung.com>
+	<20140529181319.GA24218@kroah.com>
+	<538778C5.7010505@partner.samsung.com>
+	<20140529182341.GA6410@kroah.com>
+	<53877FBD.7060003@partner.samsung.com>
+	<20140529234311.GB12450@kroah.com>
+	<538A5B64.10203@partner.samsung.com>
 MIME-Version: 1.0
-To: paulmck@linux.vnet.ibm.com, Greg KH <greg@kroah.com>
-References: <20140528143246.GV15585@mwanda>	<CAKMK7uGkURkwFdQQhrs1oi5Hpfk4SCuH0jv6x07vJ6cyAfEvwQ@mail.gmail.com>	<20140528163902.GA5099@sirena.org.uk>	<1401295862.13546.109.camel@dhcp-9-2-203-236.watson.ibm.com>	<20140528173553.GE5099@sirena.org.uk>	<3908561D78D1C84285E8C5FCA982C28F328205B1@ORSMSX114.amr.corp.intel.com>	<20140528183825.GA21477@sirena.org.uk>	<alpine.DEB.2.10.1405282325020.3952@nanos>	<5386FDAB.3010106@huawei.com>
-	<20140529174122.GC7889@kroah.com>
-	<20140530172858.GA16343@linux.vnet.ibm.com>
-In-Reply-To: <20140530172858.GA16343@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Mark Brown <broonie@sirena.org.uk>,
-	Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [TOPIC] Encouraging more reviewers
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <538A5B64.10203@partner.samsung.com>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [topic] Richer internal block API
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,47 +35,35 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 05/30/2014 10:28 AM, Paul E. McKenney wrote:
-> On Thu, May 29, 2014 at 10:41:22AM -0700, Greg KH wrote:
->> On Thu, May 29, 2014 at 05:28:11PM +0800, Li Zefan wrote:
->>> On 2014/5/29 5:32, Thomas Gleixner wrote:
->>>> On Wed, 28 May 2014, Mark Brown wrote:
->>>>
->>>>> On Wed, May 28, 2014 at 05:44:41PM +0000, Luck, Tony wrote:
->>>>>
->>>>>>> There's a world of difference between thanking people for review and a
->>>>>>> detailed account of all the changes made in every single iteration of
->>>>>>> the review.
->>>>>
->>>>>> This is already covered in Documentation/SubmittingPatches. Quoting
->>>>>> lines 585-592 (see last sentence):
->>>>>
->>>>> Right, but Daniel is proposing lifting that above the --- and including
->>>>> it in git.
->>>>
->>>> What you really want is:
->>>>
->>>> Link: https://lkml.kernel.org/r/MESSAGE_ID_OF_PATCH
->>>>
->>>> It's way more useful than any of the v1-n writeups, which are most of
->>>> the time just a completely waste of electrons. Even if written well,
->>>> without the actual review context they are pretty pointless.
->>>>
->>>
->>> A QA asked me about kernel development process. One of his question is,
->>> he found some valuable information in the discussion of the patch often
->>> won't be added to the changelog, so providing the commit how to find
->>> the discussion?
->>
->> A research group has created a tool that takes a given git commit, finds
->> the mailing list discussion for that patch.  It was posted to lkml 6 or
->> so months ago, you should point them at that tool if they want to do
->> this.
+On Sat, May 31, 2014 at 03:44:52PM -0700, Daniel Phillips wrote:
+> On 05/29/2014 04:43 PM, Greg KH wrote:
+> >...you know how this all works, we don't have to have meetings in order to
+> >do design decisions that are "large".
 > 
-> This one?  https://lkml.org/lkml/2014/3/11/2
+> 
+> Perhaps there is something wrong with that approach. Certainly in regards to
+> how to bridge the gap between what we now have for logical volume support,
+> and what we should have, or what BSD has, that approach is demonstrably a
+> perennial failure. After all these years, we still have dm and md as
+> separate islands, no usable snapshotting block device, and roughly zero
+> interaction between filesystems and volume managers.
 
-Thanks, I didn't find it.
+People have talked about this for over a very long time.  I've seen
+Neil give numerous presentations about this for what, a decade now?
 
+It must not be important enough for anyone to actually do the work.  Or,
+more likely, no one has been able to convince a company to sponsor the
+work.  So perhaps, it isn't that major of a thing that is needed to be
+done?
 
--- 
-~Randy
+> The larger issue would be, why is there no design process in Linux for
+> large design issues?
+
+There is, an "evolutionary" process.  If you take a look at a 4 or 5
+year old kernel, major things have happened.  It's just that if you are
+in the middle of it all, it doesn't look like "large" things have
+changed.
+
+thanks,
+
+greg k-h
