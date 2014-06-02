@@ -1,27 +1,35 @@
-Return-Path: <rdunlap@infradead.org>
+Return-Path: <jason@lakedaemon.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 4D60E847
+	by mail.linuxfoundation.org (Postfix) with ESMTP id D29879C3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  2 Jun 2014 03:01:50 +0000 (UTC)
-Received: from merlin.infradead.org (merlin.infradead.org [205.233.59.134])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id AD21C1F9F9
+	Mon,  2 Jun 2014 12:00:06 +0000 (UTC)
+Received: from mho-02-ewr.mailhop.org (mho-02-ewr.mailhop.org [204.13.248.72])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4DA6F1FA1F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  2 Jun 2014 03:01:49 +0000 (UTC)
-Message-ID: <538BE918.4060609@infradead.org>
-Date: Sun, 01 Jun 2014 20:01:44 -0700
-From: Randy Dunlap <rdunlap@infradead.org>
+	Mon,  2 Jun 2014 12:00:05 +0000 (UTC)
+Date: Mon, 2 Jun 2014 08:00:00 -0400
+From: Jason Cooper <jason@lakedaemon.net>
+To: Shuah Khan <shuahkhan@gmail.com>
+Message-ID: <20140602120000.GZ8664@titan.lakedaemon.net>
+References: <20140528162833.GA23815@thin>
+	<alpine.DEB.2.10.1405282332430.3952@nanos>
+	<20140528233145.GA14933@cloud> <1401344001.27691.4.camel@dabdike>
+	<20140529233459.GD11741@kroah.com>
+	<1401423973.2163.26.camel@dabdike>
+	<20140530050220.GA2505@kroah.com>
+	<1401427998.2163.37.camel@dabdike>
+	<20140530165646.GZ25041@thunk.org>
+	<CAKocOOPv1tRz0RoebO52bTJSkHjjKDMTDSLb-mnjyFqp++hFiA@mail.gmail.com>
 MIME-Version: 1.0
-To: NeilBrown <neilb@suse.de>
-References: <1400925225.6956.25.camel@dabdike.int.hansenpartnership.com>	<alpine.DEB.2.02.1405281847450.1280@utopia.booyaka.com>	<1401304315.13546.142.camel@dhcp-9-2-203-236.watson.ibm.com>	<20140528191514.GE13255@tuxdriver.com>	<20140530105938.62fd566d@gandalf.local.home>	<20140530151026.GE24054@tuxdriver.com>	<1401484253.2364.3.camel@dabdike>	<538BE4DE.6050200@infradead.org>
-	<20140602125346.13988855@notabene.brown>
-In-Reply-To: <20140602125346.13988855@notabene.brown>
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Reforming Acked-by (was Re: [TOPIC]
- Encouraging more reviewers)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAKocOOPv1tRz0RoebO52bTJSkHjjKDMTDSLb-mnjyFqp++hFiA@mail.gmail.com>
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] More productive uses of enthusiastic new
+ kernel developers (was: Re: [TOPIC] Encouraging more reviewers)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,46 +39,56 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 06/01/2014 07:53 PM, NeilBrown wrote:
-> On Sun, 01 Jun 2014 19:43:42 -0700 Randy Dunlap <rdunlap@infradead.org> wrote:
+On Fri, May 30, 2014 at 01:54:49PM -0600, Shuah Khan wrote:
+> On Fri, May 30, 2014 at 10:56 AM, Theodore Ts'o <tytso@mit.edu> wrote:
+> > Thinking about this some more, what if instead of, or in addition to,
+> > having newcomers work on cleanup patches, what if we encouraged some
+> > of them to help to manually backport patches to the stable kernels
+> > that don't apply automatically?
+> >
+> > Currently the stable maintainers will typically send a notification
+> > subsystem maintainer / mailing lists that a particular patch didn't
+> > apply and that it's up some subsystem developers to handle resolving
+> > the patch conflict.
+> >
+> > What if those patches were also cc'ed to a separate mailing list which
+> > was also monitored by patchwork, and newcomers were encouraged to grab
+> > patches and try to make a determination whether it's really needed,
+> > and how to handle doing the backport, and once the patch was properly
+> > backported they could cc the subsystem mailing list asking for
+> > approval before the patch could get fed into a long-term stable tree?
+> >
+> > It does mean more patches to reviews, but I'd much rather review a
+> > patch going into a long-term stable tree that would otherwise get
+> > dropped (and thus avoid whiny entitled users and/or embedded engineers
+> > who think it's the maintainer's job to backport to N different stable
+> > kernels), rather than review whitespace patches.
+> >
+> > If this worked out, I could also imagine encouraging more advanced
+> > newcomers to look for bug fix patches that didn't have an explicit cc:
+> > stable@vger.kernel.org, and look to see if they should be backported.
+> > This would help for certain subsystems that have elected not to
+> > automatically mark their patches.  There are subsystems which don't
+> > like anyone but their experienced developers to handle doing
+> > backports, but I suspect there would also be many subsystems that
+> > would welcome the extra help, especially if it was much more likely to
+> > result in additional reviewers / subsystem developers.
+> >
 > 
->> On 05/30/2014 02:10 PM, James Bottomley wrote:
->>> On Fri, 2014-05-30 at 11:10 -0400, John W. Linville wrote:
->>>> On Fri, May 30, 2014 at 10:59:38AM -0400, Steven Rostedt wrote:
->>>>> On Wed, 28 May 2014 15:15:14 -0400
->>>>> "John W. Linville" <linville@tuxdriver.com> wrote:
->>>>
->>>>>> I hate to bikeshed this, but "Maintainer-acked-by" seems too long to type...
->>>>>>
->>>>>
->>>>> Yeah, I wouldn't want to type that. What about:
->>>>>
->>>>> Approved-by: ...
->>>>>
->>>>> That is reserved for maintainers only?
->>>>
->>>> If we need such a tag, I like this verion better.
->>>
->>> Bikeshedded-by:?
->>>
->>> Discussed-in-circles-by:?
->>>
->>> Maintainer-penguin-pee-blessed-by:?
->>>
->>> OK, it's late here; but for the record, I think Acked-by is perfectly
->>> clear and we don't need a new tag.
->>
->> Acked-by: me
->>
->>
-> 
-> Are you just saying that you agree, or are you affirming this in your status
-> as MAINTAINER of the documentation?
-> 
-> - Confused
-> 
+> In addition to the above, how about keeping a maintainer and sub-maintainer
+> wish list of tasks and work they would like to see get done in their areas and
+> don't have time do it themselves. It could be maintained on kernelnewbies site.
+> Having something like this will help guide and give direction to people looking
+> to get started in a new area and/or any area of the kernel.
 
-Yes (I agree with James).
+There was some previous discussion on this that I can't locate atm.  In
+short, the staging tree already has TODO files in-tree.  The advantage
+being the patch handling the todo item should also delete the item from
+the list.
 
--- 
-~Randy
+Keeping it on a separate website just means additional out-of-workflow
+maintenance for people who are already saturated.
+
+thx,
+
+Jason.
