@@ -1,26 +1,34 @@
-Return-Path: <rjw@rjwysocki.net>
+Return-Path: <daniel.vetter@ffwll.ch>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 0EB4E89D
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 3D99F895
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  5 Jun 2014 11:56:52 +0000 (UTC)
-Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id 336EE201AA
+	Thu,  5 Jun 2014 11:58:18 +0000 (UTC)
+Received: from mail-ig0-f179.google.com (mail-ig0-f179.google.com
+	[209.85.213.179])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8706E201BB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  5 Jun 2014 11:56:46 +0000 (UTC)
-From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-To: ksummit-discuss@lists.linuxfoundation.org, Olof Johansson <olof@lixom.net>
-Date: Thu, 05 Jun 2014 14:14:02 +0200
-Message-ID: <7157854.9o8vzqQpeX@vostro.rjw.lan>
-In-Reply-To: <CAOesGMioSFyqK3dZYfF5tzd0M=D-VjNBY2Er5TAzk5QYwh0G2g@mail.gmail.com>
-References: <CA+5PVA4AtLtf_XKpWOjpqkWGmm6Hg1kZExs-2K15RJiYsbgnkQ@mail.gmail.com>
-	<CACRpkdbg8T5jYZ1hL-09oigpNz1C-ApSpja_0bj1b0NyWzG2Vw@mail.gmail.com>
-	<CAOesGMioSFyqK3dZYfF5tzd0M=D-VjNBY2Er5TAzk5QYwh0G2g@mail.gmail.com>
+	Thu,  5 Jun 2014 11:58:17 +0000 (UTC)
+Received: by mail-ig0-f179.google.com with SMTP id hn18so2210507igb.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 05 Jun 2014 04:58:17 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
-Cc: Josh Boyer <jwboyer@fedoraproject.org>
-Subject: Re: [Ksummit-discuss] Nominations for per topic people
+In-Reply-To: <539051E4.3040708@hitachi.com>
+References: <537F3551.2070104@hitachi.com> <20140528153702.GU23991@suse.de>
+	<20140528185748.GA30673@kroah.com>
+	<CACRpkdbcgADHq1g3Ys9U5i69nPdrRX-C2u61qUgQ_NfS2bE4CQ@mail.gmail.com>
+	<20140605002331.GB24037@kroah.com> <20140605065455.GM10819@suse.de>
+	<CAMuHMdVG+vinqgLgNCgNqNUpSb4RDWFMJ=UsAL0+2RbXnjefig@mail.gmail.com>
+	<CAKMK7uHpE0RrK+T2NbsefrJMwobrEqiXuYjrn3=gHHbmjsXoJQ@mail.gmail.com>
+	<539051E4.3040708@hitachi.com>
+Date: Thu, 5 Jun 2014 13:58:16 +0200
+Message-ID: <CAKMK7uGNyXrRuRj0p_zRVdsjs-kcvW-+VTJWkEUc7Cqu-SNjCw@mail.gmail.com>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+To: Masami Hiramatsu <masami.hiramatsu.pt@hitachi.com>
+Content-Type: text/plain; charset=UTF-8
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] kernel testing standard
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,38 +38,41 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wednesday, June 04, 2014 11:23:31 PM Olof Johansson wrote:
-> On Fri, May 16, 2014 at 2:19 AM, Linus Walleij <linus.walleij@linaro.org> wrote:
-> > On Fri, May 9, 2014 at 6:49 PM, Josh Boyer <jwboyer@fedoraproject.org> wrote:
-> >
-> >> Darren Hart (driver model and ACPI/DT)
-> >> Grant Likely (driver model and ACPI/DT, also on the ksummit committee so...)
-> >> Al Stone (driver model and ACPI/DT)
-> >
-> > I nominate
-> > Catalin Marinas <catalin.marinas@arm.com>
-> > Will Deacon <will.deacon@arm.com>
-> > as they're maintaining the one architecture I know that will
-> > deploy both ACPI and DT.
-> >
-> > And:
-> > Rafael J. Wysocki <rjw@rjwysocki.net>
-> > as he's such an ACPI chaos pilot.
-> >
-> > There is seemingly no end to hardware description talk so
-> > let's do this.
-> 
-> I just realized that nobody has explicitly nominated Kevin Hilman on
-> these topics either (kevin.hilman@linaro.org). He'd be good to have in
-> on these discussions due to his involvement in runtime PM.
+On Thu, Jun 5, 2014 at 1:17 PM, Masami Hiramatsu
+<masami.hiramatsu.pt@hitachi.com> wrote:
+> (2014/06/05 17:53), Daniel Vetter wrote:
+>> On Thu, Jun 5, 2014 at 10:30 AM, Geert Uytterhoeven
+>> <geert@linux-m68k.org> wrote:
+>>> On Thu, Jun 5, 2014 at 8:54 AM, Mel Gorman <mgorman@suse.de> wrote:
+>>>> There is a hazard that someone bisecting the tree would need to be careful
+>>>> to not bisect LTP instead.
+>>>
+>>> That may actually be a good reason not to import LTP...
+>>> I'd imagine you usually want to bisect the kernel to find when a regression
+>>> was introduced in the syscall API.
+>>>
+>>> Is there a reason not to run the latest version of LTP (unless bisecting
+>>> LTP ;-)? The syscall API is supposed to be stable.
+>>
+>> Same for validating backports - you want the latest testsuite to make
+>> sure you don't miss important fixes. Downside is that the testsuite
+>> needs to be compatible over a much wider range of kernels to be
+>> useful, which is a pain for e.g. checking that garbage in reserved
+>> fields (like reserved flags) are properly rejected on each kernel
+>> version.
+>
+> Perhaps, the testsuite can recognize which patch is merged or not
+> if it can access the git repository by "git log | grep <commit-id>"
+> or something like that. Then, it can self-configure to reject
+> non-supported test. :)
 
-Yes.
-
-> Kevin is also running one of the arm-soc test boardfarms that boot
-> tests mainline/next and other trees, so the testing topic is relevant
-> as well, and he's stepped up and co-maintained arm-soc together with
-> me while Arnd was on paternity leave.
-
-I also would like to nominate Kevin for the KS.
-
-Rafael
+Well we have feature flags and stuff (need them anyway) and magic
+macros to skip tests if something isn't there/supported. So (at least
+for us) not a technical issue at all. The problem is in getting these
+tests right in all cases and maintaining them while updating tests for
+new features.
+-Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
