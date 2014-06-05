@@ -1,32 +1,26 @@
-Return-Path: <greg@kroah.com>
+Return-Path: <rdunlap@infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 6375B847
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 856ED8A6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  5 Jun 2014 00:19:59 +0000 (UTC)
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
-	[66.111.4.25])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E141F2023F
+	Thu,  5 Jun 2014 04:11:54 +0000 (UTC)
+Received: from merlin.infradead.org (merlin.infradead.org [205.233.59.134])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1251C1F9BE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  5 Jun 2014 00:19:58 +0000 (UTC)
-Received: from compute6.internal (compute6.nyi.mail.srv.osa [10.202.2.46])
-	by gateway1.nyi.mail.srv.osa (Postfix) with ESMTP id 2FBFE21DBB
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  4 Jun 2014 20:19:51 -0400 (EDT)
-Date: Wed, 4 Jun 2014 17:23:31 -0700
-From: Greg KH <greg@kroah.com>
-To: Linus Walleij <linus.walleij@linaro.org>
-Message-ID: <20140605002331.GB24037@kroah.com>
-References: <537F3551.2070104@hitachi.com> <20140528153702.GU23991@suse.de>
-	<20140528185748.GA30673@kroah.com>
-	<CACRpkdbcgADHq1g3Ys9U5i69nPdrRX-C2u61qUgQ_NfS2bE4CQ@mail.gmail.com>
+	Thu,  5 Jun 2014 04:11:54 +0000 (UTC)
+Message-ID: <538FEE06.9060902@infradead.org>
+Date: Wed, 04 Jun 2014 21:11:50 -0700
+From: Randy Dunlap <rdunlap@infradead.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CACRpkdbcgADHq1g3Ys9U5i69nPdrRX-C2u61qUgQ_NfS2bE4CQ@mail.gmail.com>
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] kernel testing standard
+To: Theodore Ts'o <tytso@mit.edu>
+References: <20140604130646.GA25092@thunk.org> <538F46CA.70303@infradead.org>
+	<20140604165224.GA3127@thunk.org>
+In-Reply-To: <20140604165224.GA3127@thunk.org>
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] If you are using gmail,
+	check your spam folders
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,25 +30,39 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, May 30, 2014 at 02:07:36PM +0200, Linus Walleij wrote:
-> On Wed, May 28, 2014 at 8:57 PM, Greg KH <greg@kroah.com> wrote:
-> > On Wed, May 28, 2014 at 04:37:02PM +0100, Mel Gorman wrote:
-> >> As LTP is reported to
-> >> be sane these days for some tests, it could conceivably be wrapped by "make
-> >> test" to avoid duplicating effort there. I think that would be worthwhile
-> >> if someone had the time to push it because it would be an unconditional win.
-> >
-> > That is what I have been asking for for _years_.  Hopefully someday
-> > someone does this...
+On 06/04/2014 09:52 AM, Theodore Ts'o wrote:
+> On Wed, Jun 04, 2014 at 09:18:18AM -0700, Randy Dunlap wrote:
+>>
+>> I often get rejects from gmail when I reply to email and one of the
+>> Cc:s is torvalds@, akpm@, or gregkh@  linux-foundation.org (which is
+>> using gmail).  It's all bogus AFAIK.  It's just Linux patch-related stuff.
 > 
-> Does this read "let's pull LTP into the kernel source tree"?
+> Are you getting outright rejects, or is it ending up in Linus's spam
+> folder?  (Which has happened to me with a PULL request, which is why I
+> set up DKIM....)
 
-Everyone always asks this, and I say, "Sure, why not?"
+They say: ... this message has been blocked. ...
+That's an outright reject?
 
-Actually, if people do complain about "why", then let's take the
-"useful" subset of LTP for kernel developers.  It's a great place to
-start, don't you agree?
+> In any case, if you get outright rejects, if you can save the full
+> e-mail (including headers) in a file, and then put it somewhere I can
+> download it, I'd much appreciate it.  (I've been having false
+> positives with MIT's Brightmail anti-spam service, so this problem is,
+> alas, not unique to Gmail.  So if you want to send me samples which
+> Gmail has rejected as spam, it's better to put it up on a web or ftp
+> server, and send me the URL.)
 
-thanks,
+I'll do that now and send you the URLs.
 
-greg k-h
+> If it ends up in a gmail spam folder, it's best if you can get the
+> recipient to send me the full e-mail, complete with headers.
+> 
+> The reason why the headers are useful is because we can use these to
+> hopefully send complaints to the anti-SPAM folks and ask them what's
+> up with their algorithms.  For example, this was bounced by Gmail
+> despite the SPF and DKIM pass indications:
+
+Thanks for your help.
+
+-- 
+~Randy
