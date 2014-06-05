@@ -1,25 +1,32 @@
-Return-Path: <tytso@thunk.org>
+Return-Path: <greg@kroah.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 6EF19A83
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 6375B847
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  4 Jun 2014 16:52:28 +0000 (UTC)
-Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D82982022D
+	Thu,  5 Jun 2014 00:19:59 +0000 (UTC)
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+	[66.111.4.25])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E141F2023F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  4 Jun 2014 16:52:27 +0000 (UTC)
-Date: Wed, 4 Jun 2014 12:52:24 -0400
-From: Theodore Ts'o <tytso@mit.edu>
-To: Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <20140604165224.GA3127@thunk.org>
-References: <20140604130646.GA25092@thunk.org> <538F46CA.70303@infradead.org>
+	Thu,  5 Jun 2014 00:19:58 +0000 (UTC)
+Received: from compute6.internal (compute6.nyi.mail.srv.osa [10.202.2.46])
+	by gateway1.nyi.mail.srv.osa (Postfix) with ESMTP id 2FBFE21DBB
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed,  4 Jun 2014 20:19:51 -0400 (EDT)
+Date: Wed, 4 Jun 2014 17:23:31 -0700
+From: Greg KH <greg@kroah.com>
+To: Linus Walleij <linus.walleij@linaro.org>
+Message-ID: <20140605002331.GB24037@kroah.com>
+References: <537F3551.2070104@hitachi.com> <20140528153702.GU23991@suse.de>
+	<20140528185748.GA30673@kroah.com>
+	<CACRpkdbcgADHq1g3Ys9U5i69nPdrRX-C2u61qUgQ_NfS2bE4CQ@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <538F46CA.70303@infradead.org>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] If you are using gmail,
-	check your spam folders
+In-Reply-To: <CACRpkdbcgADHq1g3Ys9U5i69nPdrRX-C2u61qUgQ_NfS2bE4CQ@mail.gmail.com>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] kernel testing standard
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,43 +36,25 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Jun 04, 2014 at 09:18:18AM -0700, Randy Dunlap wrote:
+On Fri, May 30, 2014 at 02:07:36PM +0200, Linus Walleij wrote:
+> On Wed, May 28, 2014 at 8:57 PM, Greg KH <greg@kroah.com> wrote:
+> > On Wed, May 28, 2014 at 04:37:02PM +0100, Mel Gorman wrote:
+> >> As LTP is reported to
+> >> be sane these days for some tests, it could conceivably be wrapped by "make
+> >> test" to avoid duplicating effort there. I think that would be worthwhile
+> >> if someone had the time to push it because it would be an unconditional win.
+> >
+> > That is what I have been asking for for _years_.  Hopefully someday
+> > someone does this...
 > 
-> I often get rejects from gmail when I reply to email and one of the
-> Cc:s is torvalds@, akpm@, or gregkh@  linux-foundation.org (which is
-> using gmail).  It's all bogus AFAIK.  It's just Linux patch-related stuff.
+> Does this read "let's pull LTP into the kernel source tree"?
 
-Are you getting outright rejects, or is it ending up in Linus's spam
-folder?  (Which has happened to me with a PULL request, which is why I
-set up DKIM....)
+Everyone always asks this, and I say, "Sure, why not?"
 
-In any case, if you get outright rejects, if you can save the full
-e-mail (including headers) in a file, and then put it somewhere I can
-download it, I'd much appreciate it.  (I've been having false
-positives with MIT's Brightmail anti-spam service, so this problem is,
-alas, not unique to Gmail.  So if you want to send me samples which
-Gmail has rejected as spam, it's better to put it up on a web or ftp
-server, and send me the URL.)
+Actually, if people do complain about "why", then let's take the
+"useful" subset of LTP for kernel developers.  It's a great place to
+start, don't you agree?
 
-If it ends up in a gmail spam folder, it's best if you can get the
-recipient to send me the full e-mail, complete with headers.
+thanks,
 
-The reason why the headers are useful is because we can use these to
-hopefully send complaints to the anti-SPAM folks and ask them what's
-up with their algorithms.  For example, this was bounced by Gmail
-despite the SPF and DKIM pass indications:
-
-Received: from imap.thunk.org (imap.thunk.org. [2600:3c02::f03c:91ff:fe96:be03])
-        by mx.google.com with ESMTPS id m48si15663526yhl.39.2014.05.31.13.16.22
-        for <gregkh@linuxfoundation.org>
-        (version=TLSv1.2 cipher=RC4-SHA bits=128/128);
-        Sat, 31 May 2014 13:16:22 -0700 (PDT)
-Received-SPF: pass (google.com: domain of tytso@thunk.org designates 2600:3c02::f03c:91ff:fe96:be03 as permitted sender) client-ip=2600:3c02::f03c:91ff:fe96:be03;
-Authentication-Results: mx.google.com;
-       spf=pass (google.com: domain of tytso@thunk.org designates 2600:3c02::f03c:91ff:fe96:be03 as permitted sender) smtp.mail=tytso@thunk.org;
-       dkim=pass header.i=@thunk.org
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=thunk.org; s=ef5046eb;
-	h=Date:Message-Id:To:Reply-To:Subject:From; bh=EYhTkkgyOXFA9DVUyhv3DV8emZh08SW9NRYmxy6b18s=;
-	b=XWykrAMWFJTkNFUb4AW2VrdrBu+45vDXNJQqcpADZcb8waUpl02GGfpFQ1qqJ7x6h4kHuB04ah3/7QcINWs1GEByE2Hy35ID/cTTlUtFg9pOEjqbIgoWnfeoKRbp6ZpdxZlK0o6McJcmIJOJN492fVk1UGXnKWR//r5X6RDbuNM=;
-
-      	  	     	   	       	       - Ted
+greg k-h
