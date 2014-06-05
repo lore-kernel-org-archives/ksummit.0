@@ -1,27 +1,30 @@
-Return-Path: <greg@kroah.com>
+Return-Path: <olof@lixom.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 818588A7
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 83369885
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  5 Jun 2014 04:40:46 +0000 (UTC)
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
-	[66.111.4.25])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DDB471F986
+	Thu,  5 Jun 2014 06:23:33 +0000 (UTC)
+Received: from mail-ve0-f181.google.com (mail-ve0-f181.google.com
+	[209.85.128.181])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B7FF72020F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  5 Jun 2014 04:40:45 +0000 (UTC)
-Date: Wed, 4 Jun 2014 21:40:40 -0700
-From: Greg KH <greg@kroah.com>
-To: Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <20140605044040.GB2363@kroah.com>
-References: <20140604130646.GA25092@thunk.org> <538F46CA.70303@infradead.org>
-	<20140604165224.GA3127@thunk.org> <538FEE06.9060902@infradead.org>
+	Thu,  5 Jun 2014 06:23:32 +0000 (UTC)
+Received: by mail-ve0-f181.google.com with SMTP id pa12so633586veb.26
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 04 Jun 2014 23:23:31 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <538FEE06.9060902@infradead.org>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] If you are using gmail,
-	check your spam folders
+In-Reply-To: <CACRpkdbg8T5jYZ1hL-09oigpNz1C-ApSpja_0bj1b0NyWzG2Vw@mail.gmail.com>
+References: <CA+5PVA4AtLtf_XKpWOjpqkWGmm6Hg1kZExs-2K15RJiYsbgnkQ@mail.gmail.com>
+	<CACRpkdbg8T5jYZ1hL-09oigpNz1C-ApSpja_0bj1b0NyWzG2Vw@mail.gmail.com>
+Date: Wed, 4 Jun 2014 23:23:31 -0700
+Message-ID: <CAOesGMioSFyqK3dZYfF5tzd0M=D-VjNBY2Er5TAzk5QYwh0G2g@mail.gmail.com>
+From: Olof Johansson <olof@lixom.net>
+To: Linus Walleij <linus.walleij@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Cc: Josh Boyer <jwboyer@fedoraproject.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] Nominations for per topic people
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,28 +34,34 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Jun 04, 2014 at 09:11:50PM -0700, Randy Dunlap wrote:
-> On 06/04/2014 09:52 AM, Theodore Ts'o wrote:
-> > On Wed, Jun 04, 2014 at 09:18:18AM -0700, Randy Dunlap wrote:
-> >>
-> >> I often get rejects from gmail when I reply to email and one of the
-> >> Cc:s is torvalds@, akpm@, or gregkh@  linux-foundation.org (which is
-> >> using gmail).  It's all bogus AFAIK.  It's just Linux patch-related stuff.
-> > 
-> > Are you getting outright rejects, or is it ending up in Linus's spam
-> > folder?  (Which has happened to me with a PULL request, which is why I
-> > set up DKIM....)
-> 
-> They say: ... this message has been blocked. ...
-> That's an outright reject?
+On Fri, May 16, 2014 at 2:19 AM, Linus Walleij <linus.walleij@linaro.org> wrote:
+> On Fri, May 9, 2014 at 6:49 PM, Josh Boyer <jwboyer@fedoraproject.org> wrote:
+>
+>> Darren Hart (driver model and ACPI/DT)
+>> Grant Likely (driver model and ACPI/DT, also on the ksummit committee so...)
+>> Al Stone (driver model and ACPI/DT)
+>
+> I nominate
+> Catalin Marinas <catalin.marinas@arm.com>
+> Will Deacon <will.deacon@arm.com>
+> as they're maintaining the one architecture I know that will
+> deploy both ACPI and DT.
+>
+> And:
+> Rafael J. Wysocki <rjw@rjwysocki.net>
+> as he's such an ACPI chaos pilot.
+>
+> There is seemingly no end to hardware description talk so
+> let's do this.
 
-That not good at all, and is strange, and not something that I want to
-see on my end.
+I just realized that nobody has explicitly nominated Kevin Hilman on
+these topics either (kevin.hilman@linaro.org). He'd be good to have in
+on these discussions due to his involvement in runtime PM.
 
-Try sending me email directly to my lf.org account.  If it bounces, send
-me the full headers to this account and I'll work with the lf.org admins
-to figure it out.
+Kevin is also running one of the arm-soc test boardfarms that boot
+tests mainline/next and other trees, so the testing topic is relevant
+as well, and he's stepped up and co-maintained arm-soc together with
+me while Arnd was on paternity leave.
 
-thanks,
 
-greg k-h
+-Olof
