@@ -1,36 +1,33 @@
-Return-Path: <masami.hiramatsu.pt@hitachi.com>
+Return-Path: <linville@tuxdriver.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 8484682D
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 0E9C389D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  6 Jun 2014 09:17:47 +0000 (UTC)
-Received: from mail7.hitachi.co.jp (mail7.hitachi.co.jp [133.145.228.42])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id CB74E1F952
+	Fri,  6 Jun 2014 20:00:10 +0000 (UTC)
+Received: from smtp.tuxdriver.com (charlotte.tuxdriver.com [70.61.120.58])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 76BF61FFFA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  6 Jun 2014 09:17:45 +0000 (UTC)
-Received: from mlsv3.hitachi.co.jp (unknown [133.144.234.166])
-	by mail7.hitachi.co.jp (Postfix) with ESMTP id 88A8F37AC2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  6 Jun 2014 18:17:45 +0900 (JST)
-Received: from vshuts01.hitachi.co.jp (vshuts01.hitachi.co.jp [10.201.6.83])
-	by mfilter03.hitachi.co.jp (Switch-3.3.4/Switch-3.3.4) with ESMTP id
-	s569HaVn003472 for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 6 Jun 2014 18:17:45 +0900
-Message-ID: <53918734.1060102@hitachi.com>
-Date: Fri, 06 Jun 2014 18:17:40 +0900
-From: Masami Hiramatsu <masami.hiramatsu.pt@hitachi.com>
-MIME-Version: 1.0
+	Fri,  6 Jun 2014 20:00:09 +0000 (UTC)
+Received: from uucp by smtp.tuxdriver.com with local-rmail (Exim 4.63)
+	(envelope-from <linville@tuxdriver.com>) id 1Wt0J5-0002A3-FC
+	for ksummit-discuss@lists.linuxfoundation.org;
+	Fri, 06 Jun 2014 16:00:07 -0400
+Received: from linville-x1.hq.tuxdriver.com (localhost.localdomain [127.0.0.1])
+	by linville-x1.hq.tuxdriver.com (8.14.8/8.14.6) with ESMTP id
+	s56JtCl5013920 for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 6 Jun 2014 15:55:12 -0400
+Received: (from linville@localhost)
+	by linville-x1.hq.tuxdriver.com (8.14.8/8.14.8/Submit) id
+	s56JtCIV013919 for ksummit-discuss@lists.linuxfoundation.org;
+	Fri, 6 Jun 2014 15:55:12 -0400
+Date: Fri, 6 Jun 2014 15:55:11 -0400
+From: "John W. Linville" <linville@tuxdriver.com>
 To: ksummit-discuss@lists.linuxfoundation.org
-References: <537F3551.2070104@hitachi.com> <20140528153702.GU23991@suse.de>
-	<20140528185748.GA30673@kroah.com>
-	<CACRpkdbcgADHq1g3Ys9U5i69nPdrRX-C2u61qUgQ_NfS2bE4CQ@mail.gmail.com>
-	<20140605002331.GB24037@kroah.com> <20140605065455.GM10819@suse.de>
-	<CAMuHMdVG+vinqgLgNCgNqNUpSb4RDWFMJ=UsAL0+2RbXnjefig@mail.gmail.com>
-	<1401977409.2207.7.camel@dabdike.int.hansenpartnership.com>
-In-Reply-To: <1401977409.2207.7.camel@dabdike.int.hansenpartnership.com>
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] kernel testing standard
+Message-ID: <20140606195511.GA13595@tuxdriver.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Subject: [Ksummit-discuss] Wireless Networking Workshop
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,39 +37,28 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-(2014/06/05 23:10), James Bottomley wrote:
-> On Thu, 2014-06-05 at 10:30 +0200, Geert Uytterhoeven wrote:
->> On Thu, Jun 5, 2014 at 8:54 AM, Mel Gorman <mgorman@suse.de> wrote:
->>> There is a hazard that someone bisecting the tree would need to be careful
->>> to not bisect LTP instead.
->>
->> That may actually be a good reason not to import LTP...
->> I'd imagine you usually want to bisect the kernel to find when a regression
->> was introduced in the syscall API.
-> 
-> I agree with this.  One of the things we might like to ask to be fixed
-> about bisect is the ability to exclude paths.  You can do a git bisect
-> with every top level directory except test, but it's a bit cumbersome.
-> 
->> Is there a reason not to run the latest version of LTP (unless bisecting
->> LTP ;-)? The syscall API is supposed to be stable.
-> 
-> I think not, and we have strong reasons for wanting to run the latest
-> LTP against every kernel (including stable ones), not just the version
-> in the test directory, so in practise, it looks like this doesn't meet
-> the changes with the kernel test for inclusion.  On the other hand,
-> having the tests available is also useful.   Perhaps we just need a
-> tests repo which pulls from all our other disparate tests so there's one
-> location everyone knows to go for the latest?
+I would like to propose a wireless networking workshop as part of
+the Kernel Summit events in Chicago.  We have a wireless networking
+miniconf scheduled for LPC.  I see the event I am proposing now as
+being more kernel-focused to deal with deeper development issues.
 
-I agree. I guess that may be a script of chef or something like, which
-pulls tests from other repos and build it. But in that case, why can't we
-put it in the kernel tree itself?
+Some potential topics:
 
-Thank you,
+	-- framework for handling firmware dumps and debugging
 
+	-- an nl80211 vendor command retrospective
+
+	-- new/rising technologies (WFDS, HotSpot 2.0, etc)
+
+	-- wireless regulatory code (who understands it?)
+
+	-- ??
+
+There were a number of wireless kernel developers on the
+auto-nomination list.  Hopefully some of those are already invited
+to KS or are planning to attend LCNA?
+
+John
 -- 
-Masami HIRAMATSU
-Software Platform Research Dept. Linux Technology Research Center
-Hitachi, Ltd., Yokohama Research Laboratory
-E-mail: masami.hiramatsu.pt@hitachi.com
+John W. Linville		Someday the world will need a hero, and you
+linville@tuxdriver.com			might be all we have.  Be ready.
