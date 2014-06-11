@@ -1,24 +1,23 @@
-Return-Path: <josh@joshtriplett.org>
+Return-Path: <hpa@zytor.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 4F113A82
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 58EA7A82
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 11 Jun 2014 00:36:12 +0000 (UTC)
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
-	[217.70.183.195])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C599F2023E
+	Wed, 11 Jun 2014 15:57:05 +0000 (UTC)
+Received: from mail.zytor.com (terminus.zytor.com [198.137.202.10])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DC4CE2024C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 11 Jun 2014 00:36:11 +0000 (UTC)
-Date: Tue, 10 Jun 2014 17:36:06 -0700
-From: josh@joshtriplett.org
-To: "H. Peter Anvin" <hpa@zytor.com>
-Message-ID: <20140611003606.GA11052@cloud>
-References: <20140610201236.GA21729@laptop.dumpdata.com>
-	<53976840.40306@zytor.com>
+	Wed, 11 Jun 2014 15:57:04 +0000 (UTC)
+Message-ID: <53987C3C.3080808@zytor.com>
+Date: Wed, 11 Jun 2014 08:56:44 -0700
+From: "H. Peter Anvin" <hpa@zytor.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <53976840.40306@zytor.com>
+To: josh@joshtriplett.org
+References: <20140610201236.GA21729@laptop.dumpdata.com>
+	<53976840.40306@zytor.com> <20140611003606.GA11052@cloud>
+In-Reply-To: <20140611003606.GA11052@cloud>
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
 Cc: boris.ostrovsky@oracle.com, david.vrabel@citrix.com,
 	ksummit-discuss@lists.linuxfoundation.org,
 	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
@@ -33,29 +32,17 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Jun 10, 2014 at 01:19:12PM -0700, H. Peter Anvin wrote:
-> On 06/10/2014 01:12 PM, Konrad Rzeszutek Wilk wrote:
-> > Hey,
-> > 
-> > I would want to propose a topic on removing code in Linux that
-> > users are using - but they are doing it less and less and it
-> > mostly is tied in with older hardware. Specifically how to do
-> > this transition properly - and if we want to define some checklist
-> > /policy to do it via.
-> > 
+On 06/10/2014 05:36 PM, josh@joshtriplett.org wrote:
 > 
-> I second this.  Right now deprecation is entirely ad hoc... usually in
-> the form "this hasn't compiled for X releases and noone noticed", which
-> makes it hard to do *controlled* deprecation...
+> I agree.  I think we've had some recent examples of how to do this
+> better, with remap_file_pages: old userspace has to *work* on new
+> kernels, but it doesn't necessarily need to run fast, or integrate with
+> any new features.  We should deprecate more kernel bits in
+> favor of minimal compatibility layers, some of which we can associate
+> with old userspace and drop for new userspace.
 > 
-> I realize this is a third rail kind of topic, but it puts us in really
-> hard spots as a project, sometime.
 
-I agree.  I think we've had some recent examples of how to do this
-better, with remap_file_pages: old userspace has to *work* on new
-kernels, but it doesn't necessarily need to run fast, or integrate with
-any new features.  We should deprecate more kernel bits in
-favor of minimal compatibility layers, some of which we can associate
-with old userspace and drop for new userspace.
+Uhm... that applies only to a fairly restricted aspect of deprecation.
+Much more is tied to specific hardware.
 
-- Josh Triplett
+	-hpa
