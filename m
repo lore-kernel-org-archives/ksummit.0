@@ -1,31 +1,28 @@
-Return-Path: <bhelgaas@google.com>
+Return-Path: <josh@joshtriplett.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 38B248E1
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 713DAA05
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 11 Jun 2014 19:43:42 +0000 (UTC)
-Received: from mail-ig0-f174.google.com (mail-ig0-f174.google.com
-	[209.85.213.174])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0A3EF20281
+	Wed, 11 Jun 2014 20:02:11 +0000 (UTC)
+Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
+	[217.70.183.195])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C06EF20279
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 11 Jun 2014 19:43:40 +0000 (UTC)
-Received: by mail-ig0-f174.google.com with SMTP id h3so6834346igd.7
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 11 Jun 2014 12:43:39 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <20140611175433.GA10462@roeck-us.net>
+	Wed, 11 Jun 2014 20:02:10 +0000 (UTC)
+Date: Wed, 11 Jun 2014 13:02:05 -0700
+From: josh@joshtriplett.org
+To: "H. Peter Anvin" <hpa@zytor.com>
+Message-ID: <20140611200205.GA16477@cloud>
 References: <20140610201236.GA21729@laptop.dumpdata.com>
-	<53976840.40306@zytor.com> <20140611175433.GA10462@roeck-us.net>
-From: Bjorn Helgaas <bhelgaas@google.com>
-Date: Wed, 11 Jun 2014 13:43:18 -0600
-Message-ID: <CAErSpo5Hg4KXca-oysLyH0OfiDFLmmvFjJHWBVzELtvdr7zV7A@mail.gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Content-Type: text/plain; charset=UTF-8
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	David Vrabel <david.vrabel@citrix.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+	<53976840.40306@zytor.com> <20140611003606.GA11052@cloud>
+	<53987C3C.3080808@zytor.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <53987C3C.3080808@zytor.com>
+Cc: boris.ostrovsky@oracle.com, david.vrabel@citrix.com,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
 Subject: Re: [Ksummit-discuss] Topic: Removal of code that is still in use
  by users but there is a better code.
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -37,39 +34,26 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Jun 11, 2014 at 11:54 AM, Guenter Roeck <linux@roeck-us.net> wrote:
-> On Tue, Jun 10, 2014 at 01:19:12PM -0700, H. Peter Anvin wrote:
->> On 06/10/2014 01:12 PM, Konrad Rzeszutek Wilk wrote:
->> > Hey,
->> >
->> > I would want to propose a topic on removing code in Linux that
->> > users are using - but they are doing it less and less and it
->> > mostly is tied in with older hardware. Specifically how to do
->> > this transition properly - and if we want to define some checklist
->> > /policy to do it via.
->> >
->>
->> I second this.  Right now deprecation is entirely ad hoc... usually in
->> the form "this hasn't compiled for X releases and noone noticed", which
->> makes it hard to do *controlled* deprecation...
->>
-> That is a bit different to "users are using but less and less". Personally
-> I would not mind leaving code in the kernel as long as it is used, but
-> it would be great if we had some rule that a file/driver which did
-> not compile for X releases (pick a preferred number for X - two years
-> worth of releases ?) can be removed.
+On Wed, Jun 11, 2014 at 08:56:44AM -0700, H. Peter Anvin wrote:
+> On 06/10/2014 05:36 PM, josh@joshtriplett.org wrote:
+> > 
+> > I agree.  I think we've had some recent examples of how to do this
+> > better, with remap_file_pages: old userspace has to *work* on new
+> > kernels, but it doesn't necessarily need to run fast, or integrate with
+> > any new features.  We should deprecate more kernel bits in
+> > favor of minimal compatibility layers, some of which we can associate
+> > with old userspace and drop for new userspace.
+> > 
+> 
+> Uhm... that applies only to a fairly restricted aspect of deprecation.
+> Much more is tied to specific hardware.
 
-I suspect most people would agree with the idea that something that
-hasn't compiled for X years can be removed, possibly with some
-negotiation about what X is.
+Agreed; hardware support does not have the same degree of compatibility
+concerns that userspace interfaces do.
 
-But my impression is the proposal is to go farther than that, and
-figure out a way to remove obsolete but still-compilable code.  If we
-all did our jobs perfectly, we would never add a change to Linux that
-broke compilation of anything.  So if there's a file that doesn't
-compile anymore, I think of that as a result of a mistake somewhere
-along the line.  We can use that mistake to deduce that nobody cares
-anymore, but it'd be a lot nicer to have a scheme that didn't depend
-on people making random mistakes.
+For instance, we could reasonably ask whether we can deprecate support
+for ancient filesystems and push that code into FUSE in userspace, given
+that most such filesystems only exist for forensics rather than
+performance.  That would mitigate potential exploits in that code.
 
-Bjorn
+- Josh Triplett
