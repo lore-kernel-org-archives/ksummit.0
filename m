@@ -1,23 +1,29 @@
-Return-Path: <konrad.wilk@oracle.com>
+Return-Path: <josh@joshtriplett.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id A4C7BAC5
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 4F113A82
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 10 Jun 2014 20:12:42 +0000 (UTC)
-Received: from userp1040.oracle.com (userp1040.oracle.com [156.151.31.81])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2AA8020321
+	Wed, 11 Jun 2014 00:36:12 +0000 (UTC)
+Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
+	[217.70.183.195])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C599F2023E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 10 Jun 2014 20:12:42 +0000 (UTC)
-Date: Tue, 10 Jun 2014 16:12:36 -0400
-From: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-To: ksummit-discuss@lists.linuxfoundation.org
-Message-ID: <20140610201236.GA21729@laptop.dumpdata.com>
+	Wed, 11 Jun 2014 00:36:11 +0000 (UTC)
+Date: Tue, 10 Jun 2014 17:36:06 -0700
+From: josh@joshtriplett.org
+To: "H. Peter Anvin" <hpa@zytor.com>
+Message-ID: <20140611003606.GA11052@cloud>
+References: <20140610201236.GA21729@laptop.dumpdata.com>
+	<53976840.40306@zytor.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Cc: boris.ostrovsky@oracle.com, david.vrabel@citrix.com
-Subject: [Ksummit-discuss] Topic: Removal of code that is still in use by
- users but there is a better code.
+In-Reply-To: <53976840.40306@zytor.com>
+Cc: boris.ostrovsky@oracle.com, david.vrabel@citrix.com,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+Subject: Re: [Ksummit-discuss] Topic: Removal of code that is still in use
+ by users but there is a better code.
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -27,45 +33,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hey,
+On Tue, Jun 10, 2014 at 01:19:12PM -0700, H. Peter Anvin wrote:
+> On 06/10/2014 01:12 PM, Konrad Rzeszutek Wilk wrote:
+> > Hey,
+> > 
+> > I would want to propose a topic on removing code in Linux that
+> > users are using - but they are doing it less and less and it
+> > mostly is tied in with older hardware. Specifically how to do
+> > this transition properly - and if we want to define some checklist
+> > /policy to do it via.
+> > 
+> 
+> I second this.  Right now deprecation is entirely ad hoc... usually in
+> the form "this hasn't compiled for X releases and noone noticed", which
+> makes it hard to do *controlled* deprecation...
+> 
+> I realize this is a third rail kind of topic, but it puts us in really
+> hard spots as a project, sometime.
 
-I would want to propose a topic on removing code in Linux that
-users are using - but they are doing it less and less and it
-mostly is tied in with older hardware. Specifically how to do
-this transition properly - and if we want to define some checklist
-/policy to do it via.
+I agree.  I think we've had some recent examples of how to do this
+better, with remap_file_pages: old userspace has to *work* on new
+kernels, but it doesn't necessarily need to run fast, or integrate with
+any new features.  We should deprecate more kernel bits in
+favor of minimal compatibility layers, some of which we can associate
+with old userspace and drop for new userspace.
 
-Specifically in the Xen virtualization world there is in pipeline code
-that is going to obsolete some of the existing pvops code - and also
-make lguest obsolete. It makes the Linux kernel run faster, less code to
-deal with, makes x86 folks happy, and requires newer hardware.
-This is known as PVH (ParaVirtualization Hardware).
-
-So, from one hand - with newer hardware - we can remove some of the
-code. On the other hand - with older hardware (pre EPT/NPT capable) or
-low-powered ones  - we would making their life difficult and slower (as now
-the hypervisor has to do the emulation, probably has some bugs, code
-bitrotten, etc).
-
-In essence it boils down to removing code in X years that users do use.
-
-There is a nice migration path, but I am sure the moment we rip out the
-code folks will come out of the woodwork, chase us down, and hit us with clubs.
-I do enjoy hiking and don't want to have to look behind my back as I am
-hiking.
-
-What I want to propose is a topic to discuss what is the right way to do
-this? I presume other platforms have had similar issues in the past (or
-will be) and what is the best way of doing this. Are there any policies
-in place?
-
-P.S.
-I say in pipeline because it is still experimental, the ABI hasn't been
-bolted down, and we have tons of outstanding bugs before we let
-enterprise customers take a stab at it, etc.
-
-P.S.S.
-Peter (hpa) is going to hate that I put 'X' instead of the '5' number. We
-figured that in 5 years since we get this stable we can start the
-count-down timer - but the 'getting' stable seems to take longer than I
-am happy with (#@)@#$ bugs). Hence, X =  stable + 5. If there are any
+- Josh Triplett
