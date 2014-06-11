@@ -1,34 +1,30 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <linux@roeck-us.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 42AAEA04
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 7D721A83
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 11 Jun 2014 22:36:04 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id B619F2011E
+	Wed, 11 Jun 2014 23:22:27 +0000 (UTC)
+Received: from mail.active-venture.com (mail.active-venture.com
+	[67.228.131.205])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id D5F4A201C4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 11 Jun 2014 22:36:03 +0000 (UTC)
-Message-ID: <1402526161.2523.79.camel@dabdike.int.hansenpartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Roland Dreier <roland@kernel.org>
-Date: Wed, 11 Jun 2014 15:36:01 -0700
-In-Reply-To: <CAG4TOxPCX6mrUc4FGeUfQkCsXjWZjm=5ie3TjSXvSjT0oJps=A@mail.gmail.com>
+	Wed, 11 Jun 2014 23:22:26 +0000 (UTC)
+Message-ID: <5398E4A8.9080200@roeck-us.net>
+Date: Wed, 11 Jun 2014 16:22:16 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+MIME-Version: 1.0
+To: Bjorn Helgaas <bhelgaas@google.com>
 References: <20140610201236.GA21729@laptop.dumpdata.com>
 	<53976840.40306@zytor.com> <20140611175433.GA10462@roeck-us.net>
 	<CAErSpo5Hg4KXca-oysLyH0OfiDFLmmvFjJHWBVzELtvdr7zV7A@mail.gmail.com>
-	<20140612075355.4b0d1f5a@canb.auug.org.au>
-	<CALCETrXEZ-Z+Kqgs28RCe7r9M-+QhbR2tQdMtznDB2uwmSmvYA@mail.gmail.com>
-	<1402525074.2523.71.camel@dabdike.int.hansenpartnership.com>
-	<CAG4TOxPCX6mrUc4FGeUfQkCsXjWZjm=5ie3TjSXvSjT0oJps=A@mail.gmail.com>
-Content-Type: text/plain; charset="ISO-8859-15"
-Mime-Version: 1.0
+In-Reply-To: <CAErSpo5Hg4KXca-oysLyH0OfiDFLmmvFjJHWBVzELtvdr7zV7A@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
 	David Vrabel <david.vrabel@citrix.com>,
 	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] Topic: Removal of code that is still in use
  by users but there is a better code.
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -40,38 +36,49 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 2014-06-11 at 15:26 -0700, Roland Dreier wrote:
-> On Wed, Jun 11, 2014 at 3:17 PM, James Bottomley
-> <James.Bottomley@hansenpartnership.com> wrote:
-> > This would eventually become like CONFIG_EXPERIMENTAL before somebody
-> > put it out of its misery: a pointless thing which everybody enables.
-> 
-> Probably so.
-> 
-> > Could we just step back and ask what the burning need to do this (at
-> > least for drivers; I understand the ABI deprecation headache) is?  Most
-> > driver code for obsolete things harmlessly compiles; why bother trying
-> > to hunt them down and shoot them when they're not really causing
-> > offence?
-> 
-> Every time a developer wants to change a core API, that developer
-> needs to patch every driver that uses the API.  Every old, unused,
-> bitrotten driver we have in the tree is 100% wasted work, and often a
-> substantial amount of work because it's really hard even to understand
-> how those drivers are (mis)using the API being changed.
+On 06/11/2014 12:43 PM, Bjorn Helgaas wrote:
+> On Wed, Jun 11, 2014 at 11:54 AM, Guenter Roeck <linux@roeck-us.net> wrote:
+>> On Tue, Jun 10, 2014 at 01:19:12PM -0700, H. Peter Anvin wrote:
+>>> On 06/10/2014 01:12 PM, Konrad Rzeszutek Wilk wrote:
+>>>> Hey,
+>>>>
+>>>> I would want to propose a topic on removing code in Linux that
+>>>> users are using - but they are doing it less and less and it
+>>>> mostly is tied in with older hardware. Specifically how to do
+>>>> this transition properly - and if we want to define some checklist
+>>>> /policy to do it via.
+>>>>
+>>>
+>>> I second this.  Right now deprecation is entirely ad hoc... usually in
+>>> the form "this hasn't compiled for X releases and noone noticed", which
+>>> makes it hard to do *controlled* deprecation...
+>>>
+>> That is a bit different to "users are using but less and less". Personally
+>> I would not mind leaving code in the kernel as long as it is used, but
+>> it would be great if we had some rule that a file/driver which did
+>> not compile for X releases (pick a preferred number for X - two years
+>> worth of releases ?) can be removed.
+>
+> I suspect most people would agree with the idea that something that
+> hasn't compiled for X years can be removed, possibly with some
+> negotiation about what X is.
+>
+> But my impression is the proposal is to go farther than that, and
+> figure out a way to remove obsolete but still-compilable code.  If we
+> all did our jobs perfectly, we would never add a change to Linux that
+> broke compilation of anything.  So if there's a file that doesn't
+> compile anymore, I think of that as a result of a mistake somewhere
+> along the line.  We can use that mistake to deduce that nobody cares
+> anymore, but it'd be a lot nicer to have a scheme that didn't depend
+> on people making random mistakes.
+>
 
-Well how often do we do that?  It's not like it's the most common
-activity.
+I understand, but personally I don't have much problem with code as long
+as it compiles. I am more concerned with code that doesn't compile and
+no one cared for years.
 
-Even when we do it, mostly the changes are mechanical and no-one really
-notices.  On the odd occasion we have to change the call properties of
-the API (usually because of locking or layering problems) it forces the
-question of whether the driver is in use or not.  Mostly you don't
-change the API and put the driver under CONFIG_BROKEN to see if anyone
-turns up to claim it.
+Sure, there is a difference if that code actually consumes cycles, but I
+suspect that isn't likely enough to be bothered about. If there is such code,
+I would agree that it should be removed even if it does compile.
 
-In fact, we could document the above and call it our driver deprecation
-process.  I've done this occasionally in SCSI, but the fact it's so rare
-tends to make me think we don't really have that much of a problem.
-
-James
+Guenter
