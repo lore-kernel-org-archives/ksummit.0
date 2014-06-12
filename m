@@ -1,30 +1,26 @@
-Return-Path: <rjw@rjwysocki.net>
+Return-Path: <linville@tuxdriver.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 8CB907AC
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 8F310934
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 12 Jun 2014 11:24:12 +0000 (UTC)
-Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id 4D58A2022D
+	Fri, 13 Jun 2014 01:30:21 +0000 (UTC)
+Received: from smtp.tuxdriver.com (charlotte.tuxdriver.com [70.61.120.58])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E59DF1F8AB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 12 Jun 2014 11:24:10 +0000 (UTC)
-From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Thu, 12 Jun 2014 13:41:37 +0200
-Message-ID: <1999432.vk0R5DDNUy@vostro.rjw.lan>
-In-Reply-To: <1402526161.2523.79.camel@dabdike.int.hansenpartnership.com>
-References: <20140610201236.GA21729@laptop.dumpdata.com>
-	<CAG4TOxPCX6mrUc4FGeUfQkCsXjWZjm=5ie3TjSXvSjT0oJps=A@mail.gmail.com>
-	<1402526161.2523.79.camel@dabdike.int.hansenpartnership.com>
+	Fri, 13 Jun 2014 01:30:20 +0000 (UTC)
+Date: Thu, 12 Jun 2014 09:35:54 -0400
+From: "John W. Linville" <linville@tuxdriver.com>
+To: Greg KH <greg@kroah.com>
+Message-ID: <20140612133554.GB4073@tuxdriver.com>
+References: <alpine.DEB.2.10.1406111336240.9616@gentwo.org>
+	<20140611194504.GA2683@kroah.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	David Vrabel <david.vrabel@citrix.com>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-Subject: Re: [Ksummit-discuss] Topic: Removal of code that is still in use
-	by users but there is a better code.
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20140611194504.GA2683@kroah.com>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Redesign Memory Management layer
+ and more core subsystem
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,46 +30,28 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wednesday, June 11, 2014 03:36:01 PM James Bottomley wrote:
-> On Wed, 2014-06-11 at 15:26 -0700, Roland Dreier wrote:
-> > On Wed, Jun 11, 2014 at 3:17 PM, James Bottomley
-> > <James.Bottomley@hansenpartnership.com> wrote:
-> > > This would eventually become like CONFIG_EXPERIMENTAL before somebody
-> > > put it out of its misery: a pointless thing which everybody enables.
+On Wed, Jun 11, 2014 at 12:45:04PM -0700, Greg KH wrote:
+> On Wed, Jun 11, 2014 at 02:03:05PM -0500, Christoph Lameter wrote:
+> > 6. Direct hardware access
 > > 
-> > Probably so.
-> > 
-> > > Could we just step back and ask what the burning need to do this (at
-> > > least for drivers; I understand the ABI deprecation headache) is?  Most
-> > > driver code for obsolete things harmlessly compiles; why bother trying
-> > > to hunt them down and shoot them when they're not really causing
-> > > offence?
-> > 
-> > Every time a developer wants to change a core API, that developer
-> > needs to patch every driver that uses the API.  Every old, unused,
-> > bitrotten driver we have in the tree is 100% wasted work, and often a
-> > substantial amount of work because it's really hard even to understand
-> > how those drivers are (mis)using the API being changed.
+> > Often the kernel subsystems are impeding performance. In high speed
+> > computing we regularly bypass the kernel network subsystems, block I/O
+> > etc. Direct hardware access means though that one is explosed to the ugly
+> > particularities of how a certain device has to be handled. Can we have the
+> > cake and eat it too by defining APIs that allow low level hardware access
+> > but also provide hardware abstraction (maybe limited to certain types of
+> > devices).
 > 
-> Well how often do we do that?  It's not like it's the most common
-> activity.
-> 
-> Even when we do it, mostly the changes are mechanical and no-one really
-> notices.  On the odd occasion we have to change the call properties of
-> the API (usually because of locking or layering problems) it forces the
-> question of whether the driver is in use or not.  Mostly you don't
-> change the API and put the driver under CONFIG_BROKEN to see if anyone
-> turns up to claim it.
-> 
-> In fact, we could document the above and call it our driver deprecation
-> process.  I've done this occasionally in SCSI, but the fact it's so rare
-> tends to make me think we don't really have that much of a problem.
+> What type of devices are you wanting here, block and networking or
+> something else?  We have the uio interface if you want to (and know how
+> to) talk to your hardware directly from userspace, what else do you want
+> to do here that this doesn't provide?
 
-I agree here.
+AF_PACKET provides some level of hardware abstraction without a lot of
+overhead for networking apps that are prepared to deal with raw frames.
+Is this the kind of networking API you would propose?
 
-Generally, if a kernel-wide change is being made for good reasons and something
-gets in the way, it is a fair question to ask if that thing is actually used by
-someone.  If it is not used by anyone, removing it may be regarded as part of
-making the change.
-
-Rafael
+John
+-- 
+John W. Linville		Someday the world will need a hero, and you
+linville@tuxdriver.com			might be all we have.  Be ready.
