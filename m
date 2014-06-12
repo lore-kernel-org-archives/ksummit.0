@@ -1,37 +1,30 @@
-Return-Path: <geert.uytterhoeven@gmail.com>
+Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id F16E48CF
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 8CB907AC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 12 Jun 2014 07:16:26 +0000 (UTC)
-Received: from mail-lb0-f177.google.com (mail-lb0-f177.google.com
-	[209.85.217.177])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D1E0F201F5
+	Thu, 12 Jun 2014 11:24:12 +0000 (UTC)
+Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id 4D58A2022D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 12 Jun 2014 07:16:25 +0000 (UTC)
-Received: by mail-lb0-f177.google.com with SMTP id u10so440534lbd.36
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 12 Jun 2014 00:16:24 -0700 (PDT)
-MIME-Version: 1.0
-Sender: geert.uytterhoeven@gmail.com
-In-Reply-To: <20140611224842.2a011256@gandalf.local.home>
+	Thu, 12 Jun 2014 11:24:10 +0000 (UTC)
+From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Thu, 12 Jun 2014 13:41:37 +0200
+Message-ID: <1999432.vk0R5DDNUy@vostro.rjw.lan>
+In-Reply-To: <1402526161.2523.79.camel@dabdike.int.hansenpartnership.com>
 References: <20140610201236.GA21729@laptop.dumpdata.com>
-	<53976840.40306@zytor.com> <20140611175433.GA10462@roeck-us.net>
-	<CAErSpo5Hg4KXca-oysLyH0OfiDFLmmvFjJHWBVzELtvdr7zV7A@mail.gmail.com>
-	<5398E4A8.9080200@roeck-us.net>
-	<20140611224842.2a011256@gandalf.local.home>
-Date: Thu, 12 Jun 2014 09:16:23 +0200
-Message-ID: <CAMuHMdU+Qqyz0yv89FDjbXnufUckeAviokDU70vTxs2c2JSvBA@mail.gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Content-Type: text/plain; charset=UTF-8
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
+	<CAG4TOxPCX6mrUc4FGeUfQkCsXjWZjm=5ie3TjSXvSjT0oJps=A@mail.gmail.com>
+	<1402526161.2523.79.camel@dabdike.int.hansenpartnership.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
 	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
 	David Vrabel <david.vrabel@citrix.com>,
 	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
 Subject: Re: [Ksummit-discuss] Topic: Removal of code that is still in use
- by users but there is a better code.
+	by users but there is a better code.
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,44 +34,46 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Jun 12, 2014 at 4:48 AM, Steven Rostedt <rostedt@goodmis.org> wrote:
-> On Wed, 11 Jun 2014 16:22:16 -0700
-> Guenter Roeck <linux@roeck-us.net> wrote:
->> I understand, but personally I don't have much problem with code as long
->> as it compiles. I am more concerned with code that doesn't compile and
->> no one cared for years.
+On Wednesday, June 11, 2014 03:36:01 PM James Bottomley wrote:
+> On Wed, 2014-06-11 at 15:26 -0700, Roland Dreier wrote:
+> > On Wed, Jun 11, 2014 at 3:17 PM, James Bottomley
+> > <James.Bottomley@hansenpartnership.com> wrote:
+> > > This would eventually become like CONFIG_EXPERIMENTAL before somebody
+> > > put it out of its misery: a pointless thing which everybody enables.
+> > 
+> > Probably so.
+> > 
+> > > Could we just step back and ask what the burning need to do this (at
+> > > least for drivers; I understand the ABI deprecation headache) is?  Most
+> > > driver code for obsolete things harmlessly compiles; why bother trying
+> > > to hunt them down and shoot them when they're not really causing
+> > > offence?
+> > 
+> > Every time a developer wants to change a core API, that developer
+> > needs to patch every driver that uses the API.  Every old, unused,
+> > bitrotten driver we have in the tree is 100% wasted work, and often a
+> > substantial amount of work because it's really hard even to understand
+> > how those drivers are (mis)using the API being changed.
+> 
+> Well how often do we do that?  It's not like it's the most common
+> activity.
+> 
+> Even when we do it, mostly the changes are mechanical and no-one really
+> notices.  On the odd occasion we have to change the call properties of
+> the API (usually because of locking or layering problems) it forces the
+> question of whether the driver is in use or not.  Mostly you don't
+> change the API and put the driver under CONFIG_BROKEN to see if anyone
+> turns up to claim it.
+> 
+> In fact, we could document the above and call it our driver deprecation
+> process.  I've done this occasionally in SCSI, but the fact it's so rare
+> tends to make me think we don't really have that much of a problem.
 
-And once it stops compiling, more issues will be introduced into that area,
-which no one notices due to the first compile failure.
+I agree here.
 
-> Matters what your definition of "doesn't compile" is.
->
-> You may not have the right config option set to make it compile.
-> randconfig builds trigger failed compiles quite often. Is that code
-> worth removing?
->
-> As most people test allyesconfig and allmodconfig quite a bit, I'm not
-> sure what code you are talking about. Basically everything that gets
-> enabled does compile.
+Generally, if a kernel-wide change is being made for good reasons and something
+gets in the way, it is a fair question to ask if that thing is actually used by
+someone.  If it is not used by anyone, removing it may be regarded as part of
+making the change.
 
-And once it compiles, it usually works!
-
-I have the impression we're getting good (read: having good review) at doing
-logical changes, i.e. when code is integrated, it works (almost always :-).
-The tricky parts these days are configuration issues, i.e. code that fails to
-build for certain configurations, due to various reasons (forgot to handle a
-case in another #ifdef branch, code inside vs. outside #ifdef,
-different indirect
-includes on different architectures, ...). Fortunately the latter can be caught
-using more CPU resources, in contrast with more reviewers for the former.
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Rafael
