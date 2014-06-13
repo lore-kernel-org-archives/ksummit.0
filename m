@@ -1,23 +1,24 @@
 Return-Path: <cl@gentwo.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 75443ABF
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 8254AABA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 13 Jun 2014 18:01:05 +0000 (UTC)
-Received: from qmta05.emeryville.ca.mail.comcast.net
-	(qmta05.emeryville.ca.mail.comcast.net [76.96.30.48])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 18EF720278
+	Fri, 13 Jun 2014 18:07:50 +0000 (UTC)
+Received: from qmta13.emeryville.ca.mail.comcast.net
+	(qmta13.emeryville.ca.mail.comcast.net [76.96.27.243])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 2219720266
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 13 Jun 2014 18:01:05 +0000 (UTC)
-Date: Fri, 13 Jun 2014 13:01:02 -0500 (CDT)
+	Fri, 13 Jun 2014 18:07:50 +0000 (UTC)
+Date: Fri, 13 Jun 2014 12:59:32 -0500 (CDT)
 From: Christoph Lameter <cl@gentwo.org>
 To: Greg KH <greg@kroah.com>
-In-Reply-To: <20140613173041.GA19513@kroah.com>
-Message-ID: <alpine.DEB.2.10.1406131300140.7778@gentwo.org>
+In-Reply-To: <20140613173145.GB19513@kroah.com>
+Message-ID: <alpine.DEB.2.10.1406131258230.7778@gentwo.org>
 References: <alpine.DEB.2.10.1406111336240.9616@gentwo.org>
 	<20140611194504.GA2683@kroah.com>
-	<alpine.DEB.2.10.1406131155080.913@gentwo.org>
-	<20140613173041.GA19513@kroah.com>
+	<20140612133554.GB4073@tuxdriver.com>
+	<alpine.DEB.2.10.1406131156210.913@gentwo.org>
+	<20140613173145.GB19513@kroah.com>
 Content-Type: TEXT/PLAIN; charset=US-ASCII
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Redesign Memory Management layer
@@ -33,11 +34,21 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 
 On Fri, 13 Jun 2014, Greg KH wrote:
 
-> In the end, userspace wants a socket-like interface to the networking
-> "stack", right?  So either you provide that with a custom networking
-> library that talks directly to a specific hardware card (like 3
-> different companies provide), or you just deal with the in-kernel
-> network stack.  What else is there that we can do here?
+> On Fri, Jun 13, 2014 at 11:57:04AM -0500, Christoph Lameter wrote:
+> > On Thu, 12 Jun 2014, John W. Linville wrote:
+> >
+> > > AF_PACKET provides some level of hardware abstraction without a lot of
+> > > overhead for networking apps that are prepared to deal with raw frames.
+> > > Is this the kind of networking API you would propose?
+> >
+> > The kernel is still in the data path and will cause limitations in terms
+> > of bandwidth and latency.
+>
+> Of course it will, nothing is "free".  If this is a problem, then run
+> one of the many different networking stacks that are in userspace that
+> are tailored to a specific use-case.  The kernel has to provide a
+> "general" use case stack, that is its job.
 
-Standardize the kernel APIs for this use case as well as the user space
-APIs so that software runs on any of the 3 companies stacks.
+But again I want both. A general stack that allows at least the data path
+to go direct to the device. The metadata and connection management etc
+should be firmly in the hand of the kernel.
