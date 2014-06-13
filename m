@@ -1,25 +1,31 @@
-Return-Path: <cl@gentwo.org>
+Return-Path: <greg@kroah.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 8254AABA
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 38EAFAF7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 13 Jun 2014 18:07:50 +0000 (UTC)
-Received: from qmta13.emeryville.ca.mail.comcast.net
-	(qmta13.emeryville.ca.mail.comcast.net [76.96.27.243])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 2219720266
+	Fri, 13 Jun 2014 18:22:04 +0000 (UTC)
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+	[66.111.4.26])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D5D9B201D6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 13 Jun 2014 18:07:50 +0000 (UTC)
-Date: Fri, 13 Jun 2014 12:59:32 -0500 (CDT)
-From: Christoph Lameter <cl@gentwo.org>
-To: Greg KH <greg@kroah.com>
-In-Reply-To: <20140613173145.GB19513@kroah.com>
-Message-ID: <alpine.DEB.2.10.1406131258230.7778@gentwo.org>
+	Fri, 13 Jun 2014 18:22:02 +0000 (UTC)
+Received: from compute1.internal (compute1.nyi.mail.srv.osa [10.202.2.41])
+	by gateway1.nyi.mail.srv.osa (Postfix) with ESMTP id BD22C21090
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 13 Jun 2014 14:21:45 -0400 (EDT)
+Date: Fri, 13 Jun 2014 11:25:37 -0700
+From: Greg KH <greg@kroah.com>
+To: Christoph Lameter <cl@gentwo.org>
+Message-ID: <20140613182537.GA24180@kroah.com>
 References: <alpine.DEB.2.10.1406111336240.9616@gentwo.org>
 	<20140611194504.GA2683@kroah.com>
-	<20140612133554.GB4073@tuxdriver.com>
-	<alpine.DEB.2.10.1406131156210.913@gentwo.org>
-	<20140613173145.GB19513@kroah.com>
-Content-Type: TEXT/PLAIN; charset=US-ASCII
+	<alpine.DEB.2.10.1406131155080.913@gentwo.org>
+	<20140613173041.GA19513@kroah.com>
+	<alpine.DEB.2.10.1406131300140.7778@gentwo.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.10.1406131300140.7778@gentwo.org>
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Redesign Memory Management layer
  and more core subsystem
@@ -32,23 +38,25 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, 13 Jun 2014, Greg KH wrote:
+On Fri, Jun 13, 2014 at 01:01:02PM -0500, Christoph Lameter wrote:
+> On Fri, 13 Jun 2014, Greg KH wrote:
+> 
+> > In the end, userspace wants a socket-like interface to the networking
+> > "stack", right?  So either you provide that with a custom networking
+> > library that talks directly to a specific hardware card (like 3
+> > different companies provide), or you just deal with the in-kernel
+> > network stack.  What else is there that we can do here?
+> 
+> Standardize the kernel APIs for this use case
 
-> On Fri, Jun 13, 2014 at 11:57:04AM -0500, Christoph Lameter wrote:
-> > On Thu, 12 Jun 2014, John W. Linville wrote:
-> >
-> > > AF_PACKET provides some level of hardware abstraction without a lot of
-> > > overhead for networking apps that are prepared to deal with raw frames.
-> > > Is this the kind of networking API you would propose?
-> >
-> > The kernel is still in the data path and will cause limitations in terms
-> > of bandwidth and latency.
->
-> Of course it will, nothing is "free".  If this is a problem, then run
-> one of the many different networking stacks that are in userspace that
-> are tailored to a specific use-case.  The kernel has to provide a
-> "general" use case stack, that is its job.
+The UIO interface is being used for this, so all should be good on the
+kernel side, right?
 
-But again I want both. A general stack that allows at least the data path
-to go direct to the device. The metadata and connection management etc
-should be firmly in the hand of the kernel.
+> as well as the user space APIs so that software runs on any of the 3
+> companies stacks.
+
+As these libraries are outside of the kernel tree, there's not much us
+kernel developers can do about this.  Work with those companies to do
+this...
+
+greg k-h
