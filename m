@@ -1,22 +1,29 @@
-Return-Path: <cl@gentwo.org>
+Return-Path: <greg@kroah.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 08FA5934
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 9DA3FA8A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 13 Jun 2014 17:02:58 +0000 (UTC)
-Received: from qmta08.emeryville.ca.mail.comcast.net
-	(qmta08.emeryville.ca.mail.comcast.net [76.96.30.80])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id A0A9D1F951
+	Fri, 13 Jun 2014 17:26:51 +0000 (UTC)
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+	[66.111.4.26])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 051DD20214
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 13 Jun 2014 17:02:57 +0000 (UTC)
-Date: Fri, 13 Jun 2014 12:02:54 -0500 (CDT)
-From: Christoph Lameter <cl@gentwo.org>
-To: Phillip Lougher <phillip@lougher.demon.co.uk>
-In-Reply-To: <53994FED.1080106@lougher.demon.co.uk>
-Message-ID: <alpine.DEB.2.10.1406131158490.913@gentwo.org>
+	Fri, 13 Jun 2014 17:26:50 +0000 (UTC)
+Received: from compute3.internal (compute3.nyi.mail.srv.osa [10.202.2.43])
+	by gateway1.nyi.mail.srv.osa (Postfix) with ESMTP id 613F720E66
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 13 Jun 2014 13:26:49 -0400 (EDT)
+Date: Fri, 13 Jun 2014 10:30:41 -0700
+From: Greg KH <greg@kroah.com>
+To: Christoph Lameter <cl@gentwo.org>
+Message-ID: <20140613173041.GA19513@kroah.com>
 References: <alpine.DEB.2.10.1406111336240.9616@gentwo.org>
-	<53994FED.1080106@lougher.demon.co.uk>
-Content-Type: TEXT/PLAIN; charset=US-ASCII
+	<20140611194504.GA2683@kroah.com>
+	<alpine.DEB.2.10.1406131155080.913@gentwo.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.10.1406131155080.913@gentwo.org>
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Redesign Memory Management layer
  and more core subsystem
@@ -29,56 +36,39 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, 12 Jun 2014, Phillip Lougher wrote:
-
-> > 1. The need to use larger order pages, and the resulting problems with
-> > fragmentation. Memory sizes grow and therefore the number of page structs
-> > where state has to be maintained. Maybe there is something different? If
-> > we use hugepages then we have 511 useless page structs. Some apps need
-> > linear memory where we have trouble and are creating numerous memory
-> > allocators (recently the new bootmem allocator and CMA. Plus lots of
-> > specialized allocators in various subsystems).
+On Fri, Jun 13, 2014 at 11:56:08AM -0500, Christoph Lameter wrote:
+> On Wed, 11 Jun 2014, Greg KH wrote:
+> 
+> > > Often the kernel subsystems are impeding performance. In high speed
+> > > computing we regularly bypass the kernel network subsystems, block I/O
+> > > etc. Direct hardware access means though that one is explosed to the ugly
+> > > particularities of how a certain device has to be handled. Can we have the
+> > > cake and eat it too by defining APIs that allow low level hardware access
+> > > but also provide hardware abstraction (maybe limited to certain types of
+> > > devices).
 > >
->
-> This was never solved to my knowledge, there is no panacea here.
-> Even in the 90s we had video subsystems wanting to allocate in units
-> of 1Mbyte, and others in units of 4k.  The "solution" was so called
-> split-level allocators, each specialised to deal with a particular
-> "first class media", with them giving back memory to the underlying
-> allocator when memory got tight in another specialised allocator.
-> Not much different to the ad-hoc solutions being adopted in Linux,
-> except the general idea was each specialised allocator had the same
-> API.
+> > What type of devices are you wanting here, block and networking or
+> > something else?  We have the uio interface if you want to (and know how
+> > to) talk to your hardware directly from userspace, what else do you want
+> > to do here that this doesn't provide?
+> 
+> Block and networking mainly. The userspace VFIO API exposes device
+> specific registers. We need something that is a decent abstraction.
+> IBverbs is something like that but it could be done much better.
 
-It is solvable if the objects are inherent movable. If any object
-allocated provides a function that makes an object movable then
-defragmentation is possible and therefore large contiguous area of memory
-can be created at any time.
+Heh, we've been down this road before :)
 
+In the end, userspace wants a socket-like interface to the networking
+"stack", right?  So either you provide that with a custom networking
+library that talks directly to a specific hardware card (like 3
+different companies provide), or you just deal with the in-kernel
+network stack.  What else is there that we can do here?
 
-> > Can we develop the notion that subsystems own certain cores so that their
-> > execution is restricted to a subset of the system avoiding data
-> > replication and keeping subsystem data hot? I.e. have a device driver
-> > and subsystems driving those devices just run on the NUMA node to which
-> > the PCI-E root complex is attached. Restricting to NUMA node reduces data
-> > locality complexity and increases performance due to cache hot data.
->
-> Lots of academic hot-air was expended here when designing distributed
-> systems which could scale seamlessly across heterogeneous CPUs connected
-> via different levels of interconnects (bus, ATM, ethernet etc.), zoning,
-> migration, replication etc.  The "solution" is probably out there somewhere
-> forgotten about.
+And as for block device, "raw access", really?  What is lacking with
+what we already provide in "raw mode", and a no-op block scheduler?  How
+much more "lean" can we possibly go without you having to write a custom
+userspace uio driver for every block controller out there?
 
-We have the issue with homogenous cpus due to the proliferation of cores
-on processors now. Maybe that is solvable?
+thanks,
 
-> Case in point, many years ago I was the lead Linux guy for a company
-> designing a SOC for digital TV.  Just before I left I had an interesting
-> "conversation" with the chief hardware guy of the team who designed the SOC.
-> Turns out they'd budgeted for the RAM bandwidth needed to decode a typical
-> MPEG stream, but they'd not reckoned on all the memcopies Linux needs to do
-> between its "separate address space" processes.  He'd been used to embedded
-> oses which run in a single address space.
-
-Well maybe that is appropriate for some processes? And we could carve out
-subsections of the hardware where single adress space stuff is possible?
+greg k-h
