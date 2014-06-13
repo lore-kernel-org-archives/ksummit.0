@@ -1,26 +1,23 @@
 Return-Path: <cl@gentwo.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id D3769B05
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 9C5E399A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 13 Jun 2014 22:30:34 +0000 (UTC)
-Received: from qmta07.emeryville.ca.mail.comcast.net
-	(qmta07.emeryville.ca.mail.comcast.net [76.96.30.64])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 7061020099
+	Fri, 13 Jun 2014 23:04:55 +0000 (UTC)
+Received: from qmta01.emeryville.ca.mail.comcast.net
+	(qmta01.emeryville.ca.mail.comcast.net [76.96.30.16])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id D028B201B3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 13 Jun 2014 22:30:34 +0000 (UTC)
-Date: Fri, 13 Jun 2014 17:30:31 -0500 (CDT)
+	Fri, 13 Jun 2014 23:04:54 +0000 (UTC)
+Date: Fri, 13 Jun 2014 18:04:52 -0500 (CDT)
 From: Christoph Lameter <cl@gentwo.org>
-To: Stephen Hemminger <stephen@networkplumber.org>
-In-Reply-To: <20140613121846.10c72bed@nehalam.linuxnetplumber.net>
-Message-ID: <alpine.DEB.2.11.1406131729300.25334@gentwo.org>
+To: Benjamin Herrenschmidt <benh@au1.ibm.com>
+In-Reply-To: <1402695366.20360.14.camel@pasglop>
+Message-ID: <alpine.DEB.2.11.1406131802590.25815@gentwo.org>
 References: <alpine.DEB.2.10.1406111336240.9616@gentwo.org>
-	<20140611194504.GA2683@kroah.com>
-	<20140612133554.GB4073@tuxdriver.com>
-	<alpine.DEB.2.10.1406131156210.913@gentwo.org>
-	<20140613173145.GB19513@kroah.com>
-	<alpine.DEB.2.10.1406131258230.7778@gentwo.org>
-	<20140613121846.10c72bed@nehalam.linuxnetplumber.net>
+	<53994FED.1080106@lougher.demon.co.uk>
+	<alpine.DEB.2.10.1406131158490.913@gentwo.org>
+	<1402695366.20360.14.camel@pasglop>
 Content-Type: TEXT/PLAIN; charset=US-ASCII
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Redesign Memory Management layer
@@ -34,17 +31,23 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, 13 Jun 2014, Stephen Hemminger wrote:
+On Sat, 14 Jun 2014, Benjamin Herrenschmidt wrote:
 
-> > But again I want both. A general stack that allows at least the data path
-> > to go direct to the device. The metadata and connection management etc
-> > should be firmly in the hand of the kernel.
+> > It is solvable if the objects are inherent movable. If any object
+> > allocated provides a function that makes an object movable then
+> > defragmentation is possible and therefore large contiguous area of memory
+> > can be created at any time.
 >
-> There are several dataplane user mode networking implementations that
-> do this. The problem is you either have to overlap with every networking
-> driver (netmap) or do driver in userspace (DPDK).
+> Another interesting thing is migration of pages with mapped DMA on
+> them :-)
+>
+> Our IOMMUs support that, but there isn't a way to hook that up into
+> Linux page migration that wouldn't suck massively at this point.
 
-The netmap stuff requires a system call for any sending and receiving so
-that does not work right. The driver is userspace does the device control
-etc etc in user space as well which means the kernel does not police the
-device.
+Well yes that would require a  major rethink. While we are at it we may
+as well try to get more done. Maybe we can do that just for a limited
+region within the existing memory management. Something like OSV, cgroups
+or cpuset that restricts it to certain nodes or cpus where we would allow
+this to occur while the rest still runs the standard kernel.
+
+A kind of sidecar approach.
