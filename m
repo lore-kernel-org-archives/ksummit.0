@@ -1,21 +1,22 @@
 Return-Path: <cl@gentwo.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 2B346A01
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 159C9A01
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 13 Jun 2014 16:56:13 +0000 (UTC)
-Received: from qmta09.emeryville.ca.mail.comcast.net
-	(qmta09.emeryville.ca.mail.comcast.net [76.96.30.96])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 3EF1520247
+	Fri, 13 Jun 2014 16:57:07 +0000 (UTC)
+Received: from qmta02.emeryville.ca.mail.comcast.net
+	(qmta02.emeryville.ca.mail.comcast.net [76.96.30.24])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id B417520247
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 13 Jun 2014 16:56:11 +0000 (UTC)
-Date: Fri, 13 Jun 2014 11:56:08 -0500 (CDT)
+	Fri, 13 Jun 2014 16:57:06 +0000 (UTC)
+Date: Fri, 13 Jun 2014 11:57:04 -0500 (CDT)
 From: Christoph Lameter <cl@gentwo.org>
-To: Greg KH <greg@kroah.com>
-In-Reply-To: <20140611194504.GA2683@kroah.com>
-Message-ID: <alpine.DEB.2.10.1406131155080.913@gentwo.org>
+To: "John W. Linville" <linville@tuxdriver.com>
+In-Reply-To: <20140612133554.GB4073@tuxdriver.com>
+Message-ID: <alpine.DEB.2.10.1406131156210.913@gentwo.org>
 References: <alpine.DEB.2.10.1406111336240.9616@gentwo.org>
 	<20140611194504.GA2683@kroah.com>
+	<20140612133554.GB4073@tuxdriver.com>
 Content-Type: TEXT/PLAIN; charset=US-ASCII
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Redesign Memory Management layer
@@ -29,21 +30,11 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 11 Jun 2014, Greg KH wrote:
+On Thu, 12 Jun 2014, John W. Linville wrote:
 
-> > Often the kernel subsystems are impeding performance. In high speed
-> > computing we regularly bypass the kernel network subsystems, block I/O
-> > etc. Direct hardware access means though that one is explosed to the ugly
-> > particularities of how a certain device has to be handled. Can we have the
-> > cake and eat it too by defining APIs that allow low level hardware access
-> > but also provide hardware abstraction (maybe limited to certain types of
-> > devices).
->
-> What type of devices are you wanting here, block and networking or
-> something else?  We have the uio interface if you want to (and know how
-> to) talk to your hardware directly from userspace, what else do you want
-> to do here that this doesn't provide?
+> AF_PACKET provides some level of hardware abstraction without a lot of
+> overhead for networking apps that are prepared to deal with raw frames.
+> Is this the kind of networking API you would propose?
 
-Block and networking mainly. The userspace VFIO API exposes device
-specific registers. We need something that is a decent abstraction.
-IBverbs is something like that but it could be done much better.
+The kernel is still in the data path and will cause limitations in terms
+of bandwidth and latency.
