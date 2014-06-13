@@ -1,31 +1,25 @@
-Return-Path: <greg@kroah.com>
+Return-Path: <cl@gentwo.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 38EAFAF7
+	by mail.linuxfoundation.org (Postfix) with ESMTP id A574DB00
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 13 Jun 2014 18:22:04 +0000 (UTC)
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
-	[66.111.4.26])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D5D9B201D6
+	Fri, 13 Jun 2014 18:41:15 +0000 (UTC)
+Received: from qmta11.emeryville.ca.mail.comcast.net
+	(qmta11.emeryville.ca.mail.comcast.net [76.96.27.211])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 458FD201D6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 13 Jun 2014 18:22:02 +0000 (UTC)
-Received: from compute1.internal (compute1.nyi.mail.srv.osa [10.202.2.41])
-	by gateway1.nyi.mail.srv.osa (Postfix) with ESMTP id BD22C21090
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 13 Jun 2014 14:21:45 -0400 (EDT)
-Date: Fri, 13 Jun 2014 11:25:37 -0700
-From: Greg KH <greg@kroah.com>
-To: Christoph Lameter <cl@gentwo.org>
-Message-ID: <20140613182537.GA24180@kroah.com>
+	Fri, 13 Jun 2014 18:41:15 +0000 (UTC)
+Date: Fri, 13 Jun 2014 13:41:12 -0500 (CDT)
+From: Christoph Lameter <cl@gentwo.org>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+In-Reply-To: <1402682146.2224.44.camel@dabdike.int.hansenpartnership.com>
+Message-ID: <alpine.DEB.2.10.1406131338520.8092@gentwo.org>
 References: <alpine.DEB.2.10.1406111336240.9616@gentwo.org>
 	<20140611194504.GA2683@kroah.com>
 	<alpine.DEB.2.10.1406131155080.913@gentwo.org>
 	<20140613173041.GA19513@kroah.com>
-	<alpine.DEB.2.10.1406131300140.7778@gentwo.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.10.1406131300140.7778@gentwo.org>
+	<1402682146.2224.44.camel@dabdike.int.hansenpartnership.com>
+Content-Type: TEXT/PLAIN; charset=US-ASCII
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Redesign Memory Management layer
  and more core subsystem
@@ -38,25 +32,20 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jun 13, 2014 at 01:01:02PM -0500, Christoph Lameter wrote:
-> On Fri, 13 Jun 2014, Greg KH wrote:
-> 
-> > In the end, userspace wants a socket-like interface to the networking
-> > "stack", right?  So either you provide that with a custom networking
-> > library that talks directly to a specific hardware card (like 3
-> > different companies provide), or you just deal with the in-kernel
-> > network stack.  What else is there that we can do here?
-> 
-> Standardize the kernel APIs for this use case
+On Fri, 13 Jun 2014, James Bottomley wrote:
 
-The UIO interface is being used for this, so all should be good on the
-kernel side, right?
+> The point here is that lots of people say "just get your operating
+> system out of my way" most realise they actually didn't mean it when
+> presented with the reality.
 
-> as well as the user space APIs so that software runs on any of the 3
-> companies stacks.
+Right. Exactly. What I would like to see is the OS doing its part to make
+things nice and provide a convenient abstraction of the ugly details.
 
-As these libraries are outside of the kernel tree, there's not much us
-kernel developers can do about this.  Work with those companies to do
-this...
+> The abstractions most people who say this want are a zero delay data
+> path with someone else taking care of all of the metadata and setup
+> problems ... effectively a MPI type interface.  Is that what you're
+> looking for, Christoph?
 
-greg k-h
+Ideally the setup/metadata should be handled by the OS while the data
+path would go direct. The get-out-of-the-way piece is restricted only to
+the performance critical portion which is the actual data transfer.
