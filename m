@@ -1,26 +1,31 @@
-Return-Path: <cl@gentwo.org>
+Return-Path: <stephen@networkplumber.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 5DF16B05
+	by mail.linuxfoundation.org (Postfix) with ESMTP id 604BBAF8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 13 Jun 2014 18:54:15 +0000 (UTC)
-Received: from qmta08.emeryville.ca.mail.comcast.net
-	(qmta08.emeryville.ca.mail.comcast.net [76.96.30.80])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 0A2902026C
+	Fri, 13 Jun 2014 19:18:50 +0000 (UTC)
+Received: from mail-pb0-f54.google.com (mail-pb0-f54.google.com
+	[209.85.160.54])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E26B220277
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 13 Jun 2014 18:54:14 +0000 (UTC)
-Date: Fri, 13 Jun 2014 13:54:13 -0500 (CDT)
-From: Christoph Lameter <cl@gentwo.org>
-To: Greg KH <greg@kroah.com>
-In-Reply-To: <20140613182537.GA24180@kroah.com>
-Message-ID: <alpine.DEB.2.11.1406131352490.24349@gentwo.org>
+	Fri, 13 Jun 2014 19:18:49 +0000 (UTC)
+Received: by mail-pb0-f54.google.com with SMTP id jt11so2405879pbb.41
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 13 Jun 2014 12:18:49 -0700 (PDT)
+Date: Fri, 13 Jun 2014 12:18:46 -0700
+From: Stephen Hemminger <stephen@networkplumber.org>
+To: Christoph Lameter <cl@gentwo.org>
+Message-ID: <20140613121846.10c72bed@nehalam.linuxnetplumber.net>
+In-Reply-To: <alpine.DEB.2.10.1406131258230.7778@gentwo.org>
 References: <alpine.DEB.2.10.1406111336240.9616@gentwo.org>
 	<20140611194504.GA2683@kroah.com>
-	<alpine.DEB.2.10.1406131155080.913@gentwo.org>
-	<20140613173041.GA19513@kroah.com>
-	<alpine.DEB.2.10.1406131300140.7778@gentwo.org>
-	<20140613182537.GA24180@kroah.com>
-Content-Type: TEXT/PLAIN; charset=US-ASCII
+	<20140612133554.GB4073@tuxdriver.com>
+	<alpine.DEB.2.10.1406131156210.913@gentwo.org>
+	<20140613173145.GB19513@kroah.com>
+	<alpine.DEB.2.10.1406131258230.7778@gentwo.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Redesign Memory Management layer
  and more core subsystem
@@ -33,23 +38,30 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, 13 Jun 2014, Greg KH wrote:
+On Fri, 13 Jun 2014 12:59:32 -0500 (CDT)
+Christoph Lameter <cl@gentwo.org> wrote:
 
-> > Standardize the kernel APIs for this use case
->
-> The UIO interface is being used for this, so all should be good on the
-> kernel side, right?
+> On Fri, 13 Jun 2014, Greg KH wrote:
+> 
+> > On Fri, Jun 13, 2014 at 11:57:04AM -0500, Christoph Lameter wrote:
+> > > On Thu, 12 Jun 2014, John W. Linville wrote:
+> > >
+> > > > AF_PACKET provides some level of hardware abstraction without a lot of
+> > > > overhead for networking apps that are prepared to deal with raw frames.
+> > > > Is this the kind of networking API you would propose?
+> > >
+> > > The kernel is still in the data path and will cause limitations in terms
+> > > of bandwidth and latency.
+> >
+> > Of course it will, nothing is "free".  If this is a problem, then run
+> > one of the many different networking stacks that are in userspace that
+> > are tailored to a specific use-case.  The kernel has to provide a
+> > "general" use case stack, that is its job.
+> 
+> But again I want both. A general stack that allows at least the data path
+> to go direct to the device. The metadata and connection management etc
+> should be firmly in the hand of the kernel.
 
-Ok I have seen any vendor use that interface and thus I am not familiar.
-
-> > as well as the user space APIs so that software runs on any of the 3
-> > companies stacks.
->
-> As these libraries are outside of the kernel tree, there's not much us
-> kernel developers can do about this.  Work with those companies to do
-> this...
-
-Its not that easy a separation. The mangement functions better be left
-with the kernel so that security and permission management work and so
-that the device stays in a well known state if accessed from multiple
-applications.
+There are several dataplane user mode networking implementations that
+do this. The problem is you either have to overlap with every networking
+driver (netmap) or do driver in userspace (DPDK).
