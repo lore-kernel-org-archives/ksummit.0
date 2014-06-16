@@ -1,33 +1,16 @@
-Return-Path: <cl@gentwo.org>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTP id 99AF2A05
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 16 Jun 2014 14:28:17 +0000 (UTC)
-Received: from qmta06.emeryville.ca.mail.comcast.net
-	(qmta06.emeryville.ca.mail.comcast.net [76.96.30.56])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 4182620241
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 16 Jun 2014 14:28:17 +0000 (UTC)
-Date: Mon, 16 Jun 2014 09:28:13 -0500 (CDT)
-From: Christoph Lameter <cl@gentwo.org>
-To: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
-In-Reply-To: <20140616160951.10c455dc@free-electrons.com>
-Message-ID: <alpine.DEB.2.11.1406160924570.27702@gentwo.org>
-References: <alpine.DEB.2.10.1406111336240.9616@gentwo.org>
-	<20140611194504.GA2683@kroah.com>
-	<alpine.DEB.2.10.1406131155080.913@gentwo.org>
-	<20140613173041.GA19513@kroah.com>
-	<1402682146.2224.44.camel@dabdike.int.hansenpartnership.com>
-	<alpine.DEB.2.10.1406131338520.8092@gentwo.org>
-	<20140616133932.7f8e6bbe@free-electrons.com>
-	<alpine.DEB.2.11.1406160905030.9480@gentwo.org>
-	<20140616160951.10c455dc@free-electrons.com>
-Content-Type: TEXT/PLAIN; charset=US-ASCII
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Redesign Memory Management layer
- and more core subsystem
+Return-Path: <tytso@thunk.org>
+Date: Mon, 16 Jun 2014 15:53:51 -0400
+From: Theodore Ts'o <tytso@mit.edu>
+To: Morten Rasmussen <morten.rasmussen@arm.com>
+Message-ID: <20140616195351.GA9699@thunk.org>
+References: <20140515164157.GE5540@e103034-lin>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20140515164157.GE5540@e103034-lin>
+Cc: ksummit-discuss@lists.linux-foundation.org
+Subject: Re: [Ksummit-discuss] [Ksummit-pc] [WORKSHOP] Energy-Aware
+	Scheduling proposal
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,22 +20,25 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 16 Jun 2014, Thomas Petazzoni wrote:
+On Thu, May 15, 2014 at 05:41:57PM +0100, Morten Rasmussen wrote:
+> 
+> I would be interested in leading a Tuesday workshop on Energy-Aware
+> Scheduling if there is enough interest. I have already posted the
+> proposal with a few workshop topics on Ksummit-discuss (copied in
+> below).
 
-> Well, my understanding is that libdrm exposes on API, but internally
-> has support for various graphics hardware. Same for OpenGL: a unified
-> normalized API that applications can rely on, and pure user-space
-> implementations that know about the hardware details.
+Hi Marten,
 
-Ok then we would need to come up with an API for NICs and storage that
-allows user space to determine the hardware and use the correct logic.
+We've gotten general agreement that having a Energy-Aware workshop
+would be a great thing.  Could you start planning an agenda of topics
+for your workshop, and a list of people you would like to invite to an
+energy-aware workshop?
 
-The same approach is used in the Infiniband subsystem. However this means
-that device driver like code is distributed separately from the kernel.
-There are separate ibverbs, ibrdma etc trees and its an issue to keep the
-in kernel portions in sync with the userspace code.
+It would be best if the Agenda could be maintained on a web site (such
+as either a Google Documents spreadsheet, or a wiki of some kind).  If
+you have trouble setting up a web presence for the workshop, please
+let me know.
 
-Ideally these would go together and be modified by patches that change
-both the kernel portion and the userspace portion.
+Thanks!!
 
-So maybe add a directory for userspace driver code to the kernel?
+						- Ted
