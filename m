@@ -1,28 +1,16 @@
-Return-Path: <sboyd@codeaurora.org>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D97D3932
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 11 Jul 2014 18:48:00 +0000 (UTC)
-Received: from smtp.codeaurora.org (smtp.codeaurora.org [198.145.11.231])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9616020349
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 11 Jul 2014 18:48:00 +0000 (UTC)
-Received: from [10.46.167.8] (i-global254.qualcomm.com [199.106.103.254])
-	(using TLSv1 with cipher DHE-RSA-CAMELLIA256-SHA (256/256 bits))
-	(No client certificate requested)
-	(Authenticated sender: sboyd@smtp.codeaurora.org)
-	by smtp.codeaurora.org (Postfix) with ESMTPSA id 34DF7140058
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 11 Jul 2014 18:48:00 +0000 (UTC)
-Message-ID: <53C0315F.9000708@codeaurora.org>
-Date: Fri, 11 Jul 2014 11:47:59 -0700
-From: Stephen Boyd <sboyd@codeaurora.org>
-MIME-Version: 1.0
-To: ksummit-discuss@lists.linuxfoundation.org
-Content-Type: text/plain; charset=ISO-8859-1
+Return-Path: <James.Bottomley@HansenPartnership.com>
+Message-ID: <1405460886.7262.4.camel@jarvis.lan>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Tech Board Discuss <Tech-board-discuss@lists.linux-foundation.org>
+Date: Tue, 15 Jul 2014 14:48:06 -0700
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: [Ksummit-discuss] agenda and tech discussions
+Cc: "ksummit-discuss@lists.linux-foundation.org"
+	<ksummit-discuss@lists.linux-foundation.org>,
+	linux-kernel <linux-kernel@vger.kernel.org>
+Subject: [Ksummit-discuss] Linux Foundation Technical Advisory Board
+ Elections and Nomination process
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,15 +20,28 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi,
+The elections for five of the ten members of the Linux Foundation
+Technical Advisory Board[TAB] are held every year. Currently the
+election will be at the 2014 Kernel Summit in Chicago, USA, at one of
+the Joint events (probably on the Wednesday 20 August) and will be open
+to all attendees of the Weeks events (Kernel Summit, LinuxCon and other
+summits).
 
-Is there an agenda for ksummit? I'd like to attend the pm dependencies
-tech-topic if it happens. I'm on the auto-list but I haven't gotten an
-invite so please consider this a self-nomination for that workshop/topic.
+Anyone is eligible to stand for election, simply send your nomination
+to:
 
-Thanks,
--Stephen
+Tech-board-discuss@lists.linux-foundation.org
 
--- 
-Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
-hosted by The Linux Foundation
+We currently have three nominees for five places:
+
+Chris Mason <chris.mason@fusionio.com>
+James Bottomley <James.Bottomley@HansenPartnership.com>
+John W. Linville <linville@tuxdriver.com>
+
+The deadline for receiving nominations is up until the beginning of the
+event where the election is held (Currently thought to be the evening of
+August 20th Central Daylight Time). Although, please remember if you're
+not going to be present that things go wrong with both networks and
+mailing lists, so get your nomination in early).
+
+James Bottomley (TAB Chair)
