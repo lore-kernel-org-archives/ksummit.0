@@ -1,16 +1,24 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
-Message-ID: <1405460886.7262.4.camel@jarvis.lan>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Tech Board Discuss <Tech-board-discuss@lists.linux-foundation.org>
-Date: Tue, 15 Jul 2014 14:48:06 -0700
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: "ksummit-discuss@lists.linux-foundation.org"
-	<ksummit-discuss@lists.linux-foundation.org>,
-	linux-kernel <linux-kernel@vger.kernel.org>
-Subject: [Ksummit-discuss] Linux Foundation Technical Advisory Board
- Elections and Nomination process
+Return-Path: <jmorris@namei.org>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1D1EE9A0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 17 Jul 2014 00:25:30 +0000 (UTC)
+Received: from namei.org (tundra.namei.org [65.99.196.166])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5A7E71F9CF
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 17 Jul 2014 00:25:29 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+	by namei.org (8.14.4/8.14.4) with ESMTP id s6H0PR6x029767
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 17 Jul 2014 00:25:27 GMT
+Date: Thu, 17 Jul 2014 10:25:27 +1000 (EST)
+From: James Morris <jmorris@namei.org>
+To: ksummit-discuss@lists.linuxfoundation.org
+Message-ID: <alpine.LRH.2.11.1407171000240.29601@namei.org>
+MIME-Version: 1.0
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+Subject: [Ksummit-discuss] [TECH TOPIC] Security subsystem update
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -20,28 +28,13 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-The elections for five of the ten members of the Linux Foundation
-Technical Advisory Board[TAB] are held every year. Currently the
-election will be at the 2014 Kernel Summit in Chicago, USA, at one of
-the Joint events (probably on the Wednesday 20 August) and will be open
-to all attendees of the Weeks events (Kernel Summit, LinuxCon and other
-summits).
+This may be too late, but if you're having kernel subsystem updates this 
+year, I can be there on the Wednesday to provide a brief update on the 
+security subsystem, following the Linux Security Summit (which is 
+co-located on the Monday & Tuesday).
 
-Anyone is eligible to stand for election, simply send your nomination
-to:
 
-Tech-board-discuss@lists.linux-foundation.org
-
-We currently have three nominees for five places:
-
-Chris Mason <chris.mason@fusionio.com>
-James Bottomley <James.Bottomley@HansenPartnership.com>
-John W. Linville <linville@tuxdriver.com>
-
-The deadline for receiving nominations is up until the beginning of the
-event where the election is held (Currently thought to be the evening of
-August 20th Central Daylight Time). Although, please remember if you're
-not going to be present that things go wrong with both networks and
-mailing lists, so get your nomination in early).
-
-James Bottomley (TAB Chair)
+- James
+-- 
+James Morris
+<jmorris@namei.org>
