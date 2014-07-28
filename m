@@ -1,24 +1,25 @@
-Return-Path: <julia.lawall@lip6.fr>
+Return-Path: <hpa@zytor.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A38159FB
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id BF65A7AC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 28 Jul 2014 20:16:23 +0000 (UTC)
-Received: from mail3-relais-sop.national.inria.fr
-	(mail3-relais-sop.national.inria.fr [192.134.164.104])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E69C220250
+	Mon, 28 Jul 2014 22:53:49 +0000 (UTC)
+Received: from mail.zytor.com (terminus.zytor.com [198.137.202.10])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6CC732003D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 28 Jul 2014 20:16:21 +0000 (UTC)
-Date: Mon, 28 Jul 2014 22:16:17 +0200 (CEST)
-From: Julia Lawall <julia.lawall@lip6.fr>
-To: "H. Peter Anvin" <hpa@zytor.com>
-In-Reply-To: <53D69BEC.3030509@zytor.com>
-Message-ID: <alpine.DEB.2.02.1407282214460.2074@localhost6.localdomain6>
+	Mon, 28 Jul 2014 22:53:49 +0000 (UTC)
+Message-ID: <53D6D44E.1070708@zytor.com>
+Date: Mon, 28 Jul 2014 15:53:02 -0700
+From: "H. Peter Anvin" <hpa@zytor.com>
+MIME-Version: 1.0
+To: Julia Lawall <julia.lawall@lip6.fr>
 References: <22709.1406291979@warthog.procyon.org.uk>
 	<20140725232429.GD19618@jtriplet-mobl1>
 	<53D69BEC.3030509@zytor.com>
-MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
+	<alpine.DEB.2.02.1407282214460.2074@localhost6.localdomain6>
+In-Reply-To: <alpine.DEB.2.02.1407282214460.2074@localhost6.localdomain6>
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] Should we force include <linux/err.h> when
  compiling all .c files?
@@ -31,43 +32,27 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-
-
-On Mon, 28 Jul 2014, H. Peter Anvin wrote:
-
-> On 07/25/2014 04:24 PM, Josh Triplett wrote:
-> >>
-> >> However, passing errors in pointers is so very common within the kernel, it
-> >> might worth be adding linux/err.h to the automatically included stuff.
-> > 
-> > ~/src/linux$ git grep -l 'IS_ERR\|ERR_PTR\|PTR_ERR\|ERR_CAST' -- '*.c' | wc -l
-> > 4467
-> > ~/src/linux$ find -name '*.c' | wc -l
-> > 20430
-> > 
-> > Functionality used by less than a quarter of the source files in the
-> > kernel doesn't make sense to automatically include.  You have a clear
-> > test that shows whether a file uses this functionality, which would
-> > allow an automated patch adding the necessary #include lines.
-> > 
-> > That does raise an interesting general issue, though: when a change to
-> > the kernel would involve patching several thousand files, and would
-> > potentially produce a huge number of conflicts (and a huge number of
-> > patches if broken out by subsystem) if fed through the normal process,
-> > but can be described by a very short script that requires no manual
-> > intervention, might it make sense to have a clear procedure for saying
-> > "Hey Linus, can you please run this script on top-of-tree and commit the
-> > result?"?
-> > 
+On 07/28/2014 01:16 PM, Julia Lawall wrote:
+>>
+>> We have such a clear procedure.  It involves pre-arranging with Linus
+>> *before the merge window begins* to run the script in question
+>> *immediately before releasing rc1*.
 > 
-> We have such a clear procedure.  It involves pre-arranging with Linus
-> *before the merge window begins* to run the script in question
-> *immediately before releasing rc1*.
+> In this case, would it really create many conflicts?  Does the list of 
+> included files change often.
+> 
+> If there is an optimial position for the include, it could be hard to make 
+> a perfect script.
+> 
 
-In this case, would it really create many conflicts?  Does the list of 
-included files change often.
+In this case it probably doesn't matter much, because there is a key
+difference between this and most other patchsets of this type: there is
+an order that this can be done which is safe.  Specifically, add the
+#include where it needs to go as a patch series, and then remove it from
+the build.  If this is merged into a git tree and the resulting build
+fails, it will be obvious what needs to happen, and sfr and Linus are
+really good about managing that in linux-next and mainline,
+respectively, so I don't even think we need to go to this "special
+procedure" for this case.
 
-If there is an optimial position for the include, it could be hard to make 
-a perfect script.
-
-julia
+	-hpa
