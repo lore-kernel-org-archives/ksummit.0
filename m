@@ -1,25 +1,27 @@
 Return-Path: <josh@joshtriplett.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1A5B7A62
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B1D53A6A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 29 Jul 2014 14:24:48 +0000 (UTC)
+	Tue, 29 Jul 2014 14:35:21 +0000 (UTC)
 Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
 	[217.70.183.197])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 915A7201F0
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4444C20195
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 29 Jul 2014 14:24:47 +0000 (UTC)
-Date: Tue, 29 Jul 2014 07:24:39 -0700
+	Tue, 29 Jul 2014 14:35:20 +0000 (UTC)
+Date: Tue, 29 Jul 2014 07:35:13 -0700
 From: Josh Triplett <josh@joshtriplett.org>
 To: "H. Peter Anvin" <hpa@zytor.com>
-Message-ID: <20140729142439.GA1437@jtriplet-mobl1>
+Message-ID: <20140729143513.GB1437@jtriplet-mobl1>
 References: <22709.1406291979@warthog.procyon.org.uk>
 	<20140725232429.GD19618@jtriplet-mobl1>
 	<53D69BEC.3030509@zytor.com>
+	<alpine.DEB.2.02.1407282214460.2074@localhost6.localdomain6>
+	<53D6D44E.1070708@zytor.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <53D69BEC.3030509@zytor.com>
+In-Reply-To: <53D6D44E.1070708@zytor.com>
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] Should we force include <linux/err.h> when
  compiling all .c files?
@@ -32,36 +34,45 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Jul 28, 2014 at 11:52:28AM -0700, H. Peter Anvin wrote:
-> On 07/25/2014 04:24 PM, Josh Triplett wrote:
+On Mon, Jul 28, 2014 at 03:53:02PM -0700, H. Peter Anvin wrote:
+> On 07/28/2014 01:16 PM, Julia Lawall wrote:
 > >>
-> >> However, passing errors in pointers is so very common within the kernel, it
-> >> might worth be adding linux/err.h to the automatically included stuff.
+> >> We have such a clear procedure.  It involves pre-arranging with Linus
+> >> *before the merge window begins* to run the script in question
+> >> *immediately before releasing rc1*.
 > > 
-> > ~/src/linux$ git grep -l 'IS_ERR\|ERR_PTR\|PTR_ERR\|ERR_CAST' -- '*.c' | wc -l
-> > 4467
-> > ~/src/linux$ find -name '*.c' | wc -l
-> > 20430
-> > 
-> > Functionality used by less than a quarter of the source files in the
-> > kernel doesn't make sense to automatically include.  You have a clear
-> > test that shows whether a file uses this functionality, which would
-> > allow an automated patch adding the necessary #include lines.
-> > 
-> > That does raise an interesting general issue, though: when a change to
-> > the kernel would involve patching several thousand files, and would
-> > potentially produce a huge number of conflicts (and a huge number of
-> > patches if broken out by subsystem) if fed through the normal process,
-> > but can be described by a very short script that requires no manual
-> > intervention, might it make sense to have a clear procedure for saying
-> > "Hey Linus, can you please run this script on top-of-tree and commit the
-> > result?"?
+> > In this case, would it really create many conflicts?  Does the list of 
+> > included files change often.
+
+Across thousands of source files?  Often enough to have significant
+conflicts during a merge window.  More importantly, new source files
+using error pointers get added often enough that a submitted patch would
+likely be incomplete (which would not show up as a merge conflict).
+
+> > If there is an optimial position for the include, it could be hard to make 
+> > a perfect script.
 > > 
 > 
-> We have such a clear procedure.  It involves pre-arranging with Linus
-> *before the merge window begins* to run the script in question
-> *immediately before releasing rc1*.
+> In this case it probably doesn't matter much, because there is a key
+> difference between this and most other patchsets of this type: there is
+> an order that this can be done which is safe.  Specifically, add the
+> #include where it needs to go as a patch series, and then remove it from
+> the build.  If this is merged into a git tree and the resulting build
+> fails, it will be obvious what needs to happen, and sfr and Linus are
+> really good about managing that in linux-next and mainline,
+> respectively, so I don't even think we need to go to this "special
+> procedure" for this case.
 
-That sounds sensible.  Is that documented anywhere?
+Perhaps, though see above about the handling of new source files.
+
+But this also seems like a good example of when fine-grained commits can
+go wrong.  Given mechanical changes to several thousand source files,
+does it really make sense to break those changes up into hundreds of
+commits, all of which will share the same commit message except for the
+prefix at the start of the subject?  Or would it make more sense to just
+commit it and submit it as a single change?
+
+(By contrast with, for instance, warning fixes, for which the changes
+warrant subsystem-specific review.)
 
 - Josh Triplett
