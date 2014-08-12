@@ -1,23 +1,29 @@
-Return-Path: <jkosina@suse.cz>
+Return-Path: <grant.likely@secretlab.ca>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C80D570A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0BA8E48E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 12 Aug 2014 14:39:00 +0000 (UTC)
-Received: from mx2.suse.de (cantor2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5BCF720253
+	Tue, 12 Aug 2014 15:43:54 +0000 (UTC)
+Received: from mail-we0-f170.google.com (mail-we0-f170.google.com
+	[74.125.82.170])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4F52420225
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 12 Aug 2014 14:39:00 +0000 (UTC)
-Date: Tue, 12 Aug 2014 16:38:58 +0200 (CEST)
-From: Jiri Kosina <jkosina@suse.cz>
-To: Jan Kara <jack@suse.cz>
-In-Reply-To: <20140812143333.GB3270@quack.suse.cz>
-Message-ID: <alpine.LNX.2.00.1408121637060.15220@pobox.suse.cz>
-References: <20140812143333.GB3270@quack.suse.cz>
-MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] printk unconference
+	Tue, 12 Aug 2014 15:43:53 +0000 (UTC)
+Received: by mail-we0-f170.google.com with SMTP id w62so10196126wes.15
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 12 Aug 2014 08:43:51 -0700 (PDT)
+Sender: Grant Likely <glikely@secretlab.ca>
+From: Grant Likely <grant.likely@secretlab.ca>
+To: Masami Hiramatsu <masami.hiramatsu.pt@hitachi.com>, shuah.kh@samsung.com
+In-Reply-To: <53E8EB93.8030301@hitachi.com>
+References: <53E38ED5.9000300@samsung.com> <53E43365.50809@hitachi.com>
+	<53E8CF03.6020308@samsung.com> <53E8EB93.8030301@hitachi.com>
+Date: Tue, 12 Aug 2014 14:00:43 +0100
+Message-Id: <20140812130043.4894DC40C5C@trevor.secretlab.ca>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] kselftest - What's in 3.17 and plans for 3.18
+ and beyond
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -27,18 +33,42 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, 12 Aug 2014, Jan Kara wrote:
+On Tue, 12 Aug 2014 01:13:07 +0900, Masami Hiramatsu <masami.hiramatsu.pt@hitachi.com> wrote:
+> (2014/08/11 23:11), Shuah Khan wrote:
+> >> (2014/08/07 23:36), Shuah Khan wrote:> As a first step towards a larger goal to enable developer
+> >>> friendly kernel testing framework, a new make target is
+> >>> planned for 3.17. In addition, 3.17 includes work done to
+> >>> fix tools/testing/sefltests to run without failures.
+> >>>
+> >>> Short summary of work done so far for 3.17:
+> >>>
+> >>> - fix compile errors and warnings in various tests
+> >>> - fix run-time errors when tests aren't run as root
+> >>> - enhance and improve cpu and memory hot-plug tests
+> >>>     to run in limited scope mode by default. A new make
+> >>>     target to select full-scope testing. Prior to this
+> >>>     change, cpu and memory hot-plug tests hung trying to
+> >>>     hot-plug all but cpu0 and a large portion of the memory.
+> >>> - add a new kselftest target to run existing selftests
+> >>>     to start with.
+> >>
+> >> Instead of running the selftests, can we build the testcases and
+> >> install it as a tool? I think running tests on the tree is not a
+> >> good idea...
+> > 
+> > One of the goals is to leverage developer tests that we already have.
+> > When a developer makes a kernel change and wants to see if that change
+> > lead to any regression, having the ability to buidl and run selftests on 
+> > the newly installed kernel withe the same source tree is very useful.
+> > That is the reason behind adding this new target.
+> 
+> I see, for that purpose, installing testcase may not fit.
+> BTW, how would it cover cross-build?
 
-> Sasha and Jiri also expressed interest in discussing some topics regarding
-> printk in the thread (printk tinification, printk inside NMI - although
-> that is getting resolved AFAIK).
+I'm interested in this as well. I'm working on a tool that crossbuilds a
+very simple busybox rootfs and boots in QEMU for as many architectures
+as possible. I want to make it easy to sanity test all the major
+architectures. Right now it does little more than boot to a login
+prompt, but I'd like to get the kselftests into it also.
 
-Well, there are mutiple aproaches floating around for printk inside NMI, 
-and no final conclusion has been reached yet; so discussing this might be 
-worthwhile (even though Steven wouldn't be present, which is a bit 
-inconvenient, as his aproach seems to be the one that will hopefully head 
-towards merging).
-
--- 
-Jiri Kosina
-SUSE Labs
+g.
