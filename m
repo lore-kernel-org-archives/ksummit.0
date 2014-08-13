@@ -1,31 +1,26 @@
-Return-Path: <geert.uytterhoeven@gmail.com>
+Return-Path: <arnd@arndb.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 308C2ADF
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 635CCAFB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 13 Aug 2014 19:54:02 +0000 (UTC)
-Received: from mail-lb0-f177.google.com (mail-lb0-f177.google.com
-	[209.85.217.177])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B30082034C
+	Wed, 13 Aug 2014 20:06:35 +0000 (UTC)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.24])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7FE292038C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 13 Aug 2014 19:54:00 +0000 (UTC)
-Received: by mail-lb0-f177.google.com with SMTP id s7so192630lbd.8
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 13 Aug 2014 12:53:59 -0700 (PDT)
+	Wed, 13 Aug 2014 20:06:34 +0000 (UTC)
+From: Arnd Bergmann <arnd@arndb.de>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Wed, 13 Aug 2014 22:06:19 +0200
+Message-ID: <3758173.O0N9ZgmMoN@wuerfel>
+In-Reply-To: <1407895613.3017.138.camel@deadeye.wl.decadent.org.uk>
+References: <CALAqxLUcfaJnxdmkn6mucepNk3QaCQdcSPLRjjeKsk_OTp=uLA@mail.gmail.com>
+	<1407895613.3017.138.camel@deadeye.wl.decadent.org.uk>
 MIME-Version: 1.0
-Sender: geert.uytterhoeven@gmail.com
-In-Reply-To: <20140813180743.GB16662@roeck-us.net>
-References: <F5184659D418E34EA12B1903EE5EF5FD0130D4AC5B90@seldmbx02.corpusers.net>
-	<20140813180743.GB16662@roeck-us.net>
-Date: Wed, 13 Aug 2014 21:53:58 +0200
-Message-ID: <CAMuHMdVEYEsk1EtBbAAinJ=7m5SRh-w4DZb=_N0gaMgpvtRadw@mail.gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-To: Guenter Roeck <linux@roeck-us.net>
-Content-Type: text/plain; charset=UTF-8
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] RFC: Kernel tinification - kernel config
-	reduction
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: John Stultz <john.stultz@linaro.org>, lkml <linux-kernel@vger.kernel.org>,
+	"Joseph S. Myers" <joseph@codesourcery.com>
+Subject: Re: [Ksummit-discuss] 2038 Kernel Summit Discussion Fodder
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,40 +30,27 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Aug 13, 2014 at 8:07 PM, Guenter Roeck <linux@roeck-us.net> wrote:
-> Major problem I see is that many architecture maintainers don't seem to care
-> about "make allmodconfig" and/or "make allyesconfig", meaning there is no
-> simple means to at least compile-test all code that _can_ be enabled for
-> a given architecture. And don't even mention "make randconfig".
+On Wednesday 13 August 2014 03:06:53 Ben Hutchings wrote:
+> > On the kernel side, it also adds more complexity, where we have to add
+> > even more complex compat support for 64bit systems to handle all the
+> > various 32bit applications possible.
+> [...]
+> 
+> Didn't we need to do this already to support x32?  Have compat ioctls
+> involving time been botched?
 
-There are still architectures that don't support multi-platform kernels, which
-is a requirement for good coverage.
+AFAICT, every ioctl that involves passing a __kernel_ulong_t or
+__kernel_ulong_t is potentially broken on x32, and this includes
+everything passing a time_t or timespec.
 
-An alternative could be to have several allmodconfig builds, one for each
-subset that can't be built-in together, like
+The problem is that the libc ioctl() function ends up in the kernel's
+compat_ioctl handler, which expects the 32-bit ABI, not the 64-bit ABI.
+Most other syscalls in x32 however use the 64-bit ABI.
 
-make CONFIG_SUBSET_FOO=y allmodconfig
-make CONFIG_SUBSET_BAR=y allmodconfig
-...
+It works only for drivers that use the same function for .ioctl and
+.compat_ioctl, and that encode the size of the data structure correctly
+in the ioctl command code. I assume this is how we will do it for all
+32-bit architectures with 64-bit time_t, but on x32 it also concerns
+other types that use __kernel_long_t.
 
-> Instead of CONFIG_TINY or similar, I would find it more important to get
-> allmodconfig and/or allyesconfig to work for as many architectures as
-> possible, and to create some means to help catching errors of the
-> kind detected by randconfig, only in a more deterministic way.
-
-The few allmodconfig/allyesconfig builds on
-kisskb.ellerman.id.au/kisskb/matrix/ are actually not in such a bad shape.
-Shall more be added?
-
-You also only build some of the allmodconfigs?
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+	Arnd
