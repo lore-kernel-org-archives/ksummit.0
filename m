@@ -1,24 +1,32 @@
-Return-Path: <joseph_myers@mentor.com>
+Return-Path: <linux@roeck-us.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 68FDA4D4
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D718A523
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 13 Aug 2014 15:38:04 +0000 (UTC)
-Received: from relay1.mentorg.com (relay1.mentorg.com [192.94.38.131])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 96B7E2031E
+	Wed, 13 Aug 2014 16:12:02 +0000 (UTC)
+Received: from mail.active-venture.com (mail.active-venture.com
+	[67.228.131.205])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 0F61020347
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 13 Aug 2014 15:38:03 +0000 (UTC)
-Date: Wed, 13 Aug 2014 15:37:57 +0000
-From: "Joseph S. Myers" <joseph@codesourcery.com>
-To: John Stultz <john.stultz@linaro.org>
-In-Reply-To: <CALAqxLUcfaJnxdmkn6mucepNk3QaCQdcSPLRjjeKsk_OTp=uLA@mail.gmail.com>
-Message-ID: <Pine.LNX.4.64.1408131518430.19863@digraph.polyomino.org.uk>
-References: <CALAqxLUcfaJnxdmkn6mucepNk3QaCQdcSPLRjjeKsk_OTp=uLA@mail.gmail.com>
+	Wed, 13 Aug 2014 16:12:02 +0000 (UTC)
+Message-ID: <53EB8E4F.9090008@roeck-us.net>
+Date: Wed, 13 Aug 2014 09:11:59 -0700
+From: Guenter Roeck <linux@roeck-us.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="US-ASCII"
-Cc: ksummit-discuss@lists.linuxfoundation.org, linux-api@vger.kernel.org,
-	lkml <linux-kernel@vger.kernel.org>
-Subject: Re: [Ksummit-discuss] 2038 Kernel Summit Discussion Fodder
+To: Linus Walleij <linus.walleij@linaro.org>,
+	Grant Likely <grant.likely@secretlab.ca>
+References: <53E38ED5.9000300@samsung.com>
+	<53E43365.50809@hitachi.com>	<53E8CF03.6020308@samsung.com>
+	<53E8EB93.8030301@hitachi.com>	<20140812130043.4894DC40C5C@trevor.secretlab.ca>
+	<CACRpkdZL_1Enxd2dTnaEvZkHuCfV08f74ZOqFqaRtEdyMmwtvA@mail.gmail.com>
+In-Reply-To: <CACRpkdZL_1Enxd2dTnaEvZkHuCfV08f74ZOqFqaRtEdyMmwtvA@mail.gmail.com>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: shuah.kh@samsung.com, "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>, Rob Landley <rob@landley.net>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] kselftest - What's in 3.17 and plans for 3.18
+ and beyond
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -28,60 +36,38 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 13 Aug 2014, John Stultz wrote:
+On 08/13/2014 01:35 AM, Linus Walleij wrote:
+> On Tue, Aug 12, 2014 at 3:00 PM, Grant Likely <grant.likely@secretlab.ca> wrote:
+>> On Tue, 12 Aug 2014 01:13:07 +0900, Masami Hiramatsu <masami.hiramatsu.pt@hitachi.com> wrote:
+>
+>>> I see, for that purpose, installing testcase may not fit.
+>>> BTW, how would it cover cross-build?
+>>
+>> I'm interested in this as well. I'm working on a tool that crossbuilds a
+>> very simple busybox rootfs and boots in QEMU for as many architectures
+>> as possible. I want to make it easy to sanity test all the major
+>> architectures. Right now it does little more than boot to a login
+>> prompt, but I'd like to get the kselftests into it also.
+>
+> Hm that sounds like a goal similar to what Rob Landley has
+> described as one goal for Aboriginal Linux as well.
+> http://landley.net/aboriginal/about.html
+>
 
-> 2) Userspace ABI modifications: This includes how we expose the new 
-> 64bit time_t and related structures to userland via syscalls and ioctls, 
+Yes, and to some degree buildroot.
 
-Note the point from previous discussions that whenever the kernel takes a 
-64-bit timespec value from 32-bit userspace (which should include x32), 
-the upper 32 bits of the nanoseconds value should be ignored for POSIX 
-compatibility (but maximum compatibility with existing x32 userspace means 
-you should still write those bits as 0 when writing such a value out to 
-userspace).
+Rob's attempts to support multiple architectures also shows its limitations.
+For example, his m68k images don't work, at least not for me, because the
+machine he uses (q800) is not supported in qemu 1.6 or 2.0 or 2.1.
+I have been unable to find a working combination of kernel configuration,
+qemu version, qemu command line, and root file system for m68k. Presumably
+that must exist, because qemu supports m68k, I just have not been able
+to figure out how to make it work.
 
-> Basically this is the same as the above, where the kernel provides both
-> legacy and new time_t related interfaces. However, the libc would make a
-> version break, migrating to using 64bit time_t types and syscalls. Legacy
-> applications would still work using the old glibc version, but this would
-> provide a stronger line in the sand between 2038 safe and unsafe
-> applications and libraries, making it easier to avoid mixing the two.
-> NetBSD developers discussed this same approach back in 2008 here:
-> https://mail-index.netbsd.org/tech-userlevel/2008/03/22/msg000231.html
+For my own qemu runtime tests, I ended up collecting root file systems and
+kernel configurations from all over the place. And then there is the problem
+of qemu command line parameters, where each target and architecture requires
+its own set of options, and it is sometimes all but impossible to find a
+working set of parameters for a given target/architecture combination.
 
-Given discussions lately of how it's no longer feasible to change the 
-libstdc++ soname for C++11 issues 
-<https://gcc.gnu.org/ml/gcc/2014-08/msg00107.html> - libstdc++ needs to 
-include both old and new ABI versions of all relevant interfaces - I think 
-we can assume the same is true to a much greater extent for the libc 
-soname (at least on i386).  Much the same conclusion was also reached 
-regarding the libc soname on S/390 in discussions of jmp_buf issues.
-
-Technically of course you can have a port variant which does have a 
-different soname - and a different GNU triplet - like the transition from 
-arm-*-linux-gnu old-ABI to arm-*-linux-gnueabi EABI.  (And in principle 
-distributions can allow in-place upgrades - after all, it was done for the 
-move from libc5 to libc6.)  But I don't see any likelihood that's what the 
-community of users and distributors on i386 would actually want.
-
-Properly done, moving to _TIME_BITS=64 in a distribution would involve 
-changing the sonames of lots of affected other libraries (while keeping 
-compatibility versions under the old sonames to support existing binaries 
-users may have), and it's an open question whether distributors would wish 
-to do that either - or whether you get server / desktop distributions 
-phasing out 32-bit support by 2038, while only embedded users, with 
-control over everything being built for the device and less likelihood of 
-having to deal with old binaries from ISVs, build the whole system with a 
-_TIME_BITS=64 default.
-
-> 32bit applications on 64bit kernels. In this case, we wouldn't introduce
-> new 64 bit syscalls in the kernel, as the existing interfaces would just be
-> typed correctly for our new virtual architecture, but we would have
-
-The installed uapi headers would of course need conditionals in them 
-(based on whatever preprocessor macro is defined in userspace for the new 
-virtual architecture) to export the right ABI for each case.
-
--- 
-Joseph S. Myers
-joseph@codesourcery.com
+Guenter
