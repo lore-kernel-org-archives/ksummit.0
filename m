@@ -1,37 +1,45 @@
-Return-Path: <kevin.hilman@linaro.org>
+Return-Path: <aneesh.kumar@linux.vnet.ibm.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 27552681
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 45C88523
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 13 Aug 2014 15:00:44 +0000 (UTC)
-Received: from mail-qc0-f173.google.com (mail-qc0-f173.google.com
-	[209.85.216.173])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 967302020C
+	Wed, 13 Aug 2014 15:06:37 +0000 (UTC)
+Received: from e23smtp06.au.ibm.com (e23smtp06.au.ibm.com [202.81.31.148])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3F400201CF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 13 Aug 2014 15:00:43 +0000 (UTC)
-Received: by mail-qc0-f173.google.com with SMTP id w7so4192207qcr.32
+	Wed, 13 Aug 2014 15:06:36 +0000 (UTC)
+Received: from /spool/local
+	by e23smtp06.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use
+	Only! Violators will be prosecuted
+	for <ksummit-discuss@lists.linuxfoundation.org> from
+	<aneesh.kumar@linux.vnet.ibm.com>; Thu, 14 Aug 2014 01:06:33 +1000
+Received: from d23relay08.au.ibm.com (d23relay08.au.ibm.com [9.185.71.33])
+	by d23dlp02.au.ibm.com (Postfix) with ESMTP id E88212BB002D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 13 Aug 2014 08:00:42 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <20140813104053.GK17528@sirena.org.uk>
+	Thu, 14 Aug 2014 01:06:29 +1000 (EST)
+Received: from d23av01.au.ibm.com (d23av01.au.ibm.com [9.190.234.96])
+	by d23relay08.au.ibm.com (8.13.8/8.13.8/NCO v10.0) with ESMTP id
+	s7DF7BKl8716432 for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 14 Aug 2014 01:07:12 +1000
+Received: from d23av01.au.ibm.com (localhost [127.0.0.1])
+	by d23av01.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+	s7DF6SMv015874 for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 14 Aug 2014 01:06:28 +1000
+From: "Aneesh Kumar K.V" <aneesh.kumar@linux.vnet.ibm.com>
+To: Grant Likely <grant.likely@secretlab.ca>,
+	Masami Hiramatsu <masami.hiramatsu.pt@hitachi.com>, shuah.kh@samsung.com
+In-Reply-To: <20140812130043.4894DC40C5C@trevor.secretlab.ca>
 References: <53E38ED5.9000300@samsung.com> <53E43365.50809@hitachi.com>
 	<53E8CF03.6020308@samsung.com> <53E8EB93.8030301@hitachi.com>
 	<20140812130043.4894DC40C5C@trevor.secretlab.ca>
-	<53EA3DA0.2070407@roeck-us.net>
-	<CACxGe6vYNjEAZT6YhB5WNyh40urSEVRbmVaWjEt6nQNUbgMbPw@mail.gmail.com>
-	<20140812164922.GS17528@sirena.org.uk>
-	<CACxGe6vu6P=KsP7O09afqzgdx2Xh11N9t_C0VKJ9T+yY-_3m6A@mail.gmail.com>
-	<20140813104053.GK17528@sirena.org.uk>
-Date: Wed, 13 Aug 2014 08:00:42 -0700
-Message-ID: <CAGa+x870XoA8Yi6BCOq7EsOQRjmKUpM3AAwhP_Y30eEbrkcHPg@mail.gmail.com>
-From: Kevin Hilman <khilman@linaro.org>
-To: Mark Brown <broonie@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Cc: shuah.kh@samsung.com, "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Date: Wed, 13 Aug 2014 20:36:25 +0530
+Message-ID: <87ha1g5szy.fsf@linux.vnet.ibm.com>
+MIME-Version: 1.0
+Content-Type: text/plain
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] kselftest - What's in 3.17 and plans for 3.18
- and beyond
+	and beyond
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,38 +49,51 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Aug 13, 2014 at 3:40 AM, Mark Brown <broonie@kernel.org> wrote:
-> On Wed, Aug 13, 2014 at 07:26:28AM +0100, Grant Likely wrote:
->> On Tue, Aug 12, 2014 at 5:49 PM, Mark Brown <broonie@kernel.org> wrote:
+Grant Likely <grant.likely@secretlab.ca> writes:
+
+> On Tue, 12 Aug 2014 01:13:07 +0900, Masami Hiramatsu <masami.hiramatsu.pt@hitachi.com> wrote:
+>> (2014/08/11 23:11), Shuah Khan wrote:
+>> >> (2014/08/07 23:36), Shuah Khan wrote:> As a first step towards a larger goal to enable developer
+>> >>> friendly kernel testing framework, a new make target is
+>> >>> planned for 3.17. In addition, 3.17 includes work done to
+>> >>> fix tools/testing/sefltests to run without failures.
+>> >>>
+>> >>> Short summary of work done so far for 3.17:
+>> >>>
+>> >>> - fix compile errors and warnings in various tests
+>> >>> - fix run-time errors when tests aren't run as root
+>> >>> - enhance and improve cpu and memory hot-plug tests
+>> >>>     to run in limited scope mode by default. A new make
+>> >>>     target to select full-scope testing. Prior to this
+>> >>>     change, cpu and memory hot-plug tests hung trying to
+>> >>>     hot-plug all but cpu0 and a large portion of the memory.
+>> >>> - add a new kselftest target to run existing selftests
+>> >>>     to start with.
+>> >>
+>> >> Instead of running the selftests, can we build the testcases and
+>> >> install it as a tool? I think running tests on the tree is not a
+>> >> good idea...
+>> > 
+>> > One of the goals is to leverage developer tests that we already have.
+>> > When a developer makes a kernel change and wants to see if that change
+>> > lead to any regression, having the ability to buidl and run selftests on 
+>> > the newly installed kernel withe the same source tree is very useful.
+>> > That is the reason behind adding this new target.
+>> 
+>> I see, for that purpose, installing testcase may not fit.
+>> BTW, how would it cover cross-build?
 >
->> > While we're working on things like this it's probably worth getting the
->> > scripts Kevin, Olof and I use for build and boot test reporting (I only
->> > run them, I've not contributed anything) or something like them into
->> > scripts/ - they're pretty good and having a common format makes things
->> > easier when looking at multiple reports.
+> I'm interested in this as well. I'm working on a tool that crossbuilds a
+> very simple busybox rootfs and boots in QEMU for as many architectures
+> as possible. I want to make it easy to sanity test all the major
+> architectures. Right now it does little more than boot to a login
+> prompt, but I'd like to get the kselftests into it also.
 >
->> Where is the current copy of those scripts?
->
-> Kevin's copy is here:
->
->    git://git.linaro.org/people/khilman/build-scripts.git
 
-FWIW, that repo is just a hodge-podge collection of various build/boot
-scripts I'm using.  I just cleaned it up a little and removed a bunch
-of them that I no longer use.
+I am interested in this as well, I will reach Chicago only on 18th
+afternoon (due to flight availability issues). I have been using
+https://github.com/autotest/autotest-client-tests for running sanity
+tests on different kernel versions. It can be driven with sandboxed setup
+using https://github.com/autotest/virt-test
 
-They get the job done for me, but are certainly not pretty.
-
-Also for boot testing, the main tool I'm  using is pyboot, which is
-essentially a tool to automate u-boot/fastboot over the serial
-console.  It relies heavily on conmux to abstract the console and
-power cycling.
-
-    https://git.linaro.org/people/kevin.hilman/pyboot.git
-
-In any case, the combination of those build-scripts and pyboot are
-what I'm using to generated the automated build/boot reports I'm
-sending to the kernel-build-reports list (e.g.
-http://lists.linaro.org/pipermail/kernel-build-reports/2014-August/004862.html)
-
-Kevin
+-aneesh
