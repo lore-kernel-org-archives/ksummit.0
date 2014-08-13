@@ -1,38 +1,25 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <Tim.Bird@sonymobile.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 22A6A910
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D7A0F9CB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 13 Aug 2014 17:11:50 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B4BD220348
+	Wed, 13 Aug 2014 17:29:25 +0000 (UTC)
+Received: from seldrel01.sonyericsson.com (seldrel01.sonyericsson.com
+	[212.209.106.2])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3EAA02031D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 13 Aug 2014 17:11:49 +0000 (UTC)
-Date: Wed, 13 Aug 2014 18:11:28 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Olof Johansson <olof@lixom.net>
-Message-ID: <20140813171128.GC17528@sirena.org.uk>
-References: <53E8CF03.6020308@samsung.com> <53E8EB93.8030301@hitachi.com>
-	<20140812130043.4894DC40C5C@trevor.secretlab.ca>
-	<53EA3DA0.2070407@roeck-us.net>
-	<CACxGe6vYNjEAZT6YhB5WNyh40urSEVRbmVaWjEt6nQNUbgMbPw@mail.gmail.com>
-	<20140812164922.GS17528@sirena.org.uk>
-	<CACxGe6vu6P=KsP7O09afqzgdx2Xh11N9t_C0VKJ9T+yY-_3m6A@mail.gmail.com>
-	<20140813104053.GK17528@sirena.org.uk>
-	<CAGa+x870XoA8Yi6BCOq7EsOQRjmKUpM3AAwhP_Y30eEbrkcHPg@mail.gmail.com>
-	<CAOesGMjEMG9+uxeg_zPhhZFPi9ZdvdxapjypGLrCVtxGZh0Ejw@mail.gmail.com>
+	Wed, 13 Aug 2014 17:29:24 +0000 (UTC)
+From: "Bird, Tim" <Tim.Bird@sonymobile.com>
+To: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>, "josh@joshtriplett.org"
+	<josh@joshtriplett.org>
+Date: Wed, 13 Aug 2014 19:29:21 +0200
+Message-ID: <F5184659D418E34EA12B1903EE5EF5FD0130D4AC5B90@seldmbx02.corpusers.net>
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="Vs8imIC20X8526NW"
-Content-Disposition: inline
-In-Reply-To: <CAOesGMjEMG9+uxeg_zPhhZFPi9ZdvdxapjypGLrCVtxGZh0Ejw@mail.gmail.com>
-Cc: Shuah Khan <shuah.kh@samsung.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] kselftest - What's in 3.17 and plans for 3.18
- and beyond
+Subject: [Ksummit-discuss] RFC: Kernel tinification - kernel config reduction
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -42,49 +29,52 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+I'd like to raise an issue, ahead of the kernel summit, on the topic of red=
+ucing
+kernel config options. (Or, at least, reducing the combinatorial explosion =
+effect
+for config options).
 
---Vs8imIC20X8526NW
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Earlier this year when some patches were submitted to make the network
+stack more configurable, there was some pushback, due (in part) to the
+introduction of more kernel config options.
+See http://thread.gmane.org/gmane.linux.kernel/1696910
+I think it is reasonable to be concerned over the testability of myriad con=
+fig
+options.
 
-On Wed, Aug 13, 2014 at 09:40:34AM -0700, Olof Johansson wrote:
+In the past, there have been efforts to curb the number of kernel config
+options, but since we now stand at about 15,000 options throughout the
+kernel, this seems like a battle we've mostly given up on.
 
-> Yeah, I'm in the same boat (but I don't have a public git repo with my
-> scripts). They're all just big hacks to get things going, and I'm not
-> so sure it makes sense to collaborate on them too much. pyboot has
-> been useful to share between us, but even there it's been more work to
-> share a code base than having separate copies and borrowing ideas.
+I propose that we remove or hide a lot of the configuration options related
+to size, and instead focus on size profiles. When someone wants to build a
+minimal Linux system, they don't really want to manually trim down every
+Linux sub-system.  The more common development case is that they want
+a fully minimal Linux system, except for one or two areas where they want
+some flexibility in features.  I propose that we tie most of the options th=
+at
+are currently in the kernel for size reasons to a single or a few meta-opti=
+ons:
+e.g. CONFIG_SMALL, CONFIG_TINY, CONFIG_RIDICULOUS.  These
+different meta-config options can get better testing, and this will help cu=
+rb
+the proliferation of size-related config options (and the resulting test
+combination explosion for those individual options.)
 
-> If things get turned too generic then they just become more cumbersome
-> to modify and improve (or even use).
+Note that this would be for sub-system related (feature or size) config opt=
+ions,
+and not driver-related config options.  Obviously, you have to have drivers
+for the hardware you plan to run on.
 
-I think the reporting side is a lot more tractable than the execution
-side here - there's enough going on with crunching a set of build and
-boot logs into a useful report to be useful and it's a pretty common
-need.  The execution side is different, that's a lot more likely to be
-tied into the environment especially once you start running actual
-runtime tests, but there's still common elements.
+Optimally it would be nice to have the ability to configure a small system,=
+ and
+then "back off" of the tiny config in a particular area (say networking).
+I believe this would yield a much more tractable system for building small
+systems with Linux, than the current situation.
 
---Vs8imIC20X8526NW
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
+I'd like to discuss implementation ideas for this in the hallway track at K=
+S.
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBAgAGBQJT65w9AAoJELSic+t+oim9W3cQAJA7mfyL9El/yYEnTDx79Xg4
-Crmb8fUCqPzR2wK59qOpBvqIsObvpNuwR8sdCeuu2MZfmeqxAi3d41IHiynQohb6
-eM0GygnE75S89eDzXsc+A+dqltW53yabQtGcoYZRpCO/r9lXRfJOeaya9aHWGKOT
-Saf/MkNuZVbKnPcY5icmddlfw1JlM5drTLocjUY+CCp9NhgSFW2vdxKo2f8W3Rbh
-M1wHd7G14Sdw0J2tT9nwTMW591AO8u4UWTeghy3axqRhAK27KoD18TGdtUWZGPEm
-gXINSdhahMpO6gOIsYzftjsksZ9O+Uy1y/znYP0TKTny6sZCNGvAZI0a1vzBeFRB
-OmRP5C6eSGjlz5yMcTWlTubT9pMhQA078Iodaa44NR8/WFT44w3GoJEZsdKzAh9u
-7nzLenxaa/nFcuD2VzsXp11pOZ6L6zNPSgW2qYaFlUVZwYB05K1rQO1sy+5Xgsi4
-7bZ2Tazn7DI9GoLVdjaBqFCg2wPMhr9Yyq94p6sif1OIZiBrcqsygnHNbvPsU2E1
-edoIm+FFe7/3DR8f4m3C8sO5oYHKmS5VJBnKL8uXfJf2KtfRERjkZ3wgS1twvQWi
-Jn98K3OTGWFNJk48uXTVqRXN+z9wYmpD+mKMSXNZZKJRiqPl2l1wVTC3AyVAQcHr
-YQd9hSuan2gdLspOqoUt
-=g++q
------END PGP SIGNATURE-----
-
---Vs8imIC20X8526NW--
+Thoughts?=20
+ -- Tim=
