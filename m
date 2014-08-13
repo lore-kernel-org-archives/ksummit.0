@@ -1,24 +1,37 @@
-Return-Path: <joseph_myers@mentor.com>
+Return-Path: <kevin.hilman@linaro.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1D035681
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 27552681
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 13 Aug 2014 12:05:45 +0000 (UTC)
-Received: from relay1.mentorg.com (relay1.mentorg.com [192.94.38.131])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B0F7420224
+	Wed, 13 Aug 2014 15:00:44 +0000 (UTC)
+Received: from mail-qc0-f173.google.com (mail-qc0-f173.google.com
+	[209.85.216.173])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 967302020C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 13 Aug 2014 12:05:44 +0000 (UTC)
-Date: Wed, 13 Aug 2014 12:05:38 +0000
-From: "Joseph S. Myers" <joseph@codesourcery.com>
-To: John Stultz <john.stultz@linaro.org>
-In-Reply-To: <CALAqxLUcfaJnxdmkn6mucepNk3QaCQdcSPLRjjeKsk_OTp=uLA@mail.gmail.com>
-Message-ID: <Pine.LNX.4.64.1408131204480.1607@digraph.polyomino.org.uk>
-References: <CALAqxLUcfaJnxdmkn6mucepNk3QaCQdcSPLRjjeKsk_OTp=uLA@mail.gmail.com>
+	Wed, 13 Aug 2014 15:00:43 +0000 (UTC)
+Received: by mail-qc0-f173.google.com with SMTP id w7so4192207qcr.32
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 13 Aug 2014 08:00:42 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="US-ASCII"
-Cc: lkml <linux-kernel@vger.kernel.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] 2038 Kernel Summit Discussion Fodder
+In-Reply-To: <20140813104053.GK17528@sirena.org.uk>
+References: <53E38ED5.9000300@samsung.com> <53E43365.50809@hitachi.com>
+	<53E8CF03.6020308@samsung.com> <53E8EB93.8030301@hitachi.com>
+	<20140812130043.4894DC40C5C@trevor.secretlab.ca>
+	<53EA3DA0.2070407@roeck-us.net>
+	<CACxGe6vYNjEAZT6YhB5WNyh40urSEVRbmVaWjEt6nQNUbgMbPw@mail.gmail.com>
+	<20140812164922.GS17528@sirena.org.uk>
+	<CACxGe6vu6P=KsP7O09afqzgdx2Xh11N9t_C0VKJ9T+yY-_3m6A@mail.gmail.com>
+	<20140813104053.GK17528@sirena.org.uk>
+Date: Wed, 13 Aug 2014 08:00:42 -0700
+Message-ID: <CAGa+x870XoA8Yi6BCOq7EsOQRjmKUpM3AAwhP_Y30eEbrkcHPg@mail.gmail.com>
+From: Kevin Hilman <khilman@linaro.org>
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Cc: shuah.kh@samsung.com, "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] kselftest - What's in 3.17 and plans for 3.18
+ and beyond
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -28,11 +41,38 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Please include linux-api on such discussions relating to the kernel / 
-userspace interface.  I'm likely to pay more attention to them if I 
-receive them through linux-api than anything only received through direct 
-email.
+On Wed, Aug 13, 2014 at 3:40 AM, Mark Brown <broonie@kernel.org> wrote:
+> On Wed, Aug 13, 2014 at 07:26:28AM +0100, Grant Likely wrote:
+>> On Tue, Aug 12, 2014 at 5:49 PM, Mark Brown <broonie@kernel.org> wrote:
+>
+>> > While we're working on things like this it's probably worth getting the
+>> > scripts Kevin, Olof and I use for build and boot test reporting (I only
+>> > run them, I've not contributed anything) or something like them into
+>> > scripts/ - they're pretty good and having a common format makes things
+>> > easier when looking at multiple reports.
+>
+>> Where is the current copy of those scripts?
+>
+> Kevin's copy is here:
+>
+>    git://git.linaro.org/people/khilman/build-scripts.git
 
--- 
-Joseph S. Myers
-joseph@codesourcery.com
+FWIW, that repo is just a hodge-podge collection of various build/boot
+scripts I'm using.  I just cleaned it up a little and removed a bunch
+of them that I no longer use.
+
+They get the job done for me, but are certainly not pretty.
+
+Also for boot testing, the main tool I'm  using is pyboot, which is
+essentially a tool to automate u-boot/fastboot over the serial
+console.  It relies heavily on conmux to abstract the console and
+power cycling.
+
+    https://git.linaro.org/people/kevin.hilman/pyboot.git
+
+In any case, the combination of those build-scripts and pyboot are
+what I'm using to generated the automated build/boot reports I'm
+sending to the kernel-build-reports list (e.g.
+http://lists.linaro.org/pipermail/kernel-build-reports/2014-August/004862.html)
+
+Kevin
