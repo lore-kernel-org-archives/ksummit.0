@@ -1,26 +1,27 @@
 Return-Path: <arnd@arndb.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 635CCAFB
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 49208AA6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 13 Aug 2014 20:06:35 +0000 (UTC)
+	Wed, 13 Aug 2014 20:27:54 +0000 (UTC)
 Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.24])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7FE292038C
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4DAB820353
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 13 Aug 2014 20:06:34 +0000 (UTC)
+	Wed, 13 Aug 2014 20:27:53 +0000 (UTC)
 From: Arnd Bergmann <arnd@arndb.de>
 To: ksummit-discuss@lists.linuxfoundation.org
-Date: Wed, 13 Aug 2014 22:06:19 +0200
-Message-ID: <3758173.O0N9ZgmMoN@wuerfel>
-In-Reply-To: <1407895613.3017.138.camel@deadeye.wl.decadent.org.uk>
-References: <CALAqxLUcfaJnxdmkn6mucepNk3QaCQdcSPLRjjeKsk_OTp=uLA@mail.gmail.com>
-	<1407895613.3017.138.camel@deadeye.wl.decadent.org.uk>
+Date: Wed, 13 Aug 2014 22:27:46 +0200
+Message-ID: <2616114.Ne3BsHa212@wuerfel>
+In-Reply-To: <53EADF3F.20909@linaro.org>
+References: <53EAAC95.7080301@linaro.org> <20140813013342.GB6783@cloud>
+	<53EADF3F.20909@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-Cc: John Stultz <john.stultz@linaro.org>, lkml <linux-kernel@vger.kernel.org>,
-	"Joseph S. Myers" <joseph@codesourcery.com>
-Subject: Re: [Ksummit-discuss] 2038 Kernel Summit Discussion Fodder
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Cc: John Stultz <john.stultz@linaro.org>,
+	"Joseph S. Myers" <joseph@codesourcery.com>,
+	lkml <linux-kernel@vger.kernel.org>
+Subject: Re: [Ksummit-discuss] (Resend) 2038 Kernel Summit Discussion Fodder
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,27 +31,160 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wednesday 13 August 2014 03:06:53 Ben Hutchings wrote:
-> > On the kernel side, it also adds more complexity, where we have to add
-> > even more complex compat support for 64bit systems to handle all the
-> > various 32bit applications possible.
-> [...]
-> 
-> Didn't we need to do this already to support x32?  Have compat ioctls
-> involving time been botched?
+On Tuesday 12 August 2014 20:45:03 John Stultz wrote:
+> On 08/12/2014 06:33 PM, josh@joshtriplett.org wrote:
+> > On Tue, Aug 12, 2014 at 05:08:53PM -0700, John Stultz wrote:
+> >> Also, just to clarify, as time related discussions can bring out a=
+ laundry
+> >> list of issues, I would like to focus this discussion on providing=
+ a 2038
+> >> solution for existing interfaces and applications in a way that id=
+eally
+> >> doesn't require modifying application source code.  While there wi=
+ll be
+> >> plenty of places where applications have cast or stored time_t val=
+ues
+> >> explicitly as longs, and for those applications, deep modification=
+s will be
+> >> necessary. But I=E2=80=99d like to avoid getting into new-interfac=
+e discussions,
+> >> like exporting ktime_t like nanosecond interfaces instead of timep=
+secs,
+> >> unifying time-stamping formats, or methods for avoiding leapsecond=
+s. Those
+> >> are all interesting issues, and I=E2=80=99d be up for discussing t=
+hem separately,
+> >> but those issue apply equally to 32bit and 64bit systems, and real=
+ly aren't
+> >> 2038 specific, so I think its best to separate them out.
+> > That's understandable.  However, I wonder to what extent we could
+> > support unmodified source code via libc wrappers (since code callin=
+g
+> > syscalls directly can't work completely unmodified), while using be=
+tter
+> > interfaces for new syscalls.  Given syscalls written in terms of (f=
+or
+> > instance) nanoseconds rather than timespec values, it seems
+> > straightforward enough for libc to provide compatibility interfaces=
+.
+>=20
+> So we'd be then introducing new syscalls not just for 32bit but 64bit=
 
-AFAICT, every ioctl that involves passing a __kernel_ulong_t or
-__kernel_ulong_t is potentially broken on x32, and this includes
-everything passing a time_t or timespec.
+> systems as well, and its a fairly substantial list:
+>     http://kernelnewbies.org/y2038
+>=20
+> Again, I worry that just getting time_t to be 64bits is a big enough
+> problem to solve without trying to mix in interface preference
+> discussions along, adding totally new interfaces, coordinating all th=
+e
+> libcs out there to provide wrappers, and then deprecating the old
+> interfaces.
+>=20
+> If there are more desirable interfaces wanted, I really think that ne=
+eds
+> to be a separate topic from fixing the ones we have.
 
-The problem is that the libc ioctl() function ends up in the kernel's
-compat_ioctl handler, which expects the 32-bit ABI, not the 64-bit ABI.
-Most other syscalls in x32 however use the 64-bit ABI.
+Agreed. I originally argued the same ways as Josh in the conversations
+we had a few weeks ago, but I think you are right.
 
-It works only for drivers that use the same function for .ioctl and
-.compat_ioctl, and that encode the size of the data structure correctly
-in the ioctl command code. I assume this is how we will do it for all
-32-bit architectures with 64-bit time_t, but on x32 it also concerns
-other types that use __kernel_long_t.
+It essentially comes down to the question what code paths we want to
+change. Introducing completely new syscall ABIs means we also have to
+change all 64-bit architectures to support those, while the plain
+1:1 replacement means we only impact the 32-bit native and compat
+(under a 64-bit kernel) cases that actually want this change.
 
-	Arnd
+> > If we go this route, we should also provide a "depends on EMBEDDED"=
+
+> > Kconfig option that omits all of the compatibility support, for sys=
+tems
+> > that have fully migrated to new userspace.
+>=20
+> Right, though I think for any of the solutions, having methods to
+> actually remove support for the 2038 unsafe interfaces is important t=
+o
+> help ensure systems are completely converted.
+
+Yes. The way I'd do this is to introduce a new 'CONFIG_COMPAT_TIME' sym=
+bol
+that initially designates the architectures that are have assigned sysc=
+all
+numbers to the newly introduced calls, turning e.g.
+
+SYSCALL_DEFINE4(clock_nanosleep, const clockid_t, which_clock, int, fla=
+gs,
+                const struct timespec __user *, rqtp,
+                struct timespec __user *, rmtp)
+{
+=09...
+}
+
+into this:
+
+#if defined(CONFIG_COMPAT_TIME) || defined(CONFIG_64BIT)
+#define __kernel_timespec __kernel_timespec64
+#else
+#define __kernel_timespec __kernel_timespec32
+#endif
+
+#ifdef CONFIG_COMPAT_TIME
+SYSCALL_DEFINE4(compat_clock_nanosleep, const clockid_t, which_clock, i=
+nt, flags,
+                const struct __kernel_timespec32 __user *, rqtp,
+                struct __kernel_timespec32 __user *, rmtp)
+{
+=09...
+}
+#endif
+
+SYSCALL_DEFINE4(clock_nanosleep, const clockid_t, which_clock, int, fla=
+gs,
+                const struct __kernel_timespec __user *, rqtp,
+                struct __kernel_timespec __user *, rmtp)
+{
+=09...
+}
+
+Each 32-bit architecture (one at a time) has to change its syscall tabl=
+e
+so the __NR_clock_nanosleep entry points to the sys_compat_clock_nanosl=
+eep
+function, and it needs to assign a new number for sys_clock_nanosleep,
+and also do the same thing for all other syscalls involving time, and t=
+hen
+set CONFIG_COMPAT_TIME unconditionally.
+
+Once all architectures do this, we can turn CONFIG_COMPAT_TIME into a
+user-selectable option and turn it off for any system that wants to ens=
+ure
+it either works now or doesn't work, but does not break in 24 years fro=
+m
+now.
+
+> > I wonder: could we make this new architecture effectively use the
+> > signatures of the 64-bit syscalls (similar to x32), just with a 32-=
+bit
+> > calling convention?
+>=20
+> So if you mean on 64bit systems, having the 2038-safe 32bit compat us=
+e
+> the same 64bit entry-points, I think that would be possible for some =
+of
+> the syscalls, but there's some where other data fields in structures
+> won't be expected to be 64bit. But I might not be understanding what
+> your suggesting.
+
+Of the syscalls I've looked at, all would be able to do it this way:
+you already have to introduce a new data structure at the libc-kernel
+interface, with the libc potentially translating it into a different
+format at least for legacy applications. An interesting case is 'struct=
+
+stat': All architectures that don't use the asm-generic/stat.h file
+have their own incompatible definition of this structure, and the
+asm-generic one gets it wrong too (this is my fault I admit). For the
+existing 32-bit architectures that also come with a 64-bit counterpart,=
+
+we have the choice to make each one use whatever their 64-bit ABI
+uses, or alternatively make them all use the same structure. Either
+way makes sense to me.
+
+=09Arnd
