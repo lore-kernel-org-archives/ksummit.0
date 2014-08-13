@@ -1,33 +1,37 @@
-Return-Path: <luto@amacapital.net>
+Return-Path: <olof@lixom.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 718BC523
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A11228A2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 13 Aug 2014 16:16:47 +0000 (UTC)
-Received: from mail-la0-f52.google.com (mail-la0-f52.google.com
-	[209.85.215.52])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id ABA1E2033A
+	Wed, 13 Aug 2014 16:40:36 +0000 (UTC)
+Received: from mail-vc0-f173.google.com (mail-vc0-f173.google.com
+	[209.85.220.173])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0650320339
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 13 Aug 2014 16:16:46 +0000 (UTC)
-Received: by mail-la0-f52.google.com with SMTP id b17so8109093lan.25
+	Wed, 13 Aug 2014 16:40:35 +0000 (UTC)
+Received: by mail-vc0-f173.google.com with SMTP id hy10so1465vcb.4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 13 Aug 2014 09:16:44 -0700 (PDT)
+	Wed, 13 Aug 2014 09:40:35 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <53EB8E4F.9090008@roeck-us.net>
+In-Reply-To: <CAGa+x870XoA8Yi6BCOq7EsOQRjmKUpM3AAwhP_Y30eEbrkcHPg@mail.gmail.com>
 References: <53E38ED5.9000300@samsung.com> <53E43365.50809@hitachi.com>
 	<53E8CF03.6020308@samsung.com> <53E8EB93.8030301@hitachi.com>
 	<20140812130043.4894DC40C5C@trevor.secretlab.ca>
-	<CACRpkdZL_1Enxd2dTnaEvZkHuCfV08f74ZOqFqaRtEdyMmwtvA@mail.gmail.com>
-	<53EB8E4F.9090008@roeck-us.net>
-From: Andy Lutomirski <luto@amacapital.net>
-Date: Wed, 13 Aug 2014 09:16:24 -0700
-Message-ID: <CALCETrXvoActJKwwfU_N6RmNP8xnhdAJ-Muf7hfmWquQOZzc-w@mail.gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>
+	<53EA3DA0.2070407@roeck-us.net>
+	<CACxGe6vYNjEAZT6YhB5WNyh40urSEVRbmVaWjEt6nQNUbgMbPw@mail.gmail.com>
+	<20140812164922.GS17528@sirena.org.uk>
+	<CACxGe6vu6P=KsP7O09afqzgdx2Xh11N9t_C0VKJ9T+yY-_3m6A@mail.gmail.com>
+	<20140813104053.GK17528@sirena.org.uk>
+	<CAGa+x870XoA8Yi6BCOq7EsOQRjmKUpM3AAwhP_Y30eEbrkcHPg@mail.gmail.com>
+Date: Wed, 13 Aug 2014 09:40:34 -0700
+Message-ID: <CAOesGMjEMG9+uxeg_zPhhZFPi9ZdvdxapjypGLrCVtxGZh0Ejw@mail.gmail.com>
+From: Olof Johansson <olof@lixom.net>
+To: Kevin Hilman <khilman@linaro.org>
 Content-Type: text/plain; charset=UTF-8
-Cc: shuah.kh@samsung.com, "ksummit-discuss@lists.linuxfoundation.org"
+Cc: Shuah Khan <shuah.kh@samsung.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Rob Landley <rob@landley.net>
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] kselftest - What's in 3.17 and plans for 3.18
  and beyond
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -39,52 +43,49 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Aug 13, 2014 at 9:11 AM, Guenter Roeck <linux@roeck-us.net> wrote:
-> On 08/13/2014 01:35 AM, Linus Walleij wrote:
+On Wed, Aug 13, 2014 at 8:00 AM, Kevin Hilman <khilman@linaro.org> wrote:
+> On Wed, Aug 13, 2014 at 3:40 AM, Mark Brown <broonie@kernel.org> wrote:
+>> On Wed, Aug 13, 2014 at 07:26:28AM +0100, Grant Likely wrote:
+>>> On Tue, Aug 12, 2014 at 5:49 PM, Mark Brown <broonie@kernel.org> wrote:
 >>
->> On Tue, Aug 12, 2014 at 3:00 PM, Grant Likely <grant.likely@secretlab.ca>
->> wrote:
->>>
->>> On Tue, 12 Aug 2014 01:13:07 +0900, Masami Hiramatsu
->>> <masami.hiramatsu.pt@hitachi.com> wrote:
+>>> > While we're working on things like this it's probably worth getting the
+>>> > scripts Kevin, Olof and I use for build and boot test reporting (I only
+>>> > run them, I've not contributed anything) or something like them into
+>>> > scripts/ - they're pretty good and having a common format makes things
+>>> > easier when looking at multiple reports.
 >>
+>>> Where is the current copy of those scripts?
 >>
->>>> I see, for that purpose, installing testcase may not fit.
->>>> BTW, how would it cover cross-build?
->>>
->>>
->>> I'm interested in this as well. I'm working on a tool that crossbuilds a
->>> very simple busybox rootfs and boots in QEMU for as many architectures
->>> as possible. I want to make it easy to sanity test all the major
->>> architectures. Right now it does little more than boot to a login
->>> prompt, but I'd like to get the kselftests into it also.
+>> Kevin's copy is here:
 >>
->>
->> Hm that sounds like a goal similar to what Rob Landley has
->> described as one goal for Aboriginal Linux as well.
->> http://landley.net/aboriginal/about.html
->>
+>>    git://git.linaro.org/people/khilman/build-scripts.git
 >
-> Yes, and to some degree buildroot.
+> FWIW, that repo is just a hodge-podge collection of various build/boot
+> scripts I'm using.  I just cleaned it up a little and removed a bunch
+> of them that I no longer use.
 >
-> Rob's attempts to support multiple architectures also shows its limitations.
-> For example, his m68k images don't work, at least not for me, because the
-> machine he uses (q800) is not supported in qemu 1.6 or 2.0 or 2.1.
-> I have been unable to find a working combination of kernel configuration,
-> qemu version, qemu command line, and root file system for m68k. Presumably
-> that must exist, because qemu supports m68k, I just have not been able
-> to figure out how to make it work.
+> They get the job done for me, but are certainly not pretty.
 >
-> For my own qemu runtime tests, I ended up collecting root file systems and
-> kernel configurations from all over the place. And then there is the problem
-> of qemu command line parameters, where each target and architecture requires
-> its own set of options, and it is sometimes all but impossible to find a
-> working set of parameters for a given target/architecture combination.
+> Also for boot testing, the main tool I'm  using is pyboot, which is
+> essentially a tool to automate u-boot/fastboot over the serial
+> console.  It relies heavily on conmux to abstract the console and
+> power cycling.
 >
+>     https://git.linaro.org/people/kevin.hilman/pyboot.git
+>
+> In any case, the combination of those build-scripts and pyboot are
+> what I'm using to generated the automated build/boot reports I'm
+> sending to the kernel-build-reports list (e.g.
+> http://lists.linaro.org/pipermail/kernel-build-reports/2014-August/004862.html)
 
-virtme has exactly this problem (except for the root image part --
-virtme can use debootstrap output directly).  In virtme, I'm trying to
-solve it by just collecting known-working QEMU arguments and
-documenting the corresponding kernel config requirements.
+Yeah, I'm in the same boat (but I don't have a public git repo with my
+scripts). They're all just big hacks to get things going, and I'm not
+so sure it makes sense to collaborate on them too much. pyboot has
+been useful to share between us, but even there it's been more work to
+share a code base than having separate copies and borrowing ideas.
 
---Andy
+If things get turned too generic then they just become more cumbersome
+to modify and improve (or even use).
+
+
+-Olof
