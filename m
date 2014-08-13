@@ -1,33 +1,31 @@
-Return-Path: <linus.walleij@linaro.org>
+Return-Path: <catalin.marinas@arm.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 06369681
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id C8CD34D4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 13 Aug 2014 08:35:55 +0000 (UTC)
-Received: from mail-oa0-f50.google.com (mail-oa0-f50.google.com
-	[209.85.219.50])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6C3482028D
+	Wed, 13 Aug 2014 09:19:16 +0000 (UTC)
+Received: from collaborate-mta1.arm.com (fw-tnat.austin.arm.com
+	[217.140.110.23])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 7B2111F97E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 13 Aug 2014 08:35:54 +0000 (UTC)
-Received: by mail-oa0-f50.google.com with SMTP id g18so8100155oah.37
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 13 Aug 2014 01:35:53 -0700 (PDT)
+	Wed, 13 Aug 2014 09:19:16 +0000 (UTC)
+Date: Wed, 13 Aug 2014 10:18:37 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Andy Lutomirski <luto@amacapital.net>
+Message-ID: <20140813091837.GA18495@arm.com>
+References: <53EAAC95.7080301@linaro.org> <20140813013342.GB6783@cloud>
+	<CALCETrVP64FSJWyHHbm0R-2qTzN1Q5PwXh4k9+qjg1Q8bSud2w@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20140812130043.4894DC40C5C@trevor.secretlab.ca>
-References: <53E38ED5.9000300@samsung.com> <53E43365.50809@hitachi.com>
-	<53E8CF03.6020308@samsung.com> <53E8EB93.8030301@hitachi.com>
-	<20140812130043.4894DC40C5C@trevor.secretlab.ca>
-Date: Wed, 13 Aug 2014 10:35:53 +0200
-Message-ID: <CACRpkdZL_1Enxd2dTnaEvZkHuCfV08f74ZOqFqaRtEdyMmwtvA@mail.gmail.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-To: Grant Likely <grant.likely@secretlab.ca>
-Content-Type: text/plain; charset=UTF-8
-Cc: shuah.kh@samsung.com, Rob Landley <rob@landley.net>,
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CALCETrVP64FSJWyHHbm0R-2qTzN1Q5PwXh4k9+qjg1Q8bSud2w@mail.gmail.com>
+Cc: "Joseph S. Myers" <joseph@codesourcery.com>,
+	John Stultz <john.stultz@linaro.org>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] kselftest - What's in 3.17 and plans for 3.18
- and beyond
+	lkml <linux-kernel@vger.kernel.org>
+Subject: Re: [Ksummit-discuss] (Resend) 2038 Kernel Summit Discussion Fodder
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,25 +35,37 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Aug 12, 2014 at 3:00 PM, Grant Likely <grant.likely@secretlab.ca> wrote:
-> On Tue, 12 Aug 2014 01:13:07 +0900, Masami Hiramatsu <masami.hiramatsu.pt@hitachi.com> wrote:
+On Wed, Aug 13, 2014 at 02:37:11AM +0100, Andy Lutomirski wrote:
+> On Tue, Aug 12, 2014 at 6:33 PM,  <josh@joshtriplett.org> wrote:
+> > On Tue, Aug 12, 2014 at 05:08:53PM -0700, John Stultz wrote:
+> >> A more aggressive version of the previous proposal is what I’m calling the
+> >> “New Virtual-Architecture” approach, basically extending the versioning
+> >> control from the linker down into the kernel as well.  It would be adding a
+> >> new “virtual-architecture” to the kernel, not entirely unlike how x32 is
+> >> supported on x86_64 systems.  We would create entirely new ABI and
+> >> architecture name in the kernel (think something like “armllt” or
+> >> “i386llt”). We would preserve compatibility for legacy applications via
+> >> personalities, similar mechanism as the compat_ interface used to support
+> >> 32bit applications on 64bit kernels. In this case, we wouldn’t introduce
+> >> new 64 bit syscalls in the kernel, as the existing interfaces would just be
+> >> typed correctly for our new virtual architecture, but we would have
+> >> duplicate syscall interfaces via the compat interfaces. The extra
+> >> complexity would also be that we would have to support new 32bit compat
+> >> environment on 64bit systems. Userspace would be completely rebuilt to
+> >> support the new -llt architecture, and compatibility for legacy
+> >> applications would be done via the same multiarch packaging as is done now
+> >> for running 32bit applications on 64bit systems.
+> >
+> > I wonder: could we make this new architecture effectively use the
+> > signatures of the 64-bit syscalls (similar to x32), just with a 32-bit
+> > calling convention?
+> 
+> Doesn't x32 do the reverse?  It invokes *compat* syscalls using a
+> 64-bit calling convention.
 
->> I see, for that purpose, installing testcase may not fit.
->> BTW, how would it cover cross-build?
->
-> I'm interested in this as well. I'm working on a tool that crossbuilds a
-> very simple busybox rootfs and boots in QEMU for as many architectures
-> as possible. I want to make it easy to sanity test all the major
-> architectures. Right now it does little more than boot to a login
-> prompt, but I'd like to get the kselftests into it also.
+Not entirely. It uses 64-bit syscalls primarily with compat only when
+sharing structures containing pointers. We are working on something
+similar for arm64 (called the ILP32 ABI).
 
-Hm that sounds like a goal similar to what Rob Landley has
-described as one goal for Aboriginal Linux as well.
-http://landley.net/aboriginal/about.html
-
-If such cross builds are triggered from git pushes akin to how
-Fengguang's 0-day is already working we are in a positive
-flow I think.
-
-Yours,
-Linus Walleij
+-- 
+Catalin
