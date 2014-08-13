@@ -1,31 +1,35 @@
-Return-Path: <john.stultz@linaro.org>
+Return-Path: <glikely@secretlab.ca>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3A56B4D4
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D13184D4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 13 Aug 2014 04:04:01 +0000 (UTC)
-Received: from mail-pa0-f54.google.com (mail-pa0-f54.google.com
-	[209.85.220.54])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E0DB81F97E
+	Wed, 13 Aug 2014 06:26:49 +0000 (UTC)
+Received: from mail-ig0-f170.google.com (mail-ig0-f170.google.com
+	[209.85.213.170])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4FE662033D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 13 Aug 2014 04:04:00 +0000 (UTC)
-Received: by mail-pa0-f54.google.com with SMTP id fa1so14179727pad.13
+	Wed, 13 Aug 2014 06:26:49 +0000 (UTC)
+Received: by mail-ig0-f170.google.com with SMTP id h3so10275444igd.3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 12 Aug 2014 21:04:00 -0700 (PDT)
-Message-ID: <53EAE3AD.9040203@linaro.org>
-Date: Tue, 12 Aug 2014 21:03:57 -0700
-From: John Stultz <john.stultz@linaro.org>
+	Tue, 12 Aug 2014 23:26:48 -0700 (PDT)
 MIME-Version: 1.0
-To: Ben Hutchings <ben@decadent.org.uk>
-References: <CALAqxLUcfaJnxdmkn6mucepNk3QaCQdcSPLRjjeKsk_OTp=uLA@mail.gmail.com>
-	<1407895613.3017.138.camel@deadeye.wl.decadent.org.uk>
-In-Reply-To: <1407895613.3017.138.camel@deadeye.wl.decadent.org.uk>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Cc: "Joseph S. Myers" <joseph@codesourcery.com>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	lkml <linux-kernel@vger.kernel.org>
-Subject: Re: [Ksummit-discuss] 2038 Kernel Summit Discussion Fodder
+Sender: glikely@secretlab.ca
+In-Reply-To: <20140812164922.GS17528@sirena.org.uk>
+References: <53E38ED5.9000300@samsung.com> <53E43365.50809@hitachi.com>
+	<53E8CF03.6020308@samsung.com> <53E8EB93.8030301@hitachi.com>
+	<20140812130043.4894DC40C5C@trevor.secretlab.ca>
+	<53EA3DA0.2070407@roeck-us.net>
+	<CACxGe6vYNjEAZT6YhB5WNyh40urSEVRbmVaWjEt6nQNUbgMbPw@mail.gmail.com>
+	<20140812164922.GS17528@sirena.org.uk>
+From: Grant Likely <grant.likely@secretlab.ca>
+Date: Wed, 13 Aug 2014 07:26:28 +0100
+Message-ID: <CACxGe6vu6P=KsP7O09afqzgdx2Xh11N9t_C0VKJ9T+yY-_3m6A@mail.gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset=ISO-8859-1
+Cc: shuah.kh@samsung.com, ksummit-discuss@lists.linuxfoundation.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] kselftest - What's in 3.17 and plans for 3.18
+ and beyond
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,47 +39,23 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 08/12/2014 07:06 PM, Ben Hutchings wrote:
-> On Tue, 2014-08-12 at 17:01 -0700, John Stultz wrote:
-> [...]
->> The downsides here are many. The distros will probably hate this idea,=
-
-> I certainly hate the idea of adding another 32-bit port to Debian.
-> I think that it's OK for traditional distros to say 'just upgrade to
-> 64bit' while you solve the problem for 32-bit embedded systems where
-> there's probably little demand for supporting multiple ABIs at once.
-
-So I don't necessarily disagree, but if the rule really is "we don't
-break userspace" we will need a solution that at least allows for
-multiple ABIs from the kernel side, and we can then let distros chose if
-they want to handle both or not.  Even in the embedded world, as usage
-grows with things like Android, we're starting to see more strict needs
-for ABI/platform stability (see the ARMv8 SWP discussion from last
-month).  Fancy android based dashboard infotainment systems probably
-want to both be 2038 safe and run today's unsafe applications (hoping
-that they get upgraded eventually).
-
-
+On Tue, Aug 12, 2014 at 5:49 PM, Mark Brown <broonie@kernel.org> wrote:
+> On Tue, Aug 12, 2014 at 05:23:28PM +0100, Grant Likely wrote:
+>> On Tue, Aug 12, 2014 at 5:15 PM, Guenter Roeck <linux@roeck-us.net> wrote:
 >
->>  as it requires rebuilding the world, and maintaining another legacy
->> architecture support. I=E2=80=99m also not completely sure how robust
->> multi-arch packaging is in the face of having to handle 3-4
->> architectures on one system.
-> dpkg multiarch covers this just fine, while I believe RPM is limited to=
-
-> biarch.
+>> > Do you have that public yet ? I might want to use that for my -stable sanity
+>> > tests.
 >
->> On the kernel side, it also adds more complexity, where we have to add=
-
->> even more complex compat support for 64bit systems to handle all the
->> various 32bit applications possible.
-> [...]
+>> Nothing yet. It's currently hacked into my build environment script.
+>> I'm working on getting it into a form usable by others. Ideally I
+>> think it should go into the kernel tools/testing directory.
 >
-> Didn't we need to do this already to support x32?  Have compat ioctls
-> involving time been botched?
-I'm not sure exactly what you mean here, but yea, its very much like
-supporting something like x32, but its one more to the list and has to
-be supported on both 32 and 64 architectures.
+> While we're working on things like this it's probably worth getting the
+> scripts Kevin, Olof and I use for build and boot test reporting (I only
+> run them, I've not contributed anything) or something like them into
+> scripts/ - they're pretty good and having a common format makes things
+> easier when looking at multiple reports.
 
-thanks
--john
+Where is the current copy of those scripts?
+
+g.
