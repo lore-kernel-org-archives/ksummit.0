@@ -1,26 +1,35 @@
-Return-Path: <jack@suse.cz>
+Return-Path: <ilendir@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9E8AB910
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E9A50AD1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 14 Aug 2014 18:54:32 +0000 (UTC)
-Received: from mx2.suse.de (cantor2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E0482203A1
+	Thu, 14 Aug 2014 19:57:21 +0000 (UTC)
+Received: from mail-la0-f53.google.com (mail-la0-f53.google.com
+	[209.85.215.53])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id AA68E20334
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 14 Aug 2014 18:54:31 +0000 (UTC)
-Date: Thu, 14 Aug 2014 20:54:27 +0200
-From: Jan Kara <jack@suse.cz>
-To: "Bird, Tim" <Tim.Bird@sonymobile.com>
-Message-ID: <20140814185427.GB18743@quack.suse.cz>
-References: <F5184659D418E34EA12B1903EE5EF5FD0130D4AC5B90@seldmbx02.corpusers.net>
+	Thu, 14 Aug 2014 19:57:20 +0000 (UTC)
+Received: by mail-la0-f53.google.com with SMTP id gl10so1567111lab.26
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 14 Aug 2014 12:57:18 -0700 (PDT)
+Received: from ?IPv6:2001:638:a000:4142::ff0c:1ccf?
+	([2001:638:a000:4142::ff0c:1ccf])
+	by mx.google.com with ESMTPSA id kh9sm9252960lbc.5.2014.08.14.12.57.16
+	for <ksummit-discuss@lists.linuxfoundation.org>
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Thu, 14 Aug 2014 12:57:17 -0700 (PDT)
+Message-ID: <53ED149C.8030104@gmail.com>
+Date: Thu, 14 Aug 2014 21:57:16 +0200
+From: Stefan Hengelein <ilendir@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <F5184659D418E34EA12B1903EE5EF5FD0130D4AC5B90@seldmbx02.corpusers.net>
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+To: ksummit-discuss@lists.linuxfoundation.org
+References: <20140813180743.GB16662@roeck-us.net>
+In-Reply-To: <20140813180743.GB16662@roeck-us.net>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
 Subject: Re: [Ksummit-discuss] RFC: Kernel tinification - kernel config
  reduction
+Reply-To: stefan.hengelein@fau.de
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,51 +39,56 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed 13-08-14 19:29:21, Bird, Tim wrote:
-> I'd like to raise an issue, ahead of the kernel summit, on the topic of reducing
-> kernel config options. (Or, at least, reducing the combinatorial explosion effect
-> for config options).
-> 
-> Earlier this year when some patches were submitted to make the network
-> stack more configurable, there was some pushback, due (in part) to the
-> introduction of more kernel config options.
-> See http://thread.gmane.org/gmane.linux.kernel/1696910
-> I think it is reasonable to be concerned over the testability of myriad config
-> options.
-> 
-> In the past, there have been efforts to curb the number of kernel config
-> options, but since we now stand at about 15,000 options throughout the
-> kernel, this seems like a battle we've mostly given up on.
-> 
-> I propose that we remove or hide a lot of the configuration options related
-> to size, and instead focus on size profiles. When someone wants to build a
-> minimal Linux system, they don't really want to manually trim down every
-> Linux sub-system.  The more common development case is that they want
-> a fully minimal Linux system, except for one or two areas where they want
-> some flexibility in features.  I propose that we tie most of the options that
-> are currently in the kernel for size reasons to a single or a few meta-options:
-> e.g. CONFIG_SMALL, CONFIG_TINY, CONFIG_RIDICULOUS.  These
-> different meta-config options can get better testing, and this will help curb
-> the proliferation of size-related config options (and the resulting test
-> combination explosion for those individual options.)
-> 
-> Note that this would be for sub-system related (feature or size) config options,
-> and not driver-related config options.  Obviously, you have to have drivers
-> for the hardware you plan to run on.
-> 
-> Optimally it would be nice to have the ability to configure a small system, and
-> then "back off" of the tiny config in a particular area (say networking).
-> I believe this would yield a much more tractable system for building small
-> systems with Linux, than the current situation.
-  This somewhat reminds me a problem of selecting packages when
-installing a distro. There you can select different "patterns", where each
-pattern selects a set of packages. Then you can go and enable / disable
-individual packages if you care about fine-tuning the configuration. The
-patterns are like "Minimal system", "Minimal X System", "KDE Desktop",
-"Office suite", ... I think we could use a similar system for Kconfig.
+ > "My scope, which is more focused on testing, is a bit different.
+ > Major problem I see is that many architecture maintainers don't seem 
+to care
+ > about "make allmodconfig" and/or "make allyesconfig", meaning there is no
+ > simple means to at least compile-test all code that _can_ be enabled for
+ > a given architecture. And don't even mention "make randconfig".
+
+We [1] develop a tool (called 'vampyr'), which ships the desired 
+functionality of compile-testing source code.
+The Vampyr inspects the CPP blocks of a given source file and creates 
+one or more  configurations to maximize the code coverage.  Once the 
+configurations are generated, Vampyr triggers the compilation process on 
+the given source files and reports compiler issues (i.e., warnings and 
+errors) to the user.
+Furthermore, Vampyr offers an interface to specify compilers to allow 
+cross-compilation for other architectures such as ARM or MIPS. Note that 
+Vampyr expands the configurations with "KCONFIG_ALLCONFIG=file.config? 
+make allyesconfig", where  'allyesconfig' can be altered with the Vampyr 
+interface (e.g. to 'allnoconfig'). On the current Linux HEAD the tool 
+reaches a code coverage of 83 percent, whereas a plain "make 
+allyesconfig" covers 64 percent of the source code [5]. You can find 
+further information about the tool in a recently published paper on 
+USENIX'14 [2].
 
 
-								Honza
--- 
-Jan Kara <jack@suse.cz>
-SUSE Labs, CR
+ > Furthermore, allnoconfig disables CONFIG_MMU on architectures that 
+support
+ > nommu, which is less interesting, and thus need a KCONFIG_ALLCONFIG=
+ > trick (I'd love to have just "make CONFIG_MMU=y allnoconfig" instead).
+
+If you want to forcefully set specific features to be always off or 
+always on, you can specify an additional whitelist and/or a blacklist.
+
+For more information check out [3] or download the tarball containing 
+the tool here [4].
+If you have questions or desire more information about the tool, feel 
+free to contact us.
+
+Best Regards,
+  Andreas Ruprecht, Valentin Rothberg, Stefan Hengelein
+
+[1] https://www4.cs.fau.de/Research/CADOS/
+[2] https://www4.cs.fau.de/Publications/2014/tartler_14_usenix.pdf
+[3] http://vamos.informatik.uni-erlangen.de/trac/undertaker/wiki
+[4] http://vamos.informatik.uni-erlangen.de/files/undertaker-1.5.tar.xz
+[5] 
+https://vamos.informatik.uni-erlangen.de/jenkins/job/vamos-linux-expansion-stats-weekly/103/artifact/expansion-bigtable.pdf 
+user: public pw: i4guest
+
+PS: Another interesting tool (unfortunately it's still in development) 
+may be 'undertaker-checkpatch', which can be used to check Git commits 
+for #ifdef-related bugs. We are planning to enhance this tool to run a 
+Vampyr compile-test analysis on affected files.
