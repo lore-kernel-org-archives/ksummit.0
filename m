@@ -1,30 +1,24 @@
-Return-Path: <geert.uytterhoeven@gmail.com>
+Return-Path: <linux@roeck-us.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 26D8FADF
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5389DAFF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 14 Aug 2014 07:50:02 +0000 (UTC)
-Received: from mail-la0-f48.google.com (mail-la0-f48.google.com
-	[209.85.215.48])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 48EF7201A9
+	Thu, 14 Aug 2014 08:50:09 +0000 (UTC)
+Received: from mail.active-venture.com (mail.active-venture.com
+	[67.228.131.205])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id BDB321F8B2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 14 Aug 2014 07:50:01 +0000 (UTC)
-Received: by mail-la0-f48.google.com with SMTP id gl10so683520lab.35
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 14 Aug 2014 00:49:59 -0700 (PDT)
+	Thu, 14 Aug 2014 08:50:08 +0000 (UTC)
+Message-ID: <53EC7839.3010704@roeck-us.net>
+Date: Thu, 14 Aug 2014 01:50:01 -0700
+From: Guenter Roeck <linux@roeck-us.net>
 MIME-Version: 1.0
-Sender: geert.uytterhoeven@gmail.com
-In-Reply-To: <20140814001450.GW17528@sirena.org.uk>
-References: <F5184659D418E34EA12B1903EE5EF5FD0130D4AC5B90@seldmbx02.corpusers.net>
-	<20140813180743.GB16662@roeck-us.net>
-	<CAMuHMdVEYEsk1EtBbAAinJ=7m5SRh-w4DZb=_N0gaMgpvtRadw@mail.gmail.com>
-	<20140813224507.GA29606@roeck-us.net>
-	<20140814001450.GW17528@sirena.org.uk>
-Date: Thu, 14 Aug 2014 09:49:59 +0200
-Message-ID: <CAMuHMdUH_7KL0KCsZEL91m2YKwBBGTQEcYfQRQsHLcQ8LXHpkQ@mail.gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-To: Mark Brown <broonie@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+References: <F5184659D418E34EA12B1903EE5EF5FD0130D4AC5B90@seldmbx02.corpusers.net>	<20140813180743.GB16662@roeck-us.net>	<CAMuHMdVEYEsk1EtBbAAinJ=7m5SRh-w4DZb=_N0gaMgpvtRadw@mail.gmail.com>	<20140813224507.GA29606@roeck-us.net>
+	<CAMuHMdXZWhLtTzUnPymSt-P=viz7O7fq8nFaM-mHLT+XMnRJcA@mail.gmail.com>
+In-Reply-To: <CAMuHMdXZWhLtTzUnPymSt-P=viz7O7fq8nFaM-mHLT+XMnRJcA@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
 Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] RFC: Kernel tinification - kernel config
@@ -38,40 +32,53 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Mark,
+Hi Geert,
 
-On Thu, Aug 14, 2014 at 2:14 AM, Mark Brown <broonie@kernel.org> wrote:
-> On Wed, Aug 13, 2014 at 03:45:07PM -0700, Guenter Roeck wrote:
->> > The few allmodconfig/allyesconfig builds on
->> > kisskb.ellerman.id.au/kisskb/matrix/ are actually not in such a bad shape.
->> > Shall more be added?
+On 08/14/2014 12:40 AM, Geert Uytterhoeven wrote:
+
+>>>
+>> Maybe something like
+>>
+>> make PCI=n allmodconfig
+>> make GPIOLIB=n allmodconfig
+>>
+>> which would let me disable key options selectively so I can improve compile
+>> coverage without having to go through all configurations (or randconfig).
 >
-> I can't get that site to load...
+> That's doable, using KCONFIG_ALLCONFIG.
+>
+I'll play with it some more, but a quick glance (and test) suggests that I can
+only use it to force a configuration option to be true, not to force it to
+be false. Also, there seems to be an odd side effect.
 
-Sometimes it's slow, sometimes it's fast...
+With
+	kconfig.gpio:	"CONFIG_GPIOLIB=y"
+and
+	kconfig.nogpio:	"# CONFIG_GPIOLIB is not set"
 
-> allnoconfig is interesting too for similar reasons.
+KCONFIG_ALLCONFIG=kconfig.gpio make allnoconfig
+	causes CONFIG_GPIOLIB to be set.
 
-Yes, but given you can't actually boot it, it usually receives even less care
-than allmodconfig.
+KCONFIG_ALLCONFIG=kconfig.gpio make allmodconfig
+KCONFIG_ALLCONFIG=kconfig.nogpio make allmodconfig
+	both have the odd and at least for me unexpected effect of disabling
+	CONFIG_MODULES, but do not affect CONFIG_GPIOLIB.
 
-Plus you have to band-aid various trivia, like
-  - NR_IRQS being zero,
-  - No CPU or platform code included, causing link errors (e.g. head.o is
-    not built on m68k),
-  - ...
+>>> You also only build some of the allmodconfigs?
+>>>
+>> Never "only". I always also build defconfig, plus at least sometimes a couple
+>> of additional configurations (if available) to improve coverage of conditional
+>> functionality.
+>
+> Sorry, should have said "only some of the allmodconfigs".
+> I noticed for e.g. m68k you build defconfig and allmodconfig (and a nommu
+> config), but for some other architectures only defconfig.
+>
+I only use 'allmodconfig' and/or 'allyesconfig' if I can be reasonably sure
+that the architecture maintainers care about it. That goes back to 3.10ish
+when I started the -stable-queue builds; I only added allmodconfig/allyesconfig
+to the list of builds if it built when I added the architecture. I didn't check
+recently if I can add some more, so I may miss a couple of architectures
+which do now build.
 
-Furthermore, allnoconfig disables CONFIG_MMU on architectures that support
-nommu, which is less interesting, and thus need a KCONFIG_ALLCONFIG=
-trick (I'd love to have just "make CONFIG_MMU=y allnoconfig" instead).
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Guenter
