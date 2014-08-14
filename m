@@ -1,30 +1,30 @@
 Return-Path: <geert.uytterhoeven@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id E2DCCAA6
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 26D8FADF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 14 Aug 2014 07:40:23 +0000 (UTC)
-Received: from mail-lb0-f177.google.com (mail-lb0-f177.google.com
-	[209.85.217.177])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D1C331F8C2
+	Thu, 14 Aug 2014 07:50:02 +0000 (UTC)
+Received: from mail-la0-f48.google.com (mail-la0-f48.google.com
+	[209.85.215.48])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 48EF7201A9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 14 Aug 2014 07:40:22 +0000 (UTC)
-Received: by mail-lb0-f177.google.com with SMTP id s7so654687lbd.22
+	Thu, 14 Aug 2014 07:50:01 +0000 (UTC)
+Received: by mail-la0-f48.google.com with SMTP id gl10so683520lab.35
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 14 Aug 2014 00:40:20 -0700 (PDT)
+	Thu, 14 Aug 2014 00:49:59 -0700 (PDT)
 MIME-Version: 1.0
 Sender: geert.uytterhoeven@gmail.com
-In-Reply-To: <20140813224507.GA29606@roeck-us.net>
+In-Reply-To: <20140814001450.GW17528@sirena.org.uk>
 References: <F5184659D418E34EA12B1903EE5EF5FD0130D4AC5B90@seldmbx02.corpusers.net>
 	<20140813180743.GB16662@roeck-us.net>
 	<CAMuHMdVEYEsk1EtBbAAinJ=7m5SRh-w4DZb=_N0gaMgpvtRadw@mail.gmail.com>
 	<20140813224507.GA29606@roeck-us.net>
-Date: Thu, 14 Aug 2014 09:40:20 +0200
-Message-ID: <CAMuHMdXZWhLtTzUnPymSt-P=viz7O7fq8nFaM-mHLT+XMnRJcA@mail.gmail.com>
+	<20140814001450.GW17528@sirena.org.uk>
+Date: Thu, 14 Aug 2014 09:49:59 +0200
+Message-ID: <CAMuHMdUH_7KL0KCsZEL91m2YKwBBGTQEcYfQRQsHLcQ8LXHpkQ@mail.gmail.com>
 From: Geert Uytterhoeven <geert@linux-m68k.org>
-To: Guenter Roeck <linux@roeck-us.net>
+To: Mark Brown <broonie@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
 Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] RFC: Kernel tinification - kernel config
@@ -38,84 +38,40 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi G=C3=BCnther,
+Hi Mark,
 
-On Thu, Aug 14, 2014 at 12:45 AM, Guenter Roeck <linux@roeck-us.net> wrote:
-> On Wed, Aug 13, 2014 at 09:53:58PM +0200, Geert Uytterhoeven wrote:
->> On Wed, Aug 13, 2014 at 8:07 PM, Guenter Roeck <linux@roeck-us.net> wrot=
-e:
->> > Major problem I see is that many architecture maintainers don't seem t=
-o care
->> > about "make allmodconfig" and/or "make allyesconfig", meaning there is=
- no
->> > simple means to at least compile-test all code that _can_ be enabled f=
-or
->> > a given architecture. And don't even mention "make randconfig".
->>
->> There are still architectures that don't support multi-platform kernels,=
- which
->> is a requirement for good coverage.
->>
-> This is not about creating a working kernel, but for compile tests. I hav=
-e
-> separate configurations to test working kernels. But I would prefer to bu=
-ild,
-
-If you manage to fix the duplicate symbols due to combining multiple
-single-platform configs into one kernel image, why not go to the next step
-to make it actually work, if possible?
-
-E.g. a m68k allmodconfig kernel is supposed to work (actually haven't tried
-that since we fixed the 4 MiB kernel size limit to make multi_defconfig wor=
-k
-in the not-so-tiny new world order).
-
-> say, no more than half a dozen arm configurations instead of the 40 in my
-> current build list.
-
-For ARM, this is (slowly) being fixed. Stay tuned for 2-3 more years ;-)
-
->> An alternative could be to have several allmodconfig builds, one for eac=
-h
->> subset that can't be built-in together, like
->>
->> make CONFIG_SUBSET_FOO=3Dy allmodconfig
->> make CONFIG_SUBSET_BAR=3Dy allmodconfig
->> ...
->>
-> Maybe something like
+On Thu, Aug 14, 2014 at 2:14 AM, Mark Brown <broonie@kernel.org> wrote:
+> On Wed, Aug 13, 2014 at 03:45:07PM -0700, Guenter Roeck wrote:
+>> > The few allmodconfig/allyesconfig builds on
+>> > kisskb.ellerman.id.au/kisskb/matrix/ are actually not in such a bad shape.
+>> > Shall more be added?
 >
-> make PCI=3Dn allmodconfig
-> make GPIOLIB=3Dn allmodconfig
->
-> which would let me disable key options selectively so I can improve compi=
-le
-> coverage without having to go through all configurations (or randconfig).
+> I can't get that site to load...
 
-That's doable, using KCONFIG_ALLCONFIG.
+Sometimes it's slow, sometimes it's fast...
 
->> You also only build some of the allmodconfigs?
->>
-> Never "only". I always also build defconfig, plus at least sometimes a co=
-uple
-> of additional configurations (if available) to improve coverage of condit=
-ional
-> functionality.
+> allnoconfig is interesting too for similar reasons.
 
-Sorry, should have said "only some of the allmodconfigs".
-I noticed for e.g. m68k you build defconfig and allmodconfig (and a nommu
-config), but for some other architectures only defconfig.
+Yes, but given you can't actually boot it, it usually receives even less care
+than allmodconfig.
+
+Plus you have to band-aid various trivia, like
+  - NR_IRQS being zero,
+  - No CPU or platform code included, causing link errors (e.g. head.o is
+    not built on m68k),
+  - ...
+
+Furthermore, allnoconfig disables CONFIG_MMU on architectures that support
+nommu, which is less interesting, and thus need a KCONFIG_ALLCONFIG=
+trick (I'd love to have just "make CONFIG_MMU=y allnoconfig" instead).
 
 Gr{oetje,eeting}s,
 
                         Geert
 
 --
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
                                 -- Linus Torvalds
