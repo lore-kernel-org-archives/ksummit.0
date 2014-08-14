@@ -1,36 +1,33 @@
-Return-Path: <grant.likely@secretlab.ca>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A25629DE
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 74B008FE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 14 Aug 2014 16:35:38 +0000 (UTC)
-Received: from mail-wg0-f51.google.com (mail-wg0-f51.google.com [74.125.82.51])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D878620356
+	Thu, 14 Aug 2014 16:39:33 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E6FC0201F1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 14 Aug 2014 16:35:37 +0000 (UTC)
-Received: by mail-wg0-f51.google.com with SMTP id b13so1337423wgh.22
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 14 Aug 2014 09:35:36 -0700 (PDT)
-Sender: Grant Likely <glikely@secretlab.ca>
-From: Grant Likely <grant.likely@secretlab.ca>
-To: Steven Rostedt <rostedt@goodmis.org>, Tim Bird
-	<tim.bird@sonymobile.com>
-In-Reply-To: <20140812140637.412540bc@gandalf.local.home>
-References: <53E38ED5.9000300@samsung.com> <53E43365.50809@hitachi.com>
-	<53E8CF03.6020308@samsung.com> <53E8EB93.8030301@hitachi.com>
-	<20140812130043.4894DC40C5C@trevor.secretlab.ca>
-	<53EA3DA0.2070407@roeck-us.net>
-	<CACxGe6vYNjEAZT6YhB5WNyh40urSEVRbmVaWjEt6nQNUbgMbPw@mail.gmail.com>
-	<53EA5300.8060403@sonymobile.com>
-	<20140812140637.412540bc@gandalf.local.home>
-Date: Thu, 14 Aug 2014 17:35:30 +0100
-Message-Id: <20140814163530.BE68CC4105C@trevor.secretlab.ca>
-Cc: "shuah.kh@samsung.com" <shuah.kh@samsung.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] kselftest - What's in 3.17 and plans for 3.18
- and beyond
+	Thu, 14 Aug 2014 16:39:32 +0000 (UTC)
+Date: Thu, 14 Aug 2014 17:39:15 +0100
+From: Mark Brown <broonie@sirena.org.uk>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Message-ID: <20140814163915.GB17528@sirena.org.uk>
+References: <F5184659D418E34EA12B1903EE5EF5FD0130D4AC5B90@seldmbx02.corpusers.net>
+	<20140813180743.GB16662@roeck-us.net>
+	<CAMuHMdVEYEsk1EtBbAAinJ=7m5SRh-w4DZb=_N0gaMgpvtRadw@mail.gmail.com>
+	<20140813224507.GA29606@roeck-us.net>
+	<20140814001450.GW17528@sirena.org.uk>
+	<CAMuHMdUH_7KL0KCsZEL91m2YKwBBGTQEcYfQRQsHLcQ8LXHpkQ@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="i8mz1utaBf8Zdcxn"
+Content-Disposition: inline
+In-Reply-To: <CAMuHMdUH_7KL0KCsZEL91m2YKwBBGTQEcYfQRQsHLcQ8LXHpkQ@mail.gmail.com>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] RFC: Kernel tinification - kernel config
+ reduction
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,27 +37,61 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, 12 Aug 2014 14:06:37 -0400, Steven Rostedt <rostedt@goodmis.org> wrote:
-> On Tue, 12 Aug 2014 10:46:40 -0700
-> Tim Bird <tim.bird@sonymobile.com> wrote:
-> 
-> 
-> > I've been doing the same thing, focused on using Aboriginal.  I have
-> > some scripts that I've used for years for abstracting the 
-> > build/boot/test cycle for cross-platform hardware, that I can share. 
-> > But my qemu foo is not so good.
-> > 
-> > I thought my scripts might overlap with the ktest stuff Steve Rostedt is
-> > doing, and wanted to chat with him at the summit about what parts might
-> > make sense in the kernel tree, and how I might integrate my higher-level
-> > scripts to work with ktest.pl.
-> 
-> Unfortunately, I wont be at KS this year. I have a family commitment
-> that conflicts for the date.
-> 
-> I will be, though, at ELCEU. I'm suspecting that you will be there too.
-> Can it wait till October?
 
-I'm sure we'll talk about it more than once.  :-)
+--i8mz1utaBf8Zdcxn
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-g.
+On Thu, Aug 14, 2014 at 09:49:59AM +0200, Geert Uytterhoeven wrote:
+> On Thu, Aug 14, 2014 at 2:14 AM, Mark Brown <broonie@kernel.org> wrote:
+
+> > allnoconfig is interesting too for similar reasons.
+
+> Yes, but given you can't actually boot it, it usually receives even less care
+> than allmodconfig.
+
+Sure, but part of that is a function of people doing coverage working on
+it and generally setting standards.
+
+> Plus you have to band-aid various trivia, like
+>   - NR_IRQS being zero,
+>   - No CPU or platform code included, causing link errors (e.g. head.o is
+>     not built on m68k),
+>   - ...
+
+That's not the case for all architectures, and TBH it seems like
+something that it's reasonable to fix at least in so far as it builds
+and links (assuming anyone wants to work on this for the architecutre).
+
+> Furthermore, allnoconfig disables CONFIG_MMU on architectures that support
+> nommu, which is less interesting, and thus need a KCONFIG_ALLCONFIG=
+> trick (I'd love to have just "make CONFIG_MMU=y allnoconfig" instead).
+
+That'd be nice, yes.
+
+Another thing that's interesting to me is getting the defconfigs up to
+the point where they run things like LTP well.
+
+--i8mz1utaBf8Zdcxn
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBAgAGBQJT7OYvAAoJELSic+t+oim9tAQP/0rx5LB2CsHs6mYRGT5VxtjC
+JSFogMXG0+jEEfRJ8bKMzcetTMaJGR6V+trIB5cPJJU5+EqbbvsP4MLrAWHvDyUA
+FGFF9mZkUZryxNVSJLy2nqD4HtuX/zH+UQ6IgqXxvBdtkN65WxK4MN5TIp0wsjeX
+1HwiBCYTGhSaftCanDI31x8/emMx500OGB4C9CNp6K6XIE9SpptMgrwvt1rVvWli
+0KGapMKCcDEXVaBPgaSp9Y7VYfl0u7hYGZDET1MoUHzifzASewJIFIdn/8vK7g1J
+p6NvVzn+CI1+N5cLsxgLZMRC6+T9FP2hrA3hIPt3E4Jqv4kdIfyBwTcezvt1SHUU
+ziDLh03WqIjeiYiSO8Ukjnlp1WbcRBRgcfyP0M+xQTDuNK0yHKHPhSUatgBDprll
+uzNTK9ALg9FLBtjTXK4tdvy04DuwiwDFajQpguD0c/dolD1YhQqWYjZN6ksS0ipR
+YNcsdwGyF03x20/EiO8jH2oNZq94oWETmdlHjXzpOYLdLt2KEyam8Mh/anGIShjF
+nMeSLC6SC3RD1KX3c82N3zCeNpaBr/eb4YnD1MfQInCrdhocGlVYQb6WfgDTF1uO
+GmqBGWyXtWpA95XYGiMqmW7A0Apvb1vWlJHu4AA9JARta+mkLKqznj5UKSJkkFg/
+oVkbcAKO8r+IGVu+LekC
+=tNpn
+-----END PGP SIGNATURE-----
+
+--i8mz1utaBf8Zdcxn--
