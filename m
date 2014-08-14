@@ -1,33 +1,28 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <josh@joshtriplett.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 74B008FE
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 726828FE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 14 Aug 2014 16:39:33 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E6FC0201F1
+	Thu, 14 Aug 2014 17:17:17 +0000 (UTC)
+Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
+	[217.70.183.195])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7B29F1F8B2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 14 Aug 2014 16:39:32 +0000 (UTC)
-Date: Thu, 14 Aug 2014 17:39:15 +0100
-From: Mark Brown <broonie@sirena.org.uk>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Message-ID: <20140814163915.GB17528@sirena.org.uk>
+	Thu, 14 Aug 2014 17:17:16 +0000 (UTC)
+Date: Thu, 14 Aug 2014 10:17:08 -0700
+From: Josh Triplett <josh@joshtriplett.org>
+To: Tim Bird <tim.bird@sonymobile.com>
+Message-ID: <20140814171703.GA22626@thin>
 References: <F5184659D418E34EA12B1903EE5EF5FD0130D4AC5B90@seldmbx02.corpusers.net>
-	<20140813180743.GB16662@roeck-us.net>
-	<CAMuHMdVEYEsk1EtBbAAinJ=7m5SRh-w4DZb=_N0gaMgpvtRadw@mail.gmail.com>
-	<20140813224507.GA29606@roeck-us.net>
-	<20140814001450.GW17528@sirena.org.uk>
-	<CAMuHMdUH_7KL0KCsZEL91m2YKwBBGTQEcYfQRQsHLcQ8LXHpkQ@mail.gmail.com>
+	<20140813191907.GA14165@cloud> <53ECE41B.6000707@sonymobile.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="i8mz1utaBf8Zdcxn"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAMuHMdUH_7KL0KCsZEL91m2YKwBBGTQEcYfQRQsHLcQ8LXHpkQ@mail.gmail.com>
+In-Reply-To: <53ECE41B.6000707@sonymobile.com>
 Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] RFC: Kernel tinification - kernel config
- reduction
+	reduction
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,61 +32,117 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Thu, Aug 14, 2014 at 09:30:19AM -0700, Tim Bird wrote:
+> 
+> 
+> On 08/13/2014 12:19 PM, josh@joshtriplett.org wrote:
+> >On Wed, Aug 13, 2014 at 07:29:21PM +0200, Bird, Tim wrote:
+> >>I'd like to raise an issue, ahead of the kernel summit, on the topic of reducing
+> >>kernel config options. (Or, at least, reducing the combinatorial explosion effect
+> >>for config options).
+> >>
+> >>Earlier this year when some patches were submitted to make the network
+> >>stack more configurable, there was some pushback, due (in part) to the
+> >>introduction of more kernel config options.
+> >>See http://thread.gmane.org/gmane.linux.kernel/1696910
+> >>I think it is reasonable to be concerned over the testability of myriad config
+> >>options.
+> >>
+> >>In the past, there have been efforts to curb the number of kernel config
+> >>options, but since we now stand at about 15,000 options throughout the
+> >>kernel, this seems like a battle we've mostly given up on.
+> >
+> >It'd be interesting to know how many of those options control the
+> >building of individual drivers or entire subsystems, and how many
+> >change kernel features in a non-trivial way.  I suspect that the latter
+> >set grows much more slowly, and that latter set seems like the one we
+> >care about limiting.
+> >
+> >>I propose that we remove or hide a lot of the configuration options related
+> >>to size, and instead focus on size profiles. When someone wants to build a
+> >>minimal Linux system, they don't really want to manually trim down every
+> >>Linux sub-system.  The more common development case is that they want
+> >>a fully minimal Linux system, except for one or two areas where they want
+> >>some flexibility in features.  I propose that we tie most of the options that
+> >>are currently in the kernel for size reasons to a single or a few meta-options:
+> >>e.g. CONFIG_SMALL, CONFIG_TINY, CONFIG_RIDICULOUS.  These
+> >>different meta-config options can get better testing, and this will help curb
+> >>the proliferation of size-related config options (and the resulting test
+> >>combination explosion for those individual options.)
+> >>
+> >>Note that this would be for sub-system related (feature or size) config options,
+> >>and not driver-related config options.  Obviously, you have to have drivers
+> >>for the hardware you plan to run on.
+> >>
+> >>Optimally it would be nice to have the ability to configure a small system, and
+> >>then "back off" of the tiny config in a particular area (say networking).
+> >>I believe this would yield a much more tractable system for building small
+> >>systems with Linux, than the current situation.
+> >>
+> >>I'd like to discuss implementation ideas for this in the hallway track at KS.
+> >
+> >I'm interested in this as well, and I planned to raise the issue of
+> >configuration options as part of the tinification discussion.
+> >
+> >Size-constrained systems seem likely to start from the tiniest possible
+> >configuration, and incrementally add specific features they need.  Given
+> >that, I do think we want the options for individual subsystems to look a
+> >lot less combinatorial and a lot closer to linear.  Several subsystems
+> >could likely use a major pruning of options.
+> >
+> >However, I don't think a global set of meta-options or profiles
+> >necessarily makes sense; either we'll end up with a large number of
+> >meta-configurations, or we'll end up with "sample" configurations that
+> >few can use unmodified.  We already have CONFIG_EMBEDDED for options
+> >that only exist for size purposes.
+> 
+> If we end up with a large number of meta-configuration options, that would
+> be a failure.  In embedded, especially when fine-tuning for size,
+> there will likely be a need to modify the config slightly, but having
+> a starting point at the low end would be good.
 
---i8mz1utaBf8Zdcxn
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+In general, I'd hope that starting point is "make allnoconfig", or
+alternatively the new "make tinyconfig" I just posted patches for.
 
-On Thu, Aug 14, 2014 at 09:49:59AM +0200, Geert Uytterhoeven wrote:
-> On Thu, Aug 14, 2014 at 2:14 AM, Mark Brown <broonie@kernel.org> wrote:
+> >Can you elaborate a bit on the idea of "backing off" of the tiny
+> >configuration, and how that could work in practice?  I don't see an
+> >obvious way to do that with today's Kconfig; what kinds of configuration
+> >enhancements do you have in mind?
+> Well, my ideas are not well-formed yet, but I envision something where
+> there's a global CONFIG_TINY flag, that causes size-related options
+> across all sub-systems to be configured to their "small" setting.
+> Then, I would like to see per-sub-system options to enable configuration of
+> individual options for that sub-system.  So something
+> like CONFIG_NET_TINY_CONFIGURABLE (name to be improved), that when
+> set in combination with CONFIG_TINY, still allows individual configuration
+> options for networking.  Developers would need to
+> realize that they are re-opening the combinatorial box when they
+> do this.  (Note that the network maintainers might still want to limit
+> the configurability in their sub-system, due to e.g. readability,
+> maintenance and network compatibility issues).
+> 
+> The idea would be that when CONFIG_TINY is not set, the options for
+> configuring individual bits of networking would not be visible
+> in 'make menuconfig' (or to automated test tools), but when
+> CONFIG_TINY and CONFIG_NET_TINY_CONFIGURABLE are set, they would be.
 
-> > allnoconfig is interesting too for similar reasons.
+Interesting idea.  Something like this:
 
-> Yes, but given you can't actually boot it, it usually receives even less care
-> than allmodconfig.
+config SUBSYSTEM_SIZABLE_FEATURE
+    prompt "..." if SUBSYSTEM_TINY_CONFIGURABLE
+    default !TINY
+    depends on SUBSYSTEM
 
-Sure, but part of that is a function of people doing coverage working on
-it and generally setting standards.
+I could see that working.  Changing a pile of "default y" to "default
+!TINY" does seem quite appealing.  However, rather than
+SUBSYSTEM_TINY_CONFIGURABLE, I wonder if it would help to make Kconfig
+explicitly distinguish between explicitly enabled/disabled options and
+default options, or provide a script that strips a config down to only
+the non-default options?  That would allow configuration with very few
+non-default options to remain very short, while large configurations
+would indicate significant deviation from the defaults.  For instance,
+turning on TINY would add one line, and turning off an entire subsystem
+would add one line, while turning on a subsystem and changing numerous
+options would add many lines.
 
-> Plus you have to band-aid various trivia, like
->   - NR_IRQS being zero,
->   - No CPU or platform code included, causing link errors (e.g. head.o is
->     not built on m68k),
->   - ...
-
-That's not the case for all architectures, and TBH it seems like
-something that it's reasonable to fix at least in so far as it builds
-and links (assuming anyone wants to work on this for the architecutre).
-
-> Furthermore, allnoconfig disables CONFIG_MMU on architectures that support
-> nommu, which is less interesting, and thus need a KCONFIG_ALLCONFIG=
-> trick (I'd love to have just "make CONFIG_MMU=y allnoconfig" instead).
-
-That'd be nice, yes.
-
-Another thing that's interesting to me is getting the defconfigs up to
-the point where they run things like LTP well.
-
---i8mz1utaBf8Zdcxn
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBAgAGBQJT7OYvAAoJELSic+t+oim9tAQP/0rx5LB2CsHs6mYRGT5VxtjC
-JSFogMXG0+jEEfRJ8bKMzcetTMaJGR6V+trIB5cPJJU5+EqbbvsP4MLrAWHvDyUA
-FGFF9mZkUZryxNVSJLy2nqD4HtuX/zH+UQ6IgqXxvBdtkN65WxK4MN5TIp0wsjeX
-1HwiBCYTGhSaftCanDI31x8/emMx500OGB4C9CNp6K6XIE9SpptMgrwvt1rVvWli
-0KGapMKCcDEXVaBPgaSp9Y7VYfl0u7hYGZDET1MoUHzifzASewJIFIdn/8vK7g1J
-p6NvVzn+CI1+N5cLsxgLZMRC6+T9FP2hrA3hIPt3E4Jqv4kdIfyBwTcezvt1SHUU
-ziDLh03WqIjeiYiSO8Ukjnlp1WbcRBRgcfyP0M+xQTDuNK0yHKHPhSUatgBDprll
-uzNTK9ALg9FLBtjTXK4tdvy04DuwiwDFajQpguD0c/dolD1YhQqWYjZN6ksS0ipR
-YNcsdwGyF03x20/EiO8jH2oNZq94oWETmdlHjXzpOYLdLt2KEyam8Mh/anGIShjF
-nMeSLC6SC3RD1KX3c82N3zCeNpaBr/eb4YnD1MfQInCrdhocGlVYQb6WfgDTF1uO
-GmqBGWyXtWpA95XYGiMqmW7A0Apvb1vWlJHu4AA9JARta+mkLKqznj5UKSJkkFg/
-oVkbcAKO8r+IGVu+LekC
-=tNpn
------END PGP SIGNATURE-----
-
---i8mz1utaBf8Zdcxn--
+- Josh Triplett
