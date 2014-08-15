@@ -1,29 +1,25 @@
-Return-Path: <cl@linux.com>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 581B39DE
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3BECF9DE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 15 Aug 2014 14:07:50 +0000 (UTC)
-Received: from qmta04.emeryville.ca.mail.comcast.net
-	(qmta04.emeryville.ca.mail.comcast.net [76.96.30.40])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id ED6922031B
+	Fri, 15 Aug 2014 22:35:26 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BF8F31F88B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 15 Aug 2014 14:07:49 +0000 (UTC)
-Date: Fri, 15 Aug 2014 09:07:47 -0500 (CDT)
-From: Christoph Lameter <cl@linux.com>
-To: Fengguang Wu <fengguang.wu@intel.com>
-In-Reply-To: <20140815041312.GB15844@localhost>
-Message-ID: <alpine.DEB.2.11.1408150907260.27785@gentwo.org>
-References: <5370DB7B.2040706@fb.com> <20140512235430.GA16440@thin>
-	<1399941081.2648.51.camel@buesod1.americas.hpqcorp.net>
-	<20140814150152.GA4597@localhost>
-	<alpine.DEB.2.11.1408141216180.26922@gentwo.org>
-	<20140815041312.GB15844@localhost>
-Content-Type: TEXT/PLAIN; charset=US-ASCII
-Cc: Daniel Borkmann <dborkman@redhat.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TOPIC] Application performance: regressions,
- controlling preemption
+	Fri, 15 Aug 2014 22:35:25 +0000 (UTC)
+Date: Fri, 15 Aug 2014 18:35:21 -0400
+From: Theodore Ts'o <tytso@mit.edu>
+To: Julia Lawall <julia.lawall@lip6.fr>
+Message-ID: <20140815223521.GL10808@thunk.org>
+References: <nsxbnrqtzm7.fsf@closure.thunk.org>
+	<alpine.DEB.2.10.1408152014100.2503@hadrien>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.10.1408152014100.2503@hadrien>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] Draft agenda for the kernel summit
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,23 +29,21 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, 15 Aug 2014, Fengguang Wu wrote:
+On Fri, Aug 15, 2014 at 08:15:55PM +0200, Julia Lawall wrote:
+> > VIP Reception:
+> >    Buses Leave at 6:15pm from the hotel
+> >    Dinner at 6:30pm, at Bellwether (302 E. Illinois St, walking distance)
+> 
+> I'm not sure to understand this.  It looks like one block on the map.
+> Have I misunderstood something?  The conference hotel is the one at  301 E
+> North Water St, Chicago, IL 60611?
 
-> On Thu, Aug 14, 2014 at 12:17:38PM -0500, Christoph Lameter wrote:
-> > On Thu, 14 Aug 2014, Fengguang Wu wrote:
-> >
-> > > The proc-vmstat, perf-profile, cpuidle, turbostat etc. "monitors" are
-> > > inspired by Mel Gorman's mmtests suite and they are really helpful in
-> > > catching&analyzing the subtle impacts a patch might bring to the system.
-> >
-> > Mel also has some interesting tests in the suite like the page fault test
-> > and aim9 among numerous others. Could those also be added?
->
-> Sure. I just added aim9 to the TODO list.
->
-> pft is already included in lkp-tests:
->
-> % ls */pft
-> jobs/pft.yaml  pack/pft  pack/pft.patch  stats/pft  tests/pft
+Sorry, that's my mistake.  There is no bus, since the conference hotel
+is the one at 301 E. North Water St, and it's only a 3 minute walk to
+the restaurant:
 
-Are the test results somewhere publicly available?
+https://www.google.com/maps/dir/Sheraton+Chicago+Hotel+and+Towers,+301+E+North+Water+St,+Chicago,+IL+60611/Bellwether+Meeting+House+%26+Eatery,+302+E+Illinois+St,+Chicago,+IL+60611/@41.8904195,-87.6198161,17z/am=t/data=!3m1!4b1!4m16!4m15!1m5!1m1!1s0x880e2ca9ef45c823:0xba6bddb06ea558a1!2m2!1d-87.619314!2d41.889062!1m5!1m1!1s0x880e2caa3e3c6c55:0x9adfacec660b9a67!2m2!1d-87.619924!2d41.89113!2m1!6e4!3e2
+
+I'll fix the agenda, thanks for pointing the bug!
+
+     	     	     	    		 - Ted
