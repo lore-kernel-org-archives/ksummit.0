@@ -1,38 +1,27 @@
-Return-Path: <josh@joshtriplett.org>
+Return-Path: <serge@mail.hallyn.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 461C4932
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D381446
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 17 Aug 2014 09:45:52 +0000 (UTC)
-Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
-	[217.70.183.196])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DE3F91F8B2
+	Sat, 16 Aug 2014 21:47:51 +0000 (UTC)
+Received: from mail.hallyn.com (static.92.5.9.176.clients.your-server.de
+	[176.9.5.92])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 109EE1FA6D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 17 Aug 2014 09:45:51 +0000 (UTC)
-Received: from mfilter18-d.gandi.net (mfilter18-d.gandi.net [217.70.178.146])
-	by relay4-d.mail.gandi.net (Postfix) with ESMTP id 3322D172077
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 17 Aug 2014 11:45:50 +0200 (CEST)
-Received: from relay4-d.mail.gandi.net ([217.70.183.196])
-	by mfilter18-d.gandi.net (mfilter18-d.gandi.net [10.0.15.180])
-	(amavisd-new, port 10024) with ESMTP id po+TRvI9gFLc
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 17 Aug 2014 11:45:48 +0200 (CEST)
-Received: from thin (static-50-43-15-134.bvtn.or.frontiernet.net
-	[50.43.15.134]) (Authenticated sender: josh@joshtriplett.org)
-	by relay4-d.mail.gandi.net (Postfix) with ESMTPSA id 4C7C9172085
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 17 Aug 2014 11:45:47 +0200 (CEST)
-Date: Sun, 17 Aug 2014 02:45:45 -0700
-From: Josh Triplett <josh@joshtriplett.org>
-To: ksummit-discuss@lists.linuxfoundation.org
-Message-ID: <20140817094545.GA30939@thin>
-References: <20140502164438.GA1423@jtriplet-mobl1>
+	Sat, 16 Aug 2014 21:47:50 +0000 (UTC)
+Date: Sat, 16 Aug 2014 23:47:48 +0200
+From: "Serge E. Hallyn" <serge@hallyn.com>
+To: Andy Lutomirski <luto@amacapital.net>
+Message-ID: <20140816214748.GA32356@mail.hallyn.com>
+References: <CALCETrU1RUzCV-abcDSAxrYJo=Ttrysz2Z0RL_kvzOx+eU6W4A@mail.gmail.com>
+	<CALCETrVQRgNeyUhNkV6+a1R+9zDY2nop1Oj7xOnen0==y0H8qw@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20140502164438.GA1423@jtriplet-mobl1>
-Subject: [Ksummit-discuss] tiny.wiki.kernel.org
+In-Reply-To: <CALCETrVQRgNeyUhNkV6+a1R+9zDY2nop1Oj7xOnen0==y0H8qw@mail.gmail.com>
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	"Serge E. Hallyn" <serge@hallyn.com>
+Subject: Re: [Ksummit-discuss] Mount API?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -42,11 +31,14 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-In preparation for the tinification discussion at Kernel Summit, I've
-created tiny.wiki.kernel.org to track the status of kernel tinification,
-potential projects, and HOWTOs.
+Quoting Andy Lutomirski (luto@amacapital.net):
+> Is anyone interested in discussing a new mount API in the unconference
+> track?
+> 
+> Think bindmountat, etc.
+> 
+> --Andy
 
-Please feel free to add ideas or other material there in advance of the
-discussion on Monday.
+Thanks, Andy.  I certainly am.
 
-- Josh Triplett
+-serge
