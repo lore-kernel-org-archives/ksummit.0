@@ -1,23 +1,26 @@
-Return-Path: <tytso@thunk.org>
+Return-Path: <darren@apps.dvhart.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9AC66AA6
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 40FFF8D5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 16 Aug 2014 02:17:45 +0000 (UTC)
-Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F1CD81F97E
+	Sat, 16 Aug 2014 00:27:35 +0000 (UTC)
+Received: from mail-pd0-f177.google.com (mail-pd0-f177.google.com
+	[209.85.192.177])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B872A20224
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 16 Aug 2014 02:17:44 +0000 (UTC)
-Date: Fri, 15 Aug 2014 22:17:02 -0400
-From: Theodore Ts'o <tytso@mit.edu>
-To: Darren Vincent Hart <darren@apps.dvhart.com>
-Message-ID: <20140816021702.GN10808@thunk.org>
+	Sat, 16 Aug 2014 00:27:34 +0000 (UTC)
+Received: by mail-pd0-f177.google.com with SMTP id p10so4154079pdj.36
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 15 Aug 2014 17:27:34 -0700 (PDT)
+Message-ID: <1408148851.25424.15.camel@localhost.localdomain>
+From: Darren Vincent Hart <darren@apps.dvhart.com>
+To: Theodore Ts'o <tytso@mit.edu>
+Date: Fri, 15 Aug 2014 17:27:31 -0700
+In-Reply-To: <nsxbnrqtzm7.fsf@closure.thunk.org>
 References: <nsxbnrqtzm7.fsf@closure.thunk.org>
-	<1408148851.25424.15.camel@localhost.localdomain>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1408148851.25424.15.camel@localhost.localdomain>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 Cc: Grant Likely <glikely@secretlab.ca>,
 	ksummit-discuss@lists.linuxfoundation.org,
 	Georgi Vlaev <georgi.vlaev@konsulko.com>,
@@ -33,23 +36,31 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Aug 15, 2014 at 05:27:31PM -0700, Darren Vincent Hart wrote:
-> I would very much like to see a slot in the unconference to discuss this
-> with the group. But failing that, perhaps this can serve as a starting
-> point for a hallway conversation.
+On Mon, 2014-08-11 at 18:45 -0400, Theodore Ts'o wrote:
 
-So the way to schedule a slot in the unconference track is to make a
-comment in the Google doc spreadsheet suggesting a time, and starting
-a thread on the ksummit-discuss list.  :-) 
+OK, so my first time attending, hopefully this is the sort of feedback
+you're looking for Ted:
 
-If we start running low on slots we may need to apply some additional
-criteria such as seeing sufficient interest on the mailing list of
-people who would be interested in attending that session.  Right now,
-though the criteria is fairly relaxed since we're not seeing a huge
-rush of people wanting to propose topics --- although I suspect there
-will be many more ideas for potential unconference sessions coming out
-of the woodwork by Monday, during the core day, if not before.
+> Unconference track:     http://goo.gl/xmeoSd
+> 
+> Possible unconference topics culled from discuss list
+> 
+> * Driver model/resources, ACPI/DT, etc. sigh
 
-Cheers,
+We had a good initial discussion on this. Since then, the ACPI 5.1
+specification has been published, including the addition of the Device
+Specific Properties mechanism (_DSD). An initial patch series in support
+of this and the device_properties abstraction should hit the lists prior
+(just barely) to kernel summit.
 
-						- Ted
+Beyond this specific patch series, there are some related SoC
+configuration and enabling topics which came up that we could cover:
+kernel and userspace pinconf control and SSDT overlays, for example.
+
+I would very much like to see a slot in the unconference to discuss this
+with the group. But failing that, perhaps this can serve as a starting
+point for a hallway conversation.
+
+Thanks,
+
+Darren Hart
