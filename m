@@ -1,37 +1,26 @@
-Return-Path: <josh@joshtriplett.org>
+Return-Path: <jack@suse.cz>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4BBC88A2
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5F1EB928
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 17 Aug 2014 00:21:00 +0000 (UTC)
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
-	[217.70.183.195])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 20E611F952
+	Sun, 17 Aug 2014 04:00:25 +0000 (UTC)
+Received: from mx2.suse.de (cantor2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7AA211F746
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 17 Aug 2014 00:20:59 +0000 (UTC)
-Received: from mfilter30-d.gandi.net (mfilter30-d.gandi.net [217.70.178.161])
-	by relay3-d.mail.gandi.net (Postfix) with ESMTP id 96F61A80B5
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 17 Aug 2014 02:20:56 +0200 (CEST)
-Received: from relay3-d.mail.gandi.net ([217.70.183.195])
-	by mfilter30-d.gandi.net (mfilter30-d.gandi.net [10.0.15.180])
-	(amavisd-new, port 10024) with ESMTP id o8N+2PPsFfMG
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 17 Aug 2014 02:20:55 +0200 (CEST)
-Received: from thin (static-50-43-15-134.bvtn.or.frontiernet.net
-	[50.43.15.134]) (Authenticated sender: josh@joshtriplett.org)
-	by relay3-d.mail.gandi.net (Postfix) with ESMTPSA id AA474A80AF
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 17 Aug 2014 02:20:54 +0200 (CEST)
-Date: Sat, 16 Aug 2014 17:20:52 -0700
-From: Josh Triplett <josh@joshtriplett.org>
-To: ksummit-discuss@lists.linuxfoundation.org
-Message-ID: <20140817002051.GA25397@thin>
+	Sun, 17 Aug 2014 04:00:24 +0000 (UTC)
+Date: Sun, 17 Aug 2014 06:00:20 +0200
+From: Jan Kara <jack@suse.cz>
+To: Andy Lutomirski <luto@amacapital.net>
+Message-ID: <20140817040020.GA1392@quack.suse.cz>
+References: <CALCETrU1RUzCV-abcDSAxrYJo=Ttrysz2Z0RL_kvzOx+eU6W4A@mail.gmail.com>
+	<CALCETrVQRgNeyUhNkV6+a1R+9zDY2nop1Oj7xOnen0==y0H8qw@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: [Ksummit-discuss] Unconference session on getting LTO into the
-	kernel?
+In-Reply-To: <CALCETrVQRgNeyUhNkV6+a1R+9zDY2nop1Oj7xOnen0==y0H8qw@mail.gmail.com>
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	"Serge E. Hallyn" <serge@hallyn.com>
+Subject: Re: [Ksummit-discuss] Mount API?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,17 +30,16 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-There's been a lot of discussion about link-time optimization of the
-Linux kernel.  However, as of yet the patches have not yet gone in.
-I've seen objections on the grounds that it increases build time and
-memory usage, but those objections don't seem like reasons to omit the
-patches, just reasons to keep LTO optional and disabled by default (and
-potentially to prevent "allyesconfig" from enabling it).
-
-Anyone interested in a session to hammer out the last details to get the
-patches merged?
-
-(If this mail ends up prompting discussion that settles this via email,
-that'd be a fine result too.)
-
-- Josh Triplett
+On Sat 16-08-14 13:43:40, Andy Lutomirski wrote:
+> Is anyone interested in discussing a new mount API in the unconference
+> track?
+> 
+> Think bindmountat, etc.
+  We can discuss however will there be anyone who's going to write the
+code? I know Miklos Szeredi was looking into that but it didn't go anywhere
+AFAIK and he won't be at KS/LinuxCon. And I'm not sure if Al will be at the
+conference..
+								Honza
+-- 
+Jan Kara <jack@suse.cz>
+SUSE Labs, CR
