@@ -1,29 +1,29 @@
 Return-Path: <rob@landley.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 879A2928
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 42010912
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 18 Aug 2014 03:10:16 +0000 (UTC)
-Received: from mail-ob0-f169.google.com (mail-ob0-f169.google.com
-	[209.85.214.169])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id EF5851F746
+	Mon, 18 Aug 2014 03:19:02 +0000 (UTC)
+Received: from mail-oa0-f54.google.com (mail-oa0-f54.google.com
+	[209.85.219.54])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8C6FE1F746
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 18 Aug 2014 03:10:15 +0000 (UTC)
-Received: by mail-ob0-f169.google.com with SMTP id uz6so1591223obc.14
+	Mon, 18 Aug 2014 03:19:01 +0000 (UTC)
+Received: by mail-oa0-f54.google.com with SMTP id n16so3669385oag.27
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 17 Aug 2014 20:10:15 -0700 (PDT)
-Message-ID: <53F16E95.4080206@landley.net>
-Date: Sun, 17 Aug 2014 22:10:13 -0500
+	Sun, 17 Aug 2014 20:19:00 -0700 (PDT)
+Message-ID: <53F170A2.40205@landley.net>
+Date: Sun, 17 Aug 2014 22:18:58 -0500
 From: Rob Landley <rob@landley.net>
 MIME-Version: 1.0
-To: Andy Lutomirski <luto@amacapital.net>, Guenter Roeck <linux@roeck-us.net>
+To: Masami Hiramatsu <masami.hiramatsu.pt@hitachi.com>,
+	Linus Walleij <linus.walleij@linaro.org>
 References: <53E38ED5.9000300@samsung.com> <53E43365.50809@hitachi.com>
 	<53E8CF03.6020308@samsung.com> <53E8EB93.8030301@hitachi.com>
 	<20140812130043.4894DC40C5C@trevor.secretlab.ca>
 	<CACRpkdZL_1Enxd2dTnaEvZkHuCfV08f74ZOqFqaRtEdyMmwtvA@mail.gmail.com>
-	<53EB8E4F.9090008@roeck-us.net>
-	<CALCETrXvoActJKwwfU_N6RmNP8xnhdAJ-Muf7hfmWquQOZzc-w@mail.gmail.com>
-In-Reply-To: <CALCETrXvoActJKwwfU_N6RmNP8xnhdAJ-Muf7hfmWquQOZzc-w@mail.gmail.com>
+	<53EB9610.1060700@hitachi.com>
+In-Reply-To: <53EB9610.1060700@hitachi.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 Cc: shuah.kh@samsung.com, "ksummit-discuss@lists.linuxfoundation.org"
@@ -40,53 +40,50 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 08/13/2014 11:16 AM, Andy Lutomirski wrote:
-> On Wed, Aug 13, 2014 at 9:11 AM, Guenter Roeck <linux@roeck-us.net> wrote:
->> For my own qemu runtime tests, I ended up collecting root file systems and
->> kernel configurations from all over the place. And then there is the problem
->> of qemu command line parameters, where each target and architecture requires
->> its own set of options, and it is sometimes all but impossible to find a
->> working set of parameters for a given target/architecture combination.
+
+
+On 08/13/2014 11:45 AM, Masami Hiramatsu wrote:
+> (2014/08/13 17:35), Linus Walleij wrote:
+>> On Tue, Aug 12, 2014 at 3:00 PM, Grant Likely <grant.likely@secretlab.ca> wrote:
+>>> On Tue, 12 Aug 2014 01:13:07 +0900, Masami Hiramatsu <masami.hiramatsu.pt@hitachi.com> wrote:
 >>
+>>>> I see, for that purpose, installing testcase may not fit.
+>>>> BTW, how would it cover cross-build?
+>>>
+>>> I'm interested in this as well. I'm working on a tool that crossbuilds a
+>>> very simple busybox rootfs and boots in QEMU for as many architectures
+>>> as possible. I want to make it easy to sanity test all the major
+>>> architectures. Right now it does little more than boot to a login
+>>> prompt, but I'd like to get the kselftests into it also.
+>>
+>> Hm that sounds like a goal similar to what Rob Landley has
+>> described as one goal for Aboriginal Linux as well.
+>> http://landley.net/aboriginal/about.html
 > 
-> virtme has exactly this problem (except for the root image part --
-> virtme can use debootstrap output directly).  In virtme, I'm trying to
-> solve it by just collecting known-working QEMU arguments and
-> documenting the corresponding kernel config requirements.
+> Hmm, I also consider that the Aboriginal Linux and other busybox-based minimal
+> distro may not have "make" on their rootfs. In that case, we need to make self-
+> executable binaries and install it with testing "ash" scripts so that it can
+> run on busybox. It may be just a technical issue.
 
-My aboriginal linux system is designed around the assumption that nobody
-will ever actually bother to use it. (That's why I ship prebuilt binary
-tarballs.)
+Aboriginal Linux has make in the native root filesystem. (Again, last
+gplv2 version so it's a touch stale now. Back when I did busybox stuff I
+planned to write a make for that, and now I plan to write one for
+toybox, but it's a post 1.0 todo item.)
 
-I also write extensive documentation nobody will ever read:
+There's also a native-compiler tarball that's just the stuff it adds on
+top of the simple-root-filesystem to make the development environment.
+(This includes make and bash 2.05b.)
 
-http://landley.net/aboriginal/about.html
+Now that my initmpfs patches are upstream, I'm refactoring things to put
+the simple-root-filesystem in initramfs and splice the native-compiler
+stuff from hda into the $PATH at runtime, in the init script. But I'm
+two kernel releases behind, and should probably ship a 3.15 version
+before doing much more development...
 
-Each system-image tarball has a "run-emulator.sh" script that's just the
-qemu invocation. If you want to know how to launch qemu for the target:
-there you go.
+Rob
 
-The kernel config is using the "miniconfig" technique:
-
-http://landley.net/aboriginal/FAQ.html#dev_miniconfig
-
-You assemble the miniconfig from the target-independent parts:
-
-http://landley.net/hg/aboriginal/file/tip/sources/baseconfig-linux
-
-And then concatenate the target-specific bits from the relevant
-sources/targets file. ala:
-
-http://landley.net/hg/aboriginal/file/tip/sources/targets/i686#l19
-
-(All the target-specific information is in a single file under
-sources/targets. There are various patches in sources/patches some of
-which are target specific. All of them should go upstream, but kernel
-development is so insular it's just not worth the effort.)
-
-If you don't want to use miniconfig, the expanded configs are in the
-root-filesystem tarballs (in the src directory).
-
-> --Andy
-> .
-> 
+(P.S. Making a stripped down linux from scratch build based on busybox
+and uclibc is why I got into busybox development in the first place.
+That's why I wound up doing so much work on it I got the maintainership
+handed to me for a bit. Now I'm doing it all again in toybox because
+Android won't use busybox because it's under the GPL.)
