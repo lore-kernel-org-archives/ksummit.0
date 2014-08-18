@@ -1,36 +1,31 @@
-Return-Path: <geert.uytterhoeven@gmail.com>
+Return-Path: <miklos@szeredi.hu>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 57CFD8A1
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2887C932
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 18 Aug 2014 07:16:55 +0000 (UTC)
-Received: from mail-lb0-f175.google.com (mail-lb0-f175.google.com
-	[209.85.217.175])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7A8F91F8BD
+	Mon, 18 Aug 2014 08:35:41 +0000 (UTC)
+Received: from mail-qa0-f46.google.com (mail-qa0-f46.google.com
+	[209.85.216.46])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 09F671F950
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 18 Aug 2014 07:16:54 +0000 (UTC)
-Received: by mail-lb0-f175.google.com with SMTP id 10so3722959lbg.6
+	Mon, 18 Aug 2014 08:35:39 +0000 (UTC)
+Received: by mail-qa0-f46.google.com with SMTP id v10so4099391qac.33
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 18 Aug 2014 00:16:52 -0700 (PDT)
+	Mon, 18 Aug 2014 01:35:39 -0700 (PDT)
 MIME-Version: 1.0
-Sender: geert.uytterhoeven@gmail.com
-In-Reply-To: <53F16E14.6030507@landley.net>
-References: <53E38ED5.9000300@samsung.com> <53E43365.50809@hitachi.com>
-	<53E8CF03.6020308@samsung.com> <53E8EB93.8030301@hitachi.com>
-	<20140812130043.4894DC40C5C@trevor.secretlab.ca>
-	<CACRpkdZL_1Enxd2dTnaEvZkHuCfV08f74ZOqFqaRtEdyMmwtvA@mail.gmail.com>
-	<53EB8E4F.9090008@roeck-us.net> <53F16E14.6030507@landley.net>
-Date: Mon, 18 Aug 2014 09:16:52 +0200
-Message-ID: <CAMuHMdWJFjziYGrtHUOac+guL-Kf=znTG9F5xW1T-0Tz6WP9Rg@mail.gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-To: Rob Landley <rob@landley.net>
+In-Reply-To: <CALCETrW53hiZpFH4J+UsE_tX6i_cTmfth5xHtOzw8uPGGEbf4Q@mail.gmail.com>
+References: <87lhqmxyxn.fsf@x220.int.ebiederm.org>
+	<20140818040014.GA10623@mail.hallyn.com>
+	<CALCETrW53hiZpFH4J+UsE_tX6i_cTmfth5xHtOzw8uPGGEbf4Q@mail.gmail.com>
+Date: Mon, 18 Aug 2014 10:35:39 +0200
+Message-ID: <CAJfpegsoEGG2H1pFdBLAaosJhE8qbR69C9yikQHTd_egE001DA@mail.gmail.com>
+From: Miklos Szeredi <miklos@szeredi.hu>
+To: Andy Lutomirski <luto@amacapital.net>
 Content-Type: text/plain; charset=UTF-8
-Cc: Shuah Khan <shuah.kh@samsung.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] kselftest - What's in 3.17 and plans for 3.18
- and beyond
+Cc: Al Viro <viro@zeniv.linux.org.uk>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	"Serge E. Hallyn" <serge@hallyn.com>
+Subject: Re: [Ksummit-discuss] Mount API?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,49 +35,18 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Rob,
+FYR here's Al's summary of the subject, which I think is a good starting point:
 
-On Mon, Aug 18, 2014 at 5:08 AM, Rob Landley <rob@landley.net> wrote:
-> (My dayjob has nothing to do with anything interesting, I'm paid to work
-> on a a company's fork of a vendor's bsp fork of a really old kernel. For
-> the new board, we just upgraded _to_ a version that's only 4 years old.
-> When they finally ship there will be a nominal compliance tarball put on
-> a website somewhere that nobody will ever look at or care about. I keep
-> meaning to put up a patreon to see if people would be willing to sponsor
-> me to spend all my time on actually _interesting_ stuff like this, but
-> the chances are low enough I haven't bothered.)
->
->> I have been unable to find a working combination of kernel configuration,
->> qemu version, qemu command line, and root file system for m68k. Presumably
->> that must exist, because qemu supports m68k, I just have not been able
->> to figure out how to make it work.
->
-> QEMU does not support m68k, qemu supports coldfire which is a nommu
-> subset of m68k. But people have used the aranym emulator to fake an
-> atari machine that _has_ run the root filesystems I've been building.
-> (With a different kernel config, and a largeish patch for aranym devices
-> that since went upstream. But it showed the basics were right.)
+      "Frankly, I wonder if we are trying to pack too much into one
+syscall - not just in terms of overloading it (that much is obvious),
+but in terms of trying to cram a sequence of syscalls into one.  If
+we end up introducing new API(s) for mount(), it's probably worth
+considering something like this:
+        * open a connection to fs type driver, get a descriptor
+        * use normal IO syscalls (usually just write(2)) on that
+descriptor to tell fs type driver what do we want.  If any kind of
+authentication is needed, that's the time for doing it
+        * attach the thing identified by that descriptor to mountpoint"
 
-These days atari_defconfig in upstream should run fine on ARAnyM.
-
-> The problem with using aranym is my setup expects a certain pile of
-> devices. If /dev/console goes to stdin/stdout than it's easy to script
-> the sucker with tcl/expect and log the output with "tee". If you have a
-
-Ah, ARAnyM's nfcon only does stdout, not stdin.
-
-> virtual network card you can move the heavy lifting of compilation
-> outside the emulator with distcc hooked up to the cross compiler
-
-But nfeth works fine.
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Thanks,
+Miklos
