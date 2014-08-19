@@ -1,12 +1,12 @@
 Return-Path: <tytso@thunk.org>
-Date: Tue, 19 Aug 2014 10:48:39 -0400
+Date: Tue, 19 Aug 2014 10:50:45 -0400
 From: Theodore Ts'o <tytso@mit.edu>
 To: ksummit-discuss@lists.linux-foundation.org
-Message-ID: <20140819144839.GA1270@thunk.org>
+Message-ID: <20140819145045.GA1654@thunk.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: [Ksummit-discuss] No more module removal -- Unconference track
+Subject: [Ksummit-discuss] [UNCONFERENCE] Kselftest, testing in general
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -16,8 +16,8 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-This has been scheduled at 2pm at the request of Rusty.  (Reminder: if
-you're going to propose a topic, please send e-mail to start a thread
-on ksummit-discuss).
+This has been scheduled at 11am at the request of Shuah and Grant.
+(Reminder: if you want to propose a unconference topic, please start a
+mail thread on ksummit-discuss.)
 
-						- Ted
+							- Ted
