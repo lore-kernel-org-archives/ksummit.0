@@ -1,28 +1,19 @@
-Return-Path: <tytso@thunk.org>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8769C98F
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 19 Aug 2014 02:49:32 +0000 (UTC)
-Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B37701FA7C
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 19 Aug 2014 02:49:30 +0000 (UTC)
-Date: Mon, 18 Aug 2014 22:49:25 -0400
-From: Theodore Ts'o <tytso@mit.edu>
-To: "Serge E. Hallyn" <serge@hallyn.com>
-Message-ID: <20140819024925.GA11085@thunk.org>
-References: <87lhqmxyxn.fsf@x220.int.ebiederm.org>
-	<20140818040014.GA10623@mail.hallyn.com>
-	<CALCETrW53hiZpFH4J+UsE_tX6i_cTmfth5xHtOzw8uPGGEbf4Q@mail.gmail.com>
-	<20140818122413.GF23084@thunk.org>
-	<20140819020601.GA25976@mail.hallyn.com>
+Return-Path: <glikely@secretlab.ca>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20140819020601.GA25976@mail.hallyn.com>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Mount API?
+Sender: glikely@secretlab.ca
+In-Reply-To: <1405460886.7262.4.camel@jarvis.lan>
+References: <1405460886.7262.4.camel@jarvis.lan>
+From: Grant Likely <grant.likely@secretlab.ca>
+Date: Tue, 19 Aug 2014 08:45:59 -0500
+Message-ID: <CACxGe6v_BdgDQZVb6+Zz8qk9K+cmhskxNikRabLzzSr7y6kxYA@mail.gmail.com>
+To: James Bottomley <James.Bottomley@hansenpartnership.com>
+Content-Type: text/plain; charset=ISO-8859-1
+Cc: Tech Board Discuss <Tech-board-discuss@lists.linux-foundation.org>,
+	"ksummit-discuss@lists.linux-foundation.org"
+	<ksummit-discuss@lists.linux-foundation.org>,
+	linux-kernel <linux-kernel@vger.kernel.org>
+Subject: Re: [Ksummit-discuss] Linux Foundation Technical Advisory Board
+ Elections and Nomination process
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,16 +23,40 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Aug 19, 2014 at 04:06:01AM +0200, Serge E. Hallyn wrote:
-> I tried to write it down for 12:00, but I don't seem to have edit
-> perms.
+Please add me to the nomination list.
 
-I've scheduled Mount API for 12:00.
+g.
 
-(For anyone else who wants to schedule something for Tuesday, please
-leave a comment on the spreadsheet --- right click, select "insert a
-comment" --- on the slot that you're trying to reserve.)
-
-Cheers,
-
-							- Ted
+On Tue, Jul 15, 2014 at 4:48 PM, James Bottomley
+<James.Bottomley@hansenpartnership.com> wrote:
+> The elections for five of the ten members of the Linux Foundation
+> Technical Advisory Board[TAB] are held every year. Currently the
+> election will be at the 2014 Kernel Summit in Chicago, USA, at one of
+> the Joint events (probably on the Wednesday 20 August) and will be open
+> to all attendees of the Weeks events (Kernel Summit, LinuxCon and other
+> summits).
+>
+> Anyone is eligible to stand for election, simply send your nomination
+> to:
+>
+> Tech-board-discuss@lists.linux-foundation.org
+>
+> We currently have three nominees for five places:
+>
+> Chris Mason <chris.mason@fusionio.com>
+> James Bottomley <James.Bottomley@HansenPartnership.com>
+> John W. Linville <linville@tuxdriver.com>
+>
+> The deadline for receiving nominations is up until the beginning of the
+> event where the election is held (Currently thought to be the evening of
+> August 20th Central Daylight Time). Although, please remember if you're
+> not going to be present that things go wrong with both networks and
+> mailing lists, so get your nomination in early).
+>
+> James Bottomley (TAB Chair)
+>
+>
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
