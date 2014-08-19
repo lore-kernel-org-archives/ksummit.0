@@ -1,19 +1,33 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
-Message-ID: <1408475018.14668.13.camel@jarvis>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Tech Board Discuss <Tech-board-discuss@lists.linux-foundation.org>
-Date: Tue, 19 Aug 2014 14:03:38 -0500
-In-Reply-To: <1408392828.24653.8.camel@jarvis>
-References: <1405460886.7262.4.camel@jarvis.lan>
-	<1408392828.24653.8.camel@jarvis>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: "ksummit-discuss@lists.linux-foundation.org"
-	<ksummit-discuss@lists.linux-foundation.org>,
-	linux-kernel <linux-kernel@vger.kernel.org>
-Subject: Re: [Ksummit-discuss] [Tech-board-discuss] Linux Foundation
- Technical Advisory Board Elections and Nomination process
+Return-Path: <m.chehab@samsung.com>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0F208995
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 19 Aug 2014 20:18:15 +0000 (UTC)
+Received: from usmailout2.samsung.com (mailout2.w2.samsung.com
+	[211.189.100.12])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5A01D20292
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 19 Aug 2014 20:18:14 +0000 (UTC)
+Received: from uscpsbgm2.samsung.com
+	(u115.gpu85.samsung.co.kr [203.254.195.115]) by mailout2.w2.samsung.com
+	(Oracle Communications Messaging Server 7u4-24.01(7.0.4.24.0) 64bit
+	(built Nov
+	17 2011)) with ESMTP id <0NAK009ZBL9ME400@mailout2.w2.samsung.com> for
+	ksummit-discuss@lists.linuxfoundation.org; Tue,
+	19 Aug 2014 16:08:10 -0400 (EDT)
+Date: Tue, 19 Aug 2014 15:08:08 -0500
+From: Mauro Carvalho Chehab <m.chehab@samsung.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Message-id: <20140819150808.34bcca65.m.chehab@samsung.com>
+In-reply-to: <15653604.eanYCV9OmK@avalon>
+References: <15653604.eanYCV9OmK@avalon>
+MIME-version: 1.0
+Content-type: text/plain; charset=US-ASCII
+Content-transfer-encoding: 7bit
+Cc: Shuah Khan <shuah.kh@samsung.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [Unconference] PM dependencies
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -23,34 +37,34 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Update on current status
+Em Mon, 18 Aug 2014 15:08:05 +0200
+Laurent Pinchart <laurent.pinchart@ideasonboard.com> escreveu:
 
-The elections for five of the ten members of the Linux Foundation
-Technical Advisory Board[TAB] are held every year. Currently the
-election will be at the 2014 Kernel Summit in Chicago, USA, at the joint
-event on Wednesday 20 August at the museum of science and industry.  The
-election will be held at 20:00 in a room specially reserved for the
-purpose.   We now have ten candidates for election.  The first four are
-incumbents plus six newcomers:
+> Hello,
+> 
+> As we still haven't hammered out PM dependencies I propose discussing it in 
+> the unconference track. Shuah and Mauro have reminded me of their interest in 
+> the topic, does anyone else want to discuss it ?
+> 
+> The unconference slots are 30 minutes long only. We should avoid spending all 
+> the allocated time presenting the problems, so please post your use case(s) in 
+> a reply to this mail thread if you plan to participate.
+> 
+Greg,
 
-Chris Mason <clm@fb.com>
-James Bottomley <James.Bottomley@HansenPartnership.com>
-John W. Linville <linville@tuxdriver.com>
-Ric Wheeler <ricwheeler@gmail.com>
-H. Peter Anvin <hpa@zytor.com>
-Theodore Ts'o <tytso@mit.edu>
-Grant Likely <grant.likely@secretlab.ca>
-Josh Triplett <josh@joshtriplett.org>
-Randy Dunlap <rdunlap@infradead.org>
-Kristen Accardi <kaccardi@gmail.com>
+I'm thinking that one solution that won't sound too hacky would be to add
+a module init macro that would mark a driver to be the first one to be
+probed, to be handled by the device core. If the device core
+finds a USB (PCI) ID for a table initialized this way, it will only call
+one device driver. This device will be the master device for that USB ID,
+and he will call some init function that will do the probing of the other
+device drivers associated with that specific device, being allowed to
+replace the drivers specific fops by their own internal ones.
 
-Any candidate not present at 20:00 will have their nomination statement
-read out by the person running the election (Either Jon Corbet or Greg
-K-H).
+This way, at resume time, it can call each driver's specific .resume code
+on the right order.
 
-Anybody wishing to stand may still nominate any time before 20:00 on
-Wednesday by replying to this email (although nominations must be
-received by 20:00 so don't wait until the last moment ... especially
-with the networking problems we've been having at the Kernel Summit).
+Would that work?
 
-James
+Regards,
+Mauro
