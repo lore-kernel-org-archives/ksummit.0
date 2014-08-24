@@ -1,32 +1,29 @@
-Return-Path: <glikely@secretlab.ca>
+Return-Path: <luto@amacapital.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id E88C18A1
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 732D8982
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 23 Aug 2014 21:13:09 +0000 (UTC)
-Received: from mail-ie0-f182.google.com (mail-ie0-f182.google.com
-	[209.85.223.182])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CDC7620114
+	Sun, 24 Aug 2014 16:59:35 +0000 (UTC)
+Received: from mail-la0-f48.google.com (mail-la0-f48.google.com
+	[209.85.215.48])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A02BD20240
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 23 Aug 2014 21:13:08 +0000 (UTC)
-Received: by mail-ie0-f182.google.com with SMTP id y20so8211944ier.13
+	Sun, 24 Aug 2014 16:59:34 +0000 (UTC)
+Received: by mail-la0-f48.google.com with SMTP id gl10so11522180lab.7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 23 Aug 2014 14:13:08 -0700 (PDT)
+	Sun, 24 Aug 2014 09:59:32 -0700 (PDT)
 MIME-Version: 1.0
-Sender: glikely@secretlab.ca
-In-Reply-To: <F5184659D418E34EA12B1903EE5EF5FD015DCAE7ABA1@seldmbx02.corpusers.net>
-References: <20140819163621.GA15109@linux.vnet.ibm.com>
-	<CACxGe6vUXr_uqLG_98oAgbcjddsNgXWdGMrtJ8t23tQ1+z5iag@mail.gmail.com>
-	<CAKocOOMG91D7Qam5PLY0Dd7bR07GMHHYsRCqUMYQGCR-hB2+=w@mail.gmail.com>
-	<F5184659D418E34EA12B1903EE5EF5FD015DCAE7ABA1@seldmbx02.corpusers.net>
-From: Grant Likely <grant.likely@secretlab.ca>
-Date: Sat, 23 Aug 2014 16:12:48 -0500
-Message-ID: <CACxGe6ueac27KTtN_8Uo_BY9KyNVRt8j3p+ak08WuG4j_T+rwg@mail.gmail.com>
-To: "Bird, Tim" <Tim.Bird@sonymobile.com>
-Content-Type: text/plain; charset=ISO-8859-1
+In-Reply-To: <20140819173125.GA17432@linux.vnet.ibm.com>
+References: <20140819173125.GA17432@linux.vnet.ibm.com>
+From: Andy Lutomirski <luto@amacapital.net>
+Date: Sun, 24 Aug 2014 09:59:12 -0700
+Message-ID: <CALCETrW0Enh85-4+YC4Kk7snbEFQjgf5ttsA3GGr2+0SN9yHjA@mail.gmail.com>
+To: Paul McKenney <paulmck@linux.vnet.ibm.com>
+Content-Type: text/plain; charset=UTF-8
 Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] Fwd: Rough notes from testing unconference
+Subject: Re: [Ksummit-discuss] On the off-chance that my mount() notes are
+	at all useful
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,58 +33,126 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, Aug 23, 2014 at 8:35 AM, Bird, Tim <Tim.Bird@sonymobile.com> wrote:
-> On Friday, August 22, 2014 10:59 AM, Shuah Khan  wrote:
->>
->> On Fri, Aug 22, 2014 at 8:19 AM, Grant Likely <grant.likely@secretlab.ca> wrote:
->> > Rough notes from the Testing discussion during the workshop day of
->> > Kernel Summit. Big thanks to Paul McKenney for writing all of this
->> > down.
->> >
->>
->> Grant,
->>
->> You beat me to it. Thanks for sending the notes from the discussion and thanks
->> Paul McKenney for writing these down.
->>
->> The next steps on my plate are as follows:
->>
->> Shuah Khan:
->>
->> - Work on putting a basic framework for tests: Pass, Fail, Skip to start with.
->> - update existing tests in tools/testing/selftests to use the
->> framework to serve as an
->>   example for future tests. As we discussed and decided on output will
->> continue to go to
->>   stdio. This will help these tests being used in other scripts that
->> run tests in cross
->>   environments.
->> - Define profiles for short and longer time tests
->> - Add install target in addition to the existing kselftest target at
->> the top level Makefile
->>
->> I will maintain the test framework - will take care of the logistics
->> of MAINTAINER
->> file updates for this and creating a git tree. Individual test
->> maintainers (we have
->> several in MAINTAINERS file) will continue to own and maintain their tests.
->>
->> Fixes to known cross-build failures and new tests are welcome. Please
->> send patches to linux-api mailing list
+On Tue, Aug 19, 2014 at 10:31 AM, Paul E. McKenney
+<paulmck@linux.vnet.ibm.com> wrote:
+> o       Mount based on file descriptor.  Generated from openfs()
+>         or some such.  Ted: Want mount(), remount(), bind(), as separate
+>         things.
 >
-> I've been working on integration with Aboriginal (Rob Landley's
-> minimal cross-compile distro) and hope to have some results
-> very soon.
+>         Have a mountf() for mounting an openfs()ed filesystem.
+>
+>         Al: Ouch.
+>
+>         Andy: Want to distinguish between this mount is read-only
+>         and the underlying device will no longer be written to.
+>
+>         Al: Three piles of garbage, not two.  Need to take care about
+>         userids and such.  Some of the per-superblock flags are not
+>         entirely private to a given filesystem, some are visible
+>         to the VFS layer.
+>
+>         Al: First syscall to start mounting could establish an open
+>         descriptor.  But the descriptor would not be a root directory,
+>         but rather a channel for talking to a filesystem driver.  Then
+>         you can feed the parameters to the filesystem driver as needed,
+>         rather than dumping them into the open() system call.
+>
+>         Al: If you want horrors, look at ncpfs (sp?).  This illustrates
+>         why just getting the root directory is wrong.  Root directory
+>         is initially empty, after some operations it suddenly has
+>         files in it.
+>
+>         Al: Given that the syscalls are often followed by one another,
+>         why have them separated?
+>
+>         Al: If we are going to have this FD, then we should keep the
+>         FD around for the duration.  Closing it would get rid of
+>         everything.  Use FD to talk to filesystem driver throughout.
+>         Don't need a process to hang around.
+>
+>         Al: Note that unmount operates purely on the namespace.  You
+>         might still have open files on the unmounted filesystem, so
+>         the filesystem is still around.
+>
+>         Some discussion about getting the FD given a mounted filesystem.
+>         Interaction between FD and shutdown.
+>
+>         Al: But if FD is around, someone might remount filesystem.
+>         So some hair if using FD to wait for all files from the
+>         filesystem to be closed.
+>
+>         Mount over symlinks?
+>
+>         Al: Need to be careful here.  Last I looked, this would be
+>         extremely painful.  Easier to hide a directory with a symlink
+>         than vice versa.
+>
+>         Discussion of an openat() and security holes.
+>
+>         Ted: Can pass a directory FD across a UNIX-domain socket and
+>         then do openat(), so security issue already exists.  More
+>         fun with mountat().
+>
+>         Al: Completely insane, greatly increases attack surface.
+>
+>         Ted: FS fuzzers giving bugs are first-class bugs.  But cloud
+>         sysadmins might not like the attack surface.
+>
+>         Serge: Use fuse to mediate security.
+>
 
-I've also been doing some hacking. I've taken a good look at several
-of the tools people are using. Guenter's scripts. Kevin & Olof's
-scripts, your ttc, and the stuff I'm using personally, and then
-started a new tool for booting and testing boards, pulling in bits and
-pieces that look good. I've been able to come up with something that
-works really well for me, will boot on qemu out-of-the-box, and is
-easily extendible to real hardware like a board on a desk or a
-personal board farm. I'll post my patches this coming week. Right now
-I'm cleaning up some ugly bits and I need to graft in the logging from
-Kevin's scripts.
+Here are my notes on features that I want, augmented some by the discussion:
 
-g.
+Requirements:
+
+ - Syscalls that just affects mount points
+
+ - Mount by fd.
+
+ - Overmounting / should be useful (e.g. return an fd,
+mount-and-chdir, etc.)  Currently, using mount(2) to mount on top of
+'/' is mostly useless, because there is no way to chdir to the new
+mount, to chroot to it, or to get an fd for it.
+
+ - Cross-ns bind mount.  That is, I want to be able to mount a foreign
+fd into my namespace.  This doesn't really need a new API, but it
+would be a lot cleaner if we could use SCM_RIGHTS for this without
+mucking with /proc/self/fd.
+
+ - Don't follow symlinks, at least optionally.  Al Viro says that
+mounting on top of certain types of objects might be impossible, but
+I'd like to extend the set of possible overmounts.
+
+ - Clear separation of superblock flags and mount flags.  The
+read-only flag is somewhat special, but I think that it can be managed
+cleanly.
+
+ - Explicit set/clear mount flags.  Setting the read-only bit
+shouldn't involve reading the old flags with a separate syscall.
+
+ - Bind and set/clear flags at the same time.  (e.g. create a new
+read-only bind mount atomically.)
+
+ - Leave room for unions.  I'm not sure what this entails.
+
+
+Here's a possible piece of a new API:
+
+int mount_bind(int sourcefd, int destdfd, const char *destpath, int
+opflags, int clearflags, int setflags);
+
+opflags include BINDMNT_CHDIR, AT_NOFOLLOW, etc.  The setflags are
+ored into the flags from the source, and the clearflags are cleared.
+Other flags are left unchanged.  if (setflags & clearflags), -EINVAL
+is returned.
+
+
+int mount_changebindflags(int dfd, const char *path, int opflags, int
+clearflags, int setflags);
+
+
+Al Viro mentioned that, for a new fs (as opposed to a bind mount), we
+want a control fd for a file system, on which we can send commands,
+close (i.e. superblock shutdown), and change flags.
+
+--Andy
