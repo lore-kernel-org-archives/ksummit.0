@@ -1,17 +1,27 @@
-Return-Path: <gregkh@linuxfoundation.org>
-Date: Mon, 25 Aug 2014 07:49:13 -0700
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Mauro Carvalho Chehab <m.chehab@samsung.com>
-Message-ID: <20140825144913.GB14325@kroah.com>
-References: <15653604.eanYCV9OmK@avalon>
-	<20140819150808.34bcca65.m.chehab@samsung.com>
+Return-Path: <masami.hiramatsu.pt@hitachi.com>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id ABDBB8DE
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 26 Aug 2014 05:24:41 +0000 (UTC)
+Received: from mail7.hitachi.co.jp (mail7.hitachi.co.jp [133.145.228.42])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id F31601FA9D
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 26 Aug 2014 05:24:40 +0000 (UTC)
+Message-ID: <53FC1A11.1000700@hitachi.com>
+Date: Tue, 26 Aug 2014 14:24:33 +0900
+From: Masami Hiramatsu <masami.hiramatsu.pt@hitachi.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20140819150808.34bcca65.m.chehab@samsung.com>
-Cc: Shuah Khan <shuah.kh@samsung.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [Unconference] PM dependencies
+To: Jiri Kosina <jkosina@suse.cz>
+References: <20140819144839.GA1270@thunk.org>
+	<20140819145547.GB18536@roeck-us.net>
+	<53FB17A7.9090209@hitachi.com>
+	<alpine.LNX.2.00.1408251304260.2992@pobox.suse.cz>
+In-Reply-To: <alpine.LNX.2.00.1408251304260.2992@pobox.suse.cz>
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 7bit
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] No more module removal -- Unconference track
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -21,41 +31,33 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Aug 19, 2014 at 03:08:08PM -0500, Mauro Carvalho Chehab wrote:
-> Em Mon, 18 Aug 2014 15:08:05 +0200
-> Laurent Pinchart <laurent.pinchart@ideasonboard.com> escreveu:
+(2014/08/25 20:05), Jiri Kosina wrote:
+> On Mon, 25 Aug 2014, Masami Hiramatsu wrote:
 > 
-> > Hello,
-> > 
-> > As we still haven't hammered out PM dependencies I propose discussing it in 
-> > the unconference track. Shuah and Mauro have reminded me of their interest in 
-> > the topic, does anyone else want to discuss it ?
-> > 
-> > The unconference slots are 30 minutes long only. We should avoid spending all 
-> > the allocated time presenting the problems, so please post your use case(s) in 
-> > a reply to this mail thread if you plan to participate.
-> > 
-> Greg,
+>> What I found is that the module unloading involving 2 stop_machine()s 
+>> for each module removing. It must not be needed. However, since the 
+>> module's ref-counter is over-optimized for BIG SMP machine, we can't 
+>> remove it without replacing it. But it means some performance regression 
+>> can happen on such big-scale SMP machines (not the laptop nor normal smp 
+>> machine).
 > 
-> I'm thinking that one solution that won't sound too hacky would be to add
-> a module init macro that would mark a driver to be the first one to be
-> probed, to be handled by the device core. If the device core
-> finds a USB (PCI) ID for a table initialized this way, it will only call
-> one device driver. This device will be the master device for that USB ID,
-> and he will call some init function that will do the probing of the other
-> device drivers associated with that specific device, being allowed to
-> replace the drivers specific fops by their own internal ones.
+> Is that really a big problem in practice?
 > 
-> This way, at resume time, it can call each driver's specific .resume code
-> on the right order.
-> 
-> Would that work?
+> I.e. are there valid usecase scenarios where module load / unload should 
+> be considered a hotpath where every ms of performance would matter?
 
-As we discussed in person later on that day, this will not work due to
-linking vs. module issues, and lots of other things.
+There could be. However, in usual usecases, I guess people will not want
+to unload it. Systemtap or something "additional" module users will
+need to unload modules. (kpatch could be one of them, but I also think
+no one want to remove applied patches anyway.)
 
-People have been asking for "priorities" of driver binding/matching for
-over a decade, but no one has come up with a way to solve the issues
-involved, sorry.
+I just tried to show that the kmodule unload is the one who uses
+stop_machine heavily but it is not necessary :)
 
-greg k-h
+Thank you,
+
+-- 
+Masami HIRAMATSU
+Software Platform Research Dept. Linux Technology Research Center
+Hitachi, Ltd., Yokohama Research Laboratory
+E-mail: masami.hiramatsu.pt@hitachi.com
