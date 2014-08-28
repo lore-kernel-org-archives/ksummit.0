@@ -1,28 +1,31 @@
-Return-Path: <tytso@thunk.org>
+Return-Path: <shuahkhan@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 48154A47
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 66178A49
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 27 Aug 2014 23:05:31 +0000 (UTC)
-Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C50DD20298
+	Thu, 28 Aug 2014 21:54:21 +0000 (UTC)
+Received: from mail-qc0-f181.google.com (mail-qc0-f181.google.com
+	[209.85.216.181])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CF54520243
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 27 Aug 2014 23:05:30 +0000 (UTC)
-Date: Wed, 27 Aug 2014 19:05:27 -0400
-From: Theodore Ts'o <tytso@mit.edu>
-To: Masami Hiramatsu <masami.hiramatsu.pt@hitachi.com>
-Message-ID: <20140827230527.GX11317@thunk.org>
-References: <20140819144839.GA1270@thunk.org>
-	<20140819145547.GB18536@roeck-us.net>
-	<53FB17A7.9090209@hitachi.com>
-	<alpine.LNX.2.00.1408251304260.2992@pobox.suse.cz>
-	<53FC1A11.1000700@hitachi.com>
+	Thu, 28 Aug 2014 21:54:20 +0000 (UTC)
+Received: by mail-qc0-f181.google.com with SMTP id i17so1499254qcy.40
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 28 Aug 2014 14:54:19 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <53FC1A11.1000700@hitachi.com>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] No more module removal -- Unconference track
+In-Reply-To: <CAP245DWYCLR43pL1joowpwc=97ypdT_Q8xbw4e7rxd4czP489w@mail.gmail.com>
+References: <20140819163621.GA15109@linux.vnet.ibm.com>
+	<CACxGe6vUXr_uqLG_98oAgbcjddsNgXWdGMrtJ8t23tQ1+z5iag@mail.gmail.com>
+	<CAKocOOMG91D7Qam5PLY0Dd7bR07GMHHYsRCqUMYQGCR-hB2+=w@mail.gmail.com>
+	<CAP245DWYCLR43pL1joowpwc=97ypdT_Q8xbw4e7rxd4czP489w@mail.gmail.com>
+Date: Thu, 28 Aug 2014 15:54:19 -0600
+Message-ID: <CAKocOOOn8F9d-kOpbXraZbQiYUEjp8Uac10h76t6PKfQgN5vwQ@mail.gmail.com>
+From: Shuah Khan <shuahkhan@gmail.com>
+To: Amit Kucheria <amit.kucheria@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] Fwd: Rough notes from testing unconference
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,18 +35,31 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Aug 26, 2014 at 02:24:33PM +0900, Masami Hiramatsu wrote:
-> There could be. However, in usual usecases, I guess people will not want
-> to unload it. Systemtap or something "additional" module users will
-> need to unload modules. (kpatch could be one of them, but I also think
-> no one want to remove applied patches anyway.)
-> 
-> I just tried to show that the kmodule unload is the one who uses
-> stop_machine heavily but it is not necessary :)
+On Fri, Aug 22, 2014 at 12:08 PM, Amit Kucheria
+<amit.kucheria@linaro.org> wrote:
 
-Right, but if the argument that kmodule unload is slow on huge NUMA
-machines is that Rusty submits a patch which gets rid of the support
-for module unload entirely, then that would be very sad.  (And
-**really** screw over systemtap...)
+> Hi Shuah,
+>
+> At the Linaro power management working group, we've created a simple
+> repository of pass/fail *functional* tests for various areas of
+> interest in power management - cpuidle, cpufreq, hotplug. We call it
+> PM-QA[1]
+>
+> Some of our members have found PM-QA useful to exercise the various
+> sysfs interfaces and get rid of the obvious issues (missing Kconfig
+> options, basic exercising of cpufreq drivers being a couple of
+> examples).
+>
+> Let me know if these are useful and in the right format to seed your
+> library of testcases.
+>
+> Regards,
+> Amit
+> [1] https://git.linaro.org/power/pm-qa.git
 
-							- Ted
+Hi Amit,
+
+Thanks for sharing these. I will take a look and see if these make
+good candidates for selftests.
+
+-- Shuah
