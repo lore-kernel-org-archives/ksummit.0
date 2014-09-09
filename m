@@ -1,28 +1,27 @@
-Return-Path: <gnomes@lxorguk.ukuu.org.uk>
+Return-Path: <rupran@einserver.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3690B92F
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id EF2A0927
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  8 Sep 2014 18:28:12 +0000 (UTC)
-Received: from lxorguk.ukuu.org.uk (251.110.2.81.in-addr.arpa [81.2.110.251])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5562820270
+	Tue,  9 Sep 2014 19:02:47 +0000 (UTC)
+Received: from mail-ob0-f172.google.com (mail-ob0-f172.google.com
+	[209.85.214.172])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B83171FB58
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  8 Sep 2014 18:28:09 +0000 (UTC)
-Date: Mon, 8 Sep 2014 18:55:44 +0100
-From: One Thousand Gnomes <gnomes@lxorguk.ukuu.org.uk>
-To: Pavel Machek <pavel@ucw.cz>
-Message-ID: <20140908185544.621022b6@alan.etchedpixels.co.uk>
-In-Reply-To: <20140823222640.GA1382@xo-6d-61-c0.localdomain>
-References: <53EAAC95.7080301@linaro.org>
-	<CALAqxLWvSn2_6dakGiQ4VEtYHH2Dt7BL0pn5XHgLWOV4ePqhBw@mail.gmail.com>
-	<20140823222640.GA1382@xo-6d-61-c0.localdomain>
+	Tue,  9 Sep 2014 19:02:46 +0000 (UTC)
+Received: by mail-ob0-f172.google.com with SMTP id wp18so1313878obc.17
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 09 Sep 2014 12:02:45 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	lkml <linux-kernel@vger.kernel.org>, John Stultz <john.stultz@linaro.org>,
-	"Joseph S. Myers" <joseph@codesourcery.com>
-Subject: Re: [Ksummit-discuss] (Resend) 2038 Kernel Summit Discussion Fodder
+Date: Tue, 9 Sep 2014 21:02:45 +0200
+Message-ID: <CA+B2V-K_B0n9ZK_3CirdtU=v_z68KZAyYjp=mRLrPzjCF4nk3Q@mail.gmail.com>
+From: Andreas Ruprecht <rupran@einserver.de>
+To: josh@joshtriplett.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: [Ksummit-discuss] Linux Kernel Tinification - Research project and
+	Tools
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,18 +31,48 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-> Today, there's good chance there's linux somewhere in your car. (Dashboard,
-> entertainment system). People like to keep cars from 1910 working, and I suspect
-> that is not going to change.
-> 
-> So yes, in 2038 people will be running 32bit linux.
-> 
-> Whether there will be people putting 32bit linux into new devices is a question,
-> but I suspect answer is still yes.
+Hi guys,
 
-I'm currently trying to add 64bit longlong support to an initial PCC 8086
-compiler port so I can fix that for some 16bit projects 8-)
+I just discovered the thread (reaching back to May) on the
+ksummit-discuss mailing list and your (Josh's) talk topic at LinuxCon
+Europe on Linux Kernel Tinification, and might have something
+interesting to share.
 
-My 8bit machines are mostly 2038 safe already.
+I'm a member of the VAMOS/CADOS[0] project at the University of
+Erlangen-N=C3=BCrnberg, where we're working on different topics concerning
+the analysis of Linux, particularily the kernel configuration system.
 
-Alan
+One of these projects is "Tailor"[1], where we developed a method of
+generating an (almost) minimal kernel configuration, basically by
+observing a "bigger" (might be distribution-provided) kernel and
+solving a formula of feature constraints for a solution. Results for
+this were published at various conferences (HotDep '12 [2], NDSS '13
+[3]), and just next week, I will be at GPCE '14 in Vasteras, Sweden to
+present our most recent work [4].
+
+Probably the most important difference to note is that in earlier
+versions, we used the ftrace function tracer to gain insights on the
+control flow - so we did not need to patch the kernel -, whereas we
+found that for embedded systems, we needed to patch tiny instructions
+into conditional blocks to create usable results (ftrace was just too
+much overhead).
+
+Unfortunately, the code for patching the kernel has not yet been
+integrated into our tool box, as the student developing it is just
+about to finish his master's thesis, but if you are interested, we
+could also make this available to you.
+
+If you would like to try it out, please go ahead (instructions at
+[1])! If there are problems, don't hesitate to contact me. I will also
+be at Linux Plumbers Conference in D=C3=BCsseldorf in October, if you'd
+like to discuss this further in person.
+
+Best regards,
+  Andreas Ruprecht
+
+[0]: https://www4.cs.fau.de/Research/CADOS/
+[1]: http://vamos.informatik.uni-erlangen.de/trac/undertaker/wiki/Undertake=
+rTailor
+[2]: https://www4.cs.fau.de/Publications/2012/tartler_12_hotdep.pdf
+[3]: https://www4.cs.fau.de/Publications/2013/kurmus_13_ndss.pdf
+[4]: https://www4.cs.fau.de/Publications/2014/ruprecht_14_gpce.pdf
