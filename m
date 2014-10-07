@@ -1,37 +1,40 @@
 Return-Path: <luto@amacapital.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C17C3B08
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A720D87D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  7 Oct 2014 17:58:49 +0000 (UTC)
-Received: from mail-lb0-f173.google.com (mail-lb0-f173.google.com
-	[209.85.217.173])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 138F920357
+	Tue,  7 Oct 2014 18:59:27 +0000 (UTC)
+Received: from mail-la0-f49.google.com (mail-la0-f49.google.com
+	[209.85.215.49])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F118D201E2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  7 Oct 2014 17:58:48 +0000 (UTC)
-Received: by mail-lb0-f173.google.com with SMTP id 10so6642835lbg.32
+	Tue,  7 Oct 2014 18:59:26 +0000 (UTC)
+Received: by mail-la0-f49.google.com with SMTP id q1so6816743lam.8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 07 Oct 2014 10:58:47 -0700 (PDT)
+	Tue, 07 Oct 2014 11:59:25 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <543428E1.7050702@linux.vnet.ibm.com>
+In-Reply-To: <5434352A.6080403@linux.vnet.ibm.com>
 References: <trinity-2d36367c-59c5-44af-8737-fb503e10af38-1411376491498@3capp-gmx-bs07>
 	<CALCETrWdPmSCUkb-neH5ssNmxzsqY0rioQq5qMc2ne7J0JxVLg@mail.gmail.com>
 	<543428E1.7050702@linux.vnet.ibm.com>
+	<20141007180209.GD10432@obsidianresearch.com>
+	<5434352A.6080403@linux.vnet.ibm.com>
 From: Andy Lutomirski <luto@amacapital.net>
-Date: Tue, 7 Oct 2014 10:58:27 -0700
-Message-ID: <CALCETrWoAkYTjetqm1e9zYGvetEhn0WQL5poLWv_saQktcHu7g@mail.gmail.com>
+Date: Tue, 7 Oct 2014 11:59:04 -0700
+Message-ID: <CALCETrVVSd_pTBP3ghn=oroNqrxPYRev-xcQ+KnF8kcZZiwB7A@mail.gmail.com>
 To: Stefan Berger <stefanb@linux.vnet.ibm.com>
 Content-Type: text/plain; charset=UTF-8
 Cc: keyrings@linux-nfs.org, jarkko.sakkinnen@linux.intel.com,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
 	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Jason Gunthorpe <jgunthorpe@obsidianresearch.com>,
 	LSM List <linux-security-module@vger.kernel.org>,
 	tpmdd-devel@lists.sourceforge.net,
 	James Morris <james.l.morris@oracle.com>,
 	linux-ima-devel@lists.sourceforge.net, trousers-tech@lists.sourceforge.net
-Subject: Re: [Ksummit-discuss] [TrouSerS-tech] TPM MiniSummit @ LinuxCon
-	Europe
+Subject: Re: [Ksummit-discuss] [tpmdd-devel] [TrouSerS-tech] TPM MiniSummit
+ @ LinuxCon Europe
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,57 +44,39 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Oct 7, 2014 at 10:54 AM, Stefan Berger
+On Tue, Oct 7, 2014 at 11:47 AM, Stefan Berger
 <stefanb@linux.vnet.ibm.com> wrote:
-> On 09/23/2014 12:42 PM, Andy Lutomirski wrote:
+> On 10/07/2014 02:02 PM, Jason Gunthorpe wrote:
 >>
->> On Sep 22, 2014 2:07 AM, "Peter Huewe" <PeterHuewe@gmx.de> wrote:
->>>
->>> Hi,
->>>
->>> I would like to 'invite' all interested parties in a short TPM minisummit
->>> where we can discuss the following hot topics of the TPM subsystem over a
->>> beer or two:
->>>   - State of the TPM Subsystem
->>>   - De-/Initialization Mess
->>>   - Devm'ification
->>>   - Testing
->>>   - TPM 2.0 Support
->>>   - Dependencies / interaction with other subsystems (e.g. keyring / IMA)
->>>   - Status of old 1.1b TPM drivers, deprecation plans
->>>   - ...
->>>
->> I am unlikely to be there, but I have a feature request / food for
->> thought:
+>> On Tue, Oct 07, 2014 at 01:54:41PM -0400, Stefan Berger wrote:
 >>
->> Using a mandatory userspace daemon (e.g. trousers) for TPM access
->> sucks.  Might it be possible to teach the kernel to handle context
->> save and restore and let multiple processes open the device at once?
->> Then a daemon wouldn't be necessary.
+>>> Why add the complexity of swapping of authenticated sessions and keys
+>>> into the kernel if you can handle this in userspace? You need a library
+>>> that is aware of the number of key slots and slots for sessions in the
+>>> TPM and swaps them in at out when applications need them. Trousers is
+>>> such a library that was designed to cope with the limitations of the
+>>> device and make its functionality available to all applications that
+>>> want to access it.
+>>
+>> How does trousers work with the kernel when the kernel is also using
+>> TPM key slots for IMA/keyring/whatever?
 >
 >
-> Why add the complexity of swapping of authenticated sessions and keys into
-> the kernel if you can handle this in userspace? You need a library that is
-> aware of the number of key slots and slots for sessions in the TPM and swaps
-> them in at out when applications need them. Trousers is such a library that
-> was designed to cope with the limitations of the device and make its
-> functionality available to all applications that want to access it.
+> IIRC it only uses a single key slot and swaps all keys in and out of that
+> one. If the kernel was to fill up all key (and sessions) slots, TSS would
+> probably not work anymore.
 >
+> Another argument for the TSS is that you also wouldn't want applications to
+> swap out each others keys and sessions and leave them out or assume that
+> they would always cleanup if they do not currently need them.
 
-Trousers is a daemon, not a library, and it's really quite scary.
+That argument seems backwards.  If you're worried about applications
+(or trousers itself!) failing to clean up, then shouldn't the kernel
+driver clean up orphaned key slots itself?
 
-Admittedly, my information may be a bit out of date, but trousers
-contains way too much code (it has layers in the server!), it has
-parsers and serializers of questionable safety (I found one critical
-bug *by accident* a couple years ago), it listens on a TCP socket
-(this should really be a UNIX socket under /run), it's heavy-weight,
-and it does far more than necessary (all it needs to do is context
-switching).
-
-Also, Trousers is quite unfriendly to non-Trousers-using programs
-(e.g. chapsd/trunks).
-
-If the kernel helped with context switching, then user programs that
-actually want Trousers' functionality could run their own copies.
+Also, what protects the kernel from having slot 0 get stomped on or,
+worse, inappropriately used by a misbehaving or malicious user
+program?  Is the authorization session mechanism really secure against
+intentional abuse by users of the same machine?
 
 --Andy
