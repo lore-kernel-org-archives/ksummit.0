@@ -1,23 +1,23 @@
-Return-Path: <jarkko.sakkinen@linux.intel.com>
+Return-Path: <PeterHuewe@gmx.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B2FEC99A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 541327D6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 12 Oct 2014 18:17:27 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 368EA2026B
+	Sun, 12 Oct 2014 21:17:20 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B9C9E20260
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 12 Oct 2014 18:17:27 +0000 (UTC)
-Date: Sun, 12 Oct 2014 21:17:21 +0300
-From: Jarkko Sakkinen <jarkko.sakkinen@linux.intel.com>
-To: Andy Lutomirski <luto@amacapital.net>
-Message-ID: <20141012181721.GB5495@intel.com>
-References: <trinity-2d36367c-59c5-44af-8737-fb503e10af38-1411376491498@3capp-gmx-bs07>
-	<CALCETrWdPmSCUkb-neH5ssNmxzsqY0rioQq5qMc2ne7J0JxVLg@mail.gmail.com>
+	Sun, 12 Oct 2014 21:17:19 +0000 (UTC)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CALCETrWdPmSCUkb-neH5ssNmxzsqY0rioQq5qMc2ne7J0JxVLg@mail.gmail.com>
+Message-ID: <trinity-a39c399d-cb0d-4c21-9832-85c3e26ba984-1413148618336@3capp-gmx-bs11>
+From: "Peter Huewe" <PeterHuewe@gmx.de>
+To: "Jarkko Sakkinen" <jarkko.sakkinen@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 12 Oct 2014 23:16:58 +0200
+In-Reply-To: <20141012181721.GB5495@intel.com>
+References: <trinity-2d36367c-59c5-44af-8737-fb503e10af38-1411376491498@3capp-gmx-bs07>
+	<CALCETrWdPmSCUkb-neH5ssNmxzsqY0rioQq5qMc2ne7J0JxVLg@mail.gmail.com>,
+	<20141012181721.GB5495@intel.com>
 Cc: keyrings@linux-nfs.org, jarkko.sakkinnen@linux.intel.com,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
@@ -36,70 +36,14 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hey,
+Hi 
+> apologies for top-posting but which day/time/place is this going to be held?
+I'd suggest that we either meet tomorrow (Monday) during the other BoF Sessions @ 5:30pm or afterwards.
+Does one of the attendees have a conflict with the BOFs or the VIP Reception?
+Personally, I think it's most important that you Jarkko can join the meetup since you're developing the most on TPM2.0.
 
-apologies for top-posting but which day/time/place is this going to be held?
 
-/Jarkko
+Since I don't have a special room booked, I'd suggest that we meet in the "Lobby" and then head out for a beer - since I haven't prepared any slides I would organize the meeting as a BOF.
 
-On Tue, Sep 23, 2014 at 09:42:33AM -0700, Andy Lutomirski wrote:
-> On Sep 22, 2014 2:07 AM, "Peter Huewe" <PeterHuewe@gmx.de> wrote:
-> >
-> > Hi,
-> >
-> > I would like to 'invite' all interested parties in a short TPM minisummit where we can discuss the following hot topics of the TPM subsystem over a beer or two:
-> >  - State of the TPM Subsystem
-> >  - De-/Initialization Mess
-> >  - Devm'ification
-> >  - Testing
-> >  - TPM 2.0 Support
-> >  - Dependencies / interaction with other subsystems (e.g. keyring / IMA)
-> >  - Status of old 1.1b TPM drivers, deprecation plans
-> >  - ...
-> >
-> 
-> I am unlikely to be there, but I have a feature request / food for thought:
-> 
-> Using a mandatory userspace daemon (e.g. trousers) for TPM access
-> sucks.  Might it be possible to teach the kernel to handle context
-> save and restore and let multiple processes open the device at once?
-> Then a daemon wouldn't be necessary.
-> 
-> There would still be a need for some policy (e.g. who can clear the
-> SRK), but that should be manageable.  Maybe there should be two device
-> nodes.  /dev/tpm_unpriv would be fully virtualized for access by
-> multiple processes, but it would only allow use of the key hierarchy
-> and read access to PCRs.  /dev/tpm_priv would allow NV access, PCR
-> writes, SRK clears, etc.
-> 
-> --Andy
-> 
-> >
-> > Please register your interest by filling out this doodle
-> >  http://doodle.com/q9ezcrivhqrktw6u
-> >
-> > I'm not sure if I can get any funding for the summit... but maybe I can arrange something.
-> >
-> >
-> > Also I'm trying to bring along some TPM samples from my employer if possible.
-> >
-> >
-> > Thanks
-> > Peter
-> >
-> > p.s.: experienced kernel developers welcome :)
-> > _______________________________________________
-> > Ksummit-discuss mailing list
-> > Ksummit-discuss@lists.linuxfoundation.org
-> > https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
-> 
-> ------------------------------------------------------------------------------
-> Meet PCI DSS 3.0 Compliance Requirements with EventLog Analyzer
-> Achieve PCI DSS 3.0 Compliant Status with Out-of-the-box PCI DSS Reports
-> Are you Audit-Ready for PCI DSS 3.0 Compliance? Download White paper
-> Comply to PCI DSS 3.0 Requirement 10 and 11.5 with EventLog Analyzer
-> http://pubads.g.doubleclick.net/gampad/clk?id=154622311&iu=/4140/ostg.clktrk
-> _______________________________________________
-> tpmdd-devel mailing list
-> tpmdd-devel@lists.sourceforge.net
-> https://lists.sourceforge.net/lists/listinfo/tpmdd-devel
+Thanks,
+Peter
