@@ -1,33 +1,24 @@
-Return-Path: <PeterHuewe@gmx.de>
+Return-Path: <tbird20d@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5ADE57D6
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3979399A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 13 Oct 2014 05:17:18 +0000 (UTC)
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6E82D1FAAD
+	Thu, 16 Oct 2014 11:46:07 +0000 (UTC)
+Received: from mail-la0-f50.google.com (mail-la0-f50.google.com
+	[209.85.215.50])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 75F52202BD
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 13 Oct 2014 05:17:17 +0000 (UTC)
+	Thu, 16 Oct 2014 11:46:06 +0000 (UTC)
+Received: by mail-la0-f50.google.com with SMTP id s18so2753593lam.9
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 16 Oct 2014 04:46:04 -0700 (PDT)
 MIME-Version: 1.0
-Message-ID: <trinity-e8ea1a4b-495f-454d-ab9e-c4bc6d3097a7-1413177433975@3capp-gmx-bs14>
-From: "Peter Huewe" <PeterHuewe@gmx.de>
-To: "Peter Huewe" <PeterHuewe@gmx.de>
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 13 Oct 2014 07:17:14 +0200
-In-Reply-To: <trinity-a39c399d-cb0d-4c21-9832-85c3e26ba984-1413148618336@3capp-gmx-bs11>
-References: <trinity-2d36367c-59c5-44af-8737-fb503e10af38-1411376491498@3capp-gmx-bs07>
-	<CALCETrWdPmSCUkb-neH5ssNmxzsqY0rioQq5qMc2ne7J0JxVLg@mail.gmail.com>,
-	<20141012181721.GB5495@intel.com>,
-	<trinity-a39c399d-cb0d-4c21-9832-85c3e26ba984-1413148618336@3capp-gmx-bs11>
-Content-Transfer-Encoding: quoted-printable
-Cc: keyrings@linux-nfs.org, "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Jarkko Sakkinen <jarkko.sakkinen@linux.intel.com>,
-	LSM List <linux-security-module@vger.kernel.org>,
-	tpmdd-devel@lists.sourceforge.net, linux-ima-devel@lists.sourceforge.net,
-	trousers-tech@lists.sourceforge.net
-Subject: Re: [Ksummit-discuss] [tpmdd-devel] TPM MiniSummit @ LinuxCon Europe
+Date: Thu, 16 Oct 2014 04:46:04 -0700
+Message-ID: <CA+bK7J7+M=+fcFGx0AW1t6_GmLDNGRqj07HAeqMd8_EuHV93zA@mail.gmail.com>
+From: Tim Bird <tbird20d@gmail.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Content-Type: multipart/alternative; boundary=089e01494210190dd8050588cb4c
+Subject: [Ksummit-discuss] CEWG project BOFS in Dusseldorf (today)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,51 +28,65 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi,
-we got an official slot at Monday 5.30pm in Room 01 (http://sched.co/1D5VK=
-BL) :)
+--089e01494210190dd8050588cb4c
+Content-Type: text/plain; charset=UTF-8
 
-Peter
+For those of you at plumbers,
 
+The CE Workgroup of the Linux Foundation is holding some Birds-Of-a-Feather
+sessions in Room 02 (not '2', but '02', downstairs), to discuss some
+initiatives and projects we're working on.
 
-Gesendet:=C2=A0Sonntag, 12. Oktober 2014 um 23:16 Uhr
-Von:=C2=A0"Peter Huewe" <PeterHuewe@gmx.de>
-An:=C2=A0"Jarkko Sakkinen" <jarkko.sakkinen@linux.intel.com>
-Cc:=C2=A0keyrings@linux-nfs.org, jarkko.sakkinnen@linux.intel.com, "ksummi=
-t-discuss@lists.linuxfoundation.org" <ksummit-discuss@lists.linuxfoundation=
-.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, , "LS=
-M List" <linux-security-module@vger.kernel.org>, tpmdd-devel@lists.sourcefo=
-rge.net,, linux-ima-devel@lists.sourceforge.net, trousers-tech@lists.source=
-forge.net
-Betreff:=C2=A0Re: [tpmdd-devel] [Ksummit-discuss] TPM MiniSummit @ LinuxCo=
-n Europe
-Hi
-> apologies for top-posting but which day/time/place is this going to be h=
-eld?
-I'd suggest that we either meet tomorrow (Monday) during the other BoF Ses=
-sions @ 5:30pm or afterwards.
-Does one of the attendees have a conflict with the BOFs or the VIP Recepti=
-on?
-Personally, I think it's most important that you Jarkko can join the meetu=
-p since you're developing the most on TPM2.0.
+Here are the times and topics we're discussing:
 
+2:00-3:00 - Reducing System Size
+3:00-4:00 - Making a standard embedded distribution
+  Discussion of the requirements for a standard distribution of Linux, and
+whether it is needed or not.
+4:00-5:00 - Device mainlining
+  Working as an industry to overcome structural obstacles to contributing
+open source code upstream.  (This last one is a follow-on from my talk at
+ELCE earlier this week)
 
-Since I don't have a special room booked, I'd suggest that we meet in the =
-"Lobby" and then head out for a beer - since I haven't prepared any slides =
-I would organize the meeting as a BOF.
+If you're here in Dusseldorf and are interested in any of these project,
+feel free to come.
 
-Thanks,
-Peter
+ -- Tim Bird
 
---------------------------------------------------------------------------=
-----
-Meet PCI DSS 3.0 Compliance Requirements with EventLog Analyzer
-Achieve PCI DSS 3.0 Compliant Status with Out-of-the-box PCI DSS Reports
-Are you Audit-Ready for PCI DSS 3.0 Compliance? Download White paper
-Comply to PCI DSS 3.0 Requirement 10 and 11.5 with EventLog Analyzer
-http://p.sf.net/sfu/Zoho
-_______________________________________________
-tpmdd-devel mailing list
-tpmdd-devel@lists.sourceforge.net
-https://lists.sourceforge.net/lists/listinfo/tpmdd-devel[https://lists.sou=
-rceforge.net/lists/listinfo/tpmdd-devel]
+--089e01494210190dd8050588cb4c
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div><span style=3D"font-family:arial,sans-serif;font-size=
+:12.7272720336914px">For those of you at plumbers,</span><div style=3D"font=
+-family:arial,sans-serif;font-size:12.7272720336914px"><br></div><div style=
+=3D"font-family:arial,sans-serif;font-size:12.7272720336914px">The CE Workg=
+roup of the Linux Foundation is holding some Birds-Of-a-Feather</div><div s=
+tyle=3D"font-family:arial,sans-serif;font-size:12.7272720336914px">sessions=
+ in Room 02 (not &#39;2&#39;, but &#39;02&#39;, downstairs), to discuss som=
+e initiatives and projects we&#39;re working on.</div><div style=3D"font-fa=
+mily:arial,sans-serif;font-size:12.7272720336914px"><br></div><div style=3D=
+"font-family:arial,sans-serif;font-size:12.7272720336914px">Here are the ti=
+mes and topics we&#39;re discussing:</div><div style=3D"font-family:arial,s=
+ans-serif;font-size:12.7272720336914px"><br></div><div style=3D"font-family=
+:arial,sans-serif;font-size:12.7272720336914px">2:00-3:00 - Reducing System=
+ Size</div><div style=3D"font-family:arial,sans-serif;font-size:12.72727203=
+36914px">3:00-4:00 - Making a standard embedded distribution</div><div styl=
+e=3D"font-family:arial,sans-serif;font-size:12.7272720336914px">=C2=A0 Disc=
+ussion of the requirements for a standard distribution of Linux, and whethe=
+r it is needed or not.</div><div style=3D"font-family:arial,sans-serif;font=
+-size:12.7272720336914px">4:00-5:00 - Device mainlining=C2=A0</div><div sty=
+le=3D"font-family:arial,sans-serif;font-size:12.7272720336914px">=C2=A0 Wor=
+king as an industry to overcome structural obstacles to contributing open s=
+ource code upstream. =C2=A0(This last one is a follow-on from my talk at EL=
+CE earlier this week)</div><div style=3D"font-family:arial,sans-serif;font-=
+size:12.7272720336914px"><br></div><div style=3D"font-family:arial,sans-ser=
+if;font-size:12.7272720336914px">If you&#39;re here in Dusseldorf and are i=
+nterested in any of these project, feel free to come.</div><div class=3D"" =
+style=3D"font-family:arial,sans-serif;font-size:12.7272720336914px"><div id=
+=3D":1rk" class=3D"" tabindex=3D"0"><img class=3D"" src=3D"https://ssl.gsta=
+tic.com/ui/v1/icons/mail/images/cleardot.gif"></div></div></div><div><br></=
+div><div dir=3D"ltr">=C2=A0-- Tim Bird<div><br></div></div>
+</div>
+
+--089e01494210190dd8050588cb4c--
