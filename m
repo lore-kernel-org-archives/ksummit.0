@@ -1,25 +1,26 @@
-Return-Path: <BATV+4877484c58564cff13b7+4332+infradead.org+dwmw2@bombadil.srs.infradead.org>
+Return-Path: <benh@kernel.crashing.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D9E48B5A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E4C4CAB2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  4 Jul 2015 16:49:07 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 94A8A1F2
+	Sun,  5 Jul 2015 03:03:03 +0000 (UTC)
+Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 77CA91A9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  4 Jul 2015 16:49:07 +0000 (UTC)
-Message-ID: <1436028544.3324.41.camel@infradead.org>
-From: David Woodhouse <dwmw2@infradead.org>
-To: David Howells <dhowells@redhat.com>
-Date: Sat, 04 Jul 2015 17:49:04 +0100
-In-Reply-To: <15786.1436005103@warthog.procyon.org.uk>
-References: <1435997161.3324.33.camel@infradead.org>
-	<15786.1436005103@warthog.procyon.org.uk>
+	Sun,  5 Jul 2015 03:03:02 +0000 (UTC)
+Message-ID: <1436065368.3948.48.camel@kernel.crashing.org>
+From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+To: Dan Williams <dan.j.williams@intel.com>
+Date: Sun, 05 Jul 2015 13:02:48 +1000
+In-Reply-To: <CAPcyv4hsJDJwv-yEJiiy2ptn7QYbCA1+3s9gTQuhz_C9UKGGsg@mail.gmail.com>
+References: <1435997837.3948.21.camel@kernel.crashing.org>
+	<CAPcyv4hsJDJwv-yEJiiy2ptn7QYbCA1+3s9gTQuhz_C9UKGGsg@mail.gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
 Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL enforcement actions
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Semantics of MMIO mapping
+ attributes accross archs
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,17 +30,26 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, 2015-07-04 at 11:18 +0100, David Howells wrote:
-> Related to this is the issue of creeping GPL-only-isation of important
-> exported symbols. 
+On Sat, 2015-07-04 at 07:12 -0700, Dan Williams wrote:
 
-Perhaps, yes.
+> Another side topic that has come up in this space is the desire to
+> define a "memremap" api to clean up __iomem abuses for cases where
+> "memory-like" mappings are needed.
+> 
+> https://lkml.org/lkml/2015/6/22/100
 
-> This affects not only closed-source stuff, but also non-GPL
-> licensed open-source projects such as OpenAFS that can't relicense 
-> their code under the GPL.
+Interesting. I had missed this. There is a similar question about
+semantics (ordering etc...), ie, are they the same as memory for
+example ?
 
-Haven't you finished obsoleting the kernel parts of OpenAFS yet? :)
+Another thing we might look into is to what extent should we provide
+access to the "SAO" mapping attribute that POWER7 and later support
+(strong ordering, pretty-much x86 like) and whether this can be used
+on ppc to reduce the need for barriers (that attribute is only available
+for fully cachable mappings, not generally applicable to IO mappings).
 
--- 
-dwmw2
+That translate to: should your new memremap() take some kinds of flags
+as an argument ? Though of course providing a cross-arch definition of
+these flags would be tricky.
+ 
+Ben.
