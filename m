@@ -1,27 +1,22 @@
-Return-Path: <josh@joshtriplett.org>
+Return-Path: <neilb@suse.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B7546BA1
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id DD0FFBA1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  6 Jul 2015 01:35:49 +0000 (UTC)
-Received: from slow1-d.mail.gandi.net (slow1-d.mail.gandi.net [217.70.178.86])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id EC66112D
+	Mon,  6 Jul 2015 01:40:29 +0000 (UTC)
+Received: from mx2.suse.de (cantor2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3B99E12D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  6 Jul 2015 01:35:48 +0000 (UTC)
-Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
-	[217.70.183.197])
-	by slow1-d.mail.gandi.net (Postfix) with ESMTP id 3E54747AD7E
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  6 Jul 2015 03:21:35 +0200 (CEST)
-Date: Sun, 5 Jul 2015 18:21:25 -0700
-From: Josh Triplett <josh@joshtriplett.org>
+	Mon,  6 Jul 2015 01:40:29 +0000 (UTC)
+Date: Mon, 6 Jul 2015 11:40:17 +1000
+From: NeilBrown <neilb@suse.com>
 To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-Message-ID: <20150706012125.GC15108@x>
+Message-ID: <20150706114017.463ef472@noble>
+In-Reply-To: <1489458.8WDRattPkl@vostro.rjw.lan>
 References: <1489458.8WDRattPkl@vostro.rjw.lan>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1489458.8WDRattPkl@vostro.rjw.lan>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 Cc: Grant Likely <grant.likely@linaro.org>, Len Brown <len.brown@intel.com>,
 	Alan Stern <stern@rowland.harvard.edu>,
 	Kristen Carlson Accardi <kristen@linux.intel.com>,
@@ -37,7 +32,11 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Jul 06, 2015 at 02:22:02AM +0200, Rafael J. Wysocki wrote:
+On Mon, 06 Jul 2015 02:22:02 +0200 "Rafael J. Wysocki"
+<rjw@rjwysocki.net> wrote:
+
+> Hi All,
+> 
 > This is a re-occuring theme, but we discussed it last month during LinuxCon
 > Japan with Kristen, Grant and other people and pretty much the only conclusion
 > we could reach was to propose it as the KS topic, so here it goes.
@@ -62,23 +61,24 @@ On Mon, Jul 06, 2015 at 02:22:02AM +0200, Rafael J. Wysocki wrote:
 > 
 > So do we need such an interface?  If not, why not?  If so, how should it be
 > designed, what should it cover etc.?
+> 
 
-Performance regressions alone aren't a good reason to disable power
-management by default.  As I understand it, several power management
-features are disabled by default because they tend to break things and
-we don't have an enormous whitelist or blacklist; for instance, USB LPM.
-If there's a power management feature we're not enabling by default
-because it decreases performance by epsilon, let's change that.
+This sounds like an important topic, but I don't think I quite
+understand the question.
+We already have ".../power/runtime_enabled" and various other tunables.
+What more could you need in a kernel interface?
 
-If someone cares so much about performance that they're willing to burn
-a disproportionate amount of power to get it (meaning that they care
-more about performance than performance per watt, and can't just solve
-the problem by throwing more systems at it instead), then it doesn't
-seem unreasonable to reconfigure the kernel for that.  (Though if there
-are out-of-tree patches needed to enable that configuration, by all
-means let's merge those.)  But let's be consistent in our defaults, and
-given the huge number of people who may never change the defaults, I'd
-advocate power management by default.  (A distribution could always
-offer a kernel flavor for people who want performance at all costs.)
+I can see that much more than an interface is needed - we need a tool
+that makes use of that interface.
+Maybe a database of different systems together with tuning settings for
+different goals.
+Then some tools detects the particular hardware it is running on, and
+applies the tuning rules.
 
-- Josh Triplett
+(a tiny bit like a devicetree database which contains configuration
+rules).
+
+Or have I missed the point completely?
+
+Thanks,
+NeilBrown
