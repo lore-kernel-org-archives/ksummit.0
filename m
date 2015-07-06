@@ -1,29 +1,27 @@
-Return-Path: <luto@amacapital.net>
+Return-Path: <tony.luck@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 81D3193E
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5BF28AB2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  6 Jul 2015 17:14:22 +0000 (UTC)
-Received: from mail-la0-f50.google.com (mail-la0-f50.google.com
-	[209.85.215.50])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B7665194
+	Mon,  6 Jul 2015 19:11:30 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id CB3891AF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  6 Jul 2015 17:14:21 +0000 (UTC)
-Received: by lagx9 with SMTP id x9so163697154lag.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 06 Jul 2015 10:14:19 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <20150706095256.GA27723@e104818-lin.cambridge.arm.com>
+	Mon,  6 Jul 2015 19:11:29 +0000 (UTC)
+From: "Luck, Tony" <tony.luck@intel.com>
+To: Andy Lutomirski <luto@amacapital.net>, Benjamin Herrenschmidt
+	<benh@kernel.crashing.org>
+Date: Mon, 6 Jul 2015 19:11:22 +0000
+Message-ID: <3908561D78D1C84285E8C5FCA982C28F32AA333A@ORSMSX114.amr.corp.intel.com>
 References: <1435997837.3948.21.camel@kernel.crashing.org>
 	<CAPcyv4hsJDJwv-yEJiiy2ptn7QYbCA1+3s9gTQuhz_C9UKGGsg@mail.gmail.com>
 	<1436065368.3948.48.camel@kernel.crashing.org>
 	<CALCETrV82gJKhYbvdrqt3SHE6=42=QBKD8BcQPSukk2nzi1+EA@mail.gmail.com>
-	<20150706095256.GA27723@e104818-lin.cambridge.arm.com>
-From: Andy Lutomirski <luto@amacapital.net>
-Date: Mon, 6 Jul 2015 10:14:00 -0700
-Message-ID: <CALCETrVeZGRr06tzAgYMdqG-FqSssWWLZZkGSCriJM8pqCx1BA@mail.gmail.com>
-To: Catalin Marinas <catalin.marinas@arm.com>
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <CALCETrV82gJKhYbvdrqt3SHE6=42=QBKD8BcQPSukk2nzi1+EA@mail.gmail.com>
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Semantics of MMIO mapping
@@ -37,34 +35,20 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Jul 6, 2015 at 2:52 AM, Catalin Marinas <catalin.marinas@arm.com> wrote:
-> On Sun, Jul 05, 2015 at 07:55:39PM +0100, Andy Lutomirski wrote:
+>> Another side topic that has come up in this space is the desire to
+>> define a "memremap" api to clean up __iomem abuses for cases where
+>> "memory-like" mappings are needed.
 >>
->> At some point, it would also be nice if the various macros has
->> well-defined semantics.  For example, x86 has:
->>
->> #define pgprot_noncached(prot)                                          \
->>         ((boot_cpu_data.x86 > 3)                                        \
->>          ? (__pgprot(pgprot_val(prot) |                                 \
->>                      cachemode2protval(_PAGE_CACHE_MODE_UC_MINUS)))     \
->>          : (prot))
->>
->> Putting aside the pointless boot_cpu_data check (surely the recent PAT
->> rework completely obsoletes it), what is
->> pgprot_noncached(pgprot_writecombine(x)) supposed to do?  Currently it
->> results in garbage.  Should it have well-defined behavior instead?
+>> https://lkml.org/lkml/2015/6/22/100
 >
-> I never thought composing pgprot_* macros/functions is supposed to
-> return a combined attribute. On arm32/arm64, this construct is just
-> returning the outermost prot, i.e. noncached here. Even if we would want
-> to allow such combination, we don't have enough software PTE bits for
-> each prot type, so these macros simply generate the corresponding
-> hardware bits (on newer ARM cores, that's a 3-bit index).
->
+> Interesting. I had missed this. There is a similar question about
+> semantics (ordering etc...), ie, are they the same as memory for
+> example ?
 
-I should have said it more clearly: I think that this construct
-*should* result in the outermost prot.  That is: pgprot_xyz(p) should
-have mode xyz regardless of p.
+The drivers/acpi/apei/* usages are just mapping bits of normal memory that
+happens to be BIOS reserved.  ioremap*() got used because it was available
+and did the right thing with the page tables even though it broke the __iom=
+em
+annotations.  memremap() sounds like a great idea for these.
 
-x86 doesn't work that way right now.  Instead pgprot_xyz(p) returns
-garbage if p has prot bits set.
+-Tony
