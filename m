@@ -1,31 +1,32 @@
-Return-Path: <sundar.iyer@intel.com>
+Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C17E8AB2
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 464D2BC9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  6 Jul 2015 13:49:51 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 6D017194
+	Mon,  6 Jul 2015 13:54:58 +0000 (UTC)
+Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id 8F2B9226
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  6 Jul 2015 13:49:51 +0000 (UTC)
-From: "Iyer, Sundar" <sundar.iyer@intel.com>
-To: "Rafael J. Wysocki" <rjw@rjwysocki.net>, NeilBrown <neilb@suse.com>
-Date: Mon, 6 Jul 2015 13:49:45 +0000
-Message-ID: <2FABAEF0D3DCAF4F9C9628D6E2F968454F18BA5A@BGSMSX102.gar.corp.intel.com>
+	Mon,  6 Jul 2015 13:54:57 +0000 (UTC)
+From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+To: "Iyer, Sundar" <sundar.iyer@intel.com>
+Date: Mon, 06 Jul 2015 16:21:23 +0200
+Message-ID: <6142539.s1gh8ubrRK@vostro.rjw.lan>
+In-Reply-To: <2FABAEF0D3DCAF4F9C9628D6E2F968454F18BA5A@BGSMSX102.gar.corp.intel.com>
 References: <1489458.8WDRattPkl@vostro.rjw.lan>
-	<20150706114017.463ef472@noble> <53223375.qzkvIEse3r@vostro.rjw.lan>
-In-Reply-To: <53223375.qzkvIEse3r@vostro.rjw.lan>
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	<53223375.qzkvIEse3r@vostro.rjw.lan>
+	<2FABAEF0D3DCAF4F9C9628D6E2F968454F18BA5A@BGSMSX102.gar.corp.intel.com>
 MIME-Version: 1.0
-Cc: Grant Likely <grant.likely@linaro.org>, "Brown, Len" <len.brown@intel.com>,
-	Alan Stern <stern@rowland.harvard.edu>,
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
+Cc: "Brown, Len" <len.brown@intel.com>,
 	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>, Kristen
-	Carlson Accardi <kristen@linux.intel.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] System-wide interface to
-	specify	the level of PM tuning
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Kristen Carlson Accardi <kristen@linux.intel.com>,
+	Grant Likely <grant.likely@linaro.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] System-wide interface to specify
+	the level of PM tuning
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,32 +36,36 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-> -----Original Message-----
-> From: ksummit-discuss-bounces@lists.linuxfoundation.org [mailto:ksummit-
-> discuss-bounces@lists.linuxfoundation.org] On Behalf Of Rafael J. Wysocki
-> Sent: Monday, July 6, 2015 7:12 AM
-> To: NeilBrown
-> Cc: Grant Likely; Brown, Len; Alan Stern; Kristen Carlson Accardi; ksummi=
-t-
-> discuss@lists.linuxfoundation.org
-> Subject: Re: [Ksummit-discuss] [TECH TOPIC] System-wide interface to spec=
-ify
-> the level of PM tuning
->=20
+On Monday, July 06, 2015 01:49:45 PM Iyer, Sundar wrote:
+> > -----Original Message-----
+> > From: ksummit-discuss-bounces@lists.linuxfoundation.org [mailto:ksummit-
+> > discuss-bounces@lists.linuxfoundation.org] On Behalf Of Rafael J. Wysocki
+> > Sent: Monday, July 6, 2015 7:12 AM
+> > To: NeilBrown
+> > Cc: Grant Likely; Brown, Len; Alan Stern; Kristen Carlson Accardi; ksummit-
+> > discuss@lists.linuxfoundation.org
+> > Subject: Re: [Ksummit-discuss] [TECH TOPIC] System-wide interface to specify
+> > the level of PM tuning
+> > 
+> 
+> > >
+> > > (a tiny bit like a devicetree database which contains configuration
+> > > rules).
+> > >
+> > > Or have I missed the point completely?
+> > 
+> > No, I don't think you have missed it, but then most of subsystems and drivers in
+> > the kernel know what it means to be "power-friendly", so they should be able to
+> > choose their defaults on the basis of one single setting somewhere.
+> 
+> Is a "single setting somewhere" even appropriate? It is actually the intelligence
+> needed vs executing the actions?
 
-> >
-> > (a tiny bit like a devicetree database which contains configuration
-> > rules).
-> >
-> > Or have I missed the point completely?
->=20
-> No, I don't think you have missed it, but then most of subsystems and dri=
-vers in
-> the kernel know what it means to be "power-friendly", so they should be a=
-ble to
-> choose their defaults on the basis of one single setting somewhere.
+For one example, the default for most of the device/.../power/control files in
+sysfs is "on" (meaning no runtime PM) while it might be "auto" (use runtime PM
+if you can).  Making that change for everybody in one go may lead to various
+issues (that may be regarded as regressions then), but if we made it configurable,
+people might choose to make that change for themselves if they wanted to.
 
-Is a "single setting somewhere" even appropriate? It is actually the intell=
-igence needed vs executing the actions?
-
-Cheers!
+Thanks,
+Rafael
