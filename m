@@ -1,19 +1,19 @@
 Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id AF337BD4
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 172FCBCC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  6 Jul 2015 13:37:49 +0000 (UTC)
+	Mon,  6 Jul 2015 13:45:46 +0000 (UTC)
 Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id D5C82E3
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id 9C9D2118
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  6 Jul 2015 13:37:48 +0000 (UTC)
+	Mon,  6 Jul 2015 13:45:44 +0000 (UTC)
 From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-To: Josh Triplett <josh@joshtriplett.org>
-Date: Mon, 06 Jul 2015 16:04:13 +0200
-Message-ID: <2103508.4Lqs6zjrJu@vostro.rjw.lan>
-In-Reply-To: <20150706012125.GC15108@x>
-References: <1489458.8WDRattPkl@vostro.rjw.lan> <20150706012125.GC15108@x>
+To: NeilBrown <neilb@suse.com>
+Date: Mon, 06 Jul 2015 16:12:10 +0200
+Message-ID: <53223375.qzkvIEse3r@vostro.rjw.lan>
+In-Reply-To: <20150706114017.463ef472@noble>
+References: <1489458.8WDRattPkl@vostro.rjw.lan> <20150706114017.463ef472@noble>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="utf-8"
@@ -32,8 +32,12 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sunday, July 05, 2015 06:21:25 PM Josh Triplett wrote:
-> On Mon, Jul 06, 2015 at 02:22:02AM +0200, Rafael J. Wysocki wrote:
+On Monday, July 06, 2015 11:40:17 AM NeilBrown wrote:
+> On Mon, 06 Jul 2015 02:22:02 +0200 "Rafael J. Wysocki"
+> <rjw@rjwysocki.net> wrote:
+> 
+> > Hi All,
+> > 
 > > This is a re-occuring theme, but we discussed it last month during LinuxCon
 > > Japan with Kristen, Grant and other people and pretty much the only conclusion
 > > we could reach was to propose it as the KS topic, so here it goes.
@@ -58,32 +62,39 @@ On Sunday, July 05, 2015 06:21:25 PM Josh Triplett wrote:
 > > 
 > > So do we need such an interface?  If not, why not?  If so, how should it be
 > > designed, what should it cover etc.?
+> > 
 > 
-> Performance regressions alone aren't a good reason to disable power
-> management by default.  As I understand it, several power management
-> features are disabled by default because they tend to break things and
-> we don't have an enormous whitelist or blacklist; for instance, USB LPM.
-> If there's a power management feature we're not enabling by default
-> because it decreases performance by epsilon, let's change that.
+> This sounds like an important topic, but I don't think I quite
+> understand the question.
+> We already have ".../power/runtime_enabled" and various other tunables.
+> What more could you need in a kernel interface?
 
-Problem is in many cases it is difficult to estimate the epsilon in advance,
-so it is regarded as "dangerous" to change the default for everybody.
+The problem is that the defaults for all of those tunables are performance-oriented,
+so you need to flip many of them (if not all) to become power-oriented.
 
-> If someone cares so much about performance that they're willing to burn
-> a disproportionate amount of power to get it (meaning that they care
-> more about performance than performance per watt, and can't just solve
-> the problem by throwing more systems at it instead), then it doesn't
-> seem unreasonable to reconfigure the kernel for that.  (Though if there
-> are out-of-tree patches needed to enable that configuration, by all
-> means let's merge those.)  But let's be consistent in our defaults, and
-> given the huge number of people who may never change the defaults, I'd
-> advocate power management by default.  (A distribution could always
-> offer a kernel flavor for people who want performance at all costs.)
+That usually mean flipping a number of knobs every time you boot the system.
 
-The current situation, though, is that we tend to choose "safe" defaults that
-favor performance and to switch over to power-oriented you need to do all of
-the tuning I was talking about.  So the idea is to have a single place you
-can use to tell the kernel to "tune for energy-efficiency".
+> I can see that much more than an interface is needed - we need a tool
+> that makes use of that interface.
+
+That is one possible approach, but that tool would need to be developed in
+a lockstep with the kernel anyway, so it knows about all of the new features
+added to the kernel over time that have non-trivial power vs performance
+characteristics.
+
+> Maybe a database of different systems together with tuning settings for
+> different goals.
+> Then some tools detects the particular hardware it is running on, and
+> applies the tuning rules.
+> 
+> (a tiny bit like a devicetree database which contains configuration
+> rules).
+> 
+> Or have I missed the point completely?
+
+No, I don't think you have missed it, but then most of subsystems and drivers
+in the kernel know what it means to be "power-friendly", so they should be able
+to choose their defaults on the basis of one single setting somewhere.
 
 Thanks,
 Rafael
