@@ -1,32 +1,26 @@
-Return-Path: <will.deacon@arm.com>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D2A09ABA
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B612E9FB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  7 Jul 2015 09:56:19 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.101.70])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 80558150
+	Tue,  7 Jul 2015 09:57:50 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2D1E6E3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  7 Jul 2015 09:56:19 +0000 (UTC)
-Date: Tue, 7 Jul 2015 10:56:16 +0100
-From: Will Deacon <will.deacon@arm.com>
-To: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-Message-ID: <20150707095615.GD23879@arm.com>
-References: <1435997837.3948.21.camel@kernel.crashing.org>
-	<CAPcyv4hsJDJwv-yEJiiy2ptn7QYbCA1+3s9gTQuhz_C9UKGGsg@mail.gmail.com>
-	<1436065368.3948.48.camel@kernel.crashing.org>
-	<CALCETrV82gJKhYbvdrqt3SHE6=42=QBKD8BcQPSukk2nzi1+EA@mail.gmail.com>
-	<1436126184.3948.55.camel@kernel.crashing.org>
-	<20150706093333.GD30342@arm.com>
-	<1436220126.3948.74.camel@kernel.crashing.org>
+	Tue,  7 Jul 2015 09:57:50 +0000 (UTC)
+Date: Tue, 7 Jul 2015 10:24:34 +0100
+From: Mark Brown <broonie@kernel.org>
+To: ksummit-discuss@lists.linuxfoundation.org
+Message-ID: <20150707092434.GE11162@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="y77xulteysKOarq0"
 Content-Disposition: inline
-In-Reply-To: <1436220126.3948.74.camel@kernel.crashing.org>
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Semantics of MMIO mapping
- attributes accross archs
+Cc: Shuah Khan <shuah.kh@samsung.com>, Kevin Hilman <khilman@linaro.org>,
+	Tyler Baker <tyler.baker@linaro.org>,
+	Dan Carpenter <dan.carpenter@oracle.com>
+Subject: [Ksummit-discuss] [CORE TOPIC] Testing
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,54 +30,53 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Jul 06, 2015 at 11:02:06PM +0100, Benjamin Herrenschmidt wrote:
-> On Mon, 2015-07-06 at 10:33 +0100, Will Deacon wrote:
-> > On arm64, ioremap == ioremap_nocache, which gives strong ordering
-> > guarantees but forbids things like unaligned access.
-> 
-> Ok, same for us. Except ordering guarantees aren't even that strong ...
 
-By "strong", I mean "ordered with respect to each other" and not subject
-to "gathering" (more on that below).
+--y77xulteysKOarq0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> >  ioremap_wc gives a
-> > more relaxed mapping, which is non-cached but allows re-ordering and
-> > unaligned access.
-> 
-> Ok, our other mapping (G=0) weakens ordering even more but won't allow
-> unaligned either. We don't have a non-cachable mapping that allows
-> unaligned accesses at all in fact :-( I've been fighting with our HW
-> guys on that one, but they keep thinking it's not useful.
+One thing we typically cover at Kernel Summit is some of the activity
+that's going on around testing upstream.  I think it'd be useful to have
+some more of those discussions, both in terms of making people aware of
+what's available and in terms of helping the people doing testing figure
+out what would be useful.  A lot of this is probably well suited to a
+workshop session between the interested people but I do think some
+element in the core day beyond just a readout will be useful.
 
-Yikes. How do you deal with that? I've seen GCC perform idiom recognition
-on calls to memset/memcpy assuming unaligned access on arm64.
+The main things I'm aware of that are happening at the minute are
+kselftest development, the 0day tester, plus kernelci.org and the other
+build and boot/test bots that are running against various trees.
 
-> > ioremap_wt is new and strange, but rmk and I were going down the same
-> > route as ioremap_wc for that, because people expect to be able to do
-> > blind memcpy with those pointers.
-> 
-> Ok, powerpc architecturally supports WT but no recent implementation
-> does. I'm not sure what is the practical purpose.
+In terms of discussion topics some of the issues I'm seeing are:
 
-That's a similar story for us. In terms of normal memory, we basically
-have writeback-cacheable and non-cacheable.
+ - Can we pool resources to share the workload of running things and
+   interpreting results, ideally also providing some central way for
+   people to discover what results are out there for them to look at
+   for a given kernel in the different systems?
 
-> > As for ordering of writeX/readX wrt DMA, our IO accessors are so
-> > insanely
-> > heavyweight that I don't think the ioremap flavour matters atm.
-> 
-> This is the same for us, but that also means in our case that writeX
-> will not combine on ioremap_wc(), only relaxed_writeX() might after we
-> change it to be something else than writeX(). What is the situation for
-> you ?
+ - Should we start carrying config fragments upstream designed to
+   support testing, things like the distro config fragments that keep
+   getting discussed are one example here but there's other things like
+   collections of debug options we could be looking at.  Should we be
+   more generally slimming defconfigs and moving things into fragments?
 
-The barriers between the writes will forbid any combining. In fact, it
-would make the mapping look an awful lot like a plain old ioremap except
-that a readX could be speculated and unaligned access is permitted.
+and there's always the the perennial ones about what people would like
+to see testing for.
 
-As long as the accessors are required to enforce ordering that the
-underlying memory type is incapable of providing, I don't see what we
-could do to solve this (somehow make readX/writeX behaviour dependent on
-the pointer?).
+--y77xulteysKOarq0
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
 
-Will
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQEcBAEBCAAGBQJVm5rSAAoJECTWi3JdVIfQrL8H/1iy2gFBXXfHZ2ZZVCGEF7cT
+kDVeR/OB0pxR4HRoecl5FBBZn4msP2Q9krDiCPYD548n/ULlrHaeWJki0Z53BNtw
+Jj4rsvUqWT2+xriCqThkBn2kIIZQ+SaYTc7QhsgYY8Jh382MDkxMBf53ihMUucbq
+l71SWFuuqHYa7PaiRfx+S8fgDyFpW3D7dwgPP6F4g/9ITiqvI9qE1yNvgPhNsMYw
+Izg45cqIPN5vWl5HKagA2LjHbiRRsxxQfvbodmTwRkQPf5QzNSy1fhYV9ZyRQKo1
++fufBJxYi4844xb7+OBaQnsLTcR6O6fwo4tC/SRXnNX4JHMP6JKTyLQHGEoly5w=
+=o9FY
+-----END PGP SIGNATURE-----
+
+--y77xulteysKOarq0--
