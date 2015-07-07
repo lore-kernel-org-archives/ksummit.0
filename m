@@ -1,27 +1,29 @@
-Return-Path: <rjw@rjwysocki.net>
+Return-Path: <PeterHuewe@gmx.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 08152BA1
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1C398BA1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  7 Jul 2015 22:46:08 +0000 (UTC)
-Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id 1482B155
+	Tue,  7 Jul 2015 22:50:14 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3ED1F155
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  7 Jul 2015 22:46:06 +0000 (UTC)
-From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-To: Jiri Kosina <jkosina@suse.com>
-Date: Wed, 08 Jul 2015 01:12:33 +0200
-Message-ID: <9412727.0bKgPF9YKr@vostro.rjw.lan>
-In-Reply-To: <alpine.LNX.2.00.1507072307110.10183@pobox.suse.cz>
-References: <alpine.LNX.2.00.1507071340480.10183@pobox.suse.cz>
-	<4541757.2i2CVNfqPd@vostro.rjw.lan>
-	<alpine.LNX.2.00.1507072307110.10183@pobox.suse.cz>
+	Tue,  7 Jul 2015 22:50:13 +0000 (UTC)
+From: Peter =?iso-8859-1?q?H=FCwe?= <PeterHuewe@gmx.de>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Wed, 8 Jul 2015 00:51:41 +0200
+References: <20150707092434.GE11162@sirena.org.uk>
+	<20150707171819.GF11162@sirena.org.uk>
+	<559C11C4.80301@roeck-us.net>
+In-Reply-To: <559C11C4.80301@roeck-us.net>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] giving freezer well-defined
-	semantics
+Content-Type: Text/Plain;
+  charset="iso-8859-1"
+Content-Transfer-Encoding: 7bit
+Message-Id: <201507080051.42985.PeterHuewe@gmx.de>
+Cc: Shuah Khan <shuah.kh@samsung.com>, Kevin Hilman <khilman@linaro.org>,
+	grant@secretlab.ca, Tyler Baker <tyler.baker@linaro.org>,
+	Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Testing
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,35 +33,45 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tuesday, July 07, 2015 11:13:01 PM Jiri Kosina wrote:
-> On Tue, 7 Jul 2015, Rafael J. Wysocki wrote:
-> 
-> > > Currently, the freezer has rather random semantics and there is no 
-> > > rigorous definition that would provide clear guidance which kernel threads 
-> > > should be freezable (and what rules they have to follow if they are).
+Hi,
+
+I definitely think discussing the next steps in terms of automated regression 
+testing is important - so thanks for raising this issue!!
+
+> >> Maybe list all known ones as a start ?
 > > 
-> > That's with respect to kernel threads, right?
-> 
-> Yeah, sorry for not being verbose enough. I have been buried in kthread 
-> interactions with the rest of the kernel for too long, so my world view is 
-> now a bit distorted.
-> 
-> Yes, this is purely related to try_to_freeze() in !PF_NOFREEZE kernel 
-> threads.
-> 
-> > The primary purpose of the freezer is to get user space out of the way
-> > and at least in principle there should be no fundamental need to freeze
-> > any kernel threads.
-> 
-> Except those which are needed for hibernation image I/O.
+> > Off the top of my head the automated ones I'm aware of are Olof's build
+> > & boot test, Dan running smatch and I think some other static analysis
+> > stuff, someone (not sure who?) running some coccinelle stuff, Coverity
+> > and I've got a builder too.
 
-I don't quite see why there's a need to freeze those particular ones.
+For the TPM subsystem I have several things in place:
+- applying patches automatically triggers a build on travis-ci.org
+-- it triggers some basic style checkers
+-- the build runs a qemu (with the tpm simulator) running another qemu (which 
+now sees a real /dev/tpm0) with the new kernel.
+--- the qemu-qemu-linux runs my tpm driver testsuite.
 
-OK, it is necessary to ensure that the contents of the image will be consistent
-with the state of filesystems on the storage media, so everything that may
-change that state should be "frozen" before the image is created, but "frozen"
-in terms of "no persistent state changes from now on" rather than in terms of
-"no forward progress from now on".
+The reason behind this is that I can hook up besides the TPM1.2 simulator also 
+the binary only windows based TPM2.0 simulator (with wine) without modifying 
+qemu source -- but still the qemu-qemu-kernel sees 'real' hardware.
+
+- some scripts for deploying new kernels to real hw machines and running tests 
+with real hw tpms
+
+- a mocked i2c tpm which I can hook up via the I2C_Slave interface, which also 
+passes my driver testsuite -- so I can test the drivers within UML :)
+
+- and of course wolfram's ninja-check scripts for style checkers
+
+ 
+> Plus mine, of course. Only part missing is automated bisect and e-mail
+> if something starts failing.
+
+
+Yeah - getting the reports reasonably fast is probably the most important 
+stuff -- the 0day testing really does a great job here.
+
 
 Thanks,
-Rafael
+Peter
