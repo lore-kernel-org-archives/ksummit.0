@@ -1,32 +1,32 @@
-Return-Path: <jkosina@suse.com>
+Return-Path: <will.deacon@arm.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 642B49F2
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D2A09ABA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  7 Jul 2015 07:54:08 +0000 (UTC)
-Received: from mail.emea.novell.com (mail.emea.novell.com [130.57.118.101])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9A244AA
+	Tue,  7 Jul 2015 09:56:19 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.101.70])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 80558150
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  7 Jul 2015 07:54:07 +0000 (UTC)
-Date: Tue, 7 Jul 2015 09:53:44 +0200 (CEST)
-From: Jiri Kosina <jkosina@suse.com>
-To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-In-Reply-To: <6142539.s1gh8ubrRK@vostro.rjw.lan>
-Message-ID: <alpine.LNX.2.00.1507070948590.10183@pobox.suse.cz>
-References: <1489458.8WDRattPkl@vostro.rjw.lan>
-	<53223375.qzkvIEse3r@vostro.rjw.lan>
-	<2FABAEF0D3DCAF4F9C9628D6E2F968454F18BA5A@BGSMSX102.gar.corp.intel.com>
-	<6142539.s1gh8ubrRK@vostro.rjw.lan>
+	Tue,  7 Jul 2015 09:56:19 +0000 (UTC)
+Date: Tue, 7 Jul 2015 10:56:16 +0100
+From: Will Deacon <will.deacon@arm.com>
+To: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Message-ID: <20150707095615.GD23879@arm.com>
+References: <1435997837.3948.21.camel@kernel.crashing.org>
+	<CAPcyv4hsJDJwv-yEJiiy2ptn7QYbCA1+3s9gTQuhz_C9UKGGsg@mail.gmail.com>
+	<1436065368.3948.48.camel@kernel.crashing.org>
+	<CALCETrV82gJKhYbvdrqt3SHE6=42=QBKD8BcQPSukk2nzi1+EA@mail.gmail.com>
+	<1436126184.3948.55.camel@kernel.crashing.org>
+	<20150706093333.GD30342@arm.com>
+	<1436220126.3948.74.camel@kernel.crashing.org>
 MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
-Cc: "Brown, Len" <len.brown@intel.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	Kristen Carlson Accardi <kristen@linux.intel.com>,
-	Grant Likely <grant.likely@linaro.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] System-wide interface to specify
- the level of PM tuning
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1436220126.3948.74.camel@kernel.crashing.org>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Semantics of MMIO mapping
+ attributes accross archs
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,24 +36,54 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 6 Jul 2015, Rafael J. Wysocki wrote:
+On Mon, Jul 06, 2015 at 11:02:06PM +0100, Benjamin Herrenschmidt wrote:
+> On Mon, 2015-07-06 at 10:33 +0100, Will Deacon wrote:
+> > On arm64, ioremap == ioremap_nocache, which gives strong ordering
+> > guarantees but forbids things like unaligned access.
+> 
+> Ok, same for us. Except ordering guarantees aren't even that strong ...
 
-> For one example, the default for most of the device/.../power/control 
-> files in sysfs is "on" (meaning no runtime PM) while it might be "auto" 
-> (use runtime PM if you can).  Making that change for everybody in one go 
-> may lead to various issues (that may be regarded as regressions then), 
+By "strong", I mean "ordered with respect to each other" and not subject
+to "gathering" (more on that below).
 
-I don't believe that the current default settings are set the way they are 
-set because we intentionally want to prefer performance to power 
-efficiency. The real problem is that it's really the only "safe" default, 
-because turning power-management features on is likely to cause 
-unpredictable issues (being it either real bugs in code, or just bad user 
-experience stemming from unexpected system behavior).
+> >  ioremap_wc gives a
+> > more relaxed mapping, which is non-cached but allows re-ordering and
+> > unaligned access.
+> 
+> Ok, our other mapping (G=0) weakens ordering even more but won't allow
+> unaligned either. We don't have a non-cachable mapping that allows
+> unaligned accesses at all in fact :-( I've been fighting with our HW
+> guys on that one, but they keep thinking it's not useful.
 
-Such as suspended keyboard losing first keypress during wakeup (very 
-common). Or wireless power management not working properly between the 
-client and AP. Etc etc.
+Yikes. How do you deal with that? I've seen GCC perform idiom recognition
+on calls to memset/memcpy assuming unaligned access on arm64.
 
--- 
-Jiri Kosina
-SUSE Labs
+> > ioremap_wt is new and strange, but rmk and I were going down the same
+> > route as ioremap_wc for that, because people expect to be able to do
+> > blind memcpy with those pointers.
+> 
+> Ok, powerpc architecturally supports WT but no recent implementation
+> does. I'm not sure what is the practical purpose.
+
+That's a similar story for us. In terms of normal memory, we basically
+have writeback-cacheable and non-cacheable.
+
+> > As for ordering of writeX/readX wrt DMA, our IO accessors are so
+> > insanely
+> > heavyweight that I don't think the ioremap flavour matters atm.
+> 
+> This is the same for us, but that also means in our case that writeX
+> will not combine on ioremap_wc(), only relaxed_writeX() might after we
+> change it to be something else than writeX(). What is the situation for
+> you ?
+
+The barriers between the writes will forbid any combining. In fact, it
+would make the mapping look an awful lot like a plain old ioremap except
+that a readX could be speculated and unaligned access is permitted.
+
+As long as the accessors are required to enforce ordering that the
+underlying memory type is incapable of providing, I don't see what we
+could do to solve this (somehow make readX/writeX behaviour dependent on
+the pointer?).
+
+Will
