@@ -1,24 +1,26 @@
-Return-Path: <rjw@rjwysocki.net>
+Return-Path: <linux@roeck-us.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 66F79BA6
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8A6E1BA6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  7 Jul 2015 21:05:55 +0000 (UTC)
-Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id 66AC1121
+	Tue,  7 Jul 2015 21:06:40 +0000 (UTC)
+Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BFA0FA8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  7 Jul 2015 21:05:54 +0000 (UTC)
-From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Tue, 07 Jul 2015 23:32:20 +0200
-Message-ID: <4541757.2i2CVNfqPd@vostro.rjw.lan>
-In-Reply-To: <alpine.LNX.2.00.1507071340480.10183@pobox.suse.cz>
-References: <alpine.LNX.2.00.1507071340480.10183@pobox.suse.cz>
+	Tue,  7 Jul 2015 21:06:38 +0000 (UTC)
+Message-ID: <559C3F56.8040606@roeck-us.net>
+Date: Tue, 07 Jul 2015 14:06:30 -0700
+From: Guenter Roeck <linux@roeck-us.net>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] giving freezer well-defined
-	semantics
+To: David Woodhouse <dwmw2@infradead.org>,
+	Steven Rostedt <rostedt@goodmis.org>
+References: <1435997161.3324.33.camel@infradead.org>	<20150707143447.6f345e91@gandalf.local.home>
+	<1436298670.3324.107.camel@infradead.org>
+In-Reply-To: <1436298670.3324.107.camel@infradead.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL enforcement actions
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -28,54 +30,33 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tuesday, July 07, 2015 10:42:36 PM Jiri Kosina wrote:
-> Currently, the freezer has rather random semantics and there is no 
-> rigorous definition that would provide clear guidance which kernel threads 
-> should be freezable (and what rules they have to follow if they are).
+On 07/07/2015 12:51 PM, David Woodhouse wrote:
+>
+> The point is that we aren't attempting to reach a simple resolution
+> with a 'right answer'. There are parties with different desires — from
+> demanding strict compliance with the *maximum* they can argue for the
+> GPL to mean, to basically wanting to act as if it's a BSD licence, in
+> order to avoid scaring commercial users away and feeding FUD stories
+> like this one¹.
+>
+I think that article is just a sign of the current Zeitgeist.
+Everything has to be scary nowadays, or it doesn't count.
 
-That's with respect to kernel threads, right?
+> It would be useful to have an idea of where the average core developer
+> falls within that spectrum — that was the first specific thing I was
+> hoping would come from the proposed session.
+>
+> The other specific goal (and perhaps the more important one) was to
+> have a coherent report about the enforcement actions and behind-the
+> -scenes negotiations w.r.t compliance that there is so much
+> misinformation and politicking about.
+>
+> To that end, we should probably invite Bradley Kuhn or Karen Sandler
+> from SF Conservancy to talk about their efforts. And someone from the
+> LF TAB will presumably also be there to discuss the compliance
+> viewpoint from the LF side.
+>
+... and then have the LF attorneys brief LF member companies about the
+outcome of the meeting. I always find those legal briefings very useful.
 
-The primary purpose of the freezer is to get user space out of the way
-and at least in principle there should be no fundamental need to freeze
-any kernel threads.
-
-> The long and complicated history of freezer resulted in the current state, 
-> where many kernel threads are marked freezable "just because", with 
-> freezing points randomly sprinkled all over the place, and it really 
-> complicates any efforts in cleaning up kthreads (which is why I am 
-> interested in it -- we'd love to have kthreads cleaned up to make live 
-> patching easier).
-> 
-> There are various possible aproaches to this. One is basically ad-hoc, 
-> going over all the existing kthreads one by one, and fixing (probably just 
-> removing, in most cases) its usage of freezer. The obivous disadvantage is 
-> that this doesn't prevent anyone to abusing it again the same way in the 
-> future.
-> 
-> Tejun came up with a different aproach at [1] -- basically getting rid of 
-> the freezer completely, and rather annotating those I/O requests which are 
-> needed for writing the hibernation image out, so that they make it through 
-> all the affected subsystems, while other I/O requests would be frozen.
-> 
-> This would be rather dramatic change both in a way how kthreads work, how 
-> hibernation works, and it'd be necessary to have means to mark I/O 
-> requests as "needed for hibernation", therefore I think this would be a 
-> good cross-subsystem topic.
-> 
-> [1] http://lkml.kernel.org/r/20150613232222.GB346@mtj.duckdns.org
-
-I'm not reading this as a proposal to drop the freezer completely, but
-rather to stop using it for kernel threads (I may not understand the
-full context correctly, though).
-
-There are two basic resons to freeze user space before suspend in my view.
-First, we don't want it to interfere with device driver's suspend/resume
-callbacks in any way.  Second, we want to prevent silly stuff (like
-active polling in a loop etc.) from running.
-
-Both are valid as far as I can say.
-
-Kernel threads are a totally different matter, however.
-
-Thanks,
-Rafael
+Guenter
