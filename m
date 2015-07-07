@@ -1,35 +1,29 @@
-Return-Path: <luto@amacapital.net>
+Return-Path: <linville@tuxdriver.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id E36AD8B4
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D2E39BBF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  7 Jul 2015 22:02:33 +0000 (UTC)
-Received: from mail-la0-f41.google.com (mail-la0-f41.google.com
-	[209.85.215.41])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2DE04164
+	Tue,  7 Jul 2015 22:15:12 +0000 (UTC)
+Received: from smtp.tuxdriver.com (charlotte.tuxdriver.com [70.61.120.58])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 55051F1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  7 Jul 2015 22:02:33 +0000 (UTC)
-Received: by lagx9 with SMTP id x9so213009513lag.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 07 Jul 2015 15:02:31 -0700 (PDT)
+	Tue,  7 Jul 2015 22:15:12 +0000 (UTC)
+Date: Tue, 7 Jul 2015 18:11:45 -0400
+From: "John W. Linville" <linville@tuxdriver.com>
+To: David Woodhouse <dwmw2@infradead.org>
+Message-ID: <20150707221145.GA2875@tuxdriver.com>
+References: <1435997161.3324.33.camel@infradead.org>
+	<20150707143447.6f345e91@gandalf.local.home>
+	<1436298670.3324.107.camel@infradead.org>
+	<20150707200002.GA8315@kroah.com>
+	<1436300310.3324.115.camel@infradead.org>
 MIME-Version: 1.0
-In-Reply-To: <CAGXu5jJN7z0Fa78SmyCe0mWE6mRY5f+giL-8CY_Li3tYwYeZrg@mail.gmail.com>
-References: <20150707092434.GE11162@sirena.org.uk>
-	<CACVxJT8Ae3t9x=jF-xy6NunqZCbgOoaNxy9AqOxuDg8Dx=Tk6g@mail.gmail.com>
-	<20150707131411.GI2887@sirena.org.uk>
-	<20150707144725.6a19727f@gandalf.local.home>
-	<CAGXu5jJN7z0Fa78SmyCe0mWE6mRY5f+giL-8CY_Li3tYwYeZrg@mail.gmail.com>
-From: Andy Lutomirski <luto@amacapital.net>
-Date: Tue, 7 Jul 2015 15:02:11 -0700
-Message-ID: <CALCETrUMeOdJstG1djALBidD60xOXNExh5vFZGbUSEJwyzutpw@mail.gmail.com>
-To: Kees Cook <keescook@chromium.org>
-Content-Type: text/plain; charset=UTF-8
-Cc: Shuah Khan <shuah.kh@samsung.com>, Kevin Hilman <khilman@linaro.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Tyler Baker <tyler.baker@linaro.org>, Mark Brown <broonie@sirena.org.uk>,
-	Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Testing
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <1436300310.3324.115.camel@infradead.org>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL enforcement actions
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,15 +33,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Jul 7, 2015 at 1:46 PM, Kees Cook <keescook@chromium.org> wrote:
-> There's also sysctl settings, and we also want privilege level as part
-> of that configuration. (i.e. some tests should run as root, some show
-> not, etc). It'd be nice to have the tests report these in some
-> machine-readable form so that a test harness could check, prepare the
-> environment, and then run the tests.
->
+On Tue, Jul 07, 2015 at 09:18:30PM +0100, David Woodhouse wrote:
+> On Tue, 2015-07-07 at 13:00 -0700, Greg KH wrote:
+> > As those "efforts" are being driven by the developers of the kernel, I
+> > think that the developers involved would be the best to present this,
+> > not the SF Conservancy people.  As you point out, the SFLC is just the
+> > lawyers being hired by the developers to do what they want them to do :)
+> 
+> A lot of those developers will be in the room too, of course.
+> 
+> But the "efforts" are being driven *by* Conservancy on *behalf* of
+> those developers who have asked Conservancy to do so. And I suspect
+> someone from Conservancy is better placed to give up-to-date
+> information about what's actually happening "on the ground".
+> 
+> The point is to get people in the room and have a direct discussion
+> without hearsay or misinformation — and doing that *without* someone
+> from Conservancy doesn't really make much sense.
 
-There was a fair amount of discussion about machine-readable output at
-the last KS.  I don't know whether it ever got implemented.
+I'm inclined to agree with David.  I'm not casting any aspersions
+on Bradly or the Conservancy, but I definitely think they are heavy
+influencers with regard to this topic.
 
---Andy
+John
+-- 
+John W. Linville		Someday the world will need a hero, and you
+linville@tuxdriver.com			might be all we have.  Be ready.
