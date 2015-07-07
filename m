@@ -1,29 +1,27 @@
-Return-Path: <tony.luck@intel.com>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3D092BD1
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E408BBB3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  7 Jul 2015 22:15:26 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id D9062169
+	Tue,  7 Jul 2015 22:40:32 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7D2E31BC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  7 Jul 2015 22:15:25 +0000 (UTC)
-From: "Luck, Tony" <tony.luck@intel.com>
-To: Chris Mason <clm@fb.com>, David Woodhouse <dwmw2@infradead.org>
-Date: Tue, 7 Jul 2015 22:15:24 +0000
-Message-ID: <3908561D78D1C84285E8C5FCA982C28F32AA4200@ORSMSX114.amr.corp.intel.com>
-References: <1435997161.3324.33.camel@infradead.org>
-	<20150707143447.6f345e91@gandalf.local.home>
-	<1436298670.3324.107.camel@infradead.org>
-	<20150707203330.GA21272@ret.masoncoding.com>
-In-Reply-To: <20150707203330.GA21272@ret.masoncoding.com>
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	Tue,  7 Jul 2015 22:40:32 +0000 (UTC)
+Date: Tue, 7 Jul 2015 23:40:25 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Jiri Kosina <jkosina@suse.com>
+Message-ID: <20150707224025.GJ11162@sirena.org.uk>
+References: <alpine.LNX.2.00.1507071324090.10183@pobox.suse.cz>
 MIME-Version: 1.0
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL enforcement actions
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="dZMKKfncsnDOeEps"
+Content-Disposition: inline
+In-Reply-To: <alpine.LNX.2.00.1507071324090.10183@pobox.suse.cz>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] services needed from kernel.org
+ infrastructure
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,19 +31,40 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-PiBJJ2xsIGJldCB0aGUgYXZlcmFnZSBjb3JlIGRldmVsb3BlciB3YW50cyB0byBoYWNrIG9uIHRo
-ZSBrZXJuZWwsIGFuZA0KPiBzaGFyZSBpbiB0aGUgd29yayB0aGF0IGV2ZXJ5b25lIGVsc2UgaXMg
-ZG9pbmcuICBCdXQgSSdsbCBhbHNvIGJldCB0aGUNCj4gY29udmVyc2F0aW9uIHdvdWxkIGJlIGRv
-bWluYXRlZCBieSBleHRyZW1lcywgc3BpcmFsIGRvd24gaW50bw0KPiBteS1jb21wYW55LXdvbid0
-LWxldC1tZS1zYXkteHh5eXp6LCBhbmQgdGhlbiBmaW5hbGx5IHNldHRsZSBpbnRvDQo+IGNvbXBh
-cmlzb25zIG9mIFVTIGxhdyB3aXRoIGV2ZXJ5b25lIGVsc2UuDQoNCkEgc2l6YWJsZSBmcmFjdGlv
-biBvZiBjb21taXRzIGNvbWUgZnJvbSBwZW9wbGUgd2hvc2UgZGF5IGpvYiBpcw0KdG8gd29yayBv
-biBMaW51eC4gQWxsIG15IGNvbnRyaWJ1dGlvbnMgdG8gdGhlIExpbnV4IGtlcm5lbCBhcmUgb3du
-ZWQNCmJ5IG15IGVtcGxveWVyLiAgRG8gY29tcGFuaWVzIHdpdGggbGFyZ2UgYWdncmVnYXRlZCBj
-b250cmlidXRpb25zDQpnZXQgYSBzYXkgaW4gdGhlIEdQTCBlbmZvcmNlbWVudCBkaXJlY3Rpb24/
-DQoNCkknbSBjZXJ0YWlubHkgbm90IHNwZWFraW5nIGZvciBteSBlbXBsb3llciBoZXJlIC0gYnV0
-IHlvdSBtaWdodCB0aGluaw0KdGhhdCBhIGNvbXBhbnkgdGhhdCBtYWtlcyBhIGh1Z2UgcGVyY2Vu
-dGFnZSBvZiBpdHMgcHJvZml0cyBmcm9tIHNlbGxpbmcNCnNpbGljb24gY2hpcHMgd291bGQgd2Fu
-dCB0aGUgbWluaW11bSBwb3NzaWJsZSBiYXJyaWVycyB0byBwZW9wbGUgYnV5aW5nDQp0aG9zZSBj
-aGlwcyB0byBydW4gcy93LiBUaGF0IG1heSwgb3IgbWF5IG5vdCwgYWxpZ24gd2l0aCB0aGUgb3Bp
-bmlvbnMgb2YNCnBlb3BsZSB3b3JraW5nIGZvciB0aGUgY29tcGFueS4NCg0KLVRvbnkNCg==
+
+--dZMKKfncsnDOeEps
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, Jul 07, 2015 at 10:42:49PM +0200, Jiri Kosina wrote:
+
+> I personally would very welcome a facility that'd send out an e-mail if a=
+=20
+> new commit is pushed to a git.kernel.org repo branch (sort of what tip-bo=
+t=20
+> and akpm's scripts are doing these days) to automatically notify the patc=
+h=20
+> author that the patch has been merged and pushed out.
+
+Those are useful, I know Greg has one and I just wrote one too.  I'm not
+sure it needs to be on the server side though, they can also be done
+=66rom the client which lets you try to fine tune things more readily.
+
+--dZMKKfncsnDOeEps
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQEcBAEBCAAGBQJVnFVYAAoJECTWi3JdVIfQnWoH/06MvhMtGKnZ4583AMYRCtp7
+G2ZodRzBIIqQuDfWNXZW9OpsaCVyQrMiQYy8Oo3ubVWNnjR6FDrWzXIaMucHcjpu
+WW02T18R1oj+yhEWXCkc0AXdH92BNYLTe677aBvkuDJULS/fLYKrxS2ceW34jTVp
+5HvSQivZ2geB+QQDwE7bngYK57tJ/xMOLwKvmAm2sP+Xo6kDfWf3IdVM8aKL5lyK
+32zUaywUFsPtzG6sbRy5NgaAnpFeOMtis383jXiy87Dm+Dy7517aljg8ZijtitIw
+wdKdzdgqSpPE72MjBiE3IIGSymrWWqSyKQVb8slPNmFifT8+GpSZhyfuikt/0rE=
+=V2Da
+-----END PGP SIGNATURE-----
+
+--dZMKKfncsnDOeEps--
