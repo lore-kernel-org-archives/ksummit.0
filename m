@@ -1,31 +1,26 @@
-Return-Path: <luto@amacapital.net>
+Return-Path: <laurent.pinchart@ideasonboard.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 14A4CB3D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 81DCFB3D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  7 Jul 2015 23:39:18 +0000 (UTC)
-Received: from mail-lb0-f176.google.com (mail-lb0-f176.google.com
-	[209.85.217.176])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BA7FAFB
+	Tue,  7 Jul 2015 23:49:39 +0000 (UTC)
+Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
+	[185.26.127.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C441C11C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  7 Jul 2015 23:39:16 +0000 (UTC)
-Received: by lbzd8 with SMTP id d8so826085lbz.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 07 Jul 2015 16:39:15 -0700 (PDT)
+	Tue,  7 Jul 2015 23:49:38 +0000 (UTC)
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Wed, 08 Jul 2015 02:49:47 +0300
+Message-ID: <2102387.OD8sBG4Eol@avalon>
+In-Reply-To: <201507080121.41463.PeterHuewe@gmx.de>
+References: <201507080121.41463.PeterHuewe@gmx.de>
 MIME-Version: 1.0
-In-Reply-To: <559C62D0.9090301@roeck-us.net>
-References: <alpine.LNX.2.00.1507071324090.10183@pobox.suse.cz>
-	<CALCETrWywXiKcWc4jSQR1n9nuwVom81w0qnBo7_HRV7qNahURQ@mail.gmail.com>
-	<559C62D0.9090301@roeck-us.net>
-From: Andy Lutomirski <luto@amacapital.net>
-Date: Tue, 7 Jul 2015 16:38:55 -0700
-Message-ID: <CALCETrVxt5xZ+ewoOR8TVH7YgN4mJkahVXSep2-aGoX4_i7mOQ@mail.gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Content-Type: text/plain; charset=UTF-8
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] services needed from kernel.org
-	infrastructure
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: Jason Cooper <jason@lakedaemon.net>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
+	Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,36 +30,110 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Jul 7, 2015 at 4:37 PM, Guenter Roeck <linux@roeck-us.net> wrote:
-> On 07/07/2015 04:31 PM, Andy Lutomirski wrote:
->>
->> On Tue, Jul 7, 2015 at 1:42 PM, Jiri Kosina <jkosina@suse.com> wrote:
->>>
->>> I think it'd be useful to have a session where maintainers could come up
->>> with feature / improvement requests for kernel.org infrastructure and
->>> have
->>> a subsequent discussion about whether they would be generally useful.
->>>
->>> Let me start with my personal wish:
->>>
->>> I personally would very welcome a facility that'd send out an e-mail if a
->>> new commit is pushed to a git.kernel.org repo branch (sort of what
->>> tip-bot
->>> and akpm's scripts are doing these days) to automatically notify the
->>> patch
->>> author that the patch has been merged and pushed out.
->>>
->>> Suggested attendance: Konstantin, maintainers :)
->>
->>
->> I wouldn't mind something like patchwork for lkml.  Since I use gmail
->> (sigh), it's a minor PITA to pull out patchbombs in git am-able
->> format.
->>
-> What is wrong with https://patchwork.kernel.org/project/LKML/list/ ?
+Hi Peter,
 
-It's not spelled "linux-kernel".
+On Wednesday 08 July 2015 01:21:40 Peter Huewe wrote:
+> Hi,
+> 
+> In order to continue our traditions I would like to propose again the topic
+> of recruitment, but this time not only limiting to the hobbyists market.
+> 
+> We are definitely short on reviewers and thus have mostly overloaded
+> maintainers.
 
-/me runs away
+I was about to propose a related core topic.
 
---Andy
+The reviewing and maintainership process seems to have a hard time scaling to 
+the amount of contributions we receive, to the point where even well known and 
+respected kernel developers get discourages.
+
+Quoting http://www.spinics.net/lists/cpufreq/msg10609.html,
+
+--------------------------------
+> I'm trying to convince management that one of the advantages
+> of mainlining the port is that it is easier to switch to newer
+> kernels. Do you agree with this assertion?
+
+Yes and no.  If you can get stuff upstream, it should make things
+easier.
+
+The difficult bit - and time consuming bit - is getting code upstream.
+Even in my position, I'd suggest allowing about five years for that
+activity, and even then don't have expectations of getting everything
+upstream.
+
+Frankly now, my advice to people would be to just not bother, it's
+*way* too much effort to get everything to an acceptable state,
+especially if the SoC has no support what so ever.
+--------------------------------
+
+That's a very serious red warning in my opinion.
+
+Throwing more maintainers, co-maintainers or sub-maintainers at the kernel 
+won't magically solve this, as the more core developers a subsystem has the 
+more difficult it will be for them to synchronize. I would like share 
+experience about good practice rules that have proved to be effective.
+
+> For testers it's usually even worse - how many patches are actually tested?
+> Judging from what I read on LKML not that many.
+> 
+> So we should definitely discuss:
+> - how can we encourage hobbyists to become regular contributors
+> -- how to keep people interested, the drop-out rates are huge.
+
+We can't keep people interested if even maintainers get discouraged. Solving 
+(or at least relieving) that problem won't be enough to keep people 
+interested, but it's a prerequisite in my opinion.
+
+> - encourage regular contributors to become reviewers and testers
+> - reviewers to become co-maintainers and finally maintainers (once the
+> original maintainer is used up or moves up/on)
+> 
+> 
+> e.g. I think in the TPM subsystem we finally reached a good status, coming
+> from having no active maintainer to a having at least a part-time maintainer
+> with a two steady and excellent reviewers which also test manually most of
+> the stuff!
+> 
+> 
+> 
+> From the 4.1 kernel report by jon corbet:
+> "over 60% of the changes going into this kernel passed through the hands of
+> developers working for just five companies. This concentration reflects a
+> simple fact: while many companies are willing to support developers working
+> on specific tasks, the number of companies supporting subsystem maintainers
+> is far smaller. Subsystem maintainership is also, increasingly, not a job
+> for volunteer developers.."
+> 
+> 
+> -> How do we get companies to actively sponsor subsystem maintainership - if
+> only at driver or subsubsystem level.
+> e.g.: I unfortunately failed at that with my company :/
+> 
+> -> Or how can we raise more funds to sponsor subsystem maintainer ship e.g.
+> via Linux Foundation.
+> (so that the maintainer atleast can buy some test-hardware)
+> 
+> 
+> 
+> Also I would be interested in:
+> - What are the effects of the Eudyptula Challenge? how many people are still
+> actively contributing (more than whitespace changes)
+> - What are the effects of the OutReachforWomen Program? how many people are
+> still actively contributing (more than whitespace changes)
+> 
+> 
+> 
+> 
+> Nominations:
+> Jason Cooper           (auto-nominated), last years 'speaker'
+> Greg KH				please... ;-)
+> Little Penguin		Eudyptula
+> Sarah Sharp 			OPW
+> Peter Huewe			Caught between hobbyist maintainer and sponsored dev.
+> 					Wants to attend a KS :)
+
+-- 
+Regards,
+
+Laurent Pinchart
