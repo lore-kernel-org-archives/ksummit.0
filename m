@@ -1,33 +1,25 @@
-Return-Path: <geert.uytterhoeven@gmail.com>
+Return-Path: <BATV+3f4af2091b72c8827117+4335+infradead.org+dwmw2@bombadil.srs.infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2756ABC8
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 66431BC7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  7 Jul 2015 19:21:37 +0000 (UTC)
-Received: from mail-ob0-f179.google.com (mail-ob0-f179.google.com
-	[209.85.214.179])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 819FE1B2
+	Tue,  7 Jul 2015 19:51:15 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 52A6A11E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  7 Jul 2015 19:21:36 +0000 (UTC)
-Received: by obdbs4 with SMTP id bs4so135762004obd.3
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 07 Jul 2015 12:21:36 -0700 (PDT)
-MIME-Version: 1.0
-Sender: geert.uytterhoeven@gmail.com
-In-Reply-To: <559BEF61.8050904@roeck-us.net>
-References: <20150707092434.GE11162@sirena.org.uk>
-	<559BEF61.8050904@roeck-us.net>
-Date: Tue, 7 Jul 2015 21:21:35 +0200
-Message-ID: <CAMuHMdX6KcmZhibEC6hn2VN7veMSbbj1+P3kf=udY39fjdjj5w@mail.gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-To: Guenter Roeck <linux@roeck-us.net>
-Content-Type: text/plain; charset=UTF-8
-Cc: Shuah Khan <shuah.kh@samsung.com>, Kevin Hilman <khilman@linaro.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Tyler Baker <tyler.baker@linaro.org>,
-	Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Testing
+	Tue,  7 Jul 2015 19:51:14 +0000 (UTC)
+Message-ID: <1436298670.3324.107.camel@infradead.org>
+From: David Woodhouse <dwmw2@infradead.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+Date: Tue, 07 Jul 2015 20:51:10 +0100
+In-Reply-To: <20150707143447.6f345e91@gandalf.local.home>
+References: <1435997161.3324.33.camel@infradead.org>
+	<20150707143447.6f345e91@gandalf.local.home>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL enforcement actions
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,41 +29,45 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Jul 7, 2015 at 5:25 PM, Guenter Roeck <linux@roeck-us.net> wrote:
->> In terms of discussion topics some of the issues I'm seeing are:
->>
->>   - Can we pool resources to share the workload of running things and
->>     interpreting results, ideally also providing some central way for
->>     people to discover what results are out there for them to look at
->>     for a given kernel in the different systems?
->>
-> That might be quite useful. However, I have seen that it doesn't really
-> help to just provide the test results. kissb test results have been
-> available for ages, and people just don't look at it. Even the regular
-> "Build regression" e-mails sent out by Geert seem to be widely ignored.
+On Tue, 2015-07-07 at 14:34 -0400, Steven Rostedt wrote:
+> Would having a Lawyer be present also be required. That way we don't
+> have everyone saying BS about what the law actually implies. Having a
+> lawyer there as just someone to keep things real would be nice.
 
-There's still a manual step involved, so I only download the logs and
-generate the regression emails for every rc release.
-My original plan was to automate it more, so I could run it fully automated
-on the linux-next builds, too.
+Lawyers will present whatever opinion they're paid to present. There is
+no "right" answer until/unless it's seen in court. And then the ruling
+only applies to specific circumstances. And is only binding in certain
+jurisdictions, as you suggested. And until it's appealed.
 
-> What I really found to help is to bisect new problems and send an e-mail
-> to the responsible maintainer and to the submitter of the patch which
-> introduced it. I'd like to automate that with my test system, but
-> unfortunately I just don't have the time to do it.
+I don't think a discussion about 'the true meaning of the GPL', or its
+interpretation under specific legal systems, would be particularly
+productive.
 
-IIRC, kisskb used to bisect failures, but stopped doing that when it started
-consuming too much time. Perhaps it can be restarted, given the system
-got an upgrade a few months ago and became much much faster?
-Stiil, there's the "analyzing" part.
+I think it would be good, though, to have a better understanding of
+what people *want* the GPL to mean and what they *think* it means —
+perhaps better phrased as "what they would pay a lawyer to argue".
 
-Gr{oetje,eeting}s,
+The point is that we aren't attempting to reach a simple resolution
+with a 'right answer'. There are parties with different desires — from
+demanding strict compliance with the *maximum* they can argue for the
+GPL to mean, to basically wanting to act as if it's a BSD licence, in
+order to avoid scaring commercial users away and feeding FUD stories
+like this one¹.
 
-                        Geert
+It would be useful to have an idea of where the average core developer
+falls within that spectrum — that was the first specific thing I was
+hoping would come from the proposed session.
 
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+The other specific goal (and perhaps the more important one) was to
+have a coherent report about the enforcement actions and behind-the
+-scenes negotiations w.r.t compliance that there is so much
+misinformation and politicking about.
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+To that end, we should probably invite Bradley Kuhn or Karen Sandler
+from SF Conservancy to talk about their efforts. And someone from the
+LF TAB will presumably also be there to discuss the compliance
+viewpoint from the LF side.
+
+-- 
+dwmw2
+¹ http://sdtimes.com/from-the-editors-when-did-open-source-software-get-so-scary/
