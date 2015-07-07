@@ -1,29 +1,30 @@
-Return-Path: <PeterHuewe@gmx.de>
+Return-Path: <dmitry.torokhov@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1C398BA1
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1F8E5B1B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  7 Jul 2015 22:50:14 +0000 (UTC)
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3ED1F155
+	Tue,  7 Jul 2015 22:52:28 +0000 (UTC)
+Received: from mail-ie0-f182.google.com (mail-ie0-f182.google.com
+	[209.85.223.182])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B138D15E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  7 Jul 2015 22:50:13 +0000 (UTC)
-From: Peter =?iso-8859-1?q?H=FCwe?= <PeterHuewe@gmx.de>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Wed, 8 Jul 2015 00:51:41 +0200
-References: <20150707092434.GE11162@sirena.org.uk>
-	<20150707171819.GF11162@sirena.org.uk>
-	<559C11C4.80301@roeck-us.net>
-In-Reply-To: <559C11C4.80301@roeck-us.net>
+	Tue,  7 Jul 2015 22:52:27 +0000 (UTC)
+Received: by iecvh10 with SMTP id vh10so144746764iec.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 07 Jul 2015 15:52:27 -0700 (PDT)
+Date: Tue, 7 Jul 2015 15:52:23 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <20150707225223.GG12491@dtor-ws>
+References: <alpine.LNX.2.00.1507071324090.10183@pobox.suse.cz>
+	<20150707224025.GJ11162@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: Text/Plain;
-  charset="iso-8859-1"
-Content-Transfer-Encoding: 7bit
-Message-Id: <201507080051.42985.PeterHuewe@gmx.de>
-Cc: Shuah Khan <shuah.kh@samsung.com>, Kevin Hilman <khilman@linaro.org>,
-	grant@secretlab.ca, Tyler Baker <tyler.baker@linaro.org>,
-	Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Testing
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20150707224025.GJ11162@sirena.org.uk>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] services needed from kernel.org
+ infrastructure
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,45 +34,19 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi,
+On Tue, Jul 07, 2015 at 11:40:25PM +0100, Mark Brown wrote:
+> On Tue, Jul 07, 2015 at 10:42:49PM +0200, Jiri Kosina wrote:
+> 
+> > I personally would very welcome a facility that'd send out an e-mail if a 
+> > new commit is pushed to a git.kernel.org repo branch (sort of what tip-bot 
+> > and akpm's scripts are doing these days) to automatically notify the patch 
+> > author that the patch has been merged and pushed out.
+> 
+> Those are useful, I know Greg has one and I just wrote one too.  I'm not
+> sure it needs to be on the server side though, they can also be done
+> from the client which lets you try to fine tune things more readily.
 
-I definitely think discussing the next steps in terms of automated regression 
-testing is important - so thanks for raising this issue!!
+If either of you could share the scripts that would be great.
 
-> >> Maybe list all known ones as a start ?
-> > 
-> > Off the top of my head the automated ones I'm aware of are Olof's build
-> > & boot test, Dan running smatch and I think some other static analysis
-> > stuff, someone (not sure who?) running some coccinelle stuff, Coverity
-> > and I've got a builder too.
-
-For the TPM subsystem I have several things in place:
-- applying patches automatically triggers a build on travis-ci.org
--- it triggers some basic style checkers
--- the build runs a qemu (with the tpm simulator) running another qemu (which 
-now sees a real /dev/tpm0) with the new kernel.
---- the qemu-qemu-linux runs my tpm driver testsuite.
-
-The reason behind this is that I can hook up besides the TPM1.2 simulator also 
-the binary only windows based TPM2.0 simulator (with wine) without modifying 
-qemu source -- but still the qemu-qemu-kernel sees 'real' hardware.
-
-- some scripts for deploying new kernels to real hw machines and running tests 
-with real hw tpms
-
-- a mocked i2c tpm which I can hook up via the I2C_Slave interface, which also 
-passes my driver testsuite -- so I can test the drivers within UML :)
-
-- and of course wolfram's ninja-check scripts for style checkers
-
- 
-> Plus mine, of course. Only part missing is automated bisect and e-mail
-> if something starts failing.
-
-
-Yeah - getting the reports reasonably fast is probably the most important 
-stuff -- the 0day testing really does a great job here.
-
-
-Thanks,
-Peter
+-- 
+Dmitry
