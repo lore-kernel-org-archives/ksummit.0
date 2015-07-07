@@ -1,26 +1,30 @@
-Return-Path: <laurent.pinchart@ideasonboard.com>
+Return-Path: <prvs=46307fcb2f=clm@fb.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 81DCFB3D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 264E9BA6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  7 Jul 2015 23:49:39 +0000 (UTC)
-Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
-	[185.26.127.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C441C11C
+	Tue,  7 Jul 2015 23:55:51 +0000 (UTC)
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+	[67.231.145.42])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A03C9FB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  7 Jul 2015 23:49:38 +0000 (UTC)
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Wed, 08 Jul 2015 02:49:47 +0300
-Message-ID: <2102387.OD8sBG4Eol@avalon>
-In-Reply-To: <201507080121.41463.PeterHuewe@gmx.de>
-References: <201507080121.41463.PeterHuewe@gmx.de>
+	Tue,  7 Jul 2015 23:55:50 +0000 (UTC)
+Date: Tue, 7 Jul 2015 19:55:25 -0400
+From: Chris Mason <clm@fb.com>
+To: "Luck, Tony" <tony.luck@intel.com>
+Message-ID: <20150707235525.GA1522@ret.masoncoding.com>
+References: <1435997161.3324.33.camel@infradead.org>
+	<20150707143447.6f345e91@gandalf.local.home>
+	<1436298670.3324.107.camel@infradead.org>
+	<20150707203330.GA21272@ret.masoncoding.com>
+	<3908561D78D1C84285E8C5FCA982C28F32AA4200@ORSMSX114.amr.corp.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="us-ascii"
-Cc: Jason Cooper <jason@lakedaemon.net>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
-	Maintainers, Hobbyists)
+Content-Disposition: inline
+In-Reply-To: <3908561D78D1C84285E8C5FCA982C28F32AA4200@ORSMSX114.amr.corp.intel.com>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL enforcement actions
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,110 +34,35 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Peter,
+On Tue, Jul 07, 2015 at 10:15:24PM +0000, Luck, Tony wrote:
+> > I'll bet the average core developer wants to hack on the kernel, and
+> > share in the work that everyone else is doing.  But I'll also bet the
+> > conversation would be dominated by extremes, spiral down into
+> > my-company-won't-let-me-say-xxyyzz, and then finally settle into
+> > comparisons of US law with everyone else.
+> 
+> A sizable fraction of commits come from people whose day job is
+> to work on Linux. All my contributions to the Linux kernel are owned
+> by my employer.  Do companies with large aggregated contributions
+> get a say in the GPL enforcement direction?
+> 
 
-On Wednesday 08 July 2015 01:21:40 Peter Huewe wrote:
-> Hi,
-> 
-> In order to continue our traditions I would like to propose again the topic
-> of recruitment, but this time not only limiting to the hobbyists market.
-> 
-> We are definitely short on reviewers and thus have mostly overloaded
-> maintainers.
+I think they've had a say all along, and our stability as a community
+has benefited from it.
 
-I was about to propose a related core topic.
+> I'm certainly not speaking for my employer here - but you might think
+> that a company that makes a huge percentage of its profits from selling
+> silicon chips would want the minimum possible barriers to people buying
+> those chips to run s/w. That may, or may not, align with the opinions of
+> people working for the company.
 
-The reviewing and maintainership process seems to have a hard time scaling to 
-the amount of contributions we receive, to the point where even well known and 
-respected kernel developers get discourages.
+But what level of forced sharing actually makes the lowest barrier over
+time?  I'm happy to see us wander around with our wildly different
+opinions about this.  It makes for great debates, but it's not something
+we can answer at KS.
 
-Quoting http://www.spinics.net/lists/cpufreq/msg10609.html,
+But going back to David's original topic, there are some important
+current events here.  It's not a horrible idea to talk about them,
+although Korea is pretty far to drag a lawyer for a single session.
 
---------------------------------
-> I'm trying to convince management that one of the advantages
-> of mainlining the port is that it is easier to switch to newer
-> kernels. Do you agree with this assertion?
-
-Yes and no.  If you can get stuff upstream, it should make things
-easier.
-
-The difficult bit - and time consuming bit - is getting code upstream.
-Even in my position, I'd suggest allowing about five years for that
-activity, and even then don't have expectations of getting everything
-upstream.
-
-Frankly now, my advice to people would be to just not bother, it's
-*way* too much effort to get everything to an acceptable state,
-especially if the SoC has no support what so ever.
---------------------------------
-
-That's a very serious red warning in my opinion.
-
-Throwing more maintainers, co-maintainers or sub-maintainers at the kernel 
-won't magically solve this, as the more core developers a subsystem has the 
-more difficult it will be for them to synchronize. I would like share 
-experience about good practice rules that have proved to be effective.
-
-> For testers it's usually even worse - how many patches are actually tested?
-> Judging from what I read on LKML not that many.
-> 
-> So we should definitely discuss:
-> - how can we encourage hobbyists to become regular contributors
-> -- how to keep people interested, the drop-out rates are huge.
-
-We can't keep people interested if even maintainers get discouraged. Solving 
-(or at least relieving) that problem won't be enough to keep people 
-interested, but it's a prerequisite in my opinion.
-
-> - encourage regular contributors to become reviewers and testers
-> - reviewers to become co-maintainers and finally maintainers (once the
-> original maintainer is used up or moves up/on)
-> 
-> 
-> e.g. I think in the TPM subsystem we finally reached a good status, coming
-> from having no active maintainer to a having at least a part-time maintainer
-> with a two steady and excellent reviewers which also test manually most of
-> the stuff!
-> 
-> 
-> 
-> From the 4.1 kernel report by jon corbet:
-> "over 60% of the changes going into this kernel passed through the hands of
-> developers working for just five companies. This concentration reflects a
-> simple fact: while many companies are willing to support developers working
-> on specific tasks, the number of companies supporting subsystem maintainers
-> is far smaller. Subsystem maintainership is also, increasingly, not a job
-> for volunteer developers.."
-> 
-> 
-> -> How do we get companies to actively sponsor subsystem maintainership - if
-> only at driver or subsubsystem level.
-> e.g.: I unfortunately failed at that with my company :/
-> 
-> -> Or how can we raise more funds to sponsor subsystem maintainer ship e.g.
-> via Linux Foundation.
-> (so that the maintainer atleast can buy some test-hardware)
-> 
-> 
-> 
-> Also I would be interested in:
-> - What are the effects of the Eudyptula Challenge? how many people are still
-> actively contributing (more than whitespace changes)
-> - What are the effects of the OutReachforWomen Program? how many people are
-> still actively contributing (more than whitespace changes)
-> 
-> 
-> 
-> 
-> Nominations:
-> Jason Cooper           (auto-nominated), last years 'speaker'
-> Greg KH				please... ;-)
-> Little Penguin		Eudyptula
-> Sarah Sharp 			OPW
-> Peter Huewe			Caught between hobbyist maintainer and sponsored dev.
-> 					Wants to attend a KS :)
-
--- 
-Regards,
-
-Laurent Pinchart
+-chris
