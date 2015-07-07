@@ -1,24 +1,27 @@
-Return-Path: <linux@roeck-us.net>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 78AF4BCA
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 317B4B1B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  7 Jul 2015 17:52:08 +0000 (UTC)
-Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F17CA256
+	Tue,  7 Jul 2015 18:28:20 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C023F19C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  7 Jul 2015 17:52:07 +0000 (UTC)
-Message-ID: <559C11C4.80301@roeck-us.net>
-Date: Tue, 07 Jul 2015 10:52:04 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-MIME-Version: 1.0
-To: Mark Brown <broonie@kernel.org>
+	Tue,  7 Jul 2015 18:28:19 +0000 (UTC)
+Date: Tue, 7 Jul 2015 19:28:14 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <20150707182814.GG11162@sirena.org.uk>
 References: <20150707092434.GE11162@sirena.org.uk>
 	<559BEF61.8050904@roeck-us.net>
 	<20150707171819.GF11162@sirena.org.uk>
-In-Reply-To: <20150707171819.GF11162@sirena.org.uk>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
+	<559C11C4.80301@roeck-us.net>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="BqNvIJgrK1/MQy2W"
+Content-Disposition: inline
+In-Reply-To: <559C11C4.80301@roeck-us.net>
 Cc: Shuah Khan <shuah.kh@samsung.com>, Kevin Hilman <khilman@linaro.org>,
 	ksummit-discuss@lists.linuxfoundation.org, grant@secretlab.ca,
 	Tyler Baker <tyler.baker@linaro.org>,
@@ -33,91 +36,53 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 07/07/2015 10:18 AM, Mark Brown wrote:
-> On Tue, Jul 07, 2015 at 08:25:21AM -0700, Guenter Roeck wrote:
->> On 07/07/2015 02:24 AM, Mark Brown wrote:
->
->>> The main things I'm aware of that are happening at the minute are
->>> kselftest development, the 0day tester, plus kernelci.org and the other
->>> build and boot/test bots that are running against various trees.
->
->> Maybe list all known ones as a start ?
->
-> Off the top of my head the automated ones I'm aware of are Olof's build
-> & boot test, Dan running smatch and I think some other static analysis
-> stuff, someone (not sure who?) running some coccinelle stuff, Coverity
-> and I've got a builder too.
->
-Plus mine, of course. Only part missing is automated bisect and e-mail
-if something starts failing.
 
-Which reminds me - do you use buildbot ? I think you are sending automated
-e-mail on failures. It would help me a lot if someone had automated bisect
-and the ability to e-mail results using buildbot to get me started.
+--BqNvIJgrK1/MQy2W
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
->>> In terms of discussion topics some of the issues I'm seeing are:
->
->>>   - Can we pool resources to share the workload of running things and
->>>     interpreting results, ideally also providing some central way for
->>>     people to discover what results are out there for them to look at
->>>     for a given kernel in the different systems?
->
->> That might be quite useful. However, I have seen that it doesn't really
->> help to just provide the test results. kissb test results have been
->> available for ages, and people just don't look at it. Even the regular
->> "Build regression" e-mails sent out by Geert seem to be widely ignored.
->
->> What I really found to help is to bisect new problems and send an e-mail
->> to the responsible maintainer and to the submitter of the patch which
->> introduced it. I'd like to automate that with my test system, but
->> unfortunately I just don't have the time to do it.
->
-> Yes, that's the "and interpreting" bit in the above - this only really
-> works with people actively pushing.  You do start to get people checking
-> themselves once things are perceived as something people care about but
-> it does take active work to establish and maintain that.
->
-> It also really helps if things are delivered promptly, and against trees
-> people are actively developing for.  But even with clear reports and
-> sometimes patches not everyone shows an interest.  As we get more and
-> more actual testing running that's going to start to become more
-> serious, breaking the build or boot will also mean that automated tests
-> don't get to run.
->
-Yes, I have seen that too. Especially 4.1 was pretty bad in this regard.
-4.2 seems to be a bit better, though, so I hope that 4.1 was an exception.
+On Tue, Jul 07, 2015 at 10:52:04AM -0700, Guenter Roeck wrote:
+> On 07/07/2015 10:18 AM, Mark Brown wrote:
 
-Not really sure what to do about it. What turned out to help in the last
-two companies I worked for was automatic revert of broken patches. That
-sounds radical and I dislike it myself, but it helped.
+> >Off the top of my head the automated ones I'm aware of are Olof's build
+> >& boot test, Dan running smatch and I think some other static analysis
+> >stuff, someone (not sure who?) running some coccinelle stuff, Coverity
+> >and I've got a builder too.
 
-> This is one of the things 0day gets really right, when it kicks in it'll
-> e-mail people directly and promptly.
->
-Agreed.
+> Plus mine, of course. Only part missing is automated bisect and e-mail
+> if something starts failing.
 
->>>   - Should we start carrying config fragments upstream designed to
->>>     support testing, things like the distro config fragments that keep
->>>     getting discussed are one example here but there's other things like
->>>     collections of debug options we could be looking at.  Should we be
->>>     more generally slimming defconfigs and moving things into fragments?
->
->>> and there's always the the perennial ones about what people would like
->>> to see testing for.
->
->> Sharing as many test bot configuration scripts and relevant configurations
->> as possible would be quite helpful. For example, I am building various
->> configurations for all architectures, but I don't really know if they
->> are relevant. Also, I would like to run more qemu configurations,
->> but it is really hard to find working ones.
->
-> Grant (just CCed) was working intermittently on the qemu bit.  I think
-> the last plan was to enhance the scripts Kevin has for driving his build
-> farm.
->
-Also of interest here (at least for me) would be to explore means to get
-more hardware (both architectures and platforms) supported in qemu, but
-I guess that may be a bit off topic.
+> Which reminds me - do you use buildbot ? I think you are sending automated
+> e-mail on failures. It would help me a lot if someone had automated bisect
+> and the ability to e-mail results using buildbot to get me started.
 
-Thanks,
-Guenter
+No, not me - all my failure reports are lovingly hand crafted using
+traditional artisan techniques.  Kevin, Tyler and Fengguang have things
+but apart from 0day I think everything is still manually triggered.
+
+> Not really sure what to do about it. What turned out to help in the last
+> two companies I worked for was automatic revert of broken patches. That
+> sounds radical and I dislike it myself, but it helped.
+
+Perhaps that's something we should be discussing?  It may be something
+that we just evolve a solution for as we proceed though - right now it's
+largely theoretical.  For -next Stephen will often carry extra patches
+that make sense.
+
+--BqNvIJgrK1/MQy2W
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQEcBAEBCAAGBQJVnBo9AAoJECTWi3JdVIfQZxoH/i2TlJhkU5tPr8bmNJySeBTn
++Co68MTcUKg/ObAN0DGQcrKMh8xCoL6hXDpAWb4vBqStP5yL+jrXyO5n659QU66m
+G+1jC35wbM8bYgi7ADVm0W0zX9kB69afmnx0zMYmf6tq1aSRUXek43WqnPqyT5pv
+zI8JLa19//Cga/TFQcxAK2COcst5iduN33pIWpgBDXDJCvsWvGeKjrYUtapBLQLr
+js8TtICC5FVWN+FQjkVTMM3IW61jZtnulPMyFyur6Zc7b+jMFxkRdNYWvpBQuUY7
+1g4Kd87tUjrla0odcdlogTj7xUwZBZKoCFXuUIwQDXa64X1BPttvSwD7nGLWWvc=
+=8r93
+-----END PGP SIGNATURE-----
+
+--BqNvIJgrK1/MQy2W--
