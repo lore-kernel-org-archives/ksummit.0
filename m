@@ -1,24 +1,29 @@
-Return-Path: <PeterHuewe@gmx.de>
+Return-Path: <luto@amacapital.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 91414BB3
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 896B7BB3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  7 Jul 2015 23:25:21 +0000 (UTC)
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E4AB51C5
+	Tue,  7 Jul 2015 23:31:46 +0000 (UTC)
+Received: from mail-la0-f48.google.com (mail-la0-f48.google.com
+	[209.85.215.48])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C49EBFB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  7 Jul 2015 23:25:20 +0000 (UTC)
-From: Peter Huewe <PeterHuewe@gmx.de>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Wed, 8 Jul 2015 01:21:40 +0200
+	Tue,  7 Jul 2015 23:31:45 +0000 (UTC)
+Received: by lagc2 with SMTP id c2so211341613lag.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 07 Jul 2015 16:31:44 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: Text/Plain;
-  charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <201507080121.41463.PeterHuewe@gmx.de>
-Cc: Jason Cooper <jason@lakedaemon.net>
-Subject: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
-	Maintainers, Hobbyists)
+In-Reply-To: <alpine.LNX.2.00.1507071324090.10183@pobox.suse.cz>
+References: <alpine.LNX.2.00.1507071324090.10183@pobox.suse.cz>
+From: Andy Lutomirski <luto@amacapital.net>
+Date: Tue, 7 Jul 2015 16:31:24 -0700
+Message-ID: <CALCETrWywXiKcWc4jSQR1n9nuwVom81w0qnBo7_HRV7qNahURQ@mail.gmail.com>
+To: Jiri Kosina <jkosina@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] services needed from kernel.org
+	infrastructure
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -28,76 +33,22 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi,
+On Tue, Jul 7, 2015 at 1:42 PM, Jiri Kosina <jkosina@suse.com> wrote:
+> I think it'd be useful to have a session where maintainers could come up
+> with feature / improvement requests for kernel.org infrastructure and have
+> a subsequent discussion about whether they would be generally useful.
+>
+> Let me start with my personal wish:
+>
+> I personally would very welcome a facility that'd send out an e-mail if a
+> new commit is pushed to a git.kernel.org repo branch (sort of what tip-bot
+> and akpm's scripts are doing these days) to automatically notify the patch
+> author that the patch has been merged and pushed out.
+>
+> Suggested attendance: Konstantin, maintainers :)
 
-In order to continue our traditions I would like to propose again the topic=
- of=20
-recruitment, but this time not only limiting to the hobbyists market.
+I wouldn't mind something like patchwork for lkml.  Since I use gmail
+(sigh), it's a minor PITA to pull out patchbombs in git am-able
+format.
 
-We are definitely short on reviewers and thus have mostly overloaded=20
-maintainers.
-=46or testers it's usually even worse - how many patches are actually teste=
-d?
-Judging from what I read on LKML not that many.
-
-So we should definitely discuss:
-=2D how can we encourage hobbyists to become regular contributors
-=2D- how to keep people interested, the drop-out rates are huge.
-=2D encourage regular contributors to become reviewers and testers
-=2D reviewers to become co-maintainers and finally maintainers (once the=20
-original maintainer is used up or moves up/on)
-
-
-e.g. I think in the TPM subsystem we finally reached a good status, coming=
-=20
-from having no active maintainer to a having at least a part-time maintaine=
-r=20
-with a two steady and excellent reviewers which also test manually most of =
-the=20
-stuff!
-
-
-
-=46rom the 4.1 kernel report by jon corbet:
-"over 60% of the changes going into this kernel passed through the hands of=
-=20
-developers working for just five companies. This concentration reflects a=20
-simple fact: while many companies are willing to support developers working=
- on=20
-specific tasks, the number of companies supporting subsystem maintainers is=
-=20
-far smaller. Subsystem maintainership is also, increasingly, not a job for=
-=20
-volunteer developers.."
-
-
-=2D> How do we get companies to actively sponsor subsystem maintainership -=
- if=20
-only at driver or subsubsystem level.
-e.g.: I unfortunately failed at that with my company :/
-
-=2D> Or how can we raise more funds to sponsor subsystem maintainer ship e.=
-g.=20
-via Linux Foundation.=20
-(so that the maintainer atleast can buy some test-hardware)
-
-
-
-Also I would be interested in:
-=2D What are the effects of the Eudyptula Challenge? how many people are st=
-ill=20
-actively contributing (more than whitespace changes)
-=2D What are the effects of the OutReachforWomen Program? how many people a=
-re=20
-still actively contributing (more than whitespace changes)
-
-
-
-
-Nominations:
-Jason Cooper           (auto-nominated), last years 'speaker'
-Greg KH				please... ;-)
-Little Penguin		Eudyptula
-Sarah Sharp 			OPW
-Peter Huewe			Caught between hobbyist maintainer and sponsored dev.
-					Wants to attend a KS :)
+--Andy
