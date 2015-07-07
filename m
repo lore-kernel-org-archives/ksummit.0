@@ -1,34 +1,24 @@
-Return-Path: <keescook@google.com>
+Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 95B32BBC
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 66F79BA6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  7 Jul 2015 20:46:48 +0000 (UTC)
-Received: from mail-ie0-f181.google.com (mail-ie0-f181.google.com
-	[209.85.223.181])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DC364F7
+	Tue,  7 Jul 2015 21:05:55 +0000 (UTC)
+Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id 66AC1121
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  7 Jul 2015 20:46:47 +0000 (UTC)
-Received: by iecuq6 with SMTP id uq6so142736231iec.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 07 Jul 2015 13:46:47 -0700 (PDT)
+	Tue,  7 Jul 2015 21:05:54 +0000 (UTC)
+From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Tue, 07 Jul 2015 23:32:20 +0200
+Message-ID: <4541757.2i2CVNfqPd@vostro.rjw.lan>
+In-Reply-To: <alpine.LNX.2.00.1507071340480.10183@pobox.suse.cz>
+References: <alpine.LNX.2.00.1507071340480.10183@pobox.suse.cz>
 MIME-Version: 1.0
-Sender: keescook@google.com
-In-Reply-To: <20150707144725.6a19727f@gandalf.local.home>
-References: <20150707092434.GE11162@sirena.org.uk>
-	<CACVxJT8Ae3t9x=jF-xy6NunqZCbgOoaNxy9AqOxuDg8Dx=Tk6g@mail.gmail.com>
-	<20150707131411.GI2887@sirena.org.uk>
-	<20150707144725.6a19727f@gandalf.local.home>
-Date: Tue, 7 Jul 2015 13:46:47 -0700
-Message-ID: <CAGXu5jJN7z0Fa78SmyCe0mWE6mRY5f+giL-8CY_Li3tYwYeZrg@mail.gmail.com>
-From: Kees Cook <keescook@chromium.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Content-Type: text/plain; charset=UTF-8
-Cc: Shuah Khan <shuah.kh@samsung.com>, Kevin Hilman <khilman@linaro.org>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	Tyler Baker <tyler.baker@linaro.org>, Mark Brown <broonie@sirena.org.uk>,
-	Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Testing
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] giving freezer well-defined
+	semantics
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,52 +28,54 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Jul 7, 2015 at 11:47 AM, Steven Rostedt <rostedt@goodmis.org> wrote:
-> On Tue, 7 Jul 2015 14:14:11 +0100
-> Mark Brown <broonie@sirena.org.uk> wrote:
->
->> On Tue, Jul 07, 2015 at 04:02:13PM +0300, Alexey Dobriyan wrote:
->> > On Tue, Jul 7, 2015 at 12:24 PM, Mark Brown <broonie@kernel.org> wrote:
->>
->> > >  - Should we start carrying config fragments upstream designed to
->> > >    support testing, things like the distro config fragments that keep
->> > >    getting discussed are one example here but there's other things like
->> > >    collections of debug options we could be looking at.
->>
->> > This will gravitate everyone to running the same config which is the opposite
->> > of what you want.
->>
->> Perhaps, perhaps not - it's not an unequivocal thing either way.  The
->> more barriers there are to enabling things the more likely it is that
->> people just won't bother in the first place (or that they'll run into
->> somme problem and give up before they get things working) and it's not
->> clear that having to figure these things out is always a good use of
->> people's time.
->
-> The testing/selftests tests should have three results: PASS, FAIL,
-> UNSUPPORTED. The UNSUPPORTED is what should be returned if the kernel
-> configuration doesn't have the needed features configured. For example,
-> if you run the ftrace selftests without function tracing enabled, all
-> the tests that test the function tracer return UNSUPPORTED.
->
-> Perhaps we should have a central location that each test needs to add
-> the required configuration for it to be properly tested. Then if users
-> want to test various subsystems, they would look in this location for
-> the proper configs (be it a directory that has files of the tests they
-> represent, and contain the configs needed). Then there should be no
-> real barrier for people to run these tests.
->
-> Of course if the test requires certain hardware, or a file system, then
-> that should be properly documented.
+On Tuesday, July 07, 2015 10:42:36 PM Jiri Kosina wrote:
+> Currently, the freezer has rather random semantics and there is no 
+> rigorous definition that would provide clear guidance which kernel threads 
+> should be freezable (and what rules they have to follow if they are).
 
-There's also sysctl settings, and we also want privilege level as part
-of that configuration. (i.e. some tests should run as root, some show
-not, etc). It'd be nice to have the tests report these in some
-machine-readable form so that a test harness could check, prepare the
-environment, and then run the tests.
+That's with respect to kernel threads, right?
 
--Kees
+The primary purpose of the freezer is to get user space out of the way
+and at least in principle there should be no fundamental need to freeze
+any kernel threads.
 
--- 
-Kees Cook
-Chrome OS Security
+> The long and complicated history of freezer resulted in the current state, 
+> where many kernel threads are marked freezable "just because", with 
+> freezing points randomly sprinkled all over the place, and it really 
+> complicates any efforts in cleaning up kthreads (which is why I am 
+> interested in it -- we'd love to have kthreads cleaned up to make live 
+> patching easier).
+> 
+> There are various possible aproaches to this. One is basically ad-hoc, 
+> going over all the existing kthreads one by one, and fixing (probably just 
+> removing, in most cases) its usage of freezer. The obivous disadvantage is 
+> that this doesn't prevent anyone to abusing it again the same way in the 
+> future.
+> 
+> Tejun came up with a different aproach at [1] -- basically getting rid of 
+> the freezer completely, and rather annotating those I/O requests which are 
+> needed for writing the hibernation image out, so that they make it through 
+> all the affected subsystems, while other I/O requests would be frozen.
+> 
+> This would be rather dramatic change both in a way how kthreads work, how 
+> hibernation works, and it'd be necessary to have means to mark I/O 
+> requests as "needed for hibernation", therefore I think this would be a 
+> good cross-subsystem topic.
+> 
+> [1] http://lkml.kernel.org/r/20150613232222.GB346@mtj.duckdns.org
+
+I'm not reading this as a proposal to drop the freezer completely, but
+rather to stop using it for kernel threads (I may not understand the
+full context correctly, though).
+
+There are two basic resons to freeze user space before suspend in my view.
+First, we don't want it to interfere with device driver's suspend/resume
+callbacks in any way.  Second, we want to prevent silly stuff (like
+active polling in a loop etc.) from running.
+
+Both are valid as far as I can say.
+
+Kernel threads are a totally different matter, however.
+
+Thanks,
+Rafael
