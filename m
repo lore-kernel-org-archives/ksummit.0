@@ -1,21 +1,22 @@
-Return-Path: <dmitry.torokhov@gmail.com>
+Return-Path: <josh@joshtriplett.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1F8E5B1B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 93360BA1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  7 Jul 2015 22:52:28 +0000 (UTC)
-Received: from mail-ie0-f182.google.com (mail-ie0-f182.google.com
-	[209.85.223.182])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B138D15E
+	Tue,  7 Jul 2015 22:58:31 +0000 (UTC)
+Received: from slow1-d.mail.gandi.net (slow1-d.mail.gandi.net [217.70.178.86])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 27CDA1BF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  7 Jul 2015 22:52:27 +0000 (UTC)
-Received: by iecvh10 with SMTP id vh10so144746764iec.3
+	Tue,  7 Jul 2015 22:58:31 +0000 (UTC)
+Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
+	[217.70.183.196])
+	by slow1-d.mail.gandi.net (Postfix) with ESMTP id 7C49E47EC23
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 07 Jul 2015 15:52:27 -0700 (PDT)
-Date: Tue, 7 Jul 2015 15:52:23 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+	Wed,  8 Jul 2015 00:53:25 +0200 (CEST)
+Date: Tue, 7 Jul 2015 15:53:20 -0700
+From: josh@joshtriplett.org
 To: Mark Brown <broonie@kernel.org>
-Message-ID: <20150707225223.GG12491@dtor-ws>
+Message-ID: <20150707225320.GA21834@cloud>
 References: <alpine.LNX.2.00.1507071324090.10183@pobox.suse.cz>
 	<20150707224025.GJ11162@sirena.org.uk>
 MIME-Version: 1.0
@@ -46,7 +47,11 @@ On Tue, Jul 07, 2015 at 11:40:25PM +0100, Mark Brown wrote:
 > sure it needs to be on the server side though, they can also be done
 > from the client which lets you try to fine tune things more readily.
 
-If either of you could share the scripts that would be great.
+I agree that it could be done on a system other than the git server
+(though it's more efficient if hooked into git hooks), but it'd be nice
+to have an automated service running on kernel.org, rather than
+something every interested kernel developer has to run for themselves.
+I'd certainly like to have mails telling me when a patch I submitted
+gets merged, like those I get from Andrew Morton's automated scripts.
 
--- 
-Dmitry
+- Josh Triplett
