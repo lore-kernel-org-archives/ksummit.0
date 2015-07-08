@@ -1,28 +1,34 @@
-Return-Path: <linux@roeck-us.net>
+Return-Path: <khilman@deeprootsystems.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BAA43A04
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 070EFA04
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 16:36:30 +0000 (UTC)
-Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6C1A41BB
+	Wed,  8 Jul 2015 16:40:53 +0000 (UTC)
+Received: from mail-pd0-f176.google.com (mail-pd0-f176.google.com
+	[209.85.192.176])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5E6401D0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 16:36:30 +0000 (UTC)
-Message-ID: <559D518A.7010304@roeck-us.net>
-Date: Wed, 08 Jul 2015 09:36:26 -0700
-From: Guenter Roeck <linux@roeck-us.net>
+	Wed,  8 Jul 2015 16:40:52 +0000 (UTC)
+Received: by pddu5 with SMTP id u5so61085368pdd.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 08 Jul 2015 09:40:52 -0700 (PDT)
+From: Kevin Hilman <khilman@kernel.org>
+To: Guenter Roeck <linux@roeck-us.net>
+References: <20150707092434.GE11162@sirena.org.uk>
+	<559BEF61.8050904@roeck-us.net>
+	<1436347639.29626.4.camel@ellerman.id.au>
+	<559D2B02.9020508@roeck-us.net>
+Date: Wed, 08 Jul 2015 09:40:47 -0700
+In-Reply-To: <559D2B02.9020508@roeck-us.net> (Guenter Roeck's message of "Wed,
+	08 Jul 2015 06:52:02 -0700")
+Message-ID: <7hlheqfvqo.fsf@deeprootsystems.com>
 MIME-Version: 1.0
-To: Jason Cooper <jason@lakedaemon.net>, =?UTF-8?B?UGV0ZXIgSMO8d2U=?=
-	<PeterHuewe@gmx.de>
-References: <201507080121.41463.PeterHuewe@gmx.de>	<CA+5PVA4YON79=wrSTfQ8TJrQNOuLShvaVA1_+BDcTxrmVe_hcQ@mail.gmail.com>	<CAJKOXPfnwUX5fdBg1EDJSGgrNGXb3AmrK8tXokxqHw=XYzhddA@mail.gmail.com>	<201507080905.00051.PeterHuewe@gmx.de>
-	<20150708150220.GJ23515@io.lakedaemon.net>
-In-Reply-To: <20150708150220.GJ23515@io.lakedaemon.net>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Cc: Josh Boyer <jwboyer@fedoraproject.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
- Maintainers, Hobbyists)
+Content-Type: text/plain
+Cc: Tyler Baker <tyler.baker@linaro.org>,
+	Dan Carpenter <dan.carpenter@oracle.com>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Shuah Khan <shuah.kh@samsung.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Testing
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,46 +38,88 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 07/08/2015 08:02 AM, Jason Cooper wrote:
-> On Wed, Jul 08, 2015 at 09:04:58AM +0200, Peter Hüwe wrote:
+Guenter Roeck <linux@roeck-us.net> writes:
 
->> "I've been a kernel reviewer and tester" -- meh, who cares
+> Hi Michael,
 >
-> Show me a concrete example where that has been expressed.  I've had the
-> exact opposite experience.  Typically I've had to tone down the
-> expectations of others.
+> On 07/08/2015 02:27 AM, Michael Ellerman wrote:
+>> On Tue, 2015-07-07 at 08:25 -0700, Guenter Roeck wrote:
+>>> On 07/07/2015 02:24 AM, Mark Brown wrote:
+>>>> One thing we typically cover at Kernel Summit is some of the activity
+>>>> that's going on around testing upstream.  I think it'd be useful to have
+>>>> some more of those discussions, both in terms of making people aware of
+>>>> what's available and in terms of helping the people doing testing figure
+>>>> out what would be useful.  A lot of this is probably well suited to a
+>>>> workshop session between the interested people but I do think some
+>>>> element in the core day beyond just a readout will be useful.
+>>>>
+>>>> In terms of discussion topics some of the issues I'm seeing are:
+>>>>
+>>>>    - Can we pool resources to share the workload of running things and
+>>>>      interpreting results, ideally also providing some central way for
+>>>>      people to discover what results are out there for them to look at
+>>>>      for a given kernel in the different systems?
+>>>
+>>> That might be quite useful. However, I have seen that it doesn't really
+>>> help to just provide the test results. kissb test results have been
+>>> available for ages, and people just don't look at it.
+>>
+>> My concern with kisskb sending emails was always that I didn't want it to
+>> become a spam bot. So it can send emails, but it's opt-in.
+>>
+>> The 0-day bot takes the opposite approach, ie. mails everyone without asking,
+>> and in hindsight that is clearly the better option in terms of getting people
+>> to act on the results.
+>>
+>>
+>>> Sharing as many test bot configuration scripts and relevant configurations
+>>> as possible would be quite helpful. For example, I am building various
+>>> configurations for all architectures, but I don't really know if they
+>>> are relevant.
+>>
+>> Agreed. Your buildbot is epic. I'd love to see the config for that. My local
+>> buildbot is running only ~40 builders, which I thought was a lot until I saw
+>> yours :)
+>>
+> It is on github: https://github.com/groeck/linux-build-test.
 >
-Lucky you.
+> If I count correctly, it runs more than 900 builders. Major hiccup is with
+> caching - it collects around 10GB of logging data per month, and under
+> some circumstances keeps it all in memory, so after about two months it
+> consumes the entire 32GB of RAM on the server it is running on, and I have
+> to do some manual cleanup. Other than that, it runs surprisingly well.
 
-In my experience, code reviews often don't get much attention by project
-managers responsible for commercial projects. If anything, quite the opposite.
-The Linux kernel development culture is quite different.
+How soon after a branch is pushed are the build results available?
 
-Linux kernel:
-	"Thanks a lot for reviewing my code and making it better".
-Commercial:
-	"Why do your reviews always take such a long time ?
-	You are holding up the release!"
+Are the build artfiacts ([bz]Image, System.map, modules, etc.) made
+available someplace?
 
-Granted, that doesn't happen everywhere, but I have seen it more than once,
-and I would content that this kind of culture is pretty widely spread.
+>> The kernelci.org stuff is also really interesting, that's the closest thing
+>> anyone has at the moment to a "proper" kernel CI setup AFAIK.
+>
+> Agreed.
 
-Anyone entering such an environment might actually encounter negative
-reactions to "I am a kernel reviewer and tester". Of course, one might
-argue that joining an affected company might not be a good idea in the
-first place, but not everyone has that much flexibility or choice.
+Glad you find it useful.
 
-I am not saying that it would be a bad idea to give code reviewers more
-credit; quite the contrary. However, I think it would be wrong to assume
-or expect that giving reviewers more credit would improve their chances
-for employment. It would, however, result in reviewers feeling recognized
-for themselves, which is a good thing.
+Speaking for kernelci.org... with limited time/resources, we'd like to
+focus less on building (others are doing this faster/better) and more on
+boot testing across a wide variety of hardware (e.g for the latest -next
+build, we did ~430 boots on 88 unique boards covering 23 different
+SoCs[1]).  We're also in the process of automating kselftest runs on our
+boards.
 
-Why does it matter ? I had a discussion a while ago with the founder of
-one of the web sites providing product reviews. I suggested to give product
-reviewers some kind of monetary reward for their reviews, eg part of the
-advertising revenue created by the site. Feedback I got was that reviewers
-typically don't care about monetary rewards, but they do care about recognition
-and about their standing in the community.
+If we could consume the output of other builders, we'd happily do that
+instead of doing our own builds.  Ideally, the builders should produce
+some sort of machine readable data with the build artifacts..  Currently
+our builders produce a JSON file[2] which can be submitted to
+kernelci.org using a RESTful API[3].
 
-Guenter
+AFAICT, 0day doesn't have publically available build artfiacts, and
+I haven't had a chance to look closely at Gunter's stuff.
+
+Kevin
+
+[1] http://kernelci.org/boot/all/job/next/kernel/next-20150708/
+[2] example for an ARM multi_v7_defconfib build:
+    http://storage.kernelci.org/next/next-20150708/arm-multi_v7_defconfig/build.json
+[3] http://api.kernelci.org/
