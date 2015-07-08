@@ -1,29 +1,30 @@
-Return-Path: <jason@lakedaemon.net>
+Return-Path: <bhelgaas@google.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7607FB68
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 04137ABA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 15:18:25 +0000 (UTC)
-Received: from pmta2.delivery5.ore.mailhop.org
-	(pmta2.delivery5.ore.mailhop.org [54.186.218.12])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id AB6AA10A
+	Wed,  8 Jul 2015 15:21:18 +0000 (UTC)
+Received: from mail-wg0-f46.google.com (mail-wg0-f46.google.com [74.125.82.46])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3F8F1AA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 15:18:24 +0000 (UTC)
-Date: Wed, 8 Jul 2015 15:02:20 +0000
-From: Jason Cooper <jason@lakedaemon.net>
-To: Peter =?utf-8?B?SMO8d2U=?= <PeterHuewe@gmx.de>
-Message-ID: <20150708150220.GJ23515@io.lakedaemon.net>
-References: <201507080121.41463.PeterHuewe@gmx.de>
-	<CA+5PVA4YON79=wrSTfQ8TJrQNOuLShvaVA1_+BDcTxrmVe_hcQ@mail.gmail.com>
-	<CAJKOXPfnwUX5fdBg1EDJSGgrNGXb3AmrK8tXokxqHw=XYzhddA@mail.gmail.com>
-	<201507080905.00051.PeterHuewe@gmx.de>
+	Wed,  8 Jul 2015 15:21:17 +0000 (UTC)
+Received: by wgjx7 with SMTP id x7so198847013wgj.2
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 08 Jul 2015 08:21:15 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <201507080905.00051.PeterHuewe@gmx.de>
-Cc: Josh Boyer <jwboyer@fedoraproject.org>,
-	ksummit-discuss@lists.linuxfoundation.org
+In-Reply-To: <559D34E2.1050703@roeck-us.net>
+References: <201507080121.41463.PeterHuewe@gmx.de> <2102387.OD8sBG4Eol@avalon>
+	<559C73DF.2030008@roeck-us.net>
+	<CAErSpo622+-3XS=C=EN0S3qi8ZN4aehBmxf58RwyNvNdbgD0cw@mail.gmail.com>
+	<559D34E2.1050703@roeck-us.net>
+From: Bjorn Helgaas <bhelgaas@google.com>
+Date: Wed, 8 Jul 2015 10:20:55 -0500
+Message-ID: <CAErSpo7icTYJXaeS33YuG7WNMcdDsfMcQJBuY=h3UU3QvtD92A@mail.gmail.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Content-Type: text/plain; charset=UTF-8
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Jason Cooper <jason@lakedaemon.net>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -35,85 +36,44 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Jul 08, 2015 at 09:04:58AM +0200, Peter Hüwe wrote:
-> Am Mittwoch, 8. Juli 2015, 04:03:04 schrieb Krzysztof Kozłowski:
-> > 
-> > Before doing some work there is always a cause, an answer to "why I am
-> > doing this"? Employer may pay for my commits but would he pay for
-> > reviewing time? That is his decision and it would be difficult to
-> > change policies inside companies.
-> > 
-> > Other reason for doing open source work may be the fame. Being
-> > recognizable, getting better job offers, doing tasks which are
-> > sensible and meaningful for someone. Currently probably most of the
-> > fame goes to authors and maintainers. For example in the form of `git
-> > log --author/committer=` or LWN articles about statistics.
-> > 
-> > How to get more reviews from such people (when employer does not pay
-> > for it)? Give them fame! :)
-> 
-> Exactly! 
-> This is also what Rafael wrote in the other mail:
-> 
-> > Most of the time there's a little to no recognition for doing that work
-> > and, quite frankly, writing code is more rewarding than that for the
-> > majority of people anyway.
-> 
-> 
-> So changing our fame-statistics from commits to reviews and tested by might 
-> change the situation a bit.
-> -> The next LWN stats and coverage should probably focus on the reviewed-by / 
-> tested-by stats. 
-> People love to be on some "top 10" lists - and also they can show something 
-> like that to their bosses.
+On Wed, Jul 8, 2015 at 9:34 AM, Guenter Roeck <linux@roeck-us.net> wrote:
+> On 07/08/2015 07:20 AM, Bjorn Helgaas wrote:
+>> On Tue, Jul 7, 2015 at 7:50 PM, Guenter Roeck <linux@roeck-us.net> wrote:
+>>
+>>> ... In once recent case, where I did spend the time,
+>>> and I thought the maintainer had agreed to accept the patch, I ended up
+>>> getting an automated patchwork email telling me that the patch was
+>>> deferred indefinitely. Not really encouraging either.
+>>
+>> Hmm, I use patchwork, but I don't have any idea what it looks like on
+>> the submitter's side.  If it generates discouraging emails, that's bad
+>> news to me.  I change the state of lots of patches because (a) they
+>> were cross-posted and I expect another maintainer to deal with them,
+>> (b) they have been superseded, (c) there have been reviews that
+>> require a respin, etc.  I'm not very careful about the actual state
+>> because from my point of view, all the states do the same thing:
+>> remove the patch from my to-do list.
+>>
+>> I wish I knew how to use patchwork better, or had a smarter workflow
+>> that could comprehend a series as a single entity.  Patchwork is a lot
+>> of clicking, but I don't know anything better.
+>
+> Wasn't you (in case you think so), and I don't think it is a problem that
+> patchwork sends e-mail. The problem in this case was that the maintainer
+> seemed to suggest that he would accept the patch before deferring it.
+> At that point I gave up pushing for it.
+>
+> Now, if you set a bug to "deferred" state because you intend to pick it
+> up for the next release, that would be different and might in fact be
+> considered discouraging, unless you let the submitter know what is going on.
 
-gack.  see below.
+That's one thing I don't like about patchwork: there's no way that I
+know of to annotate the state change.  I'd like a way to change the
+state to "Changes requested" along with a pointer to the relevant
+email.  Or to "Not applicable" along with a pointer to the other tree
+I expect it to go through.
 
-> "I've been a kernel reviewer and tester" -- meh, who cares
+It'd be nice if one could include patchwork directives in an email,
+the way you can with the Debian bug tracker.
 
-Show me a concrete example where that has been expressed.  I've had the
-exact opposite experience.  Typically I've had to tone down the
-expectations of others.
-
-> "I've been a top 100 kernel reviewer and tester over the last X releases" -- 
-> give him a raise/the job (esp. if kernel is not the core competency of the 
-> company :)
-
-Gah!  Please don't add gamification into this.  It attracts the wrong
-sorts of people.  We already have a large swath of society that want a
-cookie and a pat on the head for doing the most mundane things.
-
-Plus these systems built with good intentions always go awry.  "Hey!
-You didn't add a tag for me because I spotted a typo!" <stomps and
-huffs>  Or, "My boss / HR gave me less of a raise because my stats
-dropped this quarter, wtf?"
-
-This is a path we do *not* want to walk down.
-
-> --> Maybe LF can organize something?
-> "Here is a small token of appreciation (t-shirt, cup)  for spending countless 
-> hours on reviewing and testing stuff in the Linux kernel -- keep up the good 
-> work"
-
-How about "Here's an invite to the KS, because we value your opinion and
-would like you to take part in the process." ;-)
-
-> > The only way to address this problem I can see is to recognize reviewers
-> > *much* more than we tend to do and not just "encourage" them, because
-> > that's way insufficient.
-> Yes again!
-
-Disagree.  But I've said my piece above.
-
-> What I definitely would also recommend is to organize some 'get togethers',
-> like a miniconf/minisummit at the next conference near you -- and where you 
-> grab a beer _together_ with the reviewers / testers afterwards (and maybe the 
-> maintainer can pay). 
-
-Enhancing the community effect is something I can get on board with.
-Buying a few rounds of drinks goes a long way.  Getting the folks
-together in meat-space is the hard ($$) part.
-
-thx,
-
-Jason.
+Bjorn
