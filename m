@@ -1,28 +1,35 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <masami.hiramatsu.pt@hitachi.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id DBD6CABA
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B2339ABF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 16:43:16 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 787E11C1
+	Wed,  8 Jul 2015 16:47:52 +0000 (UTC)
+Received: from mailx.hitachi.co.jp (mailx.hitachi.co.jp [133.145.228.49])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id E467B1BB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 16:43:16 +0000 (UTC)
-Date: Wed, 8 Jul 2015 17:43:10 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Message-ID: <20150708164310.GR11162@sirena.org.uk>
-References: <201507080121.41463.PeterHuewe@gmx.de> <2102387.OD8sBG4Eol@avalon>
+	Wed,  8 Jul 2015 16:47:51 +0000 (UTC)
+Received: from mail7.hitachi.co.jp (mail7.hitachi.co.jp [133.145.228.42])
+	by mailx.hitachi.co.jp (Postfix) with ESMTP id 10D0D1770251
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu,  9 Jul 2015 01:13:48 +0900 (JST)
+Received: from mlsv5.hitachi.co.jp (unknown [133.144.234.166])
+	by mail7.hitachi.co.jp (Postfix) with ESMTP id 710AEB1D382
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu,  9 Jul 2015 01:13:46 +0900 (JST)
+Received: from vshuts04.hitachi.co.jp (vshuts04.hitachi.co.jp [10.201.6.86])
+	by mfilter04.hitachi.co.jp (Switch-3.3.4/Switch-3.3.4) with ESMTP id
+	t68GDjAo004681 for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 9 Jul 2015 01:13:46 +0900
+Message-ID: <559D4C35.6070709@hitachi.com>
+Date: Thu, 09 Jul 2015 01:13:41 +0900
+From: Masami Hiramatsu <masami.hiramatsu.pt@hitachi.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="wQ8ANTl3uYPVjUZt"
-Content-Disposition: inline
-In-Reply-To: <2102387.OD8sBG4Eol@avalon>
-Cc: Jason Cooper <jason@lakedaemon.net>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
- Maintainers, Hobbyists)
+To: ksummit-discuss@lists.linuxfoundation.org
+References: <alpine.LNX.2.00.1507071253390.10183@pobox.suse.cz>
+In-Reply-To: <alpine.LNX.2.00.1507071253390.10183@pobox.suse.cz>
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] live patching
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,62 +39,82 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On 2015/07/08 5:42, Jiri Kosina wrote:
+> [ I was wondering whether to tag this "CORE TOPIC" or "TECH TOPIC", as I 
+>   really see it on the bordeline; let's see ]
+> 
+> As people are probably aware, the basic infrastructure for live patching 
+> of the kernel has been merged and there are still quite some loose ends to 
+> tie up.
+> 
+> On top of original agreement by the two teams working at live kernel 
+> patching at Red Hat and SUSE, there has been quite some feedback raised 
+> during upstream review by people not being directly involved in the 
+> development itself [1].
+> 
+> Tangentially related topics have been spawned in the discussion, namely:
+> 
+> - stack unwinding has so far been deemed purely debugging facility, with 
+>   no correctness guarantees whatsoever. One of the possible aproaches to
+>   improving the coverage of live patching infrastructure would assume
+>   100% reliability of in-kernel stack unwinding.
+> 
+>   Is this something that should be pursued further? Especially opinions 
+>   and comments from various arch maintainers would be welcome
 
---wQ8ANTl3uYPVjUZt
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Yeah, at least the live patch would be better to depend on a frame-pointer
+to improve correctness...
 
-On Wed, Jul 08, 2015 at 02:49:47AM +0300, Laurent Pinchart wrote:
-> On Wednesday 08 July 2015 01:21:40 Peter Huewe wrote:
+> 
+> - it would be beneficial for live patching if kernel threads could be 
+>   cleaned up; currently it's a mess, with freezer points, signal handling 
+>   etc. spewed randomly all over the main loop. Generalizing the API (such
+>   as improving kthread_worker and migrating kthreads to use that) would 
+>   be beneficial if there are no major objections. See my related TECH 
+>   TOPIC submission
+> 
+> - Ingo proposed a "checkpoint"-based way for live patching, i.e. forcing 
+>   all the processess out of kernel to serliaze on a well-defined execution
+>   point, perform the patching, and resume the execution.
 
-> > We are definitely short on reviewers and thus have mostly overloaded
-> > maintainers.
+IMO, this is not acceptable especially for most of real-time scheduled tasks
+which usually the mission critical systems require. And such systems are
+the main target of the live patching feature I think, since those are
+sometimes controlling civil infrastructure systems, like trains, plants,
+factories and so on.
 
-> I was about to propose a related core topic.
+> 
+>   I see several issues with this aproach, but Ingo seems to be really 
+>   insisting on this to be the way to go.
+> 
+> I could give a short introduction to how the current in-kernel live 
+> patching facility looks like and what are the things that are currently 
+> missing (either because they were considered too controversial by some 
+> (such as the stack unwinding reliability or lazy-migration) or because 
+> they just have not been implemented yet) and hopefully create a basis for 
+> a discussion that would result in more defined opinions on how this 
+> facility should work to be widely acceptable.
 
-> The reviewing and maintainership process seems to have a hard time scalin=
-g to=20
-> the amount of contributions we receive, to the point where even well know=
-n and=20
-> respected kernel developers get discourages.
+I'd like to discuss about how to make better(prefer to live patching)
+patches, and what kind of patches can not be applied too. If we can
+make it clear, it is possible to make a tool to clarify.
 
-tl;dr - upstreaming support for out of tree SoCs is currently often
-hard and time consuming.
+Thank you,
 
-> Throwing more maintainers, co-maintainers or sub-maintainers at the kerne=
-l=20
-> won't magically solve this, as the more core developers a subsystem has t=
-he=20
-> more difficult it will be for them to synchronize. I would like share=20
-> experience about good practice rules that have proved to be effective.
+> 
+> Suggested attendance: folks working on live patching and anyone else 
+> who's not directly involved, but has strong opinions on how things should 
+> be done.
+> 
+> [1] http://lkml.kernel.org/r/20150220104418.GD25076@gmail.com
+> 
+> Thanks,
+> 
 
-Right.  In the specific case of upstreaming out of tree SoCs it's often
-in a large part part that there's some massive technical debt in the out
-of tree code working around generic problems in mainline, things like
-missing features or subsystems.  On the one hand those are the hardest
-bits to get solved upstream, but equally because they present generic
-issues they should be the easiest to collaborate on.
 
-Tim Bird (CCed) has been working to try to get people together to try to
-analyze what's in the kernels people ship on product and see what we can
-do to bring that debt down, there's already some people starting to do
-some active work on this.
-
---wQ8ANTl3uYPVjUZt
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQEcBAEBCAAGBQJVnVMdAAoJECTWi3JdVIfQO5UH/AxVU1OR2IojPwLwbNEXryzY
-3VloaRtz3Qs2dZCkyb6O3Ao16qcjk5VPoBWJRMdT2NQUTEgttmWkcNGU3G/633uw
-mrkMp4xdSU6w5XBZ7XwORzFPHIaZW/I+KjP79cZXQIoh1g0VmEFJM7vzGOTx1+Vc
-FrivHHfoYlyFT7mciA3Q3jTT+i4Quoq7uZC5g2JxwJb45iJnM7orLB/+p4dn3DPS
-2UXUgkzXDXbY0RXtk8MDcJugvkoPQqEPIkO1vrW42TqOmn8pwX60eTLUhvD8WXMK
-IfAgS7YDwTp+fcLq0ENY9OL6+BunVLm+aFyCwHGJz8dblmXEuXQPlDIIeUuOMvU=
-=1Mwx
------END PGP SIGNATURE-----
-
---wQ8ANTl3uYPVjUZt--
+-- 
+Masami HIRAMATSU
+Linux Technology Research Center, System Productivity Research Dept.
+Center for Technology Innovation - Systems Engineering
+Hitachi, Ltd., Research & Development Group
+E-mail: masami.hiramatsu.pt@hitachi.com
