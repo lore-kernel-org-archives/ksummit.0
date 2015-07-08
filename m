@@ -1,35 +1,27 @@
-Return-Path: <greg@kroah.com>
+Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 45FD2B3D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1B678B13
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 21:25:16 +0000 (UTC)
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
-	[66.111.4.26])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C3B64209
+	Wed,  8 Jul 2015 21:28:42 +0000 (UTC)
+Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id 74CE6F7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 21:25:14 +0000 (UTC)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
-	by mailout.nyi.internal (Postfix) with ESMTP id 03062207AB
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 17:25:13 -0400 (EDT)
-Date: Wed, 8 Jul 2015 14:25:12 -0700
-From: Greg KH <greg@kroah.com>
-To: Tim Bird <tim.bird@sonymobile.com>
-Message-ID: <20150708212512.GA31140@kroah.com>
-References: <1435997161.3324.33.camel@infradead.org>
-	<20150707143447.6f345e91@gandalf.local.home>
-	<1436298670.3324.107.camel@infradead.org>
-	<20150707200002.GA8315@kroah.com>
-	<1436300310.3324.115.camel@infradead.org>
-	<559D44AF.9090406@sonymobile.com>
+	Wed,  8 Jul 2015 21:28:41 +0000 (UTC)
+From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+To: Jiri Kosina <jkosina@suse.com>
+Date: Wed, 08 Jul 2015 23:55:09 +0200
+Message-ID: <119701572.LaCIUMEEyV@vostro.rjw.lan>
+In-Reply-To: <alpine.LNX.2.00.1507081015120.10183@pobox.suse.cz>
+References: <alpine.LNX.2.00.1507071340480.10183@pobox.suse.cz>
+	<9412727.0bKgPF9YKr@vostro.rjw.lan>
+	<alpine.LNX.2.00.1507081015120.10183@pobox.suse.cz>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <559D44AF.9090406@sonymobile.com>
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL enforcement actions
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] giving freezer well-defined
+	semantics
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,45 +31,32 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Jul 08, 2015 at 08:41:35AM -0700, Tim Bird wrote:
+On Wednesday, July 08, 2015 10:16:39 AM Jiri Kosina wrote:
+> On Wed, 8 Jul 2015, Rafael J. Wysocki wrote:
 > 
+> > OK, it is necessary to ensure that the contents of the image will be 
+> > consistent with the state of filesystems on the storage media, so 
+> > everything that may change that state should be "frozen" before the 
+> > image is created, but "frozen" in terms of "no persistent state changes 
+> > from now on" rather than in terms of "no forward progress from now on".
 > 
-> On 07/07/2015 01:18 PM, David Woodhouse wrote:
-> > On Tue, 2015-07-07 at 13:00 -0700, Greg KH wrote:
-> >> As those "efforts" are being driven by the developers of the kernel, I
-> >> think that the developers involved would be the best to present this,
-> >> not the SF Conservancy people.  As you point out, the SFLC is just the
-> >> lawyers being hired by the developers to do what they want them to do :)
-> > 
-> > A lot of those developers will be in the room too, of course.
-> > 
-> > But the "efforts" are being driven *by* Conservancy on *behalf* of
-> > those developers who have asked Conservancy to do so. And I suspect
-> > someone from Conservancy is better placed to give up-to-date
-> > information about what's actually happening "on the ground".
-> > 
-> > The point is to get people in the room and have a direct discussion
-> > without hearsay or misinformation — and doing that *without* someone
-> > from Conservancy doesn't really make much sense.
-> 
-> My experience with this is that you'll get one side (and perspective)
-> of the compliance enforcement story, only.  Companies involved in
-> compliance "improvement" exercises simply will not comment on them, so
-> it's not easy to tell if the remedies being requested are understood
-> by all parties or not, and whether I'd agree with them.
+> Yeah. So again, why do we even have freezer for so many kernel threads at 
+> all? :)
 
-s/will not/usually can not/g
+Well, one reason may be that we've never grown a decent mechanism for freezing
+filesystems (as in "no persistent state changes from now on") and people try to
+make up for that by stopping things if they can (but in the kernel space that's
+inherently racy).
 
-I'm worried that since a lot of people can't talk about this, for
-various reasons, that the usefulness of it might not be all that
-helpful.
+There also are places where it has been forever and no one is sure what happens
+after it's been dropped from there.
 
-> From my standpoint it would be useful to hear the Conservancy's stance
-> on a few issues.
+And there are places where it is used to provide specific guaranees (like in
+the runtime PM framework), but might be replaced with a different mechanism.
 
-What specific issues are you curious about that you think would be
-good to discuss / hear about?
+Essentially, as I said above, the freezer is only really useful for things
+requiring the "no forward progress from now on" rule.  There are things like
+that in the kernel too, but I bet there are not too many of them.
 
-thanks,
-
-greg k-h
+Thanks,
+Rafael
