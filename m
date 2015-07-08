@@ -1,33 +1,34 @@
 Return-Path: <geert.uytterhoeven@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1E9679F2
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 020BEB5A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 08:18:49 +0000 (UTC)
-Received: from mail-oi0-f49.google.com (mail-oi0-f49.google.com
-	[209.85.218.49])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 775251C0
+	Wed,  8 Jul 2015 08:37:52 +0000 (UTC)
+Received: from mail-ob0-f180.google.com (mail-ob0-f180.google.com
+	[209.85.214.180])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 870DF1CC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 08:18:48 +0000 (UTC)
-Received: by oiab3 with SMTP id b3so42122363oia.1
+	Wed,  8 Jul 2015 08:37:51 +0000 (UTC)
+Received: by obbkm3 with SMTP id km3so145761286obb.1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 08 Jul 2015 01:18:48 -0700 (PDT)
+	Wed, 08 Jul 2015 01:37:51 -0700 (PDT)
 MIME-Version: 1.0
 Sender: geert.uytterhoeven@gmail.com
-In-Reply-To: <CA+5PVA4YON79=wrSTfQ8TJrQNOuLShvaVA1_+BDcTxrmVe_hcQ@mail.gmail.com>
-References: <201507080121.41463.PeterHuewe@gmx.de>
-	<1481488.5WJFbB0Dlm@vostro.rjw.lan>
-	<CA+5PVA4YON79=wrSTfQ8TJrQNOuLShvaVA1_+BDcTxrmVe_hcQ@mail.gmail.com>
-Date: Wed, 8 Jul 2015 10:18:47 +0200
-Message-ID: <CAMuHMdU3vQdk1_dgtQWR=LMVLnGKPnqMoBv9j_JYYuoB=giRAA@mail.gmail.com>
+In-Reply-To: <20150708075409.GJ4341@mwanda>
+References: <20150707092434.GE11162@sirena.org.uk>
+	<559BEF61.8050904@roeck-us.net>
+	<CAMuHMdX6KcmZhibEC6hn2VN7veMSbbj1+P3kf=udY39fjdjj5w@mail.gmail.com>
+	<20150708075409.GJ4341@mwanda>
+Date: Wed, 8 Jul 2015 10:37:50 +0200
+Message-ID: <CAMuHMdWH+g+=Ra6Do1TOQ8OdvUZ3Y051RnTpOzAQx-AWYidaFQ@mail.gmail.com>
 From: Geert Uytterhoeven <geert@linux-m68k.org>
-To: Josh Boyer <jwboyer@fedoraproject.org>
+To: Dan Carpenter <dan.carpenter@oracle.com>
 Content-Type: text/plain; charset=UTF-8
-Cc: Jason Cooper <jason@lakedaemon.net>,
+Cc: Shuah Khan <shuah.kh@samsung.com>, Kevin Hilman <khilman@linaro.org>,
+	Tyler Baker <tyler.baker@linaro.org>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
- Maintainers, Hobbyists)
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Testing
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,27 +38,19 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Jul 8, 2015 at 3:14 AM, Josh Boyer <jwboyer@fedoraproject.org> wrote:
->> The only way to address this problem I can see is to recognize reviewers
->> *much* more than we tend to do and not just "encourage" them, because that's
->> way insufficient.
->
-> You could make a Reviewed-by tag required before a patch can be
-> included in a submaintainer's tree.  At least some maintainers seem to
-> (arbitrarily?) require this at times.  However, if you do that then it
-> would likely slow down development quite a bit.  Then Greg might cry
-> because he wouldn't get to show pretty graphs at conferences about how
-> fast the rate of change is in the kernel.
+Hi Dan,
 
-It's far too common to send out a patch series, receive lots of valuable
-comments and suggestions, adapt according to feedback, and send out again
-(repeat a few cycles). Suddenly the patches looks perfect, no more comments,
-but also no Acked-by or Reviewed-By. Just silence.
+On Wed, Jul 8, 2015 at 9:54 AM, Dan Carpenter <dan.carpenter@oracle.com> wrote:
+> Doesn't the 0day system obsolete the "Build regression" emails?  It
 
-Requiring a Reviewed-by tag is not a solution, unless there's a real
-incentive for people to add such tags. Finding such an incentive can be
-difficult, and may turn out to make matters worse (cfr. patent officers paid
-per patent granted).
+I think kisskb builds more/different configs.
+
+Is there are list of configs and trees covered by the 0day system available?
+
+> should be sending emails to everyone introducing new build warnings.
+> Are people ignoring them?
+
+Of course people ignore them ;-)
 
 Gr{oetje,eeting}s,
 
