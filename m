@@ -1,25 +1,26 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <dan.carpenter@oracle.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 94E95B68
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7808C8B4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 07:37:13 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 46C1212D
+	Wed,  8 Jul 2015 07:53:15 +0000 (UTC)
+Received: from aserp1040.oracle.com (aserp1040.oracle.com [141.146.126.69])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3F73D1AC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 07:37:13 +0000 (UTC)
-Message-ID: <1436341028.2136.14.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-Date: Wed, 08 Jul 2015 08:37:08 +0100
-In-Reply-To: <1481488.5WJFbB0Dlm@vostro.rjw.lan>
+	Wed,  8 Jul 2015 07:53:14 +0000 (UTC)
+Date: Wed, 8 Jul 2015 10:52:44 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Greg KH <greg@kroah.com>
+Message-ID: <20150708075244.GI4341@mwanda>
 References: <201507080121.41463.PeterHuewe@gmx.de>
 	<1481488.5WJFbB0Dlm@vostro.rjw.lan>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: Jason Cooper <jason@lakedaemon.net>,
+	<CA+5PVA4YON79=wrSTfQ8TJrQNOuLShvaVA1_+BDcTxrmVe_hcQ@mail.gmail.com>
+	<20150708021128.GB3102@kroah.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20150708021128.GB3102@kroah.com>
+Cc: Josh Boyer <jwboyer@fedoraproject.org>, Jason Cooper <jason@lakedaemon.net>,
 	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
@@ -32,44 +33,22 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 2015-07-08 at 03:29 +0200, Rafael J. Wysocki wrote:
-> On Wednesday, July 08, 2015 01:21:40 AM Peter Huewe wrote:
-> > Hi,
-> > 
-> > In order to continue our traditions I would like to propose again the topic of 
-> > recruitment, but this time not only limiting to the hobbyists market.
-> > 
-> > We are definitely short on reviewers and thus have mostly overloaded 
-> > maintainers.
-> > For testers it's usually even worse - how many patches are actually tested?
-> > Judging from what I read on LKML not that many.
-> > 
-> > So we should definitely discuss:
-> > - how can we encourage hobbyists to become regular contributors
-> > -- how to keep people interested, the drop-out rates are huge.
-> > - encourage regular contributors to become reviewers and testers
-> > - reviewers to become co-maintainers and finally maintainers (once the 
-> > original maintainer is used up or moves up/on)
+On Tue, Jul 07, 2015 at 07:11:28PM -0700, Greg KH wrote:
+> On Tue, Jul 07, 2015 at 09:14:00PM -0400, Josh Boyer wrote:
+> > You could make a Reviewed-by tag required before a patch can be
+> > included in a submaintainer's tree.  At least some maintainers seem to
+> > (arbitrarily?) require this at times.  However, if you do that then it
+> > would likely slow down development quite a bit.
 > 
-> Good topic.
-> 
-> Unfortunately, there are not too many incentives for people to become
-> code reviewers or testers, or at least to spend more time reviewing patches.
+> It doesn't seem to have slowed down the rate of change for the
+> subsystems that currently require this, so why do you think it would?
 
-We can alter that somewhat.  We used to run a Maintainers lottery for
-the kernel summit ... we could instead offer places based on the number
-of Reviewed-by: tags ... we have all the machinery to calculate that.  I
-know an invitation to the kernel summit isn't a huge incentive, but it's
-a useful one.
+That's SCSI and who else?
 
-> Most of the time there's a little to no recognition for doing that work and,
-> quite frankly, writing code is more rewarding than that for the majority of
-> people anyway.
-> 
-> The only way to address this problem I can see is to recognize reviewers
-> *much* more than we tend to do and not just "encourage" them, because that's
-> way insufficient.
+I think it improved SCSI a lot and got more people involved.  Before
+there were some companies that didn't reply at all when you emailed them
+fixes for their driver.  They just left everything for James.  Adding
+the rule that every patch needed two reviews probably sped things up.
 
-What other incentives or recognition mechanisms would you propose?
-
-James
+regards,
+dan carpenter
