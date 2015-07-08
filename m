@@ -1,37 +1,29 @@
-Return-Path: <jwboyer@gmail.com>
+Return-Path: <corbet@lwn.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 80E28BB6
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D91A483D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 12:37:19 +0000 (UTC)
-Received: from mail-ig0-f182.google.com (mail-ig0-f182.google.com
-	[209.85.213.182])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 14F951C4
+	Wed,  8 Jul 2015 12:42:23 +0000 (UTC)
+Received: from vena.lwn.net (tex.lwn.net [70.33.254.29])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 59A821BE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 12:37:19 +0000 (UTC)
-Received: by igcqs7 with SMTP id qs7so54904486igc.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 08 Jul 2015 05:37:18 -0700 (PDT)
+	Wed,  8 Jul 2015 12:42:23 +0000 (UTC)
+Date: Wed, 8 Jul 2015 06:42:21 -0600
+From: Jonathan Corbet <corbet@lwn.net>
+To: Peter =?UTF-8?B?SMO8d2U=?= <PeterHuewe@gmx.de>
+Message-ID: <20150708064221.6c966b7f@lwn.net>
+In-Reply-To: <201507080905.00051.PeterHuewe@gmx.de>
+References: <201507080121.41463.PeterHuewe@gmx.de>
+	<CA+5PVA4YON79=wrSTfQ8TJrQNOuLShvaVA1_+BDcTxrmVe_hcQ@mail.gmail.com>
+	<CAJKOXPfnwUX5fdBg1EDJSGgrNGXb3AmrK8tXokxqHw=XYzhddA@mail.gmail.com>
+	<201507080905.00051.PeterHuewe@gmx.de>
 MIME-Version: 1.0
-Sender: jwboyer@gmail.com
-In-Reply-To: <alpine.LNX.2.00.1507081407471.10183@pobox.suse.cz>
-References: <20150707092434.GE11162@sirena.org.uk>
-	<559BEF61.8050904@roeck-us.net>
-	<CAMuHMdX6KcmZhibEC6hn2VN7veMSbbj1+P3kf=udY39fjdjj5w@mail.gmail.com>
-	<20150708075409.GJ4341@mwanda>
-	<CAMuHMdWH+g+=Ra6Do1TOQ8OdvUZ3Y051RnTpOzAQx-AWYidaFQ@mail.gmail.com>
-	<alpine.LNX.2.00.1507081407471.10183@pobox.suse.cz>
-Date: Wed, 8 Jul 2015 08:37:18 -0400
-Message-ID: <CA+5PVA6Twt0urG32UWQ6k0-BtrcFzQ+Cec8=XiF03GV139MLfg@mail.gmail.com>
-From: Josh Boyer <jwboyer@fedoraproject.org>
-To: Jiri Kosina <jkosina@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Cc: Shuah Khan <shuah.kh@samsung.com>, Kevin Hilman <khilman@linaro.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Tyler Baker <tyler.baker@linaro.org>,
-	Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Testing
+Content-Transfer-Encoding: 8bit
+Cc: Josh Boyer <jwboyer@fedoraproject.org>, Jason Cooper <jason@lakedaemon.net>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
+ Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,25 +33,83 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Jul 8, 2015 at 8:10 AM, Jiri Kosina <jkosina@suse.com> wrote:
-> On Wed, 8 Jul 2015, Geert Uytterhoeven wrote:
->
->> > should be sending emails to everyone introducing new build warnings.
->> > Are people ignoring them?
->>
->> Of course people ignore them ;-)
->
-> I think the biggest problems with these are:
->
-> - they are all squashed together into one report, totally unrelated things
->   together at one place. Noone is ever going to be actively looking into
->   it to see whether something he's responsible for hasn't popped up
->
-> - they are not addressed to anybody explicitly. Sending them just to LKML
->   is a direct ticket to the "be ignored" land
+On Wed, 8 Jul 2015 09:04:58 +0200
+Peter Hüwe <PeterHuewe@gmx.de> wrote:
 
-Yep.  The same goes for bug reports.  LKML is a great archiving tool
-for digging through history, but it is useless as a form of general
-communication.
+> So changing our fame-statistics from commits to reviews and tested by might 
+> change the situation a bit.
+> -> The next LWN stats and coverage should probably focus on the reviewed-by /   
+> tested-by stats. 
 
-josh
+I do occasionally report those numbers with the rest.  The reason it
+doesn't happen very often is simple: it's a small minority of patches that
+carry such tags.  As such, I don't think the numbers actually reflect the
+reviewing and testing going on; they just reflect the placement of the
+tags.  Among other things, that makes the system relatively easy to game,
+and, in the past, I've seen that happening.
+
+Should anybody be curious, I'll append the latest, hot-off-the-repo numbers
+for 4.2.
+
+jon
+
+[12,099 non-merge changesets total when I ran this]
+
+Developers with the most reviews (total 2597)
+Ian Abbott                 149 (5.7%)
+Borislav Petkov            148 (5.7%)
+Hannes Reinecke            100 (3.9%)
+Christoph Hellwig           73 (2.8%)
+H Hartley Sweeten           62 (2.4%)
+Christian König             57 (2.2%)
+Tomas Henzl                 54 (2.1%)
+Alex Deucher                51 (2.0%)
+David Gibson                49 (1.9%)
+Scott Teel                  42 (1.6%)
+
+Developers with the most test credits (total 775)
+Joerg Roedel                35 (4.5%)
+Keita Kobayashi             35 (4.5%)
+Krishneil Singh             31 (4.0%)
+Arnaldo Carvalho de Melo    30 (3.9%)
+Ira Weiny                   23 (3.0%)
+Doug Ledford                23 (3.0%)
+Aaron Brown                 21 (2.7%)
+Alex Ng                     21 (2.7%)
+Javier Martinez Canillas    19 (2.5%)
+
+Developers who gave the most tested-by credits (total 775)
+Michael Wang                46 (5.9%)
+Joerg Roedel                42 (5.4%)
+Kuninori Morimoto           36 (4.6%)
+Jiang Liu                   35 (4.5%)
+Mel Gorman                  31 (4.0%)
+Vitaly Kuznetsov            21 (2.7%)
+Andre Przywara              20 (2.6%)
+Marek Szyprowski            19 (2.5%)
+Lv Zheng                    17 (2.2%)
+Don Skidmore                17 (2.2%)
+
+Developers with the most report credits (total 467)
+Fengguang Wu                65 (13.9%)
+Dan Carpenter               26 (5.6%)
+Russell King                21 (4.5%)
+Ingo Molnar                 10 (2.1%)
+Stephen Rothwell             9 (1.9%)
+Christoph Hellwig            5 (1.1%)
+Kevin Hilman                 5 (1.1%)
+Sergey Senozhatsky           5 (1.1%)
+Jim Davis                    5 (1.1%)
+Arnaldo Carvalho de Melo     4 (0.9%)
+
+Developers who gave the most report credits (total 467)
+Thomas Gleixner             30 (6.4%)
+Paul E. McKenney            14 (3.0%)
+Lv Zheng                    12 (2.6%)
+Eric Dumazet                 8 (1.7%)
+Paul Gortmaker               8 (1.7%)
+Peter Zijlstra               8 (1.7%)
+Takashi Iwai                 7 (1.5%)
+Stephen Boyd                 7 (1.5%)
+Aleksey Makarov              7 (1.5%)
+Filipe Manana                6 (1.3%)
