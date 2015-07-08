@@ -1,28 +1,25 @@
-Return-Path: <laurent.pinchart@ideasonboard.com>
+Return-Path: <PeterHuewe@gmx.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 178BB9F2
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 18130AB2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 19:27:00 +0000 (UTC)
-Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
-	[185.26.127.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9E49FE5
+	Wed,  8 Jul 2015 19:30:05 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6DF8EEB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 19:26:59 +0000 (UTC)
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Wed, 08 Jul 2015 22:27:10 +0300
-Message-ID: <1571305.WKZVFOSBqK@avalon>
-In-Reply-To: <20150708180637.GV11162@sirena.org.uk>
-References: <201507080121.41463.PeterHuewe@gmx.de>
-	<20150708001650.GA32155@kroah.com>
-	<20150708180637.GV11162@sirena.org.uk>
+	Wed,  8 Jul 2015 19:30:04 +0000 (UTC)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-Cc: Jason Cooper <jason@lakedaemon.net>
+Message-ID: <trinity-9a36fcd4-7739-40a7-b5f9-0ecf88d0a331-1436383797204@3capp-gmx-bs35>
+From: "Peter Huewe" <PeterHuewe@gmx.de>
+To: "Jason Cooper" <jason@lakedaemon.net>
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 8 Jul 2015 21:29:57 +0200
+In-Reply-To: <20150708140727.GH23515@io.lakedaemon.net>
+References: <201507080121.41463.PeterHuewe@gmx.de>,
+	<20150708140727.GH23515@io.lakedaemon.net>
+Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
-	Maintainers, Hobbyists)
+ Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,31 +29,53 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wednesday 08 July 2015 19:06:37 Mark Brown wrote:
-> On Tue, Jul 07, 2015 at 05:16:50PM -0700, Greg KH wrote:
-> > I like this proposal, thanks for making it.  I'd be glad to help talk
-> > about this issue as I spend a lot of time working on dragging companies
-> > and developers into our community.  We have a real lack of ways that
-> > people who are "reasonably skilled yet don't know what to work on" can
-> > do more to help contribute to the kernel.
+Hey Jason,
+
+> > For testers it's usually even worse - how many patches are actually tested?
+> > Judging from what I read on LKML not that many.
+> >
+> > So we should definitely discuss:
+> > - how can we encourage hobbyists to become regular contributors
+> > -- how to keep people interested, the drop-out rates are huge.
 > 
-> I think this *might* be something that the efforts to reduce the amount
-> of out of tree embedded code can help with?  A part of that effort is
-> identifying areas that need fixing, there will be a large enough list I
-> imagine.  The hard part is always matching people up with things that
-> they are interested in though.
+> Here we need to have the correct mindset. Kernel development is hard,
+> detailed work. It's very rewarding, but simply put, most people aren't
+> cut out to do it. I view the dropout rate as a *good* thing. It's a
+> _selection_ process more than a education/training process.
+> 
+> With most of the hard jobs in life, take a look at the
+> training/education program, and you'll see it: 80% drop out rate?
+> That's selection. Kernel work is one of those 'hard jobs'.
+> 
+> This is important to realize because it changes how we view recruitment.
+> We shouldn't be trying to keep everybody we recruit. Rather, we should
+> be giving more people trial runs and see how they work out as they learn
+> the process.
+> 
+> iow, if an 80% drop out rate gives us the caliber of dev we need for the
+> long term health of the community, then it's a numbers game. Say we saw
+> 40 new people last year, which turned into 8 regular contributors. Now
+> we want to double that. We can lower the standard to get 16 out
+> of 40, yuck. Or, we can outreach to 80 for trial runs, and get 16.
 
-There's also the issue of documentation. Datasheets for embedded SoCs are 
-often not publicly available. Even when out-of-tree code exists, the lack of 
-documentation makes it more difficult to understand it and port it to 
-mainline. I've seen many such cases in practice for camera sensor drivers that 
-are often provided by vendors with a small set (or even a single) hardcoded 
-configurations, using large register address/value tables. Porting such a 
-driver to the mainline APIs often require computing register values from 
-parameters received through the subsystem API, which requires a good 
-understanding of the hardware.
+I think that's an interesting take on the topic - although I'm not 100% whether I agree with everything.
+I agree that our goal is not to lower the standards, and also using more "trial runs".
 
--- 
-Regards,
+However high standards should not be the reason to drive people away --
+and especially not the reason not to keep good people interested.
 
-Laurent Pinchart
+Not only the bad people drop out, I've seen quite a lot of good devs vanish for good - and these should be the ones we also should try to keep - especially since I'm not sure whether we can allow such high drop out rates over a long time.
+
+
+> ... but because we need
+> to bring in new blood *somewhere*. co-maintainer/reviewer is one of
+> many possibilities. If we don't have enough slots for newcomers
+> (especially on a trial basis), that's our fault.
+
+Agreed.
+
+
+Interesting discussion about this topic - thanks for your opinion!
+
+Thanks,
+Peter
