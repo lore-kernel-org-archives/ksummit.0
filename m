@@ -1,28 +1,25 @@
-Return-Path: <rostedt@goodmis.org>
+Return-Path: <linux@roeck-us.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3B878BBC
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5E615BBC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 20:07:18 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0074.hostedemail.com
-	[216.40.44.74])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id B9C3617B
+	Wed,  8 Jul 2015 20:08:40 +0000 (UTC)
+Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8D06417B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 20:07:17 +0000 (UTC)
-Date: Wed, 8 Jul 2015 16:07:15 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Message-ID: <20150708160715.351ccf19@gandalf.local.home>
-In-Reply-To: <6295903.xabUbmnLAs@avalon>
-References: <201507080121.41463.PeterHuewe@gmx.de>
-	<20150708080032.CE89E4306F@saturn.retrosnub.co.uk>
-	<20150708145315.29030a75@gandalf.local.home>
-	<6295903.xabUbmnLAs@avalon>
+	Wed,  8 Jul 2015 20:08:36 +0000 (UTC)
+Message-ID: <559D8336.3040802@roeck-us.net>
+Date: Wed, 08 Jul 2015 13:08:22 -0700
+From: Guenter Roeck <linux@roeck-us.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+To: Steven Rostedt <rostedt@goodmis.org>, jic23@jic23.retrosnub.co.uk
+References: <201507080121.41463.PeterHuewe@gmx.de>	<1481488.5WJFbB0Dlm@vostro.rjw.lan>	<1436341028.2136.14.camel@HansenPartnership.com>	<20150708080032.CE89E4306F@saturn.retrosnub.co.uk>
+	<20150708145315.29030a75@gandalf.local.home>
+In-Reply-To: <20150708145315.29030a75@gandalf.local.home>
+Content-Type: text/plain; charset=windows-1252; format=flowed
 Content-Transfer-Encoding: 7bit
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	jic23@jic23.retrosnub.co.uk, Jason Cooper <jason@lakedaemon.net>,
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Jason Cooper <jason@lakedaemon.net>,
 	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
@@ -35,17 +32,34 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 08 Jul 2015 22:56:38 +0300
-Laurent Pinchart <laurent.pinchart@ideasonboard.com> wrote:
- 
-> Reviewed-by or Acked-by metrics are unfortunately very easy to game. If we 
+On 07/08/2015 11:53 AM, Steven Rostedt wrote:
+> On Wed, 08 Jul 2015 09:00:32 +0100
+> jic23@jic23.retrosnub.co.uk wrote:
+>
+>
+>>> We can alter that somewhat.  We used to run a Maintainers lottery for
+>>> the kernel summit ... we could instead offer places based on the number
+>>> of Reviewed-by: tags ... we have all the machinery to calculate that.  I
+>>> know an invitation to the kernel summit isn't a huge incentive, but it's
+>>> a useful one.
+>>
+>> Sounds like a good idea to me, though it would only effect a tiny
+>> percentage of our reviewers.  I suppose publishing a short list of the top
+>> n% of reviewers from which the lottery runs might give some
+>> recognition.
+>>
+>
+> I personally don't trust a Reviewed-by tag much, as I sometimes see
+> them appear without any comments.
+>
 
-I'm not worried about Acked-by, as that (to me anyway) is just a
-maintainer telling other maintainers that they are fine with the
-change, and they are OK with it going in via another tree.
+Except for the following, they are always reliable and can be trusted.
 
-I also sometimes give an Acked-by, as a "I took a quick look, and it
-looks good to me". I only add a Reviewed-by tag if I took enough effort
-to understand every part of the patch as if I wrote it myself.
+Reviewed-by: Edsel Murphy <edsel@murphy.com>
 
--- Steve
+Seriously, it does happen that I send Reviewed-by: or Acked-by: feedback if
+a patch is just fine as-is. What do you expect the reviewer to do in such
+a case ?
+
+Thanks,
+Guenter
