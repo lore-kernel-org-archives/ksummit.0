@@ -1,29 +1,30 @@
-Return-Path: <tytso@thunk.org>
+Return-Path: <bhelgaas@google.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3142CBCC
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8209ABD5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 14:02:00 +0000 (UTC)
-Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 295B432
+	Wed,  8 Jul 2015 14:20:30 +0000 (UTC)
+Received: from mail-wg0-f53.google.com (mail-wg0-f53.google.com [74.125.82.53])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4214732
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 14:01:59 +0000 (UTC)
-Date: Wed, 8 Jul 2015 10:01:55 -0400
-From: Theodore Ts'o <tytso@mit.edu>
-To: Mark Brown <broonie@kernel.org>
-Message-ID: <20150708140155.GA20551@thunk.org>
-References: <alpine.LNX.2.00.1507071324090.10183@pobox.suse.cz>
-	<20150707224025.GJ11162@sirena.org.uk>
-	<20150707225223.GG12491@dtor-ws> <20150708021619.GC3102@kroah.com>
-	<alpine.LNX.2.00.1507080957360.10183@pobox.suse.cz>
-	<20150708093511.GL11162@sirena.org.uk>
+	Wed,  8 Jul 2015 14:20:29 +0000 (UTC)
+Received: by wgck11 with SMTP id k11so197494931wgc.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 08 Jul 2015 07:20:28 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20150708093511.GL11162@sirena.org.uk>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] services needed from kernel.org
- infrastructure
+In-Reply-To: <559C73DF.2030008@roeck-us.net>
+References: <201507080121.41463.PeterHuewe@gmx.de> <2102387.OD8sBG4Eol@avalon>
+	<559C73DF.2030008@roeck-us.net>
+From: Bjorn Helgaas <bhelgaas@google.com>
+Date: Wed, 8 Jul 2015 09:20:08 -0500
+Message-ID: <CAErSpo622+-3XS=C=EN0S3qi8ZN4aehBmxf58RwyNvNdbgD0cw@mail.gmail.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Content-Type: text/plain; charset=UTF-8
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Jason Cooper <jason@lakedaemon.net>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
+ Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,36 +34,24 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Jul 08, 2015 at 10:35:11AM +0100, Mark Brown wrote:
-> 
-> I think the only barrier here is someone writing some tooling that is
-> sufficiently useful and generic enough to work for people.  I know I
-> wrote my scripts mainly because none of the scripts I could find tie in
-> with my workflow (mainly around figuring out which branches in my local
-> tree correspond to branches on the server and syncing them up).  If
-> there'd been something I could just pick up I'd have happily done so.
+On Tue, Jul 7, 2015 at 7:50 PM, Guenter Roeck <linux@roeck-us.net> wrote:
 
-Yeah, your concerns mirror mine:
+> ... In once recent case, where I did spend the time,
+> and I thought the maintainer had agreed to accept the patch, I ended up
+> getting an automated patchwork email telling me that the patch was
+> deferred indefinitely. Not really encouraging either.
 
-1) It will require a lot of configuration --- just because a commit
-shows up on a branch does not mean it is guaranteed that it will hit
-mainline.  In fact, a maintainer might push a commit onto a throwaway
-branch on kernel.org just so that the zero-day testing systems can
-give the commit a spin.  So that means it's not just enough to throw a
-bunch of git hook scripts on master.kernel.org, because maintainers
-will need to have to configure, if not customize, them.
+Hmm, I use patchwork, but I don't have any idea what it looks like on
+the submitter's side.  If it generates discouraging emails, that's bad
+news to me.  I change the state of lots of patches because (a) they
+were cross-posted and I expect another maintainer to deal with them,
+(b) they have been superseded, (c) there have been reviews that
+require a respin, etc.  I'm not very careful about the actual state
+because from my point of view, all the states do the same thing:
+remove the patch from my to-do list.
 
-This leads to my second concern which is:
+I wish I knew how to use patchwork better, or had a smarter workflow
+that could comprehend a series as a single entity.  Patchwork is a lot
+of clicking, but I don't know anything better.
 
-2) Having shell scripts run on master.kernel.org can be a significant
-security concern; this is *especially* true if customization or
-configuration is required.
-
-> > This would be caught immediately if it's properly maintained "project".
-> 
-> Or alternatively would allow people to quickly attack a large number of
-> developers :)
-
-Indeed.
-
-						- Ted
+Bjorn
