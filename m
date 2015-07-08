@@ -1,33 +1,32 @@
 Return-Path: <greg@kroah.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id EE0E6BBF
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 71337BC9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 02:11:30 +0000 (UTC)
+	Wed,  8 Jul 2015 02:16:21 +0000 (UTC)
 Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
 	[66.111.4.29])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4F559175
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id EA40F10D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 02:11:30 +0000 (UTC)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
-	by mailout.nyi.internal (Postfix) with ESMTP id 86C4120CB2
+	Wed,  8 Jul 2015 02:16:20 +0000 (UTC)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+	by mailout.nyi.internal (Postfix) with ESMTP id 46C21209E3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  7 Jul 2015 22:11:29 -0400 (EDT)
-Date: Tue, 7 Jul 2015 19:11:28 -0700
+	Tue,  7 Jul 2015 22:16:20 -0400 (EDT)
+Date: Tue, 7 Jul 2015 19:16:19 -0700
 From: Greg KH <greg@kroah.com>
-To: Josh Boyer <jwboyer@fedoraproject.org>
-Message-ID: <20150708021128.GB3102@kroah.com>
-References: <201507080121.41463.PeterHuewe@gmx.de>
-	<1481488.5WJFbB0Dlm@vostro.rjw.lan>
-	<CA+5PVA4YON79=wrSTfQ8TJrQNOuLShvaVA1_+BDcTxrmVe_hcQ@mail.gmail.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Message-ID: <20150708021619.GC3102@kroah.com>
+References: <alpine.LNX.2.00.1507071324090.10183@pobox.suse.cz>
+	<20150707224025.GJ11162@sirena.org.uk>
+	<20150707225223.GG12491@dtor-ws>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CA+5PVA4YON79=wrSTfQ8TJrQNOuLShvaVA1_+BDcTxrmVe_hcQ@mail.gmail.com>
-Cc: Jason Cooper <jason@lakedaemon.net>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
- Maintainers, Hobbyists)
+In-Reply-To: <20150707225223.GG12491@dtor-ws>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] services needed from kernel.org
+ infrastructure
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,31 +36,26 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Jul 07, 2015 at 09:14:00PM -0400, Josh Boyer wrote:
-> You could make a Reviewed-by tag required before a patch can be
-> included in a submaintainer's tree.  At least some maintainers seem to
-> (arbitrarily?) require this at times.  However, if you do that then it
-> would likely slow down development quite a bit.
+On Tue, Jul 07, 2015 at 03:52:23PM -0700, Dmitry Torokhov wrote:
+> On Tue, Jul 07, 2015 at 11:40:25PM +0100, Mark Brown wrote:
+> > On Tue, Jul 07, 2015 at 10:42:49PM +0200, Jiri Kosina wrote:
+> > 
+> > > I personally would very welcome a facility that'd send out an e-mail if a 
+> > > new commit is pushed to a git.kernel.org repo branch (sort of what tip-bot 
+> > > and akpm's scripts are doing these days) to automatically notify the patch 
+> > > author that the patch has been merged and pushed out.
+> > 
+> > Those are useful, I know Greg has one and I just wrote one too.  I'm not
+> > sure it needs to be on the server side though, they can also be done
+> > from the client which lets you try to fine tune things more readily.
+> 
+> If either of you could share the scripts that would be great.
 
-It doesn't seem to have slowed down the rate of change for the
-subsystems that currently require this, so why do you think it would?
+Mine is based on Andrew's scripts, and can be found buried in my
+"gregkh-linux" repo which is a shadow of my 'linux/' subdir on my
+development machines, specifically this file:
+	https://github.com/gregkh/gregkh-linux/blob/master/work/do.sh
 
-> Then Greg might cry because he wouldn't get to show pretty graphs at
-> conferences about how fast the rate of change is in the kernel.
-
-I don't have any graphs showing rate of change.  I have a few "raw"
-numbers that I talk about, but that's just to scare people.  Even if we
-went back to 2.5 development speeds (2.5 changes per hour), that's
-enough to scare people for my needs :)
-
-> (I would love to see a graph comparing rate of change to rate of
-> regressions/bugs, but then people would have to know the latter.)
-
-Want to start tracking that?  We've needed someone to do that work for
-quite some time now, the fact that we've gotten by without it either
-means that no one sees the value in funding such a position and/or it's
-not really something that anyone cares about...
-
-thanks,
+Yeah, my scripts are named 'do.sh', naming is hard...
 
 greg k-h
