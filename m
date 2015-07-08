@@ -1,35 +1,31 @@
-Return-Path: <khilman@deeprootsystems.com>
+Return-Path: <rostedt@goodmis.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A9183BCE
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9B090AAC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 18:42:28 +0000 (UTC)
-Received: from mail-pd0-f169.google.com (mail-pd0-f169.google.com
-	[209.85.192.169])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8919EE3
+	Wed,  8 Jul 2015 18:53:18 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0102.hostedemail.com
+	[216.40.44.102])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 24831E3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 18:42:27 +0000 (UTC)
-Received: by pdrg1 with SMTP id g1so18597388pdr.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 08 Jul 2015 11:42:27 -0700 (PDT)
-From: Kevin Hilman <khilman@kernel.org>
-To: Guenter Roeck <linux@roeck-us.net>
-References: <20150707092434.GE11162@sirena.org.uk>
-	<559BEF61.8050904@roeck-us.net>
-	<1436347639.29626.4.camel@ellerman.id.au>
-	<559D2B02.9020508@roeck-us.net> <7hlheqfvqo.fsf@deeprootsystems.com>
-	<559D5CBA.4080703@roeck-us.net>
-Date: Wed, 08 Jul 2015 11:42:23 -0700
-In-Reply-To: <559D5CBA.4080703@roeck-us.net> (Guenter Roeck's message of "Wed,
-	08 Jul 2015 10:24:10 -0700")
-Message-ID: <7h7fqafq40.fsf@deeprootsystems.com>
+	Wed,  8 Jul 2015 18:53:18 +0000 (UTC)
+Date: Wed, 8 Jul 2015 14:53:15 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: jic23@jic23.retrosnub.co.uk
+Message-ID: <20150708145315.29030a75@gandalf.local.home>
+In-Reply-To: <20150708080032.CE89E4306F@saturn.retrosnub.co.uk>
+References: <201507080121.41463.PeterHuewe@gmx.de>
+	<1481488.5WJFbB0Dlm@vostro.rjw.lan>
+	<1436341028.2136.14.camel@HansenPartnership.com>
+	<20150708080032.CE89E4306F@saturn.retrosnub.co.uk>
 MIME-Version: 1.0
-Content-Type: text/plain
-Cc: Tyler Baker <tyler.baker@linaro.org>,
-	Dan Carpenter <dan.carpenter@oracle.com>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	Shuah Khan <shuah.kh@samsung.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Testing
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Jason Cooper <jason@lakedaemon.net>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
+ Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,19 +35,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Guenter Roeck <linux@roeck-us.net> writes:
+On Wed, 08 Jul 2015 09:00:32 +0100
+jic23@jic23.retrosnub.co.uk wrote:
 
->> Are the build artfiacts ([bz]Image, System.map, modules, etc.) made
->> available someplace?
->>
-> Not currently. I could make it available if there is interest, though I'd
-> probably have to find some place out in the web to keep the data (we are talking
-> 16 branches times ~150 builds per branch times the number of builds kept in the log).
-> If I assume that five builds are kept per branch, and each build takes only 10MB
-> of space, this already adds up to more than 100 GB of space needed, 
 
-Understood. storage.kernelci.org is currently using ~400G for 45 days
-worth of builds from the 55+ branches x ~150 builds/branch we do, and
-includes boot logs/results too.
+> > We can alter that somewhat.  We used to run a Maintainers lottery for
+> > the kernel summit ... we could instead offer places based on the number
+> > of Reviewed-by: tags ... we have all the machinery to calculate that.  I
+> > know an invitation to the kernel summit isn't a huge incentive, but it's
+> > a useful one.
+> 
+> Sounds like a good idea to me, though it would only effect a tiny
+> percentage of our reviewers.  I suppose publishing a short list of the top 
+> n% of reviewers from which the lottery runs might give some
+> recognition. 
+> 
 
-Kevin
+I personally don't trust a Reviewed-by tag much, as I sometimes see
+them appear without any comments.
+
+I was thinking of writing a perl script that would read my LKML archive
+and somewhat intelligently looking at people who replied to patches,
+that also has snippets of the patch in the reply, and counting them. I
+think that would be a more accurate use of real reviewers than just the
+Reviewed-by tag.
+
+-- Steve
