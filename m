@@ -1,27 +1,32 @@
-Return-Path: <rjw@rjwysocki.net>
+Return-Path: <Tim.Bird@sonymobile.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B508683D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D14B5B13
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 22:42:34 +0000 (UTC)
-Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id B3518145
+	Wed,  8 Jul 2015 22:55:36 +0000 (UTC)
+Received: from seldrel01.sonyericsson.com (seldrel01.sonyericsson.com
+	[37.139.156.2])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2B95E145
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 22:42:33 +0000 (UTC)
-From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-To: Jason Cooper <jason@lakedaemon.net>
-Date: Thu, 09 Jul 2015 01:09 +0200
-Message-ID: <2038754.ape8QT5CKG@vostro.rjw.lan>
-In-Reply-To: <20150708221836.GN23515@io.lakedaemon.net>
-References: <201507080121.41463.PeterHuewe@gmx.de>
-	<trinity-9a36fcd4-7739-40a7-b5f9-0ecf88d0a331-1436383797204@3capp-gmx-bs35>
-	<20150708221836.GN23515@io.lakedaemon.net>
+	Wed,  8 Jul 2015 22:55:35 +0000 (UTC)
+Message-ID: <559DAA5F.9040306@sonymobile.com>
+Date: Wed, 8 Jul 2015 15:55:27 -0700
+From: Tim Bird <tim.bird@sonymobile.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
+To: Greg KH <greg@kroah.com>
+References: <1435997161.3324.33.camel@infradead.org>
+	<20150707143447.6f345e91@gandalf.local.home>
+	<1436298670.3324.107.camel@infradead.org>
+	<20150707200002.GA8315@kroah.com>
+	<1436300310.3324.115.camel@infradead.org>
+	<559D44AF.9090406@sonymobile.com>
+	<20150708212512.GA31140@kroah.com>
+In-Reply-To: <20150708212512.GA31140@kroah.com>
 Content-Type: text/plain; charset="utf-8"
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
-	Maintainers, Hobbyists)
+Content-Transfer-Encoding: quoted-printable
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL enforcement actions
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,55 +36,63 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wednesday, July 08, 2015 10:18:36 PM Jason Cooper wrote:
-> On Wed, Jul 08, 2015 at 09:29:57PM +0200, Peter Huewe wrote:
-> > > > For testers it's usually even worse - how many patches are actually tested?
-> > > > Judging from what I read on LKML not that many.
-> > > >
-> > > > So we should definitely discuss:
-> > > > - how can we encourage hobbyists to become regular contributors
-> > > > -- how to keep people interested, the drop-out rates are huge.
-> > > 
-> > > Here we need to have the correct mindset. Kernel development is hard,
-> > > detailed work. It's very rewarding, but simply put, most people aren't
-> > > cut out to do it. I view the dropout rate as a *good* thing. It's a
-> > > _selection_ process more than a education/training process.
-> > > 
-> > > With most of the hard jobs in life, take a look at the
-> > > training/education program, and you'll see it: 80% drop out rate?
-> > > That's selection. Kernel work is one of those 'hard jobs'.
-> > > 
-> > > This is important to realize because it changes how we view recruitment.
-> > > We shouldn't be trying to keep everybody we recruit. Rather, we should
-> > > be giving more people trial runs and see how they work out as they learn
-> > > the process.
-> > > 
-> > > iow, if an 80% drop out rate gives us the caliber of dev we need for the
-> > > long term health of the community, then it's a numbers game. Say we saw
-> > > 40 new people last year, which turned into 8 regular contributors. Now
-> > > we want to double that. We can lower the standard to get 16 out
-> > > of 40, yuck. Or, we can outreach to 80 for trial runs, and get 16.
-> > 
-> > I think that's an interesting take on the topic - although I'm not
-> > 100% whether I agree with everything.  I agree that our goal is not to
-> > lower the standards, and also using more "trial runs".
-> > 
-> > However high standards should not be the reason to drive people away --
-> > and especially not the reason not to keep good people interested.
-> 
-> Sure, I'm not suggesting anything like testing or anything formal.
-> Merely that everyone understand there's an attrition rate, and that's
-> *ok*.
-> 
-> Recruitment, imo, isn't about trying to keep everyone that tries.
-> Rather it's about opening the doors and providing real opportunities for
-> more people to contribute.
 
-The opportunities are there, but in addition to the opportunities themselves
-people need some incentives to use them.  It's all about their time which
-they can spend in many ways, some of them more rewarding than others.
 
-If they don't have an incentive, an opportunity itself may not be sufficient.
+On 07/08/2015 02:25 PM, Greg KH wrote:
+> On Wed, Jul 08, 2015 at 08:41:35AM -0700, Tim Bird wrote:
+>> On 07/07/2015 01:18 PM, David Woodhouse wrote:
+>>> On Tue, 2015-07-07 at 13:00 -0700, Greg KH wrote:
+>>>> As those "efforts" are being driven by the developers of the kernel, I
+>>>> think that the developers involved would be the best to present this,
+>>>> not the SF Conservancy people.  As you point out, the SFLC is just the
+>>>> lawyers being hired by the developers to do what they want them to do =
+:)
+>>>
+>>> A lot of those developers will be in the room too, of course.
+>>>
+>>> But the "efforts" are being driven *by* Conservancy on *behalf* of
+>>> those developers who have asked Conservancy to do so. And I suspect
+>>> someone from Conservancy is better placed to give up-to-date
+>>> information about what's actually happening "on the ground".
+>>>
+>>> The point is to get people in the room and have a direct discussion
+>>> without hearsay or misinformation =E2=80=94 and doing that *without* so=
+meone
+>>> from Conservancy doesn't really make much sense.
+>>
+>> My experience with this is that you'll get one side (and perspective)
+>> of the compliance enforcement story, only.  Companies involved in
+>> compliance "improvement" exercises simply will not comment on them, so
+>> it's not easy to tell if the remedies being requested are understood
+>> by all parties or not, and whether I'd agree with them.
+>=20
+> s/will not/usually can not/g
+Agreed.
 
-Thanks,
-Rafael
+>=20
+> I'm worried that since a lot of people can't talk about this, for
+> various reasons, that the usefulness of it might not be all that
+> helpful.
+>=20
+>> From my standpoint it would be useful to hear the Conservancy's stance
+>> on a few issues.
+>=20
+> What specific issues are you curious about that you think would be
+> good to discuss / hear about?
+
+I'm interested in the scope of remedies requested by the Conservancy.
+Specifically, if the Conservancy finds a GPL violation for one piece of
+software, or for one division or group in a company, whether they
+then request to review and approve the compliance for other unrelated
+pieces of software, or for software from other divisions, groups or
+products.  That was the thing that caused the most concern within
+companies I talked to a few years ago, when I got caught in a
+firestorm for proposing support by the CE Workgroup for the Toybox
+project.
+
+It's unclear to me whether this is the type of subject David is
+proposing, or whether there's much benefit to this discussion at
+a kernel summit.  The benefit to me would be to gauge other developers'
+reactions to these issues (though honestly I consider myself a=20
+very low priority for invitation to the summit.)
+ -- Tim
