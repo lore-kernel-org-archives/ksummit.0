@@ -1,35 +1,28 @@
 Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 327668B4
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B8E8CBAC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 17:37:44 +0000 (UTC)
+	Wed,  8 Jul 2015 17:56:02 +0000 (UTC)
 Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
 	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C1834FD
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5550BB0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 17:37:43 +0000 (UTC)
-Date: Wed, 8 Jul 2015 18:37:30 +0100
+	Wed,  8 Jul 2015 17:56:02 +0000 (UTC)
+Date: Wed, 8 Jul 2015 18:55:57 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Andy Lutomirski <luto@amacapital.net>
-Message-ID: <20150708173730.GT11162@sirena.org.uk>
-References: <20150707092434.GE11162@sirena.org.uk>
-	<CACVxJT8Ae3t9x=jF-xy6NunqZCbgOoaNxy9AqOxuDg8Dx=Tk6g@mail.gmail.com>
-	<20150707131411.GI2887@sirena.org.uk>
-	<20150707144725.6a19727f@gandalf.local.home>
-	<CAGXu5jJN7z0Fa78SmyCe0mWE6mRY5f+giL-8CY_Li3tYwYeZrg@mail.gmail.com>
-	<CALCETrUMeOdJstG1djALBidD60xOXNExh5vFZGbUSEJwyzutpw@mail.gmail.com>
+To: Peter Huewe <PeterHuewe@gmx.de>
+Message-ID: <20150708175557.GU11162@sirena.org.uk>
+References: <201507080121.41463.PeterHuewe@gmx.de>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="9/lmB/GmAksD4Nrg"
+	protocol="application/pgp-signature"; boundary="n1q7a47AT2c4WQJe"
 Content-Disposition: inline
-In-Reply-To: <CALCETrUMeOdJstG1djALBidD60xOXNExh5vFZGbUSEJwyzutpw@mail.gmail.com>
-Cc: Shuah Khan <shuah.kh@samsung.com>, Kevin Hilman <khilman@linaro.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Tyler Baker <tyler.baker@linaro.org>,
-	Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Testing
+In-Reply-To: <201507080121.41463.PeterHuewe@gmx.de>
+Cc: Jason Cooper <jason@lakedaemon.net>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
+ Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,33 +33,37 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---9/lmB/GmAksD4Nrg
+--n1q7a47AT2c4WQJe
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jul 07, 2015 at 03:02:11PM -0700, Andy Lutomirski wrote:
+On Wed, Jul 08, 2015 at 01:21:40AM +0200, Peter Huewe wrote:
 
-> There was a fair amount of discussion about machine-readable output at
-> the last KS.  I don't know whether it ever got implemented.
+> -> How do we get companies to actively sponsor subsystem maintainership -=
+ if=20
+> only at driver or subsubsystem level.
+> e.g.: I unfortunately failed at that with my company :/
 
-Yes, but that's very much at the most basic stage of reporting pass and
-fail - there's probably room for looking at if we're ready to extend
-that.
+One thing I found worked really well when I was working for a silicon
+vendor was using employing maintainers as evidence of good software
+support for shiny new features on Linux, both internally and externally.
+That's obviously somewhat situation specific but it's one route.
 
---9/lmB/GmAksD4Nrg
+--n1q7a47AT2c4WQJe
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQEcBAEBCAAGBQJVnV/ZAAoJECTWi3JdVIfQFF8H/3+YxjYxY4mzT+Y5JHntmVZP
-6Pdsu9A33qHRxgYGMa9rvMtPPuh3F1i1eSA/1JQIe9n3ztMBWdrgES76WpvfqqS4
-7yg6NNDePXb/Omdkzfv8HDD9P2znB1QfzesB4NNN9VBaWmPFrCSqwNJE/dQFx+YV
-f/SoYmB4/3LWDQyGHsGzUviSnZcD1hVdl/Yed492l6JuGb+yjRi1qXHNFWdZSFQw
-Mnd+RE6SauJUykwJ4jLsR47vreeR9yOf3KEkqTnEUt+Qpn8S1hzucR3Je7fAB5gu
-dh1R3pS3zCni00XKQu0+6MzuEWlI2GlWwr4AzXeQdUIO2mkXYGoHHXCp4vYCQLk=
-=gI6l
+iQEcBAEBCAAGBQJVnWQtAAoJECTWi3JdVIfQvgkH/2CxKgAmqfDtbINHx85Fv/m2
+MAe0RM8+9Q9JupH3HpRZ8HUYNFYcKXrPg2s0bj3mWFtDzDHgaWfopfVjxrXX8ojM
+acpvUQIpwZHHZGEs3oJrwM+XTTgga5ckYiYs8F5iVZ7+StmsC0aPTNiP8wiDMpak
+nT2UM2iTL1LUAnyoGXEClj7+R6mNI7RcuE5UZU8M6bqnsxyXskChwBSG71p7jwcf
+eMOHF2zDfe2HtA0BfS80H+IxWm3A0W5nj47bazScnlXzywHcXBkuTbNQlwlAzDR3
+RvGXKoTnnUx3kbv/juSYeSYQr02IHhTHvEfB10jq2Wolk1csW5plxSv2BZA6XuU=
+=cBLz
 -----END PGP SIGNATURE-----
 
---9/lmB/GmAksD4Nrg--
+--n1q7a47AT2c4WQJe--
