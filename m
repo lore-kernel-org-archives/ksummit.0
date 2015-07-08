@@ -1,32 +1,25 @@
-Return-Path: <greg@kroah.com>
+Return-Path: <jkosina@suse.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A6314B68
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id C00DFBC4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 15:00:59 +0000 (UTC)
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
-	[66.111.4.29])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 207DAEE
+	Wed,  8 Jul 2015 15:09:00 +0000 (UTC)
+Received: from mail.emea.novell.com (mail.emea.novell.com [130.57.118.101])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0767BAA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 15:00:59 +0000 (UTC)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
-	by mailout.nyi.internal (Postfix) with ESMTP id 503CA20A6F
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 11:00:58 -0400 (EDT)
-Date: Wed, 8 Jul 2015 08:00:56 -0700
-From: Greg KH <greg@kroah.com>
-To: Theodore Ts'o <tytso@mit.edu>
-Message-ID: <20150708150056.GB11945@kroah.com>
+	Wed,  8 Jul 2015 15:08:59 +0000 (UTC)
+Date: Wed, 8 Jul 2015 17:08:50 +0200 (CEST)
+From: Jiri Kosina <jkosina@suse.com>
+To: Greg KH <greg@kroah.com>
+In-Reply-To: <20150708145910.GA11945@kroah.com>
+Message-ID: <alpine.LNX.2.00.1507081704380.10183@pobox.suse.cz>
 References: <alpine.LNX.2.00.1507071324090.10183@pobox.suse.cz>
 	<20150707224025.GJ11162@sirena.org.uk>
 	<20150707225223.GG12491@dtor-ws> <20150708021619.GC3102@kroah.com>
 	<alpine.LNX.2.00.1507080957360.10183@pobox.suse.cz>
-	<20150708093511.GL11162@sirena.org.uk>
-	<20150708140155.GA20551@thunk.org>
+	<20150708145910.GA11945@kroah.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20150708140155.GA20551@thunk.org>
+Content-Type: TEXT/PLAIN; charset=US-ASCII
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] services needed from kernel.org
  infrastructure
@@ -39,37 +32,39 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Jul 08, 2015 at 10:01:55AM -0400, Theodore Ts'o wrote:
-> On Wed, Jul 08, 2015 at 10:35:11AM +0100, Mark Brown wrote:
+On Wed, 8 Jul 2015, Greg KH wrote:
+
+> > For example, please correct me if I am wrong, but I believe that if I send 
+> > you a patch that would have authorship
 > > 
-> > I think the only barrier here is someone writing some tooling that is
-> > sufficiently useful and generic enough to work for people.  I know I
-> > wrote my scripts mainly because none of the scripts I could find tie in
-> > with my workflow (mainly around figuring out which branches in my local
-> > tree correspond to branches on the server and syncing them up).  If
-> > there'd been something I could just pick up I'd have happily done so.
+> > 	Jiri Kosina <jkosina`rm -rf .`@suse.com>
+> > 
+> > and you wouldn't notice prior to applying it using the above do.sh, I 
+> > think your precious tree is gone.
 > 
-> Yeah, your concerns mirror mine:
-> 
-> 1) It will require a lot of configuration --- just because a commit
-> shows up on a branch does not mean it is guaranteed that it will hit
-> mainline.  In fact, a maintainer might push a commit onto a throwaway
-> branch on kernel.org just so that the zero-day testing systems can
-> give the commit a spin.  So that means it's not just enough to throw a
-> bunch of git hook scripts on master.kernel.org, because maintainers
-> will need to have to configure, if not customize, them.
-> 
-> This leads to my second concern which is:
-> 
-> 2) Having shell scripts run on master.kernel.org can be a significant
-> security concern; this is *especially* true if customization or
-> configuration is required.
+> Note, I don't have "precious" trees, nor "precious" development systems,
+> that's what git is for :)
 
-Yeah, I really don't want to see shell access return to any kernel.org
-systems, and that includes git hooks.  Using local git hooks to send
-emails out seems to work well given that people here are already doing
-it for their workflows.
+Oh, sure, that was just an example because I was too lazy to construct a 
+command that would send me your ssh keys :)
 
-thanks,
+> > This would be caught immediately if it's properly maintained "project".
+> 
+> Hm, ok, but different maintainers have different needs.  James's git
+> hooks are also really nice, and work for some workflows (note, I use
+> them for some stable workflows).  Wolfram has published his scripts that
+> he uses for applying and testing patches in the past as well, and while
+> they were great for him, they didn't fit mine at the time.
 
-greg k-h
+Yes, my main point really was that I personally would find it super-nice 
+to just mark particular branches in my kernel.org repositories as "send 
+notifications for these", and author (and anyone else in "-by:" lines) 
+would automatically receive nice notification once commit appears there. 
+Without any need of wrapping simple git-am + git push with more and more 
+bloated scripting.
+
+Thanks,
+
+-- 
+Jiri Kosina
+SUSE Labs
