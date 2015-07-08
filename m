@@ -1,32 +1,31 @@
 Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0B9E4982
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4E9B583D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 10:43:42 +0000 (UTC)
+	Wed,  8 Jul 2015 11:07:37 +0000 (UTC)
 Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
 	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 73A67AA
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DB723F2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 10:43:41 +0000 (UTC)
-Date: Wed, 8 Jul 2015 11:43:22 +0100
+	Wed,  8 Jul 2015 11:07:36 +0000 (UTC)
+Date: Wed, 8 Jul 2015 12:07:27 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Message-ID: <20150708104322.GO11162@sirena.org.uk>
-References: <20150707092434.GE11162@sirena.org.uk>
-	<CACVxJT8Ae3t9x=jF-xy6NunqZCbgOoaNxy9AqOxuDg8Dx=Tk6g@mail.gmail.com>
-	<20150707131411.GI2887@sirena.org.uk>
-	<20150707144725.6a19727f@gandalf.local.home>
+To: Greg KH <greg@kroah.com>
+Message-ID: <20150708110727.GP11162@sirena.org.uk>
+References: <201507080121.41463.PeterHuewe@gmx.de>
+	<1481488.5WJFbB0Dlm@vostro.rjw.lan>
+	<CA+5PVA4YON79=wrSTfQ8TJrQNOuLShvaVA1_+BDcTxrmVe_hcQ@mail.gmail.com>
+	<20150708021128.GB3102@kroah.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="H/P/fp31Su+ob3Cg"
+	protocol="application/pgp-signature"; boundary="zfsaV+LVqEQKX7k4"
 Content-Disposition: inline
-In-Reply-To: <20150707144725.6a19727f@gandalf.local.home>
-Cc: Shuah Khan <shuah.kh@samsung.com>, Kevin Hilman <khilman@linaro.org>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	Tyler Baker <tyler.baker@linaro.org>,
-	Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Testing
+In-Reply-To: <20150708021128.GB3102@kroah.com>
+Cc: Josh Boyer <jwboyer@fedoraproject.org>, Jason Cooper <jason@lakedaemon.net>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
+ Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,53 +36,52 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---H/P/fp31Su+ob3Cg
+--zfsaV+LVqEQKX7k4
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Tue, Jul 07, 2015 at 02:47:25PM -0400, Steven Rostedt wrote:
-> Mark Brown <broonie@sirena.org.uk> wrote:
+On Tue, Jul 07, 2015 at 07:11:28PM -0700, Greg KH wrote:
+> On Tue, Jul 07, 2015 at 09:14:00PM -0400, Josh Boyer wrote:
 
-> > Perhaps, perhaps not - it's not an unequivocal thing either way.  The
-> > more barriers there are to enabling things the more likely it is that
-> > people just won't bother in the first place (or that they'll run into
-> > somme problem and give up before they get things working) and it's not
-> > clear that having to figure these things out is always a good use of
-> > people's time.
+> > You could make a Reviewed-by tag required before a patch can be
+> > included in a submaintainer's tree.  At least some maintainers seem to
+> > (arbitrarily?) require this at times.  However, if you do that then it
+> > would likely slow down development quite a bit.
 
-> The testing/selftests tests should have three results: PASS, FAIL,
-> UNSUPPORTED. The UNSUPPORTED is what should be returned if the kernel
-> configuration doesn't have the needed features configured. For example,
-> if you run the ftrace selftests without function tracing enabled, all
-> the tests that test the function tracer return UNSUPPORTED.
+> It doesn't seem to have slowed down the rate of change for the
+> subsystems that currently require this, so why do you think it would?
 
-That's roughly what they're supposed to be doing now (I'd need to go
-check exactly what happens in the unsupported case).
+I think there's probably a cause and effect thing going on there - it's
+more likely that a subsystem will start to impose such requirements if
+they are confident that it is practical to get reviews of sufficient
+quality in.  I'd guess at least some of the time it's a formalisation of
+existing practice rather than a completely new requirement.
 
-> Perhaps we should have a central location that each test needs to add
-> the required configuration for it to be properly tested. Then if users
-> want to test various subsystems, they would look in this location for
-> the proper configs (be it a directory that has files of the tests they
-> represent, and contain the configs needed). Then there should be no
-> real barrier for people to run these tests.
+> > (I would love to see a graph comparing rate of change to rate of
+> > regressions/bugs, but then people would have to know the latter.)
 
-Right, this is what I'm suggesting roughly - make the configurations
-required to run tests easier to pick up.
+> Want to start tracking that?  We've needed someone to do that work for
+> quite some time now, the fact that we've gotten by without it either
+> means that no one sees the value in funding such a position and/or it's
+> not really something that anyone cares about...
 
---H/P/fp31Su+ob3Cg
+Well, first we'd need to find a way of counting the bugs and
+regressions.
+
+--zfsaV+LVqEQKX7k4
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQEcBAEBCAAGBQJVnP7KAAoJECTWi3JdVIfQb0oH/0gFsJ7JdTGJJBQS1fSwvfVr
-6mUOs5faPFkxtLOf3M+zRmbh5aR32TzVLHobe/na1dCeBEfQVoqDX5mKSQKuyqfC
-UsHF/B2DC0KFSPdoxUPcXVVPS8p5I6DNplAhmoS/0bqx2xDyE6glDKEJGxroUsGa
-vkyg28+TjQlkEuR70an926Hml2IGtxSObdVDqJDn1BDyhVduMICj9Mbupmm1SokK
-lme4+iL9SX8BXynAq0XerqcwO3katogbSQcTGrKWvnV3andJyzO/SmmzXGYEdaDO
-fPZxK1fTVNKsUPnbTDORTBcNWJBf1/2SDMaGWliK3CMEXxu9AMso/t+J1bv2QP8=
-=hm82
+iQEcBAEBCAAGBQJVnQRuAAoJECTWi3JdVIfQ0qQH+QHXbztesVj8sovyCZLSPnq5
+q5CQ2cZofSpK+wJEskQCuN+xbd76quMSfc2JDTxqcJlzVe/Nhk+H6c2B9pckSIMB
+kSVKS0HIZkiKBJNudD8+4Am4pk5uqAEZ448xvWILr1f3HieEH6b4bOvCTn5Nx4dG
+DCUWEXrhG7CGXOaW/joaw96823BCOXZmllLiS3f70q6AsEk9uyuwCQqMjhxu7umn
+vqDZGRSaBRx9ntF/fCRFHqX3sfsuaTsWIlPJm9mJaWXeZFupf1yg8DmlIQuH5AQ9
+gYIS3l0C3s4MPucKVfe9iR3ZLdOd8Ciinqe+LWWTn0qZkuCtOmOcR3eXDIppG/0=
+=V9Tf
 -----END PGP SIGNATURE-----
 
---H/P/fp31Su+ob3Cg--
+--zfsaV+LVqEQKX7k4--
