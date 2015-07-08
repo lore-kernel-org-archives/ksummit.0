@@ -1,30 +1,35 @@
-Return-Path: <jason@lakedaemon.net>
+Return-Path: <khilman@deeprootsystems.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A67DAB68
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A9183BCE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 18:08:36 +0000 (UTC)
-Received: from pmta2.delivery5.ore.mailhop.org
-	(pmta2.delivery5.ore.mailhop.org [54.186.218.12])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id 22E8611D
+	Wed,  8 Jul 2015 18:42:28 +0000 (UTC)
+Received: from mail-pd0-f169.google.com (mail-pd0-f169.google.com
+	[209.85.192.169])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8919EE3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 18:08:36 +0000 (UTC)
-Date: Wed, 8 Jul 2015 18:08:32 +0000
-From: Jason Cooper <jason@lakedaemon.net>
-To: Mark Brown <broonie@kernel.org>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@googlemail.com>,
-	Thomas Petazzoni <thomas.petazzoni@free-electrons.com>,
-	Gregory CLEMENT <gregory.clement@free-electrons.com>
-Message-ID: <20150708180832.GL23515@io.lakedaemon.net>
-References: <201507080121.41463.PeterHuewe@gmx.de> <2102387.OD8sBG4Eol@avalon>
-	<20150708164310.GR11162@sirena.org.uk>
+	Wed,  8 Jul 2015 18:42:27 +0000 (UTC)
+Received: by pdrg1 with SMTP id g1so18597388pdr.2
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 08 Jul 2015 11:42:27 -0700 (PDT)
+From: Kevin Hilman <khilman@kernel.org>
+To: Guenter Roeck <linux@roeck-us.net>
+References: <20150707092434.GE11162@sirena.org.uk>
+	<559BEF61.8050904@roeck-us.net>
+	<1436347639.29626.4.camel@ellerman.id.au>
+	<559D2B02.9020508@roeck-us.net> <7hlheqfvqo.fsf@deeprootsystems.com>
+	<559D5CBA.4080703@roeck-us.net>
+Date: Wed, 08 Jul 2015 11:42:23 -0700
+In-Reply-To: <559D5CBA.4080703@roeck-us.net> (Guenter Roeck's message of "Wed,
+	08 Jul 2015 10:24:10 -0700")
+Message-ID: <7h7fqafq40.fsf@deeprootsystems.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20150708164310.GR11162@sirena.org.uk>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
- Maintainers, Hobbyists)
+Content-Type: text/plain
+Cc: Tyler Baker <tyler.baker@linaro.org>,
+	Dan Carpenter <dan.carpenter@oracle.com>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Shuah Khan <shuah.kh@samsung.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Testing
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,43 +39,19 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Jul 08, 2015 at 05:43:10PM +0100, Mark Brown wrote:
-> On Wed, Jul 08, 2015 at 02:49:47AM +0300, Laurent Pinchart wrote:
-> > On Wednesday 08 July 2015 01:21:40 Peter Huewe wrote:
-> 
-> > > We are definitely short on reviewers and thus have mostly overloaded
-> > > maintainers.
-> 
-> > I was about to propose a related core topic.
-> 
-> > The reviewing and maintainership process seems to have a hard time scaling to 
-> > the amount of contributions we receive, to the point where even well known and 
-> > respected kernel developers get discourages.
-> 
-> tl;dr - upstreaming support for out of tree SoCs is currently often
-> hard and time consuming.
-> 
-> > Throwing more maintainers, co-maintainers or sub-maintainers at the kernel 
-> > won't magically solve this, as the more core developers a subsystem has the 
-> > more difficult it will be for them to synchronize. I would like share 
-> > experience about good practice rules that have proved to be effective.
-> 
-> Right.  In the specific case of upstreaming out of tree SoCs it's often
-> in a large part part that there's some massive technical debt in the out
-> of tree code working around generic problems in mainline, things like
-> missing features or subsystems.  On the one hand those are the hardest
-> bits to get solved upstream, but equally because they present generic
-> issues they should be the easiest to collaborate on.
-> 
-> Tim Bird (CCed) has been working to try to get people together to try to
-> analyze what's in the kernels people ship on product and see what we can
-> do to bring that debt down, there's already some people starting to do
-> some active work on this.
+Guenter Roeck <linux@roeck-us.net> writes:
 
-I'd like to include Sebastian Hesslebarth (maintainer of mach-berlin) in
-this discussion.  Him and the free-electron's guys (Thomas, Gregory,
-etc) have a lot of valuable first hand experience in this topic.
+>> Are the build artfiacts ([bz]Image, System.map, modules, etc.) made
+>> available someplace?
+>>
+> Not currently. I could make it available if there is interest, though I'd
+> probably have to find some place out in the web to keep the data (we are talking
+> 16 branches times ~150 builds per branch times the number of builds kept in the log).
+> If I assume that five builds are kept per branch, and each build takes only 10MB
+> of space, this already adds up to more than 100 GB of space needed, 
 
-thx,
+Understood. storage.kernelci.org is currently using ~400G for 45 days
+worth of builds from the 55+ branches x ~150 builds/branch we do, and
+includes boot logs/results too.
 
-Jason.
+Kevin
