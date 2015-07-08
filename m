@@ -1,29 +1,27 @@
-Return-Path: <corbet@lwn.net>
+Return-Path: <jason@lakedaemon.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D91A483D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id CA0BCBC4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 12:42:23 +0000 (UTC)
-Received: from vena.lwn.net (tex.lwn.net [70.33.254.29])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 59A821BE
+	Wed,  8 Jul 2015 13:21:45 +0000 (UTC)
+Received: from pmta2.delivery3.ore.mailhop.org
+	(pmta2.delivery3.ore.mailhop.org [54.213.22.21])
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id 3C888F0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 12:42:23 +0000 (UTC)
-Date: Wed, 8 Jul 2015 06:42:21 -0600
-From: Jonathan Corbet <corbet@lwn.net>
-To: Peter =?UTF-8?B?SMO8d2U=?= <PeterHuewe@gmx.de>
-Message-ID: <20150708064221.6c966b7f@lwn.net>
-In-Reply-To: <201507080905.00051.PeterHuewe@gmx.de>
-References: <201507080121.41463.PeterHuewe@gmx.de>
-	<CA+5PVA4YON79=wrSTfQ8TJrQNOuLShvaVA1_+BDcTxrmVe_hcQ@mail.gmail.com>
-	<CAJKOXPfnwUX5fdBg1EDJSGgrNGXb3AmrK8tXokxqHw=XYzhddA@mail.gmail.com>
-	<201507080905.00051.PeterHuewe@gmx.de>
+	Wed,  8 Jul 2015 13:21:45 +0000 (UTC)
+Date: Wed, 8 Jul 2015 13:05:40 +0000
+From: Jason Cooper <jason@lakedaemon.net>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <20150708130539.GG23515@io.lakedaemon.net>
+References: <alpine.LNX.2.00.1507071324090.10183@pobox.suse.cz>
+	<20150707224025.GJ11162@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Cc: Josh Boyer <jwboyer@fedoraproject.org>, Jason Cooper <jason@lakedaemon.net>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
- Maintainers, Hobbyists)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20150707224025.GJ11162@sirena.org.uk>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] services needed from kernel.org
+ infrastructure
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,83 +31,38 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 8 Jul 2015 09:04:58 +0200
-Peter Hüwe <PeterHuewe@gmx.de> wrote:
+On Tue, Jul 07, 2015 at 11:40:25PM +0100, Mark Brown wrote:
+> On Tue, Jul 07, 2015 at 10:42:49PM +0200, Jiri Kosina wrote:
+> 
+> > I personally would very welcome a facility that'd send out an e-mail if a 
+> > new commit is pushed to a git.kernel.org repo branch (sort of what tip-bot 
+> > and akpm's scripts are doing these days) to automatically notify the patch 
+> > author that the patch has been merged and pushed out.
+> 
+> Those are useful, I know Greg has one and I just wrote one too.  I'm not
+> sure it needs to be on the server side though, they can also be done
+> from the client which lets you try to fine tune things more readily.
 
-> So changing our fame-statistics from commits to reviews and tested by might 
-> change the situation a bit.
-> -> The next LWN stats and coverage should probably focus on the reviewed-by /   
-> tested-by stats. 
+The tip tree has one as well.
 
-I do occasionally report those numbers with the rest.  The reason it
-doesn't happen very often is simple: it's a small minority of patches that
-carry such tags.  As such, I don't think the numbers actually reflect the
-reviewing and testing going on; they just reflect the placement of the
-tags.  Among other things, that makes the system relatively easy to game,
-and, in the past, I've seen that happening.
+There are many benefits to server-side, and I think it's worth
+discussing the scope and success/fail criteria.  For example:
 
-Should anybody be curious, I'll append the latest, hot-off-the-repo numbers
-for 4.2.
+ - What will the script do?
+ - What will it *not* do?
+ - Should we try it for a year and report back?
+    - How do we quantify success/failure?
+ - Who is going to write it?  Maintain it?
 
-jon
+It's also worth noting that this ties in neatly with the recruitment
+effort.  I clearly recall the first automated email I received from
+Greg, followed up quickly by an automated email from Andrew.  The "Holy
+sh*t!  My patch got merged!" feeling hooked me.
 
-[12,099 non-merge changesets total when I ran this]
+I'll chime in with more thoughts on the recruitment thread, I don't want
+to hijack this one.  Suffice to say, I think automated, targeted,
+concise notifications would be a good thing.
 
-Developers with the most reviews (total 2597)
-Ian Abbott                 149 (5.7%)
-Borislav Petkov            148 (5.7%)
-Hannes Reinecke            100 (3.9%)
-Christoph Hellwig           73 (2.8%)
-H Hartley Sweeten           62 (2.4%)
-Christian König             57 (2.2%)
-Tomas Henzl                 54 (2.1%)
-Alex Deucher                51 (2.0%)
-David Gibson                49 (1.9%)
-Scott Teel                  42 (1.6%)
+thx,
 
-Developers with the most test credits (total 775)
-Joerg Roedel                35 (4.5%)
-Keita Kobayashi             35 (4.5%)
-Krishneil Singh             31 (4.0%)
-Arnaldo Carvalho de Melo    30 (3.9%)
-Ira Weiny                   23 (3.0%)
-Doug Ledford                23 (3.0%)
-Aaron Brown                 21 (2.7%)
-Alex Ng                     21 (2.7%)
-Javier Martinez Canillas    19 (2.5%)
-
-Developers who gave the most tested-by credits (total 775)
-Michael Wang                46 (5.9%)
-Joerg Roedel                42 (5.4%)
-Kuninori Morimoto           36 (4.6%)
-Jiang Liu                   35 (4.5%)
-Mel Gorman                  31 (4.0%)
-Vitaly Kuznetsov            21 (2.7%)
-Andre Przywara              20 (2.6%)
-Marek Szyprowski            19 (2.5%)
-Lv Zheng                    17 (2.2%)
-Don Skidmore                17 (2.2%)
-
-Developers with the most report credits (total 467)
-Fengguang Wu                65 (13.9%)
-Dan Carpenter               26 (5.6%)
-Russell King                21 (4.5%)
-Ingo Molnar                 10 (2.1%)
-Stephen Rothwell             9 (1.9%)
-Christoph Hellwig            5 (1.1%)
-Kevin Hilman                 5 (1.1%)
-Sergey Senozhatsky           5 (1.1%)
-Jim Davis                    5 (1.1%)
-Arnaldo Carvalho de Melo     4 (0.9%)
-
-Developers who gave the most report credits (total 467)
-Thomas Gleixner             30 (6.4%)
-Paul E. McKenney            14 (3.0%)
-Lv Zheng                    12 (2.6%)
-Eric Dumazet                 8 (1.7%)
-Paul Gortmaker               8 (1.7%)
-Peter Zijlstra               8 (1.7%)
-Takashi Iwai                 7 (1.5%)
-Stephen Boyd                 7 (1.5%)
-Aleksey Makarov              7 (1.5%)
-Filipe Manana                6 (1.3%)
+Jason.
