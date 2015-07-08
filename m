@@ -1,27 +1,28 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <jason@lakedaemon.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9EEAEBAC
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A67DAB68
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 18:06:46 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1DE1E11D
+	Wed,  8 Jul 2015 18:08:36 +0000 (UTC)
+Received: from pmta2.delivery5.ore.mailhop.org
+	(pmta2.delivery5.ore.mailhop.org [54.186.218.12])
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id 22E8611D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 18:06:46 +0000 (UTC)
-Date: Wed, 8 Jul 2015 19:06:37 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Greg KH <greg@kroah.com>
-Message-ID: <20150708180637.GV11162@sirena.org.uk>
-References: <201507080121.41463.PeterHuewe@gmx.de>
-	<20150708001650.GA32155@kroah.com>
+	Wed,  8 Jul 2015 18:08:36 +0000 (UTC)
+Date: Wed, 8 Jul 2015 18:08:32 +0000
+From: Jason Cooper <jason@lakedaemon.net>
+To: Mark Brown <broonie@kernel.org>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@googlemail.com>,
+	Thomas Petazzoni <thomas.petazzoni@free-electrons.com>,
+	Gregory CLEMENT <gregory.clement@free-electrons.com>
+Message-ID: <20150708180832.GL23515@io.lakedaemon.net>
+References: <201507080121.41463.PeterHuewe@gmx.de> <2102387.OD8sBG4Eol@avalon>
+	<20150708164310.GR11162@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="QQ8SllDnVL7XJJuW"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20150708001650.GA32155@kroah.com>
-Cc: Jason Cooper <jason@lakedaemon.net>,
-	ksummit-discuss@lists.linuxfoundation.org
+In-Reply-To: <20150708164310.GR11162@sirena.org.uk>
+Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -33,39 +34,43 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Wed, Jul 08, 2015 at 05:43:10PM +0100, Mark Brown wrote:
+> On Wed, Jul 08, 2015 at 02:49:47AM +0300, Laurent Pinchart wrote:
+> > On Wednesday 08 July 2015 01:21:40 Peter Huewe wrote:
+> 
+> > > We are definitely short on reviewers and thus have mostly overloaded
+> > > maintainers.
+> 
+> > I was about to propose a related core topic.
+> 
+> > The reviewing and maintainership process seems to have a hard time scaling to 
+> > the amount of contributions we receive, to the point where even well known and 
+> > respected kernel developers get discourages.
+> 
+> tl;dr - upstreaming support for out of tree SoCs is currently often
+> hard and time consuming.
+> 
+> > Throwing more maintainers, co-maintainers or sub-maintainers at the kernel 
+> > won't magically solve this, as the more core developers a subsystem has the 
+> > more difficult it will be for them to synchronize. I would like share 
+> > experience about good practice rules that have proved to be effective.
+> 
+> Right.  In the specific case of upstreaming out of tree SoCs it's often
+> in a large part part that there's some massive technical debt in the out
+> of tree code working around generic problems in mainline, things like
+> missing features or subsystems.  On the one hand those are the hardest
+> bits to get solved upstream, but equally because they present generic
+> issues they should be the easiest to collaborate on.
+> 
+> Tim Bird (CCed) has been working to try to get people together to try to
+> analyze what's in the kernels people ship on product and see what we can
+> do to bring that debt down, there's already some people starting to do
+> some active work on this.
 
---QQ8SllDnVL7XJJuW
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+I'd like to include Sebastian Hesslebarth (maintainer of mach-berlin) in
+this discussion.  Him and the free-electron's guys (Thomas, Gregory,
+etc) have a lot of valuable first hand experience in this topic.
 
-On Tue, Jul 07, 2015 at 05:16:50PM -0700, Greg KH wrote:
+thx,
 
-> I like this proposal, thanks for making it.  I'd be glad to help talk
-> about this issue as I spend a lot of time working on dragging companies
-> and developers into our community.  We have a real lack of ways that
-> people who are "reasonably skilled yet don't know what to work on" can
-> do more to help contribute to the kernel.
-
-I think this *might* be something that the efforts to reduce the amount
-of out of tree embedded code can help with?  A part of that effort is
-identifying areas that need fixing, there will be a large enough list I
-imagine.  The hard part is always matching people up with things that
-they are interested in though.
-
---QQ8SllDnVL7XJJuW
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQEcBAEBCAAGBQJVnWasAAoJECTWi3JdVIfQs+QH/j2tclCK0kD8vYdRKQuZD5+y
-ZlKFkaguQaNnsEJy70wxG5AsHrtc0EMCVZhxxQn9IGCM77+yq8YmD9hbehJgqRn+
-CF9oaLYd5X6bQwWyDYhUhQa+bKRviYBi0i0oHeuxb+JpoHccbeBHODd+hw8WP4Et
-dUbDgOl85MhnHdKSnRBkG8SsX9b7JdaMCictZQG2X1OdHSQilFTx4OHKd/pI/aDZ
-8hsp1Queod9HGLIL1Rd3N9i7n2Kew4vdFPs3qjI5hVKtu7hXOShQXsfrJEA03pJW
-ZIaLL7ITL1ww6im9C+02d9ZkPj2RPxGRoAl9BnLSg7iiqUpE+Dp29ik7ozVOkXY=
-=gZB0
------END PGP SIGNATURE-----
-
---QQ8SllDnVL7XJJuW--
+Jason.
