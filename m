@@ -1,29 +1,32 @@
-Return-Path: <BATV+813fbadb7714390e7a95+4337+infradead.org+dwmw2@bombadil.srs.infradead.org>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2C5DBACC
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 378D3AAE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  9 Jul 2015 21:46:38 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9DAF232
+	Thu,  9 Jul 2015 21:47:38 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 880E712D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  9 Jul 2015 21:46:37 +0000 (UTC)
-Message-ID: <1436478389.3324.192.camel@infradead.org>
-From: David Woodhouse <dwmw2@infradead.org>
-To: Julia Lawall <julia.lawall@lip6.fr>, josh@joshtriplett.org
-Date: Thu, 09 Jul 2015 22:46:29 +0100
-In-Reply-To: <alpine.DEB.2.10.1507091723380.2532@hadrien>
-References: <201507080121.41463.PeterHuewe@gmx.de>
-	<559C73DF.2030008@roeck-us.net> <20150708114011.3a1f1861@noble>
-	<2879113.fraeuJIr2M@avalon> <20150709193718.GD9169@vmdeb7>
-	<20150709201127.GA3426@cloud> <20150709203830.GF7021@wotan.suse.de>
-	<20150709210059.GA3720@cloud>
-	<alpine.DEB.2.10.1507091723380.2532@hadrien>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: Jason Cooper <jason@lakedaemon.net>,
-	ksummit-discuss@lists.linuxfoundation.org
+	Thu,  9 Jul 2015 21:47:37 +0000 (UTC)
+Date: Thu, 9 Jul 2015 17:47:18 -0400
+From: Theodore Ts'o <tytso@mit.edu>
+To: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <20150709214718.GG9417@thunk.org>
+References: <1436341028.2136.14.camel@HansenPartnership.com>
+	<20150708080032.CE89E4306F@saturn.retrosnub.co.uk>
+	<20150708145315.29030a75@gandalf.local.home>
+	<559D8336.3040802@roeck-us.net>
+	<1436414798.23558.3.camel@ellerman.id.au>
+	<559EBD4C.6030502@gmail.com> <20150709190640.GC788@roeck-us.net>
+	<20150709194734.GG9169@vmdeb7> <20150709201315.GF9417@thunk.org>
+	<20150709205049.GB5154@roeck-us.net>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20150709205049.GB5154@roeck-us.net>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Jason Cooper <jason@lakedaemon.net>,
+	ksummit-discuss@lists.linuxfoundation.org, jic23@jic23.retrosnub.co.uk
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -35,36 +38,61 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, 2015-07-09 at 17:24 -0400, Julia Lawall wrote:
-> On Thu, 9 Jul 2015, josh@joshtriplett.org wrote:
+On Thu, Jul 09, 2015 at 01:50:49PM -0700, Guenter Roeck wrote:
 > 
-> > On Thu, Jul 09, 2015 at 10:38:30PM +0200, Luis R. Rodriguez wrote:
-> > > On Thu, Jul 09, 2015 at 01:11:27PM -0700, josh@joshtriplett.org w
-> > > rote:
-> > > > Bonus if this is also wired into the 0day bot, so that you also 
-> > > > find out
-> > > > if you introduce a new warning or error.
-> > > 
-> > > No reason to make bots do stupid work, if we really wanted to 
-> > > consider
-> > > this a bit more seriously the pipeline could be:
-> > > 
-> > >   mailing-list | coccinelle coccicheck| smatch | sparse | 0-day
-> > > -bot
-> > 
-> > That would effectively make the bot duplicate part of 0-day.  Seems
-> > easier to have some way to tell 0-day "if you see obvious 
-> > procedural
-> > issues, don't bother with full-scale testing, just reject".
-> 
-> Not sure to understand.  Isn't it better to have the most feedback
-> possible?
+> Earlier it was discussed how to improve the recognition of reviewers.
+> Your comments seems to suggest the opposite, and may actually discourage
+> reviewers. Why should I review Linux kernel code if that is seen
+> by some as me trying to "game" the system ?
 
-If we're talking about encouraging new contributors, then probably not.
+So I were designing an initial system that automatically scored
+reviewers, I'd be looking to see, from a holistic point of view, how
+many reviews were zero-length:
 
-You don't necessarily want a lot of negative feedback from different
-places, all at once.
+Reviewed-by: John Q. Random <seventeen@random.org>
 
--- 
-David Woodhouse                            Open Source Technology Centre
-David.Woodhouse@intel.com                              Intel Corporation
+... and nothing else,
+
+.... versus how many reviews had specific comments on various
+different portions of the patch.  If possible, the automated system
+would try to distinguish between comments that were just pointing out
+whitespace issues (which would be a slight positive) with comments
+that point out genuine design issues (this will be really hard to do
+in an automated fashion, but a very sophisticated nueral network[1]
+mgiht be able to hack it).
+
+I might also try using some kind scheme that counted the number of
+words in a review (stripping out lines of patch or commit description
+that the review was a reply to), etc.  But of course, if it was public
+knowledge that the system was just stripping out the original e-mail,
+and then just doing a "wc -w", then people would game the system by
+adding list of random words at the bottom of the review.
+
+And, of course, I'd have the system give a huge negative score if a
+commit that got a "LGTM" positive review caused a bug that required
+the patch to be reverted.  *That* signal, at least, would be hard to
+game, and would hopefuly encourage people to actually take time
+reviewing a commit, and not blindly slapping a reviewed-by on a commit
+they don't understand.
+
+You see?  It's not that reviews in and of themselves are attempts to
+game the system ---- just so long as they are genuine reviews.  If
+there is evidence that the reviews are issued within seconds of the
+original patch going out, with a Reviewed-by: line and nothing else,
+what would *you* think about the quality of that review?
+
+> That may be true for some people, but at the same time I think statements
+> like the above might discourage people who just like cleaning up code for
+> fun. There are several of those working on cleaning up the Linux kernel,
+> and I truly appreciate their efforts.
+
+Sure, but that's not the people who (in my opinion as a program
+committee member) should be attendingt he Kernel Summit, where we want
+people who are genuinely clueful about technical and policy issues,
+and not people like (for example) Nick Krause.
+
+Regards,
+
+						- Ted
+
+[1] http://googleresearch.blogspot.com/2015/06/inceptionism-going-deeper-into-neural.html
