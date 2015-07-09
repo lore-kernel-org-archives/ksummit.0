@@ -1,27 +1,32 @@
 Return-Path: <dvhart@infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 348B4AAE
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7ABE1AAE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  9 Jul 2015 20:43:18 +0000 (UTC)
+	Thu,  9 Jul 2015 20:48:37 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9631811B
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CFE7CFD
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  9 Jul 2015 20:43:17 +0000 (UTC)
-Date: Thu, 9 Jul 2015 13:43:13 -0700
+	Thu,  9 Jul 2015 20:48:36 +0000 (UTC)
+Date: Thu, 9 Jul 2015 13:48:27 -0700
 From: Darren Hart <dvhart@infradead.org>
-To: josh@joshtriplett.org
-Message-ID: <20150709204313.GA111846@vmdeb7>
-References: <201507080121.41463.PeterHuewe@gmx.de>
-	<559C73DF.2030008@roeck-us.net> <20150708114011.3a1f1861@noble>
-	<2879113.fraeuJIr2M@avalon> <20150709193718.GD9169@vmdeb7>
-	<20150709201127.GA3426@cloud>
+To: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <20150709204827.GB111846@vmdeb7>
+References: <1481488.5WJFbB0Dlm@vostro.rjw.lan>
+	<1436341028.2136.14.camel@HansenPartnership.com>
+	<20150708080032.CE89E4306F@saturn.retrosnub.co.uk>
+	<20150708145315.29030a75@gandalf.local.home>
+	<559D8336.3040802@roeck-us.net>
+	<1436414798.23558.3.camel@ellerman.id.au>
+	<559EBD4C.6030502@gmail.com> <20150709190640.GC788@roeck-us.net>
+	<20150709194734.GG9169@vmdeb7> <20150709202325.GA5154@roeck-us.net>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20150709201127.GA3426@cloud>
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	Jason Cooper <jason@lakedaemon.net>
+In-Reply-To: <20150709202325.GA5154@roeck-us.net>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	jic23@jic23.retrosnub.co.uk, Jason Cooper <jason@lakedaemon.net>,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -33,114 +38,87 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Jul 09, 2015 at 01:11:27PM -0700, Josh Triplett wrote:
-> On Thu, Jul 09, 2015 at 12:37:18PM -0700, Darren Hart wrote:
-> > On Wed, Jul 08, 2015 at 10:45:28PM +0300, Laurent Pinchart wrote:
-> > > On Wednesday 08 July 2015 11:40:11 NeilBrown wrote:
-> > > > Indeed!  I wonder if we can list the dimensions.
+On Thu, Jul 09, 2015 at 01:23:25PM -0700, Guenter Roeck wrote:
+> On Thu, Jul 09, 2015 at 12:47:34PM -0700, Darren Hart wrote:
+> > On Thu, Jul 09, 2015 at 12:23:20PM -0700, Guenter Roeck wrote:
+> > > On Thu, Jul 09, 2015 at 11:28:28AM -0700, Frank Rowand wrote:
+> > > > On 7/8/2015 9:06 PM, Michael Ellerman wrote:
+> > > > > On Wed, 2015-07-08 at 13:08 -0700, Guenter Roeck wrote:
+> > > > >> On 07/08/2015 11:53 AM, Steven Rostedt wrote:
+> > > > >>> On Wed, 08 Jul 2015 09:00:32 +0100
+> > > > >>> jic23@jic23.retrosnub.co.uk wrote:
+> > > > >>>
+> > > > >>>
+> > > > >>>>> We can alter that somewhat.  We used to run a Maintainers lottery for
+> > > > >>>>> the kernel summit ... we could instead offer places based on the number
+> > > > >>>>> of Reviewed-by: tags ... we have all the machinery to calculate that.  I
+> > > > >>>>> know an invitation to the kernel summit isn't a huge incentive, but it's
+> > > > >>>>> a useful one.
+> > > > >>>>
+> > > > >>>> Sounds like a good idea to me, though it would only effect a tiny
+> > > > >>>> percentage of our reviewers.  I suppose publishing a short list of the top
+> > > > >>>> n% of reviewers from which the lottery runs might give some
+> > > > >>>> recognition.
+> > > > >>>>
+> > > > >>>
+> > > > >>> I personally don't trust a Reviewed-by tag much, as I sometimes see
+> > > > >>> them appear without any comments.
 > > > > 
-> > > > Variability: as you say, different people want different things, and
-> > > >    care to different degrees about them.  'checkpatch' and
-> > > >    'CodingStyle' help with some of that (though different people care
-> > > >    differently about checkpatch).  Maybe the MAINTAINERS file could
-> > > >    list the preferred Subject: line and checkpatch flags for each
-> > > >    maintainer.  Then we just need to herd all those wild-cats towards
-> > > >    updating their maintainers entry.
+> > > > I don't expect my Reviewed-by tag with no extra comments to carry much weight
+> > > > if I send it to a maintainer who does not know me.
+> > > > 
+> > > > But if I have a history of good reviews to a specific maintainer, then why
+> > > > should I have to add a message that says: Yes, I really, really did review
+> > > > the patch.  I truly mean that the patch "has been reviewed and found acceptable
+> > > > according to the Reviewer's Statement" as listed in SubmittingPatches.
+> > > > 
+> > > > And I read Steve's qualification of "don't trust ... _much_" as being
+> > > > consistent with what I am saying, so I'm fine with that.  The point I
+> > > > want to make is that a Reviewed-by tag without comments should not
+> > > > always be assumed to be without meaning or value.
+> > > > 
+> > > Absolutely agree.
 > > > 
-> > > I've seen maintainers who want to be CC'ed on every patch touching their 
-> > > subsystem, and others who prefer patches being sent to the mailing list only. 
-> > > That would be easy to express in MAINTAINERS and would already help in two 
-> > > fronts. It would lower the amount of noise for maintainers who base their work 
-> > > flow on mailing lists. It would also remove the need for submitters to decide 
-> > > whether to CC maintainers and prevent patches from falling through cracks when 
-> > > the decision is incorrect.
+> > > It looks like we have yet another set of diverging maintainer expectations.
+> > > Some maintainers will expect me to provide an extra comment, which I'll
+> > > have to phrase carefully to avoid it being misinterpreted as "I just
+> > > glanced at the code and didn't find an obvious issue with it".
+> > > Others will get annoyed at me providing the extra comment.
 > > 
-> > I've come to believe that this is one of many side effects of our dependency on
-> > a completely free form mechanism for the management of our patches, a mechanism
-> > which is becoming harder and harder to setup "correctly" with modern tooling
-> > (since the industry is killing "real email").
+> > Why would a couple lines of context be any harder to deal with than all the
+> > meta-data that comes along with an email including a Reviewed-by?
 > > 
-> > I spend a highly disproportionate amount of my time, relative to measurable
-> > quality impact to the kernel, going over the nuances of submitting patches.
-> > 
-> > 1) Must have a complete commit message
-> > 2) DCO goes above the ---
-> > 3) Include a patch changelog, do so below ---
-> > 4) Cc maintainers :-)
-> > 5) Checkpatch... checkpatch... checkpatch...
-> > 6) Compiler warnings
-> > 7) CodingStyle :-)
-> > 8) Use ascii or utf8 character encodings
-> > 
-> > All of these are distractions from reviewing the code. I'm often on version 3 of
-> > a series before I'm actually reviewing content.
-> > 
-> > I raised this in Dusseldorf with the PREEMPT_RT crowd, and I'll do so here too,
-> > although I suspect it will be met with quite a bit of opposition. I believe our
-> > tooling and processes are good at helping our top level maintainers scale -
-> > which is absolutely critical to the success of Linux - but they inhibit scaling
-> > out and attracting new developers, reviewers, etc.
-> > 
-> > Our most productive maintainers and contributors, in my understanding, often are
-> > able to spend most of their time on their upstream Linux kernel work. They have
-> > been doing it for a decade or more and have a lot of custom written tools to
-> > help make the processes scale for their particular needs. This is great!
-> > 
-> > However, we have a lot of tribal knowledge regarding how to interact
-> > successfully with the development model. So much so that many of our lesser
-> > maintainers (like myself) spend a lot of our time as a bridge or proxy to
-> > upstream development, which is too opaque and even enigmatic for them to get
-> > into.
-> [...]
-> > I am looking to make some changes in my subsystem. I've requested patchwork to
-> > be enabled, and I'll create a for-review branch and solicit help there. I
-> > already leverage 0-day, but I think it would be great to have something which
-> > parses patches submitted to LKML and tests the 8 items above and more and
-> > automatically responds to the submitter. Nobody should have to spend their time
-> > on those things.
-> > 
-> > Looking forward a bit, I would love to see some tooling in place for people to
-> > submit patches either via a web form (which eliminates all the email tooling for
-> > submitting patches - which is where the formatting is especially critical) or
-> > through one of the more managed git systems, like gerrit, etc.
 > 
-> I would love to see this.  I don't think it makes sense for the flow
-> from subsystem maintainers to Linus or similar to use these tools;
-> anyone capable of saying "please pull" *probably* doesn't need most of
-> this.  However, for people who primarily interact with maintainers via
-> patch mails, some kind of automated CI bot, integrated with Gerrit or
-> github or similar, would filter out a substantial number of painful bits
-> before they show up.
+> No, but that isn't the point. I use patchwork, which takes care of
+> automatically adding all tags and removing the clutter around it,
+> so I don't really care one way or another.
 > 
-> Consider a set of scripts or services that could easily be wired into
-> either a Gerrit install or a GitHub hook, so that rather than spending
-> time sorting out SMTP and basic patch formatting, people could git push
-> to a repository branch they control, get automated feedback on what
-> needs fixing, and when all of the mechanical issues are sorted out that
-> same service can help them send a properly formatted mail series (with
-> cover letter) to the right set of people.
+> I neither expect reviewers to provide additional comments, nor do I mind
+> if they do provide such comments. I see comments as beneficial on complex
+> reviews, or if a reviewer had an earlier concern which was addressed by
+> feedback from the submitter but did not result in code changes. Overall
+> comments may be either positive or neutral to me, depending on the context.
+> But a Reviewed-by: tag does not have less value to me just because there
+> is no comment associated with it.  
 > 
-> It would take some work to initially set up, but the result should
-> actually save maintainer time by avoiding the need to comment on
-> mechanical correctness issues.
+> I _do_ expect reviewers to understand the statement they are making by
+> providing a Reviewed-by: tag, just as I expect patch submitters to
+> understand the statement they are making with their Signed-off: tag.
 > 
-> That same bot could fairly easily be wired to a "test" mailing list,
-> capturing mailed patch series and running them through the same tests,
-> so that people comfortable with the email part of the workflow could
-> mail patches to that list to have them automatically checked *before*
-> mailing LKML.  And unlike mailing LKML, there would be no stigma
-> attached to iterating and sending multiple mails to that list while
-> trying to get the details right.
+> The point I am making, which has been confirmed by this e-mail exchange,
+> is that reviewers have to be careful of yet another detail when providing
+> feedback on a patch. Some, like you and Stephen, may expect me to provide
+> some feedback around a Reviewed-by: tag, while others may get annoyed
+> at me for providing such additional feedback.
 > 
-> Bonus if this is also wired into the 0day bot, so that you also find out
-> if you introduce a new warning or error.
+> Guenter
 > 
 
-Pretty sure you said that better than I did :-)
+I do agree that a plain reviewed-by from an established contributor adds
+value without additional comment.
 
-The git submission mechanism makes a lot of sense (that's a bare minimum to
-working with Linux) and +1000 on avoiding the stigma of a "mechanical" failure
-on LKML.
+Stepping back a bit though, We are talking about Recruitment, which implies new
+people. In my opinion, encouraging new people to provide context is a good idea.
 
 -- 
 Darren Hart
