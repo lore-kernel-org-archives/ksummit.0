@@ -1,34 +1,28 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <dvhart@infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3241B9FB
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B6124BBF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  9 Jul 2015 18:53:30 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C0DEDEA
+	Thu,  9 Jul 2015 19:02:34 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5D45A177
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  9 Jul 2015 18:53:29 +0000 (UTC)
-Date: Thu, 9 Jul 2015 19:53:16 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Frank Rowand <frowand.list@gmail.com>
-Message-ID: <20150709185316.GO11162@sirena.org.uk>
+	Thu,  9 Jul 2015 19:02:34 +0000 (UTC)
+Date: Thu, 9 Jul 2015 12:02:29 -0700
+From: Darren Hart <dvhart@infradead.org>
+To: "John W. Linville" <linville@tuxdriver.com>
+Message-ID: <20150709190229.GC9169@vmdeb7>
 References: <201507080121.41463.PeterHuewe@gmx.de>
-	<1481488.5WJFbB0Dlm@vostro.rjw.lan>
-	<1436341028.2136.14.camel@HansenPartnership.com>
-	<20150708080032.CE89E4306F@saturn.retrosnub.co.uk>
-	<20150708145315.29030a75@gandalf.local.home>
-	<559D8336.3040802@roeck-us.net>
-	<1436414798.23558.3.camel@ellerman.id.au>
-	<559EBD4C.6030502@gmail.com>
+	<20150708140727.GH23515@io.lakedaemon.net>
+	<trinity-9a36fcd4-7739-40a7-b5f9-0ecf88d0a331-1436383797204@3capp-gmx-bs35>
+	<20150708221836.GN23515@io.lakedaemon.net>
+	<20150709150938.GF4265@tuxdriver.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="eHOIV5BfioPmIRHC"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <559EBD4C.6030502@gmail.com>
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Jason Cooper <jason@lakedaemon.net>,
-	ksummit-discuss@lists.linuxfoundation.org, jic23@jic23.retrosnub.co.uk
+In-Reply-To: <20150709150938.GF4265@tuxdriver.com>
+Cc: Jason Cooper <jason@lakedaemon.net>,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -40,73 +34,71 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Thu, Jul 09, 2015 at 11:09:38AM -0400, John W. Linville wrote:
+> On Wed, Jul 08, 2015 at 10:18:36PM +0000, Jason Cooper wrote:
+> > On Wed, Jul 08, 2015 at 09:29:57PM +0200, Peter Huewe wrote:
+> 
+> > > Not only the bad people drop out, I've seen quite a lot of good devs
+> > > vanish for good - and these should be the ones we also should try to
+> > > keep - especially since I'm not sure whether we can allow such high
+> > > drop out rates over a long time.
+> > 
+> > I'd love to hear some specific examples, links to email threads so we
+> > can quantify this.  I suspect a lot of it is: "I scratched the itch,
+> > and didn't have anything else I wanted to add. Then daily life took me
+> > away."
+> > 
+> > Which is the hard part about qualified people.  They're busy. :-)
+> 
+> Hopefully I'm not one of the "bad people", and I don't reallly
+> consider myself a "drop out".  But, I am someone that recently
+> (i.e. since the last KS) extracted himself from a maintainer role.
+> It seems like I should have something to add here...
+> 
+> I was the wireless maintainer for roughly seven years.  My situation
+> may be a bit unique in that I was always more of a "Linux guy" than a
+> "wireless guy", and most of the contributors were bigger experts in
+> the technology itself than I ever was.  That was fine for a while, but
+> over time that became less and less comfortable for me.  I've never
+> really heard anyone else express that sentiment, so this is probably
+> not a widespread concern...
 
---eHOIV5BfioPmIRHC
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I've certainly found this to be the case for me where my little corner of the
+kernel, platform-drivers-x86, is basically an integration point for many other
+subsystems, such as rfkill, backlight, input, etc. with a lot of ACPI thrown in
+the mix. I also never have the hardware to be able to do any testing myself. I'm
+100% dependent on my submitters for any testing beyond build and static
+analysis.
 
-On Thu, Jul 09, 2015 at 11:28:28AM -0700, Frank Rowand wrote:
-> On 7/8/2015 9:06 PM, Michael Ellerman wrote:
-> > On Wed, 2015-07-08 at 13:08 -0700, Guenter Roeck wrote:
-> >> On 07/08/2015 11:53 AM, Steven Rostedt wrote:
+> 
+> The bigger concern was that while I was wrangling everyone else's
+> wireless patches, I had less and less time to do useful work elsewhere
+> in the kernel.  I definitely have heard other maintainers express
+> similar complaints, so this seems like a relatively common concern.
+> It would be good to find and promote maintainer organizations within
+> subsystems that are less likely to monopolize the mainainer's
+> development time.
 
-> >>> I personally don't trust a Reviewed-by tag much, as I sometimes see
-> >>> them appear without any comments.
->=20
-> I don't expect my Reviewed-by tag with no extra comments to carry much we=
-ight
-> if I send it to a maintainer who does not know me.
+For me, the concern is that I'm basically acting as a pro-bono proxy for various
+vendors who don't maintain drivers for the products. So speaking of recruitment,
+we could use the vendors to get more involved with the drivers for their
+platforms. Some, Dell and Toshiba most notably, have been providing more
+documentation, fortunately.
 
-> But if I have a history of good reviews to a specific maintainer, then why
-> should I have to add a message that says: Yes, I really, really did review
-> the patch.  I truly mean that the patch "has been reviewed and found acce=
-ptable
-> according to the Reviewer's Statement" as listed in SubmittingPatches.
+> Previously we have had discussions of how the
+> TIP tree is run, but I'm not sure that works well in every case.
+> Are there other working models for this?
+>
+> I guess I'm suggesting the opposite of a "professional maintainer".
+> Some people thrive at being the center of a subsystem, as I did for
+> some time with wireless.  But burnout is a problem, and I think we
+> can limit some of that if somehow we can encourage less expansive
+> roles for individual maintainers.
 
-> And I read Steve's qualification of "don't trust ... _much_" as being
-> consistent with what I am saying, so I'm fine with that.  The point I
-> want to make is that a Reviewed-by tag without comments should not
-> always be assumed to be without meaning or value.
+Something along these lines is probably relevant to a number of subsystems where
+the professional maintainer is problematic since some to all of the content is
+of no interest to the employer (unless it's the LF).
 
-Indeed, and when I'm the one dealing with applying the patches it's
-actually helpful to not have extra text that needs reading and
-thinking about when applying things if I trust whoever did the review.
-Past history as a reviewer is much more important than any verbiage
-around the review and review that consists of a simple tag takes seconds
-to read.
-
-> >> Seriously, it does happen that I send Reviewed-by: or Acked-by: feedba=
-ck if
-> >> a patch is just fine as-is. What do you expect the reviewer to do in s=
-uch
-> >> a case ?
-
-> > There's almost always something you can say.
-
-> And there is a time to not nit-pick a patch to death.
-
-> If my comment will not result in a significantly better patch, then I am
-> wasting the patch submitter's time, and the time of everyone else on the
-> mail list that will have to read my comment, and potentially have to read
-> and review a new spin of the patch.
-
-Very much so.
-
---eHOIV5BfioPmIRHC
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQEcBAEBCAAGBQJVnsMbAAoJECTWi3JdVIfQ/i8H/0PA+hwHgihU71tP3YLPYcUe
-YMO0rVnT8kG2wpo7Uz5Uq2JC2CrNoRSojNaLufRmCRIRkyPxc2CDfHxBxakfp/j9
-37nJIkpGeokM2xQVN0SitKI4oXW0kifmj7Q89PYOh1f00LsCxV12yIE97VGBvYVS
-HPR8fu9anb2LWdZWmYBMT/bBOtvnk5J67663sy6qTARDIDWszeVwAqY5PpipsWLY
-4UA9xlaRENzrWlJEKR0TUTtnbWay5usVLdTbK9lPU71zrjpRvnSaDrVW+Z9VQJ9q
-B/I1yjiLK4h7Zd9LbZdzt1l20cZn/QuNdYu1M3Vjt/v9uTPkQhs8m7lAQBqYlzs=
-=MrRg
------END PGP SIGNATURE-----
-
---eHOIV5BfioPmIRHC--
+-- 
+Darren Hart
+Intel Open Source Technology Center
