@@ -1,32 +1,28 @@
-Return-Path: <Tim.Bird@sonymobile.com>
+Return-Path: <kamezawa.hiroyu@jp.fujitsu.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D14B5B13
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 686D5BAC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 22:55:36 +0000 (UTC)
-Received: from seldrel01.sonyericsson.com (seldrel01.sonyericsson.com
-	[37.139.156.2])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2B95E145
+	Thu,  9 Jul 2015 03:26:54 +0000 (UTC)
+Received: from mgwkm01.jp.fujitsu.com (mgwkm01.jp.fujitsu.com [202.219.69.168])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C4A70F7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  8 Jul 2015 22:55:35 +0000 (UTC)
-Message-ID: <559DAA5F.9040306@sonymobile.com>
-Date: Wed, 8 Jul 2015 15:55:27 -0700
-From: Tim Bird <tim.bird@sonymobile.com>
+	Thu,  9 Jul 2015 03:26:53 +0000 (UTC)
+Received: from m3050.s.css.fujitsu.com (msm.b.css.fujitsu.com [10.134.21.208])
+	by kw-mxauth.gw.nic.fujitsu.com (Postfix) with ESMTP id 936EEAC0368
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu,  9 Jul 2015 12:26:50 +0900 (JST)
+Message-ID: <559DE9E5.20204@jp.fujitsu.com>
+Date: Thu, 09 Jul 2015 12:26:29 +0900
+From: Kamezawa Hiroyuki <kamezawa.hiroyu@jp.fujitsu.com>
 MIME-Version: 1.0
-To: Greg KH <greg@kroah.com>
-References: <1435997161.3324.33.camel@infradead.org>
-	<20150707143447.6f345e91@gandalf.local.home>
-	<1436298670.3324.107.camel@infradead.org>
-	<20150707200002.GA8315@kroah.com>
-	<1436300310.3324.115.camel@infradead.org>
-	<559D44AF.9090406@sonymobile.com>
-	<20150708212512.GA31140@kroah.com>
-In-Reply-To: <20150708212512.GA31140@kroah.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL enforcement actions
+To: ksummit-discuss@lists.linuxfoundation.org
+References: <alpine.LNX.2.00.1507071253390.10183@pobox.suse.cz>
+	<559D4C35.6070709@hitachi.com>
+In-Reply-To: <559D4C35.6070709@hitachi.com>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] live patching
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,63 +32,34 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-
-
-On 07/08/2015 02:25 PM, Greg KH wrote:
-> On Wed, Jul 08, 2015 at 08:41:35AM -0700, Tim Bird wrote:
->> On 07/07/2015 01:18 PM, David Woodhouse wrote:
->>> On Tue, 2015-07-07 at 13:00 -0700, Greg KH wrote:
->>>> As those "efforts" are being driven by the developers of the kernel, I
->>>> think that the developers involved would be the best to present this,
->>>> not the SF Conservancy people.  As you point out, the SFLC is just the
->>>> lawyers being hired by the developers to do what they want them to do =
-:)
->>>
->>> A lot of those developers will be in the room too, of course.
->>>
->>> But the "efforts" are being driven *by* Conservancy on *behalf* of
->>> those developers who have asked Conservancy to do so. And I suspect
->>> someone from Conservancy is better placed to give up-to-date
->>> information about what's actually happening "on the ground".
->>>
->>> The point is to get people in the room and have a direct discussion
->>> without hearsay or misinformation =E2=80=94 and doing that *without* so=
-meone
->>> from Conservancy doesn't really make much sense.
+On 2015/07/09 1:13, Masami Hiramatsu wrote:
 >>
->> My experience with this is that you'll get one side (and perspective)
->> of the compliance enforcement story, only.  Companies involved in
->> compliance "improvement" exercises simply will not comment on them, so
->> it's not easy to tell if the remedies being requested are understood
->> by all parties or not, and whether I'd agree with them.
->=20
-> s/will not/usually can not/g
-Agreed.
+>> - it would be beneficial for live patching if kernel threads could be
+>>    cleaned up; currently it's a mess, with freezer points, signal handling
+>>    etc. spewed randomly all over the main loop. Generalizing the API (such
+>>    as improving kthread_worker and migrating kthreads to use that) would
+>>    be beneficial if there are no major objections. See my related TECH
+>>    TOPIC submission
+>>
+>> - Ingo proposed a "checkpoint"-based way for live patching, i.e. forcing
+>>    all the processess out of kernel to serliaze on a well-defined execution
+>>    point, perform the patching, and resume the execution.
+>
+> IMO, this is not acceptable especially for most of real-time scheduled tasks
+> which usually the mission critical systems require. And such systems are
+> the main target of the live patching feature I think, since those are
+> sometimes controlling civil infrastructure systems, like trains, plants,
+> factories and so on.
+>
+I'm sorr if this is off-topic.
 
->=20
-> I'm worried that since a lot of people can't talk about this, for
-> various reasons, that the usefulness of it might not be all that
-> helpful.
->=20
->> From my standpoint it would be useful to hear the Conservancy's stance
->> on a few issues.
->=20
-> What specific issues are you curious about that you think would be
-> good to discuss / hear about?
+I think the problem of "freezer v.s. FUSE" will happen if we neet to stop user proceesses.
+AFAIK, the problem is a deadlock that fuse daemon freezes even while its client wating for a reply.
 
-I'm interested in the scope of remedies requested by the Conservancy.
-Specifically, if the Conservancy finds a GPL violation for one piece of
-software, or for one division or group in a company, whether they
-then request to review and approve the compliance for other unrelated
-pieces of software, or for software from other divisions, groups or
-products.  That was the thing that caused the most concern within
-companies I talked to a few years ago, when I got caught in a
-firestorm for proposing support by the CE Workgroup for the Toybox
-project.
+example)
+    client -> page-fault -> GUP -> fuse daemon -> gethostbyname() -> nscd.8
 
-It's unclear to me whether this is the type of subject David is
-proposing, or whether there's much benefit to this discussion at
-a kernel summit.  The benefit to me would be to gauge other developers'
-reactions to these issues (though honestly I consider myself a=20
-very low priority for invitation to the summit.)
- -- Tim
+We can't detect this kind of dependency if we need to freeze userland.
+
+Thanks,
+-Kame
