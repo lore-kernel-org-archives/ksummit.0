@@ -1,34 +1,31 @@
-Return-Path: <frowand.list@gmail.com>
+Return-Path: <linux@roeck-us.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id F1070B13
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5368FAAE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  9 Jul 2015 17:50:46 +0000 (UTC)
-Received: from mail-la0-f54.google.com (mail-la0-f54.google.com
-	[209.85.215.54])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 117F2159
+	Thu,  9 Jul 2015 18:08:32 +0000 (UTC)
+Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F34251B3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  9 Jul 2015 17:50:46 +0000 (UTC)
-Received: by labgy5 with SMTP id gy5so98761679lab.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 09 Jul 2015 10:50:44 -0700 (PDT)
-Message-ID: <559EB46F.3050602@gmail.com>
-Date: Thu, 09 Jul 2015 10:50:39 -0700
-From: Frank Rowand <frowand.list@gmail.com>
+	Thu,  9 Jul 2015 18:08:31 +0000 (UTC)
+Date: Thu, 9 Jul 2015 11:08:28 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Michael Ellerman <mpe@ellerman.id.au>
+Message-ID: <20150709180828.GA788@roeck-us.net>
+References: <20150707092434.GE11162@sirena.org.uk>
+	<559BEF61.8050904@roeck-us.net>
+	<1436347639.29626.4.camel@ellerman.id.au>
+	<559D2B02.9020508@roeck-us.net>
+	<7hlheqfvqo.fsf@deeprootsystems.com>
+	<1436415833.23558.4.camel@ellerman.id.au>
 MIME-Version: 1.0
-To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-References: <201507080121.41463.PeterHuewe@gmx.de> <6295903.xabUbmnLAs@avalon>
-	<20150708160715.351ccf19@gandalf.local.home>
-	<2008329.GxHAOdfmIf@vostro.rjw.lan>
-In-Reply-To: <2008329.GxHAOdfmIf@vostro.rjw.lan>
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: 7bit
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	jic23@jic23.retrosnub.co.uk, Jason Cooper <jason@lakedaemon.net>,
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1436415833.23558.4.camel@ellerman.id.au>
+Cc: Shuah Khan <shuah.kh@samsung.com>, Tyler Baker <tyler.baker@linaro.org>,
+	Dan Carpenter <dan.carpenter@oracle.com>,
 	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
- Maintainers, Hobbyists)
-Reply-To: frowand.list@gmail.com
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Testing
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,64 +35,27 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 7/8/2015 2:31 PM, Rafael J. Wysocki wrote:
-> On Wednesday, July 08, 2015 04:07:15 PM Steven Rostedt wrote:
->> On Wed, 08 Jul 2015 22:56:38 +0300
->> Laurent Pinchart <laurent.pinchart@ideasonboard.com> wrote:
->>  
->>> Reviewed-by or Acked-by metrics are unfortunately very easy to game. If we 
->>
->> I'm not worried about Acked-by, as that (to me anyway) is just a
->> maintainer telling other maintainers that they are fine with the
->> change, and they are OK with it going in via another tree.
->>
->> I also sometimes give an Acked-by, as a "I took a quick look, and it
->> looks good to me". I only add a Reviewed-by tag if I took enough effort
->> to understand every part of the patch as if I wrote it myself.
+On Thu, Jul 09, 2015 at 02:23:53PM +1000, Michael Ellerman wrote:
+> On Wed, 2015-07-08 at 09:40 -0700, Kevin Hilman wrote:
+> >
+> > Speaking for kernelci.org... with limited time/resources, we'd like to
+> > focus less on building (others are doing this faster/better) and more on
+> > boot testing across a wide variety of hardware (e.g for the latest -next
+> > build, we did ~430 boots on 88 unique boards covering 23 different
+> > SoCs[1]).  We're also in the process of automating kselftest runs on our
+> > boards.
+> > 
+> > If we could consume the output of other builders, we'd happily do that
+> > instead of doing our own builds.  Ideally, the builders should produce
+> > some sort of machine readable data with the build artifacts.. 
 > 
-> I do that too and that's my understanding of what the tag is for.
-
-That seems to dilute the value of Acked-by.  Acked-by requires a review,
-although the example statement of "yep, looks good to me" in SubmittingPatches
-is a lot less stringent than the "Reviewer's statement of oversight" that is
-attached to the Reviewed-by tag.
-
-"I took a quick look" is not what I would like to encourage for reviews.
-
-   ITAQL-by: frank.rowand@sonymobile.com
-
-Would the "Cc:" tag be a more appropriate tag in this case?  (Described in the
-same section as Acked-by in SubmittingPatches.)  Or maybe SubmittingPatches
-needs to change to match reality?
-
-SubmittingPatches:
-
-   Acked-by: is not as formal as Signed-off-by:.  It is a record that the acker
-   has at least reviewed the patch and has indicated acceptance.  Hence patch
-   mergers will sometimes manually convert an acker's "yep, looks good to me"
-   into an Acked-by: (but note that it is usually better to ask for an
-   explicit ack).
-
-Then the next paragraph also allows a subsystem maintainer to acknowledge just
-that subsystem's part of a multiple subsystem patch.
-
-
+> Unfortunately providing build artifacts means you're distributing binaries, and
+> so life just got complicated. At least for folks like me who work at a company
+> with too many lawyers.
 > 
-> However, some people treat it as a this-patch-looks-good-to-me tag.
-> 
-> But regardless of what tags you use, if you say something along the lines of:
-> 
-> - I like A (because of X).
-> - I don't like B (because of Y).
-> - C will break things because of Z.
-> 
-> in your review, every maintainer will be grateful for that.  I'd like people
-> doing that kind of stuff to be recognized in some special way, because that's
-> really really helpful (and we need it).
-> 
-> Honestly, I'm not sure how to make that happen.
-> 
-> Thanks,
-> Rafael
+Never thought about that aspect, but you are right, there would be some hoops
+to go through if the test infrastructure runs in a corporate environment.
+Should not be too difficult, though, at least if the lawyers are reasonable.
+And if not, maybe they just need a different set of guildelines.
 
-- Frank
+Guenter
