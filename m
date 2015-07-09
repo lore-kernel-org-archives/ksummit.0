@@ -1,32 +1,34 @@
-Return-Path: <olof@lixom.net>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A6D0EA04
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3241B9FB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  9 Jul 2015 18:37:49 +0000 (UTC)
-Received: from mail-oi0-f49.google.com (mail-oi0-f49.google.com
-	[209.85.218.49])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DC90BA8
+	Thu,  9 Jul 2015 18:53:30 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C0DEDEA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  9 Jul 2015 18:37:48 +0000 (UTC)
-Received: by oibp128 with SMTP id p128so34343875oib.3
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 09 Jul 2015 11:37:48 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <20150709150938.GF4265@tuxdriver.com>
+	Thu,  9 Jul 2015 18:53:29 +0000 (UTC)
+Date: Thu, 9 Jul 2015 19:53:16 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Frank Rowand <frowand.list@gmail.com>
+Message-ID: <20150709185316.GO11162@sirena.org.uk>
 References: <201507080121.41463.PeterHuewe@gmx.de>
-	<20150708140727.GH23515@io.lakedaemon.net>
-	<trinity-9a36fcd4-7739-40a7-b5f9-0ecf88d0a331-1436383797204@3capp-gmx-bs35>
-	<20150708221836.GN23515@io.lakedaemon.net>
-	<20150709150938.GF4265@tuxdriver.com>
-Date: Thu, 9 Jul 2015 20:37:48 +0200
-Message-ID: <CAOesGMgo6YJDFYkD2USEe46dHtORWQv87o2OSoL645cnUR8U9g@mail.gmail.com>
-From: Olof Johansson <olof@lixom.net>
-To: "John W. Linville" <linville@tuxdriver.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: Jason Cooper <jason@lakedaemon.net>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+	<1481488.5WJFbB0Dlm@vostro.rjw.lan>
+	<1436341028.2136.14.camel@HansenPartnership.com>
+	<20150708080032.CE89E4306F@saturn.retrosnub.co.uk>
+	<20150708145315.29030a75@gandalf.local.home>
+	<559D8336.3040802@roeck-us.net>
+	<1436414798.23558.3.camel@ellerman.id.au>
+	<559EBD4C.6030502@gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="eHOIV5BfioPmIRHC"
+Content-Disposition: inline
+In-Reply-To: <559EBD4C.6030502@gmail.com>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Jason Cooper <jason@lakedaemon.net>,
+	ksummit-discuss@lists.linuxfoundation.org, jic23@jic23.retrosnub.co.uk
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -38,46 +40,73 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Jul 9, 2015 at 5:09 PM, John W. Linville <linville@tuxdriver.com> wrote:
 
-> The bigger concern was that while I was wrangling everyone else's
-> wireless patches, I had less and less time to do useful work elsewhere
-> in the kernel.  I definitely have heard other maintainers express
-> similar complaints, so this seems like a relatively common concern.
-> It would be good to find and promote maintainer organizations within
-> subsystems that are less likely to monopolize the mainainer's
-> development time.  Previously we have had discussions of how the
-> TIP tree is run, but I'm not sure that works well in every case.
-> Are there other working models for this?
+--eHOIV5BfioPmIRHC
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-arm-soc is ran a bit like TIP, but not identically. It's usually Arnd
-and I who handle most of it, with Kevin Kilman stepping in in
-particular when Arnd goes on paternity leave.
+On Thu, Jul 09, 2015 at 11:28:28AM -0700, Frank Rowand wrote:
+> On 7/8/2015 9:06 PM, Michael Ellerman wrote:
+> > On Wed, 2015-07-08 at 13:08 -0700, Guenter Roeck wrote:
+> >> On 07/08/2015 11:53 AM, Steven Rostedt wrote:
 
-On a whole, I can say that Arnd seems to have time left to deal with
-other parts of the kernel and posting patches, since he spends most or
-all of his work on upstream stuff while it's mostly a side activity
-for me.
+> >>> I personally don't trust a Reviewed-by tag much, as I sometimes see
+> >>> them appear without any comments.
+>=20
+> I don't expect my Reviewed-by tag with no extra comments to carry much we=
+ight
+> if I send it to a maintainer who does not know me.
 
-One thing that we're doing that's quite helpful is that we hand off
-and mostly time-slice our maintainership, which means you get to be
-off from it for a while every now and then. That's different from TIP
-where they instead tend to have areas of the kernel that each
-co-maintainer focuses on. The last couple of months I've been overly
-busy with work and life and I've stepped away shortly, which our model
-makes fairly easy to do. I'm re-engaging now though, since Arnd is out
-on paternity leave again so me and Kevin are looking after things
-through the fall.
+> But if I have a history of good reviews to a specific maintainer, then why
+> should I have to add a message that says: Yes, I really, really did review
+> the patch.  I truly mean that the patch "has been reviewed and found acce=
+ptable
+> according to the Reviewer's Statement" as listed in SubmittingPatches.
 
-We also don't engage all that much with developers directly -- mostly
-new lead developers/maintainers on new platforms and people
-upstreaming new SoC families. Most of the day to day work is delegated
-to per-vendor maintainers below us and we work with them on the back
-end and merge their branches.
+> And I read Steve's qualification of "don't trust ... _much_" as being
+> consistent with what I am saying, so I'm fine with that.  The point I
+> want to make is that a Reviewed-by tag without comments should not
+> always be assumed to be without meaning or value.
 
-I think we've talked about how we handle our work in the past, but I'd
-be happy to elaborate more (here over email or elsewhere) if anyone
-wants to learn more about what we've found to work pretty well for us.
+Indeed, and when I'm the one dealing with applying the patches it's
+actually helpful to not have extra text that needs reading and
+thinking about when applying things if I trust whoever did the review.
+Past history as a reviewer is much more important than any verbiage
+around the review and review that consists of a simple tag takes seconds
+to read.
 
+> >> Seriously, it does happen that I send Reviewed-by: or Acked-by: feedba=
+ck if
+> >> a patch is just fine as-is. What do you expect the reviewer to do in s=
+uch
+> >> a case ?
 
--Olof
+> > There's almost always something you can say.
+
+> And there is a time to not nit-pick a patch to death.
+
+> If my comment will not result in a significantly better patch, then I am
+> wasting the patch submitter's time, and the time of everyone else on the
+> mail list that will have to read my comment, and potentially have to read
+> and review a new spin of the patch.
+
+Very much so.
+
+--eHOIV5BfioPmIRHC
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQEcBAEBCAAGBQJVnsMbAAoJECTWi3JdVIfQ/i8H/0PA+hwHgihU71tP3YLPYcUe
+YMO0rVnT8kG2wpo7Uz5Uq2JC2CrNoRSojNaLufRmCRIRkyPxc2CDfHxBxakfp/j9
+37nJIkpGeokM2xQVN0SitKI4oXW0kifmj7Q89PYOh1f00LsCxV12yIE97VGBvYVS
+HPR8fu9anb2LWdZWmYBMT/bBOtvnk5J67663sy6qTARDIDWszeVwAqY5PpipsWLY
+4UA9xlaRENzrWlJEKR0TUTtnbWay5usVLdTbK9lPU71zrjpRvnSaDrVW+Z9VQJ9q
+B/I1yjiLK4h7Zd9LbZdzt1l20cZn/QuNdYu1M3Vjt/v9uTPkQhs8m7lAQBqYlzs=
+=MrRg
+-----END PGP SIGNATURE-----
+
+--eHOIV5BfioPmIRHC--
