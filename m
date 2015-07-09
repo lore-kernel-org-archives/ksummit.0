@@ -1,32 +1,27 @@
-Return-Path: <tytso@thunk.org>
+Return-Path: <BATV+813fbadb7714390e7a95+4337+infradead.org+dwmw2@bombadil.srs.infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 378D3AAE
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 20416B13
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  9 Jul 2015 21:47:38 +0000 (UTC)
-Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 880E712D
+	Thu,  9 Jul 2015 22:31:53 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A111B161
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  9 Jul 2015 21:47:37 +0000 (UTC)
-Date: Thu, 9 Jul 2015 17:47:18 -0400
-From: Theodore Ts'o <tytso@mit.edu>
-To: Guenter Roeck <linux@roeck-us.net>
-Message-ID: <20150709214718.GG9417@thunk.org>
-References: <1436341028.2136.14.camel@HansenPartnership.com>
-	<20150708080032.CE89E4306F@saturn.retrosnub.co.uk>
-	<20150708145315.29030a75@gandalf.local.home>
-	<559D8336.3040802@roeck-us.net>
-	<1436414798.23558.3.camel@ellerman.id.au>
-	<559EBD4C.6030502@gmail.com> <20150709190640.GC788@roeck-us.net>
-	<20150709194734.GG9169@vmdeb7> <20150709201315.GF9417@thunk.org>
-	<20150709205049.GB5154@roeck-us.net>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20150709205049.GB5154@roeck-us.net>
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Jason Cooper <jason@lakedaemon.net>,
-	ksummit-discuss@lists.linuxfoundation.org, jic23@jic23.retrosnub.co.uk
+	Thu,  9 Jul 2015 22:31:52 +0000 (UTC)
+Message-ID: <1436481109.3324.219.camel@infradead.org>
+From: David Woodhouse <dwmw2@infradead.org>
+To: Darren Hart <dvhart@infradead.org>, Laurent Pinchart
+	<laurent.pinchart@ideasonboard.com>
+Date: Thu, 09 Jul 2015 23:31:49 +0100
+In-Reply-To: <20150709193718.GD9169@vmdeb7>
+References: <201507080121.41463.PeterHuewe@gmx.de>
+	<559C73DF.2030008@roeck-us.net> <20150708114011.3a1f1861@noble>
+	<2879113.fraeuJIr2M@avalon> <20150709193718.GD9169@vmdeb7>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: Jason Cooper <jason@lakedaemon.net>,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -38,61 +33,68 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Jul 09, 2015 at 01:50:49PM -0700, Guenter Roeck wrote:
+On Thu, 2015-07-09 at 12:37 -0700, Darren Hart wrote:
+> I spend a highly disproportionate amount of my time, relative to measurable
+> quality impact to the kernel, going over the nuances of submitting patches.
 > 
-> Earlier it was discussed how to improve the recognition of reviewers.
-> Your comments seems to suggest the opposite, and may actually discourage
-> reviewers. Why should I review Linux kernel code if that is seen
-> by some as me trying to "game" the system ?
+> 1) Must have a complete commit message
+> 2) DCO goes above the ---
+> 3) Include a patch changelog, do so below ---
+> 4) Cc maintainers :-)
+> 5) Checkpatch... checkpatch... checkpatch...
+> 6) Compiler warnings
+> 7) CodingStyle :-)
+> 8) Use ascii or utf8 character encodings
+> 
+> All of these are distractions from reviewing the code. I'm often on 
+> version 3 of a series before I'm actually reviewing content.
 
-So I were designing an initial system that automatically scored
-reviewers, I'd be looking to see, from a holistic point of view, how
-many reviews were zero-length:
+I don't think it's entirely appropriate to call all of those
+'distractions'.
 
-Reviewed-by: John Q. Random <seventeen@random.org>
+The "content" in question is a proposed change to the code base. Such a
+change requires a coherent commit message which will make sense when we
+look back at this commit in the future. We will need to understand what
+was happening and why, in order to fix it or tweak it for new
+circumstances.
 
-... and nothing else,
+Doing that is *not* a peculiarity of the Linux 'process'. It is basic
+engineering discipline, and it is *part* of the work. Just like the
+task of breaking a change down into incremental, bisectable commits —
+which I'm surprised wasn't in your list.
 
-.... versus how many reviews had specific comments on various
-different portions of the patch.  If possible, the automated system
-would try to distinguish between comments that were just pointing out
-whitespace issues (which would be a slight positive) with comments
-that point out genuine design issues (this will be really hard to do
-in an automated fashion, but a very sophisticated nueral network[1]
-mgiht be able to hack it).
+Yes, there are a lot of people who *lack* that basic engineering
+discipline, to the point where it *can* start to look like it's a Linux
+-only requirement. But it's not. And there's not a lot we can do if an
+"engineer" lacks it, short of educating them. That part isn't a process
+issue.
 
-I might also try using some kind scheme that counted the number of
-words in a review (stripping out lines of patch or commit description
-that the review was a reply to), etc.  But of course, if it was public
-knowledge that the system was just stripping out the original e-mail,
-and then just doing a "wc -w", then people would game the system by
-adding list of random words at the bottom of the review.
+Likewise, compiler warnings. If your developers are actually
+*submitting* code with unresolved compiler warnings, again there's not
+a lot we can do to help them or you. Apart from confiscating their
+keyboard.
 
-And, of course, I'd have the system give a huge negative score if a
-commit that got a "LGTM" positive review caused a bug that required
-the patch to be reverted.  *That* signal, at least, would be hard to
-game, and would hopefuly encourage people to actually take time
-reviewing a commit, and not blindly slapping a reviewed-by on a commit
-they don't understand.
+Coding style, again, isn't a Linux-specific thing. All large code bases
+attempt to have some kind of consistency to make the code readable, and
+anyone attempting to work on *any* code base should expect to become
+familiar with the idioms and conventions (and charset choice) of the
+code they're working on.
 
-You see?  It's not that reviews in and of themselves are attempts to
-game the system ---- just so long as they are genuine reviews.  If
-there is evidence that the reviews are issued within seconds of the
-original patch going out, with a Reviewed-by: line and nothing else,
-what would *you* think about the quality of that review?
+These *aren't* process issues, in my view. What you're saying with some
+of these is that you're having to do *basic* (non-Linux-specific)
+education of people who want to contribute code, and that *that*
+doesn't scale. Which is true, but it's hard to know how to address
+that, except with programs like GSoC etc.
 
-> That may be true for some people, but at the same time I think statements
-> like the above might discourage people who just like cleaning up code for
-> fun. There are several of those working on cleaning up the Linux kernel,
-> and I truly appreciate their efforts.
+Josh suggests that we should provide a service that people could push
+code to and 'get automated feedback on what needs fixing'... but isn't
+that what checkpatch was for? OK, a local tool can't cross-compile it
+for you on every platform we support, but it can do a lot of stuff
+short of that.
 
-Sure, but that's not the people who (in my opinion as a program
-committee member) should be attendingt he Kernel Summit, where we want
-people who are genuinely clueful about technical and policy issues,
-and not people like (for example) Nick Krause.
+I do like the idea of a 'test' mailing list which receives patches and
+checks them for corruption though.
 
-Regards,
-
-						- Ted
-
-[1] http://googleresearch.blogspot.com/2015/06/inceptionism-going-deeper-into-neural.html
+-- 
+David Woodhouse                            Open Source Technology Centre
+David.Woodhouse@intel.com                              Intel Corporation
