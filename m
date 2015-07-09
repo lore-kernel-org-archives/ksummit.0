@@ -1,34 +1,33 @@
-Return-Path: <dmitry.torokhov@gmail.com>
+Return-Path: <linux@roeck-us.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8D970A04
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B2CBCA04
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  9 Jul 2015 20:21:58 +0000 (UTC)
-Received: from mail-ig0-f176.google.com (mail-ig0-f176.google.com
-	[209.85.213.176])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id AC3C811B
+	Thu,  9 Jul 2015 20:23:35 +0000 (UTC)
+Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0333C147
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  9 Jul 2015 20:21:57 +0000 (UTC)
-Received: by iggp10 with SMTP id p10so21995936igg.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 09 Jul 2015 13:21:57 -0700 (PDT)
-Date: Thu, 9 Jul 2015 13:21:52 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+	Thu,  9 Jul 2015 20:23:34 +0000 (UTC)
+Date: Thu, 9 Jul 2015 13:23:25 -0700
+From: Guenter Roeck <linux@roeck-us.net>
 To: Darren Hart <dvhart@infradead.org>
-Message-ID: <20150709202152.GE1237@dtor-ws>
+Message-ID: <20150709202325.GA5154@roeck-us.net>
 References: <201507080121.41463.PeterHuewe@gmx.de>
 	<1481488.5WJFbB0Dlm@vostro.rjw.lan>
 	<1436341028.2136.14.camel@HansenPartnership.com>
 	<20150708080032.CE89E4306F@saturn.retrosnub.co.uk>
 	<20150708145315.29030a75@gandalf.local.home>
-	<20150709193951.GE9169@vmdeb7>
+	<559D8336.3040802@roeck-us.net>
+	<1436414798.23558.3.camel@ellerman.id.au>
+	<559EBD4C.6030502@gmail.com> <20150709190640.GC788@roeck-us.net>
+	<20150709194734.GG9169@vmdeb7>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20150709193951.GE9169@vmdeb7>
+In-Reply-To: <20150709194734.GG9169@vmdeb7>
 Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	jic23@jic23.retrosnub.co.uk, ksummit-discuss@lists.linuxfoundation.org,
-	Jason Cooper <jason@lakedaemon.net>
+	jic23@jic23.retrosnub.co.uk, Jason Cooper <jason@lakedaemon.net>,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -40,46 +39,76 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Jul 09, 2015 at 12:39:51PM -0700, Darren Hart wrote:
-> On Wed, Jul 08, 2015 at 02:53:15PM -0400, Steven Rostedt wrote:
-> > On Wed, 08 Jul 2015 09:00:32 +0100
-> > jic23@jic23.retrosnub.co.uk wrote:
-> > 
-> > 
-> > > > We can alter that somewhat.  We used to run a Maintainers lottery for
-> > > > the kernel summit ... we could instead offer places based on the number
-> > > > of Reviewed-by: tags ... we have all the machinery to calculate that.  I
-> > > > know an invitation to the kernel summit isn't a huge incentive, but it's
-> > > > a useful one.
+On Thu, Jul 09, 2015 at 12:47:34PM -0700, Darren Hart wrote:
+> On Thu, Jul 09, 2015 at 12:23:20PM -0700, Guenter Roeck wrote:
+> > On Thu, Jul 09, 2015 at 11:28:28AM -0700, Frank Rowand wrote:
+> > > On 7/8/2015 9:06 PM, Michael Ellerman wrote:
+> > > > On Wed, 2015-07-08 at 13:08 -0700, Guenter Roeck wrote:
+> > > >> On 07/08/2015 11:53 AM, Steven Rostedt wrote:
+> > > >>> On Wed, 08 Jul 2015 09:00:32 +0100
+> > > >>> jic23@jic23.retrosnub.co.uk wrote:
+> > > >>>
+> > > >>>
+> > > >>>>> We can alter that somewhat.  We used to run a Maintainers lottery for
+> > > >>>>> the kernel summit ... we could instead offer places based on the number
+> > > >>>>> of Reviewed-by: tags ... we have all the machinery to calculate that.  I
+> > > >>>>> know an invitation to the kernel summit isn't a huge incentive, but it's
+> > > >>>>> a useful one.
+> > > >>>>
+> > > >>>> Sounds like a good idea to me, though it would only effect a tiny
+> > > >>>> percentage of our reviewers.  I suppose publishing a short list of the top
+> > > >>>> n% of reviewers from which the lottery runs might give some
+> > > >>>> recognition.
+> > > >>>>
+> > > >>>
+> > > >>> I personally don't trust a Reviewed-by tag much, as I sometimes see
+> > > >>> them appear without any comments.
 > > > 
-> > > Sounds like a good idea to me, though it would only effect a tiny
-> > > percentage of our reviewers.  I suppose publishing a short list of the top 
-> > > n% of reviewers from which the lottery runs might give some
-> > > recognition. 
+> > > I don't expect my Reviewed-by tag with no extra comments to carry much weight
+> > > if I send it to a maintainer who does not know me.
 > > > 
+> > > But if I have a history of good reviews to a specific maintainer, then why
+> > > should I have to add a message that says: Yes, I really, really did review
+> > > the patch.  I truly mean that the patch "has been reviewed and found acceptable
+> > > according to the Reviewer's Statement" as listed in SubmittingPatches.
+> > > 
+> > > And I read Steve's qualification of "don't trust ... _much_" as being
+> > > consistent with what I am saying, so I'm fine with that.  The point I
+> > > want to make is that a Reviewed-by tag without comments should not
+> > > always be assumed to be without meaning or value.
+> > > 
+> > Absolutely agree.
 > > 
-> > I personally don't trust a Reviewed-by tag much, as I sometimes see
-> > them appear without any comments.
-> > 
-> > I was thinking of writing a perl script that would read my LKML archive
-> > and somewhat intelligently looking at people who replied to patches,
-> > that also has snippets of the patch in the reply, and counting them. I
-> > think that would be a more accurate use of real reviewers than just the
-> > Reviewed-by tag.
+> > It looks like we have yet another set of diverging maintainer expectations.
+> > Some maintainers will expect me to provide an extra comment, which I'll
+> > have to phrase carefully to avoid it being misinterpreted as "I just
+> > glanced at the code and didn't find an obvious issue with it".
+> > Others will get annoyed at me providing the extra comment.
 > 
-> Agreed. Unless there is commentary accompanying the review, it doesn't add a
-> lot.
+> Why would a couple lines of context be any harder to deal with than all the
+> meta-data that comes along with an email including a Reviewed-by?
+> 
 
-No, that is not always true. If I see a naked "reviewed-by" from a
-person who's been working on the subsystem quite a bit and shown a good
-judgement it is enough for me. I do not need them to find something to
-nitpick over so that there is "meat" to the review.
+No, but that isn't the point. I use patchwork, which takes care of
+automatically adding all tags and removing the clutter around it,
+so I don't really care one way or another.
 
-> While the nod of approval builds incremental confidence, the true measure
-> of a review is a resulting change to the patch for the better. Of course, a good
-> review takes the same amount of time regardless of if a change is required.
+I neither expect reviewers to provide additional comments, nor do I mind
+if they do provide such comments. I see comments as beneficial on complex
+reviews, or if a reviewer had an earlier concern which was addressed by
+feedback from the submitter but did not result in code changes. Overall
+comments may be either positive or neutral to me, depending on the context.
+But a Reviewed-by: tag does not have less value to me just because there
+is no comment associated with it.  
 
-Thanks.
+I _do_ expect reviewers to understand the statement they are making by
+providing a Reviewed-by: tag, just as I expect patch submitters to
+understand the statement they are making with their Signed-off: tag.
 
--- 
-Dmitry
+The point I am making, which has been confirmed by this e-mail exchange,
+is that reviewers have to be careful of yet another detail when providing
+feedback on a patch. Some, like you and Stephen, may expect me to provide
+some feedback around a Reviewed-by: tag, while others may get annoyed
+at me for providing such additional feedback.
+
+Guenter
