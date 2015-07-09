@@ -1,29 +1,30 @@
 Return-Path: <mpe@ellerman.id.au>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id F26CCBB6
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 125F3BC4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  9 Jul 2015 03:56:56 +0000 (UTC)
+	Thu,  9 Jul 2015 04:06:44 +0000 (UTC)
 Received: from ozlabs.org (ozlabs.org [103.22.144.67])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 94E5EED
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DD8AEED
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  9 Jul 2015 03:56:55 +0000 (UTC)
-Message-ID: <1436414213.23558.2.camel@ellerman.id.au>
+	Thu,  9 Jul 2015 04:06:39 +0000 (UTC)
+Message-ID: <1436414798.23558.3.camel@ellerman.id.au>
 From: Michael Ellerman <mpe@ellerman.id.au>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Thu, 09 Jul 2015 13:56:53 +1000
-In-Reply-To: <CAKMK7uF=0qdE6SHp897C_9JALKQF2aZwnA3VDxpTnM1s-NxwiQ@mail.gmail.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Date: Thu, 09 Jul 2015 14:06:38 +1000
+In-Reply-To: <559D8336.3040802@roeck-us.net>
 References: <201507080121.41463.PeterHuewe@gmx.de>
-	<2102387.OD8sBG4Eol@avalon> <559C73DF.2030008@roeck-us.net>
-	<CAErSpo622+-3XS=C=EN0S3qi8ZN4aehBmxf58RwyNvNdbgD0cw@mail.gmail.com>
-	<CAKMK7uF=0qdE6SHp897C_9JALKQF2aZwnA3VDxpTnM1s-NxwiQ@mail.gmail.com>
+	<1481488.5WJFbB0Dlm@vostro.rjw.lan>
+	<1436341028.2136.14.camel@HansenPartnership.com>
+	<20150708080032.CE89E4306F@saturn.retrosnub.co.uk>
+	<20150708145315.29030a75@gandalf.local.home>
+	<559D8336.3040802@roeck-us.net>
 Content-Type: text/plain; charset="UTF-8"
 Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Cc: "Lespiau, Damien" <damien.lespiau@intel.com>,
-	Jason Cooper <jason@lakedaemon.net>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	jic23@jic23.retrosnub.co.uk, ksummit-discuss@lists.linuxfoundation.org,
+	Jason Cooper <jason@lakedaemon.net>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -35,23 +36,47 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 2015-07-08 at 21:19 +0200, Daniel Vetter wrote:
-> On Wed, Jul 8, 2015 at 4:20 PM, Bjorn Helgaas <bhelgaas@google.com> wrote:
-> > I wish I knew how to use patchwork better, or had a smarter workflow
-> > that could comprehend a series as a single entity.  Patchwork is a lot
-> > of clicking, but I don't know anything better.
+On Wed, 2015-07-08 at 13:08 -0700, Guenter Roeck wrote:
+> On 07/08/2015 11:53 AM, Steven Rostedt wrote:
+> > On Wed, 08 Jul 2015 09:00:32 +0100
+> > jic23@jic23.retrosnub.co.uk wrote:
+> >
+> >
+> >>> We can alter that somewhat.  We used to run a Maintainers lottery for
+> >>> the kernel summit ... we could instead offer places based on the number
+> >>> of Reviewed-by: tags ... we have all the machinery to calculate that.  I
+> >>> know an invitation to the kernel summit isn't a huge incentive, but it's
+> >>> a useful one.
+> >>
+> >> Sounds like a good idea to me, though it would only effect a tiny
+> >> percentage of our reviewers.  I suppose publishing a short list of the top
+> >> n% of reviewers from which the lottery runs might give some
+> >> recognition.
+> >>
+> >
+> > I personally don't trust a Reviewed-by tag much, as I sometimes see
+> > them appear without any comments.
+> >
 > 
-> We're working on improving patchwork here to understand series and
-> help out with auto-deprecating patches when new versions show up.
-> Currently being tested internally and we plan to push to upstream ofc
-> and deploy on freedesktop.org (since that's where all the drm/gfx
-> folks hang out), but because of all the things going on it's really
-> slow. Damien knows more, maybe we could push the current state to some
-> git branch somewhere.
+> Except for the following, they are always reliable and can be trusted.
+> 
+> Reviewed-by: Edsel Murphy <edsel@murphy.com>
+> 
+> Seriously, it does happen that I send Reviewed-by: or Acked-by: feedback if
+> a patch is just fine as-is. What do you expect the reviewer to do in such
+> a case ?
 
-I'd be interested in that if you can publish it somewhere.
+There's almost always something you can say.
 
-At the moment I have a very hacky script that tries to recognise a series on
-the client, which usually works, but not always.
+Even if it's a trivial patch, eg. a spelling fix, as the reviewer you should be
+confirming that only the spelling fix happened, ie. no other changes slipped
+into the diff. And so you can say that.
+
+If it's more complex than a spelling fix then there's usually something you can
+comment on.
+
+There might be times when all you can say is "Yep, logic looks right" which
+might seem redundant, but personally I'd prefer to see that than just a plain
+Reviewed-by.
 
 cheers
