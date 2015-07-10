@@ -1,29 +1,32 @@
-Return-Path: <jpoimboe@redhat.com>
+Return-Path: <linux@roeck-us.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3D0DAB8B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B4BEABC8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 18:14:12 +0000 (UTC)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D13C511A
+	Fri, 10 Jul 2015 18:20:57 +0000 (UTC)
+Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 16BA211A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 18:14:11 +0000 (UTC)
-Date: Fri, 10 Jul 2015 13:14:09 -0500
-From: Josh Poimboeuf <jpoimboe@redhat.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-Message-ID: <20150710181409.GA30145@treble.redhat.com>
-References: <201507080121.41463.PeterHuewe@gmx.de>
-	<1481488.5WJFbB0Dlm@vostro.rjw.lan>
-	<1436341028.2136.14.camel@HansenPartnership.com>
-	<20150708080032.CE89E4306F@saturn.retrosnub.co.uk>
+	Fri, 10 Jul 2015 18:20:57 +0000 (UTC)
+Date: Fri, 10 Jul 2015 11:20:45 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Theodore Ts'o <tytso@mit.edu>
+Message-ID: <20150710182045.GA19854@roeck-us.net>
+References: <20150708080032.CE89E4306F@saturn.retrosnub.co.uk>
 	<20150708145315.29030a75@gandalf.local.home>
+	<559D8336.3040802@roeck-us.net>
+	<1436414798.23558.3.camel@ellerman.id.au>
+	<559EBD4C.6030502@gmail.com> <20150709190640.GC788@roeck-us.net>
+	<20150709194734.GG9169@vmdeb7> <20150709201315.GF9417@thunk.org>
+	<20150709205049.GB5154@roeck-us.net>
+	<20150709214718.GG9417@thunk.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20150708145315.29030a75@gandalf.local.home>
+In-Reply-To: <20150709214718.GG9417@thunk.org>
 Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	jic23@jic23.retrosnub.co.uk, Jason Cooper <jason@lakedaemon.net>,
-	ksummit-discuss@lists.linuxfoundation.org
+	Jason Cooper <jason@lakedaemon.net>,
+	ksummit-discuss@lists.linuxfoundation.org, jic23@jic23.retrosnub.co.uk
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -35,67 +38,72 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Jul 08, 2015 at 02:53:15PM -0400, Steven Rostedt wrote:
-> I personally don't trust a Reviewed-by tag much, as I sometimes see
-> them appear without any comments.
+On Thu, Jul 09, 2015 at 05:47:18PM -0400, Theodore Ts'o wrote:
+> On Thu, Jul 09, 2015 at 01:50:49PM -0700, Guenter Roeck wrote:
+> > 
+> > Earlier it was discussed how to improve the recognition of reviewers.
+> > Your comments seems to suggest the opposite, and may actually discourage
+> > reviewers. Why should I review Linux kernel code if that is seen
+> > by some as me trying to "game" the system ?
 > 
-> I was thinking of writing a perl script that would read my LKML archive
-> and somewhat intelligently looking at people who replied to patches,
-> that also has snippets of the patch in the reply, and counting them. I
-> think that would be a more accurate use of real reviewers than just the
-> Reviewed-by tag.
+> So I were designing an initial system that automatically scored
+> reviewers, I'd be looking to see, from a holistic point of view, how
+> many reviews were zero-length:
+> 
+> Reviewed-by: John Q. Random <seventeen@random.org>
+> 
+> ... and nothing else,
+> 
+> .... versus how many reviews had specific comments on various
+> different portions of the patch.  If possible, the automated system
+> would try to distinguish between comments that were just pointing out
+> whitespace issues (which would be a slight positive) with comments
+> that point out genuine design issues (this will be really hard to do
+> in an automated fashion, but a very sophisticated nueral network[1]
+> mgiht be able to hack it).
+> 
+> I might also try using some kind scheme that counted the number of
+> words in a review (stripping out lines of patch or commit description
+> that the review was a reply to), etc.  But of course, if it was public
+> knowledge that the system was just stripping out the original e-mail,
+> and then just doing a "wc -w", then people would game the system by
+> adding list of random words at the bottom of the review.
+> 
+> And, of course, I'd have the system give a huge negative score if a
+> commit that got a "LGTM" positive review caused a bug that required
+> the patch to be reverted.  *That* signal, at least, would be hard to
+> game, and would hopefuly encourage people to actually take time
+> reviewing a commit, and not blindly slapping a reviewed-by on a commit
+> they don't understand.
+> 
+> You see?  It's not that reviews in and of themselves are attempts to
+> game the system ---- just so long as they are genuine reviews.  If
+> there is evidence that the reviews are issued within seconds of the
+> original patch going out, with a Reviewed-by: line and nothing else,
+> what would *you* think about the quality of that review?
+> 
+Agreed. On the other side, is gaming really a problem with kernel code
+reviews ? Sure, a search engine provider will have to look out for
+abuse patterns, but for code reviews I am not sure if it is worth the
+effort. I would suspect that it is much more likely that the simple
+"wc -w" approach should provide you with worthy candidates for the KS.
+Since you are not dealing with hundreds or thousands of candidates,
+I'd assume you'll do a hand screening anyway, and quickly identify any
+gamers. I'd be quite surprised if there are any, though.
 
-I'm relatively new to lkml so my perceptions might be skewed.  But it
-seems to me that, for non-trivial patches, the Reviewed-by tag is pretty
-much useless as a metric.  From what I can tell, the biggest problems
-with relying on Reviewed-by to get meaningful statistics are:
+> > That may be true for some people, but at the same time I think statements
+> > like the above might discourage people who just like cleaning up code for
+> > fun. There are several of those working on cleaning up the Linux kernel,
+> > and I truly appreciate their efforts.
+> 
+> Sure, but that's not the people who (in my opinion as a program
+> committee member) should be attendingt he Kernel Summit, where we want
+> people who are genuinely clueful about technical and policy issues,
+> and not people like (for example) Nick Krause.
+> 
+Nick is such an outlier that I really hope he isn't used as a baseline
+to set any kind of policy. But how do you evaluate someone like, say,
+Axel Lin, who makes excellent contributions all over the place ?
 
-1. It's self-reported by the reviewer.
-
-   Maybe a reviewer gave some hugely valuable feedback in versions 1-4
-   of the patch, but wasn't around to provide the Reviewed-by tag for
-   the final v6.
-
-   Or maybe they're just focused on the review, and forget or don't care
-   to ask for credit for it at the time by adding a tag.
-
-   Or maybe they're a maintainer who used Signed-off-by instead (but
-   Signed-off-by doesn't necessarily imply a review).
-
-   Also, as others have mentioned, it creates the ability to game the
-   system by saying you've reviewed a patch when you really haven't.
-
-2. It's too broad of a statement.  It requires the reviewer to make an
-   official certification that they fully understand and approve of the
-   *entire* patch.  That's certainly a useful statement, but:
-
-   A reviewer might review only part of the patch, and provide some
-   useful comments for just the part of the patch they reviewed.  But
-   they don't want to take responsibility for saying, to quote Steven,
-   "I took enough effort to understand every part of the patch as if I
-   wrote it myself."
-
-   Or maybe they didn't carefully review the patch, but instead added
-   something valuable to the discussion which improved the patch in a
-   future version.
-
-   So it denies credit to all the other people who provided useful
-   comments along the way.
-
-Review comments such as "here's a problem with your code" or "have you
-thought about doing this instead?" can often be more useful a comment
-than "your code looks good".  Maybe it would be a good idea to
-acknowledge those people who give valuable feedback, in all its forms.
-Maybe a new tag would be useful?  Something which:
-
-a) is reported by the patch author and/or maintainer, since they're in
-   the best position to keep track of useful comments across versions;
-
-   and
-
-b) means something like "I'm grateful to this person for giving some
-   valuable feedback".
-
-
--- 
-Josh
+Thanks,
+Guenter
