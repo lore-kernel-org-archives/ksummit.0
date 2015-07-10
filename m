@@ -1,34 +1,37 @@
-Return-Path: <tony.luck@intel.com>
+Return-Path: <khilman@deeprootsystems.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D7894BD1
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 18526B13
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 17:06:57 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 8599010D
+	Fri, 10 Jul 2015 17:25:22 +0000 (UTC)
+Received: from mail-pa0-f42.google.com (mail-pa0-f42.google.com
+	[209.85.220.42])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 189AC10D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 17:06:57 +0000 (UTC)
-From: "Luck, Tony" <tony.luck@intel.com>
-To: Peter Huewe <peterhuewe@gmx.de>, "josh@joshtriplett.org"
-	<josh@joshtriplett.org>, "Luis R. Rodriguez" <mcgrof@suse.com>
-Date: Fri, 10 Jul 2015 17:06:55 +0000
-Message-ID: <3908561D78D1C84285E8C5FCA982C28F32AA595C@ORSMSX114.amr.corp.intel.com>
-References: <201507080121.41463.PeterHuewe@gmx.de>
-	<559C73DF.2030008@roeck-us.net> <20150708114011.3a1f1861@noble>
-	<2879113.fraeuJIr2M@avalon> <20150709193718.GD9169@vmdeb7>
-	<20150709201127.GA3426@cloud> <20150709203830.GF7021@wotan.suse.de>
-	<20150709210059.GA3720@cloud>
-	<217B337B-3703-43E5-86DF-6AE8AE268F8D@gmx.de>
-In-Reply-To: <217B337B-3703-43E5-86DF-6AE8AE268F8D@gmx.de>
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	Fri, 10 Jul 2015 17:25:21 +0000 (UTC)
+Received: by padck2 with SMTP id ck2so6940365pad.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 10 Jul 2015 10:25:20 -0700 (PDT)
+From: Kevin Hilman <khilman@kernel.org>
+To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+References: <1489458.8WDRattPkl@vostro.rjw.lan>
+	<53223375.qzkvIEse3r@vostro.rjw.lan>
+	<2FABAEF0D3DCAF4F9C9628D6E2F968454F18BA5A@BGSMSX102.gar.corp.intel.com>
+	<6142539.s1gh8ubrRK@vostro.rjw.lan>
+Date: Fri, 10 Jul 2015 10:25:17 -0700
+In-Reply-To: <6142539.s1gh8ubrRK@vostro.rjw.lan> (Rafael J. Wysocki's message
+	of "Mon, 06 Jul 2015 16:21:23 +0200")
+Message-ID: <7hlheo9b7m.fsf@deeprootsystems.com>
 MIME-Version: 1.0
-Cc: Jason Cooper <jason@lakedaemon.net>,
+Content-Type: text/plain
+Cc: "Brown, Len" <len.brown@intel.com>,
 	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
-	Maintainers, Hobbyists)
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Kristen Carlson Accardi <kristen@linux.intel.com>,
+	Grant Likely <grant.likely@linaro.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] System-wide interface to specify
+	the level of PM tuning
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,14 +41,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-> I have a dedicated for-review and testing branch which is 0-day monitored=
- and only if I don't hear negative from 0-day stuff moves to my -next branc=
-h.
+"Rafael J. Wysocki" <rjw@rjwysocki.net> writes:
 
-If you ask Fengguang nicely he can mark that branch so the robots will send=
- a successful
-completion e-mail ... that way you don't have to guess how long to wait for=
- the robots
-to get around to your branch.
+> On Monday, July 06, 2015 01:49:45 PM Iyer, Sundar wrote:
 
--Tony
+[...]
+
+>> Is a "single setting somewhere" even appropriate? It is actually the intelligence
+>> needed vs executing the actions?
+>
+> For one example, the default for most of the device/.../power/control files in
+> sysfs is "on" (meaning no runtime PM) while it might be "auto" (use runtime PM
+> if you can).  Making that change for everybody in one go may lead to various
+> issues (that may be regarded as regressions then), but if we made it configurable,
+> people might choose to make that change for themselves if they wanted to.
+
+I'd be very supportive of some default knob (or cmdline option) to favor
+energy efficiency.  For runtime PM, I suspect the resulting performance
+regressions are mostly (relatively) simple fixes, like enabling
+autosuspend, etc.   
+
+Also, having a system-wide way to enable this mode would also enable us
+to find/report these bugs/regressions in a way that would be easily
+repeatable.  With the current pile of knobs/tunables, it's often very
+hard to reproduce problems others may be seeing.
+
+Kevin
