@@ -1,22 +1,39 @@
-Return-Path: <jason@lakedaemon.net>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C787FB3D
+Return-Path: <rostedt@goodmis.org>
+Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
+	[172.17.192.36])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1B9E4BC6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 14:38:35 +0000 (UTC)
-Received: from pmta2.delivery3.ore.mailhop.org
-	(pmta2.delivery3.ore.mailhop.org [54.213.22.21])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id 343C5ED
+	Fri, 10 Jul 2015 15:05:28 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0029.hostedemail.com
+	[216.40.44.29])
+	by smtp2.linuxfoundation.org (Postfix) with ESMTP id 68D3D1DCB6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 14:38:35 +0000 (UTC)
-Date: Fri, 10 Jul 2015 14:38:32 +0000
-From: Jason Cooper <jason@lakedaemon.net>
-To: ksummit-discuss@lists.linuxfoundation.org
-Message-ID: <20150710143832.GU23515@io.lakedaemon.net>
+	Fri, 10 Jul 2015 15:05:27 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
+	[10.5.19.251])
+	by smtpgrave06.hostedemail.com (Postfix) with ESMTP id 5A1481727B8
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 10 Jul 2015 15:05:26 +0000 (UTC)
+Date: Fri, 10 Jul 2015 11:05:22 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Shuah Khan <shuahkh@osg.samsung.com>
+Message-ID: <20150710110522.4b0878cf@gandalf.local.home>
+In-Reply-To: <559FD066.2060601@osg.samsung.com>
+References: <20150707092434.GE11162@sirena.org.uk>
+	<CACVxJT8Ae3t9x=jF-xy6NunqZCbgOoaNxy9AqOxuDg8Dx=Tk6g@mail.gmail.com>
+	<20150707131411.GI2887@sirena.org.uk>
+	<20150707144725.6a19727f@gandalf.local.home>
+	<559E4BF7.8050607@hitachi.com>
+	<CACVxJT9ogSSPKjKRcaPR_NngrOX=mofxSOAfmo2Kp70gA=ZnrQ@mail.gmail.com>
+	<559FD066.2060601@osg.samsung.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Subject: [Ksummit-discuss] [CORE TOPIC] dev/maintainer workflow security
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: Shuah Khan <shuah.kh@samsung.com>, Kevin Hilman <khilman@linaro.org>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Tyler Baker <tyler.baker@linaro.org>, Mark Brown <broonie@sirena.org.uk>,
+	Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Testing
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -26,33 +43,25 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-All,
+On Fri, 10 Jul 2015 08:02:14 -0600
+Shuah Khan <shuahkh@osg.samsung.com> wrote:
 
-This is a topic of interest to me that I think would best benefit from a
-conference room discussion.
+> > 
+> > I think primary use case is this:
+> > * user builds and reboots into kernel with his custom config,
+> > * user runs "make test" from fresh build directory,
+> > * test harness runs everything runnable and maybe reports necessary
+> >   config options to run more
+> > 
+> > /proc/kconfig.gz should be kept strictly for runtime config.
+> > 
+> 
+> We do have ktest for that. Maybe ktest could include kselftest
+> run in its default boot test.
 
-Items to discuss:
+I could have an option to have ktest run the kselftests, but the user
+would still need to be able to update configs to tell ktest where the
+tests are. Ktest doesn't assume to be run from the repo (I never do
+that).
 
- - Survey the room on workflows and security posture for kernel work
- - Discussion of threat models, attack vectors
- - Discuss mitigation methods, tools and techniques
- - Identify missing tools or features of tools
-
-The intent is to discuss end point security with regards to protecting
-the kernel source tree.
-
-This would *not* be about changing anyones workflow or DE or $editor or
-other religious items. ;-)  It would be more about increasing awareness.
-Both of attack vectors and tools to mitigate risk which would fit into
-current workflows.
-
-In order to encourage open and honest discussion ("I can only afford one
-box.  My kid does unrestricted web browsing on it every day when I'm at
-work"-type stuff) we could consider doing Chatham House Rule [0] for
-this discussion.
-
-thx,
-
-Jason.
-
-[0] https://en.wikipedia.org/wiki/Chatham_House_Rule
+-- Steve
