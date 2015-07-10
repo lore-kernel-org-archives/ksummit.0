@@ -1,27 +1,28 @@
 Return-Path: <dvhart@infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BA3E4AF3
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A67D8BA2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 02:00:09 +0000 (UTC)
+	Fri, 10 Jul 2015 02:07:15 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 77032173
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 56E78157
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 02:00:09 +0000 (UTC)
-Date: Thu, 9 Jul 2015 19:00:03 -0700
+	Fri, 10 Jul 2015 02:07:15 +0000 (UTC)
+Date: Thu, 9 Jul 2015 19:07:06 -0700
 From: Darren Hart <dvhart@infradead.org>
-To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-Message-ID: <20150710020003.GG111846@vmdeb7>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <20150710020706.GH111846@vmdeb7>
 References: <201507080121.41463.PeterHuewe@gmx.de>
+	<559C73DF.2030008@roeck-us.net> <20150708114011.3a1f1861@noble>
+	<2879113.fraeuJIr2M@avalon> <20150709193718.GD9169@vmdeb7>
 	<1436481109.3324.219.camel@infradead.org>
-	<20150709233854.GE111846@vmdeb7>
-	<2859525.zQ8ln2Qgy6@vostro.rjw.lan>
+	<20150710003559.GT11162@sirena.org.uk>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <2859525.zQ8ln2Qgy6@vostro.rjw.lan>
-Cc: Jason Cooper <jason@lakedaemon.net>,
-	ksummit-discuss@lists.linuxfoundation.org
+In-Reply-To: <20150710003559.GT11162@sirena.org.uk>
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	Jason Cooper <jason@lakedaemon.net>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -33,23 +34,51 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 10, 2015 at 02:55:32AM +0200, Rafael Wysocki wrote:
-> On Thursday, July 09, 2015 04:38:54 PM Darren Hart wrote:
+On Fri, Jul 10, 2015 at 01:35:59AM +0100, Mark Brown wrote:
+> On Thu, Jul 09, 2015 at 11:31:49PM +0100, David Woodhouse wrote:
+> > On Thu, 2015-07-09 at 12:37 -0700, Darren Hart wrote:
+> 
+> > > I spend a highly disproportionate amount of my time, relative to measurable
+> > > quality impact to the kernel, going over the nuances of submitting patches.
+> 
+> > > 1) Must have a complete commit message
+> > > 2) DCO goes above the ---
+> > > 3) Include a patch changelog, do so below ---
+> > > 4) Cc maintainers :-)
+> > > 5) Checkpatch... checkpatch... checkpatch...
+> > > 6) Compiler warnings
+> > > 7) CodingStyle :-)
+> > > 8) Use ascii or utf8 character encodings
+> 
+> As far as I can tell for most of the bits of this that are tooling and
+> create practical problems git send-email will avoid most of the issue
+> and people do seem to have mostly adopted that, but perhaps that's a
+> result of me seeing a different submitter base to you.  I very rarely
 
-> So the automation is only useful here as long as it helps patch submitters to
-> get their work to the point at which it can be understood by a reviewer in
-> a relatively short time.  Otherwise, it is just not helpful in that respect.
+I was going to make the same comment - we all deal with a different group. I
+admittedly see a number of first time contributors looking to improve their
+particular laptop, rather than veteran sub-system developers (I also get people
+picking up major platform drivers and doing a great job).
 
-And that's the gist of what I'm getting at. Automation could help get things to
-a reviewable state so maintainers/reviewers spend less time on what Josh called
-"mechanical" errors, on things the submitter should have caught themselves, etc.
+> see anything that's serious enough to cause a practical problem except
+> for CC issues that doesn't also come along with other substantial code
+> quality problems.
+> 
+> Patch changelogs are the biggest thing I can see there that feels like a
+> tooling problem to me since git send-email doesn't do anything at all,
+> though it's not an issue I'm personally that concerned about (I do
+> appreciate having them but I can often barely remember what issues I
+> raised in the first place).
 
-> For example, if someone sends me a patch that doesn't apply, but that I can
-> easily understand and I think "Yeah, that's a good idea!", I may fix it up
-> and make it build and so on just fine.  But without understanding, I pretty
-> much can't do anything with it even if it got all of the details perfect.
+As far as recruitment goes, I think we're talking about barriers to first-timers
+and such - and git-send-email is one of those things. Eventually, a developer
+spends enough time to make setting that all up worthwhile, but honestly, there
+are A LOT of ways to embarass yourself with git-send-email. So much so that I've
+written wrappers to it to protect people from it for the yocto project - and
+even myself for my kernel work.
 
-Yes, of course.
+Is that a good assumption? Are we talking about first-timers - or are we talking
+about getting current participants to do more review?
 
 -- 
 Darren Hart
