@@ -1,31 +1,34 @@
 Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 62A79BC8
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 29E4BA04
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 18:24:45 +0000 (UTC)
+	Fri, 10 Jul 2015 18:33:02 +0000 (UTC)
 Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
 	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 05E8111A
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BBB2F15B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 18:24:44 +0000 (UTC)
-Date: Fri, 10 Jul 2015 19:24:29 +0100
+	Fri, 10 Jul 2015 18:33:01 +0000 (UTC)
+Date: Fri, 10 Jul 2015 19:32:50 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Jason Cooper <jason@lakedaemon.net>
-Message-ID: <20150710182429.GX11162@sirena.org.uk>
-References: <201507080121.41463.PeterHuewe@gmx.de>
-	<559C73DF.2030008@roeck-us.net> <20150708114011.3a1f1861@noble>
-	<2879113.fraeuJIr2M@avalon> <20150709193718.GD9169@vmdeb7>
-	<1436481109.3324.219.camel@infradead.org>
-	<20150710003559.GT11162@sirena.org.uk>
-	<20150710020706.GH111846@vmdeb7>
-	<20150710124416.GR23515@io.lakedaemon.net>
+To: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <20150710183250.GY11162@sirena.org.uk>
+References: <20150708145315.29030a75@gandalf.local.home>
+	<559D8336.3040802@roeck-us.net>
+	<1436414798.23558.3.camel@ellerman.id.au>
+	<559EBD4C.6030502@gmail.com> <20150709190640.GC788@roeck-us.net>
+	<20150709194734.GG9169@vmdeb7> <20150709201315.GF9417@thunk.org>
+	<20150709205049.GB5154@roeck-us.net>
+	<20150709214718.GG9417@thunk.org>
+	<20150710182045.GA19854@roeck-us.net>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="1wckj8K+SD/hhJpt"
+	protocol="application/pgp-signature"; boundary="ji4Rnx8WjMcV97wJ"
 Content-Disposition: inline
-In-Reply-To: <20150710124416.GR23515@io.lakedaemon.net>
-Cc: ksummit-discuss@lists.linuxfoundation.org
+In-Reply-To: <20150710182045.GA19854@roeck-us.net>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	jic23@jic23.retrosnub.co.uk, Jason Cooper <jason@lakedaemon.net>,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -38,40 +41,40 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---1wckj8K+SD/hhJpt
+--ji4Rnx8WjMcV97wJ
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Fri, Jul 10, 2015 at 12:44:16PM +0000, Jason Cooper wrote:
+On Fri, Jul 10, 2015 at 11:20:45AM -0700, Guenter Roeck wrote:
 
-> --kernel would go through each patch and auto-fills Cc based on MAINTAINERS.
-> Amongst a few other things.  Shallow threading, check/edit cover letter
-> and so forth.
+> Agreed. On the other side, is gaming really a problem with kernel code
+> reviews ? Sure, a search engine provider will have to look out for
+> abuse patterns, but for code reviews I am not sure if it is worth the
+> effort. I would suspect that it is much more likely that the simple
+> "wc -w" approach should provide you with worthy candidates for the KS.
+> Since you are not dealing with hundreds or thousands of candidates,
+> I'd assume you'll do a hand screening anyway, and quickly identify any
+> gamers. I'd be quite surprised if there are any, though.
 
-People blindly CCing everyone get_maintainers finds can be a bit of a
-problem, either they use --git and the false positive rate is quite high
-or they don't and they miss out relevant people because MAINTAINERS
-isn't 100% filled in or the reasons for CCing aren't entirely file
-based.
+I think the concern is more long term - if we're trying to reward
+reviewers in order to encourage review then probably now we're fine but
+if we do it in a way that's gameable will that end up having the effect
+that we want?
 
-The false positives are a bit of an issue since it discourages people
-doing smaller cleanups over wide areas, you can end up getting CCed on
-lots of things you touched which can be a bit offputting.
-
---1wckj8K+SD/hhJpt
+--ji4Rnx8WjMcV97wJ
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQEcBAEBCAAGBQJVoA3cAAoJECTWi3JdVIfQPY8H/1Rkp9xE/WdLhcGGioReEka1
-cqFRQ/Z/a9W2TMy12TvoV7G8W/8UM8AkAJ74bHC/hz0FaR6Pfx2rls3Atun+4EGg
-cCtsZpePCP+iRhJDga6eaSTCkMW1PlvHV+rrGzURb1GNeeoYWtTV4gOVVtU3Fn6C
-hszsq3tiU8riZdiAHx7MtLPUP3EyYam5+FUNfvMw7pdYzeKP1ppc5L3avs81vLXM
-rnvVT/X5O1tMSCnRQViahxLFR6MPEdD7S7ccVgO9eKfSz7YKrFXUon05YRB6OzCw
-m0xnpQ4h7h7aRgXa0NVHtoAnkebmRhkDp4VfxiStkx3ZahmPXp8sGrpuwPeeH7E=
-=VuUl
+iQEcBAEBCAAGBQJVoA/RAAoJECTWi3JdVIfQFwUH/0YC1d0KQLSL1Yanf1+Sc2v9
+BepyEqvbbBE6SYGohqPr1SR8mFTxzjEspTg3qa4fFPyF/9C1m3dtkI6i8TOe0P4A
+F4YBaEdcNtM4GmYcP+vumD/YKWyyTj+rQ9qk9fqIXr/x0Ct5RbGB1vzTaKR9EI8k
+ki3bjnlEOVyI/PCyGR8Ql+pKFYIpZzZYQxtvuhWeFmVXrJZYDrZpBRAB9r0TSKI0
+m2ht7BRbMbCLgjIw8WA136I5EyExdFrMUHXddI4nLgbo/MWxGIhnx1d9pr3FDIY8
+rRqvzPRKGR3eudEp5CiPOxkjMgQ34/ovV1MOMKotEedU+twlL5s27qckJdkNmT4=
+=6iPA
 -----END PGP SIGNATURE-----
 
---1wckj8K+SD/hhJpt--
+--ji4Rnx8WjMcV97wJ--
