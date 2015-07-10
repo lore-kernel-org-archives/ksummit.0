@@ -1,30 +1,30 @@
 Return-Path: <dvhart@infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 36663AB2
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5C229AE7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 23:09:27 +0000 (UTC)
+	Fri, 10 Jul 2015 23:11:50 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BECA0AA
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id EB856112
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 23:09:26 +0000 (UTC)
-Date: Fri, 10 Jul 2015 16:09:21 -0700
+	Fri, 10 Jul 2015 23:11:49 +0000 (UTC)
+Date: Fri, 10 Jul 2015 16:11:45 -0700
 From: Darren Hart <dvhart@infradead.org>
-To: David Woodhouse <dwmw2@infradead.org>
-Message-ID: <20150710230921.GR111846@vmdeb7>
-References: <20150708114011.3a1f1861@noble> <2879113.fraeuJIr2M@avalon>
-	<20150709193718.GD9169@vmdeb7>
+To: josh@joshtriplett.org
+Message-ID: <20150710231145.GS111846@vmdeb7>
+References: <2879113.fraeuJIr2M@avalon> <20150709193718.GD9169@vmdeb7>
 	<1436481109.3324.219.camel@infradead.org>
 	<20150710003559.GT11162@sirena.org.uk>
 	<20150710020706.GH111846@vmdeb7>
 	<20150710155144.34dde697@gandalf.local.home>
 	<1436558412.24408.35.camel@infradead.org>
-	<20150710163141.490def2a@gandalf.local.home>
-	<1436560838.24408.52.camel@infradead.org>
+	<20150710205606.GC10533@cloud>
+	<1436562223.24408.55.camel@infradead.org>
+	<20150710210750.GF10533@cloud>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1436560838.24408.52.camel@infradead.org>
+In-Reply-To: <20150710210750.GF10533@cloud>
 Cc: ksummit-discuss@lists.linuxfoundation.org,
 	Jason Cooper <jason@lakedaemon.net>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
@@ -38,48 +38,35 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 10, 2015 at 09:40:38PM +0100, David Woodhouse wrote:
-> On Fri, 2015-07-10 at 16:31 -0400, Steven Rostedt wrote:
+On Fri, Jul 10, 2015 at 02:07:50PM -0700, Josh Triplett wrote:
+> On Fri, Jul 10, 2015 at 10:03:43PM +0100, David Woodhouse wrote:
+> > On Fri, 2015-07-10 at 13:56 -0700, josh@joshtriplett.org wrote:
+> > > On Fri, Jul 10, 2015 at 09:00:12PM +0100, David Woodhouse wrote:
+> > > > And then I can *read* them before sending them, which is good practice
+> > > > anyway. Am I the only person who often finds a final minor nit with
+> > > > their own patch, in that final read-through just before hitting 'send'
+> > > > on an email?
+> > > 
+> > > Nope, I do that too.  (Though then I have to resist the temptation to
+> > > just fix it in the mailer rather than fixing the original and
+> > > regenerating.)
 > > 
-> > > And then I can *read* them before sending them, which is good practice
-> > > anyway. Am I the only person who often finds a final minor nit with
-> > > their own patch, in that final read-through just before hitting 'send'
-> > > on an email?
-> > 
-> > This is exactly what I do before sending. But I just do:
-> > 
-> >  vim patches/*.patch
+> > Oh, I *always* just fix it in the mailer, even when the numbers in the
+> > hunk headers need to be fixed up :)
 > 
-> That works too. Perhaps that would be the easier option for people who
-> aren't sure of their normal mailer.
+> I've occasionally fixed up actual typos in the patch content, though
+> never changing the number of lines.  The danger there is what happens
+> when you need to prepare v(N+1).  If you're going to need to change it
+> in git anyway, you might as well go ahead and do so and regenerate the
+> series.
 > 
-> It's mostly the *client* that screws formatting up, rather than the
-> transport. So maybe the best thing to advise new people to do is put
-> the messages into files, vet them as you describe above (except using
-> emacs instead of vim, of course), and then provide a simple tool which
-> will *send* the messages from those files, via whatever transport the
-> user needs.
-> 
-> I think we can cope with the SMTP case already but I'm not sure if we
-> can do it from pre-vetted files, or only directly from git-send-email?
-> It's not hard to add support for also sending via ActiveSync and EWS,
-> for the Exchange-afflicted.
-> 
-> Can one still send "from" GMail via SMTP these days? How does the 2
-> -factor authentication work? Do we cope with that?
+> I just wish I had a more satisfactory method of associating a cover
+> letter with a series *in git*, such that format-patch could emit a
+> non-placeholder cover letter.
 
-This simple tool should not run on the client IMO. Or should be *required* to
-run on the client. The kernel.org patch submission web form would be usable by
-anyone with a browser ... OK, go ahead... "anyone with a browser" is too low a
-bar for a kernel developer.... :-)
-
-But seriously, we're talking about recruitment, and this is the kind of tooling
-I routinely here non-Linux developers shake their heads at when considering our
-development process. So while you and I are fine using vi (*jab*) and mutt
-(*evolution) and arcane bash (*posix shell*) scripts and local MTAs... others
-would very much like to focus on the code they are changing, and let the
-computers handle schlepping the changesets around. Especially when they only
-have a couple of patches to send, the setup is significant barrier.
+I use my tags for a similar purpose, combined with a git-pdx-pull-request.sh
+script which generates the cover letter. And now that I bisected the missing
+header, vger will actually deliver it to the list! \o/
 
 -- 
 Darren Hart
