@@ -1,34 +1,29 @@
-Return-Path: <shuahkh@osg.samsung.com>
+Return-Path: <dvhart@infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 961D5B1D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 018488B4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 15:54:19 +0000 (UTC)
-Received: from lists.s-osg.org (lists.s-osg.org [54.187.51.154])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 476B5EE
+	Fri, 10 Jul 2015 16:00:21 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 71C33AA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 15:54:19 +0000 (UTC)
-Message-ID: <559FEAA9.4050008@osg.samsung.com>
-Date: Fri, 10 Jul 2015 09:54:17 -0600
-From: Shuah Khan <shuahkh@osg.samsung.com>
-MIME-Version: 1.0
+	Fri, 10 Jul 2015 16:00:20 +0000 (UTC)
+Date: Fri, 10 Jul 2015 09:00:16 -0700
+From: Darren Hart <dvhart@infradead.org>
 To: Steven Rostedt <rostedt@goodmis.org>
-References: <20150707092434.GE11162@sirena.org.uk>
-	<CACVxJT8Ae3t9x=jF-xy6NunqZCbgOoaNxy9AqOxuDg8Dx=Tk6g@mail.gmail.com>
-	<20150707131411.GI2887@sirena.org.uk>
-	<20150707144725.6a19727f@gandalf.local.home>
-	<559E4BF7.8050607@hitachi.com>
-	<CACVxJT9ogSSPKjKRcaPR_NngrOX=mofxSOAfmo2Kp70gA=ZnrQ@mail.gmail.com>
-	<559FD066.2060601@osg.samsung.com>
-	<20150710110522.4b0878cf@gandalf.local.home>
-In-Reply-To: <20150710110522.4b0878cf@gandalf.local.home>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 8bit
-Cc: Shuah Khan <shuah.kh@samsung.com>, Kevin Hilman <khilman@linaro.org>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	Tyler Baker <tyler.baker@linaro.org>, Mark Brown <broonie@sirena.org.uk>,
-	Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Testing
+Message-ID: <20150710160016.GK111846@vmdeb7>
+References: <201507080121.41463.PeterHuewe@gmx.de>
+	<559C73DF.2030008@roeck-us.net> <20150708114011.3a1f1861@noble>
+	<2879113.fraeuJIr2M@avalon> <20150709193718.GD9169@vmdeb7>
+	<20150710114409.638582c0@gandalf.local.home>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20150710114409.638582c0@gandalf.local.home>
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	Jason Cooper <jason@lakedaemon.net>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
+ Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,45 +33,80 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 07/10/2015 09:05 AM, Steven Rostedt wrote:
-> On Fri, 10 Jul 2015 08:02:14 -0600
-> Shuah Khan <shuahkh@osg.samsung.com> wrote:
+On Fri, Jul 10, 2015 at 11:44:09AM -0400, Steven Rostedt wrote:
+> On Thu, 9 Jul 2015 12:37:18 -0700
+> Darren Hart <dvhart@infradead.org> wrote:
 > 
->>>
->>> I think primary use case is this:
->>> * user builds and reboots into kernel with his custom config,
->>> * user runs "make test" from fresh build directory,
->>> * test harness runs everything runnable and maybe reports necessary
->>>   config options to run more
->>>
->>> /proc/kconfig.gz should be kept strictly for runtime config.
->>>
->>
->> We do have ktest for that. Maybe ktest could include kselftest
->> run in its default boot test.
+> > I've come to believe that this is one of many side effects of our dependency on
+> > a completely free form mechanism for the management of our patches, a mechanism
+> > which is becoming harder and harder to setup "correctly" with modern tooling
+> > (since the industry is killing "real email").
+> > 
+> > I spend a highly disproportionate amount of my time, relative to measurable
+> > quality impact to the kernel, going over the nuances of submitting patches.
+> > 
+> > 1) Must have a complete commit message
+> > 2) DCO goes above the ---
+> > 3) Include a patch changelog, do so below ---
+> > 4) Cc maintainers :-)
+> > 5) Checkpatch... checkpatch... checkpatch...
 > 
-> I could have an option to have ktest run the kselftests, but the user
-> would still need to be able to update configs to tell ktest where the
-> tests are. Ktest doesn't assume to be run from the repo (I never do
-> that).
+> Ug, don't emphasize checkpatch. I see people making patches uglier due
+> to it. I have an old version of checkpatch that I sometimes run, but
+> the new version, IMHO, has more noise than signal.
 > 
+> > 6) Compiler warnings
+> > 7) CodingStyle :-)
+> > 8) Use ascii or utf8 character encodings
+> > 
+> 
+> 
+> > Looking forward a bit, I would love to see some tooling in place for people to
+> > submit patches either via a web form (which eliminates all the email tooling for
+> > submitting patches - which is where the formatting is especially critical) or
+> > through one of the more managed git systems, like gerrit, etc.
+> 
+> You mean like a web page that has a bunch of entries (like submitting a
+> paper to a LF conference), and you need to fill out.
+> 
+> Subject:  
+> 
+>  Fill out a one line top of this patch
+> 
+> Problem or enhancement :
+> 
+>  Why did you write this patch? Was there a problem you discovered, or
+>  is this a new feature you want to add.
+> 
+> Why this patch is needed:
+> 
+>  Why is this patch needed. If you fixed the problem, describe what you
+>  did and why you did it this way. If it is a feature, explain why this
+>  feature is needed, use cases for this feature, and how to use this new
+>  feature. If this adds a new user space interface, make sure you
+>  provide a man page (separate)
+> 
+> Patch file to upload:
+> 
+> 
+> Captcha:  We don't want bots doing this
+> 
+> 
+> Then this web server could run get_maintainers.pl and email the
+> appropriate people with a generated formatted patch. It could also
+> allow versioning. Today, people seem to be use to filling out web
+> forms. Obviously, this isn't a requirement to use, but could be used by
+> people that don't already know the Linux process.
+> 
+> It could be a bit smarter than get maintainers, as it could possibly
+> detect typo and whitespace patches and then send it off to the trivial
+> maintainer only.
 
-Right. Thanks for clarifying it. We have a small number of tests that
-depend on a specific kernel config option. Those tests are supposed to
-exit gracefully and let the rest of the tests run when the config option
-they depend on, isn't enabled. User needs to make a conscious choice on
-which tests they want to run. In other words, it is users responsibility
-to ensure that the kernel is built correctly to run a desired test. Just
-like ktest, the responsibility to pick the right config falls outside
-the kselftest framework. Kselftest run will test the parts of the kernel
-it can test based on the current configuration.
-
-thanks,
--- Shuah
+That's the general idea, yes. For people that need to fix a single thing, or are
+just getting started, this could be a good sanity checker. It can then use
+the standard form entry validation processes and return with a bunch of red text
+indicating errors without even sending the patch to the list.
 
 -- 
-Shuah Khan
-Sr. Linux Kernel Developer
-Open Source Innovation Group
-Samsung Research America (Silicon Valley)
-shuahkh@osg.samsung.com | (970) 217-8978
+Darren Hart
+Intel Open Source Technology Center
