@@ -1,17 +1,17 @@
 Return-Path: <dvhart@infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id DDEADAB2
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2E154AE7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 22:57:46 +0000 (UTC)
+	Fri, 10 Jul 2015 23:01:26 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 64195112
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A7EF1112
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 22:57:46 +0000 (UTC)
-Date: Fri, 10 Jul 2015 15:57:42 -0700
+	Fri, 10 Jul 2015 23:01:24 +0000 (UTC)
+Date: Fri, 10 Jul 2015 16:01:19 -0700
 From: Darren Hart <dvhart@infradead.org>
-To: josh@joshtriplett.org
-Message-ID: <20150710225742.GP111846@vmdeb7>
+To: David Woodhouse <dwmw2@infradead.org>
+Message-ID: <20150710230119.GQ111846@vmdeb7>
 References: <201507080121.41463.PeterHuewe@gmx.de>
 	<559C73DF.2030008@roeck-us.net> <20150708114011.3a1f1861@noble>
 	<2879113.fraeuJIr2M@avalon> <20150709193718.GD9169@vmdeb7>
@@ -19,11 +19,12 @@ References: <201507080121.41463.PeterHuewe@gmx.de>
 	<20150710003559.GT11162@sirena.org.uk>
 	<20150710020706.GH111846@vmdeb7>
 	<20150710155144.34dde697@gandalf.local.home>
-	<20150710205418.GB10533@cloud>
+	<1436558412.24408.35.camel@infradead.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20150710205418.GB10533@cloud>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <1436558412.24408.35.camel@infradead.org>
 Cc: ksummit-discuss@lists.linuxfoundation.org,
 	Jason Cooper <jason@lakedaemon.net>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
@@ -37,10 +38,12 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 10, 2015 at 01:54:18PM -0700, Josh Triplett wrote:
-> On Fri, Jul 10, 2015 at 03:51:44PM -0400, Steven Rostedt wrote:
+On Fri, Jul 10, 2015 at 09:00:12PM +0100, David Woodhouse wrote:
+> On Fri, 2015-07-10 at 15:51 -0400, Steven Rostedt wrote:
 > > On Thu, 9 Jul 2015 19:07:06 -0700
 > > Darren Hart <dvhart@infradead.org> wrote:
+> > 
+> >  
 > > > As far as recruitment goes, I think we're talking about barriers to first-timers
 > > > and such - and git-send-email is one of those things. Eventually, a developer
 > > 
@@ -50,38 +53,32 @@ On Fri, Jul 10, 2015 at 01:54:18PM -0700, Josh Triplett wrote:
 > > up sending a thousand patches to every developer that ever touched the
 > > kernel ;-)
 > 
-> I don't use git-send-email either.  I use git-format-patch
-> --cover-letter --thread, and then mutt -H to individually send each
-> mail.  (I originally added the --thread and --in-reply-to options to
-> git-format-patch, so that you don't need to use git-send-email for
-> that.)
+> Rather than sending messages, it's actually better to put them as
+> *drafts*, ready to be sent by the user's normal mailer. It's not hard
+> to do this — I usually dump the mails into
+> ~/.local/share/evolution/mail/local/.Drafts/new/ for example.
 > 
-> The one thing I *do* find annoying is that the combination of
-> format-patch and get_maintainers.pl can't easily say "I want to send all
-> the patches and the cover letter to the same set of people, based on
-> every patch".  (Or, at the very least, the cover letter to everyone.)
+> And then I can *read* them before sending them, which is good practice
+> anyway. Am I the only person who often finds a final minor nit with
+> their own patch, in that final read-through just before hitting 'send'
+> on an email?
 
-A bit off topic, but:
+I thought it was just me :)
 
-+1000 (thanks for that Steven)
+I use git format-patch for this same purpose.
 
-This is partly why I wrote create-pull-request and submit-pull-request for the
-Yocto Project.
-
-http://git.yoctoproject.org/cgit/cgit.cgi/poky/tree/scripts/create-pull-request
-http://git.yoctoproject.org/cgit/cgit.cgi/poky/tree/scripts/send-pull-request
-
-They build the recipient list for each patch and the aggregate for the cover
-letter, set confirm always, and disable git-send-email CC policy to avoid
-spamming the planet.
-
-> Otherwise, maintainers get one patch out of the series, which may be
-> confusing without context, and the cover letter doesn't go to anyone.
-> Unfortunately, fixing that then tends to hit LKML's limit on number of
-> recipients.
 > 
-> - Josh Triplett
+> Perhaps we should provide tools which make it trivial to do the same
+> for various different mail clients, without users having to know where,
+> and in what form, their drafts folders are?
 > 
+
+An update to the documentation on mail clients would be welcome - although it's
+looking pretty bleak out there for usable mail clients these days.
+
+The fact that we're having this discussion among the folks that ostensibly know
+what we're doing is very telling, in my opinion, of just how daunting a task
+this can be for a new-comer.
 
 -- 
 Darren Hart
