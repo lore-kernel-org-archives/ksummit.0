@@ -1,32 +1,35 @@
-Return-Path: <jason@lakedaemon.net>
+Return-Path: <shuahkh@osg.samsung.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BB5B7B13
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 088D2ACC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 13:07:42 +0000 (UTC)
-Received: from outbound3.ore.mailhop.org (erouter8.ore.mailhop.org
-	[54.187.218.212])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id BE0BD195
+	Fri, 10 Jul 2015 14:02:25 +0000 (UTC)
+Received: from lists.s-osg.org (lists.s-osg.org [54.187.51.154])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 70DB0A8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 13:07:41 +0000 (UTC)
-Date: Fri, 10 Jul 2015 13:07:39 +0000
-From: Jason Cooper <jason@lakedaemon.net>
-To: "John W. Linville" <linville@tuxdriver.com>
-Message-ID: <20150710130739.GT23515@io.lakedaemon.net>
-References: <201507080121.41463.PeterHuewe@gmx.de>
-	<20150708140727.GH23515@io.lakedaemon.net>
-	<trinity-9a36fcd4-7739-40a7-b5f9-0ecf88d0a331-1436383797204@3capp-gmx-bs35>
-	<20150708221836.GN23515@io.lakedaemon.net>
-	<20150709150938.GF4265@tuxdriver.com>
-	<20150709174535.GB32448@roeck-us.net>
-	<20150709180845.GG4265@tuxdriver.com>
+	Fri, 10 Jul 2015 14:02:23 +0000 (UTC)
+Message-ID: <559FD066.2060601@osg.samsung.com>
+Date: Fri, 10 Jul 2015 08:02:14 -0600
+From: Shuah Khan <shuahkh@osg.samsung.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20150709180845.GG4265@tuxdriver.com>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
- Maintainers, Hobbyists)
+To: Alexey Dobriyan <adobriyan@gmail.com>,
+	Masami Hiramatsu <masami.hiramatsu.pt@hitachi.com>,
+	Steven Rostedt <rostedt@goodmis.org>
+References: <20150707092434.GE11162@sirena.org.uk>
+	<CACVxJT8Ae3t9x=jF-xy6NunqZCbgOoaNxy9AqOxuDg8Dx=Tk6g@mail.gmail.com>
+	<20150707131411.GI2887@sirena.org.uk>
+	<20150707144725.6a19727f@gandalf.local.home>
+	<559E4BF7.8050607@hitachi.com>
+	<CACVxJT9ogSSPKjKRcaPR_NngrOX=mofxSOAfmo2Kp70gA=ZnrQ@mail.gmail.com>
+In-Reply-To: <CACVxJT9ogSSPKjKRcaPR_NngrOX=mofxSOAfmo2Kp70gA=ZnrQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Cc: Shuah Khan <shuah.kh@samsung.com>, Kevin Hilman <khilman@linaro.org>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Tyler Baker <tyler.baker@linaro.org>, Shuah Khan <shuahkh@osg.samsung.com>,
+	Mark Brown <broonie@sirena.org.uk>,
+	Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Testing
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,22 +39,70 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Jul 09, 2015 at 02:08:46PM -0400, John W. Linville wrote:
-> I guess the suggestion becomes a deeper maintainer hierarchy where
-> maintainers only pull from sub-maintainers, and sub-maintainers handle
-> individual patches and smaller pull requests from contributors.
-> This is essentially the model used for wireless.  That introduces
-> the problem of increased patch merge latency, for which I have no
-> good suggestions...
+On 07/10/2015 04:39 AM, Alexey Dobriyan wrote:
+> On Thu, Jul 9, 2015 at 1:24 PM, Masami Hiramatsu
+> <masami.hiramatsu.pt@hitachi.com> wrote:
+> 
+>> This may be an off-topic, but I'd like to ask the selftest for tools.
+>> Currently tools/testing/selftests tests the kernel itself, but
+>> there are many tools under tools/, like perf too.
+>>
+>> Those are not configured by the kconfig, but selftests are also needed
+>> for tools. I have a runtests script which is just a bit modified
+>> ftracetest for perf-probe. I'd like to integrate it to selftests
+>> but I'm not sure that is a scope of kselftests.
+> 
+> This confusion is partially created by peculiar place where people
+> who wrote testsuite put it.
+> 
+> Gentlemen,
+> testsuite should be first class citizen in toplevel test/ directory,
+> command to run it should be "make test" not "make kselftest".
+> Only placing it in very visible place and using names which are intuitive
+> and familiar from userspace (git's t/ directory, glibc "make test") will give
+> hope that other developers will notice it and start using and improving it.
+> Excuse me, but tools/testing/selftests is hopeless.
 
-We haven't found that to be a problem in mvebu/arm-soc.  It does
-increase the lead time a bit.  We stop accepting patches for the coming
-merge window around -rc5/6 or so.  Judicious use of linux-next gives
-sub-trees good coverage before landing in arm-soc.
+selftests are intended for kernel developers primarily. If developers
+and users don't want to figure out what are the ways to test, then it
+doesn't matter what the option is named. I would like to hear some
+concrete data on why naming test would make it lot more usable.
 
-I wouldn't advise adding another layer to that tree though.  Rather, as
-I said in my other email, co-maintaining with lead rotation works well.
+> 
+>>> Perhaps we should have a central location that each test needs to add
+>>> the required configuration for it to be properly tested. Then if users
+>>> want to test various subsystems, they would look in this location for
+>>> the proper configs (be it a directory that has files of the tests they
+>>> represent, and contain the configs needed). Then there should be no
+>>> real barrier for people to run these tests.
+>>
+>> /proc/kconfig[.gz]? I think we can add a list of required kconfigs
+>> for each testcase and indicate it. Moreover, we can include it as
+>> a part of kconfig and introduce CONFIG_KSELFTEST to enable those
+>> configs :)
 
-thx,
+I don't believe adding yet another kernel config option especially
+for KSELFTEST is a good idea.
 
-Jason.
+> 
+> I think primary use case is this:
+> * user builds and reboots into kernel with his custom config,
+> * user runs "make test" from fresh build directory,
+> * test harness runs everything runnable and maybe reports necessary
+>   config options to run more
+> 
+> /proc/kconfig.gz should be kept strictly for runtime config.
+> 
+
+We do have ktest for that. Maybe ktest could include kselftest
+run in its default boot test.
+
+thanks,
+-- Shuah
+
+-- 
+Shuah Khan
+Sr. Linux Kernel Developer
+Open Source Innovation Group
+Samsung Research America (Silicon Valley)
+shuahkh@osg.samsung.com | (970) 217-8978
