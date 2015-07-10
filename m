@@ -1,37 +1,31 @@
-Return-Path: <khilman@deeprootsystems.com>
+Return-Path: <cl@linux.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 18526B13
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E566DB13
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 17:25:22 +0000 (UTC)
-Received: from mail-pa0-f42.google.com (mail-pa0-f42.google.com
-	[209.85.220.42])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 189AC10D
+	Fri, 10 Jul 2015 17:34:32 +0000 (UTC)
+Received: from resqmta-ch2-06v.sys.comcast.net
+	(resqmta-ch2-06v.sys.comcast.net [69.252.207.38])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8472E151
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 17:25:21 +0000 (UTC)
-Received: by padck2 with SMTP id ck2so6940365pad.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 10:25:20 -0700 (PDT)
-From: Kevin Hilman <khilman@kernel.org>
-To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-References: <1489458.8WDRattPkl@vostro.rjw.lan>
-	<53223375.qzkvIEse3r@vostro.rjw.lan>
-	<2FABAEF0D3DCAF4F9C9628D6E2F968454F18BA5A@BGSMSX102.gar.corp.intel.com>
-	<6142539.s1gh8ubrRK@vostro.rjw.lan>
-Date: Fri, 10 Jul 2015 10:25:17 -0700
-In-Reply-To: <6142539.s1gh8ubrRK@vostro.rjw.lan> (Rafael J. Wysocki's message
-	of "Mon, 06 Jul 2015 16:21:23 +0200")
-Message-ID: <7hlheo9b7m.fsf@deeprootsystems.com>
-MIME-Version: 1.0
-Content-Type: text/plain
-Cc: "Brown, Len" <len.brown@intel.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
+	Fri, 10 Jul 2015 17:34:32 +0000 (UTC)
+Date: Fri, 10 Jul 2015 12:26:21 -0500 (CDT)
+From: Christoph Lameter <cl@linux.com>
+To: Chris Mason <clm@fb.com>
+In-Reply-To: <20150709190916.GI1522@ret.masoncoding.com>
+Message-ID: <alpine.DEB.2.11.1507101224440.21165@east.gentwo.org>
+References: <CALCETrVPe7ijOHY5BXLPCG5VBxadeZoUDLOBMX+jEFnJynJ8FA@mail.gmail.com>
+	<20150709190916.GI1522@ret.masoncoding.com>
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	Kristen Carlson Accardi <kristen@linux.intel.com>,
-	Grant Likely <grant.likely@linaro.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] System-wide interface to specify
-	the level of PM tuning
+	Peter Zijlstra <peterz@infradead.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Jens Axboe <axboe@fb.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Shaohua Li <shli@fb.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] lightweight per-cpu locks /
+ restartable sequences
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,29 +35,14 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-"Rafael J. Wysocki" <rjw@rjwysocki.net> writes:
+On Thu, 9 Jul 2015, Chris Mason wrote:
 
-> On Monday, July 06, 2015 01:49:45 PM Iyer, Sundar wrote:
+> I think the topic is really interesting and we'll be able to get numbers
+> from production workloads to help justify and compare different
+> approaches.
 
-[...]
-
->> Is a "single setting somewhere" even appropriate? It is actually the intelligence
->> needed vs executing the actions?
->
-> For one example, the default for most of the device/.../power/control files in
-> sysfs is "on" (meaning no runtime PM) while it might be "auto" (use runtime PM
-> if you can).  Making that change for everybody in one go may lead to various
-> issues (that may be regarded as regressions then), but if we made it configurable,
-> people might choose to make that change for themselves if they wanted to.
-
-I'd be very supportive of some default knob (or cmdline option) to favor
-energy efficiency.  For runtime PM, I suspect the resulting performance
-regressions are mostly (relatively) simple fixes, like enabling
-autosuspend, etc.   
-
-Also, having a system-wide way to enable this mode would also enable us
-to find/report these bugs/regressions in a way that would be easily
-repeatable.  With the current pile of knobs/tunables, it's often very
-hard to reproduce problems others may be seeing.
-
-Kevin
+Ok that would be important. I also think that the approach may be used
+in kernel to reduce the overhead of CONFIG_PREEMPT and also to implement
+fast versions of this_cpu_ops for non x86 architectures and maybe even
+optimize the x86 variants if interrupts also can detect critical sections
+and restart at defined points.
