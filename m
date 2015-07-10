@@ -1,31 +1,36 @@
-Return-Path: <josh@joshtriplett.org>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 61380982
+Return-Path: <rostedt@goodmis.org>
+Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
+	[172.17.192.36])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id EBEDD982
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 21:04:53 +0000 (UTC)
-Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
-	[217.70.183.196])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A7F92184
+	Fri, 10 Jul 2015 21:07:25 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0214.hostedemail.com
+	[216.40.44.214])
+	by smtp2.linuxfoundation.org (Postfix) with ESMTP id 7B28C1DCCF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 21:04:52 +0000 (UTC)
-Date: Fri, 10 Jul 2015 14:04:48 -0700
-From: josh@joshtriplett.org
-To: Steven Rostedt <rostedt@goodmis.org>
-Message-ID: <20150710210448.GE10533@cloud>
-References: <559D8336.3040802@roeck-us.net>
-	<1436414798.23558.3.camel@ellerman.id.au>
-	<559EBD4C.6030502@gmail.com> <20150709190640.GC788@roeck-us.net>
-	<20150709194734.GG9169@vmdeb7> <20150709201315.GF9417@thunk.org>
-	<20150709205049.GB5154@roeck-us.net>
-	<20150709214718.GG9417@thunk.org> <20150709231352.GB4516@cloud>
-	<20150710164938.72da8ef1@gandalf.local.home>
+	Fri, 10 Jul 2015 21:07:25 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
+	[10.5.19.251])
+	by smtpgrave03.hostedemail.com (Postfix) with ESMTP id 66F1F290F96
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 10 Jul 2015 20:31:44 +0000 (UTC)
+Date: Fri, 10 Jul 2015 16:31:41 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: David Woodhouse <dwmw2@infradead.org>
+Message-ID: <20150710163141.490def2a@gandalf.local.home>
+In-Reply-To: <1436558412.24408.35.camel@infradead.org>
+References: <201507080121.41463.PeterHuewe@gmx.de>
+	<559C73DF.2030008@roeck-us.net> <20150708114011.3a1f1861@noble>
+	<2879113.fraeuJIr2M@avalon> <20150709193718.GD9169@vmdeb7>
+	<1436481109.3324.219.camel@infradead.org>
+	<20150710003559.GT11162@sirena.org.uk>
+	<20150710020706.GH111846@vmdeb7>
+	<20150710155144.34dde697@gandalf.local.home>
+	<1436558412.24408.35.camel@infradead.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20150710164938.72da8ef1@gandalf.local.home>
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	jic23@jic23.retrosnub.co.uk, Jason Cooper <jason@lakedaemon.net>,
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Cc: Jason Cooper <jason@lakedaemon.net>,
 	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
@@ -38,33 +43,32 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 10, 2015 at 04:49:38PM -0400, Steven Rostedt wrote:
-> On Thu, 9 Jul 2015 16:13:52 -0700 josh@joshtriplett.org wrote:
-> > That assumes the patch actually has issues.  To use the reviews I do on
-> > RCU patches as an example, in a patch series, I might reply to a few
-> > patches with "here are some issues; with those fixed, Reviewed-by...",
-> > and then reply to the remaining unproblematic patches (individually or
-> > in aggregate) with just the Reviewed-by.
-> 
-> Josh, I read your reviews. Yes, you have a bunch of single "Reviewed-by"
-> tags, but you also have a lot of emails with substantially significant
-> comments. What Ted is saying, is to see how many significant replies one
-> has. In fact, I would say if we were to automate this, each significant
-> reply (one with actual comments), would increase the weight that a
-> single "Reviewed-by" email would carry. That way people like yourself
-> would have more weight attached to emails with single "Reviewed-by"
-> than others that don't have many emails with actual comments attached.
+On Fri, 10 Jul 2015 21:00:12 +0100
+David Woodhouse <dwmw2@infradead.org> wrote:
+=20
+> Rather than sending messages, it's actually better to put them as
+> *drafts*, ready to be sent by the user's normal mailer. It's not hard
+> to do this =E2=80=94 I usually dump the mails into
+> ~/.local/share/evolution/mail/local/.Drafts/new/ for example.
 
-Ah, I see what you're getting at now.  I thought you were trying to
-figure out the value of a "Reviewed-by" on an individual patch.  But
-you're right, a review doesn't carry much weight if your reviews *never*
-find issues; that would imply you're either chery-picking easy patches
-to review or rubber-stamping bad patches.
+That's also a good idea. Although I use claws-mail. But it should work.
 
-(And conversely, a Reviewed-by on a patch that turns out to be wrong
-shouldn't carry any more stigma than submitting such a patch yourself.
-Everybody has submitted a brown-paper-bag at some point; as long as
-there's not a pattern of it, that's not a critical issue with
-reviewing.)
+>=20
+> And then I can *read* them before sending them, which is good practice
+> anyway. Am I the only person who often finds a final minor nit with
+> their own patch, in that final read-through just before hitting 'send'
+> on an email?
 
-- Josh Triplett
+This is exactly what I do before sending. But I just do:
+
+ vim patches/*.patch
+
+>=20
+> Perhaps we should provide tools which make it trivial to do the same
+> for various different mail clients, without users having to know where,
+> and in what form, their drafts folders are?
+>=20
+
+Sounds like a plan ;-)
+
+-- Steve
