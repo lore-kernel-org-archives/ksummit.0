@@ -1,31 +1,30 @@
-Return-Path: <keescook@google.com>
+Return-Path: <dvhart@infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 73FD9B68
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B5B6DA04
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 22:08:58 +0000 (UTC)
-Received: from mail-ie0-f180.google.com (mail-ie0-f180.google.com
-	[209.85.223.180])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CCBA2176
+	Fri, 10 Jul 2015 22:49:38 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 899A6FD
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 22:08:57 +0000 (UTC)
-Received: by iecuq6 with SMTP id uq6so204847696iec.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 15:08:57 -0700 (PDT)
+	Fri, 10 Jul 2015 22:49:37 +0000 (UTC)
+Date: Fri, 10 Jul 2015 15:49:29 -0700
+From: Darren Hart <dvhart@infradead.org>
+To: Roberto Tyley <roberto.tyley@gmail.com>
+Message-ID: <20150710224929.GO111846@vmdeb7>
+References: <2879113.fraeuJIr2M@avalon> <20150709193718.GD9169@vmdeb7>
+	<20150710114409.638582c0@gandalf.local.home>
+	<20150710.193255.181692772319686216.chriscool@tuxfamily.org>
+	<20150710174940.GN111846@vmdeb7>
+	<CAFY1edYpguzHkLuGSAVqUN_UXYvYrve0xB+hfx__P1Xg4PgJYQ@mail.gmail.com>
 MIME-Version: 1.0
-Sender: keescook@google.com
-In-Reply-To: <20150710162328.GB12009@thunk.org>
-References: <20150710143832.GU23515@io.lakedaemon.net>
-	<CA+5PVA5j9973GzdYj-s2WX3J8ycf5hQTBdGq+8j-8RGDX2OaYg@mail.gmail.com>
-	<20150710162328.GB12009@thunk.org>
-Date: Fri, 10 Jul 2015 15:08:57 -0700
-Message-ID: <CAGXu5j+NY8-5WPcP1kLZsKgzmbQ=L0Q18XZ6FYeVTcFGDLrRSw@mail.gmail.com>
-From: Kees Cook <keescook@chromium.org>
-To: "Theodore Ts'o" <tytso@mit.edu>
-Content-Type: text/plain; charset=UTF-8
-Cc: Josh Boyer <jwboyer@fedoraproject.org>, Jason Cooper <jason@lakedaemon.net>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] dev/maintainer workflow security
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAFY1edYpguzHkLuGSAVqUN_UXYvYrve0xB+hfx__P1Xg4PgJYQ@mail.gmail.com>
+Cc: Roberto Tyley <robertotyley@gmail.com>,
+	ksummit-discuss@lists.linuxfoundation.org, jason@lakedaemon.net
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
+ Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,85 +34,117 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 10, 2015 at 9:23 AM, Theodore Ts'o <tytso@mit.edu> wrote:
-> On Fri, Jul 10, 2015 at 11:50:30AM -0400, Josh Boyer wrote:
->> > This is a topic of interest to me that I think would best benefit from a
->> > conference room discussion.
->> >
->> > Items to discuss:
->> >
->> >  - Survey the room on workflows and security posture for kernel work
->> >  - Discussion of threat models, attack vectors
->> >  - Discuss mitigation methods, tools and techniques
->> >  - Identify missing tools or features of tools
->> >
->> > The intent is to discuss end point security with regards to protecting
->> > the kernel source tree.
->>
->> Interesting.  Though I think it needs a broader audience to be honest.
->> It would be far easier to use distros as an attack vector than to try
->> subverting the upstream source code.  This might be a good topic for
->> something like Linux Plumbers.
->
-> I agree that the issue of trusting distros and the possibility of
-> hiding malware in distro software is an important one, and one which
-> is best addressed at something like Plumbers.
->
-> However, there are a number of Kernel-specific security issues which
-> are just as important --- how we maintain our own personal security,
-> and how we make sure a backdoor doesn't get slipped into the kernel
-> source tree.
+On Fri, Jul 10, 2015 at 08:35:59PM +0100, Roberto Tyley wrote:
 
-I'm curious about the larger set of security topics. Jason's topic
-seems to surround "supply chain security", but I think we've got a lot
-of other areas. Is focusing on just that topic the right thing to do?
+Hi Roberto,
 
-- supply chain security: I see two parts:
-  - intentionally malicious commits (as Ted describes below)
-  - personal security (keep commit credentials secure from theft)
-- reactive security: bug fix workflow
-  - getting fixes _to end users_ (not the same as publishing to stable)
-  - documenting impact when known (avoiding intentional obfuscation)
-- proactive security: stop security flaws from happening in the first place
-  - scope analysis (defending both userspace and kernel from attack)
-  - threat analysis (how are attacks being made now and in future?)
-  - exposure analysis (syscall interface, device firmware, etc)
-  - static checkers (find and eliminate bug classes in the code)
-  - run-time mitigation features (endless list: memory protection, CFI,
-    ASLR, anti-bruteforcing, etc)
+Thanks for chiming in.
 
-My question would be: where do we need discussion? "Supply chain
-security" was discussed a fair bit after the kernel.org incident.
-"Reactive security" has seen endless discussion, and there are a
-number of stale-mate topics. "Proactive security" is what I'm most
-interested in, but tends to lack enough engineering resources to
-really make strong headway. There are a number of dedicated folks, but
-we need more people on that topic, not really more discussion.
+> It would be great to turn on submitGit for development of the Linux
+> Kernel. Just to clarify, submitGit is a bridge for sending GitHub pull
+> requests on https://github.com/git/git to git@vger.kernel.org as
+> correctly formatted emails
 
-I'm not saying we shouldn't have a discussion: I'm more curious to
-hear where people think we should focus for a single session's time.
+While there is value there and would help a lot of people, given the popularity
+of git-hub, I think we're looking for something more generic.
 
-> This ends up relating to the code reviewer problem, and I've always
-> been convinced that if I had a a few dozen students to coach in a
-> computer security class, tasked as part of a semester-long class
-> project to attempt to sneak an obfuscated security bug as part of some
-> code cleanup or refactoring patch, at least one of them would end up
-> getting into Linus's tree.  The only reason why I haven't done this is
-> no one would have forgiven me afterwards, and the resulting bad
-> publicity wouldn't be good for Linux.
+I'd prefer a web-form hosted on kernel.org that could accept a raw patch, or a
+git URL and tag or branch from any reposiory (github or otherwise), and submit
+the patch after performing a number of validation checks before ever sending to
+the list.
 
-My paranoid brain thinks this has likely already happened. :)
+I understand this maybe isn't an extension of submitGit, but the concept of
+submitGit is interesting from a precedence perspective.
 
-> I wonder if this might be better done as a panel session during the
-> wider technical session day?
+> I've never submitted a patch to the kernel, but I understand there are
+> many development trees and corresponding maintainers/mailing lists. It
+> would be an interesting task to teach submitGit _where_ a patch should
+> go - and we would need GitHub repos which mirrored the maintainer
+> trees in order for people to open good pull requests against them (I'm
+> assuming it would be wrong for people to just open pull requests
+> against https://github.com/torvalds/linux/).
+> 
+> This script looks interesting:
+> https://github.com/torvalds/linux/blob/master/scripts/get_maintainer.pl
 
-As mentioned in other replies, I think this would be best served as a
-panel session to keep the audience tighter. It's a large field of
-discussion and we might have problems staying on track even in the
-smaller group.
+Yes, this should be used to identify lists and maintainers who should be Cc'd.
 
--Kees
+> I'd be interested to hear if anyone would like to try out submitGit
+> for the kernel, and has any further advice.
+> 
+> Roberto
+> 
+
+Thanks,
+
+Darren
+
+P.S. I don't know if your top posting was intentional (very clever) or
+accidental (case in point), but either way it's dripping with irony. ;-)
+
+
+
+> 
+> 
+> On 10 July 2015 at 18:49, Darren Hart <dvhart@infradead.org> wrote:
+> > On Fri, Jul 10, 2015 at 07:32:55PM +0200, Christian Couder wrote:
+> >> From: Steven Rostedt <rostedt@goodmis.org>
+> >> Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers, Maintainers, Hobbyists)
+> >> Date: Fri, 10 Jul 2015 11:44:09 -0400
+> >>
+> >> > On Thu, 9 Jul 2015 12:37:18 -0700
+> >> > Darren Hart <dvhart@infradead.org> wrote:
+> >> >
+> >> >> I've come to believe that this is one of many side effects of our dependency on
+> >> >> a completely free form mechanism for the management of our patches, a mechanism
+> >> >> which is becoming harder and harder to setup "correctly" with modern tooling
+> >> >> (since the industry is killing "real email").
+> >> >>
+> >> >> I spend a highly disproportionate amount of my time, relative to measurable
+> >> >> quality impact to the kernel, going over the nuances of submitting patches.
+> >> >>
+> >> >> 1) Must have a complete commit message
+> >> >> 2) DCO goes above the ---
+> >> >> 3) Include a patch changelog, do so below ---
+> >> >> 4) Cc maintainers :-)
+> >> >> 5) Checkpatch... checkpatch... checkpatch...
+> >> >
+> >> > Ug, don't emphasize checkpatch. I see people making patches uglier due
+> >> > to it. I have an old version of checkpatch that I sometimes run, but
+> >> > the new version, IMHO, has more noise than signal.
+> >> >
+> >> >> 6) Compiler warnings
+> >> >> 7) CodingStyle :-)
+> >> >> 8) Use ascii or utf8 character encodings
+> >> >>
+> >> >
+> >> >
+> >> >> Looking forward a bit, I would love to see some tooling in place for people to
+> >> >> submit patches either via a web form (which eliminates all the email tooling for
+> >> >> submitting patches - which is where the formatting is especially critical) or
+> >> >> through one of the more managed git systems, like gerrit, etc.
+> >> >
+> >> > You mean like a web page that has a bunch of entries (like submitting a
+> >> > paper to a LF conference), and you need to fill out.
+> >>
+> >> To send patch emails created from git repos on GitHub to the Git
+> >> mailing list, there is now submitGit:
+> >>
+> >> https://submitgit.herokuapp.com/
+> >> https://github.com/rtyley/submitgit
+> >>
+> >> Maybe Roberto, its author (cced), could be convince to do something
+> >> for the kernel?
+> >
+> > Something along those lines would be nice, yes. I think a lot of people would
+> > find something like this which enforces the "mechanical" rules to be very
+> > useful.
+> >
+> > --
+> > Darren Hart
+> > Intel Open Source Technology Center
+> 
 
 -- 
-Kees Cook
-Chrome OS Security
+Darren Hart
+Intel Open Source Technology Center
