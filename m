@@ -1,25 +1,25 @@
 Return-Path: <dvhart@infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 018488B4
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B3A398B4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 16:00:21 +0000 (UTC)
+	Fri, 10 Jul 2015 16:07:22 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 71C33AA
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3592314F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 16:00:20 +0000 (UTC)
-Date: Fri, 10 Jul 2015 09:00:16 -0700
+	Fri, 10 Jul 2015 16:07:22 +0000 (UTC)
+Date: Fri, 10 Jul 2015 09:07:14 -0700
 From: Darren Hart <dvhart@infradead.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Message-ID: <20150710160016.GK111846@vmdeb7>
+To: Dan Carpenter <dan.carpenter@oracle.com>
+Message-ID: <20150710160714.GL111846@vmdeb7>
 References: <201507080121.41463.PeterHuewe@gmx.de>
 	<559C73DF.2030008@roeck-us.net> <20150708114011.3a1f1861@noble>
 	<2879113.fraeuJIr2M@avalon> <20150709193718.GD9169@vmdeb7>
-	<20150710114409.638582c0@gandalf.local.home>
+	<20150710143641.GW4341@mwanda>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20150710114409.638582c0@gandalf.local.home>
+In-Reply-To: <20150710143641.GW4341@mwanda>
 Cc: ksummit-discuss@lists.linuxfoundation.org,
 	Jason Cooper <jason@lakedaemon.net>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
@@ -33,15 +33,8 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 10, 2015 at 11:44:09AM -0400, Steven Rostedt wrote:
-> On Thu, 9 Jul 2015 12:37:18 -0700
-> Darren Hart <dvhart@infradead.org> wrote:
-> 
-> > I've come to believe that this is one of many side effects of our dependency on
-> > a completely free form mechanism for the management of our patches, a mechanism
-> > which is becoming harder and harder to setup "correctly" with modern tooling
-> > (since the industry is killing "real email").
-> > 
+On Fri, Jul 10, 2015 at 05:36:41PM +0300, Dan Carpenter wrote:
+> On Thu, Jul 09, 2015 at 12:37:18PM -0700, Darren Hart wrote:
 > > I spend a highly disproportionate amount of my time, relative to measurable
 > > quality impact to the kernel, going over the nuances of submitting patches.
 > > 
@@ -50,62 +43,41 @@ On Fri, Jul 10, 2015 at 11:44:09AM -0400, Steven Rostedt wrote:
 > > 3) Include a patch changelog, do so below ---
 > > 4) Cc maintainers :-)
 > > 5) Checkpatch... checkpatch... checkpatch...
-> 
-> Ug, don't emphasize checkpatch. I see people making patches uglier due
-> to it. I have an old version of checkpatch that I sometimes run, but
-> the new version, IMHO, has more noise than signal.
-> 
 > > 6) Compiler warnings
 > > 7) CodingStyle :-)
 > > 8) Use ascii or utf8 character encodings
 > > 
 > 
-> 
-> > Looking forward a bit, I would love to see some tooling in place for people to
-> > submit patches either via a web form (which eliminates all the email tooling for
-> > submitting patches - which is where the formatting is especially critical) or
-> > through one of the more managed git systems, like gerrit, etc.
-> 
-> You mean like a web page that has a bunch of entries (like submitting a
-> paper to a LF conference), and you need to fill out.
-> 
-> Subject:  
-> 
->  Fill out a one line top of this patch
-> 
-> Problem or enhancement :
-> 
->  Why did you write this patch? Was there a problem you discovered, or
->  is this a new feature you want to add.
-> 
-> Why this patch is needed:
-> 
->  Why is this patch needed. If you fixed the problem, describe what you
->  did and why you did it this way. If it is a feature, explain why this
->  feature is needed, use cases for this feature, and how to use this new
->  feature. If this adds a new user space interface, make sure you
->  provide a man page (separate)
-> 
-> Patch file to upload:
-> 
-> 
-> Captcha:  We don't want bots doing this
-> 
-> 
-> Then this web server could run get_maintainers.pl and email the
-> appropriate people with a generated formatted patch. It could also
-> allow versioning. Today, people seem to be use to filling out web
-> forms. Obviously, this isn't a requirement to use, but could be used by
-> people that don't already know the Linux process.
-> 
-> It could be a bit smarter than get maintainers, as it could possibly
-> detect typo and whitespace patches and then send it off to the trivial
-> maintainer only.
+> The same people who don't run checkpatch.pl will also not opt in to your
+> QC system.
 
-That's the general idea, yes. For people that need to fix a single thing, or are
-just getting started, this could be a good sanity checker. It can then use
-the standard form entry validation processes and return with a bunch of red text
-indicating errors without even sending the patch to the list.
+I think they would if it the barrier to use it was lower than LKML. Between our
+very stringent email formatting requirements and the stigma associated with
+screwing it up, I think a prominent "Kernel Patch Submitter" web form would be
+readily used by a lot of first timers.
+
+Once they are used to using that and want to move on to a patch series, we can
+have instructions on how to do that, which might include a web form which
+accepts a publicly visible git repository url and branch or tag, along with all
+the other required cover letter stuff as part of a form.
+
+(See Steve Rostedts response on web forms)
+
+> You should create a procmail filter to processes patches.  If the patch
+> fails then it changes the subject from [patch] to [fail] and stores a
+> response (compile warnings etc) in a directory.  Then you trigger a
+> macro in mutt and it mails the response.
+> 
+> Or you could just create a generic form letter like Greg does.
+> 
+
+OK, so this is precisely the kind of individually developed special purpose
+wizardry that I think hinders recruitment. Rather than having every maintainer
+reinvent this wheel in a subtly different a personal way (which gets back to the
+issues raised about subtly different expectations per maintainer), it makes a
+lot of sense to me to create a common infrastructure that we can all use.
+
+Thanks,
 
 -- 
 Darren Hart
