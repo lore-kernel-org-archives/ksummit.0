@@ -1,38 +1,32 @@
-Return-Path: <rostedt@goodmis.org>
-Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
-	[172.17.192.36])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6F4C9BD8
+Return-Path: <lurodriguez@suse.de>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2C7FFAE7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 21:11:11 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0210.hostedemail.com
-	[216.40.44.210])
-	by smtp2.linuxfoundation.org (Postfix) with ESMTP id D927B1DC79
+	Fri, 10 Jul 2015 21:14:09 +0000 (UTC)
+Received: from mx2.suse.de (cantor2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3D09616B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 21:11:10 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
-	[10.5.19.251])
-	by smtpgrave02.hostedemail.com (Postfix) with ESMTP id 269444452
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 21:01:25 +0000 (UTC)
-Date: Fri, 10 Jul 2015 17:01:21 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Darren Hart <dvhart@infradead.org>
-Message-ID: <20150710170121.79290e8c@gandalf.local.home>
-In-Reply-To: <20150709194456.GF9169@vmdeb7>
-References: <201507080121.41463.PeterHuewe@gmx.de>
-	<1481488.5WJFbB0Dlm@vostro.rjw.lan>
-	<1436341028.2136.14.camel@HansenPartnership.com>
-	<20150708080032.CE89E4306F@saturn.retrosnub.co.uk>
-	<20150708145315.29030a75@gandalf.local.home>
-	<559D8336.3040802@roeck-us.net>
-	<1436414798.23558.3.camel@ellerman.id.au>
-	<20150709194456.GF9169@vmdeb7>
+	Fri, 10 Jul 2015 21:14:08 +0000 (UTC)
+Date: Fri, 10 Jul 2015 23:14:05 +0200
+From: "Luis R. Rodriguez" <mcgrof@suse.com>
+To: Guenter <linux@roeck-us.net>
+Message-ID: <20150710211405.GJ7021@wotan.suse.de>
+References: <1436414798.23558.3.camel@ellerman.id.au>
+	<559EBD4C.6030502@gmail.com> <20150709190640.GC788@roeck-us.net>
+	<20150709194734.GG9169@vmdeb7> <20150709201315.GF9417@thunk.org>
+	<20150709205049.GB5154@roeck-us.net>
+	<20150709214718.GG9417@thunk.org>
+	<20150710182045.GA19854@roeck-us.net>
+	<20150710185800.GW23515@io.lakedaemon.net>
+	<20150710202407.GC9469@groeck-UX31A>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20150710202407.GC9469@groeck-UX31A>
 Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Jason Cooper <jason@lakedaemon.net>,
-	ksummit-discuss@lists.linuxfoundation.org, jic23@jic23.retrosnub.co.uk
+	jic23@jic23.retrosnub.co.uk, Jason Cooper <jason@lakedaemon.net>,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -44,28 +38,71 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, 9 Jul 2015 12:44:56 -0700
-Darren Hart <dvhart@infradead.org> wrote:
-
-> Agreed. I have this same conversation about commit messages. I don't care if
-> it's a whitespace fix, if it is worth patching, building, testing, and
-> submitting, it is worth writing a sentence about why you did it and what it's
-> for. The same applies to a review. What did you confirm? Did you build it? Run
-> checkpatch or some other static analysis? I think I'm also guilty of a one-line
-> review now and then, but I'll be sure to include detail in the future.
+On Fri, Jul 10, 2015 at 01:24:07PM -0700, Guenter wrote:
+> On Fri, Jul 10, 2015 at 06:58:00PM +0000, Jason Cooper wrote:
+> > > Agreed. On the other side, is gaming really a problem with kernel code
+> > > reviews ? Sure, a search engine provider will have to look out for
+> > > abuse patterns, but for code reviews I am not sure if it is worth the
+> > > effort. I would suspect that it is much more likely that the simple
+> > > "wc -w" approach should provide you with worthy candidates for the KS.
+> > > Since you are not dealing with hundreds or thousands of candidates,
+> > > I'd assume you'll do a hand screening anyway, and quickly identify any
+> > > gamers. I'd be quite surprised if there are any, though.
+> > 
+> > I've personally seen it, and I don't think I'm alone.  It seems to follow
+> > a pattern of:
+> > 
+> >  - Manager/HR thinks counting tags is a useful metric (#!@$ laziness).
+> >  - tag-count becomes an evaluation item.
+> >  - Pay raises are affected.
+> >  - patch submitters do the obvious.
+> >  - maintainers weep and die a little inside.
+> > 
+> Sigh :-(. Guess I never had the pleasure of working for any of those
+> companies, and the areas of the kernel I care about may be too obscure
+> to get much attention by the gamers.
 > 
+> > The easy ones to spot are multiple-S-o-bs.  I've actually been told "No,
+> > he didn't write any code, I was just trying to help him out."
+> > 
+> Multiple S-o-b's don't always mean gaming, though. For example, my
+> company's workflow requires me to sign off upstream patches, not to
+> get annother S-o-b with my name on it, but to certify that the patch 
+> does not accidentially publish any company IP (and, if it does, it is
+> my fault, not the fault of the person who wrote the code).
 
-Very good point.
+There is a danger to having people interpret the s-o-b tag differently
+than what it originally was intended for, such confusion deserves
+serious attention and my hope is that if folks detect these misuses
+they can try to educate folks on it. The s-o-b tag means the person
+is certifying under the Developer Certificate or Origin (DCO) the
+patch in question. That's it. The practical gains of such a leight
+weight development tool to use something like the s-o-b combined
+with the huge legal merit behind it has convinced us to generalize
+the DCO and encourage people outside of Linux to use it:
 
-Again, not talking about regular people that a maintainer knows well.
-But a Reviewed-by tag could at least also add what the reviewer did to
-add it. "I examined the entire patch, and found nothing wrong with it",
-is an acceptable comment. So is, "I looked at the patch and even built
-and booted it. Looks good".
+http://developercertificate.org/
 
-Again, I have a few people I ask to review patches, and just them
-replying with "Reviewed-by" is good enough for me. Because I know them
-well and know what they usually do when they do a review. I don't need
-them to be constantly telling me what they did.
+There was coverage over this on lwn:
 
--- Steve
+https://lwn.net/Articles/592503/
+
+I've also written about the importance here:
+
+http://www.do-not-panic.com/2014/02/developer-certificate-of-origin.html
+
+The list of users is outdated and I cannot keep up counting folks
+using it, but the more, quite recently the docker project announced
+it was embracing it for instance (although it seems they modified it
+mildly, WTF(?)):
+
+https://blog.docker.com/2014/01/docker-code-contributions-require-developer-certificate-of-origin/
+
+Because of its legal value, and because we all stand to gain from this
+legal value then as a commnity at large we should try to correc
+innappropriate uses of the s-o-b and educate folks on it.
+
+I'll stay out of the conversation of other tag's, only to second Julia's
+sentiments
+
+  Luis
