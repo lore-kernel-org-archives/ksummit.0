@@ -1,28 +1,22 @@
-Return-Path: <dan.carpenter@oracle.com>
+Return-Path: <jason@lakedaemon.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 15ABBB68
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id C787FB3D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 14:37:26 +0000 (UTC)
-Received: from aserp1040.oracle.com (aserp1040.oracle.com [141.146.126.69])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A907EE3
+	Fri, 10 Jul 2015 14:38:35 +0000 (UTC)
+Received: from pmta2.delivery3.ore.mailhop.org
+	(pmta2.delivery3.ore.mailhop.org [54.213.22.21])
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id 343C5ED
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 14:37:25 +0000 (UTC)
-Date: Fri, 10 Jul 2015 17:36:41 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Darren Hart <dvhart@infradead.org>
-Message-ID: <20150710143641.GW4341@mwanda>
-References: <201507080121.41463.PeterHuewe@gmx.de>
-	<559C73DF.2030008@roeck-us.net> <20150708114011.3a1f1861@noble>
-	<2879113.fraeuJIr2M@avalon> <20150709193718.GD9169@vmdeb7>
+	Fri, 10 Jul 2015 14:38:35 +0000 (UTC)
+Date: Fri, 10 Jul 2015 14:38:32 +0000
+From: Jason Cooper <jason@lakedaemon.net>
+To: ksummit-discuss@lists.linuxfoundation.org
+Message-ID: <20150710143832.GU23515@io.lakedaemon.net>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20150709193718.GD9169@vmdeb7>
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	Jason Cooper <jason@lakedaemon.net>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
- Maintainers, Hobbyists)
+Subject: [Ksummit-discuss] [CORE TOPIC] dev/maintainer workflow security
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,29 +26,33 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Jul 09, 2015 at 12:37:18PM -0700, Darren Hart wrote:
-> I spend a highly disproportionate amount of my time, relative to measurable
-> quality impact to the kernel, going over the nuances of submitting patches.
-> 
-> 1) Must have a complete commit message
-> 2) DCO goes above the ---
-> 3) Include a patch changelog, do so below ---
-> 4) Cc maintainers :-)
-> 5) Checkpatch... checkpatch... checkpatch...
-> 6) Compiler warnings
-> 7) CodingStyle :-)
-> 8) Use ascii or utf8 character encodings
-> 
+All,
 
-The same people who don't run checkpatch.pl will also not opt in to your
-QC system.
+This is a topic of interest to me that I think would best benefit from a
+conference room discussion.
 
-You should create a procmail filter to processes patches.  If the patch
-fails then it changes the subject from [patch] to [fail] and stores a
-response (compile warnings etc) in a directory.  Then you trigger a
-macro in mutt and it mails the response.
+Items to discuss:
 
-Or you could just create a generic form letter like Greg does.
+ - Survey the room on workflows and security posture for kernel work
+ - Discussion of threat models, attack vectors
+ - Discuss mitigation methods, tools and techniques
+ - Identify missing tools or features of tools
 
-regards,
-dan carpenter
+The intent is to discuss end point security with regards to protecting
+the kernel source tree.
+
+This would *not* be about changing anyones workflow or DE or $editor or
+other religious items. ;-)  It would be more about increasing awareness.
+Both of attack vectors and tools to mitigate risk which would fit into
+current workflows.
+
+In order to encourage open and honest discussion ("I can only afford one
+box.  My kid does unrestricted web browsing on it every day when I'm at
+work"-type stuff) we could consider doing Chatham House Rule [0] for
+this discussion.
+
+thx,
+
+Jason.
+
+[0] https://en.wikipedia.org/wiki/Chatham_House_Rule
