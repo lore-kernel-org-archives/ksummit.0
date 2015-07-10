@@ -1,39 +1,29 @@
 Return-Path: <rostedt@goodmis.org>
-Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
-	[172.17.192.36])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1B9E4BC6
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4A011B1D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 15:05:28 +0000 (UTC)
+	Fri, 10 Jul 2015 15:44:12 +0000 (UTC)
 Received: from smtprelay.hostedemail.com (smtprelay0029.hostedemail.com
 	[216.40.44.29])
-	by smtp2.linuxfoundation.org (Postfix) with ESMTP id 68D3D1DCB6
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id B749F108
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 15:05:27 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
-	[10.5.19.251])
-	by smtpgrave06.hostedemail.com (Postfix) with ESMTP id 5A1481727B8
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 15:05:26 +0000 (UTC)
-Date: Fri, 10 Jul 2015 11:05:22 -0400
+	Fri, 10 Jul 2015 15:44:11 +0000 (UTC)
+Date: Fri, 10 Jul 2015 11:44:09 -0400
 From: Steven Rostedt <rostedt@goodmis.org>
-To: Shuah Khan <shuahkh@osg.samsung.com>
-Message-ID: <20150710110522.4b0878cf@gandalf.local.home>
-In-Reply-To: <559FD066.2060601@osg.samsung.com>
-References: <20150707092434.GE11162@sirena.org.uk>
-	<CACVxJT8Ae3t9x=jF-xy6NunqZCbgOoaNxy9AqOxuDg8Dx=Tk6g@mail.gmail.com>
-	<20150707131411.GI2887@sirena.org.uk>
-	<20150707144725.6a19727f@gandalf.local.home>
-	<559E4BF7.8050607@hitachi.com>
-	<CACVxJT9ogSSPKjKRcaPR_NngrOX=mofxSOAfmo2Kp70gA=ZnrQ@mail.gmail.com>
-	<559FD066.2060601@osg.samsung.com>
+To: Darren Hart <dvhart@infradead.org>
+Message-ID: <20150710114409.638582c0@gandalf.local.home>
+In-Reply-To: <20150709193718.GD9169@vmdeb7>
+References: <201507080121.41463.PeterHuewe@gmx.de>
+	<559C73DF.2030008@roeck-us.net> <20150708114011.3a1f1861@noble>
+	<2879113.fraeuJIr2M@avalon> <20150709193718.GD9169@vmdeb7>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Cc: Shuah Khan <shuah.kh@samsung.com>, Kevin Hilman <khilman@linaro.org>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	Tyler Baker <tyler.baker@linaro.org>, Mark Brown <broonie@sirena.org.uk>,
-	Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Testing
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	Jason Cooper <jason@lakedaemon.net>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
+ Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -43,25 +33,73 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, 10 Jul 2015 08:02:14 -0600
-Shuah Khan <shuahkh@osg.samsung.com> wrote:
+On Thu, 9 Jul 2015 12:37:18 -0700
+Darren Hart <dvhart@infradead.org> wrote:
 
-> > 
-> > I think primary use case is this:
-> > * user builds and reboots into kernel with his custom config,
-> > * user runs "make test" from fresh build directory,
-> > * test harness runs everything runnable and maybe reports necessary
-> >   config options to run more
-> > 
-> > /proc/kconfig.gz should be kept strictly for runtime config.
-> > 
+> I've come to believe that this is one of many side effects of our dependency on
+> a completely free form mechanism for the management of our patches, a mechanism
+> which is becoming harder and harder to setup "correctly" with modern tooling
+> (since the industry is killing "real email").
 > 
-> We do have ktest for that. Maybe ktest could include kselftest
-> run in its default boot test.
+> I spend a highly disproportionate amount of my time, relative to measurable
+> quality impact to the kernel, going over the nuances of submitting patches.
+> 
+> 1) Must have a complete commit message
+> 2) DCO goes above the ---
+> 3) Include a patch changelog, do so below ---
+> 4) Cc maintainers :-)
+> 5) Checkpatch... checkpatch... checkpatch...
 
-I could have an option to have ktest run the kselftests, but the user
-would still need to be able to update configs to tell ktest where the
-tests are. Ktest doesn't assume to be run from the repo (I never do
-that).
+Ug, don't emphasize checkpatch. I see people making patches uglier due
+to it. I have an old version of checkpatch that I sometimes run, but
+the new version, IMHO, has more noise than signal.
+
+> 6) Compiler warnings
+> 7) CodingStyle :-)
+> 8) Use ascii or utf8 character encodings
+> 
+
+
+> Looking forward a bit, I would love to see some tooling in place for people to
+> submit patches either via a web form (which eliminates all the email tooling for
+> submitting patches - which is where the formatting is especially critical) or
+> through one of the more managed git systems, like gerrit, etc.
+
+You mean like a web page that has a bunch of entries (like submitting a
+paper to a LF conference), and you need to fill out.
+
+Subject:  
+
+ Fill out a one line top of this patch
+
+Problem or enhancement :
+
+ Why did you write this patch? Was there a problem you discovered, or
+ is this a new feature you want to add.
+
+Why this patch is needed:
+
+ Why is this patch needed. If you fixed the problem, describe what you
+ did and why you did it this way. If it is a feature, explain why this
+ feature is needed, use cases for this feature, and how to use this new
+ feature. If this adds a new user space interface, make sure you
+ provide a man page (separate)
+
+Patch file to upload:
+
+
+Captcha:  We don't want bots doing this
+
+
+Then this web server could run get_maintainers.pl and email the
+appropriate people with a generated formatted patch. It could also
+allow versioning. Today, people seem to be use to filling out web
+forms. Obviously, this isn't a requirement to use, but could be used by
+people that don't already know the Linux process.
+
+It could be a bit smarter than get maintainers, as it could possibly
+detect typo and whitespace patches and then send it off to the trivial
+maintainer only.
+
 
 -- Steve
