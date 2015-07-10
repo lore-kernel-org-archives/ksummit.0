@@ -1,26 +1,29 @@
-Return-Path: <dvhart@infradead.org>
+Return-Path: <jpoimboe@redhat.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1EEB6BD1
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3D0DAB8B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 17:49:47 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8D89A11A
+	Fri, 10 Jul 2015 18:14:12 +0000 (UTC)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D13C511A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 17:49:46 +0000 (UTC)
-Date: Fri, 10 Jul 2015 10:49:41 -0700
-From: Darren Hart <dvhart@infradead.org>
-To: Christian Couder <chriscool@tuxfamily.org>
-Message-ID: <20150710174940.GN111846@vmdeb7>
-References: <2879113.fraeuJIr2M@avalon> <20150709193718.GD9169@vmdeb7>
-	<20150710114409.638582c0@gandalf.local.home>
-	<20150710.193255.181692772319686216.chriscool@tuxfamily.org>
+	Fri, 10 Jul 2015 18:14:11 +0000 (UTC)
+Date: Fri, 10 Jul 2015 13:14:09 -0500
+From: Josh Poimboeuf <jpoimboe@redhat.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+Message-ID: <20150710181409.GA30145@treble.redhat.com>
+References: <201507080121.41463.PeterHuewe@gmx.de>
+	<1481488.5WJFbB0Dlm@vostro.rjw.lan>
+	<1436341028.2136.14.camel@HansenPartnership.com>
+	<20150708080032.CE89E4306F@saturn.retrosnub.co.uk>
+	<20150708145315.29030a75@gandalf.local.home>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20150710.193255.181692772319686216.chriscool@tuxfamily.org>
-Cc: robertotyley@gmail.com, ksummit-discuss@lists.linuxfoundation.org,
-	jason@lakedaemon.net
+In-Reply-To: <20150708145315.29030a75@gandalf.local.home>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	jic23@jic23.retrosnub.co.uk, Jason Cooper <jason@lakedaemon.net>,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -32,59 +35,67 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 10, 2015 at 07:32:55PM +0200, Christian Couder wrote:
-> From: Steven Rostedt <rostedt@goodmis.org>
-> Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers, Maintainers, Hobbyists)
-> Date: Fri, 10 Jul 2015 11:44:09 -0400
+On Wed, Jul 08, 2015 at 02:53:15PM -0400, Steven Rostedt wrote:
+> I personally don't trust a Reviewed-by tag much, as I sometimes see
+> them appear without any comments.
 > 
-> > On Thu, 9 Jul 2015 12:37:18 -0700
-> > Darren Hart <dvhart@infradead.org> wrote:
-> > 
-> >> I've come to believe that this is one of many side effects of our dependency on
-> >> a completely free form mechanism for the management of our patches, a mechanism
-> >> which is becoming harder and harder to setup "correctly" with modern tooling
-> >> (since the industry is killing "real email").
-> >> 
-> >> I spend a highly disproportionate amount of my time, relative to measurable
-> >> quality impact to the kernel, going over the nuances of submitting patches.
-> >> 
-> >> 1) Must have a complete commit message
-> >> 2) DCO goes above the ---
-> >> 3) Include a patch changelog, do so below ---
-> >> 4) Cc maintainers :-)
-> >> 5) Checkpatch... checkpatch... checkpatch...
-> > 
-> > Ug, don't emphasize checkpatch. I see people making patches uglier due
-> > to it. I have an old version of checkpatch that I sometimes run, but
-> > the new version, IMHO, has more noise than signal.
-> > 
-> >> 6) Compiler warnings
-> >> 7) CodingStyle :-)
-> >> 8) Use ascii or utf8 character encodings
-> >> 
-> > 
-> > 
-> >> Looking forward a bit, I would love to see some tooling in place for people to
-> >> submit patches either via a web form (which eliminates all the email tooling for
-> >> submitting patches - which is where the formatting is especially critical) or
-> >> through one of the more managed git systems, like gerrit, etc.
-> > 
-> > You mean like a web page that has a bunch of entries (like submitting a
-> > paper to a LF conference), and you need to fill out.
-> 
-> To send patch emails created from git repos on GitHub to the Git
-> mailing list, there is now submitGit:
-> 
-> https://submitgit.herokuapp.com/
-> https://github.com/rtyley/submitgit
-> 
-> Maybe Roberto, its author (cced), could be convince to do something
-> for the kernel?
+> I was thinking of writing a perl script that would read my LKML archive
+> and somewhat intelligently looking at people who replied to patches,
+> that also has snippets of the patch in the reply, and counting them. I
+> think that would be a more accurate use of real reviewers than just the
+> Reviewed-by tag.
 
-Something along those lines would be nice, yes. I think a lot of people would
-find something like this which enforces the "mechanical" rules to be very
-useful.
+I'm relatively new to lkml so my perceptions might be skewed.  But it
+seems to me that, for non-trivial patches, the Reviewed-by tag is pretty
+much useless as a metric.  From what I can tell, the biggest problems
+with relying on Reviewed-by to get meaningful statistics are:
+
+1. It's self-reported by the reviewer.
+
+   Maybe a reviewer gave some hugely valuable feedback in versions 1-4
+   of the patch, but wasn't around to provide the Reviewed-by tag for
+   the final v6.
+
+   Or maybe they're just focused on the review, and forget or don't care
+   to ask for credit for it at the time by adding a tag.
+
+   Or maybe they're a maintainer who used Signed-off-by instead (but
+   Signed-off-by doesn't necessarily imply a review).
+
+   Also, as others have mentioned, it creates the ability to game the
+   system by saying you've reviewed a patch when you really haven't.
+
+2. It's too broad of a statement.  It requires the reviewer to make an
+   official certification that they fully understand and approve of the
+   *entire* patch.  That's certainly a useful statement, but:
+
+   A reviewer might review only part of the patch, and provide some
+   useful comments for just the part of the patch they reviewed.  But
+   they don't want to take responsibility for saying, to quote Steven,
+   "I took enough effort to understand every part of the patch as if I
+   wrote it myself."
+
+   Or maybe they didn't carefully review the patch, but instead added
+   something valuable to the discussion which improved the patch in a
+   future version.
+
+   So it denies credit to all the other people who provided useful
+   comments along the way.
+
+Review comments such as "here's a problem with your code" or "have you
+thought about doing this instead?" can often be more useful a comment
+than "your code looks good".  Maybe it would be a good idea to
+acknowledge those people who give valuable feedback, in all its forms.
+Maybe a new tag would be useful?  Something which:
+
+a) is reported by the patch author and/or maintainer, since they're in
+   the best position to keep track of useful comments across versions;
+
+   and
+
+b) means something like "I'm grateful to this person for giving some
+   valuable feedback".
+
 
 -- 
-Darren Hart
-Intel Open Source Technology Center
+Josh
