@@ -1,29 +1,35 @@
-Return-Path: <lurodriguez@suse.de>
+Return-Path: <rostedt@goodmis.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2C7FFAE7
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4F44ABD8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 21:14:09 +0000 (UTC)
-Received: from mx2.suse.de (cantor2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3D09616B
+	Fri, 10 Jul 2015 21:25:55 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0116.hostedemail.com
+	[216.40.44.116])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id C9695121
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 21:14:08 +0000 (UTC)
-Date: Fri, 10 Jul 2015 23:14:05 +0200
-From: "Luis R. Rodriguez" <mcgrof@suse.com>
-To: Guenter <linux@roeck-us.net>
-Message-ID: <20150710211405.GJ7021@wotan.suse.de>
-References: <1436414798.23558.3.camel@ellerman.id.au>
+	Fri, 10 Jul 2015 21:25:54 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
+	[10.5.19.251])
+	by smtpgrave08.hostedemail.com (Postfix) with ESMTP id 65673212B98
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 10 Jul 2015 20:49:41 +0000 (UTC)
+Date: Fri, 10 Jul 2015 16:49:38 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: josh@joshtriplett.org
+Message-ID: <20150710164938.72da8ef1@gandalf.local.home>
+In-Reply-To: <20150709231352.GB4516@cloud>
+References: <20150708080032.CE89E4306F@saturn.retrosnub.co.uk>
+	<20150708145315.29030a75@gandalf.local.home>
+	<559D8336.3040802@roeck-us.net>
+	<1436414798.23558.3.camel@ellerman.id.au>
 	<559EBD4C.6030502@gmail.com> <20150709190640.GC788@roeck-us.net>
 	<20150709194734.GG9169@vmdeb7> <20150709201315.GF9417@thunk.org>
 	<20150709205049.GB5154@roeck-us.net>
-	<20150709214718.GG9417@thunk.org>
-	<20150710182045.GA19854@roeck-us.net>
-	<20150710185800.GW23515@io.lakedaemon.net>
-	<20150710202407.GC9469@groeck-UX31A>
+	<20150709214718.GG9417@thunk.org> <20150709231352.GB4516@cloud>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20150710202407.GC9469@groeck-UX31A>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
 	jic23@jic23.retrosnub.co.uk, Jason Cooper <jason@lakedaemon.net>,
 	ksummit-discuss@lists.linuxfoundation.org
@@ -38,71 +44,31 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 10, 2015 at 01:24:07PM -0700, Guenter wrote:
-> On Fri, Jul 10, 2015 at 06:58:00PM +0000, Jason Cooper wrote:
-> > > Agreed. On the other side, is gaming really a problem with kernel code
-> > > reviews ? Sure, a search engine provider will have to look out for
-> > > abuse patterns, but for code reviews I am not sure if it is worth the
-> > > effort. I would suspect that it is much more likely that the simple
-> > > "wc -w" approach should provide you with worthy candidates for the KS.
-> > > Since you are not dealing with hundreds or thousands of candidates,
-> > > I'd assume you'll do a hand screening anyway, and quickly identify any
-> > > gamers. I'd be quite surprised if there are any, though.
-> > 
-> > I've personally seen it, and I don't think I'm alone.  It seems to follow
-> > a pattern of:
-> > 
-> >  - Manager/HR thinks counting tags is a useful metric (#!@$ laziness).
-> >  - tag-count becomes an evaluation item.
-> >  - Pay raises are affected.
-> >  - patch submitters do the obvious.
-> >  - maintainers weep and die a little inside.
-> > 
-> Sigh :-(. Guess I never had the pleasure of working for any of those
-> companies, and the areas of the kernel I care about may be too obscure
-> to get much attention by the gamers.
+On Thu, 9 Jul 2015 16:13:52 -0700
+josh@joshtriplett.org wrote:
+
+
+> That assumes the patch actually has issues.  To use the reviews I do on
+> RCU patches as an example, in a patch series, I might reply to a few
+> patches with "here are some issues; with those fixed, Reviewed-by...",
+> and then reply to the remaining unproblematic patches (individually or
+> in aggregate) with just the Reviewed-by.
 > 
-> > The easy ones to spot are multiple-S-o-bs.  I've actually been told "No,
-> > he didn't write any code, I was just trying to help him out."
-> > 
-> Multiple S-o-b's don't always mean gaming, though. For example, my
-> company's workflow requires me to sign off upstream patches, not to
-> get annother S-o-b with my name on it, but to certify that the patch 
-> does not accidentially publish any company IP (and, if it does, it is
-> my fault, not the fault of the person who wrote the code).
 
-There is a danger to having people interpret the s-o-b tag differently
-than what it originally was intended for, such confusion deserves
-serious attention and my hope is that if folks detect these misuses
-they can try to educate folks on it. The s-o-b tag means the person
-is certifying under the Developer Certificate or Origin (DCO) the
-patch in question. That's it. The practical gains of such a leight
-weight development tool to use something like the s-o-b combined
-with the huge legal merit behind it has convinced us to generalize
-the DCO and encourage people outside of Linux to use it:
 
-http://developercertificate.org/
+Josh, I read your reviews. Yes, you have a bunch of single "Reviewed-by"
+tags, but you also have a lot of emails with substantially significant
+comments. What Ted is saying, is to see how many significant replies one
+has. In fact, I would say if we were to automate this, each significant
+reply (one with actual comments), would increase the weight that a
+single "Reviewed-by" email would carry. That way people like yourself
+would have more weight attached to emails with single "Reviewed-by"
+than others that don't have many emails with actual comments attached.
 
-There was coverage over this on lwn:
+Anyway, for consideration to KS, the top reviewers that an automated
+system would produce, would only get the program committee's eyes
+looking at it. It by no way guarantees an invite. No matter what
+automated system is in place, at least for KS, there will always be
+humans involved in analyzing that data.
 
-https://lwn.net/Articles/592503/
-
-I've also written about the importance here:
-
-http://www.do-not-panic.com/2014/02/developer-certificate-of-origin.html
-
-The list of users is outdated and I cannot keep up counting folks
-using it, but the more, quite recently the docker project announced
-it was embracing it for instance (although it seems they modified it
-mildly, WTF(?)):
-
-https://blog.docker.com/2014/01/docker-code-contributions-require-developer-certificate-of-origin/
-
-Because of its legal value, and because we all stand to gain from this
-legal value then as a commnity at large we should try to correc
-innappropriate uses of the s-o-b and educate folks on it.
-
-I'll stay out of the conversation of other tag's, only to second Julia's
-sentiments
-
-  Luis
+-- Steve
