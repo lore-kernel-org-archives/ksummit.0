@@ -1,29 +1,30 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <fengguang.wu@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 64E7FA04
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2E901ABA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 11 Jul 2015 07:31:18 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id EBC4E12C
+	Sat, 11 Jul 2015 08:32:54 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id B7D0E1F9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 11 Jul 2015 07:31:17 +0000 (UTC)
-Message-ID: <1436599873.2243.10.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Kees Cook <keescook@chromium.org>
-Date: Sat, 11 Jul 2015 08:31:13 +0100
-In-Reply-To: <CAGXu5j+NY8-5WPcP1kLZsKgzmbQ=L0Q18XZ6FYeVTcFGDLrRSw@mail.gmail.com>
-References: <20150710143832.GU23515@io.lakedaemon.net>
-	<CA+5PVA5j9973GzdYj-s2WX3J8ycf5hQTBdGq+8j-8RGDX2OaYg@mail.gmail.com>
-	<20150710162328.GB12009@thunk.org>
-	<CAGXu5j+NY8-5WPcP1kLZsKgzmbQ=L0Q18XZ6FYeVTcFGDLrRSw@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: Josh Boyer <jwboyer@fedoraproject.org>, Jason Cooper <jason@lakedaemon.net>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] dev/maintainer workflow security
+	Sat, 11 Jul 2015 08:32:53 +0000 (UTC)
+Date: Sat, 11 Jul 2015 16:32:13 +0800
+From: Fengguang Wu <fengguang.wu@intel.com>
+To: "Luis R. Rodriguez" <mcgrof@suse.com>
+Message-ID: <20150711083213.GA24211@wfg-t540p.sh.intel.com>
+References: <201507080121.41463.PeterHuewe@gmx.de>
+	<559C73DF.2030008@roeck-us.net> <20150708114011.3a1f1861@noble>
+	<2879113.fraeuJIr2M@avalon> <20150709193718.GD9169@vmdeb7>
+	<20150709201127.GA3426@cloud> <20150709203830.GF7021@wotan.suse.de>
+	<20150709210059.GA3720@cloud> <20150709210300.GG7021@wotan.suse.de>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20150709210300.GG7021@wotan.suse.de>
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	Jason Cooper <jason@lakedaemon.net>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
+ Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,79 +34,27 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, 2015-07-10 at 15:08 -0700, Kees Cook wrote:
-> On Fri, Jul 10, 2015 at 9:23 AM, Theodore Ts'o <tytso@mit.edu> wrote:
-> > On Fri, Jul 10, 2015 at 11:50:30AM -0400, Josh Boyer wrote:
-> >> > This is a topic of interest to me that I think would best benefit from a
-> >> > conference room discussion.
-> >> >
-> >> > Items to discuss:
-> >> >
-> >> >  - Survey the room on workflows and security posture for kernel work
-> >> >  - Discussion of threat models, attack vectors
-> >> >  - Discuss mitigation methods, tools and techniques
-> >> >  - Identify missing tools or features of tools
-> >> >
-> >> > The intent is to discuss end point security with regards to protecting
-> >> > the kernel source tree.
-> >>
-> >> Interesting.  Though I think it needs a broader audience to be honest.
-> >> It would be far easier to use distros as an attack vector than to try
-> >> subverting the upstream source code.  This might be a good topic for
-> >> something like Linux Plumbers.
-> >
-> > I agree that the issue of trusting distros and the possibility of
-> > hiding malware in distro software is an important one, and one which
-> > is best addressed at something like Plumbers.
-> >
-> > However, there are a number of Kernel-specific security issues which
-> > are just as important --- how we maintain our own personal security,
-> > and how we make sure a backdoor doesn't get slipped into the kernel
-> > source tree.
+On Thu, Jul 09, 2015 at 11:03:00PM +0200, Luis R. Rodriguez wrote:
+> On Thu, Jul 09, 2015 at 02:00:59PM -0700, josh@joshtriplett.org wrote:
+> > On Thu, Jul 09, 2015 at 10:38:30PM +0200, Luis R. Rodriguez wrote:
+> > > On Thu, Jul 09, 2015 at 01:11:27PM -0700, josh@joshtriplett.org wrote:
+> > > > Bonus if this is also wired into the 0day bot, so that you also find out
+> > > > if you introduce a new warning or error.
+> > > 
+> > > No reason to make bots do stupid work, if we really wanted to consider
+> > > this a bit more seriously the pipeline could be:
+> > > 
+> > >   mailing-list | coccinelle coccicheck| smatch | sparse | 0-day-bot
+> > 
+> > That would effectively make the bot duplicate part of 0-day.  Seems
+> > easier to have some way to tell 0-day "if you see obvious procedural
+> > issues, don't bother with full-scale testing, just reject".
 > 
-> I'm curious about the larger set of security topics. Jason's topic
-> seems to surround "supply chain security", but I think we've got a lot
-> of other areas. Is focusing on just that topic the right thing to do?
-> 
-> - supply chain security: I see two parts:
->   - intentionally malicious commits (as Ted describes below)
+> Yeah true, Fengguang, is that an option?
 
-You're missing a huge one and the usual way we get security breaches:
-accidental commits that weren't reviewed properly (or which the
-reviewers didn't spot the potential security problem).  All of the
-recent spate of serious vulnerabilities (heartbleed, shellshock, etc)
-have been accidental.
+Never mind, 0-day is powerful enough to do full-scale testing for
+early stage branches and expose as much errors as possible in one
+iteration.
 
-If we can concentrate on this one, and find a way of fixing it, the
-malicious but obfuscated commit will be covered under that.
-
->   - personal security (keep commit credentials secure from theft)
-
-This second one is a bit of a red herring:  Assuming you did steal my
-credentials, how would you use them without being detected?
-
-Security is not an absolute, it's a tradeoff.  The point of the tradeoff
-is to make sure you address the significant threats while not impeding
-the workflow too much.  If we start worrying about and addressing
-insignificant threats, eventually you won't get on to kernel.org without
-going through airport theatre style security.
-
-> - reactive security: bug fix workflow
->   - getting fixes _to end users_ (not the same as publishing to stable)
-
-Stable is our last point.  After that, it's up to the distros
-
->   - documenting impact when known (avoiding intentional obfuscation)
-> - proactive security: stop security flaws from happening in the first place
->   - scope analysis (defending both userspace and kernel from attack)
->   - threat analysis (how are attacks being made now and in future?)
->   - exposure analysis (syscall interface, device firmware, etc)
->   - static checkers (find and eliminate bug classes in the code)
->   - run-time mitigation features (endless list: memory protection, CFI,
->     ASLR, anti-bruteforcing, etc)
-
-Perhaps the question here is would we be interested in making use of the
-core infrastructure initiative to give us a security analysis of parts
-of the kernel (and if so, which parts).
-
-James
+Thanks,
+Fengguang
