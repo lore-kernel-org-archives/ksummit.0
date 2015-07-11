@@ -1,31 +1,32 @@
-Return-Path: <dvhart@infradead.org>
+Return-Path: <dan.j.williams@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 296E28B4
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E778DAAC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 23:54:42 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D2861150
+	Sat, 11 Jul 2015 00:00:05 +0000 (UTC)
+Received: from mail-wi0-f176.google.com (mail-wi0-f176.google.com
+	[209.85.212.176])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2054215E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 23:54:41 +0000 (UTC)
-Date: Fri, 10 Jul 2015 16:54:36 -0700
-From: Darren Hart <dvhart@infradead.org>
-To: David Woodhouse <dwmw2@infradead.org>
-Message-ID: <20150710235436.GT111846@vmdeb7>
-References: <20150709193718.GD9169@vmdeb7>
+	Sat, 11 Jul 2015 00:00:05 +0000 (UTC)
+Received: by wifm2 with SMTP id m2so58722446wif.1
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 10 Jul 2015 17:00:03 -0700 (PDT)
+MIME-Version: 1.0
+In-Reply-To: <20150710205418.GB10533@cloud>
+References: <201507080121.41463.PeterHuewe@gmx.de>
+	<559C73DF.2030008@roeck-us.net> <20150708114011.3a1f1861@noble>
+	<2879113.fraeuJIr2M@avalon> <20150709193718.GD9169@vmdeb7>
 	<1436481109.3324.219.camel@infradead.org>
 	<20150710003559.GT11162@sirena.org.uk>
 	<20150710020706.GH111846@vmdeb7>
 	<20150710155144.34dde697@gandalf.local.home>
-	<1436558412.24408.35.camel@infradead.org>
-	<20150710163141.490def2a@gandalf.local.home>
-	<1436560838.24408.52.camel@infradead.org>
-	<20150710230921.GR111846@vmdeb7>
-	<1436571448.24408.96.camel@infradead.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1436571448.24408.96.camel@infradead.org>
+	<20150710205418.GB10533@cloud>
+Date: Fri, 10 Jul 2015 17:00:03 -0700
+Message-ID: <CAPcyv4iMWedb18mj5oNpx9KTpryrgFS29rSctQyervAh-R=ecw@mail.gmail.com>
+From: Dan Williams <dan.j.williams@intel.com>
+To: josh@joshtriplett.org
+Content-Type: text/plain; charset=UTF-8
 Cc: ksummit-discuss@lists.linuxfoundation.org,
 	Jason Cooper <jason@lakedaemon.net>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
@@ -39,48 +40,70 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, Jul 11, 2015 at 12:37:28AM +0100, David Woodhouse wrote:
-> On Fri, 2015-07-10 at 16:09 -0700, Darren Hart wrote:
-> > This simple tool should not run on the client IMO. Or should be *required* to
-> > run on the client. The kernel.org patch submission web form would be usable by
-> > anyone with a browser ... OK, go ahead... "anyone with a browser" is too low a
-> > bar for a kernel developer.... :-)
-> > 
-> > But seriously, we're talking about recruitment, and this is the kind of tooling
-> > I routinely here non-Linux developers shake their heads at when considering our
-> > development process. So while you and I are fine using vi (*jab*) and mutt
-> > (*evolution) and arcane bash (*posix shell*) scripts and local MTAs... others
-> > would very much like to focus on the code they are changing, and let the
-> > computers handle schlepping the changesets around. Especially when they only
-> > have a couple of patches to send, the setup is significant barrier.
-> 
-> Can you really do kernel development without touching a command line?
+On Fri, Jul 10, 2015 at 1:54 PM,  <josh@joshtriplett.org> wrote:
+> On Fri, Jul 10, 2015 at 03:51:44PM -0400, Steven Rostedt wrote:
+>> On Thu, 9 Jul 2015 19:07:06 -0700
+>> Darren Hart <dvhart@infradead.org> wrote:
+>> > As far as recruitment goes, I think we're talking about barriers to first-timers
+>> > and such - and git-send-email is one of those things. Eventually, a developer
+>>
+>> +1000
+>>
+>> I still don't use git-send-email, as I afraid that I'll blow it and end
+>> up sending a thousand patches to every developer that ever touched the
+>> kernel ;-)
+>
+> I don't use git-send-email either.  I use git-format-patch
+> --cover-letter --thread, and then mutt -H to individually send each
+> mail.  (I originally added the --thread and --in-reply-to options to
+> git-format-patch, so that you don't need to use git-send-email for
+> that.)
+>
+> The one thing I *do* find annoying is that the combination of
+> format-patch and get_maintainers.pl can't easily say "I want to send all
+> the patches and the cover letter to the same set of people, based on
+> every patch".  (Or, at the very least, the cover letter to everyone.)
+> Otherwise, maintainers get one patch out of the series, which may be
+> confusing without context, and the cover letter doesn't go to anyone.
+> Unfortunately, fixing that then tends to hit LKML's limit on number of
+> recipients.
+>
 
-Of course not :-) But that's not the same thing as having to setup up a lot of
-very custom special purpose tooling that you don't need for anything else just
-to share a patch.
+I carry this patch on top of StGit for exactly this purpose.
 
-> 
-> Perhaps we need a graphical tool based on gitk in which you can select
-> a set of commits, edit a cover letter and (initially autogenerated) set
-> of recipients, and then it'll send them for you?
+commit 562aca51a303e841a76defc3148db5c69b688994
+Author: Dan Williams <dan.j.williams@intel.com>
+Date:   Thu Feb 27 11:54:32 2014 -0800
 
-That's not a bad idea, basic git usage is a requirement for kernel development.
-It still depends on a successful gitk client installation, a local SMTP
-configuration, possible firewall setup, etc. And I confess to be selfish in this
-regard, I'm tired of helping people set that all up! That's why I like the web
-submission form. Web connectivity is ubiquitous, no additonal setup is required
-beyond an initial email verification through the same web service. A lot of
-people outside the core developers do development through ssh to a managed Linux
-machine, and are not running a Linux Desktop environment.
+    mail: auto cc cover letter to union of all attribution tags in a series
 
-After some successful submissions through this, people will migrate to something
-more advanced if they are to continue with kernel development, and something
-like gitk integration isn't a bad idea as it can easily be preconfigured to do
-all the right things with email mechanics that are becoming increasingly
-difficult to configure modern GUI clients for (and most people are using a
-modern GUI client for everything except Linux development these days).
+    If a receiver is only copied on the a single patch out of a larger
+series she
+    may not have the necessary context to judge the patch.  Auto cc her on the
+    cover letter.
 
--- 
-Darren Hart
-Intel Open Source Technology Center
+    Signed-off-by: Dan Williams <dan.j.williams@intel.com>
+
+diff --git a/stgit/commands/mail.py b/stgit/commands/mail.py
+index e641634981d6..d986b805dbc4 100644
+--- a/stgit/commands/mail.py
++++ b/stgit/commands/mail.py
+@@ -534,8 +534,18 @@ def __build_cover(tmpl, msg_id, options, patches):
+     except Exception, ex:
+         raise CmdException, 'template parsing error: %s' % str(ex)
+
++    extra_cc = []
++    if options.auto:
++        for patch in patches:
++            p = crt_series.get_patch(patch)
++            if p.get_description():
++                descr = p.get_description().strip()
++                extra_cc.extend(__get_signers_list(descr))
++        extra_cc = list(set(extra_cc))
++
++
+     if not options.git:
+-        __build_address_headers(msg, options)
++        __build_address_headers(msg, options, extra_cc)
+     __build_extra_headers(msg, msg_id, options.in_reply_to)
+     __encode_message(msg)
