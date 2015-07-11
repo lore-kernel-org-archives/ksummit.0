@@ -1,32 +1,25 @@
-Return-Path: <fengguang.wu@intel.com>
+Return-Path: <benh@kernel.crashing.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8DF71B1B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B9D47BC4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 11 Jul 2015 04:35:08 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 1257E190
+	Sat, 11 Jul 2015 05:22:16 +0000 (UTC)
+Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5431C1D4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 11 Jul 2015 04:35:07 +0000 (UTC)
-Date: Sat, 11 Jul 2015 12:34:34 +0800
-From: Fengguang Wu <fengguang.wu@intel.com>
-To: josh@joshtriplett.org
-Message-ID: <20150711043434.GA24356@wfg-t540p.sh.intel.com>
-References: <201507080121.41463.PeterHuewe@gmx.de>
-	<559C73DF.2030008@roeck-us.net> <20150708114011.3a1f1861@noble>
-	<2879113.fraeuJIr2M@avalon> <20150709193718.GD9169@vmdeb7>
-	<20150709201127.GA3426@cloud> <20150709203830.GF7021@wotan.suse.de>
-	<20150709210059.GA3720@cloud>
-	<alpine.DEB.2.10.1507091723380.2532@hadrien>
-	<20150709231131.GA4516@cloud>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20150709231131.GA4516@cloud>
-Cc: Jason Cooper <jason@lakedaemon.net>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
- Maintainers, Hobbyists)
+	Sat, 11 Jul 2015 05:22:15 +0000 (UTC)
+Message-ID: <1436592120.3948.168.camel@kernel.crashing.org>
+From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+To: Jiri Kosina <jkosina@suse.com>
+Date: Sat, 11 Jul 2015 15:22:00 +1000
+In-Reply-To: <alpine.LNX.2.00.1507071340480.10183@pobox.suse.cz>
+References: <alpine.LNX.2.00.1507071340480.10183@pobox.suse.cz>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] giving freezer well-defined
+ semantics
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,40 +29,32 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Jul 09, 2015 at 04:11:31PM -0700, josh@joshtriplett.org wrote:
-> On Thu, Jul 09, 2015 at 05:24:06PM -0400, Julia Lawall wrote:
-> > On Thu, 9 Jul 2015, josh@joshtriplett.org wrote:
-> > 
-> > > On Thu, Jul 09, 2015 at 10:38:30PM +0200, Luis R. Rodriguez wrote:
-> > > > On Thu, Jul 09, 2015 at 01:11:27PM -0700, josh@joshtriplett.org wrote:
-> > > > > Bonus if this is also wired into the 0day bot, so that you also find out
-> > > > > if you introduce a new warning or error.
-> > > >
-> > > > No reason to make bots do stupid work, if we really wanted to consider
-> > > > this a bit more seriously the pipeline could be:
-> > > >
-> > > >   mailing-list | coccinelle coccicheck| smatch | sparse | 0-day-bot
-> > >
-> > > That would effectively make the bot duplicate part of 0-day.  Seems
-> > > easier to have some way to tell 0-day "if you see obvious procedural
-> > > issues, don't bother with full-scale testing, just reject".
-> > 
-> > Not sure to understand.  Isn't it better to have the most feedback
-> > possible?
+On Tue, 2015-07-07 at 22:42 +0200, Jiri Kosina wrote:
+> Tejun came up with a different aproach at [1] -- basically getting rid of 
+> the freezer completely, and rather annotating those I/O requests which are 
+> needed for writing the hibernation image out, so that they make it through 
+> all the affected subsystems, while other I/O requests would be frozen.
 > 
-> If 0-day has enough bandwidth, sure.
+> This would be rather dramatic change both in a way how kthreads work, how 
+> hibernation works, and it'd be necessary to have means to mark I/O 
+> requests as "needed for hibernation", therefore I think this would be a 
+> good cross-subsystem topic.
 
-0-day has good enough bandwidth, now and future. :)
+I like that approach. In the early days, when we put together what
+eventually became our power management, I was against the freezer to
+begin with :-) I always had the feeling that it was an incomplete band
+aid which was mostly trying to hide the problem rather than solve it.
 
-> However, if this is going to
-> encourage a large number of new contributors to quickly iterate a pile
-> of patches, many of which are likely to have basic procedural issues in
-> the first few iterations, then that may waste quite a lot of build time
-> in 0-day.
+In part because just stopping threads isn't a guarantee that things
+stop, "driver" requests can be issued in theory from anything such as
+timers, external interrupts, etc... threads are only part of the
+problem. It's also non obvious whether a given thread is needed to write
+the suspend image or not. A single thread can have multiple behaviours
+associated with it. It can monitor link health and be necessary for
+keeping things working but can also deal with hotplug which might not be
+desirable.
 
-0-day can reasonably handle that kind of load. Feel free to push code
-10 times per day. It'll run all build/boot tests on the latest branch
-HEAD until test completion or new HEAD arrives.
+So all in all, I agree with Tejun.
 
-Thanks,
-Fengguang
+Cheers,
+Ben.
