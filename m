@@ -1,37 +1,37 @@
-Return-Path: <greg@kroah.com>
+Return-Path: <joe@perches.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0E5809FB
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 90D04B8B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 11 Jul 2015 22:45:11 +0000 (UTC)
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
-	[66.111.4.29])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5D7BD11E
+	Sat, 11 Jul 2015 20:49:18 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0014.hostedemail.com
+	[216.40.44.14])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id C5FE5112
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 11 Jul 2015 22:45:10 +0000 (UTC)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
-	by mailout.nyi.internal (Postfix) with ESMTP id B9CA22096D
+	Sat, 11 Jul 2015 20:49:17 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
+	[10.5.19.251])
+	by smtpgrave04.hostedemail.com (Postfix) with ESMTP id F3691B29E3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 11 Jul 2015 18:45:09 -0400 (EDT)
-Date: Sat, 11 Jul 2015 15:45:08 -0700
-From: Greg KH <greg@kroah.com>
-To: Jason Cooper <jason@lakedaemon.net>
-Message-ID: <20150711224508.GA25449@kroah.com>
-References: <20150710143641.GW4341@mwanda> <20150710160714.GL111846@vmdeb7>
-	<20150710222351.GA28632@kroah.com> <20150711000034.GU111846@vmdeb7>
-	<20150711001348.GA30675@kroah.com> <20150711055441.GA6316@sudip-PC>
-	<alpine.DEB.2.10.1507110923220.2551@hadrien>
-	<20150711151844.GB23515@io.lakedaemon.net>
-	<20150711164535.GB8411@kroah.com>
-	<20150711193539.GF23515@io.lakedaemon.net>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20150711193539.GF23515@io.lakedaemon.net>
+	Sat, 11 Jul 2015 13:42:14 +0000 (UTC)
+Message-ID: <1436622131.2711.55.camel@perches.com>
+From: Joe Perches <joe@perches.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+Date: Sat, 11 Jul 2015 06:42:11 -0700
+In-Reply-To: <20150711085119.2f03e6ae@grimm.local.home>
+References: <201507080121.41463.PeterHuewe@gmx.de>
+	<559C73DF.2030008@roeck-us.net> <20150708114011.3a1f1861@noble>
+	<2879113.fraeuJIr2M@avalon> <20150709193718.GD9169@vmdeb7>
+	<20150710114409.638582c0@gandalf.local.home>
+	<20150711093126.GH4289@mwanda> <20150711113447.GA3508@osiris>
+	<20150711085119.2f03e6ae@grimm.local.home>
+Content-Type: text/plain; charset="ISO-8859-1"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 Cc: ksummit-discuss@lists.linuxfoundation.org,
+	Jason Cooper <jason@lakedaemon.net>,
 	Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
- Maintainers, Hobbyists)
+Subject: Re: [Ksummit-discuss] checkpatch.pl stuff...
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,48 +41,91 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, Jul 11, 2015 at 07:35:39PM +0000, Jason Cooper wrote:
-> On Sat, Jul 11, 2015 at 09:45:35AM -0700, Greg KH wrote:
-> > On Sat, Jul 11, 2015 at 03:18:44PM +0000, Jason Cooper wrote:
-> > > Perhaps that burden could be reduced by a 'kernel-mentor@v.k.o' ML?
+On Sat, 2015-07-11 at 08:51 -0400, Steven Rostedt wrote:
+> On Sat, 11 Jul 2015 13:34:47 +0200
+> Heiko Carstens <heiko.carstens@de.ibm.com> wrote:
+> 
+> > The 80 character limit warning is the only thing I really dislike about
+> > checkpatch. I've seen so many patches with insane ;) line breaks just to
+> > satisfy this rule.
+> > Unfortunately even experienced developers think this is a hard limit.
+> > Argueing that checkpatch just gives you a hint that something _could_ be
+> > improved are most of the time pointless. "But checkpatch says... therefore
+> > it has be to like that." ;)
 > > 
-> > We already have such a mailing list, it's quite empty and quiet :(
+> > Besides that it I think it works just fine.
 > 
-> Are you referring to linux-newbie?
-> 
->   http://vger.kernel.org/vger-lists.html#linux-newbie
-> 
-> If so, yes.  It's empty and quiet.
+> I'll admit, as Dan said, that my patches are somewhat "special". But
+> what I really hate, is that argument I have had with people where I
+> comment on a patch, and they argue the "but checkpatch says". Yeah,
+> that can get annoying.
 
-Nope, kernel-mentors:
-	http://kernelnewbies.org/KernelMentors
+It can and does.  Especially the "long_lines" message.
 
-> > In other words, this idea has been tried, maybe consider something else?
-> 
-> Well, the key piece is having a few experienced maintainers active on
-> the list.
+It'd be good if somehow checkpatch output could be
+viewed more as lighthearted suggestions rather than
+iron-clad rules.
 
-We have that.
+Maybe changing the "WARNING" type messages to a new
+"SUGGESTION" might be better to let people know that
+it's OK to ignore some rules.
 
-> That doesn't seem to be the case on linux-newbie.  Also,
-> linux-newbie doesn't seem to be kernel-specific.
+Maybe reclassifying some ERROR type messages to
+WARNING/SUGGESTION might help.
 
-I don't know anything about linux-newbie, sorry.
+I'd like to see checkpatch used quite a bit less on
+files and perhaps a bit more on actual patches.
 
-> We could address new users not knowing about it with a script.  Any
-> [PATCH] posts to a mailing list where the sender is a miss in the git
-> history bounces the email to the kernel-mentor list.
-> 
-> In case it wasn't obvious, I'd be willing to be one of those mentors if
-> I had a few others to rotate lead with.
+I've suggested a few things.
 
-Great, feel free to join the kernel-mentors list and be amazed at the
-silence :)
+https://lkml.org/lkml/2015/2/11/433
 
-The fact that it's not well known might be one of the problems, but it
-has been tried, just pointing out that this isn't a new idea, not that
-it is an invalid one.
+o Only allow checkpatch to be used with the -f/--file
+  option for drivers/staging/
+o Add an undocumented --force command line option
+o Make --strict the default for drivers/staging
 
-good luck!
+I think these checkpatch style-based --type=<foo>
+white-space rules are generally reasonable and should
+nearly always be followed for basic kernel style
+conformance:
 
-greg k-h
+o spacing
+o space_before_tab
+o pointer_location
+o trailing_whitespace
+o bracket_space
+o leading_space
+
+The brace line position rules are generally reasonable:
+
+o open_brace
+o braces
+o else_after_brace
+o while_after_brace
+
+The vertical line rules like "blank line after
+declarations" and "consecutive blank lines" are
+likely reasonable but may be dubious.
+
+o line_spacing
+
+There are some additional rules active only when
+the --strict option is used that some like
+
+o spacing 
+  (space after a cast)
+  (spaces around operators and arithmetic)
+o line spacing
+  (blank line after function/struct/union/enum)
+
+These style-based rules are perhaps a bit dubious:
+
+o long_line
+o logical_continuations
+o parenthesis_alignment
+
+This one I think senseless (minimum 4 line), but
+there is an override capability:
+
+o config_description
