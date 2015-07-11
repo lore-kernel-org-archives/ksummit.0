@@ -1,30 +1,30 @@
-Return-Path: <dvhart@infradead.org>
+Return-Path: <fengguang.wu@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 44436BA2
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8DF71B1B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 11 Jul 2015 02:39:56 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 02E18B0
+	Sat, 11 Jul 2015 04:35:08 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 1257E190
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 11 Jul 2015 02:39:53 +0000 (UTC)
-Date: Fri, 10 Jul 2015 19:39:46 -0700
-From: Darren Hart <dvhart@infradead.org>
-To: Greg KH <greg@kroah.com>
-Message-ID: <20150711023946.GV111846@vmdeb7>
+	Sat, 11 Jul 2015 04:35:07 +0000 (UTC)
+Date: Sat, 11 Jul 2015 12:34:34 +0800
+From: Fengguang Wu <fengguang.wu@intel.com>
+To: josh@joshtriplett.org
+Message-ID: <20150711043434.GA24356@wfg-t540p.sh.intel.com>
 References: <201507080121.41463.PeterHuewe@gmx.de>
 	<559C73DF.2030008@roeck-us.net> <20150708114011.3a1f1861@noble>
 	<2879113.fraeuJIr2M@avalon> <20150709193718.GD9169@vmdeb7>
-	<20150710143641.GW4341@mwanda> <20150710160714.GL111846@vmdeb7>
-	<20150710222351.GA28632@kroah.com> <20150711000034.GU111846@vmdeb7>
-	<20150711001348.GA30675@kroah.com>
+	<20150709201127.GA3426@cloud> <20150709203830.GF7021@wotan.suse.de>
+	<20150709210059.GA3720@cloud>
+	<alpine.DEB.2.10.1507091723380.2532@hadrien>
+	<20150709231131.GA4516@cloud>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20150711001348.GA30675@kroah.com>
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	Dan Carpenter <dan.carpenter@oracle.com>,
-	Jason Cooper <jason@lakedaemon.net>
+In-Reply-To: <20150709231131.GA4516@cloud>
+Cc: Jason Cooper <jason@lakedaemon.net>,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -36,100 +36,40 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 10, 2015 at 05:13:48PM -0700, Greg KH wrote:
-> On Fri, Jul 10, 2015 at 05:00:34PM -0700, Darren Hart wrote:
-> > On Fri, Jul 10, 2015 at 03:23:51PM -0700, Greg KH wrote:
-> > > On Fri, Jul 10, 2015 at 09:07:14AM -0700, Darren Hart wrote:
-> > > > On Fri, Jul 10, 2015 at 05:36:41PM +0300, Dan Carpenter wrote:
-> > > > > Or you could just create a generic form letter like Greg does.
-> > > > > 
-> > > > 
-> > > > OK, so this is precisely the kind of individually developed special purpose
-> > > > wizardry that I think hinders recruitment. Rather than having every maintainer
-> > > > reinvent this wheel in a subtly different a personal way (which gets back to the
-> > > > issues raised about subtly different expectations per maintainer), it makes a
-> > > > lot of sense to me to create a common infrastructure that we can all use.
-> > > 
-> > > Ok, feel free to use my "form letter" that I've created over the years
-> > > and expand on it for more common problems if I've missed anything.  I
-> > > just dump it into a response to the patch (3 keystrokes), and cut away
-> > > anything that isn't relevant to this specific patch.  Seems to work
-> > > pretty well in cutting down on me having to type the same thing all the
-> > > time.
+On Thu, Jul 09, 2015 at 04:11:31PM -0700, josh@joshtriplett.org wrote:
+> On Thu, Jul 09, 2015 at 05:24:06PM -0400, Julia Lawall wrote:
+> > On Thu, 9 Jul 2015, josh@joshtriplett.org wrote:
 > > 
-> > Do you have something that automates the scanning for basic errors and builds
-> > and reports to you - or do you manually pull every patch out of your email
-> > client and run those tests yourself to find that the patch-bot needs to be
-> > deployed?
+> > > On Thu, Jul 09, 2015 at 10:38:30PM +0200, Luis R. Rodriguez wrote:
+> > > > On Thu, Jul 09, 2015 at 01:11:27PM -0700, josh@joshtriplett.org wrote:
+> > > > > Bonus if this is also wired into the 0day bot, so that you also find out
+> > > > > if you introduce a new warning or error.
+> > > >
+> > > > No reason to make bots do stupid work, if we really wanted to consider
+> > > > this a bit more seriously the pipeline could be:
+> > > >
+> > > >   mailing-list | coccinelle coccicheck| smatch | sparse | 0-day-bot
+> > >
+> > > That would effectively make the bot duplicate part of 0-day.  Seems
+> > > easier to have some way to tell 0-day "if you see obvious procedural
+> > > issues, don't bother with full-scale testing, just reject".
+> > 
+> > Not sure to understand.  Isn't it better to have the most feedback
+> > possible?
 > 
-> Almost all of the issues I list in that response I find just by looking
-> at the patch, they jump out instantly.  The ones for when the build is
-> broken or the patch doesn't apply get found when I do my "apply this
-> mbox of patches" work, which I usually do in chunks of 5 patches at a
-> time.
-> 
-> So no, I don't have anything automated, so yes almost all of these could
-> be found by a tool.  Oh look, we have that tool, which no one uses,
-> checkpatch.pl.
-> 
-> Ok, checkpatch will not catch the issue where your email client is
-> messed up, or when you send a series of patches with no numbering on
-> them, but that's way down the list of errors that I see by quantity.
-> And I think I review more "first timer" patches than anyone else in the
-> community.  If people actually ran checkpatch it would resolve almost
-> all of the issues I see.
-> 
-> > That's the kind of thing that it seems like could be automated and
-> > improve the quality level of patches that make it to the maintainers.
-> 
-> All of these are the "simple" issues that really don't take long to
-> resolve.  We have it documented in great detail on how to set up an
-> email client, how to format the patch, and how to get everything right
-> on the kernelnewbies.org site.  I also teach a class on this, one hour
-> max is all it takes, unless you are at a company with a broken email
-> system.  And then all bets are off, you better just install a Linux
-> email server in the corner to resolve your email issues, just like all
-> the major companies did (IBM, Intel, Microsoft, etc.)
+> If 0-day has enough bandwidth, sure.
 
-OK, all good points. It looks as though I can step up my own tooling some to
-make the email-to-compilation step faster so I don't spend as much time on
-patches with compiler warnings, that don't apply, etc. Dan C. said something
-similar.
+0-day has good enough bandwidth, now and future. :)
 
-The "one hour class" thing makes it sound like it takes "one hour" - but I find
-I have to revisit this stuff fairly regularly, and those hours add up.
+> However, if this is going to
+> encourage a large number of new contributors to quickly iterate a pile
+> of patches, many of which are likely to have basic procedural issues in
+> the first few iterations, then that may waste quite a lot of build time
+> in 0-day.
 
-> I applaud your attempt here, and don't want to stop you from working on
-> it, but I think the real issue is having people actually look for the
-> documentation and tools we already have created to do this.  If you make
-> yet-another-tool, how are you going to advertise it any better than the
-> existing tools/documentation are?
+0-day can reasonably handle that kind of load. Feel free to push code
+10 times per day. It'll run all build/boot tests on the latest branch
+HEAD until test completion or new HEAD arrives.
 
-That's definitely the key. Right now, people go through *some* process to
-discover how to send their first patch to LKML - somehow they often manage to do
-that without discovering (or choosing to use) checkpatch.pl or run some
-reasonable set of build tests. In order for something like what is being
-proposed here, the new tool would have to have to be:
-
-1) Easier to find
-2) Easier to use
-3) Presented as a path to patch submission
-   (not an extra tool to run beforehand)
-
-The idea being that the patch submission process would include some automated
-vetting, which catches trivial stuff for first-timers, but which also catches
-more complex things by integrating with 0-day or similar. I wouldn't mind not
-seeing a patch until after 0-day automatically provided feedback from all the
-static analyzers and config fuzz build testing if that could be seemlessly
-injected into the patch submission process.
-
-I have people ask me about web based revision control tooling for Linux and
-other projects fairly regularly. I do believe that if we made it available,
-many first-timers would find it to be a much lower barrier to entry.
-
-Of course, the output has to adhere to the current process such that it
-doesn't impact the scalability of our top maintainers like you and Linus.
-
--- 
-Darren Hart
-Intel Open Source Technology Center
+Thanks,
+Fengguang
