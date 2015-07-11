@@ -1,29 +1,32 @@
-Return-Path: <jason@lakedaemon.net>
+Return-Path: <dvhart@infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id E96B5B8B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 44436BA2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 11 Jul 2015 01:48:53 +0000 (UTC)
-Received: from pmta2.delivery3.ore.mailhop.org
-	(pmta2.delivery3.ore.mailhop.org [54.213.22.21])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id 749E7B0
+	Sat, 11 Jul 2015 02:39:56 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 02E18B0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 11 Jul 2015 01:48:53 +0000 (UTC)
-Date: Sat, 11 Jul 2015 01:48:50 +0000
-From: Jason Cooper <jason@lakedaemon.net>
-To: Kees Cook <keescook@chromium.org>
-Message-ID: <20150711014850.GA23515@io.lakedaemon.net>
-References: <20150710143832.GU23515@io.lakedaemon.net>
-	<CA+5PVA5j9973GzdYj-s2WX3J8ycf5hQTBdGq+8j-8RGDX2OaYg@mail.gmail.com>
-	<20150710162328.GB12009@thunk.org>
-	<CAGXu5j+NY8-5WPcP1kLZsKgzmbQ=L0Q18XZ6FYeVTcFGDLrRSw@mail.gmail.com>
+	Sat, 11 Jul 2015 02:39:53 +0000 (UTC)
+Date: Fri, 10 Jul 2015 19:39:46 -0700
+From: Darren Hart <dvhart@infradead.org>
+To: Greg KH <greg@kroah.com>
+Message-ID: <20150711023946.GV111846@vmdeb7>
+References: <201507080121.41463.PeterHuewe@gmx.de>
+	<559C73DF.2030008@roeck-us.net> <20150708114011.3a1f1861@noble>
+	<2879113.fraeuJIr2M@avalon> <20150709193718.GD9169@vmdeb7>
+	<20150710143641.GW4341@mwanda> <20150710160714.GL111846@vmdeb7>
+	<20150710222351.GA28632@kroah.com> <20150711000034.GU111846@vmdeb7>
+	<20150711001348.GA30675@kroah.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAGXu5j+NY8-5WPcP1kLZsKgzmbQ=L0Q18XZ6FYeVTcFGDLrRSw@mail.gmail.com>
-Cc: Josh Boyer <jwboyer@fedoraproject.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] dev/maintainer workflow security
+In-Reply-To: <20150711001348.GA30675@kroah.com>
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	Dan Carpenter <dan.carpenter@oracle.com>,
+	Jason Cooper <jason@lakedaemon.net>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
+ Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,89 +36,100 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 10, 2015 at 03:08:57PM -0700, Kees Cook wrote:
-> On Fri, Jul 10, 2015 at 9:23 AM, Theodore Ts'o <tytso@mit.edu> wrote:
-> > On Fri, Jul 10, 2015 at 11:50:30AM -0400, Josh Boyer wrote:
-> >> > This is a topic of interest to me that I think would best benefit from a
-> >> > conference room discussion.
-> >> >
-> >> > Items to discuss:
-> >> >
-> >> >  - Survey the room on workflows and security posture for kernel work
-> >> >  - Discussion of threat models, attack vectors
-> >> >  - Discuss mitigation methods, tools and techniques
-> >> >  - Identify missing tools or features of tools
-> >> >
-> >> > The intent is to discuss end point security with regards to protecting
-> >> > the kernel source tree.
-> >>
-> >> Interesting.  Though I think it needs a broader audience to be honest.
-> >> It would be far easier to use distros as an attack vector than to try
-> >> subverting the upstream source code.  This might be a good topic for
-> >> something like Linux Plumbers.
-> >
-> > I agree that the issue of trusting distros and the possibility of
-> > hiding malware in distro software is an important one, and one which
-> > is best addressed at something like Plumbers.
-> >
-> > However, there are a number of Kernel-specific security issues which
-> > are just as important --- how we maintain our own personal security,
-> > and how we make sure a backdoor doesn't get slipped into the kernel
-> > source tree.
+On Fri, Jul 10, 2015 at 05:13:48PM -0700, Greg KH wrote:
+> On Fri, Jul 10, 2015 at 05:00:34PM -0700, Darren Hart wrote:
+> > On Fri, Jul 10, 2015 at 03:23:51PM -0700, Greg KH wrote:
+> > > On Fri, Jul 10, 2015 at 09:07:14AM -0700, Darren Hart wrote:
+> > > > On Fri, Jul 10, 2015 at 05:36:41PM +0300, Dan Carpenter wrote:
+> > > > > Or you could just create a generic form letter like Greg does.
+> > > > > 
+> > > > 
+> > > > OK, so this is precisely the kind of individually developed special purpose
+> > > > wizardry that I think hinders recruitment. Rather than having every maintainer
+> > > > reinvent this wheel in a subtly different a personal way (which gets back to the
+> > > > issues raised about subtly different expectations per maintainer), it makes a
+> > > > lot of sense to me to create a common infrastructure that we can all use.
+> > > 
+> > > Ok, feel free to use my "form letter" that I've created over the years
+> > > and expand on it for more common problems if I've missed anything.  I
+> > > just dump it into a response to the patch (3 keystrokes), and cut away
+> > > anything that isn't relevant to this specific patch.  Seems to work
+> > > pretty well in cutting down on me having to type the same thing all the
+> > > time.
+> > 
+> > Do you have something that automates the scanning for basic errors and builds
+> > and reports to you - or do you manually pull every patch out of your email
+> > client and run those tests yourself to find that the patch-bot needs to be
+> > deployed?
 > 
-> I'm curious about the larger set of security topics.
+> Almost all of the issues I list in that response I find just by looking
+> at the patch, they jump out instantly.  The ones for when the build is
+> broken or the patch doesn't apply get found when I do my "apply this
+> mbox of patches" work, which I usually do in chunks of 5 patches at a
+> time.
+> 
+> So no, I don't have anything automated, so yes almost all of these could
+> be found by a tool.  Oh look, we have that tool, which no one uses,
+> checkpatch.pl.
+> 
+> Ok, checkpatch will not catch the issue where your email client is
+> messed up, or when you send a series of patches with no numbering on
+> them, but that's way down the list of errors that I see by quantity.
+> And I think I review more "first timer" patches than anyone else in the
+> community.  If people actually ran checkpatch it would resolve almost
+> all of the issues I see.
+> 
+> > That's the kind of thing that it seems like could be automated and
+> > improve the quality level of patches that make it to the maintainers.
+> 
+> All of these are the "simple" issues that really don't take long to
+> resolve.  We have it documented in great detail on how to set up an
+> email client, how to format the patch, and how to get everything right
+> on the kernelnewbies.org site.  I also teach a class on this, one hour
+> max is all it takes, unless you are at a company with a broken email
+> system.  And then all bets are off, you better just install a Linux
+> email server in the corner to resolve your email issues, just like all
+> the major companies did (IBM, Intel, Microsoft, etc.)
 
-I am as well, but most of those can be discussed openly.  I thought the
-KS would be a good opportunity to sit down and compare notes about
-things we may not be comfortable discussing in public.
+OK, all good points. It looks as though I can step up my own tooling some to
+make the email-to-compilation step faster so I don't spend as much time on
+patches with compiler warnings, that don't apply, etc. Dan C. said something
+similar.
 
-> Jason's topic seems to surround "supply chain security", but I think
-> we've got a lot of other areas. Is focusing on just that topic the
-> right thing to do?
+The "one hour class" thing makes it sound like it takes "one hour" - but I find
+I have to revisit this stuff fairly regularly, and those hours add up.
 
-I'm open to these for sure, but it's time dependent.  This could easily
-turn into the KSS, Kernel Security Summit.  *I* think that would fun,
-but a lot of others might not.
+> I applaud your attempt here, and don't want to stop you from working on
+> it, but I think the real issue is having people actually look for the
+> documentation and tools we already have created to do this.  If you make
+> yet-another-tool, how are you going to advertise it any better than the
+> existing tools/documentation are?
 
-> - supply chain security: I see two parts:
->   - intentionally malicious commits (as Ted describes below)
->   - personal security (keep commit credentials secure from theft)
+That's definitely the key. Right now, people go through *some* process to
+discover how to send their first patch to LKML - somehow they often manage to do
+that without discovering (or choosing to use) checkpatch.pl or run some
+reasonable set of build tests. In order for something like what is being
+proposed here, the new tool would have to have to be:
 
-> - reactive security: bug fix workflow
->   - getting fixes _to end users_ (not the same as publishing to stable)
->   - documenting impact when known (avoiding intentional obfuscation)
+1) Easier to find
+2) Easier to use
+3) Presented as a path to patch submission
+   (not an extra tool to run beforehand)
 
-This one is a can of worms that no one has solved yet.  It's the
-conflict between the 'open' in "open source" and the reality of patch
-propagation.  Or complete lack there of when users don't update.  I
-doubt we could add anything new to the discussion, let alone solve the
-problem at KS.
+The idea being that the patch submission process would include some automated
+vetting, which catches trivial stuff for first-timers, but which also catches
+more complex things by integrating with 0-day or similar. I wouldn't mind not
+seeing a patch until after 0-day automatically provided feedback from all the
+static analyzers and config fuzz build testing if that could be seemlessly
+injected into the patch submission process.
 
-> - proactive security: stop security flaws from happening in the first place
->   - scope analysis (defending both userspace and kernel from attack)
->   - threat analysis (how are attacks being made now and in future?)
->   - exposure analysis (syscall interface, device firmware, etc)
->   - static checkers (find and eliminate bug classes in the code)
->   - run-time mitigation features (endless list: memory protection, CFI,
->     ASLR, anti-bruteforcing, etc)
+I have people ask me about web based revision control tooling for Linux and
+other projects fairly regularly. I do believe that if we made it available,
+many first-timers would find it to be a much lower barrier to entry.
 
-These are fun, but in the traditional security vein.  Not to say they
-aren't worthy of discussion, but that they can and are discussed in
-public.  If we choose to add this to the agenda, perhaps a summary of
-the state of the art from the parties involved would suffice?
+Of course, the output has to adhere to the current process such that it
+doesn't impact the scalability of our top maintainers like you and Linus.
 
-> My question would be: where do we need discussion? "Supply chain
-> security" was discussed a fair bit after the kernel.org incident.
-
-That was pre-Snowden.  Also prior to a bunch of game-changing hacks and
-vulnerability disclosures.  I think it's safe to say everyone's security
-awareness and imagined art-of-the-possible has opened up in the past
-couple of years.  Particularly for non-security minded folks.
-
-I think that merits revisiting the topic.  As Olof said, what are the
-convenience-vs-security tradeoffs everyone is doing today?  Which of
-them sound sane, which need tweaking?
-
-thx,
-
-Jason.
+-- 
+Darren Hart
+Intel Open Source Technology Center
