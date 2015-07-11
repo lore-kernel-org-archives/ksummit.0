@@ -1,33 +1,28 @@
-Return-Path: <dan.j.williams@intel.com>
+Return-Path: <dvhart@infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id E778DAAC
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E3A8FAE7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 11 Jul 2015 00:00:05 +0000 (UTC)
-Received: from mail-wi0-f176.google.com (mail-wi0-f176.google.com
-	[209.85.212.176])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2054215E
+	Sat, 11 Jul 2015 00:00:39 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F2623150
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 11 Jul 2015 00:00:05 +0000 (UTC)
-Received: by wifm2 with SMTP id m2so58722446wif.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 10 Jul 2015 17:00:03 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <20150710205418.GB10533@cloud>
+	Sat, 11 Jul 2015 00:00:38 +0000 (UTC)
+Date: Fri, 10 Jul 2015 17:00:34 -0700
+From: Darren Hart <dvhart@infradead.org>
+To: Greg KH <greg@kroah.com>
+Message-ID: <20150711000034.GU111846@vmdeb7>
 References: <201507080121.41463.PeterHuewe@gmx.de>
 	<559C73DF.2030008@roeck-us.net> <20150708114011.3a1f1861@noble>
 	<2879113.fraeuJIr2M@avalon> <20150709193718.GD9169@vmdeb7>
-	<1436481109.3324.219.camel@infradead.org>
-	<20150710003559.GT11162@sirena.org.uk>
-	<20150710020706.GH111846@vmdeb7>
-	<20150710155144.34dde697@gandalf.local.home>
-	<20150710205418.GB10533@cloud>
-Date: Fri, 10 Jul 2015 17:00:03 -0700
-Message-ID: <CAPcyv4iMWedb18mj5oNpx9KTpryrgFS29rSctQyervAh-R=ecw@mail.gmail.com>
-From: Dan Williams <dan.j.williams@intel.com>
-To: josh@joshtriplett.org
-Content-Type: text/plain; charset=UTF-8
+	<20150710143641.GW4341@mwanda> <20150710160714.GL111846@vmdeb7>
+	<20150710222351.GA28632@kroah.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20150710222351.GA28632@kroah.com>
 Cc: ksummit-discuss@lists.linuxfoundation.org,
+	Dan Carpenter <dan.carpenter@oracle.com>,
 	Jason Cooper <jason@lakedaemon.net>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
@@ -40,70 +35,31 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 10, 2015 at 1:54 PM,  <josh@joshtriplett.org> wrote:
-> On Fri, Jul 10, 2015 at 03:51:44PM -0400, Steven Rostedt wrote:
->> On Thu, 9 Jul 2015 19:07:06 -0700
->> Darren Hart <dvhart@infradead.org> wrote:
->> > As far as recruitment goes, I think we're talking about barriers to first-timers
->> > and such - and git-send-email is one of those things. Eventually, a developer
->>
->> +1000
->>
->> I still don't use git-send-email, as I afraid that I'll blow it and end
->> up sending a thousand patches to every developer that ever touched the
->> kernel ;-)
->
-> I don't use git-send-email either.  I use git-format-patch
-> --cover-letter --thread, and then mutt -H to individually send each
-> mail.  (I originally added the --thread and --in-reply-to options to
-> git-format-patch, so that you don't need to use git-send-email for
-> that.)
->
-> The one thing I *do* find annoying is that the combination of
-> format-patch and get_maintainers.pl can't easily say "I want to send all
-> the patches and the cover letter to the same set of people, based on
-> every patch".  (Or, at the very least, the cover letter to everyone.)
-> Otherwise, maintainers get one patch out of the series, which may be
-> confusing without context, and the cover letter doesn't go to anyone.
-> Unfortunately, fixing that then tends to hit LKML's limit on number of
-> recipients.
->
+On Fri, Jul 10, 2015 at 03:23:51PM -0700, Greg KH wrote:
+> On Fri, Jul 10, 2015 at 09:07:14AM -0700, Darren Hart wrote:
+> > On Fri, Jul 10, 2015 at 05:36:41PM +0300, Dan Carpenter wrote:
+> > > Or you could just create a generic form letter like Greg does.
+> > > 
+> > 
+> > OK, so this is precisely the kind of individually developed special purpose
+> > wizardry that I think hinders recruitment. Rather than having every maintainer
+> > reinvent this wheel in a subtly different a personal way (which gets back to the
+> > issues raised about subtly different expectations per maintainer), it makes a
+> > lot of sense to me to create a common infrastructure that we can all use.
+> 
+> Ok, feel free to use my "form letter" that I've created over the years
+> and expand on it for more common problems if I've missed anything.  I
+> just dump it into a response to the patch (3 keystrokes), and cut away
+> anything that isn't relevant to this specific patch.  Seems to work
+> pretty well in cutting down on me having to type the same thing all the
+> time.
 
-I carry this patch on top of StGit for exactly this purpose.
+Do you have something that automates the scanning for basic errors and builds
+and reports to you - or do you manually pull every patch out of your email
+client and run those tests yourself to find that the patch-bot needs to be
+deployed? That's the kind of thing that it seems like could be automated and
+improve the quality level of patches that make it to the maintainers.
 
-commit 562aca51a303e841a76defc3148db5c69b688994
-Author: Dan Williams <dan.j.williams@intel.com>
-Date:   Thu Feb 27 11:54:32 2014 -0800
-
-    mail: auto cc cover letter to union of all attribution tags in a series
-
-    If a receiver is only copied on the a single patch out of a larger
-series she
-    may not have the necessary context to judge the patch.  Auto cc her on the
-    cover letter.
-
-    Signed-off-by: Dan Williams <dan.j.williams@intel.com>
-
-diff --git a/stgit/commands/mail.py b/stgit/commands/mail.py
-index e641634981d6..d986b805dbc4 100644
---- a/stgit/commands/mail.py
-+++ b/stgit/commands/mail.py
-@@ -534,8 +534,18 @@ def __build_cover(tmpl, msg_id, options, patches):
-     except Exception, ex:
-         raise CmdException, 'template parsing error: %s' % str(ex)
-
-+    extra_cc = []
-+    if options.auto:
-+        for patch in patches:
-+            p = crt_series.get_patch(patch)
-+            if p.get_description():
-+                descr = p.get_description().strip()
-+                extra_cc.extend(__get_signers_list(descr))
-+        extra_cc = list(set(extra_cc))
-+
-+
-     if not options.git:
--        __build_address_headers(msg, options)
-+        __build_address_headers(msg, options, extra_cc)
-     __build_extra_headers(msg, msg_id, options.in_reply_to)
-     __encode_message(msg)
+-- 
+Darren Hart
+Intel Open Source Technology Center
