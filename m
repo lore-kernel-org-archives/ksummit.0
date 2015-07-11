@@ -1,29 +1,37 @@
-Return-Path: <dvhart@infradead.org>
+Return-Path: <groeck7@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id E3A8FAE7
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 428B4B68
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 11 Jul 2015 00:00:39 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F2623150
+	Sat, 11 Jul 2015 00:52:18 +0000 (UTC)
+Received: from mail-pd0-f173.google.com (mail-pd0-f173.google.com
+	[209.85.192.173])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D4884151
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 11 Jul 2015 00:00:38 +0000 (UTC)
-Date: Fri, 10 Jul 2015 17:00:34 -0700
-From: Darren Hart <dvhart@infradead.org>
-To: Greg KH <greg@kroah.com>
-Message-ID: <20150711000034.GU111846@vmdeb7>
-References: <201507080121.41463.PeterHuewe@gmx.de>
-	<559C73DF.2030008@roeck-us.net> <20150708114011.3a1f1861@noble>
-	<2879113.fraeuJIr2M@avalon> <20150709193718.GD9169@vmdeb7>
-	<20150710143641.GW4341@mwanda> <20150710160714.GL111846@vmdeb7>
-	<20150710222351.GA28632@kroah.com>
+	Sat, 11 Jul 2015 00:52:17 +0000 (UTC)
+Received: by pdbqm3 with SMTP id qm3so48449790pdb.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 10 Jul 2015 17:52:16 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Fri, 10 Jul 2015 17:52:12 -0700
+From: Guenter <linux@roeck-us.net>
+To: "Luis R. Rodriguez" <mcgrof@suse.com>
+Message-ID: <20150711005212.GA11164@groeck-UX31A>
+References: <559EBD4C.6030502@gmail.com> <20150709190640.GC788@roeck-us.net>
+	<20150709194734.GG9169@vmdeb7> <20150709201315.GF9417@thunk.org>
+	<20150709205049.GB5154@roeck-us.net>
+	<20150709214718.GG9417@thunk.org>
+	<20150710182045.GA19854@roeck-us.net>
+	<20150710185800.GW23515@io.lakedaemon.net>
+	<20150710202407.GC9469@groeck-UX31A>
+	<20150710211405.GJ7021@wotan.suse.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20150710222351.GA28632@kroah.com>
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	Dan Carpenter <dan.carpenter@oracle.com>,
-	Jason Cooper <jason@lakedaemon.net>
+In-Reply-To: <20150710211405.GJ7021@wotan.suse.de>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	jic23@jic23.retrosnub.co.uk, Jason Cooper <jason@lakedaemon.net>,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -35,31 +43,34 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 10, 2015 at 03:23:51PM -0700, Greg KH wrote:
-> On Fri, Jul 10, 2015 at 09:07:14AM -0700, Darren Hart wrote:
-> > On Fri, Jul 10, 2015 at 05:36:41PM +0300, Dan Carpenter wrote:
-> > > Or you could just create a generic form letter like Greg does.
+Hi Luis,
+
+On Fri, Jul 10, 2015 at 11:14:05PM +0200, Luis R. Rodriguez wrote:
 > > > 
-> > 
-> > OK, so this is precisely the kind of individually developed special purpose
-> > wizardry that I think hinders recruitment. Rather than having every maintainer
-> > reinvent this wheel in a subtly different a personal way (which gets back to the
-> > issues raised about subtly different expectations per maintainer), it makes a
-> > lot of sense to me to create a common infrastructure that we can all use.
+> > Multiple S-o-b's don't always mean gaming, though. For example, my
+> > company's workflow requires me to sign off upstream patches, not to
+> > get annother S-o-b with my name on it, but to certify that the patch 
+> > does not accidentially publish any company IP (and, if it does, it is
+> > my fault, not the fault of the person who wrote the code).
 > 
-> Ok, feel free to use my "form letter" that I've created over the years
-> and expand on it for more common problems if I've missed anything.  I
-> just dump it into a response to the patch (3 keystrokes), and cut away
-> anything that isn't relevant to this specific patch.  Seems to work
-> pretty well in cutting down on me having to type the same thing all the
-> time.
+> There is a danger to having people interpret the s-o-b tag differently
+> than what it originally was intended for, such confusion deserves
+> serious attention and my hope is that if folks detect these misuses
+> they can try to educate folks on it. The s-o-b tag means the person
+> is certifying under the Developer Certificate or Origin (DCO) the
+> patch in question. That's it. The practical gains of such a leight
+> weight development tool to use something like the s-o-b combined
+> with the huge legal merit behind it has convinced us to generalize
+> the DCO and encourage people outside of Linux to use it:
+> 
+Not really sure if I understand you correctly. Are you saying that you
+consider the above to be a mis-use of s-o-b ?
 
-Do you have something that automates the scanning for basic errors and builds
-and reports to you - or do you manually pull every patch out of your email
-client and run those tests yourself to find that the patch-bot needs to be
-deployed? That's the kind of thing that it seems like could be automated and
-improve the quality level of patches that make it to the maintainers.
+By co-signing a patch I do (co-)certify it under DCO; I am well aware
+of that. That it may have an additional context doesn't change that,
+or limit its value. I can well imagine that other companies have a
+similar approval flow, and I don't really understand why that would
+or could be a problem. Can you educate me ?
 
--- 
-Darren Hart
-Intel Open Source Technology Center
+Thanks,
+Guenter
