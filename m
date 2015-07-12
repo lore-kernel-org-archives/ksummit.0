@@ -1,35 +1,28 @@
-Return-Path: <josh@joshtriplett.org>
+Return-Path: <laurent.pinchart@ideasonboard.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 148A9ABA
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 65CC9B8B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 12 Jul 2015 18:23:30 +0000 (UTC)
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
-	[217.70.183.195])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 59A06114
+	Sun, 12 Jul 2015 19:36:59 +0000 (UTC)
+Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
+	[185.26.127.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E4DE3F2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 12 Jul 2015 18:23:29 +0000 (UTC)
-Date: Sun, 12 Jul 2015 11:23:21 -0700
-From: Josh Triplett <josh@joshtriplett.org>
-To: Fengguang Wu <fengguang.wu@intel.com>
-Message-ID: <20150712182321.GB18191@x>
-References: <2879113.fraeuJIr2M@avalon> <20150709193718.GD9169@vmdeb7>
-	<20150709201127.GA3426@cloud> <20150709203830.GF7021@wotan.suse.de>
-	<20150709210059.GA3720@cloud>
-	<1436518482.2393.19.camel@HansenPartnership.com>
-	<20150712020235.GB24356@wfg-t540p.sh.intel.com>
-	<20150712051958.GA15346@x>
-	<1436689193.2344.2.camel@HansenPartnership.com>
-	<20150712104807.GA7111@wfg-t540p.sh.intel.com>
+	Sun, 12 Jul 2015 19:36:57 +0000 (UTC)
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Sun, 12 Jul 2015 22:37:13 +0300
+Message-ID: <3885915.kgX5jMVgvI@avalon>
+In-Reply-To: <201507080905.00051.PeterHuewe@gmx.de>
+References: <201507080121.41463.PeterHuewe@gmx.de>
+	<CAJKOXPfnwUX5fdBg1EDJSGgrNGXb3AmrK8tXokxqHw=XYzhddA@mail.gmail.com>
+	<201507080905.00051.PeterHuewe@gmx.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20150712104807.GA7111@wfg-t540p.sh.intel.com>
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Jason Cooper <jason@lakedaemon.net>,
-	ksummit-discuss@lists.linuxfoundation.org
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Cc: Josh Boyer <jwboyer@fedoraproject.org>, Jason Cooper <jason@lakedaemon.net>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
- Maintainers, Hobbyists)
+	Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,74 +32,101 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sun, Jul 12, 2015 at 06:48:07PM +0800, Fengguang Wu wrote:
-> On Sun, Jul 12, 2015 at 09:19:53AM +0100, James Bottomley wrote:
-> > On Sat, 2015-07-11 at 22:19 -0700, Josh Triplett wrote:
-> > > On Sun, Jul 12, 2015 at 10:02:35AM +0800, Fengguang Wu wrote:
-> > > > On Fri, Jul 10, 2015 at 09:54:42AM +0100, James Bottomley wrote:
-> > > > > On Thu, 2015-07-09 at 14:00 -0700, josh@joshtriplett.org wrote:
-> > > > > > On Thu, Jul 09, 2015 at 10:38:30PM +0200, Luis R. Rodriguez wrote:
-> > > > > > > On Thu, Jul 09, 2015 at 01:11:27PM -0700, josh@joshtriplett.org wrote:
-> > > > > > > > Bonus if this is also wired into the 0day bot, so that you also find out
-> > > > > > > > if you introduce a new warning or error.
-> > > > > > > 
-> > > > > > > No reason to make bots do stupid work, if we really wanted to consider
-> > > > > > > this a bit more seriously the pipeline could be:
-> > > > > > > 
-> > > > > > >   mailing-list | coccinelle coccicheck| smatch | sparse | 0-day-bot
-> > > > > > 
-> > > > > > That would effectively make the bot duplicate part of 0-day.  Seems
-> > > > > > easier to have some way to tell 0-day "if you see obvious procedural
-> > > > > > issues, don't bother with full-scale testing, just reject".
-> > > > > 
-> > > > > We already have this with the 0 day project.  The only difference being
-> > > > > the patch has to be in a tree for it to get tested.  It's not impossible
-> > > > > to imagine a bot that would pick up a patch, apply it (giving automated
-> > > > > rejects as email replies), and leave it in for the 0 day tests to
-> > > > > assess ... sort of like patchwork but with an automated tree build.   We
-> > > > > could periodically throw away the tree (say weekly) because the job of
-> > > > > the bot would be to find initial rejects rather than build a workable
-> > > > > tree.
-> > > > 
-> > > > That's a good point. Up to now 0-day only takes care of code in git trees.
-> > > > We've collected 500+ developers' git trees so far, however their coverage
-> > > > looks not enough -- there are 3000+ kernel developers in last year's git log.
-> > > > 
-> > > > To achieve 100% code coverage, we'll also need to watch emails in the
-> > > > kernel mailing lists, auto convert patch series there to git branches
-> > > > for 0-day and other testers, and auto reply results to the original
-> > > > mailing list's email thread.
-> > > > 
-> > > > That would be a natural fit for the email based patch submission path
-> > > > and review process.
-> > > > 
-> > > > The potential problem, however, is "git-am to which base branch?"
-> > > > That's where it may go messy.
-> > > 
-> > > Patch submitters should be making it clear to what tree their patch
-> > > applies, preferably using an unambiguous tag in the mail subject.  In
-> > > the absence of such a tag, try it against torvalds/linux.git and
-> > > linux-next.git, and then give up and tell the submitter to specify what
-> > > their patch applies to.
-> > 
-> > To be honest, the mailing list it's sent to mostly identifies which tree
-> > it should be going in.  There's difficulty over whether the for next or
-> > for current branches ... but we have that today as well.
-> 
-> Yes, mailing list would be a very good hint.
-> 
-> Another clue can be the index part of all git emails
-> 
->         diff --git a/Makefile b/Makefile
-> ==>     index 3ba5044..f5c8983 100644
->         --- a/Makefile
->         +++ b/Makefile
-> 
-> That object id may help identify the possible BASE branches for the
-> email patch. Due to my limited knowledge of git, I can only think
-> about a brutal force (but still affordable) way to iterate all the
-> well known branches to find the possible BASE branches.
+On Wednesday 08 July 2015 09:04:58 Peter H=C3=BCwe wrote:
+> Am Mittwoch, 8. Juli 2015, 04:03:04 schrieb Krzysztof Koz=C5=82owski:=
 
-That's a good idea.
+> > Before doing some work there is always a cause, an answer to "why I=
+ am
+> > doing this"? Employer may pay for my commits but would he pay for
+> > reviewing time? That is his decision and it would be difficult to
+> > change policies inside companies.
+> >=20
+> > Other reason for doing open source work may be the fame. Being
+> > recognizable, getting better job offers, doing tasks which are
+> > sensible and meaningful for someone. Currently probably most of the=
 
-- Josh Triplett
+> > fame goes to authors and maintainers. For example in the form of `g=
+it
+> > log --author/committer=3D` or LWN articles about statistics.
+> >=20
+> > How to get more reviews from such people (when employer does not pa=
+y
+> > for it)? Give them fame! :)
+>=20
+> Exactly!
+>=20
+> This is also what Rafael wrote in the other mail:
+> > Most of the time there's a little to no recognition for doing that =
+work
+> > and, quite frankly, writing code is more rewarding than that for th=
+e
+> > majority of people anyway.
+>=20
+> So changing our fame-statistics from commits to reviews and tested by=
+ might
+> change the situation a bit.
+> -> The next LWN stats and coverage should probably focus on the revie=
+wed-by
+> / tested-by stats.
+> People love to be on some "top 10" lists - and also they can show som=
+ething
+> like that to their bosses.
+>=20
+> "I've been a kernel reviewer and tester" -- meh, who cares
+> "I've been a top 100 kernel reviewer and tester over the last X relea=
+ses" --
+> give him a raise/the job (esp. if kernel is not the core competency o=
+f the
+> company :)
+>=20
+>=20
+> Another thing I noticed over the last few years (also in corporate), =
+people
+> get really motivated by memorabilia - "tokens of appreciation".
+> E.g. I constantly wear my Google T-Shirt which I received for a contr=
+ibution
+> with such proud and so often that it is almost faded --- but still
+> everytime I look at it I have a good feeling.
+>=20
+> --> Maybe LF can organize something?
+> "Here is a small token of appreciation (t-shirt, cup)  for spending
+> countless hours on reviewing and testing stuff in the Linux kernel --=
+ keep
+> up the good work"
+>=20
+> > The only way to address this problem I can see is to recognize revi=
+ewers
+> > *much* more than we tend to do and not just "encourage" them, becau=
+se
+> > that's way insufficient.
+>=20
+> Yes again!
+>=20
+> What I definitely would also recommend is to organize some 'get toget=
+hers',
+> like a miniconf/minisummit at the next conference near you -- and whe=
+re you
+> grab a beer _together_ with the reviewers / testers afterwards (and m=
+aybe
+> the maintainer can pay).
+> This also helps as forms of appreciation.
+
+While real life meetings are invaluable, let's not forgot that they als=
+o have=20
+a major drawback: not everybody can attend them. In a very distributed=20=
+
+development environment like the Linux kernel contributors come from ma=
+ny=20
+different horizons, and not all of them can afford to attend conference=
+s (or=20
+sometimes just don't want to, for various reasons). If we focus too muc=
+h on a=20
+groups of contributors who can meet in real life we'll alienate the res=
+t of=20
+the "online" crowd, and risk losing contributors who will feel left out=
+.
+
+--=20
+Regards,
+
+Laurent Pinchart
