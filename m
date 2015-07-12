@@ -1,37 +1,29 @@
-Return-Path: <daniel.vetter@ffwll.ch>
+Return-Path: <geert.uytterhoeven@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1397FBC8
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 82856BBF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 12 Jul 2015 10:01:30 +0000 (UTC)
-Received: from mail-oi0-f43.google.com (mail-oi0-f43.google.com
-	[209.85.218.43])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0A35FEA
+	Sun, 12 Jul 2015 10:02:22 +0000 (UTC)
+Received: from mail-ob0-f173.google.com (mail-ob0-f173.google.com
+	[209.85.214.173])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 75362AB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 12 Jul 2015 10:01:28 +0000 (UTC)
-Received: by oiyy130 with SMTP id y130so236911401oiy.0
+	Sun, 12 Jul 2015 10:02:21 +0000 (UTC)
+Received: by obbgp5 with SMTP id gp5so102100506obb.0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 12 Jul 2015 03:01:28 -0700 (PDT)
+	Sun, 12 Jul 2015 03:02:21 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <7hlheo9b7m.fsf@deeprootsystems.com>
-References: <1489458.8WDRattPkl@vostro.rjw.lan>
-	<53223375.qzkvIEse3r@vostro.rjw.lan>
-	<2FABAEF0D3DCAF4F9C9628D6E2F968454F18BA5A@BGSMSX102.gar.corp.intel.com>
-	<6142539.s1gh8ubrRK@vostro.rjw.lan>
-	<7hlheo9b7m.fsf@deeprootsystems.com>
-Date: Sun, 12 Jul 2015 12:01:27 +0200
-Message-ID: <CAKMK7uHH=YdktPHMWoo21YEHP8jB_A-369GpYU5syi-a0idPaw@mail.gmail.com>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-To: Kevin Hilman <khilman@kernel.org>
+Sender: geert.uytterhoeven@gmail.com
+In-Reply-To: <55A1407E.5080800@oracle.com>
+References: <55A1407E.5080800@oracle.com>
+Date: Sun, 12 Jul 2015 12:02:20 +0200
+Message-ID: <CAMuHMdUK+LZrp9QxPS0wSJzFZVAr_cihxJnFJybo5nb7U_t7xg@mail.gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+To: Sasha Levin <sasha.levin@oracle.com>
 Content-Type: text/plain; charset=UTF-8
-Cc: "Brown, Len" <len.brown@intel.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	Kristen Carlson Accardi <kristen@linux.intel.com>,
-	Grant Likely <grant.likely@linaro.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] System-wide interface to specify
- the level of PM tuning
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Issues with stable process
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,49 +33,55 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 10, 2015 at 7:25 PM, Kevin Hilman <khilman@kernel.org> wrote:
-> "Rafael J. Wysocki" <rjw@rjwysocki.net> writes:
+On Sat, Jul 11, 2015 at 6:12 PM, Sasha Levin <sasha.levin@oracle.com> wrote:
+>  1. During the RC cycles bug fixes tend to get sent to Linus without going through
+> linux-next. This is very risky, but it seems to work(?). The problem is that Linus
+> doesn't restrict those fixes to bugs that were introduced in the current merge window
+> but takes anything that is labelled as a "fix".
 >
->> On Monday, July 06, 2015 01:49:45 PM Iyer, Sundar wrote:
+> The result is that there is a significant amount of mostly untested RC patches
+> trickling down into stable trees, causing breakage for folks who assume that they
+> are running a tested kernel but end up with commits that haven't even been in
+> linux-next for more than a few days.
 >
-> [...]
+> Since for RC kernel it's expected to see issues, and it's easy to correct, this is
+> less than a problem, but consider this flow for stable:
 >
->>> Is a "single setting somewhere" even appropriate? It is actually the intelligence
->>> needed vs executing the actions?
->>
->> For one example, the default for most of the device/.../power/control files in
->> sysfs is "on" (meaning no runtime PM) while it might be "auto" (use runtime PM
->> if you can).  Making that change for everybody in one go may lead to various
->> issues (that may be regarded as regressions then), but if we made it configurable,
->> people might choose to make that change for themselves if they wanted to.
->
-> I'd be very supportive of some default knob (or cmdline option) to favor
-> energy efficiency.  For runtime PM, I suspect the resulting performance
-> regressions are mostly (relatively) simple fixes, like enabling
-> autosuspend, etc.
->
-> Also, having a system-wide way to enable this mode would also enable us
-> to find/report these bugs/regressions in a way that would be easily
-> repeatable.  With the current pile of knobs/tunables, it's often very
-> hard to reproduce problems others may be seeing.
+>  * 4.0: bug "A" introduced.
+>  * 4.2-rc1: bug "A" fixed, but fix unknowingly introduced bug "B".
 
-My approach in drm/i915 is that there's just one default config and
-that's the well-tuned one. Maybe gfx is special, but with todays
-power-envelope constrained chips it's not a question of performance
-_or_ power efficiency, but always _and_: Enabling power saving
-features improves performance. And where it doesn't we just fix those
-problems with smarter code (since usually the performance regressions
-happen when you ping-pong too badly between different levels, or are
-stuck for too long in a given power saving level). The other reason
-for that approach is that gfx is complex and we just can't test
-arbitrary combinations of options - hence we auto-taint the kernel if
-users touch anything at all.
+And the fix for "A" was not in -next?
+It will be the next day, though.
 
-The downside is that you'll get more bug reports and can't hide from
-them easily ;-)
+>  * 4.1.1: ships with fix for "A", and new bug "B".
 
-Cheers, Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-+41 (0) 79 365 57 48 - http://blog.ffwll.ch
+For serious bugs, the fix may indeed be applied Really Quick.
+
+>  * Stable user machines suffer from breakage.
+>  * 4.2-rc7: bug "B" fixed.
+>  * Stable users still suffer until the next kernel release.
+>
+> So while it was quickly fixed for RC, this seriously affects stable.
+
+I wouldn't say "quickly": there's quite some time period (6 weeks) between
+-rc1 and -rc7.
+
+If the fix for "B" has a proper "Fixes:" tag, I guess it will be applied to
+the next -stable soon. Hence make sure to always provide a "Fixes:" tag when
+fixing bugs.
+
+So it boils down to: "How soon to apply fixes to -stable?", and the trade-off
+between applying fixes early, but risking to break something unknown and new,
+vs. applying fixes late (after more validation), causing more breakage from a
+known issue.
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
