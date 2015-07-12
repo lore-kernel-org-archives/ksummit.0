@@ -1,39 +1,32 @@
-Return-Path: <geert.uytterhoeven@gmail.com>
+Return-Path: <fengguang.wu@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id DE10CBB6
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 670CEBC3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 12 Jul 2015 10:17:26 +0000 (UTC)
-Received: from mail-oi0-f47.google.com (mail-oi0-f47.google.com
-	[209.85.218.47])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4AA72AB
+	Sun, 12 Jul 2015 10:22:47 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id CC10CAB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 12 Jul 2015 10:17:26 +0000 (UTC)
-Received: by oibn4 with SMTP id n4so6565859oib.3
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 12 Jul 2015 03:17:25 -0700 (PDT)
+	Sun, 12 Jul 2015 10:22:46 +0000 (UTC)
+Date: Sun, 12 Jul 2015 18:21:58 +0800
+From: Fengguang Wu <fengguang.wu@intel.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Message-ID: <20150712102158.GA24634@wfg-t540p.sh.intel.com>
+References: <20150707092434.GE11162@sirena.org.uk>
+	<559BEF61.8050904@roeck-us.net>
+	<CAMuHMdX6KcmZhibEC6hn2VN7veMSbbj1+P3kf=udY39fjdjj5w@mail.gmail.com>
+	<20150708075409.GJ4341@mwanda>
+	<CAMuHMdWH+g+=Ra6Do1TOQ8OdvUZ3Y051RnTpOzAQx-AWYidaFQ@mail.gmail.com>
 MIME-Version: 1.0
-Sender: geert.uytterhoeven@gmail.com
-In-Reply-To: <1436558412.24408.35.camel@infradead.org>
-References: <201507080121.41463.PeterHuewe@gmx.de>
-	<559C73DF.2030008@roeck-us.net> <20150708114011.3a1f1861@noble>
-	<2879113.fraeuJIr2M@avalon> <20150709193718.GD9169@vmdeb7>
-	<1436481109.3324.219.camel@infradead.org>
-	<20150710003559.GT11162@sirena.org.uk>
-	<20150710020706.GH111846@vmdeb7>
-	<20150710155144.34dde697@gandalf.local.home>
-	<1436558412.24408.35.camel@infradead.org>
-Date: Sun, 12 Jul 2015 12:17:25 +0200
-Message-ID: <CAMuHMdWz3OXiat0dfDtLtVErJorbOpehdD-iXHw7a1uJG2uPyA@mail.gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-To: David Woodhouse <dwmw2@infradead.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAMuHMdWH+g+=Ra6Do1TOQ8OdvUZ3Y051RnTpOzAQx-AWYidaFQ@mail.gmail.com>
+Cc: Shuah Khan <shuah.kh@samsung.com>, Kevin Hilman <khilman@linaro.org>,
+	Tyler Baker <tyler.baker@linaro.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	Jason Cooper <jason@lakedaemon.net>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
- Maintainers, Hobbyists)
+	Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Testing
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -43,47 +36,37 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 10, 2015 at 10:00 PM, David Woodhouse <dwmw2@infradead.org> wro=
-te:
-> On Fri, 2015-07-10 at 15:51 -0400, Steven Rostedt wrote:
->> On Thu, 9 Jul 2015 19:07:06 -0700
->> Darren Hart <dvhart@infradead.org> wrote:
->> > As far as recruitment goes, I think we're talking about barriers to fi=
-rst-timers
->> > and such - and git-send-email is one of those things. Eventually, a de=
-veloper
->>
->> +1000
->>
->> I still don't use git-send-email, as I afraid that I'll blow it and end
->> up sending a thousand patches to every developer that ever touched the
->> kernel ;-)
->
-> Rather than sending messages, it's actually better to put them as
-> *drafts*, ready to be sent by the user's normal mailer. It's not hard
-> to do this =E2=80=94 I usually dump the mails into
-> ~/.local/share/evolution/mail/local/.Drafts/new/ for example.
+Hi Geert,
 
-"Importing" patches in emails is one of the major reasons why they become
-corrupted.
+On Wed, Jul 08, 2015 at 10:37:50AM +0200, Geert Uytterhoeven wrote:
+> Hi Dan,
+> 
+> On Wed, Jul 8, 2015 at 9:54 AM, Dan Carpenter <dan.carpenter@oracle.com> wrote:
+> > Doesn't the 0day system obsolete the "Build regression" emails?  It
+> 
+> I think kisskb builds more/different configs.
+> 
+> Is there are list of configs and trees covered by the 0day system available?
 
-> And then I can *read* them before sending them, which is good practice
-> anyway. Am I the only person who often finds a final minor nit with
-> their own patch, in that final read-through just before hitting 'send'
-> on an email?
+Apart from randconfig and all(yes|no|def|mod) configs, the
+comprehensive list of configs can be found in arch/*/configs
 
-"vi 0*patch"?
+        $ find arch/*/configs -type f | wc -l
+        461
 
-Gr{oetje,eeting}s,
+0-day tests them all. Since there are so many of them, only 10% are
+run immediately after git pushes aiming for 1-hour respond time. The
+others will be tested in machine idle time and see longer delay.
 
-                        Geert
+The code coverage is now 543 git trees. Here is the comprehensive list:
 
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
+https://git.kernel.org/cgit/linux/kernel/git/wfg/lkp-tests.git/tree/repo/linux
 
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+$ cat repo/linux/ext4
+url: git://git.kernel.org/pub/scm/linux/kernel/git/tytso/ext4.git
+
+I'm always seeking to add more trees. Patches to add new URLs and
+tests are highly appreciated!
+
+Thanks,
+Fengguang
