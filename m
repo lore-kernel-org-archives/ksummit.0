@@ -1,25 +1,30 @@
-Return-Path: <sasha.levin@oracle.com>
+Return-Path: <masami.hiramatsu.pt@hitachi.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 63B61B5A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id DC88AB88
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 12 Jul 2015 13:32:20 +0000 (UTC)
-Received: from aserp1040.oracle.com (aserp1040.oracle.com [141.146.126.69])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D51ECE5
+	Sun, 12 Jul 2015 15:01:31 +0000 (UTC)
+Received: from mail7.hitachi.co.jp (mail7.hitachi.co.jp [133.145.228.42])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 105517C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 12 Jul 2015 13:32:19 +0000 (UTC)
-Message-ID: <55A26C5B.8060007@oracle.com>
-Date: Sun, 12 Jul 2015 09:32:11 -0400
-From: Sasha Levin <sasha.levin@oracle.com>
+	Sun, 12 Jul 2015 15:01:29 +0000 (UTC)
+Received: from mlsv3.hitachi.co.jp (unknown [133.144.234.166])
+	by mail7.hitachi.co.jp (Postfix) with ESMTP id 27B11B1D382
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 13 Jul 2015 00:01:28 +0900 (JST)
+Received: from vshuts02.hitachi.co.jp (vshuts02.hitachi.co.jp [10.201.6.84])
+	by mfilter05.hitachi.co.jp (Switch-3.3.4/Switch-3.3.4) with ESMTP id
+	t6CF1RNv030213 for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 13 Jul 2015 00:01:27 +0900
+Message-ID: <55A28142.90409@hitachi.com>
+Date: Mon, 13 Jul 2015 00:01:22 +0900
+From: Masami Hiramatsu <masami.hiramatsu.pt@hitachi.com>
 MIME-Version: 1.0
-To: Geert Uytterhoeven <geert@linux-m68k.org>
+To: ksummit-discuss@lists.linuxfoundation.org
 References: <55A1407E.5080800@oracle.com>
-	<CAMuHMdUK+LZrp9QxPS0wSJzFZVAr_cihxJnFJybo5nb7U_t7xg@mail.gmail.com>
-In-Reply-To: <CAMuHMdUK+LZrp9QxPS0wSJzFZVAr_cihxJnFJybo5nb7U_t7xg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <55A1407E.5080800@oracle.com>
+Content-Type: text/plain; charset=windows-1252
 Content-Transfer-Encoding: 7bit
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Issues with stable process
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -30,79 +35,77 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 07/12/2015 06:02 AM, Geert Uytterhoeven wrote:
-> On Sat, Jul 11, 2015 at 6:12 PM, Sasha Levin <sasha.levin@oracle.com> wrote:
->>  1. During the RC cycles bug fixes tend to get sent to Linus without going through
->> linux-next. This is very risky, but it seems to work(?). The problem is that Linus
->> doesn't restrict those fixes to bugs that were introduced in the current merge window
->> but takes anything that is labelled as a "fix".
->>
->> The result is that there is a significant amount of mostly untested RC patches
->> trickling down into stable trees, causing breakage for folks who assume that they
->> are running a tested kernel but end up with commits that haven't even been in
->> linux-next for more than a few days.
->>
->> Since for RC kernel it's expected to see issues, and it's easy to correct, this is
->> less than a problem, but consider this flow for stable:
->>
->>  * 4.0: bug "A" introduced.
->>  * 4.2-rc1: bug "A" fixed, but fix unknowingly introduced bug "B".
+On 2015/07/12 1:12, Sasha Levin wrote:
+> Hi folks,
 > 
-> And the fix for "A" was not in -next?
-> It will be the next day, though.
-
-It will, but there's a huge difference between being in -next for a day or a month before
-getting merged in.
-
-Usually the amount of time it spends in -next equals to the amount of time it takes to
-trickle from the author through the maintainer chain all the way to Linus.
-
->>  * 4.1.1: ships with fix for "A", and new bug "B".
+> I'd like to propose a topic discussing issues that are caused as a result of the
+> way development happens upstream, and the way we integrate with distros that affect
+> the quality of stable trees:
 > 
-> For serious bugs, the fix may indeed be applied Really Quick.
-
-Right.
-
->>  * Stable user machines suffer from breakage.
->>  * 4.2-rc7: bug "B" fixed.
->>  * Stable users still suffer until the next kernel release.
->>
->> So while it was quickly fixed for RC, this seriously affects stable.
+[...]
+>  2. The review cycle: I've *never* ended up receiving comments during review cycle
+> of a stable release. I've received comments either when I've sent my "added to the..."
+> mails when I've added a patch in, which usually came from the authors of the patch
+> or the maintainers of the subsystem, and I've received comments after the tree has
+> shipped - when it actually broke something.
 > 
-> I wouldn't say "quickly": there's quite some time period (6 weeks) between
-> -rc1 and -rc7.
+> We need to explore ways to integrate the review process better with the end users,
+> possibly by extending it to allow distributions to ship "proposed" review kernels
+> rather than waiting for us to finalize a stable kernel before they start working
+> on shipping it.
 
-So it would be the same scenario if I wrote there "-rc1..-rc2". LTS kernel users
-tend to upgrade their kernel less often than those 6 weeks anyhow.
+Hmm, it sounds like distro's business...
 
-> If the fix for "B" has a proper "Fixes:" tag, I guess it will be applied to
-> the next -stable soon. Hence make sure to always provide a "Fixes:" tag when
-> fixing bugs.
+> 
+>  3. Cross tree verification and auditing: There seems to be a fair amount of LTS
+> kernels that are maintained openly on the stable@ ML, and even a bigger amount
+> if the Canonical folks decide to play ball at any stage. While ideally each tree
+> should contain (if required, correctly backported) patches that are relevant only
+> to that given tree, we have no standard way to verify that.
+> 
+> We need a mechanism that would let us audit the existence (and non-existence) of
+> patches in an easy way, and to compare backports between stable trees to help verify
+> their correctness.
 
-True. I'm not saying it wouldn't be fixed in the next stable release, I'm saying
-that we're sending untested patches all the way to users who expect the most stable
-kernel.
+Agreed. Can't we use bugzilla.kernel.org for this purpose? Of course, more automated-way
+is better :)
 
-> So it boils down to: "How soon to apply fixes to -stable?", and the trade-off
-> between applying fixes early, but risking to break something unknown and new,
-> vs. applying fixes late (after more validation), causing more breakage from a
-> known issue.
+>  4. Upstream monitoring: I've suggested to Greg that we have a bot looking at
+> commits going upstream, and for every commit marked as for stable it would attempt
+> to apply it to all relevant stable trees and build them, and on failure would
+> notify the author.
+> 
+> Greg objected for two main reasons: the first is that we should put more effort
+> into trying to fix any possible issues which arise from failure to build and
+> backport before we send mails out, which I accepted. The other issue was that he
+> doesn't want to generate too much noise, and if the patch doesn't look important
+> enough and only applies to the latest stable it's enough, and no need to bother
+> people to backport it.
 
-That's just one solution, but there are a few more (which is why it's worth discussing
-it :) ).
+Hmm, I think it depends on how many stable trees to be maintained officially.
+We can see 2 stables and 7 longterms on www.kernel.org, porting each bugfix to
+all of them is hard...
 
-Consider also:
+Thank you,
 
- - Aligning the stable release process with the kernel where we'd do a few release
-candidates for the stable kernel before releasing it.
+> 
+> So this is mostly an open discussion: what do people expect to do (if anything)
+> as a result of marking a patch for stable? What do people think about the increased
+> noise? Is there a better way to do it rather than by mails?
+> 
+> 
+> Thanks,
+> Sasha
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+> 
 
- - Tightening what is allowed to go in as -rc patches, requiring some time in -next
-before it even gets into Linus's hands. Even for "serious" things (does it matter if
-a fix for a privesc gets in -rc2 or -rc6, beyond that it would be pulled to stable
-earlier?)
 
- - Differentiate the type of patches going into "regular" -stable, and LTS?
-
-
-Thanks,
-Sasha
+-- 
+Masami HIRAMATSU
+Linux Technology Research Center, System Productivity Research Dept.
+Center for Technology Innovation - Systems Engineering
+Hitachi, Ltd., Research & Development Group
+E-mail: masami.hiramatsu.pt@hitachi.com
