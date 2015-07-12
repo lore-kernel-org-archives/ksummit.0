@@ -1,35 +1,30 @@
-Return-Path: <jpoimboe@redhat.com>
+Return-Path: <fengguang.wu@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C871DAAE
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E6D7993E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 12 Jul 2015 12:28:27 +0000 (UTC)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3FFF8186
+	Sun, 12 Jul 2015 12:56:18 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 585791AA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 12 Jul 2015 12:28:27 +0000 (UTC)
-Date: Sun, 12 Jul 2015 07:28:23 -0500
-From: Josh Poimboeuf <jpoimboe@redhat.com>
-To: Josh Triplett <josh@joshtriplett.org>
-Message-ID: <20150712122823.GA4366@treble.redhat.com>
-References: <201507080121.41463.PeterHuewe@gmx.de>
-	<1481488.5WJFbB0Dlm@vostro.rjw.lan>
-	<1436341028.2136.14.camel@HansenPartnership.com>
-	<20150708080032.CE89E4306F@saturn.retrosnub.co.uk>
-	<20150708145315.29030a75@gandalf.local.home>
-	<20150710181409.GA30145@treble.redhat.com>
-	<1436576450.27924.59.camel@stgolabs.net>
-	<20150712034824.GA4236@treble.hsd1.ky.comcast.net>
-	<20150712052317.GB15346@x>
+	Sun, 12 Jul 2015 12:56:18 +0000 (UTC)
+Date: Sun, 12 Jul 2015 20:55:52 +0800
+From: Fengguang Wu <fengguang.wu@intel.com>
+To: Theodore Ts'o <tytso@mit.edu>
+Message-ID: <20150712125552.GA12558@wfg-t540p.sh.intel.com>
+References: <alpine.LNX.2.00.1507071324090.10183@pobox.suse.cz>
+	<20150707224025.GJ11162@sirena.org.uk>
+	<20150707225223.GG12491@dtor-ws> <20150708021619.GC3102@kroah.com>
+	<alpine.LNX.2.00.1507080957360.10183@pobox.suse.cz>
+	<20150708093511.GL11162@sirena.org.uk>
+	<20150708140155.GA20551@thunk.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20150712052317.GB15346@x>
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	jic23@jic23.retrosnub.co.uk, Jason Cooper <jason@lakedaemon.net>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
- Maintainers, Hobbyists)
+In-Reply-To: <20150708140155.GA20551@thunk.org>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] services needed from kernel.org
+ infrastructure
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,56 +34,61 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, Jul 11, 2015 at 10:23:17PM -0700, Josh Triplett wrote:
-> On Sat, Jul 11, 2015 at 10:48:24PM -0500, Josh Poimboeuf wrote:
-> > On Fri, Jul 10, 2015 at 06:00:50PM -0700, Davidlohr Bueso wrote:
-> > > On Fri, 2015-07-10 at 13:14 -0500, Josh Poimboeuf wrote:
-> > > > On Wed, Jul 08, 2015 at 02:53:15PM -0400, Steven Rostedt wrote:
-> > > > > I personally don't trust a Reviewed-by tag much, as I sometimes see
-> > > > > them appear without any comments.
-> > > > > 
-> > > > > I was thinking of writing a perl script that would read my LKML archive
-> > > > > and somewhat intelligently looking at people who replied to patches,
-> > > > > that also has snippets of the patch in the reply, and counting them. I
-> > > > > think that would be a more accurate use of real reviewers than just the
-> > > > > Reviewed-by tag.
-> > > > 
-> > > > I'm relatively new to lkml so my perceptions might be skewed.  But it
-> > > > seems to me that, for non-trivial patches, the Reviewed-by tag is pretty
-> > > > much useless as a metric.  From what I can tell, the biggest problems
-> > > > with relying on Reviewed-by to get meaningful statistics are:
-> > > > 
-> > > > 1. It's self-reported by the reviewer.
-> > > > 
-> > > >    Maybe a reviewer gave some hugely valuable feedback in versions 1-4
-> > > >    of the patch, but wasn't around to provide the Reviewed-by tag for
-> > > >    the final v6.
-> > > 
-> > > Normally good maintainers pick up ack/review tags along the way when
-> > > they pickup the final patch.
+On Wed, Jul 08, 2015 at 10:01:55AM -0400, Theodore Ts'o wrote:
+> On Wed, Jul 08, 2015 at 10:35:11AM +0100, Mark Brown wrote:
 > > 
-> > A maintainer can't pick up the tag if the reviewer doesn't post it.
-> > 
-> > In this example the reviewer wouldn't have posted Reviewed-by because,
-> > despite the fact that they did a thorough review, the patch still had
-> > issues in its earlier versions.  The reviewer did a lot of work but
-> > didn't get credit for it.
+> > I think the only barrier here is someone writing some tooling that is
+> > sufficiently useful and generic enough to work for people.  I know I
+> > wrote my scripts mainly because none of the scripts I could find tie in
+> > with my workflow (mainly around figuring out which branches in my local
+> > tree correspond to branches on the server and syncing them up).  If
+> > there'd been something I could just pick up I'd have happily done so.
 > 
-> And that's not always a bad thing.  Sometimes I review the previous
-> version of a patch, and then see that tag applied to a later version
-> that is substantially different from the version I reviewed; that makes
-> me uncomfortable.  I care less about getting credit for a review and
-> more about not having my Reviewed-by tag attached to something I didn't
-> review.
+> Yeah, your concerns mirror mine:
+> 
+> 1) It will require a lot of configuration --- just because a commit
+> shows up on a branch does not mean it is guaranteed that it will hit
+> mainline.  In fact, a maintainer might push a commit onto a throwaway
+> branch on kernel.org just so that the zero-day testing systems can
+> give the commit a spin.  So that means it's not just enough to throw a
+> bunch of git hook scripts on master.kernel.org, because maintainers
+> will need to have to configure, if not customize, them.
 
-If our goal is to quantify the work of good reviewers, so that we can
-shine a light on them and hopefully motivate them to do more review,
-then I'd argue that having a reviewer doing a lot of work and not
-getting credit for it *is* a bad thing.
+Agreed. 0day also accumulated a complex set rules for deciding which
+errors/trees should be auto reported, which should be manually checked,
+and which can be silently ignored.
 
-I agree that the Reviewed-by tag doesn't apply here.  It communicates
-patch approval, rather than review helpfulness.  That's why I proposed a
-new tag from the patch author and/or maintainer.
+> This leads to my second concern which is:
+> 
+> 2) Having shell scripts run on master.kernel.org can be a significant
+> security concern; this is *especially* true if customization or
+> configuration is required.
 
--- 
-Josh
+0day has the same security concern. We end up running a dedicated git
+mirror server for pulling 500 git trees and feeding them to the test
+farm behind firewalls.
+
+So the chances are that 0day infrastructure has the ready made setups
+to run such service. We already have the commit-by-commit walker to
+run checkpatch.pl (though I rarely send its report out due to it'd be
+noisy and there is no clear criterion to answer "who would be glad to
+receive such reports?").
+
+If we are going to do it, the notification scripts may be hosted in
+
+git://git.kernel.org/pub/scm/linux/kernel/git/wfg/lkp-tests.git
+
+since there will be a copy of it in each build server.
+
+> > > This would be caught immediately if it's properly maintained "project".
+> > 
+> > Or alternatively would allow people to quickly attack a large number of
+> > developers :)
+> 
+> Indeed.
+> 
+> 						- Ted
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
