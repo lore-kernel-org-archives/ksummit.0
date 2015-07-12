@@ -1,40 +1,28 @@
-Return-Path: <rostedt@goodmis.org>
-Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
-	[172.17.192.36])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id E7ECFB1B
+Return-Path: <PeterHuewe@gmx.de>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9D3DDB1B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 12 Jul 2015 20:21:41 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0199.hostedemail.com
-	[216.40.44.199])
-	by smtp2.linuxfoundation.org (Postfix) with ESMTP id 1C2F51DCA1
+	Sun, 12 Jul 2015 21:25:47 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CA213EE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 12 Jul 2015 20:21:41 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
-	[10.5.19.251])
-	by smtpgrave05.hostedemail.com (Postfix) with ESMTP id 5A315183E8B
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 12 Jul 2015 15:35:57 +0000 (UTC)
-Date: Sun, 12 Jul 2015 11:35:53 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Josh Poimboeuf <jpoimboe@redhat.com>
-Message-ID: <20150712113553.3abff36b@gandalf.local.home>
-In-Reply-To: <20150712034824.GA4236@treble.hsd1.ky.comcast.net>
-References: <201507080121.41463.PeterHuewe@gmx.de>
-	<1481488.5WJFbB0Dlm@vostro.rjw.lan>
-	<1436341028.2136.14.camel@HansenPartnership.com>
-	<20150708080032.CE89E4306F@saturn.retrosnub.co.uk>
-	<20150708145315.29030a75@gandalf.local.home>
-	<20150710181409.GA30145@treble.redhat.com>
-	<1436576450.27924.59.camel@stgolabs.net>
-	<20150712034824.GA4236@treble.hsd1.ky.comcast.net>
+	Sun, 12 Jul 2015 21:25:46 +0000 (UTC)
+From: Peter =?iso-8859-1?q?H=FCwe?= <PeterHuewe@gmx.de>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Sun, 12 Jul 2015 23:27:08 +0200
+References: <559C73DF.2030008@roeck-us.net> <20150711023946.GV111846@vmdeb7>
+	<20150711150437.GA6666@kroah.com>
+In-Reply-To: <20150711150437.GA6666@kroah.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: Text/Plain;
+  charset="iso-8859-1"
 Content-Transfer-Encoding: 7bit
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	jic23@jic23.retrosnub.co.uk, Jason Cooper <jason@lakedaemon.net>,
-	ksummit-discuss@lists.linuxfoundation.org
+Message-Id: <201507122327.09304.PeterHuewe@gmx.de>
+Cc: Jason Cooper <jason@lakedaemon.net>,
+	Dan Carpenter <dan.carpenter@oracle.com>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
- Maintainers, Hobbyists)
+	Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -44,28 +32,26 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, 11 Jul 2015 22:48:24 -0500
-Josh Poimboeuf <jpoimboe@redhat.com> wrote:
-
-> Right, as I said, Signed-off-by doesn't necessarily imply Reviewed-by.
+Am Samstag, 11. Juli 2015, 17:04:37 schrieb Greg KH:
+> On Fri, Jul 10, 2015 at 07:39:46PM -0700, Darren Hart wrote:
+> > OK, all good points. It looks as though I can step up my own tooling some
+> > to make the email-to-compilation step faster so I don't spend as much
+> > time on patches with compiler warnings, that don't apply, etc. Dan C.
+> > said something similar.
 > 
-> So any review done by a maintainer who only adds Signed-off-by goes
-> uncredited.
-> 
+> I think I mentioned it before, but Wolfram has a set of scripts that
+> does this really well.  I don't know if they are published anywhere, but
+> that would be a good place to start with.  I think Sara Sharp also had a
+> bunch that she used to make life easier, you might want to ask her the
+> next time you see her in the office.
 
-A Signed-off-by sure as well better mean a reviewed by! It holds a much
-heavier meaning to the patch than a Reviewed-by does.
 
-A Signed-off-by means that you are responsible for that patch. Even if
-you don't necessarily understand the patch (like a high level
-maintainer pulling in patches for low level hardware that the
-maintainer doesn't fully understand), you should review it as much as
-you can before adding an SoB to it. Otherwise you are not doing your
-job.
+They are called ninja-check and published here
+https://lists.linuxfoundation.org/pipermail/ksummit-discuss/2014-May/000554.html
 
-And regardless, there's more weight for "credit" to Signed-off-by's
-than for Reviewed-by's anyway. So much so, that my own scripts for
-analysis ignores all other tags for anyone with a Signed-off-by
-attached to a commit.
+Ksummit Thread about all these tools can be found here:
+ftp://kernel.mirrors.pair.com/pub/linux/kernel/people/paulmck/LKS/LKS2014Topic/000291.html
 
--- Steve
+
+Thanks,
+Peter
