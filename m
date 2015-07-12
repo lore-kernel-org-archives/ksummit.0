@@ -1,30 +1,26 @@
-Return-Path: <fengguang.wu@intel.com>
+Return-Path: <sasha.levin@oracle.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id E6D7993E
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 63B61B5A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 12 Jul 2015 12:56:18 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 585791AA
+	Sun, 12 Jul 2015 13:32:20 +0000 (UTC)
+Received: from aserp1040.oracle.com (aserp1040.oracle.com [141.146.126.69])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D51ECE5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 12 Jul 2015 12:56:18 +0000 (UTC)
-Date: Sun, 12 Jul 2015 20:55:52 +0800
-From: Fengguang Wu <fengguang.wu@intel.com>
-To: Theodore Ts'o <tytso@mit.edu>
-Message-ID: <20150712125552.GA12558@wfg-t540p.sh.intel.com>
-References: <alpine.LNX.2.00.1507071324090.10183@pobox.suse.cz>
-	<20150707224025.GJ11162@sirena.org.uk>
-	<20150707225223.GG12491@dtor-ws> <20150708021619.GC3102@kroah.com>
-	<alpine.LNX.2.00.1507080957360.10183@pobox.suse.cz>
-	<20150708093511.GL11162@sirena.org.uk>
-	<20150708140155.GA20551@thunk.org>
+	Sun, 12 Jul 2015 13:32:19 +0000 (UTC)
+Message-ID: <55A26C5B.8060007@oracle.com>
+Date: Sun, 12 Jul 2015 09:32:11 -0400
+From: Sasha Levin <sasha.levin@oracle.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20150708140155.GA20551@thunk.org>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] services needed from kernel.org
- infrastructure
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+References: <55A1407E.5080800@oracle.com>
+	<CAMuHMdUK+LZrp9QxPS0wSJzFZVAr_cihxJnFJybo5nb7U_t7xg@mail.gmail.com>
+In-Reply-To: <CAMuHMdUK+LZrp9QxPS0wSJzFZVAr_cihxJnFJybo5nb7U_t7xg@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Issues with stable process
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,61 +30,79 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Jul 08, 2015 at 10:01:55AM -0400, Theodore Ts'o wrote:
-> On Wed, Jul 08, 2015 at 10:35:11AM +0100, Mark Brown wrote:
-> > 
-> > I think the only barrier here is someone writing some tooling that is
-> > sufficiently useful and generic enough to work for people.  I know I
-> > wrote my scripts mainly because none of the scripts I could find tie in
-> > with my workflow (mainly around figuring out which branches in my local
-> > tree correspond to branches on the server and syncing them up).  If
-> > there'd been something I could just pick up I'd have happily done so.
+On 07/12/2015 06:02 AM, Geert Uytterhoeven wrote:
+> On Sat, Jul 11, 2015 at 6:12 PM, Sasha Levin <sasha.levin@oracle.com> wrote:
+>>  1. During the RC cycles bug fixes tend to get sent to Linus without going through
+>> linux-next. This is very risky, but it seems to work(?). The problem is that Linus
+>> doesn't restrict those fixes to bugs that were introduced in the current merge window
+>> but takes anything that is labelled as a "fix".
+>>
+>> The result is that there is a significant amount of mostly untested RC patches
+>> trickling down into stable trees, causing breakage for folks who assume that they
+>> are running a tested kernel but end up with commits that haven't even been in
+>> linux-next for more than a few days.
+>>
+>> Since for RC kernel it's expected to see issues, and it's easy to correct, this is
+>> less than a problem, but consider this flow for stable:
+>>
+>>  * 4.0: bug "A" introduced.
+>>  * 4.2-rc1: bug "A" fixed, but fix unknowingly introduced bug "B".
 > 
-> Yeah, your concerns mirror mine:
+> And the fix for "A" was not in -next?
+> It will be the next day, though.
+
+It will, but there's a huge difference between being in -next for a day or a month before
+getting merged in.
+
+Usually the amount of time it spends in -next equals to the amount of time it takes to
+trickle from the author through the maintainer chain all the way to Linus.
+
+>>  * 4.1.1: ships with fix for "A", and new bug "B".
 > 
-> 1) It will require a lot of configuration --- just because a commit
-> shows up on a branch does not mean it is guaranteed that it will hit
-> mainline.  In fact, a maintainer might push a commit onto a throwaway
-> branch on kernel.org just so that the zero-day testing systems can
-> give the commit a spin.  So that means it's not just enough to throw a
-> bunch of git hook scripts on master.kernel.org, because maintainers
-> will need to have to configure, if not customize, them.
+> For serious bugs, the fix may indeed be applied Really Quick.
 
-Agreed. 0day also accumulated a complex set rules for deciding which
-errors/trees should be auto reported, which should be manually checked,
-and which can be silently ignored.
+Right.
 
-> This leads to my second concern which is:
+>>  * Stable user machines suffer from breakage.
+>>  * 4.2-rc7: bug "B" fixed.
+>>  * Stable users still suffer until the next kernel release.
+>>
+>> So while it was quickly fixed for RC, this seriously affects stable.
 > 
-> 2) Having shell scripts run on master.kernel.org can be a significant
-> security concern; this is *especially* true if customization or
-> configuration is required.
+> I wouldn't say "quickly": there's quite some time period (6 weeks) between
+> -rc1 and -rc7.
 
-0day has the same security concern. We end up running a dedicated git
-mirror server for pulling 500 git trees and feeding them to the test
-farm behind firewalls.
+So it would be the same scenario if I wrote there "-rc1..-rc2". LTS kernel users
+tend to upgrade their kernel less often than those 6 weeks anyhow.
 
-So the chances are that 0day infrastructure has the ready made setups
-to run such service. We already have the commit-by-commit walker to
-run checkpatch.pl (though I rarely send its report out due to it'd be
-noisy and there is no clear criterion to answer "who would be glad to
-receive such reports?").
+> If the fix for "B" has a proper "Fixes:" tag, I guess it will be applied to
+> the next -stable soon. Hence make sure to always provide a "Fixes:" tag when
+> fixing bugs.
 
-If we are going to do it, the notification scripts may be hosted in
+True. I'm not saying it wouldn't be fixed in the next stable release, I'm saying
+that we're sending untested patches all the way to users who expect the most stable
+kernel.
 
-git://git.kernel.org/pub/scm/linux/kernel/git/wfg/lkp-tests.git
+> So it boils down to: "How soon to apply fixes to -stable?", and the trade-off
+> between applying fixes early, but risking to break something unknown and new,
+> vs. applying fixes late (after more validation), causing more breakage from a
+> known issue.
 
-since there will be a copy of it in each build server.
+That's just one solution, but there are a few more (which is why it's worth discussing
+it :) ).
 
-> > > This would be caught immediately if it's properly maintained "project".
-> > 
-> > Or alternatively would allow people to quickly attack a large number of
-> > developers :)
-> 
-> Indeed.
-> 
-> 						- Ted
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+Consider also:
+
+ - Aligning the stable release process with the kernel where we'd do a few release
+candidates for the stable kernel before releasing it.
+
+ - Tightening what is allowed to go in as -rc patches, requiring some time in -next
+before it even gets into Linus's hands. Even for "serious" things (does it matter if
+a fix for a privesc gets in -rc2 or -rc6, beyond that it would be pulled to stable
+earlier?)
+
+ - Differentiate the type of patches going into "regular" -stable, and LTS?
+
+
+Thanks,
+Sasha
