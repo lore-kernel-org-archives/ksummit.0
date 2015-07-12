@@ -1,35 +1,33 @@
 Return-Path: <josh@joshtriplett.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0C13C83D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 148A9ABA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 12 Jul 2015 18:22:23 +0000 (UTC)
-Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
-	[217.70.183.196])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7C1FBF2
+	Sun, 12 Jul 2015 18:23:30 +0000 (UTC)
+Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
+	[217.70.183.195])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 59A06114
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 12 Jul 2015 18:22:22 +0000 (UTC)
-Date: Sun, 12 Jul 2015 11:22:15 -0700
+	Sun, 12 Jul 2015 18:23:29 +0000 (UTC)
+Date: Sun, 12 Jul 2015 11:23:21 -0700
 From: Josh Triplett <josh@joshtriplett.org>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Message-ID: <20150712182214.GA18191@x>
-References: <20150709193718.GD9169@vmdeb7>
-	<1436481109.3324.219.camel@infradead.org>
-	<20150710003559.GT11162@sirena.org.uk>
-	<20150710020706.GH111846@vmdeb7>
-	<20150710155144.34dde697@gandalf.local.home>
-	<1436558412.24408.35.camel@infradead.org>
-	<20150710205606.GC10533@cloud>
-	<1436562223.24408.55.camel@infradead.org>
-	<20150710210750.GF10533@cloud>
-	<CAMuHMdUcFfGZPqQ=9J3=aVpDtt63jk_rvmhfK+X0+n_UoEw0_w@mail.gmail.com>
+To: Fengguang Wu <fengguang.wu@intel.com>
+Message-ID: <20150712182321.GB18191@x>
+References: <2879113.fraeuJIr2M@avalon> <20150709193718.GD9169@vmdeb7>
+	<20150709201127.GA3426@cloud> <20150709203830.GF7021@wotan.suse.de>
+	<20150709210059.GA3720@cloud>
+	<1436518482.2393.19.camel@HansenPartnership.com>
+	<20150712020235.GB24356@wfg-t540p.sh.intel.com>
+	<20150712051958.GA15346@x>
+	<1436689193.2344.2.camel@HansenPartnership.com>
+	<20150712104807.GA7111@wfg-t540p.sh.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAMuHMdUcFfGZPqQ=9J3=aVpDtt63jk_rvmhfK+X0+n_UoEw0_w@mail.gmail.com>
-Cc: Jason Cooper <jason@lakedaemon.net>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+In-Reply-To: <20150712104807.GA7111@wfg-t540p.sh.intel.com>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Jason Cooper <jason@lakedaemon.net>,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -41,25 +39,74 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sun, Jul 12, 2015 at 12:28:07PM +0200, Geert Uytterhoeven wrote:
-> On Fri, Jul 10, 2015 at 11:07 PM,  <josh@joshtriplett.org> wrote:
-> > I just wish I had a more satisfactory method of associating a cover
-> > letter with a series *in git*, such that format-patch could emit a
-> > non-placeholder cover letter.
+On Sun, Jul 12, 2015 at 06:48:07PM +0800, Fengguang Wu wrote:
+> On Sun, Jul 12, 2015 at 09:19:53AM +0100, James Bottomley wrote:
+> > On Sat, 2015-07-11 at 22:19 -0700, Josh Triplett wrote:
+> > > On Sun, Jul 12, 2015 at 10:02:35AM +0800, Fengguang Wu wrote:
+> > > > On Fri, Jul 10, 2015 at 09:54:42AM +0100, James Bottomley wrote:
+> > > > > On Thu, 2015-07-09 at 14:00 -0700, josh@joshtriplett.org wrote:
+> > > > > > On Thu, Jul 09, 2015 at 10:38:30PM +0200, Luis R. Rodriguez wrote:
+> > > > > > > On Thu, Jul 09, 2015 at 01:11:27PM -0700, josh@joshtriplett.org wrote:
+> > > > > > > > Bonus if this is also wired into the 0day bot, so that you also find out
+> > > > > > > > if you introduce a new warning or error.
+> > > > > > > 
+> > > > > > > No reason to make bots do stupid work, if we really wanted to consider
+> > > > > > > this a bit more seriously the pipeline could be:
+> > > > > > > 
+> > > > > > >   mailing-list | coccinelle coccicheck| smatch | sparse | 0-day-bot
+> > > > > > 
+> > > > > > That would effectively make the bot duplicate part of 0-day.  Seems
+> > > > > > easier to have some way to tell 0-day "if you see obvious procedural
+> > > > > > issues, don't bother with full-scale testing, just reject".
+> > > > > 
+> > > > > We already have this with the 0 day project.  The only difference being
+> > > > > the patch has to be in a tree for it to get tested.  It's not impossible
+> > > > > to imagine a bot that would pick up a patch, apply it (giving automated
+> > > > > rejects as email replies), and leave it in for the 0 day tests to
+> > > > > assess ... sort of like patchwork but with an automated tree build.   We
+> > > > > could periodically throw away the tree (say weekly) because the job of
+> > > > > the bot would be to find initial rejects rather than build a workable
+> > > > > tree.
+> > > > 
+> > > > That's a good point. Up to now 0-day only takes care of code in git trees.
+> > > > We've collected 500+ developers' git trees so far, however their coverage
+> > > > looks not enough -- there are 3000+ kernel developers in last year's git log.
+> > > > 
+> > > > To achieve 100% code coverage, we'll also need to watch emails in the
+> > > > kernel mailing lists, auto convert patch series there to git branches
+> > > > for 0-day and other testers, and auto reply results to the original
+> > > > mailing list's email thread.
+> > > > 
+> > > > That would be a natural fit for the email based patch submission path
+> > > > and review process.
+> > > > 
+> > > > The potential problem, however, is "git-am to which base branch?"
+> > > > That's where it may go messy.
+> > > 
+> > > Patch submitters should be making it clear to what tree their patch
+> > > applies, preferably using an unambiguous tag in the mail subject.  In
+> > > the absence of such a tag, try it against torvalds/linux.git and
+> > > linux-next.git, and then give up and tell the submitter to specify what
+> > > their patch applies to.
+> > 
+> > To be honest, the mailing list it's sent to mostly identifies which tree
+> > it should be going in.  There's difficulty over whether the for next or
+> > for current branches ... but we have that today as well.
 > 
-> You can use "git commit --allow-empty" to write cover letters.
-> Make sure they don't get lost during rebasing.
+> Yes, mailing list would be a very good hint.
 > 
-> Still, if you include them in --format-patch, they will be "PATCH 1/n",
-> not "PATCH 0/n".
+> Another clue can be the index part of all git emails
 > 
-> [...]
+>         diff --git a/Makefile b/Makefile
+> ==>     index 3ba5044..f5c8983 100644
+>         --- a/Makefile
+>         +++ b/Makefile
 > 
-> Oh cool, there's a "--start-number" option, will try...
+> That object id may help identify the possible BASE branches for the
+> email patch. Due to my limited knowledge of git, I can only think
+> about a brutal force (but still affordable) way to iterate all the
+> well known branches to find the possible BASE branches.
 
-That's an amusing idea, though as you said, rebase will tend to throw
-them away.  I've also seen cover letters done via git notes, but never
-in a very satisfactory way.  Ideally, I'd love to see a message
-associated with a given branch, such that that message can become the
-cover letter, and if the branch gets merged that's the default merge
-message.
+That's a good idea.
+
+- Josh Triplett
