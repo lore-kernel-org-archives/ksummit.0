@@ -1,26 +1,26 @@
 Return-Path: <laurent.pinchart@ideasonboard.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 65CC9B8B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id DFA949FB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 12 Jul 2015 19:36:59 +0000 (UTC)
+	Sun, 12 Jul 2015 19:52:57 +0000 (UTC)
 Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
 	[185.26.127.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E4DE3F2
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3788714F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 12 Jul 2015 19:36:57 +0000 (UTC)
+	Sun, 12 Jul 2015 19:52:57 +0000 (UTC)
 From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 To: ksummit-discuss@lists.linuxfoundation.org
-Date: Sun, 12 Jul 2015 22:37:13 +0300
-Message-ID: <3885915.kgX5jMVgvI@avalon>
-In-Reply-To: <201507080905.00051.PeterHuewe@gmx.de>
+Date: Sun, 12 Jul 2015 22:53:14 +0300
+Message-ID: <6304312.nF1aM0kdfr@avalon>
+In-Reply-To: <2038754.ape8QT5CKG@vostro.rjw.lan>
 References: <201507080121.41463.PeterHuewe@gmx.de>
-	<CAJKOXPfnwUX5fdBg1EDJSGgrNGXb3AmrK8tXokxqHw=XYzhddA@mail.gmail.com>
-	<201507080905.00051.PeterHuewe@gmx.de>
+	<20150708221836.GN23515@io.lakedaemon.net>
+	<2038754.ape8QT5CKG@vostro.rjw.lan>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-Cc: Josh Boyer <jwboyer@fedoraproject.org>, Jason Cooper <jason@lakedaemon.net>
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: Jason Cooper <jason@lakedaemon.net>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
 	Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -32,101 +32,73 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wednesday 08 July 2015 09:04:58 Peter H=C3=BCwe wrote:
-> Am Mittwoch, 8. Juli 2015, 04:03:04 schrieb Krzysztof Koz=C5=82owski:=
+On Thursday 09 July 2015 01:09:00 Rafael J. Wysocki wrote:
+> On Wednesday, July 08, 2015 10:18:36 PM Jason Cooper wrote:
+> > On Wed, Jul 08, 2015 at 09:29:57PM +0200, Peter Huewe wrote:
+> > > > > For testers it's usually even worse - how many patches are actually
+> > > > > tested? Judging from what I read on LKML not that many.
+> > > > > 
+> > > > > So we should definitely discuss:
+> > > > > - how can we encourage hobbyists to become regular contributors
+> > > > > -- how to keep people interested, the drop-out rates are huge.
+> > > > 
+> > > > Here we need to have the correct mindset. Kernel development is hard,
+> > > > detailed work. It's very rewarding, but simply put, most people aren't
+> > > > cut out to do it. I view the dropout rate as a *good* thing. It's a
+> > > > _selection_ process more than a education/training process.
+> > > > 
+> > > > With most of the hard jobs in life, take a look at the
+> > > > training/education program, and you'll see it: 80% drop out rate?
+> > > > That's selection. Kernel work is one of those 'hard jobs'.
+> > > > 
+> > > > This is important to realize because it changes how we view
+> > > > recruitment. We shouldn't be trying to keep everybody we recruit.
+> > > > Rather, we should be giving more people trial runs and see how they
+> > > > work out as they learn the process.
+> > > > 
+> > > > iow, if an 80% drop out rate gives us the caliber of dev we need for
+> > > > the long term health of the community, then it's a numbers game. Say
+> > > > we saw 40 new people last year, which turned into 8 regular
+> > > > contributors. Now we want to double that. We can lower the standard to
+> > > > get 16 out of 40, yuck. Or, we can outreach to 80 for trial runs, and
+> > > > get 16.
+> > > 
+> > > I think that's an interesting take on the topic - although I'm not
+> > > 100% whether I agree with everything.  I agree that our goal is not to
+> > > lower the standards, and also using more "trial runs".
+> > > 
+> > > However high standards should not be the reason to drive people away --
+> > > and especially not the reason not to keep good people interested.
+> > 
+> > Sure, I'm not suggesting anything like testing or anything formal.
+> > Merely that everyone understand there's an attrition rate, and that's
+> > *ok*.
+> > 
+> > Recruitment, imo, isn't about trying to keep everyone that tries.
+> > Rather it's about opening the doors and providing real opportunities for
+> > more people to contribute.
+> 
+> The opportunities are there, but in addition to the opportunities themselves
+> people need some incentives to use them.  It's all about their time which
+> they can spend in many ways, some of them more rewarding than others.
+> 
+> If they don't have an incentive, an opportunity itself may not be
+> sufficient.
 
-> > Before doing some work there is always a cause, an answer to "why I=
- am
-> > doing this"? Employer may pay for my commits but would he pay for
-> > reviewing time? That is his decision and it would be difficult to
-> > change policies inside companies.
-> >=20
-> > Other reason for doing open source work may be the fame. Being
-> > recognizable, getting better job offers, doing tasks which are
-> > sensible and meaningful for someone. Currently probably most of the=
+We also need to ensure that the opportunities can be identified as such by 
+potential newcomers. As core kernel contributors it's easy for us to see the 
+myriad of places where a newcomer could help, but it's much harder to do so 
+when you have no experience with kernel development. Projects such as kernel 
+janitors can help in that regard, but might not be enough.
 
-> > fame goes to authors and maintainers. For example in the form of `g=
-it
-> > log --author/committer=3D` or LWN articles about statistics.
-> >=20
-> > How to get more reviews from such people (when employer does not pa=
-y
-> > for it)? Give them fame! :)
->=20
-> Exactly!
->=20
-> This is also what Rafael wrote in the other mail:
-> > Most of the time there's a little to no recognition for doing that =
-work
-> > and, quite frankly, writing code is more rewarding than that for th=
-e
-> > majority of people anyway.
->=20
-> So changing our fame-statistics from commits to reviews and tested by=
- might
-> change the situation a bit.
-> -> The next LWN stats and coverage should probably focus on the revie=
-wed-by
-> / tested-by stats.
-> People love to be on some "top 10" lists - and also they can show som=
-ething
-> like that to their bosses.
->=20
-> "I've been a kernel reviewer and tester" -- meh, who cares
-> "I've been a top 100 kernel reviewer and tester over the last X relea=
-ses" --
-> give him a raise/the job (esp. if kernel is not the core competency o=
-f the
-> company :)
->=20
->=20
-> Another thing I noticed over the last few years (also in corporate), =
-people
-> get really motivated by memorabilia - "tokens of appreciation".
-> E.g. I constantly wear my Google T-Shirt which I received for a contr=
-ibution
-> with such proud and so often that it is almost faded --- but still
-> everytime I look at it I have a good feeling.
->=20
-> --> Maybe LF can organize something?
-> "Here is a small token of appreciation (t-shirt, cup)  for spending
-> countless hours on reviewing and testing stuff in the Linux kernel --=
- keep
-> up the good work"
->=20
-> > The only way to address this problem I can see is to recognize revi=
-ewers
-> > *much* more than we tend to do and not just "encourage" them, becau=
-se
-> > that's way insufficient.
->=20
-> Yes again!
->=20
-> What I definitely would also recommend is to organize some 'get toget=
-hers',
-> like a miniconf/minisummit at the next conference near you -- and whe=
-re you
-> grab a beer _together_ with the reviewers / testers afterwards (and m=
-aybe
-> the maintainer can pay).
-> This also helps as forms of appreciation.
+There's also the issue that the kernel (and its developers) is often seen as a 
+scary beast. I've heard too many programmers saying that contributing to the 
+Linux kernel is too difficult, without having given it a try. We are seen as 
+experts by the outside world. There's nothing wrong with that as such, but I 
+believe we should work on broadcasting the message that newcomers should still 
+give it a try.
 
-While real life meetings are invaluable, let's not forgot that they als=
-o have=20
-a major drawback: not everybody can attend them. In a very distributed=20=
-
-development environment like the Linux kernel contributors come from ma=
-ny=20
-different horizons, and not all of them can afford to attend conference=
-s (or=20
-sometimes just don't want to, for various reasons). If we focus too muc=
-h on a=20
-groups of contributors who can meet in real life we'll alienate the res=
-t of=20
-the "online" crowd, and risk losing contributors who will feel left out=
-.
-
---=20
+-- 
 Regards,
 
 Laurent Pinchart
