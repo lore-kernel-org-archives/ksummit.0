@@ -1,34 +1,37 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <daniel.vetter@ffwll.ch>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 933E29FB
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1397FBC8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 12 Jul 2015 08:19:59 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 59BDE115
+	Sun, 12 Jul 2015 10:01:30 +0000 (UTC)
+Received: from mail-oi0-f43.google.com (mail-oi0-f43.google.com
+	[209.85.218.43])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0A35FEA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 12 Jul 2015 08:19:58 +0000 (UTC)
-Message-ID: <1436689193.2344.2.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Josh Triplett <josh@joshtriplett.org>
-Date: Sun, 12 Jul 2015 09:19:53 +0100
-In-Reply-To: <20150712051958.GA15346@x>
-References: <201507080121.41463.PeterHuewe@gmx.de>
-	<559C73DF.2030008@roeck-us.net> <20150708114011.3a1f1861@noble>
-	<2879113.fraeuJIr2M@avalon> <20150709193718.GD9169@vmdeb7>
-	<20150709201127.GA3426@cloud> <20150709203830.GF7021@wotan.suse.de>
-	<20150709210059.GA3720@cloud>
-	<1436518482.2393.19.camel@HansenPartnership.com>
-	<20150712020235.GB24356@wfg-t540p.sh.intel.com>
-	<20150712051958.GA15346@x>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: Jason Cooper <jason@lakedaemon.net>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
- Maintainers, Hobbyists)
+	Sun, 12 Jul 2015 10:01:28 +0000 (UTC)
+Received: by oiyy130 with SMTP id y130so236911401oiy.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sun, 12 Jul 2015 03:01:28 -0700 (PDT)
+MIME-Version: 1.0
+In-Reply-To: <7hlheo9b7m.fsf@deeprootsystems.com>
+References: <1489458.8WDRattPkl@vostro.rjw.lan>
+	<53223375.qzkvIEse3r@vostro.rjw.lan>
+	<2FABAEF0D3DCAF4F9C9628D6E2F968454F18BA5A@BGSMSX102.gar.corp.intel.com>
+	<6142539.s1gh8ubrRK@vostro.rjw.lan>
+	<7hlheo9b7m.fsf@deeprootsystems.com>
+Date: Sun, 12 Jul 2015 12:01:27 +0200
+Message-ID: <CAKMK7uHH=YdktPHMWoo21YEHP8jB_A-369GpYU5syi-a0idPaw@mail.gmail.com>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+To: Kevin Hilman <khilman@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Cc: "Brown, Len" <len.brown@intel.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Kristen Carlson Accardi <kristen@linux.intel.com>,
+	Grant Likely <grant.likely@linaro.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] System-wide interface to specify
+ the level of PM tuning
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,56 +41,49 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, 2015-07-11 at 22:19 -0700, Josh Triplett wrote:
-> On Sun, Jul 12, 2015 at 10:02:35AM +0800, Fengguang Wu wrote:
-> > On Fri, Jul 10, 2015 at 09:54:42AM +0100, James Bottomley wrote:
-> > > On Thu, 2015-07-09 at 14:00 -0700, josh@joshtriplett.org wrote:
-> > > > On Thu, Jul 09, 2015 at 10:38:30PM +0200, Luis R. Rodriguez wrote:
-> > > > > On Thu, Jul 09, 2015 at 01:11:27PM -0700, josh@joshtriplett.org wrote:
-> > > > > > Bonus if this is also wired into the 0day bot, so that you also find out
-> > > > > > if you introduce a new warning or error.
-> > > > > 
-> > > > > No reason to make bots do stupid work, if we really wanted to consider
-> > > > > this a bit more seriously the pipeline could be:
-> > > > > 
-> > > > >   mailing-list | coccinelle coccicheck| smatch | sparse | 0-day-bot
-> > > > 
-> > > > That would effectively make the bot duplicate part of 0-day.  Seems
-> > > > easier to have some way to tell 0-day "if you see obvious procedural
-> > > > issues, don't bother with full-scale testing, just reject".
-> > > 
-> > > We already have this with the 0 day project.  The only difference being
-> > > the patch has to be in a tree for it to get tested.  It's not impossible
-> > > to imagine a bot that would pick up a patch, apply it (giving automated
-> > > rejects as email replies), and leave it in for the 0 day tests to
-> > > assess ... sort of like patchwork but with an automated tree build.   We
-> > > could periodically throw away the tree (say weekly) because the job of
-> > > the bot would be to find initial rejects rather than build a workable
-> > > tree.
-> > 
-> > That's a good point. Up to now 0-day only takes care of code in git trees.
-> > We've collected 500+ developers' git trees so far, however their coverage
-> > looks not enough -- there are 3000+ kernel developers in last year's git log.
-> > 
-> > To achieve 100% code coverage, we'll also need to watch emails in the
-> > kernel mailing lists, auto convert patch series there to git branches
-> > for 0-day and other testers, and auto reply results to the original
-> > mailing list's email thread.
-> > 
-> > That would be a natural fit for the email based patch submission path
-> > and review process.
-> > 
-> > The potential problem, however, is "git-am to which base branch?"
-> > That's where it may go messy.
-> 
-> Patch submitters should be making it clear to what tree their patch
-> applies, preferably using an unambiguous tag in the mail subject.  In
-> the absence of such a tag, try it against torvalds/linux.git and
-> linux-next.git, and then give up and tell the submitter to specify what
-> their patch applies to.
+On Fri, Jul 10, 2015 at 7:25 PM, Kevin Hilman <khilman@kernel.org> wrote:
+> "Rafael J. Wysocki" <rjw@rjwysocki.net> writes:
+>
+>> On Monday, July 06, 2015 01:49:45 PM Iyer, Sundar wrote:
+>
+> [...]
+>
+>>> Is a "single setting somewhere" even appropriate? It is actually the intelligence
+>>> needed vs executing the actions?
+>>
+>> For one example, the default for most of the device/.../power/control files in
+>> sysfs is "on" (meaning no runtime PM) while it might be "auto" (use runtime PM
+>> if you can).  Making that change for everybody in one go may lead to various
+>> issues (that may be regarded as regressions then), but if we made it configurable,
+>> people might choose to make that change for themselves if they wanted to.
+>
+> I'd be very supportive of some default knob (or cmdline option) to favor
+> energy efficiency.  For runtime PM, I suspect the resulting performance
+> regressions are mostly (relatively) simple fixes, like enabling
+> autosuspend, etc.
+>
+> Also, having a system-wide way to enable this mode would also enable us
+> to find/report these bugs/regressions in a way that would be easily
+> repeatable.  With the current pile of knobs/tunables, it's often very
+> hard to reproduce problems others may be seeing.
 
-To be honest, the mailing list it's sent to mostly identifies which tree
-it should be going in.  There's difficulty over whether the for next or
-for current branches ... but we have that today as well.
+My approach in drm/i915 is that there's just one default config and
+that's the well-tuned one. Maybe gfx is special, but with todays
+power-envelope constrained chips it's not a question of performance
+_or_ power efficiency, but always _and_: Enabling power saving
+features improves performance. And where it doesn't we just fix those
+problems with smarter code (since usually the performance regressions
+happen when you ping-pong too badly between different levels, or are
+stuck for too long in a given power saving level). The other reason
+for that approach is that gfx is complex and we just can't test
+arbitrary combinations of options - hence we auto-taint the kernel if
+users touch anything at all.
 
-James
+The downside is that you'll get more bug reports and can't hide from
+them easily ;-)
+
+Cheers, Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
