@@ -1,35 +1,34 @@
 Return-Path: <geert.uytterhoeven@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A21B5BC8
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8DF06BBF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 12 Jul 2015 10:23:44 +0000 (UTC)
-Received: from mail-oi0-f54.google.com (mail-oi0-f54.google.com
-	[209.85.218.54])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 150E4AB
+	Sun, 12 Jul 2015 10:28:08 +0000 (UTC)
+Received: from mail-ob0-f170.google.com (mail-ob0-f170.google.com
+	[209.85.214.170])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0EC8EA8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 12 Jul 2015 10:23:44 +0000 (UTC)
-Received: by oihq81 with SMTP id q81so23580491oih.2
+	Sun, 12 Jul 2015 10:28:08 +0000 (UTC)
+Received: by obdbs4 with SMTP id bs4so214581984obd.3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 12 Jul 2015 03:23:43 -0700 (PDT)
+	Sun, 12 Jul 2015 03:28:07 -0700 (PDT)
 MIME-Version: 1.0
 Sender: geert.uytterhoeven@gmail.com
-In-Reply-To: <CA+5PVA6-rZxNnOh+kJc2nyde78wRa+Oqz+mNeoqTDq-VfcSqTQ@mail.gmail.com>
-References: <201507080121.41463.PeterHuewe@gmx.de>
-	<559C73DF.2030008@roeck-us.net> <20150708114011.3a1f1861@noble>
-	<2879113.fraeuJIr2M@avalon> <20150709193718.GD9169@vmdeb7>
+In-Reply-To: <20150710210750.GF10533@cloud>
+References: <20150708114011.3a1f1861@noble> <2879113.fraeuJIr2M@avalon>
+	<20150709193718.GD9169@vmdeb7>
 	<1436481109.3324.219.camel@infradead.org>
 	<20150710003559.GT11162@sirena.org.uk>
 	<20150710020706.GH111846@vmdeb7>
 	<20150710155144.34dde697@gandalf.local.home>
 	<1436558412.24408.35.camel@infradead.org>
-	<20150710163141.490def2a@gandalf.local.home>
-	<1436560838.24408.52.camel@infradead.org>
-	<CA+5PVA6-rZxNnOh+kJc2nyde78wRa+Oqz+mNeoqTDq-VfcSqTQ@mail.gmail.com>
-Date: Sun, 12 Jul 2015 12:23:43 +0200
-Message-ID: <CAMuHMdVqQc8LWfiJTtySVM09JG7h6xODo=C3gq83F-G3pCL3og@mail.gmail.com>
+	<20150710205606.GC10533@cloud>
+	<1436562223.24408.55.camel@infradead.org>
+	<20150710210750.GF10533@cloud>
+Date: Sun, 12 Jul 2015 12:28:07 +0200
+Message-ID: <CAMuHMdUcFfGZPqQ=9J3=aVpDtt63jk_rvmhfK+X0+n_UoEw0_w@mail.gmail.com>
 From: Geert Uytterhoeven <geert@linux-m68k.org>
-To: Josh Boyer <jwboyer@fedoraproject.org>
+To: Josh Triplett <josh@joshtriplett.org>
 Content-Type: text/plain; charset=UTF-8
 Cc: Jason Cooper <jason@lakedaemon.net>,
 	"ksummit-discuss@lists.linuxfoundation.org"
@@ -45,28 +44,20 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 10, 2015 at 10:43 PM, Josh Boyer <jwboyer@fedoraproject.org> wrote:
->> Can one still send "from" GMail via SMTP these days? How does the 2
->> -factor authentication work? Do we cope with that?
->
-> You can, but it doesn't support 2FA.  You have to generate one of
-> those "device" or "application" passwords and use that instead.
-> Things might have changed since I last set it up, but that is what I
-> had to do to use google SMTP via mutt.
+On Fri, Jul 10, 2015 at 11:07 PM,  <josh@joshtriplett.org> wrote:
+> I just wish I had a more satisfactory method of associating a cover
+> letter with a series *in git*, such that format-patch could emit a
+> non-placeholder cover letter.
 
-Yes, works fine. I use that on my laptop (at home I have local SMTP).
+You can use "git commit --allow-empty" to write cover letters.
+Make sure they don't get lost during rebasing.
 
-Add to .gitconfig:
+Still, if you include them in --format-patch, they will be "PATCH 1/n",
+not "PATCH 0/n".
 
-[sendemail]
-        smtpencryption = tls
-        smtpserver = smtp.gmail.com
-        smtpuser = who-am-i@gmail.com
-        smtppass = secret-app-password
-        smtpserverport = 587
+[...]
 
-I'd actually encourage newcomers to use that, is it teaches them how to
-set up device or app-specific passwords, too ;-)
+Oh cool, there's a "--start-number" option, will try...
 
 Gr{oetje,eeting}s,
 
