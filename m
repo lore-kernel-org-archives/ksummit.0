@@ -1,31 +1,32 @@
 Return-Path: <josh@joshtriplett.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7DD36B68
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D1A0BB1D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 12 Jul 2015 05:20:08 +0000 (UTC)
-Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
-	[217.70.183.196])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D309F216
+	Sun, 12 Jul 2015 05:23:24 +0000 (UTC)
+Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
+	[217.70.183.198])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4209B216
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 12 Jul 2015 05:20:06 +0000 (UTC)
-Date: Sat, 11 Jul 2015 22:19:58 -0700
+	Sun, 12 Jul 2015 05:23:24 +0000 (UTC)
+Date: Sat, 11 Jul 2015 22:23:17 -0700
 From: Josh Triplett <josh@joshtriplett.org>
-To: Fengguang Wu <fengguang.wu@intel.com>
-Message-ID: <20150712051958.GA15346@x>
+To: Josh Poimboeuf <jpoimboe@redhat.com>
+Message-ID: <20150712052317.GB15346@x>
 References: <201507080121.41463.PeterHuewe@gmx.de>
-	<559C73DF.2030008@roeck-us.net> <20150708114011.3a1f1861@noble>
-	<2879113.fraeuJIr2M@avalon> <20150709193718.GD9169@vmdeb7>
-	<20150709201127.GA3426@cloud> <20150709203830.GF7021@wotan.suse.de>
-	<20150709210059.GA3720@cloud>
-	<1436518482.2393.19.camel@HansenPartnership.com>
-	<20150712020235.GB24356@wfg-t540p.sh.intel.com>
+	<1481488.5WJFbB0Dlm@vostro.rjw.lan>
+	<1436341028.2136.14.camel@HansenPartnership.com>
+	<20150708080032.CE89E4306F@saturn.retrosnub.co.uk>
+	<20150708145315.29030a75@gandalf.local.home>
+	<20150710181409.GA30145@treble.redhat.com>
+	<1436576450.27924.59.camel@stgolabs.net>
+	<20150712034824.GA4236@treble.hsd1.ky.comcast.net>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20150712020235.GB24356@wfg-t540p.sh.intel.com>
+In-Reply-To: <20150712034824.GA4236@treble.hsd1.ky.comcast.net>
 Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Jason Cooper <jason@lakedaemon.net>,
+	jic23@jic23.retrosnub.co.uk, Jason Cooper <jason@lakedaemon.net>,
 	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
@@ -38,51 +39,48 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sun, Jul 12, 2015 at 10:02:35AM +0800, Fengguang Wu wrote:
-> On Fri, Jul 10, 2015 at 09:54:42AM +0100, James Bottomley wrote:
-> > On Thu, 2015-07-09 at 14:00 -0700, josh@joshtriplett.org wrote:
-> > > On Thu, Jul 09, 2015 at 10:38:30PM +0200, Luis R. Rodriguez wrote:
-> > > > On Thu, Jul 09, 2015 at 01:11:27PM -0700, josh@joshtriplett.org wrote:
-> > > > > Bonus if this is also wired into the 0day bot, so that you also find out
-> > > > > if you introduce a new warning or error.
+On Sat, Jul 11, 2015 at 10:48:24PM -0500, Josh Poimboeuf wrote:
+> On Fri, Jul 10, 2015 at 06:00:50PM -0700, Davidlohr Bueso wrote:
+> > On Fri, 2015-07-10 at 13:14 -0500, Josh Poimboeuf wrote:
+> > > On Wed, Jul 08, 2015 at 02:53:15PM -0400, Steven Rostedt wrote:
+> > > > I personally don't trust a Reviewed-by tag much, as I sometimes see
+> > > > them appear without any comments.
 > > > > 
-> > > > No reason to make bots do stupid work, if we really wanted to consider
-> > > > this a bit more seriously the pipeline could be:
-> > > > 
-> > > >   mailing-list | coccinelle coccicheck| smatch | sparse | 0-day-bot
+> > > > I was thinking of writing a perl script that would read my LKML archive
+> > > > and somewhat intelligently looking at people who replied to patches,
+> > > > that also has snippets of the patch in the reply, and counting them. I
+> > > > think that would be a more accurate use of real reviewers than just the
+> > > > Reviewed-by tag.
 > > > 
-> > > That would effectively make the bot duplicate part of 0-day.  Seems
-> > > easier to have some way to tell 0-day "if you see obvious procedural
-> > > issues, don't bother with full-scale testing, just reject".
+> > > I'm relatively new to lkml so my perceptions might be skewed.  But it
+> > > seems to me that, for non-trivial patches, the Reviewed-by tag is pretty
+> > > much useless as a metric.  From what I can tell, the biggest problems
+> > > with relying on Reviewed-by to get meaningful statistics are:
+> > > 
+> > > 1. It's self-reported by the reviewer.
+> > > 
+> > >    Maybe a reviewer gave some hugely valuable feedback in versions 1-4
+> > >    of the patch, but wasn't around to provide the Reviewed-by tag for
+> > >    the final v6.
 > > 
-> > We already have this with the 0 day project.  The only difference being
-> > the patch has to be in a tree for it to get tested.  It's not impossible
-> > to imagine a bot that would pick up a patch, apply it (giving automated
-> > rejects as email replies), and leave it in for the 0 day tests to
-> > assess ... sort of like patchwork but with an automated tree build.   We
-> > could periodically throw away the tree (say weekly) because the job of
-> > the bot would be to find initial rejects rather than build a workable
-> > tree.
+> > Normally good maintainers pick up ack/review tags along the way when
+> > they pickup the final patch.
 > 
-> That's a good point. Up to now 0-day only takes care of code in git trees.
-> We've collected 500+ developers' git trees so far, however their coverage
-> looks not enough -- there are 3000+ kernel developers in last year's git log.
+> A maintainer can't pick up the tag if the reviewer doesn't post it.
 > 
-> To achieve 100% code coverage, we'll also need to watch emails in the
-> kernel mailing lists, auto convert patch series there to git branches
-> for 0-day and other testers, and auto reply results to the original
-> mailing list's email thread.
-> 
-> That would be a natural fit for the email based patch submission path
-> and review process.
-> 
-> The potential problem, however, is "git-am to which base branch?"
-> That's where it may go messy.
+> In this example the reviewer wouldn't have posted Reviewed-by because,
+> despite the fact that they did a thorough review, the patch still had
+> issues in its earlier versions.  The reviewer did a lot of work but
+> didn't get credit for it.
 
-Patch submitters should be making it clear to what tree their patch
-applies, preferably using an unambiguous tag in the mail subject.  In
-the absence of such a tag, try it against torvalds/linux.git and
-linux-next.git, and then give up and tell the submitter to specify what
-their patch applies to.
+And that's not always a bad thing.  Sometimes I review the previous
+version of a patch, and then see that tag applied to a later version
+that is substantially different from the version I reviewed; that makes
+me uncomfortable.  I care less about getting credit for a review and
+more about not having my Reviewed-by tag attached to something I didn't
+review.  (Obviously, this is a fuzzy thing; for instance, if three
+people note issues and offer a Reviewed-by with those issues fixed,
+fixing all the issues and applying all three Reviewed-by tags seems
+reasonable.)
 
 - Josh Triplett
