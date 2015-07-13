@@ -1,18 +1,21 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <konstantin@linuxfoundation.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 06D74BB6
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8654CBC4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 13 Jul 2015 16:02:44 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8E59B12D
+	Mon, 13 Jul 2015 16:05:45 +0000 (UTC)
+Received: from mail-ie0-f173.google.com (mail-ie0-f173.google.com
+	[209.85.223.173])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E7E8B25E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 13 Jul 2015 16:02:43 +0000 (UTC)
-Date: Mon, 13 Jul 2015 17:02:35 +0100
-From: Mark Brown <broonie@kernel.org>
+	Mon, 13 Jul 2015 16:05:44 +0000 (UTC)
+Received: by iecuq6 with SMTP id uq6so238276447iec.2
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 13 Jul 2015 09:05:44 -0700 (PDT)
+Date: Mon, 13 Jul 2015 12:05:41 -0400
+From: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
 To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Message-ID: <20150713160235.GI11162@sirena.org.uk>
+Message-ID: <20150713160541.GC15582@gmail.com>
 References: <20150710143832.GU23515@io.lakedaemon.net>
 	<CA+5PVA5j9973GzdYj-s2WX3J8ycf5hQTBdGq+8j-8RGDX2OaYg@mail.gmail.com>
 	<20150710162328.GB12009@thunk.org>
@@ -23,11 +26,10 @@ References: <20150710143832.GU23515@io.lakedaemon.net>
 	<1436801960.6901.19.camel@HansenPartnership.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="gN3M3+2YQR7w0cmk"
+	protocol="application/pgp-signature"; boundary="ghzN8eJ9Qlbqn3iT"
 Content-Disposition: inline
 In-Reply-To: <1436801960.6901.19.camel@HansenPartnership.com>
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] dev/maintainer workflow security
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -39,27 +41,22 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---gN3M3+2YQR7w0cmk
-Content-Type: text/plain; charset=us-ascii
+--ghzN8eJ9Qlbqn3iT
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
 On Mon, Jul 13, 2015 at 04:39:20PM +0100, James Bottomley wrote:
-> On Mon, 2015-07-13 at 10:07 -0400, Konstantin Ryabitsev wrote:
-
-> > Which brings me around to grumbling a bit -- since we've made 2-factor
-> > auth available, only 30 people have set up a token[*] (not even 10% of all
-> > account holders) and only 25 repositories/subdirs have a 2fa requirement
-> > on them, out of 450 defined.
-
+> > I'm far from suggesting that we make this mandatory, but I'm open to
+> > any suggestions on how we can make more developers enroll with 2fa.
+>=20
 > It's a bit painful for those of us who move around a lot and no-one has
 > ever articulated a clear threat vector it's supposed to counter.
-
-As the owner of about 16% of those repositories and someone who travels
-a reasonable amount I have to say I actually find it a lot easier than
-the previous system (especially given that previously I had to share a
-single kernel.org SSH key over all my machines).  That's got more to do
-with being able to use a self supplied SSH key but still.
-
+>=20
+> In fact, I'd argue it gives a false sense of security: the ssh keys and
+> authentication factors aren't what I'd go after if I were attacking
+> kernel.org because anything I pushed using a stolen key would instantly
+> be noticed the next time the maintainer pushed and the tree wouldn't
 > fast forward.  If I were trying to get a bogus commit into the tree, I'd
 > be attacking the maintainer's laptop to put it into their personal git
 > tree (I'd actually tack the code on to an existing commit via rebase ...
@@ -68,23 +65,57 @@ with being able to use a self supplied SSH key but still.
 > accounted for in the subsequent pull request to Linus.  2 factor
 > authentication does nothing to counter this.
 
-For me the second factor is as much a defence in depth thing as anything
-else.
+It counters several vectors of attack:
 
---gN3M3+2YQR7w0cmk
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
+1. Someone makes a commit to your repo while you are on an extended trip
+   and it percolates to other repos that pull from you. When you notice
+   this upon your return, it's already been widely disseminated.
+2. When multiple developers are working on the same repository, an attacker
+   can time a commit when one of the developers is about to step away for a
+   few days (travel, conference, etc). When the developer is back, they
+   are going to do a "git pull" as first thing, to get the latest
+   commits from other developers and will therefore likely miss "their
+   own" missing commit, pulling it in their tree.
+3. Developers who use multiple systems (home workstation and a travel
+   laptop, for example) will routinely perform a "git pull" to keep
+   their trees in sync and it would be fairly easy to time an injection
+   into the tree to sneak in a commit.
+
+Getting private ssh keys is a lot easier than getting full access to a
+developer's workstation:
+
+- Many developers ssh to systems without restricting agent forwarding to
+  a set of trusted systems only, which would allow an attacker on a
+  compromised system to ssh to gitolite.kernel.org with developer's
+  credentials.
+- Many 0-days in client tools allow full access to local content, but
+  not necessarily an ability to execute arbitrary commands.
+- I'm willing to bet there are lots of removable storage floating around
+  people's workdesks and travel bags that contain full copies of their
+  homedirs for backup purposes (tell me it ain't true!).
+
+The 2fa solution we have certainly doesn't solve all possible problems,
+but it does have very good reasons to exist.
+
+Regards,
+--=20
+Konstantin Ryabitsev
+Linux Foundation Collab Projects
+Montr=C3=A9al, Qu=C3=A9bec
+
+--ghzN8eJ9Qlbqn3iT
+Content-Type: application/pgp-signature
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQEcBAEBCAAGBQJVo+EaAAoJECTWi3JdVIfQDqwH/jrvErUkib6U8cLInyWgozIy
-D0vQh4rZ0mpza8FmdJzGD5mtl3a8Bh74HXhoP1hr19uoPw5vE6GNHsC6d8nfd0KG
-D4kOfwrXrQ0cYX9oFWIBGr4q577dlzbDbuML58JidJM6itYpcBvP4v0ZRoGd4qOy
-Y5+uhm3jb8wyXtUpmfOe5u3AqafbP/gXvekeMeJIVz2uARWnt/rFhrlSW4cuLjCW
-vCIStlBD/k3QAiZcDuYlA4WE8o6cjB0VEmSyxaUqwqIuypzbkNaVPR3rZNVpRjSf
-QNYobCIkIhGmPGe8G1edapCWl7XRRsOJjMrZxuaNKqYG2YEdK1UQCfDmHFey2xA=
-=gRG3
+iQEcBAEBCAAGBQJVo+HTAAoJEDZgaZyZ4FVXZl0H/ig6ht0N+dBW1diXLCnprc5Z
+LWEJ/HJ4F18unyLG6ZgCKuaWJfxB/l5oGjNct+KFhlvn3of5Hh649rxL7BEAr68t
+X3yGz76S55n5KwS7gMKlXQ3BtaBY5k8JGk0hVt7qJaSPx3+bXBQtJO9sIXOFFMLk
+nv/ARsmBISBZFzDazH55br4PrZAFYUzQFO8ll/qgO6PlcFtHM1laEIzer+IgkRWE
+3ZQL1mwIVPgsxxADsFGe8W7Y6h+U34hq7aoEmNEbJ7Nve8BQKBMWno4e98Rigb6S
+MWhpakeyjq8AzvaqGqE+WypuJMW5ohH0XVeD7WDe+UKYj1C49yO2duIZwuQKgd8=
+=2DKJ
 -----END PGP SIGNATURE-----
 
---gN3M3+2YQR7w0cmk--
+--ghzN8eJ9Qlbqn3iT--
