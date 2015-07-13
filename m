@@ -1,30 +1,32 @@
-Return-Path: <linux@roeck-us.net>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4E347B1B
+Return-Path: <rostedt@goodmis.org>
+Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
+	[172.17.192.36])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 911EEBCB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 13 Jul 2015 16:18:26 +0000 (UTC)
-Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 02C8812D
+	Mon, 13 Jul 2015 16:23:00 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0214.hostedemail.com
+	[216.40.44.214])
+	by smtp2.linuxfoundation.org (Postfix) with ESMTP id 26B031DCB4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 13 Jul 2015 16:18:25 +0000 (UTC)
-Date: Mon, 13 Jul 2015 09:18:22 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Message-ID: <20150713161822.GA22325@roeck-us.net>
-References: <201507080121.41463.PeterHuewe@gmx.de>
-	<20150710155144.34dde697@gandalf.local.home>
-	<1436558412.24408.35.camel@infradead.org>
-	<2196355.jXBH4erg3y@avalon>
+	Mon, 13 Jul 2015 16:23:00 +0000 (UTC)
+Date: Mon, 13 Jul 2015 12:22:57 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Fengguang Wu <fengguang.wu@intel.com>
+Message-ID: <20150713122257.16172169@gandalf.local.home>
+In-Reply-To: <20150712125552.GA12558@wfg-t540p.sh.intel.com>
+References: <alpine.LNX.2.00.1507071324090.10183@pobox.suse.cz>
+	<20150707224025.GJ11162@sirena.org.uk>
+	<20150707225223.GG12491@dtor-ws> <20150708021619.GC3102@kroah.com>
+	<alpine.LNX.2.00.1507080957360.10183@pobox.suse.cz>
+	<20150708093511.GL11162@sirena.org.uk>
+	<20150708140155.GA20551@thunk.org>
+	<20150712125552.GA12558@wfg-t540p.sh.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <2196355.jXBH4erg3y@avalon>
-Cc: Jason Cooper <jason@lakedaemon.net>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
- Maintainers, Hobbyists)
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] services needed from kernel.org
+ infrastructure
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,34 +36,20 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Jul 13, 2015 at 01:00:14AM +0300, Laurent Pinchart wrote:
-> On Friday 10 July 2015 21:00:12 David Woodhouse wrote:
-> > On Fri, 2015-07-10 at 15:51 -0400, Steven Rostedt wrote:
-> > > On Thu, 9 Jul 2015 19:07:06 -0700 Darren Hart wrote:
-> > > > As far as recruitment goes, I think we're talking about barriers to
-> > > > first-timers and such - and git-send-email is one of those things.
-> > > > Eventually, a developer> 
-> > > +1000
-> > > 
-> > > I still don't use git-send-email, as I afraid that I'll blow it and end
-> > > up sending a thousand patches to every developer that ever touched the
-> > > kernel ;-)
-> > 
-> > Rather than sending messages, it's actually better to put them as
-> > *drafts*, ready to be sent by the user's normal mailer. It's not hard
-> > to do this — I usually dump the mails into
-> > ~/.local/share/evolution/mail/local/.Drafts/new/ for example.
-> > 
-> > And then I can *read* them before sending them, which is good practice
-> > anyway. Am I the only person who often finds a final minor nit with
-> > their own patch, in that final read-through just before hitting 'send'
-> > on an email?
-> 
-> Certainly not, but what prevents you from doing that with git-send-email ? In 
-> my workflow I always format patches with git-format-patch, proof-read them 
-> with my favourite $EDITOR and then use git-send-email to send them.
-> 
-This exactly mateches my workflow (with an added 0000-Summary for patch
-series where needed).
+On Sun, 12 Jul 2015 20:55:52 +0800
+Fengguang Wu <fengguang.wu@intel.com> wrote:
 
-Guenter
+
+> So the chances are that 0day infrastructure has the ready made setups
+> to run such service. We already have the commit-by-commit walker to
+> run checkpatch.pl (though I rarely send its report out due to it'd be
+> noisy and there is no clear criterion to answer "who would be glad to
+> receive such reports?").
+> 
+
+Is there a web site available that would let us see what checkpatch
+errors the 0day bot found for our repo? I don't want an email, but
+it would be nice to just go to some web page to look if anything new
+appeared.
+
+-- Steve
