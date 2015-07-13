@@ -1,29 +1,35 @@
-Return-Path: <adobriyan@gmail.com>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6BF46B13
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id DBF2783D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 13 Jul 2015 09:47:26 +0000 (UTC)
-Received: from mail-lb0-f178.google.com (mail-lb0-f178.google.com
-	[209.85.217.178])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A8F0CE3
+	Mon, 13 Jul 2015 10:00:22 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4FEB5EE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 13 Jul 2015 09:47:25 +0000 (UTC)
-Received: by lbbpo10 with SMTP id po10so121418095lbb.3
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 13 Jul 2015 02:47:23 -0700 (PDT)
+	Mon, 13 Jul 2015 10:00:22 +0000 (UTC)
+Date: Mon, 13 Jul 2015 11:00:12 +0100
+From: Mark Brown <broonie@kernel.org>
+To: josh@joshtriplett.org
+Message-ID: <20150713100012.GZ11162@sirena.org.uk>
+References: <559C73DF.2030008@roeck-us.net> <20150708114011.3a1f1861@noble>
+	<2879113.fraeuJIr2M@avalon> <20150709193718.GD9169@vmdeb7>
+	<1436481109.3324.219.camel@infradead.org>
+	<20150710003559.GT11162@sirena.org.uk>
+	<20150710020706.GH111846@vmdeb7>
+	<20150710124416.GR23515@io.lakedaemon.net>
+	<20150710182429.GX11162@sirena.org.uk>
+	<20150710204005.GA10533@cloud>
 MIME-Version: 1.0
-In-Reply-To: <201507130038.01474.PeterHuewe@gmx.de>
-References: <201507130038.01474.PeterHuewe@gmx.de>
-Date: Mon, 13 Jul 2015 12:47:23 +0300
-Message-ID: <CACVxJT9WjwWZUQWPk_jXOLOZsTh8HdGuKWr1ri3q02fEaFLejA@mail.gmail.com>
-From: Alexey Dobriyan <adobriyan@gmail.com>
-To: =?UTF-8?Q?Peter_H=C3=BCwe?= <PeterHuewe@gmx.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Cc: Dan Carpenter <dan.carpenter@oracle.com>,
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="1g8/xwKqmfjThapt"
+Content-Disposition: inline
+In-Reply-To: <20150710204005.GA10533@cloud>
+Cc: Jason Cooper <jason@lakedaemon.net>,
 	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE-TOPIC] Documentation
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
+ Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,50 +39,41 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Jul 13, 2015 at 1:38 AM, Peter H=C3=BCwe <PeterHuewe@gmx.de> wrote:
-> as we talked about recruiting in the other thread I realized that one thi=
-ng
-> that might reduce the entrance barrier a bit (apart from tooling and flow=
-)
-> would be proper documentation.
 
-Newbies should not write documentation because they, by definition,
-have little knowledge of the code. It will lead to many, many useless
-and redundant comments like below whose only purpose is stealing
-vertical whitespace:
+--1g8/xwKqmfjThapt
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-    /**
-     * is_module_percpu_address - test whether address is from module
-static percpu
-     * @addr: address to test
-     *
-     * Test whether @addr belongs to module static percpu area.
-     *
-     * RETURNS:
-     * %true if @addr is from module static percpu area
-     */
+On Fri, Jul 10, 2015 at 01:40:05PM -0700, josh@joshtriplett.org wrote:
+> On Fri, Jul 10, 2015 at 07:24:29PM +0100, Mark Brown wrote:
 
-    bool is_module_percpu_address(unsigned long addr)
-    {
+> > The false positives are a bit of an issue since it discourages people
+> > doing smaller cleanups over wide areas, you can end up getting CCed on
+> > lots of things you touched which can be a bit offputting.
 
-I have counter suggestion:
-* remove kernel-doc official status, remove generating scripts
-  because it doesn't work,
-* trim redundant and semi-redundant kernel-doc comments like this:
+> --git-fallback seems to work pretty well.  It nicely embodies the
+> approach of "if it doesn't have a maintainer, talk to the last poor
+> sucker who touched it".
 
-    /**
-     * module_refcount - return the refcount or -1 if unloading
-     *
-     * @mod:        the module we're checking
-     *
-     * Returns:
-     *      -1 if the module is in the process of unloading
-     *      otherwise the number of references in the kernel to the module
-     */
-    int module_refcount(struct module *mod)
-    {
+That seems to have the same problems as just plain old git, and given
+the way it uses wildcards it will use git more often than it should for
+common patterns like companies supporting all their devices.  It'll just
+trigger a bit less often.
 
-("return reference count or -1 if module is being unloaded" is enough here)=
-.
+--1g8/xwKqmfjThapt
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
 
-      Alexey
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQEcBAEBCAAGBQJVo4wrAAoJECTWi3JdVIfQ6gIH/RzjG96t8yYPB0VSTesC48Y+
+bSlWWpOiWJmLhZxh73cwQDmmjFBzwnPEJ/AuCpl31xwJFiUAX81EfWd1d7i2Z3a6
+a9Rct4rOEyPd18hDvuoWj2jBU2Ur2L/HZFQeBYJJQ3EJmpI3b9ZazO72tY/xKsAL
+qd+XlGJgOeOq1UAfmvh3Js7ZxYPVQrX1ZWhHS5GJ85uPKY7DzI8nGRKHomri1X/A
+133qTnqUBy+OFiEJM6vw3H3i3UddfyJM0KL10VXRSs/zQcbq0UtqEqnquUgFJ5l3
+m/xu9kNsqLBwjlwkXji1P7vPUJJafMkvdQM3WQfY2AHDpSgZbjQ3rBVrwKsQrVI=
+=jtNA
+-----END PGP SIGNATURE-----
+
+--1g8/xwKqmfjThapt--
