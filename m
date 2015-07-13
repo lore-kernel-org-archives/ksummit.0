@@ -1,35 +1,31 @@
 Return-Path: <keescook@google.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B11938B4
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1F5B08B4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 13 Jul 2015 23:15:08 +0000 (UTC)
-Received: from mail-ie0-f176.google.com (mail-ie0-f176.google.com
-	[209.85.223.176])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9784DF7
+	Mon, 13 Jul 2015 23:25:38 +0000 (UTC)
+Received: from mail-ig0-f170.google.com (mail-ig0-f170.google.com
+	[209.85.213.170])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7B900A7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 13 Jul 2015 23:15:04 +0000 (UTC)
-Received: by iebmu5 with SMTP id mu5so155281ieb.1
+	Mon, 13 Jul 2015 23:25:37 +0000 (UTC)
+Received: by igcqs7 with SMTP id qs7so69539149igc.0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 13 Jul 2015 16:15:04 -0700 (PDT)
+	Mon, 13 Jul 2015 16:25:37 -0700 (PDT)
 MIME-Version: 1.0
 Sender: keescook@google.com
-In-Reply-To: <20150711163838.GA4441@thunk.org>
+In-Reply-To: <1436599873.2243.10.camel@HansenPartnership.com>
 References: <20150710143832.GU23515@io.lakedaemon.net>
 	<CA+5PVA5j9973GzdYj-s2WX3J8ycf5hQTBdGq+8j-8RGDX2OaYg@mail.gmail.com>
 	<20150710162328.GB12009@thunk.org>
 	<CAGXu5j+NY8-5WPcP1kLZsKgzmbQ=L0Q18XZ6FYeVTcFGDLrRSw@mail.gmail.com>
 	<1436599873.2243.10.camel@HansenPartnership.com>
-	<20150711160202.GC23515@io.lakedaemon.net>
-	<20150711163838.GA4441@thunk.org>
-Date: Mon, 13 Jul 2015 16:15:03 -0700
-Message-ID: <CAGXu5jKTVka04AXdKJh48yHEy4nJm3MSK5wdaBiD9NpG+mBStg@mail.gmail.com>
+Date: Mon, 13 Jul 2015 16:25:36 -0700
+Message-ID: <CAGXu5jJdmwdKw6CYwMNUCDKai0M5UrghYn1c3tTwqudLwdbO0A@mail.gmail.com>
 From: Kees Cook <keescook@chromium.org>
-To: "Theodore Ts'o" <tytso@mit.edu>
+To: James Bottomley <James.Bottomley@hansenpartnership.com>
 Content-Type: text/plain; charset=UTF-8
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Josh Boyer <jwboyer@fedoraproject.org>,
-	Jason Cooper <jason@lakedaemon.net>,
+Cc: Josh Boyer <jwboyer@fedoraproject.org>, Jason Cooper <jason@lakedaemon.net>,
 	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] dev/maintainer workflow security
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -41,24 +37,63 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, Jul 11, 2015 at 9:38 AM, Theodore Ts'o <tytso@mit.edu> wrote:
-> On Sat, Jul 11, 2015 at 04:02:02PM +0000, Jason Cooper wrote:
->>
->> Could we have some sort of post-vuln/CVE conversation dissecting the
->> vulnerability and how it got there?  Or, perhaps select a few for
->> process-dissection to be presented at the summit?
+On Sat, Jul 11, 2015 at 12:31 AM, James Bottomley
+<James.Bottomley@hansenpartnership.com> wrote:
+> On Fri, 2015-07-10 at 15:08 -0700, Kees Cook wrote:
+>>   - personal security (keep commit credentials secure from theft)
 >
-> Kees did a really good presentation entitled "security anti-patterns"
-> a year or two ago at a kernel summit (the one at Edinburgh if I
-> remember correctly?).  Kees, do you think it would be worth updating
-> and re-doing that presentation?  And perhaps at a wider set of venues
-> beyond just the kernel summit....
+> This second one is a bit of a red herring:  Assuming you did steal my
+> credentials, how would you use them without being detected?
 
-I can, yeah, but I sort of think stuff like that is really just
-"reference material", and sometimes too specific. Reviewers (and
-authors) need to think about high-level risks, not just mechanical
-flaws. I would agree that beefing up reviewer roles could really help
-this part of the problem, though.
+Well, I meant it in a general sense. Whether that's your ssh key, or
+direct access to your entire network through backdoored network card
+firmware and SMM code, there are TONS of way to be owned without being
+detected. :)
+
+> Security is not an absolute, it's a tradeoff.  The point of the tradeoff
+> is to make sure you address the significant threats while not impeding
+> the workflow too much.  If we start worrying about and addressing
+> insignificant threats, eventually you won't get on to kernel.org without
+> going through airport theatre style security.
+
+We have one thing that a lot of other workflows don't: transparency,
+so we can examine commit histories, etc. This makes credential theft
+much less useful (which I think was your point).
+
+>> - reactive security: bug fix workflow
+>>   - getting fixes _to end users_ (not the same as publishing to stable)
+>
+> Stable is our last point.  After that, it's up to the distros
+
+I don't agree with this. Distros are just one consumer. I think it's
+worth examining how real-world devices end up running Linux. Telcos
+pushing kernel updates, for example, jumps to mind. I think it's a
+weak stance to say "well, they should update to the latest kernel". Is
+it a failing of our community that it's so much work for these vendors
+to update kernels? Is offering an LTS "good enough", or can we do
+more? It's Linux's name that gets smeared by vendors who are terrible
+at updating kernels. :(
+
+>>   - documenting impact when known (avoiding intentional obfuscation)
+>> - proactive security: stop security flaws from happening in the first place
+>>   - scope analysis (defending both userspace and kernel from attack)
+>>   - threat analysis (how are attacks being made now and in future?)
+>>   - exposure analysis (syscall interface, device firmware, etc)
+>>   - static checkers (find and eliminate bug classes in the code)
+>>   - run-time mitigation features (endless list: memory protection, CFI,
+>>     ASLR, anti-bruteforcing, etc)
+>
+> Perhaps the question here is would we be interested in making use of the
+> core infrastructure initiative to give us a security analysis of parts
+> of the kernel (and if so, which parts).
+
+I actually think the issue is body count. We have a lot of tools
+already. We have coverity, for example, but it needs full-time work
+(by a few people, I think) to trim false-positives, improve rules, and
+extract the real bugs. Which companies are paying people to do this
+full-time? Our numbers aren't improving much in this area. We've
+actually been getting smaller... Dave Jones, come back, we all still
+love Trinity! :)
 
 -Kees
 
