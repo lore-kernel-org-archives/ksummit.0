@@ -1,34 +1,36 @@
-Return-Path: <konstantin@linuxfoundation.org>
+Return-Path: <dan.carpenter@oracle.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1B5D89F2
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 84EF0B5A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 13 Jul 2015 14:07:56 +0000 (UTC)
-Received: from mail-ig0-f177.google.com (mail-ig0-f177.google.com
-	[209.85.213.177])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B1778110
+	Mon, 13 Jul 2015 14:21:32 +0000 (UTC)
+Received: from userp1040.oracle.com (userp1040.oracle.com [156.151.31.81])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 150BE110
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 13 Jul 2015 14:07:55 +0000 (UTC)
-Received: by igbij6 with SMTP id ij6so22367352igb.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 13 Jul 2015 07:07:55 -0700 (PDT)
-Date: Mon, 13 Jul 2015 10:07:52 -0400
-From: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-To: Jiri Kosina <jkosina@suse.com>
-Message-ID: <20150713140752.GA15582@gmail.com>
-References: <20150710143832.GU23515@io.lakedaemon.net>
-	<CA+5PVA5j9973GzdYj-s2WX3J8ycf5hQTBdGq+8j-8RGDX2OaYg@mail.gmail.com>
-	<20150710162328.GB12009@thunk.org>
-	<CAGXu5j+NY8-5WPcP1kLZsKgzmbQ=L0Q18XZ6FYeVTcFGDLrRSw@mail.gmail.com>
-	<1436599873.2243.10.camel@HansenPartnership.com>
-	<alpine.LNX.2.00.1507131027000.7522@pobox.suse.cz>
+	Mon, 13 Jul 2015 14:21:32 +0000 (UTC)
+Date: Mon, 13 Jul 2015 17:20:47 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Josh Poimboeuf <jpoimboe@redhat.com>
+Message-ID: <20150713140113.GB4341@mwanda>
+References: <201507080121.41463.PeterHuewe@gmx.de>
+	<1481488.5WJFbB0Dlm@vostro.rjw.lan>
+	<1436341028.2136.14.camel@HansenPartnership.com>
+	<20150708080032.CE89E4306F@saturn.retrosnub.co.uk>
+	<20150708145315.29030a75@gandalf.local.home>
+	<20150710181409.GA30145@treble.redhat.com>
+	<1436576450.27924.59.camel@stgolabs.net>
+	<20150712034824.GA4236@treble.hsd1.ky.comcast.net>
+	<20150712052317.GB15346@x>
+	<20150712122823.GA4366@treble.redhat.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="TB36FDmn/VVEgNH/"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <alpine.LNX.2.00.1507131027000.7522@pobox.suse.cz>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] dev/maintainer workflow security
+In-Reply-To: <20150712122823.GA4366@treble.redhat.com>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	jic23@jic23.retrosnub.co.uk, ksummit-discuss@lists.linuxfoundation.org,
+	Jason Cooper <jason@lakedaemon.net>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
+ Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,63 +40,17 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Sun, Jul 12, 2015 at 07:28:23AM -0500, Josh Poimboeuf wrote:
+> I agree that the Reviewed-by tag doesn't apply here.  It communicates
+> patch approval, rather than review helpfulness.  That's why I proposed a
+> new tag from the patch author and/or maintainer.
 
---TB36FDmn/VVEgNH/
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I've lobbied for:
 
-On Mon, Jul 13, 2015 at 10:32:06AM +0200, Jiri Kosina wrote:
-> If the credentials can be used both to push to ra.kernel.org and to acces=
-s=20
-> your "local" copy of the GIT repo (on your notebook / desktop / storage),=
-=20
-> I can just push the malicious commit (*) to both repos and you might not=
-=20
-> notice immediately (because you wouldn't get non-fast-forward hint from=
-=20
-> git).
+With-Fixes-from: xxx
 
-This is mitigated somewhat by existing 2-factor mechanisms placed on
-select git repositories.
+It would only be given for actual bug fixes and not for complaining
+about the subject line, white space or spelling mistakes.
 
-https://korg.wiki.kernel.org/userdoc/gitolite_2fa
-
-To successfully attack in this manner, you would need to push to
-gitolite.kernel.org from an IP address that's been previously
-2fa-validated by the developer.
-
-Which brings me around to grumbling a bit -- since we've made 2-factor
-auth available, only 30 people have set up a token[*] (not even 10% of all
-account holders) and only 25 repositories/subdirs have a 2fa requirement
-on them, out of 450 defined.
-
-I'm far from suggesting that we make this mandatory, but I'm open to
-any suggestions on how we can make more developers enroll with 2fa.
-
-Best,
---=20
-Konstantin Ryabitsev
-Linux Foundation Collab Projects
-Montr=C3=A9al, Qu=C3=A9bec
-
-[*] Not counting a couple of people using GPG smartcards/yubikeys
-    for their ssh authentication.
-
-
---TB36FDmn/VVEgNH/
-Content-Type: application/pgp-signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQEcBAEBCAAGBQJVo8Y1AAoJEDZgaZyZ4FVXOgkH/0x2gYX/IMUcwHYumPhJVBqf
-HyJIftw1AVTuOwYgnyAXNDxvora2ZHpf425peyooTGsIS1kfnz9RhDpQrcdcqm6O
-k5NOGcIxqkaWHjtTVGNKYYd1YbjN6KRJrIChWlEsPXjCQDv3wADTDJafTxNjTSyt
-yasAW/D+MHJfinbYtMDK9mHPTcdc6BqHObDPxKnx4Lu4FbDwTpadrTsM/AcdTT3q
-pvWxysQLzEDs3XDVx1MOW8ykDSJ+wP2+9iHip+6eW0OTztglSxKI9jBP/Il/k4hO
-1pGK+UKf6SzzFlRbDInqsfCx/OLNRiAAoYOef7pPvibW3soBB7PYR/BSbrWiH18=
-=o3FI
------END PGP SIGNATURE-----
-
---TB36FDmn/VVEgNH/--
+regards,
+dan carpenter
