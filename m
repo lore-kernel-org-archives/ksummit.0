@@ -1,26 +1,26 @@
 Return-Path: <PeterHuewe@gmx.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2C93AAF3
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7C45ABB6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 13 Jul 2015 19:18:41 +0000 (UTC)
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A5C997C
+	Mon, 13 Jul 2015 19:21:28 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E82CA12D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 13 Jul 2015 19:18:39 +0000 (UTC)
-From: Peter =?utf-8?q?H=C3=BCwe?= <PeterHuewe@gmx.de>
-To: Alexey Dobriyan <adobriyan@gmail.com>
-Date: Mon, 13 Jul 2015 21:20:32 +0200
+	Mon, 13 Jul 2015 19:21:27 +0000 (UTC)
+From: Peter =?iso-8859-1?q?H=FCwe?= <PeterHuewe@gmx.de>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Mon, 13 Jul 2015 21:22:53 +0200
 References: <201507130038.01474.PeterHuewe@gmx.de>
-	<CACVxJT9WjwWZUQWPk_jXOLOZsTh8HdGuKWr1ri3q02fEaFLejA@mail.gmail.com>
-In-Reply-To: <CACVxJT9WjwWZUQWPk_jXOLOZsTh8HdGuKWr1ri3q02fEaFLejA@mail.gmail.com>
+	<1436806006.20909.59.camel@infradead.org>
+	<20150713133519.22018176@gandalf.local.home>
+In-Reply-To: <20150713133519.22018176@gandalf.local.home>
 MIME-Version: 1.0
 Content-Type: Text/Plain;
-  charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <201507132120.33180.PeterHuewe@gmx.de>
-Cc: Dan Carpenter <dan.carpenter@oracle.com>,
-	ksummit-discuss@lists.linuxfoundation.org
+  charset="iso-8859-1"
+Content-Transfer-Encoding: 7bit
+Message-Id: <201507132122.53835.PeterHuewe@gmx.de>
+Cc: Dan Carpenter <dan.carpenter@oracle.com>
 Subject: Re: [Ksummit-discuss] [CORE-TOPIC] Documentation
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -31,28 +31,21 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Am Montag, 13. Juli 2015, 11:47:23 schrieb Alexey Dobriyan:
-> On Mon, Jul 13, 2015 at 1:38 AM, Peter H=C3=BCwe <PeterHuewe@gmx.de> wrot=
-e:
-> > as we talked about recruiting in the other thread I realized that one
-> > thing that might reduce the entrance barrier a bit (apart from tooling
-> > and flow) would be proper documentation.
->=20
-> Newbies should not write documentation because they, by definition,
-> have little knowledge of the code. It will lead to many, many useless
-> and redundant comments like below whose only purpose is stealing
-> vertical whitespace:
+Am Montag, 13. Juli 2015, 19:35:19 schrieb Steven Rostedt:
 
-While I agree with your 'stupid documentation is stupid' argument, I tend t=
-o=20
-somewhat disagree about that newbies should not write documentation.
+> A lot of these functions are from years past. We should go back and try
+> to document them. Perhaps we may even find and fix a few bugs in doing
+> so.
++100!
 
-By newbies I do not mean someone new to programming - that of course makes =
-no=20
-sense - but why shouldn't a experienced c-programmer who is currently figur=
-ing=20
-out how the kernel works not document stuff along the way?
+> 
+> I forgot who said it, but I remember reading a quote that stated "When
+> the code does not match the comments, they are probably both wrong".
++1000! :)
 
-I think that's much better than fixing whitespaces and long lines.
+Of course that's a huge problem, even more with our fast paced development.
+
+I think we should definitely spend more time to fix stuff/documentation we 
+stumble upon and spent hours figuring out anyway.
 
 Peter
