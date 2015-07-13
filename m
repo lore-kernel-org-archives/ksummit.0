@@ -1,32 +1,28 @@
-Return-Path: <jkosina@suse.com>
+Return-Path: <PeterHuewe@gmx.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id EAEBDAB2
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6FFACACC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 13 Jul 2015 19:38:15 +0000 (UTC)
-Received: from mail.emea.novell.com (mail.emea.novell.com [130.57.118.101])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5B9B5235
+	Mon, 13 Jul 2015 19:44:53 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CDD21115
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 13 Jul 2015 19:38:14 +0000 (UTC)
-Date: Mon, 13 Jul 2015 21:37:49 +0200 (CEST)
-From: Jiri Kosina <jkosina@suse.com>
-To: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-In-Reply-To: <20150713160541.GC15582@gmail.com>
-Message-ID: <alpine.LNX.2.00.1507132134370.7522@pobox.suse.cz>
-References: <20150710143832.GU23515@io.lakedaemon.net>
-	<CA+5PVA5j9973GzdYj-s2WX3J8ycf5hQTBdGq+8j-8RGDX2OaYg@mail.gmail.com>
-	<20150710162328.GB12009@thunk.org>
-	<CAGXu5j+NY8-5WPcP1kLZsKgzmbQ=L0Q18XZ6FYeVTcFGDLrRSw@mail.gmail.com>
-	<1436599873.2243.10.camel@HansenPartnership.com>
-	<alpine.LNX.2.00.1507131027000.7522@pobox.suse.cz>
-	<20150713140752.GA15582@gmail.com>
-	<1436801960.6901.19.camel@HansenPartnership.com>
-	<20150713160541.GC15582@gmail.com>
+	Mon, 13 Jul 2015 19:44:52 +0000 (UTC)
+From: Peter =?iso-8859-1?q?H=FCwe?= <PeterHuewe@gmx.de>
+To: Jonathan Corbet <corbet@lwn.net>
+Date: Mon, 13 Jul 2015 21:46:46 +0200
+References: <201507130038.01474.PeterHuewe@gmx.de>
+	<CACVxJT9WjwWZUQWPk_jXOLOZsTh8HdGuKWr1ri3q02fEaFLejA@mail.gmail.com>
+	<20150713114509.14f1f866@lwn.net>
+In-Reply-To: <20150713114509.14f1f866@lwn.net>
 MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] dev/maintainer workflow security
+Content-Type: Text/Plain;
+  charset="iso-8859-1"
+Content-Transfer-Encoding: 7bit
+Message-Id: <201507132146.47186.PeterHuewe@gmx.de>
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [Ksummit-discuss] [CORE-TOPIC] Documentation
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,19 +32,33 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 13 Jul 2015, Konstantin Ryabitsev wrote:
+Am Montag, 13. Juli 2015, 19:45:09 schrieb Jonathan Corbet:
+> On Mon, 13 Jul 2015 12:47:23 +0300
+> 
+> Alexey Dobriyan <adobriyan@gmail.com> wrote:
+> > I have counter suggestion:
+> > * remove kernel-doc official status, remove generating scripts
+> > 
+> >   because it doesn't work,
+> 
+> kerneldoc does work, after a fashion.  It works well enough that people
+> use it, and I hear about it quickly when somebody's comment change breaks
+> the docs build.  I don't think we can remove it in the absence of
+> something better.
+Jonathan, do you keep an up-to-date copy of the generated files somewhere?
+(I cannot get it to work out of the box on my machine)
 
-> Getting private ssh keys is a lot easier than getting full access to a
-> developer's workstation:
+> Creating "something better" is actually on my list of things to do.  The
+> only problem is that I've had to buy a second 4TB drive to hold that list,
+> so I don't know when I'll have time to think about it.
+Where do you think are the major issues from your point of view? 
 
-Well ... even the recent example on this very list (a bug in script for 
-applying patches being used by prominent maintainers) could be used by an 
-attacker to open remote shell with repository access credentials on the 
-local system of the maintainer. So I would be rather careful with stating 
-that all this is just theoretical excercise.
+Would doxygen be "something better"? The kernel-doc style looks already quite 
+similar.
+Maybe the kernel should not reinvent everything :)
+
+
+
 
 Thanks,
-
--- 
-Jiri Kosina
-SUSE Labs
+Peter
