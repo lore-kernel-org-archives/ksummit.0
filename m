@@ -1,32 +1,38 @@
-Return-Path: <rostedt@goodmis.org>
-Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
-	[172.17.192.36])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id EAE3DBCC
+Return-Path: <geert.uytterhoeven@gmail.com>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6683BBCB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 13 Jul 2015 16:37:54 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0081.hostedemail.com
-	[216.40.44.81])
-	by smtp2.linuxfoundation.org (Postfix) with ESMTP id 8C6B21DCA4
+	Mon, 13 Jul 2015 16:46:43 +0000 (UTC)
+Received: from mail-oi0-f41.google.com (mail-oi0-f41.google.com
+	[209.85.218.41])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DEE68241
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 13 Jul 2015 16:37:54 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
-	[10.5.19.251])
-	by smtpgrave07.hostedemail.com (Postfix) with ESMTP id 8D28111A212
+	Mon, 13 Jul 2015 16:46:42 +0000 (UTC)
+Received: by oibn4 with SMTP id n4so27430214oib.3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 13 Jul 2015 16:37:53 +0000 (UTC)
-Date: Mon, 13 Jul 2015 12:37:50 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Alexey Dobriyan <adobriyan@gmail.com>
-Message-ID: <20150713123750.52d8a14d@gandalf.local.home>
-In-Reply-To: <CACVxJT9WjwWZUQWPk_jXOLOZsTh8HdGuKWr1ri3q02fEaFLejA@mail.gmail.com>
-References: <201507130038.01474.PeterHuewe@gmx.de>
-	<CACVxJT9WjwWZUQWPk_jXOLOZsTh8HdGuKWr1ri3q02fEaFLejA@mail.gmail.com>
+	Mon, 13 Jul 2015 09:46:42 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE-TOPIC] Documentation
+Sender: geert.uytterhoeven@gmail.com
+In-Reply-To: <20150713160541.GC15582@gmail.com>
+References: <20150710143832.GU23515@io.lakedaemon.net>
+	<CA+5PVA5j9973GzdYj-s2WX3J8ycf5hQTBdGq+8j-8RGDX2OaYg@mail.gmail.com>
+	<20150710162328.GB12009@thunk.org>
+	<CAGXu5j+NY8-5WPcP1kLZsKgzmbQ=L0Q18XZ6FYeVTcFGDLrRSw@mail.gmail.com>
+	<1436599873.2243.10.camel@HansenPartnership.com>
+	<alpine.LNX.2.00.1507131027000.7522@pobox.suse.cz>
+	<20150713140752.GA15582@gmail.com>
+	<1436801960.6901.19.camel@HansenPartnership.com>
+	<20150713160541.GC15582@gmail.com>
+Date: Mon, 13 Jul 2015 18:46:42 +0200
+Message-ID: <CAMuHMdWbc-EsdRFukddFWak0G+ixUV8dzOFJQpf+tjzS3m6rBA@mail.gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+To: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] dev/maintainer workflow security
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,29 +42,22 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 13 Jul 2015 12:47:23 +0300
-Alexey Dobriyan <adobriyan@gmail.com> wrote:
+On Mon, Jul 13, 2015 at 6:05 PM, Konstantin Ryabitsev
+<konstantin@linuxfoundation.org> wrote:
+> - I'm willing to bet there are lots of removable storage floating around
+>   people's workdesks and travel bags that contain full copies of their
+>   homedirs for backup purposes (tell me it ain't true!).
 
+Given how easy it is these days to use luksformatted removable media,
+there's not really an excuse for that.
 
-> Newbies should not write documentation because they, by definition,
-> have little knowledge of the code. It will lead to many, many useless
-> and redundant comments like below whose only purpose is stealing
-> vertical whitespace:
+Gr{oetje,eeting}s,
 
-I agree that newbies shouldn't write documentation. But maybe what they
-can do is to question what a function does. And perhaps poke the
-maintainer (or author of said function) to write something that
-explains that function (only for non-static functions).
+                        Geert
 
-Now, I say "newbies" but I would really mean experienced developers
-that are new to a subsystem. We don't need silly questions. Something
-more on the line of one experienced kernel developer reading some code
-of the kernel they have no idea about, and if they can't figure out
-what a function does, ask the question to the author. Perhaps we can
-get better documentation of internal interfaces out of it.
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-There's been times where I look at other subsystems and wonder WTF a
-function is suppose to do. Perhaps I need to start poking the author of
-that code to explain it.
-
--- Steve
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
