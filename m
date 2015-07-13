@@ -1,29 +1,37 @@
-Return-Path: <jiangshanlai@gmail.com>
+Return-Path: <josh@joshtriplett.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6BDF8BC7
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8CB41BB3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 13 Jul 2015 17:05:17 +0000 (UTC)
-Received: from mail-ig0-f193.google.com (mail-ig0-f193.google.com
-	[209.85.213.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 005C1110
+	Mon, 13 Jul 2015 17:13:02 +0000 (UTC)
+Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
+	[217.70.183.196])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2CCF619D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 13 Jul 2015 17:05:14 +0000 (UTC)
-Received: by igbc1 with SMTP id c1so6565704igb.3
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 13 Jul 2015 10:05:14 -0700 (PDT)
+	Mon, 13 Jul 2015 17:13:02 +0000 (UTC)
+Date: Mon, 13 Jul 2015 10:12:55 -0700
+From: josh@joshtriplett.org
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Message-ID: <20150713171255.GA4816@cloud>
+References: <20150710143832.GU23515@io.lakedaemon.net>
+	<CA+5PVA5j9973GzdYj-s2WX3J8ycf5hQTBdGq+8j-8RGDX2OaYg@mail.gmail.com>
+	<20150710162328.GB12009@thunk.org>
+	<CAGXu5j+NY8-5WPcP1kLZsKgzmbQ=L0Q18XZ6FYeVTcFGDLrRSw@mail.gmail.com>
+	<1436599873.2243.10.camel@HansenPartnership.com>
+	<alpine.LNX.2.00.1507131027000.7522@pobox.suse.cz>
+	<20150713140752.GA15582@gmail.com>
+	<1436801960.6901.19.camel@HansenPartnership.com>
+	<20150713160541.GC15582@gmail.com>
+	<CAMuHMdWbc-EsdRFukddFWak0G+ixUV8dzOFJQpf+tjzS3m6rBA@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <201507130038.01474.PeterHuewe@gmx.de>
-References: <201507130038.01474.PeterHuewe@gmx.de>
-Date: Tue, 14 Jul 2015 01:05:14 +0800
-Message-ID: <CAJhGHyDGLKvGTxu=oFDVZqo0oW-TX_WcA-qX0v+UWtyuVZVf=Q@mail.gmail.com>
-From: Lai Jiangshan <jiangshanlai@gmail.com>
-To: =?UTF-8?Q?Peter_H=C3=BCwe?= <PeterHuewe@gmx.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Cc: Dan Carpenter <dan.carpenter@oracle.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE-TOPIC] Documentation
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAMuHMdWbc-EsdRFukddFWak0G+ixUV8dzOFJQpf+tjzS3m6rBA@mail.gmail.com>
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] dev/maintainer workflow security
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,135 +41,18 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Jul 13, 2015 at 6:38 AM, Peter H=C3=BCwe <PeterHuewe@gmx.de> wrote:
->
-> Hi,
->
-> as we talked about recruiting in the other thread I realized that one thi=
-ng
-> that might reduce the entrance barrier a bit (apart from tooling and flow=
-)
-> would be proper documentation.
->
-> I know documenation is usually not a developers most favorite task, but h=
-ere
-> are my findings anyway:
+On Mon, Jul 13, 2015 at 06:46:42PM +0200, Geert Uytterhoeven wrote:
+> On Mon, Jul 13, 2015 at 6:05 PM, Konstantin Ryabitsev
+> <konstantin@linuxfoundation.org> wrote:
+> > - I'm willing to bet there are lots of removable storage floating around
+> >   people's workdesks and travel bags that contain full copies of their
+> >   homedirs for backup purposes (tell me it ain't true!).
+> 
+> Given how easy it is these days to use luksformatted removable media,
+> there's not really an excuse for that.
 
-Hi, all
+Or "tar ... | gpg", or duplicity, or any number of encrypted backup
+solutions.  Keeping around any unencrypted copy of any of your keys is
+irresponsible.
 
-Comparing to the documents of functions, some other kinds of documents
-might be more important but even seldom.
-
-First, documents of why/what/how.
-- Why the functionality/subsystem/structure/function/marco is needed?
-- what is it
-- How to implement it.
-
-These documents are less and sometimes they are hidden in changelog.
-why/what/how is suggested in changelog, so I often use git-blame
-to fetch them, but it is inconvenient for normal-reviewers when it is
-stored outside of kernel_src/Documentation/.
-
-Secondly, documents of architecture/design.
-- architecture overview
-- architecture for control/data flow
-
-These documents are less and sometimes they don't have proper picture
-inside them.  Kernel developers like ascii pictures, but ascii pictures
-can't provide enough information with decent density. and it is hard
-to draw, to maintain... etc.
-
-I once borrowed the two pictures in the page7/page9 of this:
-http://www.linux-kongress.org/2010/slides/KVM-Architecture-LK2010.pdf
-and gave 3 hours training to someones.  It helped me showed/remembered the
-architecture, the interfaces between the components and the major
-structures inside every components.  It would be useful if we also have
-sufficient document of this kind in the kernel.
-
-The documents of functions are also the documents of interfaces
-between the components, they are important, so I also support for
-Peter H=C3=BCwe.
-
-And as noted before, changlog is also document for me, and IDEs(vim)
-have the functionality to find the definition/usage, I also hope they
-have the functionality to "find the changelog of this line".
-
-Thanks,
-Lai
-
->
->
->
-> I had a quick look into our guideline (Documentation/kernel-doc-nano-
-> HOWTO.txt) and it states:
->
-> 1)
-> > We definitely need kernel-doc formatted documentation for functions
-> > that are exported to loadable modules using EXPORT_SYMBOL.
-> This is definitely not the case at the moment :/ -- there are a lot of
-> undocumented EXPORT_SYMBOL functions.
->
-> 2)
-> > We also look to provide kernel-doc formatted documentation for
-> > functions externally visible to other kernel files (not marked
-> > "static").
-> Even less
->
-> 3)
-> > We also recommend providing kernel-doc formatted documentation
-> > for private (file "static") routines, for consistency of kernel
-> > source code layout.  But this is lower priority and at the
-> > discretion of the MAINTAINER of that kernel source file.
-> Don't even talk about that :)
->
->
-> Imho new code should definitely have this documentation, especially for #=
-1 and
-> #2 -- but maybe even for #3.
->
->
->
->
-> So this leads me to following questions:
-> - How can we easily identify missing documentation?
-> -- Maybe Julia can come up with some coccinelle magic?
-> -- Maybe even mark non-extractable documentation and convert it.
-> -- In the document it mentions scripts/basic/doproc.c checks for missing
-> documentation, but this file does not exist anymore :/
->
->
->
->
-> - how can we (automatically) support documentation?
-> -- Can / should we create a tool that annotates functions and data types =
-with
-> a template documentation (I know good editors do something similar, but i=
-s the
-> proposed style in concordance with the kernel doc style? At least it look=
-s
-> quite a lot like doxygen?)
->
-> - How different is the kernel doc style to doxygen?
->
->
-> - We are constantly looking for tasks newcomers can take on -- writing
-> appropriate documentation is usually not that hard on the one hand and on=
- the
-> other people will learn a lot about the code they are documenting.
-> -- maybe make it easier make use of Steven Rostedts proposed Kernel Patch
-> submitting web form :P
->
-> - new checkpatch option for checking the existance of documentation? *duc=
-ks
-> and runs away*
->
->
-> - and who would be in to join me in documenting everything :P
->
->
-> Thanks,
-> Peter
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+- Josh Triplett
