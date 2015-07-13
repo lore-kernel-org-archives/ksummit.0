@@ -1,32 +1,35 @@
-Return-Path: <peterz@infradead.org>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9336F305
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D83BA93E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 13 Jul 2015 10:22:39 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4E66514B
+	Mon, 13 Jul 2015 10:48:42 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6BFA314B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 13 Jul 2015 10:22:39 +0000 (UTC)
-Date: Mon, 13 Jul 2015 11:57:57 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Christoph Lameter <cl@linux.com>
-Message-ID: <20150713095757.GW19282@twins.programming.kicks-ass.net>
-References: <CALCETrVPe7ijOHY5BXLPCG5VBxadeZoUDLOBMX+jEFnJynJ8FA@mail.gmail.com>
-	<20150709190916.GI1522@ret.masoncoding.com>
-	<alpine.DEB.2.11.1507101224440.21165@east.gentwo.org>
+	Mon, 13 Jul 2015 10:48:42 +0000 (UTC)
+Date: Mon, 13 Jul 2015 11:48:29 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Josh Triplett <josh@joshtriplett.org>
+Message-ID: <20150713104829.GA11162@sirena.org.uk>
+References: <559C73DF.2030008@roeck-us.net> <20150708114011.3a1f1861@noble>
+	<2879113.fraeuJIr2M@avalon> <20150709193718.GD9169@vmdeb7>
+	<20150709201127.GA3426@cloud> <20150709203830.GF7021@wotan.suse.de>
+	<20150709210059.GA3720@cloud>
+	<1436518482.2393.19.camel@HansenPartnership.com>
+	<20150712020235.GB24356@wfg-t540p.sh.intel.com>
+	<20150712051958.GA15346@x>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="wuUGvGHayROCMC3J"
 Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.11.1507101224440.21165@east.gentwo.org>
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Jens Axboe <axboe@fb.com>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Shaohua Li <shli@fb.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] lightweight per-cpu locks /
- restartable sequences
+In-Reply-To: <20150712051958.GA15346@x>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Jason Cooper <jason@lakedaemon.net>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
+ Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,36 +39,38 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 10, 2015 at 12:26:21PM -0500, Christoph Lameter wrote:
-> On Thu, 9 Jul 2015, Chris Mason wrote:
-> 
-> > I think the topic is really interesting and we'll be able to get numbers
-> > from production workloads to help justify and compare different
-> > approaches.
-> 
-> Ok that would be important. I also think that the approach may be used
-> in kernel to reduce the overhead of CONFIG_PREEMPT and also to implement
-> fast versions of this_cpu_ops for non x86 architectures and maybe even
 
-There is nothing stopping people from trying this in-kernel, in fact
-that would be lots easier as we do not have to commit to any one
-specific ABI for that.
+--wuUGvGHayROCMC3J
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Also, I don't think we need a schedule check for the in-kernel usage,
-pure interrupt should be good enough, nobody should (want to) call
-schedule() while inside such a critical section, which leaves us with
-involuntary preemption, and those are purely interrupt driven.
+On Sat, Jul 11, 2015 at 10:19:58PM -0700, Josh Triplett wrote:
 
-Now the 'problem' is finding these special regions fast, the easy
-solution is the same as the one proposed for userspace, one big section.
-That way the interrupt only has to check if the IP is inside this
-section which is minimal effort.
+> Patch submitters should be making it clear to what tree their patch
+> applies, preferably using an unambiguous tag in the mail subject.  In
+> the absence of such a tag, try it against torvalds/linux.git and
+> linux-next.git, and then give up and tell the submitter to specify what
+> their patch applies to.
 
-The down side is that all percpu ops would then end up being full
-function calls. Which on some archs is indeed faster than disabling
-interrupts, but not by much I'm afraid.
+This does get complicated rapidly when people have trees with multiple
+branches, or when people start basing work on other pending serieses.
+It's easy to indicate, but doing so in a way that a machine can cope
+with gets harder.
 
-> optimize the x86 variants if interrupts also can detect critical sections
-> and restart at defined points.
+--wuUGvGHayROCMC3J
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
 
-I really don't see how we can beat %GS prefixes with any such scheme.
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQEcBAEBCAAGBQJVo5d9AAoJECTWi3JdVIfQ9w0H/26Pq7xuAv5iGbasfAjr9xJc
+uFQChHnbYQqihS0M49wKyJ6U7/1aB/HEd0sscR5vBMrCqGTVBWwhsTM/Gp0hsxAX
+OY3sB0ikb7bcXb4T5H9O5w8qYVJw9yX0xdyr/WREAdgGW6WNIqzRghJlhWl0sC/g
+T05wdeWGy991MnNb2n8G8/eNkTKigmQmXlntU43iYSTAw+xgFvNOF/FodnMGeYNA
+ADAdxwtSVRLIvc7q/3zj86eE1keDuodmbn8AYo40BRePl8Vp0nH0cUT6lJfJZCt5
+sSxqs45NGj2qxtm22FTIKmYMufx3Y9PBVjlTuAOPMNUm/1cY+ldb3fUjMZqmYs4=
+=kp7e
+-----END PGP SIGNATURE-----
+
+--wuUGvGHayROCMC3J--
