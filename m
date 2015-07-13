@@ -1,35 +1,32 @@
 Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 51281BB3
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 13B39AF3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 13 Jul 2015 18:34:55 +0000 (UTC)
+	Mon, 13 Jul 2015 18:51:29 +0000 (UTC)
 Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
 	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D07401AC
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A5D5120A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 13 Jul 2015 18:34:54 +0000 (UTC)
-Date: Mon, 13 Jul 2015 19:34:41 +0100
+	Mon, 13 Jul 2015 18:51:27 +0000 (UTC)
+Date: Mon, 13 Jul 2015 19:51:18 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Fengguang Wu <fengguang.wu@intel.com>
-Message-ID: <20150713183441.GJ11162@sirena.org.uk>
-References: <20150707092434.GE11162@sirena.org.uk>
-	<559BEF61.8050904@roeck-us.net>
-	<CAMuHMdX6KcmZhibEC6hn2VN7veMSbbj1+P3kf=udY39fjdjj5w@mail.gmail.com>
-	<20150708075409.GJ4341@mwanda>
-	<20150708095207.GN11162@sirena.org.uk>
-	<20150712111547.GB24634@wfg-t540p.sh.intel.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+Message-ID: <20150713185118.GK11162@sirena.org.uk>
+References: <55A1407E.5080800@oracle.com>
+	<CAMuHMdUK+LZrp9QxPS0wSJzFZVAr_cihxJnFJybo5nb7U_t7xg@mail.gmail.com>
+	<55A26C5B.8060007@oracle.com> <20150713105210.6e367f4b@noble>
+	<55A33E48.2040202@oracle.com>
+	<20150713142132.08fead4d@gandalf.local.home>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="TaVmUy7e9TYb82al"
+	protocol="application/pgp-signature"; boundary="QFQuXaHm0gDucWbk"
 Content-Disposition: inline
-In-Reply-To: <20150712111547.GB24634@wfg-t540p.sh.intel.com>
-Cc: Shuah Khan <shuah.kh@samsung.com>, Kevin Hilman <khilman@linaro.org>,
-	Tyler Baker <tyler.baker@linaro.org>,
+In-Reply-To: <20150713142132.08fead4d@gandalf.local.home>
+Cc: Sasha Levin <sasha.levin@oracle.com>,
 	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Testing
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Issues with stable process
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,63 +37,63 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---TaVmUy7e9TYb82al
+--QFQuXaHm0gDucWbk
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Sun, Jul 12, 2015 at 07:15:47PM +0800, Fengguang Wu wrote:
+On Mon, Jul 13, 2015 at 02:21:32PM -0400, Steven Rostedt wrote:
 
-> If 0day failed to catch the error, it might be due to
+> I disagree. I thought next was a place to have integration of new
+> development, and not just a place to test. Really, how many people test
+> next compared to Linus's tree? I trip over bugs all the times in
+> Linus's tree that's been in -next for almost a whole release cycle.
 
-> - regressions in 0day itself -- it's still in active development,
->   in the past year I did 1k patches to 0day build/boot scripts and
->   2k patches to the follow up LKP (Linux Kernel Performance) tests.
+> The only bugs that I find that come from -next is integration issues,
+> where an interface changes and another subsystem stumbles over it.
+> That's exactly what it was for and what it's good at.
 
-> - the "report once" logic, it's tricky and can possibly hide issues
+In the embedded space it's much more common to track -next as people are
+often working with multiple subsystems so the integration is important.
+Most of my code is developed against -next then moved to topic branches
+for submission.
 
-> - failed bisect, rare but possible
+We also catch quite a lot of issues in -next as a result of the work on
+boot testing that kernelci.org and Olof's bots are doing, hopefully
+that'll start to build out to include test suites like kselftest (I know
+there's work in progress there but no ETA as of yet).  Things get
+exposed to a lot more systems and configurations than individual
+maintainers have access to which can shake out issues in code that deals
+with hardware.
 
-I think some of the issues have been due to bisection getting confused
-by issues appearing in merge commits but ICBW.
+> > I think that this is a small mind-shift from thinking about Linus's tree as
+> > an integration tree to considering it as mostly bug-free code, and stop
+> > merging in risky patches. We already have -next for that.
 
-> - machine hang, network/disk fails, etc. maintenance incidents
+> No, we have -next as a way incorporate new code and see how things
+> interact with other subsystems.
 
-> "Loading" may add latency, however it's not the cause to miss errors.
+I think you're mostly agreeing with each other here (or at least talking
+about the definition of "mostly") - it's not an either/or thing.
+Exposure in -next does expand the audience and provide a lot of risk
+mitigation to what gets sent to Linus' tree as a result of that.  That
+catches more than just integration issues between different trees, it
+also catches integration issues with a wider range of hardware and
+usage.  Not as wide as you see for Linus' tree but wider.
 
-Latency seems like it might be an issue here, when I say I'm not seeing
-things that's issues coming up in the -next build before they're
-reported by 0day so they might well get fixed before 0day catches up.
-
-> > > Are people ignoring them?
-
-> > They're not reliably followed through on, no, and one of the things with
-> > 0day is that it just generates a one time report so if things don't get
-> > followed up on then that's that.  A regular "these are all the issues"
-> > mail helps chase down those issues.
-
-> 0day has such report type. It will be sent after each git push (unless
-> you push too quickly) and it looks like this. Just drop me a note and
-> list the git trees/branches you wish to receive such notice emails.
-
-For me personally it'd be more interesting to be able to get them on
-demand (eg, from a web page) than e-mailed, or e-mailed by a human
-(possibly with fixes!).  The kernelci.org reporting does a lot of this
-but doesn't cover anything except raw compiler warnings.
-
---TaVmUy7e9TYb82al
+--QFQuXaHm0gDucWbk
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQEcBAEBCAAGBQJVpATAAAoJECTWi3JdVIfQXeIH/j7FRfUdQnfT+d1981onc5+u
-RCAh4XHoM74Lt9wEkmlLUaJtlQB7w6jKgPfCMj+5r6FcBAE6MyNmjK7thTHjpCm5
-I3zoLGlbdleH2++XfnCINUX/wVd7GsF2XceDCOuagMj/tcbAlqiV9qo9BAJ59yuV
-urFhuU2d5bzKunziTjMDFpJdt4mLfEJOyk+75vxk/Ee3pbJ7F0wiGFAVNe81jwQS
-GdxPE9VvYcThxliIC0jRzmqQ4mzlDzQaS82VFrg1vtfxJVrg+MiRMlV5RbEjzi7F
-AyIdf3KWJkR09gDd7zLOlvQDie3/+irIUbTkluOC9MDFxAVu7TwDL4VPk+WtWl8=
-=K8Hh
+iQEcBAEBCAAGBQJVpAilAAoJECTWi3JdVIfQQ3MH/1Foj55WpsZrj9lZVHsSRVDb
+VDCVrWYLmCapjmhLnaaZIFOIyt00pQ3blO7OPhSFDdjAgu5p9SKTsiLogVKeYYE3
+wi0Eb9ynfiwCV911gbIyQP/em6V1x6zpdndatiCajSM2z5a8leEeV/dqvb4MK2rt
+xQ1EXmD/5eO9y+333DyfQEbdeL4faadTMTyrSkYLXrgKZhxqcsxpxce67RN0WvSI
+BRgErPGUKlrLbtpKXfabeLbn5RbCmM5/7h6f+/PzQWpHkFRlwIFjw5t3QEw+USDd
+7H35a1B7G6BtJhdOCDWa7DthLaZq7CH7JlQq7Nit0r/9JVtL2PSKj24FjxlS2AA=
+=Mj9r
 -----END PGP SIGNATURE-----
 
---TaVmUy7e9TYb82al--
+--QFQuXaHm0gDucWbk--
