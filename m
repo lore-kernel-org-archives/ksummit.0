@@ -1,36 +1,27 @@
-Return-Path: <jpoimboe@redhat.com>
+Return-Path: <sasha.levin@oracle.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id DFCF083D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8044693E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 14 Jul 2015 15:52:52 +0000 (UTC)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7674F10A
+	Tue, 14 Jul 2015 15:53:35 +0000 (UTC)
+Received: from aserp1040.oracle.com (aserp1040.oracle.com [141.146.126.69])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D0FD810A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 14 Jul 2015 15:52:52 +0000 (UTC)
-Date: Tue, 14 Jul 2015 10:52:49 -0500
-From: Josh Poimboeuf <jpoimboe@redhat.com>
-To: Greg KH <greg@kroah.com>
-Message-ID: <20150714155249.GC4562@treble.redhat.com>
-References: <20150710181409.GA30145@treble.redhat.com>
-	<1436576450.27924.59.camel@stgolabs.net>
-	<20150712034824.GA4236@treble.hsd1.ky.comcast.net>
-	<20150712052317.GB15346@x>
-	<20150712122823.GA4366@treble.redhat.com>
-	<20150713140113.GB4341@mwanda>
-	<20150713143331.GA21079@quack.suse.cz>
-	<20150713162439.GI4289@mwanda> <20150714043803.GA3290@sudip-PC>
-	<20150714151618.GA27755@kroah.com>
+	Tue, 14 Jul 2015 15:53:33 +0000 (UTC)
+Message-ID: <55A53074.7040109@oracle.com>
+Date: Tue, 14 Jul 2015 11:53:24 -0400
+From: Sasha Levin <sasha.levin@oracle.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20150714151618.GA27755@kroah.com>
-Cc: jic23@jic23.retrosnub.co.uk, Jason Cooper <jason@lakedaemon.net>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
- Maintainers, Hobbyists)
+To: Steven Rostedt <rostedt@goodmis.org>
+References: <55A1407E.5080800@oracle.com>	<CAMuHMdUK+LZrp9QxPS0wSJzFZVAr_cihxJnFJybo5nb7U_t7xg@mail.gmail.com>	<55A26C5B.8060007@oracle.com>	<20150713105210.6e367f4b@noble>	<55A33E48.2040202@oracle.com>	<20150713142132.08fead4d@gandalf.local.home>	<55A45AD8.5010400@oracle.com>	<20150713210226.519dedfd@gandalf.local.home>	<20150714104623.GQ11162@sirena.org.uk>	<55A51548.4040502@oracle.com>	<20150714152515.GX11162@sirena.org.uk>	<55A52B8B.5060606@oracle.com>
+	<20150714113829.4b618d9a@gandalf.local.home>
+In-Reply-To: <20150714113829.4b618d9a@gandalf.local.home>
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: 7bit
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Issues with stable process
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,53 +31,30 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Jul 14, 2015 at 08:16:18AM -0700, Greg KH wrote:
-> On Tue, Jul 14, 2015 at 10:08:03AM +0530, Sudip Mukherjee wrote:
-> > On Mon, Jul 13, 2015 at 07:28:25PM +0300, Dan Carpenter wrote:
-> > > On Mon, Jul 13, 2015 at 04:33:31PM +0200, Jan Kara wrote:
-> > > > On Mon 13-07-15 17:20:47, Dan Carpenter wrote:
-> > > > > On Sun, Jul 12, 2015 at 07:28:23AM -0500, Josh Poimboeuf wrote:
-> > > 
-> > > This happened hours ago in staging.  Someone sent a buggy patch and
-> > > reviewers spotted the bug but no one got credit.
-> > > 
-> > > http://driverdev.linuxdriverproject.org/pipermail/driverdev-devel/2015-July/072662.html
-> > > http://driverdev.linuxdriverproject.org/pipermail/driverdev-devel/2015-July/072668.html
-> > > 
-> > > Imagine how special Patrick would feel if we gave him a nice
-> > > "With-fix-from: Patrick Farrell <paf@cray.com>" tag.  :)  Also the other
-> > > rule would be that only the first person to report the bug gets the
-> > > credit (Sorry, Sudip).
-> > Doesn't matter. I am a volunteer and contributing here is not part of
-> > my dayjob. I do it because I like doing it.
-> > >The next version of the patch had a process
-> > > problem which Sudip noticed as well but that still doesn't earn a
-> > > with-fix-from tag.
-> > Then will the first reviewer always get the credit? Suppose a hypothetial
-> > situation where v1 is just having a bug like the one you mentioned,
-> > reviewer X points that out so he gets "With-fix-from:", but v2 has a more
-> > serious problem and results in build failure and reviewer Y points that out
-> > and v3 is the final patch that is accepted. So now who will get
-> > "With-fix-from:" ?
+On 07/14/2015 11:38 AM, Steven Rostedt wrote:
+> On Tue, 14 Jul 2015 11:32:27 -0400
+> Sasha Levin <sasha.levin@oracle.com> wrote:
 > 
-> Or even more important, how in the world will the maintainer be adding
-> these tags in a simple manner?  It's a manual thing for me to do today,
-> which is a pain, and given that I have no "state" of previous patches
-> remembering what happened in previous versions, I don't know how I would
-> be expected to keep track of all of this.
-> 
-> So whatever scheme people come up with, please remember that it has to
-> be easy to actually implement...
+>> > If there's an issue that causes that effect then the original commit that
+>> > caused it should be reverted rather than introducing an untested fix right
+>> > away.
+>> > 
+> You'd think. But there's been times that I sent a revert patch where
+> Linus himself would just make the fix instead. So Linus is just as
+> guilty as the rest of us for adding in patches that were not tested in
+> -next.
 
-I think it would need to be up to the patch author, not the maintainer,
-to add the tag.  The patch author already tracks the patch state from
-version to version.  And the author is in the best position to know
-which comments are helpful.
+I suppose it depends on how trivial the patch in: I'm not saying not to do
+it for simple things (spelling errors, trivial compile failures and such), but
+yes - if Linus prefers to pull a more than trivial untested change to fix a
+bug that makes him as guilty as the rest of us.
 
-Also I'd suggest something a little broader than "With-fix-from".  Not
-all useful comments are "fixes".  For example, an insightful question or
-comment can sometimes result in big changes in the next version of the
-patch.
+The point I'm trying to make is that a bad patch in Linus' tree has a wider
+ripple effect than what it were in the past, while Linus might consider a bad
+patch in one of the -rc releases something minor since "no one should be using
+it for production" it really isn't the case any more, those patches can and
+will end up with the folks who don't want to have them.
 
--- 
-Josh
+
+Thanks,
+Sasha
