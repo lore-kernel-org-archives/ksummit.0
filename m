@@ -1,26 +1,34 @@
-Return-Path: <sasha.levin@oracle.com>
+Return-Path: <fengguang.wu@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id DF254BAC
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id ADAB583D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 14 Jul 2015 14:00:25 +0000 (UTC)
-Received: from userp1040.oracle.com (userp1040.oracle.com [156.151.31.81])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4D72F1A7
+	Tue, 14 Jul 2015 14:23:35 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 2E3A732
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 14 Jul 2015 14:00:25 +0000 (UTC)
-Message-ID: <55A515F2.5090001@oracle.com>
-Date: Tue, 14 Jul 2015 10:00:18 -0400
-From: Sasha Levin <sasha.levin@oracle.com>
+	Tue, 14 Jul 2015 14:23:35 +0000 (UTC)
+Date: Tue, 14 Jul 2015 22:22:41 +0800
+From: Fengguang Wu <fengguang.wu@intel.com>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <20150714142241.GB24191@wfg-t540p.sh.intel.com>
+References: <20150707092434.GE11162@sirena.org.uk>
+	<559BEF61.8050904@roeck-us.net>
+	<CAMuHMdX6KcmZhibEC6hn2VN7veMSbbj1+P3kf=udY39fjdjj5w@mail.gmail.com>
+	<20150708075409.GJ4341@mwanda>
+	<20150708095207.GN11162@sirena.org.uk>
+	<20150712111547.GB24634@wfg-t540p.sh.intel.com>
+	<20150713183441.GJ11162@sirena.org.uk>
 MIME-Version: 1.0
-To: Zefan Li <lizefan@huawei.com>
-References: <55A1407E.5080800@oracle.com> <55A38FD6.2070103@huawei.com>
-	<55A3E383.6070107@oracle.com> <55A4DFB8.4050901@huawei.com>
-In-Reply-To: <55A4DFB8.4050901@huawei.com>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 7bit
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Issues with stable process
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20150713183441.GJ11162@sirena.org.uk>
+Cc: Shuah Khan <shuah.kh@samsung.com>, Kevin Hilman <khilman@linaro.org>,
+	Tyler Baker <tyler.baker@linaro.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Testing
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,29 +38,65 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 07/14/2015 06:08 AM, Zefan Li wrote:
-> I agree it will save us a lot of work if we work together, and that will better ensure
-> a fix won't be missing from some stable trees.
+On Mon, Jul 13, 2015 at 07:34:41PM +0100, Mark Brown wrote:
+> On Sun, Jul 12, 2015 at 07:15:47PM +0800, Fengguang Wu wrote:
 > 
-> It helps more for maintainers who work on stable tress that are very close in version.
-> Take Ben and I as an example, if I already manually backport a commit to 3.4.y, Ben will
-> get notified. Now Ben can just pick it for 3.2.y, and it probably can be applied cleanly,
-> thus save his time.
+> > If 0day failed to catch the error, it might be due to
 > 
-> Maybe there should be a workshop during KS for stable tree maintainers to get together
-> and discuss how to work on how to share each other's work.
+> > - regressions in 0day itself -- it's still in active development,
+> >   in the past year I did 1k patches to 0day build/boot scripts and
+> >   2k patches to the follow up LKP (Linux Kernel Performance) tests.
 > 
-> Another related issue is we all have our own scripts. If we share a set of common scripts,
-> then we can benefit from each other's improvements on those scripts. Ben once brought this
-> up in stable mailing list:
+> > - the "report once" logic, it's tricky and can possibly hide issues
 > 
-> http://www.spinics.net/lists/stable/msg89430.html
+> > - failed bisect, rare but possible
+> 
+> I think some of the issues have been due to bisection getting confused
+> by issues appearing in merge commits but ICBW.
+> 
+> > - machine hang, network/disk fails, etc. maintenance incidents
+> 
+> > "Loading" may add latency, however it's not the cause to miss errors.
+> 
+> Latency seems like it might be an issue here, when I say I'm not seeing
+> things that's issues coming up in the -next build before they're
+> reported by 0day so they might well get fixed before 0day catches up.
 
-I agree, a workshop could be beneficial in improving the coordination between stable tree
-maintainers, and hopefully reducing duplicate work in the future.
+Ah linux-next happen to have lower priority and can take many hours to
+finish. I'll increase its priority due to its importance.
 
-Greg, do you have any objections to pursuing this idea?
+> > > > Are people ignoring them?
+> 
+> > > They're not reliably followed through on, no, and one of the things with
+> > > 0day is that it just generates a one time report so if things don't get
 
+The real policy is in fact a bit more smart than "report-once".
+
+Build errors will be auto re-reported if it's still not fixed
+after 10 days when the branch that introduced the error is updated.
+
+Warnings won't be auto re-reported.
+
+> > > followed up on then that's that.  A regular "these are all the issues"
+> > > mail helps chase down those issues.
+> 
+> > 0day has such report type. It will be sent after each git push (unless
+> > you push too quickly) and it looks like this. Just drop me a note and
+> > list the git trees/branches you wish to receive such notice emails.
+> 
+> For me personally it'd be more interesting to be able to get them on
+> demand (eg, from a web page) than e-mailed, or e-mailed by a human
+> (possibly with fixes!).  The kernelci.org reporting does a lot of this
+> but doesn't cover anything except raw compiler warnings.
+
+It should be mostly equivalent if you direct such emails to a local
+mbox and check it on demand. :)
+
+For example, setup .procmailrc rule like this:
+
+:0:
+* ^Subject: \[.*\] ........................................ BUILD
+build-complete-notification
 
 Thanks,
-Sasha
+Fengguang
