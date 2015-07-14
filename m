@@ -1,36 +1,31 @@
-Return-Path: <rostedt@goodmis.org>
-Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
-	[172.17.192.36])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BDC4C305
+Return-Path: <dvhart@infradead.org>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8E696305
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 14 Jul 2015 02:19:56 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0102.hostedemail.com
-	[216.40.44.102])
-	by smtp2.linuxfoundation.org (Postfix) with ESMTP id 985621DCA3
+	Tue, 14 Jul 2015 02:24:24 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0DB08F7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 14 Jul 2015 02:19:55 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
-	[10.5.19.251])
-	by smtpgrave04.hostedemail.com (Postfix) with ESMTP id 22F54B34ED
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 14 Jul 2015 01:02:29 +0000 (UTC)
-Date: Mon, 13 Jul 2015 21:02:26 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Sasha Levin <sasha.levin@oracle.com>
-Message-ID: <20150713210226.519dedfd@gandalf.local.home>
-In-Reply-To: <55A45AD8.5010400@oracle.com>
-References: <55A1407E.5080800@oracle.com>
-	<CAMuHMdUK+LZrp9QxPS0wSJzFZVAr_cihxJnFJybo5nb7U_t7xg@mail.gmail.com>
-	<55A26C5B.8060007@oracle.com> <20150713105210.6e367f4b@noble>
-	<55A33E48.2040202@oracle.com>
-	<20150713142132.08fead4d@gandalf.local.home>
-	<55A45AD8.5010400@oracle.com>
+	Tue, 14 Jul 2015 02:24:24 +0000 (UTC)
+Date: Mon, 13 Jul 2015 19:24:19 -0700
+From: Darren Hart <dvhart@infradead.org>
+To: Greg KH <greg@kroah.com>
+Message-ID: <20150714022419.GW111846@vmdeb7>
+References: <20150708114011.3a1f1861@noble> <2879113.fraeuJIr2M@avalon>
+	<20150709193718.GD9169@vmdeb7> <20150710143641.GW4341@mwanda>
+	<20150710160714.GL111846@vmdeb7> <20150710222351.GA28632@kroah.com>
+	<20150711000034.GU111846@vmdeb7> <20150711001348.GA30675@kroah.com>
+	<20150711023946.GV111846@vmdeb7> <20150711150437.GA6666@kroah.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Issues with stable process
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20150711150437.GA6666@kroah.com>
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	Dan Carpenter <dan.carpenter@oracle.com>,
+	Jason Cooper <jason@lakedaemon.net>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
+ Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,60 +35,65 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 13 Jul 2015 20:42:00 -0400
-Sasha Levin <sasha.levin@oracle.com> wrote:
-
-
-> > I disagree. I thought next was a place to have integration of new
-> > development, and not just a place to test. Really, how many people test
-> > next compared to Linus's tree? I trip over bugs all the times in
-> > Linus's tree that's been in -next for almost a whole release cycle.
+On Sat, Jul 11, 2015 at 08:04:37AM -0700, Greg KH wrote:
+> On Fri, Jul 10, 2015 at 07:39:46PM -0700, Darren Hart wrote:
+> > OK, all good points. It looks as though I can step up my own tooling some to
+> > make the email-to-compilation step faster so I don't spend as much time on
+> > patches with compiler warnings, that don't apply, etc. Dan C. said something
+> > similar.
 > 
-> I didn't say that it's not for integration, I just said that with the
-> recent increase in testing by various people/organizations the focus
-> seems to be shifting to catching things in -next before they get into
-> Linus's tree.
+> I think I mentioned it before, but Wolfram has a set of scripts that
+> does this really well.  I don't know if they are published anywhere, but
+> that would be a good place to start with.  I think Sara Sharp also had a
+> bunch that she used to make life easier, you might want to ask her the
+> next time you see her in the office.
 
-Yes, it's great if we can catch things in -next. But I don't believe
-that patches that fix bugs found in Linus's tree should sit in next
-before going into Linus's tree, because those patches are basically
-fixing stuff that was already in next and wasn't discovered until it
-hit Linus's tree. Which is why I say it's a waste of time to put it in
-next before sending straight to Linus.
+Will do. I think Jani sent me a set of scripts I need to review too.
 
- 
-> >>
-> >> I think that this is a small mind-shift from thinking about Linus's tree as
-> >> an integration tree to considering it as mostly bug-free code, and stop
-> >> merging in risky patches. We already have -next for that.
-> > 
-> > No, we have -next as a way incorporate new code and see how things
-> > interact with other subsystems.
+Actually, in this sense, I'm the newbie maintainer who's spending time writing
+up scripts, tools, and mutt macros to handle a process that 970 other people
+have probably already written. I'll do so in a subtly different way of course,
+and this will add ever so slightly to the variation in expectations and
+behaviors of the Linux maintainers.
+
+Maybe patchwork will be an improvement for tracking. Maybe not. While I do enjoy
+writing up these scripts and tools to automate my job as a maintainer.... my
+ability - or maybe willingness - to do so, shouldn't be what qualifies me for
+the job. More tooling that standardized the process and makes the code review
+more accessible to people less interested in writing mutt macros, might expand
+our pool of candidates.
+
+> > The "one hour class" thing makes it sound like it takes "one hour" - but I find
+> > I have to revisit this stuff fairly regularly, and those hours add up.
 > 
-> I don't see why we're disagreeing?
+> Really?  Why?  Once you learn the workflow, what keeps changing that
+> breaks things?  External stuff (like corporate email servers), or things
+> in our workflow/tools?
 
-I guess it's a point of view we are having. Maybe I'm misunderstanding
-you. Are you concerned about fixes that are sent straight to Linus
-without ever going into next? I do that quite often, and I too am
-guilty of having those fixes cause other bugs that need to be fixed.
-But I highly doubt that having them sit in next for two weeks would
-change that. Again, the code that the patches fix was already in next,
-and the original bug was never found there. What makes you think bugs
-in the fix patches will be any different?
+In my experience it's just more new people with the same questions. Once they're
+up and running, it's minimal effort to keep going. It's the initial ramp up that
+gets repeated. So it's not the "one hour" adding up for the newbie, it's that
+"one hour" adding up for me as the instructor :-) I'd love to help reduce the
+effort it takes to bring new people up (yup - totally selfish motivation here).
 
+This is especially true when the new people don't stick around. I really don't
+want to invest an hour in someone that has 3 patches to send and will never
+return.
 
-> >> My reasoning for -rc prereleases for stable was to test out the backports that
-> >> go into stable kernels: they don't see the light of day until they're shipped
-> >> out to folks who want *stable* kernels, but end up being the first testers of
-> >> a backport.
-> > 
-> > Which to me looks like rational to let it sit in Linus's tree for a bit.
-> 
-> Backports don't end up in Linus's tree, they only live in our stable trees and
-> never see the light of day before we ship that tree out.
-> 
+It can be more trying when someone is doing this for a job and not because they
+are interested in becoming a regular contributor. Each step is another barrier
+they'd just assume avoid. If they're new, they also don't understand the
+workflow or how maintainers scale, so they push against things that don't make
+sense for sending 1 patch - but are necessary for processing 1000. Many of these
+training sessions involve a certain amount of "why can't we just ..." or "you
+don't have gerrit setup?" or ... etc. Ultimately, it's just another barrier to
+recruitment.
 
-Oops, sorry. I misread what you wrote. I was thinking of it being in
-next and missed the -rc prerelease comment about stable.
+We can say we don't want people like that contributing anyway, but the end
+result of that is less hardware supported, or even more burnt out senior Linux
+kernel developers who pick up the load because it's easier than training new
+people.
 
--- Steve
+-- 
+Darren Hart
+Intel Open Source Technology Center
