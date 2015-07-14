@@ -1,33 +1,26 @@
-Return-Path: <keescook@google.com>
+Return-Path: <sasha.levin@oracle.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1F5B08B4
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0C8FFB88
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 13 Jul 2015 23:25:38 +0000 (UTC)
-Received: from mail-ig0-f170.google.com (mail-ig0-f170.google.com
-	[209.85.213.170])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7B900A7
+	Tue, 14 Jul 2015 00:42:07 +0000 (UTC)
+Received: from userp1040.oracle.com (userp1040.oracle.com [156.151.31.81])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 496717C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 13 Jul 2015 23:25:37 +0000 (UTC)
-Received: by igcqs7 with SMTP id qs7so69539149igc.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 13 Jul 2015 16:25:37 -0700 (PDT)
+	Tue, 14 Jul 2015 00:42:06 +0000 (UTC)
+Message-ID: <55A45AD8.5010400@oracle.com>
+Date: Mon, 13 Jul 2015 20:42:00 -0400
+From: Sasha Levin <sasha.levin@oracle.com>
 MIME-Version: 1.0
-Sender: keescook@google.com
-In-Reply-To: <1436599873.2243.10.camel@HansenPartnership.com>
-References: <20150710143832.GU23515@io.lakedaemon.net>
-	<CA+5PVA5j9973GzdYj-s2WX3J8ycf5hQTBdGq+8j-8RGDX2OaYg@mail.gmail.com>
-	<20150710162328.GB12009@thunk.org>
-	<CAGXu5j+NY8-5WPcP1kLZsKgzmbQ=L0Q18XZ6FYeVTcFGDLrRSw@mail.gmail.com>
-	<1436599873.2243.10.camel@HansenPartnership.com>
-Date: Mon, 13 Jul 2015 16:25:36 -0700
-Message-ID: <CAGXu5jJdmwdKw6CYwMNUCDKai0M5UrghYn1c3tTwqudLwdbO0A@mail.gmail.com>
-From: Kees Cook <keescook@chromium.org>
-To: James Bottomley <James.Bottomley@hansenpartnership.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: Josh Boyer <jwboyer@fedoraproject.org>, Jason Cooper <jason@lakedaemon.net>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] dev/maintainer workflow security
+To: Steven Rostedt <rostedt@goodmis.org>
+References: <55A1407E.5080800@oracle.com>	<CAMuHMdUK+LZrp9QxPS0wSJzFZVAr_cihxJnFJybo5nb7U_t7xg@mail.gmail.com>	<55A26C5B.8060007@oracle.com>	<20150713105210.6e367f4b@noble>	<55A33E48.2040202@oracle.com>
+	<20150713142132.08fead4d@gandalf.local.home>
+In-Reply-To: <20150713142132.08fead4d@gandalf.local.home>
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: 7bit
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Issues with stable process
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,66 +30,100 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, Jul 11, 2015 at 12:31 AM, James Bottomley
-<James.Bottomley@hansenpartnership.com> wrote:
-> On Fri, 2015-07-10 at 15:08 -0700, Kees Cook wrote:
->>   - personal security (keep commit credentials secure from theft)
->
-> This second one is a bit of a red herring:  Assuming you did steal my
-> credentials, how would you use them without being detected?
+On 07/13/2015 02:21 PM, Steven Rostedt wrote:
+> On Mon, 13 Jul 2015 00:27:52 -0400
+> Sasha Levin <sasha.levin@oracle.com> wrote:
+> 
+> 
+>>> Many fixes are important but simply aren't that urgent so the two or
+>>> more weeks is no great cost.
+>>
+>> I'd actually argue that Linus shouldn't be pulling *anything* that wasn't in
+>> -next for 2+ weeks. There's no good excuse to want something pulled immediately
+>> as the only benefit Linus's tree provides in that aspect is the wider testing
+>> it receives, so it would make sense to weed out more bugs in -next before they
+>> get to Linus.
+> 
+> I disagree. I thought next was a place to have integration of new
+> development, and not just a place to test. Really, how many people test
+> next compared to Linus's tree? I trip over bugs all the times in
+> Linus's tree that's been in -next for almost a whole release cycle.
 
-Well, I meant it in a general sense. Whether that's your ssh key, or
-direct access to your entire network through backdoored network card
-firmware and SMM code, there are TONS of way to be owned without being
-detected. :)
+I didn't say that it's not for integration, I just said that with the
+recent increase in testing by various people/organizations the focus
+seems to be shifting to catching things in -next before they get into
+Linus's tree.
 
-> Security is not an absolute, it's a tradeoff.  The point of the tradeoff
-> is to make sure you address the significant threats while not impeding
-> the workflow too much.  If we start worrying about and addressing
-> insignificant threats, eventually you won't get on to kernel.org without
-> going through airport theatre style security.
+> The only bugs that I find that come from -next is integration issues,
+> where an interface changes and another subsystem stumbles over it.
+> That's exactly what it was for and what it's good at.
+> 
+> I like the idea that patches marked for stable should sit in Linus's
+> tree for at least 2 weeks before being pulled into stable. Linus's tree
+> gets the most testing than any other tree and that's where new fixes
+> should go.
+> 
+> 
+>>
+>> I think that this is a small mind-shift from thinking about Linus's tree as
+>> an integration tree to considering it as mostly bug-free code, and stop
+>> merging in risky patches. We already have -next for that.
+> 
+> No, we have -next as a way incorporate new code and see how things
+> interact with other subsystems.
 
-We have one thing that a lot of other workflows don't: transparency,
-so we can examine commit histories, etc. This makes credential theft
-much less useful (which I think was your point).
+I don't see why we're disagreeing?
 
->> - reactive security: bug fix workflow
->>   - getting fixes _to end users_ (not the same as publishing to stable)
->
-> Stable is our last point.  After that, it's up to the distros
+>>
+>>> If a developer/maintainer thinks a fix is urgent, then they need to
+>>> explicitly ask for a quick release, and that could be as easy as saying:
+>>>
+>>>   Cc: stable@vger.kernel.org (URGENT v3.0 and later)
+>>>
+>>> An 'URGENT' fix *should* come with an independent
+>>> "Reviewed-by:"  (well ... everything should of course, but if URGENT
+>>> stable patches with no Reviewed-by got some push-back, I think that
+>>> would be a "very good thing" all around).
+>>
+>> I suppose that this is something Linus/maintainers would need to enforce? No
+>> patch unless it lived in -next unless it was acked by the maintainer of that
+>> subsystem?
+>>
+>>> I don't think that tightening the criteria for going into any
+>>> particular tree will really help.  I'm not sure there is even real
+>>> agreement on what is or is not allowed in -stable (we have clearly
+>>> written rules, but the practice is really whatever a maintainer
+>>> chooses).
+>>> -rc prereleases for -stable would only help if people tested them.
+>>> Given that the same bugs are in -linus, the testing done there should
+>>> be sufficient providing it is given enough time.
+>>
+>> My reasoning for -rc prereleases for stable was to test out the backports that
+>> go into stable kernels: they don't see the light of day until they're shipped
+>> out to folks who want *stable* kernels, but end up being the first testers of
+>> a backport.
+> 
+> Which to me looks like rational to let it sit in Linus's tree for a bit.
 
-I don't agree with this. Distros are just one consumer. I think it's
-worth examining how real-world devices end up running Linux. Telcos
-pushing kernel updates, for example, jumps to mind. I think it's a
-weak stance to say "well, they should update to the latest kernel". Is
-it a failing of our community that it's so much work for these vendors
-to update kernels? Is offering an LTS "good enough", or can we do
-more? It's Linux's name that gets smeared by vendors who are terrible
-at updating kernels. :(
+Backports don't end up in Linus's tree, they only live in our stable trees and
+never see the light of day before we ship that tree out.
 
->>   - documenting impact when known (avoiding intentional obfuscation)
->> - proactive security: stop security flaws from happening in the first place
->>   - scope analysis (defending both userspace and kernel from attack)
->>   - threat analysis (how are attacks being made now and in future?)
->>   - exposure analysis (syscall interface, device firmware, etc)
->>   - static checkers (find and eliminate bug classes in the code)
->>   - run-time mitigation features (endless list: memory protection, CFI,
->>     ASLR, anti-bruteforcing, etc)
->
-> Perhaps the question here is would we be interested in making use of the
-> core infrastructure initiative to give us a security analysis of parts
-> of the kernel (and if so, which parts).
+Thanks,
+Sasha
 
-I actually think the issue is body count. We have a lot of tools
-already. We have coverity, for example, but it needs full-time work
-(by a few people, I think) to trim false-positives, improve rules, and
-extract the real bugs. Which companies are paying people to do this
-full-time? Our numbers aren't improving much in this area. We've
-actually been getting smaller... Dave Jones, come back, we all still
-love Trinity! :)
-
--Kees
-
--- 
-Kees Cook
-Chrome OS Security
+>>
+>> I don't want to suggest that we do a few of those per stable kernel, but even
+>> one -rc release that would end up in distros (marked as "proposed/devel") and
+>> would let users test that would be a great step forward.
+>>
+>> The reason I've suggested it for Ksummit rather than hashing it out on stable@
+>> is that I believe that the solution is more complex and would need more discussion
+>> than just slapping a "cooldown period" on patches. We need to make sure less
+>> bugs/untested code ends up in Linus's tree to begin with, and we need a way to
+>> validate proposed stable releases before releasing them, since -stable users
+>> aren't interested in being testers.
+> 
+> I'm all for discussing this in person.
+> 
+> -- Steve
+> 
