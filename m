@@ -1,36 +1,37 @@
-Return-Path: <rostedt@goodmis.org>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1BD92B5A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 85303BAC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 14 Jul 2015 15:38:32 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0214.hostedemail.com
-	[216.40.44.214])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 9ED30185
+	Tue, 14 Jul 2015 15:38:40 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 07900185
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 14 Jul 2015 15:38:31 +0000 (UTC)
-Date: Tue, 14 Jul 2015 11:38:29 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Sasha Levin <sasha.levin@oracle.com>
-Message-ID: <20150714113829.4b618d9a@gandalf.local.home>
-In-Reply-To: <55A52B8B.5060606@oracle.com>
-References: <55A1407E.5080800@oracle.com>
-	<CAMuHMdUK+LZrp9QxPS0wSJzFZVAr_cihxJnFJybo5nb7U_t7xg@mail.gmail.com>
-	<55A26C5B.8060007@oracle.com> <20150713105210.6e367f4b@noble>
-	<55A33E48.2040202@oracle.com>
-	<20150713142132.08fead4d@gandalf.local.home>
-	<55A45AD8.5010400@oracle.com>
-	<20150713210226.519dedfd@gandalf.local.home>
-	<20150714104623.GQ11162@sirena.org.uk>
-	<55A51548.4040502@oracle.com>
-	<20150714152515.GX11162@sirena.org.uk>
-	<55A52B8B.5060606@oracle.com>
+	Tue, 14 Jul 2015 15:38:39 +0000 (UTC)
+Date: Tue, 14 Jul 2015 16:38:31 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Fengguang Wu <fengguang.wu@intel.com>
+Message-ID: <20150714153831.GZ11162@sirena.org.uk>
+References: <20150707092434.GE11162@sirena.org.uk>
+	<559BEF61.8050904@roeck-us.net>
+	<CAMuHMdX6KcmZhibEC6hn2VN7veMSbbj1+P3kf=udY39fjdjj5w@mail.gmail.com>
+	<20150708075409.GJ4341@mwanda>
+	<20150708095207.GN11162@sirena.org.uk>
+	<20150712111547.GB24634@wfg-t540p.sh.intel.com>
+	<20150713183441.GJ11162@sirena.org.uk>
+	<20150714142241.GB24191@wfg-t540p.sh.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Issues with stable process
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="8PwxOTgimcLqatFW"
+Content-Disposition: inline
+In-Reply-To: <20150714142241.GB24191@wfg-t540p.sh.intel.com>
+Cc: Shuah Khan <shuah.kh@samsung.com>, Kevin Hilman <khilman@linaro.org>,
+	Tyler Baker <tyler.baker@linaro.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Testing
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,17 +41,49 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, 14 Jul 2015 11:32:27 -0400
-Sasha Levin <sasha.levin@oracle.com> wrote:
 
-> If there's an issue that causes that effect then the original commit that
-> caused it should be reverted rather than introducing an untested fix right
-> away.
-> 
+--8PwxOTgimcLqatFW
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-You'd think. But there's been times that I sent a revert patch where
-Linus himself would just make the fix instead. So Linus is just as
-guilty as the rest of us for adding in patches that were not tested in
--next.
+On Tue, Jul 14, 2015 at 10:22:41PM +0800, Fengguang Wu wrote:
+> On Mon, Jul 13, 2015 at 07:34:41PM +0100, Mark Brown wrote:
 
--- Steve
+> > Latency seems like it might be an issue here, when I say I'm not seeing
+> > things that's issues coming up in the -next build before they're
+> > reported by 0day so they might well get fixed before 0day catches up.
+
+> Ah linux-next happen to have lower priority and can take many hours to
+> finish. I'll increase its priority due to its importance.
+
+This was actually things in my trees that get merged into -next (or
+which Stephen tries to merge into -next and finds problems with) prior
+to being reported by 0day.
+
+> > For me personally it'd be more interesting to be able to get them on
+> > demand (eg, from a web page) than e-mailed, or e-mailed by a human
+> > (possibly with fixes!).  The kernelci.org reporting does a lot of this
+> > but doesn't cover anything except raw compiler warnings.
+
+> It should be mostly equivalent if you direct such emails to a local
+> mbox and check it on demand. :)
+
+Well, they don't go away automatically when fixed then...
+
+--8PwxOTgimcLqatFW
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQEcBAEBCAAGBQJVpSz2AAoJECTWi3JdVIfQ3yYH/jrF1V7lNxFPZP2WHYN1mdna
+jARyJP0NMlNCpgtUzVs75nfIgj5KYtOjYcCjE/gCXmMu0SMC2z7U8KpD9xjQcWQj
+6skxXuz9ldI/fIRhsdxjsOj7Z6HCxkin9UxuveAACH6buPQAVA/4g0MUZvcUuEsI
+MbW6QG/r2969vNz67uGCeGpnHnOd2XIUJICXMkABvDd40AUsMQ8QlH/o2Ph/0QeK
+Kgk1Y6Ex9hBufl6oBrgRfCKudvUUJ2CPAky5Bi4oWkNC3Ab/hEYtnB9N85GEUdKi
+GXdfS64txkOyLk4rU+Bv7NDAoWBaVMu5ok09dj8gkE58HYPkjIwDDs4qCEXT9N8=
+=wMhM
+-----END PGP SIGNATURE-----
+
+--8PwxOTgimcLqatFW--
