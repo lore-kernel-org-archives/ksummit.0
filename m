@@ -1,35 +1,36 @@
-Return-Path: <keescook@google.com>
+Return-Path: <daniel.vetter@ffwll.ch>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id AB2FEBA2
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 48519BAC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 14 Jul 2015 16:20:04 +0000 (UTC)
-Received: from mail-ig0-f175.google.com (mail-ig0-f175.google.com
-	[209.85.213.175])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A415CED
+	Tue, 14 Jul 2015 16:51:33 +0000 (UTC)
+Received: from mail-oi0-f46.google.com (mail-oi0-f46.google.com
+	[209.85.218.46])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2DADC165
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 14 Jul 2015 16:20:03 +0000 (UTC)
-Received: by iggp10 with SMTP id p10so102049768igg.0
+	Tue, 14 Jul 2015 16:51:32 +0000 (UTC)
+Received: by oihq81 with SMTP id q81so10595964oih.2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 14 Jul 2015 09:20:03 -0700 (PDT)
+	Tue, 14 Jul 2015 09:51:31 -0700 (PDT)
 MIME-Version: 1.0
-Sender: keescook@google.com
-In-Reply-To: <1436860041.6901.42.camel@HansenPartnership.com>
-References: <20150710143832.GU23515@io.lakedaemon.net>
-	<CA+5PVA5j9973GzdYj-s2WX3J8ycf5hQTBdGq+8j-8RGDX2OaYg@mail.gmail.com>
-	<20150710162328.GB12009@thunk.org>
-	<CAGXu5j+NY8-5WPcP1kLZsKgzmbQ=L0Q18XZ6FYeVTcFGDLrRSw@mail.gmail.com>
-	<1436599873.2243.10.camel@HansenPartnership.com>
-	<CAGXu5jJdmwdKw6CYwMNUCDKai0M5UrghYn1c3tTwqudLwdbO0A@mail.gmail.com>
-	<1436860041.6901.42.camel@HansenPartnership.com>
-Date: Tue, 14 Jul 2015 09:20:02 -0700
-Message-ID: <CAGXu5j+Zyj4BFQ9mY6AByXUa50uT6hPnovORF-FtBBMSCGcuqg@mail.gmail.com>
-From: Kees Cook <keescook@chromium.org>
-To: James Bottomley <James.Bottomley@hansenpartnership.com>
+In-Reply-To: <1455994.zAMIqEIJx2@vostro.rjw.lan>
+References: <1489458.8WDRattPkl@vostro.rjw.lan>
+	<7hlheo9b7m.fsf@deeprootsystems.com>
+	<CAKMK7uHH=YdktPHMWoo21YEHP8jB_A-369GpYU5syi-a0idPaw@mail.gmail.com>
+	<1455994.zAMIqEIJx2@vostro.rjw.lan>
+Date: Tue, 14 Jul 2015 18:51:31 +0200
+Message-ID: <CAKMK7uHfcwLe-HWz72LJDhe-HvKTBu65DaJmR3tW3TOze4uyVQ@mail.gmail.com>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
 Content-Type: text/plain; charset=UTF-8
-Cc: Josh Boyer <jwboyer@fedoraproject.org>, Jason Cooper <jason@lakedaemon.net>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] dev/maintainer workflow security
+Cc: "Brown, Len" <len.brown@intel.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Kristen Carlson Accardi <kristen@linux.intel.com>,
+	Grant Likely <grant.likely@linaro.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] System-wide interface to specify
+ the level of PM tuning
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,62 +40,30 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Jul 14, 2015 at 12:47 AM, James Bottomley
-<James.Bottomley@hansenpartnership.com> wrote:
-> On Mon, 2015-07-13 at 16:25 -0700, Kees Cook wrote:
->> I don't agree with this. Distros are just one consumer. I think it's
->> worth examining how real-world devices end up running Linux. Telcos
->> pushing kernel updates, for example, jumps to mind. I think it's a
->> weak stance to say "well, they should update to the latest kernel". Is
->> it a failing of our community that it's so much work for these vendors
->> to update kernels? Is offering an LTS "good enough", or can we do
->> more? It's Linux's name that gets smeared by vendors who are terrible
->> at updating kernels. :(
+On Tue, Jul 14, 2015 at 1:07 AM, Rafael J. Wysocki <rjw@rjwysocki.net> wrote:
+> However, there are places in the kernel where there is a real tradeoff between
+> power and performance (or power and capacity in general) and there are places
+> that tend to keep conservative settings for fear of exposing latent bugs to
+> a wide community of users.
 >
-> While security fixes (and the kernel security list) aren't transparent,
-> I don't really see what else we can do.  Stable is our last best effort
-> before it gets handed off, unless you have another proposal?
+> Those might benefit from allowing the users to relax the settings globally
+> if they want to.
 
-I don't presently, no. Stable is certainly good, but I think we're
-missing a "real world workload testing" element somewhere. Again,
-though, this should probably be on the vendors, but there is very
-little interest in it, since the ROI appears bad.
+Well that's the approach I don't like personally. Essentially we
+should be the experts on what works and what doesn't. But then kernel
+developers chicken out and dump this problem onto users, which happily
+enable all kinds of options they hear about. And then when it eats
+their data or crashes machines everyone shrugs and says "oh well you
+probably have one of the broken machines, don't enable this" and moves
+on.
 
->
->> >>   - documenting impact when known (avoiding intentional obfuscation)
->> >> - proactive security: stop security flaws from happening in the first place
->> >>   - scope analysis (defending both userspace and kernel from attack)
->> >>   - threat analysis (how are attacks being made now and in future?)
->> >>   - exposure analysis (syscall interface, device firmware, etc)
->> >>   - static checkers (find and eliminate bug classes in the code)
->> >>   - run-time mitigation features (endless list: memory protection, CFI,
->> >>     ASLR, anti-bruteforcing, etc)
->> >
->> > Perhaps the question here is would we be interested in making use of the
->> > core infrastructure initiative to give us a security analysis of parts
->> > of the kernel (and if so, which parts).
->>
->> I actually think the issue is body count. We have a lot of tools
->> already. We have coverity, for example, but it needs full-time work
->> (by a few people, I think) to trim false-positives, improve rules, and
->> extract the real bugs. Which companies are paying people to do this
->> full-time? Our numbers aren't improving much in this area. We've
->> actually been getting smaller... Dave Jones, come back, we all still
->> love Trinity! :)
->
-> So you seem to be implying this is a funding problem?  We could easily
-> apply to the CII for a full time position if that's the case (and we
-> have a good job description).
-
-It'll take more than 1 person. :) It's a cultural problem with the
-tech industry: defensive security is very hard to measure, so it tends
-to be ignored until something bad happens publicly. Unfortunately,
-there is a LOT happening secretly that we need to defend against, and
-everyone depending on Linux should be putting forward people to work
-on that. Like testing, it appears to be poor ROI, though.
-
--Kees
-
+There's certainly the case that some tuning stuff in core kernel has
+real downsides to either perf or power, but generally (for device
+drivers) I feel like simply not enabling the all the power features is
+a cheap way to chicken out of bugs reports and responsibility. I'm
+somewhat opionated on this ;-)
+-Daniel
 -- 
-Kees Cook
-Chrome OS Security
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
