@@ -1,25 +1,28 @@
-Return-Path: <dhowells@redhat.com>
+Return-Path: <laurent.pinchart@ideasonboard.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4E475B88
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A65BEBB6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 14 Jul 2015 13:39:11 +0000 (UTC)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DC108110
+	Tue, 14 Jul 2015 13:57:19 +0000 (UTC)
+Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
+	[185.26.127.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2C2ED160
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 14 Jul 2015 13:39:10 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <20150714102804.653288eb@recife.lan>
-References: <20150714102804.653288eb@recife.lan>
-To: Mauro Carvalho Chehab <mchehab@osg.samsung.com>
+	Tue, 14 Jul 2015 13:57:19 +0000 (UTC)
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Tue, 14 Jul 2015 16:57:37 +0300
+Message-ID: <49549961.dqTOgxpqna@avalon>
+In-Reply-To: <20150714094342.36be30fe@recife.lan>
+References: <201507130038.01474.PeterHuewe@gmx.de>
+	<20150713203647.1fdb8bb4@lwn.net>
+	<20150714094342.36be30fe@recife.lan>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="us-ascii"
-Content-ID: <1174.1436881146.1@warthog.procyon.org.uk>
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 14 Jul 2015 14:39:06 +0100
-Message-ID: <1175.1436881146@warthog.procyon.org.uk>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Media workshop
+Cc: Dan Carpenter <dan.carpenter@oracle.com>,
+	Mauro Carvalho Chehab <mchehab@osg.samsung.com>
+Subject: Re: [Ksummit-discuss] [CORE-TOPIC] Documentation
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,24 +32,44 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Mauro Carvalho Chehab <mchehab@osg.samsung.com> wrote:
+On Tuesday 14 July 2015 09:43:42 Mauro Carvalho Chehab wrote:
+> Em Mon, 13 Jul 2015 20:36:47 -0600 Jonathan Corbet escreveu:
+> > > Would doxygen be "something better"? The kernel-doc style looks already
+> > > quite similar.
+> > > Maybe the kernel should not reinvent everything :)
+> 
+> My experience is that, from time to time, people send us drivers written
+> by the manufacturer with Doxygen-compatible tags. Converting them to
+> kernel-doc is a huge task, not worthing the effort. I tried in the past
+> to request developers to "fix" the comments. The net result is either
+> to not have a final version of the driver submitted or to receive a
+> comments-stripped version of it, with is actually worse, as we loose
+> lots of otherwise good documentation. So, nowadays, I'm opting to keep
+> whatever comments are there at the code, provided that it is not using
+> C99 comments.
+> 
+> So, I'm a huge fan of extending the kernel-doc to accept all markup tags
+> that Doxygen supports.
+> 
+> > Doxygen may be worth a look.  I'm personally fond of Sphinx, though I
+> > still haven't done a big project in it.
+> 
+> I never used Sphinx. Doxygen seems better on my eyes, because people
+> already sends us media drivers using Doxygen tags style. Also, as
+> mentioned, kernel-doc style is a subset. Not to mention that, in the
+> specific case of media,we're using Doxygen to document some libraries
+> packaged inside v4l-utils (with is the userspace counterpart of the
+> Kernel subsystem). So, at least for me, Doxygen would be easier to use.
 
-> We'd like to have a media Workshop together with KS/2015. The media subs=
-ystem
-> has been actively developed and this year we're addressing several issue=
-s
-> related to the Media Controller and working to improve the digital TV su=
-pport
-> to better cover support for embedded hardware like TV sets and Set Top B=
-oxes.
-> =
+We certainly need to accept documentation formats that are easy to use and 
+write, but let's not forget that the biggest issue (in my opinion) is that we 
+often don't get documentation at all. Cumbersome formats and tools might 
+explain part of it, but that's not the whole story. How can we ensure that 
+documentation gets written, merged and kept up to date ? What kind of 
+incentives can we give ? The stick is easy to wave by not merging code changes 
+that are not documented, but that can easily backfire.
 
-> Being in Asia, and in particular, in Korea, is a plus, as lots of embedd=
-ed
-> hardware development is happening there, and we can attract some of thos=
-e
-> developers to be better involved upstream's work.
+-- 
+Regards,
 
-I would be interested in attending that.
-
-David
+Laurent Pinchart
