@@ -1,42 +1,30 @@
-Return-Path: <luto@amacapital.net>
+Return-Path: <dvhart@infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 60DF0982
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6397E8B4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 14 Jul 2015 22:37:03 +0000 (UTC)
-Received: from mail-la0-f48.google.com (mail-la0-f48.google.com
-	[209.85.215.48])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 780CF147
+	Tue, 14 Jul 2015 23:58:48 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C9AB211F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 14 Jul 2015 22:37:02 +0000 (UTC)
-Received: by lagw2 with SMTP id w2so14321662lag.3
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 14 Jul 2015 15:37:00 -0700 (PDT)
+	Tue, 14 Jul 2015 23:58:47 +0000 (UTC)
+Date: Tue, 14 Jul 2015 16:58:45 -0700
+From: Darren Hart <dvhart@infradead.org>
+To: Peter =?iso-8859-1?Q?H=FCwe?= <PeterHuewe@gmx.de>
+Message-ID: <20150714235845.GA119458@vmdeb7>
+References: <559C73DF.2030008@roeck-us.net> <20150711023946.GV111846@vmdeb7>
+	<20150711150437.GA6666@kroah.com>
+	<201507122327.09304.PeterHuewe@gmx.de>
 MIME-Version: 1.0
-In-Reply-To: <20150714181226.474e50b8@gandalf.local.home>
-References: <55A1407E.5080800@oracle.com>
-	<CAMuHMdUK+LZrp9QxPS0wSJzFZVAr_cihxJnFJybo5nb7U_t7xg@mail.gmail.com>
-	<55A26C5B.8060007@oracle.com> <20150713105210.6e367f4b@noble>
-	<55A33E48.2040202@oracle.com>
-	<20150713142132.08fead4d@gandalf.local.home>
-	<55A45AD8.5010400@oracle.com>
-	<20150713210226.519dedfd@gandalf.local.home>
-	<20150713202818.23310729@lwn.net>
-	<1436871795.2445.8.camel@HansenPartnership.com>
-	<20150714092955.2d28984b@gandalf.local.home>
-	<1436905046.2445.54.camel@HansenPartnership.com>
-	<20150714181226.474e50b8@gandalf.local.home>
-From: Andy Lutomirski <luto@amacapital.net>
-Date: Tue, 14 Jul 2015 15:36:40 -0700
-Message-ID: <CALCETrUbVRWmbm4epyc6tEq6257dqazfP_Xiu12NsDUsjv6MzQ@mail.gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-Content-Type: text/plain; charset=UTF-8
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Sasha Levin <sasha.levin@oracle.com>,
-	" <ksummit-discuss@lists.linuxfoundation.org>"@mail.linuxfoundation.org,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Issues with stable process
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <201507122327.09304.PeterHuewe@gmx.de>
+Cc: Dan Carpenter <dan.carpenter@oracle.com>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Jason Cooper <jason@lakedaemon.net>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
+ Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -46,29 +34,42 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Jul 14, 2015 at 3:12 PM, Steven Rostedt <rostedt@goodmis.org> wrote:
-> On Tue, 14 Jul 2015 23:17:26 +0300
-> James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
->
->
->> > I've been trying to get time to test against -next before the merge
->> > window opens, because my tests usually discover these there. But I
->> > don't always have time to do so.
->>
->> Well, the more, the merrier.  If you have a suite of tests, just package
->> it up and send it off to Fengguang if you don't have time to run it.
->
-> A lot of my tests are big time hacks. When I get time, I start to
-> convert them over to the ftrace selftests. Some have already been
-> converted. Some of those tests wont go because they take up too much
-> time, and the selftests are suppose to be rather quick.
->
-> Perhaps we should talk at KS about what to do with tests that are not
-> suitable for selftests but would be nice for others to run. Should we
-> have a selftests section for "this may take a while to finish"?
+On Sun, Jul 12, 2015 at 11:27:08PM +0200, Peter Hüwe wrote:
+> Am Samstag, 11. Juli 2015, 17:04:37 schrieb Greg KH:
+> > On Fri, Jul 10, 2015 at 07:39:46PM -0700, Darren Hart wrote:
+> > > OK, all good points. It looks as though I can step up my own tooling some
+> > > to make the email-to-compilation step faster so I don't spend as much
+> > > time on patches with compiler warnings, that don't apply, etc. Dan C.
+> > > said something similar.
+> > 
+> > I think I mentioned it before, but Wolfram has a set of scripts that
+> > does this really well.  I don't know if they are published anywhere, but
+> > that would be a good place to start with.  I think Sara Sharp also had a
+> > bunch that she used to make life easier, you might want to ask her the
+> > next time you see her in the office.
+> 
+> 
+> They are called ninja-check and published here
+> https://lists.linuxfoundation.org/pipermail/ksummit-discuss/2014-May/000554.html
+> 
+> Ksummit Thread about all these tools can be found here:
+> ftp://kernel.mirrors.pair.com/pub/linux/kernel/people/paulmck/LKS/LKS2014Topic/000291.html
 
-I think we should, and I think we should move a bunch of existing
-tests there.  I want to run quick smoke tests when I'm programming,
-and kselftests is slow right now.
+Thank you all very much for these pointers. I have ninja-check up and running
+all the checkers now. Between these and:
 
---Andy
+http://www.do-not-panic.com/2014/07/applying-patches-from-mutt-onto-git.html
+(view source for actual .muttrc as his blog hides <pipe-entry> and <tag-prefix>)
+
+And Ben's original:
+http://flavioleitner.blogspot.com/2011/03/patch-workflow-with-mutt-and-git.html
+
+I added a checkpatch binding as well.
+
+I now have a much more capable mutt-to-git interface which should help a ton. It
+took me a day while dodging everything else I could, and I'll continue to tweak
+it forever of course. Well worth the effort.
+
+-- 
+Darren Hart
+Intel Open Source Technology Center
