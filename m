@@ -1,44 +1,35 @@
-Return-Path: <rostedt@goodmis.org>
-Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
-	[172.17.192.36])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id E8CC99F2
+Return-Path: <keescook@google.com>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id AB2FEBA2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 14 Jul 2015 16:11:50 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0034.hostedemail.com
-	[216.40.44.34])
-	by smtp2.linuxfoundation.org (Postfix) with ESMTP id 704C31DC7D
+	Tue, 14 Jul 2015 16:20:04 +0000 (UTC)
+Received: from mail-ig0-f175.google.com (mail-ig0-f175.google.com
+	[209.85.213.175])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A415CED
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 14 Jul 2015 16:11:50 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
-	[10.5.19.251])
-	by smtpgrave08.hostedemail.com (Postfix) with ESMTP id 63A7E2124EF
+	Tue, 14 Jul 2015 16:20:03 +0000 (UTC)
+Received: by iggp10 with SMTP id p10so102049768igg.0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 14 Jul 2015 16:02:28 +0000 (UTC)
-Date: Tue, 14 Jul 2015 12:02:25 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Sasha Levin <sasha.levin@oracle.com>
-Message-ID: <20150714120225.65e489cc@gandalf.local.home>
-In-Reply-To: <55A53074.7040109@oracle.com>
-References: <55A1407E.5080800@oracle.com>
-	<CAMuHMdUK+LZrp9QxPS0wSJzFZVAr_cihxJnFJybo5nb7U_t7xg@mail.gmail.com>
-	<55A26C5B.8060007@oracle.com> <20150713105210.6e367f4b@noble>
-	<55A33E48.2040202@oracle.com>
-	<20150713142132.08fead4d@gandalf.local.home>
-	<55A45AD8.5010400@oracle.com>
-	<20150713210226.519dedfd@gandalf.local.home>
-	<20150714104623.GQ11162@sirena.org.uk>
-	<55A51548.4040502@oracle.com>
-	<20150714152515.GX11162@sirena.org.uk>
-	<55A52B8B.5060606@oracle.com>
-	<20150714113829.4b618d9a@gandalf.local.home>
-	<55A53074.7040109@oracle.com>
+	Tue, 14 Jul 2015 09:20:03 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Issues with stable process
+Sender: keescook@google.com
+In-Reply-To: <1436860041.6901.42.camel@HansenPartnership.com>
+References: <20150710143832.GU23515@io.lakedaemon.net>
+	<CA+5PVA5j9973GzdYj-s2WX3J8ycf5hQTBdGq+8j-8RGDX2OaYg@mail.gmail.com>
+	<20150710162328.GB12009@thunk.org>
+	<CAGXu5j+NY8-5WPcP1kLZsKgzmbQ=L0Q18XZ6FYeVTcFGDLrRSw@mail.gmail.com>
+	<1436599873.2243.10.camel@HansenPartnership.com>
+	<CAGXu5jJdmwdKw6CYwMNUCDKai0M5UrghYn1c3tTwqudLwdbO0A@mail.gmail.com>
+	<1436860041.6901.42.camel@HansenPartnership.com>
+Date: Tue, 14 Jul 2015 09:20:02 -0700
+Message-ID: <CAGXu5j+Zyj4BFQ9mY6AByXUa50uT6hPnovORF-FtBBMSCGcuqg@mail.gmail.com>
+From: Kees Cook <keescook@chromium.org>
+To: James Bottomley <James.Bottomley@hansenpartnership.com>
+Content-Type: text/plain; charset=UTF-8
+Cc: Josh Boyer <jwboyer@fedoraproject.org>, Jason Cooper <jason@lakedaemon.net>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] dev/maintainer workflow security
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -48,33 +39,62 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, 14 Jul 2015 11:53:24 -0400
-Sasha Levin <sasha.levin@oracle.com> wrote:
+On Tue, Jul 14, 2015 at 12:47 AM, James Bottomley
+<James.Bottomley@hansenpartnership.com> wrote:
+> On Mon, 2015-07-13 at 16:25 -0700, Kees Cook wrote:
+>> I don't agree with this. Distros are just one consumer. I think it's
+>> worth examining how real-world devices end up running Linux. Telcos
+>> pushing kernel updates, for example, jumps to mind. I think it's a
+>> weak stance to say "well, they should update to the latest kernel". Is
+>> it a failing of our community that it's so much work for these vendors
+>> to update kernels? Is offering an LTS "good enough", or can we do
+>> more? It's Linux's name that gets smeared by vendors who are terrible
+>> at updating kernels. :(
+>
+> While security fixes (and the kernel security list) aren't transparent,
+> I don't really see what else we can do.  Stable is our last best effort
+> before it gets handed off, unless you have another proposal?
 
- 
-> The point I'm trying to make is that a bad patch in Linus' tree has a wider
-> ripple effect than what it were in the past, while Linus might consider a bad
-> patch in one of the -rc releases something minor since "no one should be using
-> it for production" it really isn't the case any more, those patches can and
-> will end up with the folks who don't want to have them.
+I don't presently, no. Stable is certainly good, but I think we're
+missing a "real world workload testing" element somewhere. Again,
+though, this should probably be on the vendors, but there is very
+little interest in it, since the ROI appears bad.
 
-I have to ask, why?
+>
+>> >>   - documenting impact when known (avoiding intentional obfuscation)
+>> >> - proactive security: stop security flaws from happening in the first place
+>> >>   - scope analysis (defending both userspace and kernel from attack)
+>> >>   - threat analysis (how are attacks being made now and in future?)
+>> >>   - exposure analysis (syscall interface, device firmware, etc)
+>> >>   - static checkers (find and eliminate bug classes in the code)
+>> >>   - run-time mitigation features (endless list: memory protection, CFI,
+>> >>     ASLR, anti-bruteforcing, etc)
+>> >
+>> > Perhaps the question here is would we be interested in making use of the
+>> > core infrastructure initiative to give us a security analysis of parts
+>> > of the kernel (and if so, which parts).
+>>
+>> I actually think the issue is body count. We have a lot of tools
+>> already. We have coverity, for example, but it needs full-time work
+>> (by a few people, I think) to trim false-positives, improve rules, and
+>> extract the real bugs. Which companies are paying people to do this
+>> full-time? Our numbers aren't improving much in this area. We've
+>> actually been getting smaller... Dave Jones, come back, we all still
+>> love Trinity! :)
+>
+> So you seem to be implying this is a funding problem?  We could easily
+> apply to the CII for a full time position if that's the case (and we
+> have a good job description).
 
-Just because a stable tag is on a patch it automatically gets pulled
-into stable? What about waiting a while before pulling in those
-patches? Wait till -rc2 is out before pulling in any patches marked for
-stable in -rc1. Then wait for -rc3 to pull in the patches that were
-added in -rc2. But don't pull in any patches that has a "Fixes" to it
-in the next -rc release.
+It'll take more than 1 person. :) It's a cultural problem with the
+tech industry: defensive security is very hard to measure, so it tends
+to be ignored until something bad happens publicly. Unfortunately,
+there is a LOT happening secretly that we need to defend against, and
+everyone depending on Linux should be putting forward people to work
+on that. Like testing, it appears to be poor ROI, though.
 
-That is, when -rc2 is released, only pull in the patches marked for
-stable in -rc1 if there were no Fixes tags for them in -rc2. And so on.
+-Kees
 
-Again, just placing stuff in -next isn't going to solve this. It may
-help, but you will still have fixes that breaks things when they get
-into Linus's tree no matter how long they were in -next. This is simply
-because Linus's tree has a wider audience. But hopefully, the next
-release candidate will have the fixes for anything that breaks in the
-previous release candidate.
-
--- Steve
+-- 
+Kees Cook
+Chrome OS Security
