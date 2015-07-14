@@ -1,34 +1,41 @@
-Return-Path: <fengguang.wu@intel.com>
+Return-Path: <greg@kroah.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id ADAB583D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B9B6AB5A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 14 Jul 2015 14:23:35 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 2E3A732
+	Tue, 14 Jul 2015 15:16:39 +0000 (UTC)
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+	[66.111.4.25])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0A89017B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 14 Jul 2015 14:23:35 +0000 (UTC)
-Date: Tue, 14 Jul 2015 22:22:41 +0800
-From: Fengguang Wu <fengguang.wu@intel.com>
-To: Mark Brown <broonie@kernel.org>
-Message-ID: <20150714142241.GB24191@wfg-t540p.sh.intel.com>
-References: <20150707092434.GE11162@sirena.org.uk>
-	<559BEF61.8050904@roeck-us.net>
-	<CAMuHMdX6KcmZhibEC6hn2VN7veMSbbj1+P3kf=udY39fjdjj5w@mail.gmail.com>
-	<20150708075409.GJ4341@mwanda>
-	<20150708095207.GN11162@sirena.org.uk>
-	<20150712111547.GB24634@wfg-t540p.sh.intel.com>
-	<20150713183441.GJ11162@sirena.org.uk>
+	Tue, 14 Jul 2015 15:16:39 +0000 (UTC)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+	by mailout.nyi.internal (Postfix) with ESMTP id 42BCF20AC6
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 14 Jul 2015 11:16:20 -0400 (EDT)
+Date: Tue, 14 Jul 2015 08:16:18 -0700
+From: Greg KH <greg@kroah.com>
+To: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+Message-ID: <20150714151618.GA27755@kroah.com>
+References: <20150708145315.29030a75@gandalf.local.home>
+	<20150710181409.GA30145@treble.redhat.com>
+	<1436576450.27924.59.camel@stgolabs.net>
+	<20150712034824.GA4236@treble.hsd1.ky.comcast.net>
+	<20150712052317.GB15346@x>
+	<20150712122823.GA4366@treble.redhat.com>
+	<20150713140113.GB4341@mwanda>
+	<20150713143331.GA21079@quack.suse.cz>
+	<20150713162439.GI4289@mwanda> <20150714043803.GA3290@sudip-PC>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20150713183441.GJ11162@sirena.org.uk>
-Cc: Shuah Khan <shuah.kh@samsung.com>, Kevin Hilman <khilman@linaro.org>,
-	Tyler Baker <tyler.baker@linaro.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
+In-Reply-To: <20150714043803.GA3290@sudip-PC>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	jic23@jic23.retrosnub.co.uk, ksummit-discuss@lists.linuxfoundation.org,
+	Jason Cooper <jason@lakedaemon.net>,
 	Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Testing
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
+ Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,65 +45,43 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Jul 13, 2015 at 07:34:41PM +0100, Mark Brown wrote:
-> On Sun, Jul 12, 2015 at 07:15:47PM +0800, Fengguang Wu wrote:
-> 
-> > If 0day failed to catch the error, it might be due to
-> 
-> > - regressions in 0day itself -- it's still in active development,
-> >   in the past year I did 1k patches to 0day build/boot scripts and
-> >   2k patches to the follow up LKP (Linux Kernel Performance) tests.
-> 
-> > - the "report once" logic, it's tricky and can possibly hide issues
-> 
-> > - failed bisect, rare but possible
-> 
-> I think some of the issues have been due to bisection getting confused
-> by issues appearing in merge commits but ICBW.
-> 
-> > - machine hang, network/disk fails, etc. maintenance incidents
-> 
-> > "Loading" may add latency, however it's not the cause to miss errors.
-> 
-> Latency seems like it might be an issue here, when I say I'm not seeing
-> things that's issues coming up in the -next build before they're
-> reported by 0day so they might well get fixed before 0day catches up.
+On Tue, Jul 14, 2015 at 10:08:03AM +0530, Sudip Mukherjee wrote:
+> On Mon, Jul 13, 2015 at 07:28:25PM +0300, Dan Carpenter wrote:
+> > On Mon, Jul 13, 2015 at 04:33:31PM +0200, Jan Kara wrote:
+> > > On Mon 13-07-15 17:20:47, Dan Carpenter wrote:
+> > > > On Sun, Jul 12, 2015 at 07:28:23AM -0500, Josh Poimboeuf wrote:
+> > 
+> > This happened hours ago in staging.  Someone sent a buggy patch and
+> > reviewers spotted the bug but no one got credit.
+> > 
+> > http://driverdev.linuxdriverproject.org/pipermail/driverdev-devel/2015-July/072662.html
+> > http://driverdev.linuxdriverproject.org/pipermail/driverdev-devel/2015-July/072668.html
+> > 
+> > Imagine how special Patrick would feel if we gave him a nice
+> > "With-fix-from: Patrick Farrell <paf@cray.com>" tag.  :)  Also the other
+> > rule would be that only the first person to report the bug gets the
+> > credit (Sorry, Sudip).
+> Doesn't matter. I am a volunteer and contributing here is not part of
+> my dayjob. I do it because I like doing it.
+> >The next version of the patch had a process
+> > problem which Sudip noticed as well but that still doesn't earn a
+> > with-fix-from tag.
+> Then will the first reviewer always get the credit? Suppose a hypothetial
+> situation where v1 is just having a bug like the one you mentioned,
+> reviewer X points that out so he gets "With-fix-from:", but v2 has a more
+> serious problem and results in build failure and reviewer Y points that out
+> and v3 is the final patch that is accepted. So now who will get
+> "With-fix-from:" ?
 
-Ah linux-next happen to have lower priority and can take many hours to
-finish. I'll increase its priority due to its importance.
+Or even more important, how in the world will the maintainer be adding
+these tags in a simple manner?  It's a manual thing for me to do today,
+which is a pain, and given that I have no "state" of previous patches
+remembering what happened in previous versions, I don't know how I would
+be expected to keep track of all of this.
 
-> > > > Are people ignoring them?
-> 
-> > > They're not reliably followed through on, no, and one of the things with
-> > > 0day is that it just generates a one time report so if things don't get
+So whatever scheme people come up with, please remember that it has to
+be easy to actually implement...
 
-The real policy is in fact a bit more smart than "report-once".
+thanks,
 
-Build errors will be auto re-reported if it's still not fixed
-after 10 days when the branch that introduced the error is updated.
-
-Warnings won't be auto re-reported.
-
-> > > followed up on then that's that.  A regular "these are all the issues"
-> > > mail helps chase down those issues.
-> 
-> > 0day has such report type. It will be sent after each git push (unless
-> > you push too quickly) and it looks like this. Just drop me a note and
-> > list the git trees/branches you wish to receive such notice emails.
-> 
-> For me personally it'd be more interesting to be able to get them on
-> demand (eg, from a web page) than e-mailed, or e-mailed by a human
-> (possibly with fixes!).  The kernelci.org reporting does a lot of this
-> but doesn't cover anything except raw compiler warnings.
-
-It should be mostly equivalent if you direct such emails to a local
-mbox and check it on demand. :)
-
-For example, setup .procmailrc rule like this:
-
-:0:
-* ^Subject: \[.*\] ........................................ BUILD
-build-complete-notification
-
-Thanks,
-Fengguang
+greg k-h
