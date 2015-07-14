@@ -1,33 +1,38 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <rostedt@goodmis.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7787D93E
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 32CF593E
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 14 Jul 2015 15:56:57 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0211.hostedemail.com
+	[216.40.44.211])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id C27B2110
 	for <ksummit-discuss@lists.linuxfoundation.org>;
 	Tue, 14 Jul 2015 15:56:56 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 27613110
+Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
+	[10.5.19.251])
+	by smtpgrave08.hostedemail.com (Postfix) with ESMTP id AD009213367
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 14 Jul 2015 15:56:56 +0000 (UTC)
-Date: Tue, 14 Jul 2015 16:56:48 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Sasha Levin <sasha.levin@oracle.com>
-Message-ID: <20150714155648.GA11162@sirena.org.uk>
-References: <55A26C5B.8060007@oracle.com> <20150713105210.6e367f4b@noble>
+	Tue, 14 Jul 2015 13:29:58 +0000 (UTC)
+Date: Tue, 14 Jul 2015 09:29:55 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Message-ID: <20150714092955.2d28984b@gandalf.local.home>
+In-Reply-To: <1436871795.2445.8.camel@HansenPartnership.com>
+References: <55A1407E.5080800@oracle.com>
+	<CAMuHMdUK+LZrp9QxPS0wSJzFZVAr_cihxJnFJybo5nb7U_t7xg@mail.gmail.com>
+	<55A26C5B.8060007@oracle.com> <20150713105210.6e367f4b@noble>
 	<55A33E48.2040202@oracle.com>
 	<20150713142132.08fead4d@gandalf.local.home>
 	<55A45AD8.5010400@oracle.com>
 	<20150713210226.519dedfd@gandalf.local.home>
-	<20150714104623.GQ11162@sirena.org.uk>
-	<55A51548.4040502@oracle.com>
-	<20150714152515.GX11162@sirena.org.uk>
-	<55A52B8B.5060606@oracle.com>
+	<20150713202818.23310729@lwn.net>
+	<1436871795.2445.8.camel@HansenPartnership.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="S2FiTZAGpJjpxPt0"
-Content-Disposition: inline
-In-Reply-To: <55A52B8B.5060606@oracle.com>
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: Sasha Levin <sasha.levin@oracle.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Issues with stable process
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -39,45 +44,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Tue, 14 Jul 2015 12:03:15 +0100
+James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
 
---S2FiTZAGpJjpxPt0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> No harm comes to us from running regression fixes into -next and thus in
+> the 0day tests because they eventually get into the correct kernel and
+> the benefit is that bogus fixes may be picked up by the tests.  Why
+> would we not incubate for a while in -next when there's no down side and
+> plenty of upside?
 
-On Tue, Jul 14, 2015 at 11:32:27AM -0400, Sasha Levin wrote:
+Mark Brown mentioned the down side. Depending on what the bug is,
+especially if it breaks Linus's build, or causes some other major
+breakage, to wait in next means that Linus's tree (that everyone is
+based on) will be broken for that long too. Which could stop other
+types of testing of Linus's tree.
 
-Re-wrapped the text, it looks like something joined all the paragraphs
-up into single lines.
+In fact, I have a series of tests I run before pushing any patch to
+Linus. If my tests break because of other breakage in Linus's tree, I
+have to stop what I'm doing and find those bugs before I can proceed.
+With v4.2-rc1, I found 3 bugs that I had to fix or find workarounds
+before I could push my fixes to Linus.
 
-> > If the issue being fixed is serious enough to take out substantial
-> > portion of our test coverage or affect a lot of other development
-> > usage then that's really disruptive to other work, it impacts things
-> > like bisection for example.  A strong rule does nobody any good,
-> > it's overkill for the problem.
+I've been trying to get time to test against -next before the merge
+window opens, because my tests usually discover these there. But I
+don't always have time to do so.
 
-> If there's an issue that causes that effect then the original commit that
-> caused it should be reverted rather than introducing an untested fix right
-> away.
-
-> Obviously not a hard rule, but it should be the case in general.
-
-That's still sending a change of course which was what was being
-objected to.
-
---S2FiTZAGpJjpxPt0
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQEcBAEBCAAGBQJVpTE/AAoJECTWi3JdVIfQH40H+QEMvTjlmkta61TtmfYsFYQF
-RpoB0ca+iicEbTnwHyPB/SbKFBqfGBM4E9MxlQb57guwZLDpwvomjeozBBC4epfZ
-lFmcoSB824PpJcIz4wJQKV7z4q1k2x7TfQzufWk0s30GAXzGD+mv/5gAjBtkp8TB
-4YTHs0MdR5F/P3WaTJl+x0a2pyiOS0hbOizhOvqKrCYlE5HHfo5mCKxJLUAljk79
-8QGdB+G2dRf46pOsERtDDW+6lsy+u1E7vGyq8vneXspWJaJ5inxWdT5KRLcHrKwS
-OzLiJ3g7bbyFWQxn+3XDGusUG2JDJaixcGBnQvqWRe5RxrUCVMMULF77Yrm8Dps=
-=2SKT
------END PGP SIGNATURE-----
-
---S2FiTZAGpJjpxPt0--
+-- Steve
