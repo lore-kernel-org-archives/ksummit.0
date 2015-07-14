@@ -1,18 +1,19 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 47B97B13
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E06C2AF3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 14 Jul 2015 10:46:34 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CE7CDE9
+	Tue, 14 Jul 2015 11:03:24 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id C7A2F114
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 14 Jul 2015 10:46:33 +0000 (UTC)
-Date: Tue, 14 Jul 2015 11:46:23 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Message-ID: <20150714104623.GQ11162@sirena.org.uk>
+	Tue, 14 Jul 2015 11:03:23 +0000 (UTC)
+Message-ID: <1436871795.2445.8.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Jonathan Corbet <corbet@lwn.net>
+Date: Tue, 14 Jul 2015 12:03:15 +0100
+In-Reply-To: <20150713202818.23310729@lwn.net>
 References: <55A1407E.5080800@oracle.com>
 	<CAMuHMdUK+LZrp9QxPS0wSJzFZVAr_cihxJnFJybo5nb7U_t7xg@mail.gmail.com>
 	<55A26C5B.8060007@oracle.com> <20150713105210.6e367f4b@noble>
@@ -20,11 +21,10 @@ References: <55A1407E.5080800@oracle.com>
 	<20150713142132.08fead4d@gandalf.local.home>
 	<55A45AD8.5010400@oracle.com>
 	<20150713210226.519dedfd@gandalf.local.home>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="DtQHZAESxiuiGOEK"
-Content-Disposition: inline
-In-Reply-To: <20150713210226.519dedfd@gandalf.local.home>
+	<20150713202818.23310729@lwn.net>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 Cc: Sasha Levin <sasha.levin@oracle.com>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
@@ -38,43 +38,42 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Mon, 2015-07-13 at 20:28 -0600, Jonathan Corbet wrote:
+> On Mon, 13 Jul 2015 21:02:26 -0400
+> Steven Rostedt <rostedt@goodmis.org> wrote:
+> 
+> > Yes, it's great if we can catch things in -next. But I don't believe
+> > that patches that fix bugs found in Linus's tree should sit in next
+> > before going into Linus's tree, because those patches are basically
+> > fixing stuff that was already in next and wasn't discovered until it
+> > hit Linus's tree. Which is why I say it's a waste of time to put it in
+> > next before sending straight to Linus.
+> 
+> That, of course, assumes that these fixes don't introduce *other* bugs
+> that might just be caught in -next...
+> 
+> In general, though, I think a lot of people see -next as -rc1 without the
+> quality control; it's volatile and scary.  So it's not surprising that it
+> doesn't get a lot of real-world testing.  And, as long as that's the case,
+> there's going to be a lot of bugs that are never caught in -next.
 
---DtQHZAESxiuiGOEK
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Yes, I'm with this.  Instantly into Linus' tree means we get a lot of
+bug introducing fixes which we then have to sort out.  One of the
+complaints the stable tree maintainers and the distros are making is
+that it's hard to track the set of patches required for a fix that was
+first done wrongly.
 
-On Mon, Jul 13, 2015 at 09:02:26PM -0400, Steven Rostedt wrote:
+No harm comes to us from running regression fixes into -next and thus in
+the 0day tests because they eventually get into the correct kernel and
+the benefit is that bogus fixes may be picked up by the tests.  Why
+would we not incubate for a while in -next when there's no down side and
+plenty of upside?
 
-> But I highly doubt that having them sit in next for two weeks would
-> change that. Again, the code that the patches fix was already in next,
-> and the original bug was never found there. What makes you think bugs
-> in the fix patches will be any different?
+The idea that fixes have to go ASAP without our standard review (and
+-next and 0day are now part of our review) processes is completely wrong
+in my opinion.
 
-Two weeks seems excessive but having them there for a -next build means
-the automated stuff has a chance to kick in which is 90% of what -next
-gives us in terms of quality.  The benefit does depend on how likely the
-change is to be affected by system/platform/config specific issues.
+I think we can argue about the time length (or just leave it up to the
+maintainer) but saying we should bypass the standard process is wrong.
 
-Indeed depending on the bug having things forced to sit in -next for too
-long can be a real problem - I've had people refusing to fix build
-errors in Linus' tree for a week as they wanted things to cook in -next
-which took out automated testing of Linus' tree (and anything that
-merged it) for the duration.
-
---DtQHZAESxiuiGOEK
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQEcBAEBCAAGBQJVpOh+AAoJECTWi3JdVIfQ7LUH/33y8yjWVGKI2SvLKfUMJjEk
-9bQsrQBYDZ3adRmYvCQ/jYOlJuBNJ79/fRxJCX1+C4K7xG6ATkL4Pq/RHOwZwxdk
-yssiJ8F70JJ8z74hrxo599t5iRBIReiYHCqAfQe8Z797++9puxgm4leZjOdl0nkM
-/KbYSYSfDYEqwC307Cq0w8eveBiwKlwLlIo+zsw6fy03xtKNk4FmsRnZyLnQogOW
-mP6zDjXu5BPrhWfsvCYir9HCPAWbwCkSHJrKQjB2idJA5y9P1yKktBS2+HTllnDK
-r8WtQ7Qp3Ptl1YXybOR0dQqitOsZ6Lo7O0XPF5dYmrpzONQPB1BEf5jnzP435MA=
-=faXT
------END PGP SIGNATURE-----
-
---DtQHZAESxiuiGOEK--
+James
