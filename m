@@ -1,41 +1,35 @@
-Return-Path: <greg@kroah.com>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B9B6AB5A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 64388B88
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 14 Jul 2015 15:16:39 +0000 (UTC)
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
-	[66.111.4.25])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0A89017B
+	Tue, 14 Jul 2015 15:25:24 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E1F78138
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 14 Jul 2015 15:16:39 +0000 (UTC)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
-	by mailout.nyi.internal (Postfix) with ESMTP id 42BCF20AC6
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 14 Jul 2015 11:16:20 -0400 (EDT)
-Date: Tue, 14 Jul 2015 08:16:18 -0700
-From: Greg KH <greg@kroah.com>
-To: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
-Message-ID: <20150714151618.GA27755@kroah.com>
-References: <20150708145315.29030a75@gandalf.local.home>
-	<20150710181409.GA30145@treble.redhat.com>
-	<1436576450.27924.59.camel@stgolabs.net>
-	<20150712034824.GA4236@treble.hsd1.ky.comcast.net>
-	<20150712052317.GB15346@x>
-	<20150712122823.GA4366@treble.redhat.com>
-	<20150713140113.GB4341@mwanda>
-	<20150713143331.GA21079@quack.suse.cz>
-	<20150713162439.GI4289@mwanda> <20150714043803.GA3290@sudip-PC>
+	Tue, 14 Jul 2015 15:25:23 +0000 (UTC)
+Date: Tue, 14 Jul 2015 16:25:15 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Sasha Levin <sasha.levin@oracle.com>
+Message-ID: <20150714152515.GX11162@sirena.org.uk>
+References: <55A1407E.5080800@oracle.com>
+	<CAMuHMdUK+LZrp9QxPS0wSJzFZVAr_cihxJnFJybo5nb7U_t7xg@mail.gmail.com>
+	<55A26C5B.8060007@oracle.com> <20150713105210.6e367f4b@noble>
+	<55A33E48.2040202@oracle.com>
+	<20150713142132.08fead4d@gandalf.local.home>
+	<55A45AD8.5010400@oracle.com>
+	<20150713210226.519dedfd@gandalf.local.home>
+	<20150714104623.GQ11162@sirena.org.uk>
+	<55A51548.4040502@oracle.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="htqZ8ueYdoAOu1w6"
 Content-Disposition: inline
-In-Reply-To: <20150714043803.GA3290@sudip-PC>
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	jic23@jic23.retrosnub.co.uk, ksummit-discuss@lists.linuxfoundation.org,
-	Jason Cooper <jason@lakedaemon.net>,
-	Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
- Maintainers, Hobbyists)
+In-Reply-To: <55A51548.4040502@oracle.com>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Issues with stable process
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -45,43 +39,49 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Jul 14, 2015 at 10:08:03AM +0530, Sudip Mukherjee wrote:
-> On Mon, Jul 13, 2015 at 07:28:25PM +0300, Dan Carpenter wrote:
-> > On Mon, Jul 13, 2015 at 04:33:31PM +0200, Jan Kara wrote:
-> > > On Mon 13-07-15 17:20:47, Dan Carpenter wrote:
-> > > > On Sun, Jul 12, 2015 at 07:28:23AM -0500, Josh Poimboeuf wrote:
-> > 
-> > This happened hours ago in staging.  Someone sent a buggy patch and
-> > reviewers spotted the bug but no one got credit.
-> > 
-> > http://driverdev.linuxdriverproject.org/pipermail/driverdev-devel/2015-July/072662.html
-> > http://driverdev.linuxdriverproject.org/pipermail/driverdev-devel/2015-July/072668.html
-> > 
-> > Imagine how special Patrick would feel if we gave him a nice
-> > "With-fix-from: Patrick Farrell <paf@cray.com>" tag.  :)  Also the other
-> > rule would be that only the first person to report the bug gets the
-> > credit (Sorry, Sudip).
-> Doesn't matter. I am a volunteer and contributing here is not part of
-> my dayjob. I do it because I like doing it.
-> >The next version of the patch had a process
-> > problem which Sudip noticed as well but that still doesn't earn a
-> > with-fix-from tag.
-> Then will the first reviewer always get the credit? Suppose a hypothetial
-> situation where v1 is just having a bug like the one you mentioned,
-> reviewer X points that out so he gets "With-fix-from:", but v2 has a more
-> serious problem and results in build failure and reviewer Y points that out
-> and v3 is the final patch that is accepted. So now who will get
-> "With-fix-from:" ?
 
-Or even more important, how in the world will the maintainer be adding
-these tags in a simple manner?  It's a manual thing for me to do today,
-which is a pain, and given that I have no "state" of previous patches
-remembering what happened in previous versions, I don't know how I would
-be expected to keep track of all of this.
+--htqZ8ueYdoAOu1w6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-So whatever scheme people come up with, please remember that it has to
-be easy to actually implement...
+On Tue, Jul 14, 2015 at 09:57:28AM -0400, Sasha Levin wrote:
 
-thanks,
+Re-wrapped the text, it looks like something joined all the paragraphs
+up into single lines.
 
-greg k-h
+> On 07/14/2015 06:46 AM, Mark Brown wrote:
+
+> > Indeed depending on the bug having things forced to sit in -next for
+> > too long can be a real problem - I've had people refusing to fix
+> > build errors in Linus' tree for a week as they wanted things to cook
+> > in -next which took out automated testing of Linus' tree (and
+> > anything that merged it) for the duration.
+
+> I don't agree that letting things cook in -next is hurting anyone: if it's
+> a critical bug then Linus should probably delay releasing a final before
+> it's been resolved, and if it's not then there's no harm for letting it
+> sit outside for a bit.
+
+If the issue being fixed is serious enough to take out substantial
+portion of our test coverage or affect a lot of other development usage
+then that's really disruptive to other work, it impacts things like
+bisection for example.  A strong rule does nobody any good, it's
+overkill for the problem.
+
+--htqZ8ueYdoAOu1w6
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQEcBAEBCAAGBQJVpSnaAAoJECTWi3JdVIfQsLsH/RsFPnu1U26DBgP7OHxMfVhh
+SCq2cDkmOTX7nZAFTb8y9vRtX6KbXm0aa4s0ekiDucW0RhzDjuiSXM+PyXSaXhUF
+hjXIEadlmXDshVXLBw/HzuNe3W+q9IhThuQjFa/Ntz++iRgXj0InCiOY7bbgrKFC
+QvVvdHFe65mDiGlE/vd7i89n6alI7k1sJ0sGZWqv5HwDzNlxbhZ1bEH0t8xDPmW3
+gEf052UV/0PfQuweq4buVy6+wFFfQBb28S/yz8Qw6qZPN7D/ULqZ899rufsglDLl
+c2ozyxy0XFjDc0CZfz7W/wnEa+fBSkpGi8vX8nUvJ2A0Ffenya2iCPUmol7NNKs=
+=yKTH
+-----END PGP SIGNATURE-----
+
+--htqZ8ueYdoAOu1w6--
