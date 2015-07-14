@@ -1,37 +1,31 @@
-Return-Path: <geert.uytterhoeven@gmail.com>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 074389F2
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6FDC8305
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 14 Jul 2015 07:14:08 +0000 (UTC)
-Received: from mail-ob0-f193.google.com (mail-ob0-f193.google.com
-	[209.85.214.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CC2F5AA
+	Tue, 14 Jul 2015 07:47:28 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id D053FF2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 14 Jul 2015 07:14:06 +0000 (UTC)
-Received: by obbgp5 with SMTP id gp5so49943obb.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 14 Jul 2015 00:14:06 -0700 (PDT)
-MIME-Version: 1.0
-Sender: geert.uytterhoeven@gmail.com
-In-Reply-To: <20150713202818.23310729@lwn.net>
-References: <55A1407E.5080800@oracle.com>
-	<CAMuHMdUK+LZrp9QxPS0wSJzFZVAr_cihxJnFJybo5nb7U_t7xg@mail.gmail.com>
-	<55A26C5B.8060007@oracle.com> <20150713105210.6e367f4b@noble>
-	<55A33E48.2040202@oracle.com>
-	<20150713142132.08fead4d@gandalf.local.home>
-	<55A45AD8.5010400@oracle.com>
-	<20150713210226.519dedfd@gandalf.local.home>
-	<20150713202818.23310729@lwn.net>
-Date: Tue, 14 Jul 2015 09:14:06 +0200
-Message-ID: <CAMuHMdVrWoV=RZQXEG7cgDxrCR6aepT8oZQoQnYW8ZBOOHzdOA@mail.gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-To: Jonathan Corbet <corbet@lwn.net>
-Content-Type: text/plain; charset=UTF-8
-Cc: Sasha Levin <sasha.levin@oracle.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Issues with stable process
+	Tue, 14 Jul 2015 07:47:27 +0000 (UTC)
+Message-ID: <1436860041.6901.42.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Kees Cook <keescook@chromium.org>
+Date: Tue, 14 Jul 2015 08:47:21 +0100
+In-Reply-To: <CAGXu5jJdmwdKw6CYwMNUCDKai0M5UrghYn1c3tTwqudLwdbO0A@mail.gmail.com>
+References: <20150710143832.GU23515@io.lakedaemon.net>
+	<CA+5PVA5j9973GzdYj-s2WX3J8ycf5hQTBdGq+8j-8RGDX2OaYg@mail.gmail.com>
+	<20150710162328.GB12009@thunk.org>
+	<CAGXu5j+NY8-5WPcP1kLZsKgzmbQ=L0Q18XZ6FYeVTcFGDLrRSw@mail.gmail.com>
+	<1436599873.2243.10.camel@HansenPartnership.com>
+	<CAGXu5jJdmwdKw6CYwMNUCDKai0M5UrghYn1c3tTwqudLwdbO0A@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Cc: Josh Boyer <jwboyer@fedoraproject.org>, Jason Cooper <jason@lakedaemon.net>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] dev/maintainer workflow security
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,42 +35,88 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Jul 14, 2015 at 4:28 AM, Jonathan Corbet <corbet@lwn.net> wrote:
-> On Mon, 13 Jul 2015 21:02:26 -0400
-> Steven Rostedt <rostedt@goodmis.org> wrote:
->
->> Yes, it's great if we can catch things in -next. But I don't believe
->> that patches that fix bugs found in Linus's tree should sit in next
->> before going into Linus's tree, because those patches are basically
->> fixing stuff that was already in next and wasn't discovered until it
->> hit Linus's tree. Which is why I say it's a waste of time to put it in
->> next before sending straight to Linus.
+On Mon, 2015-07-13 at 16:25 -0700, Kees Cook wrote:
+> On Sat, Jul 11, 2015 at 12:31 AM, James Bottomley
+> <James.Bottomley@hansenpartnership.com> wrote:
+> > On Fri, 2015-07-10 at 15:08 -0700, Kees Cook wrote:
+> >>   - personal security (keep commit credentials secure from theft)
+> >
+> > This second one is a bit of a red herring:  Assuming you did steal my
+> > credentials, how would you use them without being detected?
+> 
+> Well, I meant it in a general sense. Whether that's your ssh key, or
+> direct access to your entire network through backdoored network card
+> firmware and SMM code, there are TONS of way to be owned without being
+> detected. :)
 
-It's about not introducing regressions to fix other regressions (and not
-getting flamed by Linus)...
+Right, so there's no point having a huge lock on your front door if you
+know there's a weak catch on the back one.
 
-> That, of course, assumes that these fixes don't introduce *other* bugs
-> that might just be caught in -next...
->
-> In general, though, I think a lot of people see -next as -rc1 without the
-> quality control; it's volatile and scary.  So it's not surprising that it
-> doesn't get a lot of real-world testing.  And, as long as that's the case,
-> there's going to be a lot of bugs that are never caught in -next.
+> > Security is not an absolute, it's a tradeoff.  The point of the tradeoff
+> > is to make sure you address the significant threats while not impeding
+> > the workflow too much.  If we start worrying about and addressing
+> > insignificant threats, eventually you won't get on to kernel.org without
+> > going through airport theatre style security.
+> 
+> We have one thing that a lot of other workflows don't: transparency,
+> so we can examine commit histories, etc. This makes credential theft
+> much less useful (which I think was your point).
 
-In the old (pre-git/bk?) days, -rc1 was volatile and scary, and "release
-candidate" was really a misnomer. You didn't dare to trust any system
-you cared a bit about with an -rc before -rc3 or -rc4.
+No, that was part of my point: detection of forged commits via stolen
+ssh credentials without compromising the laptop are easily detectable.
 
-These days that role is played by -next, and -rc1 is usually fairly usable.
-But it seems we can't get rid of the "early -rc is to be avoided" stamp.
+The other part is that security is a chain: it's only as strong as its
+weakest link.  One consideration in making a chain is that you try to
+have all the links be of roughly equal strength.  In security terms you
+do this because security is a tradeoff: there's no point having onerous
+security on one link if another is weak because people just bitch about
+the pointless problems this causes.  That's precisely why security is a
+tradeoff: you assess the threats and counter what you can in a way that
+makes the least impact to usability.  What you should never do (unless
+you're a government) is make an elaborate show of security to give a
+false impression because clever people notice and real security suffers.
 
-Gr{oetje,eeting}s,
+> >> - reactive security: bug fix workflow
+> >>   - getting fixes _to end users_ (not the same as publishing to stable)
+> >
+> > Stable is our last point.  After that, it's up to the distros
+> 
+> I don't agree with this. Distros are just one consumer. I think it's
+> worth examining how real-world devices end up running Linux. Telcos
+> pushing kernel updates, for example, jumps to mind. I think it's a
+> weak stance to say "well, they should update to the latest kernel". Is
+> it a failing of our community that it's so much work for these vendors
+> to update kernels? Is offering an LTS "good enough", or can we do
+> more? It's Linux's name that gets smeared by vendors who are terrible
+> at updating kernels. :(
 
-                        Geert
+While security fixes (and the kernel security list) aren't transparent,
+I don't really see what else we can do.  Stable is our last best effort
+before it gets handed off, unless you have another proposal?
 
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+> >>   - documenting impact when known (avoiding intentional obfuscation)
+> >> - proactive security: stop security flaws from happening in the first place
+> >>   - scope analysis (defending both userspace and kernel from attack)
+> >>   - threat analysis (how are attacks being made now and in future?)
+> >>   - exposure analysis (syscall interface, device firmware, etc)
+> >>   - static checkers (find and eliminate bug classes in the code)
+> >>   - run-time mitigation features (endless list: memory protection, CFI,
+> >>     ASLR, anti-bruteforcing, etc)
+> >
+> > Perhaps the question here is would we be interested in making use of the
+> > core infrastructure initiative to give us a security analysis of parts
+> > of the kernel (and if so, which parts).
+> 
+> I actually think the issue is body count. We have a lot of tools
+> already. We have coverity, for example, but it needs full-time work
+> (by a few people, I think) to trim false-positives, improve rules, and
+> extract the real bugs. Which companies are paying people to do this
+> full-time? Our numbers aren't improving much in this area. We've
+> actually been getting smaller... Dave Jones, come back, we all still
+> love Trinity! :)
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+So you seem to be implying this is a funding problem?  We could easily
+apply to the CII for a full time position if that's the case (and we
+have a good job description).
+
+James
