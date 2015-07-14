@@ -1,33 +1,30 @@
-Return-Path: <sfr@canb.auug.org.au>
+Return-Path: <lizefan@huawei.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6EB73ABA
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 430F6B1D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 14 Jul 2015 03:49:01 +0000 (UTC)
-Received: from ozlabs.org (ozlabs.org [103.22.144.67])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E67F0F4
+	Tue, 14 Jul 2015 03:57:08 +0000 (UTC)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [58.251.152.64])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 690B0EA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 14 Jul 2015 03:49:00 +0000 (UTC)
-Date: Tue, 14 Jul 2015 13:48:59 +1000
-From: Stephen Rothwell <sfr@canb.auug.org.au>
-To: Jonathan Corbet <corbet@lwn.net>
-Message-ID: <20150714134859.327426f6@canb.auug.org.au>
-In-Reply-To: <20150713202818.23310729@lwn.net>
-References: <55A1407E.5080800@oracle.com>
-	<CAMuHMdUK+LZrp9QxPS0wSJzFZVAr_cihxJnFJybo5nb7U_t7xg@mail.gmail.com>
-	<55A26C5B.8060007@oracle.com> <20150713105210.6e367f4b@noble>
-	<55A33E48.2040202@oracle.com>
-	<20150713142132.08fead4d@gandalf.local.home>
-	<55A45AD8.5010400@oracle.com>
-	<20150713210226.519dedfd@gandalf.local.home>
-	<20150713202818.23310729@lwn.net>
+	Tue, 14 Jul 2015 03:57:06 +0000 (UTC)
+Message-ID: <55A4887A.2000806@huawei.com>
+Date: Tue, 14 Jul 2015 11:56:42 +0800
+From: Zefan Li <lizefan@huawei.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+To: Steven Rostedt <rostedt@goodmis.org>
+References: <201507130038.01474.PeterHuewe@gmx.de>
+	<CACVxJT9WjwWZUQWPk_jXOLOZsTh8HdGuKWr1ri3q02fEaFLejA@mail.gmail.com>
+	<20150713123750.52d8a14d@gandalf.local.home>
+	<20150713174244.GE14593@io.lakedaemon.net>
+	<20150713141126.6a522ba6@gandalf.local.home>
+In-Reply-To: <20150713141126.6a522ba6@gandalf.local.home>
+Content-Type: text/plain; charset="ISO-8859-1"
 Content-Transfer-Encoding: 7bit
-Cc: Sasha Levin <sasha.levin@oracle.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Issues with stable process
+Cc: Dan Carpenter <dan.carpenter@oracle.com>,
+	Jason Cooper <jason@lakedaemon.net>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE-TOPIC] Documentation
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,25 +34,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Jon,
+On 2015/7/14 2:11, Steven Rostedt wrote:
+> On Mon, 13 Jul 2015 17:42:44 +0000
+> Jason Cooper <jason@lakedaemon.net> wrote:
+> 
+>> On Mon, Jul 13, 2015 at 12:37:50PM -0400, Steven Rostedt wrote:
+> 
+>>> I agree that newbies shouldn't write documentation.
+>>
+>> I semi-disagree.  Assuming you meant newbies here as you defined below.
+> 
+> This really shows what the issue with new recruits is all about. Every
+> maintainer is different. The Linux kernel is the largest and fastest
+> open source project in the world and its amazing how much that everyone
+> does agree on. But every maintainer has a slightly different
+> perspective of how to do something, and this can be really aggravating
+> to a new comer. As it's been said lots of times, maintaining the Linux
+> kernel is much like herding cats. And this burden also weighs down on
+> new comers, as they try to figure out which type of cat they are
+> dealing with. And all cats just happen to be extremely annoying to deal
+> with ;-)
+> 
+> The best we can do is all to try to be patient with those that contact
+> us.
+> 
 
-On Mon, 13 Jul 2015 20:28:18 -0600 Jonathan Corbet <corbet@lwn.net> wrote:
->
-> In general, though, I think a lot of people see -next as -rc1 without the
-> quality control; it's volatile and scary.  So it's not surprising that it
-> doesn't get a lot of real-world testing.  And, as long as that's the case,
-> there's going to be a lot of bugs that are never caught in -next.
-
-The rule for next is "the code is as ready as can be to be merged by
-Linus (or other upstream maintainer)", so, in a sense, it should no be
-so scary.  However in actuality, that rule is not followed as well as I
-would like (as evidenced by the amount of rebasing that still goes
-on).  :-(
-
-Sure we say "release early, release often", but *not* too early,
-please.  The cycle should be something like "merge, test, (repeat),
-release" - not "merge, release, test (repeat)" as it seems sometimes.
-
--- 
-Cheers,
-Stephen Rothwell                    sfr@canb.auug.org.au
+I think it's more often that we just ignore them rather than being impatient...
