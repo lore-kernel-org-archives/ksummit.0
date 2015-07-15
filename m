@@ -1,17 +1,22 @@
-Return-Path: <linux@roeck-us.net>
+Return-Path: <greg@kroah.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2ECD3BE8
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 14F7FBC8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 15 Jul 2015 15:59:44 +0000 (UTC)
-Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9DB3A1F7
+	Wed, 15 Jul 2015 16:03:52 +0000 (UTC)
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+	[66.111.4.25])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E32811FD
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 15 Jul 2015 15:59:43 +0000 (UTC)
-Date: Wed, 15 Jul 2015 08:59:39 -0700
-From: Guenter Roeck <linux@roeck-us.net>
+	Wed, 15 Jul 2015 16:03:49 +0000 (UTC)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
+	by mailout.nyi.internal (Postfix) with ESMTP id 4CCD12085D
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 15 Jul 2015 12:03:49 -0400 (EDT)
+Date: Wed, 15 Jul 2015 09:03:47 -0700
+From: Greg KH <greg@kroah.com>
 To: Olof Johansson <olof@lixom.net>
-Message-ID: <20150715155939.GA27306@roeck-us.net>
+Message-ID: <20150715160347.GB12543@kroah.com>
 References: <55A1407E.5080800@oracle.com>
 	<CAMuHMdUK+LZrp9QxPS0wSJzFZVAr_cihxJnFJybo5nb7U_t7xg@mail.gmail.com>
 	<55A26C5B.8060007@oracle.com> <20150713105210.6e367f4b@noble>
@@ -72,15 +77,13 @@ On Wed, Jul 15, 2015 at 10:52:13AM -0400, Olof Johansson wrote:
 > provided as a git branch of applied patches, so it's hard to
 > automatically test just those.
 > 
-Seems to work quite nicely for me. Sure, there is churn, but it tends
-to come in bursts which can be handled easily. The posted -rc matches
-the tip of the quilt series, so my auto-builder picks it up automatically.
+> That would be the ideal setup for me though -- tagged or branched -rc
+> candidates of stable releases that I'd be happy to put through the
+> build/boot test at my end.
 
-I use a two-stage approach for my testing: A change in the quilt tree
-triggers a script which converts the quilt tree into a git tree. The
-changes in the git tree are then picked up by the actual builder(s).
-Changes from the quilt tree are only picked up after the quilt tree
-has not changed for a couple of hours (to match Greg's workflow).
-This takes care of the churn.
+kernelci now handles -rc stable releases, so would this just be a
+duplication of that work?
 
-Guenter
+thanks,
+
+greg k-h
