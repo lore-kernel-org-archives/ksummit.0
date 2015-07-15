@@ -1,16 +1,39 @@
-Return-Path: <gregkh@linuxfoundation.org>
-Date: Tue, 14 Jul 2015 17:01:36 -0700
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Return-Path: <neilb@suse.com>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 05F1FAC1
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 15 Jul 2015 01:49:57 +0000 (UTC)
+Received: from mx2.suse.de (cantor2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0D5AF238
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 15 Jul 2015 01:49:56 +0000 (UTC)
+Date: Wed, 15 Jul 2015 11:49:46 +1000
+From: NeilBrown <neilb@suse.com>
 To: Sasha Levin <sasha.levin@oracle.com>
-Message-ID: <20150715000136.GA7192@kroah.com>
-References: <55A1407E.5080800@oracle.com> <55A38FD6.2070103@huawei.com>
-	<55A3E383.6070107@oracle.com> <55A4DFB8.4050901@huawei.com>
-	<55A515F2.5090001@oracle.com>
+Message-ID: <20150715114946.481f154d@noble>
+In-Reply-To: <55A5635D.1020600@oracle.com>
+References: <55A1407E.5080800@oracle.com>
+	<CAMuHMdUK+LZrp9QxPS0wSJzFZVAr_cihxJnFJybo5nb7U_t7xg@mail.gmail.com>
+	<55A26C5B.8060007@oracle.com> <20150713105210.6e367f4b@noble>
+	<55A33E48.2040202@oracle.com>
+	<20150713142132.08fead4d@gandalf.local.home>
+	<55A45AD8.5010400@oracle.com>
+	<20150713210226.519dedfd@gandalf.local.home>
+	<20150714104623.GQ11162@sirena.org.uk>
+	<55A51548.4040502@oracle.com>
+	<20150714152515.GX11162@sirena.org.uk>
+	<55A52B8B.5060606@oracle.com>
+	<20150714113829.4b618d9a@gandalf.local.home>
+	<55A53074.7040109@oracle.com>
+	<20150714120225.65e489cc@gandalf.local.home>
+	<55A5635D.1020600@oracle.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <55A515F2.5090001@oracle.com>
-Cc: ksummit-discuss@lists.linuxfoundation.org
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Issues with stable process
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -21,39 +44,67 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Jul 14, 2015 at 10:00:18AM -0400, Sasha Levin wrote:
-> On 07/14/2015 06:08 AM, Zefan Li wrote:
-> > I agree it will save us a lot of work if we work together, and that will better ensure
-> > a fix won't be missing from some stable trees.
+On Tue, 14 Jul 2015 15:30:37 -0400 Sasha Levin <sasha.levin@oracle.com>
+wrote:
+
+> On 07/14/2015 12:02 PM, Steven Rostedt wrote:
+> > On Tue, 14 Jul 2015 11:53:24 -0400
+> > Sasha Levin <sasha.levin@oracle.com> wrote:
 > > 
-> > It helps more for maintainers who work on stable tress that are very close in version.
-> > Take Ben and I as an example, if I already manually backport a commit to 3.4.y, Ben will
-> > get notified. Now Ben can just pick it for 3.2.y, and it probably can be applied cleanly,
-> > thus save his time.
+> >  
+> >> > The point I'm trying to make is that a bad patch in Linus' tree has a wider
+> >> > ripple effect than what it were in the past, while Linus might consider a bad
+> >> > patch in one of the -rc releases something minor since "no one should be using
+> >> > it for production" it really isn't the case any more, those patches can and
+> >> > will end up with the folks who don't want to have them.
+> > I have to ask, why?
 > > 
-> > Maybe there should be a workshop during KS for stable tree maintainers to get together
-> > and discuss how to work on how to share each other's work.
+> > Just because a stable tag is on a patch it automatically gets pulled
+> > into stable? What about waiting a while before pulling in those
+> > patches? Wait till -rc2 is out before pulling in any patches marked for
+> > stable in -rc1. Then wait for -rc3 to pull in the patches that were
+> > added in -rc2. But don't pull in any patches that has a "Fixes" to it
+> > in the next -rc release.
 > > 
-> > Another related issue is we all have our own scripts. If we share a set of common scripts,
-> > then we can benefit from each other's improvements on those scripts. Ben once brought this
-> > up in stable mailing list:
+> > That is, when -rc2 is released, only pull in the patches marked for
+> > stable in -rc1 if there were no Fixes tags for them in -rc2. And so on.
 > > 
-> > http://www.spinics.net/lists/stable/msg89430.html
+> > Again, just placing stuff in -next isn't going to solve this. It may
+> > help, but you will still have fixes that breaks things when they get
+> > into Linus's tree no matter how long they were in -next. This is simply
+> > because Linus's tree has a wider audience. But hopefully, the next
+> > release candidate will have the fixes for anything that breaks in the
+> > previous release candidate.
 > 
-> I agree, a workshop could be beneficial in improving the coordination between stable tree
-> maintainers, and hopefully reducing duplicate work in the future.
+> I agree that this would be enough for -stable.
 > 
-> Greg, do you have any objections to pursuing this idea?
+> But wouldn't you agree that the policy of not passing patches in -rc cycles
+> through -next at all is incorrect?
+> 
+> I'm fine with not having a minimal time it must live in -next, but I really
+> think that it should be in -next at some point.
 
-No objection, but I really don't want to have to rewrite my scripts
-again :)
+What exactly is the value of sitting in -next for a while.
+-next was originally to catch integration issues, and a "simple" bug
+fix shouldn't have those.
 
-As for "duplicate work", I don't see a ton of it happening in that all
-of us publish our patches and trees and it's easy to pick from them if
-you want to.
+0-day runs of -next, but then it runs on lots of other trees too.  So
+if you want 0-day coverage (which I do), then the rule doesn't have to
+"in -next" but only "in a 0-day tree".
 
-But we can talk about it in Seoul, in person would make it easier.
+So what, specifically, is the value that a bug-fix patch gets from
+-next that it cannot get elsewhere?
 
-thanks,
+Thanks,
+NeilBrown
 
-greg k-h
+
+> 
+> 
+> 
+> Thanks,
+> Sasha
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
