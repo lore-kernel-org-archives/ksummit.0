@@ -1,27 +1,38 @@
-Return-Path: <kaccardi@gmail.com>
+Return-Path: <jwboyer@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8AF56A04
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E1D7ABAC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 15 Jul 2015 19:23:58 +0000 (UTC)
-Received: from mail-yk0-f171.google.com (mail-yk0-f171.google.com
-	[209.85.160.171])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DC97EE6
+	Wed, 15 Jul 2015 19:34:37 +0000 (UTC)
+Received: from mail-ig0-f176.google.com (mail-ig0-f176.google.com
+	[209.85.213.176])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 230341AF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 15 Jul 2015 19:23:57 +0000 (UTC)
-Received: by ykeo3 with SMTP id o3so45173397yke.0
+	Wed, 15 Jul 2015 19:34:37 +0000 (UTC)
+Received: by igcqs7 with SMTP id qs7so115233193igc.0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 15 Jul 2015 12:23:57 -0700 (PDT)
+	Wed, 15 Jul 2015 12:34:36 -0700 (PDT)
 MIME-Version: 1.0
-References: <20150715153725.GA12601@ret.masoncoding.com>
-In-Reply-To: <20150715153725.GA12601@ret.masoncoding.com>
-From: Kristen Accardi <kaccardi@gmail.com>
-Date: Wed, 15 Jul 2015 19:23:47 +0000
-Message-ID: <CAH3eK3TtZKdVdFTrQOEPQ0dmXLr-y1w66LW2Qbwwu0VSbiiYiA@mail.gmail.com>
-To: Chris Mason <clm@fb.com>, ksummit-discuss@lists.linuxfoundation.org
-Content-Type: multipart/alternative; boundary=001a1139cefa6c8f71051aeee5c6
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] benchmarking and performance
-	trends
+Sender: jwboyer@gmail.com
+In-Reply-To: <20150715164054.GA13378@kroah.com>
+References: <55A1407E.5080800@oracle.com>
+	<CAMuHMdUK+LZrp9QxPS0wSJzFZVAr_cihxJnFJybo5nb7U_t7xg@mail.gmail.com>
+	<55A26C5B.8060007@oracle.com> <20150713105210.6e367f4b@noble>
+	<55A33E48.2040202@oracle.com>
+	<20150713142132.08fead4d@gandalf.local.home>
+	<20150713185118.GK11162@sirena.org.uk>
+	<CAOesGMhFNjK2V23ZRN=KOfsYc=JawLwWf_x7wvHzBjP0UpbW7A@mail.gmail.com>
+	<20150715160347.GB12543@kroah.com> <55A68736.1010104@oracle.com>
+	<20150715164054.GA13378@kroah.com>
+Date: Wed, 15 Jul 2015 15:34:36 -0400
+Message-ID: <CA+5PVA7iBGy=xvpFy5ULinovVjJk5zZnqWH37xZP=N8r6u685A@mail.gmail.com>
+From: Josh Boyer <jwboyer@fedoraproject.org>
+To: Greg KH <greg@kroah.com>
+Content-Type: text/plain; charset=UTF-8
+Cc: Sasha Levin <sasha.levin@oracle.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Issues with stable process
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,97 +42,50 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---001a1139cefa6c8f71051aeee5c6
-Content-Type: text/plain; charset=UTF-8
+On Wed, Jul 15, 2015 at 12:40 PM, Greg KH <greg@kroah.com> wrote:
+> On Wed, Jul 15, 2015 at 12:15:50PM -0400, Sasha Levin wrote:
+>> On 07/15/2015 12:03 PM, Greg KH wrote:
+>> >> > That would be the ideal setup for me though -- tagged or branched -rc
+>> >> > candidates of stable releases that I'd be happy to put through the
+>> >> > build/boot test at my end.
+>> > kernelci now handles -rc stable releases, so would this just be a
+>> > duplication of that work?
+>>
+>> I've actually suggested -rc stable cycles for the purpose of getting -rc
+>> stable kernels into users hands by making it possible for distros to
+>> ship these as proposed/test kernels by giving them enough time (right now
+>> the review cycle is only a few days, making it impossible for distros
+>> to ship them).
+>
+> Given that I do a new -stable release on the average of one a week,
+> getting these into a distro as a testing kernel and getting feedback is
+> going to be pretty much impossible.
+>
+>> As Guenter and Greg mentioned, there's already a fair amount of testing
+>> being done on the queue branches, but there's really no testing being
+>> done by end users before they receive a final kernel.
+>
+> I get feedback from Fedora, they always let me know when something goes
+> really wrong, which is pretty unusual.  So I don't know if "more
+> testing" is going to really pay off.
 
-I am very interested to hear what if any benchmarks people are doing on
-non-server platforms as well.  I find it difficult to know what benchmarks
-customers think are important for upstream linux for desktop and mobile
-systems that are not running Android or Chrome, and would love to hear what
-others are using.
+Well... yes.  We do give feedback, sometimes even other than "oh my
+this is broken."  However, our rollout plans tend to skip all the .1
+stable releases because we've been bitten a few times in the past with
+patches that went into -rc1 that were wrong.  Pretty much the
+scenarios being discussed.  So we have held off until .2 comes out to
+rebase our releases.
 
-On Wed, Jul 15, 2015 at 8:37 AM Chris Mason <clm@fb.com> wrote:
+Now, we switched to that a while ago before you started the "must be
+in a Linus release" rule, so maybe .1 releases are better now.  We
+just don't have data to back it up on the Fedora side though, and I
+wanted to be clear on why that is.
 
-> Hi everyone,
->
-> I know I never get bored of graphs comparing old/new, but I feel guilty
-> suggesting this one yet again.  Still, I think it's important for the
-> people trying to push new kernels into production to have a chance to
-> talk about the problems we've hit, and/or the changes that have made
-> life easier.
->
-> We're starting to push 4.0 into prod (122 hosts almost counts), and I'm
-> sure we'll backport some wins from 4.2+.  I'm hoping to make this a
-> collection point for other benchmarking war stories.  Our biggest gains
-> right now are coming from scsi-mq, and early benchmarks show 4.2 has a
-> boost that I'm hoping are from the futex locking improvements.
->
-> It ties in a little with the new interfaces applications may be able to use
-> (restartable sequences etc topic), and I want to ask the broad question of
-> "are we doing enough to prevent performance regressions".
->
-> We have a long list of people involved on the Facebook side, Jens at the
-> very least can talk about the scsi/block-mq benchmarks.  I'd love to hear
-> Fengguang's thoughts as well.
->
-> -chris
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
->
+Another reason we don't ship .1 releases is because the backlog of
+patches is usually huge still, and the prior 4.X-1.y release is
+usually still getting updates at this point.  So shipping a .1 rebase
+to turn around and ship .2 a week later is a lot of churn for
+relatively little gain.  We can get the rebase and the extra patches
+in .2 by simply waiting.
 
---001a1139cefa6c8f71051aeee5c6
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">I am very interested to hear what if any benchmarks people=
- are doing on non-server platforms as well.=C2=A0 I find it difficult to kn=
-ow what benchmarks customers think are important for upstream linux for des=
-ktop and mobile systems that are not running Android or Chrome, and would l=
-ove to hear what others are using.</div><br><div class=3D"gmail_quote"><div=
- dir=3D"ltr">On Wed, Jul 15, 2015 at 8:37 AM Chris Mason &lt;<a href=3D"mai=
-lto:clm@fb.com">clm@fb.com</a>&gt; wrote:<br></div><blockquote class=3D"gma=
-il_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-lef=
-t:1ex">Hi everyone,<br>
-<br>
-I know I never get bored of graphs comparing old/new, but I feel guilty<br>
-suggesting this one yet again.=C2=A0 Still, I think it&#39;s important for =
-the<br>
-people trying to push new kernels into production to have a chance to<br>
-talk about the problems we&#39;ve hit, and/or the changes that have made<br=
->
-life easier.<br>
-<br>
-We&#39;re starting to push 4.0 into prod (122 hosts almost counts), and I&#=
-39;m<br>
-sure we&#39;ll backport some wins from 4.2+.=C2=A0 I&#39;m hoping to make t=
-his a<br>
-collection point for other benchmarking war stories.=C2=A0 Our biggest gain=
-s<br>
-right now are coming from scsi-mq, and early benchmarks show 4.2 has a<br>
-boost that I&#39;m hoping are from the futex locking improvements.<br>
-<br>
-It ties in a little with the new interfaces applications may be able to use=
-<br>
-(restartable sequences etc topic), and I want to ask the broad question of<=
-br>
-&quot;are we doing enough to prevent performance regressions&quot;.<br>
-<br>
-We have a long list of people involved on the Facebook side, Jens at the<br=
->
-very least can talk about the scsi/block-mq benchmarks.=C2=A0 I&#39;d love =
-to hear<br>
-Fengguang&#39;s thoughts as well.<br>
-<br>
--chris<br>
-_______________________________________________<br>
-Ksummit-discuss mailing list<br>
-<a href=3D"mailto:Ksummit-discuss@lists.linuxfoundation.org" target=3D"_bla=
-nk">Ksummit-discuss@lists.linuxfoundation.org</a><br>
-<a href=3D"https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discu=
-ss" rel=3D"noreferrer" target=3D"_blank">https://lists.linuxfoundation.org/=
-mailman/listinfo/ksummit-discuss</a><br>
-</blockquote></div>
-
---001a1139cefa6c8f71051aeee5c6--
+josh
