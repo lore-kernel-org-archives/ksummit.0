@@ -1,33 +1,32 @@
-Return-Path: <sasha.levin@oracle.com>
+Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id CBD1FAE7
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B7BFCB1D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 15 Jul 2015 21:22:06 +0000 (UTC)
-Received: from userp1040.oracle.com (userp1040.oracle.com [156.151.31.81])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0C0491A1
+	Wed, 15 Jul 2015 22:17:24 +0000 (UTC)
+Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id EEDC21ED
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 15 Jul 2015 21:22:04 +0000 (UTC)
-Message-ID: <55A6CEF5.4000209@oracle.com>
-Date: Wed, 15 Jul 2015 17:21:57 -0400
-From: Sasha Levin <sasha.levin@oracle.com>
+	Wed, 15 Jul 2015 22:17:23 +0000 (UTC)
+From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Thu, 16 Jul 2015 00:44:01 +0200
+Message-ID: <2869041.AWiygZspUy@vostro.rjw.lan>
+In-Reply-To: <CAKMK7uHfcwLe-HWz72LJDhe-HvKTBu65DaJmR3tW3TOze4uyVQ@mail.gmail.com>
+References: <1489458.8WDRattPkl@vostro.rjw.lan>
+	<1455994.zAMIqEIJx2@vostro.rjw.lan>
+	<CAKMK7uHfcwLe-HWz72LJDhe-HvKTBu65DaJmR3tW3TOze4uyVQ@mail.gmail.com>
 MIME-Version: 1.0
-To: Greg KH <greg@kroah.com>
-References: <55A1407E.5080800@oracle.com>
-	<CAMuHMdUK+LZrp9QxPS0wSJzFZVAr_cihxJnFJybo5nb7U_t7xg@mail.gmail.com>
-	<55A26C5B.8060007@oracle.com> <20150713105210.6e367f4b@noble>
-	<55A33E48.2040202@oracle.com>
-	<20150713142132.08fead4d@gandalf.local.home>
-	<20150713185118.GK11162@sirena.org.uk>
-	<CAOesGMhFNjK2V23ZRN=KOfsYc=JawLwWf_x7wvHzBjP0UpbW7A@mail.gmail.com>
-	<20150715160347.GB12543@kroah.com> <55A68736.1010104@oracle.com>
-	<20150715164054.GA13378@kroah.com>
-In-Reply-To: <20150715164054.GA13378@kroah.com>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 7bit
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Issues with stable process
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
+Cc: "Brown, Len" <len.brown@intel.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Kristen Carlson Accardi <kristen@linux.intel.com>,
+	Grant Likely <grant.likely@linaro.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] System-wide interface to specify
+	the level of PM tuning
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,28 +36,35 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 07/15/2015 12:40 PM, Greg KH wrote:
->> On 07/15/2015 12:03 PM, Greg KH wrote:
->>>>> > >> > That would be the ideal setup for me though -- tagged or branched -rc
->>>>> > >> > candidates of stable releases that I'd be happy to put through the
->>>>> > >> > build/boot test at my end.
->>> > > kernelci now handles -rc stable releases, so would this just be a
->>> > > duplication of that work?
->> > 
->> > I've actually suggested -rc stable cycles for the purpose of getting -rc
->> > stable kernels into users hands by making it possible for distros to
->> > ship these as proposed/test kernels by giving them enough time (right now
->> > the review cycle is only a few days, making it impossible for distros
->> > to ship them).
-> Given that I do a new -stable release on the average of one a week,
-> getting these into a distro as a testing kernel and getting feedback is
-> going to be pretty much impossible.
+On Tuesday, July 14, 2015 06:51:31 PM Daniel Vetter wrote:
+> On Tue, Jul 14, 2015 at 1:07 AM, Rafael J. Wysocki <rjw@rjwysocki.net> wrote:
+> > However, there are places in the kernel where there is a real tradeoff between
+> > power and performance (or power and capacity in general) and there are places
+> > that tend to keep conservative settings for fear of exposing latent bugs to
+> > a wide community of users.
+> >
+> > Those might benefit from allowing the users to relax the settings globally
+> > if they want to.
+> 
+> Well that's the approach I don't like personally. Essentially we
+> should be the experts on what works and what doesn't. But then kernel
+> developers chicken out and dump this problem onto users, which happily
+> enable all kinds of options they hear about. And then when it eats
+> their data or crashes machines everyone shrugs and says "oh well you
+> probably have one of the broken machines, don't enable this" and moves
+> on.
+> 
+> There's certainly the case that some tuning stuff in core kernel has
+> real downsides to either perf or power, but generally (for device
+> drivers) I feel like simply not enabling the all the power features is
+> a cheap way to chicken out of bugs reports and responsibility. I'm
+> somewhat opionated on this ;-)
 
-Agreed, it's probably better for the LTS kernels where it's better to trade
-off release frequency for stability.
+But that's what's happening.  Many PM features are not enabled by default for
+this reason or another.
 
-What's the reasoning for doing it 1 per week? To get fixes out earlier?
-
+The point here is whether or not we want to have a way to make all of them be
+enabled by default instead and see what happens, for example.
 
 Thanks,
-Sasha
+Rafael
