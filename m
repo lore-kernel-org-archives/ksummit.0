@@ -1,28 +1,31 @@
-Return-Path: <marc.zyngier@arm.com>
+Return-Path: <prvs=4638c16bc6=clm@fb.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9EC98BF8
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9FA78BF0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 15 Jul 2015 14:56:34 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.101.70])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 507CB115
+	Wed, 15 Jul 2015 15:37:30 +0000 (UTC)
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+	[67.231.145.42])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E7EE91BB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 15 Jul 2015 14:56:34 +0000 (UTC)
-Message-ID: <55A6749E.7040803@arm.com>
-Date: Wed, 15 Jul 2015 15:56:30 +0100
-From: Marc Zyngier <marc.zyngier@arm.com>
+	Wed, 15 Jul 2015 15:37:28 +0000 (UTC)
+Received: from pps.filterd (m0044010 [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.14.5/8.14.5) with SMTP id
+	t6FFZSjZ006119 for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 15 Jul 2015 08:37:28 -0700
+Received: from mail.thefacebook.com ([199.201.64.23])
+	by mx0a-00082601.pphosted.com with ESMTP id 1vns6ar55t-1
+	(version=TLSv1/SSLv3 cipher=AES128-SHA bits=128 verify=NOT)
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 15 Jul 2015 08:37:28 -0700
+Date: Wed, 15 Jul 2015 11:37:25 -0400
+From: Chris Mason <clm@fb.com>
+To: <ksummit-discuss@lists.linuxfoundation.org>
+Message-ID: <20150715153725.GA12601@ret.masoncoding.com>
 MIME-Version: 1.0
-To: Christoph Hellwig <hch@infradead.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-References: <20150715120708.GA24534@infradead.org>
-In-Reply-To: <20150715120708.GA24534@infradead.org>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 7bit
-Cc: "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] IRQ affinity
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+Subject: [Ksummit-discuss] [TECH TOPIC] benchmarking and performance trends
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,35 +35,26 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 15/07/15 13:07, Christoph Hellwig wrote:
-> Many years ago we decided to move setting of IRQ to core affnities to
-> userspace with the irqbalance daemon.
-> 
-> These days we have systems with lots of MSI-X vector, and we have
-> hardware and subsystem support for per-CPU I/O queues in the block
-> layer, the RDMA subsystem and probably the network stack (I'm not too
-> familar with the recent developments there).  It would really help the
-> out of the box performance and experience if we could allow such
-> subsystems to bind interrupt vectors to the node that the queue is
-> configured on.
-> 
-> I'd like to discuss if the rationale for moving the IRQ affinity setting
-> fully to userspace are still correct in todays world any any pitfalls
-> we'll have to learn from in irqbalanced and the old in-kernel affinity
-> code.
+Hi everyone,
 
-I've been pondering about having some notion of "grouping", where some
-interrupts are logically part of the same working set, and it doesn't
-make much sense to spread it among CPUs, and userspace doesn't really
-have a clue about this.
+I know I never get bored of graphs comparing old/new, but I feel guilty
+suggesting this one yet again.  Still, I think it's important for the
+people trying to push new kernels into production to have a chance to
+talk about the problems we've hit, and/or the changes that have made
+life easier.
 
-A related problem is that some weird HW (things like cascaded interrupt
-controllers) can only move a bunch of interrupt in one go, which isn't
-really what userspace expects to see (move one interrupt, see another 31
-moving).
+We're starting to push 4.0 into prod (122 hosts almost counts), and I'm
+sure we'll backport some wins from 4.2+.  I'm hoping to make this a
+collection point for other benchmarking war stories.  Our biggest gains
+right now are coming from scsi-mq, and early benchmarks show 4.2 has a
+boost that I'm hoping are from the futex locking improvements.
 
-Thanks,
+It ties in a little with the new interfaces applications may be able to use
+(restartable sequences etc topic), and I want to ask the broad question of
+"are we doing enough to prevent performance regressions".
 
-	M.
--- 
-Jazz is not dead. It just smells funny...
+We have a long list of people involved on the Facebook side, Jens at the
+very least can talk about the scsi/block-mq benchmarks.  I'd love to hear
+Fengguang's thoughts as well.
+
+-chris
