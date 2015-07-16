@@ -1,18 +1,23 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <rostedt@goodmis.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 793ACAC2
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id BD42783D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 16 Jul 2015 14:46:48 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 83906289
+	Thu, 16 Jul 2015 14:57:56 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0129.hostedemail.com
+	[216.40.44.129])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id A8DEAEB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 16 Jul 2015 14:46:47 +0000 (UTC)
-Message-ID: <1437057999.18768.38.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
+	Thu, 16 Jul 2015 14:57:55 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
+	[10.5.19.251])
+	by smtpgrave05.hostedemail.com (Postfix) with ESMTP id 01C35184069
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 16 Jul 2015 14:57:54 +0000 (UTC)
+Date: Thu, 16 Jul 2015 10:57:51 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
 To: Mark Brown <broonie@kernel.org>
-Date: Thu, 16 Jul 2015 17:46:39 +0300
+Message-ID: <20150716105751.6efc15b6@gandalf.local.home>
 In-Reply-To: <20150716144155.GM4039@sirena.org.uk>
 References: <20150709193718.GD9169@vmdeb7> <20150710143641.GW4341@mwanda>
 	<20150710160714.GL111846@vmdeb7> <20150710222351.GA28632@kroah.com>
@@ -22,11 +27,11 @@ References: <20150709193718.GD9169@vmdeb7> <20150710143641.GW4341@mwanda>
 	<20150716132551.GH4039@sirena.org.uk>
 	<20150716094720.2bf9f5ac@gandalf.local.home>
 	<20150716144155.GM4039@sirena.org.uk>
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-OTYztITl7xpPjqLzLSDp"
-Mime-Version: 1.0
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	Dan Carpenter <dan.carpenter@oracle.com>,
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: Dan Carpenter <dan.carpenter@oracle.com>,
+	ksummit-discuss@lists.linuxfoundation.org,
 	Jason Cooper <jason@lakedaemon.net>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
@@ -39,51 +44,55 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Thu, 16 Jul 2015 15:41:55 +0100
+Mark Brown <broonie@kernel.org> wrote:
 
---=-OTYztITl7xpPjqLzLSDp
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, 2015-07-16 at 15:41 +0100, Mark Brown wrote:
 > On Thu, Jul 16, 2015 at 09:47:20AM -0400, Steven Rostedt wrote:
->=20
-> > Well, then to each their own. I prefer the content free ping, because i=
-n
+> 
+> > Well, then to each their own. I prefer the content free ping, because in
 > > my mail client (claws), it brings the original patch up to the front
 > > (my threading is to sort by latest email in the thread). A simple ping
 > > will move their patch ahead of other patches that may have been sent
 > > later, but are still in the abyss.
->=20
+> 
 > Interesting, not noticed a mail client with that sorting scheme before.
+> 
 
-I thought all mail clients can do this ... evolution certainly does and
-I use it and imap labels to create lists of patches ready for applying.
+Both claws and evolution do this. I believe it's default for evolution,
+and I kind of remember having to select this sorting style with claws.
 
-However, there is an unintended consequence: If I'm working from this
-list and applying patches in the order the mail client is presenting
-them, any patch which receives a reply gets dragged to the bottom of my
-list.  Usually this is correct because it means there's still debate
-about the patch, but if you're going to send me pings as replies, they
-have the same effect and delay the testing and application of the patch.
+> > A resend will just be a duplicate in my inbox and it will confuse me
+> > about why I have more than one of the same patch.
+> 
+> That happens often enough anyway due to people sending new versions in
+> response to other review comments or similar so I find I need to cope
+> with discarding old copies of things anyway.
 
-James
+Oh, I expect a new version. Usually they are marked with v2, and that
+lets me know to ignore the old one.
 
+> > One of the issues with newcomers coming to development of the Linux
+> > kernel, is that every maintainer is different. We should be trying
+> > harder to let people know what we prefer. Every maintainer expects
+> > something different, but it's up to the maintainer to explicitly let
+> > others know what they want. You can't expect everyone to read your
+> > mind.
+> 
+> I basically agree with that, what I'm saying on the response time is
+> that I don't think you're setting realistic baselines for people.  A
+> week is just not what's actually happening in large parts of the kernel.
+> There are some people I'd expect to respond within a week in the normal
+> course of affairs but there are more where I wouldn't worry about it and
+> even the more responsive people are often slower on larger changes like
+> new driver submissions.
 
---=-OTYztITl7xpPjqLzLSDp
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+And a lot of what maintainers prefer has to deal with the types of
+changes they handle. I don't handle new devices. I usually handle new
+features for tracing or bug fixes. Sometimes its updates for different
+archs.
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
+I especially prefer the ping if its for a patch series, as sending out
+a new patch series that didn't change anything will definitely waste my
+time, as I usually compare the old with the new to see what changed.
 
-iQEcBAABCAAGBQJVp8PPAAoJEDeqqVYsXL0MYBQH/iTEiR69+nQtv7Ravkny+Lgg
-I4QmqeIhRRBsmBf21sKBIxDLrC5Rf5CFwsiAiZfTOqyobPjVbZj9GcYZnsPlGELA
-3fx72K4YIGeLgm75BOGTTqfZ2jkCkeDb5RYItmUImudghZwo3xXlA98FK6QrfpVq
-9lpNXKTHwOVT2PSL/7XNx8pFjLOvNTlTSDTSLP1XGgITEOsVvUaGOWzhdLjhMAUa
-FakaCSW13TfuM4MXT4ZygRDCCQY7Ym0jMuUGK140pcl2I5iDEnkn+kVEVj0dU+8e
-pku3up9XefGYJaMVQHFTPfAydsWgmHnBYGmhGCZJGopcPbiWhiB+9fBGKNRvnH0=
-=JhqO
------END PGP SIGNATURE-----
-
---=-OTYztITl7xpPjqLzLSDp--
+-- Steve
