@@ -1,38 +1,26 @@
-Return-Path: <rostedt@goodmis.org>
-Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
-	[172.17.192.36])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0AAF8BC4
+Return-Path: <rjw@rjwysocki.net>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 33CACBBF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 15 Jul 2015 23:28:09 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0173.hostedemail.com
-	[216.40.44.173])
-	by smtp2.linuxfoundation.org (Postfix) with ESMTP id 3E7BA1DCA1
+	Thu, 16 Jul 2015 00:27:19 +0000 (UTC)
+Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id 892C711E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 15 Jul 2015 23:28:06 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
-	[10.5.19.251])
-	by smtpgrave06.hostedemail.com (Postfix) with ESMTP id 4F5541727AA
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 15 Jul 2015 18:42:18 +0000 (UTC)
-Date: Wed, 15 Jul 2015 14:42:12 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Jiri Kosina <jkosina@suse.com>
-Message-ID: <20150715144212.235f7687@gandalf.local.home>
-In-Reply-To: <alpine.LNX.2.00.1507131027000.7522@pobox.suse.cz>
-References: <20150710143832.GU23515@io.lakedaemon.net>
-	<CA+5PVA5j9973GzdYj-s2WX3J8ycf5hQTBdGq+8j-8RGDX2OaYg@mail.gmail.com>
-	<20150710162328.GB12009@thunk.org>
-	<CAGXu5j+NY8-5WPcP1kLZsKgzmbQ=L0Q18XZ6FYeVTcFGDLrRSw@mail.gmail.com>
-	<1436599873.2243.10.camel@HansenPartnership.com>
-	<alpine.LNX.2.00.1507131027000.7522@pobox.suse.cz>
+	Thu, 16 Jul 2015 00:27:18 +0000 (UTC)
+From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Thu, 16 Jul 2015 02:53:55 +0200
+Message-ID: <16735160.dNHXzIZYtq@vostro.rjw.lan>
+In-Reply-To: <20150713202818.23310729@lwn.net>
+References: <55A1407E.5080800@oracle.com>
+	<20150713210226.519dedfd@gandalf.local.home>
+	<20150713202818.23310729@lwn.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Josh Boyer <jwboyer@fedoraproject.org>,
-	Jason Cooper <jason@lakedaemon.net>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] dev/maintainer workflow security
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
+Cc: Sasha Levin <sasha.levin@oracle.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Issues with stable process
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -42,26 +30,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 13 Jul 2015 10:32:06 +0200 (CEST)
-Jiri Kosina <jkosina@suse.com> wrote:
-
-> On Sat, 11 Jul 2015, James Bottomley wrote:
+On Monday, July 13, 2015 08:28:18 PM Jonathan Corbet wrote:
+> On Mon, 13 Jul 2015 21:02:26 -0400
+> Steven Rostedt <rostedt@goodmis.org> wrote:
 > 
-> > >   - personal security (keep commit credentials secure from theft)
-> > 
-> > This second one is a bit of a red herring:  Assuming you did steal my
-> > credentials, how would you use them without being detected?
+> > Yes, it's great if we can catch things in -next. But I don't believe
+> > that patches that fix bugs found in Linus's tree should sit in next
+> > before going into Linus's tree, because those patches are basically
+> > fixing stuff that was already in next and wasn't discovered until it
+> > hit Linus's tree. Which is why I say it's a waste of time to put it in
+> > next before sending straight to Linus.
 > 
-> If the credentials can be used both to push to ra.kernel.org and to access 
-> your "local" copy of the GIT repo (on your notebook / desktop / storage), 
-> I can just push the malicious commit (*) to both repos and you might not 
-> notice immediately (because you wouldn't get non-fast-forward hint from 
-> git).
+> That, of course, assumes that these fixes don't introduce *other* bugs
+> that might just be caught in -next...
+> 
+> In general, though, I think a lot of people see -next as -rc1 without the
+> quality control; it's volatile and scary.  So it's not surprising that it
+> doesn't get a lot of real-world testing.  And, as long as that's the case,
+> there's going to be a lot of bugs that are never caught in -next.
 
-Actually, I do development on a different box than I push with. Thus,
-if someone did modify both that box and my korg repo, I would notice a
-problem as soon as I push my development box to the box I push with.
+Well stated.
 
-Now the attacker would need to compromise that development box too.
+And in addition to that, -next is simply evolving too fast to get any deeper
+testing at any point.
 
--- Steve
+Thanks,
+Rafael
