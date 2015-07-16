@@ -1,26 +1,27 @@
 Return-Path: <PeterHuewe@gmx.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6FA5BB3D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1EDA0AC1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 16 Jul 2015 17:32:03 +0000 (UTC)
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id AEA25F7
+	Thu, 16 Jul 2015 17:34:40 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7950B14B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 16 Jul 2015 17:32:02 +0000 (UTC)
+	Thu, 16 Jul 2015 17:34:39 +0000 (UTC)
 From: Peter =?iso-8859-1?q?H=FCwe?= <PeterHuewe@gmx.de>
 To: ksummit-discuss@lists.linuxfoundation.org
-Date: Thu, 16 Jul 2015 19:33:51 +0200
-References: <20150708114011.3a1f1861@noble> <55A7C7FE.6000604@sonymobile.com>
-	<20150716094125.16cdda73@lwn.net>
-In-Reply-To: <20150716094125.16cdda73@lwn.net>
+Date: Thu, 16 Jul 2015 19:36:33 +0200
+References: <20150711000034.GU111846@vmdeb7>
+	<20150716121620.65ce6daa@gandalf.local.home>
+	<20150716162847.GA31921@kroah.com>
+In-Reply-To: <20150716162847.GA31921@kroah.com>
 MIME-Version: 1.0
 Content-Type: Text/Plain;
   charset="iso-8859-1"
 Content-Transfer-Encoding: 7bit
-Message-Id: <201507161933.52228.PeterHuewe@gmx.de>
-Cc: Jason Cooper <jason@lakedaemon.net>,
-	Dan Carpenter <dan.carpenter@oracle.com>
+Message-Id: <201507161936.33860.PeterHuewe@gmx.de>
+Cc: Dan Carpenter <dan.carpenter@oracle.com>,
+	Jason Cooper <jason@lakedaemon.net>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
 	Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -32,16 +33,20 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-> Seriously, this area is a minefield for new developers; it can be
-> discouraging to put together your first patch, carefully follow
-> everything found in SubmittingPatches, CodingStyle, SubmitChecklist, and
-> HOWTO, appease the checkpatch.pl beast, carefully run get_maintainer.pl
-> with the correct command-line options, and follow all the suggestions
-> provided by reddit, Phoronix and 4chan, only to be told that the patch
-> came in during the wrong _phase of the moon_ and they really should have
-> known better.
+Am Donnerstag, 16. Juli 2015, 18:28:47 schrieb Greg KH:
+> On Thu, Jul 16, 2015 at 12:16:20PM -0400, Steven Rostedt wrote:
+> > I heard that IBM once had a method where if you submitted a change, and
+> > that change made it into kernel, even if the final change was not
+> > authored by you, you still got credit for it. That's a fabulous way of
+> > looking at contributions and giving credit to your employees.
+> 
+> You also got a big stuffed penguin for your first kernel patch being
+> accepted, which turned out to be a good motivator for people when half
+> of the cubes on the floor had the penguin but you didn't.
+> 
+> I like the idea of sending out something for a kernel patch, I'll see if
+> the LF could sponsor something like that...
 
-
-Since when is Linus opening up the merge window by moon phases? :P 
+Nice idea :)
 
 Peter
