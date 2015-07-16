@@ -1,32 +1,49 @@
-Return-Path: <willy@linux.intel.com>
+Return-Path: <linus971@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 806FAAE7
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 18585323
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 15 Jul 2015 18:48:05 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 96792277
+	Thu, 16 Jul 2015 01:43:31 +0000 (UTC)
+Received: from mail-ig0-f176.google.com (mail-ig0-f176.google.com
+	[209.85.213.176])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 846F71C0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 15 Jul 2015 18:48:02 +0000 (UTC)
-Date: Wed, 15 Jul 2015 14:48:00 -0400
-From: Matthew Wilcox <willy@linux.intel.com>
-To: Jens Axboe <axboe@kernel.dk>
-Message-ID: <20150715184800.GL13681@linux.intel.com>
-References: <20150715120708.GA24534@infradead.org>
-	<alpine.DEB.2.11.1507151408570.18576@nanos>
-	<55A67F11.1030709@sandisk.com>
-	<alpine.LNX.2.00.1507151700300.15930@localhost.lm.intel.com>
-	<55A697A3.3090305@kernel.dk>
+	Thu, 16 Jul 2015 01:43:30 +0000 (UTC)
+Received: by iggf3 with SMTP id f3so3038147igg.1
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 15 Jul 2015 18:43:30 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <55A697A3.3090305@kernel.dk>
-Cc: Christoph Hellwig <hch@infradead.org>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-nvme@lists.infradead.org, Keith Busch <keith.busch@intel.com>,
-	Bart Van Assche <bart.vanassche@sandisk.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] IRQ affinity
+Sender: linus971@gmail.com
+In-Reply-To: <CALCETrVpM6q-K+zyh1_FShQBjrY6DoE8Aj4UeeT4q2FhOAn70A@mail.gmail.com>
+References: <55A1407E.5080800@oracle.com>
+	<CAMuHMdUK+LZrp9QxPS0wSJzFZVAr_cihxJnFJybo5nb7U_t7xg@mail.gmail.com>
+	<55A26C5B.8060007@oracle.com> <20150713105210.6e367f4b@noble>
+	<55A33E48.2040202@oracle.com>
+	<20150713142132.08fead4d@gandalf.local.home>
+	<55A45AD8.5010400@oracle.com>
+	<20150713210226.519dedfd@gandalf.local.home>
+	<20150714104623.GQ11162@sirena.org.uk>
+	<55A51548.4040502@oracle.com>
+	<20150714152515.GX11162@sirena.org.uk>
+	<55A52B8B.5060606@oracle.com>
+	<20150714113829.4b618d9a@gandalf.local.home>
+	<55A53074.7040109@oracle.com>
+	<20150714120225.65e489cc@gandalf.local.home>
+	<55A5635D.1020600@oracle.com> <20150715114946.481f154d@noble>
+	<55A5C0EE.3060803@oracle.com> <20150715122802.56ca2100@noble>
+	<1436955234.31121.25.camel@HansenPartnership.com>
+	<20150716092410.22d0af07@noble>
+	<CALCETrVpM6q-K+zyh1_FShQBjrY6DoE8Aj4UeeT4q2FhOAn70A@mail.gmail.com>
+Date: Wed, 15 Jul 2015 18:43:29 -0700
+Message-ID: <CA+55aFyKq4wU9dx8EyrTtKkFEykF1GUqyonRjsx4f2jvZZxigg@mail.gmail.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+To: Andy Lutomirski <luto@amacapital.net>
+Content-Type: text/plain; charset=UTF-8
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Sasha Levin <sasha.levin@oracle.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Issues with stable process
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,43 +53,30 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Jul 15, 2015 at 11:25:55AM -0600, Jens Axboe wrote:
-> On 07/15/2015 11:19 AM, Keith Busch wrote:
-> >On Wed, 15 Jul 2015, Bart Van Assche wrote:
-> >>* With blk-mq and scsi-mq optimal performance can only be achieved if
-> >> the relationship between MSI-X vector and NUMA node does not change
-> >> over time. This is necessary to allow a blk-mq/scsi-mq driver to
-> >> ensure that interrupts are processed on the same NUMA node as the
-> >> node on which the data structures for a communication channel have
-> >> been allocated. However, today there is no API that allows
-> >> blk-mq/scsi-mq drivers and irqbalanced to exchange information
-> >> about the relationship between MSI-X vector ranges and NUMA nodes.
-> >
-> >We could have low-level drivers provide blk-mq the controller's irq
-> >associated with a particular h/w context, and the block layer can provide
-> >the context's cpumask to irqbalance with the smp affinity hint.
-> >
-> >The nvme driver already uses the hwctx cpumask to set hints, but this
-> >doesn't seems like it should be a driver responsibility. It currently
-> >doesn't work correctly anyway with hot-cpu since blk-mq could rebalance
-> >the h/w contexts without syncing with the low-level driver.
-> >
-> >If we can add this to blk-mq, one additional case to consider is if the
-> >same interrupt vector is used with multiple h/w contexts. Blk-mq's cpu
-> >assignment needs to be aware of this to prevent sharing a vector across
-> >NUMA nodes.
-> 
-> Exactly. I may have promised to do just that at the last LSF/MM conference,
-> just haven't done it yet. The point is to share the mask, I'd ideally like
-> to take it all the way where the driver just asks for a number of vecs
-> through a nice API that takes care of all this. Lots of duplicated code in
-> drivers for this these days, and it's a mess.
+On Wed, Jul 15, 2015 at 6:05 PM, Andy Lutomirski <luto@amacapital.net> wrote:
+>
+> As of today, I'm much less convinced that -next is suitable for this
+> purpose.  I have a really dumb, blatant, obvious regression sitting in
+> -next right now, and it's been there for a couple of weeks with no one
+> spotting it.  The 0-day bot didn't spot it either (and yes, I emailed
+> Fengguang suggesting another test for the bot).
 
-Yes.  I think the fundamental problem is that our MSI-X API is so funky.
-We have this incredibly flexible scheme where each MSI-X vector could
-have its own interrupt handler, but that's not what drivers want.
-They want to say "Give me eight MSI-X vectors spread across the CPUs,
-and use this interrupt handler for all of them".  That is, instead of
-the current scheme where each MSI-X vector gets its own Linux interrupt,
-we should have one interrupt handler (of the per-cpu interrupt type),
-which shows up with N bits set in its CPU mask.
+I think -next is supremely useful, but let's not kid ourselves: it's
+useful because it catches compile problems (particularly on odd
+architectures) and integration issues.
+
+Very few people actually *run* linux-next. At best, it gets some
+boot-testing on a farm or two. Maybe one or two brave souls actually
+run it on their own machines (I think Andrew may, for example). But
+that's it.
+
+I suspect that (possibly with the exception of the merge window)
+keeping bugfixes in -next for a few days is more likely to *delay*
+testing than it is to make it better. I suspect a lot more people run
+my -git trees than run -next.
+
+So I don't think -next is a panacea for testing. Not at all. It is
+very good for what it does, but I don't think people should believe
+that "testing" is what it does.
+
+                  Linus
