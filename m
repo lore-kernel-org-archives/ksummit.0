@@ -1,36 +1,36 @@
-Return-Path: <olof@lixom.net>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C1A88ACC
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7936FACC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 16 Jul 2015 18:14:40 +0000 (UTC)
-Received: from mail-ob0-f173.google.com (mail-ob0-f173.google.com
-	[209.85.214.173])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4170C147
+	Thu, 16 Jul 2015 18:37:08 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D59C614E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 16 Jul 2015 18:14:40 +0000 (UTC)
-Received: by obbop1 with SMTP id op1so51961867obb.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 16 Jul 2015 11:14:39 -0700 (PDT)
+	Thu, 16 Jul 2015 18:37:07 +0000 (UTC)
+Date: Thu, 16 Jul 2015 19:36:59 +0100
+From: Mark Brown <broonie@kernel.org>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Message-ID: <20150716183659.GW11162@sirena.org.uk>
+References: <20150710222351.GA28632@kroah.com> <20150711000034.GU111846@vmdeb7>
+	<20150711001348.GA30675@kroah.com> <20150711055441.GA6316@sudip-PC>
+	<20150715212043.775be5d2@gandalf.local.home>
+	<20150716132551.GH4039@sirena.org.uk>
+	<20150716094720.2bf9f5ac@gandalf.local.home>
+	<55A7C7FE.6000604@sonymobile.com> <20150716094125.16cdda73@lwn.net>
+	<1437063875.18768.59.camel@HansenPartnership.com>
 MIME-Version: 1.0
-In-Reply-To: <20150715160347.GB12543@kroah.com>
-References: <55A1407E.5080800@oracle.com>
-	<CAMuHMdUK+LZrp9QxPS0wSJzFZVAr_cihxJnFJybo5nb7U_t7xg@mail.gmail.com>
-	<55A26C5B.8060007@oracle.com> <20150713105210.6e367f4b@noble>
-	<55A33E48.2040202@oracle.com>
-	<20150713142132.08fead4d@gandalf.local.home>
-	<20150713185118.GK11162@sirena.org.uk>
-	<CAOesGMhFNjK2V23ZRN=KOfsYc=JawLwWf_x7wvHzBjP0UpbW7A@mail.gmail.com>
-	<20150715160347.GB12543@kroah.com>
-Date: Thu, 16 Jul 2015 11:14:39 -0700
-Message-ID: <CAOesGMi4RHpEwZ=rFtO+ML74k0ks8hivSBT1pa=OwQqRUB=JDQ@mail.gmail.com>
-From: Olof Johansson <olof@lixom.net>
-To: Greg KH <greg@kroah.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: Sasha Levin <sasha.levin@oracle.com>,
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="IyX+qZsYMJ8Y4LOh"
+Content-Disposition: inline
+In-Reply-To: <1437063875.18768.59.camel@HansenPartnership.com>
+Cc: Jason Cooper <jason@lakedaemon.net>,
+	Dan Carpenter <dan.carpenter@oracle.com>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Issues with stable process
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
+ Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,51 +40,60 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Jul 15, 2015 at 9:03 AM, Greg KH <greg@kroah.com> wrote:
-> On Wed, Jul 15, 2015 at 10:52:13AM -0400, Olof Johansson wrote:
->> On Mon, Jul 13, 2015 at 2:51 PM, Mark Brown <broonie@kernel.org> wrote:
->> > On Mon, Jul 13, 2015 at 02:21:32PM -0400, Steven Rostedt wrote:
->> >
->> >> I disagree. I thought next was a place to have integration of new
->> >> development, and not just a place to test. Really, how many people test
->> >> next compared to Linus's tree? I trip over bugs all the times in
->> >> Linus's tree that's been in -next for almost a whole release cycle.
->> >
->> >> The only bugs that I find that come from -next is integration issues,
->> >> where an interface changes and another subsystem stumbles over it.
->> >> That's exactly what it was for and what it's good at.
->> >
->> > In the embedded space it's much more common to track -next as people are
->> > often working with multiple subsystems so the integration is important.
->> > Most of my code is developed against -next then moved to topic branches
->> > for submission.
->> >
->> > We also catch quite a lot of issues in -next as a result of the work on
->> > boot testing that kernelci.org and Olof's bots are doing, hopefully
->> > that'll start to build out to include test suites like kselftest (I know
->> > there's work in progress there but no ETA as of yet).  Things get
->> > exposed to a lot more systems and configurations than individual
->> > maintainers have access to which can shake out issues in code that deals
->> > with hardware.
->>
->> I've stopped running -stable releases through the tester. It didn't
->> fit the way I kept track of what's been built very well and it was
->> hard to capture a useful state in which to test.
->>
->> For a while I tried to capture the current-state-of-the-queue from
->> gregkh's public quilt series ever so often, but it's quite churny.
->> There's an -rc that's posted for review but not tagged and not
->> provided as a git branch of applied patches, so it's hard to
->> automatically test just those.
->>
->> That would be the ideal setup for me though -- tagged or branched -rc
->> candidates of stable releases that I'd be happy to put through the
->> build/boot test at my end.
->
-> kernelci now handles -rc stable releases, so would this just be a
-> duplication of that work?
 
-Great, then I won't waste my time on it.
+--IyX+qZsYMJ8Y4LOh
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
+On Thu, Jul 16, 2015 at 07:24:35PM +0300, James Bottomley wrote:
 
--Olof
+> Seriously, what is the actual problem?  Who bites the heads off newbies
+> for sport?  I ask because the first patch submission is usually treated
+> with helpfulness and tolerance, at least where I've been on the cc list.
+> The wrong phase of the merge cycle can be a bugger, particularly when
+> most people's attention is elsewhere, but it's not like it's a huge
+> deterrent.  We all have developers who'd rather spit rats than submit a
+> patch to $opensourceprojecttheyfoundabugin but then, it's sometimes
+> because the reply might contradict their own mythology (or question
+> their reputation).  Before we embark on a huge does of hair shirt and a
+> lavish process dump, what is the problem we're trying to solve?
+
+I think a lot of it is about perception - the whole "Linus will scream
+at you for minor issues" meme is pretty strong out there and shapes
+perceptions regardless of how true it is.  That said I do think there's
+a couple of things that are real.
+
+The response time issues being discussed elsewhere in the thread are
+real I think - they are the biggest problem I see when I'm helping
+people with patch submissions.  People get very discouraged when they
+send something off and either get no response at all or find it
+takes a while, they have difficulty in figuring out how to get people to
+pay attention.  This is unfortunately quite common.  It's a really
+difficult problem to solve with our workflows, at some point submitters
+have sent a mail to the right people in close enough to the right format
+so the maintainers *should* look at it but still the submitters don't
+hear anything back and next steps aren't terribly clear.
+
+I know there's also some stuff that's down to brief replies rather than
+active hostility - I'm definitely part of the problem here, I need to
+write a bunch of longer form replies and get a workflow for pasting them
+into email (actually I think I've got that bit) sorted out.  Type the
+same reply a lot and it's easy to optimise it down to brevity.
+
+--IyX+qZsYMJ8Y4LOh
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQEcBAEBCAAGBQJVp/nKAAoJECTWi3JdVIfQZfAH/1G9coEvXXdaJycn1rXLNmwB
+0PDpbd0KnZec3GBqwupAZGKH229vppj9MjttWtW5IG9/6xrbYMUvoNmMbkjslvNU
+U9Hs9RLaxD3E7fTfpggL5XCqqJ7ZpsQa9Ja3LRLux30G4S4vuKdFe/9rubK1NjeW
+G4NOKwgFwVyaGtM4leL/BU9DadMrhiVULqI6peOnW0DJwsSTFtA8jH8uB1u6FG69
+CoV2SXp2VgYysnw05bqnTUwDPcTV7fmS1cWxSoFXQuep0qwbVGF7hchg/vJFSZww
+GDo1XnCxmZkma6xpl+xXBOZPLU8sULcw6Zt3cwFO5FX7lMtWo/+TEYNQngq71IY=
+=Yk0l
+-----END PGP SIGNATURE-----
+
+--IyX+qZsYMJ8Y4LOh--
