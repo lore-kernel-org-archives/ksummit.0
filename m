@@ -1,34 +1,46 @@
-Return-Path: <josh@joshtriplett.org>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 646CDAC2
+Return-Path: <rostedt@goodmis.org>
+Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
+	[172.17.192.36])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 62E68AC2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 16 Jul 2015 01:11:05 +0000 (UTC)
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
-	[217.70.183.195])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B1F9B17E
+	Thu, 16 Jul 2015 01:25:39 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0109.hostedemail.com
+	[216.40.44.109])
+	by smtp2.linuxfoundation.org (Postfix) with ESMTP id DAEB31DB09
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 16 Jul 2015 01:11:04 +0000 (UTC)
-Date: Wed, 15 Jul 2015 18:10:56 -0700
-From: Josh Triplett <josh@joshtriplett.org>
-To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-Message-ID: <20150716011056.GA8931@x>
-References: <1489458.8WDRattPkl@vostro.rjw.lan>
-	<1455994.zAMIqEIJx2@vostro.rjw.lan>
-	<CAKMK7uHfcwLe-HWz72LJDhe-HvKTBu65DaJmR3tW3TOze4uyVQ@mail.gmail.com>
-	<2869041.AWiygZspUy@vostro.rjw.lan>
+	Thu, 16 Jul 2015 01:25:38 +0000 (UTC)
+Date: Wed, 15 Jul 2015 21:25:35 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: NeilBrown <neilb@suse.com>
+Message-ID: <20150715212535.754da6eb@gandalf.local.home>
+In-Reply-To: <20150716092410.22d0af07@noble>
+References: <55A1407E.5080800@oracle.com>
+	<CAMuHMdUK+LZrp9QxPS0wSJzFZVAr_cihxJnFJybo5nb7U_t7xg@mail.gmail.com>
+	<55A26C5B.8060007@oracle.com> <20150713105210.6e367f4b@noble>
+	<55A33E48.2040202@oracle.com>
+	<20150713142132.08fead4d@gandalf.local.home>
+	<55A45AD8.5010400@oracle.com>
+	<20150713210226.519dedfd@gandalf.local.home>
+	<20150714104623.GQ11162@sirena.org.uk>
+	<55A51548.4040502@oracle.com>
+	<20150714152515.GX11162@sirena.org.uk>
+	<55A52B8B.5060606@oracle.com>
+	<20150714113829.4b618d9a@gandalf.local.home>
+	<55A53074.7040109@oracle.com>
+	<20150714120225.65e489cc@gandalf.local.home>
+	<55A5635D.1020600@oracle.com> <20150715114946.481f154d@noble>
+	<55A5C0EE.3060803@oracle.com> <20150715122802.56ca2100@noble>
+	<1436955234.31121.25.camel@HansenPartnership.com>
+	<20150716092410.22d0af07@noble>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2869041.AWiygZspUy@vostro.rjw.lan>
-Cc: "Brown, Len" <len.brown@intel.com>,
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Sasha Levin <sasha.levin@oracle.com>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
 	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	Kristen Carlson Accardi <kristen@linux.intel.com>,
-	Grant Likely <grant.likely@linaro.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] System-wide interface to specify
- the level of PM tuning
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Issues with stable process
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,43 +50,19 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Jul 16, 2015 at 12:44:01AM +0200, Rafael J. Wysocki wrote:
-> On Tuesday, July 14, 2015 06:51:31 PM Daniel Vetter wrote:
-> > On Tue, Jul 14, 2015 at 1:07 AM, Rafael J. Wysocki <rjw@rjwysocki.net> wrote:
-> > > However, there are places in the kernel where there is a real tradeoff between
-> > > power and performance (or power and capacity in general) and there are places
-> > > that tend to keep conservative settings for fear of exposing latent bugs to
-> > > a wide community of users.
-> > >
-> > > Those might benefit from allowing the users to relax the settings globally
-> > > if they want to.
-> > 
-> > Well that's the approach I don't like personally. Essentially we
-> > should be the experts on what works and what doesn't. But then kernel
-> > developers chicken out and dump this problem onto users, which happily
-> > enable all kinds of options they hear about. And then when it eats
-> > their data or crashes machines everyone shrugs and says "oh well you
-> > probably have one of the broken machines, don't enable this" and moves
-> > on.
-> > 
-> > There's certainly the case that some tuning stuff in core kernel has
-> > real downsides to either perf or power, but generally (for device
-> > drivers) I feel like simply not enabling the all the power features is
-> > a cheap way to chicken out of bugs reports and responsibility. I'm
-> > somewhat opionated on this ;-)
+On Thu, 16 Jul 2015 09:24:10 +1000
+NeilBrown <neilb@suse.com> wrote:
+
+> > I just use the rule of thumb: must be in -next for two days because then
+> > I know 0day (and the other checkers) have also run.
 > 
-> But that's what's happening.  Many PM features are not enabled by default for
-> this reason or another.
+> Do you *really* know that?
+> Given that there seems to be value in knowing "0day has run
+> successfully", should we ask for an interface to do exactly that?
 > 
-> The point here is whether or not we want to have a way to make all of them be
-> enabled by default instead and see what happens, for example.
 
-To some degree that seems like an admission of defeat: we can't possibly
-do the right thing by default, so we give up and add a way for the user
-to configure it.
+There's an opt-in with Fengguang Wu's 0day tests to have it email you
+when it finishes with "SUCCESS". I have that, as I don't do pushes for
+any patches until I see that.
 
-We should be selecting the most sensible combination of power and
-performance by default; we should not punt that question to the average
-user, *or* to the distros.
-
-- Josh Triplett
+-- Steve
