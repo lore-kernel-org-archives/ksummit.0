@@ -1,46 +1,32 @@
-Return-Path: <rostedt@goodmis.org>
-Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
-	[172.17.192.36])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 62E68AC2
+Return-Path: <lenb417@gmail.com>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id CB4E4B5A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 16 Jul 2015 01:25:39 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0109.hostedemail.com
-	[216.40.44.109])
-	by smtp2.linuxfoundation.org (Postfix) with ESMTP id DAEB31DB09
+	Thu, 16 Jul 2015 01:35:53 +0000 (UTC)
+Received: from mail-lb0-f171.google.com (mail-lb0-f171.google.com
+	[209.85.217.171])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2C26E63
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 16 Jul 2015 01:25:38 +0000 (UTC)
-Date: Wed, 15 Jul 2015 21:25:35 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: NeilBrown <neilb@suse.com>
-Message-ID: <20150715212535.754da6eb@gandalf.local.home>
-In-Reply-To: <20150716092410.22d0af07@noble>
-References: <55A1407E.5080800@oracle.com>
-	<CAMuHMdUK+LZrp9QxPS0wSJzFZVAr_cihxJnFJybo5nb7U_t7xg@mail.gmail.com>
-	<55A26C5B.8060007@oracle.com> <20150713105210.6e367f4b@noble>
-	<55A33E48.2040202@oracle.com>
-	<20150713142132.08fead4d@gandalf.local.home>
-	<55A45AD8.5010400@oracle.com>
-	<20150713210226.519dedfd@gandalf.local.home>
-	<20150714104623.GQ11162@sirena.org.uk>
-	<55A51548.4040502@oracle.com>
-	<20150714152515.GX11162@sirena.org.uk>
-	<55A52B8B.5060606@oracle.com>
-	<20150714113829.4b618d9a@gandalf.local.home>
-	<55A53074.7040109@oracle.com>
-	<20150714120225.65e489cc@gandalf.local.home>
-	<55A5635D.1020600@oracle.com> <20150715114946.481f154d@noble>
-	<55A5C0EE.3060803@oracle.com> <20150715122802.56ca2100@noble>
-	<1436955234.31121.25.camel@HansenPartnership.com>
-	<20150716092410.22d0af07@noble>
+	Thu, 16 Jul 2015 01:35:53 +0000 (UTC)
+Received: by lblf12 with SMTP id f12so35068770lbl.2
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 15 Jul 2015 18:35:51 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Sasha Levin <sasha.levin@oracle.com>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Issues with stable process
+Sender: lenb417@gmail.com
+In-Reply-To: <20150715195837.GA14507@ret.masoncoding.com>
+References: <20150715153725.GA12601@ret.masoncoding.com>
+	<CAH3eK3TtZKdVdFTrQOEPQ0dmXLr-y1w66LW2Qbwwu0VSbiiYiA@mail.gmail.com>
+	<1436989195.6856.4.camel@infradead.org>
+	<20150715195837.GA14507@ret.masoncoding.com>
+Date: Wed, 15 Jul 2015 21:35:51 -0400
+Message-ID: <CAJvTdKk--RBxhzqCem+O75pWRmi5XWLbbUmypQEPaSaPqcR5CA@mail.gmail.com>
+From: Len Brown <lenb@kernel.org>
+To: Chris Mason <clm@fb.com>
+Content-Type: text/plain; charset=UTF-8
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] benchmarking and performance
+	trends
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -50,19 +36,31 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, 16 Jul 2015 09:24:10 +1000
-NeilBrown <neilb@suse.com> wrote:
+> It would be fun to use turbostat or a rack power meter to
+> measure/compare power usage between two kernels in a given benchmark.  I
+> think the power meters we do have are not going to be fine grained
+> enough to give valid results, but if turbostat is consistent enough we
+> could try it.
 
-> > I just use the rule of thumb: must be in -next for two days because then
-> > I know 0day (and the other checkers) have also run.
-> 
-> Do you *really* know that?
-> Given that there seems to be value in knowing "0day has run
-> successfully", should we ask for an interface to do exactly that?
-> 
+The RAPL power meters exported by turbostat can correlate surprisingly
+well with highly accurate external power meters.  But even if perfect,
+RAPL doesn't know about
+the hardware outside of the processor package (except Xeon DRAM), so
+the absolute
+numbers will not match an AC power meter.  But differences are visible
+and consistent.
+The accuracy and the quality of correlation with actual electricals
+varies a lot with
+the type of processor.  In general, Xeon is the best, followed by
+desktop/mobile core,
+and Atom's RAPL power meters have been the least accurate of those
+shipped, so far.
 
-There's an opt-in with Fengguang Wu's 0day tests to have it email you
-when it finishes with "SUCCESS". I have that, as I don't do pushes for
-any patches until I see that.
+Yes, 0-day is using this output today to identify regressions, without
+any external power meters.  But they are also adding external power meters.
 
--- Steve
+There are also systems with instrumented power supplies which export
+the system AC power via IPMI.
+
+cheers,
+Len Brown, Intel Open Source Technology Center
