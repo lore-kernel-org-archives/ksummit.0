@@ -1,18 +1,19 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9EFCD9FB
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 793ACAC2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 16 Jul 2015 14:42:10 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2459F28D
+	Thu, 16 Jul 2015 14:46:48 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 83906289
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 16 Jul 2015 14:42:10 +0000 (UTC)
-Date: Thu, 16 Jul 2015 15:41:55 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Message-ID: <20150716144155.GM4039@sirena.org.uk>
+	Thu, 16 Jul 2015 14:46:47 +0000 (UTC)
+Message-ID: <1437057999.18768.38.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Mark Brown <broonie@kernel.org>
+Date: Thu, 16 Jul 2015 17:46:39 +0300
+In-Reply-To: <20150716144155.GM4039@sirena.org.uk>
 References: <20150709193718.GD9169@vmdeb7> <20150710143641.GW4341@mwanda>
 	<20150710160714.GL111846@vmdeb7> <20150710222351.GA28632@kroah.com>
 	<20150711000034.GU111846@vmdeb7> <20150711001348.GA30675@kroah.com>
@@ -20,13 +21,12 @@ References: <20150709193718.GD9169@vmdeb7> <20150710143641.GW4341@mwanda>
 	<20150715212043.775be5d2@gandalf.local.home>
 	<20150716132551.GH4039@sirena.org.uk>
 	<20150716094720.2bf9f5ac@gandalf.local.home>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="rf72Gf+bfLC8kxKs"
-Content-Disposition: inline
-In-Reply-To: <20150716094720.2bf9f5ac@gandalf.local.home>
-Cc: Dan Carpenter <dan.carpenter@oracle.com>,
-	ksummit-discuss@lists.linuxfoundation.org,
+	<20150716144155.GM4039@sirena.org.uk>
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-OTYztITl7xpPjqLzLSDp"
+Mime-Version: 1.0
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	Dan Carpenter <dan.carpenter@oracle.com>,
 	Jason Cooper <jason@lakedaemon.net>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
@@ -40,91 +40,50 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---rf72Gf+bfLC8kxKs
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--=-OTYztITl7xpPjqLzLSDp
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jul 16, 2015 at 09:47:20AM -0400, Steven Rostedt wrote:
+On Thu, 2015-07-16 at 15:41 +0100, Mark Brown wrote:
+> On Thu, Jul 16, 2015 at 09:47:20AM -0400, Steven Rostedt wrote:
+>=20
+> > Well, then to each their own. I prefer the content free ping, because i=
+n
+> > my mail client (claws), it brings the original patch up to the front
+> > (my threading is to sort by latest email in the thread). A simple ping
+> > will move their patch ahead of other patches that may have been sent
+> > later, but are still in the abyss.
+>=20
+> Interesting, not noticed a mail client with that sorting scheme before.
 
-> Well, then to each their own. I prefer the content free ping, because in
-> my mail client (claws), it brings the original patch up to the front
-> (my threading is to sort by latest email in the thread). A simple ping
-> will move their patch ahead of other patches that may have been sent
-> later, but are still in the abyss.
+I thought all mail clients can do this ... evolution certainly does and
+I use it and imap labels to create lists of patches ready for applying.
 
-Interesting, not noticed a mail client with that sorting scheme before.
+However, there is an unintended consequence: If I'm working from this
+list and applying patches in the order the mail client is presenting
+them, any patch which receives a reply gets dragged to the bottom of my
+list.  Usually this is correct because it means there's still debate
+about the patch, but if you're going to send me pings as replies, they
+have the same effect and delay the testing and application of the patch.
 
-> A resend will just be a duplicate in my inbox and it will confuse me
-> about why I have more than one of the same patch.
+James
 
-That happens often enough anyway due to people sending new versions in
-response to other review comments or similar so I find I need to cope
-with discarding old copies of things anyway.
 
-> > Not me, they tend to just annoy me for the reasons above.  Resends are
-> > useful but just straight up pings not so much.
-
-> Then a simple reply to that content-free ping to tell the author what
-> you prefer. In fact, that's what I do when they ask me about it. I
-> sometimes even try to send a reply when I get the original patch
-> (privately to the author from my phone) that tells them to ping me in a
-> week if they don't hear back from me.
-
-That's what I do (or just ignore them if I already have the patch) but
-it does get rather repetitive and adds to the mail volume which is part
-of the problem.
-
-The basic reason I advise people to resend is that if a maintainer has a
-resend in their inbox they should have everything they need to handle
-the patch then and there, there are fewer things that can go wrong with
-that than with a content free ping.
-
-> > I'd say a couple of weeks is a better lower limit than a single week
-> > unless it's a very serious bugfix, a week could easily be a holiday or
-> > whatever and larger patches or patch serieses do take time to review.
-
-> The time length varies from person to person. Just let the author
-> know what you prefer. From developers I've talked to (including
-> myself), a week seems to be the norm to wait. Anything less is an
-> annoyance.
-
-Less than a week is of course far too fast, it's a good way to get
-ignored.  On the other hand a week definitely does seem to too fast to
-be telling people to use as a starting point, my own experience
-submitting patches and watching other people submitting patches is that
-a week is definitely not an unusual time to have to wait for non-urgent
-things to get handled, I only tend to start worrying that things
-might've been missed after a couple of weeks.
-
-> One of the issues with newcomers coming to development of the Linux
-> kernel, is that every maintainer is different. We should be trying
-> harder to let people know what we prefer. Every maintainer expects
-> something different, but it's up to the maintainer to explicitly let
-> others know what they want. You can't expect everyone to read your
-> mind.
-
-I basically agree with that, what I'm saying on the response time is
-that I don't think you're setting realistic baselines for people.  A
-week is just not what's actually happening in large parts of the kernel.
-There are some people I'd expect to respond within a week in the normal
-course of affairs but there are more where I wouldn't worry about it and
-even the more responsive people are often slower on larger changes like
-new driver submissions.
-
---rf72Gf+bfLC8kxKs
+--=-OTYztITl7xpPjqLzLSDp
 Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQEcBAEBCAAGBQJVp8KyAAoJECTWi3JdVIfQb2wH/3RDN+Bez7Kd7PfdG8GPb8fc
-wEV7lx2tT4aG4P4e7E9bc/ZaiTIJsF+8gsbJU4hBBw4mq6TX2/N6cOE8+OJ0sUbl
-2idMsA/VoClSXnUqS/kXDe57+MOcYWh3dgwy4NEjLViVb48ri/izlKqmcLURVJab
-q6lob+ribAEgOMYy6JtltXjfQ/rp9aFw/5c78MCjeMLzvFkgGCr0vYTWmhjdtYIU
-HQv2dbT6hGrgEHilWLb3mjbH4jXqc188eG7RCC4W1zbzJhJL6sE6Uwk/x83skDH2
-GcuGcR6yI1oTqDexrJA0ZuhsxnIFCXigk2SLNd+0FlIgHESklPKP8N1p9L0vvx8=
-=zlHX
+iQEcBAABCAAGBQJVp8PPAAoJEDeqqVYsXL0MYBQH/iTEiR69+nQtv7Ravkny+Lgg
+I4QmqeIhRRBsmBf21sKBIxDLrC5Rf5CFwsiAiZfTOqyobPjVbZj9GcYZnsPlGELA
+3fx72K4YIGeLgm75BOGTTqfZ2jkCkeDb5RYItmUImudghZwo3xXlA98FK6QrfpVq
+9lpNXKTHwOVT2PSL/7XNx8pFjLOvNTlTSDTSLP1XGgITEOsVvUaGOWzhdLjhMAUa
+FakaCSW13TfuM4MXT4ZygRDCCQY7Ym0jMuUGK140pcl2I5iDEnkn+kVEVj0dU+8e
+pku3up9XefGYJaMVQHFTPfAydsWgmHnBYGmhGCZJGopcPbiWhiB+9fBGKNRvnH0=
+=JhqO
 -----END PGP SIGNATURE-----
 
---rf72Gf+bfLC8kxKs--
+--=-OTYztITl7xpPjqLzLSDp--
