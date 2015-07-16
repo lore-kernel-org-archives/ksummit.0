@@ -1,34 +1,36 @@
 Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7936FACC
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 75352B19
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 16 Jul 2015 18:37:08 +0000 (UTC)
+	Thu, 16 Jul 2015 18:40:04 +0000 (UTC)
 Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
 	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D59C614E
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id EA151111
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 16 Jul 2015 18:37:07 +0000 (UTC)
-Date: Thu, 16 Jul 2015 19:36:59 +0100
-From: Mark Brown <broonie@kernel.org>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Message-ID: <20150716183659.GW11162@sirena.org.uk>
-References: <20150710222351.GA28632@kroah.com> <20150711000034.GU111846@vmdeb7>
-	<20150711001348.GA30675@kroah.com> <20150711055441.GA6316@sudip-PC>
+	Thu, 16 Jul 2015 18:40:03 +0000 (UTC)
+Date: Thu, 16 Jul 2015 19:39:57 +0100
+From: Mark Brown <broonie@sirena.org.uk>
+To: Jiri Kosina <jkosina@suse.com>
+Message-ID: <20150716183957.GX11162@sirena.org.uk>
+References: <20150711000034.GU111846@vmdeb7> <20150711001348.GA30675@kroah.com>
+	<20150711055441.GA6316@sudip-PC>
 	<20150715212043.775be5d2@gandalf.local.home>
 	<20150716132551.GH4039@sirena.org.uk>
 	<20150716094720.2bf9f5ac@gandalf.local.home>
-	<55A7C7FE.6000604@sonymobile.com> <20150716094125.16cdda73@lwn.net>
-	<1437063875.18768.59.camel@HansenPartnership.com>
+	<20150716144155.GM4039@sirena.org.uk>
+	<1437057999.18768.38.camel@HansenPartnership.com>
+	<20150716151214.GQ4039@sirena.org.uk>
+	<alpine.LNX.2.00.1507161724320.26861@pobox.suse.cz>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="IyX+qZsYMJ8Y4LOh"
+	protocol="application/pgp-signature"; boundary="kSh660NeFW4x1nxM"
 Content-Disposition: inline
-In-Reply-To: <1437063875.18768.59.camel@HansenPartnership.com>
-Cc: Jason Cooper <jason@lakedaemon.net>,
+In-Reply-To: <alpine.LNX.2.00.1507161724320.26861@pobox.suse.cz>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
 	Dan Carpenter <dan.carpenter@oracle.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+	ksummit-discuss@lists.linuxfoundation.org,
+	Jason Cooper <jason@lakedaemon.net>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -41,59 +43,42 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---IyX+qZsYMJ8Y4LOh
+--kSh660NeFW4x1nxM
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jul 16, 2015 at 07:24:35PM +0300, James Bottomley wrote:
+On Thu, Jul 16, 2015 at 05:27:05PM +0200, Jiri Kosina wrote:
+> On Thu, 16 Jul 2015, Mark Brown wrote:
 
-> Seriously, what is the actual problem?  Who bites the heads off newbies
-> for sport?  I ask because the first patch submission is usually treated
-> with helpfulness and tolerance, at least where I've been on the cc list.
-> The wrong phase of the merge cycle can be a bugger, particularly when
-> most people's attention is elsewhere, but it's not like it's a huge
-> deterrent.  We all have developers who'd rather spit rats than submit a
-> patch to $opensourceprojecttheyfoundabugin but then, it's sometimes
-> because the reply might contradict their own mythology (or question
-> their reputation).  Before we embark on a huge does of hair shirt and a
-> lavish process dump, what is the problem we're trying to solve?
+> > Hrm, perhaps it's more common in graphical clients than text mode ones -
+> > I have to confess I've never really got on with graphical clients for
+> > kernel workflow and everything else I'm much more inbox 0.  I mostly use
+> > mutt but I do try others from time to time.
 
-I think a lot of it is about perception - the whole "Linus will scream
-at you for minor issues" meme is pretty strong out there and shapes
-perceptions regardless of how true it is.  That said I do think there's
-a couple of things that are real.
+> You can achieve the same by setting "sort_aux" properly in mutt. pine can=
+=20
+> do that as well (thread-sorts-by-arrival setting).
 
-The response time issues being discussed elsewhere in the thread are
-real I think - they are the biggest problem I see when I'm helping
-people with patch submissions.  People get very discouraged when they
-send something off and either get no response at all or find it
-takes a while, they have difficulty in figuring out how to get people to
-pay attention.  This is unfortunately quite common.  It's a really
-difficult problem to solve with our workflows, at some point submitters
-have sent a mail to the right people in close enough to the right format
-so the maintainers *should* look at it but still the submitters don't
-hear anything back and next steps aren't terribly clear.
+Ah, thanks - I'd not seen that (it's burief in the config file).  Not
+sure I actually find it helpful though since I'm most interested in
+finding the most recently sent codde, it'd be useful as a sort I could
+flip at runtime I guess.
 
-I know there's also some stuff that's down to brief replies rather than
-active hostility - I'm definitely part of the problem here, I need to
-write a bunch of longer form replies and get a workflow for pasting them
-into email (actually I think I've got that bit) sorted out.  Type the
-same reply a lot and it's easy to optimise it down to brevity.
-
---IyX+qZsYMJ8Y4LOh
+--kSh660NeFW4x1nxM
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQEcBAEBCAAGBQJVp/nKAAoJECTWi3JdVIfQZfAH/1G9coEvXXdaJycn1rXLNmwB
-0PDpbd0KnZec3GBqwupAZGKH229vppj9MjttWtW5IG9/6xrbYMUvoNmMbkjslvNU
-U9Hs9RLaxD3E7fTfpggL5XCqqJ7ZpsQa9Ja3LRLux30G4S4vuKdFe/9rubK1NjeW
-G4NOKwgFwVyaGtM4leL/BU9DadMrhiVULqI6peOnW0DJwsSTFtA8jH8uB1u6FG69
-CoV2SXp2VgYysnw05bqnTUwDPcTV7fmS1cWxSoFXQuep0qwbVGF7hchg/vJFSZww
-GDo1XnCxmZkma6xpl+xXBOZPLU8sULcw6Zt3cwFO5FX7lMtWo/+TEYNQngq71IY=
-=Yk0l
+iQEcBAEBCAAGBQJVp/p8AAoJECTWi3JdVIfQHecIAIIrZuoGqn09Pyb+vVzhxIQN
+S7MIcRrAFQp/xJuUwfuRMHWXrd+y3wUue9CzxB/X6e7NXJLbnRD4i1iX/y150/jp
+1tJHTtUY9yn/M4eBNR2FXkyXwj5cMVq26Pyr0KFMZI4oA18vGZq4u8xFHrGR4nDq
+e2zt+BQhk2lQ8yByga4gs6WxEjflgIGfiXLk3Nh/Kqtlx7ujZclDXfw8bRKwPWMC
+jdAwFVCpwtiCiPRdsIGd7BJCS/pYHotoNsXVgtjh0F8QVqY4by6t4zi4D/SXBf3/
+i1wB1ScH18NuuL1GQ5tkQdFOC4BSVGeJYA6fcehorw3i3jR6sFz2xjfqpudxMek=
+=8m3m
 -----END PGP SIGNATURE-----
 
---IyX+qZsYMJ8Y4LOh--
+--kSh660NeFW4x1nxM--
