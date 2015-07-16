@@ -1,36 +1,34 @@
 Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A38CF93E
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A6436AC1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 16 Jul 2015 12:53:45 +0000 (UTC)
+	Thu, 16 Jul 2015 13:26:06 +0000 (UTC)
 Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
 	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1BB32115
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 35EB9241
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 16 Jul 2015 12:53:45 +0000 (UTC)
-Date: Thu, 16 Jul 2015 13:53:31 +0100
-From: Mark Brown <broonie@sirena.org.uk>
-To: Sasha Levin <sasha.levin@kernel.org>
-Message-ID: <20150716125331.GF4039@sirena.org.uk>
-References: <55A33E48.2040202@oracle.com>
-	<20150713142132.08fead4d@gandalf.local.home>
-	<55A45AD8.5010400@oracle.com>
-	<20150713210226.519dedfd@gandalf.local.home>
-	<20150714104623.GQ11162@sirena.org.uk>
-	<55A51548.4040502@oracle.com>
-	<20150714152515.GX11162@sirena.org.uk>
-	<55A52B8B.5060606@oracle.com>
-	<20150714155648.GA11162@sirena.org.uk>
-	<55A55CA5.6050506@oracle.com>
+	Thu, 16 Jul 2015 13:26:06 +0000 (UTC)
+Date: Thu, 16 Jul 2015 14:25:51 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+Message-ID: <20150716132551.GH4039@sirena.org.uk>
+References: <20150708114011.3a1f1861@noble> <2879113.fraeuJIr2M@avalon>
+	<20150709193718.GD9169@vmdeb7> <20150710143641.GW4341@mwanda>
+	<20150710160714.GL111846@vmdeb7> <20150710222351.GA28632@kroah.com>
+	<20150711000034.GU111846@vmdeb7> <20150711001348.GA30675@kroah.com>
+	<20150711055441.GA6316@sudip-PC>
+	<20150715212043.775be5d2@gandalf.local.home>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="Zi0sgQQBxRFxMTsj"
+	protocol="application/pgp-signature"; boundary="bpVaumkpfGNUagdU"
 Content-Disposition: inline
-In-Reply-To: <55A55CA5.6050506@oracle.com>
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Issues with stable process
+In-Reply-To: <20150715212043.775be5d2@gandalf.local.home>
+Cc: Dan Carpenter <dan.carpenter@oracle.com>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Jason Cooper <jason@lakedaemon.net>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
+ Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,36 +39,59 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---Zi0sgQQBxRFxMTsj
+--bpVaumkpfGNUagdU
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Tue, Jul 14, 2015 at 03:01:57PM -0400, Sasha Levin wrote:
-> On 07/14/2015 11:56 AM, Mark Brown wrote:
+On Wed, Jul 15, 2015 at 09:20:43PM -0400, Steven Rostedt wrote:
+> Sudip Mukherjee <sudipm.mukherjee@gmail.com> wrote:
 
-> > That's still sending a change of course which was what was being
-> > objected to.
+> > Another problem, when a newbie tries to move out of staging to some other
+> > subsystem he likes, the maintainer may not be that much responsive. Just
+> > for example, i submitted a patch on November, 2014 and I am yet to receive
+> > a reply or review to that and the patch was not a style correction patch.
 
-> Lesser of two evils? I can't really come up with a safer solution rather than
-> reverting it (not blindly, the revert will need an ack too, and that's assuming
-> that the fix is not trivial).
+> BTW, it should always be OK to ping the maintainer if they ignore a
+> patch. I believe one week is a good time to wait. And again in another
+> week if they still do not reply. I know a few maintainers that think if
+> they get to a patch that is old and the author never pinged them, they
+> think the author doesn't think that patch is too important and they
+> just delete it.
 
-AFAICT any change of any kind would have got the same response.
+Please don't encourage people to send content free pings bit instead
+resend it - a content free ping mostly just adds to mail volume which is
+pretty much the original problem.  If the patch has actually been lost
+then a resend is going to be needed anyway and if not then it's mostly
+just adding to mail volume.  With a lot of mail clients (including mutt
+which I use) the nag will get threaded in with the original patch buried
+back in the mailbox and not even be seen if that's still sitting waiting
+for handling.
 
---Zi0sgQQBxRFxMTsj
+> I'm sure all maintainers are fine with a friendly ping after a week.
+> Don't send a ping before then, because maintainers are busy, and may
+> get annoyed by being too pushy.
+
+Not me, they tend to just annoy me for the reasons above.  Resends are
+useful but just straight up pings not so much.
+
+I'd say a couple of weeks is a better lower limit than a single week
+unless it's a very serious bugfix, a week could easily be a holiday or
+whatever and larger patches or patch serieses do take time to review.
+
+--bpVaumkpfGNUagdU
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQEcBAEBCAAGBQJVp6lKAAoJECTWi3JdVIfQ3BEH/0wEPIkiPVmt/e61FW8gKmTP
-AOjKj1yWJqZ9lNy/ChqJhsUJAOCg9NIL3UCqESvVq6B1YLBrVREH1Al35AR8EKU+
-YrGS8NLobvrW8TblWM2yfO/wXXMz89HzcEhQRzJ2jEnU6m/LwAc2QBkv3oWksB6Q
-3BBCLQsGUUoEA5BQjgLZvsB0IrIWWQbAuwjXD7uC6ITKv94b8TNbhG6JxguxcdVd
-HOoLUh0O/+bcvMPSuCp7v9KCmJun2P5FChiSifxIrOkDnynrmJK/iJDsmS3SGVEB
-jJEVT4kAZkYZ5XanyKg7Z3xBh0thBrYdJ2OLeZWsSm0I02Cr++KBqBoZgArQsZ4=
-=39al
+iQEcBAEBCAAGBQJVp7DbAAoJECTWi3JdVIfQW6UH/066kc2pOJOy5pw9pZVpd9qv
+KMU/BxEWTInaLMtdv/zwVDu22wJZmiccg/BTLEvwxbrjD7+Wo+hkPW9yxyy1+sfX
+9iCpiJo3Cwk1uV4FVcAgVvEy0idgLn/6yycUwufdbLjIIbxBSxd7F1M6Svyw8MBH
+QjKAs7sO9JD706RrMB50SfwBxyZF8+IoHbFR0Z0RQyR7K2BzYmBq9fGm/MlC1tQo
+Nyh3BW8TigzczW2vveH+wJe1O0miVcwddcO3qAP27NCNjGZ5DlYDUgphcao3/N45
+p6ftw6xe/wap2DETiLlDlG1LBbMc7FH5JxNMzgxMVSUOOHr3hW6fpKG0CtlAPuQ=
+=waPc
 -----END PGP SIGNATURE-----
 
---Zi0sgQQBxRFxMTsj--
+--bpVaumkpfGNUagdU--
