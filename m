@@ -1,30 +1,32 @@
-Return-Path: <Tim.Bird@sonymobile.com>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 88A0FABF
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id EA4E6AAC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 16 Jul 2015 15:05:58 +0000 (UTC)
-Received: from seldrel01.sonyericsson.com (seldrel01.sonyericsson.com
-	[37.139.156.2])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E0C85101
+	Thu, 16 Jul 2015 15:12:29 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7F690275
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 16 Jul 2015 15:05:57 +0000 (UTC)
-Message-ID: <55A7C7FE.6000604@sonymobile.com>
-Date: Thu, 16 Jul 2015 08:04:30 -0700
-From: Tim Bird <tim.bird@sonymobile.com>
-MIME-Version: 1.0
-To: Steven Rostedt <rostedt@goodmis.org>, Mark Brown <broonie@kernel.org>
-References: <20150708114011.3a1f1861@noble>
-	<2879113.fraeuJIr2M@avalon>	<20150709193718.GD9169@vmdeb7>
-	<20150710143641.GW4341@mwanda>	<20150710160714.GL111846@vmdeb7>
-	<20150710222351.GA28632@kroah.com>	<20150711000034.GU111846@vmdeb7>
-	<20150711001348.GA30675@kroah.com>	<20150711055441.GA6316@sudip-PC>	<20150715212043.775be5d2@gandalf.local.home>	<20150716132551.GH4039@sirena.org.uk>
+	Thu, 16 Jul 2015 15:12:29 +0000 (UTC)
+Date: Thu, 16 Jul 2015 16:12:14 +0100
+From: Mark Brown <broonie@kernel.org>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Message-ID: <20150716151214.GQ4039@sirena.org.uk>
+References: <20150710160714.GL111846@vmdeb7> <20150710222351.GA28632@kroah.com>
+	<20150711000034.GU111846@vmdeb7> <20150711001348.GA30675@kroah.com>
+	<20150711055441.GA6316@sudip-PC>
+	<20150715212043.775be5d2@gandalf.local.home>
+	<20150716132551.GH4039@sirena.org.uk>
 	<20150716094720.2bf9f5ac@gandalf.local.home>
-In-Reply-To: <20150716094720.2bf9f5ac@gandalf.local.home>
-Content-Type: text/plain; charset="windows-1252"
-Content-Transfer-Encoding: 7bit
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
+	<20150716144155.GM4039@sirena.org.uk>
+	<1437057999.18768.38.camel@HansenPartnership.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="lG9v85r552aFjg4G"
+Content-Disposition: inline
+In-Reply-To: <1437057999.18768.38.camel@HansenPartnership.com>
+Cc: ksummit-discuss@lists.linuxfoundation.org,
 	Dan Carpenter <dan.carpenter@oracle.com>,
 	Jason Cooper <jason@lakedaemon.net>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
@@ -38,32 +40,54 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 07/16/2015 06:47 AM, Steven Rostedt wrote:
-> One of the issues with newcomers coming to development of the Linux
-> kernel, is that every maintainer is different. We should be trying
-> harder to let people know what we prefer. Every maintainer expects
-> something different, but it's up to the maintainer to explicitly let
-> others know what they want. You can't expect everyone to read your mind.
 
-I agree with this completely.  When you switch systems (which I've done
-something like 5 times in the last 2 years), you are essentially a newbie
-in that new system.
+--lG9v85r552aFjg4G
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-How about putting some notes in the MAINTAINER file for things like
-this, that some get_maintainer.pl option could show? 
-We could use a I: prefix, for "Instructions:"  (only because 'N:'
-is already used.)
+On Thu, Jul 16, 2015 at 05:46:39PM +0300, James Bottomley wrote:
+> On Thu, 2015-07-16 at 15:41 +0100, Mark Brown wrote:
+> > On Thu, Jul 16, 2015 at 09:47:20AM -0400, Steven Rostedt wrote:
 
-I'm not sure the what types of per-maintainer differences would be good to
-list, but at least the two described here would be good:
- - ping delay preference
- - ping style (whole patch or just an alert) preference
+> > > Well, then to each their own. I prefer the content free ping, because in
+> > > my mail client (claws), it brings the original patch up to the front
+> > > (my threading is to sort by latest email in the thread). A simple ping
+> > > will move their patch ahead of other patches that may have been sent
+> > > later, but are still in the abyss.
 
-I think there may be some other things that we could recommend, but maybe
-it would be good to use free-form instructions for a while and see what
-patterns emerge.
+> > Interesting, not noticed a mail client with that sorting scheme before.
 
-A side benefit of this would be that maintainers could see what their
-colleagues are doing, which might help spread knowledge of useful
-practices.
-  -- Tim
+> I thought all mail clients can do this ... evolution certainly does and
+> I use it and imap labels to create lists of patches ready for applying.
+
+Hrm, perhaps it's more common in graphical clients than text mode ones -
+I have to confess I've never really got on with graphical clients for
+kernel workflow and everything else I'm much more inbox 0.  I mostly use
+mutt but I do try others from time to time.
+
+> However, there is an unintended consequence: If I'm working from this
+> list and applying patches in the order the mail client is presenting
+> them, any patch which receives a reply gets dragged to the bottom of my
+> list.  Usually this is correct because it means there's still debate
+> about the patch, but if you're going to send me pings as replies, they
+> have the same effect and delay the testing and application of the patch.
+
+Heh.
+
+--lG9v85r552aFjg4G
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQEcBAEBCAAGBQJVp8nNAAoJECTWi3JdVIfQujQH+gPUz1mfCISEhPccL8HtmNgP
+3gNZIESJMVquS7WYVtUKv6HsVju0jxFdBaxZSfAQLm0B/bfMHmepHn0wPzoG/z1A
+CE1+mrsujySzMKTTp0aWntHPVVOOccVMAdg5Pec7eCTSKun6nEffnr45MvNJZTCy
++Vd+g8hUwDOQCZo+vI2oyjdBT6vNlaiBqIVa2Uv8fIzxyURHOXz8fyQ28goKSGxN
+QtqTP3OzS1SVgvz4XLEHJBCLv5Mo0UdQaiA9pqZb4zkrfM3RPJCS3DYbqAOzAPb+
+7LH8dciCSuWuRkBu2Gb6+Pu2rnTYqCp4Pv/yZSoSlS+3DDCHM7DQ1tCFC6db8OY=
+=6JOX
+-----END PGP SIGNATURE-----
+
+--lG9v85r552aFjg4G--
