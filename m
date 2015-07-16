@@ -1,33 +1,32 @@
-Return-Path: <mst@redhat.com>
+Return-Path: <lizefan@huawei.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4C9E1ACC
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 581B793E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 16 Jul 2015 06:13:42 +0000 (UTC)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9BF2632
+	Thu, 16 Jul 2015 09:07:13 +0000 (UTC)
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [119.145.14.65])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 31354126
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 16 Jul 2015 06:13:41 +0000 (UTC)
-Date: Thu, 16 Jul 2015 09:13:37 +0300
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Matthew Wilcox <willy@linux.intel.com>
-Message-ID: <20150716075454-mutt-send-email-mst@redhat.com>
-References: <20150715120708.GA24534@infradead.org>
-	<alpine.DEB.2.11.1507151408570.18576@nanos>
-	<55A67F11.1030709@sandisk.com>
-	<alpine.LNX.2.00.1507151700300.15930@localhost.lm.intel.com>
-	<55A697A3.3090305@kernel.dk>
-	<20150715184800.GL13681@linux.intel.com>
+	Thu, 16 Jul 2015 09:07:11 +0000 (UTC)
+Message-ID: <55A77426.9010003@huawei.com>
+Date: Thu, 16 Jul 2015 17:06:46 +0800
+From: Zefan Li <lizefan@huawei.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20150715184800.GL13681@linux.intel.com>
-Cc: Keith Busch <keith.busch@intel.com>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-nvme@lists.infradead.org, Christoph Hellwig <hch@infradead.org>,
-	Bart Van Assche <bart.vanassche@sandisk.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] IRQ affinity
+To: Sasha Levin <sasha.levin@oracle.com>
+References: <55A1407E.5080800@oracle.com>
+	<CAMuHMdUK+LZrp9QxPS0wSJzFZVAr_cihxJnFJybo5nb7U_t7xg@mail.gmail.com>
+	<55A26C5B.8060007@oracle.com> <20150713105210.6e367f4b@noble>
+	<55A33E48.2040202@oracle.com>
+	<20150713142132.08fead4d@gandalf.local.home>
+	<20150713185118.GK11162@sirena.org.uk>
+	<CAOesGMhFNjK2V23ZRN=KOfsYc=JawLwWf_x7wvHzBjP0UpbW7A@mail.gmail.com>
+	<20150715160347.GB12543@kroah.com> <55A68736.1010104@oracle.com>
+In-Reply-To: <55A68736.1010104@oracle.com>
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: 7bit
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Issues with stable process
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,53 +36,27 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Jul 15, 2015 at 02:48:00PM -0400, Matthew Wilcox wrote:
-> On Wed, Jul 15, 2015 at 11:25:55AM -0600, Jens Axboe wrote:
-> > On 07/15/2015 11:19 AM, Keith Busch wrote:
-> > >On Wed, 15 Jul 2015, Bart Van Assche wrote:
-> > >>* With blk-mq and scsi-mq optimal performance can only be achieved if
-> > >> the relationship between MSI-X vector and NUMA node does not change
-> > >> over time. This is necessary to allow a blk-mq/scsi-mq driver to
-> > >> ensure that interrupts are processed on the same NUMA node as the
-> > >> node on which the data structures for a communication channel have
-> > >> been allocated. However, today there is no API that allows
-> > >> blk-mq/scsi-mq drivers and irqbalanced to exchange information
-> > >> about the relationship between MSI-X vector ranges and NUMA nodes.
-> > >
-> > >We could have low-level drivers provide blk-mq the controller's irq
-> > >associated with a particular h/w context, and the block layer can provide
-> > >the context's cpumask to irqbalance with the smp affinity hint.
-> > >
-> > >The nvme driver already uses the hwctx cpumask to set hints, but this
-> > >doesn't seems like it should be a driver responsibility. It currently
-> > >doesn't work correctly anyway with hot-cpu since blk-mq could rebalance
-> > >the h/w contexts without syncing with the low-level driver.
-> > >
-> > >If we can add this to blk-mq, one additional case to consider is if the
-> > >same interrupt vector is used with multiple h/w contexts. Blk-mq's cpu
-> > >assignment needs to be aware of this to prevent sharing a vector across
-> > >NUMA nodes.
-> > 
-> > Exactly. I may have promised to do just that at the last LSF/MM conference,
-> > just haven't done it yet. The point is to share the mask, I'd ideally like
-> > to take it all the way where the driver just asks for a number of vecs
-> > through a nice API that takes care of all this. Lots of duplicated code in
-> > drivers for this these days, and it's a mess.
+On 2015/7/16 0:15, Sasha Levin wrote:
+> On 07/15/2015 12:03 PM, Greg KH wrote:
+>>>> That would be the ideal setup for me though -- tagged or branched -rc
+>>>> candidates of stable releases that I'd be happy to put through the
+>>>> build/boot test at my end.
+>> kernelci now handles -rc stable releases, so would this just be a
+>> duplication of that work?
 > 
-> Yes.  I think the fundamental problem is that our MSI-X API is so funky.
-> We have this incredibly flexible scheme where each MSI-X vector could
-> have its own interrupt handler, but that's not what drivers want.
-> They want to say "Give me eight MSI-X vectors spread across the CPUs,
-> and use this interrupt handler for all of them".  That is, instead of
-> the current scheme where each MSI-X vector gets its own Linux interrupt,
-> we should have one interrupt handler (of the per-cpu interrupt type),
-> which shows up with N bits set in its CPU mask.
+> I've actually suggested -rc stable cycles for the purpose of getting -rc
+> stable kernels into users hands by making it possible for distros to
+> ship these as proposed/test kernels by giving them enough time (right now
+> the review cycle is only a few days, making it impossible for distros
+> to ship them).
+> 
+> As Guenter and Greg mentioned, there's already a fair amount of testing
+> being done on the queue branches,
 
-It would definitely be nice to have a way to express that.  But it's
-also pretty common for drivers to have e.g. RX and TX use separate
-vectors, and these need separate handlers.
+Now 0day has been testing stable releases on linux-stable.git, but I don't
+think it tests queue branches? I asked Fengguang to run 0day on my 3.4.y
+stable queue some time ago.
 
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+> but there's really no testing being
+> done by end users before they receive a final kernel.
+> 
