@@ -1,33 +1,32 @@
-Return-Path: <tglx@linutronix.de>
+Return-Path: <linux@roeck-us.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1EA53481
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8DD8941C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 17 Jul 2015 15:51:25 +0000 (UTC)
-Received: from Galois.linutronix.de (www.linutronix.de [62.245.132.108])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 73DD163
+	Fri, 17 Jul 2015 16:10:37 +0000 (UTC)
+Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 00AC4150
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 17 Jul 2015 15:51:24 +0000 (UTC)
-Date: Fri, 17 Jul 2015 17:51:07 +0200 (CEST)
-From: Thomas Gleixner <tglx@linutronix.de>
-To: Matthew Wilcox <willy@linux.intel.com>
-In-Reply-To: <20150715184800.GL13681@linux.intel.com>
-Message-ID: <alpine.DEB.2.11.1507171655110.18576@nanos>
-References: <20150715120708.GA24534@infradead.org>
-	<alpine.DEB.2.11.1507151408570.18576@nanos>
-	<55A67F11.1030709@sandisk.com>
-	<alpine.LNX.2.00.1507151700300.15930@localhost.lm.intel.com>
-	<55A697A3.3090305@kernel.dk>
-	<20150715184800.GL13681@linux.intel.com>
+	Fri, 17 Jul 2015 16:10:36 +0000 (UTC)
+Message-ID: <55A928F1.8080704@roeck-us.net>
+Date: Fri, 17 Jul 2015 09:10:25 -0700
+From: Guenter Roeck <linux@roeck-us.net>
 MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
-Cc: Christoph Hellwig <hch@infradead.org>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	linux-rdma@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
-	linux-nvme@lists.infradead.org, Keith Busch <keith.busch@intel.com>,
-	Bart Van Assche <bart.vanassche@sandisk.com>,
-	Jiang Liu <jiang.liu@linux.intel.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] IRQ affinity
+To: Mark Brown <broonie@kernel.org>, Steven Rostedt <rostedt@goodmis.org>
+References: <20150708114011.3a1f1861@noble>
+	<2879113.fraeuJIr2M@avalon>	<20150709193718.GD9169@vmdeb7>
+	<20150710143641.GW4341@mwanda>	<20150710160714.GL111846@vmdeb7>
+	<20150710222351.GA28632@kroah.com>	<20150711000034.GU111846@vmdeb7>
+	<20150711001348.GA30675@kroah.com>	<20150711055441.GA6316@sudip-PC>	<20150715212043.775be5d2@gandalf.local.home>
+	<20150716132551.GH4039@sirena.org.uk>
+In-Reply-To: <20150716132551.GH4039@sirena.org.uk>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	Dan Carpenter <dan.carpenter@oracle.com>,
+	Jason Cooper <jason@lakedaemon.net>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
+ Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,154 +36,39 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-B1;2802;0cOn Wed, 15 Jul 2015, Matthew Wilcox wrote:
-> On Wed, Jul 15, 2015 at 11:25:55AM -0600, Jens Axboe wrote:
-> > On 07/15/2015 11:19 AM, Keith Busch wrote:
-> > >On Wed, 15 Jul 2015, Bart Van Assche wrote:
-> > >>* With blk-mq and scsi-mq optimal performance can only be achieved if
-> > >> the relationship between MSI-X vector and NUMA node does not change
-> > >> over time. This is necessary to allow a blk-mq/scsi-mq driver to
-> > >> ensure that interrupts are processed on the same NUMA node as the
-> > >> node on which the data structures for a communication channel have
-> > >> been allocated. However, today there is no API that allows
-> > >> blk-mq/scsi-mq drivers and irqbalanced to exchange information
-> > >> about the relationship between MSI-X vector ranges and NUMA nodes.
-> > >
-> > >We could have low-level drivers provide blk-mq the controller's irq
-> > >associated with a particular h/w context, and the block layer can provide
-> > >the context's cpumask to irqbalance with the smp affinity hint.
-> > >
-> > >The nvme driver already uses the hwctx cpumask to set hints, but this
-> > >doesn't seems like it should be a driver responsibility. It currently
-> > >doesn't work correctly anyway with hot-cpu since blk-mq could rebalance
-> > >the h/w contexts without syncing with the low-level driver.
-> > >
-> > >If we can add this to blk-mq, one additional case to consider is if the
-> > >same interrupt vector is used with multiple h/w contexts. Blk-mq's cpu
-> > >assignment needs to be aware of this to prevent sharing a vector across
-> > >NUMA nodes.
-> > 
-> > Exactly. I may have promised to do just that at the last LSF/MM conference,
-> > just haven't done it yet. The point is to share the mask, I'd ideally like
-> > to take it all the way where the driver just asks for a number of vecs
-> > through a nice API that takes care of all this. Lots of duplicated code in
-> > drivers for this these days, and it's a mess.
-> 
-> Yes.  I think the fundamental problem is that our MSI-X API is so funky.
-> We have this incredibly flexible scheme where each MSI-X vector could
-> have its own interrupt handler, but that's not what drivers want.
-> They want to say "Give me eight MSI-X vectors spread across the CPUs,
-> and use this interrupt handler for all of them".  That is, instead of
-> the current scheme where each MSI-X vector gets its own Linux interrupt,
-> we should have one interrupt handler (of the per-cpu interrupt type),
-> which shows up with N bits set in its CPU mask.
+On 07/16/2015 06:25 AM, Mark Brown wrote:
+> On Wed, Jul 15, 2015 at 09:20:43PM -0400, Steven Rostedt wrote:
+>> Sudip Mukherjee <sudipm.mukherjee@gmail.com> wrote:
+>
+>>> Another problem, when a newbie tries to move out of staging to some other
+>>> subsystem he likes, the maintainer may not be that much responsive. Just
+>>> for example, i submitted a patch on November, 2014 and I am yet to receive
+>>> a reply or review to that and the patch was not a style correction patch.
+>
+>> BTW, it should always be OK to ping the maintainer if they ignore a
+>> patch. I believe one week is a good time to wait. And again in another
+>> week if they still do not reply. I know a few maintainers that think if
+>> they get to a patch that is old and the author never pinged them, they
+>> think the author doesn't think that patch is too important and they
+>> just delete it.
+>
+> Please don't encourage people to send content free pings bit instead
+> resend it - a content free ping mostly just adds to mail volume which is
+> pretty much the original problem.  If the patch has actually been lost
+> then a resend is going to be needed anyway and if not then it's mostly
+> just adding to mail volume.  With a lot of mail clients (including mutt
+> which I use) the nag will get threaded in with the original patch buried
+> back in the mailbox and not even be seen if that's still sitting waiting
+> for handling.
+>
 
-That certainly would help, but I'm definitely not going to open a huge
-can of worms by providing a side channel for vector allocation with
-all the variants of irq remapping and whatsoever.
+I tried both (ping and resend). In either case the response depends on the
+maintainer. Some will accept either, some will say you should have res-sent
+the patch if you sent a ping, some will tell you that you should have
+pinged if you re-sent it. Depending on the maintainer the response can be
+pretty strong.
 
-Though we certainly can do better than we do now. We recently reworked
-the whole interrupt handling of x86 to use hierarchical interrupt
-domains. This allows us to come up with a clean solution for your
-issue. The current hierarchy looks like this:
+It would be great to have a single well defined and documented mechanism
+to avoid the "whatever you do is wrong" response.
 
-  [MSI-domain]
-	|
-	v
-  [optional REMAP-domain]
-	|
-	v
-  [Vector-domain]
-
-Now it's simple to add another hierarchy level:
-
-  [MSI/X-Multiqueue-domain]
-	|
-	v
-  [MSI-domain]
-	|
-	v
-  [optional REMAP-domain]
-	|
-	v
-  [Vector-domain]
-
-The MSI/X-Multiqueue-domain would be the one which is associated to
-this class of devices. The domain would provide a single virtual
-interrupt number to the device and hide the underlying details.
-
-This needs a few new interfaces at the irq core level because we
-cannot map that 1:1 to the per cpu interrupt mechanism which we have
-on ARM and other architectures.
-
-irqdomain interfaces used from PCI/MSI infrastructure code:
-
-  irq_domain_alloc_mq(....., nr_vectors, spread_scheme)
-
-    @nr_vectors:     The number of vectors to allocate underneath
-
-    @spread_scheme:  Some form of advice/hint how to spread the vectors
-    		     (nodes, cpus, ...)
-
-    Returns a unique virtual interrupt number which shows up in
-    /proc/irq. The virtual interrupt cannot be influenced by user space
-    affinity settings (e.g. irqbalanced)
-
-    The vectors will have seperate irq numbers and irq descriptors,
-    but those should be supressed in /proc/interrupts. /proc/irq/NNN
-    should expose the information at least for debugging purposes.
-
-    One advantage of these seperate descriptors is that the associated
-    data will be cpu/node local according to the spread scheme.
-
-  irq_domain_free_mq()
-
-    Counterpart to the above
-
-irq core interfaces used from PCI/MSI infrastructure
-
-  irq_move_mq_vector()
-
-    Move a multiqueue vector to a new target (cpu, node)  
-
-    That might even replace the underlying irq descriptor with a newly
-    allocated one, if the vector moves across nodes.
-
-Driver relevant interfaces:
-
-  msi_alloc_mq_irqs()/msi_free_mq_irqs()
-
-    PCI/MSI specific wrappers for the irqdomain interfaces
-
-
-  msi_mq_move_vector(virq, vector_nr, target)
-
-    @virq: 	The virtual interrupt number
-
-    @vector_nr:	The vector number to move
-
-    @target:	The target cpu/node information
-    
-    PCI/MSI specific wrapper around irq_move_mq_vector()
-	
-The existing interfaces will behave as follows:
-
-    request_irq()
-    free_irq()
-    disable_irq()
-    enable_irq()
-
-    They all operate on the virtual irq number and affect all
-    associated vectors.
-
-Now the question is whether we need
-
-    en/disable_irq_mq_vector(virq, vector_nr)
-
-to can shut down / reenable a particular vector, but that would be
-pretty straight forward to do, plus/minus the headache versus the
-global disable/enable mechanism which operates on the virq.
-
-Thoughts?
-
-	tglx
+Guenter
