@@ -1,36 +1,42 @@
 Return-Path: <rostedt@goodmis.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 57760323
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 65A29409
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 17 Jul 2015 19:43:29 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0122.hostedemail.com
-	[216.40.44.122])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id DE480142
+	Fri, 17 Jul 2015 19:46:39 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0037.hostedemail.com
+	[216.40.44.37])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 4AF81184
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 17 Jul 2015 19:43:28 +0000 (UTC)
-Date: Fri, 17 Jul 2015 15:43:26 -0400
+	Fri, 17 Jul 2015 19:46:37 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
+	[10.5.19.251])
+	by smtpgrave08.hostedemail.com (Postfix) with ESMTP id A096B21250B
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 17 Jul 2015 19:46:36 +0000 (UTC)
+Date: Fri, 17 Jul 2015 15:46:33 -0400
 From: Steven Rostedt <rostedt@goodmis.org>
-To: josh@joshtriplett.org
-Message-ID: <20150717154326.6f129bc4@gandalf.local.home>
-In-Reply-To: <20150717190223.GB1499@cloud>
-References: <20150711001348.GA30675@kroah.com> <20150711055441.GA6316@sudip-PC>
-	<20150715212043.775be5d2@gandalf.local.home>
+To: Chris Mason <clm@fb.com>
+Message-ID: <20150717154633.51804e6e@gandalf.local.home>
+In-Reply-To: <20150717193013.GB8274@ret.masoncoding.com>
+References: <20150715212043.775be5d2@gandalf.local.home>
 	<20150716132551.GH4039@sirena.org.uk>
 	<20150716094720.2bf9f5ac@gandalf.local.home>
 	<55A7C7FE.6000604@sonymobile.com> <20150716094125.16cdda73@lwn.net>
 	<1437063875.18768.59.camel@HansenPartnership.com>
 	<20150717101151.5d5bc86d@lwn.net>
 	<20150717133712.42c82add@gandalf.local.home>
-	<20150717190223.GB1499@cloud>
+	<22243b88-029f-4560-9e13-0b7001ed14ec@email.android.com>
+	<20150717135313.6b917e1a@gandalf.local.home>
+	<20150717193013.GB8274@ret.masoncoding.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+Cc: James Bottomley <James.Bottomley@Hansenpartnership.com>,
+	Dan Carpenter <dan.carpenter@oracle.com>,
 	Jason Cooper <jason@lakedaemon.net>,
 	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Dan Carpenter <dan.carpenter@oracle.com>
+	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -42,46 +48,56 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, 17 Jul 2015 12:02:23 -0700
-josh@joshtriplett.org wrote:
+On Fri, 17 Jul 2015 15:30:13 -0400
+Chris Mason <clm@fb.com> wrote:
 
-
-> > --- Some Maintainer's prefer these styles ---
+> On Fri, Jul 17, 2015 at 01:53:13PM -0400, Steven Rostedt wrote:
+> > On Fri, 17 Jul 2015 20:43:12 +0300
+> > James Bottomley <James.Bottomley@Hansenpartnership.com> wrote:
 > > 
-> >  These are some extra styles that maintainers prefer. Some are strict
-> >  about these, others may not care. It doesn't hurt to add them.
-> 
-> A world of *no*.  If your style is not universal, and you can't get a
-> general consensus among kernel maintainers that it should be a
-> requirement across the entire kernel, then *no*.  We should not have
-> per-subsystem formatting rules.
->
-
-Um, we have it today, and we'll have it tomorrow. Sorry, but the Linux
-kernel is not run by management. It's a huge community effort with
-some of the brightest minds in the world working on it. Each subsystem
-of the kernel is a project in itself. We're lucky we have the consensus
-that we have.
-
- 
-> > /*
-> >  * What is the question?
-> >  * To add a space at the top of a comment?
-> >  */
 > > 
-> > /* Or not to add a space at the top of a comment?
-> >  * That is the question!
-> >  */
+> > > >--- Some Maintainer's prefer these styles ---
+> > > >
+> > > > These are some extra styles that maintainers prefer. Some are strict
+> > > > about these, others may not care. It doesn't hurt to add them.
+> > > >
+> > 
+> > 
+> > 
+> > > 
+> > > If you do that, and I get 500 coccinelle generated patches for SCSI switching the includes to reverse Christmas tree one file at a time, I'm afraid I'll have to shoot you.
+> > 
+> > I'll remember to wear my bullet proof vest coming to KS.
+> > 
+> > Should stress that just some people prefer them. Heck, we can teach
+> > checkpatch.pl to look at what file is being modified and see what
+> > formats the maintainer of the file wants. :-)
 > 
-> While I'm not going to advocate that we mass-fix existing code in a
-> subsystem for consistent formatting, this is *exactly* the kind of thing
-> that we do not need any more of; one such idiosyncrasy is one too many.
+> We're way off in the weeds here, and whenever this topic comes up, we
+> end up focusing on the minor annoyances that come from submitting
+> new code.  Small variations in coding style, function naming and
+> general methods for working with a maintainer are sure to vary.
+> 
+> Looking at Jon's statistics, we don't have a problem bringing
+> new people into the kernel.  What can we do to help the new
+> people be more productive?  My own feeling is feedback,
+> testing and documentation are more important than
+> 100% consistency between maintainers.
+> 
+> I love Greg's swag idea, I'm sure
+> more than one LF member would
+> be willing to help sponsor
+> such a thing.
+> 
+> -chris
 
-Then there's no issue here. Each maintainer is free to tell people to
-x-mas tree their variables or not. Look, kernel development is complex
-and if your biggest hangup of getting a patch into the kernel is that
-the maintainer requires you to modify some whitespace on rearrange your
-variables, then you probably should get out of kernel development and
-enter a field of bike shed exterior design.
+I wondered
+why I felt like
+I needed to look for
+my lawn mower. Yeah, we are
+bike shedding here. We need to
+figure out how to get people not
+afraid of submitting their first patch.
+I agree, that swag idea may be a good one.
 
 -- Steve
