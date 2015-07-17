@@ -1,31 +1,27 @@
-Return-Path: <corbet@lwn.net>
+Return-Path: <linux@roeck-us.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 58CCA41C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9BE64491
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 17 Jul 2015 16:11:59 +0000 (UTC)
-Received: from vena.lwn.net (tex.lwn.net [70.33.254.29])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 503CA11E
+	Fri, 17 Jul 2015 16:12:08 +0000 (UTC)
+Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 353C011E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 17 Jul 2015 16:11:58 +0000 (UTC)
-Date: Fri, 17 Jul 2015 10:11:51 -0600
-From: Jonathan Corbet <corbet@lwn.net>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Message-ID: <20150717101151.5d5bc86d@lwn.net>
-In-Reply-To: <1437063875.18768.59.camel@HansenPartnership.com>
-References: <20150708114011.3a1f1861@noble> <2879113.fraeuJIr2M@avalon>
-	<20150709193718.GD9169@vmdeb7> <20150710143641.GW4341@mwanda>
-	<20150710160714.GL111846@vmdeb7> <20150710222351.GA28632@kroah.com>
-	<20150711000034.GU111846@vmdeb7> <20150711001348.GA30675@kroah.com>
-	<20150711055441.GA6316@sudip-PC>
-	<20150715212043.775be5d2@gandalf.local.home>
-	<20150716132551.GH4039@sirena.org.uk>
-	<20150716094720.2bf9f5ac@gandalf.local.home>
-	<55A7C7FE.6000604@sonymobile.com> <20150716094125.16cdda73@lwn.net>
-	<1437063875.18768.59.camel@HansenPartnership.com>
+	Fri, 17 Jul 2015 16:12:08 +0000 (UTC)
+Message-ID: <55A92954.5000704@roeck-us.net>
+Date: Fri, 17 Jul 2015 09:12:04 -0700
+From: Guenter Roeck <linux@roeck-us.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 8bit
+To: Ralf Baechle <ralf@linux-mips.org>,
+ Tim Bird <tim.bird@sonymobile.com>
+References: <20150710143641.GW4341@mwanda>
+	<20150710160714.GL111846@vmdeb7>	<20150710222351.GA28632@kroah.com>
+	<20150711000034.GU111846@vmdeb7>	<20150711001348.GA30675@kroah.com>
+	<20150711055441.GA6316@sudip-PC>	<20150715212043.775be5d2@gandalf.local.home>	<20150716132551.GH4039@sirena.org.uk>	<20150716094720.2bf9f5ac@gandalf.local.home>	<55A7C7FE.6000604@sonymobile.com>
+	<20150716151251.GF20901@linux-mips.org>
+In-Reply-To: <20150716151251.GF20901@linux-mips.org>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 7bit
 Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
 	Dan Carpenter <dan.carpenter@oracle.com>,
@@ -41,27 +37,40 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, 16 Jul 2015 19:24:35 +0300
-James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
+On 07/16/2015 08:12 AM, Ralf Baechle wrote:
+> On Thu, Jul 16, 2015 at 08:04:30AM -0700, Tim Bird wrote:
+>
+>> On 07/16/2015 06:47 AM, Steven Rostedt wrote:
+>>> One of the issues with newcomers coming to development of the Linux
+>>> kernel, is that every maintainer is different. We should be trying
+>>> harder to let people know what we prefer. Every maintainer expects
+>>> something different, but it's up to the maintainer to explicitly let
+>>> others know what they want. You can't expect everyone to read your mind.
+>>
+>> I agree with this completely.  When you switch systems (which I've done
+>> something like 5 times in the last 2 years), you are essentially a newbie
+>> in that new system.
+>>
+>> How about putting some notes in the MAINTAINER file for things like
+>> this, that some get_maintainer.pl option could show?
+>> We could use a I: prefix, for "Instructions:"  (only because 'N:'
+>> is already used.)
+>>
+>> I'm not sure the what types of per-maintainer differences would be good to
+>> list, but at least the two described here would be good:
+>>   - ping delay preference
+>>   - ping style (whole patch or just an alert) preference
+>>
+>> I think there may be some other things that we could recommend, but maybe
+>> it would be good to use free-form instructions for a while and see what
+>> patterns emerge.
+>>
+>> A side benefit of this would be that maintainers could see what their
+>> colleagues are doing, which might help spread knowledge of useful
+>> practices.
+>
+> Haven't systems like patchwork mostly obsoleted ping emails?
+>
+Except that not all maintainers use patchwork.
 
-> Seriously, what is the actual problem?  Who bites the heads off newbies
-> for sport?  I ask because the first patch submission is usually treated
-> with helpfulness and tolerance, at least where I've been on the cc list.
-
-So, obviously, I was going for dramatic effect in my other posting.
-"Biting the heads off newbies" doesn't ordinarily happen.  I think the
-whole Nick episode has shown how tolerant we can be, actually.  The point
-I was trying to make is that there isn't one way to submit a patch to the
-kernel, there's a hundred ways to submit to various subsystems.
-
-Over on linux-kernel, I just saw a newish developer being politely told
-that a patch was unacceptable because the local variable declarations
-were not in reverse-Christmas-tree order.  That's not in CodingStyle, and
-it's certainly not a universal rule in the kernel; it's just one of those
-things you have to know if you wander into certain scary neighborhoods.
-
-I don't know if there's anything to be done about it, but I do think that
-this thicket of weird local rules is intimidating to new developers, even
-if missteps are dealt with politely.
-
-jon
+Guenter
