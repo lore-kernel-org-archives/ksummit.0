@@ -1,40 +1,42 @@
-Return-Path: <daniel.vetter@ffwll.ch>
+Return-Path: <rostedt@goodmis.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7733E273
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 86DED414
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 17 Jul 2015 11:41:58 +0000 (UTC)
-Received: from mail-ob0-f171.google.com (mail-ob0-f171.google.com
-	[209.85.214.171])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 01CEFEB
+	Fri, 17 Jul 2015 12:21:08 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0152.hostedemail.com
+	[216.40.44.152])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 6F6DEA7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 17 Jul 2015 11:41:56 +0000 (UTC)
-Received: by obre1 with SMTP id e1so64343635obr.1
+	Fri, 17 Jul 2015 12:21:07 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
+	[10.5.19.251])
+	by smtpgrave06.hostedemail.com (Postfix) with ESMTP id C7CE0173E41
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 17 Jul 2015 04:41:56 -0700 (PDT)
+	Fri, 17 Jul 2015 12:21:06 +0000 (UTC)
+Date: Fri, 17 Jul 2015 08:21:02 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Mel Gorman <mgorman@suse.de>
+Message-ID: <20150717082102.4d12f24d@gandalf.local.home>
+In-Reply-To: <20150717101629.GC2561@suse.de>
+References: <20150711000034.GU111846@vmdeb7> <20150711001348.GA30675@kroah.com>
+	<20150711055441.GA6316@sudip-PC>
+	<20150715212043.775be5d2@gandalf.local.home>
+	<20150716132551.GH4039@sirena.org.uk>
+	<20150716094720.2bf9f5ac@gandalf.local.home>
+	<55A7C7FE.6000604@sonymobile.com> <20150716094125.16cdda73@lwn.net>
+	<55A7D73F.4020105@sonymobile.com>
+	<20150716121620.65ce6daa@gandalf.local.home>
+	<20150717101629.GC2561@suse.de>
 MIME-Version: 1.0
-In-Reply-To: <20150716155819.GA30423@kroah.com>
-References: <1489458.8WDRattPkl@vostro.rjw.lan>
-	<1455994.zAMIqEIJx2@vostro.rjw.lan>
-	<CAKMK7uHfcwLe-HWz72LJDhe-HvKTBu65DaJmR3tW3TOze4uyVQ@mail.gmail.com>
-	<2869041.AWiygZspUy@vostro.rjw.lan> <20150716011056.GA8931@x>
-	<1437038341.6856.22.camel@infradead.org>
-	<CAH3eK3QS6-2spYEKO3dpFFS_Y0czA0vPk9Wfx7iPHmr4ZFFZ2A@mail.gmail.com>
-	<20150716155302.GA2304@jtriplet-mobl1>
-	<20150716155819.GA30423@kroah.com>
-Date: Fri, 17 Jul 2015 13:41:56 +0200
-Message-ID: <CAKMK7uFmyH9Gc3EY6F24PK3hOtxLPYEi9U=ixe=g-3=amoQoCw@mail.gmail.com>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-To: Greg KH <greg@kroah.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: "Brown, Len" <len.brown@intel.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	Kristen Carlson Accardi <kristen@linux.intel.com>,
-	Grant Likely <grant.likely@linaro.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] System-wide interface to specify
- the level of PM tuning
+	Jason Cooper <jason@lakedaemon.net>,
+	Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
+ Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -44,28 +46,27 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Jul 16, 2015 at 5:58 PM, Greg KH <greg@kroah.com> wrote:
-> On Thu, Jul 16, 2015 at 08:53:02AM -0700, Josh Triplett wrote:
->> But the kernel already has quirk tables for various hardware, and that
->> seems appropriate to continue putting in the kernel.
->
-> For some types of devices, sure.  For others, like broken USB keyboards
-> that can't handle autosuspend, no.  For those we need a userspace
-> _whitelist_ that udev can use.  So there's no one answer that works for
-> all types of quirks.
+On Fri, 17 Jul 2015 11:16:29 +0100
+Mel Gorman <mgorman@suse.de> wrote:
 
-Whether white or blacklist or some other mixed thing doesn't really
-matter. Imo the important part is that driver maintainers are in the
-best position to maintain that, and pushing it out to anyone else is
-just really not doing our jobs. And I think for most of these quirk
-lists the kernel does seem like the most appropriate place. If the
-list becomes giantic then we can move it to userspace (if that's
-really a problem, afaik no one proposed yet to move device match
-tables into userspace either and that's kinda the same thing really).
-But as long as there's no white/black/whatever list yet starting in
-the kernel is imo the right place.
--Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-+41 (0) 79 365 57 48 - http://blog.ffwll.ch
+
+> Agreed that there is no excuse to ignore it but the hassle factor of
+> reporting is not just the only issue. I find it difficult to just file a
+> bug unless the issue is extremely difficult or I'm completely swamped with
+> other work. I like to think that I generally know what I'm doing and that
+> bug reports should be accompanied with some sort of patch in the common
+> case just out of pride. Other experienced people might be the same but
+> realistically we can't do anything about that because it's about feelings.
+> 
+> The hassle factor of sending patches to unfamiliar maintainers is real
+> though. If I'm privately helping someone post a patch I will try and give
+> them additional information on the maintainer they are dealing with and
+> what snags are specific to that person.  Obviously it is not information
+> that is documented anywhere.  This hazard is fine if you have someone on
+> hand with that information but I imagine it's rougher if you're on your own.
+
+But as I said below, it's only a hassle if you want your patch applied.
+It isn't a hassle if you just simply report the bug and say "btw, this
+patch fixes the issue, use it or make your own, but please fix the bug".
+
+-- Steve
