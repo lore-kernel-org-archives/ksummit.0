@@ -1,37 +1,34 @@
-Return-Path: <rostedt@goodmis.org>
+Return-Path: <josh@joshtriplett.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id E4717267
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id CBE1A96
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 17 Jul 2015 16:32:18 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0034.hostedemail.com
-	[216.40.44.34])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 491AC1F3
+	Fri, 17 Jul 2015 16:59:34 +0000 (UTC)
+Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
+	[217.70.183.195])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1F0791D5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 17 Jul 2015 16:32:18 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
-	[10.5.19.251])
-	by smtpgrave05.hostedemail.com (Postfix) with ESMTP id E7890183EB1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 17 Jul 2015 16:23:06 +0000 (UTC)
-Date: Fri, 17 Jul 2015 12:23:03 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Guenter Roeck <linux@roeck-us.net>
-Message-ID: <20150717122303.247b5621@gandalf.local.home>
-In-Reply-To: <55A928F1.8080704@roeck-us.net>
-References: <20150708114011.3a1f1861@noble> <2879113.fraeuJIr2M@avalon>
-	<20150709193718.GD9169@vmdeb7> <20150710143641.GW4341@mwanda>
-	<20150710160714.GL111846@vmdeb7> <20150710222351.GA28632@kroah.com>
-	<20150711000034.GU111846@vmdeb7> <20150711001348.GA30675@kroah.com>
+	Fri, 17 Jul 2015 16:59:34 +0000 (UTC)
+Date: Fri, 17 Jul 2015 09:59:26 -0700
+From: Josh Triplett <josh@joshtriplett.org>
+To: Jonathan Corbet <corbet@lwn.net>
+Message-ID: <20150717165925.GA1424@x>
+References: <20150711000034.GU111846@vmdeb7> <20150711001348.GA30675@kroah.com>
 	<20150711055441.GA6316@sudip-PC>
 	<20150715212043.775be5d2@gandalf.local.home>
 	<20150716132551.GH4039@sirena.org.uk>
-	<55A928F1.8080704@roeck-us.net>
+	<20150716094720.2bf9f5ac@gandalf.local.home>
+	<55A7C7FE.6000604@sonymobile.com> <20150716094125.16cdda73@lwn.net>
+	<1437063875.18768.59.camel@HansenPartnership.com>
+	<20150717101151.5d5bc86d@lwn.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org,
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20150717101151.5d5bc86d@lwn.net>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
 	Dan Carpenter <dan.carpenter@oracle.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
 	Jason Cooper <jason@lakedaemon.net>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
@@ -44,26 +41,34 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, 17 Jul 2015 09:10:25 -0700
-Guenter Roeck <linux@roeck-us.net> wrote:
-
-
-> I tried both (ping and resend). In either case the response depends on the
-> maintainer. Some will accept either, some will say you should have res-sent
-> the patch if you sent a ping, some will tell you that you should have
-> pinged if you re-sent it. Depending on the maintainer the response can be
-> pretty strong.
+On Fri, Jul 17, 2015 at 10:11:51AM -0600, Jonathan Corbet wrote:
+> On Thu, 16 Jul 2015 19:24:35 +0300
+> James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
 > 
-> It would be great to have a single well defined and documented mechanism
-> to avoid the "whatever you do is wrong" response.
+> > Seriously, what is the actual problem?  Who bites the heads off newbies
+> > for sport?  I ask because the first patch submission is usually treated
+> > with helpfulness and tolerance, at least where I've been on the cc list.
+> 
+> So, obviously, I was going for dramatic effect in my other posting.
+> "Biting the heads off newbies" doesn't ordinarily happen.  I think the
+> whole Nick episode has shown how tolerant we can be, actually.  The point
+> I was trying to make is that there isn't one way to submit a patch to the
+> kernel, there's a hundred ways to submit to various subsystems.
+> 
+> Over on linux-kernel, I just saw a newish developer being politely told
+> that a patch was unacceptable because the local variable declarations
+> were not in reverse-Christmas-tree order.  That's not in CodingStyle, and
+> it's certainly not a universal rule in the kernel; it's just one of those
+> things you have to know if you wander into certain scary neighborhoods.
 
-Or at least a polite reply to have them do it the other way.
+That's the kind of thing that ought to be raised, politely, in response
+to such a mail, pointing out that the kernel's coding style should be
+universal to avoid making people deal with maintainer-specific
+idiosyncrasies.  A few reminders of that from other kernel maintainers
+couldn't hurt.
 
- "Hi! Sorry, I've been busy and haven't had time to review your patch.
- Can you please resend the patch to me again, my inbox corrupted your
- old one"
+Such additional requirements don't seem onerous to the maintainer making
+them, but add them up across all maintainers and you have a horrendous
+mess.
 
-Sure the corruption message may be a lie, but at least it will keep
-them from saying "why not use what I already sent you".
-
--- Steve
+- Josh Triplett
