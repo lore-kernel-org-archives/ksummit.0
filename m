@@ -1,28 +1,33 @@
-Return-Path: <linux@roeck-us.net>
+Return-Path: <corbet@lwn.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8DD8941C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 58CCA41C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 17 Jul 2015 16:10:37 +0000 (UTC)
-Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 00AC4150
+	Fri, 17 Jul 2015 16:11:59 +0000 (UTC)
+Received: from vena.lwn.net (tex.lwn.net [70.33.254.29])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 503CA11E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 17 Jul 2015 16:10:36 +0000 (UTC)
-Message-ID: <55A928F1.8080704@roeck-us.net>
-Date: Fri, 17 Jul 2015 09:10:25 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-MIME-Version: 1.0
-To: Mark Brown <broonie@kernel.org>, Steven Rostedt <rostedt@goodmis.org>
-References: <20150708114011.3a1f1861@noble>
-	<2879113.fraeuJIr2M@avalon>	<20150709193718.GD9169@vmdeb7>
-	<20150710143641.GW4341@mwanda>	<20150710160714.GL111846@vmdeb7>
-	<20150710222351.GA28632@kroah.com>	<20150711000034.GU111846@vmdeb7>
-	<20150711001348.GA30675@kroah.com>	<20150711055441.GA6316@sudip-PC>	<20150715212043.775be5d2@gandalf.local.home>
+	Fri, 17 Jul 2015 16:11:58 +0000 (UTC)
+Date: Fri, 17 Jul 2015 10:11:51 -0600
+From: Jonathan Corbet <corbet@lwn.net>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Message-ID: <20150717101151.5d5bc86d@lwn.net>
+In-Reply-To: <1437063875.18768.59.camel@HansenPartnership.com>
+References: <20150708114011.3a1f1861@noble> <2879113.fraeuJIr2M@avalon>
+	<20150709193718.GD9169@vmdeb7> <20150710143641.GW4341@mwanda>
+	<20150710160714.GL111846@vmdeb7> <20150710222351.GA28632@kroah.com>
+	<20150711000034.GU111846@vmdeb7> <20150711001348.GA30675@kroah.com>
+	<20150711055441.GA6316@sudip-PC>
+	<20150715212043.775be5d2@gandalf.local.home>
 	<20150716132551.GH4039@sirena.org.uk>
-In-Reply-To: <20150716132551.GH4039@sirena.org.uk>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org,
+	<20150716094720.2bf9f5ac@gandalf.local.home>
+	<55A7C7FE.6000604@sonymobile.com> <20150716094125.16cdda73@lwn.net>
+	<1437063875.18768.59.camel@HansenPartnership.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
 	Dan Carpenter <dan.carpenter@oracle.com>,
 	Jason Cooper <jason@lakedaemon.net>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
@@ -36,39 +41,27 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 07/16/2015 06:25 AM, Mark Brown wrote:
-> On Wed, Jul 15, 2015 at 09:20:43PM -0400, Steven Rostedt wrote:
->> Sudip Mukherjee <sudipm.mukherjee@gmail.com> wrote:
->
->>> Another problem, when a newbie tries to move out of staging to some other
->>> subsystem he likes, the maintainer may not be that much responsive. Just
->>> for example, i submitted a patch on November, 2014 and I am yet to receive
->>> a reply or review to that and the patch was not a style correction patch.
->
->> BTW, it should always be OK to ping the maintainer if they ignore a
->> patch. I believe one week is a good time to wait. And again in another
->> week if they still do not reply. I know a few maintainers that think if
->> they get to a patch that is old and the author never pinged them, they
->> think the author doesn't think that patch is too important and they
->> just delete it.
->
-> Please don't encourage people to send content free pings bit instead
-> resend it - a content free ping mostly just adds to mail volume which is
-> pretty much the original problem.  If the patch has actually been lost
-> then a resend is going to be needed anyway and if not then it's mostly
-> just adding to mail volume.  With a lot of mail clients (including mutt
-> which I use) the nag will get threaded in with the original patch buried
-> back in the mailbox and not even be seen if that's still sitting waiting
-> for handling.
->
+On Thu, 16 Jul 2015 19:24:35 +0300
+James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
 
-I tried both (ping and resend). In either case the response depends on the
-maintainer. Some will accept either, some will say you should have res-sent
-the patch if you sent a ping, some will tell you that you should have
-pinged if you re-sent it. Depending on the maintainer the response can be
-pretty strong.
+> Seriously, what is the actual problem?  Who bites the heads off newbies
+> for sport?  I ask because the first patch submission is usually treated
+> with helpfulness and tolerance, at least where I've been on the cc list.
 
-It would be great to have a single well defined and documented mechanism
-to avoid the "whatever you do is wrong" response.
+So, obviously, I was going for dramatic effect in my other posting.
+"Biting the heads off newbies" doesn't ordinarily happen.  I think the
+whole Nick episode has shown how tolerant we can be, actually.  The point
+I was trying to make is that there isn't one way to submit a patch to the
+kernel, there's a hundred ways to submit to various subsystems.
 
-Guenter
+Over on linux-kernel, I just saw a newish developer being politely told
+that a patch was unacceptable because the local variable declarations
+were not in reverse-Christmas-tree order.  That's not in CodingStyle, and
+it's certainly not a universal rule in the kernel; it's just one of those
+things you have to know if you wander into certain scary neighborhoods.
+
+I don't know if there's anything to be done about it, but I do think that
+this thicket of weird local rules is intimidating to new developers, even
+if missteps are dealt with politely.
+
+jon
