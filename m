@@ -1,19 +1,28 @@
-Return-Path: <josh@joshtriplett.org>
+Return-Path: <rostedt@goodmis.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id CBE1A96
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 563DC3EE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 17 Jul 2015 16:59:34 +0000 (UTC)
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
-	[217.70.183.195])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1F0791D5
+	Fri, 17 Jul 2015 17:37:36 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0159.hostedemail.com
+	[216.40.44.159])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id A64E7158
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 17 Jul 2015 16:59:34 +0000 (UTC)
-Date: Fri, 17 Jul 2015 09:59:26 -0700
-From: Josh Triplett <josh@joshtriplett.org>
+	Fri, 17 Jul 2015 17:37:35 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
+	[10.5.19.251])
+	by smtpgrave08.hostedemail.com (Postfix) with ESMTP id 6B75A2113C2
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 17 Jul 2015 17:37:15 +0000 (UTC)
+Date: Fri, 17 Jul 2015 13:37:12 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
 To: Jonathan Corbet <corbet@lwn.net>
-Message-ID: <20150717165925.GA1424@x>
-References: <20150711000034.GU111846@vmdeb7> <20150711001348.GA30675@kroah.com>
+Message-ID: <20150717133712.42c82add@gandalf.local.home>
+In-Reply-To: <20150717101151.5d5bc86d@lwn.net>
+References: <20150708114011.3a1f1861@noble> <2879113.fraeuJIr2M@avalon>
+	<20150709193718.GD9169@vmdeb7> <20150710143641.GW4341@mwanda>
+	<20150710160714.GL111846@vmdeb7> <20150710222351.GA28632@kroah.com>
+	<20150711000034.GU111846@vmdeb7> <20150711001348.GA30675@kroah.com>
 	<20150711055441.GA6316@sudip-PC>
 	<20150715212043.775be5d2@gandalf.local.home>
 	<20150716132551.GH4039@sirena.org.uk>
@@ -22,9 +31,8 @@ References: <20150711000034.GU111846@vmdeb7> <20150711001348.GA30675@kroah.com>
 	<1437063875.18768.59.camel@HansenPartnership.com>
 	<20150717101151.5d5bc86d@lwn.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20150717101151.5d5bc86d@lwn.net>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
 	Dan Carpenter <dan.carpenter@oracle.com>,
 	"ksummit-discuss@lists.linuxfoundation.org"
@@ -41,34 +49,46 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 17, 2015 at 10:11:51AM -0600, Jonathan Corbet wrote:
-> On Thu, 16 Jul 2015 19:24:35 +0300
-> James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
-> 
-> > Seriously, what is the actual problem?  Who bites the heads off newbies
-> > for sport?  I ask because the first patch submission is usually treated
-> > with helpfulness and tolerance, at least where I've been on the cc list.
-> 
-> So, obviously, I was going for dramatic effect in my other posting.
-> "Biting the heads off newbies" doesn't ordinarily happen.  I think the
-> whole Nick episode has shown how tolerant we can be, actually.  The point
-> I was trying to make is that there isn't one way to submit a patch to the
-> kernel, there's a hundred ways to submit to various subsystems.
-> 
+On Fri, 17 Jul 2015 10:11:51 -0600
+Jonathan Corbet <corbet@lwn.net> wrote:
+
+
 > Over on linux-kernel, I just saw a newish developer being politely told
 > that a patch was unacceptable because the local variable declarations
 > were not in reverse-Christmas-tree order.  That's not in CodingStyle, and
 > it's certainly not a universal rule in the kernel; it's just one of those
 > things you have to know if you wander into certain scary neighborhoods.
 
-That's the kind of thing that ought to be raised, politely, in response
-to such a mail, pointing out that the kernel's coding style should be
-universal to avoid making people deal with maintainer-specific
-idiosyncrasies.  A few reminders of that from other kernel maintainers
-couldn't hurt.
+As I know a few maintainers that like the "reverse-xmas-tree" order,
+perhaps we could add that to CodingStyle in a section of:
 
-Such additional requirements don't seem onerous to the maintainer making
-them, but add them up across all maintainers and you have a horrendous
-mess.
+--- Some Maintainer's prefer these styles ---
 
-- Josh Triplett
+ These are some extra styles that maintainers prefer. Some are strict
+ about these, others may not care. It doesn't hurt to add them.
+
+
+Because things like reverse x-mas tree order isn't something people are
+against doing. But some may not care if you do or don't. So listing
+all the things that a few maintainers share, may be good.
+
+Of course you hit a brick wall when there's two types of styles that
+maintainers disagree on.
+
+
+/*
+ * What is the question?
+ * To add a space at the top of a comment?
+ */
+
+/* Or not to add a space at the top of a comment?
+ * That is the question!
+ */
+
+
+But really, when there's small things like indentation that is
+submitted and I don't like, I don't even bother telling the author,
+I'll just fix it myself and note in the change log "fixed up
+whitespace".
+
+-- Steve
