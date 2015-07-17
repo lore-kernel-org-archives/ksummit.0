@@ -1,35 +1,36 @@
-Return-Path: <josh@joshtriplett.org>
+Return-Path: <prvs=46404fa1f2=clm@fb.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5FC2E40C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 23B9B40C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 17 Jul 2015 19:02:27 +0000 (UTC)
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
-	[217.70.183.195])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D3D9114F
+	Fri, 17 Jul 2015 19:30:21 +0000 (UTC)
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+	[67.231.145.42])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A0413AC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 17 Jul 2015 19:02:26 +0000 (UTC)
-Date: Fri, 17 Jul 2015 12:02:23 -0700
-From: josh@joshtriplett.org
+	Fri, 17 Jul 2015 19:30:20 +0000 (UTC)
+Date: Fri, 17 Jul 2015 15:30:13 -0400
+From: Chris Mason <clm@fb.com>
 To: Steven Rostedt <rostedt@goodmis.org>
-Message-ID: <20150717190223.GB1499@cloud>
-References: <20150711001348.GA30675@kroah.com> <20150711055441.GA6316@sudip-PC>
-	<20150715212043.775be5d2@gandalf.local.home>
+Message-ID: <20150717193013.GB8274@ret.masoncoding.com>
+References: <20150715212043.775be5d2@gandalf.local.home>
 	<20150716132551.GH4039@sirena.org.uk>
 	<20150716094720.2bf9f5ac@gandalf.local.home>
 	<55A7C7FE.6000604@sonymobile.com> <20150716094125.16cdda73@lwn.net>
 	<1437063875.18768.59.camel@HansenPartnership.com>
 	<20150717101151.5d5bc86d@lwn.net>
 	<20150717133712.42c82add@gandalf.local.home>
+	<22243b88-029f-4560-9e13-0b7001ed14ec@email.android.com>
+	<20150717135313.6b917e1a@gandalf.local.home>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <20150717133712.42c82add@gandalf.local.home>
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+In-Reply-To: <20150717135313.6b917e1a@gandalf.local.home>
+Cc: James Bottomley <James.Bottomley@Hansenpartnership.com>,
+	Dan Carpenter <dan.carpenter@oracle.com>,
 	Jason Cooper <jason@lakedaemon.net>,
 	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Dan Carpenter <dan.carpenter@oracle.com>
+	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -41,41 +42,42 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 17, 2015 at 01:37:12PM -0400, Steven Rostedt wrote:
-> On Fri, 17 Jul 2015 10:11:51 -0600
-> Jonathan Corbet <corbet@lwn.net> wrote:
+On Fri, Jul 17, 2015 at 01:53:13PM -0400, Steven Rostedt wrote:
+> On Fri, 17 Jul 2015 20:43:12 +0300
+> James Bottomley <James.Bottomley@Hansenpartnership.com> wrote:
 > 
 > 
-> > Over on linux-kernel, I just saw a newish developer being politely told
-> > that a patch was unacceptable because the local variable declarations
-> > were not in reverse-Christmas-tree order.  That's not in CodingStyle, and
-> > it's certainly not a universal rule in the kernel; it's just one of those
-> > things you have to know if you wander into certain scary neighborhoods.
+> > >--- Some Maintainer's prefer these styles ---
+> > >
+> > > These are some extra styles that maintainers prefer. Some are strict
+> > > about these, others may not care. It doesn't hurt to add them.
+> > >
 > 
-> As I know a few maintainers that like the "reverse-xmas-tree" order,
-> perhaps we could add that to CodingStyle in a section of:
 > 
-> --- Some Maintainer's prefer these styles ---
 > 
->  These are some extra styles that maintainers prefer. Some are strict
->  about these, others may not care. It doesn't hurt to add them.
+> > 
+> > If you do that, and I get 500 coccinelle generated patches for SCSI switching the includes to reverse Christmas tree one file at a time, I'm afraid I'll have to shoot you.
+> 
+> I'll remember to wear my bullet proof vest coming to KS.
+> 
+> Should stress that just some people prefer them. Heck, we can teach
+> checkpatch.pl to look at what file is being modified and see what
+> formats the maintainer of the file wants. :-)
 
-A world of *no*.  If your style is not universal, and you can't get a
-general consensus among kernel maintainers that it should be a
-requirement across the entire kernel, then *no*.  We should not have
-per-subsystem formatting rules.
+We're way off in the weeds here, and whenever this topic comes up, we
+end up focusing on the minor annoyances that come from submitting
+new code.  Small variations in coding style, function naming and
+general methods for working with a maintainer are sure to vary.
 
-> /*
->  * What is the question?
->  * To add a space at the top of a comment?
->  */
-> 
-> /* Or not to add a space at the top of a comment?
->  * That is the question!
->  */
+Looking at Jon's statistics, we don't have a problem bringing
+new people into the kernel.  What can we do to help the new
+people be more productive?  My own feeling is feedback,
+testing and documentation are more important than
+100% consistency between maintainers.
 
-While I'm not going to advocate that we mass-fix existing code in a
-subsystem for consistent formatting, this is *exactly* the kind of thing
-that we do not need any more of; one such idiosyncrasy is one too many.
+I love Greg's swag idea, I'm sure
+more than one LF member would
+be willing to help sponsor
+such a thing.
 
-- Josh Triplett
+-chris
