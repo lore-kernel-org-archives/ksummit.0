@@ -1,38 +1,25 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 75352B19
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5E803B8B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 16 Jul 2015 18:40:04 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id EA151111
+	Fri, 17 Jul 2015 00:26:18 +0000 (UTC)
+Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id B8CDF114
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 16 Jul 2015 18:40:03 +0000 (UTC)
-Date: Thu, 16 Jul 2015 19:39:57 +0100
-From: Mark Brown <broonie@sirena.org.uk>
-To: Jiri Kosina <jkosina@suse.com>
-Message-ID: <20150716183957.GX11162@sirena.org.uk>
-References: <20150711000034.GU111846@vmdeb7> <20150711001348.GA30675@kroah.com>
-	<20150711055441.GA6316@sudip-PC>
-	<20150715212043.775be5d2@gandalf.local.home>
-	<20150716132551.GH4039@sirena.org.uk>
-	<20150716094720.2bf9f5ac@gandalf.local.home>
-	<20150716144155.GM4039@sirena.org.uk>
-	<1437057999.18768.38.camel@HansenPartnership.com>
-	<20150716151214.GQ4039@sirena.org.uk>
-	<alpine.LNX.2.00.1507161724320.26861@pobox.suse.cz>
+	Fri, 17 Jul 2015 00:26:17 +0000 (UTC)
+From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+To: ksummit-discuss@lists.linuxfoundation.org, Greg KH <greg@kroah.com>
+Date: Fri, 17 Jul 2015 02:52:56 +0200
+Message-ID: <2709187.AHyDES0qnE@vostro.rjw.lan>
+In-Reply-To: <20150716033642.GA7077@kroah.com>
+References: <55A33E48.2040202@oracle.com> <55A6E144.4070300@oracle.com>
+	<20150716033642.GA7077@kroah.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="kSh660NeFW4x1nxM"
-Content-Disposition: inline
-In-Reply-To: <alpine.LNX.2.00.1507161724320.26861@pobox.suse.cz>
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Dan Carpenter <dan.carpenter@oracle.com>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	Jason Cooper <jason@lakedaemon.net>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
- Maintainers, Hobbyists)
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
+Cc: Sasha Levin <sasha.levin@oracle.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Issues with stable process
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -42,43 +29,40 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Wednesday, July 15, 2015 08:36:42 PM Greg KH wrote:
+> On Wed, Jul 15, 2015 at 06:40:04PM -0400, Sasha Levin wrote:
+> > On 07/15/2015 06:34 PM, Greg KH wrote:
+> > >> What's the reasoning for doing it 1 per week? To get fixes out earlier?
+> > > Because if I don't, the number of patches are just too large for one
+> > > release.  And also it's good to get fixes out as soon as possible, right
+> > > now I'm running a few weeks behind and people are getting annoyed...
+> > 
+> > If the issue is just the size of the release then -rc might work here:
+> > rather than release once a week, you can finalize a release a week
+> > after it's been an -rc:
+> > 
+> > week 1: 4.2.1-rc1
+> > week 2: 4.2.1, 4.2.2-rc1
+> > week 3: 4.2.2, 4.2.3-rc1
+> > [...]
+> 
+> Ugh, that's just going to drive everyone crazy and confused.  Not to
+> mention a lot more work for me, and honestly, I'm pushed to my limit
+> with the number of stable/LTS kernels I'm handling right now.
+> 
+> And I doubt anyone will actually run the -rc releases, other than the
+> testers I have today :)
+> 
+> So I'll just leave things as-is, because it has worked pretty well for
+> the past decade.  There's always going to be bugs and regressions,
+> that's software.  What matters is how quickly they can be responded to.
 
---kSh660NeFW4x1nxM
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I tend to agree here.
 
-On Thu, Jul 16, 2015 at 05:27:05PM +0200, Jiri Kosina wrote:
-> On Thu, 16 Jul 2015, Mark Brown wrote:
+To me, there is a tradeoff between being fairly aggressive with pushing
+fixes into -stable and spending more time on making them receive wider
+testing before they go there.  The lack of balance either way will make
+someone unhappy.
 
-> > Hrm, perhaps it's more common in graphical clients than text mode ones -
-> > I have to confess I've never really got on with graphical clients for
-> > kernel workflow and everything else I'm much more inbox 0.  I mostly use
-> > mutt but I do try others from time to time.
-
-> You can achieve the same by setting "sort_aux" properly in mutt. pine can=
-=20
-> do that as well (thread-sorts-by-arrival setting).
-
-Ah, thanks - I'd not seen that (it's burief in the config file).  Not
-sure I actually find it helpful though since I'm most interested in
-finding the most recently sent codde, it'd be useful as a sort I could
-flip at runtime I guess.
-
---kSh660NeFW4x1nxM
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQEcBAEBCAAGBQJVp/p8AAoJECTWi3JdVIfQHecIAIIrZuoGqn09Pyb+vVzhxIQN
-S7MIcRrAFQp/xJuUwfuRMHWXrd+y3wUue9CzxB/X6e7NXJLbnRD4i1iX/y150/jp
-1tJHTtUY9yn/M4eBNR2FXkyXwj5cMVq26Pyr0KFMZI4oA18vGZq4u8xFHrGR4nDq
-e2zt+BQhk2lQ8yByga4gs6WxEjflgIGfiXLk3Nh/Kqtlx7ujZclDXfw8bRKwPWMC
-jdAwFVCpwtiCiPRdsIGd7BJCS/pYHotoNsXVgtjh0F8QVqY4by6t4zi4D/SXBf3/
-i1wB1ScH18NuuL1GQ5tkQdFOC4BSVGeJYA6fcehorw3i3jR6sFz2xjfqpudxMek=
-=8m3m
------END PGP SIGNATURE-----
-
---kSh660NeFW4x1nxM--
+Thanks,
+Rafael
