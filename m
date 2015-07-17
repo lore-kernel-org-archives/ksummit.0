@@ -1,18 +1,24 @@
-Return-Path: <josh@joshtriplett.org>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BB086279
+Return-Path: <rostedt@goodmis.org>
+Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
+	[172.17.192.36])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2872D407
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 17 Jul 2015 20:24:18 +0000 (UTC)
-Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
-	[217.70.183.196])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 04015115
+	Fri, 17 Jul 2015 20:39:15 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0061.hostedemail.com
+	[216.40.44.61])
+	by smtp2.linuxfoundation.org (Postfix) with ESMTP id A57B71DAC1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 17 Jul 2015 20:24:17 +0000 (UTC)
-Date: Fri, 17 Jul 2015 13:24:12 -0700
-From: josh@joshtriplett.org
-To: Steven Rostedt <rostedt@goodmis.org>
-Message-ID: <20150717202412.GA1856@cloud>
+	Fri, 17 Jul 2015 20:39:14 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
+	[10.5.19.251])
+	by smtpgrave01.hostedemail.com (Postfix) with ESMTP id B8CB25EC88
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 17 Jul 2015 20:39:12 +0000 (UTC)
+Date: Fri, 17 Jul 2015 16:39:03 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: josh@joshtriplett.org
+Message-ID: <20150717163903.67747d86@gandalf.local.home>
+In-Reply-To: <20150717202412.GA1856@cloud>
 References: <20150715212043.775be5d2@gandalf.local.home>
 	<20150716132551.GH4039@sirena.org.uk>
 	<20150716094720.2bf9f5ac@gandalf.local.home>
@@ -22,10 +28,10 @@ References: <20150715212043.775be5d2@gandalf.local.home>
 	<20150717133712.42c82add@gandalf.local.home>
 	<20150717190223.GB1499@cloud>
 	<20150717154326.6f129bc4@gandalf.local.home>
+	<20150717202412.GA1856@cloud>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20150717154326.6f129bc4@gandalf.local.home>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
 	Jason Cooper <jason@lakedaemon.net>,
 	"ksummit-discuss@lists.linuxfoundation.org"
@@ -42,66 +48,26 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 17, 2015 at 03:43:26PM -0400, Steven Rostedt wrote:
-> On Fri, 17 Jul 2015 12:02:23 -0700
-> josh@joshtriplett.org wrote:
-> > > --- Some Maintainer's prefer these styles ---
-> > > 
-> > >  These are some extra styles that maintainers prefer. Some are strict
-> > >  about these, others may not care. It doesn't hurt to add them.
-> > 
-> > A world of *no*.  If your style is not universal, and you can't get a
-> > general consensus among kernel maintainers that it should be a
-> > requirement across the entire kernel, then *no*.  We should not have
-> > per-subsystem formatting rules.
-> >
-> 
-> Um, we have it today, and we'll have it tomorrow. Sorry, but the Linux
-> kernel is not run by management. It's a huge community effort with
-> some of the brightest minds in the world working on it. Each subsystem
-> of the kernel is a project in itself. We're lucky we have the consensus
-> that we have.
+On Fri, 17 Jul 2015 13:24:12 -0700
+josh@joshtriplett.org wrote:
 
-Documenting it is giving up and saying it's OK for this to happen,
-rather than continuing to address issues as we discover them.  At the
-moment, there's one well-known one (the comment item mentioned below),
-and it exists mostly as an extension of the standard rule "match the
-surrounding code rather than rewriting it".  That isn't carte blanche
-for intentionally having a gratuitously different style in different
-files.
+> If your biggest hangup as a maintainer is that people send you patches
+> that don't have variables sorted in some particular order, perhaps you
+> should get out of kernel development and get into bike shed colorimetry
+> consulting.  We have enough problems getting quality patches by the
+> metrics that *actually* correlate to quality.  And as others have
+> pointed out in this thread, many people produce patches across numerous
+> subsystems.
 
-> > > /*
-> > >  * What is the question?
-> > >  * To add a space at the top of a comment?
-> > >  */
-> > > 
-> > > /* Or not to add a space at the top of a comment?
-> > >  * That is the question!
-> > >  */
-> > 
-> > While I'm not going to advocate that we mass-fix existing code in a
-> > subsystem for consistent formatting, this is *exactly* the kind of thing
-> > that we do not need any more of; one such idiosyncrasy is one too many.
-> 
-> Then there's no issue here. Each maintainer is free to tell people to
-> x-mas tree their variables or not.
+I personally don't have any issue with my own idiosyncrasies not being
+met. They are usually minor, and I'll fix up the patch (and document it
+in the change log). These minor idiosyncrasies make maintaining code
+easier. Everyone has a little personal style, and when the code aligns
+to that style, it is usually easier to review it and understand it.
 
-And other maintainers can and should tell them to cut it out.  I'm not
-suggesting this problem should be solved by top-down management, but by
-community consensus.
+Anything that helps you to understand the code is a bonus.
 
-> Look, kernel development is complex
-> and if your biggest hangup of getting a patch into the kernel is that
-> the maintainer requires you to modify some whitespace on rearrange your
-> variables, then you probably should get out of kernel development and
-> enter a field of bike shed exterior design.
+I too have sent out patches across numerous subsystems. When a
+maintainer asks me to modify it a certain way, I just do it.
 
-If your biggest hangup as a maintainer is that people send you patches
-that don't have variables sorted in some particular order, perhaps you
-should get out of kernel development and get into bike shed colorimetry
-consulting.  We have enough problems getting quality patches by the
-metrics that *actually* correlate to quality.  And as others have
-pointed out in this thread, many people produce patches across numerous
-subsystems.
-
-- Josh Triplett
+-- Steve
