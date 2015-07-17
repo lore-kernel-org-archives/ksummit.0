@@ -1,36 +1,40 @@
-Return-Path: <prvs=46404fa1f2=clm@fb.com>
+Return-Path: <rostedt@goodmis.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 23B9B40C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 99DA6273
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 17 Jul 2015 19:30:21 +0000 (UTC)
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
-	[67.231.145.42])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A0413AC
+	Fri, 17 Jul 2015 19:33:13 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0199.hostedemail.com
+	[216.40.44.199])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 87A40A7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 17 Jul 2015 19:30:20 +0000 (UTC)
-Date: Fri, 17 Jul 2015 15:30:13 -0400
-From: Chris Mason <clm@fb.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-Message-ID: <20150717193013.GB8274@ret.masoncoding.com>
-References: <20150715212043.775be5d2@gandalf.local.home>
+	Fri, 17 Jul 2015 19:33:12 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
+	[10.5.19.251])
+	by smtpgrave03.hostedemail.com (Postfix) with ESMTP id 41B8C29039B
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 17 Jul 2015 17:06:08 +0000 (UTC)
+Date: Fri, 17 Jul 2015 13:06:04 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Josh Triplett <josh@joshtriplett.org>
+Message-ID: <20150717130604.04c25272@gandalf.local.home>
+In-Reply-To: <20150717165925.GA1424@x>
+References: <20150711000034.GU111846@vmdeb7> <20150711001348.GA30675@kroah.com>
+	<20150711055441.GA6316@sudip-PC>
+	<20150715212043.775be5d2@gandalf.local.home>
 	<20150716132551.GH4039@sirena.org.uk>
 	<20150716094720.2bf9f5ac@gandalf.local.home>
 	<55A7C7FE.6000604@sonymobile.com> <20150716094125.16cdda73@lwn.net>
 	<1437063875.18768.59.camel@HansenPartnership.com>
-	<20150717101151.5d5bc86d@lwn.net>
-	<20150717133712.42c82add@gandalf.local.home>
-	<22243b88-029f-4560-9e13-0b7001ed14ec@email.android.com>
-	<20150717135313.6b917e1a@gandalf.local.home>
+	<20150717101151.5d5bc86d@lwn.net> <20150717165925.GA1424@x>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20150717135313.6b917e1a@gandalf.local.home>
-Cc: James Bottomley <James.Bottomley@Hansenpartnership.com>,
-	Dan Carpenter <dan.carpenter@oracle.com>,
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
 	Jason Cooper <jason@lakedaemon.net>,
 	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Dan Carpenter <dan.carpenter@oracle.com>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -42,42 +46,31 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 17, 2015 at 01:53:13PM -0400, Steven Rostedt wrote:
-> On Fri, 17 Jul 2015 20:43:12 +0300
-> James Bottomley <James.Bottomley@Hansenpartnership.com> wrote:
-> 
-> 
-> > >--- Some Maintainer's prefer these styles ---
-> > >
-> > > These are some extra styles that maintainers prefer. Some are strict
-> > > about these, others may not care. It doesn't hurt to add them.
-> > >
-> 
-> 
-> 
-> > 
-> > If you do that, and I get 500 coccinelle generated patches for SCSI switching the includes to reverse Christmas tree one file at a time, I'm afraid I'll have to shoot you.
-> 
-> I'll remember to wear my bullet proof vest coming to KS.
-> 
-> Should stress that just some people prefer them. Heck, we can teach
-> checkpatch.pl to look at what file is being modified and see what
-> formats the maintainer of the file wants. :-)
+On Fri, 17 Jul 2015 09:59:26 -0700
+Josh Triplett <josh@joshtriplett.org> wrote:
 
-We're way off in the weeds here, and whenever this topic comes up, we
-end up focusing on the minor annoyances that come from submitting
-new code.  Small variations in coding style, function naming and
-general methods for working with a maintainer are sure to vary.
 
-Looking at Jon's statistics, we don't have a problem bringing
-new people into the kernel.  What can we do to help the new
-people be more productive?  My own feeling is feedback,
-testing and documentation are more important than
-100% consistency between maintainers.
+> That's the kind of thing that ought to be raised, politely, in response
+> to such a mail, pointing out that the kernel's coding style should be
+> universal to avoid making people deal with maintainer-specific
+> idiosyncrasies.  A few reminders of that from other kernel maintainers
+> couldn't hurt.
 
-I love Greg's swag idea, I'm sure
-more than one LF member would
-be willing to help sponsor
-such a thing.
+Well, sometimes its maintainers that are telling other maintainers what
+to do. It's not just newbies that get this treatment.
 
--chris
+
+> 
+> Such additional requirements don't seem onerous to the maintainer making
+> them, but add them up across all maintainers and you have a horrendous
+> mess.
+> 
+
+Perhaps if someone is sending you a one time patch, and you have your
+own idiosyncrasy outside of CodingStyle, then it should be the
+maintainer that makes the clean up. If someone starts sending you patch
+series and may become a new player in your subsystem, then you can have
+them start submitting such stylized formatting. But those types of
+comments really shouldn't be made to the fly by patcher.
+
+-- Steve
