@@ -1,33 +1,28 @@
-Return-Path: <rostedt@goodmis.org>
-Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
-	[172.17.192.36])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C71E4323
+Return-Path: <laurent.pinchart@ideasonboard.com>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 57F17323
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 18 Jul 2015 12:19:18 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0035.hostedemail.com
-	[216.40.44.35])
-	by smtp2.linuxfoundation.org (Postfix) with ESMTP id 464FB1DAA8
+	Sat, 18 Jul 2015 12:27:14 +0000 (UTC)
+Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
+	[185.26.127.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DB104129
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 18 Jul 2015 12:19:18 +0000 (UTC)
-Date: Sat, 18 Jul 2015 08:19:14 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Dan Carpenter <dan.carpenter@oracle.com>
-Message-ID: <20150718081914.7d904bfa@gandalf.local.home>
-In-Reply-To: <20150718105055.GE5422@mwanda>
-References: <2879113.fraeuJIr2M@avalon> <20150709193718.GD9169@vmdeb7>
-	<20150710143641.GW4341@mwanda> <20150710160714.GL111846@vmdeb7>
-	<20150710222351.GA28632@kroah.com> <20150711000034.GU111846@vmdeb7>
-	<20150711001348.GA30675@kroah.com> <20150711055441.GA6316@sudip-PC>
-	<20150715212043.775be5d2@gandalf.local.home>
-	<20150716132551.GH4039@sirena.org.uk>
-	<20150718105055.GE5422@mwanda>
+	Sat, 18 Jul 2015 12:27:13 +0000 (UTC)
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Sat, 18 Jul 2015 15:27:38 +0300
+Message-ID: <1637650.37BjvuIXv1@avalon>
+In-Reply-To: <20150717122303.247b5621@gandalf.local.home>
+References: <20150708114011.3a1f1861@noble> <55A928F1.8080704@roeck-us.net>
+	<20150717122303.247b5621@gandalf.local.home>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org,
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: Dan Carpenter <dan.carpenter@oracle.com>,
 	Jason Cooper <jason@lakedaemon.net>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
- Maintainers, Hobbyists)
+	Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,19 +32,32 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, 18 Jul 2015 13:50:55 +0300
-Dan Carpenter <dan.carpenter@oracle.com> wrote:
+On Friday 17 July 2015 12:23:03 Steven Rostedt wrote:
+> On Fri, 17 Jul 2015 09:10:25 -0700 Guenter Roeck wrote:
+> > I tried both (ping and resend). In either case the response depends on the
+> > maintainer. Some will accept either, some will say you should have
+> > res-sent the patch if you sent a ping, some will tell you that you should
+> > have pinged if you re-sent it. Depending on the maintainer the response
+> > can be pretty strong.
+> > 
+> > It would be great to have a single well defined and documented mechanism
+> > to avoid the "whatever you do is wrong" response.
+> 
+> Or at least a polite reply to have them do it the other way.
+> 
+>  "Hi! Sorry, I've been busy and haven't had time to review your patch.
+>  Can you please resend the patch to me again, my inbox corrupted your
+>  old one"
+> 
+> Sure the corruption message may be a lie,
 
-> One week is too short.  What's the rush?  You still have to wait over a
-> month to the next merge window.
+"My dog ate your patch" sounds better to me. We could then have a contest to 
+see who will come up with the best fake excuse :-)
 
-One ping a week is just a reminder. It doesn't fill your mailbox
-quickly. It doesn't mean you need to do it in that week. Also, the
-quicker it goes in before the merge window, the more testing it will
-receive.
+> but at least it will keep them from saying "why not use what I already sent
+> you".
 
-Really, a ping once a week will bother you? The once a week was what I
-and a few others started to enforce when we were getting pings once a
-day.
+-- 
+Regards,
 
--- Steve
+Laurent Pinchart
