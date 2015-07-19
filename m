@@ -1,19 +1,19 @@
-Return-Path: <rostedt@goodmis.org>
+Return-Path: <jkosina@suse.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 680A7282
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 78C49411
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 19 Jul 2015 23:01:29 +0000 (UTC)
-Received: from cdptpa-oedge-vip.email.rr.com
-	(cdptpa-outbound-snat.email.rr.com [107.14.166.229])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id C53F51D1
+	Sun, 19 Jul 2015 23:49:19 +0000 (UTC)
+Received: from prv3-mh.provo.novell.com (victor.provo.novell.com
+	[137.65.250.26])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0BD5D20D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 19 Jul 2015 23:01:28 +0000 (UTC)
-Date: Sun, 19 Jul 2015 19:02:05 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Jiri Kosina <jkosina@suse.com>
-Message-ID: <20150719190205.08c9ec2c@grimm.local.home>
-In-Reply-To: <alpine.LNX.2.00.1507200014320.1141@pobox.suse.cz>
+	Sun, 19 Jul 2015 23:49:18 +0000 (UTC)
+Date: Mon, 20 Jul 2015 00:21:15 +0200 (CEST)
+From: Jiri Kosina <jkosina@suse.com>
+To: David Woodhouse <dwmw2@infradead.org>
+In-Reply-To: <1437200277.11033.2.camel@infradead.org>
+Message-ID: <alpine.LNX.2.00.1507200020130.1141@pobox.suse.cz>
 References: <20150716094720.2bf9f5ac@gandalf.local.home>
 	<55A7C7FE.6000604@sonymobile.com> <20150716094125.16cdda73@lwn.net>
 	<1437063875.18768.59.camel@HansenPartnership.com>
@@ -24,16 +24,15 @@ References: <20150716094720.2bf9f5ac@gandalf.local.home>
 	<20150717202412.GA1856@cloud>
 	<20150717163903.67747d86@gandalf.local.home>
 	<20150717204856.GA2048@cloud>
-	<20150717165501.62ed4e04@gandalf.local.home>
-	<alpine.LNX.2.00.1507200014320.1141@pobox.suse.cz>
+	<1437200277.11033.2.camel@infradead.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Dan Carpenter <dan.carpenter@oracle.com>,
+Content-Type: TEXT/PLAIN; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+Cc: Jason Cooper <jason@lakedaemon.net>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	Jason Cooper <jason@lakedaemon.net>
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Dan Carpenter <dan.carpenter@oracle.com>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -45,31 +44,13 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 20 Jul 2015 00:19:56 +0200 (CEST)
-Jiri Kosina <jkosina@suse.com> wrote:
+On Sat, 18 Jul 2015, David Woodhouse wrote:
 
-> On Fri, 17 Jul 2015, Steven Rostedt wrote:
-> 
-> [ ... snip ... ]
-> > But that was an exception because the code submitted was really worth 
-> > while
-> 
-> This really made me wonder. Maybe we should really focus on why such 
-> ocasions need to be pointed out as exceptions.
-> 
-> Is it that Linux kernel development got hyped so much that everyone wants 
-> to have that bullet in his CV, no matter how stupid the submitted patch 
-> would be?
-> 
+> I tend to do the same. I'll fairly consistently fix up (C) to ©
 
-Note, it was an exception because I wanted the change. There's changes
-that add things I see worth while for others, but probably not so much
-for myself. Those changes I wont be bending over backward for. If
-someone submits a change that I really want, then I would do a lot to
-make sure its in.
+Slightly OT, but I'd suggest you be careful with that. I've heard lawyers 
+saying that those two are unfortunately not legally equivalent.
 
-For an example of a change that I see worth while for others and not
-for myself is live kernel patching ;-)  If those developers want those
-changes in, they need to follow the process :-)
-
--- Steve
+-- 
+Jiri Kosina
+SUSE Labs
