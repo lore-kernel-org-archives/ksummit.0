@@ -1,19 +1,22 @@
-Return-Path: <josh@joshtriplett.org>
+Return-Path: <rostedt@goodmis.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D366B282
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 680A7282
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 19 Jul 2015 22:40:09 +0000 (UTC)
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
-	[217.70.183.195])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5F129B0
+	Sun, 19 Jul 2015 23:01:29 +0000 (UTC)
+Received: from cdptpa-oedge-vip.email.rr.com
+	(cdptpa-outbound-snat.email.rr.com [107.14.166.229])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id C53F51D1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 19 Jul 2015 22:40:09 +0000 (UTC)
-Date: Sun, 19 Jul 2015 15:40:01 -0700
-From: Josh Triplett <josh@joshtriplett.org>
+	Sun, 19 Jul 2015 23:01:28 +0000 (UTC)
+Date: Sun, 19 Jul 2015 19:02:05 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
 To: Jiri Kosina <jkosina@suse.com>
-Message-ID: <20150719224000.GA9026@x>
-References: <1437063875.18768.59.camel@HansenPartnership.com>
+Message-ID: <20150719190205.08c9ec2c@grimm.local.home>
+In-Reply-To: <alpine.LNX.2.00.1507200014320.1141@pobox.suse.cz>
+References: <20150716094720.2bf9f5ac@gandalf.local.home>
+	<55A7C7FE.6000604@sonymobile.com> <20150716094125.16cdda73@lwn.net>
+	<1437063875.18768.59.camel@HansenPartnership.com>
 	<20150717101151.5d5bc86d@lwn.net>
 	<20150717133712.42c82add@gandalf.local.home>
 	<20150717190223.GB1499@cloud>
@@ -24,13 +27,12 @@ References: <1437063875.18768.59.camel@HansenPartnership.com>
 	<20150717165501.62ed4e04@gandalf.local.home>
 	<alpine.LNX.2.00.1507200014320.1141@pobox.suse.cz>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <alpine.LNX.2.00.1507200014320.1141@pobox.suse.cz>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Dan Carpenter <dan.carpenter@oracle.com>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	Dan Carpenter <dan.carpenter@oracle.com>,
 	Jason Cooper <jason@lakedaemon.net>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
@@ -43,23 +45,31 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Jul 20, 2015 at 12:19:56AM +0200, Jiri Kosina wrote:
-> I.e. I might propose a a slightly controversial topic, going a bit the 
-> other direction than the whole "motivating newcomers" discussion: how to 
-> get rid of useless submissions that are slowing maintainers down?
+On Mon, 20 Jul 2015 00:19:56 +0200 (CEST)
+Jiri Kosina <jkosina@suse.com> wrote:
+
+> On Fri, 17 Jul 2015, Steven Rostedt wrote:
 > 
-> Should we stop publishing all the statistics? I believe there is no 
-> question that those are one of the primary drivers of useless submissions. 
-> Once maintainers get DoSed by submissions of wrong and/or useless patches 
-> that eat non-negligible amount of their time, we're in trouble.
+> [ ... snip ... ]
+> > But that was an exception because the code submitted was really worth 
+> > while
+> 
+> This really made me wonder. Maybe we should really focus on why such 
+> ocasions need to be pointed out as exceptions.
+> 
+> Is it that Linux kernel development got hyped so much that everyone wants 
+> to have that bullet in his CV, no matter how stupid the submitted patch 
+> would be?
+> 
 
-I don't think it's the statistics that are the primary driver of such
-contributions.  Rather, I would suggest that it's so non-trivially
-difficult to follow the substantial volume of process needed to get
-something into the kernel that it's worth doing a trial run with a
-trivial change before trying to do something of substance.
+Note, it was an exception because I wanted the change. There's changes
+that add things I see worth while for others, but probably not so much
+for myself. Those changes I wont be bending over backward for. If
+someone submits a change that I really want, then I would do a lot to
+make sure its in.
 
-And fixes for certain classes of compiler or sparse warnings have value
-themselves.
+For an example of a change that I see worth while for others and not
+for myself is live kernel patching ;-)  If those developers want those
+changes in, they need to follow the process :-)
 
-- Josh Triplett
+-- Steve
