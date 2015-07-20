@@ -1,18 +1,19 @@
-Return-Path: <lizefan@huawei.com>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id F2D7767
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 72FCB9C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 20 Jul 2015 09:09:30 +0000 (UTC)
-Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [119.145.14.66])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DAA31129
+	Mon, 20 Jul 2015 09:23:42 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 2DC6679
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 20 Jul 2015 09:09:23 +0000 (UTC)
-Message-ID: <55ACBAA1.20505@huawei.com>
-Date: Mon, 20 Jul 2015 17:08:49 +0800
-From: Zefan Li <lizefan@huawei.com>
-MIME-Version: 1.0
+	Mon, 20 Jul 2015 09:23:42 +0000 (UTC)
+Message-ID: <1437384215.8968.28.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
 To: Josh Triplett <josh@joshtriplett.org>
+Date: Mon, 20 Jul 2015 10:23:35 +0100
+In-Reply-To: <20150720084420.GA11454@x>
 References: <20150717101151.5d5bc86d@lwn.net>
 	<20150717133712.42c82add@gandalf.local.home>
 	<20150717190223.GB1499@cloud>
@@ -22,14 +23,14 @@ References: <20150717101151.5d5bc86d@lwn.net>
 	<20150717204856.GA2048@cloud>
 	<20150717165501.62ed4e04@gandalf.local.home>
 	<alpine.LNX.2.00.1507200014320.1141@pobox.suse.cz>
-	<55AC5E3B.9040102@huawei.com> <20150720051605.GA10779@x>
-In-Reply-To: <20150720051605.GA10779@x>
-Content-Type: text/plain; charset="ISO-8859-1"
+	<1437376105.8968.14.camel@HansenPartnership.com>
+	<20150720084420.GA11454@x>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Dan Carpenter <dan.carpenter@oracle.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
+	Dan Carpenter <dan.carpenter@oracle.com>,
 	Jason Cooper <jason@lakedaemon.net>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
@@ -42,52 +43,21 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 2015/7/20 13:16, Josh Triplett wrote:
-> On Mon, Jul 20, 2015 at 10:34:35AM +0800, Zefan Li wrote:
->>> I.e. I might propose a a slightly controversial topic, going a bit the 
->>> other direction than the whole "motivating newcomers" discussion: how to 
->>> get rid of useless submissions that are slowing maintainers down?
->>>
->>
->> Do we really have this issue?
->>
->> If we are encouraging more people to get involved in kernel contribution, we'll
->> sure occasionally see some patches with little value, but I don't think we are
->> suffering from this.
->>
->> And When we see a patch of this kind, it won't take us much time to tell the
->> newbie why the patch isn't appropriate, and then he probably won't do this again.
+On Mon, 2015-07-20 at 01:44 -0700, Josh Triplett wrote:
+> On Mon, Jul 20, 2015 at 08:08:25AM +0100, James Bottomley wrote:
+> > the mechanical one file at a time fixing
+> > X.  I think we need someone to be the gatekeeper and review and apply
+> > the script in one go.
 > 
-> That's exactly the kind of thing that we *shouldn't* do.
-> 
-> Think about that from the new contributor's perspective.  They've made a
-> change to the kernel that has a small but non-zero value.  They've just
-> managed to work out how to jump through all the hoops needed to prepare
-> and submit it properly for the kernel, through some combination of
-> reading, lurking, and mentorship.  And the first response they see is a
-> maintainer like you saying "please don't send this kind of patch".
-> 
-> Yeah, they probably won't do that again.  Congratulations, you defeated
-> the newbie and thwarted their evil maintainer-time-wasting scheme!  Hail
-> the conquering hero; insert victory fanfare here.  If you and others
-> keep up that vigilance, perhaps one day all maintainers can rest easy,
-> knowing they'll never again have to deal with new contributors.
-> 
-> </sarcasm>
-> 
-> It's perfectly reasonable to tell someone that, since they've gotten the
-> hang of sending kernel patches, they should move on to more substantial
-> changes, and leave simpler fixes to other potential new contributors.
-> But that's different than telling them their patch is unwelcome.
-> 
-> (If someone sends in a patch that's actively wrong, sure, go right ahead
-> and tell them what's wrong with it.  But there's a difference between
-> "wrong" and just "not that important".)
-> 
+> I often find myself writing this kind of tree-wide fix, and I find it
+> frustrating that it can't get merged as a unit; that would avoid the
+> inevitable pile of merge conflicts, as well.  For anything that can be
+> reliably applied as a script, I'd love to see it actually run as a
+> script and the result committed.
 
-I was saying zero-value patches like whitespace cleanups but not
-small-but-non-zero ones.
+Can you propose a mechanism?  We already have the trivial tree ...
+should we have the script tree, and would you volunteer to maintain it?
+Probably we'd run the script just after the merge window closes, so it
+would likely be a late merging tree.
 
-And I didn't mean we should just close the doors to them. I should have
-said this "tell the newbie why the patch isn't approriate and ask him
-if he's interested in working on some more valuable things"
+James
