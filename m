@@ -1,32 +1,35 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <BATV+eb6cff9cd407b4b09c85+4348+infradead.org+dwmw2@casper.srs.infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0947B405
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 674C7408
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 20 Jul 2015 09:58:15 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id CEB3E173
+	Mon, 20 Jul 2015 10:05:04 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [85.118.1.10])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9C4F5179
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 20 Jul 2015 09:58:13 +0000 (UTC)
-Message-ID: <1437386287.8968.33.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Josh Triplett <josh@joshtriplett.org>
-Date: Mon, 20 Jul 2015 10:58:07 +0100
-In-Reply-To: <20150720084829.GB11454@x>
-References: <20150717190223.GB1499@cloud>
+	Mon, 20 Jul 2015 10:05:03 +0000 (UTC)
+Message-ID: <1437386699.22996.10.camel@infradead.org>
+From: David Woodhouse <dwmw2@infradead.org>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>, Josh Triplett
+	<josh@joshtriplett.org>
+Date: Mon, 20 Jul 2015 11:04:59 +0100
+In-Reply-To: <1437384215.8968.28.camel@HansenPartnership.com>
+References: <20150717101151.5d5bc86d@lwn.net>
+	<20150717133712.42c82add@gandalf.local.home>
+	<20150717190223.GB1499@cloud>
 	<20150717154326.6f129bc4@gandalf.local.home>
 	<20150717202412.GA1856@cloud>
 	<20150717163903.67747d86@gandalf.local.home>
 	<20150717204856.GA2048@cloud>
 	<20150717165501.62ed4e04@gandalf.local.home>
 	<alpine.LNX.2.00.1507200014320.1141@pobox.suse.cz>
-	<55AC5E3B.9040102@huawei.com> <20150720051605.GA10779@x>
-	<1437376515.8968.19.camel@HansenPartnership.com>
-	<20150720084829.GB11454@x>
-Content-Type: text/plain; charset="UTF-8"
+	<1437376105.8968.14.camel@HansenPartnership.com>
+	<20150720084420.GA11454@x>
+	<1437384215.8968.28.camel@HansenPartnership.com>
+Content-Type: multipart/signed; micalg="sha-1";
+	protocol="application/x-pkcs7-signature";
+	boundary="=-9EHeMJ6oWDG+jYN0/H7s"
 Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
 Cc: Dan Carpenter <dan.carpenter@oracle.com>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
@@ -42,86 +45,153 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 2015-07-20 at 01:48 -0700, Josh Triplett wrote:
-> On Mon, Jul 20, 2015 at 08:15:15AM +0100, James Bottomley wrote:
-> > On Sun, 2015-07-19 at 22:16 -0700, Josh Triplett wrote:
-> > > On Mon, Jul 20, 2015 at 10:34:35AM +0800, Zefan Li wrote:
-> > > > > I.e. I might propose a a slightly controversial topic, going a bit the 
-> > > > > other direction than the whole "motivating newcomers" discussion: how to 
-> > > > > get rid of useless submissions that are slowing maintainers down?
-> > > > > 
-> > > > 
-> > > > Do we really have this issue?
-> > > > 
-> > > > If we are encouraging more people to get involved in kernel contribution, we'll
-> > > > sure occasionally see some patches with little value, but I don't think we are
-> > > > suffering from this.
-> > > > 
-> > > > And When we see a patch of this kind, it won't take us much time to tell the
-> > > > newbie why the patch isn't appropriate, and then he probably won't do this again.
-> > > 
-> > > That's exactly the kind of thing that we *shouldn't* do.
-> > > 
-> > > Think about that from the new contributor's perspective.  They've made a
-> > > change to the kernel that has a small but non-zero value.  They've just
-> > > managed to work out how to jump through all the hoops needed to prepare
-> > > and submit it properly for the kernel, through some combination of
-> > > reading, lurking, and mentorship.  And the first response they see is a
-> > > maintainer like you saying "please don't send this kind of patch".
-> > > 
-> > > Yeah, they probably won't do that again.  Congratulations, you defeated
-> > > the newbie and thwarted their evil maintainer-time-wasting scheme!  Hail
-> > > the conquering hero; insert victory fanfare here.  If you and others
-> > > keep up that vigilance, perhaps one day all maintainers can rest easy,
-> > > knowing they'll never again have to deal with new contributors.
-> > > 
-> > > </sarcasm>
-> > > 
-> > > It's perfectly reasonable to tell someone that, since they've gotten the
-> > > hang of sending kernel patches, they should move on to more substantial
-> > > changes, and leave simpler fixes to other potential new contributors.
-> > > But that's different than telling them their patch is unwelcome.
-> > > 
-> > > (If someone sends in a patch that's actively wrong, sure, go right ahead
-> > > and tell them what's wrong with it.  But there's a difference between
-> > > "wrong" and just "not that important".)
-> > 
-> > I think that's the wrong attitude in so many ways.  Good teachers don't
-> > accept crap.
-> 
-> We don't seem to be talking about the same kind of patches, then.  If
-> someone sends in incorrect patches, by all means reject those patches.
-> But a patch that improves code, even a very minor improvement, should
-> always be welcome.
 
-"Improvement" is probably the issue.  Improvement to me means
+--=-9EHeMJ6oWDG+jYN0/H7s
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-     1. Adds a new user visible feature that will have consumers
-     2. makes a user visible change that adds value (ideally a bug fix,
-        but I think adding extra debug or other interfaces can count
-        here)
-     3. materially improves the maintainability of the code.
+On Mon, 2015-07-20 at 10:23 +0100, James Bottomley wrote:
+> On Mon, 2015-07-20 at 01:44 -0700, Josh Triplett wrote:
+> > On Mon, Jul 20, 2015 at 08:08:25AM +0100, James Bottomley wrote:
+> > > the mechanical one file at a time fixing
+> > > X.  I think we need someone to be the gatekeeper and review and apply
+> > > the script in one go.
+> >=20
+> > I often find myself writing this kind of tree-wide fix, and I find it
+> > frustrating that it can't get merged as a unit; that would avoid the
+> > inevitable pile of merge conflicts, as well.  For anything that can be
+> > reliably applied as a script, I'd love to see it actually run as a
+> > script and the result committed.
+>=20
+> Can you propose a mechanism?  We already have the trivial tree ...
+> should we have the script tree, and would you volunteer to maintain it?
+> Probably we'd run the script just after the merge window closes, so it
+> would likely be a late merging tree.
 
-The third one seems to be where there's most disagreement.  Usually the
-guideline I use for this is that for older files is just don't touch.
-If someone really wants to improve the file then they get to maintain it
-as well (we've had some success with this) otherwise generally such
-patches aren't welcome.
+We have done that a few times, with Linus actually running the script
+for himself just after the last pull for -rc1.
 
-> (This doesn't mean that mechanically fixing compiler warnings, for
-> instance, is always an improvement.  For instance, shutting up the
-> compiler rather than actually fixing the warning is not a good idea.
-> But when the patch actually fixes something, even something minor, it's
-> worth accepting.)
+I think last time he may have said "never again", but perhaps that was
+the nature of the changes (the include/uapi moves iirc) rather than the
+act of running a script per se.
 
-I don't agree that all improvements, however minor are worthwhile.
-There's a cost to reviewing and merging ... that should be outweighed by
-the value of the contribution.  The scarcest thing we have is review
-bandwidth and we shouldn't waste it on minor improvements that are very
-minor.  That said, I also don't direct or control the reviewers and they
-mostly tend to concentrate on what they consider to be interesting
-stuff, so I often find that patches like this often languish for lack of
-review ... that's a good opportunity to point out that a more
-substantive change would receive more attention.
+I'm not sure we need a way to handle such scripted changes in bulk.
+They are relatively infrequent, aren't they?
 
-James
+The problem is that a lot of these really do need to be checked by a
+real human after the scripted change (even Coccinelle-type changes) is
+made. And thus we can't easily just let a script run free.
+
+
+--=20
+David Woodhouse                            Open Source Technology Centre
+David.Woodhouse@intel.com                              Intel Corporation
+
+--=-9EHeMJ6oWDG+jYN0/H7s
+Content-Type: application/x-pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExCzAJBgUrDgMCGgUAMIAGCSqGSIb3DQEHAQAAoIISjjCCBicw
+ggUPoAMCAQICAw3vNzANBgkqhkiG9w0BAQUFADCBjDELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0
+YXJ0Q29tIEx0ZC4xKzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRlIFNpZ25pbmcx
+ODA2BgNVBAMTL1N0YXJ0Q29tIENsYXNzIDEgUHJpbWFyeSBJbnRlcm1lZGlhdGUgQ2xpZW50IENB
+MB4XDTE1MDUwNTA5NDM0MVoXDTE2MDUwNTA5NTMzNlowQjEcMBoGA1UEAwwTZHdtdzJAaW5mcmFk
+ZWFkLm9yZzEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCASIwDQYJKoZIhvcN
+AQEBBQADggEPADCCAQoCggEBAMkbm9kPbx1j/X4RVyf/pPKSYwelcco69TvnQQbKM8m8xkWjXJI1
+jpJ1jMaGUZGFToINMSZi7lZawUozudWbXSKy1SikENSTJHffsdRAIlsp+hR8vWvjsKUry6sEdqPG
+doa5RY7+N4WRusWZDYW/RRWE6i9EL9qV86CVPYqw22UBOUw4/j/HVGCV6TSB8yE5iEwhk/hUuzRr
+FZm1MJMR7mCS7BCR8Lr5jFY61lWpBiXNXIxLZCvDc26KR5L5tYX43iUVO3fzES1GRVoYnxxk2tmz
+fcsZG5vK+Trc9L8OZJfkYrEHH3+Iw41MQ0w/djVtYr1+HYldx0QmYXAtnhIj+UMCAwEAAaOCAtkw
+ggLVMAkGA1UdEwQCMAAwCwYDVR0PBAQDAgSwMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcD
+BDAdBgNVHQ4EFgQUszC96C3w5/2+d+atSr0IpT26YI4wHwYDVR0jBBgwFoAUU3Ltkpzg2ssBXHx+
+ljVO8tS4UYIwHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzCCAUwGA1UdIASCAUMwggE/
+MIIBOwYLKwYBBAGBtTcBAgMwggEqMC4GCCsGAQUFBwIBFiJodHRwOi8vd3d3LnN0YXJ0c3NsLmNv
+bS9wb2xpY3kucGRmMIH3BggrBgEFBQcCAjCB6jAnFiBTdGFydENvbSBDZXJ0aWZpY2F0aW9uIEF1
+dGhvcml0eTADAgEBGoG+VGhpcyBjZXJ0aWZpY2F0ZSB3YXMgaXNzdWVkIGFjY29yZGluZyB0byB0
+aGUgQ2xhc3MgMSBWYWxpZGF0aW9uIHJlcXVpcmVtZW50cyBvZiB0aGUgU3RhcnRDb20gQ0EgcG9s
+aWN5LCByZWxpYW5jZSBvbmx5IGZvciB0aGUgaW50ZW5kZWQgcHVycG9zZSBpbiBjb21wbGlhbmNl
+IG9mIHRoZSByZWx5aW5nIHBhcnR5IG9ibGlnYXRpb25zLjA2BgNVHR8ELzAtMCugKaAnhiVodHRw
+Oi8vY3JsLnN0YXJ0c3NsLmNvbS9jcnR1MS1jcmwuY3JsMIGOBggrBgEFBQcBAQSBgTB/MDkGCCsG
+AQUFBzABhi1odHRwOi8vb2NzcC5zdGFydHNzbC5jb20vc3ViL2NsYXNzMS9jbGllbnQvY2EwQgYI
+KwYBBQUHMAKGNmh0dHA6Ly9haWEuc3RhcnRzc2wuY29tL2NlcnRzL3N1Yi5jbGFzczEuY2xpZW50
+LmNhLmNydDAjBgNVHRIEHDAahhhodHRwOi8vd3d3LnN0YXJ0c3NsLmNvbS8wDQYJKoZIhvcNAQEF
+BQADggEBAHMQmxHHodpS85X8HRyxhvfkys7r+taCNOaNU9cxQu/cZ/6k5nS2qGNMzZ6jb7ueY/V7
+7p+4DW/9ZWODDTf4Fz00mh5SSVc20Bz7t+hhxwHd62PZgENh5i76Qq2tw48U8AsYo5damHby1epf
+neZafLpUkLLO7AGBJIiRVTevdvyXQ0qnixOmKMWyvrhSNGuVIKVdeqLP+102Dwf+dpFyw+j1hz28
+jEEKpHa+NR1b2kXuSPi/rMGhexwlJOh4tK8KQ6Ryr0rIN//NSbOgbyYZrzc/ZUWX9V5OA84ChFb2
+vkFl0OcYrttp/rhDBLITwffPxSZeoBh9H7zYzkbCXKL3BUIwggYnMIIFD6ADAgECAgMN7zcwDQYJ
+KoZIhvcNAQEFBQAwgYwxCzAJBgNVBAYTAklMMRYwFAYDVQQKEw1TdGFydENvbSBMdGQuMSswKQYD
+VQQLEyJTZWN1cmUgRGlnaXRhbCBDZXJ0aWZpY2F0ZSBTaWduaW5nMTgwNgYDVQQDEy9TdGFydENv
+bSBDbGFzcyAxIFByaW1hcnkgSW50ZXJtZWRpYXRlIENsaWVudCBDQTAeFw0xNTA1MDUwOTQzNDFa
+Fw0xNjA1MDUwOTUzMzZaMEIxHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcxIjAgBgkqhkiG
+9w0BCQEWE2R3bXcyQGluZnJhZGVhZC5vcmcwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIB
+AQDJG5vZD28dY/1+EVcn/6TykmMHpXHKOvU750EGyjPJvMZFo1ySNY6SdYzGhlGRhU6CDTEmYu5W
+WsFKM7nVm10istUopBDUkyR337HUQCJbKfoUfL1r47ClK8urBHajxnaGuUWO/jeFkbrFmQ2Fv0UV
+hOovRC/alfOglT2KsNtlATlMOP4/x1Rglek0gfMhOYhMIZP4VLs0axWZtTCTEe5gkuwQkfC6+YxW
+OtZVqQYlzVyMS2Qrw3NuikeS+bWF+N4lFTt38xEtRkVaGJ8cZNrZs33LGRubyvk63PS/DmSX5GKx
+Bx9/iMONTENMP3Y1bWK9fh2JXcdEJmFwLZ4SI/lDAgMBAAGjggLZMIIC1TAJBgNVHRMEAjAAMAsG
+A1UdDwQEAwIEsDAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwHQYDVR0OBBYEFLMwvegt
+8Of9vnfmrUq9CKU9umCOMB8GA1UdIwQYMBaAFFNy7ZKc4NrLAVx8fpY1TvLUuFGCMB4GA1UdEQQX
+MBWBE2R3bXcyQGluZnJhZGVhZC5vcmcwggFMBgNVHSAEggFDMIIBPzCCATsGCysGAQQBgbU3AQID
+MIIBKjAuBggrBgEFBQcCARYiaHR0cDovL3d3dy5zdGFydHNzbC5jb20vcG9saWN5LnBkZjCB9wYI
+KwYBBQUHAgIwgeowJxYgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkwAwIBARqBvlRo
+aXMgY2VydGlmaWNhdGUgd2FzIGlzc3VlZCBhY2NvcmRpbmcgdG8gdGhlIENsYXNzIDEgVmFsaWRh
+dGlvbiByZXF1aXJlbWVudHMgb2YgdGhlIFN0YXJ0Q29tIENBIHBvbGljeSwgcmVsaWFuY2Ugb25s
+eSBmb3IgdGhlIGludGVuZGVkIHB1cnBvc2UgaW4gY29tcGxpYW5jZSBvZiB0aGUgcmVseWluZyBw
+YXJ0eSBvYmxpZ2F0aW9ucy4wNgYDVR0fBC8wLTAroCmgJ4YlaHR0cDovL2NybC5zdGFydHNzbC5j
+b20vY3J0dTEtY3JsLmNybDCBjgYIKwYBBQUHAQEEgYEwfzA5BggrBgEFBQcwAYYtaHR0cDovL29j
+c3Auc3RhcnRzc2wuY29tL3N1Yi9jbGFzczEvY2xpZW50L2NhMEIGCCsGAQUFBzAChjZodHRwOi8v
+YWlhLnN0YXJ0c3NsLmNvbS9jZXJ0cy9zdWIuY2xhc3MxLmNsaWVudC5jYS5jcnQwIwYDVR0SBBww
+GoYYaHR0cDovL3d3dy5zdGFydHNzbC5jb20vMA0GCSqGSIb3DQEBBQUAA4IBAQBzEJsRx6HaUvOV
+/B0csYb35MrO6/rWgjTmjVPXMULv3Gf+pOZ0tqhjTM2eo2+7nmP1e+6fuA1v/WVjgw03+Bc9NJoe
+UklXNtAc+7foYccB3etj2YBDYeYu+kKtrcOPFPALGKOXWph28tXqX53mWny6VJCyzuwBgSSIkVU3
+r3b8l0NKp4sTpijFsr64UjRrlSClXXqiz/tdNg8H/naRcsPo9Yc9vIxBCqR2vjUdW9pF7kj4v6zB
+oXscJSToeLSvCkOkcq9KyDf/zUmzoG8mGa83P2VFl/VeTgPOAoRW9r5BZdDnGK7baf64QwSyE8H3
+z8UmXqAYfR+82M5Gwlyi9wVCMIIGNDCCBBygAwIBAgIBHjANBgkqhkiG9w0BAQUFADB9MQswCQYD
+VQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRkLjErMCkGA1UECxMiU2VjdXJlIERpZ2l0YWwg
+Q2VydGlmaWNhdGUgU2lnbmluZzEpMCcGA1UEAxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRo
+b3JpdHkwHhcNMDcxMDI0MjEwMTU1WhcNMTcxMDI0MjEwMTU1WjCBjDELMAkGA1UEBhMCSUwxFjAU
+BgNVBAoTDVN0YXJ0Q29tIEx0ZC4xKzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRl
+IFNpZ25pbmcxODA2BgNVBAMTL1N0YXJ0Q29tIENsYXNzIDEgUHJpbWFyeSBJbnRlcm1lZGlhdGUg
+Q2xpZW50IENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxwmDzM4t2BqxKaQuE6uW
+vooyg4ymiEGWVUet1G8SD+rqvyNH4QrvnEIaFHxOhESip7vMz39ScLpNLbL1QpOlPW/tFIzNHS3q
+d2XRNYG5Sv9RcGE+T4qbLtsjjJbi6sL7Ls/f/X9ftTyhxvxWkf8KW37iKrueKsxw2HqolH7GM6FX
+5UfNAwAu4ZifkpmZzU1slBhyWwaQPEPPZRsWoTb7q8hmgv6Nv3Hg9rmA1/VPBIOQ6SKRkHXG0Hhm
+q1dOFoAFI411+a/9nWm5rcVjGcIWZ2v/43Yksq60jExipA4l5uv9/+Hm33mbgmCszdj/Dthf13tg
+Av2O83hLJ0exTqfrlwIDAQABo4IBrTCCAakwDwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8EBAMC
+AQYwHQYDVR0OBBYEFFNy7ZKc4NrLAVx8fpY1TvLUuFGCMB8GA1UdIwQYMBaAFE4L7xqkQFulF2mH
+MMo0aEPQQa7yMGYGCCsGAQUFBwEBBFowWDAnBggrBgEFBQcwAYYbaHR0cDovL29jc3Auc3RhcnRz
+c2wuY29tL2NhMC0GCCsGAQUFBzAChiFodHRwOi8vd3d3LnN0YXJ0c3NsLmNvbS9zZnNjYS5jcnQw
+WwYDVR0fBFQwUjAnoCWgI4YhaHR0cDovL3d3dy5zdGFydHNzbC5jb20vc2ZzY2EuY3JsMCegJaAj
+hiFodHRwOi8vY3JsLnN0YXJ0c3NsLmNvbS9zZnNjYS5jcmwwgYAGA1UdIAR5MHcwdQYLKwYBBAGB
+tTcBAgEwZjAuBggrBgEFBQcCARYiaHR0cDovL3d3dy5zdGFydHNzbC5jb20vcG9saWN5LnBkZjA0
+BggrBgEFBQcCARYoaHR0cDovL3d3dy5zdGFydHNzbC5jb20vaW50ZXJtZWRpYXRlLnBkZjANBgkq
+hkiG9w0BAQUFAAOCAgEACoMIfXirLAZcuGOMXq4cuSN3TaFx2H2GvD5VSy/6rV55BYHbWNaPeQn3
+oBSU8KgQZn/Kck1JxbLpAxVCNtsxeW1R87ifhsYZ0qjdrA9anrW2MAWCtosmAOT4OxK9QPoSjCMx
+M3HbkZCDJgnlE8jMopH21BbyAYr7b5EfGRQJNtgWcvqSXwKHnTutR08+Kkn0KAkXCzeQNLeA5LlY
+UzFyM7kPAp8pIRMQ+seHunmyG642S2+y/qHEdMuGIwpfz3eDF1PdctL04qYK/zu+Qg1Bw0RwgigV
+Zs/0c5HP2/e9DBHh7eSwtzYlk4AUr6yxLlcwSjOfOmKEQ/Q8tzh0IFiNu9IPuTGAPBn4CPxD0+Ru
+8T2wg8/s43R/PT3kd1OEqOJUl7q+h+r6fpvU0Fzxd2tC8Ga6fDEPme+1Nbi+03pVjuZQKbGwKJ66
+gEn06WqaxVZC+J8hh/jR0k9mST1iAZPNYulcNJ8tKmVtjYsv0L1TSm2+NwON58tO+pIVzu3DWwSE
+XSf+qkDavQam+QtEOZxLBXI++aMUEapSn+k3Lxm48ZCYfAWLb/Xj7F5JQMbZvCexglAbYR0kIHqW
+5DnsYSdMD/IplJMojx0NBrxJ3fN9dvX2Y6BIXRsF1du4qESm4/3CKuyUV7p9DW3mPlHTGLvYxnyK
+Qy7VFBkoLINszBrOUeIxggNvMIIDawIBATCBlDCBjDELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0
+YXJ0Q29tIEx0ZC4xKzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRlIFNpZ25pbmcx
+ODA2BgNVBAMTL1N0YXJ0Q29tIENsYXNzIDEgUHJpbWFyeSBJbnRlcm1lZGlhdGUgQ2xpZW50IENB
+AgMN7zcwCQYFKw4DAhoFAKCCAa8wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0B
+CQUxDxcNMTUwNzIwMTAwNDU5WjAjBgkqhkiG9w0BCQQxFgQUUjlEOQLIlx54LETp7SNCpqvad3ww
+gaUGCSsGAQQBgjcQBDGBlzCBlDCBjDELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0YXJ0Q29tIEx0
+ZC4xKzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRlIFNpZ25pbmcxODA2BgNVBAMT
+L1N0YXJ0Q29tIENsYXNzIDEgUHJpbWFyeSBJbnRlcm1lZGlhdGUgQ2xpZW50IENBAgMN7zcwgacG
+CyqGSIb3DQEJEAILMYGXoIGUMIGMMQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRk
+LjErMCkGA1UECxMiU2VjdXJlIERpZ2l0YWwgQ2VydGlmaWNhdGUgU2lnbmluZzE4MDYGA1UEAxMv
+U3RhcnRDb20gQ2xhc3MgMSBQcmltYXJ5IEludGVybWVkaWF0ZSBDbGllbnQgQ0ECAw3vNzANBgkq
+hkiG9w0BAQEFAASCAQAJeKjABgLY0Ep9vXN1BMWwcvws9fWcEZFu3nFbknmCJs/aeY4rsbGrjvHi
+O3hLMvB7oKf9KJPbJp/OcNhWZ3a0SZrkJhX6WD65VkPlmCpk5bO1mQmx2obtZ52Ezv11HLZnMGW+
+dfl1ZAz6h4jRQDnq9JpwWjS7CHFkw3U6yGjluzHWuglFOvZbhtkl3fNUWm2YUbRPh3Ak63nWbJUa
+XWOgp2uS/vXaqvXoc4zFwu56Ue8GC8XLSSM4TbpcspA/a235u8o7ctemWWETVTJuQ5y78iqBpCHZ
+/LE/IyNH1hrsIO3zMIH0AKnpPjSPUf0cKLAGZBzuvnLi218M6yCdKNr9AAAAAAAA
+
+
+--=-9EHeMJ6oWDG+jYN0/H7s--
