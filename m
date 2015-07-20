@@ -1,40 +1,40 @@
 Return-Path: <BATV+eb6cff9cd407b4b09c85+4348+infradead.org+dwmw2@casper.srs.infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C0D51408
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5439E405
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 20 Jul 2015 11:05:26 +0000 (UTC)
+	Mon, 20 Jul 2015 11:09:11 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [85.118.1.10])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 68F9DDE
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9577FDE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 20 Jul 2015 11:05:26 +0000 (UTC)
-Message-ID: <1437390321.22996.24.camel@infradead.org>
+	Mon, 20 Jul 2015 11:09:09 +0000 (UTC)
+Message-ID: <1437390546.22996.27.camel@infradead.org>
 From: David Woodhouse <dwmw2@infradead.org>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>, Jiri Kosina
-	<jkosina@suse.com>
-Date: Mon, 20 Jul 2015 12:05:21 +0100
-In-Reply-To: <1437376695.8968.21.camel@HansenPartnership.com>
-References: <20150716094720.2bf9f5ac@gandalf.local.home>
-	<55A7C7FE.6000604@sonymobile.com> <20150716094125.16cdda73@lwn.net>
-	<1437063875.18768.59.camel@HansenPartnership.com>
-	<20150717101151.5d5bc86d@lwn.net>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Date: Mon, 20 Jul 2015 12:09:06 +0100
+In-Reply-To: <1437388227.8968.34.camel@HansenPartnership.com>
+References: <20150717101151.5d5bc86d@lwn.net>
 	<20150717133712.42c82add@gandalf.local.home>
 	<20150717190223.GB1499@cloud>
 	<20150717154326.6f129bc4@gandalf.local.home>
 	<20150717202412.GA1856@cloud>
 	<20150717163903.67747d86@gandalf.local.home>
 	<20150717204856.GA2048@cloud>
-	<1437200277.11033.2.camel@infradead.org>
-	<alpine.LNX.2.00.1507200020130.1141@pobox.suse.cz>
-	<1437376695.8968.21.camel@HansenPartnership.com>
+	<20150717165501.62ed4e04@gandalf.local.home>
+	<alpine.LNX.2.00.1507200014320.1141@pobox.suse.cz>
+	<1437376105.8968.14.camel@HansenPartnership.com>
+	<20150720084420.GA11454@x>
+	<1437384215.8968.28.camel@HansenPartnership.com>
+	<1437386699.22996.10.camel@infradead.org>
+	<1437388227.8968.34.camel@HansenPartnership.com>
 Content-Type: multipart/signed; micalg="sha-1";
 	protocol="application/x-pkcs7-signature";
-	boundary="=-26wSCTEcr4lEPdX+U4UQ"
+	boundary="=-68M3sxFfTlcVZcyiUgbq"
 Mime-Version: 1.0
-Cc: Dan Carpenter <dan.carpenter@oracle.com>,
-	Jason Cooper <jason@lakedaemon.net>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Dan Carpenter <dan.carpenter@oracle.com>,
+	Jason Cooper <jason@lakedaemon.net>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -47,32 +47,34 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---=-26wSCTEcr4lEPdX+U4UQ
+--=-68M3sxFfTlcVZcyiUgbq
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2015-07-20 at 08:18 +0100, James Bottomley wrote:
-> On Mon, 2015-07-20 at 00:21 +0200, Jiri Kosina wrote:
-> > On Sat, 18 Jul 2015, David Woodhouse wrote:
-> >=20
-> > > I tend to do the same. I'll fairly consistently fix up (C) to =C2=A9
-> >=20
-> > Slightly OT, but I'd suggest you be careful with that. I've heard lawye=
-rs=20
-> > saying that those two are unfortunately not legally equivalent.
->=20
-> Just to note that under the Berne convention and in most jurisdictions,
-> neither is actually necessary to acquire copyright.
+On Mon, 2015-07-20 at 11:30 +0100, James Bottomley wrote:
+> Agree ... that's why we need a responsible maintainer, and I believe=20
+> it would be an even more onerous task than running the trivial tree.
 
-Indeed. And although I *have* heard rumours of non-equivalence in the
-past, it was always the fake (c) version that wasn't functional, while
-the real =C2=A9 sign was.
+I think any scripted change like this would need to come *from* a
+responsible maintainer, not *through* one. I'm not sure we really need
+a 'process' for it other than someone with sufficient credibility
+persuading Linus to run the script.
 
+Alternatively, it isn't *that* hard for someone like Josh (who was the
+one who said he often finds himself doing this kind of thing) to create
+a git tree which runs the script *regularly* on the tip of Linus' tree
+(or linux-next), creating a new version of the commit which can be
+pulled at that moment.
+
+Then it should just be case of of asking Stephen to "put this tree last
+in linux-next", and Linus to "pull this one last, right before
+releasing -rc1". And getting the timing right for the script to run.
 
 --=20
-dwmw2
+David Woodhouse                            Open Source Technology Centre
+David.Woodhouse@intel.com                              Intel Corporation
 
---=-26wSCTEcr4lEPdX+U4UQ
+--=-68M3sxFfTlcVZcyiUgbq
 Content-Type: application/x-pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -165,18 +167,18 @@ Qy7VFBkoLINszBrOUeIxggNvMIIDawIBATCBlDCBjDELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0
 YXJ0Q29tIEx0ZC4xKzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRlIFNpZ25pbmcx
 ODA2BgNVBAMTL1N0YXJ0Q29tIENsYXNzIDEgUHJpbWFyeSBJbnRlcm1lZGlhdGUgQ2xpZW50IENB
 AgMN7zcwCQYFKw4DAhoFAKCCAa8wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0B
-CQUxDxcNMTUwNzIwMTEwNTIxWjAjBgkqhkiG9w0BCQQxFgQUbItonFN1H6LDxjVw/a6L5DoZPKEw
+CQUxDxcNMTUwNzIwMTEwOTA2WjAjBgkqhkiG9w0BCQQxFgQUC2EUpSosT8vCBvlaU1DrL3lbKgsw
 gaUGCSsGAQQBgjcQBDGBlzCBlDCBjDELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0YXJ0Q29tIEx0
 ZC4xKzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRlIFNpZ25pbmcxODA2BgNVBAMT
 L1N0YXJ0Q29tIENsYXNzIDEgUHJpbWFyeSBJbnRlcm1lZGlhdGUgQ2xpZW50IENBAgMN7zcwgacG
 CyqGSIb3DQEJEAILMYGXoIGUMIGMMQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRk
 LjErMCkGA1UECxMiU2VjdXJlIERpZ2l0YWwgQ2VydGlmaWNhdGUgU2lnbmluZzE4MDYGA1UEAxMv
 U3RhcnRDb20gQ2xhc3MgMSBQcmltYXJ5IEludGVybWVkaWF0ZSBDbGllbnQgQ0ECAw3vNzANBgkq
-hkiG9w0BAQEFAASCAQBtZ2tTL4SR0mLnwAN96oYMJ0TwApJfHmu8Nc68/e3hNEpm7lbpbj6+iqA6
-vUU0IgEL9yf7MPWc7sfkiTIgh6rke7WIiPmoGQkS7QLRV+ztqbV7J2ZJo2hc+yooylHSszn1Bev9
-Ixc+uFnZ1oyK+xZYmAPKKg5zeJugqcNv3Ej7nRwI3PhJK9ZygjalnQhwCzVHc75vTuSagWjGobg5
-vjhxrywNn9wm/pfYvZ1GzsWaMIkSjFs2XCx5oHD8tA1Y0i1MDuF0CAPm+1rkovtI4saVenzKS5Sr
-cmiB0ehxKUXT7d7AjgQ54P7hHKPHYhX1Qsvx4ECnVLa9BgAZZZeLMyVVAAAAAAAA
+hkiG9w0BAQEFAASCAQCbpn4W+RlH9MXy+crS6grIEpoAnrHLzHue1lYoUs7S9/P3+sFC0/SZrem1
+703joVFapfkiSux1oEzMDIUhhcJa7iHfh3VpkT80RczDIB+8r+4Bni80minL7rSIeBPdg7FF8MAy
+2SBIJG5wLyr++VsDoulI1LOrAMB7qTGZBrUCUqVxLj3LuQK3xSjp7Op2Tq7BqBVETTOhbZHSdKxH
+N51EapKovbtlghgBzTu80H4zXY1Ze0GDB8e4PzBOXkP+HuwMXe3Jg0QROmF5txoZakFe7rg2gRKv
+lQ+fxoSViJ2YpEZ84xdcXrWh2qSt9unAWTMswE/t39iYfiEE3GQi75GRAAAAAAAA
 
 
---=-26wSCTEcr4lEPdX+U4UQ--
+--=-68M3sxFfTlcVZcyiUgbq--
