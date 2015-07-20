@@ -1,38 +1,36 @@
-Return-Path: <linux@roeck-us.net>
+Return-Path: <daniel.vetter@ffwll.ch>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D96D49B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0A6E125A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 20 Jul 2015 23:03:12 +0000 (UTC)
-Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BDD48143
+	Mon, 20 Jul 2015 23:09:54 +0000 (UTC)
+Received: from mail-oi0-f54.google.com (mail-oi0-f54.google.com
+	[209.85.218.54])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5472922F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 20 Jul 2015 23:03:11 +0000 (UTC)
-Message-ID: <55AD7E2C.9090804@roeck-us.net>
-Date: Mon, 20 Jul 2015 16:03:08 -0700
-From: Guenter Roeck <linux@roeck-us.net>
+	Mon, 20 Jul 2015 23:09:53 +0000 (UTC)
+Received: by oigd21 with SMTP id d21so76369252oig.1
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 20 Jul 2015 16:09:52 -0700 (PDT)
 MIME-Version: 1.0
-To: Greg KH <greg@kroah.com>
-References: <20150717154326.6f129bc4@gandalf.local.home>
-	<20150717202412.GA1856@cloud>
-	<20150717163903.67747d86@gandalf.local.home>
-	<20150717204856.GA2048@cloud>
-	<20150717165501.62ed4e04@gandalf.local.home>
-	<alpine.LNX.2.00.1507200014320.1141@pobox.suse.cz>
-	<1437376105.8968.14.camel@HansenPartnership.com>
-	<alpine.DEB.2.10.1507201022370.2408@hadrien>
-	<20150720203007.GA7797@kroah.com> <55AD7263.8050605@roeck-us.net>
-	<20150720223242.GB23638@kroah.com>
-In-Reply-To: <20150720223242.GB23638@kroah.com>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Dan Carpenter <dan.carpenter@oracle.com>,
+In-Reply-To: <2015360.EW9BxZmMXF@vostro.rjw.lan>
+References: <1489458.8WDRattPkl@vostro.rjw.lan>
+	<20150716155819.GA30423@kroah.com>
+	<CAKMK7uFmyH9Gc3EY6F24PK3hOtxLPYEi9U=ixe=g-3=amoQoCw@mail.gmail.com>
+	<2015360.EW9BxZmMXF@vostro.rjw.lan>
+Date: Tue, 21 Jul 2015 01:09:52 +0200
+Message-ID: <CAKMK7uFAUXv8S7f_ki+JW-h+3bWA8H7ZPZSQ4K6YXNXT69eDrw@mail.gmail.com>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+Content-Type: text/plain; charset=UTF-8
+Cc: "Brown, Len" <len.brown@intel.com>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	Jason Cooper <jason@lakedaemon.net>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
- Maintainers, Hobbyists)
+	Alan Stern <stern@rowland.harvard.edu>,
+	Kristen Carlson Accardi <kristen@linux.intel.com>,
+	Grant Likely <grant.likely@linaro.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] System-wide interface to specify
+ the level of PM tuning
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -42,68 +40,50 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 07/20/2015 03:32 PM, Greg KH wrote:
-> On Mon, Jul 20, 2015 at 03:12:51PM -0700, Guenter Roeck wrote:
->> On 07/20/2015 01:30 PM, Greg KH wrote:
+On Tue, Jul 21, 2015 at 12:21 AM, Rafael J. Wysocki <rjw@rjwysocki.net> wrote:
+> On Friday, July 17, 2015 01:41:56 PM Daniel Vetter wrote:
+>> On Thu, Jul 16, 2015 at 5:58 PM, Greg KH <greg@kroah.com> wrote:
+>> > On Thu, Jul 16, 2015 at 08:53:02AM -0700, Josh Triplett wrote:
+>> >> But the kernel already has quirk tables for various hardware, and that
+>> >> seems appropriate to continue putting in the kernel.
+>> >
+>> > For some types of devices, sure.  For others, like broken USB keyboards
+>> > that can't handle autosuspend, no.  For those we need a userspace
+>> > _whitelist_ that udev can use.  So there's no one answer that works for
+>> > all types of quirks.
 >>
->>>> If there really is a problem that some maintainer is getting inundated
->>>> with patches addressing unimportant cosmetic issues, could it be a good
->>>> idea to:
->>>>
->>>> * Fix the code and get it over with,
->>>> * Drop the code from the kernel, if no one uses it, or
->>>> * Put a comment in the file saying that the file is no longer being
->>>> actively developed and only bug fixes will be accepted.
->>>
->>> I agree with this.  If your subsystem is constantly getting hit with
->>> coding style cleanups that you don't want (i.e. SCSI), put something in
->>> the top of the file that says "don't clean up the style".
->>>
->>
->> How about a cleanup tag in MAINTAINERS ? Then checkpatch could warn
->> if it is used on a file tagged as do-not-clean, and every maintainer
->> could set preferences as desired.
->>
->> Something like
->>
->> C: yes
->> C: limited (prior to functional changes only)
->> C: no
->>
->> Either limited or yes could be the default.
->>
->> The "Obsolete" status presumably implies that cleanups are not desired,
->> and checkpatch could issue a warning if it is run on an obsolete file
->> or subsystem.
+>> Whether white or blacklist or some other mixed thing doesn't really
+>> matter. Imo the important part is that driver maintainers are in the
+>> best position to maintain that, and pushing it out to anyone else is
+>> just really not doing our jobs. And I think for most of these quirk
+>> lists the kernel does seem like the most appropriate place. If the
+>> list becomes giantic then we can move it to userspace (if that's
+>> really a problem, afaik no one proposed yet to move device match
+>> tables into userspace either and that's kinda the same thing really).
+>> But as long as there's no white/black/whatever list yet starting in
+>> the kernel is imo the right place.
 >
-> Ugh, let's stop trying to add more flags to MAINTAINERS that no one will
-> notice and will get out of date and be a pain to maintain over time.
+> Well, I'm wondering, then, why i915.enable_psr is not enabled by default,
+> for one example?
 >
-It would be noticed since checkpatch would use it. And maintainers would
-have interest to keep it up to date, especially those who dislike cleanup
-patches.
+> Failing to enable it prevents some SoCs from using the deepest available
+> C-states which in turn hurts battery life of the systems containing them
+> quite a bit, so there surely is a reason to have it enabled.
 
-> Is this really such a major issue?  If you don't want cleanup patches,
-> just politely refuse them and point people at drivers/staging/ where I
-> will gladly take them.  It's not tough at all.
->
-It isn't tough or an issue for me, but I don't normally refuse cleanup
-patches either.
+Because it's broken on a lot of machines, and it takes a pile of
+effort to fix it. That work is under way now, but for a long time
+priorities set by management where much more set on chasing the next
+shiny thing. Took a few years of making noises about dropping it all
+if it doesn't get fixed.
 
-> Or better yet, take Julia's advice, and just fix up your subsystem to
-> not need these patches at all.  That should take all of an afternoon's
-> worth of effort at most, drivers/scsi/ notwithstanding, that beast is
-> horrid...
->
+This is actually a perfect example of what I mean with "hey it works
+on my machine here, but I can't be bothered to fix up the corner-cases
+so let's keep it disabled and move on". And the corner cases are hung
+machines and frozen displays (and a few other things), and we
+inflicted that a few times on Linus even.
 
-Yes, that is what I am doing once in a while, if I need a timeout from other
-work. Since I don't mind cleanup patches, so I would set the tag to 'yes'
-for all files where I am listed as maintainer. But other maintainers do
-actively reject cleanup patches, sometimes with less then friendly words.
-
-Without a tag, the result is to discourage cleanup patches in general,
-or what I would call the lowest common denominator. While I understand
-and accept that other maintainers dislike cleanup patches, I don't see
-why I should have to suffer the consequences.
-
-Guenter
+Cheers, Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
