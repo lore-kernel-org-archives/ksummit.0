@@ -1,38 +1,37 @@
 Return-Path: <BATV+eb6cff9cd407b4b09c85+4348+infradead.org+dwmw2@casper.srs.infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 674C7408
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id C9E52408
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 20 Jul 2015 10:05:04 +0000 (UTC)
+	Mon, 20 Jul 2015 10:15:22 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [85.118.1.10])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9C4F5179
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3F61B17B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 20 Jul 2015 10:05:03 +0000 (UTC)
-Message-ID: <1437386699.22996.10.camel@infradead.org>
+	Mon, 20 Jul 2015 10:15:22 +0000 (UTC)
+Message-ID: <1437387319.22996.18.camel@infradead.org>
 From: David Woodhouse <dwmw2@infradead.org>
 To: James Bottomley <James.Bottomley@HansenPartnership.com>, Josh Triplett
 	<josh@joshtriplett.org>
-Date: Mon, 20 Jul 2015 11:04:59 +0100
-In-Reply-To: <1437384215.8968.28.camel@HansenPartnership.com>
-References: <20150717101151.5d5bc86d@lwn.net>
-	<20150717133712.42c82add@gandalf.local.home>
-	<20150717190223.GB1499@cloud>
+Date: Mon, 20 Jul 2015 11:15:19 +0100
+In-Reply-To: <1437386287.8968.33.camel@HansenPartnership.com>
+References: <20150717190223.GB1499@cloud>
 	<20150717154326.6f129bc4@gandalf.local.home>
 	<20150717202412.GA1856@cloud>
 	<20150717163903.67747d86@gandalf.local.home>
 	<20150717204856.GA2048@cloud>
 	<20150717165501.62ed4e04@gandalf.local.home>
 	<alpine.LNX.2.00.1507200014320.1141@pobox.suse.cz>
-	<1437376105.8968.14.camel@HansenPartnership.com>
-	<20150720084420.GA11454@x>
-	<1437384215.8968.28.camel@HansenPartnership.com>
+	<55AC5E3B.9040102@huawei.com> <20150720051605.GA10779@x>
+	<1437376515.8968.19.camel@HansenPartnership.com>
+	<20150720084829.GB11454@x>
+	<1437386287.8968.33.camel@HansenPartnership.com>
 Content-Type: multipart/signed; micalg="sha-1";
 	protocol="application/x-pkcs7-signature";
-	boundary="=-9EHeMJ6oWDG+jYN0/H7s"
+	boundary="=-phKuKHLt9Wse4bsIKbRq"
 Mime-Version: 1.0
-Cc: Dan Carpenter <dan.carpenter@oracle.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
+	Dan Carpenter <dan.carpenter@oracle.com>,
 	Jason Cooper <jason@lakedaemon.net>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
@@ -46,48 +45,41 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---=-9EHeMJ6oWDG+jYN0/H7s
+--=-phKuKHLt9Wse4bsIKbRq
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2015-07-20 at 10:23 +0100, James Bottomley wrote:
-> On Mon, 2015-07-20 at 01:44 -0700, Josh Triplett wrote:
-> > On Mon, Jul 20, 2015 at 08:08:25AM +0100, James Bottomley wrote:
-> > > the mechanical one file at a time fixing
-> > > X.  I think we need someone to be the gatekeeper and review and apply
-> > > the script in one go.
-> >=20
-> > I often find myself writing this kind of tree-wide fix, and I find it
-> > frustrating that it can't get merged as a unit; that would avoid the
-> > inevitable pile of merge conflicts, as well.  For anything that can be
-> > reliably applied as a script, I'd love to see it actually run as a
-> > script and the result committed.
+On Mon, 2015-07-20 at 10:58 +0100, James Bottomley wrote:
 >=20
-> Can you propose a mechanism?  We already have the trivial tree ...
-> should we have the script tree, and would you volunteer to maintain it?
-> Probably we'd run the script just after the merge window closes, so it
-> would likely be a late merging tree.
+> I don't agree that all improvements, however minor are worthwhile.
+> There's a cost to reviewing and merging ... that should be outweighed by
+> the value of the contribution.  The scarcest thing we have is review
+> bandwidth and we shouldn't waste it on minor improvements that are very
+> minor.=20
 
-We have done that a few times, with Linus actually running the script
-for himself just after the last pull for -rc1.
+There is also a cost to *change*. How many times have we seen a trivial
+patch which actually *breaks* something non-trivial?
 
-I think last time he may have said "never again", but perhaps that was
-the nature of the changes (the include/uapi moves iirc) rather than the
-act of running a script per se.
+We're normally quite good at managing change, and not being
+conservative purely for conservatism's sake.
 
-I'm not sure we need a way to handle such scripted changes in bulk.
-They are relatively infrequent, aren't they?
+But trivial patches are actually the most risky in a number of ways.
+They often come from inexperienced contributors, who might not spot
+subtle problems introduced by na=C3=AFve changes. And they are often made
+without an in-depth knowledge or study of the code. The contributor
+just spots a pattern (perhaps with checkpatch), and mechanically fixes
+every instance they see, without stopping to look hard at each
+instance.
 
-The problem is that a lot of these really do need to be checked by a
-real human after the scripted change (even Coccinelle-type changes) is
-made. And thus we can't easily just let a script run free.
-
+Hell, I did this when fixing up the krealloc() users relatively
+recently, getting it wrong in one case. And I really *ought* to know
+better.
 
 --=20
 David Woodhouse                            Open Source Technology Centre
 David.Woodhouse@intel.com                              Intel Corporation
 
---=-9EHeMJ6oWDG+jYN0/H7s
+--=-phKuKHLt9Wse4bsIKbRq
 Content-Type: application/x-pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -180,18 +172,18 @@ Qy7VFBkoLINszBrOUeIxggNvMIIDawIBATCBlDCBjDELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0
 YXJ0Q29tIEx0ZC4xKzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRlIFNpZ25pbmcx
 ODA2BgNVBAMTL1N0YXJ0Q29tIENsYXNzIDEgUHJpbWFyeSBJbnRlcm1lZGlhdGUgQ2xpZW50IENB
 AgMN7zcwCQYFKw4DAhoFAKCCAa8wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0B
-CQUxDxcNMTUwNzIwMTAwNDU5WjAjBgkqhkiG9w0BCQQxFgQUUjlEOQLIlx54LETp7SNCpqvad3ww
+CQUxDxcNMTUwNzIwMTAxNTE5WjAjBgkqhkiG9w0BCQQxFgQURYUjPkrhRMhazeRzaxdmUV34yKAw
 gaUGCSsGAQQBgjcQBDGBlzCBlDCBjDELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0YXJ0Q29tIEx0
 ZC4xKzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRlIFNpZ25pbmcxODA2BgNVBAMT
 L1N0YXJ0Q29tIENsYXNzIDEgUHJpbWFyeSBJbnRlcm1lZGlhdGUgQ2xpZW50IENBAgMN7zcwgacG
 CyqGSIb3DQEJEAILMYGXoIGUMIGMMQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRk
 LjErMCkGA1UECxMiU2VjdXJlIERpZ2l0YWwgQ2VydGlmaWNhdGUgU2lnbmluZzE4MDYGA1UEAxMv
 U3RhcnRDb20gQ2xhc3MgMSBQcmltYXJ5IEludGVybWVkaWF0ZSBDbGllbnQgQ0ECAw3vNzANBgkq
-hkiG9w0BAQEFAASCAQAJeKjABgLY0Ep9vXN1BMWwcvws9fWcEZFu3nFbknmCJs/aeY4rsbGrjvHi
-O3hLMvB7oKf9KJPbJp/OcNhWZ3a0SZrkJhX6WD65VkPlmCpk5bO1mQmx2obtZ52Ezv11HLZnMGW+
-dfl1ZAz6h4jRQDnq9JpwWjS7CHFkw3U6yGjluzHWuglFOvZbhtkl3fNUWm2YUbRPh3Ak63nWbJUa
-XWOgp2uS/vXaqvXoc4zFwu56Ue8GC8XLSSM4TbpcspA/a235u8o7ctemWWETVTJuQ5y78iqBpCHZ
-/LE/IyNH1hrsIO3zMIH0AKnpPjSPUf0cKLAGZBzuvnLi218M6yCdKNr9AAAAAAAA
+hkiG9w0BAQEFAASCAQA8SQ3iKCizPHLOq1uGPbqPTbHyn4Au7DXhATTp7f6nVeKlJ/JcbC2Wg6r6
+eLBXQSUSN0GdsUbgDNfza5SMnDUx6WvVlIjqe2ZlyII38Uw25IIyVqwtr5kbtCFJRrq1DZ9IoQwE
+W/i6VivjZ7jt9BxwVH3nh1/7mKgOZcggjTRXqqVXRA4BDS5zKUxv2EsvQPRCm5J8p/97xKAIxchB
+yLeU7Nl17J0HVAffkkzhTOjICkIRxXfs2imfbm2KpZQlHFnpfdWvdqjUrd7k6O2EOxJmFWo3zs2Q
+n8V06bcICxFvLNaFcSCnyTsJy1yY0ihTh9bYnEnbGSi3uh3G4Tbl/EwZAAAAAAAA
 
 
---=-9EHeMJ6oWDG+jYN0/H7s--
+--=-phKuKHLt9Wse4bsIKbRq--
