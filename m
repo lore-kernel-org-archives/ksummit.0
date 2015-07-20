@@ -1,23 +1,20 @@
 Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5582F282
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5AF2A305
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 20 Jul 2015 07:08:31 +0000 (UTC)
+	Mon, 20 Jul 2015 07:15:19 +0000 (UTC)
 Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
 	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id F0236F7
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id ED768F7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 20 Jul 2015 07:08:30 +0000 (UTC)
-Message-ID: <1437376105.8968.14.camel@HansenPartnership.com>
+	Mon, 20 Jul 2015 07:15:18 +0000 (UTC)
+Message-ID: <1437376515.8968.19.camel@HansenPartnership.com>
 From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Jiri Kosina <jkosina@suse.com>
-Date: Mon, 20 Jul 2015 08:08:25 +0100
-In-Reply-To: <alpine.LNX.2.00.1507200014320.1141@pobox.suse.cz>
-References: <20150716094720.2bf9f5ac@gandalf.local.home>
-	<55A7C7FE.6000604@sonymobile.com> <20150716094125.16cdda73@lwn.net>
-	<1437063875.18768.59.camel@HansenPartnership.com>
-	<20150717101151.5d5bc86d@lwn.net>
+To: Josh Triplett <josh@joshtriplett.org>
+Date: Mon, 20 Jul 2015 08:15:15 +0100
+In-Reply-To: <20150720051605.GA10779@x>
+References: <20150717101151.5d5bc86d@lwn.net>
 	<20150717133712.42c82add@gandalf.local.home>
 	<20150717190223.GB1499@cloud>
 	<20150717154326.6f129bc4@gandalf.local.home>
@@ -26,6 +23,7 @@ References: <20150716094720.2bf9f5ac@gandalf.local.home>
 	<20150717204856.GA2048@cloud>
 	<20150717165501.62ed4e04@gandalf.local.home>
 	<alpine.LNX.2.00.1507200014320.1141@pobox.suse.cz>
+	<55AC5E3B.9040102@huawei.com> <20150720051605.GA10779@x>
 Content-Type: text/plain; charset="UTF-8"
 Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -44,47 +42,58 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 2015-07-20 at 00:19 +0200, Jiri Kosina wrote:
-> On Fri, 17 Jul 2015, Steven Rostedt wrote:
+On Sun, 2015-07-19 at 22:16 -0700, Josh Triplett wrote:
+> On Mon, Jul 20, 2015 at 10:34:35AM +0800, Zefan Li wrote:
+> > > I.e. I might propose a a slightly controversial topic, going a bit the 
+> > > other direction than the whole "motivating newcomers" discussion: how to 
+> > > get rid of useless submissions that are slowing maintainers down?
+> > > 
+> > 
+> > Do we really have this issue?
+> > 
+> > If we are encouraging more people to get involved in kernel contribution, we'll
+> > sure occasionally see some patches with little value, but I don't think we are
+> > suffering from this.
+> > 
+> > And When we see a patch of this kind, it won't take us much time to tell the
+> > newbie why the patch isn't appropriate, and then he probably won't do this again.
 > 
-> [ ... snip ... ]
-> > But that was an exception because the code submitted was really worth 
-> > while
+> That's exactly the kind of thing that we *shouldn't* do.
 > 
-> This really made me wonder. Maybe we should really focus on why such 
-> ocasions need to be pointed out as exceptions.
+> Think about that from the new contributor's perspective.  They've made a
+> change to the kernel that has a small but non-zero value.  They've just
+> managed to work out how to jump through all the hoops needed to prepare
+> and submit it properly for the kernel, through some combination of
+> reading, lurking, and mentorship.  And the first response they see is a
+> maintainer like you saying "please don't send this kind of patch".
 > 
-> Is it that Linux kernel development got hyped so much that everyone wants 
-> to have that bullet in his CV, no matter how stupid the submitted patch 
-> would be?
+> Yeah, they probably won't do that again.  Congratulations, you defeated
+> the newbie and thwarted their evil maintainer-time-wasting scheme!  Hail
+> the conquering hero; insert victory fanfare here.  If you and others
+> keep up that vigilance, perhaps one day all maintainers can rest easy,
+> knowing they'll never again have to deal with new contributors.
 > 
-> If so, what should we do to change it?
+> </sarcasm>
 > 
-> I.e. I might propose a a slightly controversial topic, going a bit the 
-> other direction than the whole "motivating newcomers" discussion: how to 
-> get rid of useless submissions that are slowing maintainers down?
+> It's perfectly reasonable to tell someone that, since they've gotten the
+> hang of sending kernel patches, they should move on to more substantial
+> changes, and leave simpler fixes to other potential new contributors.
+> But that's different than telling them their patch is unwelcome.
+> 
+> (If someone sends in a patch that's actively wrong, sure, go right ahead
+> and tell them what's wrong with it.  But there's a difference between
+> "wrong" and just "not that important".)
 
-I second.  I think we concentrate too much on contribution and not
-enough on useful contribution.
+I think that's the wrong attitude in so many ways.  Good teachers don't
+accept crap.  They throw it back at you with precisely the contempt it
+deserves and a note as to how it should be improved.  Accepting less
+than the best encourages mediocrity; it's bad for teaching, bad for
+society and ultimately bad for the individual.
 
-> Should we stop publishing all the statistics? I believe there is no 
-> question that those are one of the primary drivers of useless submissions. 
-> Once maintainers get DoSed by submissions of wrong and/or useless patches 
-> that eat non-negligible amount of their time, we're in trouble.
-
-I'm not sure it's just the stats.  We also have to be careful about
-negative perceptions, so I don't think we want to go around highlighting
-bad patches.  There are a couple of patch sets that are draining review
-talent from my point of view: the mechanical one file at a time fixing
-X.  I think we need someone to be the gatekeeper and review and apply
-the script in one go.  And perhaps we should call the other "small
-patches which don't fix bugs" ... I'm less sure what to do about these.
-
-At the other end of the scale, perhaps we should be doing more to
-recognise good contributions.  Greg suggested prizes for first
-contributions, but what about in addition one more, say for best bug fix
-of the week (or month depending on who's running it and how much time it
-sucks)?  We could have the maintainers nominate ones they think are good
-and whoever's running this picks the best.
+The constructive way to respond is to explain that this patch doesn't
+add value, so it's not really of the calibre that we're looking for, but
+then pull out one of the longstanding problems in a related area (or
+sometimes something you just spotted looking at the code again) and ask
+if the person would care to have a crack at that.
 
 James
