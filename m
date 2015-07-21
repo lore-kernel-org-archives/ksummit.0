@@ -1,32 +1,43 @@
-Return-Path: <mwelling79@gmail.com>
+Return-Path: <lizefan@huawei.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 35EEA40D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9938641C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 20 Jul 2015 20:34:09 +0000 (UTC)
-Received: from mail-ig0-f175.google.com (mail-ig0-f175.google.com
-	[209.85.213.175])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6D88779
+	Tue, 21 Jul 2015 02:01:42 +0000 (UTC)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [58.251.152.64])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D151524F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 20 Jul 2015 20:34:06 +0000 (UTC)
-Received: by igbpg9 with SMTP id pg9so90433960igb.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 20 Jul 2015 13:34:06 -0700 (PDT)
-Received: from deathstar (173-22-240-187.client.mchsi.com. [173.22.240.187])
-	by smtp.gmail.com with ESMTPSA id
-	lr1sm5918455igb.10.2015.07.20.13.34.05
-	for <ksummit-discuss@lists.linuxfoundation.org>
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Mon, 20 Jul 2015 13:34:05 -0700 (PDT)
-Sender: Michael Welling <mwelling79@gmail.com>
-Date: Mon, 20 Jul 2015 15:33:58 -0500
-From: Michael Welling <mwelling@ieee.org>
-To: ksummit-discuss@lists.linuxfoundation.org
-Message-ID: <20150720203358.GA9205@deathstar>
+	Tue, 21 Jul 2015 02:01:41 +0000 (UTC)
+Message-ID: <55ADA7C1.3050809@huawei.com>
+Date: Tue, 21 Jul 2015 10:00:33 +0800
+From: Zefan Li <lizefan@huawei.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Subject: [Ksummit-discuss]  [TECH TOPIC] GPIO API/ABI discussion
+To: David Woodhouse <dwmw2@infradead.org>
+References: <20150717101151.5d5bc86d@lwn.net>
+	<20150717133712.42c82add@gandalf.local.home>
+	<20150717190223.GB1499@cloud>
+	<20150717154326.6f129bc4@gandalf.local.home>
+	<20150717202412.GA1856@cloud>
+	<20150717163903.67747d86@gandalf.local.home>
+	<20150717204856.GA2048@cloud>
+	<20150717165501.62ed4e04@gandalf.local.home>
+	<alpine.LNX.2.00.1507200014320.1141@pobox.suse.cz>
+	<1437376105.8968.14.camel@HansenPartnership.com>
+	<20150720084420.GA11454@x>
+	<1437384215.8968.28.camel@HansenPartnership.com>
+	<1437386699.22996.10.camel@infradead.org>
+	<1437388227.8968.34.camel@HansenPartnership.com>
+	<1437390546.22996.27.camel@infradead.org>
+In-Reply-To: <1437390546.22996.27.camel@infradead.org>
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: 7bit
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Dan Carpenter <dan.carpenter@oracle.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Jason Cooper <jason@lakedaemon.net>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
+ Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,18 +47,10 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+> Then it should just be case of of asking Stephen to "put this tree last
+> in linux-next", and Linus to "pull this one last, right before
+> releasing -rc1". And getting the timing right for the script to run.
+> 
 
-I propose that there be a discussion as to the future direction
-of the GPIO userspace interface.
-
-Here are some topics in need of discussion:
-- The continued use of the sysfs interface and possible enhancements
-or restructuring.
-- The possibility of a char interface and its implications.
-- The introduction of gpio groups to userspace.
-
-Here are some links to various discussions on the mailing list:
-https://lwn.net/Articles/533632/
-https://lwn.net/Articles/651500/
-https://lkml.org/lkml/2015/1/5/496
-https://www.mail-archive.com/linux-gpio@vger.kernel.org/msg06185.html
+This makes git-blame less useful, and that's one of the reasons some
+maintainers don't like trivial cleanups.
