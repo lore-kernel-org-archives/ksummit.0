@@ -1,19 +1,18 @@
-Return-Path: <julia.lawall@lip6.fr>
+Return-Path: <linux@roeck-us.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A66579C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 58C1F279
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 21 Jul 2015 06:08:40 +0000 (UTC)
-Received: from mail3-relais-sop.national.inria.fr
-	(mail3-relais-sop.national.inria.fr [192.134.164.104])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 94203DE
+	Tue, 21 Jul 2015 06:15:36 +0000 (UTC)
+Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 37E871D9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 21 Jul 2015 06:08:39 +0000 (UTC)
-Date: Tue, 21 Jul 2015 08:08:36 +0200 (CEST)
-From: Julia Lawall <julia.lawall@lip6.fr>
-To: Guenter Roeck <linux@roeck-us.net>
-In-Reply-To: <55AD7E2C.9090804@roeck-us.net>
-Message-ID: <alpine.DEB.2.02.1507210804580.2065@localhost6.localdomain6>
+	Tue, 21 Jul 2015 06:15:35 +0000 (UTC)
+Message-ID: <55ADE365.2010902@roeck-us.net>
+Date: Mon, 20 Jul 2015 23:15:01 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+MIME-Version: 1.0
+To: Julia Lawall <julia.lawall@lip6.fr>
 References: <20150717154326.6f129bc4@gandalf.local.home>
 	<20150717202412.GA1856@cloud>
 	<20150717163903.67747d86@gandalf.local.home>
@@ -24,13 +23,15 @@ References: <20150717154326.6f129bc4@gandalf.local.home>
 	<alpine.DEB.2.10.1507201022370.2408@hadrien>
 	<20150720203007.GA7797@kroah.com> <55AD7263.8050605@roeck-us.net>
 	<20150720223242.GB23638@kroah.com> <55AD7E2C.9090804@roeck-us.net>
-MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
-Cc: Jason Cooper <jason@lakedaemon.net>,
+	<alpine.DEB.2.02.1507210804580.2065@localhost6.localdomain6>
+In-Reply-To: <alpine.DEB.2.02.1507210804580.2065@localhost6.localdomain6>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Dan Carpenter <dan.carpenter@oracle.com>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Dan Carpenter <dan.carpenter@oracle.com>
+	Jason Cooper <jason@lakedaemon.net>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -42,35 +43,18 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-> > Is this really such a major issue?  If you don't want cleanup patches,
-> > just politely refuse them and point people at drivers/staging/ where I
-> > will gladly take them.  It's not tough at all.
-> > 
-> It isn't tough or an issue for me, but I don't normally refuse cleanup
-> patches either.
+On 07/20/2015 11:08 PM, Julia Lawall wrote:
+>>> Is this really such a major issue?  If you don't want cleanup patches,
+>>> just politely refuse them and point people at drivers/staging/ where I
+>>> will gladly take them.  It's not tough at all.
+>>>
+>> It isn't tough or an issue for me, but I don't normally refuse cleanup
+>> patches either.
+>
+> Politely pointing people at staging is an OK strategy, but I think newbies
+> would really prefer to know in advance that their patch has no chance of
+> being accepted.
+>
+Very much agreed.
 
-Politely pointing people at staging is an OK strategy, but I think newbies
-would really prefer to know in advance that their patch has no chance of
-being accepted.
-
-julia
-
-> > Or better yet, take Julia's advice, and just fix up your subsystem to
-> > not need these patches at all.  That should take all of an afternoon's
-> > worth of effort at most, drivers/scsi/ notwithstanding, that beast is
-> > horrid...
-> > 
-> 
-> Yes, that is what I am doing once in a while, if I need a timeout from other
-> work. Since I don't mind cleanup patches, so I would set the tag to 'yes'
-> for all files where I am listed as maintainer. But other maintainers do
-> actively reject cleanup patches, sometimes with less then friendly words.
-> 
-> Without a tag, the result is to discourage cleanup patches in general,
-> or what I would call the lowest common denominator. While I understand
-> and accept that other maintainers dislike cleanup patches, I don't see
-> why I should have to suffer the consequences.
-> 
-> Guenter
-> 
-> 
+Guenter
