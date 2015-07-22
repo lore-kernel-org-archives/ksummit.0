@@ -1,37 +1,53 @@
-Return-Path: <jiangshanlai@gmail.com>
+Return-Path: <rostedt@goodmis.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0591C487
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 71D40414
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 22 Jul 2015 14:22:04 +0000 (UTC)
-Received: from mail-ig0-f196.google.com (mail-ig0-f196.google.com
-	[209.85.213.196])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4DC54219
+	Wed, 22 Jul 2015 14:28:00 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0030.hostedemail.com
+	[216.40.44.30])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 1F9FD8D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 22 Jul 2015 14:22:03 +0000 (UTC)
-Received: by iggf3 with SMTP id f3so6474190igg.2
+	Wed, 22 Jul 2015 14:28:00 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
+	[10.5.19.251])
+	by smtpgrave08.hostedemail.com (Postfix) with ESMTP id 29430212324
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 22 Jul 2015 07:22:02 -0700 (PDT)
+	Wed, 22 Jul 2015 14:10:42 +0000 (UTC)
+Date: Wed, 22 Jul 2015 10:10:39 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Bjorn Helgaas <bhelgaas@google.com>
+Message-ID: <20150722101039.2ce09fd7@gandalf.local.home>
+In-Reply-To: <CAErSpo4HABmT=RvP5SMAykMCvd-3sH0rFhFbqsnVcbMOWxixSg@mail.gmail.com>
+References: <20150717101151.5d5bc86d@lwn.net>
+	<20150717133712.42c82add@gandalf.local.home>
+	<20150717190223.GB1499@cloud>
+	<20150717154326.6f129bc4@gandalf.local.home>
+	<20150717202412.GA1856@cloud>
+	<20150717163903.67747d86@gandalf.local.home>
+	<20150717204856.GA2048@cloud>
+	<20150717165501.62ed4e04@gandalf.local.home>
+	<alpine.LNX.2.00.1507200014320.1141@pobox.suse.cz>
+	<1437376105.8968.14.camel@HansenPartnership.com>
+	<20150720084420.GA11454@x>
+	<1437384215.8968.28.camel@HansenPartnership.com>
+	<1437386699.22996.10.camel@infradead.org>
+	<1437388227.8968.34.camel@HansenPartnership.com>
+	<1437390546.22996.27.camel@infradead.org>
+	<55ADA7C1.3050809@huawei.com>
+	<20150721185436.20b97c47@notabene.brown>
+	<20150722090457.45562610@gandalf.local.home>
+	<CAErSpo4HABmT=RvP5SMAykMCvd-3sH0rFhFbqsnVcbMOWxixSg@mail.gmail.com>
 MIME-Version: 1.0
-Sender: jiangshanlai@gmail.com
-In-Reply-To: <20150713095757.GW19282@twins.programming.kicks-ass.net>
-References: <CALCETrVPe7ijOHY5BXLPCG5VBxadeZoUDLOBMX+jEFnJynJ8FA@mail.gmail.com>
-	<20150709190916.GI1522@ret.masoncoding.com>
-	<alpine.DEB.2.11.1507101224440.21165@east.gentwo.org>
-	<20150713095757.GW19282@twins.programming.kicks-ass.net>
-Date: Wed, 22 Jul 2015 22:22:02 +0800
-Message-ID: <CAJhGHyCjkSkgCaCHJioaBMTXcb50E1+Yi-S+anaF52tDWLefrQ@mail.gmail.com>
-From: Lai Jiangshan <jiangshanlai+lkml@gmail.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Content-Type: text/plain; charset=UTF-8
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Jens Axboe <axboe@fb.com>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Shaohua Li <shli@fb.com>, Christoph Lameter <cl@linux.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] lightweight per-cpu locks /
- restartable sequences
+	Dan Carpenter <dan.carpenter@oracle.com>,
+	Jason Cooper <jason@lakedaemon.net>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
+ Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,50 +57,19 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Jul 13, 2015 at 5:57 PM, Peter Zijlstra <peterz@infradead.org> wrote:
-> On Fri, Jul 10, 2015 at 12:26:21PM -0500, Christoph Lameter wrote:
->> On Thu, 9 Jul 2015, Chris Mason wrote:
->>
->> > I think the topic is really interesting and we'll be able to get numbers
->> > from production workloads to help justify and compare different
->> > approaches.
->>
->> Ok that would be important. I also think that the approach may be used
->> in kernel to reduce the overhead of CONFIG_PREEMPT and also to implement
->> fast versions of this_cpu_ops for non x86 architectures and maybe even
->
->
-> Also, I don't think we need a schedule check for the in-kernel usage,
-> pure interrupt should be good enough, nobody should (want to) call
-> schedule() while inside such a critical section, which leaves us with
-> involuntary preemption, and those are purely interrupt driven.
->
-> Now the 'problem' is finding these special regions fast, the easy
-> solution is the same as the one proposed for userspace, one big section.
-> That way the interrupt only has to check if the IP is inside this
-> section which is minimal effort.
->
-> The down side is that all percpu ops would then end up being full
-> function calls. Which on some archs is indeed faster than disabling
-> interrupts, but not by much I'm afraid.
+On Wed, 22 Jul 2015 08:57:34 -0500
+Bjorn Helgaas <bhelgaas@google.com> wrote:
 
-Anther down site is that all percpu ops can't call any function outside
-the section.  Otherwise we would fail to detect whether it is a special
-region  or be hard to detect it.
 
-If we disallow the percpu ops calling any function, I think we can
-insert some special instructions to the generated code along with
-a notation in a table (like exception table for copy_to_user()).
-So thus the interrupt only has to check the special instructions
-near the IP and confirm it by check it on the table.
+> > Ah! that's the change I was looking for!
+> 
+> I don't know if you'd find this more work or less, but I use "git log
+> -p foo.c" for this instead of git blame.  Unless there's been a rename
+> or a move between files, one invocation is usually enough.
 
->
->> optimize the x86 variants if interrupts also can detect critical sections
->> and restart at defined points.
->
-> I really don't see how we can beat %GS prefixes with any such scheme.
-> --
-> To unsubscribe from this list: send the line "unsubscribe linux-kernel" in
-> the body of a message to majordomo@vger.kernel.org
-> More majordomo info at  http://vger.kernel.org/majordomo-info.html
-> Please read the FAQ at  http://www.tux.org/lkml/
+I've used "git log -p foo.c" before, but I find that some of my files I
+work with, that is way too much info. Especially, when the commit I'm
+looking for happens to be years old. I use the log -p for when I know
+the change has been recent.
+
+-- Steve
