@@ -1,19 +1,19 @@
 Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 85D83414
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6AB7A405
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 22 Jul 2015 14:42:03 +0000 (UTC)
+	Wed, 22 Jul 2015 14:44:12 +0000 (UTC)
 Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
 	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 3D0C312D
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 1F42312D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 22 Jul 2015 14:42:03 +0000 (UTC)
-Message-ID: <1437576121.2171.17.camel@HansenPartnership.com>
+	Wed, 22 Jul 2015 14:44:12 +0000 (UTC)
+Message-ID: <1437576250.2171.19.camel@HansenPartnership.com>
 From: James Bottomley <James.Bottomley@HansenPartnership.com>
 To: Steven Rostedt <rostedt@goodmis.org>
-Date: Wed, 22 Jul 2015 07:42:01 -0700
-In-Reply-To: <20150722101039.2ce09fd7@gandalf.local.home>
+Date: Wed, 22 Jul 2015 07:44:10 -0700
+In-Reply-To: <1437576121.2171.17.camel@HansenPartnership.com>
 References: <20150717101151.5d5bc86d@lwn.net>
 	<20150717133712.42c82add@gandalf.local.home>
 	<20150717190223.GB1499@cloud>
@@ -33,12 +33,13 @@ References: <20150717101151.5d5bc86d@lwn.net>
 	<20150722090457.45562610@gandalf.local.home>
 	<CAErSpo4HABmT=RvP5SMAykMCvd-3sH0rFhFbqsnVcbMOWxixSg@mail.gmail.com>
 	<20150722101039.2ce09fd7@gandalf.local.home>
+	<1437576121.2171.17.camel@HansenPartnership.com>
 Content-Type: text/plain; charset="UTF-8"
 Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Cc: Dan Carpenter <dan.carpenter@oracle.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
+	Dan Carpenter <dan.carpenter@oracle.com>,
 	Jason Cooper <jason@lakedaemon.net>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
@@ -51,24 +52,28 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 2015-07-22 at 10:10 -0400, Steven Rostedt wrote:
-> On Wed, 22 Jul 2015 08:57:34 -0500
-> Bjorn Helgaas <bhelgaas@google.com> wrote:
-> 
-> 
-> > > Ah! that's the change I was looking for!
+On Wed, 2015-07-22 at 07:42 -0700, James Bottomley wrote:
+> On Wed, 2015-07-22 at 10:10 -0400, Steven Rostedt wrote:
+> > On Wed, 22 Jul 2015 08:57:34 -0500
+> > Bjorn Helgaas <bhelgaas@google.com> wrote:
 > > 
-> > I don't know if you'd find this more work or less, but I use "git log
-> > -p foo.c" for this instead of git blame.  Unless there's been a rename
-> > or a move between files, one invocation is usually enough.
+> > 
+> > > > Ah! that's the change I was looking for!
+> > > 
+> > > I don't know if you'd find this more work or less, but I use "git log
+> > > -p foo.c" for this instead of git blame.  Unless there's been a rename
+> > > or a move between files, one invocation is usually enough.
+> > 
+> > I've used "git log -p foo.c" before, but I find that some of my files I
+> > work with, that is way too much info. Especially, when the commit I'm
+> > looking for happens to be years old. I use the log -p for when I know
+> > the change has been recent.
 > 
-> I've used "git log -p foo.c" before, but I find that some of my files I
-> work with, that is way too much info. Especially, when the commit I'm
-> looking for happens to be years old. I use the log -p for when I know
-> the change has been recent.
+> I think what we need is a git log --line <name> <path> which would track
+> the commits that touched a given line in <path> (hopefully even across
+> renames).  It shouldn't be too hard to come up with that.
 
-I think what we need is a git log --line <name> <path> which would track
-the commits that touched a given line in <path> (hopefully even across
-renames).  It shouldn't be too hard to come up with that.
+Well, duh, we do, it's git log -L ... I take it no-one uses it because
+like me, no-one knows about it?
 
 James
