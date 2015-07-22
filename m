@@ -1,45 +1,36 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <josh@joshtriplett.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A440D273
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2D40A491
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 22 Jul 2015 15:41:08 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 23C1212F
+	Wed, 22 Jul 2015 16:29:22 +0000 (UTC)
+Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
+	[217.70.183.197])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8E4321FE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 22 Jul 2015 15:41:08 +0000 (UTC)
-Message-ID: <1437579665.2171.21.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
+	Wed, 22 Jul 2015 16:29:21 +0000 (UTC)
+Date: Wed, 22 Jul 2015 09:29:13 -0700
+From: Josh Triplett <josh@joshtriplett.org>
 To: Steven Rostedt <rostedt@goodmis.org>
-Date: Wed, 22 Jul 2015 08:41:05 -0700
-In-Reply-To: <20150722104822.2b749dc7@gandalf.local.home>
-References: <20150717101151.5d5bc86d@lwn.net>
-	<20150717133712.42c82add@gandalf.local.home>
-	<20150717190223.GB1499@cloud>
-	<20150717154326.6f129bc4@gandalf.local.home>
-	<20150717202412.GA1856@cloud>
-	<20150717163903.67747d86@gandalf.local.home>
-	<20150717204856.GA2048@cloud>
-	<20150717165501.62ed4e04@gandalf.local.home>
-	<alpine.LNX.2.00.1507200014320.1141@pobox.suse.cz>
+Message-ID: <20150722162913.GA1203@jtriplet-mobl1>
+References: <alpine.LNX.2.00.1507200014320.1141@pobox.suse.cz>
 	<1437376105.8968.14.camel@HansenPartnership.com>
 	<20150720084420.GA11454@x>
 	<1437384215.8968.28.camel@HansenPartnership.com>
 	<1437386699.22996.10.camel@infradead.org>
 	<1437388227.8968.34.camel@HansenPartnership.com>
-	<1437390546.22996.27.camel@infradead.org> <55ADA7C1.3050809@huawei.com>
+	<1437390546.22996.27.camel@infradead.org>
+	<55ADA7C1.3050809@huawei.com>
 	<20150721185436.20b97c47@notabene.brown>
 	<20150722090457.45562610@gandalf.local.home>
-	<CAErSpo4HABmT=RvP5SMAykMCvd-3sH0rFhFbqsnVcbMOWxixSg@mail.gmail.com>
-	<20150722101039.2ce09fd7@gandalf.local.home>
-	<1437576121.2171.17.camel@HansenPartnership.com>
-	<20150722104822.2b749dc7@gandalf.local.home>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: Dan Carpenter <dan.carpenter@oracle.com>,
-	ksummit-discuss@lists.linuxfoundation.org,
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20150722090457.45562610@gandalf.local.home>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Dan Carpenter <dan.carpenter@oracle.com>,
 	Jason Cooper <jason@lakedaemon.net>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
  Maintainers, Hobbyists)
@@ -52,23 +43,40 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 2015-07-22 at 10:48 -0400, Steven Rostedt wrote:
-> On Wed, 22 Jul 2015 07:42:01 -0700
-> James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
+On Wed, Jul 22, 2015 at 09:04:57AM -0400, Steven Rostedt wrote:
+> On Tue, 21 Jul 2015 18:54:36 +1000
+> NeilBrown <neilb@suse.com> wrote:
 > 
-> > I think what we need is a git log --line <name> <path> which would track
-> > the commits that touched a given line in <path> (hopefully even across
-> > renames).  It shouldn't be too hard to come up with that.
+> > On Tue, 21 Jul 2015 10:00:33 +0800 Zefan Li <lizefan@huawei.com> wrote:
+> > 
+> > > > Then it should just be case of of asking Stephen to "put this tree last
+> > > > in linux-next", and Linus to "pull this one last, right before
+> > > > releasing -rc1". And getting the timing right for the script to run.
+> > > > 
+> > > 
+> > > This makes git-blame less useful, and that's one of the reasons some
+> > > maintainers don't like trivial cleanups.
+> > 
+> > Sounds like we need to propose an enhancement to "git-blame"...
+> > 
 > 
-> That may not be trivial. It would have to keep track of changes before
-> the line, to match the line in previous commits. What happens if the
-> line completely changes, or is in a complete rewrite of that code. I
-> doubt it will be smart enough to follow a single line. Perhaps a range
-> would be better?
+> No need. I use git blame all the time. Trivial patches don't bother me.
+> 
+> $ git blame foo.c
+> 
+> $ git show abc123
+> 
+> Sees that it's a trivial fix
+> 
+> $ git blame abc123~1 foo.c
+> 
+> $ git show def890
 
-I assume you missed the follow up?  It does exist: git log -L
+If you use vim, try vim-fugitive for this.  While editing a file,
+:Gblame to get the blame info.  Hit o in the blame window to open a
+commit, showing the commit message and patch, automatically jumping to
+the patch line that changed the line you're looking at.  If that's not
+the commit you want, hit P in the blame window to re-blame from the
+parent of that commit.
 
-It will follow a single line, a line range or a regex delimited search
-set.
-
-James
+- Josh Triplett
