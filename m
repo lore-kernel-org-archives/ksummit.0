@@ -1,38 +1,32 @@
-Return-Path: <lurodriguez@suse.de>
+Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C8225475
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8FDB6308
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 21 Jul 2015 17:35:07 +0000 (UTC)
-Received: from mx2.suse.de (cantor2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A4053219
+	Wed, 22 Jul 2015 00:45:40 +0000 (UTC)
+Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id 56D35149
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 21 Jul 2015 17:35:06 +0000 (UTC)
-Date: Tue, 21 Jul 2015 19:35:03 +0200
-From: "Luis R. Rodriguez" <mcgrof@suse.com>
-To: David Woodhouse <dwmw2@infradead.org>
-Message-ID: <20150721173503.GH30479@wotan.suse.de>
-References: <20150717163903.67747d86@gandalf.local.home>
-	<20150717204856.GA2048@cloud>
-	<20150717165501.62ed4e04@gandalf.local.home>
-	<alpine.LNX.2.00.1507200014320.1141@pobox.suse.cz>
-	<1437376105.8968.14.camel@HansenPartnership.com>
-	<20150720084420.GA11454@x>
-	<1437384215.8968.28.camel@HansenPartnership.com>
-	<1437386699.22996.10.camel@infradead.org>
-	<1437388227.8968.34.camel@HansenPartnership.com>
-	<1437390546.22996.27.camel@infradead.org>
+	Wed, 22 Jul 2015 00:45:38 +0000 (UTC)
+From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Wed, 22 Jul 2015 03:12:23 +0200
+Message-ID: <1498238.a26xTIy1oB@vostro.rjw.lan>
+In-Reply-To: <CAKMK7uFAUXv8S7f_ki+JW-h+3bWA8H7ZPZSQ4K6YXNXT69eDrw@mail.gmail.com>
+References: <1489458.8WDRattPkl@vostro.rjw.lan>
+	<2015360.EW9BxZmMXF@vostro.rjw.lan>
+	<CAKMK7uFAUXv8S7f_ki+JW-h+3bWA8H7ZPZSQ4K6YXNXT69eDrw@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1437390546.22996.27.camel@infradead.org>
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Dan Carpenter <dan.carpenter@oracle.com>,
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
+Cc: "Brown, Len" <len.brown@intel.com>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	Jason Cooper <jason@lakedaemon.net>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
- Maintainers, Hobbyists)
+	Alan Stern <stern@rowland.harvard.edu>,
+	Kristen Carlson Accardi <kristen@linux.intel.com>,
+	Grant Likely <grant.likely@linaro.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] System-wide interface to specify
+	the level of PM tuning
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -42,47 +36,61 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Jul 20, 2015 at 12:09:06PM +0100, David Woodhouse wrote:
-> On Mon, 2015-07-20 at 11:30 +0100, James Bottomley wrote:
-> > Agree ... that's why we need a responsible maintainer, and I believe 
-> > it would be an even more onerous task than running the trivial tree.
+On Tuesday, July 21, 2015 01:09:52 AM Daniel Vetter wrote:
+> On Tue, Jul 21, 2015 at 12:21 AM, Rafael J. Wysocki <rjw@rjwysocki.net> wrote:
+> > On Friday, July 17, 2015 01:41:56 PM Daniel Vetter wrote:
+> >> On Thu, Jul 16, 2015 at 5:58 PM, Greg KH <greg@kroah.com> wrote:
+> >> > On Thu, Jul 16, 2015 at 08:53:02AM -0700, Josh Triplett wrote:
+> >> >> But the kernel already has quirk tables for various hardware, and that
+> >> >> seems appropriate to continue putting in the kernel.
+> >> >
+> >> > For some types of devices, sure.  For others, like broken USB keyboards
+> >> > that can't handle autosuspend, no.  For those we need a userspace
+> >> > _whitelist_ that udev can use.  So there's no one answer that works for
+> >> > all types of quirks.
+> >>
+> >> Whether white or blacklist or some other mixed thing doesn't really
+> >> matter. Imo the important part is that driver maintainers are in the
+> >> best position to maintain that, and pushing it out to anyone else is
+> >> just really not doing our jobs. And I think for most of these quirk
+> >> lists the kernel does seem like the most appropriate place. If the
+> >> list becomes giantic then we can move it to userspace (if that's
+> >> really a problem, afaik no one proposed yet to move device match
+> >> tables into userspace either and that's kinda the same thing really).
+> >> But as long as there's no white/black/whatever list yet starting in
+> >> the kernel is imo the right place.
+> >
+> > Well, I'm wondering, then, why i915.enable_psr is not enabled by default,
+> > for one example?
+> >
+> > Failing to enable it prevents some SoCs from using the deepest available
+> > C-states which in turn hurts battery life of the systems containing them
+> > quite a bit, so there surely is a reason to have it enabled.
 > 
-> I think any scripted change like this would need to come *from* a
-> responsible maintainer, not *through* one. I'm not sure we really need
-> a 'process' for it other than someone with sufficient credibility
-> persuading Linus to run the script.
+> Because it's broken on a lot of machines, and it takes a pile of
+> effort to fix it.
+
+And there are quite a few subsystems having similar issues here and there.
+
+People who aren't aware of those command line/Kconfig/sysfs switches will
+never enable those features even though they may work well on their
+machines and may actually be necessary to save energy.
+
+> That work is under way now, but for a long time
+> priorities set by management where much more set on chasing the next
+> shiny thing. Took a few years of making noises about dropping it all
+> if it doesn't get fixed.
 > 
-> Alternatively, it isn't *that* hard for someone like Josh (who was the
-> one who said he often finds himself doing this kind of thing) to create
-> a git tree which runs the script *regularly* on the tip of Linus' tree
-> (or linux-next), creating a new version of the commit which can be
-> pulled at that moment.
-> 
-> Then it should just be case of of asking Stephen to "put this tree last
-> in linux-next", and Linus to "pull this one last, right before
-> releasing -rc1". And getting the timing right for the script to run.
+> This is actually a perfect example of what I mean with "hey it works
+> on my machine here, but I can't be bothered to fix up the corner-cases
+> so let's keep it disabled and move on". And the corner cases are hung
+> machines and frozen displays (and a few other things), and we
+> inflicted that a few times on Linus even.
 
-I ran into quite a bit of delay / coordination through another types of
-tree-wide changes recently: tree wide collateral evolutions which affect more
-than one subsystem. One of the issues with this is such type of changes
-may end up having 1-2 release delays before being complete unless the stars
-align and everone can get in sync and agree for all changes to go through
-one tree. I'm sure this is not a new thing either, but with tools like
-Coccinelle I do suspect the amount of work to do this has reduced and as
-such we should be able to more easily make these changes. What I found was
-that our pipes were not as smooth to handle these types of changes when
-needed, even if everyone was in total agreement.
+So among other things this topic is about a mechanism to possibly enable
+multiple things like that in one go instead of having to switch multiple
+knobs in various places (and needing to know about them in the first
+place).
 
-I proposed a linux-oven tree [0], pricicely as David describes, which can be
-used after all trees are merged. So not only would it be useful for scraped
-cleanups but also tree wide collateral evolutions which span multiple
-subsystems. If such a tree existed and folks knew such maintainer would
-go through proper dilligence for testing, review, vetting from maintainers
-I think it would make both scripted changes and tree wide collateral evolutions
-easier to manage. If done through a separate tree Linus would also not need
-to be involved, instread the onus of correcting patches lies on the developers
-submitting to the tree and the maintainer.
-
-[0] http://lkml.kernel.org/r/20150619231255.GC7487@garbanzo.do-not-panic.com
-
-  Luis
+Thanks,
+Rafael
