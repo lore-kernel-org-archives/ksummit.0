@@ -1,27 +1,23 @@
-Return-Path: <shuahkhan@gmail.com>
+Return-Path: <heiko@sntech.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D1B98411
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 507EA40A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 23 Jul 2015 14:48:53 +0000 (UTC)
-Received: from mail-ie0-f173.google.com (mail-ie0-f173.google.com
-	[209.85.223.173])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 390D18B
+	Thu, 23 Jul 2015 15:08:32 +0000 (UTC)
+Received: from gloria.sntech.de (gloria.sntech.de [95.129.55.99])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 61AD2103
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 23 Jul 2015 14:48:53 +0000 (UTC)
-Received: by ietj16 with SMTP id j16so194210394iet.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 23 Jul 2015 07:48:52 -0700 (PDT)
-MIME-Version: 1.0
+	Thu, 23 Jul 2015 15:08:31 +0000 (UTC)
+From: Heiko =?ISO-8859-1?Q?St=FCbner?= <heiko@sntech.de>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Thu, 23 Jul 2015 17:08:28 +0200
+Message-ID: <1896782.UqW9B1Ukad@diego>
 In-Reply-To: <20150723105726.GC30929@amd>
 References: <20150723105726.GC30929@amd>
-Date: Thu, 23 Jul 2015 08:48:52 -0600
-Message-ID: <CAKocOOPhpX2o40pbXDnNDkCePHC=aief8hoJkuFoy9ws_V4=rw@mail.gmail.com>
-From: Shuah Khan <shuahkhan@gmail.com>
-To: Pavel Machek <pavel@ucw.cz>, tim.bird@sonymobile.com
-Content-Type: text/plain; charset=UTF-8
+MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Cc: ksummit-discuss@lists.linuxfoundation.org
+Content-Type: text/plain; charset="iso-8859-1"
+Cc: Pavel Machek <pavel@ucw.cz>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Mainline kernel on a cellphone
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -32,41 +28,45 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Jul 23, 2015 at 4:57 AM, Pavel Machek <pavel@ucw.cz> wrote:
-> Hi!
->
-> (Please cc me on replies).
->
+Am Donnerstag, 23. Juli 2015, 12:57:26 schrieb Pavel Machek:
 > Significant percentage of phones run Linux kernel today, but geting
-> mainline kernel to work on a phone is very hard to do. (So hard, that
-> newest device that is close to working on recent mainline was made in
+> mainline kernel to work on a phone is very hard to do. (So hard, that=
+
+> newest device that is close to working on recent mainline was made in=
+
 > 2009.) There are multiple obstacles, including huge patches from
-> silicon vendors, missing GNU/Linux userspace support that makes kernel
+> silicon vendors, missing GNU/Linux userspace support that makes kerne=
+l
 > testing hard, interfaces unsuitable for phones and power management
 > problems.
->
+
+>From work I know some MSM8916 phones which came to market over half a y=
+ear ago=20
+ad just now seem to get basic clock support in mainline.
+
+But I guess the problem is not limited to cellphones but to all mobile=20=
+
+consumer electronics, where the development model is based on hacking o=
+n some=20
+fork of an old kernel.
+
+
+But I do think the ChromeOS people do quite a lot things right in terms=
+ of=20
+development model, as I can run a Debian (including 3d-acceleration) on=
+ the=20
+just released Rockchip Chromebooks with only a minimal number of additi=
+onal=20
+patches against 4.2-rc ;-)
+
+
 > Interested people:
->
+>=20
 > Sebastian Reichel <sre@kernel.org>
-> Pali Roh=C3=A1r <pali.rohar@gmail.com>
->
+> Pali Roh=E1r <pali.rohar@gmail.com>
 
-I am interested in this topic. Please add me to the list.
+The Openmoko Freerunner brought me into the embedded world in the first=
+ place,=20
+so I'd definitly be interested ;-)
 
-Shuah Khan <shuahkh@osg.samsung.com>
-
-You probably already know
-the CE Workgroup Device Mainlining Project. Goes over some of the reasons w=
-hy
-mainline kernels don't run on phones. Adding Tim Bird to the thread.
-He did a talk
-at ELC back in March of this year about this effort and more information.
-
-http://elinux.org/CE_Workgroup_Device_Mainlining_Project
-
-Very often phone vendors have to make decisions to get the product out
-and they might not have the resources to upstream and ensure upstream
-kernels continue to run on their devices.
-
-thanks,
--- Shuah
+Heiko Stuebner <heiko@sntech.de>
