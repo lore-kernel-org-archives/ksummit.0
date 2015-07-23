@@ -1,34 +1,27 @@
-Return-Path: <k.kozlowski.k@gmail.com>
+Return-Path: <shuahkhan@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7BCE147E
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D1B98411
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 23 Jul 2015 13:23:55 +0000 (UTC)
-Received: from mail-qg0-f51.google.com (mail-qg0-f51.google.com
-	[209.85.192.51])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4449E137
+	Thu, 23 Jul 2015 14:48:53 +0000 (UTC)
+Received: from mail-ie0-f173.google.com (mail-ie0-f173.google.com
+	[209.85.223.173])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 390D18B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 23 Jul 2015 13:23:54 +0000 (UTC)
-Received: by qgeu79 with SMTP id u79so61568264qge.1
+	Thu, 23 Jul 2015 14:48:53 +0000 (UTC)
+Received: by ietj16 with SMTP id j16so194210394iet.0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 23 Jul 2015 06:23:53 -0700 (PDT)
+	Thu, 23 Jul 2015 07:48:52 -0700 (PDT)
 MIME-Version: 1.0
-Sender: k.kozlowski.k@gmail.com
-In-Reply-To: <20150723121441.GB29747@amd>
+In-Reply-To: <20150723105726.GC30929@amd>
 References: <20150723105726.GC30929@amd>
-	<CACRpkdbCbhgJHZifouDVUvaxyT5YWWdQz7Nt3AKoLvuEn4z7mQ@mail.gmail.com>
-	<20150723121441.GB29747@amd>
-Date: Thu, 23 Jul 2015 22:23:53 +0900
-Message-ID: <CAJKOXPc7Uryq2PFrKyC_rwSLwR9GadJEzS6YMdGcCBJY-QNNPw@mail.gmail.com>
-From: Krzysztof Kozlowski <k.kozlowski@samsung.com>
-To: Pavel Machek <pavel@ucw.cz>
+Date: Thu, 23 Jul 2015 08:48:52 -0600
+Message-ID: <CAKocOOPhpX2o40pbXDnNDkCePHC=aief8hoJkuFoy9ws_V4=rw@mail.gmail.com>
+From: Shuah Khan <shuahkhan@gmail.com>
+To: Pavel Machek <pavel@ucw.cz>, tim.bird@sonymobile.com
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	riverful.kim@samsung.com, kyungmin.park@samsung.com,
-	John Stultz <john.stultz@linaro.org>,
-	Bjorn Andersson <Bjorn.Andersson@sonymobile.com>
+Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Mainline kernel on a cellphone
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -39,52 +32,41 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-2015-07-23 21:14 GMT+09:00 Pavel Machek <pavel@ucw.cz>:
-> On Thu 2015-07-23 13:21:19, Linus Walleij wrote:
->> On Thu, Jul 23, 2015 at 12:57 PM, Pavel Machek <pavel@ucw.cz> wrote:
->>
->> > Significant percentage of phones run Linux kernel today, but geting
->> > mainline kernel to work on a phone is very hard to do. (So hard, that
->> > newest device that is close to working on recent mainline was made in
->> > 2009.) There are multiple obstacles, including huge patches from
->> > silicon vendors, missing GNU/Linux userspace support that makes kernel
->> > testing hard, interfaces unsuitable for phones and power management
->> > problems.
->> >
->> > Interested people:
->> >
->> > Sebastian Reichel <sre@kernel.org>
->> > Pali Roh=C3=A1r <pali.rohar@gmail.com>
->>
->> I'm adding Bj=C3=B6rn Andersson <bjorn.andersson@sonymobile.com> to this=
- list.
->>
->> Bj=C3=B6rn has as of yesterday booted a mainline kernel on the SONY
->> Xperia Z3 and his company has demonstrated strong interest in
->> getting the mainline kernel to run on their handsets.
->> https://plus.google.com/102276447148493441479/posts/amRvpE8piSw
+On Thu, Jul 23, 2015 at 4:57 AM, Pavel Machek <pavel@ucw.cz> wrote:
+> Hi!
 >
-> Yes. Plus, there seems to be group at Samsung. Trats is a cellphone iirc.
+> (Please cc me on replies).
 >
-> http://lists.infradead.org/pipermail/linux-arm-kernel/2011-December/07842=
-8.html
+> Significant percentage of phones run Linux kernel today, but geting
+> mainline kernel to work on a phone is very hard to do. (So hard, that
+> newest device that is close to working on recent mainline was made in
+> 2009.) There are multiple obstacles, including huge patches from
+> silicon vendors, missing GNU/Linux userspace support that makes kernel
+> testing hard, interfaces unsuitable for phones and power management
+> problems.
 >
-> Signed-off-by: HeungJun, Kim <riverful.kim at samsung.com>
-> Signed-off-by: Kyungmin Park <kyungmin.park at samsung.com>
+> Interested people:
+>
+> Sebastian Reichel <sre@kernel.org>
+> Pali Roh=C3=A1r <pali.rohar@gmail.com>
+>
 
-Interesting topic also for me. We were (and still are) spending
-significant effort so Trats (~Galaxy S 2 for Tizen) and Trats2 devices
-(Galaxy S III released for Tizen) would be fully supported by
-mainline. The same we did more recently for Gear 2 smartwatch.
-Although it is not a cellphone but fits to a mobile device category.
+I am interested in this topic. Please add me to the list.
 
-Standard Debian works fine on them. With a mobile operating system -
-like Tizen - it gets more difficult.
+Shuah Khan <shuahkh@osg.samsung.com>
 
-Most of the drivers are there but few important SoC components are
-missing (for example camera for Gear 2). One of the obstacles here was
-lack of public firmware which prevented mainlining some of the drivers
-(e.g. FIMC - the camera).
+You probably already know
+the CE Workgroup Device Mainlining Project. Goes over some of the reasons w=
+hy
+mainline kernels don't run on phones. Adding Tim Bird to the thread.
+He did a talk
+at ELC back in March of this year about this effort and more information.
 
-Best regards,
-Krzysztof
+http://elinux.org/CE_Workgroup_Device_Mainlining_Project
+
+Very often phone vendors have to make decisions to get the product out
+and they might not have the resources to upstream and ensure upstream
+kernels continue to run on their devices.
+
+thanks,
+-- Shuah
