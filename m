@@ -1,53 +1,28 @@
-Return-Path: <paulmck@linux.vnet.ibm.com>
+Return-Path: <pavel@ucw.cz>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7AD329B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 76E883EE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 26 Jul 2015 23:14:04 +0000 (UTC)
-Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E8856EA
+	Thu, 23 Jul 2015 12:10:29 +0000 (UTC)
+Received: from atrey.karlin.mff.cuni.cz (atrey.karlin.mff.cuni.cz
+	[195.113.26.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 37B44FD
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 26 Jul 2015 23:14:03 +0000 (UTC)
-Received: from /spool/local
-	by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
-	Violators will be prosecuted
-	for <ksummit-discuss@lists.linuxfoundation.org> from
-	<paulmck@linux.vnet.ibm.com>; Sun, 26 Jul 2015 17:14:03 -0600
-Received: from b03cxnp08027.gho.boulder.ibm.com
-	(b03cxnp08027.gho.boulder.ibm.com [9.17.130.19])
-	by d03dlp01.boulder.ibm.com (Postfix) with ESMTP id 28D0C1FF0042
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 26 Jul 2015 17:05:09 -0600 (MDT)
-Received: from d03av04.boulder.ibm.com (d03av04.boulder.ibm.com [9.17.195.170])
-	by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with
-	ESMTP id t6QNDx2I35651712
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 26 Jul 2015 16:13:59 -0700
-Received: from d03av04.boulder.ibm.com (loopback [127.0.0.1])
-	by d03av04.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP
-	id t6QNDwWv020178 for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 26 Jul 2015 17:13:59 -0600
-Date: Sun, 26 Jul 2015 16:13:56 -0700
-From: "Paul E. McKenney" <paulmck@linux.vnet.ibm.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-Message-ID: <20150726231356.GA19480@linux.vnet.ibm.com>
-Reply-To: paulmck@linux.vnet.ibm.com
-References: <559D8336.3040802@roeck-us.net>
-	<1436414798.23558.3.camel@ellerman.id.au>
-	<559EBD4C.6030502@gmail.com> <20150709190640.GC788@roeck-us.net>
-	<20150709194734.GG9169@vmdeb7> <20150709201315.GF9417@thunk.org>
-	<20150709205049.GB5154@roeck-us.net>
-	<20150709214718.GG9417@thunk.org> <20150709231352.GB4516@cloud>
-	<20150710164938.72da8ef1@gandalf.local.home>
+	Thu, 23 Jul 2015 12:10:28 +0000 (UTC)
+Date: Thu, 23 Jul 2015 14:10:25 +0200
+From: Pavel Machek <pavel@denx.de>
+To: Linus Walleij <linus.walleij@linaro.org>
+Message-ID: <20150723121025.GA29747@amd>
+References: <20150723105711.GB30929@amd>
+	<CACRpkdYeud0s6ZyvW8n+0oPQ+S7uP1CTv22wQhvtwfD7iHKL2A@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20150710164938.72da8ef1@gandalf.local.home>
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	jic23@jic23.retrosnub.co.uk, ksummit-discuss@lists.linuxfoundation.org,
-	Jason Cooper <jason@lakedaemon.net>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
- Maintainers, Hobbyists)
+In-Reply-To: <CACRpkdYeud0s6ZyvW8n+0oPQ+S7uP1CTv22wQhvtwfD7iHKL2A@mail.gmail.com>
+Cc: Alan Tull <atull@altera.com>, "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] FPGAs and how to program them
+ from kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -57,28 +32,25 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 10, 2015 at 04:49:38PM -0400, Steven Rostedt wrote:
-> On Thu, 9 Jul 2015 16:13:52 -0700
-> josh@joshtriplett.org wrote:
+On Thu 2015-07-23 13:26:32, Linus Walleij wrote:
+> On Thu, Jul 23, 2015 at 12:57 PM, Pavel Machek <pavel@ucw.cz> wrote:
 > 
 > 
-> > That assumes the patch actually has issues.  To use the reviews I do on
-> > RCU patches as an example, in a patch series, I might reply to a few
-> > patches with "here are some issues; with those fixed, Reviewed-by...",
-> > and then reply to the remaining unproblematic patches (individually or
-> > in aggregate) with just the Reviewed-by.
+> > FPGAs are common in embedded systems, where they can provide missing
+> > hardware interfaces, directly implement functionality, or provide
+> > custom hardware modules. These days they become available for servers,
+> > too, where they can act as high-performance co-processors (which are
+> > tricky to program).
+> >
+> > People that might be interested:
 > 
-> Josh, I read your reviews. Yes, you have a bunch of single "Reviewed-by"
-> tags, but you also have a lot of emails with substantially significant
-> comments. What Ted is saying, is to see how many significant replies one
-> has. In fact, I would say if we were to automate this, each significant
-> reply (one with actual comments), would increase the weight that a
-> single "Reviewed-by" email would carry. That way people like yourself
-> would have more weight attached to emails with single "Reviewed-by"
-> than others that don't have many emails with actual comments attached.
+> Alan Tull <atull@altera.com>
+> Is sending patchsets for this, and would be the primary person to
+> invite for this topic:
+> http://marc.info/?l=linux-kernel&m=143714949226387&w=2
 
-Just to state the obvious, I greatly value Josh's reviews as well,
-especially the ones where he points out a bug.  Much easier than
-finding them the hard way!  ;-)
-
-							Thanx, Paul
+Actually, I had him in my original email, but without full name.
+									Pavel
+-- 
+(english) http://www.livejournal.com/~pavelmachek
+(cesky, pictures) http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blog.html
