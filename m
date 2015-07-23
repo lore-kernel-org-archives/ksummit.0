@@ -1,33 +1,32 @@
-Return-Path: <pavel@ucw.cz>
+Return-Path: <atull@opensource.altera.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B10A84A2
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4F1FD487
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 23 Jul 2015 21:56:24 +0000 (UTC)
-Received: from atrey.karlin.mff.cuni.cz (atrey.karlin.mff.cuni.cz
-	[195.113.26.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id C698AE0
+	Thu, 23 Jul 2015 21:58:19 +0000 (UTC)
+Received: from na01-bn1-obe.outbound.protection.outlook.com
+	(mail-bn1on0062.outbound.protection.outlook.com [157.56.110.62])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D84EFE0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 23 Jul 2015 21:56:23 +0000 (UTC)
-Date: Thu, 23 Jul 2015 23:56:22 +0200
-From: Pavel Machek <pavel@ucw.cz>
-To: Krzysztof Kozlowski <k.kozlowski@samsung.com>
-Message-ID: <20150723215622.GB14730@amd>
-References: <20150723105726.GC30929@amd>
-	<CACRpkdbCbhgJHZifouDVUvaxyT5YWWdQz7Nt3AKoLvuEn4z7mQ@mail.gmail.com>
-	<20150723121441.GB29747@amd>
-	<CAJKOXPc7Uryq2PFrKyC_rwSLwR9GadJEzS6YMdGcCBJY-QNNPw@mail.gmail.com>
+	Thu, 23 Jul 2015 21:58:17 +0000 (UTC)
+Date: Thu, 23 Jul 2015 16:20:10 -0500
+From: atull <atull@opensource.altera.com>
+To: Christoph Lameter <cl@linux.com>
+In-Reply-To: <alpine.DEB.2.11.1507231524530.364@east.gentwo.org>
+Message-ID: <alpine.DEB.2.02.1507231552020.7582@linuxheads99>
+References: <20150723105711.GB30929@amd>
+	<CACRpkdYeud0s6ZyvW8n+0oPQ+S7uP1CTv22wQhvtwfD7iHKL2A@mail.gmail.com>
+	<20150723121025.GA29747@amd>
+	<CACRpkdaDOUAm_VOd+3H2khDYUsLgNcXKbYMypUTeNL6JbnqCAA@mail.gmail.com>
+	<alpine.DEB.2.11.1507231524530.364@east.gentwo.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJKOXPc7Uryq2PFrKyC_rwSLwR9GadJEzS6YMdGcCBJY-QNNPw@mail.gmail.com>
+Content-Type: text/plain; charset="US-ASCII"
 Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	riverful.kim@samsung.com, kyungmin.park@samsung.com,
-	John Stultz <john.stultz@linaro.org>,
-	Bjorn Andersson <Bjorn.Andersson@sonymobile.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Mainline kernel on a cellphone
+	<ksummit-discuss@lists.linuxfoundation.org>, Pavel Machek <pavel@denx.de>,
+	Jason Gunthorpe <jgunthorpe@obsidianresearch.com>,
+	Alan Tull <atull@altera.com>, yvanderv@altera.com
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] FPGAs and how to program them
+ from kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,49 +36,56 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu 2015-07-23 22:23:53, Krzysztof Kozlowski wrote:
-> 2015-07-23 21:14 GMT+09:00 Pavel Machek <pavel@ucw.cz>:
-> > On Thu 2015-07-23 13:21:19, Linus Walleij wrote:
-> >> On Thu, Jul 23, 2015 at 12:57 PM, Pavel Machek <pavel@ucw.cz> wrote:
-> >> I'm adding Björn Andersson <bjorn.andersson@sonymobile.com> to this list.
-> >>
-> >> Björn has as of yesterday booted a mainline kernel on the SONY
-> >> Xperia Z3 and his company has demonstrated strong interest in
-> >> getting the mainline kernel to run on their handsets.
-> >> https://plus.google.com/102276447148493441479/posts/amRvpE8piSw
-> >
-> > Yes. Plus, there seems to be group at Samsung. Trats is a cellphone iirc.
-> >
-> > http://lists.infradead.org/pipermail/linux-arm-kernel/2011-December/078428.html
-> >
-> > Signed-off-by: HeungJun, Kim <riverful.kim at samsung.com>
-> > Signed-off-by: Kyungmin Park <kyungmin.park at samsung.com>
+On Thu, 23 Jul 2015, Christoph Lameter wrote:
+
+> On Thu, 23 Jul 2015, Linus Walleij wrote:
 > 
-> Interesting topic also for me. We were (and still are) spending
-> significant effort so Trats (~Galaxy S 2 for Tizen) and Trats2 devices
-> (Galaxy S III released for Tizen) would be fully supported by
-> mainline. The same we did more recently for Gear 2 smartwatch.
-> Although it is not a cellphone but fits to a mobile device category.
+> > >> > People that might be interested:
+> 
+> I would be very very interested in the subject matter. Anything that helps
+> creating some abstraction layer that allows the open source development of
+> tools on top.
+> 
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+> 
 
-Can I get Galaxy S III and use mainline or that? If not... can I get
-Trats or Trats2 device somehow?
+Jason is another person who may be interested in this topic:
+Jason Gunthorpe = jgunthorpe at obsidianresearch.com
 
-> Standard Debian works fine on them. With a mobile operating system -
-> like Tizen - it gets more difficult.
+My work has been to get a uniform API for FPGA programming into the
+kernel along with an interface for controlling reprogramming.  My
+current patchset separates the two so that if the interface I am
+proposing doesn't meet somebody's use needs, another interface
+can be written to use the API functions.
 
-What do you use for desktop in Debian? I'm using MATE on n900, and it
-is almost usable. I have cellular calls working (but audio quality is
-awful). But MATE is so usable thanks to n900's keyboard and
-stylus... (and I'm still searching for web browser that works within
-256MB ram).
+http://marc.info/?l=linux-kernel&m=143714949226387&w=2
 
-> Most of the drivers are there but few important SoC components are
-> missing (for example camera for Gear 2). One of the obstacles here was
-> lack of public firmware which prevented mainlining some of the drivers
-> (e.g. FIMC - the camera).
+Topics that have been discussed in the mailing list could be included 
+here:
 
-You mean.. there is not even redistributable firmware binary?
-									Pavel
--- 
-(english) http://www.livejournal.com/~pavelmachek
-(cesky, pictures) http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blog.html
+ * At least two different basic use models:
+   * FPGA as hardware (containing harware devices that need drivers)
+   * FPGA as accelerator.  If FPGA is an accelerator, it could be
+     allocated in a malloc-like thing - Alan Cox's proposal.
+ * Device Tree Overlays as an interface in the "FPGA as Hardware" use,
+   where loading an overlay will cause FPGA reconfiguration, bridges
+   getting enabled, and devices being created, drivers probed.  The
+   code for accomplishing all this is actually quite small.
+ * Some use cases are complicated systems that need a lot of userspace
+   to bring things up in a sequenced way (may need another interface
+   with lots of userspace control and FPGA status available to
+   userspace).
+ * Security issues that arise if FPGA programming can be controlled
+   from userspace.
+ * How to control the bridges. Some hardware needs the bridges disabled
+   during FPGA programming.  How to conceptualize this in the device tree.
+ * It is likely that these different use cases will best be suited by
+   different interfaces.
+
+Alan Tull
+
+atull at opensource.altera.com is a good email for me for mailing
+list purposes (to avoid Outlook).
