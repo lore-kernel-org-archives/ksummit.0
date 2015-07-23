@@ -1,30 +1,28 @@
-Return-Path: <atull@opensource.altera.com>
+Return-Path: <pavel@ucw.cz>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4F1FD487
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1062C4A6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 23 Jul 2015 21:58:19 +0000 (UTC)
-Received: from na01-bn1-obe.outbound.protection.outlook.com
-	(mail-bn1on0062.outbound.protection.outlook.com [157.56.110.62])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D84EFE0
+	Thu, 23 Jul 2015 22:06:00 +0000 (UTC)
+Received: from atrey.karlin.mff.cuni.cz (atrey.karlin.mff.cuni.cz
+	[195.113.26.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 428A9EA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 23 Jul 2015 21:58:17 +0000 (UTC)
-Date: Thu, 23 Jul 2015 16:20:10 -0500
-From: atull <atull@opensource.altera.com>
-To: Christoph Lameter <cl@linux.com>
-In-Reply-To: <alpine.DEB.2.11.1507231524530.364@east.gentwo.org>
-Message-ID: <alpine.DEB.2.02.1507231552020.7582@linuxheads99>
+	Thu, 23 Jul 2015 22:05:59 +0000 (UTC)
+Date: Fri, 24 Jul 2015 00:05:57 +0200
+From: Pavel Machek <pavel@ucw.cz>
+To: Linus Walleij <linus.walleij@linaro.org>
+Message-ID: <20150723220557.GA21018@amd>
 References: <20150723105711.GB30929@amd>
 	<CACRpkdYeud0s6ZyvW8n+0oPQ+S7uP1CTv22wQhvtwfD7iHKL2A@mail.gmail.com>
 	<20150723121025.GA29747@amd>
 	<CACRpkdaDOUAm_VOd+3H2khDYUsLgNcXKbYMypUTeNL6JbnqCAA@mail.gmail.com>
-	<alpine.DEB.2.11.1507231524530.364@east.gentwo.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="US-ASCII"
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>, Pavel Machek <pavel@denx.de>,
-	Jason Gunthorpe <jgunthorpe@obsidianresearch.com>,
-	Alan Tull <atull@altera.com>, yvanderv@altera.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CACRpkdaDOUAm_VOd+3H2khDYUsLgNcXKbYMypUTeNL6JbnqCAA@mail.gmail.com>
+Cc: Alan Tull <atull@altera.com>, "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] FPGAs and how to program them
  from kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -36,56 +34,55 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, 23 Jul 2015, Christoph Lameter wrote:
-
-> On Thu, 23 Jul 2015, Linus Walleij wrote:
+On Thu 2015-07-23 15:00:57, Linus Walleij wrote:
+> On Thu, Jul 23, 2015 at 2:10 PM, Pavel Machek <pavel@denx.de> wrote:
+> > On Thu 2015-07-23 13:26:32, Linus Walleij wrote:
+> >> On Thu, Jul 23, 2015 at 12:57 PM, Pavel Machek <pavel@ucw.cz> wrote:
+> >>
+> >>
+> >> > FPGAs are common in embedded systems, where they can provide missing
+> >> > hardware interfaces, directly implement functionality, or provide
+> >> > custom hardware modules. These days they become available for servers,
+> >> > too, where they can act as high-performance co-processors (which are
+> >> > tricky to program).
+> >> >
+> >> > People that might be interested:
+> >>
+> >> Alan Tull <atull@altera.com>
+> >> Is sending patchsets for this, and would be the primary person to
+> >> invite for this topic:
+> >> http://marc.info/?l=linux-kernel&m=143714949226387&w=2
+> >
+> > Actually, I had him in my original email, but without full name.
+> >                                                                         Pavel
 > 
-> > >> > People that might be interested:
+> Do you mean this:
 > 
-> I would be very very interested in the subject matter. Anything that helps
-> creating some abstraction layer that allows the open source development of
-> tools on top.
+> On Thu, Jul 23, 2015 at 12:57 PM, Pavel Machek <pavel@ucw.cz> wrote:
 > 
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+> > Alan Cox
 > 
+> ;)
 
-Jason is another person who may be interested in this topic:
-Jason Gunthorpe = jgunthorpe at obsidianresearch.com
+Yes, happens easily, but did not happen this time:
 
-My work has been to get a uniform API for FPGA programming into the
-kernel along with an interface for controlling reprogramming.  My
-current patchset separates the two so that if the interface I am
-proposing doesn't meet somebody's use needs, another interface
-can be written to use the API functions.
+> <atull@opensource.altera.com>
+> Steffen Trumtrar <s.trumtrar@pengutronix.de>
+> Marek Vasut <marex@denx.de>
+> Alan Cox
 
-http://marc.info/?l=linux-kernel&m=143714949226387&w=2
+:-).
 
-Topics that have been discussed in the mailing list could be included 
-here:
+> (Happens easily, Linus Torvalds asked me to change my name
+> to avoid confusion...)
 
- * At least two different basic use models:
-   * FPGA as hardware (containing harware devices that need drivers)
-   * FPGA as accelerator.  If FPGA is an accelerator, it could be
-     allocated in a malloc-like thing - Alan Cox's proposal.
- * Device Tree Overlays as an interface in the "FPGA as Hardware" use,
-   where loading an overlay will cause FPGA reconfiguration, bridges
-   getting enabled, and devices being created, drivers probed.  The
-   code for accomplishing all this is actually quite small.
- * Some use cases are complicated systems that need a lot of userspace
-   to bring things up in a sequenced way (may need another interface
-   with lots of userspace control and FPGA status available to
-   userspace).
- * Security issues that arise if FPGA programming can be controlled
-   from userspace.
- * How to control the bridges. Some hardware needs the bridges disabled
-   during FPGA programming.  How to conceptualize this in the device tree.
- * It is likely that these different use cases will best be suited by
-   different interfaces.
+Hmm, at one point, I had both real Linus Torvalds and fake Linus
+Torvalds on the cc list. And fake one tried helping me debugging
+graphics problems. It was weird.
 
-Alan Tull
+								Pavel
 
-atull at opensource.altera.com is a good email for me for mailing
-list purposes (to avoid Outlook).
+--
+(english)
+http://www.livejournal.com/~pavelmachek (cesky, pictures)
+http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blog.html
