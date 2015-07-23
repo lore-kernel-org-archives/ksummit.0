@@ -1,35 +1,32 @@
-Return-Path: <rostedt@goodmis.org>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 97685408
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 25322475
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 23 Jul 2015 15:12:26 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0094.hostedemail.com
-	[216.40.44.94])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 250FCB0
+	Thu, 23 Jul 2015 15:40:27 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id AC6BD2AE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 23 Jul 2015 15:12:26 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
-	[10.5.19.251])
-	by smtpgrave07.hostedemail.com (Postfix) with ESMTP id 9865D11ADF9
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 23 Jul 2015 12:42:55 +0000 (UTC)
-Date: Thu, 23 Jul 2015 08:42:51 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Pavel Machek <pavel@ucw.cz>
-Message-ID: <20150723084251.54da2be0@gandalf.local.home>
-In-Reply-To: <20150723121441.GB29747@amd>
+	Thu, 23 Jul 2015 15:40:26 +0000 (UTC)
+Date: Thu, 23 Jul 2015 16:40:14 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+Message-ID: <20150723154014.GD11162@sirena.org.uk>
 References: <20150723105726.GC30929@amd>
 	<CACRpkdbCbhgJHZifouDVUvaxyT5YWWdQz7Nt3AKoLvuEn4z7mQ@mail.gmail.com>
 	<20150723121441.GB29747@amd>
+	<20150723084251.54da2be0@gandalf.local.home>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="hN8Iq+wt62fgbJcp"
+Content-Disposition: inline
+In-Reply-To: <20150723084251.54da2be0@gandalf.local.home>
+Cc: Bjorn Andersson <Bjorn.Andersson@sonymobile.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
 	riverful.kim@samsung.com, kyungmin.park@samsung.com,
-	John Stultz <john.stultz@linaro.org>,
-	Bjorn Andersson <Bjorn.Andersson@sonymobile.com>
+	John Stultz <john.stultz@linaro.org>, Pavel Machek <pavel@ucw.cz>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Mainline kernel on a cellphone
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -40,30 +37,42 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, 23 Jul 2015 14:14:41 +0200
-Pavel Machek <pavel@ucw.cz> wrote:
 
-> On Thu 2015-07-23 13:21:19, Linus Walleij wrote:
-> > On Thu, Jul 23, 2015 at 12:57 PM, Pavel Machek <pavel@ucw.cz> wrote:
-> > 
-> > > Significant percentage of phones run Linux kernel today, but geting
-> > > mainline kernel to work on a phone is very hard to do. (So hard, that
-> > > newest device that is close to working on recent mainline was made in
-> > > 2009.) There are multiple obstacles, including huge patches from
-> > > silicon vendors, missing GNU/Linux userspace support that makes kernel
-> > > testing hard, interfaces unsuitable for phones and power management
-> > > problems.
+--hN8Iq+wt62fgbJcp
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> 
-> Yes. Plus, there seems to be group at Samsung. Trats is a cellphone iirc.
+On Thu, Jul 23, 2015 at 08:42:51AM -0400, Steven Rostedt wrote:
 
-Seems like a reasonable topic, especially since KS is being held in
-South Korea this year.
+> Although is this something to be a core topic or a tech topic? Does
+> this affect all subsystems, or just a set of drivers? Note, a core
+> topic wont get as much time for discussion as a tech topic would.
 
-Although is this something to be a core topic or a tech topic? Does
-this affect all subsystems, or just a set of drivers? Note, a core
-topic wont get as much time for discussion as a tech topic would.
+It's basically all subsystems that get impacted, at the minute I'd say
+it's more a plan of action and process discussion than a technical one
+though in the context of KS planning that's quite probably the same
+thing.
 
-Also, what is expected to be solved at KS?
+> Also, what is expected to be solved at KS?
 
--- Steve
+Tim Bird (Cced) has been running some sessions at other conferences
+scoping the problem and discussing ways to move forward on this, another
+similar session might be useful.
+
+--hN8Iq+wt62fgbJcp
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQEcBAEBCAAGBQJVsQrdAAoJECTWi3JdVIfQNBYH/iW5eDjdOXOwweCXV7apTcHd
+94FVVtyV8lkrrNd8/gzR+59TBj74ddKZTaWWcmXOLFDNocZlsqMcGlLdDH4lvs2r
+sIETSRj/MA2Rdg1rBNd7ygqOorO7SDtR+O5KLu9u3DZO63QirdY+dWoEyKeWz3nk
+iQ2wPlqW2nHzCr5bghTrPWF/rcOFYUs4ViqidKLj0F2oMFInP1QLDQZAo/3vw+OZ
+RscHD2zBQ5PfdHCGcXjSjMGmhfDa7aoWYgcjH0bwFRP1ApCpuvP6O7HzcewZXj0e
++ezfcVp74o4HaTIpOZT+75RTB1NsosG9sXeSFFKuZaoVLTxz/dRfDHxowT2FpYg=
+=hg/6
+-----END PGP SIGNATURE-----
+
+--hN8Iq+wt62fgbJcp--
