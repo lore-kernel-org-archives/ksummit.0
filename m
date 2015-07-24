@@ -1,21 +1,22 @@
 Return-Path: <dhowells@redhat.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 09C8E3EE
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 732FC3EE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 24 Jul 2015 16:01:29 +0000 (UTC)
+	Fri, 24 Jul 2015 16:10:50 +0000 (UTC)
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 750A6276
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E01E879
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 24 Jul 2015 16:01:28 +0000 (UTC)
+	Fri, 24 Jul 2015 16:10:49 +0000 (UTC)
 From: David Howells <dhowells@redhat.com>
+In-Reply-To: <28240.1437753683@warthog.procyon.org.uk>
+References: <28240.1437753683@warthog.procyon.org.uk>
 To: ksummit-discuss@lists.linuxfoundation.org
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 24 Jul 2015 17:01:23 +0100
-Message-ID: <28240.1437753683@warthog.procyon.org.uk>
-Cc: mszeredi@suse.com
+Date: Fri, 24 Jul 2015 17:10:45 +0100
+Message-ID: <22483.1437754245@warthog.procyon.org.uk>
 Subject: [Ksummit-discuss] [TECH TOPIC] Overlays and file(system) unioning
 	issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -27,6 +28,8 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+
+[With Mikl=C3=B3s's email address fixed]
 
 I would like to propose a technical session on filesystem unioning.  There =
 are
