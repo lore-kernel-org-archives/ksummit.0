@@ -1,31 +1,32 @@
-Return-Path: <rjw@rjwysocki.net>
+Return-Path: <jiangshanlai@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D94B842A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id C685945E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 24 Jul 2015 22:09:29 +0000 (UTC)
-Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id D08758D
+	Sat, 25 Jul 2015 15:39:51 +0000 (UTC)
+Received: from mail-ie0-f172.google.com (mail-ie0-f172.google.com
+	[209.85.223.172])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 080CAEC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 24 Jul 2015 22:09:28 +0000 (UTC)
-From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-To: josh@joshtriplett.org
-Date: Sat, 25 Jul 2015 00:36:18 +0200
-Message-ID: <2425484.kWOCROb332@vostro.rjw.lan>
-In-Reply-To: <20150722182519.GB26620@cloud>
-References: <1489458.8WDRattPkl@vostro.rjw.lan>
-	<1700413.HOtzHoJBt9@vostro.rjw.lan> <20150722182519.GB26620@cloud>
+	Sat, 25 Jul 2015 15:39:50 +0000 (UTC)
+Received: by iehx8 with SMTP id x8so38079344ieh.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sat, 25 Jul 2015 08:39:50 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
-Cc: "Brown, Len" <len.brown@intel.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	Kristen Carlson Accardi <kristen@linux.intel.com>,
-	Grant Likely <grant.likely@linaro.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] System-wide interface to specify
-	the level of PM tuning
+In-Reply-To: <87twst8pd3.fsf@x220.int.ebiederm.org>
+References: <28240.1437753683@warthog.procyon.org.uk>
+	<22483.1437754245@warthog.procyon.org.uk>
+	<87twst8pd3.fsf@x220.int.ebiederm.org>
+Date: Sat, 25 Jul 2015 23:39:50 +0800
+Message-ID: <CAJhGHyA8SAk25t9V-Jg6-zwnZrHthQN_FjkWeG6a6GZ9gnqh-w@mail.gmail.com>
+From: Lai Jiangshan <jiangshanlai@gmail.com>
+To: "Eric W. Biederman" <ebiederm@xmission.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	"Serge E. Hallyn" <serge@hallyn.com>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Overlays and file(system)
+	unioning issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,107 +36,214 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wednesday, July 22, 2015 11:25:19 AM josh@joshtriplett.org wrote:
-> On Wed, Jul 22, 2015 at 07:25:40PM +0200, Rafael J. Wysocki wrote:
-> > On Wednesday, July 22, 2015 09:18:34 AM Daniel Vetter wrote:
-> > > On Wed, Jul 22, 2015 at 3:12 AM, Rafael J. Wysocki <rjw@rjwysocki.net> wrote:
-> > > > On Tuesday, July 21, 2015 01:09:52 AM Daniel Vetter wrote:
-> > > >> On Tue, Jul 21, 2015 at 12:21 AM, Rafael J. Wysocki <rjw@rjwysocki.net> wrote:
-> > > >> > On Friday, July 17, 2015 01:41:56 PM Daniel Vetter wrote:
-> > > >> >> On Thu, Jul 16, 2015 at 5:58 PM, Greg KH <greg@kroah.com> wrote:
-> > > >> >> > On Thu, Jul 16, 2015 at 08:53:02AM -0700, Josh Triplett wrote:
-> > > >> >> >> But the kernel already has quirk tables for various hardware, and that
-> > > >> >> >> seems appropriate to continue putting in the kernel.
-> > > >> >> >
-> > > >> >> > For some types of devices, sure.  For others, like broken USB keyboards
-> > > >> >> > that can't handle autosuspend, no.  For those we need a userspace
-> > > >> >> > _whitelist_ that udev can use.  So there's no one answer that works for
-> > > >> >> > all types of quirks.
-> > > >> >>
-> > > >> >> Whether white or blacklist or some other mixed thing doesn't really
-> > > >> >> matter. Imo the important part is that driver maintainers are in the
-> > > >> >> best position to maintain that, and pushing it out to anyone else is
-> > > >> >> just really not doing our jobs. And I think for most of these quirk
-> > > >> >> lists the kernel does seem like the most appropriate place. If the
-> > > >> >> list becomes giantic then we can move it to userspace (if that's
-> > > >> >> really a problem, afaik no one proposed yet to move device match
-> > > >> >> tables into userspace either and that's kinda the same thing really).
-> > > >> >> But as long as there's no white/black/whatever list yet starting in
-> > > >> >> the kernel is imo the right place.
-> > > >> >
-> > > >> > Well, I'm wondering, then, why i915.enable_psr is not enabled by default,
-> > > >> > for one example?
-> > > >> >
-> > > >> > Failing to enable it prevents some SoCs from using the deepest available
-> > > >> > C-states which in turn hurts battery life of the systems containing them
-> > > >> > quite a bit, so there surely is a reason to have it enabled.
-> > > >>
-> > > >> Because it's broken on a lot of machines, and it takes a pile of
-> > > >> effort to fix it.
-> > > >
-> > > > And there are quite a few subsystems having similar issues here and there.
-> > > >
-> > > > People who aren't aware of those command line/Kconfig/sysfs switches will
-> > > > never enable those features even though they may work well on their
-> > > > machines and may actually be necessary to save energy.
-> > > 
-> > > In my experience there's way too many people around who know about
-> > > these knobs but have no idea that they might be somewhat dangerous.
-> > > And then I get another bug report about a known bug just because
-> > > someone read a blog somewhere. Nowadays almost all i915 tuning knobs
-> > > are marked as _unsafe and taint your kernel if you touch them.
-> > > 
-> > > >> That work is under way now, but for a long time
-> > > >> priorities set by management where much more set on chasing the next
-> > > >> shiny thing. Took a few years of making noises about dropping it all
-> > > >> if it doesn't get fixed.
-> > > >>
-> > > >> This is actually a perfect example of what I mean with "hey it works
-> > > >> on my machine here, but I can't be bothered to fix up the corner-cases
-> > > >> so let's keep it disabled and move on". And the corner cases are hung
-> > > >> machines and frozen displays (and a few other things), and we
-> > > >> inflicted that a few times on Linus even.
-> > > >
-> > > > So among other things this topic is about a mechanism to possibly enable
-> > > > multiple things like that in one go instead of having to switch multiple
-> > > > knobs in various places (and needing to know about them in the first
-> > > > place).
-> > > 
-> > > I know, but at least for i915 I don't want it: When we know it's safe
-> > > to do we already enable all the power/performance tuning we have, and
-> > > if we know it's unsafe we don't want users to enable it themselves. If
-> > > you have a very specific product (which is not a generic distro or
-> > > anything) and have done careful testing and cross-checked with
-> > > developers then you can of course just enable these features. But then
-> > > you also don't need a new option, you can just change the driver
-> > > defaults directly.
-> > 
-> > OK
-> > 
-> > So perhaps the question should be whether or not there is any viable approach
-> > we can use to avoid or at least reduce the amount of all of the mostly manual
-> > tuning to get as much battery life from systems as they can provide.  And that
-> > cannot involve user space realistically, because some variants of it may just
-> > not do whatever we expect them to do.
-> 
-> Tunables like those in i915 aren't going to be able to use any better
-> approach, specifically because they don't work everywhere; if we had a
-> list of systems they were safe on, we'd set up a quirk list and turn
-> them on by default.  Do we have any tunables that *aren't* in that
-> category?
+On Sat, Jul 25, 2015 at 12:58 AM, Eric W. Biederman
+<ebiederm@xmission.com> wrote:
+> David Howells <dhowells@redhat.com> writes:
+>
+>> [With Mikl=C3=B3s's email address fixed]
+>>
+>> I would like to propose a technical session on filesystem unioning.  The=
+re are
+>> a number of issues:
+>>
+>>  (1) Whiteouts.
+>>
+>>      Linus's idea that a union layer or overlay mounted not as part of a=
+ union
+>>      but separately, should expose whiteouts as 0,0 chardevs.  Whilst th=
+is
+>>      might indeed make the backup tools easier as things like tar can th=
+en use
+>>      the stat() and mknod() interfaces rather than having to use special
+>>      ioctls or syscalls, Mikl=C3=B3s's idea to implement them as actual =
+0,0
+>>      chardevs in the underlying filesystem incurs some problems:
+>>
+>>      (a) It's slow and resource intensive.
+>>
+>>        Every whiteout requires an inode to represent it.  This means tha=
+t if
+>>        you, say, have a directory in the lower layer that has a few thou=
+sand
+>>        inodes in it and you delete them all, you then eat up inode table
+>>        space in the upper layer.
+>>
+>>        Further, every chardev inode has to be stat'd to see if it is rea=
+lly
+>>        a whiteout.
+>>
+>>      (b) It has provided lock ordering issues in overlayfs directory rea=
+ding
+>>        because overlayfs has to stat each chardev from within the direct=
+ory
+>>        iterator.
+>>
+>>      I have patches to make Ext2 and JFFS2 use special directory entries
+>>      labelled with DT_WHITEOUT and no inode.  This is more space efficie=
+nt and
+>>      faster and can be extended to Ext3 and Ext4.  XFS has constants def=
+ined
+>>      for doing similar.
+>>
+>>      I would propose that we change overlayfs to do this.
+>>
+>>      Unfortunately, we would still have to support the then obsolete 0,0
+>>      chardevs on disk.
+>>
+>>      The stat() and mknod() syscalls would then have to present these ob=
+jects
+>>      to the user as 0,0 chardevs rather than ENOENT errors.  To do this =
+it
+>>      might be necessary to have a special mount flag to turn off the
+>>      translation to DENTRY_WHITEOUT_TYPE dentries and record them as
+>>      DENTRY_SPECIAL_TYPE instead with an in-memory inode struct showing =
+it to
+>>      be 0,0 chardevs.
+>>
+>>      David Woodhouse did make an additional suggestion that would make 0=
+,0
+>>      chardevs less space inefficient - and that's to hard link a reserve=
+d
+>>      inode.
+>
+>
+>>  (2) Opaque inodes.
+>>
+>>      Should we use an xattr to mark inodes as opaque or should we use an=
+ inode
+>>      flag?  I have patches to add such an inode flag for Ext2 and JFFS2.
+>>      Marking the inode would be more space and time efficient.
+>>
+>>  (3) Fall-through markers.
+>>
+>>      Unionmount - and possibly other filesystem unioning systems - perfo=
+rm
+>>      directory integration on disk.  (Note that overlayfs maintains this=
+ in
+>>      memory for the lifetime of a directory inode).
+>>
+>>      With unionmount, an integrated directory is marked as being opaque =
+with
+>>      special directory entries of type DT_FALLTHRU indicating where ther=
+e is
+>>      stuff in lower layers that can be accessed.
+>>
+>>      Should we, perhaps, declare that the user sees such markers as 0,1
+>>      chardevs when the layer is not mounted as part of a union?
+>>
+>>  (4) Unionmount and other filesystem unioning systems.
+>>
+>>      Do we want to add other filesystem unioning systems into the kernel=
+?
+>>      I've brought in a lot of the stuff for unionmount to help support
+>>      overlayfs.  Unfortunately, overlayfs interferes with some of the st=
+uff
+>>      that unionmount wants to do (e.g. doing whiteouts differently and i=
+n an
+>>      awkward manner).
+>>
+>>  (5) Lack of POSIX characteristics.
+>>
+>>      There have been complaints that overlayfs isn't sufficiently POSIX =
+like.
+>>      Now, this is by design on the part of overlayfs and I agree with th=
+e
+>>      Mikl=C3=B3s that this is the right way to do it.  However, some mit=
+igation
+>>      might be required.
+>>
+>>      One of the most annoying features is the fact that if you do:
+>>
+>>       fd1 =3D open("foo", O_RDONLY);
+>>       fd2 =3D open("foo", O_RDWR);
+>>
+>>      then fd1 and fd2 don't necessarily point to the same file.
+>>
+>>      I have been given patches by Ratna Bolla that speculatively copy th=
+e file
+>>      into the overlayfs file inode as the pages are accessed and direct =
+file
+>>      accesses to the overlay inode rather than one of the two layers.  I=
+ saw a
+>>      number of problems with the approach, but it's possible his latest =
+patch
+>>      fixes them.
+>>
+>>  (6) File-by-file waiver of unioning.
+>>
+>>      Jan Olszak has requested that it be possible to mark files in one o=
+f the
+>>      layers to suppress copy up on that file and to direct writes to the=
+ lower
+>>      layer.  This causes problems with rename however.
+>>
+>>  (7) File locking and notifications.
+>>
+>>      These are similar issues.  IIRC, we decided at the Filesystem Summi=
+t that
+>>      you get to take locks on the union inode only and that the notifica=
+tions
+>>      only follow changes to the upper layer.  This means that you don't =
+get
+>>      union/union interactions through a common lower layer.
+>>
+>>      However, we've since had complaints that tail doesn't follow change=
+s made
+>>      to the lower layer (from James Harvey).
+>>
+>>  (8) LSMs and unions/overlays.
+>>
+>>      Path-based LSMs should just work now that file->f_path points to th=
+e
+>>      union layer inode, though they may require namespace awareness.
+>>
+>>      Label-based LSMs are another matter.  file->f_path.dentry->d_inode =
+points
+>>      to the top layer label and file->f_inode points to the lower layer =
+label.
+>>      Currently the user of the overlay can 'see through' the overlay and
+>>      access lower files in terms of the labels from the lower layer when=
+ doing
+>>      file operations, but uses the label from the upper layer when doing=
+ inode
+>>      operations.  I think this should be consistent and should only use =
+the
+>>      upper layer label.  I'm working on patches to get this to work, but=
+ there
+>>      is dissension over which label should be seen.
+>>
+>>      Further, mandating that the upper label should be seen does cause
+>>      unionmount a problem as there's no upper inode to hang the label of=
+f.
+>>      This means that the label must be forged anew each time it is requi=
+red
+>>      until at such time a copy-up is effected.
+>>
+>
+> (9) Unprivileged mounts
+>
+>     As there are no backing store issues it should be a tractable
+>     problem to get the semantics right to allow containers to use
+>     overlayfs.  A naive attempt was made by Serge Hallyn and he ran
+>     into security issues with copy-up.  Can copy-up be made safe if
+>     unprivileged users (AKA user namespace root users) mount overlayfs?
+>
+>     I think that also intersects with your LSM label handling issues.
 
-I really don't think so, maybe except for some corner things.
+(10) Big File copy-up
+       Small modification to a big file causes copy-up and eat a lot of
+       space in the uper layer fs.
 
-> And if so, why don't we just set their defaults to DTRT?
+(11) size-optimization diff
+       size-optimization diff helps to reduce the network traffic.
 
-But we seem to have more and more tunables for things that "don't work
-everywhere", while at the same time the subset of systems where they *do* work
-is quite substantial.
+thanks,
+Lai
 
-In many cases we simply don't have enough information to create a black or white
-list for them, so we disable them by default and add a tunable to enable them
-"in case someone needs" them.  This bothers me a bit, because it doesn't seem
-to be sustainable in the long term.
 
-Thanks,
-Rafael
+>
+> Eric
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
