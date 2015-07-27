@@ -1,31 +1,25 @@
-Return-Path: <luto@amacapital.net>
+Return-Path: <benh@kernel.crashing.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id AB499268
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 944C49D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 26 Jul 2015 23:35:42 +0000 (UTC)
-Received: from mail-la0-f43.google.com (mail-la0-f43.google.com
-	[209.85.215.43])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B10A8EE
+	Mon, 27 Jul 2015 00:14:14 +0000 (UTC)
+Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 67471FA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 26 Jul 2015 23:35:41 +0000 (UTC)
-Received: by lagw2 with SMTP id w2so39232332lag.3
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 26 Jul 2015 16:35:40 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <CACRpkdYeud0s6ZyvW8n+0oPQ+S7uP1CTv22wQhvtwfD7iHKL2A@mail.gmail.com>
+	Mon, 27 Jul 2015 00:14:13 +0000 (UTC)
+Message-ID: <1437956048.7562.91.camel@kernel.crashing.org>
+From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+To: Pavel Machek <pavel@ucw.cz>
+Date: Mon, 27 Jul 2015 10:14:08 +1000
+In-Reply-To: <20150723105711.GB30929@amd>
 References: <20150723105711.GB30929@amd>
-	<CACRpkdYeud0s6ZyvW8n+0oPQ+S7uP1CTv22wQhvtwfD7iHKL2A@mail.gmail.com>
-From: Andy Lutomirski <luto@amacapital.net>
-Date: Sun, 26 Jul 2015 16:35:20 -0700
-Message-ID: <CALCETrW07yfLW3Gv3Z0W6SoiSnsUVYf1=RnEHBvimO0c9ovVDg@mail.gmail.com>
-To: Linus Walleij <linus.walleij@linaro.org>,
-	"casper@lists.berkeley.edu" <casper@lists.berkeley.edu>
-Content-Type: text/plain; charset=UTF-8
-Cc: Alan Tull <atull@altera.com>, "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>, Pavel Machek <pavel@ucw.cz>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] FPGAs and how to program them
-	from kernel
+ from kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,33 +29,44 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-[cc: CASPER]
+On Thu, 2015-07-23 at 12:57 +0200, Pavel Machek wrote:
+> Hi!
+> 
+> (Please cc me on replies)
+> 
+> FPGAs are common in embedded systems, where they can provide missing
+> hardware interfaces, directly implement functionality, or provide
+> custom hardware modules. These days they become available for servers,
+> too, where they can act as high-performance co-processors (which are
+> tricky to program).
+> 
+> There are very different requirements for FPGA that implements your
+> SATA controller (so you need it for boot), and one where multiple
+> userland applications directly access FPGA using it for different
+> computations, needing FPGA netlist to be changed based on userspace
+> needs. Yet, it would be nice to come up with single interface that can
+> handle all the different applications, and is suitable for mainline
+> kernel.
 
-On Thu, Jul 23, 2015 at 4:26 AM, Linus Walleij <linus.walleij@linaro.org> wrote:
-> On Thu, Jul 23, 2015 at 12:57 PM, Pavel Machek <pavel@ucw.cz> wrote:
->
->
->> FPGAs are common in embedded systems, where they can provide missing
->> hardware interfaces, directly implement functionality, or provide
->> custom hardware modules. These days they become available for servers,
->> too, where they can act as high-performance co-processors (which are
->> tricky to program).
->>
->> People that might be interested:
->
-> Alan Tull <atull@altera.com>
-> Is sending patchsets for this, and would be the primary person to
-> invite for this topic:
-> http://marc.info/?l=linux-kernel&m=143714949226387&w=2
+I am interested as well. POWER has this thing called "CAPI" for coherent
+accelerators which is essentially FPGA based. It allows you to design an
+FPGA solution that is both cache coherent (ie, can hold cache lines
+locally) and has an MMU allowing to operate within a user space context.
 
-I'm adding the CASPER list to see if anyone is interested.  CASPER is
-a big Berkeley-based project that, among other things, designs
-powerful programmable boards with PowerPC CPUs running Linux and giant
-FPGAs for signal processing and I/O.
+We have been developing interfaces for that in Linux but mostly as a
+specific driver, it might be worthwhile seeing whether there are any
+commonalities.
 
-https://casper.berkeley.edu/wiki/ROACH2
+Ben.
 
-I haven't used ROACH2, but I've used ROACH a bunch, and it would be
-really nice if there was a standard Linux API for dealing with FPGAs.
-
---Andy
+> People that might be interested:
+> 
+> Michal Simek <michal.simek@xilinx.com>
+> Dinh Nguyen <dinguyen@opensource.altera.com>
+> <atull@opensource.altera.com>
+> Steffen Trumtrar <s.trumtrar@pengutronix.de>
+> Marek Vasut <marex@denx.de>
+> Alan Cox
+> 
+> 
+> 									Pavel
