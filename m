@@ -1,39 +1,28 @@
-Return-Path: <luto@amacapital.net>
+Return-Path: <lurodriguez@suse.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id CE28E40D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2A0B9409
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 28 Jul 2015 19:31:52 +0000 (UTC)
-Received: from mail-lb0-f179.google.com (mail-lb0-f179.google.com
-	[209.85.217.179])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0A54618D
+	Tue, 28 Jul 2015 19:34:46 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 22C92ED
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 28 Jul 2015 19:31:51 +0000 (UTC)
-Received: by lbbzr7 with SMTP id zr7so81629332lbb.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 28 Jul 2015 12:31:50 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <1438111168.26913.189.camel@infradead.org>
-References: <20436.1438090619@warthog.procyon.org.uk>
+	Tue, 28 Jul 2015 19:34:45 +0000 (UTC)
+Date: Tue, 28 Jul 2015 21:34:41 +0200
+From: "Luis R. Rodriguez" <mcgrof@suse.com>
+To: David Howells <dhowells@redhat.com>
+Message-ID: <20150728193441.GF30479@wotan.suse.de>
+References: <1438102755.5441.184.camel@HansenPartnership.com>
 	<1438096213.5441.147.camel@HansenPartnership.com>
-	<CALCETrVbTEf0rKKYOmNoHB2n0MpSgpY8jvOGXPnV=+KPxEpFKw@mail.gmail.com>
-	<1438097471.5441.152.camel@HansenPartnership.com>
-	<CALCETrVPf9gN92iC+vtKOOBY0GpzAnZuKpEMMgZzU-uXAM1qMQ@mail.gmail.com>
-	<1438099839.5441.165.camel@HansenPartnership.com>
-	<1438100102.26913.183.camel@infradead.org>
-	<CALCETrWwMrd-ntkjiYf0-E+YjeVfM-sT7W_PFXr-mOPc268Vbw@mail.gmail.com>
-	<30361.1438101879@warthog.procyon.org.uk>
-	<CALCETrXa_hw6tF2SekuQEYd=AHoWW_88dU_LgfXz6ziuRQpO5g@mail.gmail.com>
-	<1438111168.26913.189.camel@infradead.org>
-From: Andy Lutomirski <luto@amacapital.net>
-Date: Tue, 28 Jul 2015 12:31:30 -0700
-Message-ID: <CALCETrVVtcno1k8L_+LWuBApayUNFJmfG11MJV1hDo_0UjVRBg@mail.gmail.com>
-To: David Woodhouse <dwmw2@infradead.org>
-Content-Type: text/plain; charset=UTF-8
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Luis Rodriguez <mcgrof@gmail.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>, Kyle McMartin <jkkm@jkkm.org>
+	<20436.1438090619@warthog.procyon.org.uk>
+	<29850.1438100240@warthog.procyon.org.uk>
+	<31492.1438110696@warthog.procyon.org.uk>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <31492.1438110696@warthog.procyon.org.uk>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>, mcgrof@gmail.com,
+	ksummit-discuss@lists.linuxfoundation.org, jkkm@jkkm.org
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Firmware signing
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -44,53 +33,93 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Jul 28, 2015 at 12:19 PM, David Woodhouse <dwmw2@infradead.org> wrote:
-> On Tue, 2015-07-28 at 10:03 -0700, Andy Lutomirski wrote:
->>
->> This will require that we take any firmware vendor's key and rewrap it
->> somehow into a new X.509 blob with a key usage constraint.
->
-> There are established ways of handling those constraints as external
-> objects (see how NSS does it in its trust tokens, and thus p11-kit
-> -trust does too).
+On Tue, Jul 28, 2015 at 08:11:36PM +0100, David Howells wrote:
+> James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
+> > If we start signing
+> > stuff we're not sure should be trusted that explodes the whole model.
+> > Therefore, you need to establish two things
+> > 
+> >      1. What is it that we actually trust?  (I think it's the
+> >         transmission path from the firmware supplier, but you haven't
+> >         said)
 
-Wow, I thought X.509 was bad.  Now we get PKCS#11, too?  Ick.
+This is the only thing this can help with now, *and* since it comes from there
+that it respects obviously linux-firmware license requirements ;)
 
-I have no problem whatsoever with having the userspace tooling support
-PKCS#11 tokens.  I think the kernel should try to minimize the extent
-to which is depends on X.509 on the kernel side.
+> I acknowledge this is a tricky point.  Currently, we don't have signatures
+> from vendors that we can use.  What we have is blobs either grabbed from
+> websites, extracted from Windows installations or provided by the vendor
+> directly.  Basically, we cannot trust *anything* we have at the moment.
 
-If we're going to load keys into the kernel (at compile time, from
-UEFI, whatever), let's just *tell* the kernel, in plain English or C,
-what those keys are for, rather than trying to parse X.509
-constraints.
+At least on the 802.11 world I did experience tons of direct vendor involvement
+in submitting firmware upstream directly. So this varies by subsystem. I suspect
+Nvidia won't participate for their latest GPUs... But fuck 'em anyway right?
 
-I'll point out that the Internet tried to use X.509 name constraints
-to allow CAs to be constrained to subsets of the DNS space, and it
-*still* doesn't work.
+> >      2. If we can't validate 1, what do we do
+> 
+> We need a fallback option.  Possibly one that can be enabled/disabled from the
+> kernel command line that allows firmware blobs with signatures set by the
+> linux-firmware maintainer indicating this is, to our best knowledge, a valid
+> blob.  However, that does raise the issue of how you rescind that indication.
 
-Heck, with the X.509 variant, if Megasoft has an existing key signed
-by SketchyTrust, and we want to trust SketchyTrust to sign firmware
-for SketchyUSB devices (and to delegate to Megasoft using the
-*existing* key), are we supposed to enforce transitive constraints?
-Where are they rooted?  I think this way lies madness.  Let's just
-throw SketchyTrust's key in the "SketchyUSB only" pile and be done
-with it rather than fiddling with OpenSSL to re-wrap SketchyTrust's
-self-signed (?).
+As with module signing I think CONFIG_FIRMWARE_SIG_FORCE=y should only be used
+for FW for folks who know who can vet all firmware and want this, the
+permissive option you describe I think would be for folks who do not enable
+CONFIG_FIRMWARE_SIG_FORCE. There's more to this though, as I'll describe
+below.
 
-If I'm the unaffiliated author of a driver for a SketchyTrust device,
-I want to throw the cert into my driver and be done with it.  The
-kernel should *figure out on its own* that the cert is associated with
-my driver and my driver only and can't sign for my GPU.  I really
-don't want to muck with the X.509 blob, because I'm going to get it
-wrong.
+> > For 2. I think you need to leave stuff you can't validate 1. for
+> > unsigned and let system policy decide.  Signing is implying a trust you
+> > don't have and thus corrupting the trust model.
+> 
+> That's a fair point.
+> 
+> I guess what you want is:
+> 
+>  (1) A driver can provide a key in some fashion (exact mechanism TBD), then we
+>      only permit firmware signed by that key.
+> 
+>  (2) If driver provides a key but the firmware doesn't have an associated
+>      signature, we reject it.
 
-[1] If we start rewrapping root keys and shoving the X.509 blobs into
-drivers, who signs those blobs?  We can't self-sign them because we
-don't have the private key, and we don't really want a completely
-pointless "kernel" key that exists solely for the purpose of producing
-well-formed X.509 certs, and we probably don't want to use ill-formed
-unsigned X.509 certs as our root.  So what's the point of using X.509
-at all for this purpose?
+The second set of patches that I have enable this as this criteria is exactly
+what I wanted to enable to replace CRDA in userspace. It would also make it
+separate from FW signing, so although CONFIG_FIRMWARE_SIG_FORCE=n a driver
+can still have a Kconfig option for its own use which may let folks require
+or not signing for its driver.
 
---Andy
+>  (3) A driver can provide a hash of the firmware content and only that exact
+>      firmware blob is permitted (or possibly a list of alternative hashes).
+
+The firmware API keeps being abused, my second set of patches make the
+firmware API extensible to enable such features if we really want them.
+
+The way to think about it is we'd expose an API to let users use
+sysdata_file_request() or sysdata_file_request_async() and on it they'd
+pass a const struc sysdata_file_desc (descriptor) which provides all the
+requirements. Interally then the kernel sees if it can match it and if so
+it tosses the system data file (I call it this now as its not just firmware
+we'd be using this for) to the caller.
+
+All sysdata_file_request*() API users would need an OID registered too
+so that a key can only be used for that purpose.
+
+>  (4) If a driver doesn't provide a key, we always accept the firmware.
+> 
+> Which means that someone can use firmware for a driver that falls into
+> category (4) as an attack mechanism.  Ideally, I'd like to close (4)
+> entirely.  We could instead:
+> 
+>  (4) If the firmware is signed by the linux-firmware key, we log a warning but
+>      accept the firmware.
+> 
+>  (5) We reject the firmware.
+
+The way I have it now if usres use sysdata_file_request*() APIs then only
+the criteria there must be met but if we wanted to piggy back off support
+for Kyle's key we can easily do that with a flag, but by default I didn't
+support this. ie, if you wanted to trust Kyle's key you'd just use the
+old firmware_request() APIs with CONFIG_FIRMWARE_SIG=y, but we can change
+this of course.
+
+  Luis
