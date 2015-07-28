@@ -1,36 +1,25 @@
 Return-Path: <BATV+df222ee592c13ba168c1+4356+infradead.org+dwmw2@casper.srs.infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1EFF5282
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9835C40D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 28 Jul 2015 19:19:33 +0000 (UTC)
+	Tue, 28 Jul 2015 19:23:27 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [85.118.1.10])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 00F54153
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0EA2218D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 28 Jul 2015 19:19:31 +0000 (UTC)
-Message-ID: <1438111168.26913.189.camel@infradead.org>
+	Tue, 28 Jul 2015 19:23:27 +0000 (UTC)
+Message-ID: <1438111404.26913.192.camel@infradead.org>
 From: David Woodhouse <dwmw2@infradead.org>
-To: Andy Lutomirski <luto@amacapital.net>, David Howells <dhowells@redhat.com>
-Date: Tue, 28 Jul 2015 20:19:28 +0100
-In-Reply-To: <CALCETrXa_hw6tF2SekuQEYd=AHoWW_88dU_LgfXz6ziuRQpO5g@mail.gmail.com>
+To: josh@joshtriplett.org, David Howells <dhowells@redhat.com>
+Date: Tue, 28 Jul 2015 20:23:24 +0100
+In-Reply-To: <20150728183610.GB5307@cloud>
 References: <20436.1438090619@warthog.procyon.org.uk>
-	<1438096213.5441.147.camel@HansenPartnership.com>
-	<CALCETrVbTEf0rKKYOmNoHB2n0MpSgpY8jvOGXPnV=+KPxEpFKw@mail.gmail.com>
-	<1438097471.5441.152.camel@HansenPartnership.com>
-	<CALCETrVPf9gN92iC+vtKOOBY0GpzAnZuKpEMMgZzU-uXAM1qMQ@mail.gmail.com>
-	<1438099839.5441.165.camel@HansenPartnership.com>
-	<1438100102.26913.183.camel@infradead.org>
-	<CALCETrWwMrd-ntkjiYf0-E+YjeVfM-sT7W_PFXr-mOPc268Vbw@mail.gmail.com>
-	<30361.1438101879@warthog.procyon.org.uk>
-	<CALCETrXa_hw6tF2SekuQEYd=AHoWW_88dU_LgfXz6ziuRQpO5g@mail.gmail.com>
+	<20150728183610.GB5307@cloud>
 Content-Type: multipart/signed; micalg="sha-1";
 	protocol="application/x-pkcs7-signature";
-	boundary="=-MDnee2Pws9ka28YFeveH"
+	boundary="=-lnH/Y2dupRv9mOaCHeE8"
 Mime-Version: 1.0
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Luis Rodriguez <mcgrof@gmail.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>, Kyle McMartin <jkkm@jkkm.org>
+Cc: mcgrof@gmail.com, ksummit-discuss@lists.linuxfoundation.org, jkkm@jkkm.org
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Firmware signing
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -42,24 +31,27 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---=-MDnee2Pws9ka28YFeveH
+--=-lnH/Y2dupRv9mOaCHeE8
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2015-07-28 at 10:03 -0700, Andy Lutomirski wrote:
+On Tue, 2015-07-28 at 11:36 -0700, josh@joshtriplett.org wrote:
 >=20
-> This will require that we take any firmware vendor's key and rewrap it
-> somehow into a new X.509 blob with a key usage constraint.
+> The main advantage of signatures would be the ability to update the
+> firmware *without* updating the driver.  Is that a feature?
 
-There are established ways of handling those constraints as external
-objects (see how NSS does it in its trust tokens, and thus p11-kit
--trust does too).
+Yes, absolutely. We do want to be able to update firmware *without*
+updating the driver. They are separate entities.
+
+That said, some drivers whose firmware is *actually* never updated and
+is only separate for licensing and unswappable-kernel-data-size reasons
+*could* perhaps just use a hash.
 
 --=20
 David Woodhouse                            Open Source Technology Centre
 David.Woodhouse@intel.com                              Intel Corporation
 
---=-MDnee2Pws9ka28YFeveH
+--=-lnH/Y2dupRv9mOaCHeE8
 Content-Type: application/x-pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -152,18 +144,18 @@ Qy7VFBkoLINszBrOUeIxggNvMIIDawIBATCBlDCBjDELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0
 YXJ0Q29tIEx0ZC4xKzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRlIFNpZ25pbmcx
 ODA2BgNVBAMTL1N0YXJ0Q29tIENsYXNzIDEgUHJpbWFyeSBJbnRlcm1lZGlhdGUgQ2xpZW50IENB
 AgMN7zcwCQYFKw4DAhoFAKCCAa8wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0B
-CQUxDxcNMTUwNzI4MTkxOTI4WjAjBgkqhkiG9w0BCQQxFgQUa9BltSkPIejOglUFN90eGZuykHIw
+CQUxDxcNMTUwNzI4MTkyMzI0WjAjBgkqhkiG9w0BCQQxFgQUwhc8vjIrsTQUhzmKBJa/Vau4gIUw
 gaUGCSsGAQQBgjcQBDGBlzCBlDCBjDELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0YXJ0Q29tIEx0
 ZC4xKzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRlIFNpZ25pbmcxODA2BgNVBAMT
 L1N0YXJ0Q29tIENsYXNzIDEgUHJpbWFyeSBJbnRlcm1lZGlhdGUgQ2xpZW50IENBAgMN7zcwgacG
 CyqGSIb3DQEJEAILMYGXoIGUMIGMMQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRk
 LjErMCkGA1UECxMiU2VjdXJlIERpZ2l0YWwgQ2VydGlmaWNhdGUgU2lnbmluZzE4MDYGA1UEAxMv
 U3RhcnRDb20gQ2xhc3MgMSBQcmltYXJ5IEludGVybWVkaWF0ZSBDbGllbnQgQ0ECAw3vNzANBgkq
-hkiG9w0BAQEFAASCAQCcLoEC4Gfz3OVDdtrTC/g6Dg/R+Zj4+pKwzC7jj0Xi5bYYKK3sRAbsDF+3
-1S5yTVW2RvrF43KQ9aym+sFlc0bK6TxFFfWQlsVJ0mb/NUlKy5Zy8anIH42PziFudicmgr4cwyS6
-i2LCaGvvVbUIem5Tc9yapcfRhdXbNbeC8PAwMHOmT/AqqhX5HgtvZ9KFEGw8ZDZOQIADUgMWJJ+5
-RTZtgfka3s/+JGZ22VbUJmlTXDZyxogYFWdffSIMJOWmrVpkc9SOXSjtNUB3uhRl0BropkMese5I
-+ChjOMhzjQO/v5WxV/qqaGuO4/RhkKusUiI9zN2qA8y7gPJWRr8zAs19AAAAAAAA
+hkiG9w0BAQEFAASCAQB1lIkJC7ToUZZVOqZzU0MCIOlUshA7nZMZw4yyH81hshBU/7vkNdwD51UY
+2awrfMVKhBvw+VpSyh02+TvSdQBUAAtYvFSEkOjvwT39RiHi2TlFAQDFFxiiRN12MUiVVovxIZJP
+FMa2SGZB83k6vS4jr53GjVX6L2XH1aglr5MG9k+5rAbIe7ONETvh2hrwPcsVaylX7zoDwYG5r3GF
+dydOAwS9qn3tkoHTDfFNAfg5C6LzBWH199CK6ZpLDhsjhimslQy2/1UJprG0aIlVYHwXi4JORLE4
+z9wpvl7jVBJrOLf3UiiZxAgcwXP7jITGGfT/LNBK5sVFCv/JzK1Vw0w3AAAAAAAA
 
 
---=-MDnee2Pws9ka28YFeveH--
+--=-lnH/Y2dupRv9mOaCHeE8--
