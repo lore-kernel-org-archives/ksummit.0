@@ -1,35 +1,28 @@
-Return-Path: <luto@amacapital.net>
+Return-Path: <josh@joshtriplett.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 53045484
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 617DA279
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 28 Jul 2015 22:44:49 +0000 (UTC)
-Received: from mail-lb0-f170.google.com (mail-lb0-f170.google.com
-	[209.85.217.170])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 839D98D
+	Tue, 28 Jul 2015 23:59:33 +0000 (UTC)
+Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
+	[217.70.183.196])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C7272138
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 28 Jul 2015 22:44:48 +0000 (UTC)
-Received: by lbbyj8 with SMTP id yj8so84384240lbb.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 28 Jul 2015 15:44:46 -0700 (PDT)
+	Tue, 28 Jul 2015 23:59:32 +0000 (UTC)
+Date: Tue, 28 Jul 2015 16:59:26 -0700
+From: josh@joshtriplett.org
+To: Greg KH <greg@kroah.com>
+Message-ID: <20150728235926.GB8671@cloud>
+References: <20436.1438090619@warthog.procyon.org.uk>
+	<20150728183610.GB5307@cloud>
+	<1438109061.5441.202.camel@HansenPartnership.com>
+	<20150728185428.GD5307@cloud> <20150728213805.GA8786@kroah.com>
 MIME-Version: 1.0
-In-Reply-To: <2834.1438123171@warthog.procyon.org.uk>
-References: <1438102755.5441.184.camel@HansenPartnership.com>
-	<1438096213.5441.147.camel@HansenPartnership.com>
-	<20436.1438090619@warthog.procyon.org.uk>
-	<29850.1438100240@warthog.procyon.org.uk>
-	<31492.1438110696@warthog.procyon.org.uk>
-	<1438120439.5441.229.camel@HansenPartnership.com>
-	<2834.1438123171@warthog.procyon.org.uk>
-From: Andy Lutomirski <luto@amacapital.net>
-Date: Tue, 28 Jul 2015 15:44:27 -0700
-Message-ID: <CALCETrUTJB_jc1q+6ubA5qzJULHUAA1tcVtf=yCva_EBzbC=pQ@mail.gmail.com>
-To: David Howells <dhowells@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Luis Rodriguez <mcgrof@gmail.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>, Kyle McMartin <jkkm@jkkm.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20150728213805.GA8786@kroah.com>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>, mcgrof@gmail.com,
+	ksummit-discuss@lists.linuxfoundation.org, jkkm@jkkm.org
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Firmware signing
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -40,26 +33,20 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Jul 28, 2015 at 3:39 PM, David Howells <dhowells@redhat.com> wrote:
-> James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
->
->> Um, wouldn't the hash be in the module ... and the module is validated
->> at load time by whatever kernel mechanism we're using.
->
-> I think we're talking at cross-purposes.  The point was:
->
->     (6) Should module signatures contain the module name - to be matched
->         against the modinfo structure after the signature is checked?
->
-> I'm asking about whether a *module* signature should be tied to the name of
-> the *module* it is signing.  Nothing to do with firmware.
->
+On Tue, Jul 28, 2015 at 02:38:05PM -0700, Greg KH wrote:
+> On Tue, Jul 28, 2015 at 11:54:28AM -0700, josh@joshtriplett.org wrote:
+> > > So in that case, what's the advantage of separating the firmware from
+> > > the driver?  If we can't update it without updating the driver, we could
+> > > just build it in and save a huge amount of hassle.
+> > 
+> > Licensing, which is a large part of why we have request_firmware to
+> > begin with.  Let's not make distribution kernel maintainers' lives more
+> > difficult than they already are.
+> 
+> Not true at all, please talk with some lawyers about this.
 
-I vote "no" because I can't see a threat model under which it matters.
-If you can sign a module at all, then root can load it regardless of
-what it's called.  Nonroot can't supply the module under a forged
-name, regardless of whether the signature covers the name.
+I didn't say anything about a license violation; I'm talking about
+firmware licenses that aren't FOSS, which means distributions like
+Debian "main" can't ship them.
 
-Kexec may be a different story.
-
---Andy
+- Josh Triplett
