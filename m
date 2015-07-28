@@ -1,23 +1,24 @@
-Return-Path: <josh@joshtriplett.org>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 76F53268
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5E141268
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 28 Jul 2015 18:36:16 +0000 (UTC)
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
-	[217.70.183.195])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1870879
+	Tue, 28 Jul 2015 18:44:25 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id BD77679
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 28 Jul 2015 18:36:16 +0000 (UTC)
-Date: Tue, 28 Jul 2015 11:36:10 -0700
-From: josh@joshtriplett.org
-To: David Howells <dhowells@redhat.com>
-Message-ID: <20150728183610.GB5307@cloud>
+	Tue, 28 Jul 2015 18:44:23 +0000 (UTC)
+Message-ID: <1438109061.5441.202.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: josh@joshtriplett.org
+Date: Tue, 28 Jul 2015 11:44:21 -0700
+In-Reply-To: <20150728183610.GB5307@cloud>
 References: <20436.1438090619@warthog.procyon.org.uk>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20436.1438090619@warthog.procyon.org.uk>
+	<20150728183610.GB5307@cloud>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 Cc: mcgrof@gmail.com, ksummit-discuss@lists.linuxfoundation.org, jkkm@jkkm.org
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Firmware signing
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -29,32 +30,37 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Jul 28, 2015 at 02:36:59PM +0100, David Howells wrote:
-> Patches are in the works for the provision of signatures for firmware blobs
-> for the kernel to check, thus allowing the kernel to act as gatekeeper on what
-> firmware blobs get loaded where.
+On Tue, 2015-07-28 at 11:36 -0700, josh@joshtriplett.org wrote:
+> On Tue, Jul 28, 2015 at 02:36:59PM +0100, David Howells wrote:
+> > Patches are in the works for the provision of signatures for firmware blobs
+> > for the kernel to check, thus allowing the kernel to act as gatekeeper on what
+> > firmware blobs get loaded where.
+> > 
+> > Note that it has been agreed that signatures will be in separate files to the
+> > firmware blobs so as not to potentially corrupt a blob by copying it to an OS
+> > that doesn't expect the signature.  Also, we don't want to modify the blob in
+> > case of IP.
+> > 
+> > We're currently using PKCS#7/CMS messages as the signature format since we
+> > have a PKCS#7 parser and verifier already in the kernel for kexec.
+> > 
+> > Patches have been proposed for inclusion in security/next that allow PKCS#11
+> > to be used to supply h/w keys to the sign-file program and to the kernel build
+> > process.
 > 
-> Note that it has been agreed that signatures will be in separate files to the
-> firmware blobs so as not to potentially corrupt a blob by copying it to an OS
-> that doesn't expect the signature.  Also, we don't want to modify the blob in
-> case of IP.
+> What's the advantage to using signatures here, rather than hashes?
 > 
-> We're currently using PKCS#7/CMS messages as the signature format since we
-> have a PKCS#7 parser and verifier already in the kernel for kexec.
+> What if we just made request_firmware take a cryptographically secure
+> hash, and verify that the firmware supplied by userspace has that hash?
+> Ideally, different firmware should have a different version, and often
+> the kernel driver knows the specific versions it works with.
 > 
-> Patches have been proposed for inclusion in security/next that allow PKCS#11
-> to be used to supply h/w keys to the sign-file program and to the kernel build
-> process.
+> The main advantage of signatures would be the ability to update the
+> firmware *without* updating the driver.  Is that a feature?  Is it
+> really a problem to add a hash to the driver?
 
-What's the advantage to using signatures here, rather than hashes?
+So in that case, what's the advantage of separating the firmware from
+the driver?  If we can't update it without updating the driver, we could
+just build it in and save a huge amount of hassle.
 
-What if we just made request_firmware take a cryptographically secure
-hash, and verify that the firmware supplied by userspace has that hash?
-Ideally, different firmware should have a different version, and often
-the kernel driver knows the specific versions it works with.
-
-The main advantage of signatures would be the ability to update the
-firmware *without* updating the driver.  Is that a feature?  Is it
-really a problem to add a hash to the driver?
-
-- Josh Triplett
+James
