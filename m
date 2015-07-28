@@ -1,28 +1,34 @@
-Return-Path: <neilb@suse.com>
+Return-Path: <Tim.Bird@sonymobile.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9487B273
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id CE99E483
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 28 Jul 2015 22:04:19 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C0B8F7C
+	Tue, 28 Jul 2015 22:09:19 +0000 (UTC)
+Received: from seldrel01.sonyericsson.com (seldrel01.sonyericsson.com
+	[37.139.156.2])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 023307C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 28 Jul 2015 22:04:17 +0000 (UTC)
-Date: Wed, 29 Jul 2015 08:03:50 +1000
-From: NeilBrown <neilb@suse.com>
-To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-Message-ID: <20150729080350.17f9f96a@noble>
-In-Reply-To: <8734973.3SWuCLvkiU@vostro.rjw.lan>
-References: <20150723105726.GC30929@amd> <20150724143427.5a045528@noble>
-	<20150724060049.GX10928@atomide.com>
-	<8734973.3SWuCLvkiU@vostro.rjw.lan>
+	Tue, 28 Jul 2015 22:09:18 +0000 (UTC)
+Message-ID: <55B7FD82.8010806@sonymobile.com>
+Date: Tue, 28 Jul 2015 15:09:06 -0700
+From: Tim Bird <tim.bird@sonymobile.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+To: Mark Brown <broonie@kernel.org>, Steven Rostedt <rostedt@goodmis.org>
+References: <20150723105726.GC30929@amd>
+	<CACRpkdbCbhgJHZifouDVUvaxyT5YWWdQz7Nt3AKoLvuEn4z7mQ@mail.gmail.com>
+	<20150723121441.GB29747@amd>
+	<20150723084251.54da2be0@gandalf.local.home>
+	<20150723154014.GD11162@sirena.org.uk>
+In-Reply-To: <20150723154014.GD11162@sirena.org.uk>
+Content-Type: text/plain; charset="windows-1252"
 Content-Transfer-Encoding: 7bit
-Cc: Bjorn Andersson <Bjorn.Andersson@sonymobile.com>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	riverful.kim@samsung.com, kyungmin.park@samsung.com,
-	John Stultz <john.stultz@linaro.org>, Pavel Machek <pavel@ucw.cz>
+Cc: Pavel Machek <pavel@ucw.cz>, "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	"riverful.kim@samsung.com" <riverful.kim@samsung.com>,
+	"kyungmin.park@samsung.com" <kyungmin.park@samsung.com>,
+	John Stultz <john.stultz@linaro.org>,
+	=?windows-1252?Q?=22Andersson=2C_?= =?windows-1252?Q?Bj=F6rn=22?=
+	<Bjorn.Andersson@sonymobile.com>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Mainline kernel on a cellphone
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -33,53 +39,50 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, 25 Jul 2015 00:26:03 +0200 "Rafael J. Wysocki"
-<rjw@rjwysocki.net> wrote:
-
-> On Thursday, July 23, 2015 11:00:49 PM Tony Lindgren wrote:
-> > * NeilBrown <neilb@suse.com> [150723 21:37]:
-> > > On Thu, 23 Jul 2015 22:34:29 +0200 Pavel Machek <pavel@ucw.cz> wrote:
-> > > > 
-> > > > and the big one... for Android people (not me):
-> > > > 
-> > > > 6) do we need to use s2ram (and then pretend phone is not suspended)
-> > > > to save power on cellphones? If so, do we need new interface for
-> > > > applications to signal "I'd really like to run"?
-> > > > 
-> > > 
-> > > For the first half of this question, the answer is:
-> > >  Probably not.  runtime-pm should be able to put all devices to sleep,
-> > >   and cgroup freezer should be able to freeze untrusted processes.
-> > 
-> > Yes s2ram is just an additional tool. PM runtime alone can
-> > already provide a reasonable battery life for a phone as long as
-> > it's properly implemented and the hardware supports it. With
-> > reasonable battery life in this case I mean over 10 days in idle
-> > mode with system running and timers working.
-> > 
-> > >  But I suspect runtime-pm doesn't provide as much power saving as
-> > >  system suspend, and using the cgroup freezer means lots of changes to
-> > >  userspace.
-> > >  So lots of work would be needed to meet this goal, if it is a
-> > >  worthwhile goal.
-> > 
-> > And with s2ram the difference is that then the system is not running
-> > and timers don't work so it really needs to be optional.
+On 07/23/2015 08:40 AM, Mark Brown wrote:
+> On Thu, Jul 23, 2015 at 08:42:51AM -0400, Steven Rostedt wrote:
 > 
-> Right.
+>> Although is this something to be a core topic or a tech topic? Does
+>> this affect all subsystems, or just a set of drivers? Note, a core
+>> topic wont get as much time for discussion as a tech topic would.
 > 
-> Even with suspend-to-idle we can get less energy usage with respect to
-> runtime idle (device runtime PM plus cpuidle) just because timer events
-> are disabled then.
+> It's basically all subsystems that get impacted, at the minute I'd say
+> it's more a plan of action and process discussion than a technical one
+> though in the context of KS planning that's quite probably the same
+> thing.
 > 
+>> Also, what is expected to be solved at KS?
+> 
+> Tim Bird (Cced) has been running some sessions at other conferences
+> scoping the problem and discussing ways to move forward on this, another
+> similar session might be useful.
 
-Is this just the timer interrupt which keeps the clock up to date, or
-are there other timer events which keep ticking?
+As Mark says, I've been working on almost exactly this topic for several
+months now.  Last year I conducted a survey investigating obstacles
+that developers (mostly corporate product developers) have in mainlining.
+There are lots of non-technical issues that are worth working on (version
+gap, corporate incentives, training, etc.), but which are outside
+the scope of the kernel summit.
 
-Would it be possible for the wall-clock timer to stop if the system
-has been idle for a while, and for the RTC to be used to recover the
-correct time when activity restarts?
+There are also some technical areas where I think coordinated
+effort might be useful, to identify deficiencies and collaborate on
+progress.  These might be worth discussing at the summit.
 
-Thanks,
-NeilBrown
+In March of this year, I analysed code from several shipping phones
+(representing a number of different SoCs, including both ARM and
+Intel-architecture CPUs), and found that most products have between
+1.2 and 3 million lines of code out-of-tree.  We are still in progress of
+finding patterns of out-of-treeness, to inform decisions about technical
+projects going forward.
+
+There is now a wiki page at:
+See http://elinux.org/Kernel_areas_of_focus_for_mainlining
+In particular it has a table showing certain areas that tend to have
+a lot of out-of-tree code (e.g. most phones have between 80K to
+100K of lines of wireless driver support out-of-mainline)
+
+IMHO it would be useful to discuss these areas, to see if there
+are technical reasons for these deficiencies, and work to resolve
+them.
+ -- Tim
  
