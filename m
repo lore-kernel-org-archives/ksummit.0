@@ -1,29 +1,28 @@
-Return-Path: <mcgrof@gmail.com>
+Return-Path: <jwboyer@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C6BC1409
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 42FB43C8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 28 Jul 2015 16:56:02 +0000 (UTC)
-Received: from mail-ob0-f181.google.com (mail-ob0-f181.google.com
-	[209.85.214.181])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4126E11B
+	Tue, 28 Jul 2015 16:59:23 +0000 (UTC)
+Received: from mail-ig0-f179.google.com (mail-ig0-f179.google.com
+	[209.85.213.179])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8374C1C7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 28 Jul 2015 16:56:02 +0000 (UTC)
-Received: by obbop1 with SMTP id op1so88819388obb.2
+	Tue, 28 Jul 2015 16:58:49 +0000 (UTC)
+Received: by igbij6 with SMTP id ij6so124669436igb.1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 28 Jul 2015 09:56:01 -0700 (PDT)
+	Tue, 28 Jul 2015 09:58:49 -0700 (PDT)
 MIME-Version: 1.0
-Sender: mcgrof@gmail.com
-In-Reply-To: <1438093418.26913.174.camel@infradead.org>
+Sender: jwboyer@gmail.com
+In-Reply-To: <1438096213.5441.147.camel@HansenPartnership.com>
 References: <20436.1438090619@warthog.procyon.org.uk>
-	<1438093418.26913.174.camel@infradead.org>
-From: "Luis R. Rodriguez" <mcgrof@do-not-panic.com>
-Date: Tue, 28 Jul 2015 09:55:41 -0700
-Message-ID: <CAB=NE6Vd+SbBA4TerS9bpqJuumaP1LY9rhpL6Nc57Wzhj4ijUw@mail.gmail.com>
-To: David Woodhouse <dwmw2@infradead.org>
+	<1438096213.5441.147.camel@HansenPartnership.com>
+Date: Tue, 28 Jul 2015 12:58:48 -0400
+Message-ID: <CA+5PVA4TVHmsVy+AYEMtYWDopX-7pCOQzHv+c5fawhyQjzt1Ow@mail.gmail.com>
+From: Josh Boyer <jwboyer@fedoraproject.org>
+To: James Bottomley <James.Bottomley@hansenpartnership.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Cc: ksummit-discuss@lists.linuxfoundation.org, jkkm@jkkm.org
+Cc: mcgrof@gmail.com, ksummit-discuss@lists.linuxfoundation.org, jkkm@jkkm.org
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Firmware signing
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -34,58 +33,64 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Jul 28, 2015 at 7:23 AM, David Woodhouse <dwmw2@infradead.org> wrot=
-e:
->>  (2) If the linux-firmware packages are signed by a single key (or just =
-a few
->>      keys) it may be manageable to compile all these keys into the kerne=
-l.
+On Tue, Jul 28, 2015 at 11:10 AM, James Bottomley
+<James.Bottomley@hansenpartnership.com> wrote:
+> On Tue, 2015-07-28 at 14:36 +0100, David Howells wrote:
+>> Patches are in the works for the provision of signatures for firmware blobs
+>> for the kernel to check, thus allowing the kernel to act as gatekeeper on what
+>> firmware blobs get loaded where.
+>>
+>> Note that it has been agreed that signatures will be in separate files to the
+>> firmware blobs so as not to potentially corrupt a blob by copying it to an OS
+>> that doesn't expect the signature.  Also, we don't want to modify the blob in
+>> case of IP.
+>>
+>> We're currently using PKCS#7/CMS messages as the signature format since we
+>> have a PKCS#7 parser and verifier already in the kernel for kexec.
+>>
+>> Patches have been proposed for inclusion in security/next that allow PKCS#11
+>> to be used to supply h/w keys to the sign-file program and to the kernel build
+>> process.
+>>
+>> There are a number of areas that could do with sorting out with regard key
+>> policy:
+>>
+>>  (1) Should signatures produced by the manager of the linux-firmware package
+>>      be allowed only?
 >
-> I really think we want to allow firmware to be signed by the vendor who
-> created it =E2=80=94 and we want the linux-firmware.git repository to car=
-ry the
-> original vendors' signatures along with the firmware blobs.
+> Firmware is a binary blob usually with no decompilation.  How would the
+> package manager know its provenance?  The only people who know are the
+> people who write the driver.  If they sign, I think we have to accept
+> their signature and if not, we could have a weaker level of trust on the
+> package manager based on unbroken chain of transmission from the
+> firmware provider, but you'd have to trust the packaging organisation.
+
+Packagers signing individual firmware files seems wrong.  As a
+packager, I would want my signature to represent the fact that I
+created this package and it is official in some capacity.  That
+signature would naturally be on the package itself, e.g. an RPM
+signature.
+
+>>  (2) If the linux-firmware packages are signed by a single key (or just a few
+>>      keys) it may be manageable to compile all these keys into the kernel.
+>>
+>>  (3) If the vendors of firmware blobs supply signatures, should we accept
+>>      those instead of or as well as linux-firmware signatures?
 >
-> Having a signature generated by the linux-firmware packager which just
-> certifies that this *is* the blob that was in the linux-firmware.git
-> repository is only a partial solution.
+> Of course, How are you going to validate other than by trusting the
+> vendor?  Conversely, if you don't trust the vendor, why are you loading
+> an unknown binary blob from them into a processing engine they made?
+>
+>>  (4) If we start taking vendor created blobs, what do we do with all the
+>>      vendor keys?  Compiling them into the kernel could quickly get out of
+>>      hand and asking the user to add them to the UEFI keystore has the
+>>      potential to brick the user's system due to a dodgy BIOS.
+>
+> If the vendors buy in, I assume you'll eventually get them building them
+> into their drivers.  In the interim, the package manager could supply
+> the trusted keys at runtime.
 
-As we have it now the fist iteration of patches would just allow to
-trust a set a key signed by a trusted CA for the purpose firmware
-signing, and each firmware signature must be signed with a key
-intended for the purpose of firmware singing, additionally the
-signature would have the file name  for the intended signature.
-Support for embedding a custom set of key attribute requirements is
-part of my second phase of firmware signing patches, to help replace
-CRDA with in-kernel functionality as that is one existing use case
-where what you say is what we needed. The second phase of patches
-would also allow drivers to make use of this though -- so what you say
-would be supported, but it would come in with the second set of
-patches. The reason it'd come in separately is the firmware API is
-already abused enough, we keep adding new routines with more arguments
-and I think that needs to end. The second set of patches introduce a
-new extensible API which lets users express the requirements for the
-"system data file" and then the core vets for its ability to meet the
-criteria passed and if it can find it, it hands it back.
+Yes, adding them to the driver itself seems like the least painful
+solution there.
 
-There's one caveat here, at least the way me and David envisioned
-system data extensions is that you'd have to register an OID into the
-kernel's registry and your key would have to be purposed for that OID.
-David mentions we don't have a limit to the OID registry but I don't
-think we were envisioning everyone having a custom set of
-requirements, although I cannot foresee any issues with this, other
-than the kernel size overhead. We did speak about dynamic extensions
-to this registry, so maybe that's the way to make it less of pain to
-the kernel's size. Perhaps the later should be something some vendors
-can opt-in to. That would provide for the flexibility to only those
-using those APIs (ie Intel), meanwhile if a distro disables firmware
-singing its all ignored, the next step would be if they enable
-firmware singing then the default trusted key (Kyle's) would be
-trusted. The system data API would enable subsystems and drivers to
-*require* a signature independent of what the distro
-said to firmware signing, ie, a different Kconfig entry. This would
-enable a silicon vendor to require signed firmware, and it'd work, so
-long as it was in linux-firmware, and the distro would not need
-firmware signing enabled.
-
- Luis
+josh
