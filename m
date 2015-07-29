@@ -1,34 +1,28 @@
 Return-Path: <BATV+28a1ad09351d721d9f11+4357+infradead.org+dwmw2@casper.srs.infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C29DC98
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B2FFB475
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 29 Jul 2015 08:39:45 +0000 (UTC)
+	Wed, 29 Jul 2015 09:37:44 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [85.118.1.10])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2A958184
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2D7F47C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 29 Jul 2015 08:39:45 +0000 (UTC)
-Message-ID: <1438159180.26913.225.camel@infradead.org>
+	Wed, 29 Jul 2015 09:37:44 +0000 (UTC)
+Message-ID: <1438162660.26913.230.camel@infradead.org>
 From: David Woodhouse <dwmw2@infradead.org>
-To: Andy Lutomirski <luto@amacapital.net>, David Howells <dhowells@redhat.com>
-Date: Wed, 29 Jul 2015 09:39:40 +0100
-In-Reply-To: <CALCETrUTJB_jc1q+6ubA5qzJULHUAA1tcVtf=yCva_EBzbC=pQ@mail.gmail.com>
-References: <1438102755.5441.184.camel@HansenPartnership.com>
-	<1438096213.5441.147.camel@HansenPartnership.com>
-	<20436.1438090619@warthog.procyon.org.uk>
-	<29850.1438100240@warthog.procyon.org.uk>
-	<31492.1438110696@warthog.procyon.org.uk>
-	<1438120439.5441.229.camel@HansenPartnership.com>
-	<2834.1438123171@warthog.procyon.org.uk>
-	<CALCETrUTJB_jc1q+6ubA5qzJULHUAA1tcVtf=yCva_EBzbC=pQ@mail.gmail.com>
+To: Greg KH <greg@kroah.com>, josh@joshtriplett.org
+Date: Wed, 29 Jul 2015 10:37:40 +0100
+In-Reply-To: <20150728213805.GA8786@kroah.com>
+References: <20436.1438090619@warthog.procyon.org.uk>
+	<20150728183610.GB5307@cloud>
+	<1438109061.5441.202.camel@HansenPartnership.com>
+	<20150728185428.GD5307@cloud> <20150728213805.GA8786@kroah.com>
 Content-Type: multipart/signed; micalg="sha-1";
 	protocol="application/x-pkcs7-signature";
-	boundary="=-InDC0O0ZX4UB21dCxg+8"
+	boundary="=-f6B/xlWszlcONim8lwhe"
 Mime-Version: 1.0
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Luis Rodriguez <mcgrof@gmail.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>, Kyle McMartin <jkkm@jkkm.org>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>, mcgrof@gmail.com,
+	ksummit-discuss@lists.linuxfoundation.org, jkkm@jkkm.org
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Firmware signing
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -40,51 +34,69 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---=-InDC0O0ZX4UB21dCxg+8
+--=-f6B/xlWszlcONim8lwhe
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2015-07-28 at 15:44 -0700, Andy Lutomirski wrote:
-> On Tue, Jul 28, 2015 at 3:39 PM, David Howells <dhowells@redhat.com> wrot=
-e:
-> > James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
+On Tue, 2015-07-28 at 14:38 -0700, Greg KH wrote:
+> On Tue, Jul 28, 2015 at 11:54:28AM -0700, josh@joshtriplett.org wrote:
+> > > So in that case, what's the advantage of separating the firmware from
+> > > the driver?  If we can't update it without updating the driver, we co=
+uld
+> > > just build it in and save a huge amount of hassle.
 > >=20
-> > > Um, wouldn't the hash be in the module ... and the module is validate=
-d
-> > > at load time by whatever kernel mechanism we're using.
-> >=20
-> > I think we're talking at cross-purposes.  The point was:
-> >=20
-> >     (6) Should module signatures contain the module name - to be matche=
-d
-> >         against the modinfo structure after the signature is checked?
-> >=20
-> > I'm asking about whether a *module* signature should be tied to the nam=
-e of
-> > the *module* it is signing.  Nothing to do with firmware.
-> >=20
+> > Licensing, which is a large part of why we have request_firmware to
+> > begin with.  Let's not make distribution kernel maintainers' lives more
+> > difficult than they already are.
 >=20
-> I vote "no" because I can't see a threat model under which it matters.
-> If you can sign a module at all, then root can load it regardless of
-> what it's called.  Nonroot can't supply the module under a forged
-> name, regardless of whether the signature covers the name.
+> Not true at all, please talk with some lawyers about this.
+>=20
+> Or, to be clear, the lawyers I have discussed this with have no issues
+> at all with it.  Yours might differ.=20
 
-Right.
+Lawyers will mostly argue anything their client wants them to.
 
-Including the module name in the signature *only* protects you against
-an attacker who can provide a rogue module which *happens* to match the
-digest of a genuine module.... but their rogue module has a different
-name in the modinfo struct.
+So that isn't data; it's barely even a relevant anecdote. It certainly
+doesn't merit a blanket statement like 'not true at all'.
 
-And quite frankly, if the attacker can manage that much, they'll manage
-to get the name to match soon after. Meanwhile, I'll be in the bunker
-because the world is about to end.
+If anything, your anecdote tells us more about the desires of those who
+were *paying* the lawyers in question, than it does about the matter at
+hand.
+
+Hell, *I* can find a doctor who will assert that vaccines cause autism,
+if you want one=C2=B9.=20
+
+Something like this is not *truly* settled until/unless there is a
+court ruling =E2=80=94 and then only in that jurisdiction, and until/unless
+it's appealed/overruled.
+
+So yes, I'm sure there are lawyers who will turn up in court and argue
+whatever it is that they need to argue to make that case =E2=80=94 that a
+kernel bzImage *isn't* a "work based on the [Linux kernel]", or that a
+binary-only firmware image therein, which cannot be automatically
+extracted or separated because it is static data within one of the C
+files of a GPL'd driver, somehow *is* nevertheless "being distributed
+as a separate work".
+
+But there are other lawyers and expert witnesses who will respond to
+those arguments with a resounding WTF.
+
+Nobody gets to say "not true at all" before it's actually come to
+court.
+
+In the meantime, there are genuine licensing reasons why a risk-averse
+company might elect *not* to build non-GPL firmware *into* a Linux
+kernel image. Because they might not want to end up being summoned to
+that court room, and might not want to have to pay that lawyer to make
+that argument.
+
+So Josh was entirely correct.
 
 --=20
-David Woodhouse                            Open Source Technology Centre
-David.Woodhouse@intel.com                              Intel Corporation
+dwmw2
 
---=-InDC0O0ZX4UB21dCxg+8
+=C2=B9 He's in the basement. Just $20 and you can kick him in the balls.
+--=-f6B/xlWszlcONim8lwhe
 Content-Type: application/x-pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -177,18 +189,18 @@ Qy7VFBkoLINszBrOUeIxggNvMIIDawIBATCBlDCBjDELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0
 YXJ0Q29tIEx0ZC4xKzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRlIFNpZ25pbmcx
 ODA2BgNVBAMTL1N0YXJ0Q29tIENsYXNzIDEgUHJpbWFyeSBJbnRlcm1lZGlhdGUgQ2xpZW50IENB
 AgMN7zcwCQYFKw4DAhoFAKCCAa8wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0B
-CQUxDxcNMTUwNzI5MDgzOTQwWjAjBgkqhkiG9w0BCQQxFgQUKNSDB1QHN+GHaP3vr4wtm1G2k2kw
+CQUxDxcNMTUwNzI5MDkzNzQwWjAjBgkqhkiG9w0BCQQxFgQULp1dFfZSk5qChQGMG5MN9a98n4Mw
 gaUGCSsGAQQBgjcQBDGBlzCBlDCBjDELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0YXJ0Q29tIEx0
 ZC4xKzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRlIFNpZ25pbmcxODA2BgNVBAMT
 L1N0YXJ0Q29tIENsYXNzIDEgUHJpbWFyeSBJbnRlcm1lZGlhdGUgQ2xpZW50IENBAgMN7zcwgacG
 CyqGSIb3DQEJEAILMYGXoIGUMIGMMQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRk
 LjErMCkGA1UECxMiU2VjdXJlIERpZ2l0YWwgQ2VydGlmaWNhdGUgU2lnbmluZzE4MDYGA1UEAxMv
 U3RhcnRDb20gQ2xhc3MgMSBQcmltYXJ5IEludGVybWVkaWF0ZSBDbGllbnQgQ0ECAw3vNzANBgkq
-hkiG9w0BAQEFAASCAQA8hTEvsYfTHiz2ZHJO3Rcxoqn8ffiIpCfwoHnItxuiiw3bKoo2DWcWrb4B
-0mBXwWfHVf9TfKEzXWloXquFoy08ib2HQeksomwT7+QwyrRFriW5V/C5Tlnk+PvZ8D/vvrlhPG4O
-JFRsWKBKdaodohifNzyMvhgtq+sJdj9oNJYoxXguXJRt7Q3jVpEUe9ZCpwS/kalJCxYUzGrbv7UJ
-eEn8d5LcW84tQSvQXybU3PpRU4n6ohai9N9iV7NDMCOQClmUDfWpQxLQroDVZraLwgimnOWhzwia
-mXOiZcDAZFkOq5T/SjMyoCxDxeU0/BNQGeXZOZwBNKxccANkt/DsANTqAAAAAAAA
+hkiG9w0BAQEFAASCAQB0XT2ZH5bfUMC2g7D7OJYqUnaLvXPdDy0vb0Lh+mmoJLDEkdpxCTQ4S3o5
+wAlWleFoOVGjKDpYL5lD49L0D/NLzm5OY5bewXN2XVMMwYj/KQvBmJ8VWe0XbXDzWaSo0ty8WalA
+HC5Om9FYg2LlyhRmXCTSHtGhqjAaS20C88wqpl1LzV//err02YY+OwwVMN9wIhEQ7FN9/dh5Q1ki
+IcVCzzu3lmePOGyZwyQ8lh6LxCC+uCXRIyhAq6abdRsjwFO1CkDyi5S0KfrmHlTQAmRFYiz5LBt6
+Elj9Gx3D4rDJS5B6VzdqhO06vq1aosBIvjz/Gm8ljEjtAbvtKmsp7brFAAAAAAAA
 
 
---=-InDC0O0ZX4UB21dCxg+8--
+--=-f6B/xlWszlcONim8lwhe--
