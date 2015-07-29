@@ -1,34 +1,29 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <serge@mail.hallyn.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id CC6EE499
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3C8EF596
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 29 Jul 2015 13:33:02 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4DF601B3
+	Wed, 29 Jul 2015 13:36:15 +0000 (UTC)
+Received: from h2.hallyn.com (h2.hallyn.com [78.46.35.8])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 256FC1BA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 29 Jul 2015 13:33:02 +0000 (UTC)
-Date: Wed, 29 Jul 2015 14:32:44 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Pavel Machek <pavel@ucw.cz>
-Message-ID: <20150729133244.GH20130@sirena.org.uk>
-References: <20150723105726.GC30929@amd>
-	<CACRpkdbCbhgJHZifouDVUvaxyT5YWWdQz7Nt3AKoLvuEn4z7mQ@mail.gmail.com>
-	<20150723121441.GB29747@amd>
-	<20150723084251.54da2be0@gandalf.local.home>
-	<20150723202901.GA30318@amd>
+	Wed, 29 Jul 2015 13:36:12 +0000 (UTC)
+Date: Wed, 29 Jul 2015 08:36:10 -0500
+From: "Serge E. Hallyn" <serge@hallyn.com>
+To: "Eric W. Biederman" <ebiederm@xmission.com>
+Message-ID: <20150729133610.GA19285@mail.hallyn.com>
+References: <28240.1437753683@warthog.procyon.org.uk>
+	<22483.1437754245@warthog.procyon.org.uk>
+	<87twst8pd3.fsf@x220.int.ebiederm.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="WRT3RXLOp/bBMgTI"
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20150723202901.GA30318@amd>
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	riverful.kim@samsung.com, kyungmin.park@samsung.com,
-	John Stultz <john.stultz@linaro.org>,
-	Bjorn Andersson <Bjorn.Andersson@sonymobile.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Mainline kernel on a cellphone
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <87twst8pd3.fsf@x220.int.ebiederm.org>
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	"Serge E. Hallyn" <serge@hallyn.com>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Overlays and file(system)
+ unioning issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,38 +33,154 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Fri, Jul 24, 2015 at 11:58:00AM -0500, Eric W. Biederman wrote:
+> David Howells <dhowells@redhat.com> writes:
+> 
+> > [With Miklós's email address fixed]
+> >
+> > I would like to propose a technical session on filesystem unioning.  There are
+> > a number of issues:
+> >
+> >  (1) Whiteouts.
+> >
+> >      Linus's idea that a union layer or overlay mounted not as part of a union
+> >      but separately, should expose whiteouts as 0,0 chardevs.  Whilst this
+> >      might indeed make the backup tools easier as things like tar can then use
+> >      the stat() and mknod() interfaces rather than having to use special
+> >      ioctls or syscalls, Miklós's idea to implement them as actual 0,0
+> >      chardevs in the underlying filesystem incurs some problems:
+> >
+> >      (a) It's slow and resource intensive.
+> >
+> >      	 Every whiteout requires an inode to represent it.  This means that if
+> >      	 you, say, have a directory in the lower layer that has a few thousand
+> >      	 inodes in it and you delete them all, you then eat up inode table
+> >      	 space in the upper layer.
+> >
+> > 	 Further, every chardev inode has to be stat'd to see if it is really
+> > 	 a whiteout.
+> >
+> >      (b) It has provided lock ordering issues in overlayfs directory reading
+> >      	 because overlayfs has to stat each chardev from within the directory
+> >      	 iterator.
+> >
+> >      I have patches to make Ext2 and JFFS2 use special directory entries
+> >      labelled with DT_WHITEOUT and no inode.  This is more space efficient and
+> >      faster and can be extended to Ext3 and Ext4.  XFS has constants defined
+> >      for doing similar.
+> >
+> >      I would propose that we change overlayfs to do this.
+> >
+> >      Unfortunately, we would still have to support the then obsolete 0,0
+> >      chardevs on disk.
+> >
+> >      The stat() and mknod() syscalls would then have to present these objects
+> >      to the user as 0,0 chardevs rather than ENOENT errors.  To do this it
+> >      might be necessary to have a special mount flag to turn off the
+> >      translation to DENTRY_WHITEOUT_TYPE dentries and record them as
+> >      DENTRY_SPECIAL_TYPE instead with an in-memory inode struct showing it to
+> >      be 0,0 chardevs.
+> >
+> >      David Woodhouse did make an additional suggestion that would make 0,0
+> >      chardevs less space inefficient - and that's to hard link a reserved
+> >      inode.
+> 
+> 
+> >  (2) Opaque inodes.
+> >
+> >      Should we use an xattr to mark inodes as opaque or should we use an inode
+> >      flag?  I have patches to add such an inode flag for Ext2 and JFFS2.
+> >      Marking the inode would be more space and time efficient.
+> >
+> >  (3) Fall-through markers.
+> >
+> >      Unionmount - and possibly other filesystem unioning systems - perform
+> >      directory integration on disk.  (Note that overlayfs maintains this in
+> >      memory for the lifetime of a directory inode).
+> >
+> >      With unionmount, an integrated directory is marked as being opaque with
+> >      special directory entries of type DT_FALLTHRU indicating where there is
+> >      stuff in lower layers that can be accessed.
+> >
+> >      Should we, perhaps, declare that the user sees such markers as 0,1
+> >      chardevs when the layer is not mounted as part of a union?
+> >
+> >  (4) Unionmount and other filesystem unioning systems.
+> >
+> >      Do we want to add other filesystem unioning systems into the kernel?
+> >      I've brought in a lot of the stuff for unionmount to help support
+> >      overlayfs.  Unfortunately, overlayfs interferes with some of the stuff
+> >      that unionmount wants to do (e.g. doing whiteouts differently and in an
+> >      awkward manner).
+> >
+> >  (5) Lack of POSIX characteristics.
+> >
+> >      There have been complaints that overlayfs isn't sufficiently POSIX like.
+> >      Now, this is by design on the part of overlayfs and I agree with the
+> >      Miklós that this is the right way to do it.  However, some mitigation
+> >      might be required.
+> >
+> >      One of the most annoying features is the fact that if you do:
+> >
+> > 	fd1 = open("foo", O_RDONLY);
+> > 	fd2 = open("foo", O_RDWR);
+> >
+> >      then fd1 and fd2 don't necessarily point to the same file.
+> >
+> >      I have been given patches by Ratna Bolla that speculatively copy the file
+> >      into the overlayfs file inode as the pages are accessed and direct file
+> >      accesses to the overlay inode rather than one of the two layers.  I saw a
+> >      number of problems with the approach, but it's possible his latest patch
+> >      fixes them.
+> >
+> >  (6) File-by-file waiver of unioning.
+> >
+> >      Jan Olszak has requested that it be possible to mark files in one of the
+> >      layers to suppress copy up on that file and to direct writes to the lower
+> >      layer.  This causes problems with rename however.
+> >
+> >  (7) File locking and notifications.
+> >
+> >      These are similar issues.  IIRC, we decided at the Filesystem Summit that
+> >      you get to take locks on the union inode only and that the notifications
+> >      only follow changes to the upper layer.  This means that you don't get
+> >      union/union interactions through a common lower layer.
+> >
+> >      However, we've since had complaints that tail doesn't follow changes made
+> >      to the lower layer (from James Harvey).
+> >
+> >  (8) LSMs and unions/overlays.
+> >
+> >      Path-based LSMs should just work now that file->f_path points to the
+> >      union layer inode, though they may require namespace awareness.
+> >
+> >      Label-based LSMs are another matter.  file->f_path.dentry->d_inode points
+> >      to the top layer label and file->f_inode points to the lower layer label.
+> >      Currently the user of the overlay can 'see through' the overlay and
+> >      access lower files in terms of the labels from the lower layer when doing
+> >      file operations, but uses the label from the upper layer when doing inode
+> >      operations.  I think this should be consistent and should only use the
+> >      upper layer label.  I'm working on patches to get this to work, but there
+> >      is dissension over which label should be seen.
+> >
+> >      Further, mandating that the upper label should be seen does cause
+> >      unionmount a problem as there's no upper inode to hang the label off.
+> >      This means that the label must be forged anew each time it is required
+> >      until at such time a copy-up is effected.
+> >
+> 
+> (9) Unprivileged mounts
+> 
+>     As there are no backing store issues it should be a tractable
+>     problem to get the semantics right to allow containers to use
+>     overlayfs.  A naive attempt was made by Serge Hallyn and he ran
+>     into security issues with copy-up.  Can copy-up be made safe if
+>     unprivileged users (AKA user namespace root users) mount overlayfs?
+> 
+>     I think that also intersects with your LSM label handling issues.
 
---WRT3RXLOp/bBMgTI
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Thanks, Eric.
 
-On Thu, Jul 23, 2015 at 10:29:02PM +0200, Pavel Machek wrote:
+Sounds like a very interesting topic all around.
 
-> 4) voice link to modem: Nokia people tell us that ALSA is not suitable
-> interface to modem audio. What is the right interface, then?
-
-ALSA is the right interface for this, this is going to be some
-misunderstanding on their part about how to use it or limitations in
-the drivers for their particular system (and possibly some unfortunate
-hardware design, it sounds like they may still be bouncing the voice
-call through the AP which isn't the most wonderful idea ever).  There
-are rather a lot of production phones using ALSA out there without undue
-complaints.
-
---WRT3RXLOp/bBMgTI
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQEcBAEBCAAGBQJVuNX7AAoJECTWi3JdVIfQ5VkH/RFLc04mwzBCtjYaLh6+hiDg
-0FT5+qwoSWX2riSKIhyqo9Py/Ul94SlIVCUkbeZMaQM/NtlZ+GB05VhhUQdevzXC
-s84qmuXWaFqEuuU2r083TX7gM/QgPqG6w+RChV4H3Wa2GzenJ03q5yaXWWYw8ZYG
-aA+xoGKUbZxDPqLwJJ3VlRvXB37H6I+sG0iFJqE3TR4sdky8icJthDwVZsxT5mD5
-9nPzi2FvORUKCJ9XZF/6jl2mBO5Ss1VWJvdPWZyJZoh7dFeovyxsljZZebjRmZ6J
-VF1iSTP/aijv1jr8bw/it8t+N6oEPOV++fE8JfVvTX8xc6cxfUu6CH/ybviqcTI=
-=c8pQ
------END PGP SIGNATURE-----
-
---WRT3RXLOp/bBMgTI--
+-serge
