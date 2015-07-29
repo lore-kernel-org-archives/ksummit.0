@@ -1,29 +1,30 @@
-Return-Path: <serge@mail.hallyn.com>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3C8EF596
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 08BA147F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 29 Jul 2015 13:36:15 +0000 (UTC)
-Received: from h2.hallyn.com (h2.hallyn.com [78.46.35.8])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 256FC1BA
+	Wed, 29 Jul 2015 15:00:04 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 45E087C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 29 Jul 2015 13:36:12 +0000 (UTC)
-Date: Wed, 29 Jul 2015 08:36:10 -0500
-From: "Serge E. Hallyn" <serge@hallyn.com>
-To: "Eric W. Biederman" <ebiederm@xmission.com>
-Message-ID: <20150729133610.GA19285@mail.hallyn.com>
-References: <28240.1437753683@warthog.procyon.org.uk>
-	<22483.1437754245@warthog.procyon.org.uk>
-	<87twst8pd3.fsf@x220.int.ebiederm.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <87twst8pd3.fsf@x220.int.ebiederm.org>
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	"Serge E. Hallyn" <serge@hallyn.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Overlays and file(system)
- unioning issues
+	Wed, 29 Jul 2015 15:00:03 +0000 (UTC)
+Message-ID: <1438182000.2204.35.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: David Woodhouse <dwmw2@infradead.org>
+Date: Wed, 29 Jul 2015 08:00:00 -0700
+In-Reply-To: <1438162660.26913.230.camel@infradead.org>
+References: <20436.1438090619@warthog.procyon.org.uk>
+	<20150728183610.GB5307@cloud>
+	<1438109061.5441.202.camel@HansenPartnership.com>
+	<20150728185428.GD5307@cloud> <20150728213805.GA8786@kroah.com>
+	<1438162660.26913.230.camel@infradead.org>
+Content-Type: multipart/signed; micalg="sha-256";
+	protocol="application/x-pkcs7-signature";
+	boundary="=-S+uITkv79QPhxEK+1iak"
+Mime-Version: 1.0
+Cc: mcgrof@gmail.com, ksummit-discuss@lists.linuxfoundation.org, jkkm@jkkm.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Firmware signing
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,154 +34,214 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 24, 2015 at 11:58:00AM -0500, Eric W. Biederman wrote:
-> David Howells <dhowells@redhat.com> writes:
-> 
-> > [With Miklós's email address fixed]
-> >
-> > I would like to propose a technical session on filesystem unioning.  There are
-> > a number of issues:
-> >
-> >  (1) Whiteouts.
-> >
-> >      Linus's idea that a union layer or overlay mounted not as part of a union
-> >      but separately, should expose whiteouts as 0,0 chardevs.  Whilst this
-> >      might indeed make the backup tools easier as things like tar can then use
-> >      the stat() and mknod() interfaces rather than having to use special
-> >      ioctls or syscalls, Miklós's idea to implement them as actual 0,0
-> >      chardevs in the underlying filesystem incurs some problems:
-> >
-> >      (a) It's slow and resource intensive.
-> >
-> >      	 Every whiteout requires an inode to represent it.  This means that if
-> >      	 you, say, have a directory in the lower layer that has a few thousand
-> >      	 inodes in it and you delete them all, you then eat up inode table
-> >      	 space in the upper layer.
-> >
-> > 	 Further, every chardev inode has to be stat'd to see if it is really
-> > 	 a whiteout.
-> >
-> >      (b) It has provided lock ordering issues in overlayfs directory reading
-> >      	 because overlayfs has to stat each chardev from within the directory
-> >      	 iterator.
-> >
-> >      I have patches to make Ext2 and JFFS2 use special directory entries
-> >      labelled with DT_WHITEOUT and no inode.  This is more space efficient and
-> >      faster and can be extended to Ext3 and Ext4.  XFS has constants defined
-> >      for doing similar.
-> >
-> >      I would propose that we change overlayfs to do this.
-> >
-> >      Unfortunately, we would still have to support the then obsolete 0,0
-> >      chardevs on disk.
-> >
-> >      The stat() and mknod() syscalls would then have to present these objects
-> >      to the user as 0,0 chardevs rather than ENOENT errors.  To do this it
-> >      might be necessary to have a special mount flag to turn off the
-> >      translation to DENTRY_WHITEOUT_TYPE dentries and record them as
-> >      DENTRY_SPECIAL_TYPE instead with an in-memory inode struct showing it to
-> >      be 0,0 chardevs.
-> >
-> >      David Woodhouse did make an additional suggestion that would make 0,0
-> >      chardevs less space inefficient - and that's to hard link a reserved
-> >      inode.
-> 
-> 
-> >  (2) Opaque inodes.
-> >
-> >      Should we use an xattr to mark inodes as opaque or should we use an inode
-> >      flag?  I have patches to add such an inode flag for Ext2 and JFFS2.
-> >      Marking the inode would be more space and time efficient.
-> >
-> >  (3) Fall-through markers.
-> >
-> >      Unionmount - and possibly other filesystem unioning systems - perform
-> >      directory integration on disk.  (Note that overlayfs maintains this in
-> >      memory for the lifetime of a directory inode).
-> >
-> >      With unionmount, an integrated directory is marked as being opaque with
-> >      special directory entries of type DT_FALLTHRU indicating where there is
-> >      stuff in lower layers that can be accessed.
-> >
-> >      Should we, perhaps, declare that the user sees such markers as 0,1
-> >      chardevs when the layer is not mounted as part of a union?
-> >
-> >  (4) Unionmount and other filesystem unioning systems.
-> >
-> >      Do we want to add other filesystem unioning systems into the kernel?
-> >      I've brought in a lot of the stuff for unionmount to help support
-> >      overlayfs.  Unfortunately, overlayfs interferes with some of the stuff
-> >      that unionmount wants to do (e.g. doing whiteouts differently and in an
-> >      awkward manner).
-> >
-> >  (5) Lack of POSIX characteristics.
-> >
-> >      There have been complaints that overlayfs isn't sufficiently POSIX like.
-> >      Now, this is by design on the part of overlayfs and I agree with the
-> >      Miklós that this is the right way to do it.  However, some mitigation
-> >      might be required.
-> >
-> >      One of the most annoying features is the fact that if you do:
-> >
-> > 	fd1 = open("foo", O_RDONLY);
-> > 	fd2 = open("foo", O_RDWR);
-> >
-> >      then fd1 and fd2 don't necessarily point to the same file.
-> >
-> >      I have been given patches by Ratna Bolla that speculatively copy the file
-> >      into the overlayfs file inode as the pages are accessed and direct file
-> >      accesses to the overlay inode rather than one of the two layers.  I saw a
-> >      number of problems with the approach, but it's possible his latest patch
-> >      fixes them.
-> >
-> >  (6) File-by-file waiver of unioning.
-> >
-> >      Jan Olszak has requested that it be possible to mark files in one of the
-> >      layers to suppress copy up on that file and to direct writes to the lower
-> >      layer.  This causes problems with rename however.
-> >
-> >  (7) File locking and notifications.
-> >
-> >      These are similar issues.  IIRC, we decided at the Filesystem Summit that
-> >      you get to take locks on the union inode only and that the notifications
-> >      only follow changes to the upper layer.  This means that you don't get
-> >      union/union interactions through a common lower layer.
-> >
-> >      However, we've since had complaints that tail doesn't follow changes made
-> >      to the lower layer (from James Harvey).
-> >
-> >  (8) LSMs and unions/overlays.
-> >
-> >      Path-based LSMs should just work now that file->f_path points to the
-> >      union layer inode, though they may require namespace awareness.
-> >
-> >      Label-based LSMs are another matter.  file->f_path.dentry->d_inode points
-> >      to the top layer label and file->f_inode points to the lower layer label.
-> >      Currently the user of the overlay can 'see through' the overlay and
-> >      access lower files in terms of the labels from the lower layer when doing
-> >      file operations, but uses the label from the upper layer when doing inode
-> >      operations.  I think this should be consistent and should only use the
-> >      upper layer label.  I'm working on patches to get this to work, but there
-> >      is dissension over which label should be seen.
-> >
-> >      Further, mandating that the upper label should be seen does cause
-> >      unionmount a problem as there's no upper inode to hang the label off.
-> >      This means that the label must be forged anew each time it is required
-> >      until at such time a copy-up is effected.
-> >
-> 
-> (9) Unprivileged mounts
-> 
->     As there are no backing store issues it should be a tractable
->     problem to get the semantics right to allow containers to use
->     overlayfs.  A naive attempt was made by Serge Hallyn and he ran
->     into security issues with copy-up.  Can copy-up be made safe if
->     unprivileged users (AKA user namespace root users) mount overlayfs?
-> 
->     I think that also intersects with your LSM label handling issues.
 
-Thanks, Eric.
+--=-S+uITkv79QPhxEK+1iak
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Sounds like a very interesting topic all around.
+On Wed, 2015-07-29 at 10:37 +0100, David Woodhouse wrote:
+> On Tue, 2015-07-28 at 14:38 -0700, Greg KH wrote:
+> > On Tue, Jul 28, 2015 at 11:54:28AM -0700, josh@joshtriplett.org wrote:
+> > > > So in that case, what's the advantage of separating the firmware fr=
+om
+> > > > the driver?  If we can't update it without updating the driver, we =
+could
+> > > > just build it in and save a huge amount of hassle.
+> > >=20
+> > > Licensing, which is a large part of why we have request_firmware to
+> > > begin with.  Let's not make distribution kernel maintainers' lives mo=
+re
+> > > difficult than they already are.
+> >=20
+> > Not true at all, please talk with some lawyers about this.
+> >=20
+> > Or, to be clear, the lawyers I have discussed this with have no issues
+> > at all with it.  Yours might differ.=20
+>=20
+> Lawyers will mostly argue anything their client wants them to.
+>=20
+> So that isn't data; it's barely even a relevant anecdote. It certainly
+> doesn't merit a blanket statement like 'not true at all'.
+>=20
+> If anything, your anecdote tells us more about the desires of those who
+> were *paying* the lawyers in question, than it does about the matter at
+> hand.
+>=20
+> Hell, *I* can find a doctor who will assert that vaccines cause autism,
+> if you want one=C2=B9.=20
 
--serge
+That's not even an opinion, it's wrong on the facts.  You can always
+find a crackpot willing to argue by misrepresenting the facts, but it's
+not what a reasonable person (or company) should base their decisions on
+and not what we should do ... unless you want to open the door to say
+re-doing our geo location libraries to take into account the views of
+the flat-earth society?
+
+> Something like this is not *truly* settled until/unless there is a
+> court ruling =E2=80=94 and then only in that jurisdiction, and until/unle=
+ss
+> it's appealed/overruled.
+>=20
+> So yes, I'm sure there are lawyers who will turn up in court and argue
+> whatever it is that they need to argue to make that case =E2=80=94 that a
+> kernel bzImage *isn't* a "work based on the [Linux kernel]", or that a
+> binary-only firmware image therein, which cannot be automatically
+> extracted or separated because it is static data within one of the C
+> files of a GPL'd driver, somehow *is* nevertheless "being distributed
+> as a separate work".
+>=20
+> But there are other lawyers and expert witnesses who will respond to
+> those arguments with a resounding WTF.
+>=20
+> Nobody gets to say "not true at all" before it's actually come to
+> court.
+>=20
+> In the meantime, there are genuine licensing reasons why a risk-averse
+> company might elect *not* to build non-GPL firmware *into* a Linux
+> kernel image. Because they might not want to end up being summoned to
+> that court room, and might not want to have to pay that lawyer to make
+> that argument.
+
+Really, no, there aren't.  Firmware is an operating system independent
+blob which runs on a separate processor without modification for
+Windows, Linux, Solaris or any other OS.  As such, there's no way it can
+be considered a derived work of (or even based on) the Linux Kernel.
+Thus it falls under the aggregation terms of clause 2 of the GPL:
+       =20
+        In addition, mere aggregation of another work not based on the
+        Program with the Program (or with a work based on the Program)
+        on a volume of a storage or distribution medium does not bring
+        the other work under the scope of this License.
+
+So it definitely doesn't have to be distributed under GPL and can be
+aggregated with GPL components like Linux.
+
+You're not out of the woods with this, though: the licence of the
+firmware must permit arbitrary redistribution (and we've seen some that
+don't), so it still has to be released under a freely redistributable
+licence.  And, obviously, there's a greyer area for Linux Specific
+firmware, but the above applies in the general case.
+
+Distributions, like Debian, which have a definition for what they
+consider to be "free software" may obviously conclude that binary blobs
+don't satisfy that definition and therefore must be confined to the
+non-free part of the distribution.  We can certainly continue to ship
+firmware separately as a courtesy for Debian to prevent the hardship of
+having to banish the whole kernel to non-free, but it's not because
+there's any shadow of a doubt about the legality of aggregating Linux
+independent firmware with the Linux Kernel.
+
+James
+
+
+--=-S+uITkv79QPhxEK+1iak
+Content-Type: application/x-pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEvow
+ggY0MIIEHKADAgECAgEeMA0GCSqGSIb3DQEBBQUAMH0xCzAJBgNVBAYTAklMMRYwFAYDVQQKEw1T
+dGFydENvbSBMdGQuMSswKQYDVQQLEyJTZWN1cmUgRGlnaXRhbCBDZXJ0aWZpY2F0ZSBTaWduaW5n
+MSkwJwYDVQQDEyBTdGFydENvbSBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0eTAeFw0wNzEwMjQyMTAx
+NTVaFw0xNzEwMjQyMTAxNTVaMIGMMQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRk
+LjErMCkGA1UECxMiU2VjdXJlIERpZ2l0YWwgQ2VydGlmaWNhdGUgU2lnbmluZzE4MDYGA1UEAxMv
+U3RhcnRDb20gQ2xhc3MgMSBQcmltYXJ5IEludGVybWVkaWF0ZSBDbGllbnQgQ0EwggEiMA0GCSqG
+SIb3DQEBAQUAA4IBDwAwggEKAoIBAQDHCYPMzi3YGrEppC4Tq5a+ijKDjKaIQZZVR63UbxIP6uq/
+I0fhCu+cQhoUfE6ERKKnu8zPf1Jwuk0tsvVCk6U9b+0UjM0dLep3ZdE1gblK/1FwYT5Pipsu2yOM
+luLqwvsuz9/9f1+1PKHG/FaR/wpbfuIqu54qzHDYeqiUfsYzoVflR80DAC7hmJ+SmZnNTWyUGHJb
+BpA8Q89lGxahNvuryGaC/o2/ceD2uYDX9U8Eg5DpIpGQdcbQeGarV04WgAUjjXX5r/2dabmtxWMZ
+whZna//jdiSyrrSMTGKkDiXm6/3/4ebfeZuCYKzN2P8O2F/Xe2AC/Y7zeEsnR7FOp+uXAgMBAAGj
+ggGtMIIBqTAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIBBjAdBgNVHQ4EFgQUU3Ltkpzg
+2ssBXHx+ljVO8tS4UYIwHwYDVR0jBBgwFoAUTgvvGqRAW6UXaYcwyjRoQ9BBrvIwZgYIKwYBBQUH
+AQEEWjBYMCcGCCsGAQUFBzABhhtodHRwOi8vb2NzcC5zdGFydHNzbC5jb20vY2EwLQYIKwYBBQUH
+MAKGIWh0dHA6Ly93d3cuc3RhcnRzc2wuY29tL3Nmc2NhLmNydDBbBgNVHR8EVDBSMCegJaAjhiFo
+dHRwOi8vd3d3LnN0YXJ0c3NsLmNvbS9zZnNjYS5jcmwwJ6AloCOGIWh0dHA6Ly9jcmwuc3RhcnRz
+c2wuY29tL3Nmc2NhLmNybDCBgAYDVR0gBHkwdzB1BgsrBgEEAYG1NwECATBmMC4GCCsGAQUFBwIB
+FiJodHRwOi8vd3d3LnN0YXJ0c3NsLmNvbS9wb2xpY3kucGRmMDQGCCsGAQUFBwIBFihodHRwOi8v
+d3d3LnN0YXJ0c3NsLmNvbS9pbnRlcm1lZGlhdGUucGRmMA0GCSqGSIb3DQEBBQUAA4ICAQAKgwh9
+eKssBly4Y4xerhy5I3dNoXHYfYa8PlVLL/qtXnkFgdtY1o95CfegFJTwqBBmf8pyTUnFsukDFUI2
+2zF5bVHzuJ+GxhnSqN2sD1qetbYwBYK2iyYA5Pg7Er1A+hKMIzEzcduRkIMmCeUTyMyikfbUFvIB
+ivtvkR8ZFAk22BZy+pJfAoedO61HTz4qSfQoCRcLN5A0t4DkuVhTMXIzuQ8CnykhExD6x4e6ebIb
+rjZLb7L+ocR0y4YjCl/Pd4MXU91y0vTipgr/O75CDUHDRHCCKBVmz/Rzkc/b970MEeHt5LC3NiWT
+gBSvrLEuVzBKM586YoRD9Dy3OHQgWI270g+5MYA8GfgI/EPT5G7xPbCDz+zjdH89PeR3U4So4lSX
+ur6H6vp+m9TQXPF3a0LwZrp8MQ+Z77U1uL7TelWO5lApsbAonrqASfTpaprFVkL4nyGH+NHST2ZJ
+PWIBk81i6Vw0ny0qZW2Niy/QvVNKbb43A43ny076khXO7cNbBIRdJ/6qQNq9Bqb5C0Q5nEsFcj75
+oxQRqlKf6TcvGbjxkJh8BYtv9ePsXklAxtm8J7GCUBthHSQgepbkOexhJ0wP8imUkyiPHQ0GvEnd
+83129fZjoEhdGwXV27ioRKbj/cIq7JRXun0NbeY+UdMYu9jGfIpDLtUUGSgsg2zMGs5R4jCCBl0w
+ggVFoAMCAQICAw1qzTANBgkqhkiG9w0BAQUFADCBjDELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0
+YXJ0Q29tIEx0ZC4xKzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRlIFNpZ25pbmcx
+ODA2BgNVBAMTL1N0YXJ0Q29tIENsYXNzIDEgUHJpbWFyeSBJbnRlcm1lZGlhdGUgQ2xpZW50IENB
+MB4XDTE1MDMyMTA2MzIyMVoXDTE2MDMyMTE2MjE0N1owZjEuMCwGA1UEAwwlSmFtZXMuQm90dG9t
+bGV5QEhhbnNlblBhcnRuZXJzaGlwLmNvbTE0MDIGCSqGSIb3DQEJARYlSmFtZXMuQm90dG9tbGV5
+QEhhbnNlblBhcnRuZXJzaGlwLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAKgy
+u7x+ZiMyg3zICQoaB8dy1/h+EdoGbFbn27SR/VDHQSqFhXYgt1falPCqI+45s3ZVLGQAUuMWiP19
+pLLrl6vZxhmoGVoAKKJtpEsLa4PMYKrz6l7Vk6iklyi8ZR29EvgXdydeSHaF9/0tBbEbuK3DKgcr
+sFaVBHj9LoIt5ZRn3AKAqK3DuZdSTvzSPZAkZRuHRKkhlZlWZ3Bh4IV/323YCo0QtS7LheC63Iit
+7D5YlsWij8M8FhFKf5z8SwvryY8TjtbDDkppgQkewZaVf3Eg9TDYEBIA5Rc4iNjjLoPKSlw3Yizq
+RbuKcaX+LwXB4ldYD18Db+xUj4Tp+UN/CBECAwEAAaOCAuswggLnMAkGA1UdEwQCMAAwCwYDVR0P
+BAQDAgSwMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDBDAdBgNVHQ4EFgQUi4Y59d09Quzu
++0/NVz4+wralXOAwHwYDVR0jBBgwFoAUU3Ltkpzg2ssBXHx+ljVO8tS4UYIwMAYDVR0RBCkwJ4El
+SmFtZXMuQm90dG9tbGV5QEhhbnNlblBhcnRuZXJzaGlwLmNvbTCCAUwGA1UdIASCAUMwggE/MIIB
+OwYLKwYBBAGBtTcBAgMwggEqMC4GCCsGAQUFBwIBFiJodHRwOi8vd3d3LnN0YXJ0c3NsLmNvbS9w
+b2xpY3kucGRmMIH3BggrBgEFBQcCAjCB6jAnFiBTdGFydENvbSBDZXJ0aWZpY2F0aW9uIEF1dGhv
+cml0eTADAgEBGoG+VGhpcyBjZXJ0aWZpY2F0ZSB3YXMgaXNzdWVkIGFjY29yZGluZyB0byB0aGUg
+Q2xhc3MgMSBWYWxpZGF0aW9uIHJlcXVpcmVtZW50cyBvZiB0aGUgU3RhcnRDb20gQ0EgcG9saWN5
+LCByZWxpYW5jZSBvbmx5IGZvciB0aGUgaW50ZW5kZWQgcHVycG9zZSBpbiBjb21wbGlhbmNlIG9m
+IHRoZSByZWx5aW5nIHBhcnR5IG9ibGlnYXRpb25zLjA2BgNVHR8ELzAtMCugKaAnhiVodHRwOi8v
+Y3JsLnN0YXJ0c3NsLmNvbS9jcnR1MS1jcmwuY3JsMIGOBggrBgEFBQcBAQSBgTB/MDkGCCsGAQUF
+BzABhi1odHRwOi8vb2NzcC5zdGFydHNzbC5jb20vc3ViL2NsYXNzMS9jbGllbnQvY2EwQgYIKwYB
+BQUHMAKGNmh0dHA6Ly9haWEuc3RhcnRzc2wuY29tL2NlcnRzL3N1Yi5jbGFzczEuY2xpZW50LmNh
+LmNydDAjBgNVHRIEHDAahhhodHRwOi8vd3d3LnN0YXJ0c3NsLmNvbS8wDQYJKoZIhvcNAQEFBQAD
+ggEBAHJmVHEc33FRRzkHReScwIu/t2Ngo9QcAMHZ9WCf6y0p/GevKbFAy+eF+kRlNLxgh7paVkr2
+0EXzRJZWN7ah5Ox1ngAZYhJOBi2vqvg5JpxWAxHO6h59VImK1hYvHy4z9+wQSrLlS6WbdCMv6TMH
+tRSkuMJ/46nJfHKrhHBJtbFCgY3dpSZ30schYVJwk6ctuB5t2ULxwg2g8Jhhx/bGtuxK0CWDfZ+i
+pEmynbu0b7rn37qVSwY42U9M6BvFlGlLkFAmBJFKsP8zVDVLfC2M81kbMN9hn0ylAstw7C/akEVF
+ZNo+PNGUtGs6K+wFxa5VRteW2/Wz2mn9vpLC8iORnFswggZdMIIFRaADAgECAgMNas0wDQYJKoZI
+hvcNAQEFBQAwgYwxCzAJBgNVBAYTAklMMRYwFAYDVQQKEw1TdGFydENvbSBMdGQuMSswKQYDVQQL
+EyJTZWN1cmUgRGlnaXRhbCBDZXJ0aWZpY2F0ZSBTaWduaW5nMTgwNgYDVQQDEy9TdGFydENvbSBD
+bGFzcyAxIFByaW1hcnkgSW50ZXJtZWRpYXRlIENsaWVudCBDQTAeFw0xNTAzMjEwNjMyMjFaFw0x
+NjAzMjExNjIxNDdaMGYxLjAsBgNVBAMMJUphbWVzLkJvdHRvbWxleUBIYW5zZW5QYXJ0bmVyc2hp
+cC5jb20xNDAyBgkqhkiG9w0BCQEWJUphbWVzLkJvdHRvbWxleUBIYW5zZW5QYXJ0bmVyc2hpcC5j
+b20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCoMru8fmYjMoN8yAkKGgfHctf4fhHa
+BmxW59u0kf1Qx0EqhYV2ILdX2pTwqiPuObN2VSxkAFLjFoj9faSy65er2cYZqBlaACiibaRLC2uD
+zGCq8+pe1ZOopJcovGUdvRL4F3cnXkh2hff9LQWxG7itwyoHK7BWlQR4/S6CLeWUZ9wCgKitw7mX
+Uk780j2QJGUbh0SpIZWZVmdwYeCFf99t2AqNELUuy4XgutyIrew+WJbFoo/DPBYRSn+c/EsL68mP
+E47Www5KaYEJHsGWlX9xIPUw2BASAOUXOIjY4y6DykpcN2Is6kW7inGl/i8FweJXWA9fA2/sVI+E
+6flDfwgRAgMBAAGjggLrMIIC5zAJBgNVHRMEAjAAMAsGA1UdDwQEAwIEsDAdBgNVHSUEFjAUBggr
+BgEFBQcDAgYIKwYBBQUHAwQwHQYDVR0OBBYEFIuGOfXdPULs7vtPzVc+PsK2pVzgMB8GA1UdIwQY
+MBaAFFNy7ZKc4NrLAVx8fpY1TvLUuFGCMDAGA1UdEQQpMCeBJUphbWVzLkJvdHRvbWxleUBIYW5z
+ZW5QYXJ0bmVyc2hpcC5jb20wggFMBgNVHSAEggFDMIIBPzCCATsGCysGAQQBgbU3AQIDMIIBKjAu
+BggrBgEFBQcCARYiaHR0cDovL3d3dy5zdGFydHNzbC5jb20vcG9saWN5LnBkZjCB9wYIKwYBBQUH
+AgIwgeowJxYgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkwAwIBARqBvlRoaXMgY2Vy
+dGlmaWNhdGUgd2FzIGlzc3VlZCBhY2NvcmRpbmcgdG8gdGhlIENsYXNzIDEgVmFsaWRhdGlvbiBy
+ZXF1aXJlbWVudHMgb2YgdGhlIFN0YXJ0Q29tIENBIHBvbGljeSwgcmVsaWFuY2Ugb25seSBmb3Ig
+dGhlIGludGVuZGVkIHB1cnBvc2UgaW4gY29tcGxpYW5jZSBvZiB0aGUgcmVseWluZyBwYXJ0eSBv
+YmxpZ2F0aW9ucy4wNgYDVR0fBC8wLTAroCmgJ4YlaHR0cDovL2NybC5zdGFydHNzbC5jb20vY3J0
+dTEtY3JsLmNybDCBjgYIKwYBBQUHAQEEgYEwfzA5BggrBgEFBQcwAYYtaHR0cDovL29jc3Auc3Rh
+cnRzc2wuY29tL3N1Yi9jbGFzczEvY2xpZW50L2NhMEIGCCsGAQUFBzAChjZodHRwOi8vYWlhLnN0
+YXJ0c3NsLmNvbS9jZXJ0cy9zdWIuY2xhc3MxLmNsaWVudC5jYS5jcnQwIwYDVR0SBBwwGoYYaHR0
+cDovL3d3dy5zdGFydHNzbC5jb20vMA0GCSqGSIb3DQEBBQUAA4IBAQByZlRxHN9xUUc5B0XknMCL
+v7djYKPUHADB2fVgn+stKfxnrymxQMvnhfpEZTS8YIe6WlZK9tBF80SWVje2oeTsdZ4AGWISTgYt
+r6r4OSacVgMRzuoefVSJitYWLx8uM/fsEEqy5Uulm3QjL+kzB7UUpLjCf+OpyXxyq4RwSbWxQoGN
+3aUmd9LHIWFScJOnLbgebdlC8cINoPCYYcf2xrbsStAlg32foqRJsp27tG+659+6lUsGONlPTOgb
+xZRpS5BQJgSRSrD/M1Q1S3wtjPNZGzDfYZ9MpQLLcOwv2pBFRWTaPjzRlLRrOivsBcWuVUbXltv1
+s9pp/b6SwvIjkZxbMYIDfzCCA3sCAQEwgZQwgYwxCzAJBgNVBAYTAklMMRYwFAYDVQQKEw1TdGFy
+dENvbSBMdGQuMSswKQYDVQQLEyJTZWN1cmUgRGlnaXRhbCBDZXJ0aWZpY2F0ZSBTaWduaW5nMTgw
+NgYDVQQDEy9TdGFydENvbSBDbGFzcyAxIFByaW1hcnkgSW50ZXJtZWRpYXRlIENsaWVudCBDQQID
+DWrNMA0GCWCGSAFlAwQCAQUAoIIBuzAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3
+DQEJBTEPFw0xNTA3MjkxNTAwMDBaMC8GCSqGSIb3DQEJBDEiBCCXgVwO8s5PHKQlIb5w18HKmZl9
+MJVFCCSpYF+8qb+M9jCBpQYJKwYBBAGCNxAEMYGXMIGUMIGMMQswCQYDVQQGEwJJTDEWMBQGA1UE
+ChMNU3RhcnRDb20gTHRkLjErMCkGA1UECxMiU2VjdXJlIERpZ2l0YWwgQ2VydGlmaWNhdGUgU2ln
+bmluZzE4MDYGA1UEAxMvU3RhcnRDb20gQ2xhc3MgMSBQcmltYXJ5IEludGVybWVkaWF0ZSBDbGll
+bnQgQ0ECAw1qzTCBpwYLKoZIhvcNAQkQAgsxgZeggZQwgYwxCzAJBgNVBAYTAklMMRYwFAYDVQQK
+Ew1TdGFydENvbSBMdGQuMSswKQYDVQQLEyJTZWN1cmUgRGlnaXRhbCBDZXJ0aWZpY2F0ZSBTaWdu
+aW5nMTgwNgYDVQQDEy9TdGFydENvbSBDbGFzcyAxIFByaW1hcnkgSW50ZXJtZWRpYXRlIENsaWVu
+dCBDQQIDDWrNMA0GCSqGSIb3DQEBAQUABIIBAHtu4nriMlkwirYagQZkac6Ju+6WKEEWGS9SE82+
+mgc5ywZb5xUoD7MNWL6z7We7IrKxY8pH1K3X69QrHHNjXWHMY486ho1V30GkcQ20MLAgHP5Ofw6t
+CZBeyfx8GNCG9U9oPYfcoMEUZNwLbjUS1FgFoz9NHGAwp3lGECpu4EN4i9yMOLf1BDzwcfXpCFuq
+43E9WJAsiqdCA3uZPJ/bTmHoAQMzHnrCS2Sk+xeaDAd4x+6Ggkw21hVJAdBSy+Q3/4dvd/F/cytD
+HwzRp1UqCabsMGFk8X1D4VP6Y1VheHtOlD+A6fMzIfs2UCqx+0wb8PrY2pbtyEztgFEmQBfMHGEA
+AAAAAAA=
+
+
+--=-S+uITkv79QPhxEK+1iak--
