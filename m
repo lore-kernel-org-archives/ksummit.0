@@ -1,34 +1,28 @@
-Return-Path: <greg@kroah.com>
+Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BAE90279
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E5537279
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 29 Jul 2015 00:17:05 +0000 (UTC)
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
-	[66.111.4.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2F1C7174
+	Wed, 29 Jul 2015 00:24:27 +0000 (UTC)
+Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id 7A2FEE2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 29 Jul 2015 00:17:05 +0000 (UTC)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
-	by mailout.nyi.internal (Postfix) with ESMTP id 7BD2521381
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 28 Jul 2015 20:17:04 -0400 (EDT)
-Date: Tue, 28 Jul 2015 17:17:03 -0700
-From: Greg KH <greg@kroah.com>
-To: josh@joshtriplett.org
-Message-ID: <20150729001703.GA17116@kroah.com>
-References: <20436.1438090619@warthog.procyon.org.uk>
-	<20150728183610.GB5307@cloud>
-	<1438109061.5441.202.camel@HansenPartnership.com>
-	<20150728185428.GD5307@cloud> <20150728213805.GA8786@kroah.com>
-	<20150728235926.GB8671@cloud>
+	Wed, 29 Jul 2015 00:24:26 +0000 (UTC)
+From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+To: NeilBrown <neilb@suse.com>
+Date: Wed, 29 Jul 2015 02:51:22 +0200
+Message-ID: <11240818.4BFkCO8WSW@vostro.rjw.lan>
+In-Reply-To: <20150729080350.17f9f96a@noble>
+References: <20150723105726.GC30929@amd> <8734973.3SWuCLvkiU@vostro.rjw.lan>
+	<20150729080350.17f9f96a@noble>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20150728235926.GB8671@cloud>
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>, mcgrof@gmail.com,
-	ksummit-discuss@lists.linuxfoundation.org, jkkm@jkkm.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Firmware signing
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
+Cc: Bjorn Andersson <Bjorn.Andersson@sonymobile.com>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	riverful.kim@samsung.com, kyungmin.park@samsung.com,
+	John Stultz <john.stultz@linaro.org>, Pavel Machek <pavel@ucw.cz>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Mainline kernel on a cellphone
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,38 +32,59 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Jul 28, 2015 at 04:59:26PM -0700, josh@joshtriplett.org wrote:
-> On Tue, Jul 28, 2015 at 02:38:05PM -0700, Greg KH wrote:
-> > On Tue, Jul 28, 2015 at 11:54:28AM -0700, josh@joshtriplett.org wrote:
-> > > > So in that case, what's the advantage of separating the firmware from
-> > > > the driver?  If we can't update it without updating the driver, we could
-> > > > just build it in and save a huge amount of hassle.
-> > > 
-> > > Licensing, which is a large part of why we have request_firmware to
-> > > begin with.  Let's not make distribution kernel maintainers' lives more
-> > > difficult than they already are.
-> > 
-> > Not true at all, please talk with some lawyers about this.
+On Wednesday, July 29, 2015 08:03:50 AM NeilBrown wrote:
+> On Sat, 25 Jul 2015 00:26:03 +0200 "Rafael J. Wysocki"
+> <rjw@rjwysocki.net> wrote:
 > 
-> I didn't say anything about a license violation; I'm talking about
-> firmware licenses that aren't FOSS, which means distributions like
-> Debian "main" can't ship them.
+> > On Thursday, July 23, 2015 11:00:49 PM Tony Lindgren wrote:
+> > > * NeilBrown <neilb@suse.com> [150723 21:37]:
+> > > > On Thu, 23 Jul 2015 22:34:29 +0200 Pavel Machek <pavel@ucw.cz> wrote:
+> > > > > 
+> > > > > and the big one... for Android people (not me):
+> > > > > 
+> > > > > 6) do we need to use s2ram (and then pretend phone is not suspended)
+> > > > > to save power on cellphones? If so, do we need new interface for
+> > > > > applications to signal "I'd really like to run"?
+> > > > > 
+> > > > 
+> > > > For the first half of this question, the answer is:
+> > > >  Probably not.  runtime-pm should be able to put all devices to sleep,
+> > > >   and cgroup freezer should be able to freeze untrusted processes.
+> > > 
+> > > Yes s2ram is just an additional tool. PM runtime alone can
+> > > already provide a reasonable battery life for a phone as long as
+> > > it's properly implemented and the hardware supports it. With
+> > > reasonable battery life in this case I mean over 10 days in idle
+> > > mode with system running and timers working.
+> > > 
+> > > >  But I suspect runtime-pm doesn't provide as much power saving as
+> > > >  system suspend, and using the cgroup freezer means lots of changes to
+> > > >  userspace.
+> > > >  So lots of work would be needed to meet this goal, if it is a
+> > > >  worthwhile goal.
+> > > 
+> > > And with s2ram the difference is that then the system is not running
+> > > and timers don't work so it really needs to be optional.
+> > 
+> > Right.
+> > 
+> > Even with suspend-to-idle we can get less energy usage with respect to
+> > runtime idle (device runtime PM plus cpuidle) just because timer events
+> > are disabled then.
+> > 
+> 
+> Is this just the timer interrupt which keeps the clock up to date, or
+> are there other timer events which keep ticking?
 
-As the person who made the kernel in Debian "not-free" well over a
-15 years ago because of some people "feeling" that you can't bundle a
-binary image inside the kernel image, I strongly object to that opinion,
-and consulted legal council on this very topic, as I stated.
+The other events mostly.
 
-If Debian, or other distros, wish to take a different legal stance,
-wonderful, but again, this is up to them, but note that it is not such a
-clear "licensing" issue as you might think.
+> Would it be possible for the wall-clock timer to stop if the system
+> has been idle for a while, and for the RTC to be used to recover the
+> correct time when activity restarts?
 
-If a company wants to have their firmware used on Linux, it is quite
-easy for them to license it in a way that allows the binary to be
-distributed.  And as you are wanting to get them to now sign the
-firmware image, they must already wish to work with us to make that
-happen, so I don't understand your objection here.
+We use that mechanism in suspend-to-idle, but it requires the timekeeping
+to be frozen.  I don't think it would be possible to do that for runtime
+idle without races, though.
 
-anyway, way off-topic, let's just drop it...
-
-greg k-h
+Thanks,
+Rafael
