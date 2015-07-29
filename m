@@ -1,28 +1,34 @@
 Return-Path: <BATV+28a1ad09351d721d9f11+4357+infradead.org+dwmw2@casper.srs.infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 25DE998
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id C29DC98
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 29 Jul 2015 08:29:38 +0000 (UTC)
+	Wed, 29 Jul 2015 08:39:45 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [85.118.1.10])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B38B6186
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2A958184
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 29 Jul 2015 08:29:37 +0000 (UTC)
-Message-ID: <1438158573.26913.216.camel@infradead.org>
+	Wed, 29 Jul 2015 08:39:45 +0000 (UTC)
+Message-ID: <1438159180.26913.225.camel@infradead.org>
 From: David Woodhouse <dwmw2@infradead.org>
-To: josh@joshtriplett.org, James Bottomley
-	<James.Bottomley@HansenPartnership.com>
-Date: Wed, 29 Jul 2015 09:29:33 +0100
-In-Reply-To: <20150728185428.GD5307@cloud>
-References: <20436.1438090619@warthog.procyon.org.uk>
-	<20150728183610.GB5307@cloud>
-	<1438109061.5441.202.camel@HansenPartnership.com>
-	<20150728185428.GD5307@cloud>
+To: Andy Lutomirski <luto@amacapital.net>, David Howells <dhowells@redhat.com>
+Date: Wed, 29 Jul 2015 09:39:40 +0100
+In-Reply-To: <CALCETrUTJB_jc1q+6ubA5qzJULHUAA1tcVtf=yCva_EBzbC=pQ@mail.gmail.com>
+References: <1438102755.5441.184.camel@HansenPartnership.com>
+	<1438096213.5441.147.camel@HansenPartnership.com>
+	<20436.1438090619@warthog.procyon.org.uk>
+	<29850.1438100240@warthog.procyon.org.uk>
+	<31492.1438110696@warthog.procyon.org.uk>
+	<1438120439.5441.229.camel@HansenPartnership.com>
+	<2834.1438123171@warthog.procyon.org.uk>
+	<CALCETrUTJB_jc1q+6ubA5qzJULHUAA1tcVtf=yCva_EBzbC=pQ@mail.gmail.com>
 Content-Type: multipart/signed; micalg="sha-1";
 	protocol="application/x-pkcs7-signature";
-	boundary="=-FoXggf/r1b2upFmzzuGw"
+	boundary="=-InDC0O0ZX4UB21dCxg+8"
 Mime-Version: 1.0
-Cc: mcgrof@gmail.com, ksummit-discuss@lists.linuxfoundation.org, jkkm@jkkm.org
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Luis Rodriguez <mcgrof@gmail.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>, Kyle McMartin <jkkm@jkkm.org>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Firmware signing
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -34,34 +40,51 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---=-FoXggf/r1b2upFmzzuGw
+--=-InDC0O0ZX4UB21dCxg+8
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2015-07-28 at 11:54 -0700, josh@joshtriplett.org wrote:
+On Tue, 2015-07-28 at 15:44 -0700, Andy Lutomirski wrote:
+> On Tue, Jul 28, 2015 at 3:39 PM, David Howells <dhowells@redhat.com> wrot=
+e:
+> > James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
+> >=20
+> > > Um, wouldn't the hash be in the module ... and the module is validate=
+d
+> > > at load time by whatever kernel mechanism we're using.
+> >=20
+> > I think we're talking at cross-purposes.  The point was:
+> >=20
+> >     (6) Should module signatures contain the module name - to be matche=
+d
+> >         against the modinfo structure after the signature is checked?
+> >=20
+> > I'm asking about whether a *module* signature should be tied to the nam=
+e of
+> > the *module* it is signing.  Nothing to do with firmware.
+> >=20
 >=20
-> For the drivers I'm most familiar with, new versions of firmware have
-> new filenames and are requested from userspace in most-preferred to
-> least-preferred order.  The expectation of those drivers is that any
-> given firmware version should be binary-identical.
+> I vote "no" because I can't see a threat model under which it matters.
+> If you can sign a module at all, then root can load it regardless of
+> what it's called.  Nonroot can't supply the module under a forged
+> name, regardless of whether the signature covers the name.
 
-Those drivers are Doing It Wrong=E2=84=A2.
+Right.
 
-The filename of a firmware image is intended to be like the soname of a
-library.
+Including the module name in the signature *only* protects you against
+an attacker who can provide a rogue module which *happens* to match the
+digest of a genuine module.... but their rogue module has a different
+name in the modinfo struct.
 
-If the firmware is ABI-compatible and just has some bugs fixed or
-performance improvements, then you don't need to change the driver at
-all. You just get the new version of the firmware and it all works.
-
-Only if the driver *needs* to change the way it talks to the firmware,
-should the filename change.
+And quite frankly, if the attacker can manage that much, they'll manage
+to get the name to match soon after. Meanwhile, I'll be in the bunker
+because the world is about to end.
 
 --=20
 David Woodhouse                            Open Source Technology Centre
 David.Woodhouse@intel.com                              Intel Corporation
 
---=-FoXggf/r1b2upFmzzuGw
+--=-InDC0O0ZX4UB21dCxg+8
 Content-Type: application/x-pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -154,18 +177,18 @@ Qy7VFBkoLINszBrOUeIxggNvMIIDawIBATCBlDCBjDELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0
 YXJ0Q29tIEx0ZC4xKzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRlIFNpZ25pbmcx
 ODA2BgNVBAMTL1N0YXJ0Q29tIENsYXNzIDEgUHJpbWFyeSBJbnRlcm1lZGlhdGUgQ2xpZW50IENB
 AgMN7zcwCQYFKw4DAhoFAKCCAa8wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0B
-CQUxDxcNMTUwNzI5MDgyOTMzWjAjBgkqhkiG9w0BCQQxFgQUVFLn9W7u9Z6YhUyiSjEUXoZtIUow
+CQUxDxcNMTUwNzI5MDgzOTQwWjAjBgkqhkiG9w0BCQQxFgQUKNSDB1QHN+GHaP3vr4wtm1G2k2kw
 gaUGCSsGAQQBgjcQBDGBlzCBlDCBjDELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0YXJ0Q29tIEx0
 ZC4xKzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRlIFNpZ25pbmcxODA2BgNVBAMT
 L1N0YXJ0Q29tIENsYXNzIDEgUHJpbWFyeSBJbnRlcm1lZGlhdGUgQ2xpZW50IENBAgMN7zcwgacG
 CyqGSIb3DQEJEAILMYGXoIGUMIGMMQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRk
 LjErMCkGA1UECxMiU2VjdXJlIERpZ2l0YWwgQ2VydGlmaWNhdGUgU2lnbmluZzE4MDYGA1UEAxMv
 U3RhcnRDb20gQ2xhc3MgMSBQcmltYXJ5IEludGVybWVkaWF0ZSBDbGllbnQgQ0ECAw3vNzANBgkq
-hkiG9w0BAQEFAASCAQAO5odL7qRoylnri63nKwEfcKcoQIDahXcXwouv23QcbqSFNYgPkfDw1+oS
-d5enPwLq81MzGX5FhILzHLdcif4SVXcvsyuyE/RbdTG/xI2iImu0pBtbuSApGNej6erQ7Z+nzG8N
-q2J8NC3LSnvDtfcv3Yw09JFuyKlkiTHCIp6GFd/zAsF8+H9wP9UMSXNKm9/On5XOKMYurGFHbVAQ
-2BMvPmwAxBRO6/fvCQvs7r/13sl76zYeoUUaQcggOEuMHsDBRnl0kNaXo8JtM74Kqede0KyuDJhw
-P6Ng/PZEDRQN9YYLFerOGrAvNROSi5TwrueW8saUJrDK7JU4HA/CSJIsAAAAAAAA
+hkiG9w0BAQEFAASCAQA8hTEvsYfTHiz2ZHJO3Rcxoqn8ffiIpCfwoHnItxuiiw3bKoo2DWcWrb4B
+0mBXwWfHVf9TfKEzXWloXquFoy08ib2HQeksomwT7+QwyrRFriW5V/C5Tlnk+PvZ8D/vvrlhPG4O
+JFRsWKBKdaodohifNzyMvhgtq+sJdj9oNJYoxXguXJRt7Q3jVpEUe9ZCpwS/kalJCxYUzGrbv7UJ
+eEn8d5LcW84tQSvQXybU3PpRU4n6ohai9N9iV7NDMCOQClmUDfWpQxLQroDVZraLwgimnOWhzwia
+mXOiZcDAZFkOq5T/SjMyoCxDxeU0/BNQGeXZOZwBNKxccANkt/DsANTqAAAAAAAA
 
 
---=-FoXggf/r1b2upFmzzuGw--
+--=-InDC0O0ZX4UB21dCxg+8--
