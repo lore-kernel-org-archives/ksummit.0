@@ -1,32 +1,27 @@
-Return-Path: <Tim.Bird@sonymobile.com>
+Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 59DFB707
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E78E94A7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 29 Jul 2015 18:07:50 +0000 (UTC)
-Received: from seldrel01.sonyericsson.com (seldrel01.sonyericsson.com
-	[37.139.156.2])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A383E161
+	Wed, 29 Jul 2015 22:56:26 +0000 (UTC)
+Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id A73178F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 29 Jul 2015 18:07:49 +0000 (UTC)
-Message-ID: <55B9166E.6000700@sonymobile.com>
-Date: Wed, 29 Jul 2015 11:07:42 -0700
-From: Tim Bird <tim.bird@sonymobile.com>
+	Wed, 29 Jul 2015 22:56:25 +0000 (UTC)
+From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+To: NeilBrown <neilb@suse.com>
+Date: Thu, 30 Jul 2015 01:23:21 +0200
+Message-ID: <3567831.C87ORqHPr8@vostro.rjw.lan>
+In-Reply-To: <11240818.4BFkCO8WSW@vostro.rjw.lan>
+References: <20150723105726.GC30929@amd> <20150729080350.17f9f96a@noble>
+	<11240818.4BFkCO8WSW@vostro.rjw.lan>
 MIME-Version: 1.0
-To: Bintian <bintian.wang@huawei.com>, Mark Brown <broonie@kernel.org>, Steven
-	Rostedt <rostedt@goodmis.org>
-References: <20150723105726.GC30929@amd>	<CACRpkdbCbhgJHZifouDVUvaxyT5YWWdQz7Nt3AKoLvuEn4z7mQ@mail.gmail.com>	<20150723121441.GB29747@amd>	<20150723084251.54da2be0@gandalf.local.home>	<20150723154014.GD11162@sirena.org.uk>
-	<55B7FD82.8010806@sonymobile.com> <55B87D6A.8030508@huawei.com>
-In-Reply-To: <55B87D6A.8030508@huawei.com>
-Content-Type: text/plain; charset="windows-1252"
-Content-Transfer-Encoding: 7bit
-Cc: Pavel Machek <pavel@ucw.cz>, "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	"riverful.kim@samsung.com" <riverful.kim@samsung.com>,
-	"kyungmin.park@samsung.com" <kyungmin.park@samsung.com>,
-	John Stultz <john.stultz@linaro.org>,
-	=?windows-1252?Q?=22Andersson=2C_?= =?windows-1252?Q?Bj=F6rn=22?=
-	<Bjorn.Andersson@sonymobile.com>
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
+Cc: Bjorn Andersson <Bjorn.Andersson@sonymobile.com>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	riverful.kim@samsung.com, kyungmin.park@samsung.com,
+	John Stultz <john.stultz@linaro.org>, Pavel Machek <pavel@ucw.cz>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Mainline kernel on a cellphone
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -37,49 +32,72 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 07/29/2015 12:14 AM, Bintian wrote:
-> Hi All,
+On Wednesday, July 29, 2015 02:51:22 AM Rafael J. Wysocki wrote:
+> On Wednesday, July 29, 2015 08:03:50 AM NeilBrown wrote:
+> > On Sat, 25 Jul 2015 00:26:03 +0200 "Rafael J. Wysocki"
+> > <rjw@rjwysocki.net> wrote:
+> > 
+> > > On Thursday, July 23, 2015 11:00:49 PM Tony Lindgren wrote:
+> > > > * NeilBrown <neilb@suse.com> [150723 21:37]:
+> > > > > On Thu, 23 Jul 2015 22:34:29 +0200 Pavel Machek <pavel@ucw.cz> wrote:
+> > > > > > 
+> > > > > > and the big one... for Android people (not me):
+> > > > > > 
+> > > > > > 6) do we need to use s2ram (and then pretend phone is not suspended)
+> > > > > > to save power on cellphones? If so, do we need new interface for
+> > > > > > applications to signal "I'd really like to run"?
+> > > > > > 
+> > > > > 
+> > > > > For the first half of this question, the answer is:
+> > > > >  Probably not.  runtime-pm should be able to put all devices to sleep,
+> > > > >   and cgroup freezer should be able to freeze untrusted processes.
+> > > > 
+> > > > Yes s2ram is just an additional tool. PM runtime alone can
+> > > > already provide a reasonable battery life for a phone as long as
+> > > > it's properly implemented and the hardware supports it. With
+> > > > reasonable battery life in this case I mean over 10 days in idle
+> > > > mode with system running and timers working.
+> > > > 
+> > > > >  But I suspect runtime-pm doesn't provide as much power saving as
+> > > > >  system suspend, and using the cgroup freezer means lots of changes to
+> > > > >  userspace.
+> > > > >  So lots of work would be needed to meet this goal, if it is a
+> > > > >  worthwhile goal.
+> > > > 
+> > > > And with s2ram the difference is that then the system is not running
+> > > > and timers don't work so it really needs to be optional.
+> > > 
+> > > Right.
+> > > 
+> > > Even with suspend-to-idle we can get less energy usage with respect to
+> > > runtime idle (device runtime PM plus cpuidle) just because timer events
+> > > are disabled then.
+> > > 
+> > 
+> > Is this just the timer interrupt which keeps the clock up to date, or
+> > are there other timer events which keep ticking?
 > 
-> I am also very interested in this topic, and now I am focusing on
-> Huawei cellphone kernel development.
+> The other events mostly.
 > 
-> One month ago, I submitted the basic system and clock driver of HiKey
-> to linux kernel, and HiKey is the prototype of Huawei Honor 4X
-> cellphone.
+> > Would it be possible for the wall-clock timer to stop if the system
+> > has been idle for a while, and for the RTC to be used to recover the
+> > correct time when activity restarts?
 > 
-> We really hope people can download the latest kernel code and run well
-> on HiKey(or other mobile products) at some future date, and now we try
-> to submit the rest drivers to kernel maillist.
+> We use that mechanism in suspend-to-idle, but it requires the timekeeping
+> to be frozen.  I don't think it would be possible to do that for runtime
+> idle without races, though.
 
-That's great!  Thanks for your efforts on this!
+Moreover, the "if the system has been idle for a while" condition is not really
+in line with how runtime idle works.  Namely, it works by predicting how much
+time the given CPU will be idle (on the basis of when the next timer event
+for it is scheduled among other things) and selecting an idle state for it
+to go to in accordance with that.  So we know upfront how much time the CPU
+will be idle (at least roughly) and we rely on timer events to wake up CPUs
+from idle states.
 
-...
+In the suspend-to-idle case we only need to care about events from devices
+explicitly enabled to wake up the system from sleep and that's why we can safely
+suspend the timekeeping then.
 
-> For HiKey, the original display driver is based on Framebuffer, but we
-> need to reconstruct this driver based on DRM framework when do the
-> upstream work, one lesson we learned here is trying to develop drivers
-> based on the requirements of current linux sub-system.
-
-Thanks for sharing that.
-
-I'd be interested in hearing from different people about what
-their big areas of concern are (or what they anticipate will
-be their large areas of work).
-
->> IMHO it would be useful to discuss these areas, to see if there
->> are technical reasons for these deficiencies, and work to resolve
->> them.
-> Agree.
-> 
-> Thanks,
-
-I'm not trying to gin up attendees for LinuxFoundation or
-Linaro events, but if you happen to be there, we are planning on
-hosting BOFs about this topic at the following upcoming events:
-  LinuxCon NA - August 19, 12:45, Seattle, WA, USA
-  Linaro Connect - (probably) September 22, Burlingame, CA, USA
-  ELC Europe - October 7, 11:30, Dublin, Ireland
-
-Please drop by if you are interested, or send me an e-mail
-if you want more details about the current work.
- -- Tim
+Thanks,
+Rafael
