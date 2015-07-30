@@ -1,27 +1,34 @@
-Return-Path: <rjw@rjwysocki.net>
+Return-Path: <BATV+ecb4f46f0ee6882e23b0+4358+infradead.org+dwmw2@casper.srs.infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B4B36268
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D542B9B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 30 Jul 2015 00:30:21 +0000 (UTC)
-Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id 7901311B
+	Thu, 30 Jul 2015 08:09:03 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [85.118.1.10])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A4385DE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 30 Jul 2015 00:30:20 +0000 (UTC)
-From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-To: NeilBrown <neilb@suse.com>
-Date: Thu, 30 Jul 2015 02:57:17 +0200
-Message-ID: <2904825.6WZJacWC6y@vostro.rjw.lan>
-In-Reply-To: <20150730095903.5cb431a4@noble>
-References: <20150723105726.GC30929@amd> <3567831.C87ORqHPr8@vostro.rjw.lan>
-	<20150730095903.5cb431a4@noble>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
-Cc: Pavel Machek <pavel@ucw.cz>, ksummit-discuss@lists.linuxfoundation.org,
-	kyungmin.park@samsung.com, John Stultz <john.stultz@linaro.org>,
-	Bjorn Andersson <Bjorn.Andersson@sonymobile.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Mainline kernel on a cellphone
+	Thu, 30 Jul 2015 08:09:02 +0000 (UTC)
+Message-ID: <1438243737.26511.114.camel@infradead.org>
+From: David Woodhouse <dwmw2@infradead.org>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Date: Thu, 30 Jul 2015 09:08:57 +0100
+In-Reply-To: <1438213176.2204.152.camel@HansenPartnership.com>
+References: <20436.1438090619@warthog.procyon.org.uk>
+	<20150728183610.GB5307@cloud>
+	<1438109061.5441.202.camel@HansenPartnership.com>
+	<20150728185428.GD5307@cloud> <20150728213805.GA8786@kroah.com>
+	<1438162660.26913.230.camel@infradead.org>
+	<1438182000.2204.35.camel@HansenPartnership.com>
+	<1438184150.26511.77.camel@infradead.org>
+	<1438187888.2204.83.camel@HansenPartnership.com>
+	<1438191159.26511.91.camel@infradead.org>
+	<1438213176.2204.152.camel@HansenPartnership.com>
+Content-Type: multipart/signed; micalg="sha-1";
+	protocol="application/x-pkcs7-signature";
+	boundary="=-eX6mLmeP1g7n5s6wclBP"
+Mime-Version: 1.0
+Cc: mcgrof@gmail.com, ksummit-discuss@lists.linuxfoundation.org, jkkm@jkkm.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Firmware signing
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,116 +38,165 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thursday, July 30, 2015 09:59:03 AM NeilBrown wrote:
-> On Thu, 30 Jul 2015 01:23:21 +0200 "Rafael J. Wysocki"
-> <rjw@rjwysocki.net> wrote:
-> 
-> > On Wednesday, July 29, 2015 02:51:22 AM Rafael J. Wysocki wrote:
-> > > On Wednesday, July 29, 2015 08:03:50 AM NeilBrown wrote:
-> > > > On Sat, 25 Jul 2015 00:26:03 +0200 "Rafael J. Wysocki"
-> > > > <rjw@rjwysocki.net> wrote:
-> > > > 
-> > > > > On Thursday, July 23, 2015 11:00:49 PM Tony Lindgren wrote:
-> > > > > > * NeilBrown <neilb@suse.com> [150723 21:37]:
-> > > > > > > On Thu, 23 Jul 2015 22:34:29 +0200 Pavel Machek <pavel@ucw.cz> wrote:
-> > > > > > > > 
-> > > > > > > > and the big one... for Android people (not me):
-> > > > > > > > 
-> > > > > > > > 6) do we need to use s2ram (and then pretend phone is not suspended)
-> > > > > > > > to save power on cellphones? If so, do we need new interface for
-> > > > > > > > applications to signal "I'd really like to run"?
-> > > > > > > > 
-> > > > > > > 
-> > > > > > > For the first half of this question, the answer is:
-> > > > > > >  Probably not.  runtime-pm should be able to put all devices to sleep,
-> > > > > > >   and cgroup freezer should be able to freeze untrusted processes.
-> > > > > > 
-> > > > > > Yes s2ram is just an additional tool. PM runtime alone can
-> > > > > > already provide a reasonable battery life for a phone as long as
-> > > > > > it's properly implemented and the hardware supports it. With
-> > > > > > reasonable battery life in this case I mean over 10 days in idle
-> > > > > > mode with system running and timers working.
-> > > > > > 
-> > > > > > >  But I suspect runtime-pm doesn't provide as much power saving as
-> > > > > > >  system suspend, and using the cgroup freezer means lots of changes to
-> > > > > > >  userspace.
-> > > > > > >  So lots of work would be needed to meet this goal, if it is a
-> > > > > > >  worthwhile goal.
-> > > > > > 
-> > > > > > And with s2ram the difference is that then the system is not running
-> > > > > > and timers don't work so it really needs to be optional.
-> > > > > 
-> > > > > Right.
-> > > > > 
-> > > > > Even with suspend-to-idle we can get less energy usage with respect to
-> > > > > runtime idle (device runtime PM plus cpuidle) just because timer events
-> > > > > are disabled then.
-> > > > > 
-> > > > 
-> > > > Is this just the timer interrupt which keeps the clock up to date, or
-> > > > are there other timer events which keep ticking?
-> > > 
-> > > The other events mostly.
-> > > 
-> > > > Would it be possible for the wall-clock timer to stop if the system
-> > > > has been idle for a while, and for the RTC to be used to recover the
-> > > > correct time when activity restarts?
-> > > 
-> > > We use that mechanism in suspend-to-idle, but it requires the timekeeping
-> > > to be frozen.  I don't think it would be possible to do that for runtime
-> > > idle without races, though.
-> > 
-> > Moreover, the "if the system has been idle for a while" condition is not really
-> > in line with how runtime idle works.  Namely, it works by predicting how much
-> > time the given CPU will be idle (on the basis of when the next timer event
-> > for it is scheduled among other things) and selecting an idle state for it
-> > to go to in accordance with that.  So we know upfront how much time the CPU
-> > will be idle (at least roughly) and we rely on timer events to wake up CPUs
-> > from idle states.
-> > 
-> > In the suspend-to-idle case we only need to care about events from devices
-> > explicitly enabled to wake up the system from sleep and that's why we can safely
-> > suspend the timekeeping then.
-> > 
-> 
-> Thanks ... this actually helps me understand the point of
-> suspend-to-idle which didn't really make a lot of sense to me before
-> (though it entirely possible that I'm still missing some bits).
-> 
-> A while ago (years?) there was a debate about whether it was really
-> sensible/necessary to use system suspend to save power.  This was in
-> the context of Android and suspend-blocker/wake-locks.  One school of
-> thought was that with sufficient runtime-PM and appropriate controls of
-> user-space processes, system-wide suspend was not necessary.
-> 
-> You seem to be saying that timer-interrupts are the deal-breaker.
 
-Yes, they are.
+--=-eX6mLmeP1g7n5s6wclBP
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> The only way to stop timer interrupts indefinitely is using some sort of
-> system-wide suspend, whether suspend-to-RAM or suspend-to-idle.
+On Wed, 2015-07-29 at 16:39 -0700, James Bottomley wrote:
+> On Wed, 2015-07-29 at 18:32 +0100, David Woodhouse wrote:
+> > ... as well as contradicting its explicit statement that its intention
+> > is to "control the distribution of derivative OR COLLECTIVE WORKS".
+>=20
+> That quote loses the last important piece; that paragraph, which I'll
+> quote in full
+>=20
+>         Thus, it is not the intent of this section to claim rights or
+>         contest your rights to work written entirely by you; rather, the
+>         intent is to exercise the right to control the distribution of
+>         derivative or collective works based on the Program.
+>=20
+> says that no additional rights over pieces that were written by another
+> (in this case a firmware provider) and are not based on the Program are
+> claimed.  That rather supports the idea that the extent of the license
+> attachment is limited to derivation.
 
-Right.
+The more conventional interpretation of that paragraph =E2=80=94 the
+interpretation which *doesn't* require us to believe that the GPL
+wasted all those words *explicitly* talking about things which are "not
+derived from the Program, and can be reasonably considered independent
+and separate works in themselves", only to contradict itself and say
+"haha just joking; *ALL* aggregation is fine" =E2=80=94 is that this is the=
+ GPL
+clarifying how it operates within the constraints of copyright law.
 
-> While it may be possible to achieve significant power savings without
-> using system-wide suspend, there is a limit and system-wide suspend
-> will always allow better savings.
-> 
-> Would that be correct?  If so: it is nice to have a clear answer -
-> thanks.
+There is a common =E2=80=94 though bogus =E2=80=94 complaint about the 'inf=
+ectious'
+nature of the GPL, which goes along the lines of "how can they require
+that I publish the source code to the bits that *I* wrote. Copyright
+law gives them no rights over *my* code".
 
-Yes, that's correct.
+The paragraph you cite above is more reasonably interpreted as a
+clarification that the GPL isn't claiming any *rights* over your own
+separate works, and that it merely operates by withholding permission
+to use the *GPL'd* part in that context.
 
-Essentially, what happens is that runtime PM allows us to reach the state
-in which the system draws as little power as in suspend-to-idle, but it
-simply doesn't allow the system to stay in that state long enough in one
-go due to timer interrupts (and possibly other types of interrupt noice
-that is suppressed by suspending all devices).
+But again, I'm not requiring that you publicly accept this point of
+view. There is plenty of scope for debate, and it's not impossible that
+a court *could* uphold your interpretation and effectively just delete
+the paragraphs of the GPL that you don't like.
 
-Since energy is the power drawn in a given state times the time spent in that
-state (on the average), that's why the system in suspend-to-idle uses less
-energy than it would with runtime idle during the same period (modulo the
-energy spent on suspending and resuming devices etc, of course).
+All I'm asking is that you stop making the bogus claim that yours is
+the *only* possible interpretation. It isn't even the sanest one.
 
-Thanks,
-Rafael
+--=20
+dwmw2
+
+--=-eX6mLmeP1g7n5s6wclBP
+Content-Type: application/x-pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExCzAJBgUrDgMCGgUAMIAGCSqGSIb3DQEHAQAAoIISjjCCBicw
+ggUPoAMCAQICAw3vNzANBgkqhkiG9w0BAQUFADCBjDELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0
+YXJ0Q29tIEx0ZC4xKzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRlIFNpZ25pbmcx
+ODA2BgNVBAMTL1N0YXJ0Q29tIENsYXNzIDEgUHJpbWFyeSBJbnRlcm1lZGlhdGUgQ2xpZW50IENB
+MB4XDTE1MDUwNTA5NDM0MVoXDTE2MDUwNTA5NTMzNlowQjEcMBoGA1UEAwwTZHdtdzJAaW5mcmFk
+ZWFkLm9yZzEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCASIwDQYJKoZIhvcN
+AQEBBQADggEPADCCAQoCggEBAMkbm9kPbx1j/X4RVyf/pPKSYwelcco69TvnQQbKM8m8xkWjXJI1
+jpJ1jMaGUZGFToINMSZi7lZawUozudWbXSKy1SikENSTJHffsdRAIlsp+hR8vWvjsKUry6sEdqPG
+doa5RY7+N4WRusWZDYW/RRWE6i9EL9qV86CVPYqw22UBOUw4/j/HVGCV6TSB8yE5iEwhk/hUuzRr
+FZm1MJMR7mCS7BCR8Lr5jFY61lWpBiXNXIxLZCvDc26KR5L5tYX43iUVO3fzES1GRVoYnxxk2tmz
+fcsZG5vK+Trc9L8OZJfkYrEHH3+Iw41MQ0w/djVtYr1+HYldx0QmYXAtnhIj+UMCAwEAAaOCAtkw
+ggLVMAkGA1UdEwQCMAAwCwYDVR0PBAQDAgSwMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcD
+BDAdBgNVHQ4EFgQUszC96C3w5/2+d+atSr0IpT26YI4wHwYDVR0jBBgwFoAUU3Ltkpzg2ssBXHx+
+ljVO8tS4UYIwHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzCCAUwGA1UdIASCAUMwggE/
+MIIBOwYLKwYBBAGBtTcBAgMwggEqMC4GCCsGAQUFBwIBFiJodHRwOi8vd3d3LnN0YXJ0c3NsLmNv
+bS9wb2xpY3kucGRmMIH3BggrBgEFBQcCAjCB6jAnFiBTdGFydENvbSBDZXJ0aWZpY2F0aW9uIEF1
+dGhvcml0eTADAgEBGoG+VGhpcyBjZXJ0aWZpY2F0ZSB3YXMgaXNzdWVkIGFjY29yZGluZyB0byB0
+aGUgQ2xhc3MgMSBWYWxpZGF0aW9uIHJlcXVpcmVtZW50cyBvZiB0aGUgU3RhcnRDb20gQ0EgcG9s
+aWN5LCByZWxpYW5jZSBvbmx5IGZvciB0aGUgaW50ZW5kZWQgcHVycG9zZSBpbiBjb21wbGlhbmNl
+IG9mIHRoZSByZWx5aW5nIHBhcnR5IG9ibGlnYXRpb25zLjA2BgNVHR8ELzAtMCugKaAnhiVodHRw
+Oi8vY3JsLnN0YXJ0c3NsLmNvbS9jcnR1MS1jcmwuY3JsMIGOBggrBgEFBQcBAQSBgTB/MDkGCCsG
+AQUFBzABhi1odHRwOi8vb2NzcC5zdGFydHNzbC5jb20vc3ViL2NsYXNzMS9jbGllbnQvY2EwQgYI
+KwYBBQUHMAKGNmh0dHA6Ly9haWEuc3RhcnRzc2wuY29tL2NlcnRzL3N1Yi5jbGFzczEuY2xpZW50
+LmNhLmNydDAjBgNVHRIEHDAahhhodHRwOi8vd3d3LnN0YXJ0c3NsLmNvbS8wDQYJKoZIhvcNAQEF
+BQADggEBAHMQmxHHodpS85X8HRyxhvfkys7r+taCNOaNU9cxQu/cZ/6k5nS2qGNMzZ6jb7ueY/V7
+7p+4DW/9ZWODDTf4Fz00mh5SSVc20Bz7t+hhxwHd62PZgENh5i76Qq2tw48U8AsYo5damHby1epf
+neZafLpUkLLO7AGBJIiRVTevdvyXQ0qnixOmKMWyvrhSNGuVIKVdeqLP+102Dwf+dpFyw+j1hz28
+jEEKpHa+NR1b2kXuSPi/rMGhexwlJOh4tK8KQ6Ryr0rIN//NSbOgbyYZrzc/ZUWX9V5OA84ChFb2
+vkFl0OcYrttp/rhDBLITwffPxSZeoBh9H7zYzkbCXKL3BUIwggYnMIIFD6ADAgECAgMN7zcwDQYJ
+KoZIhvcNAQEFBQAwgYwxCzAJBgNVBAYTAklMMRYwFAYDVQQKEw1TdGFydENvbSBMdGQuMSswKQYD
+VQQLEyJTZWN1cmUgRGlnaXRhbCBDZXJ0aWZpY2F0ZSBTaWduaW5nMTgwNgYDVQQDEy9TdGFydENv
+bSBDbGFzcyAxIFByaW1hcnkgSW50ZXJtZWRpYXRlIENsaWVudCBDQTAeFw0xNTA1MDUwOTQzNDFa
+Fw0xNjA1MDUwOTUzMzZaMEIxHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcxIjAgBgkqhkiG
+9w0BCQEWE2R3bXcyQGluZnJhZGVhZC5vcmcwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIB
+AQDJG5vZD28dY/1+EVcn/6TykmMHpXHKOvU750EGyjPJvMZFo1ySNY6SdYzGhlGRhU6CDTEmYu5W
+WsFKM7nVm10istUopBDUkyR337HUQCJbKfoUfL1r47ClK8urBHajxnaGuUWO/jeFkbrFmQ2Fv0UV
+hOovRC/alfOglT2KsNtlATlMOP4/x1Rglek0gfMhOYhMIZP4VLs0axWZtTCTEe5gkuwQkfC6+YxW
+OtZVqQYlzVyMS2Qrw3NuikeS+bWF+N4lFTt38xEtRkVaGJ8cZNrZs33LGRubyvk63PS/DmSX5GKx
+Bx9/iMONTENMP3Y1bWK9fh2JXcdEJmFwLZ4SI/lDAgMBAAGjggLZMIIC1TAJBgNVHRMEAjAAMAsG
+A1UdDwQEAwIEsDAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwHQYDVR0OBBYEFLMwvegt
+8Of9vnfmrUq9CKU9umCOMB8GA1UdIwQYMBaAFFNy7ZKc4NrLAVx8fpY1TvLUuFGCMB4GA1UdEQQX
+MBWBE2R3bXcyQGluZnJhZGVhZC5vcmcwggFMBgNVHSAEggFDMIIBPzCCATsGCysGAQQBgbU3AQID
+MIIBKjAuBggrBgEFBQcCARYiaHR0cDovL3d3dy5zdGFydHNzbC5jb20vcG9saWN5LnBkZjCB9wYI
+KwYBBQUHAgIwgeowJxYgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkwAwIBARqBvlRo
+aXMgY2VydGlmaWNhdGUgd2FzIGlzc3VlZCBhY2NvcmRpbmcgdG8gdGhlIENsYXNzIDEgVmFsaWRh
+dGlvbiByZXF1aXJlbWVudHMgb2YgdGhlIFN0YXJ0Q29tIENBIHBvbGljeSwgcmVsaWFuY2Ugb25s
+eSBmb3IgdGhlIGludGVuZGVkIHB1cnBvc2UgaW4gY29tcGxpYW5jZSBvZiB0aGUgcmVseWluZyBw
+YXJ0eSBvYmxpZ2F0aW9ucy4wNgYDVR0fBC8wLTAroCmgJ4YlaHR0cDovL2NybC5zdGFydHNzbC5j
+b20vY3J0dTEtY3JsLmNybDCBjgYIKwYBBQUHAQEEgYEwfzA5BggrBgEFBQcwAYYtaHR0cDovL29j
+c3Auc3RhcnRzc2wuY29tL3N1Yi9jbGFzczEvY2xpZW50L2NhMEIGCCsGAQUFBzAChjZodHRwOi8v
+YWlhLnN0YXJ0c3NsLmNvbS9jZXJ0cy9zdWIuY2xhc3MxLmNsaWVudC5jYS5jcnQwIwYDVR0SBBww
+GoYYaHR0cDovL3d3dy5zdGFydHNzbC5jb20vMA0GCSqGSIb3DQEBBQUAA4IBAQBzEJsRx6HaUvOV
+/B0csYb35MrO6/rWgjTmjVPXMULv3Gf+pOZ0tqhjTM2eo2+7nmP1e+6fuA1v/WVjgw03+Bc9NJoe
+UklXNtAc+7foYccB3etj2YBDYeYu+kKtrcOPFPALGKOXWph28tXqX53mWny6VJCyzuwBgSSIkVU3
+r3b8l0NKp4sTpijFsr64UjRrlSClXXqiz/tdNg8H/naRcsPo9Yc9vIxBCqR2vjUdW9pF7kj4v6zB
+oXscJSToeLSvCkOkcq9KyDf/zUmzoG8mGa83P2VFl/VeTgPOAoRW9r5BZdDnGK7baf64QwSyE8H3
+z8UmXqAYfR+82M5Gwlyi9wVCMIIGNDCCBBygAwIBAgIBHjANBgkqhkiG9w0BAQUFADB9MQswCQYD
+VQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRkLjErMCkGA1UECxMiU2VjdXJlIERpZ2l0YWwg
+Q2VydGlmaWNhdGUgU2lnbmluZzEpMCcGA1UEAxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRo
+b3JpdHkwHhcNMDcxMDI0MjEwMTU1WhcNMTcxMDI0MjEwMTU1WjCBjDELMAkGA1UEBhMCSUwxFjAU
+BgNVBAoTDVN0YXJ0Q29tIEx0ZC4xKzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRl
+IFNpZ25pbmcxODA2BgNVBAMTL1N0YXJ0Q29tIENsYXNzIDEgUHJpbWFyeSBJbnRlcm1lZGlhdGUg
+Q2xpZW50IENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxwmDzM4t2BqxKaQuE6uW
+vooyg4ymiEGWVUet1G8SD+rqvyNH4QrvnEIaFHxOhESip7vMz39ScLpNLbL1QpOlPW/tFIzNHS3q
+d2XRNYG5Sv9RcGE+T4qbLtsjjJbi6sL7Ls/f/X9ftTyhxvxWkf8KW37iKrueKsxw2HqolH7GM6FX
+5UfNAwAu4ZifkpmZzU1slBhyWwaQPEPPZRsWoTb7q8hmgv6Nv3Hg9rmA1/VPBIOQ6SKRkHXG0Hhm
+q1dOFoAFI411+a/9nWm5rcVjGcIWZ2v/43Yksq60jExipA4l5uv9/+Hm33mbgmCszdj/Dthf13tg
+Av2O83hLJ0exTqfrlwIDAQABo4IBrTCCAakwDwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8EBAMC
+AQYwHQYDVR0OBBYEFFNy7ZKc4NrLAVx8fpY1TvLUuFGCMB8GA1UdIwQYMBaAFE4L7xqkQFulF2mH
+MMo0aEPQQa7yMGYGCCsGAQUFBwEBBFowWDAnBggrBgEFBQcwAYYbaHR0cDovL29jc3Auc3RhcnRz
+c2wuY29tL2NhMC0GCCsGAQUFBzAChiFodHRwOi8vd3d3LnN0YXJ0c3NsLmNvbS9zZnNjYS5jcnQw
+WwYDVR0fBFQwUjAnoCWgI4YhaHR0cDovL3d3dy5zdGFydHNzbC5jb20vc2ZzY2EuY3JsMCegJaAj
+hiFodHRwOi8vY3JsLnN0YXJ0c3NsLmNvbS9zZnNjYS5jcmwwgYAGA1UdIAR5MHcwdQYLKwYBBAGB
+tTcBAgEwZjAuBggrBgEFBQcCARYiaHR0cDovL3d3dy5zdGFydHNzbC5jb20vcG9saWN5LnBkZjA0
+BggrBgEFBQcCARYoaHR0cDovL3d3dy5zdGFydHNzbC5jb20vaW50ZXJtZWRpYXRlLnBkZjANBgkq
+hkiG9w0BAQUFAAOCAgEACoMIfXirLAZcuGOMXq4cuSN3TaFx2H2GvD5VSy/6rV55BYHbWNaPeQn3
+oBSU8KgQZn/Kck1JxbLpAxVCNtsxeW1R87ifhsYZ0qjdrA9anrW2MAWCtosmAOT4OxK9QPoSjCMx
+M3HbkZCDJgnlE8jMopH21BbyAYr7b5EfGRQJNtgWcvqSXwKHnTutR08+Kkn0KAkXCzeQNLeA5LlY
+UzFyM7kPAp8pIRMQ+seHunmyG642S2+y/qHEdMuGIwpfz3eDF1PdctL04qYK/zu+Qg1Bw0RwgigV
+Zs/0c5HP2/e9DBHh7eSwtzYlk4AUr6yxLlcwSjOfOmKEQ/Q8tzh0IFiNu9IPuTGAPBn4CPxD0+Ru
+8T2wg8/s43R/PT3kd1OEqOJUl7q+h+r6fpvU0Fzxd2tC8Ga6fDEPme+1Nbi+03pVjuZQKbGwKJ66
+gEn06WqaxVZC+J8hh/jR0k9mST1iAZPNYulcNJ8tKmVtjYsv0L1TSm2+NwON58tO+pIVzu3DWwSE
+XSf+qkDavQam+QtEOZxLBXI++aMUEapSn+k3Lxm48ZCYfAWLb/Xj7F5JQMbZvCexglAbYR0kIHqW
+5DnsYSdMD/IplJMojx0NBrxJ3fN9dvX2Y6BIXRsF1du4qESm4/3CKuyUV7p9DW3mPlHTGLvYxnyK
+Qy7VFBkoLINszBrOUeIxggNvMIIDawIBATCBlDCBjDELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0
+YXJ0Q29tIEx0ZC4xKzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRlIFNpZ25pbmcx
+ODA2BgNVBAMTL1N0YXJ0Q29tIENsYXNzIDEgUHJpbWFyeSBJbnRlcm1lZGlhdGUgQ2xpZW50IENB
+AgMN7zcwCQYFKw4DAhoFAKCCAa8wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0B
+CQUxDxcNMTUwNzMwMDgwODU3WjAjBgkqhkiG9w0BCQQxFgQU6jWCUaZxnPB2tMLPLd6/abJBvUgw
+gaUGCSsGAQQBgjcQBDGBlzCBlDCBjDELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0YXJ0Q29tIEx0
+ZC4xKzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRlIFNpZ25pbmcxODA2BgNVBAMT
+L1N0YXJ0Q29tIENsYXNzIDEgUHJpbWFyeSBJbnRlcm1lZGlhdGUgQ2xpZW50IENBAgMN7zcwgacG
+CyqGSIb3DQEJEAILMYGXoIGUMIGMMQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRk
+LjErMCkGA1UECxMiU2VjdXJlIERpZ2l0YWwgQ2VydGlmaWNhdGUgU2lnbmluZzE4MDYGA1UEAxMv
+U3RhcnRDb20gQ2xhc3MgMSBQcmltYXJ5IEludGVybWVkaWF0ZSBDbGllbnQgQ0ECAw3vNzANBgkq
+hkiG9w0BAQEFAASCAQCZEdfAwh0E6Nt/M1YSJZaxajO+rz3VDK/TUM+qZAcY9osNkuzdQ4AMUyRP
+lUCz60OxscvU2TURH0s4hce/YTQVJXDe1+EDimDABXqUKk2x8cGMKyfHw1cce6Kfv0PtAn4DkXaP
+Q1EsPJ25gHaP/AS7cdA8GpWEI1jmXIam9B8JHqmsWpeAICkw/LbyI67QfavHZ37XIX+Pgi243Jpa
+KZCtYcd5/tvAf5ALryVHxXSdgH5Kae6D2dNI4UfdqonhcUY441HxsGsBoAqzsKGdMQ6luHkc80/S
+n3CLB6w+BlFC4tZ/ZR3wrhSS1Y7eHmW3cQlU1cWW4niXnY/iiF10AQr4AAAAAAAA
+
+
+--=-eX6mLmeP1g7n5s6wclBP--
