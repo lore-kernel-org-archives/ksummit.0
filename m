@@ -1,38 +1,25 @@
-Return-Path: <BATV+ecb4f46f0ee6882e23b0+4358+infradead.org+dwmw2@casper.srs.infradead.org>
+Return-Path: <benh@kernel.crashing.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B705B499
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2CFB1268
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 30 Jul 2015 19:17:04 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [85.118.1.10])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4DB2917E
+	Thu, 30 Jul 2015 22:37:31 +0000 (UTC)
+Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 535F11C4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 30 Jul 2015 19:17:04 +0000 (UTC)
-Message-ID: <1438283820.26511.243.camel@infradead.org>
-From: David Woodhouse <dwmw2@infradead.org>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Date: Thu, 30 Jul 2015 20:17:00 +0100
-In-Reply-To: <1438273046.2229.37.camel@HansenPartnership.com>
-References: <20436.1438090619@warthog.procyon.org.uk>
-	<20150728183610.GB5307@cloud>
-	<1438109061.5441.202.camel@HansenPartnership.com>
-	<20150728185428.GD5307@cloud> <20150728213805.GA8786@kroah.com>
-	<1438162660.26913.230.camel@infradead.org>
-	<1438182000.2204.35.camel@HansenPartnership.com>
-	<1438184150.26511.77.camel@infradead.org>
-	<1438187888.2204.83.camel@HansenPartnership.com>
-	<1438191159.26511.91.camel@infradead.org>
-	<1438213176.2204.152.camel@HansenPartnership.com>
-	<1438243737.26511.114.camel@infradead.org>
-	<1438264121.2229.11.camel@HansenPartnership.com>
-	<1438268514.26511.216.camel@infradead.org>
-	<1438273046.2229.37.camel@HansenPartnership.com>
-Content-Type: multipart/signed; micalg="sha-1";
-	protocol="application/x-pkcs7-signature";
-	boundary="=-6nySrU/S1fiFMFT2LQqC"
+	Thu, 30 Jul 2015 22:37:29 +0000 (UTC)
+Message-ID: <1438295541.14073.52.camel@kernel.crashing.org>
+From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+To: Joerg Roedel <joro@8bytes.org>
+Date: Fri, 31 Jul 2015 08:32:21 +1000
+In-Reply-To: <20150730130027.GA14980@8bytes.org>
+References: <20150730130027.GA14980@8bytes.org>
+Content-Type: text/plain; charset="UTF-8"
 Mime-Version: 1.0
-Cc: mcgrof@gmail.com, ksummit-discuss@lists.linuxfoundation.org, jkkm@jkkm.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Firmware signing
+Content-Transfer-Encoding: 8bit
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Core Kernel support for
+ Compute-Offload Devices
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -42,159 +29,109 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Thu, 2015-07-30 at 15:00 +0200, Joerg Roedel wrote:
+> [
+>  The topic is highly technical and could be a tech topic. But it also
+>  touches multiple subsystems, so I decided to submit it as a core
+>  topic.
+> ]
+> 
+> Across architectures and vendors there are new devices coming up for
+> offloading tasks from the CPUs. Most of these devices are capable to
+> operate on user address spaces.
 
---=-6nySrU/S1fiFMFT2LQqC
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+There is cross-overs with the proposed FPGA topic as well, for example
+CAPI is typically FPGA's that can operate on user address spaces ;-)
 
-On Thu, 2015-07-30 at 09:17 -0700, James Bottomley wrote:
-> Well as you know, we disagree.  To me it reads like=20
+> Besides the commonalities there are important differences in the memory
+> model these devices offer. Some work only on system RAM, others come
+> with their own memory which may or may not be accessible by the CPU.
+> 
+> I'd like to discuss what support we need in the core kernel for these
+> devices. A probably incomplete list of open questions:
 
-Thank you. I'm happy enough seeing "to me it reads like", followed by
-something I disagree with, rather than a claim of absolute truth.
-Especially in a case where we're hypothesising about what a court
-*might* rule, and we all know that courts can do entirely insane
-things.
+I would definitely like to attend this.
 
-That was the reason I jumped in.
+> 	(1) Do we need the concept of an off-CPU task in the kernel
+> 	    together with a common interface to create and manage them
+> 	    and probably a (collection of) batch scheduler(s) for these
+> 	    tasks?
 
-I'm still kind of interested in what you think it means in the
-paragraph which explicitly refers to identifiable sections of a work
-which are "not derived from the Program, and can be reasonably
-considered independent and separate works in themselves", and concludes
-with the words "to each and every part regardless of who wrote it".=20
+It might be interesting at least to cleanup how we handle & account page
+faults for these things. Scheduling is a different matter, for CAPI for
+example the scheduling is entirely done in HW. For things like GPU, it's
+a mixture of HW and generally some kind of on-GPU kernel isn't it ?
+Quite proprietary in any case. Back in the Cell days, the kernel did
+schedule the SPUs so this would have been a use case of what you
+propose.
 
-As I understand your viewpoint so far, you seem to have rendered that
-whole paragraph entirely meaningless. But having got to this point I'm
-not sure I'm interested *enough* to continue that part of the
-conversation :)
+So I'd think that such an off-core scheduler, while a useful thing for
+some of these devices, should be an optional component, ie, the other
+functionalities shouldn't necessarily depend on it.
 
-> The original question wasn't about that, it was
-> whether shipping firmware as part of the kernel source tree would=20
-> cause potential legal jeopardy for onward distributors.  The answer=20
-> is no, as you agree above.
+> 	(2) Changes in memory management for devices accessing user
+> 	    address spaces:
+> 	    
+> 	    (2.1) How can we best support the different memory models
+> 	          these devices support?
+> 	    
+> 	    (2.2) How do we handle the off-CPU users of an mm_struct?
+> 	    
+> 	    (2.3) How can we attach common state for off-CPU tasks to
+> 	          mm_struct (and what needs to be in there)?
 
-In the circumstance where the kernel is considered a joint work and its
-authors are considered to have consented to that inclusion, sure.
+Right. Some of this (GPUs, MLX) use the proposed HMM infrastructure that
+Jerome Glisse have been developing, so he would be an interested party
+here, which hooks into the existing MM. Some of these like CAPI (or more
+stuff I can't quite talk about just yet) will just share the MMU data
+structures (direct access to the host page tables).
 
-But estoppel doesn't help if we've pulled in GPL'd code from third
-parties (which we have), and if *those* third parties object to the
-combination of their code in a way that (as you said we could suppose
-for the sake of argument) violates the GPL. Which they might.
+The refcounting of mm_struct comes to mind, but also, dealing with the
+tracking of which CPU accessed a given context (for example, on POWER,
+with CAPI, we need to "upgrade" to global tlb invalidations even for
+single threaded apps if the context was used by such an accelerator).
 
-In that case, *we* have violated the licence of the third party code
-that we pulled in. That doesn't give onward distributors a free pass.
+> 	(3) Does it make sense to implement automatic migration of
+> 	    system memory to device memory (when available) and vice
+> 	    versa? How do we decide what and when to migrate?
 
-But Tim is right; this discussion is probably not really beneficial.
+Definitely a hot subject. I don't now if you have seen the "proposal"
+that Paul McKenney posted a while back. This is in part what HMM does
+for non-cache-coherent devices. There are lots of open questions for
+cache-coherent ones, such as should we provide struct page for them, how
+do we keep normal kernel allocs off the device, etc... ideas like
+memory-only NUMA nodes with large distance did crop up.
 
---=20
-dwmw2
+> 	(4) What features do we require in the hardware to support it
+> 	    with a common interface?
+>
+> I think it would be great if the kernel would have a common interface
+> for these kind of devices. Currently every vendor develops its own
+> interface with various hacks to work around core code behavior.
+> 
+> I am particularily interested in this topic because on PCIe newer IOMMUs
+> are often an integral part in supporting these devices (ARM-SMMUv3,
+> Intel VT-d with SVM, AMD IOMMUv2). so that core work here will also
+> touch the IOMMU code.
+> 
+> Probably (uncomplete list of) interested people:
+> 
+> 	David Woodhouse
+> 	Jesse Barnes
+> 	Will Deacon
+> 	Paul E. McKenney
+> 	Rik van Riel
+> 	Mel Gorman
+> 	Andrea Arcangeli
+> 	Christoph Lameter
+> 	Jérôme Glisse
 
---=-6nySrU/S1fiFMFT2LQqC
-Content-Type: application/x-pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
+Add me :)
 
-MIAGCSqGSIb3DQEHAqCAMIACAQExCzAJBgUrDgMCGgUAMIAGCSqGSIb3DQEHAQAAoIISjjCCBicw
-ggUPoAMCAQICAw3vNzANBgkqhkiG9w0BAQUFADCBjDELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0
-YXJ0Q29tIEx0ZC4xKzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRlIFNpZ25pbmcx
-ODA2BgNVBAMTL1N0YXJ0Q29tIENsYXNzIDEgUHJpbWFyeSBJbnRlcm1lZGlhdGUgQ2xpZW50IENB
-MB4XDTE1MDUwNTA5NDM0MVoXDTE2MDUwNTA5NTMzNlowQjEcMBoGA1UEAwwTZHdtdzJAaW5mcmFk
-ZWFkLm9yZzEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCASIwDQYJKoZIhvcN
-AQEBBQADggEPADCCAQoCggEBAMkbm9kPbx1j/X4RVyf/pPKSYwelcco69TvnQQbKM8m8xkWjXJI1
-jpJ1jMaGUZGFToINMSZi7lZawUozudWbXSKy1SikENSTJHffsdRAIlsp+hR8vWvjsKUry6sEdqPG
-doa5RY7+N4WRusWZDYW/RRWE6i9EL9qV86CVPYqw22UBOUw4/j/HVGCV6TSB8yE5iEwhk/hUuzRr
-FZm1MJMR7mCS7BCR8Lr5jFY61lWpBiXNXIxLZCvDc26KR5L5tYX43iUVO3fzES1GRVoYnxxk2tmz
-fcsZG5vK+Trc9L8OZJfkYrEHH3+Iw41MQ0w/djVtYr1+HYldx0QmYXAtnhIj+UMCAwEAAaOCAtkw
-ggLVMAkGA1UdEwQCMAAwCwYDVR0PBAQDAgSwMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcD
-BDAdBgNVHQ4EFgQUszC96C3w5/2+d+atSr0IpT26YI4wHwYDVR0jBBgwFoAUU3Ltkpzg2ssBXHx+
-ljVO8tS4UYIwHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzCCAUwGA1UdIASCAUMwggE/
-MIIBOwYLKwYBBAGBtTcBAgMwggEqMC4GCCsGAQUFBwIBFiJodHRwOi8vd3d3LnN0YXJ0c3NsLmNv
-bS9wb2xpY3kucGRmMIH3BggrBgEFBQcCAjCB6jAnFiBTdGFydENvbSBDZXJ0aWZpY2F0aW9uIEF1
-dGhvcml0eTADAgEBGoG+VGhpcyBjZXJ0aWZpY2F0ZSB3YXMgaXNzdWVkIGFjY29yZGluZyB0byB0
-aGUgQ2xhc3MgMSBWYWxpZGF0aW9uIHJlcXVpcmVtZW50cyBvZiB0aGUgU3RhcnRDb20gQ0EgcG9s
-aWN5LCByZWxpYW5jZSBvbmx5IGZvciB0aGUgaW50ZW5kZWQgcHVycG9zZSBpbiBjb21wbGlhbmNl
-IG9mIHRoZSByZWx5aW5nIHBhcnR5IG9ibGlnYXRpb25zLjA2BgNVHR8ELzAtMCugKaAnhiVodHRw
-Oi8vY3JsLnN0YXJ0c3NsLmNvbS9jcnR1MS1jcmwuY3JsMIGOBggrBgEFBQcBAQSBgTB/MDkGCCsG
-AQUFBzABhi1odHRwOi8vb2NzcC5zdGFydHNzbC5jb20vc3ViL2NsYXNzMS9jbGllbnQvY2EwQgYI
-KwYBBQUHMAKGNmh0dHA6Ly9haWEuc3RhcnRzc2wuY29tL2NlcnRzL3N1Yi5jbGFzczEuY2xpZW50
-LmNhLmNydDAjBgNVHRIEHDAahhhodHRwOi8vd3d3LnN0YXJ0c3NsLmNvbS8wDQYJKoZIhvcNAQEF
-BQADggEBAHMQmxHHodpS85X8HRyxhvfkys7r+taCNOaNU9cxQu/cZ/6k5nS2qGNMzZ6jb7ueY/V7
-7p+4DW/9ZWODDTf4Fz00mh5SSVc20Bz7t+hhxwHd62PZgENh5i76Qq2tw48U8AsYo5damHby1epf
-neZafLpUkLLO7AGBJIiRVTevdvyXQ0qnixOmKMWyvrhSNGuVIKVdeqLP+102Dwf+dpFyw+j1hz28
-jEEKpHa+NR1b2kXuSPi/rMGhexwlJOh4tK8KQ6Ryr0rIN//NSbOgbyYZrzc/ZUWX9V5OA84ChFb2
-vkFl0OcYrttp/rhDBLITwffPxSZeoBh9H7zYzkbCXKL3BUIwggYnMIIFD6ADAgECAgMN7zcwDQYJ
-KoZIhvcNAQEFBQAwgYwxCzAJBgNVBAYTAklMMRYwFAYDVQQKEw1TdGFydENvbSBMdGQuMSswKQYD
-VQQLEyJTZWN1cmUgRGlnaXRhbCBDZXJ0aWZpY2F0ZSBTaWduaW5nMTgwNgYDVQQDEy9TdGFydENv
-bSBDbGFzcyAxIFByaW1hcnkgSW50ZXJtZWRpYXRlIENsaWVudCBDQTAeFw0xNTA1MDUwOTQzNDFa
-Fw0xNjA1MDUwOTUzMzZaMEIxHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcxIjAgBgkqhkiG
-9w0BCQEWE2R3bXcyQGluZnJhZGVhZC5vcmcwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIB
-AQDJG5vZD28dY/1+EVcn/6TykmMHpXHKOvU750EGyjPJvMZFo1ySNY6SdYzGhlGRhU6CDTEmYu5W
-WsFKM7nVm10istUopBDUkyR337HUQCJbKfoUfL1r47ClK8urBHajxnaGuUWO/jeFkbrFmQ2Fv0UV
-hOovRC/alfOglT2KsNtlATlMOP4/x1Rglek0gfMhOYhMIZP4VLs0axWZtTCTEe5gkuwQkfC6+YxW
-OtZVqQYlzVyMS2Qrw3NuikeS+bWF+N4lFTt38xEtRkVaGJ8cZNrZs33LGRubyvk63PS/DmSX5GKx
-Bx9/iMONTENMP3Y1bWK9fh2JXcdEJmFwLZ4SI/lDAgMBAAGjggLZMIIC1TAJBgNVHRMEAjAAMAsG
-A1UdDwQEAwIEsDAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwHQYDVR0OBBYEFLMwvegt
-8Of9vnfmrUq9CKU9umCOMB8GA1UdIwQYMBaAFFNy7ZKc4NrLAVx8fpY1TvLUuFGCMB4GA1UdEQQX
-MBWBE2R3bXcyQGluZnJhZGVhZC5vcmcwggFMBgNVHSAEggFDMIIBPzCCATsGCysGAQQBgbU3AQID
-MIIBKjAuBggrBgEFBQcCARYiaHR0cDovL3d3dy5zdGFydHNzbC5jb20vcG9saWN5LnBkZjCB9wYI
-KwYBBQUHAgIwgeowJxYgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkwAwIBARqBvlRo
-aXMgY2VydGlmaWNhdGUgd2FzIGlzc3VlZCBhY2NvcmRpbmcgdG8gdGhlIENsYXNzIDEgVmFsaWRh
-dGlvbiByZXF1aXJlbWVudHMgb2YgdGhlIFN0YXJ0Q29tIENBIHBvbGljeSwgcmVsaWFuY2Ugb25s
-eSBmb3IgdGhlIGludGVuZGVkIHB1cnBvc2UgaW4gY29tcGxpYW5jZSBvZiB0aGUgcmVseWluZyBw
-YXJ0eSBvYmxpZ2F0aW9ucy4wNgYDVR0fBC8wLTAroCmgJ4YlaHR0cDovL2NybC5zdGFydHNzbC5j
-b20vY3J0dTEtY3JsLmNybDCBjgYIKwYBBQUHAQEEgYEwfzA5BggrBgEFBQcwAYYtaHR0cDovL29j
-c3Auc3RhcnRzc2wuY29tL3N1Yi9jbGFzczEvY2xpZW50L2NhMEIGCCsGAQUFBzAChjZodHRwOi8v
-YWlhLnN0YXJ0c3NsLmNvbS9jZXJ0cy9zdWIuY2xhc3MxLmNsaWVudC5jYS5jcnQwIwYDVR0SBBww
-GoYYaHR0cDovL3d3dy5zdGFydHNzbC5jb20vMA0GCSqGSIb3DQEBBQUAA4IBAQBzEJsRx6HaUvOV
-/B0csYb35MrO6/rWgjTmjVPXMULv3Gf+pOZ0tqhjTM2eo2+7nmP1e+6fuA1v/WVjgw03+Bc9NJoe
-UklXNtAc+7foYccB3etj2YBDYeYu+kKtrcOPFPALGKOXWph28tXqX53mWny6VJCyzuwBgSSIkVU3
-r3b8l0NKp4sTpijFsr64UjRrlSClXXqiz/tdNg8H/naRcsPo9Yc9vIxBCqR2vjUdW9pF7kj4v6zB
-oXscJSToeLSvCkOkcq9KyDf/zUmzoG8mGa83P2VFl/VeTgPOAoRW9r5BZdDnGK7baf64QwSyE8H3
-z8UmXqAYfR+82M5Gwlyi9wVCMIIGNDCCBBygAwIBAgIBHjANBgkqhkiG9w0BAQUFADB9MQswCQYD
-VQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRkLjErMCkGA1UECxMiU2VjdXJlIERpZ2l0YWwg
-Q2VydGlmaWNhdGUgU2lnbmluZzEpMCcGA1UEAxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRo
-b3JpdHkwHhcNMDcxMDI0MjEwMTU1WhcNMTcxMDI0MjEwMTU1WjCBjDELMAkGA1UEBhMCSUwxFjAU
-BgNVBAoTDVN0YXJ0Q29tIEx0ZC4xKzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRl
-IFNpZ25pbmcxODA2BgNVBAMTL1N0YXJ0Q29tIENsYXNzIDEgUHJpbWFyeSBJbnRlcm1lZGlhdGUg
-Q2xpZW50IENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxwmDzM4t2BqxKaQuE6uW
-vooyg4ymiEGWVUet1G8SD+rqvyNH4QrvnEIaFHxOhESip7vMz39ScLpNLbL1QpOlPW/tFIzNHS3q
-d2XRNYG5Sv9RcGE+T4qbLtsjjJbi6sL7Ls/f/X9ftTyhxvxWkf8KW37iKrueKsxw2HqolH7GM6FX
-5UfNAwAu4ZifkpmZzU1slBhyWwaQPEPPZRsWoTb7q8hmgv6Nv3Hg9rmA1/VPBIOQ6SKRkHXG0Hhm
-q1dOFoAFI411+a/9nWm5rcVjGcIWZ2v/43Yksq60jExipA4l5uv9/+Hm33mbgmCszdj/Dthf13tg
-Av2O83hLJ0exTqfrlwIDAQABo4IBrTCCAakwDwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8EBAMC
-AQYwHQYDVR0OBBYEFFNy7ZKc4NrLAVx8fpY1TvLUuFGCMB8GA1UdIwQYMBaAFE4L7xqkQFulF2mH
-MMo0aEPQQa7yMGYGCCsGAQUFBwEBBFowWDAnBggrBgEFBQcwAYYbaHR0cDovL29jc3Auc3RhcnRz
-c2wuY29tL2NhMC0GCCsGAQUFBzAChiFodHRwOi8vd3d3LnN0YXJ0c3NsLmNvbS9zZnNjYS5jcnQw
-WwYDVR0fBFQwUjAnoCWgI4YhaHR0cDovL3d3dy5zdGFydHNzbC5jb20vc2ZzY2EuY3JsMCegJaAj
-hiFodHRwOi8vY3JsLnN0YXJ0c3NsLmNvbS9zZnNjYS5jcmwwgYAGA1UdIAR5MHcwdQYLKwYBBAGB
-tTcBAgEwZjAuBggrBgEFBQcCARYiaHR0cDovL3d3dy5zdGFydHNzbC5jb20vcG9saWN5LnBkZjA0
-BggrBgEFBQcCARYoaHR0cDovL3d3dy5zdGFydHNzbC5jb20vaW50ZXJtZWRpYXRlLnBkZjANBgkq
-hkiG9w0BAQUFAAOCAgEACoMIfXirLAZcuGOMXq4cuSN3TaFx2H2GvD5VSy/6rV55BYHbWNaPeQn3
-oBSU8KgQZn/Kck1JxbLpAxVCNtsxeW1R87ifhsYZ0qjdrA9anrW2MAWCtosmAOT4OxK9QPoSjCMx
-M3HbkZCDJgnlE8jMopH21BbyAYr7b5EfGRQJNtgWcvqSXwKHnTutR08+Kkn0KAkXCzeQNLeA5LlY
-UzFyM7kPAp8pIRMQ+seHunmyG642S2+y/qHEdMuGIwpfz3eDF1PdctL04qYK/zu+Qg1Bw0RwgigV
-Zs/0c5HP2/e9DBHh7eSwtzYlk4AUr6yxLlcwSjOfOmKEQ/Q8tzh0IFiNu9IPuTGAPBn4CPxD0+Ru
-8T2wg8/s43R/PT3kd1OEqOJUl7q+h+r6fpvU0Fzxd2tC8Ga6fDEPme+1Nbi+03pVjuZQKbGwKJ66
-gEn06WqaxVZC+J8hh/jR0k9mST1iAZPNYulcNJ8tKmVtjYsv0L1TSm2+NwON58tO+pIVzu3DWwSE
-XSf+qkDavQam+QtEOZxLBXI++aMUEapSn+k3Lxm48ZCYfAWLb/Xj7F5JQMbZvCexglAbYR0kIHqW
-5DnsYSdMD/IplJMojx0NBrxJ3fN9dvX2Y6BIXRsF1du4qESm4/3CKuyUV7p9DW3mPlHTGLvYxnyK
-Qy7VFBkoLINszBrOUeIxggNvMIIDawIBATCBlDCBjDELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0
-YXJ0Q29tIEx0ZC4xKzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRlIFNpZ25pbmcx
-ODA2BgNVBAMTL1N0YXJ0Q29tIENsYXNzIDEgUHJpbWFyeSBJbnRlcm1lZGlhdGUgQ2xpZW50IENB
-AgMN7zcwCQYFKw4DAhoFAKCCAa8wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0B
-CQUxDxcNMTUwNzMwMTkxNzAwWjAjBgkqhkiG9w0BCQQxFgQUm97iomd2HWRbCeWLJ4KVcxI50L8w
-gaUGCSsGAQQBgjcQBDGBlzCBlDCBjDELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0YXJ0Q29tIEx0
-ZC4xKzApBgNVBAsTIlNlY3VyZSBEaWdpdGFsIENlcnRpZmljYXRlIFNpZ25pbmcxODA2BgNVBAMT
-L1N0YXJ0Q29tIENsYXNzIDEgUHJpbWFyeSBJbnRlcm1lZGlhdGUgQ2xpZW50IENBAgMN7zcwgacG
-CyqGSIb3DQEJEAILMYGXoIGUMIGMMQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRk
-LjErMCkGA1UECxMiU2VjdXJlIERpZ2l0YWwgQ2VydGlmaWNhdGUgU2lnbmluZzE4MDYGA1UEAxMv
-U3RhcnRDb20gQ2xhc3MgMSBQcmltYXJ5IEludGVybWVkaWF0ZSBDbGllbnQgQ0ECAw3vNzANBgkq
-hkiG9w0BAQEFAASCAQBTYD1iGSk9edb0JjPNR04r1p7paygo6g4xSe7fK6FJaTbcordH2dQaZQfc
-8J+JCCSIcOAy/iDnF+hsh5y2lPRyDh/nRhAM2gJP57nx66Go2B/ofPDnbSHq5mUoRIJ2PugaNmF0
-2nmSIwNEAttsD8Ehxl9dhVxl95Dw2ItY80EHV06f2iHlNXbzocib3CTZbJo8Uy8Y9wL3Pv892rOi
-VU4/mTdxZKief4xjKXt+nY6R0JxDbMuhBnxszKgm1DZLFuIchPJ5UhItODdmw8nfa06ABoQ/Dr4V
-2mSzA8Z4hmFtkVLII5U2HgKoSvJMa3yftXWUHWxi/+86dalltfy7joHbAAAAAAAA
+Cheers,
+Ben.
 
-
---=-6nySrU/S1fiFMFT2LQqC--
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
