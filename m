@@ -1,33 +1,37 @@
-Return-Path: <bintian.wang@huawei.com>
+Return-Path: <sasha.levin@oracle.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A7A86267
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7645A1BB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 01:50:56 +0000 (UTC)
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [119.145.14.65])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9577917B
+	Fri, 31 Jul 2015 02:55:32 +0000 (UTC)
+Received: from aserp1040.oracle.com (aserp1040.oracle.com [141.146.126.69])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 14CF48D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 01:50:55 +0000 (UTC)
-Message-ID: <55BAD458.2080005@huawei.com>
-Date: Fri, 31 Jul 2015 09:50:16 +0800
-From: Bintian <bintian.wang@huawei.com>
+	Fri, 31 Jul 2015 02:55:31 +0000 (UTC)
+Received: from userv0021.oracle.com (userv0021.oracle.com [156.151.31.71])
+	by aserp1040.oracle.com (Sentrion-MTA-4.3.2/Sentrion-MTA-4.3.2) with
+	ESMTP id t6V2tUAL029993
+	(version=TLSv1 cipher=DHE-RSA-AES256-SHA bits=256 verify=OK)
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 31 Jul 2015 02:55:31 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+	by userv0021.oracle.com (8.13.8/8.13.8) with ESMTP id t6V2tUPs020174
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=FAIL)
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 31 Jul 2015 02:55:30 GMT
+Received: from abhmp0002.oracle.com (abhmp0002.oracle.com [141.146.116.8])
+	by aserv0122.oracle.com (8.13.8/8.13.8) with ESMTP id t6V2tTte030490
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 31 Jul 2015 02:55:30 GMT
+Message-ID: <55BAE39F.9060705@oracle.com>
+Date: Thu, 30 Jul 2015 22:55:27 -0400
+From: Sasha Levin <sasha.levin@oracle.com>
 MIME-Version: 1.0
-To: Tim Bird <tim.bird@sonymobile.com>, Mark Brown <broonie@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>
-References: <20150723105726.GC30929@amd>	<CACRpkdbCbhgJHZifouDVUvaxyT5YWWdQz7Nt3AKoLvuEn4z7mQ@mail.gmail.com>	<20150723121441.GB29747@amd>	<20150723084251.54da2be0@gandalf.local.home>	<20150723154014.GD11162@sirena.org.uk>
-	<55B7FD82.8010806@sonymobile.com> <55B87D6A.8030508@huawei.com>
-	<55B9166E.6000700@sonymobile.com>
-In-Reply-To: <55B9166E.6000700@sonymobile.com>
-Content-Type: text/plain; charset="windows-1252"; format=flowed
+To: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
-Cc: Pavel Machek <pavel@ucw.cz>, "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	"riverful.kim@samsung.com" <riverful.kim@samsung.com>,
-	"kyungmin.park@samsung.com" <kyungmin.park@samsung.com>,
-	John Stultz <john.stultz@linaro.org>,
-	=?windows-1252?Q?=22Andersson=2C_?= =?windows-1252?Q?Bj=F6rn=22?=
-	<Bjorn.Andersson@sonymobile.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Mainline kernel on a cellphone
+Subject: [Ksummit-discuss] Self nomination
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,31 +41,16 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 2015/7/30 2:07, Tim Bird wrote:
-> On 07/29/2015 12:14 AM, Bintian wrote:
-[...]
->
-> I'm not trying to gin up attendees for LinuxFoundation or
-> Linaro events, but if you happen to be there, we are planning on
-> hosting BOFs about this topic at the following upcoming events:
->    LinuxCon NA - August 19, 12:45, Seattle, WA, USA
->    Linaro Connect - (probably) September 22, Burlingame, CA, USA
->    ELC Europe - October 7, 11:30, Dublin, Ireland
-I am interested in this topic and your current work, the hosting places
-of above three events are far from China, I am afraid I cannot attend.
-But Korea is very close to Beijing :)
+Hi folks,
 
-Thank you Tim,
+I'd like to nominate myself to this year's kernel summit.
 
-BR,
+Mainly I'd like to talk about improving testing around the kernel, both by catching bugs
+and by improving the quality of debug output that comes out of the kernel.
 
-Bintian
+As the maintainer of the 3.18 LTS line I'd also like to discuss various -stable kernel
+topics that came up previously on the mailing list.
 
->
-> Please drop by if you are interested, or send me an e-mail
-> if you want more details about the current work.
->   -- Tim
->
->
-> .
->
+
+Thanks,
+Sasha
