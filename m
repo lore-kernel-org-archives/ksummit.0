@@ -1,33 +1,29 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <linux@roeck-us.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8968E1BB
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E2E0D40A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 17:13:19 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 36C0B1E5
+	Fri, 31 Jul 2015 17:15:08 +0000 (UTC)
+Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B25331DE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 17:13:19 +0000 (UTC)
-Message-ID: <1438362797.2179.45.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Date: Fri, 31 Jul 2015 10:13:17 -0700
-In-Reply-To: <20150731170523.GF5613@dtor-ws>
-References: <2111196.TG1k3f53YQ@avalon>
-	<alpine.DEB.2.10.1507311833280.2499@hadrien>
-	<20150731165346.GA18984@infradead.org>
-	<1438362159.2179.42.camel@HansenPartnership.com>
-	<20150731170523.GF5613@dtor-ws>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: Christoph Hellwig <hch@infradead.org>, Tejun Heo <tj@kernel.org>,
-	Russell King <linux@arm.linux.org.uk>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	Shuah Khan <shuah.kh@samsung.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Fix devm_kzalloc, its users,
- or both
+	Fri, 31 Jul 2015 17:15:07 +0000 (UTC)
+Date: Fri, 31 Jul 2015 10:15:00 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Greg KH <greg@kroah.com>
+Message-ID: <20150731171500.GC4995@roeck-us.net>
+References: <55BAE39F.9060705@oracle.com>
+	<CAErSpo52d5DEp_KuVoQXm4DsVakemDboLUysy6_vHL6+-xgRJw@mail.gmail.com>
+	<20150731165915.GA4995@roeck-us.net>
+	<20150731170825.GA2721@kroah.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20150731170825.GA2721@kroah.com>
+Cc: Sasha Levin <sasha.levin@oracle.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] Self nomination
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,38 +33,31 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, 2015-07-31 at 10:05 -0700, Dmitry Torokhov wrote:
-> On Fri, Jul 31, 2015 at 10:02:39AM -0700, James Bottomley wrote:
-> > On Fri, 2015-07-31 at 09:53 -0700, Christoph Hellwig wrote:
-> > > On Fri, Jul 31, 2015 at 06:34:21PM +0200, Julia Lawall wrote:
-> > > > How is this different from the free happening explicitly in the remove
-> > > > function?
+On Fri, Jul 31, 2015 at 10:08:25AM -0700, Greg KH wrote:
+> On Fri, Jul 31, 2015 at 09:59:15AM -0700, Guenter Roeck wrote:
+> > Hi Bjorn,
+> > 
+> > On Fri, Jul 31, 2015 at 11:27:38AM -0500, Bjorn Helgaas wrote:
+> > > On Thu, Jul 30, 2015 at 9:55 PM, Sasha Levin <sasha.levin@oracle.com> wrote:
+> > > > Mainly I'd like to talk about improving testing around the kernel, both by catching bugs
+> > > > and by improving the quality of debug output that comes out of the kernel.
 > > > 
-> > > It's not.  The real problem is that people don't understand life time
-> > > rules and expect magic interfaces to fix it for them.
+> > > What sort of debug output improvements are you interested in?  I spend
+> > > a fair amount of time converting to dev_printk and %pR.  They make the
 > > 
-> > So surely the rule is that we do this in module removal.  That doesn't
-> > get called until last put on the module and that can't happen (or
-> > shouldn't happen) while userspace is holding open one of the /sys
-> > or /proc interfaces (usually those objects hold a reference on something
-> > within the driver to prevent this).
-> > 
-> > There is an alternative way of handling this:  that would be to detach
-> > the file from the backing interface at _del time, so sysfs/kernfs would
-> > take over the interface and return -ENODEV or something  meaning we
-> > could tear down the module even if there was an open interface file.
-> > I'm not advocating this as a solution because I can already see the
-> > problems (like how do you switch interfaces atomically) but if this
-> > really is a serious problem, we should explore alternative solutions.
+> > I have been wondering about that, especially since dev_dbg() and
+> > 'dev_printk(KERN_DEBUG, ...)' are semantically different. Any reason
+> > for preferring dev_printk() over dev_dbg() ?
 > 
-> Tejun already done such "switching" for sysfs so it should be possible,
-> however (blasphemy!) there are other entities than files that also may
-> have different lifetime rules that live past device unbinding.
+> The opposite is true, please always use dev_dbg() as it properly ties
 
-By unbinding do you mean when the unbind is called, which is fine, the
-interface handler is still there, or when the final module put is
-called, which is not fine because that's a lifetime problem.  In the
-latter case we need a hunting expedition to have them all caught and
-shot.
+Hi Greg,
 
-James
+maybe my semantics wasn't perfect - my question was why Bjorn prefers
+dev_printk(KERN_DEBUG, ..) over dev_dbg(), which he answered.
+
+I did not (want to) make the claim or even suggest that dev_printk()
+would be preferred over dev_dbg() in general.
+
+Thanks,
+Guenter
