@@ -1,36 +1,25 @@
-Return-Path: <sasha.levin@oracle.com>
+Return-Path: <dhowells@redhat.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7645A1BB
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B73C249F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 02:55:32 +0000 (UTC)
-Received: from aserp1040.oracle.com (aserp1040.oracle.com [141.146.126.69])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 14CF48D
+	Fri, 31 Jul 2015 09:15:18 +0000 (UTC)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6F1F1E0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 02:55:31 +0000 (UTC)
-Received: from userv0021.oracle.com (userv0021.oracle.com [156.151.31.71])
-	by aserp1040.oracle.com (Sentrion-MTA-4.3.2/Sentrion-MTA-4.3.2) with
-	ESMTP id t6V2tUAL029993
-	(version=TLSv1 cipher=DHE-RSA-AES256-SHA bits=256 verify=OK)
+	Fri, 31 Jul 2015 09:15:18 +0000 (UTC)
+Received: from int-mx14.intmail.prod.int.phx2.redhat.com
+	(int-mx14.intmail.prod.int.phx2.redhat.com [10.5.11.27])
+	by mx1.redhat.com (Postfix) with ESMTPS id CA3EC3E5B2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 02:55:31 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
-	by userv0021.oracle.com (8.13.8/8.13.8) with ESMTP id t6V2tUPs020174
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=FAIL)
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 02:55:30 GMT
-Received: from abhmp0002.oracle.com (abhmp0002.oracle.com [141.146.116.8])
-	by aserv0122.oracle.com (8.13.8/8.13.8) with ESMTP id t6V2tTte030490
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 02:55:30 GMT
-Message-ID: <55BAE39F.9060705@oracle.com>
-Date: Thu, 30 Jul 2015 22:55:27 -0400
-From: Sasha Levin <sasha.levin@oracle.com>
+	Fri, 31 Jul 2015 09:15:17 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: ksummit-discuss@lists.linuxfoundation.org
 MIME-Version: 1.0
-To: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <355.1438334113.1@warthog.procyon.org.uk>
+Date: Fri, 31 Jul 2015 10:15:13 +0100
+Message-ID: <357.1438334113@warthog.procyon.org.uk>
 Subject: [Ksummit-discuss] Self nomination
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -41,16 +30,17 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi folks,
+I would like to nominate myself for this years KS.  I'm interested in:
 
-I'd like to nominate myself to this year's kernel summit.
+ (*) Compiler features and cross-compilers having been maintaining a set of
+     cross compilers for kernel.  I've been watching gcc-5 come out and find
+     new things to warning about in the kernel.
 
-Mainly I'd like to talk about improving testing around the kernel, both by catching bugs
-and by improving the quality of debug output that comes out of the kernel.
+ (*) Filesystem unioning - overlayfs, unionmount and the way LSMs interact and
+     the way unioning metadata is stored in the fs.
 
-As the maintainer of the 3.18 LTS line I'd also like to discuss various -stable kernel
-topics that came up previously on the mailing list.
+ (*) Signature management - keys, modules, firmware.
 
+ (*) Media drivers - I've been working to improve a couple of these.
 
-Thanks,
-Sasha
+David
