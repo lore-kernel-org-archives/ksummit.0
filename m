@@ -1,34 +1,30 @@
-Return-Path: <Bjorn.Andersson@sonymobile.com>
+Return-Path: <riel@redhat.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1C947480
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8EB8540D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 28 Jul 2015 23:07:50 +0000 (UTC)
-Received: from seldrel01.sonyericsson.com (seldrel01.sonyericsson.com
-	[37.139.156.2])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 685488B
+	Fri, 31 Jul 2015 14:52:40 +0000 (UTC)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 210C11AE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 28 Jul 2015 23:07:49 +0000 (UTC)
-Date: Tue, 28 Jul 2015 16:07:43 -0700
-From: Bjorn Andersson <bjorn.andersson@sonymobile.com>
-To: Tim Bird <tim.bird@sonymobile.com>
-Message-ID: <20150728230743.GO4753@usrtlx11787.corpusers.net>
-References: <20150723105726.GC30929@amd>
-	<CACRpkdbCbhgJHZifouDVUvaxyT5YWWdQz7Nt3AKoLvuEn4z7mQ@mail.gmail.com>
-	<20150723121441.GB29747@amd>
-	<20150723084251.54da2be0@gandalf.local.home>
-	<20150723154014.GD11162@sirena.org.uk>
-	<55B7FD82.8010806@sonymobile.com>
+	Fri, 31 Jul 2015 14:52:40 +0000 (UTC)
+Received: from int-mx14.intmail.prod.int.phx2.redhat.com
+	(int-mx14.intmail.prod.int.phx2.redhat.com [10.5.11.27])
+	by mx1.redhat.com (Postfix) with ESMTPS id 9E19229320F
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 31 Jul 2015 14:52:39 +0000 (UTC)
+Message-ID: <55BB8BB2.2090809@redhat.com>
+Date: Fri, 31 Jul 2015 10:52:34 -0400
+From: Rik van Riel <riel@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <55B7FD82.8010806@sonymobile.com>
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	"riverful.kim@samsung.com" <riverful.kim@samsung.com>,
-	"kyungmin.park@samsung.com" <kyungmin.park@samsung.com>,
-	John Stultz <john.stultz@linaro.org>, Pavel Machek <pavel@ucw.cz>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Mainline kernel on a cellphone
+To: ksummit-discuss@lists.linuxfoundation.org,
+	Jerome Glisse <jglisse@redhat.com>
+References: <20150730130027.GA14980@8bytes.org>
+In-Reply-To: <20150730130027.GA14980@8bytes.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Core Kernel support for
+ Compute-Offload Devices
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,39 +34,74 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue 28 Jul 15:09 PDT 2015, Tim Bird wrote:
+On 07/30/2015 09:00 AM, Joerg Roedel wrote:
 
-> On 07/23/2015 08:40 AM, Mark Brown wrote:
-> > On Thu, Jul 23, 2015 at 08:42:51AM -0400, Steven Rostedt wrote:
-> > 
-> >> Although is this something to be a core topic or a tech topic? Does
-> >> this affect all subsystems, or just a set of drivers? Note, a core
-> >> topic wont get as much time for discussion as a tech topic would.
-> > 
-> > It's basically all subsystems that get impacted, at the minute I'd say
-> > it's more a plan of action and process discussion than a technical one
-> > though in the context of KS planning that's quite probably the same
-> > thing.
-> > 
-> >> Also, what is expected to be solved at KS?
-> > 
-> > Tim Bird (Cced) has been running some sessions at other conferences
-> > scoping the problem and discussing ways to move forward on this, another
-> > similar session might be useful.
+> 	(1) Do we need the concept of an off-CPU task in the kernel
+> 	    together with a common interface to create and manage them
+> 	    and probably a (collection of) batch scheduler(s) for these
+> 	    tasks?
+
+Given that some of these compute offload devices share the
+same address space (mm_struct) as the threads running on
+CPUs, it would be easiest if there was a reference on the
+mm_struct for the threads that are running off-CPU.
+
+I do not know if a generic scheduler would work, since
+it is common to have N threads on compute devices all bound
+to the same address space, etc.
+
+Different devices might even require different schedulers,
+but having a common data structure that pins mm_struct,
+provides for a place to have state (like register content)
+stored, and has pointers to scheduler, driver, and cleanup
+functions could be really useful.
+
+> 	(2) Changes in memory management for devices accessing user
+> 	    address spaces:
+> 	    
+> 	    (2.1) How can we best support the different memory models
+> 	          these devices support?
+> 	    
+> 	    (2.2) How do we handle the off-CPU users of an mm_struct?
+> 	    
+> 	    (2.3) How can we attach common state for off-CPU tasks to
+> 	          mm_struct (and what needs to be in there)?
+
+Jerome has a bunch of code for this already.
+
+> 	(3) Does it make sense to implement automatic migration of
+> 	    system memory to device memory (when available) and vice
+> 	    versa? How do we decide what and when to migrate?
+
+I believe he has looked at migration too, but not implemented
+it yet.
+
+If compute-offload devices are a kernel summit topic this year,
+it would be useful to invite Jerome Glisse.
+
+> 	(4) What features do we require in the hardware to support it
+> 	    with a common interface?
 > 
-[..]
-> In particular it has a table showing certain areas that tend to have
-> a lot of out-of-tree code (e.g. most phones have between 80K to
-> 100K of lines of wireless driver support out-of-mainline)
+> I think it would be great if the kernel would have a common interface
+> for these kind of devices. Currently every vendor develops its own
+> interface with various hacks to work around core code behavior.
 > 
+> I am particularily interested in this topic because on PCIe newer IOMMUs
+> are often an integral part in supporting these devices (ARM-SMMUv3,
+> Intel VT-d with SVM, AMD IOMMUv2). so that core work here will also
+> touch the IOMMU code.
+> 
+> Probably (uncomplete list of) interested people:
+> 
+> 	David Woodhouse
+> 	Jesse Barnes
+> 	Will Deacon
+> 	Paul E. McKenney
+> 	Rik van Riel
+> 	Mel Gorman
+> 	Andrea Arcangeli
+> 	Christoph Lameter
+> 	Jérôme Glisse
 
-In the Xperia Z3 we have a bcm4339 and I managed to get that up and
-running with the brcmf driver on mainline last week - pending Qualcomm
-regulator support and 1 pending patch in mmc.
-
-For some of our other devices we have various Qualcomm based chips and
-there's progress towards getting those up to speed on mainline as well
-(wcn36xx).
-
-Regards,
-Bjorn
+-- 
+All rights reversed
