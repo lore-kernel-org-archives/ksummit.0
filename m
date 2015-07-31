@@ -1,37 +1,28 @@
-Return-Path: <dmitry.torokhov@gmail.com>
+Return-Path: <linux+ksummit-discuss=lists.linuxfoundation.org@arm.linux.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 718FD40A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 37F90267
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 17:33:40 +0000 (UTC)
-Received: from mail-pa0-f49.google.com (mail-pa0-f49.google.com
-	[209.85.220.49])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 23934246
+	Fri, 31 Jul 2015 15:56:26 +0000 (UTC)
+Received: from pandora.arm.linux.org.uk (pandora.arm.linux.org.uk
+	[78.32.30.218])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E6CB2209
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 17:33:40 +0000 (UTC)
-Received: by pacan13 with SMTP id an13so44915474pac.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 10:33:39 -0700 (PDT)
-Date: Fri, 31 Jul 2015 10:33:35 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Message-ID: <20150731173335.GI5613@dtor-ws>
+	Fri, 31 Jul 2015 15:56:24 +0000 (UTC)
+Date: Fri, 31 Jul 2015 16:56:13 +0100
+From: Russell King - ARM Linux <linux@arm.linux.org.uk>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Message-ID: <20150731155613.GY7557@n2100.arm.linux.org.uk>
 References: <2111196.TG1k3f53YQ@avalon>
-	<alpine.DEB.2.10.1507311833280.2499@hadrien>
-	<20150731165346.GA18984@infradead.org>
-	<1438362159.2179.42.camel@HansenPartnership.com>
-	<20150731170523.GF5613@dtor-ws>
-	<1438362797.2179.45.camel@HansenPartnership.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1438362797.2179.45.camel@HansenPartnership.com>
-Cc: Christoph Hellwig <hch@infradead.org>, Tejun Heo <tj@kernel.org>,
-	Russell King <linux@arm.linux.org.uk>,
-	ksummit-discuss@lists.linuxfoundation.org,
+In-Reply-To: <2111196.TG1k3f53YQ@avalon>
+Sender: Russell King - ARM Linux <linux@arm.linux.org.uk>
+Cc: Tejun Heo <tj@kernel.org>, ksummit-discuss@lists.linuxfoundation.org,
 	Shuah Khan <shuah.kh@samsung.com>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Fix devm_kzalloc, its users,
- or both
+	or both
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,46 +32,84 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 31, 2015 at 10:13:17AM -0700, James Bottomley wrote:
-> On Fri, 2015-07-31 at 10:05 -0700, Dmitry Torokhov wrote:
-> > On Fri, Jul 31, 2015 at 10:02:39AM -0700, James Bottomley wrote:
-> > > On Fri, 2015-07-31 at 09:53 -0700, Christoph Hellwig wrote:
-> > > > On Fri, Jul 31, 2015 at 06:34:21PM +0200, Julia Lawall wrote:
-> > > > > How is this different from the free happening explicitly in the remove
-> > > > > function?
-> > > > 
-> > > > It's not.  The real problem is that people don't understand life time
-> > > > rules and expect magic interfaces to fix it for them.
-> > > 
-> > > So surely the rule is that we do this in module removal.  That doesn't
-> > > get called until last put on the module and that can't happen (or
-> > > shouldn't happen) while userspace is holding open one of the /sys
-> > > or /proc interfaces (usually those objects hold a reference on something
-> > > within the driver to prevent this).
-> > > 
-> > > There is an alternative way of handling this:  that would be to detach
-> > > the file from the backing interface at _del time, so sysfs/kernfs would
-> > > take over the interface and return -ENODEV or something  meaning we
-> > > could tear down the module even if there was an open interface file.
-> > > I'm not advocating this as a solution because I can already see the
-> > > problems (like how do you switch interfaces atomically) but if this
-> > > really is a serious problem, we should explore alternative solutions.
-> > 
-> > Tejun already done such "switching" for sysfs so it should be possible,
-> > however (blasphemy!) there are other entities than files that also may
-> > have different lifetime rules that live past device unbinding.
+On Fri, Jul 31, 2015 at 06:14:14PM +0300, Laurent Pinchart wrote:
+> It recently came to my attention that the way devm_kzalloc() is used by most 
+> drivers is broken.
+
+I think blaming devm_kzalloc() is actually wrong here.
+
+> The issue occurs when drivers use devm_kzalloc() to allocate data structures 
+> that can be accessed through file operations on a device node. The following 
+> sequence of events will then lead to a crash.
 > 
-> By unbinding do you mean when the unbind is called, which is fine, the
-> interface handler is still there, or when the final module put is
-> called, which is not fine because that's a lifetime problem.  In the
-> latter case we need a hunting expedition to have them all caught and
-> shot.
+> 1. Get a device bound to its driver
+> 2. Open the corresponding device node in userspace and keep it open
+> 3. Unbind the device from its driver through sysfs using for instance
+> 
+> echo <device-name> > /sys/bus/platform/drivers/<driver-name>/unbind
+> 
+> (or for hotpluggable devices just unplug the device)
+> 
+> 4. Close the device node
+> 5. Enjoy the fireworks
 
-I was talking about former because module is normally stays pinned if it
-implements file_operations and will not be unpinned until last release
-on file (device) is called.
+Now think about the pre-devm_kzalloc() or pre-devm_* method - replace
+the above devm_kzalloc() with a plain kmalloc() + memset() as we used
+to have in drivers.
 
-Thanks.
+Then realise that such drivers would kfree() in their removal function
+which gets called from the unbind operation.
+
+It's really no different - the problem is just the same.
+
+> While having a device node open prevents modules from being unloaded, it 
+> doesn't prevent devices from being unbound from drivers. If the driver uses 
+> devm_* helpers to allocate memory the memory will be freed when the device is 
+> unbound from the driver, but that memory will still be used by any operation 
+> touching an open device node.
+
+Correct, and when the new module loading code came along, these issues
+were known about at that time, because a lot of them really aren't new -
+they were known from analysis of module removal.  It's just that there's
+soo much going on in the kernel today that those who did know are swamped
+and can't look at and analyse everything, and there's no real way to pass
+that knowledge on.
+
+> Tejun Heo commented that "this really is a general lifetime management 
+> problem. [...] If a piece of memory isn't attached to the harware side
+> but the userland interface side [...], that shouldn't be allocated via
+> devm - it has "dev" in its name for a reason."
+
+I think that's completely missing the problem.  This has very little to
+do with devm_*, as I've illustrated above, and more to do with people
+being aware of and properly handling the lifetimes of data structures.
+
+It's been well proven that many kernel programmers just don't have a grasp
+of data structure lifetimes - you only have to look at the struggle we've
+had with stuff like users of the driver model not implementing a proper
+->release callback (eg, lets provide an empty function to shut the kernel's
+warning up!)
+
+Even if we went through every driver today, and fixed up these bugs, we
+would still be bogged down with lots of people just not having a clue
+about this.  I think we need some other solution to it - one where driver
+authors don't have to even think about this lifetime issue, though exactly
+what that would be, I don't have any idea at the moment.  The alternative
+is that we do handle it the way the driver model does, but rather than
+repeating the mistake of having the ->release function called as soon as
+the refcount falls to zero, it's delayed by a random amount of time to
+catch people who think that an empty ->release function is acceptable -
+and make that non-optional.
+
+> People who might be interested:
+> 
+> - Tejun Heo <tj@kernel.org>
+> - Shuah Khan <shuah.kh@samsung.com> (for the media controller devres WIP)
+> - Russell King <linux@arm.linux.org.uk> (for the component framework)
+
+I don't believe the component helpers are affected by this as they don't
+talk to userland in any way.
 
 -- 
-Dmitry
+FTTC broadband for 0.8mile line: currently at 10.5Mbps down 400kbps up
+according to speedtest.net.
