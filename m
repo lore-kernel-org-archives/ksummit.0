@@ -1,26 +1,33 @@
-Return-Path: <linux+ksummit-discuss=lists.linuxfoundation.org@arm.linux.org.uk>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5027740A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 70F53415
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 17:27:44 +0000 (UTC)
-Received: from pandora.arm.linux.org.uk (pandora.arm.linux.org.uk
-	[78.32.30.218])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E671C1E5
+	Fri, 31 Jul 2015 17:36:31 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 9D4D91F1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 17:27:42 +0000 (UTC)
-Date: Fri, 31 Jul 2015 18:27:32 +0100
-From: Russell King - ARM Linux <linux@arm.linux.org.uk>
-To: Mark Brown <broonie@kernel.org>
-Message-ID: <20150731172732.GB7557@n2100.arm.linux.org.uk>
-References: <2111196.TG1k3f53YQ@avalon> <20150731170416.GI20873@sirena.org.uk>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20150731170416.GI20873@sirena.org.uk>
-Sender: Russell King - ARM Linux <linux@arm.linux.org.uk>
-Cc: Tejun Heo <tj@kernel.org>, Shuah Khan <shuah.kh@samsung.com>,
-	ksummit-discuss@lists.linuxfoundation.org
+	Fri, 31 Jul 2015 17:36:29 +0000 (UTC)
+Message-ID: <1438364188.2179.53.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Date: Fri, 31 Jul 2015 10:36:28 -0700
+In-Reply-To: <20150731173335.GI5613@dtor-ws>
+References: <2111196.TG1k3f53YQ@avalon>
+	<alpine.DEB.2.10.1507311833280.2499@hadrien>
+	<20150731165346.GA18984@infradead.org>
+	<1438362159.2179.42.camel@HansenPartnership.com>
+	<20150731170523.GF5613@dtor-ws>
+	<1438362797.2179.45.camel@HansenPartnership.com>
+	<20150731173335.GI5613@dtor-ws>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Cc: Christoph Hellwig <hch@infradead.org>, Tejun Heo <tj@kernel.org>,
+	Russell King <linux@arm.linux.org.uk>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Shuah Khan <shuah.kh@samsung.com>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Fix devm_kzalloc, its users,
  or both
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -32,58 +39,51 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 31, 2015 at 06:04:16PM +0100, Mark Brown wrote:
-> On Fri, Jul 31, 2015 at 06:14:14PM +0300, Laurent Pinchart wrote:
+On Fri, 2015-07-31 at 10:33 -0700, Dmitry Torokhov wrote:
+> On Fri, Jul 31, 2015 at 10:13:17AM -0700, James Bottomley wrote:
+> > On Fri, 2015-07-31 at 10:05 -0700, Dmitry Torokhov wrote:
+> > > On Fri, Jul 31, 2015 at 10:02:39AM -0700, James Bottomley wrote:
+> > > > On Fri, 2015-07-31 at 09:53 -0700, Christoph Hellwig wrote:
+> > > > > On Fri, Jul 31, 2015 at 06:34:21PM +0200, Julia Lawall wrote:
+> > > > > > How is this different from the free happening explicitly in the remove
+> > > > > > function?
+> > > > > 
+> > > > > It's not.  The real problem is that people don't understand life time
+> > > > > rules and expect magic interfaces to fix it for them.
+> > > > 
+> > > > So surely the rule is that we do this in module removal.  That doesn't
+> > > > get called until last put on the module and that can't happen (or
+> > > > shouldn't happen) while userspace is holding open one of the /sys
+> > > > or /proc interfaces (usually those objects hold a reference on something
+> > > > within the driver to prevent this).
+> > > > 
+> > > > There is an alternative way of handling this:  that would be to detach
+> > > > the file from the backing interface at _del time, so sysfs/kernfs would
+> > > > take over the interface and return -ENODEV or something  meaning we
+> > > > could tear down the module even if there was an open interface file.
+> > > > I'm not advocating this as a solution because I can already see the
+> > > > problems (like how do you switch interfaces atomically) but if this
+> > > > really is a serious problem, we should explore alternative solutions.
+> > > 
+> > > Tejun already done such "switching" for sysfs so it should be possible,
+> > > however (blasphemy!) there are other entities than files that also may
+> > > have different lifetime rules that live past device unbinding.
+> > 
+> > By unbinding do you mean when the unbind is called, which is fine, the
+> > interface handler is still there, or when the final module put is
+> > called, which is not fine because that's a lifetime problem.  In the
+> > latter case we need a hunting expedition to have them all caught and
+> > shot.
 > 
-> > It recently came to my attention that the way devm_kzalloc() is used by most
-> > drivers is broken. I've raised the topic on LKML (see
-> > http://lkml.org/lkml/2015/7/14/741) in the hope that my findings were simply
-> 
-> lkml.org is down (again) - can you please provide a subject line?
+> I was talking about former because module is normally stays pinned if it
+> implements file_operations and will not be unpinned until last release
+> on file (device) is called.
 
-I wish people would stop using lkml.org
+Yes, I thought so, so that tells us the problem isn't really lifetime
+rules per-se (the handlers and module are still present and won't be
+released until the pinned object is), it's about the way we handle the
+teardown ... effectively the devm_ memory is released at the wrong point
+during teardown.  Effectively, if this happens a lot, it's saying our
+rules and best practises for this are hard to follow.
 
-> > The issue occurs when drivers use devm_kzalloc() to allocate data structures 
-> > that can be accessed through file operations on a device node. The following 
-> > sequence of events will then lead to a crash.
-> 
-> Like Julia says I'm not sure this is really related to devm_ - I would
-> really expect that the majority of users were already broken prior to
-> the conversion to devm_ since the natural thing is to free things in the
-> remove() function which has exactly the same issues, the main problem
-> here is that the file open after device is removed case is rare for most
-> devices and requires somewhat obscure handling.
-
-I completely agree - this has *nothing* to do with devm_ at all.  Any
-bugs that are there as a result of converting to devm_kzalloc() where
-there before.  99.9% of the devm_kzalloc() conversions are merely
-replacing the kmalloc()/kzalloc() in the probe function with devm_kzalloc()
-and removing the free() in the remove function.
-
-If _anything_, converting to devm_kzalloc() means that the lifetime of
-the data structure is _slightly_ longer - because rather than the data
-structure being freed in the remove() callback, it's freed after the
-remove() callback has returned.
-
-However, both are just as buggy.
-
-The devm_* aspect of this thread is just an anti-devm_* smoke-screen.
-It's completely irrelevant.
-
-> Tejun's suggestion seems like the most robust thing here - allocation
-> issues are only going to be one of the problems with userspace accessing
-> devices that are going away and there's a complexity cost from having
-> the partially destroyed cases around.  Off the top of my head there's
-> anything that attempts to access the hardware if it's genuinely gone
-> away rather than just been soft unbound for example.  If the device can
-> just invalidate all open files on the way out then that's going to be
-> exactly what most things want.
-
-Well, accessing hardware is even more of a problem.  Consider that
-ioremap()s will also be cleaned up at the same time (whether in
-->remove() or in devm cleanup processing - again, not a devm problem)
-thereby removing the mapping for accessing the hardware.
-
--- 
-FTTC broadband for 0.8mile line: currently at 10.5Mbps down 400kbps up
-according to speedtest.net.
+James
