@@ -1,30 +1,24 @@
-Return-Path: <riel@redhat.com>
+Return-Path: <laurent.pinchart@ideasonboard.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8EB8540D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1DA3C98
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 14:52:40 +0000 (UTC)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 210C11AE
+	Fri, 31 Jul 2015 15:13:37 +0000 (UTC)
+Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
+	[185.26.127.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 46C2B143
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 14:52:40 +0000 (UTC)
-Received: from int-mx14.intmail.prod.int.phx2.redhat.com
-	(int-mx14.intmail.prod.int.phx2.redhat.com [10.5.11.27])
-	by mx1.redhat.com (Postfix) with ESMTPS id 9E19229320F
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 14:52:39 +0000 (UTC)
-Message-ID: <55BB8BB2.2090809@redhat.com>
-Date: Fri, 31 Jul 2015 10:52:34 -0400
-From: Rik van Riel <riel@redhat.com>
+	Fri, 31 Jul 2015 15:13:36 +0000 (UTC)
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Fri, 31 Jul 2015 18:14:14 +0300
+Message-ID: <2111196.TG1k3f53YQ@avalon>
 MIME-Version: 1.0
-To: ksummit-discuss@lists.linuxfoundation.org,
-	Jerome Glisse <jglisse@redhat.com>
-References: <20150730130027.GA14980@8bytes.org>
-In-Reply-To: <20150730130027.GA14980@8bytes.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Core Kernel support for
- Compute-Offload Devices
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: Tejun Heo <tj@kernel.org>, Russell King <linux@arm.linux.org.uk>,
+	Shuah Khan <shuah.kh@samsung.com>
+Subject: [Ksummit-discuss] [TECH TOPIC] Fix devm_kzalloc, its users, or both
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,74 +28,60 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 07/30/2015 09:00 AM, Joerg Roedel wrote:
+Hello,
 
-> 	(1) Do we need the concept of an off-CPU task in the kernel
-> 	    together with a common interface to create and manage them
-> 	    and probably a (collection of) batch scheduler(s) for these
-> 	    tasks?
+It recently came to my attention that the way devm_kzalloc() is used by most 
+drivers is broken. I've raised the topic on LKML (see 
+http://lkml.org/lkml/2015/7/14/741) in the hope that my findings were simply 
+wrong, but it turned out I was unfortunately right. As the topic spans lots of 
+subsystems I believe it would be a good technical topic for the Kernel Summit.
 
-Given that some of these compute offload devices share the
-same address space (mm_struct) as the threads running on
-CPUs, it would be easiest if there was a reference on the
-mm_struct for the threads that are running off-CPU.
+The issue occurs when drivers use devm_kzalloc() to allocate data structures 
+that can be accessed through file operations on a device node. The following 
+sequence of events will then lead to a crash.
 
-I do not know if a generic scheduler would work, since
-it is common to have N threads on compute devices all bound
-to the same address space, etc.
+1. Get a device bound to its driver
+2. Open the corresponding device node in userspace and keep it open
+3. Unbind the device from its driver through sysfs using for instance
 
-Different devices might even require different schedulers,
-but having a common data structure that pins mm_struct,
-provides for a place to have state (like register content)
-stored, and has pointers to scheduler, driver, and cleanup
-functions could be really useful.
+echo <device-name> > /sys/bus/platform/drivers/<driver-name>/unbind
 
-> 	(2) Changes in memory management for devices accessing user
-> 	    address spaces:
-> 	    
-> 	    (2.1) How can we best support the different memory models
-> 	          these devices support?
-> 	    
-> 	    (2.2) How do we handle the off-CPU users of an mm_struct?
-> 	    
-> 	    (2.3) How can we attach common state for off-CPU tasks to
-> 	          mm_struct (and what needs to be in there)?
+(or for hotpluggable devices just unplug the device)
 
-Jerome has a bunch of code for this already.
+4. Close the device node
+5. Enjoy the fireworks
 
-> 	(3) Does it make sense to implement automatic migration of
-> 	    system memory to device memory (when available) and vice
-> 	    versa? How do we decide what and when to migrate?
+While having a device node open prevents modules from being unloaded, it 
+doesn't prevent devices from being unbound from drivers. If the driver uses 
+devm_* helpers to allocate memory the memory will be freed when the device is 
+unbound from the driver, but that memory will still be used by any operation 
+touching an open device node.
 
-I believe he has looked at migration too, but not implemented
-it yet.
+Tejun Heo commented that "this really is a general lifetime management 
+problem. [...] If a piece of memory isn't attached to the harware side but the 
+userland interface side [...], that shouldn't be allocated via devm - it has 
+"dev" in its name for a reason."
 
-If compute-offload devices are a kernel summit topic this year,
-it would be useful to invite Jerome Glisse.
+While I agree that this is how devres operates today, I'm not sure we should 
+throw the baby out with the bath water. Using devm_kzalloc() as currently done  
+has value, and reverting drivers to the pre-devm memory allocation code would 
+make error handling and cleanup code paths more complex again.
 
-> 	(4) What features do we require in the hardware to support it
-> 	    with a common interface?
-> 
-> I think it would be great if the kernel would have a common interface
-> for these kind of devices. Currently every vendor develops its own
-> interface with various hacks to work around core code behavior.
-> 
-> I am particularily interested in this topic because on PCIe newer IOMMUs
-> are often an integral part in supporting these devices (ARM-SMMUv3,
-> Intel VT-d with SVM, AMD IOMMUv2). so that core work here will also
-> touch the IOMMU code.
-> 
-> Probably (uncomplete list of) interested people:
-> 
-> 	David Woodhouse
-> 	Jesse Barnes
-> 	Will Deacon
-> 	Paul E. McKenney
-> 	Rik van Riel
-> 	Mel Gorman
-> 	Andrea Arcangeli
-> 	Christoph Lameter
-> 	Jérôme Glisse
+Should we introduce a managed allocator for that purpose that would have a 
+lifespan explicitly handled by drivers (or, even better, handled automatically 
+in a way that would suit our use cases) ? Tejun commented that "a better 
+approach would be implementing generic revoke feature and sever open files on 
+driver detach so that everything can be shutdown then".
+
+People who might be interested:
+
+- Tejun Heo <tj@kernel.org>
+- Shuah Khan <shuah.kh@samsung.com> (for the media controller devres WIP)
+- Russell King <linux@arm.linux.org.uk> (for the component framework)
+- Anyone who believes that managed memory allocation for driver private 
+structures is useful
 
 -- 
-All rights reversed
+Regards,
+
+Laurent Pinchart
