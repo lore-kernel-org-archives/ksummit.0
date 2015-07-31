@@ -1,25 +1,28 @@
-Return-Path: <jglisse@redhat.com>
+Return-Path: <linux+ksummit-discuss=lists.linuxfoundation.org@arm.linux.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 66DCD415
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5027740A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 16:34:57 +0000 (UTC)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E6E888B
+	Fri, 31 Jul 2015 17:27:44 +0000 (UTC)
+Received: from pandora.arm.linux.org.uk (pandora.arm.linux.org.uk
+	[78.32.30.218])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E671C1E5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 16:34:56 +0000 (UTC)
-Date: Fri, 31 Jul 2015 12:34:53 -0400
-From: Jerome Glisse <jglisse@redhat.com>
-To: Joerg Roedel <joro@8bytes.org>
-Message-ID: <20150731163453.GB2039@redhat.com>
+	Fri, 31 Jul 2015 17:27:42 +0000 (UTC)
+Date: Fri, 31 Jul 2015 18:27:32 +0100
+From: Russell King - ARM Linux <linux@arm.linux.org.uk>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <20150731172732.GB7557@n2100.arm.linux.org.uk>
+References: <2111196.TG1k3f53YQ@avalon> <20150731170416.GI20873@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20150730135440.GB14980@8bytes.org>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Core Kernel support for
- Compute-Offload Devices
+In-Reply-To: <20150731170416.GI20873@sirena.org.uk>
+Sender: Russell King - ARM Linux <linux@arm.linux.org.uk>
+Cc: Tejun Heo <tj@kernel.org>, Shuah Khan <shuah.kh@samsung.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Fix devm_kzalloc, its users,
+ or both
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,85 +32,58 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Jul 30, 2015 at 13:54:40 UTC 2015, Joerg Roedel wrote:
-> On Thu, Jul 30, 2015 at 02:31:38PM +0100, David Woodhouse wrote:
-> > On Thu, 2015-07-30 at 15:00 +0200, Joerg Roedel wrote:
-> > > 	    (2.3) How can we attach common state for off-CPU tasks to
-> > > 	          mm_struct (and what needs to be in there)?
-> > 
-> > And how do we handle the assignment of Address Space IDs? The AMD
-> > implementation currently allows the PASID space to be managed per
-> > -device, but I understand ARM systems handle the TLB shootdown
-> > broadcasts in hardware and need the PASID that the device sees to be
-> > identical to the ASID on the CPU's MMU? And there are reasons why we
-> > might actually want that model on Intel systems too. I'm working on the
-> > Intel SVM right now, and looking at a single-PASID-space model (partly
-> > because the PASID tables have to be physically contiguous, and they can
-> > be huge!).
+On Fri, Jul 31, 2015 at 06:04:16PM +0100, Mark Brown wrote:
+> On Fri, Jul 31, 2015 at 06:14:14PM +0300, Laurent Pinchart wrote:
 > 
-> True, ASIDs would be one thing that needs to be attached to a mm_struct,
-> but I am also interested what other platforms might need here. For
-> example, is there a better way to track these off-cpu users than using
-> mmu-notifiers.
-
-No the ASID should not be associated with mm_struct. There is to
-few ASID to have enough of them. I think currently there is only
-8bits worth of ASID. So what happen is that the GPU device driver
-schedule process and recycle ASID as it does.
-
-Which means that ASID really need to be on device driver control
-as i explained in another mail only device driver knows how to
-schedule thing for a given device and it is too much hw specific
-to be move to common code.
-
-
-> > > 	(3) Does it make sense to implement automatic migration of
-> > > 	    system memory to device memory (when available) and vice
-> > > 	    versa? How do we decide what and when to migrate?
-> > 
-> > This is quite a horrid one, but perhaps ties into generic NUMA
-> > considerations — if a memory page is being frequently accessed by
-> > something that it's far away from, can we move it to closer memory?
->
-> Yeah, conceptually it is NUMA, so it might fit there. But the difference
-> to the current NUMA handling is that the device memory is not always
-> completly visible to the CPU, so I think quite some significant changes
-> are necessary to make this work.
-
-My HMM patchset already handle all this for anonymous memory, i showed
-a proof of concept for file back one but i am exploring other method
-for that.
-
-
-> > Another idea is to handle migration like swapping. The difference to
-> > real swapping is that it is not relying on the LRU lists but the device
-> > access patterns we measure.
+> > It recently came to my attention that the way devm_kzalloc() is used by most
+> > drivers is broken. I've raised the topic on LKML (see
+> > http://lkml.org/lkml/2015/7/14/741) in the hope that my findings were simply
 > 
-> > The question is how we handle that. We do have Extended Accessed bits
-> > in the Intel implementation of SVM that let us know that a given PTE
-> > was used from a device. Although not *which* device, in cases where
-> > there might be more than one.
+> lkml.org is down (again) - can you please provide a subject line?
+
+I wish people would stop using lkml.org
+
+> > The issue occurs when drivers use devm_kzalloc() to allocate data structures 
+> > that can be accessed through file operations on a device node. The following 
+> > sequence of events will then lead to a crash.
 > 
-> One way would be to use seperate page-tables for the devices (which, on
-> the other side, somehow contradicts the design of the hardware, because
-> its designed to reuse cpu page-tables).
+> Like Julia says I'm not sure this is really related to devm_ - I would
+> really expect that the majority of users were already broken prior to
+> the conversion to devm_ since the natural thing is to free things in the
+> remove() function which has exactly the same issues, the main problem
+> here is that the file open after device is removed case is rare for most
+> devices and requires somewhat obscure handling.
 
-So HMM use a seperate page table for storing information relating to
-migrated memory. Note that not all hw reuse the CPU page table, some
-hardware do not and it is very much a platform thing.
+I completely agree - this has *nothing* to do with devm_ at all.  Any
+bugs that are there as a result of converting to devm_kzalloc() where
+there before.  99.9% of the devm_kzalloc() conversions are merely
+replacing the kmalloc()/kzalloc() in the probe function with devm_kzalloc()
+and removing the free() in the remove function.
 
-> And I don't know which features other devices have (like the CAPI
-> devices on Power that Paul wrote about) to help in this decission.
+If _anything_, converting to devm_kzalloc() means that the lifetime of
+the data structure is _slightly_ longer - because rather than the data
+structure being freed in the remove() callback, it's freed after the
+remove() callback has returned.
 
-CAPI would not need special PTE, as on CAPI device memory is accessible
-by the CPU as regular memory. Only platform that can not offer this
-need some special handling. AFAICT x86 and ARM have nothing plan to
-offer such level of integration (thought lately i have not paid close
-attention to what new features the PCIe consortium is discussing).
+However, both are just as buggy.
 
-Joerg i think you really want to take a look at my patchset to see
-how i implemented this. I have been discussing this with AMD, Mellanox,
-NVidia and couple other smaller specialize hw manufacturer.
+The devm_* aspect of this thread is just an anti-devm_* smoke-screen.
+It's completely irrelevant.
 
-Cheers,
-Jérôme
+> Tejun's suggestion seems like the most robust thing here - allocation
+> issues are only going to be one of the problems with userspace accessing
+> devices that are going away and there's a complexity cost from having
+> the partially destroyed cases around.  Off the top of my head there's
+> anything that attempts to access the hardware if it's genuinely gone
+> away rather than just been soft unbound for example.  If the device can
+> just invalidate all open files on the way out then that's going to be
+> exactly what most things want.
+
+Well, accessing hardware is even more of a problem.  Consider that
+ioremap()s will also be cleaned up at the same time (whether in
+->remove() or in devm cleanup processing - again, not a devm problem)
+thereby removing the mapping for accessing the hardware.
+
+-- 
+FTTC broadband for 0.8mile line: currently at 10.5Mbps down 400kbps up
+according to speedtest.net.
