@@ -1,27 +1,32 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <pavel@ucw.cz>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id E176F514
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9E971FF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 21:21:31 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8233D115
+	Fri, 31 Jul 2015 22:03:09 +0000 (UTC)
+Received: from atrey.karlin.mff.cuni.cz (atrey.karlin.mff.cuni.cz
+	[195.113.26.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 50FA626D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 21:21:31 +0000 (UTC)
-Date: Fri, 31 Jul 2015 18:55:47 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-Message-ID: <20150731175547.GK20873@sirena.org.uk>
-References: <20150723105726.GC30929@amd> <3567831.C87ORqHPr8@vostro.rjw.lan>
-	<20150730095903.5cb431a4@noble> <2904825.6WZJacWC6y@vostro.rjw.lan>
+	Fri, 31 Jul 2015 22:03:08 +0000 (UTC)
+Date: Sat, 1 Aug 2015 00:03:06 +0200
+From: Pavel Machek <pavel@ucw.cz>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <20150731220306.GA7867@amd>
+References: <20150723105726.GC30929@amd>
+	<CACRpkdbCbhgJHZifouDVUvaxyT5YWWdQz7Nt3AKoLvuEn4z7mQ@mail.gmail.com>
+	<20150723121441.GB29747@amd>
+	<20150723084251.54da2be0@gandalf.local.home>
+	<20150723202901.GA30318@amd> <20150729133244.GH20130@sirena.org.uk>
+	<20150731122227.GA31877@amd> <20150731175215.GJ20873@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="ZG5hGh9V5E9QzVHS"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <2904825.6WZJacWC6y@vostro.rjw.lan>
-Cc: Pavel Machek <pavel@ucw.cz>, ksummit-discuss@lists.linuxfoundation.org,
-	kyungmin.park@samsung.com, John Stultz <john.stultz@linaro.org>,
+In-Reply-To: <20150731175215.GJ20873@sirena.org.uk>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	riverful.kim@samsung.com, kyungmin.park@samsung.com,
+	John Stultz <john.stultz@linaro.org>,
 	Bjorn Andersson <Bjorn.Andersson@sonymobile.com>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Mainline kernel on a cellphone
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -33,45 +38,72 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Fri 2015-07-31 18:52:15, Mark Brown wrote:
+> On Fri, Jul 31, 2015 at 02:22:27PM +0200, Pavel Machek wrote:
+> > On Wed 2015-07-29 14:32:44, Mark Brown wrote:
+> > > On Thu, Jul 23, 2015 at 10:29:02PM +0200, Pavel Machek wrote:
+> 
+> > > ALSA is the right interface for this, this is going to be some
+> > > misunderstanding on their part about how to use it or limitations in
+> 
+> > That's what I was arguing, but see https://lkml.org/lkml/2015/3/5/606
+> 
+> I can't view that link since lkml.org was down earlier today when I was
+> working online and now I'm working offline.
 
---ZG5hGh9V5E9QzVHS
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+It works for me now.
 
-On Thu, Jul 30, 2015 at 02:57:17AM +0200, Rafael J. Wysocki wrote:
+> > kai> Our take was that ALSA is not the right interface for cmt_speech. The
+> > kai> cmt_speech interface in the modem is _not_ a PCM interface as modelled
+> > kai> by
+> > kai> ALSA. Specifically:
+> > kai>
+> > kai>- the interface is lossy in both directions
+> 
+> Yay.
+> 
+> > kai>- data is sent in packets, not a stream of samples (could be other
+> > kai>- things
+> > kai>   than PCM samples), with timing and meta-data
+> 
+> This is what the copy() operation in the driver is for, there are other
+> DSP based devices out there as well as things like USB.
+> 
+> > kai>   - timing of uplink is of utmost importance
+> 
+> Well, ALSA doesn't impose any latency of its own so there should be no
+> issue there - the overheads should be minimal.
 
-> Essentially, what happens is that runtime PM allows us to reach the state
-> in which the system draws as little power as in suspend-to-idle, but it
-> simply doesn't allow the system to stay in that state long enough in one
-> go due to timer interrupts (and possibly other types of interrupt noice
-> that is suppressed by suspending all devices).
+The interface Nokia has is pretty strange. I believe you send
+timestamp with buffer, and it means "I'd like this packet of data to
+be sent at that time", or something like that.
 
-> Since energy is the power drawn in a given state times the time spent in that
-> state (on the average), that's why the system in suspend-to-idle uses less
-> energy than it would with runtime idle during the same period (modulo the
-> energy spent on suspending and resuming devices etc, of course).
+Anyway, no need to argue with me, I believe ALSA should be suitable.
 
-We could in theory work to reduce the number of these additional timer
-and other interrupts further - there was a lot of focus on this in the
-past (partly for desktop use cases where suspend isn't such a quick out)
-though with the advent of Android and the wide deployment of suspend to
-idle that resulted people stopped bothering on the embedded side since
-suspend to idle is both simple and effective.
+> > > the drivers for their particular system (and possibly some unfortunate
+> > > hardware design, it sounds like they may still be bouncing the voice
+> > > call through the AP which isn't the most wonderful idea ever).
+> > > There
+> 
+> > Actually, sending data through AP is _very_ good idea from security
+> > perspective. You don't want hacked baseband to eavesdrop on you, do
+> > you?
+> 
+> Given that the baseband is a key part of the data path it's not like
+> you're gaining anything there as far as I can see?   I suppose you could
+> argue that the AP is actually an additional attack surface here.
 
---ZG5hGh9V5E9QzVHS
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
+Actually yes, I believe I'm gaining a lot.
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
+If baseband is directly connected to the microphone, it can eavesdrop
+on me while the phone appears to be idle.
 
-iQEcBAEBCAAGBQJVu7ajAAoJECTWi3JdVIfQyCsH/RpCowZkBrrk0VU9OTzoVWpG
-+3Gaf7R4zS/DFLrwASseG4Th8s/ogUmD4wqEfYqqn5CBrbuleZrpEWu02ENR0eOd
-EsMrcBcDoI3V9rtoFFwM7ZOz0Aew4ZcMHDnwB/rDhrtNbsrmPOavP0gcrJW/xxqq
-VEyqYvrVTSYF+h4n/I8QMcLHAhDQ/gzCrz2R6GMaeB/VinQEv5Dr89plHRvg20RP
-h7yUPoiqE827iB24nV06g0qwUxhbL4YfRCZCoOP3mvBMHASFrsRVn559lplxXRgU
-FMYCm3CdFgXPG7McUU65juV6qPd6aYaEkt6yKSgoagG5E+k52tNB6t7pPmtX8RU=
-=HmCL
------END PGP SIGNATURE-----
+If data is being sent through the AP, yes, it can eavesdrop on calls
+(but there are probably easier ways to eavesdrop on calls), but it
+won't be able to do something funny when the phone appears to be idle.
 
---ZG5hGh9V5E9QzVHS--
+Best regards,
+									Pavel
+-- 
+(english) http://www.livejournal.com/~pavelmachek
+(cesky, pictures) http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blog.html
