@@ -1,28 +1,31 @@
-Return-Path: <linux+ksummit-discuss=lists.linuxfoundation.org@arm.linux.org.uk>
+Return-Path: <jglisse@redhat.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 37F90267
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id CD02247E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 15:56:26 +0000 (UTC)
-Received: from pandora.arm.linux.org.uk (pandora.arm.linux.org.uk
-	[78.32.30.218])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E6CB2209
+	Fri, 31 Jul 2015 16:13:08 +0000 (UTC)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id ACAFD7C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 15:56:24 +0000 (UTC)
-Date: Fri, 31 Jul 2015 16:56:13 +0100
-From: Russell King - ARM Linux <linux@arm.linux.org.uk>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Message-ID: <20150731155613.GY7557@n2100.arm.linux.org.uk>
-References: <2111196.TG1k3f53YQ@avalon>
+	Fri, 31 Jul 2015 16:13:07 +0000 (UTC)
+Received: from int-mx09.intmail.prod.int.phx2.redhat.com
+	(int-mx09.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+	by mx1.redhat.com (Postfix) with ESMTPS id F33EE8CF75
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 31 Jul 2015 16:13:06 +0000 (UTC)
+Date: Fri, 31 Jul 2015 12:13:04 -0400
+From: Jerome Glisse <jglisse@redhat.com>
+To: Rik van Riel <riel@redhat.com>
+Message-ID: <20150731161304.GA2039@redhat.com>
+References: <20150730130027.GA14980@8bytes.org> <55BB8BB2.2090809@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <2111196.TG1k3f53YQ@avalon>
-Sender: Russell King - ARM Linux <linux@arm.linux.org.uk>
-Cc: Tejun Heo <tj@kernel.org>, ksummit-discuss@lists.linuxfoundation.org,
-	Shuah Khan <shuah.kh@samsung.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Fix devm_kzalloc, its users,
-	or both
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <55BB8BB2.2090809@redhat.com>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Core Kernel support for
+ Compute-Offload Devices
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,84 +35,118 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 31, 2015 at 06:14:14PM +0300, Laurent Pinchart wrote:
-> It recently came to my attention that the way devm_kzalloc() is used by most 
-> drivers is broken.
-
-I think blaming devm_kzalloc() is actually wrong here.
-
-> The issue occurs when drivers use devm_kzalloc() to allocate data structures 
-> that can be accessed through file operations on a device node. The following 
-> sequence of events will then lead to a crash.
+On Fri, Jul 31, 2015 at 10:52:34AM -0400, Rik van Riel wrote:
+> On 07/30/2015 09:00 AM, Joerg Roedel wrote:
 > 
-> 1. Get a device bound to its driver
-> 2. Open the corresponding device node in userspace and keep it open
-> 3. Unbind the device from its driver through sysfs using for instance
+> > 	(1) Do we need the concept of an off-CPU task in the kernel
+> > 	    together with a common interface to create and manage them
+> > 	    and probably a (collection of) batch scheduler(s) for these
+> > 	    tasks?
 > 
-> echo <device-name> > /sys/bus/platform/drivers/<driver-name>/unbind
+> Given that some of these compute offload devices share the
+> same address space (mm_struct) as the threads running on
+> CPUs, it would be easiest if there was a reference on the
+> mm_struct for the threads that are running off-CPU.
 > 
-> (or for hotpluggable devices just unplug the device)
+> I do not know if a generic scheduler would work, since
+> it is common to have N threads on compute devices all bound
+> to the same address space, etc.
 > 
-> 4. Close the device node
-> 5. Enjoy the fireworks
+> Different devices might even require different schedulers,
+> but having a common data structure that pins mm_struct,
+> provides for a place to have state (like register content)
+> stored, and has pointers to scheduler, driver, and cleanup
+> functions could be really useful.
 
-Now think about the pre-devm_kzalloc() or pre-devm_* method - replace
-the above devm_kzalloc() with a plain kmalloc() + memset() as we used
-to have in drivers.
+Kernel scheduling does not match what hw (today and tomorrow)
+can do. You have to think 10 000 or 100 000 threads when it
+comes to GPU (and i would not be surprise that couple years
+down the road we reach the 1Millions threads).
 
-Then realise that such drivers would kfree() in their removal function
-which gets called from the unbind operation.
+With so many threads, you do not want to stop them midway,
+what you really want is rush to completion so you never have
+to store/save their information.
 
-It's really no different - the problem is just the same.
+Hence scheduling here is different, on GPU it is more about
+a queue of several thousand thread and you just move things
+up and down on what need to be executed first. Then GPU have
+hw scheduling that constantly switch btw active thread this
+why memory latency is so well hidden on GPU.
 
-> While having a device node open prevents modules from being unloaded, it 
-> doesn't prevent devices from being unbound from drivers. If the driver uses 
-> devm_* helpers to allocate memory the memory will be freed when the device is 
-> unbound from the driver, but that memory will still be used by any operation 
-> touching an open device node.
+That being said like Rik said, some common framework would
+probably make sense, especialy to keep some kind of fairness.
+But it is definitly not the preempt taks, schedule another
+one model.
 
-Correct, and when the new module loading code came along, these issues
-were known about at that time, because a lot of them really aren't new -
-they were known from analysis of module removal.  It's just that there's
-soo much going on in the kernel today that those who did know are swamped
-and can't look at and analyse everything, and there's no real way to pass
-that knowledge on.
+It is the wait current active thread of process A to finish
+and schedule bunch of thread of process B.
 
-> Tejun Heo commented that "this really is a general lifetime management 
-> problem. [...] If a piece of memory isn't attached to the harware side
-> but the userland interface side [...], that shouldn't be allocated via
-> devm - it has "dev" in its name for a reason."
-
-I think that's completely missing the problem.  This has very little to
-do with devm_*, as I've illustrated above, and more to do with people
-being aware of and properly handling the lifetimes of data structures.
-
-It's been well proven that many kernel programmers just don't have a grasp
-of data structure lifetimes - you only have to look at the struggle we've
-had with stuff like users of the driver model not implementing a proper
-->release callback (eg, lets provide an empty function to shut the kernel's
-warning up!)
-
-Even if we went through every driver today, and fixed up these bugs, we
-would still be bogged down with lots of people just not having a clue
-about this.  I think we need some other solution to it - one where driver
-authors don't have to even think about this lifetime issue, though exactly
-what that would be, I don't have any idea at the moment.  The alternative
-is that we do handle it the way the driver model does, but rather than
-repeating the mistake of having the ->release function called as soon as
-the refcount falls to zero, it's delayed by a random amount of time to
-catch people who think that an empty ->release function is acceptable -
-and make that non-optional.
-
-> People who might be interested:
 > 
-> - Tejun Heo <tj@kernel.org>
-> - Shuah Khan <shuah.kh@samsung.com> (for the media controller devres WIP)
-> - Russell King <linux@arm.linux.org.uk> (for the component framework)
+> > 	(2) Changes in memory management for devices accessing user
+> > 	    address spaces:
+> > 	    
+> > 	    (2.1) How can we best support the different memory models
+> > 	          these devices support?
+> > 	    
+> > 	    (2.2) How do we handle the off-CPU users of an mm_struct?
+> > 	    
+> > 	    (2.3) How can we attach common state for off-CPU tasks to
+> > 	          mm_struct (and what needs to be in there)?
+> 
+> Jerome has a bunch of code for this already.
 
-I don't believe the component helpers are affected by this as they don't
-talk to userland in any way.
+Yes HMM is all about that. It is the first step to provide common
+framework inside the kernel (not only for GPU but for any device
+that wish to transparently access process address space.
 
--- 
-FTTC broadband for 0.8mile line: currently at 10.5Mbps down 400kbps up
-according to speedtest.net.
+> 
+> > 	(3) Does it make sense to implement automatic migration of
+> > 	    system memory to device memory (when available) and vice
+> > 	    versa? How do we decide what and when to migrate?
+> 
+> I believe he has looked at migration too, but not implemented
+> it yet.
+
+I already implemented several version of it and posted for review
+couple of them. You do not want automatic migration because kernel
+as not enough informations here.
+
+HMM design is to let the device driver decide and then device driver
+can take clue from userspace and use any kind of heuristic to decide
+what we want to migrate.
+
+> 
+> If compute-offload devices are a kernel summit topic this year,
+> it would be useful to invite Jerome Glisse.
+
+I would happy to discuss this topic i have work on GPU open source
+driver for a long time and last couple year i spend them working on
+compute and how to integrate this inside the kernel.
+
+
+> > 	(4) What features do we require in the hardware to support it
+> > 	    with a common interface?
+> > 
+> > I think it would be great if the kernel would have a common interface
+> > for these kind of devices. Currently every vendor develops its own
+> > interface with various hacks to work around core code behavior.
+> > 
+> > I am particularily interested in this topic because on PCIe newer IOMMUs
+> > are often an integral part in supporting these devices (ARM-SMMUv3,
+> > Intel VT-d with SVM, AMD IOMMUv2). so that core work here will also
+> > touch the IOMMU code.
+> > 
+> > Probably (uncomplete list of) interested people:
+> > 
+> > 	David Woodhouse
+> > 	Jesse Barnes
+> > 	Will Deacon
+> > 	Paul E. McKenney
+> > 	Rik van Riel
+> > 	Mel Gorman
+> > 	Andrea Arcangeli
+> > 	Christoph Lameter
+> > 	Jérôme Glisse
+
+Cheers,
+Jérôme
