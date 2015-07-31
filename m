@@ -1,31 +1,29 @@
-Return-Path: <bhelgaas@google.com>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D914196
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id DD17E96
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 17:03:40 +0000 (UTC)
-Received: from mail-wi0-f174.google.com (mail-wi0-f174.google.com
-	[209.85.212.174])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6B64413E
+	Fri, 31 Jul 2015 17:04:38 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C15CF13E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 17:03:39 +0000 (UTC)
-Received: by wibxm9 with SMTP id xm9so42178090wib.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 10:03:38 -0700 (PDT)
+	Fri, 31 Jul 2015 17:04:37 +0000 (UTC)
+Date: Fri, 31 Jul 2015 18:04:16 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Message-ID: <20150731170416.GI20873@sirena.org.uk>
+References: <2111196.TG1k3f53YQ@avalon>
 MIME-Version: 1.0
-In-Reply-To: <20150731165915.GA4995@roeck-us.net>
-References: <55BAE39F.9060705@oracle.com>
-	<CAErSpo52d5DEp_KuVoQXm4DsVakemDboLUysy6_vHL6+-xgRJw@mail.gmail.com>
-	<20150731165915.GA4995@roeck-us.net>
-From: Bjorn Helgaas <bhelgaas@google.com>
-Date: Fri, 31 Jul 2015 12:03:18 -0500
-Message-ID: <CAErSpo6YgjgEE1aBvDV82OV8YP5DsoNVYAhhN7kdBPUfO5fpfg@mail.gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Content-Type: text/plain; charset=UTF-8
-Cc: Sasha Levin <sasha.levin@oracle.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] Self nomination
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="PWfwoUCx3AFJRUBq"
+Content-Disposition: inline
+In-Reply-To: <2111196.TG1k3f53YQ@avalon>
+Cc: Tejun Heo <tj@kernel.org>, Shuah Khan <shuah.kh@samsung.com>,
+	Russell King <linux@arm.linux.org.uk>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Fix devm_kzalloc, its users,
+ or both
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,24 +33,76 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 31, 2015 at 11:59 AM, Guenter Roeck <linux@roeck-us.net> wrote:
-> Hi Bjorn,
->
-> On Fri, Jul 31, 2015 at 11:27:38AM -0500, Bjorn Helgaas wrote:
->> On Thu, Jul 30, 2015 at 9:55 PM, Sasha Levin <sasha.levin@oracle.com> wrote:
->> > Mainly I'd like to talk about improving testing around the kernel, both by catching bugs
->> > and by improving the quality of debug output that comes out of the kernel.
->>
->> What sort of debug output improvements are you interested in?  I spend
->> a fair amount of time converting to dev_printk and %pR.  They make the
->
-> I have been wondering about that, especially since dev_dbg() and
-> 'dev_printk(KERN_DEBUG, ...)' are semantically different. Any reason
-> for preferring dev_printk() over dev_dbg() ?
 
-Personally I think that difference is a hassle.  When I convert
-printk(KERN_DEBUG) to use dev_printk, I use dev_printk(KERN_DEBUG) to
-preserve the fact that the printk happens unconditionally.  If I were
-smarter, I would figure out how to use dev_dbg() effectively, but
-usually I want my patch to be "convert to dev_printk", not "convert to
-dev_dbg and only print when some magic incantation is given".
+--PWfwoUCx3AFJRUBq
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, Jul 31, 2015 at 06:14:14PM +0300, Laurent Pinchart wrote:
+
+> It recently came to my attention that the way devm_kzalloc() is used by m=
+ost
+> drivers is broken. I've raised the topic on LKML (see
+> http://lkml.org/lkml/2015/7/14/741) in the hope that my findings were sim=
+ply
+
+lkml.org is down (again) - can you please provide a subject line?
+
+> The issue occurs when drivers use devm_kzalloc() to allocate data structu=
+res=20
+> that can be accessed through file operations on a device node. The follow=
+ing=20
+> sequence of events will then lead to a crash.
+
+Like Julia says I'm not sure this is really related to devm_ - I would
+really expect that the majority of users were already broken prior to
+the conversion to devm_ since the natural thing is to free things in the
+remove() function which has exactly the same issues, the main problem
+here is that the file open after device is removed case is rare for most
+devices and requires somewhat obscure handling.
+
+> While I agree that this is how devres operates today, I'm not sure we sho=
+uld=20
+> throw the baby out with the bath water. Using devm_kzalloc() as currently=
+ done =20
+> has value, and reverting drivers to the pre-devm memory allocation code w=
+ould=20
+> make error handling and cleanup code paths more complex again.
+
+> Should we introduce a managed allocator for that purpose that would have =
+a=20
+> lifespan explicitly handled by drivers (or, even better, handled automati=
+cally=20
+> in a way that would suit our use cases) ? Tejun commented that "a better=
+=20
+> approach would be implementing generic revoke feature and sever open file=
+s on=20
+> driver detach so that everything can be shutdown then".
+
+Tejun's suggestion seems like the most robust thing here - allocation
+issues are only going to be one of the problems with userspace accessing
+devices that are going away and there's a complexity cost from having
+the partially destroyed cases around.  Off the top of my head there's
+anything that attempts to access the hardware if it's genuinely gone
+away rather than just been soft unbound for example.  If the device can
+just invalidate all open files on the way out then that's going to be
+exactly what most things want.
+
+--PWfwoUCx3AFJRUBq
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQEcBAEBCAAGBQJVu6qQAAoJECTWi3JdVIfQJiYH/AmcXa/6uvp/wtKgBxIjlmD+
+Y/RRDjY8l5OU21oLNqEti0nMI24ZRhFlWop3N2hBe+e9qluRtKluMIb4Hx6JSDpf
+qBx1hjd0d94ACkMhY/qyde63fMQq3tYYysX5cXPBhxzY9CYujhAuZjCbqqzgIq5b
+VSTjvtTIRGvmkfE3AzsA2P5gfnNyjAH4MoVmH69y9lRvNsShWXOIi0jMnuYcbmKL
+yuhgkKCM+hDwSmY6B0B/qOC74jqfi68ORY0jgDJfqN6V8JXapDwG+cwukfuEz3Zl
+Jsm1w5hRi1tYjANQL48uzD9ByuzdT6ppBvMo0PcDTRyZp8HjpRzCKoUarPW9B/o=
+=7KoR
+-----END PGP SIGNATURE-----
+
+--PWfwoUCx3AFJRUBq--
