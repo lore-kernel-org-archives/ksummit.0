@@ -1,28 +1,22 @@
 Return-Path: <jglisse@redhat.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id CD02247E
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 66DCD415
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 16:13:08 +0000 (UTC)
+	Fri, 31 Jul 2015 16:34:57 +0000 (UTC)
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id ACAFD7C
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E6E888B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 16:13:07 +0000 (UTC)
-Received: from int-mx09.intmail.prod.int.phx2.redhat.com
-	(int-mx09.intmail.prod.int.phx2.redhat.com [10.5.11.22])
-	by mx1.redhat.com (Postfix) with ESMTPS id F33EE8CF75
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 16:13:06 +0000 (UTC)
-Date: Fri, 31 Jul 2015 12:13:04 -0400
+	Fri, 31 Jul 2015 16:34:56 +0000 (UTC)
+Date: Fri, 31 Jul 2015 12:34:53 -0400
 From: Jerome Glisse <jglisse@redhat.com>
-To: Rik van Riel <riel@redhat.com>
-Message-ID: <20150731161304.GA2039@redhat.com>
-References: <20150730130027.GA14980@8bytes.org> <55BB8BB2.2090809@redhat.com>
+To: Joerg Roedel <joro@8bytes.org>
+Message-ID: <20150731163453.GB2039@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <55BB8BB2.2090809@redhat.com>
+In-Reply-To: <20150730135440.GB14980@8bytes.org>
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Core Kernel support for
  Compute-Offload Devices
@@ -35,118 +29,85 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 31, 2015 at 10:52:34AM -0400, Rik van Riel wrote:
-> On 07/30/2015 09:00 AM, Joerg Roedel wrote:
-> 
-> > 	(1) Do we need the concept of an off-CPU task in the kernel
-> > 	    together with a common interface to create and manage them
-> > 	    and probably a (collection of) batch scheduler(s) for these
-> > 	    tasks?
-> 
-> Given that some of these compute offload devices share the
-> same address space (mm_struct) as the threads running on
-> CPUs, it would be easiest if there was a reference on the
-> mm_struct for the threads that are running off-CPU.
-> 
-> I do not know if a generic scheduler would work, since
-> it is common to have N threads on compute devices all bound
-> to the same address space, etc.
-> 
-> Different devices might even require different schedulers,
-> but having a common data structure that pins mm_struct,
-> provides for a place to have state (like register content)
-> stored, and has pointers to scheduler, driver, and cleanup
-> functions could be really useful.
-
-Kernel scheduling does not match what hw (today and tomorrow)
-can do. You have to think 10 000 or 100 000 threads when it
-comes to GPU (and i would not be surprise that couple years
-down the road we reach the 1Millions threads).
-
-With so many threads, you do not want to stop them midway,
-what you really want is rush to completion so you never have
-to store/save their information.
-
-Hence scheduling here is different, on GPU it is more about
-a queue of several thousand thread and you just move things
-up and down on what need to be executed first. Then GPU have
-hw scheduling that constantly switch btw active thread this
-why memory latency is so well hidden on GPU.
-
-That being said like Rik said, some common framework would
-probably make sense, especialy to keep some kind of fairness.
-But it is definitly not the preempt taks, schedule another
-one model.
-
-It is the wait current active thread of process A to finish
-and schedule bunch of thread of process B.
-
-> 
-> > 	(2) Changes in memory management for devices accessing user
-> > 	    address spaces:
-> > 	    
-> > 	    (2.1) How can we best support the different memory models
-> > 	          these devices support?
-> > 	    
-> > 	    (2.2) How do we handle the off-CPU users of an mm_struct?
-> > 	    
-> > 	    (2.3) How can we attach common state for off-CPU tasks to
-> > 	          mm_struct (and what needs to be in there)?
-> 
-> Jerome has a bunch of code for this already.
-
-Yes HMM is all about that. It is the first step to provide common
-framework inside the kernel (not only for GPU but for any device
-that wish to transparently access process address space.
-
-> 
-> > 	(3) Does it make sense to implement automatic migration of
-> > 	    system memory to device memory (when available) and vice
-> > 	    versa? How do we decide what and when to migrate?
-> 
-> I believe he has looked at migration too, but not implemented
-> it yet.
-
-I already implemented several version of it and posted for review
-couple of them. You do not want automatic migration because kernel
-as not enough informations here.
-
-HMM design is to let the device driver decide and then device driver
-can take clue from userspace and use any kind of heuristic to decide
-what we want to migrate.
-
-> 
-> If compute-offload devices are a kernel summit topic this year,
-> it would be useful to invite Jerome Glisse.
-
-I would happy to discuss this topic i have work on GPU open source
-driver for a long time and last couple year i spend them working on
-compute and how to integrate this inside the kernel.
-
-
-> > 	(4) What features do we require in the hardware to support it
-> > 	    with a common interface?
+On Thu, Jul 30, 2015 at 13:54:40 UTC 2015, Joerg Roedel wrote:
+> On Thu, Jul 30, 2015 at 02:31:38PM +0100, David Woodhouse wrote:
+> > On Thu, 2015-07-30 at 15:00 +0200, Joerg Roedel wrote:
+> > > 	    (2.3) How can we attach common state for off-CPU tasks to
+> > > 	          mm_struct (and what needs to be in there)?
 > > 
-> > I think it would be great if the kernel would have a common interface
-> > for these kind of devices. Currently every vendor develops its own
-> > interface with various hacks to work around core code behavior.
+> > And how do we handle the assignment of Address Space IDs? The AMD
+> > implementation currently allows the PASID space to be managed per
+> > -device, but I understand ARM systems handle the TLB shootdown
+> > broadcasts in hardware and need the PASID that the device sees to be
+> > identical to the ASID on the CPU's MMU? And there are reasons why we
+> > might actually want that model on Intel systems too. I'm working on the
+> > Intel SVM right now, and looking at a single-PASID-space model (partly
+> > because the PASID tables have to be physically contiguous, and they can
+> > be huge!).
+> 
+> True, ASIDs would be one thing that needs to be attached to a mm_struct,
+> but I am also interested what other platforms might need here. For
+> example, is there a better way to track these off-cpu users than using
+> mmu-notifiers.
+
+No the ASID should not be associated with mm_struct. There is to
+few ASID to have enough of them. I think currently there is only
+8bits worth of ASID. So what happen is that the GPU device driver
+schedule process and recycle ASID as it does.
+
+Which means that ASID really need to be on device driver control
+as i explained in another mail only device driver knows how to
+schedule thing for a given device and it is too much hw specific
+to be move to common code.
+
+
+> > > 	(3) Does it make sense to implement automatic migration of
+> > > 	    system memory to device memory (when available) and vice
+> > > 	    versa? How do we decide what and when to migrate?
 > > 
-> > I am particularily interested in this topic because on PCIe newer IOMMUs
-> > are often an integral part in supporting these devices (ARM-SMMUv3,
-> > Intel VT-d with SVM, AMD IOMMUv2). so that core work here will also
-> > touch the IOMMU code.
-> > 
-> > Probably (uncomplete list of) interested people:
-> > 
-> > 	David Woodhouse
-> > 	Jesse Barnes
-> > 	Will Deacon
-> > 	Paul E. McKenney
-> > 	Rik van Riel
-> > 	Mel Gorman
-> > 	Andrea Arcangeli
-> > 	Christoph Lameter
-> > 	Jérôme Glisse
+> > This is quite a horrid one, but perhaps ties into generic NUMA
+> > considerations â€” if a memory page is being frequently accessed by
+> > something that it's far away from, can we move it to closer memory?
+>
+> Yeah, conceptually it is NUMA, so it might fit there. But the difference
+> to the current NUMA handling is that the device memory is not always
+> completly visible to the CPU, so I think quite some significant changes
+> are necessary to make this work.
+
+My HMM patchset already handle all this for anonymous memory, i showed
+a proof of concept for file back one but i am exploring other method
+for that.
+
+
+> > Another idea is to handle migration like swapping. The difference to
+> > real swapping is that it is not relying on the LRU lists but the device
+> > access patterns we measure.
+> 
+> > The question is how we handle that. We do have Extended Accessed bits
+> > in the Intel implementation of SVM that let us know that a given PTE
+> > was used from a device. Although not *which* device, in cases where
+> > there might be more than one.
+> 
+> One way would be to use seperate page-tables for the devices (which, on
+> the other side, somehow contradicts the design of the hardware, because
+> its designed to reuse cpu page-tables).
+
+So HMM use a seperate page table for storing information relating to
+migrated memory. Note that not all hw reuse the CPU page table, some
+hardware do not and it is very much a platform thing.
+
+> And I don't know which features other devices have (like the CAPI
+> devices on Power that Paul wrote about) to help in this decission.
+
+CAPI would not need special PTE, as on CAPI device memory is accessible
+by the CPU as regular memory. Only platform that can not offer this
+need some special handling. AFAICT x86 and ARM have nothing plan to
+offer such level of integration (thought lately i have not paid close
+attention to what new features the PCIe consortium is discussing).
+
+Joerg i think you really want to take a look at my patchset to see
+how i implemented this. I have been discussing this with AMD, Mellanox,
+NVidia and couple other smaller specialize hw manufacturer.
 
 Cheers,
-Jérôme
+JÃ©rÃ´me
