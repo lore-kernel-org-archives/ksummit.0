@@ -1,36 +1,29 @@
-Return-Path: <Bjorn.Andersson@sonymobile.com>
+Return-Path: <julia.lawall@lip6.fr>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2FE943C8
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 243BA3C8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 16:56:52 +0000 (UTC)
-Received: from seldrel01.sonyericsson.com (seldrel01.sonyericsson.com
-	[37.139.156.2])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3EDB18D
+	Fri, 31 Jul 2015 16:57:23 +0000 (UTC)
+Received: from mail2-relais-roc.national.inria.fr
+	(mail2-relais-roc.national.inria.fr [192.134.164.83])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E77E38D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 16:56:51 +0000 (UTC)
-Date: Fri, 31 Jul 2015 09:56:45 -0700
-From: Bjorn Andersson <bjorn.andersson@sonymobile.com>
-To: Rob Herring <robherring2@gmail.com>
-Message-ID: <20150731165645.GH6519@usrtlx11787.corpusers.net>
-References: <20150723105726.GC30929@amd>
-	<CACRpkdbCbhgJHZifouDVUvaxyT5YWWdQz7Nt3AKoLvuEn4z7mQ@mail.gmail.com>
-	<20150723121441.GB29747@amd>
-	<20150723084251.54da2be0@gandalf.local.home>
-	<20150723154014.GD11162@sirena.org.uk>
-	<55B7FD82.8010806@sonymobile.com>
-	<20150728230743.GO4753@usrtlx11787.corpusers.net>
-	<CAL_JsqJ0j2wPwVYj3PX0UYiAXeZ-vm8KGX-W_-Dk3Gu1PVQrQw@mail.gmail.com>
+	Fri, 31 Jul 2015 16:57:21 +0000 (UTC)
+Date: Fri, 31 Jul 2015 18:57:17 +0200 (CEST)
+From: Julia Lawall <julia.lawall@lip6.fr>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+In-Reply-To: <20150731165143.GA5613@dtor-ws>
+Message-ID: <alpine.DEB.2.10.1507311855250.2499@hadrien>
+References: <2111196.TG1k3f53YQ@avalon>
+	<alpine.DEB.2.10.1507311833280.2499@hadrien>
+	<20150731165143.GA5613@dtor-ws>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <CAL_JsqJ0j2wPwVYj3PX0UYiAXeZ-vm8KGX-W_-Dk3Gu1PVQrQw@mail.gmail.com>
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	"riverful.kim@samsung.com" <riverful.kim@samsung.com>,
-	"kyungmin.park@samsung.com" <kyungmin.park@samsung.com>,
-	John Stultz <john.stultz@linaro.org>, Pavel Machek <pavel@ucw.cz>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Mainline kernel on a cellphone
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+Cc: Tejun Heo <tj@kernel.org>, Shuah Khan <shuah.kh@samsung.com>,
+	Russell King <linux@arm.linux.org.uk>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Fix devm_kzalloc, its users,
+ or both
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,85 +33,100 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri 31 Jul 09:18 PDT 2015, Rob Herring wrote:
 
-> On Tue, Jul 28, 2015 at 6:07 PM, Bjorn Andersson
-> <bjorn.andersson@sonymobile.com> wrote:
-> > On Tue 28 Jul 15:09 PDT 2015, Tim Bird wrote:
+
+On Fri, 31 Jul 2015, Dmitry Torokhov wrote:
+
+> On Fri, Jul 31, 2015 at 06:34:21PM +0200, Julia Lawall wrote:
 > >
-> >> On 07/23/2015 08:40 AM, Mark Brown wrote:
-> >> > On Thu, Jul 23, 2015 at 08:42:51AM -0400, Steven Rostedt wrote:
-> >> >
-> >> >> Although is this something to be a core topic or a tech topic? Does
-> >> >> this affect all subsystems, or just a set of drivers? Note, a core
-> >> >> topic wont get as much time for discussion as a tech topic would.
-> >> >
-> >> > It's basically all subsystems that get impacted, at the minute I'd say
-> >> > it's more a plan of action and process discussion than a technical one
-> >> > though in the context of KS planning that's quite probably the same
-> >> > thing.
-> >> >
-> >> >> Also, what is expected to be solved at KS?
-> >> >
-> >> > Tim Bird (Cced) has been running some sessions at other conferences
-> >> > scoping the problem and discussing ways to move forward on this, another
-> >> > similar session might be useful.
-> >>
-> > [..]
-> >> In particular it has a table showing certain areas that tend to have
-> >> a lot of out-of-tree code (e.g. most phones have between 80K to
-> >> 100K of lines of wireless driver support out-of-mainline)
-> 
-> Practically every vendor BSP I've looked at has Broadcom vendor driver
-> copied in.
-> 
+> >
+> > On Fri, 31 Jul 2015, Laurent Pinchart wrote:
+> >
+> > > Hello,
+> > >
+> > > It recently came to my attention that the way devm_kzalloc() is used by most
+> > > drivers is broken. I've raised the topic on LKML (see
+> > > http://lkml.org/lkml/2015/7/14/741) in the hope that my findings were simply
+> > > wrong, but it turned out I was unfortunately right. As the topic spans lots of
+> > > subsystems I believe it would be a good technical topic for the Kernel Summit.
+> > >
+> > > The issue occurs when drivers use devm_kzalloc() to allocate data structures
+> > > that can be accessed through file operations on a device node. The following
+> > > sequence of events will then lead to a crash.
+> > >
+> > > 1. Get a device bound to its driver
+> > > 2. Open the corresponding device node in userspace and keep it open
+> > > 3. Unbind the device from its driver through sysfs using for instance
+> > >
+> > > echo <device-name> > /sys/bus/platform/drivers/<driver-name>/unbind
+> > >
+> > > (or for hotpluggable devices just unplug the device)
+> > >
+> > > 4. Close the device node
+> > > 5. Enjoy the fireworks
+> > >
+> > > While having a device node open prevents modules from being unloaded, it
+> > > doesn't prevent devices from being unbound from drivers. If the driver uses
+> > > devm_* helpers to allocate memory the memory will be freed when the device is
+> > > unbound from the driver, but that memory will still be used by any operation
+> > > touching an open device node.
+> >
+> > How is this different from the free happening explicitly in the remove
+> > function?
+>
+> It is not, but often devm* is "sold" as the greatest thing since sliced
+> bread and people use it by default everywhere without a second thought.
+> I see quite a few patches from newer contributors making conversion of
+> drivers to devm and quite a few of them are wrong. I also see quite
+> often suggestions to submitters encouraging using devm* which would be
+> also wrong in those particular scenarios.
 
-Right, everyone inherits the bcmdhd driver from the android-common tree,
-and uses that with some level of patching.
+I know about the problem with the interaction with interrupts, but this
+seems to be something else?  Is there a concrete example?  Or are all
+cases wrong, because freeing things in the remove function is wrong in the
+first place?
 
-> > In the Xperia Z3 we have a bcm4339 and I managed to get that up and
-> > running with the brcmf driver on mainline last week - pending Qualcomm
-> > regulator support and 1 pending patch in mmc.
-> 
-> That's no small feat, but the real problem here are the feature gaps
-> with mainline. Things I've heard about are switching between AP and
-> client modes, P2P support, Android specific power optimized firmware,
-> etc.
+thanks,
+julia
 
-Right, I expect both a functional and a stability gap. But the my goal
-is to get to the point where our WiFi team can work on these issues -
-even if that's on the side of normal product development for the
-foreseeable future.
-
-> We do have to start somewhere, but as long as vendors are putting
-> new features in their vendor drivers first and not getting pushback
-> from customers to have mainline (or mainline + feature X) drivers it
-> is going to be a loosing battle.
-> 
-
-Right, but we (Sony) are one of those customers' of Broadcomm and by
-just having this running we are in a better state of pushing back.
-
-For now I've only tested this on SDIO based bcm devices though, the
-latest batch are PCIe; so we have to get back to that...
-
-> The WiFi side is actually in better shape than BT. With BT, we have
-> Bluedroid vs. BlueZ, no real DT bindings to describe BT chips (plenty
-> of examples of how not to do it[1]), and chip specific userspace
-> initialization (firmware loading, baudrate setup, power mgt).
-> 
-
-In other words, plenty of savings to be found :)
-
-> NFC is even worse. What's in the kernel for NFC is generally not used
-> by Android AFAIK.
-> 
-
-The NFC implementation used by Android is completely done in userspace.
-
-The kernel parts looks promising, but last time I looked Android support
-was only at the horizon of their todo list; with plenty of
-not-so-android-compatible pieces put in before that (e.g DBUS)
-
-Regards,
-Bjorn
+>
+> >
+> > (For some reason, I can't access the lkml discussion).
+>
+> Me neither.
+>
+> >
+> > julia
+> >
+> >
+> > >
+> > > Tejun Heo commented that "this really is a general lifetime management
+> > > problem. [...] If a piece of memory isn't attached to the harware side but the
+> > > userland interface side [...], that shouldn't be allocated via devm - it has
+> > > "dev" in its name for a reason."
+> > >
+> > > While I agree that this is how devres operates today, I'm not sure we should
+> > > throw the baby out with the bath water. Using devm_kzalloc() as currently done
+> > > has value, and reverting drivers to the pre-devm memory allocation code would
+> > > make error handling and cleanup code paths more complex again.
+> > >
+> > > Should we introduce a managed allocator for that purpose that would have a
+> > > lifespan explicitly handled by drivers (or, even better, handled automatically
+> > > in a way that would suit our use cases) ? Tejun commented that "a better
+> > > approach would be implementing generic revoke feature and sever open files on
+> > > driver detach so that everything can be shutdown then".
+>
+> Revoke will be useful for file-based access, but I am sure there are
+> other cases where lifetime of one of interfaces implemented by the
+> driver will last past the point where we unbind the driver from the
+> device. Maybe it is subsystem fault in the end.
+>
+> Note that even though I am one of (or the only?) devm "haters" I do
+> believe that the API is quite useful if used with consideration and
+> definitely do not want to throw out the baby with the bath water.
+>
+> Thanks.
+>
+> --
+> Dmitry
+>
