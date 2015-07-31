@@ -1,28 +1,27 @@
-Return-Path: <bhelgaas@google.com>
+Return-Path: <julia.lawall@lip6.fr>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7BA7E405
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 810E8407
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 16:27:59 +0000 (UTC)
-Received: from mail-wi0-f178.google.com (mail-wi0-f178.google.com
-	[209.85.212.178])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CD3648B
+	Fri, 31 Jul 2015 16:34:28 +0000 (UTC)
+Received: from mail2-relais-roc.national.inria.fr
+	(mail2-relais-roc.national.inria.fr [192.134.164.83])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 270D08B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 16:27:58 +0000 (UTC)
-Received: by wibxm9 with SMTP id xm9so38841933wib.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 09:27:57 -0700 (PDT)
+	Fri, 31 Jul 2015 16:34:26 +0000 (UTC)
+Date: Fri, 31 Jul 2015 18:34:21 +0200 (CEST)
+From: Julia Lawall <julia.lawall@lip6.fr>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+In-Reply-To: <2111196.TG1k3f53YQ@avalon>
+Message-ID: <alpine.DEB.2.10.1507311833280.2499@hadrien>
+References: <2111196.TG1k3f53YQ@avalon>
 MIME-Version: 1.0
-In-Reply-To: <55BAE39F.9060705@oracle.com>
-References: <55BAE39F.9060705@oracle.com>
-From: Bjorn Helgaas <bhelgaas@google.com>
-Date: Fri, 31 Jul 2015 11:27:38 -0500
-Message-ID: <CAErSpo52d5DEp_KuVoQXm4DsVakemDboLUysy6_vHL6+-xgRJw@mail.gmail.com>
-To: Sasha Levin <sasha.levin@oracle.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] Self nomination
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+Cc: Tejun Heo <tj@kernel.org>, Shuah Khan <shuah.kh@samsung.com>,
+	Russell King <linux@arm.linux.org.uk>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Fix devm_kzalloc, its users,
+ or both
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,11 +31,79 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Jul 30, 2015 at 9:55 PM, Sasha Levin <sasha.levin@oracle.com> wrote:
-> Mainly I'd like to talk about improving testing around the kernel, both by catching bugs
-> and by improving the quality of debug output that comes out of the kernel.
 
-What sort of debug output improvements are you interested in?  I spend
-a fair amount of time converting to dev_printk and %pR.  They make the
-kernel more consistent and approachable, but they're minor and I'm
-sure you have more substantive things in mind.
+
+On Fri, 31 Jul 2015, Laurent Pinchart wrote:
+
+> Hello,
+>
+> It recently came to my attention that the way devm_kzalloc() is used by most
+> drivers is broken. I've raised the topic on LKML (see
+> http://lkml.org/lkml/2015/7/14/741) in the hope that my findings were simply
+> wrong, but it turned out I was unfortunately right. As the topic spans lots of
+> subsystems I believe it would be a good technical topic for the Kernel Summit.
+>
+> The issue occurs when drivers use devm_kzalloc() to allocate data structures
+> that can be accessed through file operations on a device node. The following
+> sequence of events will then lead to a crash.
+>
+> 1. Get a device bound to its driver
+> 2. Open the corresponding device node in userspace and keep it open
+> 3. Unbind the device from its driver through sysfs using for instance
+>
+> echo <device-name> > /sys/bus/platform/drivers/<driver-name>/unbind
+>
+> (or for hotpluggable devices just unplug the device)
+>
+> 4. Close the device node
+> 5. Enjoy the fireworks
+>
+> While having a device node open prevents modules from being unloaded, it
+> doesn't prevent devices from being unbound from drivers. If the driver uses
+> devm_* helpers to allocate memory the memory will be freed when the device is
+> unbound from the driver, but that memory will still be used by any operation
+> touching an open device node.
+
+How is this different from the free happening explicitly in the remove
+function?
+
+(For some reason, I can't access the lkml discussion).
+
+julia
+
+
+>
+> Tejun Heo commented that "this really is a general lifetime management
+> problem. [...] If a piece of memory isn't attached to the harware side but the
+> userland interface side [...], that shouldn't be allocated via devm - it has
+> "dev" in its name for a reason."
+>
+> While I agree that this is how devres operates today, I'm not sure we should
+> throw the baby out with the bath water. Using devm_kzalloc() as currently done
+> has value, and reverting drivers to the pre-devm memory allocation code would
+> make error handling and cleanup code paths more complex again.
+>
+> Should we introduce a managed allocator for that purpose that would have a
+> lifespan explicitly handled by drivers (or, even better, handled automatically
+> in a way that would suit our use cases) ? Tejun commented that "a better
+> approach would be implementing generic revoke feature and sever open files on
+> driver detach so that everything can be shutdown then".
+>
+> People who might be interested:
+>
+> - Tejun Heo <tj@kernel.org>
+> - Shuah Khan <shuah.kh@samsung.com> (for the media controller devres WIP)
+> - Russell King <linux@arm.linux.org.uk> (for the component framework)
+> - Anyone who believes that managed memory allocation for driver private
+> structures is useful
+>
+> --
+> Regards,
+>
+> Laurent Pinchart
+>
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+>
