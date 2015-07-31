@@ -1,22 +1,27 @@
-Return-Path: <julia.lawall@lip6.fr>
+Return-Path: <dmitry.torokhov@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 810E8407
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B685C415
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 16:34:28 +0000 (UTC)
-Received: from mail2-relais-roc.national.inria.fr
-	(mail2-relais-roc.national.inria.fr [192.134.164.83])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 270D08B
+	Fri, 31 Jul 2015 16:51:48 +0000 (UTC)
+Received: from mail-pd0-f171.google.com (mail-pd0-f171.google.com
+	[209.85.192.171])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 19780201
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 16:34:26 +0000 (UTC)
-Date: Fri, 31 Jul 2015 18:34:21 +0200 (CEST)
-From: Julia Lawall <julia.lawall@lip6.fr>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-In-Reply-To: <2111196.TG1k3f53YQ@avalon>
-Message-ID: <alpine.DEB.2.10.1507311833280.2499@hadrien>
+	Fri, 31 Jul 2015 16:51:48 +0000 (UTC)
+Received: by pdbnt7 with SMTP id nt7so45412214pdb.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 31 Jul 2015 09:51:47 -0700 (PDT)
+Date: Fri, 31 Jul 2015 09:51:43 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Julia Lawall <julia.lawall@lip6.fr>
+Message-ID: <20150731165143.GA5613@dtor-ws>
 References: <2111196.TG1k3f53YQ@avalon>
+	<alpine.DEB.2.10.1507311833280.2499@hadrien>
 MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.10.1507311833280.2499@hadrien>
 Cc: Tejun Heo <tj@kernel.org>, Shuah Khan <shuah.kh@samsung.com>,
 	Russell King <linux@arm.linux.org.uk>,
 	ksummit-discuss@lists.linuxfoundation.org
@@ -31,79 +36,86 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Fri, Jul 31, 2015 at 06:34:21PM +0200, Julia Lawall wrote:
+> 
+> 
+> On Fri, 31 Jul 2015, Laurent Pinchart wrote:
+> 
+> > Hello,
+> >
+> > It recently came to my attention that the way devm_kzalloc() is used by most
+> > drivers is broken. I've raised the topic on LKML (see
+> > http://lkml.org/lkml/2015/7/14/741) in the hope that my findings were simply
+> > wrong, but it turned out I was unfortunately right. As the topic spans lots of
+> > subsystems I believe it would be a good technical topic for the Kernel Summit.
+> >
+> > The issue occurs when drivers use devm_kzalloc() to allocate data structures
+> > that can be accessed through file operations on a device node. The following
+> > sequence of events will then lead to a crash.
+> >
+> > 1. Get a device bound to its driver
+> > 2. Open the corresponding device node in userspace and keep it open
+> > 3. Unbind the device from its driver through sysfs using for instance
+> >
+> > echo <device-name> > /sys/bus/platform/drivers/<driver-name>/unbind
+> >
+> > (or for hotpluggable devices just unplug the device)
+> >
+> > 4. Close the device node
+> > 5. Enjoy the fireworks
+> >
+> > While having a device node open prevents modules from being unloaded, it
+> > doesn't prevent devices from being unbound from drivers. If the driver uses
+> > devm_* helpers to allocate memory the memory will be freed when the device is
+> > unbound from the driver, but that memory will still be used by any operation
+> > touching an open device node.
+> 
+> How is this different from the free happening explicitly in the remove
+> function?
 
+It is not, but often devm* is "sold" as the greatest thing since sliced
+bread and people use it by default everywhere without a second thought.
+I see quite a few patches from newer contributors making conversion of
+drivers to devm and quite a few of them are wrong. I also see quite
+often suggestions to submitters encouraging using devm* which would be
+also wrong in those particular scenarios.
 
-On Fri, 31 Jul 2015, Laurent Pinchart wrote:
+> 
+> (For some reason, I can't access the lkml discussion).
 
-> Hello,
->
-> It recently came to my attention that the way devm_kzalloc() is used by most
-> drivers is broken. I've raised the topic on LKML (see
-> http://lkml.org/lkml/2015/7/14/741) in the hope that my findings were simply
-> wrong, but it turned out I was unfortunately right. As the topic spans lots of
-> subsystems I believe it would be a good technical topic for the Kernel Summit.
->
-> The issue occurs when drivers use devm_kzalloc() to allocate data structures
-> that can be accessed through file operations on a device node. The following
-> sequence of events will then lead to a crash.
->
-> 1. Get a device bound to its driver
-> 2. Open the corresponding device node in userspace and keep it open
-> 3. Unbind the device from its driver through sysfs using for instance
->
-> echo <device-name> > /sys/bus/platform/drivers/<driver-name>/unbind
->
-> (or for hotpluggable devices just unplug the device)
->
-> 4. Close the device node
-> 5. Enjoy the fireworks
->
-> While having a device node open prevents modules from being unloaded, it
-> doesn't prevent devices from being unbound from drivers. If the driver uses
-> devm_* helpers to allocate memory the memory will be freed when the device is
-> unbound from the driver, but that memory will still be used by any operation
-> touching an open device node.
+Me neither.
 
-How is this different from the free happening explicitly in the remove
-function?
+> 
+> julia
+> 
+> 
+> >
+> > Tejun Heo commented that "this really is a general lifetime management
+> > problem. [...] If a piece of memory isn't attached to the harware side but the
+> > userland interface side [...], that shouldn't be allocated via devm - it has
+> > "dev" in its name for a reason."
+> >
+> > While I agree that this is how devres operates today, I'm not sure we should
+> > throw the baby out with the bath water. Using devm_kzalloc() as currently done
+> > has value, and reverting drivers to the pre-devm memory allocation code would
+> > make error handling and cleanup code paths more complex again.
+> >
+> > Should we introduce a managed allocator for that purpose that would have a
+> > lifespan explicitly handled by drivers (or, even better, handled automatically
+> > in a way that would suit our use cases) ? Tejun commented that "a better
+> > approach would be implementing generic revoke feature and sever open files on
+> > driver detach so that everything can be shutdown then".
 
-(For some reason, I can't access the lkml discussion).
+Revoke will be useful for file-based access, but I am sure there are
+other cases where lifetime of one of interfaces implemented by the
+driver will last past the point where we unbind the driver from the
+device. Maybe it is subsystem fault in the end.
 
-julia
+Note that even though I am one of (or the only?) devm "haters" I do
+believe that the API is quite useful if used with consideration and
+definitely do not want to throw out the baby with the bath water.
 
+Thanks.
 
->
-> Tejun Heo commented that "this really is a general lifetime management
-> problem. [...] If a piece of memory isn't attached to the harware side but the
-> userland interface side [...], that shouldn't be allocated via devm - it has
-> "dev" in its name for a reason."
->
-> While I agree that this is how devres operates today, I'm not sure we should
-> throw the baby out with the bath water. Using devm_kzalloc() as currently done
-> has value, and reverting drivers to the pre-devm memory allocation code would
-> make error handling and cleanup code paths more complex again.
->
-> Should we introduce a managed allocator for that purpose that would have a
-> lifespan explicitly handled by drivers (or, even better, handled automatically
-> in a way that would suit our use cases) ? Tejun commented that "a better
-> approach would be implementing generic revoke feature and sever open files on
-> driver detach so that everything can be shutdown then".
->
-> People who might be interested:
->
-> - Tejun Heo <tj@kernel.org>
-> - Shuah Khan <shuah.kh@samsung.com> (for the media controller devres WIP)
-> - Russell King <linux@arm.linux.org.uk> (for the component framework)
-> - Anyone who believes that managed memory allocation for driver private
-> structures is useful
->
-> --
-> Regards,
->
-> Laurent Pinchart
->
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
->
+-- 
+Dmitry
