@@ -1,30 +1,37 @@
-Return-Path: <Tim.Bird@sonymobile.com>
+Return-Path: <robherring2@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9A6E3405
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3A72D405
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 16:15:01 +0000 (UTC)
-Received: from seldrel01.sonyericsson.com (seldrel01.sonyericsson.com
-	[37.139.156.2])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 51CCF7C
+	Fri, 31 Jul 2015 16:18:45 +0000 (UTC)
+Received: from mail-yk0-f177.google.com (mail-yk0-f177.google.com
+	[209.85.160.177])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8EB1114B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 16:15:00 +0000 (UTC)
-Message-ID: <55BB9EFE.7070101@sonymobile.com>
-Date: Fri, 31 Jul 2015 09:14:54 -0700
-From: Tim Bird <tim.bird@sonymobile.com>
+	Fri, 31 Jul 2015 16:18:44 +0000 (UTC)
+Received: by ykay190 with SMTP id y190so63063299yka.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 31 Jul 2015 09:18:44 -0700 (PDT)
 MIME-Version: 1.0
-To: Theodore Ts'o <tytso@mit.edu>, David Woodhouse <dwmw2@infradead.org>
-References: <1438182000.2204.35.camel@HansenPartnership.com>	<1438184150.26511.77.camel@infradead.org>	<1438187888.2204.83.camel@HansenPartnership.com>	<1438191159.26511.91.camel@infradead.org>	<1438213176.2204.152.camel@HansenPartnership.com>	<1438243737.26511.114.camel@infradead.org>	<1438264121.2229.11.camel@HansenPartnership.com>	<1438268514.26511.216.camel@infradead.org>	<1438273046.2229.37.camel@HansenPartnership.com>	<1438283820.26511.243.camel@infradead.org>
-	<20150731144118.GA29787@thunk.org>
-In-Reply-To: <20150731144118.GA29787@thunk.org>
-Content-Type: text/plain; charset="windows-1252"
-Content-Transfer-Encoding: 7bit
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	"mcgrof@gmail.com" <mcgrof@gmail.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
+In-Reply-To: <20150728230743.GO4753@usrtlx11787.corpusers.net>
+References: <20150723105726.GC30929@amd>
+	<CACRpkdbCbhgJHZifouDVUvaxyT5YWWdQz7Nt3AKoLvuEn4z7mQ@mail.gmail.com>
+	<20150723121441.GB29747@amd>
+	<20150723084251.54da2be0@gandalf.local.home>
+	<20150723154014.GD11162@sirena.org.uk>
+	<55B7FD82.8010806@sonymobile.com>
+	<20150728230743.GO4753@usrtlx11787.corpusers.net>
+From: Rob Herring <robherring2@gmail.com>
+Date: Fri, 31 Jul 2015 11:18:24 -0500
+Message-ID: <CAL_JsqJ0j2wPwVYj3PX0UYiAXeZ-vm8KGX-W_-Dk3Gu1PVQrQw@mail.gmail.com>
+To: Bjorn Andersson <bjorn.andersson@sonymobile.com>
+Content-Type: text/plain; charset=UTF-8
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	"jkkm@jkkm.org" <jkkm@jkkm.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Firmware signing
+	"riverful.kim@samsung.com" <riverful.kim@samsung.com>,
+	"kyungmin.park@samsung.com" <kyungmin.park@samsung.com>,
+	John Stultz <john.stultz@linaro.org>, Pavel Machek <pavel@ucw.cz>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Mainline kernel on a cellphone
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,35 +41,56 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 07/31/2015 07:41 AM, Theodore Ts'o wrote:
-> I will note that this thread is a great demonstration why I very
-> *firmly* believe that legal issues (whether it is about license
-> interpretation or enforcement) should be completely out of scope for
-> the kernel summit.
-> 
-> About the only thing worse than programmers thinking they can play
-> lawyers on TV and render legal opinions are physicists at national
-> labs thinking they can tell computer science people how to design
-> operating systems and design scale-out computing architectures because
-> everything can be derived from F=ma.
+On Tue, Jul 28, 2015 at 6:07 PM, Bjorn Andersson
+<bjorn.andersson@sonymobile.com> wrote:
+> On Tue 28 Jul 15:09 PDT 2015, Tim Bird wrote:
+>
+>> On 07/23/2015 08:40 AM, Mark Brown wrote:
+>> > On Thu, Jul 23, 2015 at 08:42:51AM -0400, Steven Rostedt wrote:
+>> >
+>> >> Although is this something to be a core topic or a tech topic? Does
+>> >> this affect all subsystems, or just a set of drivers? Note, a core
+>> >> topic wont get as much time for discussion as a tech topic would.
+>> >
+>> > It's basically all subsystems that get impacted, at the minute I'd say
+>> > it's more a plan of action and process discussion than a technical one
+>> > though in the context of KS planning that's quite probably the same
+>> > thing.
+>> >
+>> >> Also, what is expected to be solved at KS?
+>> >
+>> > Tim Bird (Cced) has been running some sessions at other conferences
+>> > scoping the problem and discussing ways to move forward on this, another
+>> > similar session might be useful.
+>>
+> [..]
+>> In particular it has a table showing certain areas that tend to have
+>> a lot of out-of-tree code (e.g. most phones have between 80K to
+>> 100K of lines of wireless driver support out-of-mainline)
 
-I agree with the sentiment.  But I do think kernel developers can have
-some role in expressing the will and intention of the copyright holders
-(to the degree that's possible on a massively distributed project
-like the kernel).  As a hypothetical, if we wanted to create a safe
-haven for people to distribute binary firmware blobs linked to the
-kernel, it might be legally worthwhile to create and publish a statement
-from major stakeholders (who are themselves copyright holders as well
-as technical experts) on the issue.  Lawyers use statements from technical
-experts fairly often.
+Practically every vendor BSP I've looked at has Broadcom vendor driver
+copied in.
 
-I can't think of a better place than a kernel summit (well, maybe
-inside the TAB) where kernel developers could use face-to-face
-communication to determine if there's consensus on this, as a
-first step in creating such a statement.
+> In the Xperia Z3 we have a bcm4339 and I managed to get that up and
+> running with the brcmf driver on mainline last week - pending Qualcomm
+> regulator support and 1 pending patch in mmc.
 
-I have no idea if this issue rises to the level of concern that would
-warrant such action.  My own experience is that most companies with
-binary firmware blobs have by now figured out how to distribute them
-in a way that they believe satisfies the requirements of the GPL.
- -- Tim
+That's no small feat, but the real problem here are the feature gaps
+with mainline. Things I've heard about are switching between AP and
+client modes, P2P support, Android specific power optimized firmware,
+etc. We do have to start somewhere, but as long as vendors are putting
+new features in their vendor drivers first and not getting pushback
+from customers to have mainline (or mainline + feature X) drivers it
+is going to be a loosing battle.
+
+The WiFi side is actually in better shape than BT. With BT, we have
+Bluedroid vs. BlueZ, no real DT bindings to describe BT chips (plenty
+of examples of how not to do it[1]), and chip specific userspace
+initialization (firmware loading, baudrate setup, power mgt).
+
+NFC is even worse. What's in the kernel for NFC is generally not used
+by Android AFAIK.
+
+Rob
+
+[1] https://www.mail-archive.com/linux-kernel@vger.kernel.org/msg937944.html
