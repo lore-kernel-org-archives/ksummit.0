@@ -1,25 +1,29 @@
 Return-Path: <sasha.levin@oracle.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 10FFF279
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id EFB6F279
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 17:49:15 +0000 (UTC)
-Received: from aserp1040.oracle.com (aserp1040.oracle.com [141.146.126.69])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9E6A0258
+	Fri, 31 Jul 2015 17:49:55 +0000 (UTC)
+Received: from userp1040.oracle.com (userp1040.oracle.com [156.151.31.81])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7D2AFE9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 17:49:14 +0000 (UTC)
-Message-ID: <55BBB514.7060509@oracle.com>
-Date: Fri, 31 Jul 2015 13:49:08 -0400
+	Fri, 31 Jul 2015 17:49:55 +0000 (UTC)
+Message-ID: <55BBB53D.9020501@oracle.com>
+Date: Fri, 31 Jul 2015 13:49:49 -0400
 From: Sasha Levin <sasha.levin@oracle.com>
 MIME-Version: 1.0
-To: Julia Lawall <julia.lawall@lip6.fr>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-References: <55BAE39F.9060705@oracle.com>
-	<alpine.DEB.2.02.1507310650220.2218@localhost6.localdomain6>
-In-Reply-To: <alpine.DEB.2.02.1507310650220.2218@localhost6.localdomain6>
-Content-Type: text/plain; charset=windows-1252
+To: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Greg KH <greg@kroah.com>
+References: <55BAE39F.9060705@oracle.com>	
+	<CAErSpo52d5DEp_KuVoQXm4DsVakemDboLUysy6_vHL6+-xgRJw@mail.gmail.com>	
+	<20150731165915.GA4995@roeck-us.net>
+	<20150731170825.GA2721@kroah.com>
+	<1438363601.2179.49.camel@HansenPartnership.com>
+In-Reply-To: <1438363601.2179.49.camel@HansenPartnership.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] Self nomination
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -30,45 +34,18 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 07/31/2015 12:51 AM, Julia Lawall wrote:
->> I'd like to nominate myself to this year's kernel summit.
->> > 
->> > Mainly I'd like to talk about improving testing around the kernel, both by catching bugs
->> > and by improving the quality of debug output that comes out of the kernel.
-> Improving it in what way?  We are doing some research related to logging 
-> at the moment, and so I would be interested to hear what you think are the 
-> problems.
+On 07/31/2015 01:26 PM, James Bottomley wrote:
+> Other than to confuse us all over minute details, is there a reason for
+> this difference to exist?  I realise right at the moment dev_dbg can be
+> configured off by a variety of symbols and dev_printk(KERN_DEBUG) can't,
+> conversely dev_printk doesn't pick up the location information and
+> dev_dbg does, but there's no reason all that couldn't be harmonised so
+> we didn't have to have arguments about which to use (and endless patches
+> switching from one to the other)?
 
->From my perspective the biggest issue is making a given error state more reproducible. Quite
-often I am able to trigger a bug on my testing box, but the information the kernel spits out
-(backtrace + registers) aren't too useful if the problem is complicated.
-
-The result is that finding out what happens depends on few people who are able to "magically"
-trigger bugs and result in a long and inefficient back and forth while the bug manages to
-sneak in upstream and to users hands.
-
-To sum it up, I think we need to figure out a way to produce enough information to make bugs
-more reproducible, but not too much to avoid a needle in a haystack situation.
-
-In this regard, the new Intel PT technology is interesting and it's also worth figuring out
-a good way to integrate it with our current infrastructure/tools.
-
-
-Among other, less urgent ideas I'd like to discuss are:
-
- - Using KASan for poison fields. Quite a few structures have embedded poison fields. Rather
-than detecting a corruption after it happens we are able to detect it as it happens - making
-bugs more obvious.
-
- - Encouraging folks who add new sysctls (or features to existing sysctls) to contribute
-testing code to the various testing projects around (trinity and such).
-
- - Improving userspace tooling to make transfer of information simpler (along the lines of
-scripts/decode_stacktrace.sh that no one seems to be using).
-
-I suppose it'll be interesting to discuss the idea of making the kernel dump a "black box"
-on panic. Not just the core memory, but also various parameters regarding configuration and
-such, to enable folks to provide us with more than just backtraces.
+I suppose it's a good sub-topic: deciding which one of the 3.5 methods
+to print debug information we should be using across the kernel and
+remove the other 2.5.
 
 
 Thanks,
