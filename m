@@ -1,41 +1,29 @@
-Return-Path: <dmitry.torokhov@gmail.com>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 488F7475
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E176F514
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 19:41:29 +0000 (UTC)
-Received: from mail-pd0-f177.google.com (mail-pd0-f177.google.com
-	[209.85.192.177])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 98743122
+	Fri, 31 Jul 2015 21:21:31 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8233D115
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 19:41:28 +0000 (UTC)
-Received: by pdrg1 with SMTP id g1so47462413pdr.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 12:41:28 -0700 (PDT)
-Date: Fri, 31 Jul 2015 12:41:24 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Message-ID: <20150731194124.GL5613@dtor-ws>
-References: <2111196.TG1k3f53YQ@avalon>
-	<alpine.DEB.2.10.1507311833280.2499@hadrien>
-	<20150731165346.GA18984@infradead.org>
-	<1438362159.2179.42.camel@HansenPartnership.com>
-	<20150731170523.GF5613@dtor-ws>
-	<1438362797.2179.45.camel@HansenPartnership.com>
-	<20150731173335.GI5613@dtor-ws>
-	<1438364188.2179.53.camel@HansenPartnership.com>
-	<20150731182815.GK5613@dtor-ws>
-	<1438368039.2179.62.camel@HansenPartnership.com>
+	Fri, 31 Jul 2015 21:21:31 +0000 (UTC)
+Date: Fri, 31 Jul 2015 18:55:47 +0100
+From: Mark Brown <broonie@kernel.org>
+To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+Message-ID: <20150731175547.GK20873@sirena.org.uk>
+References: <20150723105726.GC30929@amd> <3567831.C87ORqHPr8@vostro.rjw.lan>
+	<20150730095903.5cb431a4@noble> <2904825.6WZJacWC6y@vostro.rjw.lan>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="ZG5hGh9V5E9QzVHS"
 Content-Disposition: inline
-In-Reply-To: <1438368039.2179.62.camel@HansenPartnership.com>
-Cc: Christoph Hellwig <hch@infradead.org>, Tejun Heo <tj@kernel.org>,
-	Russell King <linux@arm.linux.org.uk>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	Shuah Khan <shuah.kh@samsung.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Fix devm_kzalloc, its users,
- or both
+In-Reply-To: <2904825.6WZJacWC6y@vostro.rjw.lan>
+Cc: Pavel Machek <pavel@ucw.cz>, ksummit-discuss@lists.linuxfoundation.org,
+	kyungmin.park@samsung.com, John Stultz <john.stultz@linaro.org>,
+	Bjorn Andersson <Bjorn.Andersson@sonymobile.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Mainline kernel on a cellphone
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -45,79 +33,45 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 31, 2015 at 11:40:39AM -0700, James Bottomley wrote:
-> On Fri, 2015-07-31 at 11:28 -0700, Dmitry Torokhov wrote:
-> > On Fri, Jul 31, 2015 at 10:36:28AM -0700, James Bottomley wrote:
-> > > On Fri, 2015-07-31 at 10:33 -0700, Dmitry Torokhov wrote:
-> > > > On Fri, Jul 31, 2015 at 10:13:17AM -0700, James Bottomley wrote:
-> > > > > On Fri, 2015-07-31 at 10:05 -0700, Dmitry Torokhov wrote:
-> > > > > > On Fri, Jul 31, 2015 at 10:02:39AM -0700, James Bottomley wrote:
-> > > > > > > On Fri, 2015-07-31 at 09:53 -0700, Christoph Hellwig wrote:
-> > > > > > > > On Fri, Jul 31, 2015 at 06:34:21PM +0200, Julia Lawall wrote:
-> > > > > > > > > How is this different from the free happening explicitly in the remove
-> > > > > > > > > function?
-> > > > > > > > 
-> > > > > > > > It's not.  The real problem is that people don't understand life time
-> > > > > > > > rules and expect magic interfaces to fix it for them.
-> > > > > > > 
-> > > > > > > So surely the rule is that we do this in module removal.  That doesn't
-> > > > > > > get called until last put on the module and that can't happen (or
-> > > > > > > shouldn't happen) while userspace is holding open one of the /sys
-> > > > > > > or /proc interfaces (usually those objects hold a reference on something
-> > > > > > > within the driver to prevent this).
-> > > > > > > 
-> > > > > > > There is an alternative way of handling this:  that would be to detach
-> > > > > > > the file from the backing interface at _del time, so sysfs/kernfs would
-> > > > > > > take over the interface and return -ENODEV or something  meaning we
-> > > > > > > could tear down the module even if there was an open interface file.
-> > > > > > > I'm not advocating this as a solution because I can already see the
-> > > > > > > problems (like how do you switch interfaces atomically) but if this
-> > > > > > > really is a serious problem, we should explore alternative solutions.
-> > > > > > 
-> > > > > > Tejun already done such "switching" for sysfs so it should be possible,
-> > > > > > however (blasphemy!) there are other entities than files that also may
-> > > > > > have different lifetime rules that live past device unbinding.
-> > > > > 
-> > > > > By unbinding do you mean when the unbind is called, which is fine, the
-> > > > > interface handler is still there, or when the final module put is
-> > > > > called, which is not fine because that's a lifetime problem.  In the
-> > > > > latter case we need a hunting expedition to have them all caught and
-> > > > > shot.
-> > > > 
-> > > > I was talking about former because module is normally stays pinned if it
-> > > > implements file_operations and will not be unpinned until last release
-> > > > on file (device) is called.
-> > > 
-> > > Yes, I thought so, so that tells us the problem isn't really lifetime
-> > > rules per-se (the handlers and module are still present and won't be
-> > > released until the pinned object is), it's about the way we handle the
-> > > teardown ... effectively the devm_ memory is released at the wrong point
-> > > during teardown.  Effectively, if this happens a lot, it's saying our
-> > > rules and best practises for this are hard to follow.
-> > 
-> > I am not sure why you are making distinction between module lifetime
-> > rules and driver data lifetime rules. Both are objects that have certain
-> > lifetimes and when there is a mismatch in lifetimes between objects that
-> > use/being used the havoc ensues.
-> 
-> Driver static data (as opposed to the dynamic stuff we allocate to
-> service requests) falls into two categories: that which can be released
-> at del_ time and that which can only be released at module last put
-> time.  It sounds like we have some data in the wrong category.  As
 
-No, all data can only be released when there is noone using it. I am
-fairly certain we can come up with multitude of examples where data can
-not be released at del_ time but can be released earlier than entire
-module unload. Or, in some cases, it actually needs to stay past the
-module unload.
+--ZG5hGh9V5E9QzVHS
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
->
-> Russell says, this looks to be an orthogonal problem to devm_kzalloc.
+On Thu, Jul 30, 2015 at 02:57:17AM +0200, Rafael J. Wysocki wrote:
 
-Yes, it is except that devm_* is magical and people expect it to somehow
-release resources only at the right time.
+> Essentially, what happens is that runtime PM allows us to reach the state
+> in which the system draws as little power as in suspend-to-idle, but it
+> simply doesn't allow the system to stay in that state long enough in one
+> go due to timer interrupts (and possibly other types of interrupt noice
+> that is suppressed by suspending all devices).
 
-Thanks.
+> Since energy is the power drawn in a given state times the time spent in that
+> state (on the average), that's why the system in suspend-to-idle uses less
+> energy than it would with runtime idle during the same period (modulo the
+> energy spent on suspending and resuming devices etc, of course).
 
--- 
-Dmitry
+We could in theory work to reduce the number of these additional timer
+and other interrupts further - there was a lot of focus on this in the
+past (partly for desktop use cases where suspend isn't such a quick out)
+though with the advent of Android and the wide deployment of suspend to
+idle that resulted people stopped bothering on the embedded side since
+suspend to idle is both simple and effective.
+
+--ZG5hGh9V5E9QzVHS
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQEcBAEBCAAGBQJVu7ajAAoJECTWi3JdVIfQyCsH/RpCowZkBrrk0VU9OTzoVWpG
++3Gaf7R4zS/DFLrwASseG4Th8s/ogUmD4wqEfYqqn5CBrbuleZrpEWu02ENR0eOd
+EsMrcBcDoI3V9rtoFFwM7ZOz0Aew4ZcMHDnwB/rDhrtNbsrmPOavP0gcrJW/xxqq
+VEyqYvrVTSYF+h4n/I8QMcLHAhDQ/gzCrz2R6GMaeB/VinQEv5Dr89plHRvg20RP
+h7yUPoiqE827iB24nV06g0qwUxhbL4YfRCZCoOP3mvBMHASFrsRVn559lplxXRgU
+FMYCm3CdFgXPG7McUU65juV6qPd6aYaEkt6yKSgoagG5E+k52tNB6t7pPmtX8RU=
+=HmCL
+-----END PGP SIGNATURE-----
+
+--ZG5hGh9V5E9QzVHS--
