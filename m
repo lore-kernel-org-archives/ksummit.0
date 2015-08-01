@@ -1,32 +1,29 @@
-Return-Path: <j.glisse@gmail.com>
+Return-Path: <davej@codemonkey.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id AFB3D9B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E8EBD308
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  1 Aug 2015 19:08:58 +0000 (UTC)
-Received: from mail-qg0-f45.google.com (mail-qg0-f45.google.com
-	[209.85.192.45])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 33C4F19B
+	Sat,  1 Aug 2015 20:31:03 +0000 (UTC)
+Received: from arcturus.aphlor.org (arcturus.aphlor.org [188.246.204.175])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 161C48F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  1 Aug 2015 19:08:58 +0000 (UTC)
-Received: by qgeh16 with SMTP id h16so65989194qge.3
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 01 Aug 2015 12:08:57 -0700 (PDT)
-Date: Sat, 1 Aug 2015 15:08:48 -0400
-From: Jerome Glisse <j.glisse@gmail.com>
-To: Joerg Roedel <joro@8bytes.org>
-Message-ID: <20150801190847.GA2704@gmail.com>
-References: <20150730130027.GA14980@8bytes.org> <55BB8BB2.2090809@redhat.com>
-	<20150731161304.GA2039@redhat.com>
-	<20150801155728.GC14980@8bytes.org>
+	Sat,  1 Aug 2015 20:31:02 +0000 (UTC)
+Date: Sat, 1 Aug 2015 16:30:53 -0400
+From: Dave Jones <davej@codemonkey.org.uk>
+To: Sasha Levin <sasha.levin@oracle.com>
+Message-ID: <20150801203053.GA10267@codemonkey.org.uk>
+References: <55BAE39F.9060705@oracle.com>
+	<alpine.DEB.2.02.1507310650220.2218@localhost6.localdomain6>
+	<55BBB514.7060509@oracle.com> <20150801134546.GO5180@mwanda>
+	<55BCE519.1040207@oracle.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20150801155728.GC14980@8bytes.org>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Core Kernel support for
- Compute-Offload Devices
+In-Reply-To: <55BCE519.1040207@oracle.com>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [Ksummit-discuss] Self nomination
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,64 +33,32 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, Aug 01, 2015 at 05:57:29PM +0200, Joerg Roedel wrote:
-> On Fri, Jul 31, 2015 at 12:13:04PM -0400, Jerome Glisse wrote:
-> > Hence scheduling here is different, on GPU it is more about
-> > a queue of several thousand thread and you just move things
-> > up and down on what need to be executed first. Then GPU have
-> > hw scheduling that constantly switch btw active thread this
-> > why memory latency is so well hidden on GPU.
-> 
-> Thats why I wrote "batch"-scheduler in the proposal. Its right that it
-> does not make sense to schedule out a GPU process, and some devices do
-> scheduling in hardware anyway.
-> 
-> But the Linux kernel still needs to decide which jobs are sent to the
-> offload device in which order, more like an io-scheduler.
-> 
-> There might be a compute job that only utilizes 60% of the device
-> resources, to the in-kernel scheduler could start another job there to
-> utilize the other 40%.
-> 
-> I think its worth a discussion if some common schedulers (like for
-> blk-io) make sense here too.
+On Sat, Aug 01, 2015 at 11:26:17AM -0400, Sasha Levin wrote:
+ > On 08/01/2015 09:45 AM, Dan Carpenter wrote:
+ > > On Fri, Jul 31, 2015 at 01:49:08PM -0400, Sasha Levin wrote:
+ > >>  - Encouraging folks who add new sysctls (or features to existing sysctls) to contribute
+ > >> testing code to the various testing projects around (trinity and such).
+ > > 
+ > > Which other fuzzers are people using besides trinity?
+ > 
+ > I'm not sure, I think trinity sort of took over :)
+ > 
+ > My point was that people should be submitting a more significant amount
+ > of test code along with their new ABI - none of the recent syscalls added
+ > has any mention in LTP for example.
+ > 
+ > > Also why don't we merge trinity under tools/testing/?  I bet people
+ > > would keep it in sync better if we did that.
+ > 
+ > No objections on my end. I believe that Dave previously objected because
+ > it's hard to make it work on sync with the kernel's release cycle.
 
-It is definitly worth a discussion but i fear right now there is little
-room for anything in the kernel. Hardware scheduling is done is almost
-100% hardware. The idea of GPU is that you have 1000 compute unit but
-the hardware keep track of 10000 threads and at any point in time there
-is huge probability that 1000 of those 10000 threads are ready to compute
-something. So if a job is only using 60% of the GPU then the remaining
-40% would automaticly be use by the next batch of threads. This is a
-simplification as the number of thread the hw can keep track of depend
-of several factor and vary from one model to the other even inside same
-family of the same manufacturer.
+A big factor is the same reason I'm not a huge fan of tools/testing/ in general.
+People want to do things like "run latest testing tools on old LTS/enterprise kernels".
 
-Where kernel have control is which command queue (today GPU have several
-command queue than run concurently) can spawn threads inside the GPU.
-Also thing like which queue got priority over another one. You even have
-mecanism where you can "divide" the GPU among queue (you assign fraction
-of the GPU compute unit to a particular queue). Thought i expect this
-last one is vanishing.
+Having to suck a subtree out of the latest kernel tarball, and then spend
+time trying to make it even compile/run against headers from an old kernel
+is something I've already lost way too many weeks of my life to, so I'm
+not really a fan of making that problem even worse by adding other tools to it.
 
-Also note that many GPU manufacturer are pushing for userspace queue
-(i think it is some microsoft requirement) in which case the kernel
-have even less control.
-
-I agree that blk-io design is probably closest thing that might fit.
-
-
-> > I already implemented several version of it and posted for review
-> > couple of them. You do not want automatic migration because kernel
-> > as not enough informations here.
-> 
-> Some devices might provide that information, see the extended-access bit
-> of Intel VT-d.
-
-This would be limited to integrated GPU and so far only on one platform.
-My point was more that userspace have way more informations to make good
-decision here. The userspace program is more likely to know what part of
-the dataset gonna be repeatedly access by the GPU threads.
-
-Cheers,
-Jérôme
+	Dave
