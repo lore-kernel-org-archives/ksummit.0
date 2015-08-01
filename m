@@ -1,36 +1,41 @@
 Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id DC973409
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id BD2EA409
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  1 Aug 2015 10:55:48 +0000 (UTC)
+	Sat,  1 Aug 2015 10:58:22 +0000 (UTC)
 Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
 	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7A56E165
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 642ED165
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  1 Aug 2015 10:55:48 +0000 (UTC)
-Date: Sat, 1 Aug 2015 11:55:23 +0100
+	Sat,  1 Aug 2015 10:58:22 +0000 (UTC)
+Date: Sat, 1 Aug 2015 11:57:43 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Pavel Machek <pavel@ucw.cz>
-Message-ID: <20150801105522.GP20873@sirena.org.uk>
-References: <20150723105726.GC30929@amd>
-	<CACRpkdbCbhgJHZifouDVUvaxyT5YWWdQz7Nt3AKoLvuEn4z7mQ@mail.gmail.com>
-	<20150723121441.GB29747@amd>
-	<20150723084251.54da2be0@gandalf.local.home>
-	<20150723202901.GA30318@amd> <20150729133244.GH20130@sirena.org.uk>
-	<20150731122227.GA31877@amd> <20150731175215.GJ20873@sirena.org.uk>
-	<20150731220306.GA7867@amd>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Message-ID: <20150801105743.GQ20873@sirena.org.uk>
+References: <alpine.DEB.2.10.1507311833280.2499@hadrien>
+	<20150731165346.GA18984@infradead.org>
+	<1438362159.2179.42.camel@HansenPartnership.com>
+	<20150731170523.GF5613@dtor-ws>
+	<1438362797.2179.45.camel@HansenPartnership.com>
+	<20150731173335.GI5613@dtor-ws>
+	<1438364188.2179.53.camel@HansenPartnership.com>
+	<20150731182815.GK5613@dtor-ws>
+	<1438368039.2179.62.camel@HansenPartnership.com>
+	<20150731194124.GL5613@dtor-ws>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="TRkqPRiqIDKgfg/F"
+	protocol="application/pgp-signature"; boundary="ubuMVesmirrCclZT"
 Content-Disposition: inline
-In-Reply-To: <20150731220306.GA7867@amd>
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	riverful.kim@samsung.com, kyungmin.park@samsung.com,
-	John Stultz <john.stultz@linaro.org>,
-	Bjorn Andersson <Bjorn.Andersson@sonymobile.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Mainline kernel on a cellphone
+In-Reply-To: <20150731194124.GL5613@dtor-ws>
+Cc: Christoph Hellwig <hch@infradead.org>,
+	Russell King <linux@arm.linux.org.uk>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Shuah Khan <shuah.kh@samsung.com>,
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Tejun Heo <tj@kernel.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Fix devm_kzalloc, its users,
+ or both
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,45 +46,36 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---TRkqPRiqIDKgfg/F
+--ubuMVesmirrCclZT
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Sat, Aug 01, 2015 at 12:03:06AM +0200, Pavel Machek wrote:
-> On Fri 2015-07-31 18:52:15, Mark Brown wrote:
+On Fri, Jul 31, 2015 at 12:41:24PM -0700, Dmitry Torokhov wrote:
+> On Fri, Jul 31, 2015 at 11:40:39AM -0700, James Bottomley wrote:
 
-> > Given that the baseband is a key part of the data path it's not like
-> > you're gaining anything there as far as I can see?   I suppose you could
-> > argue that the AP is actually an additional attack surface here.
+> > Russell says, this looks to be an orthogonal problem to devm_kzalloc.
 
-> Actually yes, I believe I'm gaining a lot.
+> Yes, it is except that devm_* is magical and people expect it to somehow
+> release resources only at the right time.
 
-> If baseband is directly connected to the microphone, it can eavesdrop
-> on me while the phone appears to be idle.
+Or alternatively it's a really easy to use pattern that eliminates a
+large set of potential mistakes and it's therefore worth looking at when
+considering how to solve other simlar problems :)
 
-Oh, right.  That's not an issue since there's generally routing control
-in the rest of the system (within the CODEC and sometimes elsewhere
-also) so you can isolate the baseband from the local audio sources and
-only connect it in call.  When not in use the CODEC will be powered down
-and even when in use by the AP you'd usually not route to the baseband.
-
-The baseband normally doesn't have sufficient physical access to
-relevant control interfaces to get any input.
-
---TRkqPRiqIDKgfg/F
+--ubuMVesmirrCclZT
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQEcBAEBCAAGBQJVvKWVAAoJECTWi3JdVIfQ+QkH/RFqeS8TRIrI8kGA2GCSKNwJ
-ae7KEvr2xMQitVTNrsfY8YXoHC/8CZ83Wiw67zdJJpS8vDFu8XPAezomjRtZNwOi
-GZsaDpuTqI1iHo70dE+E981eirftZMoU+HylvHLJgoWhT2bm0mX9DvXiG+hIBCDS
-rTDwyXKHKMrGx3k9fntj9OLD3lk4mcRLo70R+wROmB08E5oSE4dj/DE2DZZK0n0N
-BI8BjcrJ28bhCey0vm06KSijfvam/FnvMHwadm5digC3k898e5jtvZBAt6f8SIuz
-dS7fpxCzrhsPKbVrQ7QI6OBDTgSEdGZXCrk5MjYM1u3GNwgIfNMqMpeK8tWa1A0=
-=QlQ2
+iQEcBAEBCAAGBQJVvKYmAAoJECTWi3JdVIfQOV4H/0aBhekV2DN8ru8oWwQVSO6m
+Ckxk30G3WUgFQ9dAPYD9xklmm/mgvpssUmFH7s5L6KxTuKm48Mwg9tjPh0fpner/
+LnVkZn/zqVo7fpEFV+Q4qcxQOQF4wXPjMz+mazfbDPoYiVZHXq4drOT2glrzAXdl
+LTB9TMDzn+Vyyv5ZMfScQ1kONrwlle2tOXhjkfhgjHLxDps1mDoW/qUsVGCkqn86
+TAn96WAsiwK6CkLHVt1kM6oWw7FWlqFnlDN+QdsqkY8jGBKzL+163pGkUrIDhuUR
+7vbX67a5lQHIAb6BWWveYPnt8mQBLf7cEFduDZjAEe+zvuGmtYizJ8S/5ZBvRz8=
+=cDm0
 -----END PGP SIGNATURE-----
 
---TRkqPRiqIDKgfg/F--
+--ubuMVesmirrCclZT--
