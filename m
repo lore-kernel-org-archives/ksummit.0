@@ -1,27 +1,28 @@
-Return-Path: <rjw@rjwysocki.net>
+Return-Path: <laurent.pinchart@ideasonboard.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B96F648B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2C7C4267
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 23:41:54 +0000 (UTC)
-Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id 1A81D159
+	Sat,  1 Aug 2015 10:46:41 +0000 (UTC)
+Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
+	[185.26.127.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 30F00163
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 Jul 2015 23:41:53 +0000 (UTC)
-From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+	Sat,  1 Aug 2015 10:46:40 +0000 (UTC)
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 To: Mark Brown <broonie@kernel.org>
-Date: Sat, 01 Aug 2015 02:08:46 +0200
-Message-ID: <1526118.B718IU0dUQ@vostro.rjw.lan>
-In-Reply-To: <20150731175547.GK20873@sirena.org.uk>
-References: <20150723105726.GC30929@amd> <2904825.6WZJacWC6y@vostro.rjw.lan>
-	<20150731175547.GK20873@sirena.org.uk>
+Date: Sat, 01 Aug 2015 13:47:19 +0300
+Message-ID: <1832413.9MBGoll9RW@avalon>
+In-Reply-To: <20150731170416.GI20873@sirena.org.uk>
+References: <2111196.TG1k3f53YQ@avalon> <20150731170416.GI20873@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPart2512060.Wh5vFcCHC2";
-	micalg="pgp-sha256"; protocol="application/pgp-signature"
-Cc: Pavel Machek <pavel@ucw.cz>, ksummit-discuss@lists.linuxfoundation.org,
-	kyungmin.park@samsung.com, John Stultz <john.stultz@linaro.org>,
-	Bjorn Andersson <Bjorn.Andersson@sonymobile.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Mainline kernel on a cellphone
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: Tejun Heo <tj@kernel.org>, Shuah Khan <shuah.kh@samsung.com>,
+	Russell King <linux@arm.linux.org.uk>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Fix devm_kzalloc, its users,
+	or both
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,64 +32,72 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Friday 31 July 2015 18:04:16 Mark Brown wrote:
+> On Fri, Jul 31, 2015 at 06:14:14PM +0300, Laurent Pinchart wrote:
+> > It recently came to my attention that the way devm_kzalloc() is used by
+> > most drivers is broken. I've raised the topic on LKML (see
+> > http://lkml.org/lkml/2015/7/14/741) in the hope that my findings were
+> > simply
+>
+> lkml.org is down (again) - can you please provide a subject line?
 
---nextPart2512060.Wh5vFcCHC2
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
-
-On Friday, July 31, 2015 06:55:47 PM Mark Brown wrote:
-> On Thu, Jul 30, 2015 at 02:57:17AM +0200, Rafael J. Wysocki wrote:
+Sure. "Is devm_* broken ?", and 
+http://permalink.gmane.org/gmane.linux.kernel/1996077 if that can help.
+ 
+> > The issue occurs when drivers use devm_kzalloc() to allocate data
+> > structures that can be accessed through file operations on a device node.
+> > The following sequence of events will then lead to a crash.
 > 
-> > Essentially, what happens is that runtime PM allows us to reach the state
-> > in which the system draws as little power as in suspend-to-idle, but it
-> > simply doesn't allow the system to stay in that state long enough in one
-> > go due to timer interrupts (and possibly other types of interrupt noice
-> > that is suppressed by suspending all devices).
+> Like Julia says I'm not sure this is really related to devm_ - I would
+> really expect that the majority of users were already broken prior to
+> the conversion to devm_ since the natural thing is to free things in the
+> remove() function which has exactly the same issues, the main problem
+> here is that the file open after device is removed case is rare for most
+> devices and requires somewhat obscure handling.
+
+Why do you think it would be rare ? Pretty much any driver that creates a 
+character device will suffer from the issue if userspace decides to keep the 
+device node open. For hot-pluggable devices such as USB I'd even argue that 
+this is a quite common case, the user can easily unplug a webcam while the 
+character device node is in use.
+
+> > While I agree that this is how devres operates today, I'm not sure we
+> > should throw the baby out with the bath water. Using devm_kzalloc() as
+> > currently done has value, and reverting drivers to the pre-devm memory
+> > allocation code would make error handling and cleanup code paths more
+> > complex again.
+> > 
+> > Should we introduce a managed allocator for that purpose that would have a
+> > lifespan explicitly handled by drivers (or, even better, handled
+> > automatically in a way that would suit our use cases) ? Tejun commented
+> > that "a better approach would be implementing generic revoke feature and
+> > sever open files on driver detach so that everything can be shutdown
+> > then".
 > 
-> > Since energy is the power drawn in a given state times the time spent in that
-> > state (on the average), that's why the system in suspend-to-idle uses less
-> > energy than it would with runtime idle during the same period (modulo the
-> > energy spent on suspending and resuming devices etc, of course).
-> 
-> We could in theory work to reduce the number of these additional timer
-> and other interrupts further - there was a lot of focus on this in the
-> past (partly for desktop use cases where suspend isn't such a quick out)
-> though with the advent of Android and the wide deployment of suspend to
-> idle that resulted people stopped bothering on the embedded side since
-> suspend to idle is both simple and effective.
+> Tejun's suggestion seems like the most robust thing here - allocation
+> issues are only going to be one of the problems with userspace accessing
+> devices that are going away and there's a complexity cost from having
+> the partially destroyed cases around.  Off the top of my head there's
+> anything that attempts to access the hardware if it's genuinely gone
+> away rather than just been soft unbound for example.  If the device can
+> just invalidate all open files on the way out then that's going to be
+> exactly what most things want.
 
-In addition to that, while we can reduce the number of those in the kernel,
-user space can still do things that increase the number of them and we can't
-really control it.  That only depends on what applications are running and
-users may not be aware of all of the consequences of running them.
+The way we handle the problem in V4L2 at the moment is to reference count the 
+class device and unregister the character device when the last reference goes 
+away, after userspace closes all open file handles. The V4L2 core calls a 
+driver release callback, where the driver is responsible for cleaning up all 
+remaining resources such as memory allocate for driver-specific data 
+structures. This model works fine but is sometimes seen as complex by driver 
+writers, and prevents usage of devm_kzalloc.
 
-By freezing user space during suspend we effectively prevent it from
-scheduling more timer events in the future.
+If there was a way to synchronously invalidate open files on the way out, 
+ensuring that all pending cdev fops complete and that no new cdev fops call 
+can be made, driver-specific memory could be freed at that point. The cdev 
+instance could then be left dangling and would be freed by the cdev core when 
+the last file handle is closed.
 
-Thanks,
-Rafael
+-- 
+Regards,
 
---nextPart2512060.Wh5vFcCHC2
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2.0.22 (GNU/Linux)
-
-iQIcBAABCAAGBQJVvA4UAAoJEILEb/54YlRxshIP/2r4Tlj27eqbeTxoj6LJ1+rO
-oEZ+rC8z7Qq9LbcBz+NR8Iu48thKJ5xsvIFFFCjmdqd/QLQaBRPD1Szul83pkPOR
-BYvl9fini1ItNXD3Nt3tiMxSonfvOGCqWPdEXHS0xMCdRpwOf7O9TEzFlgBuFKNY
-SyXqwO48gKvEYEHyp+xKaACVROyI7JzVVwjcNhknQorS/7RYL9lksKu2tDkNQTpj
-lIkBOw0jWK7kyNkhax6mGOd/x/eGxxDf+x2smE4B+rcyGr6Pi7PajAbn/viFEKxc
-vrDBtvG+HLmGwBMTTaPNoPhO8T5ku1iTVrzohm4SGnbYCQKYEjcl3F2plZL5nVeZ
-Ozszw1rtyAtEsQ8WeYmJOuYr18NAj2tfGx0QL6ESsWwlCkvVB2EHxXJO7QTjdKlx
-HhG8KkpwktTKY7noijjDbxrDAo2uc1CITStEzFtBCLI6sFTNkD8czKr1Q+JqWmje
-9Xk+i/D7qhuGbPqaSGnNEVywSg4mhHH+iuFEUTmKo4C7FiCuuS9xqT2UFLCFk/lT
-PyCNEO8trsmMcDqVsoCrVZqnbHRv61tdZWjA1fF2vV+K+MeHeFoKkWzFbYXXjUyR
-wyQQ1r1d433/b5YAEzx6Y6IBZd5W1jbaHdny9RTiz8ZA50t6kMe3XZWEQPnoxlTT
-P31pZUKrcphZ2jE8zHNV
-=yUmS
------END PGP SIGNATURE-----
-
---nextPart2512060.Wh5vFcCHC2--
+Laurent Pinchart
