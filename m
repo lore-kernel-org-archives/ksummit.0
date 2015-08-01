@@ -1,28 +1,36 @@
-Return-Path: <julia.lawall@lip6.fr>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1EF2D409
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id DC973409
 	for <ksummit-discuss@lists.linuxfoundation.org>;
 	Sat,  1 Aug 2015 10:55:48 +0000 (UTC)
-Received: from mail2-relais-roc.national.inria.fr
-	(mail2-relais-roc.national.inria.fr [192.134.164.83])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E5BEF165
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7A56E165
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  1 Aug 2015 10:55:46 +0000 (UTC)
-Date: Sat, 1 Aug 2015 12:55:42 +0200 (CEST)
-From: Julia Lawall <julia.lawall@lip6.fr>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-In-Reply-To: <1832413.9MBGoll9RW@avalon>
-Message-ID: <alpine.DEB.2.02.1508011255010.2071@localhost6.localdomain6>
-References: <2111196.TG1k3f53YQ@avalon> <20150731170416.GI20873@sirena.org.uk>
-	<1832413.9MBGoll9RW@avalon>
+	Sat,  1 Aug 2015 10:55:48 +0000 (UTC)
+Date: Sat, 1 Aug 2015 11:55:23 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Pavel Machek <pavel@ucw.cz>
+Message-ID: <20150801105522.GP20873@sirena.org.uk>
+References: <20150723105726.GC30929@amd>
+	<CACRpkdbCbhgJHZifouDVUvaxyT5YWWdQz7Nt3AKoLvuEn4z7mQ@mail.gmail.com>
+	<20150723121441.GB29747@amd>
+	<20150723084251.54da2be0@gandalf.local.home>
+	<20150723202901.GA30318@amd> <20150729133244.GH20130@sirena.org.uk>
+	<20150731122227.GA31877@amd> <20150731175215.GJ20873@sirena.org.uk>
+	<20150731220306.GA7867@amd>
 MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
-Cc: Tejun Heo <tj@kernel.org>, Shuah Khan <shuah.kh@samsung.com>,
-	Russell King <linux@arm.linux.org.uk>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Fix devm_kzalloc, its users,
- or both
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="TRkqPRiqIDKgfg/F"
+Content-Disposition: inline
+In-Reply-To: <20150731220306.GA7867@amd>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	riverful.kim@samsung.com, kyungmin.park@samsung.com,
+	John Stultz <john.stultz@linaro.org>,
+	Bjorn Andersson <Bjorn.Andersson@sonymobile.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Mainline kernel on a cellphone
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,87 +41,45 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
+--TRkqPRiqIDKgfg/F
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Sat, 1 Aug 2015, Laurent Pinchart wrote:
+On Sat, Aug 01, 2015 at 12:03:06AM +0200, Pavel Machek wrote:
+> On Fri 2015-07-31 18:52:15, Mark Brown wrote:
 
-> On Friday 31 July 2015 18:04:16 Mark Brown wrote:
-> > On Fri, Jul 31, 2015 at 06:14:14PM +0300, Laurent Pinchart wrote:
-> > > It recently came to my attention that the way devm_kzalloc() is used by
-> > > most drivers is broken. I've raised the topic on LKML (see
-> > > http://lkml.org/lkml/2015/7/14/741) in the hope that my findings were
-> > > simply
-> >
-> > lkml.org is down (again) - can you please provide a subject line?
-> 
-> Sure. "Is devm_* broken ?", and 
-> http://permalink.gmane.org/gmane.linux.kernel/1996077 if that can help.
->  
-> > > The issue occurs when drivers use devm_kzalloc() to allocate data
-> > > structures that can be accessed through file operations on a device node.
-> > > The following sequence of events will then lead to a crash.
-> > 
-> > Like Julia says I'm not sure this is really related to devm_ - I would
-> > really expect that the majority of users were already broken prior to
-> > the conversion to devm_ since the natural thing is to free things in the
-> > remove() function which has exactly the same issues, the main problem
-> > here is that the file open after device is removed case is rare for most
-> > devices and requires somewhat obscure handling.
-> 
-> Why do you think it would be rare ? Pretty much any driver that creates a 
-> character device will suffer from the issue if userspace decides to keep the 
-> device node open. For hot-pluggable devices such as USB I'd even argue that 
-> this is a quite common case, the user can easily unplug a webcam while the 
-> character device node is in use.
-> 
-> > > While I agree that this is how devres operates today, I'm not sure we
-> > > should throw the baby out with the bath water. Using devm_kzalloc() as
-> > > currently done has value, and reverting drivers to the pre-devm memory
-> > > allocation code would make error handling and cleanup code paths more
-> > > complex again.
-> > > 
-> > > Should we introduce a managed allocator for that purpose that would have a
-> > > lifespan explicitly handled by drivers (or, even better, handled
-> > > automatically in a way that would suit our use cases) ? Tejun commented
-> > > that "a better approach would be implementing generic revoke feature and
-> > > sever open files on driver detach so that everything can be shutdown
-> > > then".
-> > 
-> > Tejun's suggestion seems like the most robust thing here - allocation
-> > issues are only going to be one of the problems with userspace accessing
-> > devices that are going away and there's a complexity cost from having
-> > the partially destroyed cases around.  Off the top of my head there's
-> > anything that attempts to access the hardware if it's genuinely gone
-> > away rather than just been soft unbound for example.  If the device can
-> > just invalidate all open files on the way out then that's going to be
-> > exactly what most things want.
-> 
-> The way we handle the problem in V4L2 at the moment is to reference count the 
-> class device and unregister the character device when the last reference goes 
-> away, after userspace closes all open file handles. The V4L2 core calls a 
-> driver release callback, where the driver is responsible for cleaning up all 
-> remaining resources such as memory allocate for driver-specific data 
-> structures. This model works fine but is sometimes seen as complex by driver 
-> writers, and prevents usage of devm_kzalloc.
+> > Given that the baseband is a key part of the data path it's not like
+> > you're gaining anything there as far as I can see?   I suppose you could
+> > argue that the AP is actually an additional attack surface here.
 
-Would it be possible to call the devres cleanup at this point, rather than 
-on the remove function?
+> Actually yes, I believe I'm gaining a lot.
 
-julia
+> If baseband is directly connected to the microphone, it can eavesdrop
+> on me while the phone appears to be idle.
 
-> 
-> If there was a way to synchronously invalidate open files on the way out, 
-> ensuring that all pending cdev fops complete and that no new cdev fops call 
-> can be made, driver-specific memory could be freed at that point. The cdev 
-> instance could then be left dangling and would be freed by the cdev core when 
-> the last file handle is closed.
-> 
-> -- 
-> Regards,
-> 
-> Laurent Pinchart
-> 
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
-> 
+Oh, right.  That's not an issue since there's generally routing control
+in the rest of the system (within the CODEC and sometimes elsewhere
+also) so you can isolate the baseband from the local audio sources and
+only connect it in call.  When not in use the CODEC will be powered down
+and even when in use by the AP you'd usually not route to the baseband.
+
+The baseband normally doesn't have sufficient physical access to
+relevant control interfaces to get any input.
+
+--TRkqPRiqIDKgfg/F
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQEcBAEBCAAGBQJVvKWVAAoJECTWi3JdVIfQ+QkH/RFqeS8TRIrI8kGA2GCSKNwJ
+ae7KEvr2xMQitVTNrsfY8YXoHC/8CZ83Wiw67zdJJpS8vDFu8XPAezomjRtZNwOi
+GZsaDpuTqI1iHo70dE+E981eirftZMoU+HylvHLJgoWhT2bm0mX9DvXiG+hIBCDS
+rTDwyXKHKMrGx3k9fntj9OLD3lk4mcRLo70R+wROmB08E5oSE4dj/DE2DZZK0n0N
+BI8BjcrJ28bhCey0vm06KSijfvam/FnvMHwadm5digC3k898e5jtvZBAt6f8SIuz
+dS7fpxCzrhsPKbVrQ7QI6OBDTgSEdGZXCrk5MjYM1u3GNwgIfNMqMpeK8tWa1A0=
+=QlQ2
+-----END PGP SIGNATURE-----
+
+--TRkqPRiqIDKgfg/F--
