@@ -1,46 +1,34 @@
-Return-Path: <jkosina@suse.com>
+Return-Path: <htejun@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BC45E407
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 65F099B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  1 Aug 2015 22:45:24 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 49B4BE8
+	Sat,  1 Aug 2015 15:18:50 +0000 (UTC)
+Received: from mail-qg0-f42.google.com (mail-qg0-f42.google.com
+	[209.85.192.42])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2D08E16B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  1 Aug 2015 22:45:24 +0000 (UTC)
-Date: Sun, 2 Aug 2015 00:45:24 +0200 (CEST)
-From: Jiri Kosina <jkosina@suse.com>
-To: NeilBrown <neilb@suse.com>
-In-Reply-To: <20150802081600.73d54e4e@noble>
-Message-ID: <alpine.LNX.2.00.1508020044170.925@pobox.suse.cz>
-References: <20150708114011.3a1f1861@noble> <2879113.fraeuJIr2M@avalon>
-	<20150709193718.GD9169@vmdeb7> <20150710143641.GW4341@mwanda>
-	<20150710160714.GL111846@vmdeb7> <20150710222351.GA28632@kroah.com>
-	<20150711000034.GU111846@vmdeb7> <20150711001348.GA30675@kroah.com>
-	<20150711055441.GA6316@sudip-PC>
-	<20150715212043.775be5d2@gandalf.local.home>
-	<20150716132551.GH4039@sirena.org.uk>
-	<20150716094720.2bf9f5ac@gandalf.local.home>
-	<55A7C7FE.6000604@sonymobile.com> <20150716094125.16cdda73@lwn.net>
-	<55A7D73F.4020105@sonymobile.com>
-	<20150716121620.65ce6daa@gandalf.local.home>
-	<55A7DAD8.2080902@sonymobile.com>
-	<20150716125216.0d457104@gandalf.local.home>
-	<55BB7397.3090407@atmel.com>
-	<1438352566.2179.4.camel@HansenPartnership.com>
-	<CAMuHMdUu4_PsiCcz0KX=jw7W7gHPD1WGouYiBg1Fw=L_aFoeCg@mail.gmail.com>
-	<1438453195.2182.16.camel@HansenPartnership.com>
-	<CAMuHMdX4siOnhTOD=NYa+V35TDZEuMT7q+jpWo8mz9XsgtNB5w@mail.gmail.com>
-	<20150802081600.73d54e4e@noble>
+	Sat,  1 Aug 2015 15:18:49 +0000 (UTC)
+Received: by qgeu79 with SMTP id u79so64389723qge.1
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sat, 01 Aug 2015 08:18:48 -0700 (PDT)
+Sender: Tejun Heo <htejun@gmail.com>
+Date: Sat, 1 Aug 2015 11:18:39 -0400
+From: Tejun Heo <tj@kernel.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Message-ID: <20150801151839.GA9480@mtj.duckdns.org>
+References: <2111196.TG1k3f53YQ@avalon> <1832413.9MBGoll9RW@avalon>
+	<alpine.DEB.2.02.1508011255010.2071@localhost6.localdomain6>
+	<8475257.M7ZLAf3KQe@avalon>
 MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Jason Cooper <jason@lakedaemon.net>,
-	Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
- Maintainers, Hobbyists)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8475257.M7ZLAf3KQe@avalon>
+Cc: Russell King <linux@arm.linux.org.uk>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Shuah Khan <shuah.kh@samsung.com>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Fix devm_kzalloc, its users,
+ or both
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -50,20 +38,37 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sun, 2 Aug 2015, NeilBrown wrote:
+Hello,
 
-> Claws-mail doesn't make it easy to reply to attachments - you have to 
-> use the clumsy "copy/paste/add '>'" that you describe. However asserting 
-> that other people should follow a particular work flow because my tools 
-> aren't very good does not sound like a convincing argument to me. If my 
-> tools don't work with a workflow that is prima-facie reasonable, then it 
-> is my tools that are at fault and I should fix them, not ask someone 
-> else to change their workflow.
+On Sat, Aug 01, 2015 at 02:01:02PM +0300, Laurent Pinchart wrote:
+> > Would it be possible to call the devres cleanup at this point, rather than
+> > on the remove function?
+> 
+> As devres cleanup will also take care of interrupts and ioremap'ed regions I 
+> don't think that would be an option. Otherwise we would have trouble when the 
+> device is reprobed as resources would be busy.
+> 
+> We could possibly create an API to allow drivers to keep references to some 
+> devres-allocate objects, but that's arguably a hack.
 
-Just in case anyone is collecting data-points from this discussion, pine 
-doesn't make it really easy to include attachment text in-line in reply 
-either.
+Another factor to consider is that even if the driver separately
+allocates e.g. memory which may be accessed after removal, it's mighty
+difficult to verify that file operations which take place post removal
+don't have any dependency on things which are released on removal.  I
+mean, we've always had a lot of drivers which are fairly confused
+about lifetime rules.
+
+devm allocated memory *might* make certain failures more obvious as
+the memory itself gets freed right away but I'd be very surprised if
+there aren't already a bunch of drivers which fail to fully isolate
+post-removal file operations regardless of devm.
+
+So, all in all, if we actually want to fix this issue, well at least
+most of it, I think the only viable way would be implementing revoke
+semantics and drain and sever all operations on removal.  Maybe it'll
+end up another devm interface.
+
+Thanks.
 
 -- 
-Jiri Kosina
-SUSE Labs
+tejun
