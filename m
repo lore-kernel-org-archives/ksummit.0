@@ -1,26 +1,34 @@
-Return-Path: <joro@8bytes.org>
+Return-Path: <greg@kroah.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5EB4A487
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6E3AF9B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  1 Aug 2015 16:10:23 +0000 (UTC)
-Received: from theia.8bytes.org (8bytes.org [81.169.241.247])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B1B847C
+	Sat,  1 Aug 2015 16:22:44 +0000 (UTC)
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+	[66.111.4.25])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 225C3EA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  1 Aug 2015 16:10:22 +0000 (UTC)
-Date: Sat, 1 Aug 2015 18:10:21 +0200
-From: Joerg Roedel <joro@8bytes.org>
-To: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-Message-ID: <20150801161021.GD14980@8bytes.org>
-References: <20150730130027.GA14980@8bytes.org>
-	<1438295541.14073.52.camel@kernel.crashing.org>
+	Sat,  1 Aug 2015 16:22:44 +0000 (UTC)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
+	by mailout.nyi.internal (Postfix) with ESMTP id 6F03620A7D
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sat,  1 Aug 2015 12:22:43 -0400 (EDT)
+Date: Sat, 1 Aug 2015 09:22:41 -0700
+From: Greg KH <greg@kroah.com>
+To: Sasha Levin <sasha.levin@oracle.com>
+Message-ID: <20150801162241.GA11115@kroah.com>
+References: <55BAE39F.9060705@oracle.com>
+	<alpine.DEB.2.02.1507310650220.2218@localhost6.localdomain6>
+	<55BBB514.7060509@oracle.com> <20150801134546.GO5180@mwanda>
+	<55BCE519.1040207@oracle.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1438295541.14073.52.camel@kernel.crashing.org>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Core Kernel support for
- Compute-Offload Devices
+In-Reply-To: <55BCE519.1040207@oracle.com>
+Cc: Dave Jones <davej@redhat.com>, "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [Ksummit-discuss] Self nomination
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,45 +38,34 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Ben,
-
-thanks for your thoughts.
-
-On Fri, Jul 31, 2015 at 08:32:21AM +1000, Benjamin Herrenschmidt wrote:
-> > Across architectures and vendors there are new devices coming up for
-> > offloading tasks from the CPUs. Most of these devices are capable to
-> > operate on user address spaces.
+On Sat, Aug 01, 2015 at 11:26:17AM -0400, Sasha Levin wrote:
+> On 08/01/2015 09:45 AM, Dan Carpenter wrote:
+> > On Fri, Jul 31, 2015 at 01:49:08PM -0400, Sasha Levin wrote:
+> >>  - Encouraging folks who add new sysctls (or features to existing sysctls) to contribute
+> >> testing code to the various testing projects around (trinity and such).
+> > 
+> > Which other fuzzers are people using besides trinity?
 > 
-> There is cross-overs with the proposed FPGA topic as well, for example
-> CAPI is typically FPGA's that can operate on user address spaces ;-)
+> I'm not sure, I think trinity sort of took over :)
+> 
+> My point was that people should be submitting a more significant amount
+> of test code along with their new ABI - none of the recent syscalls added
+> has any mention in LTP for example.
 
-True, I was not sure how to put this into the proposal, as FPGAs are a
-bit different from other compute-offload devices. GPUs take a kernel to
-execute that is basically a piece of software while FPGAs take a
-hardware description which in the end might be able to execute its own
-software. But there is overlap between the topics, thats right.
+Because most of us hate LTP.
 
-> So I'd think that such an off-core scheduler, while a useful thing for
-> some of these devices, should be an optional component, ie, the other
-> functionalities shouldn't necessarily depend on it.
+Seriously, I've lost days of my life many years ago tracing down "kernel
+bugs" that in the end were just bugs in LTP due to the horrid code in
+it.
 
-Yes, of course. The scheduler(s) could be implemented as a library and
-optionally be used by the device drivers.
+Now yes, this was a long time ago, and hopefully it has gotten a lot
+better, but lots of people have this attitude which is why we are
+encouraging people to use the tests in the kernel tree itself, and is
+why new syscalls are all adding their tests there.
 
-> Right. Some of this (GPUs, MLX) use the proposed HMM infrastructure that
-> Jerome Glisse have been developing, so he would be an interested party
-> here, which hooks into the existing MM. Some of these like CAPI (or more
-> stuff I can't quite talk about just yet) will just share the MMU data
-> structures (direct access to the host page tables).
+I've encouraged people to take the "good bits" of LTP and add them to
+the kernel test framework, but no one seems to want to do that...
 
-Everything (what I am aware of), besides of the hardware HMM targets,
-reuses the CPU MMU structures :) For example all three hardware
-implementations of ATS/PRI/PASID I am aware of can share them, and as
-you said, CAPI on Power too.
+thanks,
 
-But they also need to attach some state to mm_struct. As David already
-said, there will be a need to a global PASID allocation, for example.
-
-
-
-	Joerg
+greg k-h
