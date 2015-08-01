@@ -1,48 +1,35 @@
-Return-Path: <geert.uytterhoeven@gmail.com>
+Return-Path: <pavel@ucw.cz>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id AE684282
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8616D282
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  1 Aug 2015 18:42:30 +0000 (UTC)
-Received: from mail-ob0-f177.google.com (mail-ob0-f177.google.com
-	[209.85.214.177])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 207A2178
+	Sat,  1 Aug 2015 19:04:01 +0000 (UTC)
+Received: from atrey.karlin.mff.cuni.cz (atrey.karlin.mff.cuni.cz
+	[195.113.26.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 8FD5D178
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  1 Aug 2015 18:42:30 +0000 (UTC)
-Received: by obre1 with SMTP id e1so74826907obr.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 01 Aug 2015 11:42:29 -0700 (PDT)
+	Sat,  1 Aug 2015 19:04:00 +0000 (UTC)
+Date: Sat, 1 Aug 2015 21:03:57 +0200
+From: Pavel Machek <pavel@ucw.cz>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <20150801190357.GA25683@amd>
+References: <20150723105726.GC30929@amd>
+	<CACRpkdbCbhgJHZifouDVUvaxyT5YWWdQz7Nt3AKoLvuEn4z7mQ@mail.gmail.com>
+	<20150723121441.GB29747@amd>
+	<20150723084251.54da2be0@gandalf.local.home>
+	<20150723202901.GA30318@amd> <20150729133244.GH20130@sirena.org.uk>
+	<20150731122227.GA31877@amd> <20150731175215.GJ20873@sirena.org.uk>
+	<20150731220306.GA7867@amd> <20150801105522.GP20873@sirena.org.uk>
 MIME-Version: 1.0
-Sender: geert.uytterhoeven@gmail.com
-In-Reply-To: <1438453195.2182.16.camel@HansenPartnership.com>
-References: <20150708114011.3a1f1861@noble> <2879113.fraeuJIr2M@avalon>
-	<20150709193718.GD9169@vmdeb7> <20150710143641.GW4341@mwanda>
-	<20150710160714.GL111846@vmdeb7> <20150710222351.GA28632@kroah.com>
-	<20150711000034.GU111846@vmdeb7> <20150711001348.GA30675@kroah.com>
-	<20150711055441.GA6316@sudip-PC>
-	<20150715212043.775be5d2@gandalf.local.home>
-	<20150716132551.GH4039@sirena.org.uk>
-	<20150716094720.2bf9f5ac@gandalf.local.home>
-	<55A7C7FE.6000604@sonymobile.com> <20150716094125.16cdda73@lwn.net>
-	<55A7D73F.4020105@sonymobile.com>
-	<20150716121620.65ce6daa@gandalf.local.home>
-	<55A7DAD8.2080902@sonymobile.com>
-	<20150716125216.0d457104@gandalf.local.home>
-	<55BB7397.3090407@atmel.com>
-	<1438352566.2179.4.camel@HansenPartnership.com>
-	<CAMuHMdUu4_PsiCcz0KX=jw7W7gHPD1WGouYiBg1Fw=L_aFoeCg@mail.gmail.com>
-	<1438453195.2182.16.camel@HansenPartnership.com>
-Date: Sat, 1 Aug 2015 20:42:29 +0200
-Message-ID: <CAMuHMdX4siOnhTOD=NYa+V35TDZEuMT7q+jpWo8mz9XsgtNB5w@mail.gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-To: James Bottomley <James.Bottomley@hansenpartnership.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20150801105522.GP20873@sirena.org.uk>
 Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	Jason Cooper <jason@lakedaemon.net>,
-	Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
- Maintainers, Hobbyists)
+	riverful.kim@samsung.com, kyungmin.park@samsung.com,
+	John Stultz <john.stultz@linaro.org>,
+	Bjorn Andersson <Bjorn.Andersson@sonymobile.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Mainline kernel on a cellphone
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -52,35 +39,42 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, Aug 1, 2015 at 8:19 PM, James Bottomley
-<James.Bottomley@hansenpartnership.com> wrote:
-> On Sat, 2015-08-01 at 20:16 +0200, Geert Uytterhoeven wrote:
->> On Fri, Jul 31, 2015 at 4:22 PM, James Bottomley
->> <James.Bottomley@hansenpartnership.com> wrote:
->> > On Fri, 2015-07-31 at 15:09 +0200, Nicolas Ferre wrote:
->> >> Le me just react on the "no attachment" statement:
+On Sat 2015-08-01 11:55:23, Mark Brown wrote:
+> On Sat, Aug 01, 2015 at 12:03:06AM +0200, Pavel Machek wrote:
+> > On Fri 2015-07-31 18:52:15, Mark Brown wrote:
+> 
+> > > Given that the baseband is a key part of the data path it's not like
+> > > you're gaining anything there as far as I can see?   I suppose you could
+> > > argue that the AP is actually an additional attack surface here.
+> 
+> > Actually yes, I believe I'm gaining a lot.
+> 
+> > If baseband is directly connected to the microphone, it can eavesdrop
+> > on me while the phone appears to be idle.
+> 
+> Oh, right.  That's not an issue since there's generally routing control
+> in the rest of the system (within the CODEC and sometimes elsewhere
+> also) so you can isolate the baseband from the local audio sources and
+> only connect it in call.  When not in use the CODEC will be powered down
+> and even when in use by the AP you'd usually not route to the baseband.
+> 
+> The baseband normally doesn't have sufficient physical access to
+> relevant control interfaces to get any input.
 
->> Adding inline review comments is something different.
->
-> Every mail tool I know can quote from attachments.  One of the side
-> benefits is that reply-all doesn't, so you actually have to quote the
-> section you're commenting on instead of, say, doing reply-all to a 1,000
-> line patch with a single comment on line 745, which is a real pain for a
-> maintainer ...
+Ok, on many systems you are right, I guess.
 
-So I have to manually _add_ all sections I want to comment on (and add "> "
-markers), instead of _deleting_ all sections I don't want to comment on?
+That still leaves these reasons to route it though the CPU:
 
-Looks suitable for patches which require a single comment only...
-(Which is usually not the case for patches sent as attachments ;-)
+* ability to record calls
 
-Gr{oetje,eeting}s,
+* ability to do signal processing on the data, like echo cancel for
+  speakerphone (or perhaps changing your voice to female one)
 
-                        Geert
+* ability to do advanced stuff like GSM-to-VOIP gateway.
 
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+But yes, connecting baseband directly to audio is simpler...
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+									Pavel
+-- 
+(english) http://www.livejournal.com/~pavelmachek
+(cesky, pictures) http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blog.html
