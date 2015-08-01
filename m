@@ -1,35 +1,32 @@
-Return-Path: <pavel@ucw.cz>
+Return-Path: <j.glisse@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8616D282
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id AFB3D9B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  1 Aug 2015 19:04:01 +0000 (UTC)
-Received: from atrey.karlin.mff.cuni.cz (atrey.karlin.mff.cuni.cz
-	[195.113.26.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 8FD5D178
+	Sat,  1 Aug 2015 19:08:58 +0000 (UTC)
+Received: from mail-qg0-f45.google.com (mail-qg0-f45.google.com
+	[209.85.192.45])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 33C4F19B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  1 Aug 2015 19:04:00 +0000 (UTC)
-Date: Sat, 1 Aug 2015 21:03:57 +0200
-From: Pavel Machek <pavel@ucw.cz>
-To: Mark Brown <broonie@kernel.org>
-Message-ID: <20150801190357.GA25683@amd>
-References: <20150723105726.GC30929@amd>
-	<CACRpkdbCbhgJHZifouDVUvaxyT5YWWdQz7Nt3AKoLvuEn4z7mQ@mail.gmail.com>
-	<20150723121441.GB29747@amd>
-	<20150723084251.54da2be0@gandalf.local.home>
-	<20150723202901.GA30318@amd> <20150729133244.GH20130@sirena.org.uk>
-	<20150731122227.GA31877@amd> <20150731175215.GJ20873@sirena.org.uk>
-	<20150731220306.GA7867@amd> <20150801105522.GP20873@sirena.org.uk>
+	Sat,  1 Aug 2015 19:08:58 +0000 (UTC)
+Received: by qgeh16 with SMTP id h16so65989194qge.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sat, 01 Aug 2015 12:08:57 -0700 (PDT)
+Date: Sat, 1 Aug 2015 15:08:48 -0400
+From: Jerome Glisse <j.glisse@gmail.com>
+To: Joerg Roedel <joro@8bytes.org>
+Message-ID: <20150801190847.GA2704@gmail.com>
+References: <20150730130027.GA14980@8bytes.org> <55BB8BB2.2090809@redhat.com>
+	<20150731161304.GA2039@redhat.com>
+	<20150801155728.GC14980@8bytes.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20150801105522.GP20873@sirena.org.uk>
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	riverful.kim@samsung.com, kyungmin.park@samsung.com,
-	John Stultz <john.stultz@linaro.org>,
-	Bjorn Andersson <Bjorn.Andersson@sonymobile.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Mainline kernel on a cellphone
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20150801155728.GC14980@8bytes.org>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Core Kernel support for
+ Compute-Offload Devices
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,42 +36,64 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat 2015-08-01 11:55:23, Mark Brown wrote:
-> On Sat, Aug 01, 2015 at 12:03:06AM +0200, Pavel Machek wrote:
-> > On Fri 2015-07-31 18:52:15, Mark Brown wrote:
+On Sat, Aug 01, 2015 at 05:57:29PM +0200, Joerg Roedel wrote:
+> On Fri, Jul 31, 2015 at 12:13:04PM -0400, Jerome Glisse wrote:
+> > Hence scheduling here is different, on GPU it is more about
+> > a queue of several thousand thread and you just move things
+> > up and down on what need to be executed first. Then GPU have
+> > hw scheduling that constantly switch btw active thread this
+> > why memory latency is so well hidden on GPU.
 > 
-> > > Given that the baseband is a key part of the data path it's not like
-> > > you're gaining anything there as far as I can see?   I suppose you could
-> > > argue that the AP is actually an additional attack surface here.
+> Thats why I wrote "batch"-scheduler in the proposal. Its right that it
+> does not make sense to schedule out a GPU process, and some devices do
+> scheduling in hardware anyway.
 > 
-> > Actually yes, I believe I'm gaining a lot.
+> But the Linux kernel still needs to decide which jobs are sent to the
+> offload device in which order, more like an io-scheduler.
 > 
-> > If baseband is directly connected to the microphone, it can eavesdrop
-> > on me while the phone appears to be idle.
+> There might be a compute job that only utilizes 60% of the device
+> resources, to the in-kernel scheduler could start another job there to
+> utilize the other 40%.
 > 
-> Oh, right.  That's not an issue since there's generally routing control
-> in the rest of the system (within the CODEC and sometimes elsewhere
-> also) so you can isolate the baseband from the local audio sources and
-> only connect it in call.  When not in use the CODEC will be powered down
-> and even when in use by the AP you'd usually not route to the baseband.
+> I think its worth a discussion if some common schedulers (like for
+> blk-io) make sense here too.
+
+It is definitly worth a discussion but i fear right now there is little
+room for anything in the kernel. Hardware scheduling is done is almost
+100% hardware. The idea of GPU is that you have 1000 compute unit but
+the hardware keep track of 10000 threads and at any point in time there
+is huge probability that 1000 of those 10000 threads are ready to compute
+something. So if a job is only using 60% of the GPU then the remaining
+40% would automaticly be use by the next batch of threads. This is a
+simplification as the number of thread the hw can keep track of depend
+of several factor and vary from one model to the other even inside same
+family of the same manufacturer.
+
+Where kernel have control is which command queue (today GPU have several
+command queue than run concurently) can spawn threads inside the GPU.
+Also thing like which queue got priority over another one. You even have
+mecanism where you can "divide" the GPU among queue (you assign fraction
+of the GPU compute unit to a particular queue). Thought i expect this
+last one is vanishing.
+
+Also note that many GPU manufacturer are pushing for userspace queue
+(i think it is some microsoft requirement) in which case the kernel
+have even less control.
+
+I agree that blk-io design is probably closest thing that might fit.
+
+
+> > I already implemented several version of it and posted for review
+> > couple of them. You do not want automatic migration because kernel
+> > as not enough informations here.
 > 
-> The baseband normally doesn't have sufficient physical access to
-> relevant control interfaces to get any input.
+> Some devices might provide that information, see the extended-access bit
+> of Intel VT-d.
 
-Ok, on many systems you are right, I guess.
+This would be limited to integrated GPU and so far only on one platform.
+My point was more that userspace have way more informations to make good
+decision here. The userspace program is more likely to know what part of
+the dataset gonna be repeatedly access by the GPU threads.
 
-That still leaves these reasons to route it though the CPU:
-
-* ability to record calls
-
-* ability to do signal processing on the data, like echo cancel for
-  speakerphone (or perhaps changing your voice to female one)
-
-* ability to do advanced stuff like GSM-to-VOIP gateway.
-
-But yes, connecting baseband directly to audio is simpler...
-
-									Pavel
--- 
-(english) http://www.livejournal.com/~pavelmachek
-(cesky, pictures) http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blog.html
+Cheers,
+Jérôme
