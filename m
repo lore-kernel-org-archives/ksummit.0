@@ -1,29 +1,24 @@
-Return-Path: <davej@codemonkey.org.uk>
+Return-Path: <arnd@arndb.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id E8EBD308
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 93A6E3C8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  1 Aug 2015 20:31:03 +0000 (UTC)
-Received: from arcturus.aphlor.org (arcturus.aphlor.org [188.246.204.175])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 161C48F
+	Sat,  1 Aug 2015 20:51:57 +0000 (UTC)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.24])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E8E8B8F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  1 Aug 2015 20:31:02 +0000 (UTC)
-Date: Sat, 1 Aug 2015 16:30:53 -0400
-From: Dave Jones <davej@codemonkey.org.uk>
-To: Sasha Levin <sasha.levin@oracle.com>
-Message-ID: <20150801203053.GA10267@codemonkey.org.uk>
-References: <55BAE39F.9060705@oracle.com>
-	<alpine.DEB.2.02.1507310650220.2218@localhost6.localdomain6>
-	<55BBB514.7060509@oracle.com> <20150801134546.GO5180@mwanda>
-	<55BCE519.1040207@oracle.com>
+	Sat,  1 Aug 2015 20:51:56 +0000 (UTC)
+From: Arnd Bergmann <arnd@arndb.de>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Sat, 01 Aug 2015 22:46:49 +0200
+Message-ID: <19442497.AqUzQeifsl@wuerfel>
+In-Reply-To: <20150730130027.GA14980@8bytes.org>
+References: <20150730130027.GA14980@8bytes.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <55BCE519.1040207@oracle.com>
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] Self nomination
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Core Kernel support for
+	Compute-Offload Devices
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,32 +28,68 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, Aug 01, 2015 at 11:26:17AM -0400, Sasha Levin wrote:
- > On 08/01/2015 09:45 AM, Dan Carpenter wrote:
- > > On Fri, Jul 31, 2015 at 01:49:08PM -0400, Sasha Levin wrote:
- > >>  - Encouraging folks who add new sysctls (or features to existing sysctls) to contribute
- > >> testing code to the various testing projects around (trinity and such).
- > > 
- > > Which other fuzzers are people using besides trinity?
- > 
- > I'm not sure, I think trinity sort of took over :)
- > 
- > My point was that people should be submitting a more significant amount
- > of test code along with their new ABI - none of the recent syscalls added
- > has any mention in LTP for example.
- > 
- > > Also why don't we merge trinity under tools/testing/?  I bet people
- > > would keep it in sync better if we did that.
- > 
- > No objections on my end. I believe that Dave previously objected because
- > it's hard to make it work on sync with the kernel's release cycle.
+On Thursday 30 July 2015 15:00:27 Joerg Roedel wrote:
+> [
+>  The topic is highly technical and could be a tech topic. But it also=
 
-A big factor is the same reason I'm not a huge fan of tools/testing/ in general.
-People want to do things like "run latest testing tools on old LTS/enterprise kernels".
+>  touches multiple subsystems, so I decided to submit it as a core
+>  topic.
+> ]
+>=20
+> Across architectures and vendors there are new devices coming up for
+> offloading tasks from the CPUs. Most of these devices are capable to
+> operate on user address spaces.
+>=20
+> Besides the commonalities there are important differences in the memo=
+ry
+> model these devices offer. Some work only on system RAM, others come
+> with their own memory which may or may not be accessible by the CPU.
+>=20
+> I'd like to discuss what support we need in the core kernel for these=
 
-Having to suck a subtree out of the latest kernel tarball, and then spend
-time trying to make it even compile/run against headers from an old kernel
-is something I've already lost way too many weeks of my life to, so I'm
-not really a fan of making that problem even worse by adding other tools to it.
+> devices. A probably incomplete list of open questions:
+>=20
+> =09(1) Do we need the concept of an off-CPU task in the kernel
+> =09    together with a common interface to create and manage them
+> =09    and probably a (collection of) batch scheduler(s) for these
+> =09    tasks?
 
-	Dave
+I think we did this part right with the Cell SPUs 10 years ago: A
+task is a task, and you just switch between running in user mode and
+running on the offload engine through some syscall or ioctl.
+
+The part that got us into endless trouble though was trying to
+satisfy two opposite requirements:=20
+
+a) having the kernel schedule tasks automatically onto the offload
+   engines and take care of context switches and placement, so you
+   can do multi-user and multi-tasking processing on them.
+
+b) getting most performance out of the of offload engines, by giving
+   a single user total control over the placement and no do any
+   scheduling in the kernel at all.
+
+I would strongly recommend now that any new interface tries to do
+only one of the two models, but does it right.
+
+> I am particularily interested in this topic because on PCIe newer IOM=
+MUs
+> are often an integral part in supporting these devices (ARM-SMMUv3,
+> Intel VT-d with SVM, AMD IOMMUv2). so that core work here will also
+> touch the IOMMU code.
+>=20
+> Probably (uncomplete list of) interested people:
+>=20
+> =09David Woodhouse
+> =09Jesse Barnes
+> =09Will Deacon
+> =09Paul E. McKenney
+> =09Rik van Riel
+> =09Mel Gorman
+> =09Andrea Arcangeli
+> =09Christoph Lameter
+> =09J=E9r=F4me Glisse
+
+Add me in as well,
+
+=09Arnd
