@@ -1,30 +1,34 @@
-Return-Path: <julia.lawall@lip6.fr>
+Return-Path: <jkosina@suse.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5C13140D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8F46E9C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  1 Aug 2015 11:21:13 +0000 (UTC)
-Received: from mail2-relais-roc.national.inria.fr
-	(mail2-relais-roc.national.inria.fr [192.134.164.83])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 96019175
+	Sat,  1 Aug 2015 13:03:24 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 59DB2189
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  1 Aug 2015 11:21:12 +0000 (UTC)
-Date: Sat, 1 Aug 2015 13:21:09 +0200 (CEST)
-From: Julia Lawall <julia.lawall@lip6.fr>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-In-Reply-To: <1624703.qdGzscHWSc@avalon>
-Message-ID: <alpine.DEB.2.02.1508011319140.2071@localhost6.localdomain6>
-References: <2111196.TG1k3f53YQ@avalon>
-	<alpine.DEB.2.10.1507311833280.2499@hadrien>
-	<20150731165346.GA18984@infradead.org> <1624703.qdGzscHWSc@avalon>
+	Sat,  1 Aug 2015 13:03:23 +0000 (UTC)
+Date: Sat, 1 Aug 2015 15:03:21 +0200 (CEST)
+From: Jiri Kosina <jkosina@suse.com>
+To: Dan Williams <dan.j.williams@intel.com>
+In-Reply-To: <CAPcyv4jjTmF3MFY2LAjvLx1Ay7TijcC7tL2gnfmORpURXOyGzw@mail.gmail.com>
+Message-ID: <alpine.LNX.2.00.1508011501360.925@pobox.suse.cz>
+References: <55BAE39F.9060705@oracle.com>
+	<CAErSpo52d5DEp_KuVoQXm4DsVakemDboLUysy6_vHL6+-xgRJw@mail.gmail.com>
+	<20150731165915.GA4995@roeck-us.net>
+	<20150731170825.GA2721@kroah.com>
+	<20150731171500.GC4995@roeck-us.net>
+	<CAErSpo5ZDAAJVo7Lm6e2rg3sqvrtsTHRaV9nBDy+SDVMjy8MKw@mail.gmail.com>
+	<20150731181245.GA5969@kroah.com>
+	<20150731181757.GA8747@codemonkey.org.uk>
+	<20150731182256.GA6508@kroah.com>
+	<CAPcyv4jjTmF3MFY2LAjvLx1Ay7TijcC7tL2gnfmORpURXOyGzw@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: TEXT/PLAIN; charset=US-ASCII
-Cc: Christoph Hellwig <hch@infradead.org>, Tejun Heo <tj@kernel.org>,
-	Russell King <linux@arm.linux.org.uk>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	Shuah Khan <shuah.kh@samsung.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Fix devm_kzalloc, its users,
- or both
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Sasha Levin <sasha.levin@oracle.com>
+Subject: Re: [Ksummit-discuss] Self nomination
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,27 +38,21 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, 1 Aug 2015, Laurent Pinchart wrote:
+On Fri, 31 Jul 2015, Dan Williams wrote:
 
-> On Friday 31 July 2015 09:53:46 Christoph Hellwig wrote:
-> > On Fri, Jul 31, 2015 at 06:34:21PM +0200, Julia Lawall wrote:
-> > > How is this different from the free happening explicitly in the remove
-> > > function?
-> > 
-> > It's not.  The real problem is that people don't understand life time
-> > rules and expect magic interfaces to fix it for them.
-> 
-> Exactly. I see two solutions for that, either making people understand life 
-> time rules, or creating interfaces that really fix it for them. devm_kzalloc() 
-> isn't such an interface (and I'm fine if we believe it shouldn't be), but it 
-> unfortunately gives driver developers the impression that it is supposed to 
-> fix the problem. If we conclude that the problem is between the chair and the 
-> keyboard of driver developers then we'll need to start being more vocal about 
-> it.
+> One more thought on this tangent... I've had a task stuck at the bottom 
+> of my backlog to look at extending dynamic_debug call sites to 
+> optionally be tracepoints so that you could feasibly have debug on all 
+> the time with less run time impact. 
 
-Currently, is there any documentation about when these functions can be
-used?  All I remember seeing is a discussion of what the functions do and
-what functions are available.  But nothing about when they should and
-should not be used.
+Making dynamic debug use jump labels should be enough to achieve this.
 
-julia
+That used to actually be the case, but got reverted later, as it didn't 
+properly handle gccs that didn't support asm goto (see 2d75af2f2a7).
+
+Once that is fixed to be more general and handle older gccs as well, your 
+task is done :)
+
+-- 
+Jiri Kosina
+SUSE Labs
