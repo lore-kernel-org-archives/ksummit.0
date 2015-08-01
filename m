@@ -1,27 +1,27 @@
-Return-Path: <corbet@lwn.net>
+Return-Path: <sasha.levin@oracle.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4B20C40D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7B532405
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  1 Aug 2015 14:41:45 +0000 (UTC)
-Received: from vena.lwn.net (tex.lwn.net [70.33.254.29])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id AD254E9
+	Sat,  1 Aug 2015 15:26:23 +0000 (UTC)
+Received: from userp1040.oracle.com (userp1040.oracle.com [156.151.31.81])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1FCDC16B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  1 Aug 2015 14:41:44 +0000 (UTC)
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	(using TLSv1 with cipher AES128-SHA (128/128 bits))
-	(No client certificate requested)
-	by vena.lwn.net (Postfix) with ESMTP id D07521540049
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  1 Aug 2015 08:41:43 -0600 (MDT)
-Date: Sat, 1 Aug 2015 16:41:42 +0200
-From: Jonathan Corbet <corbet@lwn.net>
-To: ksummit-discuss@lists.linuxfoundation.org
-Message-ID: <20150801164142.653012af@lwn.net>
+	Sat,  1 Aug 2015 15:26:23 +0000 (UTC)
+Message-ID: <55BCE519.1040207@oracle.com>
+Date: Sat, 01 Aug 2015 11:26:17 -0400
+From: Sasha Levin <sasha.levin@oracle.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 8bit
-Subject: [Ksummit-discuss] [CORE TOPIC] Documentation
+To: Dan Carpenter <dan.carpenter@oracle.com>
+References: <55BAE39F.9060705@oracle.com>
+	<alpine.DEB.2.02.1507310650220.2218@localhost6.localdomain6>
+	<55BBB514.7060509@oracle.com> <20150801134546.GO5180@mwanda>
+In-Reply-To: <20150801134546.GO5180@mwanda>
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: 7bit
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>, Dave Jones <davej@redhat.com>
+Subject: Re: [Ksummit-discuss] Self nomination
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,56 +31,31 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-As your relatively new documentation subsystem maintainer, I think there
-might be reason to talk about docs for a bit at the summit.
+On 08/01/2015 09:45 AM, Dan Carpenter wrote:
+> On Fri, Jul 31, 2015 at 01:49:08PM -0400, Sasha Levin wrote:
+>>  - Encouraging folks who add new sysctls (or features to existing sysctls) to contribute
+>> testing code to the various testing projects around (trinity and such).
+> 
+> Which other fuzzers are people using besides trinity?
 
-Currently, we have two major branches to our docs.  One, the bulk of
-Documentation/, is a haphazard collection of text files of varying quality
-and applicability to current kernels.  The other is a set of more
-organized DocBook documents.
+I'm not sure, I think trinity sort of took over :)
 
-Despite their disorganized nature, the plain-text docs get the bulk of the
-attention.  Anybody can manage to work with a text file.  The DocBook
-stuff, instead, is kind of a pain.  Working in DocBook itself is less
-than fun, few people dare to delve into the code that builds the docs,
-and the whole thing is rather fragile.  Changing a struct to a union in
-the wireless subsystem a few months back broke the docs build, for
-example; few people test for such things and even fewer seem to know how
-to fix them.
+My point was that people should be submitting a more significant amount
+of test code along with their new ABI - none of the recent syscalls added
+has any mention in LTP for example.
 
-We have some interesting proposals for improvements on the DocBook side,
-including integrating Markdown support
-(http://thread.gmane.org/gmane.linux.documentation/32140) and allowing
-embedded DocBook comments within structs
-(https://lwn.net/Articles/653194/).  I think they both have merit, but I
-hesitate to take them for a couple of reasons.
+> Also why don't we merge trinity under tools/testing/?  I bet people
+> would keep it in sync better if we did that.
 
-One is that changes in how docs are done would be imposed on everybody who
-is interested in keeping up the docs.  They also can, in a sense, look like
-coding-style changes, which is an area where I fear to tread on my own.
-The other is that I wonder if we want to consider a bit of a more sweeping
-overhaul.
+No objections on my end. I believe that Dave previously objected because
+it's hard to make it work on sync with the kernel's release cycle.
 
-I am not convinced that DocBook is really the right tool for the job
-here.  It is complex, finicky, and it's a real pain to have to replace an
-entire laptop because you've worn out your shift key.  It is, I believe, an
-impediment to improvements to our docs in general.  If, instead, we used
-something more plain-text-like, I think life might get a lot easier; it
-could also enable the integration of all of our docs into something a bit
-more cohesive.
+I've actually presented a proposal in linuxcon back in 2013 for unifying
+trinity into the kernel, and using common headers for syscalls. This would
+force people who add/modify syscalls to update trinity, and it'll also make
+the ABI self documenting as one would need to be very specific about what
+parameters are expected for each syscall.
 
-Markdown in one of its many forms might be a good alternative here.  I'm
-also somewhat attracted by Sphinx, which is designed for documenting code
-already and could probably be made to work well with our existing kerneldoc
-comments without a whole lot of trouble.  The Sphinx idea, though, is
-hobbled by the inconvenient fact that I've not had the time to develop it
-far enough to even have a vague idea of whether it would make real-world
-sense.
 
-There could, I think, be value in talking about where we would like our
-docs subsystem to go.  What kind of changes would we like to make to render
-our docs more accessible, more current, and easier to contribute to?  Being
-on the hook for a KS section might also motivate me to actually develop my
-ideas a bit...
-
-jon
+Thanks,
+Sasha
