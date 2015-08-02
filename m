@@ -1,29 +1,47 @@
-Return-Path: <fengguang.wu@intel.com>
+Return-Path: <corbet@lwn.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id CC13B3EE
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6FFD940D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  2 Aug 2015 11:50:22 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 9FCF910E
+	Sun,  2 Aug 2015 12:12:06 +0000 (UTC)
+Received: from vena.lwn.net (tex.lwn.net [70.33.254.29])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E59A4EE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  2 Aug 2015 11:50:21 +0000 (UTC)
-Date: Sun, 2 Aug 2015 19:49:53 +0800
-From: Fengguang Wu <fengguang.wu@intel.com>
-To: Len Brown <lenb@kernel.org>
-Message-ID: <20150802114953.GA26601@wfg-t540p.sh.intel.com>
-References: <20150715153725.GA12601@ret.masoncoding.com>
-	<CAH3eK3TtZKdVdFTrQOEPQ0dmXLr-y1w66LW2Qbwwu0VSbiiYiA@mail.gmail.com>
-	<1436989195.6856.4.camel@infradead.org>
-	<20150715195837.GA14507@ret.masoncoding.com>
-	<CAJvTdKk--RBxhzqCem+O75pWRmi5XWLbbUmypQEPaSaPqcR5CA@mail.gmail.com>
+	Sun,  2 Aug 2015 12:12:05 +0000 (UTC)
+Date: Sun, 2 Aug 2015 14:12:03 +0200
+From: Jonathan Corbet <corbet@lwn.net>
+To: NeilBrown <neilb@suse.com>
+Message-ID: <20150802141203.554cd117@lwn.net>
+In-Reply-To: <20150802081600.73d54e4e@noble>
+References: <20150708114011.3a1f1861@noble> <2879113.fraeuJIr2M@avalon>
+	<20150709193718.GD9169@vmdeb7> <20150710143641.GW4341@mwanda>
+	<20150710160714.GL111846@vmdeb7> <20150710222351.GA28632@kroah.com>
+	<20150711000034.GU111846@vmdeb7> <20150711001348.GA30675@kroah.com>
+	<20150711055441.GA6316@sudip-PC>
+	<20150715212043.775be5d2@gandalf.local.home>
+	<20150716132551.GH4039@sirena.org.uk>
+	<20150716094720.2bf9f5ac@gandalf.local.home>
+	<55A7C7FE.6000604@sonymobile.com> <20150716094125.16cdda73@lwn.net>
+	<55A7D73F.4020105@sonymobile.com>
+	<20150716121620.65ce6daa@gandalf.local.home>
+	<55A7DAD8.2080902@sonymobile.com>
+	<20150716125216.0d457104@gandalf.local.home>
+	<55BB7397.3090407@atmel.com>
+	<1438352566.2179.4.camel@HansenPartnership.com>
+	<CAMuHMdUu4_PsiCcz0KX=jw7W7gHPD1WGouYiBg1Fw=L_aFoeCg@mail.gmail.com>
+	<1438453195.2182.16.camel@HansenPartnership.com>
+	<CAMuHMdX4siOnhTOD=NYa+V35TDZEuMT7q+jpWo8mz9XsgtNB5w@mail.gmail.com>
+	<20150802081600.73d54e4e@noble>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAJvTdKk--RBxhzqCem+O75pWRmi5XWLbbUmypQEPaSaPqcR5CA@mail.gmail.com>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] benchmarking and performance
- trends
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Jason Cooper <jason@lakedaemon.net>,
+	Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
+ Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,37 +51,18 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Jul 15, 2015 at 09:35:51PM -0400, Len Brown wrote:
-> > It would be fun to use turbostat or a rack power meter to
-> > measure/compare power usage between two kernels in a given benchmark.  I
-> > think the power meters we do have are not going to be fine grained
-> > enough to give valid results, but if turbostat is consistent enough we
-> > could try it.
-> 
-> The RAPL power meters exported by turbostat can correlate surprisingly
-> well with highly accurate external power meters.  But even if perfect,
-> RAPL doesn't know about
-> the hardware outside of the processor package (except Xeon DRAM), so
-> the absolute
-> numbers will not match an AC power meter.  But differences are visible
-> and consistent.
-> The accuracy and the quality of correlation with actual electricals
-> varies a lot with
-> the type of processor.  In general, Xeon is the best, followed by
-> desktop/mobile core,
-> and Atom's RAPL power meters have been the least accurate of those
-> shipped, so far.
-> 
-> Yes, 0-day is using this output today to identify regressions, without
-> any external power meters.  But they are also adding external power meters.
+On Sun, 2 Aug 2015 08:16:00 +1000
+NeilBrown <neilb@suse.com> wrote:
 
-Yeah we collect turbostat stats in every benchmark it runs and the
-machines that support RAPL. It has been effective in catching power
-regressions.
+> Claws-mail doesn't make it easy to reply to attachments - you have to
+> use the clumsy "copy/paste/add '>'" that you describe.
 
-There are also 4 external power meters to measure whole-machine power
-consumption, however that number is limited comparing to the machines
-that support RAPL.
+Two useful claws tricks:
 
-Thanks,
-Fengguang
+1) "display as text" makes grabbing stuff out of attachments easy
+
+2) "Edit->Special Paste->As quotation" handles much of the rest.
+
+With those, dealing with patches in attachments is fairly painless.
+
+jon
