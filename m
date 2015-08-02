@@ -1,29 +1,24 @@
-Return-Path: <linux@roeck-us.net>
+Return-Path: <dave@stgolabs.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id AA5F7308
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4E08265
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  2 Aug 2015 00:48:36 +0000 (UTC)
-Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8B8C4106
+	Sun,  2 Aug 2015 07:07:22 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C2EB37C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  2 Aug 2015 00:48:35 +0000 (UTC)
-Message-ID: <55BD68DE.5060903@roeck-us.net>
-Date: Sat, 01 Aug 2015 17:48:30 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-MIME-Version: 1.0
-To: Tejun Heo <tj@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-References: <2111196.TG1k3f53YQ@avalon>
-	<1832413.9MBGoll9RW@avalon>	<alpine.DEB.2.02.1508011255010.2071@localhost6.localdomain6>	<8475257.M7ZLAf3KQe@avalon>
-	<20150801151839.GA9480@mtj.duckdns.org>
-In-Reply-To: <20150801151839.GA9480@mtj.duckdns.org>
-Content-Type: text/plain; charset=windows-1252; format=flowed
+	Sun,  2 Aug 2015 07:07:21 +0000 (UTC)
+Message-ID: <1438499234.2249.122.camel@stgolabs.net>
+From: Davidlohr Bueso <dave@stgolabs.net>
+To: Jonathan Corbet <corbet@lwn.net>
+Date: Sun, 02 Aug 2015 00:07:14 -0700
+In-Reply-To: <20150801164142.653012af@lwn.net>
+References: <20150801164142.653012af@lwn.net>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Cc: Shuah Khan <shuah.kh@samsung.com>, Russell King <linux@arm.linux.org.uk>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Fix devm_kzalloc, its users,
- or both
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Documentation
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,42 +28,33 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 08/01/2015 08:18 AM, Tejun Heo wrote:
-> Hello,
->
-> On Sat, Aug 01, 2015 at 02:01:02PM +0300, Laurent Pinchart wrote:
->>> Would it be possible to call the devres cleanup at this point, rather than
->>> on the remove function?
->>
->> As devres cleanup will also take care of interrupts and ioremap'ed regions I
->> don't think that would be an option. Otherwise we would have trouble when the
->> device is reprobed as resources would be busy.
->>
->> We could possibly create an API to allow drivers to keep references to some
->> devres-allocate objects, but that's arguably a hack.
->
-> Another factor to consider is that even if the driver separately
-> allocates e.g. memory which may be accessed after removal, it's mighty
-> difficult to verify that file operations which take place post removal
-> don't have any dependency on things which are released on removal.  I
-> mean, we've always had a lot of drivers which are fairly confused
-> about lifetime rules.
->
-> devm allocated memory *might* make certain failures more obvious as
-> the memory itself gets freed right away but I'd be very surprised if
-> there aren't already a bunch of drivers which fail to fully isolate
-> post-removal file operations regardless of devm.
->
-> So, all in all, if we actually want to fix this issue, well at least
-> most of it, I think the only viable way would be implementing revoke
-> semantics and drain and sever all operations on removal.  Maybe it'll
-> end up another devm interface.
->
+On Sat, 2015-08-01 at 16:41 +0200, Jonathan Corbet wrote:
+> There could, I think, be value in talking about where we would like our
+> docs subsystem to go.  
 
-Maybe that is completely nonsense, but how about something like
-	devm_get(dev);
-to be called whenever a file used by a device is opened, and
-	devm_put(dev);
-whenever it is closed ?
+Perhaps more important would be focusing on ways of _improving_ our
+already existing Documentation/*. Some areas really stink, a combination
+of stale and incorrect information. My brain is too melted to give exact
+examples, just one of those things you run into.
 
-Guenter
+In general core kernel docs is pretty well maintained. This, I believe,
+is a result of maintainers pushing for quality docs with patches. I
+don't know about others, ie drivers, but perhaps examples could be taken
+from -tip, or akpm.
+
+> What kind of changes would we like to make to render
+> our docs more accessible, more current, and easier to contribute to?
+
+I would say that if anyone has anything meaningful to say, he or she,
+will find the way. As you mentioned, nicely formatted plain text files
+work well.
+
+While I don't discourage it, I am not a fan of automated documentation.
+As you and mtk would know, writing high quality, informative, systems
+software documentation is an involved process. And it should be, imo.
+Same goes for describing APIs and algorithms in code comments. Sure,
+automation has its pros, particularly keeping docs up to date; yet this
+does not outweigh a well crafted document, which involves actual though.
+
+Thanks,
+Davidlohr
