@@ -1,24 +1,29 @@
-Return-Path: <dave@stgolabs.net>
+Return-Path: <fengguang.wu@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4E08265
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id CC13B3EE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  2 Aug 2015 07:07:22 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C2EB37C
+	Sun,  2 Aug 2015 11:50:22 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 9FCF910E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  2 Aug 2015 07:07:21 +0000 (UTC)
-Message-ID: <1438499234.2249.122.camel@stgolabs.net>
-From: Davidlohr Bueso <dave@stgolabs.net>
-To: Jonathan Corbet <corbet@lwn.net>
-Date: Sun, 02 Aug 2015 00:07:14 -0700
-In-Reply-To: <20150801164142.653012af@lwn.net>
-References: <20150801164142.653012af@lwn.net>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+	Sun,  2 Aug 2015 11:50:21 +0000 (UTC)
+Date: Sun, 2 Aug 2015 19:49:53 +0800
+From: Fengguang Wu <fengguang.wu@intel.com>
+To: Len Brown <lenb@kernel.org>
+Message-ID: <20150802114953.GA26601@wfg-t540p.sh.intel.com>
+References: <20150715153725.GA12601@ret.masoncoding.com>
+	<CAH3eK3TtZKdVdFTrQOEPQ0dmXLr-y1w66LW2Qbwwu0VSbiiYiA@mail.gmail.com>
+	<1436989195.6856.4.camel@infradead.org>
+	<20150715195837.GA14507@ret.masoncoding.com>
+	<CAJvTdKk--RBxhzqCem+O75pWRmi5XWLbbUmypQEPaSaPqcR5CA@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAJvTdKk--RBxhzqCem+O75pWRmi5XWLbbUmypQEPaSaPqcR5CA@mail.gmail.com>
 Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Documentation
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] benchmarking and performance
+ trends
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -28,33 +33,37 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, 2015-08-01 at 16:41 +0200, Jonathan Corbet wrote:
-> There could, I think, be value in talking about where we would like our
-> docs subsystem to go.  
+On Wed, Jul 15, 2015 at 09:35:51PM -0400, Len Brown wrote:
+> > It would be fun to use turbostat or a rack power meter to
+> > measure/compare power usage between two kernels in a given benchmark.  I
+> > think the power meters we do have are not going to be fine grained
+> > enough to give valid results, but if turbostat is consistent enough we
+> > could try it.
+> 
+> The RAPL power meters exported by turbostat can correlate surprisingly
+> well with highly accurate external power meters.  But even if perfect,
+> RAPL doesn't know about
+> the hardware outside of the processor package (except Xeon DRAM), so
+> the absolute
+> numbers will not match an AC power meter.  But differences are visible
+> and consistent.
+> The accuracy and the quality of correlation with actual electricals
+> varies a lot with
+> the type of processor.  In general, Xeon is the best, followed by
+> desktop/mobile core,
+> and Atom's RAPL power meters have been the least accurate of those
+> shipped, so far.
+> 
+> Yes, 0-day is using this output today to identify regressions, without
+> any external power meters.  But they are also adding external power meters.
 
-Perhaps more important would be focusing on ways of _improving_ our
-already existing Documentation/*. Some areas really stink, a combination
-of stale and incorrect information. My brain is too melted to give exact
-examples, just one of those things you run into.
+Yeah we collect turbostat stats in every benchmark it runs and the
+machines that support RAPL. It has been effective in catching power
+regressions.
 
-In general core kernel docs is pretty well maintained. This, I believe,
-is a result of maintainers pushing for quality docs with patches. I
-don't know about others, ie drivers, but perhaps examples could be taken
-from -tip, or akpm.
-
-> What kind of changes would we like to make to render
-> our docs more accessible, more current, and easier to contribute to?
-
-I would say that if anyone has anything meaningful to say, he or she,
-will find the way. As you mentioned, nicely formatted plain text files
-work well.
-
-While I don't discourage it, I am not a fan of automated documentation.
-As you and mtk would know, writing high quality, informative, systems
-software documentation is an involved process. And it should be, imo.
-Same goes for describing APIs and algorithms in code comments. Sure,
-automation has its pros, particularly keeping docs up to date; yet this
-does not outweigh a well crafted document, which involves actual though.
+There are also 4 external power meters to measure whole-machine power
+consumption, however that number is limited comparing to the machines
+that support RAPL.
 
 Thanks,
-Davidlohr
+Fengguang
