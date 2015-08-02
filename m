@@ -1,47 +1,39 @@
-Return-Path: <corbet@lwn.net>
+Return-Path: <linux+ksummit-discuss=lists.linuxfoundation.org@arm.linux.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6FFD940D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 07F7840D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  2 Aug 2015 12:12:06 +0000 (UTC)
-Received: from vena.lwn.net (tex.lwn.net [70.33.254.29])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E59A4EE
+	Sun,  2 Aug 2015 14:05:36 +0000 (UTC)
+Received: from pandora.arm.linux.org.uk (pandora.arm.linux.org.uk
+	[78.32.30.218])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 35637A9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  2 Aug 2015 12:12:05 +0000 (UTC)
-Date: Sun, 2 Aug 2015 14:12:03 +0200
-From: Jonathan Corbet <corbet@lwn.net>
-To: NeilBrown <neilb@suse.com>
-Message-ID: <20150802141203.554cd117@lwn.net>
-In-Reply-To: <20150802081600.73d54e4e@noble>
-References: <20150708114011.3a1f1861@noble> <2879113.fraeuJIr2M@avalon>
-	<20150709193718.GD9169@vmdeb7> <20150710143641.GW4341@mwanda>
-	<20150710160714.GL111846@vmdeb7> <20150710222351.GA28632@kroah.com>
-	<20150711000034.GU111846@vmdeb7> <20150711001348.GA30675@kroah.com>
-	<20150711055441.GA6316@sudip-PC>
-	<20150715212043.775be5d2@gandalf.local.home>
-	<20150716132551.GH4039@sirena.org.uk>
-	<20150716094720.2bf9f5ac@gandalf.local.home>
-	<55A7C7FE.6000604@sonymobile.com> <20150716094125.16cdda73@lwn.net>
-	<55A7D73F.4020105@sonymobile.com>
-	<20150716121620.65ce6daa@gandalf.local.home>
-	<55A7DAD8.2080902@sonymobile.com>
-	<20150716125216.0d457104@gandalf.local.home>
-	<55BB7397.3090407@atmel.com>
-	<1438352566.2179.4.camel@HansenPartnership.com>
-	<CAMuHMdUu4_PsiCcz0KX=jw7W7gHPD1WGouYiBg1Fw=L_aFoeCg@mail.gmail.com>
-	<1438453195.2182.16.camel@HansenPartnership.com>
-	<CAMuHMdX4siOnhTOD=NYa+V35TDZEuMT7q+jpWo8mz9XsgtNB5w@mail.gmail.com>
-	<20150802081600.73d54e4e@noble>
+	Sun,  2 Aug 2015 14:05:31 +0000 (UTC)
+Date: Sun, 2 Aug 2015 15:05:08 +0100
+From: Russell King - ARM Linux <linux@arm.linux.org.uk>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Message-ID: <20150802140508.GE7557@n2100.arm.linux.org.uk>
+References: <alpine.DEB.2.10.1507311833280.2499@hadrien>
+	<20150731165346.GA18984@infradead.org>
+	<1438362159.2179.42.camel@HansenPartnership.com>
+	<20150731170523.GF5613@dtor-ws>
+	<1438362797.2179.45.camel@HansenPartnership.com>
+	<20150731173335.GI5613@dtor-ws>
+	<1438364188.2179.53.camel@HansenPartnership.com>
+	<20150731182815.GK5613@dtor-ws>
+	<1438368039.2179.62.camel@HansenPartnership.com>
+	<20150731194124.GL5613@dtor-ws>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 8bit
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Jason Cooper <jason@lakedaemon.net>,
-	Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
- Maintainers, Hobbyists)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20150731194124.GL5613@dtor-ws>
+Sender: Russell King - ARM Linux <linux@arm.linux.org.uk>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Christoph Hellwig <hch@infradead.org>, Tejun Heo <tj@kernel.org>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Shuah Khan <shuah.kh@samsung.com>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Fix devm_kzalloc, its users,
+ or both
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -51,18 +43,22 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sun, 2 Aug 2015 08:16:00 +1000
-NeilBrown <neilb@suse.com> wrote:
+On Fri, Jul 31, 2015 at 12:41:24PM -0700, Dmitry Torokhov wrote:
+> On Fri, Jul 31, 2015 at 11:40:39AM -0700, James Bottomley wrote:
+> > Russell says, this looks to be an orthogonal problem to devm_kzalloc.
+> 
+> Yes, it is except that devm_* is magical and people expect it to somehow
+> release resources only at the right time.
 
-> Claws-mail doesn't make it easy to reply to attachments - you have to
-> use the clumsy "copy/paste/add '>'" that you describe.
+Who's been selling it as such?  If it's been mis-sold, then maybe there's
+a responsibility on people who see such mis-selling of the API to correct
+those creating this fantasy, rather than ignoring it.
 
-Two useful claws tricks:
+People try to create APIs which ease the burden of review, and then other
+people go around selling it as the worlds cure to hunger.  If no one
+bothers to correct those doing the mis-selling, then that's not the fault
+of the API.  That's a community problem.  Don't blame the API.
 
-1) "display as text" makes grabbing stuff out of attachments easy
-
-2) "Edit->Special Paste->As quotation" handles much of the rest.
-
-With those, dealing with patches in attachments is fairly painless.
-
-jon
+-- 
+FTTC broadband for 0.8mile line: currently at 10.5Mbps down 400kbps up
+according to speedtest.net.
