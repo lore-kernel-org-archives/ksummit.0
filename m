@@ -1,30 +1,46 @@
-Return-Path: <linux@roeck-us.net>
+Return-Path: <neilb@suse.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6E364FF
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 469D87A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  2 Aug 2015 16:04:20 +0000 (UTC)
-Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 127BD8F
+	Sun,  2 Aug 2015 22:46:19 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A5C2D7D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  2 Aug 2015 16:04:19 +0000 (UTC)
-Message-ID: <55BE3F7B.3060801@roeck-us.net>
-Date: Sun, 02 Aug 2015 09:04:11 -0700
-From: Guenter Roeck <linux@roeck-us.net>
+	Sun,  2 Aug 2015 22:46:18 +0000 (UTC)
+Date: Mon, 3 Aug 2015 08:46:04 +1000
+From: NeilBrown <neilb@suse.com>
+To: Jonathan Corbet <corbet@lwn.net>
+Message-ID: <20150803084604.3c01cc73@noble>
+In-Reply-To: <20150802141203.554cd117@lwn.net>
+References: <20150708114011.3a1f1861@noble> <20150709193718.GD9169@vmdeb7>
+	<20150710143641.GW4341@mwanda> <20150710160714.GL111846@vmdeb7>
+	<20150710222351.GA28632@kroah.com> <20150711000034.GU111846@vmdeb7>
+	<20150711001348.GA30675@kroah.com> <20150711055441.GA6316@sudip-PC>
+	<20150715212043.775be5d2@gandalf.local.home>
+	<20150716132551.GH4039@sirena.org.uk>
+	<20150716094720.2bf9f5ac@gandalf.local.home>
+	<55A7C7FE.6000604@sonymobile.com> <20150716094125.16cdda73@lwn.net>
+	<55A7D73F.4020105@sonymobile.com>
+	<20150716121620.65ce6daa@gandalf.local.home>
+	<55A7DAD8.2080902@sonymobile.com>
+	<20150716125216.0d457104@gandalf.local.home>
+	<55BB7397.3090407@atmel.com>
+	<1438352566.2179.4.camel@HansenPartnership.com>
+	<CAMuHMdUu4_PsiCcz0KX=jw7W7gHPD1WGouYiBg1Fw=L_aFoeCg@mail.gmail.com>
+	<1438453195.2182.16.camel@HansenPartnership.com>
+	<CAMuHMdX4siOnhTOD=NYa+V35TDZEuMT7q+jpWo8mz9XsgtNB5w@mail.gmail.com>
+	<20150802081600.73d54e4e@noble> <20150802141203.554cd117@lwn.net>
 MIME-Version: 1.0
-To: Russell King - ARM Linux <linux@arm.linux.org.uk>
-References: <2111196.TG1k3f53YQ@avalon> <1832413.9MBGoll9RW@avalon>
-	<alpine.DEB.2.02.1508011255010.2071@localhost6.localdomain6>
-	<8475257.M7ZLAf3KQe@avalon> <20150801151839.GA9480@mtj.duckdns.org>
-	<55BD68DE.5060903@roeck-us.net>
-	<20150802143025.GF7557@n2100.arm.linux.org.uk>
-In-Reply-To: <20150802143025.GF7557@n2100.arm.linux.org.uk>
-Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Cc: Tejun Heo <tj@kernel.org>, Shuah Khan <shuah.kh@samsung.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Fix devm_kzalloc, its users,
- or both
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Jason Cooper <jason@lakedaemon.net>,
+	Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
+ Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,42 +50,32 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 08/02/2015 07:30 AM, Russell King - ARM Linux wrote:
-> On Sat, Aug 01, 2015 at 05:48:30PM -0700, Guenter Roeck wrote:
->> On 08/01/2015 08:18 AM, Tejun Heo wrote:
->>> So, all in all, if we actually want to fix this issue, well at least
->>> most of it, I think the only viable way would be implementing revoke
->>> semantics and drain and sever all operations on removal.  Maybe it'll
->>> end up another devm interface.
->>
->> Maybe that is completely nonsense, but how about something like
->> 	devm_get(dev);
->> to be called whenever a file used by a device is opened, and
->> 	devm_put(dev);
->> whenever it is closed ?
->
-> Absolutely not.  There's two problems there:
->
-> 1) You'd also need to tie the lifetime of 'dev' to the lifetime of the
->     character device, which is getting to be an absurd level of lifetime
->     complexity - we can't have 'dev' vanishing before the last user of
->     the file operations has gone away, otherwise 'dev' becomes a stale
->     pointer.
->
-Wonder how many drivers access the device data structure in file operations.
+On Sun, 2 Aug 2015 14:12:03 +0200 Jonathan Corbet <corbet@lwn.net>
+wrote:
 
-> 2) Remember that devm encompasses not only driver allocations, but also
->     resources as well, like interrupts, iomem mappings and iomem resource
->     claiming.  As has already been stated by others, we don't want to delay
->     the release of all these resources.
->
-Again, I wonder how many drivers access io mappings and resources in file
-operations.
+> On Sun, 2 Aug 2015 08:16:00 +1000
+> NeilBrown <neilb@suse.com> wrote:
+> 
+> > Claws-mail doesn't make it easy to reply to attachments - you have to
+> > use the clumsy "copy/paste/add '>'" that you describe.
+> 
+> Two useful claws tricks:
+> 
+> 1) "display as text" makes grabbing stuff out of attachments easy
+> 
+> 2) "Edit->Special Paste->As quotation" handles much of the rest.
+> 
+> With those, dealing with patches in attachments is fairly painless.
+> 
+> jon
 
-I understand that my idea would tie the lifetime of 'dev' to the lifetime
-of a character device; I guess that was the idea. But what is the
-alternative ? Also, in practice, doesn't that dependency already exist
-in many cases ?
 
-Thanks,
-Guenter
+Thanks...
+So, better add another line to that summary:
+
+> If my tools don't work with a workflow that is prima-facie reasonable,
+  or if I don't know how to use them properly,
+> then it is *ME OR* my tools that are at fault and I should fix them, not ask
+> someone else to change their workflow.
+
+NeilBrown
