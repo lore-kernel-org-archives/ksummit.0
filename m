@@ -1,23 +1,29 @@
-Return-Path: <rjw@rjwysocki.net>
+Return-Path: <konstantin@linuxfoundation.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id CF2FA7F
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E06DF898
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  3 Aug 2015 13:08:35 +0000 (UTC)
-Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id 5FC7117E
+	Mon,  3 Aug 2015 13:27:27 +0000 (UTC)
+Received: from mail-ig0-f181.google.com (mail-ig0-f181.google.com
+	[209.85.213.181])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 94B40E2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  3 Aug 2015 13:08:34 +0000 (UTC)
-From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-To: Davidlohr Bueso <dave@stgolabs.net>
-Date: Mon, 03 Aug 2015 15:35:36 +0200
-Message-ID: <1893963.CjFnBCekyb@vostro.rjw.lan>
-In-Reply-To: <1438499234.2249.122.camel@stgolabs.net>
+	Mon,  3 Aug 2015 13:27:27 +0000 (UTC)
+Received: by igbpg9 with SMTP id pg9so55507620igb.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 03 Aug 2015 06:27:27 -0700 (PDT)
+Date: Mon, 3 Aug 2015 09:27:24 -0400
+From: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+Message-ID: <20150803132724.GA1098@gmail.com>
 References: <20150801164142.653012af@lwn.net>
 	<1438499234.2249.122.camel@stgolabs.net>
+	<1893963.CjFnBCekyb@vostro.rjw.lan>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="VbJkn9YxBvnuCH5J"
+Content-Disposition: inline
+In-Reply-To: <1893963.CjFnBCekyb@vostro.rjw.lan>
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Documentation
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -29,41 +35,38 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sunday, August 02, 2015 12:07:14 AM Davidlohr Bueso wrote:
-> On Sat, 2015-08-01 at 16:41 +0200, Jonathan Corbet wrote:
-> > There could, I think, be value in talking about where we would like our
-> > docs subsystem to go.  
-> 
-> Perhaps more important would be focusing on ways of _improving_ our
-> already existing Documentation/*. Some areas really stink, a combination
-> of stale and incorrect information. My brain is too melted to give exact
-> examples, just one of those things you run into.
-> 
-> In general core kernel docs is pretty well maintained. This, I believe,
-> is a result of maintainers pushing for quality docs with patches. I
-> don't know about others, ie drivers, but perhaps examples could be taken
-> from -tip, or akpm.
-> 
-> > What kind of changes would we like to make to render
-> > our docs more accessible, more current, and easier to contribute to?
-> 
-> I would say that if anyone has anything meaningful to say, he or she,
-> will find the way. As you mentioned, nicely formatted plain text files
-> work well.
-> 
-> While I don't discourage it, I am not a fan of automated documentation.
-> As you and mtk would know, writing high quality, informative, systems
-> software documentation is an involved process. And it should be, imo.
-> Same goes for describing APIs and algorithms in code comments. Sure,
-> automation has its pros, particularly keeping docs up to date; yet this
-> does not outweigh a well crafted document, which involves actual though.
 
-"thought" I guess?
+--VbJkn9YxBvnuCH5J
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I have to say I agree here.
+On Mon, Aug 03, 2015 at 03:35:36PM +0200, Rafael J. Wysocki wrote:
+> Not to mention the fact that if you are browsing the kernel tree via a web
+> frontend or LXR, for example, plain text docs are really good to have.
 
-Not to mention the fact that if you are browsing the kernel tree via a web
-frontend or LXR, for example, plain text docs are really good to have.
+FYI, we can easily turn on the "render markdown" plugin on
+git.kernel.org if there is actually a use for that.
 
-Thanks,
-Rafael
+Best,
+--=20
+Konstantin Ryabitsev
+Linux Foundation Collab Projects
+Montr=C3=A9al, Qu=C3=A9bec
+
+--VbJkn9YxBvnuCH5J
+Content-Type: application/pgp-signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQEcBAEBCAAGBQJVv2w5AAoJEDZgaZyZ4FVXm/gH/0kP45SdgBtPOgnSA8M6BKoY
+eiDlx5w3vU+HHO3aRJMKNhFFynDAMaQQZg2ZF3s9a4e060OA8YD2PlNggPcYblfq
+/WH+0QflXjI2/QFg80Q+CKQqDvMvHpEj1eIRn0WSX9Xgh2ja8PjP+k95XzxWBUZR
+wC/AEBD1IR3uluiLrRn19t29zAa35ihHLfJv7BpxgMyDcz5kFjEKjIFHH0/i/rmm
+ZXVIINoRYXU0dUfjjsgrWucyHfQ85vTUlxHzsK6K3J5gy2XPtmqCT3HhFHJKnT+u
+9iGgKtN5JOV0QWYnZkVJk7TNRo9FFV1b4EdVD5Pc2gFGY4S0/zyh3j2r9Dwk46U=
+=Ubf3
+-----END PGP SIGNATURE-----
+
+--VbJkn9YxBvnuCH5J--
