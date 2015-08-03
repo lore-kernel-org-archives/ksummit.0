@@ -1,27 +1,26 @@
-Return-Path: <jpoimboe@redhat.com>
+Return-Path: <arnd@arndb.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id AF2B2847
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 918D689F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  3 Aug 2015 19:28:09 +0000 (UTC)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 394B3136
+	Mon,  3 Aug 2015 19:28:48 +0000 (UTC)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.131])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E114D136
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  3 Aug 2015 19:28:09 +0000 (UTC)
-Date: Mon, 3 Aug 2015 14:28:07 -0500
-From: Josh Poimboeuf <jpoimboe@redhat.com>
-To: Josh Boyer <jwboyer@fedoraproject.org>
-Message-ID: <20150803192807.GA28067@treble.redhat.com>
-References: <20150704051819.GA27599@thunk.org>
-	<20150803184401.GA28433@thunk.org>
-	<CA+5PVA6+j7OTLEB-Z0G4Zjq1BSqKeU_LLk0bfEy40hqkusV26g@mail.gmail.com>
+	Mon,  3 Aug 2015 19:28:47 +0000 (UTC)
+From: Arnd Bergmann <arnd@arndb.de>
+To: Joerg Roedel <joro@8bytes.org>
+Date: Mon, 03 Aug 2015 21:23:39 +0200
+Message-ID: <3104317.TFkDBLqyKl@wuerfel>
+In-Reply-To: <20150803161027.GK14980@8bytes.org>
+References: <20150730130027.GA14980@8bytes.org> <19442497.AqUzQeifsl@wuerfel>
+	<20150803161027.GK14980@8bytes.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CA+5PVA6+j7OTLEB-Z0G4Zjq1BSqKeU_LLk0bfEy40hqkusV26g@mail.gmail.com>
-Cc: "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Kernel Summit 2015: Call for Proposals
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Core Kernel support for
+	Compute-Offload Devices
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,39 +30,52 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Aug 03, 2015 at 02:52:58PM -0400, Josh Boyer wrote:
-> On Mon, Aug 3, 2015 at 2:44 PM, Theodore Ts'o <tytso@mit.edu> wrote:
-> > The Kernel Summit call for proposals/topics was sent out a month ago:
-> >
-> > http://lists.linuxfoundation.org/pipermail/ksummit-discuss/2015-July/001242.html
-> >
-> > In that call, I asked that people send nominations (including self
-> > nominations) and topic suggestions by the end of July since the
-> > program committee would start considering people who should be issued
-> > invites.
-> >
-> > The mechnically generated list of people to be considered, plus people
-> > that have been added due to nominations, being called out as useful
-> > participants for various discussions, etc., can be found here:
-> >
-> >              https://goo.gl/m62WpI
-> >
-> > As favor to me, if you could take a look at the spreadsheet and let me
-> > know if there are any e-mail addresses which have are incorrect or
-> > shoud be updated, please let me know.  Also, if there are any last
-> > minute nominations that you'd like to suggest for the list, please let
-> > me know by the end of day on Wednesday, August 5th.
+On Monday 03 August 2015 18:10:27 Joerg Roedel wrote:
+> Hi Arnd,
 > 
-> You have me as Tagged for Live Patching.  While that is indeed
-> interesting to me, I don't think you have the correct Josh there.  It
-> should be Josh Poimboeuf <jpoimboe@redhat.com>.
+> On Sat, Aug 01, 2015 at 10:46:49PM +0200, Arnd Bergmann wrote:
+> > I think we did this part right with the Cell SPUs 10 years ago: A
+> > task is a task, and you just switch between running in user mode and
+> > running on the offload engine through some syscall or ioctl.
+> 
+> Do you mean that on Cell the offload is synchronous, so that a task that
+> schedules something to the SPU sleeps until the job there is done?
 
-Thanks Josh.  For the Live Patching topic I would also nominate the
-other maintainers:
+Correct. The tradeoff here is that accounting in the kernel is
+greatly simplified, but you need to create a separate thread for
+each instance of the offload engine that you want to use.
 
-Jiri Kosina <jkosina@suse.com> (already on the list)
-Vojtech Pavlik <vojtech@suse.com>
-Seth Jennings <sjenning@redhat.com>
+> > The part that got us into endless trouble though was trying to
+> > satisfy two opposite requirements: 
+> > 
+> > a) having the kernel schedule tasks automatically onto the offload
+> >    engines and take care of context switches and placement, so you
+> >    can do multi-user and multi-tasking processing on them.
+> > 
+> > b) getting most performance out of the of offload engines, by giving
+> >    a single user total control over the placement and no do any
+> >    scheduling in the kernel at all.
+> > 
+> > I would strongly recommend now that any new interface tries to do
+> > only one of the two models, but does it right.
+> 
+> I think it mostly depends on the use-cases which approach makes more
+> sense. An HPC environment would certainly want to have full control over
+> the placement and scheduling on the offload devices. A desktop
+> environment with typical applications that offload stuff to one or
+> multiple GPUs through optimized libraries would benefit more from
+> automatic scheduling and placement.
+> 
+> It is probably good to hear about the use-cases of the different offload
+> devices to make a good decission here.
 
--- 
-Josh
+It's also quite likely that not all offload engines fit in one model.
+E.g. the realtime units on some SoCs should never be scheduled dynamically
+because that clearly breaks the realtime behavior, while for a lot of
+others, a scheduler might be the preferred interface.
+
+It may be helpful to have one interface centered around the needs of
+OpenCL for all those engines that fit into that model, and then do something
+else for the ones that can't run OpenCL anyway and have some other requirements.
+
+	Arnd
