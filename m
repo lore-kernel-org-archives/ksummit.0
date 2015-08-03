@@ -1,24 +1,27 @@
-Return-Path: <julia.lawall@lip6.fr>
+Return-Path: <jpoimboe@redhat.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 65EBC847
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id AF2B2847
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  3 Aug 2015 19:23:46 +0000 (UTC)
-Received: from mail2-relais-roc.national.inria.fr
-	(mail2-relais-roc.national.inria.fr [192.134.164.83])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 62D2E25B
+	Mon,  3 Aug 2015 19:28:09 +0000 (UTC)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 394B3136
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  3 Aug 2015 19:23:45 +0000 (UTC)
-Date: Mon, 3 Aug 2015 21:23:41 +0200 (CEST)
-From: Julia Lawall <julia.lawall@lip6.fr>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-In-Reply-To: <1438629566.2173.58.camel@HansenPartnership.com>
-Message-ID: <alpine.DEB.2.02.1508032123090.2038@localhost6.localdomain6>
-References: <1438629566.2173.58.camel@HansenPartnership.com>
+	Mon,  3 Aug 2015 19:28:09 +0000 (UTC)
+Date: Mon, 3 Aug 2015 14:28:07 -0500
+From: Josh Poimboeuf <jpoimboe@redhat.com>
+To: Josh Boyer <jwboyer@fedoraproject.org>
+Message-ID: <20150803192807.GA28067@treble.redhat.com>
+References: <20150704051819.GA27599@thunk.org>
+	<20150803184401.GA28433@thunk.org>
+	<CA+5PVA6+j7OTLEB-Z0G4Zjq1BSqKeU_LLk0bfEy40hqkusV26g@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment; Outreach Programmes
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CA+5PVA6+j7OTLEB-Z0G4Zjq1BSqKeU_LLk0bfEy40hqkusV26g@mail.gmail.com>
+Cc: "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] Kernel Summit 2015: Call for Proposals
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -28,45 +31,39 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Mon, Aug 03, 2015 at 02:52:58PM -0400, Josh Boyer wrote:
+> On Mon, Aug 3, 2015 at 2:44 PM, Theodore Ts'o <tytso@mit.edu> wrote:
+> > The Kernel Summit call for proposals/topics was sent out a month ago:
+> >
+> > http://lists.linuxfoundation.org/pipermail/ksummit-discuss/2015-July/001242.html
+> >
+> > In that call, I asked that people send nominations (including self
+> > nominations) and topic suggestions by the end of July since the
+> > program committee would start considering people who should be issued
+> > invites.
+> >
+> > The mechnically generated list of people to be considered, plus people
+> > that have been added due to nominations, being called out as useful
+> > participants for various discussions, etc., can be found here:
+> >
+> >              https://goo.gl/m62WpI
+> >
+> > As favor to me, if you could take a look at the spreadsheet and let me
+> > know if there are any e-mail addresses which have are incorrect or
+> > shoud be updated, please let me know.  Also, if there are any last
+> > minute nominations that you'd like to suggest for the list, please let
+> > me know by the end of day on Wednesday, August 5th.
+> 
+> You have me as Tagged for Live Patching.  While that is indeed
+> interesting to me, I don't think you have the correct Josh there.  It
+> should be Josh Poimboeuf <jpoimboe@redhat.com>.
 
+Thanks Josh.  For the Live Patching topic I would also nominate the
+other maintainers:
 
-On Mon, 3 Aug 2015, James Bottomley wrote:
+Jiri Kosina <jkosina@suse.com> (already on the list)
+Vojtech Pavlik <vojtech@suse.com>
+Seth Jennings <sjenning@redhat.com>
 
-> I think this is part of the broad recruitment topic, but it's worth
-> considering in its own right.  We should probably begin by reviewing the
-> current outreach programmes and whether they're effective.  The
-> currently running one is the Outreach Programme for Women:
-> 
-> http://www.linuxfoundation.org/news-media/blogs/browse/2013/04/announcing-outreach-program-women-internships-linux-kernel-please
-> 
-> Which has been running successfully for a while.  The questions for us
-> are
-> 
->      1. Should the programme be broadened (the current OPW one only
->         reaches women, not everyone who might need outreach)
-
-There are plans to broaden it somewhat, but I don't know the details.
-
-julia
-
->      2. Assuming we do decide broader is better, what's the next group
->         to reach out to?
->      3. Is this type of outreach better than non group specific
->         outreach?  One can argue the kernel mentors list was non group
->         specific and it didn't seem to get much uptake, so perhaps group
->         specific is better?  Essentially is it better for us to invest
->         our efforts in specific segments rather than generally?
-> 
-> Just on the premise of 3 we can still improve our overall acceptance
-> processes, as we have been discussing, in a general way because outreach
-> is what you do to pull people in, not what processes you have in place
-> to help them once they are pulled in.
-> 
-> James
-> 
-> 
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
-> 
+-- 
+Josh
