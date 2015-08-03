@@ -1,29 +1,24 @@
-Return-Path: <konstantin@linuxfoundation.org>
+Return-Path: <corbet@lwn.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id E06DF898
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8A37626C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  3 Aug 2015 13:27:27 +0000 (UTC)
-Received: from mail-ig0-f181.google.com (mail-ig0-f181.google.com
-	[209.85.213.181])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 94B40E2
+	Mon,  3 Aug 2015 14:33:18 +0000 (UTC)
+Received: from vena.lwn.net (tex.lwn.net [70.33.254.29])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7782F19D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  3 Aug 2015 13:27:27 +0000 (UTC)
-Received: by igbpg9 with SMTP id pg9so55507620igb.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 03 Aug 2015 06:27:27 -0700 (PDT)
-Date: Mon, 3 Aug 2015 09:27:24 -0400
-From: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+	Mon,  3 Aug 2015 14:33:14 +0000 (UTC)
+Date: Mon, 3 Aug 2015 08:33:11 -0600
+From: Jonathan Corbet <corbet@lwn.net>
 To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-Message-ID: <20150803132724.GA1098@gmail.com>
+Message-ID: <20150803083311.5abd23f6@lwn.net>
+In-Reply-To: <1893963.CjFnBCekyb@vostro.rjw.lan>
 References: <20150801164142.653012af@lwn.net>
 	<1438499234.2249.122.camel@stgolabs.net>
 	<1893963.CjFnBCekyb@vostro.rjw.lan>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="VbJkn9YxBvnuCH5J"
-Content-Disposition: inline
-In-Reply-To: <1893963.CjFnBCekyb@vostro.rjw.lan>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Documentation
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -35,38 +30,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Mon, 03 Aug 2015 15:35:36 +0200
+"Rafael J. Wysocki" <rjw@rjwysocki.net> wrote:
 
---VbJkn9YxBvnuCH5J
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> > While I don't discourage it, I am not a fan of automated documentation.
+> > As you and mtk would know, writing high quality, informative, systems
+> > software documentation is an involved process. And it should be, imo.
+> > Same goes for describing APIs and algorithms in code comments. Sure,
+> > automation has its pros, particularly keeping docs up to date; yet this
+> > does not outweigh a well crafted document, which involves actual though.  
+> 
+> "thought" I guess?
+> 
+> I have to say I agree here.
 
-On Mon, Aug 03, 2015 at 03:35:36PM +0200, Rafael J. Wysocki wrote:
+Surely nobody thinks I was saying that the documentation-writing process
+can be automated! :)  But we go to some lengths now to document our APIs
+in the code; I don't think we would want to break that.
+
 > Not to mention the fact that if you are browsing the kernel tree via a web
 > frontend or LXR, for example, plain text docs are really good to have.
 
-FYI, we can easily turn on the "render markdown" plugin on
-git.kernel.org if there is actually a use for that.
+The nice thing about formats like Markdown or ReST is that they *are*
+plain text for all practical purposes.  Much better than DocBook in that
+regard.
 
-Best,
---=20
-Konstantin Ryabitsev
-Linux Foundation Collab Projects
-Montr=C3=A9al, Qu=C3=A9bec
-
---VbJkn9YxBvnuCH5J
-Content-Type: application/pgp-signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQEcBAEBCAAGBQJVv2w5AAoJEDZgaZyZ4FVXm/gH/0kP45SdgBtPOgnSA8M6BKoY
-eiDlx5w3vU+HHO3aRJMKNhFFynDAMaQQZg2ZF3s9a4e060OA8YD2PlNggPcYblfq
-/WH+0QflXjI2/QFg80Q+CKQqDvMvHpEj1eIRn0WSX9Xgh2ja8PjP+k95XzxWBUZR
-wC/AEBD1IR3uluiLrRn19t29zAa35ihHLfJv7BpxgMyDcz5kFjEKjIFHH0/i/rmm
-ZXVIINoRYXU0dUfjjsgrWucyHfQ85vTUlxHzsK6K3J5gy2XPtmqCT3HhFHJKnT+u
-9iGgKtN5JOV0QWYnZkVJk7TNRo9FFV1b4EdVD5Pc2gFGY4S0/zyh3j2r9Dwk46U=
-=Ubf3
------END PGP SIGNATURE-----
-
---VbJkn9YxBvnuCH5J--
+jon
