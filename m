@@ -1,30 +1,34 @@
-Return-Path: <sasha.levin@oracle.com>
+Return-Path: <tony@atomide.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 794DC7D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0F0BF7D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  3 Aug 2015 05:17:35 +0000 (UTC)
-Received: from userp1040.oracle.com (userp1040.oracle.com [156.151.31.81])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1D0CCA9
+	Mon,  3 Aug 2015 05:33:06 +0000 (UTC)
+Received: from muru.com (muru.com [72.249.23.125])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 39FBBA9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  3 Aug 2015 05:17:35 +0000 (UTC)
-Message-ID: <55BEF962.7080201@oracle.com>
-Date: Mon, 03 Aug 2015 01:17:22 -0400
-From: Sasha Levin <sasha.levin@oracle.com>
+	Mon,  3 Aug 2015 05:33:05 +0000 (UTC)
+Date: Sun, 2 Aug 2015 22:33:01 -0700
+From: Tony Lindgren <tony@atomide.com>
+To: Pavel Machek <pavel@ucw.cz>
+Message-ID: <20150803053300.GD10928@atomide.com>
+References: <20150723105726.GC30929@amd>
+	<CACRpkdbCbhgJHZifouDVUvaxyT5YWWdQz7Nt3AKoLvuEn4z7mQ@mail.gmail.com>
+	<20150723121441.GB29747@amd>
+	<20150723084251.54da2be0@gandalf.local.home>
+	<20150723202901.GA30318@amd> <20150729133244.GH20130@sirena.org.uk>
+	<20150731122227.GA31877@amd> <20150731175215.GJ20873@sirena.org.uk>
+	<20150731220306.GA7867@amd>
 MIME-Version: 1.0
-To: Dave Jones <davej@codemonkey.org.uk>
-References: <55BAE39F.9060705@oracle.com>
-	<alpine.DEB.2.02.1507310650220.2218@localhost6.localdomain6>
-	<55BBB514.7060509@oracle.com> <20150801134546.GO5180@mwanda>
-	<55BCE519.1040207@oracle.com>
-	<20150801203053.GA10267@codemonkey.org.uk>
-In-Reply-To: <20150801203053.GA10267@codemonkey.org.uk>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20150731220306.GA7867@amd>
 Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] Self nomination
+	riverful.kim@samsung.com, kyungmin.park@samsung.com,
+	John Stultz <john.stultz@linaro.org>,
+	Bjorn Andersson <Bjorn.Andersson@sonymobile.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Mainline kernel on a cellphone
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,42 +38,62 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 08/01/2015 04:30 PM, Dave Jones wrote:
-> On Sat, Aug 01, 2015 at 11:26:17AM -0400, Sasha Levin wrote:
->  > On 08/01/2015 09:45 AM, Dan Carpenter wrote:
->  > > On Fri, Jul 31, 2015 at 01:49:08PM -0400, Sasha Levin wrote:
->  > >>  - Encouraging folks who add new sysctls (or features to existing sysctls) to contribute
->  > >> testing code to the various testing projects around (trinity and such).
->  > > 
->  > > Which other fuzzers are people using besides trinity?
->  > 
->  > I'm not sure, I think trinity sort of took over :)
->  > 
->  > My point was that people should be submitting a more significant amount
->  > of test code along with their new ABI - none of the recent syscalls added
->  > has any mention in LTP for example.
->  > 
->  > > Also why don't we merge trinity under tools/testing/?  I bet people
->  > > would keep it in sync better if we did that.
->  > 
->  > No objections on my end. I believe that Dave previously objected because
->  > it's hard to make it work on sync with the kernel's release cycle.
+* Pavel Machek <pavel@ucw.cz> [150731 15:06]:
+> On Fri 2015-07-31 18:52:15, Mark Brown wrote:
+> > On Fri, Jul 31, 2015 at 02:22:27PM +0200, Pavel Machek wrote:
+> > > On Wed 2015-07-29 14:32:44, Mark Brown wrote:
+> > > > On Thu, Jul 23, 2015 at 10:29:02PM +0200, Pavel Machek wrote:
+> > 
+> > > > ALSA is the right interface for this, this is going to be some
+> > > > misunderstanding on their part about how to use it or limitations in
+> > 
+> > > That's what I was arguing, but see https://lkml.org/lkml/2015/3/5/606
+> > 
+> > I can't view that link since lkml.org was down earlier today when I was
+> > working online and now I'm working offline.
 > 
-> A big factor is the same reason I'm not a huge fan of tools/testing/ in general.
-> People want to do things like "run latest testing tools on old LTS/enterprise kernels".
+> It works for me now.
 > 
-> Having to suck a subtree out of the latest kernel tarball, and then spend
-> time trying to make it even compile/run against headers from an old kernel
-> is something I've already lost way too many weeks of my life to, so I'm
-> not really a fan of making that problem even worse by adding other tools to it.
+> > > kai> Our take was that ALSA is not the right interface for cmt_speech. The
+> > > kai> cmt_speech interface in the modem is _not_ a PCM interface as modelled
+> > > kai> by
+> > > kai> ALSA. Specifically:
+> > > kai>
+> > > kai>- the interface is lossy in both directions
+> > 
+> > Yay.
 
-An interesting model we can try here is to let development happen both in the kernel
-tree and outside of it, and patches will be exchanged between the two development trees
-(possibly automatically). Think of it as a "fork".
+Well at the point when the audio gets played out of the speaker it's
+a stream :) I think the issues above are related to reading raw data
+from the modem before it gets processed further for noise cancellation
+by the DSP and so on. Eventually it should be just audio stream though.
 
-On one hand it'll provide the kernel with a proven testing framework, and on
-the other it'll give trinity a wider user/developer base.
+> > > kai>- data is sent in packets, not a stream of samples (could be other
+> > > kai>- things
+> > > kai>   than PCM samples), with timing and meta-data
+> > 
+> > This is what the copy() operation in the driver is for, there are other
+> > DSP based devices out there as well as things like USB.
+> > 
+> > > kai>   - timing of uplink is of utmost importance
+> > 
+> > Well, ALSA doesn't impose any latency of its own so there should be no
+> > issue there - the overheads should be minimal.
 
+I believe the fact that that ALSA fifo size could not be changed
+dynamically between what the modem needs and what should be used for
+audio playback from PM point of view used to be a problem. Maybe
+that's already fixed, now I don't know. Just FYI.
+ 
+> The interface Nokia has is pretty strange. I believe you send
+> timestamp with buffer, and it means "I'd like this packet of data to
+> be sent at that time", or something like that.
+> 
+> Anyway, no need to argue with me, I believe ALSA should be suitable.
 
-Thanks,
-Sasha
+Yes ALSA is suitable for sure. It's the raw modem data to audio
+stream processing part that's weird but that's not ALSA's problem.
+
+Regards,
+
+Tony
