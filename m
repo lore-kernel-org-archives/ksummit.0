@@ -1,29 +1,32 @@
-Return-Path: <jwboyer@gmail.com>
+Return-Path: <j.glisse@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 09FCA844
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id CB54088B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  3 Aug 2015 18:53:00 +0000 (UTC)
-Received: from mail-io0-f180.google.com (mail-io0-f180.google.com
-	[209.85.223.180])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7F07C1DF
+	Mon,  3 Aug 2015 19:01:48 +0000 (UTC)
+Received: from mail-qk0-f171.google.com (mail-qk0-f171.google.com
+	[209.85.220.171])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7B44C1DF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  3 Aug 2015 18:52:59 +0000 (UTC)
-Received: by ioea135 with SMTP id a135so153615374ioe.1
+	Mon,  3 Aug 2015 19:01:48 +0000 (UTC)
+Received: by qkfc129 with SMTP id c129so54387577qkf.1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 03 Aug 2015 11:52:59 -0700 (PDT)
+	Mon, 03 Aug 2015 12:01:47 -0700 (PDT)
+Date: Mon, 3 Aug 2015 15:01:45 -0400
+From: Jerome Glisse <j.glisse@gmail.com>
+To: David Woodhouse <dwmw2@infradead.org>
+Message-ID: <20150803190145.GC2981@gmail.com>
+References: <20150731163453.GB2039@redhat.com>
+	<1438627862.26511.366.camel@infradead.org>
 MIME-Version: 1.0
-Sender: jwboyer@gmail.com
-In-Reply-To: <20150803184401.GA28433@thunk.org>
-References: <20150704051819.GA27599@thunk.org>
-	<20150803184401.GA28433@thunk.org>
-Date: Mon, 3 Aug 2015 14:52:58 -0400
-Message-ID: <CA+5PVA6+j7OTLEB-Z0G4Zjq1BSqKeU_LLk0bfEy40hqkusV26g@mail.gmail.com>
-From: Josh Boyer <jwboyer@fedoraproject.org>
-To: "Theodore Ts'o" <tytso@mit.edu>, ksummit-discuss@lists.linuxfoundation.org,
-	"Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Subject: Re: [Ksummit-discuss] Kernel Summit 2015: Call for Proposals
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <1438627862.26511.366.camel@infradead.org>
+Cc: Jerome Glisse <jglisse@redhat.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Core Kernel support for
+ Compute-Offload Devices
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,35 +36,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Aug 3, 2015 at 2:44 PM, Theodore Ts'o <tytso@mit.edu> wrote:
-> The Kernel Summit call for proposals/topics was sent out a month ago:
->
-> http://lists.linuxfoundation.org/pipermail/ksummit-discuss/2015-July/001242.html
->
-> In that call, I asked that people send nominations (including self
-> nominations) and topic suggestions by the end of July since the
-> program committee would start considering people who should be issued
-> invites.
->
-> The mechnically generated list of people to be considered, plus people
-> that have been added due to nominations, being called out as useful
-> participants for various discussions, etc., can be found here:
->
->              https://goo.gl/m62WpI
->
-> As favor to me, if you could take a look at the spreadsheet and let me
-> know if there are any e-mail addresses which have are incorrect or
-> shoud be updated, please let me know.  Also, if there are any last
-> minute nominations that you'd like to suggest for the list, please let
-> me know by the end of day on Wednesday, August 5th.
+On Mon, Aug 03, 2015 at 07:51:02PM +0100, David Woodhouse wrote:
+> On Fri, 2015-07-31 at 12:34 -0400, Jerome Glisse wrote:
+> > No the ASID should not be associated with mm_struct. There is to
+> > few ASID to have enough of them. I think currently there is only
+> > 8bits worth of ASID. So what happen is that the GPU device driver
+> > schedule process and recycle ASID as it does.
+> 
+> In PCIe we have 20 bits of PASID. And we are going to expect hardware
+> to implement them all, even if it can only do caching for fewer PASIDs
+> than that.
+> 
 
-You have me as Tagged for Live Patching.  While that is indeed
-interesting to me, I don't think you have the correct Josh there.  It
-should be Josh Poimboeuf <jpoimboe@redhat.com>.
+This is not the case with current AMD hw which IIRC only support 8bits or
+9bits for PASID. Dunno if there next hardware will have more bits or not.
+So i need to check PCIE spec but i do not think the 20bits is a mandatory
+limit.
 
-As a separate item, David Howells brought up the firmware discussion
-but you do not have the current linux-firmware maintainer on your
-list.  Kyle McMartin <kyle@kernel.org> has been performing that task
-for several months now.
+> There is also an expectation that a given MM will have the *same* PASID
+> across all devices.
 
-josh
+I understand that this would be prefered. But in case of hw that have only
+limited number of bit for PASID you surely do not want to starve it ie it
+would be better to have the device recycle PASID to maximize its usage.
+
+Cheers,
+Jérôme
