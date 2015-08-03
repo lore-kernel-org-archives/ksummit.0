@@ -1,34 +1,29 @@
 Return-Path: <fengguang.wu@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 16185273
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B309B8C8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  3 Aug 2015 08:33:38 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 3FEA3161
+	Mon,  3 Aug 2015 12:38:43 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id D23CF176
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  3 Aug 2015 08:33:33 +0000 (UTC)
-Date: Mon, 3 Aug 2015 16:32:40 +0800
+	Mon,  3 Aug 2015 12:38:42 +0000 (UTC)
+Date: Mon, 3 Aug 2015 20:38:05 +0800
 From: Fengguang Wu <fengguang.wu@intel.com>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Message-ID: <20150803083240.GA3978@wfg-t540p.sh.intel.com>
-References: <55A53074.7040109@oracle.com>
-	<20150714120225.65e489cc@gandalf.local.home>
-	<55A5635D.1020600@oracle.com> <20150715114946.481f154d@noble>
-	<55A5C0EE.3060803@oracle.com> <20150715122802.56ca2100@noble>
-	<1436955234.31121.25.camel@HansenPartnership.com>
-	<20150716092410.22d0af07@noble>
-	<20150715212535.754da6eb@gandalf.local.home>
-	<1437038344.25036.21.camel@HansenPartnership.com>
+To: josh@joshtriplett.org
+Message-ID: <20150803123805.GB3978@wfg-t540p.sh.intel.com>
+References: <201507080121.41463.PeterHuewe@gmx.de>
+	<559C73DF.2030008@roeck-us.net> <20150708114011.3a1f1861@noble>
+	<2879113.fraeuJIr2M@avalon> <20150709193718.GD9169@vmdeb7>
+	<20150709201127.GA3426@cloud>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1437038344.25036.21.camel@HansenPartnership.com>
-Cc: Sasha Levin <sasha.levin@oracle.com>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Issues with stable process
+In-Reply-To: <20150709201127.GA3426@cloud>
+Cc: Jason Cooper <jason@lakedaemon.net>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment (Reviewers, Testers,
+ Maintainers, Hobbyists)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,51 +33,112 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Jul 16, 2015 at 12:19:04PM +0300, James Bottomley wrote:
-> On Wed, 2015-07-15 at 21:25 -0400, Steven Rostedt wrote:
-> > On Thu, 16 Jul 2015 09:24:10 +1000
-> > NeilBrown <neilb@suse.com> wrote:
-> > 
-> > > > I just use the rule of thumb: must be in -next for two days because then
-> > > > I know 0day (and the other checkers) have also run.
+On Thu, Jul 09, 2015 at 01:11:27PM -0700, josh@joshtriplett.org wrote:
+> On Thu, Jul 09, 2015 at 12:37:18PM -0700, Darren Hart wrote:
+> > On Wed, Jul 08, 2015 at 10:45:28PM +0300, Laurent Pinchart wrote:
+> > > On Wednesday 08 July 2015 11:40:11 NeilBrown wrote:
+> > > > Indeed!  I wonder if we can list the dimensions.
+> > > > 
+> > > > Variability: as you say, different people want different things, and
+> > > >    care to different degrees about them.  'checkpatch' and
+> > > >    'CodingStyle' help with some of that (though different people care
+> > > >    differently about checkpatch).  Maybe the MAINTAINERS file could
+> > > >    list the preferred Subject: line and checkpatch flags for each
+> > > >    maintainer.  Then we just need to herd all those wild-cats towards
+> > > >    updating their maintainers entry.
 > > > 
-> > > Do you *really* know that?
-> > > Given that there seems to be value in knowing "0day has run
-> > > successfully", should we ask for an interface to do exactly that?
-> > > 
+> > > I've seen maintainers who want to be CC'ed on every patch touching their 
+> > > subsystem, and others who prefer patches being sent to the mailing list only. 
+> > > That would be easy to express in MAINTAINERS and would already help in two 
+> > > fronts. It would lower the amount of noise for maintainers who base their work 
+> > > flow on mailing lists. It would also remove the need for submitters to decide 
+> > > whether to CC maintainers and prevent patches from falling through cracks when 
+> > > the decision is incorrect.
 > > 
-> > There's an opt-in with Fengguang Wu's 0day tests to have it email you
-> > when it finishes with "SUCCESS". I have that, as I don't do pushes for
-> > any patches until I see that.
+> > I've come to believe that this is one of many side effects of our dependency on
+> > a completely free form mechanism for the management of our patches, a mechanism
+> > which is becoming harder and harder to setup "correctly" with modern tooling
+> > (since the industry is killing "real email").
+> > 
+> > I spend a highly disproportionate amount of my time, relative to measurable
+> > quality impact to the kernel, going over the nuances of submitting patches.
+> > 
+> > 1) Must have a complete commit message
+> > 2) DCO goes above the ---
+> > 3) Include a patch changelog, do so below ---
+> > 4) Cc maintainers :-)
+> > 5) Checkpatch... checkpatch... checkpatch...
+> > 6) Compiler warnings
+> > 7) CodingStyle :-)
+> > 8) Use ascii or utf8 character encodings
+> > 
+> > All of these are distractions from reviewing the code. I'm often on version 3 of
+> > a series before I'm actually reviewing content.
+> > 
+> > I raised this in Dusseldorf with the PREEMPT_RT crowd, and I'll do so here too,
+> > although I suspect it will be met with quite a bit of opposition. I believe our
+> > tooling and processes are good at helping our top level maintainers scale -
+> > which is absolutely critical to the success of Linux - but they inhibit scaling
+> > out and attracting new developers, reviewers, etc.
+> > 
+> > Our most productive maintainers and contributors, in my understanding, often are
+> > able to spend most of their time on their upstream Linux kernel work. They have
+> > been doing it for a decade or more and have a lot of custom written tools to
+> > help make the processes scale for their particular needs. This is great!
+> > 
+> > However, we have a lot of tribal knowledge regarding how to interact
+> > successfully with the development model. So much so that many of our lesser
+> > maintainers (like myself) spend a lot of our time as a bridge or proxy to
+> > upstream development, which is too opaque and even enigmatic for them to get
+> > into.
+> [...]
+> > I am looking to make some changes in my subsystem. I've requested patchwork to
+> > be enabled, and I'll create a for-review branch and solicit help there. I
+> > already leverage 0-day, but I think it would be great to have something which
+> > parses patches submitted to LKML and tests the 8 items above and more and
+> > automatically responds to the submitter. Nobody should have to spend their time
+> > on those things.
+> > 
+> > Looking forward a bit, I would love to see some tooling in place for people to
+> > submit patches either via a web form (which eliminates all the email tooling for
+> > submitting patches - which is where the formatting is especially critical) or
+> > through one of the more managed git systems, like gerrit, etc.
 > 
-> How?  Is there actually some sort of interface to 0day? (/me has been
-> rather lazy and simply emails requests to Fengguang).  Detail would be
-> great to share.
+> I would love to see this.  I don't think it makes sense for the flow
+> from subsystem maintainers to Linus or similar to use these tools;
+> anyone capable of saying "please pull" *probably* doesn't need most of
+> this.  However, for people who primarily interact with maintainers via
+> patch mails, some kind of automated CI bot, integrated with Gerrit or
+> github or similar, would filter out a substantial number of painful bits
+> before they show up.
+> 
+> Consider a set of scripts or services that could easily be wired into
+> either a Gerrit install or a GitHub hook, so that rather than spending
+> time sorting out SMTP and basic patch formatting, people could git push
+> to a repository branch they control, get automated feedback on what
+> needs fixing, and when all of the mechanical issues are sorted out that
+> same service can help them send a properly formatted mail series (with
+> cover letter) to the right set of people.
+> 
+> It would take some work to initially set up, but the result should
+> actually save maintainer time by avoiding the need to comment on
+> mechanical correctness issues.
+> 
+> That same bot could fairly easily be wired to a "test" mailing list,
+> capturing mailed patch series and running them through the same tests,
+> so that people comfortable with the email part of the workflow could
+> mail patches to that list to have them automatically checked *before*
+> mailing LKML.  And unlike mailing LKML, there would be no stigma
+> attached to iterating and sending multiple mails to that list while
+> trying to get the details right.
+> 
+> Bonus if this is also wired into the 0day bot, so that you also find out
+> if you introduce a new warning or error.
 
-Just send me an email and say something like
-
-        I'd like to get build completion notification for git URLs
-
-            git://neil.brown.name/md
-            git://git.kernel.org/pub/scm/linux/kernel/git/jejb/scsi.git
-
-Then I'll add them to the notification list.
-
-The build completion notification will be private emails to the
-committer of each branch's HEAD commit. It will typically be sent
-out 1-2 hours after your git push.
-
-But note the email only means the "quick" set of about 100 kconfigs
-are finished and the build farm is in healthy state.
-
-To improve coverage, we added 2 features in the past year to let
-0day system run kind of endless more tests in machine idle time:
-
-- hundreds more randconfig + all defconfigs in arch/*/configs/**
-- commit by commit testing
- 
-So if you want to be reasonably safe, consider waiting for 1 day
-before sending out your patch.
+Sure, if someone is to setup the web form or test mailing list or
+both, 0day can happily run all supported tests on them, including
+checkpatch.pl etc. that we normally don't run for the regular git
+pushes.
 
 Thanks,
 Fengguang
