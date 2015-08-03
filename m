@@ -1,32 +1,35 @@
-Return-Path: <luto@amacapital.net>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7E7B599
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 651AC844
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  3 Aug 2015 19:08:11 +0000 (UTC)
-Received: from mail-lb0-f170.google.com (mail-lb0-f170.google.com
-	[209.85.217.170])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D1CE720B
+	Mon,  3 Aug 2015 19:19:29 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id E1647143
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  3 Aug 2015 19:08:10 +0000 (UTC)
-Received: by lbbud7 with SMTP id ud7so79098518lbb.3
+	Mon,  3 Aug 2015 19:19:28 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+	by bedivere.hansenpartnership.com (Postfix) with ESMTP id 3739B8EE0D5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 03 Aug 2015 12:08:09 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <20150803190145.GC2981@gmail.com>
-References: <20150731163453.GB2039@redhat.com>
-	<1438627862.26511.366.camel@infradead.org>
-	<20150803190145.GC2981@gmail.com>
-From: Andy Lutomirski <luto@amacapital.net>
-Date: Mon, 3 Aug 2015 12:07:49 -0700
-Message-ID: <CALCETrXhJt7-yqJFtaXmd9cHND0bPAU4UsOeGqQhiFvBQN9jXQ@mail.gmail.com>
-To: Jerome Glisse <j.glisse@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: Jerome Glisse <jglisse@redhat.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Core Kernel support for
- Compute-Offload Devices
+	Mon,  3 Aug 2015 12:19:28 -0700 (PDT)
+Received: from bedivere.hansenpartnership.com ([127.0.0.1])
+	by localhost (bedivere.hansenpartnership.com [127.0.0.1]) (amavisd-new,
+	port 10024) with ESMTP id Xlk6WmLxJHce
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon,  3 Aug 2015 12:19:28 -0700 (PDT)
+Received: from [153.66.254.242] (unknown [184.11.141.41])
+	by bedivere.hansenpartnership.com (Postfix) with ESMTPSA id E06CC8EE08E
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon,  3 Aug 2015 12:19:27 -0700 (PDT)
+Message-ID: <1438629566.2173.58.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Mon, 03 Aug 2015 12:19:26 -0700
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: [Ksummit-discuss] [CORE TOPIC] Recruitment; Outreach Programmes
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,38 +39,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Aug 3, 2015 at 12:01 PM, Jerome Glisse <j.glisse@gmail.com> wrote:
-> On Mon, Aug 03, 2015 at 07:51:02PM +0100, David Woodhouse wrote:
->> On Fri, 2015-07-31 at 12:34 -0400, Jerome Glisse wrote:
->> > No the ASID should not be associated with mm_struct. There is to
->> > few ASID to have enough of them. I think currently there is only
->> > 8bits worth of ASID. So what happen is that the GPU device driver
->> > schedule process and recycle ASID as it does.
->>
->> In PCIe we have 20 bits of PASID. And we are going to expect hardware
->> to implement them all, even if it can only do caching for fewer PASIDs
->> than that.
->>
->
-> This is not the case with current AMD hw which IIRC only support 8bits or
-> 9bits for PASID. Dunno if there next hardware will have more bits or not.
-> So i need to check PCIE spec but i do not think the 20bits is a mandatory
-> limit.
->
->> There is also an expectation that a given MM will have the *same* PASID
->> across all devices.
->
-> I understand that this would be prefered. But in case of hw that have only
-> limited number of bit for PASID you surely do not want to starve it ie it
-> would be better to have the device recycle PASID to maximize its usage.
->
+I think this is part of the broad recruitment topic, but it's worth
+considering in its own right.  We should probably begin by reviewing the
+current outreach programmes and whether they're effective.  The
+currently running one is the Outreach Programme for Women:
 
-FWIW, x86 PCID has 12 bits, and, if I ever try to implement support
-for it, my thought would be to only use 3 or 4 of those bits and
-aggressively recycle PCIDs.
+http://www.linuxfoundation.org/news-media/blogs/browse/2013/04/announcing-outreach-program-women-internships-linux-kernel-please
 
-I have no idea whether ASIC and PCID are supposed to be related at
-all, given that I don't know anything about how to program these
-unified memory contraptions.
+Which has been running successfully for a while.  The questions for us
+are
 
---Andy
+     1. Should the programme be broadened (the current OPW one only
+        reaches women, not everyone who might need outreach)
+     2. Assuming we do decide broader is better, what's the next group
+        to reach out to?
+     3. Is this type of outreach better than non group specific
+        outreach?  One can argue the kernel mentors list was non group
+        specific and it didn't seem to get much uptake, so perhaps group
+        specific is better?  Essentially is it better for us to invest
+        our efforts in specific segments rather than generally?
+
+Just on the premise of 3 we can still improve our overall acceptance
+processes, as we have been discussing, in a general way because outreach
+is what you do to pull people in, not what processes you have in place
+to help them once they are pulled in.
+
+James
