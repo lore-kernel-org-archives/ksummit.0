@@ -1,35 +1,41 @@
-Return-Path: <j.glisse@gmail.com>
+Return-Path: <robherring2@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B6A4C97
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id AF1E78C7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  3 Aug 2015 21:34:48 +0000 (UTC)
-Received: from mail-qg0-f48.google.com (mail-qg0-f48.google.com
-	[209.85.192.48])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4EAFE147
+	Mon,  3 Aug 2015 21:35:09 +0000 (UTC)
+Received: from mail-yk0-f180.google.com (mail-yk0-f180.google.com
+	[209.85.160.180])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 81240147
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  3 Aug 2015 21:34:48 +0000 (UTC)
-Received: by qgii95 with SMTP id i95so98490697qgi.2
+	Mon,  3 Aug 2015 21:35:08 +0000 (UTC)
+Received: by ykdu72 with SMTP id u72so122095028ykd.2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 03 Aug 2015 14:34:47 -0700 (PDT)
-Date: Mon, 3 Aug 2015 17:34:44 -0400
-From: Jerome Glisse <j.glisse@gmail.com>
-To: David Woodhouse <dwmw2@infradead.org>
-Message-ID: <20150803213443.GE2981@gmail.com>
-References: <20150731163453.GB2039@redhat.com>
-	<1438627862.26511.366.camel@infradead.org>
-	<20150803190145.GC2981@gmail.com>
-	<20150803211050.GM14980@8bytes.org>
-	<1438636374.26511.440.camel@infradead.org>
+	Mon, 03 Aug 2015 14:35:07 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <1438636374.26511.440.camel@infradead.org>
-Cc: Jerome Glisse <jglisse@redhat.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Core Kernel support for
- Compute-Offload Devices
+In-Reply-To: <CACRpkda0u4tWKfXTa0OEV7nFuXWjpDBt222iTBbEhnqLZptJXw@mail.gmail.com>
+References: <20150723105726.GC30929@amd>
+	<CACRpkdbCbhgJHZifouDVUvaxyT5YWWdQz7Nt3AKoLvuEn4z7mQ@mail.gmail.com>
+	<20150723121441.GB29747@amd>
+	<20150723084251.54da2be0@gandalf.local.home>
+	<20150723154014.GD11162@sirena.org.uk>
+	<55B7FD82.8010806@sonymobile.com>
+	<20150728230743.GO4753@usrtlx11787.corpusers.net>
+	<CAL_JsqJ0j2wPwVYj3PX0UYiAXeZ-vm8KGX-W_-Dk3Gu1PVQrQw@mail.gmail.com>
+	<CACRpkda0u4tWKfXTa0OEV7nFuXWjpDBt222iTBbEhnqLZptJXw@mail.gmail.com>
+From: Rob Herring <robherring2@gmail.com>
+Date: Mon, 3 Aug 2015 16:34:48 -0500
+Message-ID: <CAL_JsqLBPdiCgcE0CDesZXWQtthPJbZ8ryvcPmr6CaxWjMPFyA@mail.gmail.com>
+To: Linus Walleij <linus.walleij@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Cc: Bjorn Andersson <bjorn.andersson@sonymobile.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	"riverful.kim@samsung.com" <riverful.kim@samsung.com>,
+	"kyungmin.park@samsung.com" <kyungmin.park@samsung.com>,
+	John Stultz <john.stultz@linaro.org>, Pavel Machek <pavel@ucw.cz>,
+	Greg KH <gregkh@linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Mainline kernel on a cellphone
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,35 +45,35 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Aug 03, 2015 at 10:12:54PM +0100, David Woodhouse wrote:
-> On Mon, 2015-08-03 at 23:10 +0200, Joerg Roedel wrote:
-> > On Mon, Aug 03, 2015 at 03:01:45PM -0400, Jerome Glisse wrote:
-> > > This is not the case with current AMD hw which IIRC only support 8bits or
-> > > 9bits for PASID. Dunno if there next hardware will have more bits or not.
-> > > So i need to check PCIE spec but i do not think the 20bits is a mandatory
-> > > limit.
-> > 
-> > AMD hardware currently implements PASIDs with 16 bits. Given that only
-> > mm_structs which are used by offload devices get one, this should be
-> > enough to put them into a global pool and have one PASID per mm_struct.
-> 
-> I think there are many ARM systems which need this model because of the
-> way TLB shootdowns are handled in hardware, and shared with the IOMMU?
-> So we have to use the same ASID for both MMU and IOMMU there, AIUI.
-> 
-> Not that I claim to be an expert on the ARM IOMMUs.
-> 
+On Mon, Aug 3, 2015 at 2:42 AM, Linus Walleij <linus.walleij@linaro.org> wrote:
+> On Fri, Jul 31, 2015 at 6:18 PM, Rob Herring <robherring2@gmail.com> wrote:
+>
+>> The WiFi side is actually in better shape than BT. With BT, we have
+>> Bluedroid vs. BlueZ, no real DT bindings to describe BT chips (plenty
+>> of examples of how not to do it[1]), and chip specific userspace
+>> initialization (firmware loading, baudrate setup, power mgt).
+>
+> I was looking at it at one point and couldn't wrap my head around how
+> the BT support was devised from a kernel point of view.
+>
+> It seems BT chips more often than not sit on a UART connection
+> (often very high speed) and since there is no "uart bus" or "serial bus"
+> akin to what we have for I2C or SPI, it is actually impossible to
+> instantiate them properly in the driver model. Instead BT drivers
+> are poked and peeked from userspace using the line discipline as
+> if they were some kind of modem, just in-kernel.
 
-I see that on some platform the ASID <-> page table must be a 1 to 1
-relationship. My experience so far on AMD is that it does not and that
-while the IOMMU have 16bits their GPU have 9 or 8 bits. Also given that
-PASID spec says that device can support different number of bits, it
-seems that this gonna end up being a mess with all of specific arch/device
-quirks.
+Yes, but then there's always some side band signals for regulator
+control, reset, clocks, wake-up, rf-kill, etc. that needs a glue
+driver. There's been some work by Neil Brown to create a UART slave
+bus[1] and I've gotten several other UART device bindings recently,
+but they all suffer from being one off device bindings done in
+different ways and I want to see something common here.
 
-Note that i really would like the ASID <-> mm struct 1 to 1 match but
-i am just fearing this is not something that can be common to all
-platform.
+It also seems the BT folks are working on moving more of the setup
+into the kernel and creating a proper subsystem. I'm not sure about
+the details on that.
 
-Cheers,
-Jérôme
+Rob
+
+[1] https://lwn.net/Articles/643878/
