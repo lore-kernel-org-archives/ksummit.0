@@ -1,28 +1,25 @@
-Return-Path: <laurent.pinchart@ideasonboard.com>
+Return-Path: <fengguang.wu@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C0AA974
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4AE4B7D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  2 Aug 2015 23:32:19 +0000 (UTC)
-Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
-	[185.26.127.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A8982FC
+	Mon,  3 Aug 2015 04:59:03 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id DA079A9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  2 Aug 2015 23:32:18 +0000 (UTC)
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Russell King - ARM Linux <linux@arm.linux.org.uk>
-Date: Mon, 03 Aug 2015 02:33 +0300
-Message-ID: <1762959.7jPJk9WeIL@avalon>
-In-Reply-To: <20150801163047.GC7557@n2100.arm.linux.org.uk>
-References: <2111196.TG1k3f53YQ@avalon> <65396948.VLxKPYsgi9@avalon>
-	<20150801163047.GC7557@n2100.arm.linux.org.uk>
+	Mon,  3 Aug 2015 04:59:02 +0000 (UTC)
+Date: Mon, 3 Aug 2015 12:58:41 +0800
+From: Fengguang Wu <fengguang.wu@intel.com>
+To: Chris Mason <clm@fb.com>
+Message-ID: <20150803045841.GB26601@wfg-t540p.sh.intel.com>
+References: <20150715153725.GA12601@ret.masoncoding.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-Cc: Tejun Heo <tj@kernel.org>, Shuah Khan <shuah.kh@samsung.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Fix devm_kzalloc, its users,
-	or both
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20150715153725.GA12601@ret.masoncoding.com>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] benchmarking and performance
+ trends
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,214 +29,94 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Russell,
+On Wed, Jul 15, 2015 at 11:37:25AM -0400, Chris Mason wrote:
+> Hi everyone,
+> 
+> I know I never get bored of graphs comparing old/new, but I feel guilty
+> suggesting this one yet again.  Still, I think it's important for the
+> people trying to push new kernels into production to have a chance to
+> talk about the problems we've hit, and/or the changes that have made
+> life easier.
 
-On Saturday 01 August 2015 17:30:48 Russell King - ARM Linux wrote:
-> On Sat, Aug 01, 2015 at 01:55:54PM +0300, Laurent Pinchart wrote:
-> > On Friday 31 July 2015 18:27:32 Russell King - ARM Linux wrote:
-> > > I completely agree - this has *nothing* to do with devm_ at all.  Any
-> > > bugs that are there as a result of converting to devm_kzalloc() where
-> > > there before.  99.9% of the devm_kzalloc() conversions are merely
-> > > replacing the kmalloc()/kzalloc() in the probe function with
-> > > devm_kzalloc()
-> > > and removing the free() in the remove function.
-> > 
-> > In those cases I agree that the bug is not introduced by the conversion.
-> > However, as we're selling devm_kzalloc() as solving all problems (or, at
-> > least, as many developers believe it will), many new drivers get submitted
-> > with blind devm_kzalloc() usage without any thought about proper lifetime
-> > management for objects allocated by the driver.
-> 
-> I don't think anyone has ever said that devm_* solves all problems.  What
-> I've seen, it has been sold as avoiding problems with memory leaks in the
-> failed probe path, and as a way to make resource management at driver
-> unbind time easier.
-> 
-> I don't think it's ever been touted as "the worlds solution to hunger" or
-> anything of the sort -
+I'm very interested in learning your experiences and problems, and
+check whether they can be avoided in upstream kernel. So that
+production systems like Facebook can upgrade kernels smoother in future.
 
-Maybe the message has been received differently by different developers then, 
-or altered along the path.
+> We're starting to push 4.0 into prod (122 hosts almost counts), and I'm
+> sure we'll backport some wins from 4.2+.  I'm hoping to make this a
+> collection point for other benchmarking war stories.  Our biggest gains
+> right now are coming from scsi-mq, and early benchmarks show 4.2 has a
+> boost that I'm hoping are from the futex locking improvements.
 
-> and as you've already confessed to being a hater of devm_*, I can only think
-> that the reason you're soo inspired to want to connect devm_* with this
-> problem is because you have an alterior motive.
+I can also share the performance trends in the data collected by 0day.
+I'm afraid it'll be a bit negative because we cannot catchup with
+writing new test cases to take advantage of the improvements in new
+kernels.
 
-What could have possibly given you that impression ? I've converted drivers to 
-devm_* myself and regularly asked for new submissions to use devm_* during 
-review.
+Here is a comparison for a set of 988 test jobs.
 
-> > This gets past (at least some) subsystem maintainers, showing that even
-> > if the devm_kzalloc() API forbids this kind of usage, the message is not
-> > conveyed properly.
-> 
-> Again, that's not the problem.  Empty release methods for kobjects get past
-> subsystem maintainers too.  Some subsystem maintainers even create empty
-> release methods.  It's all exactly the same problem: many kernel developers
-> _and_ subsystem maintainers do not understand reference counted resource
-> tracking - that's the _common_ issue here.
-> 
-> That's not necessarily the fault of the subsystem maintainers; if a
-> subsystem maintainer is overloaded with work, or tired out towards the end
-> of the day, reviews aren't going to be as thorough as they should be, which
-> leads to things being missed - and to properly analyse the lifetime of every
-> structure in a driver submission is Hard.
+                   v4.0    v4.1
+-------------------------------
+    perf-index      100      99  (the larger, the better)
+   power-index      100      95
+ latency-index      100      98
+    size-index      100      98
 
-I don't think anyone blamed them. What I'm interested in is how we can improve 
-that situation.
+The overall regressions also indicate 0day is not mature enough to
+bisect all regressions in time and keep them from hitting mainline.
 
-> I know full well, that a lot of subsystem maintainers struggle with getting
-> finding the basic review points, so expecting them to properly analyse
-> structure lifetime is, I think, expecting too much.
-> 
-> Maybe a way forward on this should be that we decide that:
-> 
-> - any structure which gets passed into a driver open() method should be
->   kref-counted.
-> - that structure should be allocated using standard kzalloc()
-> - the structure should only ever be freed after the last release after
->   the driver has been unbound.
-> 
-> It sounds like there is scope there for set of "driver data" helpers,
-> maybe something like:
-> 
-> struct drvdata {
-> 	struct kref kref;
-> 	u64 data[0];
-> };
-> 
-> static void *drvdata_fops_data_alloc(size_t size)
-> {
-> 	struct drvdata *d;
-> 
-> 	d = kzalloc(sizeof(*d) + size, GFP_KERNEL);
-> 	if (!d)
-> 		return NULL;
-> 
-> 	kref_init(&d->kref);
-> 	d->real_fops = fops;
-> 	return d->data;
-> }
-> 
-> static void drvdata_fops_release_data(struct kref *kref)
-> {
-> 	struct drvdata *d = container_of(kref, struct drvdata, kref);
-> 	kfree(d);
-> }
-> 
-> void drvdata_fops_put(void *drvdata)
-> {
-> 	struct drvdata *d = container_of(drvdata, struct drvdata, data);
-> 	kref_put(&d->kref, drvdata_fops_release_data);
-> }
-> 
-> void *drvdata_fops_open(struct file *file)
-> {
-> 	struct drvdata *d = container_of(file->private_data, struct drvdata, 
-data);
-> 
-> 	kref_get(&d->kref);
-> 
-> 	return d->data;
-> }
-> 
-> void drvdata_fops_release(struct file *file)
-> {
-> 	drvdata_fops_put(file->private_data);
-> }
-> 
-> The idea being that drvdata_fops_data_alloc() gets called in the driver
-> probe function, with drvdata_fops_put() in the release function.  Both
-> of these _could_ have devm_* equivalents to ease driver authors burden
-> when it comes to error cleanup in the probe.
+> It ties in a little with the new interfaces applications may be able to use
+> (restartable sequences etc topic), and I want to ask the broad question of
+> "are we doing enough to prevent performance regressions".
 
-I had something similar in mind, but with a callback to the driver for 
-drvdata_fops_release_data(), to allow for other custom cleanup to be performed 
-when it's time to turn the light off.
+There are much to be desired in 0day POV.
 
-The way to tie this with file open/release also needs to be a bit more 
-complex, as not all drivers store the main private data pointer in file-
->private_data. Some subsystems also hijack file->private_data, so it's not 
-always usable even when no per-open data needs to be allocated and managed.
+- timeliness
 
-> To get at the driver data, a driver would call drvdata_fops_open() in
-> their fops open() method, and drvdata_fops_release() in their fops
-> release() method - it would be nice to hide that from drivers so they
-> don't have to think about it once they opt-in to this management, though
-> that makes it too much of a framework rather than a library.
-> 
-> We can make sure that happens if we offset file->private_data with a
-> (random?  build-time?) cookie to catch anyone who thinks they can
-> dereference it directly.
-> 
-> > > Well, accessing hardware is even more of a problem.  Consider that
-> > > ioremap()s will also be cleaned up at the same time (whether in
-> > > ->remove() or in devm cleanup processing - again, not a devm problem)
-> > > thereby removing the mapping for accessing the hardware.
-> > 
-> > Drivers are usually in a bit of a better shape when it comes to hardware
-> > access. Most developers understand that the remove() function is supposed
-> > to stop the hardware,
-> 
-> I think you missed the point.
-> 
-> What if a file-operations method provokes some kind of hardware access.
-> For example, the read() method dereferences the driver data (which has
-> been freed), obtains a stale pointer to where the hardware was mapped,
-> and then tries to read a status register to check whether any data has
-> become available.
->
-> The result is, of course, an oops because the io memory has been freed by
-> the devm_ioremap_resource() cleanup.
-> 
-> What I'm trying to point out where is that this is absolutely no different
-> from the devm_* problem you're complaining about - exactly the same issues
-> exist with _any_ accessible resource which is shared between the driver
-> lifetime and the file-operations lifetime.
-> 
-> That, again, has absolutely nothing to do with the "evil devm" stuff.  We
-> have _always_ cleaned up such resources in the driver unbind path with an
-> iounmap(), and I bet that most of these are buggy in almost all drivers
-> which also access this memory region via the file-operations methods.
+The earlier regressions are caught, the better. Up to now kbuild is
+doing reasonably well (mostly within 1 hour), however the runtime
+tests -- boot, functional, performance/power/latency -- still have
+obvious gaps (typically days long but sometimes may go up to weeks).
 
-It really depends on the subsystem (and of course on individual drivers). V4L2 
-for instance prevents file operation calls from reaching the driver after 
-video devices have been unregistered, which happens at remove() time. The 
-driver will then have no occasion to access ioremap'ed regions. This can't be 
-extended to solve the driver allocate data problem, as the unregistration 
-check performed in the V4L2 core uses the video device structure, which must 
-thus be kept until after the last file handle is closed.
+- coverage
 
-I haven't performed a survey of other subsystems to see how they deal with 
-device removal, but I assume that some level of assistance to drivers should 
-be possible.
+Kbuild has achieved near 100% coverage (700 reports per month).
+However runtime tests are far from enough (50 reports per month).
 
-> So, I think you ought to get off the "devm is evil" bandwagon, and realise
-> that the problem you have raised has absolutely nothing at all to do with
-> devm_* but is much more of a general "people don't understand resource
-> lifetime issues" problem.
+This is the area that needs collaborations throughout the community.
+Developers in each subsystem -- mm, fs, network, rcu, sched, cgroup,
+VM, drm, media, etc. -- may have versatile ways for testing his
+subsystem or feature set:
 
-Once again I've never meant to imply that devm is evil. My only point is that 
-we have a life time management issue that is often mistakenly assumed to be 
-handled by devm, and I'd like to find the best way to get out of that 
-situation.
+- run some WORKLOAD to evaluate performance/power/latency/..
 
-> Even I will hold my hand up to having written buggy drivers with exactly
-> the kind of issues raised in this thread (I'm looking at one right now,
-> though not in mainline...)
+- SETUP the system in different ways to run tests
+  eg. fs params, md/dm setup, cgroup, NUMA policy, CPU affinity, ..
 
-Let's not hold a contest of who has written the most code that doesn't handle 
-life time properly, I may win ;-)
+- MONITOR various system metrics during the test run
 
-> Here's an example of a driver which is buggy as we've been describing
-> here, but does not use devm*: drivers/uio/uio_pruss.c.  In pruss_cleanup(),
-> it kfree()s the array of struct uio_info structures, which are used by
-> drivers/uio/uio.c.  This structure can be accessed via the mmap(), write(),
-> release(), poll(), etc file-operations methods.  None of them would be
-> safe if the driver has been unbound with the chardev open - and it'd be
-> dangerous to close the port once the driver had been unbound.
+If such knowledge and scripts can be shared and accumulated it'd be
+valuable for other developers and testers, and will eventually help
+overall linux kernel health.
 
--- 
-Regards,
+Up to now 0day has collected a number of WORKLOAD, SETUP and MONITOR
+scripts. They are public available here
 
-Laurent Pinchart
+https://git.kernel.org/cgit/linux/kernel/git/wfg/lkp-tests.git/
+
+There are much more to be desired. Contribution of new scripts will be
+highly appreciated.
+
+We are especially in short of SETUP scripts. Good test schemes should
+cover different combinations of SETUP+WORKLOAD and their parameters.
+There are presumably a huge number of ways one can configure his
+system, however most are beyond our imagination and test scope.
+
+For MONITOR/WORKLOAD scripts, we borrowed some few nice scripts from
+Mel's MMTests. phoronix, xfstests, autotest, kernel selftests etc.
+test suites are also running routinely in 0day infrastructure. So if
+you add new test case to one of them, there are good chances it'll be
+pick up by 0day.
+
+Thanks,
+Fengguang
