@@ -1,37 +1,29 @@
-Return-Path: <delicious.quinoa@gmail.com>
+Return-Path: <khilman@deeprootsystems.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0503F98
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 782FD7FA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  4 Aug 2015 16:03:26 +0000 (UTC)
-Received: from mail-wi0-f176.google.com (mail-wi0-f176.google.com
-	[209.85.212.176])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 404FC7D
+	Tue,  4 Aug 2015 17:01:34 +0000 (UTC)
+Received: from mail-pd0-f178.google.com (mail-pd0-f178.google.com
+	[209.85.192.178])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 18138204
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  4 Aug 2015 16:03:25 +0000 (UTC)
-Received: by wibud3 with SMTP id ud3so183713129wib.1
+	Tue,  4 Aug 2015 17:01:33 +0000 (UTC)
+Received: by pdco4 with SMTP id o4so6708709pdc.3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 04 Aug 2015 09:03:24 -0700 (PDT)
+	Tue, 04 Aug 2015 10:01:33 -0700 (PDT)
+Received: from localhost (c-67-160-101-93.hsd1.wa.comcast.net. [67.160.101.93])
+	by smtp.gmail.com with ESMTPSA id z2sm2050758pdp.37.2015.08.04.10.01.32
+	for <ksummit-discuss@lists.linuxfoundation.org>
+	(version=TLSv1.2 cipher=RC4-SHA bits=128/128);
+	Tue, 04 Aug 2015 10:01:32 -0700 (PDT)
+From: Kevin Hilman <khilman@kernel.org>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Tue, 04 Aug 2015 10:01:31 -0700
+Message-ID: <7hegjjyolw.fsf@deeprootsystems.com>
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.02.1507281233290.7196@linuxheads99>
-References: <20150723105711.GB30929@amd>
-	<CACRpkdYeud0s6ZyvW8n+0oPQ+S7uP1CTv22wQhvtwfD7iHKL2A@mail.gmail.com>
-	<20150723121025.GA29747@amd>
-	<CACRpkdaDOUAm_VOd+3H2khDYUsLgNcXKbYMypUTeNL6JbnqCAA@mail.gmail.com>
-	<alpine.DEB.2.11.1507231524530.364@east.gentwo.org>
-	<20150728142315.GA17178@amd>
-	<alpine.DEB.2.11.1507281055450.16348@east.gentwo.org>
-	<alpine.DEB.2.02.1507281233290.7196@linuxheads99>
-Date: Tue, 4 Aug 2015 11:03:23 -0500
-Message-ID: <CANk1AXT70JSpKkSjs1jUKvWMoOusMVxxVx+hJBCNFNpZpDNiJA@mail.gmail.com>
-From: Alan Tull <delicious.quinoa@gmail.com>
-To: atull <atull@opensource.altera.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: Pavel Machek <pavel@denx.de>, Christoph Lameter <cl@linux.com>,
-	Alan Tull <atull@altera.com>, "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] FPGAs and how to program them
-	from kernel
+Content-Type: text/plain
+Subject: [Ksummit-discuss] self nomination: Kevin Hilman
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,34 +33,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-I've been working on the patchset for this.  I nominate myself.
+Sorry for the late nomination, been on vacation and just catching up on
+mail....
 
-Alan Tull
+I seem to have fallen off the auto-generated list this year, probably
+because I've been helping Arnd/Olof with arm-soc and doing mostly
+reviews, merges and testing, so not generating many patches of my own.
 
-On Tue, Jul 28, 2015 at 12:34 PM, atull <atull@opensource.altera.com> wrote:
-> On Tue, 28 Jul 2015, Christoph Lameter wrote:
->
->> On Tue, 28 Jul 2015, Pavel Machek wrote:
->>
->> > Which tools would be that?
->>
->> FPGA firmware upload. Up/down. State determinations etc? Administrative
->> tasks first. Lets do easy low hanging fruit first.
->
-> Exactly what my patchset is intended to do.
->
-> Alan Tull
->
->>
->> That way one can write scripts / tools to administer FPGAs from different
->> manufacturers with the same commands.
->>
->> _______________________________________________
->> Ksummit-discuss mailing list
->> Ksummit-discuss@lists.linuxfoundation.org
->> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
->>
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+In any case, I'd like to self nominate for the following areas:
+
+Testing: as the main kernel developer working on kernelci.org (which
+has been mentioned several times on this list now) I'd like to
+participate in the various discussions around kernel testing
+infrastructure.
+
+stable process: I've been using kernelci.org to test/find/report bugs
+against the stable queues and the stable trees, and want be part of
+the discussions on how we can do this better.
+
+PM tunables: as an active reviewer of PM code (mainly for embedded
+SoCs) and co-maintainer of the generic PM domain code, I'd like to
+participate in the discussion around PM tuning/tunables.
+
+Kevin
+
+P.S. should the auto-generated list automatically include all those
+     who Linus pulls directly from?
