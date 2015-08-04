@@ -1,22 +1,21 @@
 Return-Path: <laurent.pinchart@ideasonboard.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C186C8BA
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0E6DC8BA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  4 Aug 2015 12:49:51 +0000 (UTC)
+	Tue,  4 Aug 2015 12:54:03 +0000 (UTC)
 Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
 	[185.26.127.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5BCA112A
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 60A7A18C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  4 Aug 2015 12:49:50 +0000 (UTC)
+	Tue,  4 Aug 2015 12:54:02 +0000 (UTC)
 From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 To: ksummit-discuss@lists.linuxfoundation.org
-Date: Tue, 04 Aug 2015 15:50:33 +0300
-Message-ID: <6756795.jjv2YY7pQg@avalon>
-In-Reply-To: <20150803083311.5abd23f6@lwn.net>
+Date: Tue, 04 Aug 2015 15:54:47 +0300
+Message-ID: <1576432.1WkRdFc7OG@avalon>
+In-Reply-To: <1438672367.9418.3.camel@ellerman.id.au>
 References: <20150801164142.653012af@lwn.net>
-	<1893963.CjFnBCekyb@vostro.rjw.lan>
-	<20150803083311.5abd23f6@lwn.net>
+	<1438672367.9418.3.camel@ellerman.id.au>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="us-ascii"
@@ -30,74 +29,63 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Jon,
+Hi Michael,
 
-On Monday 03 August 2015 08:33:11 Jonathan Corbet wrote:
-> On Mon, 03 Aug 2015 15:35:36 +0200 Rafael J. Wysocki wrote:
-> > > While I don't discourage it, I am not a fan of automated documentation.
-> > > As you and mtk would know, writing high quality, informative, systems
-> > > software documentation is an involved process. And it should be, imo.
-> > > Same goes for describing APIs and algorithms in code comments. Sure,
-> > > automation has its pros, particularly keeping docs up to date; yet this
-> > > does not outweigh a well crafted document, which involves actual though.
+On Tuesday 04 August 2015 17:12:47 Michael Ellerman wrote:
+> On Sat, 2015-08-01 at 16:41 +0200, Jonathan Corbet wrote:
+> > As your relatively new documentation subsystem maintainer, I think there
+> > might be reason to talk about docs for a bit at the summit.
 > > 
-> > "thought" I guess?
+> > Currently, we have two major branches to our docs.  One, the bulk of
+> > Documentation/, is a haphazard collection of text files of varying quality
+> > and applicability to current kernels.  The other is a set of more
+> > organized DocBook documents.
 > > 
-> > I have to say I agree here.
+> > Despite their disorganized nature, the plain-text docs get the bulk of the
+> > attention.  Anybody can manage to work with a text file.  The DocBook
+> > stuff, instead, is kind of a pain.  Working in DocBook itself is less
+> > than fun, few people dare to delve into the code that builds the docs,
+> > and the whole thing is rather fragile.  Changing a struct to a union in
+> > the wireless subsystem a few months back broke the docs build, for
+> > example; few people test for such things and even fewer seem to know how
+> > to fix them.
 > 
-> Surely nobody thinks I was saying that the documentation-writing process
-> can be automated! :)  But we go to some lengths now to document our APIs
-> in the code; I don't think we would want to break that.
+> ...
 > 
-> > Not to mention the fact that if you are browsing the kernel tree via a web
-> > frontend or LXR, for example, plain text docs are really good to have.
+> > I am not convinced that DocBook is really the right tool for the job
+> > here.  It is complex, finicky, and it's a real pain to have to replace an
+> > entire laptop because you've worn out your shift key.  It is, I believe,
+> > an
+> > impediment to improvements to our docs in general.  If, instead, we used
+> > something more plain-text-like, I think life might get a lot easier; it
+> > could also enable the integration of all of our docs into something a bit
+> > more cohesive.
 > 
-> The nice thing about formats like Markdown or ReST is that they *are*
-> plain text for all practical purposes.  Much better than DocBook in that
-> regard.
+> Yeah +1 from me on getting rid of DocBook.
+> 
+> I looked at it a bit in terms of asking people to write docs, and decided it
+> was too painful to impose on people.
 
-My problem with inline documentation is that it makes easier for developers to 
-write crappy doc and believe they've done their duty. It's not a technical 
-issue, and I believe inline documentation has merits, especially for API 
-documentation, but I've seen too many kerneldoc comments written as
+I don't buy that. The hard part in writing quality documentation is the 
+documentation, not the format. Sure, we can make formating easier, but no 
+matter how good the brushes you give him are, a kindergarten kid won't become 
+Picasso overnight.
 
-/**
- * int do_foo_bar(int foo, bool bar) - Do foo bar
- * @foo: the foo for bar
- * @bar: the value of bar
- *
- * This function does foo bar.
- *
- * Return 0 on success and a negative value on error.
- */
+> I know it's not *that* hard, but it's harder than it needs to be for the
+> value it brings IMHO.
+> 
+> > Markdown in one of its many forms might be a good alternative here.  I'm
+> > also somewhat attracted by Sphinx, which is designed for documenting code
+> > already and could probably be made to work well with our existing
+> > kerneldoc comments without a whole lot of trouble.  The Sphinx idea,
+> > though, is hobbled by the inconvenient fact that I've not had the time to
+> > develop it far enough to even have a vague idea of whether it would make
+> > real-world sense.
+> 
+> I'd vote for Markdown. It's very unobtrusive, reads nicely as plain text,
+> and all the young kids know it from writing Github README.md files.
 
-That's just useless. Worse, it can give the impression to reviewers that the 
-function has been documented while it clearly hasn't. Maybe we just need to 
-tighten the review process and push harder for documentation, at the risk of 
-rejecting useful contributions. That's not a new problem though.
-
-DocBook and kerneldoc documentation serve two very different purpose in my 
-opinion. While kerneldoc mostly aims at documenting internal APIs, DocBook is 
-more of a story telling kind of documentation, suitable for documenting 
-subsystem architectures for instance. This could be moved to inline comments, 
-but at the end of the day I don't think it will make a big difference. The 
-reason why we miss quality "background" documentation today has in my opinion 
-more to do with the fact that we don't require it.
-
-A good (or bad example, depending on how you see it) of this is the DRM/KMS 
-documentation available from Documentation/DocBook/drm.tmpl. I spent a 
-considerable amount of time writing it, it got reviewed, merged in the kernel, 
-and has now been rendered completely useless as the DRM/KMS internal API has 
-evolved and the documentation hasn't been updated despite my repeated 
-requests. That was extremely demotivating, and made me give up documenting 
-DRM/KMS at all.
-
-If we don't start treating documentation as equally valuable as code we will 
-never fix the problem. I'd even argue that documentation should be treated as 
-having more value than code.
-
-One more point, DocBook does a good job at documenting userspace APIs, 
-especially ioctls. See http://linuxtv.org/downloads/v4l-dvb-apis/vidioc-g-fmt.html for instance. Can Markdown or ReST achieve that ?
+How can we document ioctls such as in http://linuxtv.org/downloads/v4l-dvb-apis/vidioc-g-fmt.html using Markdown ?
 
 -- 
 Regards,
