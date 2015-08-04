@@ -1,29 +1,31 @@
-Return-Path: <daniel.vetter@ffwll.ch>
+Return-Path: <konstantin@linuxfoundation.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id EBE158EE
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4120582D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  4 Aug 2015 14:30:53 +0000 (UTC)
-Received: from mail-ob0-f169.google.com (mail-ob0-f169.google.com
-	[209.85.214.169])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 697101DB
+	Tue,  4 Aug 2015 14:42:12 +0000 (UTC)
+Received: from mail-io0-f179.google.com (mail-io0-f179.google.com
+	[209.85.223.179])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D10541D9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  4 Aug 2015 14:30:53 +0000 (UTC)
-Received: by obnw1 with SMTP id w1so8266343obn.3
+	Tue,  4 Aug 2015 14:42:11 +0000 (UTC)
+Received: by ioii16 with SMTP id i16so18975999ioi.0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 04 Aug 2015 07:30:52 -0700 (PDT)
+	Tue, 04 Aug 2015 07:42:11 -0700 (PDT)
+Date: Tue, 4 Aug 2015 10:42:07 -0400
+From: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+To: Dan Carpenter <dan.carpenter@oracle.com>
+Message-ID: <20150804144207.GB8047@gmail.com>
+References: <20150801164142.653012af@lwn.net>
+	<1893963.CjFnBCekyb@vostro.rjw.lan>
+	<20150803083311.5abd23f6@lwn.net> <6756795.jjv2YY7pQg@avalon>
+	<20150804135044.GB5180@mwanda>
 MIME-Version: 1.0
-In-Reply-To: <4555213.bCW3TZxWso@avalon>
-References: <20150801164142.653012af@lwn.net> <6756795.jjv2YY7pQg@avalon>
-	<CAKMK7uHgy5OO5QJRCRhWT2DRs+aoB5S=1Y_4_n7ODak8Qp5sMQ@mail.gmail.com>
-	<4555213.bCW3TZxWso@avalon>
-Date: Tue, 4 Aug 2015 16:30:52 +0200
-Message-ID: <CAKMK7uGuNDGZr3H33+munD5LXLiTt-pzzYOrUc2WHR=N3F_LZg@mail.gmail.com>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="UPT3ojh+0CqEDtpF"
+Content-Disposition: inline
+In-Reply-To: <20150804135044.GB5180@mwanda>
+Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Documentation
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -34,37 +36,36 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Aug 4, 2015 at 4:28 PM, Laurent Pinchart
-<laurent.pinchart@ideasonboard.com> wrote:
->> > A good (or bad example, depending on how you see it) of this is the
->> > DRM/KMS documentation available from Documentation/DocBook/drm.tmpl. I
->> > spent a considerable amount of time writing it, it got reviewed, merged in
->> > the kernel, and has now been rendered completely useless as the DRM/KMS
->> > internal API has evolved and the documentation hasn't been updated
->> > despite my repeated requests. That was extremely demotivating, and made
->> > me give up documenting DRM/KMS at all.
->>
->> drm having gone downhill is why I want to pull it out of the template
->> into code. E.g. we have extensive docs for vtables, but since they're
->> not next to the vtables in the code no one updates those. And
->> duplicating a summary in kerneldoc and then the extended version in
->> the docbook is even worse imo.
->
-> The problem is two-fold. Extensive vtables documentation is definitely good,
-> but it mostly serves as API reference documentation. I believe we also need a
-> guide type of documentation that goes through the bits and pieces drivers need
-> in a logical order. That should of course be linked to the vtables reference
-> documentation, but it should be a natural text flow type of documentation that
-> driver developers can read from start to end, guiding them in the process of
-> writing a DRM/KMS driver.
 
-Oh the vtables is just the blocker why I didn't start this yet - I
-really don't like the current duplication we have. Fully agreed that
-we need overview docs to tie it all together and explain how it works.
-With markdown we can even do inline code snippets, which should help a
-lot with explaining how to use certain helper libraries.
--Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-+41 (0) 79 365 57 48 - http://blog.ffwll.ch
+--UPT3ojh+0CqEDtpF
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, Aug 04, 2015 at 04:50:44PM +0300, Dan Carpenter wrote:
+> Presumably, someone has a webpage with all the docs pre-built.
+
+https://www.kernel.org/doc/htmldocs/
+
+Best,
+--=20
+Konstantin Ryabitsev
+Linux Foundation Collab Projects
+Montr=C3=A9al, Qu=C3=A9bec
+
+--UPT3ojh+0CqEDtpF
+Content-Type: application/pgp-signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQEcBAEBCAAGBQJVwM89AAoJEDZgaZyZ4FVXuSwIAKZWDvYucB+YkxUIeZ/xBPs7
+OibiOQyNXip0y5PEVE3bB8r7Y2gYtvyXpDXf40obfsYDn/320MT92VbO9gUTP1wl
+TEvmEIuZl4kvADQFFPbQGVp9+X2La8XTGpszZEck11vlRURJyXkfSjf8yNk8Gjyc
+ZnVUCsbhOtsPPurF3LCZHRn2vuxxg1rEf9H1R/UGiIWynnDQtLsbJ8/HQqIFv+5h
+S5v5py4WU7n9Bw6w3RMpi9ipmtIu4KtQWlfz2VRHByZaP7rMu82GjyC3n8XRH612
+SCTjdgZH8NoxXTHg/0wQqwfM2nENUjn63/o97CoZDR0UmCHsg/+ohUFclJooGUY=
+=THN7
+-----END PGP SIGNATURE-----
+
+--UPT3ojh+0CqEDtpF--
