@@ -1,25 +1,30 @@
-Return-Path: <laurent.pinchart@ideasonboard.com>
+Return-Path: <dan.carpenter@oracle.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0E6DC8BA
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 72C158BA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  4 Aug 2015 12:54:03 +0000 (UTC)
-Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
-	[185.26.127.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 60A7A18C
+	Tue,  4 Aug 2015 12:57:51 +0000 (UTC)
+Received: from aserp1040.oracle.com (aserp1040.oracle.com [141.146.126.69])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 10FB018F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  4 Aug 2015 12:54:02 +0000 (UTC)
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Tue, 04 Aug 2015 15:54:47 +0300
-Message-ID: <1576432.1WkRdFc7OG@avalon>
-In-Reply-To: <1438672367.9418.3.camel@ellerman.id.au>
-References: <20150801164142.653012af@lwn.net>
-	<1438672367.9418.3.camel@ellerman.id.au>
+	Tue,  4 Aug 2015 12:57:50 +0000 (UTC)
+Date: Tue, 4 Aug 2015 15:55:56 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Julia Lawall <julia.lawall@lip6.fr>
+Message-ID: <20150804125556.GA5180@mwanda>
+References: <2111196.TG1k3f53YQ@avalon>
+	<alpine.DEB.2.10.1507311833280.2499@hadrien>
+	<20150731165346.GA18984@infradead.org> <1624703.qdGzscHWSc@avalon>
+	<alpine.DEB.2.02.1508011319140.2071@localhost6.localdomain6>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Documentation
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.02.1508011319140.2071@localhost6.localdomain6>
+Cc: Shuah Khan <shuah.kh@samsung.com>, Russell King <linux@arm.linux.org.uk>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Christoph Hellwig <hch@infradead.org>, Tejun Heo <tj@kernel.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Fix devm_kzalloc, its users,
+ or both
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,65 +34,45 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Michael,
-
-On Tuesday 04 August 2015 17:12:47 Michael Ellerman wrote:
-> On Sat, 2015-08-01 at 16:41 +0200, Jonathan Corbet wrote:
-> > As your relatively new documentation subsystem maintainer, I think there
-> > might be reason to talk about docs for a bit at the summit.
-> > 
-> > Currently, we have two major branches to our docs.  One, the bulk of
-> > Documentation/, is a haphazard collection of text files of varying quality
-> > and applicability to current kernels.  The other is a set of more
-> > organized DocBook documents.
-> > 
-> > Despite their disorganized nature, the plain-text docs get the bulk of the
-> > attention.  Anybody can manage to work with a text file.  The DocBook
-> > stuff, instead, is kind of a pain.  Working in DocBook itself is less
-> > than fun, few people dare to delve into the code that builds the docs,
-> > and the whole thing is rather fragile.  Changing a struct to a union in
-> > the wireless subsystem a few months back broke the docs build, for
-> > example; few people test for such things and even fewer seem to know how
-> > to fix them.
+On Sat, Aug 01, 2015 at 01:21:09PM +0200, Julia Lawall wrote:
+> Currently, is there any documentation about when these functions can be
+> used?  All I remember seeing is a discussion of what the functions do and
+> what functions are available.  But nothing about when they should and
+> should not be used.
 > 
-> ...
-> 
-> > I am not convinced that DocBook is really the right tool for the job
-> > here.  It is complex, finicky, and it's a real pain to have to replace an
-> > entire laptop because you've worn out your shift key.  It is, I believe,
-> > an
-> > impediment to improvements to our docs in general.  If, instead, we used
-> > something more plain-text-like, I think life might get a lot easier; it
-> > could also enable the integration of all of our docs into something a bit
-> > more cohesive.
-> 
-> Yeah +1 from me on getting rid of DocBook.
-> 
-> I looked at it a bit in terms of asking people to write docs, and decided it
-> was too painful to impose on people.
 
-I don't buy that. The hard part in writing quality documentation is the 
-documentation, not the format. Sure, we can make formating easier, but no 
-matter how good the brushes you give him are, a kindergarten kid won't become 
-Picasso overnight.
+The documentation for devm_kmalloc() doesn't list common pitfalls.  The
+other big one which should be obvious, but happens often is freeing
+devm_ memory with kfree().
 
-> I know it's not *that* hard, but it's harder than it needs to be for the
-> value it brings IMHO.
-> 
-> > Markdown in one of its many forms might be a good alternative here.  I'm
-> > also somewhat attracted by Sphinx, which is designed for documenting code
-> > already and could probably be made to work well with our existing
-> > kerneldoc comments without a whole lot of trouble.  The Sphinx idea,
-> > though, is hobbled by the inconvenient fact that I've not had the time to
-> > develop it far enough to even have a vague idea of whether it would make
-> > real-world sense.
-> 
-> I'd vote for Markdown. It's very unobtrusive, reads nicely as plain text,
-> and all the young kids know it from writing Github README.md files.
+/**
+ * devm_kmalloc - Resource-managed kmalloc
+ * @dev: Device to allocate memory for
+ * @size: Allocation size
+ * @gfp: Allocation gfp flags
+ *
+ * Managed kmalloc.  Memory allocated with this function is
+ * automatically freed on driver detach.  Like all other devres
+ * resources, guaranteed alignment is unsigned long long.
+ *
+ * RETURNS:
+ * Pointer to allocated memory on success, NULL on failure.
+ */
 
-How can we document ioctls such as in http://linuxtv.org/downloads/v4l-dvb-apis/vidioc-g-fmt.html using Markdown ?
+Another thing which I have seems fairly common is treating it like
+kmalloc() and calling devm_kfree() manually.  For example, ssp_parse_dt()
 
--- 
-Regards,
+drivers/iio/common/ssp_sensors/ssp_dev.c
+   493          return data;
+   494  
+   495  err_mcu_reset_gpio:
+   496          devm_gpio_free(dev, data->mcu_reset_gpio);
+   497  err_ap_mcu:
+   498          devm_gpio_free(dev, data->ap_mcu_gpio);
+   499  err_free_pd:
+   500          devm_kfree(dev, data);
+   501          return NULL;
+   502  }
 
-Laurent Pinchart
+regards,
+dan carpenter
