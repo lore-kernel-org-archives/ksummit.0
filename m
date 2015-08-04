@@ -1,33 +1,37 @@
-Return-Path: <j.glisse@gmail.com>
+Return-Path: <delicious.quinoa@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2D59D8EF
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0503F98
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  4 Aug 2015 15:43:42 +0000 (UTC)
-Received: from mail-qk0-f179.google.com (mail-qk0-f179.google.com
-	[209.85.220.179])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CA6B41F9
+	Tue,  4 Aug 2015 16:03:26 +0000 (UTC)
+Received: from mail-wi0-f176.google.com (mail-wi0-f176.google.com
+	[209.85.212.176])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 404FC7D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  4 Aug 2015 15:43:41 +0000 (UTC)
-Received: by qkfc129 with SMTP id c129so4695933qkf.1
+	Tue,  4 Aug 2015 16:03:25 +0000 (UTC)
+Received: by wibud3 with SMTP id ud3so183713129wib.1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 04 Aug 2015 08:43:41 -0700 (PDT)
-Received: from gmail.com (c-24-61-14-213.hsd1.ma.comcast.net. [24.61.14.213])
-	by smtp.gmail.com with ESMTPSA id
-	m185sm650213qhb.44.2015.08.04.08.43.40
-	for <ksummit-discuss@lists.linuxfoundation.org>
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Tue, 04 Aug 2015 08:43:40 -0700 (PDT)
-Date: Tue, 4 Aug 2015 11:43:38 -0400
-From: Jerome Glisse <j.glisse@gmail.com>
-To: ksummit-discuss@lists.linuxfoundation.org
-Message-ID: <20150804154337.GB3511@gmail.com>
+	Tue, 04 Aug 2015 09:03:24 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-Subject: [Ksummit-discuss] =?iso-8859-1?q?Self_nomination=3A_J=E9r=F4me_Gl?=
-	=?iso-8859-1?q?isse?=
+In-Reply-To: <alpine.DEB.2.02.1507281233290.7196@linuxheads99>
+References: <20150723105711.GB30929@amd>
+	<CACRpkdYeud0s6ZyvW8n+0oPQ+S7uP1CTv22wQhvtwfD7iHKL2A@mail.gmail.com>
+	<20150723121025.GA29747@amd>
+	<CACRpkdaDOUAm_VOd+3H2khDYUsLgNcXKbYMypUTeNL6JbnqCAA@mail.gmail.com>
+	<alpine.DEB.2.11.1507231524530.364@east.gentwo.org>
+	<20150728142315.GA17178@amd>
+	<alpine.DEB.2.11.1507281055450.16348@east.gentwo.org>
+	<alpine.DEB.2.02.1507281233290.7196@linuxheads99>
+Date: Tue, 4 Aug 2015 11:03:23 -0500
+Message-ID: <CANk1AXT70JSpKkSjs1jUKvWMoOusMVxxVx+hJBCNFNpZpDNiJA@mail.gmail.com>
+From: Alan Tull <delicious.quinoa@gmail.com>
+To: atull <atull@opensource.altera.com>
+Content-Type: text/plain; charset=UTF-8
+Cc: Pavel Machek <pavel@denx.de>, Christoph Lameter <cl@linux.com>,
+	Alan Tull <atull@altera.com>, "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] FPGAs and how to program them
+	from kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,15 +41,34 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi,
+I've been working on the patchset for this.  I nominate myself.
 
-If Core Kernel support for Compute-Offload Devices is a topic of discussion
-i would like to attend this year kernel submit. I have long history of kernel
-contributions mostly regarding AMD gpu and lately i have been working with
-various GPU manufacturer on GPU compute and memory management.
+Alan Tull
 
-I am also interested in IOMMU and generaly in anything that related to device
-driver or memory management.
-
-Cheers,
-Jérôme Glisse
+On Tue, Jul 28, 2015 at 12:34 PM, atull <atull@opensource.altera.com> wrote:
+> On Tue, 28 Jul 2015, Christoph Lameter wrote:
+>
+>> On Tue, 28 Jul 2015, Pavel Machek wrote:
+>>
+>> > Which tools would be that?
+>>
+>> FPGA firmware upload. Up/down. State determinations etc? Administrative
+>> tasks first. Lets do easy low hanging fruit first.
+>
+> Exactly what my patchset is intended to do.
+>
+> Alan Tull
+>
+>>
+>> That way one can write scripts / tools to administer FPGAs from different
+>> manufacturers with the same commands.
+>>
+>> _______________________________________________
+>> Ksummit-discuss mailing list
+>> Ksummit-discuss@lists.linuxfoundation.org
+>> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+>>
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
