@@ -1,24 +1,22 @@
-Return-Path: <rjw@rjwysocki.net>
+Return-Path: <mpe@ellerman.id.au>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BB9969B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id BC64F68
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  4 Aug 2015 00:25:37 +0000 (UTC)
-Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id B1A3E10A
+	Tue,  4 Aug 2015 07:12:53 +0000 (UTC)
+Received: from ozlabs.org (ozlabs.org [103.22.144.67])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 14FF8E8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  4 Aug 2015 00:25:36 +0000 (UTC)
-From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+	Tue,  4 Aug 2015 07:12:49 +0000 (UTC)
+Message-ID: <1438672367.9418.3.camel@ellerman.id.au>
+From: Michael Ellerman <mpe@ellerman.id.au>
 To: Jonathan Corbet <corbet@lwn.net>
-Date: Tue, 04 Aug 2015 02:52:39 +0200
-Message-ID: <3394098.32V3GkSY9B@vostro.rjw.lan>
-In-Reply-To: <20150803083311.5abd23f6@lwn.net>
+Date: Tue, 04 Aug 2015 17:12:47 +1000
+In-Reply-To: <20150801164142.653012af@lwn.net>
 References: <20150801164142.653012af@lwn.net>
-	<1893963.CjFnBCekyb@vostro.rjw.lan>
-	<20150803083311.5abd23f6@lwn.net>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Documentation
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -30,36 +28,50 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Monday, August 03, 2015 08:33:11 AM Jonathan Corbet wrote:
-> On Mon, 03 Aug 2015 15:35:36 +0200
-> "Rafael J. Wysocki" <rjw@rjwysocki.net> wrote:
+On Sat, 2015-08-01 at 16:41 +0200, Jonathan Corbet wrote:
+> As your relatively new documentation subsystem maintainer, I think there
+> might be reason to talk about docs for a bit at the summit.
 > 
-> > > While I don't discourage it, I am not a fan of automated documentation.
-> > > As you and mtk would know, writing high quality, informative, systems
-> > > software documentation is an involved process. And it should be, imo.
-> > > Same goes for describing APIs and algorithms in code comments. Sure,
-> > > automation has its pros, particularly keeping docs up to date; yet this
-> > > does not outweigh a well crafted document, which involves actual though.  
-> > 
-> > "thought" I guess?
-> > 
-> > I have to say I agree here.
+> Currently, we have two major branches to our docs.  One, the bulk of
+> Documentation/, is a haphazard collection of text files of varying quality
+> and applicability to current kernels.  The other is a set of more
+> organized DocBook documents.
 > 
-> Surely nobody thinks I was saying that the documentation-writing process
-> can be automated! :)  But we go to some lengths now to document our APIs
-> in the code; I don't think we would want to break that.
-
-No, I wouldn't at least.
-
-> > Not to mention the fact that if you are browsing the kernel tree via a web
-> > frontend or LXR, for example, plain text docs are really good to have.
+> Despite their disorganized nature, the plain-text docs get the bulk of the
+> attention.  Anybody can manage to work with a text file.  The DocBook
+> stuff, instead, is kind of a pain.  Working in DocBook itself is less
+> than fun, few people dare to delve into the code that builds the docs,
+> and the whole thing is rather fragile.  Changing a struct to a union in
+> the wireless subsystem a few months back broke the docs build, for
+> example; few people test for such things and even fewer seem to know how
+> to fix them.
+...
 > 
-> The nice thing about formats like Markdown or ReST is that they *are*
-> plain text for all practical purposes.  Much better than DocBook in that
-> regard.
+> I am not convinced that DocBook is really the right tool for the job
+> here.  It is complex, finicky, and it's a real pain to have to replace an
+> entire laptop because you've worn out your shift key.  It is, I believe, an
+> impediment to improvements to our docs in general.  If, instead, we used
+> something more plain-text-like, I think life might get a lot easier; it
+> could also enable the integration of all of our docs into something a bit
+> more cohesive.
 
-I must admit I'm not really familiar with any of these, but at least Markdown
-looks promising from a quick glance.
+Yeah +1 from me on getting rid of DocBook.
 
-Thanks,
-Rafael
+I looked at it a bit in terms of asking people to write docs, and decided it
+was too painful to impose on people.
+
+I know it's not *that* hard, but it's harder than it needs to be for the value
+it brings IMHO.
+
+> Markdown in one of its many forms might be a good alternative here.  I'm
+> also somewhat attracted by Sphinx, which is designed for documenting code
+> already and could probably be made to work well with our existing kerneldoc
+> comments without a whole lot of trouble.  The Sphinx idea, though, is
+> hobbled by the inconvenient fact that I've not had the time to develop it
+> far enough to even have a vague idea of whether it would make real-world
+> sense.
+
+I'd vote for Markdown. It's very unobtrusive, reads nicely as plain text, and
+all the young kids know it from writing Github README.md files.
+
+cheers
