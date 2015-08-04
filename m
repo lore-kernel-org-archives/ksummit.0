@@ -1,40 +1,21 @@
-Return-Path: <htejun@gmail.com>
+Return-Path: <lurodriguez@suse.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A23F58EF
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 82D008EA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  4 Aug 2015 14:48:36 +0000 (UTC)
-Received: from mail-yk0-f173.google.com (mail-yk0-f173.google.com
-	[209.85.160.173])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 071761C8
+	Tue,  4 Aug 2015 15:26:26 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1D1D2150
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  4 Aug 2015 14:48:35 +0000 (UTC)
-Received: by ykeo23 with SMTP id o23so9582330yke.3
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 04 Aug 2015 07:48:35 -0700 (PDT)
-Sender: Tejun Heo <htejun@gmail.com>
-Date: Tue, 4 Aug 2015 10:48:33 -0400
-From: Tejun Heo <tj@kernel.org>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <20150804144833.GA17598@mtj.duckdns.org>
-References: <2111196.TG1k3f53YQ@avalon> <1832413.9MBGoll9RW@avalon>
-	<alpine.DEB.2.02.1508011255010.2071@localhost6.localdomain6>
-	<8475257.M7ZLAf3KQe@avalon> <20150801151839.GA9480@mtj.duckdns.org>
-	<55BD68DE.5060903@roeck-us.net>
-	<20150802143025.GF7557@n2100.arm.linux.org.uk>
-	<CAKMK7uHHV5Kze1OMt2HL6rbKV0LVpva+h_CEGcSbC9znbJhWWQ@mail.gmail.com>
-	<20150804111804.GO7557@n2100.arm.linux.org.uk>
-	<CAKMK7uHuzcv8M=Zd3Rk1kcvaGFj12FiXi_H+CjhpP4MAYRCtgw@mail.gmail.com>
+	Tue,  4 Aug 2015 15:26:26 +0000 (UTC)
+Date: Tue, 4 Aug 2015 17:26:22 +0200
+From: "Luis R. Rodriguez" <mcgrof@suse.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Message-ID: <20150804152622.GY30479@wotan.suse.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAKMK7uHuzcv8M=Zd3Rk1kcvaGFj12FiXi_H+CjhpP4MAYRCtgw@mail.gmail.com>
-Cc: Shuah Khan <shuah.kh@samsung.com>,
-	Russell King - ARM Linux <linux@arm.linux.org.uk>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Fix devm_kzalloc, its users,
- or both
+Subject: [Ksummit-discuss] Last minute nominations: mcgrof and toshi
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -44,29 +25,36 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hello,
+Ted noted to send last minute self nominations by Wednesday.  This is my last
+minute self nomination, I'm also making a last minute nominating for Toshi.
 
-On Tue, Aug 04, 2015 at 01:56:38PM +0200, Daniel Vetter wrote:
-> On Tue, Aug 4, 2015 at 1:18 PM, Russell King - ARM Linux
-> <linux@arm.linux.org.uk> wrote:
-> > A solution to that would be to drop something like a read-write lock into
-> > almost all f_op methods, which sounds expensive to me in the general case.
-> 
-> srcu is what I considered since it would be least intrusive and shifts
-> the overall all to the write. The problem of course is that if you do
+I would like to nominate myself for this years KS.  I've already been
+summoned about these topics through this list and confirm interest
+in participating in these discussions:
 
-percpu_ref is likely a better fit.
+ * Semantics of MMIO mapping attributes accross archs
+ * Signature management - keys, modules, firmware.
 
-> that then there will be deadlock gallore - suddenly anything called
-> from f->ops can stall code called from ->remove. And looking at how
-> regularly we have lockdep splat in the driver unload code just in i915
-> that will be really painful.
+I haven't seen Toshi on the list of nominated folks but I do think that having
+Toshi present would be crucial for the semantics over MMIO mapping discussion,
+if he could make it, so Cc'ing him and also making a last minute nomination for
+him.
 
-It's the other side of the same coin.  At least it's a lot easier to
-detect with a lot more deterministic failure mode than derefing freed
-memory or accessing gone hardware.
+But I'm also interested in these other topics as well:
 
-Thanks.
+ * Recruitment
+ * Compute-Offload Devices
+ * Testing
+ * Documentation
+ * GPL Enforcement
 
--- 
-tejun
+In general I'm very interested in the long term over how we can scale the pace
+of Linux kernel development and not only manage it but see how we can actually
+do it better and faster if needed. So I'm very interested in topics  such as
+semantics and tools to help with maintainer's work, deprecating drivers, bug
+finding, recruitment, education, testing, and automatically backporting the
+kernel. In particular in the last few years I've been paying close attention
+towards what we could do better when introducing in new APIs, as that would be
+a good place to test new ideas and quickly make bad ones fail.
+
+  Luis
