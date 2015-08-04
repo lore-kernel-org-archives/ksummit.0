@@ -1,28 +1,28 @@
-Return-Path: <peterhuewe@gmx.de>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 780CF7E
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 069AE99
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  4 Aug 2015 08:33:45 +0000 (UTC)
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A04577D
+	Tue,  4 Aug 2015 09:06:00 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2C98011E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  4 Aug 2015 08:33:44 +0000 (UTC)
-In-Reply-To: <9B190076-263A-4C51-AFA4-A1D7FD403BC3@holtmann.org>
-References: <20150801164142.653012af@lwn.net>
-	<1438672367.9418.3.camel@ellerman.id.au>
-	<9B190076-263A-4C51-AFA4-A1D7FD403BC3@holtmann.org>
+	Tue,  4 Aug 2015 09:05:59 +0000 (UTC)
+Date: Tue, 4 Aug 2015 10:05:36 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Julia Lawall <julia.lawall@lip6.fr>
+Message-ID: <20150804090536.GC20873@sirena.org.uk>
+References: <1438629566.2173.58.camel@HansenPartnership.com>
+	<alpine.DEB.2.02.1508032123090.2038@localhost6.localdomain6>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-From: Peter Huewe <peterhuewe@gmx.de>
-Date: Tue, 04 Aug 2015 10:33:02 +0200
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Michael Ellerman <mpe@ellerman.id.au>
-Message-ID: <BC939929-C5D1-4239-A9B8-E9D49CD4E04E@gmx.de>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Documentation
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="XA3zunQti4u0IH5i"
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.02.1508032123090.2038@localhost6.localdomain6>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Recruitment; Outreach Programmes
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,39 +32,40 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi
 
-Am 4=2E August 2015 09:42:55 MESZ, schrieb Marcel Holtmann <marcel@holtman=
-n=2Eorg>:
->Hi Michael,
->
->>> Markdown in one of its many forms might be a good alternative here=2E=
-=20
->I'm
->>> also somewhat attracted by Sphinx, which is designed for documenting
->code
->>> already and could probably be made to work well with our existing
->kerneldoc
->>> comments without a whole lot of trouble=2E  The Sphinx idea, though,
->is
->>> hobbled by the inconvenient fact that I've not had the time to
->develop it
->>> far enough to even have a vague idea of whether it would make
->real-world
->>> sense=2E
->>=20
->> I'd vote for Markdown=2E It's very unobtrusive, reads nicely as plain
->text, and
->> all the young kids know it from writing Github README=2Emd files=2E
->
->actually AsciiDoc might be something to look into as well=2E
->
-I'm also in for AsciiDoc, as it also allows easy generation of Pdfs and ht=
-ml files, with chapters and all that fancy stuff=2E
+--XA3zunQti4u0IH5i
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-(Probably the reason why docbook was chosen back then, compared to the pla=
-intext files)
+On Mon, Aug 03, 2015 at 09:23:41PM +0200, Julia Lawall wrote:
+> On Mon, 3 Aug 2015, James Bottomley wrote:
 
-Peter
---=20
-Sent from my mobile
+> > Which has been running successfully for a while.  The questions for us
+> > are
+
+> >      1. Should the programme be broadened (the current OPW one only
+> >         reaches women, not everyone who might need outreach)
+
+> There are plans to broaden it somewhat, but I don't know the details.
+
+It was rebranded to Outreachy along with a broadening of scope:
+
+   https://www.gnome.org/outreachy/
+
+--XA3zunQti4u0IH5i
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQEcBAEBCAAGBQJVwIBbAAoJECTWi3JdVIfQpDgH/1GKp05BFcskZEomVZuiN1Ea
+6SpyXup9nlZ8hfgGSW5tvVXM1FCQrz3t+jGy0O2FA37k3GewXNlaFJCJI54QETL9
+5QVXUh7LG1CDkrzGf6i0ZUZZclx0bbxfq9Sik5Q5lZHfyTFXfIexKXW+jk+aBg4o
+kQjZayzlKvJ3uncatfBfkcYvklVpZY1I6HCxoXOXECNIbXUF4Mwif3UZwnvWt9ap
+rGk7qV/froukKZQsa1EZj0dqC6INhPsIz47pGc9tE5Pw82Tzszh1/gfL+UCC6eWc
+npEnxJE+zi3EhWoZuiAiMO8zsQyRteGc97pnlsEx8rxdRx4dW/sbh3GE2rplPKo=
+=dkRZ
+-----END PGP SIGNATURE-----
+
+--XA3zunQti4u0IH5i--
