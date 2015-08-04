@@ -1,25 +1,24 @@
-Return-Path: <laurent.pinchart@ideasonboard.com>
+Return-Path: <toshi.kani@hp.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 56749847
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 422D287A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  4 Aug 2015 21:00:14 +0000 (UTC)
-Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
-	[185.26.127.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E763B13D
+	Tue,  4 Aug 2015 22:22:05 +0000 (UTC)
+Received: from g9t5009.houston.hp.com (g9t5009.houston.hp.com [15.240.92.67])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E3D3EE8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  4 Aug 2015 21:00:13 +0000 (UTC)
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Wed, 05 Aug 2015 00:00:59 +0300
-Message-ID: <1891718.ZRACi8n4El@avalon>
-In-Reply-To: <55C102AF.5020006@sonymobile.com>
-References: <20150801164142.653012af@lwn.net> <20150804144207.GB8047@gmail.com>
-	<55C102AF.5020006@sonymobile.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Documentation
+	Tue,  4 Aug 2015 22:22:04 +0000 (UTC)
+Message-ID: <1438726821.3109.20.camel@hp.com>
+From: Toshi Kani <toshi.kani@hp.com>
+To: "Luis R. Rodriguez" <mcgrof@suse.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Date: Tue, 04 Aug 2015 16:20:21 -0600
+In-Reply-To: <20150804152622.GY30479@wotan.suse.de>
+References: <20150804152622.GY30479@wotan.suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Ksummit-discuss] Last minute nominations: mcgrof and toshi
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,46 +28,23 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Tim,
+On Tue, 2015-08-04 at 17:26 +0200, Luis R. Rodriguez wrote:
+> Ted noted to send last minute self nominations by Wednesday.  This is my 
+> last minute self nomination, I'm also making a last minute nominating for
+> Toshi.
+> 
+> I would like to nominate myself for this years KS.  I've already been
+> summoned about these topics through this list and confirm interest
+> in participating in these discussions:
+> 
+>  * Semantics of MMIO mapping attributes accross archs
+>  * Signature management - keys, modules, firmware.
+> 
+> I haven't seen Toshi on the list of nominated folks but I do think that 
+> having Toshi present would be crucial for the semantics over MMIO mapping
+> discussion, if he could make it, so Cc'ing him and also making a last 
+> minute nomination for him.
 
-On Tuesday 04 August 2015 11:21:35 Tim Bird wrote:
-> On 08/04/2015 07:42 AM, Konstantin Ryabitsev wrote:
-> > On Tue, Aug 04, 2015 at 04:50:44PM +0300, Dan Carpenter wrote:
-> >> Presumably, someone has a webpage with all the docs pre-built.
-> > 
-> > https://www.kernel.org/doc/htmldocs/
-> 
-> That's good.  When this thread started I tried looking for
-> an online instance of prebuilt docs, but the latest one I found
-> was for 2.6.30.
-> 
-> If this is maintained consistently, maybe this site should be
-> (wait for it...) documented somewhere. ;-)
-> 
-> On a more serious note, I'd be in favor of:
-> 1) switching to markdown or AsciiDoc.  Pandoc markdown
-> looks pretty capable, but I wouldn't want to introduce
-> a dependency on Haskell.  I think for the types of things
-> we do, just about any markdown would do.  Pandoc claims
-> to be able to convert between many different formats,
-> including AsciiDoc, and to convert to many different outputs.
-> 
-> I think having plain text will lower the barrier to
-> editing the docs.
-> 
-> 2) keeping the intro texts in the source files.  That
-> way doc changes should be more visible to maintainers,
-> and they're arguably more accessible when you're poking
-> around the code.
+Thanks Luis!  Yes, I'd like to participate the MMIO mapping discussion. 
 
-It's more than intro text in my opinion. Look at 
-https://www.kernel.org/doc/htmldocs/drm/index.html, it tries to be a 
-guide/walk-through type of documentation. The amount of documentation is so 
-large that it would be quite impractical to keep it in source files. Or we 
-could have source files containing only documentation comments, but that would 
-defeat the point :-)
-
--- 
-Regards,
-
-Laurent Pinchart
+-Toshi
