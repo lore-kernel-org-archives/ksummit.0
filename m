@@ -1,34 +1,36 @@
-Return-Path: <linux+ksummit-discuss=lists.linuxfoundation.org@arm.linux.org.uk>
+Return-Path: <daniel.vetter@ffwll.ch>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5E4FF88B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id DF6BF89D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  4 Aug 2015 11:18:28 +0000 (UTC)
-Received: from pandora.arm.linux.org.uk (pandora.arm.linux.org.uk
-	[78.32.30.218])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 893A2136
+	Tue,  4 Aug 2015 11:56:39 +0000 (UTC)
+Received: from mail-ob0-f179.google.com (mail-ob0-f179.google.com
+	[209.85.214.179])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4EA5E12A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  4 Aug 2015 11:18:26 +0000 (UTC)
-Date: Tue, 4 Aug 2015 12:18:05 +0100
-From: Russell King - ARM Linux <linux@arm.linux.org.uk>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <20150804111804.GO7557@n2100.arm.linux.org.uk>
+	Tue,  4 Aug 2015 11:56:39 +0000 (UTC)
+Received: by obnw1 with SMTP id w1so5027714obn.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 04 Aug 2015 04:56:38 -0700 (PDT)
+MIME-Version: 1.0
+In-Reply-To: <20150804111804.GO7557@n2100.arm.linux.org.uk>
 References: <2111196.TG1k3f53YQ@avalon> <1832413.9MBGoll9RW@avalon>
 	<alpine.DEB.2.02.1508011255010.2071@localhost6.localdomain6>
 	<8475257.M7ZLAf3KQe@avalon> <20150801151839.GA9480@mtj.duckdns.org>
 	<55BD68DE.5060903@roeck-us.net>
 	<20150802143025.GF7557@n2100.arm.linux.org.uk>
 	<CAKMK7uHHV5Kze1OMt2HL6rbKV0LVpva+h_CEGcSbC9znbJhWWQ@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAKMK7uHHV5Kze1OMt2HL6rbKV0LVpva+h_CEGcSbC9znbJhWWQ@mail.gmail.com>
-Sender: Russell King - ARM Linux <linux@arm.linux.org.uk>
+	<20150804111804.GO7557@n2100.arm.linux.org.uk>
+Date: Tue, 4 Aug 2015 13:56:38 +0200
+Message-ID: <CAKMK7uHuzcv8M=Zd3Rk1kcvaGFj12FiXi_H+CjhpP4MAYRCtgw@mail.gmail.com>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+To: Russell King - ARM Linux <linux@arm.linux.org.uk>
+Content-Type: text/plain; charset=UTF-8
 Cc: Tejun Heo <tj@kernel.org>, Shuah Khan <shuah.kh@samsung.com>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Fix devm_kzalloc, its users,
- or both
+	or both
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,74 +40,31 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Aug 04, 2015 at 12:40:00PM +0200, Daniel Vetter wrote:
-> I'd love to see generic support to revoke/block anything coming in
-> through a file_ops.
+On Tue, Aug 4, 2015 at 1:18 PM, Russell King - ARM Linux
+<linux@arm.linux.org.uk> wrote:
+> A solution to that would be to drop something like a read-write lock into
+> almost all f_op methods, which sounds expensive to me in the general case.
 
-Yes, I've been looking at one of my drivers which is definitely broken
-in this regard, and that's the conclusion I'm coming to - it's not a
-problem of lifetime control of the private driver data structures, but
-it's a much bigger issue than that.
+srcu is what I considered since it would be least intrusive and shifts
+the overall all to the write. The problem of course is that if you do
+that then there will be deadlock gallore - suddenly anything called
+from f->ops can stall code called from ->remove. And looking at how
+regularly we have lockdep splat in the driver unload code just in i915
+that will be really painful.
 
-If a driver's file_operations methods touch hardware, then we need a
-way to prevent those file_operations methods from touching the hardware
-once the device driver's ->remove callback has been called.
-
-Yes, we can stick a flag in the driver private data structure to
-indicate that it's gone, but do we want to keep on reviewing this in
-driver code, or should we make it easier for driver authors, subsystem
-authors and core reviewers to get this right by providing a "revoke"
-which can be called in the ->remove callback?
-
-However, providing a revoke is not easy: if we look at the tty code,
-which has to deal with tty hangups, then we find that it does this:
-
-        spin_lock(&tty_files_lock);
-        /* This breaks for file handles being sent over AF_UNIX sockets ? */
-        list_for_each_entry(priv, &tty->tty_files, list) {
-                filp = priv->file;
-                if (filp->f_op->write == redirected_tty_write)
-                        cons_filp = filp;
-                if (filp->f_op->write != tty_write)
-                        continue;
-                closecount++;
-                __tty_fasync(-1, filp, 0);      /* can't block */
-                filp->f_op = &hung_up_tty_fops;
-        }
-        spin_unlock(&tty_files_lock);
-
-IOW, it replaces the f_op on all files with hung_up_tty_fops.
-
-Now, the filp is protected from going away by being on the list: a
-f_op->release will block in tty_del_file() for the above lock to be
-released.  That much is safe.
-
-However, what if another thread/cpu is in one of the f_op methods when
-filp->f_op is replaced with the "revoked" operations?  What I'm saying
-is that there's no guarantee that one of the file's operations won't
-be executing on another CPU at the point that we're trying to revoke it,
-and we don't want any threads to be there, because they could access
-data we're about to free.
-
-That's the difficult part of the problem, and it's one which things like
-stop_machine() doesn't solve (since we may have scheduled away from
-a method to run the stop_machine() thread.)  We can't wait for the file
-to close, because that introduces soft-deadlocks - consider a thread
-which holds a reference on the filp, but is trying to unbind the driver
-via sysfs... just like the sysfs issues we've had in the past.
-
-Unfortunately, this is where things are much more complex than the module
-case - the module has has the advantage that:
-
-rmmod chardev-driver < /dev/that-chardev-driver-node
-
-can return saying "module busy".  We don't have that luxury when it comes
-to removing 'struct device' - the driver ->remove callback has no way to
-fail (it's return code is always ignored.)
-
-A solution to that would be to drop something like a read-write lock into
-almost all f_op methods, which sounds expensive to me in the general case.
-
+But I don't see anything else that would work and which would be
+semantically different from a reader/writer lock. There's an
+additional problem that we need to guarantee that everyone completes
+f->ops in finite time, which is a problem if you have blockings
+ioctls. And that's a deadlock lockdep won't catch (in general at
+least). For i915 that won't be a problem since because of the gpu
+reset all our waiting is done interruptibly and all ioctls can be
+restarted (userspace has to do it, it's part of the drm abi contract).
+But even for drivers who can't do that and might deadlock I think a
+deadlock in ->remove is better than randomly oopsing somewhere later
+on because some f->ops is accessing freed memory.
+-Daniel
 -- 
-FTTC broadband for 0.8mile line: currently at 10.5Mbps down 400kbps up
-according to speedtest.net.
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
