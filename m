@@ -1,28 +1,34 @@
-Return-Path: <daniel.vetter@ffwll.ch>
+Return-Path: <linux+ksummit-discuss=lists.linuxfoundation.org@arm.linux.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4BCB887A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5E4FF88B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  4 Aug 2015 11:09:39 +0000 (UTC)
-Received: from mail-oi0-f42.google.com (mail-oi0-f42.google.com
-	[209.85.218.42])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9AD5D16A
+	Tue,  4 Aug 2015 11:18:28 +0000 (UTC)
+Received: from pandora.arm.linux.org.uk (pandora.arm.linux.org.uk
+	[78.32.30.218])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 893A2136
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  4 Aug 2015 11:09:38 +0000 (UTC)
-Received: by oibv126 with SMTP id v126so3072863oib.3
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 04 Aug 2015 04:09:38 -0700 (PDT)
+	Tue,  4 Aug 2015 11:18:26 +0000 (UTC)
+Date: Tue, 4 Aug 2015 12:18:05 +0100
+From: Russell King - ARM Linux <linux@arm.linux.org.uk>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <20150804111804.GO7557@n2100.arm.linux.org.uk>
+References: <2111196.TG1k3f53YQ@avalon> <1832413.9MBGoll9RW@avalon>
+	<alpine.DEB.2.02.1508011255010.2071@localhost6.localdomain6>
+	<8475257.M7ZLAf3KQe@avalon> <20150801151839.GA9480@mtj.duckdns.org>
+	<55BD68DE.5060903@roeck-us.net>
+	<20150802143025.GF7557@n2100.arm.linux.org.uk>
+	<CAKMK7uHHV5Kze1OMt2HL6rbKV0LVpva+h_CEGcSbC9znbJhWWQ@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20150801164142.653012af@lwn.net>
-References: <20150801164142.653012af@lwn.net>
-Date: Tue, 4 Aug 2015 13:09:37 +0200
-Message-ID: <CAKMK7uFsE1HkmmAU1J-9ZtHfAG1iUGjb8H4z6U1LR4goFgfV9g@mail.gmail.com>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-To: Jonathan Corbet <corbet@lwn.net>
-Content-Type: text/plain; charset=UTF-8
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAKMK7uHHV5Kze1OMt2HL6rbKV0LVpva+h_CEGcSbC9znbJhWWQ@mail.gmail.com>
+Sender: Russell King - ARM Linux <linux@arm.linux.org.uk>
+Cc: Tejun Heo <tj@kernel.org>, Shuah Khan <shuah.kh@samsung.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Documentation
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Fix devm_kzalloc, its users,
+ or both
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,48 +38,74 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, Aug 1, 2015 at 4:41 PM, Jonathan Corbet <corbet@lwn.net> wrote:
->
-> We have some interesting proposals for improvements on the DocBook side,
-> including integrating Markdown support
-> (http://thread.gmane.org/gmane.linux.documentation/32140) and allowing
-> embedded DocBook comments within structs
-> (https://lwn.net/Articles/653194/).  I think they both have merit, but I
-> hesitate to take them for a couple of reasons.
->
-> One is that changes in how docs are done would be imposed on everybody who
-> is interested in keeping up the docs.  They also can, in a sense, look like
-> coding-style changes, which is an area where I fear to tread on my own.
-> The other is that I wonder if we want to consider a bit of a more sweeping
-> overhaul.
->
-> I am not convinced that DocBook is really the right tool for the job
-> here.  It is complex, finicky, and it's a real pain to have to replace an
-> entire laptop because you've worn out your shift key.  It is, I believe, an
-> impediment to improvements to our docs in general.  If, instead, we used
-> something more plain-text-like, I think life might get a lot easier; it
-> could also enable the integration of all of our docs into something a bit
-> more cohesive.
+On Tue, Aug 04, 2015 at 12:40:00PM +0200, Daniel Vetter wrote:
+> I'd love to see generic support to revoke/block anything coming in
+> through a file_ops.
 
-The entire point of all the work Danilo's been doing is being able to
-pull out _all_ the actual text from the DocBook templates and move
-them into the code. The docbook template will simply be the
-scaffolding that pulls it all together and gives it the overall
-structure. That gives you:
-- almost no xml to edit
-- documentation as plain-text with markdown
-- documentation always right next to the code
+Yes, I've been looking at one of my drivers which is definitely broken
+in this regard, and that's the conclusion I'm coming to - it's not a
+problem of lifetime control of the private driver data structures, but
+it's a much bigger issue than that.
 
-Especially the last one is crucial from my experience documenting the
-userspace side of the i915 driver. And the overall structure is also
-really important since a pile of linked chapters is a really good way
-for new people to dig into your docs. The pile of text files in
-Documentation imo fails badly at that, even if it would look prettier
-by using markdown, since if you don't know where to look you'll never
-find related bits of documentation. Crosslinking is key for useable
-docs imo, hence that's the first thing Danilo added.
--Daniel
+If a driver's file_operations methods touch hardware, then we need a
+way to prevent those file_operations methods from touching the hardware
+once the device driver's ->remove callback has been called.
+
+Yes, we can stick a flag in the driver private data structure to
+indicate that it's gone, but do we want to keep on reviewing this in
+driver code, or should we make it easier for driver authors, subsystem
+authors and core reviewers to get this right by providing a "revoke"
+which can be called in the ->remove callback?
+
+However, providing a revoke is not easy: if we look at the tty code,
+which has to deal with tty hangups, then we find that it does this:
+
+        spin_lock(&tty_files_lock);
+        /* This breaks for file handles being sent over AF_UNIX sockets ? */
+        list_for_each_entry(priv, &tty->tty_files, list) {
+                filp = priv->file;
+                if (filp->f_op->write == redirected_tty_write)
+                        cons_filp = filp;
+                if (filp->f_op->write != tty_write)
+                        continue;
+                closecount++;
+                __tty_fasync(-1, filp, 0);      /* can't block */
+                filp->f_op = &hung_up_tty_fops;
+        }
+        spin_unlock(&tty_files_lock);
+
+IOW, it replaces the f_op on all files with hung_up_tty_fops.
+
+Now, the filp is protected from going away by being on the list: a
+f_op->release will block in tty_del_file() for the above lock to be
+released.  That much is safe.
+
+However, what if another thread/cpu is in one of the f_op methods when
+filp->f_op is replaced with the "revoked" operations?  What I'm saying
+is that there's no guarantee that one of the file's operations won't
+be executing on another CPU at the point that we're trying to revoke it,
+and we don't want any threads to be there, because they could access
+data we're about to free.
+
+That's the difficult part of the problem, and it's one which things like
+stop_machine() doesn't solve (since we may have scheduled away from
+a method to run the stop_machine() thread.)  We can't wait for the file
+to close, because that introduces soft-deadlocks - consider a thread
+which holds a reference on the filp, but is trying to unbind the driver
+via sysfs... just like the sysfs issues we've had in the past.
+
+Unfortunately, this is where things are much more complex than the module
+case - the module has has the advantage that:
+
+rmmod chardev-driver < /dev/that-chardev-driver-node
+
+can return saying "module busy".  We don't have that luxury when it comes
+to removing 'struct device' - the driver ->remove callback has no way to
+fail (it's return code is always ignored.)
+
+A solution to that would be to drop something like a read-write lock into
+almost all f_op methods, which sounds expensive to me in the general case.
+
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-+41 (0) 79 365 57 48 - http://blog.ffwll.ch
+FTTC broadband for 0.8mile line: currently at 10.5Mbps down 400kbps up
+according to speedtest.net.
