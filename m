@@ -1,26 +1,36 @@
-Return-Path: <dan.carpenter@oracle.com>
+Return-Path: <geert.uytterhoeven@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6B6E28EB
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D8A888EB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  4 Aug 2015 13:50:56 +0000 (UTC)
-Received: from userp1040.oracle.com (userp1040.oracle.com [156.151.31.81])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id EAEBC1AD
+	Tue,  4 Aug 2015 14:01:46 +0000 (UTC)
+Received: from mail-ob0-f179.google.com (mail-ob0-f179.google.com
+	[209.85.214.179])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 134091C4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  4 Aug 2015 13:50:55 +0000 (UTC)
-Date: Tue, 4 Aug 2015 16:50:44 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Message-ID: <20150804135044.GB5180@mwanda>
-References: <20150801164142.653012af@lwn.net>
-	<1893963.CjFnBCekyb@vostro.rjw.lan>
-	<20150803083311.5abd23f6@lwn.net> <6756795.jjv2YY7pQg@avalon>
+	Tue,  4 Aug 2015 14:01:37 +0000 (UTC)
+Received: by obre1 with SMTP id e1so7660267obr.1
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 04 Aug 2015 07:01:37 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6756795.jjv2YY7pQg@avalon>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Documentation
+Sender: geert.uytterhoeven@gmail.com
+In-Reply-To: <20150804125556.GA5180@mwanda>
+References: <2111196.TG1k3f53YQ@avalon>
+	<alpine.DEB.2.10.1507311833280.2499@hadrien>
+	<20150731165346.GA18984@infradead.org> <1624703.qdGzscHWSc@avalon>
+	<alpine.DEB.2.02.1508011319140.2071@localhost6.localdomain6>
+	<20150804125556.GA5180@mwanda>
+Date: Tue, 4 Aug 2015 16:01:37 +0200
+Message-ID: <CAMuHMdVi4YTe9Cg5y3dabSoYfcWtG3KfNkfmgZd8TDMMk4Wo+g@mail.gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+To: Dan Carpenter <dan.carpenter@oracle.com>
+Content-Type: text/plain; charset=UTF-8
+Cc: Shuah Khan <shuah.kh@samsung.com>, Russell King <linux@arm.linux.org.uk>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Christoph Hellwig <hch@infradead.org>, Tejun Heo <tj@kernel.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Fix devm_kzalloc, its users,
+	or both
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,23 +40,36 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-If you write your documentation in docbook, I can promise you that I
-have never read it.
+On Tue, Aug 4, 2015 at 2:55 PM, Dan Carpenter <dan.carpenter@oracle.com> wrote:
+> Another thing which I have seems fairly common is treating it like
+> kmalloc() and calling devm_kfree() manually.  For example, ssp_parse_dt()
+>
+> drivers/iio/common/ssp_sensors/ssp_dev.c
+>    493          return data;
+>    494
+>    495  err_mcu_reset_gpio:
+>    496          devm_gpio_free(dev, data->mcu_reset_gpio);
+>    497  err_ap_mcu:
+>    498          devm_gpio_free(dev, data->ap_mcu_gpio);
+>    499  err_free_pd:
+>    500          devm_kfree(dev, data);
+>    501          return NULL;
+>    502  }
 
-I have all the tools to read it.  I remember this because it requires
-700MB of dependencies.  I was downloading it to read the kdbus
-documentation.  I remember this.  I don't think I read the kdbus
-documentation in the end.  I certainly don't know, without googling, how
-to use build the docbook output.
+These indeed look superfluous.
 
-Presumably, someone has a webpage with all the docs pre-built.  I looked
-for your drm.pdf file on google.  The first link was
-http://kernelnewbies.org/Documents/Kernel-Docbooks
-which has some pre-built docs but they are out of date. The next link
-was: http://billauer.co.il/blog/2014/02/docbook-html-pdf-rtf/ where the
-guy also can't figure out how to build his documention.  It's like he
-actually wanted to read it (which is so rare) but he wasn't able to
-figure it out.
+In some cases it may legitimate, though, when freeing memory not tied directly
+to the lifetime of the device.
+Cfr. drivers/media/platform/soc_camera/soc_camera.c, where the operation
+may be retried later.
 
-regards,
-dan carpenter
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
