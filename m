@@ -1,37 +1,26 @@
-Return-Path: <daniel.vetter@ffwll.ch>
+Return-Path: <laurent.pinchart@ideasonboard.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 27FA483D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id C186C8BA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  4 Aug 2015 11:59:04 +0000 (UTC)
-Received: from mail-ob0-f180.google.com (mail-ob0-f180.google.com
-	[209.85.214.180])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8E3C889
+	Tue,  4 Aug 2015 12:49:51 +0000 (UTC)
+Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
+	[185.26.127.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5BCA112A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  4 Aug 2015 11:59:03 +0000 (UTC)
-Received: by obnw1 with SMTP id w1so5065880obn.3
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 04 Aug 2015 04:59:03 -0700 (PDT)
+	Tue,  4 Aug 2015 12:49:50 +0000 (UTC)
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Tue, 04 Aug 2015 15:50:33 +0300
+Message-ID: <6756795.jjv2YY7pQg@avalon>
+In-Reply-To: <20150803083311.5abd23f6@lwn.net>
+References: <20150801164142.653012af@lwn.net>
+	<1893963.CjFnBCekyb@vostro.rjw.lan>
+	<20150803083311.5abd23f6@lwn.net>
 MIME-Version: 1.0
-In-Reply-To: <CAKMK7uHuzcv8M=Zd3Rk1kcvaGFj12FiXi_H+CjhpP4MAYRCtgw@mail.gmail.com>
-References: <2111196.TG1k3f53YQ@avalon> <1832413.9MBGoll9RW@avalon>
-	<alpine.DEB.2.02.1508011255010.2071@localhost6.localdomain6>
-	<8475257.M7ZLAf3KQe@avalon> <20150801151839.GA9480@mtj.duckdns.org>
-	<55BD68DE.5060903@roeck-us.net>
-	<20150802143025.GF7557@n2100.arm.linux.org.uk>
-	<CAKMK7uHHV5Kze1OMt2HL6rbKV0LVpva+h_CEGcSbC9znbJhWWQ@mail.gmail.com>
-	<20150804111804.GO7557@n2100.arm.linux.org.uk>
-	<CAKMK7uHuzcv8M=Zd3Rk1kcvaGFj12FiXi_H+CjhpP4MAYRCtgw@mail.gmail.com>
-Date: Tue, 4 Aug 2015 13:59:02 +0200
-Message-ID: <CAKMK7uEcLMMXt4ff1_He6UBiu82VmVbNr9Srm97RXPY0P0sp9w@mail.gmail.com>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-To: Russell King - ARM Linux <linux@arm.linux.org.uk>
-Content-Type: text/plain; charset=UTF-8
-Cc: Tejun Heo <tj@kernel.org>, Shuah Khan <shuah.kh@samsung.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Fix devm_kzalloc, its users,
-	or both
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Documentation
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,48 +30,76 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Oh and it's not just file->ops, it's also vma->ops, dma_buf->ops,
-fence->ops and anything else that could be shared with other parts of
-the kernel. But I think file->ops is a good first candidate since it's
-the most widespread thing, so should uncover a lot of the common
-troubles. And a lot of the bugs will be fixed by just taking care of
-file->ops.
--Daniel
+Hi Jon,
 
+On Monday 03 August 2015 08:33:11 Jonathan Corbet wrote:
+> On Mon, 03 Aug 2015 15:35:36 +0200 Rafael J. Wysocki wrote:
+> > > While I don't discourage it, I am not a fan of automated documentation.
+> > > As you and mtk would know, writing high quality, informative, systems
+> > > software documentation is an involved process. And it should be, imo.
+> > > Same goes for describing APIs and algorithms in code comments. Sure,
+> > > automation has its pros, particularly keeping docs up to date; yet this
+> > > does not outweigh a well crafted document, which involves actual though.
+> > 
+> > "thought" I guess?
+> > 
+> > I have to say I agree here.
+> 
+> Surely nobody thinks I was saying that the documentation-writing process
+> can be automated! :)  But we go to some lengths now to document our APIs
+> in the code; I don't think we would want to break that.
+> 
+> > Not to mention the fact that if you are browsing the kernel tree via a web
+> > frontend or LXR, for example, plain text docs are really good to have.
+> 
+> The nice thing about formats like Markdown or ReST is that they *are*
+> plain text for all practical purposes.  Much better than DocBook in that
+> regard.
 
-On Tue, Aug 4, 2015 at 1:56 PM, Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
-> On Tue, Aug 4, 2015 at 1:18 PM, Russell King - ARM Linux
-> <linux@arm.linux.org.uk> wrote:
->> A solution to that would be to drop something like a read-write lock into
->> almost all f_op methods, which sounds expensive to me in the general case.
->
-> srcu is what I considered since it would be least intrusive and shifts
-> the overall all to the write. The problem of course is that if you do
-> that then there will be deadlock gallore - suddenly anything called
-> from f->ops can stall code called from ->remove. And looking at how
-> regularly we have lockdep splat in the driver unload code just in i915
-> that will be really painful.
->
-> But I don't see anything else that would work and which would be
-> semantically different from a reader/writer lock. There's an
-> additional problem that we need to guarantee that everyone completes
-> f->ops in finite time, which is a problem if you have blockings
-> ioctls. And that's a deadlock lockdep won't catch (in general at
-> least). For i915 that won't be a problem since because of the gpu
-> reset all our waiting is done interruptibly and all ioctls can be
-> restarted (userspace has to do it, it's part of the drm abi contract).
-> But even for drivers who can't do that and might deadlock I think a
-> deadlock in ->remove is better than randomly oopsing somewhere later
-> on because some f->ops is accessing freed memory.
-> -Daniel
-> --
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> +41 (0) 79 365 57 48 - http://blog.ffwll.ch
+My problem with inline documentation is that it makes easier for developers to 
+write crappy doc and believe they've done their duty. It's not a technical 
+issue, and I believe inline documentation has merits, especially for API 
+documentation, but I've seen too many kerneldoc comments written as
 
+/**
+ * int do_foo_bar(int foo, bool bar) - Do foo bar
+ * @foo: the foo for bar
+ * @bar: the value of bar
+ *
+ * This function does foo bar.
+ *
+ * Return 0 on success and a negative value on error.
+ */
 
+That's just useless. Worse, it can give the impression to reviewers that the 
+function has been documented while it clearly hasn't. Maybe we just need to 
+tighten the review process and push harder for documentation, at the risk of 
+rejecting useful contributions. That's not a new problem though.
+
+DocBook and kerneldoc documentation serve two very different purpose in my 
+opinion. While kerneldoc mostly aims at documenting internal APIs, DocBook is 
+more of a story telling kind of documentation, suitable for documenting 
+subsystem architectures for instance. This could be moved to inline comments, 
+but at the end of the day I don't think it will make a big difference. The 
+reason why we miss quality "background" documentation today has in my opinion 
+more to do with the fact that we don't require it.
+
+A good (or bad example, depending on how you see it) of this is the DRM/KMS 
+documentation available from Documentation/DocBook/drm.tmpl. I spent a 
+considerable amount of time writing it, it got reviewed, merged in the kernel, 
+and has now been rendered completely useless as the DRM/KMS internal API has 
+evolved and the documentation hasn't been updated despite my repeated 
+requests. That was extremely demotivating, and made me give up documenting 
+DRM/KMS at all.
+
+If we don't start treating documentation as equally valuable as code we will 
+never fix the problem. I'd even argue that documentation should be treated as 
+having more value than code.
+
+One more point, DocBook does a good job at documenting userspace APIs, 
+especially ioctls. See http://linuxtv.org/downloads/v4l-dvb-apis/vidioc-g-fmt.html for instance. Can Markdown or ReST achieve that ?
 
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-+41 (0) 79 365 57 48 - http://blog.ffwll.ch
+Regards,
+
+Laurent Pinchart
