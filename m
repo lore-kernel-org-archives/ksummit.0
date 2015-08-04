@@ -1,35 +1,24 @@
-Return-Path: <linux+ksummit-discuss=lists.linuxfoundation.org@arm.linux.org.uk>
+Return-Path: <delicious.quinoa@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 63FB47AF
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0695B7D6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  4 Aug 2015 19:50:08 +0000 (UTC)
-Received: from pandora.arm.linux.org.uk (pandora.arm.linux.org.uk
-	[78.32.30.218])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 79720206
+	Tue,  4 Aug 2015 20:04:53 +0000 (UTC)
+Received: from mail-wi0-f171.google.com (mail-wi0-f171.google.com
+	[209.85.212.171])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6477A15E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  4 Aug 2015 19:50:04 +0000 (UTC)
-Date: Tue, 4 Aug 2015 20:49:45 +0100
-From: Russell King - ARM Linux <linux@arm.linux.org.uk>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Message-ID: <20150804194945.GS7557@n2100.arm.linux.org.uk>
-References: <2111196.TG1k3f53YQ@avalon>
-	<alpine.DEB.2.10.1507311833280.2499@hadrien>
-	<20150731165346.GA18984@infradead.org> <1624703.qdGzscHWSc@avalon>
-	<alpine.DEB.2.02.1508011319140.2071@localhost6.localdomain6>
-	<20150804125556.GA5180@mwanda>
-	<CAKdAkRTcHXjb+R=AkmzxRgn14FkPEi2B3ePAK2W4_yQnrrNnxQ@mail.gmail.com>
+	Tue,  4 Aug 2015 20:04:52 +0000 (UTC)
+Received: by wicgj17 with SMTP id gj17so165451053wic.1
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 04 Aug 2015 13:04:51 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAKdAkRTcHXjb+R=AkmzxRgn14FkPEi2B3ePAK2W4_yQnrrNnxQ@mail.gmail.com>
-Sender: Russell King - ARM Linux <linux@arm.linux.org.uk>
-Cc: Shuah Khan <shuah.kh@samsung.com>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	Christoph Hellwig <hch@infradead.org>, Tejun Heo <tj@kernel.org>,
-	Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Fix devm_kzalloc, its users,
- or both
+Date: Tue, 4 Aug 2015 15:04:51 -0500
+Message-ID: <CANk1AXSERccYk_bWwPmwSvzHcZSF9kzsWzT5K0C2_NUgsHnzsg@mail.gmail.com>
+From: Alan Tull <delicious.quinoa@gmail.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Content-Type: text/plain; charset=UTF-8
+Subject: [Ksummit-discuss] self nomination: Alan Tull
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,34 +28,9 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Aug 04, 2015 at 10:55:35AM -0700, Dmitry Torokhov wrote:
-> I wonder if it would be possible to note that the current thread is going
-> through probe() or remove() code path in driver core and scream if we
-> encounter devm* call outside of such path. That will give false positives
-> in cases when there is a legitimate mix of automatic and manual resource
-> management (i.e. you rely on automatic cleanup in probe()/remove() but need
-> to free/reallocate object somewhere else), but we can create another call
-> for that.
+Sorry for the late nomination.  I would like to nominate myself for
+FPGA discussion if that happens.
 
-Well, it's not that easy, now that we have the component helper (sorry).
+I've been developing a framework for a loading FPGA images.
 
-The "easy" bit to implement that idea would be to add a flag to struct
-device which indicates whether this device is in an active probe()
-function, and use that in the devm* functions to determine whether
-to warn about incorrect usage.
-
-However, the component helper messes that up slightly, because it allows
-devm usage outside of a device's probe() function, though still in a
-properly controlled manner.  (Resources claimed via devm_* in the bind()
-call will be released in after the corresponding unbind() call.)  This
-is done using the devres groups.
-
-So, maybe instead of "is it inside a probe" a better check should be "is
-the devm* resource claim being done in an active devres group or inside
-a probe".  Not forgetting that a devres group can be removed, merging
-the child resource group with the parent resource group (which are
-probably about the same as for resource claiming using devm_*.)
-
--- 
-FTTC broadband for 0.8mile line: currently at 10.5Mbps down 400kbps up
-according to speedtest.net.
+Alan
