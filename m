@@ -1,27 +1,29 @@
-Return-Path: <laurent.pinchart@ideasonboard.com>
+Return-Path: <daniel.vetter@ffwll.ch>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 904148EB
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id EBE158EE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  4 Aug 2015 14:29:50 +0000 (UTC)
-Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
-	[185.26.127.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 232C01AD
+	Tue,  4 Aug 2015 14:30:53 +0000 (UTC)
+Received: from mail-ob0-f169.google.com (mail-ob0-f169.google.com
+	[209.85.214.169])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 697101DB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  4 Aug 2015 14:29:50 +0000 (UTC)
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 04 Aug 2015 17:30:35 +0300
-Message-ID: <7864111.KEAoCeCYyN@avalon>
-In-Reply-To: <CAMuHMdUK2_7+Y9+ffpJKTy8LcwogFcg+XAGrif0YcTT4C4u-wQ@mail.gmail.com>
-References: <20150801164142.653012af@lwn.net> <20150804135044.GB5180@mwanda>
-	<CAMuHMdUK2_7+Y9+ffpJKTy8LcwogFcg+XAGrif0YcTT4C4u-wQ@mail.gmail.com>
+	Tue,  4 Aug 2015 14:30:53 +0000 (UTC)
+Received: by obnw1 with SMTP id w1so8266343obn.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 04 Aug 2015 07:30:52 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
+In-Reply-To: <4555213.bCW3TZxWso@avalon>
+References: <20150801164142.653012af@lwn.net> <6756795.jjv2YY7pQg@avalon>
+	<CAKMK7uHgy5OO5QJRCRhWT2DRs+aoB5S=1Y_4_n7ODak8Qp5sMQ@mail.gmail.com>
+	<4555213.bCW3TZxWso@avalon>
+Date: Tue, 4 Aug 2015 16:30:52 +0200
+Message-ID: <CAKMK7uGuNDGZr3H33+munD5LXLiTt-pzzYOrUc2WHR=N3F_LZg@mail.gmail.com>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8
 Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Dan Carpenter <dan.carpenter@oracle.com>
+	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] Documentation
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -32,24 +34,37 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tuesday 04 August 2015 16:05:16 Geert Uytterhoeven wrote:
-> On Tue, Aug 4, 2015 at 3:50 PM, Dan Carpenter wrote:
-> > I have all the tools to read it.  I remember this because it requires
-> > 700MB of dependencies.  I was downloading it to read the kdbus
-> > documentation.  I remember this.  I don't think I read the kdbus
-> > documentation in the end.  I certainly don't know, without googling, how
-> > to use build the docbook output.
-> 
-> I gave up trying to build the docbook docs many years ago.
-> 
-> Cross-compiling kernels for niche architectures is peanuts compared to
-> generating docbook output ;-(
+On Tue, Aug 4, 2015 at 4:28 PM, Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+>> > A good (or bad example, depending on how you see it) of this is the
+>> > DRM/KMS documentation available from Documentation/DocBook/drm.tmpl. I
+>> > spent a considerable amount of time writing it, it got reviewed, merged in
+>> > the kernel, and has now been rendered completely useless as the DRM/KMS
+>> > internal API has evolved and the documentation hasn't been updated
+>> > despite my repeated requests. That was extremely demotivating, and made
+>> > me give up documenting DRM/KMS at all.
+>>
+>> drm having gone downhill is why I want to pull it out of the template
+>> into code. E.g. we have extensive docs for vtables, but since they're
+>> not next to the vtables in the code no one updates those. And
+>> duplicating a summary in kerneldoc and then the extended version in
+>> the docbook is even worse imo.
+>
+> The problem is two-fold. Extensive vtables documentation is definitely good,
+> but it mostly serves as API reference documentation. I believe we also need a
+> guide type of documentation that goes through the bits and pieces drivers need
+> in a logical order. That should of course be linked to the vtables reference
+> documentation, but it should be a natural text flow type of documentation that
+> driver developers can read from start to end, guiding them in the process of
+> writing a DRM/KMS driver.
 
-That's interesting, I haven't had trouble compiling the DocBook documentation 
-to HTML for several years now (I do it every time I have to patch the V4L2 or 
-DRM documentation). Compiling to PDF is another story though.
-
+Oh the vtables is just the blocker why I didn't start this yet - I
+really don't like the current duplication we have. Fully agreed that
+we need overview docs to tie it all together and explain how it works.
+With markdown we can even do inline code snippets, which should help a
+lot with explaining how to use certain helper libraries.
+-Daniel
 -- 
-Regards,
-
-Laurent Pinchart
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
