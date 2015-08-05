@@ -1,39 +1,34 @@
-Return-Path: <sameo@linux.intel.com>
+Return-Path: <daniel.vetter@ffwll.ch>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 71FFC884
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id AB6DE899
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Aug 2015 09:12:00 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id F16FE130
+	Wed,  5 Aug 2015 09:41:21 +0000 (UTC)
+Received: from mail-oi0-f44.google.com (mail-oi0-f44.google.com
+	[209.85.218.44])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 99EF289
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Aug 2015 09:11:59 +0000 (UTC)
-Date: Wed, 5 Aug 2015 11:11:56 +0200
-From: Samuel Ortiz <sameo@linux.intel.com>
-To: Linus Walleij <linus.walleij@linaro.org>
-Message-ID: <20150805091156.GB27438@zurbaran.home>
-References: <20150723084251.54da2be0@gandalf.local.home>
-	<20150723154014.GD11162@sirena.org.uk>
-	<55B7FD82.8010806@sonymobile.com>
-	<20150728230743.GO4753@usrtlx11787.corpusers.net>
-	<CAL_JsqJ0j2wPwVYj3PX0UYiAXeZ-vm8KGX-W_-Dk3Gu1PVQrQw@mail.gmail.com>
-	<CACRpkda0u4tWKfXTa0OEV7nFuXWjpDBt222iTBbEhnqLZptJXw@mail.gmail.com>
-	<CAL_JsqLBPdiCgcE0CDesZXWQtthPJbZ8ryvcPmr6CaxWjMPFyA@mail.gmail.com>
-	<F3A6AFDE-1DFA-4DC7-AD26-DC02260C0979@holtmann.org>
-	<CACRpkda=Pr3+2kGfH0Kc4eNw5yMOFHbbeyEJbeLApa-YzCsxsw@mail.gmail.com>
-	<CACRpkdacTo8hKt4E1KZDBQ3oyXzV1mPXT-H34Exs=ZWKtZdAqA@mail.gmail.com>
+	Wed,  5 Aug 2015 09:41:20 +0000 (UTC)
+Received: by oio137 with SMTP id 137so15971121oio.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 05 Aug 2015 02:41:20 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CACRpkdacTo8hKt4E1KZDBQ3oyXzV1mPXT-H34Exs=ZWKtZdAqA@mail.gmail.com>
-Cc: Bjorn Andersson <bjorn.andersson@sonymobile.com>,
+In-Reply-To: <2029259.vVEoQEYbUz@avalon>
+References: <2111196.TG1k3f53YQ@avalon>
+	<20150804111804.GO7557@n2100.arm.linux.org.uk>
+	<CAKMK7uHuzcv8M=Zd3Rk1kcvaGFj12FiXi_H+CjhpP4MAYRCtgw@mail.gmail.com>
+	<2029259.vVEoQEYbUz@avalon>
+Date: Wed, 5 Aug 2015 11:41:19 +0200
+Message-ID: <CAKMK7uHxH-dYVHsuvxK6-CxHm-1cBsLWRvfH+92Ds8rDucKR9w@mail.gmail.com>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8
+Cc: Tejun Heo <tj@kernel.org>, Shuah Khan <shuah.kh@samsung.com>,
+	Russell King - ARM Linux <linux@arm.linux.org.uk>,
 	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	"riverful.kim@samsung.com" <riverful.kim@samsung.com>,
-	"kyungmin.park@samsung.com" <kyungmin.park@samsung.com>,
-	John Stultz <john.stultz@linaro.org>, Pavel Machek <pavel@ucw.cz>,
-	Greg KH <gregkh@linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Mainline kernel on a cellphone
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Fix devm_kzalloc, its users,
+	or both
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -43,38 +38,67 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Aug 05, 2015 at 10:46:19AM +0200, Linus Walleij wrote:
-> On Wed, Aug 5, 2015 at 10:40 AM, Linus Walleij <linus.walleij@linaro.org> wrote:
-> > On Tue, Aug 4, 2015 at 12:36 AM, Marcel Holtmann <marcel@holtmann.org> wrote:
-> (...)
-> >> In a perfect world I would prefer we are not using the Bluetooth HCI line discipline
-> >> at all. The problem right now is that everybody wants to enable the UART as
-> >> /dev/ttyFOO and then move on. However in reality they are not general purpose
-> >> TTY devices. The only thing you can ever do with them is tell the Bluetooth
-> >> subsystem that there is a TTY device and attach its line discipline to it.
-> >
-> > This is done from userspace right? I never managed to wrap my head around
-> > this because it seemed so odd and plainly hackish.
-> >
-> > In this ST-Ericsson driver for CG2900:
-> > http://marc.info/?l=linux-kernel&m=134873373526049&w=2
-> > the HCI link is used to tunnel things that are not Bluetooth, also
-> > GPS and FM radio is controlled over HCI. Yeah sorry, I didn't invent
-> > it... the HCI is then run over a UART.
-> 
-> Damned I snapped off the latter part of your message. Typing and
-> mailing to quickly. This was obviously in response to:
-> 
-> >> Or and did I mention that some manufactures actually put FM radio and GPS
-> >> controls behind the Bluetooth chip. So access to these slave devices goes
-> >> via the Bluetooth HCI. This means that you have this fun dependency:
-> >>
-> >> FM radio -> Bluetooth HCI -> UART -> UART slave
-> 
-> So what I wanted to ask is who else is doing this apart from
-> CG2900/STLC2690? Is it a common pattern?
-Unfortunately it seems to be a common pattern. TI combos used to do
-that at well.
+On Wed, Aug 5, 2015 at 12:44 AM, Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+> On Tuesday 04 August 2015 13:56:38 Daniel Vetter wrote:
+>> On Tue, Aug 4, 2015 at 1:18 PM, Russell King - ARM Linux wrote:
+>> > A solution to that would be to drop something like a read-write lock into
+>> > almost all f_op methods, which sounds expensive to me in the general case.
+>>
+>> srcu is what I considered since it would be least intrusive and shifts
+>> the overall all to the write. The problem of course is that if you do
+>> that then there will be deadlock gallore - suddenly anything called
+>> from f->ops can stall code called from ->remove. And looking at how
+>> regularly we have lockdep splat in the driver unload code just in i915
+>> that will be really painful.
+>>
+>> But I don't see anything else that would work and which would be
+>> semantically different from a reader/writer lock. There's an
+>> additional problem that we need to guarantee that everyone completes
+>> f->ops in finite time, which is a problem if you have blockings
+>> ioctls. And that's a deadlock lockdep won't catch (in general at
+>> least). For i915 that won't be a problem since because of the gpu
+>> reset all our waiting is done interruptibly and all ioctls can be
+>> restarted (userspace has to do it, it's part of the drm abi contract).
+>> But even for drivers who can't do that and might deadlock I think a
+>> deadlock in ->remove is better than randomly oopsing somewhere later
+>> on because some f->ops is accessing freed memory.
+>
+> This seems subsystem-dependent. Looking at V4L2 for instance, we do have
+> blocking ioctls, but drivers are expected to cancel all pending operations in
+> the remove() handler, which will have the effect of waking up the waiters. It
+> should thus be possible for a V4L2 driver to ensure in its remove() handler
+> that
+>
+> 1. no new file operation can be called
+> 2. all blocking file operations are woken up
+>
+> There's however no current provision for ensuring that a non-blocking file
+> operation completes before returning from the remove() handler.
 
-Cheers,
-Samuel.
+Yeah what I meant to say is that revoke won't be a silver bullet, it
+still needs some work from the driver to avoid deadlocks. But like I
+said I think a deadlock is already an improvement over randomly
+crashing, which is what we usually do today.
+
+> A revoke semantics for file operations is tempting, but it might open a big
+> can of worms. I wonder whether it wouldn't be possible to implement proper
+> life time management in a simpler way that we do today without going for full
+> synchronous revoke in remove().
+
+The problem is that the device is gone, so somewhere you need to catch
+calls and reject them. And besides trying to do it at the
+kernel/userspace level with revoke we could do filters at the
+subsystem level (drm tries to do something like that with the unplug
+stuff) or even at the device level. Some of this might require big
+reworks all over but I think it should all work.
+
+The problem is that the deeper down in the stack we reject stuff for
+unplugged devices the more risk there is that we blow up in some
+untested error handling code. And not blowing up on unplug is the goal
+and that's why I like to reject ops at the top with a generic revoke.
+-Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
