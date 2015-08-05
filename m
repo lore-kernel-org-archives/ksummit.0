@@ -1,26 +1,26 @@
 Return-Path: <mtk.manpages@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id F120686
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 472F37AA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Aug 2015 17:07:47 +0000 (UTC)
-Received: from mail-wi0-f174.google.com (mail-wi0-f174.google.com
-	[209.85.212.174])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 32D781CE
+	Wed,  5 Aug 2015 17:08:10 +0000 (UTC)
+Received: from mail-wi0-f172.google.com (mail-wi0-f172.google.com
+	[209.85.212.172])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 143CF166
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Aug 2015 17:07:47 +0000 (UTC)
-Received: by wicne3 with SMTP id ne3so13134333wic.1
+	Wed,  5 Aug 2015 17:08:09 +0000 (UTC)
+Received: by wicgj17 with SMTP id gj17so201147750wic.1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 05 Aug 2015 10:07:46 -0700 (PDT)
-Message-ID: <55C242DD.6020304@gmail.com>
-Date: Wed, 05 Aug 2015 19:07:41 +0200
+	Wed, 05 Aug 2015 10:08:07 -0700 (PDT)
+Message-ID: <55C242F4.7090005@gmail.com>
+Date: Wed, 05 Aug 2015 19:08:04 +0200
 From: "Michael Kerrisk (man-pages)" <mtk.manpages@gmail.com>
 MIME-Version: 1.0
-To: Mark Brown <broonie@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-References: <20150801164142.653012af@lwn.net>	<1893963.CjFnBCekyb@vostro.rjw.lan>	<20150803083311.5abd23f6@lwn.net>
-	<6756795.jjv2YY7pQg@avalon> <20150804153559.GO20873@sirena.org.uk>
-In-Reply-To: <20150804153559.GO20873@sirena.org.uk>
+To: Peter Huewe <peterhuewe@gmx.de>, Marcel Holtmann <marcel@holtmann.org>,
+	Michael Ellerman <mpe@ellerman.id.au>
+References: <20150801164142.653012af@lwn.net>	<1438672367.9418.3.camel@ellerman.id.au>	<9B190076-263A-4C51-AFA4-A1D7FD403BC3@holtmann.org>
+	<BC939929-C5D1-4239-A9B8-E9D49CD4E04E@gmx.de>
+In-Reply-To: <BC939929-C5D1-4239-A9B8-E9D49CD4E04E@gmx.de>
 Content-Type: text/plain; charset=windows-1252
 Content-Transfer-Encoding: 7bit
 Cc: ksummit-discuss@lists.linuxfoundation.org
@@ -34,59 +34,55 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 08/04/2015 05:35 PM, Mark Brown wrote:
-> On Tue, Aug 04, 2015 at 03:50:33PM +0300, Laurent Pinchart wrote:
->> On Monday 03 August 2015 08:33:11 Jonathan Corbet wrote:
+On 08/04/2015 10:33 AM, Peter Huewe wrote:
+> Hi
 > 
->>> The nice thing about formats like Markdown or ReST is that they *are*
->>> plain text for all practical purposes.  Much better than DocBook in that
->>> regard.
+> Am 4. August 2015 09:42:55 MESZ, schrieb Marcel Holtmann <marcel@holtmann.org>:
+>> Hi Michael,
+>>
+>>>> Markdown in one of its many forms might be a good alternative here. 
+>> I'm
+>>>> also somewhat attracted by Sphinx, which is designed for documenting
+>> code
+>>>> already and could probably be made to work well with our existing
+>> kerneldoc
+>>>> comments without a whole lot of trouble.  The Sphinx idea, though,
+>> is
+>>>> hobbled by the inconvenient fact that I've not had the time to
+>> develop it
+>>>> far enough to even have a vague idea of whether it would make
+>> real-world
+>>>> sense.
+>>>
+>>> I'd vote for Markdown. It's very unobtrusive, reads nicely as plain
+>> text, and
+>>> all the young kids know it from writing Github README.md files.
+>>
+>> actually AsciiDoc might be something to look into as well.
+>>
+> I'm also in for AsciiDoc, as it also allows easy generation of Pdfs
+> and html files, with chapters and all that fancy stuff.
 > 
->> My problem with inline documentation is that it makes easier for developers to 
->> write crappy doc and believe they've done their duty. It's not a technical 
->> issue, and I believe inline documentation has merits, especially for API 
->> documentation, but I've seen too many kerneldoc comments written as
-> 
-> That's not really anything to do with the fact that the documentation is
-> inline, it's more to do with documentation that people are forced to
-> write without any obvious interest being shown in the results.  Anything
-> else that's done as a pure checkbox effort will have similar effects.
-> 
->> That's just useless. Worse, it can give the impression to reviewers that the 
->> function has been documented while it clearly hasn't. Maybe we just need to 
->> tighten the review process and push harder for documentation, at the risk of 
->> rejecting useful contributions. That's not a new problem though.
-> 
-> I'm not sure that more requirements for documentation will help that
-> much, there's a definite skill in writing and review documentation which
-> isn't all that common.  Insisting on people writing more without doing
-> something to address that may just result in more bad documentation, but
-> of course it's a really hard problem to address :(
+> (Probably the reason why docbook was chosen back then, compared to
+> the plaintext files)
 
-While it's clear that, like skill at coding, skill at documentation
-is wildly variable, almost everyone gets better at it with practice! Like
-most problems, the problem would be more tractable if people were paid to
-work on this. For a short while, there was an LF documentation fellowship
-that had a goal to help things here. It had variable success. For a some
-months it supported me (as the second holder of the fellowship) to work
-full time on man pages, but there was so much man pages work, that kernel
-docs didn't get too much of a look in. And then a few months later
-(2008 crash), the funds went away. I raised the topic of reanimating
-that fellowship a couple of times subsequently, but nothing came of it. 
-That was however quite a few years ago. Given recent initiatives
-from LF (such as the Critical Infrastructure Initiative), I wonder
-whether it's worth someone checking in with LF about the possibility
-of getting this going again. One thing I'd caution against though is
-the idea that someone can just be paid to write kernel documentation.
-Many parts of the kernel require significant time just to grok what's
-going on, let alone document it. A much more efficient route to 
-producing good documentation would I think be to have someone
-with solid writing skills (as well as coding skills) support others
-(i.e., subsystem developers and maintainers) to produce documentation,
-by providing writing assistance, technical review, editing, and so on.
+>From a man-pages point of view, the discussion of tooling is interesting.
+For some years now I've contemplated a switch from groff's man macros,
+since some people do not like to work with them (although the basics are
+pretty simple, IMO). If there was a concerted movement to Asciidoc or
+Markdown for kernel docs, I'd be willing to invest some effort in the
+feasibility of switching man-pages to the same format. I'm not
+knowledgeable in either of those tools, but at a first glance,
+Asciidoc seems more interesting, since it seems to embrace a wider
+variety of output formats, in particular, PDF and Linux man-page
+macros (and also TeX). It doesn't appear that Markdown can do that.
+I know even less about Sphinx, although its output capabilities,
+as described at http://sphinx-doc.org/index.html , seem interesting also.
+
 Cheers,
 
 Michael
+
 
 -- 
 Michael Kerrisk
