@@ -1,15 +1,15 @@
-Return-Path: <broonie@sirena.org.uk>
-Date: Thu, 6 Aug 2015 12:32:30 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Mauro Carvalho Chehab <mchehab@osg.samsung.com>
-Message-ID: <20150806113230.GV20873@sirena.org.uk>
+Return-Path: <jic23@jic23.retrosnub.co.uk>
+In-Reply-To: <20150806062029.55f0c2f2@recife.lan>
 References: <20150806062029.55f0c2f2@recife.lan>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="MNMI2Np+RrwPQFbK"
-Content-Disposition: inline
-In-Reply-To: <20150806062029.55f0c2f2@recife.lan>
-Cc: Ksummit-discuss@lists.linuxfoundation.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+ charset=UTF-8
+From: Jonathan Cameron <jic23@jic23.retrosnub.co.uk>
+Date: Thu, 06 Aug 2015 13:42:17 +0100
+To: Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
+	Ksummit-discuss@lists.linuxfoundation.org
+Message-ID: <F516739C-4E0D-4842-873A-181E03D4C25E@jic23.retrosnub.co.uk>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Media Controller
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -21,34 +21,90 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---MNMI2Np+RrwPQFbK
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Thu, Aug 06, 2015 at 06:20:29AM -0300, Mauro Carvalho Chehab wrote:
+On 6 August 2015 10:20:29 BST, Mauro Carvalho Chehab <mchehab@osg.samsung.com> wrote:
+>Along the years, we've been developing a mechanism at the Kernel to
+>store
+>and present graphs to userspace, called Media Controller. The original
+>scope of the Media Controller were to store and represent pipeline
+>connections
+>between hardware components on complex streaming devices, like the ones
+>that are used on cell phones, where there are typically two camera
+>sensors,
+>and lots of processing units to enhance the image and to convert it
+>into
+>different formats.
+>
+>Since the beginning, we found that it would be useful to use it some
+>day
+>on other subsystems. Well, now such day has come ;)
+>
+>Driven by the need of using the media controller on TV sets, where the
+>pipelines can be really complex and may cover more than one subsystem,
+>we're reworking at both the core implementation and at the userspace
+>API
+>to allow it to be used where needed.
+>
+>On a TV set, the streaming data pipeline covers camera sensors, analog
+>TV,
+>digital TV, crypto/decrypto modules, audio and GPU. Also, TVs have
+>network
+>interfaces that may be provided via DVB (like CATV). If we want/need to
+>
+>represent and control the full pipeline, the media controller has to
+>have
+>support on different subsystems: V4L2, DVB, ALSA, DRM and Network. It
+>also
+>needs a way to share a common struct between those subsystems without
+>making
+>them depend on each other. So, it should use devres.
+>
+>Also, on the MC summit, it was pointed that other subsystems like IIO
+>(Linux Industrial I/O) have similar needs and also need to track
+>complex
+>pipelines.
 
-> For this discussion, I nominate myself and Laurent Pinchart, Hans Verkuil,
-> Sakari Ailus, Shuah Khan and Lars-Peter Clausen.
+Not yet as complex as some of your media cases though I wouldn't be
+ surprised if Lars has stuff for this underway!
 
-I'm interested in this as well, as you know it's something that's been
-discussed for years with ASoC though there's not been much active work
-(but Lars has said he's working on it at the minute so perhaps we'll see
-something soon).
+I need to catch up with your framework as I lost track a while back. Lars-Peter
+ Clausen is probably the best person to be present for the IIO elements of this (on top of other roles in this discussion!)
 
---MNMI2Np+RrwPQFbK
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
+Thankfully most of the sensor hub stuff is probably still where media devices were a while back in that the inputs are hardwired to the DSP elements and
+ mostly hidden from the host processor.
+Of course there are probably more complex topologies already out there
+ somewhere!
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
+Jonathan
+>
+>When we have such complex pipelines that interact with different
+>subsystems,
+>we need to better describe the interfaces between userspace and the
+>pipeline. In the past, we only needed to represent device nodes, but
+>now
+>we'll need to be capable of representing network interfaces and sysfs.
+>
+>We also need to allow dynamic changes in terms of removing and adding
+>objects at the graph.
+>
+>Due to that, we're redesigning the MC core, making it more generic and
+>more capable of representing complex devices. So, we'd like to discuss
+>it with the KS audience, in order to check if there are other use cases
+>for it, and if the solution we're designing would require more changes
+>to fit such other use cases.
+>
+>For this discussion, I nominate myself and Laurent Pinchart, Hans
+>Verkuil,
+>Sakari Ailus, Shuah Khan and Lars-Peter Clausen.
+>
+>PS.: I know we're a week late, but we've been busy this month with the
+>discussions, including a Media Controller 3-days summit in Helsinki
+>last
+>week.
+>_______________________________________________
+>Ksummit-discuss mailing list
+>Ksummit-discuss@lists.linuxfoundation.org
+>https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
 
-iQEcBAEBCAAGBQJVw0XNAAoJECTWi3JdVIfQObgH/1xDy4TKovzi382tgaP9lxN5
-DMZEP1Go3TSrimtyQVO3qROLRFqBWHMyVTm8qIfgRD8S2cMYnWb6w/whAAEuiuBg
-UaJrPVUIl4iOS42bzWDmGr/dvUvqNk2fG1VI5rJgnssF3d8oMECATxM28lWu1KG7
-QQqFfzVvoiSQBIPNWnv8HN4tFV+tNIW8MUZxlF0s14XbogslxVXjeiBhTETQ01cx
-j6/ZUbzpYxHOYCPnLuaG61QPKp29K5FeTn5uMlTxAByPRlNkCtfRvQzeESCtIsVD
-sJBKjQc+cwpe5wysgti02/1d4bSxo2aYAqhDFxWMoak6oTcb2/hTclBMcxmDRXA=
-=w6x3
------END PGP SIGNATURE-----
-
---MNMI2Np+RrwPQFbK--
+-- 
+Sent from my Android device with K-9 Mail. Please excuse my brevity.
