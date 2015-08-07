@@ -1,38 +1,18 @@
-Return-Path: <luto@amacapital.net>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 52C1697
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Aug 2015 01:16:23 +0000 (UTC)
-Received: from mail-oi0-f47.google.com (mail-oi0-f47.google.com
-	[209.85.218.47])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 09B5A15D
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Aug 2015 01:16:21 +0000 (UTC)
-Received: by oip136 with SMTP id 136so1468113oip.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Aug 2015 18:16:21 -0700 (PDT)
+Return-Path: <lars@metafoo.de>
+Message-ID: <55C462BB.9070602@metafoo.de>
+Date: Fri, 07 Aug 2015 09:48:11 +0200
+From: Lars-Peter Clausen <lars@metafoo.de>
 MIME-Version: 1.0
-In-Reply-To: <20150812005117.GJ3895@linux.vnet.ibm.com>
-References: <CALCETrW7OiEYFm9FLbC_pnRLMvwb0nTKRWRDMXB3PMc_0H+UoA@mail.gmail.com>
-	<20150811183312.GE3895@linux.vnet.ibm.com>
-	<CALCETrW6GHgTBw5nU9pKoXcGUCBg8jUBFeUEcFBPCYqhgLJdyg@mail.gmail.com>
-	<20150811214729.GH3895@linux.vnet.ibm.com>
-	<CALCETrXVmggCgaS+3mADXQgvXy-5fmU=P7KQpAQK0N9J7h5EPw@mail.gmail.com>
-	<20150812005117.GJ3895@linux.vnet.ibm.com>
-From: Andy Lutomirski <luto@amacapital.net>
-Date: Tue, 11 Aug 2015 18:16:01 -0700
-Message-ID: <CALCETrVn1ZcrPKr_1bbp1X08sJQN-NLzi3cXm-TYo8+ZBKmd7Q@mail.gmail.com>
-To: Paul McKenney <paulmck@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Ingo Molnar <mingo@kernel.org>, Chris Metcalf <cmetcalf@ezchip.com>,
-	Christoph Lameter <cl@linux.com>
-Subject: Re: [Ksummit-discuss] [BELATED CORE TOPIC] context tracking / nohz
-	/ RCU state
+To: Jonathan Cameron <jic23@jic23.retrosnub.co.uk>,
+	Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
+	Ksummit-discuss@lists.linuxfoundation.org
+References: <20150806062029.55f0c2f2@recife.lan>
+	<F516739C-4E0D-4842-873A-181E03D4C25E@jic23.retrosnub.co.uk>
+	<D734F165-79F5-4A3A-89DD-3C03637CD09C@jic23.retrosnub.co.uk>
+In-Reply-To: <D734F165-79F5-4A3A-89DD-3C03637CD09C@jic23.retrosnub.co.uk>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Media Controller
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -42,65 +22,66 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Aug 11, 2015 at 5:51 PM, Paul E. McKenney
-<paulmck@linux.vnet.ibm.com> wrote:
-> On Tue, Aug 11, 2015 at 02:52:59PM -0700, Andy Lutomirski wrote:
->> On Tue, Aug 11, 2015 at 2:47 PM, Paul E. McKenney
->> <paulmck@linux.vnet.ibm.com> wrote:
->> > On Tue, Aug 11, 2015 at 12:07:54PM -0700, Andy Lutomirski wrote:
->> >> On Tue, Aug 11, 2015 at 11:33 AM, Paul E. McKenney
->> >> <paulmck@linux.vnet.ibm.com> wrote:
->> >> > On Tue, Aug 11, 2015 at 10:49:36AM -0700, Andy Lutomirski wrote:
->> >> >> This is a bit late, but here goes anyway.
->> >> >>
->> >> >> Having played with the x86 context tracking hooks for awhile, I think
->> >> >> it would be nice if core code that needs to be aware of CPU context
->> >> >> (kernel, user, idle, guest, etc) could come up with single,
->> >> >> comprehensible, easily validated set of hooks that arch code is
->> >> >> supposed to call.
->> >> >>
->> >> >> Currently we have:
->> >> >>
->> >> >>  - RCU hooks, which come in a wide variety to notify about IRQs, NMIs, etc.
->> >> >
->> >> > Something about people yelling at me for waking up idle CPUs, thus
->> >> > degrading their battery lifetimes.  ;-)
->> >> >
->> >> >>  - Context tracking hooks.  Only used by some arches.  Calling these
->> >> >> calls the RCU hooks for you in most cases.  They have weird
->> >> >> interactions with interrupts and they're slow.
->> >> >
->> >> > Combining these would be good, but there are subtleties.  For example,
->> >> > some arches don't have context tracking, but RCU still needs to correctly
->> >> > identify idle CPUs without in any way interrupting or awakening that CPU.
->> >> > It would be good to make this faster, but it does have to work.
->> >>
->> >> Could we maybe have one set of old RCU-only (no context tracking)
->> >> callbacks and a completely separate set of callbacks for arches that
->> >> support full context tracking?  The implementation of the latter would
->> >> presumably call into RCU.
->> >
->> > It should be possible for RCU to use context tracking if it is available
->> > and to have RCU maintain its own state otherwise, if that is what you
->> > are getting at.  Assuming that the decision is global and made at either
->> > build or boot time, anyway.  Having some CPUs tracking context and others
->> > not sounds like an invitation for subtle bugs.
+On 08/07/2015 09:21 AM, Jonathan Cameron wrote:
+> 
+> 
+> On 6 August 2015 13:42:17 BST, Jonathan Cameron <jic23@jic23.retrosnub.co.uk> wrote:
 >>
->> I think that, if this happens, the decision should be made at build
->> time, per arch, and not be configurable.  If x86_64 uses context
->> tracking, then I think x86_64 shouldn't need additional RCU callbacks,
->> assuming that context tracking is comprehensive enough for RCU's
->> purposes.
->
-> If by "shouldn't need additional RCU callbacks" you mean that x86_64
-> shouldn't need to call the existing rcu_user_enter() and rcu_user_exit()
-> functions, I agree.  Ditto for rcu_irq_enter(), rcu_irq_exit(),
-> rcu_nmi_enter(), rcu_nmi_exit(), I would guess.  But would be necessary
-> to invoke rcu_idle_enter() and rcu_idle_exit(), especially for
-> CONFIG_NO_HZ_FULL_SYSIDLE=y kernels.
+>>
+>> On 6 August 2015 10:20:29 BST, Mauro Carvalho Chehab
+>> <mchehab@osg.samsung.com> wrote:
+>>> Along the years, we've been developing a mechanism at the Kernel to
+>>> store
+>>> and present graphs to userspace, called Media Controller. The original
+>>> scope of the Media Controller were to store and represent pipeline
+>>> connections
+>>> between hardware components on complex streaming devices, like the
+>> ones
+>>> that are used on cell phones, where there are typically two camera
+>>> sensors,
+>>> and lots of processing units to enhance the image and to convert it
+>>> into
+>>> different formats.
+>>>
+>>> Since the beginning, we found that it would be useful to use it some
+>>> day
+>>> on other subsystems. Well, now such day has come ;)
+>>>
+>>> Driven by the need of using the media controller on TV sets, where the
+>>> pipelines can be really complex and may cover more than one subsystem,
+>>> we're reworking at both the core implementation and at the userspace
+>>> API
+>>> to allow it to be used where needed.
+>>>
+>>> On a TV set, the streaming data pipeline covers camera sensors, analog
+>>> TV,
+>>> digital TV, crypto/decrypto modules, audio and GPU. Also, TVs have
+>>> network
+>>> interfaces that may be provided via DVB (like CATV). If we want/need
+>> to
+>>>
+>>> represent and control the full pipeline, the media controller has to
+>>> have
+>>> support on different subsystems: V4L2, DVB, ALSA, DRM and Network. It
+>>> also
+>>> needs a way to share a common struct between those subsystems without
+>>> making
+>>> them depend on each other. So, it should use devres.
+>>>
+>>> Also, on the MC summit, it was pointed that other subsystems like IIO
+>>> (Linux Industrial I/O) have similar needs and also need to track
+>>> complex
+>>> pipelines.
+>>
+>> Not yet as complex as some of your media cases though I wouldn't be
+>> surprised if Lars has stuff for this underway!
 
-Except that something wants vtime for idle, too, so maybe just
-kernel_to_idle().  On the other hand, the idle loop is already fully
-stocked with vtime stuff.
+This[1] is the quick presentation I gave the media controller workshop, it
+has a few examples of complex pipelines. Most of the driver support is work
+in progress, but it shows why we need a method of describing the data flow
+topology. So the goal is to have the MC integration ready when the drivers
+get merged.
 
---Andy
+- Lars
+
+[1] http://metafoo.de/iio_media_controller.pdf
