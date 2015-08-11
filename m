@@ -1,41 +1,50 @@
-Return-Path: <khilman@kernel.org>
+Return-Path: <paulmck@linux.vnet.ibm.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A929888B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 08F5D7F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Aug 2015 21:32:22 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.136])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 6D477128
+	Tue, 11 Aug 2015 21:47:35 +0000 (UTC)
+Received: from e32.co.us.ibm.com (e32.co.us.ibm.com [32.97.110.150])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 79F78109
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Aug 2015 21:32:22 +0000 (UTC)
-Received: from mail.kernel.org (localhost [127.0.0.1])
-	by mail.kernel.org (Postfix) with ESMTP id D6EFF206BD
+	Tue, 11 Aug 2015 21:47:34 +0000 (UTC)
+Received: from /spool/local
+	by e32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+	Violators will be prosecuted
+	for <ksummit-discuss@lists.linuxfoundation.org> from
+	<paulmck@linux.vnet.ibm.com>; Tue, 11 Aug 2015 15:47:33 -0600
+Received: from b03cxnp08025.gho.boulder.ibm.com
+	(b03cxnp08025.gho.boulder.ibm.com [9.17.130.17])
+	by d03dlp02.boulder.ibm.com (Postfix) with ESMTP id 3D9613E40044
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Aug 2015 21:32:21 +0000 (UTC)
-Received: from mail-wi0-f177.google.com (mail-wi0-f177.google.com
-	[209.85.212.177])
-	(using TLSv1.2 with cipher AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 2CB73206B7
+	Tue, 11 Aug 2015 15:47:32 -0600 (MDT)
+Received: from d03av04.boulder.ibm.com (d03av04.boulder.ibm.com [9.17.195.170])
+	by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with
+	ESMTP id t7BLkabH55902286
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Aug 2015 21:32:18 +0000 (UTC)
-Received: by wibhh20 with SMTP id hh20so1837843wib.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Aug 2015 14:32:16 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <CALCETrW7OiEYFm9FLbC_pnRLMvwb0nTKRWRDMXB3PMc_0H+UoA@mail.gmail.com>
-References: <CALCETrW7OiEYFm9FLbC_pnRLMvwb0nTKRWRDMXB3PMc_0H+UoA@mail.gmail.com>
-Date: Tue, 11 Aug 2015 14:32:16 -0700
-Message-ID: <CAMAWPa9c6kBdJC3n5q=fCD6gEPhGgFCqN_7TS-_-WLjo5_seRA@mail.gmail.com>
-From: Kevin Hilman <khilman@kernel.org>
+	Tue, 11 Aug 2015 14:46:36 -0700
+Received: from d03av04.boulder.ibm.com (loopback [127.0.0.1])
+	by d03av04.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP
+	id t7BLlU0I002561 for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 11 Aug 2015 15:47:32 -0600
+Date: Tue, 11 Aug 2015 14:47:29 -0700
+From: "Paul E. McKenney" <paulmck@linux.vnet.ibm.com>
 To: Andy Lutomirski <luto@amacapital.net>
-Content-Type: text/plain; charset=UTF-8
+Message-ID: <20150811214729.GH3895@linux.vnet.ibm.com>
+Reply-To: paulmck@linux.vnet.ibm.com
+References: <CALCETrW7OiEYFm9FLbC_pnRLMvwb0nTKRWRDMXB3PMc_0H+UoA@mail.gmail.com>
+	<20150811183312.GE3895@linux.vnet.ibm.com>
+	<CALCETrW6GHgTBw5nU9pKoXcGUCBg8jUBFeUEcFBPCYqhgLJdyg@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CALCETrW6GHgTBw5nU9pKoXcGUCBg8jUBFeUEcFBPCYqhgLJdyg@mail.gmail.com>
 Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
 	Peter Zijlstra <peterz@infradead.org>,
 	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Chris Metcalf <cmetcalf@ezchip.com>,
-	Christoph Lameter <cl@linux.com>, Ingo Molnar <mingo@kernel.org>
+	Ingo Molnar <mingo@kernel.org>, Chris Metcalf <cmetcalf@ezchip.com>,
+	Christoph Lameter <cl@linux.com>
 Subject: Re: [Ksummit-discuss] [BELATED CORE TOPIC] context tracking / nohz
 	/ RCU state
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -47,16 +56,102 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Aug 11, 2015 at 10:49 AM, Andy Lutomirski <luto@amacapital.net> wrote:
-> This is a bit late, but here goes anyway.
->
-> Having played with the x86 context tracking hooks for awhile, I think
-> it would be nice if core code that needs to be aware of CPU context
-> (kernel, user, idle, guest, etc) could come up with single,
-> comprehensible, easily validated set of hooks that arch code is
-> supposed to call.
+On Tue, Aug 11, 2015 at 12:07:54PM -0700, Andy Lutomirski wrote:
+> On Tue, Aug 11, 2015 at 11:33 AM, Paul E. McKenney
+> <paulmck@linux.vnet.ibm.com> wrote:
+> > On Tue, Aug 11, 2015 at 10:49:36AM -0700, Andy Lutomirski wrote:
+> >> This is a bit late, but here goes anyway.
+> >>
+> >> Having played with the x86 context tracking hooks for awhile, I think
+> >> it would be nice if core code that needs to be aware of CPU context
+> >> (kernel, user, idle, guest, etc) could come up with single,
+> >> comprehensible, easily validated set of hooks that arch code is
+> >> supposed to call.
+> >>
+> >> Currently we have:
+> >>
+> >>  - RCU hooks, which come in a wide variety to notify about IRQs, NMIs, etc.
+> >
+> > Something about people yelling at me for waking up idle CPUs, thus
+> > degrading their battery lifetimes.  ;-)
+> >
+> >>  - Context tracking hooks.  Only used by some arches.  Calling these
+> >> calls the RCU hooks for you in most cases.  They have weird
+> >> interactions with interrupts and they're slow.
+> >
+> > Combining these would be good, but there are subtleties.  For example,
+> > some arches don't have context tracking, but RCU still needs to correctly
+> > identify idle CPUs without in any way interrupting or awakening that CPU.
+> > It would be good to make this faster, but it does have to work.
+> 
+> Could we maybe have one set of old RCU-only (no context tracking)
+> callbacks and a completely separate set of callbacks for arches that
+> support full context tracking?  The implementation of the latter would
+> presumably call into RCU.
 
-Having worked on both the arm and arm64 implementations of context
-tracking, I'm interested in this as well.
+It should be possible for RCU to use context tracking if it is available
+and to have RCU maintain its own state otherwise, if that is what you
+are getting at.  Assuming that the decision is global and made at either
+build or boot time, anyway.  Having some CPUs tracking context and others
+not sounds like an invitation for subtle bugs.
 
-Kevin
+> >> may_i_turn_off_ticks_right_now()
+> >
+> > This is RCU if CONFIG_RCU_FAST_NO_HZ=n.
+> >
+> >> or, better yet:
+> >> i_am_turning_off_ticks_right_now_and_register_your_own_darned_hrtimer_if_thats_a_problem()
+> >
+> > This is RCU if CONFIG_RCU_FAST_NO_HZ=y.  It would not be difficult to
+> > make RCU do this if CONFIG_RCU_FAST_NO_HZ=n as well, but doing so would
+> > increase to/from idle overhead.
+> 
+> If things actually end up using hrtimers, we might also want
+> get_off_my_lawn() aka "isolate this cpu now and try to do all the
+> deferred stuff right now and kill off those hrtimers".
+
+If too many different subsystems use hrtimers, then we might well
+find ourselves worse off than if we used scheduler-clock interrupts.
+I suppose we could have some way of multiplexing a single hrtimer,
+which could be thought of as an on-demand scheduling-clock interrupts.
+
+> Rik is (was?) trying to make some housekeeper CPU probe other CPUs'
+> state to eliminate the need for exact vtime accounting and thus speed
+> up transitions to/from user or idle.  It would be really neat if we
+> could simultaneously have quick idle/user transitions *and* avoid
+> deferred per-cpu work interrupting idle/user mode.
+
+Careful here!  Rik's vtime accounting is allowed to be approximate.
+Using approximate accounting for RCU is an excellent way to sharply
+increase your kernel's life-insurance premiums.
+
+> Chris Metcalf seems quite excited about the kernel staying far away
+> from his CPU once he's ready :)
+
+Completely understandable.  But I suspect that if push were to come to
+shove, he would be even more excited about his kernel not crashing.
+
+> >> Some arches may need:
+> >>
+> >> i_am_lame_and_forgot_my_previous_context()
+> >>
+> >> x86 will soon (4.3 or 4.4, depending on how my syscall cleanup goes)
+> >> no longer need that.
+> >>
+> >> Paul says that some arches need something that goes straight from IRQ
+> >> to user mode (?) -- sigh.
+> >
+> > Straight from IRQ to process-level kernel mode.  I ran into this in
+> > late 2011, and clearly should have documented exactly what code was
+> > doing this.  Something about invoking system calls from within the
+> > kernel on some architectures.
+> >
+> > Hey, if no architectures do this anymore, I could simplify RCU a bit!  ;-)
+> 
+> I wonder if whatever arches do this could do it in two steps: exit IRQ
+> and then enter normal kernel mode.
+ 
+That certainly would make RCU's life easier!  No idea on feasibility
+otherwise, though.
+
+							Thanx, Paul
