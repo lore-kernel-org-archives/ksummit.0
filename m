@@ -1,50 +1,32 @@
-Return-Path: <paulmck@linux.vnet.ibm.com>
+Return-Path: <lurodriguez@suse.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3E79E26C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 09D7C409
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Aug 2015 18:33:20 +0000 (UTC)
-Received: from e37.co.us.ibm.com (e37.co.us.ibm.com [32.97.110.158])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D0F49106
+	Tue, 11 Aug 2015 18:43:03 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 47D00132
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Aug 2015 18:33:19 +0000 (UTC)
-Received: from /spool/local
-	by e37.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
-	Violators will be prosecuted
-	for <ksummit-discuss@lists.linuxfoundation.org> from
-	<paulmck@linux.vnet.ibm.com>; Tue, 11 Aug 2015 12:33:19 -0600
-Received: from b03cxnp07028.gho.boulder.ibm.com
-	(b03cxnp07028.gho.boulder.ibm.com [9.17.130.15])
-	by d03dlp02.boulder.ibm.com (Postfix) with ESMTP id 947A43E40041
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Aug 2015 12:33:16 -0600 (MDT)
-Received: from d03av04.boulder.ibm.com (d03av04.boulder.ibm.com [9.17.195.170])
-	by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with
-	ESMTP id t7BIUWtG38600808
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Aug 2015 11:30:32 -0700
-Received: from d03av04.boulder.ibm.com (loopback [127.0.0.1])
-	by d03av04.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP
-	id t7BIXDd6015385 for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Aug 2015 12:33:16 -0600
-Date: Tue, 11 Aug 2015 11:33:12 -0700
-From: "Paul E. McKenney" <paulmck@linux.vnet.ibm.com>
+	Tue, 11 Aug 2015 18:43:02 +0000 (UTC)
+Date: Tue, 11 Aug 2015 20:42:58 +0200
+From: "Luis R. Rodriguez" <mcgrof@suse.com>
 To: Andy Lutomirski <luto@amacapital.net>
-Message-ID: <20150811183312.GE3895@linux.vnet.ibm.com>
-Reply-To: paulmck@linux.vnet.ibm.com
+Message-ID: <20150811184258.GB30479@wotan.suse.de>
 References: <CALCETrW7OiEYFm9FLbC_pnRLMvwb0nTKRWRDMXB3PMc_0H+UoA@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <CALCETrW7OiEYFm9FLbC_pnRLMvwb0nTKRWRDMXB3PMc_0H+UoA@mail.gmail.com>
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
+Cc: Juergen Gross <jgross@suse.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
 	Peter Zijlstra <peterz@infradead.org>,
 	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Ingo Molnar <mingo@kernel.org>, Chris Metcalf <cmetcalf@ezchip.com>,
-	Christoph Lameter <cl@linux.com>
+	Chris Metcalf <cmetcalf@ezchip.com>, Jan Beulich <JBeulich@suse.com>,
+	Christoph Lameter <cl@linux.com>, Ingo Molnar <mingo@kernel.org>
 Subject: Re: [Ksummit-discuss] [BELATED CORE TOPIC] context tracking / nohz
-	/ RCU state
+ / RCU state
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -66,19 +48,11 @@ On Tue, Aug 11, 2015 at 10:49:36AM -0700, Andy Lutomirski wrote:
 > Currently we have:
 > 
 >  - RCU hooks, which come in a wide variety to notify about IRQs, NMIs, etc.
-
-Something about people yelling at me for waking up idle CPUs, thus
-degrading their battery lifetimes.  ;-)
-
+> 
 >  - Context tracking hooks.  Only used by some arches.  Calling these
 > calls the RCU hooks for you in most cases.  They have weird
 > interactions with interrupts and they're slow.
-
-Combining these would be good, but there are subtleties.  For example,
-some arches don't have context tracking, but RCU still needs to correctly
-identify idle CPUs without in any way interrupting or awakening that CPU.
-It would be good to make this faster, but it does have to work.
-
+> 
 >  - vtime.  Beats the heck out of me.
 > 
 >  - Whatever deferred things Christoph keeps reminding us about.
@@ -95,43 +69,34 @@ It would be good to make this faster, but it does have to work.
 > in_a_periodic_tick()
 > starting_nmi()
 > ending_nmi()
-
-kernel_mode_nonidle_to_idle()
-kernel_mode_idle_to_nonidle()
-
 > may_i_turn_off_ticks_right_now()
-
-This is RCU if CONFIG_RCU_FAST_NO_HZ=n.
-
 > or, better yet:
 > i_am_turning_off_ticks_right_now_and_register_your_own_darned_hrtimer_if_thats_a_problem()
-
-This is RCU if CONFIG_RCU_FAST_NO_HZ=y.  It would not be difficult to
-make RCU do this if CONFIG_RCU_FAST_NO_HZ=n as well, but doing so would
-increase to/from idle overhead.
-
+>
 > Some arches may need:
 > 
 > i_am_lame_and_forgot_my_previous_context()
-> 
-> x86 will soon (4.3 or 4.4, depending on how my syscall cleanup goes)
-> no longer need that.
-> 
-> Paul says that some arches need something that goes straight from IRQ
-> to user mode (?) -- sigh.
 
-Straight from IRQ to process-level kernel mode.  I ran into this in
-late 2011, and clearly should have documented exactly what code was
-doing this.  Something about invoking system calls from within the
-kernel on some architectures.
+Can all this information be generalized with some basic core hooks
+or could some of this contextual informatioin typically vary depending
+on the sequence we are in ? It sounds like its the later and that's
+the issue ?
 
-Hey, if no architectures do this anymore, I could simplify RCU a bit!  ;-)
+Reason I ask is I've been working on a slightly different series of arch
+problems lately but its gotten me wondering about the possibility over adding a
+shared layer of hooks that some arch init code could use to relay back
+information about some other contextual information (in my case yielding
+execution in some paravirtualized scenerios, in my case I only need this during
+init sequences though). My reasoning for considering this didn't seem
+sufficient to add yet-another-layer or boilet-plate code for arch init sequence
+code but if there is a slew of other meta data contextual information which we
+could use in arch code perhaps this might make more sense then. This of course
+only makes sense for your use case if things really vary depending on the
+sequence reaching out to check for any of the above. It would not need to be
+tied down to init sequences alone, the way this could work for instance could
+be for certain critial code to feed meta data over contextual information which
+needs to be vetted which we currently have sloppy, or difficult waays of
+retrieving. Then the onus would be for all of us to vet each critial section
+carefully and to identify clearly all required contextual information.
 
-> etc.
-> 
-> It might make sense to get enough people who understand what's going
-> on behind the scenes together to hash out the requirements.
-
-Please count me in!
-
-							Thanx, Paul
+  Luis
