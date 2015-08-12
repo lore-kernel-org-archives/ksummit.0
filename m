@@ -1,19 +1,19 @@
-Return-Path: <luto@amacapital.net>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C9F2A8A7
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6E54B7E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Aug 2015 19:45:36 +0000 (UTC)
-Received: from mail-ob0-f170.google.com (mail-ob0-f170.google.com
-	[209.85.214.170])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4F977181
+	Wed, 12 Aug 2015 19:59:53 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id CEAC41C2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Aug 2015 19:45:36 +0000 (UTC)
-Received: by obbop1 with SMTP id op1so21136477obb.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Aug 2015 12:45:35 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <1439408625.2825.79.camel@HansenPartnership.com>
+	Wed, 12 Aug 2015 19:59:52 +0000 (UTC)
+Message-ID: <1439409591.2825.86.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Andy Lutomirski <luto@amacapital.net>
+Date: Wed, 12 Aug 2015 12:59:51 -0700
+In-Reply-To: <CALCETrVpan_mzh-EHziskuMTM0q31w3vyc11p7OwBiuPJ-KAnA@mail.gmail.com>
 References: <CALCETrV3LZu+e5Atwe2DUYUBhRnu-yEc-aguuco94jnPA2YYxg@mail.gmail.com>
 	<20436.1438090619@warthog.procyon.org.uk>
 	<1438096213.5441.147.camel@HansenPartnership.com>
@@ -35,11 +35,10 @@ References: <CALCETrV3LZu+e5Atwe2DUYUBhRnu-yEc-aguuco94jnPA2YYxg@mail.gmail.com>
 	<1439406931.2825.74.camel@HansenPartnership.com>
 	<CALCETrXMdYL9ca1Rjh8LAe9zbOCAqWhUXm6-AbGBzdeu7ur6DA@mail.gmail.com>
 	<1439408625.2825.79.camel@HansenPartnership.com>
-From: Andy Lutomirski <luto@amacapital.net>
-Date: Wed, 12 Aug 2015 12:45:15 -0700
-Message-ID: <CALCETrVpan_mzh-EHziskuMTM0q31w3vyc11p7OwBiuPJ-KAnA@mail.gmail.com>
-To: James Bottomley <James.Bottomley@hansenpartnership.com>
-Content-Type: text/plain; charset=UTF-8
+	<CALCETrVpan_mzh-EHziskuMTM0q31w3vyc11p7OwBiuPJ-KAnA@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 Cc: Luis Rodriguez <mcgrof@gmail.com>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>, Kyle McMartin <jkkm@jkkm.org>
@@ -53,18 +52,22 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Aug 12, 2015 at 12:43 PM, James Bottomley
-<James.Bottomley@hansenpartnership.com> wrote:
-> On Wed, 2015-08-12 at 12:25 -0700, Andy Lutomirski wrote:
->> All that's moot, though.  IMO the only reason we should support RSA
->> here is if there are vendor keys already out there (or Authenticode,
->> sigh) that use RSA.  RSA keys and signatures are rather large.
->
-> In either case security rests on the discrete log problem.
+On Wed, 2015-08-12 at 12:45 -0700, Andy Lutomirski wrote:
+> On Wed, Aug 12, 2015 at 12:43 PM, James Bottomley
+> <James.Bottomley@hansenpartnership.com> wrote:
+> > On Wed, 2015-08-12 at 12:25 -0700, Andy Lutomirski wrote:
+> >> All that's moot, though.  IMO the only reason we should support RSA
+> >> here is if there are vendor keys already out there (or Authenticode,
+> >> sigh) that use RSA.  RSA keys and signatures are rather large.
+> >
+> > In either case security rests on the discrete log problem.
+> 
+> RSA is based on factoring, not discrete log.
 
-RSA is based on factoring, not discrete log.
+Security is based on the discrete log:  RSA relates the private to the
+public key via an inverse operation:  if you can solve the discrete log
+problem, you can recover the private key from just the public key.  If
+you can factor n in RSA, you can also recover the public key.  It is a
+theorem that these two problems are effectively equivalent.
 
-(With a caveat:
-http://crypto.stackexchange.com/questions/802/would-the-ability-to-efficiently-find-discrete-logs-have-any-impact-on-the-secur)
-
---Andy
+James
