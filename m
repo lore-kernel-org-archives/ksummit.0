@@ -1,54 +1,19 @@
-Return-Path: <paulmck@linux.vnet.ibm.com>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 433408D7
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Aug 2015 16:03:50 +0000 (UTC)
-Received: from e38.co.us.ibm.com (e38.co.us.ibm.com [32.97.110.159])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CC15F1E7
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Aug 2015 16:03:49 +0000 (UTC)
-Received: from /spool/local
-	by e38.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
-	Violators will be prosecuted
-	for <ksummit-discuss@lists.linuxfoundation.org> from
-	<paulmck@linux.vnet.ibm.com>; Wed, 12 Aug 2015 10:03:48 -0600
-Received: from b03cxnp08025.gho.boulder.ibm.com
-	(b03cxnp08025.gho.boulder.ibm.com [9.17.130.17])
-	by d03dlp03.boulder.ibm.com (Postfix) with ESMTP id B89F719D8042
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Aug 2015 09:54:44 -0600 (MDT)
-Received: from d03av04.boulder.ibm.com (d03av04.boulder.ibm.com [9.17.195.170])
-	by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with
-	ESMTP id t7CG2pNC56623126
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Aug 2015 09:02:51 -0700
-Received: from d03av04.boulder.ibm.com (loopback [127.0.0.1])
-	by d03av04.boulder.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP
-	id t7CG3iDJ015543 for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Aug 2015 10:03:46 -0600
-Date: Wed, 12 Aug 2015 09:03:42 -0700
-From: "Paul E. McKenney" <paulmck@linux.vnet.ibm.com>
-To: Frederic Weisbecker <fweisbec@gmail.com>
-Message-ID: <20150812160342.GV3895@linux.vnet.ibm.com>
-Reply-To: paulmck@linux.vnet.ibm.com
-References: <CALCETrW7OiEYFm9FLbC_pnRLMvwb0nTKRWRDMXB3PMc_0H+UoA@mail.gmail.com>
-	<20150811184258.GB30479@wotan.suse.de>
-	<20150812142732.GD21542@lerouge>
+Return-Path: <shuahkhan@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20150812142732.GD21542@lerouge>
-Cc: Juergen Gross <jgross@suse.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Chris Metcalf <cmetcalf@ezchip.com>, Jan Beulich <JBeulich@suse.com>,
-	Christoph Lameter <cl@linux.com>, Ingo Molnar <mingo@kernel.org>
-Subject: Re: [Ksummit-discuss] [BELATED CORE TOPIC] context tracking / nohz
- / RCU state
+In-Reply-To: <55C462BB.9070602@metafoo.de>
+References: <20150806062029.55f0c2f2@recife.lan>
+	<F516739C-4E0D-4842-873A-181E03D4C25E@jic23.retrosnub.co.uk>
+	<D734F165-79F5-4A3A-89DD-3C03637CD09C@jic23.retrosnub.co.uk>
+	<55C462BB.9070602@metafoo.de>
+Date: Wed, 12 Aug 2015 10:12:18 -0600
+Message-ID: <CAKocOOMW2euwnt9cbCQ4NyPZ4uG7EHAnS5s3GP_CD53xSQgA_g@mail.gmail.com>
+From: Shuah Khan <shuahkhan@gmail.com>
+To: Lars-Peter Clausen <lars@metafoo.de>,
+	Jonathan Cameron <jic23@jic23.retrosnub.co.uk>,
+	Mauro Carvalho Chehab <mchehab@osg.samsung.com>
+Content-Type: text/plain; charset=UTF-8
+Cc: shuahkh@osg.samsung.com, Ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Media Controller
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -58,66 +23,94 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Aug 12, 2015 at 04:27:34PM +0200, Frederic Weisbecker wrote:
-> On Tue, Aug 11, 2015 at 08:42:58PM +0200, Luis R. Rodriguez wrote:
-> > On Tue, Aug 11, 2015 at 10:49:36AM -0700, Andy Lutomirski wrote:
-> > > This is a bit late, but here goes anyway.
-> > > 
-> > > Having played with the x86 context tracking hooks for awhile, I think
-> > > it would be nice if core code that needs to be aware of CPU context
-> > > (kernel, user, idle, guest, etc) could come up with single,
-> > > comprehensible, easily validated set of hooks that arch code is
-> > > supposed to call.
-> > > 
-> > > Currently we have:
-> > > 
-> > >  - RCU hooks, which come in a wide variety to notify about IRQs, NMIs, etc.
-> > > 
-> > >  - Context tracking hooks.  Only used by some arches.  Calling these
-> > > calls the RCU hooks for you in most cases.  They have weird
-> > > interactions with interrupts and they're slow.
-> > > 
-> > >  - vtime.  Beats the heck out of me.
-> > > 
-> > >  - Whatever deferred things Christoph keeps reminding us about.
-> > > 
-> > > Honestly, I don't fully understand what all these hooks are supposed
-> > > to do, nor do I care all that much.  From my perspective, the code
-> > > code should be able to do whatever it wants and rely on appropriate
-> > > notifications from arch code.  It would be great if we could come up
-> > > with something straightforward that covers everything.  For example:
-> > > 
-> > > user_mode_to_kernel_mode()
-> > > kernel_mode_to_user_mode()
-> > > kernel_mode_to_guest_mode()
-> > > in_a_periodic_tick()
-> > > starting_nmi()
-> > > ending_nmi()
-> > > may_i_turn_off_ticks_right_now()
-> > > or, better yet:
-> > > i_am_turning_off_ticks_right_now_and_register_your_own_darned_hrtimer_if_thats_a_problem()
-> > >
-> > > Some arches may need:
-> > > 
-> > > i_am_lame_and_forgot_my_previous_context()
-> > 
-> > Can all this information be generalized with some basic core hooks
-> > or could some of this contextual informatioin typically vary depending
-> > on the sequence we are in ? It sounds like its the later and that's
-> > the issue ?
-> 
-> That's what we do with context tracking. It tracks the context (user/kernel)
-> and stores these informations. And indeed the contextual informations can vary
-> depending for example if an exception triggered in userspace or kernelspace.
+On Fri, Aug 7, 2015 at 1:48 AM, Lars-Peter Clausen <lars@metafoo.de> wrote:
+> On 08/07/2015 09:21 AM, Jonathan Cameron wrote:
+>>
+>>
+>> On 6 August 2015 13:42:17 BST, Jonathan Cameron <jic23@jic23.retrosnub.co.uk> wrote:
+>>>
+>>>
+>>> On 6 August 2015 10:20:29 BST, Mauro Carvalho Chehab
+>>> <mchehab@osg.samsung.com> wrote:
+>>>> Along the years, we've been developing a mechanism at the Kernel to
+>>>> store
+>>>> and present graphs to userspace, called Media Controller. The original
+>>>> scope of the Media Controller were to store and represent pipeline
+>>>> connections
+>>>> between hardware components on complex streaming devices, like the
+>>> ones
+>>>> that are used on cell phones, where there are typically two camera
+>>>> sensors,
+>>>> and lots of processing units to enhance the image and to convert it
+>>>> into
+>>>> different formats.
+>>>>
+>>>> Since the beginning, we found that it would be useful to use it some
+>>>> day
+>>>> on other subsystems. Well, now such day has come ;)
+>>>>
+>>>> Driven by the need of using the media controller on TV sets, where the
+>>>> pipelines can be really complex and may cover more than one subsystem,
+>>>> we're reworking at both the core implementation and at the userspace
+>>>> API
+>>>> to allow it to be used where needed.
+>>>>
+>>>> On a TV set, the streaming data pipeline covers camera sensors, analog
+>>>> TV,
+>>>> digital TV, crypto/decrypto modules, audio and GPU. Also, TVs have
+>>>> network
+>>>> interfaces that may be provided via DVB (like CATV). If we want/need
+>>> to
+>>>>
+>>>> represent and control the full pipeline, the media controller has to
+>>>> have
+>>>> support on different subsystems: V4L2, DVB, ALSA, DRM and Network. It
+>>>> also
+>>>> needs a way to share a common struct between those subsystems without
+>>>> making
+>>>> them depend on each other. So, it should use devres.
+>>>>
+>>>> Also, on the MC summit, it was pointed that other subsystems like IIO
+>>>> (Linux Industrial I/O) have similar needs and also need to track
+>>>> complex
+>>>> pipelines.
+>>>
+>>> Not yet as complex as some of your media cases though I wouldn't be
+>>> surprised if Lars has stuff for this underway!
+>
+> This[1] is the quick presentation I gave the media controller workshop, it
+> has a few examples of complex pipelines. Most of the driver support is work
+> in progress, but it shows why we need a method of describing the data flow
+> topology. So the goal is to have the MC integration ready when the drivers
+> get merged.
+>
+Sorry if you are seeing this meesage twice. My previous message didn't make to
+the KS because it was too large.
 
-Another question of interest is "Can things be arranged so that RCU uses
-the context-tracking information directly in place of rcu_dynticks?"
-In theory, the answer is clearly "yes", but the reason that RCU's
-accounting is heavyweight is the need to get precise state readout on
-other CPUs.  So it is quite possible that making RCU directly use the
-context-tracking information will make that tracking slower and more
-complex, so that the overall effect will be zero net improvement.
+I have been working on updating snd-usb-audio and a media driver (au0828) that
+uses snd-usb-audio as its audio driver to use Media Controller API to share
+resources. Sharing resources across these varied set of drivers required adding
+Managed Media Controller API and now I am building on top. Managed Media
+Controller API creates media_device as a device resource at the parent
+USB device
+which is the root device for this driver hierarchy.
 
-But it does seem worth a look.
+We reviewed Patch series v5 at the Media Summit and I am working on v6. Patch
+series v5 is available at
 
-							Thanx, Paul
+https://git.kernel.org/cgit/linux/kernel/git/shuah/linux.git/log/?h=media_controller
+
+As go along and do this work, I am refining and adding new MC interfaces as
+needed and creating handlers to enable  drivers to coordinate initialization as
+each driver adds new entities. Here is the link to media graph for
+
+Hauppauge HVR950Q Hybrid USB TV stick that id driven by au0828 (DVB, Video),
+and snd-usb-audio drivers.  The media device is s Managed device resource.
+
+https://drive.google.com/file/d/0B0NIL0BQg-AlSFJPelltTm82UGM/view
+
+I look forward to sharing and discussing this work and MC use-cases for other
+driver classes at the workshop.
+
+thanks,
+-- Shuah
