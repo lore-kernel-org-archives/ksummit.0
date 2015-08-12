@@ -1,19 +1,19 @@
 Return-Path: <luto@amacapital.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D43B68A5
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id C86868F0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Aug 2015 22:47:52 +0000 (UTC)
-Received: from mail-ob0-f179.google.com (mail-ob0-f179.google.com
-	[209.85.214.179])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5912324B
+	Wed, 12 Aug 2015 22:51:39 +0000 (UTC)
+Received: from mail-oi0-f51.google.com (mail-oi0-f51.google.com
+	[209.85.218.51])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 521E5258
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Aug 2015 22:47:52 +0000 (UTC)
-Received: by obbfr1 with SMTP id fr1so24327438obb.1
+	Wed, 12 Aug 2015 22:51:39 +0000 (UTC)
+Received: by oip136 with SMTP id 136so17499451oip.1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Aug 2015 15:47:51 -0700 (PDT)
+	Wed, 12 Aug 2015 15:51:38 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <13252.1439419503@warthog.procyon.org.uk>
+In-Reply-To: <13275.1439419600@warthog.procyon.org.uk>
 References: <CALCETrV3LZu+e5Atwe2DUYUBhRnu-yEc-aguuco94jnPA2YYxg@mail.gmail.com>
 	<20436.1438090619@warthog.procyon.org.uk>
 	<1438096213.5441.147.camel@HansenPartnership.com>
@@ -31,13 +31,13 @@ References: <CALCETrV3LZu+e5Atwe2DUYUBhRnu-yEc-aguuco94jnPA2YYxg@mail.gmail.com>
 	<16035.1439324695@warthog.procyon.org.uk>
 	<11239.1439403720@warthog.procyon.org.uk>
 	<1439405139.3100.147.camel@infradead.org>
-	<13252.1439419503@warthog.procyon.org.uk>
+	<CALCETrXJ6MMQs6s_PqZKbd36Q-V_PMXK_Kg_tQb7bre4jF_WfQ@mail.gmail.com>
+	<13275.1439419600@warthog.procyon.org.uk>
 From: Andy Lutomirski <luto@amacapital.net>
-Date: Wed, 12 Aug 2015 15:47:31 -0700
-Message-ID: <CALCETrX39atfi=0OyiCPnn_2YB-r9cbP1DhXhW4v3W8CSzWi0w@mail.gmail.com>
+Date: Wed, 12 Aug 2015 15:51:18 -0700
+Message-ID: <CALCETrWeTMz7-J_uC-oG4jA6GY_ZdMa37E41dHztA1Wfy=h4og@mail.gmail.com>
 To: David Howells <dhowells@redhat.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
 Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
 	Luis Rodriguez <mcgrof@gmail.com>,
 	"ksummit-discuss@lists.linuxfoundation.org"
@@ -52,31 +52,23 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Aug 12, 2015 at 3:45 PM, David Howells <dhowells@redhat.com> wrote:
-> David Woodhouse <dwmw2@infradead.org> wrote:
+On Wed, Aug 12, 2015 at 3:46 PM, David Howells <dhowells@redhat.com> wrote:
+> Andy Lutomirski <luto@amacapital.net> wrote:
 >
->> No. Just use a *hash* of the acceptable signing cert(s)=C2=B9. Note that=
- the
->> SKID is *usually* a hash of the public key, but isn't guaranteed to be
->> so, so using the SKID to specify the acceptable signing cert isn't
->> secure.
+>> Once we're talking real, modern public keys, there's no point in even
+>> hashing them.  A good cryptosystem will have 32-byte public keys, and
+>> a sufficiently strong hash will be 32 bytes.
 >
-> True.  That's one of the reasons I don't like SKIDs - the specification i=
-s
-> very vague and non-enforcing.  We would need a 'standard' for how to hash=
- the
-> public key data.  Some types of public key, for example, have more than o=
-ne
-> integer.  I wonder if we could just take the PGP method as the standard -
-> though that does require extra elements.
+> And likely non-compliant with various security certifications.
 
-This is a major benefit of modern (or modernish) ECC schemes: the
-public key is pretty much unambiguously represented as a byte string.
+Humor me: what security certification would not be okay with 65 bytes
+of ECDSA/P-256 public key?  And what security certification would not
+be okay with the SHA-256 (or SHA3-256) hash of something appropriate?
 
-(IIRC P-256 has some variable length garbage for part of it, but we
-could pick any of the common representations and stick with it.  I
-think that pretty much everyone agrees on something along the line of
-0x04 plus the big-endian representation of the point in some standard
-coordinate system, for 65 unambiguous bytes.)
+Even with compression, the standards should accept any representation
+whatsoever that is *decompressed* to the correct 65-byte octet string
+prior to calling into any crypto code.  Of course, there are (or were
+or something) those who claim to have or have had patents on that,
+from my extremely vague memory.
 
 --Andy
