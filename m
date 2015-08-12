@@ -1,19 +1,19 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <luto@amacapital.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2BC108A7
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id C9F2A8A7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Aug 2015 19:43:50 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 5A62618D
+	Wed, 12 Aug 2015 19:45:36 +0000 (UTC)
+Received: from mail-ob0-f170.google.com (mail-ob0-f170.google.com
+	[209.85.214.170])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4F977181
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Aug 2015 19:43:47 +0000 (UTC)
-Message-ID: <1439408625.2825.79.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Andy Lutomirski <luto@amacapital.net>
-Date: Wed, 12 Aug 2015 12:43:45 -0700
-In-Reply-To: <CALCETrXMdYL9ca1Rjh8LAe9zbOCAqWhUXm6-AbGBzdeu7ur6DA@mail.gmail.com>
+	Wed, 12 Aug 2015 19:45:36 +0000 (UTC)
+Received: by obbop1 with SMTP id op1so21136477obb.2
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 12 Aug 2015 12:45:35 -0700 (PDT)
+MIME-Version: 1.0
+In-Reply-To: <1439408625.2825.79.camel@HansenPartnership.com>
 References: <CALCETrV3LZu+e5Atwe2DUYUBhRnu-yEc-aguuco94jnPA2YYxg@mail.gmail.com>
 	<20436.1438090619@warthog.procyon.org.uk>
 	<1438096213.5441.147.camel@HansenPartnership.com>
@@ -34,9 +34,12 @@ References: <CALCETrV3LZu+e5Atwe2DUYUBhRnu-yEc-aguuco94jnPA2YYxg@mail.gmail.com>
 	<CALCETrXJ6MMQs6s_PqZKbd36Q-V_PMXK_Kg_tQb7bre4jF_WfQ@mail.gmail.com>
 	<1439406931.2825.74.camel@HansenPartnership.com>
 	<CALCETrXMdYL9ca1Rjh8LAe9zbOCAqWhUXm6-AbGBzdeu7ur6DA@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
+	<1439408625.2825.79.camel@HansenPartnership.com>
+From: Andy Lutomirski <luto@amacapital.net>
+Date: Wed, 12 Aug 2015 12:45:15 -0700
+Message-ID: <CALCETrVpan_mzh-EHziskuMTM0q31w3vyc11p7OwBiuPJ-KAnA@mail.gmail.com>
+To: James Bottomley <James.Bottomley@hansenpartnership.com>
+Content-Type: text/plain; charset=UTF-8
 Cc: Luis Rodriguez <mcgrof@gmail.com>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>, Kyle McMartin <jkkm@jkkm.org>
@@ -50,73 +53,18 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 2015-08-12 at 12:25 -0700, Andy Lutomirski wrote:
-> On Wed, Aug 12, 2015 at 12:15 PM, James Bottomley
-> <James.Bottomley@hansenpartnership.com> wrote:
-> > On Wed, 2015-08-12 at 12:09 -0700, Andy Lutomirski wrote:
-> >> On Wed, Aug 12, 2015 at 11:45 AM, David Woodhouse <dwmw2@infradead.org> wrote:
-> >> > On Wed, 2015-08-12 at 19:22 +0100, David Howells wrote:
-> >> >> By "a literal key provided by the driver" I presume you mean that the parts of
-> >> >> the key (perhaps an X.509 cert) are actually compiled into the driver.  Yes we
-> >> >> could do this quite easily - key_create_or_update() will turn a binary key
-> >> >> blob into a struct key * that can then be used.  Do we want ~1.5K or more of
-> >> >> undiscardable data per key adding to each module that wants to load firmware,
-> >> >> particularly if it needs to carry several keys just in case one gets revoked?
-> >> >
-> >> > No. Just use a *hash* of the acceptable signing cert(s)¹. Note that the
-> >> > SKID is *usually* a hash of the public key, but isn't guaranteed to be
-> >> > so, so using the SKID to specify the acceptable signing cert isn't
-> >> > secure.
-> >> >
-> >> > The actual signing cert doesn't need to be present in full because we
-> >> > can require it to be present in the PKCS#7 signature.
-> >>
-> >> Screw the cert.  It doesn't certify anything -- it's just a bloated
-> >> wrapper around a public key.  It's not even worth the space in /lib it
-> >> takes up.
-> >
-> > I don't think we can entirely do that.  I agree the kernel only needs to
-> > know that the owner of the firmware root of trust is happy with the
-> > public key to verify the firmware signature.  However, the owner of the
-> > firmware root of trust might like to satisfy themselves that the key was
-> > genuinely issued by the people who should be providing the firmware.  To
-> > do that, they need to check the certificate chain.  I agree this can be
-> > done in userspace and doesn't have to be done by the kernel.
-> 
-> I don't think it belongs in deployed userspace either.  This should be
-> the distro's job, and we shouldn't have to care how the distro does
-> it.  We have no business deciding whether $VENDOR's alleged public key
-> is valid at runtime.
+On Wed, Aug 12, 2015 at 12:43 PM, James Bottomley
+<James.Bottomley@hansenpartnership.com> wrote:
+> On Wed, 2015-08-12 at 12:25 -0700, Andy Lutomirski wrote:
+>> All that's moot, though.  IMO the only reason we should support RSA
+>> here is if there are vendor keys already out there (or Authenticode,
+>> sigh) that use RSA.  RSA keys and signatures are rather large.
+>
+> In either case security rests on the discrete log problem.
 
-Users who don't trust (or build their own) distro tend to like to verify
-these things themselves.  Even basic security would suggest that you
-should check everything you can check yourself just in case the third
-party were accidentally compromised.
+RSA is based on factoring, not discrete log.
 
-> >> Once we're talking real, modern public keys, there's no point in even
-> >> hashing them.  A good cryptosystem will have 32-byte public keys, and
-> >> a sufficiently strong hash will be 32 bytes.  Maybe hashing makes a
-> >> little bit of sense if we're stuck with RSA for some reason.
-> >
-> > I'm slightly confused by this comment: If you're thinking of Elliptic
-> > Curve Cryptography, then it is simply RSA, just done over a more funky
-> > mathematical structure that yields shorter keys.
-> 
-> Not quite.  ECC signatures are generally Schnorr-based (except ECDSA,
-> which is kind of like a bastardized Schnorr signature that avoids the
-> now-expired patent AUIU), but they're not based on exponentiation at
-> all.
-> 
-> RSA signatures are (loosely) based on the idea that only the private
-> key holder knows the period of exponentiation in the key pair's group.
-> In ECC schemes, the group is generally a globally constant parameter,
-> and the private key's holder doesn't know anything special about the
-> group, so you need a different approach entirely.
-> 
-> All that's moot, though.  IMO the only reason we should support RSA
-> here is if there are vendor keys already out there (or Authenticode,
-> sigh) that use RSA.  RSA keys and signatures are rather large.
+(With a caveat:
+http://crypto.stackexchange.com/questions/802/would-the-ability-to-efficiently-find-discrete-logs-have-any-impact-on-the-secur)
 
-In either case security rests on the discrete log problem.
-
-James
+--Andy
