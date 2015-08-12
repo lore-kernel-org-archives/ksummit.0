@@ -1,20 +1,21 @@
 Return-Path: <luto@amacapital.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 441F58D9
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B2F508D9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Aug 2015 19:07:09 +0000 (UTC)
-Received: from mail-ob0-f172.google.com (mail-ob0-f172.google.com
-	[209.85.214.172])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A53CA159
+	Wed, 12 Aug 2015 19:09:35 +0000 (UTC)
+Received: from mail-oi0-f42.google.com (mail-oi0-f42.google.com
+	[209.85.218.42])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3F15A159
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Aug 2015 19:07:08 +0000 (UTC)
-Received: by obbhe7 with SMTP id he7so20248453obb.0
+	Wed, 12 Aug 2015 19:09:35 +0000 (UTC)
+Received: by oihn130 with SMTP id n130so14414746oih.2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Aug 2015 12:07:08 -0700 (PDT)
+	Wed, 12 Aug 2015 12:09:34 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <11239.1439403720@warthog.procyon.org.uk>
-References: <20436.1438090619@warthog.procyon.org.uk>
+In-Reply-To: <1439405139.3100.147.camel@infradead.org>
+References: <CALCETrV3LZu+e5Atwe2DUYUBhRnu-yEc-aguuco94jnPA2YYxg@mail.gmail.com>
+	<20436.1438090619@warthog.procyon.org.uk>
 	<1438096213.5441.147.camel@HansenPartnership.com>
 	<CALCETrVbTEf0rKKYOmNoHB2n0MpSgpY8jvOGXPnV=+KPxEpFKw@mail.gmail.com>
 	<1438097471.5441.152.camel@HansenPartnership.com>
@@ -28,13 +29,14 @@ References: <20436.1438090619@warthog.procyon.org.uk>
 	<CALCETrVVtcno1k8L_+LWuBApayUNFJmfG11MJV1hDo_0UjVRBg@mail.gmail.com>
 	<1438121016.5441.233.camel@HansenPartnership.com>
 	<16035.1439324695@warthog.procyon.org.uk>
-	<CALCETrV3LZu+e5Atwe2DUYUBhRnu-yEc-aguuco94jnPA2YYxg@mail.gmail.com>
 	<11239.1439403720@warthog.procyon.org.uk>
+	<1439405139.3100.147.camel@infradead.org>
 From: Andy Lutomirski <luto@amacapital.net>
-Date: Wed, 12 Aug 2015 12:06:48 -0700
-Message-ID: <CALCETrWPp3YW-b0=YxxntaMsc3eF_+rP-U4AT3JhWbEHj=Lzcw@mail.gmail.com>
-To: David Howells <dhowells@redhat.com>
+Date: Wed, 12 Aug 2015 12:09:13 -0700
+Message-ID: <CALCETrXJ6MMQs6s_PqZKbd36Q-V_PMXK_Kg_tQb7bre4jF_WfQ@mail.gmail.com>
+To: David Woodhouse <dwmw2@infradead.org>
 Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
 	Luis Rodriguez <mcgrof@gmail.com>,
 	"ksummit-discuss@lists.linuxfoundation.org"
@@ -49,53 +51,38 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Aug 12, 2015 at 11:22 AM, David Howells <dhowells@redhat.com> wrote:
-> Andy Lutomirski <luto@amacapital.net> wrote:
+On Wed, Aug 12, 2015 at 11:45 AM, David Woodhouse <dwmw2@infradead.org> wro=
+te:
+> On Wed, 2015-08-12 at 19:22 +0100, David Howells wrote:
+>> By "a literal key provided by the driver" I presume you mean that the pa=
+rts of
+>> the key (perhaps an X.509 cert) are actually compiled into the driver.  =
+Yes we
+>> could do this quite easily - key_create_or_update() will turn a binary k=
+ey
+>> blob into a struct key * that can then be used.  Do we want ~1.5K or mor=
+e of
+>> undiscardable data per key adding to each module that wants to load firm=
+ware,
+>> particularly if it needs to carry several keys just in case one gets rev=
+oked?
 >
->> > The top patch here:
->> >
->> >         http://git.kernel.org/cgit/linux/kernel/git/dhowells/linux-fs.git/log/?h=modsign-pkcs7-2
->> >
->> > allows demand loading of keys based on their SKID into a special keyring from
->> > which they get erased after an arbitrary 3 minutes of existence.  This key can
->> > then be used to verify a signature instead of using the primary system keyring
->> > used for module signature checking.
->> >
->> > Building on this, a driver could have a SKID compiled into it which could then
->> > be used to load a key for request_firmware() to use in verifying the blobs
->> > that that driver requires.
->> >
->>
->> Who signs the vendor key?
+> No. Just use a *hash* of the acceptable signing cert(s)=C2=B9. Note that =
+the
+> SKID is *usually* a hash of the public key, but isn't guaranteed to be
+> so, so using the SKID to specify the acceptable signing cert isn't
+> secure.
 >
-> From the arguments so far presented, the vendor - but possibly allowing the
-> linux-fimrware manager to sign in lieu if the admin of a machine running this
-> stuff allows it.
+> The actual signing cert doesn't need to be present in full because we
+> can require it to be present in the PKCS#7 signature.
 
-The device vendor?
+Screw the cert.  It doesn't certify anything -- it's just a bloated
+wrapper around a public key.  It's not even worth the space in /lib it
+takes up.
 
-How do you plan on requesting a self-signed vendor key with any kind
-of security if there isn't some root of trust in the kernel.
-
->
->> Why are we bothering loading device vendor keys into a keyring in the
->> first place?
->
-> Caching.  Some drivers need more than one firmware blob.
->
->> Why not just have an API to request firmware either signed by a literal key
->> provided by the driver *or* whatever keys the system trusts in general for
->> firmware signing?
->
-> By "a literal key provided by the driver" I presume you mean that the parts of
-> the key (perhaps an X.509 cert) are actually compiled into the driver.  Yes we
-> could do this quite easily - key_create_or_update() will turn a binary key
-> blob into a struct key * that can then be used.  Do we want ~1.5K or more of
-> undiscardable data per key adding to each module that wants to load firmware,
-> particularly if it needs to carry several keys just in case one gets revoked?
-
-1.5K?  I'm talking about an actual raw public key, which is 65 bytes
-or less in reasonable implementations.  (64 or 65 bytes for P-256
-depending on encoding and 32 bytes for compressed schemes like EdDSA.)
+Once we're talking real, modern public keys, there's no point in even
+hashing them.  A good cryptosystem will have 32-byte public keys, and
+a sufficiently strong hash will be 32 bytes.  Maybe hashing makes a
+little bit of sense if we're stuck with RSA for some reason.
 
 --Andy
