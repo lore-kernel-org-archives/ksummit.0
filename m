@@ -1,26 +1,29 @@
-Return-Path: <cl@linux.com>
+Return-Path: <dmitry.torokhov@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id CE4C23EE
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9A1468D7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 13 Aug 2015 15:40:23 +0000 (UTC)
-Received: from resqmta-ch2-05v.sys.comcast.net
-	(resqmta-ch2-05v.sys.comcast.net [69.252.207.37])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 73FA91AD
+	Fri, 21 Aug 2015 02:19:52 +0000 (UTC)
+Received: from mail-oi0-f49.google.com (mail-oi0-f49.google.com
+	[209.85.218.49])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 147861D9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 13 Aug 2015 15:40:23 +0000 (UTC)
-Date: Thu, 13 Aug 2015 10:40:20 -0500 (CDT)
-From: Christoph Lameter <cl@linux.com>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-In-Reply-To: <1439404681.2825.67.camel@HansenPartnership.com>
-Message-ID: <alpine.DEB.2.11.1508131036260.26691@east.gentwo.org>
-References: <20150812111552.0f7e5fe7@urahara>
-	<20150812182103.GA20106@infradead.org>
-	<1439404681.2825.67.camel@HansenPartnership.com>
-Content-Type: TEXT/PLAIN; charset=US-ASCII
-Cc: Christoph Hellwig <hch@infradead.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TOPIC] userspace infrastructure services
+	Fri, 21 Aug 2015 02:19:52 +0000 (UTC)
+Received: by oio137 with SMTP id 137so34374123oio.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 20 Aug 2015 19:19:51 -0700 (PDT)
+MIME-Version: 1.0
+In-Reply-To: <2111196.TG1k3f53YQ@avalon>
+References: <2111196.TG1k3f53YQ@avalon>
+Date: Thu, 20 Aug 2015 19:19:51 -0700
+Message-ID: <CAKdAkRQLGRqMT-CJz6FemPqyo78wFrM6Kc=pR_BKxqLZqEzjQA@mail.gmail.com>
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8
+Cc: Shuah Khan <shuah.kh@samsung.com>, Russell King <linux@arm.linux.org.uk>,
+	ksummit-discuss@lists.linuxfoundation.org, Tejun Heo <tj@kernel.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Fix devm_kzalloc, its users,
+	or both
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,18 +33,28 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 12 Aug 2015, James Bottomley wrote:
+On Fri, Jul 31, 2015 at 8:14 AM, Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+> Hello,
+>
+> It recently came to my attention that the way devm_kzalloc() is used by most
+> drivers is broken. I've raised the topic on LKML (see
+> http://lkml.org/lkml/2015/7/14/741) in the hope that my findings were simply
+> wrong, but it turned out I was unfortunately right. As the topic spans lots of
+> subsystems I believe it would be a good technical topic for the Kernel Summit.
 
-> Perhaps we should look first at how CRIU got it right and then discuss
-> how we might use those same principles to fix other projects, like DPDK.
+<skip>
 
-Well one thing is to look at the existing implementation of the
-APIs that are already available in the IBverbs/RMDA and cover both
-networking as well as storage. They already separate the control and the
-data transfer areas. Kernel provides control but gets out of the way of
-data transfers. Arguably this could be cleaner but here is an existing way
-of doing this that we already support and that has a decade long history
-of use in the industry.
+Just realized another fun fact: most busses execute
+dev_pm_domain_detach() in bus' remove() method, but devm-managed
+resources (including interrupts and such) are only released in driver
+core, which happens after bus' remove() method returns. So we may end
+up shutting off PM domain of a device that is still active and may
+generate interrupts, etc.
 
-This is not about minimal gains but being able to get more than
-just a fraction of the possible performance out of high end devices.
+Fun, huh?
+
+Thanks.
+
+-- 
+Dmitry
