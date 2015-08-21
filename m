@@ -1,31 +1,30 @@
-Return-Path: <dmitry.torokhov@gmail.com>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5579C273
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 308139C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 21 Aug 2015 16:14:14 +0000 (UTC)
-Received: from mail-pa0-f47.google.com (mail-pa0-f47.google.com
-	[209.85.220.47])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CE24A157
+	Fri, 21 Aug 2015 16:59:14 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B2ECA1B7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 21 Aug 2015 16:14:13 +0000 (UTC)
-Received: by padfo6 with SMTP id fo6so10165274pad.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 21 Aug 2015 09:14:13 -0700 (PDT)
-Date: Fri, 21 Aug 2015 09:14:09 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Julia Lawall <julia.lawall@lip6.fr>
-Message-ID: <20150821161409.GA26302@localhost>
+	Fri, 21 Aug 2015 16:59:12 +0000 (UTC)
+Date: Fri, 21 Aug 2015 09:58:52 -0700
+From: Mark Brown <broonie@kernel.org>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Message-ID: <20150821165852.GH12027@sirena.org.uk>
 References: <2111196.TG1k3f53YQ@avalon>
 	<CAKdAkRQLGRqMT-CJz6FemPqyo78wFrM6Kc=pR_BKxqLZqEzjQA@mail.gmail.com>
 	<alpine.DEB.2.10.1508210805500.2566@hadrien>
+	<20150821161409.GA26302@localhost>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="csjV5iuXLa65tnQH"
 Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.10.1508210805500.2566@hadrien>
-Cc: Tejun Heo <tj@kernel.org>, Shuah Khan <shuah.kh@samsung.com>,
-	Russell King <linux@arm.linux.org.uk>,
-	ksummit-discuss@lists.linuxfoundation.org
+In-Reply-To: <20150821161409.GA26302@localhost>
+Cc: Tejun Heo <tj@kernel.org>, Russell King <linux@arm.linux.org.uk>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Shuah Khan <shuah.kh@samsung.com>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Fix devm_kzalloc, its users,
  or both
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -37,43 +36,43 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Aug 21, 2015 at 08:07:09AM -0700, Julia Lawall wrote:
-> On Thu, 20 Aug 2015, Dmitry Torokhov wrote:
-> 
-> > On Fri, Jul 31, 2015 at 8:14 AM, Laurent Pinchart
-> > <laurent.pinchart@ideasonboard.com> wrote:
-> > > Hello,
-> > >
-> > > It recently came to my attention that the way devm_kzalloc() is used by most
-> > > drivers is broken. I've raised the topic on LKML (see
-> > > http://lkml.org/lkml/2015/7/14/741) in the hope that my findings were simply
-> > > wrong, but it turned out I was unfortunately right. As the topic spans lots of
-> > > subsystems I believe it would be a good technical topic for the Kernel Summit.
-> >
-> > <skip>
-> >
-> > Just realized another fun fact: most busses execute
-> > dev_pm_domain_detach() in bus' remove() method, but devm-managed
-> > resources (including interrupts and such) are only released in driver
-> > core, which happens after bus' remove() method returns. So we may end
-> > up shutting off PM domain of a device that is still active and may
-> > generate interrupts, etc.
-> 
-> Can the PM call be devmified too?
 
-I think they have to. I think everything in bus(es) code has to be
-devm-ified if we want to allow devm in drivers.
+--csjV5iuXLa65tnQH
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> 
-> What is there too the "etc"?  Would it be better to just remove the devm
-> functions related to interrupts?  They seem to cause a lot of subtle
-> problems.
+On Fri, Aug 21, 2015 at 09:14:09AM -0700, Dmitry Torokhov wrote:
+> On Fri, Aug 21, 2015 at 08:07:09AM -0700, Julia Lawall wrote:
 
-And regulators, clocks, gpios... Even if we won't have interrupt coming
-in someone may submit request to the device (userspace for example) and
-we still may try accessing powered off or half-powered-off hardware.
+> > What is there too the "etc"?  Would it be better to just remove the devm
+> > functions related to interrupts?  They seem to cause a lot of subtle
+> > problems.
 
-Thanks.
+> And regulators, clocks, gpios... Even if we won't have interrupt coming
+> in someone may submit request to the device (userspace for example) and
+> we still may try accessing powered off or half-powered-off hardware.
 
--- 
-Dmitry
+For most of those there's no issue with devm - we're just releasing a
+reference that allows us to control the device, not doing anything that
+affects the state of the device.  We don't have managed functions for
+the state changing operations.  Interrupts are different here in that
+when we free we are also performing the operation that stops the
+interrupt firing.
+
+--csjV5iuXLa65tnQH
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQEcBAEBCAAGBQJV11jLAAoJECTWi3JdVIfQAucH/R7HKfwqn/iJdqNxQDwLsisj
+f/MHlNVUvmXkLHIjzWqHqXjiP+uRR+LBa/WRhj0tlFeKps0h3OEAG9/GAMCTP41s
+oftBoa4H+tsW+V/M896CF8MaTsuUuqk0pEpYgUbDFGwSDyr+CQUfeJgYuUoUygYn
+3xgh0W6WAW2eJ9MbzZn57DaBoP0kmhLuFH4YCtAtwH/+PbEj1SKhFoxqM6LLdMmQ
+tAOltFT05/xUibQUM6pqCFb7yDdkmTfqUSYj7FFdcx+z5NXf5nmjZ3nZsTRCyj5S
+DOXXEmKouGOzzmnpiq/0HFS1MRdPDWXVye7jYEnC8s8rpc4K+1R/LlVPVacIaPw=
+=wrEz
+-----END PGP SIGNATURE-----
+
+--csjV5iuXLa65tnQH--
