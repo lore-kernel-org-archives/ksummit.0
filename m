@@ -1,31 +1,29 @@
-Return-Path: <keescook@google.com>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 10453847
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 069A4C22
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 24 Aug 2015 23:25:56 +0000 (UTC)
-Received: from mail-io0-f181.google.com (mail-io0-f181.google.com
-	[209.85.223.181])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7FC9C1FC
+	Mon, 24 Aug 2015 23:54:14 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 70D2E103
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 24 Aug 2015 23:25:55 +0000 (UTC)
-Received: by iodt126 with SMTP id t126so167879933iod.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 24 Aug 2015 16:25:55 -0700 (PDT)
-MIME-Version: 1.0
-Sender: keescook@google.com
-In-Reply-To: <CAGXu5jJxQadzp_bOo0KVjJ0VgwTPBDaEHqxDe8Rr=aCg8ROg9A@mail.gmail.com>
+	Mon, 24 Aug 2015 23:54:13 +0000 (UTC)
+Date: Mon, 24 Aug 2015 19:54:09 -0400
+From: Theodore Ts'o <tytso@mit.edu>
+To: Kees Cook <keescook@chromium.org>
+Message-ID: <20150824235409.GD13446@thunk.org>
 References: <alpine.LRH.2.20.1508241335370.1294@namei.org>
 	<CACRpkdbJ15sA0xXz1XN8Z-636-tijT1UNDgf1J+sM9Zm1anSkA@mail.gmail.com>
 	<CAGXu5j+XR7TJSgbTNYhCP0YhvvNwA5HtEL=xKCR9GUttzb06Uw@mail.gmail.com>
 	<1440446941.2201.32.camel@HansenPartnership.com>
 	<alpine.LRH.2.20.1508250612360.22949@namei.org>
-	<CAGXu5jJxQadzp_bOo0KVjJ0VgwTPBDaEHqxDe8Rr=aCg8ROg9A@mail.gmail.com>
-Date: Mon, 24 Aug 2015 16:25:54 -0700
-Message-ID: <CAGXu5jJ+MHUqk0aNv_pYpUik1kJ4p7i5HWdkQgS-Az3Q=p+Fow@mail.gmail.com>
-From: Kees Cook <keescook@chromium.org>
-To: James Morris <jmorris@namei.org>
-Content-Type: text/plain; charset=UTF-8
+	<alpine.DEB.2.11.1508242220570.15006@nanos>
+	<alpine.LRH.2.20.1508250753470.26669@namei.org>
+	<CAGXu5jK_4=w_e81askreLCGHXA3B3juYf-a+SNsA1j53yzt8Hw@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAGXu5jK_4=w_e81askreLCGHXA3B3juYf-a+SNsA1j53yzt8Hw@mail.gmail.com>
 Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
@@ -40,43 +38,33 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Aug 24, 2015 at 3:57 PM, Kees Cook <keescook@chromium.org> wrote:
-> On Mon, Aug 24, 2015 at 1:17 PM, James Morris <jmorris@namei.org> wrote:
->> On Mon, 24 Aug 2015, James Bottomley wrote:
->>
->>> Um, forgive me for being dense, but doesn't fixing the flaws stop their
->>> exploitation?  In any event, Hardening means "reducing the attack
->>> surface" and that encompasses both active and passive means (including
->>> actual bug fixing).
->>
->> Hardening is mitigating those flaws.  You'll never find every flaw, but
->> you can mitigate against entire classes of flaws being exploited.
->>
->>> >  The
->>> > hardening the kernel needs is about taking away exploitation tools,
->>> > not killing bugs. (Though killing bugs is still great.)
->>>
->>> It's both.  One of the old standards for attacking C code was buffer
->>> overruns.  Remove those via detection tools and you reduce the attack
->>> surface.
->>
->> In this case, we're specifically talking about hardening the kernel to
->> mitigate exploitation of flaws.  Kernel self-protection may be a better
->> term (and recently surfaced in an NSA presentation at LSS: p.23 of
->>
->> http://kernsec.org/files/lss2015/lss2015_selinuxinandroidlollipopandm_smalley.pdf
->
-> Yup. Using "kernel self-protection" cuts right to the point. I'm in
-> debt to Stephen for finding the right marketing term for "kernel
-> memory corruption vulnerability exploit mitigation". :)
+On Mon, Aug 24, 2015 at 04:20:47PM -0700, Kees Cook wrote:
+> 
+> Could we assign this as homework instead?  There are countless examples
+> of well described kernel exploits already visible on the web....
 
-pageexec informs me he used the term earlier...
-https://pax.grsecurity.net/docs/PaXTeam-H2HC12-PaX-kernel-self-protection.pdf
+Might I suggest a somewhat higher-level homework?  What are the kernel
+self-protection features that would be most useful for us to
+implement, and --- this is critically important --- why aren't we
+doing them already, and how can we fix that higher-order issue?
 
-Regardless, you're all awesome.
+Is it because adding a particular feature would incur a huge
+performance penalty?
 
--Kees
+Is it because no company has been willing to fund developers to work
+on that particular feature to date?  (BTW, I consider the fact that
+various companies collectively wasn't able to find a place for the
+trinity maintainer to find a place to land to be somewhat of a failure
+of the ecosystem, but maybe the tool wasn't as useful as we think, or
+it maybe we failed to make the case to the correct set of
+bean-counters.)
 
--- 
-Kees Cook
-Chrome OS Security
+If the answer is that it's obvious what needs to be done, but (a) we
+can't find anyone to bell the cat, or (b) the patches are going to be
+rejected out of hand for one reason or another, the kernel summit is a
+great opportunity to see if some face-to-face discussion address the
+problem.  OTOH, if the fundamental problem is that we can't get the
+headcount funded, then discussion at the kernel summit is probably not
+going to be a good use of our time.  :-/
+
+      	      	       	      	     - Ted
