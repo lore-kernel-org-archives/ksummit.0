@@ -1,23 +1,28 @@
-Return-Path: <jikos@kernel.org>
+Return-Path: <linus.walleij@linaro.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 18C0CB93
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 99F7994A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 24 Aug 2015 12:03:48 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A365110D
+	Mon, 24 Aug 2015 12:29:42 +0000 (UTC)
+Received: from mail-ob0-f169.google.com (mail-ob0-f169.google.com
+	[209.85.214.169])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 41E1910E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 24 Aug 2015 12:03:47 +0000 (UTC)
-Date: Mon, 24 Aug 2015 13:48:39 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
-To: James Morris <jmorris@namei.org>
-In-Reply-To: <alpine.LRH.2.20.1508241335370.1294@namei.org>
-Message-ID: <alpine.LNX.2.00.1508241348110.25821@pobox.suse.cz>
-References: <alpine.LRH.2.20.1508241335370.1294@namei.org>
+	Mon, 24 Aug 2015 12:29:42 +0000 (UTC)
+Received: by obbfr1 with SMTP id fr1so111203981obb.1
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 24 Aug 2015 05:29:41 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
+In-Reply-To: <alpine.LRH.2.20.1508241335370.1294@namei.org>
+References: <alpine.LRH.2.20.1508241335370.1294@namei.org>
+Date: Mon, 24 Aug 2015 14:29:41 +0200
+Message-ID: <CACRpkdbJ15sA0xXz1XN8Z-636-tijT1UNDgf1J+sM9Zm1anSkA@mail.gmail.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+To: James Morris <jmorris@namei.org>
+Content-Type: text/plain; charset=UTF-8
 Cc: Emily Ratliff <eratliff@linuxfoundation.org>,
-	ksummit-discuss@lists.linuxfoundation.org
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Kernel Hardening
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -28,27 +33,20 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Mon, Aug 24, 2015 at 6:20 AM, James Morris <jmorris@namei.org> wrote:
 
-[ resending with proper list-member From: sorry for duplicates to those 
-  directly CCed ]
+> There are also potentially promising approaches to mitigation with other
+> technologies such as KASan and gcc plugins, as well as evolving hardware
+> features.
 
-On Mon, 24 Aug 2015, James Morris wrote:
+What I've discovered when running KASan the last few weeks is that
+this points back to the question of tests ... I've been using Trinity
+to find bugs, but it is more likely to kill itself or cause OOM than
+trigger any boundary overrun bugs.
 
-> I'd recommend Kees Cook be involved, due to his existing efforts in 
-> kernel hardening.  I think it would be good to invite one or two expert 
-> security researchers in this area -- Kees would know who.  In terms of 
-> core kernel folk, I'd suggest Ingo and akpm, as a starting point.
+Kselftest may be helpful, but basically any loads that heavily
+exercise the kernel internals are helpful to harden the kernel.
+Some of these are custom test suites I suspect. Any good hints
+for a simple embedded developer like me?
 
-I am pretty sure spender will also have a lot to tell us :p
-
-This is partially sarcasm (due to his often vocally expressed opinions 
-about our processess (and even code) with respect to security) and 
-partially meant seriously (there is always a possibility that at least 
-some misunderstandings will be clarified and we'll get closer to 
-convergency of the trees).
-
-As a very long time grsecurity user, I'd definitely be interested.
-
--- 
-Jiri Kosina
-SUSE Labs
+Linus Walleij
