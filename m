@@ -1,22 +1,21 @@
-Return-Path: <jmorris@namei.org>
+Return-Path: <jikos@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 57F08ACA
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 18C0CB93
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 24 Aug 2015 11:56:32 +0000 (UTC)
-Received: from namei.org (tundra.namei.org [65.99.196.166])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C7BD9E2
+	Mon, 24 Aug 2015 12:03:48 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A365110D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 24 Aug 2015 11:56:31 +0000 (UTC)
-Date: Mon, 24 Aug 2015 21:56:28 +1000 (AEST)
-From: James Morris <jmorris@namei.org>
-To: Jiri Kosina <jkosina@suse.cz>
-In-Reply-To: <alpine.LNX.2.00.1508241343430.25821@pobox.suse.cz>
-Message-ID: <alpine.LRH.2.20.1508242150310.27693@namei.org>
+	Mon, 24 Aug 2015 12:03:47 +0000 (UTC)
+Date: Mon, 24 Aug 2015 13:48:39 +0200 (CEST)
+From: Jiri Kosina <jikos@kernel.org>
+To: James Morris <jmorris@namei.org>
+In-Reply-To: <alpine.LRH.2.20.1508241335370.1294@namei.org>
+Message-ID: <alpine.LNX.2.00.1508241348110.25821@pobox.suse.cz>
 References: <alpine.LRH.2.20.1508241335370.1294@namei.org>
-	<alpine.LNX.2.00.1508241343430.25821@pobox.suse.cz>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: TEXT/PLAIN; charset=US-ASCII
 Cc: Emily Ratliff <eratliff@linuxfoundation.org>,
 	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Kernel Hardening
@@ -29,24 +28,27 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 24 Aug 2015, Jiri Kosina wrote:
 
-> On Mon, 24 Aug 2015, James Morris wrote:
-> 
-> > I'd recommend Kees Cook be involved, due to his existing efforts in 
-> > kernel hardening.  I think it would be good to invite one or two expert 
-> > security researchers in this area -- Kees would know who.  In terms of 
-> > core kernel folk, I'd suggest Ingo and akpm, as a starting point.
-> 
-> I am pretty sure spender will also have a lot to tell us :p
+[ resending with proper list-member From: sorry for duplicates to those 
+  directly CCed ]
 
-He actually presented at the 2010 security summit:
-https://grsecurity.net/spender_summit.pdf
+On Mon, 24 Aug 2015, James Morris wrote:
 
-I'm not sure he'd be interested in working with us on this, though.
+> I'd recommend Kees Cook be involved, due to his existing efforts in 
+> kernel hardening.  I think it would be good to invite one or two expert 
+> security researchers in this area -- Kees would know who.  In terms of 
+> core kernel folk, I'd suggest Ingo and akpm, as a starting point.
 
+I am pretty sure spender will also have a lot to tell us :p
 
-- James
+This is partially sarcasm (due to his often vocally expressed opinions 
+about our processess (and even code) with respect to security) and 
+partially meant seriously (there is always a possibility that at least 
+some misunderstandings will be clarified and we'll get closer to 
+convergency of the trees).
+
+As a very long time grsecurity user, I'd definitely be interested.
+
 -- 
-James Morris
-<jmorris@namei.org>
+Jiri Kosina
+SUSE Labs
