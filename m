@@ -1,24 +1,25 @@
-Return-Path: <jmorris@namei.org>
+Return-Path: <tglx@linutronix.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 16ECCB35
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6225CBFB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 24 Aug 2015 18:50:51 +0000 (UTC)
-Received: from namei.org (tundra.namei.org [65.99.196.166])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9F6F4199
+	Mon, 24 Aug 2015 18:53:09 +0000 (UTC)
+Received: from Galois.linutronix.de (www.linutronix.de [62.245.132.108])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1599E198
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 24 Aug 2015 18:50:50 +0000 (UTC)
-Date: Tue, 25 Aug 2015 04:50:46 +1000 (AEST)
-From: James Morris <jmorris@namei.org>
+	Mon, 24 Aug 2015 18:53:08 +0000 (UTC)
+Date: Mon, 24 Aug 2015 20:52:36 +0200 (CEST)
+From: Thomas Gleixner <tglx@linutronix.de>
 To: Kees Cook <keescook@chromium.org>
-In-Reply-To: <CAGXu5j+=b+EbciyJwr-eNmRVomdeZP4gkWXcfCQtEOEo=HYkAQ@mail.gmail.com>
-Message-ID: <alpine.LRH.2.20.1508250450230.11872@namei.org>
+In-Reply-To: <CAGXu5jLxzAtNPc_M+kPTZw6YqD1Op6Mvb-NHnJTewFanuVsqLQ@mail.gmail.com>
+Message-ID: <alpine.DEB.2.11.1508242048060.15006@nanos>
 References: <alpine.LRH.2.20.1508241335370.1294@namei.org>
-	<87k2skzmhs.fsf@linux.vnet.ibm.com>
-	<CAGXu5j+=b+EbciyJwr-eNmRVomdeZP4gkWXcfCQtEOEo=HYkAQ@mail.gmail.com>
+	<alpine.LNX.2.00.1508241343430.25821@pobox.suse.cz>
+	<alpine.LRH.2.20.1508242150310.27693@namei.org>
+	<CAGXu5jLxzAtNPc_M+kPTZw6YqD1Op6Mvb-NHnJTewFanuVsqLQ@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Cc: ksummit-discuss@lists.linuxfoundation.org,
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+Cc: Jiri Kosina <jkosina@suse.cz>, ksummit-discuss@lists.linuxfoundation.org,
 	Emily Ratliff <eratliff@linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Kernel Hardening
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -31,17 +32,20 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 On Mon, 24 Aug 2015, Kees Cook wrote:
+> On Mon, Aug 24, 2015 at 4:56 AM, James Morris <jmorris@namei.org> wrote:
+> This is far from a comprehensive list, though. The biggest value, I
+> think, would be in using KERNEXEC, UDEREF, USERCOPY, and the plugins
+> for constification and integer overflow.
 
-> Should we have a separate discussion for bug-hunting? KASan needs to
-> expand its architecture coverage, Trinity needs a maintainer, and
-> there's always new things happening with smatch and coccinelle.
-> 
-> I'd just like to keep bug-hunting entirely separate from
-> self-protection, as I feel they're distinct topics (though related).
+There is another aspect. We need to make developers more aware of the
+potential attack issues. I learned my lesson with the futex disaster
+and since then I certainly look with a different set of eyes at user
+space facing code. I doubt that we want that everyone experiences the
+disaster himself (though that's a very enlightening experience), but
+we should try to document incidents and the lessons learned from
+them. Right now we just rely on those who are deep into the security
+realm or the few people who learned it the hard way.
 
-I agree -- this needs to be a separate, related discussion.
+Thanks,
 
-
--- 
-James Morris
-<jmorris@namei.org>
+	tglx
