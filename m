@@ -1,37 +1,21 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <jmorris@namei.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 72D0C892
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8751C486
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 21 Aug 2015 18:18:52 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 171A512C
+	Mon, 24 Aug 2015 04:20:10 +0000 (UTC)
+Received: from namei.org (tundra.namei.org [65.99.196.166])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0C295A7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 21 Aug 2015 18:18:52 +0000 (UTC)
-Date: Fri, 21 Aug 2015 11:18:33 -0700
-From: Mark Brown <broonie@kernel.org>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Message-ID: <20150821181833.GN12027@sirena.org.uk>
-References: <2111196.TG1k3f53YQ@avalon>
-	<CAKdAkRQLGRqMT-CJz6FemPqyo78wFrM6Kc=pR_BKxqLZqEzjQA@mail.gmail.com>
-	<alpine.DEB.2.10.1508210805500.2566@hadrien>
-	<20150821161409.GA26302@localhost>
-	<20150821165852.GH12027@sirena.org.uk>
-	<CAKdAkRRrqCNojwBHQ809APetuC-u1XqwViRVp5fBB2tO+naQ_g@mail.gmail.com>
-	<20150821174150.GL12027@sirena.org.uk>
-	<20150821175231.GM12027@sirena.org.uk>
-	<CAKdAkRSywrXnRdwVyn406qoN1hQbTkFCM34Xt4NaC-ZfZ64MQg@mail.gmail.com>
+	Mon, 24 Aug 2015 04:20:08 +0000 (UTC)
+Date: Mon, 24 Aug 2015 14:20:01 +1000 (AEST)
+From: James Morris <jmorris@namei.org>
+To: ksummit-discuss@lists.linuxfoundation.org
+Message-ID: <alpine.LRH.2.20.1508241335370.1294@namei.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="yyDlEBSQJ3H1meLT"
-Content-Disposition: inline
-In-Reply-To: <CAKdAkRSywrXnRdwVyn406qoN1hQbTkFCM34Xt4NaC-ZfZ64MQg@mail.gmail.com>
-Cc: Tejun Heo <tj@kernel.org>, Shuah Khan <shuah.kh@samsung.com>,
-	Russell King <linux@arm.linux.org.uk>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Fix devm_kzalloc, its users,
- or both
+Content-Type: text/plain; charset=US-ASCII
+Cc: Emily Ratliff <eratliff@linuxfoundation.org>
+Subject: [Ksummit-discuss] [TECH TOPIC] Kernel Hardening
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,41 +25,49 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+I'd like to propose a security topic, "Kernel Hardening" (or "Kernel Self 
+Protection"), to discuss how we can better mitigate vulnerabilities 
+arising from kernel bugs.
 
---yyDlEBSQJ3H1meLT
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+We have some measures in place, although we are really not doing 
+everything we can, as demonstrated from time to time when vulnerabilities 
+arise which are mitigated by protections in grsecurity (for example), but 
+not by mainline.  Much of the necessary work has already been done in that 
+project, and as many will know, there have been significant challenges 
+involved in past efforts to bring these techniques into mainline.  In some 
+cases, the performance hit has been too high for maintainers to accept, 
+and I wonder if we can re-visit some of these cases, with new approaches 
+or perspectives on cost/benefit.
 
-On Fri, Aug 21, 2015 at 11:05:19AM -0700, Dmitry Torokhov wrote:
-> On Fri, Aug 21, 2015 at 10:52 AM, Mark Brown <broonie@kernel.org> wrote:
+There are also potentially promising approaches to mitigation with other 
+technologies such as KASan and gcc plugins, as well as evolving hardware 
+features.
 
-> > More specifically: the managed operations are guaranteed to be run in
-> > reverse order so so long as the resources used by the managed input
-> > device are also managed we're supposed to be fine.
+The aim of this session would be to bring relevant core kernel maintainers 
+together with representatives of the research community and figure out a 
+way to work together to improve hardening and mitigation in the Linux 
+kernel.  We'd discuss what gaps we currently have, and what code or 
+techniques already exist that can be incorporated into mainline to close 
+them.  We'd identify issues that maintainers may have and try and find 
+ways to address those issues.  From this, I'd hope that we'd develop an 
+overall picture of what needs to be done and a practical idea of how to 
+move forward.  We may not necessarily resolve all issues in this session, 
+but we can at least characterize them and go away and think more about 
+them.
 
-> That only works if _all_ resources are managed. Here we have an
-> example of non-managed operations (such as detaching device from a
-> power domain) in the middle of managed ones. And so the ordering gets
-> broken.
+We could also talk to the Core Infrastructure Initiative folk if we 
+discover potentially useful tasks with no owners -- they may be able to 
+fund developers for them.  It would likely be useful to provide CII with a 
+status report after the session in any case.
 
-Right, we need to ensure that managed resources don't depend on
-resources that aren't managed (either directly or indirectly by being
-handled by some callback which is managed).
+I'd recommend Kees Cook be involved, due to his existing efforts in kernel 
+hardening.  I think it would be good to invite one or two expert security 
+researchers in this area -- Kees would know who.  In terms of core kernel 
+folk, I'd suggest Ingo and akpm, as a starting point.
 
---yyDlEBSQJ3H1meLT
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
+Comments?
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
 
-iQEcBAEBCAAGBQJV12t4AAoJECTWi3JdVIfQGmAH/18Q4u/mQ/ip7ZLDPqWAkz6Q
-mbl3+uIu5EnSKaAuLVR1LZ1PV9JFE1sCJ7mH1NDWqyaEeYbVlMuIvA17CQHZvAdu
-TFeQD3PZ/woV5FKpFcO5eJZek8gF/vNN/9OC1/sRVjavK9FmWCC0nRv01k2+UK0x
-foA+tqbpPgRbiPX8quTdlmWPub6clqiSJS4LlWXVytBtsn/DWR7S619g5A4xWcYc
-8K3OS6x1SFkhE6d1n/AHHZl5JmfskqkZtoEv1pZfxaRvdUHsT6+gGwNRJbUW9cDu
-hD/8V0UIsvHwmjrQpRE1f2t4sMIP1GCVFsncsF3LCgv5BnL4HSbve46OwAT57jM=
-=goz2
------END PGP SIGNATURE-----
-
---yyDlEBSQJ3H1meLT--
+-- 
+James Morris
+<jmorris@namei.org>
