@@ -1,36 +1,27 @@
-Return-Path: <keescook@google.com>
+Return-Path: <tglx@linutronix.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id EAEFAC18
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 82C8D955
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 24 Aug 2015 18:57:40 +0000 (UTC)
-Received: from mail-ig0-f182.google.com (mail-ig0-f182.google.com
-	[209.85.213.182])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 31765198
+	Mon, 24 Aug 2015 19:00:03 +0000 (UTC)
+Received: from Galois.linutronix.de (www.linutronix.de [62.245.132.108])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 03B74176
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 24 Aug 2015 18:57:40 +0000 (UTC)
-Received: by igfj19 with SMTP id j19so63454916igf.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 24 Aug 2015 11:57:39 -0700 (PDT)
-MIME-Version: 1.0
-Sender: keescook@google.com
-In-Reply-To: <CALCETrXG9AOWocGBWYuwCzjvKU+PQ_jWSWszdF_rk-=mWS5BJg@mail.gmail.com>
+	Mon, 24 Aug 2015 19:00:02 +0000 (UTC)
+Date: Mon, 24 Aug 2015 20:59:34 +0200 (CEST)
+From: Thomas Gleixner <tglx@linutronix.de>
+To: Kees Cook <keescook@chromium.org>
+In-Reply-To: <alpine.DEB.2.11.1508242048060.15006@nanos>
+Message-ID: <alpine.DEB.2.11.1508242056250.15006@nanos>
 References: <alpine.LRH.2.20.1508241335370.1294@namei.org>
 	<alpine.LNX.2.00.1508241343430.25821@pobox.suse.cz>
 	<alpine.LRH.2.20.1508242150310.27693@namei.org>
 	<CAGXu5jLxzAtNPc_M+kPTZw6YqD1Op6Mvb-NHnJTewFanuVsqLQ@mail.gmail.com>
-	<CALCETrViOGGjkzgNBLAc-XW7UkjQraa6t=4QQW094tfhB6Jf7Q@mail.gmail.com>
-	<CAGXu5jJ29HgHbQqk-+3N3ddvw2YG3ORbcFb24y8ijzX9v61V5Q@mail.gmail.com>
-	<CALCETrXG9AOWocGBWYuwCzjvKU+PQ_jWSWszdF_rk-=mWS5BJg@mail.gmail.com>
-Date: Mon, 24 Aug 2015 11:57:39 -0700
-Message-ID: <CAGXu5jK09mA4XgDstndjNk5022POmDwXOZ9U6ZFxBc=hV4pV3g@mail.gmail.com>
-From: Kees Cook <keescook@chromium.org>
-To: Andy Lutomirski <luto@amacapital.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Cc: Jiri Kosina <jkosina@suse.cz>, "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Emily Ratliff <eratliff@linuxfoundation.org>
+	<alpine.DEB.2.11.1508242048060.15006@nanos>
+MIME-Version: 1.0
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+Cc: Jiri Kosina <jkosina@suse.cz>, Emily Ratliff <eratliff@linuxfoundation.org>,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Kernel Hardening
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -41,127 +32,28 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Aug 24, 2015 at 11:19 AM, Andy Lutomirski <luto@amacapital.net> wro=
-te:
-> On Mon, Aug 24, 2015 at 11:01 AM, Kees Cook <keescook@chromium.org> wrote=
-:
->> On Mon, Aug 24, 2015 at 10:28 AM, Andy Lutomirski <luto@amacapital.net> =
-wrote:
->>> On Mon, Aug 24, 2015 at 10:17 AM, Kees Cook <keescook@chromium.org> wro=
-te:
->>>> On Mon, Aug 24, 2015 at 4:56 AM, James Morris <jmorris@namei.org> wrot=
-e:
->>>>> On Mon, 24 Aug 2015, Jiri Kosina wrote:
->>>>>
->>>>>> On Mon, 24 Aug 2015, James Morris wrote:
->>>>>>
->>>>>> > I'd recommend Kees Cook be involved, due to his existing efforts i=
-n
->>>>>> > kernel hardening.  I think it would be good to invite one or two e=
-xpert
->>>>>> > security researchers in this area -- Kees would know who.  In term=
-s of
->>>>
->>>> Many of the folks that are good at kernel exploitation don't want to
->>>> help us fix the situation. :)
->>>>
->>>> I'd recommend Lee Campbell, he's got a solid bit of experience from
->>>> the offense side. I think we should extend an invite to spender and
->>>> pageexec as well. They've been on the cutting edge of this for
->>>> decades, and it would be silly not to invite them.
->>>>
->>>>>> > core kernel folk, I'd suggest Ingo and akpm, as a starting point.
->>>>
->>>> Perhaps also Linus and rmk? Some of the protections are very central
->>>> to the kernel (e.g. constification, "read-mostly", segmentation
->>>> through page table swaps or domains, etc). I'd also want Andy
->>>> Lutomirski around, as he's got a lot of deep chipset knowledge. :)
->>>>
->>>
->>> What is this chipset knowledge you speak of? :)
->>
->> You appear to enjoy fixing deep x86 madness. :)
->>
->>> One thing that grsecurity addresses (partially or fully?  I haven't
->>> looked that closely): we have tons of static, non-const data structure
->>> that contain function pointers, and we can't make them const because
->>> they get filled in when things are initialized.  Grsecurity mitigates
->>> this with some combination of compiler plugins and pax_open_kernel,
->>
->> Right. That's the constification and KERNEXEC pieces.
->>
->>> but we could probably come up with a more straightforward solution.
->>> We could add an ro_after_init section, or we could even have a section
->>> for things that are const but are writable through a special function.
->>
->> I don't think it would be that clean: there are many targets that
->> legitimately need updating at runtime, but should be otherwise
->> read-only. The idea with solving that is to use inline
->> open/close_kernel calls to make them writable briefly and in a way
->> that is ROP-defensive.
->
-> I really dislike open_kernel.  It's basically "turn off RO completely
-> -- please ROP me".  If we had a nice, conservative "poke this value
-> into this place that is hopefully actually a compile-time constant
-> address", I'd be much happier with it.
+On Mon, 24 Aug 2015, Thomas Gleixner wrote:
+> On Mon, 24 Aug 2015, Kees Cook wrote:
+> > On Mon, Aug 24, 2015 at 4:56 AM, James Morris <jmorris@namei.org> wrote:
+> > This is far from a comprehensive list, though. The biggest value, I
+> > think, would be in using KERNEXEC, UDEREF, USERCOPY, and the plugins
+> > for constification and integer overflow.
+> 
+> There is another aspect. We need to make developers more aware of the
+> potential attack issues. I learned my lesson with the futex disaster
+> and since then I certainly look with a different set of eyes at user
+> space facing code. I doubt that we want that everyone experiences the
+> disaster himself (though that's a very enlightening experience), but
+> we should try to document incidents and the lessons learned from
+> them. Right now we just rely on those who are deep into the security
+> realm or the few people who learned it the hard way.
 
-Well... open_kernel turns off preempt. With the inlining, no-preempt,
-and barriers, it should be correct, yes? Used as:
+A good way to start would be to actually force developers to document
+meticulously the possible states of user space variable(s) which
+influence the behaviour of the interface. That can be a mindboggling
+exercise depending on the complexity of the interface, but it helps
+both the implementer and the reviewer.
 
-kernel_open();
-readonly_thing =3D whatever;
-kernel_close();
+Thanks,
 
-This should be way better than what we have already.
-
->>>> =EF=82=98 Protect sensitive data
->>>>  o Constify function pointers! (no where close to this plugin)
->>>
->>> As above, this would be nice.  If we did this upstream, we could do
->>> even better if we outright disallowed non-const function pointers (as
->>> opposed to fixing them up semi-transparently as the plugin does).
->>
->> I would love this. :)
->>
->>>>  o IDT/GDT/syscall table/etc (this is partially done, aliases are
->>>> writable still)
->>>
->>> I don't think the RO GDT patches ever happened.
->>>
->>> FWIW, we can't really eliminate a writable GDT alias without killing
->>> compat performance: set_thread_area rather critically depends on
->>> writing to the GDT at context switch time.
->>
->> If that's what's needed, I am fine killing compat performance. (We
->> could attempt to make this a CONFIG for those that expect to run
->> compat loads for their kernels.)
->
-> We would need to change the default behavior or arch_set_fs, too,
-> since some 64-bit processes use that mechanism as well.  But that's
-> easy.
->
->>
->>>>  o Vsyscall shadow table, see sgrakkyu's remote
->>>> SELinux-disabling exploit
->>>> (http://sgrakkyu.antifork.org/sctp_houdini.c, luto fixed this via
->>>> vsyscall emulation)
->>>
->>> Not done yet, because even modern binaries still have the thing
->>> mapped.  We could devote two or three minutes of a KS session to
->>> figuring out how to kill it off for real for modern binaries.
->>
->> What uses it? I can run with vsyscall=3Dnone without problems...
->
-> Nothing, but it's still mapped by default.  I want something like the
-> stack access flags or an arch_prctl so glibc can turn it off by
-> default.
-
-Oh, instead of just 87983c66bc02 plus =3Dnone, you want a per-process
-runtime config? I think =3Dnone should just become the global default.
-:)
-
--Kees
-
---=20
-Kees Cook
-Chrome OS Security
+	tglx
