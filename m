@@ -1,23 +1,25 @@
-Return-Path: <jkosina@suse.cz>
+Return-Path: <jmorris@namei.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 56112AD9
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 16ECCB35
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 24 Aug 2015 11:46:38 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CA5E619A
+	Mon, 24 Aug 2015 18:50:51 +0000 (UTC)
+Received: from namei.org (tundra.namei.org [65.99.196.166])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9F6F4199
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 24 Aug 2015 11:46:37 +0000 (UTC)
-Date: Mon, 24 Aug 2015 13:46:35 +0200 (CEST)
-From: Jiri Kosina <jkosina@suse.cz>
-To: James Morris <jmorris@namei.org>
-In-Reply-To: <alpine.LRH.2.20.1508241335370.1294@namei.org>
-Message-ID: <alpine.LNX.2.00.1508241343430.25821@pobox.suse.cz>
+	Mon, 24 Aug 2015 18:50:50 +0000 (UTC)
+Date: Tue, 25 Aug 2015 04:50:46 +1000 (AEST)
+From: James Morris <jmorris@namei.org>
+To: Kees Cook <keescook@chromium.org>
+In-Reply-To: <CAGXu5j+=b+EbciyJwr-eNmRVomdeZP4gkWXcfCQtEOEo=HYkAQ@mail.gmail.com>
+Message-ID: <alpine.LRH.2.20.1508250450230.11872@namei.org>
 References: <alpine.LRH.2.20.1508241335370.1294@namei.org>
+	<87k2skzmhs.fsf@linux.vnet.ibm.com>
+	<CAGXu5j+=b+EbciyJwr-eNmRVomdeZP4gkWXcfCQtEOEo=HYkAQ@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
-Cc: Emily Ratliff <eratliff@linuxfoundation.org>,
-	ksummit-discuss@lists.linuxfoundation.org
+Content-Type: text/plain; charset=US-ASCII
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	Emily Ratliff <eratliff@linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Kernel Hardening
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -28,23 +30,18 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 24 Aug 2015, James Morris wrote:
+On Mon, 24 Aug 2015, Kees Cook wrote:
 
-> I'd recommend Kees Cook be involved, due to his existing efforts in 
-> kernel hardening.  I think it would be good to invite one or two expert 
-> security researchers in this area -- Kees would know who.  In terms of 
-> core kernel folk, I'd suggest Ingo and akpm, as a starting point.
+> Should we have a separate discussion for bug-hunting? KASan needs to
+> expand its architecture coverage, Trinity needs a maintainer, and
+> there's always new things happening with smatch and coccinelle.
+> 
+> I'd just like to keep bug-hunting entirely separate from
+> self-protection, as I feel they're distinct topics (though related).
 
-I am pretty sure spender will also have a lot to tell us :p
+I agree -- this needs to be a separate, related discussion.
 
-This is partially sarcasm (due to his often vocally expressed opinions 
-about our processess (and even code) with respect to security) and 
-partially meant seriously (there is always a possibility that at least 
-some misunderstandings will be clarified and we'll get closer to 
-convergency of the trees).
-
-As a very long time grsecurity user, I'd definitely be interested.
 
 -- 
-Jiri Kosina
-SUSE Labs
+James Morris
+<jmorris@namei.org>
