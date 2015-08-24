@@ -1,32 +1,28 @@
-Return-Path: <keescook@google.com>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id CF02794A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0E3D0BF8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 24 Aug 2015 19:00:17 +0000 (UTC)
-Received: from mail-io0-f180.google.com (mail-io0-f180.google.com
-	[209.85.223.180])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9F1451BD
+	Mon, 24 Aug 2015 20:09:05 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 624871FB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 24 Aug 2015 19:00:16 +0000 (UTC)
-Received: by iodt126 with SMTP id t126so160552509iod.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 24 Aug 2015 12:00:16 -0700 (PDT)
-MIME-Version: 1.0
-Sender: keescook@google.com
-In-Reply-To: <alpine.DEB.2.11.1508242048060.15006@nanos>
+	Mon, 24 Aug 2015 20:09:04 +0000 (UTC)
+Message-ID: <1440446941.2201.32.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Kees Cook <keescook@chromium.org>
+Date: Mon, 24 Aug 2015 13:09:01 -0700
+In-Reply-To: <CAGXu5j+XR7TJSgbTNYhCP0YhvvNwA5HtEL=xKCR9GUttzb06Uw@mail.gmail.com>
 References: <alpine.LRH.2.20.1508241335370.1294@namei.org>
-	<alpine.LNX.2.00.1508241343430.25821@pobox.suse.cz>
-	<alpine.LRH.2.20.1508242150310.27693@namei.org>
-	<CAGXu5jLxzAtNPc_M+kPTZw6YqD1Op6Mvb-NHnJTewFanuVsqLQ@mail.gmail.com>
-	<alpine.DEB.2.11.1508242048060.15006@nanos>
-Date: Mon, 24 Aug 2015 12:00:15 -0700
-Message-ID: <CAGXu5jLtG0Jaf0hDkNtditSSGMxwKF8QC9aWq2Vf1A=FoAYJgA@mail.gmail.com>
-From: Kees Cook <keescook@chromium.org>
-To: Thomas Gleixner <tglx@linutronix.de>
-Content-Type: text/plain; charset=UTF-8
-Cc: Jiri Kosina <jkosina@suse.cz>, ksummit-discuss@lists.linuxfoundation.org,
-	Emily Ratliff <eratliff@linuxfoundation.org>
+	<CACRpkdbJ15sA0xXz1XN8Z-636-tijT1UNDgf1J+sM9Zm1anSkA@mail.gmail.com>
+	<CAGXu5j+XR7TJSgbTNYhCP0YhvvNwA5HtEL=xKCR9GUttzb06Uw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Cc: Emily Ratliff <eratliff@linuxfoundation.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Kernel Hardening
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -37,29 +33,52 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Aug 24, 2015 at 11:52 AM, Thomas Gleixner <tglx@linutronix.de> wrote:
-> On Mon, 24 Aug 2015, Kees Cook wrote:
->> On Mon, Aug 24, 2015 at 4:56 AM, James Morris <jmorris@namei.org> wrote:
->> This is far from a comprehensive list, though. The biggest value, I
->> think, would be in using KERNEXEC, UDEREF, USERCOPY, and the plugins
->> for constification and integer overflow.
->
-> There is another aspect. We need to make developers more aware of the
-> potential attack issues. I learned my lesson with the futex disaster
-> and since then I certainly look with a different set of eyes at user
-> space facing code. I doubt that we want that everyone experiences the
-> disaster himself (though that's a very enlightening experience), but
-> we should try to document incidents and the lessons learned from
-> them. Right now we just rely on those who are deep into the security
-> realm or the few people who learned it the hard way.
+On Mon, 2015-08-24 at 09:35 -0700, Kees Cook wrote:
+> On Mon, Aug 24, 2015 at 5:29 AM, Linus Walleij <linus.walleij@linaro.org> wrote:
+> > On Mon, Aug 24, 2015 at 6:20 AM, James Morris <jmorris@namei.org> wrote:
+> >
+> >> There are also potentially promising approaches to mitigation with other
+> >> technologies such as KASan and gcc plugins, as well as evolving hardware
+> >> features.
+> >
+> > What I've discovered when running KASan the last few weeks is that
+> > this points back to the question of tests ... I've been using Trinity
+> > to find bugs, but it is more likely to kill itself or cause OOM than
+> > trigger any boundary overrun bugs.
+> >
+> > Kselftest may be helpful, but basically any loads that heavily
+> > exercise the kernel internals are helpful to harden the kernel.
+> > Some of these are custom test suites I suspect. Any good hints
+> > for a simple embedded developer like me?
+> 
+> I agree with the sentiment here, but not with the language. Finding
+> flaws (which is what selftests, KASan, Trinity, etc do) isn't
+> hardening. Hardening is stopping the exploitation of flaws.
 
-Yeah, it can be a hard perspective shift to make. And shifting the
-thinking about the kernel itself to always operating in a compromised
-state makes thinking about how to protect it much easier. User space
-is trying to hurt us! :)
+Um, forgive me for being dense, but doesn't fixing the flaws stop their
+exploitation?  In any event, Hardening means "reducing the attack
+surface" and that encompasses both active and passive means (including
+actual bug fixing).
 
--Kees
+>  The
+> hardening the kernel needs is about taking away exploitation tools,
+> not killing bugs. (Though killing bugs is still great.)
 
--- 
-Kees Cook
-Chrome OS Security
+It's both.  One of the old standards for attacking C code was buffer
+overruns.  Remove those via detection tools and you reduce the attack
+surface.
+
+> As an example, making the kernel code memory read-only means an
+> attacker cannot just directly change the kernel's execution path when
+> they use an arbitrary memory-writing flaw. (This feature is mostly
+> enabled via CONFIG_DEBUG_RODATA, and was very recently added to ARM,
+> though isn't at 100% coverage for all the physical memory aliases.)
+
+Yes, I like this one a lot.  Adding mechanisms that don't increase
+complexity like this are good active means.  However, I become less
+enamoured of things like selinux and grsecurity which add complexity in
+the name of active attack surface reduction.  That's not to say never do
+it, it's just to say that attack surface is directly related to
+complexity.
+
+James
