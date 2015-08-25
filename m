@@ -1,25 +1,27 @@
-Return-Path: <heiko@sntech.de>
+Return-Path: <linux@roeck-us.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 01860C00
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9A1CDA97
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 25 Aug 2015 21:31:59 +0000 (UTC)
-Received: from gloria.sntech.de (gloria.sntech.de [95.129.55.99])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E78DA1B7
+	Tue, 25 Aug 2015 23:55:21 +0000 (UTC)
+Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9A4AE10B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 25 Aug 2015 21:31:57 +0000 (UTC)
-From: Heiko Stuebner <heiko@sntech.de>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Tue, 25 Aug 2015 23:31:46 +0200
-Message-ID: <2185734.lNGgzKaky2@phil>
-In-Reply-To: <20150825061208.GA13186@localhost.localdomain>
+	Tue, 25 Aug 2015 23:55:20 +0000 (UTC)
+Date: Tue, 25 Aug 2015 16:55:18 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Heiko Stuebner <heiko@sntech.de>
+Message-ID: <20150825235518.GA31163@roeck-us.net>
 References: <20150825061208.GA13186@localhost.localdomain>
+	<2185734.lNGgzKaky2@phil>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-Cc: Zhang Rui <rui.zhang@intel.com>, Jean Delvare <jdelvare@suse.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2185734.lNGgzKaky2@phil>
+Cc: Zhang Rui <rui.zhang@intel.com>, Jean Delvare <jdelvare@suse.com>,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] [CORE TOPIC] The three ways of
-	temperature sensing in Linux
+ temperature sensing in Linux
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,48 +31,28 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Am Montag, 24. August 2015, 23:12:10 schrieb Eduardo Valentin:
-> Hi all,
+On Tue, Aug 25, 2015 at 11:31:46PM +0200, Heiko Stuebner wrote:
 > 
-> [Not sure if this is TECH or CORE, as it touches more than one
-> subsystem]
+> So far I always thought hwmon was some sort of grandfather to the thermal 
+> subsystem without any specific api, but I've also not needed one at all yet.
 > 
-> Not sure how late it is to post this, but I am trying anyway.
-> 
-> During LPC 2015 last week it came out the topic of the interaction
-> between the thermal subsystem with HWMON. On top of it, we also got a
-> proposal [1] of having thermal exposing its registered devices as IIO.
-> 
-> I know the three subsystem coexist today for some years. They also have
-> their own design goals. However, the fact that we have three different
-> subsystems for doing very similar task may be confusing, for the driver
-> writer, and for user space too.
-> 
-> Another aspect of it is the possible code duplication. For example, it
-> would interesting to get board temperature sensors, typically registered
-> as hwmon devices, to be available in the thermal subsystem while
-> constructing thermal zones out of them. Some user process would expect
-> the opposite though, to read the thermal zone sensors as hwmon devices,
-> or as IIO devices.
-> 
-> Therefore, it would be interesting to have a better convergence on how
-> these subsystems talk to each other, and how this is exposed to user
-> space.
+Yes, I have heard that before.
 
-On Rockchip we currently have two scenarios:
+Its scope is quite different, though. One does thermal management, one monitors
+the hardware. Monitoring the hardware is a bit more than just monitoring its
+temperature. It also means to monitor and report voltages, current, power,
+energy, humidity, and fan speeds, as well as associated alarms. Thermal
+management takes an active role, hardware monitoring by its nature doesn't.
 
-rk3066 simply has a "dumb" (ts-)adc just emitting voltages and is actually the 
-same ip as the saradc and thus an iio adc driver. It will need something like 
-the iio-thermal driver that was posted by someone quite some time ago to 
-actually get temperatures and act on them.
+On top of that, many devices report much more than temperatures.
+System managers may report and sometimes control all of the above. SuperIO
+chips monitor voltages, temperatures, and fan speeds, and often implement fan
+control. PMBus devices primarily control voltages, but may report literally
+everything except for humidity (including fan speeds). And so on. 
 
-The rk3288 on the other hand has a much more intelligent tsadc - including 
-temperature-specific actions, which also already has a thermal driver in the 
-kernel.
+Maybe just have a look into drivers/hwmon/pmbus/ltc2978.c, and let me know
+where you would like to have this driver (and all the other PMBus drivers)
+moved to.
 
-
-So far I always thought hwmon was some sort of grandfather to the thermal 
-subsystem without any specific api, but I've also not needed one at all yet.
-
-
-Heiko
+Thanks,
+Guenter
