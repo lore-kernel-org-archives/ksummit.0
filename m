@@ -1,33 +1,30 @@
-Return-Path: <keescook@google.com>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1FC62AF4
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id DF1FF9F1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 25 Aug 2015 16:15:35 +0000 (UTC)
-Received: from mail-ig0-f171.google.com (mail-ig0-f171.google.com
-	[209.85.213.171])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B0153190
+	Tue, 25 Aug 2015 16:30:44 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5FA40131
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 25 Aug 2015 16:15:34 +0000 (UTC)
-Received: by igui7 with SMTP id i7so14993449igu.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 25 Aug 2015 09:15:34 -0700 (PDT)
-MIME-Version: 1.0
-Sender: keescook@google.com
-In-Reply-To: <CAKocOOP19WowbqaUBxESDd5Q5E4fPYpgPvKTqMn8JhTEhqJEAw@mail.gmail.com>
+	Tue, 25 Aug 2015 16:30:44 +0000 (UTC)
+Date: Tue, 25 Aug 2015 17:30:34 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Shuah Khan <shuahkhan@gmail.com>
+Message-ID: <20150825163034.GB12878@sirena.org.uk>
 References: <alpine.LRH.2.20.1508241335370.1294@namei.org>
 	<CACRpkdbJ15sA0xXz1XN8Z-636-tijT1UNDgf1J+sM9Zm1anSkA@mail.gmail.com>
 	<CAGXu5j+XR7TJSgbTNYhCP0YhvvNwA5HtEL=xKCR9GUttzb06Uw@mail.gmail.com>
 	<CAKocOOP19WowbqaUBxESDd5Q5E4fPYpgPvKTqMn8JhTEhqJEAw@mail.gmail.com>
-Date: Tue, 25 Aug 2015 09:15:33 -0700
-Message-ID: <CAGXu5jJp2vEkQ4QmM_Xr=uDrLK_g3f4Nh92MzQmChPDfSXZfYQ@mail.gmail.com>
-From: Kees Cook <keescook@chromium.org>
-To: Shuah Khan <shuahkhan@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: Emily Ratliff <eratliff@linuxfoundation.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="XOIedfhf+7KOe/yw"
+Content-Disposition: inline
+In-Reply-To: <CAKocOOP19WowbqaUBxESDd5Q5E4fPYpgPvKTqMn8JhTEhqJEAw@mail.gmail.com>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	Shuah Khan <shuahkh@osg.samsung.com>
+	Emily Ratliff <eratliff@linuxfoundation.org>, shuahkh@osg.samsung.com
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Kernel Hardening
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -38,25 +35,46 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Aug 25, 2015 at 8:15 AM, Shuah Khan <shuahkhan@gmail.com> wrote:
+
+--XOIedfhf+7KOe/yw
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Tue, Aug 25, 2015 at 09:15:32AM -0600, Shuah Khan wrote:
 > On Mon, Aug 24, 2015 at 10:35 AM, Kees Cook <keescook@chromium.org> wrote:
->> As an example, making the kernel code memory read-only means an
->> attacker cannot just directly change the kernel's execution path when
->> they use an arbitrary memory-writing flaw. (This feature is mostly
->> enabled via CONFIG_DEBUG_RODATA, and was very recently added to ARM,
->> though isn't at 100% coverage for all the physical memory aliases.)
->>
->
-> This sounds similar to ExecShield (NX bit) on Intel. Yes this is a good example.
 
-Yup! That's exactly the NX bit (or other architecture equivalent). The
-trouble tends to be around correctly setting up the kernel memory maps
-to actually split up regions and mark the permissions correctly, and
-make sure nothing was depending on the side-effects of the old
-permissions.
+> > I agree with the sentiment here, but not with the language. Finding
+> > flaws (which is what selftests, KASan, Trinity, etc do) isn't
+> > hardening. Hardening is stopping the exploitation of flaws. The
+> > hardening the kernel needs is about taking away exploitation tools,
+> > not killing bugs. (Though killing bugs is still great.)
 
--Kees
+> I agree with Kees on this. Kselftest or any other test suites can help
+> with regression testing and make sure Kernel works the way it should.
+> Also these tests can tell us if kernel is hardened or not.
 
--- 
-Kees Cook
-Chrome OS Security
+> Hardening means something different to me. i.e making sure kernel
+> can protect against attacks and fail gracefully. This is something to
+> address during design and development process.
+
+Testsuites can help here if we get into the habit of making sure they
+exercise error conditions; they're off to the side a bit but they can
+be a useful way of promoting good practice (at least in my experience).
+
+--XOIedfhf+7KOe/yw
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQEcBAEBCAAGBQJV3JgqAAoJECTWi3JdVIfQ5ygH/jbLwdooGnCpKLKgJ3WiAcQs
+7w7Xm9rHD5wajyY1nPBzcHpWl2mFk8p+oZ7gQJAMJZYi3di/qv3HnUMcH10PkamE
+VXwYIwvyPtlOloysDMRU4RkYZkU45SQY/Fu/7q4eQPFLwjXlOorztizW1lxqUWb/
+EJ0huTY607o2xwF1W7W4HPri/qW/AS7Jc67gep4J10XMiNK93MHeOxyFGBngwRO4
+ju2smqVHVVw7kiO1RGUuYz6Xo565Gd0+IBRUCoocb0Qklum1xupm2mwjreHEW5gf
+MDg94hvw4xAzn93pa9keelhNRXvue3c981O3uWq7Y1pQxSRaIz1aW3RIQmkJtlY=
+=P6Ip
+-----END PGP SIGNATURE-----
+
+--XOIedfhf+7KOe/yw--
