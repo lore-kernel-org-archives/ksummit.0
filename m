@@ -1,34 +1,31 @@
-Return-Path: <keescook@google.com>
+Return-Path: <lurodriguez@suse.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1EAA4BC8
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1C22BB18
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 25 Aug 2015 16:33:30 +0000 (UTC)
-Received: from mail-io0-f179.google.com (mail-io0-f179.google.com
-	[209.85.223.179])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E2A6563
+	Tue, 25 Aug 2015 16:45:54 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A2B7C11C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 25 Aug 2015 16:33:28 +0000 (UTC)
-Received: by iodv127 with SMTP id v127so192997470iod.3
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 25 Aug 2015 09:33:28 -0700 (PDT)
-MIME-Version: 1.0
-Sender: keescook@google.com
-In-Reply-To: <20150825163034.GB12878@sirena.org.uk>
+	Tue, 25 Aug 2015 16:45:53 +0000 (UTC)
+Date: Tue, 25 Aug 2015 18:45:49 +0200
+From: "Luis R. Rodriguez" <mcgrof@suse.com>
+To: Thomas Gleixner <tglx@linutronix.de>
+Message-ID: <20150825164549.GP8051@wotan.suse.de>
 References: <alpine.LRH.2.20.1508241335370.1294@namei.org>
 	<CACRpkdbJ15sA0xXz1XN8Z-636-tijT1UNDgf1J+sM9Zm1anSkA@mail.gmail.com>
 	<CAGXu5j+XR7TJSgbTNYhCP0YhvvNwA5HtEL=xKCR9GUttzb06Uw@mail.gmail.com>
-	<CAKocOOP19WowbqaUBxESDd5Q5E4fPYpgPvKTqMn8JhTEhqJEAw@mail.gmail.com>
-	<20150825163034.GB12878@sirena.org.uk>
-Date: Tue, 25 Aug 2015 09:33:27 -0700
-Message-ID: <CAGXu5jLkkiE8mAbfqSC=KzLuZ+hxarbmPfmCS2tNCVd8dTyPNA@mail.gmail.com>
-From: Kees Cook <keescook@chromium.org>
-To: Mark Brown <broonie@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+	<1440446941.2201.32.camel@HansenPartnership.com>
+	<alpine.LRH.2.20.1508250612360.22949@namei.org>
+	<alpine.DEB.2.11.1508242220570.15006@nanos>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.11.1508242220570.15006@nanos>
 Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	Emily Ratliff <eratliff@linuxfoundation.org>,
-	Shuah Khan <shuahkh@osg.samsung.com>
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Emily Ratliff <eratliff@linuxfoundation.org>, Thomas Graf <tgraf@suug.ch>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Kernel Hardening
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -39,35 +36,24 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Aug 25, 2015 at 9:30 AM, Mark Brown <broonie@kernel.org> wrote:
-> On Tue, Aug 25, 2015 at 09:15:32AM -0600, Shuah Khan wrote:
->> On Mon, Aug 24, 2015 at 10:35 AM, Kees Cook <keescook@chromium.org> wrote:
->
->> > I agree with the sentiment here, but not with the language. Finding
->> > flaws (which is what selftests, KASan, Trinity, etc do) isn't
->> > hardening. Hardening is stopping the exploitation of flaws. The
->> > hardening the kernel needs is about taking away exploitation tools,
->> > not killing bugs. (Though killing bugs is still great.)
->
->> I agree with Kees on this. Kselftest or any other test suites can help
->> with regression testing and make sure Kernel works the way it should.
->> Also these tests can tell us if kernel is hardened or not.
->
->> Hardening means something different to me. i.e making sure kernel
->> can protect against attacks and fail gracefully. This is something to
->> address during design and development process.
->
-> Testsuites can help here if we get into the habit of making sure they
-> exercise error conditions; they're off to the side a bit but they can
-> be a useful way of promoting good practice (at least in my experience).
+On Mon, Aug 24, 2015 at 10:46:33PM +0200, Thomas Gleixner wrote:
+> While we certainly want to add mechanisms which prevent flaws to be
+> exploited we surely want to do something about educating people how to
+> avoid the flaws in the first place.
 
-Yeah, this is what I've done with a bunch of the newer tests in the
-lkdtm module. They're designed to Oops the machine by performing
-actions that should be caught by various mitigations (e.g. writing to
-kernel text, executing userspace memory from the kernel, etc).
+<-- snip -->
 
--Kees
+> I totally agree that we cannot prevent all flaws, but we certainly can
+> do better in reducing the quantity. And that means that we need to
+> educate people. And that education involve documentation and clever usage of
+> tools.
 
--- 
-Kees Cook
-Chrome OS Security
+What folks have been discussing mostly after this post are reactive security
+solutions, that's fine but I think we need to also be a bit more proactive
+about what we let folks design in terms of *new* userspace APIs. For instance
+although it would not solve all userspace facing issues, I certainly think
+things like struct nla_policy helps move away from loose userspace APIs.
+The next evolutionary step was generic netlink but that may be too tied down
+to networking.
+
+  Luis
