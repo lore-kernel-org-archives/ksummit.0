@@ -1,32 +1,40 @@
-Return-Path: <matthew.garrett@coreos.com>
+Return-Path: <stephen@networkplumber.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1072ED95
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E37E1F46
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 26 Aug 2015 21:10:51 +0000 (UTC)
-Received: from mail-yk0-f175.google.com (mail-yk0-f175.google.com
-	[209.85.160.175])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D2C5310D
+	Thu, 27 Aug 2015 22:08:42 +0000 (UTC)
+Received: from mail-pa0-f43.google.com (mail-pa0-f43.google.com
+	[209.85.220.43])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7FE5F16C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 26 Aug 2015 21:10:49 +0000 (UTC)
-Received: by ykll84 with SMTP id l84so200165314ykl.0
+	Thu, 27 Aug 2015 22:08:42 +0000 (UTC)
+Received: by pacgr6 with SMTP id gr6so2188132pac.3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 26 Aug 2015 14:10:49 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <CAGXu5jKLd=9y2=r21fKrN9tK6=TCPBqzZgBiqWqOqYnw5uj2tA@mail.gmail.com>
-References: <alpine.LRH.2.20.1508241335370.1294@namei.org>
-	<alpine.LNX.2.00.1508241343430.25821@pobox.suse.cz>
-	<alpine.LRH.2.20.1508242150310.27693@namei.org>
-	<CAGXu5jLxzAtNPc_M+kPTZw6YqD1Op6Mvb-NHnJTewFanuVsqLQ@mail.gmail.com>
-	<CAGXu5jKLd=9y2=r21fKrN9tK6=TCPBqzZgBiqWqOqYnw5uj2tA@mail.gmail.com>
-Date: Wed, 26 Aug 2015 14:10:49 -0700
-Message-ID: <CAPeXnHsTMY+s4Qdj5JJTtLE1jyM6_THsLnpHrSUSpDWWpO2qeg@mail.gmail.com>
-From: Matthew Garrett <mjg59@coreos.com>
+	Thu, 27 Aug 2015 15:08:42 -0700 (PDT)
+Date: Thu, 27 Aug 2015 15:08:49 -0700
+From: Stephen Hemminger <stephen@networkplumber.org>
 To: Kees Cook <keescook@chromium.org>
-Content-Type: text/plain; charset=UTF-8
-Cc: ksummit-discuss@lists.linuxfoundation.org, Jiri Kosina <jkosina@suse.cz>,
-	Emily Ratliff <eratliff@linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Kernel Hardening
+Message-ID: <20150827150849.36404678@urahara>
+In-Reply-To: <CAGXu5j+6y1-efqzQdNdz2jCDQy=sWjfk7CuyC62djV9n=RDaWA@mail.gmail.com>
+References: <alpine.LRH.2.20.1508241335370.1294@namei.org>
+	<CACRpkdbJ15sA0xXz1XN8Z-636-tijT1UNDgf1J+sM9Zm1anSkA@mail.gmail.com>
+	<CAGXu5j+XR7TJSgbTNYhCP0YhvvNwA5HtEL=xKCR9GUttzb06Uw@mail.gmail.com>
+	<1440446941.2201.32.camel@HansenPartnership.com>
+	<alpine.LRH.2.20.1508250612360.22949@namei.org>
+	<alpine.DEB.2.11.1508242220570.15006@nanos>
+	<alpine.LRH.2.20.1508250753470.26669@namei.org>
+	<CAGXu5jK_4=w_e81askreLCGHXA3B3juYf-a+SNsA1j53yzt8Hw@mail.gmail.com>
+	<20150824235409.GD13446@thunk.org>
+	<CAGXu5j+6y1-efqzQdNdz2jCDQy=sWjfk7CuyC62djV9n=RDaWA@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Emily Ratliff <eratliff@linuxfoundation.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: [Ksummit-discuss] grsecurity and kernel hardening
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,16 +44,8 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-(Resending now this address is subscribed)
+Looks like grsecurity has had a turn for the worse
+ http://www.theregister.co.uk/2015/08/27/grsecurity/
 
-On Wed, Aug 26, 2015 at 1:51 PM, Kees Cook <keescook@chromium.org> wrote:
-> I think another valuable developer to invite would be Matthew Garrett.
-> He's been looking at hardening the line between root and kernel for a
-> while now.
-
-Yeah, we can't rely on userspace to avoid or mitigate all privilege
-escalation bugs - avoiding userspace escalation inherently turning
-into owning the kernel remains valuable. There's various approaches to
-validating userspace state that are only achievable if the kernel is
-still trustworthy, so the assumption that root = game over is one that
-we shouldn't allow the kernel to embody.
+But can't say that I blame him for being mad about vendors
+using without giving back...
