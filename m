@@ -1,41 +1,36 @@
-Return-Path: <stephen@networkplumber.org>
+Return-Path: <pavel@ucw.cz>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9FE47FAD
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 188EDA1F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 27 Aug 2015 23:03:06 +0000 (UTC)
-Received: from mail-pa0-f48.google.com (mail-pa0-f48.google.com
-	[209.85.220.48])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 394D9176
+	Fri, 28 Aug 2015 07:44:43 +0000 (UTC)
+Received: from atrey.karlin.mff.cuni.cz (atrey.karlin.mff.cuni.cz
+	[195.113.26.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 3CBAA10C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 27 Aug 2015 23:03:06 +0000 (UTC)
-Received: by pacgr6 with SMTP id gr6so3425232pac.3
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 27 Aug 2015 16:03:06 -0700 (PDT)
-Date: Thu, 27 Aug 2015 16:03:16 -0700
-From: Stephen Hemminger <stephen@networkplumber.org>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Message-ID: <20150827160316.72d9109f@urahara>
-In-Reply-To: <1440715792.2196.149.camel@HansenPartnership.com>
-References: <alpine.LRH.2.20.1508241335370.1294@namei.org>
-	<CACRpkdbJ15sA0xXz1XN8Z-636-tijT1UNDgf1J+sM9Zm1anSkA@mail.gmail.com>
-	<CAGXu5j+XR7TJSgbTNYhCP0YhvvNwA5HtEL=xKCR9GUttzb06Uw@mail.gmail.com>
-	<1440446941.2201.32.camel@HansenPartnership.com>
-	<alpine.LRH.2.20.1508250612360.22949@namei.org>
-	<alpine.DEB.2.11.1508242220570.15006@nanos>
-	<alpine.LRH.2.20.1508250753470.26669@namei.org>
-	<CAGXu5jK_4=w_e81askreLCGHXA3B3juYf-a+SNsA1j53yzt8Hw@mail.gmail.com>
-	<20150824235409.GD13446@thunk.org>
-	<CAGXu5j+6y1-efqzQdNdz2jCDQy=sWjfk7CuyC62djV9n=RDaWA@mail.gmail.com>
-	<20150827150849.36404678@urahara>
-	<1440715792.2196.149.camel@HansenPartnership.com>
+	Fri, 28 Aug 2015 07:44:42 +0000 (UTC)
+Date: Fri, 28 Aug 2015 09:44:39 +0200
+From: Pavel Machek <pavel@ucw.cz>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Message-ID: <20150828074439.GA26501@amd>
+References: <55B7FD82.8010806@sonymobile.com> <55B82222.3010409@samsung.com>
+	<20150729074011.GB12557@amd> <55DCBB21.8070009@sonymobile.com>
+	<55DD14C3.8090707@samsung.com>
+	<20150826125630.GH3684@io.lakedaemon.net>
+	<20150826135835.GA13900@sudip-pc>
+	<20150826145129.GI3684@io.lakedaemon.net>
+	<20150826171331.GA1815@fool> <20150826200911.GA7269@kroah.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20150826200911.GA7269@kroah.com>
+Cc: Jason Cooper <jason@lakedaemon.net>,
+	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	Emily Ratliff <eratliff@linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] grsecurity and kernel hardening
+	"kyungmin.park@samsung.com" <kyungmin.park@samsung.com>,
+	John Stultz <john.stultz@linaro.org>,
+	=?iso-8859-1?Q?Andersson=2C_Bj=F6rn?= <Bjorn.Andersson@sonymobile.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Mainline kernel on a cellphone
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -45,19 +40,57 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, 27 Aug 2015 15:49:52 -0700
-James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
-
-> Getting a vendor to see that they have sound business reasons for giving
-> back is a specialised skill usually practised over long time period and
-> only successfully by a few people in the industry.  It doesn't happen
-> automatically and certainly not because you have a dummy spit over
-> someone taking something you advertised as "for free" and having the
-> temerity to expect not to have to pay you.
+Hi!
+On Wed 2015-08-26 15:09:11, Greg Kroah-Hartman wrote:
+> On Wed, Aug 26, 2015 at 10:43:31PM +0530, Sudip Mukherjee wrote:
+> > On Wed, Aug 26, 2015 at 02:51:29PM +0000, Jason Cooper wrote:
+> > > Hi Sudip,
+> > > 
+> > > On Wed, Aug 26, 2015 at 07:28:35PM +0530, Sudip Mukherjee wrote:
+> > > > On Wed, Aug 26, 2015 at 12:56:30PM +0000, Jason Cooper wrote:
+> > > > > On Wed, Aug 26, 2015 at 10:22:11AM +0900, Krzysztof Kozlowski wrote:
+> > > > > > Mali GPU drivers are an interesting case:
+> > > > > ...
+> > > > > > 4. Their coding style is so different that I can't imagine mainlining
+> > > > > > them into staging area... Recently I was digging into Mali400 and it was
+> > > > > > literally hurting my eyes to see that coding style. It's like opposite
+> > > > > > of kernel.
+> > > > > 
+> > > > > iirc, gregkh's requirement for staging/ is that it compile.  Nothing
+> > > > > more.
+> > > > 
+> > > > Yes. But Greg will also say that we should be modifying the code with
+> > > > the ultimate goal of moving it out of staging into the main part of the
+> > > > kernel. And if all of us know that it can not be merged into the main part
+> > > > because of closed userspace then will Greg accept it?
+> > > 
+> > > Well, this seems to me to be a case of chicken-and-the-egg, which came
+> > > first?  fwiw, I think there's benefit in putting the driver in staging/
+> > > to see if it ignites development efforts on the userspace side.  If it
+> > > doesn't, I know Greg isn't shy about removing drivers from staging.  ;-)
+> > Adding Greg in the To: list for his comments.
+> > 
+> > Hi Greg,
+> > Incase you have not seen the previous mails in the thread, we were
+> > discussing if mali driver code can be added to staging. Many benefits,
+> > but the problem is that the userspace is closed and unless we have an
+> > open userspace this cannot be merged with the main part of the kernel.
 > 
-> Perhaps it would be useful to run a "how to get your company to regard
-> open source as an investment" type training course, but it's probable
-> that the kernel summit isn't the best venue.
+> staging is not for dumping crap that the owners don't want to do the
+> work to get it merged "properly".  So I will not take DRM drivers in
+> staging that violate the existing DRM rules of requiring an open
+> userspace as that would mean I would be adding code that can never be
+> merged out of the staging tree.
+> 
+> sorry, go kick the Mali authors to do this correctly.  They know what
+> they have to do, their management just doesn't want to let them do
+it.
 
-Agreed, plus the KS is not necessarily going to be the right venue
-for this. Kind of hard to preach to the converted.
+Well, you still can get it working with http://limadriver.org/ , then
+merge it to staging/ , then clean the horrible coding style in tree...
+
+Best regards,
+									Pavel
+-- 
+(english) http://www.livejournal.com/~pavelmachek
+(cesky, pictures) http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blog.html
