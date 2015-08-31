@@ -1,32 +1,30 @@
-Return-Path: <josh@joshtriplett.org>
+Return-Path: <ebiederm@xmission.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0E9DE15CC
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6AC031119
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 31 Aug 2015 20:22:28 +0000 (UTC)
-Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
-	[217.70.183.196])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 12140F4
+	Mon, 31 Aug 2015 21:05:31 +0000 (UTC)
+Received: from out01.mta.xmission.com (out01.mta.xmission.com [166.70.13.231])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B3BAD129
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 31 Aug 2015 20:22:26 +0000 (UTC)
-Date: Mon, 31 Aug 2015 13:22:20 -0700
-From: josh@joshtriplett.org
-To: "Eric W. Biederman" <ebiederm@xmission.com>
-Message-ID: <20150831202220.GA3733@cloud>
+	Mon, 31 Aug 2015 21:05:30 +0000 (UTC)
+From: ebiederm@xmission.com (Eric W. Biederman)
+To: Kees Cook <keescook@chromium.org>
 References: <alpine.LRH.2.20.1508241335370.1294@namei.org>
-	<alpine.LNX.2.00.1508241343430.25821@pobox.suse.cz>
-	<alpine.LRH.2.20.1508242150310.27693@namei.org>
-	<CAGXu5jLxzAtNPc_M+kPTZw6YqD1Op6Mvb-NHnJTewFanuVsqLQ@mail.gmail.com>
-	<alpine.DEB.2.11.1508242048060.15006@nanos>
-	<CAGXu5jLtG0Jaf0hDkNtditSSGMxwKF8QC9aWq2Vf1A=FoAYJgA@mail.gmail.com>
-	<20150824220525.GA15701@kroah.com>
-	<871tejdxt2.fsf@x220.int.ebiederm.org>
+	<CACRpkdbJ15sA0xXz1XN8Z-636-tijT1UNDgf1J+sM9Zm1anSkA@mail.gmail.com>
+	<CAGXu5j+XR7TJSgbTNYhCP0YhvvNwA5HtEL=xKCR9GUttzb06Uw@mail.gmail.com>
+	<1440446941.2201.32.camel@HansenPartnership.com>
+	<CAGXu5j+JNkdMHQJL=2AGQhB+dR9sZPJDG=NPafbdODMs6EexzQ@mail.gmail.com>
+Date: Mon, 31 Aug 2015 15:58:22 -0500
+In-Reply-To: <CAGXu5j+JNkdMHQJL=2AGQhB+dR9sZPJDG=NPafbdODMs6EexzQ@mail.gmail.com>
+	(Kees Cook's message of "Mon, 24 Aug 2015 15:55:01 -0700")
+Message-ID: <87h9nf9nv5.fsf@x220.int.ebiederm.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <871tejdxt2.fsf@x220.int.ebiederm.org>
-Cc: Emily Ratliff <eratliff@linuxfoundation.org>,
-	ksummit-discuss@lists.linuxfoundation.org, Jiri Kosina <jkosina@suse.cz>
+Content-Type: text/plain
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Emily Ratliff <eratliff@linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Kernel Hardening
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -37,45 +35,83 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Aug 31, 2015 at 03:10:01PM -0500, Eric W. Biederman wrote:
-> Greg KH <greg@kroah.com> writes:
-> 
-> > On Mon, Aug 24, 2015 at 12:00:15PM -0700, Kees Cook wrote:
-> >> On Mon, Aug 24, 2015 at 11:52 AM, Thomas Gleixner <tglx@linutronix.de> wrote:
-> >> > On Mon, 24 Aug 2015, Kees Cook wrote:
-> >> >> On Mon, Aug 24, 2015 at 4:56 AM, James Morris <jmorris@namei.org> wrote:
-> >> >> This is far from a comprehensive list, though. The biggest value, I
-> >> >> think, would be in using KERNEXEC, UDEREF, USERCOPY, and the plugins
-> >> >> for constification and integer overflow.
-> >> >
-> >> > There is another aspect. We need to make developers more aware of the
-> >> > potential attack issues. I learned my lesson with the futex disaster
-> >> > and since then I certainly look with a different set of eyes at user
-> >> > space facing code. I doubt that we want that everyone experiences the
-> >> > disaster himself (though that's a very enlightening experience), but
-> >> > we should try to document incidents and the lessons learned from
-> >> > them. Right now we just rely on those who are deep into the security
-> >> > realm or the few people who learned it the hard way.
-> >> 
-> >> Yeah, it can be a hard perspective shift to make. And shifting the
-> >> thinking about the kernel itself to always operating in a compromised
-> >> state makes thinking about how to protect it much easier. User space
-> >> is trying to hurt us! :)
-> >
-> > Microsoft's security team, which was responsible for forcing all of
-> > their developers to undergo some security training every year, has
-> > boiled it all down to these simple 4 words:
-> >
-> > 	All input is evil.
-> 
-> I have a linux version of that one.
-> 
-> An unprivileged user can call that.
-> 
-> It is absolutely amazing how much kernel code does not worry
-> about evil input after it checks that the caller is root.
+Kees Cook <keescook@chromium.org> writes:
 
-Another that has only started getting consideration recently: relative to the
-kernel, root has less privilege.
+> We are finding the bugs, and we can do better, but that's not what I
+> think needs the most attention right now. We need to kill classes of
+> bugs and classes of exploits. To kill a bug class, we must remove the
+> possibility that it can ever go wrong in the first place. Many people
+> stop here when thinking about hardening, but we must move on to
+> killing classes of exploit. I'll continue to use my W^X kernel code
+> example, since it was not, from an operational stance, a flaw that
+> kernel code was writable. But it's a exploitation weakness. If an
+> attacker just needs to directly target a kernel memory location with
+> their memory-write primitive, all their work is done, that user loses
+> control of their kernel, game over.
+>
+> We need to add the safety nets under the acrobats, since they can fall
+> at any time.
 
-- Josh Triplett
+I think it makes sense to close the classes of vulnerabilities that we
+can.
+
+At the same time I think we to serious consider tossing attempts that
+fails to close a class of exploits.
+
+The kernel address space randomization on x86_64 I find disturbing.  We
+have a 2GB address space for kernel code.  We have pages that are 2MB in
+that address space.  So we only have 10 bits that can change.  Only 9
+bits that can change if the kernel needs more than one 2MB page.  Which
+means that at most we need to brute force 1024 things to exploit any
+weakness.
+
+I don't see that attempt at kernel self protection actually
+accomplishing anything in the way of protection, and I do see it costing
+us debuggability which impacts kernel maintenance.  That is enabling
+this protection seems to increase the effort to fix kernel bugs and as
+such increases the number of bugs overall.
+
+Is it reasonable to suggest when we have kernel security features that
+only make people feel good, but don't actually protect them that we toss
+the feature?
+
+>> Yes, I like this one a lot.  Adding mechanisms that don't increase
+>> complexity like this are good active means.  However, I become less
+>> enamoured of things like selinux and grsecurity which add complexity in
+>> the name of active attack surface reduction.  That's not to say never do
+>> it, it's just to say that attack surface is directly related to
+>> complexity.>
+
+> FWIW, really only reduces userspace attack surface (all syscalls are
+> still available to a confined process). seccomp reduces attack
+> surface. grsecurity has an MAC component, but grsecurity (with PaX) is
+> much larger. Regardless, some of these nets will increase complexity.
+> It's the same for anti-lock brakes and airbags[1]. We have to take on
+> this burden to protect our users from our mistakes.
+
+Except given your reference[1] what we need to do is protect our users
+from their own mistakes.  Which means we need to do more than just tell
+our users no it is not ok to do that thing you want to do (they will do
+it anyway).  We need to figure out safe ways to allow our users to do
+the things they want or need to do.
+
+This means things like not hiding new features behind CAP_SYS_ADMIN so
+that we don't have to bother with securing kernel code.
+
+This means things like figuring out how to make it possible for users to
+mount that usb key they found in the parking lot and not have their
+computer get owned.
+
+All of which says that we need to increase the amount of the kernel
+code that we are willing to defend from attacks, and figure out how to
+defend that code.
+
+Allowing our users to reduce the kernel attack surface is valid, but I
+don't think for us as kernel developers it is valid to rely on users
+reducing the kernel attack surface.
+
+> -Kees
+>
+> [1] Borrowing mricon's great analogy as presented at the Security
+> Summit this year:
+> http://kernsec.org/files/lss2015/giant-bags-of-mostly-water.pdf
