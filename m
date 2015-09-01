@@ -1,18 +1,18 @@
-Return-Path: <jikos@kernel.org>
+Return-Path: <sasha.levin@oracle.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3E205143D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5E0E510F1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  1 Sep 2015 21:08:39 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CB0F4196
+	Tue,  1 Sep 2015 22:48:05 +0000 (UTC)
+Received: from aserp1040.oracle.com (aserp1040.oracle.com [141.146.126.69])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E7B68E0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  1 Sep 2015 21:08:38 +0000 (UTC)
-Date: Tue, 1 Sep 2015 23:08:37 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
-To: Sasha Levin <sasha.levin@oracle.com>
-In-Reply-To: <55E61200.8000706@oracle.com>
-Message-ID: <alpine.LNX.2.00.1509012307560.30132@pobox.suse.cz>
+	Tue,  1 Sep 2015 22:48:04 +0000 (UTC)
+Message-ID: <55E62B1A.1010006@oracle.com>
+Date: Tue, 01 Sep 2015 18:47:54 -0400
+From: Sasha Levin <sasha.levin@oracle.com>
+MIME-Version: 1.0
+To: Jiri Kosina <jikos@kernel.org>
 References: <CAMuHMdUK+LZrp9QxPS0wSJzFZVAr_cihxJnFJybo5nb7U_t7xg@mail.gmail.com>
 	<55A26C5B.8060007@oracle.com> <20150713105210.6e367f4b@noble>
 	<55A33E48.2040202@oracle.com>
@@ -23,8 +23,10 @@ References: <CAMuHMdUK+LZrp9QxPS0wSJzFZVAr_cihxJnFJybo5nb7U_t7xg@mail.gmail.com>
 	<1436871795.2445.8.camel@HansenPartnership.com>
 	<874mje5y13.fsf@intel.com> <20150901205235.GA7344@kroah.com>
 	<55E61200.8000706@oracle.com>
-MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
+	<alpine.LNX.2.00.1509012307560.30132@pobox.suse.cz>
+In-Reply-To: <alpine.LNX.2.00.1509012307560.30132@pobox.suse.cz>
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: 7bit
 Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
@@ -38,15 +40,21 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, 1 Sep 2015, Sasha Levin wrote:
+On 09/01/2015 05:08 PM, Jiri Kosina wrote:
+> On Tue, 1 Sep 2015, Sasha Levin wrote:
+> 
+>> In the future, it would be interesting to get distro kernel maintainers 
+>> into this mix as well...
+> 
+> You mean to the mix of people maintaining stable branches? There are 
+> already distro folks doing that (at least for 3.12 that's definitely the 
+> case).
+> 
 
-> In the future, it would be interesting to get distro kernel maintainers 
-> into this mix as well...
+Right, I guess what I was meaning to say was "all of the other distro folks".
 
-You mean to the mix of people maintaining stable branches? There are 
-already distro folks doing that (at least for 3.12 that's definitely the 
-case).
+Hopefully having a common base will make this integration easier.
 
--- 
-Jiri Kosina
-SUSE Labs
+
+Thanks,
+Sasha
