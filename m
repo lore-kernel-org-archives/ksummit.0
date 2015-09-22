@@ -1,27 +1,28 @@
-Return-Path: <hpa@zytor.com>
+Return-Path: <dan.carpenter@oracle.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 68077145B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6100D1BFD
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 19 Sep 2015 00:04:40 +0000 (UTC)
-Received: from mail.zytor.com (terminus.zytor.com [198.137.202.10])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 16F06172
+	Tue, 22 Sep 2015 12:24:26 +0000 (UTC)
+Received: from aserp1040.oracle.com (aserp1040.oracle.com [141.146.126.69])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E1E0212C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 19 Sep 2015 00:04:39 +0000 (UTC)
-To: Arnd Bergmann <arnd@arndb.de>, ksummit-discuss@lists.linuxfoundation.org
-References: <CALAqxLUcfaJnxdmkn6mucepNk3QaCQdcSPLRjjeKsk_OTp=uLA@mail.gmail.com>
-	<1407895613.3017.138.camel@deadeye.wl.decadent.org.uk>
-	<3758173.O0N9ZgmMoN@wuerfel>
-From: "H. Peter Anvin" <hpa@zytor.com>
-Message-ID: <55FCA686.601@zytor.com>
-Date: Fri, 18 Sep 2015 17:04:22 -0700
+	Tue, 22 Sep 2015 12:24:25 +0000 (UTC)
+Date: Tue, 22 Sep 2015 15:24:09 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Kees Cook <keescook@chromium.org>
+Message-ID: <20150922122409.GC4953@mwanda>
+References: <alpine.LRH.2.20.1508241335370.1294@namei.org>
+	<CACRpkdbJ15sA0xXz1XN8Z-636-tijT1UNDgf1J+sM9Zm1anSkA@mail.gmail.com>
+	<CAGXu5j+XR7TJSgbTNYhCP0YhvvNwA5HtEL=xKCR9GUttzb06Uw@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <3758173.O0N9ZgmMoN@wuerfel>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 7bit
-Cc: John Stultz <john.stultz@linaro.org>, lkml <linux-kernel@vger.kernel.org>,
-	"Joseph S. Myers" <joseph@codesourcery.com>
-Subject: Re: [Ksummit-discuss] 2038 Kernel Summit Discussion Fodder
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAGXu5j+XR7TJSgbTNYhCP0YhvvNwA5HtEL=xKCR9GUttzb06Uw@mail.gmail.com>
+Cc: Emily Ratliff <eratliff@linuxfoundation.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Kernel Hardening
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,34 +32,24 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 08/13/2014 01:06 PM, Arnd Bergmann wrote:
-> On Wednesday 13 August 2014 03:06:53 Ben Hutchings wrote:
->>> On the kernel side, it also adds more complexity, where we have to add
->>> even more complex compat support for 64bit systems to handle all the
->>> various 32bit applications possible.
->> [...]
->>
->> Didn't we need to do this already to support x32?  Have compat ioctls
->> involving time been botched?
-> 
-> AFAICT, every ioctl that involves passing a __kernel_ulong_t or
-> __kernel_ulong_t is potentially broken on x32, and this includes
-> everything passing a time_t or timespec.
-> 
-> The problem is that the libc ioctl() function ends up in the kernel's
-> compat_ioctl handler, which expects the 32-bit ABI, not the 64-bit ABI.
-> Most other syscalls in x32 however use the 64-bit ABI.
-> 
-> It works only for drivers that use the same function for .ioctl and
-> .compat_ioctl, and that encode the size of the data structure correctly
-> in the ioctl command code. I assume this is how we will do it for all
-> 32-bit architectures with 64-bit time_t, but on x32 it also concerns
-> other types that use __kernel_long_t.
-> 
+On Mon, Aug 24, 2015 at 09:35:50AM -0700, Kees Cook wrote:
+> As an example, making the kernel code memory read-only means an
+> attacker cannot just directly change the kernel's execution path when
+> they use an arbitrary memory-writing flaw.
 
-OK, super-late reply.
+Part of the problem is that C defaults to writable and you have to
+explicitly add a const if you want it read only.  Then when you are
+reading the code and you see:
 
-Actually we have by and large dealt with that.  Sadly this meant an
-increase in the number of paths with conditional ABI.
+static struct uvc_format_desc uvc_fmts[] = {
 
-	-hpa
+You can't immediately tell if it is writeable because it needs to be or
+because that's just the default.  We should make a new keyword that
+means non constant then we could grep for structs which have a function
+pointer and complain if they weren't specified as const or __writable.
+
+Maybe there is a way to do this with GCC attributes but I have never
+used them before and I couldn't immediately see how to do it.
+
+regards,
+dan carpenter
