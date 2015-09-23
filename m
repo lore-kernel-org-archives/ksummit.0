@@ -1,34 +1,15 @@
-Return-Path: <luto@amacapital.net>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2800D1637
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 22 Sep 2015 18:02:58 +0000 (UTC)
-Received: from mail-ob0-f175.google.com (mail-ob0-f175.google.com
-	[209.85.214.175])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 89CA2138
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 22 Sep 2015 18:02:57 +0000 (UTC)
-Received: by obbbh8 with SMTP id bh8so14269135obb.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 22 Sep 2015 11:02:57 -0700 (PDT)
+Return-Path: <vinod.koul@intel.com>
+Date: Wed, 23 Sep 2015 15:21:07 +0530
+From: Vinod Koul <vinod.koul@intel.com>
+To: Mauro Carvalho Chehab <mchehab@osg.samsung.com>
+Message-ID: <20150923095107.GW2381@localhost>
+References: <20150806062029.55f0c2f2@recife.lan>
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.10.1509221436130.6225@hadrien>
-References: <alpine.LRH.2.20.1508241335370.1294@namei.org>
-	<CACRpkdbJ15sA0xXz1XN8Z-636-tijT1UNDgf1J+sM9Zm1anSkA@mail.gmail.com>
-	<CAGXu5j+XR7TJSgbTNYhCP0YhvvNwA5HtEL=xKCR9GUttzb06Uw@mail.gmail.com>
-	<20150922122409.GC4953@mwanda>
-	<alpine.DEB.2.10.1509221436130.6225@hadrien>
-From: Andy Lutomirski <luto@amacapital.net>
-Date: Tue, 22 Sep 2015 11:02:37 -0700
-Message-ID: <CALCETrXU9VV6hOiCgaFw6jim1SMJhThB5sPR1XXCrbZf=u2uVw@mail.gmail.com>
-To: Julia Lawall <julia.lawall@lip6.fr>
-Content-Type: text/plain; charset=UTF-8
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Dan Carpenter <dan.carpenter@oracle.com>,
-	Emily Ratliff <eratliff@linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Kernel Hardening
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20150806062029.55f0c2f2@recife.lan>
+Cc: Ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Media Controller
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,41 +19,32 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Sep 22, 2015 at 5:59 AM, Julia Lawall <julia.lawall@lip6.fr> wrote:
->
->
-> On Tue, 22 Sep 2015, Dan Carpenter wrote:
->
->> On Mon, Aug 24, 2015 at 09:35:50AM -0700, Kees Cook wrote:
->> > As an example, making the kernel code memory read-only means an
->> > attacker cannot just directly change the kernel's execution path when
->> > they use an arbitrary memory-writing flaw.
->>
->> Part of the problem is that C defaults to writable and you have to
->> explicitly add a const if you want it read only.  Then when you are
->> reading the code and you see:
->>
->> static struct uvc_format_desc uvc_fmts[] = {
->>
->> You can't immediately tell if it is writeable because it needs to be or
->> because that's just the default.  We should make a new keyword that
->> means non constant then we could grep for structs which have a function
->> pointer and complain if they weren't specified as const or __writable.
->>
->> Maybe there is a way to do this with GCC attributes but I have never
->> used them before and I couldn't immediately see how to do it.
->
-> But the bigger problem is that some of these kinds of structs have a
-> single writeable field lurking inside fo them.  For example,
-> platform_driver contains struct device_driver driver; that is initialized
-> in the platform driver library, and not in the device driver itself.
-> Would it be beneficial to put const on the individual function-typed
-> fields, if that is indeed possible?  For example, I don't find any
-> assignments to a platform_driver remove field.
->
+On Thu, Aug 06, 2015 at 06:20:29AM -0300, Mauro Carvalho Chehab wrote:
 
-PaX gets around this with special tricks to write to fields in
-otherwise const structures in appropriately annotated code.  We could
-clean that up and do it upstream.
+> Due to that, we're redesigning the MC core, making it more generic and
+> more capable of representing complex devices. So, we'd like to discuss
+> it with the KS audience, in order to check if there are other use cases
+> for it, and if the solution we're designing would require more changes
+> to fit such other use cases.
+> 
+> For this discussion, I nominate myself and Laurent Pinchart, Hans Verkuil,
+> Sakari Ailus, Shuah Khan and Lars-Peter Clausen.
+> 
+> PS.: I know we're a week late, but we've been busy this month with the
+> discussions, including a Media Controller 3-days summit in Helsinki last
+> week.
 
---Andy
+Sorry for replying super duper late, I wanted to ensure that I have travel
+go ahead before asking :)
+
+So I would like an invitation for this WS, at Intel we have similar issues
+with DSP graphs. We are using shiny new ASoC topology framework in our DSP
+to get topology information and not hard code the graphs, but have no way to
+tell that to usermode.
+
+I did look at media controller in past and would love to discuss more. In
+audio, people have been talking about this and I would be spending time on
+this later this year
+
+-- 
+~Vinod
