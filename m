@@ -1,19 +1,12 @@
-Return-Path: <glikely@secretlab.ca>
-MIME-Version: 1.0
-Sender: glikely@secretlab.ca
-In-Reply-To: <CAGXu5jLWy+xPtP10d0T8HvZfTfK9uykrbL94WcJbyB4MwOf2-A@mail.gmail.com>
-References: <1405460886.7262.4.camel@jarvis.lan>
-	<CAGXu5jLWy+xPtP10d0T8HvZfTfK9uykrbL94WcJbyB4MwOf2-A@mail.gmail.com>
-From: Grant Likely <grant.likely@secretlab.ca>
-Date: Tue, 29 Sep 2015 23:00:32 +0100
-Message-ID: <CACxGe6uZ=+jj2shqsDtrcLDCzdH3w6DjNiCJ3f=xkZkRiNe93g@mail.gmail.com>
-To: Kees Cook <keescook@chromium.org>
-Content-Type: text/plain; charset=UTF-8
-Cc: Tech Board Discuss <Tech-board-discuss@lists.linux-foundation.org>,
-	"ksummit-discuss@lists.linux-foundation.org"
-	<ksummit-discuss@lists.linux-foundation.org>
-Subject: Re: [Ksummit-discuss] Linux Foundation Technical Advisory Board
- Elections and Nomination process
+Return-Path: <ben@decadent.org.uk>
+Message-ID: <1443663282.2730.25.camel@decadent.org.uk>
+From: Ben Hutchings <ben@decadent.org.uk>
+To: ksummit-discuss@lists.linux-foundation.org
+Date: Thu, 01 Oct 2015 02:34:42 +0100
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-OFjlTqBP6n2u2JWLnY7q"
+Mime-Version: 1.0
+Subject: [Ksummit-discuss] Self-nomination: Ben Hutchings
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -23,52 +16,50 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-No, not yet. it will be out very-soon-now.
 
-g.
+--=-OFjlTqBP6n2u2JWLnY7q
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 29, 2015 at 10:55 PM, Kees Cook <keescook@chromium.org> wrote:
-> Has there been an announcement for the 2015 TAB election nominations?
-> (I didn't see anything here or on the tech-board list...)
->
-> -Kees
->
-> On Tue, Jul 15, 2014 at 2:48 PM, James Bottomley
-> <James.Bottomley@hansenpartnership.com> wrote:
->> The elections for five of the ten members of the Linux Foundation
->> Technical Advisory Board[TAB] are held every year. Currently the
->> election will be at the 2014 Kernel Summit in Chicago, USA, at one of
->> the Joint events (probably on the Wednesday 20 August) and will be open
->> to all attendees of the Weeks events (Kernel Summit, LinuxCon and other
->> summits).
->>
->> Anyone is eligible to stand for election, simply send your nomination
->> to:
->>
->> Tech-board-discuss@lists.linux-foundation.org
->>
->> We currently have three nominees for five places:
->>
->> Chris Mason <chris.mason@fusionio.com>
->> James Bottomley <James.Bottomley@HansenPartnership.com>
->> John W. Linville <linville@tuxdriver.com>
->>
->> The deadline for receiving nominations is up until the beginning of the
->> event where the election is held (Currently thought to be the evening of
->> August 20th Central Daylight Time). Although, please remember if you're
->> not going to be present that things go wrong with both networks and
->> mailing lists, so get your nomination in early).
->>
->> James Bottomley (TAB Chair)
->>
->>
->> _______________________________________________
->> Ksummit-discuss mailing list
->> Ksummit-discuss@lists.linuxfoundation.org
->> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
->
->
->
-> --
-> Kees Cook
-> Chrome OS Security
+I've been well behind on mailing lists and it looks like I'm now much
+too late to nominate myself, but on the off-chance that there's still a
+space:
+
+I'm interesting in discussing many of the topics proposed already,
+including:
+
+* kernel hardening
+* issues with stable process
+* documentation building
+* GPL enforcement
+* automated testing
+
+Ben.
+
+--=20
+Ben Hutchings
+Knowledge is power.  France is bacon.
+
+--=-OFjlTqBP6n2u2JWLnY7q
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQIVAwUAVgyNsue/yOyVhhEJAQpDYw/9F5lFdH6GQeVl0DkESfv98dt8YwSf3YIh
+aJdDBb/1INWmJFe8KcwRlN54xbFCYl5Xdyl6G01JUCW0F0qI70AfX1AB5wWW3Gg/
+4fFwQTi0n7ProKvR9SDBzFQnIc2xJ7M/inQ4Qa7UPeJWkhUx66uNHx+hiS3kZ8Xd
+tt6IrCNVF6P7iszY8l3LOXlGVZl9q5Tg0sq1J/LpPftSdGdhiZtT0uTI1PnqaEDS
+5MryJR0YiSTBFffYg2B7PvdGhD6HfVbkS5b5p8Yt01IXI2R7CemjhpmVAvvE7T54
+tcv3J/vf32wgt2Ttr0vjuDwe2iWIuwfAflf2o6nIZjBvXs9zSFrpKl4eda7Cp4tr
+zlWi/BM7BfXZBobSu5fqzScJiWXpL7B7VdXQ9EeSlj5yYG3IQZdhAAaAdlLIs6OG
+gzKkvlYRjI9TptgHscDvvaqdAvgQk5WqLq1SyEnfQxntaObPXF9zwVJ32a0tgVao
+4kDI021RZ9aLq86Zt09yNgrcODXTmpR83jVDlgI2LF0IYOtcGatqi+Np87aH9ZHz
+YBZdmZ183eXrehq/FTTAKwXUB6z1RaoWLbTzpgnUK8OAzP2O2d6GOEEx9OtAMk+q
+P+VZk0LlrugWlg/rwOKqiwcIWupWR8qq7hcwtbIKhJM+zV9AuYH6QuYlDXmzfJo+
+vIg1CGCQPMM=
+=Ab6I
+-----END PGP SIGNATURE-----
+
+--=-OFjlTqBP6n2u2JWLnY7q--
