@@ -1,33 +1,25 @@
-Return-Path: <ricwheeler@gmail.com>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9E66992
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1BD0792
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 11 Oct 2015 04:20:21 +0000 (UTC)
-Received: from mail-wi0-f177.google.com (mail-wi0-f177.google.com
-	[209.85.212.177])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D9A08172
+	Mon, 12 Oct 2015 16:10:18 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6366A1F9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 11 Oct 2015 04:20:20 +0000 (UTC)
-Received: by wijq8 with SMTP id q8so14663932wij.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 10 Oct 2015 21:20:19 -0700 (PDT)
-To: Grant Likely <glikely@secretlab.ca>,
-	tech-board <tech-board@lists.linux-foundation.org>,
-	Tech Board Discuss <Tech-board-discuss@lists.linux-foundation.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	"lwn@lwn.net" <lwn@lwn.net>, "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>, Sage Weil <sweil@redhat.com>
-References: <CACxGe6tWRfHFtkL1TKnOHjV_+e_WFe1w3ZaKrxH5zPBF5GpqqA@mail.gmail.com>
-From: Ric Wheeler <ricwheeler@gmail.com>
-Message-ID: <5619E380.40003@gmail.com>
-Date: Sun, 11 Oct 2015 07:20:16 +0300
+	Mon, 12 Oct 2015 16:10:17 +0000 (UTC)
+Date: Mon, 12 Oct 2015 12:09:48 -0400
+From: Theodore Ts'o <tytso@mit.edu>
+To: Christoph Hellwig <hch@infradead.org>
+Message-ID: <20151012160948.GD20210@thunk.org>
+References: <20150715120708.GA24534@infradead.org>
 MIME-Version: 1.0
-In-Reply-To: <CACxGe6tWRfHFtkL1TKnOHjV_+e_WFe1w3ZaKrxH5zPBF5GpqqA@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Ksummit-discuss] Linux Foundation Technical Advisory Board
- Elections and Nomination process
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20150715120708.GA24534@infradead.org>
+Cc: linux-rdma@vger.kernel.org, linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org, ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] IRQ affinity
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,51 +29,35 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-I would like to nominate Sage Weil with his consent.
+Hi Christoph,
 
-Sage has lead the ceph project since its inception, contributed to the kernel as 
-well as had an influence on projects like openstack.
+Do you think this is still an issue that would be worth discsussing at
+the kernel summit as a technical topic?  If so, would you be willing
+to be responsible for kicking off the discussion for this topic?
 
-thanks!
+Thanks,
 
-Ric
+					- Ted
 
 
 
-On 10/06/2015 01:06 PM, Grant Likely wrote:
-> [Resending because I messed up the first one]
->
-> The elections for five of the ten members of the Linux Foundation
-> Technical Advisory Board (TAB) are held every year[1]. This year the
-> election will be at the 2015 Kernel Summit in Seoul, South Korea
-> (probably on the Monday, 26 October) and will be open to all attendees
-> of both Kernel Summit and Korea Linux Forum.
->
-> Anyone is eligible to stand for election, simply send your nomination to:
->
-> Tech-board-discuss@lists.linux-foundation.org
->
-> We currently have 3 nominees for five places:
-> Thomas Gleixner
-> Greg Kroah-Hartman
-> Stephen Hemminger
->
-> The deadline for receiving nominations is up until the beginning of
-> the event where the election is held. Although, please remember if
-> you're not going to be present that things go wrong with both networks
-> and mailing lists, so get your nomination in early).
->
-> Grant Likely, TAB Chair
->
-> [1] TAB members sit for a term of 2 years, and half of the board is up
-> for election every year. Five of the seats are up for election now.
-> The other five are half way through their term and will be up for
-> election next year. The history of the TAB elections can be found
-> here:
->
-> https://docs.google.com/spreadsheets/d/1jGLQtul0taSRq_opYzJFALI7_34cS4RMS1_YQoTNCKA/edit#gid=0
-> --
-> To unsubscribe from this list: send the line "unsubscribe linux-kernel" in
-> the body of a message to majordomo@vger.kernel.org
-> More majordomo info at  http://vger.kernel.org/majordomo-info.html
-> Please read the FAQ at  http://www.tux.org/lkml/
+On Wed, Jul 15, 2015 at 05:07:08AM -0700, Christoph Hellwig wrote:
+> Many years ago we decided to move setting of IRQ to core affnities to
+> userspace with the irqbalance daemon.
+> 
+> These days we have systems with lots of MSI-X vector, and we have
+> hardware and subsystem support for per-CPU I/O queues in the block
+> layer, the RDMA subsystem and probably the network stack (I'm not too
+> familar with the recent developments there).  It would really help the
+> out of the box performance and experience if we could allow such
+> subsystems to bind interrupt vectors to the node that the queue is
+> configured on.
+> 
+> I'd like to discuss if the rationale for moving the IRQ affinity setting
+> fully to userspace are still correct in todays world any any pitfalls
+> we'll have to learn from in irqbalanced and the old in-kernel affinity
+> code.
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
