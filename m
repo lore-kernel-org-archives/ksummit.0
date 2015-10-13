@@ -1,24 +1,28 @@
-Return-Path: <jikos@kernel.org>
+Return-Path: <linus.walleij@linaro.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id EA3819C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 89E0CCF2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 Oct 2015 09:29:57 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6EF7B160
+	Tue, 13 Oct 2015 13:31:19 +0000 (UTC)
+Received: from mail-oi0-f53.google.com (mail-oi0-f53.google.com
+	[209.85.218.53])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 34AD7FC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 Oct 2015 09:29:57 +0000 (UTC)
-Date: Tue, 13 Oct 2015 11:29:56 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
-To: Theodore Ts'o <tytso@mit.edu>
-In-Reply-To: <20151012171352.GD31035@thunk.org>
-Message-ID: <alpine.LNX.2.00.1510131125570.21100@pobox.suse.cz>
-References: <alpine.LNX.2.00.1507071253390.10183@pobox.suse.cz>
-	<20151012171352.GD31035@thunk.org>
+	Tue, 13 Oct 2015 13:31:19 +0000 (UTC)
+Received: by oiak8 with SMTP id k8so9376621oia.1
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 13 Oct 2015 06:31:18 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] live patching
+In-Reply-To: <20151012190137.GA1992@thunk.org>
+References: <20151012190137.GA1992@thunk.org>
+Date: Tue, 13 Oct 2015 15:31:17 +0200
+Message-ID: <CACRpkdZFHq5AsyX6KwGrnfbOUTDAyo_C-4X-kgY4gh_OXD7=ug@mail.gmail.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+To: "Theodore Ts'o" <tytso@mit.edu>
+Content-Type: text/plain; charset=UTF-8
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] Draft agenda for the kernel summit
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -28,30 +32,19 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 12 Oct 2015, Theodore Ts'o wrote:
+On Mon, Oct 12, 2015 at 9:01 PM, Theodore Ts'o <tytso@mit.edu> wrote:
 
-> I'd like to ask folks whether they feel we still need further
-> discussion on Live Patching at the kernel summit.  Not being present
-> at the Live Kernel Patching miniconf, if folks could describe what
-> issues still need to be resolved or discussed, I'd really appreciate
-> it.
+> 3. GPIO API/ABI discussion (need someone to lead?)
 
-Hi Ted,
+Unfortunately I will not be at the KS, but I definately want to
+know the outcome of this discussion for natural reasons.
 
-quite frankly, I think the need for discussing this has temporarily 
-diminished, because currently common preparatory steps are being worked on 
-(which are generally beneficial even without live patching) -- namely 
-Josh's work on reliable stack traces.
+Johan Hovold has been raising issues with the current
+ABI on the list.
 
-Only after that work is finished, the actual implementation of live 
-patching improvements (and hence discussions) will resume.
+I am now trying to get a chardev prototype up for a richer/saner
+userspace ABI for GPIO but other contributions and ideas
+are welcome.
 
-So probably not really appropriate for this year's kernel summit at the 
-end of the day, because there is no actual discussion happening at the 
-very moment. Will very likely be a up-to-date topic for next year though.
-
-Thanks,
-
--- 
-Jiri Kosina
-SUSE Labs
+Yours,
+Linus Walleij
