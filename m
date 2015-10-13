@@ -1,28 +1,27 @@
-Return-Path: <linus.walleij@linaro.org>
+Return-Path: <rostedt@goodmis.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 89E0CCF2
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2113F1814
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 Oct 2015 13:31:19 +0000 (UTC)
-Received: from mail-oi0-f53.google.com (mail-oi0-f53.google.com
-	[209.85.218.53])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 34AD7FC
+	Tue, 13 Oct 2015 17:21:38 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0214.hostedemail.com
+	[216.40.44.214])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id C07C6186
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 Oct 2015 13:31:19 +0000 (UTC)
-Received: by oiak8 with SMTP id k8so9376621oia.1
+	Tue, 13 Oct 2015 17:21:37 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
+	[10.5.19.251])
+	by smtpgrave05.hostedemail.com (Postfix) with ESMTP id 72470183F7E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 Oct 2015 06:31:18 -0700 (PDT)
+	Tue, 13 Oct 2015 16:42:34 +0000 (UTC)
+Date: Tue, 13 Oct 2015 12:42:30 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: ksummit-discuss@lists.linuxfoundation.org
+Message-ID: <20151013124230.1a082d28@gandalf.local.home>
 MIME-Version: 1.0
-In-Reply-To: <20151012190137.GA1992@thunk.org>
-References: <20151012190137.GA1992@thunk.org>
-Date: Tue, 13 Oct 2015 15:31:17 +0200
-Message-ID: <CACRpkdZFHq5AsyX6KwGrnfbOUTDAyo_C-4X-kgY4gh_OXD7=ug@mail.gmail.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-To: "Theodore Ts'o" <tytso@mit.edu>
-Content-Type: text/plain; charset=UTF-8
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] Draft agenda for the kernel summit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Subject: [Ksummit-discuss] [TECH TOPIC] Mainlining PREEMPT_RT
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,19 +31,23 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Oct 12, 2015 at 9:01 PM, Theodore Ts'o <tytso@mit.edu> wrote:
 
-> 3. GPIO API/ABI discussion (need someone to lead?)
+Now that it was announced in Dublin last week that mainlining
+PREEMPT_RT has funding, I would like to propose a tech topic to discuss
+what is needed to be done in the near future.
 
-Unfortunately I will not be at the KS, but I definately want to
-know the outcome of this discussion for natural reasons.
+Thomas Gleixner and his minions will be doing the brunt of the work,
+but there's issues that need to be addressed with the rest of the
+kernel. The various topics would include:
 
-Johan Hovold has been raising issues with the current
-ABI on the list.
+ CPU hotplug
+ preempt_disable and local_irq_disable annotations
+ new timer_wheel implementation
+ simple waitqueues
+ trylock boosting
 
-I am now trying to get a chardev prototype up for a richer/saner
-userspace ABI for GPIO but other contributions and ideas
-are welcome.
+Several of the Real Time developers will be present at kernel summit. I
+think this would be a great opportunity to have them be able to sit
+down together and discuss the remaining issues.
 
-Yours,
-Linus Walleij
+-- Steve
