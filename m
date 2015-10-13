@@ -1,25 +1,34 @@
-Return-Path: <josh@joshtriplett.org>
+Return-Path: <keescook@google.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B706497
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 03194279
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 Oct 2015 04:00:09 +0000 (UTC)
-Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
-	[217.70.183.196])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 48E188F
+	Tue, 13 Oct 2015 05:19:49 +0000 (UTC)
+Received: from mail-ig0-f173.google.com (mail-ig0-f173.google.com
+	[209.85.213.173])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B6BDD12D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 Oct 2015 04:00:09 +0000 (UTC)
-Date: Mon, 12 Oct 2015 21:00:05 -0700
-From: Josh Triplett <josh@joshtriplett.org>
-To: Theodore Ts'o <tytso@mit.edu>
-Message-ID: <20151013040005.GB3484@cloud>
-References: <20151012190137.GA1992@thunk.org>
+	Tue, 13 Oct 2015 05:19:47 +0000 (UTC)
+Received: by igcpe7 with SMTP id pe7so7452123igc.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 12 Oct 2015 22:19:47 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20151012190137.GA1992@thunk.org>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Draft agenda for the kernel summit
+Sender: keescook@google.com
+In-Reply-To: <CACxGe6tWRfHFtkL1TKnOHjV_+e_WFe1w3ZaKrxH5zPBF5GpqqA@mail.gmail.com>
+References: <CACxGe6tWRfHFtkL1TKnOHjV_+e_WFe1w3ZaKrxH5zPBF5GpqqA@mail.gmail.com>
+Date: Mon, 12 Oct 2015 22:19:47 -0700
+Message-ID: <CAGXu5jKH0dn4_8TbXHRYmZa7dhs7NUHT6EH8Ejy25C=9rQJuYQ@mail.gmail.com>
+From: Kees Cook <keescook@chromium.org>
+To: Grant Likely <glikely@secretlab.ca>
+Content-Type: text/plain; charset=UTF-8
+Cc: Tech Board Discuss <Tech-board-discuss@lists.linux-foundation.org>,
+	"lwn@lwn.net" <lwn@lwn.net>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	tech-board <tech-board@lists.linux-foundation.org>
+Subject: Re: [Ksummit-discuss] Linux Foundation Technical Advisory Board
+ Elections and Nomination process
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,28 +38,31 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Oct 12, 2015 at 03:01:37PM -0400, Theodore Ts'o wrote:
-> Dual-Track Technical sessions (Oct. 27th)
-> =========================================
-> 
-> 9:00    - Welcome and agenda bashing
-> 9:30	- Topic A1                   | Topic B1
-> 10:00   - Topic A2                   | Topic B2
-> 10:30   - Break
-> 11:00	- Topic A3                   | Topic B3
-> 11:30   - Topic A4                   | Topic B4
-> 12:00   - Topic A5                   | Topic B5
-> 12:30   - Lunch
-> 1:30    - Topic A6                   | Topic B6
-> 2:00    - Topic A7                   | Topic B7
-> 2:30    - Break
-> 3:00    - Topic A8                   | Topic B8
-> 3:30    - Topic A9                   | Topic B9
-> 4:00    - Topic A10                  | Topic B10
-> 4:30    - Break
-> 5:00    - Kernel Summit Tech Day -- What went well, what can we do better? 
-> 5:30    - Group Photograph (for core day attendees)
+On Tue, Oct 6, 2015 at 3:06 AM, Grant Likely <glikely@secretlab.ca> wrote:
+> [Resending because I messed up the first one]
+>
+> The elections for five of the ten members of the Linux Foundation
+> Technical Advisory Board (TAB) are held every year[1]. This year the
+> election will be at the 2015 Kernel Summit in Seoul, South Korea
+> (probably on the Monday, 26 October) and will be open to all attendees
+> of both Kernel Summit and Korea Linux Forum.
+>
+> Anyone is eligible to stand for election, simply send your nomination to:
+>
+> Tech-board-discuss@lists.linux-foundation.org
+>
+> We currently have 3 nominees for five places:
+> Thomas Gleixner
+> Greg Kroah-Hartman
+> Stephen Hemminger
 
-Should this say "for tech day attendees"?
+I'd like to nominate myself to stand for a place on the TAB. I'll be
+physically at Kernel Summit.
 
-- Josh Triplett
+Thanks!
+
+-Kees
+
+-- 
+Kees Cook
+Chrome OS Security
