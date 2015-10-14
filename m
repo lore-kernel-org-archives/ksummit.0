@@ -1,32 +1,28 @@
-Return-Path: <sage@newdream.net>
+Return-Path: <linus.walleij@linaro.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5D84A9ED
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A22C0258
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 Oct 2015 13:17:52 +0000 (UTC)
-Received: from cobra.newdream.net (cobra.newdream.net [66.33.216.30])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id CD590189
+	Wed, 14 Oct 2015 07:35:10 +0000 (UTC)
+Received: from mail-ob0-f178.google.com (mail-ob0-f178.google.com
+	[209.85.214.178])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9174AA1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 Oct 2015 13:17:51 +0000 (UTC)
-Date: Tue, 13 Oct 2015 06:09:45 -0700 (PDT)
-From: Sage Weil <sage@newdream.net>
-To: Grant Likely <glikely@secretlab.ca>
-In-Reply-To: <CACxGe6u3TLbwKneogZ+ub9FtkR7=SDct1yyMJw+ispaMTqi=-w@mail.gmail.com>
-Message-ID: <alpine.DEB.2.00.1510130606490.6589@cobra.newdream.net>
-References: <CACxGe6tWRfHFtkL1TKnOHjV_+e_WFe1w3ZaKrxH5zPBF5GpqqA@mail.gmail.com>
-	<5619E380.40003@gmail.com>
-	<CACxGe6u3TLbwKneogZ+ub9FtkR7=SDct1yyMJw+ispaMTqi=-w@mail.gmail.com>
+	Wed, 14 Oct 2015 07:35:09 +0000 (UTC)
+Received: by obbrx8 with SMTP id rx8so32927119obb.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 14 Oct 2015 00:35:09 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: MULTIPART/MIXED; BOUNDARY="557981400-1378434214-1444741785=:6589"
-Cc: Ric Wheeler <ricwheeler@gmail.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Tech Board Discuss <Tech-board-discuss@lists.linux-foundation.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	tech-board <tech-board@lists.linux-foundation.org>,
-	"lwn@lwn.net" <lwn@lwn.net>
-Subject: Re: [Ksummit-discuss] Linux Foundation Technical Advisory Board
- Elections and Nomination process
+In-Reply-To: <20151013124230.1a082d28@gandalf.local.home>
+References: <20151013124230.1a082d28@gandalf.local.home>
+Date: Wed, 14 Oct 2015 09:35:08 +0200
+Message-ID: <CACRpkdb83Q+y9Fd+SmyNi_Fo5wGzmKDKGYFJvpMWSHjC0f=4Ew@mail.gmail.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+Content-Type: text/plain; charset=UTF-8
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Mainlining PREEMPT_RT
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,90 +32,30 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Tue, Oct 13, 2015 at 6:42 PM, Steven Rostedt <rostedt@goodmis.org> wrote:
 
---557981400-1378434214-1444741785=:6589
-Content-Type: TEXT/PLAIN; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+> The various topics would include:
+>
+>  CPU hotplug
+>  preempt_disable and local_irq_disable annotations
+>  new timer_wheel implementation
+>  simple waitqueues
+>  trylock boosting
 
-On Tue, 13 Oct 2015, Grant Likely wrote:
-> On 11 Oct 2015 05:20, "Ric Wheeler" <ricwheeler@gmail.com> wrote:
-> >
-> > I would like to nominate Sage Weil with his consent.
-> >
-> > Sage has lead the ceph project since its inception, contributed to th=
-e
-> kernel as well as had an influence on projects like openstack.
->=20
-> Sage, what say you? Do you accept your nomination?
+- Decide on a case-per-case basis whether to make all irqchips threaded.
 
-I do!
+We recently ran into this in the GPIO subsystem as Grygorii Strashko
+is working on RT on the ARM OMAP. So I drafted a checklist:
+http://marc.info/?l=linux-gpio&m=144382150627266&w=2
 
-Thanks-
-sage
+Feedback welcome. I don't know if I even got the details right in that
+checklist. There are a few irqchips around:
 
->=20
-> g.
->=20
-> >
-> > thanks!
-> >
-> > Ric
-> >
-> >
-> >
-> >
-> > On 10/06/2015 01:06 PM, Grant Likely wrote:
-> >>
-> >> [Resending because I messed up the first one]
-> >>
-> >> The elections for five of the ten members of the Linux Foundation
-> >> Technical Advisory Board (TAB) are held every year[1]. This year the
-> >> election will be at the 2015 Kernel Summit in Seoul, South Korea
-> >> (probably on the Monday, 26 October) and will be open to all attende=
-es
-> >> of both Kernel Summit and Korea Linux Forum.
-> >>
-> >> Anyone is eligible to stand for election, simply send your nominatio=
-n to:
-> >>
-> >> Tech-board-discuss@lists.linux-foundation.org
-> >>
-> >> We currently have 3 nominees for five places:
-> >> Thomas Gleixner
-> >> Greg Kroah-Hartman
-> >> Stephen Hemminger
-> >>
-> >> The deadline for receiving nominations is up until the beginning of
-> >> the event where the election is held. Although, please remember if
-> >> you're not going to be present that things go wrong with both networ=
-ks
-> >> and mailing lists, so get your nomination in early).
-> >>
-> >> Grant Likely, TAB Chair
-> >>
-> >> [1] TAB members sit for a term of 2 years, and half of the board is =
-up
-> >> for election every year. Five of the seats are up for election now.
-> >> The other five are half way through their term and will be up for
-> >> election next year. The history of the TAB elections can be found
-> >> here:
-> >>
-> >>https://docs.google.com/spreadsheets/d/1jGLQtul0taSRq_opYzJFALI7_34cS=
-4RMS1_
-> YQoTNCKA/edit#gid=3D0
-> >> --
-> >> To unsubscribe from this list: send the line "unsubscribe linux-kern=
-el"
-> in
-> >> the body of a message to majordomo@vger.kernel.org
-> >> More majordomo info at=C2=A0 http://vger.kernel.org/majordomo-info.h=
-tml
-> >> Please read the FAQ at=C2=A0 http://www.tux.org/lkml/
-> >
-> >
->=20
->=20
->=20
---557981400-1378434214-1444741785=:6589--
+$ git grep 'struct irq_chip ' arch/ drivers/ | wc -l
+721
+
+If this isn't done I guess that for example a sudden IRQ on a GPIO
+pin can delay a deadline. Not good.
+
+Yours,
+Linus Walleij
