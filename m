@@ -1,37 +1,27 @@
-Return-Path: <glikely@secretlab.ca>
+Return-Path: <cl@linux.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 35B121BB
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9A4F0282
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 Oct 2015 17:49:04 +0000 (UTC)
-Received: from mail-io0-f178.google.com (mail-io0-f178.google.com
-	[209.85.223.178])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B47991A9
+	Wed, 14 Oct 2015 18:12:08 +0000 (UTC)
+Received: from resqmta-ch2-11v.sys.comcast.net
+	(resqmta-ch2-11v.sys.comcast.net [69.252.207.43])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 179081AF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 Oct 2015 17:49:03 +0000 (UTC)
-Received: by iodv82 with SMTP id v82so63684505iod.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 Oct 2015 10:49:03 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.00.1510130606490.6589@cobra.newdream.net>
-References: <CACxGe6tWRfHFtkL1TKnOHjV_+e_WFe1w3ZaKrxH5zPBF5GpqqA@mail.gmail.com>
-	<5619E380.40003@gmail.com>
-	<CACxGe6u3TLbwKneogZ+ub9FtkR7=SDct1yyMJw+ispaMTqi=-w@mail.gmail.com>
-	<alpine.DEB.2.00.1510130606490.6589@cobra.newdream.net>
-From: Grant Likely <glikely@secretlab.ca>
-Date: Wed, 14 Oct 2015 18:48:43 +0100
-Message-ID: <CACxGe6sSP+J4RR8=W6CjwVL9Oo6U_YmwDsN_aN9TzQE5vYzj6Q@mail.gmail.com>
-To: Sage Weil <sage@newdream.net>
-Content-Type: text/plain; charset=UTF-8
-Cc: Ric Wheeler <ricwheeler@gmail.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Tech Board Discuss <Tech-board-discuss@lists.linux-foundation.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	tech-board <tech-board@lists.linux-foundation.org>,
-	"lwn@lwn.net" <lwn@lwn.net>
-Subject: Re: [Ksummit-discuss] Linux Foundation Technical Advisory Board
- Elections and Nomination process
+	Wed, 14 Oct 2015 18:12:07 +0000 (UTC)
+Date: Wed, 14 Oct 2015 13:12:06 -0500 (CDT)
+From: Christoph Lameter <cl@linux.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+In-Reply-To: <20151014112225.26771952@gandalf.local.home>
+Message-ID: <alpine.DEB.2.20.1510141303540.13301@east.gentwo.org>
+References: <20151013124230.1a082d28@gandalf.local.home>
+	<alpine.DEB.2.20.1510140639020.9093@east.gentwo.org>
+	<20151014092041.282117ac@gandalf.local.home>
+	<alpine.DEB.2.20.1510140944380.11727@east.gentwo.org>
+	<20151014112225.26771952@gandalf.local.home>
+Content-Type: text/plain; charset=US-ASCII
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Mainlining PREEMPT_RT
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,19 +31,42 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Oct 13, 2015 at 2:09 PM, Sage Weil <sage@newdream.net> wrote:
-> On Tue, 13 Oct 2015, Grant Likely wrote:
->> On 11 Oct 2015 05:20, "Ric Wheeler" <ricwheeler@gmail.com> wrote:
->> >
->> > I would like to nominate Sage Weil with his consent.
->> >
->> > Sage has lead the ceph project since its inception, contributed to the
->> kernel as well as had an influence on projects like openstack.
->>
->> Sage, what say you? Do you accept your nomination?
->
-> I do!
+On Wed, 14 Oct 2015, Steven Rostedt wrote:
 
-Thanks Sage. You're on the list.
+> Your use case is for large servers doing high frequency trading.
 
-g.
+The use case is for regular servers wanting to use the processor
+without OS interference in order to guarantee as much as possible a fast
+"realtime" response (that term is used in this context by numerous users
+of NOHZ. May be questionable I know but people use it that way).
+
+> PREEMPT_RT works for that too, but for when the applications actually
+> use the kernel. PREEMPT_RT is also used for embedded, where your use
+> case does not fit.
+
+The work on NOHZ was started and is still pushed by Chris Metcalf who is
+working on embedded systems.
+
+> Christoph, there's other use cases than what you want. This proposal is
+> about PREEMPT_RT and there's a lot of use cases for that. Just because
+> it's not what you need doesn't negate its usefulness.
+
+Not seen it yet. Just references to customers that I have never worked
+with. I keep heareing that RT is not useful because its soft realtime and
+not guaranteed to keep its time constraints. Lets implement a real "hard"
+realtime facility. Its possible if the processor is free of the OS.
+
+> Christoph, feel free to ignore this thread and this topic. It's not for
+> you. But there's others out there that don't use 1000 CPUs and find
+> what we are doing quite useful.
+
+Have been working with regular business class servers with two socket for
+the last 8 years. The 1000s of cpus was a decade ago when I worked for
+SGI.
+
+This is regarding a common use case and AFAICT preempt and preempt_rt miss
+the mark by increasing kernel code complexity significantly and thus
+slowing things (cache footprint!!!) down instead of doing the obvious
+which would be an enhanced NOHZ approach where a cpu can dedicate its full
+power to a realtime load that may have to be fast and deterministic as the
+hardware allows.
