@@ -1,30 +1,34 @@
-Return-Path: <Tim.Bird@sonymobile.com>
+Return-Path: <rostedt@goodmis.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id ACD5C360
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id DB4F826C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 Oct 2015 19:30:26 +0000 (UTC)
-Received: from seldrel01.sonyericsson.com (seldrel01.sonyericsson.com
-	[37.139.156.2])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E0DA91ED
+	Wed, 14 Oct 2015 19:48:34 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0004.hostedemail.com
+	[216.40.44.4])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 60350196
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 Oct 2015 19:30:25 +0000 (UTC)
-To: <ksummit-discuss@lists.linuxfoundation.org>
+	Wed, 14 Oct 2015 19:48:34 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
+	[10.5.19.251])
+	by smtpgrave03.hostedemail.com (Postfix) with ESMTP id 54D0C28F80A
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 14 Oct 2015 18:32:48 +0000 (UTC)
+Date: Wed, 14 Oct 2015 14:32:44 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Christoph Lameter <cl@linux.com>
+Message-ID: <20151014143244.19c2512a@gandalf.local.home>
+In-Reply-To: <alpine.DEB.2.20.1510141303540.13301@east.gentwo.org>
 References: <20151013124230.1a082d28@gandalf.local.home>
 	<alpine.DEB.2.20.1510140639020.9093@east.gentwo.org>
 	<20151014092041.282117ac@gandalf.local.home>
 	<alpine.DEB.2.20.1510140944380.11727@east.gentwo.org>
 	<20151014112225.26771952@gandalf.local.home>
 	<alpine.DEB.2.20.1510141303540.13301@east.gentwo.org>
-	<20151014143244.19c2512a@gandalf.local.home>
-	<alpine.DEB.2.20.1510141345540.13663@east.gentwo.org>
-From: Tim Bird <tim.bird@sonymobile.com>
-Message-ID: <561EAD4D.6080901@sonymobile.com>
-Date: Wed, 14 Oct 2015 12:30:21 -0700
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.20.1510141345540.13663@east.gentwo.org>
-Content-Type: text/plain; charset="windows-1252"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
+Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Mainlining PREEMPT_RT
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -35,75 +39,68 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Wed, 14 Oct 2015 13:12:06 -0500 (CDT)
+Christoph Lameter <cl@linux.com> wrote:
 
-
-On 10/14/2015 11:56 AM, Christoph Lameter wrote:
 > On Wed, 14 Oct 2015, Steven Rostedt wrote:
 > 
->> If PREEMPT_RT is not the way to go, then why did several companies just
->> invest into getting it mainlined?
+> > Your use case is for large servers doing high frequency trading.
 > 
-> I guess they want "realtime" support. Better talk to them what they mean
-> by realtime. I have never seen a real use case for PREEMPT_RT. Instead a
-> lot of high level "realtime" talk and disappointment when they found out
-> what the real constraints and limitations are.
+> The use case is for regular servers wanting to use the processor
+> without OS interference in order to guarantee as much as possible a fast
+> "realtime" response (that term is used in this context by numerous users
+
+real-time does not mean real-fast.
+
+> of NOHZ. May be questionable I know but people use it that way).
 > 
->> Again, real-time does not mean real-fast. How do you handle priority
->> inversion? How do you handle outliers? Which the Linux kernel has many
->> huge outliers if things are not handled correctly, which PREEMPT_RT
->> solve (making it, by the way, a hard real time design).  If you can
->> accept a single outlier, then that's soft real-time, and you are
->> talking about something completely different.
+> > PREEMPT_RT works for that too, but for when the applications actually
+> > use the kernel. PREEMPT_RT is also used for embedded, where your use
+> > case does not fit.
 > 
-> You could put the processing for the stuff that creates outliers on a
-> different cpu? Layout the processing in such a way to guarantee no
-> outliers on the "realtime" processors?
+> The work on NOHZ was started and is still pushed by Chris Metcalf who is
+> working on embedded systems.
+
+I never said that NO_HZ_FULL was not appropriate for embedded. But it's
+also not real-time.
+
 > 
->> Hard real-time is about worse case latency, not the average latency.
->> That's called "soft real-time"
+> > Christoph, there's other use cases than what you want. This proposal is
+> > about PREEMPT_RT and there's a lot of use cases for that. Just because
+> > it's not what you need doesn't negate its usefulness.
 > 
-> Of course. Thats why I suggested combining it with the NOHZ appraoch. Put
-> the pieces that can create outliers on cpus not used for "realtime"
-> threads. Ensure that what is running on a hard realtime cpu can complete
-> in a defined timed interval.
+> Not seen it yet. Just references to customers that I have never worked
+> with. I keep heareing that RT is not useful because its soft realtime and
+> not guaranteed to keep its time constraints. Lets implement a real "hard"
+> realtime facility. Its possible if the processor is free of the OS.
+
+If PREEMPT_RT is not the way to go, then why did several companies just
+invest into getting it mainlined?
+
 > 
-> Realtime is about guarantees of a response in a certain time period. That
-> is why "soft realtime" is not making much sense. There is no guarantee
-> anymore. Just more overhead. OS processing slows down due to the
-> sprinkling of preempt code but the timing guarantees that one seeks can be
-> violated. Increasing the processing overhead may increase the number of
-> failures to process a given task in a time period that one wants
-> guaranteed. So better run without preempt in order to have a higher chance
-> to finish in time? That is at least what my industry has decided to do.
+> > Christoph, feel free to ignore this thread and this topic. It's not for
+> > you. But there's others out there that don't use 1000 CPUs and find
+> > what we are doing quite useful.
+> 
+> Have been working with regular business class servers with two socket for
+> the last 8 years. The 1000s of cpus was a decade ago when I worked for
+> SGI.
+> 
+> This is regarding a common use case and AFAICT preempt and preempt_rt miss
+> the mark by increasing kernel code complexity significantly and thus
+> slowing things (cache footprint!!!) down instead of doing the obvious
+> which would be an enhanced NOHZ approach where a cpu can dedicate its full
+> power to a realtime load that may have to be fast and deterministic as the
+> hardware allows.
 
-This debate is as old as the hills. I remember having it in 2000 with
-various parties, when talking about what used to be called the "dual-kernel"
-approach.
+Again, real-time does not mean real-fast. How do you handle priority
+inversion? How do you handle outliers? Which the Linux kernel has many
+huge outliers if things are not handled correctly, which PREEMPT_RT
+solve (making it, by the way, a hard real time design).  If you can
+accept a single outlier, then that's soft real-time, and you are
+talking about something completely different.
 
-> But we really wish we had a hard realtime capability if we must respond in
-> a certain time period. Sadly there is no solution in sight right now.
+Hard real-time is about worse case latency, not the average latency.
+That's called "soft real-time"
 
-Check out Xenomai. (xenomai.org)  I think that's what many embedded folk use
-if they find that RT-PREEMPT does not meet their needs.  Xenomai 3.0
-allows you to use their system either on top of RT-PREEMPT or
-on top of their Cobalt kernel sitting next to (or in front of,
-depending on your perspective) the Linux kernel.
-
-Sony used RT-PREEMPT in some products, and a dual-kernel in others,
-and isolated CPUs running something else (usually uItron) in yet others.
-
-Personally, I'd be happy to see RT-PREEMPT go in - there are certain use
-cases for it.  I'd also like to see the NOHZ stuff go in as well.  It should
-solve a set of problems for isolating RT tasks without sacrificing
-performance on the non-RT CPUs.  And finally, I wouldn't mind putting
-a non-Linux RT kernel like Cobalt (oh the horrors) into mainline as well.
-Each of these approaches has their strengths and weaknesses.  Linux is,
-after all, whatever we say it is - and it could easily have a small RT
-micro-kernel as part of the source base as well.
-
-AFAIK the patent issues that plagued the dual-kernel approach are now
-behind us, so this might be a good area of investigation.
-
-I've long felt that RT-PREEMPT was sucking the oxygen out of getting other,
-technically valid, approaches to RT with Linux into mainline.
- -- Tim
+-- Steve
