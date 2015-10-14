@@ -1,33 +1,24 @@
-Return-Path: <rostedt@goodmis.org>
+Return-Path: <tglx@linutronix.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id DB4F826C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1D6FC282
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 Oct 2015 19:48:34 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0004.hostedemail.com
-	[216.40.44.4])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 60350196
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 Oct 2015 19:48:34 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
-	[10.5.19.251])
-	by smtpgrave03.hostedemail.com (Postfix) with ESMTP id 54D0C28F80A
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 Oct 2015 18:32:48 +0000 (UTC)
-Date: Wed, 14 Oct 2015 14:32:44 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
+	Wed, 14 Oct 2015 20:25:52 +0000 (UTC)
+Date: Wed, 14 Oct 2015 22:24:45 +0200 (CEST)
+From: Thomas Gleixner <tglx@linutronix.de>
 To: Christoph Lameter <cl@linux.com>
-Message-ID: <20151014143244.19c2512a@gandalf.local.home>
-In-Reply-To: <alpine.DEB.2.20.1510141303540.13301@east.gentwo.org>
+In-Reply-To: <alpine.DEB.2.20.1510141345540.13663@east.gentwo.org>
+Message-ID: <alpine.DEB.2.11.1510142203350.3960@nanos>
 References: <20151013124230.1a082d28@gandalf.local.home>
 	<alpine.DEB.2.20.1510140639020.9093@east.gentwo.org>
 	<20151014092041.282117ac@gandalf.local.home>
 	<alpine.DEB.2.20.1510140944380.11727@east.gentwo.org>
 	<20151014112225.26771952@gandalf.local.home>
 	<alpine.DEB.2.20.1510141303540.13301@east.gentwo.org>
+	<20151014143244.19c2512a@gandalf.local.home>
+	<alpine.DEB.2.20.1510141345540.13663@east.gentwo.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: TEXT/PLAIN; charset=US-ASCII
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Mainlining PREEMPT_RT
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -39,68 +30,76 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 14 Oct 2015 13:12:06 -0500 (CDT)
-Christoph Lameter <cl@linux.com> wrote:
+Christoph,
+
+On Wed, 14 Oct 2015, Christoph Lameter wrote:
 
 > On Wed, 14 Oct 2015, Steven Rostedt wrote:
 > 
-> > Your use case is for large servers doing high frequency trading.
+> > If PREEMPT_RT is not the way to go, then why did several companies just
+> > invest into getting it mainlined?
 > 
-> The use case is for regular servers wanting to use the processor
-> without OS interference in order to guarantee as much as possible a fast
-> "realtime" response (that term is used in this context by numerous users
+> I guess they want "realtime" support. Better talk to them what they mean
+> by realtime. I have never seen a real use case for PREEMPT_RT. Instead a
+> lot of high level "realtime" talk and disappointment when they found out
+> what the real constraints and limitations are.
 
-real-time does not mean real-fast.
+Just because you did not see any real use does not mean, there is no
+real use. There are whole application classes out there, which use it
+today. Look at the OSADL member roaster and figure out what those
+companies are doing.
 
-> of NOHZ. May be questionable I know but people use it that way).
-> 
-> > PREEMPT_RT works for that too, but for when the applications actually
-> > use the kernel. PREEMPT_RT is also used for embedded, where your use
-> > case does not fit.
-> 
-> The work on NOHZ was started and is still pushed by Chris Metcalf who is
-> working on embedded systems.
+> You could put the processing for the stuff that creates outliers on a
+> different cpu? Layout the processing in such a way to guarantee no
+> outliers on the "realtime" processors?
 
-I never said that NO_HZ_FULL was not appropriate for embedded. But it's
-also not real-time.
+Sure, you just add another server to it and be done. That's not what
+people in the embedded space can do.
 
-> 
-> > Christoph, there's other use cases than what you want. This proposal is
-> > about PREEMPT_RT and there's a lot of use cases for that. Just because
-> > it's not what you need doesn't negate its usefulness.
-> 
-> Not seen it yet. Just references to customers that I have never worked
-> with. I keep heareing that RT is not useful because its soft realtime and
-> not guaranteed to keep its time constraints. Lets implement a real "hard"
-> realtime facility. Its possible if the processor is free of the OS.
+They need to run highly multi threaded applications on a small system
+and still need the guarantee that they meet their dead lines. They
+cannot afford the waste of a CPU busy spinning in order to process the
+next event. Neither they have the number of cores which would be
+needed nor they can afford the energy wasted by it.
 
-If PREEMPT_RT is not the way to go, then why did several companies just
-invest into getting it mainlined?
+> Realtime is about guarantees of a response in a certain time period. That
+> is why "soft realtime" is not making much sense. There is no guarantee
+> anymore. Just more overhead. OS processing slows down due to the
+> sprinkling of preempt code but the timing guarantees that one seeks can be
+> violated. Increasing the processing overhead may increase the number of
+> failures to process a given task in a time period that one wants
+> guaranteed. So better run without preempt in order to have a higher chance
+> to finish in time? That is at least what my industry has decided to do.
 
-> 
-> > Christoph, feel free to ignore this thread and this topic. It's not for
-> > you. But there's others out there that don't use 1000 CPUs and find
-> > what we are doing quite useful.
-> 
-> Have been working with regular business class servers with two socket for
-> the last 8 years. The 1000s of cpus was a decade ago when I worked for
-> SGI.
-> 
-> This is regarding a common use case and AFAICT preempt and preempt_rt miss
-> the mark by increasing kernel code complexity significantly and thus
-> slowing things (cache footprint!!!) down instead of doing the obvious
-> which would be an enhanced NOHZ approach where a cpu can dedicate its full
-> power to a realtime load that may have to be fast and deterministic as the
-> hardware allows.
+Your industry is a total different application space. Please stop to
+project your narrow view of the application space onto everybody.
 
-Again, real-time does not mean real-fast. How do you handle priority
-inversion? How do you handle outliers? Which the Linux kernel has many
-huge outliers if things are not handled correctly, which PREEMPT_RT
-solve (making it, by the way, a hard real time design).  If you can
-accept a single outlier, then that's soft real-time, and you are
-talking about something completely different.
+And your interpretation of real time is just silly. 
 
-Hard real-time is about worse case latency, not the average latency.
-That's called "soft real-time"
+The key of an RTOS is the deterministic guarantee for the time it
+takes to enqueue a given task up to the completion of the task. The
+design goal is not high throughput. The design goal is to achieve
+latency guarantees. An RTOS sacrifices performance and throughput to
+achieve that guarantees.
 
--- Steve
+Once again: The definition of Real-Time is determinism, not speed.
+
+> But we really wish we had a hard realtime capability if we must respond in
+> a certain time period. Sadly there is no solution in sight right now.
+
+You're design goal is completely different. Your design goal is
+sacrifying a single CPU in order to have FAST response on an event and
+high throughput at the same time. That has nothing to do with real
+time. Go and read on OS theory to figure out why.
+
+I'm really tired of your obnoxious claims, that the only way of doing
+RT is what you think it might be.
+
+I'm well aware that your use case exists. It was one of the reasons
+why I started the NOHZ FULL effort in the first place. Please, fix
+your NOHZ FULL isolation problem and stop imposing your completely
+domain specific blinkerdness on everybody else.
+
+Thanks,
+
+	tglx
