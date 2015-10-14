@@ -1,19 +1,15 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <Tim.Bird@sonymobile.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B29BA9B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id ACD5C360
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 Oct 2015 19:17:37 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id EDA0018A
+	Wed, 14 Oct 2015 19:30:26 +0000 (UTC)
+Received: from seldrel01.sonyericsson.com (seldrel01.sonyericsson.com
+	[37.139.156.2])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E0DA91ED
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 Oct 2015 19:17:36 +0000 (UTC)
-Message-ID: <1444850255.2220.60.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Christoph Lameter <cl@linux.com>
-Date: Wed, 14 Oct 2015 12:17:35 -0700
-In-Reply-To: <alpine.DEB.2.20.1510141345540.13663@east.gentwo.org>
+	Wed, 14 Oct 2015 19:30:25 +0000 (UTC)
+To: <ksummit-discuss@lists.linuxfoundation.org>
 References: <20151013124230.1a082d28@gandalf.local.home>
 	<alpine.DEB.2.20.1510140639020.9093@east.gentwo.org>
 	<20151014092041.282117ac@gandalf.local.home>
@@ -22,10 +18,13 @@ References: <20151013124230.1a082d28@gandalf.local.home>
 	<alpine.DEB.2.20.1510141303540.13301@east.gentwo.org>
 	<20151014143244.19c2512a@gandalf.local.home>
 	<alpine.DEB.2.20.1510141345540.13663@east.gentwo.org>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
+From: Tim Bird <tim.bird@sonymobile.com>
+Message-ID: <561EAD4D.6080901@sonymobile.com>
+Date: Wed, 14 Oct 2015 12:30:21 -0700
+MIME-Version: 1.0
+In-Reply-To: <alpine.DEB.2.20.1510141345540.13663@east.gentwo.org>
+Content-Type: text/plain; charset="windows-1252"
 Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Mainlining PREEMPT_RT
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -36,30 +35,32 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 2015-10-14 at 13:56 -0500, Christoph Lameter wrote:
+
+
+On 10/14/2015 11:56 AM, Christoph Lameter wrote:
 > On Wed, 14 Oct 2015, Steven Rostedt wrote:
 > 
-> > If PREEMPT_RT is not the way to go, then why did several companies just
-> > invest into getting it mainlined?
+>> If PREEMPT_RT is not the way to go, then why did several companies just
+>> invest into getting it mainlined?
 > 
 > I guess they want "realtime" support. Better talk to them what they mean
 > by realtime. I have never seen a real use case for PREEMPT_RT. Instead a
 > lot of high level "realtime" talk and disappointment when they found out
 > what the real constraints and limitations are.
 > 
-> > Again, real-time does not mean real-fast. How do you handle priority
-> > inversion? How do you handle outliers? Which the Linux kernel has many
-> > huge outliers if things are not handled correctly, which PREEMPT_RT
-> > solve (making it, by the way, a hard real time design).  If you can
-> > accept a single outlier, then that's soft real-time, and you are
-> > talking about something completely different.
+>> Again, real-time does not mean real-fast. How do you handle priority
+>> inversion? How do you handle outliers? Which the Linux kernel has many
+>> huge outliers if things are not handled correctly, which PREEMPT_RT
+>> solve (making it, by the way, a hard real time design).  If you can
+>> accept a single outlier, then that's soft real-time, and you are
+>> talking about something completely different.
 > 
 > You could put the processing for the stuff that creates outliers on a
 > different cpu? Layout the processing in such a way to guarantee no
 > outliers on the "realtime" processors?
 > 
-> > Hard real-time is about worse case latency, not the average latency.
-> > That's called "soft real-time"
+>> Hard real-time is about worse case latency, not the average latency.
+>> That's called "soft real-time"
 > 
 > Of course. Thats why I suggested combining it with the NOHZ appraoch. Put
 > the pieces that can create outliers on cpus not used for "realtime"
@@ -74,22 +75,35 @@ On Wed, 2015-10-14 at 13:56 -0500, Christoph Lameter wrote:
 > failures to process a given task in a time period that one wants
 > guaranteed. So better run without preempt in order to have a higher chance
 > to finish in time? That is at least what my industry has decided to do.
-> 
+
+This debate is as old as the hills. I remember having it in 2000 with
+various parties, when talking about what used to be called the "dual-kernel"
+approach.
+
 > But we really wish we had a hard realtime capability if we must respond in
 > a certain time period. Sadly there is no solution in sight right now.
 
-Yes, there is: PREEMPT_RT is (or can be if configured correctly) hard
-real time.  The point, as Steve told you several times, is to sacrifice
-performance for determinism.  As long as the general system deadlines
-still fit, then the solution works ... well as it happens: this covers
-many use cases because we sacrifice microseconds for millisecond
-deadlines (or things even further apart in timescales); there's a huge
-number of industrial use cases in this range.
+Check out Xenomai. (xenomai.org)  I think that's what many embedded folk use
+if they find that RT-PREEMPT does not meet their needs.  Xenomai 3.0
+allows you to use their system either on top of RT-PREEMPT or
+on top of their Cobalt kernel sitting next to (or in front of,
+depending on your perspective) the Linux kernel.
 
-What you're saying is that sacrificing performance is unacceptable for
-your deadlines, so you're not able to use this solution: fair enough, it
-doesn't cover all possible use cases, just a majority.  However trying
-to imply that it's not a solution because it doesn't solve your problem
-is really not going to motivate people involved to want to help you.
+Sony used RT-PREEMPT in some products, and a dual-kernel in others,
+and isolated CPUs running something else (usually uItron) in yet others.
 
-James
+Personally, I'd be happy to see RT-PREEMPT go in - there are certain use
+cases for it.  I'd also like to see the NOHZ stuff go in as well.  It should
+solve a set of problems for isolating RT tasks without sacrificing
+performance on the non-RT CPUs.  And finally, I wouldn't mind putting
+a non-Linux RT kernel like Cobalt (oh the horrors) into mainline as well.
+Each of these approaches has their strengths and weaknesses.  Linux is,
+after all, whatever we say it is - and it could easily have a small RT
+micro-kernel as part of the source base as well.
+
+AFAIK the patent issues that plagued the dual-kernel approach are now
+behind us, so this might be a good area of investigation.
+
+I've long felt that RT-PREEMPT was sucking the oxygen out of getting other,
+technically valid, approaches to RT with Linux into mainline.
+ -- Tim
