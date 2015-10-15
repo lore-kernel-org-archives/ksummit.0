@@ -1,26 +1,33 @@
-Return-Path: <dan.j.williams@intel.com>
+Return-Path: <rostedt@goodmis.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id DB9CD67
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 85DF3410
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 15 Oct 2015 00:17:09 +0000 (UTC)
-Received: from mail-wi0-f169.google.com (mail-wi0-f169.google.com
-	[209.85.212.169])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 26A9010E
+	Thu, 15 Oct 2015 02:20:05 +0000 (UTC)
+Received: from cdptpa-oedge-vip.email.rr.com
+	(cdptpa-outbound-snat.email.rr.com [107.14.166.228])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id E390490
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 15 Oct 2015 00:17:09 +0000 (UTC)
-Received: by wicgb1 with SMTP id gb1so5943304wic.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 Oct 2015 17:17:07 -0700 (PDT)
+	Thu, 15 Oct 2015 02:20:04 +0000 (UTC)
+Date: Wed, 14 Oct 2015 22:20:02 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Tim Bird <tim.bird@sonymobile.com>
+Message-ID: <20151014222002.3f345ac3@grimm.local.home>
+In-Reply-To: <561EAD4D.6080901@sonymobile.com>
+References: <20151013124230.1a082d28@gandalf.local.home>
+	<alpine.DEB.2.20.1510140639020.9093@east.gentwo.org>
+	<20151014092041.282117ac@gandalf.local.home>
+	<alpine.DEB.2.20.1510140944380.11727@east.gentwo.org>
+	<20151014112225.26771952@gandalf.local.home>
+	<alpine.DEB.2.20.1510141303540.13301@east.gentwo.org>
+	<20151014143244.19c2512a@gandalf.local.home>
+	<alpine.DEB.2.20.1510141345540.13663@east.gentwo.org>
+	<561EAD4D.6080901@sonymobile.com>
 MIME-Version: 1.0
-Date: Wed, 14 Oct 2015 17:17:07 -0700
-Message-ID: <CAPcyv4j44fE1BFFdRyLmaaF+CTJsMtaNC_=jN9+hqPCGGwXnsQ@mail.gmail.com>
-From: Dan Williams <dan.j.williams@intel.com>
-To: "Theodore Ts'o" <tytso@mit.edu>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: [Ksummit-discuss] ZONE_DEVICE and Persistent Memory (was: Re: Draft
- agenda for the kernel summit)
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Mainlining PREEMPT_RT
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,34 +37,42 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Oct 12, 2015 at 12:01 PM, Theodore Ts'o <tytso@mit.edu> wrote:
-> This is an initial draft for the upcoming kernel summit.
->
-> It is still very drafty; in particular, just because a topic has been
-> listed, it may turn out that the topic has been resolved off-line, or
-> otherwise overtaken by events, in which case we will drop it.  In
-> addition, we're also in the process of sending queries to the proposed
-> topic leaders to see if they are willing to kick off the discussion,
-> and so that is subject to change as well.
->
-> I'd appreciate comments about any topics that you think might be
-> missing and that would be worth our discussing.
+On Wed, 14 Oct 2015 12:30:21 -0700
+Tim Bird <tim.bird@sonymobile.com> wrote:
 
-I am wondering if it would be productive / good use of time to do a
-direction check on the mm changes being done in support of large
-persistent memory devices.  The new ZONE_DEVICE mm-zone was added in a
-basic form in 4.3 [1].  The follow-on patches to make use of it have
-not enjoyed much feedback to date, especially compared to the debate
-that occurred when removing struct page from the block-layer was being
-considered [2].
+REPLY ALL Tim! I didn't notice this email till I saw it as QotW on LWN.
 
-I'm assuming either the new approach is sufficiently non-controversial
-and this is just normal patch review latency, or there are some
-brewing discussion topics that might make forward progress in person.
-One example might be unintended usages of devm_memremap_pages() as
-some are experimenting with it to enable peer-to-peer PCI-E transfers.
-Another might be the future of the effort to reduce the usage of, or
-redefine, struct page.
 
-[1]: https://git.kernel.org/cgit/linux/kernel/git/nvdimm/nvdimm.git/tag/?id=libnvdimm-for-4.3
-[2]: https://lists.01.org/pipermail/linux-nvdimm/2015-May/000748.html
+> Check out Xenomai. (xenomai.org)  I think that's what many embedded folk use
+> if they find that RT-PREEMPT does not meet their needs.  Xenomai 3.0
+> allows you to use their system either on top of RT-PREEMPT or
+> on top of their Cobalt kernel sitting next to (or in front of,
+> depending on your perspective) the Linux kernel.
+> 
+> Sony used RT-PREEMPT in some products, and a dual-kernel in others,
+> and isolated CPUs running something else (usually uItron) in yet others.
+> 
+> Personally, I'd be happy to see RT-PREEMPT go in - there are certain use
+
+BTW, it's PREEMPT_RT not RT-PREEMPT.
+
+> cases for it.  I'd also like to see the NOHZ stuff go in as well.  It should
+> solve a set of problems for isolating RT tasks without sacrificing
+> performance on the non-RT CPUs.  And finally, I wouldn't mind putting
+> a non-Linux RT kernel like Cobalt (oh the horrors) into mainline as well.
+> Each of these approaches has their strengths and weaknesses.  Linux is,
+> after all, whatever we say it is - and it could easily have a small RT
+> micro-kernel as part of the source base as well.
+> 
+> AFAIK the patent issues that plagued the dual-kernel approach are now
+> behind us, so this might be a good area of investigation.
+> 
+> I've long felt that RT-PREEMPT was sucking the oxygen out of getting other,
+> technically valid, approaches to RT with Linux into mainline.
+
+I'm perfectly fine with working together with Xenomai. When you need a
+few microsecond latencies, that may be the best tool. I don't think
+they are mutually exclusive, but actually complement each other quite
+nicely.
+
+-- Steve
