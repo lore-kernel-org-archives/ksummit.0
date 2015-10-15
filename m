@@ -1,26 +1,26 @@
-Return-Path: <tglx@linutronix.de>
+Return-Path: <dan.j.williams@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1D6FC282
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id DB9CD67
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 Oct 2015 20:25:52 +0000 (UTC)
-Date: Wed, 14 Oct 2015 22:24:45 +0200 (CEST)
-From: Thomas Gleixner <tglx@linutronix.de>
-To: Christoph Lameter <cl@linux.com>
-In-Reply-To: <alpine.DEB.2.20.1510141345540.13663@east.gentwo.org>
-Message-ID: <alpine.DEB.2.11.1510142203350.3960@nanos>
-References: <20151013124230.1a082d28@gandalf.local.home>
-	<alpine.DEB.2.20.1510140639020.9093@east.gentwo.org>
-	<20151014092041.282117ac@gandalf.local.home>
-	<alpine.DEB.2.20.1510140944380.11727@east.gentwo.org>
-	<20151014112225.26771952@gandalf.local.home>
-	<alpine.DEB.2.20.1510141303540.13301@east.gentwo.org>
-	<20151014143244.19c2512a@gandalf.local.home>
-	<alpine.DEB.2.20.1510141345540.13663@east.gentwo.org>
+	Thu, 15 Oct 2015 00:17:09 +0000 (UTC)
+Received: from mail-wi0-f169.google.com (mail-wi0-f169.google.com
+	[209.85.212.169])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 26A9010E
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 15 Oct 2015 00:17:09 +0000 (UTC)
+Received: by wicgb1 with SMTP id gb1so5943304wic.1
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 14 Oct 2015 17:17:07 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
+Date: Wed, 14 Oct 2015 17:17:07 -0700
+Message-ID: <CAPcyv4j44fE1BFFdRyLmaaF+CTJsMtaNC_=jN9+hqPCGGwXnsQ@mail.gmail.com>
+From: Dan Williams <dan.j.williams@intel.com>
+To: "Theodore Ts'o" <tytso@mit.edu>
+Content-Type: text/plain; charset=UTF-8
 Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Mainlining PREEMPT_RT
+Subject: [Ksummit-discuss] ZONE_DEVICE and Persistent Memory (was: Re: Draft
+ agenda for the kernel summit)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,76 +30,34 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Christoph,
+On Mon, Oct 12, 2015 at 12:01 PM, Theodore Ts'o <tytso@mit.edu> wrote:
+> This is an initial draft for the upcoming kernel summit.
+>
+> It is still very drafty; in particular, just because a topic has been
+> listed, it may turn out that the topic has been resolved off-line, or
+> otherwise overtaken by events, in which case we will drop it.  In
+> addition, we're also in the process of sending queries to the proposed
+> topic leaders to see if they are willing to kick off the discussion,
+> and so that is subject to change as well.
+>
+> I'd appreciate comments about any topics that you think might be
+> missing and that would be worth our discussing.
 
-On Wed, 14 Oct 2015, Christoph Lameter wrote:
+I am wondering if it would be productive / good use of time to do a
+direction check on the mm changes being done in support of large
+persistent memory devices.  The new ZONE_DEVICE mm-zone was added in a
+basic form in 4.3 [1].  The follow-on patches to make use of it have
+not enjoyed much feedback to date, especially compared to the debate
+that occurred when removing struct page from the block-layer was being
+considered [2].
 
-> On Wed, 14 Oct 2015, Steven Rostedt wrote:
-> 
-> > If PREEMPT_RT is not the way to go, then why did several companies just
-> > invest into getting it mainlined?
-> 
-> I guess they want "realtime" support. Better talk to them what they mean
-> by realtime. I have never seen a real use case for PREEMPT_RT. Instead a
-> lot of high level "realtime" talk and disappointment when they found out
-> what the real constraints and limitations are.
+I'm assuming either the new approach is sufficiently non-controversial
+and this is just normal patch review latency, or there are some
+brewing discussion topics that might make forward progress in person.
+One example might be unintended usages of devm_memremap_pages() as
+some are experimenting with it to enable peer-to-peer PCI-E transfers.
+Another might be the future of the effort to reduce the usage of, or
+redefine, struct page.
 
-Just because you did not see any real use does not mean, there is no
-real use. There are whole application classes out there, which use it
-today. Look at the OSADL member roaster and figure out what those
-companies are doing.
-
-> You could put the processing for the stuff that creates outliers on a
-> different cpu? Layout the processing in such a way to guarantee no
-> outliers on the "realtime" processors?
-
-Sure, you just add another server to it and be done. That's not what
-people in the embedded space can do.
-
-They need to run highly multi threaded applications on a small system
-and still need the guarantee that they meet their dead lines. They
-cannot afford the waste of a CPU busy spinning in order to process the
-next event. Neither they have the number of cores which would be
-needed nor they can afford the energy wasted by it.
-
-> Realtime is about guarantees of a response in a certain time period. That
-> is why "soft realtime" is not making much sense. There is no guarantee
-> anymore. Just more overhead. OS processing slows down due to the
-> sprinkling of preempt code but the timing guarantees that one seeks can be
-> violated. Increasing the processing overhead may increase the number of
-> failures to process a given task in a time period that one wants
-> guaranteed. So better run without preempt in order to have a higher chance
-> to finish in time? That is at least what my industry has decided to do.
-
-Your industry is a total different application space. Please stop to
-project your narrow view of the application space onto everybody.
-
-And your interpretation of real time is just silly. 
-
-The key of an RTOS is the deterministic guarantee for the time it
-takes to enqueue a given task up to the completion of the task. The
-design goal is not high throughput. The design goal is to achieve
-latency guarantees. An RTOS sacrifices performance and throughput to
-achieve that guarantees.
-
-Once again: The definition of Real-Time is determinism, not speed.
-
-> But we really wish we had a hard realtime capability if we must respond in
-> a certain time period. Sadly there is no solution in sight right now.
-
-You're design goal is completely different. Your design goal is
-sacrifying a single CPU in order to have FAST response on an event and
-high throughput at the same time. That has nothing to do with real
-time. Go and read on OS theory to figure out why.
-
-I'm really tired of your obnoxious claims, that the only way of doing
-RT is what you think it might be.
-
-I'm well aware that your use case exists. It was one of the reasons
-why I started the NOHZ FULL effort in the first place. Please, fix
-your NOHZ FULL isolation problem and stop imposing your completely
-domain specific blinkerdness on everybody else.
-
-Thanks,
-
-	tglx
+[1]: https://git.kernel.org/cgit/linux/kernel/git/nvdimm/nvdimm.git/tag/?id=libnvdimm-for-4.3
+[2]: https://lists.01.org/pipermail/linux-nvdimm/2015-May/000748.html
