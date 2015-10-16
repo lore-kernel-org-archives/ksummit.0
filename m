@@ -1,25 +1,24 @@
-Return-Path: <johannes@sipsolutions.net>
+Return-Path: <arnd@arndb.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4FA5A9C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6F5DA97
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 Oct 2015 06:52:44 +0000 (UTC)
-Received: from sipsolutions.net (s3.sipsolutions.net [5.9.151.49])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C5E628E
+	Fri, 16 Oct 2015 07:55:35 +0000 (UTC)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.131])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 033E4DF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 Oct 2015 06:52:43 +0000 (UTC)
-Message-ID: <1444978357.2370.8.camel@sipsolutions.net>
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Rob Herring <robherring2@gmail.com>, Theodore Ts'o <tytso@mit.edu>
-Date: Fri, 16 Oct 2015 08:52:37 +0200
-In-Reply-To: <CAL_JsqLxYRBhnLj0SyEtgwWaCPM+UcPindxZ2NswB3WKopCyPw@mail.gmail.com>
+	Fri, 16 Oct 2015 07:55:34 +0000 (UTC)
+From: Arnd Bergmann <arnd@arndb.de>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Fri, 16 Oct 2015 09:55:29 +0200
+Message-ID: <8179129.ZdLT4uWW88@wuerfel>
+In-Reply-To: <1444978357.2370.8.camel@sipsolutions.net>
 References: <20151012190137.GA1992@thunk.org>
 	<CAL_JsqLxYRBhnLj0SyEtgwWaCPM+UcPindxZ2NswB3WKopCyPw@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+	<1444978357.2370.8.camel@sipsolutions.net>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 Subject: Re: [Ksummit-discuss] Draft agenda for the kernel summit
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -30,25 +29,26 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, 2015-10-15 at 19:41 -0500, Rob Herring wrote:
+On Friday 16 October 2015 08:52:37 Johannes Berg wrote:
+> On Thu, 2015-10-15 at 19:41 -0500, Rob Herring wrote:
+> the unwillingness of chip
+> vendors (hi Broadcom, Qualcomm, MediaTek) to have an upstream driver
+> that they actually use (some of those do support an upstream driver,
+> but don't ship that one and it doesn't nearly have the necessary
+> features, while the actually used (still open source [1]) driver is a
+> pile of spaghetti code that we'd probably never merge upstream...)
 > 
-> - Gaps in driver subsystems:
->   - WiFi - Android gaps: mode switching, P2P, Chromecast, roaming,
-> ePNO, Passpoint
+> [1] except for MediaTek, I think, who seem to never be releasing source
+> code for any of their kernels
+> 
 
-I will be there, I can talk about this if desired, or you can poke me
-on the hallway to talk about it :)
+(getting offtopic here)
 
-The overwhelming problem isn't our unwillingness to upstream this work
-though, it's the unwillingness of Google to release requirements early
-enough to make that possible, along with the unwillingness of chip
-vendors (hi Broadcom, Qualcomm, MediaTek) to have an upstream driver
-that they actually use (some of those do support an upstream driver,
-but don't ship that one and it doesn't nearly have the necessary
-features, while the actually used (still open source [1]) driver is a
-pile of spaghetti code that we'd probably never merge upstream...)
+My understanding is that MediaTek has improved much recently and their
+mt76 wireless driver source is available and getting upstreamed now
+and integrated into openwrt now. OTOH, Broadcom apparently regressed and is
+no longer releasing any source code to their newer softmac parts (bcm4360,
+bcm4352) or patching brcmsmac to support them, while they on the other
+hand got better at upstreaming their SoC support recently.
 
-[1] except for MediaTek, I think, who seem to never be releasing source
-code for any of their kernels
-
-johannes
+	Arnd
