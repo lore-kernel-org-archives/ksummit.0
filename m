@@ -1,30 +1,36 @@
-Return-Path: <robherring2@gmail.com>
+Return-Path: <fweisbec@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1D314267
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 82F3C90
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 Oct 2015 13:10:14 +0000 (UTC)
-Received: from mail-yk0-f176.google.com (mail-yk0-f176.google.com
-	[209.85.160.176])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id AA98D126
+	Fri, 16 Oct 2015 17:03:00 +0000 (UTC)
+Received: from mail-wi0-f180.google.com (mail-wi0-f180.google.com
+	[209.85.212.180])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 019FF16E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 Oct 2015 13:10:13 +0000 (UTC)
-Received: by ykfy204 with SMTP id y204so84083361ykf.1
+	Fri, 16 Oct 2015 17:02:59 +0000 (UTC)
+Received: by wijq8 with SMTP id q8so20195894wij.0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 Oct 2015 06:10:13 -0700 (PDT)
+	Fri, 16 Oct 2015 10:02:58 -0700 (PDT)
+Date: Fri, 16 Oct 2015 19:02:58 +0200
+From: Frederic Weisbecker <fweisbec@gmail.com>
+To: "Paul E. McKenney" <paulmck@linux.vnet.ibm.com>
+Message-ID: <20151016170256.GA1432@lerouge>
+References: <CALCETrW7OiEYFm9FLbC_pnRLMvwb0nTKRWRDMXB3PMc_0H+UoA@mail.gmail.com>
+	<20151012184051.GB29127@thunk.org>
+	<20151012204005.GI3910@linux.vnet.ibm.com>
 MIME-Version: 1.0
-In-Reply-To: <20151016075735.GC11271@zurbaran.home>
-References: <20151012190137.GA1992@thunk.org>
-	<CAL_JsqLxYRBhnLj0SyEtgwWaCPM+UcPindxZ2NswB3WKopCyPw@mail.gmail.com>
-	<20151016075735.GC11271@zurbaran.home>
-From: Rob Herring <robherring2@gmail.com>
-Date: Fri, 16 Oct 2015 08:09:53 -0500
-Message-ID: <CAL_JsqKkCd1+V=DU8i+f8w_YJHQg=mpEA7tDJq=2P3-kK_bwjQ@mail.gmail.com>
-To: Samuel Ortiz <sameo@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20151012204005.GI3910@linux.vnet.ibm.com>
 Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] Draft agenda for the kernel summit
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Chris Metcalf <cmetcalf@ezchip.com>,
+	Christoph Lameter <cl@linux.com>, Ingo Molnar <mingo@kernel.org>
+Subject: Re: [Ksummit-discuss] [BELATED CORE TOPIC] context tracking / nohz
+ / RCU state
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,21 +40,14 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Oct 16, 2015 at 2:57 AM, Samuel Ortiz <sameo@linux.intel.com> wrote:
-> Rob,
->
-> On Thu, Oct 15, 2015 at 07:41:15PM -0500, Rob Herring wrote:
->> - Gaps in driver subsystems:
->>   - WiFi - Android gaps: mode switching, P2P, Chromecast, roaming,
->> ePNO, Passpoint
->>   - DRM/Graphics
->>   - BT/GPS/NFC - proper kernel drivers for serial devices
-> Could you elaborate by what you mean by "proper" drivers in that
-> context?
+On Mon, Oct 12, 2015 at 01:40:05PM -0700, Paul E. McKenney wrote:
+> On Mon, Oct 12, 2015 at 02:40:51PM -0400, Theodore Ts'o wrote:
+> > This thread had fairly intense discussion for two days, but then went dead.
+> > 
+> > Do folks think this is worth discussing at the kernel summit?
+> 
+> I am very interested in discussing this.  Of course, part of that
+> interest is due to the direct involvement of RCU code.
 
-Exactly what was discussed on the thread early for this topic.
-Creating in kernel drivers for serial attached devices like BT to
-handle all the chip and board specific bits rather than do this in
-userspace.
-
-Rob
+Please don't talk about this without me. Context tracking is deeply involved
+and I haven't been invited to kernel summit.
