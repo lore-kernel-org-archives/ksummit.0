@@ -1,43 +1,26 @@
-Return-Path: <borntraeger@de.ibm.com>
+Return-Path: <marcel@holtmann.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3AF65412
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 601B79B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 Oct 2015 08:05:04 +0000 (UTC)
-Received: from e06smtp10.uk.ibm.com (e06smtp10.uk.ibm.com [195.75.94.106])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6B1B1B0
+	Fri, 16 Oct 2015 08:09:56 +0000 (UTC)
+Received: from mail.holtmann.org (senator.holtmann.net [87.106.208.187])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id D2BBFA1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 Oct 2015 08:05:01 +0000 (UTC)
-Received: from localhost
-	by e06smtp10.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use
-	Only! Violators will be prosecuted
-	for <ksummit-discuss@lists.linuxfoundation.org> from
-	<borntraeger@de.ibm.com>; Fri, 16 Oct 2015 09:04:59 +0100
-Received: from b06cxnps4075.portsmouth.uk.ibm.com
-	(d06relay12.portsmouth.uk.ibm.com [9.149.109.197])
-	by d06dlp03.portsmouth.uk.ibm.com (Postfix) with ESMTP id D352A1B0804B
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 Oct 2015 09:05:02 +0100 (BST)
-Received: from d06av04.portsmouth.uk.ibm.com (d06av04.portsmouth.uk.ibm.com
-	[9.149.37.216])
-	by b06cxnps4075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with
-	ESMTP id t9G84vX936896784
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 Oct 2015 08:04:57 GMT
-Received: from d06av04.portsmouth.uk.ibm.com (localhost [127.0.0.1])
-	by d06av04.portsmouth.uk.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with
-	ESMTP id t9G84uhN017385
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 Oct 2015 02:04:56 -0600
-To: "Theodore Ts'o" <tytso@mit.edu>, ksummit-discuss@lists.linuxfoundation.org
+	Fri, 16 Oct 2015 08:09:55 +0000 (UTC)
+Content-Type: text/plain; charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 9.0 \(3094\))
+From: Marcel Holtmann <marcel@holtmann.org>
+In-Reply-To: <8179129.ZdLT4uWW88@wuerfel>
+Date: Fri, 16 Oct 2015 10:00:18 +0200
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <8E20B896-416E-4C76-877B-26B558D44422@holtmann.org>
 References: <20151012190137.GA1992@thunk.org>
-From: Christian Borntraeger <borntraeger@de.ibm.com>
-Message-ID: <5620AFA8.3060003@de.ibm.com>
-Date: Fri, 16 Oct 2015 10:04:56 +0200
-MIME-Version: 1.0
-In-Reply-To: <20151012190137.GA1992@thunk.org>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 7bit
+	<CAL_JsqLxYRBhnLj0SyEtgwWaCPM+UcPindxZ2NswB3WKopCyPw@mail.gmail.com>
+	<1444978357.2370.8.camel@sipsolutions.net>
+	<8179129.ZdLT4uWW88@wuerfel>
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] Draft agenda for the kernel summit
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -48,39 +31,39 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Am 12.10.2015 um 21:01 schrieb Theodore Ts'o:
-> This is an initial draft for the upcoming kernel summit.
-> 
-> It is still very drafty; in particular, just because a topic has been
-> listed, it may turn out that the topic has been resolved off-line, or
-> otherwise overtaken by events, in which case we will drop it.  In
-> addition, we're also in the process of sending queries to the proposed
-> topic leaders to see if they are willing to kick off the discussion,
-> and so that is subject to change as well.
-> 
-> I'd appreciate comments about any topics that you think might be
-> missing and that would be worth our discussing.  In addition, if you
-> have strong opinions moving a topic from the technical session day to
-> the core day or vice versa, please make the case for the change.
-> 
-> There will be some TBD slots which can be scheduled at the last
-> minute, but I'd like to get at least one full track of the technical
-> sessions and most of the core sessions scheduled.
-> 
-> Many thanks,
-> 
-> 					- Ted
-> 
-> 
-> 			  Kernel Summit Agenda
-> 			   October 26-28, 2015
-> 				 DRAFT
-> 
-> Web Version Agenda:		
-> 
-> * Monday: Workshops and break out sessions (overlap with Korea Linux Forum)
+Hi Arnd,
 
-Might be a dumb questions, but are the Monday workshops planned via the Korea
-Linux Forum or do we have a separate list of planned workshops?
+>> On Thu, 2015-10-15 at 19:41 -0500, Rob Herring wrote:
+>> the unwillingness of chip
+>> vendors (hi Broadcom, Qualcomm, MediaTek) to have an upstream driver
+>> that they actually use (some of those do support an upstream driver,
+>> but don't ship that one and it doesn't nearly have the necessary
+>> features, while the actually used (still open source [1]) driver is a
+>> pile of spaghetti code that we'd probably never merge upstream...)
+>>=20
+>> [1] except for MediaTek, I think, who seem to never be releasing =
+source
+>> code for any of their kernels
+>>=20
+>=20
+> (getting offtopic here)
+>=20
+> My understanding is that MediaTek has improved much recently and their
+> mt76 wireless driver source is available and getting upstreamed now
+> and integrated into openwrt now. OTOH, Broadcom apparently regressed =
+and is
+> no longer releasing any source code to their newer softmac parts =
+(bcm4360,
+> bcm4352) or patching brcmsmac to support them, while they on the other
+> hand got better at upstreaming their SoC support recently.
 
-Christian
+are sure that Mediatek got better? I am not convinced by that.
+
+I think there is also a large difference in their MiniPCI cards compared =
+to their connectivity hub in their SoC. The Bluetooth side for example =
+is largely copying existing drivers, hacking their vendor specific =
+behavior in and then throwing it over the wall.
+
+Regards
+
+Marcel
