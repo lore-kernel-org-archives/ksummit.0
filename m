@@ -1,36 +1,25 @@
-Return-Path: <fweisbec@gmail.com>
+Return-Path: <jikos@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 82F3C90
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8A21C67
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 Oct 2015 17:03:00 +0000 (UTC)
-Received: from mail-wi0-f180.google.com (mail-wi0-f180.google.com
-	[209.85.212.180])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 019FF16E
+	Fri, 16 Oct 2015 19:34:14 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1483410D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 Oct 2015 17:02:59 +0000 (UTC)
-Received: by wijq8 with SMTP id q8so20195894wij.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 Oct 2015 10:02:58 -0700 (PDT)
-Date: Fri, 16 Oct 2015 19:02:58 +0200
-From: Frederic Weisbecker <fweisbec@gmail.com>
-To: "Paul E. McKenney" <paulmck@linux.vnet.ibm.com>
-Message-ID: <20151016170256.GA1432@lerouge>
-References: <CALCETrW7OiEYFm9FLbC_pnRLMvwb0nTKRWRDMXB3PMc_0H+UoA@mail.gmail.com>
-	<20151012184051.GB29127@thunk.org>
-	<20151012204005.GI3910@linux.vnet.ibm.com>
+	Fri, 16 Oct 2015 19:34:14 +0000 (UTC)
+Date: Fri, 16 Oct 2015 21:34:13 +0200 (CEST)
+From: Jiri Kosina <jikos@kernel.org>
+To: Theodore Ts'o <tytso@mit.edu>
+In-Reply-To: <alpine.LNX.2.00.1510131125570.21100@pobox.suse.cz>
+Message-ID: <alpine.LNX.2.00.1510162130430.21100@pobox.suse.cz>
+References: <alpine.LNX.2.00.1507071253390.10183@pobox.suse.cz>
+	<20151012171352.GD31035@thunk.org>
+	<alpine.LNX.2.00.1510131125570.21100@pobox.suse.cz>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20151012204005.GI3910@linux.vnet.ibm.com>
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Chris Metcalf <cmetcalf@ezchip.com>,
-	Christoph Lameter <cl@linux.com>, Ingo Molnar <mingo@kernel.org>
-Subject: Re: [Ksummit-discuss] [BELATED CORE TOPIC] context tracking / nohz
- / RCU state
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] live patching
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,14 +29,26 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Oct 12, 2015 at 01:40:05PM -0700, Paul E. McKenney wrote:
-> On Mon, Oct 12, 2015 at 02:40:51PM -0400, Theodore Ts'o wrote:
-> > This thread had fairly intense discussion for two days, but then went dead.
-> > 
-> > Do folks think this is worth discussing at the kernel summit?
-> 
-> I am very interested in discussing this.  Of course, part of that
-> interest is due to the direct involvement of RCU code.
+On Tue, 13 Oct 2015, Jiri Kosina wrote:
 
-Please don't talk about this without me. Context tracking is deeply involved
-and I haven't been invited to kernel summit.
+> quite frankly, I think the need for discussing this has temporarily 
+> diminished, because currently common preparatory steps are being worked on 
+> (which are generally beneficial even without live patching) -- namely 
+> Josh's work on reliable stack traces.
+
+Oh, and also rather important aspect -- the relevance of this topic quite 
+depends on the folks that will be present (is the invitee list available 
+somewhere by any chance?).
+
+To sum this one up -- I can definitely give a short summary of the status 
+quo of the live patching efforts (both what's currently merged and what's 
+currently being worked on), but I am not sure how much interesting that's 
+for general KS folk. The more controversial discussions are temporarily 
+paused for the time being; I expect them to be resume within a few months 
+from now.
+
+Thanks,
+
+-- 
+Jiri Kosina
+SUSE Labs
