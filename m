@@ -1,28 +1,25 @@
-Return-Path: <geert.uytterhoeven@gmail.com>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 10947847
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id BBD57305
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 Oct 2015 08:45:43 +0000 (UTC)
-Received: from mail-oi0-f42.google.com (mail-oi0-f42.google.com
-	[209.85.218.42])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0B555E0
+	Fri, 16 Oct 2015 09:03:34 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3FA1F90
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 Oct 2015 08:45:41 +0000 (UTC)
-Received: by oiev17 with SMTP id v17so12907600oie.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 Oct 2015 01:45:41 -0700 (PDT)
-MIME-Version: 1.0
-Sender: geert.uytterhoeven@gmail.com
-In-Reply-To: <20151016075735.GC11271@zurbaran.home>
+	Fri, 16 Oct 2015 09:03:34 +0000 (UTC)
+Date: Fri, 16 Oct 2015 10:03:27 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Rob Herring <robherring2@gmail.com>
+Message-ID: <20151016090327.GH14956@sirena.org.uk>
 References: <20151012190137.GA1992@thunk.org>
 	<CAL_JsqLxYRBhnLj0SyEtgwWaCPM+UcPindxZ2NswB3WKopCyPw@mail.gmail.com>
-	<20151016075735.GC11271@zurbaran.home>
-Date: Fri, 16 Oct 2015 10:45:41 +0200
-Message-ID: <CAMuHMdVOK-e4KN5aG77SkZmieeem3ADrCYOUPsoPg+tz6oUfxg@mail.gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-To: Samuel Ortiz <sameo@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="ljn2+zwPkKedfiv/"
+Content-Disposition: inline
+In-Reply-To: <CAL_JsqLxYRBhnLj0SyEtgwWaCPM+UcPindxZ2NswB3WKopCyPw@mail.gmail.com>
 Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] Draft agenda for the kernel summit
@@ -35,28 +32,33 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Samuel,
 
-On Fri, Oct 16, 2015 at 9:57 AM, Samuel Ortiz <sameo@linux.intel.com> wrote:
-> On Thu, Oct 15, 2015 at 07:41:15PM -0500, Rob Herring wrote:
->> - Gaps in driver subsystems:
->>   - WiFi - Android gaps: mode switching, P2P, Chromecast, roaming,
->> ePNO, Passpoint
->>   - DRM/Graphics
->>   - BT/GPS/NFC - proper kernel drivers for serial devices
-> Could you elaborate by what you mean by "proper" drivers in that
-> context?
+--ljn2+zwPkKedfiv/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-I think this is about the ongoing work to represent serial devices as a bus,
-so serial slaves can connect to them using a standard API.
+On Thu, Oct 15, 2015 at 07:41:15PM -0500, Rob Herring wrote:
+> On Mon, Oct 12, 2015 at 2:01 PM, Theodore Ts'o <tytso@mit.edu> wrote:
 
-Gr{oetje,eeting}s,
+>   - Battery/charger issues
 
-                        Geert
+That's as much the whole situation with support for new USB standards as
+anything specific to batteries, considerations around USB are what's
+causing disrupton here.
 
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+--ljn2+zwPkKedfiv/
+Content-Type: application/pgp-signature; name="signature.asc"
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQEcBAEBCAAGBQJWIL1eAAoJECTWi3JdVIfQ20AH/i8FzJNGEfC72q29HYuslkm8
+EWdKsLMOYaSE2fGiVkM6/A/wH/M86rKNvOmpRGDdLSY4hL8pw03NkBK6sIo+IEst
+40j2WyEHKg41MM6iTDYPwZnS1B3scJEAEIo4tjHqXnr4I3cUZtw6m300wIG5UTe8
+4wumCF8VilLa9rkkrpbFfXCYp0tTDf8rxAfedBu+REqJeJag7dxwHZMHiS89n/Fm
+S1W4i4e8tWrAQfuaGo+nVRlqD8q67L4pIbJQGj+Rx8lCdu/l2EhY+z5AEtVGQOb5
+VvCz1Nv8XtTYj1cHjAmku1KTaYvEn6QD6DomWHGzwYw1mU33LO1W8pgMrBk/FRY=
+=brSM
+-----END PGP SIGNATURE-----
+
+--ljn2+zwPkKedfiv/--
