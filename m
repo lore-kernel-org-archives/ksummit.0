@@ -1,26 +1,31 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <linus.walleij@linaro.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BBD57305
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B111B898
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 Oct 2015 09:03:34 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3FA1F90
+	Fri, 16 Oct 2015 09:21:49 +0000 (UTC)
+Received: from mail-ob0-f176.google.com (mail-ob0-f176.google.com
+	[209.85.214.176])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 205778C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 Oct 2015 09:03:34 +0000 (UTC)
-Date: Fri, 16 Oct 2015 10:03:27 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Rob Herring <robherring2@gmail.com>
-Message-ID: <20151016090327.GH14956@sirena.org.uk>
+	Fri, 16 Oct 2015 09:21:49 +0000 (UTC)
+Received: by obbda8 with SMTP id da8so86185829obb.1
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 16 Oct 2015 02:21:48 -0700 (PDT)
+MIME-Version: 1.0
+In-Reply-To: <8E20B896-416E-4C76-877B-26B558D44422@holtmann.org>
 References: <20151012190137.GA1992@thunk.org>
 	<CAL_JsqLxYRBhnLj0SyEtgwWaCPM+UcPindxZ2NswB3WKopCyPw@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="ljn2+zwPkKedfiv/"
-Content-Disposition: inline
-In-Reply-To: <CAL_JsqLxYRBhnLj0SyEtgwWaCPM+UcPindxZ2NswB3WKopCyPw@mail.gmail.com>
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<1444978357.2370.8.camel@sipsolutions.net>
+	<8179129.ZdLT4uWW88@wuerfel>
+	<8E20B896-416E-4C76-877B-26B558D44422@holtmann.org>
+Date: Fri, 16 Oct 2015 11:21:48 +0200
+Message-ID: <CACRpkdbDZryMwC6r4P3idP1ACp9A2f6JFNbPnvy0doArDYdoHw@mail.gmail.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+To: Marcel Holtmann <marcel@holtmann.org>
+Content-Type: text/plain; charset=UTF-8
+Cc: Jakub Kicinski <kubakici@wp.pl>,
+	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] Draft agenda for the kernel summit
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -32,33 +37,39 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Fri, Oct 16, 2015 at 10:00 AM, Marcel Holtmann <marcel@holtmann.org> wrote:
+> Arnd:
 
---ljn2+zwPkKedfiv/
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+>> My understanding is that MediaTek has improved much recently and their
+>> mt76 wireless driver source is available and getting upstreamed (...)
 
-On Thu, Oct 15, 2015 at 07:41:15PM -0500, Rob Herring wrote:
-> On Mon, Oct 12, 2015 at 2:01 PM, Theodore Ts'o <tytso@mit.edu> wrote:
+> are sure that Mediatek got better? I am not convinced by that.
+>
+> I think there is also a large difference in their MiniPCI cards compared to
+> their connectivity hub in their SoC. The Bluetooth side for example is
+> largely copying existing drivers, hacking their vendor specific behavior
+> in and then throwing it over the wall.
 
->   - Battery/charger issues
+When discussing the sadly unsupported MT7630E MiniPCI card
+which has both WiFi and Bluetooth Jakub Kicinski elaborated a bit
+on the story there:
+http://marc.info/?l=linux-wireless&m=143815707108278&w=2
 
-That's as much the whole situation with support for new USB standards as
-anything specific to batteries, considerations around USB are what's
-causing disrupton here.
+It seems Mediatek got a bit of internal struggle, the kernel doing
+three different drivers sharing aspects of the same chip(s)
+and general mishmash due to a cocktail of factors: organizational,
+company consolidation etc, but also due to a few chips,
+especially MT7630E, ending up in a technical middle-ground
+between two families of chips.
 
---ljn2+zwPkKedfiv/
-Content-Type: application/pgp-signature; name="signature.asc"
+The person writing the MT7630E driver was obviously intending
+to upstream it, I can see the beginnings of an upstream attempt
+in the source code, but was apparently removed from that task
+before s/he could complete it.
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
+Sadly there is a bunch of users stuck with this card. They
+(including my daughter) survive by using a forwardport of the
+code drop from Mediatek, but who knows how long that thing
+will even compile.
 
-iQEcBAEBCAAGBQJWIL1eAAoJECTWi3JdVIfQ20AH/i8FzJNGEfC72q29HYuslkm8
-EWdKsLMOYaSE2fGiVkM6/A/wH/M86rKNvOmpRGDdLSY4hL8pw03NkBK6sIo+IEst
-40j2WyEHKg41MM6iTDYPwZnS1B3scJEAEIo4tjHqXnr4I3cUZtw6m300wIG5UTe8
-4wumCF8VilLa9rkkrpbFfXCYp0tTDf8rxAfedBu+REqJeJag7dxwHZMHiS89n/Fm
-S1W4i4e8tWrAQfuaGo+nVRlqD8q67L4pIbJQGj+Rx8lCdu/l2EhY+z5AEtVGQOb5
-VvCz1Nv8XtTYj1cHjAmku1KTaYvEn6QD6DomWHGzwYw1mU33LO1W8pgMrBk/FRY=
-=brSM
------END PGP SIGNATURE-----
-
---ljn2+zwPkKedfiv/--
+Linus Walleij
