@@ -1,31 +1,29 @@
-Return-Path: <j.glisse@gmail.com>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C200592
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 97E539A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 Oct 2015 21:08:29 +0000 (UTC)
-Received: from mail-qg0-f46.google.com (mail-qg0-f46.google.com
-	[209.85.192.46])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 53EFA14D
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 Oct 2015 21:08:29 +0000 (UTC)
-Received: by qgez77 with SMTP id z77so111315734qge.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 Oct 2015 14:08:28 -0700 (PDT)
-Date: Fri, 16 Oct 2015 17:08:21 -0400
-From: Jerome Glisse <j.glisse@gmail.com>
-To: Dave Hansen <dave@sr71.net>
-Message-ID: <20151016210820.GA23471@gmail.com>
-References: <CAPcyv4j44fE1BFFdRyLmaaF+CTJsMtaNC_=jN9+hqPCGGwXnsQ@mail.gmail.com>
-	<561FD92D.6010309@sr71.net>
+	Sat, 17 Oct 2015 19:45:22 +0000 (UTC)
+Date: Sat, 17 Oct 2015 15:45:00 -0400
+From: Theodore Ts'o <tytso@mit.edu>
+To: Frederic Weisbecker <fweisbec@gmail.com>
+Message-ID: <20151017194500.GC2678@thunk.org>
+References: <CALCETrW7OiEYFm9FLbC_pnRLMvwb0nTKRWRDMXB3PMc_0H+UoA@mail.gmail.com>
+	<20151012184051.GB29127@thunk.org>
+	<20151012204005.GI3910@linux.vnet.ibm.com>
+	<20151016170256.GA1432@lerouge>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <561FD92D.6010309@sr71.net>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] ZONE_DEVICE and Persistent Memory (was: Re:
- Draft agenda for the kernel summit)
+In-Reply-To: <20151016170256.GA1432@lerouge>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Chris Metcalf <cmetcalf@ezchip.com>,
+	Christoph Lameter <cl@linux.com>, Ingo Molnar <mingo@kernel.org>
+Subject: Re: [Ksummit-discuss] [BELATED CORE TOPIC] context tracking / nohz
+ / RCU state
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,32 +33,22 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Oct 15, 2015 at 09:49:49AM -0700, Dave Hansen wrote:
-> On 10/14/2015 05:17 PM, Dan Williams wrote:
-> > I am wondering if it would be productive / good use of time to do a
-> > direction check on the mm changes being done in support of large
-> > persistent memory devices.
+On Fri, Oct 16, 2015 at 07:02:58PM +0200, Frederic Weisbecker wrote:
+> On Mon, Oct 12, 2015 at 01:40:05PM -0700, Paul E. McKenney wrote:
+> > On Mon, Oct 12, 2015 at 02:40:51PM -0400, Theodore Ts'o wrote:
+> > > This thread had fairly intense discussion for two days, but then went dead.
+> > > 
+> > > Do folks think this is worth discussing at the kernel summit?
+> > 
+> > I am very interested in discussing this.  Of course, part of that
+> > interest is due to the direct involvement of RCU code.
 > 
-> I think there's probably an even wider discussion that we should have here.
-> 
-> Beyond just ZONE_DEVICE, the sheer number of memory types is increasing
-> fast, and our current solutions are, at best, inconsistent. We currently
-> handle memory types as new zones, repurposed zones, pageblocks inside
-> zones, or faux NUMA nodes.
-> 
-> Are our current solutions too erratic?
-> Do we need to solve these problems generally, or are we going to kill
-> ourselves trying to make everyone happy?
-> What types do we ignore today, but shouldn't?
-> What types are coming down the pike?
+> Please don't talk about this without me. Context tracking is deeply involved
+> and I haven't been invited to kernel summit.
 
-I think what i am working on (HMM and how to leverage GPU memory that is
-not accessible by the CPU) apply here too. All features i am working on
-imply that i have to dig through layers of code seeing if i can abuse an
-existing mechanism to achieve something new.
+Are you going to be in Seoul for the Korea Linux Forum?  (KLF
+attendees are welcome to attend the dual-track technical sessions
+day.)
 
-So i definitly think we should discuss where we are and where we want to
-be.
-
-Cheers,
-Jérôme
+	      	      	 	    	       - Ted
+					       
