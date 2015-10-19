@@ -1,29 +1,26 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3DA2797
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 451BD1BB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 19 Oct 2015 13:54:01 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5ADA4E3
+	Mon, 19 Oct 2015 18:29:33 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6EDB7116
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 19 Oct 2015 13:53:59 +0000 (UTC)
-Date: Mon, 19 Oct 2015 14:53:48 +0100
-From: Mark Brown <broonie@kernel.og>
-To: Mauro Carvalho Chehab <mchehab@osg.samsung.com>
-Message-ID: <20151019135348.GH14956@sirena.org.uk>
-References: <20151012190137.GA1992@thunk.org>
-	<20151019103304.27e596a5@recife.lan>
+	Mon, 19 Oct 2015 18:29:32 +0000 (UTC)
+Date: Mon, 19 Oct 2015 14:29:23 -0400
+From: Theodore Ts'o <tytso@mit.edu>
+To: Jerome Glisse <j.glisse@gmail.com>
+Message-ID: <20151019182923.GB5907@thunk.org>
+References: <CAPcyv4j44fE1BFFdRyLmaaF+CTJsMtaNC_=jN9+hqPCGGwXnsQ@mail.gmail.com>
+	<561FD92D.6010309@sr71.net> <20151016210820.GA23471@gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="H6VDMcGxLLsLVW3N"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20151019103304.27e596a5@recife.lan>
-Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Draft agenda for the kernel summit
+In-Reply-To: <20151016210820.GA23471@gmail.com>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] ZONE_DEVICE and Persistent Memory (was: Re:
+ Draft agenda for the kernel summit)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,60 +30,35 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Fri, Oct 16, 2015 at 05:08:21PM -0400, Jerome Glisse wrote:
+> On Thu, Oct 15, 2015 at 09:49:49AM -0700, Dave Hansen wrote:
+> > On 10/14/2015 05:17 PM, Dan Williams wrote:
+> > > I am wondering if it would be productive / good use of time to do a
+> > > direction check on the mm changes being done in support of large
+> > > persistent memory devices.
+> > 
+> > I think there's probably an even wider discussion that we should have here.
+> > 
+> > Beyond just ZONE_DEVICE, the sheer number of memory types is increasing
+> > fast, and our current solutions are, at best, inconsistent. We currently
+> > handle memory types as new zones, repurposed zones, pageblocks inside
+> > zones, or faux NUMA nodes.
+> > 
+> > Are our current solutions too erratic?
+> > Do we need to solve these problems generally, or are we going to kill
+> > ourselves trying to make everyone happy?
+> > What types do we ignore today, but shouldn't?
+> > What types are coming down the pike?
+> 
+> I think what i am working on (HMM and how to leverage GPU memory that is
+> not accessible by the CPU) apply here too. All features i am working on
+> imply that i have to dig through layers of code seeing if i can abuse an
+> existing mechanism to achieve something new.
+> 
+> So i definitly think we should discuss where we are and where we want to
+> be.
 
---H6VDMcGxLLsLVW3N
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Dan, would you be willing to kick off the discussion?
 
-On Mon, Oct 19, 2015 at 10:33:04AM -0200, Mauro Carvalho Chehab wrote:
-
-> We did a Media Controller Summit in July. During the summit, it was
-> pointed that other subsystems like IIO (Linux Industrial I/O) have
-> similar needs and also need to track complex pipelines.=20
-
-> The goal of this tech topic is to present the MC next generation
-> concepts and how the patches to support MC was written, showing some
-> pipeline examples.=20
-
-> The next gen support patches were written in August, with some=20
-> additional patches written after that, and it has support for DVB
-> and for one ALSA driver (snd-usb-audio).
-
-> The patches are not merged yet at the media development tree and
-> at -next, as one of the core developers of the media controller
-> is missing time to review patches. So, while it was originally
-> targeted to be merged on Kernel 4.4, it is likely that this will be=20
-> merged only for Kernel 4.5, in order to give him more time to
-> review the patchset.
-
-One fun thing on this that came up at the audio meeting we had in Dublin
-after ELC-E is that there is some desire to export the internal topology
-of audio devices to userspace using the same format that we're using to=20
-load topology information for DSP firmwares (see include/sound/soc-topoloy.=
-h).
-If we go ahead with that it'd create an alternative topology ABI, it
-seems like we should at least consider if it's worth trying to share
-things here.
-
-I've not had a chance to look at the new media controller work yet, I've
-CCed Lars and Liam who have more knowledge in this area.  Unfortunately
-I don't think any of the people working directly on this will be at KS
-this year.
-
---H6VDMcGxLLsLVW3N
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQEcBAEBCAAGBQJWJPXrAAoJECTWi3JdVIfQzKsH/jWkpWnxdYJdZhrQS9kCxQDi
-wzjPfATTOdIs2UQjmWGJqp4RDqx5l2yaNcgImonIpxMJ/mtoFCsUYyY51njDXjXk
-ReZ68x+jaRThPaZiWLLwVlJib9Rtf6tUEXBZBJbSFVLY29VBhRgMI0Lu0SH8AY9g
-3xhAnlxClalRCeVWBn1YeMgBfLCuwaRYqvOsGZV6qolQX/ScdefBQ0W6XVJSOAgb
-suttu3/F53bJ5x4dVFQ+s+OPpgR3FpJXDk56A//JCyAUQ0S2Q3OLV2Uw82ibZI6a
-2k1jIOquAp51sILr58INUNKiybap3vXefl/Fmkpe2eGe+e0OZY1jy1jza35VY+M=
-=igK6
------END PGP SIGNATURE-----
-
---H6VDMcGxLLsLVW3N--
+							- Ted
+							
