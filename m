@@ -1,28 +1,31 @@
-Return-Path: <liam.r.girdwood@linux.intel.com>
+Return-Path: <glikely@secretlab.ca>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7535E1BB
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id C66879A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 19 Oct 2015 16:27:59 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id E3346166
+	Tue, 20 Oct 2015 00:54:36 +0000 (UTC)
+Received: from mail-ig0-f182.google.com (mail-ig0-f182.google.com
+	[209.85.213.182])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C5206191
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 19 Oct 2015 16:27:58 +0000 (UTC)
-Message-ID: <1445272076.2481.37.camel@loki>
-From: Liam Girdwood <liam.r.girdwood@linux.intel.com>
-To: Mark Brown <broonie@kernel.og>
-Date: Mon, 19 Oct 2015 17:27:56 +0100
-In-Reply-To: <20151019135348.GH14956@sirena.org.uk>
-References: <20151012190137.GA1992@thunk.org>
-	<20151019103304.27e596a5@recife.lan>
-	<20151019135348.GH14956@sirena.org.uk>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: Lars-Peter Clausen <lars@metafoo.de>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	Mauro Carvalho Chehab <mchehab@osg.samsung.com>
-Subject: Re: [Ksummit-discuss] Draft agenda for the kernel summit
+	Tue, 20 Oct 2015 00:54:35 +0000 (UTC)
+Received: by igbhv6 with SMTP id hv6so3609363igb.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 19 Oct 2015 17:54:35 -0700 (PDT)
+MIME-Version: 1.0
+In-Reply-To: <CACxGe6tWRfHFtkL1TKnOHjV_+e_WFe1w3ZaKrxH5zPBF5GpqqA@mail.gmail.com>
+References: <CACxGe6tWRfHFtkL1TKnOHjV_+e_WFe1w3ZaKrxH5zPBF5GpqqA@mail.gmail.com>
+From: Grant Likely <glikely@secretlab.ca>
+Date: Tue, 20 Oct 2015 01:54:15 +0100
+Message-ID: <CACxGe6tjrcpAN26LDv4SiJav5g-Zzbp957Oc=Bx4RXs7Str1Ww@mail.gmail.com>
+To: tech-board <tech-board@lists.linux-foundation.org>,
+	Tech Board Discuss <Tech-board-discuss@lists.linux-foundation.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	"lwn@lwn.net" <lwn@lwn.net>, "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8
+Subject: Re: [Ksummit-discuss] Linux Foundation Technical Advisory Board
+ Elections and Nomination process
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,82 +35,64 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 2015-10-19 at 14:53 +0100, Mark Brown wrote:
-> On Mon, Oct 19, 2015 at 10:33:04AM -0200, Mauro Carvalho Chehab wrote:
-> 
-> > We did a Media Controller Summit in July. During the summit, it was
-> > pointed that other subsystems like IIO (Linux Industrial I/O) have
-> > similar needs and also need to track complex pipelines. 
-> 
-> > The goal of this tech topic is to present the MC next generation
-> > concepts and how the patches to support MC was written, showing some
-> > pipeline examples. 
-> 
-> > The next gen support patches were written in August, with some 
-> > additional patches written after that, and it has support for DVB
-> > and for one ALSA driver (snd-usb-audio).
-> 
-> > The patches are not merged yet at the media development tree and
-> > at -next, as one of the core developers of the media controller
-> > is missing time to review patches. So, while it was originally
-> > targeted to be merged on Kernel 4.4, it is likely that this will be 
-> > merged only for Kernel 4.5, in order to give him more time to
-> > review the patchset.
-> 
-> One fun thing on this that came up at the audio meeting we had in Dublin
-> after ELC-E is that there is some desire to export the internal topology
-> of audio devices to userspace using the same format that we're using to 
-> load topology information for DSP firmwares (see include/sound/soc-topoloy.h).
-> If we go ahead with that it'd create an alternative topology ABI, it
-> seems like we should at least consider if it's worth trying to share
-> things here.
-> 
-> I've not had a chance to look at the new media controller work yet, I've
-> CCed Lars and Liam who have more knowledge in this area.  Unfortunately
-> I don't think any of the people working directly on this will be at KS
-> this year.
+Reminder and update:
 
-Just to give a little more background (for any non audio folks), there
-are many audio DSPs today that can load their topology and other
-capabilities at runtime depending on the target device (phone, laptop,
-PC, etc) and the audio use cases.
+As described below, the TAB elections will be held next week with the
+Linux Kernel Summit and the Korea Linux Forum. The election will be
+held at 6:00pm Monday evening during the on-site evening reception.
+Each candidate will have the opportunity to make a brief statement
+before polling. Candidates who are not able to attend personally may
+provide a written statement to be read out.
 
-Our intention is to also have a single audio driver per DSP family (i.e.
-single skylake audio DSP driver to cover all skylake based devices). The
-DSP driver would load it's topology data alongside the DSP firmware so
-that the driver topology (i.e. graph, controls, capabilities) would be
-aligned with the DSP firmware topology.
+We now have 12 nominees for five seats.
+Kees Cook
+Jon Corbet*
+Thomas Gleixner*
+Stephen Hemminger
+Shuah Khan
+Greg Kroah-Hartman*
+Kurt H Maier
+Steven Rostedt
+Dave Taht
+Josh Triplett
+Sage Weil
+Rafael Wysocki
+(*Incumbent)
 
-The process for creating the topology data involves either compiling a
-text topology file to the binary topology file (used by the kernel) or
-using a new ALSA C API to generate the binary topology file (as part of
-a firmware toolchain). The topology text compiler and C API are both
-upstream.
+The deadline for nominations remains the evening of the election.
+However, we will be pre-printing ballots on Sunday evening with the
+nominations received up to that point. There will be blank spaces
+provided on the ballot for writing in late nominations.
 
-We are currently implementing de-compiler support to the userspace
-compiler in order to convert the binary topology files into text files
-for debug and development purposes.
+g.
 
-Ideally I'd like to be able to dump the topology data using the same
-format that it used for topology loading. That way we could easily feed
-them into the de-compiler for development/debug.
-
-Having a simple mechanism for dumping topology data is important as we
-will need to be able to easily dump this data on Android and Chrome
-alongside regular Linux for development and debug purposes. i.e.
-cat /sys/some/dump/file > audio_topology
-
-I'm also supportive of having a higher level and more elegant topology
-query interface for non kernel/firmware developers using media
-controller.
-
-What I'd like to propose is that we support both mechanisms for dumping
-the audio topology data. :-
-
-1) Simple file dump using same format that topology is loaded. Used by
-kernel/firmware developers only when media controller userspace not
-available. Enabled by kernel Kconfig debug option.
-
-2) Media controller API used by everyone else.
-
-Liam
+On Tue, Oct 6, 2015 at 11:06 AM, Grant Likely <glikely@secretlab.ca> wrote:
+> The elections for five of the ten members of the Linux Foundation
+> Technical Advisory Board (TAB) are held every year[1]. This year the
+> election will be at the 2015 Kernel Summit in Seoul, South Korea
+> (probably on the Monday, 26 October) and will be open to all attendees
+> of both Kernel Summit and Korea Linux Forum.
+>
+> Anyone is eligible to stand for election, simply send your nomination to:
+>
+> Tech-board-discuss@lists.linux-foundation.org
+>
+> We currently have 3 nominees for five places:
+> Thomas Gleixner
+> Greg Kroah-Hartman
+> Stephen Hemminger
+>
+> The deadline for receiving nominations is up until the beginning of
+> the event where the election is held. Although, please remember if
+> you're not going to be present that things go wrong with both networks
+> and mailing lists, so get your nomination in early).
+>
+> Grant Likely, TAB Chair
+>
+> [1] TAB members sit for a term of 2 years, and half of the board is up
+> for election every year. Five of the seats are up for election now.
+> The other five are half way through their term and will be up for
+> election next year. The history of the TAB elections can be found
+> here:
+>
+> https://docs.google.com/spreadsheets/d/1jGLQtul0taSRq_opYzJFALI7_34cS4RMS1_YQoTNCKA/edit#gid=0
