@@ -1,12 +1,34 @@
-Return-Path: <tytso@thunk.org>
-Date: Tue, 20 Oct 2015 18:03:28 -0400
-From: Theodore Ts'o <tytso@mit.edu>
-To: ksummit-discuss@lists.linux-foundation.org
-Message-ID: <20151020220328.GA21941@thunk.org>
+Return-Path: <glikely@secretlab.ca>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1E52592
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 20 Oct 2015 23:20:56 +0000 (UTC)
+Received: from mail-ig0-f173.google.com (mail-ig0-f173.google.com
+	[209.85.213.173])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 667CE170
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 20 Oct 2015 23:20:54 +0000 (UTC)
+Received: by igbkq10 with SMTP id kq10so86651979igb.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 20 Oct 2015 16:20:53 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Subject: [Ksummit-discuss] Kernel Summit Agenda -- 2nd draft
+In-Reply-To: <20151020123947.GK2972@thunk.org>
+References: <CACxGe6tWRfHFtkL1TKnOHjV_+e_WFe1w3ZaKrxH5zPBF5GpqqA@mail.gmail.com>
+	<CACxGe6tjrcpAN26LDv4SiJav5g-Zzbp957Oc=Bx4RXs7Str1Ww@mail.gmail.com>
+	<20151020123947.GK2972@thunk.org>
+From: Grant Likely <glikely@secretlab.ca>
+Date: Wed, 21 Oct 2015 00:20:33 +0100
+Message-ID: <CACxGe6s=ozX1LF6pRou1vfD926-u=Rnu_ohugF2BzuzDm0VmeQ@mail.gmail.com>
+To: "Theodore Ts'o" <tytso@mit.edu>, Grant Likely <glikely@secretlab.ca>,
+	tech-board <tech-board@lists.linux-foundation.org>,
+	Tech Board Discuss <Tech-board-discuss@lists.linux-foundation.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	"lwn@lwn.net" <lwn@lwn.net>, "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Content-Type: multipart/alternative; boundary=089e013a23b463e8b60522918369
+Subject: Re: [Ksummit-discuss] [Tech-board-discuss] Linux Foundation
+ Technical Advisory Board Elections and Nomination process
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -16,106 +38,43 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi all,
+--089e013a23b463e8b60522918369
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Here's the next revision of the Kernel Summit draft.  Please take a
-look at the assignment of technical topics to slots.  If you see
-potential conflicts ("I really want to attend topics X and X+10"),
-please make a comment on the e-mail thread.  We may not be able to
-accomodate all schedule requests, but I'll do my best.
+On Tue, Oct 20, 2015 at 1:39 PM, Theodore Ts'o <tytso@mit.edu> wrote:
 
-The TBD slots are available for scheduling in an "unconference" style.
-To that end, we will have lightning talks at 9am, so if you want to
-plug a last-minute topic that get formally scheduled sometime on
-Tuesday, or where you want to find like-minded people for a hallway
-discussion, we'll have time for that there.  If you are interested in
-giving a lightning talk Tuesday morning at 9am, I'd appreciate it if
-you could drop me a note by Monday morning.
+> I'd like to nominate myself for the the TAB.
+>
+> Thanks,
+>
+>                                         - Ted
+>
 
+=E2=80=8BThanks Ted. You're on the list.
 
-Cheers,
+g.=E2=80=8B
 
-					- Ted
+--089e013a23b463e8b60522918369
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
+<div dir=3D"ltr"><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">=
+On Tue, Oct 20, 2015 at 1:39 PM, Theodore Ts&#39;o <span dir=3D"ltr">&lt;<a=
+ href=3D"mailto:tytso@mit.edu" target=3D"_blank">tytso@mit.edu</a>&gt;</spa=
+n> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;b=
+order-left:1px #ccc solid;padding-left:1ex">I&#39;d like to nominate myself=
+ for the the TAB.<br>
+<br>
+Thanks,<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 - Ted<br=
+></blockquote><div><br></div><div><div class=3D"gmail_default" style=3D"fon=
+t-family:arial,helvetica,sans-serif;display:inline">=E2=80=8BThanks Ted. Yo=
+u&#39;re on the list.</div></div><div><div class=3D"gmail_default" style=3D=
+"font-family:arial,helvetica,sans-serif;display:inline"><br></div></div><di=
+v><div class=3D"gmail_default" style=3D"font-family:arial,helvetica,sans-se=
+rif;display:inline">g.=E2=80=8B</div>=C2=A0</div></div><br></div></div>
 
-
-			  Kernel Summit Agenda
-			   October 26-28, 2015
-				 DRAFT
-
-Attendee list: https://sites.google.com/site/ksummit2015/attendee-list
-
-Web Version Agenda: https://sites.google.com/site/ksummit2015/agenda	
-
-* Monday: Media Workshop and break out sessions (alongside Korea Linux Forum)
-* Tuesday: Dual-track technical sessions
-* Wednesday: Invite-only core attendees' plenary sessions
-
-Dual-Track Technical sessions (Oct. 27th)
-=========================================
-
-9:00    - Welcome and agenda bashing / Lightning Talks
-9:30	- Topic 1                   | Topic 11
-10:00   - Topic 2                   | Topic 12
-10:30   - Break
-11:00	- Topic 3                   | Topic 13
-11:30   - Topic 4                   | Topic 14
-12:00   - Topic 5                   | Topic 15
-12:30   - Lunch
-1:30    - Topic 6                   | Topic 16
-2:00    - Topic 7                   | Topic 17
-2:30    - Break
-3:00    - Topic 8                   | Topic 18
-3:30    - Topic 9                   | Topic 19
-4:00    - Topic 10                  | Topic 20
-4:30    - Break
-5:00    - Kernel Summit Tech Day -- What went well, what can we do better? 
-5:45    - Group Photograph (for all kernel summit attendees)
-6:00    - Dinner
-
-Tech topics
-===========
-
-1. Mainline kernel on a cellphone (Rob Herring)
-2. Semantics of MMIO mapping attributes across archs (Benjamin Herrenschmidt)
-3. System-wide interface to specify the level of PM tuning (Rafael J. Wysocki)
-4. Giving freezer well-defined semantics (Jiri Kosina)
-5. TBD
-6. Benchmarking And Performance Trends (Chris Mason)
-7. Mainlining PREEMPT_RT (Steven Rostedt)
-8. Improving Kernel Security  (James Morris / Kees Cook)
-9. Developer Workflow Security (Panel)
-10. Firmware signing (David Howells)
-
-11. TBD
-12. The Next Generation of the Media Controller (Mauro Carvalho Chehab)
-13. Kernel support for compute-offload devices (Joerg Roedel)
-14. TBD
-15. IRQ affinity (Christoph Hellwig)
-16. TBD
-17. ZONE_DEVICE and Persistent Memory (Dan Williams)
-18. TBD
-19. TBD
-20. Context tracking / nohz / RCU state (Andy Lutomirski / Paul McKenney)
-
-Core Day (Oct. 28th)
-====================
-
-9:00    - Welcome and agenda bashing
-9:30	- Testing (Masahami, Shuah)
-10:00   - Kernel Security - Readout and further discussion
-10:30   - Break
-11:00	- Recruitment; Outreach Programmes (Greg K-H)
-11:30   - Lightweight per-cpu locks / restartable sequences (Andy Lutomirski) (*)
-12:00   - Lightning Talks
-12:30   - Lunch
-1:30    - Issues with stable process (Sasha Levin)
-2:00    - TBD
-2:30    - Break
-3:00    - Documentation (Jon Corbet)
-3:30    - Kernel Development Process (Is Linus happy?)
-4:00    - TBD
-4:30    - Break
-5:00    - Kernel Summit Core Day -- What went well, what can we do better? 
-5:45    - Group Photograph (for core day attendees)
-6:00    - Dinner
+--089e013a23b463e8b60522918369--
