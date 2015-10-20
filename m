@@ -1,15 +1,36 @@
-Return-Path: <jason@lakedaemon.net>
-Date: Tue, 20 Oct 2015 23:17:35 +0000
-From: Jason Cooper <jason@lakedaemon.net>
-To: Theodore Ts'o <tytso@mit.edu>
-Message-ID: <20151020231735.GG3953@io.lakedaemon.net>
-References: <20151020220328.GA21941@thunk.org>
+Return-Path: <shuahkhan@gmail.com>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 626C49C
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 20 Oct 2015 23:39:34 +0000 (UTC)
+Received: from mail-io0-f171.google.com (mail-io0-f171.google.com
+	[209.85.223.171])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B3DDEE1
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 20 Oct 2015 23:39:33 +0000 (UTC)
+Received: by ioll68 with SMTP id l68so40213477iol.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 20 Oct 2015 16:39:33 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20151020220328.GA21941@thunk.org>
-Cc: ksummit-discuss@lists.linux-foundation.org
-Subject: Re: [Ksummit-discuss] Kernel Summit Agenda -- 2nd draft
+In-Reply-To: <20151020131816.1210dbf5@recife.lan>
+References: <20151012190137.GA1992@thunk.org>
+	<20151019103304.27e596a5@recife.lan>
+	<20151019135348.GH14956@sirena.org.uk>
+	<1445272076.2481.37.camel@loki>
+	<20151019173419.042d5e8b@recife.lan>
+	<CAKocOOMHUQT7u0T-Cq1k1YYdZ1g78t5Trx-dyXyB9RSQETOfDg@mail.gmail.com>
+	<1445342137.7033.41.camel@loki>
+	<20151020131816.1210dbf5@recife.lan>
+Date: Tue, 20 Oct 2015 17:39:33 -0600
+Message-ID: <CAKocOOPtSjbdWjq-pKXhQxPM63NuNrYk-mr44a3NCj3cBEwV_Q@mail.gmail.com>
+From: Shuah Khan <shuahkhan@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@osg.samsung.com>
+Content-Type: text/plain; charset=UTF-8
+Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+	Lars-Peter Clausen <lars@metafoo.de>, Mark Brown <broonie@kernel.og>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] Draft agenda for the kernel summit
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -19,58 +40,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Ted, all,
+On Tue, Oct 20, 2015 at 9:18 AM, Mauro Carvalho Chehab
+<mchehab@osg.samsung.com> wrote:
+> Em Tue, 20 Oct 2015 12:55:37 +0100
 
-On Tue, Oct 20, 2015 at 06:03:28PM -0400, Theodore Ts'o wrote:
-...
-> Attendee list: https://sites.google.com/site/ksummit2015/attendee-list
+> Shuah,
+>
+> I guess the links for the ALSA part are not ok. On your graph, it is
+> showing:
+>
+>         ATV decoder [PAD 3] --> Audio Mixer
+>                             --> Audio Capture
+>
+> I suspect that the right graph would be, instead:
+>
+>         ATV decoder [PAD 3] --> Audio Mixer --> Audio Capture
+>
 
-Unfortunately, I will not be able to attend.  I had a late schedule
-change (well, a month out).  I de-registered and emailed the relevant
-people offlist at the time.  I hope someone was able to take my slot...
+Mauro,
 
-> Tech topics
-> ===========
-> 
-> 1. Mainline kernel on a cellphone (Rob Herring)
-> 2. Semantics of MMIO mapping attributes across archs (Benjamin Herrenschmidt)
-> 3. System-wide interface to specify the level of PM tuning (Rafael J. Wysocki)
-> 4. Giving freezer well-defined semantics (Jiri Kosina)
-> 5. TBD
-> 6. Benchmarking And Performance Trends (Chris Mason)
-> 7. Mainlining PREEMPT_RT (Steven Rostedt)
-> 8. Improving Kernel Security  (James Morris / Kees Cook)
-> 9. Developer Workflow Security (Panel)
+Thanks for the find Fixed now in patch v2 series. Please find the media graphs
+at
 
-Which means, I won't be able to participate in my own proposed topic. :(
+https://drive.google.com/open?id=0B0NIL0BQg-AlLWE3SzAxazBJWm8
 
-Please let me know how it goes.  Whoever is taking lead on this, please
-get in touch with me if you have any questions about what I was
-thinking.
-
-> 10. Firmware signing (David Howells)
-> 
-> 11. TBD
-> 12. The Next Generation of the Media Controller (Mauro Carvalho Chehab)
-> 13. Kernel support for compute-offload devices (Joerg Roedel)
-> 14. TBD
-> 15. IRQ affinity (Christoph Hellwig)
-> 16. TBD
-> 17. ZONE_DEVICE and Persistent Memory (Dan Williams)
-> 18. TBD
-> 19. TBD
-> 20. Context tracking / nohz / RCU state (Andy Lutomirski / Paul McKenney)
-> 
-> Core Day (Oct. 28th)
-> ====================
-> 
-> 9:00    - Welcome and agenda bashing
-> 9:30	- Testing (Masahami, Shuah)
-> 10:00   - Kernel Security - Readout and further discussion
-
-I think this is the output of "Developer Workflow Security" as well as
-"Improving Kernel Security".
-
-thx,
-
-Jason.
+thanks,
+-- Shuah
