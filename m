@@ -1,13 +1,14 @@
-Return-Path: <sergey.senozhatsky.work@gmail.com>
-Date: Wed, 21 Oct 2015 09:10:48 +0900
-From: Sergey Senozhatsky <sergey.senozhatsky.work@gmail.com>
-To: Theodore Ts'o <tytso@mit.edu>
-Message-ID: <20151021001048.GA1843@swordfish>
+Return-Path: <olof@lixom.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+In-Reply-To: <20151020220328.GA21941@thunk.org>
+References: <20151020220328.GA21941@thunk.org>
+Date: Tue, 20 Oct 2015 19:36:31 -0700
+Message-ID: <CAOesGMiZrhXk4W=VScQ9ctnSqzCt6ba4QkPKAeACdaBRhDEjbw@mail.gmail.com>
+From: Olof Johansson <olof@lixom.net>
+To: "Theodore Ts'o" <tytso@mit.edu>
+Content-Type: text/plain; charset=UTF-8
 Cc: ksummit-discuss@lists.linux-foundation.org
-Subject: [Ksummit-discuss] [late self nomination] Sergey Senozhatsky
+Subject: Re: [Ksummit-discuss] Kernel Summit Agenda -- 2nd draft
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -17,19 +18,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On (10/20/15 18:03), Theodore Ts'o wrote:
-> 
-> Here's the next revision of the Kernel Summit draft.  Please take a
-> look at the assignment of technical topics to slots.  If you see
-> potential conflicts ("I really want to attend topics X and X+10"),
-> please make a comment on the e-mail thread.  We may not be able to
-> accomodate all schedule requests, but I'll do my best.
-[..]
+Hi,
 
-Hello,
+On Tue, Oct 20, 2015 at 3:03 PM, Theodore Ts'o <tytso@mit.edu> wrote:
 
-My apologies for rather late self nomination (had some difficulties with
-my schedule), but is there (by any change) still a space left? I'd like
-to attend a number of proposed topics (-stable process, etc.).
+> Core Day (Oct. 28th)
+> ====================
+>
+> 9:00    - Welcome and agenda bashing
+> 9:30    - Testing (Masahami, Shuah)
+> 10:00   - Kernel Security - Readout and further discussion
+> 10:30   - Break
+> 11:00   - Recruitment; Outreach Programmes (Greg K-H)
+> 11:30   - Lightweight per-cpu locks / restartable sequences (Andy Lutomirski) (*)
+> 12:00   - Lightning Talks
+> 12:30   - Lunch
+> 1:30    - Issues with stable process (Sasha Levin)
+> 2:00    - TBD
+> 2:30    - Break
+> 3:00    - Documentation (Jon Corbet)
+> 3:30    - Kernel Development Process (Is Linus happy?)
 
-	-ss
+We usually check in with Stephen Rothwell as well to see how happy or
+miserable he is, probably in the same slot though?
+
+
+-Olof
