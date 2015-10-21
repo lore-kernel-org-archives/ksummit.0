@@ -1,31 +1,16 @@
-Return-Path: <broonie@sirena.org.uk>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 88FB3258
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 21 Oct 2015 10:24:56 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 235368F
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 21 Oct 2015 10:24:56 +0000 (UTC)
-Date: Wed, 21 Oct 2015 11:24:48 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Message-ID: <20151021102448.GI32054@sirena.org.uk>
-References: <20151012190137.GA1992@thunk.org>
-	<20151019135348.GH14956@sirena.org.uk>
-	<1445272076.2481.37.camel@loki> <1826524.1PvFo6l3UI@avalon>
+Return-Path: <tytso@thunk.org>
+Date: Wed, 21 Oct 2015 10:56:26 -0400
+From: Theodore Ts'o <tytso@mit.edu>
+To: Olof Johansson <olof@lixom.net>
+Message-ID: <20151021145626.GD2165@thunk.org>
+References: <20151020220328.GA21941@thunk.org>
+	<CAOesGMiZrhXk4W=VScQ9ctnSqzCt6ba4QkPKAeACdaBRhDEjbw@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="uWFPrswxdEczfxSh"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1826524.1PvFo6l3UI@avalon>
-Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
-	Lars-Peter Clausen <lars@metafoo.de>, Mark Brown <broonie@kernel.og>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	Mauro Carvalho Chehab <mchehab@osg.samsung.com>
-Subject: Re: [Ksummit-discuss] Draft agenda for the kernel summit
+In-Reply-To: <CAOesGMiZrhXk4W=VScQ9ctnSqzCt6ba4QkPKAeACdaBRhDEjbw@mail.gmail.com>
+Cc: ksummit-discuss@lists.linux-foundation.org
+Subject: Re: [Ksummit-discuss] Kernel Summit Agenda -- 2nd draft
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,38 +20,20 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Tue, Oct 20, 2015 at 07:36:31PM -0700, Olof Johansson wrote:
+> > 3:30    - Kernel Development Process (Is Linus happy?)
+> 
+> We usually check in with Stephen Rothwell as well to see how happy or
+> miserable he is, probably in the same slot though?
 
---uWFPrswxdEczfxSh
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Yep.  Given the recent "commits in -rc1 not in next" statistic have
+been consistently getting better for the last 3 or 4 releases, I'm
+assuming/hoping this means that on the whole both Linus and Stephen
+are probably pretty happy with how things are going on the development
+process front.
 
-On Wed, Oct 21, 2015 at 03:04:49AM +0300, Laurent Pinchart wrote:
+But if Linus, Stephen, or anyone else for that matter has thoughts or
+suggestions about how we can do things better, this is the slot for
+it.
 
-> not saying that such a feature should be a hard requirement for MC as I=
-=20
-> haven't evaluated the complexity yet. Using the same format as the ALSA D=
-SP=20
-> firmware topology binary would probably not be possible though, as I expe=
-ct=20
-> that format to be quite ALSA-specific.
-
-It'd definitely need extension but hopefully there's enough space in
-there for doing that.
-
---uWFPrswxdEczfxSh
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQEcBAEBCAAGBQJWJ2fvAAoJECTWi3JdVIfQbakH/2K1N/a9+cycw4rnnWEkbFGI
-9FrrITH7hKHtYdmW061tvad0fRdsTm6Fdv6PEUmOXEZzL0zu2EiSWgxOzz+89OXD
-fYnJYb22cjjbDb3ww0qRaPRMXGpUcBP/V5iU4jzHZ8V3ytO7BYko5SwrI1qJkldR
-QRO5qj0H1sL74WWPn1TKnCIbheiMul2LvC4FehxiubQ2TbGPxHJn95g9hyZ+qlp2
-lzXf7MScwJWxB5DAJLZd8hntiexFn8flqzTLCTMrc4YvGVLBCzDDZt54zV2z5oWM
-WfAVmT53YXCLF5IKlfvieVCKlPUms8Jahhr3xKj+NOzjltWN0TE3rcs5qhnfpiM=
-=89WP
------END PGP SIGNATURE-----
-
---uWFPrswxdEczfxSh--
+						- Ted
