@@ -1,14 +1,35 @@
-Return-Path: <olof@lixom.net>
+Return-Path: <geert.uytterhoeven@gmail.com>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 785E890
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 21 Oct 2015 08:59:33 +0000 (UTC)
+Received: from mail-oi0-f50.google.com (mail-oi0-f50.google.com
+	[209.85.218.50])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id EB104125
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 21 Oct 2015 08:59:32 +0000 (UTC)
+Received: by oiad129 with SMTP id d129so24984514oia.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 21 Oct 2015 01:59:32 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20151020220328.GA21941@thunk.org>
-References: <20151020220328.GA21941@thunk.org>
-Date: Tue, 20 Oct 2015 19:36:31 -0700
-Message-ID: <CAOesGMiZrhXk4W=VScQ9ctnSqzCt6ba4QkPKAeACdaBRhDEjbw@mail.gmail.com>
-From: Olof Johansson <olof@lixom.net>
-To: "Theodore Ts'o" <tytso@mit.edu>
+Sender: geert.uytterhoeven@gmail.com
+In-Reply-To: <1445272076.2481.37.camel@loki>
+References: <20151012190137.GA1992@thunk.org>
+	<20151019103304.27e596a5@recife.lan>
+	<20151019135348.GH14956@sirena.org.uk>
+	<1445272076.2481.37.camel@loki>
+Date: Wed, 21 Oct 2015 10:59:32 +0200
+Message-ID: <CAMuHMdUQs7bLZ=xKqpyNprhU-n_Qp-+2fHZX+LPZ+5hEbZ59HQ@mail.gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+To: Liam Girdwood <liam.r.girdwood@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8
-Cc: ksummit-discuss@lists.linux-foundation.org
-Subject: Re: [Ksummit-discuss] Kernel Summit Agenda -- 2nd draft
+Cc: Lars-Peter Clausen <lars@metafoo.de>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Mark Brown <broonie@kernel.og>,
+	Mauro Carvalho Chehab <mchehab@osg.samsung.com>
+Subject: Re: [Ksummit-discuss] Draft agenda for the kernel summit
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -18,29 +39,21 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi,
+On Mon, Oct 19, 2015 at 6:27 PM, Liam Girdwood
+<liam.r.girdwood@linux.intel.com> wrote:
+> We are currently implementing de-compiler support to the userspace
+> compiler in order to convert the binary topology files into text files
+> for debug and development purposes.
 
-On Tue, Oct 20, 2015 at 3:03 PM, Theodore Ts'o <tytso@mit.edu> wrote:
+Just wondering: could this topology be represented/dumped as a DT?
 
-> Core Day (Oct. 28th)
-> ====================
->
-> 9:00    - Welcome and agenda bashing
-> 9:30    - Testing (Masahami, Shuah)
-> 10:00   - Kernel Security - Readout and further discussion
-> 10:30   - Break
-> 11:00   - Recruitment; Outreach Programmes (Greg K-H)
-> 11:30   - Lightweight per-cpu locks / restartable sequences (Andy Lutomirski) (*)
-> 12:00   - Lightning Talks
-> 12:30   - Lunch
-> 1:30    - Issues with stable process (Sasha Levin)
-> 2:00    - TBD
-> 2:30    - Break
-> 3:00    - Documentation (Jon Corbet)
-> 3:30    - Kernel Development Process (Is Linus happy?)
+Gr{oetje,eeting}s,
 
-We usually check in with Stephen Rothwell as well to see how happy or
-miserable he is, probably in the same slot though?
+                        Geert
 
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
--Olof
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
