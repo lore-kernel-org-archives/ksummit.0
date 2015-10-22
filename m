@@ -1,19 +1,21 @@
-Return-Path: <alexandre.belloni@free-electrons.com>
-Date: Thu, 22 Oct 2015 22:01:10 +0200
-From: Alexandre Belloni <alexandre.belloni@free-electrons.com>
-To: Theodore Ts'o <tytso@mit.edu>
-Message-ID: <20151022200110.GG10000@piout.net>
-References: <20151020220328.GA21941@thunk.org>
-	<CAOesGMiZrhXk4W=VScQ9ctnSqzCt6ba4QkPKAeACdaBRhDEjbw@mail.gmail.com>
-	<20151021145626.GD2165@thunk.org> <5627AD56.7050500@roeck-us.net>
-	<20151021160907.GM32054@sirena.org.uk>
-	<5627BF30.4080703@roeck-us.net> <20151022152502.GA28761@thunk.org>
+Return-Path: <dvhart@infradead.org>
+Date: Thu, 22 Oct 2015 23:03:29 +0200
+From: Darren Hart <dvhart@infradead.org>
+To: Grant Likely <glikely@secretlab.ca>
+Message-ID: <20151022210329.GA5470@vmdeb7>
+References: <CACxGe6tWRfHFtkL1TKnOHjV_+e_WFe1w3ZaKrxH5zPBF5GpqqA@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20151022152502.GA28761@thunk.org>
-Cc: ksummit-discuss@lists.linux-foundation.org
-Subject: Re: [Ksummit-discuss] Kernel Summit Agenda -- 2nd draft
+In-Reply-To: <CACxGe6tWRfHFtkL1TKnOHjV_+e_WFe1w3ZaKrxH5zPBF5GpqqA@mail.gmail.com>
+Cc: Tech Board Discuss <Tech-board-discuss@lists.linux-foundation.org>,
+	"lwn@lwn.net" <lwn@lwn.net>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	tech-board <tech-board@lists.linux-foundation.org>
+Subject: Re: [Ksummit-discuss] Linux Foundation Technical Advisory Board
+ Elections and Nomination process
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -23,38 +25,48 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 22/10/2015 at 11:25:02 -0400, Theodore Ts'o wrote :
-> On Wed, Oct 21, 2015 at 09:37:04AM -0700, Guenter Roeck wrote:
-> > 
-> > Sure, and I do that if I can find the time. In my experience, submitting
-> > patches to fix observed problems turns out to be the best approach.
-> > Even (or especially) if plain wrong or less than perfect, patches are
-> > almost guaranteed to trigger a response.
-> > 
-> > Doing this is just very time consuming, and time is always short.
-> > 
-> > Also, while beneficial for the system as a whole, I am not sure if it is
-> > beneficial for the submitter. Touching multiple subsystems almost
-> > guarantees for the submitter to get something wrong, either because
-> > of unfamiliarity with the code or because of maintainer preferences.
+On Tue, Oct 06, 2015 at 11:06:47AM +0100, Grant Likely wrote:
+> [Resending because I messed up the first one]
 > 
-> Speaking as a maintainer, if you can report a regression, I will
-> definitely take it seriously, with or without a patch.  What's
-> actually most useful is a git bisection, or failing that, a report of
-> the last kernel version where things worked, and a reliable repro.
-> Not that I would turn down a patch, of course, but being able to point
-> the finger at the guilty patch is often the most useful thing a bug
-> reporter can contribute.
+> The elections for five of the ten members of the Linux Foundation
+> Technical Advisory Board (TAB) are held every year[1]. This year the
+> election will be at the 2015 Kernel Summit in Seoul, South Korea
+> (probably on the Monday, 26 October) and will be open to all attendees
+> of both Kernel Summit and Korea Linux Forum.
 > 
+> Anyone is eligible to stand for election, simply send your nomination to:
+> 
+> Tech-board-discuss@lists.linux-foundation.org
+> 
+> We currently have 3 nominees for five places:
+> Thomas Gleixner
+> Greg Kroah-Hartman
+> Stephen Hemminger
+> 
+> The deadline for receiving nominations is up until the beginning of
+> the event where the election is held. Although, please remember if
+> you're not going to be present that things go wrong with both networks
+> and mailing lists, so get your nomination in early).
+> 
+> Grant Likely, TAB Chair
+> 
+> [1] TAB members sit for a term of 2 years, and half of the board is up
+> for election every year. Five of the seats are up for election now.
+> The other five are half way through their term and will be up for
+> election next year. The history of the TAB elections can be found
+> here:
+> 
+> https://docs.google.com/spreadsheets/d/1jGLQtul0taSRq_opYzJFALI7_34cS4RMS1_YQoTNCKA/edit#gid=0
 
-One corner case that can happen is that a maintainer takes a patch for
-another subsystem (because it also touches his subsystem or depends on
-it or whatever). If this patch introduces a regression, it is sometimes
-difficult to get a fix merged because it is not obvious that the
-maintainer that took the offending patch has to take it and the
-subsystem maintainer can't take the fix until -rc1.
+Is there a good description of what is expected of a TAB member? How much time
+is involved? What makes a great TAB member?
+
+I've found: http://www.linuxfoundation.org/programs/advisory-councils/tab
+
+I've read the charter and scanned some of the minutes, but I'd still like to
+hear from some of the "incumbants". Specifically, what makes you successful as a
+member of the TAB?
 
 -- 
-Alexandre Belloni, Free Electrons
-Embedded Linux, Kernel and Android engineering
-http://free-electrons.com
+Darren Hart
+Intel Open Source Technology Center
