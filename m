@@ -1,18 +1,18 @@
 Return-Path: <sakari.ailus@iki.fi>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1A13C3EE
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 15030305
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 22 Oct 2015 08:40:55 +0000 (UTC)
+	Thu, 22 Oct 2015 08:50:26 +0000 (UTC)
 Received: from hillosipuli.retiisi.org.uk (nblzone-211-213.nblnetworks.fi
 	[83.145.211.213])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9B02663
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BD23163
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 22 Oct 2015 08:40:53 +0000 (UTC)
-Date: Thu, 22 Oct 2015 11:34:46 +0300
+	Thu, 22 Oct 2015 08:50:24 +0000 (UTC)
+Date: Thu, 22 Oct 2015 11:49:51 +0300
 From: Sakari Ailus <sakari.ailus@iki.fi>
 To: Mauro Carvalho Chehab <mchehab@osg.samsung.com>
-Message-ID: <20151022083446.GQ26916@valkosipuli.retiisi.org.uk>
+Message-ID: <20151022084951.GR26916@valkosipuli.retiisi.org.uk>
 References: <20151012190137.GA1992@thunk.org>
 	<20151019103304.27e596a5@recife.lan>
 	<20151019135348.GH14956@sirena.org.uk>
@@ -26,9 +26,9 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <20151020133443.4140d53f@recife.lan>
-Cc: Lars-Peter Clausen <lars@metafoo.de>,
-	ksummit-discuss@lists.linuxfoundation.org, Mark Brown <broonie@kernel.og>,
-	Liam Girdwood <liam.r.girdwood@linux.intel.com>
+Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Lars-Peter Clausen <lars@metafoo.de>
 Subject: Re: [Ksummit-discuss] Draft agenda for the kernel summit
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -40,6 +40,8 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 Hi Mauro and Mark,
+
+(Fixed Mark's e-mail.)
 
 On Tue, Oct 20, 2015 at 01:34:43PM -0200, Mauro Carvalho Chehab wrote:
 > Em Tue, 20 Oct 2015 14:22:09 +0100
