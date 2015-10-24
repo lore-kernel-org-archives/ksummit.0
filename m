@@ -1,32 +1,24 @@
-Return-Path: <rjw@rjwysocki.net>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id DA766407
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 24 Oct 2015 15:10:54 +0000 (UTC)
-Received: from v094114.home.net.pl (v094114.home.net.pl [79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id D8343F4
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 24 Oct 2015 15:10:53 +0000 (UTC)
-From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Sat, 24 Oct 2015 17:39:47 +0200
-Message-ID: <3620173.TCXtRlEbDR@vostro.rjw.lan>
-In-Reply-To: <CACxGe6uGhwo=ueu56VhcWa7p68UH_EJVE+EOczBF5bhjhX=+-A@mail.gmail.com>
+Return-Path: <linville@tuxdriver.com>
+Date: Sat, 24 Oct 2015 11:58:51 -0400
+From: "John W. Linville" <linville@tuxdriver.com>
+To: Grant Likely <glikely@secretlab.ca>
+Message-ID: <20151024155851.GA2325@tuxdriver.com>
 References: <CACxGe6tWRfHFtkL1TKnOHjV_+e_WFe1w3ZaKrxH5zPBF5GpqqA@mail.gmail.com>
 	<20151022210329.GA5470@vmdeb7>
 	<CACxGe6uGhwo=ueu56VhcWa7p68UH_EJVE+EOczBF5bhjhX=+-A@mail.gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
-Cc: Grant Likely <glikely@secretlab.ca>,
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CACxGe6uGhwo=ueu56VhcWa7p68UH_EJVE+EOczBF5bhjhX=+-A@mail.gmail.com>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
 	Tech Board Discuss <Tech-board-discuss@lists.linux-foundation.org>,
 	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
 	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
 	tech-board <tech-board@lists.linux-foundation.org>,
 	"lwn@lwn.net" <lwn@lwn.net>
-Subject: Re: [Ksummit-discuss] Linux Foundation Technical Advisory Board
-	Elections and Nomination process
+Subject: Re: [Ksummit-discuss] [Tech-board] Linux Foundation Technical
+ Advisory Board Elections and Nomination process
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,7 +28,11 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Saturday, October 24, 2015 11:28:19 AM Grant Likely wrote:
+Good write-up!  We should archive this for reference in future years!
+
+John
+
+On Sat, Oct 24, 2015 at 11:28:19AM +0100, Grant Likely wrote:
 > [Including Rafael who also asked about what being a TAB member means]
 > 
 > On Thu, Oct 22, 2015 at 10:03 PM, Darren Hart <dvhart@infradead.org> wrote:
@@ -102,8 +98,14 @@ On Saturday, October 24, 2015 11:28:19 AM Grant Likely wrote:
 > confidentiality rules.
 > 
 > I hope this answers your questions.
+> 
+> g.
+> _______________________________________________
+> Tech-board mailing list
+> Tech-board@lists.linux-foundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/tech-board
+> 
 
-It certainly does answer mine.
-
-Thanks a lot,
-Rafael
+-- 
+John W. Linville		Someday the world will need a hero, and you
+linville@tuxdriver.com			might be all we have.  Be ready.
