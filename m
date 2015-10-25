@@ -1,31 +1,33 @@
-Return-Path: <olof@lixom.net>
+Return-Path: <corbet@lwn.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3395167
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5CEE37AD
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 24 Oct 2015 17:37:26 +0000 (UTC)
-Received: from mail-yk0-f169.google.com (mail-yk0-f169.google.com
-	[209.85.160.169])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C930B137
+	Sun, 25 Oct 2015 03:45:16 +0000 (UTC)
+Received: from vena.lwn.net (tex.lwn.net [70.33.254.29])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3112810D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 24 Oct 2015 17:37:24 +0000 (UTC)
-Received: by yknn9 with SMTP id n9so148954451ykn.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 24 Oct 2015 10:37:24 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <CACxGe6tWRfHFtkL1TKnOHjV_+e_WFe1w3ZaKrxH5zPBF5GpqqA@mail.gmail.com>
-References: <CACxGe6tWRfHFtkL1TKnOHjV_+e_WFe1w3ZaKrxH5zPBF5GpqqA@mail.gmail.com>
-Date: Sat, 24 Oct 2015 10:37:23 -0700
-Message-ID: <CAOesGMj+Ek4r-x5hDA34CxDgZ-WSz=mKg7gcJsSTdV7yr=kkNw@mail.gmail.com>
-From: Olof Johansson <olof@lixom.net>
+	Sun, 25 Oct 2015 03:45:15 +0000 (UTC)
+Date: Sat, 24 Oct 2015 21:45:07 -0600
+From: Jonathan Corbet <corbet@lwn.net>
 To: Grant Likely <glikely@secretlab.ca>
-Content-Type: multipart/alternative; boundary=001a114d70ee52287a0522dd2e29
-Cc: Tech Board Discuss <Tech-board-discuss@lists.linux-foundation.org>,
-	lwn@lwn.net, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	tech-board <tech-board@lists.linux-foundation.org>
-Subject: Re: [Ksummit-discuss] Linux Foundation Technical Advisory Board
- Elections and Nomination process
+Message-ID: <20151024214507.1d33eb9a@xps.lwn.net>
+In-Reply-To: <CACxGe6uGhwo=ueu56VhcWa7p68UH_EJVE+EOczBF5bhjhX=+-A@mail.gmail.com>
+References: <CACxGe6tWRfHFtkL1TKnOHjV_+e_WFe1w3ZaKrxH5zPBF5GpqqA@mail.gmail.com>
+	<20151022210329.GA5470@vmdeb7>
+	<CACxGe6uGhwo=ueu56VhcWa7p68UH_EJVE+EOczBF5bhjhX=+-A@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Tech Board Discuss <Tech-board-discuss@lists.linux-foundation.org>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	tech-board <tech-board@lists.linux-foundation.org>,
+	"lwn@lwn.net" <lwn@lwn.net>
+Subject: Re: [Ksummit-discuss] [Tech-board] Linux Foundation Technical
+ Advisory Board Elections and Nomination process
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,71 +37,41 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---001a114d70ee52287a0522dd2e29
-Content-Type: text/plain; charset=UTF-8
+On Sat, 24 Oct 2015 11:28:19 +0100
+Grant Likely <glikely@secretlab.ca> wrote:
 
-Grant, others,
+> I've been asked several versions of the same question, and also the
+> annual "what does the TAB actually do?" question, so I'm going to try
+> and answer them all in one email:
 
-On Oct 6, 2015 03:07, "Grant Likely" <glikely@secretlab.ca> wrote:
->
-> [Resending because I messed up the first one]
->
-> The elections for five of the ten members of the Linux Foundation
-> Technical Advisory Board (TAB) are held every year[1]. This year the
-> election will be at the 2015 Kernel Summit in Seoul, South Korea
-> (probably on the Monday, 26 October) and will be open to all attendees
-> of both Kernel Summit and Korea Linux Forum.
->
-> Anyone is eligible to stand for election, simply send your nomination to:
->
-> Tech-board-discuss@lists.linux-foundation.org
->
-> We currently have 3 nominees for five places:
-> Thomas Gleixner
-> Greg Kroah-Hartman
-> Stephen Hemminger
->
-> The deadline for receiving nominations is up until the beginning of
-> the event where the election is held. Although, please remember if
-> you're not going to be present that things go wrong with both networks
-> and mailing lists, so get your nomination in early).
+Great summary, Grant, thanks.
 
-I wish to nominate myself for the TAB election. I will be present at the
-event.
+A few additions of my own...
 
-Thank you.
+- The Linux Foundation tends to ask TAB members if they can give talks at
+  events.  Even more than free software development in general, TAB
+  membership can be good if you don't like buying your own T-shirts!
 
--Olof
+- The TAB has been named in the kernel's "code of conflict" as the body
+  that will receive complaints about harassment or other untoward
+  behavior in our community and try to resolve them.  Thus far, no such
+  complaints have been presented, but TAB members need to be prepared for
+  that to happen.
 
---001a114d70ee52287a0522dd2e29
-Content-Type: text/html; charset=UTF-8
+- It has been my feeling for a fair while that the LF could make more use
+  of the TAB and its expertise than happens currently.  Good TAB members
+  might be those who are willing to let the LF know when they have an
+  opinion on what the LF should be doing with and for the community.  As
+  an example, some of us have been pushing for the TAB to help with the
+  selection of technical talks at LF conferences; I *think* that we
+  provided useful input for LCE this year.
 
-<p dir="ltr">Grant, others,</p>
-<p dir="ltr">On Oct 6, 2015 03:07, &quot;Grant Likely&quot; &lt;<a href="mailto:glikely@secretlab.ca">glikely@secretlab.ca</a>&gt; wrote:<br>
-&gt;<br>
-&gt; [Resending because I messed up the first one]<br>
-&gt;<br>
-&gt; The elections for five of the ten members of the Linux Foundation<br>
-&gt; Technical Advisory Board (TAB) are held every year[1]. This year the<br>
-&gt; election will be at the 2015 Kernel Summit in Seoul, South Korea<br>
-&gt; (probably on the Monday, 26 October) and will be open to all attendees<br>
-&gt; of both Kernel Summit and Korea Linux Forum.<br>
-&gt;<br>
-&gt; Anyone is eligible to stand for election, simply send your nomination to:<br>
-&gt;<br>
-&gt; <a href="mailto:Tech-board-discuss@lists.linux-foundation.org">Tech-board-discuss@lists.linux-foundation.org</a><br>
-&gt;<br>
-&gt; We currently have 3 nominees for five places:<br>
-&gt; Thomas Gleixner<br>
-&gt; Greg Kroah-Hartman<br>
-&gt; Stephen Hemminger<br>
-&gt;<br>
-&gt; The deadline for receiving nominations is up until the beginning of<br>
-&gt; the event where the election is held. Although, please remember if<br>
-&gt; you&#39;re not going to be present that things go wrong with both networks<br>
-&gt; and mailing lists, so get your nomination in early).<br></p>
-<p dir="ltr">I wish to nominate myself for the TAB election. I will be present at the event.</p>
-<p dir="ltr">Thank you.<br></p>
-<p dir="ltr">-Olof</p>
+That ties in to my last thought...in my time on the TAB, I've noticed
+that most of the work tends to be done by a relatively small subset of
+the members.  Perhaps every committee is like that, in the end.  A
+successful TAB member, IMO, is one who is willing to make the time to not
+just attend attend the meetings (which may be at less-than-convenient
+times depending on where you live and travel), but also to commit to
+putting some time into helping out when there's something to be done.
 
---001a114d70ee52287a0522dd2e29--
+jon
