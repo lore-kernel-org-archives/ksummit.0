@@ -1,33 +1,21 @@
-Return-Path: <glikely@secretlab.ca>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D187392
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A943590
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 25 Oct 2015 08:43:24 +0000 (UTC)
-Received: from mail-io0-f172.google.com (mail-io0-f172.google.com
-	[209.85.223.172])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 480C4FE
+	Sun, 25 Oct 2015 23:46:04 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E911A13E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 25 Oct 2015 08:43:24 +0000 (UTC)
-Received: by iofz202 with SMTP id z202so159830386iof.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 25 Oct 2015 01:43:23 -0700 (PDT)
+	Sun, 25 Oct 2015 23:46:03 +0000 (UTC)
+Date: Sun, 25 Oct 2015 19:45:58 -0400
+From: Theodore Ts'o <tytso@mit.edu>
+To: ksummit-discuss@lists.linuxfoundation.org
+Message-ID: <20151025234558.GA13371@thunk.org>
 MIME-Version: 1.0
-In-Reply-To: <CACxGe6t52XAqd9FCa96nH=djt3xWcZ1vKjjLOMnjgBJ=MH7tRA@mail.gmail.com>
-References: <CACxGe6tWRfHFtkL1TKnOHjV_+e_WFe1w3ZaKrxH5zPBF5GpqqA@mail.gmail.com>
-	<CACxGe6tjrcpAN26LDv4SiJav5g-Zzbp957Oc=Bx4RXs7Str1Ww@mail.gmail.com>
-	<CACxGe6t52XAqd9FCa96nH=djt3xWcZ1vKjjLOMnjgBJ=MH7tRA@mail.gmail.com>
-From: Grant Likely <glikely@secretlab.ca>
-Date: Sun, 25 Oct 2015 17:43:04 +0900
-Message-ID: <CACxGe6sNA=MKfcuAbBhi-6hnU9CDq5yfFeZ-O76OW5FtukGGYA@mail.gmail.com>
-To: tech-board <tech-board@lists.linux-foundation.org>,
-	Tech Board Discuss <Tech-board-discuss@lists.linux-foundation.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	"lwn@lwn.net" <lwn@lwn.net>, "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8
-Subject: Re: [Ksummit-discuss] Linux Foundation Technical Advisory Board
- Elections and Nomination process
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Subject: [Ksummit-discuss] READ ME: Kernel Summit 2015 Info
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,54 +25,36 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sun, Oct 25, 2015 at 5:06 PM, Grant Likely <glikely@secretlab.ca> wrote:
-> Final reminder and update:
->
-> The TAB elections will be held at 6:00pm tomorrow evening, Monday
-> October 26th during the evening booth-crawl and reception in the Park
-> Studio room. We will start at 6:00 sharp. Don't be late.
->
-> Agenda:
-> 1) Welcome and brief summary of what the TAB does
-> 2) Questions
-> 3) Last call for nominations
-> 4) Candidate statements. Candidates will each have 1 minute to make a
-> brief statement. Candidates who are unable to attend can provide a
-> written statement to be read out.
-> 5) Review of polling procedure
-> 6) Polling
->
-> The doors to the room will be closed at the start of polling. You must
-> be in the room by that time if you intend to cast a ballot. Polling
-> will be conducted by secret paper ballot and a privacy shield will be
-> provided. Voters must exit the room after casting their ballot.
->
-> Counting shall be performed by 2 or 3 neutral people after polling has
-> completed. Results will be provided by email to the mailing lists
-> later that same evening.
->
-> Currently we have 15 candidates for 5 seats. The current nominations
-> are (in alphabetical order):
-> Kees Cook
-> Jon Corbet
-> Thomas Gleixner
-> Stephen Hemminger
-> Olof Johansson
-> Shuah Khan
-> Greg Kroah-Hartman
-> Kurt H Maier
-> Steven Rostedt
-> Dave Taht
-> Josh Triplett
-> Theodore Ts'o
-> Sage Weil
-> Dan Williams
-> Rafael Wysocki
+Some last minute bits:
 
-and Andy Lutomirski makes 16.
+1) The Linux Foundation Events team sent out an attendee information
+to everyone using their e-mail addresses that they used when they
+registered.  Unfortunately, a lot of people have reported that they
+didn't get it.  It was sent using the regonline system, so I'm
+wondering if perhaps it got caought in people's spam filters.  There
+is a copy of that information here:
 
-That's it. Any nominations received after this point will not make it
-onto the pre-printed ballot. (Nominations are still open. There are
-blank spaces on the ballot for writing in other names)
+https://sites.google.com/site/ksummit2015/attendee-info
 
-g.
+2) Samsung has organized optional tour which departs the hotel at
+7:15pm and which includes a one hour river cruise.  You need to sign
+up for this if you want to attend.  The link to RSVP can be found at
+the above attendee info page.
+
+3) On Tuesday, after some introductory remarks, there will be an
+opportunity for lightning talks.  This might be a good way to get
+like-minded people to talk or grab an impromptu slot for a discussion
+later in the day.  If you are interested giving a lightning, please
+e-mail *today* (Monday) at theodore.tso@gmail.com.
+
+4) There are still some openings for sessions on Tuesday.  See the
+agenda here:
+
+https://sites.google.com/site/ksummit2015/agenda
+
+If you are interested in grabbing one of the TBD slots, again, send me
+e-mail at theodore.tso@gmail.com.
+
+Enjoy!
+
+				- Ted
