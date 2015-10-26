@@ -1,16 +1,16 @@
-Return-Path: <ebiederm@xmission.com>
-From: ebiederm@xmission.com (Eric W. Biederman)
+Return-Path: <josh@joshtriplett.org>
+Date: Mon, 26 Oct 2015 15:28:21 +0900
+From: Josh Triplett <josh@joshtriplett.org>
 To: "Luis R. Rodriguez" <mcgrof@do-not-panic.com>
+Message-ID: <20151026062820.GA1021@x>
 References: <20151020220328.GA21941@thunk.org>
 	<CAOesGMiZrhXk4W=VScQ9ctnSqzCt6ba4QkPKAeACdaBRhDEjbw@mail.gmail.com>
 	<20151021145626.GD2165@thunk.org>
 	<CAB=NE6X=sD__dC6N=ap7i7eb1fEJi0wQgsFyTQ7mZ3TdnQuPYQ@mail.gmail.com>
-Date: Mon, 26 Oct 2015 01:12:27 -0500
-In-Reply-To: <CAB=NE6X=sD__dC6N=ap7i7eb1fEJi0wQgsFyTQ7mZ3TdnQuPYQ@mail.gmail.com>
-	(Luis R. Rodriguez's message of "Sun, 25 Oct 2015 22:56:49 -0700")
-Message-ID: <8737wy17lg.fsf@x220.int.ebiederm.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAB=NE6X=sD__dC6N=ap7i7eb1fEJi0wQgsFyTQ7mZ3TdnQuPYQ@mail.gmail.com>
 Cc: ksummit-discuss@lists.linux-foundation.org
 Subject: Re: [Ksummit-discuss] Kernel Summit Agenda -- 2nd draft
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -22,25 +22,24 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-"Luis R. Rodriguez" <mcgrof@do-not-panic.com> writes:
-
+On Sun, Oct 25, 2015 at 10:56:49PM -0700, Luis R. Rodriguez wrote:
 > On Wed, Oct 21, 2015 at 7:56 AM, Theodore Ts'o <tytso@mit.edu> wrote:
->> On Tue, Oct 20, 2015 at 07:36:31PM -0700, Olof Johansson wrote:
->>> > 3:30    - Kernel Development Process (Is Linus happy?)
->>>
->>> We usually check in with Stephen Rothwell as well to see how happy or
->>> miserable he is, probably in the same slot though?
->>
->> Yep.  Given the recent "commits in -rc1 not in next" statistic have
->> been consistently getting better for the last 3 or 4 releases, I'm
->> assuming/hoping this means that on the whole both Linus and Stephen
->> are probably pretty happy with how things are going on the development
->> process front.
->>
->> But if Linus, Stephen, or anyone else for that matter has thoughts or
->> suggestions about how we can do things better, this is the slot for
->> it.
->
+> > On Tue, Oct 20, 2015 at 07:36:31PM -0700, Olof Johansson wrote:
+> >> > 3:30    - Kernel Development Process (Is Linus happy?)
+> >>
+> >> We usually check in with Stephen Rothwell as well to see how happy or
+> >> miserable he is, probably in the same slot though?
+> >
+> > Yep.  Given the recent "commits in -rc1 not in next" statistic have
+> > been consistently getting better for the last 3 or 4 releases, I'm
+> > assuming/hoping this means that on the whole both Linus and Stephen
+> > are probably pretty happy with how things are going on the development
+> > process front.
+> >
+> > But if Linus, Stephen, or anyone else for that matter has thoughts or
+> > suggestions about how we can do things better, this is the slot for
+> > it.
+> 
 > I was reluctant to bring this up, but today's presentation by Jonathan
 > Corbet, prompts me to throw one possible optimization out there. This
 > issue does not relate to Linus or Stephen directly but rather
@@ -71,7 +70,7 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 > choice is up to the maintainer who decides to take things in if the
 > choice for the cross-tree collateral evolutions is to go through *one*
 > maintainer.
->
+> 
 > Reason this probably has not come up as an issue of concern to Linus
 > or other maintainers is that its the developer's job to do all the
 > work to get the cross-tree collateral evolutions in. The maintainers
@@ -83,34 +82,15 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 > cross-tree collateral evolutions this can become an issue. Specially
 > if your cross-tree collateral evolutions are requirements for a new
 > feature or perhaps who knows, maybe a new driver.
->
-> [0]
-> http://lkml.kernel.org/r/20150619231255.GC7487@garbanzo.do-not-panic.com
+> 
+> [0] http://lkml.kernel.org/r/20150619231255.GC7487@garbanzo.do-not-panic.com
 
-I think it really depends on what is going on.  If it is complex and
-interesting work you really do need to go through the experts of a
-subsystem and get their buy off, so you have maintainable code.
+Hear hear; I'm extremely interested in a solution to this problem, and
+I'd like to participate in this discussion.
 
-If you can reach accord quickly it is probably easiest to have a common
-tree (based on something like -rc1) that both subsystem maintainers can
-merge.
+Attempting to make a kernel-wide change that touches multiple subsystems
+typically either requires extensive coordination between subsystem
+maintainers, or more commonly, slowly filtering changes in over several
+kernel releases and maintaining compatibility layers.
 
-For tree wide changes where only minimal approval is needed from
-maintainers simply running a tree for the conversion is a common pattern
-that works well.
-
-When you propose a tree that gets rebased daily I think you are going in
-the wrong direction.  There are some many varieties of dependencies and
-so many different varieties of needed code review that I really don't
-think it makes sense to try for a one size fits all solution (short of
-running your own tree for the change).
-
-Although to be honest I have done something like that this cycle and all
-of the trees fed into net-next and the maintainers were responsive so
-despite having to feed changes through 3 different maintainers I had no
-significant challenges.
-
-So for me.  Been there, done that, and I do not see the problem you are
-trying to fix.
-
-Eric
+- Josh Triplett
