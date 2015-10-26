@@ -1,22 +1,26 @@
-Return-Path: <jikos@kernel.org>
+Return-Path: <tony.luck@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0252B3EE
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 720058B4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 26 Oct 2015 14:51:12 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BD46716E
+	Mon, 26 Oct 2015 16:14:37 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 3E27618D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 26 Oct 2015 14:51:10 +0000 (UTC)
-Date: Mon, 26 Oct 2015 23:51:10 +0900 (KST)
-From: Jiri Kosina <jikos@kernel.org>
-To: Hannes Reinecke <hare@suse.com>
-In-Reply-To: <562E37D7.9080105@suse.com>
-Message-ID: <alpine.LNX.2.00.1510262348190.8998@pobox.suse.cz>
+	Mon, 26 Oct 2015 16:14:37 +0000 (UTC)
+From: "Luck, Tony" <tony.luck@intel.com>
+To: Hannes Reinecke <hare@suse.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Date: Mon, 26 Oct 2015 16:14:35 +0000
+Message-ID: <3908561D78D1C84285E8C5FCA982C28F32B5F530@ORSMSX114.amr.corp.intel.com>
 References: <562E37D7.9080105@suse.com>
+In-Reply-To: <562E37D7.9080105@suse.com>
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
-Cc: theodore.tso@gmail.com, ksummit-discuss@lists.linuxfoundation.org
+Cc: "theodore.tso@gmail.com" <theodore.tso@gmail.com>
 Subject: Re: [Ksummit-discuss] Late KS topics
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -27,21 +31,15 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 26 Oct 2015, Hannes Reinecke wrote:
+>  (This whole idea came up as we've had some instances which simply
+>   could not boot as the serial console took too long to print out
+>   all the stuff, so systemd timeout kicked in and killed the udev
+>   process which should have handled the boot device.)
 
->   The talk/proposal should be used to come to a consensus about
->   restricting printk() to high-priority, small volume messages,
->   and implement a different call (like log_printk()) for the
->   low-priority, high-volume traffic.
+What is the default value for that timeout?  Is there a configuration
+file where I can easily change it?
 
-The printk() troubles are not only about the "high volume" vs. "very 
-important", but also about the context of the caller.
+I think I may have seen this when I added some verbose debugging
+printk() messages.
 
-The optimistic comment above printk() says that it can be called from any 
-context, but that's not true for quite some time already.
-So if printk() is going to be redesigned to be more lightweight, this 
-aspect definitely needs to be taken into consideration as well.
-
--- 
-Jiri Kosina
-SUSE Labs
+-Tony
