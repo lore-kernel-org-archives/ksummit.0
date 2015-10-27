@@ -1,27 +1,27 @@
-Return-Path: <hare@suse.com>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 502578A7
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 38E648CC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 27 Oct 2015 00:23:28 +0000 (UTC)
-Received: from smtp.nue.novell.com (smtp.nue.novell.com [195.135.221.5])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7E9B215C
+	Tue, 27 Oct 2015 01:39:50 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CD9D3E4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 27 Oct 2015 00:23:27 +0000 (UTC)
-To: "Luck, Tony" <tony.luck@intel.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-References: <562E37D7.9080105@suse.com>
-	<3908561D78D1C84285E8C5FCA982C28F32B5F530@ORSMSX114.amr.corp.intel.com>
-From: Hannes Reinecke <hare@suse.com>
-Message-ID: <562EC3F5.4060300@suse.com>
-Date: Tue, 27 Oct 2015 01:23:17 +0100
+	Tue, 27 Oct 2015 01:39:49 +0000 (UTC)
+Date: Tue, 27 Oct 2015 10:39:34 +0900
+From: Mark Brown <broonie@kernel.org>
+To: tytso <tytso@mit.edu>
+Message-ID: <20151027013934.GO28319@sirena.org.uk>
+References: <562E37D7.9080105@suse.com> <20151027001201.GI28319@sirena.org.uk>
+	<20151027005950.GA26445@localhost>
 MIME-Version: 1.0
-In-Reply-To: <3908561D78D1C84285E8C5FCA982C28F32B5F530@ORSMSX114.amr.corp.intel.com>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 7bit
-Cc: "theodore.tso@gmail.com" <theodore.tso@gmail.com>
-Subject: Re: [Ksummit-discuss] Late KS topics
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="3hAdtgBjtgL7p0NQ"
+Content-Disposition: inline
+In-Reply-To: <20151027005950.GA26445@localhost>
+Cc: theodore.tso@gmail.com, ksummit-discuss@lists.linuxfoundation.org
+Subject: [Ksummit-discuss] Deferred probing
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,23 +31,58 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 10/26/2015 05:14 PM, Luck, Tony wrote:
->>  (This whole idea came up as we've had some instances which simply
->>   could not boot as the serial console took too long to print out
->>   all the stuff, so systemd timeout kicked in and killed the udev
->>   process which should have handled the boot device.)
-> 
-> What is the default value for that timeout?  Is there a configuration
-> file where I can easily change it?
-> 
-That's the udev worker timeout, which can be modified with later
-versions of udev IIRC.
 
-> I think I may have seen this when I added some verbose debugging
-> printk() messages.
-> 
-Oh, that's quite possible. Speaking from painful experience :-)
+--3hAdtgBjtgL7p0NQ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Cheers,
+On Mon, Oct 26, 2015 at 08:59:50PM -0400, tytso wrote:
 
-Hannes
+> I didn't see that message, sorry.  I found it after spending many
+> minutes searching an overflowing inbox, but it's not something which
+> is scalable.
+
+Please provide clearer information on the process that you are expecting
+people to follow :(
+
+> If you have specific requests, please use a separate subject line (so
+> people who are massively behind on their e-mail during the conference
+> have some *hope* of finding messages with real-time requests), and
+
+I was hoping that replying to your message asking for new topics and
+sending to the (different to normal) e-mail address you were requesting
+was a good way of indicating a new topic.
+
+> please don't reference "subject XXX on the lists" and expect folks to
+> have to read a largish thread and to try to figure out what issues you
+> want to talk about.
+
+> Please send a 2-3 sentence summary of the issues you want to discuss
+> --- I'm not sure I understand what needs to be discussed about
+> "deferred probing and general device ordering" this week.
+
+Currently we don't do anything useful to capture inter-device
+dependencies outside the parent/child relationship.  This means that
+during boot we can get a very largee number of probe attempts which gets
+messy from a logging point of view and means that during suspend and
+resume we don't do anything to make sure we're suspending and resuming
+things in a useful order.
+
+Currently it's all hacked with link order and is very fragile.
+
+--3hAdtgBjtgL7p0NQ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQEcBAEBCAAGBQJWLtXSAAoJECTWi3JdVIfQt90H/ihypUWlx8XY+lGm5YVf4r9R
+inflawix5l5OMGpcnrEVG5U2+TQBuOfJdIbp88X9QX/BiUSehe+LDcJ8MswfZNAr
+xpp6gttxDhhJShRfCE+/ojWwKMa9//PDZ2SP19h3mGrUL/6azOMl92+DT4ZQ4FU3
+rp5B77VZqulcyOrSWiRloryNUSgfyKO7OrPA8mAn0Ua8j3GvHX8GXc7oLiVhfLhU
+SSkBNHBqS1bKJtmeCUQO3BbUjgxcdNWP52+zFEmG+KywJuWMpje4SCa4DDyoiLrc
+djEsrCKua2Lpk9mlC2ZbPgx1eTllEJ6G+o+Wmrx2MD5wcm1HTFLusdTGWvb2vd8=
+=bnXl
+-----END PGP SIGNATURE-----
+
+--3hAdtgBjtgL7p0NQ--
