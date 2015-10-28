@@ -1,23 +1,24 @@
-Return-Path: <prvs=7743e89848=clm@fb.com>
+Return-Path: <shuahkhan@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A07138A7
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B5BB725A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 28 Oct 2015 07:50:50 +0000 (UTC)
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
-	[67.231.153.30])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0267B116
+	Wed, 28 Oct 2015 21:03:13 +0000 (UTC)
+Received: from mail-ig0-f195.google.com (mail-ig0-f195.google.com
+	[209.85.213.195])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 571ADF5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 28 Oct 2015 07:50:49 +0000 (UTC)
-Date: Wed, 28 Oct 2015 03:50:28 -0400
-From: Chris Mason <clm@fb.com>
-To: "Theodore Ts'o" <tytso@mit.edu>,
-	<ksummit-discuss@lists.linuxfoundation.org>
-Message-ID: <20151028075028.GA24280@ret>
+	Wed, 28 Oct 2015 21:03:13 +0000 (UTC)
+Received: by igbxf8 with SMTP id xf8so2136640igb.1
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 28 Oct 2015 14:03:12 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-Subject: [Ksummit-discuss] slides for my KS talk
+Date: Wed, 28 Oct 2015 15:03:12 -0600
+Message-ID: <CAKocOONpubzf9KzcN6oVf2N+2y6YufWYOtnZuJ6HkcEv9PJAuA@mail.gmail.com>
+From: Shuah Khan <shuahkhan@gmail.com>
+To: "Theodore Ts'o" <tytso@mit.edu>, ksummit-discuss@lists.linuxfoundation.org
+Content-Type: text/plain; charset=UTF-8
+Subject: [Ksummit-discuss]  slides for my KS talk
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -27,8 +28,11 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi everyone,
+Hi,
 
-My slides are here:
+Please find the slides for my talk att:
 
-http://masoncoding.com/presentation/ks-15/
+https://drive.google.com/open?id=0B0NIL0BQg-AlV25Xa0ktWENpa2c
+
+thanks,
+-- Shuah
