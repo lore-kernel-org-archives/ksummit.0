@@ -1,15 +1,25 @@
-Return-Path: <dmitry.torokhov@gmail.com>
+Return-Path: <jikos@kernel.org>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7ACE326C
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri,  8 Jul 2016 22:43:43 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C5055193
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri,  8 Jul 2016 22:43:42 +0000 (UTC)
+Received: from relay2.suse.de (charybdis-ext.suse.de [195.135.220.254])
+	by mx2.suse.de (Postfix) with ESMTP id D3E41AAB7
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri,  8 Jul 2016 22:31:33 +0000 (UTC)
+Date: Sat, 9 Jul 2016 00:31:33 +0200 (CEST)
+From: Jiri Kosina <jikos@kernel.org>
+To: ksummit-discuss@lists.linuxfoundation.org
+Message-ID: <alpine.LNX.2.00.1607082030470.24757@cbobk.fhfr.pm>
 MIME-Version: 1.0
-In-Reply-To: <577FFC02.8040807@de.ibm.com>
-References: <20160708164120.GA15018@thunk.org> <577FFC02.8040807@de.ibm.com>
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Date: Fri, 8 Jul 2016 15:06:07 -0700
-Message-ID: <CAKdAkRTO4Utd8jff97YGnJf_pEzRGCQ=P4Q39dSZd-DNo_XZ4g@mail.gmail.com>
-To: Christian Borntraeger <borntraeger@de.ibm.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: ksummit-discuss@lists.linux-foundation.org,
-	lkml <linux-kernel@vger.kernel.org>
-Subject: Re: [Ksummit-discuss] 2016 Kernel Summit Planning Kickoff
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+Subject: [Ksummit-discuss] [CORE TOPIC] cleaning up kthread freezer hell,
+	part 2
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -19,34 +29,37 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 8, 2016 at 12:16 PM, Christian Borntraeger
-<borntraeger@de.ibm.com> wrote:
-> On 07/08/2016 06:41 PM, Theodore Ts'o wrote:
->>                   Kernel Summit Planning Kickoff
->>                    Call for Topics / Attendees
->>
->>
->> The 16th annual Kernel Summit will be held October 31st through
->> November the 2nd, 2016, in Santa Fe, New Mexico, overlapping with the
->> Linux Plumbers Conference (LPC).
->>
->> The format of the Kernel Summit will be:
->>
->> * Monday: Invite-only core attendees' plenary sessions
->> * Tuesday: Workshops and breakout sessions (co-organized with LPC)
->> * Wednesday/Thursday: Technical Sessions
->
-> Last year we had the invite-only session on the 3rd day and what I heard
-> from some people that was considered better. People had a chance to
-> already solve several things upfront and the invite-only day had less
-> issues to discuss. Not sure if this can be changed and if the majority
-> of people agree with that conclusion.
+On last year's kernel summit, I've been talking about why I consider 
+kthread freezer harmful and why it ultimately should be removed. LWN 
+coverage of that session is here:
 
-I think that only worked because Korea Linux Forum preceded KS so we
-had shared talks first. We'd have to swap KS and Plumbers and I'd
-guess it is too late now.
+	https://lwn.net/Articles/662703/
 
-Thanks.
+During the past year, I've invested a bit of a time into actually looking 
+deeper into the dark corners of kernel sources to see how kthread freezer 
+is used throughout the codebase, with the intent to ultimately fix all the 
+buggy places. While doing that, I was petrified by two facts:
+
+- there are a *lot* of places where kthread freezer is used in a 
+  completely buggy (or useless) way
+
+- one of the obstacles fixing it are maintainers who actually don't 
+  understand the purpose of the kthread freezer (the usual pattern is that 
+  the main kthread loop has been copy/pasted from different code, which 
+  already used freezer, and so disease spreads)
+
+Therefore I'd propose a v2 of the last year's session; first summarizing 
+the horrible experience I've done on this kthread freezer journey, and as 
+a followup, try to (re-)explain the issue and the way I think it should be 
+resolved.
+
+The idea is to get as much coverage among high-profile maintainers as 
+possible, in a hope that this will result in ultimate tree-wide cleanup of 
+the current mess. That's why I propose this as a core topic rather than 
+tech topic, although it might sound like a rather bordeline one.
+
+Thanks,
 
 -- 
-Dmitry
+Jiri Kosina
+SUSE Labs
