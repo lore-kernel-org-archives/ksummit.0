@@ -1,11 +1,11 @@
 Return-Path: <jikos@kernel.org>
-Date: Sat, 9 Jul 2016 00:35:09 +0200 (CEST)
+Date: Sat, 9 Jul 2016 00:35:15 +0200 (CEST)
 From: Jiri Kosina <jikos@kernel.org>
 To: ksummit-discuss@lists.linux-foundation.org
-Message-ID: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
+Message-ID: <alpine.LNX.2.00.1607082043340.24757@cbobk.fhfr.pm>
 MIME-Version: 1.0
 Content-Type: TEXT/PLAIN; charset=US-ASCII
-Subject: [Ksummit-discuss] [CORE TOPIC] stable workflow
+Subject: [Ksummit-discuss] [CORE TOPIC] How to cope with 'creative' userspace
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -15,24 +15,27 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Yeah, this topic again. It'd be a sad year on ksummit-discuss@ without it, 
-wouldn't it? :)
+There are many cases where certain components of modern linux desktops 
+slightly misuse the features provided by the kernel.
 
-As a SUSE Enterprise Linux kernel maintainer, stable kernel is one of the 
-crucial elements I rely on (and I also try to make sure that SUSE 
-contributes back as much as possible).
+One of the latests instances was PIDs controller being instructed by an 
+init system to actually limit the number of created sub-processess/threads 
+to insanely small number
 
-Hence any planned changes in the workflow / releases are rather essential 
-for me, and I'd like to participate, should any such discussion take 
-place.
+	https://github.com/systemd/systemd/blob/dd050decb6ad131ebdeabb71c4f9ecb4733269c0/NEWS#L60
 
-In addition to that, I'd again (like during the past 5+ years, but it 
-never really happened) like to propose a stable tree discussion topic: I'd 
-like to see an attempt to make the stable workflow more oriented towards 
-"maintainers sending pull requests" rather than "random people pointing to 
-patches that should go to stable". This has been much of an issue in the 
-past, when we've been seeing many stable tree regressions; that's not the 
-case any more, but still something where I sense a room for improvement.
+That of course caused horrible user experience left and right.
+
+This is not a single and only exceptional instance of such issue.
+
+I know that this in principle shouldn't really be directly our business, 
+but I believe we should be at least a bit nervous when our interfaces are 
+being used "incorrectly".
+
+I dont' have a good idea from top of my head what we could immediately do 
+to improve this. Some sort of documented guidance on sane values for 
+certain userspace toggles? Issue a warning when we think userspace is 
+trying to shoot itself in a foot? ...?
 
 Thanks,
 
