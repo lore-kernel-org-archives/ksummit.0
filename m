@@ -1,26 +1,14 @@
-Return-Path: <rjw@rjwysocki.net>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id CC57C9C
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  8 Jul 2016 23:21:54 +0000 (UTC)
-Received: from cloudserver094114.home.net.pl (cloudserver094114.home.net.pl
-	[79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id F10D4146
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  8 Jul 2016 23:21:53 +0000 (UTC)
-From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-To: Jiri Kosina <jikos@kernel.org>
-Date: Sat, 09 Jul 2016 01:19:53 +0200
-Message-ID: <3875641.cvfvOBftGF@vostro.rjw.lan>
-In-Reply-To: <alpine.LNX.2.00.1607082030470.24757@cbobk.fhfr.pm>
-References: <alpine.LNX.2.00.1607082030470.24757@cbobk.fhfr.pm>
+Return-Path: <linux@roeck-us.net>
+To: Jiri Kosina <jikos@kernel.org>, ksummit-discuss@lists.linux-foundation.org
+References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
+From: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <5780334E.8020801@roeck-us.net>
+Date: Fri, 8 Jul 2016 16:12:14 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] cleaning up kthread freezer hell,
-	part 2
+In-Reply-To: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,42 +18,40 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Saturday, July 09, 2016 12:31:33 AM Jiri Kosina wrote:
-> On last year's kernel summit, I've been talking about why I consider 
-> kthread freezer harmful and why it ultimately should be removed. LWN 
-> coverage of that session is here:
-> 
-> 	https://lwn.net/Articles/662703/
-> 
-> During the past year, I've invested a bit of a time into actually looking 
-> deeper into the dark corners of kernel sources to see how kthread freezer 
-> is used throughout the codebase, with the intent to ultimately fix all the 
-> buggy places. While doing that, I was petrified by two facts:
-> 
-> - there are a *lot* of places where kthread freezer is used in a 
->   completely buggy (or useless) way
-> 
-> - one of the obstacles fixing it are maintainers who actually don't 
->   understand the purpose of the kthread freezer (the usual pattern is that 
->   the main kthread loop has been copy/pasted from different code, which 
->   already used freezer, and so disease spreads)
-> 
-> Therefore I'd propose a v2 of the last year's session; first summarizing 
-> the horrible experience I've done on this kthread freezer journey, and as 
-> a followup, try to (re-)explain the issue and the way I think it should be 
-> resolved.
+On 07/08/2016 03:35 PM, Jiri Kosina wrote:
+> Yeah, this topic again. It'd be a sad year on ksummit-discuss@ without it,
+> wouldn't it? :)
+>
+> As a SUSE Enterprise Linux kernel maintainer, stable kernel is one of the
+> crucial elements I rely on (and I also try to make sure that SUSE
+> contributes back as much as possible).
+>
+> Hence any planned changes in the workflow / releases are rather essential
+> for me, and I'd like to participate, should any such discussion take
+> place.
+>
 
-Yes, please.
+Same here. New employer, lots of unhappiness with stable releases, to the point
+where stable trees are not used as basis for shipping releases.
+That kind of defeats the purpose. So, instead of "let's ignore stable",
+maybe we can get to a point where people feel comfortable with the quality
+of stable releases, and where stable can actually be used as basis for production
+releases.
 
-Let me know if/how I can help.
+> In addition to that, I'd again (like during the past 5+ years, but it
+> never really happened) like to propose a stable tree discussion topic: I'd
+> like to see an attempt to make the stable workflow more oriented towards
+> "maintainers sending pull requests" rather than "random people pointing to
+> patches that should go to stable". This has been much of an issue in the
 
-> The idea is to get as much coverage among high-profile maintainers as 
-> possible, in a hope that this will result in ultimate tree-wide cleanup of 
-> the current mess. That's why I propose this as a core topic rather than 
-> tech topic, although it might sound like a rather bordeline one.
+Sounds like an excellent idea.
 
-I guess that first needs to be "core" so it can become "tech" later when
-everybody is on the same page in general.
+> past, when we've been seeing many stable tree regressions; that's not the
+> case any more, but still something where I sense a room for improvement.
+>
 
-Thanks,
-Rafael
+We have a lot more testing, which I am sure helps, but from what I hear
+the lack of testing and the concern of inheriting regressions is still a
+big concern.
+
+Guenter
