@@ -1,32 +1,13 @@
-Return-Path: <john.stultz@linaro.org>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 506A4A15
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 17 Dec 2015 00:44:22 +0000 (UTC)
-Received: from mail-yk0-f181.google.com (mail-yk0-f181.google.com
-	[209.85.160.181])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 94ED8F3
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 17 Dec 2015 00:44:21 +0000 (UTC)
-Received: by mail-yk0-f181.google.com with SMTP id p130so906951yka.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 16 Dec 2015 16:44:21 -0800 (PST)
+Return-Path: <tytso@thunk.org>
+Date: Fri, 8 Jul 2016 12:41:20 -0400
+From: Theodore Ts'o <tytso@mit.edu>
+To: linux-kernel@vger.kernel.org,
+	ksummit-discuss@lists.linux-foundation.org
+Message-ID: <20160708164120.GA15018@thunk.org>
 MIME-Version: 1.0
-In-Reply-To: <30286.1450312325@warthog.procyon.org.uk>
-References: <10141.1450179238@warthog.procyon.org.uk>
-	<2151085.9YAhiz9GYL@wuerfel> <20151215141518.GE8574@piout.net>
-	<CALAqxLUxXSDCt+LVdiqpgY2zw0zxRP3zB+mR1xCaEE8hgWaGCg@mail.gmail.com>
-	<30286.1450312325@warthog.procyon.org.uk>
-Date: Wed, 16 Dec 2015 16:44:20 -0800
-Message-ID: <CALAqxLVb7dfeN-u07w3ai5V23iZpNi8krb0kji0iC1RuM9xn9Q@mail.gmail.com>
-From: John Stultz <john.stultz@linaro.org>
-To: David Howells <dhowells@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: Prarit Bhargava <prarit@redhat.com>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	Miroslav Lichvar <mlichvar@redhat.com>
-Subject: Re: [Ksummit-discuss] Leap second handling
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Subject: [Ksummit-discuss] 2016 Kernel Summit Planning Kickoff
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,30 +17,122 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Dec 16, 2015 at 4:32 PM, David Howells <dhowells@redhat.com> wrote:
-> John Stultz <john.stultz@linaro.org> wrote:
->
->> As for how to treat the certs, you're option #1 "Treat it as hh:mm:59" is
->> probably the closest to what the kernel does, since it repeats the 59th
->> second on the leapsecond.
->
-> mktime64() appears to treat hh:mm:60 as the equivalent of the 0th second of
-> the next minute simply by adding the seconds on last with no checking.
->
-> I'm okay with implementing #1 or #2 for now (ie. treating as :59 of this
-> minute or :00 of the next minute) with a comment in the code indicating that
-> this is what we're doing.
->
-> Should I have mktime64() handle it or should I handle it in my X.509 code
-> though?  I favour the former as it's then a general solution that can be
-> handled in a single place.  I could put the handling of 24:00:00 being
-> equivalent of 00:00:00 of the next day there also.
+		    Kernel Summit Planning Kickoff
+		     Call for Topics / Attendees
 
-I think having it handled in mktime64 sounds reasonable to me. But the
-behavior should be very clearly documented there, and ideally match
-the kernel's behavior.
 
-Cc'ing in other time folks for their thoughts.
+The 16th annual Kernel Summit will be held October 31st through
+November the 2nd, 2016, in Santa Fe, New Mexico, overlapping with the
+Linux Plumbers Conference (LPC).
 
-thanks
--john
+The format of the Kernel Summit will be:
+
+* Monday: Invite-only core attendees' plenary sessions
+* Tuesday: Workshops and breakout sessions (co-organized with LPC)
+* Wednesday/Thursday: Technical Sessions
+
+The Core plenary day will be focused on topics which are not
+appropriate for any of the subsystem-specific workshops or
+minisummits, and which cannot be easily resolved using the normal
+e-mail and IRC channels.  These include issues about our overall
+development process and topics which span multiple subsystems.
+
+The workshops are intended for kernel subsystem developers or the
+handling of other topics needing an intensive half- or full-day
+discussion.  There will also be a room for specialized discussions
+that come up at the last minute, which will be scheduled in an
+unconference style.
+
+The technical sessions will be open to all kernel summit attendees to
+discuss specific technical issues that would be easier to resolve in
+person than over e-mail.  The program committee will also consider
+"information sharing" topics if they are clearly of interest to the
+wider development community (i.e., advanced training in topics that
+would be useful for subsystem maintainers).  The technical sessions
+will be taking place at the same time as LPC Miniconferences; we will
+take care to minimize potential conflicts
+
+The Plumbers Conference Miniconferences will be open to Kernel Summit
+attendees, as will the various Plumbers social events.  (Sponsors from
+the Kernel Summit and LPC will be co-sponsoring the reception on
+Wednesday evening.)  Simiarly, the Kernel Summit technical sessions
+will be open to LPC attendees (although they will not be able to
+attend the invite-open sessions on Monday.)
+
+
+For space reasons, we try to cap the attendance of the core plenary
+day to around 80-100 people.  We have created an initial list of
+nominations for that core plenary day, based on the top 3rd or 4th
+percentile of commit authors or reviewers since the end of the last
+kernel summit.  You can see that list here:
+
+	https://goo.gl/79tJFx
+
+Since it is a mechanically generated list, it's obviously going to be
+incomplete.  So if you think that there are people who should be on
+the list, you can nominate them (self nominations are ok) by sending a
+note to the kernel summit discuss mailing list.  Please indicate what
+you think they would be able to contribute by attending.
+
+	ksummit-discuss@lists.linuxfoundation.org
+
+Please also let us know if you notice an obsolete or incorrect e-mail
+address on the list.  You can either leave a comment on the
+spreadsheet, or send a note to the ksummit-pc mailing list.
+
+As in past years, people who are the first to suggest a particularly
+interesting topic and/or who actively and positively engage in the
+discussion of those topics will get special consideration by the
+program committee.
+
+If you would like to suggest a topic, please send a separate e-mail
+for each topic, so we can more easily track the discussion, and please
+tag your e-mail with [CORE TOPIC] or [TECH TOPIC] depending on whether
+the topic would be a better fit for the Monday sessions or the
+Wednesday sessions.  Also include a list of people who you think would
+be valuable in participating in the discussion. 
+
+If possible, please send topic proposals as soon as possible so we can
+better coordinate with the Plumbers Conference, and certainly before
+July 29th, since that's about when we will start evaluating the list
+of potential attendees.
+
+Obviously, if new topics come up after that, please still send them to
+us!  For one thing, invites will be going out in stages.  For another,
+we want to make sure the kernel summit will be as useful as possible,
+and so if you think there's something that the kernel community needs
+to consider, we'd like to know about it!
+
+
+If you were not subscribed on to the kernel-discuss mailing list from
+last year (or if you had removed yourself after the kernel summit),
+you can subscribe to the discuss list using mailman:
+
+   https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+
+For reference, previous years' kernel summits were covered by LWN at:
+
+   https://lwn.net/Articles/KernelSummit2015
+   https://lwn.net/Articles/KernelSummit2014
+   https://lwn.net/Articles/KernelSummit2013
+
+If you are interested in leading one of the workshops on Tuesday,
+please contact the kernel summit program committee with your proposal
+at:
+
+	ksummit-pc@lists.linux-foundation.org
+
+
+The 2016 Kernel Summit Program Committee
+========================================
+
+Alan Cox
+Shuah Khan
+Jonathan Corbet
+Greg Kroah-Hartman
+Martin K. Petersen
+Mel Gorman
+Steven Rostedt
+Paul McKenney
+Theodore Ts'o
+Grant Likely
