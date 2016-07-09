@@ -1,19 +1,17 @@
-Return-Path: <sudipm.mukherjee@gmail.com>
-Message-ID: <57815317.5060404@gmail.com>
-Date: Sat, 09 Jul 2016 20:40:07 +0100
-From: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+Return-Path: <tytso@thunk.org>
+Date: Sat, 9 Jul 2016 16:47:20 -0400
+From: Theodore Ts'o <tytso@mit.edu>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Message-ID: <20160709204720.GB26097@thunk.org>
+References: <20160708164120.GA15018@thunk.org> <577FFC02.8040807@de.ibm.com>
+	<CAKdAkRTO4Utd8jff97YGnJf_pEzRGCQ=P4Q39dSZd-DNo_XZ4g@mail.gmail.com>
 MIME-Version: 1.0
-To: Guenter Roeck <linux@roeck-us.net>, Mark Brown <broonie@kernel.org>,
-	Jiri Kosina <jikos@kernel.org>
-References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>	<20160709000631.GB8989@io.lakedaemon.net>	<1468024946.2390.21.camel@HansenPartnership.com>	<alpine.LNX.2.00.1607091039550.24757@cbobk.fhfr.pm>	<20160709093626.GA6247@sirena.org.uk>
-	<5781148F.1010102@roeck-us.net>
-In-Reply-To: <5781148F.1010102@roeck-us.net>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	ksummit-discuss@lists.linux-foundation.org,
-	Jason Cooper <jason@lakedaemon.net>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAKdAkRTO4Utd8jff97YGnJf_pEzRGCQ=P4Q39dSZd-DNo_XZ4g@mail.gmail.com>
+Cc: ksummit-discuss@lists.linux-foundation.org,
+	lkml <linux-kernel@vger.kernel.org>
+Subject: Re: [Ksummit-discuss] 2016 Kernel Summit Planning Kickoff
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -23,40 +21,36 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Saturday 09 July 2016 04:13 PM, Guenter Roeck wrote:
-> On 07/09/2016 02:36 AM, Mark Brown wrote:
->> On Sat, Jul 09, 2016 at 10:43:05AM +0200, Jiri Kosina wrote:
->>
->>> If maintainers are overwhelmed by extra work needed for stable,
->>> "offloading to Greg" doesn't sound like a proper solution to me at all.
->>> "Fixing a maintainer workflow for that particular subsystem" (such as
->>> extending the group of maintainers) does.
->>
->> I think one of the big things we're missing here is QA.  I don't
->> personally have the hardware that would allow me to test a huge chunk of
->> the code in my subsystems, I'm relying on things like kernelci.org for
->> the bulk of it.  There's some work going on on getting Greg's stable
->> queue tested more which will hopefully make things better but it's not
->> 100% there yet.
->>
-> Improving QA is very much part of it. Yes, there is kernelci.org, there is
-> kerneltest.org, there are the 0day builders, and there are various
-> individuals
-> testing the trees. This all helped a lot in stabilizing both mainline and
-> the stable trees, but is not enough. We are pretty well covered with build
-> tests, but runtime tests are for the most part limited to "it boots,
-> therefore
-> it works". We still have a long way to go to get real QA testing. As I
-> suggested earlier, we'll have to find a way to convince companies to
-> actively
-> invest in QA.
+On Fri, Jul 08, 2016 at 03:06:07PM -0700, Dmitry Torokhov wrote:
+> > Last year we had the invite-only session on the 3rd day and what I heard
+> > from some people that was considered better. People had a chance to
+> > already solve several things upfront and the invite-only day had less
+> > issues to discuss. Not sure if this can be changed and if the majority
+> > of people agree with that conclusion.
+> 
+> I think that only worked because Korea Linux Forum preceded KS so we
+> had shared talks first. We'd have to swap KS and Plumbers and I'd
+> guess it is too late now.
 
-Individual testing will depend mostly on the available time. Personally 
-for me, I used to test before but with my job change I rarely get time 
-to check stable anymore.
-Just a thought, why dont we have a stable-next tree like the way we have 
-linux-next? in that way it might get more testing than it gets now. I 
-know it will be more work but atleast worth a try.
+The Korea Linux Forum is a much shorter conference, so holding it
+afterwards probably worked better.  With conferences that are longer
+and/or more intense, we've gotten complaints from Kernel Summit
+attendees that by the time the invite-only day happened at the
+tail-end of the week meant that people were pretty brain-fried by
+then.  This would have been especially true with the Linux Plumbers
+Conference, which throws a very nice party at the very end of the
+conference --- with an open bar, no less.  (What this might mean if we
+tried to hold the Kernel Summit invite-only day afterwards is left to
+imagination of the gentle reader.  :-)
 
-Regards
-Sudip
+People will be very much encouraged to stay for all of the Plumbers
+Conference, and not just because the party at the end of the week.
+There's no rule that says we have to make all of our decisions on the
+invite-only day.  In fact, it may be good for decisions to be
+discussed with the wider LPC community before we make a final
+decision.  That's why we'll have spare slots in reserve for people to
+schedule topic-specific discussions on Wednesday and Thursday.
+
+Cheers,
+
+					- Ted
