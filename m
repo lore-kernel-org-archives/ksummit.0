@@ -1,29 +1,21 @@
-Return-Path: <shuahkhan@gmail.com>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 44E2C9C
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  9 Jul 2016 12:44:46 +0000 (UTC)
-Received: from mail-io0-f169.google.com (mail-io0-f169.google.com
-	[209.85.223.169])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9F9A11C0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  9 Jul 2016 12:44:45 +0000 (UTC)
-Received: by mail-io0-f169.google.com with SMTP id s93so22756112ioi.3
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 09 Jul 2016 05:44:45 -0700 (PDT)
+Return-Path: <linux@roeck-us.net>
+To: Mark Brown <broonie@kernel.org>, Jiri Kosina <jikos@kernel.org>
+References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
+	<20160709000631.GB8989@io.lakedaemon.net>
+	<1468024946.2390.21.camel@HansenPartnership.com>
+	<alpine.LNX.2.00.1607091039550.24757@cbobk.fhfr.pm>
+	<20160709093626.GA6247@sirena.org.uk>
+From: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <5781148F.1010102@roeck-us.net>
+Date: Sat, 9 Jul 2016 08:13:19 -0700
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.10.1607090819190.3236@hadrien>
-References: <alpine.LNX.2.00.1607082030470.24757@cbobk.fhfr.pm>
-	<3875641.cvfvOBftGF@vostro.rjw.lan>
-	<alpine.DEB.2.10.1607090819190.3236@hadrien>
-From: Shuah Khan <shuahkhan@gmail.com>
-Date: Sat, 9 Jul 2016 06:44:44 -0600
-Message-ID: <CAKocOOPNLbXo8g3OwdG8zsZ7wJozRGjtn3T74hBz4TqWaha1DQ@mail.gmail.com>
-To: Julia Lawall <julia.lawall@lip6.fr>
-Content-Type: text/plain; charset=UTF-8
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] cleaning up kthread freezer hell, part 2
+In-Reply-To: <20160709093626.GA6247@sirena.org.uk>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	ksummit-discuss@lists.linux-foundation.org,
+	Jason Cooper <jason@lakedaemon.net>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,66 +25,37 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, Jul 9, 2016 at 12:19 AM, Julia Lawall <julia.lawall@lip6.fr> wrote:
+On 07/09/2016 02:36 AM, Mark Brown wrote:
+> On Sat, Jul 09, 2016 at 10:43:05AM +0200, Jiri Kosina wrote:
 >
+>> If maintainers are overwhelmed by extra work needed for stable,
+>> "offloading to Greg" doesn't sound like a proper solution to me at all.
+>> "Fixing a maintainer workflow for that particular subsystem" (such as
+>> extending the group of maintainers) does.
 >
-> On Sat, 9 Jul 2016, Rafael J. Wysocki wrote:
+> I think one of the big things we're missing here is QA.  I don't
+> personally have the hardware that would allow me to test a huge chunk of
+> the code in my subsystems, I'm relying on things like kernelci.org for
+> the bulk of it.  There's some work going on on getting Greg's stable
+> queue tested more which will hopefully make things better but it's not
+> 100% there yet.
 >
->> On Saturday, July 09, 2016 12:31:33 AM Jiri Kosina wrote:
->> > On last year's kernel summit, I've been talking about why I consider
->> > kthread freezer harmful and why it ultimately should be removed. LWN
->> > coverage of that session is here:
->> >
->> >     https://lwn.net/Articles/662703/
->> >
->> > During the past year, I've invested a bit of a time into actually looking
->> > deeper into the dark corners of kernel sources to see how kthread freezer
->> > is used throughout the codebase, with the intent to ultimately fix all the
->> > buggy places. While doing that, I was petrified by two facts:
->> >
->> > - there are a *lot* of places where kthread freezer is used in a
->> >   completely buggy (or useless) way
->> >
->> > - one of the obstacles fixing it are maintainers who actually don't
->> >   understand the purpose of the kthread freezer (the usual pattern is that
->> >   the main kthread loop has been copy/pasted from different code, which
->> >   already used freezer, and so disease spreads)
->> >
->> > Therefore I'd propose a v2 of the last year's session; first summarizing
->> > the horrible experience I've done on this kthread freezer journey, and as
->> > a followup, try to (re-)explain the issue and the way I think it should be
->> > resolved.
->>
->> Yes, please.
->>
->> Let me know if/how I can help.
->
-> Likewise.
->
+Improving QA is very much part of it. Yes, there is kernelci.org, there is
+kerneltest.org, there are the 0day builders, and there are various individuals
+testing the trees. This all helped a lot in stabilizing both mainline and
+the stable trees, but is not enough. We are pretty well covered with build
+tests, but runtime tests are for the most part limited to "it boots, therefore
+it works". We still have a long way to go to get real QA testing. As I
+suggested earlier, we'll have to find a way to convince companies to actively
+invest in QA.
 
-Yes. Count me in to help out on this.
-
--- Shuah
-
+> There's also the volume of stable trees to consider here - we've got a
+> large number of stable trees which seem to be maintained in different
+> ways with different tooling.  One big advantage from my point of view
+> as a maintainer with the current model is that I don't have to figure
+> out which I care about or anything like that.
 >
->>
->> > The idea is to get as much coverage among high-profile maintainers as
->> > possible, in a hope that this will result in ultimate tree-wide cleanup of
->> > the current mess. That's why I propose this as a core topic rather than
->> > tech topic, although it might sound like a rather bordeline one.
->>
->> I guess that first needs to be "core" so it can become "tech" later when
->> everybody is on the same page in general.
->>
->> Thanks,
->> Rafael
->>
->> _______________________________________________
->> Ksummit-discuss mailing list
->> Ksummit-discuss@lists.linuxfoundation.org
->> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
->>
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+The proliferation of stable trees (or rather, how to avoid it) might be
+one of the parts of the puzzle. Yes, there are way too many right now.
+
+Guenter
