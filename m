@@ -1,16 +1,18 @@
-Return-Path: <jikos@kernel.org>
-Date: Sat, 9 Jul 2016 10:43:05 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-In-Reply-To: <1468024946.2390.21.camel@HansenPartnership.com>
-Message-ID: <alpine.LNX.2.00.1607091039550.24757@cbobk.fhfr.pm>
+Return-Path: <linux@roeck-us.net>
+To: Jiri Kosina <jikos@kernel.org>, "Luck, Tony" <tony.luck@intel.com>
 References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
-	<20160709000631.GB8989@io.lakedaemon.net>
-	<1468024946.2390.21.camel@HansenPartnership.com>
+	<5780334E.8020801@roeck-us.net>
+	<3908561D78D1C84285E8C5FCA982C28F3A15659B@ORSMSX114.amr.corp.intel.com>
+	<alpine.LNX.2.00.1607091028050.24757@cbobk.fhfr.pm>
+From: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <5780BCB3.6070300@roeck-us.net>
+Date: Sat, 9 Jul 2016 01:58:27 -0700
 MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
-Cc: ksummit-discuss@lists.linux-foundation.org,
-	Jason Cooper <jason@lakedaemon.net>
+In-Reply-To: <alpine.LNX.2.00.1607091028050.24757@cbobk.fhfr.pm>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: "ksummit-discuss@lists.linux-foundation.org"
+	<ksummit-discuss@lists.linux-foundation.org>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -21,32 +23,25 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, 8 Jul 2016, James Bottomley wrote:
+On 07/09/2016 01:34 AM, Jiri Kosina wrote:
+[ ... ]
+>
+> The model I'd really love to see is "a person/group of people
+> (maintainers) are identified and appointed responsible for what end up in
+> -stable for particular subsystem", i.e. the same model we use for mainline
+> development.
+>
+[ ... ]
+>
+> The usual counter-argument I've always received from the stable team to
+> that was "Maintainers are busy enough already, if we start enforcing this,
+> we'd have much less patches in -stable". I personally don't see that as a
+> bad thing. "Less is more" might apply here. If someone is really unhappy
+> about state of particular subsystem in -stable, it'd mean that group of
+> maintainers will have to be extended for that particular subsystem.
+>
 
-> In theory the maintainers are best placed to understand what they are, 
-> so a maintainer to stable flow might be the best way of controlling 
-> regressions in stable.  
+Agreed, especially in the context of concerns that too many patches find
+their way into stable releases.
 
-That exactly has been my reasoning, yes.
-
-> On the other hand, running stable trees is something Greg was supposed 
-> to be offloading from Maintainers, so I suspect a lot of them don't want 
-> the added burden of having to care.
-
-I do understand that, but let's face it; our ultimate and primary goal 
-here should be 'making -stable reliably stable', not so much offloading 
-work from maintainers.
-
-If maintainers are overwhelmed by extra work needed for stable, 
-"offloading to Greg" doesn't sound like a proper solution to me at all. 
-"Fixing a maintainer workflow for that particular subsystem" (such as 
-extending the group of maintainers) does.
-
-> I'm not saying there's a right answer.  I am saying I think it's worth
-> the discussion.
-
-Thanks,
-
--- 
-Jiri Kosina
-SUSE Labs
+Guenter
