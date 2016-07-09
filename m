@@ -1,15 +1,17 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
-Message-ID: <1468024946.2390.21.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Jason Cooper <jason@lakedaemon.net>, Jiri Kosina <jikos@kernel.org>
-Date: Fri, 08 Jul 2016 17:42:26 -0700
-In-Reply-To: <20160709000631.GB8989@io.lakedaemon.net>
+Return-Path: <dmitry.torokhov@gmail.com>
+Date: Fri, 8 Jul 2016 17:43:52 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+Message-ID: <20160709004352.GK28589@dtor-ws>
 References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
-	<20160709000631.GB8989@io.lakedaemon.net>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linux-foundation.org
+	<5780334E.8020801@roeck-us.net> <20160709001046.GH28589@dtor-ws>
+	<91774112.AKkGksYjl6@vostro.rjw.lan>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <91774112.AKkGksYjl6@vostro.rjw.lan>
+Cc: ksummit-discuss@lists.linux-foundation.org,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -20,54 +22,72 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, 2016-07-09 at 00:06 +0000, Jason Cooper wrote:
-> Hi Jiri,
+On Sat, Jul 09, 2016 at 02:37:40AM +0200, Rafael J. Wysocki wrote:
+> On Friday, July 08, 2016 05:10:46 PM Dmitry Torokhov wrote:
+> > On Fri, Jul 08, 2016 at 04:12:14PM -0700, Guenter Roeck wrote:
+> > > On 07/08/2016 03:35 PM, Jiri Kosina wrote:
+> > > >Yeah, this topic again. It'd be a sad year on ksummit-discuss@ without it,
+> > > >wouldn't it? :)
+> > > >
+> > > >As a SUSE Enterprise Linux kernel maintainer, stable kernel is one of the
+> > > >crucial elements I rely on (and I also try to make sure that SUSE
+> > > >contributes back as much as possible).
+> > > >
+> > > >Hence any planned changes in the workflow / releases are rather essential
+> > > >for me, and I'd like to participate, should any such discussion take
+> > > >place.
+> > > >
+> > > 
+> > > Same here. New employer, lots of unhappiness with stable releases, to the point
+> > > where stable trees are not used as basis for shipping releases.
+> > > That kind of defeats the purpose. So, instead of "let's ignore stable",
+> > > maybe we can get to a point where people feel comfortable with the quality
+> > > of stable releases, and where stable can actually be used as basis for production
+> > > releases.
+> > 
+> > I wonder if it would not be a good idea to split stable into several
+> > flavors: security, fixes to core (really fixes), and fixes to device
+> > drivers + new hardware support.
 > 
-> On Sat, Jul 09, 2016 at 12:35:09AM +0200, Jiri Kosina wrote:
-> > I'd like to see an attempt to make the stable workflow more 
-> > oriented towards "maintainers sending pull requests" rather than 
-> > "random people pointing to patches that should go to stable".
+> That would be sort of confusing IMO.
 > 
-> How does that differ from "Cc: stable.." ?  In my experience, it's
-> mostly the maintainers adding that tag after looking at the commit it
-> "Fixes", if the commit id was provided.  Admittedly, my exposure is
-> limited to ARM mvebu and irqchip for the most part.
+> The "one stable series per release" model is good, because it is really
+> straightforward and it is rather hard to get things wrong within it.
 
-Actually, we do have maintainers who curate their own stable tree. 
- David Miller for networking is an example.  Perhaps we should ask him
-and others who do this to describe the advantages they see in their
-trees over the "tag it for stable and forget about it" mentality that
-the rest of us have.  Perhaps Maintainers should be running their own
-stable trees ... perhaps what theyre doing is OK.  Debating it will at
-least flush out the issues.
+It really depends on what you intend to do with it. For general-purpose
+distribution - yes, you take everything and cross your fingers that we
+fixed more bugs than introduced new ones. When you building kernel for
+set of devices you might want to be more selective because you do know
+the subset of features and hardware you are using.
 
-> Do you want pull requests in order to limit patches to only from
-> maintainers?  Or to include a series of patches that have had more
-> testing against specific kernel versions?
-
-The former is how the net stable tree works.
-
-> Do you have a sense of the specific regressions that cause people to
-> give up on -stable?
-
-Every added patch has potential consequences.  In theory the
-maintainers are best placed to understand what they are, so a
-maintainer to stable flow might be the best way of controlling
-regressions in stable.  On the other hand, running stable trees is
-something Greg was supposed to be offloading from Maintainers, so I
-suspect a lot of them don't want the added burden of having to care.
-
-I'm not saying there's a right answer.  I am saying I think it's worth
-the discussion.
-
-James
-
-
-> thx,
 > 
-> Jason.
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+> > I feel that with current single stable
+> > tree (per stable release) we are too liberal with what we direct towards
+> > stable, with many changes not being strictly necessary, but rather "nice
+> > to have".
 > 
+> To me, as long as they all are fixes, that's fine.
+
+It depends how much testing was done with them. Given that nobody has
+all hardware permutations that are in the wild and on severity of the
+bug sometimes it makes sense to skip stable and let it be till next
+release.
+
+> 
+> I tend to think that all known bugs should be fixed, at least because once
+> they have been fixed, no one needs to remember about them any more. :-)
+> 
+> Moreover, minor fixes don't really introduce regressions that often 
+
+Famous last words :)
+
+> (from my
+> experience), because they tend to be simple.  Significant fixes, on the other
+> hand, tend to be more complicated or more subtle and the risk of regressions
+> from them is so much greater.
+> 
+
+Thanks.
+
+-- 
+Dmitry
