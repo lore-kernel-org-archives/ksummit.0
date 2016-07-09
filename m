@@ -1,14 +1,13 @@
-Return-Path: <dmitry.torokhov@gmail.com>
-Date: Fri, 8 Jul 2016 17:10:46 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Message-ID: <20160709001046.GH28589@dtor-ws>
+Return-Path: <jason@lakedaemon.net>
+Date: Sat, 9 Jul 2016 00:06:31 +0000
+From: Jason Cooper <jason@lakedaemon.net>
+To: Jiri Kosina <jikos@kernel.org>
+Message-ID: <20160709000631.GB8989@io.lakedaemon.net>
 References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
-	<5780334E.8020801@roeck-us.net>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <5780334E.8020801@roeck-us.net>
+In-Reply-To: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
 Cc: ksummit-discuss@lists.linux-foundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -20,35 +19,25 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 08, 2016 at 04:12:14PM -0700, Guenter Roeck wrote:
-> On 07/08/2016 03:35 PM, Jiri Kosina wrote:
-> >Yeah, this topic again. It'd be a sad year on ksummit-discuss@ without it,
-> >wouldn't it? :)
-> >
-> >As a SUSE Enterprise Linux kernel maintainer, stable kernel is one of the
-> >crucial elements I rely on (and I also try to make sure that SUSE
-> >contributes back as much as possible).
-> >
-> >Hence any planned changes in the workflow / releases are rather essential
-> >for me, and I'd like to participate, should any such discussion take
-> >place.
-> >
-> 
-> Same here. New employer, lots of unhappiness with stable releases, to the point
-> where stable trees are not used as basis for shipping releases.
-> That kind of defeats the purpose. So, instead of "let's ignore stable",
-> maybe we can get to a point where people feel comfortable with the quality
-> of stable releases, and where stable can actually be used as basis for production
-> releases.
+Hi Jiri,
 
-I wonder if it would not be a good idea to split stable into several
-flavors: security, fixes to core (really fixes), and fixes to device
-drivers + new hardware support. I feel that with current single stable
-tree (per stable release) we are too liberal with what we direct towards
-stable, with many changes not being strictly necessary, but rather "nice
-to have".
+On Sat, Jul 09, 2016 at 12:35:09AM +0200, Jiri Kosina wrote:
+> I'd like to see an attempt to make the stable workflow more oriented
+> towards "maintainers sending pull requests" rather than "random people
+> pointing to patches that should go to stable".
 
-Thanks.
+How does that differ from "Cc: stable.." ?  In my experience, it's
+mostly the maintainers adding that tag after looking at the commit it
+"Fixes", if the commit id was provided.  Admittedly, my exposure is
+limited to ARM mvebu and irqchip for the most part.
 
--- 
-Dmitry
+Do you want pull requests in order to limit patches to only from
+maintainers?  Or to include a series of patches that have had more
+testing against specific kernel versions?
+
+Do you have a sense of the specific regressions that cause people to
+give up on -stable?
+
+thx,
+
+Jason.
