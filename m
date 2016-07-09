@@ -1,16 +1,26 @@
 Return-Path: <jikos@kernel.org>
-Date: Sat, 9 Jul 2016 10:34:35 +0200 (CEST)
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D49E6258
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sat,  9 Jul 2016 08:37:14 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6B8E3152
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sat,  9 Jul 2016 08:37:14 +0000 (UTC)
+Date: Sat, 9 Jul 2016 10:37:12 +0200 (CEST)
 From: Jiri Kosina <jikos@kernel.org>
-To: "Luck, Tony" <tony.luck@intel.com>
-In-Reply-To: <3908561D78D1C84285E8C5FCA982C28F3A15659B@ORSMSX114.amr.corp.intel.com>
-Message-ID: <alpine.LNX.2.00.1607091028050.24757@cbobk.fhfr.pm>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+In-Reply-To: <20160709000648.GG28589@dtor-ws>
+Message-ID: <alpine.LNX.2.00.1607091035150.24757@cbobk.fhfr.pm>
 References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
-	<5780334E.8020801@roeck-us.net>
-	<3908561D78D1C84285E8C5FCA982C28F3A15659B@ORSMSX114.amr.corp.intel.com>
+	<5780334E.8020801@roeck-us.net> <2544945.WExZRG40u7@vostro.rjw.lan>
+	<20160709000648.GG28589@dtor-ws>
 MIME-Version: 1.0
 Content-Type: TEXT/PLAIN; charset=US-ASCII
-Cc: "ksummit-discuss@lists.linux-foundation.org"
-	<ksummit-discuss@lists.linux-foundation.org>
+Cc: ksummit-discuss@lists.linux-foundation.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -21,45 +31,17 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, 8 Jul 2016, Luck, Tony wrote:
+On Fri, 8 Jul 2016, Dmitry Torokhov wrote:
 
-> > In addition to that, I'd again (like during the past 5+ years, but it
-> > never really happened) like to propose a stable tree discussion topic: I'd
-> > like to see an attempt to make the stable workflow more oriented towards
-> > "maintainers sending pull requests" rather than "random people pointing to
-> > patches that should go to stable". This has been much of an issue in the
-> 
-> Shouldn't the common case be "Maintainer sends list of commit IDs to
-> be cherry-picked" rather than a pull request?
+> Also, do we have many changes that go to stable without maintainers 
+> actually adding cc: stable annotation in mainline?
 
-Yeah, explicitly using term "pull request" was probably way too specific. 
+I have a feeling (but it's not backed up by any proper statistics) that we 
+do have quite a high number of such patches.
 
-The model I'd really love to see is "a person/group of people 
-(maintainers) are identified and appointed responsible for what end up in 
--stable for particular subsystem", i.e. the same model we use for mainline 
-development.
-
-Whether it's actual git pull request, list of commit IDs, etc. is really 
-just a technicality.
-
-Basically: currently the model is that everybody is free to pick up a 
-random commit and bounce it to -stable. What I'd like see is that this is 
-routed through the maintainers instead, who then push thing upstream 
-(where upstream means stable).
-
-I know that there are exceptions where this is working properly (netdev), 
-I personally am doing that also informally (when people tell me "hey, this 
-should go to stable", I do whatever is necessary), but still the general 
-process as such is not there.
-
-The usual counter-argument I've always received from the stable team to 
-that was "Maintainers are busy enough already, if we start enforcing this, 
-we'd have much less patches in -stable". I personally don't see that as a 
-bad thing. "Less is more" might apply here. If someone is really unhappy 
-about state of particular subsystem in -stable, it'd mean that group of 
-maintainers will have to be extended for that particular subsystem.
-
-Thanks,
+Yes, sure, the maintainer is later CCed on the patch in the -stable queue 
+review patchbomb, but that's unfortunately in practice not the same thing 
+as if he actually actively considered the patch for inclusion himself.
 
 -- 
 Jiri Kosina
