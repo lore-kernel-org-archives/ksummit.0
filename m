@@ -1,33 +1,21 @@
-Return-Path: <tytso@thunk.org>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 17808258
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 10 Jul 2016 14:42:28 +0000 (UTC)
-Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7BCD1ED
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 10 Jul 2016 14:42:27 +0000 (UTC)
-Date: Sun, 10 Jul 2016 10:42:24 -0400
-From: Theodore Ts'o <tytso@mit.edu>
-To: Olof Johansson <olof@lixom.net>
-Message-ID: <20160710144224.GF26097@thunk.org>
+Return-Path: <vinod.koul@intel.com>
+Date: Sun, 10 Jul 2016 21:52:04 +0530
+From: Vinod Koul <vinod.koul@intel.com>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <20160710162203.GA9681@localhost>
 References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
-	<5780334E.8020801@roeck-us.net> <20160709001046.GH28589@dtor-ws>
-	<91774112.AKkGksYjl6@vostro.rjw.lan>
-	<20160709004352.GK28589@dtor-ws>
-	<1468058721.2557.9.camel@HansenPartnership.com>
-	<0ED98206-0A66-48A4-B5A4-A0BC53FDBF05@primarydata.com>
-	<1468114447.2333.12.camel@HansenPartnership.com>
-	<CAOesGMgL8AD+_uW+cD83ZLbnc3OiahfzJx6hhg1XTCyzgwZecQ@mail.gmail.com>
+	<20160709000631.GB8989@io.lakedaemon.net>
+	<1468024946.2390.21.camel@HansenPartnership.com>
+	<alpine.LNX.2.00.1607091039550.24757@cbobk.fhfr.pm>
+	<20160709093626.GA6247@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="fdj2RfSjLxBAspz7"
 Content-Disposition: inline
-In-Reply-To: <CAOesGMgL8AD+_uW+cD83ZLbnc3OiahfzJx6hhg1XTCyzgwZecQ@mail.gmail.com>
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Trond Myklebust <trondmy@primarydata.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+In-Reply-To: <20160709093626.GA6247@sirena.org.uk>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	ksummit-discuss@lists.linux-foundation.org,
+	Jason Cooper <jason@lakedaemon.net>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -38,51 +26,65 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, Jul 09, 2016 at 11:19:39PM -0700, Olof Johansson wrote:
-> 
-> The in-house developers on a certain subsystem didn't trust the
-> upstream maintainers to not regress their drivers -- in particular
-> they had seen some painful regressions on older chipsets when newer
-> hardware support was picked up. Esoteric bugs that had been fixed with
-> the help of the support team weren't folded in properly in the
-> upstream sources, or when they did they looked sufficiently different
-> that when -stable came around they didn't want to revert back to that
-> version, or they weren't yet picked up for upstream and now other
-> fixes were touching the same code and that seemed risky. They had a
-> code base that worked for the use cases they cared about (with the fix
-> applied that the support team had provided), and very little interest
-> in risking a regression from switching to the upstream version.
 
-Hrm.  That's interesting color commentary, thanks.  This won't help
-for those devices that are't using BSP kernels from SOC vendors, but
-for those platforms where kernels from vendors are available, do you
-know off-hand if they are tracking -stable?  Because if they are,
-presumably at least the SOC vendors would have the capability of doing
-the necessary testing.
+--fdj2RfSjLxBAspz7
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-OTOH, the problem with that is once the SOC vendors have stopped
-selling a particular chip version, they probably don't have any
-interest in continuing to do QA for stable kernels for that particular
-SOC set.  So I'm guessing the answer is "no", it won't help, but I'd
-love to be pleasantly surprised to the contrary.
+On Sat, Jul 09, 2016 at 11:36:26AM +0200, Mark Brown wrote:
+> On Sat, Jul 09, 2016 at 10:43:05AM +0200, Jiri Kosina wrote:
+>=20
+> > If maintainers are overwhelmed by extra work needed for stable,=20
+> > "offloading to Greg" doesn't sound like a proper solution to me at all.=
+=20
+> > "Fixing a maintainer workflow for that particular subsystem" (such as=
+=20
+> > extending the group of maintainers) does.
+>=20
+> I think one of the big things we're missing here is QA.  I don't
+> personally have the hardware that would allow me to test a huge chunk of
+> the code in my subsystems, I'm relying on things like kernelci.org for
+> the bulk of it.  There's some work going on on getting Greg's stable
+> queue tested more which will hopefully make things better but it's not
+> 100% there yet.
 
-> Instead, what the team started doing was using -stable as a source for
-> fixes -- when looking at a bug, first think you looked for was to see
-> if someone had touched that code/subsystem in -stable. It's not ideal
-> in the sense that you have to hit the bug and someone has to look at
-> it, but it was the state we ended up in on that project. It means
-> -stable still has substanial value even though it's not merged
-> directly.
+For patch merge, the expectation is that it is tested against upstream.
+For stable, should we also mandate that it be verified against the stable
+tree(s) as well, or if Maintainer feels it is stable material then we
+can ask Submitters to test before CCing stable...
 
-The concern with this approach is that it won't necessary get security
-fixes, since that implies that the product team is only looking at
--stable once a bug has been reported.
+> There's also the volume of stable trees to consider here - we've got a
+> large number of stable trees which seem to be maintained in different
+> ways with different tooling.  One big advantage from my point of view
+> as a maintainer with the current model is that I don't have to figure
+> out which I care about or anything like that.
 
-I could tell interested product teams that there are patches that will
-prevent an maliciously crafted SD card from hanging a system or
-causing a memory bounds overrun possibly leading to a privilege
-escalation attack (for example), but that really doesn't scale, and
-unless the maintainer uses out-of-band notification methods, how would
-the product team know to look in -stable?
+Yeah that also an issue...
 
-					- Ted
+--=20
+~Vinod
+
+--fdj2RfSjLxBAspz7
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQIcBAEBAgAGBQJXgnYqAAoJEHwUBw8lI4NHVBsQAMTNpRNlPkFafBvEQxGt48d6
++gQR2GnQGurrUgZu0c4t5MszdKWbbQPQLM8j1JUu9oca6L8KSpZ9sA15g+AmZ2Hi
+B2iQRNNl2a5peE8MusY2y7/s+CajnAGnKJArLxXvmSSvMOGL9NT7aAC+4zlmply1
+bAVvJcEY15w0jwNERMYkq1RUpnVEVjwaSSLRNCqLX4U/wMns2hUYqCDngQ4lx0ro
+1hXpPpECQsPOn5R1CuVveeBPDaFTNJ6qFPB5SVhjmYW4QBCZUPf+Wo5WGtNN0o38
+RX9MIq7XAIn7COFt1qbo+/hfuYKu1+jO0sAlBUF5S0iZ+2ayVQ1Mek+R0Q0yY2ga
+xUvREhqB6z91NV3CkXB5nR8OrsN2R3gvAvlIsKWjFgOa2T3RA0pg4tgdq0BZu3a6
+kgpaD4P7R2HrC614RaggPvVMXAhIUBvQWsJjLSBFKblj2zvMQSSf7KVoYvtR+h1D
+38qlpIx7nhm+OBGhIgrgDkyuccXWnnhEo1Oew/+TbmB/VEsYHvskD4S6IUC95/eM
+HGAgqA525MKaY0PuPmJ57VVLKiD+dZ0Lr8HTYPUZgAnUrHxwyEb5kp53S8o7+pnt
+x9/ic35YqhFVqj4eEAKYHIYNw+sNa1kvsyWHRY+T6ypiQYYIRehUWn43YrmxzMkc
+4HjmMsid+1o5RjEu+QWX
+=x5+j
+-----END PGP SIGNATURE-----
+
+--fdj2RfSjLxBAspz7--
