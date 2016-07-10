@@ -1,27 +1,30 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <trondmy@primarydata.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 64C749C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E1BB29C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 10 Jul 2016 01:34:13 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id B99151BC
+	Sun, 10 Jul 2016 01:43:57 +0000 (UTC)
+Received: from us-smtp-delivery-194.mimecast.com
+	(us-smtp-delivery-194.mimecast.com [63.128.21.194])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 11424143
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 10 Jul 2016 01:34:12 +0000 (UTC)
-Message-ID: <1468114447.2333.12.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Trond Myklebust <trondmy@primarydata.com>
-Date: Sun, 10 Jul 2016 10:34:07 +0900
-In-Reply-To: <0ED98206-0A66-48A4-B5A4-A0BC53FDBF05@primarydata.com>
+	Sun, 10 Jul 2016 01:43:56 +0000 (UTC)
+From: Trond Myklebust <trondmy@primarydata.com>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Date: Sun, 10 Jul 2016 01:43:48 +0000
+Message-ID: <A4E16736-A5CB-4915-9A02-82065AE2E062@primarydata.com>
 References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
 	<5780334E.8020801@roeck-us.net> <20160709001046.GH28589@dtor-ws>
 	<91774112.AKkGksYjl6@vostro.rjw.lan> <20160709004352.GK28589@dtor-ws>
 	<1468058721.2557.9.camel@HansenPartnership.com>
 	<0ED98206-0A66-48A4-B5A4-A0BC53FDBF05@primarydata.com>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
+	<1468114447.2333.12.camel@HansenPartnership.com>
+In-Reply-To: <1468114447.2333.12.camel@HansenPartnership.com>
+Content-Language: en-US
+Content-ID: <3E594B930D9AFF42B93148C07ADBF18A@namprd11.prod.outlook.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: base64
 Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
@@ -34,49 +37,54 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-[duplicate ksummit-discuss@ cc removed]
-On Sat, 2016-07-09 at 15:49 +0000, Trond Myklebust wrote:
-> > On Jul 9, 2016, at 06:05, James Bottomley <
-> > James.Bottomley@HansenPartnership.com> wrote:
-> > 
-> > On Fri, 2016-07-08 at 17:43 -0700, Dmitry Torokhov wrote:
-> > > On Sat, Jul 09, 2016 at 02:37:40AM +0200, Rafael J. Wysocki
-> > > wrote:
-> > > > I tend to think that all known bugs should be fixed, at least 
-> > > > because once they have been fixed, no one needs to remember 
-> > > > about them any more. :-)
-> > > > 
-> > > > Moreover, minor fixes don't really introduce regressions that
-> > > > often
-> > > 
-> > > Famous last words :)
-> > 
-> > Actually, beyond the humour, the idea that small fixes don't 
-> > introduce regressions must be our most annoying anti-pattern.  The 
-> > reality is that a lot of so called fixes do introduce bugs.  The 
-> > way this happens is that a lot of these "obvious" fixes go through 
-> > without any deep review (because they're obvious, right?) and the 
-> > bugs noisily turn up slightly later.  The way this works is usually 
-> > that some code rearrangement is sold as a "fix" and later turns out 
-> > not to be equivalent to the prior code ... sometimes in incredibly 
-> > subtle ways. I think we should all be paying much more than lip 
-> > service to the old adage "If it ain't broke don't fix it”.
-> 
-> The main problem with the stable kernel model right now is that we
-> have no set of regression tests to apply. Unless someone goes in and
-> actually tests each and every stable kernel affected by that “Cc:
-> stable” line, then regressions will eventually happen.
-> 
-> So do we want to have another round of “how do we regression test the
-> kernel” talks?
-
-If I look back on our problems, they were all in device drivers, so
-generic regression testing wouldn't have picked them up, in fact most
-would need specific testing on the actual problem device.  So, I don't
-really think testing is the issue, I think it's that we commit way too
-many "obvious" patches.  In SCSI we try to gate it by having a
-mandatory Reviewed-by: tag before something gets in, but really perhaps
-we should insist on Tested-by: as well ... that way there's some
-guarantee that the actual device being modified has been tested.
-
-James
+DQo+IE9uIEp1bCA5LCAyMDE2LCBhdCAyMTozNCwgSmFtZXMgQm90dG9tbGV5IDxKYW1lcy5Cb3R0
+b21sZXlASGFuc2VuUGFydG5lcnNoaXAuY29tPiB3cm90ZToNCj4gDQo+IFtkdXBsaWNhdGUga3N1
+bW1pdC1kaXNjdXNzQCBjYyByZW1vdmVkXQ0KPiBPbiBTYXQsIDIwMTYtMDctMDkgYXQgMTU6NDkg
+KzAwMDAsIFRyb25kIE15a2xlYnVzdCB3cm90ZToNCj4+PiBPbiBKdWwgOSwgMjAxNiwgYXQgMDY6
+MDUsIEphbWVzIEJvdHRvbWxleSA8DQo+Pj4gSmFtZXMuQm90dG9tbGV5QEhhbnNlblBhcnRuZXJz
+aGlwLmNvbT4gd3JvdGU6DQo+Pj4gDQo+Pj4gT24gRnJpLCAyMDE2LTA3LTA4IGF0IDE3OjQzIC0w
+NzAwLCBEbWl0cnkgVG9yb2tob3Ygd3JvdGU6DQo+Pj4+IE9uIFNhdCwgSnVsIDA5LCAyMDE2IGF0
+IDAyOjM3OjQwQU0gKzAyMDAsIFJhZmFlbCBKLiBXeXNvY2tpDQo+Pj4+IHdyb3RlOg0KPj4+Pj4g
+SSB0ZW5kIHRvIHRoaW5rIHRoYXQgYWxsIGtub3duIGJ1Z3Mgc2hvdWxkIGJlIGZpeGVkLCBhdCBs
+ZWFzdCANCj4+Pj4+IGJlY2F1c2Ugb25jZSB0aGV5IGhhdmUgYmVlbiBmaXhlZCwgbm8gb25lIG5l
+ZWRzIHRvIHJlbWVtYmVyIA0KPj4+Pj4gYWJvdXQgdGhlbSBhbnkgbW9yZS4gOi0pDQo+Pj4+PiAN
+Cj4+Pj4+IE1vcmVvdmVyLCBtaW5vciBmaXhlcyBkb24ndCByZWFsbHkgaW50cm9kdWNlIHJlZ3Jl
+c3Npb25zIHRoYXQNCj4+Pj4+IG9mdGVuDQo+Pj4+IA0KPj4+PiBGYW1vdXMgbGFzdCB3b3JkcyA6
+KQ0KPj4+IA0KPj4+IEFjdHVhbGx5LCBiZXlvbmQgdGhlIGh1bW91ciwgdGhlIGlkZWEgdGhhdCBz
+bWFsbCBmaXhlcyBkb24ndCANCj4+PiBpbnRyb2R1Y2UgcmVncmVzc2lvbnMgbXVzdCBiZSBvdXIg
+bW9zdCBhbm5veWluZyBhbnRpLXBhdHRlcm4uICBUaGUgDQo+Pj4gcmVhbGl0eSBpcyB0aGF0IGEg
+bG90IG9mIHNvIGNhbGxlZCBmaXhlcyBkbyBpbnRyb2R1Y2UgYnVncy4gIFRoZSANCj4+PiB3YXkg
+dGhpcyBoYXBwZW5zIGlzIHRoYXQgYSBsb3Qgb2YgdGhlc2UgIm9idmlvdXMiIGZpeGVzIGdvIHRo
+cm91Z2ggDQo+Pj4gd2l0aG91dCBhbnkgZGVlcCByZXZpZXcgKGJlY2F1c2UgdGhleSdyZSBvYnZp
+b3VzLCByaWdodD8pIGFuZCB0aGUgDQo+Pj4gYnVncyBub2lzaWx5IHR1cm4gdXAgc2xpZ2h0bHkg
+bGF0ZXIuICBUaGUgd2F5IHRoaXMgd29ya3MgaXMgdXN1YWxseSANCj4+PiB0aGF0IHNvbWUgY29k
+ZSByZWFycmFuZ2VtZW50IGlzIHNvbGQgYXMgYSAiZml4IiBhbmQgbGF0ZXIgdHVybnMgb3V0IA0K
+Pj4+IG5vdCB0byBiZSBlcXVpdmFsZW50IHRvIHRoZSBwcmlvciBjb2RlIC4uLiBzb21ldGltZXMg
+aW4gaW5jcmVkaWJseSANCj4+PiBzdWJ0bGUgd2F5cy4gSSB0aGluayB3ZSBzaG91bGQgYWxsIGJl
+IHBheWluZyBtdWNoIG1vcmUgdGhhbiBsaXAgDQo+Pj4gc2VydmljZSB0byB0aGUgb2xkIGFkYWdl
+ICJJZiBpdCBhaW4ndCBicm9rZSBkb24ndCBmaXggaXTigJ0uDQo+PiANCj4+IFRoZSBtYWluIHBy
+b2JsZW0gd2l0aCB0aGUgc3RhYmxlIGtlcm5lbCBtb2RlbCByaWdodCBub3cgaXMgdGhhdCB3ZQ0K
+Pj4gaGF2ZSBubyBzZXQgb2YgcmVncmVzc2lvbiB0ZXN0cyB0byBhcHBseS4gVW5sZXNzIHNvbWVv
+bmUgZ29lcyBpbiBhbmQNCj4+IGFjdHVhbGx5IHRlc3RzIGVhY2ggYW5kIGV2ZXJ5IHN0YWJsZSBr
+ZXJuZWwgYWZmZWN0ZWQgYnkgdGhhdCDigJxDYzoNCj4+IHN0YWJsZeKAnSBsaW5lLCB0aGVuIHJl
+Z3Jlc3Npb25zIHdpbGwgZXZlbnR1YWxseSBoYXBwZW4uDQo+PiANCj4+IFNvIGRvIHdlIHdhbnQg
+dG8gaGF2ZSBhbm90aGVyIHJvdW5kIG9mIOKAnGhvdyBkbyB3ZSByZWdyZXNzaW9uIHRlc3QgdGhl
+DQo+PiBrZXJuZWzigJ0gdGFsa3M/DQo+IA0KPiBJZiBJIGxvb2sgYmFjayBvbiBvdXIgcHJvYmxl
+bXMsIHRoZXkgd2VyZSBhbGwgaW4gZGV2aWNlIGRyaXZlcnMsIHNvDQo+IGdlbmVyaWMgcmVncmVz
+c2lvbiB0ZXN0aW5nIHdvdWxkbid0IGhhdmUgcGlja2VkIHRoZW0gdXAsIGluIGZhY3QgbW9zdA0K
+PiB3b3VsZCBuZWVkIHNwZWNpZmljIHRlc3Rpbmcgb24gdGhlIGFjdHVhbCBwcm9ibGVtIGRldmlj
+ZS4gIFNvLCBJIGRvbid0DQo+IHJlYWxseSB0aGluayB0ZXN0aW5nIGlzIHRoZSBpc3N1ZSwgSSB0
+aGluayBpdCdzIHRoYXQgd2UgY29tbWl0IHdheSB0b28NCj4gbWFueSAib2J2aW91cyIgcGF0Y2hl
+cy4gIEluIFNDU0kgd2UgdHJ5IHRvIGdhdGUgaXQgYnkgaGF2aW5nIGENCj4gbWFuZGF0b3J5IFJl
+dmlld2VkLWJ5OiB0YWcgYmVmb3JlIHNvbWV0aGluZyBnZXRzIGluLCBidXQgcmVhbGx5IHBlcmhh
+cHMNCj4gd2Ugc2hvdWxkIGluc2lzdCBvbiBUZXN0ZWQtYnk6IGFzIHdlbGwgLi4uIHRoYXQgd2F5
+IHRoZXJlJ3Mgc29tZQ0KPiBndWFyYW50ZWUgdGhhdCB0aGUgYWN0dWFsIGRldmljZSBiZWluZyBt
+b2RpZmllZCBoYXMgYmVlbiB0ZXN0ZWQuDQoNClRoYXQgZ3VhcmFudGVlcyB0aGF0IGl0IGhhcyBi
+ZWVuIHRlc3RlZCBvbiB0aGUgaGVhZCBvZiB0aGUga2VybmVsIHRyZWUsIGJ1dCBpdCBkb2VzbuKA
+mXQgcmVhbGx5IHRlbGwgeW91IG11Y2ggYWJvdXQgdGhlIGJlaGF2aW91ciB3aGVuIGl0IGhpdHMg
+dGhlIHN0YWJsZSB0cmVlcy4gV2hhdCBJ4oCZbSBzYXlpbmcgaXMgdGhhdCB3ZSByZWFsbHkgd2Fu
+dCBzb21lIGZvcm0gb2YgdW5pdCB0ZXN0aW5nIHRoYXQgY2FuIGJlIHJ1biB0byBwZXJmb3JtIGEg
+bWluaW1hbCB2YWxpZGF0aW9uIG9mIHRoZSBwYXRjaCB3aGVuIGl0IGhpdHMgdGhlIG9sZGVyIHRy
+ZWUuDQoNCkV2ZW4gZGV2aWNlIGRyaXZlcnMgaGF2ZSBleHBlY3RlZCBvdXRwdXRzIGZvciBhIGdp
+dmVuIGlucHV0IHRoYXQgY2FuIGJlIHZhbGlkYXRlZCB0aHJvdWdoIHVuaXQgdGVzdGluZy4NCg0K
+Q2hlZXJzDQogIFRyb25k
