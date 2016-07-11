@@ -1,20 +1,19 @@
 Return-Path: <linux@roeck-us.net>
-Date: Mon, 11 Jul 2016 16:13:24 -0700
+Date: Mon, 11 Jul 2016 16:32:24 -0700
 From: Guenter Roeck <linux@roeck-us.net>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Message-ID: <20160711231324.GB3627@roeck-us.net>
+To: Jiri Kosina <jikos@kernel.org>
+Message-ID: <20160711233224.GA5723@roeck-us.net>
 References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
 	<20160709000631.GB8989@io.lakedaemon.net>
 	<1468024946.2390.21.camel@HansenPartnership.com>
 	<alpine.LNX.2.00.1607091039550.24757@cbobk.fhfr.pm>
 	<20160709093626.GA6247@sirena.org.uk>
-	<5781148F.1010102@roeck-us.net> <20160709212130.GC26097@thunk.org>
-	<20160711151300.GB3701@sirena.org.uk>
-	<20160711170333.GE3890@thunk.org> <20160711171506.GC26822@dtor-ws>
+	<5781148F.1010102@roeck-us.net>
+	<alpine.LNX.2.00.1607111015020.24757@cbobk.fhfr.pm>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20160711171506.GC26822@dtor-ws>
+In-Reply-To: <alpine.LNX.2.00.1607111015020.24757@cbobk.fhfr.pm>
 Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
 	ksummit-discuss@lists.linux-foundation.org,
 	Jason Cooper <jason@lakedaemon.net>
@@ -28,43 +27,26 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Jul 11, 2016 at 10:15:06AM -0700, Dmitry Torokhov wrote:
-> On Mon, Jul 11, 2016 at 01:03:33PM -0400, Theodore Ts'o wrote:
-> > On Mon, Jul 11, 2016 at 04:13:00PM +0100, Mark Brown wrote:
-> > > On Sat, Jul 09, 2016 at 05:21:30PM -0400, Theodore Ts'o wrote:
-> > > 
-> > > > the latest stable kernel.  (But even if they do, apparently many
-> > > > device vendors aren't bothering to merge in changes from the SOC's BSP
-> > > > kernel, even if the BSP kernel is getting -stable updates.)
-> > > 
-> > > It would be pretty irresponsible for device vendors to be merging BSP
-> > > trees, they're generally development things with ongoing feature updates
-> > > that might interact badly with things the system integrator has done
-> > > rather than something stable enough to just merge constantly.
-> > 
-> > So the question is who actually uses -stable kernels,
+On Mon, Jul 11, 2016 at 10:18:01AM +0200, Jiri Kosina wrote:
+> On Sat, 9 Jul 2016, Guenter Roeck wrote:
 > 
-> Community-based distros definitely use stable, but that might be the
-> latest stable, not the older stables that are out there.
+> > As I suggested earlier, we'll have to find a way to convince companies 
+> > to actively invest in QA.
 > 
-Also smaller companies who don't want to pay distribution vendors for kernel
-maintenance (especially since some of those won't let you change the kernel).
-Those would include older stable releases.
-
-> > and does it make
-> > sense for it even to be managed in a git tree?
-> > 
-> > Very few people will actually be merging them, and in fact maybe
-> > having a patch queue which is checked into git might actually work
-> > better, since it sounds like most people are just cherry-picking
-> > specific patches.
+> The potential issue I see here is coverage.
 > 
-> Cherry picking a commit from a branch/remote is much nicer than fetching
-> a part of [quilt based?] patch queue from git, unless I misunderstand
-> what you are proposing.
+> Linus' tree greatly benefits from the "crowdsourcing" effect, in a sense 
+> that everybody is, at the end of the day, interested in that tree to work 
+> (because most of the stakeholders are going to include that codebase in 
+> their product sooner or later).
 > 
-Yes, but it isn't really feasible for small companies, where the entire
-kernel maintenance may be handled by one engineer. Using -stable is really
-the only feasible option there.
+> That's not the case with stable codestreams; the interest there is much 
+> more scattered.
+> 
+Scattered but still existing. Either case, I don't think the crowdsourcing
+model works well with stable kernels, because most of the stakeholders are
+only interested in a very limited subset of stable branches. The challenge
+will be to find a consistent way to test _all_ stable kernels, and to test
+those branches much more thoroughly than it is done today.
 
 Guenter
