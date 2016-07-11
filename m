@@ -1,21 +1,36 @@
 Return-Path: <olof@lixom.net>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 93945305
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 11 Jul 2016 01:18:53 +0000 (UTC)
+Received: from mail-io0-f178.google.com (mail-io0-f178.google.com
+	[209.85.223.178])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3C71C157
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 11 Jul 2016 01:18:52 +0000 (UTC)
+Received: by mail-io0-f178.google.com with SMTP id q83so24475661iod.1
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sun, 10 Jul 2016 18:18:52 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20160710223941.GK26097@thunk.org>
+In-Reply-To: <20160710144224.GF26097@thunk.org>
 References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
-	<20160709000631.GB8989@io.lakedaemon.net>
-	<1468024946.2390.21.camel@HansenPartnership.com>
-	<alpine.LNX.2.00.1607091039550.24757@cbobk.fhfr.pm>
-	<20160709093626.GA6247@sirena.org.uk>
-	<20160710162203.GA9681@localhost> <20160710170117.GI26097@thunk.org>
-	<578293C5.1090503@roeck-us.net> <20160710223941.GK26097@thunk.org>
+	<5780334E.8020801@roeck-us.net> <20160709001046.GH28589@dtor-ws>
+	<91774112.AKkGksYjl6@vostro.rjw.lan> <20160709004352.GK28589@dtor-ws>
+	<1468058721.2557.9.camel@HansenPartnership.com>
+	<0ED98206-0A66-48A4-B5A4-A0BC53FDBF05@primarydata.com>
+	<1468114447.2333.12.camel@HansenPartnership.com>
+	<CAOesGMgL8AD+_uW+cD83ZLbnc3OiahfzJx6hhg1XTCyzgwZecQ@mail.gmail.com>
+	<20160710144224.GF26097@thunk.org>
 From: Olof Johansson <olof@lixom.net>
-Date: Sun, 10 Jul 2016 18:12:15 -0700
-Message-ID: <CAOesGMj2aDTBT+vq5WXVspdw5mTCnsvN7MRx-TZQAAi=tCm9VQ@mail.gmail.com>
+Date: Sun, 10 Jul 2016 18:18:50 -0700
+Message-ID: <CAOesGMgjmVNneiU3Om617HwnLiXP7igEon3wVRVgHS1=0=GC5w@mail.gmail.com>
 To: "Theodore Ts'o" <tytso@mit.edu>
-Content-Type: multipart/alternative; boundary=001a113fbb5ae3a755053751d7e7
+Content-Type: multipart/alternative; boundary=001a113f3ca0605c1b053751efb0
 Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	ksummit-discuss@lists.linux-foundation.org,
-	Jason Cooper <jason@lakedaemon.net>
+	Trond Myklebust <trondmy@primarydata.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -26,241 +41,183 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---001a113fbb5ae3a755053751d7e7
+--001a113f3ca0605c1b053751efb0
 Content-Type: text/plain; charset=UTF-8
 
-On Sun, Jul 10, 2016 at 3:39 PM, Theodore Ts'o <tytso@mit.edu> wrote:
+On Sun, Jul 10, 2016 at 7:42 AM, Theodore Ts'o <tytso@mit.edu> wrote:
 
-> On Sun, Jul 10, 2016 at 11:28:21AM -0700, Guenter Roeck wrote:
-> > > There are **eleven** stable or longterm trees listed on kernel.org.
+> On Sat, Jul 09, 2016 at 11:19:39PM -0700, Olof Johansson wrote:
 > >
-> > I think this is one of the problems we are having: There are way too many
-> > stable / longterm trees.
+> > The in-house developers on a certain subsystem didn't trust the
+> > upstream maintainers to not regress their drivers -- in particular
+> > they had seen some painful regressions on older chipsets when newer
+> > hardware support was picked up. Esoteric bugs that had been fixed with
+> > the help of the support team weren't folded in properly in the
+> > upstream sources, or when they did they looked sufficiently different
+> > that when -stable came around they didn't want to revert back to that
+> > version, or they weren't yet picked up for upstream and now other
+> > fixes were touching the same code and that seemed risky. They had a
+> > code base that worked for the use cases they cared about (with the fix
+> > applied that the support team had provided), and very little interest
+> > in risking a regression from switching to the upstream version.
 >
-> Part of this is because it's too easy for someone to say, "I want to
-> support [34].XX as a stable kernel".  Maybe it will only be for one
-> architecture and only used for one platform (e.g. Yacto, or some other
-> random distribution), but it's not immediately obvious (a) who is
-> going to be using the stable kernel, and (b) what sort of testing it is
-> actually getting.
+> Hrm.  That's interesting color commentary, thanks.
+
+
+As mentioned downthread already: This wasn't actually for a BSP-based
+embedded chipset/driver. This was for common hardware found in many laptops
+(at the time).
+
+
+> This won't help
+> for those devices that are't using BSP kernels from SOC vendors, but
+> for those platforms where kernels from vendors are available, do you
+> know off-hand if they are tracking -stable?  Because if they are,
+> presumably at least the SOC vendors would have the capability of doing
+> the necessary testing.
 >
-> This is fine if stable kernels are advertised as being "best efforts
-> only; whatever an individual stable kernel maintainer feels like
-> putting into the project".  Which is fine, but then it's also no
-> surprise if device kernel maintainers and BSP kernel maintainers
-> aren't aren't taking the -stable kernel series.  And it also becomes
-> surprising if other people are expecting that stable trees are
-> supposed to be more stable than that, and then get indignant when
-> there are regressions, bug fixes that aren't backported, bug fixes
-> that work fine on the tip but which break after getting backported,
-> etc.
->
-> To be clear, though: That's the way things are right now, and someone
-> who wants to change it is going to have to propose a procedure which
-> ends up taking less work on maintainers and individual patch
-> submiters, and/or volunteers to do the extra work, or realistically,
-> it's not going to happen.
->
-> > I think we are having kind of a circular problem: Device/BSP kernels
-> > don't track stable because stable branches are considered to be not
-> stable
-> > enough, and stable branches are not tested well enough because they are
-> not
-> > picked up anyway. The only means to break that circle is to improve
-> > stable testing to the point where people do feel comfortable picking it
-> up.
-> >
-> > The key to solving that problem might be automation. There are lots of
-> tools
-> > available nowadays which could be used for that purpose (gerrit,
-> buildbot, ...).
-> > Patch submissions to stable releases could be run through an automated
-> test
-> > system and only be applied to stable release candidates after all tests
-> passed.
-> > This is widely done with vendor kernels today, and should be possible for
-> > stable kernels as well. Such a system could even pick up patches tagged
-> > with Fixes: or with Cc: stable from mainline automatically.
->
-> Testing works fine for core kernel features and for things like file
-> systems.  But it really doesn't work with real hardware, and Olaf
-> described a couple of scenarios where fixes to device drivers broke
-> older hardware supported by the same driver.  If what we are most
-> worried about is "no regressions", one really extreme approach would
-> be for a particular stable kernel series, to have a branch which
-> *only* has patches for which reliable and comprehensive tests exist.
-> This branch would at least get all of the security fixes and other bug
-> fixes which are applicable to the core kernel, and but it would filter
-> out, at least initially, all or most device driver patches.
->
-> We could have another branch which includes the device driver fixes,
-> and perhaps over time we could figure out some scheme by which if the
-> significant device kernel and BSP kernel users could be convinced to
-> contribute hardware and some test engineer resources, maybe some of
-> the device driver fixes could go into the "tested" stable branch as
-> well.
->
-> Or maybe we just leave a clean separation between "core" and "device
-> driver" stable branches, since in practice the answer seems to be that
-> once an embedded device kernel maintainer gets things working, they
-> **really** don't want to touch the device drivers ever again, since if
-> there are any hardware or software issues, they want users buying an
-> upgraded device every 12-18 months anyway.  :-)    At least that way
-> maybe the users will get the core security and stability fixes....
->
-> Or maybe we have a different policy for x86-specific device drivers
-> than we do for the embedded architectures, since in practice we have
-> more end users testing the x86 stable kernels, where as the embedded
-> architectures tend to get things like OTA updates, and so it's not
-> surprising that those maintainers are much more paranoid about driver
-> changes which might brick their devices.
->
-> (Yes, I know that some drivers are shared between x86 and ARM; and I
-> suspect that's one of the places where we could easily have a problem
-> where a bugfix that fixes things for an device on an x86 base might
-> accidentally cause a regression for the same device hanging off of a
-> different bus in a SOC configuration....  and no amount of test
-> automation has any *hope* of catching thoes sorts of problems.)
+> OTOH, the problem with that is once the SOC vendors have stopped
+> selling a particular chip version, they probably don't have any
+> interest in continuing to do QA for stable kernels for that particular
+> SOC set.  So I'm guessing the answer is "no", it won't help, but I'd
+> love to be pleasantly surprised to the contrary.
 >
 
-Just to clarify, my commentary was NOT for ARM SoC support. It was for
-drivers frequently used on x86 laptops. So it's not an "embedded only"
-problem.
+Optimizing our workflow for what some random SoC manufacturer does with
+their BSP is probably not a useful exercise. As you say, once they're done
+with the product they usually move on to the next generation.
 
-That being said, this was several years ago, and it's not necessarily worth
-focusing all that much on -- I just wanted to give an example of a case
-where using -stable in a product tree got pushback and why.
+As arm-soc maintainer, it's very rare that we see fixes targeted to
+-stable, often because I don't think there are many downstream users of the
+upstream tree for embedded platforms, so including fixes there doesn't mean
+it shows up in product trees. As platforms do get more and more support, it
+will get better over time but it's not there yet.
+
+
+> > Instead, what the team started doing was using -stable as a source for
+> > fixes -- when looking at a bug, first think you looked for was to see
+> > if someone had touched that code/subsystem in -stable. It's not ideal
+> > in the sense that you have to hit the bug and someone has to look at
+> > it, but it was the state we ended up in on that project. It means
+> > -stable still has substanial value even though it's not merged
+> > directly.
+>
+> The concern with this approach is that it won't necessary get security
+> fixes, since that implies that the product team is only looking at
+> -stable once a bug has been reported.
+>
+
+That's true. For fixes that get CVE labels there's sometimes tracking that
+happens and things get picked up, but for "silent" security fixes there's
+not.
+
+
+> I could tell interested product teams that there are patches that will
+> prevent an maliciously crafted SD card from hanging a system or
+> causing a memory bounds overrun possibly leading to a privilege
+> escalation attack (for example), but that really doesn't scale, and
+> unless the maintainer uses out-of-band notification methods, how would
+> the product team know to look in -stable?
+>
+
+By tracking CVEs or having representation on the security lists. Only large
+projects tend to have resources to do so, unfortunately.
 
 
 -Olof
 
---001a113fbb5ae3a755053751d7e7
+--001a113f3ca0605c1b053751efb0
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
 <div dir=3D"ltr"><br><div class=3D"gmail_extra"><br><div class=3D"gmail_quo=
-te">On Sun, Jul 10, 2016 at 3:39 PM, Theodore Ts&#39;o <span dir=3D"ltr">&l=
+te">On Sun, Jul 10, 2016 at 7:42 AM, Theodore Ts&#39;o <span dir=3D"ltr">&l=
 t;<a href=3D"mailto:tytso@mit.edu" target=3D"_blank">tytso@mit.edu</a>&gt;<=
 /span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8=
-ex;border-left:1px #ccc solid;padding-left:1ex"><span class=3D"">On Sun, Ju=
-l 10, 2016 at 11:28:21AM -0700, Guenter Roeck wrote:<br>
-&gt; &gt; There are **eleven** stable or longterm trees listed on <a href=
-=3D"http://kernel.org" rel=3D"noreferrer" target=3D"_blank">kernel.org</a>.=
-<br>
+ex;border-left:1px #ccc solid;padding-left:1ex"><span class=3D"">On Sat, Ju=
+l 09, 2016 at 11:19:39PM -0700, Olof Johansson wrote:<br>
 &gt;<br>
-&gt; I think this is one of the problems we are having: There are way too m=
-any<br>
-&gt; stable / longterm trees.<br>
-<br>
-</span>Part of this is because it&#39;s too easy for someone to say, &quot;=
-I want to<br>
-support [34].XX as a stable kernel&quot;.=C2=A0 Maybe it will only be for o=
-ne<br>
-architecture and only used for one platform (e.g. Yacto, or some other<br>
-random distribution), but it&#39;s not immediately obvious (a) who is<br>
-going to be using the stable kernel, and (b) what sort of testing it is<br>
-actually getting.<br>
-<br>
-This is fine if stable kernels are advertised as being &quot;best efforts<b=
-r>
-only; whatever an individual stable kernel maintainer feels like<br>
-putting into the project&quot;.=C2=A0 Which is fine, but then it&#39;s also=
- no<br>
-surprise if device kernel maintainers and BSP kernel maintainers<br>
-aren&#39;t aren&#39;t taking the -stable kernel series.=C2=A0 And it also b=
-ecomes<br>
-surprising if other people are expecting that stable trees are<br>
-supposed to be more stable than that, and then get indignant when<br>
-there are regressions, bug fixes that aren&#39;t backported, bug fixes<br>
-that work fine on the tip but which break after getting backported,<br>
-etc.<br>
-<br>
-To be clear, though: That&#39;s the way things are right now, and someone<b=
-r>
-who wants to change it is going to have to propose a procedure which<br>
-ends up taking less work on maintainers and individual patch<br>
-submiters, and/or volunteers to do the extra work, or realistically,<br>
-it&#39;s not going to happen.<br>
-<span class=3D""><br>
-&gt; I think we are having kind of a circular problem: Device/BSP kernels<b=
-r>
-&gt; don&#39;t track stable because stable branches are considered to be no=
-t stable<br>
-&gt; enough, and stable branches are not tested well enough because they ar=
-e not<br>
-&gt; picked up anyway. The only means to break that circle is to improve<br=
+&gt; The in-house developers on a certain subsystem didn&#39;t trust the<br=
 >
-&gt; stable testing to the point where people do feel comfortable picking i=
-t up.<br>
-&gt;<br>
-&gt; The key to solving that problem might be automation. There are lots of=
- tools<br>
-&gt; available nowadays which could be used for that purpose (gerrit, build=
-bot, ...).<br>
-&gt; Patch submissions to stable releases could be run through an automated=
- test<br>
-&gt; system and only be applied to stable release candidates after all test=
-s passed.<br>
-&gt; This is widely done with vendor kernels today, and should be possible =
-for<br>
-&gt; stable kernels as well. Such a system could even pick up patches tagge=
-d<br>
-&gt; with Fixes: or with Cc: stable from mainline automatically.<br>
+&gt; upstream maintainers to not regress their drivers -- in particular<br>
+&gt; they had seen some painful regressions on older chipsets when newer<br=
+>
+&gt; hardware support was picked up. Esoteric bugs that had been fixed with=
 <br>
-</span>Testing works fine for core kernel features and for things like file=
-<br>
-systems.=C2=A0 But it really doesn&#39;t work with real hardware, and Olaf<=
+&gt; the help of the support team weren&#39;t folded in properly in the<br>
+&gt; upstream sources, or when they did they looked sufficiently different<=
 br>
-described a couple of scenarios where fixes to device drivers broke<br>
-older hardware supported by the same driver.=C2=A0 If what we are most<br>
-worried about is &quot;no regressions&quot;, one really extreme approach wo=
-uld<br>
-be for a particular stable kernel series, to have a branch which<br>
-*only* has patches for which reliable and comprehensive tests exist.<br>
-This branch would at least get all of the security fixes and other bug<br>
-fixes which are applicable to the core kernel, and but it would filter<br>
-out, at least initially, all or most device driver patches.<br>
-<br>
-We could have another branch which includes the device driver fixes,<br>
-and perhaps over time we could figure out some scheme by which if the<br>
-significant device kernel and BSP kernel users could be convinced to<br>
-contribute hardware and some test engineer resources, maybe some of<br>
-the device driver fixes could go into the &quot;tested&quot; stable branch =
-as<br>
-well.<br>
-<br>
-Or maybe we just leave a clean separation between &quot;core&quot; and &quo=
-t;device<br>
-driver&quot; stable branches, since in practice the answer seems to be that=
-<br>
-once an embedded device kernel maintainer gets things working, they<br>
-**really** don&#39;t want to touch the device drivers ever again, since if<=
+&gt; that when -stable came around they didn&#39;t want to revert back to t=
+hat<br>
+&gt; version, or they weren&#39;t yet picked up for upstream and now other<=
 br>
-there are any hardware or software issues, they want users buying an<br>
-upgraded device every 12-18 months anyway.=C2=A0 :-)=C2=A0 =C2=A0 At least =
-that way<br>
-maybe the users will get the core security and stability fixes....<br>
+&gt; fixes were touching the same code and that seemed risky. They had a<br=
+>
+&gt; code base that worked for the use cases they cared about (with the fix=
 <br>
-Or maybe we have a different policy for x86-specific device drivers<br>
-than we do for the embedded architectures, since in practice we have<br>
-more end users testing the x86 stable kernels, where as the embedded<br>
-architectures tend to get things like OTA updates, and so it&#39;s not<br>
-surprising that those maintainers are much more paranoid about driver<br>
-changes which might brick their devices.<br>
+&gt; applied that the support team had provided), and very little interest<=
+br>
+&gt; in risking a regression from switching to the upstream version.<br>
 <br>
-(Yes, I know that some drivers are shared between x86 and ARM; and I<br>
-suspect that&#39;s one of the places where we could easily have a problem<b=
+</span>Hrm.=C2=A0 That&#39;s interesting color commentary, thanks.=C2=A0</b=
+lockquote><div><br></div><div>As mentioned downthread already: This wasn&#3=
+9;t actually for a BSP-based embedded chipset/driver. This was for common h=
+ardware found in many laptops (at the time).</div><div>=C2=A0<br></div><blo=
+ckquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #c=
+cc solid;padding-left:1ex"> This won&#39;t help<br>
+for those devices that are&#39;t using BSP kernels from SOC vendors, but<br=
+>
+for those platforms where kernels from vendors are available, do you<br>
+know off-hand if they are tracking -stable?=C2=A0 Because if they are,<br>
+presumably at least the SOC vendors would have the capability of doing<br>
+the necessary testing.<br>
+<br>
+OTOH, the problem with that is once the SOC vendors have stopped<br>
+selling a particular chip version, they probably don&#39;t have any<br>
+interest in continuing to do QA for stable kernels for that particular<br>
+SOC set.=C2=A0 So I&#39;m guessing the answer is &quot;no&quot;, it won&#39=
+;t help, but I&#39;d<br>
+love to be pleasantly surprised to the contrary.<br></blockquote><div><br><=
+/div><div>Optimizing our workflow for what some random SoC manufacturer doe=
+s with their BSP is probably not a useful exercise. As you say, once they&#=
+39;re done with the product they usually move on to the next generation.</d=
+iv><div><br></div><div>As arm-soc maintainer, it&#39;s very rare that we se=
+e fixes targeted to -stable, often because I don&#39;t think there are many=
+ downstream users of the upstream tree for embedded platforms, so including=
+ fixes there doesn&#39;t mean it shows up in product trees. As platforms do=
+ get more and more support, it will get better over time but it&#39;s not t=
+here yet.</div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"=
+margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><span class=
+=3D"">
+&gt; Instead, what the team started doing was using -stable as a source for=
+<br>
+&gt; fixes -- when looking at a bug, first think you looked for was to see<=
+br>
+&gt; if someone had touched that code/subsystem in -stable. It&#39;s not id=
+eal<br>
+&gt; in the sense that you have to hit the bug and someone has to look at<b=
 r>
-where a bugfix that fixes things for an device on an x86 base might<br>
-accidentally cause a regression for the same device hanging off of a<br>
-different bus in a SOC configuration....=C2=A0 and no amount of test<br>
-automation has any *hope* of catching thoes sorts of problems.)<br></blockq=
-uote><div><br></div><div>Just to clarify, my commentary was NOT for ARM SoC=
- support. It was for drivers frequently used on x86 laptops. So it&#39;s no=
-t an &quot;embedded only&quot; problem.</div><div><br></div><div>That being=
- said, this was several years ago, and it&#39;s not necessarily worth focus=
-ing all that much on -- I just wanted to give an example of a case where us=
-ing -stable in a product tree got pushback and why.</div><div><br></div><di=
-v><br></div><div>-Olof</div><div><br></div></div></div></div>
+&gt; it, but it was the state we ended up in on that project. It means<br>
+&gt; -stable still has substanial value even though it&#39;s not merged<br>
+&gt; directly.<br>
+<br>
+</span>The concern with this approach is that it won&#39;t necessary get se=
+curity<br>
+fixes, since that implies that the product team is only looking at<br>
+-stable once a bug has been reported.<br></blockquote><div><br></div><div>T=
+hat&#39;s true. For fixes that get CVE labels there&#39;s sometimes trackin=
+g that happens and things get picked up, but for &quot;silent&quot; securit=
+y fixes there&#39;s not.</div><div>=C2=A0</div><blockquote class=3D"gmail_q=
+uote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1e=
+x">
+I could tell interested product teams that there are patches that will<br>
+prevent an maliciously crafted SD card from hanging a system or<br>
+causing a memory bounds overrun possibly leading to a privilege<br>
+escalation attack (for example), but that really doesn&#39;t scale, and<br>
+unless the maintainer uses out-of-band notification methods, how would<br>
+the product team know to look in -stable?<br></blockquote><div><br></div><d=
+iv>By tracking CVEs or having representation on the security lists. Only la=
+rge projects tend to have resources to do so, unfortunately.</div><div><br>=
+</div><div><br></div><div>-Olof=C2=A0</div></div></div></div>
 
---001a113fbb5ae3a755053751d7e7--
+--001a113f3ca0605c1b053751efb0--
