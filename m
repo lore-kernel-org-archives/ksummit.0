@@ -1,19 +1,19 @@
 Return-Path: <broonie@sirena.org.uk>
-Date: Mon, 11 Jul 2016 15:22:48 +0100
+Date: Mon, 11 Jul 2016 16:13:00 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Guenter Roeck <linux@roeck-us.net>
-Message-ID: <20160711142248.GA3701@sirena.org.uk>
+To: Theodore Ts'o <tytso@mit.edu>
+Message-ID: <20160711151300.GB3701@sirena.org.uk>
 References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
 	<20160709000631.GB8989@io.lakedaemon.net>
 	<1468024946.2390.21.camel@HansenPartnership.com>
 	<alpine.LNX.2.00.1607091039550.24757@cbobk.fhfr.pm>
 	<20160709093626.GA6247@sirena.org.uk>
-	<5781148F.1010102@roeck-us.net>
+	<5781148F.1010102@roeck-us.net> <20160709212130.GC26097@thunk.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="bp/iNruPH9dso1Pn"
+	protocol="application/pgp-signature"; boundary="wq9mPyueHGvFACwf"
 Content-Disposition: inline
-In-Reply-To: <5781148F.1010102@roeck-us.net>
+In-Reply-To: <20160709212130.GC26097@thunk.org>
 Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
 	ksummit-discuss@lists.linux-foundation.org,
 	Jason Cooper <jason@lakedaemon.net>
@@ -28,50 +28,34 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---bp/iNruPH9dso1Pn
+--wq9mPyueHGvFACwf
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Sat, Jul 09, 2016 at 08:13:19AM -0700, Guenter Roeck wrote:
+On Sat, Jul 09, 2016 at 05:21:30PM -0400, Theodore Ts'o wrote:
 
-> it works". We still have a long way to go to get real QA testing. As I
-> suggested earlier, we'll have to find a way to convince companies to actively
-> invest in QA.
+> the latest stable kernel.  (But even if they do, apparently many
+> device vendors aren't bothering to merge in changes from the SOC's BSP
+> kernel, even if the BSP kernel is getting -stable updates.)
 
-There *is* some stuff going on there (slowly) with kernelci.org
-including some more active work, but definitely more investment is
-indeed needed.  I am somewhat hopeful that it'll be like a lot of the
-other testing things where once we start to see some results becoming
-available there will be a bit of a snowball effect and we'll start to
-see more people getting involved (I know I wouldn't have been running a
-build bot if I hadn't wanted things other build bots weren't offering at
-the time).
+It would be pretty irresponsible for device vendors to be merging BSP
+trees, they're generally development things with ongoing feature updates
+that might interact badly with things the system integrator has done
+rather than something stable enough to just merge constantly.
 
-> > There's also the volume of stable trees to consider here - we've got a
-> > large number of stable trees which seem to be maintained in different
-> > ways with different tooling.  One big advantage from my point of view
-> > as a maintainer with the current model is that I don't have to figure
-> > out which I care about or anything like that.
-
-> The proliferation of stable trees (or rather, how to avoid it) might be
-> one of the parts of the puzzle. Yes, there are way too many right now.
-
-OTOH if people want to run a given kernel version it's nice for them to
-have a place to collaborate and share fixes.
-
---bp/iNruPH9dso1Pn
+--wq9mPyueHGvFACwf
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQEcBAEBCAAGBQJXg6u3AAoJECTWi3JdVIfQ2agH/iyMs0zfktOGDIfqeosL7a9A
-chrjKeVTZcgIZZ+mBEO3Hp6G9jvG+niJ2ESbMv4sMVJ6833K20JuyemF9qsUoRH0
-Ykg6HX4M+FOpQMmhMRL3PiTWYIxHEzseAtegX7+kbodEnDt90UCjHdDM8+/3AO/x
-LmfdMMJwQJLqSU3yWRfc7eNkXWdL6sYk/FEocklDNohu5HCAz7o69Dfe2mcPjHBu
-nqCKGwjH0DflaR6/HvSoDdyMBgKNY6mSq+TiZFMeiCo112dAmQ0TqHX8BhVF62sH
-mbPs6hih659sbhqvZVwjdrpyCHKRah6VCW8WSigtgSwRFly/xZL/IzT3biLwTe0=
-=j53X
+iQEcBAEBCAAGBQJXg7d7AAoJECTWi3JdVIfQR+0H/A6k8yKWLxNpVNIzm0LQkde3
+pD9w/gFmNZWhFsJeY7ZqnUuqN4cEDyFzdqAR51vuqS4IlmK3DznAcs/souAfYFYq
+TMF/1EHiEIX+BUn2NnrCQjMAe8B3bC9NGpLJtfS12kA0JzBcP4765GgK+1fFwALg
+8DR9H88QVw1FN0UEI3pKBqjaTFR179SLGjU4IlXOJSx1WildtwowomqqrgtnXMJY
+y/FzH8X1dfy5KgRECBN1WAco/iiF9RmMIS27l7av1+8cEPgEvBrlw+f5KBi8cKMh
+pKZy3ufFJGsMNbNS7lG6iOwYqKLLNB/WhkZTYJ/PMNJX+JnvLB/r+HVkFdpRvyM=
+=IVU/
 -----END PGP SIGNATURE-----
 
---bp/iNruPH9dso1Pn--
+--wq9mPyueHGvFACwf--
