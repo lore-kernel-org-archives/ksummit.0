@@ -1,19 +1,33 @@
-Return-Path: <jikos@kernel.org>
-Date: Mon, 11 Jul 2016 10:47:37 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
-To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-In-Reply-To: <2340101.mYDzTnT1Lv@vostro.rjw.lan>
-Message-ID: <alpine.LNX.2.00.1607111043590.24757@cbobk.fhfr.pm>
+Return-Path: <hare@suse.com>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6CE32905
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 11 Jul 2016 09:16:16 +0000 (UTC)
+Received: from smtp.nue.novell.com (smtp.nue.novell.com [195.135.221.5])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 78A3E14F
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 11 Jul 2016 09:16:15 +0000 (UTC)
+To: ksummit-discuss@lists.linuxfoundation.org
 References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
-	<20160710170117.GI26097@thunk.org> <578293C5.1090503@roeck-us.net>
-	<2340101.mYDzTnT1Lv@vostro.rjw.lan>
+	<5780334E.8020801@roeck-us.net> <20160709001046.GH28589@dtor-ws>
+	<91774112.AKkGksYjl6@vostro.rjw.lan> <20160709004352.GK28589@dtor-ws>
+	<1468058721.2557.9.camel@HansenPartnership.com>
+	<0ED98206-0A66-48A4-B5A4-A0BC53FDBF05@primarydata.com>
+	<1468114447.2333.12.camel@HansenPartnership.com>
+	<A4E16736-A5CB-4915-9A02-82065AE2E062@primarydata.com>
+	<1468115770.2333.15.camel@HansenPartnership.com>
+	<CAPcyv4gQ+3aF+DhRVDioBD7O63VRDG+VAm3x0zVDDh4hg8kJig@mail.gmail.com>
+	<718BE1FD-6169-4205-A905-53F997D5943A@primarydata.com>
+	<57832D3A.8080702@roeck-us.net>
+From: Hannes Reinecke <hare@suse.com>
+Message-ID: <57835F2B.1090405@suse.com>
+Date: Mon, 11 Jul 2016 10:56:11 +0200
 MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
-Cc: Jason Cooper <jason@lakedaemon.net>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
-	ksummit-discuss@lists.linux-foundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
+In-Reply-To: <57832D3A.8080702@roeck-us.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] kernel unit testing
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -23,37 +37,31 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 11 Jul 2016, Rafael J. Wysocki wrote:
-
-> So going back to the origins of -stable, the problem it was invented to 
-> address at that time, IIRC, was that people started to perceive 
-> switching over to the kernels released by Linus as risky, because it was 
-> hard to get fixes for bugs found in them.  The idea at that time was to 
-> collect the fixes (and fixes only) in a "stable" tree, so that whoever 
-> decided to use the latest kernel released by Linus could get them 
-> readily, but without burdening maintainers with having their own 
-> "stable" branches and similar.  And that was going to last until the 
-> next kernel release from Linus, at which point a new "stable" tree was 
-> to be started.
+On 07/11/2016 07:23 AM, Guenter Roeck wrote:
+> On 07/10/2016 09:03 PM, Trond Myklebust wrote:
+>> So, we might as well make this a formal proposal.
+>>
+>> I’d like to propose that we have a discussion around how to make it
+>> easier to implement kernel unit tests. I’ve co-opted Dan as he has
+>> expressed both an interest and hands-on experience. :-)
+>>
 > 
-> That's what the 4.6.y "stable" series is today.
+> Making it easier to implement such tests won't get such tests executed.
+> I think we should also discuss how to implement more formal testing
+> of release candidates, and/or how to improve test coverage.
 > 
-> To me, that particular part has been very successful and it actually 
-> works well enough, so I wouldn't change anything in it.
-> 
-> However, "long-term stable" trees started to appear at one point and 
-> those are quite different and serve a different purpose.  I'm not quite 
-> sure if handling them in the same way as 4.6.y is really the best 
-> approach.  At least it seems to lead to some mismatch between the 
-> expectations and what is really delivered.
+Count me in.
+I'm working on preparing a multipath testbed from within Qemu (FCoE over
+virtio, quite fun), with the aim of developing an automated
+kernel-ci testbed.
+So I'd be very interested in this one, too.
 
-That's a very good point, and I fully agree with that. Actually all my 
-previous proposals applied mostly to the long-term releases. The "last 
-release + fixes" indeed seems to be rather fluent.
-OTOH, I am not really sure how many consumers does that tree have.
+Cheers,
 
-Thanks,
-
+Hannes
 -- 
-Jiri Kosina
-SUSE Labs
+Dr. Hannes Reinecke		               zSeries & Storage
+hare@suse.com			               +49 911 74053 688
+SUSE LINUX GmbH, Maxfeldstr. 5, 90409 Nürnberg
+GF: F. Imendörffer, J. Smithard, D. Upmanyu, G. Norton
+HRB 21284 (AG Nürnberg)
