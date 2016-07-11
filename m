@@ -1,21 +1,19 @@
-Return-Path: <vinod.koul@intel.com>
-Date: Mon, 11 Jul 2016 19:48:34 +0530
-From: Vinod Koul <vinod.koul@intel.com>
-To: Theodore Ts'o <tytso@mit.edu>
-Message-ID: <20160711141833.GK9681@localhost>
+Return-Path: <broonie@sirena.org.uk>
+Date: Mon, 11 Jul 2016 15:22:48 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <20160711142248.GA3701@sirena.org.uk>
 References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
 	<20160709000631.GB8989@io.lakedaemon.net>
 	<1468024946.2390.21.camel@HansenPartnership.com>
 	<alpine.LNX.2.00.1607091039550.24757@cbobk.fhfr.pm>
 	<20160709093626.GA6247@sirena.org.uk>
-	<20160710162203.GA9681@localhost>
-	<20160710170117.GI26097@thunk.org>
-	<20160711050000.GC9681@localhost>
-	<20160711051335.GQ26097@thunk.org>
+	<5781148F.1010102@roeck-us.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="bp/iNruPH9dso1Pn"
 Content-Disposition: inline
-In-Reply-To: <20160711051335.GQ26097@thunk.org>
+In-Reply-To: <5781148F.1010102@roeck-us.net>
 Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
 	ksummit-discuss@lists.linux-foundation.org,
 	Jason Cooper <jason@lakedaemon.net>
@@ -29,74 +27,51 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Jul 11, 2016 at 01:13:35AM -0400, Theodore Ts'o wrote:
-> On Mon, Jul 11, 2016 at 10:30:00AM +0530, Vinod Koul wrote:
-> > > There are **eleven** stable or longterm trees listed on kernel.org.
-> > > If you are going to ask patch submitters to test on all of the stable
-> > > trees, that pretty much guarantees that nothing at all will be cc'ed
-> > > to stable.
-> > 
-> > Isn't that a part of problem as well. If I am submitting a fix,
-> > shouldn't I be able to backport and validate the fix on stable kernels?
-> 
-> You might be *able* to pay me a $1000 dollars (e.g., you have that
-> much in your savings account).  That doesn't mean that you *will*, or
-> that you *should*, or have any moral *obligation* to pay me $1000
-> dollars.  (But if you do want to write me a check, feel free....  :-)
-> 
-> If a developer at Facebook finds a bug, and they fix it for upstream,
-> they do so partially out of the goodness of their hearts, and
-> partially because that way they don't have to do extra work to forward
-> port a private patch when they move to a newer upstream kernel.  But
-> the GPL doesn't require that they share bug fixes with upstream ---
-> it's just in their economic incentive to do so.  (Even if it does help
-> their competitors who might now not have to do the same bug report.
-> And since developers at Google are also doing the same thing, it all
-> works well.)
-> 
-> Ok, now let's grant that the same Facebook developer is *able* to
-> backport the same patch to 11 different stable kernels, and do a full
-> QA validation on all of these different stable.  Now the extra 15-30
-> minutes that it might take to prepare the patch for upstream might now
-> take a day or two.  What benefit does the Facebook developer have
-> doing that?  Almost none.  By what moral or legal right do you have to
-> demand that the Facebook developer do all of that extra work?  Exactly
-> zero.
-> 
-> Now, suppose *you* are under a tight deadline to get work done for
-> your company's shipping product.  How do you think your manager would
-> react if you tell her, I'm sorry, but our competitors at Qualcomm are
-> demanding that I take my upstream patch contribution and backport and
-> QA it on a dozen different stable kernels so they can more easily put
-> out BSP kernels for products that directly complete with Intel's?  Let
-> me guess that the answer might very well be, "not well".
 
-Ted,
+--bp/iNruPH9dso1Pn
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-I do whole heartedly agree to your arguments and yes that is a big
-issue. *BUT* what is the solution then, Maintainers do not even have
-hardware to test.
+On Sat, Jul 09, 2016 at 08:13:19AM -0700, Guenter Roeck wrote:
 
-> > > And if device kernels or BSP kernels aren't bothering to track
-> > > -stable, it becomes even more unfair to force that work on the
-> > > maintainers or patch submitters.  If they are just going to be cherry
-> > > picking random patches out of the -stable kernel when they notice a
-> > > problem, does it make sense to do invest in doing full QA's for every
-> > > single commit before it goes into -stable?
-> > 
-> > And IMO since submitter know the target and has the hardware for test,
-> > it would be more easy for that person to verify..
-> 
-> The submitter is not necessarily going to have all of the hardware to
-> test.  Heck, Intel has shipped i915 drivers that have broken my
-> Thinkpad dock (in fact the video out on my dock has been mostly
-> useless for the past year), multiple times in the past and so I'm
-> pretty sure Intel isn't testing their i915 driver on all of the
-> different hardware connected to the i915 chipset --- and this is
-> regressions on the *HEAD* of the Linux tree, never mind backports into
-> stable....
+> it works". We still have a long way to go to get real QA testing. As I
+> suggested earlier, we'll have to find a way to convince companies to actively
+> invest in QA.
 
-But the person might be slightly better off than you or me :-)
+There *is* some stuff going on there (slowly) with kernelci.org
+including some more active work, but definitely more investment is
+indeed needed.  I am somewhat hopeful that it'll be like a lot of the
+other testing things where once we start to see some results becoming
+available there will be a bit of a snowball effect and we'll start to
+see more people getting involved (I know I wouldn't have been running a
+build bot if I hadn't wanted things other build bots weren't offering at
+the time).
 
--- 
-~Vinod
+> > There's also the volume of stable trees to consider here - we've got a
+> > large number of stable trees which seem to be maintained in different
+> > ways with different tooling.  One big advantage from my point of view
+> > as a maintainer with the current model is that I don't have to figure
+> > out which I care about or anything like that.
+
+> The proliferation of stable trees (or rather, how to avoid it) might be
+> one of the parts of the puzzle. Yes, there are way too many right now.
+
+OTOH if people want to run a given kernel version it's nice for them to
+have a place to collaborate and share fixes.
+
+--bp/iNruPH9dso1Pn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQEcBAEBCAAGBQJXg6u3AAoJECTWi3JdVIfQ2agH/iyMs0zfktOGDIfqeosL7a9A
+chrjKeVTZcgIZZ+mBEO3Hp6G9jvG+niJ2ESbMv4sMVJ6833K20JuyemF9qsUoRH0
+Ykg6HX4M+FOpQMmhMRL3PiTWYIxHEzseAtegX7+kbodEnDt90UCjHdDM8+/3AO/x
+LmfdMMJwQJLqSU3yWRfc7eNkXWdL6sYk/FEocklDNohu5HCAz7o69Dfe2mcPjHBu
+nqCKGwjH0DflaR6/HvSoDdyMBgKNY6mSq+TiZFMeiCo112dAmQ0TqHX8BhVF62sH
+mbPs6hih659sbhqvZVwjdrpyCHKRah6VCW8WSigtgSwRFly/xZL/IzT3biLwTe0=
+=j53X
+-----END PGP SIGNATURE-----
+
+--bp/iNruPH9dso1Pn--
