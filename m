@@ -1,24 +1,36 @@
-Return-Path: <tytso@thunk.org>
-Date: Mon, 11 Jul 2016 01:13:35 -0400
-From: Theodore Ts'o <tytso@mit.edu>
-To: Vinod Koul <vinod.koul@intel.com>
-Message-ID: <20160711051335.GQ26097@thunk.org>
+Return-Path: <linux@roeck-us.net>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 969DA9C
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 11 Jul 2016 05:23:17 +0000 (UTC)
+Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 87EA6196
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 11 Jul 2016 05:23:16 +0000 (UTC)
+To: Trond Myklebust <trondmy@primarydata.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
 References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
-	<20160709000631.GB8989@io.lakedaemon.net>
-	<1468024946.2390.21.camel@HansenPartnership.com>
-	<alpine.LNX.2.00.1607091039550.24757@cbobk.fhfr.pm>
-	<20160709093626.GA6247@sirena.org.uk>
-	<20160710162203.GA9681@localhost>
-	<20160710170117.GI26097@thunk.org>
-	<20160711050000.GC9681@localhost>
+	<5780334E.8020801@roeck-us.net> <20160709001046.GH28589@dtor-ws>
+	<91774112.AKkGksYjl6@vostro.rjw.lan> <20160709004352.GK28589@dtor-ws>
+	<1468058721.2557.9.camel@HansenPartnership.com>
+	<0ED98206-0A66-48A4-B5A4-A0BC53FDBF05@primarydata.com>
+	<1468114447.2333.12.camel@HansenPartnership.com>
+	<A4E16736-A5CB-4915-9A02-82065AE2E062@primarydata.com>
+	<1468115770.2333.15.camel@HansenPartnership.com>
+	<CAPcyv4gQ+3aF+DhRVDioBD7O63VRDG+VAm3x0zVDDh4hg8kJig@mail.gmail.com>
+	<718BE1FD-6169-4205-A905-53F997D5943A@primarydata.com>
+From: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <57832D3A.8080702@roeck-us.net>
+Date: Sun, 10 Jul 2016 22:23:06 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20160711050000.GC9681@localhost>
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	ksummit-discuss@lists.linux-foundation.org,
-	Jason Cooper <jason@lakedaemon.net>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
+In-Reply-To: <718BE1FD-6169-4205-A905-53F997D5943A@primarydata.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] kernel unit testing
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -28,64 +40,15 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Jul 11, 2016 at 10:30:00AM +0530, Vinod Koul wrote:
-> > There are **eleven** stable or longterm trees listed on kernel.org.
-> > If you are going to ask patch submitters to test on all of the stable
-> > trees, that pretty much guarantees that nothing at all will be cc'ed
-> > to stable.
-> 
-> Isn't that a part of problem as well. If I am submitting a fix,
-> shouldn't I be able to backport and validate the fix on stable kernels?
+On 07/10/2016 09:03 PM, Trond Myklebust wrote:
+> So, we might as well make this a formal proposal.
+>
+> I’d like to propose that we have a discussion around how to make it easier to implement kernel unit tests. I’ve co-opted Dan as he has expressed both an interest and hands-on experience. :-)
+>
 
-You might be *able* to pay me a $1000 dollars (e.g., you have that
-much in your savings account).  That doesn't mean that you *will*, or
-that you *should*, or have any moral *obligation* to pay me $1000
-dollars.  (But if you do want to write me a check, feel free....  :-)
+Making it easier to implement such tests won't get such tests executed.
+I think we should also discuss how to implement more formal testing
+of release candidates, and/or how to improve test coverage.
 
-If a developer at Facebook finds a bug, and they fix it for upstream,
-they do so partially out of the goodness of their hearts, and
-partially because that way they don't have to do extra work to forward
-port a private patch when they move to a newer upstream kernel.  But
-the GPL doesn't require that they share bug fixes with upstream ---
-it's just in their economic incentive to do so.  (Even if it does help
-their competitors who might now not have to do the same bug report.
-And since developers at Google are also doing the same thing, it all
-works well.)
-
-Ok, now let's grant that the same Facebook developer is *able* to
-backport the same patch to 11 different stable kernels, and do a full
-QA validation on all of these different stable.  Now the extra 15-30
-minutes that it might take to prepare the patch for upstream might now
-take a day or two.  What benefit does the Facebook developer have
-doing that?  Almost none.  By what moral or legal right do you have to
-demand that the Facebook developer do all of that extra work?  Exactly
-zero.
-
-Now, suppose *you* are under a tight deadline to get work done for
-your company's shipping product.  How do you think your manager would
-react if you tell her, I'm sorry, but our competitors at Qualcomm are
-demanding that I take my upstream patch contribution and backport and
-QA it on a dozen different stable kernels so they can more easily put
-out BSP kernels for products that directly complete with Intel's?  Let
-me guess that the answer might very well be, "not well".
-
-> > And if device kernels or BSP kernels aren't bothering to track
-> > -stable, it becomes even more unfair to force that work on the
-> > maintainers or patch submitters.  If they are just going to be cherry
-> > picking random patches out of the -stable kernel when they notice a
-> > problem, does it make sense to do invest in doing full QA's for every
-> > single commit before it goes into -stable?
-> 
-> And IMO since submitter know the target and has the hardware for test,
-> it would be more easy for that person to verify..
-
-The submitter is not necessarily going to have all of the hardware to
-test.  Heck, Intel has shipped i915 drivers that have broken my
-Thinkpad dock (in fact the video out on my dock has been mostly
-useless for the past year), multiple times in the past and so I'm
-pretty sure Intel isn't testing their i915 driver on all of the
-different hardware connected to the i915 chipset --- and this is
-regressions on the *HEAD* of the Linux tree, never mind backports into
-stable....
-
-       	      	    	  	     	       - Ted
+Thanks,
+Guenter
