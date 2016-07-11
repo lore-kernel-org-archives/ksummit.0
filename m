@@ -1,20 +1,18 @@
 Return-Path: <jikos@kernel.org>
-Date: Mon, 11 Jul 2016 10:18:01 +0200 (CEST)
+Date: Mon, 11 Jul 2016 10:47:37 +0200 (CEST)
 From: Jiri Kosina <jikos@kernel.org>
-To: Guenter Roeck <linux@roeck-us.net>
-In-Reply-To: <5781148F.1010102@roeck-us.net>
-Message-ID: <alpine.LNX.2.00.1607111015020.24757@cbobk.fhfr.pm>
+To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+In-Reply-To: <2340101.mYDzTnT1Lv@vostro.rjw.lan>
+Message-ID: <alpine.LNX.2.00.1607111043590.24757@cbobk.fhfr.pm>
 References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
-	<20160709000631.GB8989@io.lakedaemon.net>
-	<1468024946.2390.21.camel@HansenPartnership.com>
-	<alpine.LNX.2.00.1607091039550.24757@cbobk.fhfr.pm>
-	<20160709093626.GA6247@sirena.org.uk>
-	<5781148F.1010102@roeck-us.net>
+	<20160710170117.GI26097@thunk.org> <578293C5.1090503@roeck-us.net>
+	<2340101.mYDzTnT1Lv@vostro.rjw.lan>
 MIME-Version: 1.0
 Content-Type: TEXT/PLAIN; charset=US-ASCII
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	ksummit-discuss@lists.linux-foundation.org,
-	Jason Cooper <jason@lakedaemon.net>
+Cc: Jason Cooper <jason@lakedaemon.net>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	James Bottomley <James.Bottomley@hansenpartnership.com>,
+	ksummit-discuss@lists.linux-foundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -25,20 +23,36 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, 9 Jul 2016, Guenter Roeck wrote:
+On Mon, 11 Jul 2016, Rafael J. Wysocki wrote:
 
-> As I suggested earlier, we'll have to find a way to convince companies 
-> to actively invest in QA.
+> So going back to the origins of -stable, the problem it was invented to 
+> address at that time, IIRC, was that people started to perceive 
+> switching over to the kernels released by Linus as risky, because it was 
+> hard to get fixes for bugs found in them.  The idea at that time was to 
+> collect the fixes (and fixes only) in a "stable" tree, so that whoever 
+> decided to use the latest kernel released by Linus could get them 
+> readily, but without burdening maintainers with having their own 
+> "stable" branches and similar.  And that was going to last until the 
+> next kernel release from Linus, at which point a new "stable" tree was 
+> to be started.
+> 
+> That's what the 4.6.y "stable" series is today.
+> 
+> To me, that particular part has been very successful and it actually 
+> works well enough, so I wouldn't change anything in it.
+> 
+> However, "long-term stable" trees started to appear at one point and 
+> those are quite different and serve a different purpose.  I'm not quite 
+> sure if handling them in the same way as 4.6.y is really the best 
+> approach.  At least it seems to lead to some mismatch between the 
+> expectations and what is really delivered.
 
-The potential issue I see here is coverage.
+That's a very good point, and I fully agree with that. Actually all my 
+previous proposals applied mostly to the long-term releases. The "last 
+release + fixes" indeed seems to be rather fluent.
+OTOH, I am not really sure how many consumers does that tree have.
 
-Linus' tree greatly benefits from the "crowdsourcing" effect, in a sense 
-that everybody is, at the end of the day, interested in that tree to work 
-(because most of the stakeholders are going to include that codebase in 
-their product sooner or later).
-
-That's not the case with stable codestreams; the interest there is much 
-more scattered.
+Thanks,
 
 -- 
 Jiri Kosina
