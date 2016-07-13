@@ -1,28 +1,24 @@
-Return-Path: <ebiederm@xmission.com>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A81CC9E7
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 12 Jul 2016 16:53:14 +0000 (UTC)
-Received: from out02.mta.xmission.com (out02.mta.xmission.com [166.70.13.232])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 39D0326C
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 12 Jul 2016 16:53:14 +0000 (UTC)
-From: ebiederm@xmission.com (Eric W. Biederman)
-To: Kees Cook <keescook@chromium.org>
-References: <CALCETrXtfzi=G4H+Zttv3kWcCo32V6cO9OBfdyuYT4DHvJTJLg@mail.gmail.com>
-	<87lh18i1d6.fsf@x220.int.ebiederm.org>
-	<CAGXu5jL=Vj4tY1k7zYp6B1FcvKm7dSYnKFgN7C8Dp1hOztbjwg@mail.gmail.com>
-Date: Tue, 12 Jul 2016 11:40:45 -0500
-In-Reply-To: <CAGXu5jL=Vj4tY1k7zYp6B1FcvKm7dSYnKFgN7C8Dp1hOztbjwg@mail.gmail.com>
-	(Kees Cook's message of "Mon, 11 Jul 2016 13:57:04 -0400")
-Message-ID: <87vb0a24j6.fsf@x220.int.ebiederm.org>
+Return-Path: <geert.uytterhoeven@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-Cc: Jann Horn <jann@thejh.net>, "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TOPIC] kernel hardening / self-protection /
-	whatever
+Sender: geert.uytterhoeven@gmail.com
+In-Reply-To: <20160711171146.GD3701@sirena.org.uk>
+References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
+	<20160709000631.GB8989@io.lakedaemon.net>
+	<1468024946.2390.21.camel@HansenPartnership.com>
+	<alpine.LNX.2.00.1607091039550.24757@cbobk.fhfr.pm>
+	<20160709093626.GA6247@sirena.org.uk>
+	<5781148F.1010102@roeck-us.net> <20160709212130.GC26097@thunk.org>
+	<20160711151300.GB3701@sirena.org.uk> <20160711170333.GE3890@thunk.org>
+	<20160711171146.GD3701@sirena.org.uk>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 13 Jul 2016 03:08:05 +0200
+Message-ID: <CAMuHMdXASsy6QD9VhODZ3kC3pSOBHRKaJBPwiRQiZxj6v=RaJg@mail.gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	ksummit-discuss@lists.linux-foundation.org,
+	Jason Cooper <jason@lakedaemon.net>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,62 +28,36 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Kees Cook <keescook@chromium.org> writes:
-
-> On Mon, Jul 11, 2016 at 12:30 PM, Eric W. Biederman
-> <ebiederm@xmission.com> wrote:
->> Andy Lutomirski <luto@amacapital.net> writes:
->>
->>> Are there useful things to discuss in person about hardening?  (I
->>> don't want to bikeshed about the name at the kernel summit if we can
->>> possibly avoid it.)
->>>
->>> Plausible sub-topics include:
->>>
->>>  - "USERCOPY" hardening
->>>
->>>  - Virtually mapped stacks (I'm hoping to have that in for x86 before
->>> kernel summit...)
->>>
->>>  - Refcount
->>>
->>> I don't how much of this really needs an in-person meeting, but maybe
->>> some if it would benefit.
->>
->> Given the history of the previous work on which much of this kernel
->> hardening work is inspired, I think it makes some sense to discuss what
->> is needed to get various features ready for mainline.
+On Mon, Jul 11, 2016 at 7:11 PM, Mark Brown <broonie@kernel.org> wrote:
+> On Mon, Jul 11, 2016 at 01:03:33PM -0400, Theodore Ts'o wrote:
+>> Very few people will actually be merging them, and in fact maybe
+>> having a patch queue which is checked into git might actually work
+>> better, since it sounds like most people are just cherry-picking
+>> specific patches.
 >
-> This is a much larger topic, I think. The work being done already by
-> the Kernel Self Protection Project is highlighting what's needed to
-> bring various features into mainline. Generally they require a lot of
-> chopping up into distinct pieces, expanding their portability to other
-> architectures, more testing, etc.
->
->> Many kernel hardening features are perceived as having downsides affect
->> performance or code maintainability.  Which quite frankly is a security
->> issue of another flavor because if something does not work well, and or
->
-> Sure, but I think this will be done on a case-by-case basis, as each
-> thing has wildly different aspects. :)
->
->> is not maintainable after a while it won't get used.  Rarely are we in
->> the situation where defense against attack is the most important thing
->> that people who are deploying linux are worried about.
->
-> Yup, of course. This is why I'm trying to make sure that things have
-> either near-zero impact or are easily configurable.
+> I think at this point even if people are cherry picking patches it's
+> probably still going to be easier for people to work with a git tree
+> than anything else - the workflow for git cherry-pick, looking for
+> dependent patches and so on is pretty clear, the upstream commit IDs are
+> there if you prefer to go direct to them and if you really do want a raw
+> patch stack then it's easy to translate into one.
 
-Please make certain to leave a big fat comment explaining the security
-that is added and why.
++1
 
-I have two brand new patchs that I received today or yesterday sitting
-in my inbox to remove security features in the kernel.
+Personally I hate it that the LTSI tree is available as a patch only.
+Even ltsi-kernel.git is... a collection of patches, although I've just noticed
+the README there does explain how to (re)create a git tree from it.
 
-A patch to remove the limit on /proc/self/exec only being able to be
-changed once.
+Hence every time I want to test it, and build on top of it, I have to
+import the patches into git myself...
 
-A patch to muck with kexec_file_load, and get it to accept a new flavor
-of unsigned data.  At least I think that is what the patch is.
+Gr{oetje,eeting}s,
 
-Eric
+                        Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
