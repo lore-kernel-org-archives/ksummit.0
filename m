@@ -1,24 +1,21 @@
-Return-Path: <alex.shi@linaro.org>
+Return-Path: <dan.j.williams@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0A9CD71
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 86FF4258
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 13 Jul 2016 04:48:20 +0000 (UTC)
-Received: from mail-pf0-f173.google.com (mail-pf0-f173.google.com
-	[209.85.192.173])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7D7EA16E
+	Wed, 13 Jul 2016 04:56:05 +0000 (UTC)
+Received: from mail-oi0-f47.google.com (mail-oi0-f47.google.com
+	[209.85.218.47])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 163FB17D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 13 Jul 2016 04:48:19 +0000 (UTC)
-Received: by mail-pf0-f173.google.com with SMTP id t190so14373379pfb.3
+	Wed, 13 Jul 2016 04:56:04 +0000 (UTC)
+Received: by mail-oi0-f47.google.com with SMTP id r2so54080282oih.2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 12 Jul 2016 21:48:19 -0700 (PDT)
-To: Trond Myklebust <trondmy@primarydata.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
-	<5780334E.8020801@roeck-us.net> <20160709001046.GH28589@dtor-ws>
-	<91774112.AKkGksYjl6@vostro.rjw.lan> <20160709004352.GK28589@dtor-ws>
+	Tue, 12 Jul 2016 21:56:04 -0700 (PDT)
+MIME-Version: 1.0
+In-Reply-To: <20160712093518.GD16460@quack2.suse.cz>
+References: <91774112.AKkGksYjl6@vostro.rjw.lan>
+	<20160709004352.GK28589@dtor-ws>
 	<1468058721.2557.9.camel@HansenPartnership.com>
 	<0ED98206-0A66-48A4-B5A4-A0BC53FDBF05@primarydata.com>
 	<1468114447.2333.12.camel@HansenPartnership.com>
@@ -26,14 +23,17 @@ References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
 	<1468115770.2333.15.camel@HansenPartnership.com>
 	<CAPcyv4gQ+3aF+DhRVDioBD7O63VRDG+VAm3x0zVDDh4hg8kJig@mail.gmail.com>
 	<718BE1FD-6169-4205-A905-53F997D5943A@primarydata.com>
-From: Alex Shi <alex.shi@linaro.org>
-Message-ID: <5785C80F.4030707@linaro.org>
-Date: Wed, 13 Jul 2016 13:48:15 +0900
-MIME-Version: 1.0
-In-Reply-To: <718BE1FD-6169-4205-A905-53F997D5943A@primarydata.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>
+	<CAPcyv4ik_wXkSrth33s=rjeQCsbXL1L5mYAhv95Qo_O51tKW2w@mail.gmail.com>
+	<20160712093518.GD16460@quack2.suse.cz>
+From: Dan Williams <dan.j.williams@intel.com>
+Date: Tue, 12 Jul 2016 21:56:02 -0700
+Message-ID: <CAPcyv4jLCpZautu1NsWPL735dSMuuHrDfb=KgmNtHOh4B7f6AQ@mail.gmail.com>
+To: Jan Kara <jack@suse.cz>
+Content-Type: text/plain; charset=UTF-8
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Trond Myklebust <trondmy@primarydata.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] kernel unit testing
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -44,26 +44,18 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Count me in, please.
+On Tue, Jul 12, 2016 at 2:35 AM, Jan Kara <jack@suse.cz> wrote:
+> Well, in the end it is your call but my experience with xfstests shows that
+> it is good to detect the case that the functionality is not supported by
+> the kernel and fail gracefully. Because especially with enterprise
+> distributions you get a strange mix of kernel and userspace and it is *very*
+> useful to be able to run testsuites there when testing backports etc. It is
+> a pita to figure out whether the test failed because of missing
+> functionality of because of a bug in your backport...
 
-I am working as Lianro stable kernel maintainer for 3 years. and was run 
-Intel linux kernel performance project before this job.
-
-I am thinking if it's possible to share an basic tree which include some 
-widely wanted backporting features. That could share the testing and 
-review, then will reduce bugs much more.
-
-Thanks
-Alex
-
-On 07/11/2016 01:03 PM, Trond Myklebust wrote:
-> So, we might as well make this a formal proposal.
->
-> I’d like to propose that we have a discussion around how to make it easier to implement kernel unit tests. I’ve co-opted Dan as he has expressed both an interest and hands-on experience. :-)
->
-> Cheers
->    Trond
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+I'm assuming you can gate tests based on filesystem feature flags?
+For unit tests that are deeper, at the individual kernel symbol level,
+it's hard to predict the behavior of that symbol outside of the kernel
+version.  Unless, we ship a test-interface version / feature-flags
+data in the base kernel?  That direction relates to the question about
+whether test infrastructure remain out-of-tree.
