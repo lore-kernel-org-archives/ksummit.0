@@ -1,20 +1,19 @@
-Return-Path: <alex.shi@linaro.org>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5D24994B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E96C2997
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 13 Jul 2016 12:37:16 +0000 (UTC)
-Received: from mail-pa0-f45.google.com (mail-pa0-f45.google.com
-	[209.85.220.45])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 52A8117E
+	Wed, 13 Jul 2016 14:35:05 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C9FFF173
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 13 Jul 2016 12:37:14 +0000 (UTC)
-Received: by mail-pa0-f45.google.com with SMTP id dx3so17695137pab.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 13 Jul 2016 05:37:14 -0700 (PDT)
+	Wed, 13 Jul 2016 14:35:04 +0000 (UTC)
+Date: Wed, 13 Jul 2016 15:34:47 +0100
+From: Mark Brown <broonie@kernel.org>
 To: Greg KH <greg@kroah.com>
-References: <91774112.AKkGksYjl6@vostro.rjw.lan>
-	<20160709004352.GK28589@dtor-ws>
+Message-ID: <20160713143447.GH9976@sirena.org.uk>
+References: <20160709004352.GK28589@dtor-ws>
 	<1468058721.2557.9.camel@HansenPartnership.com>
 	<0ED98206-0A66-48A4-B5A4-A0BC53FDBF05@primarydata.com>
 	<1468114447.2333.12.camel@HansenPartnership.com>
@@ -23,17 +22,15 @@ References: <91774112.AKkGksYjl6@vostro.rjw.lan>
 	<CAPcyv4gQ+3aF+DhRVDioBD7O63VRDG+VAm3x0zVDDh4hg8kJig@mail.gmail.com>
 	<718BE1FD-6169-4205-A905-53F997D5943A@primarydata.com>
 	<5785C80F.4030707@linaro.org> <20160713090739.GA18037@kroah.com>
-From: Alex Shi <alex.shi@linaro.org>
-Message-ID: <578635F6.9040601@linaro.org>
-Date: Wed, 13 Jul 2016 21:37:10 +0900
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="OpLPJvDmhXTZE4Lg"
+Content-Disposition: inline
 In-Reply-To: <20160713090739.GA18037@kroah.com>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
 Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Trond Myklebust <trondmy@primarydata.com>,
 	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Trond Myklebust <trondmy@primarydata.com>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] kernel unit testing
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -45,17 +42,38 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
+--OpLPJvDmhXTZE4Lg
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 07/13/2016 06:07 PM, Greg KH wrote:
+On Wed, Jul 13, 2016 at 06:07:39PM +0900, Greg KH wrote:
 > On Wed, Jul 13, 2016 at 01:48:15PM +0900, Alex Shi wrote:
->> I am thinking if it's possible to share an basic tree which include some
->> widely wanted backporting features. That could share the testing and review,
->> then will reduce bugs much more.
+
+> > I am thinking if it's possible to share an basic tree which include some
+> > widely wanted backporting features. That could share the testing and review,
+> > then will reduce bugs much more.
+
 > Like LTSI already does today?  :)
 
-It looks we share some basic ideas on backporting part. But industry 
-need much more backporting features. and new features which out of 
-upstream aren't started from here, since it's a upstream quality without 
-more eyes in community.
+There was a lot of pushback against LTSI, the most concrete bit I could
+see was the inclusion of board support and vendor specific drivers -
+people doing products won't care so much but people releasing source
+weren't thrilled with the idea of it ending up either conflicting with
+their internal work or showing up in the diffstat of what they release.
 
-> greg k-h
+--OpLPJvDmhXTZE4Lg
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQEcBAEBCAAGBQJXhlGFAAoJECTWi3JdVIfQwxwH/2D6uUNMuqXPwAXng5XCD9x2
+378H7hNWRdwEq2Hhh/Cbf0O+RkaFMJE3VFardNgcqZeO8wFwXdtzX1yweHib/+mz
+84PJM4Yes/uZfUlHw59lbvAFhrsTiLV6HMrBf8tboOSk8G4N7gOcaKEI3y24F3hU
+Wl7P02XZSge1oRB2TW5/rSqIqpuPW02ST9HDC56bsWonkEHJMQvE7oOu9Z5US94Y
+artQeWRm7NLvLmO2dRDH6u3enI4PBXFN70rwUbPNgQrKtl+ghp5VGMogl2/XzJEv
+h73bFwKQNZqdlkxXHFZJLu4KaCbr4QsFcNLPcOojLcb81XhiLBp5VLToDPhHnFk=
+=mrKa
+-----END PGP SIGNATURE-----
+
+--OpLPJvDmhXTZE4Lg--
