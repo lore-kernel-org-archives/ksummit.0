@@ -1,41 +1,32 @@
-Return-Path: <geert.uytterhoeven@gmail.com>
+Return-Path: <linux@roeck-us.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 83B38982
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B89129CA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 15 Jul 2016 12:44:56 +0000 (UTC)
-Received: from mail-it0-f66.google.com (mail-it0-f66.google.com
-	[209.85.214.66])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D29B41F6
+	Fri, 15 Jul 2016 13:52:34 +0000 (UTC)
+Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5D6B01B2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 15 Jul 2016 12:44:55 +0000 (UTC)
-Received: by mail-it0-f66.google.com with SMTP id d65so1149904ith.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 15 Jul 2016 05:44:55 -0700 (PDT)
+	Fri, 15 Jul 2016 13:52:34 +0000 (UTC)
+To: Zefan Li <lizefan@huawei.com>, Jiri Kosina <jikos@kernel.org>,
+	Takashi Iwai <tiwai@suse.de>
+References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
+	<5780334E.8020801@roeck-us.net> <20160709001046.GH28589@dtor-ws>
+	<91774112.AKkGksYjl6@vostro.rjw.lan> <20160709004352.GK28589@dtor-ws>
+	<1468058721.2557.9.camel@HansenPartnership.com>
+	<s5h37nij6h4.wl-tiwai@suse.de>
+	<alpine.LNX.2.00.1607101215200.24757@cbobk.fhfr.pm>
+	<57824E91.2030902@roeck-us.net> <5788AC92.3030008@huawei.com>
+From: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <5788EA9F.9050408@roeck-us.net>
+Date: Fri, 15 Jul 2016 06:52:31 -0700
 MIME-Version: 1.0
-Sender: geert.uytterhoeven@gmail.com
-In-Reply-To: <1468586157.2440.2.camel@HansenPartnership.com>
-References: <718BE1FD-6169-4205-A905-53F997D5943A@primarydata.com>
-	<5785C80F.4030707@linaro.org> <20160713090739.GA18037@kroah.com>
-	<20160713143447.GH9976@sirena.org.uk>
-	<20160714031753.GA28722@kroah.com>
-	<20160714100603.GJ9976@sirena.org.uk>
-	<20160715002239.GA31603@kroah.com>
-	<5788337F.8000500@roeck-us.net> <20160715014103.GA5791@kroah.com>
-	<578850EB.3090109@roeck-us.net> <20160715042938.GA5527@kroah.com>
-	<874m7rcus8.fsf@notabene.neil.brown.name>
-	<1468564337.2420.37.camel@HansenPartnership.com>
-	<CAMuHMdVpH7NVkzr2aquoruXvbVR6y4kbb8Yn9SbOMYVahqXObA@mail.gmail.com>
-	<1468586157.2440.2.camel@HansenPartnership.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 15 Jul 2016 14:44:54 +0200
-Message-ID: <CAMuHMdX1EoGieKPWqArihM1kFogWDH8-u6c-UAEC8bkghAGFSA@mail.gmail.com>
-To: James Bottomley <James.Bottomley@hansenpartnership.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: Trond Myklebust <trondmy@primarydata.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] kernel unit testing
+In-Reply-To: <5788AC92.3030008@huawei.com>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -45,62 +36,37 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi James,
-
-On Fri, Jul 15, 2016 at 2:35 PM, James Bottomley
-<James.Bottomley@hansenpartnership.com> wrote:
-> On Fri, 2016-07-15 at 13:05 +0200, Geert Uytterhoeven wrote:
->> On Fri, Jul 15, 2016 at 8:32 AM, James Bottomley
->> <James.Bottomley@hansenpartnership.com> wrote:
->> > On Fri, 2016-07-15 at 15:52 +1000, NeilBrown wrote:
->> > > I do find quilt useful when backporting a series of patches so
->> > > that I
->> > > can resolve the conflicts on each patch individually and move
->> > > backwards and forwards through the list of patches.  I don't
->> > > think
->> > > git has an easy way to store a branch of patches-that-I-need-to
->> > > -apply
->> > > and to then give me one at a time, removing them from the branch.
->> > >   I
->> > > could use 'stgit' for that if necessary, though it is very
->> > > tempting
->> > > to write something that is better integrated with git.
->> >
->> > Git cherry and git cherry-pick can do this.  Git cherry-pick can
->> > take a
->> > range of patches to apply, so you can select a bunch of patches to
->> > backport or otherwise move all at once.  Git cherry can tell you
->> > (to
->> > within an approximation, since it uses matching) what patches are
->> > common between two branches even if they have differing commit ids.
+On 07/15/2016 02:27 AM, Zefan Li wrote:
+> On 2016/7/10 21:33, Guenter Roeck wrote:
+>> On 07/10/2016 03:20 AM, Jiri Kosina wrote:
+>>> On Sun, 10 Jul 2016, Takashi Iwai wrote:
+>>>
+>>>> IMO, we need a really better QA before releasing stable trees.  They are
+>>>> all fixes, yes, but they aren't always fixes for stable trees, in
+>>>> reality.
+>>>
+>>> I agree.
+>>>
+>>> BTW, how much coverage does -stable get from Fengguang's 0day robot? I
+>>> think that as most of the stable tress don't really use the git workflow,
+>>> the trees are being pushed out to git.kernel.org only shortly before
+>>> actual release, so the 0day bot doesn't have enough time to catch up; but
+>>> I have to admit I don't really know how exactly the timing and flow of
+>>> patches works here.
+>>>
 >>
->> ... which is basically the same as creating a new branch matching
->> your old private tree, and rebasing that --onto the new upstream.
+>> Greg tends to update his trees on a quite regular basis, as he applies patches.
+>> I don't really know for sure about the others, but overall my impression is
+>> that there tends to be a flurry of patches applied in the day before a stable
+>> release candidate is announced.
+>>
 >
-> You mean using rebase -i so you can pick the commits?  Yes, it sort of
+> I also set up a testing branch for 3.4.y so that Fengguang's 0day can test it
+> before I send out stable-rc1.
+>
 
-No, without the -i.
+Is that at a well defined location ? I would prefer to pick up the changes from there
+instead of the quilt queue (and I am sure Kevin would like to do the same).
 
-> is but there's the extra step of firing up the editor and selecting
-> them.  If you have the ids handy, you can feed them directly into git
-> cherry-pick without needing the extra edit and select step (which also
-> makes it scriptable).
-
-If it's about passing a range of patches to git cherry-pick, you could the same
-operation using one rebase command.
-
-> You still need git cherry to see what is common and what you added (or
-> didn't add).
-
-git rebase already does the same filtering internally.
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Thanks,
+Guenter
