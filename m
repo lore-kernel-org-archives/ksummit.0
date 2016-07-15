@@ -1,33 +1,33 @@
-Return-Path: <riel@redhat.com>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4C87F71
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id EA18271
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 15 Jul 2016 06:19:21 +0000 (UTC)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DA25612D
+	Fri, 15 Jul 2016 06:32:25 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 289E08E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 15 Jul 2016 06:19:20 +0000 (UTC)
-Message-ID: <1468563557.30053.30.camel@redhat.com>
-From: Rik van Riel <riel@redhat.com>
+	Fri, 15 Jul 2016 06:32:24 +0000 (UTC)
+Message-ID: <1468564337.2420.37.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
 To: NeilBrown <neilb@suse.com>, Greg KH <greg@kroah.com>, Guenter Roeck
 	<linux@roeck-us.net>
-Date: Fri, 15 Jul 2016 02:19:17 -0400
+Date: Fri, 15 Jul 2016 15:32:17 +0900
 In-Reply-To: <874m7rcus8.fsf@notabene.neil.brown.name>
 References: <718BE1FD-6169-4205-A905-53F997D5943A@primarydata.com>
 	<5785C80F.4030707@linaro.org> <20160713090739.GA18037@kroah.com>
 	<20160713143447.GH9976@sirena.org.uk>
 	<20160714031753.GA28722@kroah.com>
 	<20160714100603.GJ9976@sirena.org.uk>
-	<20160715002239.GA31603@kroah.com> <5788337F.8000500@roeck-us.net>
-	<20160715014103.GA5791@kroah.com> <578850EB.3090109@roeck-us.net>
-	<20160715042938.GA5527@kroah.com>
+	<20160715002239.GA31603@kroah.com>
+	<5788337F.8000500@roeck-us.net> <20160715014103.GA5791@kroah.com>
+	<578850EB.3090109@roeck-us.net> <20160715042938.GA5527@kroah.com>
 	<874m7rcus8.fsf@notabene.neil.brown.name>
 Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-cDAVgeGIDIwWnPBcRkqv"
+	protocol="application/pgp-signature"; boundary="=-T+4p/rCwL7R3c6j/WQWc"
 Mime-Version: 1.0
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Trond Myklebust <trondmy@primarydata.com>,
+Cc: Trond Myklebust <trondmy@primarydata.com>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] kernel unit testing
@@ -41,60 +41,32 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---=-cDAVgeGIDIwWnPBcRkqv
+--=-T+4p/rCwL7R3c6j/WQWc
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Fri, 2016-07-15 at 15:52 +1000, NeilBrown wrote:
-> On Fri, Jul 15 2016, Greg KH wrote:
-> > On Thu, Jul 14, 2016 at 07:56:43PM -0700, Guenter Roeck wrote:
-> > > Overall, I can not imagine that it is even possible to use quilt
-> > > trees as basis
-> > > for development in a company with if active kernel development,
-> > > even more so
-> > > if a large number of engineers and/or a number of branches are
-> > > involved.
-> > > Sure, the QCOM example may be extreme, but do you really think
-> > > that writing
-> > > those 2.5M LOC would have been possible if QCOM had used Quilt
-> > > trees instead
-> > > of git ? Using Quilt would for sure have prevented them from
-> > > writing those
-> > > 2.5M LOC, but then there would be nothing. That doesn't sound
-> > > like a feasible
-> > > alternative either.
-> >=20
-> > It is possible, look at the Red Hat and SuSE kernel development
-> > teams.
-> > Yes, in the end, most of the patches are backports from upstream,
-> > but
->=20
-> You are glossing over a key point.=C2=A0=C2=A0We (or at least I as a SUSE
-> kernel
-> developer) don't use quilt for development because, like Guenter
-> says,
-> it would be too clumsy.=C2=A0=C2=A0I do development upstream if git.=C2=
-=A0=C2=A0Upstream
-> first.
+> I do find quilt useful when backporting a series of patches so that I
+> can resolve the conflicts on each patch individually and move=20
+> backwards and forwards through the list of patches.  I don't think=20
+> git has an easy way to store a branch of patches-that-I-need-to-apply=20
+> and to then give me one at a time, removing them from the branch.  I=20
+> could use 'stgit' for that if necessary, though it is very tempting=20
+> to write something that is better integrated with git.
 
-The same is true for Red Hat. We have had an "upstream first"
-policy in place for over a decade now.
+Git cherry and git cherry-pick can do this.  Git cherry-pick can take a
+range of patches to apply, so you can select a bunch of patches to
+backport or otherwise move all at once.  Git cherry can tell you (to
+within an approximation, since it uses matching) what patches are
+common between two branches even if they have differing commit ids.
 
-RHEL is just not where development happens, because development
-happens upstream.
+The format is a bit frightening if you're not used to it, which is why
+stgit may be a better user experience, but you can do it with basic
+git.
 
-RHEL is also developed on a git tree nowadays, because there is
-no need to extract patches from RHEL, since the code came from
-upstream to begin with.
+James
 
-It sounds like the embedded people are causing themselves a lot
-of pain. Pain the distro people got all too familiar with a decade
-ago, and decided to leave behind.
-
---=20
-
-All Rights Reversed.
---=-cDAVgeGIDIwWnPBcRkqv
+--=-T+4p/rCwL7R3c6j/WQWc
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
@@ -102,13 +74,19 @@ Content-Transfer-Encoding: 7bit
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQEcBAABCAAGBQJXiIBlAAoJEM553pKExN6Dm8oH/jXDFtEmx6yzRv2BrMk1Nlkv
-S4uZwBHXp1KitQg4p06eO8SE0VL9Jt7S2pVvHAQcrqzjacwmIJ9XeKNRQ3gk31oT
-Zh2Z7xeKJIdM4oyoWaogfQg3OZu4yJDrk43TRUhqezpm6CdMjlrLeW4feaVRvtz9
-Gx8eh3rGVOTBDgVXuNBu+ZPc+QMzbxe+jV50IlsxAJgG34g1E8NlyZYAmAA4yV0F
-prg89ai4HIkyYrs8N85cJWrHcCfusSDmzS/j1/mOwRwke5FhCn7zY1CdVGTL5fNx
-POVyxiES72xac7rfKumw04qbSL81oPxkrizF5pzfhIe1HVdh88FEcCtTdx0m+PY=
-=ZbW1
+iQIcBAABCAAGBQJXiINxAAoJEAVr7HOZEZN43KQP/2Myf5keNAtxgwpxNMFXrjF9
+mzg0I2fSz8beJzw00iFImQS7qDSvBP91gtlVKnnpVC4XMLdGjbeAsbUWcZkrKObA
+APx9Z+vYH0JXCgQ60LfNzGjL88ab6fznvsUX7q8SOXHy6UJPqkP1Sn5LqFLKXpD3
+biGZL62eBtAE5QmPAlFZ7otOqWeUVM9cW6+/zL0w/z8nUQvbcqnwc/p/9dgqr+e5
+K/S//Amqak0aIAsXLD0LuEh9L080hHngD6Fe36Oi+uS/82wWaiPbQx0OtNA7DEcC
+Fwe29Q6rSJ4qO/3+6HVJvRVQeGuMcrzFtfCKX+iGFTiMV4EcbN1RHOVG6LGxCYdn
+qPfvn1oYeItxM5VcEvBLzm+5Qo+JNpYjn2mR1UjIUDVnFsnFJ7HJcM39CEejov4a
+dNJUDsHMDCdj9Puqi+vjUbW6f7FyAIJKuyAwzHu6omOgpATp93qbH6Fifei+EenL
+GcKGjoJ6kov3xlHQc/XYWjsJLfC2enomurQgYAKmwtn4QiQfm2K10vZ9ptpc70s0
+SjXfLQs0iwW5jQbCVAuhSNzNjCtB4FqoNp4zVNGjs+SA6MrPfkCajXH/CYbuhBBy
+1PG85yaJfKBpkxmoqyAu/beuSP7JT8bwMTC4PD3BsjsY4DvZYDgp8MEkj9xEuazT
+pj/3rVs9Rh2ihfl4oQiV
+=JfLo
 -----END PGP SIGNATURE-----
 
---=-cDAVgeGIDIwWnPBcRkqv--
+--=-T+4p/rCwL7R3c6j/WQWc--
