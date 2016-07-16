@@ -1,50 +1,26 @@
-Return-Path: <zohar@linux.vnet.ibm.com>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8239E258
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1437F8CC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 15 Jul 2016 19:58:01 +0000 (UTC)
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
-	[148.163.158.5])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0AE07152
+	Sat, 16 Jul 2016 00:52:27 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D54271CE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 15 Jul 2016 19:58:00 +0000 (UTC)
-Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
-	by mx0b-001b2d01.pphosted.com (8.16.0.11/8.16.0.11) with SMTP id
-	u6FJrhi0114587 for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 15 Jul 2016 15:58:00 -0400
-Received: from e23smtp06.au.ibm.com (e23smtp06.au.ibm.com [202.81.31.148])
-	by mx0b-001b2d01.pphosted.com with ESMTP id 246k0uu400-1
-	(version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 15 Jul 2016 15:57:59 -0400
-Received: from localhost
-	by e23smtp06.au.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use
-	Only! Violators will be prosecuted
-	for <ksummit-discuss@lists.linuxfoundation.org> from
-	<zohar@linux.vnet.ibm.com>; Sat, 16 Jul 2016 05:57:57 +1000
-Received: from d23relay06.au.ibm.com (d23relay06.au.ibm.com [9.185.63.219])
-	by d23dlp01.au.ibm.com (Postfix) with ESMTP id 2CDAF2CE802D
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 16 Jul 2016 05:57:55 +1000 (EST)
-Received: from d23av06.au.ibm.com (d23av06.au.ibm.com [9.190.235.151])
-	by d23relay06.au.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
-	u6FJvrRj16253072 for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 16 Jul 2016 05:57:53 +1000
-Received: from d23av06.au.ibm.com (localhost [127.0.0.1])
-	by d23av06.au.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
-	u6FJvrGp020053 for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 16 Jul 2016 05:57:53 +1000
-From: Mimi Zohar <zohar@linux.vnet.ibm.com>
-To: "Luis R. Rodriguez" <mcgrof@suse.com>
-Date: Fri, 15 Jul 2016 15:57:51 -0400
-In-Reply-To: <1468612258.5335.0.camel@linux.vnet.ibm.com>
+	Sat, 16 Jul 2016 00:52:25 +0000 (UTC)
+Date: Sat, 16 Jul 2016 01:52:13 +0100
+From: Mark Brown <broonie@sirena.org.uk>
+To: Mimi Zohar <zohar@linux.vnet.ibm.com>
+Message-ID: <20160716005213.GL30372@sirena.org.uk>
 References: <20150804152622.GY30479@wotan.suse.de>
 	<1468612258.5335.0.camel@linux.vnet.ibm.com>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Message-Id: <1468612671.5335.5.camel@linux.vnet.ibm.com>
+	<1468612671.5335.5.camel@linux.vnet.ibm.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="3xQkynibq3FKlJyM"
+Content-Disposition: inline
+In-Reply-To: <1468612671.5335.5.camel@linux.vnet.ibm.com>
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] Last minute nominations: mcgrof and toshi
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -56,7 +32,33 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Oops, "Signature management - keys, modules, firmware" was a suggestion
-from last year, but in my opinion still very apropos.
 
-Mimi
+--3xQkynibq3FKlJyM
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Fri, Jul 15, 2016 at 03:57:51PM -0400, Mimi Zohar wrote:
+
+> Oops, "Signature management - keys, modules, firmware" was a suggestion
+> from last year, but in my opinion still very apropos.
+
+Yup, definitely - especially with secure boot starting to firm up on the
+ARM side there's a bunch more interest in it from more embedded
+applications.
+
+--3xQkynibq3FKlJyM
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQEcBAEBCAAGBQJXiYU8AAoJECTWi3JdVIfQ0AkH/3q0t9Am+iEBtk0W1J/klx0z
+X0HzGEfuQGuAvHlpARy4p/Y6kv5s80JevW6+5h0rouKFhLNDCT1rlN2pq+3P1ura
+JrXLpe9ZZxpS/pNYrCc9VgQUur0nprL3JDcM5NGAomaNMG6qJR0wVglus43/IW3z
+6H8NefxgJ4sCu9VcefzmO0KAJN/JvGIk5V6gOdpGHKeIhUzfLsuVK4WmSjaE3yTk
+7syhWkfxfg9xBD8lrCTNMX+RwiihgLz1VKuPCmBaZGglsiL2kVAxwuKpdPg9fEyE
+ZC1rYWM8F6k6zXYBYPiZ8nWgbk/gFshRqOJglQw1sSLpLjFHg0hVVBEt3R88aT8=
+=N2vc
+-----END PGP SIGNATURE-----
+
+--3xQkynibq3FKlJyM--
