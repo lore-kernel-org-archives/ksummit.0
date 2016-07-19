@@ -1,32 +1,27 @@
 Return-Path: <ebiederm@xmission.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9688E323
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 524B9323
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 19 Jul 2016 15:45:52 +0000 (UTC)
-Received: from out01.mta.xmission.com (out01.mta.xmission.com [166.70.13.231])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 45A57143
+	Tue, 19 Jul 2016 15:53:24 +0000 (UTC)
+Received: from out02.mta.xmission.com (out02.mta.xmission.com [166.70.13.232])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A041D18B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 19 Jul 2016 15:45:52 +0000 (UTC)
-Received: from in01.mta.xmission.com ([166.70.13.51])
-	by out01.mta.xmission.com with esmtps (TLS1.2:RSA_AES_128_CBC_SHA1:128)
-	(Exim 4.82) (envelope-from <ebiederm@xmission.com>)
-	id 1bPXDT-0008ES-HR for ksummit-discuss@lists.linuxfoundation.org;
-	Tue, 19 Jul 2016 09:45:51 -0600
-Received: from 67-3-204-119.omah.qwest.net ([67.3.204.119]
-	helo=x220.int.ebiederm.org.xmission.com)
-	by in01.mta.xmission.com with esmtpsa
-	(TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128) (Exim 4.87)
-	(envelope-from <ebiederm@xmission.com>) id 1bPXDS-0002Yx-Kb
-	for ksummit-discuss@lists.linuxfoundation.org;
-	Tue, 19 Jul 2016 09:45:51 -0600
+	Tue, 19 Jul 2016 15:53:23 +0000 (UTC)
 From: ebiederm@xmission.com (Eric W. Biederman)
-To: <ksummit-discuss@lists.linuxfoundation.org>, 
-Date: Tue, 19 Jul 2016 10:32:51 -0500
-Message-ID: <87inw1skws.fsf@x220.int.ebiederm.org>
+To: Jann Horn <jann@thejh.net>
+References: <CALCETrXtfzi=G4H+Zttv3kWcCo32V6cO9OBfdyuYT4DHvJTJLg@mail.gmail.com>
+	<20160711173329.GA8240@pc.thejh.net>
+Date: Tue, 19 Jul 2016 10:40:26 -0500
+In-Reply-To: <20160711173329.GA8240@pc.thejh.net> (Jann Horn's message of
+	"Mon, 11 Jul 2016 19:33:29 +0200")
+Message-ID: <87y44xr5zp.fsf@x220.int.ebiederm.org>
 MIME-Version: 1.0
 Content-Type: text/plain
-Subject: [Ksummit-discuss] [CORE TOPIC] More useful types in the linux kernel
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [TOPIC] kernel hardening / self-protection /
+	whatever
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,63 +31,46 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+Jann Horn <jann@thejh.net> writes:
 
-Historically the types in C came about because the machines
-fundamentally supported different data types either with different
-sizes or different characteristics (i.e. u8, u16, float, double).
-These data types and the C type system were built so programmers
-could tell the machine what they needed it to do.
+> On Sun, Jul 10, 2016 at 09:28:53PM -0700, Andy Lutomirski wrote:
+>> Are there useful things to discuss in person about hardening? [...]
+>
+> I think that an interesting question to discuss might be whether, and
+> if so, how, it makes sense to add restrictions to namespaces.
+>
+> Namespaces, as a concept, aren't very scary when you keep in mind that
+> they only grant privileges to otherwise unprivileged users when they
+> interact with things inside their namespaces. However, in their
+> implementation, they are somewhat scary because they expose code to
+> unprivileged users that was written as code only root could reach. As
+> an example, have a look at NCC Group's netfilter bugs (and netfilter
+> in general; iirc, the filter parsing code has exponential complexity
+> without process death checks, which afaik shouldn't happen in any
+> code normal users can reach).
+>
+> User namespaces alone are pretty simple. I don't know everything
+> about mount namespaces, but I think they also don't expose big masses
+> of kernel code, and IPC, PID and UTS namespaces are pretty simple.
 
-There is another genesis of types that started with the simply typed
-lambda calculs that is about eliminating common errors and otherwise
-helping a programmer get their code right.
+Mount namespaces share a lot by default and as such there have been a
+lot of hard to resolve semantic difficulties that had to be sorted out.
 
-In the years since C was invented there has been a lot of activity and a
-little bit of progress in this area.  Would people be receptive to
-improvements in this area?
+I am very grateful right now that the issues we are primary issues we
+are seeing now are primarily human error.
 
-I would like to talk to folks and gague what it would take to make
-improvements in this area acceptable, practical, and useful.
+> I think that network namespaces, compared to other namespace types,
+> expose a lot of code. Grepping for CAP_SYS_ADMIN with
+> `egrep -R '(ns_capable|netlink_net_capable).*CAP_NET_ADMIN'`
+> returns a bunch of things, including netlink stuff, netfilter,
+> sysctls, AF_KEY stuff, bridges, routing, socket repair, ARP and
+> tunnel devices. At the same time, they are one of the lesser-used
+> namespace types: Containers need them, but sandboxes don't really
+> need them for much apart from making abstract unix sockets and
+> networking in general inaccessible.
 
-Would a gcc plugin that checks the most interesting things that sparse
-checks on every build be interesting? (endianness of integer types for example)
-
-Would a type system for pointers derived from separation logic that
-has the concept that a piece of data is owned by a piece of running
-code rather than another piece of data be interesting?
-
-  * This cleanly allows for doubly linked lists.
-  
-  * This is useful to ensure that data is either put in another data
-    structure where it is remembered or it is freed.
-
-  * This is useful to ensure reference counts are not leaked.
-
-  * This is useful to ensure that every lock is paired with an unlock.
-
-My personal filter for things like this are types that can be checked
-in time proportional to the amount of code to be built so that it is
-roughly the same situation we are in now.
-
-
-Given it's heritage and it's history the type system in C has serious
-limitations that I don't know if they are correctible, when it comes to
-catching programmer mistakes: silent truncation of unsigned types into
-smaller unsigned types, casts, etc.  Would people be willing to consider
-a simple, link compatible alternative to C for some of the code in the
-kernel that had the same low level control of the machine but had a type
-system that made catching mistakes easier?
-
-
-Deploying solutions like this will take a fair bit of grunt work, and
-time similar or worse than the big kernel lock removal.  Given how
-widely Linux is used and how annoying some of these bugs can be I think
-it is worthwhile to dig in and see what kind of improvements can be
-made.
-
-I would really like to get a feel among kernel maintainers and
-developers if this is something that is interesting, and what kind of
-constraints they think something like this would need to be usable for
-the kernel?
+Sort of.  A lot of the code is already exposed as the networking stack,
+and is exposed from the underside to packets from random strangers from
+the internet if not from the control side.
 
 Eric
