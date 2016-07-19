@@ -1,27 +1,27 @@
-Return-Path: <ebiederm@xmission.com>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 524B9323
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7D9A6360
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 19 Jul 2016 15:53:24 +0000 (UTC)
-Received: from out02.mta.xmission.com (out02.mta.xmission.com [166.70.13.232])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A041D18B
+	Tue, 19 Jul 2016 17:31:28 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 50BCD162
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 19 Jul 2016 15:53:23 +0000 (UTC)
-From: ebiederm@xmission.com (Eric W. Biederman)
-To: Jann Horn <jann@thejh.net>
-References: <CALCETrXtfzi=G4H+Zttv3kWcCo32V6cO9OBfdyuYT4DHvJTJLg@mail.gmail.com>
-	<20160711173329.GA8240@pc.thejh.net>
-Date: Tue, 19 Jul 2016 10:40:26 -0500
-In-Reply-To: <20160711173329.GA8240@pc.thejh.net> (Jann Horn's message of
-	"Mon, 11 Jul 2016 19:33:29 +0200")
-Message-ID: <87y44xr5zp.fsf@x220.int.ebiederm.org>
+	Tue, 19 Jul 2016 17:31:27 +0000 (UTC)
+Date: Tue, 19 Jul 2016 18:31:20 +0100
+From: Mark Brown <broonie@kernel.org>
+To: "Eric W. Biederman" <ebiederm@xmission.com>
+Message-ID: <20160719173120.GE30372@sirena.org.uk>
+References: <87inw1skws.fsf@x220.int.ebiederm.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TOPIC] kernel hardening / self-protection /
-	whatever
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="Ca0e2zgpnh8/XhnM"
+Content-Disposition: inline
+In-Reply-To: <87inw1skws.fsf@x220.int.ebiederm.org>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] More useful types in the linux
+ kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,46 +31,32 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Jann Horn <jann@thejh.net> writes:
 
-> On Sun, Jul 10, 2016 at 09:28:53PM -0700, Andy Lutomirski wrote:
->> Are there useful things to discuss in person about hardening? [...]
->
-> I think that an interesting question to discuss might be whether, and
-> if so, how, it makes sense to add restrictions to namespaces.
->
-> Namespaces, as a concept, aren't very scary when you keep in mind that
-> they only grant privileges to otherwise unprivileged users when they
-> interact with things inside their namespaces. However, in their
-> implementation, they are somewhat scary because they expose code to
-> unprivileged users that was written as code only root could reach. As
-> an example, have a look at NCC Group's netfilter bugs (and netfilter
-> in general; iirc, the filter parsing code has exponential complexity
-> without process death checks, which afaik shouldn't happen in any
-> code normal users can reach).
->
-> User namespaces alone are pretty simple. I don't know everything
-> about mount namespaces, but I think they also don't expose big masses
-> of kernel code, and IPC, PID and UTS namespaces are pretty simple.
+--Ca0e2zgpnh8/XhnM
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Mount namespaces share a lot by default and as such there have been a
-lot of hard to resolve semantic difficulties that had to be sorted out.
+On Tue, Jul 19, 2016 at 10:32:51AM -0500, Eric W. Biederman wrote:
 
-I am very grateful right now that the issues we are primary issues we
-are seeing now are primarily human error.
+> Would a gcc plugin that checks the most interesting things that sparse
+> checks on every build be interesting? (endianness of integer types for example)
 
-> I think that network namespaces, compared to other namespace types,
-> expose a lot of code. Grepping for CAP_SYS_ADMIN with
-> `egrep -R '(ns_capable|netlink_net_capable).*CAP_NET_ADMIN'`
-> returns a bunch of things, including netlink stuff, netfilter,
-> sysctls, AF_KEY stuff, bridges, routing, socket repair, ARP and
-> tunnel devices. At the same time, they are one of the lesser-used
-> namespace types: Containers need them, but sandboxes don't really
-> need them for much apart from making abstract unix sockets and
-> networking in general inaccessible.
+There's a push from certain quarters to move away from GCC to LLVM.  Not
+that these things are unachievable in LLVM but it's a thing.
 
-Sort of.  A lot of the code is already exposed as the networking stack,
-and is exposed from the underside to packets from random strangers from
-the internet if not from the control side.
+--Ca0e2zgpnh8/XhnM
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Eric
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQEcBAEBCAAGBQJXjmPnAAoJECTWi3JdVIfQT68H/3n63Q4AE87M7DhE7ZUgZrJJ
+6bHGIF+GLrWBHs1XPJ99gH1vK08bZ84V8s3eNUV+JDt4l9nh2Mp5g34/+MRk+SQa
+k+o2umcZFITGFUtiULBDUn/fBJtdHQn9lwhIBRI6ePUha/MQd6MS+Y7N6P79d2Dz
+msCz9eqxFA4UWXd7raAA+SELqs6WXTTgF9kmgL/cbyc1nkYCcKRWAl3/WOhVA2J2
+7RqCLJrJRap5YRkSMePGTO498n9aROu7XPRwBrkfS3O8xKLH21yhSSzyxXPgH8PK
+3gI903gJ4Vv0KxB3ULf2L3vABcoZvTQAXC5bYTHDpdpNBRvWWQIhqMpz33dJWxE=
+=isJw
+-----END PGP SIGNATURE-----
+
+--Ca0e2zgpnh8/XhnM--
