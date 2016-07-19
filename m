@@ -1,31 +1,32 @@
-Return-Path: <sergey.senozhatsky@gmail.com>
+Return-Path: <ebiederm@xmission.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 716CD995
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9688E323
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 19 Jul 2016 14:55:39 +0000 (UTC)
-Received: from mail-pf0-f194.google.com (mail-pf0-f194.google.com
-	[209.85.192.194])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 01455121
+	Tue, 19 Jul 2016 15:45:52 +0000 (UTC)
+Received: from out01.mta.xmission.com (out01.mta.xmission.com [166.70.13.231])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 45A57143
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 19 Jul 2016 14:55:38 +0000 (UTC)
-Received: by mail-pf0-f194.google.com with SMTP id g202so1545911pfb.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 19 Jul 2016 07:55:38 -0700 (PDT)
-Date: Tue, 19 Jul 2016 23:55:09 +0900
-From: Sergey Senozhatsky <sergey.senozhatsky@gmail.com>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Message-ID: <20160719145509.GA563@swordfish>
-References: <20160719034717.GA24189@swordfish>
-	<1468939510.2383.5.camel@HansenPartnership.com>
+	Tue, 19 Jul 2016 15:45:52 +0000 (UTC)
+Received: from in01.mta.xmission.com ([166.70.13.51])
+	by out01.mta.xmission.com with esmtps (TLS1.2:RSA_AES_128_CBC_SHA1:128)
+	(Exim 4.82) (envelope-from <ebiederm@xmission.com>)
+	id 1bPXDT-0008ES-HR for ksummit-discuss@lists.linuxfoundation.org;
+	Tue, 19 Jul 2016 09:45:51 -0600
+Received: from 67-3-204-119.omah.qwest.net ([67.3.204.119]
+	helo=x220.int.ebiederm.org.xmission.com)
+	by in01.mta.xmission.com with esmtpsa
+	(TLS1.2:DHE_RSA_AES_128_CBC_SHA1:128) (Exim 4.87)
+	(envelope-from <ebiederm@xmission.com>) id 1bPXDS-0002Yx-Kb
+	for ksummit-discuss@lists.linuxfoundation.org;
+	Tue, 19 Jul 2016 09:45:51 -0600
+From: ebiederm@xmission.com (Eric W. Biederman)
+To: <ksummit-discuss@lists.linuxfoundation.org>, 
+Date: Tue, 19 Jul 2016 10:32:51 -0500
+Message-ID: <87inw1skws.fsf@x220.int.ebiederm.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1468939510.2383.5.camel@HansenPartnership.com>
-Cc: Jiri Kosina <jkosina@suse.com>, ksummit-discuss@lists.linuxfoundation.org,
-	Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
-	Viresh Kumar <viresh.kumar@linaro.org>, Tejun Heo <tj@kernel.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] asynchronous printk
+Content-Type: text/plain
+Subject: [Ksummit-discuss] [CORE TOPIC] More useful types in the linux kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,39 +36,63 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hello,
 
-On (07/19/16 07:45), James Bottomley wrote:
-> On Tue, 2016-07-19 at 12:47 +0900, Sergey Senozhatsky wrote:
-> > Hello,
-> > 
-> > Wondering if anyone will be interested in printk-related topics
-> > (or we can handle it in the mailing list).
-> > 
-> > What I have on my list is:
-> 
-> Are there any bug reports for these cases?  If there are, I'd use the
-> bug report as an opportunity to fix on the relevant list and if there
-> aren't, I'd say that the problem is then largely theoretical and
-> there's not much point solving it until it becomes a real problem.
+Historically the types in C came about because the machines
+fundamentally supported different data types either with different
+sizes or different characteristics (i.e. u8, u16, float, double).
+These data types and the C type system were built so programmers
+could tell the machine what they needed it to do.
 
-yes, there are reports. for instance,
-http://marc.info/?l=linux-kernel&m=146823278316663
+There is another genesis of types that started with the simply typed
+lambda calculs that is about eliminating common errors and otherwise
+helping a programmer get their code right.
 
-I do have same problems with pintk (lockups, stalls, etc.)
-and even more.
+In the years since C was invented there has been a lot of activity and a
+little bit of progress in this area.  Would people be receptive to
+improvements in this area?
+
+I would like to talk to folks and gague what it would take to make
+improvements in this area acceptable, practical, and useful.
+
+Would a gcc plugin that checks the most interesting things that sparse
+checks on every build be interesting? (endianness of integer types for example)
+
+Would a type system for pointers derived from separation logic that
+has the concept that a piece of data is owned by a piece of running
+code rather than another piece of data be interesting?
+
+  * This cleanly allows for doubly linked lists.
+  
+  * This is useful to ensure that data is either put in another data
+    structure where it is remembered or it is freed.
+
+  * This is useful to ensure reference counts are not leaked.
+
+  * This is useful to ensure that every lock is paired with an unlock.
+
+My personal filter for things like this are types that can be checked
+in time proportional to the amount of code to be built so that it is
+roughly the same situation we are in now.
 
 
-> For instance on the KERN_CONT we've been debating the problems of pre
-> -empt and continuation lines for years but no-ones cared enough to fix
-> it.  This means either the problem isn't seen often enough in the field
-> or that when it is seen there hasn't been much difficulty disentangling
-> the log.  For the former, there's no need to fix something that isn't
-> seen in practice and for the latter, if no-one cares enough then it's
-> not a big enough problem to fix.
+Given it's heritage and it's history the type system in C has serious
+limitations that I don't know if they are correctible, when it comes to
+catching programmer mistakes: silent truncation of unsigned types into
+smaller unsigned types, casts, etc.  Would people be willing to consider
+a simple, link compatible alternative to C for some of the code in the
+kernel that had the same low level control of the machine but had a type
+system that made catching mistakes easier?
 
-well, I agree that it doesn't make it impossible to read the logs.
-how often does it happen... on my laptop sometimes KERN_CONT lines
-are not always really continuous. so I observe it, in some sense.
 
-	-ss
+Deploying solutions like this will take a fair bit of grunt work, and
+time similar or worse than the big kernel lock removal.  Given how
+widely Linux is used and how annoying some of these bugs can be I think
+it is worthwhile to dig in and see what kind of improvements can be
+made.
+
+I would really like to get a feel among kernel maintainers and
+developers if this is something that is interesting, and what kind of
+constraints they think something like this would need to be usable for
+the kernel?
+
+Eric
