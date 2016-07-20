@@ -1,28 +1,29 @@
-Return-Path: <mchehab@osg.samsung.com>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 52B7694D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 485D3360
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 20 Jul 2016 12:40:43 +0000 (UTC)
-Received: from lists.s-osg.org (lists.s-osg.org [54.187.51.154])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id B0EB512D
+	Wed, 20 Jul 2016 15:53:35 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D28F1187
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 20 Jul 2016 12:40:42 +0000 (UTC)
-Date: Wed, 20 Jul 2016 09:40:35 -0300
-From: Mauro Carvalho Chehab <mchehab@osg.samsung.com>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <20160720094035.738244f8@recife.lan>
-In-Reply-To: <CAKMK7uHOmxoRFr2j+KrtVAud1iQq3ySDQMz6rZOLwYVDorNeBA@mail.gmail.com>
-References: <CAKMK7uHOmxoRFr2j+KrtVAud1iQq3ySDQMz6rZOLwYVDorNeBA@mail.gmail.com>
+	Wed, 20 Jul 2016 15:53:34 +0000 (UTC)
+Date: Wed, 20 Jul 2016 16:53:19 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Jiri Kosina <jikos@kernel.org>
+Message-ID: <20160720155319.GG6509@sirena.org.uk>
+References: <87inw1skws.fsf@x220.int.ebiederm.org>
+	<20160719173120.GE30372@sirena.org.uk>
+	<alpine.LNX.2.00.1607192049170.24757@cbobk.fhfr.pm>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: Grant Likely <grant.likely@linaro.org>,
-	Markus Heiser <markus.heiser@darmarit.de>, "Nikula,
-	Jani" <jani.nikula@linux.intel.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] kernel documentation
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="yZnyZsPjQYjG7xG7"
+Content-Disposition: inline
+In-Reply-To: <alpine.LNX.2.00.1607192049170.24757@cbobk.fhfr.pm>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] More useful types in the linux
+ kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,43 +33,50 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-HI Daniel,
 
-Em Wed, 20 Jul 2016 13:56:31 +0200
-Daniel Vetter <daniel.vetter@ffwll.ch> escreveu:
+--yZnyZsPjQYjG7xG7
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> In 4.8 we have a shiny new kernel doc toolchain:
-> 
-> https://lwn.net/Articles/692705/
-> 
-> I think it'd be great if interested parties (might be just a hallway
-> track) sit together and figure out how to best go about converting all
-> the existing docs over, and how to link it all together. I think we
-> pretty much have agreement that the docbook horror show needs to die,
-> but there's lots of other documentation that I think would be great to
-> include in the overall (cross-linked!) kernel docs.
-> 
-> People who would be great to be there:
-> - Jon Corbet
-> - Mauro Carvalho
-> - Jani Nikula
-> - Markus Heiser
-> - maybe Grant Likely, he made noises about sphinx/rst too
-> 
-> I think converting/polishing docs would also serve well as kernel
-> newbie task in opw or gsoc or wherever, that might be another
-> interested group. And anyone else who wants to convert over docs for
-> their subsystem.
-> 
-> Mostly I'm just sending this out to gauge interest.
+On Tue, Jul 19, 2016 at 08:52:33PM +0200, Jiri Kosina wrote:
+> On Tue, 19 Jul 2016, Mark Brown wrote:
 
-Yeah, I think we should do it. Just not sure if this is a TECH
-TOPIC or a CORE one ;) Documentation will sooner or later touch
-all subsystems.  So, I guess we should at least highlight some
-things to the core group (Or at least do a lightning talk there).
+> > There's a push from certain quarters to move away from GCC to LLVM. =20
 
-Yet, a TECH topic would be interesting for us to discuss some
-details about that.
+> This might actually be an interesting topic per se.
 
-Regards,
-Mauro
+Yes, indeed.
+
+> LLVM definitely has quite some nice features, but their attitude towards=
+=20
+> bugs which are rather severe for kernel programming should be taken as a=
+=20
+> warning at least. Look at the "pushf/popf being generated around=20
+> local_irq_save()" trainwreck as an example.
+
+My understanding (which is a bit second hand here) is that LLVM upstream
+really values direct engagement at time of development much more than
+anything else - AFAICT they're more focused on driving things forward,
+partly due to expecting other people to do the main release management.
+To that end if people really want to run LLVM built kernels in
+production they probably need to either use a downstream that ensures
+that things are working well for kernel builds or work directly on
+testing development versions of the compilers to catch issues there.
+
+--yZnyZsPjQYjG7xG7
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQEcBAEBCAAGBQJXj55uAAoJECTWi3JdVIfQFRoH+wb5XuK/1H66MlxLo57Mu1d6
+FeAt14HUv7oHSwiqQheHi/v8sVU5oaUmjbyOwEIIgTBreYK3YN9yoEdKW1OjX5+j
+4N76Xh9oslX8T3UBm0NqKVbY7NmatxbV0RUvI28d9GrUJwV3KyoFpDfeCLOJrmTU
+/Tl5JFaIW3ez3Y1Intu4axZmDLquiid6/ajcwQEusRs8qyZPfAPeEtJQcEMebqJL
+80L0kUR5eLfQ5jBOZgUhLuD8BoI3LYsveFtczbXkKm+O7LSZT9LNXEC2EetFV04s
+0xbwgpf0yQUQa2pSPl3tk2t1pZOXDar7vs4vAc6EMq0c0r/ZW7GUtD3+ZDtPy5U=
+=8X7J
+-----END PGP SIGNATURE-----
+
+--yZnyZsPjQYjG7xG7--
