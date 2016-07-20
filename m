@@ -1,28 +1,28 @@
-Return-Path: <daniel.vetter@ffwll.ch>
+Return-Path: <mchehab@osg.samsung.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3222F99F
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 52B7694D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 20 Jul 2016 12:12:00 +0000 (UTC)
-Received: from mail-oi0-f68.google.com (mail-oi0-f68.google.com
-	[209.85.218.68])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B0B5F17E
+	Wed, 20 Jul 2016 12:40:43 +0000 (UTC)
+Received: from lists.s-osg.org (lists.s-osg.org [54.187.51.154])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id B0EB512D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 20 Jul 2016 12:11:59 +0000 (UTC)
-Received: by mail-oi0-f68.google.com with SMTP id w143so4622412oiw.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 20 Jul 2016 05:11:59 -0700 (PDT)
+	Wed, 20 Jul 2016 12:40:42 +0000 (UTC)
+Date: Wed, 20 Jul 2016 09:40:35 -0300
+From: Mauro Carvalho Chehab <mchehab@osg.samsung.com>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <20160720094035.738244f8@recife.lan>
+In-Reply-To: <CAKMK7uHOmxoRFr2j+KrtVAud1iQq3ySDQMz6rZOLwYVDorNeBA@mail.gmail.com>
+References: <CAKMK7uHOmxoRFr2j+KrtVAud1iQq3ySDQMz6rZOLwYVDorNeBA@mail.gmail.com>
 MIME-Version: 1.0
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Wed, 20 Jul 2016 14:11:58 +0200
-Message-ID: <CAKMK7uEuqLLf2bCyB-sAuu5WvVA1Kp7Jvc33k3um5DfdQr4eyg@mail.gmail.com>
-To: "ksummit-discuss@lists.linuxfoundation.org"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: Grant Likely <grant.likely@linaro.org>,
+	Markus Heiser <markus.heiser@darmarit.de>, "Nikula,
+	Jani" <jani.nikula@linux.intel.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8
-Cc: Grant Likely <grant.likely@linaro.org>, Dave Airlie <airlied@linux.ie>,
-	Linus Torvalds <torvalds@linux-foundation.org>, "Nikula,
-	Jani" <jani.nikula@linux.intel.com>
-Subject: [Ksummit-discuss] [CORE TOPIC] (group) maintainership models
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] kernel documentation
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,35 +32,43 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-In my very first KS I found the maintainership model presentations
-(x86-tip & armsoc) rather interesting. And last year we've had an
-ad-hoc discussion about group maintainership again. I think drm&i915
-would be an interesting case since over the past year I've done some
-changes which are at the edge of what's common in the kernel, and it
-seems to work (at least for us) fairly well. I discussed this a bit
-with a few folks at ELC San Diego too.
+HI Daniel,
 
-Short summary: i915 has now a two-level maintenance model with 2
-maintainers (who take the blame) and 15 people who can push patches.
-In a way a rather big group, but not so big that people don't all know
-each another any more personally. We have some detailed docs about the
-patch flow and expectations:
+Em Wed, 20 Jul 2016 13:56:31 +0200
+Daniel Vetter <daniel.vetter@ffwll.ch> escreveu:
 
-https://01.org/linuxgraphics/gfx-docs/maintainer-tools/drm-intel.html
+> In 4.8 we have a shiny new kernel doc toolchain:
+> 
+> https://lwn.net/Articles/692705/
+> 
+> I think it'd be great if interested parties (might be just a hallway
+> track) sit together and figure out how to best go about converting all
+> the existing docs over, and how to link it all together. I think we
+> pretty much have agreement that the docbook horror show needs to die,
+> but there's lots of other documentation that I think would be great to
+> include in the overall (cross-linked!) kernel docs.
+> 
+> People who would be great to be there:
+> - Jon Corbet
+> - Mauro Carvalho
+> - Jani Nikula
+> - Markus Heiser
+> - maybe Grant Likely, he made noises about sphinx/rst too
+> 
+> I think converting/polishing docs would also serve well as kernel
+> newbie task in opw or gsoc or wherever, that might be another
+> interested group. And anyone else who wants to convert over docs for
+> their subsystem.
+> 
+> Mostly I'm just sending this out to gauge interest.
 
-and about the dim tool used to support this all
+Yeah, I think we should do it. Just not sure if this is a TECH
+TOPIC or a CORE one ;) Documentation will sooner or later touch
+all subsystems.  So, I guess we should at least highlight some
+things to the core group (Or at least do a lightning talk there).
 
-https://01.org/linuxgraphics/gfx-docs/maintainer-tools/dim.html
+Yet, a TECH topic would be interesting for us to discuss some
+details about that.
 
-But I think the more interesting bits are why I decided to try this
-out, what I hoped would happen, what I feared might happen. And with 1
-year of experience, what actually happens and what I think is needed
-to make this work and an actual benefit over more traditional
-maintainer models. And of course I'd like to compare notes with other
-group maintainers.
-
-Cheers, Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-+41 (0) 79 365 57 48 - http://blog.ffwll.ch
+Regards,
+Mauro
