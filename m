@@ -1,28 +1,24 @@
-Return-Path: <julia.lawall@lip6.fr>
+Return-Path: <wangnan0@huawei.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 12B1E98B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8FBBA955
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 20 Jul 2016 07:32:08 +0000 (UTC)
-Received: from mail2-relais-roc.national.inria.fr
-	(mail2-relais-roc.national.inria.fr [192.134.164.83])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B2D12142
+	Wed, 20 Jul 2016 08:31:22 +0000 (UTC)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [58.251.152.64])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6334511A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 20 Jul 2016 07:32:05 +0000 (UTC)
-Date: Wed, 20 Jul 2016 09:32:01 +0200 (CEST)
-From: Julia Lawall <julia.lawall@lip6.fr>
-To: "Eric W. Biederman" <ebiederm@xmission.com>
-In-Reply-To: <87lh0xf9xv.fsf@x220.int.ebiederm.org>
-Message-ID: <alpine.DEB.2.10.1607200929510.3212@hadrien>
-References: <87inw1skws.fsf@x220.int.ebiederm.org>
-	<1468962539.2383.82.camel@HansenPartnership.com>
-	<87lh0xf9xv.fsf@x220.int.ebiederm.org>
+	Wed, 20 Jul 2016 08:31:21 +0000 (UTC)
+To: <ksummit-discuss@lists.linuxfoundation.org>
+From: "Wangnan (F)" <wangnan0@huawei.com>
+Message-ID: <578F36B9.802@huawei.com>
+Date: Wed, 20 Jul 2016 16:30:49 +0800
 MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] More useful types in the linux
- kernel
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: Peter Zijlstra <peterz@infradead.org>, Alexei Starovoitov <ast@kernel.org>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Ingo Molnar <mingo@kernel.org>
+Subject: [Ksummit-discuss] [TECH TOPIC] Kernel tracing and end-to-end
+	performance breakdown
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,164 +28,94 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+Hello,
 
+I'd like to discuss kernel proformance and tracing.
 
-On Tue, 19 Jul 2016, Eric W. Biederman wrote:
+Sometimes people ask us to make their business faster. They show us 
+result from
+benchmark (iobench), monitor (top, sar) and profiling (perf, oprofile), 
+some of
+them give brief introduction on their software. Base on these 
+information, they
+hope us to give magical advise like:
 
-> James Bottomley <James.Bottomley@HansenPartnership.com> writes:
->
-> > On Tue, 2016-07-19 at 10:32 -0500, Eric W. Biederman wrote:
-> >> Historically the types in C came about because the machines
-> >> fundamentally supported different data types either with different
-> >> sizes or different characteristics (i.e. u8, u16, float, double).
-> >> These data types and the C type system were built so programmers
-> >> could tell the machine what they needed it to do.
-> >>
-> >> There is another genesis of types that started with the simply typed
-> >> lambda calculs that is about eliminating common errors and otherwise
-> >> helping a programmer get their code right.
-> >>
-> >> In the years since C was invented there has been a lot of activity
-> >> and a
-> >> little bit of progress in this area.  Would people be receptive to
-> >> improvements in this area?
-> >>
-> >> I would like to talk to folks and gague what it would take to make
-> >> improvements in this area acceptable, practical, and useful.
-> >>
-> >> Would a gcc plugin that checks the most interesting things that
-> >> sparse checks on every build be interesting? (endianness of integer
-> >> types for example)
-> >
-> > How would this be different from simply automatically running sparse in
-> > the kernel build if the binary is present (effectively making make C=1
-> > the default)?
->
-> Nothing.  I am just honestly looking at ways that we can get things to
-> always or almost always run.   Sparse isn't getting run regularly now so
-> I was suspect that would not be as good of a solution.
+  Echo 1 to /proc/sys/kernel/xxx then the throughput will raise to 10 
+times higher.
+  Bind thread XX to core X then the latency will reduce from X s to X ns.
+  ...
 
-A problem with putting time consuming tools into the normal build process
-is that they work on all the code you compile, which may be a large
-superset of the code that is actually changed.
+This is unrealistic, but we don't need to be extreme. Showing the 
+bottleneck of
+a software to point out the right direction is enough to make people happy.
+However, even if we have the full kernel source code, finding bottleneck 
+from an
+unfamiliarity subsystem is still challenging since we don't know how to 
+start.
 
-julia
+There are two type of performance metrics: throughput and latency. Both 
+of them
+related to the concept of 'process': time between event 'A' and event 'B'.
+Throughput measures how many processes complete in fixed time, latency 
+measures
+how long a process take. Given a performance result, a nature idea is to 
+find
+the two ends 'A' and 'B' of the process it concerns, and break down the time
+from 'A->B' to find the critical phase. We call it 'end-to-end performance
+breakdown'.
 
+A lot of facilities have already in kernel to support end-to-end performance
+breakdown. For example, u/kprobes allows us to trace event 'A' and 'B', 
+there
+are many tracepoitns have already been deployed among many subsystems, BPF
+allows us to connect events belong to a specific request, and we have 
+perf to
+drive all of them. We even have subsystem specific tools like blktrace 
+for it.
+However, I find it still hard to do the breakdown from user's view. For 
+example,
+consider a file writing process, we want to break down the performance from
+'write' system call to the device. Getting a closer look, we can see vfs,
+filesystem, driver and device layers, each layers has queues and 
+buffers, they
+break larger requests and merge small requests, finally we find it is 
+even hard
+to define a proper 'process'.
 
->
-> >> Would a type system for pointers derived from separation logic that
-> >> has the concept that a piece of data is owned by a piece of running
-> >> code rather than another piece of data be interesting?
-> >
-> > By this you mean a thread of execution that should be expected to free
-> > the data pointed to when it finishes?  Sort of like a self garbage
-> > collecting reference?
->
-> Not really.  The big idea is to make expressable in the type system the
-> key concepts on how a programmer reasons about their data structures,
-> instead of trying to make programmers perform some convoluted logic to
-> express things in concepts that are trivial to implement in a type
-> system.
->
-> Another way to talk about it would be complete alias analysis at type
-> checking time.
->
-> Which means that the type system then knows essentially everything the
-> programmer knows about aliases and object lifetimes and if you don't
-> pass something on or free it, the type checker then knows you made
-> a mistake.
->
-> >>   * This cleanly allows for doubly linked lists.
-> >>
-> >>   * This is useful to ensure that data is either put in another data
-> >>     structure where it is remembered or it is freed.
-> >>
-> >>   * This is useful to ensure reference counts are not leaked.
-> >>
-> >>   * This is useful to ensure that every lock is paired with an
-> >> unlock.
-> >>
-> >> My personal filter for things like this are types that can be checked
-> >> in time proportional to the amount of code to be built so that it is
-> >> roughly the same situation we are in now.
-> >>
-> >>
-> >> Given it's heritage and it's history the type system in C has serious
-> >> limitations that I don't know if they are correctible, when it comes
-> >> to catching programmer mistakes: silent truncation of unsigned types
-> >> into smaller unsigned types, casts, etc.  Would people be willing to
-> >> consider a simple, link compatible alternative to C for some of the
-> >> code in the kernel that had the same low level control of the machine
-> >> but had a type system that made catching mistakes easier?
-> >>
-> >>
-> >> Deploying solutions like this will take a fair bit of grunt work, and
-> >> time similar or worse than the big kernel lock removal.  Given how
-> >> widely Linux is used and how annoying some of these bugs can be I
-> >> think it is worthwhile to dig in and see what kind of improvements
-> >> can be made.
-> >>
-> >> I would really like to get a feel among kernel maintainers and
-> >> developers if this is something that is interesting, and what kind of
-> >> constraints they think something like this would need to be usable
-> >> for the kernel?
-> >
-> > I've got to say that rewriting in some as yet undefined language simply
-> > to get better typing and conversions looks very daunting.  Before even
-> > considering this, can you answer why an extension to sparse, which
-> > would mostly flag the problems if we use the correct annotations,
-> > wouldn't work just as well?  We'd still have to add the additional
-> > annotations (and someone would have to update sparse) but it would
-> > still be a lot easier than rewriting and giving the kernel a build
-> > dependency on whatever the rewrite is done in.
->
-> That is a very good question.  The short answer is that I am not yet
-> convinced I can figure out how to retrofit the type checks I want onto
-> C's type system.  I have implemented the type checks I am looking at in
-> a fresh language I am toying with where I can throw out inconvinient
-> unnecessary corner cases.  After I finished boiling the ocean the basic
-> types were similar enough to C's type system that I think I can make
-> the connection but I haven't tried yet.
->
-> Assuming things can be sorted so they coexist nicely C's types.  No
-> advantage.  If it turns out that to make the code not a pain to write we
-> need better syntax or some basic type inference there is a large
-> advantage in converting code.
->
-> The first place I can think of where I might get hung up in the area of
-> discriminated unions.  I am pretty certain that some cases of type
-> safety will require them and C doesn't have anything like that today.  A
-> practical example would be a type system that ensures you call
-> IS_ERR(ptr) before you use a pointer as a pointer.
->
-> Ordinary C unions and type casts that serve the same purpose would at the
-> end of the day all have to be reabstracted.  Because otherwise memory
-> safety cound not be analyized.
->
-> Some of that reabstraction I will need to introduce type variables which
-> a completely foreing concept to C.
->
-> On the flip side since the linux kernel and low level programming where
-> precise control of the machine happens is my target audience it is
-> definitely worth looking at what can be done in a context like sparse.
-> That is the fastest way to connect the tools with the real world
-> problems.  If it can't be done or if it can't be made nice simple
-> and easy to use then there will be good arguments for why we need a new
-> syntax.
->
-> Mostly I asked the question because the type system would be so much
-> easier in a green field setting, and I wanted to be lazy.  So hearing
-> the common sense request (Please fix C.) Is helpful to get that lazy
-> part of myself in gear.
->
-> The end game for me is a type system that doesn't permit memory errors,
-> reference counting errors, locking errors, or deadlocks, while at the
-> same time allowing pretty much the code and data structures that we use
-> in the kernel today.
->
-> Eric
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
->
+Compare with CPU side, Intel has release its TopDown model, allows us to 
+break
+instruction execution into 4 stages, and further break each stage to smaller
+stages. I also heard from hisilicon that in ARM64 processor we have similar
+model. TopDown model is simple: monitoring at some PMU and doing simple
+computation. Why can't we do this in software?
+
+The problem is the lacking of a proper performance model. In my point of 
+view,
+it is linux kernel's responsibility to guide us to do the breakdown. 
+Subsystem
+designers should expose the principle processes to connect tracepoints 
+together.
+Kernel should link models from different subsystems. Model should be 
+expressed
+in a uniformed language, so a tool like perf can do the right thing
+automatically.
+
+I suggest to discuss following topics in this year's kernel summit:
+
+  1. Is end-to-end performance breakdown really matter?
+
+  2. Should we design a framework to help kernel developers to express 
+and expose
+     performance model to help people do the end-to-end performance 
+breakdown?
+
+  3. What external tools we need to do the end-to-end performance breakdown?
+
+The list of potential attendees
+
+Alexei Starovoitov
+Arnaldo Carvalho de Melo
+Ingo Molnar
+Li Zefan
+Peter Zijlstra
+Steven Rostedt
