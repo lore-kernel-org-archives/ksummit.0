@@ -1,24 +1,27 @@
-Return-Path: <wangnan0@huawei.com>
+Return-Path: <jack@suse.cz>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8FBBA955
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6FD03950
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 20 Jul 2016 08:31:22 +0000 (UTC)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [58.251.152.64])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6334511A
+	Wed, 20 Jul 2016 08:31:58 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C365D18A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 20 Jul 2016 08:31:21 +0000 (UTC)
-To: <ksummit-discuss@lists.linuxfoundation.org>
-From: "Wangnan (F)" <wangnan0@huawei.com>
-Message-ID: <578F36B9.802@huawei.com>
-Date: Wed, 20 Jul 2016 16:30:49 +0800
+	Wed, 20 Jul 2016 08:31:57 +0000 (UTC)
+Date: Wed, 20 Jul 2016 08:09:55 +0200
+From: Jan Kara <jack@suse.cz>
+To: Hannes Reinecke <hare@suse.com>
+Message-ID: <20160720060955.GE3918@quack2.suse.cz>
+References: <20160719034717.GA24189@swordfish>
+	<535ebaec-1653-3077-d17b-feb847fd51d2@suse.com>
+	<20160719073346.GB24189@swordfish>
+	<9794ced1-3c45-c548-9520-15d1b66aef31@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: Peter Zijlstra <peterz@infradead.org>, Alexei Starovoitov <ast@kernel.org>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Ingo Molnar <mingo@kernel.org>
-Subject: [Ksummit-discuss] [TECH TOPIC] Kernel tracing and end-to-end
-	performance breakdown
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9794ced1-3c45-c548-9520-15d1b66aef31@suse.com>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] asynchronous printk
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -28,94 +31,65 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hello,
+On Tue 19-07-16 09:38:10, Hannes Reinecke wrote:
+> On 07/19/2016 09:33 AM, Sergey Senozhatsky wrote:
+> > On (07/19/16 08:17), Hannes Reinecke wrote:
+> > [..]
+> >> Yes. The main problem stems from the fact that printk has two different
+> >> and conflicting use-cases:
+> >> - Really urgent, 'I am about to die' messages. Which obviously need to
+> >>   be printed out as fast as possible.
+> >> - Rather largish, information/logging 'what I always wanted to tell you'
+> >>   type of messages. These messages tend to be very large, but at the end
+> >>   it doesn't really matter _when_ they'll be printed as they are
+> >>   time-stamped anyway.
+> >>
+> >> For the first use-case you absolutely need a synchronous printk, but
+> >> this is a complete killer for the second case.
+> >> And OTOH having a separate thread is really the way to go for the second
+> >> case, but an absolute no-go for the first.
+> >>
+> >> So I really wonder if it does make sense to lump both use-cases into one
+> >> call, or whether it wouldn't be better to have two distinct calls
+> >> for that (or, for the sake of argument, use KERN_EMERG to trigger
+> >> synchronous printks).
+> > 
+> > yes, panic() must be in sync printk mode. but we do it a
+> > bit differently: console_verbose() forces printk to switch
+> > to sync mode.
+> > 
+> > so panic() goes like this:
+> > 
+> > 	panic()
+> > 	{
+> > 		console_verbose(); # switch to sync printk. forever.
+> > 		bust_spinlocks();
+> > 		pr_emerg("Kernel panic - not syncing...");
+> > 
+> > 		....
+> > 		debug_locks_off();
+> > 		console_flush_on_panic();  # flushes kernel log_bug in
+> > 					   # sync mode
+> > 
+> > 		// the rest of panic()
+> > 
+> > 	}
+> > 
+> > 	-ss
+> > 
+> but this is precisely what I meant by priority inversion:
+> If there are lots of messages in the printk buffer we might not be
+> _able_ to print out everything as the machine died before the entire
+> printk buffer could be printed.
+> Which means we will never see the panic message, at which point we could
+> as well drop the whole exercise.
 
-I'd like to discuss kernel proformance and tracing.
+I like Linus's suggestion how to fix this problem: skip part of buffered
+messages and print just last 100 of them before the critical event. I have
+a patch to do this but for now Sergey removed it from the patch set because
+it is mostly independent and there were some technical issues with it.
 
-Sometimes people ask us to make their business faster. They show us 
-result from
-benchmark (iobench), monitor (top, sar) and profiling (perf, oprofile), 
-some of
-them give brief introduction on their software. Base on these 
-information, they
-hope us to give magical advise like:
-
-  Echo 1 to /proc/sys/kernel/xxx then the throughput will raise to 10 
-times higher.
-  Bind thread XX to core X then the latency will reduce from X s to X ns.
-  ...
-
-This is unrealistic, but we don't need to be extreme. Showing the 
-bottleneck of
-a software to point out the right direction is enough to make people happy.
-However, even if we have the full kernel source code, finding bottleneck 
-from an
-unfamiliarity subsystem is still challenging since we don't know how to 
-start.
-
-There are two type of performance metrics: throughput and latency. Both 
-of them
-related to the concept of 'process': time between event 'A' and event 'B'.
-Throughput measures how many processes complete in fixed time, latency 
-measures
-how long a process take. Given a performance result, a nature idea is to 
-find
-the two ends 'A' and 'B' of the process it concerns, and break down the time
-from 'A->B' to find the critical phase. We call it 'end-to-end performance
-breakdown'.
-
-A lot of facilities have already in kernel to support end-to-end performance
-breakdown. For example, u/kprobes allows us to trace event 'A' and 'B', 
-there
-are many tracepoitns have already been deployed among many subsystems, BPF
-allows us to connect events belong to a specific request, and we have 
-perf to
-drive all of them. We even have subsystem specific tools like blktrace 
-for it.
-However, I find it still hard to do the breakdown from user's view. For 
-example,
-consider a file writing process, we want to break down the performance from
-'write' system call to the device. Getting a closer look, we can see vfs,
-filesystem, driver and device layers, each layers has queues and 
-buffers, they
-break larger requests and merge small requests, finally we find it is 
-even hard
-to define a proper 'process'.
-
-Compare with CPU side, Intel has release its TopDown model, allows us to 
-break
-instruction execution into 4 stages, and further break each stage to smaller
-stages. I also heard from hisilicon that in ARM64 processor we have similar
-model. TopDown model is simple: monitoring at some PMU and doing simple
-computation. Why can't we do this in software?
-
-The problem is the lacking of a proper performance model. In my point of 
-view,
-it is linux kernel's responsibility to guide us to do the breakdown. 
-Subsystem
-designers should expose the principle processes to connect tracepoints 
-together.
-Kernel should link models from different subsystems. Model should be 
-expressed
-in a uniformed language, so a tool like perf can do the right thing
-automatically.
-
-I suggest to discuss following topics in this year's kernel summit:
-
-  1. Is end-to-end performance breakdown really matter?
-
-  2. Should we design a framework to help kernel developers to express 
-and expose
-     performance model to help people do the end-to-end performance 
-breakdown?
-
-  3. What external tools we need to do the end-to-end performance breakdown?
-
-The list of potential attendees
-
-Alexei Starovoitov
-Arnaldo Carvalho de Melo
-Ingo Molnar
-Li Zefan
-Peter Zijlstra
-Steven Rostedt
+								Honza
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
