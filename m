@@ -1,25 +1,25 @@
-Return-Path: <ebiederm@xmission.com>
+Return-Path: <wangnan0@huawei.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BD2F42C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3266299A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 20 Jul 2016 02:49:02 +0000 (UTC)
-Received: from out03.mta.xmission.com (out03.mta.xmission.com [166.70.13.233])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BD16A101
+	Wed, 20 Jul 2016 03:36:17 +0000 (UTC)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [58.251.152.64])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D43E31F9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 20 Jul 2016 02:49:01 +0000 (UTC)
-From: ebiederm@xmission.com (Eric W. Biederman)
-To: Josh Triplett <josh@joshtriplett.org>
-References: <87inw1skws.fsf@x220.int.ebiederm.org> <20160719212645.GA14203@x>
-Date: Tue, 19 Jul 2016 21:36:05 -0500
-In-Reply-To: <20160719212645.GA14203@x> (Josh Triplett's message of "Tue, 19
-	Jul 2016 14:26:45 -0700")
-Message-ID: <87inw1ave2.fsf@x220.int.ebiederm.org>
+	Wed, 20 Jul 2016 03:36:15 +0000 (UTC)
+To: Hannes Reinecke <hare@suse.com>,
+	<ksummit-discuss@lists.linuxfoundation.org>
+References: <20160719034717.GA24189@swordfish>
+	<535ebaec-1653-3077-d17b-feb847fd51d2@suse.com>
+From: "Wangnan (F)" <wangnan0@huawei.com>
+Message-ID: <578EF192.3050808@huawei.com>
+Date: Wed, 20 Jul 2016 11:35:46 +0800
 MIME-Version: 1.0
-Content-Type: text/plain
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] More useful types in the linux
-	kernel
+In-Reply-To: <535ebaec-1653-3077-d17b-feb847fd51d2@suse.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] asynchronous printk
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,70 +29,71 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Josh Triplett <josh@joshtriplett.org> writes:
 
-> On Tue, Jul 19, 2016 at 10:32:51AM -0500, Eric W. Biederman wrote:
->> Would a gcc plugin that checks the most interesting things that sparse
->> checks on every build be interesting? (endianness of integer types for example)
+
+On 2016/7/19 14:17, Hannes Reinecke wrote:
+> On 07/19/2016 05:47 AM, Sergey Senozhatsky wrote:
+>> Hello,
+>>
+>> Wondering if anyone will be interested in printk-related topics
+>> (or we can handle it in the mailing list).
+>>
+>> What I have on my list is:
+>>
+>>
+>> - synchronous printk()
+>>
+>> printk() prints messages from kernel printk buffer until the buffer
+>> is empty. When serial console is attached, printing is slow and thus
+>> other CPUs in the system have plenty of time to append new messages to
+>> the buffer while one CPU is printing. Thus the CPU can spend unbounded
+>> amount of time doing printing in console_unlock().  This is especially
+>> serious problem if the printk() calling console_unlock() was called with
+>> interrupts disabled, or from IRQ, or from spin_lock protected section
+>> (if the spinlock is contended), etc. etc. IOW, printk() is quite dangerous
+>> function to call in some cases, it can cause different types of lockups
+>> (soft, hard, spinlock), stalls and so on.
+>>
+>> we have some progress on this side. printk() can offload printing from
+>> sensitive and unsafe contexts to a schedulable printk_kthread context (a
+>> special purpose printing kthread).
+>> but "The whole idea remains worrisome", per Andrew :)
+>>
+> Yes. The main problem stems from the fact that printk has two different
+> and conflicting use-cases:
+> - Really urgent, 'I am about to die' messages. Which obviously need to
+>    be printed out as fast as possible.
+> - Rather largish, information/logging 'what I always wanted to tell you'
+>    type of messages. These messages tend to be very large, but at the end
+>    it doesn't really matter _when_ they'll be printed as they are
+>    time-stamped anyway.
 >
-> I'd like to see those checks more widely available, ideally not just as
-> plugins.  Some exploration of that occurred upstream:
->
-> https://gcc.gnu.org/bugzilla/show_bug.cgi?id=59852 (bitwise/endian types)
-> https://gcc.gnu.org/bugzilla/show_bug.cgi?id=59856 (contexts/locking)
-> https://gcc.gnu.org/bugzilla/show_bug.cgi?id=59851 (nocast: no implicit conversions)
-> https://gcc.gnu.org/bugzilla/show_bug.cgi?id=59850 (address spaces)
-> https://gcc.gnu.org/bugzilla/show_bug.cgi?id=59855 (designated_init; done)
->
-> I'd love to see someone pick those up and get them into upstream GCC.
 
-Interesting.
+Actually, there are 3 types of messages:
 
-Whatever I do I intend to start and the hard problem of types that know
-where all of your aliases are because I have something that works and is
-very interesting there, so I won't volunteer for those but that does
-look like a reasonable part of the discussion.
+  1. Urgent: I'm going to die.
+  2. information/logging.
+  3. Trace.
 
->> Would a type system for pointers derived from separation logic that
->> has the concept that a piece of data is owned by a piece of running
->> code rather than another piece of data be interesting?
->
-> Interesting, yes, but trying to track "ownership" gets complicated
-> *fast* to handle real-world cases.  Rust went through quite a lot of
-> work, and multiple iterations, to get to the system it has now.  I don't
-> think you'd be able to handle many of the cases in the kernel without
-> about that much complexity.
+If you look at some customized kernel you can find lots of trace from
+kernel. Most of the time they are really meaningless, but if kernel is
+buggy or crash they become key information. When debugging, it is really
+frustrating to see something is missed in kmsg, so developer tend to output
+maything from printk. However, in production system they have to turns those
+trace off, so debugging production systems is really painful.
 
-So "ownership" may be the wrong word.  See my reply to James Bottomley.
-Rust never advanced past what are effectively smart pointers, and smart
-pointers are the wrong concept for tracking aliases.
+I have an idea on those trace level printk. Since they are meaningless most
+of the time, let it output to another ring buffer, unconditionally overwrite
+old message without outputing to console or log file. When kernel detect 
+something
+happen or before kernel die, dump the ring buffer to the console. Then we
+can put as many as tracing information through printk without console 
+problem.
 
-To get past that it takes some turning of all of your trained exceptions
-of what a type system is tracking inside out (or at least it did for me)
-but when you are done there is something that is much more expressive
-and simpler than what Rust implemented.
+Since we already have tracepoints and overwritable perf ring buffer, we can
+encapsulate trace level printk using tracepoints, and let it output to perf
+ring buffer.
 
-Our fundamental complexity with smp synchronization may add up the
-complexity again but it is undoubtedly possible to do better than Rust.
-The way our kernel is built all of the core kernel would need to be in a
-Rust unsafe block.  So I would not even consider doing what Rust did.
+Make sence?
 
->> I would really like to get a feel among kernel maintainers and
->> developers if this is something that is interesting, and what kind of
->> constraints they think something like this would need to be usable for
->> the kernel?
->
-> I think the biggest constraint is that new tools get very slow adoption,
-> and it's incredibly difficult to introduce a new *mandatory* tool or
-> compiler version (with the exception of tools that ship with the
-> kernel).  And optional ones have a tendency to break due to patches from
-> people not running them.  Apart from that: false positive rate.
->
-> Ideally, build something you can opt into using, such that if you
-> explicitly use it, the false positive rate should be *zero* by design.
-
-With types what you do get a *zero* false positive rate by desgin.
-Although sometimes you get a lot of const correctness kinds of
-conversion requitements that are a royal PITA.
-
-Eric
+Thanks.
