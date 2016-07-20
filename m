@@ -1,32 +1,23 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <jic23@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8D18B2C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7A30D8F5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 20 Jul 2016 18:52:56 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 025B62B8
+	Wed, 20 Jul 2016 21:25:12 +0000 (UTC)
+Received: from saturn.retrosnub.co.uk (saturn.retrosnub.co.uk [178.18.118.26])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9129D17E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 20 Jul 2016 18:52:55 +0000 (UTC)
-Date: Wed, 20 Jul 2016 19:52:46 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Alexey Dobriyan <adobriyan@gmail.com>
-Message-ID: <20160720185246.GK6509@sirena.org.uk>
-References: <87inw1skws.fsf@x220.int.ebiederm.org>
-	<20160719173120.GE30372@sirena.org.uk>
-	<alpine.LNX.2.00.1607192049170.24757@cbobk.fhfr.pm>
-	<20160720155319.GG6509@sirena.org.uk>
-	<alpine.LNX.2.00.1607201859270.24757@cbobk.fhfr.pm>
-	<20160720183530.GA2958@p183.telecom.by>
+	Wed, 20 Jul 2016 21:25:11 +0000 (UTC)
+From: Jonathan Cameron <jic23@kernel.org>
+To: ksummit-discuss@lists.linuxfoundation.org
+Message-ID: <5222c3bb-d6b7-0ccc-bf9e-becf5046a37a@kernel.org>
+Date: Wed, 20 Jul 2016 22:18:11 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="ZG+WKzXzVby2T9Ro"
-Content-Disposition: inline
-In-Reply-To: <20160720183530.GA2958@p183.telecom.by>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] [TECH TOPIC] Support (or move
- towards to) LLVM
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Cc: Rob Herring <robh+dt@kernel.org>, Zhang Rui <rui.zhang@intel.com>
+Subject: [Ksummit-discuss] [TECH TOPIC] Sensors and similar - subsystem
+ interactions, divisions, bindings etc.
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,41 +27,167 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+Hi All,
 
---ZG+WKzXzVby2T9Ro
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This topic would be around the way the various subsystems interact, in the
+rough area of 'sensors' (I haven't yet had much of an issue with subsystem
+crossing with output devices but maybe that's just over the next hill!)
 
-On Wed, Jul 20, 2016 at 09:35:30PM +0300, Alexey Dobriyan wrote:
-> On Wed, Jul 20, 2016 at 07:04:59PM +0200, Jiri Kosina wrote:
+Scope may well be wider but includes:
+* input (some of it)
+* hwmon
+* iio
+* comedi(?)
+* thermal
+* power/battery
+* gpio - the blur between gpios and beaglescope / PLC type I/O.
+* v4l - when does a device jump from being a multi pixel thermopile
+to a thermal camera? Smart fingerprint scanners etc.  Gesture recognition
+sensors (effectively 9ish pixel cameras)
+* Lots of random things we haven't seen yet.
 
-> > People who should be invited: proponents of the push from the certain=
-=20
-> > quarters mentioned by Mark above, and ideally some LLVM folks as well.
+All these make use of devices that are at their hearts ADCs. Whilst it
+would nice if the underlying devices always fell into one clear
+category that is not always the case. Hardware descriptions (e.g.
+device tree) are an important area of contention.
 
-> This is a bit premature until Linux Clang patchset is empty.
-> As an example, alternatives do not work and IIRC VLAs won't work ever:
-> https://llvm.org/bugs/show_bug.cgi?id=3D24487
+The examples that follow are mostly based around IIO interactions with
+hwmon / input as that's my area of expertise. However, I know that
+similar issues occur at other boundaries.
 
-The main interest I'm aware of is from people working on ARM (and it
-looks like there's some MIPS as well from the LLVMLinux git) so x86
-specific issues might not be such a big deal.  There's definitely some
-upstreaming still to do but the delta is getting smaller.
+Guenter Roeck has been working on hwmon / thermal interfacing recently.
+We also regularly push drivers one way or the other around that boundary.
 
---ZG+WKzXzVby2T9Ro
-Content-Type: application/pgp-signature; name="signature.asc"
+Dmitry and I often have to decide on the IIO / input scope boundary
+(and we've moved it over time) + a number of cross over drivers have
+turned up recently.
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
+The other subsystems I encounter have been 'quieter' in their
+interactions with me but many of the issues below apply to them as well.
 
-iQEcBAEBCAAGBQJXj8h9AAoJECTWi3JdVIfQ8t4H/Ry2m16ob8cEa3yw7inn67QG
-BsEiSL5EsDXanlHl2ICwqj8hnfYuTM/HRNJbLwHfn0qqbbWt+FyukJTnbm8wlHsf
-lVNqmt/Zwu/Wo/2zkGhvjXh0mHCTl211ccX2W6UCHqf+wb3wYyqToS0NNP2/gGNE
-fsbMDHnOVyqRAyAAqPu6M49Dze3kFiw8qZv8hMjeTXRjvzFHRxzXBrJ4tdpCFRqO
-Gz45pHB4LRE4MUTczv4U9QQ9LSdedTVdbE+gf1nIHxZBWXNglnIo6VTeGQeUJ27/
-06Fui3mgAgDbSThNS/Y0u0vsBrWE/R0ObU6zyula/iNd/CTq4tvUsl5ywPOgwPg=
-=t/rc
------END PGP SIGNATURE-----
+A rough list of related topics that might be worth face to face
+discussion includes:
 
---ZG+WKzXzVby2T9Ro--
+1) Are we happy with the somewhat adhoc divisions of subsystems as they
+stand?
+
+I am personally happy enough with this, but it's worth checking
+everyone else is. This probably causes more pain for new submitters
+than it does for old hands. Perhaps we can come up with a checklist style
+doc to save people having to ask.
+ 
+We have had quite a few cases where a whole driver is submitted to the
+'wrong' subsystem. Not the best first interaction with the kernel
+world for new contributors. (This sort of area is attracts newbies
+as it's relatively simple and the hardware is fairly cheap and more
+than once their first experience with review as exactly this!)
+
+If we aren't happy, what do we do about it?
+
+I'm hoping we are happy or, at least, resigned to the current state
+of affairs, but think the question should be asked from time to time
+as the answer may well change + the discussion will highlight pinch
+points we can work on.
+
+2) Bridging drivers - there will always be cross over cases.
+E.g. Generic ADCs used for battery voltage monitoring.  We have a
+number of bridges in mainline already and others out of tree.  How
+important are these and what features would make them more useful?
+
+Is it ever sensible to have two drivers for the same part because
+the use cases are so different? (I hope there is always a better way
+but maybe not)
+
+This covers both generic bridges (e.g. iio-hwmon) and device
+specific bridges (a good example of a touch screen driver turned
+up in my inbox yesterday).
+
+3) Bindings (device tree and similar).  When it is appropriate to use a 
+device tree to describe the overlap (bridging of channels)?
+Sometimes there is obvious real hardware involved (a thermistor on a
+generic ADC input for example), but there are many grey areas.
+
+Finally bashing out an answer to the issue device tree maintainers
+have with the iio-hwmon bindings would be great. 
+On a less biased note, that example is pretty fiddly to define but would
+act as a good basis to work from more generally.
+
+We know we got it wrong (back in the dark ages), but it isn't obvious how
+to get it right!
+
+IIO-input has been partly held outside mainline for years by this issue.
+
+Also some practical design decisions to make around how to implement
+these mappings to work best with deferred probing etc.
+
+4) Should we drop all the bindings for bridging between such subsystems
+and do it all from userspace?
+
+I think we may end up with a hybrid of the two, but need to be able to
+make it work in 'standard' cases without userspace being involved. That
+hybrid solution may well be devicetree overlay based... Unclear so far.
++ plenty of crazy things that 'might' make sense where there isn't even
+the pretence of representing real hardware.
+
+5) Complex device interaction usecases.  At the moment the ones I've come
+across are mostly contained in IIO.  The moment we start sticking in
+MUXes, AFEs (Analog Front Ends) and straightforward analog sensors in the
+mix it can get fiddly.  Swapping war stories may well be worthwhile on
+this. This stuff also turns up in ASoC for example so probably lessons
+to be learned from there.
+
+The analog devices software defined radios are another possible case
+study.
+
+There of course may well be lessons to be learned from similar
+interactions elsewhere in the kernel.
+
+There is a lot of history in how we ended up where we are (it all made
+absolute sense at the time). Sitting back and taking the time
+to discuss the future would be great.  Whilst this might be solvable
+by email we've made no definitive progress for years
+(and what has been made has been on a case by case basis deep in
+driver reviews.)
+
+I threw comedi in the list above but, at the moment, I think the more
+likely direction there is a single userspace library abstracting
+the underlying subsystem (Analog Devices are working in that
+direction - perhaps Lars can offer more on that?).
+
+GPIO is another interesting case - a lot of hardware is capable of
+parallel sampling, some at high speeds. It's another area that
+is probably too specialist for this discussion, but if people want
+to dive into the details it might be interesting.
+
+I think we have only a small amount of fuzz around the v4l boundary,
+but wanted to leave the door open if anyone wants to discuss that
+one further as it's come up a few times over recent years.
+
+The SoC world is a major case of one device, many uses.  Some SoCs
+are turning up with multiple ADC units, sometimes with different
+designs, sometimes simply so that the same hardware can be used for different things.
+
+A few suggestions for people:
+
+Guenter Roeck (hmwon)
+Dmitry Torokhov (input)
+Me (Jonathan Cameron - IIO)
+
+Someone thermal related (not sure who would be most interested)
+Someone power supply related? (Guenter, any suggestions?)
+
+Someone device tree related (Mark Rutland? Rob Herring?)
+
+Linus Waleij (gpio)
+
+Mark Brown - as some of concepts of IIO bridging and how far it
+can be taken (everything via a bridge driver) came from
+discussions with him on SoC ADC handling.
+
+Lar-Peter Clausen for generally doing insane things with ADCs + having
+one foot in the userspace side of things.
+
+Thanks,
+
+Jonathan Cameron
+IIO Maintainer
