@@ -1,29 +1,27 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <jikos@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 485D3360
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 27E2794C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 20 Jul 2016 15:53:35 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D28F1187
+	Wed, 20 Jul 2016 17:05:02 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B7656172
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 20 Jul 2016 15:53:34 +0000 (UTC)
-Date: Wed, 20 Jul 2016 16:53:19 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Jiri Kosina <jikos@kernel.org>
-Message-ID: <20160720155319.GG6509@sirena.org.uk>
+	Wed, 20 Jul 2016 17:05:01 +0000 (UTC)
+Date: Wed, 20 Jul 2016 19:04:59 +0200 (CEST)
+From: Jiri Kosina <jikos@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+In-Reply-To: <20160720155319.GG6509@sirena.org.uk>
+Message-ID: <alpine.LNX.2.00.1607201859270.24757@cbobk.fhfr.pm>
 References: <87inw1skws.fsf@x220.int.ebiederm.org>
 	<20160719173120.GE30372@sirena.org.uk>
 	<alpine.LNX.2.00.1607192049170.24757@cbobk.fhfr.pm>
+	<20160720155319.GG6509@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="yZnyZsPjQYjG7xG7"
-Content-Disposition: inline
-In-Reply-To: <alpine.LNX.2.00.1607192049170.24757@cbobk.fhfr.pm>
+Content-Type: TEXT/PLAIN; charset=US-ASCII
 Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] More useful types in the linux
- kernel
+Subject: [Ksummit-discuss] [CORE TOPIC] [TECH TOPIC] Support (or move
+	towards to) LLVM
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,50 +31,30 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Wed, 20 Jul 2016, Mark Brown wrote:
 
---yZnyZsPjQYjG7xG7
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> > > There's a push from certain quarters to move away from GCC to LLVM.  
+> 
+> > This might actually be an interesting topic per se.
+> 
+> Yes, indeed.
 
-On Tue, Jul 19, 2016 at 08:52:33PM +0200, Jiri Kosina wrote:
-> On Tue, 19 Jul 2016, Mark Brown wrote:
+Let's make this a real proposal then ... (subject changed). I am again a 
+bit unsure about the core / tech division here.
 
-> > There's a push from certain quarters to move away from GCC to LLVM. =20
+People who should be invited: proponents of the push from the certain 
+quarters mentioned by Mark above, and ideally some LLVM folks as well.
 
-> This might actually be an interesting topic per se.
+I've never actually used llvm to compile the kernel (which makes me rather 
+poor contributor should any such discussion happen), but I've been on the 
+"receiving side", debugging a crash that turned out to be llvm messing up 
+with IF in a way that interfers with local_irq_save(), and also suffered 
+from the followup frustration when I found out that this has been reported 
+to llvm folks ages ago, and they haven't bothered to fix it (it's now at 
+least worked around, in a very sub-optimal way (lahf/sahf)).
 
-Yes, indeed.
+Thanks,
 
-> LLVM definitely has quite some nice features, but their attitude towards=
-=20
-> bugs which are rather severe for kernel programming should be taken as a=
-=20
-> warning at least. Look at the "pushf/popf being generated around=20
-> local_irq_save()" trainwreck as an example.
-
-My understanding (which is a bit second hand here) is that LLVM upstream
-really values direct engagement at time of development much more than
-anything else - AFAICT they're more focused on driving things forward,
-partly due to expecting other people to do the main release management.
-To that end if people really want to run LLVM built kernels in
-production they probably need to either use a downstream that ensures
-that things are working well for kernel builds or work directly on
-testing development versions of the compilers to catch issues there.
-
---yZnyZsPjQYjG7xG7
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQEcBAEBCAAGBQJXj55uAAoJECTWi3JdVIfQFRoH+wb5XuK/1H66MlxLo57Mu1d6
-FeAt14HUv7oHSwiqQheHi/v8sVU5oaUmjbyOwEIIgTBreYK3YN9yoEdKW1OjX5+j
-4N76Xh9oslX8T3UBm0NqKVbY7NmatxbV0RUvI28d9GrUJwV3KyoFpDfeCLOJrmTU
-/Tl5JFaIW3ez3Y1Intu4axZmDLquiid6/ajcwQEusRs8qyZPfAPeEtJQcEMebqJL
-80L0kUR5eLfQ5jBOZgUhLuD8BoI3LYsveFtczbXkKm+O7LSZT9LNXEC2EetFV04s
-0xbwgpf0yQUQa2pSPl3tk2t1pZOXDar7vs4vAc6EMq0c0r/ZW7GUtD3+ZDtPy5U=
-=8X7J
------END PGP SIGNATURE-----
-
---yZnyZsPjQYjG7xG7--
+-- 
+Jiri Kosina
+SUSE Labs
