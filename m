@@ -1,33 +1,30 @@
-Return-Path: <viresh.kumar@linaro.org>
+Return-Path: <herbert@gondor.apana.org.au>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 36D826C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4E97298F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 19 Jul 2016 18:24:19 +0000 (UTC)
-Received: from mail-pa0-f45.google.com (mail-pa0-f45.google.com
-	[209.85.220.45])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1A8801C3
+	Wed, 20 Jul 2016 06:43:03 +0000 (UTC)
+Received: from helcar.hengli.com.au (helcar.hengli.com.au [209.40.204.226])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2AB2A79
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 19 Jul 2016 18:24:18 +0000 (UTC)
-Received: by mail-pa0-f45.google.com with SMTP id fi15so9384772pac.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 19 Jul 2016 11:24:18 -0700 (PDT)
-Date: Tue, 19 Jul 2016 11:24:16 -0700
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Message-ID: <20160719182416.GC13704@ubuntu>
-References: <20160719034717.GA24189@swordfish>
-	<1468939510.2383.5.camel@HansenPartnership.com>
-	<20160719145509.GA563@swordfish>
-	<1468951082.2383.29.camel@HansenPartnership.com>
+	Wed, 20 Jul 2016 06:43:01 +0000 (UTC)
+Date: Wed, 20 Jul 2016 14:42:28 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: "Eric W. Biederman" <ebiederm@xmission.com>
+Message-ID: <20160720064228.GA32737@gondor.apana.org.au>
+References: <CALCETrXtfzi=G4H+Zttv3kWcCo32V6cO9OBfdyuYT4DHvJTJLg@mail.gmail.com>
+	<20160711173329.GA8240@pc.thejh.net>
+	<87y44xr5zp.fsf@x220.int.ebiederm.org>
+	<CALCETrVeNP=2WRYdT7ePFx=MURao4-XFHyx9U+VQmpcmyLjLfw@mail.gmail.com>
+	<8737n5caz8.fsf@x220.int.ebiederm.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1468951082.2383.29.camel@HansenPartnership.com>
-Cc: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
-	Tejun Heo <tj@kernel.org>, Jiri Kosina <jkosina@suse.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] asynchronous printk
+In-Reply-To: <8737n5caz8.fsf@x220.int.ebiederm.org>
+Cc: Jann Horn <jann@thejh.net>, "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [TOPIC] kernel hardening / self-protection /
+ whatever
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,34 +34,20 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 19-07-16, 10:58, James Bottomley wrote:
-> On Tue, 2016-07-19 at 23:55 +0900, Sergey Senozhatsky wrote:
-> > Hello,
-> > 
-> > On (07/19/16 07:45), James Bottomley wrote:
-> > > On Tue, 2016-07-19 at 12:47 +0900, Sergey Senozhatsky wrote:
-> > > > Hello,
-> > > > 
-> > > > Wondering if anyone will be interested in printk-related topics
-> > > > (or we can handle it in the mailing list).
-> > > > 
-> > > > What I have on my list is:
-> > > 
-> > > Are there any bug reports for these cases?  If there are, I'd use 
-> > > the bug report as an opportunity to fix on the relevant list and if
-> > > there aren't, I'd say that the problem is then largely theoretical 
-> > > and there's not much point solving it until it becomes a real
-> > > problem.
-> > 
-> > yes, there are reports. for instance,
-> > http://marc.info/?l=linux-kernel&m=146823278316663
-> 
-> That's about backporting a fix from upstream to 3.12 to fix the
-> particular issue, so it seems to be solved for the reporter as far as
-> it goes.
+On Tue, Jul 19, 2016 at 09:14:03PM -0500, Eric W. Biederman wrote:
+> True.  I tried to review things to make certain they were safe in user
+> namespaces when I enabled things but clearly a few things slipped
+> through the cracks.
 
-Not really, we need patches from Sergey and Jan for async printing to make it
-work.
+What's worse is that after you enable them someone else can come
+along and add a new piece of functionality but still assuming
+that only root has access to it.  I encountered this with netfilter
+and rhashtable where the argument put forward was that as long as
+only root had access to a hash table then we don't have to worry
+about hash collissions.
 
+Cheers,
 -- 
-viresh
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
