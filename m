@@ -1,25 +1,33 @@
-Return-Path: <dhowells@redhat.com>
+Return-Path: <luto@amacapital.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 60B60902
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 007F2884
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 21 Jul 2016 15:05:28 +0000 (UTC)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id EC2DAA1
+	Thu, 21 Jul 2016 15:06:06 +0000 (UTC)
+Received: from mail-vk0-f46.google.com (mail-vk0-f46.google.com
+	[209.85.213.46])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 14FB6A1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 21 Jul 2016 15:05:27 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <87inw1skws.fsf@x220.int.ebiederm.org>
-References: <87inw1skws.fsf@x220.int.ebiederm.org>
-To: ebiederm@xmission.com (Eric W. Biederman)
+	Thu, 21 Jul 2016 15:06:04 +0000 (UTC)
+Received: by mail-vk0-f46.google.com with SMTP id x130so117597136vkc.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 21 Jul 2016 08:06:04 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <25597.1469113525.1@warthog.procyon.org.uk>
-Date: Thu, 21 Jul 2016 16:05:25 +0100
-Message-ID: <25598.1469113525@warthog.procyon.org.uk>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] More useful types in the linux
-	kernel
+In-Reply-To: <1469097065.120686.124.camel@infradead.org>
+References: <20160719034717.GA24189@swordfish>
+	<535ebaec-1653-3077-d17b-feb847fd51d2@suse.com>
+	<578EF192.3050808@huawei.com>
+	<CALCETrUbuQjEAettvDStqEophng+1TNGDpueWDJ4QWLqiyaQ2w@mail.gmail.com>
+	<028967b8-6107-9d9c-453a-a7f25e967f70@suse.com>
+	<1469097065.120686.124.camel@infradead.org>
+From: Andy Lutomirski <luto@amacapital.net>
+Date: Thu, 21 Jul 2016 08:05:43 -0700
+Message-ID: <CALCETrWKk8sLvgXwzu1RQnZRQ7f1f-+p53iJ7yasp_=zTnFDHQ@mail.gmail.com>
+To: David Woodhouse <dwmw2@infradead.org>
+Content-Type: text/plain; charset=UTF-8
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] asynchronous printk
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,39 +37,48 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-I know it's not precisely what you're asking about, but there are a number of
-types I would like to see:
+On Thu, Jul 21, 2016 at 3:31 AM, David Woodhouse <dwmw2@infradead.org> wrote:
+> On Thu, 2016-07-21 at 07:59 +0200, Hannes Reinecke wrote:
+>> > If we do all this stuff, can we also try to clean up earlyprintk a
+>> > bit?  The whole earlyconsole mechanism is a mess, and switching over
+>> > to the non-early console is only somewhat functional.  I'd love to see
+>> > this all simplified: before there's any console at all available, just
+>> > buffer messages.  Then, when a console shows up, write the buffer out.
+>> > Then earlyprintk can work just like regular printk.
+>> >
+>> Begging the question how one would debug failures during that time.
+>> The current earlyprintk stuff is at least able to print out _something_,
+>> so that you have some idea what went wrong.
+>> Without that things will become _really_ hard during board bringup.
+>
+> No, you don't actually *delay* the console output. You still register
+> the console as soon as you physically can, but you just don't have all
+> that nasty special-casing of the "earlyprintk" nonsense; you just make
+> sure the standard console output is capable of working as early as you
+> need it to.
 
- (1) A 'bits' and maybe a 'bits64' type.  Currently you have to use unsigned
-     long when you want to deploy a flags field with which you're going to use
-     test_bit() and co. - but this typically wastes 32 bits on a 64-bit arch
-     because you can't use bits 32-63 as they might not exist.
+Agreed.
 
-     Some arches, x86_64 and ppc64 for example, can do 32-bit atomic ops, so
-     we could make the field smaller in some cases.
+If we could convince fbcon to work early (which it really ought to),
+then we could get rid of the extra graphical console implementations
+floating around, e.g. the mediocre one sitting in the earlyefi console
+code.  We could also get rid of the handover problem when we
+initialize the "real" efifb -- all we'd have to do is initialize efifb
+very, very early, and I see no reason at all that we can't do that.
+(Well, I see one silly reason: if we initialize it before PAT, then we
+could end up with a UC mapping instead of WC, and I'm not sure that
+the x86 PAT code is smart enough to change the mapping type after the
+fact.  This could relatively easily be special-cased for efifb by
+teaching it to unmap and remap itself after PAT init, or we could try
+to initialize PAT earlier.)
 
-     We have a *lot* of flags fields in the kernel, so I wonder if we could
-     actually save any space.
+But doing this really nicely does tie in to the async printk
+discussion for a different reason.  I think that we should always
+initialize the obvious "early" consoles that can be cleanly enumerated
+early (e.g. EFI).  What we shouldn't do by default is *display*
+anything to them unless we crash, because the distro people want a
+clean boot to look pretty.  ISTM the condition for flushing the async
+printk buffers could be the same as the condition for actually writing
+to pre-VT consoles.
 
-     I seem to remember that the argument is (or was) that the type must be
-     the natural word size of the machine, but how true is that in actuality?
-
- (2) Differentiate non-BH spinlocks and BH spinlocks by type.
-
-     It seems like you can't mix BH and non-BH ops on a spinlock without
-     lockdep barking.  If that's the case, let's make this a compile-time
-     check.
-
- (3) Let's use bool a lot more for boolean values as the compiler might be
-     able to make better choices with it.
-
-
-And whilst we're at it, a function that I'd like to see:
-
- (1) on_list() in addition to list_empty() (and similar for other list types).
-
-     I know this would be kind of redundant as is would be implemented exactly
-     the same as list_empty() - but semantically you're asking a different
-     question.
-
-David
+--Andy
