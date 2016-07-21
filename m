@@ -1,36 +1,27 @@
-Return-Path: <josh@joshtriplett.org>
+Return-Path: <hverkuil@xs4all.nl>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C7E1C8FC
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id EA997902
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 21 Jul 2016 07:45:03 +0000 (UTC)
-Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
-	[217.70.183.198])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C017E121
+	Thu, 21 Jul 2016 07:46:29 +0000 (UTC)
+Received: from lb2-smtp-cloud6.xs4all.net (lb2-smtp-cloud6.xs4all.net
+	[194.109.24.28])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6D9AF10A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 21 Jul 2016 07:45:02 +0000 (UTC)
-Date: Thu, 21 Jul 2016 00:44:53 -0700
-From: Josh Triplett <josh@joshtriplett.org>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <20160721074453.GA11126@x>
-References: <20160713090739.GA18037@kroah.com>
-	<20160713143447.GH9976@sirena.org.uk>
-	<20160714031753.GA28722@kroah.com>
-	<20160714100603.GJ9976@sirena.org.uk>
-	<20160715002239.GA31603@kroah.com> <5788337F.8000500@roeck-us.net>
-	<20160715014103.GA5791@kroah.com> <578850EB.3090109@roeck-us.net>
-	<20160715042938.GA5527@kroah.com>
-	<CAKMK7uGPWusxsCRt9yELDrVd1v+rNsH3UWeTZdVBOZv+zw=iYA@mail.gmail.com>
+	Thu, 21 Jul 2016 07:46:28 +0000 (UTC)
+To: Jonathan Cameron <jic23@kernel.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+References: <5222c3bb-d6b7-0ccc-bf9e-becf5046a37a@kernel.org>
+From: Hans Verkuil <hverkuil@xs4all.nl>
+Message-ID: <84db7ee9-7df9-0a57-9e06-a32ef5a4989a@xs4all.nl>
+Date: Thu, 21 Jul 2016 09:39:04 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAKMK7uGPWusxsCRt9yELDrVd1v+rNsH3UWeTZdVBOZv+zw=iYA@mail.gmail.com>
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Trond Myklebust <trondmy@primarydata.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] kernel unit testing
+In-Reply-To: <5222c3bb-d6b7-0ccc-bf9e-becf5046a37a@kernel.org>
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: 7bit
+Cc: Zhang Rui <rui.zhang@intel.com>, Rob Herring <robh+dt@kernel.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Sensors and similar - subsystem
+ interactions, divisions, bindings etc.
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,240 +31,215 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Jul 21, 2016 at 09:13:37AM +0200, Daniel Vetter wrote:
-> Random tool plug: I stitched together a quilt+git thing, which through
-> hidden git refs makes sure that the underlying git baseline also gets
-> pushed around together with the quilt patches. Allows awesome stuff
-> like bisecting changes in the quilt pile over rebases:
+
+
+On 07/20/2016 11:18 PM, Jonathan Cameron wrote:
+> Hi All,
 > 
-> https://cgit.freedesktop.org/drm-intel/tree/qf?h=maintainer-tools
+> This topic would be around the way the various subsystems interact, in the
+> rough area of 'sensors' (I haven't yet had much of an issue with subsystem
+> crossing with output devices but maybe that's just over the next hill!)
+
+This happens regularly with drm/kms vs v4l, especially for embedded devices
+where video inputs and outputs are often connected internally (i.e. paths
+straight from video capture to video output without needing to go to memory
+first).
+
 > 
-> We use that to maintain the internal drm/i915 patches. Unfortunatel
-> everyone else uses plain git, since I fully agree with Greg: Quilt (or
-> some other pile-of-patches tool) is the only way to sanely manage
-> kernel trees which aren't directly upstream.
+> Scope may well be wider but includes:
+> * input (some of it)
+> * hwmon
+> * iio
+> * comedi(?)
+> * thermal
+> * power/battery
+> * gpio - the blur between gpios and beaglescope / PLC type I/O.
+> * v4l - when does a device jump from being a multi pixel thermopile
+> to a thermal camera? Smart fingerprint scanners etc.  Gesture recognition
+> sensors (effectively 9ish pixel cameras)
 
-I just released a tool I've been working on to address that problem:
-https://github.com/git-series/git-series
+See for an example of that this patch series that adds support for v4l-touch
+devices:
 
-I plan to announce it on LKML and various other places at some point,
-but since the topic came up and people are looking at workflows, it
-seemed worth mentioning here.
+http://www.spinics.net/lists/linux-input/msg45918.html
 
-git-series handles the "history of a patch series" problem, tracking
-both the patches themselves and the history of the patch series in git.
-It also tracks the baseline, and the cover letter.  And even when the
-patch series goes through non-fast-forwarding changes like rebase -i or
-rebasing onto a new baseline, git-series tracks that with refs that
-themselves fast-forward and can be pushed and fetched with normal git
-tools.
+> * Lots of random things we haven't seen yet.
+> 
+> All these make use of devices that are at their hearts ADCs. Whilst it
+> would nice if the underlying devices always fell into one clear
+> category that is not always the case. Hardware descriptions (e.g.
+> device tree) are an important area of contention.
+> 
+> The examples that follow are mostly based around IIO interactions with
+> hwmon / input as that's my area of expertise. However, I know that
+> similar issues occur at other boundaries.
+> 
+> Guenter Roeck has been working on hwmon / thermal interfacing recently.
+> We also regularly push drivers one way or the other around that boundary.
+> 
+> Dmitry and I often have to decide on the IIO / input scope boundary
+> (and we've moved it over time) + a number of cross over drivers have
+> turned up recently.
+> 
+> The other subsystems I encounter have been 'quieter' in their
+> interactions with me but many of the issues below apply to them as well.
+> 
+> A rough list of related topics that might be worth face to face
+> discussion includes:
+> 
+> 1) Are we happy with the somewhat adhoc divisions of subsystems as they
+> stand?
+> 
+> I am personally happy enough with this, but it's worth checking
+> everyone else is. This probably causes more pain for new submitters
+> than it does for old hands. Perhaps we can come up with a checklist style
+> doc to save people having to ask.
+>  
+> We have had quite a few cases where a whole driver is submitted to the
+> 'wrong' subsystem. Not the best first interaction with the kernel
+> world for new contributors. (This sort of area is attracts newbies
+> as it's relatively simple and the hardware is fairly cheap and more
+> than once their first experience with review as exactly this!)
+> 
+> If we aren't happy, what do we do about it?
+> 
+> I'm hoping we are happy or, at least, resigned to the current state
+> of affairs, but think the question should be asked from time to time
+> as the answer may well change + the discussion will highlight pinch
+> points we can work on.
+> 
+> 2) Bridging drivers - there will always be cross over cases.
+> E.g. Generic ADCs used for battery voltage monitoring.  We have a
+> number of bridges in mainline already and others out of tree.  How
+> important are these and what features would make them more useful?
+> 
+> Is it ever sensible to have two drivers for the same part because
+> the use cases are so different? (I hope there is always a better way
+> but maybe not)
 
-I wrote it after the Nth time of running into this problem and talking
-to other people who ran into this problem.  Usually, you either have to
-pull the patch series out of git into quilt to version it, or or you
-keep the patches in git and version by branch names (which rapidly
-start looking like filenames from a corporate email system).
+One example of this is video output: both drm/kms and v4l can do video
+output. Video output using v4l is specifically geared towards frame-based
+video output whereas drm/kms is for desktop environments/GPUs. Luckily there
+are very few v4l video output drivers and the driver duplication occurs
+only for the i2c video transmitter devices. I know of two that are duplicated:
+adv7511 and (I think) saa7127. The rarity is the reason nobody ever created
+a shim or something similar to allow for one i2c driver to serve both
+subsystems. Technically this would be perfectly possible, it's just work.
 
-Here's the manpage:
+> This covers both generic bridges (e.g. iio-hwmon) and device
+> specific bridges (a good example of a touch screen driver turned
+> up in my inbox yesterday).
+> 
+> 3) Bindings (device tree and similar).  When it is appropriate to use a 
+> device tree to describe the overlap (bridging of channels)?
+> Sometimes there is obvious real hardware involved (a thermistor on a
+> generic ADC input for example), but there are many grey areas.
+> 
+> Finally bashing out an answer to the issue device tree maintainers
+> have with the iio-hwmon bindings would be great. 
+> On a less biased note, that example is pretty fiddly to define but would
+> act as a good basis to work from more generally.
+> 
+> We know we got it wrong (back in the dark ages), but it isn't obvious how
+> to get it right!
+> 
+> IIO-input has been partly held outside mainline for years by this issue.
+> 
+> Also some practical design decisions to make around how to implement
+> these mappings to work best with deferred probing etc.
+> 
+> 4) Should we drop all the bindings for bridging between such subsystems
+> and do it all from userspace?
+> 
+> I think we may end up with a hybrid of the two, but need to be able to
+> make it work in 'standard' cases without userspace being involved. That
+> hybrid solution may well be devicetree overlay based... Unclear so far.
+> + plenty of crazy things that 'might' make sense where there isn't even
+> the pretence of representing real hardware.
+> 
+> 5) Complex device interaction usecases.  At the moment the ones I've come
+> across are mostly contained in IIO.  The moment we start sticking in
+> MUXes, AFEs (Analog Front Ends) and straightforward analog sensors in the
+> mix it can get fiddly.  Swapping war stories may well be worthwhile on
+> this. This stuff also turns up in ASoC for example so probably lessons
+> to be learned from there.
 
-NAME
-       git-series - track changes to a patch series with git
+V4L has a long history of this: if you have multiple video scalers in your
+pipeline, how do you control them? E.g. there can be scalers in the video
+sensor and in the SoC. We came up with the media controller device to
+expose the topology of the hardware and to be able to control each bit
+directly from userspace.
 
-SYNOPSIS
-       git series [SUBCOMMAND] [OPTIONS]
+While the media controller is quite powerful and can be used to expose
+connections across subsystems, it also requires more work from userspace,
+and that's an area where not enough attention has been given.
 
-DESCRIPTION
-       git  series  tracks  changes  to a patch series over time.  git
-       series also tracks a cover letter for the patch series, formats
-       the series for email, and prepares pull requests.
+> The analog devices software defined radios are another possible case
+> study.
 
-       Use git series start seriesname to start a patch series series‐
-       name.  Use normal git commands to commit changes, and  use  git
-       series  status to check what has changed.  Use git series cover
-       to add or edit a cover letter.  Use  git  series  add  and  git
-       series  commit  (or  git series commit -a) to commit changes to
-       the patch series.  Use git series rebase -i to help  rework  or
-       reorganize  the patch series.  Use git series format to prepare
-       the patch series to send via email, or git series req  to  pre‐
-       pare a "please pull" mail.
+Note that the V4L2 subsystem has support for several SDR devices. Probably
+another area where drivers can end up in different subsystems.
 
-       Running  git  series  without arguments shows the list of patch
-       series, marking the current patch series with a '*'.
+> 
+> There of course may well be lessons to be learned from similar
+> interactions elsewhere in the kernel.
+> 
+> There is a lot of history in how we ended up where we are (it all made
+> absolute sense at the time). Sitting back and taking the time
+> to discuss the future would be great.  Whilst this might be solvable
+> by email we've made no definitive progress for years
+> (and what has been made has been on a case by case basis deep in
+> driver reviews.)
+> 
+> I threw comedi in the list above but, at the moment, I think the more
+> likely direction there is a single userspace library abstracting
+> the underlying subsystem (Analog Devices are working in that
+> direction - perhaps Lars can offer more on that?).
 
-SUBCOMMANDS
-       git series add change...
-              Add changes to the staging area for the next git  series
-              commit.
+When you get complex systems you probably have to move in that direction.
+I'd be interesting in such work going on in other subsystems. As mentioned
+above, the media controller needs something like that and it would be
+good to learn from others.
 
-              change...
-                     Changes  to  add:  any  combination  of "series",
-                     "base", and "cover".
+> GPIO is another interesting case - a lot of hardware is capable of
+> parallel sampling, some at high speeds. It's another area that
+> is probably too specialist for this discussion, but if people want
+> to dive into the details it might be interesting.
+> 
+> I think we have only a small amount of fuzz around the v4l boundary,
+> but wanted to leave the door open if anyone wants to discuss that
+> one further as it's come up a few times over recent years.
 
-       git series base [-d|--delete] [base]
-              Get or set the base commit for the patch  series.   With
-              no  parameters, print the hash of the base commit.  With
-              parameters, set or delete the base commit.
+There is more of that than we wish, but quite often it is just dropped
+in the end as being too much work to solve and not quite important enough
+to spend the time and money on.
 
-              This only changes the base in the working version of the
-              patch series; use git series add base to add that change
-              to the next git series commit, or use git series  commit
-              -a  to  commit the new base and all other changes to the
-              series in one step.
+> The SoC world is a major case of one device, many uses.  Some SoCs
+> are turning up with multiple ADC units, sometimes with different
+> designs, sometimes simply so that the same hardware can be used for different things.
+> 
+> A few suggestions for people:
+> 
+> Guenter Roeck (hmwon)
+> Dmitry Torokhov (input)
+> Me (Jonathan Cameron - IIO)
+> 
+> Someone thermal related (not sure who would be most interested)
+> Someone power supply related? (Guenter, any suggestions?)
+> 
+> Someone device tree related (Mark Rutland? Rob Herring?)
+> 
+> Linus Waleij (gpio)
+> 
+> Mark Brown - as some of concepts of IIO bridging and how far it
+> can be taken (everything via a bridge driver) came from
+> discussions with him on SoC ADC handling.
+> 
+> Lar-Peter Clausen for generally doing insane things with ADCs + having
+> one foot in the userspace side of things.
 
-              base   New base commit.  This can use a commit hash, ref
-                     name,  or  special  syntaxes  such as refname^ or
-                     refname~2.
+Laurent Pinchart or myself for v4l/mc
 
-              -d|--delete
-                     Delete the current base commit.
+Regards,
 
-       git series checkout name
-              Resume work on the patch series name; check out the cur‐
-              rent version as HEAD.
-
-       git series commit [-a|--all] [-m message] [-v|--verbose]
-              Record a new version of the patch series.  Without argu‐
-              ments, this will run an editor to edit a commit message,
-              and  then  commit  the changes previously added with git
-              series add.
-
-              -a|--all
-                     Commit all changes, not just those added with git
-                     series add.
-
-              -m message
-                     Use  message  as  the commit message, rather than
-                     running an editor.
-
-              -v|--verbose
-                     Show a diff of the commit in  the  editor,  below
-                     the  commit message, as a reminder of the changes
-                     in the commit.  This diff will not appear in  the
-                     commit message.
-
-       git series cover [-d|--delete]
-              Create  or  edit  the cover letter for the patch series.
-              Without arguments, this will run an editor to  edit  the
-              cover letter.
-
-              This  only  changes the cover letter in the working ver‐
-              sion of the patch series; use git series  add  cover  to
-              add  that  change  to the next git series commit, or use
-              git series commit -a to commit the new cover letter  and
-              all other changes to the series in one step.
-
-              -d|--delete
-                     Delete the cover letter rather than editing it.
-
-       git series delete name
-              Delete  the series name, including any work in progress,
-              staged or unstaged.
-
-       git series detach
-              Stop working  on  any  patch  series.   Any  changes  in
-              progress,  staged  or  unstaged, will remain intact.  To
-              start working on the branch again, use git series check‐
-              out.
-
-       git series format [--in-reply-to=Message-Id] [--stdout]
-              Prepare  the  patch series to send via email.  This cre‐
-              ates one file per patch in the series,  plus  one  addi‐
-              tional  file  for  the  cover  letter if any.  The patch
-              series must have a base set with  git  series  base,  to
-              identify the series of patches to format.
-
-              Each  file  contains  one email in mbox format, ready to
-              send, with  email  headers  threading  all  the  patches
-              together.   If the series has a cover letter, all of the
-              patches will include headers to make them a reply to the
-              cover letter; otherwise, all of the patches will include
-              headers to make them a reply to the first patch.
-
-              --in-reply-to=Message-Id
-                     Make the first mail a reply to the specified Mes‐
-                     sage-Id.   The Message-Id may include or omit the
-                     surrounding angle brackets; git-series  will  add
-                     them if not present.
-
-              --stdout
-                     Write  the  entire  patch series to stdout rather
-                     than to separate patch files.
-
-       git series help [subcommand]
-              Show help for git series or a subcommand.  Without argu‐
-              ments,  shows  a summary of the subcommands supported by
-              git series.
-
-              subcommand
-                     Show help for subcommand.
-
-       git series log [-p|--patch]
-              Show the history of the patch series.
-
-              -p|--patch
-                     Include a patch for each change committed to  the
-                     series.
-
-       git series rebase [-i|--interactive] [onto]
-              Rebase  the patch series, either onto a new base, inter‐
-              actively, or both.  The patch series must  have  a  base
-              set  with  git  series  base,  to identify the series of
-              patches to rebase.
-
-              onto   Commit to rebase the series onto.  This can use a
-                     commit  hash,  ref name, or special syntaxes such
-                     as refname^ or refname~2.
-
-              -i|--interactive
-                     Interactively edit the  list  of  commits.   This
-                     uses the same format and syntax as git rebase -i,
-                     to  allow  reordering,  dropping,  combining,  or
-                     editing commits.
-
-       git series req [-p|--patch] url tag
-              Generate a mail requesting a pull of the patch series.
-
-              Before  running  this  command, push the patch series to
-              the repository at url, as a tag or branch named tag.
-
-              A pull request  for  a  signed  or  annotated  tag  will
-              include the message from the tag.  The pull request will
-              also include the cover letter if  any,  unless  the  tag
-              message  already contains the cover letter.  The subject
-              of the mail will include the first line from  the  cover
-              letter, or the name of the series if no cover letter.
-
-              The  patch  series  must have a base set with git series
-              base, to identify the series of  patches  to  request  a
-              pull of.
-
-              url    URL of the repository to pull from.
-
-              tag    Name of a tag or branch to request a pull from.
-
-              -p|--patch
-                     Include  a patch showing the combined change made
-                     by all the patches in the series.  This can  help
-                     a reviewer see the effect of pulling the series.
-
-       git series start name
-              Start a new patch series named name.
-
-       git series status
-              Show the status of the current patch series.
-
-              This  shows  any  changes staged for the next git series
-              commit, changes in the  current  working  copy  but  not
-              staged  for  the next git series commit, and hints about
-              the next commands to run.
-
-       git series unadd change
-              Remove changes from the next git series commit,  undoing
-              git series add.
-
-              The changes remain in the current working version of the
-              series.
-
-              change...
-                     Changes to remove: any combination  of  "series",
-                     "base", and "cover".
+	Hans
