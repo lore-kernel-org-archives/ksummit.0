@@ -1,28 +1,37 @@
-Return-Path: <hare@suse.com>
+Return-Path: <daniel.vetter@ffwll.ch>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6750E83D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4E9F9899
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 21 Jul 2016 05:59:24 +0000 (UTC)
-Received: from smtp.nue.novell.com (smtp.nue.novell.com [195.135.221.5])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5A2E089
+	Thu, 21 Jul 2016 07:13:40 +0000 (UTC)
+Received: from mail-oi0-f67.google.com (mail-oi0-f67.google.com
+	[209.85.218.67])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B9BF713A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 21 Jul 2016 05:59:23 +0000 (UTC)
-To: Andy Lutomirski <luto@amacapital.net>, "Wangnan (F)" <wangnan0@huawei.com>
-References: <20160719034717.GA24189@swordfish>
-	<535ebaec-1653-3077-d17b-feb847fd51d2@suse.com>
-	<578EF192.3050808@huawei.com>
-	<CALCETrUbuQjEAettvDStqEophng+1TNGDpueWDJ4QWLqiyaQ2w@mail.gmail.com>
-From: Hannes Reinecke <hare@suse.com>
-Message-ID: <028967b8-6107-9d9c-453a-a7f25e967f70@suse.com>
-Date: Thu, 21 Jul 2016 07:59:20 +0200
+	Thu, 21 Jul 2016 07:13:39 +0000 (UTC)
+Received: by mail-oi0-f67.google.com with SMTP id l9so6969673oih.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 21 Jul 2016 00:13:39 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CALCETrUbuQjEAettvDStqEophng+1TNGDpueWDJ4QWLqiyaQ2w@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
+In-Reply-To: <20160715042938.GA5527@kroah.com>
+References: <718BE1FD-6169-4205-A905-53F997D5943A@primarydata.com>
+	<5785C80F.4030707@linaro.org> <20160713090739.GA18037@kroah.com>
+	<20160713143447.GH9976@sirena.org.uk>
+	<20160714031753.GA28722@kroah.com>
+	<20160714100603.GJ9976@sirena.org.uk>
+	<20160715002239.GA31603@kroah.com>
+	<5788337F.8000500@roeck-us.net> <20160715014103.GA5791@kroah.com>
+	<578850EB.3090109@roeck-us.net> <20160715042938.GA5527@kroah.com>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Thu, 21 Jul 2016 09:13:37 +0200
+Message-ID: <CAKMK7uGPWusxsCRt9yELDrVd1v+rNsH3UWeTZdVBOZv+zw=iYA@mail.gmail.com>
+To: Greg KH <greg@kroah.com>
+Content-Type: text/plain; charset=UTF-8
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Trond Myklebust <trondmy@primarydata.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] asynchronous printk
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] kernel unit testing
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,76 +41,45 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 07/21/2016 03:16 AM, Andy Lutomirski wrote:
-> On Tue, Jul 19, 2016 at 8:35 PM, Wangnan (F) <wangnan0@huawei.com> wrote:
->>
->>
->> On 2016/7/19 14:17, Hannes Reinecke wrote:
->>>
->>> On 07/19/2016 05:47 AM, Sergey Senozhatsky wrote:
->>>>
->>>> Hello,
->>>>
->>>> Wondering if anyone will be interested in printk-related topics
->>>> (or we can handle it in the mailing list).
->>>>
->>>> What I have on my list is:
->>>>
->>>>
->>>> - synchronous printk()
->>>>
->>>> printk() prints messages from kernel printk buffer until the buffer
->>>> is empty. When serial console is attached, printing is slow and thus
->>>> other CPUs in the system have plenty of time to append new messages to
->>>> the buffer while one CPU is printing. Thus the CPU can spend unbounded
->>>> amount of time doing printing in console_unlock().  This is especially
->>>> serious problem if the printk() calling console_unlock() was called with
->>>> interrupts disabled, or from IRQ, or from spin_lock protected section
->>>> (if the spinlock is contended), etc. etc. IOW, printk() is quite
->>>> dangerous
->>>> function to call in some cases, it can cause different types of lockups
->>>> (soft, hard, spinlock), stalls and so on.
->>>>
->>>> we have some progress on this side. printk() can offload printing from
->>>> sensitive and unsafe contexts to a schedulable printk_kthread context (a
->>>> special purpose printing kthread).
->>>> but "The whole idea remains worrisome", per Andrew :)
->>>>
->>> Yes. The main problem stems from the fact that printk has two different
->>> and conflicting use-cases:
->>> - Really urgent, 'I am about to die' messages. Which obviously need to
->>>    be printed out as fast as possible.
->>> - Rather largish, information/logging 'what I always wanted to tell you'
->>>    type of messages. These messages tend to be very large, but at the end
->>>    it doesn't really matter _when_ they'll be printed as they are
->>>    time-stamped anyway.
->>>
->>
->> Actually, there are 3 types of messages:
->>
->>  1. Urgent: I'm going to die.
->>  2. information/logging.
->>  3. Trace.
->>
-> 
-> If we do all this stuff, can we also try to clean up earlyprintk a
-> bit?  The whole earlyconsole mechanism is a mess, and switching over
-> to the non-early console is only somewhat functional.  I'd love to see
-> this all simplified: before there's any console at all available, just
-> buffer messages.  Then, when a console shows up, write the buffer out.
-> Then earlyprintk can work just like regular printk.
-> 
-Begging the question how one would debug failures during that time.
-The current earlyprintk stuff is at least able to print out _something_,
-so that you have some idea what went wrong.
-Without that things will become _really_ hard during board bringup.
+On Fri, Jul 15, 2016 at 6:29 AM, Greg KH <greg@kroah.com> wrote:
+> On Thu, Jul 14, 2016 at 07:56:43PM -0700, Guenter Roeck wrote:
+>> Overall, I can not imagine that it is even possible to use quilt trees as basis
+>> for development in a company with if active kernel development, even more so
+>> if a large number of engineers and/or a number of branches are involved.
+>> Sure, the QCOM example may be extreme, but do you really think that writing
+>> those 2.5M LOC would have been possible if QCOM had used Quilt trees instead
+>> of git ? Using Quilt would for sure have prevented them from writing those
+>> 2.5M LOC, but then there would be nothing. That doesn't sound like a feasible
+>> alternative either.
+>
+> It is possible, look at the Red Hat and SuSE kernel development teams.
+> Yes, in the end, most of the patches are backports from upstream, but
+> during new releases they use quilt for all of their work, adding and
+> removing and updating patches all the time.
+>
+> There are the usual merge issues with doing that, but for an SoC, I
+> don't think that would be all that hard given that almost all patches
+> are driver/subsystem-specific and don't touch other places.
+>
+> It does take a better calibre of developer to do this type of thing,
+> that might be a harder thing to deal with at some SoC vendors :)
 
-Cheers,
+Random tool plug: I stitched together a quilt+git thing, which through
+hidden git refs makes sure that the underlying git baseline also gets
+pushed around together with the quilt patches. Allows awesome stuff
+like bisecting changes in the quilt pile over rebases:
 
-Hannes
+https://cgit.freedesktop.org/drm-intel/tree/qf?h=maintainer-tools
+
+We use that to maintain the internal drm/i915 patches. Unfortunatel
+everyone else uses plain git, since I fully agree with Greg: Quilt (or
+some other pile-of-patches tool) is the only way to sanely manage
+kernel trees which aren't directly upstream.
+
+And yes it also takes a decent calibre of developer with some
+understanding of the tooling to make effective use of it.
+-Daniel
 -- 
-Dr. Hannes Reinecke		               zSeries & Storage
-hare@suse.com			               +49 911 74053 688
-SUSE LINUX GmbH, Maxfeldstr. 5, 90409 Nürnberg
-GF: F. Imendörffer, J. Smithard, D. Upmanyu, G. Norton
-HRB 21284 (AG Nürnberg)
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
