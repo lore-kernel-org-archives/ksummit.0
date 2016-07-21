@@ -1,30 +1,31 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <ebiederm@xmission.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 41D40256
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B64CF323
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 21 Jul 2016 16:21:27 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3EEC6107
+	Thu, 21 Jul 2016 17:16:36 +0000 (UTC)
+Received: from out03.mta.xmission.com (out03.mta.xmission.com [166.70.13.233])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id EB4B424A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 21 Jul 2016 16:21:25 +0000 (UTC)
-Date: Thu, 21 Jul 2016 17:21:07 +0100
-From: Mark Brown <broonie@kernel.org>
-To: David Woodhouse <dwmw2@infradead.org>
-Message-ID: <20160721162107.GN6509@sirena.org.uk>
-References: <87inw1skws.fsf@x220.int.ebiederm.org>
-	<20160719173120.GE30372@sirena.org.uk>
-	<1469109732.120686.168.camel@infradead.org>
+	Thu, 21 Jul 2016 17:16:35 +0000 (UTC)
+From: ebiederm@xmission.com (Eric W. Biederman)
+To: Herbert Xu <herbert@gondor.apana.org.au>
+References: <CALCETrXtfzi=G4H+Zttv3kWcCo32V6cO9OBfdyuYT4DHvJTJLg@mail.gmail.com>
+	<20160711173329.GA8240@pc.thejh.net>
+	<87y44xr5zp.fsf@x220.int.ebiederm.org>
+	<CALCETrVeNP=2WRYdT7ePFx=MURao4-XFHyx9U+VQmpcmyLjLfw@mail.gmail.com>
+	<8737n5caz8.fsf@x220.int.ebiederm.org>
+	<20160720064228.GA32737@gondor.apana.org.au>
+Date: Thu, 21 Jul 2016 12:03:31 -0500
+In-Reply-To: <20160720064228.GA32737@gondor.apana.org.au> (Herbert Xu's
+	message of "Wed, 20 Jul 2016 14:42:28 +0800")
+Message-ID: <87poq653fg.fsf@x220.int.ebiederm.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="VBq/nvTu32OVLBUP"
-Content-Disposition: inline
-In-Reply-To: <1469109732.120686.168.camel@infradead.org>
-Cc: Behan Webster <behanw@gmail.com>, ksummit-discuss@lists.linuxfoundation.org,
-	sumit.semwal@linaro.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] [TECH TOPIC] Support (or move
- towards to) LLVM
+Content-Type: text/plain
+Cc: Jann Horn <jann@thejh.net>, "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [TOPIC] kernel hardening / self-protection /
+	whatever
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,39 +35,27 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+Herbert Xu <herbert@gondor.apana.org.au> writes:
 
---VBq/nvTu32OVLBUP
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> On Tue, Jul 19, 2016 at 09:14:03PM -0500, Eric W. Biederman wrote:
+>> True.  I tried to review things to make certain they were safe in user
+>> namespaces when I enabled things but clearly a few things slipped
+>> through the cracks.
+>
+> What's worse is that after you enable them someone else can come
+> along and add a new piece of functionality but still assuming
+> that only root has access to it.  I encountered this with netfilter
+> and rhashtable where the argument put forward was that as long as
+> only root had access to a hash table then we don't have to worry
+> about hash collissions.
 
-On Thu, Jul 21, 2016 at 03:02:12PM +0100, David Woodhouse wrote:
-> On Thu, 2016-07-21 at 07:41 -0600, Shuah Khan wrote:
+Wow.  I missed that hash table discussion.
 
-> > Would you be willing to share your experiences and the nature of bugs
-> > you were able to find using LLVM. Maybe that could be folded into this
-> > discussion as a real life experience.
+Yes.  People working on old assumptions is problematic.  Although I have
+seen people in code reviews ask the question and what happens if someone
+enables your code with user namespaces?  Which seems like a good sign.
 
-> http://llvm.linuxfoundation.org/index.php/Bugs
+Hopefully we can just retire the argument only root can do this, we
+don't need to care about code quality.
 
-> Probably horrifically out of date. Behan is the best person to ask for
-> a current status, I suspect...
-
-CCing in Sumit who I believe has also been looking at some issues
-building kernels with LLVM.
-
---VBq/nvTu32OVLBUP
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQEcBAEBCAAGBQJXkPZyAAoJECTWi3JdVIfQ6XQH/2RSxPjzvsA/Xrzj5ly9UdUc
-YzZGr7NFeUyITe0g1P4sK8isn545KrkaS1iec14W0Q6q7yLkGk0c3kBKb7rryjhJ
-iC8KMKfbcJftpt2OM8wpQAAgEn9ump9uqqA0Ov/4w/bRpTYS0P6LTvsw9OFFUuD8
-SKPqDQC2IAIYC/5B2bUoqJ+8F6YwHP/NE9l9WMYB4rEJWPcU58LWlkX56o2C+5c7
-GMfY/Gul4v3vm5HowbTJyql6hbmbZe2W46E+yff/Jexp8oAsx/1GpPglgCwFMcEu
-z8s1f0VUmeUltSqNR40zXRnyjPrm5mnK8mOlQaYf17EHoIYdSXWlbZKEyuCR8I8=
-=xnAW
------END PGP SIGNATURE-----
-
---VBq/nvTu32OVLBUP--
+Eric
