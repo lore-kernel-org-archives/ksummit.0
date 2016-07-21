@@ -1,27 +1,30 @@
-Return-Path: <hverkuil@xs4all.nl>
+Return-Path: <BATV+0d76782fbc60545d8437+4715+infradead.org+dwmw2@bombadil.srs.infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id EA997902
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9528C6C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 21 Jul 2016 07:46:29 +0000 (UTC)
-Received: from lb2-smtp-cloud6.xs4all.net (lb2-smtp-cloud6.xs4all.net
-	[194.109.24.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6D9AF10A
+	Thu, 21 Jul 2016 09:55:03 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 09E43126
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 21 Jul 2016 07:46:28 +0000 (UTC)
-To: Jonathan Cameron <jic23@kernel.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-References: <5222c3bb-d6b7-0ccc-bf9e-becf5046a37a@kernel.org>
-From: Hans Verkuil <hverkuil@xs4all.nl>
-Message-ID: <84db7ee9-7df9-0a57-9e06-a32ef5a4989a@xs4all.nl>
-Date: Thu, 21 Jul 2016 09:39:04 +0200
-MIME-Version: 1.0
-In-Reply-To: <5222c3bb-d6b7-0ccc-bf9e-becf5046a37a@kernel.org>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 7bit
-Cc: Zhang Rui <rui.zhang@intel.com>, Rob Herring <robh+dt@kernel.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Sensors and similar - subsystem
- interactions, divisions, bindings etc.
+	Thu, 21 Jul 2016 09:55:02 +0000 (UTC)
+Message-ID: <1469094899.120686.101.camel@infradead.org>
+From: David Woodhouse <dwmw2@infradead.org>
+To: Jiri Kosina <jikos@kernel.org>, Mark Brown <broonie@kernel.org>
+Date: Thu, 21 Jul 2016 10:54:59 +0100
+In-Reply-To: <alpine.LNX.2.00.1607201859270.24757@cbobk.fhfr.pm>
+References: <87inw1skws.fsf@x220.int.ebiederm.org>
+	<20160719173120.GE30372@sirena.org.uk>
+	<alpine.LNX.2.00.1607192049170.24757@cbobk.fhfr.pm>
+	<20160720155319.GG6509@sirena.org.uk>
+	<alpine.LNX.2.00.1607201859270.24757@cbobk.fhfr.pm>
+Content-Type: multipart/signed; micalg="sha-256";
+	protocol="application/x-pkcs7-signature";
+	boundary="=-opT4giKQGezHnkTilRzO"
+Mime-Version: 1.0
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] [TECH TOPIC] Support (or move
+ towards to) LLVM
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,214 +35,167 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
+--=-opT4giKQGezHnkTilRzO
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 07/20/2016 11:18 PM, Jonathan Cameron wrote:
-> Hi All,
-> 
-> This topic would be around the way the various subsystems interact, in the
-> rough area of 'sensors' (I haven't yet had much of an issue with subsystem
-> crossing with output devices but maybe that's just over the next hill!)
+On Wed, 2016-07-20 at 19:04 +0200, Jiri Kosina wrote:
+> On Wed, 20 Jul 2016, Mark Brown wrote:
+>=20
+> > > > There's a push from certain quarters to move away from GCC to LLVM.=
+ =20
+> >=20
+> > > This might actually be an interesting topic per se.
+> >=20
+> > Yes, indeed.
+>=20
+> Let's make this a real proposal then ... (subject changed). I am again a=
+=20
+> bit unsure about the core / tech division here.
+>=20
+> People who should be invited: proponents of the push from the certain=20
+> quarters mentioned by Mark above, and ideally some LLVM folks as well.
+>=20
+> I've never actually used llvm to compile the kernel (which makes me rathe=
+r=20
+> poor contributor should any such discussion happen), but I've been on the=
+=20
+> "receiving side", debugging a crash that turned out to be llvm messing up=
+=20
+> with IF in a way that interfers with local_irq_save(), and also suffered=
+=20
+> from the followup frustration when I found out that this has been reporte=
+d=20
+> to llvm folks ages ago, and they haven't bothered to fix it (it's now at=
+=20
+> least worked around, in a very sub-optimal way (lahf/sahf)).
 
-This happens regularly with drm/kms vs v4l, especially for embedded devices
-where video inputs and outputs are often connected internally (i.e. paths
-straight from video capture to video output without needing to go to memory
-first).
+I got involved in building the kernel with LLVM a little while ago,
+after accidentally implementing .code16 support in LLVM =E2=80=94 for other
+reasons, but it allowed the arch/x86/boot/ bits to be built with LLVM.
 
-> 
-> Scope may well be wider but includes:
-> * input (some of it)
-> * hwmon
-> * iio
-> * comedi(?)
-> * thermal
-> * power/battery
-> * gpio - the blur between gpios and beaglescope / PLC type I/O.
-> * v4l - when does a device jump from being a multi pixel thermopile
-> to a thermal camera? Smart fingerprint scanners etc.  Gesture recognition
-> sensors (effectively 9ish pixel cameras)
+Apart from resolutely not wanting to implement variable length arrays
+on the stack, the LLVM folks actually seem quite keen to make things
+work. I'm interested in the problem you report above.. and note the
+absence of a bug number. Can you provide it?
 
-See for an example of that this patch series that adds support for v4l-touch
-devices:
+You're right that it does take a while to get some things fixed, but
+people *are* doing a fairly good job of identifying them, filing bugs,
+and implementing workarounds until the bugs can be fixed.
 
-http://www.spinics.net/lists/linux-input/msg45918.html
+Building with LLVM has also helped to find some real kernel bugs. I'd
+be keen to get this working more widely.
 
-> * Lots of random things we haven't seen yet.
-> 
-> All these make use of devices that are at their hearts ADCs. Whilst it
-> would nice if the underlying devices always fell into one clear
-> category that is not always the case. Hardware descriptions (e.g.
-> device tree) are an important area of contention.
-> 
-> The examples that follow are mostly based around IIO interactions with
-> hwmon / input as that's my area of expertise. However, I know that
-> similar issues occur at other boundaries.
-> 
-> Guenter Roeck has been working on hwmon / thermal interfacing recently.
-> We also regularly push drivers one way or the other around that boundary.
-> 
-> Dmitry and I often have to decide on the IIO / input scope boundary
-> (and we've moved it over time) + a number of cross over drivers have
-> turned up recently.
-> 
-> The other subsystems I encounter have been 'quieter' in their
-> interactions with me but many of the issues below apply to them as well.
-> 
-> A rough list of related topics that might be worth face to face
-> discussion includes:
-> 
-> 1) Are we happy with the somewhat adhoc divisions of subsystems as they
-> stand?
-> 
-> I am personally happy enough with this, but it's worth checking
-> everyone else is. This probably causes more pain for new submitters
-> than it does for old hands. Perhaps we can come up with a checklist style
-> doc to save people having to ask.
->  
-> We have had quite a few cases where a whole driver is submitted to the
-> 'wrong' subsystem. Not the best first interaction with the kernel
-> world for new contributors. (This sort of area is attracts newbies
-> as it's relatively simple and the hardware is fairly cheap and more
-> than once their first experience with review as exactly this!)
-> 
-> If we aren't happy, what do we do about it?
-> 
-> I'm hoping we are happy or, at least, resigned to the current state
-> of affairs, but think the question should be asked from time to time
-> as the answer may well change + the discussion will highlight pinch
-> points we can work on.
-> 
-> 2) Bridging drivers - there will always be cross over cases.
-> E.g. Generic ADCs used for battery voltage monitoring.  We have a
-> number of bridges in mainline already and others out of tree.  How
-> important are these and what features would make them more useful?
-> 
-> Is it ever sensible to have two drivers for the same part because
-> the use cases are so different? (I hope there is always a better way
-> but maybe not)
+--=20
+David Woodhouse                            Open Source Technology Centre
+David.Woodhouse@intel.com                              Intel Corporation
+--=-opT4giKQGezHnkTilRzO
+Content-Type: application/x-pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
 
-One example of this is video output: both drm/kms and v4l can do video
-output. Video output using v4l is specifically geared towards frame-based
-video output whereas drm/kms is for desktop environments/GPUs. Luckily there
-are very few v4l video output drivers and the driver duplication occurs
-only for the i2c video transmitter devices. I know of two that are duplicated:
-adv7511 and (I think) saa7127. The rarity is the reason nobody ever created
-a shim or something similar to allow for one i2c driver to serve both
-subsystems. Technically this would be perfectly possible, it's just work.
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEeAw
+ggXiMIIDyqADAgECAhBrp4p9CteI1lEK+Vnk57ThMA0GCSqGSIb3DQEBCwUAMH0xCzAJBgNVBAYT
+AklMMRYwFAYDVQQKEw1TdGFydENvbSBMdGQuMSswKQYDVQQLEyJTZWN1cmUgRGlnaXRhbCBDZXJ0
+aWZpY2F0ZSBTaWduaW5nMSkwJwYDVQQDEyBTdGFydENvbSBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0
+eTAeFw0xNTEyMTYwMTAwMDVaFw0zMDEyMTYwMTAwMDVaMHUxCzAJBgNVBAYTAklMMRYwFAYDVQQK
+Ew1TdGFydENvbSBMdGQuMSkwJwYDVQQLEyBTdGFydENvbSBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0
+eTEjMCEGA1UEAxMaU3RhcnRDb20gQ2xhc3MgMSBDbGllbnQgQ0EwggEiMA0GCSqGSIb3DQEBAQUA
+A4IBDwAwggEKAoIBAQC9fdr3w6J9g/Zbgv3bW1+uHht1wLUZr5gkrLtXedg17AkefMyUGwrQdvwO
+bhajcVmnKVxhrUwkZPXRAwZZosRHfEIi5FH7x6SV/8Sp5lZEuiMnvMFG2MzLA84J6Ws5T4NfXZ0q
+n4TPgnr3X2vPVS51M7Ua9nIJgn8jvTra4eyyQzxvuA/GZwKg7VQfDCmCS+kICslYYWgXOMt2xlsS
+slxLce0CGWRsT8EpMyt1iDflSjXZIsE7m1uTyHaKZspMLyIyz6mySu8j8BWWHpChNNeTrFuhVfrO
+AyDPFJVUvKZCLKBhibTLloyy+LatoWELrjdI4a8StZY8+dIR9t4APXGzAgMBAAGjggFkMIIBYDAO
+BgNVHQ8BAf8EBAMCAQYwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMBIGA1UdEwEB/wQI
+MAYBAf8CAQAwMgYDVR0fBCswKTAnoCWgI4YhaHR0cDovL2NybC5zdGFydHNzbC5jb20vc2ZzY2Eu
+Y3JsMGYGCCsGAQUFBwEBBFowWDAkBggrBgEFBQcwAYYYaHR0cDovL29jc3Auc3RhcnRzc2wuY29t
+MDAGCCsGAQUFBzAChiRodHRwOi8vYWlhLnN0YXJ0c3NsLmNvbS9jZXJ0cy9jYS5jcnQwHQYDVR0O
+BBYEFCSBbDlhvkkPj7cbRivJKLUnSG1oMB8GA1UdIwQYMBaAFE4L7xqkQFulF2mHMMo0aEPQQa7y
+MD8GA1UdIAQ4MDYwNAYEVR0gADAsMCoGCCsGAQUFBwIBFh5odHRwOi8vd3d3LnN0YXJ0c3NsLmNv
+bS9wb2xpY3kwDQYJKoZIhvcNAQELBQADggIBAIvj94fsAYuErQ8BAluc4SMnIwS9NPBwAm5SH9uh
+2NCXTq7im61g7F1LIiNI/+wq37fUuaMbz4g7VarKQTgf8ubs0p7NZWcIe7Bvem2AWaXBsxsaRTYw
+5kG3DN8pd1hSEUuFoTa7DmNeFe8tiK1BrL3rbA/m48jp4AiFXgvxprJrW7izsyetOrRHPbkW4Y07
+v29MdhaPv3u1JELyszXqOzjIYo4sWlC8iDQXwgSW/ntvWy2n4LuiaozlCfXl149tKeqvwlvrla2Y
+klue/quWp9j9ou4T/OY0CXMuY+B8wNK0ohd2D4ShgFlMSjzAFRoHGKF81snTr2d1A7Ew02oF6UQy
+CkC2aNNsK5cWOojBar5c7HplX9aHYUCZouxIeU28SONJAxnATgR4cJ2jrpmYSz/kliUJ46S6UpVD
+o/ebn9c6PaM/XtDYCCaM/7XX6wc3s++sbQ7CtCn1Ax7df6ufQbwyO0V+oFa9H0KAsjHMzcwk3EV2
+B2NLatidKE/m7G+rB9m+FlVgIiSp0mGlg43QO9Kh1+JqvTCIzv2bJJkmPMLQJNuKKwHNL8F4GGp6
+jbAV+WL+LDeGfVcq8DHS3LrD+xyYEXQBiqZEdiPVOMxLDSUCXsDO0uCWpaNQ8j6y6S9p0xE/Ga0p
+eVLadVHhqf9nXqKaxnr358VgfrxzUIrvOaOjMIIF+TCCBOGgAwIBAgIQaRjuleoVgt0XsPAUByve
+JDANBgkqhkiG9w0BAQsFADB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRkLjEp
+MCcGA1UECxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNVBAMTGlN0YXJ0
+Q29tIENsYXNzIDEgQ2xpZW50IENBMB4XDTE2MDMxMjE2MjEyNVoXDTE3MDMxMjE2MjEyNVowQjEc
+MBoGA1UEAwwTZHdtdzJAaW5mcmFkZWFkLm9yZzEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFk
+ZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBANBDAiGnoeOIQJ/Aolutct4z
+x6Yt3dOUI5d0YnydAMNOiyVLXzHuuuVjUpk/6nRxg1FN3e0i3TWe5MjSTD98760qWoAuF2g5BGU+
+tN/GUsyws26ZWOt82w7xhn4dcI8EhmASUtwDTZs5ZXPQzSkuNs6uX5SY0eKPlBNHkAtMf39hNc4m
+liy6WRDKApZxA1vCbiHsJQZdNEBYO35022bu8PZBe6LSAFKoncoGMHl1xNEkN6kfOJFYnLqBYeXO
+2mDA8KZ4h15EnQyyHGSghN92OUTc9stAWEt9a+q6TCtyW5zNgYTaaOtE41t5x2xDAgsnNU7sVM8f
+wSR3tYeW9IqTgU6eDUllb1a9FK7es3+j9UDg7OxNv9rnXIda6TdXlGWYfFltujF7FMwTofq3UG7t
+w68Ugk0MMfpZadhPhjYLI/qXiEDgQi8Xr+eWSo5P0ygaLvAz8OPcWAt8RG5Y8Id9hpb5neW1HTAR
+Q+k8lbpkx2wDPHZEft0ITROOupf76f9CNF4jYcyCKZNnjSsKeJv69VX1TsVaeqT1LJUEudXLa/BK
+FSb7x5M1KF4z46yImJrnagI19Nk/ufWn1usBXqXh8pY8cVN/I7C+TDPBY5SqIceTq7DaHZp19JQU
+IIWlyRsm2d4UoVcgIdTjX57Odap4Pjzrfp2RmC6hvkW2hQ5EreIPAgMBAAGjggG2MIIBsjAOBgNV
+HQ8BAf8EBAMCBLAwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMAkGA1UdEwQCMAAwHQYD
+VR0OBBYEFBDmK2IjZJ7MKmBK0A7J/tKaSIdoMB8GA1UdIwQYMBaAFCSBbDlhvkkPj7cbRivJKLUn
+SG1oMG8GCCsGAQUFBwEBBGMwYTAkBggrBgEFBQcwAYYYaHR0cDovL29jc3Auc3RhcnRzc2wuY29t
+MDkGCCsGAQUFBzAChi1odHRwOi8vYWlhLnN0YXJ0c3NsLmNvbS9jZXJ0cy9zY2EuY2xpZW50MS5j
+cnQwOAYDVR0fBDEwLzAtoCugKYYnaHR0cDovL2NybC5zdGFydHNzbC5jb20vc2NhLWNsaWVudDEu
+Y3JsMB4GA1UdEQQXMBWBE2R3bXcyQGluZnJhZGVhZC5vcmcwIwYDVR0SBBwwGoYYaHR0cDovL3d3
+dy5zdGFydHNzbC5jb20vMEYGA1UdIAQ/MD0wOwYLKwYBBAGBtTcBAgQwLDAqBggrBgEFBQcCARYe
+aHR0cDovL3d3dy5zdGFydHNzbC5jb20vcG9saWN5MA0GCSqGSIb3DQEBCwUAA4IBAQAn5wvdgC0V
+kS226sFKAbqPnmVhc9jgrbsiXUcpdtYEzv6EZonARIeRC1UlIzK7jzZFRe95W5y4/qlcPQDoAeZL
+cSsbpW3AYPFFWdRgVp/eIR3iy9C5KEcAbkJES2lRUZWyRqAceW1Gur9kfvjM5H0kM6BBwJfCtoqo
+WragTXfsIXGNsF0F+60mUYYsKFPZzPmyz9J0Dr0xx9Lcp4fbD6UckDWCNJt2AJAiEPt/vPiiBzU8
+edaRzkYhzxd9f3pZAzhlzIf2CgTrGtKSL2X1bS/b3siREjQLhVrlGw4qxqllqER3APrDzyijLFuc
+CWpS8hxjTmYcNZSibv+3Oy6uU+wqMIIF+TCCBOGgAwIBAgIQaRjuleoVgt0XsPAUByveJDANBgkq
+hkiG9w0BAQsFADB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRkLjEpMCcGA1UE
+CxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNVBAMTGlN0YXJ0Q29tIENs
+YXNzIDEgQ2xpZW50IENBMB4XDTE2MDMxMjE2MjEyNVoXDTE3MDMxMjE2MjEyNVowQjEcMBoGA1UE
+AwwTZHdtdzJAaW5mcmFkZWFkLm9yZzEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
+ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBANBDAiGnoeOIQJ/Aolutct4zx6Yt3dOU
+I5d0YnydAMNOiyVLXzHuuuVjUpk/6nRxg1FN3e0i3TWe5MjSTD98760qWoAuF2g5BGU+tN/GUsyw
+s26ZWOt82w7xhn4dcI8EhmASUtwDTZs5ZXPQzSkuNs6uX5SY0eKPlBNHkAtMf39hNc4mliy6WRDK
+ApZxA1vCbiHsJQZdNEBYO35022bu8PZBe6LSAFKoncoGMHl1xNEkN6kfOJFYnLqBYeXO2mDA8KZ4
+h15EnQyyHGSghN92OUTc9stAWEt9a+q6TCtyW5zNgYTaaOtE41t5x2xDAgsnNU7sVM8fwSR3tYeW
+9IqTgU6eDUllb1a9FK7es3+j9UDg7OxNv9rnXIda6TdXlGWYfFltujF7FMwTofq3UG7tw68Ugk0M
+MfpZadhPhjYLI/qXiEDgQi8Xr+eWSo5P0ygaLvAz8OPcWAt8RG5Y8Id9hpb5neW1HTARQ+k8lbpk
+x2wDPHZEft0ITROOupf76f9CNF4jYcyCKZNnjSsKeJv69VX1TsVaeqT1LJUEudXLa/BKFSb7x5M1
+KF4z46yImJrnagI19Nk/ufWn1usBXqXh8pY8cVN/I7C+TDPBY5SqIceTq7DaHZp19JQUIIWlyRsm
+2d4UoVcgIdTjX57Odap4Pjzrfp2RmC6hvkW2hQ5EreIPAgMBAAGjggG2MIIBsjAOBgNVHQ8BAf8E
+BAMCBLAwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMAkGA1UdEwQCMAAwHQYDVR0OBBYE
+FBDmK2IjZJ7MKmBK0A7J/tKaSIdoMB8GA1UdIwQYMBaAFCSBbDlhvkkPj7cbRivJKLUnSG1oMG8G
+CCsGAQUFBwEBBGMwYTAkBggrBgEFBQcwAYYYaHR0cDovL29jc3Auc3RhcnRzc2wuY29tMDkGCCsG
+AQUFBzAChi1odHRwOi8vYWlhLnN0YXJ0c3NsLmNvbS9jZXJ0cy9zY2EuY2xpZW50MS5jcnQwOAYD
+VR0fBDEwLzAtoCugKYYnaHR0cDovL2NybC5zdGFydHNzbC5jb20vc2NhLWNsaWVudDEuY3JsMB4G
+A1UdEQQXMBWBE2R3bXcyQGluZnJhZGVhZC5vcmcwIwYDVR0SBBwwGoYYaHR0cDovL3d3dy5zdGFy
+dHNzbC5jb20vMEYGA1UdIAQ/MD0wOwYLKwYBBAGBtTcBAgQwLDAqBggrBgEFBQcCARYeaHR0cDov
+L3d3dy5zdGFydHNzbC5jb20vcG9saWN5MA0GCSqGSIb3DQEBCwUAA4IBAQAn5wvdgC0VkS226sFK
+AbqPnmVhc9jgrbsiXUcpdtYEzv6EZonARIeRC1UlIzK7jzZFRe95W5y4/qlcPQDoAeZLcSsbpW3A
+YPFFWdRgVp/eIR3iy9C5KEcAbkJES2lRUZWyRqAceW1Gur9kfvjM5H0kM6BBwJfCtoqoWragTXfs
+IXGNsF0F+60mUYYsKFPZzPmyz9J0Dr0xx9Lcp4fbD6UckDWCNJt2AJAiEPt/vPiiBzU8edaRzkYh
+zxd9f3pZAzhlzIf2CgTrGtKSL2X1bS/b3siREjQLhVrlGw4qxqllqER3APrDzyijLFucCWpS8hxj
+TmYcNZSibv+3Oy6uU+wqMYIEXjCCBFoCAQEwgYkwdTELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0
+YXJ0Q29tIEx0ZC4xKTAnBgNVBAsTIFN0YXJ0Q29tIENlcnRpZmljYXRpb24gQXV0aG9yaXR5MSMw
+IQYDVQQDExpTdGFydENvbSBDbGFzcyAxIENsaWVudCBDQQIQaRjuleoVgt0XsPAUByveJDANBglg
+hkgBZQMEAgEFAKCCAaUwGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcN
+MTYwNzIxMDk1NDU5WjAvBgkqhkiG9w0BCQQxIgQgW7AhRJV7Op+XLYrSKfSWEjeGQVYyn8o0rbLx
+PsqiOTMwgZoGCSsGAQQBgjcQBDGBjDCBiTB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRD
+b20gTHRkLjEpMCcGA1UECxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNV
+BAMTGlN0YXJ0Q29tIENsYXNzIDEgQ2xpZW50IENBAhBpGO6V6hWC3Rew8BQHK94kMIGcBgsqhkiG
+9w0BCRACCzGBjKCBiTB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRkLjEpMCcG
+A1UECxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNVBAMTGlN0YXJ0Q29t
+IENsYXNzIDEgQ2xpZW50IENBAhBpGO6V6hWC3Rew8BQHK94kMA0GCSqGSIb3DQEBAQUABIICABNI
+BopthoVefr5po9GGGcOiZad0eEeRITlBljlYTBUgSA9MtsoWAErwApzYbcdW9qMXtpmV93/FzbI0
+vJ1qVcAolxGb8bOkRN1DtuQ3l3kzPH1lbi1XJ4waOHRkZw2druFxrb5pcM3gaa6fjP2fSk9pGyVK
+EaCNrK/8QUrGZ1erJ9/NvyovsL02+RS4WeDDhD7PbmzAtKeCrp5gL7qDtH+3QxL5rEn/hFNk/QNY
+7LPbXXzpMP9drt7sZjMLRZmi9DHpxC+SpuSotdlNU80CjnEMjIyAoQ+IO05ge11VPfrSfODVLXmF
+0wjVlW8gzncrtEZgk4stbzNOCNuZahdtH6+wMitysReriZY6jrQLCIvbo8o4eu4WH9PHkJcO1hSL
+QdlXoKQr+lIiT7V4I0ZMg6C6k55J7xLBYYASe41NJFqmdPpITxl+k1uMheIJFqTBXzLNbmhnY6w0
+6D5kQUrbpCa3FSiC9VTR6EnZ9fgWO6F4CpmRpHr/nuQzvmXOWNeTYVMUtxo6BpgthEIDa0LFeCye
+xj9ZaPb0dn4r7Ofx11QsWGKt2hFMfw/2BTyrr29bbKkQuGejP7kXaOX3aAI5rT09M8BRwJ4568FG
+pl+ZmBu3rsdsHx77wNilAknQrr4u0C0nl5PXHlOXEGs9jv0PHD1P6FqoHyA1M2FAN8QXVPiSAAAA
+AAAA
 
-> This covers both generic bridges (e.g. iio-hwmon) and device
-> specific bridges (a good example of a touch screen driver turned
-> up in my inbox yesterday).
-> 
-> 3) Bindings (device tree and similar).  When it is appropriate to use a 
-> device tree to describe the overlap (bridging of channels)?
-> Sometimes there is obvious real hardware involved (a thermistor on a
-> generic ADC input for example), but there are many grey areas.
-> 
-> Finally bashing out an answer to the issue device tree maintainers
-> have with the iio-hwmon bindings would be great. 
-> On a less biased note, that example is pretty fiddly to define but would
-> act as a good basis to work from more generally.
-> 
-> We know we got it wrong (back in the dark ages), but it isn't obvious how
-> to get it right!
-> 
-> IIO-input has been partly held outside mainline for years by this issue.
-> 
-> Also some practical design decisions to make around how to implement
-> these mappings to work best with deferred probing etc.
-> 
-> 4) Should we drop all the bindings for bridging between such subsystems
-> and do it all from userspace?
-> 
-> I think we may end up with a hybrid of the two, but need to be able to
-> make it work in 'standard' cases without userspace being involved. That
-> hybrid solution may well be devicetree overlay based... Unclear so far.
-> + plenty of crazy things that 'might' make sense where there isn't even
-> the pretence of representing real hardware.
-> 
-> 5) Complex device interaction usecases.  At the moment the ones I've come
-> across are mostly contained in IIO.  The moment we start sticking in
-> MUXes, AFEs (Analog Front Ends) and straightforward analog sensors in the
-> mix it can get fiddly.  Swapping war stories may well be worthwhile on
-> this. This stuff also turns up in ASoC for example so probably lessons
-> to be learned from there.
 
-V4L has a long history of this: if you have multiple video scalers in your
-pipeline, how do you control them? E.g. there can be scalers in the video
-sensor and in the SoC. We came up with the media controller device to
-expose the topology of the hardware and to be able to control each bit
-directly from userspace.
-
-While the media controller is quite powerful and can be used to expose
-connections across subsystems, it also requires more work from userspace,
-and that's an area where not enough attention has been given.
-
-> The analog devices software defined radios are another possible case
-> study.
-
-Note that the V4L2 subsystem has support for several SDR devices. Probably
-another area where drivers can end up in different subsystems.
-
-> 
-> There of course may well be lessons to be learned from similar
-> interactions elsewhere in the kernel.
-> 
-> There is a lot of history in how we ended up where we are (it all made
-> absolute sense at the time). Sitting back and taking the time
-> to discuss the future would be great.  Whilst this might be solvable
-> by email we've made no definitive progress for years
-> (and what has been made has been on a case by case basis deep in
-> driver reviews.)
-> 
-> I threw comedi in the list above but, at the moment, I think the more
-> likely direction there is a single userspace library abstracting
-> the underlying subsystem (Analog Devices are working in that
-> direction - perhaps Lars can offer more on that?).
-
-When you get complex systems you probably have to move in that direction.
-I'd be interesting in such work going on in other subsystems. As mentioned
-above, the media controller needs something like that and it would be
-good to learn from others.
-
-> GPIO is another interesting case - a lot of hardware is capable of
-> parallel sampling, some at high speeds. It's another area that
-> is probably too specialist for this discussion, but if people want
-> to dive into the details it might be interesting.
-> 
-> I think we have only a small amount of fuzz around the v4l boundary,
-> but wanted to leave the door open if anyone wants to discuss that
-> one further as it's come up a few times over recent years.
-
-There is more of that than we wish, but quite often it is just dropped
-in the end as being too much work to solve and not quite important enough
-to spend the time and money on.
-
-> The SoC world is a major case of one device, many uses.  Some SoCs
-> are turning up with multiple ADC units, sometimes with different
-> designs, sometimes simply so that the same hardware can be used for different things.
-> 
-> A few suggestions for people:
-> 
-> Guenter Roeck (hmwon)
-> Dmitry Torokhov (input)
-> Me (Jonathan Cameron - IIO)
-> 
-> Someone thermal related (not sure who would be most interested)
-> Someone power supply related? (Guenter, any suggestions?)
-> 
-> Someone device tree related (Mark Rutland? Rob Herring?)
-> 
-> Linus Waleij (gpio)
-> 
-> Mark Brown - as some of concepts of IIO bridging and how far it
-> can be taken (everything via a bridge driver) came from
-> discussions with him on SoC ADC handling.
-> 
-> Lar-Peter Clausen for generally doing insane things with ADCs + having
-> one foot in the userspace side of things.
-
-Laurent Pinchart or myself for v4l/mc
-
-Regards,
-
-	Hans
+--=-opT4giKQGezHnkTilRzO--
