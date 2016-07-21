@@ -1,30 +1,30 @@
 Return-Path: <BATV+0d76782fbc60545d8437+4715+infradead.org+dwmw2@bombadil.srs.infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9BE51884
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id CDE6583D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 21 Jul 2016 10:31:14 +0000 (UTC)
+	Thu, 21 Jul 2016 10:36:46 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E057F143
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 72F2D116
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 21 Jul 2016 10:31:11 +0000 (UTC)
-Message-ID: <1469097065.120686.124.camel@infradead.org>
+	Thu, 21 Jul 2016 10:36:46 +0000 (UTC)
+Message-ID: <1469097402.120686.129.camel@infradead.org>
 From: David Woodhouse <dwmw2@infradead.org>
-To: Hannes Reinecke <hare@suse.com>, Andy Lutomirski <luto@amacapital.net>,
-	"Wangnan (F)" <wangnan0@huawei.com>
-Date: Thu, 21 Jul 2016 11:31:05 +0100
-In-Reply-To: <028967b8-6107-9d9c-453a-a7f25e967f70@suse.com>
+To: Hannes Reinecke <hare@suse.com>, Sergey Senozhatsky
+	<sergey.senozhatsky.work@gmail.com>
+Date: Thu, 21 Jul 2016 11:36:42 +0100
+In-Reply-To: <a38a0bc9-12c9-6234-9645-5d3ad4f83023@suse.com>
 References: <20160719034717.GA24189@swordfish>
 	<535ebaec-1653-3077-d17b-feb847fd51d2@suse.com>
-	<578EF192.3050808@huawei.com>
-	<CALCETrUbuQjEAettvDStqEophng+1TNGDpueWDJ4QWLqiyaQ2w@mail.gmail.com>
-	<028967b8-6107-9d9c-453a-a7f25e967f70@suse.com>
+	<20160719073346.GB24189@swordfish>
+	<9794ced1-3c45-c548-9520-15d1b66aef31@suse.com>
+	<20160719074631.GC24189@swordfish>
+	<a38a0bc9-12c9-6234-9645-5d3ad4f83023@suse.com>
 Content-Type: multipart/signed; micalg="sha-256";
 	protocol="application/x-pkcs7-signature";
-	boundary="=-Ur1pcoEPCBGDmpN8P7OK"
+	boundary="=-YJHZymYw6kwBcVB+lOho"
 Mime-Version: 1.0
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] asynchronous printk
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -36,33 +36,48 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---=-Ur1pcoEPCBGDmpN8P7OK
+--=-YJHZymYw6kwBcVB+lOho
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, 2016-07-21 at 07:59 +0200, Hannes Reinecke wrote:
-> > If we do all this stuff, can we also try to clean up earlyprintk a
-> > bit?  The whole earlyconsole mechanism is a mess, and switching over
-> > to the non-early console is only somewhat functional.  I'd love to see
-> > this all simplified: before there's any console at all available, just
-> > buffer messages.  Then, when a console shows up, write the buffer out.
-> > Then earlyprintk can work just like regular printk.
+On Tue, 2016-07-19 at 10:02 +0200, Hannes Reinecke wrote:
+> > so why would the system die before we console_unlock()?
 > >=20
-> Begging the question how one would debug failures during that time.
-> The current earlyprintk stuff is at least able to print out _something_,
-> so that you have some idea what went wrong.
-> Without that things will become _really_ hard during board bringup.
+> Errm.
+> Because it doesn't have any other chance?
+> Like, hard lockup?
+> Power down?
+> Hardware dead?
+>=20
+> Slightly puzzled,
 
-No, you don't actually *delay* the console output. You still register
-the console as soon as you physically can, but you just don't have all
-that nasty special-casing of the "earlyprintk" nonsense; you just make
-sure the standard console output is capable of working as early as you
-need it to.
+Right. This was exactly the kind of hang I was chasing shortly before
+last year's KS =E2=80=94 an interrupt storm killing the box (because of a
+tendency in network drivers to return IRQ_HANDLED and not really care
+if we *had* done so, which ISTR arguing with DaveM about separately).
+
+Sometimes you don't get a nice clean panic. Sometimes you just get a
+lockup or a hard reset.
+
+Which is also why it doesn't help much to try to use the level of an
+individual printk to determine whether it should be synchronous or not.
+In this case it was all KERN_DEBUG messages from the network driver,
+which I was logging to the serial port so I could see what was
+happening... but which weren't making it out the port before the
+lockup.
+
+A viable solution to fix this might be a 'synchronous' flag on the
+console itself =E2=80=94 so I could boot with 'console=3DttyS0,synchronous'=
+ and
+get a debuggable system again, Or maybe it would be simpler to have a
+system-wide control which makes all consoles synchronous, if that's
+easier. Either way, we do need the option, and we need it to apply to
+*all* output, not just KERN_EMERG messages.
 
 --=20
 David Woodhouse                            Open Source Technology Centre
 David.Woodhouse@intel.com                              Intel Corporation
---=-Ur1pcoEPCBGDmpN8P7OK
+--=-YJHZymYw6kwBcVB+lOho
 Content-Type: application/x-pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -152,23 +167,23 @@ TmYcNZSibv+3Oy6uU+wqMYIEXjCCBFoCAQEwgYkwdTELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0
 YXJ0Q29tIEx0ZC4xKTAnBgNVBAsTIFN0YXJ0Q29tIENlcnRpZmljYXRpb24gQXV0aG9yaXR5MSMw
 IQYDVQQDExpTdGFydENvbSBDbGFzcyAxIENsaWVudCBDQQIQaRjuleoVgt0XsPAUByveJDANBglg
 hkgBZQMEAgEFAKCCAaUwGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcN
-MTYwNzIxMTAzMTA1WjAvBgkqhkiG9w0BCQQxIgQgzZ+e+m1XfaBFcRRyvjIHtn6QifhSzGk5pazT
-y3zgaj8wgZoGCSsGAQQBgjcQBDGBjDCBiTB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRD
+MTYwNzIxMTAzNjQyWjAvBgkqhkiG9w0BCQQxIgQgJKzgwOHFbltU0x8iK8x0PSRTqZ6BCZh83r6C
+cq1tvCswgZoGCSsGAQQBgjcQBDGBjDCBiTB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRD
 b20gTHRkLjEpMCcGA1UECxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNV
 BAMTGlN0YXJ0Q29tIENsYXNzIDEgQ2xpZW50IENBAhBpGO6V6hWC3Rew8BQHK94kMIGcBgsqhkiG
 9w0BCRACCzGBjKCBiTB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRkLjEpMCcG
 A1UECxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNVBAMTGlN0YXJ0Q29t
-IENsYXNzIDEgQ2xpZW50IENBAhBpGO6V6hWC3Rew8BQHK94kMA0GCSqGSIb3DQEBAQUABIICAMsS
-/wbdHUBoAdg53bQI5FB+MjEIaYDWSZNb6X5zdDLi5CyVyzoIcWejy9gcnnN/LQb3BmEAjBEd8NBA
-kYAqQXwVCtyZ0PaXbDzJuKGLgJzBmG1XEmASBBUdQzZfNscpzYmSwC7QwFUoHmAGkAxq2sDuVsOC
-aF7/oHVo0oKdZceIydXAXklO+19W9DURcYeXh4+FQqGtvwHS9gxB/c94tohGkJTD7OZuygQHRkwl
-+yZ3bq3dlTdthVnUMkSbsoKNw7yKhF5dgQkXA4gDraA8VTksB56xaEp14y3P+H/KMKXzTMVmCo5O
-pNwlaR6Lzwmg+NgCkBoMYdGjet/2KmKC9VooiW/5boaDqJs7qxc/jzhbmBdsmHERKa61IyXqXe2d
-3z9OT2hClEoRn6KaWk9/hTpY4I3B5gnsoRRDQXIBFCtbmDKGeIFeeOq2Q4g1WFfrqiudsEoosbqN
-/ywcE/a32XPEL2+pqoZRqSQJliNAv/dlDhOnALAdSFhIW6oxr+A6NsE3UwRO0WnUqxg17U1exRRn
-xjD91G6jv9yrVB1aVeRf1sWXJNBy0Jj1ozrl3vIpgpm07MZGyDupcJh1nO0dVjjF9c802YVW7P8R
-21LA2eWakit3EkUrEg8pzkNEm6JWWycu1j9gNg7xI6GuqSrLpdeo+M595CDWt0Thu99EUeN/AAAA
+IENsYXNzIDEgQ2xpZW50IENBAhBpGO6V6hWC3Rew8BQHK94kMA0GCSqGSIb3DQEBAQUABIICAG6b
+7mIg7uC5yL0GgCH4ArAzpIpJ4NnNVrRQcnw/+K6nOe3SeNbE6YIxQsGFdRI1Y+JA4hPKAioRxpBx
+XzSmE3nNTElsD6B3rSWGfyifUbYbwWyc6dJ/OxKUbH5zaL6fZMBRIiuGxNktCXVaxvzJIZsVUY2o
+nsBkpYGBSLphdIExrOXv+VLsGz74J3JxACEMi7l7c0dwXpMVOAOG7MokD4KtKAM2tiOXKySsTzIz
+FsJ23FnBAHyhhRxPlqmwuOPdGZl98GCrQDYYzLIX/Ve3Z2X8MGC34S7wvBwx0tjvWfuWxKvAg3Yt
+v4LA/c2id/+D3WeGF1qaXeDSk5vmm2k4GBVgEWfi7mwcAAYrcGRR+H0kNIpEXXpDDR8BHgR6V2AU
+3ALghpwKpUgDwFFohOLKpSkqxkhdKVnWDKU462FXv8h/bM59TCM1kFBDLdIyH3AfdLDICpb8Qr87
+R++XH6yGswyL1/9BOmWqjY47Y+onJchmlTWZ7HGb1SxocHn7kEkcB4OsQ7BOb0CsY4UrGG8za5IQ
+d9iGVIe71OBgOMWycvs75RnSkocWj5rqKJHkq5O7uJwSwtOVhkWpFOZj1DoEf7u4LV6Lf4OiTTPz
+T6+84c61nVylZY+WFGvJTr6/xMg4PgYlwLOLEeLP5p8ao5cUgKNYsEpMm7wRekVtI9FPC6/xAAAA
 AAAA
 
 
---=-Ur1pcoEPCBGDmpN8P7OK--
+--=-YJHZymYw6kwBcVB+lOho--
