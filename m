@@ -1,29 +1,32 @@
-Return-Path: <corbet@lwn.net>
+Return-Path: <sergey.senozhatsky.work@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 532BC8FC
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4BB0C8CC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 20 Jul 2016 23:10:29 +0000 (UTC)
-Received: from vena.lwn.net (tex.lwn.net [70.33.254.29])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D7A61FD
+	Thu, 21 Jul 2016 00:46:17 +0000 (UTC)
+Received: from mail-pf0-f194.google.com (mail-pf0-f194.google.com
+	[209.85.192.194])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2B7F41EF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 20 Jul 2016 23:10:28 +0000 (UTC)
-Date: Wed, 20 Jul 2016 17:10:26 -0600
-From: Jonathan Corbet <corbet@lwn.net>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <20160720171026.7d9d2c2b@lwn.net>
-In-Reply-To: <CAKMK7uHOmxoRFr2j+KrtVAud1iQq3ySDQMz6rZOLwYVDorNeBA@mail.gmail.com>
-References: <CAKMK7uHOmxoRFr2j+KrtVAud1iQq3ySDQMz6rZOLwYVDorNeBA@mail.gmail.com>
+	Thu, 21 Jul 2016 00:46:16 +0000 (UTC)
+Received: by mail-pf0-f194.google.com with SMTP id y134so4357286pfg.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 20 Jul 2016 17:46:16 -0700 (PDT)
+Date: Thu, 21 Jul 2016 09:46:16 +0900
+From: Sergey Senozhatsky <sergey.senozhatsky.work@gmail.com>
+To: Josh Triplett <josh@joshtriplett.org>
+Message-ID: <20160721004616.GA505@swordfish>
+References: <20160719034717.GA24189@swordfish>
+	<535ebaec-1653-3077-d17b-feb847fd51d2@suse.com>
+	<20160719064902.GA1314@x>
+	<02f7282d-954a-8491-6110-fe6ce704d0c5@suse.com>
+	<20160720225457.GA1167@x>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 8bit
-Cc: Grant Likely <grant.likely@linaro.org>,
-	Markus Heiser <markus.heiser@darmarit.de>, "Nikula,
-	Jani" <jani.nikula@linux.intel.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Mauro Carvalho Chehab <mchehab@osg.samsung.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] kernel documentation
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20160720225457.GA1167@x>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] asynchronous printk
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,14 +36,43 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 20 Jul 2016 13:56:31 +0200
-Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
+Hello,
 
-> I think it'd be great if interested parties (might be just a hallway
-> track) sit together and figure out how to best go about converting all
-> the existing docs over, and how to link it all together.
+On (07/20/16 15:54), Josh Triplett wrote:
+[..]
+> > That's what I've tried to infer by the above statement; KERN_EMERG could
+> > easily used for that sort of thing.
+> 
+> I don't mean using just the priority level of the printk call.  I mean
+> using the current kernel loglevel, as in what level it displays to the
+> console, as set on the kernel command line with the loglevel= parameter.
+> printk could quickly check the priority level of the call versus the
+> current kernel loglevel to determine if the message would go to the
+> console or not, and use that to decide whether to handle it
+> synchronously or asynchronously.
 
-I had thought about proposing a similar topic.  I think it could also be
-useful to have a brief session on how the new stuff works.
+between loglevel check in printk() and actual printing console loglevel
+may change. thus printk() does not make this (severity level filtering)
+decision. console_unlock() does, on per-log record basis:
 
-jon
+console_unlock()
+{
+	for (;;) {
+		spin_lock(logbuf_lock)
+
+skip:
+		msg = log_from_idx(console_idx);
+		if (msg->level >= console_loglevel)
+			goto skip;
+
+		spin_unlock(logbuf_lock)
+
+		call_console_drivers(text)
+	}
+}
+
+and by the time we call console_unlock() we better already be
+either in async mode, or sync mode. unless we want to rewrite
+console_unlock().
+
+	-ss
