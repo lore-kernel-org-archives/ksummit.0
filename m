@@ -1,31 +1,25 @@
-Return-Path: <ebiederm@xmission.com>
+Return-Path: <jikos@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B64CF323
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id AF0192C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 21 Jul 2016 17:16:36 +0000 (UTC)
-Received: from out03.mta.xmission.com (out03.mta.xmission.com [166.70.13.233])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id EB4B424A
+	Thu, 21 Jul 2016 18:38:20 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 43DAF21F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 21 Jul 2016 17:16:35 +0000 (UTC)
-From: ebiederm@xmission.com (Eric W. Biederman)
-To: Herbert Xu <herbert@gondor.apana.org.au>
-References: <CALCETrXtfzi=G4H+Zttv3kWcCo32V6cO9OBfdyuYT4DHvJTJLg@mail.gmail.com>
-	<20160711173329.GA8240@pc.thejh.net>
-	<87y44xr5zp.fsf@x220.int.ebiederm.org>
-	<CALCETrVeNP=2WRYdT7ePFx=MURao4-XFHyx9U+VQmpcmyLjLfw@mail.gmail.com>
-	<8737n5caz8.fsf@x220.int.ebiederm.org>
-	<20160720064228.GA32737@gondor.apana.org.au>
-Date: Thu, 21 Jul 2016 12:03:31 -0500
-In-Reply-To: <20160720064228.GA32737@gondor.apana.org.au> (Herbert Xu's
-	message of "Wed, 20 Jul 2016 14:42:28 +0800")
-Message-ID: <87poq653fg.fsf@x220.int.ebiederm.org>
+	Thu, 21 Jul 2016 18:38:20 +0000 (UTC)
+Date: Thu, 21 Jul 2016 20:38:17 +0200 (CEST)
+From: Jiri Kosina <jikos@kernel.org>
+To: David Woodhouse <dwmw2@infradead.org>
+In-Reply-To: <1469094899.120686.101.camel@infradead.org>
+Message-ID: <alpine.LNX.2.00.1607212031430.24757@cbobk.fhfr.pm>
+References: <87inw1skws.fsf@x220.int.ebiederm.org>
+	<1469094899.120686.101.camel@infradead.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-Cc: Jann Horn <jann@thejh.net>, "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TOPIC] kernel hardening / self-protection /
-	whatever
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] [TECH TOPIC] Support (or move
+ towards to) LLVM
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,27 +29,23 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Herbert Xu <herbert@gondor.apana.org.au> writes:
+On Thu, 21 Jul 2016, David Woodhouse wrote:
 
-> On Tue, Jul 19, 2016 at 09:14:03PM -0500, Eric W. Biederman wrote:
->> True.  I tried to review things to make certain they were safe in user
->> namespaces when I enabled things but clearly a few things slipped
->> through the cracks.
->
-> What's worse is that after you enable them someone else can come
-> along and add a new piece of functionality but still assuming
-> that only root has access to it.  I encountered this with netfilter
-> and rhashtable where the argument put forward was that as long as
-> only root had access to a hash table then we don't have to worry
-> about hash collissions.
+> Apart from resolutely not wanting to implement variable length arrays on 
+> the stack, the LLVM folks actually seem quite keen to make things work. 
+> I'm interested in the problem you report above.. and note the absence of 
+> a bug number. Can you provide it?
 
-Wow.  I missed that hash table discussion.
+I am currently on vacation and on super-lousy internet connection, so 
+looking through my archives is a bit complicated ... I *think* it started 
+in "[PATCH] usbhid: Fix lockdep unannotated irqs-off warning" thread on 
+lkml.
 
-Yes.  People working on old assumptions is problematic.  Although I have
-seen people in code reviews ask the question and what happens if someone
-enables your code with user namespaces?  Which seems like a good sign.
+In case you're not able to find it from there, I'll do my homework 
+mid-next week when I am back properly online.
 
-Hopefully we can just retire the argument only root can do this, we
-don't need to care about code quality.
+Thanks,
 
-Eric
+-- 
+Jiri Kosina
+SUSE Labs
