@@ -1,28 +1,30 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <pjt@google.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 40F3B910
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7D39C486
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 21 Jul 2016 19:10:41 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CDF092A2
+	Thu, 21 Jul 2016 20:47:49 +0000 (UTC)
+Received: from mail-io0-f179.google.com (mail-io0-f179.google.com
+	[209.85.223.179])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E18BDA5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 21 Jul 2016 19:10:40 +0000 (UTC)
-Date: Thu, 21 Jul 2016 20:10:28 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Jonathan Cameron <jic23@kernel.org>
-Message-ID: <20160721191028.GS6509@sirena.org.uk>
-References: <5222c3bb-d6b7-0ccc-bf9e-becf5046a37a@kernel.org>
+	Thu, 21 Jul 2016 20:47:48 +0000 (UTC)
+Received: by mail-io0-f179.google.com with SMTP id m101so87192597ioi.2
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 21 Jul 2016 13:47:48 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="90KBcPA0h13nTGdQ"
-Content-Disposition: inline
-In-Reply-To: <5222c3bb-d6b7-0ccc-bf9e-becf5046a37a@kernel.org>
-Cc: ksummit-discuss@lists.linuxfoundation.org, Rob Herring <robh+dt@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Sensors and similar - subsystem
- interactions, divisions, bindings etc.
+In-Reply-To: <alpine.LNX.2.00.1607212031430.24757@cbobk.fhfr.pm>
+References: <87inw1skws.fsf@x220.int.ebiederm.org>
+	<1469094899.120686.101.camel@infradead.org>
+	<alpine.LNX.2.00.1607212031430.24757@cbobk.fhfr.pm>
+From: Paul Turner <pjt@google.com>
+Date: Thu, 21 Jul 2016 13:47:17 -0700
+Message-ID: <CAPM31RKy+QWaG0TTyknJXTQLoLpC0O8S2=Ehvij6BrKV=_ogLQ@mail.gmail.com>
+To: Jiri Kosina <jikos@kernel.org>
+Content-Type: multipart/alternative; boundary=001a113df6ac42606f05382b6e02
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] [TECH TOPIC] Support (or move
+ towards to) LLVM
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,43 +34,90 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+--001a113df6ac42606f05382b6e02
+Content-Type: text/plain; charset=UTF-8
 
---90KBcPA0h13nTGdQ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+We're considering trying to move our builds to Clang.  It's definitely
+something we'd be interested in talking about, and depending on how the
+initial attempts go we may have some anecdotal/early data.
 
-On Wed, Jul 20, 2016 at 10:18:11PM +0100, Jonathan Cameron wrote:
+On Thu, Jul 21, 2016 at 11:38 AM, Jiri Kosina <jikos@kernel.org> wrote:
 
-> 4) Should we drop all the bindings for bridging between such subsystems
-> and do it all from userspace?
+> On Thu, 21 Jul 2016, David Woodhouse wrote:
+>
+> > Apart from resolutely not wanting to implement variable length arrays on
+> > the stack, the LLVM folks actually seem quite keen to make things work.
+> > I'm interested in the problem you report above.. and note the absence of
+> > a bug number. Can you provide it?
+>
+> I am currently on vacation and on super-lousy internet connection, so
+> looking through my archives is a bit complicated ... I *think* it started
+> in "[PATCH] usbhid: Fix lockdep unannotated irqs-off warning" thread on
+> lkml.
+>
+> In case you're not able to find it from there, I'll do my homework
+> mid-next week when I am back properly online.
+>
+> Thanks,
+>
+> --
+> Jiri Kosina
+> SUSE Labs
+>
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+>
 
-This clearly doesn't seem sensible, we have plenty of hardware that's
-obviously wired up in a fixed function format even if it could be
-general purpose and several duplicated ABIs (eg, hwmon and power_supply
-have clear overlap).
+--001a113df6ac42606f05382b6e02
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-> I think we may end up with a hybrid of the two, but need to be able to
-> make it work in 'standard' cases without userspace being involved. That
-> hybrid solution may well be devicetree overlay based... Unclear so far.
-> + plenty of crazy things that 'might' make sense where there isn't even
-> the pretence of representing real hardware.
+<div dir=3D"ltr">We&#39;re considering trying to move our builds to Clang.=
+=C2=A0 It&#39;s definitely something we&#39;d be interested in talking abou=
+t, and depending on how the initial attempts go we may have some anecdotal/=
+early data.</div><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">=
+On Thu, Jul 21, 2016 at 11:38 AM, Jiri Kosina <span dir=3D"ltr">&lt;<a href=
+=3D"mailto:jikos@kernel.org" target=3D"_blank">jikos@kernel.org</a>&gt;</sp=
+an> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;=
+border-left:1px #ccc solid;padding-left:1ex"><span class=3D"">On Thu, 21 Ju=
+l 2016, David Woodhouse wrote:<br>
+<br>
+&gt; Apart from resolutely not wanting to implement variable length arrays =
+on<br>
+&gt; the stack, the LLVM folks actually seem quite keen to make things work=
+.<br>
+&gt; I&#39;m interested in the problem you report above.. and note the abse=
+nce of<br>
+&gt; a bug number. Can you provide it?<br>
+<br>
+</span>I am currently on vacation and on super-lousy internet connection, s=
+o<br>
+looking through my archives is a bit complicated ... I *think* it started<b=
+r>
+in &quot;[PATCH] usbhid: Fix lockdep unannotated irqs-off warning&quot; thr=
+ead on<br>
+lkml.<br>
+<br>
+In case you&#39;re not able to find it from there, I&#39;ll do my homework<=
+br>
+mid-next week when I am back properly online.<br>
+<span class=3D"im HOEnZb"><br>
+Thanks,<br>
+<br>
+--<br>
+Jiri Kosina<br>
+SUSE Labs<br>
+<br>
+</span><div class=3D"HOEnZb"><div class=3D"h5">____________________________=
+___________________<br>
+Ksummit-discuss mailing list<br>
+<a href=3D"mailto:Ksummit-discuss@lists.linuxfoundation.org">Ksummit-discus=
+s@lists.linuxfoundation.org</a><br>
+<a href=3D"https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discu=
+ss" rel=3D"noreferrer" target=3D"_blank">https://lists.linuxfoundation.org/=
+mailman/listinfo/ksummit-discuss</a><br>
+</div></div></blockquote></div><br></div>
 
-I'm definitely seeing people choosing their kernel subsystem on the
-basis of libiio.
-
---90KBcPA0h13nTGdQ
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQEcBAEBCAAGBQJXkR4jAAoJECTWi3JdVIfQiXoH/0bvlB6Q9GBdb5H9n/KsBsmZ
-jfueRKwKG8rc6kPWftRoFWYEUjgWzNxqRNkxWbHKQz9JNzjKvwqfNlm3hMGOGPBl
-mHMfNW54KJllGjr8jjHzOAkbZheCv7q+BcczGqHgj+p2FHugAU8xY+YNIjjVZYBR
-B1SgYDFJj5J72okx82mPrzXiPQl27skfVC9CiCxlzRz0gBpuoZm0rNw0+ZCC/9Ax
-2EVxLbP9oSAxwoBj7PmcliowN2xxkocKa+GI/uc16bOqLEA8cOD6Wa8V4LzB2NiY
-lLMMi+LpTXTVLggxY4aUbZ/4yRSqCfuPoIpzpuOPlaOltJhPDoAsop59wDOzVuw=
-=rHWJ
------END PGP SIGNATURE-----
-
---90KBcPA0h13nTGdQ--
+--001a113df6ac42606f05382b6e02--
