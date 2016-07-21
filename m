@@ -1,25 +1,27 @@
 Return-Path: <BATV+0d76782fbc60545d8437+4715+infradead.org+dwmw2@bombadil.srs.infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 45FE4486
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9BE51884
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 21 Jul 2016 10:28:50 +0000 (UTC)
+	Thu, 21 Jul 2016 10:31:14 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C349116B
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E057F143
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 21 Jul 2016 10:28:49 +0000 (UTC)
-Message-ID: <1469096925.120686.122.camel@infradead.org>
+	Thu, 21 Jul 2016 10:31:11 +0000 (UTC)
+Message-ID: <1469097065.120686.124.camel@infradead.org>
 From: David Woodhouse <dwmw2@infradead.org>
-To: Andy Lutomirski <luto@amacapital.net>, "Wangnan (F)" <wangnan0@huawei.com>
-Date: Thu, 21 Jul 2016 11:28:45 +0100
-In-Reply-To: <CALCETrUbuQjEAettvDStqEophng+1TNGDpueWDJ4QWLqiyaQ2w@mail.gmail.com>
+To: Hannes Reinecke <hare@suse.com>, Andy Lutomirski <luto@amacapital.net>,
+	"Wangnan (F)" <wangnan0@huawei.com>
+Date: Thu, 21 Jul 2016 11:31:05 +0100
+In-Reply-To: <028967b8-6107-9d9c-453a-a7f25e967f70@suse.com>
 References: <20160719034717.GA24189@swordfish>
 	<535ebaec-1653-3077-d17b-feb847fd51d2@suse.com>
 	<578EF192.3050808@huawei.com>
 	<CALCETrUbuQjEAettvDStqEophng+1TNGDpueWDJ4QWLqiyaQ2w@mail.gmail.com>
+	<028967b8-6107-9d9c-453a-a7f25e967f70@suse.com>
 Content-Type: multipart/signed; micalg="sha-256";
 	protocol="application/x-pkcs7-signature";
-	boundary="=-P6OcgE6K5+9mHy7jee15"
+	boundary="=-Ur1pcoEPCBGDmpN8P7OK"
 Mime-Version: 1.0
 Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
@@ -34,30 +36,33 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---=-P6OcgE6K5+9mHy7jee15
+--=-Ur1pcoEPCBGDmpN8P7OK
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, 2016-07-20 at 18:16 -0700, Andy Lutomirski wrote:
-> If we do all this stuff, can we also try to clean up earlyprintk a
-> bit?  The whole earlyconsole mechanism is a mess, and switching over
-> to the non-early console is only somewhat functional.  I'd love to see
-> this all simplified: before there's any console at all available, just
-> buffer messages.  Then, when a console shows up, write the buffer out.
-> Then earlyprintk can work just like regular printk.
+On Thu, 2016-07-21 at 07:59 +0200, Hannes Reinecke wrote:
+> > If we do all this stuff, can we also try to clean up earlyprintk a
+> > bit?  The whole earlyconsole mechanism is a mess, and switching over
+> > to the non-early console is only somewhat functional.  I'd love to see
+> > this all simplified: before there's any console at all available, just
+> > buffer messages.  Then, when a console shows up, write the buffer out.
+> > Then earlyprintk can work just like regular printk.
+> >=20
+> Begging the question how one would debug failures during that time.
+> The current earlyprintk stuff is at least able to print out _something_,
+> so that you have some idea what went wrong.
+> Without that things will become _really_ hard during board bringup.
 
-That's exactly what we already do. Look at the CON_PRINTBUFFER flag.
-
-I never did understand why "earlyprintk" was introduced as such a nasty
-special-case hack in the first place. There were various minor excuses
-for doing so, but nothing insurmountable IIRC.
-
-I would *love* to kill it completely and simplify the whole thing.
+No, you don't actually *delay* the console output. You still register
+the console as soon as you physically can, but you just don't have all
+that nasty special-casing of the "earlyprintk" nonsense; you just make
+sure the standard console output is capable of working as early as you
+need it to.
 
 --=20
 David Woodhouse                            Open Source Technology Centre
 David.Woodhouse@intel.com                              Intel Corporation
---=-P6OcgE6K5+9mHy7jee15
+--=-Ur1pcoEPCBGDmpN8P7OK
 Content-Type: application/x-pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -147,23 +152,23 @@ TmYcNZSibv+3Oy6uU+wqMYIEXjCCBFoCAQEwgYkwdTELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0
 YXJ0Q29tIEx0ZC4xKTAnBgNVBAsTIFN0YXJ0Q29tIENlcnRpZmljYXRpb24gQXV0aG9yaXR5MSMw
 IQYDVQQDExpTdGFydENvbSBDbGFzcyAxIENsaWVudCBDQQIQaRjuleoVgt0XsPAUByveJDANBglg
 hkgBZQMEAgEFAKCCAaUwGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcN
-MTYwNzIxMTAyODQ1WjAvBgkqhkiG9w0BCQQxIgQgGKGuhg7NxpSMeEzTyOH21lTjWwbJ1Ok74VRX
-aXLl3hUwgZoGCSsGAQQBgjcQBDGBjDCBiTB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRD
+MTYwNzIxMTAzMTA1WjAvBgkqhkiG9w0BCQQxIgQgzZ+e+m1XfaBFcRRyvjIHtn6QifhSzGk5pazT
+y3zgaj8wgZoGCSsGAQQBgjcQBDGBjDCBiTB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRD
 b20gTHRkLjEpMCcGA1UECxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNV
 BAMTGlN0YXJ0Q29tIENsYXNzIDEgQ2xpZW50IENBAhBpGO6V6hWC3Rew8BQHK94kMIGcBgsqhkiG
 9w0BCRACCzGBjKCBiTB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRkLjEpMCcG
 A1UECxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNVBAMTGlN0YXJ0Q29t
-IENsYXNzIDEgQ2xpZW50IENBAhBpGO6V6hWC3Rew8BQHK94kMA0GCSqGSIb3DQEBAQUABIICAK7z
-CyPe9dfPWgigzbKpUCmYvRbOSRvdbTDNV0wpsHtqK/ySSn3iEUQ6re/66iCi8nAhvdc8pVzVZHBp
-iHwvRWSb8EmomOa25+J3OwiNm3I8Leek38KMY4T3/Cwy5pCvlfZjmkNObaPlTfkk81vV76NbsnUn
-zvbxZOgowuFZcGtGp6OEcbWE/XYlttI+textLgEl/aCH8H0ML70vO7pzF7rWdGnzFrRfBjMF4LQB
-/sZ6+EJyfgKr4SWOLamq96pPII2/GzyEdtquWUoByUmWbPpIMfY97yMFq2BRvtXBlPOuZwFsQVq0
-MQXUlcymqpbKyvYRlqtU8i6BAbDK7U2NaDyfZUNwIMwOAMT1ujOdKS3WKB5q3+npZkIAAPtTocjH
-gYU75AGG/BacQO5+PimFUEKsUzFcS2K5g0E9TWj70Hk3jMyAbjULTCriK31QGw7jXeVPxOJNe7DY
-dI0r1XiYR4pOuV97kjeUc1cIfkfTxIwISaVU2cssLmahR+WrHLguXk+LweFftURRNiRrFTOuempS
-t/gpWaWS91T0fpPxOnUkGrO/NuJjlkWho0bMOuzZLk6evsAHah7wvo+yVgzBV1fpK+bLzZ9KiqTg
-kEFrKnhatlE/N3wO5sbnnALAernCOcSQZG2po/owtpaLRMSDZCANcF4WyK3qtK6oyZ3n6GXgAAAA
+IENsYXNzIDEgQ2xpZW50IENBAhBpGO6V6hWC3Rew8BQHK94kMA0GCSqGSIb3DQEBAQUABIICAMsS
+/wbdHUBoAdg53bQI5FB+MjEIaYDWSZNb6X5zdDLi5CyVyzoIcWejy9gcnnN/LQb3BmEAjBEd8NBA
+kYAqQXwVCtyZ0PaXbDzJuKGLgJzBmG1XEmASBBUdQzZfNscpzYmSwC7QwFUoHmAGkAxq2sDuVsOC
+aF7/oHVo0oKdZceIydXAXklO+19W9DURcYeXh4+FQqGtvwHS9gxB/c94tohGkJTD7OZuygQHRkwl
++yZ3bq3dlTdthVnUMkSbsoKNw7yKhF5dgQkXA4gDraA8VTksB56xaEp14y3P+H/KMKXzTMVmCo5O
+pNwlaR6Lzwmg+NgCkBoMYdGjet/2KmKC9VooiW/5boaDqJs7qxc/jzhbmBdsmHERKa61IyXqXe2d
+3z9OT2hClEoRn6KaWk9/hTpY4I3B5gnsoRRDQXIBFCtbmDKGeIFeeOq2Q4g1WFfrqiudsEoosbqN
+/ywcE/a32XPEL2+pqoZRqSQJliNAv/dlDhOnALAdSFhIW6oxr+A6NsE3UwRO0WnUqxg17U1exRRn
+xjD91G6jv9yrVB1aVeRf1sWXJNBy0Jj1ozrl3vIpgpm07MZGyDupcJh1nO0dVjjF9c802YVW7P8R
+21LA2eWakit3EkUrEg8pzkNEm6JWWycu1j9gNg7xI6GuqSrLpdeo+M595CDWt0Thu99EUeN/AAAA
 AAAA
 
 
---=-P6OcgE6K5+9mHy7jee15--
+--=-Ur1pcoEPCBGDmpN8P7OK--
