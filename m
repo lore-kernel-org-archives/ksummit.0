@@ -1,29 +1,28 @@
-Return-Path: <julia.lawall@lip6.fr>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 80C5B9C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7B61E8CC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 22 Jul 2016 14:39:42 +0000 (UTC)
-Received: from mail3-relais-sop.national.inria.fr
-	(mail3-relais-sop.national.inria.fr [192.134.164.104])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 66DF8E5
+	Fri, 22 Jul 2016 14:51:08 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 378CF246
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 22 Jul 2016 14:39:41 +0000 (UTC)
-Date: Fri, 22 Jul 2016 16:40:44 +0200 (CEST)
-From: Julia Lawall <julia.lawall@lip6.fr>
-To: Hannes Reinecke <hare@suse.com>
-In-Reply-To: <b3390bd5-eb54-428a-3030-1d7289880d47@suse.com>
-Message-ID: <alpine.DEB.2.10.1607221640150.2103@hadrien>
-References: <87inw1skws.fsf@x220.int.ebiederm.org>
-	<25598.1469113525@warthog.procyon.org.uk>
-	<18158a39-1297-7368-3c0e-3e9b3ce2c3ab@suse.com>
-	<alpine.DEB.2.10.1607220808110.3114@hadrien>
-	<b3390bd5-eb54-428a-3030-1d7289880d47@suse.com>
-MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] More useful types in the linux
- kernel
+	Fri, 22 Jul 2016 14:51:07 +0000 (UTC)
+Message-ID: <1469199065.2382.21.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: David Howells <dhowells@redhat.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Date: Fri, 22 Jul 2016 07:51:05 -0700
+In-Reply-To: <15842.1469185302@warthog.procyon.org.uk>
+References: <15842.1469185302@warthog.procyon.org.uk>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Cc: ikent@redhat.com, Linux Containers <containers@lists.linux-foundation.org>,
+	oleg@redhat.com
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Containerisation,
+ namespaces and keyrings
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,97 +32,61 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Fri, 2016-07-22 at 12:01 +0100, David Howells wrote:
+> I'm not sure this is the right venue for this, but keyrings will need 
+> to be namespaced/containerised at some point.
 
+There are various unvirtualised subsystems within Linux.  There has
+been discussion on the containers mailing list about how:
 
-On Fri, 22 Jul 2016, Hannes Reinecke wrote:
+http://thread.gmane.org/gmane.linux.kernel.containers/30371
 
-> On 07/22/2016 08:14 AM, Julia Lawall wrote:
-> >
-> >
-> > On Fri, 22 Jul 2016, Hannes Reinecke wrote:
-> >
-> >> On 07/21/2016 05:05 PM, David Howells wrote:
-> >>> I know it's not precisely what you're asking about, but there are a number of
-> >>> types I would like to see:
-> >>>
-> >>>  (1) A 'bits' and maybe a 'bits64' type.  Currently you have to use unsigned
-> >>>      long when you want to deploy a flags field with which you're going to use
-> >>>      test_bit() and co. - but this typically wastes 32 bits on a 64-bit arch
-> >>>      because you can't use bits 32-63 as they might not exist.
-> >>>
-> >>>      Some arches, x86_64 and ppc64 for example, can do 32-bit atomic ops, so
-> >>>      we could make the field smaller in some cases.
-> >>>
-> >>>      We have a *lot* of flags fields in the kernel, so I wonder if we could
-> >>>      actually save any space.
-> >>>
-> >>>      I seem to remember that the argument is (or was) that the type must be
-> >>>      the natural word size of the machine, but how true is that in actuality?
-> >>>
-> >>>  (2) Differentiate non-BH spinlocks and BH spinlocks by type.
-> >>>
-> >>>      It seems like you can't mix BH and non-BH ops on a spinlock without
-> >>>      lockdep barking.  If that's the case, let's make this a compile-time
-> >>>      check.
-> >>>
-> >>>  (3) Let's use bool a lot more for boolean values as the compiler might be
-> >>>      able to make better choices with it.
-> >>>
-> >>>
-> >>> And whilst we're at it, a function that I'd like to see:
-> >>>
-> >>>  (1) on_list() in addition to list_empty() (and similar for other list types).
-> >>>
-> >>>      I know this would be kind of redundant as is would be implemented exactly
-> >>>      the same as list_empty() - but semantically you're asking a different
-> >>>      question.
-> >>
-> >> Actually that's one thing on my long-term to-do list: stricter range
-> >> checking for kernel functions.
-> >> enums are an obvious way to address that,
-> >
-> > In C, enums are ints.  Is there a Gcc option that checks them?  For
-> > example, the following program compiles fine with -Wall:
-> >
-> > enum one {ONE=1, TWO=2, THREE=3};
-> > enum two {ONEX=7, TWOX=8, THREEX=9};
-> >
-> > int f (int x) {
-> >   enum one o = ONE;
-> >   enum two t = THREEX;
-> >   if (x) o = t; else t = o;
-> >   return 0;
-> > }
-> >
-> From what I know GCC only checks enums if they are used in a switch()
-> statement. Other types are not checked.
->
-> >> but there is a broad range of
-> >> functions which return an errno value without ever exhausting the entire
-> >> errno range.
-> >
-> > I guess that almost all functions return only a few possible error codes?
->
-> Precisely. If we had a way of specifying "the return value is an errno
-> with the possible values '0', '-EIO', and '-EINVAL'" that would be
-> _so_ cool.
->
-> > But only a few call sites check the values either.
-> >
-> I know. But this is primarily because the caller itself isn't quite sure
-> which values to expect.
-> ATM one has to rely on the function documentation if existing.
-> And even that might be outdated.
->
-> > In terms of collecting this information, one would quickly run into
-> > function pointers, but that would probably not be a insurmountable
-> > obstacle.
-> >
-> But then even the functions pointed to could / should use this syntax,
-> so we would have a set of all possible return codes.
-> The important bit here is that we would be able to check
-> programmatically which values can be returned.
+So far Eric has advocated for making things like this properties of the
+user namespace; I'm more inclined to a separate namespace for
+delegates, but nothing's been decided.
 
-Thanks for the clarifications.  Perhaps it could be possible.
+Proposing on the containers list should be your first step (I've added
+the list to the cc).
 
-julia
+> The problem is that it's an icky problem given that different key 
+> types really want to live in different namespaces, and upcalls may 
+> want to done in different containers, depending on the key type.
+
+Surely if you virtualize, you'll have a namespace label per key (or
+keyring) so they'll be in one and only one namespace.
+
+The upcall problem sounds like it might be similar to the nfsd one,
+which is nasty.  Describing it on the list would help people
+understand.
+
+> For example, DNS resolver keys - should they be in the network, the 
+> filesystem namespace or neither?  Should the upcall be in the current 
+> container or the root container?
+
+Depends what the upcall does.
+
+> Authentication keys, such as used by kafs and AF_RXRPC - should they 
+> be in the filesystem namespace (kafs is an fs), the network namespace 
+> (AF_RXRPC is a net protocol) or the user namespace?
+
+I'm sort of starting to see Eric's point now, since every namespace has
+an owning user namespace, if they were in that the question is
+naturally answered.
+
+> Should crypto keys, such as the asymmetric key type, be in the user 
+> namespace? What about use by module signing?  Should key operations 
+> in the current container have access to a blacklist in the root 
+> container?  Should key verification in the current container have 
+> access to system keyrings?   The TPM?
+> 
+> This might actually be right for a hallway track.
+
+Actually, I really think this isn't a KS issue, it should be proposed
+for the Plumbers Containers MC:
+
+http://www.linuxplumbersconf.org/2016/ocw/events/LPC2016/tracks/519
+
+You have all the correct people in that session.  At KS you'll have 50%
+bored, 48% hostile because they hate cgroups and 2% interested.
+
+James
