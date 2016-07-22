@@ -1,27 +1,27 @@
-Return-Path: <jic23@kernel.org>
+Return-Path: <arnd@arndb.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id ABD839C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 58AC96C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 22 Jul 2016 19:01:57 +0000 (UTC)
-Received: from saturn.retrosnub.co.uk (saturn.retrosnub.co.uk [178.18.118.26])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D31FB318
+	Fri, 22 Jul 2016 19:13:18 +0000 (UTC)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.13])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 88A3531B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 22 Jul 2016 19:01:56 +0000 (UTC)
-To: Torokhov <dmitry.torokhov@gmail.com>, Guenter Roeck <linux@roeck-us.net>
-References: <5222c3bb-d6b7-0ccc-bf9e-becf5046a37a@kernel.org>
-	<5791931E.5030402@roeck-us.net> <20160722041828.GA7060@dtor-ws>
-From: Jonathan Cameron <jic23@kernel.org>
-Message-ID: <bc4c06f2-4433-1ff5-2362-30e1aa811edf@kernel.org>
-Date: Fri, 22 Jul 2016 21:01:48 +0200
+	Fri, 22 Jul 2016 19:13:17 +0000 (UTC)
+From: Arnd Bergmann <arnd@arndb.de>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Fri, 22 Jul 2016 21:12:52 +0200
+Message-ID: <4469153.o5Z55ntOy1@wuerfel>
+In-Reply-To: <b3390bd5-eb54-428a-3030-1d7289880d47@suse.com>
+References: <87inw1skws.fsf@x220.int.ebiederm.org>
+	<alpine.DEB.2.10.1607220808110.3114@hadrien>
+	<b3390bd5-eb54-428a-3030-1d7289880d47@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <20160722041828.GA7060@dtor-ws>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org, Rob Herring <robh+dt@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Sensors and similar - subsystem
- interactions, divisions, bindings etc.
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] More useful types in the linux
+	kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,143 +31,37 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 22/07/16 06:18, Torokhov wrote:
-> On Thu, Jul 21, 2016 at 08:29:34PM -0700, Guenter Roeck wrote:
->> On 07/20/2016 02:18 PM, Jonathan Cameron wrote:
->>> Hi All,
->>>
->>> This topic would be around the way the various subsystems interact, in the
->>> rough area of 'sensors' (I haven't yet had much of an issue with subsystem
->>> crossing with output devices but maybe that's just over the next hill!)
->>>
->>> Scope may well be wider but includes:
->>> * input (some of it)
->>> * hwmon
->>> * iio
->>> * comedi(?)
->>> * thermal
->>> * power/battery
->>> * gpio - the blur between gpios and beaglescope / PLC type I/O.
->>> * v4l - when does a device jump from being a multi pixel thermopile
->>> to a thermal camera? Smart fingerprint scanners etc.  Gesture recognition
->>> sensors (effectively 9ish pixel cameras)
->>> * Lots of random things we haven't seen yet.
->>>
->>> All these make use of devices that are at their hearts ADCs. Whilst it
->>> would nice if the underlying devices always fell into one clear
->>> category that is not always the case. Hardware descriptions (e.g.
->>> device tree) are an important area of contention.
->>>
->>> The examples that follow are mostly based around IIO interactions with
->>> hwmon / input as that's my area of expertise. However, I know that
->>> similar issues occur at other boundaries.
->>>
->>> Guenter Roeck has been working on hwmon / thermal interfacing recently.
->>> We also regularly push drivers one way or the other around that boundary.
->>>
->>> Dmitry and I often have to decide on the IIO / input scope boundary
->>> (and we've moved it over time) + a number of cross over drivers have
->>> turned up recently.
->>>
->>> The other subsystems I encounter have been 'quieter' in their
->>> interactions with me but many of the issues below apply to them as well.
->>>
->>> A rough list of related topics that might be worth face to face
->>> discussion includes:
->>>
->>> 1) Are we happy with the somewhat adhoc divisions of subsystems as they
->>> stand?
->>>
->>> I am personally happy enough with this, but it's worth checking
->>
->> Same here.
->>
->>> everyone else is. This probably causes more pain for new submitters
->>> than it does for old hands. Perhaps we can come up with a checklist style
->>> doc to save people having to ask.
->>>
->> I think that would be very useful.
->>
->>> We have had quite a few cases where a whole driver is submitted to the
->>> 'wrong' subsystem. Not the best first interaction with the kernel
->>
->> ... especially to avoid that situation.
->>
->>> world for new contributors. (This sort of area is attracts newbies
->>> as it's relatively simple and the hardware is fairly cheap and more
->>> than once their first experience with review as exactly this!)
->>>
->>> If we aren't happy, what do we do about it?
->>>
->>> I'm hoping we are happy or, at least, resigned to the current state
->>> of affairs, but think the question should be asked from time to time
->>> as the answer may well change + the discussion will highlight pinch
->>> points we can work on.
->>>
->>> 2) Bridging drivers - there will always be cross over cases.
->>> E.g. Generic ADCs used for battery voltage monitoring.  We have a
->>> number of bridges in mainline already and others out of tree.  How
->>> important are these and what features would make them more useful?
->>>
->>> Is it ever sensible to have two drivers for the same part because
->>> the use cases are so different? (I hope there is always a better way
->>> but maybe not)
->>>
->>> This covers both generic bridges (e.g. iio-hwmon) and device
->>> specific bridges (a good example of a touch screen driver turned
->>> up in my inbox yesterday).
->>>
->>> 3) Bindings (device tree and similar).  When it is appropriate to use a
->>> device tree to describe the overlap (bridging of channels)?
->>> Sometimes there is obvious real hardware involved (a thermistor on a
->>> generic ADC input for example), but there are many grey areas.
->>>
->>> Finally bashing out an answer to the issue device tree maintainers
->>> have with the iio-hwmon bindings would be great.
->>
->> Agreed, it would be great if we can come up with a fix for that.
->>
->>> On a less biased note, that example is pretty fiddly to define but would
->>> act as a good basis to work from more generally.
->>>
->>> We know we got it wrong (back in the dark ages), but it isn't obvious how
->>> to get it right!
->>>
->>> IIO-input has been partly held outside mainline for years by this issue.
->>>
->>> Also some practical design decisions to make around how to implement
->>> these mappings to work best with deferred probing etc.
->>>
->>> 4) Should we drop all the bindings for bridging between such subsystems
->>> and do it all from userspace?
->>>
->> I think that would be a terrible idea. My hope is that we should be able
->> to present a system to the user as it is intended to be, and that should include
->> the use case for given hardware. An ADC is not just an ADC, it has a use case.
->> The use case may be obvious if it is used as input device, but if it is
->> used to measure a voltage (or current, or temperature) it should be possible
->> to express that as well, without having to have userspace involved.
-> 
-> Totally agree. We might want to allow reconfiguring from userspace,
-> but having initial configuration conveyed through DT/ACPI/whatever
-> according to the original system purpose makes sense to me.
-Agreed. There may be exceptions, but in general we need bindings or
-similar.  The trick is how to make them both generic enough that they
-describe the hardware, and specific enough that we can easily use the
-bindings to make the relevant connections.
+On Friday, July 22, 2016 3:57:40 PM CEST Hannes Reinecke wrote:
+> On 07/22/2016 08:14 AM, Julia Lawall wrote:
+> > On Fri, 22 Jul 2016, Hannes Reinecke wrote:
+> >>
+> >> Actually that's one thing on my long-term to-do list: stricter range
+> >> checking for kernel functions.
+> >> enums are an obvious way to address that,
 
-iio-hwmon always got grief for being Linux specific. Going as generic
-as this channel is a temperature sensor, this one is a power line
-etc makes for fiddly bindings as it's not clear what driver's problem
-they are.  There is probably a middle ground we need to tread here.
+I think smatch has some useful checks in that area, and using a gcc
+plugin to have a similar implementation could help do the checks
+by default (if there are not too many false positives). 
 
-There are plenty of single devices that have multiple uses as well
-some of which require very different handling.  e.g. Accelerometer in
-a laptop.  Does screen orientation, but may also handle parking
-a hard disk head during freefall, or even various augmented reality
-stuff (e.g. human input).
+> > In C, enums are ints.  Is there a Gcc option that checks them?  For
+> > example, the following program compiles fine with -Wall:
+> > 
+> > enum one {ONE=1, TWO=2, THREE=3};
+> > enum two {ONEX=7, TWOX=8, THREEX=9};
+> > 
+> > int f (int x) {
+> >   enum one o = ONE;
+> >   enum two t = THREEX;
+> >   if (x) o = t; else t = o;
+> >   return 0;
+> > }
+> > 
+> From what I know GCC only checks enums if they are used in a switch()
+> statement. Other types are not checked.
 
-Jonathan
-> 
-> Thanks.
-> 
+I think a common bug is having a function that takes an enum argument
+type but that is called with integer argument, or a different
+enum. This might even be something that could be added to a gcc
+version by default.
+
+	Arnd
