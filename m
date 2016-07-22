@@ -1,30 +1,23 @@
 Return-Path: <dhowells@redhat.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BB7F94D3
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 73FB59C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 22 Jul 2016 11:05:48 +0000 (UTC)
+	Fri, 22 Jul 2016 11:19:55 +0000 (UTC)
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4F9B8CB
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id EE2651AA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 22 Jul 2016 11:05:48 +0000 (UTC)
+	Fri, 22 Jul 2016 11:19:54 +0000 (UTC)
 From: David Howells <dhowells@redhat.com>
-In-Reply-To: <14459ec4-b42d-d6e1-51fd-eb6ac77ada17@suse.cz>
-References: <14459ec4-b42d-d6e1-51fd-eb6ac77ada17@suse.cz>
+In-Reply-To: <20160719173120.GE30372@sirena.org.uk>
+References: <20160719173120.GE30372@sirena.org.uk>
 	<87inw1skws.fsf@x220.int.ebiederm.org>
-	<25598.1469113525@warthog.procyon.org.uk>
-	<20160721233333.GD9841@dtor-ws>
-	<11488.1469170986@warthog.procyon.org.uk>
-	<CACVxJT-CB2V1dDdnJdbjewmXR04RpqB51c1jnh29Go_ceu6AWw@mail.gmail.com>
-	<15317.1469182420@warthog.procyon.org.uk>
-	<CACVxJT-gj8x8A4O_qrc826VnGwZS8ynMStph_mruYaM7dJ6EEQ@mail.gmail.com>
-To: Vlastimil Babka <vbabka@suse.cz>
+To: Mark Brown <broonie@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
-Content-ID: <15900.1469185546.1@warthog.procyon.org.uk>
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 22 Jul 2016 12:05:46 +0100
-Message-ID: <15901.1469185546@warthog.procyon.org.uk>
+Content-ID: <15985.1469186392.1@warthog.procyon.org.uk>
+Date: Fri, 22 Jul 2016 12:19:52 +0100
+Message-ID: <15986.1469186392@warthog.procyon.org.uk>
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] More useful types in the linux
 	kernel
@@ -37,27 +30,43 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Vlastimil Babka <vbabka@suse.cz> wrote:
+Mark Brown <broonie@kernel.org> wrote:
 
-> > I can resurrect irq_flags_t but there is no procedure for merging 1MB+=
- diffs
-> > without spending whole life splitting and emailing maintainers.
-> =
+> There's a push from certain quarters to move away from GCC to LLVM.  Not
+> that these things are unachievable in LLVM but it's a thing.
 
-> I think the procedure is that you have a script (e.g. coccinelle) to mak=
-e such
-> patch and Linus applies it himself just before/after rc1.
+I currently maintain a set of 26 cross-compilers (ppc64 is a box of symlinks)
+for building the kernel and bootloaders with gcc on Fedora:
 
-Can coccinelle manage changing the local variable declaration, especially =
-if
-someone does:
+	gcc-aarch64-linux-gnu.x86_64                 5.3.1-2.fc23   updates
+	gcc-alpha-linux-gnu.x86_64                   5.3.1-2.fc23   updates
+	gcc-arm-linux-gnu.x86_64                     5.3.1-2.fc23   updates
+	gcc-avr32-linux-gnu.x86_64                   5.3.1-2.fc23   updates
+	gcc-bfin-linux-gnu.x86_64                    5.3.1-2.fc23   updates
+	gcc-c6x-linux-gnu.x86_64                     5.3.1-2.fc23   updates
+	gcc-cris-linux-gnu.x86_64                    5.3.1-2.fc23   updates
+	gcc-frv-linux-gnu.x86_64                     5.3.1-2.fc23   updates
+	gcc-h8300-linux-gnu.x86_64                   5.3.1-2.fc23   updates
+	gcc-hppa-linux-gnu.x86_64                    5.3.1-2.fc23   updates
+	gcc-hppa64-linux-gnu.x86_64                  5.3.1-2.fc23   updates
+	gcc-ia64-linux-gnu.x86_64                    5.3.1-2.fc23   updates
+	gcc-m32r-linux-gnu.x86_64                    5.3.1-2.fc23   updates
+	gcc-m68k-linux-gnu.x86_64                    5.3.1-2.fc23   updates
+	gcc-microblaze-linux-gnu.x86_64              5.3.1-2.fc23   updates
+	gcc-mips64-linux-gnu.x86_64                  5.3.1-2.fc23   updates
+	gcc-mn10300-linux-gnu.x86_64                 5.3.1-2.fc23   updates
+	gcc-nios2-linux-gnu.x86_64                   5.3.1-2.fc23   updates
+	gcc-powerpc64-linux-gnu.x86_64               5.3.1-2.fc23   updates
+	gcc-ppc64-linux-gnu.x86_64                   5.3.1-2.fc23   updates
+	gcc-s390x-linux-gnu.x86_64                   5.3.1-2.fc23   updates
+	gcc-sh-linux-gnu.x86_64                      5.3.1-2.fc23   updates
+	gcc-sh64-linux-gnu.x86_64                    5.3.1-2.fc23   updates
+	gcc-sparc64-linux-gnu.x86_64                 5.3.1-2.fc23   updates
+	gcc-tile-linux-gnu.x86_64                    5.3.1-2.fc23   updates
+	gcc-x86_64-linux-gnu.x86_64                  5.3.1-2.fc23   updates
+	gcc-xtensa-linux-gnu.x86_64                  5.3.1-2.fc23   updates
 
-	unsigned long flags, fred;
-
-where fred is unrelated.
-
-But, on the other hand, it should be possible to compile test very easily =
-if
-irq_flags_t is a typedef'd struct.
+These are gcc-6.1.1-based in fc24.  Can LLVM cover all of these, plus the
+missing arches that gcc doesn't support yet?
 
 David
