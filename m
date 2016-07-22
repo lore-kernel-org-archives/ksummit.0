@@ -1,57 +1,57 @@
-Return-Path: <paulmck@linux.vnet.ibm.com>
+Return-Path: <borntraeger@de.ibm.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 954CD360
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2EAE2360
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 22 Jul 2016 16:44:08 +0000 (UTC)
+	Fri, 22 Jul 2016 17:05:14 +0000 (UTC)
 Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
 	[148.163.158.5])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 156DA2C4
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6CDCF1C5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 22 Jul 2016 16:44:07 +0000 (UTC)
+	Fri, 22 Jul 2016 17:05:13 +0000 (UTC)
 Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
 	by mx0a-001b2d01.pphosted.com (8.16.0.11/8.16.0.11) with SMTP id
-	u6MGYdpP144016 for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 22 Jul 2016 12:44:07 -0400
-Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
-	by mx0a-001b2d01.pphosted.com with ESMTP id 24bhktcj32-1
+	u6MH3uGW065200 for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 22 Jul 2016 13:05:12 -0400
+Received: from e06smtp14.uk.ibm.com (e06smtp14.uk.ibm.com [195.75.94.110])
+	by mx0a-001b2d01.pphosted.com with ESMTP id 24bhktd4rn-1
 	(version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 22 Jul 2016 12:44:06 -0400
+	Fri, 22 Jul 2016 13:05:12 -0400
 Received: from localhost
-	by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
-	Violators will be prosecuted
+	by e06smtp14.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use
+	Only! Violators will be prosecuted
 	for <ksummit-discuss@lists.linuxfoundation.org> from
-	<paulmck@linux.vnet.ibm.com>; Fri, 22 Jul 2016 10:44:05 -0600
-Received: from b01cxnp22035.gho.pok.ibm.com (b01cxnp22035.gho.pok.ibm.com
-	[9.57.198.25])
-	by d03dlp03.boulder.ibm.com (Postfix) with ESMTP id 1FEBA19D80C3
+	<borntraeger@de.ibm.com>; Fri, 22 Jul 2016 18:05:10 +0100
+Received: from b06cxnps3075.portsmouth.uk.ibm.com
+	(d06relay10.portsmouth.uk.ibm.com [9.149.109.195])
+	by d06dlp02.portsmouth.uk.ibm.com (Postfix) with ESMTP id BE0FE2190046
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 22 Jul 2016 10:43:22 -0600 (MDT)
-Received: from d01av01.pok.ibm.com (d01av01.pok.ibm.com [9.56.224.215])
-	by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
-	u6MGhjTS57016424 for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 22 Jul 2016 16:43:45 GMT
-Received: from d01av01.pok.ibm.com (localhost [127.0.0.1])
-	by d01av01.pok.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
-	u6MGhi9n001105 for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 22 Jul 2016 12:43:45 -0400
-Date: Fri, 22 Jul 2016 09:44:11 -0700
-From: "Paul E. McKenney" <paulmck@linux.vnet.ibm.com>
-To: David Howells <dhowells@redhat.com>
-Reply-To: paulmck@linux.vnet.ibm.com
-References: <15500.1469183675@warthog.procyon.org.uk>
+	Fri, 22 Jul 2016 18:04:35 +0100 (BST)
+Received: from d06av02.portsmouth.uk.ibm.com (d06av02.portsmouth.uk.ibm.com
+	[9.149.37.228])
+	by b06cxnps3075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with
+	ESMTP id u6MH58gH18153884
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 22 Jul 2016 17:05:08 GMT
+Received: from d06av02.portsmouth.uk.ibm.com (localhost [127.0.0.1])
+	by d06av02.portsmouth.uk.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with
+	ESMTP id u6MH5853005632
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 22 Jul 2016 11:05:08 -0600
+To: David Woodhouse <dwmw2@infradead.org>, David Howells <dhowells@redhat.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+References: <15569.1469184060@warthog.procyon.org.uk>
+	<5792414F.5040902@de.ibm.com>
+	<1469203184.120686.212.camel@infradead.org>
+From: Christian Borntraeger <borntraeger@de.ibm.com>
+Date: Fri, 22 Jul 2016 19:05:06 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <15500.1469183675@warthog.procyon.org.uk>
-Message-Id: <20160722164411.GJ7094@linux.vnet.ibm.com>
-Cc: jakub@redhat.com, parri.andrea@gmail.com,
-	ksummit-discuss@lists.linuxfoundation.org, peterz@infradead.org,
-	stern@rowland.harvard.edu, ramana.radhakrishnan@arm.com,
-	luc.maranget@inria.fr, j.alglave@ucl.ac.uk
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Memory model,
-	using ISO C++11 atomic ops
+In-Reply-To: <1469203184.120686.212.camel@infradead.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Message-Id: <57925242.3000207@de.ibm.com>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Compiler shopping list
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -61,66 +61,41 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 22, 2016 at 11:34:35AM +0100, David Howells wrote:
-> Earlier this year we had a discussion of the possibilities of using ISO C++11
-> atomic operations inside the kernel to implement kernel atomic ops of sorts
-> various, posted here:
+On 07/22/2016 05:59 PM, David Woodhouse wrote:
+> On Fri, 2016-07-22 at 17:52 +0200, Christian Borntraeger wrote:
+>> On 07/22/2016 12:41 PM, David Howells wrote:
+>>> Are there additional things we can get the compiler to do for us?  Some
+>>> things I've seen brought up:
+>>>
+>>>  (1) Additional __atomic_*() ops could be useful.  Suggestions I've heard
+>>>      include direct LL/SC support - though the compiler people don't seem so
+>>>      keen on that.
+>>>
+>>>  (2) -mmodel=kernel flag so that the compiler can optimise better for the
+>>>      kernel memory model.
+>>
+>> Some years ago (actually many) Linus proposed to have an endianess attribute to data
+>> types, so that the compiler can do the bswap automatically. For some reason this
+>> was never implemented, but this might be a good idea anyway.
+>>
+>> e.g. 
+>>
+>> unsigned long x[10] __attribute__(("bigendian"));
 > 
-> 	Subject: [RFC PATCH 00/15] Provide atomics and bitops implemented with ISO C++11 atomics
-> 	Date: Wed, 18 May 2016 16:10:37 +0100
+> I'm not sure Linus proposed that. I certainly did, many times.
+
+Yes, I know at least 3 people suggesting that and thinking this is useful
+( Can you beat Linus' 2001 https://gcc.gnu.org/ml/gcc/2001-12/msg00932.html? ;-) )
+
+
 > 
-> Is it worth getting together to discuss these in person in one of the tech
-> slots - especially if there are some gcc or llvm people available at plumbers
-> who could join in?
+> With the work I put in to make use of __builtin_bswapXX() we do have a
+> *certain* amount of the functionality that full endianness attribution
+> would give us — the compiler can see and optimise certain
+> load/mask/save operations, and can use movbe and equivalent
+> instructions.
 > 
-> 
-> Further, Paul McKenney and others are assembling a memory model description.
+> But a full implementation that let us just do assignment without
+> jumping through the hoops might still be nice.
 
-We are attempting to automate memory-barriers.txt, so that you could
-provide fragments of C code, and the tool would tell you whether a given
-outcome happens always, sometimes, or never.  The current prototype
-handles memory accesses, memory barriers, and RCU, but not yet locking
-or read-modify-write atomics (though there is some vestigal support for
-RMW atomics).  We are currently playing whack-a-mole with odd corner cases
-of various architectures' memory models.  We are therefore also working
-on ways of handling the resulting uncertainty.  Good clean fun!  ;-)
-
-> Do we want to consider loosening up the kernel memory model?
-> 
-> Currently, for example, locks imply semi-permeable barriers that are not tied
-> to the lock variable - but, as I understand it, this may not hold true on all
-> arches, and on those arches an extra memory barrier would be required.  For
-> example, { LOCK(A), UNLOCK(A), LOCK(B), UNLOCK(B) } would not imply a full
-> memory barrier in the middle.
-
-Agreed, the current version of memory-barriers.txt documents the fact
-that an unlock/lock sequence does not imply a full memory barrier:
-
-	Similarly, the reverse case of a RELEASE followed by an ACQUIRE
-	does not imply a full memory barrier.
-
-If we are going to talk about changing this, we should most definitely
-include a powerpc arch maintainer.
-
-> Also, we have read and write memory barrier constructs - but not all CPUs have
-> such things, some instead have acquire and release.  Would it be worth having
-> higher level constructs that encapsulate what you're trying to do and select
-> the most appropriate barrier from the available choices?  For instance, we
-> have a fair few circular buffers, with linux/circ_buf.h providing some useful
-> bits.  Should we provide circular buffering barrier constructs?
-> 
-> 
-> If we do this, Will Deacon, Peter Zijlstra and Paul McKenney should definitely
-> be there.  I would suggest Jakub Jelinek and Ramana Radhakrishnan as gcc
-> representatives.  I don't know anyone from LLVM.
-
-Alan Stern should be included, as he is the author of the most recent
-version of the prototype formalized memory model (including the current
-extremely nice formal model of RCU!), Luc Maranget as the author of
-the previous version, Jade Alglave as author of the first version and
-founder of this project, and Andrea Parri for his many contributions to
-recent models.
-
-Shouldn't we also include experts on other SMP architectures?
-
-							Thanx, Paul
+Absolutely.
