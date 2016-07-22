@@ -1,32 +1,24 @@
-Return-Path: <adobriyan@gmail.com>
+Return-Path: <dhowells@redhat.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C40C12C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 21EB59C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 22 Jul 2016 10:22:10 +0000 (UTC)
-Received: from mail-wm0-f66.google.com (mail-wm0-f66.google.com [74.125.82.66])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3A24817F
+	Fri, 22 Jul 2016 10:34:38 +0000 (UTC)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CBA3A16B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 22 Jul 2016 10:22:10 +0000 (UTC)
-Received: by mail-wm0-f66.google.com with SMTP id o80so5578908wme.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 22 Jul 2016 03:22:10 -0700 (PDT)
+	Fri, 22 Jul 2016 10:34:37 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: ksummit-discuss@lists.linuxfoundation.org
 MIME-Version: 1.0
-In-Reply-To: <15317.1469182420@warthog.procyon.org.uk>
-References: <87inw1skws.fsf@x220.int.ebiederm.org>
-	<25598.1469113525@warthog.procyon.org.uk>
-	<20160721233333.GD9841@dtor-ws>
-	<11488.1469170986@warthog.procyon.org.uk>
-	<CACVxJT-CB2V1dDdnJdbjewmXR04RpqB51c1jnh29Go_ceu6AWw@mail.gmail.com>
-	<15317.1469182420@warthog.procyon.org.uk>
-From: Alexey Dobriyan <adobriyan@gmail.com>
-Date: Fri, 22 Jul 2016 13:22:08 +0300
-Message-ID: <CACVxJT-gj8x8A4O_qrc826VnGwZS8ynMStph_mruYaM7dJ6EEQ@mail.gmail.com>
-To: David Howells <dhowells@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] More useful types in the linux
-	kernel
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <15499.1469183675.1@warthog.procyon.org.uk>
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 22 Jul 2016 11:34:35 +0100
+Message-ID: <15500.1469183675@warthog.procyon.org.uk>
+Cc: jakub@redhat.com, peterz@infradead.org, ramana.radhakrishnan@arm.com
+Subject: [Ksummit-discuss] [TECH TOPIC] Memory model,
+	using ISO C++11 atomic ops
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,13 +28,50 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 22, 2016 at 1:13 PM, David Howells <dhowells@redhat.com> wrote:
-> Alexey Dobriyan <adobriyan@gmail.com> wrote:
->
->> Indeed, but please call them flags_t and flags64_t.
->
-> Fine by me, though I was trying to avoid confusion with the argument to IRQ
-> munging functions.
+Earlier this year we had a discussion of the possibilities of using ISO C+=
++11
+atomic operations inside the kernel to implement kernel atomic ops of sort=
+s
+various, posted here:
 
-I can resurrect irq_flags_t but there is no procedure for merging 1MB+ diffs
-without spending whole life splitting and emailing maintainers.
+	Subject: [RFC PATCH 00/15] Provide atomics and bitops implemented with IS=
+O C++11 atomics
+	Date: Wed, 18 May 2016 16:10:37 +0100
+
+Is it worth getting together to discuss these in person in one of the tech
+slots - especially if there are some gcc or llvm people available at plumb=
+ers
+who could join in?
+
+
+Further, Paul McKenney and others are assembling a memory model descriptio=
+n.
+Do we want to consider loosening up the kernel memory model?
+
+Currently, for example, locks imply semi-permeable barriers that are not t=
+ied
+to the lock variable - but, as I understand it, this may not hold true on =
+all
+arches, and on those arches an extra memory barrier would be required.  Fo=
+r
+example, { LOCK(A), UNLOCK(A), LOCK(B), UNLOCK(B) } would not imply a full
+memory barrier in the middle.
+
+Also, we have read and write memory barrier constructs - but not all CPUs =
+have
+such things, some instead have acquire and release.  Would it be worth hav=
+ing
+higher level constructs that encapsulate what you're trying to do and sele=
+ct
+the most appropriate barrier from the available choices?  For instance, we
+have a fair few circular buffers, with linux/circ_buf.h providing some use=
+ful
+bits.  Should we provide circular buffering barrier constructs?
+
+
+If we do this, Will Deacon, Peter Zijlstra and Paul McKenney should defini=
+tely
+be there.  I would suggest Jakub Jelinek and Ramana Radhakrishnan as gcc
+representatives.  I don't know anyone from LLVM.
+
+David
