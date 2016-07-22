@@ -1,33 +1,29 @@
-Return-Path: <julia.lawall@lip6.fr>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id CB479256
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 287F7486
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 22 Jul 2016 17:17:06 +0000 (UTC)
-Received: from mail2-relais-roc.national.inria.fr
-	(mail2-relais-roc.national.inria.fr [192.134.164.83])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D2A00222
+	Fri, 22 Jul 2016 17:17:41 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 7F03D222
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 22 Jul 2016 17:17:05 +0000 (UTC)
-Date: Fri, 22 Jul 2016 19:18:08 +0200 (CEST)
-From: Julia Lawall <julia.lawall@lip6.fr>
-To: David Howells <dhowells@redhat.com>
-In-Reply-To: <15901.1469185546@warthog.procyon.org.uk>
-Message-ID: <alpine.DEB.2.10.1607221916350.4131@hadrien>
-References: <14459ec4-b42d-d6e1-51fd-eb6ac77ada17@suse.cz>
-	<87inw1skws.fsf@x220.int.ebiederm.org>
-	<25598.1469113525@warthog.procyon.org.uk>
-	<20160721233333.GD9841@dtor-ws>
-	<11488.1469170986@warthog.procyon.org.uk>
-	<CACVxJT-CB2V1dDdnJdbjewmXR04RpqB51c1jnh29Go_ceu6AWw@mail.gmail.com>
-	<15317.1469182420@warthog.procyon.org.uk>
-	<CACVxJT-gj8x8A4O_qrc826VnGwZS8ynMStph_mruYaM7dJ6EEQ@mail.gmail.com>
-	<15901.1469185546@warthog.procyon.org.uk>
-MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
-Cc: ksummit-discuss@lists.linuxfoundation.org, Vlastimil Babka <vbabka@suse.cz>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] More useful types in the linux
- kernel
+	Fri, 22 Jul 2016 17:17:40 +0000 (UTC)
+Message-ID: <1469207858.2382.42.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Christian Borntraeger <borntraeger@de.ibm.com>, David Woodhouse
+	<dwmw2@infradead.org>, David Howells <dhowells@redhat.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Date: Fri, 22 Jul 2016 10:17:38 -0700
+In-Reply-To: <57925242.3000207@de.ibm.com>
+References: <15569.1469184060@warthog.procyon.org.uk>
+	<5792414F.5040902@de.ibm.com>
+	<1469203184.120686.212.camel@infradead.org>
+	<57925242.3000207@de.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Compiler shopping list
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,37 +33,39 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Fri, 2016-07-22 at 19:05 +0200, Christian Borntraeger wrote:
+> On 07/22/2016 05:59 PM, David Woodhouse wrote:
+> > On Fri, 2016-07-22 at 17:52 +0200, Christian Borntraeger wrote:
+> > > On 07/22/2016 12:41 PM, David Howells wrote:
+> > > > Are there additional things we can get the compiler to do for 
+> > > > us?  Some things I've seen brought up:
+> > > > 
+> > > >  (1) Additional __atomic_*() ops could be useful.  Suggestions 
+> > > > I've heard      include direct LL/SC support - though the 
+> > > > compiler people don't seem so keen on that.
+> > > > 
+> > > >  (2) -mmodel=kernel flag so that the compiler can optimise 
+> > > > better for the kernel memory model.
+> > > 
+> > > Some years ago (actually many) Linus proposed to have an 
+> > > endianess attribute to data types, so that the compiler can do 
+> > > the bswap automatically. For some reason this was never
+> > > implemented, but this might be a good idea anyway.
+> > > 
+> > > e.g. 
+> > > 
+> > > unsigned long x[10] __attribute__(("bigendian"));
+> > 
+> > I'm not sure Linus proposed that. I certainly did, many times.
+> 
+> Yes, I know at least 3 people suggesting that and thinking this is 
+> useful ( Can you beat Linus' 2001 
+> https://gcc.gnu.org/ml/gcc/2001-12/msg00932.html? ;-) )
 
+The fact that it's been discussed on and off for 15 years tends to
+suggest that where we've ended up is about good enough for everyday and
+no-one can really be bothered to take the extra effort.
 
-On Fri, 22 Jul 2016, David Howells wrote:
+So what's the overriding reason we should spend the extra effort now?
 
-> Vlastimil Babka <vbabka@suse.cz> wrote:
->
-> > > I can resurrect irq_flags_t but there is no procedure for merging 1MB+ diffs
-> > > without spending whole life splitting and emailing maintainers.
-> >
-> > I think the procedure is that you have a script (e.g. coccinelle) to make such
-> > patch and Linus applies it himself just before/after rc1.
->
-> Can coccinelle manage changing the local variable declaration, especially if
-> someone does:
->
-> 	unsigned long flags, fred;
->
-> where fred is unrelated.
-
-Recent versions of Coccinelle should allow this.  Older versions would
-crash, so you would at least know that there was a problem.
-
-julia
-
->
-> But, on the other hand, it should be possible to compile test very easily if
-> irq_flags_t is a typedef'd struct.
->
-> David
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
->
+James
