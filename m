@@ -1,31 +1,31 @@
 Return-Path: <linus.walleij@linaro.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id E7EE59C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2A73B9C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 22 Jul 2016 12:04:10 +0000 (UTC)
-Received: from mail-oi0-f46.google.com (mail-oi0-f46.google.com
-	[209.85.218.46])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CD319A5
+	Fri, 22 Jul 2016 12:44:19 +0000 (UTC)
+Received: from mail-oi0-f50.google.com (mail-oi0-f50.google.com
+	[209.85.218.50])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8DE4B15F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 22 Jul 2016 12:04:09 +0000 (UTC)
-Received: by mail-oi0-f46.google.com with SMTP id l72so159671453oig.2
+	Fri, 22 Jul 2016 12:44:18 +0000 (UTC)
+Received: by mail-oi0-f50.google.com with SMTP id l72so161019792oig.2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 22 Jul 2016 05:04:09 -0700 (PDT)
+	Fri, 22 Jul 2016 05:44:18 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <5222c3bb-d6b7-0ccc-bf9e-becf5046a37a@kernel.org>
-References: <5222c3bb-d6b7-0ccc-bf9e-becf5046a37a@kernel.org>
+In-Reply-To: <15986.1469186392@warthog.procyon.org.uk>
+References: <87inw1skws.fsf@x220.int.ebiederm.org>
+	<20160719173120.GE30372@sirena.org.uk>
+	<15986.1469186392@warthog.procyon.org.uk>
 From: Linus Walleij <linus.walleij@linaro.org>
-Date: Fri, 22 Jul 2016 14:04:07 +0200
-Message-ID: <CACRpkdYPNdtabj5zOXe9nyzbHsKGgo57dfojCDvfSNPEWAMZRg@mail.gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
+Date: Fri, 22 Jul 2016 14:44:17 +0200
+Message-ID: <CACRpkdZGaY2zCYMufsqextP=izu-iYMNC3JJwtV4ZNQM7V8MEQ@mail.gmail.com>
+To: David Howells <dhowells@redhat.com>
 Content-Type: text/plain; charset=UTF-8
-Cc: Gregor Boirie <gregor.boirie@parrot.com>, Zhang Rui <rui.zhang@intel.com>,
-	Rob Herring <robh+dt@kernel.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Sensors and similar - subsystem
- interactions, divisions, bindings etc.
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] More useful types in the linux
+	kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,123 +35,52 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Jul 20, 2016 at 11:18 PM, Jonathan Cameron <jic23@kernel.org> wrote:
+On Fri, Jul 22, 2016 at 1:19 PM, David Howells <dhowells@redhat.com> wrote:
 
-> This topic would be around the way the various subsystems interact, in the
-> rough area of 'sensors' (I haven't yet had much of an issue with subsystem
-> crossing with output devices but maybe that's just over the next hill!)
->
-> Scope may well be wider but includes:
-> * input (some of it)
-> * hwmon
-> * iio
-> * comedi(?)
-> * thermal
-> * power/battery
-> * gpio - the blur between gpios and beaglescope / PLC type I/O.
+I'm just gonna hijack this to ask a question...
 
-I'm in. The new chardev ABI was designed to fit play/well with IIO,
-for example I added a 64bit timestamp also to GPIO events so that
-people could do what I guess they refer to as sensor fusion mixing
-and blending sensor input events with GPIO events.
-(https://en.wikipedia.org/wiki/Sensor_fusion)
+> I currently maintain a set of 26 cross-compilers (ppc64 is a box of symlinks)
+> for building the kernel and bootloaders with gcc on Fedora:
+(...)
+>         gcc-arm-linux-gnu.x86_64                     5.3.1-2.fc23   updates
 
-What I wanted to bring up ASAP was when I noticed in linux-next
-commit bc2b7dab629a51e8beb5fda4222c62a23b729f26
-"iio:core: timestamping clock selection support"
-that we should probably move this code to e.g. drivers/base
-or drivers/lib so I can reuse the same ABI in sysfs for
-GPIO event timestamping.
+I've tested this thing and it works flawlessly with the kernel.
+Also U-boot recently supplies its own div64 routine and dropped
+the dependency on libgcc.a (IIRC).
 
-I think timestamping events uniformly is something that is
-important to all userspaces.
+So it works, but still of course this thing is there:
 
-> Dmitry and I often have to decide on the IIO / input scope boundary
-> (and we've moved it over time) + a number of cross over drivers have
-> turned up recently.
+rpm -ql gcc-arm-linux-gnu-6.1.1-1.fc24.x86_64
+(...)
+/usr/lib/gcc/arm-linux-gnueabi/6.1.1/libgcc.a
 
-(snip from elsewhere)
+Also this:
 
-> Is it ever sensible to have two drivers for the same part because
-> the use cases are so different? (I hope there is always a better way
-> but maybe not)
+/usr/lib/gcc/arm-linux-gnueabi/6.1.1/crtbegin.o
+/usr/lib/gcc/arm-linux-gnueabi/6.1.1/crtbeginS.o
+/usr/lib/gcc/arm-linux-gnueabi/6.1.1/crtbeginT.o
+/usr/lib/gcc/arm-linux-gnueabi/6.1.1/crtend.o
+/usr/lib/gcc/arm-linux-gnueabi/6.1.1/crtendS.o
+/usr/lib/gcc/arm-linux-gnueabi/6.1.1/crtfastmath.o
 
-I have one on my knee as I want to make a proper IIO driver
-for MPU-3050 gyroscope which has a (very simplified) driver in
-drivers/input/misc/mpu3050.c that was merged before the advent
-of the IIO subsystem.
+I suspect these things are implicitly compiled for one and only one ISA?
+I honestly don't know how to even check which one. Does it use
+hardfloat? Or has this problem of targetting several ISAs with a .a
+file been fixes since I looked at it last?
 
-For the new driver I have these options:
+I need to cross-compile ARMv4, ARMv5, ARMv6, ARMv7 and
+ARMv8 for my systems. (Sorry for all old crap I'm keeping it's just
+my job...)
 
-- Keep both drivers and consider them for different usecases.
-  of the same hardware that require different Kconfig (seems
-  very unelegant to me)
+That ABI problem is then manifolded if I would want to do anything
+userspace, so I keep a whole range of tailored cross compilers and
+prebuilt C libraries around that I know "just work", but I guess will
+grow increasingly hard to maintain and it feels pretty unelegant at
+times.
 
-- Add some input event calls into the IIO driver so we can
-  phase over the older uses to the new driver.
-
-- Drop the input event handling since gyroscopes should not
-  be handled by input anyway
-
-- Develop a generic IIO-gyroscope-to-input event bridge.
-  (Phew seems complex.)
-
-(elsewhere)
-> IIO-input has been partly held outside mainline for years by this issue.
-
-Is there such a thing? gitweb?
-
-> 1) Are we happy with the somewhat adhoc divisions of subsystems as they
-> stand?
-
-IETF has this motto "rough consensus and running code", and
-for me that is the working assumption to most things
-driver-subsystem-division-of-responsibilities-related.
-
-> We have had quite a few cases where a whole driver is submitted to the
-> 'wrong' subsystem. Not the best first interaction with the kernel
-> world for new contributors. (This sort of area is attracts newbies
-> as it's relatively simple and the hardware is fairly cheap and more
-> than once their first experience with review as exactly this!)
-
-What is sometimes lacking is users who are clever enough to
-take the latest kernel (or preferably even -next) and git grep for
-a few strings related to the hardware they want to support, and
-be revealed the fact that there is already a driver for it.
-
-If there isn't, their problem is that of finding the right subsystem
-to pigeon-hole their hardware into. It typically requires a kernel
-old grumpy person saying "no, THIS thing goes THERE, THAT
-thing goes THERE". Unfortunately I think this is pretty hard to
-codify.
-
-> If we aren't happy, what do we do about it?
-
-More helpful kernel generalists...
-
-> GPIO is another interesting case - a lot of hardware is capable of
-> parallel sampling, some at high speeds. It's another area that
-> is probably too specialist for this discussion, but if people want
-> to dive into the details it might be interesting.
-
-I currently have (for v4.8) an ABI which makes i possible to e.g.
-read 32 simultaneous lines with one userspace/kernelspace
-swap, if it ends up as a readl() from a register.
-
-The userspace ABI has a limitation to 64 values, so it would be
-possible to have some driver read 64 GPIO lines and return them
-in a u8 vector back to userspace in one go.
-
-For an oscilloscope or signal analyzer usecase with more than
-64 channels needing to be sampled simultaneously, we may need
-to add another "large GPIO read" ABI, and also probably a new
-driver API interface to achieve it. I've never seen hardware that can
-read more values in parallel than 32 though, I chose 64 to get some
-headroom.
-
-> Linus Waleij (gpio)
-
-Sure, if travels etc work out and I get invited I'd come running.
+Is there a way for a distribution to provide a proper set of
+ISA-specific stuff alongside a crosscompiler, if the crosscompiler
+supports several different ISAs, like the ARMvN variants do?
 
 Yours,
 Linus Walleij
