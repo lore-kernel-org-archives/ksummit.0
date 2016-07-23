@@ -1,26 +1,25 @@
 Return-Path: <benh@kernel.crashing.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id ACD1D2C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4B2D66C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 23 Jul 2016 20:22:42 +0000 (UTC)
+	Sat, 23 Jul 2016 20:36:16 +0000 (UTC)
 Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 97C3D146
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2E4D6143
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 23 Jul 2016 20:22:39 +0000 (UTC)
-Message-ID: <1469305274.8568.198.camel@kernel.crashing.org>
+	Sat, 23 Jul 2016 20:36:14 +0000 (UTC)
+Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
+	by gate.crashing.org (8.14.1/8.13.8) with ESMTP id u6NKa6Ql020490
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sat, 23 Jul 2016 15:36:09 -0500
+Message-ID: <1469306165.8568.211.camel@kernel.crashing.org>
 From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: David Howells <dhowells@redhat.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Date: Sun, 24 Jul 2016 06:21:14 +1000
-In-Reply-To: <15500.1469183675@warthog.procyon.org.uk>
-References: <15500.1469183675@warthog.procyon.org.uk>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Sun, 24 Jul 2016 06:36:05 +1000
 Content-Type: text/plain; charset="UTF-8"
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: jakub@redhat.com, peterz@infradead.org, ramana.radhakrishnan@arm.com
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Memory model,
- using ISO C++11 atomic ops
+Content-Transfer-Encoding: 7bit
+Subject: [Ksummit-discuss] self-nomination
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,12 +29,17 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, 2016-07-22 at 11:34 +0100, David Howells wrote:
-> If we do this, Will Deacon, Peter Zijlstra and Paul McKenney should definitely
-> be there.  I would suggest Jakub Jelinek and Ramana Radhakrishnan as gcc
-> representatives.  I don't know anyone from LLVM.
+Hi folks !
 
-I'd like to be there too.
+I would like to self-nominate for kernel summit this year.
+
+I am co-maintainer of the powerpc architecture, and internally to IBM,
+lead architect for Linux on POWER. I also lead the team handling the
+kernel components of OpenBMC on our side.
+
+I would like to also participate in some of the memory model
+discussions, device-tree discussions and PCIe microconference among
+others.
 
 Cheers,
-Ben.
+Ben
