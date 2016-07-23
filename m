@@ -1,29 +1,32 @@
-Return-Path: <sre@kernel.org>
+Return-Path: <behanw@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id EAE274D3
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E014B4D3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 23 Jul 2016 02:29:44 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.136])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 873C926C
+	Sat, 23 Jul 2016 03:28:13 +0000 (UTC)
+Received: from mail-pf0-f179.google.com (mail-pf0-f179.google.com
+	[209.85.192.179])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 898C7218
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 23 Jul 2016 02:29:44 +0000 (UTC)
-Date: Sat, 23 Jul 2016 04:29:38 +0200
-From: Sebastian Reichel <sre@kernel.org>
-To: Jonathan Cameron <jic23@kernel.org>
-Message-ID: <20160723022938.GA18499@earth>
-References: <5222c3bb-d6b7-0ccc-bf9e-becf5046a37a@kernel.org>
-	<5791931E.5030402@roeck-us.net>
-	<9f443b24-9c6b-f50a-3c36-a919507864fe@kernel.org>
+	Sat, 23 Jul 2016 03:28:13 +0000 (UTC)
+Received: by mail-pf0-f179.google.com with SMTP id y134so46827085pfg.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 22 Jul 2016 20:28:13 -0700 (PDT)
+To: Shuah Khan <shuahkhan@gmail.com>
+References: <87inw1skws.fsf@x220.int.ebiederm.org>
+	<20160719173120.GE30372@sirena.org.uk>
+	<1469109732.120686.168.camel@infradead.org>
+	<20160721162107.GN6509@sirena.org.uk>
+From: Behan Webster <behanw@gmail.com>
+Message-ID: <2289ea24-63fb-6705-612d-a60304cda3dd@gmail.com>
+Date: Fri, 22 Jul 2016 20:28:10 -0700
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="9amGYk9869ThD9tj"
-Content-Disposition: inline
-In-Reply-To: <9f443b24-9c6b-f50a-3c36-a919507864fe@kernel.org>
-Cc: ksummit-discuss@lists.linuxfoundation.org, Dmitry <dbaryshkov@gmail.com>,
-	Rob Herring <robh+dt@kernel.org>, Zhang Rui <rui.zhang@intel.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Sensors and similar - subsystem
- interactions, divisions, bindings etc.
+In-Reply-To: <20160721162107.GN6509@sirena.org.uk>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: sumit.semwal@linaro.org, ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] [TECH TOPIC] Support (or move
+ towards to) LLVM
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,52 +36,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On 2016-07-21 09:21 AM, Mark Brown wrote:
+> On Thu, Jul 21, 2016 at 03:02:12PM +0100, David Woodhouse wrote:
+>> On Thu, 2016-07-21 at 07:41 -0600, Shuah Khan wrote:
+>>> Would you be willing to share your experiences and the nature of bugs
+>>> you were able to find using LLVM. Maybe that could be folded into this
+>>> discussion as a real life experience.
+>> http://llvm.linuxfoundation.org/index.php/Bugs
+>> Probably horrifically out of date. Behan is the best person to ask for
+>> a current status, I suspect...
+> CCing in Sumit who I believe has also been looking at some issues
+> building kernels with LLVM.
+We're trying to start up the group again who was working on this a 
+couple years ago. Part of that is figuring out an up to date list of 
+issues. Some have been fixed, some are outstanding. And a few more 
+things have been unearthed.
 
---9amGYk9869ThD9tj
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Despite other people seemingly interested in this, the traditional 
+LLVMLinux people have mostly been moved to different projects and have 
+had less time to concentrate on this topic, which is why things have 
+fallen behind.
 
-Hi,
+Behan
 
-On Fri, Jul 22, 2016 at 09:31:15PM +0200, Jonathan Cameron wrote:
-> >> Someone power supply related? (Guenter, any suggestions?)
-> > Not really, other than the power subsystem maintainers. Question
-> > here might be if it would make sense to register battery charger
-> > drivers as hardware monitoring devices - with the new hwmon API
-> > that should be quite straightforward.
-> Anyone want to nominate themselves from that area?
-
-Sorry, travelling to USA is not something I can financially afford
-until I have found an employer. Since [0] I basically maintained
-the power supply subsystem alone, so Dmitry and David are probably
-not the best candidates either.
-
-If he's there, Krzysztof Kozlowski (added to CC) may be a good candidate,
-though.
-
-[0] https://lkml.org/lkml/2014/7/16/621
-
--- Sebastian
-
---9amGYk9869ThD9tj
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v1
-
-iQIcBAEBCgAGBQJXktaNAAoJENju1/PIO/qa+AMP/RR3SPCUG+WNCtmuXkKpO4mq
-mnFMQd5MGMbLhHfugSQblrBnR+xpfW5L08stiUmmCxSZ6lIxpajX6T2bu1y6JOKn
-O2pVOt8vxoR1rIuA7T5TV/XHByzzOFii787Jaw43CeWWhndmOE0xiZGxI1Worlbd
-L8cEeaviZb55CdoiyDuoSpkEGYz/k0JAa7EQD268fZRQLdPx5UIy+MykMKkP8Cn0
-xdDb7ACkD3V+gOYUU5YHvglxstNHJJP9JXDo1Vr/zQmh6zLNS7++gCuFGPiDyuvx
-ghsjPPCazjobMjJWKjA7ohGt7pevqVGJBXvhKChVYctKmO9I2SmhS7i4IERi1y5x
-qv2tHuCVgmUF2t1wHdsg2f6Q2nuyyvolgJHiKFKHeFuyhP4FQUfx+Yrg7U/oXYfR
-7KqzaY6LYK4hgsqOjK+k041O0RjSGSJF8YMFpa/eOPoTuD3TpjKNcJz2G74m7ZHJ
-kmKHBMISig846Qo77FwWSTMyPFA8GZAsQelvaWdsesB//Lpx8WOA2b8CA3z2zam+
-taGdnkdJIi4JaSKxLiDqTtXa6YW8bzARjLiFqQCmdF42pjKURPBy9g07WdTLlbOm
-M4AHSK2wSHZUibKFCZCU4svolG18T3wK8is2X22HFZhpulsRJxqWXgOiXCAJFZ6K
-W8sGFEqzNk2YpSqfbBbj
-=PaAp
------END PGP SIGNATURE-----
-
---9amGYk9869ThD9tj--
+-- 
+Behan Webster
+behanw@gmail.com
