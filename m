@@ -1,24 +1,25 @@
-Return-Path: <riel@redhat.com>
+Return-Path: <lurodriguez@suse.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 64A9D9C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2941D71
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 25 Jul 2016 18:15:22 +0000 (UTC)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DEDFE18E
+	Mon, 25 Jul 2016 18:49:19 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 65D742A1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 25 Jul 2016 18:15:21 +0000 (UTC)
-Message-ID: <1469470518.30053.119.camel@redhat.com>
-From: Rik van Riel <riel@redhat.com>
-To: Johannes Weiner <hannes@cmpxchg.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Date: Mon, 25 Jul 2016 14:15:18 -0400
-In-Reply-To: <20160725171142.GA26006@cmpxchg.org>
-References: <20160725171142.GA26006@cmpxchg.org>
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-SkXcrj5EqIoPLv8KJb4Z"
-Mime-Version: 1.0
-Subject: Re: [Ksummit-discuss] Self nomination
+	Mon, 25 Jul 2016 18:49:18 +0000 (UTC)
+Date: Mon, 25 Jul 2016 20:49:16 +0200
+From: "Luis R. Rodriguez" <mcgrof@suse.com>
+To: David Howells <dhowells@redhat.com>
+Message-ID: <20160725184916.GR5537@wotan.suse.de>
+References: <15569.1469184060@warthog.procyon.org.uk>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <15569.1469184060@warthog.procyon.org.uk>
+Cc: Michael Matz <matz@suse.de>, agraf@suse.de,
+	ksummit-discuss@lists.linuxfoundation.org, valentinrothberg@gmail.com
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Compiler shopping list
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -28,48 +29,53 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Fri, Jul 22, 2016 at 11:41:00AM +0100, David Howells wrote:
+> Are there additional things we can get the compiler to do for us?  Some
+> things I've seen brought up:
+> 
+>  (1) Additional __atomic_*() ops could be useful.  Suggestions I've heard
+>      include direct LL/SC support - though the compiler people don't seem so
+>      keen on that.
+> 
+>  (2) -mmodel=kernel flag so that the compiler can optimise better for the
+>      kernel memory model.
 
---=-SkXcrj5EqIoPLv8KJb4Z
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Do we have enough compiler folk presentation attending? I know a few kernel
+developers take on compiler features on their own these days, but I think
+this is rather rare.
 
-On Mon, 2016-07-25 at 13:11 -0400, Johannes Weiner wrote:
-> Hi,
->=20
-> I would like to self-nominate myself for this year's kernel summit.
->=20
-> I co-maintain cgroups and the memory controller and have been a
-> long-time contributor to the memory management subsystem. At
-> Facebook,
-> I'm in charge of MM scalability and reliability in our fleet. Most
-> recently I have been working on reviving swap for SSDs and persistent
-> memory devices (https://lwn.net/Articles/690079/) as part of a bigger
-> anti-thrashing effort to make the VM recover swiftly and predictably
-> from load spikes. This has been a bit of a "lock yourself in a
-> basement" type project, which is why I missed the mechanimal
-> nomination based on sign-offs this year.
+One idea that came up while evaluating further optimizations possible with
+paravirtualized kernels was the possibility of supporting a thing called
+"compiler multiverse" support [0] which would try to generalize the binary
+patching technique used in the Linux kernel for use for any application. While
+this topic and precise domain interests only a very few, a generic solution for
+this sort of problem has uses outside of PV support, and even outside of Linux.
+One of the side benefits of a thing could be for instance a mechanism to avoid
+/ vet for dead code and vetting such code never runs. I've had my eyes on a
+kernel-based solution for this, compiler multiverse support is a counter idea
+by Alexander that came up in evaluating similar issues with other code bases
+(qemu in particular) and trying to brain storm a more general solution.
 
-I am interested in discussing that, either at kernel
-summit, or at next year's LSF/MM.
+I'll note, as it stands, the potential size constraints (even though only bool
+has been considered), and the fact we already have a framework for dealing with
+some of these sorts of things (although not exactly this very feature -- *yet*),
+has put this feature lower on a priority list of things to write it is worth
+mentioning should others out there working on the kernel likely be looking for
+something similar to help address dead code and which would be generic as well.
+A kernel-based-only solution pivoted on our existing alternatives model and
+further features still being developed may enable such feature without this
+compiler feature, but this is still in the works.
 
---=20
+If this is a topic of interest folks required would be:
 
-All Rights Reversed.
---=-SkXcrj5EqIoPLv8KJb4Z
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+  o Michael Matz <matz@suse.de>
+  o Valentin Rothberg <valentinrothberg@gmail.com>
+  o Alexander Graf <agraf@suse.de>
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
+This sort of feature is useful when distributions support large variability
+and such variability incurs significant run time deltas, and dead code becomes
+more of a concern.
 
-iQEcBAABCAAGBQJXllc2AAoJEM553pKExN6D6awIAIn04zcI/o4F0AEsASZmAiXB
-oNe4TSWXp3uL2b+mUV2SUA1/HMfnu80QZrbL8UEr0I5+xOUjzLdsN9FgbZYe8ldX
-muBSqueCWckBmydIyHiEZ/5Q8xpfNA9ZLYtLPnjK5t+7z3LDjUzD+61xsoKDahMs
-gVsD5Nx+O9gt9UQIwoGyyYJxt8DQ6KX5vwNy+hJyyDFhq0r/AIb+cwC3lIK7zXUJ
-xvA7yAl+5uTbWjtdZ7l/ekQMUVq/MZtsDASzX8jIsFNDrzX2xmOr8MRGIT5HrkSP
-LnFF9jw1h7HGJJcVpFmZ5TJ19qCt1vUuU/Ot0X6UVCHjhSb92mgHQ85vaJLrSxY=
-=9d3J
------END PGP SIGNATURE-----
+[0] https://kernelnewbies.org/KernelProjects/compiler-multiverse
 
---=-SkXcrj5EqIoPLv8KJb4Z--
+  Luis
