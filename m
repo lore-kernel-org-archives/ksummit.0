@@ -1,25 +1,30 @@
-Return-Path: <alexandre.belloni@free-electrons.com>
+Return-Path: <khilman@baylibre.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0779771
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4DD42726
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 25 Jul 2016 20:23:47 +0000 (UTC)
-Received: from mail.free-electrons.com (down.free-electrons.com
-	[37.187.137.238])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id E29DF25B
+	Mon, 25 Jul 2016 21:46:56 +0000 (UTC)
+Received: from mail-pa0-f44.google.com (mail-pa0-f44.google.com
+	[209.85.220.44])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A178A1E5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 25 Jul 2016 20:23:45 +0000 (UTC)
-Date: Mon, 25 Jul 2016 22:23:43 +0200
-From: Alexandre Belloni <alexandre.belloni@free-electrons.com>
-To: "Luis R. Rodriguez" <mcgrof@suse.com>
-Message-ID: <20160725202343.GJ11405@piout.net>
-References: <20160725190125.GS5537@wotan.suse.de>
+	Mon, 25 Jul 2016 21:46:55 +0000 (UTC)
+Received: by mail-pa0-f44.google.com with SMTP id ks6so65024927pab.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 25 Jul 2016 14:46:55 -0700 (PDT)
+Received: from localhost (c-98-203-232-209.hsd1.wa.comcast.net.
+	[98.203.232.209]) by smtp.gmail.com with ESMTPSA id
+	g10sm42365577pfc.57.2016.07.25.14.46.49
+	for <ksummit-discuss@lists.linuxfoundation.org>
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Mon, 25 Jul 2016 14:46:49 -0700 (PDT)
+From: Kevin Hilman <khilman@baylibre.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Mon, 25 Jul 2016 14:46:48 -0700
+Message-ID: <m2fuqxz8zb.fsf@baylibre.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20160725190125.GS5537@wotan.suse.de>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Nominating Fengguang Wu - 0-day
+Content-Type: text/plain
+Subject: [Ksummit-discuss] self nomination
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,33 +34,19 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 25/07/2016 at 21:01:25 +0200, Luis R. Rodriguez wrote :
-> 
-> It surprises Fengguang Wu <fengguang.wu@intel.com> hasn't been nominated yet,
-> so I'd like to nominate him. The mechanical process should probably include in
-> the future a scrape for top Reported-by contributors.
-> 
+Hello,
 
-That's a good point.
+I would like to self-nominate for the 2016 kernel summit.
 
-> Fengguang's 0-day infrastructure is invaluable to day to day kernel
-> development, having him present would be great for any questions that may come
-> up. Getting a statistical overview / update of impact / any major architectural
-> changes of the 0-day infrastructure would also be very useful. If maintainers
-> are not yet using 0-day it would be great to hear why. If your contributors are
-> not using 0-day (I know some of you exist) I'd like to know why you don't use it,
-> I often run into issues on linux-next which at times I have to fix, if 0-day
-> would have been used a folowup fix would not have been needed.
-> 
+I'm the lead kernel developer working on kernelci.org,
+backup/assistant/3rd-string/sick-leave co-maintainer of the arm-soc
+tree, as well as co-maintainer of a couple of the many ARM
+sub-architectures.
 
-Well, I think it would also help to know how the patch/git tree
-selection is done. Lately, I've been receiving less reports from 0-day
-and some issues were found by Arnd's autobuilders after hitting
-linux-next. I used to get report of compilation breakage 10-15 minutes
-after the patch submission.
+I'm most interested in discussions around kernel testing infrastructure,
+and in particular, how to improve testing for the various stable and
+LTS-based trees.
 
+Thank you for considering,
 
--- 
-Alexandre Belloni, Free Electrons
-Embedded Linux and Kernel engineering
-http://free-electrons.com
+Kevin
