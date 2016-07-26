@@ -1,28 +1,30 @@
 Return-Path: <BATV+94b61607c73741180040+4720+infradead.org+dwmw2@bombadil.srs.infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4034071
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 697D971
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 26 Jul 2016 11:22:24 +0000 (UTC)
+	Tue, 26 Jul 2016 11:48:44 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 25B9DFD
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 062F31EF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 26 Jul 2016 11:22:23 +0000 (UTC)
-Message-ID: <1469532139.120686.274.camel@infradead.org>
+	Tue, 26 Jul 2016 11:48:43 +0000 (UTC)
+Message-ID: <1469533716.120686.281.camel@infradead.org>
 From: David Woodhouse <dwmw2@infradead.org>
-To: Jiri Kosina <jikos@kernel.org>
-Date: Tue, 26 Jul 2016 12:22:19 +0100
-In-Reply-To: <alpine.LNX.2.00.1607212031430.24757@cbobk.fhfr.pm>
+To: Hannes Reinecke <hare@suse.com>, Julia Lawall <julia.lawall@lip6.fr>
+Date: Tue, 26 Jul 2016 12:48:36 +0100
+In-Reply-To: <b3390bd5-eb54-428a-3030-1d7289880d47@suse.com>
 References: <87inw1skws.fsf@x220.int.ebiederm.org>
-	<1469094899.120686.101.camel@infradead.org>
-	<alpine.LNX.2.00.1607212031430.24757@cbobk.fhfr.pm>
+	<25598.1469113525@warthog.procyon.org.uk>
+	<18158a39-1297-7368-3c0e-3e9b3ce2c3ab@suse.com>
+	<alpine.DEB.2.10.1607220808110.3114@hadrien>
+	<b3390bd5-eb54-428a-3030-1d7289880d47@suse.com>
 Content-Type: multipart/signed; micalg="sha-256";
 	protocol="application/x-pkcs7-signature";
-	boundary="=-piV+WrbypD4fgentEuk0"
+	boundary="=-iXXjXMGijvcU5WIG3Rrn"
 Mime-Version: 1.0
 Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] [TECH TOPIC] Support (or move
- towards to) LLVM
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] More useful types in the linux
+ kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,46 +35,43 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---=-piV+WrbypD4fgentEuk0
+--=-iXXjXMGijvcU5WIG3Rrn
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, 2016-07-21 at 20:38 +0200, Jiri Kosina wrote:
-> On Thu, 21 Jul 2016, David Woodhouse wrote:
+On Fri, 2016-07-22 at 15:57 +0200, Hannes Reinecke wrote:
 >=20
-> > Apart from resolutely not wanting to implement variable length arrays o=
-n=20
-> > the stack, the LLVM folks actually seem quite keen to make things work.=
-=20
-> > I'm interested in the problem you report above.. and note the absence o=
-f=20
-> > a bug number. Can you provide it?
+> > I guess that almost all functions return only a few possible error code=
+s?
 >=20
-> I am currently on vacation and on super-lousy internet connection, so=20
-> looking through my archives is a bit complicated ... I *think* it started=
-=20
-> in "[PATCH] usbhid: Fix lockdep unannotated irqs-off warning" thread on=
-=20
-> lkml.
->=20
-> In case you're not able to find it from there, I'll do my homework=20
-> mid-next week when I am back properly online.
+> Precisely. If we had a way of specifying "the return value is an errno
+> with the possible values '0', '-EIO', and '-EINVAL'" that would be
+> _so_ cool.
 
-OK, thanks. So it looks like that's acknowledged to have been a bug,
-there's a patch to fix it at=C2=A0https://reviews.llvm.org/D6629=C2=A0which=
- may
-even have been committed already.
+And perpetually out of date. Because functions call through to *other*
+functions which might return an errno outside the 'known' set.
 
-The main sticking point for LLVM seems to be the variable length arrays
-on the stack (VLAIS), which is a GCC'ism that the LLVM/clang folks
-*really* don't want to support, and the fact that
-__builtin_constant_p() is basically always false under LLVM because it
-doesn't look very hard.
+Any why would you *want* to know the precise set of errnos that a
+function might return, if not to deliberately code your error handling
+non-defensively?
+
+I can understand wanting to distinguish between errors and non-errors
+and ensure that the ranges cannot overlap. But IS_ERR_VALUE() typically
+reserves the whole range to -4095 (-MAX_ERRNO) for that. And I don't
+think we'd ever want to do anything different.
+
+In particular I don't want anyone ever saying "oh, -123 is a valid non-
+error return but no other negative numbers are. But that's OK because
+it'll never *actually* return an error of -ENOMEDIUM so there's no
+ambiguity."
+
+Of course, that's a silly example... but it's precisely where it sounds
+like you're going, from the above citation :)
 
 --=20
 David Woodhouse                            Open Source Technology Centre
 David.Woodhouse@intel.com                              Intel Corporation
---=-piV+WrbypD4fgentEuk0
+--=-iXXjXMGijvcU5WIG3Rrn
 Content-Type: application/x-pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -162,23 +161,23 @@ TmYcNZSibv+3Oy6uU+wqMYIEXjCCBFoCAQEwgYkwdTELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0
 YXJ0Q29tIEx0ZC4xKTAnBgNVBAsTIFN0YXJ0Q29tIENlcnRpZmljYXRpb24gQXV0aG9yaXR5MSMw
 IQYDVQQDExpTdGFydENvbSBDbGFzcyAxIENsaWVudCBDQQIQaRjuleoVgt0XsPAUByveJDANBglg
 hkgBZQMEAgEFAKCCAaUwGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcN
-MTYwNzI2MTEyMjE5WjAvBgkqhkiG9w0BCQQxIgQgD5We/feYVc6Ku7hDZZLzsqcdfzHx8OT0ASLt
-47B8tKEwgZoGCSsGAQQBgjcQBDGBjDCBiTB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRD
+MTYwNzI2MTE0ODM2WjAvBgkqhkiG9w0BCQQxIgQgOcA42Ik3w1bXAaVpN4FJMvtoX3O+JKLfrh0d
++8tmoSwwgZoGCSsGAQQBgjcQBDGBjDCBiTB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRD
 b20gTHRkLjEpMCcGA1UECxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNV
 BAMTGlN0YXJ0Q29tIENsYXNzIDEgQ2xpZW50IENBAhBpGO6V6hWC3Rew8BQHK94kMIGcBgsqhkiG
 9w0BCRACCzGBjKCBiTB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRkLjEpMCcG
 A1UECxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNVBAMTGlN0YXJ0Q29t
-IENsYXNzIDEgQ2xpZW50IENBAhBpGO6V6hWC3Rew8BQHK94kMA0GCSqGSIb3DQEBAQUABIICAG8o
-r5m9pLcCqq00Y3bejAyfUxFPMg+lfS3xq9ZsI1pC6ndDLoxOr9HL1qFZLrXzIKZ7mbT9G0bFgOsX
-Oj6Ww+7JYndwJ5INXwmcaekYh3PFpM6ukUDlY6J68uFkei7WibbnpoL8ijcPiQfPh2IRd1+ChbDi
-apezSOla/yBtP+onLFH5iX0CSDZsm34fIJDYUXRH5GPu6a+gsjzKjDU25zB1uxg9Wlm159TaZh+R
-67WggqtmCKL+DXoSoV6F0v+4TYazB/fE3eompdAHEnObI5Iy5iTtx/fZRJq9EJdh6KExiXC15yxm
-liG46ax34oeSlfNuTFQFdv9XAOmdQwOFfjtPexRFS57tdiHsVCfq+Yu3UjmsjsptfS4/HRn3diQW
-zV+C1vW+GkYooFhJzmeM7OmBiR3h0rvbNSDgNQns2RuS+gVLDAdeR8CWoVu5NbTR1IFV9a8G02jp
-Me1gEOctiBfRXdJIt9ITovdPOF/Ub7W95DtLvLlGE965ZwXZj3CxJOhOe28e6d8hnclPyQbBqDYK
-j9hZdNTp59tqsL7gqckILkwGST9nTijfiia7CZb1NC0HG4t5AC2RRrtod+BT3nTFmdd5GNW71WPR
-rDrEJloLWjuzwmfHe5Mklnl60GgeGqjNitKVdWYRNLE0UppZbUgXMBoYW20UwW0GtWePFuMiAAAA
+IENsYXNzIDEgQ2xpZW50IENBAhBpGO6V6hWC3Rew8BQHK94kMA0GCSqGSIb3DQEBAQUABIICADIo
+ejnUepOBrWvp4x1ZSUasMmBFkoQNgMWqMHqW/TEb9A9eZb9tGfOucEunj8VctE3e4s1WDi5xSzBc
+hoe4eLgwSrx1pedyL7yydMjZ7KwnKqGoMpEXa4Ayw22n8VubG9ItjpX+mHIjMH4gzl75kzaKpjeG
+XY8B9yG8DiThGYez2A+vAaBVIQba64oQX6c3sOOB+IyzSkJYzgj//ckkFpt35bYxmews8CHxTv7R
+4Knmd4LKjPVCObqUV9xNmvs48M42Mc548764+b3EJaErDF9W2XS171t3ubFfvQ/oHwDWxaBEoRDy
+LUMehfGKsuuj3Buv+SNgHrjHuFbe9rlHQc3Dr8PO1wg/1fBA9qDM9hPZ4upYbzPhc03MFo5Jqxfa
+MaGB6Iyml8cfJR4Qv3jskxce2kF1Dr6xe3+mTJc8OtnKyJK6oyICtxXuaHjVQ53zhvAVlnC9aoAN
+hJafnauAJzikjaIdvio4sF9NJvZebCB5luN9qdMCxQFM6wtkXROMltX5xymiwej1nN6P4uNwipGy
+TNanB/fGZkGgWHJIW2VzLmIrtmiqJPDBudHZ64HXhVoe/D2R+/w66CssJMDp3SkVYRVEQf41nlfV
+6w3W+01oQV65Hf544MsX1bD0x8SWcgMr4pF1pQbafNr1CcRU2dyLdPbSM3KkcYUR05CYuu++AAAA
 AAAA
 
 
---=-piV+WrbypD4fgentEuk0--
+--=-iXXjXMGijvcU5WIG3Rrn--
