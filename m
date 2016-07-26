@@ -1,57 +1,29 @@
-Return-Path: <paulmck@linux.vnet.ibm.com>
+Return-Path: <laurent.pinchart@ideasonboard.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0AC09950
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0F5D494E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 26 Jul 2016 13:35:57 +0000 (UTC)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
-	[148.163.156.1])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8AFEB150
+	Tue, 26 Jul 2016 13:37:58 +0000 (UTC)
+Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
+	[185.26.127.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 61F03171
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 26 Jul 2016 13:35:56 +0000 (UTC)
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.16.0.11/8.16.0.11) with SMTP id
-	u6QDXqd3002064 for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 26 Jul 2016 09:35:56 -0400
-Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
-	by mx0a-001b2d01.pphosted.com with ESMTP id 24dsrnff9a-1
-	(version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 26 Jul 2016 09:35:55 -0400
-Received: from localhost
-	by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
-	Violators will be prosecuted
-	for <ksummit-discuss@lists.linuxfoundation.org> from
-	<paulmck@linux.vnet.ibm.com>; Tue, 26 Jul 2016 09:35:54 -0400
-Received: from b01cxnp23032.gho.pok.ibm.com (b01cxnp23032.gho.pok.ibm.com
-	[9.57.198.27])
-	by d01dlp02.pok.ibm.com (Postfix) with ESMTP id 261426E8040
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 26 Jul 2016 09:35:32 -0400 (EDT)
-Received: from d01av01.pok.ibm.com (d01av01.pok.ibm.com [9.56.224.215])
-	by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
-	u6QDZuJb54067384 for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 26 Jul 2016 13:35:56 GMT
-Received: from d01av01.pok.ibm.com (localhost [127.0.0.1])
-	by d01av01.pok.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
-	u6QDZoIu025153 for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 26 Jul 2016 09:35:51 -0400
-Date: Tue, 26 Jul 2016 06:35:51 -0700
-From: "Paul E. McKenney" <paulmck@linux.vnet.ibm.com>
-To: Alan Stern <stern@rowland.harvard.edu>
-Reply-To: paulmck@linux.vnet.ibm.com
-References: <f423b811-88a4-b8ca-6793-1a543e8dc88d@suse.com>
-	<Pine.LNX.4.44L0.1607260909420.12362-100000@netrider.rowland.org>
+	Tue, 26 Jul 2016 13:37:56 +0000 (UTC)
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Tue, 26 Jul 2016 16:38:03 +0300
+Message-ID: <6125585.ae3bRTRs05@avalon>
+In-Reply-To: <1469199065.2382.21.camel@HansenPartnership.com>
+References: <15842.1469185302@warthog.procyon.org.uk>
+	<1469199065.2382.21.camel@HansenPartnership.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <Pine.LNX.4.44L0.1607260909420.12362-100000@netrider.rowland.org>
-Message-Id: <20160726133551.GU7094@linux.vnet.ibm.com>
-Cc: jakub@redhat.com, parri.andrea@gmail.com,
-	ksummit-discuss@lists.linuxfoundation.org, peterz@infradead.org,
-	ramana.radhakrishnan@arm.com, luc.maranget@inria.fr, j.alglave@ucl.ac.uk
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Memory model,
- using ISO C++11 atomic ops
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Linux Containers <containers@lists.linux-foundation.org>,
+	oleg@redhat.com, ikent@redhat.com
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Containerisation,
+	namespaces and keyrings
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -61,16 +33,77 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Jul 26, 2016 at 09:10:32AM -0400, Alan Stern wrote:
-> On Tue, 26 Jul 2016, Hannes Reinecke wrote:
-> 
-> > I have been playing around with RCUs and memory barriers quite a lot 
-> > recently, and found some really 'odd' use-cases in the kernel which 
-> > would benefit from improvements here.
-> 
-> Could you post one or two examples?  It would be interesting to see 
-> what they involve.
+Hi James,
 
-I would be intersted as well!
+On Friday 22 Jul 2016 07:51:05 James Bottomley wrote:
+> On Fri, 2016-07-22 at 12:01 +0100, David Howells wrote:
+> > I'm not sure this is the right venue for this, but keyrings will need
+> > to be namespaced/containerised at some point.
+> 
+> There are various unvirtualised subsystems within Linux.  There has
+> been discussion on the containers mailing list about how:
+> 
+> http://thread.gmane.org/gmane.linux.kernel.containers/30371
+> 
+> So far Eric has advocated for making things like this properties of the
+> user namespace; I'm more inclined to a separate namespace for
+> delegates, but nothing's been decided.
+> 
+> Proposing on the containers list should be your first step (I've added
+> the list to the cc).
+> 
+> > The problem is that it's an icky problem given that different key
+> > types really want to live in different namespaces, and upcalls may
+> > want to done in different containers, depending on the key type.
+> 
+> Surely if you virtualize, you'll have a namespace label per key (or
+> keyring) so they'll be in one and only one namespace.
+> 
+> The upcall problem sounds like it might be similar to the nfsd one,
+> which is nasty.  Describing it on the list would help people
+> understand.
+> 
+> > For example, DNS resolver keys - should they be in the network, the
+> > filesystem namespace or neither?  Should the upcall be in the current
+> > container or the root container?
+> 
+> Depends what the upcall does.
+> 
+> > Authentication keys, such as used by kafs and AF_RXRPC - should they
+> > be in the filesystem namespace (kafs is an fs), the network namespace
+> > (AF_RXRPC is a net protocol) or the user namespace?
+> 
+> I'm sort of starting to see Eric's point now, since every namespace has
+> an owning user namespace, if they were in that the question is
+> naturally answered.
+> 
+> > Should crypto keys, such as the asymmetric key type, be in the user
+> > namespace? What about use by module signing?  Should key operations
+> > in the current container have access to a blacklist in the root
+> > container?  Should key verification in the current container have
+> > access to system keyrings?   The TPM?
+> > 
+> > This might actually be right for a hallway track.
+> 
+> Actually, I really think this isn't a KS issue, it should be proposed
+> for the Plumbers Containers MC:
+> 
+> http://www.linuxplumbersconf.org/2016/ocw/events/LPC2016/tracks/519
+> 
+> You have all the correct people in that session.  At KS you'll have 50%
+> bored, 48% hostile because they hate cgroups and 2% interested.
 
-							Thanx, Paul
+Virtualization is increasingly affecting more and more subsystems. While I 
+don't disagree with you, I also see value in teaching maintainers about 
+containers, namespaces and the way they affect subsystems. We should ensure 
+that best practices can be followed going forward, and avoiding subsystems 
+being developed in a way that will make it difficult for them to be 
+virtualized later (although one might argue that we've already made a mess in 
+several subsystems anyway). KS would be a good place to spread the message as 
+widely as possible among maintainers, with Plumbers a good venue for more 
+technical discussions.
+
+-- 
+Regards,
+
+Laurent Pinchart
