@@ -1,31 +1,26 @@
-Return-Path: <hare@suse.com>
+Return-Path: <laurent.pinchart@ideasonboard.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 393892C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id CA17A4D3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 26 Jul 2016 06:09:34 +0000 (UTC)
-Received: from smtp.nue.novell.com (smtp.nue.novell.com [195.135.221.5])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2770013A
+	Tue, 26 Jul 2016 08:16:34 +0000 (UTC)
+Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
+	[185.26.127.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 38BD81AF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 26 Jul 2016 06:09:32 +0000 (UTC)
-To: "Luis R. Rodriguez" <mcgrof@suse.com>,
-	"Paul E. McKenney" <paulmck@linux.vnet.ibm.com>
-References: <15500.1469183675@warthog.procyon.org.uk>
-	<20160722164411.GJ7094@linux.vnet.ibm.com>
-	<20160725171416.GQ5537@wotan.suse.de>
-From: Hannes Reinecke <hare@suse.com>
-Message-ID: <f423b811-88a4-b8ca-6793-1a543e8dc88d@suse.com>
-Date: Tue, 26 Jul 2016 08:09:29 +0200
+	Tue, 26 Jul 2016 08:16:34 +0000 (UTC)
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Tue, 26 Jul 2016 11:16:40 +0300
+Message-ID: <1781582.RPTOZ0rvdq@avalon>
+In-Reply-To: <20160726031007.GH9681@localhost>
+References: <20160725190125.GS5537@wotan.suse.de>
+	<20160725202343.GJ11405@piout.net>
+	<20160726031007.GH9681@localhost>
 MIME-Version: 1.0
-In-Reply-To: <20160725171416.GQ5537@wotan.suse.de>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 8bit
-Cc: jakub@redhat.com, parri.andrea@gmail.com,
-	ksummit-discuss@lists.linuxfoundation.org, peterz@infradead.org,
-	stern@rowland.harvard.edu, ramana.radhakrishnan@arm.com,
-	luc.maranget@inria.fr, j.alglave@ucl.ac.uk
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Memory model,
- using ISO C++11 atomic ops
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Subject: Re: [Ksummit-discuss] Nominating Fengguang Wu - 0-day
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,45 +30,52 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 07/25/2016 07:14 PM, Luis R. Rodriguez wrote:
-> On Fri, Jul 22, 2016 at 09:44:11AM -0700, Paul E. McKenney wrote:
->> On Fri, Jul 22, 2016 at 11:34:35AM +0100, David Howells wrote:
->>> Earlier this year we had a discussion of the possibilities of using ISO C++11
->>> atomic operations inside the kernel to implement kernel atomic ops of sorts
->>> various, posted here:
->>>
->>> 	Subject: [RFC PATCH 00/15] Provide atomics and bitops implemented with ISO C++11 atomics
->>> 	Date: Wed, 18 May 2016 16:10:37 +0100
->>>
->>> Is it worth getting together to discuss these in person in one of the tech
->>> slots - especially if there are some gcc or llvm people available at plumbers
->>> who could join in?
->>>
->>>
->>> Further, Paul McKenney and others are assembling a memory model description.
->>
->> We are attempting to automate memory-barriers.txt, so that you could
->> provide fragments of C code, and the tool would tell you whether a given
->> outcome happens always, sometimes, or never.  The current prototype
->> handles memory accesses, memory barriers, and RCU, but not yet locking
->> or read-modify-write atomics (though there is some vestigal support for
->> RMW atomics).  We are currently playing whack-a-mole with odd corner cases
->> of various architectures' memory models.  We are therefore also working
->> on ways of handling the resulting uncertainty.  Good clean fun!  ;-)
->
-> Consider me interested in this discussion, patches, etc.
->
-Same here.
-I have been playing around with RCUs and memory barriers quite a lot 
-recently, and found some really 'odd' use-cases in the kernel which 
-would benefit from improvements here.
+Hello,
 
-Cheers,
+On Tuesday 26 Jul 2016 08:40:07 Vinod Koul wrote:
+> On Mon, Jul 25, 2016 at 10:23:43PM +0200, Alexandre Belloni wrote:
+> > On 25/07/2016 at 21:01:25 +0200, Luis R. Rodriguez wrote :
+> >> It surprises Fengguang Wu <fengguang.wu@intel.com> hasn't been nominated
+> >> yet, so I'd like to nominate him. The mechanical process should
+> >> probably include in the future a scrape for top Reported-by
+> >> contributors.
+> > 
+> > That's a good point.
+> > 
+> >> Fengguang's 0-day infrastructure is invaluable to day to day kernel
+> >> development, having him present would be great for any questions that
+> >> may come up. Getting a statistical overview / update of impact / any
+> >> major architectural changes of the 0-day infrastructure would also be
+> >> very useful. If maintainers are not yet using 0-day it would be great
+> >> to hear why. If your contributors are not using 0-day (I know some of
+> >> you exist) I'd like to know why you don't use it, I often run into
+> >> issues on linux-next which at times I have to fix, if 0-day would have
+> >> been used a folowup fix would not have been needed.
+> 
+> I am using it a lot :)
+> 
+> > Well, I think it would also help to know how the patch/git tree
+> > selection is done. Lately, I've been receiving less reports from 0-day
+> > and some issues were found by Arnd's autobuilders after hitting
+> > linux-next. I used to get report of compilation breakage 10-15 minutes
+> > after the patch submission.
 
-Hannes
+I second that. 0-day is an amazing tool, but relying on it requires developers 
+to trust that the tool will perform its job as expected. A proper 
+understanding of the logic behind patch/git tree selection would be very 
+valuable, as well as how the build bot handles its 500+ kernel configurations.
+
+Even though 0-day is an external tool, maybe it deserves an entry in 
+Documentation/ ? A public web page hosting the list of all git registered git 
+trees could be useful too.
+
+> Pls check if the mailing list is still subscribed. I had the same issue
+> and found that his ID was kicked off from the list, which is quite
+> typical w/ Intel accounts & vger.
+> 
+> Since work is done by scripts, people may not have noticed.
+
 -- 
-Dr. Hannes Reinecke		               zSeries & Storage
-hare@suse.com			               +49 911 74053 688
-SUSE LINUX GmbH, Maxfeldstr. 5, 90409 Nürnberg
-GF: F. Imendörffer, J. Smithard, D. Upmanyu, G. Norton
-HRB 21284 (AG Nürnberg)
+Regards,
+
+Laurent Pinchart
