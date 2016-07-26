@@ -1,27 +1,27 @@
-Return-Path: <BATV+94b61607c73741180040+4720+infradead.org+dwmw2@bombadil.srs.infradead.org>
+Return-Path: <hare@suse.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 697D971
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 57D4B71
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 26 Jul 2016 11:48:44 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 062F31EF
+	Tue, 26 Jul 2016 12:53:22 +0000 (UTC)
+Received: from smtp.nue.novell.com (smtp.nue.novell.com [195.135.221.5])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 245AF220
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 26 Jul 2016 11:48:43 +0000 (UTC)
-Message-ID: <1469533716.120686.281.camel@infradead.org>
-From: David Woodhouse <dwmw2@infradead.org>
-To: Hannes Reinecke <hare@suse.com>, Julia Lawall <julia.lawall@lip6.fr>
-Date: Tue, 26 Jul 2016 12:48:36 +0100
-In-Reply-To: <b3390bd5-eb54-428a-3030-1d7289880d47@suse.com>
+	Tue, 26 Jul 2016 12:53:20 +0000 (UTC)
+To: David Woodhouse <dwmw2@infradead.org>, Julia Lawall <julia.lawall@lip6.fr>
 References: <87inw1skws.fsf@x220.int.ebiederm.org>
 	<25598.1469113525@warthog.procyon.org.uk>
 	<18158a39-1297-7368-3c0e-3e9b3ce2c3ab@suse.com>
 	<alpine.DEB.2.10.1607220808110.3114@hadrien>
 	<b3390bd5-eb54-428a-3030-1d7289880d47@suse.com>
-Content-Type: multipart/signed; micalg="sha-256";
-	protocol="application/x-pkcs7-signature";
-	boundary="=-iXXjXMGijvcU5WIG3Rrn"
-Mime-Version: 1.0
+	<1469533716.120686.281.camel@infradead.org>
+From: Hannes Reinecke <hare@suse.com>
+Message-ID: <1ba2bb54-1de0-68ba-e5ff-1bc7b23c0317@suse.com>
+Date: Tue, 26 Jul 2016 14:53:18 +0200
+MIME-Version: 1.0
+In-Reply-To: <1469533716.120686.281.camel@infradead.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] More useful types in the linux
  kernel
@@ -34,150 +34,63 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On 07/26/2016 01:48 PM, David Woodhouse wrote:
+> On Fri, 2016-07-22 at 15:57 +0200, Hannes Reinecke wrote:
+>>
+>>> I guess that almost all functions return only a few possible error codes?
+>>
+>> Precisely. If we had a way of specifying "the return value is an errno
+>> with the possible values '0', '-EIO', and '-EINVAL'" that would be
+>> _so_ cool.
+>
+> And perpetually out of date. Because functions call through to *other*
+> functions which might return an errno outside the 'known' set.
+>
+What I want to catch with that are value range collisions; has the 'int' 
+returned from that function the same meaning as the 'int' returned from 
+the next function.
+Random example: drivers/net/veth.c:veth_newlink()
+'rtnl_nla_parse_ifla()' returns a value which is stored in the same 
+variable as the return value from veth_validate(). And that value is 
+then used as the return value for the entire function.
+ATM we need to do code inspection to figure out if both indeed return an 
+errno or not.
 
---=-iXXjXMGijvcU5WIG3Rrn
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> Any why would you *want* to know the precise set of errnos that a
+> function might return, if not to deliberately code your error handling
+> non-defensively?
+>
+The ultimate goal is to provide a map with the known return codes for 
+the various functions. Then we can invert that map and _inject_ errors
+via systemtap and friend for those functions to test the error paths.
+Using a fuzzer would work, too, but I think it's a bit too generic here
+(scanning the entire range of 'int' _does_ take some time).
+In general we want to trigger the 'exciting' cases (ie values where 
+there _is_ an error path coded) to figure out if the error handling 
+actually does behave as advertised.
 
-On Fri, 2016-07-22 at 15:57 +0200, Hannes Reinecke wrote:
->=20
-> > I guess that almost all functions return only a few possible error code=
-s?
->=20
-> Precisely. If we had a way of specifying "the return value is an errno
-> with the possible values '0', '-EIO', and '-EINVAL'" that would be
-> _so_ cool.
+> I can understand wanting to distinguish between errors and non-errors
+> and ensure that the ranges cannot overlap. But IS_ERR_VALUE() typically
+> reserves the whole range to -4095 (-MAX_ERRNO) for that. And I don't
+> think we'd ever want to do anything different.
+>
+Even that would be fine; even restricting the range from the entire 
+'int' to 4096 will make live easier.
+But ATM we don't even have a way of expressing that.
 
-And perpetually out of date. Because functions call through to *other*
-functions which might return an errno outside the 'known' set.
+> In particular I don't want anyone ever saying "oh, -123 is a valid non-
+> error return but no other negative numbers are. But that's OK because
+> it'll never *actually* return an error of -ENOMEDIUM so there's no
+> ambiguity."
+>
+Na, of course not.
 
-Any why would you *want* to know the precise set of errnos that a
-function might return, if not to deliberately code your error handling
-non-defensively?
+Cheers,
 
-I can understand wanting to distinguish between errors and non-errors
-and ensure that the ranges cannot overlap. But IS_ERR_VALUE() typically
-reserves the whole range to -4095 (-MAX_ERRNO) for that. And I don't
-think we'd ever want to do anything different.
-
-In particular I don't want anyone ever saying "oh, -123 is a valid non-
-error return but no other negative numbers are. But that's OK because
-it'll never *actually* return an error of -ENOMEDIUM so there's no
-ambiguity."
-
-Of course, that's a silly example... but it's precisely where it sounds
-like you're going, from the above citation :)
-
---=20
-David Woodhouse                            Open Source Technology Centre
-David.Woodhouse@intel.com                              Intel Corporation
---=-iXXjXMGijvcU5WIG3Rrn
-Content-Type: application/x-pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEeAw
-ggXiMIIDyqADAgECAhBrp4p9CteI1lEK+Vnk57ThMA0GCSqGSIb3DQEBCwUAMH0xCzAJBgNVBAYT
-AklMMRYwFAYDVQQKEw1TdGFydENvbSBMdGQuMSswKQYDVQQLEyJTZWN1cmUgRGlnaXRhbCBDZXJ0
-aWZpY2F0ZSBTaWduaW5nMSkwJwYDVQQDEyBTdGFydENvbSBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0
-eTAeFw0xNTEyMTYwMTAwMDVaFw0zMDEyMTYwMTAwMDVaMHUxCzAJBgNVBAYTAklMMRYwFAYDVQQK
-Ew1TdGFydENvbSBMdGQuMSkwJwYDVQQLEyBTdGFydENvbSBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0
-eTEjMCEGA1UEAxMaU3RhcnRDb20gQ2xhc3MgMSBDbGllbnQgQ0EwggEiMA0GCSqGSIb3DQEBAQUA
-A4IBDwAwggEKAoIBAQC9fdr3w6J9g/Zbgv3bW1+uHht1wLUZr5gkrLtXedg17AkefMyUGwrQdvwO
-bhajcVmnKVxhrUwkZPXRAwZZosRHfEIi5FH7x6SV/8Sp5lZEuiMnvMFG2MzLA84J6Ws5T4NfXZ0q
-n4TPgnr3X2vPVS51M7Ua9nIJgn8jvTra4eyyQzxvuA/GZwKg7VQfDCmCS+kICslYYWgXOMt2xlsS
-slxLce0CGWRsT8EpMyt1iDflSjXZIsE7m1uTyHaKZspMLyIyz6mySu8j8BWWHpChNNeTrFuhVfrO
-AyDPFJVUvKZCLKBhibTLloyy+LatoWELrjdI4a8StZY8+dIR9t4APXGzAgMBAAGjggFkMIIBYDAO
-BgNVHQ8BAf8EBAMCAQYwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMBIGA1UdEwEB/wQI
-MAYBAf8CAQAwMgYDVR0fBCswKTAnoCWgI4YhaHR0cDovL2NybC5zdGFydHNzbC5jb20vc2ZzY2Eu
-Y3JsMGYGCCsGAQUFBwEBBFowWDAkBggrBgEFBQcwAYYYaHR0cDovL29jc3Auc3RhcnRzc2wuY29t
-MDAGCCsGAQUFBzAChiRodHRwOi8vYWlhLnN0YXJ0c3NsLmNvbS9jZXJ0cy9jYS5jcnQwHQYDVR0O
-BBYEFCSBbDlhvkkPj7cbRivJKLUnSG1oMB8GA1UdIwQYMBaAFE4L7xqkQFulF2mHMMo0aEPQQa7y
-MD8GA1UdIAQ4MDYwNAYEVR0gADAsMCoGCCsGAQUFBwIBFh5odHRwOi8vd3d3LnN0YXJ0c3NsLmNv
-bS9wb2xpY3kwDQYJKoZIhvcNAQELBQADggIBAIvj94fsAYuErQ8BAluc4SMnIwS9NPBwAm5SH9uh
-2NCXTq7im61g7F1LIiNI/+wq37fUuaMbz4g7VarKQTgf8ubs0p7NZWcIe7Bvem2AWaXBsxsaRTYw
-5kG3DN8pd1hSEUuFoTa7DmNeFe8tiK1BrL3rbA/m48jp4AiFXgvxprJrW7izsyetOrRHPbkW4Y07
-v29MdhaPv3u1JELyszXqOzjIYo4sWlC8iDQXwgSW/ntvWy2n4LuiaozlCfXl149tKeqvwlvrla2Y
-klue/quWp9j9ou4T/OY0CXMuY+B8wNK0ohd2D4ShgFlMSjzAFRoHGKF81snTr2d1A7Ew02oF6UQy
-CkC2aNNsK5cWOojBar5c7HplX9aHYUCZouxIeU28SONJAxnATgR4cJ2jrpmYSz/kliUJ46S6UpVD
-o/ebn9c6PaM/XtDYCCaM/7XX6wc3s++sbQ7CtCn1Ax7df6ufQbwyO0V+oFa9H0KAsjHMzcwk3EV2
-B2NLatidKE/m7G+rB9m+FlVgIiSp0mGlg43QO9Kh1+JqvTCIzv2bJJkmPMLQJNuKKwHNL8F4GGp6
-jbAV+WL+LDeGfVcq8DHS3LrD+xyYEXQBiqZEdiPVOMxLDSUCXsDO0uCWpaNQ8j6y6S9p0xE/Ga0p
-eVLadVHhqf9nXqKaxnr358VgfrxzUIrvOaOjMIIF+TCCBOGgAwIBAgIQaRjuleoVgt0XsPAUByve
-JDANBgkqhkiG9w0BAQsFADB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRkLjEp
-MCcGA1UECxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNVBAMTGlN0YXJ0
-Q29tIENsYXNzIDEgQ2xpZW50IENBMB4XDTE2MDMxMjE2MjEyNVoXDTE3MDMxMjE2MjEyNVowQjEc
-MBoGA1UEAwwTZHdtdzJAaW5mcmFkZWFkLm9yZzEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFk
-ZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBANBDAiGnoeOIQJ/Aolutct4z
-x6Yt3dOUI5d0YnydAMNOiyVLXzHuuuVjUpk/6nRxg1FN3e0i3TWe5MjSTD98760qWoAuF2g5BGU+
-tN/GUsyws26ZWOt82w7xhn4dcI8EhmASUtwDTZs5ZXPQzSkuNs6uX5SY0eKPlBNHkAtMf39hNc4m
-liy6WRDKApZxA1vCbiHsJQZdNEBYO35022bu8PZBe6LSAFKoncoGMHl1xNEkN6kfOJFYnLqBYeXO
-2mDA8KZ4h15EnQyyHGSghN92OUTc9stAWEt9a+q6TCtyW5zNgYTaaOtE41t5x2xDAgsnNU7sVM8f
-wSR3tYeW9IqTgU6eDUllb1a9FK7es3+j9UDg7OxNv9rnXIda6TdXlGWYfFltujF7FMwTofq3UG7t
-w68Ugk0MMfpZadhPhjYLI/qXiEDgQi8Xr+eWSo5P0ygaLvAz8OPcWAt8RG5Y8Id9hpb5neW1HTAR
-Q+k8lbpkx2wDPHZEft0ITROOupf76f9CNF4jYcyCKZNnjSsKeJv69VX1TsVaeqT1LJUEudXLa/BK
-FSb7x5M1KF4z46yImJrnagI19Nk/ufWn1usBXqXh8pY8cVN/I7C+TDPBY5SqIceTq7DaHZp19JQU
-IIWlyRsm2d4UoVcgIdTjX57Odap4Pjzrfp2RmC6hvkW2hQ5EreIPAgMBAAGjggG2MIIBsjAOBgNV
-HQ8BAf8EBAMCBLAwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMAkGA1UdEwQCMAAwHQYD
-VR0OBBYEFBDmK2IjZJ7MKmBK0A7J/tKaSIdoMB8GA1UdIwQYMBaAFCSBbDlhvkkPj7cbRivJKLUn
-SG1oMG8GCCsGAQUFBwEBBGMwYTAkBggrBgEFBQcwAYYYaHR0cDovL29jc3Auc3RhcnRzc2wuY29t
-MDkGCCsGAQUFBzAChi1odHRwOi8vYWlhLnN0YXJ0c3NsLmNvbS9jZXJ0cy9zY2EuY2xpZW50MS5j
-cnQwOAYDVR0fBDEwLzAtoCugKYYnaHR0cDovL2NybC5zdGFydHNzbC5jb20vc2NhLWNsaWVudDEu
-Y3JsMB4GA1UdEQQXMBWBE2R3bXcyQGluZnJhZGVhZC5vcmcwIwYDVR0SBBwwGoYYaHR0cDovL3d3
-dy5zdGFydHNzbC5jb20vMEYGA1UdIAQ/MD0wOwYLKwYBBAGBtTcBAgQwLDAqBggrBgEFBQcCARYe
-aHR0cDovL3d3dy5zdGFydHNzbC5jb20vcG9saWN5MA0GCSqGSIb3DQEBCwUAA4IBAQAn5wvdgC0V
-kS226sFKAbqPnmVhc9jgrbsiXUcpdtYEzv6EZonARIeRC1UlIzK7jzZFRe95W5y4/qlcPQDoAeZL
-cSsbpW3AYPFFWdRgVp/eIR3iy9C5KEcAbkJES2lRUZWyRqAceW1Gur9kfvjM5H0kM6BBwJfCtoqo
-WragTXfsIXGNsF0F+60mUYYsKFPZzPmyz9J0Dr0xx9Lcp4fbD6UckDWCNJt2AJAiEPt/vPiiBzU8
-edaRzkYhzxd9f3pZAzhlzIf2CgTrGtKSL2X1bS/b3siREjQLhVrlGw4qxqllqER3APrDzyijLFuc
-CWpS8hxjTmYcNZSibv+3Oy6uU+wqMIIF+TCCBOGgAwIBAgIQaRjuleoVgt0XsPAUByveJDANBgkq
-hkiG9w0BAQsFADB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRkLjEpMCcGA1UE
-CxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNVBAMTGlN0YXJ0Q29tIENs
-YXNzIDEgQ2xpZW50IENBMB4XDTE2MDMxMjE2MjEyNVoXDTE3MDMxMjE2MjEyNVowQjEcMBoGA1UE
-AwwTZHdtdzJAaW5mcmFkZWFkLm9yZzEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
-ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBANBDAiGnoeOIQJ/Aolutct4zx6Yt3dOU
-I5d0YnydAMNOiyVLXzHuuuVjUpk/6nRxg1FN3e0i3TWe5MjSTD98760qWoAuF2g5BGU+tN/GUsyw
-s26ZWOt82w7xhn4dcI8EhmASUtwDTZs5ZXPQzSkuNs6uX5SY0eKPlBNHkAtMf39hNc4mliy6WRDK
-ApZxA1vCbiHsJQZdNEBYO35022bu8PZBe6LSAFKoncoGMHl1xNEkN6kfOJFYnLqBYeXO2mDA8KZ4
-h15EnQyyHGSghN92OUTc9stAWEt9a+q6TCtyW5zNgYTaaOtE41t5x2xDAgsnNU7sVM8fwSR3tYeW
-9IqTgU6eDUllb1a9FK7es3+j9UDg7OxNv9rnXIda6TdXlGWYfFltujF7FMwTofq3UG7tw68Ugk0M
-MfpZadhPhjYLI/qXiEDgQi8Xr+eWSo5P0ygaLvAz8OPcWAt8RG5Y8Id9hpb5neW1HTARQ+k8lbpk
-x2wDPHZEft0ITROOupf76f9CNF4jYcyCKZNnjSsKeJv69VX1TsVaeqT1LJUEudXLa/BKFSb7x5M1
-KF4z46yImJrnagI19Nk/ufWn1usBXqXh8pY8cVN/I7C+TDPBY5SqIceTq7DaHZp19JQUIIWlyRsm
-2d4UoVcgIdTjX57Odap4Pjzrfp2RmC6hvkW2hQ5EreIPAgMBAAGjggG2MIIBsjAOBgNVHQ8BAf8E
-BAMCBLAwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMAkGA1UdEwQCMAAwHQYDVR0OBBYE
-FBDmK2IjZJ7MKmBK0A7J/tKaSIdoMB8GA1UdIwQYMBaAFCSBbDlhvkkPj7cbRivJKLUnSG1oMG8G
-CCsGAQUFBwEBBGMwYTAkBggrBgEFBQcwAYYYaHR0cDovL29jc3Auc3RhcnRzc2wuY29tMDkGCCsG
-AQUFBzAChi1odHRwOi8vYWlhLnN0YXJ0c3NsLmNvbS9jZXJ0cy9zY2EuY2xpZW50MS5jcnQwOAYD
-VR0fBDEwLzAtoCugKYYnaHR0cDovL2NybC5zdGFydHNzbC5jb20vc2NhLWNsaWVudDEuY3JsMB4G
-A1UdEQQXMBWBE2R3bXcyQGluZnJhZGVhZC5vcmcwIwYDVR0SBBwwGoYYaHR0cDovL3d3dy5zdGFy
-dHNzbC5jb20vMEYGA1UdIAQ/MD0wOwYLKwYBBAGBtTcBAgQwLDAqBggrBgEFBQcCARYeaHR0cDov
-L3d3dy5zdGFydHNzbC5jb20vcG9saWN5MA0GCSqGSIb3DQEBCwUAA4IBAQAn5wvdgC0VkS226sFK
-AbqPnmVhc9jgrbsiXUcpdtYEzv6EZonARIeRC1UlIzK7jzZFRe95W5y4/qlcPQDoAeZLcSsbpW3A
-YPFFWdRgVp/eIR3iy9C5KEcAbkJES2lRUZWyRqAceW1Gur9kfvjM5H0kM6BBwJfCtoqoWragTXfs
-IXGNsF0F+60mUYYsKFPZzPmyz9J0Dr0xx9Lcp4fbD6UckDWCNJt2AJAiEPt/vPiiBzU8edaRzkYh
-zxd9f3pZAzhlzIf2CgTrGtKSL2X1bS/b3siREjQLhVrlGw4qxqllqER3APrDzyijLFucCWpS8hxj
-TmYcNZSibv+3Oy6uU+wqMYIEXjCCBFoCAQEwgYkwdTELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0
-YXJ0Q29tIEx0ZC4xKTAnBgNVBAsTIFN0YXJ0Q29tIENlcnRpZmljYXRpb24gQXV0aG9yaXR5MSMw
-IQYDVQQDExpTdGFydENvbSBDbGFzcyAxIENsaWVudCBDQQIQaRjuleoVgt0XsPAUByveJDANBglg
-hkgBZQMEAgEFAKCCAaUwGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcN
-MTYwNzI2MTE0ODM2WjAvBgkqhkiG9w0BCQQxIgQgOcA42Ik3w1bXAaVpN4FJMvtoX3O+JKLfrh0d
-+8tmoSwwgZoGCSsGAQQBgjcQBDGBjDCBiTB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRD
-b20gTHRkLjEpMCcGA1UECxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNV
-BAMTGlN0YXJ0Q29tIENsYXNzIDEgQ2xpZW50IENBAhBpGO6V6hWC3Rew8BQHK94kMIGcBgsqhkiG
-9w0BCRACCzGBjKCBiTB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRkLjEpMCcG
-A1UECxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNVBAMTGlN0YXJ0Q29t
-IENsYXNzIDEgQ2xpZW50IENBAhBpGO6V6hWC3Rew8BQHK94kMA0GCSqGSIb3DQEBAQUABIICADIo
-ejnUepOBrWvp4x1ZSUasMmBFkoQNgMWqMHqW/TEb9A9eZb9tGfOucEunj8VctE3e4s1WDi5xSzBc
-hoe4eLgwSrx1pedyL7yydMjZ7KwnKqGoMpEXa4Ayw22n8VubG9ItjpX+mHIjMH4gzl75kzaKpjeG
-XY8B9yG8DiThGYez2A+vAaBVIQba64oQX6c3sOOB+IyzSkJYzgj//ckkFpt35bYxmews8CHxTv7R
-4Knmd4LKjPVCObqUV9xNmvs48M42Mc548764+b3EJaErDF9W2XS171t3ubFfvQ/oHwDWxaBEoRDy
-LUMehfGKsuuj3Buv+SNgHrjHuFbe9rlHQc3Dr8PO1wg/1fBA9qDM9hPZ4upYbzPhc03MFo5Jqxfa
-MaGB6Iyml8cfJR4Qv3jskxce2kF1Dr6xe3+mTJc8OtnKyJK6oyICtxXuaHjVQ53zhvAVlnC9aoAN
-hJafnauAJzikjaIdvio4sF9NJvZebCB5luN9qdMCxQFM6wtkXROMltX5xymiwej1nN6P4uNwipGy
-TNanB/fGZkGgWHJIW2VzLmIrtmiqJPDBudHZ64HXhVoe/D2R+/w66CssJMDp3SkVYRVEQf41nlfV
-6w3W+01oQV65Hf544MsX1bD0x8SWcgMr4pF1pQbafNr1CcRU2dyLdPbSM3KkcYUR05CYuu++AAAA
-AAAA
-
-
---=-iXXjXMGijvcU5WIG3Rrn--
+Hannes
+-- 
+Dr. Hannes Reinecke		               zSeries & Storage
+hare@suse.com			               +49 911 74053 688
+SUSE LINUX GmbH, Maxfeldstr. 5, 90409 Nürnberg
+GF: F. Imendörffer, J. Smithard, D. Upmanyu, G. Norton
+HRB 21284 (AG Nürnberg)
