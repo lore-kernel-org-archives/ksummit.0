@@ -1,30 +1,21 @@
-Return-Path: <khilman@baylibre.com>
+Return-Path: <wangnan0@huawei.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4DD42726
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 783B42C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 25 Jul 2016 21:46:56 +0000 (UTC)
-Received: from mail-pa0-f44.google.com (mail-pa0-f44.google.com
-	[209.85.220.44])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A178A1E5
+	Tue, 26 Jul 2016 02:29:24 +0000 (UTC)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [58.251.152.64])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9BF39165
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 25 Jul 2016 21:46:55 +0000 (UTC)
-Received: by mail-pa0-f44.google.com with SMTP id ks6so65024927pab.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 25 Jul 2016 14:46:55 -0700 (PDT)
-Received: from localhost (c-98-203-232-209.hsd1.wa.comcast.net.
-	[98.203.232.209]) by smtp.gmail.com with ESMTPSA id
-	g10sm42365577pfc.57.2016.07.25.14.46.49
-	for <ksummit-discuss@lists.linuxfoundation.org>
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Mon, 25 Jul 2016 14:46:49 -0700 (PDT)
-From: Kevin Hilman <khilman@baylibre.com>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Mon, 25 Jul 2016 14:46:48 -0700
-Message-ID: <m2fuqxz8zb.fsf@baylibre.com>
+	Tue, 26 Jul 2016 02:29:23 +0000 (UTC)
+To: <ksummit-discuss@lists.linuxfoundation.org>
+From: "Wangnan (F)" <wangnan0@huawei.com>
+Message-ID: <5796CAE8.1060103@huawei.com>
+Date: Tue, 26 Jul 2016 10:28:56 +0800
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: [Ksummit-discuss] self nomination
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: [Ksummit-discuss] self-nomination
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,19 +25,16 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hello,
+Hi folks,
 
-I would like to self-nominate for the 2016 kernel summit.
+I'd like to self-nominate for kernel summit this year.
 
-I'm the lead kernel developer working on kernelci.org,
-backup/assistant/3rd-string/sick-leave co-maintainer of the arm-soc
-tree, as well as co-maintainer of a couple of the many ARM
-sub-architectures.
+I'm a developer of perf tool. Internally to Huawei, I managed
+a internal Linux distribution for embedded devices so I'm
+interested in kernel stable workflow. Currently I'm working
+on tracing and Linux performance analysis. I'm looking for a
+chance to improve the usage of BPF.
 
-I'm most interested in discussions around kernel testing infrastructure,
-and in particular, how to improve testing for the various stable and
-LTS-based trees.
+I'd like to attend any tracing or performance related discussion.
 
-Thank you for considering,
-
-Kevin
+Thank you.
