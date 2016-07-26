@@ -1,32 +1,36 @@
-Return-Path: <linux@roeck-us.net>
+Return-Path: <BATV+94b61607c73741180040+4720+infradead.org+dwmw2@bombadil.srs.infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id E2C8A950
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1739F950
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 26 Jul 2016 13:44:37 +0000 (UTC)
-Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7DF901BE
+	Tue, 26 Jul 2016 13:45:28 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 966FAA5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 26 Jul 2016 13:44:37 +0000 (UTC)
-To: David Woodhouse <dwmw2@infradead.org>,
-	James Bottomley <James.Bottomley@HansenPartnership.com>,
-	"Rafael J. Wysocki" <rjw@rjwysocki.net>
-References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
-	<A4E16736-A5CB-4915-9A02-82065AE2E062@primarydata.com>
-	<1468115770.2333.15.camel@HansenPartnership.com>
-	<146834264.pgPOSbOmkO@vostro.rjw.lan>
-	<1468119600.19833.9.camel@HansenPartnership.com>
-	<1469540111.120686.314.camel@infradead.org>
-From: Guenter Roeck <linux@roeck-us.net>
-Message-ID: <57976941.2040308@roeck-us.net>
-Date: Tue, 26 Jul 2016 06:44:33 -0700
-MIME-Version: 1.0
-In-Reply-To: <1469540111.120686.314.camel@infradead.org>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: Trond Myklebust <trondmy@primarydata.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
+	Tue, 26 Jul 2016 13:45:27 +0000 (UTC)
+Message-ID: <1469540722.120686.317.camel@infradead.org>
+From: David Woodhouse <dwmw2@infradead.org>
+To: Mark Brown <broonie@kernel.org>, Rik van Riel <riel@redhat.com>
+Date: Tue, 26 Jul 2016 14:45:22 +0100
+In-Reply-To: <20160715121717.GG30372@sirena.org.uk>
+References: <20160713143447.GH9976@sirena.org.uk>
+	<20160714031753.GA28722@kroah.com>
+	<20160714100603.GJ9976@sirena.org.uk>
+	<20160715002239.GA31603@kroah.com> <5788337F.8000500@roeck-us.net>
+	<20160715014103.GA5791@kroah.com> <578850EB.3090109@roeck-us.net>
+	<20160715042938.GA5527@kroah.com>
+	<874m7rcus8.fsf@notabene.neil.brown.name>
+	<1468563557.30053.30.camel@redhat.com>
+	<20160715121717.GG30372@sirena.org.uk>
+Content-Type: multipart/signed; micalg="sha-256";
+	protocol="application/x-pkcs7-signature";
+	boundary="=-mS5uh4JWbhKGNYOe8gQC"
+Mime-Version: 1.0
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Trond Myklebust <trondmy@primarydata.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] kernel unit testing
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,44 +40,155 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 07/26/2016 06:35 AM, David Woodhouse wrote:
-> On Sun, 2016-07-10 at 12:00 +0900, James Bottomley wrote:
->>
->> Note: I'm not saying don't do testing, or even that testing isn't a
->> suitable discussion topic for KS.  What I am saying is that I think we
->> should discuss our stable practices separately from testing.
->
-> Well... there is a danger that by divorcing the discussion of the
-> problem, from any discussion of specific things we might do to fix it,
-> we could transform the former into little more than a navel-gazing
-> session.
->
-> Testing seems like the most productive way to reduce the number of
-> regressions we see.
->
-> We really should have more of an expectation that new code should be
-> submitted *with* test cases. After all, it's not like people are
-> generally submitting code that's *entirely* untested. It's more that
-> testing is ad-hoc, and sometimes depends on running on specific
-> hardware. But even the latter can often be fixed, with appropriate test
-> harnesses.
->
 
-Worthy goal, but knowing developers I am quite concerned that it would result
-in (possibly much) less kernel contributions. In addition to contributions
-from unaffiliated individuals, there is a lot of code in vendor trees which
-is not upstreamed today. Demanding test cases for upstreaming would for sure
-make the interest in upstreaming that code even lower than it is today.
+--=-mS5uh4JWbhKGNYOe8gQC
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Guenter
+On Fri, 2016-07-15 at 13:17 +0100, Mark Brown wrote:
+> On Fri, Jul 15, 2016 at 02:19:17AM -0400, Rik van Riel wrote:
+>=20
+> > RHEL is also developed on a git tree nowadays, because there is
+> > no need to extract patches from RHEL, since the code came from
+> > upstream to begin with.
+>=20
+> > It sounds like the embedded people are causing themselves a lot
+> > of pain. Pain the distro people got all too familiar with a decade
+> > ago, and decided to leave behind.
+>=20
+> No, at least not in the terms you're thinking of here.=C2=A0 The constrai=
+nts
+> that go into supporting servers in distros are very different to the
+> constraints that apply when building systems based around trying to
+> exploit the new capabilities of silicon that was taped out rather more
+> close to product launch than might be comfortable.=C2=A0 Some of it is ju=
+st
+> bad practice and technical debt but far from all of it, these aren't
+> solved problems.
+>=20
+> This isn't just something that goes on in embedded either - look at the
+> experience people have buying laptops with brand new Intel chipsets,
+> even running bleeding edge upstream versions of things it takes a good
+> few months after the systems start hitting the market for things to
+> become stable and reasonably functional.=C2=A0
 
-> Even actual device drivers could sometimes be exercised with tools
-> based on MMIO tracing and playback.
->
->
->
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
->
+And it's not just laptops. Sure, laptops have to deal with graphics,
+and there's always a lot of fun there. But we also spend a fair amount
+of time ensuring new *server* features work nicely in the distro
+kernels.
+
+There really isn't all *that* much difference in the constraints.
+
+--=20
+David Woodhouse                            Open Source Technology Centre
+David.Woodhouse@intel.com                              Intel Corporation
+--=-mS5uh4JWbhKGNYOe8gQC
+Content-Type: application/x-pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEeAw
+ggXiMIIDyqADAgECAhBrp4p9CteI1lEK+Vnk57ThMA0GCSqGSIb3DQEBCwUAMH0xCzAJBgNVBAYT
+AklMMRYwFAYDVQQKEw1TdGFydENvbSBMdGQuMSswKQYDVQQLEyJTZWN1cmUgRGlnaXRhbCBDZXJ0
+aWZpY2F0ZSBTaWduaW5nMSkwJwYDVQQDEyBTdGFydENvbSBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0
+eTAeFw0xNTEyMTYwMTAwMDVaFw0zMDEyMTYwMTAwMDVaMHUxCzAJBgNVBAYTAklMMRYwFAYDVQQK
+Ew1TdGFydENvbSBMdGQuMSkwJwYDVQQLEyBTdGFydENvbSBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0
+eTEjMCEGA1UEAxMaU3RhcnRDb20gQ2xhc3MgMSBDbGllbnQgQ0EwggEiMA0GCSqGSIb3DQEBAQUA
+A4IBDwAwggEKAoIBAQC9fdr3w6J9g/Zbgv3bW1+uHht1wLUZr5gkrLtXedg17AkefMyUGwrQdvwO
+bhajcVmnKVxhrUwkZPXRAwZZosRHfEIi5FH7x6SV/8Sp5lZEuiMnvMFG2MzLA84J6Ws5T4NfXZ0q
+n4TPgnr3X2vPVS51M7Ua9nIJgn8jvTra4eyyQzxvuA/GZwKg7VQfDCmCS+kICslYYWgXOMt2xlsS
+slxLce0CGWRsT8EpMyt1iDflSjXZIsE7m1uTyHaKZspMLyIyz6mySu8j8BWWHpChNNeTrFuhVfrO
+AyDPFJVUvKZCLKBhibTLloyy+LatoWELrjdI4a8StZY8+dIR9t4APXGzAgMBAAGjggFkMIIBYDAO
+BgNVHQ8BAf8EBAMCAQYwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMBIGA1UdEwEB/wQI
+MAYBAf8CAQAwMgYDVR0fBCswKTAnoCWgI4YhaHR0cDovL2NybC5zdGFydHNzbC5jb20vc2ZzY2Eu
+Y3JsMGYGCCsGAQUFBwEBBFowWDAkBggrBgEFBQcwAYYYaHR0cDovL29jc3Auc3RhcnRzc2wuY29t
+MDAGCCsGAQUFBzAChiRodHRwOi8vYWlhLnN0YXJ0c3NsLmNvbS9jZXJ0cy9jYS5jcnQwHQYDVR0O
+BBYEFCSBbDlhvkkPj7cbRivJKLUnSG1oMB8GA1UdIwQYMBaAFE4L7xqkQFulF2mHMMo0aEPQQa7y
+MD8GA1UdIAQ4MDYwNAYEVR0gADAsMCoGCCsGAQUFBwIBFh5odHRwOi8vd3d3LnN0YXJ0c3NsLmNv
+bS9wb2xpY3kwDQYJKoZIhvcNAQELBQADggIBAIvj94fsAYuErQ8BAluc4SMnIwS9NPBwAm5SH9uh
+2NCXTq7im61g7F1LIiNI/+wq37fUuaMbz4g7VarKQTgf8ubs0p7NZWcIe7Bvem2AWaXBsxsaRTYw
+5kG3DN8pd1hSEUuFoTa7DmNeFe8tiK1BrL3rbA/m48jp4AiFXgvxprJrW7izsyetOrRHPbkW4Y07
+v29MdhaPv3u1JELyszXqOzjIYo4sWlC8iDQXwgSW/ntvWy2n4LuiaozlCfXl149tKeqvwlvrla2Y
+klue/quWp9j9ou4T/OY0CXMuY+B8wNK0ohd2D4ShgFlMSjzAFRoHGKF81snTr2d1A7Ew02oF6UQy
+CkC2aNNsK5cWOojBar5c7HplX9aHYUCZouxIeU28SONJAxnATgR4cJ2jrpmYSz/kliUJ46S6UpVD
+o/ebn9c6PaM/XtDYCCaM/7XX6wc3s++sbQ7CtCn1Ax7df6ufQbwyO0V+oFa9H0KAsjHMzcwk3EV2
+B2NLatidKE/m7G+rB9m+FlVgIiSp0mGlg43QO9Kh1+JqvTCIzv2bJJkmPMLQJNuKKwHNL8F4GGp6
+jbAV+WL+LDeGfVcq8DHS3LrD+xyYEXQBiqZEdiPVOMxLDSUCXsDO0uCWpaNQ8j6y6S9p0xE/Ga0p
+eVLadVHhqf9nXqKaxnr358VgfrxzUIrvOaOjMIIF+TCCBOGgAwIBAgIQaRjuleoVgt0XsPAUByve
+JDANBgkqhkiG9w0BAQsFADB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRkLjEp
+MCcGA1UECxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNVBAMTGlN0YXJ0
+Q29tIENsYXNzIDEgQ2xpZW50IENBMB4XDTE2MDMxMjE2MjEyNVoXDTE3MDMxMjE2MjEyNVowQjEc
+MBoGA1UEAwwTZHdtdzJAaW5mcmFkZWFkLm9yZzEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFk
+ZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBANBDAiGnoeOIQJ/Aolutct4z
+x6Yt3dOUI5d0YnydAMNOiyVLXzHuuuVjUpk/6nRxg1FN3e0i3TWe5MjSTD98760qWoAuF2g5BGU+
+tN/GUsyws26ZWOt82w7xhn4dcI8EhmASUtwDTZs5ZXPQzSkuNs6uX5SY0eKPlBNHkAtMf39hNc4m
+liy6WRDKApZxA1vCbiHsJQZdNEBYO35022bu8PZBe6LSAFKoncoGMHl1xNEkN6kfOJFYnLqBYeXO
+2mDA8KZ4h15EnQyyHGSghN92OUTc9stAWEt9a+q6TCtyW5zNgYTaaOtE41t5x2xDAgsnNU7sVM8f
+wSR3tYeW9IqTgU6eDUllb1a9FK7es3+j9UDg7OxNv9rnXIda6TdXlGWYfFltujF7FMwTofq3UG7t
+w68Ugk0MMfpZadhPhjYLI/qXiEDgQi8Xr+eWSo5P0ygaLvAz8OPcWAt8RG5Y8Id9hpb5neW1HTAR
+Q+k8lbpkx2wDPHZEft0ITROOupf76f9CNF4jYcyCKZNnjSsKeJv69VX1TsVaeqT1LJUEudXLa/BK
+FSb7x5M1KF4z46yImJrnagI19Nk/ufWn1usBXqXh8pY8cVN/I7C+TDPBY5SqIceTq7DaHZp19JQU
+IIWlyRsm2d4UoVcgIdTjX57Odap4Pjzrfp2RmC6hvkW2hQ5EreIPAgMBAAGjggG2MIIBsjAOBgNV
+HQ8BAf8EBAMCBLAwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMAkGA1UdEwQCMAAwHQYD
+VR0OBBYEFBDmK2IjZJ7MKmBK0A7J/tKaSIdoMB8GA1UdIwQYMBaAFCSBbDlhvkkPj7cbRivJKLUn
+SG1oMG8GCCsGAQUFBwEBBGMwYTAkBggrBgEFBQcwAYYYaHR0cDovL29jc3Auc3RhcnRzc2wuY29t
+MDkGCCsGAQUFBzAChi1odHRwOi8vYWlhLnN0YXJ0c3NsLmNvbS9jZXJ0cy9zY2EuY2xpZW50MS5j
+cnQwOAYDVR0fBDEwLzAtoCugKYYnaHR0cDovL2NybC5zdGFydHNzbC5jb20vc2NhLWNsaWVudDEu
+Y3JsMB4GA1UdEQQXMBWBE2R3bXcyQGluZnJhZGVhZC5vcmcwIwYDVR0SBBwwGoYYaHR0cDovL3d3
+dy5zdGFydHNzbC5jb20vMEYGA1UdIAQ/MD0wOwYLKwYBBAGBtTcBAgQwLDAqBggrBgEFBQcCARYe
+aHR0cDovL3d3dy5zdGFydHNzbC5jb20vcG9saWN5MA0GCSqGSIb3DQEBCwUAA4IBAQAn5wvdgC0V
+kS226sFKAbqPnmVhc9jgrbsiXUcpdtYEzv6EZonARIeRC1UlIzK7jzZFRe95W5y4/qlcPQDoAeZL
+cSsbpW3AYPFFWdRgVp/eIR3iy9C5KEcAbkJES2lRUZWyRqAceW1Gur9kfvjM5H0kM6BBwJfCtoqo
+WragTXfsIXGNsF0F+60mUYYsKFPZzPmyz9J0Dr0xx9Lcp4fbD6UckDWCNJt2AJAiEPt/vPiiBzU8
+edaRzkYhzxd9f3pZAzhlzIf2CgTrGtKSL2X1bS/b3siREjQLhVrlGw4qxqllqER3APrDzyijLFuc
+CWpS8hxjTmYcNZSibv+3Oy6uU+wqMIIF+TCCBOGgAwIBAgIQaRjuleoVgt0XsPAUByveJDANBgkq
+hkiG9w0BAQsFADB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRkLjEpMCcGA1UE
+CxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNVBAMTGlN0YXJ0Q29tIENs
+YXNzIDEgQ2xpZW50IENBMB4XDTE2MDMxMjE2MjEyNVoXDTE3MDMxMjE2MjEyNVowQjEcMBoGA1UE
+AwwTZHdtdzJAaW5mcmFkZWFkLm9yZzEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
+ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBANBDAiGnoeOIQJ/Aolutct4zx6Yt3dOU
+I5d0YnydAMNOiyVLXzHuuuVjUpk/6nRxg1FN3e0i3TWe5MjSTD98760qWoAuF2g5BGU+tN/GUsyw
+s26ZWOt82w7xhn4dcI8EhmASUtwDTZs5ZXPQzSkuNs6uX5SY0eKPlBNHkAtMf39hNc4mliy6WRDK
+ApZxA1vCbiHsJQZdNEBYO35022bu8PZBe6LSAFKoncoGMHl1xNEkN6kfOJFYnLqBYeXO2mDA8KZ4
+h15EnQyyHGSghN92OUTc9stAWEt9a+q6TCtyW5zNgYTaaOtE41t5x2xDAgsnNU7sVM8fwSR3tYeW
+9IqTgU6eDUllb1a9FK7es3+j9UDg7OxNv9rnXIda6TdXlGWYfFltujF7FMwTofq3UG7tw68Ugk0M
+MfpZadhPhjYLI/qXiEDgQi8Xr+eWSo5P0ygaLvAz8OPcWAt8RG5Y8Id9hpb5neW1HTARQ+k8lbpk
+x2wDPHZEft0ITROOupf76f9CNF4jYcyCKZNnjSsKeJv69VX1TsVaeqT1LJUEudXLa/BKFSb7x5M1
+KF4z46yImJrnagI19Nk/ufWn1usBXqXh8pY8cVN/I7C+TDPBY5SqIceTq7DaHZp19JQUIIWlyRsm
+2d4UoVcgIdTjX57Odap4Pjzrfp2RmC6hvkW2hQ5EreIPAgMBAAGjggG2MIIBsjAOBgNVHQ8BAf8E
+BAMCBLAwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMAkGA1UdEwQCMAAwHQYDVR0OBBYE
+FBDmK2IjZJ7MKmBK0A7J/tKaSIdoMB8GA1UdIwQYMBaAFCSBbDlhvkkPj7cbRivJKLUnSG1oMG8G
+CCsGAQUFBwEBBGMwYTAkBggrBgEFBQcwAYYYaHR0cDovL29jc3Auc3RhcnRzc2wuY29tMDkGCCsG
+AQUFBzAChi1odHRwOi8vYWlhLnN0YXJ0c3NsLmNvbS9jZXJ0cy9zY2EuY2xpZW50MS5jcnQwOAYD
+VR0fBDEwLzAtoCugKYYnaHR0cDovL2NybC5zdGFydHNzbC5jb20vc2NhLWNsaWVudDEuY3JsMB4G
+A1UdEQQXMBWBE2R3bXcyQGluZnJhZGVhZC5vcmcwIwYDVR0SBBwwGoYYaHR0cDovL3d3dy5zdGFy
+dHNzbC5jb20vMEYGA1UdIAQ/MD0wOwYLKwYBBAGBtTcBAgQwLDAqBggrBgEFBQcCARYeaHR0cDov
+L3d3dy5zdGFydHNzbC5jb20vcG9saWN5MA0GCSqGSIb3DQEBCwUAA4IBAQAn5wvdgC0VkS226sFK
+AbqPnmVhc9jgrbsiXUcpdtYEzv6EZonARIeRC1UlIzK7jzZFRe95W5y4/qlcPQDoAeZLcSsbpW3A
+YPFFWdRgVp/eIR3iy9C5KEcAbkJES2lRUZWyRqAceW1Gur9kfvjM5H0kM6BBwJfCtoqoWragTXfs
+IXGNsF0F+60mUYYsKFPZzPmyz9J0Dr0xx9Lcp4fbD6UckDWCNJt2AJAiEPt/vPiiBzU8edaRzkYh
+zxd9f3pZAzhlzIf2CgTrGtKSL2X1bS/b3siREjQLhVrlGw4qxqllqER3APrDzyijLFucCWpS8hxj
+TmYcNZSibv+3Oy6uU+wqMYIEXjCCBFoCAQEwgYkwdTELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0
+YXJ0Q29tIEx0ZC4xKTAnBgNVBAsTIFN0YXJ0Q29tIENlcnRpZmljYXRpb24gQXV0aG9yaXR5MSMw
+IQYDVQQDExpTdGFydENvbSBDbGFzcyAxIENsaWVudCBDQQIQaRjuleoVgt0XsPAUByveJDANBglg
+hkgBZQMEAgEFAKCCAaUwGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcN
+MTYwNzI2MTM0NTIyWjAvBgkqhkiG9w0BCQQxIgQgxG3NK7xSZKXNwjw/dJk55P1q2Aca6Gug80Yx
+dQituqAwgZoGCSsGAQQBgjcQBDGBjDCBiTB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRD
+b20gTHRkLjEpMCcGA1UECxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNV
+BAMTGlN0YXJ0Q29tIENsYXNzIDEgQ2xpZW50IENBAhBpGO6V6hWC3Rew8BQHK94kMIGcBgsqhkiG
+9w0BCRACCzGBjKCBiTB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRkLjEpMCcG
+A1UECxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNVBAMTGlN0YXJ0Q29t
+IENsYXNzIDEgQ2xpZW50IENBAhBpGO6V6hWC3Rew8BQHK94kMA0GCSqGSIb3DQEBAQUABIICABC5
+NwsJBWSUT8eU/IhfHYWxxiwCpZtstrb4sBjh+wQbh6MJQQFVY/5zHtJdJJkwTtIMyQor8y+hMUci
+hk5YXVP9Fc7fVbFd8A4eJX+m9spPgh9YYy/zOs4vvltpkOQ172rS6BGpnJIMCDTiADVtvHlR6gIw
+lgsfdOHoNRqdlhHgWCdtmyMjiuC/nH7Qx98phMcd/yh3nr1dWrgO6MpD0yyFke9MvE531l6kcBsD
+beOxUziEPTLC1Kgp86DwaJxtN5xOTTbgx8WZPwx2fHEpLI2Z7lOh0C4EzUnZjHCfujGvuSqXJ248
+tDEBPRlwe41e40LBfDcphHHRg+DfrsGkdsEbcDvbLt9BuTXGq+OKyyrQwHr51x4zsKSSEI4SSXKa
+i7XBC24h9gViWAL4w+/1cc1WgSnhIdafQGC0mZ0l9L7T9KBe9yV/i0gENCVYwM0pKFQFNnyUqhnx
+nPx2XVgHS/07UZ8BlVsAxb9P/J51KCv+V7i8HKGFccoRplm0E4KmeqW027gz8yiril/zjTBXc+YM
+5SEsx+IqhCFOGEdxBE5qkjgbR/TGH5coTuCQCaGp17pwaMFqv/GGDYiW79he0ZNplwN3Wmti672S
+l8oqfbwW5Ts1/LogrSffzFUXEvrgor+XF+ZDSGuq6fyga6rzosF38JrVnik7DjOuGj15ECXTAAAA
+AAAA
+
+
+--=-mS5uh4JWbhKGNYOe8gQC--
