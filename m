@@ -1,33 +1,30 @@
-Return-Path: <linux@roeck-us.net>
+Return-Path: <dvhart@infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BE6B22C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id F0F2A2C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 26 Jul 2016 15:52:56 +0000 (UTC)
-Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BEB9723A
+	Tue, 26 Jul 2016 16:22:39 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 82B6222E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 26 Jul 2016 15:52:55 +0000 (UTC)
-Date: Tue, 26 Jul 2016 08:52:43 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: David Woodhouse <dwmw2@infradead.org>
-Message-ID: <20160726155243.GC30628@roeck-us.net>
-References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
-	<A4E16736-A5CB-4915-9A02-82065AE2E062@primarydata.com>
-	<1468115770.2333.15.camel@HansenPartnership.com>
-	<146834264.pgPOSbOmkO@vostro.rjw.lan>
-	<1468119600.19833.9.camel@HansenPartnership.com>
-	<1469540111.120686.314.camel@infradead.org>
-	<57976941.2040308@roeck-us.net>
-	<1469543609.120686.319.camel@infradead.org>
+	Tue, 26 Jul 2016 16:22:39 +0000 (UTC)
+Date: Tue, 26 Jul 2016 09:22:38 -0700
+From: Darren Hart <dvhart@infradead.org>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <20160726162238.GE3703@f23x64.localdomain>
+References: <CAKMK7uEuqLLf2bCyB-sAuu5WvVA1Kp7Jvc33k3um5DfdQr4eyg@mail.gmail.com>
+	<20160722200206.GA3703@f23x64.localdomain>
+	<CAKMK7uEeNuts2FzUAS7NzWjP_yYhOAgT4Q-QtVixm0CozOf0AQ@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1469543609.120686.319.camel@infradead.org>
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Trond Myklebust <trondmy@primarydata.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
+In-Reply-To: <CAKMK7uEeNuts2FzUAS7NzWjP_yYhOAgT4Q-QtVixm0CozOf0AQ@mail.gmail.com>
+Cc: Grant Likely <grant.likely@linaro.org>, Dave Airlie <airlied@linux.ie>,
+	Linus Torvalds <torvalds@linux-foundation.org>, "Nikula,
+	Jani" <jani.nikula@linux.intel.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] (group) maintainership models
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,33 +34,46 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Jul 26, 2016 at 03:33:29PM +0100, David Woodhouse wrote:
-> On Tue, 2016-07-26 at 06:44 -0700, Guenter Roeck wrote:
-> > 
-> > > We really should have more of an expectation that new code should be
-> > > submitted *with* test cases. After all, it's not like people are
-> > > generally submitting code that's *entirely* untested. It's more that
-> > > testing is ad-hoc, and sometimes depends on running on specific
-> > > hardware. But even the latter can often be fixed, with appropriate test
-> > > harnesses.
-> > >
-> > 
-> > Worthy goal, but knowing developers I am quite concerned that it would result
-> > in (possibly much) less kernel contributions. In addition to contributions
-> > from unaffiliated individuals, there is a lot of code in vendor trees which
-> > is not upstreamed today. Demanding test cases for upstreaming would for sure
-> > make the interest in upstreaming that code even lower than it is today.
+On Mon, Jul 25, 2016 at 07:57:04AM +0200, Daniel Vetter wrote:
+> On Fri, Jul 22, 2016 at 10:02 PM, Darren Hart <dvhart@infradead.org> wrote:
+> > On Wed, Jul 20, 2016 at 02:11:58PM +0200, Daniel Vetter wrote:
+> >> In my very first KS I found the maintainership model presentations
+> >> (x86-tip & armsoc) rather interesting. And last year we've had an
+> >> ad-hoc discussion about group maintainership again. I think drm&i915
+> >> would be an interesting case since over the past year I've done some
+> >> changes which are at the edge of what's common in the kernel, and it
+> >> seems to work (at least for us) fairly well. I discussed this a bit
+> >> with a few folks at ELC San Diego too.
+> >>
+> >> Short summary: i915 has now a two-level maintenance model with 2
+> >> maintainers (who take the blame) and 15 people who can push patches.
+> >> In a way a rather big group, but not so big that people don't all know
+> >> each another any more personally. We have some detailed docs about the
+> >> patch flow and expectations:
+> >>
+> >> https://01.org/linuxgraphics/gfx-docs/maintainer-tools/drm-intel.html
+> >>
+> >> and about the dim tool used to support this all
+> >>
+> >> https://01.org/linuxgraphics/gfx-docs/maintainer-tools/dim.html
+> >>
+> >> But I think the more interesting bits are why I decided to try this
+> >> out, what I hoped would happen, what I feared might happen. And with 1
+> >> year of experience, what actually happens and what I think is needed
+> >> to make this work and an actual benefit over more traditional
+> >> maintainer models. And of course I'd like to compare notes with other
+> >> group maintainers.
+> >
+> > I'd be interested in the discussion. I think having it would also serve to
+> > minimize the differences between policies across subsystems (which is a common
+> > topic people have raised with me).
 > 
-> Sure, but I did say an *expectation* rather than a hard requirement. We
-> are nothing if not pragmatic.
-> 
-Ok, makes sense.
+> Not sure I'm helping, since I think this new i915 model makes the
+> spread in different policies worse ;-) What do you have in mind here?
 
-> Having the *infrastructure* in place, and plenty of existing examples,
-> would make this a whole lot easier for submitters. And also might be a
-> good proving ground for people who would otherwise be doing precisely
-> the kind of 'trivial' patches which are often problematic...
-> 
-Now that sounds like an excellent idea!
+Just talking about what maintainers are doing, which is always evolving, will
+help keep us in sync, and adopting improved methods.
 
-Guenter
+-- 
+Darren Hart
+Intel Open Source Technology Center
