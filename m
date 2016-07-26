@@ -1,34 +1,32 @@
 Return-Path: <BATV+94b61607c73741180040+4720+infradead.org+dwmw2@bombadil.srs.infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 95A1B94D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id C201894F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 26 Jul 2016 14:33:43 +0000 (UTC)
+	Tue, 26 Jul 2016 14:40:24 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 74C47153
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 32B2A1AB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 26 Jul 2016 14:33:42 +0000 (UTC)
-Message-ID: <1469543609.120686.319.camel@infradead.org>
+	Tue, 26 Jul 2016 14:40:24 +0000 (UTC)
+Message-ID: <1469544015.120686.324.camel@infradead.org>
 From: David Woodhouse <dwmw2@infradead.org>
-To: Guenter Roeck <linux@roeck-us.net>, James Bottomley
-	<James.Bottomley@HansenPartnership.com>, "Rafael J. Wysocki"
-	<rjw@rjwysocki.net>
-Date: Tue, 26 Jul 2016 15:33:29 +0100
-In-Reply-To: <57976941.2040308@roeck-us.net>
-References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
-	<A4E16736-A5CB-4915-9A02-82065AE2E062@primarydata.com>
-	<1468115770.2333.15.camel@HansenPartnership.com>
-	<146834264.pgPOSbOmkO@vostro.rjw.lan>
-	<1468119600.19833.9.camel@HansenPartnership.com>
-	<1469540111.120686.314.camel@infradead.org>
-	<57976941.2040308@roeck-us.net>
+To: Andy Lutomirski <luto@amacapital.net>
+Date: Tue, 26 Jul 2016 15:40:15 +0100
+In-Reply-To: <CALCETrWKk8sLvgXwzu1RQnZRQ7f1f-+p53iJ7yasp_=zTnFDHQ@mail.gmail.com>
+References: <20160719034717.GA24189@swordfish>
+	<535ebaec-1653-3077-d17b-feb847fd51d2@suse.com>
+	<578EF192.3050808@huawei.com>
+	<CALCETrUbuQjEAettvDStqEophng+1TNGDpueWDJ4QWLqiyaQ2w@mail.gmail.com>
+	<028967b8-6107-9d9c-453a-a7f25e967f70@suse.com>
+	<1469097065.120686.124.camel@infradead.org>
+	<CALCETrWKk8sLvgXwzu1RQnZRQ7f1f-+p53iJ7yasp_=zTnFDHQ@mail.gmail.com>
 Content-Type: multipart/signed; micalg="sha-256";
 	protocol="application/x-pkcs7-signature";
-	boundary="=-lJvvbdtVL8Sxg0FuGMvG"
+	boundary="=-/NMOVjOSNk26Ujb24zLs"
 Mime-Version: 1.0
-Cc: Trond Myklebust <trondmy@primarydata.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] asynchronous printk
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,42 +37,68 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---=-lJvvbdtVL8Sxg0FuGMvG
+--=-/NMOVjOSNk26Ujb24zLs
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2016-07-26 at 06:44 -0700, Guenter Roeck wrote:
+On Thu, 2016-07-21 at 08:05 -0700, Andy Lutomirski wrote:
+> On Thu, Jul 21, 2016 at 3:31 AM, David Woodhouse <dwmw2@infradead.org> wr=
+ote:
+> > On Thu, 2016-07-21 at 07:59 +0200, Hannes Reinecke wrote:
+> > > > If we do all this stuff, can we also try to clean up earlyprintk a
+> > > > bit?  The whole earlyconsole mechanism is a mess, and switching ove=
+r
+> > > > to the non-early console is only somewhat functional.  I'd love to =
+see
+> > > > this all simplified: before there's any console at all available, j=
+ust
+> > > > buffer messages.  Then, when a console shows up, write the buffer o=
+ut.
+> > > > Then earlyprintk can work just like regular printk.
+> > > >=20
+> > > Begging the question how one would debug failures during that time.
+> > > The current earlyprintk stuff is at least able to print out _somethin=
+g_,
+> > > so that you have some idea what went wrong.
+> > > Without that things will become _really_ hard during board bringup.
+> >=20
+> > No, you don't actually *delay* the console output. You still register
+> > the console as soon as you physically can, but you just don't have all
+> > that nasty special-casing of the "earlyprintk" nonsense; you just make
+> > sure the standard console output is capable of working as early as you
+> > need it to.
 >=20
-> > We really should have more of an expectation that new code should be
-> > submitted *with* test cases. After all, it's not like people are
-> > generally submitting code that's *entirely* untested. It's more that
-> > testing is ad-hoc, and sometimes depends on running on specific
-> > hardware. But even the latter can often be fixed, with appropriate test
-> > harnesses.
-> >
+> Agreed.
 >=20
-> Worthy goal, but knowing developers I am quite concerned that it would re=
-sult
-> in (possibly much) less kernel contributions. In addition to contribution=
-s
-> from unaffiliated individuals, there is a lot of code in vendor trees whi=
-ch
-> is not upstreamed today. Demanding test cases for upstreaming would for s=
-ure
-> make the interest in upstreaming that code even lower than it is today.
+> If we could convince fbcon to work early (which it really ought to),
 
-Sure, but I did say an *expectation* rather than a hard requirement. We
-are nothing if not pragmatic.
+We had bootx on PowerPC which worked from extremely early.
 
-Having the *infrastructure* in place, and plenty of existing examples,
-would make this a whole lot easier for submitters. And also might be a
-good proving ground for people who would otherwise be doing precisely
-the kind of 'trivial' patches which are often problematic...
+> But doing this really nicely does tie in to the async printk
+> discussion for a different reason.  I think that we should always
+> initialize the obvious "early" consoles that can be cleanly enumerated
+> early (e.g. EFI).  What we shouldn't do by default is *display*
+> anything to them unless we crash, because the distro people want a
+> clean boot to look pretty.  ISTM the condition for flushing the async
+> printk buffers could be the same as the condition for actually writing
+> to pre-VT consoles.
+
+Me no like.
+
+That makes even *less* sense for early boot than it does during later
+runtime. Because even *more* of the 'we crash' scenarios during early
+boot are going to be uncontrolled "oh shit" happenings, not "oh dear,
+it looks like we're going to crash so let's helpfully dump out all the
+console messages before we do so".
+
+We already have *really* early command line parsing; we can use that to
+determine the console loglevel if we need to. No need to be printing
+debug messages to the console unconditionally and upsetting the
+graphical boot...
 
 --=20
-David Woodhouse                            Open Source Technology Centre
-David.Woodhouse@intel.com                              Intel Corporation
---=-lJvvbdtVL8Sxg0FuGMvG
+dwmw2
+--=-/NMOVjOSNk26Ujb24zLs
 Content-Type: application/x-pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -164,23 +188,23 @@ TmYcNZSibv+3Oy6uU+wqMYIEXjCCBFoCAQEwgYkwdTELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0
 YXJ0Q29tIEx0ZC4xKTAnBgNVBAsTIFN0YXJ0Q29tIENlcnRpZmljYXRpb24gQXV0aG9yaXR5MSMw
 IQYDVQQDExpTdGFydENvbSBDbGFzcyAxIENsaWVudCBDQQIQaRjuleoVgt0XsPAUByveJDANBglg
 hkgBZQMEAgEFAKCCAaUwGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcN
-MTYwNzI2MTQzMzI5WjAvBgkqhkiG9w0BCQQxIgQgdQ/YdC2Eih1Z4tKUc9ZxdxlE+80Yb2e0+d2I
-dxXshAYwgZoGCSsGAQQBgjcQBDGBjDCBiTB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRD
+MTYwNzI2MTQ0MDE1WjAvBgkqhkiG9w0BCQQxIgQgWfEk9Z019QSmNmEWitWl+qs/eli+W8yRE98R
+qVxwYB4wgZoGCSsGAQQBgjcQBDGBjDCBiTB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRD
 b20gTHRkLjEpMCcGA1UECxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNV
 BAMTGlN0YXJ0Q29tIENsYXNzIDEgQ2xpZW50IENBAhBpGO6V6hWC3Rew8BQHK94kMIGcBgsqhkiG
 9w0BCRACCzGBjKCBiTB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRkLjEpMCcG
 A1UECxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNVBAMTGlN0YXJ0Q29t
-IENsYXNzIDEgQ2xpZW50IENBAhBpGO6V6hWC3Rew8BQHK94kMA0GCSqGSIb3DQEBAQUABIICAF6R
-ZnN3312IavlpETtMCJ+yW7jfzzinegw0QQLXZqstIcx6yiw07Tuv+7iegXG7ZFNThw89SHUYDTOD
-zHh55Ky2KXu5Pbxv6esu4oH0UNcCasHBbdXIgPs0OdIa+khUQayVf+UonrWh//jQBKF/o3nOO/AC
-NSj1b4FN9S5ihUPb4qrJmUnOlR31kTrVknXlLLYjJJHgxIN11gvXc6dtbKxGDNwwjDU+8g403k2X
-maXjnzZnP6RPlfg4V1c1tP2db7q1OMLpseeKuPgSRcpgMpAlQUcqUV+lxwVm7+s4B3NxNVxa/V/b
-DpEYuImjlPje9EknflEX9ITgM0ZGIUliBVHg0fGkUoquu07rLabObXqVYoZugEUxDSiIUfk39K0A
-4FCN9PV59EfDEoNdmpk3uVGfzXrDSpFyaoHrvDCMRnl8J+kOOXimqD+hVB92ZI5Y2E/Re1hOBlHZ
-niYe2LtuBDW6XXUCFpsvqy0OC5pPb0Q9N+3eNUGaHIh3jomoMNgDSVvtlcrQhshS++1Xny2B9s4K
-nibcbKrZCszL/dWYbx19DCz2I5XfN1lKtvNx8GNGqcBYB6+wF88r78rGEUA1fjbtgE2WbXuBg8+E
-WLZLsB84B1o8fY80pfffcf3rACHxxcWOmTTsLjSKgJya44aSn+FjNZ2oc2ouu+cy6Y3egNCHAAAA
+IENsYXNzIDEgQ2xpZW50IENBAhBpGO6V6hWC3Rew8BQHK94kMA0GCSqGSIb3DQEBAQUABIICAAiN
+yLP63KBQUCyl2BCCIkByv6NSj20O4j52eIGbhDzCEi6G2Pm5vTmOt3A4JaeW6eNBMdSjQyPVQsKg
+Pcj/6+HLlqfkvTQv52it66ijUwjfCv2QHe8fW8+b2u9sPvrL18Ir8WHNL4VNC5MJvjPfN6iBeBbB
+O6SSQ6Fk0vcP0QF+/DH6v6Fnb0Vo4Ef6lhhQdx7stRaoI/q12U0gN0n99JGfyb6G+AG13PIyV7IQ
+Xl9KnRBkSc5SMsnpKuCvejzuag0Z/53Hlfx2N7fpKYcP7XTTANWqcYsFVmD8IPcoOI7knaazuAUb
+5sXZchhpVabb9PoxvbxglTAKoGEDAgbTqfPtVTsI3RFfi3M8/5OaqVRX3TOgAIgQDCg06Xbvn7it
+yjPFqb/pwJabUqO7SqYgJl9PSjaGNuSofz2g9uRmDQ/Fl6fxwWqu9NQCnM2+0qvm5mNMsWYA87vF
+lVNkBCgGNgP9cj+Rr9APtM+07lZrvKLLrG8mo0NisL7yLUY681Uw2IjOD/ib1ALKG35zLEG741jy
+cex6PNFZVstSPWml5KrwF6zP1d/Uuv9hLePk/E9aFKhYj1KnYh/96j8Xw4pMXNEwu8lKi2lDbSMV
+qB3Na4ddXXOWVVT3JgVb6SpgF/jrLEKDfg9OAJayq0toq+tjUkR/VUyTdaP4l/jkpWD8UeG0AAAA
 AAAA
 
 
---=-lJvvbdtVL8Sxg0FuGMvG--
+--=-/NMOVjOSNk26Ujb24zLs--
