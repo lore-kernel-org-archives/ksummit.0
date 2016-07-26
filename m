@@ -1,29 +1,27 @@
 Return-Path: <BATV+94b61607c73741180040+4720+infradead.org+dwmw2@bombadil.srs.infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id F0F5094E
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0444E323
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 26 Jul 2016 14:42:25 +0000 (UTC)
+	Tue, 26 Jul 2016 15:11:28 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 924901AB
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B00B38E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 26 Jul 2016 14:42:25 +0000 (UTC)
-Message-ID: <1469544138.120686.327.camel@infradead.org>
+	Tue, 26 Jul 2016 15:11:27 +0000 (UTC)
+Message-ID: <1469545881.120686.335.camel@infradead.org>
 From: David Woodhouse <dwmw2@infradead.org>
-To: Mark Brown <broonie@sirena.org.uk>, Mimi Zohar
-	<zohar@linux.vnet.ibm.com>,  dhowells@redhat.com
-Date: Tue, 26 Jul 2016 15:42:18 +0100
-In-Reply-To: <20160716005213.GL30372@sirena.org.uk>
-References: <20150804152622.GY30479@wotan.suse.de>
-	<1468612258.5335.0.camel@linux.vnet.ibm.com>
-	<1468612671.5335.5.camel@linux.vnet.ibm.com>
-	<20160716005213.GL30372@sirena.org.uk>
+To: David Howells <dhowells@redhat.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Date: Tue, 26 Jul 2016 16:11:21 +0100
+In-Reply-To: <15500.1469183675@warthog.procyon.org.uk>
+References: <15500.1469183675@warthog.procyon.org.uk>
 Content-Type: multipart/signed; micalg="sha-256";
 	protocol="application/x-pkcs7-signature";
-	boundary="=-95xFCsSUfwu+Wn0gHE9M"
+	boundary="=-5D5IYyzXsWaFSgtSuhGx"
 Mime-Version: 1.0
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Last minute nominations: mcgrof and toshi
+Cc: jakub@redhat.com, peterz@infradead.org, ramana.radhakrishnan@arm.com
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Memory model,
+ using ISO C++11 atomic ops
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,29 +32,34 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---=-95xFCsSUfwu+Wn0gHE9M
+--=-5D5IYyzXsWaFSgtSuhGx
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, 2016-07-16 at 01:52 +0100, Mark Brown wrote:
-> On Fri, Jul 15, 2016 at 03:57:51PM -0400, Mimi Zohar wrote:
->=20
-> > Oops, "Signature management - keys, modules, firmware" was a suggestion
-> > from last year, but in my opinion still very apropos.
->=20
-> Yup, definitely - especially with secure boot starting to firm up on the
-> ARM side there's a bunch more interest in it from more embedded
-> applications.
+On Fri, 2016-07-22 at 11:34 +0100, David Howells wrote:
+> Further, Paul McKenney and others are assembling a memory model descripti=
+on.
+> Do we want to consider loosening up the kernel memory model?
 
-Are we going to propose this again "formally" (i.e. sufficiently
-clearly that the committee take note and consider it)?
+It's not clear that 'loosening up' is what we're after.
 
-If so, I would also be keen to participate.
+In Seoul last year, weren't we looking at things like readl_relaxed()
+and lamenting the fact that they do actually still have strong enough
+requirements that they can't *really* be very relaxed on Power and
+ARM64 at all, because they're basically being used with the assumption
+of Intel-like semantics.
+
+The cheap answer is "well, it sucks to be on POWER or ARM64 because
+then readl_relaxed() has to be as slow as readl() is".
+
+But it would be good to follow up on that properly, and maybe introduce
+a variant which *can* be implemented across more architectures.
+
+Is that what Paul is working on, that you mention above?
 
 --=20
-David Woodhouse                            Open Source Technology Centre
-David.Woodhouse@intel.com                              Intel Corporation
---=-95xFCsSUfwu+Wn0gHE9M
+dwmw2
+--=-5D5IYyzXsWaFSgtSuhGx
 Content-Type: application/x-pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -146,23 +149,23 @@ TmYcNZSibv+3Oy6uU+wqMYIEXjCCBFoCAQEwgYkwdTELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0
 YXJ0Q29tIEx0ZC4xKTAnBgNVBAsTIFN0YXJ0Q29tIENlcnRpZmljYXRpb24gQXV0aG9yaXR5MSMw
 IQYDVQQDExpTdGFydENvbSBDbGFzcyAxIENsaWVudCBDQQIQaRjuleoVgt0XsPAUByveJDANBglg
 hkgBZQMEAgEFAKCCAaUwGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcN
-MTYwNzI2MTQ0MjE4WjAvBgkqhkiG9w0BCQQxIgQgkzvOOQE2n1P8eK8pDASJ+udcAVksO+jnE2K7
-kJ2W0AUwgZoGCSsGAQQBgjcQBDGBjDCBiTB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRD
+MTYwNzI2MTUxMTIxWjAvBgkqhkiG9w0BCQQxIgQgbOYcsN2NYtDkazsf3fhOvDZiSOzDqbP8qvi2
+EqM+6okwgZoGCSsGAQQBgjcQBDGBjDCBiTB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRD
 b20gTHRkLjEpMCcGA1UECxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNV
 BAMTGlN0YXJ0Q29tIENsYXNzIDEgQ2xpZW50IENBAhBpGO6V6hWC3Rew8BQHK94kMIGcBgsqhkiG
 9w0BCRACCzGBjKCBiTB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRkLjEpMCcG
 A1UECxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNVBAMTGlN0YXJ0Q29t
-IENsYXNzIDEgQ2xpZW50IENBAhBpGO6V6hWC3Rew8BQHK94kMA0GCSqGSIb3DQEBAQUABIICAE1f
-RRic8iA+2Nw5fg3MUW5aVUlGrhyRnAaEaWn7HOt00d+XfBgHwAlXBEnimQtHRc/saax7o+BwVEKC
-6D6ZB9JNogvTmap2v7AJ/T6fXYhsOCHQiOCdLf26lDN3BUBoSlpjIe4xBXDSWvgbK3Bla7utD3Cn
-b23eAuI+US2ANuLLSvr6y1p6hFiSQ/3y2hbvRcLRdtYqxqOYDSVmBZ5x9fxVurw+JUoMHU6ZVpWs
-KW3kJyUp6Mfm4oFNhFsMOPF3LWqoFxkNhHQ74VUmE5/t38BN4P0g+DiYT93jjOAEaQb7vHb8v1ju
-JH7QpLf79Wd4QuLnmp94V3DNwwA67rkthN5wVihvmxxwq2RGkgox9EmPmm+oCUq50ruJmFE8XCzE
-uPIDAREBmI4SUGpxmfjvztNAaTt92HhwT/H2QvwJPJ/L6TvegtPg9TLm8dUtwhWdtX+7WaJ78dZ2
-dTtnDPRE3njpgVu8yvcPZqrwZzRhj+albZ4gwSScjwqlQdu3OEg0o2xKQByddC/InhMuVgxJmd7t
-oR03zQaQCjHhjNBQFsKyEJu6bAzIiWBXb89wuBfpBQE+lLNfQGVs/09KpScHdNhCZIx6HveKxA/P
-VJsZb6kyYMQ833u1t6e+K6fLbJCTy+lR3L1xYhGb+yM0MIDJltOoDgyMnxjVgz/NLv+BQVU3AAAA
+IENsYXNzIDEgQ2xpZW50IENBAhBpGO6V6hWC3Rew8BQHK94kMA0GCSqGSIb3DQEBAQUABIICAJDx
+QVoVxeXW9CVEo8x/DuQn09y/5dYUFVaXrkRGK3hz21k9uskdNyMP++NR7NhCYpjTmAs1KUQsxT06
+OteUP2aQXUHfTWOKSBmn3dPpsT0cQWIFg0dYvYa40FYEmzrsHfvfhuxKw+5fKOD7tjT4+eg3zME9
+LaFzROPFiRatOiahrRWWWa867GnQlQfroZPsfLFxZ97LLUj3N7DyZ4SsYJbXwQ0SlevKjemuVb+h
+tcoQYUbK0VBp6KoOXW50qXs+K3mUX8o5l4kPBgjBG1Lh6N3d/2xaMysBjWJq4W4QXi2Mzl4VMMVB
+UiceY0hMplkCgsMU5DSS9iIHNSZiu8nDvY2HRRSrN6n3r7vK/3vc8ckMCEVKqihKe1vkczZ7QrCm
+RF5MRXVgLX8xX4URujNNQn5U3HETM11KX7lgGYTbjgzOD3YO88JzTPue7PlYX7VUN0nGvMdOXVQc
+s1ZmWSWABlve2Sdt1lzFHBt0qrW9HC7wm0udJ56C4nW3JEaM6DJkKAoEyky0FVtgEfiqF6m5TSmV
+KsYiXhsYFcBHPQKwEKbNCtz4wLYLhgAEqem3KzKHM9XOcgaqo1nd/wznkdOQrZpQRME/JjcUQi/s
+B7oTBbov0PMRlfLLv24vsFbhtURz6tLen5YQ2h0IciWkDmi7SMd3FyGBfIrXI28xnNR6SA3GAAAA
 AAAA
 
 
---=-95xFCsSUfwu+Wn0gHE9M--
+--=-5D5IYyzXsWaFSgtSuhGx--
