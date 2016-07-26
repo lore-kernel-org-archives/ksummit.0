@@ -1,26 +1,27 @@
-Return-Path: <vbabka@suse.cz>
+Return-Path: <serge@mail.hallyn.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7537E78D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 05207952
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 26 Jul 2016 13:10:16 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D226C236
+	Tue, 26 Jul 2016 13:30:31 +0000 (UTC)
+Received: from h2.hallyn.com (h2.hallyn.com [78.46.35.8])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B561F12F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 26 Jul 2016 13:10:15 +0000 (UTC)
-To: Jan Kara <jack@suse.cz>, Rik van Riel <riel@redhat.com>
-References: <20160725171142.GA26006@cmpxchg.org>
-	<1469470518.30053.119.camel@redhat.com>
-	<20160726105649.GB6860@quack2.suse.cz>
-From: Vlastimil Babka <vbabka@suse.cz>
-Message-ID: <d23e1250-3d65-a416-ecfc-69bce3df7d98@suse.cz>
-Date: Tue, 26 Jul 2016 15:10:13 +0200
+	Tue, 26 Jul 2016 13:30:26 +0000 (UTC)
+Date: Tue, 26 Jul 2016 08:30:24 -0500
+From: "Serge E. Hallyn" <serge@hallyn.com>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Message-ID: <20160726133024.GA2501@mail.hallyn.com>
+References: <15842.1469185302@warthog.procyon.org.uk>
+	<1469199065.2382.21.camel@HansenPartnership.com>
 MIME-Version: 1.0
-In-Reply-To: <20160726105649.GB6860@quack2.suse.cz>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Self nomination
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1469199065.2382.21.camel@HansenPartnership.com>
+Cc: ikent@redhat.com, Linux Containers <containers@lists.linux-foundation.org>,
+	oleg@redhat.com, ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Containerisation,
+ namespaces and keyrings
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,31 +31,73 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 07/26/2016 12:56 PM, Jan Kara wrote:
-> On Mon 25-07-16 14:15:18, Rik van Riel wrote:
->> On Mon, 2016-07-25 at 13:11 -0400, Johannes Weiner wrote:
->>> Hi,
->>>
->>> I would like to self-nominate myself for this year's kernel summit.
->>>
->>> I co-maintain cgroups and the memory controller and have been a
->>> long-time contributor to the memory management subsystem. At
->>> Facebook,
->>> I'm in charge of MM scalability and reliability in our fleet. Most
->>> recently I have been working on reviving swap for SSDs and persistent
->>> memory devices (https://lwn.net/Articles/690079/) as part of a bigger
->>> anti-thrashing effort to make the VM recover swiftly and predictably
->>> from load spikes. This has been a bit of a "lock yourself in a
->>> basement" type project, which is why I missed the mechanimal
->>> nomination based on sign-offs this year.
->>
->> I am interested in discussing that, either at kernel
->> summit, or at next year's LSF/MM.
->
-> Me as well.
+Quoting James Bottomley (James.Bottomley@HansenPartnership.com):
+> On Fri, 2016-07-22 at 12:01 +0100, David Howells wrote:
+> > I'm not sure this is the right venue for this, but keyrings will need 
+> > to be namespaced/containerised at some point.
+> 
+> There are various unvirtualised subsystems within Linux.  There has
+> been discussion on the containers mailing list about how:
+> 
+> http://thread.gmane.org/gmane.linux.kernel.containers/30371
+> 
+> So far Eric has advocated for making things like this properties of the
+> user namespace; I'm more inclined to a separate namespace for
+> delegates, but nothing's been decided.
+> 
+> Proposing on the containers list should be your first step (I've added
+> the list to the cc).
+> 
+> > The problem is that it's an icky problem given that different key 
+> > types really want to live in different namespaces, and upcalls may 
+> > want to done in different containers, depending on the key type.
+> 
+> Surely if you virtualize, you'll have a namespace label per key (or
+> keyring) so they'll be in one and only one namespace.
+> 
+> The upcall problem sounds like it might be similar to the nfsd one,
+> which is nasty.  Describing it on the list would help people
+> understand.
+> 
+> > For example, DNS resolver keys - should they be in the network, the 
+> > filesystem namespace or neither?  Should the upcall be in the current 
+> > container or the root container?
+> 
+> Depends what the upcall does.
+> 
+> > Authentication keys, such as used by kafs and AF_RXRPC - should they 
+> > be in the filesystem namespace (kafs is an fs), the network namespace 
+> > (AF_RXRPC is a net protocol) or the user namespace?
+> 
+> I'm sort of starting to see Eric's point now, since every namespace has
+> an owning user namespace, if they were in that the question is
+> naturally answered.
+> 
+> > Should crypto keys, such as the asymmetric key type, be in the user 
+> > namespace? What about use by module signing?  Should key operations 
+> > in the current container have access to a blacklist in the root 
+> > container?  Should key verification in the current container have 
+> > access to system keyrings?   The TPM?
+> > 
+> > This might actually be right for a hallway track.
 
-+1
+Hi,
 
->
-> 								Honza
->
+Just chiming in to say that if there were to be namespace discussion at
+ksummit I'd like to be involved.  Mostly staying quiet as I don't expect
+it since m-l typically works fine.
+
+> 
+> Actually, I really think this isn't a KS issue, it should be proposed
+> for the Plumbers Containers MC:
+> 
+> http://www.linuxplumbersconf.org/2016/ocw/events/LPC2016/tracks/519
+> 
+> You have all the correct people in that session.  At KS you'll have 50%
+> bored, 48% hostile because they hate cgroups and 2% interested.
+
+Eh, hostile is useful - forged in the crucible and all that.
+
+> James
+
+-serge
