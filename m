@@ -1,32 +1,29 @@
 Return-Path: <BATV+94b61607c73741180040+4720+infradead.org+dwmw2@bombadil.srs.infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C201894F
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id F0F5094E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 26 Jul 2016 14:40:24 +0000 (UTC)
+	Tue, 26 Jul 2016 14:42:25 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 32B2A1AB
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 924901AB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 26 Jul 2016 14:40:24 +0000 (UTC)
-Message-ID: <1469544015.120686.324.camel@infradead.org>
+	Tue, 26 Jul 2016 14:42:25 +0000 (UTC)
+Message-ID: <1469544138.120686.327.camel@infradead.org>
 From: David Woodhouse <dwmw2@infradead.org>
-To: Andy Lutomirski <luto@amacapital.net>
-Date: Tue, 26 Jul 2016 15:40:15 +0100
-In-Reply-To: <CALCETrWKk8sLvgXwzu1RQnZRQ7f1f-+p53iJ7yasp_=zTnFDHQ@mail.gmail.com>
-References: <20160719034717.GA24189@swordfish>
-	<535ebaec-1653-3077-d17b-feb847fd51d2@suse.com>
-	<578EF192.3050808@huawei.com>
-	<CALCETrUbuQjEAettvDStqEophng+1TNGDpueWDJ4QWLqiyaQ2w@mail.gmail.com>
-	<028967b8-6107-9d9c-453a-a7f25e967f70@suse.com>
-	<1469097065.120686.124.camel@infradead.org>
-	<CALCETrWKk8sLvgXwzu1RQnZRQ7f1f-+p53iJ7yasp_=zTnFDHQ@mail.gmail.com>
+To: Mark Brown <broonie@sirena.org.uk>, Mimi Zohar
+	<zohar@linux.vnet.ibm.com>,  dhowells@redhat.com
+Date: Tue, 26 Jul 2016 15:42:18 +0100
+In-Reply-To: <20160716005213.GL30372@sirena.org.uk>
+References: <20150804152622.GY30479@wotan.suse.de>
+	<1468612258.5335.0.camel@linux.vnet.ibm.com>
+	<1468612671.5335.5.camel@linux.vnet.ibm.com>
+	<20160716005213.GL30372@sirena.org.uk>
 Content-Type: multipart/signed; micalg="sha-256";
 	protocol="application/x-pkcs7-signature";
-	boundary="=-/NMOVjOSNk26Ujb24zLs"
+	boundary="=-95xFCsSUfwu+Wn0gHE9M"
 Mime-Version: 1.0
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] asynchronous printk
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] Last minute nominations: mcgrof and toshi
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,68 +34,29 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---=-/NMOVjOSNk26Ujb24zLs
+--=-95xFCsSUfwu+Wn0gHE9M
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, 2016-07-21 at 08:05 -0700, Andy Lutomirski wrote:
-> On Thu, Jul 21, 2016 at 3:31 AM, David Woodhouse <dwmw2@infradead.org> wr=
-ote:
-> > On Thu, 2016-07-21 at 07:59 +0200, Hannes Reinecke wrote:
-> > > > If we do all this stuff, can we also try to clean up earlyprintk a
-> > > > bit?  The whole earlyconsole mechanism is a mess, and switching ove=
-r
-> > > > to the non-early console is only somewhat functional.  I'd love to =
-see
-> > > > this all simplified: before there's any console at all available, j=
-ust
-> > > > buffer messages.  Then, when a console shows up, write the buffer o=
-ut.
-> > > > Then earlyprintk can work just like regular printk.
-> > > >=20
-> > > Begging the question how one would debug failures during that time.
-> > > The current earlyprintk stuff is at least able to print out _somethin=
-g_,
-> > > so that you have some idea what went wrong.
-> > > Without that things will become _really_ hard during board bringup.
-> >=20
-> > No, you don't actually *delay* the console output. You still register
-> > the console as soon as you physically can, but you just don't have all
-> > that nasty special-casing of the "earlyprintk" nonsense; you just make
-> > sure the standard console output is capable of working as early as you
-> > need it to.
+On Sat, 2016-07-16 at 01:52 +0100, Mark Brown wrote:
+> On Fri, Jul 15, 2016 at 03:57:51PM -0400, Mimi Zohar wrote:
 >=20
-> Agreed.
+> > Oops, "Signature management - keys, modules, firmware" was a suggestion
+> > from last year, but in my opinion still very apropos.
 >=20
-> If we could convince fbcon to work early (which it really ought to),
+> Yup, definitely - especially with secure boot starting to firm up on the
+> ARM side there's a bunch more interest in it from more embedded
+> applications.
 
-We had bootx on PowerPC which worked from extremely early.
+Are we going to propose this again "formally" (i.e. sufficiently
+clearly that the committee take note and consider it)?
 
-> But doing this really nicely does tie in to the async printk
-> discussion for a different reason.  I think that we should always
-> initialize the obvious "early" consoles that can be cleanly enumerated
-> early (e.g. EFI).  What we shouldn't do by default is *display*
-> anything to them unless we crash, because the distro people want a
-> clean boot to look pretty.  ISTM the condition for flushing the async
-> printk buffers could be the same as the condition for actually writing
-> to pre-VT consoles.
-
-Me no like.
-
-That makes even *less* sense for early boot than it does during later
-runtime. Because even *more* of the 'we crash' scenarios during early
-boot are going to be uncontrolled "oh shit" happenings, not "oh dear,
-it looks like we're going to crash so let's helpfully dump out all the
-console messages before we do so".
-
-We already have *really* early command line parsing; we can use that to
-determine the console loglevel if we need to. No need to be printing
-debug messages to the console unconditionally and upsetting the
-graphical boot...
+If so, I would also be keen to participate.
 
 --=20
-dwmw2
---=-/NMOVjOSNk26Ujb24zLs
+David Woodhouse                            Open Source Technology Centre
+David.Woodhouse@intel.com                              Intel Corporation
+--=-95xFCsSUfwu+Wn0gHE9M
 Content-Type: application/x-pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -188,23 +146,23 @@ TmYcNZSibv+3Oy6uU+wqMYIEXjCCBFoCAQEwgYkwdTELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0
 YXJ0Q29tIEx0ZC4xKTAnBgNVBAsTIFN0YXJ0Q29tIENlcnRpZmljYXRpb24gQXV0aG9yaXR5MSMw
 IQYDVQQDExpTdGFydENvbSBDbGFzcyAxIENsaWVudCBDQQIQaRjuleoVgt0XsPAUByveJDANBglg
 hkgBZQMEAgEFAKCCAaUwGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcN
-MTYwNzI2MTQ0MDE1WjAvBgkqhkiG9w0BCQQxIgQgWfEk9Z019QSmNmEWitWl+qs/eli+W8yRE98R
-qVxwYB4wgZoGCSsGAQQBgjcQBDGBjDCBiTB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRD
+MTYwNzI2MTQ0MjE4WjAvBgkqhkiG9w0BCQQxIgQgkzvOOQE2n1P8eK8pDASJ+udcAVksO+jnE2K7
+kJ2W0AUwgZoGCSsGAQQBgjcQBDGBjDCBiTB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRD
 b20gTHRkLjEpMCcGA1UECxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNV
 BAMTGlN0YXJ0Q29tIENsYXNzIDEgQ2xpZW50IENBAhBpGO6V6hWC3Rew8BQHK94kMIGcBgsqhkiG
 9w0BCRACCzGBjKCBiTB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRkLjEpMCcG
 A1UECxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNVBAMTGlN0YXJ0Q29t
-IENsYXNzIDEgQ2xpZW50IENBAhBpGO6V6hWC3Rew8BQHK94kMA0GCSqGSIb3DQEBAQUABIICAAiN
-yLP63KBQUCyl2BCCIkByv6NSj20O4j52eIGbhDzCEi6G2Pm5vTmOt3A4JaeW6eNBMdSjQyPVQsKg
-Pcj/6+HLlqfkvTQv52it66ijUwjfCv2QHe8fW8+b2u9sPvrL18Ir8WHNL4VNC5MJvjPfN6iBeBbB
-O6SSQ6Fk0vcP0QF+/DH6v6Fnb0Vo4Ef6lhhQdx7stRaoI/q12U0gN0n99JGfyb6G+AG13PIyV7IQ
-Xl9KnRBkSc5SMsnpKuCvejzuag0Z/53Hlfx2N7fpKYcP7XTTANWqcYsFVmD8IPcoOI7knaazuAUb
-5sXZchhpVabb9PoxvbxglTAKoGEDAgbTqfPtVTsI3RFfi3M8/5OaqVRX3TOgAIgQDCg06Xbvn7it
-yjPFqb/pwJabUqO7SqYgJl9PSjaGNuSofz2g9uRmDQ/Fl6fxwWqu9NQCnM2+0qvm5mNMsWYA87vF
-lVNkBCgGNgP9cj+Rr9APtM+07lZrvKLLrG8mo0NisL7yLUY681Uw2IjOD/ib1ALKG35zLEG741jy
-cex6PNFZVstSPWml5KrwF6zP1d/Uuv9hLePk/E9aFKhYj1KnYh/96j8Xw4pMXNEwu8lKi2lDbSMV
-qB3Na4ddXXOWVVT3JgVb6SpgF/jrLEKDfg9OAJayq0toq+tjUkR/VUyTdaP4l/jkpWD8UeG0AAAA
+IENsYXNzIDEgQ2xpZW50IENBAhBpGO6V6hWC3Rew8BQHK94kMA0GCSqGSIb3DQEBAQUABIICAE1f
+RRic8iA+2Nw5fg3MUW5aVUlGrhyRnAaEaWn7HOt00d+XfBgHwAlXBEnimQtHRc/saax7o+BwVEKC
+6D6ZB9JNogvTmap2v7AJ/T6fXYhsOCHQiOCdLf26lDN3BUBoSlpjIe4xBXDSWvgbK3Bla7utD3Cn
+b23eAuI+US2ANuLLSvr6y1p6hFiSQ/3y2hbvRcLRdtYqxqOYDSVmBZ5x9fxVurw+JUoMHU6ZVpWs
+KW3kJyUp6Mfm4oFNhFsMOPF3LWqoFxkNhHQ74VUmE5/t38BN4P0g+DiYT93jjOAEaQb7vHb8v1ju
+JH7QpLf79Wd4QuLnmp94V3DNwwA67rkthN5wVihvmxxwq2RGkgox9EmPmm+oCUq50ruJmFE8XCzE
+uPIDAREBmI4SUGpxmfjvztNAaTt92HhwT/H2QvwJPJ/L6TvegtPg9TLm8dUtwhWdtX+7WaJ78dZ2
+dTtnDPRE3njpgVu8yvcPZqrwZzRhj+albZ4gwSScjwqlQdu3OEg0o2xKQByddC/InhMuVgxJmd7t
+oR03zQaQCjHhjNBQFsKyEJu6bAzIiWBXb89wuBfpBQE+lLNfQGVs/09KpScHdNhCZIx6HveKxA/P
+VJsZb6kyYMQ833u1t6e+K6fLbJCTy+lR3L1xYhGb+yM0MIDJltOoDgyMnxjVgz/NLv+BQVU3AAAA
 AAAA
 
 
---=-/NMOVjOSNk26Ujb24zLs--
+--=-95xFCsSUfwu+Wn0gHE9M--
