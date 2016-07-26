@@ -1,31 +1,25 @@
-Return-Path: <olof@lixom.net>
+Return-Path: <stern+579b92ac@rowland.harvard.edu>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A1D539C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 286C671
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 26 Jul 2016 16:45:37 +0000 (UTC)
-Received: from mail-it0-f66.google.com (mail-it0-f66.google.com
-	[209.85.214.66])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 13364233
+	Tue, 26 Jul 2016 13:17:15 +0000 (UTC)
+Received: from netrider.rowland.org (netrider.rowland.org [192.131.102.5])
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id 8D3F323B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 26 Jul 2016 16:45:37 +0000 (UTC)
-Received: by mail-it0-f66.google.com with SMTP id u186so993426ita.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 26 Jul 2016 09:45:37 -0700 (PDT)
+	Tue, 26 Jul 2016 13:17:14 +0000 (UTC)
+Date: Tue, 26 Jul 2016 09:10:32 -0400 (EDT)
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Hannes Reinecke <hare@suse.com>
+In-Reply-To: <f423b811-88a4-b8ca-6793-1a543e8dc88d@suse.com>
+Message-ID: <Pine.LNX.4.44L0.1607260909420.12362-100000@netrider.rowland.org>
 MIME-Version: 1.0
-In-Reply-To: <CAKMK7uEuqLLf2bCyB-sAuu5WvVA1Kp7Jvc33k3um5DfdQr4eyg@mail.gmail.com>
-References: <CAKMK7uEuqLLf2bCyB-sAuu5WvVA1Kp7Jvc33k3um5DfdQr4eyg@mail.gmail.com>
-From: Olof Johansson <olof@lixom.net>
-Date: Tue, 26 Jul 2016 09:45:35 -0700
-Message-ID: <CAOesGMiq5Q==Rg97VqmO-=HNYXz9ZA6iCDJ7sBa0tGzJVuYs4g@mail.gmail.com>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Content-Type: text/plain; charset=UTF-8
-Cc: Grant Likely <grant.likely@linaro.org>, Dave Airlie <airlied@linux.ie>,
-	Linus Torvalds <torvalds@linux-foundation.org>, "Nikula,
-	Jani" <jani.nikula@linux.intel.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] (group) maintainership models
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+Cc: jakub@redhat.com, parri.andrea@gmail.com, j.alglave@ucl.ac.uk,
+	ksummit-discuss@lists.linuxfoundation.org, peterz@infradead.org,
+	ramana.radhakrishnan@arm.com, luc.maranget@inria.fr
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Memory model,
+ using ISO C++11 atomic ops
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,43 +29,13 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi,
+On Tue, 26 Jul 2016, Hannes Reinecke wrote:
 
-On Wed, Jul 20, 2016 at 5:11 AM, Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
-> In my very first KS I found the maintainership model presentations
-> (x86-tip & armsoc) rather interesting. And last year we've had an
-> ad-hoc discussion about group maintainership again. I think drm&i915
-> would be an interesting case since over the past year I've done some
-> changes which are at the edge of what's common in the kernel, and it
-> seems to work (at least for us) fairly well. I discussed this a bit
-> with a few folks at ELC San Diego too.
->
-> Short summary: i915 has now a two-level maintenance model with 2
-> maintainers (who take the blame) and 15 people who can push patches.
-> In a way a rather big group, but not so big that people don't all know
-> each another any more personally. We have some detailed docs about the
-> patch flow and expectations:
->
-> https://01.org/linuxgraphics/gfx-docs/maintainer-tools/drm-intel.html
->
-> and about the dim tool used to support this all
->
-> https://01.org/linuxgraphics/gfx-docs/maintainer-tools/dim.html
->
-> But I think the more interesting bits are why I decided to try this
-> out, what I hoped would happen, what I feared might happen. And with 1
-> year of experience, what actually happens and what I think is needed
-> to make this work and an actual benefit over more traditional
-> maintainer models. And of course I'd like to compare notes with other
-> group maintainers.
+> I have been playing around with RCUs and memory barriers quite a lot 
+> recently, and found some really 'odd' use-cases in the kernel which 
+> would benefit from improvements here.
 
-Very interested in participating here, for obvious reasons -- learning
-from others how we can do things even better as well as sharing how
-things are working for us, 5 years into the endeavor.
+Could you post one or two examples?  It would be interesting to see 
+what they involve.
 
-One thing we're low on for arm-soc is tooling, I know the x86 guys
-have quite a bit more than we do in this area, so ideas on what we can
-do to make our own lives easier is valuable.
-
-
--Olof
+Alan Stern
