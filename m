@@ -1,34 +1,36 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <luto@amacapital.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id F375794D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A841794B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 27 Jul 2016 19:50:47 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 3FC1E187
+	Wed, 27 Jul 2016 20:09:58 +0000 (UTC)
+Received: from mail-ua0-f169.google.com (mail-ua0-f169.google.com
+	[209.85.217.169])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CF9DD139
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 27 Jul 2016 19:50:47 +0000 (UTC)
-Message-ID: <1469649042.27356.109.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Andy Lutomirski <luto@amacapital.net>
-Date: Wed, 27 Jul 2016 15:50:42 -0400
-In-Reply-To: <CALCETrXg6+jFWmycaKu2o=BbDytn+vyGxxY5AQTCo0RoxySvCw@mail.gmail.com>
+	Wed, 27 Jul 2016 20:09:57 +0000 (UTC)
+Received: by mail-ua0-f169.google.com with SMTP id 35so25248441uap.1
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 27 Jul 2016 13:09:57 -0700 (PDT)
+MIME-Version: 1.0
+In-Reply-To: <1469648220.23563.15.camel@linux.vnet.ibm.com>
 References: <1469631987.27356.48.camel@HansenPartnership.com>
 	<20150804152622.GY30479@wotan.suse.de>
 	<1468612258.5335.0.camel@linux.vnet.ibm.com>
 	<1468612671.5335.5.camel@linux.vnet.ibm.com>
 	<20160716005213.GL30372@sirena.org.uk>
 	<1469544138.120686.327.camel@infradead.org>
-	<13539.1469633840@warthog.procyon.org.uk>
-	<1469636088.27356.60.camel@HansenPartnership.com>
-	<CALCETrU5fckZxc_HtuQxGC-425uaQqXt9-Yk_C63yTPuBa863w@mail.gmail.com>
-	<1469646020.27356.97.camel@HansenPartnership.com>
-	<CALCETrXg6+jFWmycaKu2o=BbDytn+vyGxxY5AQTCo0RoxySvCw@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: Mark Brown <broonie@sirena.org.uk>,
+	<14209.1469636040@warthog.procyon.org.uk>
+	<1469636881.27356.70.camel@HansenPartnership.com>
+	<1469637367.27356.73.camel@HansenPartnership.com>
+	<1469648220.23563.15.camel@linux.vnet.ibm.com>
+From: Andy Lutomirski <luto@amacapital.net>
+Date: Wed, 27 Jul 2016 13:09:37 -0700
+Message-ID: <CALCETrXWVTmbuUa-d7EH2kGRZM+HCiqje11AqxWm7ntd5fjLDg@mail.gmail.com>
+To: Mimi Zohar <zohar@linux.vnet.ibm.com>
+Content-Type: text/plain; charset=UTF-8
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Mark Brown <broonie@sirena.org.uk>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] Last minute nominations: mcgrof and toshi
@@ -41,113 +43,117 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 2016-07-27 at 12:20 -0700, Andy Lutomirski wrote:
-> On Wed, Jul 27, 2016 at 12:00 PM, James Bottomley
-> <James.Bottomley@hansenpartnership.com> wrote:
-> > On Wed, 2016-07-27 at 10:57 -0700, Andy Lutomirski wrote:
-> > > On Wed, Jul 27, 2016 at 9:14 AM, James Bottomley
-> > > <James.Bottomley@hansenpartnership.com> wrote:
-> > > > On Wed, 2016-07-27 at 16:37 +0100, David Howells wrote:
-> > > > > James Bottomley <James.Bottomley@HansenPartnership.com>
-> > > > > wrote:
-> > > > > 
-> > > > > >    3. Integration with existing key management
-> > > > > > infrastructures.
-> > > > > >   The issue
-> > > > > >       here is things like the gnome keyring and the TPM. 
-> > > > > >  The
-> > > > > > TPM is a
-> > > > > >       particularly thorny problem: as a key store, the TPM
-> > > > > > has
-> > > > > > a very
-> > > > > >       limited storage space, so something has effectively
-> > > > > > to
-> > > > > > swap keys in
-> > > > > >       and out as they're used.  This function is currently
-> > > > > > performed by a
-> > > > > >       userspace stack called the TSS.  However, the kernel
-> > > > > > use
-> > > > > > of the TPM
-> > > > > >       effectively steals the nvram resource behind the
-> > > > > > manager's back and
-> > > > > >       can lead to resource starvation issues in the TPM and
-> > > > > > unexpected
-> > > > > >       responses back to the user space TSS.  If the kernel
-> > > > > > wants to use
-> > > > > >       TPM keys, it needs either to request them properly
-> > > > > > from
-> > > > > > the TSS or
-> > > > > >       we need to pull TPM key management fully into the
-> > > > > > kernel
-> > > > > > and make
-> > > > > >       the TSS use it.
-> > > > > 
-> > > > > I have partial patches for this, but they're against an old, 
-> > > > > pre-tpm2 version of the kernel and need updating.  They 
-> > > > > expose TPM keys as a subtype of the asymmetric key type.
-> > > > 
-> > > > Heh, you really know how to poke a sore spot, since we 
-> > > > effectively have two TSSs in Linux: trousers the TPM 1.1 and 
-> > > > 1.2 compatible one and ibmtpm20tss for TPM 2.0.  I don't think 
-> > > > we have an answer on how we make them work compatibly.  I'm 
-> > > > sort of hoping to get some coherence in the TPM Microconference
-> > > > at Plumbers
-> > > > 
-> > > > http://www.linuxplumbersconf.org/2016/ocw/events/LPC2016/tracks
-> > > > /585
-> > > > 
-> > > > However, if we do an upcall to the TSS, then we can't use TPM 
-> > > > keys in the pre-boot and have difficulty using them in initrd
-> > > > environments, which seems like it might cause problems.
-> > > > 
-> > > 
-> > > I think this nuts.  The kernel should arbitrate use of the TPM's 
-> > > key slots and handle context switching.  Doing it in userspace is 
-> > > a terrible idea for this and other reasons. 
-> > 
-> > Hey, I don't disagree, but the user space TSS would have to be 
-> > updated as well if we did this.  Right at the moment, the tpmd in 
-> > the kernel is a straight TPM command pass through.  We'd need a 
-> > more complex interface if the kernel is actually going to manage 
-> > TPM key slots.   I think it means quite a big code change, both in 
-> > the kernel and for the new interface and for the TSS.
-> 
-> I admit it's been a while since I read the TPM protocol specs, but I
-> think it might be doable without breaking compatibility.  We could
-> pretend to pass commands through but instead either emulate a TPM 
-> with a whole lot of slots or emulate a TPM with somewhat fewer slots 
-> than the real one and remap the slot numbering as needed.
+On Wed, Jul 27, 2016 at 12:37 PM, Mimi Zohar <zohar@linux.vnet.ibm.com> wrote:
+> On Mi, 2016-07-27 at 12:36 -0400, James Bottomley wrote:
+>> On Wed, 2016-07-27 at 12:28 -0400, James Bottomley wrote:
+>> > On Wed, 2016-07-27 at 17:14 +0100, David Howells wrote:
+>> > > James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
+>> > >
+>> > > >    1. Population and update policy: How should we populate the default
+>> > > >       keyrings and revocation lists?  Should we have a built in list of
+>> > > >       absolute trust that can never be added to? I think the current
+>> > > >       default here is OK: it's populate with the kernel built in keys and
+>> > > >       nothing else.  If userspace wants to populate with, say, the secure
+>> > > >       boot keys, then it can do so from init.  An issue here is the
+>> > > >       Microsoft signing key, which most Linux people have but which they
+>> > > >       wouldn't necessarily consider to be a source of absolute trust.
+>> > > >        However, third party driver vendors would like a way to get their
+>> > > >       key trusted by the kernel so they can easily supply modules (This
+>> > > >       isn't a binary module issue: the code is usually GPL, but the
+>> > > >       vendors would like to supply updates asynchronously to the distro
+>> > > >       release cycle).  We can say their key should be added as part of the
+>> > > >       rpm that installs the module, but do users really want this key
+>> > > >       adding to the default keyring to be trusted for non-module
+>> > > >       operations?
+>> > >
+>> > > I have patches that allow the UEFI key and blacklist databases to
+>> > > add to the kernel keyrings during boot.
+>> > >
+>> > > We don't want to permit loading a key from a file once the kernel
+>> > > is booted unless that key is signed by a key already in the
+>> > > keyrings.
+>> >
+>> > This is a policy discussion we should have.  If you populate the
+>> > immutable .builtin_trusted_keys keyring with the secure boot keys,
+>> > most people will end up with a Microsoft key in their keyring (and
+>> > possibly even some random motherboard vendor ODM key) which they
+>> > can't remove.  I thought the idea was to use the
+>> > .secondary_trusted_keys keyring which is mutable?  That way we can
+>> > have policy in userspace select which secure boot keys we might like
+>> > to trust.
+>>
+>> As an aside to the aside, perhaps we want the .builtin_trusted_keys to
+>> be mutable up to the point the kernel finishes init and then immutable
+>> after.  That would allow us to update it from the initrd if the
+>> composition of the secure boot keys was in question.
+>
+> A lot of work went into making the builtin keyring have only the builtin
+> kernel keys, that are trusted, because the kernel was signed and
+> verified.  Even if I trusted a set of keys during boot, different keys
+> are trusted at different layers for different things.
+>
+> For example, the UEFI/shim keys are trusted at the UEFI layer.   If the
+> UEFI keys are needed once the system is up and running for some reason,
+> then load them on a separate UEFI keyring.   Allow the host owner to
+> have the ability to decide whether to trust these keys for verifying
+> signatures.
+>
+> I would like to see separate trusted keyrings for firmware, kernel
+> modules, etc, where only keys signed by a key on the builtin keyring
+> could be added to them. With Mehmet Kaylaap patch set, additional keys
+> can be added to the builtin keyring post build.  Those keys are trusted
+> because the kernel itself is re-signed.
 
-Been there, done that, got the flashing bow tie from our TPM experts as
-a "here's a shiny thing small kernel person, you play with it while we
-solve the hard security problems" prize.
+I would like someone to explain why using the keyring mechanism for
+this in the first place is a good idea.
 
-The reason it doesn't work as simply is that TPM commands mostly
-require authentication and may be encrypted (transport wrapped in TPM
-speak).  For commands which manipulate keys, the key handle may be part
-of the HMAC authentication verifier, so we can't simply replace the key
-handle without the HMAC failing to verify or they're encrypted, in
-which case we can't even see what the handle is.  The reason the TSS
-can do this is that it generates the HMAC and even the wrapping.  It's
-hard to see how to solve this without either pulling the whole TSS into
-the kernel (yuk) or having a sideband API where the kernel and the TSS
-co-operate on key slot handling.
+As far as I can tell, the design goals of "keys trusted by the kernel
+for modules, firmware, etc" are:
 
-> > Anyway, I put it on the proposed agenda for the Plumbers TPM
-> > discussions:
-> > 
-> > http://wiki.linuxplumbersconf.org/2016:tpms
-> 
-> If I manage to still be in town, I'll try to make it to that session.
+ - Keys are added at build time or, according to potentially
+system-specific rules, at boot time.
 
-Great, thanks!
+ - Keys should specify what they're trusted *for*.  Some keys should
+be trusted to load modules.  Some keys should be trusted to load
+specific firmware files.
 
-James
+ - The kernel only knows the public part of these keys, so there's no
+particular need to restrict who can see them, who can perform
+operations with them (there are no useful operations to perform other
+than, perhaps, "read the public key" or "try to load a module or
+firmware").
 
+ - Trying to containerize them makes very little sense until someone
+proposes a resource that should be protected by such a key that might
+live in a container.
 
-> --Andy
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
-> 
+ - There may be utility in allowing a new key to be added to the
+keyring at runtime subject to a requirement that a PCR get extended.
+
+The keyring subsystem provides a fancy syscall interface, a fancy
+naming interface, a fancy protection interface, a fancy way to link
+keys to threads and processes, etc, none of which seems particularly
+useful here.  Using a "trusted" key for this purpose seems entirely
+pointless (we can't sign no matter what the kernel does, so what
+exactly would the TPM be protecting?).  The keyring subsystem is more
+about restricting *usage* of keys, not *addition* of keys.  So it's
+nice to use the keyring subsystem to add a key that grants access to a
+resource (possibly some remote server) and restrict what can be done
+with it, but the firmware/module usecase is entirely the other way
+around: we're trying to restrict which keys can be added, and we're
+allowing holders of the associated private keys to perform operations
+that affect the local machine.
+
+May I suggest a much, much simpler approach: use a plain old struct
+list_head for each list of keys and use the crypto API directly for
+verification?  Even better, use a list of registered verifier
+callbacks where any callback in the list can say "ok, I recognize this
+proposed firmware, module, etc".  Think LoadPin but without the LSM
+baggage.  If someone really wants to use keyrings, then that facility
+could use an optional module that registers a callback that does
+exactly that.
+
+--Andy
+-- 
+Andy Lutomirski
+AMA Capital Management, LLC
