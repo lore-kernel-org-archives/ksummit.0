@@ -1,33 +1,38 @@
-Return-Path: <lurodriguez@suse.de>
+Return-Path: <Tim.Bird@am.sony.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3CFBE955
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9CEB2957
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 27 Jul 2016 17:20:59 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A40B6286
+	Wed, 27 Jul 2016 17:21:42 +0000 (UTC)
+Received: from NAM03-DM3-obe.outbound.protection.outlook.com
+	(mail-dm3nam03on0114.outbound.protection.outlook.com [104.47.41.114])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DDC40286
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 27 Jul 2016 17:20:58 +0000 (UTC)
-Date: Wed, 27 Jul 2016 19:20:55 +0200
-From: "Luis R. Rodriguez" <mcgrof@suse.com>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Message-ID: <20160727172055.GE5537@wotan.suse.de>
-References: <1469631987.27356.48.camel@HansenPartnership.com>
-	<20150804152622.GY30479@wotan.suse.de>
-	<1468612258.5335.0.camel@linux.vnet.ibm.com>
-	<1468612671.5335.5.camel@linux.vnet.ibm.com>
-	<20160716005213.GL30372@sirena.org.uk>
-	<1469544138.120686.327.camel@infradead.org>
-	<14209.1469636040@warthog.procyon.org.uk>
-	<1469636881.27356.70.camel@HansenPartnership.com>
-	<1469637367.27356.73.camel@HansenPartnership.com>
+	Wed, 27 Jul 2016 17:21:41 +0000 (UTC)
+From: "Bird, Timothy" <Tim.Bird@am.sony.com>
+To: David Woodhouse <dwmw2@infradead.org>, James Bottomley
+	<James.Bottomley@HansenPartnership.com>,
+	Julia Lawall <julia.lawall@lip6.fr>
+Date: Wed, 27 Jul 2016 17:21:34 +0000
+Message-ID: <ECADFF3FD767C149AD96A924E7EA6EAF053B96B4@USCULXMSG02.am.sony.com>
+References: <87inw1skws.fsf@x220.int.ebiederm.org>
+	<25598.1469113525@warthog.procyon.org.uk>
+	<18158a39-1297-7368-3c0e-3e9b3ce2c3ab@suse.com>
+	<alpine.DEB.2.10.1607220808110.3114@hadrien>
+	<b3390bd5-eb54-428a-3030-1d7289880d47@suse.com>
+	<1469533716.120686.281.camel@infradead.org>
+	<alpine.DEB.2.10.1607271439250.3117@hadrien>
+	<1469625916.27356.18.camel@HansenPartnership.com>
+	<1469626423.120686.408.camel@infradead.org>
+In-Reply-To: <1469626423.120686.408.camel@infradead.org>
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1469637367.27356.73.camel@HansenPartnership.com>
-Cc: Mark Brown <broonie@sirena.org.uk>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Last minute nominations: mcgrof and toshi
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] More useful types in the linux
+ kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,49 +42,45 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Jul 27, 2016 at 12:36:07PM -0400, James Bottomley wrote:
-> On Wed, 2016-07-27 at 12:28 -0400, James Bottomley wrote:
-> > On Wed, 2016-07-27 at 17:14 +0100, David Howells wrote:
-> > > James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
-> > > 
-> > > >    1. Population and update policy: How should we populate the default
-> > > >       keyrings and revocation lists?  Should we have a built in list of
-> > > >       absolute trust that can never be added to? I think the current
-> > > >       default here is OK: it's populate with the kernel built in keys and
-> > > >       nothing else.  If userspace wants to populate with, say, the secure
-> > > >       boot keys, then it can do so from init.  An issue here is the
-> > > >       Microsoft signing key, which most Linux people have but which they
-> > > >       wouldn't necessarily consider to be a source of absolute trust. 
-> > > >        However, third party driver vendors would like a way to get their
-> > > >       key trusted by the kernel so they can easily supply modules (This
-> > > >       isn't a binary module issue: the code is usually GPL, but the
-> > > >       vendors would like to supply updates asynchronously to the distro
-> > > >       release cycle).  We can say their key should be added as part of the
-> > > >       rpm that installs the module, but do users really want this key
-> > > >       adding to the default keyring to be trusted for non-module
-> > > >       operations?
-> > > 
-> > > I have patches that allow the UEFI key and blacklist databases to 
-> > > add to the kernel keyrings during boot.
-> > > 
-> > > We don't want to permit loading a key from a file once the kernel 
-> > > is booted unless that key is signed by a key already in the
-> > > keyrings.
-> > 
-> > This is a policy discussion we should have.  If you populate the
-> > immutable .builtin_trusted_keys keyring with the secure boot keys, 
-> > most people will end up with a Microsoft key in their keyring (and
-> > possibly even some random motherboard vendor ODM key) which they 
-> > can't remove.  I thought the idea was to use the 
-> > .secondary_trusted_keys keyring which is mutable?  That way we can 
-> > have policy in userspace select which secure boot keys we might like
-> > to trust.
-> 
-> As an aside to the aside, perhaps we want the .builtin_trusted_keys to
-> be mutable up to the point the kernel finishes init and then immutable
-> after.  That would allow us to update it from the initrd if the
-> composition of the secure boot keys was in question.
-
-Are you aware of other similar uses before ?
-
-  Luis
+DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbToga3N1bW1pdC1kaXNjdXNz
+LWJvdW5jZXNAbGlzdHMubGludXhmb3VuZGF0aW9uLm9yZyBbbWFpbHRvOmtzdW1taXQtDQo+IGRp
+c2N1c3MtYm91bmNlc0BsaXN0cy5saW51eGZvdW5kYXRpb24ub3JnXSBPbiBCZWhhbGYgT2YgRGF2
+aWQgV29vZGhvdXNlDQo+IFNlbnQ6IFdlZG5lc2RheSwgSnVseSAyNywgMjAxNiA1OjM0IEFNDQo+
+IFRvOiBKYW1lcyBCb3R0b21sZXkgPEphbWVzLkJvdHRvbWxleUBIYW5zZW5QYXJ0bmVyc2hpcC5j
+b20+OyBKdWxpYSBMYXdhbGwNCj4gPGp1bGlhLmxhd2FsbEBsaXA2LmZyPg0KPiBDYzoga3N1bW1p
+dC1kaXNjdXNzQGxpc3RzLmxpbnV4Zm91bmRhdGlvbi5vcmcNCj4gU3ViamVjdDogUmU6IFtLc3Vt
+bWl0LWRpc2N1c3NdIFtDT1JFIFRPUElDXSBNb3JlIHVzZWZ1bCB0eXBlcyBpbiB0aGUgbGludXgN
+Cj4ga2VybmVsDQo+IA0KPiBPbiBXZWQsIDIwMTYtMDctMjcgYXQgMDk6MjUgLTA0MDAsIEphbWVz
+IEJvdHRvbWxleSB3cm90ZToNCj4gPiBPbiBXZWQsIDIwMTYtMDctMjcgYXQgMTQ6NDAgKzAyMDAs
+IEp1bGlhIExhd2FsbCB3cm90ZToNCj4gPiA+DQo+ID4gPiBPbiBUdWUsIDI2IEp1bCAyMDE2LCBE
+YXZpZCBXb29kaG91c2Ugd3JvdGU6DQo+ID4gPg0KPiA+ID4gPiBPbiBGcmksIDIwMTYtMDctMjIg
+YXQgMTU6NTcgKzAyMDAsIEhhbm5lcyBSZWluZWNrZSB3cm90ZToNCj4gPiA+ID4gPg0KPiA+ID4g
+PiA+ID4gSSBndWVzcyB0aGF0IGFsbW9zdCBhbGwgZnVuY3Rpb25zIHJldHVybiBvbmx5IGEgZmV3
+IHBvc3NpYmxlDQo+ID4gPiA+ID4gPiBlcnJvciBjb2Rlcz8NCj4gPiA+ID4gPg0KPiA+ID4gPiA+
+IFByZWNpc2VseS4gSWYgd2UgaGFkIGEgd2F5IG9mIHNwZWNpZnlpbmcgInRoZSByZXR1cm4gdmFs
+dWUgaXMgYW4NCj4gPiA+ID4gPiBlcnJubyB3aXRoIHRoZSBwb3NzaWJsZSB2YWx1ZXMgJzAnLCAn
+LUVJTycsIGFuZCAnLUVJTlZBTCciIHRoYXQNCj4gPiA+ID4gPiB3b3VsZCBiZSBfc29fIGNvb2wu
+DQo+ID4gPiA+DQo+ID4gPiA+IEFuZCBwZXJwZXR1YWxseSBvdXQgb2YgZGF0ZS4gQmVjYXVzZSBm
+dW5jdGlvbnMgY2FsbCB0aHJvdWdoIHRvDQo+ID4gPiA+ICpvdGhlciogZnVuY3Rpb25zIHdoaWNo
+IG1pZ2h0IHJldHVybiBhbiBlcnJubyBvdXRzaWRlIHRoZSAna25vd24nDQo+ID4gPiA+IHNldC4N
+Cj4gPiA+DQo+ID4gPiBJZiB5b3UgaGF2ZSBhIHNjcmlwdCB0byBjYWxjdWxhdGUgaXQsIGl0IGRv
+ZXNuJ3QgaGF2ZSB0byBiZQ0KPiA+ID4gcGVycGV0dWFsbHkgb3V0IG9mIGRhdGUuwqAgVGhlIHBy
+b2JsZW0gaXMganVzdCB0aGUgdGltZSB0byBjb2xsZWN0IHRoZQ0KPiA+ID4gaW5mb3JtYXRpb24g
+Zm9yIHRoZSB3aG9sZSBrZXJuZWwuwqAgSXQgY291bGQgYmUgYSBnb29kIGludGVybiBwcm9qZWN0
+Lg0KPiA+DQo+ID4gSXQncyBhIGxvdCBvZiBwYWluLCBmb3Igd2hhdCBnYWluP8KgIFdoYXQsIHBy
+YWN0aWNhbGx5IHdvdWxkIHdlIGdldCBhcyBhDQo+ID4gYmVuZWZpdCBpZiB3ZSBkaWQgdGhpcz/C
+oCBFdmVyeSB0aW1lIEkgc2VlIHByb3Bvc2FscyBhYm91dCBzY3JpcHRpbmcNCj4gPiBjaGVja3Mg
+aW4gdGhlIGtlcm5lbCwgSSdtIHJlbWluZGVkIG9mIG91ciBzZWN0aW9uIG1pc21hdGNoIGRlYmFj
+bGUuDQo+ID4gwqBMaWZlIGlzIHNvIG11Y2ggZWFzaWVyIHdpdGhvdXQgZXZlcnkga2VybmVsIHJl
+bGVhc2UgZ2VuZXJhdGluZyAxMDBzIG9mDQo+ID4gcGF0Y2hlcyB0cnlpbmcgdG8gY29ycmVjdCBz
+ZWN0aW9uIG1pc21hdGNoZXMgd2hpY2ggZGlkbid0IG1hdHRlciBpbiB0aGUNCj4gPiBmaXJzdCBw
+bGFjZSAuLi4NCj4gDQo+IFRvIGZpbmQgZnVuY3Rpb25zIHdoZXJlIHRoZSAtZXJybm8gcmV0dXJu
+cyBtaWdodCBiZSBhbWJpZ3VvdXMgd2l0aCByZWFsDQo+IHZhbGlkIHJldHVybiB2YWx1ZXMsIG1p
+Z2h0IGJlIGJlbmVmaWNpYWwuIElmIGl0IGRvZXNuJ3QgaGF2ZSB0b28gbWFueQ0KPiBmYWxzZSBw
+b3NpdGl2ZXMuDQoNCkl0IG1pZ2h0IGJlIHVzZWZ1bCB0byBoYXZlIGEgbGlzdCBvZiBwb3NzaWJs
+ZSBlcnJubyBnZW5lcmF0aW9uIHBvaW50cywgZm9yIGEgcGFydGljdWxhciByb3V0aW5lLA0KdG8g
+bWFrZSBpdCBlYXNpZXIgdG8gZmluZCB0aGUgb3JpZ2luIG9mIGEgcHJvYmxlbS4gIFNvbWV0aW1l
+cyB3aGVuIHlvdSdyZSB1bmZhbWlsaWFyIHdpdGgNCnNvbWUgYml0IG9mIGNvZGUsIG1hbnVhbGx5
+IHdhbGtpbmcgYmFjayB0aHJvdWdoIHRoZSBjYWxsIGNoYWluIGluIHRoZSBzb3VyY2UgaXMgYSBo
+YXNzbGUuDQpJJ20gcmVtaW5kZWQgb2YgdGhhdCB0cmljayB3aGVyZSBzb21lb25lIChJIGRvbid0
+IHJlY2FsbCB3aG8pIGVtYmVkZGVkIHRoZSBsaW5lIG51bWJlcg0KaW4gdGhlIGVycm5vLg0KDQo=
