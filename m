@@ -1,32 +1,32 @@
-Return-Path: <daniel.vetter@ffwll.ch>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 95B9094E
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 760D1951
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 27 Jul 2016 13:03:32 +0000 (UTC)
-Received: from mail-oi0-f65.google.com (mail-oi0-f65.google.com
-	[209.85.218.65])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C3FF9144
+	Wed, 27 Jul 2016 13:25:21 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 535001A7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 27 Jul 2016 13:03:30 +0000 (UTC)
-Received: by mail-oi0-f65.google.com with SMTP id l9so1222305oih.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 27 Jul 2016 06:03:30 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <CAOesGMiq5Q==Rg97VqmO-=HNYXz9ZA6iCDJ7sBa0tGzJVuYs4g@mail.gmail.com>
-References: <CAKMK7uEuqLLf2bCyB-sAuu5WvVA1Kp7Jvc33k3um5DfdQr4eyg@mail.gmail.com>
-	<CAOesGMiq5Q==Rg97VqmO-=HNYXz9ZA6iCDJ7sBa0tGzJVuYs4g@mail.gmail.com>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Wed, 27 Jul 2016 15:03:29 +0200
-Message-ID: <CAKMK7uH31nB0=-ZBOCzamOkAozrLgsFz4ZtBkeumhgrmnu2bkw@mail.gmail.com>
-To: Olof Johansson <olof@lixom.net>
-Content-Type: text/plain; charset=UTF-8
-Cc: Grant Likely <grant.likely@linaro.org>, Dave Airlie <airlied@linux.ie>,
-	Linus Torvalds <torvalds@linux-foundation.org>, "Nikula,
-	Jani" <jani.nikula@linux.intel.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] (group) maintainership models
+	Wed, 27 Jul 2016 13:25:20 +0000 (UTC)
+Message-ID: <1469625916.27356.18.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Julia Lawall <julia.lawall@lip6.fr>, David Woodhouse <dwmw2@infradead.org>
+Date: Wed, 27 Jul 2016 09:25:16 -0400
+In-Reply-To: <alpine.DEB.2.10.1607271439250.3117@hadrien>
+References: <87inw1skws.fsf@x220.int.ebiederm.org>
+	<25598.1469113525@warthog.procyon.org.uk>
+	<18158a39-1297-7368-3c0e-3e9b3ce2c3ab@suse.com>
+	<alpine.DEB.2.10.1607220808110.3114@hadrien>
+	<b3390bd5-eb54-428a-3030-1d7289880d47@suse.com>
+	<1469533716.120686.281.camel@infradead.org>
+	<alpine.DEB.2.10.1607271439250.3117@hadrien>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] More useful types in the linux
+ kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,57 +36,32 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Jul 26, 2016 at 6:45 PM, Olof Johansson <olof@lixom.net> wrote:
-> On Wed, Jul 20, 2016 at 5:11 AM, Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
->> In my very first KS I found the maintainership model presentations
->> (x86-tip & armsoc) rather interesting. And last year we've had an
->> ad-hoc discussion about group maintainership again. I think drm&i915
->> would be an interesting case since over the past year I've done some
->> changes which are at the edge of what's common in the kernel, and it
->> seems to work (at least for us) fairly well. I discussed this a bit
->> with a few folks at ELC San Diego too.
->>
->> Short summary: i915 has now a two-level maintenance model with 2
->> maintainers (who take the blame) and 15 people who can push patches.
->> In a way a rather big group, but not so big that people don't all know
->> each another any more personally. We have some detailed docs about the
->> patch flow and expectations:
->>
->> https://01.org/linuxgraphics/gfx-docs/maintainer-tools/drm-intel.html
->>
->> and about the dim tool used to support this all
->>
->> https://01.org/linuxgraphics/gfx-docs/maintainer-tools/dim.html
->>
->> But I think the more interesting bits are why I decided to try this
->> out, what I hoped would happen, what I feared might happen. And with 1
->> year of experience, what actually happens and what I think is needed
->> to make this work and an actual benefit over more traditional
->> maintainer models. And of course I'd like to compare notes with other
->> group maintainers.
->
-> Very interested in participating here, for obvious reasons -- learning
-> from others how we can do things even better as well as sharing how
-> things are working for us, 5 years into the endeavor.
->
-> One thing we're low on for arm-soc is tooling, I know the x86 guys
-> have quite a bit more than we do in this area, so ideas on what we can
-> do to make our own lives easier is valuable.
+On Wed, 2016-07-27 at 14:40 +0200, Julia Lawall wrote:
+> 
+> On Tue, 26 Jul 2016, David Woodhouse wrote:
+> 
+> > On Fri, 2016-07-22 at 15:57 +0200, Hannes Reinecke wrote:
+> > > 
+> > > > I guess that almost all functions return only a few possible
+> > > > error codes?
+> > > 
+> > > Precisely. If we had a way of specifying "the return value is an 
+> > > errno with the possible values '0', '-EIO', and '-EINVAL'" that 
+> > > would be _so_ cool.
+> > 
+> > And perpetually out of date. Because functions call through to 
+> > *other* functions which might return an errno outside the 'known'
+> > set.
+> 
+> If you have a script to calculate it, it doesn't have to be 
+> perpetually out of date.  The problem is just the time to collect the 
+> information for the whole kernel.  It could be a good intern project.
 
-drm group maintainer tooling is fairly low-key. The one interesting
-bit is that the overall integration tree is regenerated every time you
-push a patch (to scale out conflict resolution to committers too).
-Conflict resolutions are tracked using git rerere and optional manual
-fixup patches in a shared branch. There's also a setup command to get
-it all started. I think that's probably the most interesting part of
-our tooling.
+It's a lot of pain, for what gain?  What, practically would we get as a
+benefit if we did this?  Every time I see proposals about scripting
+checks in the kernel, I'm reminded of our section mismatch debacle. 
+ Life is so much easier without every kernel release generating 100s of
+patches trying to correct section mismatches which didn't matter in the
+first place ...
 
-One thing that's kinda annoying is how bad git rerere is at reapplying
-stored resolutions with slightly changed context, or when merging the
-other way round. But it's not yet bad enough that I've sat down and
-fixed it ;-)
--Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-+41 (0) 79 365 57 48 - http://blog.ffwll.ch
+James
