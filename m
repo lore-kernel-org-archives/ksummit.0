@@ -1,34 +1,35 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <luto@amacapital.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id CB8BE954
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 172A7952
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 27 Jul 2016 17:51:18 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 37E83265
+	Wed, 27 Jul 2016 17:58:04 +0000 (UTC)
+Received: from mail-vk0-f54.google.com (mail-vk0-f54.google.com
+	[209.85.213.54])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5F4771D8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 27 Jul 2016 17:51:18 +0000 (UTC)
-Message-ID: <1469641875.27356.92.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: "Luis R. Rodriguez" <mcgrof@suse.com>
-Date: Wed, 27 Jul 2016 13:51:15 -0400
-In-Reply-To: <20160727172055.GE5537@wotan.suse.de>
+	Wed, 27 Jul 2016 17:58:03 +0000 (UTC)
+Received: by mail-vk0-f54.google.com with SMTP id x130so14899939vkc.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 27 Jul 2016 10:58:03 -0700 (PDT)
+MIME-Version: 1.0
+In-Reply-To: <1469636088.27356.60.camel@HansenPartnership.com>
 References: <1469631987.27356.48.camel@HansenPartnership.com>
 	<20150804152622.GY30479@wotan.suse.de>
 	<1468612258.5335.0.camel@linux.vnet.ibm.com>
 	<1468612671.5335.5.camel@linux.vnet.ibm.com>
 	<20160716005213.GL30372@sirena.org.uk>
 	<1469544138.120686.327.camel@infradead.org>
-	<14209.1469636040@warthog.procyon.org.uk>
-	<1469636881.27356.70.camel@HansenPartnership.com>
-	<1469637367.27356.73.camel@HansenPartnership.com>
-	<20160727172055.GE5537@wotan.suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+	<13539.1469633840@warthog.procyon.org.uk>
+	<1469636088.27356.60.camel@HansenPartnership.com>
+From: Andy Lutomirski <luto@amacapital.net>
+Date: Wed, 27 Jul 2016 10:57:42 -0700
+Message-ID: <CALCETrU5fckZxc_HtuQxGC-425uaQqXt9-Yk_C63yTPuBa863w@mail.gmail.com>
+To: James Bottomley <James.Bottomley@hansenpartnership.com>
+Content-Type: text/plain; charset=UTF-8
 Cc: Mark Brown <broonie@sirena.org.uk>,
-	ksummit-discuss@lists.linuxfoundation.org
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] Last minute nominations: mcgrof and toshi
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -39,74 +40,43 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 2016-07-27 at 19:20 +0200, Luis R. Rodriguez wrote:
-> On Wed, Jul 27, 2016 at 12:36:07PM -0400, James Bottomley wrote:
-> > On Wed, 2016-07-27 at 12:28 -0400, James Bottomley wrote:
-> > > On Wed, 2016-07-27 at 17:14 +0100, David Howells wrote:
-> > > > James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
-> > > > 
-> > > > >    1. Population and update policy: How should we populate
-> > > > > the default
-> > > > >       keyrings and revocation lists?  Should we have a built
-> > > > > in list of
-> > > > >       absolute trust that can never be added to? I think the
-> > > > > current
-> > > > >       default here is OK: it's populate with the kernel built
-> > > > > in keys and
-> > > > >       nothing else.  If userspace wants to populate with,
-> > > > > say, the secure
-> > > > >       boot keys, then it can do so from init.  An issue here
-> > > > > is the
-> > > > >       Microsoft signing key, which most Linux people have but
-> > > > > which they
-> > > > >       wouldn't necessarily consider to be a source of
-> > > > > absolute trust. 
-> > > > >        However, third party driver vendors would like a way
-> > > > > to get their
-> > > > >       key trusted by the kernel so they can easily supply
-> > > > > modules (This
-> > > > >       isn't a binary module issue: the code is usually GPL,
-> > > > > but the
-> > > > >       vendors would like to supply updates asynchronously to
-> > > > > the distro
-> > > > >       release cycle).  We can say their key should be added
-> > > > > as part of the
-> > > > >       rpm that installs the module, but do users really want
-> > > > > this key
-> > > > >       adding to the default keyring to be trusted for non
-> > > > > -module
-> > > > >       operations?
-> > > > 
-> > > > I have patches that allow the UEFI key and blacklist databases 
-> > > > to add to the kernel keyrings during boot.
-> > > > 
-> > > > We don't want to permit loading a key from a file once the 
-> > > > kernel is booted unless that key is signed by a key already in 
-> > > > the keyrings.
-> > > 
-> > > This is a policy discussion we should have.  If you populate the
-> > > immutable .builtin_trusted_keys keyring with the secure boot 
-> > > keys, most people will end up with a Microsoft key in their 
-> > > keyring (and possibly even some random motherboard vendor ODM 
-> > > key) which they can't remove.  I thought the idea was to use the
-> > > .secondary_trusted_keys keyring which is mutable?  That way we 
-> > > can have policy in userspace select which secure boot keys we 
-> > > might like to trust.
-> > 
-> > As an aside to the aside, perhaps we want the .builtin_trusted_keys 
-> > to be mutable up to the point the kernel finishes init and then
-> > immutable after.  That would allow us to update it from the initrd 
-> > if the composition of the secure boot keys was in question.
-> 
-> Are you aware of other similar uses before ?
+On Wed, Jul 27, 2016 at 9:14 AM, James Bottomley
+<James.Bottomley@hansenpartnership.com> wrote:
+> On Wed, 2016-07-27 at 16:37 +0100, David Howells wrote:
+>> James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
+>>
+>> >    3. Integration with existing key management infrastructures.  The issue
+>> >       here is things like the gnome keyring and the TPM.  The TPM is a
+>> >       particularly thorny problem: as a key store, the TPM has a very
+>> >       limited storage space, so something has effectively to swap keys in
+>> >       and out as they're used.  This function is currently performed by a
+>> >       userspace stack called the TSS.  However, the kernel use of the TPM
+>> >       effectively steals the nvram resource behind the manager's back and
+>> >       can lead to resource starvation issues in the TPM and unexpected
+>> >       responses back to the user space TSS.  If the kernel wants to use
+>> >       TPM keys, it needs either to request them properly from the TSS or
+>> >       we need to pull TPM key management fully into the kernel and make
+>> >       the TSS use it.
+>>
+>> I have partial patches for this, but they're against an old, pre-tpm2 version
+>> of the kernel and need updating.  They expose TPM keys as a subtype of the
+>> asymmetric key type.
+>
+> Heh, you really know how to poke a sore spot, since we effectively have
+> two TSSs in Linux: trousers the TPM 1.1 and 1.2 compatible one and
+> ibmtpm20tss for TPM 2.0.  I don't think we have an answer on how we
+> make them work compatibly.  I'm sort of hoping to get some coherence in
+> the TPM Microconference at Plumbers
+>
+> http://www.linuxplumbersconf.org/2016/ocw/events/LPC2016/tracks/585
+>
+> However, if we do an upcall to the TSS, then we can't use TPM keys in
+> the pre-boot and have difficulty using them in initrd environments,
+> which seems like it might cause problems.
+>
 
-Similar uses of what?
+I think this nuts.  The kernel should arbitrate use of the TPM's key
+slots and handle context switching.  Doing it in userspace is a
+terrible idea for this and other reasons.
 
-Runtime immutable but boot time mutable?  Yes, it's the UEFI variable
-lock protocol.
-
-Not wanting to put Microsoft keys in the immutable trusted keyring? No,
-it was just a suspicion based on how I'd feel if my secure boot system
-still had a MS key.
-
-James
+--Andy
