@@ -1,32 +1,33 @@
-Return-Path: <vinod.koul@intel.com>
+Return-Path: <lurodriguez@suse.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0997E951
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3CFBE955
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 27 Jul 2016 17:08:32 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id AF4FE274
+	Wed, 27 Jul 2016 17:20:59 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A40B6286
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 27 Jul 2016 17:08:31 +0000 (UTC)
-Date: Wed, 27 Jul 2016 22:45:51 +0530
-From: Vinod Koul <vinod.koul@intel.com>
-To: Mark Brown <broonie@kernel.org>
-Message-ID: <20160727171551.GE9681@localhost>
-References: <CAKMK7uEuqLLf2bCyB-sAuu5WvVA1Kp7Jvc33k3um5DfdQr4eyg@mail.gmail.com>
-	<CAOesGMiq5Q==Rg97VqmO-=HNYXz9ZA6iCDJ7sBa0tGzJVuYs4g@mail.gmail.com>
-	<20160727030406.GU9681@localhost> <17304523.rVA3ueAWN9@wuerfel>
-	<20160727125751.GC9681@localhost>
-	<20160727142221.GK11806@sirena.org.uk>
+	Wed, 27 Jul 2016 17:20:58 +0000 (UTC)
+Date: Wed, 27 Jul 2016 19:20:55 +0200
+From: "Luis R. Rodriguez" <mcgrof@suse.com>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Message-ID: <20160727172055.GE5537@wotan.suse.de>
+References: <1469631987.27356.48.camel@HansenPartnership.com>
+	<20150804152622.GY30479@wotan.suse.de>
+	<1468612258.5335.0.camel@linux.vnet.ibm.com>
+	<1468612671.5335.5.camel@linux.vnet.ibm.com>
+	<20160716005213.GL30372@sirena.org.uk>
+	<1469544138.120686.327.camel@infradead.org>
+	<14209.1469636040@warthog.procyon.org.uk>
+	<1469636881.27356.70.camel@HansenPartnership.com>
+	<1469637367.27356.73.camel@HansenPartnership.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="MAH+hnPXVZWQ5cD/"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20160727142221.GK11806@sirena.org.uk>
-Cc: ksummit-discuss@lists.linuxfoundation.org, Dave Airlie <airlied@linux.ie>,
-	"Nikula, Jani" <jani.nikula@linux.intel.com>,
-	Grant Likely <grant.likely@linaro.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] (group) maintainership models
+In-Reply-To: <1469637367.27356.73.camel@HansenPartnership.com>
+Cc: Mark Brown <broonie@sirena.org.uk>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] Last minute nominations: mcgrof and toshi
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,67 +37,49 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Wed, Jul 27, 2016 at 12:36:07PM -0400, James Bottomley wrote:
+> On Wed, 2016-07-27 at 12:28 -0400, James Bottomley wrote:
+> > On Wed, 2016-07-27 at 17:14 +0100, David Howells wrote:
+> > > James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
+> > > 
+> > > >    1. Population and update policy: How should we populate the default
+> > > >       keyrings and revocation lists?  Should we have a built in list of
+> > > >       absolute trust that can never be added to? I think the current
+> > > >       default here is OK: it's populate with the kernel built in keys and
+> > > >       nothing else.  If userspace wants to populate with, say, the secure
+> > > >       boot keys, then it can do so from init.  An issue here is the
+> > > >       Microsoft signing key, which most Linux people have but which they
+> > > >       wouldn't necessarily consider to be a source of absolute trust. 
+> > > >        However, third party driver vendors would like a way to get their
+> > > >       key trusted by the kernel so they can easily supply modules (This
+> > > >       isn't a binary module issue: the code is usually GPL, but the
+> > > >       vendors would like to supply updates asynchronously to the distro
+> > > >       release cycle).  We can say their key should be added as part of the
+> > > >       rpm that installs the module, but do users really want this key
+> > > >       adding to the default keyring to be trusted for non-module
+> > > >       operations?
+> > > 
+> > > I have patches that allow the UEFI key and blacklist databases to 
+> > > add to the kernel keyrings during boot.
+> > > 
+> > > We don't want to permit loading a key from a file once the kernel 
+> > > is booted unless that key is signed by a key already in the
+> > > keyrings.
+> > 
+> > This is a policy discussion we should have.  If you populate the
+> > immutable .builtin_trusted_keys keyring with the secure boot keys, 
+> > most people will end up with a Microsoft key in their keyring (and
+> > possibly even some random motherboard vendor ODM key) which they 
+> > can't remove.  I thought the idea was to use the 
+> > .secondary_trusted_keys keyring which is mutable?  That way we can 
+> > have policy in userspace select which secure boot keys we might like
+> > to trust.
+> 
+> As an aside to the aside, perhaps we want the .builtin_trusted_keys to
+> be mutable up to the point the kernel finishes init and then immutable
+> after.  That would allow us to update it from the initrd if the
+> composition of the secure boot keys was in question.
 
---MAH+hnPXVZWQ5cD/
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Are you aware of other similar uses before ?
 
-On Wed, Jul 27, 2016 at 03:22:21PM +0100, Mark Brown wrote:
-> On Wed, Jul 27, 2016 at 06:27:51PM +0530, Vinod Koul wrote:
-> > On Wed, Jul 27, 2016 at 09:53:24AM +0200, Arnd Bergmann wrote:
->=20
-> > > We should be at the point where an 'allmodconfig' build on ARM
-> > > gets you most of the drivers and builds without warnings (using
-> > > gcc-4.9 or higher).
->=20
-> > The problem is drivers depend on various ARM sub arch's. That is the
-> > sole reason why I have multiple configs now.
->=20
-> That shouldn't be the case at least for any new code, things should at
-> least build OK with an || COMPILE_TEST normally.  Old code may need
-> fixing up for this.
-
-That's right, this is problematic mostly with older code and for ARMv5 and
-below. As I said later code & sub-ARCHs seems to be well covered with
-current multi-vx-configs...
-
-> > Which brings me to another problem :-) why should individual drivers
-> > depend on ARM sub arch's. Depends on ARM, yes. First look at code tells
-> > me they shouldn't!, probably sometime back that was true, but I don't
-> > think that should be the case now, ofcourse you would know better!
->=20
-> The dependencies are there to improve UX when people are configuring
-> their kernels - it stops them being asked about hardware they can't
-> possibly have in their system.  If there's no build time reason for it
-> then it should be (ARCH_FOO || COMPILE_TEST) so people can do build
-> tests.
-
-That is a valid point as well. This seems better suggestion to me.
-
---=20
-~Vinod
-
---MAH+hnPXVZWQ5cD/
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v1
-
-iQIcBAEBAgAGBQJXmOxHAAoJEHwUBw8lI4NHgRIQAI8mSJnd7OUXW736rBrPlOPO
-Xo+r5O1QA4rjG3BUIo0MY4rImhpiLVDWjj7JhOzlOyyKjoWcv956+zAx1Coisxed
-79LHZ8EJRVb0mWEHmqajgqB0QpML/Wmyxb7s9EuJz/4yxfVjq7dAbFBSk2FvXuYa
-n763Jt/Fw0jcmP1BQrGpoCw1tZ4xC60IOVv84eLljYRW1UtOZ+y1GWWH9eqSm+4+
-Gbj+bLG/vSahEWili/RTdkbKxWG7kvCle0yfhiWQQYU8BYhI8geBd+f4WNDdfzfo
-7L7A5KdWFCZq71Ra6T6EQnP7rD5Vdi8g7hZ5+Q3tBw2WFjZINl3tdAApKYZQSFjP
-XzPTxfePSvZpxw6nDISNFedbL4rtV0NyBzIiD/TcaRFNb9ZqltF+FJ4M3RbeGzgH
-yspGUnXD8mn+WZ56dcw/ionB+plILXntxHm0XqGhrjGnAjd8NtXHd6exeOj5gU2V
-fvMDxSnHsMpP27ycI7PbFVQ7hTL47beR9Kkxug8XSOve5nIHEACwsA+c1tYdDEGY
-Gvmiq286L7Hm7FLPNUaJULO6n/9iNUfvCKXfOSKzWOxX712BfXmUddrEclWXUrvW
-QE482/fVN4lSIXFe3EJF6Eyij3ai1rTb9JINB9oQOwXOdRYyezpdDlAKkOuEijLE
-C6f/Z7Nbaj5Q4bBfv22p
-=RD3B
------END PGP SIGNATURE-----
-
---MAH+hnPXVZWQ5cD/--
+  Luis
