@@ -1,13 +1,13 @@
 Return-Path: <dhowells@redhat.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7AE6F957
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D92C9956
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 27 Jul 2016 16:10:36 +0000 (UTC)
+	Wed, 27 Jul 2016 16:14:03 +0000 (UTC)
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5B92A254
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C2253100
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 27 Jul 2016 16:10:35 +0000 (UTC)
+	Wed, 27 Jul 2016 16:14:02 +0000 (UTC)
 From: David Howells <dhowells@redhat.com>
 In-Reply-To: <1469631987.27356.48.camel@HansenPartnership.com>
 References: <1469631987.27356.48.camel@HansenPartnership.com>
@@ -18,10 +18,10 @@ References: <1469631987.27356.48.camel@HansenPartnership.com>
 	<1469544138.120686.327.camel@infradead.org>
 To: James Bottomley <James.Bottomley@HansenPartnership.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <14136.1469635833.1@warthog.procyon.org.uk>
-Date: Wed, 27 Jul 2016 17:10:33 +0100
-Message-ID: <14137.1469635833@warthog.procyon.org.uk>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 27 Jul 2016 17:14:00 +0100
+Message-ID: <14209.1469636040@warthog.procyon.org.uk>
 Cc: Mark Brown <broonie@sirena.org.uk>,
 	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] Last minute nominations: mcgrof and toshi
@@ -36,10 +36,31 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 
 James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
 
->    5. root (uid 0) access: should root be able to modify any keyring?
+>    1. Population and update policy: How should we populate the default
+>       keyrings and revocation lists? =C2=A0Should we have a built in list=
+ of
+>       absolute trust that can never be added to? I think the current
+>       default here is OK: it's populate with the kernel built in keys and
+>       nothing else. =C2=A0If userspace wants to populate with, say, the s=
+ecure
+>       boot keys, then it can do so from init. =C2=A0An issue here is the
+>       Microsoft signing key, which most Linux people have but which they
+>       wouldn't necessarily consider to be a source of absolute trust.=20
+>       =C2=A0However, third party driver vendors would like a way to get t=
+heir
+>       key trusted by the kernel so they can easily supply modules (This
+>       isn't a binary module issue: the code is usually GPL, but the
+>       vendors would like to supply updates asynchronously to the distro
+>       release cycle). =C2=A0We can say their key should be added as part =
+of the
+>       rpm that installs the module, but do users really want this key
+>       adding to the default keyring to be trusted for non-module
+>       operations?
 
-Currently, it's not even allowed to *see* any key or keyring that it doesn't
-have permissions to access.  Note that the permissions system doesn't
-distinguish between keyrings and other key types.
+I have patches that allow the UEFI key and blacklist databases to add to the
+kernel keyrings during boot.
+
+We don't want to permit loading a key from a file once the kernel is booted
+unless that key is signed by a key already in the keyrings.
 
 David
