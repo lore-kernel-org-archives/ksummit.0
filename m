@@ -1,25 +1,30 @@
-Return-Path: <regressions@leemhuis.info>
+Return-Path: <julia.lawall@lip6.fr>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id EB4CB956
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id DB1E3955
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 27 Jul 2016 12:28:30 +0000 (UTC)
-Received: from basicbox7.server-home.net (basicbox7.server-home.net
-	[195.137.212.29])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 29B37153
+	Wed, 27 Jul 2016 12:40:36 +0000 (UTC)
+Received: from mail2-relais-roc.national.inria.fr
+	(mail2-relais-roc.national.inria.fr [192.134.164.83])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D718D19F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 27 Jul 2016 12:28:30 +0000 (UTC)
-To: "Rafael J. Wysocki" <rjw@rjwysocki.net>, Takashi Iwai <tiwai@suse.de>
-References: <s5h60rs31z3.wl-tiwai@suse.de> <1560409.5vnWShrmDy@vostro.rjw.lan>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Message-ID: <4b6ef14c-cea6-b51d-62db-ba3e708916ea@leemhuis.info>
-Date: Wed, 27 Jul 2016 14:28:26 +0200
+	Wed, 27 Jul 2016 12:40:35 +0000 (UTC)
+Date: Wed, 27 Jul 2016 14:40:30 +0200 (CEST)
+From: Julia Lawall <julia.lawall@lip6.fr>
+To: David Woodhouse <dwmw2@infradead.org>
+In-Reply-To: <1469533716.120686.281.camel@infradead.org>
+Message-ID: <alpine.DEB.2.10.1607271439250.3117@hadrien>
+References: <87inw1skws.fsf@x220.int.ebiederm.org>
+	<25598.1469113525@warthog.procyon.org.uk>
+	<18158a39-1297-7368-3c0e-3e9b3ce2c3ab@suse.com>
+	<alpine.DEB.2.10.1607220808110.3114@hadrien>
+	<b3390bd5-eb54-428a-3030-1d7289880d47@suse.com>
+	<1469533716.120686.281.camel@infradead.org>
 MIME-Version: 1.0
-In-Reply-To: <1560409.5vnWShrmDy@vostro.rjw.lan>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Type: TEXT/PLAIN; charset=US-ASCII
 Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Regression tracking
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] More useful types in the linux
+ kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,58 +34,45 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-(@Takashi & @Rafel: repost after subscribing to ksummit-discuss, 
-which is moderated for non-members :-/ )
 
-On 26.07.2016 22:36, Rafael J. Wysocki wrote:
-> > On Tuesday, July 26, 2016 04:31:28 PM Takashi Iwai wrote:
->> >> As this topic doesn't seem posted yet, let me pitch.
-> > I'm interested in this one.
-> > 
->> >> Until recently, we've had no regression tracking since Rafael stepped
->> >> down from the maintenance of regression list.
-> > There were other people trying to do that when I had stopped doing it, but
-> > they gave up eventually.
 
-Yeah, I guess that can easily happen sooner or later, because from what
-I can see it's a lot of manual and boring work that only now and then
-feels rewarding :-/
+On Tue, 26 Jul 2016, David Woodhouse wrote:
 
->> >> Now fortunately, Thorsten started gathering and posting the regression
->> >> reports on ML again, and this helps already a lot.
->> >>
->> >> Though, it immediately raised me a few things to be discussed:
->> >>
->> >> - How can we keep it rolling stably at this time?
->> >> - How can each developer / maintainer help or be involved better?
->> >> - Can we provide better services than only a plain text list on ML?
-> > I think it is possible, but it also depends on how much time the person
-> > who tracks regressions can spend on it.
+> On Fri, 2016-07-22 at 15:57 +0200, Hannes Reinecke wrote:
 > >
-> > It may be automated somewhat (from experience), but still involves quite a bit
-> > of manual work.
+> > > I guess that almost all functions return only a few possible error codes?
+> >
+> > Precisely. If we had a way of specifying "the return value is an errno
+> > with the possible values '0', '-EIO', and '-EINVAL'" that would be
+> > _so_ cool.
+>
+> And perpetually out of date. Because functions call through to *other*
+> functions which might return an errno outside the 'known' set.
 
-My rough plan after doing regression tracking for a few weeks now: Look
-a bit closer at patchwork and check if it can be adjusted to automate
-the boring parts of regression tracking. I have a mostly finished mail
-that has some more details on what got me thinking into that direction,
-but I'm on holiday till Friday and wanted to send it out once I'm home
-again.
+If you have a script to calculate it, it doesn't have to be perpetually
+out of date.  The problem is just the time to collect the information for
+the whole kernel.  It could be a good intern project.
 
->> >> Also, since the regression on stable trees was a hot topic:
->> >> - Should the regression tracking cover the stable trees?  How well
->> >>   does it scale?
-> > From experience, work needed grows linearly with the number of releases you
-> > are trying to track at the same time.  I've never tracked more than two or three
-> > (maybe) at a time IIRC, because of exactly that.
+julia
 
-Yeah, without more manpower or some automation (like bitkeeper/git made
-Linus scale better) it might lead to a quick burn out if one wants to
-track more then two releases.
-
-But OTOH I think it would be really good to track at least the latest
-stable tree, as quite a few people only start testing kernel versions
-like 4.7 once they got released. Sure, it's not as easy to revert
-changes after that point, but it worthwhile nevertheless afaics.
-
-Ciao, Thorsten
+>
+> Any why would you *want* to know the precise set of errnos that a
+> function might return, if not to deliberately code your error handling
+> non-defensively?
+>
+> I can understand wanting to distinguish between errors and non-errors
+> and ensure that the ranges cannot overlap. But IS_ERR_VALUE() typically
+> reserves the whole range to -4095 (-MAX_ERRNO) for that. And I don't
+> think we'd ever want to do anything different.
+>
+> In particular I don't want anyone ever saying "oh, -123 is a valid non-
+> error return but no other negative numbers are. But that's OK because
+> it'll never *actually* return an error of -ENOMEDIUM so there's no
+> ambiguity."
+>
+> Of course, that's a silly example... but it's precisely where it sounds
+> like you're going, from the above citation :)
+>
+> --
+> David Woodhouse                            Open Source Technology Centre
+> David.Woodhouse@intel.com                              Intel Corporation
