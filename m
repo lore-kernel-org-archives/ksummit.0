@@ -1,33 +1,34 @@
-Return-Path: <lurodriguez@suse.de>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9CA4A951
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 55ED8959
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 27 Jul 2016 18:57:51 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2FEA52C6
+	Wed, 27 Jul 2016 19:00:25 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id B83E62CA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 27 Jul 2016 18:57:51 +0000 (UTC)
-Date: Wed, 27 Jul 2016 20:57:48 +0200
-From: "Luis R. Rodriguez" <mcgrof@suse.com>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Message-ID: <20160727185748.GK5537@wotan.suse.de>
-References: <20150804152622.GY30479@wotan.suse.de>
+	Wed, 27 Jul 2016 19:00:24 +0000 (UTC)
+Message-ID: <1469646020.27356.97.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Andy Lutomirski <luto@amacapital.net>
+Date: Wed, 27 Jul 2016 15:00:20 -0400
+In-Reply-To: <CALCETrU5fckZxc_HtuQxGC-425uaQqXt9-Yk_C63yTPuBa863w@mail.gmail.com>
+References: <1469631987.27356.48.camel@HansenPartnership.com>
+	<20150804152622.GY30479@wotan.suse.de>
 	<1468612258.5335.0.camel@linux.vnet.ibm.com>
 	<1468612671.5335.5.camel@linux.vnet.ibm.com>
 	<20160716005213.GL30372@sirena.org.uk>
 	<1469544138.120686.327.camel@infradead.org>
-	<14209.1469636040@warthog.procyon.org.uk>
-	<1469636881.27356.70.camel@HansenPartnership.com>
-	<1469637367.27356.73.camel@HansenPartnership.com>
-	<20160727172055.GE5537@wotan.suse.de>
-	<1469641875.27356.92.camel@HansenPartnership.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1469641875.27356.92.camel@HansenPartnership.com>
+	<13539.1469633840@warthog.procyon.org.uk>
+	<1469636088.27356.60.camel@HansenPartnership.com>
+	<CALCETrU5fckZxc_HtuQxGC-425uaQqXt9-Yk_C63yTPuBa863w@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 Cc: Mark Brown <broonie@sirena.org.uk>,
-	ksummit-discuss@lists.linuxfoundation.org
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] Last minute nominations: mcgrof and toshi
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -38,28 +39,72 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Jul 27, 2016 at 01:51:15PM -0400, James Bottomley wrote:
-> On Wed, 2016-07-27 at 19:20 +0200, Luis R. Rodriguez wrote:
-> > > As an aside to the aside, perhaps we want the .builtin_trusted_keys 
-> > > to be mutable up to the point the kernel finishes init and then
-> > > immutable after.  That would allow us to update it from the initrd 
-> > > if the composition of the secure boot keys was in question.
+On Wed, 2016-07-27 at 10:57 -0700, Andy Lutomirski wrote:
+> On Wed, Jul 27, 2016 at 9:14 AM, James Bottomley
+> <James.Bottomley@hansenpartnership.com> wrote:
+> > On Wed, 2016-07-27 at 16:37 +0100, David Howells wrote:
+> > > James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
+> > > 
+> > > >    3. Integration with existing key management infrastructures.
+> > > >   The issue
+> > > >       here is things like the gnome keyring and the TPM.  The
+> > > > TPM is a
+> > > >       particularly thorny problem: as a key store, the TPM has
+> > > > a very
+> > > >       limited storage space, so something has effectively to
+> > > > swap keys in
+> > > >       and out as they're used.  This function is currently
+> > > > performed by a
+> > > >       userspace stack called the TSS.  However, the kernel use
+> > > > of the TPM
+> > > >       effectively steals the nvram resource behind the
+> > > > manager's back and
+> > > >       can lead to resource starvation issues in the TPM and
+> > > > unexpected
+> > > >       responses back to the user space TSS.  If the kernel
+> > > > wants to use
+> > > >       TPM keys, it needs either to request them properly from
+> > > > the TSS or
+> > > >       we need to pull TPM key management fully into the kernel
+> > > > and make
+> > > >       the TSS use it.
+> > > 
+> > > I have partial patches for this, but they're against an old, pre
+> > > -tpm2 version
+> > > of the kernel and need updating.  They expose TPM keys as a
+> > > subtype of the
+> > > asymmetric key type.
 > > 
-> > Are you aware of other similar uses before ?
+> > Heh, you really know how to poke a sore spot, since we effectively
+> > have
+> > two TSSs in Linux: trousers the TPM 1.1 and 1.2 compatible one and
+> > ibmtpm20tss for TPM 2.0.  I don't think we have an answer on how we
+> > make them work compatibly.  I'm sort of hoping to get some
+> > coherence in
+> > the TPM Microconference at Plumbers
+> > 
+> > http://www.linuxplumbersconf.org/2016/ocw/events/LPC2016/tracks/585
+> > 
+> > However, if we do an upcall to the TSS, then we can't use TPM keys
+> > in
+> > the pre-boot and have difficulty using them in initrd environments,
+> > which seems like it might cause problems.
+> > 
 > 
-> Similar uses of what?
-> 
-> Runtime immutable but boot time mutable?  Yes, it's the UEFI variable
-> lock protocol.
-> 
-> Not wanting to put Microsoft keys in the immutable trusted keyring? No,
-> it was just a suspicion based on how I'd feel if my secure boot system
-> still had a MS key.
+> I think this nuts.  The kernel should arbitrate use of the TPM's key
+> slots and handle context switching.  Doing it in userspace is a
+> terrible idea for this and other reasons.
 
-I'm currently generalizing some APIs for custom section uses, and
-this may be one use case to generalize further. If this is done 
-per variable rather than per section, that's different though. Of
-course we may still want this done per section instead, up to
-implementation.
+Hey, I don't disagree, but the user space TSS would have to be updated
+as well if we did this.  Right at the moment, the tpmd in the kernel is
+a straight TPM command pass through.  We'd need a more complex
+interface if the kernel is actually going to manage TPM key slots.  I
+think it means quite a big code change, both in the kernel and for the
+new interface and for the TSS.
 
-  Luis
+Anyway, I put it on the proposed agenda for the Plumbers TPM
+discussions:
+
+http://wiki.linuxplumbersconf.org/2016:tpms
+
+James
