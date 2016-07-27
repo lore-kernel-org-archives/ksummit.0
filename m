@@ -1,31 +1,29 @@
-Return-Path: <mcgrof@gmail.com>
+Return-Path: <dvhart@infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 59D2F955
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5D5EB8FC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 27 Jul 2016 16:50:26 +0000 (UTC)
-Received: from mail-yw0-f194.google.com (mail-yw0-f194.google.com
-	[209.85.161.194])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D801C1BC
+	Wed, 27 Jul 2016 16:52:46 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B8693244
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 27 Jul 2016 16:50:24 +0000 (UTC)
-Received: by mail-yw0-f194.google.com with SMTP id r9so4171050ywg.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 27 Jul 2016 09:50:24 -0700 (PDT)
+	Wed, 27 Jul 2016 16:52:45 +0000 (UTC)
+Date: Wed, 27 Jul 2016 09:52:42 -0700
+From: Darren Hart <dvhart@infradead.org>
+To: Jason Cooper <jason@lakedaemon.net>
+Message-ID: <20160727165242.GB2565@f23x64.localdomain>
+References: <20160727044631.GA75806@f23x64.localdomain>
+	<CACRpkdZmXsYGBTP=AntbHts=ZfuG_HuPMi=5s+bQHZuLmQK10Q@mail.gmail.com>
+	<20160727134602.GO4541@io.lakedaemon.net>
 MIME-Version: 1.0
-Sender: mcgrof@gmail.com
-From: "Luis R. Rodriguez" <mcgrof@suse.com>
-Date: Wed, 27 Jul 2016 09:50:04 -0700
-Message-ID: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
-To: ksummit-discuss@lists.linuxfoundation.org
-Content-Type: text/plain; charset=UTF-8
-Cc: "rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
-	Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
-	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
-	Valentin Rothberg <valentinrothberg@gmail.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies and
-	semantics (v2)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20160727134602.GO4541@io.lakedaemon.net>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Nicolas Pitre <nico@fluxnic.net>
+Subject: Re: [Ksummit-discuss] Linux and Safety Industry reviews,
+	was: Self nomination
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,83 +33,103 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-(first e-mail bounced)
+On Wed, Jul 27, 2016 at 01:46:02PM +0000, Jason Cooper wrote:
+> Linus, Darren,
+> 
+> I'm also tangentially interested in this discussion from a security point
+> of view.  Failing in a deterministic way is a desirable trait in both
+> the security and safety industries.
 
-Rafael has proposed has a set of patches to help deal with functional
-dependencies between devices to help with power management. Mauro has
-spoken briefly before over the media controller feature graph used to help
-build relationship between complex dynamic dependencies. Dmitry has taken on
-to help enable asynchronous probe, however for built-in devices this requires
-very specific platform knowledge otherwise using async probe will blow up
-your kernel -- if you get it right though, using async probe can help with
-boot. Even if you sort things out well -- there are current limitations with
-ordering semantics available, case in point the x86 IOMMUs already have a small
-sort run which expand beyond the core init entries allowed, and on top of this
-the you still have device driver dependencies which are implicitly setting
-order via link order: consider the ordering between AMD IOMMUv1, AMD IOMMUv2,
-AMD KFD, and AMD radeon. This has made us realize that at the module front the
-current 2 levels of init calls limits our ordering semantics leaving only link
-order as a last measure when things are built-in. Likewise I've recently have
-had to look into dependency issues early in boot been due to differences
-between paravirtualization and non-PV kernels, this lead to some current work
-to help generalize custom section uses (linker tables) and then for us to
-consider expanding x86 semantics early in boot to address some of the
-shortcomings implicit by the some paravirtualized boot path.
+I'm considering proposing a tech topic, sounds like there may be sufficient
+interest.
 
-The goal behind Rafael's work's goal is essentially to avoid code duplication
-(as without doing that in the core many drivers potentially need to do the same
-thing in the same way) and help to address the asynchronous system
-suspend/resume case that cannot be addressed by any driver by itself anyway.
-The effort behind Rafael's, Mauro's, Dmitry's and my work are all independent
-however the patterns are very similar: addressing complex dependencies and
-relationships at run time and available semantics for these.
+> 
+> On Wed, Jul 27, 2016 at 11:25:52AM +0200, Linus Walleij wrote:
+> > On Wed, Jul 27, 2016 at 6:46 AM, Darren Hart <dvhart@infradead.org> wrote:
+> > 
+> > >   - Developing a "safety culture" and any overlap that may have with security
+> ...
+> > My loose thoughts on the issue is twofold:
+> > 
+> > - We will have an influx of professional safety reviewers that do not
+> >   share their review comments with us, instead apply fixes locally and
+> >   not upstream. This is potentially dangerous if the next reviewer for
+> >   a safety-critical system misses the same bug. 
+> 
+> I thought the safety reviewers were an independent third party?  Wouldn't
 
-This begs a few questions:
+Yes, the various German and Switzerland TUeV organizations for example.
 
- o Are there generic issues here ?
- o Are there generic solutions possible ?
- o What advanced techniques are out there to deal with this and how
-   are efforts in those domains going ?
+> the company attempting to get the product certified be the one making
+> the changes?
 
-As an example of taste for the last item, consider Vegard Nossum's involvement
-with a SAT solver (picosat) for AFL fuzzing with ext4 on built-in kernels --
-and the possibility to share some of the tools to address some of the
-dependencies here. As it stands kconfig's semantics are a bit of a mess, and
-in turn often tools have to do a bit of inference work due to some of this,
-part if this problem is one reason why current kconfig-sat efforts are a bit
-stalled.
+That's the traditional approach, but that is impractical for something as
+complex as Linux. Like most arguments for open source software, it behooves the
+industry to collaborate on the common needs, such as a compliance route, data
+package, evidences, and argumentation for the Linux kernel, glibc, and basic
+runtime environment. This is the goal of the OSADL SIL2LinuxMP project:
 
-Benefits for addressing some of these topics generally has quite a bit of
-uses in different domains:
+http://www.osadl.org/SIL2LinuxMP.sil2-linux-project.0.html
 
-  o Speeding up boot time
-  o Avoiding dead code, or correctness
-  o Shrinking kernel size
+> 
+> Regardless, identifying these third party reviewers and asking them to
+> 'Cc linux-safety@v.k.o' or similar on bugs they find may be a good place
+> to start.  The trick is increasing our awareness of bugs with the least
+> impact to their workflow.
 
-This is a pretty generally broad topic, and it does cross subsystems,
-I'm proposing it as a TECH TOPIC given that I had already poked Dmitry,
-Mauro, and Rafael in February this year about a LPC microconference
-about this sort of stuff as I thought that would have been a better venue --
-however even early then (February !) it seems they were busy with existing LPC
-microconferences. I recently poked them and they seem to agree discussing this
-somehow at KS would be good. Due to existing time constraints at LPC, but given
-most interested folks may be at KS or Plumbers, it'd be good to use shared time
-at KS and LPC to get folks to organize ideas, problems, and solutions and in a
-more adhoc manner, and then enable organically folks interested to organize and
-discuss short term and long term roadmaps on respective work items. Its unclear
-yet if there is a very CORE TOPIC here -- my guess would be that if there were
-we'd find out at the next KS, but not this one. A workshop for this might
-help.
+This sounds like a good idea to me, I'll discuss with the OSADL safety
+coordinator and see if he has any concerns.
 
-Folks required to help with these topics:
+> 
+> We would also need to anticipate that a significant number of those
+> reports would be located in non-upstreamed vendor drivers/features.
 
-  o Dmitry Torokhov <dmitry.torokhov@gmail.com> (async probe)
-  o "Rafael J. Wysocki" <rafael.j.wysocki@intel.com> (functional dependencies)
-  o Marek Szyprowski <m.szyprowski@samsung.com> (taking on some of
-Rafael's previous work)
-  o Mauro Carvalho Chehab <mchehab@osg.samsung.com> (feature graph)
-  o Vegard Nossum <vegard.nossum@gmail.com> (SAT)
-  o Valentin Rothberg <valentinrothberg@gmail.com>  (wary of some
-kconfig issues)
+Like bug against non-upstream drivers, there isn't anything we can really do
+there. Also, the compliance route for Linux will depend heavily on code that is
+upstream as the development process and requisite code review, static analysis,
+etc. is part of the evidence that will be used to complete the data package for
+qualification. Non-upstream code will not be able to use the same compliance
+route, and will most likely have to take a more traditional route.
 
-  Luis
+> 
+> > - Can we record external inspection-only code reviews done by these
+> >   independent code reviewers (post-minimization) into the kernel (etc) git?
+> >   That I guess is pretty useful for building formal trust for the code,
+> >   but I never heard of git annotations to some random code lines like
+> >   that.
+> 
+> How do they mark up $codebase currently?  It would be helpful to hear a
+> walk through of their typical workflow.
+
+I'll follow up.
+
+> 
+> > - Should minimization be a part of the kernel standard tooling for use
+> >   cases like this?
+> 
+
+Yes. A team at Hitachi is also working tooling which performs some preprocessing
+of the code to further minimize and remove used code. They are an active
+contributor to the SIL2LinuxMP project and presented their work at the
+Automotive Linux Summit in Japan earlier this month.
+
+> I think so.  This also has other benefits.  I've been putting some
+> thought towards "how to make the engineers job easier when justifying a
+> kernel update"  If a vendor has a minimal config for their current
+> version, I could imagine a 'git diff v4.6..v4.7 | ./scripts/configdiff
+> ...' that would trim the diff between two kernel versions down to only
+> the config-enabled code.  Bonus points for taking 'git log --oneline
+> v4.6..v4.7' output and trimming to relevant commits.
+> 
+> This would reduce hours needed to review the changes, help focus QA
+> testing, and quantify the benefits of upgrading.  All of which makes it
+> easier for vendors to update kernels instead of getting 'stuck'.
+> 
+> thx,
+> 
+> Jason.
+> 
+
+-- 
+Darren Hart
+Intel Open Source Technology Center
