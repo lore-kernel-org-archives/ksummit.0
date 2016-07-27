@@ -1,38 +1,30 @@
-Return-Path: <sergey.senozhatsky.work@gmail.com>
+Return-Path: <vinod.koul@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1CB4F94E
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id BFA4098F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 27 Jul 2016 01:16:38 +0000 (UTC)
-Received: from mail-pf0-f196.google.com (mail-pf0-f196.google.com
-	[209.85.192.196])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B12D615F
+	Wed, 27 Jul 2016 02:56:40 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 856D1276
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 27 Jul 2016 01:16:37 +0000 (UTC)
-Received: by mail-pf0-f196.google.com with SMTP id i6so824775pfe.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 26 Jul 2016 18:16:37 -0700 (PDT)
-Date: Wed, 27 Jul 2016 10:16:38 +0900
-From: Sergey Senozhatsky <sergey.senozhatsky.work@gmail.com>
-To: David Woodhouse <dwmw2@infradead.org>
-Message-ID: <20160727011638.GB431@swordfish>
-References: <20160719034717.GA24189@swordfish>
-	<535ebaec-1653-3077-d17b-feb847fd51d2@suse.com>
-	<578EF192.3050808@huawei.com>
-	<CALCETrUbuQjEAettvDStqEophng+1TNGDpueWDJ4QWLqiyaQ2w@mail.gmail.com>
-	<028967b8-6107-9d9c-453a-a7f25e967f70@suse.com>
-	<1469097065.120686.124.camel@infradead.org>
-	<CALCETrWKk8sLvgXwzu1RQnZRQ7f1f-+p53iJ7yasp_=zTnFDHQ@mail.gmail.com>
-	<1469544015.120686.324.camel@infradead.org>
-	<CALCETrUh9H+7a7Qoi-rbLztOSWg_Po0m6kH7GhKmqvJ+bVB6QQ@mail.gmail.com>
-	<1469577784.120686.373.camel@infradead.org>
+	Wed, 27 Jul 2016 02:56:39 +0000 (UTC)
+Date: Wed, 27 Jul 2016 08:34:06 +0530
+From: Vinod Koul <vinod.koul@intel.com>
+To: Olof Johansson <olof@lixom.net>
+Message-ID: <20160727030406.GU9681@localhost>
+References: <CAKMK7uEuqLLf2bCyB-sAuu5WvVA1Kp7Jvc33k3um5DfdQr4eyg@mail.gmail.com>
+	<CAOesGMiq5Q==Rg97VqmO-=HNYXz9ZA6iCDJ7sBa0tGzJVuYs4g@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1469577784.120686.373.camel@infradead.org>
+In-Reply-To: <CAOesGMiq5Q==Rg97VqmO-=HNYXz9ZA6iCDJ7sBa0tGzJVuYs4g@mail.gmail.com>
 Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] asynchronous printk
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Dave Airlie <airlied@linux.ie>, "Nikula,
+	Jani" <jani.nikula@linux.intel.com>,
+	Grant Likely <grant.likely@linaro.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] (group) maintainership models
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -42,25 +34,41 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On (07/27/16 01:03), David Woodhouse wrote:
-[..]
-> And if you spew *everything* on panic to a limited output like the
-> bootx or VGA text-mode console, you might find that the KERN_DEBUG
-> messages obscure what actually happened, which would be visible if you
-> only printed KERN_NOTICE and above...
+On Tue, Jul 26, 2016 at 09:45:35AM -0700, Olof Johansson wrote:
+> Hi,
+> 
+> On Wed, Jul 20, 2016 at 5:11 AM, Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
+> > But I think the more interesting bits are why I decided to try this
+> > out, what I hoped would happen, what I feared might happen. And with 1
+> > year of experience, what actually happens and what I think is needed
+> > to make this work and an actual benefit over more traditional
+> > maintainer models. And of course I'd like to compare notes with other
+> > group maintainers.
+> 
+> Very interested in participating here, for obvious reasons -- learning
+> from others how we can do things even better as well as sharing how
+> things are working for us, 5 years into the endeavor.
 
-yes, limited output is a problem on its own. sometimes backtrace is just too
-big and even critical messages don't fit. I ended up once forcing panic() to
-re-print that "bug at __FILE__, __LINE__, __func__" at the bottom of panic
-output. schematically, something like this:
+Am interested in this discussion as well for very obvious reasons
 
- #define BUG() do { \
--       printk("BUG: failure at %s:%d/%s()!\n", __FILE__, __LINE__, __func__); \
--       panic("BUG!"); \
-+       panic("BUG: failure at %s:%d/%s()!\n", __FILE__, __LINE__, __func__); \
- } while (0)
+> One thing we're low on for arm-soc is tooling, I know the x86 guys
+> have quite a bit more than we do in this area, so ideas on what we can
+> do to make our own lives easier is valuable.
 
-and pr_emerg() that string in panic() instead of atomic_notifier_call_chain()
-output.
+Okay one of the gripes I have is that it is a bit hard to compile arm
+drivers. I regularly compile all drivers in subsystem I maintain and arm
+ones are not always straightforward. Figuring our which config to use
+for compile testing involves a bit of time, which I would like to avoid.
 
-	-ss
+Having said that stuff like multi_xx_defconfig has improved a bit and
+seem to be in right direction (not an expert at arm arch's) but doesn't
+seem to cover all. Right now I am manually maintaining 4 different arm
+configs to compile test all the drivers in dmaengine subsystem which
+isn't a very big subsystem. For other arch's it is one config per
+subsystem.
+
+So if you have suggestions to improve my flow, I would like to hear
+that, maybe I am doing something not right here...
+
+-- 
+~Vinod
