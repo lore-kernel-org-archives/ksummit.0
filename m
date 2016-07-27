@@ -1,29 +1,28 @@
-Return-Path: <arnd@arndb.de>
+Return-Path: <linus.walleij@linaro.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id EDE9E94F
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A66738FC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 27 Jul 2016 07:53:39 +0000 (UTC)
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.133])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E83491EE
+	Wed, 27 Jul 2016 09:26:09 +0000 (UTC)
+Received: from mail-oi0-f43.google.com (mail-oi0-f43.google.com
+	[209.85.218.43])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0682F20C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 27 Jul 2016 07:53:38 +0000 (UTC)
-From: Arnd Bergmann <arnd@arndb.de>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Wed, 27 Jul 2016 09:53:24 +0200
-Message-ID: <17304523.rVA3ueAWN9@wuerfel>
-In-Reply-To: <20160727030406.GU9681@localhost>
-References: <CAKMK7uEuqLLf2bCyB-sAuu5WvVA1Kp7Jvc33k3um5DfdQr4eyg@mail.gmail.com>
-	<CAOesGMiq5Q==Rg97VqmO-=HNYXz9ZA6iCDJ7sBa0tGzJVuYs4g@mail.gmail.com>
-	<20160727030406.GU9681@localhost>
+	Wed, 27 Jul 2016 09:26:08 +0000 (UTC)
+Received: by mail-oi0-f43.google.com with SMTP id l65so9415737oib.1
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 27 Jul 2016 02:26:08 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-Cc: "Nikula, Jani" <jani.nikula@linux.intel.com>,
-	Dave Airlie <airlied@linux.ie>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Grant Likely <grant.likely@linaro.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] (group) maintainership models
+In-Reply-To: <20160727044631.GA75806@f23x64.localdomain>
+References: <20160727044631.GA75806@f23x64.localdomain>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Wed, 27 Jul 2016 11:25:52 +0200
+Message-ID: <CACRpkdZmXsYGBTP=AntbHts=ZfuG_HuPMi=5s+bQHZuLmQK10Q@mail.gmail.com>
+To: Darren Hart <dvhart@infradead.org>, Nicolas Pitre <nico@fluxnic.net>
+Content-Type: text/plain; charset=UTF-8
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] Self nomination
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,43 +32,62 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wednesday, July 27, 2016 8:34:06 AM CEST Vinod Koul wrote:
-> > One thing we're low on for arm-soc is tooling, I know the x86 guys
-> > have quite a bit more than we do in this area, so ideas on what we can
-> > do to make our own lives easier is valuable.
-> 
-> Okay one of the gripes I have is that it is a bit hard to compile arm
-> drivers. I regularly compile all drivers in subsystem I maintain and arm
-> ones are not always straightforward. Figuring our which config to use
-> for compile testing involves a bit of time, which I would like to avoid.
-> 
-> Having said that stuff like multi_xx_defconfig has improved a bit and
-> seem to be in right direction (not an expert at arm arch's) but doesn't
-> seem to cover all. Right now I am manually maintaining 4 different arm
-> configs to compile test all the drivers in dmaengine subsystem which
-> isn't a very big subsystem. For other arch's it is one config per
-> subsystem.
-> 
-> So if you have suggestions to improve my flow, I would like to hear
-> that, maybe I am doing something not right here...
+On Wed, Jul 27, 2016 at 6:46 AM, Darren Hart <dvhart@infradead.org> wrote:
 
-We should be at the point where an 'allmodconfig' build on ARM
-gets you most of the drivers and builds without warnings (using
-gcc-4.9 or higher).
+>   - Developing a "safety culture" and any overlap that may have with security
 
-It will take a while to do the entire 'allmodconfig' build but
-it's something that can be done as a background task.
+Do you mean safety as in "Linux in airbags and smoke detectors"?
 
-One thing that we should still do is figure out which ARM specific
-drivers are not included in allmodconfig and find a way to include
-them too. Most platforms are compatible with a 'multiplatform'
-setup (those that are not very rarely see patches at all and are
-less likely to break), but allmodconfig will only include ARMv6
-and ARMv7 based platforms, not ARMv4/ARMv4T/ARMv5. I've thought
-about adding '|| COMPILE_TEST' dependencies to the platforms
-with ARMv4/5 CPUs to have everything included in allmodconfig, but
-I haven't actually tied that and I'm sure we'd see a lot of
-build failures for correct code at first that we'd have to fix up
-to make it work.
+This area is interesting for GPIO and IIO as well for natural reasons:
+these systems all tend to use GPIO and sensors. (Albeit more often
+than not with some horrific userspace hodge-podge but this is not the
+time to be grumpy about that.)
 
-	Arnd
+This presentation appeared at LinuxCon Japan (got the link from
+my colleague Takahiro Akashi):
+
+Qualifying Linux for Functional Safety
+http://events.linuxfoundation.org/sites/events/files/slides/20160713_SIL2LinuxMP_Min_ALS_0.9_pub.pdf
+
+I have been in contact with a Swedish company working in the fire alarm
+business as well.
+
+My overall feeling is that world regulations (standards) on safety-critical
+software seem to be centered around code inspection.
+
+These regulations approach is not to trust any third party but have all
+code inspected by independent reviewers for functional safety. All the
+time. For every new deployment. Kernel, libc, busybox userspace.
+(Or whatever they use.)
+
+Thus Hitachi developed this minimizing stripping out all not-compiled code
+and #ifdefs etc too to get down the code size they have to manually inspect
+to a minimum. (It easily translates into work hours.)
+
+My loose thoughts on the issue is twofold:
+
+- We will have an influx of professional safety reviewers that do not
+  share their review comments with us, instead apply fixes locally and
+  not upstream. This is potentially dangerous if the next reviewer for
+  a safety-critical system misses the same bug. (Not to say unethical
+  vs the community but I have come to understand that some people
+  out there do not care about that.) So we need to send a message to
+  the safety-critical industry that any issues found in such safety
+  inspections need to go upstream pronto. No vendor tree:ing of this.
+
+- Can we record external inspection-only code reviews done by these
+  independent code reviewers (post-minimization) into the kernel (etc) git?
+  That I guess is pretty useful for building formal trust for the code,
+  but I never heard of git annotations to some random code lines like
+  that.
+
+- Should minimization be a part of the kernel standard tooling for use
+  cases like this?
+
+Incidentally that may overlap with the footprint minimizing goal: if you can
+configure code out (such as the modular syscalls things that Nico has
+been working on), that makes this kind of code minimization easier and
+may employ similar tooling.
+
+Yours,
+Linus Walleij
