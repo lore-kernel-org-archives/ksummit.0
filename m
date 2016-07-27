@@ -1,26 +1,25 @@
-Return-Path: <vinod.koul@intel.com>
-Date: Wed, 27 Jul 2016 10:06:45 +0530
-From: Vinod Koul <vinod.koul@intel.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-Message-ID: <20160727043645.GZ9681@localhost>
-References: <20160709000631.GB8989@io.lakedaemon.net>
-	<1468024946.2390.21.camel@HansenPartnership.com>
-	<alpine.LNX.2.00.1607091039550.24757@cbobk.fhfr.pm>
-	<20160709093626.GA6247@sirena.org.uk>
-	<20160710162203.GA9681@localhost>
-	<20160710170117.GI26097@thunk.org>
-	<20160711050000.GC9681@localhost>
-	<20160711051335.GQ26097@thunk.org>
-	<20160711141833.GK9681@localhost>
-	<20160726231242.7c993900@grimm.local.home>
+Return-Path: <dvhart@infradead.org>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5E0AB955
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 27 Jul 2016 04:46:33 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 156CB1A9
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 27 Jul 2016 04:46:33 +0000 (UTC)
+Received: from dvhart by bombadil.infradead.org with local (Exim 4.85_2 #1
+	(Red Hat Linux)) id 1bSGjo-0008Du-Hs
+	for ksummit-discuss@lists.linuxfoundation.org;
+	Wed, 27 Jul 2016 04:46:32 +0000
+Date: Tue, 26 Jul 2016 21:46:31 -0700
+From: Darren Hart <dvhart@infradead.org>
+To: ksummit-discuss@lists.linuxfoundation.org
+Message-ID: <20160727044631.GA75806@f23x64.localdomain>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20160726231242.7c993900@grimm.local.home>
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	ksummit-discuss@lists.linux-foundation.org,
-	Jason Cooper <jason@lakedaemon.net>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
+Subject: [Ksummit-discuss] Self nomination
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,21 +29,26 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Jul 26, 2016 at 11:12:42PM -0400, Steven Rostedt wrote:
-> On Mon, 11 Jul 2016 19:48:34 +0530
-> Vinod Koul <vinod.koul@intel.com> wrote:
-> 
-> > But the person might be slightly better off than you or me :-)
-> > 
-> 
-> I still believe that it comes down to the maintainer making the final
-> decision about marking a patch as stable. If they don't have the
-> hardware to test it, then they should then ask the patch submitter to
-> test for stable. If the submitter doesn't want to for whatever reason,
-> then that patch simply shouldn't be marked for stable.
+I'd like to self nominate for this kernel summit this year.
 
-Agreed, that's the reason I was asking if we should ask submitters. But
-looks like that adds a cost which no one wants to be burdened with!
+I'm the platform-drivers-x86 maintainer, and am interested in discussions
+regarding:
+
+  - maintainer group process and tooling
+  - easing the non-kernel-code barriers to contribution
+    (eliminating "mechanical failures")
+
+I'm involved with various efforts around Real-Time and Safety Critical Linux and
+would be interested in discussions around:
+
+  - Upstreaming PREEMPT_RT
+  - Developing a "safety culture" and any overlap that may have with security
+
+Finally, as part of my platform enabling responsibilities, I'm interested in any
+developments in the stable process.
+
+Regards,
 
 -- 
-~Vinod
+Darren Hart
+Intel Open Source Technology Center
