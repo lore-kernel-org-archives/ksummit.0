@@ -1,32 +1,35 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 56E7A955
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id CB8BE954
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 27 Jul 2016 17:26:50 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A3A06240
+	Wed, 27 Jul 2016 17:51:18 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 37E83265
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 27 Jul 2016 17:26:49 +0000 (UTC)
-Date: Wed, 27 Jul 2016 18:26:36 +0100
-From: Mark Brown <broonie@kernel.org>
+	Wed, 27 Jul 2016 17:51:18 +0000 (UTC)
+Message-ID: <1469641875.27356.92.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
 To: "Luis R. Rodriguez" <mcgrof@suse.com>
-Message-ID: <20160727172636.GM11806@sirena.org.uk>
-References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="Jtds+vpI57xq70EV"
-Content-Disposition: inline
-In-Reply-To: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
-	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
-	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Valentin Rothberg <valentinrothberg@gmail.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
- and semantics (v2)
+Date: Wed, 27 Jul 2016 13:51:15 -0400
+In-Reply-To: <20160727172055.GE5537@wotan.suse.de>
+References: <1469631987.27356.48.camel@HansenPartnership.com>
+	<20150804152622.GY30479@wotan.suse.de>
+	<1468612258.5335.0.camel@linux.vnet.ibm.com>
+	<1468612671.5335.5.camel@linux.vnet.ibm.com>
+	<20160716005213.GL30372@sirena.org.uk>
+	<1469544138.120686.327.camel@infradead.org>
+	<14209.1469636040@warthog.procyon.org.uk>
+	<1469636881.27356.70.camel@HansenPartnership.com>
+	<1469637367.27356.73.camel@HansenPartnership.com>
+	<20160727172055.GE5537@wotan.suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Cc: Mark Brown <broonie@sirena.org.uk>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] Last minute nominations: mcgrof and toshi
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,69 +39,74 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Wed, 2016-07-27 at 19:20 +0200, Luis R. Rodriguez wrote:
+> On Wed, Jul 27, 2016 at 12:36:07PM -0400, James Bottomley wrote:
+> > On Wed, 2016-07-27 at 12:28 -0400, James Bottomley wrote:
+> > > On Wed, 2016-07-27 at 17:14 +0100, David Howells wrote:
+> > > > James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
+> > > > 
+> > > > >    1. Population and update policy: How should we populate
+> > > > > the default
+> > > > >       keyrings and revocation lists?  Should we have a built
+> > > > > in list of
+> > > > >       absolute trust that can never be added to? I think the
+> > > > > current
+> > > > >       default here is OK: it's populate with the kernel built
+> > > > > in keys and
+> > > > >       nothing else.  If userspace wants to populate with,
+> > > > > say, the secure
+> > > > >       boot keys, then it can do so from init.  An issue here
+> > > > > is the
+> > > > >       Microsoft signing key, which most Linux people have but
+> > > > > which they
+> > > > >       wouldn't necessarily consider to be a source of
+> > > > > absolute trust. 
+> > > > >        However, third party driver vendors would like a way
+> > > > > to get their
+> > > > >       key trusted by the kernel so they can easily supply
+> > > > > modules (This
+> > > > >       isn't a binary module issue: the code is usually GPL,
+> > > > > but the
+> > > > >       vendors would like to supply updates asynchronously to
+> > > > > the distro
+> > > > >       release cycle).  We can say their key should be added
+> > > > > as part of the
+> > > > >       rpm that installs the module, but do users really want
+> > > > > this key
+> > > > >       adding to the default keyring to be trusted for non
+> > > > > -module
+> > > > >       operations?
+> > > > 
+> > > > I have patches that allow the UEFI key and blacklist databases 
+> > > > to add to the kernel keyrings during boot.
+> > > > 
+> > > > We don't want to permit loading a key from a file once the 
+> > > > kernel is booted unless that key is signed by a key already in 
+> > > > the keyrings.
+> > > 
+> > > This is a policy discussion we should have.  If you populate the
+> > > immutable .builtin_trusted_keys keyring with the secure boot 
+> > > keys, most people will end up with a Microsoft key in their 
+> > > keyring (and possibly even some random motherboard vendor ODM 
+> > > key) which they can't remove.  I thought the idea was to use the
+> > > .secondary_trusted_keys keyring which is mutable?  That way we 
+> > > can have policy in userspace select which secure boot keys we 
+> > > might like to trust.
+> > 
+> > As an aside to the aside, perhaps we want the .builtin_trusted_keys 
+> > to be mutable up to the point the kernel finishes init and then
+> > immutable after.  That would allow us to update it from the initrd 
+> > if the composition of the secure boot keys was in question.
+> 
+> Are you aware of other similar uses before ?
 
---Jtds+vpI57xq70EV
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Similar uses of what?
 
-On Wed, Jul 27, 2016 at 09:50:04AM -0700, Luis R. Rodriguez wrote:
+Runtime immutable but boot time mutable?  Yes, it's the UEFI variable
+lock protocol.
 
-> Rafael has proposed has a set of patches to help deal with functional
-> dependencies between devices to help with power management. Mauro has
+Not wanting to put Microsoft keys in the immutable trusted keyring? No,
+it was just a suspicion based on how I'd feel if my secure boot system
+still had a MS key.
 
-This wasn't purely for PM, it should also help with probe ordering
-(hopefully).
-
-> spoken briefly before over the media controller feature graph used to help
-> build relationship between complex dynamic dependencies. Dmitry has taken on
-
-> to help enable asynchronous probe, however for built-in devices this requires
-> very specific platform knowledge otherwise using async probe will blow up
-> your kernel -- if you get it right though, using async probe can help with
-
-I'm not sure what specific platform knowledge you're thinking of here?
-We have coverage for most things in the form of deferred probe (messy
-though it is).
-
-> This begs a few questions:
-
->  o Are there generic issues here ?
->  o Are there generic solutions possible ?
->  o What advanced techniques are out there to deal with this and how
->    are efforts in those domains going ?
-
-There's definitely a lot of overlap in the runtime PM and probe parts of
-things, and the various composite devices (media controller, ASoC and so
-on) also share a lot.
-
-> Folks required to help with these topics:
-
->   o Dmitry Torokhov <dmitry.torokhov@gmail.com> (async probe)
->   o "Rafael J. Wysocki" <rafael.j.wysocki@intel.com> (functional dependencies)
->   o Marek Szyprowski <m.szyprowski@samsung.com> (taking on some of
-> Rafael's previous work)
->   o Mauro Carvalho Chehab <mchehab@osg.samsung.com> (feature graph)
->   o Vegard Nossum <vegard.nossum@gmail.com> (SAT)
->   o Valentin Rothberg <valentinrothberg@gmail.com>  (wary of some
-> kconfig issues)
-
-Probably worth me being involved as well, regulators seem to be among
-the devices with most visible PM related ordering issues since they are
-typically on slow buses and ASoC is all about composite devices.
-
---Jtds+vpI57xq70EV
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQEcBAEBCAAGBQJXmO7LAAoJECTWi3JdVIfQaZ4H/0RPZYyXefnFX0a8zXVlKG+t
-EO1Uj2HPYsejeEDWwH1uxrx0LkWWmvOc1uudxb0N8f0Z/K2B0QpPlEvo0CkNcff+
-+SB40NMlf7Boj9AeJf3Dl/OMqGKFsJzIHKkhzGRwgLsgwDb9q1BVaZ+MUGUUwaDV
-YIbyqXp7UuOdlBVzBPf3dtyoCzsYnVTqPpZA25r7sg1oaQS1wCa5MBFBlHDcgg8U
-Swn0BMQKmXXbX6IZ8iLw+Pt3ytkQ9ql0hM/jOtD2SmlkPMUo1k520irFqaenmAvY
-T8NZX5kU5Wd5Ir8nUsKzSWRDDIL2eo5Q/S7OMi1va3VeME+/B/MoTwpEKvuK6mM=
-=Qmuh
------END PGP SIGNATURE-----
-
---Jtds+vpI57xq70EV--
+James
