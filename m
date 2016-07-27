@@ -1,38 +1,32 @@
-Return-Path: <Tim.Bird@am.sony.com>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9CEB2957
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 56E7A955
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 27 Jul 2016 17:21:42 +0000 (UTC)
-Received: from NAM03-DM3-obe.outbound.protection.outlook.com
-	(mail-dm3nam03on0114.outbound.protection.outlook.com [104.47.41.114])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DDC40286
+	Wed, 27 Jul 2016 17:26:50 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A3A06240
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 27 Jul 2016 17:21:41 +0000 (UTC)
-From: "Bird, Timothy" <Tim.Bird@am.sony.com>
-To: David Woodhouse <dwmw2@infradead.org>, James Bottomley
-	<James.Bottomley@HansenPartnership.com>,
-	Julia Lawall <julia.lawall@lip6.fr>
-Date: Wed, 27 Jul 2016 17:21:34 +0000
-Message-ID: <ECADFF3FD767C149AD96A924E7EA6EAF053B96B4@USCULXMSG02.am.sony.com>
-References: <87inw1skws.fsf@x220.int.ebiederm.org>
-	<25598.1469113525@warthog.procyon.org.uk>
-	<18158a39-1297-7368-3c0e-3e9b3ce2c3ab@suse.com>
-	<alpine.DEB.2.10.1607220808110.3114@hadrien>
-	<b3390bd5-eb54-428a-3030-1d7289880d47@suse.com>
-	<1469533716.120686.281.camel@infradead.org>
-	<alpine.DEB.2.10.1607271439250.3117@hadrien>
-	<1469625916.27356.18.camel@HansenPartnership.com>
-	<1469626423.120686.408.camel@infradead.org>
-In-Reply-To: <1469626423.120686.408.camel@infradead.org>
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	Wed, 27 Jul 2016 17:26:49 +0000 (UTC)
+Date: Wed, 27 Jul 2016 18:26:36 +0100
+From: Mark Brown <broonie@kernel.org>
+To: "Luis R. Rodriguez" <mcgrof@suse.com>
+Message-ID: <20160727172636.GM11806@sirena.org.uk>
+References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
 MIME-Version: 1.0
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] More useful types in the linux
- kernel
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="Jtds+vpI57xq70EV"
+Content-Disposition: inline
+In-Reply-To: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
+	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
+	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Valentin Rothberg <valentinrothberg@gmail.com>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
+ and semantics (v2)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -42,45 +36,69 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbToga3N1bW1pdC1kaXNjdXNz
-LWJvdW5jZXNAbGlzdHMubGludXhmb3VuZGF0aW9uLm9yZyBbbWFpbHRvOmtzdW1taXQtDQo+IGRp
-c2N1c3MtYm91bmNlc0BsaXN0cy5saW51eGZvdW5kYXRpb24ub3JnXSBPbiBCZWhhbGYgT2YgRGF2
-aWQgV29vZGhvdXNlDQo+IFNlbnQ6IFdlZG5lc2RheSwgSnVseSAyNywgMjAxNiA1OjM0IEFNDQo+
-IFRvOiBKYW1lcyBCb3R0b21sZXkgPEphbWVzLkJvdHRvbWxleUBIYW5zZW5QYXJ0bmVyc2hpcC5j
-b20+OyBKdWxpYSBMYXdhbGwNCj4gPGp1bGlhLmxhd2FsbEBsaXA2LmZyPg0KPiBDYzoga3N1bW1p
-dC1kaXNjdXNzQGxpc3RzLmxpbnV4Zm91bmRhdGlvbi5vcmcNCj4gU3ViamVjdDogUmU6IFtLc3Vt
-bWl0LWRpc2N1c3NdIFtDT1JFIFRPUElDXSBNb3JlIHVzZWZ1bCB0eXBlcyBpbiB0aGUgbGludXgN
-Cj4ga2VybmVsDQo+IA0KPiBPbiBXZWQsIDIwMTYtMDctMjcgYXQgMDk6MjUgLTA0MDAsIEphbWVz
-IEJvdHRvbWxleSB3cm90ZToNCj4gPiBPbiBXZWQsIDIwMTYtMDctMjcgYXQgMTQ6NDAgKzAyMDAs
-IEp1bGlhIExhd2FsbCB3cm90ZToNCj4gPiA+DQo+ID4gPiBPbiBUdWUsIDI2IEp1bCAyMDE2LCBE
-YXZpZCBXb29kaG91c2Ugd3JvdGU6DQo+ID4gPg0KPiA+ID4gPiBPbiBGcmksIDIwMTYtMDctMjIg
-YXQgMTU6NTcgKzAyMDAsIEhhbm5lcyBSZWluZWNrZSB3cm90ZToNCj4gPiA+ID4gPg0KPiA+ID4g
-PiA+ID4gSSBndWVzcyB0aGF0IGFsbW9zdCBhbGwgZnVuY3Rpb25zIHJldHVybiBvbmx5IGEgZmV3
-IHBvc3NpYmxlDQo+ID4gPiA+ID4gPiBlcnJvciBjb2Rlcz8NCj4gPiA+ID4gPg0KPiA+ID4gPiA+
-IFByZWNpc2VseS4gSWYgd2UgaGFkIGEgd2F5IG9mIHNwZWNpZnlpbmcgInRoZSByZXR1cm4gdmFs
-dWUgaXMgYW4NCj4gPiA+ID4gPiBlcnJubyB3aXRoIHRoZSBwb3NzaWJsZSB2YWx1ZXMgJzAnLCAn
-LUVJTycsIGFuZCAnLUVJTlZBTCciIHRoYXQNCj4gPiA+ID4gPiB3b3VsZCBiZSBfc29fIGNvb2wu
-DQo+ID4gPiA+DQo+ID4gPiA+IEFuZCBwZXJwZXR1YWxseSBvdXQgb2YgZGF0ZS4gQmVjYXVzZSBm
-dW5jdGlvbnMgY2FsbCB0aHJvdWdoIHRvDQo+ID4gPiA+ICpvdGhlciogZnVuY3Rpb25zIHdoaWNo
-IG1pZ2h0IHJldHVybiBhbiBlcnJubyBvdXRzaWRlIHRoZSAna25vd24nDQo+ID4gPiA+IHNldC4N
-Cj4gPiA+DQo+ID4gPiBJZiB5b3UgaGF2ZSBhIHNjcmlwdCB0byBjYWxjdWxhdGUgaXQsIGl0IGRv
-ZXNuJ3QgaGF2ZSB0byBiZQ0KPiA+ID4gcGVycGV0dWFsbHkgb3V0IG9mIGRhdGUuwqAgVGhlIHBy
-b2JsZW0gaXMganVzdCB0aGUgdGltZSB0byBjb2xsZWN0IHRoZQ0KPiA+ID4gaW5mb3JtYXRpb24g
-Zm9yIHRoZSB3aG9sZSBrZXJuZWwuwqAgSXQgY291bGQgYmUgYSBnb29kIGludGVybiBwcm9qZWN0
-Lg0KPiA+DQo+ID4gSXQncyBhIGxvdCBvZiBwYWluLCBmb3Igd2hhdCBnYWluP8KgIFdoYXQsIHBy
-YWN0aWNhbGx5IHdvdWxkIHdlIGdldCBhcyBhDQo+ID4gYmVuZWZpdCBpZiB3ZSBkaWQgdGhpcz/C
-oCBFdmVyeSB0aW1lIEkgc2VlIHByb3Bvc2FscyBhYm91dCBzY3JpcHRpbmcNCj4gPiBjaGVja3Mg
-aW4gdGhlIGtlcm5lbCwgSSdtIHJlbWluZGVkIG9mIG91ciBzZWN0aW9uIG1pc21hdGNoIGRlYmFj
-bGUuDQo+ID4gwqBMaWZlIGlzIHNvIG11Y2ggZWFzaWVyIHdpdGhvdXQgZXZlcnkga2VybmVsIHJl
-bGVhc2UgZ2VuZXJhdGluZyAxMDBzIG9mDQo+ID4gcGF0Y2hlcyB0cnlpbmcgdG8gY29ycmVjdCBz
-ZWN0aW9uIG1pc21hdGNoZXMgd2hpY2ggZGlkbid0IG1hdHRlciBpbiB0aGUNCj4gPiBmaXJzdCBw
-bGFjZSAuLi4NCj4gDQo+IFRvIGZpbmQgZnVuY3Rpb25zIHdoZXJlIHRoZSAtZXJybm8gcmV0dXJu
-cyBtaWdodCBiZSBhbWJpZ3VvdXMgd2l0aCByZWFsDQo+IHZhbGlkIHJldHVybiB2YWx1ZXMsIG1p
-Z2h0IGJlIGJlbmVmaWNpYWwuIElmIGl0IGRvZXNuJ3QgaGF2ZSB0b28gbWFueQ0KPiBmYWxzZSBw
-b3NpdGl2ZXMuDQoNCkl0IG1pZ2h0IGJlIHVzZWZ1bCB0byBoYXZlIGEgbGlzdCBvZiBwb3NzaWJs
-ZSBlcnJubyBnZW5lcmF0aW9uIHBvaW50cywgZm9yIGEgcGFydGljdWxhciByb3V0aW5lLA0KdG8g
-bWFrZSBpdCBlYXNpZXIgdG8gZmluZCB0aGUgb3JpZ2luIG9mIGEgcHJvYmxlbS4gIFNvbWV0aW1l
-cyB3aGVuIHlvdSdyZSB1bmZhbWlsaWFyIHdpdGgNCnNvbWUgYml0IG9mIGNvZGUsIG1hbnVhbGx5
-IHdhbGtpbmcgYmFjayB0aHJvdWdoIHRoZSBjYWxsIGNoYWluIGluIHRoZSBzb3VyY2UgaXMgYSBo
-YXNzbGUuDQpJJ20gcmVtaW5kZWQgb2YgdGhhdCB0cmljayB3aGVyZSBzb21lb25lIChJIGRvbid0
-IHJlY2FsbCB3aG8pIGVtYmVkZGVkIHRoZSBsaW5lIG51bWJlcg0KaW4gdGhlIGVycm5vLg0KDQo=
+
+--Jtds+vpI57xq70EV
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Wed, Jul 27, 2016 at 09:50:04AM -0700, Luis R. Rodriguez wrote:
+
+> Rafael has proposed has a set of patches to help deal with functional
+> dependencies between devices to help with power management. Mauro has
+
+This wasn't purely for PM, it should also help with probe ordering
+(hopefully).
+
+> spoken briefly before over the media controller feature graph used to help
+> build relationship between complex dynamic dependencies. Dmitry has taken on
+
+> to help enable asynchronous probe, however for built-in devices this requires
+> very specific platform knowledge otherwise using async probe will blow up
+> your kernel -- if you get it right though, using async probe can help with
+
+I'm not sure what specific platform knowledge you're thinking of here?
+We have coverage for most things in the form of deferred probe (messy
+though it is).
+
+> This begs a few questions:
+
+>  o Are there generic issues here ?
+>  o Are there generic solutions possible ?
+>  o What advanced techniques are out there to deal with this and how
+>    are efforts in those domains going ?
+
+There's definitely a lot of overlap in the runtime PM and probe parts of
+things, and the various composite devices (media controller, ASoC and so
+on) also share a lot.
+
+> Folks required to help with these topics:
+
+>   o Dmitry Torokhov <dmitry.torokhov@gmail.com> (async probe)
+>   o "Rafael J. Wysocki" <rafael.j.wysocki@intel.com> (functional dependencies)
+>   o Marek Szyprowski <m.szyprowski@samsung.com> (taking on some of
+> Rafael's previous work)
+>   o Mauro Carvalho Chehab <mchehab@osg.samsung.com> (feature graph)
+>   o Vegard Nossum <vegard.nossum@gmail.com> (SAT)
+>   o Valentin Rothberg <valentinrothberg@gmail.com>  (wary of some
+> kconfig issues)
+
+Probably worth me being involved as well, regulators seem to be among
+the devices with most visible PM related ordering issues since they are
+typically on slow buses and ASoC is all about composite devices.
+
+--Jtds+vpI57xq70EV
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQEcBAEBCAAGBQJXmO7LAAoJECTWi3JdVIfQaZ4H/0RPZYyXefnFX0a8zXVlKG+t
+EO1Uj2HPYsejeEDWwH1uxrx0LkWWmvOc1uudxb0N8f0Z/K2B0QpPlEvo0CkNcff+
++SB40NMlf7Boj9AeJf3Dl/OMqGKFsJzIHKkhzGRwgLsgwDb9q1BVaZ+MUGUUwaDV
+YIbyqXp7UuOdlBVzBPf3dtyoCzsYnVTqPpZA25r7sg1oaQS1wCa5MBFBlHDcgg8U
+Swn0BMQKmXXbX6IZ8iLw+Pt3ytkQ9ql0hM/jOtD2SmlkPMUo1k520irFqaenmAvY
+T8NZX5kU5Wd5Ir8nUsKzSWRDDIL2eo5Q/S7OMi1va3VeME+/B/MoTwpEKvuK6mM=
+=Qmuh
+-----END PGP SIGNATURE-----
+
+--Jtds+vpI57xq70EV--
