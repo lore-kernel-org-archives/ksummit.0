@@ -1,26 +1,29 @@
-Return-Path: <rostedt@goodmis.org>
-Date: Tue, 26 Jul 2016 23:12:42 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Vinod Koul <vinod.koul@intel.com>
-Message-ID: <20160726231242.7c993900@grimm.local.home>
-In-Reply-To: <20160711141833.GK9681@localhost>
-References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
-	<20160709000631.GB8989@io.lakedaemon.net>
-	<1468024946.2390.21.camel@HansenPartnership.com>
-	<alpine.LNX.2.00.1607091039550.24757@cbobk.fhfr.pm>
-	<20160709093626.GA6247@sirena.org.uk>
-	<20160710162203.GA9681@localhost>
-	<20160710170117.GI26097@thunk.org>
-	<20160711050000.GC9681@localhost>
-	<20160711051335.GQ26097@thunk.org>
-	<20160711141833.GK9681@localhost>
+Return-Path: <arnd@arndb.de>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id EDE9E94F
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 27 Jul 2016 07:53:39 +0000 (UTC)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.133])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E83491EE
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 27 Jul 2016 07:53:38 +0000 (UTC)
+From: Arnd Bergmann <arnd@arndb.de>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Wed, 27 Jul 2016 09:53:24 +0200
+Message-ID: <17304523.rVA3ueAWN9@wuerfel>
+In-Reply-To: <20160727030406.GU9681@localhost>
+References: <CAKMK7uEuqLLf2bCyB-sAuu5WvVA1Kp7Jvc33k3um5DfdQr4eyg@mail.gmail.com>
+	<CAOesGMiq5Q==Rg97VqmO-=HNYXz9ZA6iCDJ7sBa0tGzJVuYs4g@mail.gmail.com>
+	<20160727030406.GU9681@localhost>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	ksummit-discuss@lists.linux-foundation.org,
-	Jason Cooper <jason@lakedaemon.net>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: "Nikula, Jani" <jani.nikula@linux.intel.com>,
+	Dave Airlie <airlied@linux.ie>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Grant Likely <grant.likely@linaro.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] (group) maintainership models
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,16 +33,43 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 11 Jul 2016 19:48:34 +0530
-Vinod Koul <vinod.koul@intel.com> wrote:
-
-> But the person might be slightly better off than you or me :-)
+On Wednesday, July 27, 2016 8:34:06 AM CEST Vinod Koul wrote:
+> > One thing we're low on for arm-soc is tooling, I know the x86 guys
+> > have quite a bit more than we do in this area, so ideas on what we can
+> > do to make our own lives easier is valuable.
 > 
+> Okay one of the gripes I have is that it is a bit hard to compile arm
+> drivers. I regularly compile all drivers in subsystem I maintain and arm
+> ones are not always straightforward. Figuring our which config to use
+> for compile testing involves a bit of time, which I would like to avoid.
+> 
+> Having said that stuff like multi_xx_defconfig has improved a bit and
+> seem to be in right direction (not an expert at arm arch's) but doesn't
+> seem to cover all. Right now I am manually maintaining 4 different arm
+> configs to compile test all the drivers in dmaengine subsystem which
+> isn't a very big subsystem. For other arch's it is one config per
+> subsystem.
+> 
+> So if you have suggestions to improve my flow, I would like to hear
+> that, maybe I am doing something not right here...
 
-I still believe that it comes down to the maintainer making the final
-decision about marking a patch as stable. If they don't have the
-hardware to test it, then they should then ask the patch submitter to
-test for stable. If the submitter doesn't want to for whatever reason,
-then that patch simply shouldn't be marked for stable.
+We should be at the point where an 'allmodconfig' build on ARM
+gets you most of the drivers and builds without warnings (using
+gcc-4.9 or higher).
 
--- Steve
+It will take a while to do the entire 'allmodconfig' build but
+it's something that can be done as a background task.
+
+One thing that we should still do is figure out which ARM specific
+drivers are not included in allmodconfig and find a way to include
+them too. Most platforms are compatible with a 'multiplatform'
+setup (those that are not very rarely see patches at all and are
+less likely to break), but allmodconfig will only include ARMv6
+and ARMv7 based platforms, not ARMv4/ARMv4T/ARMv5. I've thought
+about adding '|| COMPILE_TEST' dependencies to the platforms
+with ARMv4/5 CPUs to have everything included in allmodconfig, but
+I haven't actually tied that and I'm sure we'd see a lot of
+build failures for correct code at first that we'd have to fix up
+to make it work.
+
+	Arnd
