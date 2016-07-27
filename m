@@ -1,30 +1,26 @@
 Return-Path: <vinod.koul@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BFA4098F
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 59D51990
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 27 Jul 2016 02:56:40 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 856D1276
+	Wed, 27 Jul 2016 03:05:26 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 0DC92226
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 27 Jul 2016 02:56:39 +0000 (UTC)
-Date: Wed, 27 Jul 2016 08:34:06 +0530
+	Wed, 27 Jul 2016 03:05:25 +0000 (UTC)
+Date: Wed, 27 Jul 2016 08:42:53 +0530
 From: Vinod Koul <vinod.koul@intel.com>
-To: Olof Johansson <olof@lixom.net>
-Message-ID: <20160727030406.GU9681@localhost>
-References: <CAKMK7uEuqLLf2bCyB-sAuu5WvVA1Kp7Jvc33k3um5DfdQr4eyg@mail.gmail.com>
-	<CAOesGMiq5Q==Rg97VqmO-=HNYXz9ZA6iCDJ7sBa0tGzJVuYs4g@mail.gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Message-ID: <20160727031253.GV9681@localhost>
+References: <5222c3bb-d6b7-0ccc-bf9e-becf5046a37a@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAOesGMiq5Q==Rg97VqmO-=HNYXz9ZA6iCDJ7sBa0tGzJVuYs4g@mail.gmail.com>
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Dave Airlie <airlied@linux.ie>, "Nikula,
-	Jani" <jani.nikula@linux.intel.com>,
-	Grant Likely <grant.likely@linaro.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] (group) maintainership models
+In-Reply-To: <5222c3bb-d6b7-0ccc-bf9e-becf5046a37a@kernel.org>
+Cc: Zhang Rui <rui.zhang@intel.com>, Rob Herring <robh+dt@kernel.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Sensors and similar - subsystem
+ interactions, divisions, bindings etc.
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,41 +30,51 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Jul 26, 2016 at 09:45:35AM -0700, Olof Johansson wrote:
-> Hi,
+Hi Jonathan,
+
+On Wed, Jul 20, 2016 at 10:18:11PM +0100, Jonathan Cameron wrote:
 > 
-> On Wed, Jul 20, 2016 at 5:11 AM, Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
-> > But I think the more interesting bits are why I decided to try this
-> > out, what I hoped would happen, what I feared might happen. And with 1
-> > year of experience, what actually happens and what I think is needed
-> > to make this work and an actual benefit over more traditional
-> > maintainer models. And of course I'd like to compare notes with other
-> > group maintainers.
+> 5) Complex device interaction usecases.  At the moment the ones I've come
+> across are mostly contained in IIO.  The moment we start sticking in
+> MUXes, AFEs (Analog Front Ends) and straightforward analog sensors in the
+> mix it can get fiddly.  Swapping war stories may well be worthwhile on
+> this. This stuff also turns up in ASoC for example so probably lessons
+> to be learned from there.
 > 
-> Very interested in participating here, for obvious reasons -- learning
-> from others how we can do things even better as well as sharing how
-> things are working for us, 5 years into the endeavor.
+> The analog devices software defined radios are another possible case
+> study.
+> 
+> There of course may well be lessons to be learned from similar
+> interactions elsewhere in the kernel.
+> 
+> There is a lot of history in how we ended up where we are (it all made
+> absolute sense at the time). Sitting back and taking the time
+> to discuss the future would be great.  Whilst this might be solvable
+> by email we've made no definitive progress for years
+> (and what has been made has been on a case by case basis deep in
+> driver reviews.)
+> 
+> I threw comedi in the list above but, at the moment, I think the more
+> likely direction there is a single userspace library abstracting
+> the underlying subsystem (Analog Devices are working in that
+> direction - perhaps Lars can offer more on that?).
+> 
+> GPIO is another interesting case - a lot of hardware is capable of
+> parallel sampling, some at high speeds. It's another area that
+> is probably too specialist for this discussion, but if people want
+> to dive into the details it might be interesting.
+> 
+> I think we have only a small amount of fuzz around the v4l boundary,
+> but wanted to leave the door open if anyone wants to discuss that
+> one further as it's come up a few times over recent years.
+> 
+> The SoC world is a major case of one device, many uses.  Some SoCs
+> are turning up with multiple ADC units, sometimes with different
+> designs, sometimes simply so that the same hardware can be used for different things.
 
-Am interested in this discussion as well for very obvious reasons
+I would be interested in this discussion. Complex device seem to be getting
+more complex over here as well!
 
-> One thing we're low on for arm-soc is tooling, I know the x86 guys
-> have quite a bit more than we do in this area, so ideas on what we can
-> do to make our own lives easier is valuable.
-
-Okay one of the gripes I have is that it is a bit hard to compile arm
-drivers. I regularly compile all drivers in subsystem I maintain and arm
-ones are not always straightforward. Figuring our which config to use
-for compile testing involves a bit of time, which I would like to avoid.
-
-Having said that stuff like multi_xx_defconfig has improved a bit and
-seem to be in right direction (not an expert at arm arch's) but doesn't
-seem to cover all. Right now I am manually maintaining 4 different arm
-configs to compile test all the drivers in dmaengine subsystem which
-isn't a very big subsystem. For other arch's it is one config per
-subsystem.
-
-So if you have suggestions to improve my flow, I would like to hear
-that, maybe I am doing something not right here...
-
+Thanks
 -- 
 ~Vinod
