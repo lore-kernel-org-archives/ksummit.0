@@ -1,32 +1,27 @@
-Return-Path: <Tim.Bird@am.sony.com>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id EC1352C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id EE1FF9C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 21:33:34 +0000 (UTC)
-Received: from NAM02-CY1-obe.outbound.protection.outlook.com
-	(mail-cys01nam02on0098.outbound.protection.outlook.com
-	[104.47.37.98])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 134E31EA
+	Thu, 28 Jul 2016 21:41:48 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 5BD5A1EF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 21:33:34 +0000 (UTC)
-From: "Bird, Timothy" <Tim.Bird@am.sony.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Date: Thu, 28 Jul 2016 21:33:29 +0000
-Message-ID: <ECADFF3FD767C149AD96A924E7EA6EAF053BB5A7@USCULXMSG02.am.sony.com>
-References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
-	<718BE1FD-6169-4205-A905-53F997D5943A@primarydata.com>
-	<7hk2gr7wjq.fsf@baylibre.com> <4917794.pdgKrtIJtY@avalon>
-In-Reply-To: <4917794.pdgKrtIJtY@avalon>
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Trond Myklebust <trondmy@primarydata.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] kernel unit testing
+	Thu, 28 Jul 2016 21:41:48 +0000 (UTC)
+Message-ID: <1469742103.2324.9.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Johannes Weiner <hannes@cmpxchg.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Date: Thu, 28 Jul 2016 17:41:43 -0400
+In-Reply-To: <20160728185523.GA16390@cmpxchg.org>
+References: <20160725171142.GA26006@cmpxchg.org>
+	<20160728185523.GA16390@cmpxchg.org>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Memory thrashing,
+ was Re:  Self nomination
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,36 +31,83 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbToga3N1bW1pdC1kaXNjdXNz
-LWJvdW5jZXNAbGlzdHMubGludXhmb3VuZGF0aW9uLm9yZyBbbWFpbHRvOmtzdW1taXQtDQo+IGRp
-c2N1c3MtYm91bmNlc0BsaXN0cy5saW51eGZvdW5kYXRpb24ub3JnXSBPbiBCZWhhbGYgT2YgTGF1
-cmVudCBQaW5jaGFydA0KPiBTZW50OiBUaHVyc2RheSwgSnVseSAyOCwgMjAxNiAyOjA5IFBNDQo+
-IFRvOiBrc3VtbWl0LWRpc2N1c3NAbGlzdHMubGludXhmb3VuZGF0aW9uLm9yZw0KPiBDYzogSmFt
-ZXMgQm90dG9tbGV5IDxKYW1lcy5Cb3R0b21sZXlAaGFuc2VucGFydG5lcnNoaXAuY29tPjsgVHJv
-bmQNCj4gTXlrbGVidXN0IDx0cm9uZG15QHByaW1hcnlkYXRhLmNvbT4NCj4gU3ViamVjdDogUmU6
-IFtLc3VtbWl0LWRpc2N1c3NdIFtDT1JFIFRPUElDXSBrZXJuZWwgdW5pdCB0ZXN0aW5nDQo+IA0K
-PiBPbiBNb25kYXkgMTEgSnVsIDIwMTYgMTM6MjQ6MjUgS2V2aW4gSGlsbWFuIHdyb3RlOg0KPiA+
-IFRyb25kIE15a2xlYnVzdCA8dHJvbmRteUBwcmltYXJ5ZGF0YS5jb20+IHdyaXRlczoNCj4gPiA+
-IFNvLCB3ZSBtaWdodCBhcyB3ZWxsIG1ha2UgdGhpcyBhIGZvcm1hbCBwcm9wb3NhbC4NCj4gPiA+
-DQo+ID4gPiBJ4oCZZCBsaWtlIHRvIHByb3Bvc2UgdGhhdCB3ZSBoYXZlIGEgZGlzY3Vzc2lvbiBh
-cm91bmQgaG93IHRvIG1ha2UgaXQNCj4gPiA+IGVhc2llciB0byBpbXBsZW1lbnQga2VybmVsIHVu
-aXQgdGVzdHMuIEnigJl2ZSBjby1vcHRlZCBEYW4gYXMgaGUgaGFzDQo+ID4gPiBleHByZXNzZWQg
-Ym90aCBhbiBpbnRlcmVzdCBhbmQgaGFuZHMtb24gZXhwZXJpZW5jZS4gOi0pDQo+ID4NCj4gPiBD
-b3VudCBtZSBpbi4NCj4gPg0KPiA+IEknbSB3b3JraW5nIG9uIHRoZSBrZXJuZWxjaS5vcmcgcHJv
-amVjdCwgd2hlcmUgd2UncmUgdGVzdGluZw0KPiA+IG1haW5saW5lL25leHQvc3RhYmxlLXJjL3N0
-YWJsZSBldGMuIG9uIHJlYWwgaGFyZHdhcmUgKH4yMDAgdW5pcXVlIGJvYXJkcw0KPiA+IGFjcm9z
-cyB+MzAgdW5pcXVlIFNvQyBmYW1pbGllczogYXJtLCBhcm02NCwgeDg2LikNCj4gPg0KPiA+IFJp
-Z2h0IG5vdywgd2UncmUgbWFpbmx5IGRvaW5nIGJhc2ljIGJvb3QgdGVzdHMsIGJ1dCBhcmUgc3Rh
-cnRpbmcgdG8gcnVuDQo+ID4ga3NlbGZ0ZXN0cyBvbiBhbGwgdGhlc2UgcGxhdGZvcm1zIGFzIHdl
-bGwuDQo+IA0KPiBXb3VsZCB5b3UgYmUgaW50ZXJlc3RlZCBpbiBydW5uaW5nIG90aGVyIHRlc3Qg
-c3VpdGVzIGFzIHdlbGwgKGZvciBpbnN0YW5jZQ0KPiBodHRwOi8vZ2l0LmlkZWFzb25ib2FyZC5j
-b20vcmVuZXNhcy92c3AtdGVzdHMuZ2l0KSA/IElmIHNvIHdlIG5lZWQgdG8gZGVjaWRlDQo+IG9u
-IGFuIGludGVyZmFjZSBmb3IgdGVzdCBzdWl0ZXMgdG8gbWFrZSBpdCBlYXN5IGZvciB5b3UgdG8g
-aW50ZWdyYXRlIHRoZW0gaW4NCj4geW91ciB0ZXN0IGZhcm0uDQoNCkknbSBpbnRlcmVzdGVkIGlu
-IGludGVncmF0aW5nIG1vcmUgdGVzdCBzdWl0ZXMgYXMgcGFydCBvZiB0aGUgRnVlZ28gWzFdIHBy
-b2plY3QuDQpUaGlzIHByb2plY3QgcHJvdmlkZXMgYSB0ZXN0IGZyYW1ld29yayBmb3IgdGhlIExU
-U0kgcHJvamVjdCBhbmQgdGhlIEFHTCBwcm9qZWN0DQppbiB0aGUgTGludXggRm91bmRhdGlvbiwg
-YnV0IHdlJ3JlIGFsd2F5cyBsb29raW5nIGZvciBtb3JlIHRlc3RzLiAgV2UgYXJlIHN0aWxsLA0K
-YWRtaXR0ZWRseSwgc3RpbGwgaW4gb3VyIGVhcmx5IGRheXMsIGJ1dCBJJ2QgYmUgaW50ZXJlc3Rl
-ZCBpbiBkaXNjdXNzaW5nIHRoZSByZXF1aXJlbWVudHMNCmZvciB0aGVzZSB0ZXN0cy4NCg0KWzFd
-IGh0dHA6Ly9iaXJkLm9yZy9mdWVnby9Gcm9udFBhZ2UuDQo=
+On Thu, 2016-07-28 at 14:55 -0400, Johannes Weiner wrote:
+> On Mon, Jul 25, 2016 at 01:11:42PM -0400, Johannes Weiner wrote:
+> > Most recently I have been working on reviving swap for SSDs and
+> > persistent memory devices (https://lwn.net/Articles/690079/) as
+> > part
+> > of a bigger anti-thrashing effort to make the VM recover swiftly
+> > and
+> > predictably from load spikes.
+> 
+> A bit of context, in case we want to discuss this at KS:
+> 
+> We frequently have machines hang and stop responding indefinitely
+> after they experience memory load spikes. On closer look, we find 
+> most tasks either in page reclaim or majorfaulting parts of an 
+> executable or library. It's a typical thrashing pattern, where 
+> everybody cannibalizes everybody else. The problem is that with fast 
+> storage the cache reloads can be fast enough that there are never 
+> enough in-flight pages at a time to cause page reclaim to fail and 
+> trigger the OOM killer. The livelock persists until external
+> remediation reboots the
+> box or we get lucky and non-cache allocations eventually suck up the
+> remaining page cache and trigger the OOM killer.
+> 
+> To avoid hitting this situation, we currently have to keep a generous
+> memory reserve for occasional spikes, which sucks for utilization the
+> rest of the time. Swap would be useful here, but the swapout code is
+> basically only triggering when memory pressure rises - which again
+> doesn't happen - so I've been working on the swap code to balance
+> cache reclaim vs. swap based on relative thrashing between the two.
+> 
+> There is usually some cold/unused anonymous memory lying around that
+> can be unloaded into swap during workload spikes, so that allows us 
+> to drive up the average memory utilization without increasing the 
+> risk at least. But if we screw up and there are not enough unused 
+> anon pages, we are back to thrashing - only now it involves swapping
+> too.
+> 
+> So how do we address this?
+> 
+> A pathological thrashing situation is very obvious to any user, but
+> it's not quite clear how to quantify it inside the kernel and have it
+> trigger the OOM killer. It might be useful to talk about metrics. 
+> Could we quantify application progress? Could we quantify the amount 
+> of time a task or the system spends thrashing, and somehow express it 
+> as a percentage of overall execution time? Maybe something comparable 
+> to IO wait time, except tracking the time spent performing reclaim
+> and waiting on IO that is refetching recently evicted pages?
+> 
+> This question seems to go beyond the memory subsystem and potentially
+> involve the scheduler and the block layer, so it might be a good tech
+> topic for KS.
+
+Actually, I'd be interested in this.  We're starting to generate use
+cases in the container cloud for swap (I can't believe I'm saying this
+since we hitherto regarded swap as wholly evil).  The issue is that we
+want to load the system up into its overcommit region (it means two
+things: either we're re-using under used resources or, more correctly,
+we're reselling resources we sold to one customer, but they're not
+using, so we can sell them to another).  From some research done within
+IBM, it turns out there's a region where swapping is beneficial.  We
+define it as the region where the B/W to swap doesn't exceed the B/W
+capacity of the disk (is this the metric you're looking for?). 
+ Surprisingly, this is a stable region, so we can actually operate the
+physical system within this region.  It also turns out to be the ideal
+region for operating overcommitted systems in because what appears to
+be happening is that we're forcing allocated but unused objects (dirty
+anonymous memory) out to swap.  The ideal cloud to run this in is one
+which has a mix of soak jobs (background, best effort jobs, usually
+analytics based) and highly interactive containers (usually web servers
+or something).  We find that if we tune the swappiness of the memory
+cgroup of the container to 0 for the interactive jobs, they show no
+loss of throughput in this region.
+
+Our definition of progress is a bit different from yours above because
+the interactive jobs must respond as if they were near bare metal, so
+we penalise the soak jobs.  However, we find that the soak jobs also
+make reasonable progress according to your measure above (reasonable
+enough means the customer is happy to pay for the time they've used).
+
+James
