@@ -1,33 +1,30 @@
 Return-Path: <rostedt@goodmis.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 21037A1E
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id AC8999AF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 03:52:08 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0181.hostedemail.com
-	[216.40.44.181])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9DA811F7
+	Thu, 28 Jul 2016 04:00:25 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0140.hostedemail.com
+	[216.40.44.140])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9AD9C1A7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 03:52:07 +0000 (UTC)
+	Thu, 28 Jul 2016 04:00:24 +0000 (UTC)
 Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
 	[10.5.19.251])
-	by smtpgrave06.hostedemail.com (Postfix) with ESMTP id A9C8A17279D
+	by smtpgrave07.hostedemail.com (Postfix) with ESMTP id 4A64811A226
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 03:33:53 +0000 (UTC)
-Date: Wed, 27 Jul 2016 23:33:49 -0400
+	Thu, 28 Jul 2016 03:40:39 +0000 (UTC)
+Date: Wed, 27 Jul 2016 23:40:35 -0400
 From: Steven Rostedt <rostedt@goodmis.org>
-To: Jan Kara <jack@suse.cz>
-Message-ID: <20160727233349.3730fa30@grimm.local.home>
-In-Reply-To: <20160720121110.GA5834@quack2.suse.cz>
+To: David Howells <dhowells@redhat.com>
+Message-ID: <20160727234035.772a4333@grimm.local.home>
+In-Reply-To: <25598.1469113525@warthog.procyon.org.uk>
 References: <87inw1skws.fsf@x220.int.ebiederm.org>
-	<1468962539.2383.82.camel@HansenPartnership.com>
-	<87lh0xf9xv.fsf@x220.int.ebiederm.org>
-	<20160720121110.GA5834@quack2.suse.cz>
+	<25598.1469113525@warthog.procyon.org.uk>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	ksummit-discuss@lists.linuxfoundation.org
+Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] More useful types in the linux
  kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -39,15 +36,19 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 20 Jul 2016 14:11:10 +0200
-Jan Kara <jack@suse.cz> wrote:
+On Thu, 21 Jul 2016 16:05:25 +0100
+David Howells <dhowells@redhat.com> wrote:
 
-> > Nothing.  I am just honestly looking at ways that we can get things to
-> > always or almost always run.   Sparse isn't getting run regularly now so
-> > I was suspect that would not be as good of a solution.  
+
+>  (2) Differentiate non-BH spinlocks and BH spinlocks by type.
 > 
-> Isn't sparse run by 0-day testing? I thought it is...
+>      It seems like you can't mix BH and non-BH ops on a spinlock without
+>      lockdep barking.  If that's the case, let's make this a compile-time
+>      check.
+> 
 
-I get sparse warnings from the 0-day testing, so I believe that it is.
+Not sure what you mean here. You can use BH spinlocks as non BH
+spinlocks while in a BH, or if BH is already disabled, and lockdep will
+not complain.
 
 -- Steve
