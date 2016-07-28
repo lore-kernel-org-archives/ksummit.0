@@ -1,39 +1,26 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <laurent.pinchart@ideasonboard.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D112A7AA
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 696508D7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 17:32:01 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 62FDD217
+	Thu, 28 Jul 2016 18:16:33 +0000 (UTC)
+Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
+	[185.26.127.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CD2F62E6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 17:32:01 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
-	by bedivere.hansenpartnership.com (Postfix) with ESMTP id 204EA8EE2F8
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 10:32:01 -0700 (PDT)
-Received: from bedivere.hansenpartnership.com ([127.0.0.1])
-	by localhost (bedivere.hansenpartnership.com [127.0.0.1]) (amavisd-new,
-	port 10024) with ESMTP id IhyUQSmZACOZ
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 10:32:01 -0700 (PDT)
-Received: from [9.232.161.213] (unknown [129.33.253.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by bedivere.hansenpartnership.com (Postfix) with ESMTPSA id A7F5D8EE1C6
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 10:32:00 -0700 (PDT)
-Message-ID: <1469727119.2295.25.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
+	Thu, 28 Jul 2016 18:16:32 +0000 (UTC)
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 To: ksummit-discuss@lists.linuxfoundation.org
-Date: Thu, 28 Jul 2016 13:31:59 -0400
-In-Reply-To: <1469726963.2295.23.camel@HansenPartnership.com>
-References: <1469726963.2295.23.camel@HansenPartnership.com>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Ksummit-discuss] self nomination
+Date: Thu, 28 Jul 2016 21:16:43 +0300
+Message-ID: <4201504.fmse4atcJu@avalon>
+In-Reply-To: <32019873-00BD-4945-8FDD-029A87693F2D@kernel.org>
+References: <20160727142715.GQ4541@io.lakedaemon.net>
+	<32019873-00BD-4945-8FDD-029A87693F2D@kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: Jason Cooper <jason@lakedaemon.net>
+Subject: Re: [Ksummit-discuss] Self-nomination
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -43,23 +30,36 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, 2016-07-28 at 13:29 -0400, James Bottomley wrote:
-> I have been known to be OK with the occasional storage or obscure non
-> -x86 architecture or even the occasional mm issues.
+On Wednesday 27 Jul 2016 17:19:29 Jonathan Cameron wrote:
+> On 27 July 2016 15:27:16 BST, Jason Cooper <jason@lakedaemon.net> wrote:
+> > All,
+> >
+> > I'd like to nominate myself for attending this year's KS.  My primary
+> > focus is in security topics.  Signature management, secure boot, the
+> > kernel-hardening efforts. Particularly on embedded systems. [0]
+> >
+> > Since applying updates is a key security trait, I'm very interested in
+> > discussing the stable workflow, safety review, and code minimization
+> > efforts.  In particular, ways to make it easier for vendors to provide
+> > updates and for users to apply them.
+> >
+> > I'm also perennially interested in co-maintainer workflows, especially
+> > when sub-maintainers are contributing their trees to linux-next.
+> >
+> > If anyone is interested in discussing hobbyists and recruitment, I'm
+> > game.  But it looks like that would be hallway track this year.  Or,
+> > over a beer or three. ;-)
 > 
-> I'm principally interested in
-> 
->  * Storage issues (not that these ever come up at the kernel summit)
->  * In kernel container technologies (gcroups, namespaces and how we
->    apply the granular virtualizations) since this has been one of my
->    foci for five years now.
->  * Security, keys and the TPM.  I'm mostly working on this above the
->    kernel for a more secure cloud environment, but this means I have a
->    lot of TSS and TPM knowledge and I'd love to share the pain ...
+> Always interested in discussing this. And often in beer as well.
 
-I suppose I should add that running a top level tree, I have an
-interest in process issues.  I'd be somewhat interested in a stable
-tree discussion but only really to make sure it doesn't increase my
-maintainer workload ...
+My interest in this topic is inversely proportional in my interest in beer 
+(which, despite my Belgian origins, is close to zero). If this becomes a 
+hallway track we could more easily extend the scope beyond the Linux kernel 
+and discuss how to recruit more developers for open-source development in 
+general (hopefully some of them will make the insane^Wright choice of hacking 
+the Linux kernel).
 
-James
+-- 
+Regards,
+
+Laurent Pinchart
