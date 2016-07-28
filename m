@@ -1,37 +1,25 @@
-Return-Path: <jason@lakedaemon.net>
+Return-Path: <linux@roeck-us.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 03D98910
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B96D983D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 16:57:33 +0000 (UTC)
-Received: from pmta2.delivery5.ore.mailhop.org
-	(pmta2.delivery5.ore.mailhop.org [54.186.218.12])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5E4DE274
+	Thu, 28 Jul 2016 17:15:12 +0000 (UTC)
+Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A1B62236
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 16:57:32 +0000 (UTC)
-Date: Thu, 28 Jul 2016 16:57:28 +0000
-From: Jason Cooper <jason@lakedaemon.net>
-To: Andy Lutomirski <luto@amacapital.net>
-Message-ID: <20160728165728.GR4541@io.lakedaemon.net>
-References: <20150804152622.GY30479@wotan.suse.de>
-	<1468612258.5335.0.camel@linux.vnet.ibm.com>
-	<1468612671.5335.5.camel@linux.vnet.ibm.com>
-	<20160716005213.GL30372@sirena.org.uk>
-	<1469544138.120686.327.camel@infradead.org>
-	<14209.1469636040@warthog.procyon.org.uk>
-	<1469636881.27356.70.camel@HansenPartnership.com>
-	<1469637367.27356.73.camel@HansenPartnership.com>
-	<1469648220.23563.15.camel@linux.vnet.ibm.com>
-	<CALCETrXWVTmbuUa-d7EH2kGRZM+HCiqje11AqxWm7ntd5fjLDg@mail.gmail.com>
+	Thu, 28 Jul 2016 17:15:11 +0000 (UTC)
+Date: Thu, 28 Jul 2016 10:15:06 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Fengguang Wu <fengguang.wu@intel.com>
+Message-ID: <20160728171506.GA23015@roeck-us.net>
+References: <20160725190125.GS5537@wotan.suse.de>
+	<20160727144114.GA2273@wfg-t540p.sh.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CALCETrXWVTmbuUa-d7EH2kGRZM+HCiqje11AqxWm7ntd5fjLDg@mail.gmail.com>
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Mark Brown <broonie@sirena.org.uk>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] Last minute nominations: mcgrof and toshi
+In-Reply-To: <20160727144114.GA2273@wfg-t540p.sh.intel.com>
+Cc: dvyukov@google.com, ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] Nominating Fengguang Wu - 0-day
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,56 +29,61 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Andy,
-
-On Wed, Jul 27, 2016 at 01:09:37PM -0700, Andy Lutomirski wrote:
-...
-> I would like someone to explain why using the keyring mechanism for
-> this in the first place is a good idea.
+On Wed, Jul 27, 2016 at 10:41:14PM +0800, Fengguang Wu wrote:
+> On Mon, Jul 25, 2016 at 09:01:25PM +0200, Luis R. Rodriguez wrote:
+> >
+> >It surprises Fengguang Wu <fengguang.wu@intel.com> hasn't been nominated yet,
+> >so I'd like to nominate him. The mechanical process should probably include in
+> >the future a scrape for top Reported-by contributors.
 > 
-> As far as I can tell, the design goals of "keys trusted by the kernel
-> for modules, firmware, etc" are:
+> Thanks for your appreciations, Luis!
 > 
->  - Keys are added at build time or, according to potentially
-> system-specific rules, at boot time.
+> >Fengguang's 0-day infrastructure is invaluable to day to day kernel
+> >development, having him present would be great for any questions that may come
+> >up.
 > 
->  - Keys should specify what they're trusted *for*.
+> I'd be glad to answer questions and more importantly, collect
+> feedbacks on where and how to improve the 0-day infrastructure.
+> 
+> There are 2 major parts in 0-day: build tests and runtime tests.
+> While build tests will be continuously improved, there may be a lot
+> more to be desired for runtime tests, which should be my main focus
+> in the coming year.
+> 
+For runtime test improvements: We should discuss if and how to integrate
+kasan/syzkaller testing, and/or if it would make sense to set up a separate
+test bed for that purpose (to avoid overloading 0day).
 
-Well, I'd argue that keys should specify what they are *intended* for by
-the keyholder.  A useful security system could further restrict the key
-as needed.
+Thanks,
+Guenter
 
-e.g. the Microsoft key may say it's intended for "Verifying binaries
-issued by Microsoft".  A Linux user would want to restrict that to
-verifying updated boot shims for UEFI.
-
-If nothing else, we need to grok the lessons learned from the CA
-system.
-
-> Some keys should be trusted to load modules.  Some keys should be
-> trusted to load specific firmware files.
-
-"Some keys should be restricted to verifying modules.  Some keys should
-be restricted to verifying specific firmware files." [0]
-
-We'll know the system is designed correctly if we don't mind the
-Microsoft key being in the keyring.
-
-There's definitely a larger conversation to be had here.  The Kernel is
-a *part* of the system, and should be a *part* of the security of the
-system.  Attempting to make it the whole enchilada risks making the same
-design errors as TrustZone.  "Just put all your eggs in this *other*
-basket.  No one can see in it, but it has access to everything on the
-system.  Oh, you have proprietary, complicated, un-reviewed DRM code
-that parses unsanitized input?  Sure, put it in there with the key
-manager.  No problem, it's magic."  Moving cheese. [1]
-
-thx,
-
-Jason.
-
-[0] A wise man once told me to avoid the word 'trust' in conversations
-about security.  It's a vague term whose meaning varies from person to
-person and from situation to situation.
-
-[1] https://bits-please.blogspot.de/2016/06/extracting-qualcomms-keymaster-keys.html
+> >Getting a statistical overview / update of impact / any major architectural
+> >changes of the 0-day infrastructure would also be very useful.
+> 
+> Sure if there are interests.
+> 
+> >If maintainers
+> >are not yet using 0-day it would be great to hear why. If your contributors are
+> >not using 0-day (I know some of you exist) I'd like to know why you don't use it,
+> >I often run into issues on linux-next which at times I have to fix, if 0-day
+> >would have been used a folowup fix would not have been needed.
+> 
+> 0-day tries to monitor as many git trees as possible, so that fresh
+> code can be tested before they land maintainer trees and linux-next.
+> To achieve better early code coverage, we periodically check if there
+> are new git trees showing up in git.kernel.org, in mainline git log
+> or mentioned in LKML emails. And add the newly discovered ones
+> unsolicited. :)
+> 
+> That said, it's still possible errors hit linux-next. Sometimes it may
+> be due to bug in 0-day or temporarily out of service. The solution
+> would be to improve 0-day system's stability and add more self-tests
+> to the system. Quick feedbacks about build/boot errors missed by 0-day
+> would also be highly appreciated.
+> 
+> Thanks,
+> Fengguang
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
