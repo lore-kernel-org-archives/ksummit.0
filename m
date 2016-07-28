@@ -1,31 +1,30 @@
-Return-Path: <lurodriguez@suse.de>
+Return-Path: <alexandre.belloni@free-electrons.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BA1C02C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6D57C2C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 23:43:17 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4E4C7150
+	Thu, 28 Jul 2016 23:48:25 +0000 (UTC)
+Received: from mail.free-electrons.com (down.free-electrons.com
+	[37.187.137.238])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id D669A13A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 23:43:17 +0000 (UTC)
-Date: Fri, 29 Jul 2016 01:43:14 +0200
-From: "Luis R. Rodriguez" <mcgrof@kernel.org>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Message-ID: <20160728234314.GD3296@wotan.suse.de>
-References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
-	<1745007.86gEd5I2vq@avalon>
+	Thu, 28 Jul 2016 23:48:24 +0000 (UTC)
+Date: Fri, 29 Jul 2016 01:48:23 +0200
+From: Alexandre Belloni <alexandre.belloni@free-electrons.com>
+To: Arnd Bergmann <arnd@arndb.de>
+Message-ID: <20160728234823.GH1494@piout.net>
+References: <CAKMK7uEuqLLf2bCyB-sAuu5WvVA1Kp7Jvc33k3um5DfdQr4eyg@mail.gmail.com>
+	<20160727142221.GK11806@sirena.org.uk>
+	<20160727171551.GE9681@localhost> <27648120.ey0ZEtExVa@wuerfel>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1745007.86gEd5I2vq@avalon>
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
-	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
-	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Valentin Rothberg <valentinrothberg@gmail.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
- and semantics (v2)
+In-Reply-To: <27648120.ey0ZEtExVa@wuerfel>
+Cc: ksummit-discuss@lists.linuxfoundation.org, "Nikula,
+	Jani" <jani.nikula@linux.intel.com>, Dave Airlie <airlied@linux.ie>,
+	Grant Likely <grant.likely@linaro.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] (group) maintainership models
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,24 +34,30 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Jul 28, 2016 at 01:51:02PM +0300, Laurent Pinchart wrote:
-> As the co-author of the media controller code (along with Sakari Ailus, based 
-> on a draft proposal from Hans Verkuil), I don't think MC will help here. It 
-> addresses very different problems, its purpose is to expose the topology of 
-> data flows inside a media device to userspace.
+Hi,
 
-This is the key that interest me. Not the exact code -- but how it accomplishes
-this and lessons learned.
+On 28/07/2016 at 10:44:23 +0200, Arnd Bergmann wrote :
+> Some subsystems have essential drivers without which a platform cannot
+> work (clock, irqchip, reset, ...) and those often don't allow the
+> driver to be user-selectable at all. I'd like to see more of those
+> get enabled for COMPILE_TEST, but the Kconfig statement for this
+> is rather unintuitive:
+> 
+> config FOO
+> 	bool "foo driver" if COMPILE_TEST && !ARCH_FOO
+> 	default ARCH_FOO
+> 	depends on GPIOLIB && I2C && OF && WHATEVER
+> 
+> This becomes a silent always-on symbol if the platform is used,
+> and user-selectable on every other platform with COMPILE_TEST.
+> 
 
-> This being said I'd be very interested in discussing asynchronous probing and 
-> probe ordering. I can also certainly bring media controller knowledge to the 
-> discussion, but I don't think that part would be very useful (apart possibly 
-> for saving everybody's time by explaining why MC isn't a solution to address 
-> those problems :-)). 
+Note that some maintainers prefer having the symbol selected directly
+from ARCH_FOO or SOC_FOO instead of defaulting to it which may be more
+explicit. I'm fine with both but my subsystem is not exactly essential
+;)
 
-Its not that MC would solve the issues, its what lessons were learned on the
-way we can re-use. Also, if we can use some bells and whistles for a generic
-solution, could the MC leverage off of that? This proposal is of course very
-abstract, so bear with me.
-
-  Luis
+-- 
+Alexandre Belloni, Free Electrons
+Embedded Linux and Kernel engineering
+http://free-electrons.com
