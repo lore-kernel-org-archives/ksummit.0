@@ -1,31 +1,27 @@
-Return-Path: <mchehab@osg.samsung.com>
+Return-Path: <fengguang.wu@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 459B9899
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E979492B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 12:26:05 +0000 (UTC)
-Received: from s-opensource.com
-	(ec2-52-27-115-49.us-west-2.compute.amazonaws.com [52.27.115.49])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id E115F1C8
+	Thu, 28 Jul 2016 13:20:53 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 6075C1E7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 12:26:04 +0000 (UTC)
-Date: Thu, 28 Jul 2016 09:25:58 -0300
-From: Mauro Carvalho Chehab <mchehab@osg.samsung.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Message-ID: <20160728092558.3efa4bf8@recife.lan>
-In-Reply-To: <1591503.qrDIUm0YXt@avalon>
-References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
-	<20160728081808.08d8941e@recife.lan> <1591503.qrDIUm0YXt@avalon>
+	Thu, 28 Jul 2016 13:20:53 +0000 (UTC)
+Date: Thu, 28 Jul 2016 21:20:49 +0800
+From: Fengguang Wu <fengguang.wu@intel.com>
+To: Vinod Koul <vinod.koul@intel.com>
+Message-ID: <20160728132049.GA30540@wfg-t540p.sh.intel.com>
+References: <20160725190125.GS5537@wotan.suse.de>
+	<20160725202343.GJ11405@piout.net>
+	<20160726031007.GH9681@localhost> <1781582.RPTOZ0rvdq@avalon>
+	<20160726085646.GQ9681@localhost>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
-	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Valentin Rothberg <valentinrothberg@gmail.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
- and semantics (v2)
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20160726085646.GQ9681@localhost>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] Nominating Fengguang Wu - 0-day
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,80 +31,51 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Em Thu, 28 Jul 2016 14:24:49 +0300
-Laurent Pinchart <laurent.pinchart@ideasonboard.com> escreveu:
+On Tue, Jul 26, 2016 at 02:26:46PM +0530, Vinod Koul wrote:
+>On Tue, Jul 26, 2016 at 11:16:40AM +0300, Laurent Pinchart wrote:
+>> Hello,
+>>
+>> On Tuesday 26 Jul 2016 08:40:07 Vinod Koul wrote:
+>> > On Mon, Jul 25, 2016 at 10:23:43PM +0200, Alexandre Belloni wrote:
+>> > > On 25/07/2016 at 21:01:25 +0200, Luis R. Rodriguez wrote :
+>> > >> It surprises Fengguang Wu <fengguang.wu@intel.com> hasn't been nominated
+>> > >> yet, so I'd like to nominate him. The mechanical process should
+>> > >> probably include in the future a scrape for top Reported-by
+>> > >> contributors.
+>> > >
+>> > > That's a good point.
+>> > >
+>> > >> Fengguang's 0-day infrastructure is invaluable to day to day kernel
+>> > >> development, having him present would be great for any questions that
+>> > >> may come up. Getting a statistical overview / update of impact / any
+>> > >> major architectural changes of the 0-day infrastructure would also be
+>> > >> very useful. If maintainers are not yet using 0-day it would be great
+>> > >> to hear why. If your contributors are not using 0-day (I know some of
+>> > >> you exist) I'd like to know why you don't use it, I often run into
+>> > >> issues on linux-next which at times I have to fix, if 0-day would have
+>> > >> been used a folowup fix would not have been needed.
+>> >
+>> > I am using it a lot :)
+>> >
+>> > > Well, I think it would also help to know how the patch/git tree
+>> > > selection is done. Lately, I've been receiving less reports from 0-day
+>> > > and some issues were found by Arnd's autobuilders after hitting
+>> > > linux-next. I used to get report of compilation breakage 10-15 minutes
+>> > > after the patch submission.
+>>
+>> I second that. 0-day is an amazing tool, but relying on it requires developers
+>> to trust that the tool will perform its job as expected. A proper
+>> understanding of the logic behind patch/git tree selection would be very
+>> valuable, as well as how the build bot handles its 500+ kernel configurations.
+>
+>Agreed, although in his report he does mention the tree used, but would be
+>great if the logic is Documented somewhere.
 
-> On Thursday 28 Jul 2016 08:18:08 Mauro Carvalho Chehab wrote:
-> > Em Wed, 27 Jul 2016 09:50:04 -0700 Luis R. Rodriguez escreveu:  
-> > > (first e-mail bounced)
-> > > 
-> > > Rafael has proposed has a set of patches to help deal with functional
-> > > dependencies between devices to help with power management. Mauro has
-> > > spoken briefly before over the media controller feature graph used to help
-> > > build relationship between complex dynamic dependencies.  
-> > 
-> > Actually, there are two separate at the media subsystem:
-> > 
-> > 1) the complex dependencies at the build system, required by the media
-> > devices, as almost all media hardware require multiple drivers in order to
-> > work. The media controller is unrelated to it.
-> > 
-> > We have right now a very complex Kconfig setup, as we try to map what
-> > user wants (a driver for the board "foo") with the requirements that
-> > such "foo" device requires (e. g. tuner "bar", demod "foobar",
-> > main driver "foodriver", etc).
-> > 
-> > 2) the complexity of setting up pipelines using the media controller.
-> > 
-> > The media controller reflects the complexity of the media devices,
-> > showing their internal topology and allowing userspace to dynamically
-> > re-route the pipelines. There are several such pipeline examples,
-> > obtained from real hardware at:
-> > 	https://mchehab.fedorapeople.org/mc-next-gen/
-> > 
-> > Internally, the media controller has a logic to do graph traversal,
-> > in order to setup such pipelines. As the idea is to use SAT for the
-> > build system, eventually we could re-use its code inside the media
-> > controller, in order to improve the media controller logic, if such
-> > code find its way into the Kernel itself.  
-> 
-> I'm not sure to follow you there. How would an SAT solver help the media 
-> controller ?
+Yeah, sorry the Documentation could be improved.
 
-As you know, there are two types or V4L2 devices. Let me enumerate them
-to help the others to follow the discussions.
+The 600+ git trees 0-day monitors are tracked here:
 
-The vast majority of the V4L2 devices use only the /dev/video?,
-/dev/radio? /dev/vbi? device drivers to provide userspace interface.
-On such devices, the hardware pipelines are dynamically created by the
-Kernel. Let's call them as "device-centric" device drivers.
+https://git.kernel.org/cgit/linux/kernel/git/wfg/lkp-tests.git/tree/repo/linux
 
-The V4L2 drivers meant for embedded usage typically also provide a
-per-subdevice device node, via the V4L2 sub-device API extension:
-	https://linuxtv.org/downloads/v4l-dvb-apis-new/media/uapi/v4l/dev-subdev.html
-Also, on such drivers, the pipelines are explicitly created via userspace.
-Let's call them as "media-controller-centric" device drivers.
-
-Right now, all DVB devices are also device-centric, as we don't have
-yet any sub-device API, and the DVB API currently assumes dynamic
-pipeline setup.
-
-It should also be said that the generic media applications (xawtv,
-tvtime, kaffeine, MythTV, camorama, Skype, etc) assume that the pipelines
-will be set automatically by the Kernel. We currently lack a generic
-application that would automatically setup the required pipelines
-that would work for all media-controller-centric devices,
-as the pipeline settings are device-specific.
-
-For the device-centric media devices, the pipelines should be created by
-the Kernel, and not via userspace. On such cases, a SAT solver could help
-to setup the hardware pipelines.
-
-> 
-> > So, I'm very interested on this topic.  
-> 
-
-
--- 
 Thanks,
-Mauro
+Fengguang
