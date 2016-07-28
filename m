@@ -1,30 +1,27 @@
-Return-Path: <dmitry.torokhov@gmail.com>
+Return-Path: <jic23@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 051F1413
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3339D7AA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 22:38:49 +0000 (UTC)
-Received: from mail-pa0-f67.google.com (mail-pa0-f67.google.com
-	[209.85.220.67])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7A729ED
+	Thu, 28 Jul 2016 22:39:59 +0000 (UTC)
+Received: from saturn.retrosnub.co.uk (saturn.retrosnub.co.uk [178.18.118.26])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6B234ED
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 22:38:48 +0000 (UTC)
-Received: by mail-pa0-f67.google.com with SMTP id cf3so4146718pad.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 15:38:48 -0700 (PDT)
-Date: Thu, 28 Jul 2016 15:38:45 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Message-ID: <20160728223845.GI16852@dtor-ws>
-References: <20160725190125.GS5537@wotan.suse.de> <5486315.Z6uhQZYKqJ@avalon>
-	<20160728205324.GB5642@wfg-t540p.sh.intel.com>
-	<2443703.ScQNYO34Bz@avalon>
+	Thu, 28 Jul 2016 22:39:58 +0000 (UTC)
+To: Lars-Peter Clausen <lars@metafoo.de>, Guenter Roeck <linux@roeck-us.net>,
+	ksummit-discuss@lists.linuxfoundation.org
+References: <5222c3bb-d6b7-0ccc-bf9e-becf5046a37a@kernel.org>
+	<5791931E.5030402@roeck-us.net> <579A7986.2060006@metafoo.de>
+From: Jonathan Cameron <jic23@kernel.org>
+Message-ID: <9a8f8dac-e73a-90a8-28b6-83ed080394b5@kernel.org>
+Date: Thu, 28 Jul 2016 23:39:55 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2443703.ScQNYO34Bz@avalon>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Nominating Fengguang Wu - 0-day
+In-Reply-To: <579A7986.2060006@metafoo.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Cc: Rob Herring <robh+dt@kernel.org>, Zhang Rui <rui.zhang@intel.com>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Sensors and similar - subsystem
+ interactions, divisions, bindings etc.
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,70 +31,100 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Jul 28, 2016 at 11:59:13PM +0300, Laurent Pinchart wrote:
-> Hi Fengguang,
+On 28/07/16 22:30, Lars-Peter Clausen wrote:
+> On 07/22/2016 05:29 AM, Guenter Roeck wrote:
+> [...]
+>>>
+>>> 4) Should we drop all the bindings for bridging between such subsystems
+>>> and do it all from userspace?
+>>>
+>> I think that would be a terrible idea. My hope is that we should be able
+>> to present a system to the user as it is intended to be, and that should
+>> include
+>> the use case for given hardware. An ADC is not just an ADC, it has a use
+>> case.
+>> The use case may be obvious if it is used as input device, but if it is
+>> used to measure a voltage (or current, or temperature) it should be
+>> possible
+>> to express that as well, without having to have userspace involved.
 > 
-> On Friday 29 Jul 2016 04:53:24 Fengguang Wu wrote:
-> > On Thu, Jul 28, 2016 at 07:15:22PM +0300, Laurent Pinchart wrote:
-> > > On Wednesday 27 Jul 2016 22:50:27 Fengguang Wu wrote:
-> > >> On Mon, Jul 25, 2016 at 10:23:43PM +0200, Alexandre Belloni wrote:
-> > >>> On 25/07/2016 at 21:01:25 +0200, Luis R. Rodriguez wrote :
-> > >>>> It surprises Fengguang Wu <fengguang.wu@intel.com> hasn't been
-> > >>>> nominated yet, so I'd like to nominate him. The mechanical process
-> > >>>> should probably include in the future a scrape for top Reported-by
-> > >>>> contributors.
-> > >>> 
-> > >>> That's a good point.
-> > >>> 
-> > >>>> Fengguang's 0-day infrastructure is invaluable to day to day kernel
-> > >>>> development, having him present would be great for any questions that
-> > >>>> may come up. Getting a statistical overview / update of impact / any
-> > >>>> major architectural changes of the 0-day infrastructure would also be
-> > >>>> very useful. If maintainers are not yet using 0-day it would be great
-> > >>>> to hear why. If your contributors are not using 0-day (I know some of
-> > >>>> you exist) I'd like to know why you don't use it, I often run into
-> > >>>> issues on linux-next which at times I have to fix, if 0-day would have
-> > >>>> been used a folowup fix would not have been needed.
-> > >>> 
-> > >>> Well, I think it would also help to know how the patch/git tree
-> > >>> selection is done. Lately, I've been receiving less reports from 0-day
-> > >>> and some issues were found by Arnd's autobuilders after hitting
-> > >>> linux-next. I used to get report of compilation breakage 10-15 minutes
-> > >>> after the patch submission.
-> > >> 
-> > >> Yeah sorry about that! There are many things that can impact 0-day
-> > >> system's stability: regressions, hard disk replacement, proxy issues,
-> > >> mailing list kicking off, vocations, etc. Which should improve over
-> > >> time as we add monitoring and self-test facilities. On the other hand,
-> > >> if you find such issues, please don't hesitate forwarding the error
-> > >> emails to us, so that we can check and take action quickly.
-> > >
-> > > There's no need to apologize, really. You've done and keep doing an
-> > > amazing work for which we're all thankful. The biggest problem I see that
-> > > would stop me from fully relying on 0-day is the lack of information about
-> > > such downtimes, leading me to wonder if the absence of a report really
-> > > means that everything is fine. A 0-day status page with information about
-> > > the current status and the planned downtime, as well as possibly the list
-> > > of trees covered by 0-day (I don't know whether part of that information
-> > > could be considered as confidential), would help a lot.
-> > 
-> > For that purpose you may subscribe to the BUILD SUCCESS notification
-> > by sending me an "opt-in" email with your tree URL.
-> > 
-> > That notification will be sent 1-2 hours after each branch's git push,
-> > which contains the build test progress on that branch. Based on which
-> > (or missing of it) you'll know if everything is on the track.
+> We need to differentiate between two different things. One is figuring
+> out the function. If you have a general purpose ADC that is hooked up to
+> some other hardware construct that usually gives you the function. E.g.
+> a GP ADC connected to a resistor ladder with push-buttons is a input
+> device. The same ADC connected to a thermocouple creates a temperature
+> sensor. This can easily be implemented by describing the additional
+> hardware properly in the DT and having a construct in the DT that
+> establishes that this ADC is connected to this other thing. We can then
+> use the in-kernel consumer API to get the raw ADC readings and translate
+> them to a application specific result.
 > 
-> I know that such a feature exists, but I'm not sure all developers would 
-> appreciate the additional e-mail traffic. That's why I proposed a status page 
-> that could be polled when needed.
+> This is all OK and I don't think anybody has any problem with this. It
+> is well within the scope of what devicetree is meant for and it has no
+> operating system specific bits per se.
+> 
+> The other thing is choosing the userspace interface through which the
+> data is exposed when the application falls in an area where it could be
+> exposed through one of multiple APIs. E.g. a general purpose temperature
+> sensor could be either IIO or hwmon. A accelerometer could either be
+> input or IIO. Some user might prefer one interface over the other
+> because they have existing application code that has support for this
+> interface. Another user wants to use another interface because they have
+> code for this interface.
+> 
+> This is the kind of bridge setup I'd rather very much avoid putting in
+> the DT. Strictly speaking at the DT level you don't know what kind of
+> application the users are going to run so you can't make that decission
+> at that level. Sure if you build a very tightly coupled embedded
+> application you get kernel, DT and userspace out of one hand and you
+> know at the DT level which interface your application will require, but
+> this is still a layering violation and should be avoided if possible.
+> 
+> Saying you want a IIO or hwmon interface in the DT is also very Linux
+> specific. Another reason why we should avoid this.
+> 
+> In my opinion we should make the default interface what we think to the
+> best of our knowledge is the appropriate interface for this type of
+> device and not offer an option to overwrite this through the DT. Where
+> things are on the edge we might let the driver author decide since they
+> might have a valid usecase for that interface.
+> 
+> In addition to that I think we should offer the possibility to
+> instantiate bridges from userspace to handle the case where somebody
+> really wants to use the other interface. Theses bridges should solely be
+> about changing the delivery method and not about changing the data type.
+> 
+> E.g. a userspace bridge should not be used to create a input device for
+> a resistor ladder connected to a GP ADC as this would change the meaning
+> of the data. On the other hand creating a hwmon to IIO bridge for a
+> temperature sensor should be OK since both report the same temperature
+> value.
+That's the sort of balance I think we need to reach as well.
+> 
+> I'm not sure what I think of this yet, but for completeness I want to
+> mention that we could also get a similar result by implementing the
+> bridge in userspace by LD_PRELOAD'ing. Maybe this is where is belongs?
+> 
+> Another thing that is up for discussion is what should do with the ADC
+> device in case there is additional hardware connected. Should we still
+> expose the userspace interface to raw ADC device? If not how would we
+> figure out that we shouldn't considering that the consumer is probed
+> after the provider.
+Is there any harm in doing so? 
 
-I for one really appreciate that I do not need to poll anything and
-instead I am notified when stuff that I pushed passed/failed some tests.
-So, even if there are status pages and what's not, please do keep opt-in
-email notifications.
+There was an effort a few years back to separate the backend and front
+end of IIO explicitly to allow the dropping of the userspace interface.
+In the extreme case could we 'solve' the exposing the wrong thing case
+by requiring every channel to be mapped to a client?  So if you
+have a general purpose channel, it has to be mapped as such -
+interfaces are effectively only provided on demand. Once an interface
+has been provided in the extreme case we could lock out any more
+from using that channel.
 
-Thanks Fengguang!
+Doing this for all subsystems with fuzzy edge cases would be a pain
+however!
 
--- 
-Dmitry
+Jonathan
+> 
+> - Lars
+> 
