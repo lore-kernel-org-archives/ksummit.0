@@ -1,24 +1,35 @@
-Return-Path: <riel@redhat.com>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BC287956
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A113C8D7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 14:37:37 +0000 (UTC)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6F292275
+	Thu, 28 Jul 2016 15:24:07 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 235B68E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 14:37:37 +0000 (UTC)
-Message-ID: <1469716655.10218.28.camel@redhat.com>
-From: Rik van Riel <riel@redhat.com>
-To: Davidlohr Bueso <dave@stgolabs.net>,
-	ksummit-discuss@lists.linuxfoundation.org
-Date: Thu, 28 Jul 2016 10:37:35 -0400
-In-Reply-To: <20160727232054.GA30998@linux-80c1.suse>
-References: <20160727232054.GA30998@linux-80c1.suse>
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-3HhH+PvHWFIJ4zCrH5tt"
-Mime-Version: 1.0
-Subject: Re: [Ksummit-discuss] self nomination
+	Thu, 28 Jul 2016 15:24:07 +0000 (UTC)
+Date: Thu, 28 Jul 2016 16:16:13 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Jan Kara <jack@suse.cz>
+Message-ID: <20160728151613.GF11806@sirena.org.uk>
+References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
+	<4826466.kMrAaT2rsn@avalon>
+	<cf4ea315-fcbc-a7f5-758a-298cfac321e8@xs4all.nl>
+	<2071960.gyaMIhrJi3@avalon> <20160728114624.GE4094@quack2.suse.cz>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="IQ2ZtBPOZQVGoXc0"
+Content-Disposition: inline
+In-Reply-To: <20160728114624.GE4094@quack2.suse.cz>
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
+	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
+	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Valentin Rothberg <valentinrothberg@gmail.com>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
+ and semantics (v2)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,42 +40,39 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---=-3HhH+PvHWFIJ4zCrH5tt
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+--IQ2ZtBPOZQVGoXc0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Wed, 2016-07-27 at 16:20 -0700, Davidlohr Bueso wrote:
->=C2=A0
-> - Upstreaming PREEMPT_RT.
+On Thu, Jul 28, 2016 at 01:46:24PM +0200, Jan Kara wrote:
 
-> In addition, I'm wondering if there's any interest in a performance
-> session (getting to know some of the bottlenecks that are currently
-> making folks cry), like Chris Mason has been doing in past kernel
-> summits for fb specific workloads.
+> So I'm complete outsider to media drivers so maybe my question is stupid
+> but I cannot resist: So how is the device bringup supposed to work for
+> devices where you have these cycles in the dependency graph? Do you just
+> bring up the controller and then the sensor and it works because the
+> controller doesn't need the clock from the sensor for startup?
 
-I would be interested in these topics, too.
+For audio you don't tend to actually bring the device up and start fully
+using it until it's needed to perform some task and when you do that
+there usually is some definite procedure that works at a more granualar
+level than the full devices.  In order to enumerate everything for the
+Linux device model you want to know about all the dependencies and
+ideally verify that they'll be there when you need them but you don't
+actually need to use them at that point.
 
-I guess I should nominate myself, in case either
-Johannes's MM topic comes up, or the above topics.
-
---=20
-All rights reversed
-
---=-3HhH+PvHWFIJ4zCrH5tt
+--IQ2ZtBPOZQVGoXc0
 Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQEcBAABCAAGBQJXmhivAAoJEM553pKExN6D7WwH/ArKkhUXJ8EsKLiNKcXGIRX+
-30z5nqD/eEe6kXl70GsdelKCZAZLuG+S8mmskzDI3FUPwrNke/DV+C+4TEQ6zRcd
-l4XGNixoFNZftfONFPSEOfbDTJJcY5PROe4PVCRr0kOcicyqFVlwlO8ovdVT3x1J
-cBthAYRZlqktDFWXF1FIaORvUOZAL0pfXc7do7WGdZ+gu6BTFE7ptPdGMOecUsNu
-arMBAjsJEohTcRG8DrItgVMT94pB4Uwl+rRXLbbf1iGUIwWG9Vh9E9/Ma5NnfMXR
-ceqXIQFzMFQCTbG9MSshtwcPuhA9SL1BliWXrehEMuLp/xiiBhSdKPPokS5eWck=
-=Ia6x
+iQEcBAEBCAAGBQJXmiG8AAoJECTWi3JdVIfQZPsH+gLGD4bHf1BUOWTNa57efGx9
+ATmVJGxjIngUIojpVhkd+fbpIIK4kPPpNCcElgF4ROHtm2zpuBfY4xfHpXtL59Rt
+MeeJFRoGsVSSjWEwLBHpqGit3bfmqI5u6475thaOgvI3QsNGKCDEUXGRnBvOtho6
+6XpuK4+3r/whOq860W7zRw3JpXSL4FHAHUO+wmyZgdybHOTrC7bQJC8uVE1HWnKd
+SFbwFGSeWYiRjPxkK94WNvzAbgI/1C8OnOndESLizDqRHD/ORl8nVblIvt/1dG6z
+e65jH+IUjlhpZnPPrIlxpu+S3+8rfUuCtAzYWwe0aQ+/Ssy4wbtp4aVGsGYtcng=
+=j6sa
 -----END PGP SIGNATURE-----
 
---=-3HhH+PvHWFIJ4zCrH5tt--
+--IQ2ZtBPOZQVGoXc0--
