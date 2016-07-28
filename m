@@ -1,32 +1,27 @@
-Return-Path: <laurent.pinchart@ideasonboard.com>
+Return-Path: <will.deacon@arm.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4B1D394B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0CEFF956
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 10:41:24 +0000 (UTC)
-Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
-	[185.26.127.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 72B2317D
+	Thu, 28 Jul 2016 10:41:31 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.101.70])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id B7A0417D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 10:41:23 +0000 (UTC)
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Thu, 28 Jul 2016 13:41:32 +0300
-Message-ID: <4826466.kMrAaT2rsn@avalon>
-In-Reply-To: <10281749.h0nm8HgLR9@vostro.rjw.lan>
-References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
-	<20160727192040.GL5537@wotan.suse.de>
-	<10281749.h0nm8HgLR9@vostro.rjw.lan>
+	Thu, 28 Jul 2016 10:41:30 +0000 (UTC)
+Date: Thu, 28 Jul 2016 11:41:33 +0100
+From: Will Deacon <will.deacon@arm.com>
+To: David Woodhouse <dwmw2@infradead.org>
+Message-ID: <20160728104132.GB1085@arm.com>
+References: <15500.1469183675@warthog.procyon.org.uk>
+	<1469545881.120686.335.camel@infradead.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-Cc: Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
-	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
-	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Valentin Rothberg <valentinrothberg@gmail.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
-	and semantics (v2)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1469545881.120686.335.camel@infradead.org>
+Cc: jakub@redhat.com, peterz@infradead.org,
+	ksummit-discuss@lists.linuxfoundation.org, ramana.radhakrishnan@arm.com
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Memory model,
+ using ISO C++11 atomic ops
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,72 +31,30 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thursday 28 Jul 2016 02:54:56 Rafael J. Wysocki wrote:
-> On Wednesday, July 27, 2016 09:20:40 PM Luis R. Rodriguez wrote:
->> On Wed, Jul 27, 2016 at 07:03:46PM +0100, Mark Brown wrote:
->>> On Wed, Jul 27, 2016 at 07:58:29PM +0200, Luis R. Rodriguez wrote:
->>>> On Wed, Jul 27, 2016 at 06:26:36PM +0100, Mark Brown wrote:
->>>>>> to help enable asynchronous probe, however for built-in devices
->>>>>> this requires very specific platform knowledge otherwise using
->>>>>> async probe will blow up your kernel -- if you get it right
->>>>>> though, using async probe can help with
->>>>>
->>>>> I'm not sure what specific platform knowledge you're thinking of
->>>>> here? We have coverage for most things in the form of deferred probe
->>>>> (messy though it is).
->>>> 
->>>> Deferred probe is a complete a hack and sub-optimal. Being able to
->>>> address
->>> 
->>> Sure, I don't think anyone disagrees on that but it does mean we don't
->>> actually blow up easily like we used to - it's messy but it does get
->>> there safely.
->> 
->> Good point, without learning from the past we would otherwise expect
->> this is just a sloppy situation, so indeed deferred probe had its
->> merits, and we're at least now safe. The goal here is then how to
->> do this better, optimized and make it a non-hack.
-
-Let's not demonize deferred probing, I think it's a good safety net to be used 
-as a last resort when everything else failed. The problem is that we're using 
-it as our primary mean to order initialization, and that leads to all sorts of 
-inefficient behaviours at boot time.
-
-> Well, my patchset uses deferred probing, so it won't help much here I guess.
->
->>> I was specifically querying your statement that things would blow up.
->> 
->> In practice this varies as it depends on the device driver or component,
->> but the general theme seems to be "relying on something which is not
->> yet available".
+On Tue, Jul 26, 2016 at 04:11:21PM +0100, David Woodhouse wrote:
+> On Fri, 2016-07-22 at 11:34 +0100, David Howells wrote:
+> > Further, Paul McKenney and others are assembling a memory model description.
+> > Do we want to consider loosening up the kernel memory model?
 > 
-> Not only that.
+> It's not clear that 'loosening up' is what we're after.
 > 
-> There also is a "relying on something that is not a direct ancestor of the
-> device you care about" angle of that.
+> In Seoul last year, weren't we looking at things like readl_relaxed()
+> and lamenting the fact that they do actually still have strong enough
+> requirements that they can't *really* be very relaxed on Power and
+> ARM64 at all, because they're basically being used with the assumption
+> of Intel-like semantics.
 > 
-> The device hierarchy as we know it is insufficient for representing
-> dependencies beyond parent-child and that really is part of the problem,
-> and a significant one IMO.
+> The cheap answer is "well, it sucks to be on POWER or ARM64 because
+> then readl_relaxed() has to be as slow as readl() is".
 
-That's the core of the issue.
+I wasn't in Seoul, but I think some people got the wrong end of the stick
+about the relaxed accessors and I'd be interested in trying to address
+some of that, at least from the arm64 point-of-view. Paul has been busy
+writing something up a summary for lwn, but I don't think it's quite ready
+yet.
 
-Linux has traditionally represented the device hierarchy from a control bus 
-point of view, both in the driver model and in DT. We know other dependencies 
-exist (data bus access, clocks, regulators, power domains, ...), and we try to 
-address them with various heuristics.
+Having said that, the memory model work that I'm aware of focusses
+completely on SMP synchronisation and I don't think it's particularly
+helpful to throw I/O into the mix just yet.
 
-One problem with those other dependencies is that they can't always be 
-expressed as a tree and may a graph instead. Worse, in some cases, the graph 
-can be cyclic (I've recently been told about an external I2C-based PLL that 
-takes an input clock and generates an output clock, with the input clock being 
-produced by an on-SoC sound device and the output clock being used by the same 
-sound device). Even when individual resource trees or graphs are not cyclic, 
-combining them in a global dependency graph will often result in cycles. The 
-challenge is to find a proper way to both express the dependency graph and 
-break the cycles.
-
--- 
-Regards,
-
-Laurent Pinchart
+Will
