@@ -1,24 +1,32 @@
-Return-Path: <marc.zyngier@arm.com>
+Return-Path: <laurent.pinchart@ideasonboard.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id E01A9932
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4B1D394B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 10:14:54 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.101.70])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 7D5C6A7
+	Thu, 28 Jul 2016 10:41:24 +0000 (UTC)
+Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
+	[185.26.127.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 72B2317D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 10:14:54 +0000 (UTC)
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-References: <20160726223054.GA30993@dtor-ws>
-From: Marc Zyngier <marc.zyngier@arm.com>
-Message-ID: <5799DB1B.5010307@arm.com>
-Date: Thu, 28 Jul 2016 11:14:51 +0100
+	Thu, 28 Jul 2016 10:41:23 +0000 (UTC)
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Thu, 28 Jul 2016 13:41:32 +0300
+Message-ID: <4826466.kMrAaT2rsn@avalon>
+In-Reply-To: <10281749.h0nm8HgLR9@vostro.rjw.lan>
+References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
+	<20160727192040.GL5537@wotan.suse.de>
+	<10281749.h0nm8HgLR9@vostro.rjw.lan>
 MIME-Version: 1.0
-In-Reply-To: <20160726223054.GA30993@dtor-ws>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Ksummit-discuss] Self nomination
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
+	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
+	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Valentin Rothberg <valentinrothberg@gmail.com>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
+	and semantics (v2)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -28,34 +36,72 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 26/07/16 23:30, Dmitry Torokhov wrote:
-> I'd like to nominate myself for the kernel summit this year. I am part
-> of Chrome OS kernel team and I also maintain drivers/input in mainline.
+On Thursday 28 Jul 2016 02:54:56 Rafael J. Wysocki wrote:
+> On Wednesday, July 27, 2016 09:20:40 PM Luis R. Rodriguez wrote:
+>> On Wed, Jul 27, 2016 at 07:03:46PM +0100, Mark Brown wrote:
+>>> On Wed, Jul 27, 2016 at 07:58:29PM +0200, Luis R. Rodriguez wrote:
+>>>> On Wed, Jul 27, 2016 at 06:26:36PM +0100, Mark Brown wrote:
+>>>>>> to help enable asynchronous probe, however for built-in devices
+>>>>>> this requires very specific platform knowledge otherwise using
+>>>>>> async probe will blow up your kernel -- if you get it right
+>>>>>> though, using async probe can help with
+>>>>>
+>>>>> I'm not sure what specific platform knowledge you're thinking of
+>>>>> here? We have coverage for most things in the form of deferred probe
+>>>>> (messy though it is).
+>>>> 
+>>>> Deferred probe is a complete a hack and sub-optimal. Being able to
+>>>> address
+>>> 
+>>> Sure, I don't think anyone disagrees on that but it does mean we don't
+>>> actually blow up easily like we used to - it's messy but it does get
+>>> there safely.
+>> 
+>> Good point, without learning from the past we would otherwise expect
+>> this is just a sloppy situation, so indeed deferred probe had its
+>> merits, and we're at least now safe. The goal here is then how to
+>> do this better, optimized and make it a non-hack.
 
-[...]
+Let's not demonize deferred probing, I think it's a good safety net to be used 
+as a last resort when everything else failed. The problem is that we're using 
+it as our primary mean to order initialization, and that leads to all sorts of 
+inefficient behaviours at boot time.
 
-> - I would like to sync up with people and discuss [lack of] progress
->   on topic of device probe ordering (including handling of deferred
->   probes, asynchronous probes, etc).
+> Well, my patchset uses deferred probing, so it won't help much here I guess.
+>
+>>> I was specifically querying your statement that things would blow up.
+>> 
+>> In practice this varies as it depends on the device driver or component,
+>> but the general theme seems to be "relying on something which is not
+>> yet available".
+> 
+> Not only that.
+> 
+> There also is a "relying on something that is not a direct ancestor of the
+> device you care about" angle of that.
+> 
+> The device hierarchy as we know it is insufficient for representing
+> dependencies beyond parent-child and that really is part of the problem,
+> and a significant one IMO.
 
-I'm extremely interested in discussing this.
+That's the core of the issue.
 
-It has wide reaching consequences as (with my irqchip maintainer hat on)
-we've had to pretend that some bits of HW (timers, interrupt
-controllers) are not "devices". Not a massive issue for most, except
-when your interrupt controller has requirements that are very similar to
-the DMA mapping API (which you cannot use because "not a device"). Other
-problems are introduced by things like wire-MSI bridges, and most people
-end-up resorting to hacks like ad-hoc initcalls and sprinkling deferred
-probes in specific drivers.
+Linux has traditionally represented the device hierarchy from a control bus 
+point of view, both in the driver model and in DT. We know other dependencies 
+exist (data bus access, clocks, regulators, power domains, ...), and we try to 
+address them with various heuristics.
 
-I've seen a number of proposal so far, but the subject seems to have
-gone quiet (well, not really, but hardly any progress has been made).
+One problem with those other dependencies is that they can't always be 
+expressed as a tree and may a graph instead. Worse, in some cases, the graph 
+can be cyclic (I've recently been told about an external I2C-based PLL that 
+takes an input clock and generates an output clock, with the input clock being 
+produced by an on-SoC sound device and the output clock being used by the same 
+sound device). Even when individual resource trees or graphs are not cyclic, 
+combining them in a global dependency graph will often result in cycles. The 
+challenge is to find a proper way to both express the dependency graph and 
+break the cycles.
 
-Happy to make this a tech discussion or a hallway track.
-
-Thanks,
-
-	M.
 -- 
-Jazz is not dead. It just smells funny...
+Regards,
+
+Laurent Pinchart
