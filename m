@@ -1,29 +1,25 @@
-Return-Path: <jic23@jic23.retrosnub.co.uk>
+Return-Path: <dh.herrmann@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8C62B94E
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 00B51413
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 22:15:29 +0000 (UTC)
-Received: from saturn.retrosnub.co.uk (saturn.retrosnub.co.uk [178.18.118.26])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4EC94221
+	Thu, 28 Jul 2016 22:24:08 +0000 (UTC)
+Received: from mail-lf0-f46.google.com (mail-lf0-f46.google.com
+	[209.85.215.46])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B8F5810A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 22:15:28 +0000 (UTC)
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-References: <5222c3bb-d6b7-0ccc-bf9e-becf5046a37a@kernel.org>
-	<CACRpkdYPNdtabj5zOXe9nyzbHsKGgo57dfojCDvfSNPEWAMZRg@mail.gmail.com>
-	<2617443.e5mOt80N6v@avalon>
-From: Jonathan Cameron <jic23@jic23.retrosnub.co.uk>
-Message-ID: <735ff0df-09fb-371a-a0b1-908b3c8d5f90@jic23.retrosnub.co.uk>
-Date: Thu, 28 Jul 2016 23:07:42 +0100
+	Thu, 28 Jul 2016 22:24:06 +0000 (UTC)
+Received: by mail-lf0-f46.google.com with SMTP id l69so59135432lfg.1
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 28 Jul 2016 15:24:06 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <2617443.e5mOt80N6v@avalon>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 7bit
-Cc: Gregor Boirie <gregor.boirie@parrot.com>, Rob Herring <robh+dt@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Sensors and similar - subsystem
- interactions, divisions, bindings etc.
+From: David Herrmann <dh.herrmann@gmail.com>
+Date: Fri, 29 Jul 2016 00:24:03 +0200
+Message-ID: <CANq1E4QvX6RMeapc8ZBRvg6UFdwCEbQMhgH=DqM6UZMkF3+T1g@mail.gmail.com>
+To: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8
+Subject: [Ksummit-discuss] [TECH TOPIC] Bus IPC
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,155 +29,142 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 28/07/16 17:46, Laurent Pinchart wrote:
-> Hi Linus,
-> 
-> On Friday 22 Jul 2016 14:04:07 Linus Walleij wrote:
->> On Wed, Jul 20, 2016 at 11:18 PM, Jonathan Cameron <jic23@kernel.org> wrote:
->>> This topic would be around the way the various subsystems interact, in the
->>> rough area of 'sensors' (I haven't yet had much of an issue with subsystem
->>> crossing with output devices but maybe that's just over the next hill!)
->>>
->>> Scope may well be wider but includes:
->>> * input (some of it)
->>> * hwmon
->>> * iio
->>> * comedi(?)
->>> * thermal
->>> * power/battery
->>> * gpio - the blur between gpios and beaglescope / PLC type I/O.
->>
->> I'm in. The new chardev ABI was designed to fit play/well with IIO,
->> for example I added a 64bit timestamp also to GPIO events so that
->> people could do what I guess they refer to as sensor fusion mixing
->> and blending sensor input events with GPIO events.
->> (https://en.wikipedia.org/wiki/Sensor_fusion)
->>
->> What I wanted to bring up ASAP was when I noticed in linux-next
->> commit bc2b7dab629a51e8beb5fda4222c62a23b729f26
->> "iio:core: timestamping clock selection support"
->> that we should probably move this code to e.g. drivers/base
->> or drivers/lib so I can reuse the same ABI in sysfs for
->> GPIO event timestamping.
->>
->> I think timestamping events uniformly is something that is
->> important to all userspaces.
->>
->>> Dmitry and I often have to decide on the IIO / input scope boundary
->>> (and we've moved it over time) + a number of cross over drivers have
->>> turned up recently.
->>
->> (snip from elsewhere)
->>
->>> Is it ever sensible to have two drivers for the same part because
->>> the use cases are so different? (I hope there is always a better way
->>> but maybe not)
->>
->> I have one on my knee as I want to make a proper IIO driver
->> for MPU-3050 gyroscope which has a (very simplified) driver in
->> drivers/input/misc/mpu3050.c that was merged before the advent
->> of the IIO subsystem.
->>
->> For the new driver I have these options:
->>
->> - Keep both drivers and consider them for different usecases.
->>   of the same hardware that require different Kconfig (seems
->>   very unelegant to me)
->>
->> - Add some input event calls into the IIO driver so we can
->>   phase over the older uses to the new driver.
->>
->> - Drop the input event handling since gyroscopes should not
->>   be handled by input anyway
->>
->> - Develop a generic IIO-gyroscope-to-input event bridge.
->>   (Phew seems complex.)
->>
->> (elsewhere)
->>
->>> IIO-input has been partly held outside mainline for years by this issue.
->>
->> Is there such a thing? gitweb?
->>
->>> 1) Are we happy with the somewhat adhoc divisions of subsystems as they
->>> stand?
->>
->> IETF has this motto "rough consensus and running code", and
->> for me that is the working assumption to most things
->> driver-subsystem-division-of-responsibilities-related.
->>
->>> We have had quite a few cases where a whole driver is submitted to the
->>> 'wrong' subsystem. Not the best first interaction with the kernel
->>> world for new contributors. (This sort of area is attracts newbies
->>> as it's relatively simple and the hardware is fairly cheap and more
->>> than once their first experience with review as exactly this!)
->>
->> What is sometimes lacking is users who are clever enough to
->> take the latest kernel (or preferably even -next) and git grep for
->> a few strings related to the hardware they want to support, and
->> be revealed the fact that there is already a driver for it.
->>
->> If there isn't, their problem is that of finding the right subsystem
->> to pigeon-hole their hardware into. It typically requires a kernel
->> old grumpy person saying "no, THIS thing goes THERE, THAT
->> thing goes THERE". Unfortunately I think this is pretty hard to
->> codify.
->>
->>> If we aren't happy, what do we do about it?
->>
->> More helpful kernel generalists...
->>
->>> GPIO is another interesting case - a lot of hardware is capable of
->>> parallel sampling, some at high speeds. It's another area that
->>> is probably too specialist for this discussion, but if people want
->>> to dive into the details it might be interesting.
->>
->> I currently have (for v4.8) an ABI which makes i possible to e.g.
->> read 32 simultaneous lines with one userspace/kernelspace
->> swap, if it ends up as a readl() from a register.
->>
->> The userspace ABI has a limitation to 64 values, so it would be
->> possible to have some driver read 64 GPIO lines and return them
->> in a u8 vector back to userspace in one go.
->>
->> For an oscilloscope or signal analyzer usecase with more than
->> 64 channels needing to be sampled simultaneously, we may need
->> to add another "large GPIO read" ABI, and also probably a new
->> driver API interface to achieve it. I've never seen hardware that can
->> read more values in parallel than 32 though, I chose 64 to get some
->> headroom.
-> 
-> Such a use case would put strong real-time constraints on the system, I wonder 
-> how useful a GPIO-based signal analyzer would be. Are you aware of any GPIO 
-> hardware that can be programmed to sample at a precise point in time (or 
-> perhaps even periodically) ?
-There are cross over cases from the other side where
-people are putting devices that do do sequenced input sampling to use
-to do gpio tasks.  A lot of sensors have spare pins and someone always
-decides they might as well be gpi(o) pins rather than waste them.
+Tom Gundersen and I would like to propose a technical session on
+in-kernel IPC systems. For roughly half a year now we have been
+developing (with others) a capability-based [1] IPC system for linux,
+called bus1 [2]. We would like to present bus1, start a discussion on
+open problems, and talk about the possible path forward for an upstream
+inclusion.
 
-Sometimes they have to be polled separately. Sometimes they have the
-even more cunning plan of sticking them in 'spare bits' of ADC channels,
-or in additional registers that can be dropped into a hardware fifo.
-All in then takes is some designer running low on pins on the SoC to
-decide they'll be handy for something random.
+While bus1 emerged out of the kdbus project, it is a new, independent
+project, designed from scratch. Its main goal is to implement an n-to-n
+communication bus on linux. A lot of inspiration is taken from both
+DBus, as well as the the most commonly used IPC systems of other OSs,
+and related research projects (including Android Binder, OS-X/Hurd Mach
+IPC, Solaris Doors, Microsoft Midori IPC, seL4, Sandstorm's Cap'n'Proto,
+..).
 
-A simple gpio driven logic analyzer case probably needs some
-hardware support. There are latched capture units out there that
-provide this sort of precise timing as well, though they are well
-out of the realms of what you'd normally call a general purpose input.
-TIs universal parallel ports for example (I think), or something
-like beaglelogic where the timing is pushed to a coprocessor.
+The bus1 IPC system was designed to...
 
-It's also possible to design a wide variety of algorithms to work
-with uneven sampling of data, as long as you know 'when' it was
-sampled.
+ o be a machine-local IPC system. It is a fast communication channel
+   between local threads and processes, independent of the marshaling
+   format used.
 
-So more fiddly corner cases :)
+ o provide secure, reliable capability-based [1] communication. A
+   message is always invoked on a capability, requiring the caller to
+   own said capability, otherwise it cannot perform that operation.
 
-Jonathan
-> 
->>> Linus Waleij (gpio)
->>
->> Sure, if travels etc work out and I get invited I'd come running.
-> 
+ o efficiently support n-to-n communication. Every peer can communicate
+   with every other peer (given the right capabilities), with minimal
+   overhead for state-tracking.
+
+ o be well-suited for both unicast and multicast messages.
+
+ o guarantee a global message order [3], allowing clients to rely on
+   causal ordering between messages they send and receive (for further
+   reading, see Leslie Lamport's work on distributed systems [4]).
+
+ o scale with the number of CPUs available. There is no global context
+   specific to the bus1 IPC, but all communication happens based on
+   local context only. That is, if two independent peers never talk to
+   each other, their operations never share any memory (no shared
+   locks, no shared state, etc.).
+
+ o avoid any in-kernel buffering and rather transfer data directly
+   from a sender into the receiver's mappable queue (single-copy).
+
+A user-space implementation of bus1 (or even any bus-based IPC) was
+considered, but was found to have several seemingly unavoidable issues.
+
+ o To guarantee reliable, global message ordering including multicasts,
+   as well as to provide reliable capabilities, a bus-broker is
+   required. In other words, the current linux syscall API is not
+   sufficient to implement the design as described above in an efficient
+   way without a dedicated, trusted, privileged process that manages the
+   bus and routes messages between the peers.
+
+ o Whenever a bus-broker is involved, any message transaction between
+   two clients requires the broker process to execute code in its own
+   time-slice. While this time-slice can be distributed fairly across
+   clients, it is ultimately always accounted on the user of the broker,
+   rather than the originating user. Kernel time-slice accounting, and
+   the accounting in the broker are completely separated and cannot make
+   decisions based on the data of each other.
+   Furthermore, the broker needs to be run with quite excessive resource
+   limits and execution rights to be able to serve requests of high
+   priority peers, making the same resources available to low priority
+   peers as well.
+   An in-kernel IPC mechanism removes the requirement for such a highly
+   privileged bus-broker, and rather accounts any operation and resource
+   exactly on the calling user, cgroup, and process.
+
+ o Bus ipc often involves peers requesting services from other trusted
+   peers, and waiting for a possible result before continuing. If
+   said trust relationship is given, privileged processes actively want
+   priority inheritance when calling into less privileged, but trusted
+   processes. There is currently no known way to implement this in a
+   user-space broker without requiring n^2 PI-futex pairs.
+
+ o A userspace broker would entail two UDS transactions and potentially
+   an extra context-switch, compared to a single bus1 transaction with
+   the in-kernel broker. Our x86-benchmarks (before any serious
+   optimization work has started) shows that two UDS transactions are
+   always slower than one bus1 transaction. On top of that comes the
+   extra context switch, which has about the same cost as a full bus1
+   transaction, as well as any time spent in the broker itself. With an
+   imaginary no-overhead broker, we found an in-kernel broker to be >40%
+   faster. The numbers will differ between machines, but the reduced
+   latency is undeniable.
+
+ o Accounting of inflight resources (e.g., file-descriptors) in a broker
+   is completely broken. Right now, any outgoing message of a broker
+   will account FDs on the broker, however, there is no way for the
+   broker to track outgoing FDs. As such, it cannot attribute them on
+   the original sender of the FD, opening up for DoS attacks.
+
+ o LSMs and audit cannot hook into the broker, nor get any additional
+   routing information. Thus, audit cannot log proper information, and
+   LSMs need to hook into a user-space process, relying on them to
+   implement the wanted security model.
+
+ o The kernel itself can never operate on the bus, nor provide services
+   seamlessly to user-space (e.g., like netlink does), unless it is
+   implemented in the kernel.
+
+ o If a broker is involved, no communication can be ordered against
+   side-channels. A kernel implementation, on the other hand, provides
+   strong ordering against any other event happening on the system.
+
+The implemention of bus1.ko with its <5k LOC is relatively small, but
+still takes a considerable amount of time to review and understand. We
+would like to use the kernel-summit as an opportunity to present bus1,
+and answer questions on its design, implementation, and use of other
+kernel subsystems. We encourage everyone to look into the sources, but
+we still believe that a personal discussion up-front would save everyone
+a lot of time and energy. Furthermore, it would also allow us to
+collectively solve remaining issues.
+
+Everyone interested in IPC is invited to the discussion. In particular,
+we would welcome everyone who participated in the Binder and kdbus
+discussions, is involed in shmem+memcg (or other bus1-related
+subsystems), possibly including:
+
+ o Andy Lutomirski
+ o Greg Kroah-Hartman
+ o Steven Rostedt
+ o Eric W. Biederman
+ o Jiri Kosina
+ o Borislav Petkov
+ o Michal Hocko (memcg)
+ o Johannes Weiner (memcg)
+ o Hugh Dickins (shmem)
+ o Tom Gundersen (bus1)
+ o David Herrmann (bus1)
+
+Thanks!
+    Tom, David
+
+[1] https://en.wikipedia.org/wiki/Capability-based_security
+[2] http://www.bus1.org
+[3] https://github.com/bus1/bus1/wiki/Message-ordering
+[4] http://amturing.acm.org/p558-lamport.pdf
