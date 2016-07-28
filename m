@@ -1,27 +1,24 @@
-Return-Path: <dhowells@redhat.com>
+Return-Path: <jack@suse.cz>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A0C7B8D7
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9EAED8D7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 07:13:02 +0000 (UTC)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2269A152
+	Thu, 28 Jul 2016 07:18:44 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1A38C148
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 07:13:01 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <20160727234035.772a4333@grimm.local.home>
-References: <20160727234035.772a4333@grimm.local.home>
-	<87inw1skws.fsf@x220.int.ebiederm.org>
-	<25598.1469113525@warthog.procyon.org.uk>
-To: Steven Rostedt <rostedt@goodmis.org>
+	Thu, 28 Jul 2016 07:18:44 +0000 (UTC)
+Date: Thu, 28 Jul 2016 09:18:40 +0200
+From: Jan Kara <jack@suse.cz>
+To: Davidlohr Bueso <dave@stgolabs.net>
+Message-ID: <20160728071840.GB4094@quack2.suse.cz>
+References: <20160727232054.GA30998@linux-80c1.suse>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <25344.1469689978.1@warthog.procyon.org.uk>
-Date: Thu, 28 Jul 2016 08:12:58 +0100
-Message-ID: <25345.1469689978@warthog.procyon.org.uk>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20160727232054.GA30998@linux-80c1.suse>
 Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] More useful types in the linux
-	kernel
+Subject: Re: [Ksummit-discuss] self nomination
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,19 +28,20 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Steven Rostedt <rostedt@goodmis.org> wrote:
+Hi!
 
-> >  (2) Differentiate non-BH spinlocks and BH spinlocks by type.
-> > 
-> >      It seems like you can't mix BH and non-BH ops on a spinlock without
-> >      lockdep barking.  If that's the case, let's make this a compile-time
-> >      check.
-> > 
-> 
-> Not sure what you mean here. You can use BH spinlocks as non BH
-> spinlocks while in a BH, or if BH is already disabled, and lockdep will
-> not complain.
+On Wed 27-07-16 16:20:54, Davidlohr Bueso wrote:
+> In addition, I'm wondering if there's any interest in a performance
+> session (getting to know some of the bottlenecks that are currently
+> making folks cry), like Chris Mason has been doing in past kernel
+> summits for fb specific workloads.
 
-Okay, fair enough.
+I'd be interested in that session. But we need to find enough content. We
+can certainly talk about our experiences with updating kernel for SLE12 SP2
+(to 4.4) but I don't think it would fill the whole session. So it would
+be good if other "vendors" shared their experiences as well.
 
-David
+								Honza
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
