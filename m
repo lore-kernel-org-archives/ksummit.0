@@ -1,35 +1,27 @@
-Return-Path: <bhelgaas@google.com>
+Return-Path: <jic23@jic23.retrosnub.co.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id DBECC413
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0F2BC83D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 22:14:14 +0000 (UTC)
-Received: from mail-yw0-f176.google.com (mail-yw0-f176.google.com
-	[209.85.161.176])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2B0021A2
+	Thu, 28 Jul 2016 22:15:29 +0000 (UTC)
+Received: from saturn.retrosnub.co.uk (saturn.retrosnub.co.uk [178.18.118.26])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4D3151A2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 22:14:14 +0000 (UTC)
-Received: by mail-yw0-f176.google.com with SMTP id z8so99613141ywa.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 15:14:14 -0700 (PDT)
+	Thu, 28 Jul 2016 22:15:28 +0000 (UTC)
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+References: <5222c3bb-d6b7-0ccc-bf9e-becf5046a37a@kernel.org>
+	<20160728085846.63971233@recife.lan> <1509685.ufIZn1R9J2@avalon>
+From: Jonathan Cameron <jic23@jic23.retrosnub.co.uk>
+Message-ID: <8fee553b-de04-27c9-9c33-d578a1f3cca1@jic23.retrosnub.co.uk>
+Date: Thu, 28 Jul 2016 23:09:59 +0100
 MIME-Version: 1.0
-In-Reply-To: <20160726162238.GE3703@f23x64.localdomain>
-References: <CAKMK7uEuqLLf2bCyB-sAuu5WvVA1Kp7Jvc33k3um5DfdQr4eyg@mail.gmail.com>
-	<20160722200206.GA3703@f23x64.localdomain>
-	<CAKMK7uEeNuts2FzUAS7NzWjP_yYhOAgT4Q-QtVixm0CozOf0AQ@mail.gmail.com>
-	<20160726162238.GE3703@f23x64.localdomain>
-From: Bjorn Helgaas <bhelgaas@google.com>
-Date: Thu, 28 Jul 2016 17:13:53 -0500
-Message-ID: <CAErSpo7Us+TpAxwqgefpmGmBj0VgH-ACi3DcTejCC9QZBVyOXw@mail.gmail.com>
-To: Darren Hart <dvhart@infradead.org>
-Content-Type: text/plain; charset=UTF-8
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Dave Airlie <airlied@linux.ie>, "Nikula,
-	Jani" <jani.nikula@linux.intel.com>,
-	Grant Likely <grant.likely@linaro.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] (group) maintainership models
+In-Reply-To: <1509685.ufIZn1R9J2@avalon>
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: 7bit
+Cc: Zhang Rui <rui.zhang@intel.com>, Rob Herring <robh+dt@kernel.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Sensors and similar - subsystem
+ interactions, divisions, bindings etc.
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,46 +31,50 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Jul 26, 2016 at 11:22 AM, Darren Hart <dvhart@infradead.org> wrote:
-> On Mon, Jul 25, 2016 at 07:57:04AM +0200, Daniel Vetter wrote:
->> On Fri, Jul 22, 2016 at 10:02 PM, Darren Hart <dvhart@infradead.org> wrote:
->> > On Wed, Jul 20, 2016 at 02:11:58PM +0200, Daniel Vetter wrote:
->> >> In my very first KS I found the maintainership model presentations
->> >> (x86-tip & armsoc) rather interesting. And last year we've had an
->> >> ad-hoc discussion about group maintainership again. I think drm&i915
->> >> would be an interesting case since over the past year I've done some
->> >> changes which are at the edge of what's common in the kernel, and it
->> >> seems to work (at least for us) fairly well. I discussed this a bit
->> >> with a few folks at ELC San Diego too.
->> >>
->> >> Short summary: i915 has now a two-level maintenance model with 2
->> >> maintainers (who take the blame) and 15 people who can push patches.
->> >> In a way a rather big group, but not so big that people don't all know
->> >> each another any more personally. We have some detailed docs about the
->> >> patch flow and expectations:
->> >>
->> >> https://01.org/linuxgraphics/gfx-docs/maintainer-tools/drm-intel.html
->> >>
->> >> and about the dim tool used to support this all
->> >>
->> >> https://01.org/linuxgraphics/gfx-docs/maintainer-tools/dim.html
->> >>
->> >> But I think the more interesting bits are why I decided to try this
->> >> out, what I hoped would happen, what I feared might happen. And with 1
->> >> year of experience, what actually happens and what I think is needed
->> >> to make this work and an actual benefit over more traditional
->> >> maintainer models. And of course I'd like to compare notes with other
->> >> group maintainers.
->> >
->> > I'd be interested in the discussion. I think having it would also serve to
->> > minimize the differences between policies across subsystems (which is a common
->> > topic people have raised with me).
+On 28/07/16 17:42, Laurent Pinchart wrote:
+> On Thursday 28 Jul 2016 08:58:46 Mauro Carvalho Chehab wrote:
+>> Em Wed, 20 Jul 2016 22:18:11 +0100 Jonathan Cameron escreveu:
+>>> Hi All,
+>>>
+>>> This topic would be around the way the various subsystems interact, in the
+>>> rough area of 'sensors' (I haven't yet had much of an issue with subsystem
+>>> crossing with output devices but maybe that's just over the next hill!)
 >>
->> Not sure I'm helping, since I think this new i915 model makes the
->> spread in different policies worse ;-) What do you have in mind here?
->
-> Just talking about what maintainers are doing, which is always evolving, will
-> help keep us in sync, and adopting improved methods.
+>> Yeah, there is a gray area here as devices become more complex.
+>> So, I'm interested on such topic.
+>>
+>>> Scope may well be wider but includes:
+>>> * input (some of it)
+>>> * hwmon
+>>> * iio
+>>> * comedi(?)
+>>> * thermal
+>>> * power/battery
+>>> * gpio - the blur between gpios and beaglescope / PLC type I/O.
+>>> * v4l - when does a device jump from being a multi pixel thermopile
+>>> to a thermal camera? Smart fingerprint scanners etc.  Gesture recognition
+>>> sensors (effectively 9ish pixel cameras)
+>>
+>> For devices that provide images somehow, I'd say that the best would be
+>> to implement them as via the V4L2 API.
+> 
+> This requires defining what an image is. Furthermore, we very low image 
+> resolution devices, we will need to deal with high frame rates (1k-10k is a 
+> range we need to consider). The V4L2 API will likely show performance issues.
+An interesting point I'd never thought about before. Funnily enough the devices
+around this boundary that I've encountered have all been relatively slow.
+Doubt we'll be lucky enough that that will last!
 
-I'm interested in this discussion, since I still work with stone
-knives and bearskins.
+Jonathan
+> 
+>> We'll likely need to discuss it case by case, specially for early cross-
+>> subsystem drivers, though, as it is not trivial to identify the subsystem
+>> boundaries, and sometimes multiple APIs from different subsystems is needed.
+>> Also, it is not clear where such drivers would fit at the Kernel tree.
+>>
+>> One interesting case is an input device driver with multi-finger
+>> support (drivers/input/touchscreen/sur40.c). I suspect we'll have
+>> more cases like that over time.
+>>
+>>> * Lots of random things we haven't seen yet.
+> 
