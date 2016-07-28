@@ -1,35 +1,27 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <fengguang.wu@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A67672C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3DCD22C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 20:38:44 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 87418A5
+	Thu, 28 Jul 2016 20:53:56 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id AF45F117
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 20:38:43 +0000 (UTC)
-Date: Thu, 28 Jul 2016 21:38:21 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Lars-Peter Clausen <lars@metafoo.de>
-Message-ID: <20160728203821.GO11806@sirena.org.uk>
-References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
-	<4826466.kMrAaT2rsn@avalon>
-	<cf4ea315-fcbc-a7f5-758a-298cfac321e8@xs4all.nl>
-	<2071960.gyaMIhrJi3@avalon> <579A6715.6050700@metafoo.de>
+	Thu, 28 Jul 2016 20:53:55 +0000 (UTC)
+Date: Fri, 29 Jul 2016 04:53:24 +0800
+From: Fengguang Wu <fengguang.wu@intel.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Message-ID: <20160728205324.GB5642@wfg-t540p.sh.intel.com>
+References: <20160725190125.GS5537@wotan.suse.de>
+	<20160725202343.GJ11405@piout.net>
+	<20160727145027.GB2273@wfg-t540p.sh.intel.com>
+	<5486315.Z6uhQZYKqJ@avalon>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="L977DYpOHGH1NqKf"
+Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-In-Reply-To: <579A6715.6050700@metafoo.de>
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
-	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
-	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
-	Valentin Rothberg <valentinrothberg@gmail.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
- and semantics (v2)
+In-Reply-To: <5486315.Z6uhQZYKqJ@avalon>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] Nominating Fengguang Wu - 0-day
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,59 +31,87 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+Hi Laurent,
 
---L977DYpOHGH1NqKf
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On Thu, Jul 28, 2016 at 07:15:22PM +0300, Laurent Pinchart wrote:
+>Hi Fengguang,
+>
+>On Wednesday 27 Jul 2016 22:50:27 Fengguang Wu wrote:
+>> On Mon, Jul 25, 2016 at 10:23:43PM +0200, Alexandre Belloni wrote:
+>> >On 25/07/2016 at 21:01:25 +0200, Luis R. Rodriguez wrote :
+>> >> It surprises Fengguang Wu <fengguang.wu@intel.com> hasn't been nominated
+>> >> yet, so I'd like to nominate him. The mechanical process should probably
+>> >> include in the future a scrape for top Reported-by contributors.
+>> >
+>> > That's a good point.
+>> >
+>> >> Fengguang's 0-day infrastructure is invaluable to day to day kernel
+>> >> development, having him present would be great for any questions that may
+>> >> come up. Getting a statistical overview / update of impact / any major
+>> >> architectural changes of the 0-day infrastructure would also be very
+>> >> useful. If maintainers are not yet using 0-day it would be great to hear
+>> >> why. If your contributors are not using 0-day (I know some of you exist)
+>> >> I'd like to know why you don't use it, I often run into issues on
+>> >> linux-next which at times I have to fix, if 0-day would have been used a
+>> >> folowup fix would not have been needed.
+>> >
+>> > Well, I think it would also help to know how the patch/git tree
+>> > selection is done. Lately, I've been receiving less reports from 0-day
+>> > and some issues were found by Arnd's autobuilders after hitting
+>> > linux-next. I used to get report of compilation breakage 10-15 minutes
+>> > after the patch submission.
+>>
+>> Yeah sorry about that! There are many things that can impact 0-day
+>> system's stability: regressions, hard disk replacement, proxy issues,
+>> mailing list kicking off, vocations, etc. Which should improve over
+>> time as we add monitoring and self-test facilities. On the other hand,
+>> if you find such issues, please don't hesitate forwarding the error
+>> emails to us, so that we can check and take action quickly.
+>
+>There's no need to apologize, really. You've done and keep doing an amazing
+>work for which we're all thankful. The biggest problem I see that would stop
+>me from fully relying on 0-day is the lack of information about such
+>downtimes, leading me to wonder if the absence of a report really means that
+>everything is fine. A 0-day status page with information about the current
+>status and the planned downtime, as well as possibly the list of trees covered
+>by 0-day (I don't know whether part of that information could be considered as
+>confidential), would help a lot.
 
-On Thu, Jul 28, 2016 at 10:12:05PM +0200, Lars-Peter Clausen wrote:
+For that purpose you may subscribe to the BUILD SUCCESS notification
+by sending me an "opt-in" email with your tree URL.
 
-> output each would get their own widget. Phase 2 in DAPM consists of the
-> actual power-up/power-down sequencing. This is done in a order that
-> avoids glitching and ensures all dependencies are powered-up before and
-> powered-down after the dependent.
+That notification will be sent 1-2 hours after each branch's git push,
+which contains the build test progress on that branch. Based on which
+(or missing of it) you'll know if everything is on the track.
 
-One fun thing here is that the power up/down sequences are somewhat
-application specific however I think that's solvable in a general
-environment (there was originally some provision for this in DAPM but it
-died as we never found a need for it and the systems are only getting
-simpler in this regard) and probably for the bulk of things we're
-talking about there are fairly obvious orderings.
+This will actually turn that feature on for your tree:
 
-> One issue with this approach is that you need a power-sequence scheduler
-> which sits above all devices. E.g. there is no master device that tells
-> another device it now needs to turn its resources on, but all devices
-> are equal in the graph and might be both resource provider and resource
-> consumer. If there is only one scheduler the graph would contain all
-> devices and be quite big and you'd run into lock contention issues if
-> operations are performed on different subgraphs at the same time. If you
-> have multiple schedulers how do you decide which device is managed by
-> which scheduler as dependencies might be added and removed at runtime.
+https://git.kernel.org/cgit/linux/kernel/git/wfg/lkp-tests.git/commit/?id=aa0480dd8d58d234fdf0ff41bcb71a930aa024b9
 
-Lock contention and algorithm runtime are both indeed an issue, though
-we've got a bunch of stuff which does a very good job of mitigating
-against graph size in DAPM already which can most likely be lifted out
-of it and there's doubtless inspiration to be drawn from runtime PM for
-the locking.  The nature of ASoC is such that we've never really had to
-worry about the locking, a single enormous lock really does make sense
-for that specific problem domain.
+commit aa0480dd8d58d234fdf0ff41bcb71a930aa024b9
+Author:     Fengguang Wu <fengguang.wu@intel.com>
+Commit:     Fengguang Wu <fengguang.wu@intel.com>
+CommitDate: Fri Jul 29 04:48:44 2016 +0800
 
-It's certainly a very effective technique for mitigating against
-dependency hell.
+    repo: notify build success for pinchartl-fbdev
 
---L977DYpOHGH1NqKf
-Content-Type: application/pgp-signature; name="signature.asc"
+    CC: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+    Signed-off-by: Fengguang Wu <fengguang.wu@intel.com>
+---
+ repo/linux/pinchartl-fbdev | 1 +
+ 1 file changed, 1 insertion(+)
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
+diff --git a/repo/linux/pinchartl-fbdev b/repo/linux/pinchartl-fbdev
+index bbb4dd1..cc6e19b 100644
+--- a/repo/linux/pinchartl-fbdev
++++ b/repo/linux/pinchartl-fbdev
+@@ -1,5 +1,6 @@
+ url: git://linuxtv.org/pinchartl/fbdev.git
+ owner: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
++notify_build_success_branch: .*
+ subsystems:
+ - drm
+ - rcar-du
 
-iQEcBAEBCAAGBQJXmm08AAoJECTWi3JdVIfQL+4H/1O13kwhtLYxxkOTYRzH2otY
-zrAnqVjAvdYu62ck5MxhRV5CgNp1xzEY6bT5DBmaFIIHR3dCEIE6vKwbXalRGwab
-eSe3P+WKCym0bd2frmpF9/TJZjRQJuR5vOPJrChy4bJ+gh1Po1KofJDq1D6RccFY
-E3XQTvlv8tU5lOanEu4RkWU1QHwYrwnUZyn0JjRDZ2ylP58mAZRQ/alPRbif2Ju/
-jOGkRzVhriKYoWKWVrlWysSGp3nWhyJRhC6BB3TTw13ZLXngPHyO3KYqajrsFNyF
-0Za5TbeObN9EJanRbmG8zO/Vfp6RQkMBcreBIwUQU/yfN+jAx5CgcaV3WadhqWo=
-=btGK
------END PGP SIGNATURE-----
-
---L977DYpOHGH1NqKf--
+Thanks,
+Fengguang
