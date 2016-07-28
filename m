@@ -1,26 +1,38 @@
-Return-Path: <BATV+88e380e4c79dd599136e+4722+infradead.org+mchehab@bombadil.srs.infradead.org>
+Return-Path: <luisbg@osg.samsung.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B5C359A9
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id DA574899
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 11:58:53 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 73602133
+	Thu, 28 Jul 2016 12:23:36 +0000 (UTC)
+Received: from s-opensource.com
+	(ec2-52-27-115-49.us-west-2.compute.amazonaws.com [52.27.115.49])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 91C561D8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 11:58:53 +0000 (UTC)
-Date: Thu, 28 Jul 2016 08:58:46 -0300
-From: Mauro Carvalho Chehab <mchehab@infradead.org>
-To: Jonathan Cameron <jic23@kernel.org>
-Message-ID: <20160728085846.63971233@recife.lan>
-In-Reply-To: <5222c3bb-d6b7-0ccc-bf9e-becf5046a37a@kernel.org>
-References: <5222c3bb-d6b7-0ccc-bf9e-becf5046a37a@kernel.org>
+	Thu, 28 Jul 2016 12:23:36 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+	by s-opensource.com (Postfix) with ESMTP id 5D720A12FB
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 28 Jul 2016 12:23:38 +0000 (UTC)
+Received: from s-opensource.com ([127.0.0.1])
+	by localhost (s-opensource.com [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id ho6Pl6Wrz0dx
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 28 Jul 2016 12:23:37 +0000 (UTC)
+Received: from [192.168.0.11] (cpc9-slam5-2-0-cust824.2-4.cable.virginm.net
+	[81.108.163.57])
+	by s-opensource.com (Postfix) with ESMTPSA id 50AD8A1292
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 28 Jul 2016 12:23:37 +0000 (UTC)
+Message-ID: <5799F945.7010502@osg.samsung.com>
+Date: Thu, 28 Jul 2016 13:23:33 +0100
+From: Luis de Bethencourt <luisbg@osg.samsung.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+To: ksummit-discuss@lists.linuxfoundation.org
+References: <20160727095910.01ea0882@canb.auug.org.au>
+In-Reply-To: <20160727095910.01ea0882@canb.auug.org.au>
+Content-Type: text/plain; charset=windows-1252
 Content-Transfer-Encoding: 7bit
-Cc: Zhang Rui <rui.zhang@intel.com>, Rob Herring <robh+dt@kernel.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Sensors and similar - subsystem
- interactions, divisions, bindings etc.
+Subject: Re: [Ksummit-discuss] Self nomination
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,42 +42,21 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Em Wed, 20 Jul 2016 22:18:11 +0100
-Jonathan Cameron <jic23@kernel.org> escreveu:
-
-> Hi All,
+On 27/07/16 00:59, Stephen Rothwell wrote:
+> I'd like to self nominate for the kernel summit this year.
 > 
-> This topic would be around the way the various subsystems interact, in the
-> rough area of 'sensors' (I haven't yet had much of an issue with subsystem
-> crossing with output devices but maybe that's just over the next hill!)
+> As the linux-next maintainer, I have interest in most process topics in
+> particular the maintainership processes.
+> 
+> Also, being a bit isolated down under, meeting in person allows me to
+> remember that you are all people really :-)
+> 
 
-Yeah, there is a gray area here as devices become more complex.
-So, I'm interested on such topic.
+I am also interested in the maintainership processes. I think these need
+to be better defined and documented.
 
-> Scope may well be wider but includes:
-> * input (some of it)
-> * hwmon
-> * iio
-> * comedi(?)
-> * thermal
-> * power/battery
-> * gpio - the blur between gpios and beaglescope / PLC type I/O.
-> * v4l - when does a device jump from being a multi pixel thermopile
-> to a thermal camera? Smart fingerprint scanners etc.  Gesture recognition
-> sensors (effectively 9ish pixel cameras)
+Linux is a project that would benefit of having a bigger revolving door of
+new joiners, at all levels.
 
-For devices that provide images somehow, I'd say that the best would be
-to implement them as via the V4L2 API. We'll likely need to discuss it
-case by case, specially for early cross-subsystem drivers, though, as
-it is not trivial to identify the subsystem boundaries, and sometimes
-multiple APIs from different subsystems is needed. Also, it is not
-clear where such drivers would fit at the Kernel tree.
-
-One interesting case is an input device driver with multi-finger
-support (drivers/input/touchscreen/sur40.c). I suspect we'll have
-more cases like that over time.
-
-> * Lots of random things we haven't seen yet.
-
-Thanks,
-Mauro
+Thanks Stephen,
+Luis
