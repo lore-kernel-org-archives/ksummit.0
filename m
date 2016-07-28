@@ -1,30 +1,33 @@
-Return-Path: <laurent.pinchart@ideasonboard.com>
+Return-Path: <hverkuil@xs4all.nl>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A855B932
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9476283D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 10:50:52 +0000 (UTC)
-Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
-	[185.26.127.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 73F79198
+	Thu, 28 Jul 2016 10:54:56 +0000 (UTC)
+Received: from lb3-smtp-cloud3.xs4all.net (lb3-smtp-cloud3.xs4all.net
+	[194.109.24.30])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BBBB3176
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 10:50:51 +0000 (UTC)
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Thu, 28 Jul 2016 13:51:02 +0300
-Message-ID: <1745007.86gEd5I2vq@avalon>
-In-Reply-To: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
+	Thu, 28 Jul 2016 10:54:55 +0000 (UTC)
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	ksummit-discuss@lists.linuxfoundation.org
 References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
+	<20160727192040.GL5537@wotan.suse.de>
+	<10281749.h0nm8HgLR9@vostro.rjw.lan> <4826466.kMrAaT2rsn@avalon>
+From: Hans Verkuil <hverkuil@xs4all.nl>
+Message-ID: <cf4ea315-fcbc-a7f5-758a-298cfac321e8@xs4all.nl>
+Date: Thu, 28 Jul 2016 12:54:47 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-Cc: Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
-	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
+In-Reply-To: <4826466.kMrAaT2rsn@avalon>
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: 7bit
+Cc: "vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
+	Valentin Rothberg <valentinrothberg@gmail.com>,
 	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
 	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Valentin Rothberg <valentinrothberg@gmail.com>
+	Mauro Carvalho Chehab <mchehab@osg.samsung.com>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
-	and semantics (v2)
+ and semantics (v2)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,112 +37,84 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Luis,
 
-On Wednesday 27 Jul 2016 09:50:04 Luis R. Rodriguez wrote:
-> (first e-mail bounced)
-> 
-> Rafael has proposed has a set of patches to help deal with functional
-> dependencies between devices to help with power management. Mauro has
-> spoken briefly before over the media controller feature graph used to help
-> build relationship between complex dynamic dependencies. Dmitry has taken on
-> to help enable asynchronous probe, however for built-in devices this
-> requires very specific platform knowledge otherwise using async probe will
-> blow up your kernel -- if you get it right though, using async probe can
-> help with boot. Even if you sort things out well -- there are current
-> limitations with ordering semantics available, case in point the x86 IOMMUs
-> already have a small sort run which expand beyond the core init entries
-> allowed, and on top of this the you still have device driver dependencies
-> which are implicitly setting order via link order: consider the ordering
-> between AMD IOMMUv1, AMD IOMMUv2, AMD KFD, and AMD radeon. This has made us
-> realize that at the module front the current 2 levels of init calls limits
-> our ordering semantics leaving only link order as a last measure when
-> things are built-in. Likewise I've recently have had to look into
-> dependency issues early in boot been due to differences between
-> paravirtualization and non-PV kernels, this lead to some current work to
-> help generalize custom section uses (linker tables) and then for us to
-> consider expanding x86 semantics early in boot to address some of the
-> shortcomings implicit by the some paravirtualized boot path.
-> 
-> The goal behind Rafael's work's goal is essentially to avoid code
-> duplication (as without doing that in the core many drivers potentially
-> need to do the same thing in the same way) and help to address the
-> asynchronous system suspend/resume case that cannot be addressed by any
-> driver by itself anyway. The effort behind Rafael's, Mauro's, Dmitry's and
-> my work are all independent however the patterns are very similar:
-> addressing complex dependencies and relationships at run time and available
-> semantics for these.
-> 
-> This begs a few questions:
-> 
->  o Are there generic issues here ?
->  o Are there generic solutions possible ?
->  o What advanced techniques are out there to deal with this and how
->    are efforts in those domains going ?
-> 
-> As an example of taste for the last item, consider Vegard Nossum's
-> involvement with a SAT solver (picosat) for AFL fuzzing with ext4 on
-> built-in kernels -- and the possibility to share some of the tools to
-> address some of the dependencies here. As it stands kconfig's semantics are
-> a bit of a mess, and in turn often tools have to do a bit of inference work
-> due to some of this, part if this problem is one reason why current
-> kconfig-sat efforts are a bit stalled.
-> 
-> Benefits for addressing some of these topics generally has quite a bit of
-> uses in different domains:
-> 
->   o Speeding up boot time
->   o Avoiding dead code, or correctness
->   o Shrinking kernel size
-> 
-> This is a pretty generally broad topic, and it does cross subsystems,
-> I'm proposing it as a TECH TOPIC given that I had already poked Dmitry,
-> Mauro, and Rafael in February this year about a LPC microconference
-> about this sort of stuff as I thought that would have been a better venue --
-> however even early then (February !) it seems they were busy with existing
-> LPC microconferences. I recently poked them and they seem to agree
-> discussing this somehow at KS would be good. Due to existing time
-> constraints at LPC, but given most interested folks may be at KS or
-> Plumbers, it'd be good to use shared time at KS and LPC to get folks to
-> organize ideas, problems, and solutions and in a more adhoc manner, and
-> then enable organically folks interested to organize and discuss short term
-> and long term roadmaps on respective work items. Its unclear yet if there
-> is a very CORE TOPIC here -- my guess would be that if there were we'd find
-> out at the next KS, but not this one. A workshop for this might help.
-> 
-> Folks required to help with these topics:
-> 
->   o Dmitry Torokhov <dmitry.torokhov@gmail.com> (async probe)
->   o "Rafael J. Wysocki" <rafael.j.wysocki@intel.com> (functional
->     dependencies)
->   o Marek Szyprowski <m.szyprowski@samsung.com> (taking on some
->     of Rafael's previous work)
->   o Mauro Carvalho Chehab <mchehab@osg.samsung.com> (feature graph)
 
-As the co-author of the media controller code (along with Sakari Ailus, based 
-on a draft proposal from Hans Verkuil), I don't think MC will help here. It 
-addresses very different problems, its purpose is to expose the topology of 
-data flows inside a media device to userspace. The scope has recently been 
-expanded slightly to also expose relationships between the hardware blocks and 
-the kernel to userspace interfaces used to control them, but that's about it.
+On 07/28/2016 12:41 PM, Laurent Pinchart wrote:
+> On Thursday 28 Jul 2016 02:54:56 Rafael J. Wysocki wrote:
+>> On Wednesday, July 27, 2016 09:20:40 PM Luis R. Rodriguez wrote:
+>>> On Wed, Jul 27, 2016 at 07:03:46PM +0100, Mark Brown wrote:
+>>>> On Wed, Jul 27, 2016 at 07:58:29PM +0200, Luis R. Rodriguez wrote:
+>>>>> On Wed, Jul 27, 2016 at 06:26:36PM +0100, Mark Brown wrote:
+>>>>>>> to help enable asynchronous probe, however for built-in devices
+>>>>>>> this requires very specific platform knowledge otherwise using
+>>>>>>> async probe will blow up your kernel -- if you get it right
+>>>>>>> though, using async probe can help with
+>>>>>>
+>>>>>> I'm not sure what specific platform knowledge you're thinking of
+>>>>>> here? We have coverage for most things in the form of deferred probe
+>>>>>> (messy though it is).
+>>>>>
+>>>>> Deferred probe is a complete a hack and sub-optimal. Being able to
+>>>>> address
+>>>>
+>>>> Sure, I don't think anyone disagrees on that but it does mean we don't
+>>>> actually blow up easily like we used to - it's messy but it does get
+>>>> there safely.
+>>>
+>>> Good point, without learning from the past we would otherwise expect
+>>> this is just a sloppy situation, so indeed deferred probe had its
+>>> merits, and we're at least now safe. The goal here is then how to
+>>> do this better, optimized and make it a non-hack.
+> 
+> Let's not demonize deferred probing, I think it's a good safety net to be used 
+> as a last resort when everything else failed. The problem is that we're using 
+> it as our primary mean to order initialization, and that leads to all sorts of 
+> inefficient behaviours at boot time.
+> 
+>> Well, my patchset uses deferred probing, so it won't help much here I guess.
+>>
+>>>> I was specifically querying your statement that things would blow up.
+>>>
+>>> In practice this varies as it depends on the device driver or component,
+>>> but the general theme seems to be "relying on something which is not
+>>> yet available".
+>>
+>> Not only that.
+>>
+>> There also is a "relying on something that is not a direct ancestor of the
+>> device you care about" angle of that.
+>>
+>> The device hierarchy as we know it is insufficient for representing
+>> dependencies beyond parent-child and that really is part of the problem,
+>> and a significant one IMO.
+> 
+> That's the core of the issue.
+> 
+> Linux has traditionally represented the device hierarchy from a control bus 
+> point of view, both in the driver model and in DT. We know other dependencies 
+> exist (data bus access, clocks, regulators, power domains, ...), and we try to 
+> address them with various heuristics.
+> 
+> One problem with those other dependencies is that they can't always be 
+> expressed as a tree and may a graph instead. Worse, in some cases, the graph 
+> can be cyclic (I've recently been told about an external I2C-based PLL that 
+> takes an input clock and generates an output clock, with the input clock being 
+> produced by an on-SoC sound device and the output clock being used by the same 
+> sound device). Even when individual resource trees or graphs are not cyclic, 
+> combining them in a global dependency graph will often result in cycles. The 
+> challenge is to find a proper way to both express the dependency graph and 
+> break the cycles.
+> 
 
-We do have a fair share of probe ordering issues with media devices, 
-especially in the embedded world where a device is made of many independent 
-hardware pieces each represented by a struct device and bound to a driver, but 
-MC only kicks in after probe to expose the device topology to userspace (and 
-to some extent to control it when routing can be dynamic).
+Do we need to capture 100% of all the weird and wonderful dependencies? I think
+(speaking for the media subsystem) that the vast majority of the dependencies
+are pretty simple trees without cycles. Being able to capture that would be a
+huge help. The remaining more complex devices could still fall back on deferred
+probe, I'd say.
 
-This being said I'd be very interested in discussing asynchronous probing and 
-probe ordering. I can also certainly bring media controller knowledge to the 
-discussion, but I don't think that part would be very useful (apart possibly 
-for saving everybody's time by explaining why MC isn't a solution to address 
-those problems :-)). 
+I'm never very keen on creating complex code to cater to a small percentage of
+problem cases.
 
->   o Vegard Nossum <vegard.nossum@gmail.com> (SAT)
->   o Valentin Rothberg <valentinrothberg@gmail.com>  (wary of some
-> kconfig issues)
-
--- 
 Regards,
 
-Laurent Pinchart
+	Hans
