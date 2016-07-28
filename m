@@ -1,33 +1,26 @@
-Return-Path: <jack@suse.cz>
+Return-Path: <BATV+88e380e4c79dd599136e+4722+infradead.org+mchehab@bombadil.srs.infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9E6ED982
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B5C359A9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 11:52:26 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E731B13B
+	Thu, 28 Jul 2016 11:58:53 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 73602133
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Jul 2016 11:52:25 +0000 (UTC)
-Date: Thu, 28 Jul 2016 13:46:24 +0200
-From: Jan Kara <jack@suse.cz>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Message-ID: <20160728114624.GE4094@quack2.suse.cz>
-References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
-	<4826466.kMrAaT2rsn@avalon>
-	<cf4ea315-fcbc-a7f5-758a-298cfac321e8@xs4all.nl>
-	<2071960.gyaMIhrJi3@avalon>
+	Thu, 28 Jul 2016 11:58:53 +0000 (UTC)
+Date: Thu, 28 Jul 2016 08:58:46 -0300
+From: Mauro Carvalho Chehab <mchehab@infradead.org>
+To: Jonathan Cameron <jic23@kernel.org>
+Message-ID: <20160728085846.63971233@recife.lan>
+In-Reply-To: <5222c3bb-d6b7-0ccc-bf9e-becf5046a37a@kernel.org>
+References: <5222c3bb-d6b7-0ccc-bf9e-becf5046a37a@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2071960.gyaMIhrJi3@avalon>
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
-	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
-	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
-	Valentin Rothberg <valentinrothberg@gmail.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
- and semantics (v2)
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: Zhang Rui <rui.zhang@intel.com>, Rob Herring <robh+dt@kernel.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Sensors and similar - subsystem
+ interactions, divisions, bindings etc.
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,51 +30,42 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi,
+Em Wed, 20 Jul 2016 22:18:11 +0100
+Jonathan Cameron <jic23@kernel.org> escreveu:
 
-On Thu 28-07-16 14:03:46, Laurent Pinchart wrote:
-> On Thursday 28 Jul 2016 12:54:47 Hans Verkuil wrote:
-> > > One problem with those other dependencies is that they can't always be
-> > > expressed as a tree and may a graph instead. Worse, in some cases, the
-> > > graph can be cyclic (I've recently been told about an external I2C-based
-> > > PLL that takes an input clock and generates an output clock, with the
-> > > input clock being produced by an on-SoC sound device and the output clock
-> > > being used by the same sound device). Even when individual resource trees
-> > > or graphs are not cyclic, combining them in a global dependency graph
-> > > will often result in cycles. The challenge is to find a proper way to
-> > > both express the dependency graph and break the cycles.
-> > 
-> > Do we need to capture 100% of all the weird and wonderful dependencies? I
-> > think (speaking for the media subsystem) that the vast majority of the
-> > dependencies are pretty simple trees without cycles. Being able to capture
-> > that would be a huge help. The remaining more complex devices could still
-> > fall back on deferred probe, I'd say.
+> Hi All,
 > 
-> When dealing with a single type of resources dependency graphs are very rarely 
-> cyclic. However, when merging multiple resource dependency graphs, cycles 
-> become quite common.
-> 
-> One example is the camera device found in OMAP3 chips. The SoC-side camera 
-> controller can output a clock to the outside world (and is thus a CCF clock 
-> provider). In most hardware designs that clock is used by the external camera 
-> sensors, which in turn outputs a video data stream (with a clock and other 
-> synchronization signals) fed to the camera controller. We thus get a 
-> dependency loop. The situation is even worse on some Atmel platforms where 
-> part of the camera controller logic is clocked by the pixel clock received 
-> from the sensor. In that case the camera controller can't be software reset 
-> without a sensor providing a pixel clock. We can blame the hardware designers, 
-> but at the end of the day we need to support such systems. Whether such cases 
-> need to be supported by generic code is a discussion we can have, and I'm not 
-> pushing in either direction, but I want to make sure we will always have *a* 
-> solution.
+> This topic would be around the way the various subsystems interact, in the
+> rough area of 'sensors' (I haven't yet had much of an issue with subsystem
+> crossing with output devices but maybe that's just over the next hill!)
 
-So I'm complete outsider to media drivers so maybe my question is stupid
-but I cannot resist: So how is the device bringup supposed to work for
-devices where you have these cycles in the dependency graph? Do you just
-bring up the controller and then the sensor and it works because the
-controller doesn't need the clock from the sensor for startup?
+Yeah, there is a gray area here as devices become more complex.
+So, I'm interested on such topic.
 
-								Honza
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+> Scope may well be wider but includes:
+> * input (some of it)
+> * hwmon
+> * iio
+> * comedi(?)
+> * thermal
+> * power/battery
+> * gpio - the blur between gpios and beaglescope / PLC type I/O.
+> * v4l - when does a device jump from being a multi pixel thermopile
+> to a thermal camera? Smart fingerprint scanners etc.  Gesture recognition
+> sensors (effectively 9ish pixel cameras)
+
+For devices that provide images somehow, I'd say that the best would be
+to implement them as via the V4L2 API. We'll likely need to discuss it
+case by case, specially for early cross-subsystem drivers, though, as
+it is not trivial to identify the subsystem boundaries, and sometimes
+multiple APIs from different subsystems is needed. Also, it is not
+clear where such drivers would fit at the Kernel tree.
+
+One interesting case is an input device driver with multi-finger
+support (drivers/input/touchscreen/sur40.c). I suspect we'll have
+more cases like that over time.
+
+> * Lots of random things we haven't seen yet.
+
+Thanks,
+Mauro
