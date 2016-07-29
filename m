@@ -1,33 +1,31 @@
-Return-Path: <bhelgaas@google.com>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0044183D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id AC58A98C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 15:13:00 +0000 (UTC)
-Received: from mail-yw0-f178.google.com (mail-yw0-f178.google.com
-	[209.85.161.178])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3443B263
+	Fri, 29 Jul 2016 15:13:04 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 44610263
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 15:12:58 +0000 (UTC)
-Received: by mail-yw0-f178.google.com with SMTP id z8so117681156ywa.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 08:12:58 -0700 (PDT)
+	Fri, 29 Jul 2016 15:13:04 +0000 (UTC)
+Date: Fri, 29 Jul 2016 16:12:47 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Message-ID: <20160729151247.GG10376@sirena.org.uk>
+References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
+	<367437209.fSUZRCC4cu@avalon>
+	<20160728201010.6d1ef149@gandalf.local.home>
+	<26257864.77FIuI985E@avalon>
 MIME-Version: 1.0
-In-Reply-To: <20160729000912.GA17232@wfg-t540p.sh.intel.com>
-References: <20160725190125.GS5537@wotan.suse.de> <5486315.Z6uhQZYKqJ@avalon>
-	<20160728205324.GB5642@wfg-t540p.sh.intel.com>
-	<2443703.ScQNYO34Bz@avalon>
-	<20160728230713.GB18980@wfg-t540p.sh.intel.com>
-	<20160728233327.GC3296@wotan.suse.de>
-	<20160729000912.GA17232@wfg-t540p.sh.intel.com>
-From: Bjorn Helgaas <bhelgaas@google.com>
-Date: Fri, 29 Jul 2016 10:12:37 -0500
-Message-ID: <CAErSpo6yOt6L_-rxyLe47MxOgACJ_NkOKiV7kBia1+boUO6K4w@mail.gmail.com>
-To: Fengguang Wu <fengguang.wu@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] Nominating Fengguang Wu - 0-day
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="jt0yj30bxbg11sci"
+Content-Disposition: inline
+In-Reply-To: <26257864.77FIuI985E@avalon>
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Trond Myklebust <trondmy@primarydata.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,49 +35,65 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Jul 28, 2016 at 7:09 PM, Fengguang Wu <fengguang.wu@intel.com> wrote:
-> On Fri, Jul 29, 2016 at 01:33:27AM +0200, Luis R. Rodriguez wrote:
->>
->> On Fri, Jul 29, 2016 at 07:07:13AM +0800, Fengguang Wu wrote:
->>>
->>> btw, maybe some maintainers are already informed: 0-day statistics
->>> show that ~60% errors can be reported in 2 hours, ~90% errors are
->>> reported in 24 hours and there are 1% errors reported after 1 week.
->>
->>
->> If one were to take 0-day code an slap it on some internal big-iron
->> server, and prioritize work for a few developers (say SUSE would do
->> this for its developers) do you expect the turnaround time for
->> reports would be faster if we had bigger-meaner hardware ? These
->> days actually would like to get results back in a few minutes
->> for 90% of errors so wondering how / if others have taken on
->> 0-day internally and made it faster by beefing up the hardware.
->
->
-> I'd suspect roughly the same timing given powerful servers but still
-> with reasonable cost considerations.
->
-> Intel pretty values the 0-day service and backs it up with 12 parallel
-> build servers, including 4 4S Xeon machines. Since we do merged tests,
-> one may assume most of the servers are working parallel for his code
-> whenever he does a git push. Kernel hackers can feel free to push
-> frequently because the extra pushes are virtually cost free -- the
-> build workers are working cyclicly on latest merged code anyway.
->
-> To take free ride of that restless horse, it'd be good to push small
-> topic branches on latest RC kernels, which will have better chances
-> to merge and play well with others code.
 
-I'm interested in learning more about how this works.  I typically
-base all my topic branches on -rc2 or so, no matter where we are in
-the cycle, because it makes it easier to rebuild my "next" branch if I
-discover a problem and want to amend something.  But maybe this
-consumes more 0-day cycles than necessary.
+--jt0yj30bxbg11sci
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I second the desire for a web page of status.  Sometimes things seem
-to get lost or delayed and I hate to bug Fengguang unnecessarily.
+On Fri, Jul 29, 2016 at 11:59:47AM +0300, Laurent Pinchart wrote:
+> On Thursday 28 Jul 2016 20:10:10 Steven Rostedt wrote:
 
-I typically push a topic branch and wait for BUILD_SUCCESS before
-merging into my "next" branch.  I do this manually by watching for the
-email, but maybe it could be scripted if there were a way to query
-"build status for SHA-1".
+> > Does tools/testing/selftests/ not satisfy this?
+
+> It does, but lacks features to support driver-related test cases. For ins=
+tance=20
+> it doesn't (for quite obvious reasons) provide machine-readable informati=
+on=20
+> about the hardware requirements for a particular test.
+
+Plus in general the hardware related tests can end up requiring some
+specific environment beyond that which is machine enumerable.
+
+> I'm not sure whether kselftest could/should be extended for that purpose.=
+ Due=20
+> to its integration in the kernel, there is little need to standardize the=
+ test=20
+> case interface beyond providing a Makefile to declare the list of test=20
+> programs and compile them. Something slightly more formal is in my opinio=
+n=20
+> needed if we want to scale to device driver tests with out-of-tree test c=
+ases.
+
+There's also the risk that we make it harder for a random user to pick
+up the tests and predict what the expected results should be - one of
+the things that can really hurt a testsuite is if users don't find it
+consistent and stable.
+
+> Another limitation of kselftest is the lack of standardization for loggin=
+g and=20
+> status reporting. This would be needed to interpret the test output in a=
+=20
+> consistent way and generate reports. Regardless of whether we extend ksel=
+ftest=20
+> to cover device drivers this would in my opinion be worth fixing.
+
+I thought that was supposed to be logging via stdout/stderr and the
+return code for the result.
+
+--jt0yj30bxbg11sci
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQEcBAEBCAAGBQJXm3JuAAoJECTWi3JdVIfQMnsH/1JZ30nK9PHznVeLNS9t2wC1
+aYX8++MdN+hwX0EfmsLh6T9l9Z9CQL6RGZP21LsEwmAWYudGBGpa5YlBWJBXaoVC
+0WKy4OuPKxFXkCnRjdKiMCGpZ425lkEuEhMTqq5C1uF5Hm9z97o7QyR9iawxC8N6
+6DGS4CXzMFDbp2i50ZlPKMIr254MaQeJB8R9KqwXXWHDmcjQ9Y+hDhhbgE0WORSy
+egq0qi/8H0P8uEasBk/miXlUupVdhrE99fTDHG+qa0NcOW7sPt861h0aMKYtG8Zy
+JVYcSLd44mquf4/zuor3SlJJFIGuRBEPtxEdIfLyYnOnDY58Veh2visAqF17/OI=
+=E3l2
+-----END PGP SIGNATURE-----
+
+--jt0yj30bxbg11sci--
