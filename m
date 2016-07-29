@@ -1,33 +1,36 @@
-Return-Path: <greg@kroah.com>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9C8F571
+Return-Path: <rostedt@goodmis.org>
+Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
+	[172.17.192.36])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7743271
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 03:50:43 +0000 (UTC)
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
-	[66.111.4.29])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0DEBE235
+	Fri, 29 Jul 2016 04:42:20 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0242.hostedemail.com
+	[216.40.44.242])
+	by smtp2.linuxfoundation.org (Postfix) with ESMTPS id 9D1921DB07
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 03:50:42 +0000 (UTC)
-Date: Thu, 28 Jul 2016 20:50:55 -0700
-From: Greg KH <greg@kroah.com>
-To: Lars-Peter Clausen <lars@metafoo.de>
-Message-ID: <20160729035055.GA32225@kroah.com>
-References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
-	<20160727172636.GM11806@sirena.org.uk>
-	<20160727175829.GG5537@wotan.suse.de> <579A7DFD.60305@metafoo.de>
+	Fri, 29 Jul 2016 04:42:18 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
+	[10.5.19.251])
+	by smtpgrave02.hostedemail.com (Postfix) with ESMTP id D83C123A9
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 29 Jul 2016 01:06:27 +0000 (UTC)
+Date: Thu, 28 Jul 2016 21:06:23 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: "Paul E. McKenney" <paulmck@linux.vnet.ibm.com>
+Message-ID: <20160728210623.696c12d2@grimm.local.home>
+In-Reply-To: <20160726133551.GU7094@linux.vnet.ibm.com>
+References: <f423b811-88a4-b8ca-6793-1a543e8dc88d@suse.com>
+	<Pine.LNX.4.44L0.1607260909420.12362-100000@netrider.rowland.org>
+	<20160726133551.GU7094@linux.vnet.ibm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <579A7DFD.60305@metafoo.de>
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
-	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
-	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
-	Valentin Rothberg <valentinrothberg@gmail.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
- and semantics (v2)
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: jakub@redhat.com, parri.andrea@gmail.com,
+	ksummit-discuss@lists.linuxfoundation.org, peterz@infradead.org,
+	Alan Stern <stern@rowland.harvard.edu>,
+	ramana.radhakrishnan@arm.com, luc.maranget@inria.fr, j.alglave@ucl.ac.uk
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Memory model,
+ using ISO C++11 atomic ops
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,39 +40,22 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Jul 28, 2016 at 11:49:49PM +0200, Lars-Peter Clausen wrote:
-> On 07/27/2016 07:58 PM, Luis R. Rodriguez wrote:
-> > On Wed, Jul 27, 2016 at 06:26:36PM +0100, Mark Brown wrote:
-> >>> to help enable asynchronous probe, however for built-in devices this requires
-> >>> very specific platform knowledge otherwise using async probe will blow up
-> >>> your kernel -- if you get it right though, using async probe can help with
-> >>
-> >> I'm not sure what specific platform knowledge you're thinking of here?
-> >> We have coverage for most things in the form of deferred probe (messy
-> >> though it is).
+On Tue, 26 Jul 2016 06:35:51 -0700
+"Paul E. McKenney" <paulmck@linux.vnet.ibm.com> wrote:
+
+> On Tue, Jul 26, 2016 at 09:10:32AM -0400, Alan Stern wrote:
+> > On Tue, 26 Jul 2016, Hannes Reinecke wrote:
+> >   
+> > > I have been playing around with RCUs and memory barriers quite a lot 
+> > > recently, and found some really 'odd' use-cases in the kernel which 
+> > > would benefit from improvements here.  
 > > 
-> > Deferred probe is a complete a hack and sub-optimal.
-
-It's the best hack that people have come up with to solve the problem so
-far.
-
-> I fully agree. In the past though there were a few good attempts of
-> providing something better than probe deferral, but those were always
-> quickly shutdown by GregKH for failing to prove that probe deferral
-> really is insufficient.
+> > Could you post one or two examples?  It would be interesting to see 
+> > what they involve.  
 > 
-> This probably an issue of presentation, but for future attempts it
-> should be kept in mind that hard numbers on why this is better greatly
-> improve the chance of it being accepted.
+> I would be intersted as well!
+> 
 
-If you don't have such numbers, why should I ever accept any changes?
-You need to show a benefit of code, otherwise you are just pointless
-churning things for no reason.
+Me too, as tracing plays a bit of magic with memory models as well.
 
-And also, don't try presenting patches that force every driver or
-subsystem to be changed for no good reason, that's one reason I have
-shot down patches in this area as well.
-
-good luck!
-
-greg k-h
+-- Steve
