@@ -1,26 +1,26 @@
-Return-Path: <mgorman@techsingularity.net>
+Return-Path: <cl@linux.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9EBD991A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D0FE892B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 14:11:33 +0000 (UTC)
-Received: from outbound-smtp06.blacknight.com (outbound-smtp06.blacknight.com
-	[81.17.249.39])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3E0DA1B2
+	Fri, 29 Jul 2016 14:21:06 +0000 (UTC)
+Received: from resqmta-ch2-06v.sys.comcast.net
+	(resqmta-ch2-06v.sys.comcast.net [69.252.207.38])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D3804210
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 14:11:30 +0000 (UTC)
-Received: from mail.blacknight.com (pemlinmail01.blacknight.ie [81.17.254.10])
-	by outbound-smtp06.blacknight.com (Postfix) with ESMTPS id 01C74C069
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 14:11:28 +0000 (UTC)
-Date: Fri, 29 Jul 2016 15:11:26 +0100
-From: Mel Gorman <mgorman@techsingularity.net>
-To: ksummit-discuss@lists.linuxfoundation.org
-Message-ID: <20160729141126.GG2799@techsingularity.net>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-15
-Content-Disposition: inline
-Subject: [Ksummit-discuss] [TECH TOPIC] Open panel for discussing MM problems
+	Fri, 29 Jul 2016 14:21:04 +0000 (UTC)
+Date: Fri, 29 Jul 2016 09:21:02 -0500 (CDT)
+From: Christoph Lameter <cl@linux.com>
+To: David Howells <dhowells@redhat.com>
+In-Reply-To: <1596.1469801212@warthog.procyon.org.uk>
+Message-ID: <alpine.DEB.2.20.1607290919480.14761@east.gentwo.org>
+References: <20160729131151.GF4340@x> <20160729075039.GA26402@x>
+	<30809.1469794812@warthog.procyon.org.uk>
+	<1596.1469801212@warthog.procyon.org.uk>
+Content-Type: text/plain; charset=US-ASCII
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [ANNOUNCE] git-series: track changes to a
+ patch series over time
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,37 +30,18 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-There is at least one MM topic proposed so there is a chance that some
-MM people will be around. I hear that a few people have been struggling
-with MM-related topics recently but not getting a lot of traction. It's
-hard to get a handle on how big of a problem this is or if it's even a
-problem. It's possible I just happened to hear from the only people who
-are unhappy with MM.
+On Fri, 29 Jul 2016, David Howells wrote:
 
-I think it would be beneficial to have an open MM panel on the morning of
-the day that overlaps with Plumbers to get a handle on how many people
-have MM-related problems and what class of problems they're having. It
-would start by having each member spend 1-3 minutes talking about what
-they're currently then open it up to the floor.
+> Josh Triplett <josh@joshtriplett.org> wrote:
+>
+> > Note that git-series doesn't provide a quilt-style push/pop workflow,
+> > with applied and unapplied patches; it just looks at HEAD.
+>
+> Ah...  In that case it's probably not a sufficient substitute for how I use
+> stgit.
 
-People would be welcome to describe any MM-related issues they have and
-ask the panel to either propose solutions or at least note that it's
-something that should be fixed in the future. Ideally this would be a
-better description than "MM sucks" or "sometimes the system is slow and I
-feel the MM is responsible". If there is a concrete problem, there would be
-no guarantee it will get fixed by anyone on the panel but at least we'd be
-aware. It might be a bust if we don't have enough for a panel or everyone
-is perfectly happy with the MM as it is. However, if it works and there
-are some problems discussed then it'll be interesting to see how many,
-if any, are fixed by the next LSF/MM.
+Did not know that there was stgit. Still stuck on quilt since
+I like editing the files directly (its often easier to edit the diffs if
+you want to rename things etc).
 
-The people I know are willing to participate if they are at Kernel Summit
-are Vlastimil Babka, Johannes Weiner, Rik van Riel and myself. There is
-a strong preference for the morning due to potential flight conflicts but
-hopefully that can be arranged without colliding with Plumber keynotes. If
-anyone else was interested in being up there, they'd be more than welcome
-assuming they know which way is up with mm/.
-
--- 
-Mel Gorman
-SUSE Labs
+Interesting projects.
