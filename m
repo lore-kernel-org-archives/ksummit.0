@@ -1,27 +1,24 @@
-Return-Path: <josh@joshtriplett.org>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A6990956
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 54322952
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 14:37:57 +0000 (UTC)
-Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
-	[217.70.183.197])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2B186164
+	Fri, 29 Jul 2016 14:55:47 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 4F8C1276
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 14:37:56 +0000 (UTC)
-Date: Fri, 29 Jul 2016 07:37:49 -0700
-From: Josh Triplett <josh@joshtriplett.org>
-To: Christoph Lameter <cl@linux.com>
-Message-ID: <20160729143749.GB11814@x>
-References: <20160729131151.GF4340@x> <20160729075039.GA26402@x>
-	<30809.1469794812@warthog.procyon.org.uk>
-	<1596.1469801212@warthog.procyon.org.uk>
-	<alpine.DEB.2.20.1607290919480.14761@east.gentwo.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.20.1607290919480.14761@east.gentwo.org>
-Cc: ksummit-discuss@lists.linuxfoundation.org
+	Fri, 29 Jul 2016 14:55:46 +0000 (UTC)
+Message-ID: <1469804144.2330.6.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Josh Triplett <josh@joshtriplett.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Date: Fri, 29 Jul 2016 07:55:44 -0700
+In-Reply-To: <20160729075039.GA26402@x>
+References: <20160729075039.GA26402@x>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 Subject: Re: [Ksummit-discuss] [ANNOUNCE] git-series: track changes to a
  patch series over time
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -33,26 +30,23 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 29, 2016 at 09:21:02AM -0500, Christoph Lameter wrote:
-> On Fri, 29 Jul 2016, David Howells wrote:
-> 
-> > Josh Triplett <josh@joshtriplett.org> wrote:
-> >
-> > > Note that git-series doesn't provide a quilt-style push/pop workflow,
-> > > with applied and unapplied patches; it just looks at HEAD.
-> >
-> > Ah...  In that case it's probably not a sufficient substitute for how I use
-> > stgit.
-> 
-> Did not know that there was stgit. Still stuck on quilt since
-> I like editing the files directly (its often easier to edit the diffs if
-> you want to rename things etc).
+On Fri, 2016-07-29 at 00:50 -0700, Josh Triplett wrote:
+> I'd welcome any feedback, whether on the interface and workflow, the
+> internals and collaboration, ideas on presenting diffs of patch 
+> series, or anything else.
 
-git series format, edit patches, git reset --hard $(git series base),
-git am? :)
+I've got an offer for you:  The Plumbers PC has been kicking around the
+idea of a git MC at Plumbers.  We got as far ask asking Junio Hamano,
+who said he'd commit to coming, but didn't want to run the MC.  Would
+you be interested in running it?  Since it's a barely formed idea at
+the moment, it would still have to go through the usual Plumbers
+process of proposing it on
 
-More seriously, though: I don't expect git-series to address all
-possible workflows for developing a patch series.  It's intentionally a
-bit opinionated about some things.  I designed it for a family of
-workflows that I regularly encountered and that I regularly saw other
-people encounter.
+http://wiki.linuxplumbersconf.org/2016:topics
+
+And then getting formal plumbers PC acceptance (Paul McKenney shepherds
+this).  You can put me down as a committed attendee because, like a lot
+of people, I have quite a bit of scripting around my git infrastructure
+which, I suspect, could be shared.
+
+James
