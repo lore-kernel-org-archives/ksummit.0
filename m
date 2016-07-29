@@ -1,28 +1,35 @@
-Return-Path: <fengguang.wu@intel.com>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 552B87AA
+Return-Path: <rostedt@goodmis.org>
+Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
+	[172.17.192.36])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1783183D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 00:09:17 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 0A328137
+	Fri, 29 Jul 2016 00:10:20 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0084.hostedemail.com
+	[216.40.44.84])
+	by smtp2.linuxfoundation.org (Postfix) with ESMTPS id 907831DABC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 00:09:16 +0000 (UTC)
-Date: Fri, 29 Jul 2016 08:09:12 +0800
-From: Fengguang Wu <fengguang.wu@intel.com>
-To: "Luis R. Rodriguez" <mcgrof@kernel.org>
-Message-ID: <20160729000912.GA17232@wfg-t540p.sh.intel.com>
-References: <20160725190125.GS5537@wotan.suse.de> <5486315.Z6uhQZYKqJ@avalon>
-	<20160728205324.GB5642@wfg-t540p.sh.intel.com>
-	<2443703.ScQNYO34Bz@avalon>
-	<20160728230713.GB18980@wfg-t540p.sh.intel.com>
-	<20160728233327.GC3296@wotan.suse.de>
+	Fri, 29 Jul 2016 00:10:19 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
+	[10.5.19.251])
+	by smtpgrave08.hostedemail.com (Postfix) with ESMTP id BCED7211140
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 29 Jul 2016 00:10:17 +0000 (UTC)
+Date: Thu, 28 Jul 2016 20:10:10 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Message-ID: <20160728201010.6d1ef149@gandalf.local.home>
+In-Reply-To: <367437209.fSUZRCC4cu@avalon>
+References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
+	<57976941.2040308@roeck-us.net>
+	<1469543609.120686.319.camel@infradead.org>
+	<367437209.fSUZRCC4cu@avalon>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20160728233327.GC3296@wotan.suse.de>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Nominating Fengguang Wu - 0-day
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Trond Myklebust <trondmy@primarydata.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,33 +39,17 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 29, 2016 at 01:33:27AM +0200, Luis R. Rodriguez wrote:
->On Fri, Jul 29, 2016 at 07:07:13AM +0800, Fengguang Wu wrote:
->> btw, maybe some maintainers are already informed: 0-day statistics
->> show that ~60% errors can be reported in 2 hours, ~90% errors are
->> reported in 24 hours and there are 1% errors reported after 1 week.
->
->If one were to take 0-day code an slap it on some internal big-iron
->server, and prioritize work for a few developers (say SUSE would do
->this for its developers) do you expect the turnaround time for
->reports would be faster if we had bigger-meaner hardware ? These
->days actually would like to get results back in a few minutes
->for 90% of errors so wondering how / if others have taken on
->0-day internally and made it faster by beefing up the hardware.
+On Fri, 29 Jul 2016 00:02:12 +0300
+Laurent Pinchart <laurent.pinchart@ideasonboard.com> wrote:
 
-I'd suspect roughly the same timing given powerful servers but still
-with reasonable cost considerations.
 
-Intel pretty values the 0-day service and backs it up with 12 parallel
-build servers, including 4 4S Xeon machines. Since we do merged tests,
-one may assume most of the servers are working parallel for his code
-whenever he does a git push. Kernel hackers can feel free to push
-frequently because the extra pushes are virtually cost free -- the
-build workers are working cyclicly on latest merged code anyway.
+> - The lack of a test infrastructure was a major reason for not developing 
+> tests earlier. If we want developers to write and even submit test cases we 
+> need to lower the barrier to entry. A proper infrastructure (with libraries, 
+> locations where to submit test cases, documentation, examples, ...) will not 
+> only make it more likely that test cases will be created and published, but 
+> should also hopefully avoid the proliferation of incompatible test frameworks. 
 
-To take free ride of that restless horse, it'd be good to push small
-topic branches on latest RC kernels, which will have better chances
-to merge and play well with others code.
+Does tools/testing/selftests/ not satisfy this?
 
-Thanks,
-Fengguang
+-- Steve
