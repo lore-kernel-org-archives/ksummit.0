@@ -1,32 +1,30 @@
-Return-Path: <josh@joshtriplett.org>
+Return-Path: <rostedt@goodmis.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0BF66958
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3B39898B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 15:18:25 +0000 (UTC)
-Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net
-	[217.70.183.194])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5741C28C
+	Fri, 29 Jul 2016 15:20:25 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0206.hostedemail.com
+	[216.40.44.206])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2E8672A1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 15:18:24 +0000 (UTC)
-Date: Fri, 29 Jul 2016 08:18:17 -0700
-From: Josh Triplett <josh@joshtriplett.org>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <20160729151817.GD12137@x>
-References: <20160729131151.GF4340@x> <20160729075039.GA26402@x>
-	<30809.1469794812@warthog.procyon.org.uk>
-	<1596.1469801212@warthog.procyon.org.uk>
-	<alpine.DEB.2.20.1607290919480.14761@east.gentwo.org>
-	<CAKMK7uF5ZVi_5m1_Fp6GR6YoC-4eiKuLmx4GtOAxiJOXWZF5RQ@mail.gmail.com>
+	Fri, 29 Jul 2016 15:20:24 +0000 (UTC)
+Date: Fri, 29 Jul 2016 11:20:19 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <20160729112019.3c71f697@gandalf.local.home>
+In-Reply-To: <20160729151247.GG10376@sirena.org.uk>
+References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
+	<367437209.fSUZRCC4cu@avalon>
+	<20160728201010.6d1ef149@gandalf.local.home>
+	<26257864.77FIuI985E@avalon> <20160729151247.GG10376@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAKMK7uF5ZVi_5m1_Fp6GR6YoC-4eiKuLmx4GtOAxiJOXWZF5RQ@mail.gmail.com>
-Cc: Christoph Lameter <cl@linux.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [ANNOUNCE] git-series: track changes to a
- patch series over time
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Trond Myklebust <trondmy@primarydata.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,56 +34,40 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 29, 2016 at 05:00:06PM +0200, Daniel Vetter wrote:
-> On Fri, Jul 29, 2016 at 4:21 PM, Christoph Lameter <cl@linux.com> wrote:
-> > On Fri, 29 Jul 2016, David Howells wrote:
-> >
-> >> Josh Triplett <josh@joshtriplett.org> wrote:
-> >>
-> >> > Note that git-series doesn't provide a quilt-style push/pop workflow,
-> >> > with applied and unapplied patches; it just looks at HEAD.
-> >>
-> >> Ah...  In that case it's probably not a sufficient substitute for how I use
-> >> stgit.
-> >
-> > Did not know that there was stgit. Still stuck on quilt since
-> > I like editing the files directly (its often easier to edit the diffs if
-> > you want to rename things etc).
-> >
-> > Interesting projects.
+On Fri, 29 Jul 2016 16:12:47 +0100
+Mark Brown <broonie@kernel.org> wrote:
+
+> On Fri, Jul 29, 2016 at 11:59:47AM +0300, Laurent Pinchart wrote:
+> > On Thursday 28 Jul 2016 20:10:10 Steven Rostedt wrote:  
 > 
-> Shameless plug of our own tooling for maintainer a quilt pile and
-> tracking it in git:
+> > > Does tools/testing/selftests/ not satisfy this?  
 > 
-> https://cgit.freedesktop.org/drm-intel/tree/qf?h=maintainer-tools
+> > It does, but lacks features to support driver-related test cases. For instance 
+> > it doesn't (for quite obvious reasons) provide machine-readable information 
+> > about the hardware requirements for a particular test.  
 > 
-> It even tracks the baseline sha1 and pulls/pushes it in hidden remote
-> refs/. Which all together allows you to git bisect on the quilt
-> branch, which is a really powerful thing for a long-lived rebasing
-> patch pile. quilt+git was the only thing that allowed me to glue
-> something git bisect capable together.
+> Plus in general the hardware related tests can end up requiring some
+> specific environment beyond that which is machine enumerable.
+> 
+> > I'm not sure whether kselftest could/should be extended for that purpose. Due 
+> > to its integration in the kernel, there is little need to standardize the test 
+> > case interface beyond providing a Makefile to declare the list of test 
+> > programs and compile them. Something slightly more formal is in my opinion 
+> > needed if we want to scale to device driver tests with out-of-tree test cases.  
+> 
+> There's also the risk that we make it harder for a random user to pick
+> up the tests and predict what the expected results should be - one of
+> the things that can really hurt a testsuite is if users don't find it
+> consistent and stable.
 
-By "bisect on the quilt branch", do you mean bisecting between versions
-of the overall patch series?
+I believe the ideal solution would be that a test would check if the
+hardware it wants to test is available or not. If it is not, it simple
+returns "Unsupported", and not success or failure.
 
-That does seem quite helpful, if you need to figure out at what point a
-change occurred in the patch series to break something.  I've filed
-https://github.com/git-series/git-series/issues/3 about supporting that.
+The kselftests should be run by anyone. If the user doesn't have a
+kernel with the right configs, or the right hardware for the test, the
+test should exit politely, saying that it could not run due to not
+having the proper environment. But if the configs and HW are available,
+do you envision having any other type of inconsistent result?
 
-> And the other reason is the same you have: Editing raw patches is
-> really powerful for doing rebases over mechanical changes. Function
-> renames become a trivial quilt pop -a ; sed; while quilt push ; do
-> make ; done.
-
-Interesting!  I'll have to give that some thought, to figure out if
-I can support workflows like that.
-
-What other kinds of changes do you tend to make by editing patches
-directly?
-
-I'm tempted to add a "git series filter" that applies filter-branch to
-the commits in the series, or something similar to that.  I'll also have
-to think about the use case of testing each commit in the series, to see
-if that needs support from git-series or just from underlying git tools.
-
-- Josh Triplett
+-- Steve
