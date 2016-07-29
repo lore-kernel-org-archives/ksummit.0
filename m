@@ -1,26 +1,27 @@
-Return-Path: <riel@redhat.com>
+Return-Path: <linux@roeck-us.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 55AFE9C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 912B371
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 00:25:49 +0000 (UTC)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BC895236
+	Fri, 29 Jul 2016 00:57:06 +0000 (UTC)
+Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id ED70123A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 00:25:48 +0000 (UTC)
-Message-ID: <1469751945.13905.6.camel@redhat.com>
-From: Rik van Riel <riel@redhat.com>
-To: Johannes Weiner <hannes@cmpxchg.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Date: Thu, 28 Jul 2016 20:25:45 -0400
-In-Reply-To: <20160728185523.GA16390@cmpxchg.org>
-References: <20160725171142.GA26006@cmpxchg.org>
-	<20160728185523.GA16390@cmpxchg.org>
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-Xgud52SBzhin9JoXZ3CV"
-Mime-Version: 1.0
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Memory thrashing,
- was Re:  Self nomination
+	Fri, 29 Jul 2016 00:57:05 +0000 (UTC)
+To: Lars-Peter Clausen <lars@metafoo.de>, Jonathan Cameron
+	<jic23@kernel.org>, ksummit-discuss@lists.linuxfoundation.org
+References: <5222c3bb-d6b7-0ccc-bf9e-becf5046a37a@kernel.org>
+	<5791931E.5030402@roeck-us.net> <579A7986.2060006@metafoo.de>
+From: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <579AA9D3.8020004@roeck-us.net>
+Date: Thu, 28 Jul 2016 17:56:51 -0700
+MIME-Version: 1.0
+In-Reply-To: <579A7986.2060006@metafoo.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: Rob Herring <robh+dt@kernel.org>, Zhang Rui <rui.zhang@intel.com>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Sensors and similar - subsystem
+ interactions, divisions, bindings etc.
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,96 +31,100 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On 07/28/2016 02:30 PM, Lars-Peter Clausen wrote:
+> On 07/22/2016 05:29 AM, Guenter Roeck wrote:
+> [...]
+>>>
+>>> 4) Should we drop all the bindings for bridging between such subsystems
+>>> and do it all from userspace?
+>>>
+>> I think that would be a terrible idea. My hope is that we should be able
+>> to present a system to the user as it is intended to be, and that should
+>> include
+>> the use case for given hardware. An ADC is not just an ADC, it has a use
+>> case.
+>> The use case may be obvious if it is used as input device, but if it is
+>> used to measure a voltage (or current, or temperature) it should be
+>> possible
+>> to express that as well, without having to have userspace involved.
+>
+> We need to differentiate between two different things. One is figuring
+> out the function. If you have a general purpose ADC that is hooked up to
+> some other hardware construct that usually gives you the function. E.g.
+> a GP ADC connected to a resistor ladder with push-buttons is a input
+> device. The same ADC connected to a thermocouple creates a temperature
+> sensor. This can easily be implemented by describing the additional
+> hardware properly in the DT and having a construct in the DT that
+> establishes that this ADC is connected to this other thing. We can then
+> use the in-kernel consumer API to get the raw ADC readings and translate
+> them to a application specific result.
+>
+> This is all OK and I don't think anybody has any problem with this. It
+> is well within the scope of what devicetree is meant for and it has no
+> operating system specific bits per se.
+>
+> The other thing is choosing the userspace interface through which the
+> data is exposed when the application falls in an area where it could be
+> exposed through one of multiple APIs. E.g. a general purpose temperature
+> sensor could be either IIO or hwmon. A accelerometer could either be
+> input or IIO. Some user might prefer one interface over the other
+> because they have existing application code that has support for this
+> interface. Another user wants to use another interface because they have
+> code for this interface.
+>
+> This is the kind of bridge setup I'd rather very much avoid putting in
+> the DT. Strictly speaking at the DT level you don't know what kind of
+> application the users are going to run so you can't make that decission
+> at that level. Sure if you build a very tightly coupled embedded
+> application you get kernel, DT and userspace out of one hand and you
+> know at the DT level which interface your application will require, but
+> this is still a layering violation and should be avoided if possible.
+>
+> Saying you want a IIO or hwmon interface in the DT is also very Linux
+> specific. Another reason why we should avoid this.
+>
 
---=-Xgud52SBzhin9JoXZ3CV
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+That ambiguity has not been the case at least in the use cases I was
+involved in. It just happened that some hardware engineers decided that
+they wanted to use a common ADC to measure voltages on a board (rather,
+on all the boards built by that company). So the ADCs are connected to board
+voltages, and the intent was very clear - to be used for hardware monitoring.
 
-On Thu, 2016-07-28 at 14:55 -0400, Johannes Weiner wrote:
-> On Mon, Jul 25, 2016 at 01:11:42PM -0400, Johannes Weiner wrote:
-> > Most recently I have been working on reviving swap for SSDs and
-> > persistent memory devices (https://lwn.net/Articles/690079/) as
-> > part
-> > of a bigger anti-thrashing effort to make the VM recover swiftly
-> > and
-> > predictably from load spikes.
->=20
-> A bit of context, in case we want to discuss this at KS:
->=20
-> We frequently have machines hang and stop responding indefinitely
-> after they experience memory load spikes. On closer look, we find
-> most
-> tasks either in page reclaim or majorfaulting parts of an executable
-> or library. It's a typical thrashing pattern, where everybody
-> cannibalizes everybody else. The problem is that with fast storage
-> the
-> cache reloads can be fast enough that there are never enough in-
-> flight
-> pages at a time to cause page reclaim to fail and trigger the OOM
-> killer. The livelock persists until external remediation reboots the
-> box or we get lucky and non-cache allocations eventually suck up the
-> remaining page cache and trigger the OOM killer.
->=20
-> To avoid hitting this situation, we currently have to keep a generous
-> memory reserve for occasional spikes, which sucks for utilization the
-> rest of the time. Swap would be useful here, but the swapout code is
-> basically only triggering when memory pressure rises - which again
-> doesn't happen - so I've been working on the swap code to balance
-> cache reclaim vs. swap based on relative thrashing between the two.
->=20
-> There is usually some cold/unused anonymous memory lying around that
-> can be unloaded into swap during workload spikes, so that allows us
-> to
-> drive up the average memory utilization without increasing the risk
-> at
-> least. But if we screw up and there are not enough unused anon pages,
-> we are back to thrashing - only now it involves swapping too.
->=20
-> So how do we address this?
->=20
-> A pathological thrashing situation is very obvious to any user, but
-> it's not quite clear how to quantify it inside the kernel and have it
-> trigger the OOM killer. It might be useful to talk about
-> metrics. Could we quantify application progress? Could we quantify
-> the
-> amount of time a task or the system spends thrashing, and somehow
-> express it as a percentage of overall execution time? Maybe something
-> comparable to IO wait time, except tracking the time spent performing
-> reclaim and waiting on IO that is refetching recently evicted pages?
->=20
-> This question seems to go beyond the memory subsystem and potentially
-> involve the scheduler and the block layer, so it might be a good tech
-> topic for KS.
+I am sure it can be expressed that an ADC is connected to, say, a regulator
+output. The question is how to express the intent to use that connection
+for the purpose of hardware monitoring. I think it should be possible
+for the board designer to make a statement about the intended use
+of the hardware.
 
-I would like to discuss this topic, as well.
+Guenter
 
-This is a very fundamental issue that used to be hard
-coded in the BSDs (in the 1980s & 1990s), but where
-hard coding is totally inappropriate with today's memory
-sizes, and variation in I/O subsystem speeds.
-
-Solving this, even if only on the detection side, could
-make a real difference in having systems survive load
-spikes.
-
---=20
-
-All Rights Reversed.
---=-Xgud52SBzhin9JoXZ3CV
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQEcBAABCAAGBQJXmqKJAAoJEM553pKExN6DF4AH/ilMFBwpePbH6c9oS5EO7QhI
-IyyihgYTM7NQASDCFWXF0jf67SbNNK7dQjPnv11ybw5TMKb79VfbN93MbwMljY6U
-NuIXEoPNdFixc0g8LMYwr301JdooYtQJ424xejEvwCKvY1rNrqU9S2dtCJ8dk0nb
-k7IqBIJPa6WYuKxsjx1c1QT4Xp+wMhA95G3pBD2FPI1hv4dusnh/gBE2GSNk0M38
-KBSSsSuVvvsLjIoKJxdY6Y1jLfwSf2PW2IJh0v1L9R6qt30R/243bUTeMCqloozA
-c40mbo541JQC19aOpmCAc2VMmQcvEK1wiqF0HMNP0nw/dg1Ui/4KPBXeKFMu1SY=
-=hFp8
------END PGP SIGNATURE-----
-
---=-Xgud52SBzhin9JoXZ3CV--
+> In my opinion we should make the default interface what we think to the
+> best of our knowledge is the appropriate interface for this type of
+> device and not offer an option to overwrite this through the DT. Where
+> things are on the edge we might let the driver author decide since they
+> might have a valid usecase for that interface.
+>
+> In addition to that I think we should offer the possibility to
+> instantiate bridges from userspace to handle the case where somebody
+> really wants to use the other interface. Theses bridges should solely be
+> about changing the delivery method and not about changing the data type.
+>
+> E.g. a userspace bridge should not be used to create a input device for
+> a resistor ladder connected to a GP ADC as this would change the meaning
+> of the data. On the other hand creating a hwmon to IIO bridge for a
+> temperature sensor should be OK since both report the same temperature
+> value.
+>
+> I'm not sure what I think of this yet, but for completeness I want to
+> mention that we could also get a similar result by implementing the
+> bridge in userspace by LD_PRELOAD'ing. Maybe this is where is belongs?
+>
+> Another thing that is up for discussion is what should do with the ADC
+> device in case there is additional hardware connected. Should we still
+> expose the userspace interface to raw ADC device? If not how would we
+> figure out that we shouldn't considering that the consumer is probed
+> after the provider.
+>
+> - Lars
+>
+>
