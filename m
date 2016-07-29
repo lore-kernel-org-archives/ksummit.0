@@ -1,26 +1,35 @@
-Return-Path: <rjw@rjwysocki.net>
+Return-Path: <alexandre.belloni@free-electrons.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C79AC91A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 163F191A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 20:43:20 +0000 (UTC)
-Received: from cloudserver094114.home.net.pl (cloudserver094114.home.net.pl
-	[79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id 51B34257
+	Fri, 29 Jul 2016 21:07:46 +0000 (UTC)
+Received: from mail.free-electrons.com (down.free-electrons.com
+	[37.187.137.238])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 7E391128
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 20:43:19 +0000 (UTC)
-From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-To: ksummit-discuss@lists.linuxfoundation.org,
-	Darren Hart <dvhart@infradead.org>
-Date: Fri, 29 Jul 2016 22:48:24 +0200
-Message-ID: <39739692.jqz6N0cLYc@vostro.rjw.lan>
-In-Reply-To: <20160729202500.GD3062@f23x64.localdomain>
-References: <20160729202500.GD3062@f23x64.localdomain>
+	Fri, 29 Jul 2016 21:07:45 +0000 (UTC)
+Date: Fri, 29 Jul 2016 23:07:39 +0200
+From: Alexandre Belloni <alexandre.belloni@free-electrons.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+Message-ID: <20160729210739.GI1494@piout.net>
+References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
+	<367437209.fSUZRCC4cu@avalon>
+	<20160728201010.6d1ef149@gandalf.local.home>
+	<26257864.77FIuI985E@avalon> <20160729151247.GG10376@sirena.org.uk>
+	<20160729112019.3c71f697@gandalf.local.home>
+	<20160729155013.GI10376@sirena.org.uk>
+	<20160729120652.3ab04112@gandalf.local.home>
+	<20160729164842.GL10376@sirena.org.uk>
+	<20160729130244.037cee4f@gandalf.local.home>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
-Cc: Nicholas Mc Guire <der.herr@hofr.at>, Jason Cooper <jason@lakedaemon.net>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Linux and Functional Safety
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20160729130244.037cee4f@gandalf.local.home>
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Trond Myklebust <trondmy@primarydata.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,56 +39,37 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Friday, July 29, 2016 01:25:00 PM Darren Hart wrote:
-> We are seeing a surge in demand for using Linux in safety critical systems, from
-> a broad spectrum reaching from automotive and industrial automation to rail and
-> aerospace.
+On 29/07/2016 at 13:02:44 -0400, Steven Rostedt wrote :
+> On Fri, 29 Jul 2016 17:48:42 +0100
+> Mark Brown <broonie@kernel.org> wrote:
 > 
-> Functional Safety is about risk management. It involves identification of
-> hazards to systems which may impact the proper operation of a safety function
-> and minimizing those risks. It is a complex end-to-end systematic process
-> embodied in industry standards, principally IEC 61508 Ed 2 as well as derivative
-> domain specific standards, such as ISO 26262 (Passenger vehicles below 3.5
-> Tons).
+> > On Fri, Jul 29, 2016 at 12:06:52PM -0400, Steven Rostedt wrote:
+> > 
+> > > Well, I don't think there's any answer to that. But I still think it's
+> > > better than nothing. If nobody has the hardware, do we ever care if it
+> > > gets tested? ;-)  
+> > 
+> > I think it'd be better to split such tests out so that there's a clear
+> > distinction between those that we can tell should run reliably and those
+> > that have some hardware dependency.  That way people who just want a
+> > predicatable testsuite without worrying if there's something wrong in
+> > the environment can get one.
 > 
-> These standards were developed to support purpose built MCU class hardware and
-> very small software stacks (3 orders of magnitude smaller than the Linux
-> kernel). Applying them to modern general purpose computer systems and operating
-> systems is not straight forward. It requires a thorough mapping of processes and
-> development of a convincing set of claims, argumentation, and evidence to
-> certify these elements to the required safety integrity levels (discrete levels
-> describing the overall risk reduction capabilities of a system).
+> Perhaps we should create a separate directory in kselftests for
+> "hardware dependent" tests.
 > 
-> The OSADL SIL2LinuxMP project has been working at developing these mappings and
-> a body of evidence into a generic compliance route, conforming to IEC 61508
-> Ed 2. The approach is largely dependent on the rigorous development model of key
-> software stack elements, most notably glibc and the Linux kernel.  Git provides
-> traceability for all changes and ample meta-data to apply statistical models to
-> determine the quality and risk associated with each change. The static analysis
-> tools add further confidence in the codebase by eliminating common classes of
-> errors and enforcing a consistency which facilitates systematic and effective
-> maintenance.
-> 
-> Additional tools are being developed to aid in the compliance route. A team at
-> Hitachi, for example, is developing code minimization tooling to help minimize
-> the lines of code which are included in the scope of the certification.
-> 
-> I believe understanding the ways in which our processes are being used to
-> qualify Linux based safety critical systems is important for every maintainer to
-> have. There may also be opportunity to incorporate some of this tooling into the
-> mainstream development and reduce the need for secondary tooling. Even in this
-> early stage, a stream of patches emerging from API compliance checkers has
-> already found its way into the mainline kernel. The attendees are sure to have
-> insight into their subsystem which will lead to improved analysis.
-> 
-> Potential Participants:
->   Darren Hart
->   Nicholas Mc Guire
->   Thomas Gleixner
->   Linus Walleij
->   Jason Cooper
 
-I'm interested in this too.
+Well, some tests depend on hardware availability but any hardware can
+work. I'm obviously thinking about RTCs. rtctest can run with any RTC.
+Also, one of my question here is whether kselftests could or couldn't be
+destructive. Running rtctest will currently overwrite the next alarm
+that may be set in an RTC. I was also planning to extend it in a way
+that will unfortunately also overwrite the current date and time.
+I'm not sure this is OK, especially for people that want to run those
+tests automatically.
 
-Thanks,
-Rafael
+
+-- 
+Alexandre Belloni, Free Electrons
+Embedded Linux and Kernel engineering
+http://free-electrons.com
