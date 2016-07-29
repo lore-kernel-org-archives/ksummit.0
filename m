@@ -1,30 +1,28 @@
 Return-Path: <rostedt@goodmis.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 84B1D7AA
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5F2A483D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 01:32:30 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0011.hostedemail.com
-	[216.40.44.11])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id EED1B255
+	Fri, 29 Jul 2016 02:00:16 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0140.hostedemail.com
+	[216.40.44.140])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4A3C2276
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 01:32:29 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
-	[10.5.19.251])
-	by smtpgrave06.hostedemail.com (Postfix) with ESMTP id E436F17250F
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 01:32:25 +0000 (UTC)
-Date: Thu, 28 Jul 2016 21:32:19 -0400
+	Fri, 29 Jul 2016 02:00:14 +0000 (UTC)
+Date: Thu, 28 Jul 2016 22:00:11 -0400
 From: Steven Rostedt <rostedt@goodmis.org>
-To: David Howells <dhowells@redhat.com>
-Message-ID: <20160728213219.5f26a404@grimm.local.home>
-In-Reply-To: <15569.1469184060@warthog.procyon.org.uk>
-References: <15569.1469184060@warthog.procyon.org.uk>
+To: Fengguang Wu <fengguang.wu@intel.com>
+Message-ID: <20160728220011.68180496@grimm.local.home>
+In-Reply-To: <20160728230713.GB18980@wfg-t540p.sh.intel.com>
+References: <20160725190125.GS5537@wotan.suse.de> <5486315.Z6uhQZYKqJ@avalon>
+	<20160728205324.GB5642@wfg-t540p.sh.intel.com>
+	<2443703.ScQNYO34Bz@avalon>
+	<20160728230713.GB18980@wfg-t540p.sh.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Compiler shopping list
+Subject: Re: [Ksummit-discuss] Nominating Fengguang Wu - 0-day
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,38 +32,59 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, 22 Jul 2016 11:41:00 +0100
-David Howells <dhowells@redhat.com> wrote:
+On Fri, 29 Jul 2016 07:07:13 +0800
+Fengguang Wu <fengguang.wu@intel.com> wrote:
 
-> Are there additional things we can get the compiler to do for us?  Some
-> things I've seen brought up:
+
+> Such a status web page would be similar to the email notification
+> with no much extra contents, except that it's always there for your
+> polling. If that'd be valuable to you and some few other developers,
+> I'd be glad to push forward the Web UI feature.
 > 
->  (1) Additional __atomic_*() ops could be useful.  Suggestions I've heard
->      include direct LL/SC support - though the compiler people don't seem so
->      keen on that.
+> I need your understand that there are severe limitations what useful
+> contents we can provide due to the nature of merge-test-bisect. For
+> example, there will be no build logs specific for your branches/commits
+> because the extensive build tests are possible only because your code
+> are tested together with a large number of random others. For the same
+> reason there will be no error/warnings available for browsing before
+> the noisy error/warnings are bisected down. If we expose the unclassified
+> noisy error messages and encourage developers to browse through them
+> and do a guess work "are they likely caused by my commits?", we may be
+> wasting the highly valued developer time.
 > 
->  (2) -mmodel=kernel flag so that the compiler can optimise better for the
->      kernel memory model.
+> btw, maybe some maintainers are already informed: 0-day statistics
+> show that ~60% errors can be reported in 2 hours, ~90% errors are
+> reported in 24 hours and there are 1% errors reported after 1 week.
+> 
+> As we extend test coverage aggressively, there are no longer clear
+> moment that we can claim all tests for a branch are complete. The
+> actual build/boot tests may well go on for over a week, covering
+> thousands of kconfigs. The more time consuming functional/performance
+> tests may go on for a month. That's made possible and cost effective
+> thanks to the merge-test-bisect methodology.
+> 
+> So the safe bet is to wait for 1 day's tests before sending out patches.
+> The BUILD SUCCESS notification serves as an indication 0-day robot is
+> not sleeping through. My personal style suggestion would be to stay
+> relaxed, take time and avoid polling. :)
 > 
 
-I'll bring this up, well, just because. It was something I wanted
-before, but I'm not sure how much of a benefit it will be without it
-being actually implemented where we can test it.
+I'm signed up to the BUILD_SUCCESS notification, but there's been times
+where they never showed up, probably due to the issues you mentioned.
+What would be really useful, is just a status page of what commit has
+been pulled into testing, and if it finished successful or not. It
+doesn't need to display anything else but where it is in the test.
 
-What about assigning blocks of code to a section?
+For example, if there's a web page of my git repo, I could see:
 
-	if (y) {
-		some_code;
-	} __attribute__((section("x")))
+ branch ftrace commit SHA1-A - finished failed
+ branch ftrace commit SHA1-B - finished success
+ branch ftrace commit SHA1-C - running
 
-where the code "some_code" will be moved to that section. The use case
-I'm thinking about is for trace points. The tracepoint code does inject
-a bit of its own code at each tracepoint location (see
-include/linux/tracepoint.h trace_##name()). It's under a
-static_key_false() which is an unlikely, thus gcc does sometimes do
-well to move it to the bottom of a function. But I'm wondering if it
-would be better to get it into its own section all together? I'm just
-worried about the icache hit where there are tracepoints in critical
-sections.
+Something like that, where I can see that your tests have picked up my
+lasted push, and if I should be waiting for an email notification or
+not.
+
+Make sense?
 
 -- Steve
