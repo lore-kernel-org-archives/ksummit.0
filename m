@@ -1,30 +1,34 @@
 Return-Path: <hverkuil@xs4all.nl>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BBD3F71
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0FFF671
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 07:36:24 +0000 (UTC)
-Received: from lb1-smtp-cloud2.xs4all.net (lb1-smtp-cloud2.xs4all.net
-	[194.109.24.21])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0A15A181
+	Fri, 29 Jul 2016 07:46:03 +0000 (UTC)
+Received: from lb2-smtp-cloud2.xs4all.net (lb2-smtp-cloud2.xs4all.net
+	[194.109.24.25])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6C6A0DF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 07:36:22 +0000 (UTC)
-To: Jonathan Cameron <jic23@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-References: <5222c3bb-d6b7-0ccc-bf9e-becf5046a37a@kernel.org>
-	<2331474.UchXKu7jRM@avalon>
-	<94890ac2-4a9d-1741-67d5-923a7690174a@kernel.org>
+	Fri, 29 Jul 2016 07:46:02 +0000 (UTC)
+To: Lars-Peter Clausen <lars@metafoo.de>, "Luis R. Rodriguez"
+	<mcgrof@suse.com>, Mark Brown <broonie@kernel.org>
+References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
+	<20160727172636.GM11806@sirena.org.uk>
+	<20160727175829.GG5537@wotan.suse.de> <579A7DFD.60305@metafoo.de>
 From: Hans Verkuil <hverkuil@xs4all.nl>
-Message-ID: <9d74d633-e55a-390d-a718-b9c4880cbde7@xs4all.nl>
-Date: Fri, 29 Jul 2016 09:36:16 +0200
+Message-ID: <98eb563b-5d62-74df-692a-f2aa4f7b07b8@xs4all.nl>
+Date: Fri, 29 Jul 2016 09:45:55 +0200
 MIME-Version: 1.0
-In-Reply-To: <94890ac2-4a9d-1741-67d5-923a7690174a@kernel.org>
+In-Reply-To: <579A7DFD.60305@metafoo.de>
 Content-Type: text/plain; charset=windows-1252
 Content-Transfer-Encoding: 7bit
-Cc: Zhang Rui <rui.zhang@intel.com>, Rob Herring <robh+dt@kernel.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Sensors and similar - subsystem
- interactions, divisions, bindings etc.
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
+	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
+	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Valentin Rothberg <valentinrothberg@gmail.com>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
+ and semantics (v2)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,235 +40,41 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 
 
 
-On 07/29/2016 12:26 AM, Jonathan Cameron wrote:
-> On 28/07/16 17:39, Laurent Pinchart wrote:
->> Hi Jonathan,
+On 07/28/2016 11:49 PM, Lars-Peter Clausen wrote:
+> On 07/27/2016 07:58 PM, Luis R. Rodriguez wrote:
+>> On Wed, Jul 27, 2016 at 06:26:36PM +0100, Mark Brown wrote:
+>>>> to help enable asynchronous probe, however for built-in devices this requires
+>>>> very specific platform knowledge otherwise using async probe will blow up
+>>>> your kernel -- if you get it right though, using async probe can help with
+>>>
+>>> I'm not sure what specific platform knowledge you're thinking of here?
+>>> We have coverage for most things in the form of deferred probe (messy
+>>> though it is).
 >>
->> On Wednesday 20 Jul 2016 22:18:11 Jonathan Cameron wrote:
->>> Hi All,
->>>
->>> This topic would be around the way the various subsystems interact, in the
->>> rough area of 'sensors' (I haven't yet had much of an issue with subsystem
->>> crossing with output devices but maybe that's just over the next hill!)
->>
->> It's already here :-) We have an API to control camera flash (as in light, not 
->> memory) in V4L2 and another one in the LED subsystem.
-> I wonder how many devices are doing it with a gpio or some of the more
-> configurable PWM units..
->>
->>> Scope may well be wider but includes:
->>> * input (some of it)
->>> * hwmon
->>> * iio
->>> * comedi(?)
->>> * thermal
->>> * power/battery
->>> * gpio - the blur between gpios and beaglescope / PLC type I/O.
->>> * v4l - when does a device jump from being a multi pixel thermopile
->>> to a thermal camera? Smart fingerprint scanners etc.  Gesture recognition
->>> sensors (effectively 9ish pixel cameras)
->>> * Lots of random things we haven't seen yet.
->>>
->>> All these make use of devices that are at their hearts ADCs. Whilst it
->>> would nice if the underlying devices always fell into one clear
->>> category that is not always the case. Hardware descriptions (e.g.
->>> device tree) are an important area of contention.
->>>
->>> The examples that follow are mostly based around IIO interactions with
->>> hwmon / input as that's my area of expertise. However, I know that
->>> similar issues occur at other boundaries.
->>>
->>> Guenter Roeck has been working on hwmon / thermal interfacing recently.
->>> We also regularly push drivers one way or the other around that boundary.
->>>
->>> Dmitry and I often have to decide on the IIO / input scope boundary
->>> (and we've moved it over time) + a number of cross over drivers have
->>> turned up recently.
->>>
->>> The other subsystems I encounter have been 'quieter' in their
->>> interactions with me but many of the issues below apply to them as well.
->>>
->>> A rough list of related topics that might be worth face to face
->>> discussion includes:
->>>
->>> 1) Are we happy with the somewhat adhoc divisions of subsystems as they
->>> stand?
->>>
->>> I am personally happy enough with this, but it's worth checking
->>> everyone else is. This probably causes more pain for new submitters
->>> than it does for old hands. Perhaps we can come up with a checklist style
->>> doc to save people having to ask.
->>>
->>> We have had quite a few cases where a whole driver is submitted to the
->>> 'wrong' subsystem. Not the best first interaction with the kernel
->>> world for new contributors. (This sort of area is attracts newbies
->>> as it's relatively simple and the hardware is fairly cheap and more
->>> than once their first experience with review as exactly this!)
->>>
->>> If we aren't happy, what do we do about it?
->>>
->>> I'm hoping we are happy or, at least, resigned to the current state
->>> of affairs, but think the question should be asked from time to time
->>> as the answer may well change + the discussion will highlight pinch
->>> points we can work on.
->>>
->>> 2) Bridging drivers - there will always be cross over cases.
->>> E.g. Generic ADCs used for battery voltage monitoring.  We have a
->>> number of bridges in mainline already and others out of tree.  How
->>> important are these and what features would make them more useful?
->>>
->>> Is it ever sensible to have two drivers for the same part because
->>> the use cases are so different? (I hope there is always a better way
->>> but maybe not)
->>
->> I'd love to say no, but we have already hit that problem. There are two 
->> drivers for the ADV7511 HDMI encoder, one in the media subsystem for V4L2 
->> output devices (drivers/media/i2c/adv7511.c), and one in the DRM/KMS subsystem 
->> for display devices (drivers/gpu/drm/i2c/adv7511.c, being moved to 
->> drivers/gpu/drm/bridge/). Try compiling them both in the kernel and see how 
->> they race to probe the same device (enjoy the show, popcorns not included).
-> Nasty.
->>
->>> This covers both generic bridges (e.g. iio-hwmon) and device
->>> specific bridges (a good example of a touch screen driver turned
->>> up in my inbox yesterday).
->>>
->>> 3) Bindings (device tree and similar).  When it is appropriate to use a
->>> device tree to describe the overlap (bridging of channels)?
->>> Sometimes there is obvious real hardware involved (a thermistor on a
->>> generic ADC input for example), but there are many grey areas.
->>>
->>> Finally bashing out an answer to the issue device tree maintainers
->>> have with the iio-hwmon bindings would be great.
->>> On a less biased note, that example is pretty fiddly to define but would
->>> act as a good basis to work from more generally.
->>>
->>> We know we got it wrong (back in the dark ages), but it isn't obvious how
->>> to get it right!
->>>
->>> IIO-input has been partly held outside mainline for years by this issue.
->>>
->>> Also some practical design decisions to make around how to implement
->>> these mappings to work best with deferred probing etc.
->>>
->>> 4) Should we drop all the bindings for bridging between such subsystems
->>> and do it all from userspace?
->>>
->>> I think we may end up with a hybrid of the two, but need to be able to
->>> make it work in 'standard' cases without userspace being involved. That
->>> hybrid solution may well be devicetree overlay based... Unclear so far.
->>> + plenty of crazy things that 'might' make sense where there isn't even
->>> the pretence of representing real hardware.
->>>
->>> 5) Complex device interaction usecases.  At the moment the ones I've come
->>> across are mostly contained in IIO.  The moment we start sticking in
->>> MUXes, AFEs (Analog Front Ends) and straightforward analog sensors in the
->>> mix it can get fiddly.  Swapping war stories may well be worthwhile on
->>> this. This stuff also turns up in ASoC for example so probably lessons
->>> to be learned from there.
->>>
->>> The analog devices software defined radios are another possible case
->>> study.
->>>
->>> There of course may well be lessons to be learned from similar
->>> interactions elsewhere in the kernel.
->>>
->>> There is a lot of history in how we ended up where we are (it all made
->>> absolute sense at the time). Sitting back and taking the time
->>> to discuss the future would be great.  Whilst this might be solvable
->>> by email we've made no definitive progress for years
->>> (and what has been made has been on a case by case basis deep in
->>> driver reviews.)
->>>
->>> I threw comedi in the list above but, at the moment, I think the more
->>> likely direction there is a single userspace library abstracting
->>> the underlying subsystem (Analog Devices are working in that
->>> direction - perhaps Lars can offer more on that?).
->>>
->>> GPIO is another interesting case - a lot of hardware is capable of
->>> parallel sampling, some at high speeds. It's another area that
->>> is probably too specialist for this discussion, but if people want
->>> to dive into the details it might be interesting.
->>>
->>> I think we have only a small amount of fuzz around the v4l boundary,
->>> but wanted to leave the door open if anyone wants to discuss that
->>> one further as it's come up a few times over recent years.
->>
->> Don't forget to take system integration into account. If I given you a high-
->> speed ADC you will not think about V4L2 as your subsystem of choice. If the 
->> system designer has connected that ADC to a CPLD that generates fake 
->> horizontal and vertical sync signals, and connected the output to the camera 
->> interface of the SoC, you will be left with no choice but use the V4L2 API. 
->> That's largely a userspace issue in this case, but it implies that V4L2 need 
->> to define an "image format" for the ADC data.
-> This one was somewhat of a thought experiment (and the sort of dirty hack
-> we'd do in my day job :)
+>> Deferred probe is a complete a hack and sub-optimal.
 > 
-> Absolutely.  Sometimes they'll obligingly connect it to a camera specific
-> interface sometimes the won't.  I think I saw an example of a camera hanging
-> of one of TI's universal parallel ports at one point for example - not
-> sure how the framing worked there.
+> I fully agree. In the past though there were a few good attempts of
+> providing something better than probe deferral, but those were always
+> quickly shutdown by GregKH for failing to prove that probe deferral
+> really is insufficient.
+> 
+> This probably an issue of presentation, but for future attempts it
+> should be kept in mind that hard numbers on why this is better greatly
+> improve the chance of it being accepted.
 
-One of the first v4l drivers was for a parallel port webcam.
+My main problem is not so much with deferred probe (esp. for cyclic dependencies
+it is a simple method of solving this, and simple is good). My main problem is
+that you can't tell the system that driver A needs to be probed after drivers B,
+C and D are probed first.
 
-And I just heard of a device that uses spi for the video transfer. HW designers
-are evil...
+That would allow us to get rid of v4l2-async.c which is a horrible hack.
+
+That code allows a bridge driver to wait until all dependent drivers are probed.
+This really should be core functionality.
+
+Do other subsystems do something similar like drivers/media/v4l2-core/v4l2-async.c?
+Does anyone know?
 
 Regards,
 
 	Hans
-
-> 
-> The many generic high speed serial interfaces are also an option.
-> 
-> If it's all wrapped up and presented as a camera device, then we don't need
-> to care that it's a generic ADC really as the interesting handling will
-> probably all be done in the fpga / cpld anyway.
-> 
-> The possibility that gets more interesting from my point of view is where
-> the pixel stream simply hits an ADC.  Grabbing from the day job, a line
-> scan camera would be the classic.  There'd probably still be some sort
-> of line framing but lots of places to hide that including in the analog
-> stream itself.
-> 
-> Even if they do, there always comes a point where it's easier to just declare
-> that we are better off with a monolithic device driver hiding what
-> is inside.
-> 
-> Anyhow, I kind of hope no one ever does this *crosses fingers*
-> 
-> Possibly more likely around the blurry boundary of what is a video
-> capture device and what is simply taking a small number of specially
-> related signals and sampling them...
->>
->>> The SoC world is a major case of one device, many uses.  Some SoCs
->>> are turning up with multiple ADC units, sometimes with different
->>> designs, sometimes simply so that the same hardware can be used for
->>> different things.
->>>
->>> A few suggestions for people:
->>>
->>> Guenter Roeck (hmwon)
->>> Dmitry Torokhov (input)
->>> Me (Jonathan Cameron - IIO)
->>>
->>> Someone thermal related (not sure who would be most interested)
->>> Someone power supply related? (Guenter, any suggestions?)
->>>
->>> Someone device tree related (Mark Rutland? Rob Herring?)
->>>
->>> Linus Waleij (gpio)
->>>
->>> Mark Brown - as some of concepts of IIO bridging and how far it
->>> can be taken (everything via a bridge driver) came from
->>> discussions with him on SoC ADC handling.
->>>
->>> Lar-Peter Clausen for generally doing insane things with ADCs + having
->>> one foot in the userspace side of things.
->>
-> 
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
-> 
