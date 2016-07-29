@@ -1,39 +1,31 @@
-Return-Path: <rostedt@goodmis.org>
-Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
-	[172.17.192.36])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4424E413
+Return-Path: <Tim.Bird@am.sony.com>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id DBE7F910
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 17:39:16 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0182.hostedemail.com
-	[216.40.44.182])
-	by smtp2.linuxfoundation.org (Postfix) with ESMTPS id DD4981DABC
+	Fri, 29 Jul 2016 17:53:01 +0000 (UTC)
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com
+	(mail-bl2nam02on0093.outbound.protection.outlook.com [104.47.38.93])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9733C121
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 17:39:15 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
-	[10.5.19.251])
-	by smtpgrave04.hostedemail.com (Postfix) with ESMTP id BB484B115E
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 17:02:49 +0000 (UTC)
-Date: Fri, 29 Jul 2016 13:02:44 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Mark Brown <broonie@kernel.org>
-Message-ID: <20160729130244.037cee4f@gandalf.local.home>
-In-Reply-To: <20160729164842.GL10376@sirena.org.uk>
-References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
-	<367437209.fSUZRCC4cu@avalon>
-	<20160728201010.6d1ef149@gandalf.local.home>
-	<26257864.77FIuI985E@avalon> <20160729151247.GG10376@sirena.org.uk>
-	<20160729112019.3c71f697@gandalf.local.home>
-	<20160729155013.GI10376@sirena.org.uk>
-	<20160729120652.3ab04112@gandalf.local.home>
-	<20160729164842.GL10376@sirena.org.uk>
+	Fri, 29 Jul 2016 17:53:00 +0000 (UTC)
+From: "Bird, Timothy" <Tim.Bird@am.sony.com>
+To: Christoph Lameter <cl@linux.com>, David Howells <dhowells@redhat.com>
+Date: Fri, 29 Jul 2016 17:52:52 +0000
+Message-ID: <ECADFF3FD767C149AD96A924E7EA6EAF053BB894@USCULXMSG02.am.sony.com>
+References: <20160729131151.GF4340@x> <20160729075039.GA26402@x>
+	<30809.1469794812@warthog.procyon.org.uk>
+	<1596.1469801212@warthog.procyon.org.uk>
+	<alpine.DEB.2.20.1607290919480.14761@east.gentwo.org>
+In-Reply-To: <alpine.DEB.2.20.1607290919480.14761@east.gentwo.org>
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Trond Myklebust <trondmy@primarydata.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [ANNOUNCE] git-series: track changes to a
+ patch series over time
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -43,22 +35,43 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, 29 Jul 2016 17:48:42 +0100
-Mark Brown <broonie@kernel.org> wrote:
 
-> On Fri, Jul 29, 2016 at 12:06:52PM -0400, Steven Rostedt wrote:
-> 
-> > Well, I don't think there's any answer to that. But I still think it's
-> > better than nothing. If nobody has the hardware, do we ever care if it
-> > gets tested? ;-)  
-> 
-> I think it'd be better to split such tests out so that there's a clear
-> distinction between those that we can tell should run reliably and those
-> that have some hardware dependency.  That way people who just want a
-> predicatable testsuite without worrying if there's something wrong in
-> the environment can get one.
 
-Perhaps we should create a separate directory in kselftests for
-"hardware dependent" tests.
+> -----Original Message-----
+> From: ksummit-discuss-bounces@lists.linuxfoundation.org [mailto:ksummit-
+> discuss-bounces@lists.linuxfoundation.org] On Behalf Of Christoph Lameter
+> Sent: Friday, July 29, 2016 7:21 AM
+> To: David Howells <dhowells@redhat.com>
+> Cc: ksummit-discuss@lists.linuxfoundation.org
+> Subject: Re: [Ksummit-discuss] [ANNOUNCE] git-series: track changes to a =
+patch
+> series over time
+>=20
+> On Fri, 29 Jul 2016, David Howells wrote:
+>=20
+> > Josh Triplett <josh@joshtriplett.org> wrote:
+> >
+> > > Note that git-series doesn't provide a quilt-style push/pop workflow,
+> > > with applied and unapplied patches; it just looks at HEAD.
+> >
+> > Ah...  In that case it's probably not a sufficient substitute for how I=
+ use
+> > stgit.
+>=20
+> Did not know that there was stgit. Still stuck on quilt since
+> I like editing the files directly (its often easier to edit the diffs if
+> you want to rename things etc).
+>=20
+> Interesting projects.
 
--- Steve
+Indeed.  For many years I used a quilt-based workflow.  Recently
+I've been trying to convert to a pure git-based workflow, but for
+some reason git rebase -I always seems to give me problems.  It
+always takes me much longer to just move some hunk from one
+commit to another than it did in quilt using the patches and vi.
+
+I don't know if git-series addresses that particular problem, but
+Josh mentioned enough other problems that I have every time I
+prepare patches for upstream, that I definitely plan to check out
+the tool.
+ -- Tim
