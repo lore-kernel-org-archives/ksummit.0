@@ -1,29 +1,28 @@
 Return-Path: <laurent.pinchart@ideasonboard.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8EC4578D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3600E8FC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 08:59:36 +0000 (UTC)
+	Fri, 29 Jul 2016 10:59:53 +0000 (UTC)
 Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
 	[185.26.127.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E20931C3
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id AD7C2276
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 08:59:35 +0000 (UTC)
+	Fri, 29 Jul 2016 10:59:52 +0000 (UTC)
 From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-Date: Fri, 29 Jul 2016 11:59:47 +0300
-Message-ID: <26257864.77FIuI985E@avalon>
-In-Reply-To: <20160728201010.6d1ef149@gandalf.local.home>
-References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
-	<367437209.fSUZRCC4cu@avalon>
-	<20160728201010.6d1ef149@gandalf.local.home>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Fri, 29 Jul 2016 14:00:04 +0300
+Message-ID: <44550834.xrXSv8h38b@avalon>
+In-Reply-To: <20160720171026.7d9d2c2b@lwn.net>
+References: <CAKMK7uHOmxoRFr2j+KrtVAud1iQq3ySDQMz6rZOLwYVDorNeBA@mail.gmail.com>
+	<20160720171026.7d9d2c2b@lwn.net>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="us-ascii"
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Trond Myklebust <trondmy@primarydata.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
+Cc: Markus Heiser <markus.heiser@darmarit.de>,
+	Mauro Carvalho Chehab <mchehab@osg.samsung.com>, "Nikula,
+	Jani" <jani.nikula@linux.intel.com>, Grant Likely <grant.likely@linaro.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] kernel documentation
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,33 +32,23 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thursday 28 Jul 2016 20:10:10 Steven Rostedt wrote:
-> On Fri, 29 Jul 2016 00:02:12 +0300 Laurent Pinchart wrote:
-> >
-> > - The lack of a test infrastructure was a major reason for not developing
-> > tests earlier. If we want developers to write and even submit test cases
-> > we need to lower the barrier to entry. A proper infrastructure (with
-> > libraries, locations where to submit test cases, documentation, examples,
-> > ...) will not only make it more likely that test cases will be created
-> > and published, but should also hopefully avoid the proliferation of
-> > incompatible test frameworks.
->
-> Does tools/testing/selftests/ not satisfy this?
+On Wednesday 20 Jul 2016 17:10:26 Jonathan Corbet wrote:
+> On Wed, 20 Jul 2016 13:56:31 +0200 Daniel Vetter wrote:
+> > I think it'd be great if interested parties (might be just a hallway
+> > track) sit together and figure out how to best go about converting all
+> > the existing docs over, and how to link it all together.
+> 
+> I had thought about proposing a similar topic.  I think it could also be
+> useful to have a brief session on how the new stuff works.
 
-It does, but lacks features to support driver-related test cases. For instance 
-it doesn't (for quite obvious reasons) provide machine-readable information 
-about the hardware requirements for a particular test.
+I'd be more interested in that than in a session that discusses the process of 
+converting existing documentation. It's up to each subsystem to move away from 
+DocBook, I don't really see what we would have to discuss there.
 
-I'm not sure whether kselftest could/should be extended for that purpose. Due 
-to its integration in the kernel, there is little need to standardize the test 
-case interface beyond providing a Makefile to declare the list of test 
-programs and compile them. Something slightly more formal is in my opinion 
-needed if we want to scale to device driver tests with out-of-tree test cases.
-
-Another limitation of kselftest is the lack of standardization for logging and 
-status reporting. This would be needed to interpret the test output in a 
-consistent way and generate reports. Regardless of whether we extend kselftest 
-to cover device drivers this would in my opinion be worth fixing.
+That being said, in order to make the documentation consistent, we'll need 
+some level of bikeshedding to decide on guidelines for maintainers and 
+developers. I don't want to spend the kernel summit bikeshedding, but maybe a 
+high-level discussion on what we need could be useful.
 
 -- 
 Regards,
