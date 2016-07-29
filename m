@@ -1,34 +1,34 @@
-Return-Path: <lurodriguez@suse.de>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9859F99A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id C8694899
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 16:31:27 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 071B92C4
+	Fri, 29 Jul 2016 16:48:58 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3C4D51D4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 16:31:26 +0000 (UTC)
-Date: Fri, 29 Jul 2016 18:31:23 +0200
-From: "Luis R. Rodriguez" <mcgrof@kernel.org>
-To: Josh Triplett <josh@joshtriplett.org>
-Message-ID: <20160729163123.GI3296@wotan.suse.de>
-References: <20160729131151.GF4340@x> <20160729075039.GA26402@x>
-	<30809.1469794812@warthog.procyon.org.uk>
-	<1596.1469801212@warthog.procyon.org.uk>
-	<alpine.DEB.2.20.1607290919480.14761@east.gentwo.org>
-	<CAKMK7uF5ZVi_5m1_Fp6GR6YoC-4eiKuLmx4GtOAxiJOXWZF5RQ@mail.gmail.com>
-	<20160729151817.GD12137@x>
-	<CAKMK7uGS5_0p-k1mvqPqCfii3_JsGpyW6BvxaYuxDQeuaFs+TA@mail.gmail.com>
-	<20160729162104.GA12719@x>
+	Fri, 29 Jul 2016 16:48:58 +0000 (UTC)
+Date: Fri, 29 Jul 2016 17:48:42 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+Message-ID: <20160729164842.GL10376@sirena.org.uk>
+References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
+	<367437209.fSUZRCC4cu@avalon>
+	<20160728201010.6d1ef149@gandalf.local.home>
+	<26257864.77FIuI985E@avalon> <20160729151247.GG10376@sirena.org.uk>
+	<20160729112019.3c71f697@gandalf.local.home>
+	<20160729155013.GI10376@sirena.org.uk>
+	<20160729120652.3ab04112@gandalf.local.home>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="1hVIwB4NpNcOOTEe"
 Content-Disposition: inline
-In-Reply-To: <20160729162104.GA12719@x>
-Cc: Christoph Lameter <cl@linux.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [ANNOUNCE] git-series: track changes to a
- patch series over time
+In-Reply-To: <20160729120652.3ab04112@gandalf.local.home>
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Trond Myklebust <trondmy@primarydata.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,32 +38,36 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 29, 2016 at 09:21:04AM -0700, Josh Triplett wrote:
-> On Fri, Jul 29, 2016 at 05:40:05PM +0200, Daniel Vetter wrote:
-> > On Fri, Jul 29, 2016 at 5:18 PM, Josh Triplett <josh@joshtriplett.org> wrote:
-> > > On Fri, Jul 29, 2016 at 05:00:06PM +0200, Daniel Vetter wrote:
-> > >> And the other reason is the same you have: Editing raw patches is
-> > >> really powerful for doing rebases over mechanical changes. Function
-> > >> renames become a trivial quilt pop -a ; sed; while quilt push ; do
-> > >> make ; done.
-> > >
-> > > Interesting!  I'll have to give that some thought, to figure out if
-> > > I can support workflows like that.
-> > >
-> > > What other kinds of changes do you tend to make by editing patches
-> > > directly?
-> > 
-> > The other upshot of raw patches is that you can use horrible risky
-> > tools like wiggle to force a patch to apply. git is a lot more strict
-> > and ime wiggle helps you with a lot of simple rebase conflicts. I have
-> > small helper scripts to integrate wiggle both into that quilt flow
-> > script, but also into normal git rebase.
-> 
-> That does sound useful.  It'd be nice to have "git apply --wiggle" and
-> "git am --wiggle", too.
 
-A bigger pipe dream is inference of SmPL grammar of a patch, then use
-SmPL to address the rebase. Inference work is in theory possible and
-R&D is ongoing in that direction. That should make this scale.
+--1hVIwB4NpNcOOTEe
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-  Luis
+On Fri, Jul 29, 2016 at 12:06:52PM -0400, Steven Rostedt wrote:
+
+> Well, I don't think there's any answer to that. But I still think it's
+> better than nothing. If nobody has the hardware, do we ever care if it
+> gets tested? ;-)
+
+I think it'd be better to split such tests out so that there's a clear
+distinction between those that we can tell should run reliably and those
+that have some hardware dependency.  That way people who just want a
+predicatable testsuite without worrying if there's something wrong in
+the environment can get one.
+
+--1hVIwB4NpNcOOTEe
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQEcBAEBCAAGBQJXm4jpAAoJECTWi3JdVIfQIBgH/j+nc7zdcH41PjZZ0GLRtU+p
+E9j9jD79tHZ1qkX84bYubnrF2HtMyNh3FiNig/epF7H6Hnto3MVJZGKq9NXK5s1T
+OISlS7G1LO9p5Pc5Ly+OShdR8VNQjQqQcTEQjcuCE3bKUSwfWBFvZ6k9v9eGWMXy
+pjyQjAryKXHPp980yDzHYiCm39ylkHQCt6wMLE3HrjXf1henl+/UTdsYwKV25Ak9
++pSuME9lkqF9XyqTuo2KqU3imvIPwo3PiF0yg+AM8tz7tV+dloSNMecdSxE8VNsi
+NqQ51+ucReCENmSXr34UxQNaYLJIV5A3Ey3TMZBEN9e5cb+cvMKZOJmazoV6QdM=
+=yiVh
+-----END PGP SIGNATURE-----
+
+--1hVIwB4NpNcOOTEe--
