@@ -1,33 +1,64 @@
-Return-Path: <James.Hogan@imgtec.com>
+Return-Path: <zohar@linux.vnet.ibm.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A8F5883D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B4E1D919
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 21:59:54 +0000 (UTC)
-Received: from imgpgp01.kl.imgtec.org (mailapp01.imgtec.com [195.59.15.196])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 651EB152
+	Fri, 29 Jul 2016 22:11:14 +0000 (UTC)
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+	[148.163.158.5])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3A766102
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 21:59:53 +0000 (UTC)
-Date: Fri, 29 Jul 2016 22:59:50 +0100
-From: James Hogan <james.hogan@imgtec.com>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Message-ID: <20160729215950.GB1302@jhogan-linux.le.imgtec.org>
-References: <20160729131151.GF4340@x> <20160729075039.GA26402@x>
-	<30809.1469794812@warthog.procyon.org.uk>
-	<1596.1469801212@warthog.procyon.org.uk>
-	<alpine.DEB.2.20.1607290919480.14761@east.gentwo.org>
-	<ECADFF3FD767C149AD96A924E7EA6EAF053BB894@USCULXMSG02.am.sony.com>
-	<1469815046.2330.13.camel@HansenPartnership.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="yNb1oOkm5a9FJOVX"
-Content-Disposition: inline
-In-Reply-To: <1469815046.2330.13.camel@HansenPartnership.com>
-Cc: Christoph Lameter <cl@linux.com>,
+	Fri, 29 Jul 2016 22:11:14 +0000 (UTC)
+Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
+	by mx0b-001b2d01.pphosted.com (8.16.0.11/8.16.0.11) with SMTP id
+	u6TM8bgp022370 for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 29 Jul 2016 18:11:13 -0400
+Received: from e28smtp06.in.ibm.com (e28smtp06.in.ibm.com [125.16.236.6])
+	by mx0b-001b2d01.pphosted.com with ESMTP id 24fj2pxd1p-1
+	(version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 29 Jul 2016 18:11:11 -0400
+Received: from localhost
+	by e28smtp06.in.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use
+	Only! Violators will be prosecuted
+	for <ksummit-discuss@lists.linuxfoundation.org> from
+	<zohar@linux.vnet.ibm.com>; Sat, 30 Jul 2016 03:41:07 +0530
+Received: from d28relay06.in.ibm.com (d28relay06.in.ibm.com [9.184.220.150])
+	by d28dlp01.in.ibm.com (Postfix) with ESMTP id 55215E0040
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sat, 30 Jul 2016 03:45:19 +0530 (IST)
+Received: from d28av01.in.ibm.com (d28av01.in.ibm.com [9.184.220.63])
+	by d28relay06.in.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+	u6TMB2VZ39518338 for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sat, 30 Jul 2016 03:41:02 +0530
+Received: from d28av01.in.ibm.com (localhost [127.0.0.1])
+	by d28av01.in.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+	u6TMAxt7030991 for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sat, 30 Jul 2016 03:41:01 +0530
+From: Mimi Zohar <zohar@linux.vnet.ibm.com>
+To: Jason Cooper <jason@lakedaemon.net>
+Date: Fri, 29 Jul 2016 18:10:56 -0400
+In-Reply-To: <20160728165728.GR4541@io.lakedaemon.net>
+References: <20150804152622.GY30479@wotan.suse.de>
+	<1468612258.5335.0.camel@linux.vnet.ibm.com>
+	<1468612671.5335.5.camel@linux.vnet.ibm.com>
+	<20160716005213.GL30372@sirena.org.uk>
+	<1469544138.120686.327.camel@infradead.org>
+	<14209.1469636040@warthog.procyon.org.uk>
+	<1469636881.27356.70.camel@HansenPartnership.com>
+	<1469637367.27356.73.camel@HansenPartnership.com>
+	<1469648220.23563.15.camel@linux.vnet.ibm.com>
+	<CALCETrXWVTmbuUa-d7EH2kGRZM+HCiqje11AqxWm7ntd5fjLDg@mail.gmail.com>
+	<20160728165728.GR4541@io.lakedaemon.net>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Message-Id: <1469830256.23563.200.camel@linux.vnet.ibm.com>
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Mark Brown <broonie@sirena.org.uk>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [ANNOUNCE] git-series: track changes to a
- patch series over time
+Subject: Re: [Ksummit-discuss] Last minute nominations: mcgrof and toshi
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,90 +68,67 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---yNb1oOkm5a9FJOVX
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Do, 2016-07-28 at 16:57 +0000, Jason Cooper wrote:
+> Hi Andy,
+> 
+> On Wed, Jul 27, 2016 at 01:09:37PM -0700, Andy Lutomirski wrote:
+> ...
+> > I would like someone to explain why using the keyring mechanism for
+> > this in the first place is a good idea.
+> > 
+> > As far as I can tell, the design goals of "keys trusted by the kernel
+> > for modules, firmware, etc" are:
+> > 
+> >  - Keys are added at build time or, according to potentially
+> > system-specific rules, at boot time.
+> > 
+> >  - Keys should specify what they're trusted *for*.
+> 
+> Well, I'd argue that keys should specify what they are *intended* for by
+> the keyholder.  A useful security system could further restrict the key
+> as needed.
 
-On Fri, Jul 29, 2016 at 10:57:26AM -0700, James Bottomley wrote:
-> On Fri, 2016-07-29 at 17:52 +0000, Bird, Timothy wrote:
-> > I've been trying to convert to a pure git-based workflow, but for
-> > some reason git rebase -I always seems to give me problems.  It
-> > always takes me much longer to just move some hunk from one
-> > commit to another than it did in quilt using the patches and vi.
->=20
-> I do this too, but I also work with the diff when moving hunks.  What I
-> do is:
->=20
-> git checkout <removal commit>
+We've already started.  Currently the kernel_read_file() and family of
+functions provide the LSM hooks needed for verifying file signatures of
+files read by the kernel.  The kernel_read_file_id enumeration is used
+to differentiate between callers.  Based on this enumeration, the
+*intended* for could be defined.  It would make sense to extend the IMA
+policy language to support *intended* for.
 
-> git show <removal commit> > tmp.diff
-> vi tmp.diff so it only has the hunks I want to remove
-> patch -p1 -R < ~/tmp.diff
+Mimi
 
-another alternative:
-git checkout -p HEAD~
-
-and...
-
-> git commit --amend -a
-> git checkout <add commit>
-
-> patch -p1 < ~/tmp.diff
-> git commit --amend -a
-
-git checkout -p <pre-rebase commit id> (assuming you're moving the hunk
-further towards the head of the branch).
-
-thats easy to do from a rebase -i, as you have all the commit ids right
-there and can just add a line:
-x git checkout -p <commit_id>
-
->=20
-> It's a bit cumbersome, but you can script it.  If there are better ways
-> to do it, I'm interested.
-
-I often find myself just splitting it up with rebase -i. I.e. just
-duplicate the removal commit, and add "x git checkout -p HEAD~" in
-between them. The second pick will end up just with the hunk you've
-removed.
-
-Then you can mark it as a fixup on a second run of rebase -i, or even on
-the first run using commit --fixup and rebase --autosquash:
-
-pick abc removal commit
-x git checkout -p HEAD~
-pick abc removal commit
-x git commit --amend --fixup add_commit
-
-For more complicated extractions where checkout -p HEAD~ gets confusing
-or when you want to move a hunk backwards while avoiding nearby
-conflicts, precede the removal commit with:
-x git checkout -p <removal commit>
-
-Cheers
-James
-
---yNb1oOkm5a9FJOVX
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJXm9HWAAoJEGwLaZPeOHZ6SAcP/1R6+HQ19ISXySk2vGAw6+qo
-OLH3D6HjVqNMCx+9mSUi7u4yOLHUxYqjLafhFQWHmTxAQUPi4ksLKVkZoejHLDTf
-j/zCyroOlQP+cfOr3O5x+Obfn7VvtdILE5daa3tPQTWzcDR+phtUDgnHvtZLnixC
-JL0MReHtVOSEmsg/M1W7H8l7dQsYlvtsoOAUHUlKpHxPGuZFnCwb2tCBBKnH2S+X
-/7++dxbhXcl+GWUdYfSV2gP4aXMH58S6udymQS8DysRieJCkkq1wHAk2XRM5BSRr
-N/RdELLLII+3/vFOrzde6aM+LouY88MPb0G/TK0240HBUTRN2Vbx5fSiVLKtG0Nx
-SzJe0Da3USJDfARgJjZDRaY7PHGv9tOV4FSZZLXNB57CtPug3sCrh2gbAClZJvVd
-0bZKmACk5x7+O5kFY9m+D6MXDRrJ7mD9WV6BogSkhimfkCG9KoZC6a8jCz7BlkOD
-b5eVuqVhNUMLevcxjXh8ynTCK7bGGfKQmQVXV5+XoA1mlOz0tlBg5z+Ev/vIfk7Y
-D1LR/ddRfpg0wRetwI+ztwWOhk2/K4jT83yIlyX53DGQ39HKXOf0QLcGGvTnebVk
-sNNStogPr0Uee2bEPNlo1Xf/e3XeYqGl3FGnVVYDRBn/vnFMDEDUKxvHMwePPyxg
-v1IouLR5Zbcog9AP7533
-=aatW
------END PGP SIGNATURE-----
-
---yNb1oOkm5a9FJOVX--
+> e.g. the Microsoft key may say it's intended for "Verifying binaries
+> issued by Microsoft".  A Linux user would want to restrict that to
+> verifying updated boot shims for UEFI.
+> 
+> If nothing else, we need to grok the lessons learned from the CA
+> system.
+> 
+> > Some keys should be trusted to load modules.  Some keys should be
+> > trusted to load specific firmware files.
+> 
+> "Some keys should be restricted to verifying modules.  Some keys should
+> be restricted to verifying specific firmware files." [0]
+> 
+> We'll know the system is designed correctly if we don't mind the
+> Microsoft key being in the keyring.
+> 
+> There's definitely a larger conversation to be had here.  The Kernel is
+> a *part* of the system, and should be a *part* of the security of the
+> system.  Attempting to make it the whole enchilada risks making the same
+> design errors as TrustZone.  "Just put all your eggs in this *other*
+> basket.  No one can see in it, but it has access to everything on the
+> system.  Oh, you have proprietary, complicated, un-reviewed DRM code
+> that parses unsanitized input?  Sure, put it in there with the key
+> manager.  No problem, it's magic."  Moving cheese. [1]
+> 
+> thx,
+> 
+> Jason.
+> 
+> [0] A wise man once told me to avoid the word 'trust' in conversations
+> about security.  It's a vague term whose meaning varies from person to
+> person and from situation to situation.
+> 
+> [1] https://bits-please.blogspot.de/2016/06/extracting-qualcomms-keymaster-keys.html
+> 
