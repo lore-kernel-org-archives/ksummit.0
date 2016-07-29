@@ -1,33 +1,32 @@
-Return-Path: <b.zolnierkie@samsung.com>
+Return-Path: <josh@joshtriplett.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6276598B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0BF66958
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 15:14:05 +0000 (UTC)
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3E00029A
+	Fri, 29 Jul 2016 15:18:25 +0000 (UTC)
+Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net
+	[217.70.183.194])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5741C28C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 15:14:04 +0000 (UTC)
-Received: from epcpsbgm2new.samsung.com (epcpsbgm2 [203.254.230.27])
-	by mailout1.samsung.com
-	(Oracle Communications Messaging Server 7.0.5.31.0 64bit (built May 5
-	2014)) with ESMTP id <0OB302RJ60ZCVM80@mailout1.samsung.com> for
-	ksummit-discuss@lists.linuxfoundation.org; Sat,
-	30 Jul 2016 00:14:02 +0900 (KST)
-Received: from amdc1976.localnet ([106.120.53.102])
-	by mmp2.samsung.com (Oracle Communications Messaging Server 7.0.5.31.0
-	64bit
-	(built May 5 2014)) with ESMTPA id <0OB30068B0ZDET70@mmp2.samsung.com>
-	for ksummit-discuss@lists.linuxfoundation.org; Sat,
-	30 Jul 2016 00:14:02 +0900 (KST)
-From: Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Fri, 29 Jul 2016 17:13:56 +0200
-Message-id: <2424125.plWAxNChgV@amdc1976>
-MIME-version: 1.0
-Content-transfer-encoding: 7Bit
-Content-type: text/plain; charset=us-ascii
-Subject: [Ksummit-discuss] Self nomination
+	Fri, 29 Jul 2016 15:18:24 +0000 (UTC)
+Date: Fri, 29 Jul 2016 08:18:17 -0700
+From: Josh Triplett <josh@joshtriplett.org>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <20160729151817.GD12137@x>
+References: <20160729131151.GF4340@x> <20160729075039.GA26402@x>
+	<30809.1469794812@warthog.procyon.org.uk>
+	<1596.1469801212@warthog.procyon.org.uk>
+	<alpine.DEB.2.20.1607290919480.14761@east.gentwo.org>
+	<CAKMK7uF5ZVi_5m1_Fp6GR6YoC-4eiKuLmx4GtOAxiJOXWZF5RQ@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAKMK7uF5ZVi_5m1_Fp6GR6YoC-4eiKuLmx4GtOAxiJOXWZF5RQ@mail.gmail.com>
+Cc: Christoph Lameter <cl@linux.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [ANNOUNCE] git-series: track changes to a
+ patch series over time
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,44 +36,56 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hello,
+On Fri, Jul 29, 2016 at 05:00:06PM +0200, Daniel Vetter wrote:
+> On Fri, Jul 29, 2016 at 4:21 PM, Christoph Lameter <cl@linux.com> wrote:
+> > On Fri, 29 Jul 2016, David Howells wrote:
+> >
+> >> Josh Triplett <josh@joshtriplett.org> wrote:
+> >>
+> >> > Note that git-series doesn't provide a quilt-style push/pop workflow,
+> >> > with applied and unapplied patches; it just looks at HEAD.
+> >>
+> >> Ah...  In that case it's probably not a sufficient substitute for how I use
+> >> stgit.
+> >
+> > Did not know that there was stgit. Still stuck on quilt since
+> > I like editing the files directly (its often easier to edit the diffs if
+> > you want to rename things etc).
+> >
+> > Interesting projects.
+> 
+> Shameless plug of our own tooling for maintainer a quilt pile and
+> tracking it in git:
+> 
+> https://cgit.freedesktop.org/drm-intel/tree/qf?h=maintainer-tools
+> 
+> It even tracks the baseline sha1 and pulls/pushes it in hidden remote
+> refs/. Which all together allows you to git bisect on the quilt
+> branch, which is a really powerful thing for a long-lived rebasing
+> patch pile. quilt+git was the only thing that allowed me to glue
+> something git bisect capable together.
 
-I would like to self-nominate for the Kernel Summit 2016.
+By "bisect on the quilt branch", do you mean bisecting between versions
+of the overall patch series?
 
-I'm the leader of the Tizen Kernel team in Samsung R&D Institute
-Poland (SRPOL) which (together with Korean HQ Kernel team) develops
-Linux Kernel for Tizen.org reference devices and works on support
-for ARM Samsung Exynos SoCs in the mainline kernel.  I'm also
-currently co-maintainer of mainline libata PATA drivers.
+That does seem quite helpful, if you need to figure out at what point a
+change occurred in the patch series to break something.  I've filed
+https://github.com/git-series/git-series/issues/3 about supporting that.
 
-I'm particularly interested in the following topics proposed this
-year:
+> And the other reason is the same you have: Editing raw patches is
+> really powerful for doing rebases over mechanical changes. Function
+> renames become a trivial quilt pop -a ; sed; while quilt push ; do
+> make ; done.
 
-- Kernel unit testing and generally all topics related to kernel
-  testing.
+Interesting!  I'll have to give that some thought, to figure out if
+I can support workflows like that.
 
-  We have developed internal Tizen kernel testing system in SRPOL
-  and are still working on enhancing it.  If possible in the future
-  we would like to make it (or at least some parts of it) available
-  to external developers (i.e. using kernelci.org infrastructure).
+What other kinds of changes do you tend to make by editing patches
+directly?
 
-  I would also like to discuss the ways to make it easier for testing
-  kernels by developers on old and/or rare devices (especially in
-  the context of IDE subsystem to libata PATA migration).
+I'm tempted to add a "git series filter" that applies filter-branch to
+the commits in the series, or something similar to that.  I'll also have
+to think about the use case of testing each commit in the series, to see
+if that needs support from git-series or just from underlying git tools.
 
-- stable workflow - we are basing Tizen.org kernels on LTS kernels
-  so any ways to improve the stable/LTS kernels quality are in
-  our area of interest.
-
-- Bus IPC.  I can act as a bridge to developers from Tizen System
-  team in SRPOL who are working on IPC in Tizen (dbus/kdbus).  I can
-  provide input to the discussion from Tizen's requirements POV (i.e.
-  we need our IPC to be container-aware).
-
-Thank you for considering.
-
-Best regards,
---
-Bartlomiej Zolnierkiewicz
-Samsung R&D Institute Poland
-Samsung Electronics
+- Josh Triplett
