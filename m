@@ -1,29 +1,24 @@
-Return-Path: <jic23@jic23.retrosnub.co.uk>
+Return-Path: <wangnan0@huawei.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 66F3171
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6F80E71
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 06:04:06 +0000 (UTC)
-Received: from saturn.retrosnub.co.uk (saturn.retrosnub.co.uk [178.18.118.26])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4CE82168
+	Fri, 29 Jul 2016 06:18:40 +0000 (UTC)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [58.251.152.64])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 051AE122
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 29 Jul 2016 06:04:05 +0000 (UTC)
-In-Reply-To: <20160728233812.GG1494@piout.net>
-References: <5222c3bb-d6b7-0ccc-bf9e-becf5046a37a@kernel.org>
-	<20160728233812.GG1494@piout.net>
+	Fri, 29 Jul 2016 06:18:38 +0000 (UTC)
+To: <dave@stgolabs.net>
+References: <20160727232054.GA30998@linux-80c1.suse>
+From: "Wangnan (F)" <wangnan0@huawei.com>
+Message-ID: <579AF4EF.6070605@huawei.com>
+Date: Fri, 29 Jul 2016 14:17:19 +0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain;
- charset=UTF-8
-From: Jonathan Cameron <jic23@jic23.retrosnub.co.uk>
-Date: Fri, 29 Jul 2016 07:04:03 +0100
-To: Alexandre Belloni <alexandre.belloni@free-electrons.com>,
-	Jonathan Cameron <jic23@kernel.org>
-Message-ID: <3266EC6A-EE44-4770-AB78-F638EE737378@jic23.retrosnub.co.uk>
-Cc: Zhang Rui <rui.zhang@intel.com>, Rob Herring <robh+dt@kernel.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Sensors and similar - subsystem
-	interactions, divisions, bindings etc.
+In-Reply-To: <20160727232054.GA30998@linux-80c1.suse>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] self nomination
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,54 +30,37 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 
 
 
-On 29 July 2016 00:38:12 BST, Alexandre Belloni <alexandre.belloni@free-electrons.com> wrote:
->Hi,
+On 2016/7/28 7:20, Davidlohr Bueso wrote:
+> Hi,
 >
->On 20/07/2016 at 22:18:11 +0100, Jonathan Cameron wrote :
->> A few suggestions for people:
->> 
->> Guenter Roeck (hmwon)
->> Dmitry Torokhov (input)
->> Me (Jonathan Cameron - IIO)
->> 
->> Someone thermal related (not sure who would be most interested)
->> Someone power supply related? (Guenter, any suggestions?)
->> 
->> Someone device tree related (Mark Rutland? Rob Herring?)
->> 
->> Linus Waleij (gpio)
->> 
->> Mark Brown - as some of concepts of IIO bridging and how far it
->> can be taken (everything via a bridge driver) came from
->> discussions with him on SoC ADC handling.
->> 
->> Lar-Peter Clausen for generally doing insane things with ADCs +
->having
->> one foot in the userspace side of things.
->> 
+> I would like to nominate myself for kernel summit this year.
 >
->I'm pretty interested in that discussion as I've been writing/using
->some
->of the ADC/touch drivers (at91, mxs) and I've been involved in the
->sunxi
->ones.
+> I hack on various core subsystems mainly in the name of performance and
+> am particularly interested in the following topics/discussions:
 >
->Also, I've recently been seeing people using GP ADCs wanting to get an
->ALSA interface and others using audio ADCs wanting the IIO interface.
-
-So here is another case where it looks like we ultimately need bridges.
-
-Hopefully the hardware usecase is obvious enough here that bindings
-will be straight forward anyway...
-
-Fits in well with Lars' point about everything is going more generic and
-we need to be ready for it. Sounds like we are a bit late already...
-
-I am beginning to wonder why I opened this can of worms! 
-
-Jonathan
+> - C++11 atomics/kernel memory model.
+> - Upstreaming PREEMPT_RT.
+> - Regression tracking.
+> - (and to a lesser degree unit testing)
 >
->Regards,
+> In addition, I'm wondering if there's any interest in a performance
+> session (getting to know some of the bottlenecks that are currently
+> making folks cry), like Chris Mason has been doing in past kernel
+> summits for fb specific workloads.
+>
 
--- 
-Sent from my Android device with K-9 Mail. Please excuse my brevity.
+Yes, we need a performance related session. I posted a proposal but
+not very responsive.
+
+I can talk about tracing and tools/perf, especially the progress of
+BPF. We can discuss something about performance profiling based on
+these tracing result.
+
+Thank you.
+
+> Thanks,
+> Davidlohr
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
