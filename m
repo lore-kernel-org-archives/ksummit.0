@@ -1,33 +1,26 @@
-Return-Path: <ben@decadent.org.uk>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 03F8F8E3
+Return-Path: <rostedt@goodmis.org>
+Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
+	[172.17.192.36])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B93A48D7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 30 Jul 2016 00:32:52 +0000 (UTC)
-Received: from shadbolt.e.decadent.org.uk (shadbolt.e.decadent.org.uk
-	[88.96.1.126])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 62B551F5
+	Sat, 30 Jul 2016 03:00:20 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0182.hostedemail.com
+	[216.40.44.182])
+	by smtp2.linuxfoundation.org (Postfix) with ESMTPS id A87FC1DB1F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 30 Jul 2016 00:32:51 +0000 (UTC)
-Received: from host109-145-245-51.range109-145.btcentralplus.com
-	([109.145.245.51] helo=deadeye)
-	by shadbolt.decadent.org.uk with esmtps
-	(TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.84_2)
-	(envelope-from <ben@decadent.org.uk>) id 1bTICv-0005JW-M3
-	for ksummit-discuss@lists.linuxfoundation.org;
-	Sat, 30 Jul 2016 01:32:49 +0100
-Received: from ben by deadeye with local (Exim 4.87)
-	(envelope-from <ben@decadent.org.uk>) id 1bTICq-0001Se-9w
-	for ksummit-discuss@lists.linuxfoundation.org;
-	Sat, 30 Jul 2016 01:32:44 +0100
-Message-ID: <1469838751.4176.107.camel@decadent.org.uk>
-From: Ben Hutchings <ben@decadent.org.uk>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Sat, 30 Jul 2016 01:32:31 +0100
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-DvkJCjtH1B1O1hZoi62r"
-Mime-Version: 1.0
-Subject: [Ksummit-discuss] Self nomination
+	Sat, 30 Jul 2016 03:00:19 +0000 (UTC)
+Date: Fri, 29 Jul 2016 23:00:15 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Darren Hart <dvhart@infradead.org>
+Message-ID: <20160729230015.2a7cd72f@grimm.local.home>
+In-Reply-To: <20160729202500.GD3062@f23x64.localdomain>
+References: <20160729202500.GD3062@f23x64.localdomain>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: Nicholas Mc Guire <der.herr@hofr.at>, Jason Cooper <jason@lakedaemon.net>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Linux and Functional Safety
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,61 +30,18 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Fri, 29 Jul 2016 13:25:00 -0700
+Darren Hart <dvhart@infradead.org> wrote:
 
---=-DvkJCjtH1B1O1hZoi62r
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-I am nominating myself to attend the kernel summit.
+> Potential Participants:
+>   Darren Hart
+>   Nicholas Mc Guire
+>   Thomas Gleixner
+>   Linus Walleij
+>   Jason Cooper
+> 
 
-I continue to maintain Debian's kernel package (unstable and stable
-branches), and the 3.2 and 3.16 longterm branches at kernel.org.
+You forgot me ;-)
 
-I'm interested in:
-
-- Stable/longterm maintenance
-- Tracking (or avoiding) regressions
-- Code signing for modules, firmware, etc. =C2=A0(Debian is now starting to
-=C2=A0 implement this.)
-=C2=A0 - Relatedly, the securelevel patches or similar restrictions on
-=C2=A0 =C2=A0 userland to prevent subversion of code signing
-- Documentation - making sure the post-DocBook documentation remains
-=C2=A0 packageable and reproducible
-
-Ben.
-
---=20
-
-Ben Hutchings
-Experience is directly proportional to the value of equipment
-destroyed.
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- Carolyn
-Scheppner
-
---=-DvkJCjtH1B1O1hZoi62r
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAABCgAGBQJXm/WfAAoJEOe/yOyVhhEJrRgQAJendA3jpFsPSsI59KMvwZZw
-99kR1oT+Gghm35Dd/+b0dPOw+ZdoJ1ntgUw5DLCyFfQBc5X8wfJPgYy7/r6NCB37
-XWzMqYb3Zu6BC9EbmQt0WO8mymdRWT9xuvGcSOTRFZRq10uJ0bXI33gplt5Tf2SQ
-EVFDOlaoXzZAP5BlsyUU5RfOeslFGaK0l6qIMsCodOgqp6HIVi6iP6iUtOtCaPAp
-LNhTI1qA8TUwSfSG0hazqLFWKGVP3GmXOJlYS8bSyxkqLrtYyeQ2+VAgYti7e9dK
-C+LJZJdU1lVW2zF4kxMnIAq+R595EGiRfoRIL6ifeyvd51ftZvLzwW7qiIJbBH62
-hVsK/i/+O2Jinf895BgsRzkzRwZ9Gv3onrWy4bTArm/XWq13/m//g0Os+VGU+bVQ
-+fs6BxCVRyOp8XWUtf57Sl9vjRVnJqAafOdEjnv9AZMmdkj/30TPTOUTCreIggaZ
-x0jr7KH6v5BNhhJaWmxxd7arKRBPrxXYjZqkKg+AA8OAeHc7uPZlRezP4zWksDYZ
-OX+QUbJq/bl+iQF4qow5kTQOSOkMKFoAYdt6HafDQQI7wldRbEWXag/ubHKRQ8Oa
-cypY06BqVjo4kvdqVmKs8uE6wvpHR9hSlzCbP6yAEoygoLVUAqhaHLidBXnuPauo
-BhIWDc6PNiUJ6azqAp8c
-=Ki6d
------END PGP SIGNATURE-----
-
---=-DvkJCjtH1B1O1hZoi62r--
+-- Steve
