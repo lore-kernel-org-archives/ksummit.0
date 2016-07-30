@@ -1,32 +1,26 @@
-Return-Path: <linux@roeck-us.net>
+Return-Path: <ebiederm@xmission.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9C8C371
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8B48271
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 30 Jul 2016 17:24:58 +0000 (UTC)
-Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E5E401ED
+	Sat, 30 Jul 2016 18:03:26 +0000 (UTC)
+Received: from out01.mta.xmission.com (out01.mta.xmission.com [166.70.13.231])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2FD17204
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 30 Jul 2016 17:24:57 +0000 (UTC)
-To: "Luis R. Rodriguez" <mcgrof@kernel.org>,
-	Fengguang Wu <fengguang.wu@intel.com>
-References: <20160725190125.GS5537@wotan.suse.de> <5486315.Z6uhQZYKqJ@avalon>
-	<20160728205324.GB5642@wfg-t540p.sh.intel.com>
-	<2443703.ScQNYO34Bz@avalon>
-	<20160728230713.GB18980@wfg-t540p.sh.intel.com>
-	<20160728233327.GC3296@wotan.suse.de>
-	<20160729000912.GA17232@wfg-t540p.sh.intel.com>
-	<20160730170556.GR3296@wotan.suse.de>
-From: Guenter Roeck <linux@roeck-us.net>
-Message-ID: <579CE2DF.1080607@roeck-us.net>
-Date: Sat, 30 Jul 2016 10:24:47 -0700
+	Sat, 30 Jul 2016 18:03:26 +0000 (UTC)
+From: ebiederm@xmission.com (Eric W. Biederman)
+To: David Howells <dhowells@redhat.com>
+References: <15842.1469185302@warthog.procyon.org.uk>
+Date: Sat, 30 Jul 2016 12:50:19 -0500
+In-Reply-To: <15842.1469185302@warthog.procyon.org.uk> (David Howells's
+	message of "Fri, 22 Jul 2016 12:01:42 +0100")
+Message-ID: <87y44j582s.fsf@x220.int.ebiederm.org>
 MIME-Version: 1.0
-In-Reply-To: <20160730170556.GR3296@wotan.suse.de>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: Vegard Nossum <vegard.nossum@gmail.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Nominating Fengguang Wu - 0-day
+Content-Type: text/plain
+Cc: ikent@redhat.com, James Bottomley <James.Bottomley@HansenPartnership.com>,
+	oleg@redhat.com, ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Containerisation,
+	namespaces and keyrings
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,59 +30,52 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 07/30/2016 10:05 AM, Luis R. Rodriguez wrote:
-> On Fri, Jul 29, 2016 at 08:09:12AM +0800, Fengguang Wu wrote:
->> On Fri, Jul 29, 2016 at 01:33:27AM +0200, Luis R. Rodriguez wrote:
->>> On Fri, Jul 29, 2016 at 07:07:13AM +0800, Fengguang Wu wrote:
->>>> btw, maybe some maintainers are already informed: 0-day statistics
->>>> show that ~60% errors can be reported in 2 hours, ~90% errors are
->>>> reported in 24 hours and there are 1% errors reported after 1 week.
->>>
->>> If one were to take 0-day code an slap it on some internal big-iron
->>> server, and prioritize work for a few developers (say SUSE would do
->>> this for its developers) do you expect the turnaround time for
->>> reports would be faster if we had bigger-meaner hardware ? These
->>> days actually would like to get results back in a few minutes
->>> for 90% of errors so wondering how / if others have taken on
->>> 0-day internally and made it faster by beefing up the hardware.
->>
->> I'd suspect roughly the same timing given powerful servers but still
->> with reasonable cost considerations.
->
-> Interesting, thanks. Let's say I still want to, where is the code?
->
->> Intel pretty values the 0-day service and backs it up with 12 parallel
->> build servers, including 4 4S Xeon machines. Since we do merged tests,
->> one may assume most of the servers are working parallel for his code
->> whenever he does a git push. Kernel hackers can feel free to push
->> frequently because the extra pushes are virtually cost free -- the
->> build workers are working cyclicly on latest merged code anyway.
->
-> Awesome thanks! I recently ran into the situation where I may have
-> run into what seems to be a binutils (ld) bug and I want to verify
-> if it is only associated to an odd-ball architecture, I have 2 kconfig
-> entries I know I want tested on all architectures. In the future it
+David Howells <dhowells@redhat.com> writes:
 
-If you let me know what those are, I should be able to run them through
-my build system.
+> I'm not sure this is the right venue for this, but keyrings will need to be
+> namespaced/containerised at some point.
+>
+> The problem is that it's an icky problem given that different key types really
+> want to live in different namespaces, and upcalls may want to done in
+> different containers, depending on the key type.
 
-Guenter
+I definitely think there are some techinical details going over with a
+fine tooth comb.  Ordinary keys and keyrings that are used for purposes
+such as authorization to use files on nfs I long ago put in the user
+namespace.   Because they largely serve the same purpose as uids,
+and the user namespace is where we have identifiers for security things
+stashed away.
 
-> may be nice to be able to suggest a given set of kconfig entires one
-> wants as base for all architectures. This may need something like
-> kconfig-sat though [0].
+My analysis at the time suggested that there were not identifiers that
+needed to be preserved over checkpoint/restart (and I was lazy) so the
+user namespace only filters these identifiers.
+
+Upcalls and the caching of the results of upcalls are definitely a
+problem.  Several years when I was looking at things I found the upcall
+code unusable because I could not invalidate cached results.  And of
+course we have the long running question of how do we make upcalls
+work from a container.
+
+> For example, DNS resolver keys - should they be in the network, the filesystem
+> namespace or neither?  Should the upcall be in the current container or the
+> root container?
 >
-> [0] https://kernelnewbies.org/KernelProjects/kconfig-sat
+> Authentication keys, such as used by kafs and AF_RXRPC - should they be in the
+> filesystem namespace (kafs is an fs), the network namespace (AF_RXRPC is a net
+> protocol) or the user namespace?
 >
->> To take free ride of that restless horse, it'd be good to push small
->> topic branches on latest RC kernels, which will have better chances
->> to merge and play well with others code.
+> Should crypto keys, such as the asymmetric key type, be in the user namespace?
+> What about use by module signing?  Should key operations in the current
+> container have access to a blacklist in the root container?  Should key
+> verification in the current container have access to system keyrings?  The
+> TPM?
 >
-> How about linux-next ?
->
->    Luis
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
->
+> This might actually be right for a hallway track.
+
+Hallway track/hackathon.  The solutions to the practical problems will
+only come of the right people sitting down with the code and looking at
+the issues.  Most of the problems I am aware of are not so much
+placement in a namespace but rather technical plumbing issues necessary
+to make the things people should work actually work.
+
+Eric
