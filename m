@@ -1,26 +1,25 @@
 Return-Path: <ebiederm@xmission.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8B48271
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 961B39C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 30 Jul 2016 18:03:26 +0000 (UTC)
-Received: from out01.mta.xmission.com (out01.mta.xmission.com [166.70.13.231])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2FD17204
+	Sat, 30 Jul 2016 18:16:40 +0000 (UTC)
+Received: from out02.mta.xmission.com (out02.mta.xmission.com [166.70.13.232])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A5F78209
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 30 Jul 2016 18:03:26 +0000 (UTC)
+	Sat, 30 Jul 2016 18:16:39 +0000 (UTC)
 From: ebiederm@xmission.com (Eric W. Biederman)
-To: David Howells <dhowells@redhat.com>
-References: <15842.1469185302@warthog.procyon.org.uk>
-Date: Sat, 30 Jul 2016 12:50:19 -0500
-In-Reply-To: <15842.1469185302@warthog.procyon.org.uk> (David Howells's
-	message of "Fri, 22 Jul 2016 12:01:42 +0100")
-Message-ID: <87y44j582s.fsf@x220.int.ebiederm.org>
+To: Josh Triplett <josh@joshtriplett.org>
+References: <87inw1skws.fsf@x220.int.ebiederm.org> <20160719212645.GA14203@x>
+Date: Sat, 30 Jul 2016 13:03:30 -0500
+In-Reply-To: <20160719212645.GA14203@x> (Josh Triplett's message of "Tue, 19
+	Jul 2016 14:26:45 -0700")
+Message-ID: <87vazn57gt.fsf@x220.int.ebiederm.org>
 MIME-Version: 1.0
 Content-Type: text/plain
-Cc: ikent@redhat.com, James Bottomley <James.Bottomley@HansenPartnership.com>,
-	oleg@redhat.com, ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Containerisation,
-	namespaces and keyrings
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] More useful types in the linux
+	kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,52 +29,60 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-David Howells <dhowells@redhat.com> writes:
 
-> I'm not sure this is the right venue for this, but keyrings will need to be
-> namespaced/containerised at some point.
+Josh Triplett <josh@joshtriplett.org> writes:
+
+> On Tue, Jul 19, 2016 at 10:32:51AM -0500, Eric W. Biederman wrote:
+>> Would a gcc plugin that checks the most interesting things that sparse
+>> checks on every build be interesting? (endianness of integer types for example)
 >
-> The problem is that it's an icky problem given that different key types really
-> want to live in different namespaces, and upcalls may want to done in
-> different containers, depending on the key type.
-
-I definitely think there are some techinical details going over with a
-fine tooth comb.  Ordinary keys and keyrings that are used for purposes
-such as authorization to use files on nfs I long ago put in the user
-namespace.   Because they largely serve the same purpose as uids,
-and the user namespace is where we have identifiers for security things
-stashed away.
-
-My analysis at the time suggested that there were not identifiers that
-needed to be preserved over checkpoint/restart (and I was lazy) so the
-user namespace only filters these identifiers.
-
-Upcalls and the caching of the results of upcalls are definitely a
-problem.  Several years when I was looking at things I found the upcall
-code unusable because I could not invalidate cached results.  And of
-course we have the long running question of how do we make upcalls
-work from a container.
-
-> For example, DNS resolver keys - should they be in the network, the filesystem
-> namespace or neither?  Should the upcall be in the current container or the
-> root container?
+> I'd like to see those checks more widely available, ideally not just as
+> plugins.  Some exploration of that occurred upstream:
 >
-> Authentication keys, such as used by kafs and AF_RXRPC - should they be in the
-> filesystem namespace (kafs is an fs), the network namespace (AF_RXRPC is a net
-> protocol) or the user namespace?
+> https://gcc.gnu.org/bugzilla/show_bug.cgi?id=59852 (bitwise/endian types)
+> https://gcc.gnu.org/bugzilla/show_bug.cgi?id=59856 (contexts/locking)
+> https://gcc.gnu.org/bugzilla/show_bug.cgi?id=59851 (nocast: no implicit conversions)
+> https://gcc.gnu.org/bugzilla/show_bug.cgi?id=59850 (address spaces)
+> https://gcc.gnu.org/bugzilla/show_bug.cgi?id=59855 (designated_init; done)
 >
-> Should crypto keys, such as the asymmetric key type, be in the user namespace?
-> What about use by module signing?  Should key operations in the current
-> container have access to a blacklist in the root container?  Should key
-> verification in the current container have access to system keyrings?  The
-> TPM?
+> I'd love to see someone pick those up and get them into upstream GCC.
 >
-> This might actually be right for a hallway track.
+>> Would a type system for pointers derived from separation logic that
+>> has the concept that a piece of data is owned by a piece of running
+>> code rather than another piece of data be interesting?
+>
+> Interesting, yes, but trying to track "ownership" gets complicated
+> *fast* to handle real-world cases.  Rust went through quite a lot of
+> work, and multiple iterations, to get to the system it has now.  I don't
+> think you'd be able to handle many of the cases in the kernel without
+> about that much complexity.
 
-Hallway track/hackathon.  The solutions to the practical problems will
-only come of the right people sitting down with the code and looking at
-the issues.  Most of the problems I am aware of are not so much
-placement in a namespace but rather technical plumbing issues necessary
-to make the things people should work actually work.
+Politely Rust did it the stupid way.  "ownership" or perhaps better said
+who is allowed to modify the data is an active piece of code thing
+rather than a data thing, and Rust did it as a data thing.
+
+The kernel has some very interesting data structures and all kinds of
+hand rolled smp syncrhonization primitives.   So I don't doubt there
+will be challenges, but the situation will look nothing like what Rust
+did.
+
+>> I would really like to get a feel among kernel maintainers and
+>> developers if this is something that is interesting, and what kind of
+>> constraints they think something like this would need to be usable for
+>> the kernel?
+>
+> I think the biggest constraint is that new tools get very slow adoption,
+> and it's incredibly difficult to introduce a new *mandatory* tool or
+> compiler version (with the exception of tools that ship with the
+> kernel).  And optional ones have a tendency to break due to patches from
+> people not running them.  Apart from that: false positive rate.
+>
+> Ideally, build something you can opt into using, such that if you
+> explicitly use it, the false positive rate should be *zero* by design.
+
+Which is what makes types as opposed to other things nice.  Types
+arguably don't have a false positive rate.  Unfortunately types can
+sometimes be very pendantic and if everyone isn't using them things go
+splat.
 
 Eric
