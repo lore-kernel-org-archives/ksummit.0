@@ -1,33 +1,69 @@
-Return-Path: <vinod.koul@intel.com>
+Return-Path: <zohar@linux.vnet.ibm.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 063AF723
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id C4987723
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 31 Jul 2016 17:24:43 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 9FB3B241
+	Sun, 31 Jul 2016 17:29:13 +0000 (UTC)
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+	[148.163.158.5])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1171E246
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 31 Jul 2016 17:24:42 +0000 (UTC)
-Date: Sun, 31 Jul 2016 23:02:15 +0530
-From: Vinod Koul <vinod.koul@intel.com>
-To: Fengguang Wu <fengguang.wu@intel.com>
-Message-ID: <20160731173214.GO9681@localhost>
-References: <20160725190125.GS5537@wotan.suse.de> <5486315.Z6uhQZYKqJ@avalon>
-	<20160728205324.GB5642@wfg-t540p.sh.intel.com>
-	<2443703.ScQNYO34Bz@avalon>
-	<20160728230713.GB18980@wfg-t540p.sh.intel.com>
-	<20160728233327.GC3296@wotan.suse.de>
-	<20160729000912.GA17232@wfg-t540p.sh.intel.com>
-	<20160730170556.GR3296@wotan.suse.de>
-	<20160731063558.GA3493@wfg-t540p.sh.intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20160731063558.GA3493@wfg-t540p.sh.intel.com>
-Cc: Vegard Nossum <vegard.nossum@gmail.com>,
-	Wenzhong Sun <wenzhong.sun@intel.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Nominating Fengguang Wu - 0-day
+	Sun, 31 Jul 2016 17:29:12 +0000 (UTC)
+Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
+	by mx0b-001b2d01.pphosted.com (8.16.0.11/8.16.0.11) with SMTP id
+	u6VHSknE130551 for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sun, 31 Jul 2016 13:29:12 -0400
+Received: from e28smtp08.in.ibm.com (e28smtp08.in.ibm.com [125.16.236.8])
+	by mx0b-001b2d01.pphosted.com with ESMTP id 24gnuyfc0f-1
+	(version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sun, 31 Jul 2016 13:29:12 -0400
+Received: from localhost
+	by e28smtp08.in.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use
+	Only! Violators will be prosecuted
+	for <ksummit-discuss@lists.linuxfoundation.org> from
+	<zohar@linux.vnet.ibm.com>; Sun, 31 Jul 2016 22:59:08 +0530
+Received: from d28relay03.in.ibm.com (d28relay03.in.ibm.com [9.184.220.60])
+	by d28dlp01.in.ibm.com (Postfix) with ESMTP id 73D01E0045
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sun, 31 Jul 2016 23:03:21 +0530 (IST)
+Received: from d28av05.in.ibm.com (d28av05.in.ibm.com [9.184.220.67])
+	by d28relay03.in.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+	u6VHT3sW62914772 for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sun, 31 Jul 2016 22:59:03 +0530
+Received: from d28av05.in.ibm.com (localhost [127.0.0.1])
+	by d28av05.in.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+	u6VHT2uH016265 for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sun, 31 Jul 2016 22:59:03 +0530
+From: Mimi Zohar <zohar@linux.vnet.ibm.com>
+To: Andy Lutomirski <luto@amacapital.net>
+Date: Sun, 31 Jul 2016 13:28:58 -0400
+In-Reply-To: <CALCETrVQj23-0Bhsx91Z3O7BJdjDVXgPQSQUqXHoc+pd5+tfYA@mail.gmail.com>
+References: <20160716005213.GL30372@sirena.org.uk>
+	<1469544138.120686.327.camel@infradead.org>
+	<14209.1469636040@warthog.procyon.org.uk>
+	<1469636881.27356.70.camel@HansenPartnership.com>
+	<1469637367.27356.73.camel@HansenPartnership.com>
+	<1469648220.23563.15.camel@linux.vnet.ibm.com>
+	<CALCETrXWVTmbuUa-d7EH2kGRZM+HCiqje11AqxWm7ntd5fjLDg@mail.gmail.com>
+	<20160728165728.GR4541@io.lakedaemon.net>
+	<1469830256.23563.200.camel@linux.vnet.ibm.com>
+	<CALCETrUiYghc5uq9GHQRT--n15PBimhJwHA0TwgNqGxsbRKaFw@mail.gmail.com>
+	<20160730163626.GP3296@wotan.suse.de>
+	<1469934481.23563.274.camel@linux.vnet.ibm.com>
+	<CALCETrWq0UZ176EKrp2jNkjFFn17twb8ZvfGKtRdD5E=iFAnBw@mail.gmail.com>
+	<1469979098.23563.300.camel@linux.vnet.ibm.com>
+	<CALCETrVQj23-0Bhsx91Z3O7BJdjDVXgPQSQUqXHoc+pd5+tfYA@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Message-Id: <1469986138.23563.312.camel@linux.vnet.ibm.com>
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Mark Brown <broonie@sirena.org.uk>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Jason Cooper <jason@lakedaemon.net>
+Subject: Re: [Ksummit-discuss] Last minute nominations: mcgrof and toshi
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,20 +73,95 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sun, Jul 31, 2016 at 02:35:58PM +0800, Fengguang Wu wrote:
+On So, 2016-07-31 at 09:19 -0700, Andy Lutomirski wrote:
+> On Sun, Jul 31, 2016 at 8:31 AM, Mimi Zohar <zohar@linux.vnet.ibm.com> wrote:
+> > On Sa, 2016-07-30 at 20:09 -0700, Andy Lutomirski wrote:
+> >> On Jul 30, 2016 8:08 PM, "Mimi Zohar" <zohar@linux.vnet.ibm.com> wrote:
+> >> >
+> >> > On Sa, 2016-07-30 at 18:36 +0200, Luis R. Rodriguez wrote:
+> >> > > On Fri, Jul 29, 2016 at 03:25:09PM -0700, Andy Lutomirski wrote:
+> >> > > > On Fri, Jul 29, 2016 at 3:10 PM, Mimi Zohar <zohar@linux.vnet.ibm.com>
+> >> wrote:
+> >> > > > > On Do, 2016-07-28 at 16:57 +0000, Jason Cooper wrote:
+> >> > > > >> Hi Andy,
+> >> > > > >>
+> >> > > > >> On Wed, Jul 27, 2016 at 01:09:37PM -0700, Andy Lutomirski wrote:
+> >> > > > >> ...
+> >> > > > >> > I would like someone to explain why using the keyring mechanism
+> >> for
+> >> > > > >> > this in the first place is a good idea.
+> >> > > > >> >
+> >> > > > >> > As far as I can tell, the design goals of "keys trusted by the
+> >> kernel
+> >> > > > >> > for modules, firmware, etc" are:
+> >> > > > >> >
+> >> > > > >> >  - Keys are added at build time or, according to potentially
+> >> > > > >> > system-specific rules, at boot time.
+> >> > > > >> >
+> >> > > > >> >  - Keys should specify what they're trusted *for*.
+> >> > > > >>
+> >> > > > >> Well, I'd argue that keys should specify what they are *intended*
+> >> for by
+> >> > > > >> the keyholder.  A useful security system could further restrict
+> >> the key
+> >> > > > >> as needed.
+> >> > > > >
+> >> > > > > We've already started.  Currently the kernel_read_file() and family
+> >> of
+> >> > > > > functions provide the LSM hooks needed for verifying file
+> >> signatures of
+> >> > > > > files read by the kernel.  The kernel_read_file_id enumeration is
+> >> used
+> >> > > > > to differentiate between callers.  Based on this enumeration, the
+> >> > > > > *intended* for could be defined.  It would make sense to extend the
+> >> IMA
+> >> > > > > policy language to support *intended* for.
+> >> > > > >
+> >> > > >
+> >> > > > Having kernel_read_file know the purpose is a big step in the right
+> >> > > > direction, although, as I think I and others have pointed out, just an
+> >> > > > enum is insufficient -- for firmware, at least, the *name* is
+> >> > > > relevant.
+> >> >
+> >> > > The name is passed for firmware, the wrapper
+> >> kernel_read_file_from_path()
+> >> > > is used. So if we wanted an LSM extension on name I think we can do that
+> >> > > on kernel_read_file_from_path() ?
+> >> >
+> >> > It shouldn't make a difference whether kernel_read_file() is called
+> >> > directly, or the kernel_read_file_by_path/fd() are called.  The pathname
+> >> > is accessible from the "file" argument.
+> >> >
+> >>l
+> >> What happens if a symlink is involved?
 > >
-> >How about linux-next ?
+> > For callers of kernel_read_file_by_path(), like firmware, we could pass
+> > the pathname, but for the other callers of kernel_read_file/_by_fd() we
+> > could use d_absolute_path().
 > 
-> linux-next could be perfectly supported, however in a different
-> "rebase" way than the "merges" for RC kernels.
+> That seems pointlessly fragile to me, and this issue has been known
+> for longer than the code in question has even existed.  How about:
 > 
-> Suppose there are 100 branches based on -rc2 and another 100 branches
-> on -rc3. We can typically merge most of the 200 branches onto -rc3,
-> since there are relatively few changes between -rc2 and -rc3.
+> struct kernel_trusted_file_description {
+>   enum kernel_read_file_id type;
+>   const char *specific_purpose;  /* may be NULL for KEXEC_IMAGE, etc. */
+> };
+> 
+> int kernel_read_file(struct file *, void **, loff_t *, const struct
+> trusted_file_description *);
+> 
+> rather than trying to guess.
+> 
+> Also, are there any plans to move module signature verification into
+> .kernel_post_read_file?
 
-Since linux-next already contains all maintainer branches slated for -next,
-merging that won't help much and seems tedious. I think 0day should just
-runs tests on top of linux-next everyday and report, if not done already.
+The whole point of defining the kernel_read_file() family of functions
+was to close a class of measurement/appraisal gaps.   To answer your
+question, yes IMA measures and/or appraises files on the security post
+kernel read hook, based on policy.
 
--- 
-~Vinod
+Andy, other than IMA-appraisal being xattr based,  I'm not sure why
+you're so against it.   if you're going to be at LinuxCon/LSS, perhaps
+we could speak in person there.
+
+Mimi
