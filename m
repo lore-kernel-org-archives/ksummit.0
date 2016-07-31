@@ -1,27 +1,28 @@
-Return-Path: <Paul.Burton@imgtec.com>
+Return-Path: <fengguang.wu@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9D8F98A6
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id CEEFE83D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 31 Jul 2016 09:55:43 +0000 (UTC)
-Received: from mailapp01.imgtec.com (mailapp01.imgtec.com [195.59.15.196])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id EE7E413B
+	Sun, 31 Jul 2016 11:16:57 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 72EF911C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 31 Jul 2016 09:55:42 +0000 (UTC)
-To: Kees Cook <keescook@chromium.org>, Andy Lutomirski <luto@amacapital.net>
-References: <CALCETrXtfzi=G4H+Zttv3kWcCo32V6cO9OBfdyuYT4DHvJTJLg@mail.gmail.com>
-	<CAGXu5j+M06pdOB7Phqg==xg4p7=9ggmZciQuGZaNTXaW=-BCbg@mail.gmail.com>
-From: Paul Burton <paul.burton@imgtec.com>
-Message-ID: <3aa8df3e-3705-9fd5-640c-37c0be2af561@imgtec.com>
-Date: Sun, 31 Jul 2016 10:55:29 +0100
+	Sun, 31 Jul 2016 11:16:56 +0000 (UTC)
+Date: Sun, 31 Jul 2016 19:16:53 +0800
+From: Fengguang Wu <fengguang.wu@intel.com>
+To: Jiri Kosina <jikos@kernel.org>
+Message-ID: <20160731111653.GA31084@wfg-t540p.sh.intel.com>
+References: <20160725190125.GS5537@wotan.suse.de> <5486315.Z6uhQZYKqJ@avalon>
+	<20160728205324.GB5642@wfg-t540p.sh.intel.com>
+	<2443703.ScQNYO34Bz@avalon>
+	<20160728230713.GB18980@wfg-t540p.sh.intel.com>
+	<alpine.LNX.2.00.1607290131390.24757@cbobk.fhfr.pm>
 MIME-Version: 1.0
-In-Reply-To: <CAGXu5j+M06pdOB7Phqg==xg4p7=9ggmZciQuGZaNTXaW=-BCbg@mail.gmail.com>
-Content-Type: text/plain; charset="windows-1252"; format=flowed
-Content-Transfer-Encoding: 7bit
-Cc: Jann Horn <jann@thejh.net>, "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TOPIC] kernel hardening / self-protection /
- whatever
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <alpine.LNX.2.00.1607290131390.24757@cbobk.fhfr.pm>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] Nominating Fengguang Wu - 0-day
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,47 +32,55 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 11/07/16 18:53, Kees Cook wrote:
-> On Mon, Jul 11, 2016 at 12:28 AM, Andy Lutomirski <luto@amacapital.net> wrote:
->> Are there useful things to discuss in person about hardening?  (I
->> don't want to bikeshed about the name at the kernel summit if we can
->> possibly avoid it.)
->>
->> Plausible sub-topics include:
->>
->>  - "USERCOPY" hardening
+Hi Jiri,
+
+On Fri, Jul 29, 2016 at 01:38:36AM +0200, Jiri Kosina wrote:
+>On Fri, 29 Jul 2016, Fengguang Wu wrote:
 >
-> The whitelisting stuff might be interesting, but I think it's mostly
-> about standardizing how architectures define their *copy_*_user()
-> implementations so that things like KASan and now the hardening
-> infrastructure can hook it reliably.
+>> I need your understand that there are severe limitations what useful
+>> contents we can provide due to the nature of merge-test-bisect. For
+>> example, there will be no build logs specific for your branches/commits
+>> because the extensive build tests are possible only because your code
+>> are tested together with a large number of random others.
 >
->>  - Virtually mapped stacks (I'm hoping to have that in for x86 before
->> kernel summit...)
+>I think this'd be an interesting thing to discuss per se, as my personal
+>feeling is that the expectations of maintainers / git tree owners might be
+>slightly diverging from reality.
 >
-> Yeah, this should just go in. :) Perhaps a discussion for other
-> architectures, and the specific requirements (which are mostly well
-> documented, excepting some notes on stuff like the guard page at
-> either end, etc).
+>The reason I am bringing this up is a very recent example here:
+>
+>	https://lkml.org/lkml/2016/7/28/212
+>
+>The 0day bot identified my patch as a build-breaker, and it took me quite
+>some time to figure out that this has been actually broken for years
+>already (IOW yes, the treee fails to build with some configs after my
+>patch has been applied, but I'm pretty sure it breaks with the same config
+>even without my patch).
 
-It would be very interesting to discuss what's needed from arch code for 
-various hardening features, both those currently in mainline & those in 
-development.
+Yeah we may be running into an interesting case here: the build error
+is true and bisect for that build error is correct. The robot end up
+happily sent report for an innocent patch which happen to trigger a
+more general problem.
 
-For example MIPS systems are currently showing the "This architecture 
-does not have kernel memory protection." message since d2aa1acad22f 
-(which to a user sounds pretty dire as though user code can freely 
-access kernel data) and which I'd like for MIPS to implement the 
-security to avoid. However because TLB refills are performed by software 
-it's non-trivial, since we generally rely upon the kernel being placed 
-in an unmapped region of the virtual address space & being unmapped 
-there is no TLB entry to mark read-only.
+>Hence, if you could explain in a little bit more detailed way how
+>developers should interpret the reports, I'd be very grateful for such
+>session.
+>
+>Special focus should probably be put on regressions -- once reported by
+>your bot, I'd love to know the last-known-good base to compare against.
 
-Usercopy sounds like an interesting one for us too, with the MIPS 
-copy_*_user implementations ripe for some cleanup.
+In bisect POV, the parent commit builds fine (all the way to vmlinux)
+-- so it is the last-known-good base. If follow the reproduce steps in
+the report email, you should be able to confirm that.
 
-It would be interesting to hear from people focused on security what 
-their requirements, current & coming soon, from arch code are.
+The main problem here is, first-bad-commit may not necessarily mean
+root cause. It'll require human analyzes to reach such a conclusion.
 
-Thanks,
-     Paul
+>Oh, and thanks a *lot* for all the 0day efforts, I am pretty sure that it
+>increases the speed of development while maintaining the quality, and a
+>status update from you should IMO always be a welcome KS topic,
+
+Thank you! :)
+
+Regards,
+Fengguang
