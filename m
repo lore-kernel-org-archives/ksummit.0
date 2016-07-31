@@ -1,29 +1,33 @@
-Return-Path: <shuahkhan@gmail.com>
+Return-Path: <vinod.koul@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 59A3D413
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 063AF723
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 31 Jul 2016 17:01:59 +0000 (UTC)
-Received: from mail-io0-f194.google.com (mail-io0-f194.google.com
-	[209.85.223.194])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D1058216
+	Sun, 31 Jul 2016 17:24:43 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 9FB3B241
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 31 Jul 2016 17:01:58 +0000 (UTC)
-Received: by mail-io0-f194.google.com with SMTP id y195so12937401iod.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 31 Jul 2016 10:01:58 -0700 (PDT)
+	Sun, 31 Jul 2016 17:24:42 +0000 (UTC)
+Date: Sun, 31 Jul 2016 23:02:15 +0530
+From: Vinod Koul <vinod.koul@intel.com>
+To: Fengguang Wu <fengguang.wu@intel.com>
+Message-ID: <20160731173214.GO9681@localhost>
+References: <20160725190125.GS5537@wotan.suse.de> <5486315.Z6uhQZYKqJ@avalon>
+	<20160728205324.GB5642@wfg-t540p.sh.intel.com>
+	<2443703.ScQNYO34Bz@avalon>
+	<20160728230713.GB18980@wfg-t540p.sh.intel.com>
+	<20160728233327.GC3296@wotan.suse.de>
+	<20160729000912.GA17232@wfg-t540p.sh.intel.com>
+	<20160730170556.GR3296@wotan.suse.de>
+	<20160731063558.GA3493@wfg-t540p.sh.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20160729230015.2a7cd72f@grimm.local.home>
-References: <20160729202500.GD3062@f23x64.localdomain>
-	<20160729230015.2a7cd72f@grimm.local.home>
-From: Shuah Khan <shuahkhan@gmail.com>
-Date: Sun, 31 Jul 2016 11:01:57 -0600
-Message-ID: <CAKocOONYaQownDK_b8tk=Hoir32qDFThR+6Zkj7b9Bfw7gRUAA@mail.gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-Content-Type: text/plain; charset=UTF-8
-Cc: Nicholas Mc Guire <der.herr@hofr.at>, Jason Cooper <jason@lakedaemon.net>,
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20160731063558.GA3493@wfg-t540p.sh.intel.com>
+Cc: Vegard Nossum <vegard.nossum@gmail.com>,
+	Wenzhong Sun <wenzhong.sun@intel.com>,
 	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Linux and Functional Safety
+Subject: Re: [Ksummit-discuss] Nominating Fengguang Wu - 0-day
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,21 +37,20 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 29, 2016 at 9:00 PM, Steven Rostedt <rostedt@goodmis.org> wrote:
-> On Fri, 29 Jul 2016 13:25:00 -0700
-> Darren Hart <dvhart@infradead.org> wrote:
->
->
->> Potential Participants:
->>   Darren Hart
->>   Nicholas Mc Guire
->>   Thomas Gleixner
->>   Linus Walleij
->>   Jason Cooper
->>
->
+On Sun, Jul 31, 2016 at 02:35:58PM +0800, Fengguang Wu wrote:
+> >
+> >How about linux-next ?
+> 
+> linux-next could be perfectly supported, however in a different
+> "rebase" way than the "merges" for RC kernels.
+> 
+> Suppose there are 100 branches based on -rc2 and another 100 branches
+> on -rc3. We can typically merge most of the 200 branches onto -rc3,
+> since there are relatively few changes between -rc2 and -rc3.
 
-I am interested in this topic.
+Since linux-next already contains all maintainer branches slated for -next,
+merging that won't help much and seems tedious. I think 0day should just
+runs tests on top of linux-next everyday and report, if not done already.
 
-thanks,
--- Shuah
+-- 
+~Vinod
