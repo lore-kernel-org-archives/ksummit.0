@@ -1,36 +1,41 @@
-Return-Path: <jason@lakedaemon.net>
+Return-Path: <luto@amacapital.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7B9DD990
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5796178D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  1 Aug 2016 23:04:44 +0000 (UTC)
-Received: from outbound1.eu.mailhop.org (outbound1.eu.mailhop.org
-	[52.28.251.132])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 74BD41B9
+	Mon,  1 Aug 2016 23:12:18 +0000 (UTC)
+Received: from mail-vk0-f47.google.com (mail-vk0-f47.google.com
+	[209.85.213.47])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A49E9270
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  1 Aug 2016 23:04:43 +0000 (UTC)
-Date: Mon, 1 Aug 2016 23:04:35 +0000
-From: Jason Cooper <jason@lakedaemon.net>
-To: Andy Lutomirski <luto@amacapital.net>
-Message-ID: <20160801230435.GF4541@io.lakedaemon.net>
-References: <1469934481.23563.274.camel@linux.vnet.ibm.com>
-	<CALCETrWq0UZ176EKrp2jNkjFFn17twb8ZvfGKtRdD5E=iFAnBw@mail.gmail.com>
-	<1469979098.23563.300.camel@linux.vnet.ibm.com>
+	Mon,  1 Aug 2016 23:12:17 +0000 (UTC)
+Received: by mail-vk0-f47.google.com with SMTP id x130so110427539vkc.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 01 Aug 2016 16:12:17 -0700 (PDT)
+MIME-Version: 1.0
+In-Reply-To: <20160801225638.GE4541@io.lakedaemon.net>
+References: <1469979098.23563.300.camel@linux.vnet.ibm.com>
 	<CALCETrVQj23-0Bhsx91Z3O7BJdjDVXgPQSQUqXHoc+pd5+tfYA@mail.gmail.com>
 	<1469986138.23563.312.camel@linux.vnet.ibm.com>
 	<CALCETrV6y79898-+M8Mpvhm-e2_VXvSyQQPwY25YdeuJhCe1zg@mail.gmail.com>
 	<20160801172920.GU3296@wotan.suse.de>
 	<CALCETrX134Qnv4Xy2RAHO2QXka9_k9qAoEqrXaw-mX2kAkrzig@mail.gmail.com>
-	<1470090069.23563.475.camel@linux.vnet.ibm.com>
-	<CALCETrWY-xvF3ZKjt_r2azEk3Pc1An0_zd3WxPyTOFT4RUfwVQ@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CALCETrWY-xvF3ZKjt_r2azEk3Pc1An0_zd3WxPyTOFT4RUfwVQ@mail.gmail.com>
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Andy Lutomirski <luto@kernel.org>, Mark Brown <broonie@sirena.org.uk>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+	<20160801202320.GB3296@wotan.suse.de>
+	<CALCETrXZicXvXPFC=NenCCJ76rB=2shBzEfkUb4xgHh0Vrub+A@mail.gmail.com>
+	<20160801205706.GE3296@wotan.suse.de>
+	<CALCETrXCfZnX3MtV=DHov1+qcWZOOcEzTMXxVx5zr1QYtAVoPw@mail.gmail.com>
+	<20160801225638.GE4541@io.lakedaemon.net>
+From: Andy Lutomirski <luto@amacapital.net>
+Date: Mon, 1 Aug 2016 16:12:15 -0700
+Message-ID: <CALCETrWzva6_WkUuhwwFkTseb=XKM4wBSH8CM5zezDjbvgOX9Q@mail.gmail.com>
+To: Jason Cooper <jason@lakedaemon.net>
+Content-Type: multipart/alternative; boundary=001a1143092235ae0e05390abb39
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Kyle McMartin <kyle@kernel.org>,
+	James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Mark Brown <broonie@sirena.org.uk>,
+	Johannes Berg <johannes@sipsolutions.net>
 Subject: Re: [Ksummit-discuss] Last minute nominations: mcgrof and toshi
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -41,70 +46,72 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Aug 01, 2016 at 03:36:51PM -0700, Andy Lutomirski wrote:
-> On Mon, Aug 1, 2016 at 3:21 PM, Mimi Zohar <zohar@linux.vnet.ibm.com> wrote:
-> > On Mo, 2016-08-01 at 10:59 -0700, Andy Lutomirski wrote:
-> >
-> >> Mimi, I'm curious: I don't fully understand what is covered by IMA
-> >> policy.  How does the IMA kernel_read_file stuff deal with symlinks?
-> >> For example, if I symlink /lib/firmware/iwlwifi-8265-21.ucode to
-> >> /home/badguy/iwlwifi-8265-21.ucode, what happens?  What if I symlink
-> >> /lib/firmware/iwlwifi-8265-21.ucode to /home/badguy/something_else?
-> >> Or even /lib/modules/kernel/foo/bar.ko to /home/badguy/evil.ko?  The
-> >> interesting case is where the "badguy" user is duly authorized to
-> >> write to /home/badguy and holds whatever keys may be needed.
-> >
-> > Lets step back a second.  In order for a key to be added to the IMA
-> > keyring, the key must be signed by a key on the builtin keyring.  The
-> > key on the builtin keyring can be compiled into the kernel image or
-> > added post build using Mehmet Kayaalp's patches.
-> >
-> > True, any key on the IMA keyring could be used to verify file signatures
-> > (in IMA terminology appraise the file's integrity).  The enumeration is
-> > a first step to making sure that only properly signed code is read by
-> > the kernel.  The next step requires finer grain key management.  In
-> > general, pathname based policies are not a good idea.  Whatever method
-> > is defined, it should not be limited to just firmware or files read by
-> > the kernel, but to all files.
-> >
-> 
-> Unless I'm mistaken (which is quite possible), IMA is primarily
-> intended to appraise the content of POSIX filesystems.  So, if IMA is
-> in use, then doing:
-> 
-> $ cat /foo/bar
-> 
-> should only succeed if /foo/bar is signed according to loaded policy.
-> It's the system administrator's decision what filesystem is actually
-> mounted at /foo, and root can presumably mess around with application
-> expectations by, say, bind-mounting something over /foo.
-> 
-> Modules and firmware are special: even root should not be able to
-> avoid the full signature policy.  This means that, for example:
-> 
-> # mount --bind /evil /lib/firmware
-> 
-> should not result in violating policy.  So the pathname should not be
-> used as such.  However, firmware is a bit special in that the driver
-> chooses the pathname to request, and it really does uniquely identify
-> the intended firmware.  So, when a driver asks for:
-> 
-> "iwlwifi-whatever.ucode"
-> 
-> and the driver core tries to read "/lib/firmware/iwlwifi-whatever.ucode"
-> 
-> it's entirely possible that we'll follow a symlink and end up
-> elsewhere (Fedora, for example, does exactly this), but the file
-> that's loaded should be appraised (or verified using a non-IMA means,
-> etc.) to verify that whatever blob gets found is actually signed by
-> the holder of an authorized key for the purpose of being used as
-> "iwlwifi-whatever.ucode".
+--001a1143092235ae0e05390abb39
+Content-Type: text/plain; charset=UTF-8
 
-Assuming Andy's lightweight signature scheme, it would probably be best
-to do a lookup based on the sha256 hash of the file.  Then pathnames
-don't matter, and bad files don't even get to the signature checking
-code.
+On Aug 1, 2016 3:56 PM, "Jason Cooper" <jason@lakedaemon.net> wrote:
+>
+> Hey Andy, Luis, Mimi,
+>
+> On Mon, Aug 01, 2016 at 02:14:52PM -0700, Andy Lutomirski wrote:
+> > Or he could use my old suggestion instead: rather than signing the
+> > firmware blob itself, sign a little data structure like this:
+> >
+> > struct linux_blob_signed_data {
+> >   unsigned char magic[8];  // "LINUXSIG" -- for domain separation in
+case someone messes up
+> >   uint32_t version;  // = 1
+> >   unsigned char sha256[32];  // SHA256 hash of the blob
+> >   uint32_t type;  // what type of thing this is (firmware, etc)
+> >   unsigned char description[];  // the remainder of the structure is
+"iwlwifi-whatever.ucode", etc.
+> > };
+>
+> I would include the length of the blob in here as well.
 
-thx,
+That's not a bad idea even though length extension doesn't matter here.  If
+nothing else, it'll help mitigate silly DoS attacks in which a bad guy
+supplies an insanely large blob.  On the other hand, any attacker is
+probably root and can easily DoS us no matter what.  It could make the
+implementation simpler too, I suppose.
 
-Jason.
+If anyone replaced SHA256 with a boneheaded "hash" like Amazon Glacier's,
+then checking the length is necessary.
+
+--001a1143092235ae0e05390abb39
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<p dir=3D"ltr"></p>
+<p dir=3D"ltr">On Aug 1, 2016 3:56 PM, &quot;Jason Cooper&quot; &lt;<a href=
+=3D"mailto:jason@lakedaemon.net">jason@lakedaemon.net</a>&gt; wrote:<br>
+&gt;<br>
+&gt; Hey Andy, Luis, Mimi,<br>
+&gt;<br>
+&gt; On Mon, Aug 01, 2016 at 02:14:52PM -0700, Andy Lutomirski wrote:<br>
+&gt; &gt; Or he could use my old suggestion instead: rather than signing th=
+e<br>
+&gt; &gt; firmware blob itself, sign a little data structure like this:<br>
+&gt; &gt;<br>
+&gt; &gt; struct linux_blob_signed_data {<br>
+&gt; &gt;=C2=A0 =C2=A0unsigned char magic[8];=C2=A0 // &quot;LINUXSIG&quot;=
+ -- for domain separation in case someone messes up<br>
+&gt; &gt;=C2=A0 =C2=A0uint32_t version;=C2=A0 // =3D 1<br>
+&gt; &gt;=C2=A0 =C2=A0unsigned char sha256[32];=C2=A0 // SHA256 hash of the=
+ blob<br>
+&gt; &gt;=C2=A0 =C2=A0uint32_t type;=C2=A0 // what type of thing this is (f=
+irmware, etc)<br>
+&gt; &gt;=C2=A0 =C2=A0unsigned char description[];=C2=A0 // the remainder o=
+f the structure is &quot;iwlwifi-whatever.ucode&quot;, etc.<br>
+&gt; &gt; };<br>
+&gt;<br>
+&gt; I would include the length of the blob in here as well.</p>
+<p dir=3D"ltr">That&#39;s not a bad idea even though length extension doesn=
+&#39;t matter here.=C2=A0 If nothing else, it&#39;ll help mitigate silly Do=
+S attacks in which a bad guy supplies an insanely large blob.=C2=A0 On the =
+other hand, any attacker is probably root and can easily DoS us no matter w=
+hat.=C2=A0 It could make the implementation simpler too, I suppose.</p>
+<p dir=3D"ltr">If anyone replaced SHA256 with a boneheaded &quot;hash&quot;=
+ like Amazon Glacier&#39;s, then checking the length is necessary.</p>
+
+--001a1143092235ae0e05390abb39--
