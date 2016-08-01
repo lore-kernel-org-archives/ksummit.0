@@ -1,41 +1,33 @@
-Return-Path: <luto@amacapital.net>
+Return-Path: <riel@redhat.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4B730959
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 15A2589C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  1 Aug 2016 18:00:19 +0000 (UTC)
-Received: from mail-ua0-f181.google.com (mail-ua0-f181.google.com
-	[209.85.217.181])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B805A30F
+	Mon,  1 Aug 2016 18:13:42 +0000 (UTC)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7E093E1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  1 Aug 2016 18:00:18 +0000 (UTC)
-Received: by mail-ua0-f181.google.com with SMTP id k90so111824097uak.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 01 Aug 2016 11:00:18 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <20160801172920.GU3296@wotan.suse.de>
-References: <20160728165728.GR4541@io.lakedaemon.net>
-	<1469830256.23563.200.camel@linux.vnet.ibm.com>
-	<CALCETrUiYghc5uq9GHQRT--n15PBimhJwHA0TwgNqGxsbRKaFw@mail.gmail.com>
-	<20160730163626.GP3296@wotan.suse.de>
-	<1469934481.23563.274.camel@linux.vnet.ibm.com>
-	<CALCETrWq0UZ176EKrp2jNkjFFn17twb8ZvfGKtRdD5E=iFAnBw@mail.gmail.com>
-	<1469979098.23563.300.camel@linux.vnet.ibm.com>
-	<CALCETrVQj23-0Bhsx91Z3O7BJdjDVXgPQSQUqXHoc+pd5+tfYA@mail.gmail.com>
-	<1469986138.23563.312.camel@linux.vnet.ibm.com>
-	<CALCETrV6y79898-+M8Mpvhm-e2_VXvSyQQPwY25YdeuJhCe1zg@mail.gmail.com>
-	<20160801172920.GU3296@wotan.suse.de>
-From: Andy Lutomirski <luto@amacapital.net>
-Date: Mon, 1 Aug 2016 10:59:57 -0700
-Message-ID: <CALCETrX134Qnv4Xy2RAHO2QXka9_k9qAoEqrXaw-mX2kAkrzig@mail.gmail.com>
-To: "Luis R. Rodriguez" <mcgrof@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: Jason Cooper <jason@lakedaemon.net>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Mark Brown <broonie@sirena.org.uk>, Andy Lutomirski <luto@kernel.org>
-Subject: Re: [Ksummit-discuss] Last minute nominations: mcgrof and toshi
+	Mon,  1 Aug 2016 18:13:41 +0000 (UTC)
+Message-ID: <1470075217.13905.23.camel@redhat.com>
+From: Rik van Riel <riel@redhat.com>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>, Dave Hansen
+	<dave@sr71.net>, Johannes Weiner <hannes@cmpxchg.org>
+Date: Mon, 01 Aug 2016 14:13:37 -0400
+In-Reply-To: <1470069183.18751.35.camel@HansenPartnership.com>
+References: <20160725171142.GA26006@cmpxchg.org>
+	<20160728185523.GA16390@cmpxchg.org>
+	<1469742103.2324.9.camel@HansenPartnership.com>
+	<20160801154639.GD7603@cmpxchg.org>
+	<1470067585.18751.24.camel@HansenPartnership.com>
+	<579F74B4.1060302@sr71.net>
+	<1470069183.18751.35.camel@HansenPartnership.com>
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-GVClQcszAz1kxJAaM6CB"
+Mime-Version: 1.0
+Cc: "Kleen, Andi" <andi.kleen@intel.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Memory thrashing,
+ was Re: Self nomination
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -45,71 +37,90 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Aug 1, 2016 at 10:29 AM, Luis R. Rodriguez <mcgrof@suse.com> wrote:
-> On Sun, Jul 31, 2016 at 11:20:08AM -0700, Andy Lutomirski wrote:
->> If IMA doesn't want or need to verify the purpose of the loaded file, fine.
->
-> So other than origin you are indicating a proper LSM that would want to vet firmware
-> should want purpose ? Is that right?
 
-An security policy that wants to provide strong protection should
-verify that whatever file is being loaded is being used for its
-authorized purpose.  The wireless regulatory subsystem should only
-load data signed by the wifi regulatory key, the iwlwifi driver should
-only accept firmware signed by the system *for the purpose of being
-used as iwlwifi firmware* (or perhaps signed by Intel), the nouveau
-driver should accept files signed for the purpose of being used as
-nvidia firmware and should reject things that are signed by Intel,
-etc.
+--=-GVClQcszAz1kxJAaM6CB
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> If so I'd like to understand this suggestion
-> a bit better given we already have. So we have:
->
-> #define __kernel_read_file_id(id) \
->         id(UNKNOWN, unknown)            \
->         id(FIRMWARE, firmware)          \
->         id(FIRMWARE_PREALLOC_BUFFER, firmware)  \
->         id(MODULE, kernel-module)               \
->         id(KEXEC_IMAGE, kexec-image)            \
->         id(KEXEC_INITRAMFS, kexec-initramfs)    \
->         id(POLICY, security-policy)             \
->         id(MAX_ID, )
->
->
-> #define __fid_enumify(ENUM, dummy) READING_ ## ENUM,
-> #define __fid_stringify(dummy, str) #str,
->
-> enum kernel_read_file_id {
->         __kernel_read_file_id(__fid_enumify)
-> };
->
-> extern int kernel_read_file_from_path(char *, void **, loff_t *, loff_t,
->                                       enum kernel_read_file_id);
->
-> Are you saying FIRMWARE id is not sufficient ? What would be an example
-> purpose be here for FIRMWARE ?
+On Mon, 2016-08-01 at 12:33 -0400, James Bottomley wrote:
+> On Mon, 2016-08-01 at 09:11 -0700, Dave Hansen wrote:
+> > On 08/01/2016 09:06 AM, James Bottomley wrote:
+> > > > =C2=A0With persistent memory devices you might actually run out of
+> > > > CPU
+> > > > > capacity while performing basic page aging before you
+> > > > > saturate
+> > > > > the=C2=A0
+> > > > > storage device (which is why Andi Kleen has been suggesting
+> > > > > to=C2=A0
+> > > > > replace LRU reclaim with random replacement for these
+> > > > > devices).
+> > > > > So=C2=A0
+> > > > > storage device saturation might not be the final answer to
+> > > > > this
+> > > > > problem.
+> > > We really wouldn't want this.=C2=A0=C2=A0All cloud jobs seem to have
+> > > memory=C2=A0
+> > > they allocate but rarely use, so we want the properties of the
+> > > LRU=C2=A0
+> > > list to get this on swap so we can re-use the memory pages for=C2=A0
+> > > something else.=C2=A0=C2=A0A random replacement algorithm would play =
+havoc
+> > > with that.
+> >=20
+> > I don't want to put words in Andi's mouth, but what we want isn't
+> > necessarily something that is random, but it's something that uses=C2=
+=A0
+> > less CPU to swap out a given page.
+>=20
+> OK, if it's more deterministic, I'll wait to see the proposal.
+>=20
+> > All the LRU scanning is expensive and doesn't scale particularly
+> > well, and there are some situations where we should be willing to
+> > give up some of the precision of the current LRU in order to
+> > increase
+> > the throughput of reclaim in general.
+>=20
+> Would some type of hinting mechanism work (say via madvise)?=C2=A0
 
-The string "iwlwifi-8265-21.ucode" would be a reasonable purpose, I
-think.  It could make sense to split out the vendor, too:
+I suspect that might introduce overhead in other ways.
 
-.type = FIRMWARE,
-.vendor = "Intel",
-.purpose = "iwlwifi-8265-21.ucode",
+> I suppose another question is do we still want all of this to be page
+> based?=C2=A0=C2=A0We moved to extents in filesystems a while ago, wouldn'=
+t some
+> extent based LRU mechanism be cheaper ... unfortunately it means
+> something has to try to come up with an idea of what an extent means
+> (I
+> suspect it would be a bunch of virtually contiguous pages which have
+> the same expected LRU properties, but I'm thinking from the
+> application
+> centric viewpoint).
+>=C2=A0
+On sufficiently fast swap, we could just swap 2MB pages,
+or whatever size THP is on the architecture in question,
+in and out of memory.
 
-then distro policy could know to accept a file signed by Intel
-(because "Intel" would be mapped in some table to a public key), a
-file signed by the distro key where the signature (using PKCS#7
-auxiliarry data (or whatever it's called) or some other simpler
-protocol) indicates that the signed object is "iwlwifi-8265-21.ucode",
-or perhaps an IMA-verified file with an appropriate absolute path.
+Working with blocks 512x the size of a 4kB page might
+be enough of a scalability gain to match the faster IO
+speeds of new storage.
 
-Mimi, I'm curious: I don't fully understand what is covered by IMA
-policy.  How does the IMA kernel_read_file stuff deal with symlinks?
-For example, if I symlink /lib/firmware/iwlwifi-8265-21.ucode to
-/home/badguy/iwlwifi-8265-21.ucode, what happens?  What if I symlink
-/lib/firmware/iwlwifi-8265-21.ucode to /home/badguy/something_else?
-Or even /lib/modules/kernel/foo/bar.ko to /home/badguy/evil.ko?  The
-interesting case is where the "badguy" user is duly authorized to
-write to /home/badguy and holds whatever keys may be needed.
+--=20
 
---Andy
+All Rights Reversed.
+--=-GVClQcszAz1kxJAaM6CB
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQEcBAABCAAGBQJXn5FRAAoJEM553pKExN6DQqIH/2P0drqLVjzCZqRXgERyz6bC
+ZFwyidvFPtxmqv6pxyLLR/Y6Yye0jZdJyZRYvb0FJrKCgs8g+JDsYPq7ztzcy85I
+5nb72euEv7f3IpRuaNK+iYUk3KZCopEn7/MEepnvqMSld6Q66fzHf/8ppFGLAChY
+muiFI8mZNr5WmcSLg1G84GC4jrizOhuD2GgdAY4j3G+zL1Knve0AMLYgys2roddB
+Nfmph3EZVehX91PcZTglCME5spgHVWfxW5rCRdtq0erzZPT2jrK8C4ugnkAkhdhQ
++fK2UpBvl2WfR2ojtcSnHHb2TsChZZIISy3B0pNhhGZ1SUmReEhcpazTiMULuKw=
+=hJtj
+-----END PGP SIGNATURE-----
+
+--=-GVClQcszAz1kxJAaM6CB--
