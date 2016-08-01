@@ -1,38 +1,37 @@
-Return-Path: <lars@metafoo.de>
+Return-Path: <lurodriguez@suse.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 15D378A6
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5EF8D9F1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  1 Aug 2016 20:06:01 +0000 (UTC)
-Received: from www381.your-server.de (www381.your-server.de [78.46.137.84])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6056C17B
+	Mon,  1 Aug 2016 20:23:24 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5140E181
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  1 Aug 2016 20:06:00 +0000 (UTC)
-To: Andrzej Hajda <a.hajda@samsung.com>, Mark Brown <broonie@kernel.org>
-References: <93f7ce34-c2e9-583f-2e6f-1f23ae76a761@xs4all.nl>
-	<a4640467-d916-d52c-a905-152a53251f94@metafoo.de>
-	<20160801105531.2687069a@recife.lan> <579F6049.9030408@samsung.com>
-	<63f6e3b4-3a48-182f-e8d5-87e720b60d5d@metafoo.de>
-	<579F6C00.502@samsung.com>
-	<f612af4e-ddd1-44e3-9d0a-c7540636351c@metafoo.de>
-	<579F766F.1000605@samsung.com> <20160801170613.GV10376@sirena.org.uk>
-	<579F9613.4020805@samsung.com> <20160801184832.GA10376@sirena.org.uk>
-	<579FA631.9050702@samsung.com>
-From: Lars-Peter Clausen <lars@metafoo.de>
-Message-ID: <c677533f-5dd5-b31e-d14a-2cc5eb5be9ba@metafoo.de>
-Date: Mon, 1 Aug 2016 22:05:49 +0200
+	Mon,  1 Aug 2016 20:23:23 +0000 (UTC)
+Date: Mon, 1 Aug 2016 22:23:20 +0200
+From: "Luis R. Rodriguez" <mcgrof@suse.com>
+To: Andy Lutomirski <luto@amacapital.net>
+Message-ID: <20160801202320.GB3296@wotan.suse.de>
+References: <CALCETrUiYghc5uq9GHQRT--n15PBimhJwHA0TwgNqGxsbRKaFw@mail.gmail.com>
+	<20160730163626.GP3296@wotan.suse.de>
+	<1469934481.23563.274.camel@linux.vnet.ibm.com>
+	<CALCETrWq0UZ176EKrp2jNkjFFn17twb8ZvfGKtRdD5E=iFAnBw@mail.gmail.com>
+	<1469979098.23563.300.camel@linux.vnet.ibm.com>
+	<CALCETrVQj23-0Bhsx91Z3O7BJdjDVXgPQSQUqXHoc+pd5+tfYA@mail.gmail.com>
+	<1469986138.23563.312.camel@linux.vnet.ibm.com>
+	<CALCETrV6y79898-+M8Mpvhm-e2_VXvSyQQPwY25YdeuJhCe1zg@mail.gmail.com>
+	<20160801172920.GU3296@wotan.suse.de>
+	<CALCETrX134Qnv4Xy2RAHO2QXka9_k9qAoEqrXaw-mX2kAkrzig@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <579FA631.9050702@samsung.com>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 8bit
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
-	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
-	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Valentin Rothberg <valentinrothberg@gmail.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
- and semantics (v2)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CALCETrX134Qnv4Xy2RAHO2QXka9_k9qAoEqrXaw-mX2kAkrzig@mail.gmail.com>
+Cc: Jason Cooper <jason@lakedaemon.net>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Mark Brown <broonie@sirena.org.uk>, Andy Lutomirski <luto@kernel.org>
+Subject: Re: [Ksummit-discuss] Last minute nominations: mcgrof and toshi
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -42,42 +41,100 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 08/01/2016 09:42 PM, Andrzej Hajda wrote:
-> On 08/01/2016 08:48 PM, Mark Brown wrote:
->> On Mon, Aug 01, 2016 at 08:33:55PM +0200, Andrzej Hajda wrote:
->>> On 08/01/2016 07:06 PM, Mark Brown wrote:
->>>> The device isn't supposed to work, just not crash - this is mainly used
->>>> for things that are exposed to userspace where we need to keep returning
->>>> errors to userspace until they free their reference.  I'm not sure we
->>>> can get out of that one.
->>> Could you give some examples? I suppose this is slightly different issue
->>> than unbinding provider of working resource.
->> Anything where you have a resource open from userspace pretty much - a
->> file stored on media that got removed for example.  The struct
->> representing the open file handle needs to be valid as long as the file
->> is open.
+On Mon, Aug 01, 2016 at 10:59:57AM -0700, Andy Lutomirski wrote:
+> On Mon, Aug 1, 2016 at 10:29 AM, Luis R. Rodriguez <mcgrof@suse.com> wrote:
+> > On Sun, Jul 31, 2016 at 11:20:08AM -0700, Andy Lutomirski wrote:
+> >> If IMA doesn't want or need to verify the purpose of the loaded file, fine.
+> >
+> > So other than origin you are indicating a proper LSM that would want to vet firmware
+> > should want purpose ? Is that right?
 > 
-> It seems to be not related directly to the subject - file handle is
-> something
-> created/controlled by userspace, as well as it's life-time.
-> I see no real device dependency here. I guess Lars though rather about
-> ghost resources like in clock framework, when after removing provider,
-> clock ops are replaced by phony ops.
+> A security policy that wants to provide strong protection should
+> verify that whatever file is being loaded is being used for its
+> authorized purpose.  The wireless regulatory subsystem should only
+> load data signed by the wifi regulatory key, the iwlwifi driver should
+> only accept firmware signed by the system *for the purpose of being
+> used as iwlwifi firmware* (or perhaps signed by Intel), the nouveau
+> driver should accept files signed for the purpose of being used as
+> nvidia firmware and should reject things that are signed by Intel,
+> etc.
+> 
+> > If so I'd like to understand this suggestion
+> > a bit better given we already have. So we have:
+> >
+> > #define __kernel_read_file_id(id) \
+> >         id(UNKNOWN, unknown)            \
+> >         id(FIRMWARE, firmware)          \
+> >         id(FIRMWARE_PREALLOC_BUFFER, firmware)  \
+> >         id(MODULE, kernel-module)               \
+> >         id(KEXEC_IMAGE, kexec-image)            \
+> >         id(KEXEC_INITRAMFS, kexec-initramfs)    \
+> >         id(POLICY, security-policy)             \
+> >         id(MAX_ID, )
+> >
+> >
+> > #define __fid_enumify(ENUM, dummy) READING_ ## ENUM,
+> > #define __fid_stringify(dummy, str) #str,
+> >
+> > enum kernel_read_file_id {
+> >         __kernel_read_file_id(__fid_enumify)
+> > };
+> >
+> > extern int kernel_read_file_from_path(char *, void **, loff_t *, loff_t,
+> >                                       enum kernel_read_file_id);
+> >
+> > Are you saying FIRMWARE id is not sufficient ? What would be an example
+> > purpose be here for FIRMWARE ?
+> 
+> The string "iwlwifi-8265-21.ucode" would be a reasonable purpose, I
+> think.  It could make sense to split out the vendor, too:
+> 
+> .type = FIRMWARE,
+> .vendor = "Intel",
+> .purpose = "iwlwifi-8265-21.ucode",
+> 
+> then distro policy could know to accept a file signed by Intel
+> (because "Intel" would be mapped in some table to a public key), a
+> file signed by the distro key where the signature (using PKCS#7
+> auxiliarry data (or whatever it's called) or some other simpler
+> protocol) indicates that the signed object is "iwlwifi-8265-21.ucode",
+> or perhaps an IMA-verified file with an appropriate absolute path.
 
-Both really. In the end they both boil down to the same problem. You have
-provider and a consumer and the provider disappears while the consumer still
-uses it. In this case the kernel is the provider and userspace the consumer.
+OK thanks, this makes it clear.
 
-We should try to address both issue within the same framework, especially
-since there is a dependency chain. Lets say a audio device uses a clock and
-the clock becomes unavailable this means the the audio device is no longer
-usable for a userspace application.
+If you consider the existing kernel strategy for module signing as an LSM
+(even though it is not yet), then the way firmware singing was being
+designed currently was to match that LSM. That is, we'd have something
+very similar to mod_verify_sig() just that when calling
+verify_pkcs7_signature() would use VERIFYING_FIRMWARE_SIGNATURE, would
+be used instead of VERIFYING_MODULE_SIGNATURE.
 
-When I meant there are multiple options I did not mean that we must choose
-one of these options and always use it and never use the others. A solution
-will most likely involve multiple of them at different levels in the stack.
+We have:
 
-There have been attempts or ideas in the past to push the handling of
-keeping the file descriptor alive while having operations return errors
-directly into the fs layer so that individual frameworks don't have to deal
-with it. See https://lwn.net/Articles/546537/
+/*                                                                              
+ * The use to which an asymmetric key is being put.                             
+ */                                                                             
+enum key_being_used_for {                                                       
+        VERIFYING_MODULE_SIGNATURE,                                             
+        VERIFYING_FIRMWARE_SIGNATURE,                                           
+        VERIFYING_KEXEC_PE_SIGNATURE,                                           
+        VERIFYING_KEY_SIGNATURE,                                                
+        VERIFYING_KEY_SELF_SIGNATURE,                                           
+        VERIFYING_UNSPECIFIED_SIGNATURE,                                        
+        NR__KEY_BEING_USED_FOR                                                  
+};    
+
+In this light, what you describe would be an extension to this LSM and am
+wondering if we can stage this so this so that this "vendor" and "purpose"
+thing is dealt with after the same LSM strategy is matched to module signing
+first. With this simple scheme we'd just have one key -- the linux-firmware
+maintainer's key.
+
+The second stage of firmware singing would be to iron out if vendors even want
+to participate with a series of vendor + firmware file key and we'd have a
+registry in the kernel built-in. We'd check then provenance in 2 levels:
+
+  o linux-firmware maintainer key
+  o vendor key for the target file
+
+  Luis
