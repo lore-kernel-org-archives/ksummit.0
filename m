@@ -1,39 +1,31 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <hannes@cmpxchg.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0D3FB8A5
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3B8DB8A1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  1 Aug 2016 17:06:30 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7A6042F1
+	Mon,  1 Aug 2016 17:08:57 +0000 (UTC)
+Received: from gum.cmpxchg.org (gum.cmpxchg.org [85.214.110.215])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5C2261A1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  1 Aug 2016 17:06:29 +0000 (UTC)
-Date: Mon, 1 Aug 2016 18:06:13 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Andrzej Hajda <a.hajda@samsung.com>
-Message-ID: <20160801170613.GV10376@sirena.org.uk>
-References: <20160729111303.GA10376@sirena.org.uk> <2525670.QGOuaEkzC4@avalon>
-	<93f7ce34-c2e9-583f-2e6f-1f23ae76a761@xs4all.nl>
-	<a4640467-d916-d52c-a905-152a53251f94@metafoo.de>
-	<20160801105531.2687069a@recife.lan> <579F6049.9030408@samsung.com>
-	<63f6e3b4-3a48-182f-e8d5-87e720b60d5d@metafoo.de>
-	<579F6C00.502@samsung.com>
-	<f612af4e-ddd1-44e3-9d0a-c7540636351c@metafoo.de>
-	<579F766F.1000605@samsung.com>
+	Mon,  1 Aug 2016 17:08:56 +0000 (UTC)
+Date: Mon, 1 Aug 2016 13:08:46 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Dave Hansen <dave@sr71.net>
+Message-ID: <20160801170846.GA8584@cmpxchg.org>
+References: <20160725171142.GA26006@cmpxchg.org>
+	<20160728185523.GA16390@cmpxchg.org>
+	<1469742103.2324.9.camel@HansenPartnership.com>
+	<20160801154639.GD7603@cmpxchg.org>
+	<1470067585.18751.24.camel@HansenPartnership.com>
+	<579F74B4.1060302@sr71.net>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="aXNiKu4lnbRqA5kZ"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <579F766F.1000605@samsung.com>
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
-	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
-	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
-	Valentin Rothberg <valentinrothberg@gmail.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
- and semantics (v2)
+In-Reply-To: <579F74B4.1060302@sr71.net>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>, "Kleen,
+	Andi" <andi.kleen@intel.com>, ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Memory thrashing,
+ was Re: Self nomination
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -43,78 +35,27 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Mon, Aug 01, 2016 at 09:11:32AM -0700, Dave Hansen wrote:
+> On 08/01/2016 09:06 AM, James Bottomley wrote:
+> >>  With persistent memory devices you might actually run out of CPU 
+> >> > capacity while performing basic page aging before you saturate the 
+> >> > storage device (which is why Andi Kleen has been suggesting to 
+> >> > replace LRU reclaim with random replacement for these devices). So 
+> >> > storage device saturation might not be the final answer to this
+> >> > problem.
+> > We really wouldn't want this.  All cloud jobs seem to have memory they
+> > allocate but rarely use, so we want the properties of the LRU list to
+> > get this on swap so we can re-use the memory pages for something else. 
+> >  A random replacement algorithm would play havoc with that.
+> 
+> I don't want to put words in Andi's mouth, but what we want isn't
+> necessarily something that is random, but it's something that uses less
+> CPU to swap out a given page.
 
---aXNiKu4lnbRqA5kZ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Random eviction doesn't mean random outcome of what stabilizes in
+memory and swap. The idea is to apply pressure on all pages equally
+but in no particular order, and then the in-memory set forms based on
+reference frequencies and refaults/swapins.
 
-On Mon, Aug 01, 2016 at 06:18:55PM +0200, Andrzej Hajda wrote:
-> On 08/01/2016 05:43 PM, Lars-Peter Clausen wrote:
-> > On 08/01/2016 05:34 PM, Andrzej Hajda wrote:
-> >> On 08/01/2016 04:54 PM, Lars-Peter Clausen wrote:
-
-> >>> One option, which I think is currently the most used option in the kernel,
-> >>> is to unregister the resource when the provider is removed, but keep the
-> >>> resource object alive as long as there are users. Any further operation on
-> >>> such object will fail with an error. This works to the point where things
-> >>> don't crash, but it wont function in any meaningful way. There is no way to
-> >>> automatically recover if the resource reappears.
-
-> >> For me it is not a real solution, it is just dirty workaround to just avoid
-> >> invalid pointers. It 'works' only because unbinding is rarely used.
-> >> For example, how the device is supposed to work if its regulator or clock
-> >> disappeared?
-
-The device isn't supposed to work, just not crash - this is mainly used
-for things that are exposed to userspace where we need to keep returning
-errors to userspace until they free their reference.  I'm not sure we
-can get out of that one.
-
-> >>> Other options are as you pointed out notifier callbacks that allows the
-> >>> resource use to be aware that a resource has disappeared and it might adjust
-> >>> and continue to function with limited functionality.
-
-> >>> Another option is to teach the device core about critical resource
-> >>> dependencies so that a consumer is automatically unbound by the core if any
-> >>> of its resource dependencies are unregistered. The device can also
-> >>> automatically be re-bound once the critical resources re-appear.
-
-> >>> The most likely solution is probably a mixture of all of them.
-
-> >> If we implement callbacks, we do not need other two 'options'.
-
-> > Having to manually register callbacks for every resource in every driver
-> > will result in a massive amount of boilerplate code. I'd rather avoid that.
-
-> You can use helper to monitor multiple resources in one callback - it
-> should not increase the code significantly. As I wrote in other e-mail I
-> send already RFC in which the code in the driver was even shorter
-> than before. See [1].
-
-I think a lot of the difference between the two cases above is just
-about where the default callback comes from and how it's presented to
-users - having the driver core able to handle critical resources doesn't
-seem hugely different to providing a list of resources and offsets into
-driver_data in the struct driver and having a default callback that
-calls probe() and remove() with an already allocated and initialized
-driver_data.  That'd definitely cut down a lot on bolilerplate code, but
-there's problems with the driver trying to clean up when removing (eg,
-disabling things) when some of the resources it used are in the process
-of being removed themselves.
-
---aXNiKu4lnbRqA5kZ
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQEcBAEBCAAGBQJXn4GEAAoJECTWi3JdVIfQUMAH/j6gqfwJRWfEph8eBbYX1bLp
-+ZjkW6WsCKVxM0WI8xtlaWUNMzksZILY7JACHFPT1LenyIBXrxdjcxuu00S9WLse
-ow8/yTYDKYzPv3ne6QmsoP9igMtyshpTpQ3u+1Um81Ybv8LQB8AmYQ0UR3/t9bLG
-56DcdlgCEIifM1EbIwbqguCU9cSztqYC0XuVeJCj6Ge7+Q7fg4UBdqociRfP3nCC
-0vWFjsYDulJ+DZ3ta2tJIftuGing/maB+M7ifbHYmHNGLdyXkiJ8gMAQmZ2sSX/S
-BZVM6uXi9CB5sJORunhzfaqpfIbP86bScsHOxqSklRqUhmykq4M0p3ziz9e7+O0=
-=MwPy
------END PGP SIGNATURE-----
-
---aXNiKu4lnbRqA5kZ--
+Our anon LRU approximation can be so inaccurate as to be doing that
+already anyway, only with all the overhead of having an LRU list.
