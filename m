@@ -1,25 +1,32 @@
-Return-Path: <jack@suse.cz>
+Return-Path: <laurent.pinchart@ideasonboard.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9AE7A83D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 90E408A5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  1 Aug 2016 12:29:24 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5D953169
+	Mon,  1 Aug 2016 12:44:31 +0000 (UTC)
+Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
+	[185.26.127.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 520F1272
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  1 Aug 2016 12:29:23 +0000 (UTC)
-Date: Mon, 1 Aug 2016 14:29:15 +0200
-From: Jan Kara <jack@suse.cz>
-To: Mel Gorman <mgorman@techsingularity.net>
-Message-ID: <20160801122915.GC19431@quack2.suse.cz>
-References: <20160729141126.GG2799@techsingularity.net>
+	Mon,  1 Aug 2016 12:44:30 +0000 (UTC)
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: "Luis R. Rodriguez" <mcgrof@kernel.org>
+Date: Mon, 01 Aug 2016 15:44:29 +0300
+Message-ID: <7470660.QQiQecYycE@avalon>
+In-Reply-To: <20160728234314.GD3296@wotan.suse.de>
+References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
+	<1745007.86gEd5I2vq@avalon> <20160728234314.GD3296@wotan.suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20160729141126.GG2799@techsingularity.net>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Open panel for discussing MM
- problems
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
+	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
+	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Valentin Rothberg <valentinrothberg@gmail.com>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
+	and semantics (v2)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,48 +36,40 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi!
+Hi Luis,
 
-On Fri 29-07-16 15:11:26, Mel Gorman wrote:
-> There is at least one MM topic proposed so there is a chance that some
-> MM people will be around. I hear that a few people have been struggling
-> with MM-related topics recently but not getting a lot of traction. It's
-> hard to get a handle on how big of a problem this is or if it's even a
-> problem. It's possible I just happened to hear from the only people who
-> are unhappy with MM.
+On Friday 29 Jul 2016 01:43:14 Luis R. Rodriguez wrote:
+> On Thu, Jul 28, 2016 at 01:51:02PM +0300, Laurent Pinchart wrote:
+> > As the co-author of the media controller code (along with Sakari Ailus,
+> > based on a draft proposal from Hans Verkuil), I don't think MC will help
+> > here. It addresses very different problems, its purpose is to expose the
+> > topology of data flows inside a media device to userspace.
 > 
-> I think it would be beneficial to have an open MM panel on the morning of
-> the day that overlaps with Plumbers to get a handle on how many people
-> have MM-related problems and what class of problems they're having. It
-> would start by having each member spend 1-3 minutes talking about what
-> they're currently then open it up to the floor.
+> This is the key that interest me. Not the exact code -- but how it
+> accomplishes this and lessons learned.
 > 
-> People would be welcome to describe any MM-related issues they have and
-> ask the panel to either propose solutions or at least note that it's
-> something that should be fixed in the future. Ideally this would be a
-> better description than "MM sucks" or "sometimes the system is slow and I
-> feel the MM is responsible". If there is a concrete problem, there would be
-> no guarantee it will get fixed by anyone on the panel but at least we'd be
-> aware. It might be a bust if we don't have enough for a panel or everyone
-> is perfectly happy with the MM as it is. However, if it works and there
-> are some problems discussed then it'll be interesting to see how many,
-> if any, are fixed by the next LSF/MM.
+> > This being said I'd be very interested in discussing asynchronous probing
+> > and probe ordering. I can also certainly bring media controller knowledge
+> > to the discussion, but I don't think that part would be very useful
+> > (apart possibly for saving everybody's time by explaining why MC isn't a
+> > solution to address those problems :-)).
+> 
+> Its not that MC would solve the issues, its what lessons were learned on the
+> way we can re-use. Also, if we can use some bells and whistles for a
+> generic solution, could the MC leverage off of that? This proposal is of
+> course very abstract, so bear with me.
 
-Sounds useful.
-
-> The people I know are willing to participate if they are at Kernel Summit
-> are Vlastimil Babka, Johannes Weiner, Rik van Riel and myself. There is
-> a strong preference for the morning due to potential flight conflicts but
-> hopefully that can be arranged without colliding with Plumber keynotes. If
-> anyone else was interested in being up there, they'd be more than welcome
-> assuming they know which way is up with mm/.
-
-I'd be happy to join as well. I'm not really an MM guy but I can bring
-knowledge of writeback code and MM-FS interactions which sometimes cause
-issues.
-
-								Honza
+One problem I expect to have to solve in the future in MC is related to 
+locking. We currently have a single graph-wide mutex that serializes all 
+operations on the graph. With graphs getting larger (especially with recent 
+SoCs that have deep hardware pipelines between camera and display devices, 
+making lots of IP cores part of the same data graph) locking contention might 
+become an issue. Throw dynamic graph updates in the mix (the ability to add or 
+remove nodes as a consequence of device hotplug) and this will call for a 
+rework of the locking scheme. Learning from similar experiences elsewhere in 
+the kernel would be highly beneficial for us.
 
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Regards,
+
+Laurent Pinchart
