@@ -1,43 +1,39 @@
-Return-Path: <luto@amacapital.net>
+Return-Path: <robherring2@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5D3589F1
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 47BCB83D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  1 Aug 2016 21:15:14 +0000 (UTC)
-Received: from mail-vk0-f53.google.com (mail-vk0-f53.google.com
-	[209.85.213.53])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A689729D
+	Mon,  1 Aug 2016 22:18:01 +0000 (UTC)
+Received: from mail-yw0-f171.google.com (mail-yw0-f171.google.com
+	[209.85.161.171])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A1415B0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  1 Aug 2016 21:15:13 +0000 (UTC)
-Received: by mail-vk0-f53.google.com with SMTP id s189so108632090vkh.1
+	Mon,  1 Aug 2016 22:18:00 +0000 (UTC)
+Received: by mail-yw0-f171.google.com with SMTP id z8so185749665ywa.1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 01 Aug 2016 14:15:13 -0700 (PDT)
+	Mon, 01 Aug 2016 15:18:00 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20160801205706.GE3296@wotan.suse.de>
-References: <1469934481.23563.274.camel@linux.vnet.ibm.com>
-	<CALCETrWq0UZ176EKrp2jNkjFFn17twb8ZvfGKtRdD5E=iFAnBw@mail.gmail.com>
-	<1469979098.23563.300.camel@linux.vnet.ibm.com>
-	<CALCETrVQj23-0Bhsx91Z3O7BJdjDVXgPQSQUqXHoc+pd5+tfYA@mail.gmail.com>
-	<1469986138.23563.312.camel@linux.vnet.ibm.com>
-	<CALCETrV6y79898-+M8Mpvhm-e2_VXvSyQQPwY25YdeuJhCe1zg@mail.gmail.com>
-	<20160801172920.GU3296@wotan.suse.de>
-	<CALCETrX134Qnv4Xy2RAHO2QXka9_k9qAoEqrXaw-mX2kAkrzig@mail.gmail.com>
-	<20160801202320.GB3296@wotan.suse.de>
-	<CALCETrXZicXvXPFC=NenCCJ76rB=2shBzEfkUb4xgHh0Vrub+A@mail.gmail.com>
-	<20160801205706.GE3296@wotan.suse.de>
-From: Andy Lutomirski <luto@amacapital.net>
-Date: Mon, 1 Aug 2016 14:14:52 -0700
-Message-ID: <CALCETrXCfZnX3MtV=DHov1+qcWZOOcEzTMXxVx5zr1QYtAVoPw@mail.gmail.com>
-To: "Luis R. Rodriguez" <mcgrof@suse.com>
+In-Reply-To: <ECADFF3FD767C149AD96A924E7EA6EAF053B96B4@USCULXMSG02.am.sony.com>
+References: <87inw1skws.fsf@x220.int.ebiederm.org>
+	<25598.1469113525@warthog.procyon.org.uk>
+	<18158a39-1297-7368-3c0e-3e9b3ce2c3ab@suse.com>
+	<alpine.DEB.2.10.1607220808110.3114@hadrien>
+	<b3390bd5-eb54-428a-3030-1d7289880d47@suse.com>
+	<1469533716.120686.281.camel@infradead.org>
+	<alpine.DEB.2.10.1607271439250.3117@hadrien>
+	<1469625916.27356.18.camel@HansenPartnership.com>
+	<1469626423.120686.408.camel@infradead.org>
+	<ECADFF3FD767C149AD96A924E7EA6EAF053B96B4@USCULXMSG02.am.sony.com>
+From: Rob Herring <robherring2@gmail.com>
+Date: Mon, 1 Aug 2016 17:17:39 -0500
+Message-ID: <CAL_Jsq+dodMDAS4M=CZxjbB5gU7+qUT0XEKgeDQeGN_u4SYkwg@mail.gmail.com>
+To: "Bird, Timothy" <Tim.Bird@am.sony.com>
 Content-Type: text/plain; charset=UTF-8
-Cc: Jason Cooper <jason@lakedaemon.net>,
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
 	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Kyle McMartin <kyle@kernel.org>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Mark Brown <broonie@sirena.org.uk>, Andy Lutomirski <luto@kernel.org>,
-	Johannes Berg <johannes@sipsolutions.net>
-Subject: Re: [Ksummit-discuss] Last minute nominations: mcgrof and toshi
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] More useful types in the linux
+	kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -47,88 +43,72 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Aug 1, 2016 at 1:57 PM, Luis R. Rodriguez <mcgrof@suse.com> wrote:
-> On Mon, Aug 01, 2016 at 01:37:43PM -0700, Andy Lutomirski wrote:
->> On Mon, Aug 1, 2016 at 1:23 PM, Luis R. Rodriguez <mcgrof@suse.com> wrote:
->> > The second stage of firmware singing would be to iron out if vendors even want
->> > to participate with a series of vendor + firmware file key and we'd have a
->> > registry in the kernel built-in. We'd check then provenance in 2 levels:
->> >
->> >   o linux-firmware maintainer key
->> >   o vendor key for the target file
+On Wed, Jul 27, 2016 at 12:21 PM, Bird, Timothy <Tim.Bird@am.sony.com> wrote:
+>
+>
+>> -----Original Message-----
+>> From: ksummit-discuss-bounces@lists.linuxfoundation.org [mailto:ksummit-
+>> discuss-bounces@lists.linuxfoundation.org] On Behalf Of David Woodhouse
+>> Sent: Wednesday, July 27, 2016 5:34 AM
+>> To: James Bottomley <James.Bottomley@HansenPartnership.com>; Julia Lawall
+>> <julia.lawall@lip6.fr>
+>> Cc: ksummit-discuss@lists.linuxfoundation.org
+>> Subject: Re: [Ksummit-discuss] [CORE TOPIC] More useful types in the linux
+>> kernel
 >>
->> Given Johannes Berg's request to move regulatory database loading into
->> the kernel, there might be an earlier use case.
+>> On Wed, 2016-07-27 at 09:25 -0400, James Bottomley wrote:
+>> > On Wed, 2016-07-27 at 14:40 +0200, Julia Lawall wrote:
+>> > >
+>> > > On Tue, 26 Jul 2016, David Woodhouse wrote:
+>> > >
+>> > > > On Fri, 2016-07-22 at 15:57 +0200, Hannes Reinecke wrote:
+>> > > > >
+>> > > > > > I guess that almost all functions return only a few possible
+>> > > > > > error codes?
+>> > > > >
+>> > > > > Precisely. If we had a way of specifying "the return value is an
+>> > > > > errno with the possible values '0', '-EIO', and '-EINVAL'" that
+>> > > > > would be _so_ cool.
+>> > > >
+>> > > > And perpetually out of date. Because functions call through to
+>> > > > *other* functions which might return an errno outside the 'known'
+>> > > > set.
+>> > >
+>> > > If you have a script to calculate it, it doesn't have to be
+>> > > perpetually out of date.  The problem is just the time to collect the
+>> > > information for the whole kernel.  It could be a good intern project.
+>> >
+>> > It's a lot of pain, for what gain?  What, practically would we get as a
+>> > benefit if we did this?  Every time I see proposals about scripting
+>> > checks in the kernel, I'm reminded of our section mismatch debacle.
+>> >  Life is so much easier without every kernel release generating 100s of
+>> > patches trying to correct section mismatches which didn't matter in the
+>> > first place ...
+>>
+>> To find functions where the -errno returns might be ambiguous with real
+>> valid return values, might be beneficial. If it doesn't have too many
+>> false positives.
 >
-> I share his goal, and in fact getting rid of needing CRDA was my original
-> motivation to add firmware signing support. When we reviewed how this would
-> work -- we seemed to have agreed that Seth (wireless-regdb maintainer) would no
-> longer need to sign the regulatory.bin file and whatever file we end up with
-> would instead be signed by Kyle, the linux-firmware maintainer.
+> It might be useful to have a list of possible errno generation points, for a particular routine,
+> to make it easier to find the origin of a problem.  Sometimes when you're unfamiliar with
+> some bit of code, manually walking back through the call chain in the source is a hassle.
+> I'm reminded of that trick where someone (I don't recall who) embedded the line number
+> in the errno.
 
-Sounds entirely reasonable.
+I'd be interested if you could find what you are referring to. I would
+love to see something better here than my printk debugger. A list of
+possible errnos would help some, but I'd expect we typically have
+multiple called functions returning the same possible errnos, so you'd
+still be narrowing down the source manually. Debugging that probe of a
+driver failed because of a config option not being enabled is painful.
+Maybe I'm the only one that switches between boards/kernels a lot and
+does a poor job maintaining working configs.
 
->
->> Specifically, either
->> set up the regulatory database with a vendor of
->> "linux-wireless-regulatory" and teach the verification code that this
->> particular vendor *requires* a vendor signature (and not, say, a
->> distro signature) or allocate it its own enum value for the type and
->> teach the verification code to work with that.
->
-> Well reason we ended up deciding on just one key and linux-firmware was
-> that people already package linux-firmware and we'd hope no one will
-> put a gun to Kyle's head to do evil things. Nevertheless, what you
-> describe of augmenting keys for files / purpose seems sensible, however
-> this should be optional. For our case in 802.11 we seemed to be OK
-> with Kyle's key last we discussed.
+Wouldn't something as simple as turning all the errno's into backtrace
+printks or tracepoints be doable. It might have to be enabled on
+probe() entry to avoid any "normal" errors. Any code that initializes
+the return value with an error would be a false positive. A major
+benefit to something like this is it could get rid of lots of error
+path printks in drivers that bloat the kernel.
 
-Let me put on my security person / armchair cryptographer hat:
-
-NAK NAK NAK NAK NAK
-
-The 90s are over.  Saying "I threw together this protocol.  It has
-these known weaknesses, but I don't think they really matter all that
-much." was a pretty bad idea in the nineties (witness SSL2, SSL3, WEP,
-etc), and IMNSHO it's simply inexcusable now.
-
-David Howells implemented PKCS7 authenticated attribute support in the
-kernel for a reason.  If Kyle will use PKCS7 signatures, get the
-authenticated attribute format right and *use it* from day one.  Or he
-could use my old suggestion instead: rather than signing the firmware
-blob itself, sign a little data structure like this:
-
-struct linux_blob_signed_data {
-  unsigned char magic[8];  // "LINUXSIG" -- for domain separation in
-case someone messes up
-  uint32_t version;  // = 1
-  unsigned char sha256[32];  // SHA256 hash of the blob
-  uint32_t type;  // what type of thing this is (firmware, etc)
-  unsigned char description[];  // the remainder of the structure is
-"iwlwifi-whatever.ucode", etc.
-};
-
-Then, to verify a signature, the kernel hashes the blob, generates its
-own linux_blob_signed_data, memcmps it to the one that Kyle signed
-(and rejects if they differ *at all*), and then verifies the
-signature.  (Do not try to be clever and parse the supplied
-linux_blob_signed_data -- there is a long and storied history of
-equivalent ideas being implemented incorrectly, and I can dig out
-literature references if you really want.  Just generate your own and
-memcmp it, which leaves no room for ambiguity.)
-
-If you're using something other than PKCS7 (which I'd suggest -- PKCS7
-is a nasty, ugly, overcomplicated standard), use the struct
-linux_blob_signed_data approach.
-
-This is only a few lines of code, and I think there is no excuse for
-getting it wrong.  Heck, this would be trivial to implement in pretty
-much any scripting language better than bash.
-
-(Sorry to bash your signature thingy, Kyle, but all I'm asking you do
-to is either use the fancy pkcs7 openssl options (*gag*) or sign a
-trivial data structure instead of the file itself.  If you like, I
-hereby offer to write the code if you give me a baseline to work
-with.)
-
---Andy
+Rob
