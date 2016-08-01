@@ -1,33 +1,34 @@
-Return-Path: <shuahkh@osg.samsung.com>
+Return-Path: <mchehab@osg.samsung.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5B836919
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 66050919
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  1 Aug 2016 13:53:29 +0000 (UTC)
+	Mon,  1 Aug 2016 13:55:38 +0000 (UTC)
 Received: from s-opensource.com
 	(ec2-52-27-115-49.us-west-2.compute.amazonaws.com [52.27.115.49])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id E58FB102
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 05EE313B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  1 Aug 2016 13:53:28 +0000 (UTC)
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
-	<367437209.fSUZRCC4cu@avalon>
-	<20160728201010.6d1ef149@gandalf.local.home>
-	<26257864.77FIuI985E@avalon>
-	<20160729102819.2245ae76@gandalf.local.home>
-From: Shuah Khan <shuahkh@osg.samsung.com>
-Message-ID: <579F544B.2010507@osg.samsung.com>
-Date: Mon, 1 Aug 2016 07:53:15 -0600
+	Mon,  1 Aug 2016 13:55:37 +0000 (UTC)
+Date: Mon, 1 Aug 2016 10:55:31 -0300
+From: Mauro Carvalho Chehab <mchehab@osg.samsung.com>
+To: Lars-Peter Clausen <lars@metafoo.de>
+Message-ID: <20160801105531.2687069a@recife.lan>
+In-Reply-To: <a4640467-d916-d52c-a905-152a53251f94@metafoo.de>
+References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
+	<98eb563b-5d62-74df-692a-f2aa4f7b07b8@xs4all.nl>
+	<20160729111303.GA10376@sirena.org.uk> <2525670.QGOuaEkzC4@avalon>
+	<93f7ce34-c2e9-583f-2e6f-1f23ae76a761@xs4all.nl>
+	<a4640467-d916-d52c-a905-152a53251f94@metafoo.de>
 MIME-Version: 1.0
-In-Reply-To: <20160729102819.2245ae76@gandalf.local.home>
-Content-Type: text/plain; charset=windows-1252
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Trond Myklebust <trondmy@primarydata.com>,
-	Shuah Khan <shuahkh@osg.samsung.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
+	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
+	Valentin Rothberg <valentinrothberg@gmail.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
+ and semantics (v2)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,25 +38,62 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 07/29/2016 08:28 AM, Steven Rostedt wrote:
-> On Fri, 29 Jul 2016 11:59:47 +0300
-> Laurent Pinchart <laurent.pinchart@ideasonboard.com> wrote:
-> 
->> Another limitation of kselftest is the lack of standardization for logging and 
->> status reporting. This would be needed to interpret the test output in a 
->> consistent way and generate reports. Regardless of whether we extend kselftest 
->> to cover device drivers this would in my opinion be worth fixing.
->>
-> 
-> Perhaps this should be a core topic at KS.
-> 
+Em Mon, 1 Aug 2016 15:33:22 +0200
+Lars-Peter Clausen <lars@metafoo.de> escreveu:
 
-Yes definitely. There has been some effort in standardizing,
-but not enough. We can discuss and see what would make the
-kselftest more usable without adding external dependencies.
+> On 08/01/2016 03:21 PM, Hans Verkuil wrote:
+> > 
+> > 
+> > On 08/01/2016 03:09 PM, Laurent Pinchart wrote:  
+> >> On Friday 29 Jul 2016 12:13:03 Mark Brown wrote:  
+> >>> On Fri, Jul 29, 2016 at 09:45:55AM +0200, Hans Verkuil wrote:  
+> >>>> My main problem is not so much with deferred probe (esp. for cyclic
+> >>>> dependencies it is a simple method of solving this, and simple is good).
+> >>>> My main problem is that you can't tell the system that driver A needs to
+> >>>> be probed after drivers B, C and D are probed first.
+> >>>>
+> >>>> That would allow us to get rid of v4l2-async.c which is a horrible hack.
+> >>>>
+> >>>> That code allows a bridge driver to wait until all dependent drivers are
+> >>>> probed. This really should be core functionality.
+> >>>>
+> >>>> Do other subsystems do something similar like
+> >>>> drivers/media/v4l2-core/v4l2-async.c? Does anyone know?  
+> >>>
+> >>> ASoC does, it has an explicit card driver to join things together and
+> >>> that just defers probe until everything it needs is present.  This was
+> >>> originally open coded in ASoC but once deferred probe was implemented we
+> >>> converted to that.  
+> >>
+> >> Asynchronous bindings of components, as done in ASoC, DRM and V4L2, is a 
+> >> problem largely solved (or rather hacked around), but I'm curious to know how 
+> >> ASoC handles device unbinding (due to device removal or manual unbinding 
+> >> through sysfs). With asynchronous binding we can more or less easily wait for 
+> >> all components to be present before creating circular dependencies, but 
+> >> breaking them to implement unbinding is an unsolved problem at least in V4L2.
+> >>  
+> > 
+> > We need to prevent subdevice drivers from being unbound. It's easy enough to
+> > do that (set suppress_bind_attrs to true), we just never did that. It's been
+> > on my TODO list for ages to make a patch adding that flag...
+> > 
+> > You can only unbind bridge drivers. Unbinding subdevs is pointless in general
+> > and should be prohibited. Perhaps in the future with dynamically reconfigurable
+> > video pipelines (FPGA) you want that, but then you need to do a lot of
+> > additional work. For everything we have today we should just set
+> > suppress_bind_attrs to true.  
+> 
+> suppress_bind_attrs is the lazy solution and as you pointed out does not
+> work too well for all cases.
 
-One thing we could do is add script to interpret and turn the
-test output into usable format.
+Agreed. 
 
-thanks,
--- Shuah
+What we really need is a kind of "usage count" behavior to suppress
+unbinds, e. g. a device driver can be unbound only if any other driver
+using resources on it gets unbind first.
+
+That will solve most of unbind issues at the media subsystem.
+
+-- 
+Thanks,
+Mauro
