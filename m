@@ -1,37 +1,27 @@
-Return-Path: <lars@metafoo.de>
+Return-Path: <hannes@cmpxchg.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1B21F91A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7429F932
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  1 Aug 2016 15:43:22 +0000 (UTC)
-Received: from www381.your-server.de (www381.your-server.de [78.46.137.84])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E33B12D5
+	Mon,  1 Aug 2016 15:46:46 +0000 (UTC)
+Received: from gum.cmpxchg.org (gum.cmpxchg.org [85.214.110.215])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5BACA2D7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  1 Aug 2016 15:43:20 +0000 (UTC)
-To: Andrzej Hajda <a.hajda@samsung.com>,
-	Mauro Carvalho Chehab <mchehab@osg.samsung.com>
-References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
-	<98eb563b-5d62-74df-692a-f2aa4f7b07b8@xs4all.nl>
-	<20160729111303.GA10376@sirena.org.uk> <2525670.QGOuaEkzC4@avalon>
-	<93f7ce34-c2e9-583f-2e6f-1f23ae76a761@xs4all.nl>
-	<a4640467-d916-d52c-a905-152a53251f94@metafoo.de>
-	<20160801105531.2687069a@recife.lan> <579F6049.9030408@samsung.com>
-	<63f6e3b4-3a48-182f-e8d5-87e720b60d5d@metafoo.de>
-	<579F6C00.502@samsung.com>
-From: Lars-Peter Clausen <lars@metafoo.de>
-Message-ID: <f612af4e-ddd1-44e3-9d0a-c7540636351c@metafoo.de>
-Date: Mon, 1 Aug 2016 17:43:15 +0200
+	Mon,  1 Aug 2016 15:46:45 +0000 (UTC)
+Date: Mon, 1 Aug 2016 11:46:39 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Message-ID: <20160801154639.GD7603@cmpxchg.org>
+References: <20160725171142.GA26006@cmpxchg.org>
+	<20160728185523.GA16390@cmpxchg.org>
+	<1469742103.2324.9.camel@HansenPartnership.com>
 MIME-Version: 1.0
-In-Reply-To: <579F6C00.502@samsung.com>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 7bit
-Cc: "vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
-	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	Valentin Rothberg <valentinrothberg@gmail.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
- and semantics (v2)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1469742103.2324.9.camel@HansenPartnership.com>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Memory thrashing,
+ was Re:  Self nomination
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,97 +31,87 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 08/01/2016 05:34 PM, Andrzej Hajda wrote:
-> On 08/01/2016 04:54 PM, Lars-Peter Clausen wrote:
->> On 08/01/2016 04:44 PM, Andrzej Hajda wrote:
->>> On 08/01/2016 03:55 PM, Mauro Carvalho Chehab wrote:
->>>> Em Mon, 1 Aug 2016 15:33:22 +0200
->>>> Lars-Peter Clausen <lars@metafoo.de> escreveu:
->>>>
->>>>> On 08/01/2016 03:21 PM, Hans Verkuil wrote:
->>>>>> On 08/01/2016 03:09 PM, Laurent Pinchart wrote:  
->>>>>>> On Friday 29 Jul 2016 12:13:03 Mark Brown wrote:  
->>>>>>>> On Fri, Jul 29, 2016 at 09:45:55AM +0200, Hans Verkuil wrote:  
->>>>>>>>> My main problem is not so much with deferred probe (esp. for cyclic
->>>>>>>>> dependencies it is a simple method of solving this, and simple is good).
->>>>>>>>> My main problem is that you can't tell the system that driver A needs to
->>>>>>>>> be probed after drivers B, C and D are probed first.
->>>>>>>>>
->>>>>>>>> That would allow us to get rid of v4l2-async.c which is a horrible hack.
->>>>>>>>>
->>>>>>>>> That code allows a bridge driver to wait until all dependent drivers are
->>>>>>>>> probed. This really should be core functionality.
->>>>>>>>>
->>>>>>>>> Do other subsystems do something similar like
->>>>>>>>> drivers/media/v4l2-core/v4l2-async.c? Does anyone know?  
->>>>>>>> ASoC does, it has an explicit card driver to join things together and
->>>>>>>> that just defers probe until everything it needs is present.  This was
->>>>>>>> originally open coded in ASoC but once deferred probe was implemented we
->>>>>>>> converted to that.  
->>>>>>> Asynchronous bindings of components, as done in ASoC, DRM and V4L2, is a 
->>>>>>> problem largely solved (or rather hacked around), but I'm curious to know how 
->>>>>>> ASoC handles device unbinding (due to device removal or manual unbinding 
->>>>>>> through sysfs). With asynchronous binding we can more or less easily wait for 
->>>>>>> all components to be present before creating circular dependencies, but 
->>>>>>> breaking them to implement unbinding is an unsolved problem at least in V4L2.
->>>>>>>  
->>>>>> We need to prevent subdevice drivers from being unbound. It's easy enough to
->>>>>> do that (set suppress_bind_attrs to true), we just never did that. It's been
->>>>>> on my TODO list for ages to make a patch adding that flag...
->>>>>>
->>>>>> You can only unbind bridge drivers. Unbinding subdevs is pointless in general
->>>>>> and should be prohibited. Perhaps in the future with dynamically reconfigurable
->>>>>> video pipelines (FPGA) you want that, but then you need to do a lot of
->>>>>> additional work. For everything we have today we should just set
->>>>>> suppress_bind_attrs to true.  
->>>>> suppress_bind_attrs is the lazy solution and as you pointed out does not
->>>>> work too well for all cases.
->>>> Agreed. 
->>>>
->>>> What we really need is a kind of "usage count" behavior to suppress
->>>> unbinds, e. g. a device driver can be unbound only if any other driver
->>>> using resources on it gets unbind first.
->>>>
->>>> That will solve most of unbind issues at the media subsystem.
->>> When I was investigating issues with unbind sysfs attribute I have found
->>> claim by Greg KH that unbind should be rather unavoidable, like in case
->>> of hw removal - kernel is not able to prevent users from removing usb
->>> device, even if it is in use.
->>>
->>> Assuming the claim is still valid, the only solution I see are callbacks
->>> notifying resource consumers about removal of the resources.
->> There are multiple options.
->>
->> One option, which I think is currently the most used option in the kernel,
->> is to unregister the resource when the provider is removed, but keep the
->> resource object alive as long as there are users. Any further operation on
->> such object will fail with an error. This works to the point where things
->> don't crash, but it wont function in any meaningful way. There is no way to
->> automatically recover if the resource reappears.
+On Thu, Jul 28, 2016 at 05:41:43PM -0400, James Bottomley wrote:
+> On Thu, 2016-07-28 at 14:55 -0400, Johannes Weiner wrote:
+> > On Mon, Jul 25, 2016 at 01:11:42PM -0400, Johannes Weiner wrote:
+> > > Most recently I have been working on reviving swap for SSDs and
+> > > persistent memory devices (https://lwn.net/Articles/690079/) as
+> > > part
+> > > of a bigger anti-thrashing effort to make the VM recover swiftly
+> > > and
+> > > predictably from load spikes.
+> > 
+> > A bit of context, in case we want to discuss this at KS:
+> > 
+> > We frequently have machines hang and stop responding indefinitely
+> > after they experience memory load spikes. On closer look, we find 
+> > most tasks either in page reclaim or majorfaulting parts of an 
+> > executable or library. It's a typical thrashing pattern, where 
+> > everybody cannibalizes everybody else. The problem is that with fast 
+> > storage the cache reloads can be fast enough that there are never 
+> > enough in-flight pages at a time to cause page reclaim to fail and 
+> > trigger the OOM killer. The livelock persists until external
+> > remediation reboots the
+> > box or we get lucky and non-cache allocations eventually suck up the
+> > remaining page cache and trigger the OOM killer.
+> > 
+> > To avoid hitting this situation, we currently have to keep a generous
+> > memory reserve for occasional spikes, which sucks for utilization the
+> > rest of the time. Swap would be useful here, but the swapout code is
+> > basically only triggering when memory pressure rises - which again
+> > doesn't happen - so I've been working on the swap code to balance
+> > cache reclaim vs. swap based on relative thrashing between the two.
+> > 
+> > There is usually some cold/unused anonymous memory lying around that
+> > can be unloaded into swap during workload spikes, so that allows us 
+> > to drive up the average memory utilization without increasing the 
+> > risk at least. But if we screw up and there are not enough unused 
+> > anon pages, we are back to thrashing - only now it involves swapping
+> > too.
+> > 
+> > So how do we address this?
+> > 
+> > A pathological thrashing situation is very obvious to any user, but
+> > it's not quite clear how to quantify it inside the kernel and have it
+> > trigger the OOM killer. It might be useful to talk about metrics. 
+> > Could we quantify application progress? Could we quantify the amount 
+> > of time a task or the system spends thrashing, and somehow express it 
+> > as a percentage of overall execution time? Maybe something comparable 
+> > to IO wait time, except tracking the time spent performing reclaim
+> > and waiting on IO that is refetching recently evicted pages?
+> > 
+> > This question seems to go beyond the memory subsystem and potentially
+> > involve the scheduler and the block layer, so it might be a good tech
+> > topic for KS.
 > 
-> For me it is not a real solution, it is just dirty workaround to just avoid
-> invalid pointers. It 'works' only because unbinding is rarely used.
-> For example, how the device is supposed to work if its regulator or clock
-> disappeared?
-> 
->>
->> Other options are as you pointed out notifier callbacks that allows the
->> resource use to be aware that a resource has disappeared and it might adjust
->> and continue to function with limited functionality.
->>
->> Another option is to teach the device core about critical resource
->> dependencies so that a consumer is automatically unbound by the core if any
->> of its resource dependencies are unregistered. The device can also
->> automatically be re-bound once the critical resources re-appear.
-> 
-> That would be OK only for critical resources.
-> 
->>
->> The most likely solution is probably a mixture of all of them.
-> 
-> If we implement callbacks, we do not need other two 'options'.
+> Actually, I'd be interested in this.  We're starting to generate use
+> cases in the container cloud for swap (I can't believe I'm saying this
+> since we hitherto regarded swap as wholly evil).  The issue is that we
+> want to load the system up into its overcommit region (it means two
+> things: either we're re-using under used resources or, more correctly,
+> we're reselling resources we sold to one customer, but they're not
+> using, so we can sell them to another).  From some research done within
+> IBM, it turns out there's a region where swapping is beneficial.  We
+> define it as the region where the B/W to swap doesn't exceed the B/W
+> capacity of the disk (is this the metric you're looking for?).
 
-Having to manually register callbacks for every resource in every driver
-will result in a massive amount of boilerplate code. I'd rather avoid that.
-In addition to that doing resource tracking at the framework level will help
-with probe ordering.
+That's an interesting take, I haven't thought about that. But note
+that the CPU cost of evicting and refetching pages is not negligible:
+even on fairly beefy machines we've seen significant CPU load when the
+IO device hits saturation. With persistent memory devices you might
+actually run out of CPU capacity while performing basic page aging
+before you saturate the storage device (which is why Andi Kleen has
+been suggesting to replace LRU reclaim with random replacement for
+these devices). So storage device saturation might not be the final
+answer to this problem.
+
+> Our definition of progress is a bit different from yours above because
+> the interactive jobs must respond as if they were near bare metal, so
+> we penalise the soak jobs.  However, we find that the soak jobs also
+> make reasonable progress according to your measure above (reasonable
+> enough means the customer is happy to pay for the time they've used).
+
+We actually are in the same boat, where most of our services are doing
+work within the context of interactive user sessions. So in terms of
+quantifying progress, both throughput and latency percentiles would be
+necessary to form a full picture of whether we are beyond capacity.
