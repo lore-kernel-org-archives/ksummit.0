@@ -1,39 +1,66 @@
-Return-Path: <robherring2@gmail.com>
+Return-Path: <zohar@linux.vnet.ibm.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 47BCB83D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8BC81957
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  1 Aug 2016 22:18:01 +0000 (UTC)
-Received: from mail-yw0-f171.google.com (mail-yw0-f171.google.com
-	[209.85.161.171])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A1415B0
+	Mon,  1 Aug 2016 22:21:28 +0000 (UTC)
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+	[148.163.158.5])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 214C316E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  1 Aug 2016 22:18:00 +0000 (UTC)
-Received: by mail-yw0-f171.google.com with SMTP id z8so185749665ywa.1
+	Mon,  1 Aug 2016 22:21:28 +0000 (UTC)
+Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
+	by mx0b-001b2d01.pphosted.com (8.16.0.11/8.16.0.11) with SMTP id
+	u71MInig067976 for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 1 Aug 2016 18:21:27 -0400
+Received: from e28smtp05.in.ibm.com (e28smtp05.in.ibm.com [125.16.236.5])
+	by mx0b-001b2d01.pphosted.com with ESMTP id 24gn5xpksa-1
+	(version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 01 Aug 2016 15:18:00 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <ECADFF3FD767C149AD96A924E7EA6EAF053B96B4@USCULXMSG02.am.sony.com>
-References: <87inw1skws.fsf@x220.int.ebiederm.org>
-	<25598.1469113525@warthog.procyon.org.uk>
-	<18158a39-1297-7368-3c0e-3e9b3ce2c3ab@suse.com>
-	<alpine.DEB.2.10.1607220808110.3114@hadrien>
-	<b3390bd5-eb54-428a-3030-1d7289880d47@suse.com>
-	<1469533716.120686.281.camel@infradead.org>
-	<alpine.DEB.2.10.1607271439250.3117@hadrien>
-	<1469625916.27356.18.camel@HansenPartnership.com>
-	<1469626423.120686.408.camel@infradead.org>
-	<ECADFF3FD767C149AD96A924E7EA6EAF053B96B4@USCULXMSG02.am.sony.com>
-From: Rob Herring <robherring2@gmail.com>
-Date: Mon, 1 Aug 2016 17:17:39 -0500
-Message-ID: <CAL_Jsq+dodMDAS4M=CZxjbB5gU7+qUT0XEKgeDQeGN_u4SYkwg@mail.gmail.com>
-To: "Bird, Timothy" <Tim.Bird@am.sony.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Mon, 01 Aug 2016 18:21:26 -0400
+Received: from localhost
+	by e28smtp05.in.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use
+	Only! Violators will be prosecuted
+	for <ksummit-discuss@lists.linuxfoundation.org> from
+	<zohar@linux.vnet.ibm.com>; Tue, 2 Aug 2016 03:51:23 +0530
+Received: from d28relay05.in.ibm.com (d28relay05.in.ibm.com [9.184.220.62])
+	by d28dlp01.in.ibm.com (Postfix) with ESMTP id 55CECE0040
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue,  2 Aug 2016 03:55:40 +0530 (IST)
+Received: from d28av05.in.ibm.com (d28av05.in.ibm.com [9.184.220.67])
+	by d28relay05.in.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+	u71MJh2g3473720 for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 2 Aug 2016 03:49:43 +0530
+Received: from d28av05.in.ibm.com (localhost [127.0.0.1])
+	by d28av05.in.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
+	u71MLHmH016536 for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 2 Aug 2016 03:51:20 +0530
+From: Mimi Zohar <zohar@linux.vnet.ibm.com>
+To: Andy Lutomirski <luto@amacapital.net>
+Date: Mon, 01 Aug 2016 18:21:09 -0400
+In-Reply-To: <CALCETrX134Qnv4Xy2RAHO2QXka9_k9qAoEqrXaw-mX2kAkrzig@mail.gmail.com>
+References: <20160728165728.GR4541@io.lakedaemon.net>
+	<1469830256.23563.200.camel@linux.vnet.ibm.com>
+	<CALCETrUiYghc5uq9GHQRT--n15PBimhJwHA0TwgNqGxsbRKaFw@mail.gmail.com>
+	<20160730163626.GP3296@wotan.suse.de>
+	<1469934481.23563.274.camel@linux.vnet.ibm.com>
+	<CALCETrWq0UZ176EKrp2jNkjFFn17twb8ZvfGKtRdD5E=iFAnBw@mail.gmail.com>
+	<1469979098.23563.300.camel@linux.vnet.ibm.com>
+	<CALCETrVQj23-0Bhsx91Z3O7BJdjDVXgPQSQUqXHoc+pd5+tfYA@mail.gmail.com>
+	<1469986138.23563.312.camel@linux.vnet.ibm.com>
+	<CALCETrV6y79898-+M8Mpvhm-e2_VXvSyQQPwY25YdeuJhCe1zg@mail.gmail.com>
+	<20160801172920.GU3296@wotan.suse.de>
+	<CALCETrX134Qnv4Xy2RAHO2QXka9_k9qAoEqrXaw-mX2kAkrzig@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Message-Id: <1470090069.23563.475.camel@linux.vnet.ibm.com>
+Cc: Jason Cooper <jason@lakedaemon.net>,
 	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] More useful types in the linux
-	kernel
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Mark Brown <broonie@sirena.org.uk>, Andy Lutomirski <luto@kernel.org>
+Subject: Re: [Ksummit-discuss] Last minute nominations: mcgrof and toshi
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -43,72 +70,28 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Jul 27, 2016 at 12:21 PM, Bird, Timothy <Tim.Bird@am.sony.com> wrote:
->
->
->> -----Original Message-----
->> From: ksummit-discuss-bounces@lists.linuxfoundation.org [mailto:ksummit-
->> discuss-bounces@lists.linuxfoundation.org] On Behalf Of David Woodhouse
->> Sent: Wednesday, July 27, 2016 5:34 AM
->> To: James Bottomley <James.Bottomley@HansenPartnership.com>; Julia Lawall
->> <julia.lawall@lip6.fr>
->> Cc: ksummit-discuss@lists.linuxfoundation.org
->> Subject: Re: [Ksummit-discuss] [CORE TOPIC] More useful types in the linux
->> kernel
->>
->> On Wed, 2016-07-27 at 09:25 -0400, James Bottomley wrote:
->> > On Wed, 2016-07-27 at 14:40 +0200, Julia Lawall wrote:
->> > >
->> > > On Tue, 26 Jul 2016, David Woodhouse wrote:
->> > >
->> > > > On Fri, 2016-07-22 at 15:57 +0200, Hannes Reinecke wrote:
->> > > > >
->> > > > > > I guess that almost all functions return only a few possible
->> > > > > > error codes?
->> > > > >
->> > > > > Precisely. If we had a way of specifying "the return value is an
->> > > > > errno with the possible values '0', '-EIO', and '-EINVAL'" that
->> > > > > would be _so_ cool.
->> > > >
->> > > > And perpetually out of date. Because functions call through to
->> > > > *other* functions which might return an errno outside the 'known'
->> > > > set.
->> > >
->> > > If you have a script to calculate it, it doesn't have to be
->> > > perpetually out of date.  The problem is just the time to collect the
->> > > information for the whole kernel.  It could be a good intern project.
->> >
->> > It's a lot of pain, for what gain?  What, practically would we get as a
->> > benefit if we did this?  Every time I see proposals about scripting
->> > checks in the kernel, I'm reminded of our section mismatch debacle.
->> >  Life is so much easier without every kernel release generating 100s of
->> > patches trying to correct section mismatches which didn't matter in the
->> > first place ...
->>
->> To find functions where the -errno returns might be ambiguous with real
->> valid return values, might be beneficial. If it doesn't have too many
->> false positives.
->
-> It might be useful to have a list of possible errno generation points, for a particular routine,
-> to make it easier to find the origin of a problem.  Sometimes when you're unfamiliar with
-> some bit of code, manually walking back through the call chain in the source is a hassle.
-> I'm reminded of that trick where someone (I don't recall who) embedded the line number
-> in the errno.
+On Mo, 2016-08-01 at 10:59 -0700, Andy Lutomirski wrote:
 
-I'd be interested if you could find what you are referring to. I would
-love to see something better here than my printk debugger. A list of
-possible errnos would help some, but I'd expect we typically have
-multiple called functions returning the same possible errnos, so you'd
-still be narrowing down the source manually. Debugging that probe of a
-driver failed because of a config option not being enabled is painful.
-Maybe I'm the only one that switches between boards/kernels a lot and
-does a poor job maintaining working configs.
+> Mimi, I'm curious: I don't fully understand what is covered by IMA
+> policy.  How does the IMA kernel_read_file stuff deal with symlinks?
+> For example, if I symlink /lib/firmware/iwlwifi-8265-21.ucode to
+> /home/badguy/iwlwifi-8265-21.ucode, what happens?  What if I symlink
+> /lib/firmware/iwlwifi-8265-21.ucode to /home/badguy/something_else?
+> Or even /lib/modules/kernel/foo/bar.ko to /home/badguy/evil.ko?  The
+> interesting case is where the "badguy" user is duly authorized to
+> write to /home/badguy and holds whatever keys may be needed.
 
-Wouldn't something as simple as turning all the errno's into backtrace
-printks or tracepoints be doable. It might have to be enabled on
-probe() entry to avoid any "normal" errors. Any code that initializes
-the return value with an error would be a false positive. A major
-benefit to something like this is it could get rid of lots of error
-path printks in drivers that bloat the kernel.
+Lets step back a second.  In order for a key to be added to the IMA
+keyring, the key must be signed by a key on the builtin keyring.  The
+key on the builtin keyring can be compiled into the kernel image or
+added post build using Mehmet Kayaalp's patches.
 
-Rob
+True, any key on the IMA keyring could be used to verify file signatures
+(in IMA terminology appraise the file's integrity).  The enumeration is
+a first step to making sure that only properly signed code is read by
+the kernel.  The next step requires finer grain key management.  In
+general, pathname based policies are not a good idea.  Whatever method
+is defined, it should not be limited to just firmware or files read by
+the kernel, but to all files.
+
+Mimi
