@@ -1,44 +1,33 @@
-Return-Path: <a.hajda@samsung.com>
+Return-Path: <keescook@google.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id AE88C899
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4F8C59B9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  1 Aug 2016 19:42:56 +0000 (UTC)
-Received: from mailout3.w1.samsung.com (mailout3.w1.samsung.com
-	[210.118.77.13])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8A235178
+	Mon,  1 Aug 2016 19:42:58 +0000 (UTC)
+Received: from mail-wm0-f53.google.com (mail-wm0-f53.google.com [74.125.82.53])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0D18D236
 	for <ksummit-discuss@lists.linuxfoundation.org>;
 	Mon,  1 Aug 2016 19:42:55 +0000 (UTC)
-Received: from eucpsbgm2.samsung.com (unknown [203.254.199.245])
-	by mailout3.w1.samsung.com
-	(Oracle Communications Messaging Server 7.0.5.31.0 64bit (built May 5
-	2014)) with ESMTP id <0OB8007XSXFHVZ40@mailout3.w1.samsung.com> for
-	ksummit-discuss@lists.linuxfoundation.org; Mon,
-	01 Aug 2016 20:42:53 +0100 (BST)
-To: Mark Brown <broonie@kernel.org>
-References: <93f7ce34-c2e9-583f-2e6f-1f23ae76a761@xs4all.nl>
-	<a4640467-d916-d52c-a905-152a53251f94@metafoo.de>
-	<20160801105531.2687069a@recife.lan> <579F6049.9030408@samsung.com>
-	<63f6e3b4-3a48-182f-e8d5-87e720b60d5d@metafoo.de>
-	<579F6C00.502@samsung.com>
-	<f612af4e-ddd1-44e3-9d0a-c7540636351c@metafoo.de>
-	<579F766F.1000605@samsung.com> <20160801170613.GV10376@sirena.org.uk>
-	<579F9613.4020805@samsung.com> <20160801184832.GA10376@sirena.org.uk>
-From: Andrzej Hajda <a.hajda@samsung.com>
-Message-id: <579FA631.9050702@samsung.com>
-Date: Mon, 01 Aug 2016 21:42:41 +0200
-MIME-version: 1.0
-In-reply-to: <20160801184832.GA10376@sirena.org.uk>
-Content-type: text/plain; charset=windows-1252
-Content-transfer-encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
-	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
-	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
-	Valentin Rothberg <valentinrothberg@gmail.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
- and semantics (v2)
+Received: by mail-wm0-f53.google.com with SMTP id f65so382667952wmi.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 01 Aug 2016 12:42:55 -0700 (PDT)
+MIME-Version: 1.0
+Sender: keescook@google.com
+In-Reply-To: <20160801104711.GB11119@leverpostej>
+References: <CALCETrXtfzi=G4H+Zttv3kWcCo32V6cO9OBfdyuYT4DHvJTJLg@mail.gmail.com>
+	<CAGXu5j+M06pdOB7Phqg==xg4p7=9ggmZciQuGZaNTXaW=-BCbg@mail.gmail.com>
+	<3aa8df3e-3705-9fd5-640c-37c0be2af561@imgtec.com>
+	<CAGXu5jKZb60=3H8faOG53Aq7H3MeST7_syionmFCE2HQFOG8SA@mail.gmail.com>
+	<20160801104711.GB11119@leverpostej>
+From: Kees Cook <keescook@chromium.org>
+Date: Mon, 1 Aug 2016 12:42:53 -0700
+Message-ID: <CAGXu5jLwwRjqM6j6WuJx9-JfnYbOuLoCWFFu+kLBtOcjLt6HWA@mail.gmail.com>
+To: Mark Rutland <mark.rutland@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Cc: Jann Horn <jann@thejh.net>, "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [TOPIC] kernel hardening / self-protection /
+	whatever
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -48,71 +37,214 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 08/01/2016 08:48 PM, Mark Brown wrote:
-> On Mon, Aug 01, 2016 at 08:33:55PM +0200, Andrzej Hajda wrote:
->> On 08/01/2016 07:06 PM, Mark Brown wrote:
->>> The device isn't supposed to work, just not crash - this is mainly used
->>> for things that are exposed to userspace where we need to keep returning
->>> errors to userspace until they free their reference.  I'm not sure we
->>> can get out of that one.
->> Could you give some examples? I suppose this is slightly different issue
->> than unbinding provider of working resource.
-> Anything where you have a resource open from userspace pretty much - a
-> file stored on media that got removed for example.  The struct
-> representing the open file handle needs to be valid as long as the file
-> is open.
-
-It seems to be not related directly to the subject - file handle is
-something
-created/controlled by userspace, as well as it's life-time.
-I see no real device dependency here. I guess Lars though rather about
-ghost resources like in clock framework, when after removing provider,
-clock ops are replaced by phony ops.
-
+On Mon, Aug 1, 2016 at 3:47 AM, Mark Rutland <mark.rutland@arm.com> wrote:
+> On Sun, Jul 31, 2016 at 03:04:58PM -0700, Kees Cook wrote:
+>> On Sun, Jul 31, 2016 at 2:55 AM, Paul Burton <paul.burton@imgtec.com> wrote:
+>> > It would be very interesting to discuss what's needed from arch code for
+>> > various hardening features, both those currently in mainline & those in
+>> > development.
+>>
+>> Yeah, there are a number of arch-specific things on my radar:
+>>
+>> - Standardizing copy_*_user() infrastructure. Each architecture does
+>> their usercopy work in slightly different ways, and hooking it for
+>> things like KASan and hardened usercopy can be weird and error-prone.
+>> What's landing in arm64 is, I think, likely the start of what things
+>> should look like for other architectures: there is a low-level
+>> function (__arch_copy_*_user) that does the actual work of the copy.
+>> Above that needs to be the place to hook KASan and hardened usercopy,
+>> but still within the __copy* and copy* functions. (And x86 has a
+>> single-underscore _copy* set of functions too!) Deciding the ordering
+>> of KASan/hardened-usercopy vs access_ok checks may be worth discussing
+>> too. For example, it's silly to check hardened-usercopy first if
+>> access_ok is going to reject it.
 >
->>> I think a lot of the difference between the two cases above is just
->>> about where the default callback comes from and how it's presented to
->>> users - having the driver core able to handle critical resources doesn't
->>> seem hugely different to providing a list of resources and offsets into
->>> driver_data in the struct driver and having a default callback that
->>> calls probe() and remove() with an already allocated and initialized
->>> driver_data.  That'd definitely cut down a lot on bolilerplate code,
->> If you want to driver core handle critical resources you should teach
->> it how to get description of these resources (DT/ACPI properties, platform
->> data in case of older systems, ...anything else?) and to distinguish
->> between critical and optional resources (this info is not available in DT).
->> If you leave this task to the device driver it has already this knowledge,
->> so you just need to create some helpers.
-> You don't need to do one or the other, you can do both (though as Lars
-> pointed out if there's things the core doesn't know about that means it
-> can do less, like with suspend/resume).
+> I think that's basically implied by the copy_* and __copy_* variants,
+> per the asm-generic version the former simply add an access_ok check
+> prior to calling the latter.
+
+Well, it's certainly the intended design, but some architectures use
+inlines, some use a common function for the copy (with in/out as a
+parameter), and x86 uses different paths for __copy* than copy*
+
+> Modulo figuring out the specifics for x86, perhaps this is just a matter
+> of proposing patches?
+
+Totally agreed: though there is enough arch-specific nuance in here
+that I'd love to see arch maintainers helping (and I only have so much
+time...)
+
+> Given arm64 looks to be roughly the right shape already, I'd be happy to
+> see how much of the arm64 code we can shift out to
+> <asm-generic/uaccess.h> or <linux/uaccess.h>.
+
+Right, I think that'd be the first step.
+
+>> - Cleaning up CONFIG_DEBUG_RODATA. This config should not be called
+>> "debug", and, frankly, it should be mandatory for all architectures.
 >
->>> but
->>> there's problems with the driver trying to clean up when removing (eg,
->>> disabling things) when some of the resources it used are in the process
->>> of being removed themselves.
->> Serialization of this process should solve it (as I proposed in RFC),
->> ie. all tasks below:
->> - registering callback monitoring given resource,
->> - unregistering the callback,
->> - registering the resource,
->> - unregistering the resource,
->> should be serialized.
->> There is still a question about granulation of serialization:
->> it could be done at framework level but it could be done
->> also per resource.
-> Serialization doesn't help here.  If a resource is unregistering and a
-> callback is called it's likely that the callback will want to do
-> something like disable the thing that's trying to free itself which is
-> potentially messy.
+> Likewise for DEBUG_SET_MODULE_RONX (which is currently independent of
+> DEBUG_RODATA). I think we should do the same thing there, and perhaps
+> fold the options together, or remove the config symbols entirely.
 
-No, callback is called always when resource is available:
-- just after registering resource,
-- just before unregistering resource,
-so consumer can do anything with the resource in the callback.
+Yes, totally agreed.
 
-And due to serialization resource removal cannot start until callback
-finishes.
+> We don't currently have a boot-time option to disable
+> DEBUG_SET_MODULE_RONX for testing, as we do for DEBUG_RODATA. Perhaps
+> adding one is the first step to making that default y for all
+> architectures?
 
-Regards
-Andrzej
+Or tie it to the existing rodata flag, then drop the MODULE_RONX
+config? In the back of my mind there's some reason that these are
+separate configs, but I can't remember now. Maybe Laura remembers?
+
+>> - Significant reduction in kernel memory attack surface by marking
+>> rarely-changed function pointers as read-only. We need architectures
+>> to have a way to make (uncommonly changed) function pointers
+>> temporarily writable so that they are read-only (see
+>> CONFIG_DEBUG_RODATA above) during most of their lifetime, thus
+>> removing them as viable attack targets. There is nothing implemented
+>> for this in the kernel yet.
+>
+> For reference, do you have any specific examples of such pointers? Most
+> things I can think of are perhaps more suitable for ro_after_init (e.g.
+> handle_arch_irq), or are embedded in structures with RW fields like
+> refcounts.
+
+So, a lot of things that look like they're good for ro_after_init
+aren't exactly, like x86 smp_ops, which gets written to during suspend
+(or resume?). Or vector, interrupt, and exception tables which need to
+be able to change under rare situations. There are also structures
+like page tables, etc. And there are function tables that get set up
+outside of __init that could be read-only. Doing a quick grep through
+the Grsecurity patchset shows pax_open_kernel() calls on things like
+struct cdrom_device_ops. (Which could be const, except for the
+rewriting of the generic_packet callback.)
+
+Basically, doing an analysis of all things that could be const (which
+the (currently out-of-tree) constify plugin does quite a bit of), and
+dealing with the weird cases.
+
+> I'll also read "temporarily writeable" as "modifiable through some alias
+> somehow". For arm/arm64 it's easier/faster/safer to set up a temporary
+> R/W alias for modification than to modify the active kernel image
+> mapping.
+
+Sure, though whatever the mechanism, it should be ROP-safe, i.e.
+keeping it inline around the write, otherwise it may come to haunt us
+as a new exploit path. :)
+
+>> - Stacks without thread_info and with guard pages. Each architecture
+>> needs to keep sensitive values off the kernel stack so that they can't
+>> be targeted via stack-based attacks (e.g. via offsets or exhaustion),
+>> and that faulting pages should live at either end to catch exhaustion
+>> or large writes/reads trying to reach into other stacks. x86 is
+>> starting to work on this now.
+>
+> I've also begun looking at this for arm64. It should be possible, though
+> so far I've found a couple of things that mean we can't do a trivial
+> port of the x86 approach:
+>
+> - Unlike x86, we don't have a double-fault vector which can move to a
+>   new stack. We do have separate "thread" and "handler" stacks, but the
+>   hardware always moves to the handler stack when an exception is taken.
+>   So far, ideas of what we can do include:
+>
+>   * do some early entry work on the handler stack, then migrate to the
+>     thread stack. This probably involves a memcpy of stashed context, so
+>     the trivial version is likely to be measurably slower than what we
+>     do now.
+>
+>   * always use the handler stack, but detect overflow before stacking
+>     any context.
+>
+>     For this, it looks like we need at least a register's worth of
+>     scratch space, so it's not clear how to do this. We could perhaps
+>     have per-cpu vectors so as to give us pc-relative addressable
+>     scratch space.
+>
+>     I'd initially hoped we could over-align the stack and use TBNZ to
+>     detect the overflow, but it looks like that accepts the zero
+>     register rather than the SP.
+>
+> - Our per-cpu primitives depend on preempt_{disable,enable}(), which
+>   depend on modifying preempt_count in our thread_info. This means that
+>   we can't use a per-cpu thread_info pointer like x86 now does.
+>
+>   We might be able to safely access a per-cpu thread_info pointer in our
+>   entry code to initialise a cached value in sp_el0, though, given we
+>   don't expect to take any exceptions there (and thus aren't
+>   preemptible).
+>
+>   I've also been looking at per-cpu primitives that don't need the
+>   preempt_{disable,enable}() dance, but the approach I've come up with
+>   so far (reserving a general purpose register) is rather invasive and
+>   scary.
+
+Heh, yeah, a lot of the hardening changes end up with some really
+tight design restrictions, but just getting people thinking about them
+at all is a great first step. At the very least, it can help guide
+architectures away from digging deeper holes when other things get
+designed.
+
+>> For the things that are implemented in the kernel, making sure each
+>> architecture fully supports them would be a good first step. I'd like
+>> to make a little chart of feature vs architecture, but it's a little
+>> hard to compile, since it tends to have a third dimension: chipset.
+>> For example, the PAN/SMAP protection (emulated or in hardware) looks
+>> like this:
+>> http://kernsec.org/wiki/index.php/Exploit_Methods/Userspace_data_usage#Mitigations
+>> so it can be a bit of an eye-chart. :P
+>
+> Somewhat an aside, a while back I wanted to clean-up:
+> http://kernsec.org/wiki/index.php/Feature_List
+>
+> To be a feature x arch chart, with version+fixups notes in each cell, as
+> that would help to highlight what was implemented/missing per-arch.
+>
+> I couldn't see how to register for the wiki to do so. If the above
+> sounds useful, is there any way I can get an account?
+
+Yeah, that'd be great. James Morris should be able to set you up an account.
+
+> One final thing that I didn't spot on the list was testing. For example,
+> recent patches to LKDTM were somewhat hindered by the OBJCOPYFLAGS mess.
+> Having tests work across architectures (and having tests at all!) is
+> really important to for both development and ongoing regression testing
+> of features.
+
+I thought briefly about including that on my "radar" list above, but
+decided my email had gotten long enough already. ;) But yes, testing
+is absolutely central to these protections. If we can't test it, we
+have no idea if even works in the first place, and that it doesn't
+regress later. I've been trying to keep LKDTM up to date with as many
+tests for things as possible. (In fact, LKDTM actually has some tests
+for things that aren't even in the kernel yet (e.g. the atomic wrap
+test and the usercopy whitelisting).) But things slip by once in a
+while, but I try to keep them on the KSPP TODO list (e.g. the eBPF JIT
+constant blinding test).
+
+Trying to write the tests so they are strictly architecture agnostic
+is also important, since I want to test a protection, not an
+architecture. :) This is why I went through so many weird hoops to get
+the rodata-isn't-executable test done with objcopy: no arch-specific
+code.
+
+> As a cross-track thing, it would be great if we could have test projects
+> like kernelci run security regression tests. We should see if there's
+> anything we need to do cross-arch to make that happen.
+
+I talked with the kernelci folks last year, and they were interested
+in using the lkdtm stuff, but it was a bit sideway to how they expect
+tests to operate. For lkdtm, testing is inverted: if we Oops, it's
+working. And in some tests, the entire system is taken down (e.g.
+stack buffer overflow detection), so catching that the device under
+test has _correctly_ crashed needs a non-trivial amount of test
+framework infrastructure to handle. I'd love it if someone could step
+up to take the time to get what's needed into kernelci.
+
+-Kees
+
+-- 
+Kees Cook
+Chrome OS & Brillo Security
