@@ -1,21 +1,21 @@
 Return-Path: <laurent.pinchart@ideasonboard.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 90E408A5
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3956291A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  1 Aug 2016 12:44:31 +0000 (UTC)
+	Mon,  1 Aug 2016 12:50:40 +0000 (UTC)
 Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
 	[185.26.127.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 520F1272
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1E88528C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  1 Aug 2016 12:44:30 +0000 (UTC)
+	Mon,  1 Aug 2016 12:50:39 +0000 (UTC)
 From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 To: "Luis R. Rodriguez" <mcgrof@kernel.org>
-Date: Mon, 01 Aug 2016 15:44:29 +0300
-Message-ID: <7470660.QQiQecYycE@avalon>
-In-Reply-To: <20160728234314.GD3296@wotan.suse.de>
+Date: Mon, 01 Aug 2016 15:50:37 +0300
+Message-ID: <1897981.4KlpDOAc3c@avalon>
+In-Reply-To: <20160729000055.GE3296@wotan.suse.de>
 References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
-	<1745007.86gEd5I2vq@avalon> <20160728234314.GD3296@wotan.suse.de>
+	<3704346.bW37OlXF5c@avalon> <20160729000055.GE3296@wotan.suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="us-ascii"
@@ -23,7 +23,9 @@ Cc: ksummit-discuss@lists.linuxfoundation.org,
 	Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
 	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
 	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
+	Armin Biere <biere@jku.at>, Roberto Di Cosmo <roberto@dicosmo.org>,
 	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Stefano Zacchiroli <zack@upsilon.cc>,
 	Valentin Rothberg <valentinrothberg@gmail.com>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
 	and semantics (v2)
@@ -38,36 +40,51 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 
 Hi Luis,
 
-On Friday 29 Jul 2016 01:43:14 Luis R. Rodriguez wrote:
-> On Thu, Jul 28, 2016 at 01:51:02PM +0300, Laurent Pinchart wrote:
-> > As the co-author of the media controller code (along with Sakari Ailus,
-> > based on a draft proposal from Hans Verkuil), I don't think MC will help
-> > here. It addresses very different problems, its purpose is to expose the
-> > topology of data flows inside a media device to userspace.
+On Friday 29 Jul 2016 02:00:55 Luis R. Rodriguez wrote:
+> On Thu, Jul 28, 2016 at 07:04:49PM +0300, Laurent Pinchart wrote:
+> > On Thursday 28 Jul 2016 09:25:58 Mauro Carvalho Chehab wrote:
+> >> For the device-centric media devices, the pipelines should be created by
+> >> the Kernel, and not via userspace. On such cases, a SAT solver could
+> >> help to setup the hardware pipelines.
+> > 
+> > That's the part I don't get. How is SAT related to that ?
 > 
-> This is the key that interest me. Not the exact code -- but how it
-> accomplishes this and lessons learned.
-> 
-> > This being said I'd be very interested in discussing asynchronous probing
-> > and probe ordering. I can also certainly bring media controller knowledge
-> > to the discussion, but I don't think that part would be very useful
-> > (apart possibly for saving everybody's time by explaining why MC isn't a
-> > solution to address those problems :-)).
-> 
-> Its not that MC would solve the issues, its what lessons were learned on the
-> way we can re-use. Also, if we can use some bells and whistles for a
-> generic solution, could the MC leverage off of that? This proposal is of
-> course very abstract, so bear with me.
+> Provided you have figured out how to generalize how describe items and
+> dependencies, you should be able to use a SAT solver to find optimal
+> dependency maps.  For instance SAT solvers have been used in challenges to
+> help address Linux distribution package dependency issues, helping improve
+> the not only if a request is satisfiable but also help with the most
+> optimal solution.
 
-One problem I expect to have to solve in the future in MC is related to 
-locking. We currently have a single graph-wide mutex that serializes all 
-operations on the graph. With graphs getting larger (especially with recent 
-SoCs that have deep hardware pipelines between camera and display devices, 
-making lots of IP cores part of the same data graph) locking contention might 
-become an issue. Throw dynamic graph updates in the mix (the ability to add or 
-remove nodes as a consequence of device hotplug) and this will call for a 
-rework of the locking scheme. Learning from similar experiences elsewhere in 
-the kernel would be highly beneficial for us.
+Thanks for the clarification, this matches my understanding. My question 
+originated from the fact the we don't really have dependency problems to solve 
+in MC, at least in kernelspace. While I can't rule out a change in the future 
+there, at the moment our dependency issues in V4L2 are related to probe 
+ordering and suspend/resume (and to some extent to device removal, but that 
+has been a second-class citizen so far). Improvements there would be welcome, 
+but that's unrelated to MC.
+
+The various directions in which this discussion is going leads me to believe 
+that the topic would be good to discuss during the Kernel Summit, if only to 
+get everybody aware of related developments happening through the kernel and 
+foster collaboration in those areas.
+
+> A SAT solver therefore in theory could be used to help optimal dependency
+> maps as well for other things, which are kernel-related. For instance we'll
+> baby step testing this with kconfig [0], if that proves useful we'll have
+> to find timing / limitations, but it should at least give us a lower order
+> resolution time, and depending on your requirements it may suffice for some
+> needs. Furthermore, say you were not time constrained (linker or compiler)
+> and could order things in code prior to execution, you could sort things
+> out pre-runtime for a few situations.
+> 
+> This naturally then varies depending on the problem at hand. I've jotted
+> down a few ideas on the wiki but its really all just scrapbook notes at
+> this point [1] with an eye towards the long term here, and projecting work
+> on kconfig gets done.
+> 
+> [0] https://kernelnewbies.org/KernelProjects/kconfig-sat
+> [1] https://kernelnewbies.org/KernelProjects/linux-sat
 
 -- 
 Regards,
