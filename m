@@ -1,32 +1,41 @@
-Return-Path: <laurent.pinchart@ideasonboard.com>
+Return-Path: <luto@amacapital.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8495A98C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4B730959
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  1 Aug 2016 17:40:27 +0000 (UTC)
-Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
-	[185.26.127.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 978BF202
+	Mon,  1 Aug 2016 18:00:19 +0000 (UTC)
+Received: from mail-ua0-f181.google.com (mail-ua0-f181.google.com
+	[209.85.217.181])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B805A30F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  1 Aug 2016 17:40:26 +0000 (UTC)
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Mon, 01 Aug 2016 20:40:25 +0300
-Message-ID: <2756250.sEDmrCK4m2@avalon>
-In-Reply-To: <63f6e3b4-3a48-182f-e8d5-87e720b60d5d@metafoo.de>
-References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
-	<579F6049.9030408@samsung.com>
-	<63f6e3b4-3a48-182f-e8d5-87e720b60d5d@metafoo.de>
+	Mon,  1 Aug 2016 18:00:18 +0000 (UTC)
+Received: by mail-ua0-f181.google.com with SMTP id k90so111824097uak.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 01 Aug 2016 11:00:18 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-Cc: Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
-	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
-	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
-	Valentin Rothberg <valentinrothberg@gmail.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
-	and semantics (v2)
+In-Reply-To: <20160801172920.GU3296@wotan.suse.de>
+References: <20160728165728.GR4541@io.lakedaemon.net>
+	<1469830256.23563.200.camel@linux.vnet.ibm.com>
+	<CALCETrUiYghc5uq9GHQRT--n15PBimhJwHA0TwgNqGxsbRKaFw@mail.gmail.com>
+	<20160730163626.GP3296@wotan.suse.de>
+	<1469934481.23563.274.camel@linux.vnet.ibm.com>
+	<CALCETrWq0UZ176EKrp2jNkjFFn17twb8ZvfGKtRdD5E=iFAnBw@mail.gmail.com>
+	<1469979098.23563.300.camel@linux.vnet.ibm.com>
+	<CALCETrVQj23-0Bhsx91Z3O7BJdjDVXgPQSQUqXHoc+pd5+tfYA@mail.gmail.com>
+	<1469986138.23563.312.camel@linux.vnet.ibm.com>
+	<CALCETrV6y79898-+M8Mpvhm-e2_VXvSyQQPwY25YdeuJhCe1zg@mail.gmail.com>
+	<20160801172920.GU3296@wotan.suse.de>
+From: Andy Lutomirski <luto@amacapital.net>
+Date: Mon, 1 Aug 2016 10:59:57 -0700
+Message-ID: <CALCETrX134Qnv4Xy2RAHO2QXka9_k9qAoEqrXaw-mX2kAkrzig@mail.gmail.com>
+To: "Luis R. Rodriguez" <mcgrof@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Cc: Jason Cooper <jason@lakedaemon.net>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Mark Brown <broonie@sirena.org.uk>, Andy Lutomirski <luto@kernel.org>
+Subject: Re: [Ksummit-discuss] Last minute nominations: mcgrof and toshi
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,124 +45,71 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Lars,
+On Mon, Aug 1, 2016 at 10:29 AM, Luis R. Rodriguez <mcgrof@suse.com> wrote:
+> On Sun, Jul 31, 2016 at 11:20:08AM -0700, Andy Lutomirski wrote:
+>> If IMA doesn't want or need to verify the purpose of the loaded file, fine.
+>
+> So other than origin you are indicating a proper LSM that would want to vet firmware
+> should want purpose ? Is that right?
 
-On Monday 01 Aug 2016 16:54:46 Lars-Peter Clausen wrote:
-> On 08/01/2016 04:44 PM, Andrzej Hajda wrote:
-> > On 08/01/2016 03:55 PM, Mauro Carvalho Chehab wrote:
-> >> Em Mon, 1 Aug 2016 15:33:22 +0200 Lars-Peter Clausen escreveu:
-> >>> On 08/01/2016 03:21 PM, Hans Verkuil wrote:
-> >>>> On 08/01/2016 03:09 PM, Laurent Pinchart wrote:
-> >>>>> On Friday 29 Jul 2016 12:13:03 Mark Brown wrote:
-> >>>>>> On Fri, Jul 29, 2016 at 09:45:55AM +0200, Hans Verkuil wrote:
-> >>>>>>> My main problem is not so much with deferred probe (esp. for cyclic
-> >>>>>>> dependencies it is a simple method of solving this, and simple is
-> >>>>>>> good). My main problem is that you can't tell the system that driver
-> >>>>>>> A needs to be probed after drivers B, C and D are probed first.
-> >>>>>>> 
-> >>>>>>> That would allow us to get rid of v4l2-async.c which is a horrible
-> >>>>>>> hack.
-> >>>>>>> 
-> >>>>>>> That code allows a bridge driver to wait until all dependent drivers
-> >>>>>>> are probed. This really should be core functionality.
-> >>>>>>> 
-> >>>>>>> Do other subsystems do something similar like
-> >>>>>>> drivers/media/v4l2-core/v4l2-async.c? Does anyone know?
-> >>>>>> 
-> >>>>>> ASoC does, it has an explicit card driver to join things together and
-> >>>>>> that just defers probe until everything it needs is present.  This
-> >>>>>> was originally open coded in ASoC but once deferred probe was
-> >>>>>> implemented we converted to that.
-> >>>>> 
-> >>>>> Asynchronous bindings of components, as done in ASoC, DRM and V4L2, is
-> >>>>> a problem largely solved (or rather hacked around), but I'm curious to
-> >>>>> know how ASoC handles device unbinding (due to device removal or
-> >>>>> manual unbinding through sysfs). With asynchronous binding we can
-> >>>>> more or less easily wait for all components to be present before
-> >>>>> creating circular dependencies, but breaking them to implement
-> >>>>> unbinding is an unsolved problem at least in V4L2.>>>> 
-> >>>>
-> >>>> We need to prevent subdevice drivers from being unbound. It's easy
-> >>>> enough to do that (set suppress_bind_attrs to true), we just never did
-> >>>> that. It's been on my TODO list for ages to make a patch adding that
-> >>>> flag...
-> >>>> 
-> >>>> You can only unbind bridge drivers. Unbinding subdevs is pointless in
-> >>>> general and should be prohibited. Perhaps in the future with
-> >>>> dynamically reconfigurable video pipelines (FPGA) you want that, but
-> >>>> then you need to do a lot of additional work. For everything we have
-> >>>> today we should just set suppress_bind_attrs to true.
-> >>> 
-> >>> suppress_bind_attrs is the lazy solution and as you pointed out does not
-> >>> work too well for all cases.
-> >> 
-> >> Agreed.
-> >> 
-> >> What we really need is a kind of "usage count" behavior to suppress
-> >> unbinds, e. g. a device driver can be unbound only if any other driver
-> >> using resources on it gets unbind first.
-> >> 
-> >> That will solve most of unbind issues at the media subsystem.
-> > 
-> > When I was investigating issues with unbind sysfs attribute I have found
-> > claim by Greg KH that unbind should be rather unavoidable, like in case
-> > of hw removal - kernel is not able to prevent users from removing usb
-> > device, even if it is in use.
-> > 
-> > Assuming the claim is still valid, the only solution I see are callbacks
-> > notifying resource consumers about removal of the resources.
-> 
-> There are multiple options.
-> 
-> One option, which I think is currently the most used option in the kernel,
-> is to unregister the resource when the provider is removed, but keep the
-> resource object alive as long as there are users. Any further operation on
-> such object will fail with an error. This works to the point where things
-> don't crash, but it wont function in any meaningful way. There is no way to
-> automatically recover if the resource reappears.
+An security policy that wants to provide strong protection should
+verify that whatever file is being loaded is being used for its
+authorized purpose.  The wireless regulatory subsystem should only
+load data signed by the wifi regulatory key, the iwlwifi driver should
+only accept firmware signed by the system *for the purpose of being
+used as iwlwifi firmware* (or perhaps signed by Intel), the nouveau
+driver should accept files signed for the purpose of being used as
+nvidia firmware and should reject things that are signed by Intel,
+etc.
 
-As Mark mentioned, I don't think we can do anything else than this when it 
-comes to userspace-facing interfaces. We need to keep objects alive until they 
-can't be accessed by userspace anymore, otherwise we'll oops. The device will 
-obviously stop working if it loses mandatory resources, this is all about 
-failing gracefully.
+> If so I'd like to understand this suggestion
+> a bit better given we already have. So we have:
+>
+> #define __kernel_read_file_id(id) \
+>         id(UNKNOWN, unknown)            \
+>         id(FIRMWARE, firmware)          \
+>         id(FIRMWARE_PREALLOC_BUFFER, firmware)  \
+>         id(MODULE, kernel-module)               \
+>         id(KEXEC_IMAGE, kexec-image)            \
+>         id(KEXEC_INITRAMFS, kexec-initramfs)    \
+>         id(POLICY, security-policy)             \
+>         id(MAX_ID, )
+>
+>
+> #define __fid_enumify(ENUM, dummy) READING_ ## ENUM,
+> #define __fid_stringify(dummy, str) #str,
+>
+> enum kernel_read_file_id {
+>         __kernel_read_file_id(__fid_enumify)
+> };
+>
+> extern int kernel_read_file_from_path(char *, void **, loff_t *, loff_t,
+>                                       enum kernel_read_file_id);
+>
+> Are you saying FIRMWARE id is not sufficient ? What would be an example
+> purpose be here for FIRMWARE ?
 
-One a side note, this is actually very difficult to get right in drivers in a 
-race-free way. I'm not sure how core frameworks could help, but if they can, 
-they should. And I'm afraid that devm_kzalloc() worsened the situation as many 
-drivers use it to allocate the driver-specific data structure that can be 
-accessed through userspace API calls. The memory is then freed at unbind time 
-without any reference counting.
+The string "iwlwifi-8265-21.ucode" would be a reasonable purpose, I
+think.  It could make sense to split out the vendor, too:
 
-> Other options are as you pointed out notifier callbacks that allows the
-> resource use to be aware that a resource has disappeared and it might adjust
-> and continue to function with limited functionality.
+.type = FIRMWARE,
+.vendor = "Intel",
+.purpose = "iwlwifi-8265-21.ucode",
 
-That's especially important for optional resources, when the consumer can 
-still work, possibly in a degraded mode, when the resource isn't available. I 
-don't think such a callback could replace the reference counting used in the 
-above option though. Callbacks can be racy, and make locking tricky. Keeping 
-pointers valid until the last user goes away should simplify the 
-implementation and be our lowest level safety net.
+then distro policy could know to accept a file signed by Intel
+(because "Intel" would be mapped in some table to a public key), a
+file signed by the distro key where the signature (using PKCS#7
+auxiliarry data (or whatever it's called) or some other simpler
+protocol) indicates that the signed object is "iwlwifi-8265-21.ucode",
+or perhaps an IMA-verified file with an appropriate absolute path.
 
-Note that option resources here has a very specific meaning. For instance, a 
-reset GPIO might be optional in the sense that if the reset pin of the device 
-is tied to a power rail, the driver doesn't need to control the reset signal. 
-If the GPIO is available though, and then disappears, it might get pulled back 
-to the reset state due to the GPIO controller being unbound, which would 
-prevent the device from working properly.
+Mimi, I'm curious: I don't fully understand what is covered by IMA
+policy.  How does the IMA kernel_read_file stuff deal with symlinks?
+For example, if I symlink /lib/firmware/iwlwifi-8265-21.ucode to
+/home/badguy/iwlwifi-8265-21.ucode, what happens?  What if I symlink
+/lib/firmware/iwlwifi-8265-21.ucode to /home/badguy/something_else?
+Or even /lib/modules/kernel/foo/bar.ko to /home/badguy/evil.ko?  The
+interesting case is where the "badguy" user is duly authorized to
+write to /home/badguy and holds whatever keys may be needed.
 
-> Another option is to teach the device core about critical resource
-> dependencies so that a consumer is automatically unbound by the core if any
-> of its resource dependencies are unregistered. The device can also
-> automatically be re-bound once the critical resources re-appear.
-
-That could be an interesting shortcut, I'd be curious to see how it could be 
-implemented.
-
-> The most likely solution is probably a mixture of all of them.
-
--- 
-Regards,
-
-Laurent Pinchart
+--Andy
