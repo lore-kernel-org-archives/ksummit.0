@@ -1,29 +1,22 @@
-Return-Path: <laurent.pinchart@ideasonboard.com>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 59DD7413
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  1 Aug 2016 11:03:24 +0000 (UTC)
-Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
-	[185.26.127.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8686FA7
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  1 Aug 2016 11:03:22 +0000 (UTC)
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Jonathan Cameron <jic23@jic23.retrosnub.co.uk>
-Date: Mon, 01 Aug 2016 14:03:20 +0300
-Message-ID: <4941501.pcImWRQfCn@avalon>
-In-Reply-To: <8fee553b-de04-27c9-9c33-d578a1f3cca1@jic23.retrosnub.co.uk>
-References: <5222c3bb-d6b7-0ccc-bf9e-becf5046a37a@kernel.org>
-	<1509685.ufIZn1R9J2@avalon>
-	<8fee553b-de04-27c9-9c33-d578a1f3cca1@jic23.retrosnub.co.uk>
+Return-Path: <vbabka@suse.cz>
+To: Johannes Berg <johannes@sipsolutions.net>, Jiri Kosina
+	<jikos@kernel.org>, "Luck, Tony" <tony.luck@intel.com>
+References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
+	<5780334E.8020801@roeck-us.net>
+	<3908561D78D1C84285E8C5FCA982C28F3A15659B@ORSMSX114.amr.corp.intel.com>
+	<alpine.LNX.2.00.1607091028050.24757@cbobk.fhfr.pm>
+	<1468056541.4837.34.camel@sipsolutions.net> <57814D4E.9000001@suse.cz>
+	<1470043948.3389.13.camel@sipsolutions.net>
+From: Vlastimil Babka <vbabka@suse.cz>
+Message-ID: <37ced473-7246-9af2-f63c-d0a000de6608@suse.cz>
+Date: Mon, 1 Aug 2016 13:10:23 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-Cc: Zhang Rui <rui.zhang@intel.com>, Rob Herring <robh+dt@kernel.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Sensors and similar - subsystem
-	interactions, divisions, bindings etc.
+In-Reply-To: <1470043948.3389.13.camel@sipsolutions.net>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Cc: "ksummit-discuss@lists.linux-foundation.org"
+	<ksummit-discuss@lists.linux-foundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,83 +26,45 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thursday 28 Jul 2016 23:09:59 Jonathan Cameron wrote:
-> On 28/07/16 17:42, Laurent Pinchart wrote:
-> > On Thursday 28 Jul 2016 08:58:46 Mauro Carvalho Chehab wrote:
-> >> Em Wed, 20 Jul 2016 22:18:11 +0100 Jonathan Cameron escreveu:
-> >>> Hi All,
-> >>>=20
-> >>> This topic would be around the way the various subsystems interac=
-t, in
-> >>> the rough area of 'sensors' (I haven't yet had much of an issue w=
-ith
-> >>> subsystem crossing with output devices but maybe that's just over=
- the
-> >>> next hill!)
-> >>=20
-> >> Yeah, there is a gray area here as devices become more complex.
-> >> So, I'm interested on such topic.
-> >>=20
-> >>> Scope may well be wider but includes:
-> >>> * input (some of it)
-> >>> * hwmon
-> >>> * iio
-> >>> * comedi(?)
-> >>> * thermal
-> >>> * power/battery
-> >>> * gpio - the blur between gpios and beaglescope / PLC type I/O.
-> >>> * v4l - when does a device jump from being a multi pixel thermopi=
-le
-> >>> to a thermal camera? Smart fingerprint scanners etc.  Gesture
-> >>> recognition sensors (effectively 9ish pixel cameras)
-> >>=20
-> >> For devices that provide images somehow, I'd say that the best wou=
-ld be
-> >> to implement them as via the V4L2 API.
-> >=20
-> > This requires defining what an image is. Furthermore, we very low i=
-mage
-> > resolution devices, we will need to deal with high frame rates (1k-=
-10k is
-> > a range we need to consider). The V4L2 API will likely show perform=
-ance
-> > issues.
+On 08/01/2016 11:32 AM, Johannes Berg wrote:
+> (sorry for the long delay - was off for a scheduled surgery & vacation)
 >
-> An interesting point I'd never thought about before. Funnily enough t=
-he
-> devices around this boundary that I've encountered have all been rela=
-tively
-> slow. Doubt we'll be lucky enough that that will last!
+>> What if we just require that
+>> *somebody* (maintainer or otherwise) tags the patch with something
+>> like a "Stable-Acked-By", which should mean taking more
+>> responsibility for it than just forwarding a patch to stable without
+>> consequences. It should imply that the acker has checked the patch in
+>> the context of the particular kernel version, and be clearly
+>> separated from acks/reviews of the mainline commit. It would be of
+>> course better if stable tree maintainer would check if the acking
+>> person is a regular contributor of the subsystem (I guess get-
+>> maintainers.pl with its git checking can help here).
+>> This could be required initially at least for patches where the Cc:
+>> stable wasn't already present at time of maintainer's signed-off-by.
+>
+> It comes down to a question of trust though - who are the people you
+> trust with a (hypothetical) "stable-acked-by"? There are no doubt a
 
-For the sake of completeness, I'd like to add that always-on image sens=
-ors=20
-(for instance https://globenewswire.com/news-release/2016/01/19/802804/=
-0/en/Himax-Launches-Ultra-Low-Power-CMOS-Image-Sensor-for-Always-On-Com=
-puter-Vision-Applications.html) will also bring=20
-interesting challenges. The frame rate won't be particularly high, but =
-the low=20
-resolution will allow transmitting image data over I2C (or rather I3C, =
-a=20
-faster I2C-compatible serial bus, see http://mipi.org/specifications/i3=
-c=E2=84=A0-sensor-specification) in a continuous fashion.
+This shouldn't be that different from normal Acked-by or Reviewed-by, 
+where the maintainer also shouldn't blindly trust everyone. Of course 
+it's definitely easier to know the trusted people for a subsystem 
+maintainer with limited number of participants, compared to a 
+whole-stable-tree maintainer. That's why I mentioned that track record 
+from git can help at least filter out completely unknown people acking 
+things.
 
-> >> We'll likely need to discuss it case by case, specially for early =
-cross-
-> >> subsystem drivers, though, as it is not trivial to identify the su=
-bsystem
-> >> boundaries, and sometimes multiple APIs from different subsystems =
-is
-> >> needed. Also, it is not clear where such drivers would fit at the =
-Kernel
-> >> tree.
-> >>=20
-> >> One interesting case is an input device driver with multi-finger
-> >> support (drivers/input/touchscreen/sur40.c). I suspect we'll have
-> >> more cases like that over time.
-> >>=20
-> >>> * Lots of random things we haven't seen yet.
+> number of people who will see that this is the process, and send such a
+> tag to expedite a patch going into the tree, just because of "process"
+> and little else.
 
---=20
-Regards,
+I guess they are to some extend risking their reputation if they ack 
+garbage.
 
-Laurent Pinchart
+> IOW, I fear that such a thing, if anyone was able to give a go ahead,
+> wouldn't help anything at all.
+
+Not "anyone", but anyone with sufficient reputation.
+
+>
+> johannes
+>
