@@ -1,37 +1,36 @@
-Return-Path: <jason@lakedaemon.net>
+Return-Path: <linus.walleij@linaro.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1E5F79CA
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9EEDF9AF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  2 Aug 2016 12:20:13 +0000 (UTC)
-Received: from outbound1a.ore.mailhop.org (outbound1a.ore.mailhop.org
-	[54.213.22.21])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1780E157
+	Tue,  2 Aug 2016 12:54:22 +0000 (UTC)
+Received: from mail-oi0-f50.google.com (mail-oi0-f50.google.com
+	[209.85.218.50])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 79A1CCD
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  2 Aug 2016 12:20:12 +0000 (UTC)
-Date: Tue, 2 Aug 2016 12:20:05 +0000
-From: Jason Cooper <jason@lakedaemon.net>
-To: Andy Lutomirski <luto@amacapital.net>
-Message-ID: <20160802122005.GI4541@io.lakedaemon.net>
-References: <20160801172920.GU3296@wotan.suse.de>
-	<CALCETrX134Qnv4Xy2RAHO2QXka9_k9qAoEqrXaw-mX2kAkrzig@mail.gmail.com>
-	<1470090069.23563.475.camel@linux.vnet.ibm.com>
-	<CALCETrWY-xvF3ZKjt_r2azEk3Pc1An0_zd3WxPyTOFT4RUfwVQ@mail.gmail.com>
-	<20160801230435.GF4541@io.lakedaemon.net>
-	<CALCETrUwNdXdww5Bat908reeDiXmu3FsNTQg6NTJ5G71ZoRZ-A@mail.gmail.com>
-	<20160801233036.GH4541@io.lakedaemon.net>
-	<CALCETrWDsMdU2-AWQC4wYvotnNd2ydWT15Ckq0nZaNRJZOtZ-g@mail.gmail.com>
-	<CALCETrW-P8+yGuEgM2BT+aCfZqJ=ekB2Xsz+4xhWtdRpprJHNw@mail.gmail.com>
-	<CALCETrVbUYQWCqrJ8E3TwhJqSs_he0qqW=TySy5yFo=pKsVAJA@mail.gmail.com>
+	Tue,  2 Aug 2016 12:54:21 +0000 (UTC)
+Received: by mail-oi0-f50.google.com with SMTP id w18so234946321oiw.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 02 Aug 2016 05:54:21 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CALCETrVbUYQWCqrJ8E3TwhJqSs_he0qqW=TySy5yFo=pKsVAJA@mail.gmail.com>
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Mark Brown <broonie@sirena.org.uk>,
+In-Reply-To: <20160727140406.GP4541@io.lakedaemon.net>
+References: <20150804152622.GY30479@wotan.suse.de>
+	<1468612258.5335.0.camel@linux.vnet.ibm.com>
+	<1468612671.5335.5.camel@linux.vnet.ibm.com>
+	<20160716005213.GL30372@sirena.org.uk>
+	<1469544138.120686.327.camel@infradead.org>
+	<20160727140406.GP4541@io.lakedaemon.net>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Tue, 2 Aug 2016 14:54:19 +0200
+Message-ID: <CACRpkdYSsZ9S5KKu76YZD2m6tfBr=310Vaij1LPoRybYnHVDXw@mail.gmail.com>
+To: Jason Cooper <jason@lakedaemon.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Cc: Mark Brown <broonie@sirena.org.uk>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] Last minute nominations: mcgrof and toshi
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Signature management - keys,
+ modules, firmware, was: Last minute nominations: mcgrof and toshi
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,60 +40,64 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Morning Andy,
+On Wed, Jul 27, 2016 at 4:04 PM, Jason Cooper <jason@lakedaemon.net> wrote:
+> On Tue, Jul 26, 2016 at 03:42:18PM +0100, David Woodhouse wrote:
+>> On Sat, 2016-07-16 at 01:52 +0100, Mark Brown wrote:
+>> > On Fri, Jul 15, 2016 at 03:57:51PM -0400, Mimi Zohar wrote:
+>> >
+>> > > Oops, "Signature management - keys, modules, firmware" was a
+>> > > suggestion from last year, but in my opinion still very apropos.
+>> >
+>> > Yup, definitely - especially with secure boot starting to firm up on
+>> > the ARM side there's a bunch more interest in it from more embedded
+>> > applications.
+>>
+>> Are we going to propose this again "formally" (i.e. sufficiently
+>> clearly that the committee take note and consider it)?
+>
+> $subject modified.
+>
+>> If so, I would also be keen to participate.
+>
+> Myself as well.  I've often wondered about devicetree signing.  Since it
+> needs to be modified by the bootloader in a lot of cases (RAM size,
+> cmdline, etc), but a malicious modification would be to remove the TPM
+> node. :-)
 
-On Mon, Aug 01, 2016 at 04:45:20PM -0700, Andy Lutomirski wrote:
-> On Aug 1, 2016 4:30 PM, "Jason Cooper" <jason@lakedaemon.net> wrote:
-> > On Mon, Aug 01, 2016 at 04:13:50PM -0700, Andy Lutomirski wrote:
-> > > On Aug 1, 2016 4:04 PM, "Jason Cooper" <jason@lakedaemon.net> wrote:
-...
-> > > > Assuming Andy's lightweight signature scheme, it would probably be best
-> > > > to do a lookup based on the sha256 hash of the file.  Then pathnames
-> > > > don't matter, and bad files don't even get to the signature checking
-> > > > code.
-> > > >
-> > >
-> > > I'm not sure I understand what you mean.  What table would we look the hash
-> > > up in?  What are we finding in that table?
-> >
-> > From the other subthread:
-> >
-> > > Then, to verify a signature, the kernel hashes the blob, generates its
-> > > own linux_blob_signed_data, memcmps it to the one that Kyle signed
-> > > (and rejects if they differ *at all*), and then verifies the
-> > > signature.  (Do not try to be clever and parse the supplied
-> > > linux_blob_signed_data -- there is a long and storied history of
-> > > equivalent ideas being implemented incorrectly, and I can dig out
-> > > literature references if you really want.  Just generate your own and
-> > > memcmp it, which leaves no room for ambiguity.)
-> > >
-> >
-> > So, I'm suggesting that when "the kernel hashes the blob", it use that
-> > hash to locate *which* "Kyle-signed" linux_blob_signed_data it needs to
-> > compare against.  That's all, just removing the filename from the
-> > equation. :-)
-> 
-> So Kyle would generate a list of signatures indexed by the blob's hash
-> instead of generating things like "iwlwifi-whatever.ucode.sig"?  Seems
-> okay.  It'll keep the existing hooks working, I think.  Of course, we still
-> need to check the "iwlwifi-whatever.ucode" bit to confirm that it matches
-> Kyle's signed data.
+Actually the way it works (IIUC) in the only set-up I've seen which is
+the Firmware Image Tree (FIT). This blobs a signed kernel+device
+tree+initrd (optional) and signs it using e.g. an RSA2048 keypair,
+the blob is signature-checked by U-Boot against a compiled-in
+public key, then the constituent parts are split, the device tree
+augmented and the kernel booted. I.e. U-Boot checks the signature
+of the whole shebang *before* augmenting the device tree.
 
-Right.  That's where it may be better to use a version string, say the
-sha1 from linux-firmware.git, or the upstream version number.  However,
-that route means we can't easily 'build our own linux_blob_signed_data
-and do a memcmp.' since userspace may not have that info handy.
+The chain of trust (who watches the watchmen) need to make
+sure that U-Boot and its compiled-in certificate are signature-checked
+*before* execution of U-Boot, so another boot stage needs to do that.
 
-It's almost as if we need some *unsigned* attributes that are purely
-informative.  So we can dump a message in the logs:
+As far as I've heard, this is what the ARM Chromebooks are doing.
 
-  Loaded /lib/firmware/intel/iwlwifi-whatever.ucode., signature match for 'iwlwifi-20160711.ucode', signed by "Intel, Corp" RSA4096 key with
-keyid <sha256>.
+Details:
+http://www.denx-cs.de/doku/?q=3Dm28verifiedboot
 
-The first path is the actual location and name of the file, and the
-second is the filename attribute that is a hint, but we don't depend on
-it for matching or verification.
+The overall questions is interesting too.
 
-thx,
+What I always intuitively felt is that I would be happy if the same
+GPG keys we use for pull requests of kernel code would extend
+to firmware signing, so that we move from the overall-industry
+focus on legislative bodies (Thawte, ...) signing certificates with
+OpenSSL and thus being the root of trust, over to putting the root
+of trust for any software related to Linux into the same web of
+trust that we already use for developing the code per se.
 
-Jason.
+I would certainly trust a firmware signed by say Laurent Pinchart,
+but not sure about one signed by E.Corp.
+
+Probably someone will get me for my na=C3=AFvity on the subject,
+but uninformed as I may be, I speak anyway. People still tell me
+that "Joe Doe's" doesn't trust kernel devs but they trust
+$OPAQUE_CORPORATION for reasons unbeknownst to me.
+
+Yours,
+Linus Walleij
