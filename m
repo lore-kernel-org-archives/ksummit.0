@@ -1,42 +1,37 @@
-Return-Path: <luto@amacapital.net>
+Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 891CC941
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id C480093D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  1 Aug 2016 23:45:24 +0000 (UTC)
-Received: from mail-vk0-f46.google.com (mail-vk0-f46.google.com
-	[209.85.213.46])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7F3DC1F3
+	Mon,  1 Aug 2016 23:56:46 +0000 (UTC)
+Received: from cloudserver094114.home.net.pl (cloudserver094114.home.net.pl
+	[79.96.170.134])
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id C4890298
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  1 Aug 2016 23:45:23 +0000 (UTC)
-Received: by mail-vk0-f46.google.com with SMTP id w127so110852908vkh.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 01 Aug 2016 16:45:23 -0700 (PDT)
+	Mon,  1 Aug 2016 23:56:45 +0000 (UTC)
+From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Tue, 02 Aug 2016 02:01:56 +0200
+Message-ID: <1555444.RIYpEbA2F7@vostro.rjw.lan>
+In-Reply-To: <20160801190309.GX3296@wotan.suse.de>
+References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
+	<20160729111303.GA10376@sirena.org.uk>
+	<20160801190309.GX3296@wotan.suse.de>
 MIME-Version: 1.0
-In-Reply-To: <CALCETrW-P8+yGuEgM2BT+aCfZqJ=ekB2Xsz+4xhWtdRpprJHNw@mail.gmail.com>
-References: <1469979098.23563.300.camel@linux.vnet.ibm.com>
-	<CALCETrVQj23-0Bhsx91Z3O7BJdjDVXgPQSQUqXHoc+pd5+tfYA@mail.gmail.com>
-	<1469986138.23563.312.camel@linux.vnet.ibm.com>
-	<CALCETrV6y79898-+M8Mpvhm-e2_VXvSyQQPwY25YdeuJhCe1zg@mail.gmail.com>
-	<20160801172920.GU3296@wotan.suse.de>
-	<CALCETrX134Qnv4Xy2RAHO2QXka9_k9qAoEqrXaw-mX2kAkrzig@mail.gmail.com>
-	<1470090069.23563.475.camel@linux.vnet.ibm.com>
-	<CALCETrWY-xvF3ZKjt_r2azEk3Pc1An0_zd3WxPyTOFT4RUfwVQ@mail.gmail.com>
-	<20160801230435.GF4541@io.lakedaemon.net>
-	<CALCETrUwNdXdww5Bat908reeDiXmu3FsNTQg6NTJ5G71ZoRZ-A@mail.gmail.com>
-	<20160801233036.GH4541@io.lakedaemon.net>
-	<CALCETrWDsMdU2-AWQC4wYvotnNd2ydWT15Ckq0nZaNRJZOtZ-g@mail.gmail.com>
-	<CALCETrW-P8+yGuEgM2BT+aCfZqJ=ekB2Xsz+4xhWtdRpprJHNw@mail.gmail.com>
-From: Andy Lutomirski <luto@amacapital.net>
-Date: Mon, 1 Aug 2016 16:45:20 -0700
-Message-ID: <CALCETrVbUYQWCqrJ8E3TwhJqSs_he0qqW=TySy5yFo=pKsVAJA@mail.gmail.com>
-To: Jason Cooper <jason@lakedaemon.net>
-Content-Type: multipart/alternative; boundary=001a1143ad7c8e806205390b31e1
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Mark Brown <broonie@sirena.org.uk>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] Last minute nominations: mcgrof and toshi
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
+Cc: Oded Gabbay <oded.gabbay@gmail.com>,
+	=?ISO-8859-1?Q?J=F6rg_R=F6del?= <jroedel@suse.de>,
+	Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
+	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
+	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
+	Cristina Moraru <cristina.moraru09@gmail.com>,
+	Roberto Di Cosmo <roberto@dicosmo.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Stefano Zacchiroli <zack@upsilon.cc>,
+	Valentin Rothberg <valentinrothberg@gmail.com>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
+	and semantics (v2)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -46,288 +41,136 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---001a1143ad7c8e806205390b31e1
-Content-Type: text/plain; charset=UTF-8
+On Monday, August 01, 2016 09:03:09 PM Luis R. Rodriguez wrote:
+> On Fri, Jul 29, 2016 at 12:13:03PM +0100, Mark Brown wrote:
+> > On Fri, Jul 29, 2016 at 09:45:55AM +0200, Hans Verkuil wrote:
+> > 
+> > > My main problem is not so much with deferred probe (esp. for cyclic dependencies
+> > > it is a simple method of solving this, and simple is good). My main problem is
+> > > that you can't tell the system that driver A needs to be probed after drivers B,
+> > > C and D are probed first.
+> > 
+> > > That would allow us to get rid of v4l2-async.c which is a horrible hack.
+> 
+> I'd like to understand the requirement for this a bit better, so someone explaining
+> this would be good if this moves forward as a tech session.
 
-On Aug 1, 2016 4:30 PM, "Jason Cooper" <jason@lakedaemon.net> wrote:
->
-> On Mon, Aug 01, 2016 at 04:13:50PM -0700, Andy Lutomirski wrote:
-> > On Aug 1, 2016 4:04 PM, "Jason Cooper" <jason@lakedaemon.net> wrote:
-> > >
-> > > On Mon, Aug 01, 2016 at 03:36:51PM -0700, Andy Lutomirski wrote:
-> > > > On Mon, Aug 1, 2016 at 3:21 PM, Mimi Zohar <zohar@linux.vnet.ibm.com
->
-> > wrote:
-> > > > > On Mo, 2016-08-01 at 10:59 -0700, Andy Lutomirski wrote:
-> > > > >
-> > > > >> Mimi, I'm curious: I don't fully understand what is covered by
-IMA
-> > > > >> policy.  How does the IMA kernel_read_file stuff deal with
-symlinks?
-> > > > >> For example, if I symlink /lib/firmware/iwlwifi-8265-21.ucode to
-> > > > >> /home/badguy/iwlwifi-8265-21.ucode, what happens?  What if I
-symlink
-> > > > >> /lib/firmware/iwlwifi-8265-21.ucode to
-/home/badguy/something_else?
-> > > > >> Or even /lib/modules/kernel/foo/bar.ko to /home/badguy/evil.ko?
-The
-> > > > >> interesting case is where the "badguy" user is duly authorized to
-> > > > >> write to /home/badguy and holds whatever keys may be needed.
-> > > > >
-> > > > > Lets step back a second.  In order for a key to be added to the
-IMA
-> > > > > keyring, the key must be signed by a key on the builtin keyring.
-The
-> > > > > key on the builtin keyring can be compiled into the kernel image
-or
-> > > > > added post build using Mehmet Kayaalp's patches.
-> > > > >
-> > > > > True, any key on the IMA keyring could be used to verify file
-> > signatures
-> > > > > (in IMA terminology appraise the file's integrity).  The
-enumeration
-> > is
-> > > > > a first step to making sure that only properly signed code is
-read by
-> > > > > the kernel.  The next step requires finer grain key management.
-In
-> > > > > general, pathname based policies are not a good idea.  Whatever
-method
-> > > > > is defined, it should not be limited to just firmware or files
-read by
-> > > > > the kernel, but to all files.
-> > > > >
-> > > >
-> > > > Unless I'm mistaken (which is quite possible), IMA is primarily
-> > > > intended to appraise the content of POSIX filesystems.  So, if IMA
-is
-> > > > in use, then doing:
-> > > >
-> > > > $ cat /foo/bar
-> > > >
-> > > > should only succeed if /foo/bar is signed according to loaded
-policy.
-> > > > It's the system administrator's decision what filesystem is actually
-> > > > mounted at /foo, and root can presumably mess around with
-application
-> > > > expectations by, say, bind-mounting something over /foo.
-> > > >
-> > > > Modules and firmware are special: even root should not be able to
-> > > > avoid the full signature policy.  This means that, for example:
-> > > >
-> > > > # mount --bind /evil /lib/firmware
-> > > >
-> > > > should not result in violating policy.  So the pathname should not
-be
-> > > > used as such.  However, firmware is a bit special in that the driver
-> > > > chooses the pathname to request, and it really does uniquely
-identify
-> > > > the intended firmware.  So, when a driver asks for:
-> > > >
-> > > > "iwlwifi-whatever.ucode"
-> > > >
-> > > > and the driver core tries to read
-"/lib/firmware/iwlwifi-whatever.ucode"
-> > > >
-> > > > it's entirely possible that we'll follow a symlink and end up
-> > > > elsewhere (Fedora, for example, does exactly this), but the file
-> > > > that's loaded should be appraised (or verified using a non-IMA
-means,
-> > > > etc.) to verify that whatever blob gets found is actually signed by
-> > > > the holder of an authorized key for the purpose of being used as
-> > > > "iwlwifi-whatever.ucode".
-> > >
-> > > Assuming Andy's lightweight signature scheme, it would probably be
-best
-> > > to do a lookup based on the sha256 hash of the file.  Then pathnames
-> > > don't matter, and bad files don't even get to the signature checking
-> > > code.
-> > >
-> >
-> > I'm not sure I understand what you mean.  What table would we look the
-hash
-> > up in?  What are we finding in that table?
->
-> From the other subthread:
->
-> > Then, to verify a signature, the kernel hashes the blob, generates its
-> > own linux_blob_signed_data, memcmps it to the one that Kyle signed
-> > (and rejects if they differ *at all*), and then verifies the
-> > signature.  (Do not try to be clever and parse the supplied
-> > linux_blob_signed_data -- there is a long and storied history of
-> > equivalent ideas being implemented incorrectly, and I can dig out
-> > literature references if you really want.  Just generate your own and
-> > memcmp it, which leaves no room for ambiguity.)
-> >
->
-> So, I'm suggesting that when "the kernel hashes the blob", it use that
-> hash to locate *which* "Kyle-signed" linux_blob_signed_data it needs to
-> compare against.  That's all, just removing the filename from the
-> equation. :-)
+One case I'm familiar with is when a device has two (or more) device IDs, where
+one is more specific than the other.  The idea being that if the OS has a driver
+for that particular device, it will use the more specific device ID (say A) to
+look for it, but otherwise it will use the other "generic" ID (say B) to match
+against a "generic" driver.
 
-So Kyle would generate a list of signatures indexed by the blob's hash
-instead of generating things like "iwlwifi-whatever.ucode.sig"?  Seems
-okay.  It'll keep the existing hooks working, I think.  Of course, we still
-need to check the "iwlwifi-whatever.ucode" bit to confirm that it matches
-Kyle's signed data.
+Of course, that only works if the driver for A is probed before the driver for B.
 
---001a1143ad7c8e806205390b31e1
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+> > > 
+> > > That code allows a bridge driver to wait until all dependent drivers are probed.
+> > > This really should be core functionality.
+> > 
+> > > Do other subsystems do something similar like drivers/media/v4l2-core/v4l2-async.c?
+> > > Does anyone know?
+> > 
+> > ASoC does, it has an explicit card driver to join things together and
+> > that just defers probe until everything it needs is present.  This was
+> > originally open coded in ASoC but once deferred probe was implemented we
+> > converted to that.
+> 
+> OK that's 2.
+> 
+> Another piece of code that deals with complex dependencies I've recently
+> ventured into was the x86 IOMMU stuff. The complexities here are both at
+> the built-in init level and also later at probe.
+> 
+> For the built-in code we have a code run time sort where based on a simple set
+> of semantics used to declare dependencies final code that was compiled in is
+> sorted out so that the code that needs to initialize first triggers first. hpa
+> had suggested long ago that generalizing this was desirable, so I've taken that
+> task and have some basic building blocks which are now being proposed in their
+> RFC v3 series [0]. If it seems that the run time sort mechanism is left out,
+> its correct, upon review with Andy on RFC v2 we don't *yet* need a run time
+> sort, even though I expanded on the existing one for IOMMU and strengthened the
+> semantics there, its still available on the userspace mockup solution for
+> linker tables though [1]. I should note that I did at least determine that
+> generalizing a sort for dependency maps which shuffles code at run time
+> did not make sense due to the fact that you'd either need to generalize the
+> building blocks used for defining a dependency map. If you move one item used
+> for init from the end to the front, your iteration function must use the same
+> structure in the same way. Run time sorts for code sections then are left up
+> to each subsystem to implement. On x86, I evaluated sorting out dependencies
+> further, for instance on setup_arch() -- however it just seemed not needed
+> at this point. For other subsystems this may make more sense.
+> 
+> At the probe level IOMMUs face another issue when dealing with GPU drivers.
+> The kernel has 7 levels of initialization possible (pure_initcall() == 0,
+> core_initcall() == 1, ..., fs_initcall() == 5, device_initcall() == 6,
+> late_initcall() == 7), module_init() maps to device_initcall(), but modules may
+> also use late_initcall() if they know a driver built-in needs to definitely run
+> very late. Naturally if you're not a piece of code running very early on, and
+> you want the option to be a module as well (device_initcall == 6) then you
+> really only have at your disposal two levels available before you get to an end
+> device driver. It turns out that for GPU drivers this is not enough to map out
+> enough dependencies at the higher level, so the only next best solution
+> available is to implicitly rely on linker order. This is the case for ordering
+> logistics between AMD IOMMU v1, AMD IOMMUv2 (depends on AMD IOMMU v1), and
+> AMD KFD driver, and the AMD radeon driver:
+> 
+> 0. AMD IOMMUv1:    arch/x86/kernel/pci-dma.c
+> 1. AMD IOMMUv2:    drivers/iommu/amd_iommu_v2.c
+> 2. AMD KFD:        drivers/gpu/drm/amd/amdkfd/kfd_module.c
+> 3. AMD Radeon:     drivers/gpu/drm/radeon/radeon_drv.c
+> 
+> For details refer to a recent discussion on this [2].
+> 
+> Using linker tables for initialization should enable us to scale initialization
+> levels well beyond 7 levels, in fact this could be however long an ASCII string
+> is acceptable in C as the order level is stored as a string (part of the section
+> name) and also enable each subsystem to have its own set of levels / heuristics
+> for initialization as well. Ordering would actually be done at link time, so
+> the code is already ordered *iff* all dependency heuristics are available at
+> compilation time. If dependency information can only be available at run time,
+> a run time sort is optional but using the existing x86 IOMMU code as an example
+> and precedent (and considering my expanded stricter semantics) -- in the future
+> this can be an option for any subsystem as well as a supplement.
+> 
+> My interest in the media controller and the SAT solver is I consider the run
+> time sort nothing but a sloppy hack (see my userspace tree for tons of
+> semantics fixes), and formalizing this to something more concrete that can be
+> generic should be more useful to other parts of the kernel. This is why I
+> wanted to discuss these things. Is there a generic common goal here and
+> can we share code ? If so what would that look like ?
+> 
+> My impression at first is that linker-time dependencies should suffice to cover
+> a lot cases, but that should still mean then that binutils ld SORT() could
+> potentially be enhanced further in the future, specially if a simple dependency
+> map could be expressed. For instance can we make it run faster, or would
+> having it interpret certain other criteria enable us to use a SAT solver
+> to optimize dependency resolution / ordering. Then there is run time sorting
+> and optimization -- but the same questions apply here.
+> 
+> I think a fruitful session would be to:
+> 
+>   o review / explain each of the complex ordering problems from different
+>     kernel subsystems
+>   o review / explain existing solutions to these problems
+>   o finally try to figure out if a common solution is possible, both
+>     short term and long term
+> 
+> [0] https://lkml.kernel.org/r/1469222687-1600-1-git-send-email-mcgrof@kernel.org
+> [1] https://git.kernel.org/cgit/linux/kernel/git/mcgrof/linker-tables.git/
+> [2] https://lkml.kernel.org/r/1464311916-10065-1-git-send-email-mcgrof@kernel.org
 
-<p dir=3D"ltr"></p>
-<p dir=3D"ltr">On Aug 1, 2016 4:30 PM, &quot;Jason Cooper&quot; &lt;<a href=
-=3D"mailto:jason@lakedaemon.net">jason@lakedaemon.net</a>&gt; wrote:<br>
-&gt;<br>
-&gt; On Mon, Aug 01, 2016 at 04:13:50PM -0700, Andy Lutomirski wrote:<br>
-&gt; &gt; On Aug 1, 2016 4:04 PM, &quot;Jason Cooper&quot; &lt;<a href=3D"m=
-ailto:jason@lakedaemon.net">jason@lakedaemon.net</a>&gt; wrote:<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; On Mon, Aug 01, 2016 at 03:36:51PM -0700, Andy Lutomirski wr=
-ote:<br>
-&gt; &gt; &gt; &gt; On Mon, Aug 1, 2016 at 3:21 PM, Mimi Zohar &lt;<a href=
-=3D"mailto:zohar@linux.vnet.ibm.com">zohar@linux.vnet.ibm.com</a>&gt;<br>
-&gt; &gt; wrote:<br>
-&gt; &gt; &gt; &gt; &gt; On Mo, 2016-08-01 at 10:59 -0700, Andy Lutomirski =
-wrote:<br>
-&gt; &gt; &gt; &gt; &gt;<br>
-&gt; &gt; &gt; &gt; &gt;&gt; Mimi, I&#39;m curious: I don&#39;t fully under=
-stand what is covered by IMA<br>
-&gt; &gt; &gt; &gt; &gt;&gt; policy.=C2=A0 How does the IMA kernel_read_fil=
-e stuff deal with symlinks?<br>
-&gt; &gt; &gt; &gt; &gt;&gt; For example, if I symlink /lib/firmware/iwlwif=
-i-8265-21.ucode to<br>
-&gt; &gt; &gt; &gt; &gt;&gt; /home/badguy/iwlwifi-8265-21.ucode, what happe=
-ns?=C2=A0 What if I symlink<br>
-&gt; &gt; &gt; &gt; &gt;&gt; /lib/firmware/iwlwifi-8265-21.ucode to /home/b=
-adguy/something_else?<br>
-&gt; &gt; &gt; &gt; &gt;&gt; Or even /lib/modules/kernel/foo/bar.ko to /hom=
-e/badguy/evil.ko?=C2=A0 The<br>
-&gt; &gt; &gt; &gt; &gt;&gt; interesting case is where the &quot;badguy&quo=
-t; user is duly authorized to<br>
-&gt; &gt; &gt; &gt; &gt;&gt; write to /home/badguy and holds whatever keys =
-may be needed.<br>
-&gt; &gt; &gt; &gt; &gt;<br>
-&gt; &gt; &gt; &gt; &gt; Lets step back a second.=C2=A0 In order for a key =
-to be added to the IMA<br>
-&gt; &gt; &gt; &gt; &gt; keyring, the key must be signed by a key on the bu=
-iltin keyring.=C2=A0 The<br>
-&gt; &gt; &gt; &gt; &gt; key on the builtin keyring can be compiled into th=
-e kernel image or<br>
-&gt; &gt; &gt; &gt; &gt; added post build using Mehmet Kayaalp&#39;s patche=
-s.<br>
-&gt; &gt; &gt; &gt; &gt;<br>
-&gt; &gt; &gt; &gt; &gt; True, any key on the IMA keyring could be used to =
-verify file<br>
-&gt; &gt; signatures<br>
-&gt; &gt; &gt; &gt; &gt; (in IMA terminology appraise the file&#39;s integr=
-ity).=C2=A0 The enumeration<br>
-&gt; &gt; is<br>
-&gt; &gt; &gt; &gt; &gt; a first step to making sure that only properly sig=
-ned code is read by<br>
-&gt; &gt; &gt; &gt; &gt; the kernel.=C2=A0 The next step requires finer gra=
-in key management.=C2=A0 In<br>
-&gt; &gt; &gt; &gt; &gt; general, pathname based policies are not a good id=
-ea.=C2=A0 Whatever method<br>
-&gt; &gt; &gt; &gt; &gt; is defined, it should not be limited to just firmw=
-are or files read by<br>
-&gt; &gt; &gt; &gt; &gt; the kernel, but to all files.<br>
-&gt; &gt; &gt; &gt; &gt;<br>
-&gt; &gt; &gt; &gt;<br>
-&gt; &gt; &gt; &gt; Unless I&#39;m mistaken (which is quite possible), IMA =
-is primarily<br>
-&gt; &gt; &gt; &gt; intended to appraise the content of POSIX filesystems.=
-=C2=A0 So, if IMA is<br>
-&gt; &gt; &gt; &gt; in use, then doing:<br>
-&gt; &gt; &gt; &gt;<br>
-&gt; &gt; &gt; &gt; $ cat /foo/bar<br>
-&gt; &gt; &gt; &gt;<br>
-&gt; &gt; &gt; &gt; should only succeed if /foo/bar is signed according to =
-loaded policy.<br>
-&gt; &gt; &gt; &gt; It&#39;s the system administrator&#39;s decision what f=
-ilesystem is actually<br>
-&gt; &gt; &gt; &gt; mounted at /foo, and root can presumably mess around wi=
-th application<br>
-&gt; &gt; &gt; &gt; expectations by, say, bind-mounting something over /foo=
-.<br>
-&gt; &gt; &gt; &gt;<br>
-&gt; &gt; &gt; &gt; Modules and firmware are special: even root should not =
-be able to<br>
-&gt; &gt; &gt; &gt; avoid the full signature policy.=C2=A0 This means that,=
- for example:<br>
-&gt; &gt; &gt; &gt;<br>
-&gt; &gt; &gt; &gt; # mount --bind /evil /lib/firmware<br>
-&gt; &gt; &gt; &gt;<br>
-&gt; &gt; &gt; &gt; should not result in violating policy.=C2=A0 So the pat=
-hname should not be<br>
-&gt; &gt; &gt; &gt; used as such.=C2=A0 However, firmware is a bit special =
-in that the driver<br>
-&gt; &gt; &gt; &gt; chooses the pathname to request, and it really does uni=
-quely identify<br>
-&gt; &gt; &gt; &gt; the intended firmware.=C2=A0 So, when a driver asks for=
-:<br>
-&gt; &gt; &gt; &gt;<br>
-&gt; &gt; &gt; &gt; &quot;iwlwifi-whatever.ucode&quot;<br>
-&gt; &gt; &gt; &gt;<br>
-&gt; &gt; &gt; &gt; and the driver core tries to read &quot;/lib/firmware/i=
-wlwifi-whatever.ucode&quot;<br>
-&gt; &gt; &gt; &gt;<br>
-&gt; &gt; &gt; &gt; it&#39;s entirely possible that we&#39;ll follow a syml=
-ink and end up<br>
-&gt; &gt; &gt; &gt; elsewhere (Fedora, for example, does exactly this), but=
- the file<br>
-&gt; &gt; &gt; &gt; that&#39;s loaded should be appraised (or verified usin=
-g a non-IMA means,<br>
-&gt; &gt; &gt; &gt; etc.) to verify that whatever blob gets found is actual=
-ly signed by<br>
-&gt; &gt; &gt; &gt; the holder of an authorized key for the purpose of bein=
-g used as<br>
-&gt; &gt; &gt; &gt; &quot;iwlwifi-whatever.ucode&quot;.<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; Assuming Andy&#39;s lightweight signature scheme, it would p=
-robably be best<br>
-&gt; &gt; &gt; to do a lookup based on the sha256 hash of the file.=C2=A0 T=
-hen pathnames<br>
-&gt; &gt; &gt; don&#39;t matter, and bad files don&#39;t even get to the si=
-gnature checking<br>
-&gt; &gt; &gt; code.<br>
-&gt; &gt; &gt;<br>
-&gt; &gt;<br>
-&gt; &gt; I&#39;m not sure I understand what you mean.=C2=A0 What table wou=
-ld we look the hash<br>
-&gt; &gt; up in?=C2=A0 What are we finding in that table?<br>
-&gt;<br>
-&gt; From the other subthread:<br>
-&gt;<br>
-&gt; &gt; Then, to verify a signature, the kernel hashes the blob, generate=
-s its<br>
-&gt; &gt; own linux_blob_signed_data, memcmps it to the one that Kyle signe=
-d<br>
-&gt; &gt; (and rejects if they differ *at all*), and then verifies the<br>
-&gt; &gt; signature.=C2=A0 (Do not try to be clever and parse the supplied<=
-br>
-&gt; &gt; linux_blob_signed_data -- there is a long and storied history of<=
-br>
-&gt; &gt; equivalent ideas being implemented incorrectly, and I can dig out=
-<br>
-&gt; &gt; literature references if you really want.=C2=A0 Just generate you=
-r own and<br>
-&gt; &gt; memcmp it, which leaves no room for ambiguity.)<br>
-&gt; &gt;<br>
-&gt;<br>
-&gt; So, I&#39;m suggesting that when &quot;the kernel hashes the blob&quot=
-;, it use that<br>
-&gt; hash to locate *which* &quot;Kyle-signed&quot; linux_blob_signed_data =
-it needs to<br>
-&gt; compare against.=C2=A0 That&#39;s all, just removing the filename from=
- the<br>
-&gt; equation. :-)</p>
-<p dir=3D"ltr">So Kyle would generate a list of signatures indexed by the b=
-lob&#39;s hash instead of generating things like &quot;iwlwifi-whatever.uco=
-de.sig&quot;?=C2=A0 Seems okay.=C2=A0 It&#39;ll keep the existing hooks wor=
-king, I think.=C2=A0 Of course, we still need to check the &quot;iwlwifi-wh=
-atever.ucode&quot; bit to confirm that it matches Kyle&#39;s signed data.<b=
-r>
-</p>
+I'm still wondering why probe ordering is special and suspend-resume and runtime
+PM ordering isn't (and shutdown ordering too, for that matter).
 
---001a1143ad7c8e806205390b31e1--
+In the majority of cases when probe ordering matters, suspend/resume and runtime
+PM ordering matters too, so considering one of them alone doesn't seem very
+useful to me.
+
+Now, even if you can address probe ordering issues by using some link-time
+methods and similar, runtime PM is async by nature and suspend/resume is
+async for many devices too (for efficiency reasons) and the only approach
+that works here is to have the dependencies represented as data somehow
+and use those when you need to carry out the operation.
+
+Thanks,
+Rafael
