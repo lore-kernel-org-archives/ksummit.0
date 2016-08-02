@@ -1,32 +1,26 @@
-Return-Path: <linux+ksummit-discuss=lists.linuxfoundation.org@armlinux.org.uk>
+Return-Path: <pbonzini@redhat.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id EB46B995
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9AA98941
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  2 Aug 2016 09:28:08 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F3FE9223
+	Tue,  2 Aug 2016 19:00:15 +0000 (UTC)
+Received: from mx3-phx2.redhat.com (mx3-phx2.redhat.com [209.132.183.24])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 38F04B0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  2 Aug 2016 09:28:06 +0000 (UTC)
-Date: Tue, 2 Aug 2016 10:27:50 +0100
-From: Russell King - ARM Linux <linux@armlinux.org.uk>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Message-ID: <20160802092750.GG1041@n2100.armlinux.org.uk>
-References: <CAKMK7uEuqLLf2bCyB-sAuu5WvVA1Kp7Jvc33k3um5DfdQr4eyg@mail.gmail.com>
-	<2ddeb98b-7bf8-aa21-2dee-9e02f9c59a92@ti.com>
-	<20160802084136.GF1041@n2100.armlinux.org.uk>
-	<2283297.XPLgoHqr42@avalon>
+	Tue,  2 Aug 2016 19:00:15 +0000 (UTC)
+Date: Tue, 2 Aug 2016 15:00:13 -0400 (EDT)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Message-ID: <758189906.13127402.1470164413674.JavaMail.zimbra@redhat.com>
+In-Reply-To: <20160802203444-mutt-send-email-mst@kernel.org>
+References: <20160802172326.GA25195@redhat.com>
+	<CALCETrWyHZ5+mZnzgm_j=8N3-thznVmxrov1N7Lns45w2V0X8A@mail.gmail.com>
+	<20160802203444-mutt-send-email-mst@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2283297.XPLgoHqr42@avalon>
-Sender: Russell King - ARM Linux <linux@armlinux.org.uk>
-Cc: ksummit-discuss@lists.linuxfoundation.org, "Nikula,
-	Jani" <jani.nikula@linux.intel.com>,
-	Peter Ujfalusi <peter.ujfalusi@ti.com>, Dave Airlie <airlied@linux.ie>,
-	Grant Likely <grant.likely@linaro.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] (group) maintainership models
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] late self-nomination
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,66 +30,22 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Aug 02, 2016 at 12:21:16PM +0300, Laurent Pinchart wrote:
-> Hi Russell,
+> > On x86 with VMX, the EPT page tables have separate R, W, and X bits.
+> > If a hypervisor were to limit the guest physical address space to the
+> > lower half (high bit always clear) and then alias all of it with the
+> > high guest physical address bit set and R clear, then the guest could
+> > use the high physical address bit as an effective R bit.  That would
+> > allow PROT_WRITE, PROT_EXEC, and PROT_WRITE|PROT_EXEC mappings to work
+> > without granting read access.
+> > 
+> > Doing this would provide some protection against attacks that use a
+> > wild read to scan for code or data structures at otherwise
+> > unpredictable addresses or to blindly search for ROP gadgets.
 > 
-> On Tuesday 02 Aug 2016 09:41:36 Russell King - ARM Linux wrote:
-> > On Tue, Aug 02, 2016 at 09:48:53AM +0300, Peter Ujfalusi wrote:
-> > > I'm not going to move the legacy API under dmaengine, it makes no sense.
-> > > 
-> > > My plan is to do what I did with the eDMA driver stack:
-> > > - convert drivers using the legacy API to dmaengine
-> > > - 'merge' the code from plat-omap to the dmaengine driver
-> > >   - while doing this the legacy API will vanish along with the
-> > >   plat-omap/dma.c
-> > >
-> > > As with the eDMA, the sDMA stack will need some cleanup, but the good
-> > > thing is that the dmaengine driver have minimal dependency on the legacy
-> > > plat-omap/dma.c API.
-> > 
-> > I totally oppose moving arch/arm/plat-omap/dma.c into drivers/dma.
-> > The omap-dma driver in drivers/dma is a replacement modern driver
-> > for the legacy crap, and most users of the legacy crap have been
-> > converted.
-> > 
-> > Why we still have users of the legacy crap is because:
-> > 
-> > (a) they don't fit into the DMA engine API very well
-> > (b) I don't have hardware to be able to test them
-> > 
-> > and, because of that, I'm not going to start proposing DMA engine API
-> > extensions to support something that I've no way to even test.
-> > 
-> > I've asked for help from TI on this when I was woring on the DMA
-> > engine implementation, and there was no interest - it kept being
-> > put back on me as something for me to sort.  It became an impossible
-> > situation.
-> > 
-> > So, how things were left was that I'd introduce a warning into the
-> > legacy driver, and in a few years time we'd strip it out of users
-> > and delete the legacy driver.
-> > 
-> > The warning (which is rather large, because it's a WARN(), so
-> > involves a kernel stack dump) has not produced (afaik) any complaints
-> > from anyone.  So, we can probably conclude that any of these drivers
-> > which are using the legacy DMA code are probably not being used.
-> 
-> I know of devices that ship with a recent kernel (v4.4 last time I checked) 
-> patched to remove the warning. We could argue that the vendor should submit 
-> patches to fix the offending driver(s), but the reality is that they don't 
-> have enough kernel development experience to do so. This doesn't mean we have 
-> to fix the problem for them, but I'm afraid we can't conclude this easily that 
-> those drivers are not used.
+> Thanks - I expect we'll discuss this topic with other kvm folks quite a
+> bit on the kvm forum end of August, as well.
 
-If vendors want to ship legacy code, then that's up to them.  However,
-that doesn't mean mainline has to have the support burden of that code.
+I won't be able to attend kernel summit (I haven't nominated me for this
+reason) so I support Michael's presence!
 
-I don't see that this really changes anything as far as mainline goes.
-We can still delete the drivers or code for DMA in these drivers, and
-lessen the burden in mainline.  Vendors can revert those commits, just
-as they're (presumably) reverting my commit adding the warning.
-
--- 
-RMK's Patch system: http://www.armlinux.org.uk/developer/patches/
-FTTC broadband for 0.8mile line: currently at 9.6Mbps down 400kbps up
-according to speedtest.net.
+Paolo
