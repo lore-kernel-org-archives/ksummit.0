@@ -1,32 +1,24 @@
-Return-Path: <alexandre.belloni@free-electrons.com>
+Return-Path: <jikos@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B8D9F959
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B5AC77AA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  2 Aug 2016 08:41:22 +0000 (UTC)
-Received: from mail.free-electrons.com (down.free-electrons.com
-	[37.187.137.238])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id EE14E20E
+	Tue,  2 Aug 2016 08:43:33 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4090E16E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  2 Aug 2016 08:41:21 +0000 (UTC)
-Date: Tue, 2 Aug 2016 10:41:09 +0200
-From: Alexandre Belloni <alexandre.belloni@free-electrons.com>
-To: Josh Triplett <josh@joshtriplett.org>,
-	"Yann E. MORIN" <yann.morin.1998@free.fr>
-Message-ID: <20160802084109.GC13682@piout.net>
-References: <0e76826b-6552-e880-42fc-17be0c5bf3fe@infradead.org>
-	<20160802050232.nzgtuijqw46qopyr@x>
+	Tue,  2 Aug 2016 08:43:33 +0000 (UTC)
+Date: Tue, 2 Aug 2016 10:43:31 +0200 (CEST)
+From: Jiri Kosina <jikos@kernel.org>
+To: David Herrmann <dh.herrmann@gmail.com>
+In-Reply-To: <CANq1E4QvX6RMeapc8ZBRvg6UFdwCEbQMhgH=DqM6UZMkF3+T1g@mail.gmail.com>
+Message-ID: <alpine.LNX.2.00.1608021033200.22028@cbobk.fhfr.pm>
+References: <CANq1E4QvX6RMeapc8ZBRvg6UFdwCEbQMhgH=DqM6UZMkF3+T1g@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20160802050232.nzgtuijqw46qopyr@x>
-Cc: Michal Marek <mmarek@suse.cz>, "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Jiri Olsa <jolsa@kernel.org>, Arjan van de Ven <arjan@linux.intel.com>,
-	Ingo Molnar <mingo@kernel.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] tools/Makefile: Fix Many Many
- problems and inconsistencies
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Bus IPC
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,26 +28,30 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 01/08/2016 at 22:02:33 -0700, Josh Triplett wrote :
-> A higher-level item that I think would make a good topic: extracting
-> Kconfig into a library usable outside the kernel.  Several other
-> projects use a copied and hacked-up version of Kconfig.  I'd love to see
-> it more widely used as a build-time configuration system for more
-> projects, but not by forking it out of the kernel each time.  I've heard
-> kbuild/kconfig maintainers mention that they're interested in seeing
-> this done, but don't have the bandwidth to do it.
-> 
-> The thing that makes this a topic, rather than just a thing someone
-> needs to just do and submit a patch for, is determining the necessary
-> requirements from both the kernel and other projects, so that Kconfig
-> doesn't depend on the kernel but that the kernel build system doesn't
-> get any more complex to support that.
+On Fri, 29 Jul 2016, David Herrmann wrote:
 
-Well, what about http://ymorin.is-a-geek.org/projects/kconfig-frontends
-by the Kconfig maintainer?
+> While bus1 emerged out of the kdbus project, it is a new, independent
+> project, designed from scratch. Its main goal is to implement an n-to-n
+> communication bus on linux. A lot of inspiration is taken from both
+> DBus, as well as the the most commonly used IPC systems of other OSs,
+> and related research projects (including Android Binder, OS-X/Hurd Mach
+> IPC, Solaris Doors, Microsoft Midori IPC, seL4, Sandstorm's Cap'n'Proto,
+> ..).
+[ ... ]
+>  o Andy Lutomirski
+>  o Greg Kroah-Hartman
+>  o Steven Rostedt
+>  o Eric W. Biederman
+>  o Jiri Kosina
 
+So I've given dbus1 a cursory look, and I fully agree that this would be 
+an excellent topic; most importantly to make sure that maintainers who 
+have been involved in previous kdbus discussions / reviews get an overview 
+that this is indeed substantially different (and how exactly), and throw 
+away any prejudice they might have gathered in the previous review rounds.
+
+Thanks,
 
 -- 
-Alexandre Belloni, Free Electrons
-Embedded Linux and Kernel engineering
-http://free-electrons.com
+Jiri Kosina
+SUSE Labs
