@@ -1,28 +1,33 @@
-Return-Path: <laurent.pinchart@ideasonboard.com>
+Return-Path: <linus.walleij@linaro.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6130671
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 21550724
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  2 Aug 2016 19:44:12 +0000 (UTC)
-Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
-	[185.26.127.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3AE8C2DD
+	Tue,  2 Aug 2016 19:50:57 +0000 (UTC)
+Received: from mail-oi0-f50.google.com (mail-oi0-f50.google.com
+	[209.85.218.50])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9F0F32E5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  2 Aug 2016 19:44:11 +0000 (UTC)
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Kevin Hilman <khilman@baylibre.com>
-Date: Tue, 02 Aug 2016 22:44:11 +0300
-Message-ID: <1738515.fsY7coZ0B1@avalon>
-In-Reply-To: <m2ziovqag9.fsf@baylibre.com>
-References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
-	<4917794.pdgKrtIJtY@avalon> <m2ziovqag9.fsf@baylibre.com>
+	Tue,  2 Aug 2016 19:50:56 +0000 (UTC)
+Received: by mail-oi0-f50.google.com with SMTP id w18so251945164oiw.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 02 Aug 2016 12:50:56 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Trond Myklebust <trondmy@primarydata.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] kernel unit testing
+In-Reply-To: <2617443.e5mOt80N6v@avalon>
+References: <5222c3bb-d6b7-0ccc-bf9e-becf5046a37a@kernel.org>
+	<CACRpkdYPNdtabj5zOXe9nyzbHsKGgo57dfojCDvfSNPEWAMZRg@mail.gmail.com>
+	<2617443.e5mOt80N6v@avalon>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Tue, 2 Aug 2016 21:50:54 +0200
+Message-ID: <CACRpkdZtxBw1XV9uq8ka8NXf7D6bVmppCLaAkxTVora_O2KVvw@mail.gmail.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8
+Cc: Gregor Boirie <gregor.boirie@parrot.com>, Zhang Rui <rui.zhang@intel.com>,
+	Rob Herring <robh+dt@kernel.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Sensors and similar - subsystem
+ interactions, divisions, bindings etc.
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,47 +37,27 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Kevin,
+On Thu, Jul 28, 2016 at 6:46 PM, Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+> On Friday 22 Jul 2016 14:04:07 Linus Walleij wrote:
 
-On Tuesday 02 Aug 2016 11:42:30 Kevin Hilman wrote:
-> Laurent Pinchart <laurent.pinchart@ideasonboard.com> writes:
-> > On Monday 11 Jul 2016 13:24:25 Kevin Hilman wrote:
-> >> Trond Myklebust <trondmy@primarydata.com> writes:
-> >> > So, we might as well make this a formal proposal.
-> >> >=20
-> >> > I=E2=80=99d like to propose that we have a discussion around how=
- to make it
-> >> > easier to implement kernel unit tests. I=E2=80=99ve co-opted Dan=
- as he has
-> >> > expressed both an interest and hands-on experience. :-)
-> >>=20
-> >> Count me in.
-> >>=20
-> >> I'm working on the kernelci.org project, where we're testing
-> >> mainline/next/stable-rc/stable etc. on real hardware (~200 unique =
-boards
-> >> across ~30 unique SoC families: arm, arm64, x86.)
-> >>=20
-> >> Right now, we're mainly doing basic boot tests, but are starting t=
-o run
-> >> kselftests on all these platforms as well.
-> >=20
-> > Would you be interested in running other test suites as well (for i=
-nstance
-> > http://git.ideasonboard.com/renesas/vsp-tests.git) ? If so we need =
-to
-> > decide on an interface for test suites to make it easy for you to
-> > integrate them in your test farm.
->=20
-> Sure.  Running tests is the easy part.  It's parsing results and maki=
-ng
-> useful reports about regressions that involves a little more work.
+>> For an oscilloscope or signal analyzer usecase with more than
+>> 64 channels needing to be sampled simultaneously, we may need
+>> to add another "large GPIO read" ABI, and also probably a new
+>> driver API interface to achieve it. I've never seen hardware that can
+>> read more values in parallel than 32 though, I chose 64 to get some
+>> headroom.
+>
+> Such a use case would put strong real-time constraints on the system, I wonder
+> how useful a GPIO-based signal analyzer would be. Are you aware of any GPIO
+> hardware that can be programmed to sample at a precise point in time (or
+> perhaps even periodically) ?
 
-Which again calls for a common format for test invocation and test resu=
-lts. Is=20
-that something you've given a thought to already by any chance ?
+Nope. I would expect to close the gap to IIO and reuse their trigger system
+in that case, instead of creating a new one. IIO uses either hardware
+trigger interrupts (usually a fixed frequency, some supply hardware
+timestamps with the interrupts) or alternatively hrtimers, which in turn
+would I guess be most reliable using RT patches.
 
---=20
-Regards,
-
-Laurent Pinchart
+Yours,
+Linus Walleij
