@@ -1,32 +1,31 @@
-Return-Path: <jack@suse.cz>
+Return-Path: <laurent.pinchart@ideasonboard.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 53A8C941
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9A451990
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  2 Aug 2016 08:33:01 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5907A160
+	Tue,  2 Aug 2016 08:33:04 +0000 (UTC)
+Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
+	[185.26.127.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CFCCF20E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  2 Aug 2016 08:33:00 +0000 (UTC)
-Date: Tue, 2 Aug 2016 10:32:52 +0200
-From: Jan Kara <jack@suse.cz>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Message-ID: <20160802083252.GE19431@quack2.suse.cz>
-References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
-	<2071960.gyaMIhrJi3@avalon> <20160728114624.GE4094@quack2.suse.cz>
-	<2023901.fskbspMbmh@avalon>
+	Tue,  2 Aug 2016 08:33:03 +0000 (UTC)
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Peter Ujfalusi <peter.ujfalusi@ti.com>
+Date: Tue, 02 Aug 2016 11:33:02 +0300
+Message-ID: <3068774.8abq2MRDm7@avalon>
+In-Reply-To: <2ddeb98b-7bf8-aa21-2dee-9e02f9c59a92@ti.com>
+References: <CAKMK7uEuqLLf2bCyB-sAuu5WvVA1Kp7Jvc33k3um5DfdQr4eyg@mail.gmail.com>
+	<20160802044609.GS9681@localhost>
+	<2ddeb98b-7bf8-aa21-2dee-9e02f9c59a92@ti.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2023901.fskbspMbmh@avalon>
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
-	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
-	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
-	Valentin Rothberg <valentinrothberg@gmail.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
- and semantics (v2)
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: Russell King - ARM Linux <linux@arm.linux.org.uk>,
+	ksummit-discuss@lists.linuxfoundation.org, "Nikula,
+	Jani" <jani.nikula@linux.intel.com>, Dave Airlie <airlied@linux.ie>,
+	Grant Likely <grant.likely@linaro.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] (group) maintainership models
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,95 +35,93 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Laurent!
+Hi Peter,
 
-On Thu 28-07-16 19:00:36, Laurent Pinchart wrote:
-> On Thursday 28 Jul 2016 13:46:24 Jan Kara wrote:
-> > On Thu 28-07-16 14:03:46, Laurent Pinchart wrote:
-> > > On Thursday 28 Jul 2016 12:54:47 Hans Verkuil wrote:
-> > >>> One problem with those other dependencies is that they can't always be
-> > >>> expressed as a tree and may a graph instead. Worse, in some cases, the
-> > >>> graph can be cyclic (I've recently been told about an external
-> > >>> I2C-based PLL that takes an input clock and generates an output clock,
-> > >>> with the input clock being produced by an on-SoC sound device and the
-> > >>> output clock being used by the same sound device). Even when
-> > >>> individual resource trees or graphs are not cyclic, combining them in
-> > >>> a global dependency graph will often result in cycles. The challenge
-> > >>> is to find a proper way to both express the dependency graph and break
-> > >>> the cycles.
-> > >> 
-> > >> Do we need to capture 100% of all the weird and wonderful dependencies?
-> > >> I think (speaking for the media subsystem) that the vast majority of the
-> > >> dependencies are pretty simple trees without cycles. Being able to
-> > >> capture that would be a huge help. The remaining more complex devices
-> > >> could still fall back on deferred probe, I'd say.
-> > > 
-> > > When dealing with a single type of resources dependency graphs are very
-> > > rarely cyclic. However, when merging multiple resource dependency graphs,
-> > > cycles become quite common.
-> > > 
-> > > One example is the camera device found in OMAP3 chips. The SoC-side camera
-> > > controller can output a clock to the outside world (and is thus a CCF
-> > > clock provider). In most hardware designs that clock is used by the
-> > > external camera sensors, which in turn outputs a video data stream (with a
-> > > clock and other synchronization signals) fed to the camera controller. We
-> > > thus get a dependency loop. The situation is even worse on some Atmel
-> > > platforms where part of the camera controller logic is clocked by the
-> > > pixel clock received from the sensor. In that case the camera controller
-> > > can't be software reset without a sensor providing a pixel clock. We can
-> > > blame the hardware designers, but at the end of the day we need to
-> > > support such systems. Whether such cases need to be supported by generic
-> > > code is a discussion we can have, and I'm not pushing in either
-> > > direction, but I want to make sure we will always have *a* solution.
+On Tuesday 02 Aug 2016 09:48:53 Peter Ujfalusi wrote:
+> On 08/02/16 07:46, Vinod Koul wrote:
+> > On Mon, Aug 01, 2016 at 04:10:29PM +0200, Arnd Bergmann wrote:
+> >> On Monday, August 1, 2016 10:36:01 AM CEST Laurent Pinchart wrote:
+> >>> On Monday 01 Aug 2016 08:56:30 Arnd Bergmann wrote:
+> >>>> On Sunday, July 31, 2016 11:27:53 PM CEST Vinod Koul wrote:
+> >>>>> On Thu, Jul 28, 2016 at 10:44:23AM +0200, Arnd Bergmann wrote:
+> >>>>>> config FOO
+> >>>>>> 
+> >>>>>>       bool "foo driver" if COMPILE_TEST && !ARCH_FOO
+> >>>>>>       default ARCH_FOO
+> >>>>>>       depends on GPIOLIB && I2C && OF && WHATEVER
+> >>>>>> 
+> >>>>>> This becomes a silent always-on symbol if the platform is used,
+> >>>>>> and user-selectable on every other platform with COMPILE_TEST.
+> >>>>> 
+> >>>>> Yeah this seems a bit more better. I am perhaps thinking to add top
+> >>>>> level arch dependency if required. I will try this out on DMAengine to
+> >>>>> start with and ease my build tests
+> >>>> 
+> >>>> Sounds good. Let me know if you end up having to add a 'depends on ARM'
+> >>>> dependency anywhere, as that might indicate that we are doing something
+> >>>> different on ARM that should be done in a more generic way.
+> >>> 
+> >>> OMAP DMA comes to mind, we still depend on the implementation provided
+> >>> by arch/arm/plat-omap/dma.c.
+> >> 
+> >> That's a dependency on MACH_OMAP instead of ARM though, which is a bit
+> >> different.
+> >> 
+> >> (Getting offtopic and) speaking of this one, is anyone working
+> >> on converting the last four or five drivers to the dmaengine framework?
 > > 
-> > So I'm complete outsider to media drivers so maybe my question is stupid
-> > but I cannot resist: So how is the device bringup supposed to work for
-> > devices where you have these cycles in the dependency graph? Do you just
-> > bring up the controller and then the sensor and it works because the
-> > controller doesn't need the clock from the sensor for startup?
+> > Rather lets' move this conversation to dmaengine list?
+> > 
+> >> drivers/media/platform/omap/omap_vout_vrfb.c
 > 
-> That's pretty much the idea, yes. We first probe the controller, and register 
-> a notifier to react to sensors being probed. The controller registers at probe 
-> time the clocks it provides, so the sensor can get hold of them when it gets 
-> probed. The controller is then notified that the sensor is available and 
-> proceeds normally.
+> Needs the interleaved transfer type support in omap-dma. Now it is in -next.
+
+Thank you for your work on this. When you'll have patches for 
+omap_vout_vrfb.c, please let me know and I'll test them.
+
+> >> drivers/mtd/onenand/omap2.c
 > 
-> We also have a suspend/resume ordering issue, where we have to stop the 
-> controller first (the hardware doesn't like when it loses the incoming video 
-> stream while running), but we can't stop the clock just yet before the sensor 
-> driver has a chance to suspend the sensor. We thus use the PM prepare and 
-> complete callbacks to stop/restart the controller, and the PM suspend and 
-> resume callbacks to stop/restart the clock. This is a hack that assumes that 
-> the sensor gets probed after the controller (which is guaranteed by the fact 
-> that the sensor needs a clock provided by the controller and thus probe will 
-> be deferred if the controller hasn't been probed yet) and that the sensor 
-> driver will use the PM suspend/resume callbacks, not the prepare/complete 
-> callbacks. Ugly, but for now it works.
+> Using memcpy, I have sent the patches:
+> https://patchwork.kernel.org/patch/7842891/
+> https://patchwork.kernel.org/patch/7851881/
+> 
+> but I need to revisit. I think the 'fix' will be to drop the DMA support
+> from it.
+> >> drivers/usb/gadget/udc/omap_udc.c
+> >> drivers/usb/musb/tusb6010_omap.c
+> 
+> They are mostly slave implementations, but. As I recall they do some really
+> interesting non symmetric setup for the TX/RX DMA which I still need to
+> figure out. And I'm looking for HW to check for regression...
+> 
+> >> (and a bit of drivers/video/fbdev/omap/omapfb_main.c)
+> 
+> Hrm, that is OMAP1. Looks like highly coupled with mach-omap1/lcd_dma.c.
+> This is going to be a bit complicated IMHO.
+> 
+> > Peter?
+> > 
+> >> I guess we could improve build coverage by moving
+> >> arch/arm/plat-omap/dma.c into drivers/dma/omap-dma.c, but that
+> >> has the disadvantage of exposing a nonstandard interface from
+> >> somewhere inside of the dmaengine subsystem.
+> > 
+> > yeah that won't be nice. I think we should get these removed... We have
+> > omap as well as edma driver in dmaengine.
+> 
+> I'm not going to move the legacy API under dmaengine, it makes no sense.
+> 
+> My plan is to do what I did with the eDMA driver stack:
+> - convert drivers using the legacy API to dmaengine
+> - 'merge' the code from plat-omap to the dmaengine driver
+>   - while doing this the legacy API will vanish along with the
+> plat-omap/dma.c
+> 
+> As with the eDMA, the sDMA stack will need some cleanup, but the good thing
+> is that the dmaengine driver have minimal dependency on the legacy
+> plat-omap/dma.c API.
 
-Thanks for explanation. So from the explanation it seems to me that the
-cycles in the directed graph of devices arise for two reasons:
-
-1) Edges in the graph express different types of dependencies (i.e., boot
-dependency graph is not necessarily the same as suspend dependency graph)
-and thus cycles are created.
-
-2) Some of the vertices in the graph currently express several separately
-controllable entities which may possibly need to be brought up / suspended /
-whatever at different times and this merging of vertices creates cycles.
-
-So if we actually had several different graphs - one for each operation
-(boot, suspend, I-don't-know-what-else-one-can-do-with-devices) -
-expressing dependencies for that operation where vertices would correspond
-to the smallest separately controllable entities for that operation, then
-each of these graphs would be acyclic.
-
-Now whether this would be a practical solution I don't know (one problem
-may be the memory overhead, another may be number of different operations
-one needs to track, and yet another whether one can easily determine
-dependencies for each operation in advance). But it would be a theorically
-clean one :)
-
-								Honza 
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Regards,
+
+Laurent Pinchart
