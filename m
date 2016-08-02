@@ -1,29 +1,29 @@
-Return-Path: <mst@redhat.com>
+Return-Path: <luto@amacapital.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id AF1B294D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E1DA68A1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  2 Aug 2016 17:23:30 +0000 (UTC)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4B7221D3
+	Tue,  2 Aug 2016 17:29:04 +0000 (UTC)
+Received: from mail-vk0-f53.google.com (mail-vk0-f53.google.com
+	[209.85.213.53])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4BE52150
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  2 Aug 2016 17:23:30 +0000 (UTC)
-Received: from int-mx09.intmail.prod.int.phx2.redhat.com
-	(int-mx09.intmail.prod.int.phx2.redhat.com [10.5.11.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mx1.redhat.com (Postfix) with ESMTPS id DD0984E03D
+	Tue,  2 Aug 2016 17:29:04 +0000 (UTC)
+Received: by mail-vk0-f53.google.com with SMTP id n129so127267788vke.3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  2 Aug 2016 17:23:29 +0000 (UTC)
-Date: Tue, 2 Aug 2016 20:23:26 +0300
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: ksummit-discuss@lists.linuxfoundation.org
-Message-ID: <20160802172326.GA25195@redhat.com>
+	Tue, 02 Aug 2016 10:29:04 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Cc: pbonzini@redhat.com
-Subject: [Ksummit-discuss] late self-nomination
+In-Reply-To: <20160802172326.GA25195@redhat.com>
+References: <20160802172326.GA25195@redhat.com>
+From: Andy Lutomirski <luto@amacapital.net>
+Date: Tue, 2 Aug 2016 10:28:43 -0700
+Message-ID: <CALCETrWyHZ5+mZnzgm_j=8N3-thznVmxrov1N7Lns45w2V0X8A@mail.gmail.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] late self-nomination
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,25 +33,31 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi folks!
+On Tue, Aug 2, 2016 at 10:23 AM, Michael S. Tsirkin <mst@redhat.com> wrote:
+> Hi folks!
+>
+> Likely too late, but oh well.
+> I would like to self-nominate for kernel summit this year.
+>
+> I am the maintainer of the virtio subsystem, and within KVM, of the PC
+> and PCI subsystems.  Intelnally within Red Hat I'm a tech lead for the
+> team handling the networking for VMs.
+>
+> I would like to participate in self-hardening to see whether
+> hypervisor extensions (like e.g. kernel guard technology)
+> can benefit that project,
 
-Likely too late, but oh well.
-I would like to self-nominate for kernel summit this year.
+This isn't quite on-topic, but I suggested something that I think
+would be useful last year (possibly off-list -- I don't remember):
 
-I am the maintainer of the virtio subsystem, and within KVM, of the PC
-and PCI subsystems.  Intelnally within Red Hat I'm a tech lead for the
-team handling the networking for VMs.
+On x86 with VMX, the EPT page tables have separate R, W, and X bits.
+If a hypervisor were to limit the guest physical address space to the
+lower half (high bit always clear) and then alias all of it with the
+high guest physical address bit set and R clear, then the guest could
+use the high physical address bit as an effective R bit.  That would
+allow PROT_WRITE, PROT_EXEC, and PROT_WRITE|PROT_EXEC mappings to work
+without granting read access.
 
-I would like to participate in self-hardening to see whether
-hypervisor extensions (like e.g. kernel guard technology)
-can benefit that project, in the memory model discussions
-as virtio is a heavy user of memory barriers and could benefit
-a lot e.g. from faster mb implementations. I would
-also like to learn more about group maintainership
-as we are seeing issues scaling co-maintainership with
-our current structure with virtio.
-
-Cheers,
-
--- 
-MST
+Doing this would provide some protection against attacks that use a
+wild read to scan for code or data structures at otherwise
+unpredictable addresses or to blindly search for ROP gadgets.
