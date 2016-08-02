@@ -1,29 +1,27 @@
-Return-Path: <vinod.koul@intel.com>
+Return-Path: <rdunlap@infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9674B2C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 63FDA2C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  2 Aug 2016 04:38:36 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 2C71FAA
+	Tue,  2 Aug 2016 04:40:45 +0000 (UTC)
+Received: from merlin.infradead.org (merlin.infradead.org [205.233.59.134])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C5271AA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  2 Aug 2016 04:38:36 +0000 (UTC)
-Date: Tue, 2 Aug 2016 10:16:09 +0530
-From: Vinod Koul <vinod.koul@intel.com>
-To: Arnd Bergmann <arnd@arndb.de>, Peter Ujfalusi <peter.ujfalusi@ti.com>
-Message-ID: <20160802044609.GS9681@localhost>
-References: <CAKMK7uEuqLLf2bCyB-sAuu5WvVA1Kp7Jvc33k3um5DfdQr4eyg@mail.gmail.com>
-	<3132432.DrxSMjl1Vi@wuerfel> <3411313.MV5bv347js@avalon>
-	<23532527.pWCIkcecbr@wuerfel>
+	Tue,  2 Aug 2016 04:40:44 +0000 (UTC)
+To: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+From: Randy Dunlap <rdunlap@infradead.org>
+Message-ID: <0e76826b-6552-e880-42fc-17be0c5bf3fe@infradead.org>
+Date: Mon, 1 Aug 2016 20:46:05 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <23532527.pWCIkcecbr@wuerfel>
-Cc: ksummit-discuss@lists.linuxfoundation.org, Dave Airlie <airlied@linux.ie>,
-	"Nikula, Jani" <jani.nikula@linux.intel.com>,
-	Grant Likely <grant.likely@linaro.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] (group) maintainership models
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Cc: Michal Marek <mmarek@suse.cz>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Jiri Olsa <jolsa@kernel.org>, Arjan van de Ven <arjan@linux.intel.com>,
+	Ingo Molnar <mingo@kernel.org>
+Subject: [Ksummit-discuss] [TECH TOPIC] tools/Makefile: Fix Many Many
+ problems and inconsistencies
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,55 +31,64 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Aug 01, 2016 at 04:10:29PM +0200, Arnd Bergmann wrote:
-> On Monday, August 1, 2016 10:36:01 AM CEST Laurent Pinchart wrote:
-> > On Monday 01 Aug 2016 08:56:30 Arnd Bergmann wrote:
-> > > On Sunday, July 31, 2016 11:27:53 PM CEST Vinod Koul wrote:
-> > > > On Thu, Jul 28, 2016 at 10:44:23AM +0200, Arnd Bergmann wrote:
-> > > > > config FOO
-> > > > > 
-> > > > >       bool "foo driver" if COMPILE_TEST && !ARCH_FOO
-> > > > >       default ARCH_FOO
-> > > > >       depends on GPIOLIB && I2C && OF && WHATEVER
-> > > > > 
-> > > > > This becomes a silent always-on symbol if the platform is used,
-> > > > > and user-selectable on every other platform with COMPILE_TEST.
-> > > > 
-> > > > Yeah this seems a bit more better. I am perhaps thinking to add top
-> > > > level arch dependency if required. I will try this out on DMAengine to
-> > > > start with and ease my build tests
-> > > 
-> > > Sounds good. Let me know if you end up having to add a 'depends on ARM'
-> > > dependency anywhere, as that might indicate that we are doing something
-> > > different on ARM that should be done in a more generic way.
-> > 
-> > OMAP DMA comes to mind, we still depend on the implementation provided by 
-> > arch/arm/plat-omap/dma.c.
-> 
-> That's a dependency on MACH_OMAP instead of ARM though, which is a bit
-> different.
-> 
-> (Getting offtopic and) speaking of this one, is anyone working
-> on converting the last four or five drivers to the dmaengine framework?
+and subdir Makefiles.
 
-Rather lets' move this conversation to dmaengine list?
+Examples:
 
-> drivers/media/platform/omap/omap_vout_vrfb.c
-> drivers/mtd/onenand/omap2.c
-> drivers/usb/gadget/udc/omap_udc.c
-> drivers/usb/musb/tusb6010_omap.c
-> (and a bit of drivers/video/fbdev/omap/omapfb_main.c)
+Use/honor O=outputdir consistently instead of building in <kerneltree>/tools.
+(check/compare kernel commit bf35182ffcd00d8b36d56210ffdac110e5624d7d)
 
-Peter?
+Honor MAKEFLAGS (well, they aren't even passed to tools/Makefile AFAICT.
+from an execution log:
+make LDFLAGS= MAKEFLAGS="" O=/local/lnx/kernel/lnx-47/TOOLS subdir=tools -C ../tools/ all
 
-> 
-> I guess we could improve build coverage by moving 
-> arch/arm/plat-omap/dma.c into drivers/dma/omap-dma.c, but that
-> has the disadvantage of exposing a nonstandard interface from
-> somewhere inside of the dmaengine subsystem.
+Use make's "findstring" correctly (see patch below)
 
-yeah that won't be nice. I think we should get these removed... We have omap
-as well as edma driver in dmaengine.
+There are lots of other problems unless I have just had too much too drink tonight,
+so here's the TECH TOPIC:
 
--- 
-~Vinod
+In a 1.5 hour code crunch session, get a bunch of interested people together to fix
+a lot of problems quickly.  Then I will be a guinea pig tester.  :)
+
+
+Self-nomination: /me.
+Others interested:
+Arnaldo (acme); Michal Marek.
+
+
+Thanks.
+---
+
+From: Randy Dunlap <rdunlap@infradead.org>
+
+Use GCC make's "findstring findthis,instring" correctly;
+i.e., reverse its arguments in tools/scripts/Makefiles.include.
+
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+---
+ tools/scripts/Makefile.include |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+This never worked, right?  because of the argument ordering
+and because MAKEFLAGS=""!
+
+--- lnx-47.orig/tools/scripts/Makefile.include
++++ lnx-47/tools/scripts/Makefile.include
+@@ -40,7 +40,7 @@ EXTRA_WARNINGS += -Wundef
+ EXTRA_WARNINGS += -Wwrite-strings
+ EXTRA_WARNINGS += -Wformat
+ 
+-ifneq ($(findstring $(MAKEFLAGS), w),w)
++ifneq ($(findstring w,$(MAKEFLAGS)),w)
+ PRINT_DIR = --no-print-directory
+ else
+ NO_SUBDIR = :
+@@ -58,7 +58,7 @@ descend = \
+ QUIET_SUBDIR0  = +$(MAKE) $(COMMAND_O) -C # space to separate -C and subdir
+ QUIET_SUBDIR1  =
+ 
+-ifneq ($(findstring $(MAKEFLAGS),s),s)
++ifneq ($(findstring s,$(MAKEFLAGS)),s)
+   ifneq ($(V),1)
+ 	QUIET_CC       = @echo '  CC       '$@;
+ 	QUIET_CC_FPIC  = @echo '  CC FPIC  '$@;
