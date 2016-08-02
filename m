@@ -1,26 +1,31 @@
-Return-Path: <jack@suse.cz>
+Return-Path: <laurent.pinchart@ideasonboard.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9B199724
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4616F995
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  2 Aug 2016 09:18:05 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D5BBC228
+	Tue,  2 Aug 2016 09:21:16 +0000 (UTC)
+Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
+	[185.26.127.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C31EC225
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  2 Aug 2016 09:18:04 +0000 (UTC)
-Date: Tue, 2 Aug 2016 11:18:02 +0200
-From: Jan Kara <jack@suse.cz>
-To: Johannes Weiner <hannes@cmpxchg.org>
-Message-ID: <20160802091802.GF19431@quack2.suse.cz>
-References: <20160725171142.GA26006@cmpxchg.org>
-	<20160728185523.GA16390@cmpxchg.org>
+	Tue,  2 Aug 2016 09:21:15 +0000 (UTC)
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Russell King - ARM Linux <linux@armlinux.org.uk>
+Date: Tue, 02 Aug 2016 12:21:16 +0300
+Message-ID: <2283297.XPLgoHqr42@avalon>
+In-Reply-To: <20160802084136.GF1041@n2100.armlinux.org.uk>
+References: <CAKMK7uEuqLLf2bCyB-sAuu5WvVA1Kp7Jvc33k3um5DfdQr4eyg@mail.gmail.com>
+	<2ddeb98b-7bf8-aa21-2dee-9e02f9c59a92@ti.com>
+	<20160802084136.GF1041@n2100.armlinux.org.uk>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20160728185523.GA16390@cmpxchg.org>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Memory thrashing,
- was Re:  Self nomination
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: ksummit-discuss@lists.linuxfoundation.org, "Nikula,
+	Jani" <jani.nikula@linux.intel.com>,
+	Peter Ujfalusi <peter.ujfalusi@ti.com>, Dave Airlie <airlied@linux.ie>,
+	Grant Likely <grant.likely@linaro.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] (group) maintainership models
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,57 +35,61 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu 28-07-16 14:55:23, Johannes Weiner wrote:
-> On Mon, Jul 25, 2016 at 01:11:42PM -0400, Johannes Weiner wrote:
-> > Most recently I have been working on reviving swap for SSDs and
-> > persistent memory devices (https://lwn.net/Articles/690079/) as part
-> > of a bigger anti-thrashing effort to make the VM recover swiftly and
-> > predictably from load spikes.
-> 
-> A bit of context, in case we want to discuss this at KS:
-> 
-> We frequently have machines hang and stop responding indefinitely
-> after they experience memory load spikes. On closer look, we find most
-> tasks either in page reclaim or majorfaulting parts of an executable
-> or library. It's a typical thrashing pattern, where everybody
-> cannibalizes everybody else. The problem is that with fast storage the
-> cache reloads can be fast enough that there are never enough in-flight
-> pages at a time to cause page reclaim to fail and trigger the OOM
-> killer. The livelock persists until external remediation reboots the
-> box or we get lucky and non-cache allocations eventually suck up the
-> remaining page cache and trigger the OOM killer.
-> 
-> To avoid hitting this situation, we currently have to keep a generous
-> memory reserve for occasional spikes, which sucks for utilization the
-> rest of the time. Swap would be useful here, but the swapout code is
-> basically only triggering when memory pressure rises - which again
-> doesn't happen - so I've been working on the swap code to balance
-> cache reclaim vs. swap based on relative thrashing between the two.
-> 
-> There is usually some cold/unused anonymous memory lying around that
-> can be unloaded into swap during workload spikes, so that allows us to
-> drive up the average memory utilization without increasing the risk at
-> least. But if we screw up and there are not enough unused anon pages,
-> we are back to thrashing - only now it involves swapping too.
-> 
-> So how do we address this?
-> 
-> A pathological thrashing situation is very obvious to any user, but
-> it's not quite clear how to quantify it inside the kernel and have it
-> trigger the OOM killer. It might be useful to talk about
-> metrics. Could we quantify application progress? Could we quantify the
-> amount of time a task or the system spends thrashing, and somehow
-> express it as a percentage of overall execution time? Maybe something
-> comparable to IO wait time, except tracking the time spent performing
-> reclaim and waiting on IO that is refetching recently evicted pages?
-> 
-> This question seems to go beyond the memory subsystem and potentially
-> involve the scheduler and the block layer, so it might be a good tech
-> topic for KS.
+Hi Russell,
 
-I'd be interested to join this discussion.
+On Tuesday 02 Aug 2016 09:41:36 Russell King - ARM Linux wrote:
+> On Tue, Aug 02, 2016 at 09:48:53AM +0300, Peter Ujfalusi wrote:
+> > I'm not going to move the legacy API under dmaengine, it makes no sense.
+> > 
+> > My plan is to do what I did with the eDMA driver stack:
+> > - convert drivers using the legacy API to dmaengine
+> > - 'merge' the code from plat-omap to the dmaengine driver
+> >   - while doing this the legacy API will vanish along with the
+> >   plat-omap/dma.c
+> >
+> > As with the eDMA, the sDMA stack will need some cleanup, but the good
+> > thing is that the dmaengine driver have minimal dependency on the legacy
+> > plat-omap/dma.c API.
+> 
+> I totally oppose moving arch/arm/plat-omap/dma.c into drivers/dma.
+> The omap-dma driver in drivers/dma is a replacement modern driver
+> for the legacy crap, and most users of the legacy crap have been
+> converted.
+> 
+> Why we still have users of the legacy crap is because:
+> 
+> (a) they don't fit into the DMA engine API very well
+> (b) I don't have hardware to be able to test them
+> 
+> and, because of that, I'm not going to start proposing DMA engine API
+> extensions to support something that I've no way to even test.
+> 
+> I've asked for help from TI on this when I was woring on the DMA
+> engine implementation, and there was no interest - it kept being
+> put back on me as something for me to sort.  It became an impossible
+> situation.
+> 
+> So, how things were left was that I'd introduce a warning into the
+> legacy driver, and in a few years time we'd strip it out of users
+> and delete the legacy driver.
+> 
+> The warning (which is rather large, because it's a WARN(), so
+> involves a kernel stack dump) has not produced (afaik) any complaints
+> from anyone.  So, we can probably conclude that any of these drivers
+> which are using the legacy DMA code are probably not being used.
 
-								Honza
+I know of devices that ship with a recent kernel (v4.4 last time I checked) 
+patched to remove the warning. We could argue that the vendor should submit 
+patches to fix the offending driver(s), but the reality is that they don't 
+have enough kernel development experience to do so. This doesn't mean we have 
+to fix the problem for them, but I'm afraid we can't conclude this easily that 
+those drivers are not used.
+
+> This means we can save ourselves a lot of work and just delete all
+> these drivers using the legacy OMAP DMA along with the legacy OMAP
+> DMA driver.
+
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Regards,
+
+Laurent Pinchart
