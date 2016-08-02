@@ -1,30 +1,39 @@
-Return-Path: <josh@joshtriplett.org>
+Return-Path: <jikos@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A6A66941
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E6518959
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  2 Aug 2016 08:27:40 +0000 (UTC)
-Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
-	[217.70.183.196])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 09EA0202
+	Tue,  2 Aug 2016 08:30:50 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 740B513B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  2 Aug 2016 08:27:39 +0000 (UTC)
-Date: Tue, 2 Aug 2016 01:27:30 -0700
-From: Josh Triplett <josh@joshtriplett.org>
-To: Arnd Bergmann <arnd@arndb.de>
-Message-ID: <20160802082730.3tvk6xcd4s3sfmja@x>
-References: <0e76826b-6552-e880-42fc-17be0c5bf3fe@infradead.org>
-	<20160802050232.nzgtuijqw46qopyr@x> <2484582.9IDmfFcZQi@wuerfel>
+	Tue,  2 Aug 2016 08:30:50 +0000 (UTC)
+Date: Tue, 2 Aug 2016 10:30:45 +0200 (CEST)
+From: Jiri Kosina <jikos@kernel.org>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+In-Reply-To: <CAKdAkRSgnL_efCUnX+v8Up_OcJq4RcKH=-AHORDwDFWHDXxPAQ@mail.gmail.com>
+Message-ID: <alpine.LNX.2.00.1608021030180.22028@cbobk.fhfr.pm>
+References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
+	<20160729111303.GA10376@sirena.org.uk>
+	<20160801190309.GX3296@wotan.suse.de>
+	<1555444.RIYpEbA2F7@vostro.rjw.lan>
+	<20160802005650.GF3296@wotan.suse.de>
+	<CAKdAkRSgnL_efCUnX+v8Up_OcJq4RcKH=-AHORDwDFWHDXxPAQ@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2484582.9IDmfFcZQi@wuerfel>
-Cc: Michal Marek <mmarek@suse.cz>, ksummit-discuss@lists.linuxfoundation.org,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Jiri Olsa <jolsa@kernel.org>, Arjan van de Ven <arjan@linux.intel.com>,
-	Ingo Molnar <mingo@kernel.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] tools/Makefile: Fix Many Many
- problems and inconsistencies
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+Cc: Oded Gabbay <oded.gabbay@gmail.com>,
+	=?ISO-8859-15?Q?J=F6rg_R=F6del?= <jroedel@suse.de>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
+	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
+	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
+	Cristina Moraru <cristina.moraru09@gmail.com>,
+	Roberto Di Cosmo <roberto@dicosmo.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Stefano Zacchiroli <zack@upsilon.cc>,
+	Valentin Rothberg <valentinrothberg@gmail.com>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
+ and semantics (v2)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,41 +43,14 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Aug 02, 2016 at 09:31:05AM +0200, Arnd Bergmann wrote:
-> On Monday, August 1, 2016 10:02:33 PM CEST Josh Triplett wrote:
-> > On Mon, Aug 01, 2016 at 08:46:05PM -0700, Randy Dunlap wrote:
-> > > and subdir Makefiles.
-> > > 
-> > > Examples:
-> > > 
-> > > Use/honor O=outputdir consistently instead of building in <kerneltree>/tools.
-> > > (check/compare kernel commit bf35182ffcd00d8b36d56210ffdac110e5624d7d)
-> > > 
-> > > Honor MAKEFLAGS (well, they aren't even passed to tools/Makefile AFAICT.
-> > > from an execution log:
-> > > make LDFLAGS= MAKEFLAGS="" O=/local/lnx/kernel/lnx-47/TOOLS subdir=tools -C ../tools/ all
-> > > 
-> > > Use make's "findstring" correctly (see patch below)
-> > > 
-> > > There are lots of other problems unless I have just had too much too drink tonight,
-> > > so here's the TECH TOPIC:
-> > > 
-> > > In a 1.5 hour code crunch session, get a bunch of interested people together to fix
-> > > a lot of problems quickly.  Then I will be a guinea pig tester.  :)
-> 
-> I'd be interested in this too.
-> 
-> > Another pattern to look for: any instance of
-> > ifeq ($(CONFIG_FOO),y)
-> > where CONFIG_FOO is a tristate symbol should generally become
-> > ifneq ($(CONFIG_FOO),n)
-> 
-> I tend to use
-> 
-> ifdef CONFIG_FOO
-> 
-> which seems more straightforward (fewer parentheses). Anything wrong
-> with that?
+On Mon, 1 Aug 2016, Dmitry Torokhov wrote:
 
-No, that's fine.  And I had a typo above, as well; I meant to write:
-ifneq ($(CONFIG_FOO),)
+> HID would definitely benefit from specific/generic support. Rigth now 
+> there are somewhat long tables of devices generic hid driver ignores so 
+> that specific drivers have a chance to bind.
+
+Agreed, that's an excellent use-case for this proposal. Thanks,
+
+-- 
+Jiri Kosina
+SUSE Labs
