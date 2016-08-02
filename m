@@ -1,33 +1,33 @@
-Return-Path: <jikos@kernel.org>
+Return-Path: <tony@atomide.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 227D3958
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id C90BF92B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  2 Aug 2016 09:48:06 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A5C6314F
+	Tue,  2 Aug 2016 09:57:25 +0000 (UTC)
+Received: from muru.com (muru.com [72.249.23.125])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 348D4101
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  2 Aug 2016 09:48:05 +0000 (UTC)
-Received: from relay1.suse.de (charybdis-ext.suse.de [195.135.220.254])
-	by mx2.suse.de (Postfix) with ESMTP id BA1E3ACAC
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  2 Aug 2016 09:48:03 +0000 (UTC)
-Date: Tue, 2 Aug 2016 11:48:03 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
-To: Hannes Reinecke <hare@suse.com>
-In-Reply-To: <bf260f5f-d2df-01ee-f0f9-1ab3dc1a6e6e@suse.com>
-Message-ID: <alpine.LNX.2.00.1608021145340.22028@cbobk.fhfr.pm>
-References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
-	<20160729111303.GA10376@sirena.org.uk>
-	<20160801190309.GX3296@wotan.suse.de>
-	<1555444.RIYpEbA2F7@vostro.rjw.lan>
-	<20160802005650.GF3296@wotan.suse.de>
-	<bf260f5f-d2df-01ee-f0f9-1ab3dc1a6e6e@suse.com>
+	Tue,  2 Aug 2016 09:57:25 +0000 (UTC)
+Date: Tue, 2 Aug 2016 02:49:56 -0700
+From: Tony Lindgren <tony@atomide.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Message-ID: <20160802094956.GY28563@atomide.com>
+References: <CAKMK7uEuqLLf2bCyB-sAuu5WvVA1Kp7Jvc33k3um5DfdQr4eyg@mail.gmail.com>
+	<20160802044609.GS9681@localhost>
+	<2ddeb98b-7bf8-aa21-2dee-9e02f9c59a92@ti.com>
+	<3068774.8abq2MRDm7@avalon>
 MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
- and semantics (v2)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3068774.8abq2MRDm7@avalon>
+Cc: Russell King - ARM Linux <linux@arm.linux.org.uk>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Dave Airlie <airlied@linux.ie>, "Nikula,
+	Jani" <jani.nikula@linux.intel.com>,
+	Peter Ujfalusi <peter.ujfalusi@ti.com>,
+	Grant Likely <grant.likely@linaro.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] (group) maintainership models
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,33 +37,74 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, 2 Aug 2016, Hannes Reinecke wrote:
-
-> We actually have been discussing such a scenario when running under 
-> UEFI; there you could implement a generic UEFI network driver, which 
-> then later might get superseded by the 'real' network driver.
+* Laurent Pinchart <laurent.pinchart@ideasonboard.com> [160802 01:33]:
+> On Tuesday 02 Aug 2016 09:48:53 Peter Ujfalusi wrote:
+> > >> drivers/media/platform/omap/omap_vout_vrfb.c
+> > 
+> > Needs the interleaved transfer type support in omap-dma. Now it is in -next.
 > 
-> Which would require to
-> a) be able to properly formulate the probing order
-> and
-> b) establish proper rules on how to 're-bind' a device to a different
-> driver.
+> Thank you for your work on this. When you'll have patches for 
+> omap_vout_vrfb.c, please let me know and I'll test them.
+> 
+> > >> drivers/mtd/onenand/omap2.c
+> > 
+> > Using memcpy, I have sent the patches:
+> > https://patchwork.kernel.org/patch/7842891/
+> > https://patchwork.kernel.org/patch/7851881/
+> >
+> > but I need to revisit. I think the 'fix' will be to drop the DMA support
+> > from it.
 
-Similar use-case for HID.
+Yeah let's remove the DMA support from onenand/omapp.c. It's
+wrongly using GPIO line instead of the external DMA trigger
+line, and already mostly disabled. I doubt that anybody will
+miss the DMA support here.
 
-There is a lot of hardware for which hid-generic driver 'sort of works' 
-(and it makes sense to have that one included in the initrd), but then 
-there are specific drivers fully exploiting all the capabilities of 
-particular device (and it doesn't make sense to include all of those in 
-initrd).
+> > >> drivers/usb/gadget/udc/omap_udc.c
+> > >> drivers/usb/musb/tusb6010_omap.c
+> > 
+> > They are mostly slave implementations, but. As I recall they do some really
+> > interesting non symmetric setup for the TX/RX DMA which I still need to
+> > figure out. And I'm looking for HW to check for regression...
 
-Currently, the hid-generic doesn't bind to such devices at all, because it 
-has a large list of device IDs for which specific drivers exist, and 
-expects those to be bound. Which doesn't really provide the best user 
-experience.
+I think the omap_udc.c is also used for modems on omap4 based
+phones?
 
-Thanks,
+The tusb6010_omap.c case is a very good test case with variable
+size ping test over USB Ethernet :) It's probably also the only
+mainline DMA test case for omap external DMA request pins, so I'd
+rather have it updated,
 
--- 
-Jiri Kosina
-SUSE Labs
+> > >> (and a bit of drivers/video/fbdev/omap/omapfb_main.c)
+> > 
+> > Hrm, that is OMAP1. Looks like highly coupled with mach-omap1/lcd_dma.c.
+> > This is going to be a bit complicated IMHO.
+> > 
+> > > Peter?
+> > > 
+> > >> I guess we could improve build coverage by moving
+> > >> arch/arm/plat-omap/dma.c into drivers/dma/omap-dma.c, but that
+> > >> has the disadvantage of exposing a nonstandard interface from
+> > >> somewhere inside of the dmaengine subsystem.
+> > > 
+> > > yeah that won't be nice. I think we should get these removed... We have
+> > > omap as well as edma driver in dmaengine.
+> > 
+> > I'm not going to move the legacy API under dmaengine, it makes no sense.
+> > 
+> > My plan is to do what I did with the eDMA driver stack:
+> > - convert drivers using the legacy API to dmaengine
+> > - 'merge' the code from plat-omap to the dmaengine driver
+> >   - while doing this the legacy API will vanish along with the
+> > plat-omap/dma.c
+> > 
+> > As with the eDMA, the sDMA stack will need some cleanup, but the good thing
+> > is that the dmaengine driver have minimal dependency on the legacy
+> > plat-omap/dma.c API.
+
+We can move the omap1 legacy dma support to be mach-omap1 specific
+once the problem drivers are fixed.
+
+Regards,
+
+Tony
