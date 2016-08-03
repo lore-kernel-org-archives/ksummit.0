@@ -1,29 +1,29 @@
 Return-Path: <linux@roeck-us.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8E2E383D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id C8FDE83D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  3 Aug 2016 22:16:29 +0000 (UTC)
+	Wed,  3 Aug 2016 22:25:15 +0000 (UTC)
 Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1C447E1
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6F6F8A9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  3 Aug 2016 22:16:29 +0000 (UTC)
-Date: Wed, 3 Aug 2016 15:16:21 -0700
+	Wed,  3 Aug 2016 22:25:15 +0000 (UTC)
+Date: Wed, 3 Aug 2016 15:25:13 -0700
 From: Guenter Roeck <linux@roeck-us.net>
-To: Jiri Kosina <jikos@kernel.org>
-Message-ID: <20160803221621.GA17248@roeck-us.net>
-References: <20160803110935.GA26270@kroah.com> <87a8guq9y8.fsf@intel.com>
-	<20160803132607.GA31662@kroah.com>
-	<alpine.LNX.2.00.1608031537140.22028@cbobk.fhfr.pm>
-	<20160803141937.GA9180@kroah.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Message-ID: <20160803222513.GB17248@roeck-us.net>
+References: <20160803141937.GA9180@kroah.com>
 	<alpine.LNX.2.00.1608031642300.22028@cbobk.fhfr.pm>
 	<57A21252.7000407@roeck-us.net> <20160803161234.GA32965@dtor-ws>
-	<57A21F88.7000504@roeck-us.net>
-	<alpine.LNX.2.00.1608032052430.22028@cbobk.fhfr.pm>
+	<57A21F88.7000504@roeck-us.net> <20160803172015.GA36266@dtor-ws>
+	<20160803182105.GA11395@roeck-us.net>
+	<20160803185902.GB36266@dtor-ws>
+	<alpine.LNX.2.00.1608032323150.22028@cbobk.fhfr.pm>
+	<CAKdAkRRq-rEaBwv9Kn=9t-8noSJodOAjebZdLQx-b_d17bonkQ@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <alpine.LNX.2.00.1608032052430.22028@cbobk.fhfr.pm>
+In-Reply-To: <CAKdAkRRq-rEaBwv9Kn=9t-8noSJodOAjebZdLQx-b_d17bonkQ@mail.gmail.com>
 Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
 	ksummit-discuss@lists.linuxfoundation.org,
 	Trond Myklebust <trondmy@primarydata.com>
@@ -37,37 +37,42 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Aug 03, 2016 at 08:57:26PM +0200, Jiri Kosina wrote:
-> On Wed, 3 Aug 2016, Guenter Roeck wrote:
+On Wed, Aug 03, 2016 at 02:31:51PM -0700, Dmitry Torokhov wrote:
+> On Wed, Aug 3, 2016 at 2:25 PM, Jiri Kosina <jikos@kernel.org> wrote:
+> > On Wed, 3 Aug 2016, Dmitry Torokhov wrote:
+> >
+> >> I wonder if we could change meaning of naked cc: stable@ to mean latest
+> >> stable only, and if fix is important enough then maintainer or somebody
+> >> else can annotate how far back the fix should be applied? Ideally with
+> >> "Fixes: XXX"?
+> >
+> > Yeah, James already proposed that and I totally agree with that.
+> >
+> > Greg, would you have any objection to formulating some rule a-la "all the
+> > stable anotations should either be accompanied by explicit 'Fixes:', or
+> > explicit range of kernel versions the patch is applicable to"?
 > 
-> > How can one reasonable expect a stable maintainer to determine if a 
-> > patch for an oddball architecture applies, or one for a random subsystem?
+> Umm, that is not what I meant. I said that I wanted "naked" cc:stable
+> only to apply top the latest stable. The fix may be applicable to
+> another stable, but I have not researched that. As opposed to say "#
+> v3.10+" where I definitely want it to be applied to all stables
+> starting with 3.10.
 > 
-> So *who* is supposed to be *the* responsible person for cherry-picking the 
-> patch and verifying that it is applicable to particular -stable?
+> Compare this to current situation where seeing unqualified CC stable
+> is taken as "take it as far back as humanly possible" by default.
 > 
+I think this is an excellent idea. It would only apply to unqualified
+stable annotations, which I suspect are the ones causing most of the trouble
+in older branches. Whoever wants a patch applied to older stable kernels
+would have to add either a range or a Fixes: tag, which I think is what Jiri
+suggested above. This would make the rule something like
 
-Cherry-picking and verifying applicability are two separate tasks, so mixing
-them together makes it a bit difficult to answer the question. I'll focus
-on verifying applicability.
+"All stable annotations should either be accompanied by explicit 'Fixes:',
+ or explicit range of kernel versions the patch is applicable to. Unqualified
+ stable annotations will only be applied to the most recent stable release."
 
-> The statement above suggests that it's definitely not a responsibility of 
-> stable branch maintainer.
-> 
+Maybe this can be extended to "the most recent longterm stable release"
+to find a middle ground.
 
-Question is if it _can_ reasonably be the responsibility of a stable branch
-maintainer to verify if a patch is applicable. I don't think it is, beyond
-"It is tagged for this release". Of course, I may be wrong, and both
-stable branch maintainers and the community may have a different opinion.
-
-> OTOH Greg (and not only him) argues that maintainers are already 
-> overloaded, so asking them to actually prepare patches for particular 
-> stable trees (at least the ones they care about) is too much to ask.
-> 
-
-That is a bit different, though. I don't think I (or anyone else) suggested
-that subsystem maintainers should start _preparing_ patches for stable trees.
-The question is who can make the call if a patch applies to a specific stable
-tree or not, especially if it is only marked with a generic "Cc: stable".
-
+Thanks,
 Guenter
