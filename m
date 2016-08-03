@@ -1,41 +1,30 @@
-Return-Path: <linus.walleij@linaro.org>
+Return-Path: <dhowells@redhat.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6EC888D7
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id F344A89C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  3 Aug 2016 10:41:02 +0000 (UTC)
-Received: from mail-oi0-f42.google.com (mail-oi0-f42.google.com
-	[209.85.218.42])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B9A1B101
+	Wed,  3 Aug 2016 10:43:54 +0000 (UTC)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4F2621B2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  3 Aug 2016 10:41:01 +0000 (UTC)
-Received: by mail-oi0-f42.google.com with SMTP id j185so274078199oih.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 03 Aug 2016 03:41:01 -0700 (PDT)
+	Wed,  3 Aug 2016 10:43:54 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+In-Reply-To: <CALCETrXTusbj3vTQ=DmyiYG-ZqYOtHXD6rQpY-4+qtqsKmoD4g@mail.gmail.com>
+References: <CALCETrXTusbj3vTQ=DmyiYG-ZqYOtHXD6rQpY-4+qtqsKmoD4g@mail.gmail.com>
+To: Andy Lutomirski <luto@amacapital.net>
 MIME-Version: 1.0
-In-Reply-To: <87h9b2qh7o.fsf@intel.com>
-References: <20150804152622.GY30479@wotan.suse.de>
-	<1468612258.5335.0.camel@linux.vnet.ibm.com>
-	<1468612671.5335.5.camel@linux.vnet.ibm.com>
-	<20160716005213.GL30372@sirena.org.uk>
-	<1469544138.120686.327.camel@infradead.org>
-	<20160727140406.GP4541@io.lakedaemon.net>
-	<CACRpkdYSsZ9S5KKu76YZD2m6tfBr=310Vaij1LPoRybYnHVDXw@mail.gmail.com>
-	<1470147214.2485.8.camel@HansenPartnership.com>
-	<CACRpkdaeeOed5g+teLyOfeuqx1SijeDuyPAWq1-vQd3Z7uozTA@mail.gmail.com>
-	<87h9b2qh7o.fsf@intel.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Wed, 3 Aug 2016 12:41:00 +0200
-Message-ID: <CACRpkdZHv1Sc7t4Fmm0_7XLoNqDUCZgjMZzYEUamwcDhjrn2SQ@mail.gmail.com>
-To: Jani Nikula <jani.nikula@intel.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <27173.1470221030.1@warthog.procyon.org.uk>
+Date: Wed, 03 Aug 2016 11:43:50 +0100
+Message-ID: <27174.1470221030@warthog.procyon.org.uk>
 Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Josh Boyer <jwboyer@fedoraproject.org>,
 	Jason Cooper <jason@lakedaemon.net>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
 	Mark Brown <broonie@sirena.org.uk>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Signature management - keys,
- modules, firmware, was: Last minute nominations: mcgrof and toshi
+Subject: Re: [Ksummit-discuss] [TOPIC] Secure/verified boot and roots of
+	trust
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -45,47 +34,91 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Aug 3, 2016 at 12:28 PM, Jani Nikula <jani.nikula@intel.com> wrote:
-> On Wed, 03 Aug 2016, Linus Walleij <linus.walleij@linaro.org> wrote:
+Andy Lutomirski <luto@amacapital.net> wrote:
 
->> I would trust an Intel WiFi driver if it was signed by Dirk Hohndel
->> or H. Peter Anvin whose GPG keys I have in my own web of trust
->> and work for Intel. And this is simply because I trust these guys
->> more than the corporate entity they work for.
->
-> I think you're conflating the trust you have in someone or something
-> actually being who they claim they are with the trust you have in
-> them. The GPG keys are used for the former, and it's *relatively* easy
-> to achieve by key signing events and web of trust. The latter is much
-> harder, and involves all the things you usually have to do to gain trust
-> in people.
->
-> I would imagine we'd want to ensure the firmware blobs actually come
-> from whoever writes them. I would imagine this would be the company. I
-> don't think the signatures per se should imply a guarantee of quality,
-> just that the firmware originates from where it's supposed to originate.
->
-> If you insist the individuals you trust sign the blobs, I think you're
-> putting them under pressure to scrutinize the contents, while they might
-> not be in a position to do so, like James says.
+> I got module hashing working.  It ended up being fairly
+> straightforward.
 
-Well, that is what we insist that people sending is code does. That is
-what Signed-off-by and the signed pull requests mean isn't it?
-That we trust the person. GPG is just mechanics to make sure it is
-really that person which we trust.
+It's not particularly difficult to use a flat hash table (assuming that's what
+you've done), however, it's redundant, less efficient when not being used and
+makes the build process more complicated.
 
-As for trusting corporate entities, I understand that I may be
-out-of-the-ordinary anarchist when it comes to that, I can certainly
-live with the fact that everyone else in the world has no problem with
-that and doesn't understand what I'm talking about or why it would
-be a problem. It's just like, my opinion, man.
+To elaborate:
 
-The point is that the kind of trust technology you choose - certificates
-or GPG signatures - sort of decides and codifies what it is you trust,
-it creates an ontology for this. (I.e. "the world is populated by people
-you can trust" vs "the world is populated by legal entities you can
-trust".) Choosing one or the other is fine, but should be done consciously
-I think.
+ (1) We have to keep the module signing by keys stuff in the kernel along with
+     a supply of keys for it to use *anyway*.  Yes, we might then be able to
+     drop the build-time transient key, but that doesn't account for very much
+     image space or memory.
 
-Yours,
-Linus Walleij
+ (2) The x86_64 Fedora RPMs for the kernel running on my desktop right now
+     contain 8783 modules.  Assuming we have a SHA256 hash for each of those
+     (to keep UEFI compatibility), that's 274KiB - assuming you have just a
+     simple contiguous array of hashes with no metadata of any sort.
+
+     Add to this approx 1135 firmware binaries for another 35KiB of space.
+
+     Assuming you bake this into the kernel image, that increases both the
+     image size and the memory usage by more than a quarter of a Meg - and,
+     due to the nature of the data, it cannot be compressed.
+
+     [Note that using signatures on modules and firmware blobs does also
+      require at least this much space on the *medium*, but it's (i)
+      distributed and (ii) may in some cases get lost in the fs block size,
+      and the amount you require inside the initrd image is automatically kept
+      small.]
+
+     Now, you can alleviate this in various ways:
+
+     (a) You could demand-load the entire table as one lump and have a single
+     	 hash in the kernel to cover the table.  This means (i) having some
+     	 mechanism to do the loading before any modules or firmware is loaded,
+     	 and (ii) getting the table into the initrd/initramfs image.
+
+     (b) You could split the table up, but then the kernel needs a hash for
+     	 each segment.  You could have a hash-of-table-hashes that the kernel
+     	 loads (and would also need a hash for), but this means demand-loading
+     	 still, and now the mechanism is getting more complicated.
+
+	 If you did do this, you could split the table up mechanically, but
+	 then mkinitrd would have to be able to work out which hash segments
+	 in needs to load a particular module/firmware blob (it could do this
+	 by hashing the blob and then scanning the tables for a match, then
+	 selecting that table).
+
+	 Or you could try and anticipate at build time what modules the
+	 initial boot process would need and split the table that way.
+
+     (c) You could bake in just the module/firmware hashes that you think the
+     	 boot process might need and then discard those and load the full
+     	 table 
+
+ (3) If someone adds or updates a firmware blob, you can't simply add a new
+     hash to the table without rebuilding your kernel.  So you need to fall
+     back to using a key-based signature for this.
+
+ (4) Unless you want to implement demand loading of the table, you can't
+     discard it, which means it eats resources.  If you demand load each time
+     you load a module and then discard after, that's much less efficient than
+     key checking.
+
+     You could alleviate this by not discarding the table during boot, but
+     only initiate discarding at the end of the boot process since most of the
+     module loading is done by that point.
+
+ (5) The build process gets more complicated.  You can't do the hashing
+     procedure until after the builder has had a chance to strip the modules.
+     You then *have* to rebuild/alter the kernel image after the hashing
+     procedure has completed, whether you bake in one monolithic hash table or
+     demand load it.
+
+     It's easier to do the signing procedure as the kernel image doesn't need
+     to be modified.
+
+I don't see a compelling argument for why we'd want to do module hashing at
+all, given that we have to have the signature checking mechanism around anyway
+for various reasons.
+
+Firmware hashing might be a bit simpler since then you don't need a bunch of
+detached signatures installing along with the firmware.
+
+David
