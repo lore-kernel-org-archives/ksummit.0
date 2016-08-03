@@ -1,27 +1,38 @@
-Return-Path: <jani.nikula@intel.com>
+Return-Path: <linus.walleij@linaro.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A8BA5954
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 82F1B413
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  3 Aug 2016 09:36:34 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id CA30A1F1
+	Wed,  3 Aug 2016 09:47:28 +0000 (UTC)
+Received: from mail-oi0-f51.google.com (mail-oi0-f51.google.com
+	[209.85.218.51])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E4C91E5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  3 Aug 2016 09:36:33 +0000 (UTC)
-From: Jani Nikula <jani.nikula@intel.com>
-To: "Rafael J. Wysocki" <rjw@rjwysocki.net>, Mark Brown <broonie@kernel.org>
-In-Reply-To: <3268954.rXb0BJAX6c@vostro.rjw.lan>
-References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
-	<871t27s1i8.fsf@intel.com> <20160802153400.GD10376@sirena.org.uk>
-	<3268954.rXb0BJAX6c@vostro.rjw.lan>
-Date: Wed, 03 Aug 2016 12:36:29 +0300
-Message-ID: <87oa5aqjmq.fsf@intel.com>
+	Wed,  3 Aug 2016 09:47:27 +0000 (UTC)
+Received: by mail-oi0-f51.google.com with SMTP id 4so63259144oih.2
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 03 Aug 2016 02:47:27 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Trond Myklebust <trondmy@primarydata.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
+In-Reply-To: <1470147214.2485.8.camel@HansenPartnership.com>
+References: <20150804152622.GY30479@wotan.suse.de>
+	<1468612258.5335.0.camel@linux.vnet.ibm.com>
+	<1468612671.5335.5.camel@linux.vnet.ibm.com>
+	<20160716005213.GL30372@sirena.org.uk>
+	<1469544138.120686.327.camel@infradead.org>
+	<20160727140406.GP4541@io.lakedaemon.net>
+	<CACRpkdYSsZ9S5KKu76YZD2m6tfBr=310Vaij1LPoRybYnHVDXw@mail.gmail.com>
+	<1470147214.2485.8.camel@HansenPartnership.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Wed, 3 Aug 2016 11:47:26 +0200
+Message-ID: <CACRpkdaeeOed5g+teLyOfeuqx1SijeDuyPAWq1-vQd3Z7uozTA@mail.gmail.com>
+To: James Bottomley <James.Bottomley@hansenpartnership.com>
+Content-Type: text/plain; charset=UTF-8
+Cc: Jason Cooper <jason@lakedaemon.net>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Mark Brown <broonie@sirena.org.uk>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Signature management - keys,
+ modules, firmware, was: Last minute nominations: mcgrof and toshi
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,55 +42,68 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 03 Aug 2016, "Rafael J. Wysocki" <rjw@rjwysocki.net> wrote:
-> On Tuesday, August 02, 2016 04:34:00 PM Mark Brown wrote:
->> On Tue, Aug 02, 2016 at 05:12:47PM +0300, Jani Nikula wrote:
->> 
->> > Generally adding cc: stable is like, this is clearly a fix to a bug that
->> > is present in stable kernels, and the bug should be fixed, but I have no
->> > idea nor resources to review or test if this is the right fix across all
->> > stable kernels. You end up relying on your gut feeling too much to be
->> > comfortable. You have to make the call too early in the process.
->> 
->> I think the problems here are more in the process of how things go from
->> being tagged stable to appearing in a stable release - the QA or lack
->> thereof and so on.  While I do share some of your misgivings here I do
->> also really like the fact that it's really easy for people to push
->> things out for the attention of those working on backports.  It's
->> essentially the same as the question I often find myself asking people
->> who don't upstream - "why would this fix not benefit other users?".
+On Tue, Aug 2, 2016 at 4:13 PM, James Bottomley
+<James.Bottomley@hansenpartnership.com> wrote:
+> On Tue, 2016-08-02 at 14:54 +0200, Linus Walleij wrote:
+
+>> What I always intuitively felt is that I would be happy if the same
+>> GPG keys we use for pull requests of kernel code would extend
+>> to firmware signing, so that we move from the overall-industry
+>> focus on legislative bodies (Thawte, ...) signing certificates with
+>> OpenSSL and thus being the root of trust, over to putting the root
+>> of trust for any software related to Linux into the same web of
+>> trust that we already use for developing the code per se.
 >
-> Agreed, and I think that's exactly where the expectations don't match what's
-> delivered in the long-term-stable trees.
+> This is the vision that Monkeysphere is based on
 >
-> It should be made clear that "stable" doesn't mean "no regressions".  What
-> it reall means is "hey, if you care about backports, this is the stuff to take
-> into consideration in the first place".
+> http://web.monkeysphere.info/
 
-I think this interpretation matches reality better than what
-Documentation/stable_kernel_rules.txt leads you to believe about adding
-cc: stable tag.
+That looks nice.
 
-However, I presume maintainers don't add cc: stable lightly, even when
-the fix could benefit stable kernel users, if there's any risk of the
-backport coming back to haunt you. I believe maintainers assume some
-degree of responsibility for the backport when they add cc: stable, even
-when they don't have the means to do QA. (And with the plethora of
-longterm kernels around these days, who does?)
+>> I would certainly trust a firmware signed by say Laurent Pinchart,
+>> but not sure about one signed by E.Corp.
+>
+> Really?  Assuming E.Corp is the one actually producing the firmware,
+> why would you say they're less qualified than Laurent to certify their
+> own firmware.  Half the SCSI chips I see have proprietary firmware.
+>  Even if I were willing to sign it, would you really trust my signature
+> when I can't even decompile it?
 
-But does being more liberal in adding cc: stable tags and shifting the
-responsibility for backports towards stable kernel maintainers work
-either? The bugs will anyway be reported to subsystem/driver
-maintainers, not stable maintainers.
+I would trust an Intel WiFi driver if it was signed by Dirk Hohndel
+or H. Peter Anvin whose GPG keys I have in my own web of trust
+and work for Intel. And this is simply because I trust these guys
+more than the corporate entity they work for.
 
-Side note, I think it would be helpful to be allowed to revert clearly
-broken stable kernel backports even without an accompanying mainline
-revert. The original commit might be perfectly fine upstream, while the
-backport is bogus.
+And when you think of it, that is exactly what the kernel devs
+web of trust is doing: we trust these individuals, not the companies
+they work for. That is why we are using GPG keys and not
+OpenSSL certificates signed by say Linux Foundation to send
+our pull requests.
 
+Well maybe I attribute intent where there is none: maybe the
+GPG signature in git was just arbitrarily chosen for this, due to
+it's availability and/or simplicity it could have been the other way
+in a parallel universe that contributors would have to use
+certificates signed by LF... I don't know. I'm uncertain.
 
-BR,
-Jani.
+But I percieve it as if there is some tension here between "our"
+individual trust and the corporate trust in legal bodies. I might
+be mistaken.
 
--- 
-Jani Nikula, Intel Open Source Technology Center
+> ... and this is the problem with "trust" it's too fine
+> grained to map into any network.  If the firmware is binary, why would
+> you trust anyone other than the vendor who produced it to sign it.
+>  What would such a signature even mean if someone else did?  However,
+> if the firmware is actually open source, like the 53c700 or aic7xxx
+> firmwares, which are both in the kernel source tree, perhaps you would
+> trust me to sign it.
+
+Being able to inspect the source is paramount and 53x700 and aic7xx
+show what is needed if we want a future where we as (power) users can
+trust our own devices. If I would recompile any of those two firmwares
+myself I guess I would also sign them myself and trust myself.
+The inroad to complete trust would be to first read the firmware source
+code.
+
+Yours,
+Linus Walleij
