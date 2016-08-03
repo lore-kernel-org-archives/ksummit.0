@@ -1,27 +1,26 @@
-Return-Path: <luto@amacapital.net>
+Return-Path: <matthew.garrett@coreos.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5574A78D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 876CF955
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  3 Aug 2016 17:23:23 +0000 (UTC)
-Received: from mail-vk0-f53.google.com (mail-vk0-f53.google.com
-	[209.85.213.53])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8F36F2C3
+	Wed,  3 Aug 2016 17:23:46 +0000 (UTC)
+Received: from mail-yw0-f182.google.com (mail-yw0-f182.google.com
+	[209.85.161.182])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0BDB72C2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  3 Aug 2016 17:23:22 +0000 (UTC)
-Received: by mail-vk0-f53.google.com with SMTP id w127so151370930vkh.2
+	Wed,  3 Aug 2016 17:23:46 +0000 (UTC)
+Received: by mail-yw0-f182.google.com with SMTP id u134so234231666ywg.3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 03 Aug 2016 10:23:22 -0700 (PDT)
+	Wed, 03 Aug 2016 10:23:45 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CAPeXnHsOuu_jOkqMMaUwkdfpxUwB=NMwRA4U7jnLG1W2OCdp1g@mail.gmail.com>
+In-Reply-To: <CALCETrUnT=fZ_d6Q-i6WPtuAKzN8KjcmqsDxV0p7p33PTqvDRw@mail.gmail.com>
 References: <CALCETrXTusbj3vTQ=DmyiYG-ZqYOtHXD6rQpY-4+qtqsKmoD4g@mail.gmail.com>
-	<27174.1470221030@warthog.procyon.org.uk>
-	<CALCETrU2qPO8Bu5wtaiKkYHgdpV3dL+Q5P+8YZLNSm3Ekn9sTw@mail.gmail.com>
-	<CAPeXnHsOuu_jOkqMMaUwkdfpxUwB=NMwRA4U7jnLG1W2OCdp1g@mail.gmail.com>
-From: Andy Lutomirski <luto@amacapital.net>
-Date: Wed, 3 Aug 2016 10:23:00 -0700
-Message-ID: <CALCETrU3E48++g2G-o4YDoazphkcVoK-gVLVHna9ZQoKVgnL5g@mail.gmail.com>
-To: Matthew Garrett <mjg59@coreos.com>
+	<1470228158.2482.36.camel@HansenPartnership.com>
+	<CALCETrUnT=fZ_d6Q-i6WPtuAKzN8KjcmqsDxV0p7p33PTqvDRw@mail.gmail.com>
+From: Matthew Garrett <mjg59@coreos.com>
+Date: Wed, 3 Aug 2016 10:23:44 -0700
+Message-ID: <CAPeXnHv3-p5y=jXn1NcVVacq2LmBsX0hGz-cz21upcMq9-F1Dg@mail.gmail.com>
+To: Andy Lutomirski <luto@amacapital.net>
 Content-Type: text/plain; charset=UTF-8
 Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
 	Josh Boyer <jwboyer@fedoraproject.org>,
@@ -40,60 +39,39 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Aug 3, 2016 at 10:17 AM, Matthew Garrett <mjg59@coreos.com> wrote:
-> On Wed, Aug 3, 2016 at 9:46 AM, Andy Lutomirski <luto@amacapital.net> wrote:
->> On Aug 3, 2016 3:43 AM, "David Howells" <dhowells@redhat.com> wrote:
->>>  (1) We have to keep the module signing by keys stuff in the kernel along with
->>>      a supply of keys for it to use *anyway*.  Yes, we might then be able to
->>>      drop the build-time transient key, but that doesn't account for very much
->>>      image space or memory.
->>
->> I object to the existence of the build-time key.  It completely breaks
->> reproducible builds.
+On Wed, Aug 3, 2016 at 10:04 AM, Andy Lutomirski <luto@amacapital.net> wrote:
+> What's wrong with that?  In grub language, this would be approximately:
 >
-> Keys could be stored in a separate section and ignored for the
-> purposes of build comparison.
+> linuxefi path/to/image
+> linuxkeypolicy path/to/policy
 
-But that defeats the purpose.  If I'm verifying a reproducible build,
-I don't want to have to take it on faith that the packager didn't keep
-a copy of the build-time key.
+Thinking about it further - there's no real problem integrating this
+with a build-time key. Rather than having the public half in the
+kernel, stash the public half in the packaging and then have the
+signing step (that's signing the kernel anyway) also sign the key. The
+bootloader verifies that the key is signed by a trusted root and
+passes that on to the kernel. If we have a standardised mechanism for
+the bootloader to pass this information on, it's absolutely possible
+to push the root of trust down to the bootloader (and also make it
+responsible for pulling any other signing keys out of EFI variables or
+wherever)
 
+> Anyway, here's a concrete proposal for a cross-arch way to pass
+> trusted policy from the bootloader to the kernel: define a new
+> structure:
 >
->>>  (3) If someone adds or updates a firmware blob, you can't simply add a new
->>>      hash to the table without rebuilding your kernel.  So you need to fall
->>>      back to using a key-based signature for this.
->>>
->>
->> As above, firmware isn't affected.
+> struct trusted_policy_header {
+>   unsigned long size;
+> };
 >
-> There's no fundamental problem with using signed firmware (although
-> you'd probably need detached signatures to comply with licenses) -
-> it's more of a logistical problem in that you'd need an actual key
-> rather than a build-time one, but it's still more practical than
-> hashing.
-
-I agree.  I don't think my module hashing proposal should cover firmware at all.
-
+> Rig up the linker script so the trusted_policy is at the very end of
+> the kernel virtual address space and lives in its own ELF segment (or
+> arch equivalent).  That segment will have filesize == 0 and memsize ==
+> sizeof(struct trusted_policy_header).  Mark the segment so the
+> bootloader knows about it.
 >
->>> I don't see a compelling argument for why we'd want to do module hashing at
->>> all, given that we have to have the signature checking mechanism around anyway
->>> for various reasons.
->>
->> I think that, for the Secure Boot usecase, we actually wouldn't need
->> the signature checking mechanism at all.  Firmware signature checking
->> in-kernel is important for some chain-of-trust use cases but AFAIK not
->> for Secure Boot for standard desktop distros.
->
-> Without an IOMMU you can probably subvert any DMA capable device that
-> loads unsigned firmware, at which point you're in a bad place again.
-> This isn't something I'm losing much sleep over, since attacks that
-> only work if you have a specific piece of hardware installed are much
-> less exciting. We'd still need signature checking so that users can
-> install their own signing keys, and I don't see distributions being
-> terribly enthusiastic about having two unrelated module validation
-> systems.
+> Now the bootloader can supply policy (keys and whatever else it wants)
+> by simply writing it to the trusted_policy_header and beyond in
+> memory.
 
-That's a question for the distros.  My intent would be to make the
-module hashing scheme as painless as possible for the distros: distros
-would just enable a config option and, if needed, adjust their debug
-info generation slightly.
+The bootloader doesn't see the ELF object on (at least) x86?
