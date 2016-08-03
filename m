@@ -1,30 +1,32 @@
-Return-Path: <catalin.marinas@arm.com>
+Return-Path: <ben@decadent.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6873E78D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 45B7678D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  3 Aug 2016 22:53:24 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.101.70])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id C418C16B
+	Wed,  3 Aug 2016 23:02:17 +0000 (UTC)
+Received: from shadbolt.e.decadent.org.uk (shadbolt.e.decadent.org.uk
+	[88.96.1.126])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B182D8E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  3 Aug 2016 22:53:23 +0000 (UTC)
-Content-Type: text/plain;
-	charset=us-ascii
-Mime-Version: 1.0 (1.0)
-From: Catalin Marinas <catalin.marinas@arm.com>
-In-Reply-To: <CAGXu5jKZb60=3H8faOG53Aq7H3MeST7_syionmFCE2HQFOG8SA@mail.gmail.com>
-Date: Thu, 4 Aug 2016 00:53:11 +0200
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <0E98DCC5-01EE-4FA7-B6D4-72772279BDFF@arm.com>
-References: <CALCETrXtfzi=G4H+Zttv3kWcCo32V6cO9OBfdyuYT4DHvJTJLg@mail.gmail.com>
-	<CAGXu5j+M06pdOB7Phqg==xg4p7=9ggmZciQuGZaNTXaW=-BCbg@mail.gmail.com>
-	<3aa8df3e-3705-9fd5-640c-37c0be2af561@imgtec.com>
-	<CAGXu5jKZb60=3H8faOG53Aq7H3MeST7_syionmFCE2HQFOG8SA@mail.gmail.com>
-To: Kees Cook <keescook@chromium.org>
-Cc: Jann Horn <jann@thejh.net>, "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TOPIC] kernel hardening / self-protection
-	/	whatever
+	Wed,  3 Aug 2016 23:02:16 +0000 (UTC)
+Message-ID: <1470265316.4176.207.camel@decadent.org.uk>
+From: Ben Hutchings <ben@decadent.org.uk>
+To: Andy Lutomirski <luto@amacapital.net>, David Howells <dhowells@redhat.com>
+Date: Thu, 04 Aug 2016 00:01:56 +0100
+In-Reply-To: <CALCETrU2qPO8Bu5wtaiKkYHgdpV3dL+Q5P+8YZLNSm3Ekn9sTw@mail.gmail.com>
+References: <CALCETrXTusbj3vTQ=DmyiYG-ZqYOtHXD6rQpY-4+qtqsKmoD4g@mail.gmail.com>
+	<27174.1470221030@warthog.procyon.org.uk>
+	<CALCETrU2qPO8Bu5wtaiKkYHgdpV3dL+Q5P+8YZLNSm3Ekn9sTw@mail.gmail.com>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-F3xVeT7WhMiGtVUHZeNl"
+Mime-Version: 1.0
+Cc: Josh Boyer <jwboyer@fedoraproject.org>, Jason Cooper <jason@lakedaemon.net>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Mark Brown <broonie@sirena.org.uk>
+Subject: Re: [Ksummit-discuss] [TOPIC] Secure/verified boot and roots of
+	trust
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,77 +36,59 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 1 Aug 2016, at 00:05, Kees Cook <keescook@chromium.org> wrote:
-> On Sun, Jul 31, 2016 at 2:55 AM, Paul Burton <paul.burton@imgtec.com> wrot=
-e:
->> It would be very interesting to discuss what's needed from arch code for
->> various hardening features, both those currently in mainline & those in
->> development.
 
-I'm interested in such topic as well, primarily from an arm/arm64 perspectiv=
-e.=20
+--=-F3xVeT7WhMiGtVUHZeNl
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> - Handling userspace/kernelspace memory segregation. (This is the SMAP
-> of x86, PAN of ARM, and just native on s390.) For architectures (or
-> chipsets within an architecture) that don't support unprivileged
-> memory access restrictions in hardware, we must find a way to emulate
-> it. (e.g. 32-bit ARM uses Domains, and 64-bit x86 could use PCIDs,
-> etc.) Keeping these regions separate is extremely important in
-> stopping exploitation.
+On Wed, 2016-08-03 at 09:46 -0700, Andy Lutomirski wrote:
+[...]
+> And it gets rid of the IMO extremely nasty temporary key.=C2=A0=C2=A0I
+> personally think that reproducible builds would add considerable value
+> to many use cases, and we currently can't simultaneously support
+> reproducible builds and Secure Boot without a big mess involving
+> trusted parties, and the whole point of reproducible builds is to
+> avoid needed to trust the packager.
+[...]
 
-For arm64 ARMv8.0 (without hardware PAN), I'm going to post a patch=20
-in a week or so which emulates PAN by switching the user page table (TTBR0)=20=
+You need that trusted party to supply a signature for the kernel, so
+why is it so much worse to have them do that for the modules as well?
 
-to the zero page. I guess a similar approach could work for other architectu=
-res,=20
-maybe using swapper_pg_dir as the PAN page table.=20
+As you may be aware, I'm dealing with this in Debian by putting
+detached signatures into the source package that builds signed
+binaries. =C2=A0The two package build processes are each reproducible (asid=
+e
+from a recently discovered dependence on whether /bin/sh is bash or
+dash).
 
->> For example MIPS systems are currently showing the "This architecture doe=
-s
->> not have kernel memory protection." message since d2aa1acad22f (which to a=
-
->> user sounds pretty dire as though user code can freely access kernel data=
-)
->> and which I'd like for MIPS to implement the security to avoid. However
->> because TLB refills are performed by software it's non-trivial, since we
->> generally rely upon the kernel being placed in an unmapped region of the
->> virtual address space & being unmapped there is no TLB entry to mark
->> read-only.
->=20
-> This is actually from the perspective of the kernel, so when the
-> kernel code is running, it's mapped, and those entries should all be
-> marked read-only. As I mentioned above, we need to consider W^X memory
-> permissions a fundamental security protection, and architectures
-> should make sure this is completely fixed.
-
-On arm64 we have such feature in hardware: the WXN (write execute never)=20
-bit in SCTLR_EL1. However, this would affect user space as well, so it needs=
- to=20
-be switched only when entering the kernel to avoid ABI breakage. I don't hav=
-e=20
-the ARM specs at hand but one possible complication is the WXN bit=20
-being cached in the TLB (and invalidating the TLBs on kernel entry/exit=20
-is not practical).=20
-
-> (And that is stays that
-> way: x86 actually scans kernel memory permissions at boot now to make
-> sure no writable and executable regions have appeared.)
-
-That's probably a good enough workaround without additional hardware support=
-.=20
-
-BTW, while not a kernel security feature, I've been asked in the past to ena=
-ble=20
-execute-only (no read) permissions on arm64 (e.g. mmap(PROT_EXEC)).=20
-I have a simple patch for this, though I'm not 100% sure about user ABI impl=
-ications.=20
-So far I'm not aware of any user application using PROT_EXEC only and also=20=
-
-expecting PROT_READ.=20
-
-
-(Sorry for the email formatting, I'm on holiday and with only a phone as com=
-munication device)
+Ben.
 
 --=20
-Catalin=20=
+
+Ben Hutchings
+Nothing is ever a complete failure; it can always serve as a bad
+example.
+
+--=-F3xVeT7WhMiGtVUHZeNl
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAABCgAGBQJXonfkAAoJEOe/yOyVhhEJixsP/RMR7XNjtPVPZps8SCotG2k4
+lNKZ06IFRNjlxdmJ//nxZiWryorVZirD5rCstIlkfY75tFxKCLpb2KilJTZdyNN2
+aLDPiqNDqL0fzeWCu4u44tvLfoddprD0D9JZbdtNOK6qqzndqDTcwZ0bt8MGgxOO
+3QPMHt9mxb2kY1a43hsKocRq9TL3jAVgjlGZH5seSfkGofKkXGJMWqUyqUaZG8R2
+4zpE7gnI0qkseevkvXZYtU+mXQgeHVIFBX6K75Bb2uxckDVO98NSYS5e3mGfBGrx
+BqM/u2x8FpBxwWWJB7B1KFZMWHqW9f0AZv6OmZLqQtGUVQrUU0sFlWKl8nPNpsG8
+PjthDKPF67/bEH8V2OpNOFrMZfmj3OuAeb3v7DnN90ibQ9IlRV3H73cCyzRxNOzD
+i7FgZcDYKBuDXfyjh0Eyho0g7MUtWWYeD6Q44/pruojxbJhRymGhnwzk8ak074ji
+UQwGNwoqJ8t1V1KQu/oZRLW37jKlUUl0YbRRPCBb6vA0ixFOz9fYf5ZOA905i9hO
+q4WuV6jVjnKyqQowKRqCBNBqKnrsQsnid2lxkdQNq3oUmkDM9Ff4uSNfNQIze5A6
+ZCBJJEvIkhow/MxISA0xCqo29nCOOOzdC6uC0/Vlnx4n8r/kCJgw4MSOpd1RPDMv
+/MlCViwblHyJjAGm/3lu
+=TjHM
+-----END PGP SIGNATURE-----
+
+--=-F3xVeT7WhMiGtVUHZeNl--
