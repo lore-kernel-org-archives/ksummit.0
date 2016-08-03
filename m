@@ -1,36 +1,37 @@
-Return-Path: <luto@amacapital.net>
+Return-Path: <jason@lakedaemon.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2FA51954
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 33EE689C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  3 Aug 2016 17:29:53 +0000 (UTC)
-Received: from mail-vk0-f50.google.com (mail-vk0-f50.google.com
-	[209.85.213.50])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9DEC72C8
+	Wed,  3 Aug 2016 17:50:25 +0000 (UTC)
+Received: from outbound1.eu.mailhop.org (outbound1.eu.mailhop.org
+	[52.28.251.132])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3A9D511C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  3 Aug 2016 17:29:52 +0000 (UTC)
-Received: by mail-vk0-f50.google.com with SMTP id w127so151503425vkh.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 03 Aug 2016 10:29:52 -0700 (PDT)
+	Wed,  3 Aug 2016 17:50:24 +0000 (UTC)
+Date: Wed, 3 Aug 2016 17:50:16 +0000
+From: Jason Cooper <jason@lakedaemon.net>
+To: Andy Lutomirski <luto@amacapital.net>
+Message-ID: <20160803175016.GO4541@io.lakedaemon.net>
+References: <20160801233036.GH4541@io.lakedaemon.net>
+	<CALCETrWDsMdU2-AWQC4wYvotnNd2ydWT15Ckq0nZaNRJZOtZ-g@mail.gmail.com>
+	<CALCETrW-P8+yGuEgM2BT+aCfZqJ=ekB2Xsz+4xhWtdRpprJHNw@mail.gmail.com>
+	<CALCETrVbUYQWCqrJ8E3TwhJqSs_he0qqW=TySy5yFo=pKsVAJA@mail.gmail.com>
+	<20160802122005.GI4541@io.lakedaemon.net>
+	<CALCETrVEY=opRPGKy=P9h8s+TC_K19WnBJ2svXT+=_FnqRF1Mw@mail.gmail.com>
+	<CALCETrVZtn_SmeN1YX9_+2g+bEAHsfJJ7KQH7-eC_mU3O+0x2w@mail.gmail.com>
+	<CALCETrX+-iD6=yECjZqG3Zfc2QnGxhom4tyUCUu5Kz3G4Y2Uxw@mail.gmail.com>
+	<20160803164452.GM4541@io.lakedaemon.net>
+	<CALCETrUUrYJk-WoTEMinxJyLG7TfJJAh+v3bZ1XsoufyjR99xg@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <CAPeXnHv3-p5y=jXn1NcVVacq2LmBsX0hGz-cz21upcMq9-F1Dg@mail.gmail.com>
-References: <CALCETrXTusbj3vTQ=DmyiYG-ZqYOtHXD6rQpY-4+qtqsKmoD4g@mail.gmail.com>
-	<1470228158.2482.36.camel@HansenPartnership.com>
-	<CALCETrUnT=fZ_d6Q-i6WPtuAKzN8KjcmqsDxV0p7p33PTqvDRw@mail.gmail.com>
-	<CAPeXnHv3-p5y=jXn1NcVVacq2LmBsX0hGz-cz21upcMq9-F1Dg@mail.gmail.com>
-From: Andy Lutomirski <luto@amacapital.net>
-Date: Wed, 3 Aug 2016 10:29:31 -0700
-Message-ID: <CALCETrWahLpXpRxoCfaWYe=X7DyjLDX6WXEVNU_=xL9bBOBsRw@mail.gmail.com>
-To: Matthew Garrett <mjg59@coreos.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CALCETrUUrYJk-WoTEMinxJyLG7TfJJAh+v3bZ1XsoufyjR99xg@mail.gmail.com>
 Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Josh Boyer <jwboyer@fedoraproject.org>,
-	Jason Cooper <jason@lakedaemon.net>,
+	Mark Brown <broonie@sirena.org.uk>,
 	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Mark Brown <broonie@sirena.org.uk>
-Subject: Re: [Ksummit-discuss] [TOPIC] Secure/verified boot and roots of
-	trust
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] Last minute nominations: mcgrof and toshi
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,57 +41,43 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Aug 3, 2016 at 10:23 AM, Matthew Garrett <mjg59@coreos.com> wrote:
-> On Wed, Aug 3, 2016 at 10:04 AM, Andy Lutomirski <luto@amacapital.net> wrote:
->> What's wrong with that?  In grub language, this would be approximately:
->>
->> linuxefi path/to/image
->> linuxkeypolicy path/to/policy
->
-> Thinking about it further - there's no real problem integrating this
-> with a build-time key. Rather than having the public half in the
-> kernel, stash the public half in the packaging and then have the
-> signing step (that's signing the kernel anyway) also sign the key. The
-> bootloader verifies that the key is signed by a trusted root and
-> passes that on to the kernel. If we have a standardised mechanism for
-> the bootloader to pass this information on, it's absolutely possible
-> to push the root of trust down to the bootloader (and also make it
-> responsible for pulling any other signing keys out of EFI variables or
--- 
-Andy Lutomirski
-AMA Capital Management, LLC
-> wherever)
->
->> Anyway, here's a concrete proposal for a cross-arch way to pass
->> trusted policy from the bootloader to the kernel: define a new
->> structure:
->>
->> struct trusted_policy_header {
->>   unsigned long size;
->> };
->>
->> Rig up the linker script so the trusted_policy is at the very end of
->> the kernel virtual address space and lives in its own ELF segment (or
->> arch equivalent).  That segment will have filesize == 0 and memsize ==
->> sizeof(struct trusted_policy_header).  Mark the segment so the
->> bootloader knows about it.
->>
->> Now the bootloader can supply policy (keys and whatever else it wants)
->> by simply writing it to the trusted_policy_header and beyond in
->> memory.
->
-> The bootloader doesn't see the ELF object on (at least) x86?
+On Wed, Aug 03, 2016 at 10:20:17AM -0700, Andy Lutomirski wrote:
+> On Wed, Aug 3, 2016 at 9:44 AM, Jason Cooper <jason@lakedaemon.net> wrote:
+> > On Tue, Aug 02, 2016 at 08:07:17AM -0700, Andy Lutomirski wrote:
+...
+> >> But we do need the kernel to verify the "iwlwifi-whatever.ucode" string to
+> >> prevent an attack in which someone does:
+> >>
+> >> cp other-signed-thing.ucode iwlwifi-whatever.ucode
+> >
+> > How so?  The sha256 of the blob won't match, the signature will fail.
+> >
+> 
+> I'm assuming the attacker has the ability to validly sign
+> other-signed-thing.ucode.  For example, suppose that Eviltel wanted to
+> compromise Intel hardware and released a firmware blob that worked
+> correctly on Eviltel hardware but did bad things if loaded into an
+> Intel card.  The verification scheme should prevent Kyle's signature
+> on the Eviltel blob from being abused to load it into the Intel
+> device.
 
-:(
+Ah, now I see.  I was missing the Eviltel bit. ;-)  So you're attempting
+to mitigate one of the key weaknesses of the CA system.  I still don't
+think the filename is the correct mechanism for what you're trying to
+do.  Although, I agree that it does need to be addressed and mitigated.
 
-On the other hand, x86's bzImage appears to be an ELF object too, and
-maybe it could learn to propagate the policy segment.  In other words,
-bzImage would speak the same protocol, and the x86 stub that hands off
-from bzImage to vmlinux could copy the data over.  This gets a bit
-nasty if we want to do embedding because it's also a PE file and
-probably a few other things, so there would be lots of headers to
-update.
+Perhaps the PCI ids and USB ids would be a better discriminator?  So,
+your signature struct would contain one or more vendor/product
+identifiers for which the signed blob is valid.  On embedded, the
+devicetree compatible string may be sufficient for non-discoverable
+busses.
 
--- 
-Andy Lutomirski
-AMA Capital Management, LLC
+In a realistic scenario, I could see Intel just signing the firmware,
+then 'we' counter-sign with the added metadata restricting the firmware
+to a specific subset of devices.  iow, we need to make sure to separate
+veracity "Intel did create this" from policy "Debian/LKML says this
+firmware should only be loaded into [device list]"
+
+thx,
+
+Jason.
