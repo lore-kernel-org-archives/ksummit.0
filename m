@@ -1,35 +1,36 @@
-Return-Path: <matthew.garrett@coreos.com>
+Return-Path: <dmitry.torokhov@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B568378D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 435B889C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  3 Aug 2016 17:17:51 +0000 (UTC)
-Received: from mail-yw0-f182.google.com (mail-yw0-f182.google.com
-	[209.85.161.182])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7CDAA241
+	Wed,  3 Aug 2016 17:20:19 +0000 (UTC)
+Received: from mail-pa0-f65.google.com (mail-pa0-f65.google.com
+	[209.85.220.65])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CCE30241
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  3 Aug 2016 17:17:50 +0000 (UTC)
-Received: by mail-yw0-f182.google.com with SMTP id z8so233963650ywa.1
+	Wed,  3 Aug 2016 17:20:18 +0000 (UTC)
+Received: by mail-pa0-f65.google.com with SMTP id cf3so14317539pad.2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 03 Aug 2016 10:17:50 -0700 (PDT)
+	Wed, 03 Aug 2016 10:20:18 -0700 (PDT)
+Date: Wed, 3 Aug 2016 10:20:15 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <20160803172015.GA36266@dtor-ws>
+References: <87oa5aqjmq.fsf@intel.com> <20160803110935.GA26270@kroah.com>
+	<87a8guq9y8.fsf@intel.com> <20160803132607.GA31662@kroah.com>
+	<alpine.LNX.2.00.1608031537140.22028@cbobk.fhfr.pm>
+	<20160803141937.GA9180@kroah.com>
+	<alpine.LNX.2.00.1608031642300.22028@cbobk.fhfr.pm>
+	<57A21252.7000407@roeck-us.net> <20160803161234.GA32965@dtor-ws>
+	<57A21F88.7000504@roeck-us.net>
 MIME-Version: 1.0
-In-Reply-To: <CALCETrU2qPO8Bu5wtaiKkYHgdpV3dL+Q5P+8YZLNSm3Ekn9sTw@mail.gmail.com>
-References: <CALCETrXTusbj3vTQ=DmyiYG-ZqYOtHXD6rQpY-4+qtqsKmoD4g@mail.gmail.com>
-	<27174.1470221030@warthog.procyon.org.uk>
-	<CALCETrU2qPO8Bu5wtaiKkYHgdpV3dL+Q5P+8YZLNSm3Ekn9sTw@mail.gmail.com>
-From: Matthew Garrett <mjg59@coreos.com>
-Date: Wed, 3 Aug 2016 10:17:49 -0700
-Message-ID: <CAPeXnHsOuu_jOkqMMaUwkdfpxUwB=NMwRA4U7jnLG1W2OCdp1g@mail.gmail.com>
-To: Andy Lutomirski <luto@amacapital.net>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <57A21F88.7000504@roeck-us.net>
 Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Josh Boyer <jwboyer@fedoraproject.org>,
-	Jason Cooper <jason@lakedaemon.net>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Mark Brown <broonie@sirena.org.uk>
-Subject: Re: [Ksummit-discuss] [TOPIC] Secure/verified boot and roots of
-	trust
+	ksummit-discuss@lists.linuxfoundation.org,
+	Trond Myklebust <trondmy@primarydata.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,46 +40,68 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Aug 3, 2016 at 9:46 AM, Andy Lutomirski <luto@amacapital.net> wrote:
-> On Aug 3, 2016 3:43 AM, "David Howells" <dhowells@redhat.com> wrote:
->>  (1) We have to keep the module signing by keys stuff in the kernel along with
->>      a supply of keys for it to use *anyway*.  Yes, we might then be able to
->>      drop the build-time transient key, but that doesn't account for very much
->>      image space or memory.
->
-> I object to the existence of the build-time key.  It completely breaks
-> reproducible builds.
+On Wed, Aug 03, 2016 at 09:44:56AM -0700, Guenter Roeck wrote:
+> On 08/03/2016 09:12 AM, Dmitry Torokhov wrote:
+> >On Wed, Aug 03, 2016 at 08:48:34AM -0700, Guenter Roeck wrote:
+> >>On 08/03/2016 07:45 AM, Jiri Kosina wrote:
+> >>>On Wed, 3 Aug 2016, Greg KH wrote:
+> >>>
+> >>>>>Has anything changed in the process that'd just make patches like this one
+> >>>>>to be not merged these days?
+> >>>>
+> >>>>We have Guenter's test-bot that has helped out immensely here with this.
+> >>>
+> >>>That's very good to know, I admit that I have close to zero idea about how
+> >>>the stable -rcs are being tested.
+> >>>
+> >>
+> >>... and when it doesn't work because I messed it up, we get issues such as 3.18
+> >>and 4.1 being broken for mips and sparc64 because a couple of patches which don't
+> >>apply to those kernels were tagged with an unqualified Cc: stable and applied.
+> >>
+> >>So, if anything, the one problem I see with the current stable process is
+> >>those unqualified stable tags. Maybe those should be deprecated; expecting
+> >>stable maintainers to figure out if a patch applies to a given stable branch
+> >>or not is a bit too much to ask for. With stable releases as far back as
+> >>3.2 (or 338,020 commits as of right now) it is almost guaranteed that a
+> >>patch tagged with an unqualified Cc: stable doesn't apply to all branches.
+> >
+> >When I put cc:stable it is simply a suggestion for stable maintainers to
+> >figure out if this commit is suitable for _their_ stable. I might have
+> >an idea about n-1.x stable series but I certainly do not have any desire
+> >nor time to research whether this patch applicable to 3.2 or 3.0 stable
+> >series.
+> >
+> >Stable maintaintership should be more than "swipe in everything marked
+> >as cc:stable, try compiling and hope it all good".
+> >
+> 
+> I don't think I can agree to that. Personally I see it as my responsibility
+> to give stable maintainers as much information as possible. Dave for networking
+> goes even further, essentially providing stable maintainers with the patches
+> to apply (granted, I have no idea how he finds the time to do that).
 
-Keys could be stored in a separate section and ignored for the
-purposes of build comparison.
+Me neither. There probably 100s of him, like Alans were in the days ;)
 
->>  (3) If someone adds or updates a firmware blob, you can't simply add a new
->>      hash to the table without rebuilding your kernel.  So you need to fall
->>      back to using a key-based signature for this.
->>
->
-> As above, firmware isn't affected.
+> 
+> How can one reasonable expect a stable maintainer to determine if a patch for
+> an oddball architecture applies, or one for a random subsystem ? Following
+> your argument, stable maintainers would have to be experts on all architectures
+> and subsystems in the kernel - because that is what they would have to be
+> in order to do more than "it compiles, therefore it works". Even compilation
 
-There's no fundamental problem with using signed firmware (although
-you'd probably need detached signatures to comply with licenses) -
-it's more of a logistical problem in that you'd need an actual key
-rather than a build-time one, but it's still more practical than
-hashing.
+Well, yes, they would have. Or they would have to assemble a team who
+can cover this. As it is it is quite easy to start a stable tree - do
+you need anything except to announce it? I do not see subsystems
+maintainers being asked if they have time/resources/desire in
+maintaining said stable trees.
 
->> I don't see a compelling argument for why we'd want to do module hashing at
->> all, given that we have to have the signature checking mechanism around anyway
->> for various reasons.
->
-> I think that, for the Secure Boot usecase, we actually wouldn't need
-> the signature checking mechanism at all.  Firmware signature checking
-> in-kernel is important for some chain-of-trust use cases but AFAIK not
-> for Secure Boot for standard desktop distros.
+> is difficult - I suspect I might run the only testbed which builds _all_
+> supported architectures and runs qemu tests on 14 of them (not counting le/be
+> and 32/64 bit variants).
+> 
 
-Without an IOMMU you can probably subvert any DMA capable device that
-loads unsigned firmware, at which point you're in a bad place again.
-This isn't something I'm losing much sleep over, since attacks that
-only work if you have a specific piece of hardware installed are much
-less exciting. We'd still need signature checking so that users can
-install their own signing keys, and I don't see distributions being
-terribly enthusiastic about having two unrelated module validation
-systems.
+Thanks.
+
+-- 
+Dmitry
