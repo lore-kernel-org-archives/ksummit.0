@@ -1,29 +1,33 @@
-Return-Path: <ben@decadent.org.uk>
+Return-Path: <luto@amacapital.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 45B7678D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id F11C678D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  3 Aug 2016 23:02:17 +0000 (UTC)
-Received: from shadbolt.e.decadent.org.uk (shadbolt.e.decadent.org.uk
-	[88.96.1.126])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B182D8E
+	Wed,  3 Aug 2016 23:23:07 +0000 (UTC)
+Received: from mail-ua0-f182.google.com (mail-ua0-f182.google.com
+	[209.85.217.182])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 626FACD
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  3 Aug 2016 23:02:16 +0000 (UTC)
-Message-ID: <1470265316.4176.207.camel@decadent.org.uk>
-From: Ben Hutchings <ben@decadent.org.uk>
-To: Andy Lutomirski <luto@amacapital.net>, David Howells <dhowells@redhat.com>
-Date: Thu, 04 Aug 2016 00:01:56 +0100
-In-Reply-To: <CALCETrU2qPO8Bu5wtaiKkYHgdpV3dL+Q5P+8YZLNSm3Ekn9sTw@mail.gmail.com>
+	Wed,  3 Aug 2016 23:23:07 +0000 (UTC)
+Received: by mail-ua0-f182.google.com with SMTP id j59so163625601uaj.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 03 Aug 2016 16:23:07 -0700 (PDT)
+MIME-Version: 1.0
+In-Reply-To: <1470265316.4176.207.camel@decadent.org.uk>
 References: <CALCETrXTusbj3vTQ=DmyiYG-ZqYOtHXD6rQpY-4+qtqsKmoD4g@mail.gmail.com>
 	<27174.1470221030@warthog.procyon.org.uk>
 	<CALCETrU2qPO8Bu5wtaiKkYHgdpV3dL+Q5P+8YZLNSm3Ekn9sTw@mail.gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-F3xVeT7WhMiGtVUHZeNl"
-Mime-Version: 1.0
-Cc: Josh Boyer <jwboyer@fedoraproject.org>, Jason Cooper <jason@lakedaemon.net>,
+	<1470265316.4176.207.camel@decadent.org.uk>
+From: Andy Lutomirski <luto@amacapital.net>
+Date: Wed, 3 Aug 2016 16:22:45 -0700
+Message-ID: <CALCETrXj=fSM2ahO-QSBse4rzv3f6D8_vet+J0cftMzODS0ePg@mail.gmail.com>
+To: Ben Hutchings <ben@decadent.org.uk>
+Content-Type: text/plain; charset=UTF-8
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Josh Boyer <jwboyer@fedoraproject.org>,
+	Jason Cooper <jason@lakedaemon.net>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
 	Mark Brown <broonie@sirena.org.uk>
 Subject: Re: [Ksummit-discuss] [TOPIC] Secure/verified boot and roots of
 	trust
@@ -36,59 +40,33 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Wed, Aug 3, 2016 at 4:01 PM, Ben Hutchings <ben@decadent.org.uk> wrote:
+> On Wed, 2016-08-03 at 09:46 -0700, Andy Lutomirski wrote:
+> [...]
+>> And it gets rid of the IMO extremely nasty temporary key.  I
+>> personally think that reproducible builds would add considerable value
+>> to many use cases, and we currently can't simultaneously support
+>> reproducible builds and Secure Boot without a big mess involving
+>> trusted parties, and the whole point of reproducible builds is to
+>> avoid needed to trust the packager.
+> [...]
+>
+> You need that trusted party to supply a signature for the kernel, so
+> why is it so much worse to have them do that for the modules as well?
+>
 
---=-F3xVeT7WhMiGtVUHZeNl
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+For Chromium-like setups, I don't think the kernel is signed as such
+-- it's verified (by hash?  by loading from trusted storage?) and
+executed.
 
-On Wed, 2016-08-03 at 09:46 -0700, Andy Lutomirski wrote:
-[...]
-> And it gets rid of the IMO extremely nasty temporary key.=C2=A0=C2=A0I
-> personally think that reproducible builds would add considerable value
-> to many use cases, and we currently can't simultaneously support
-> reproducible builds and Secure Boot without a big mess involving
-> trusted parties, and the whole point of reproducible builds is to
-> avoid needed to trust the packager.
-[...]
+> As you may be aware, I'm dealing with this in Debian by putting
+> detached signatures into the source package that builds signed
+> binaries.  The two package build processes are each reproducible (aside
+> from a recently discovered dependence on whether /bin/sh is bash or
+> dash).
 
-You need that trusted party to supply a signature for the kernel, so
-why is it so much worse to have them do that for the modules as well?
+That is a nifty solution, although don't you have to put a detached
+signature into the source package for every single module?  Limiting
+it to just one signature for the kernel seems like it would be a win.
 
-As you may be aware, I'm dealing with this in Debian by putting
-detached signatures into the source package that builds signed
-binaries. =C2=A0The two package build processes are each reproducible (asid=
-e
-from a recently discovered dependence on whether /bin/sh is bash or
-dash).
-
-Ben.
-
---=20
-
-Ben Hutchings
-Nothing is ever a complete failure; it can always serve as a bad
-example.
-
---=-F3xVeT7WhMiGtVUHZeNl
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAABCgAGBQJXonfkAAoJEOe/yOyVhhEJixsP/RMR7XNjtPVPZps8SCotG2k4
-lNKZ06IFRNjlxdmJ//nxZiWryorVZirD5rCstIlkfY75tFxKCLpb2KilJTZdyNN2
-aLDPiqNDqL0fzeWCu4u44tvLfoddprD0D9JZbdtNOK6qqzndqDTcwZ0bt8MGgxOO
-3QPMHt9mxb2kY1a43hsKocRq9TL3jAVgjlGZH5seSfkGofKkXGJMWqUyqUaZG8R2
-4zpE7gnI0qkseevkvXZYtU+mXQgeHVIFBX6K75Bb2uxckDVO98NSYS5e3mGfBGrx
-BqM/u2x8FpBxwWWJB7B1KFZMWHqW9f0AZv6OmZLqQtGUVQrUU0sFlWKl8nPNpsG8
-PjthDKPF67/bEH8V2OpNOFrMZfmj3OuAeb3v7DnN90ibQ9IlRV3H73cCyzRxNOzD
-i7FgZcDYKBuDXfyjh0Eyho0g7MUtWWYeD6Q44/pruojxbJhRymGhnwzk8ak074ji
-UQwGNwoqJ8t1V1KQu/oZRLW37jKlUUl0YbRRPCBb6vA0ixFOz9fYf5ZOA905i9hO
-q4WuV6jVjnKyqQowKRqCBNBqKnrsQsnid2lxkdQNq3oUmkDM9Ff4uSNfNQIze5A6
-ZCBJJEvIkhow/MxISA0xCqo29nCOOOzdC6uC0/Vlnx4n8r/kCJgw4MSOpd1RPDMv
-/MlCViwblHyJjAGm/3lu
-=TjHM
------END PGP SIGNATURE-----
-
---=-F3xVeT7WhMiGtVUHZeNl--
+--Andy
