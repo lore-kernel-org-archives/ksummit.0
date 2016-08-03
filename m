@@ -1,28 +1,26 @@
 Return-Path: <luto@amacapital.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C8BFA78D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2FA51954
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  3 Aug 2016 17:29:13 +0000 (UTC)
-Received: from mail-vk0-f44.google.com (mail-vk0-f44.google.com
-	[209.85.213.44])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 31F842B4
+	Wed,  3 Aug 2016 17:29:53 +0000 (UTC)
+Received: from mail-vk0-f50.google.com (mail-vk0-f50.google.com
+	[209.85.213.50])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9DEC72C8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  3 Aug 2016 17:29:13 +0000 (UTC)
-Received: by mail-vk0-f44.google.com with SMTP id w127so151490077vkh.2
+	Wed,  3 Aug 2016 17:29:52 +0000 (UTC)
+Received: by mail-vk0-f50.google.com with SMTP id w127so151503425vkh.2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 03 Aug 2016 10:29:13 -0700 (PDT)
+	Wed, 03 Aug 2016 10:29:52 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CAPeXnHsB6rfROg4j7dv1a0UkhNNFjmqEwJma-wiEcYrwDD5R2w@mail.gmail.com>
+In-Reply-To: <CAPeXnHv3-p5y=jXn1NcVVacq2LmBsX0hGz-cz21upcMq9-F1Dg@mail.gmail.com>
 References: <CALCETrXTusbj3vTQ=DmyiYG-ZqYOtHXD6rQpY-4+qtqsKmoD4g@mail.gmail.com>
-	<27174.1470221030@warthog.procyon.org.uk>
-	<CALCETrU2qPO8Bu5wtaiKkYHgdpV3dL+Q5P+8YZLNSm3Ekn9sTw@mail.gmail.com>
-	<CAPeXnHsOuu_jOkqMMaUwkdfpxUwB=NMwRA4U7jnLG1W2OCdp1g@mail.gmail.com>
-	<CALCETrU3E48++g2G-o4YDoazphkcVoK-gVLVHna9ZQoKVgnL5g@mail.gmail.com>
-	<CAPeXnHsB6rfROg4j7dv1a0UkhNNFjmqEwJma-wiEcYrwDD5R2w@mail.gmail.com>
+	<1470228158.2482.36.camel@HansenPartnership.com>
+	<CALCETrUnT=fZ_d6Q-i6WPtuAKzN8KjcmqsDxV0p7p33PTqvDRw@mail.gmail.com>
+	<CAPeXnHv3-p5y=jXn1NcVVacq2LmBsX0hGz-cz21upcMq9-F1Dg@mail.gmail.com>
 From: Andy Lutomirski <luto@amacapital.net>
-Date: Wed, 3 Aug 2016 10:28:51 -0700
-Message-ID: <CALCETrWHVVuLwJQQE+qafWk19BGPHRH2FoU61cZygw=wyrXEOg@mail.gmail.com>
+Date: Wed, 3 Aug 2016 10:29:31 -0700
+Message-ID: <CALCETrWahLpXpRxoCfaWYe=X7DyjLDX6WXEVNU_=xL9bBOBsRw@mail.gmail.com>
 To: Matthew Garrett <mjg59@coreos.com>
 Content-Type: text/plain; charset=UTF-8
 Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
@@ -42,27 +40,56 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Aug 3, 2016 at 10:26 AM, Matthew Garrett <mjg59@coreos.com> wrote:
-> On Wed, Aug 3, 2016 at 10:23 AM, Andy Lutomirski <luto@amacapital.net> wrote:
->> On Wed, Aug 3, 2016 at 10:17 AM, Matthew Garrett <mjg59@coreos.com> wrote:
->>> Keys could be stored in a separate section and ignored for the
->>> purposes of build comparison.
+On Wed, Aug 3, 2016 at 10:23 AM, Matthew Garrett <mjg59@coreos.com> wrote:
+> On Wed, Aug 3, 2016 at 10:04 AM, Andy Lutomirski <luto@amacapital.net> wrote:
+>> What's wrong with that?  In grub language, this would be approximately:
 >>
->> But that defeats the purpose.  If I'm verifying a reproducible build,
->> I don't want to have to take it on faith that the packager didn't keep
->> a copy of the build-time key.
+>> linuxefi path/to/image
+>> linuxkeypolicy path/to/policy
 >
-> If you're trusting your upstream's signed bootloader you're already
-> forced to trust your packagers. If you want to establish your own root
-> of trust you could simply strip that section, replace it with your own
-> and re-sign the modules and kernel. Or just keep using signatures,
-> sign the public module signing key with the kernel signing key and
-> push the policy decision out to the bootloader.
+> Thinking about it further - there's no real problem integrating this
+> with a build-time key. Rather than having the public half in the
+> kernel, stash the public half in the packaging and then have the
+> signing step (that's signing the kernel anyway) also sign the key. The
+> bootloader verifies that the key is signed by a trusted root and
+> passes that on to the kernel. If we have a standardised mechanism for
+> the bootloader to pass this information on, it's absolutely possible
+> to push the root of trust down to the bootloader (and also make it
+> responsible for pulling any other signing keys out of EFI variables or
+-- 
+Andy Lutomirski
+AMA Capital Management, LLC
+> wherever)
+>
+>> Anyway, here's a concrete proposal for a cross-arch way to pass
+>> trusted policy from the bootloader to the kernel: define a new
+>> structure:
+>>
+>> struct trusted_policy_header {
+>>   unsigned long size;
+>> };
+>>
+>> Rig up the linker script so the trusted_policy is at the very end of
+>> the kernel virtual address space and lives in its own ELF segment (or
+>> arch equivalent).  That segment will have filesize == 0 and memsize ==
+>> sizeof(struct trusted_policy_header).  Mark the segment so the
+>> bootloader knows about it.
+>>
+>> Now the bootloader can supply policy (keys and whatever else it wants)
+>> by simply writing it to the trusted_policy_header and beyond in
+>> memory.
+>
+> The bootloader doesn't see the ELF object on (at least) x86?
 
-But only sort of.  If the upstream bootloader signature serves only to
-make Secure Boot accept it, then I don't really care if the owner of
-that signing key is evil, because they can't do anything with that key
-without physical access.
+:(
+
+On the other hand, x86's bzImage appears to be an ELF object too, and
+maybe it could learn to propagate the policy segment.  In other words,
+bzImage would speak the same protocol, and the x86 stub that hands off
+from bzImage to vmlinux could copy the data over.  This gets a bit
+nasty if we want to do embedding because it's also a PE file and
+probably a few other things, so there would be lots of headers to
+update.
 
 -- 
 Andy Lutomirski
