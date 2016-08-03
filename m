@@ -1,37 +1,33 @@
-Return-Path: <jason@lakedaemon.net>
+Return-Path: <mst@redhat.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 33EE689C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9D5E689C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  3 Aug 2016 17:50:25 +0000 (UTC)
-Received: from outbound1.eu.mailhop.org (outbound1.eu.mailhop.org
-	[52.28.251.132])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3A9D511C
+	Wed,  3 Aug 2016 18:00:25 +0000 (UTC)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 42AA62D1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  3 Aug 2016 17:50:24 +0000 (UTC)
-Date: Wed, 3 Aug 2016 17:50:16 +0000
-From: Jason Cooper <jason@lakedaemon.net>
+	Wed,  3 Aug 2016 18:00:25 +0000 (UTC)
+Date: Wed, 3 Aug 2016 21:00:21 +0300
+From: "Michael S. Tsirkin" <mst@redhat.com>
 To: Andy Lutomirski <luto@amacapital.net>
-Message-ID: <20160803175016.GO4541@io.lakedaemon.net>
-References: <20160801233036.GH4541@io.lakedaemon.net>
-	<CALCETrWDsMdU2-AWQC4wYvotnNd2ydWT15Ckq0nZaNRJZOtZ-g@mail.gmail.com>
-	<CALCETrW-P8+yGuEgM2BT+aCfZqJ=ekB2Xsz+4xhWtdRpprJHNw@mail.gmail.com>
-	<CALCETrVbUYQWCqrJ8E3TwhJqSs_he0qqW=TySy5yFo=pKsVAJA@mail.gmail.com>
-	<20160802122005.GI4541@io.lakedaemon.net>
-	<CALCETrVEY=opRPGKy=P9h8s+TC_K19WnBJ2svXT+=_FnqRF1Mw@mail.gmail.com>
-	<CALCETrVZtn_SmeN1YX9_+2g+bEAHsfJJ7KQH7-eC_mU3O+0x2w@mail.gmail.com>
-	<CALCETrX+-iD6=yECjZqG3Zfc2QnGxhom4tyUCUu5Kz3G4Y2Uxw@mail.gmail.com>
-	<20160803164452.GM4541@io.lakedaemon.net>
-	<CALCETrUUrYJk-WoTEMinxJyLG7TfJJAh+v3bZ1XsoufyjR99xg@mail.gmail.com>
+Message-ID: <20160803203018-mutt-send-email-mst@kernel.org>
+References: <CALCETrXTusbj3vTQ=DmyiYG-ZqYOtHXD6rQpY-4+qtqsKmoD4g@mail.gmail.com>
+	<27174.1470221030@warthog.procyon.org.uk>
+	<CALCETrU2qPO8Bu5wtaiKkYHgdpV3dL+Q5P+8YZLNSm3Ekn9sTw@mail.gmail.com>
+	<CAPeXnHsOuu_jOkqMMaUwkdfpxUwB=NMwRA4U7jnLG1W2OCdp1g@mail.gmail.com>
+	<CALCETrU3E48++g2G-o4YDoazphkcVoK-gVLVHna9ZQoKVgnL5g@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CALCETrUUrYJk-WoTEMinxJyLG7TfJJAh+v3bZ1XsoufyjR99xg@mail.gmail.com>
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Mark Brown <broonie@sirena.org.uk>,
+In-Reply-To: <CALCETrU3E48++g2G-o4YDoazphkcVoK-gVLVHna9ZQoKVgnL5g@mail.gmail.com>
+Cc: Josh Boyer <jwboyer@fedoraproject.org>, Jason Cooper <jason@lakedaemon.net>,
 	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] Last minute nominations: mcgrof and toshi
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Mark Brown <broonie@sirena.org.uk>
+Subject: Re: [Ksummit-discuss] [TOPIC] Secure/verified boot and roots of
+	trust
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,43 +37,36 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Aug 03, 2016 at 10:20:17AM -0700, Andy Lutomirski wrote:
-> On Wed, Aug 3, 2016 at 9:44 AM, Jason Cooper <jason@lakedaemon.net> wrote:
-> > On Tue, Aug 02, 2016 at 08:07:17AM -0700, Andy Lutomirski wrote:
-...
-> >> But we do need the kernel to verify the "iwlwifi-whatever.ucode" string to
-> >> prevent an attack in which someone does:
+On Wed, Aug 03, 2016 at 10:23:00AM -0700, Andy Lutomirski wrote:
+> >>> I don't see a compelling argument for why we'd want to do module hashing at
+> >>> all, given that we have to have the signature checking mechanism around anyway
+> >>> for various reasons.
 > >>
-> >> cp other-signed-thing.ucode iwlwifi-whatever.ucode
+> >> I think that, for the Secure Boot usecase, we actually wouldn't need
+> >> the signature checking mechanism at all.  Firmware signature checking
+> >> in-kernel is important for some chain-of-trust use cases but AFAIK not
+> >> for Secure Boot for standard desktop distros.
 > >
-> > How so?  The sha256 of the blob won't match, the signature will fail.
-> >
+> > Without an IOMMU you can probably subvert any DMA capable device that
+> > loads unsigned firmware, at which point you're in a bad place again.
+> > This isn't something I'm losing much sleep over, since attacks that
+> > only work if you have a specific piece of hardware installed are much
+> > less exciting. We'd still need signature checking so that users can
+> > install their own signing keys, and I don't see distributions being
+> > terribly enthusiastic about having two unrelated module validation
+> > systems.
 > 
-> I'm assuming the attacker has the ability to validly sign
-> other-signed-thing.ucode.  For example, suppose that Eviltel wanted to
-> compromise Intel hardware and released a firmware blob that worked
-> correctly on Eviltel hardware but did bad things if loaded into an
-> Intel card.  The verification scheme should prevent Kyle's signature
-> on the Eviltel blob from being abused to load it into the Intel
-> device.
+> That's a question for the distros.  My intent would be to make the
+> module hashing scheme as painless as possible for the distros: distros
+> would just enable a config option and, if needed, adjust their debug
+> info generation slightly.
 
-Ah, now I see.  I was missing the Eviltel bit. ;-)  So you're attempting
-to mitigate one of the key weaknesses of the CA system.  I still don't
-think the filename is the correct mechanism for what you're trying to
-do.  Although, I agree that it does need to be addressed and mitigated.
+It's actually nice not having to rebuild the kernel each time though.
+Can the hash-checking code itself be a module (LSM?), such that hash isn't
+checked if it's not loaded? One could imagine loading that
+e.g. from the initrd.
 
-Perhaps the PCI ids and USB ids would be a better discriminator?  So,
-your signature struct would contain one or more vendor/product
-identifiers for which the signed blob is valid.  On embedded, the
-devicetree compatible string may be sufficient for non-discoverable
-busses.
-
-In a realistic scenario, I could see Intel just signing the firmware,
-then 'we' counter-sign with the added metadata restricting the firmware
-to a specific subset of devices.  iow, we need to make sure to separate
-veracity "Intel did create this" from policy "Debian/LKML says this
-firmware should only be loaded into [device list]"
-
-thx,
-
-Jason.
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
