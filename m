@@ -1,31 +1,28 @@
-Return-Path: <alexandre.belloni@free-electrons.com>
+Return-Path: <will.deacon@arm.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 123A28D7
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A5114899
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  3 Aug 2016 08:33:39 +0000 (UTC)
-Received: from mail.free-electrons.com (down.free-electrons.com
-	[37.187.137.238])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id A3B24166
+	Wed,  3 Aug 2016 08:49:53 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.101.70])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 3A88915B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  3 Aug 2016 08:33:37 +0000 (UTC)
-Date: Wed, 3 Aug 2016 10:33:25 +0200
-From: Alexandre Belloni <alexandre.belloni@free-electrons.com>
-To: Andy Lutomirski <luto@amacapital.net>
-Message-ID: <20160803083325.GF13682@piout.net>
-References: <CALCETrXTusbj3vTQ=DmyiYG-ZqYOtHXD6rQpY-4+qtqsKmoD4g@mail.gmail.com>
+	Wed,  3 Aug 2016 08:49:53 +0000 (UTC)
+Date: Wed, 3 Aug 2016 09:49:57 +0100
+From: Will Deacon <will.deacon@arm.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Message-ID: <20160803084957.GB5166@arm.com>
+References: <15500.1469183675@warthog.procyon.org.uk>
+	<1469545881.120686.335.camel@infradead.org>
+	<20160802134223.GK6862@twins.programming.kicks-ass.net>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CALCETrXTusbj3vTQ=DmyiYG-ZqYOtHXD6rQpY-4+qtqsKmoD4g@mail.gmail.com>
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Josh Boyer <jwboyer@fedoraproject.org>,
-	Jason Cooper <jason@lakedaemon.net>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Mark Brown <broonie@sirena.org.uk>
-Subject: Re: [Ksummit-discuss] [TOPIC] Secure/verified boot and roots of
-	trust
+In-Reply-To: <20160802134223.GK6862@twins.programming.kicks-ass.net>
+Cc: jakub@redhat.com, ksummit-discuss@lists.linuxfoundation.org,
+	ramana.radhakrishnan@arm.com
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Memory model,
+ using ISO C++11 atomic ops
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,76 +32,33 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi,
+On Tue, Aug 02, 2016 at 03:42:23PM +0200, Peter Zijlstra wrote:
+> On Tue, Jul 26, 2016 at 04:11:21PM +0100, David Woodhouse wrote:
+> > On Fri, 2016-07-22 at 11:34 +0100, David Howells wrote:
+> > > Further, Paul McKenney and others are assembling a memory model description.
+> > > Do we want to consider loosening up the kernel memory model?
+> > 
+> > It's not clear that 'loosening up' is what we're after.
+> 
+> Linus (who should also very much be present for this) always argues
+> against relaxing ordering.
 
-On 02/08/2016 at 19:58:07 -0700, Andy Lutomirski wrote :
-> I got module hashing working.  It ended up being fairly
-> straightforward.  I still need to deal with debug info and
-> disentangling it from CONFIG_MODULE_SIG, but that's just a bit of
-> engineering.
-> 
-> While doing it, occurred to me that it might be worth considering a
-> different way of thinking about roots of trust.
-> 
-> When a system does a verified boot using a static root of trust (which
-> should cover most of the interesting cases), we have:
-> 
->  - Bootloader verifies kernel
->  - Kernel verifies modules
->  - Kernel verifies firmware
->  - Kernel verifies filesystem (if using dm-verify or IMA)
->  - Kernel verifies initramfs (AFAIK no one has worked out the details)
->  - Kernel verifies device tree (seems messy to get right)
->  - Kernel should maybe verify the command line (?)
-> 
-> The kernel does its verification with a combination of keys baked into
-> the kernel image and keys supplied by Secure Boot firmware (if
-> enabled, which I think is only the case out-of-tree).
-> 
-> By doing all this, we're accomplishing two goals:
-> 
->  - Establishing a chain of trust rooted in or above the bootloader
->  - Appeasing the Secure Boot deities.  AFAIK this specifically
-> requires that we verify the kernel and its modules using a combination
-> of EFI-supplied and distro keys.
-> 
-> To hold all the pieces together, we've established a rather ad-hoc and
-> complicated way of baking keys into the kernel (see the contents of
-> the certs/ directory).
-> 
-> I think we've made our lives considerably more complicated than they
-> need to be with the approach to keying that we're taking.
-> 
-> I'd like to discuss whether we can move a lot more of the keying into
-> the bootloader.  I'm envisioning:
-> 
->  - Bootloader supplies public keys and policy to the kernel.
->  - Bootloader verifies the initramfs if it needs to.
->  - Bootloader verifies the command line if it needs to.
->  - Bootloader verifies the device tree if it needs to.
->  - Kernel verifies modules using a combination of module hashes and
-> keys from bootloader.
->  - Kernel initializes IMO and/or dm-verity if needed according to
-> policy supplied by bootloader.
->  - Bootloader extends a PCR with the keys and policy if needed.
-> 
-> This should cover the chain of trust case as well as the current
-> approach without needing to worry about baking keys into the kernel
-> image -- after all, a compromised bootloader can already change the
-> kernel image or the baked-in keys and thus do whatever it wants.
-> 
+Even if he had an inexplicable change in heart, how on Earth do you go
+about validating the existing codebase against a new memory model? It's
+one thing to show that the relaxation is strictly a relaxation (and
+therefore the existing backend implementations remain sound), but quite
+another to show that locking implementations don't fall apart, or the
+guarantees that no longer hold aren't relied upon someplace.
 
-There are SoCs were the ROM code is able to load a kernel image to RAM,
-verify and execute it. In that case there is no bootloader involved. The
-kernel then has to verify pretty much everything so I think we have to
-keep a way of baking keys inside the kernel.
+One might consider adding more atomic operations. For example, the
+release/acquire stuff we grew recently is "weaker" than full fences but,
+unlike the C11 atomics, the release/acquire primitives complement full
+fences. Conversely, having two sets of fences (C11 and kernel) or two
+sets of release/acquire, each with subtly different semantics sounds
+like an awful maintainance burden and not somewhere we should be going.
 
-However, the setups I've seen until now are embedding the device tree
-and the initramfs inside the kernel image so those are verified by the
-ROM code.
+That's why I'd be interested in building kernel-compatible operations
+using C11 atomics (relaxed accesses and fences) for asm/generic, but not
+more than that, at least outside of arch/*.
 
-
--- 
-Alexandre Belloni, Free Electrons
-Embedded Linux and Kernel engineering
-http://free-electrons.com
+Will
