@@ -1,31 +1,28 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <jani.nikula@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7D98B83D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id C7285956
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  3 Aug 2016 12:42:47 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id AB011146
+	Wed,  3 Aug 2016 13:05:38 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 15E6210A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  3 Aug 2016 12:42:46 +0000 (UTC)
-Message-ID: <1470228158.2482.36.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Andy Lutomirski <luto@amacapital.net>, Ard Biesheuvel
-	<ard.biesheuvel@linaro.org>, David Howells <dhowells@redhat.com>, Jason
-	Cooper <jason@lakedaemon.net>, Josh Boyer <jwboyer@fedoraproject.org>, Kees
-	Cook <keescook@chromium.org>, Ben Hutchings <ben@decadent.org.uk>
-Date: Wed, 03 Aug 2016 08:42:38 -0400
-In-Reply-To: <CALCETrXTusbj3vTQ=DmyiYG-ZqYOtHXD6rQpY-4+qtqsKmoD4g@mail.gmail.com>
-References: <CALCETrXTusbj3vTQ=DmyiYG-ZqYOtHXD6rQpY-4+qtqsKmoD4g@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: Mark Brown <broonie@sirena.org.uk>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TOPIC] Secure/verified boot and roots of
- trust
+	Wed,  3 Aug 2016 13:05:38 +0000 (UTC)
+From: Jani Nikula <jani.nikula@intel.com>
+To: Greg KH <greg@kroah.com>
+In-Reply-To: <20160803110935.GA26270@kroah.com>
+References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
+	<871t27s1i8.fsf@intel.com> <20160802153400.GD10376@sirena.org.uk>
+	<3268954.rXb0BJAX6c@vostro.rjw.lan> <87oa5aqjmq.fsf@intel.com>
+	<20160803110935.GA26270@kroah.com>
+Date: Wed, 03 Aug 2016 16:05:35 +0300
+Message-ID: <87a8guq9y8.fsf@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Trond Myklebust <trondmy@primarydata.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,162 +32,83 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, 2016-08-02 at 19:58 -0700, Andy Lutomirski wrote:
-> I got module hashing working.  It ended up being fairly
-> straightforward.  I still need to deal with debug info and
-> disentangling it from CONFIG_MODULE_SIG, but that's just a bit of
-> engineering.
-> 
-> While doing it, occurred to me that it might be worth considering a
-> different way of thinking about roots of trust.
-> 
-> When a system does a verified boot using a static root of trust 
-> (which should cover most of the interesting cases), we have:
-> 
->  - Bootloader verifies kernel
->  - Kernel verifies modules
->  - Kernel verifies firmware
->  - Kernel verifies filesystem (if using dm-verify or IMA)
->  - Kernel verifies initramfs (AFAIK no one has worked out the
-> details)
+On Wed, 03 Aug 2016, Greg KH <greg@kroah.com> wrote:
+> On Wed, Aug 03, 2016 at 12:36:29PM +0300, Jani Nikula wrote:
+>> On Wed, 03 Aug 2016, "Rafael J. Wysocki" <rjw@rjwysocki.net> wrote:
+>> > On Tuesday, August 02, 2016 04:34:00 PM Mark Brown wrote:
+>> >> On Tue, Aug 02, 2016 at 05:12:47PM +0300, Jani Nikula wrote:
+>> >> 
+>> >> > Generally adding cc: stable is like, this is clearly a fix to a bug that
+>> >> > is present in stable kernels, and the bug should be fixed, but I have no
+>> >> > idea nor resources to review or test if this is the right fix across all
+>> >> > stable kernels. You end up relying on your gut feeling too much to be
+>> >> > comfortable. You have to make the call too early in the process.
+>> >> 
+>> >> I think the problems here are more in the process of how things go from
+>> >> being tagged stable to appearing in a stable release - the QA or lack
+>> >> thereof and so on.  While I do share some of your misgivings here I do
+>> >> also really like the fact that it's really easy for people to push
+>> >> things out for the attention of those working on backports.  It's
+>> >> essentially the same as the question I often find myself asking people
+>> >> who don't upstream - "why would this fix not benefit other users?".
+>> >
+>> > Agreed, and I think that's exactly where the expectations don't match what's
+>> > delivered in the long-term-stable trees.
+>> >
+>> > It should be made clear that "stable" doesn't mean "no regressions".  What
+>> > it reall means is "hey, if you care about backports, this is the stuff to take
+>> > into consideration in the first place".
+>> 
+>> I think this interpretation matches reality better than what
+>> Documentation/stable_kernel_rules.txt leads you to believe about adding
+>> cc: stable tag.
+>
+> really?  Yes, we have regressions at times in stable kernels, but
+> really, our % is _very_ low.  Probably less than "normal" releases, but
+> that's just a random guess, it would be good for someone to try to do
+> research on this before guessing...
 
-Measured boot has, but we don't have this in secure boot yet.
+Sorry for not being clear. More than anything, I was looking for a
+better definition of what cc: stable means when applied by developers
+and maintainers, and what the expectation should be. Should it be
+considered more a hint that the commit should be considered for
+backporting or an explicit request to backport? This will affect how
+easily maintainers add cc: stable. Should I add it to any fix that I
+think might be useful that satisfies stable rules, or just the severe
+ones that are absolutely needed, or something between? I just don't
+think we have any consistency on this across the kernel.
 
->  - Kernel verifies device tree (seems messy to get right)
->  - Kernel should maybe verify the command line (?)
+>> However, I presume maintainers don't add cc: stable lightly, even when
+>> the fix could benefit stable kernel users, if there's any risk of the
+>> backport coming back to haunt you. I believe maintainers assume some
+>> degree of responsibility for the backport when they add cc: stable, even
+>> when they don't have the means to do QA. (And with the plethora of
+>> longterm kernels around these days, who does?)
+>> 
+>> But does being more liberal in adding cc: stable tags and shifting the
+>> responsibility for backports towards stable kernel maintainers work
+>> either? The bugs will anyway be reported to subsystem/driver
+>> maintainers, not stable maintainers.
+>> 
+>> Side note, I think it would be helpful to be allowed to revert clearly
+>> broken stable kernel backports even without an accompanying mainline
+>> revert. The original commit might be perfectly fine upstream, while the
+>> backport is bogus.
+>
+> Since when do we reject such reverts?  I'd much rather fix something
+> properly, the way it was fixed in Linus's tree, as that is better off
+> for users, don't you agree?
 
-Yes, we really should.  Again, measured boot does this but we currently
-don't with secure boot.
+Of course I agree with that, but it's not what I was saying! If Linus'
+tree + some commit is the perfect fix, it doesn't mean that Linus' tree
+half a dozen releases ago + some commit also is. If we tagged that
+commit cc: stable and it fails in stable, we should be able to revert
+that from stable without touching Linus' tree. Perhaps it's a corner
+case and generally not a problem [citation needed], but we've hit
+it. Not sure if that's enough to warrant a mention in stable rules?
 
-> The kernel does its verification with a combination of keys baked 
-> into the kernel image and keys supplied by Secure Boot firmware (if
-> enabled, which I think is only the case out-of-tree).
-> 
-> By doing all this, we're accomplishing two goals:
-> 
->  - Establishing a chain of trust rooted in or above the bootloader
->  - Appeasing the Secure Boot deities.  AFAIK this specifically
-> requires that we verify the kernel and its modules using a 
-> combination of EFI-supplied and distro keys.
+BR,
+Jani.
 
-There's nothing really to appease here.  The initial fears were
-grounded in how strictly Microsoft would blacklist something that was a
-threat to windows.  In practice there have been no blacklists of linux
-loaders (yet).
-
-However, it is for us to try to root the system trust in something and
-we have two use cases:
-
-   1. The shim use case where we pivot away from the default root of trust
-      (the Microsoft one) to a different Linux one stored in the MokList
-      variables
-   2. an owned system where the user has replaced the PK and the roots of
-      trust are in the secure boot variables.
-
-The question we really want to ask is how far should the initial root
-of trust (either 1 or 2 above) be used to verify the system before
-giving way to alternate pivots?  Our initial pivot in 1 effectively
-drops the MS root (although if you're doing 2 you keep the secure boot
-root).  I think it's reasonable to verify the kernel, initrd and
-command line through the same root we used for the bootloader.  But I'm
-afraid I think the true answer is a policy question.  I can see some
-people who would want this trust baked into the system immutable
-keyring and I can also see that some people would really not want this
-because they want to pivot the root of trust again.
-
-> To hold all the pieces together, we've established a rather ad-hoc 
-> and complicated way of baking keys into the kernel (see the contents 
-> of the certs/ directory).
-> 
-> I think we've made our lives considerably more complicated than they
-> need to be with the approach to keying that we're taking.
-> 
-> I'd like to discuss whether we can move a lot more of the keying into
-> the bootloader.  I'm envisioning:
-> 
->  - Bootloader supplies public keys and policy to the kernel.
->  - Bootloader verifies the initramfs if it needs to.
->  - Bootloader verifies the command line if it needs to.
->  - Bootloader verifies the device tree if it needs to.
-
-Agreed.
-
->  - Kernel verifies modules using a combination of module hashes and
-> keys from bootloader.
-
-Hm, too strict: third party modules would then need a third party key
-in the bootloader.
-
->  - Kernel initializes IMO and/or dm-verity if needed according to
-> policy supplied by bootloader.
->  - Bootloader extends a PCR with the keys and policy if needed.
-
-The rest of this looks nice (particularly the PCR part, which allows us
-to seal TPM stuff to proof the boot sequence executed properly).
-
-The bit you're missing is how the policy is communicated (more on this
-below).
-
-> This should cover the chain of trust case as well as the current
-> approach without needing to worry about baking keys into the kernel
-> image -- after all, a compromised bootloader can already change the
-> kernel image or the baked-in keys and thus do whatever it wants.
-> 
-> We get to simplify EFI-based keying: the bootloader or an 
-> intermediate EFI application could pull whatever keys it likes from 
-> EFI variables and feed them to the kernel.
-> 
-> The trickier part is appeasing the Secure Boot deities.  I'm not 
-> privy to the internal discussions here, but I think this could be 
-> done in a few ways.  For example, the bootloader could ensure that 
-> the policy it sets is compliant.  Alternatively (since I think that 
-> some implementations sign the kernel image itself with a key chained 
-> to the MS roots), we could add a config option to enforce, in the 
-> kernel, that modules must match an in-tree module hash or be signed 
-> by a key that is built in or (optionally) chains to an EFI-supplied
-> key.
-> 
-> (NB: I think that the Secure Boot rules are silly, but that's beside
-> the point.  I would prefer that the kernel honor them in the least
-> silly way possible.)
-
-I really don't think we need to worry about this bit: anything you come
-up with is most likely to go way beyond what Microsoft would need as
-its minimum base.
-
-The current way secure boot policy is communicated from UEFI to the
-bootloader is via the shimprotocol. It's a UEFI protocol which the
-bootloader uses to verify the kernel (but not the command line or the
-initrd currently).  It's actually differently constructed depending on
-whether you're booting case 1 or 2.
-
-I think we could extend the protocol to pass keys through to the kernel
-(the kernel currently doesn't even load the shimprotocol in early boot,
-but it could load a new shimkeyprotocol whose only job was to pass
-through acceptable keys).  The next problem is how to verify the
-command line and initrd.  The problem with the secure boot chain is
-that it's largely static and created away from the system (great for
-security but not so great for verifying dynamically created things like
-the initrd).  Our problem is that even if you only install distro rpms,
-the initrd is created dynamically on the running system by the rpm
-scripts, so it can't come with a-priori trust from the distros, nor can
-it be signed (unless the scripts have access to a private key, which is
-a security risk).  One of the things I've been playing with is having a
-TPM controlled key sign this (meaning that the user installing the RPM
-has to type in a password to get the signature to happen), but it's
-also possible to imagine a less complex system where the hashes of
-acceptable command lines and initrds are stored in verified UEFI
-variables and shim (or the thing which installs the shim protocol)
-notifies the user there's been a change and asks for approval. 
-
-I think this is a long winded way of saying that our problem isn't the
-verification mechanisms itself, it's all in the policy.
-
-The only real way around this initrd policy problem I can think is
-either have the default what we do (or rather don't do) today: no
-verification or have the distros deliver generic initrds which can be
-signed (but which would be rather large).  Even if we do the latter,
-the command line has to have the disk uuid, so it's still going to be
-dynamic (and thus unsigned).
-
-James
+-- 
+Jani Nikula, Intel Open Source Technology Center
