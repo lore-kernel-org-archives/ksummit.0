@@ -1,33 +1,32 @@
-Return-Path: <alexandre.belloni@free-electrons.com>
+Return-Path: <greg@kroah.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 144E17AA
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 46B20724
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  3 Aug 2016 14:17:50 +0000 (UTC)
-Received: from mail.free-electrons.com (down.free-electrons.com
-	[37.187.137.238])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 39BB11D3
+	Wed,  3 Aug 2016 14:19:23 +0000 (UTC)
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
+	[66.111.4.29])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8B9DE23A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  3 Aug 2016 14:17:49 +0000 (UTC)
-Date: Wed, 3 Aug 2016 16:17:05 +0200
-From: Alexandre Belloni <alexandre.belloni@free-electrons.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Message-ID: <20160803141705.GD23113@piout.net>
-References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
-	<2071960.gyaMIhrJi3@avalon> <20160728114624.GE4094@quack2.suse.cz>
-	<2023901.fskbspMbmh@avalon>
+	Wed,  3 Aug 2016 14:19:22 +0000 (UTC)
+Date: Wed, 3 Aug 2016 16:19:37 +0200
+From: Greg KH <greg@kroah.com>
+To: Jiri Kosina <jikos@kernel.org>
+Message-ID: <20160803141937.GA9180@kroah.com>
+References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
+	<871t27s1i8.fsf@intel.com> <20160802153400.GD10376@sirena.org.uk>
+	<3268954.rXb0BJAX6c@vostro.rjw.lan> <87oa5aqjmq.fsf@intel.com>
+	<20160803110935.GA26270@kroah.com> <87a8guq9y8.fsf@intel.com>
+	<20160803132607.GA31662@kroah.com>
+	<alpine.LNX.2.00.1608031537140.22028@cbobk.fhfr.pm>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <2023901.fskbspMbmh@avalon>
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
-	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
-	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Valentin Rothberg <valentinrothberg@gmail.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
- and semantics (v2)
+In-Reply-To: <alpine.LNX.2.00.1608031537140.22028@cbobk.fhfr.pm>
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Trond Myklebust <trondmy@primarydata.com>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,46 +36,22 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi,
+On Wed, Aug 03, 2016 at 03:48:29PM +0200, Jiri Kosina wrote:
+> Has anything changed in the process that'd just make patches like this one 
+> to be not merged these days?
 
-On 28/07/2016 at 19:00:36 +0300, Laurent Pinchart wrote :
-> > So I'm complete outsider to media drivers so maybe my question is stupid
-> > but I cannot resist: So how is the device bringup supposed to work for
-> > devices where you have these cycles in the dependency graph? Do you just
-> > bring up the controller and then the sensor and it works because the
-> > controller doesn't need the clock from the sensor for startup?
-> 
-> That's pretty much the idea, yes. We first probe the controller, and register 
-> a notifier to react to sensors being probed. The controller registers at probe 
-> time the clocks it provides, so the sensor can get hold of them when it gets 
-> probed. The controller is then notified that the sensor is available and 
-> proceeds normally.
-> 
-> We also have a suspend/resume ordering issue, where we have to stop the 
-> controller first (the hardware doesn't like when it loses the incoming video 
-> stream while running), but we can't stop the clock just yet before the sensor 
-> driver has a chance to suspend the sensor. We thus use the PM prepare and 
-> complete callbacks to stop/restart the controller, and the PM suspend and 
-> resume callbacks to stop/restart the clock. This is a hack that assumes that 
-> the sensor gets probed after the controller (which is guaranteed by the fact 
-> that the sensor needs a clock provided by the controller and thus probe will 
-> be deferred if the controller hasn't been probed yet) and that the sensor 
-> driver will use the PM suspend/resume callbacks, not the prepare/complete 
-> callbacks. Ugly, but for now it works.
-> 
-> In the case of the Atmel device I mentioned we just don't reset the hardware 
-> at probe time. We can still access the hardware registers we need without 
-> getting a pixel clock, so it's not such a big deal. It would have been worse 
-> if the hardware designers had decided to clock all registers with the pixel 
-> clock.
-> 
+We have Guenter's test-bot that has helped out immensely here with this.
 
-Well, I'm starting to be more and more interested in that thread as I'm
-currently working on getting the Atmel "Backup mode" (CPU/SoC off and
-DDR in self refresh) working and this is a device (re)initialization
-hell.
+It seems most of these can all come down to "we need more testing",
+which of course we do, no one can ever argue about that.  It's just that
+almost[1] no one is willing to step up and do the work beyond what we
+are currently doing, which is sad...
 
--- 
-Alexandre Belloni, Free Electrons
-Embedded Linux and Kernel engineering
-http://free-electrons.com
+thanks,
+
+greg k-h
+
+[1] The people that are doing stable tree testing are doing a great job,
+    Guenter, Shuah, kernelci, my build-bot, 0-day, etc.  I rely on them
+    to do the majority of the testing of stable kernels as on my own I
+    have very limited resources to do so.
