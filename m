@@ -1,34 +1,40 @@
-Return-Path: <jani.nikula@intel.com>
+Return-Path: <rostedt@goodmis.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1A10A83D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 91A0371
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  4 Aug 2016 12:44:04 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 133D514E
+	Thu,  4 Aug 2016 13:34:05 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0057.hostedemail.com
+	[216.40.44.57])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6AFCECD
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  4 Aug 2016 12:44:03 +0000 (UTC)
-From: Jani Nikula <jani.nikula@intel.com>
-To: Josh Triplett <josh@joshtriplett.org>, David Howells <dhowells@redhat.com>
-In-Reply-To: <20160730050241.xyxkhztigh7j5jbe@x>
-References: <1469815046.2330.13.camel@HansenPartnership.com>
-	<20160729131151.GF4340@x> <20160729075039.GA26402@x>
-	<30809.1469794812@warthog.procyon.org.uk>
-	<1596.1469801212@warthog.procyon.org.uk>
-	<alpine.DEB.2.20.1607290919480.14761@east.gentwo.org>
-	<ECADFF3FD767C149AD96A924E7EA6EAF053BB894@USCULXMSG02.am.sony.com>
-	<11641.1469823238@warthog.procyon.org.uk>
-	<20160730050241.xyxkhztigh7j5jbe@x>
-Date: Thu, 04 Aug 2016 15:44:00 +0300
-Message-ID: <87twf0oga7.fsf@intel.com>
+	Thu,  4 Aug 2016 13:34:04 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
+	[10.5.19.251])
+	by smtpgrave03.hostedemail.com (Postfix) with ESMTP id D6B5F290A7A
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu,  4 Aug 2016 13:34:01 +0000 (UTC)
+Date: Thu, 4 Aug 2016 09:33:55 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Greg KH <greg@kroah.com>
+Message-ID: <20160804093355.30096bbe@gandalf.local.home>
+In-Reply-To: <20160804082018.GA27204@kroah.com>
+References: <3268954.rXb0BJAX6c@vostro.rjw.lan> <87oa5aqjmq.fsf@intel.com>
+	<20160803110935.GA26270@kroah.com> <87a8guq9y8.fsf@intel.com>
+	<20160803132607.GA31662@kroah.com>
+	<alpine.LNX.2.00.1608031537140.22028@cbobk.fhfr.pm>
+	<1470232658.2482.42.camel@HansenPartnership.com>
+	<alpine.LNX.2.00.1608031558180.22028@cbobk.fhfr.pm>
+	<1470233095.2482.46.camel@HansenPartnership.com>
+	<20160803212332.576bb718@grimm.local.home>
+	<20160804082018.GA27204@kroah.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Christoph Lameter <cl@linux.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [ANNOUNCE] git-series: track changes to a
-	patch series over time
+	Trond Myklebust <trondmy@primarydata.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,54 +44,80 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, 30 Jul 2016, Josh Triplett <josh@joshtriplett.org> wrote:
-> On Fri, Jul 29, 2016 at 09:13:58PM +0100, David Howells wrote:
->> James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
->> 
->> > I do this too, but I also work with the diff when moving hunks.  What I
->> > do is:
->> > 
->> > git checkout <removal commit>
->> > git show <removal commit> > tmp.diff
->> > vi tmp.diff so it only has the hunks I want to remove
->> > patch -p1 -R < ~/tmp.diff
->> > git commit --amend -a
->> > git checkout <add commit>
->> > patch -p1 < ~/tmp.diff
->> > git commit --amend -a
->> > 
->> > It's a bit cumbersome, but you can script it.  If there are better ways
->> > to do it, I'm interested.
->> 
->> One of the reasons I use stgit is when it comes to excising changes into a
->> separate patch, it makes it a lot easier:
->> 
->> 	 stg show >tmp.diff	# Export contents of current patch
->> 	 emacs tmp.diff		# Edit so it only has the hunks I want to remove
->> 	 stg pop		# Pop the patch I want to remove part of
->> 	 stg new foo		# Create a new patch
->> 	 stg fold tmp.diff	# ... and apply the patch created above
->> 	 emacs ...		# Fix up any bits
->> 	 stg refresh		# ... and make a commit out of it
->> 	 stg push		# Push the patch I wanted to remove from
->
-> Typically, I'd do the same thing by using `git rebase -i` (or `git
-> series rebase -i`), marking the patch I want to split as 'e' for edit to
-> stop with that patch on top of the stack, resetting it, and using add -p
-> and committing bits incrementally into multiple commits.  (I can grab
-> bits of the commit message from ORIG_HEAD as needed.)
+On Thu, 4 Aug 2016 10:20:18 +0200
+Greg KH <greg@kroah.com> wrote:
 
-Same here. Very powerful, and saves you from editing diffs
-directly.
+> On Wed, Aug 03, 2016 at 09:23:32PM -0400, Steven Rostedt wrote:
+> > On Wed, 03 Aug 2016 10:04:55 -0400
+> > James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
+> > 
+> >   
+> > > OK, so how about you only apply stable patches with a cc stable and a
+> > > fixes tag?  
+> > 
+> > While reading this thread, I thought about replying and suggesting
+> > exactly this. But you did it before I could.
+> > 
+> > I try to make it a habit to find the commit that a fix is for, and add
+> > that as a Fixes tag and even add a # v<stable-version>+ to the Cc tag.
+> > 
+> > Maybe we ask that all cc stable commits have this, otherwise it should
+> > only be applied to the previous stable and nothing earlier.  
+> 
+> No, again, that would put more burden on the maintainer and developer
+> than I want to "enforce".  I don't even want to do that extra work for
+> the trees I maintain, I just couldn't scale that way.
 
-It's also sometimes useful to combine this with temporary reverts of
-other commits for cleanly moving conflicting hunks earlier in the
-series. It may conflict later anyway, but at least the reordering
-doesn't have to conflict every step of the way.
+Note, this isn't just good practice for sending patches to stable, it's
+general good practice maintaining code. It gives a nice history of a
+change. If you look at the change log of code that one might see that
+looks "interesting" it may be very educational to see that it was done
+as a fix for something else. And a new developer may understand why
+code was added in the first place.
 
-BR,
-Jani.
+I don't buy this as burden on a maintainer. This should be part of the
+maintenance procedure, regardless of sending to stable or not. Yes it
+does take extra time, but I don't think that time is wasted.
 
+> 
+> > IIUC, Greg et.al. will apply a stable tagged commit to all previous
+> > stable trees as long as they apply cleaning. Greg, is that correct?
+> > Perhaps we shouldn't apply them if they don't have a fixes tag or a
+> > label that states what versions they are for.  
+> 
+> I apply them to older kernels based on my best judgement.  That includes
+> reading the patch, seeing how "cleanly" they apply, and judging the
+> severity of the patch.  I only notify developers if their patch doesn't
+> apply to an older kernel tree IF they have marked it as explicitly being
+> needed for an older kernel tree.
+> 
+> Now I greatly appreciate the use of fixes: and other hints to show how
+> old a patch should be backported to, don't get me wrong.  But I'm not
+> going to require that it be present in order to have a patch backported,
+> again, too much work for maintainers.
 
--- 
-Jani Nikula, Intel Open Source Technology Center
+I was saying that it be required for backporting beyond the previous
+stable. But also may be a hint for other stable maintainers to look at
+the patch. Just no guarantee that it goes any farther back than one
+release.
+
+> 
+> It's up to anyone who wants to maintain a "longterm" stable tree to do
+> this extra work on their own.  It's not easy, and it is work, but that's
+> just part of the job.  We can't force maintainers to care about older
+> kernel versions if they don't want to, as maintainers are our most
+> limited resource right now.
+
+I agree. But my suggestion about the Fixes tag was more of trying to
+get maintainers into a good practice for the maintenance of the code
+itself.
+ 
+> 
+> Remember, we _still_ have whole subsystems that never mark anything for
+> stable, let's focus on them please, that's the biggest issue for stable
+> trees that I can see right now.
+
+I'd be more interested in getting all subsystems to just add Fixes
+tags ;-)
+
+-- Steve
