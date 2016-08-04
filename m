@@ -1,35 +1,27 @@
 Return-Path: <rostedt@goodmis.org>
 Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
 	[172.17.192.36])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D892A71
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7F85F413
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  4 Aug 2016 03:13:27 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0090.hostedemail.com
-	[216.40.44.90])
-	by smtp2.linuxfoundation.org (Postfix) with ESMTPS id 76F3A1DAC1
+	Thu,  4 Aug 2016 03:14:27 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0056.hostedemail.com
+	[216.40.44.56])
+	by smtp2.linuxfoundation.org (Postfix) with ESMTPS id 507871DAC1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  4 Aug 2016 03:13:27 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
-	[10.5.19.251])
-	by smtpgrave08.hostedemail.com (Postfix) with ESMTP id A9CE5211935
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  4 Aug 2016 03:06:17 +0000 (UTC)
-Date: Wed, 3 Aug 2016 23:06:13 -0400
+	Thu,  4 Aug 2016 03:14:26 +0000 (UTC)
+Date: Wed, 3 Aug 2016 23:14:22 -0400
 From: Steven Rostedt <rostedt@goodmis.org>
-To: Jiri Kosina <jikos@kernel.org>
-Message-ID: <20160803230613.2e92e2fe@grimm.local.home>
-In-Reply-To: <alpine.LNX.2.00.1608032333020.22028@cbobk.fhfr.pm>
-References: <87a8guq9y8.fsf@intel.com> <20160803132607.GA31662@kroah.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Message-ID: <20160803231422.5e2e0fd6@grimm.local.home>
+In-Reply-To: <20160803161234.GA32965@dtor-ws>
+References: <20160802153400.GD10376@sirena.org.uk>
+	<3268954.rXb0BJAX6c@vostro.rjw.lan> <87oa5aqjmq.fsf@intel.com>
+	<20160803110935.GA26270@kroah.com> <87a8guq9y8.fsf@intel.com>
+	<20160803132607.GA31662@kroah.com>
 	<alpine.LNX.2.00.1608031537140.22028@cbobk.fhfr.pm>
 	<20160803141937.GA9180@kroah.com>
 	<alpine.LNX.2.00.1608031642300.22028@cbobk.fhfr.pm>
 	<57A21252.7000407@roeck-us.net> <20160803161234.GA32965@dtor-ws>
-	<57A21F88.7000504@roeck-us.net> <20160803172015.GA36266@dtor-ws>
-	<20160803182105.GA11395@roeck-us.net>
-	<20160803185902.GB36266@dtor-ws>
-	<alpine.LNX.2.00.1608032323150.22028@cbobk.fhfr.pm>
-	<CAKdAkRRq-rEaBwv9Kn=9t-8noSJodOAjebZdLQx-b_d17bonkQ@mail.gmail.com>
-	<alpine.LNX.2.00.1608032333020.22028@cbobk.fhfr.pm>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
@@ -46,26 +38,49 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 3 Aug 2016 23:36:11 +0200 (CEST)
-Jiri Kosina <jikos@kernel.org> wrote:
+On Wed, 3 Aug 2016 09:12:34 -0700
+Dmitry Torokhov <dmitry.torokhov@gmail.com> wrote:
+
+> When I put cc:stable it is simply a suggestion for stable maintainers to
+> figure out if this commit is suitable for _their_ stable. I might have
+> an idea about n-1.x stable series but I certainly do not have any desire
+> nor time to research whether this patch applicable to 3.2 or 3.0 stable
+> series.
+
+Can you at least find the commit that introduced the bug that a patch
+fixes? I do that all the time. It's not that hard. git blame is prefect
+for such things.
 
 
-> I understand that, but I intentionally proposed the rule a little bit more 
-> "exact", because meaning of "latest stable" might potentially be different 
-> at the time of the patch being commited to subsystem tree, and at the time 
-> of the commit actually appearing in Linus' tree (which is the point at 
-> which -stable notices).
+ git blame broken-file.c
 
-So what if it is committed into a tree with a newer stable then when it
-was posted? A naked "stable" tag should *only* go into the most recent
-stable when it gets into Linus tree.
+Find the commit that contains the broken code.
 
-Now, a stable maintainer can look at that commit and decide for
-themselves if it should go in or not, but it's not guaranteed to be for
-that tree. Basically, if unsure, then leave it alone (unless there's a
-bug report in your branch that the commit fixes).
+ git show SHA1-OF-WHAT-I-FOUND
 
-I agree that only commits marked with Fixes or explicit stable ranges
-should be backported further than the latest stable branch.
+Oh, it's a whitespace change (curses a little).
+
+ git blame SHA1-OF-WHAT-I-FOUND~1 broken-file.c
+
+(the ~1 will give you the tree before that whitespace fix)
+
+Find the commit that contains the broken code.
+
+Sometimes it takes a few iterations of the above, but once I find the
+commit, I have what I need for the "Fixes" tag.
+
+Now, I like to also add the stable range. To do that, I go to my Linus
+tree, and do:
+
+ git describe --contains SHA1-OF-BROKEN-COMMIT
+
+and wala, it tells me what release that was added. Like:
+
+  git describe --contains 85f2b08268c01
+v3.14-rc1~82^2~40
+
+Then I know to add:
+
+ Cc: stable@vger.kernel.org # v3.14+
 
 -- Steve
