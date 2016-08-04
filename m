@@ -1,38 +1,34 @@
-Return-Path: <geert.uytterhoeven@gmail.com>
+Return-Path: <jani.nikula@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D625283D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1A10A83D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  4 Aug 2016 12:37:39 +0000 (UTC)
-Received: from mail-io0-f196.google.com (mail-io0-f196.google.com
-	[209.85.223.196])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 446C81D0
+	Thu,  4 Aug 2016 12:44:04 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 133D514E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  4 Aug 2016 12:37:39 +0000 (UTC)
-Received: by mail-io0-f196.google.com with SMTP id g86so21568233ioj.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 04 Aug 2016 05:37:39 -0700 (PDT)
+	Thu,  4 Aug 2016 12:44:03 +0000 (UTC)
+From: Jani Nikula <jani.nikula@intel.com>
+To: Josh Triplett <josh@joshtriplett.org>, David Howells <dhowells@redhat.com>
+In-Reply-To: <20160730050241.xyxkhztigh7j5jbe@x>
+References: <1469815046.2330.13.camel@HansenPartnership.com>
+	<20160729131151.GF4340@x> <20160729075039.GA26402@x>
+	<30809.1469794812@warthog.procyon.org.uk>
+	<1596.1469801212@warthog.procyon.org.uk>
+	<alpine.DEB.2.20.1607290919480.14761@east.gentwo.org>
+	<ECADFF3FD767C149AD96A924E7EA6EAF053BB894@USCULXMSG02.am.sony.com>
+	<11641.1469823238@warthog.procyon.org.uk>
+	<20160730050241.xyxkhztigh7j5jbe@x>
+Date: Thu, 04 Aug 2016 15:44:00 +0300
+Message-ID: <87twf0oga7.fsf@intel.com>
 MIME-Version: 1.0
-Sender: geert.uytterhoeven@gmail.com
-In-Reply-To: <20160727180346.GP11806@sirena.org.uk>
-References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
-	<20160727172636.GM11806@sirena.org.uk>
-	<20160727175829.GG5537@wotan.suse.de>
-	<20160727180346.GP11806@sirena.org.uk>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 4 Aug 2016 14:37:36 +0200
-Message-ID: <CAMuHMdV7eJndSTQ9_C1KnezGb8mYJL+BXwnqc1zES_amT+XKWA@mail.gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
-	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
-	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
-	Valentin Rothberg <valentinrothberg@gmail.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
- and semantics (v2)
+Content-Type: text/plain
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Christoph Lameter <cl@linux.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [ANNOUNCE] git-series: track changes to a
+	patch series over time
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -42,38 +38,54 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Jul 27, 2016 at 8:03 PM, Mark Brown <broonie@kernel.org> wrote:
-> On Wed, Jul 27, 2016 at 07:58:29PM +0200, Luis R. Rodriguez wrote:
->> On Wed, Jul 27, 2016 at 06:26:36PM +0100, Mark Brown wrote:
->> > > to help enable asynchronous probe, however for built-in devices this requires
->> > > very specific platform knowledge otherwise using async probe will blow up
->> > > your kernel -- if you get it right though, using async probe can help with
+On Sat, 30 Jul 2016, Josh Triplett <josh@joshtriplett.org> wrote:
+> On Fri, Jul 29, 2016 at 09:13:58PM +0100, David Howells wrote:
+>> James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
+>> 
+>> > I do this too, but I also work with the diff when moving hunks.  What I
+>> > do is:
+>> > 
+>> > git checkout <removal commit>
+>> > git show <removal commit> > tmp.diff
+>> > vi tmp.diff so it only has the hunks I want to remove
+>> > patch -p1 -R < ~/tmp.diff
+>> > git commit --amend -a
+>> > git checkout <add commit>
+>> > patch -p1 < ~/tmp.diff
+>> > git commit --amend -a
+>> > 
+>> > It's a bit cumbersome, but you can script it.  If there are better ways
+>> > to do it, I'm interested.
+>> 
+>> One of the reasons I use stgit is when it comes to excising changes into a
+>> separate patch, it makes it a lot easier:
+>> 
+>> 	 stg show >tmp.diff	# Export contents of current patch
+>> 	 emacs tmp.diff		# Edit so it only has the hunks I want to remove
+>> 	 stg pop		# Pop the patch I want to remove part of
+>> 	 stg new foo		# Create a new patch
+>> 	 stg fold tmp.diff	# ... and apply the patch created above
+>> 	 emacs ...		# Fix up any bits
+>> 	 stg refresh		# ... and make a commit out of it
+>> 	 stg push		# Push the patch I wanted to remove from
 >
->> > I'm not sure what specific platform knowledge you're thinking of here?
->> > We have coverage for most things in the form of deferred probe (messy
->> > though it is).
->
->> Deferred probe is a complete a hack and sub-optimal. Being able to address
->
-> Sure, I don't think anyone disagrees on that but it does mean we don't
-> actually blow up easily like we used to - it's messy but it does get
-> there safely.  I was specifically querying your statement that things
-> would blow up.
+> Typically, I'd do the same thing by using `git rebase -i` (or `git
+> series rebase -i`), marking the patch I want to split as 'e' for edit to
+> stop with that patch on top of the stack, resetting it, and using add -p
+> and committing bits incrementally into multiple commits.  (I can grab
+> bits of the commit message from ORIG_HEAD as needed.)
 
-Some drivers/subsystems don't support deferred probing yet. Such failures
-usually don't blow up, but cause subtle malfunctioning.
+Same here. Very powerful, and saves you from editing diffs
+directly.
 
-In the specific case I encountered, an Ethernet phy couldn't get its interrupt
-in of_mdiobus_register_phy(), as the (non-primary) irqchip hadn't been probed
-yet. It didn't really blow up, though, as the phy driver fell back to polling.
+It's also sometimes useful to combine this with temporary reverts of
+other commits for cleanly moving conflicting hunks earlier in the
+series. It may conflict later anyway, but at least the reordering
+doesn't have to conflict every step of the way.
 
-Gr{oetje,eeting}s,
+BR,
+Jani.
 
-                        Geert
 
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+-- 
+Jani Nikula, Intel Open Source Technology Center
