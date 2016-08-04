@@ -1,34 +1,29 @@
-Return-Path: <jani.nikula@intel.com>
+Return-Path: <julia.lawall@lip6.fr>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9048E8A6
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8C9DC724
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  4 Aug 2016 10:28:00 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 3FDF38E
+	Thu,  4 Aug 2016 11:19:35 +0000 (UTC)
+Received: from mail2-relais-roc.national.inria.fr
+	(mail2-relais-roc.national.inria.fr [192.134.164.83])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6DB13172
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  4 Aug 2016 10:28:00 +0000 (UTC)
-From: Jani Nikula <jani.nikula@intel.com>
-To: Mark Brown <broonie@kernel.org>, Greg KH <greg@kroah.com>
-In-Reply-To: <20160804102058.GT10376@sirena.org.uk>
-References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
-	<20160727192040.GL5537@wotan.suse.de>
-	<10281749.h0nm8HgLR9@vostro.rjw.lan>
-	<4826466.kMrAaT2rsn@avalon> <87d1lpose8.fsf@intel.com>
-	<20160804095049.GA30029@kroah.com>
-	<20160804102058.GT10376@sirena.org.uk>
-Date: Thu, 04 Aug 2016 13:27:51 +0300
-Message-ID: <877fbwq15k.fsf@intel.com>
+	Thu,  4 Aug 2016 11:19:34 +0000 (UTC)
+Date: Thu, 4 Aug 2016 13:19:27 +0200 (CEST)
+From: Julia Lawall <julia.lawall@lip6.fr>
+To: NeilBrown <neilb@suse.com>
+In-Reply-To: <87a8gtngx9.fsf@notabene.neil.brown.name>
+Message-ID: <alpine.DEB.2.10.1608041319010.7967@hadrien>
+References: <87inw1skws.fsf@x220.int.ebiederm.org>
+	<25598.1469113525@warthog.procyon.org.uk>
+	<18158a39-1297-7368-3c0e-3e9b3ce2c3ab@suse.com>
+	<alpine.DEB.2.10.1607220808110.3114@hadrien>
+	<87a8gtngx9.fsf@notabene.neil.brown.name>
 MIME-Version: 1.0
-Content-Type: text/plain
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
-	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
-	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Valentin Rothberg <valentinrothberg@gmail.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
-	and semantics (v2)
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] More useful types in the linux
+ kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,23 +33,50 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, 04 Aug 2016, Mark Brown <broonie@kernel.org> wrote:
-> On Thu, Aug 04, 2016 at 11:50:49AM +0200, Greg KH wrote:
+
+
+On Thu, 4 Aug 2016, NeilBrown wrote:
+
+> On Fri, Jul 22 2016, Julia Lawall wrote:
+> >
+> > In C, enums are ints.  Is there a Gcc option that checks them?  For
+> > example, the following program compiles fine with -Wall:
+> >
+> > enum one {ONE=1, TWO=2, THREE=3};
+> > enum two {ONEX=7, TWOX=8, THREEX=9};
+> >
+> > int f (int x) {
+> >   enum one o = ONE;
+> >   enum two t = THREEX;
+> >   if (x) o = t; else t = o;
+> >   return 0;
+> > }
 >
->> Nope, it doesn't work that way, sorry.
+> However with this slight change (and line-numbers added for clarity)
 >
->> Nice try, just unwind your initialization properly :)
+>      1
+>      2	enum one {ONE=1, TWO=2, THREE=3} __attribute((bitwise));
+>      3	enum two {ONEX=7, TWOX=8, THREEX=9} __attribute((bitwise));
+>      4
+>      5	int f (int x) {
+>      6	  enum one o = ONE;
+>      7	  enum two t = THREEX;
+>      8	  if (x) o = t; else t = o;
+>      9	  return 0;
+>     10	}
 >
-> Deferred probe is probably the best thing that ever happened for the
-> quality of kernel error handling :)
+>
+> sparse complains:
+>
+> /tmp/test.c:8:14: warning: mixing different enum types
+> /tmp/test.c:8:14:     int enum two  versus
+> /tmp/test.c:8:14:     int enum one
+> /tmp/test.c:8:26: warning: mixing different enum types
+> /tmp/test.c:8:26:     int enum one  versus
+> /tmp/test.c:8:26:     int enum two
+>
+> Is that what you were hoping for?
 
-Heh, I know. All part of the reason we're not propagating deferred probe
-from the depths of drm/i915 yet. But even if we were, it's grossly
-inefficient for a driver of i915's complexity.
+Yes, perfect, thanks.
 
-BR,
-Jani.
-
-
--- 
-Jani Nikula, Intel Open Source Technology Center
+julia
