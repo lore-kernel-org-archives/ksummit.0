@@ -1,32 +1,29 @@
-Return-Path: <dave.hansen@linux.intel.com>
+Return-Path: <josh@joshtriplett.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 36A2D83D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 92DBE98B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  4 Aug 2016 14:17:17 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id DF4D01A0
+	Thu,  4 Aug 2016 23:46:30 +0000 (UTC)
+Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
+	[217.70.183.195])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 058D319E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  4 Aug 2016 14:17:16 +0000 (UTC)
-To: Kees Cook <keescook@chromium.org>,
-	Catalin Marinas <catalin.marinas@arm.com>
-References: <CALCETrXtfzi=G4H+Zttv3kWcCo32V6cO9OBfdyuYT4DHvJTJLg@mail.gmail.com>
-	<CAGXu5j+M06pdOB7Phqg==xg4p7=9ggmZciQuGZaNTXaW=-BCbg@mail.gmail.com>
-	<3aa8df3e-3705-9fd5-640c-37c0be2af561@imgtec.com>
-	<CAGXu5jKZb60=3H8faOG53Aq7H3MeST7_syionmFCE2HQFOG8SA@mail.gmail.com>
-	<0E98DCC5-01EE-4FA7-B6D4-72772279BDFF@arm.com>
-	<CAGXu5jL085S-feY_uy68tCMZwOHcg5QPzyE0eXiJviqCwau90g@mail.gmail.com>
-From: Dave Hansen <dave.hansen@linux.intel.com>
-Message-ID: <57A34E66.1040608@linux.intel.com>
-Date: Thu, 4 Aug 2016 07:17:10 -0700
+	Thu,  4 Aug 2016 23:46:29 +0000 (UTC)
+Date: Thu, 4 Aug 2016 13:46:23 -1000
+From: Josh Triplett <josh@joshtriplett.org>
+To: Catalin Marinas <catalin.marinas@arm.com>
+Message-ID: <20160804234622.ybcc3vx7qqc7duid@x>
+References: <20160729075039.GA26402@x>
+	<30809.1469794812@warthog.procyon.org.uk> <20160729131151.GF4340@x>
+	<C3AB051F-EDE5-4CF3-9DFB-4AA96B974982@arm.com>
 MIME-Version: 1.0
-In-Reply-To: <CAGXu5jL085S-feY_uy68tCMZwOHcg5QPzyE0eXiJviqCwau90g@mail.gmail.com>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 7bit
-Cc: Jann Horn <jann@thejh.net>, "ksummit-discuss@lists.linuxfoundation.org"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <C3AB051F-EDE5-4CF3-9DFB-4AA96B974982@arm.com>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TOPIC] kernel hardening / self-protection /
- whatever
+Subject: Re: [Ksummit-discuss] [ANNOUNCE] git-series: track changes to a
+ patch series over time
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,21 +33,35 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 08/03/2016 10:32 PM, Kees Cook wrote:
->> > BTW, while not a kernel security feature, I've been asked in the past to enable
->> > execute-only (no read) permissions on arm64 (e.g. mmap(PROT_EXEC)).
->> > I have a simple patch for this, though I'm not 100% sure about user ABI implications.
->> > So far I'm not aware of any user application using PROT_EXEC only and also
->> > expecting PROT_READ.
-> x86 is working on this too, and IIRC, they uncovered some "fun" ELF
-> corner cases. I've added Dave for some more background...
+On Fri, Aug 05, 2016 at 12:46:47AM +0200, Catalin Marinas wrote:
+> On 29 Jul 2016, at 15:12, Josh Triplett <josh@joshtriplett.org> wrote:
+> > On Fri, Jul 29, 2016 at 01:20:12PM +0100, David Howells wrote:
+> >> Josh Triplett <josh@joshtriplett.org> wrote:
+> >>> I'd like to announce a project I've been working on for a while.  I sent
+> >>> this announcement to LKML, but since many people don't subscribe to LKML
+> >>> directly, and since ksummit-discuss has had several discussions
+> >>> specifically about patch workflow and development processes, I thought
+> >>> I'd send the announcement here as well, in case anyone found it useful
+> >>> for their workflow.
+> >> 
+> >> Can this be used as a direct substitute for stgit for maintaining a patch
+> >> series?
+> > 
+> > Yes, that's exactly what I designed it for.  git-series has the added
+> > advantage of tracking the versions of the patch series across rewrites.
+> > stgit just directly rewrites history, like rebase -i does; as far as I
+> > know, it doesn't remember the old history.  You'd have to go to the
+> > reflog for that.  
+> 
+> I haven't looked at git-series yet (I actually have a git "series" alias 
+> to list the current commits against a parent/tracking branch) 
+> but StGit does remember the series history. It stores all the past states 
+> of a series in a <branch>.stgit branch and you can inspect the 
+> changes, get unlimited undo/redo, even show a diff of diffs for 
+> a given patch. 
 
-I haven't been able to find anything in the wild that actually uses
-PROT_EXEC by itself.  The corner cases I hit were because I took a
-PROT_READ|PROT_EXEC mapping and munged it to really be PROT_EXEC only as
-an experiment.  It blew up pretty spectacularly because of
-non-page-aligned ELF sections creating pages that really do contain
-instructions _and_ read-only data.
+Interesting!  I didn't find that when I last looked at stgit.  Does the
+format used on that branch have documentation anywhere?  I didn't find
+any in the stgit source or manpages.
 
-The exec-only support got in 4.6 and does work under qemu today if
-anyone wants to give it a try.
+- Josh Triplett
