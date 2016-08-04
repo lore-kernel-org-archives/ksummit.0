@@ -1,36 +1,40 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <geert.uytterhoeven@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id AE2F678D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2C64478D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  4 Aug 2016 17:53:58 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 532381C9
+	Thu,  4 Aug 2016 18:16:49 +0000 (UTC)
+Received: from mail-it0-f66.google.com (mail-it0-f66.google.com
+	[209.85.214.66])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 16F7211C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  4 Aug 2016 17:53:58 +0000 (UTC)
-Date: Thu, 4 Aug 2016 18:53:51 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Message-ID: <20160804175351.GE10383@sirena.org.uk>
-References: <1470232658.2482.42.camel@HansenPartnership.com>
+	Thu,  4 Aug 2016 18:16:48 +0000 (UTC)
+Received: by mail-it0-f66.google.com with SMTP id d65so196394ith.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 04 Aug 2016 11:16:48 -0700 (PDT)
+MIME-Version: 1.0
+Sender: geert.uytterhoeven@gmail.com
+In-Reply-To: <20160804121414.2466c31f@gandalf.local.home>
+References: <20160803110935.GA26270@kroah.com> <87a8guq9y8.fsf@intel.com>
+	<20160803132607.GA31662@kroah.com>
+	<alpine.LNX.2.00.1608031537140.22028@cbobk.fhfr.pm>
+	<1470232658.2482.42.camel@HansenPartnership.com>
 	<alpine.LNX.2.00.1608031558180.22028@cbobk.fhfr.pm>
 	<1470233095.2482.46.camel@HansenPartnership.com>
 	<20160803212332.576bb718@grimm.local.home>
 	<20160804082018.GA27204@kroah.com>
 	<20160804093355.30096bbe@gandalf.local.home>
 	<20160804154444.GA10323@sirena.org.uk>
-	<1470326213.2411.26.camel@HansenPartnership.com>
-	<20160804170126.GC10383@sirena.org.uk>
-	<20160804131146.2136a189@gandalf.local.home>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="ryJZkp9/svQ58syV"
-Content-Disposition: inline
-In-Reply-To: <20160804131146.2136a189@gandalf.local.home>
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	<20160804121414.2466c31f@gandalf.local.home>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 4 Aug 2016 20:16:45 +0200
+Message-ID: <CAMuHMdWi0ij=umCqckG3gQP8+ySTT16v_fdpQ7d5XNNLDgj21g@mail.gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+Content-Type: text/plain; charset=UTF-8
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
 	Trond Myklebust <trondmy@primarydata.com>,
-	ksummit-discuss@lists.linuxfoundation.org
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -41,34 +45,44 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Thu, Aug 4, 2016 at 6:14 PM, Steven Rostedt <rostedt@goodmis.org> wrote:
+> On Thu, 4 Aug 2016 16:44:44 +0100
+> Mark Brown <broonie@kernel.org> wrote:
+>> If it's a choice between me taking a bugfix for mainline and me getting
+>> someone to give me a commit ID for exactly which commit introduced some
+>> change I'm probably not going to do the latter, especially when a lot of
+>> these things are more of the "we now understand the hardware better"
+>> variety.
+>
+> Who said anything about a choice between one or the other?
+>
+>> > I don't buy this as burden on a maintainer. This should be part of the
+>> > maintenance procedure, regardless of sending to stable or not. Yes it
+>> > does take extra time, but I don't think that time is wasted.
+>>
+>> I'm really happy we've got people engaging upstream.  I'm happy if
+>> people fill in the extra information but really I'm way more interested
+>> in a clear changelog than in getting a Fixes tag, or in checking that
+>> the tags people are adding are accurate.
+>
+> Having a clear change log is orthogonal to having a Fixes tag. Actually,
+> in my experience, change logs with Fixes tags tend to have clearer
+> explanations in the change log than those without. Because to get that
+> Fixes tag, one did some research to why the bug happened in the first
+> place.
 
---ryJZkp9/svQ58syV
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Would publishing statistics help, like the top 10 of Ackers and Reviewers?
 
-On Thu, Aug 04, 2016 at 01:11:46PM -0400, Steven Rostedt wrote:
+E.g. Hall of Fame of bug fixers, based on the presence of Fixes tags, and
+Hall of Shame, based on patches CCed to stable lacking Fixes tags?
 
-> Perhaps we should document what people should strive to achieve, and
-> state if you really don't have the time, then one may do without. But
-> the more one has a clear change log and information showing where a bug
-> happened, makes maintenance of the code in the future a little bit
-> easier.
+Gr{oetje,eeting}s,
 
-Definitely agreed.
+                        Geert
 
---ryJZkp9/svQ58syV
-Content-Type: application/pgp-signature; name="signature.asc"
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQEcBAEBCAAGBQJXo4EtAAoJECTWi3JdVIfQmAgH/jw1oUevdybrBMvsKQssRX2x
-GeTBOAbKDuClaQMkqdY2ZzN6HpeQe5RCAqPJrmk4RzANHYOFWTxsr2zyeF49SRwm
-DlaGd0diHs4rD7NpmvlWsb3qJhu550oxMFZuYJy/LEYj3euT1tFkqFwZHI4tGt/n
-paWhYI+J6istYWWtEfJ7CUpSXTXuhn2jMXWHLNNBWGnL7DzsJdCiKNx/5rpR+3kF
-bQ8GVbMnflEs1rxEfSJS59+gEfPLLmRLNAx3/xESLMf4qrgQyxt+Pco2dNbdvCQt
-RTas74ZpUUoYUb3Z+bqSwR0dRJNne4oLpWyZ1yhkQyDE9lesfM5XmYaJjQzPMFU=
-=6jUH
------END PGP SIGNATURE-----
-
---ryJZkp9/svQ58syV--
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
