@@ -1,28 +1,41 @@
-Return-Path: <rjw@rjwysocki.net>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 46E5171
+Return-Path: <rostedt@goodmis.org>
+Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
+	[172.17.192.36])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D892A71
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  4 Aug 2016 01:00:31 +0000 (UTC)
-Received: from cloudserver094114.home.net.pl (cloudserver094114.home.net.pl
-	[79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id 960761CF
+	Thu,  4 Aug 2016 03:13:27 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0090.hostedemail.com
+	[216.40.44.90])
+	by smtp2.linuxfoundation.org (Postfix) with ESMTPS id 76F3A1DAC1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  4 Aug 2016 01:00:30 +0000 (UTC)
-From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+	Thu,  4 Aug 2016 03:13:27 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
+	[10.5.19.251])
+	by smtpgrave08.hostedemail.com (Postfix) with ESMTP id A9CE5211935
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu,  4 Aug 2016 03:06:17 +0000 (UTC)
+Date: Wed, 3 Aug 2016 23:06:13 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
 To: Jiri Kosina <jikos@kernel.org>
-Date: Thu, 04 Aug 2016 03:05:43 +0200
-Message-ID: <1754001.FoBt1O55rC@vostro.rjw.lan>
-In-Reply-To: <alpine.LNX.2.00.1608031517191.22028@cbobk.fhfr.pm>
-References: <alpine.LNX.2.00.1607082339040.24757@cbobk.fhfr.pm>
-	<1600610.QIejSIJ3WK@vostro.rjw.lan>
-	<alpine.LNX.2.00.1608031517191.22028@cbobk.fhfr.pm>
+Message-ID: <20160803230613.2e92e2fe@grimm.local.home>
+In-Reply-To: <alpine.LNX.2.00.1608032333020.22028@cbobk.fhfr.pm>
+References: <87a8guq9y8.fsf@intel.com> <20160803132607.GA31662@kroah.com>
+	<alpine.LNX.2.00.1608031537140.22028@cbobk.fhfr.pm>
+	<20160803141937.GA9180@kroah.com>
+	<alpine.LNX.2.00.1608031642300.22028@cbobk.fhfr.pm>
+	<57A21252.7000407@roeck-us.net> <20160803161234.GA32965@dtor-ws>
+	<57A21F88.7000504@roeck-us.net> <20160803172015.GA36266@dtor-ws>
+	<20160803182105.GA11395@roeck-us.net>
+	<20160803185902.GB36266@dtor-ws>
+	<alpine.LNX.2.00.1608032323150.22028@cbobk.fhfr.pm>
+	<CAKdAkRRq-rEaBwv9Kn=9t-8noSJodOAjebZdLQx-b_d17bonkQ@mail.gmail.com>
+	<alpine.LNX.2.00.1608032333020.22028@cbobk.fhfr.pm>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	Trond Myklebust <trondmy@primarydata.com>
+	Trond Myklebust <trondmy@primarydata.com>,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -33,49 +46,26 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wednesday, August 03, 2016 03:21:15 PM Jiri Kosina wrote:
-> On Wed, 3 Aug 2016, Rafael J. Wysocki wrote:
-> 
-> > Now, I understand why there are regressions in -stable and to me it would
-> > be just fine to say that they will be there occasionally, so as to prevent
-> > supporting the "no regressions in -stable at all" expectation that (a) is
-> > unrealistic today and (b) seems to be quite widespread.
-> > 
-> > Or do we really want to meet that expectation?
-> 
-> My primary goal when I was starting this thread (and I certainly didn't 
-> expect it to become such a gigantic monster :) ) was to try to figure out 
-> how to do better on this front. Of course, perfect is the enemy of good, 
-> but *trying* to find ways how to improve the regression rate seems like a 
-> reasoneble thing to attempt at least.
+On Wed, 3 Aug 2016 23:36:11 +0200 (CEST)
+Jiri Kosina <jikos@kernel.org> wrote:
 
-I tend to agree with Greg that it would be good to measure the problem
-quantitatively for this purpose.
 
-How many regressions are introduced into -stable?  How long do they live on the
-average (from the report to the fix)?
+> I understand that, but I intentionally proposed the rule a little bit more 
+> "exact", because meaning of "latest stable" might potentially be different 
+> at the time of the patch being commited to subsystem tree, and at the time 
+> of the commit actually appearing in Linus' tree (which is the point at 
+> which -stable notices).
 
-It really would be good to know the answers to these questions for the
-discussion to be productive IMO.
+So what if it is committed into a tree with a newer stable then when it
+was posted? A naked "stable" tag should *only* go into the most recent
+stable when it gets into Linus tree.
 
-> That's where some of my proposals in this thread some time ago were coming 
-> from.
+Now, a stable maintainer can look at that commit and decide for
+themselves if it should go in or not, but it's not guaranteed to be for
+that tree. Basically, if unsure, then leave it alone (unless there's a
+bug report in your branch that the commit fixes).
 
-OTOH, there are some things about the current process that may potentially
-become problematic at least occasionally.  For example:
+I agree that only commits marked with Fixes or explicit stable ranges
+should be backported further than the latest stable branch.
 
-(a) It heavily depends on subsystem mainteiners to DTRT when they tag mainline
-    commits for -stable (and the more aggressively they do that, the more likely
-    they are to overlook something potentially problematic).
-
-(b) Non-maintainers who send -stable inclusion requests may not be aware of
-    some potentially problematic side-effects of the commits they would like
-    to see in -stable.
-
-So question is whether or not the above need to be addressed somehow and that's
-quite independent of the numbers (the fact that we have been doing quite well
-so far doesn't mean that there won't be any problems in the future due to those
-things and the other way around).
-
-Thanks,
-Rafael
+-- Steve
