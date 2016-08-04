@@ -1,37 +1,35 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 918BA413
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3975D899
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  4 Aug 2016 15:54:05 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3AAB3267
+	Thu,  4 Aug 2016 15:56:56 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 9611A26C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  4 Aug 2016 15:54:05 +0000 (UTC)
-Date: Thu, 4 Aug 2016 16:53:49 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Message-ID: <20160804155349.GB10383@sirena.org.uk>
-References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
-	<20160727172636.GM11806@sirena.org.uk>
-	<20160727175829.GG5537@wotan.suse.de>
-	<20160727180346.GP11806@sirena.org.uk>
-	<CAMuHMdV7eJndSTQ9_C1KnezGb8mYJL+BXwnqc1zES_amT+XKWA@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="FkmkrVfFsRoUs1wW"
-Content-Disposition: inline
-In-Reply-To: <CAMuHMdV7eJndSTQ9_C1KnezGb8mYJL+BXwnqc1zES_amT+XKWA@mail.gmail.com>
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
-	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
-	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
-	Valentin Rothberg <valentinrothberg@gmail.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
- and semantics (v2)
+	Thu,  4 Aug 2016 15:56:55 +0000 (UTC)
+Message-ID: <1470326213.2411.26.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Mark Brown <broonie@kernel.org>, Steven Rostedt <rostedt@goodmis.org>
+Date: Thu, 04 Aug 2016 08:56:53 -0700
+In-Reply-To: <20160804154444.GA10323@sirena.org.uk>
+References: <20160803110935.GA26270@kroah.com> <87a8guq9y8.fsf@intel.com>
+	<20160803132607.GA31662@kroah.com>
+	<alpine.LNX.2.00.1608031537140.22028@cbobk.fhfr.pm>
+	<1470232658.2482.42.camel@HansenPartnership.com>
+	<alpine.LNX.2.00.1608031558180.22028@cbobk.fhfr.pm>
+	<1470233095.2482.46.camel@HansenPartnership.com>
+	<20160803212332.576bb718@grimm.local.home>
+	<20160804082018.GA27204@kroah.com>
+	<20160804093355.30096bbe@gandalf.local.home>
+	<20160804154444.GA10323@sirena.org.uk>
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-68Ir9EHMA3Ar44ORUoia"
+Mime-Version: 1.0
+Cc: Trond Myklebust <trondmy@primarydata.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -42,39 +40,85 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---FkmkrVfFsRoUs1wW
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--=-68Ir9EHMA3Ar44ORUoia
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 04, 2016 at 02:37:36PM +0200, Geert Uytterhoeven wrote:
-> On Wed, Jul 27, 2016 at 8:03 PM, Mark Brown <broonie@kernel.org> wrote:
+On Thu, 2016-08-04 at 16:44 +0100, Mark Brown wrote:
+> On Thu, Aug 04, 2016 at 09:33:55AM -0400, Steven Rostedt wrote:
+> > Greg KH <greg@kroah.com> wrote:
+>=20
+> > > No, again, that would put more burden on the maintainer and=20
+> > > developer than I want to "enforce".  I don't even want to do that=20
+> > > extra work for the trees I maintain, I just couldn't scale that
+> > > way.
+>=20
+> > Note, this isn't just good practice for sending patches to stable,=20
+> > it's general good practice maintaining code. It gives a nice
+> > history of
+> > a
+> > change. If you look at the change log of code that one might see
+> > that
+> > looks "interesting" it may be very educational to see that it was
+> > done
+> > as a fix for something else. And a new developer may understand why
+> > code was added in the first place.
+>=20
+> If it's a choice between me taking a bugfix for mainline and me=20
+> getting someone to give me a commit ID for exactly which commit=20
+> introduced some change I'm probably not going to do the latter,=20
+> especially when a lot of these things are more of the "we now=20
+> understand the hardware better" variety.
+>=20
+> > I don't buy this as burden on a maintainer. This should be part of=20
+> > the maintenance procedure, regardless of sending to stable or not.=20
+> > Yes it does take extra time, but I don't think that time is wasted.
+>=20
+> I'm really happy we've got people engaging upstream.  I'm happy if
+> people fill in the extra information but really I'm way more=20
+> interested in a clear changelog than in getting a Fixes tag, or in=20
+> checking that the tags people are adding are accurate.
 
-> > Sure, I don't think anyone disagrees on that but it does mean we don't
-> > actually blow up easily like we used to - it's messy but it does get
-> > there safely.  I was specifically querying your statement that things
-> > would blow up.
+Why not look at this in a different way: any bug fix that's correcting
+a prior commit is actually a regression.  The reason we treat
+regressions differently (and actually have someone to track them) is
+that they're the ones users hate: it means that something that was
+previously working (and thus relied on) suddenly doesn't work any more.
+ Note that not every bug fix with a fixes tag is a technical
+regression: if the fixes tag is actually the commit that first
+introduced the feature it's not a regression because the non-buggy
+behaviour was never visible to the end user.  However, the people who
+track regressions are capable of sorting this out.
 
-> Some drivers/subsystems don't support deferred probing yet. Such failures
-> usually don't blow up, but cause subtle malfunctioning.
+What I'm pointing out is that Fixes: has uses that go way beyond
+stable.  That's why I do think it's good practice for the kernel.  It's
+something we should already be doing that can assist the stable
+process, not something that's just been invented for the purpose.
 
-Sure, but at this point these are pretty much just bugs - it's one of
-the most common error patterns I see in probe routines but it does tend
-to go along with poor "let's just ignore that error, it can't have been
-important" practices which ought to be fixed anyway.
+James
 
---FkmkrVfFsRoUs1wW
+
+--=-68Ir9EHMA3Ar44ORUoia
 Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQEcBAEBCAAGBQJXo2UMAAoJECTWi3JdVIfQ8OcH/AtmQ6tfOytkifWBd6Vt67tE
-Db6mJ5s2Z2coMatc7opErZXfFw1vm/tuaxGlb/cskidDjebxlGIcIeglmlr5f1JY
-08WwWDKICpG+0szVICxKX/StCYqI82ePpRgLXtGR4jJKB+C50/JSmZ3W2K14vIXv
-eVkWj/glfPDr0lMxNd4Yuwm+3fYk137yl1v7hBSsHFPlWGwHBYYk86QnkVqcFCJT
-0M8Orru5lyPTNcBfSRRWnTLxH9HvMd2C9MDIkWTGIoP5pRjqZwUYAg4lx6/v7cwi
-+EKEWm4waUNQuBFX47IWPFQCPMtcTemjwehikx0oOEMh3/svRsokLQ4yE8A4VC8=
-=i6XA
+iQIcBAABCAAGBQJXo2XFAAoJEAVr7HOZEZN4U+oQAJCJsSTJmXLhcyg4hwvkkurm
+DNz+u06DotClo+NCKthweXHiC2OdUtzUc+3dJ/ilF0tmoCl8UGJ5NDsW7jI/p7qY
+3M8cZTs/CbVaqvAMKuGX3Uah7bfX3jvVkgtODhXhdZIdPi0ZkwUMzBXvZFEmL2EL
+IRYjuzOgWLeaqXH7qwlVuxzAwKcqk1n3KJXf1sm/V/gVeSRNWAth9NTP0xD04LIj
+YAYhs3KWnJHl4jijXYKd/e+rkFaRO/sGyrerpsKP+FO3/ANz55sOMLuH/j1hrwgf
+1c8CIHhv3AsGxvKaaZHENhX6Z+XRPZIJiRf0MySjokeV82KRb/otCWnbnpkLvTix
+ul1/VHfnMrYxmo4o7lvWxgAn3uyiO94u4etbefe7RjcpvvL6Wmw0TRX/6YodvHvR
+N4BCD0xtTHsN1LVt+4mvsdbiCGSh1u3TiH1pYLubFaWIMe2qgzUnHdpSIWqsc+w9
+5pJGH6vMVMcFZAC5S0yOWsBHEAGcL5Jdzt5HA/rJXsEwcdnFPTIQQNgIO+1RDsgG
+GlNYAhQHw2c5mKkia+/LLyz3jVnbdGio9ApZcKHbv36PuRxvaRa9/AfiM2mFehyU
+h70SzeDoJQ5R5Pso1nOx3nQBCBbFl592IRI86bDhbbFoiYMsW/dF0K1uiaQK6Y3n
+sXcZs8p7ldXOLFBue3Jb
+=N0/V
 -----END PGP SIGNATURE-----
 
---FkmkrVfFsRoUs1wW--
+--=-68Ir9EHMA3Ar44ORUoia--
