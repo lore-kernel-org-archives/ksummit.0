@@ -1,36 +1,31 @@
-Return-Path: <jani.nikula@intel.com>
+Return-Path: <arnd@arndb.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6F89E83D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B7F1F919
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  5 Aug 2016 08:17:00 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id C134019B
+	Fri,  5 Aug 2016 09:02:11 +0000 (UTC)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.135])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DFB3C1EE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  5 Aug 2016 08:16:59 +0000 (UTC)
-From: Jani Nikula <jani.nikula@intel.com>
-To: Steven Rostedt <rostedt@goodmis.org>, Mark Brown <broonie@kernel.org>
-In-Reply-To: <20160804131146.2136a189@gandalf.local.home>
-References: <20160803132607.GA31662@kroah.com>
-	<alpine.LNX.2.00.1608031537140.22028@cbobk.fhfr.pm>
-	<1470232658.2482.42.camel@HansenPartnership.com>
-	<alpine.LNX.2.00.1608031558180.22028@cbobk.fhfr.pm>
-	<1470233095.2482.46.camel@HansenPartnership.com>
-	<20160803212332.576bb718@grimm.local.home>
-	<20160804082018.GA27204@kroah.com>
-	<20160804093355.30096bbe@gandalf.local.home>
-	<20160804154444.GA10323@sirena.org.uk>
-	<1470326213.2411.26.camel@HansenPartnership.com>
-	<20160804170126.GC10383@sirena.org.uk>
-	<20160804131146.2136a189@gandalf.local.home>
-Date: Fri, 05 Aug 2016 11:16:57 +0300
-Message-ID: <87invfocjq.fsf@intel.com>
+	Fri,  5 Aug 2016 09:02:10 +0000 (UTC)
+From: Arnd Bergmann <arnd@arndb.de>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Fri, 05 Aug 2016 11:01:43 +0200
+Message-ID: <2402711.Aor2uS9Chj@wuerfel>
+In-Reply-To: <CAL_JsqLFPdO5jfzA=eCnxMXa=oDb4ak=B3KkZ-T5_aV7cM653g@mail.gmail.com>
+References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
+	<20160804102058.GT10376@sirena.org.uk>
+	<CAL_JsqLFPdO5jfzA=eCnxMXa=oDb4ak=B3KkZ-T5_aV7cM653g@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Trond Myklebust <trondmy@primarydata.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] stable workflow
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
+	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
+	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Valentin Rothberg <valentinrothberg@gmail.com>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
+	and semantics (v2)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,26 +35,22 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, 04 Aug 2016, Steven Rostedt <rostedt@goodmis.org> wrote:
-> Perhaps we should document what people should strive to achieve, and
-> state if you really don't have the time, then one may do without. But
-> the more one has a clear change log and information showing where a bug
-> happened, makes maintenance of the code in the future a little bit
-> easier.
+On Thursday, August 4, 2016 9:59:30 PM CEST Rob Herring wrote:
+> On Thu, Aug 4, 2016 at 5:20 AM, Mark Brown <broonie@kernel.org> wrote:
+> > On Thu, Aug 04, 2016 at 11:50:49AM +0200, Greg KH wrote:
+> >
+> >> Nope, it doesn't work that way, sorry.
+> >
+> >> Nice try, just unwind your initialization properly 
+> >
+> > Deferred probe is probably the best thing that ever happened for the
+> > quality of kernel error handling 
+> 
+> Now we just need a way to force testing of the remove functions.
 
-You can usually tell from the patch and the commit message whether the
-author has ever had to dig through git history, desperately looking for
-clues why the code was written the way it was, and why it broke. People
-burned in the past tend to leave helpful breadcrumbs for their future
-selves and others in the commit messages, and keep their patches so
-small that identifying why the bisect landed there is trivial.
+Hmm, instead of calling just 'probe', we might first call probe,
+then remove, then probe again as a compile-time option.
 
-I am all for improving documentation. However, sadly it seems you can
-preach about this all you want, but it is ultimately the personal
-banging of the head to the wall that leads to enlightenment.
+What could possibly go wrong? ;-)
 
-BR,
-Jani.
-
--- 
-Jani Nikula, Intel Open Source Technology Center
+	Arnd
