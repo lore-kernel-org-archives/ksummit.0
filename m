@@ -1,27 +1,24 @@
-Return-Path: <josh@joshtriplett.org>
+Return-Path: <dvhart@infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6BB10724
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A06A771
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  5 Aug 2016 20:26:22 +0000 (UTC)
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
-	[217.70.183.195])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D75932FC
+	Fri,  5 Aug 2016 22:32:42 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 44D2B19B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  5 Aug 2016 20:26:21 +0000 (UTC)
-Date: Fri, 5 Aug 2016 10:26:15 -1000
-From: Josh Triplett <josh@joshtriplett.org>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Message-ID: <20160805202615.lpnrhi2lswz24iny@x>
-References: <20160729075039.GA26402@x>
-	<20160805021426-mutt-send-email-mst@kernel.org>
+	Fri,  5 Aug 2016 22:32:42 +0000 (UTC)
+Date: Fri, 5 Aug 2016 15:32:38 -0700
+From: Darren Hart <dvhart@infradead.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+Message-ID: <20160805223238.GA4952@f23x64.localdomain>
+References: <20151013124230.1a082d28@gandalf.local.home>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20160805021426-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20151013124230.1a082d28@gandalf.local.home>
 Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [ANNOUNCE] git-series: track changes to a
- patch series over time
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Mainlining PREEMPT_RT
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,40 +28,30 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Aug 05, 2016 at 02:52:18AM +0300, Michael S. Tsirkin wrote:
-> On Fri, Jul 29, 2016 at 12:50:39AM -0700, Josh Triplett wrote:
-> > I'd welcome any feedback, whether on the interface and workflow, the
-> > internals and collaboration, ideas on presenting diffs of patch series,
-> > or anything else.
+On Tue, Oct 13, 2015 at 12:42:30PM -0400, Steven Rostedt wrote:
 > 
-> Hi Josh!
-> A couple of ideas, I hope these will be helpful:
+> Now that it was announced in Dublin last week that mainlining
+> PREEMPT_RT has funding, I would like to propose a tech topic to discuss
+> what is needed to be done in the near future.
 > 
-> I often need to move series between unrelated trees.
-> I sometimes use cherry-pick for that (if they are from my tree)
-> or am (if not).
+> Thomas Gleixner and his minions will be doing the brunt of the work,
+> but there's issues that need to be addressed with the rest of the
+> kernel. The various topics would include:
 > 
-> How about "git series am" - get patch series from email,
-> including a cover letter, and create a series from that?
+>  CPU hotplug
+>  preempt_disable and local_irq_disable annotations
+>  new timer_wheel implementation
+>  simple waitqueues
+>  trylock boosting
+> 
+> Several of the Real Time developers will be present at kernel summit. I
+> think this would be a great opportunity to have them be able to sit
+> down together and discuss the remaining issues.
 
-Would you expect to feed this one mbox containing all the mails, or a
-set of files containing one patch each (including the 0000 cover
-letter), or both?
+I'm very interested in participating in this.
 
-> And how about "git series cherry-pick" - to apply
-> series to the current head?
+Is this a TECH topic or a CORE topic?
 
-Could you elaborate on the semantic of this?  You have a series in your
-tree, and you want to take all the patches in the series and apply them
-to HEAD?  Or, do you want to copy the series and rebase the copy on HEAD?
-
-For the former, once I add support for formatting a series other than
-the current one, you could do that with "git series format seriesname
---stdout | git am".
-
-> Kind of going in the reverse direction from git series format.
-
-I like the idea; I'd like to offer more "import" mechanisms for any
-other patch-series format people find useful.
-
-- Josh Triplett
+-- 
+Darren Hart
+Intel Open Source Technology Center
