@@ -1,26 +1,32 @@
-Return-Path: <greg@kroah.com>
+Return-Path: <a.hajda@samsung.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2B5D27AA
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 804628A1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  5 Aug 2016 10:54:07 +0000 (UTC)
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
-	[66.111.4.26])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 94DA9146
+	Fri,  5 Aug 2016 11:31:39 +0000 (UTC)
+Received: from mailout4.w1.samsung.com (mailout4.w1.samsung.com
+	[210.118.77.14])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id ED06F2F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  5 Aug 2016 10:54:06 +0000 (UTC)
-Date: Fri, 5 Aug 2016 12:54:20 +0200
-From: Greg KH <greg@kroah.com>
-To: Arnd Bergmann <arnd@arndb.de>
-Message-ID: <20160805105420.GB1057@kroah.com>
+	Fri,  5 Aug 2016 11:31:38 +0000 (UTC)
+Received: from eucpsbgm2.samsung.com (unknown [203.254.199.245])
+	by mailout4.w1.samsung.com
+	(Oracle Communications Messaging Server 7.0.5.31.0 64bit (built May 5
+	2014)) with ESMTP id <0OBF00378PCN2N70@mailout4.w1.samsung.com> for
+	ksummit-discuss@lists.linuxfoundation.org; Fri,
+	05 Aug 2016 12:31:35 +0100 (BST)
+To: Greg KH <greg@kroah.com>, Arnd Bergmann <arnd@arndb.de>
 References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
 	<20160804102058.GT10376@sirena.org.uk>
 	<CAL_JsqLFPdO5jfzA=eCnxMXa=oDb4ak=B3KkZ-T5_aV7cM653g@mail.gmail.com>
-	<2402711.Aor2uS9Chj@wuerfel>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2402711.Aor2uS9Chj@wuerfel>
+	<2402711.Aor2uS9Chj@wuerfel> <20160805105420.GB1057@kroah.com>
+From: Andrzej Hajda <a.hajda@samsung.com>
+Message-id: <57A47906.8060607@samsung.com>
+Date: Fri, 05 Aug 2016 13:31:18 +0200
+MIME-version: 1.0
+In-reply-to: <20160805105420.GB1057@kroah.com>
+Content-type: text/plain; charset=windows-1252
+Content-transfer-encoding: 7bit
 Cc: ksummit-discuss@lists.linuxfoundation.org,
 	Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
 	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
@@ -38,25 +44,24 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Aug 05, 2016 at 11:01:43AM +0200, Arnd Bergmann wrote:
-> On Thursday, August 4, 2016 9:59:30 PM CEST Rob Herring wrote:
-> > On Thu, Aug 4, 2016 at 5:20 AM, Mark Brown <broonie@kernel.org> wrote:
-> > > On Thu, Aug 04, 2016 at 11:50:49AM +0200, Greg KH wrote:
-> > >
-> > >> Nope, it doesn't work that way, sorry.
-> > >
-> > >> Nice try, just unwind your initialization properly 
-> > >
-> > > Deferred probe is probably the best thing that ever happened for the
-> > > quality of kernel error handling 
-> > 
-> > Now we just need a way to force testing of the remove functions.
-> 
-> Hmm, instead of calling just 'probe', we might first call probe,
-> then remove, then probe again as a compile-time option.
-> 
-> What could possibly go wrong? ;-)
+On 08/05/2016 12:54 PM, Greg KH wrote:
+> On Fri, Aug 05, 2016 at 11:01:43AM +0200, Arnd Bergmann wrote:
+>> On Thursday, August 4, 2016 9:59:30 PM CEST Rob Herring wrote:
+>>> On Thu, Aug 4, 2016 at 5:20 AM, Mark Brown <broonie@kernel.org> wrote:
+>>>> On Thu, Aug 04, 2016 at 11:50:49AM +0200, Greg KH wrote:
+>>>>
+>>>>> Nope, it doesn't work that way, sorry.
+>>>>> Nice try, just unwind your initialization properly 
+>>>> Deferred probe is probably the best thing that ever happened for the
+>>>> quality of kernel error handling 
+>>> Now we just need a way to force testing of the remove functions.
+>> Hmm, instead of calling just 'probe', we might first call probe,
+>> then remove, then probe again as a compile-time option.
+>>
+>> What could possibly go wrong? ;-)
+> Ooooh, that would be fun to see what blows up, anyone want to try it?
 
-Ooooh, that would be fun to see what blows up, anyone want to try it?
+There are already unbind/bind sysfs attributes which do the trick.
 
-greg k-h
+Regards
+Andrzej
