@@ -1,25 +1,30 @@
-Return-Path: <dvhart@infradead.org>
+Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 47A28413
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B5A1778D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  5 Aug 2016 22:40:08 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0A0FE19B
+	Sat,  6 Aug 2016 00:15:10 +0000 (UTC)
+Received: from cloudserver094114.home.net.pl (cloudserver094114.home.net.pl
+	[79.96.170.134])
+	by smtp1.linuxfoundation.org (Postfix) with SMTP id A95AB1C2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  5 Aug 2016 22:40:08 +0000 (UTC)
-Date: Fri, 5 Aug 2016 15:40:04 -0700
-From: Darren Hart <dvhart@infradead.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Message-ID: <20160805224004.GB4952@f23x64.localdomain>
-References: <20151013124230.1a082d28@gandalf.local.home>
-	<20160805223238.GA4952@f23x64.localdomain>
+	Sat,  6 Aug 2016 00:15:09 +0000 (UTC)
+From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Date: Sat, 06 Aug 2016 02:20:24 +0200
+Message-ID: <2095093.rkXOZ187BN@vostro.rjw.lan>
+In-Reply-To: <b339d512-afc6-8f2d-4c26-e6ff997f75c4@samsung.com>
+References: <20160726223054.GA30993@dtor-ws>
+	<4207317.8s4bUitgDu@vostro.rjw.lan>
+	<b339d512-afc6-8f2d-4c26-e6ff997f75c4@samsung.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20160805223238.GA4952@f23x64.localdomain>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Mainlining PREEMPT_RT
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Tomeu Vizoso <tomeu.vizoso@collabora.com>,
+	Linux PM list <linux-pm@vger.kernel.org>
+Subject: Re: [Ksummit-discuss] Self nomination
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,37 +34,79 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Aug 05, 2016 at 03:32:38PM -0700, Darren Hart wrote:
-> On Tue, Oct 13, 2015 at 12:42:30PM -0400, Steven Rostedt wrote:
-> > 
-> > Now that it was announced in Dublin last week that mainlining
-> > PREEMPT_RT has funding, I would like to propose a tech topic to discuss
-> > what is needed to be done in the near future.
-> > 
-> > Thomas Gleixner and his minions will be doing the brunt of the work,
-> > but there's issues that need to be addressed with the rest of the
-> > kernel. The various topics would include:
-> > 
-> >  CPU hotplug
-> >  preempt_disable and local_irq_disable annotations
-> >  new timer_wheel implementation
-> >  simple waitqueues
-> >  trylock boosting
-> > 
-> > Several of the Real Time developers will be present at kernel summit. I
-> > think this would be a great opportunity to have them be able to sit
-> > down together and discuss the remaining issues.
+On Wednesday, August 03, 2016 10:12:00 AM Marek Szyprowski wrote:
+> Dear All,
 > 
-> I'm very interested in participating in this.
 > 
-> Is this a TECH topic or a CORE topic?
+> On 2016-08-03 01:00, Rafael J. Wysocki wrote:
+> > On Tuesday, August 02, 2016 10:09:17 AM Linus Walleij wrote:
+> >> On Thu, Jul 28, 2016 at 12:14 PM, Marc Zyngier <marc.zyngier@arm.com> wrote:
+> >>> On 26/07/16 23:30, Dmitry Torokhov wrote:
+> >>>> - I would like to sync up with people and discuss [lack of] progress
+> >>>>    on topic of device probe ordering (including handling of deferred
+> >>>>    probes, asynchronous probes, etc).
+> >>> I'm extremely interested in discussing this.
+> >> I've also tried to pitch in on it in the past but I just feel stupid
+> >> whenever we try to come up with something better than what
+> >> we have :(
+> >>
+> >>> It has wide reaching consequences as (with my irqchip maintainer hat on)
+> >>> we've had to pretend that some bits of HW (timers, interrupt
+> >>> controllers) are not "devices". Not a massive issue for most, except
+> >>> when your interrupt controller has requirements that are very similar to
+> >>> the DMA mapping API (which you cannot use because "not a device"). Other
+> >>> problems are introduced by things like wire-MSI bridges, and most people
+> >>> end-up resorting to hacks like ad-hoc initcalls and sprinkling deferred
+> >>> probes in specific drivers.
+> >> Same feeling here. I'm accepting patches for random initcall
+> >> reordering because there is nothing else I can do, people need to
+> >> have their systems running. But it feels really fragile.
+> >>
+> >> Deferred probe alleviated the problem, but I remember saying at
+> >> the time that what we really need to do is build a dependency
+> >> graph and resolve it the same way e.g. systemd does. (Someone
+> >> may have called me BS on that, either for being wrong about everything
+> >> as usual or because of mentioning systemd, I don't know which one.)
+> >>
+> >> The latest proposal I saw came from Rafael and he had a scratch
+> >> idea for a dependency graph that I really liked, but I guess he's been
+> >> sidetracked since. Rafael, what happened with that?
+> > I got distracted, but Marek Szyprowski has revived it recently.
+> >
+> > It needs to be cleaned up somewhat, but other than that I think it's in
+> > a good enough shape to make some progress in that direction, at least in
+> > principle.
+> 
+> I really like the idea of pm dependencies between device and the patches
+> prepared by Rafael. They are exactly what we need for our case (PM for
+> Exynos IOMMU), but they will also help solving PM issues with complex
+> devices (like DRM for SoCs and ASoC audio).
+> 
+> Rafael: do you plan to do any update on them?
 
-Apologies, this was from 2015. I failed to recognize that when searching for a
-PREEMPT_RT TECH TOPIC proposal before responding to Davidlohr's self nomination
-suggesting this topic.
+Yes, I do, but to make some cosmetic changes rather.
 
-Shall we recycle this topic for 2016 as well?
+> Some time ago you wrote, that you had such plan, but real life proved
+> something else.
 
--- 
-Darren Hart
-Intel Open Source Technology Center
+Well, I was working on other things in the meantime, but I still had that
+plan. :-)
+
+> If needed I can continue works on them, but I need some directions what has
+> to be improved and fixed.
+
+Thanks so much!
+
+First off, the networking people claimed the "devlink" term in the meantime
+and it's better to avoid confusion here, so I'd change it to "devdep" or
+similar in the patches.
+
+In addition to that Tomeu Vizoso complained that the supplier_links and
+consumer_links list heads in struct device were confusing and I see why that
+could be the case, so I'd change them to something more direct, like maybe
+links_to_suppliers and links_to_consumers.
+
+Please let me know what you think.
+
+Thanks,
+Rafael
