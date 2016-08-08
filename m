@@ -1,25 +1,25 @@
 Return-Path: <catalin.marinas@arm.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D7B8C412
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D15CC412
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  8 Aug 2016 17:27:15 +0000 (UTC)
+	Mon,  8 Aug 2016 17:37:25 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.101.70])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 4BEAB290
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 5FF6128E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  8 Aug 2016 17:27:15 +0000 (UTC)
-Date: Mon, 8 Aug 2016 18:27:11 +0100
+	Mon,  8 Aug 2016 17:37:25 +0000 (UTC)
+Date: Mon, 8 Aug 2016 18:37:22 +0100
 From: Catalin Marinas <catalin.marinas@arm.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Message-ID: <20160808172711.GA8436@e104818-lin.cambridge.arm.com>
+To: Josh Triplett <josh@joshtriplett.org>
+Message-ID: <20160808173721.GB8436@e104818-lin.cambridge.arm.com>
 References: <20160729075039.GA26402@x>
 	<30809.1469794812@warthog.procyon.org.uk> <20160729131151.GF4340@x>
 	<C3AB051F-EDE5-4CF3-9DFB-4AA96B974982@arm.com>
-	<20160805020118-mutt-send-email-mst@kernel.org>
+	<20160804234622.ybcc3vx7qqc7duid@x>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20160805020118-mutt-send-email-mst@kernel.org>
+In-Reply-To: <20160804234622.ybcc3vx7qqc7duid@x>
 Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [ANNOUNCE] git-series: track changes to a
@@ -33,7 +33,7 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Aug 05, 2016 at 02:07:15AM +0300, Michael S. Tsirkin wrote:
+On Thu, Aug 04, 2016 at 01:46:23PM -1000, Josh Triplett wrote:
 > On Fri, Aug 05, 2016 at 12:46:47AM +0200, Catalin Marinas wrote:
 > > On 29 Jul 2016, at 15:12, Josh Triplett <josh@joshtriplett.org> wrote:
 > > > On Fri, Jul 29, 2016 at 01:20:12PM +0100, David Howells wrote:
@@ -60,34 +60,23 @@ On Fri, Aug 05, 2016 at 02:07:15AM +0300, Michael S. Tsirkin wrote:
 > > of a series in a <branch>.stgit branch and you can inspect the 
 > > changes, get unlimited undo/redo, even show a diff of diffs for 
 > > a given patch. 
-> > 
-> > > Note that git-series doesn't provide a quilt-style push/pop workflow,
-> > > with applied and unapplied patches; it just looks at HEAD.
-> > 
-> > Even though I'm the original author of StGit, I find myself using it less 
-> > and less these days as I'm busier integrating others' patches than 
-> > creating my own series from scratch. But what I miss though in plain git is the patch "pop" functionality. At 
-> > some point I may add a 'git stash head' feature to git which 
-> > would stash away the HEAD commit without losing its content (and 
-> > the corresponding 'git stash apply' restoring the original commit). 
 > 
-> This will stash an arbitrary commit:
-> 	#!/bin/sh
-> 
-> 	commit="${1}";
-> 	git tag -f stash ${commit}
-> 	git rebase --onto ${commit}~1 ${commit}
-> 
-> and
-> 
->  git cherry-pick stash
-> 
-> will unstash
+> Interesting!  I didn't find that when I last looked at stgit.  Does the
+> format used on that branch have documentation anywhere?  I didn't find
+> any in the stgit source or manpages.
 
-Thanks for the tip. All it needs is some refining to be able to stash
-multiple commits (linking into a branch similar to the 'stash' would do;
-I had a plan to do something similar for stgit but we ended up with a
-more metadata).
+It is documented in stgit/lib/log.py (or if you generate the docs from
+the source files). It is relatively simple, a 'meta' file with details
+about the applied/unapplied/hidden patches with the name and commit id
+and a patches directory with the actual diffs. The latter are not needed
+for patch operations like reordering since git only needs a commit id
+but you can use it to easily do a diff of diffs.
+
+BTW, the stgit metadata is normally meant to be accessed via stgit
+commands but you can always checkout <branch>.stgit. Long time ago I had
+a plan to make stgit more useful for collaborating between multiple
+people working on a set of patches but I can't find enough spare time
+these days.
 
 -- 
 Catalin
