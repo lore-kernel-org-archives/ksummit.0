@@ -1,25 +1,29 @@
-Return-Path: <lorenzo.pieralisi@arm.com>
+Return-Path: <catalin.marinas@arm.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id AA14692
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D7B8C412
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  8 Aug 2016 11:07:33 +0000 (UTC)
+	Mon,  8 Aug 2016 17:27:15 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.101.70])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 579DCE0
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 4BEAB290
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  8 Aug 2016 11:07:33 +0000 (UTC)
-Date: Mon, 8 Aug 2016 12:07:41 +0100
-From: Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>
-To: Marc Zyngier <marc.zyngier@arm.com>
-Message-ID: <20160808110741.GA18936@red-moon>
-References: <20160726223054.GA30993@dtor-ws>
- <5799DB1B.5010307@arm.com>
+	Mon,  8 Aug 2016 17:27:15 +0000 (UTC)
+Date: Mon, 8 Aug 2016 18:27:11 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Message-ID: <20160808172711.GA8436@e104818-lin.cambridge.arm.com>
+References: <20160729075039.GA26402@x>
+	<30809.1469794812@warthog.procyon.org.uk> <20160729131151.GF4340@x>
+	<C3AB051F-EDE5-4CF3-9DFB-4AA96B974982@arm.com>
+	<20160805020118-mutt-send-email-mst@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <5799DB1B.5010307@arm.com>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Self nomination
+In-Reply-To: <20160805020118-mutt-send-email-mst@kernel.org>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [ANNOUNCE] git-series: track changes to a
+ patch series over time
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,37 +33,61 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Jul 28, 2016 at 11:14:51AM +0100, Marc Zyngier wrote:
-> On 26/07/16 23:30, Dmitry Torokhov wrote:
-> > I'd like to nominate myself for the kernel summit this year. I am part
-> > of Chrome OS kernel team and I also maintain drivers/input in mainline.
+On Fri, Aug 05, 2016 at 02:07:15AM +0300, Michael S. Tsirkin wrote:
+> On Fri, Aug 05, 2016 at 12:46:47AM +0200, Catalin Marinas wrote:
+> > On 29 Jul 2016, at 15:12, Josh Triplett <josh@joshtriplett.org> wrote:
+> > > On Fri, Jul 29, 2016 at 01:20:12PM +0100, David Howells wrote:
+> > >> Josh Triplett <josh@joshtriplett.org> wrote:
+> > >>> I'd like to announce a project I've been working on for a while.  I sent
+> > >>> this announcement to LKML, but since many people don't subscribe to LKML
+> > >>> directly, and since ksummit-discuss has had several discussions
+> > >>> specifically about patch workflow and development processes, I thought
+> > >>> I'd send the announcement here as well, in case anyone found it useful
+> > >>> for their workflow.
+> > >> 
+> > >> Can this be used as a direct substitute for stgit for maintaining a patch
+> > >> series?
+> > > 
+> > > Yes, that's exactly what I designed it for.  git-series has the added
+> > > advantage of tracking the versions of the patch series across rewrites.
+> > > stgit just directly rewrites history, like rebase -i does; as far as I
+> > > know, it doesn't remember the old history.  You'd have to go to the
+> > > reflog for that.  
+> > 
+> > I haven't looked at git-series yet (I actually have a git "series" alias 
+> > to list the current commits against a parent/tracking branch) 
+> > but StGit does remember the series history. It stores all the past states 
+> > of a series in a <branch>.stgit branch and you can inspect the 
+> > changes, get unlimited undo/redo, even show a diff of diffs for 
+> > a given patch. 
+> > 
+> > > Note that git-series doesn't provide a quilt-style push/pop workflow,
+> > > with applied and unapplied patches; it just looks at HEAD.
+> > 
+> > Even though I'm the original author of StGit, I find myself using it less 
+> > and less these days as I'm busier integrating others' patches than 
+> > creating my own series from scratch. But what I miss though in plain git is the patch "pop" functionality. At 
+> > some point I may add a 'git stash head' feature to git which 
+> > would stash away the HEAD commit without losing its content (and 
+> > the corresponding 'git stash apply' restoring the original commit). 
 > 
-> [...]
+> This will stash an arbitrary commit:
+> 	#!/bin/sh
 > 
-> > - I would like to sync up with people and discuss [lack of] progress
-> >   on topic of device probe ordering (including handling of deferred
-> >   probes, asynchronous probes, etc).
+> 	commit="${1}";
+> 	git tag -f stash ${commit}
+> 	git rebase --onto ${commit}~1 ${commit}
 > 
-> I'm extremely interested in discussing this.
+> and
 > 
-> It has wide reaching consequences as (with my irqchip maintainer hat on)
-> we've had to pretend that some bits of HW (timers, interrupt
-> controllers) are not "devices". Not a massive issue for most, except
-> when your interrupt controller has requirements that are very similar to
-> the DMA mapping API (which you cannot use because "not a device"). Other
-> problems are introduced by things like wire-MSI bridges, and most people
-> end-up resorting to hacks like ad-hoc initcalls and sprinkling deferred
-> probes in specific drivers.
+>  git cherry-pick stash
 > 
-> I've seen a number of proposal so far, but the subject seems to have
-> gone quiet (well, not really, but hardly any progress has been made).
-> 
-> Happy to make this a tech discussion or a hallway track.
+> will unstash
 
-I am very interested in this discussion too in whatever form it takes
-place and I really think it is the right time to find a way forward
-for DT and ACPI probing alike given that we have started facing
-these probe ordering issues in ARM/ACPI world too, it would be nice to
-find a solution that works seamlessly.
+Thanks for the tip. All it needs is some refining to be able to stash
+multiple commits (linking into a branch similar to the 'stash' would do;
+I had a plan to do something similar for stgit but we ended up with a
+more metadata).
 
-Lorenzo
+-- 
+Catalin
