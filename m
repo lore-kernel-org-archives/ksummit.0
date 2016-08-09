@@ -1,37 +1,38 @@
-Return-Path: <jroedel@suse.de>
+Return-Path: <daniel.vetter@ffwll.ch>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id DE96171
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7CA8B3EE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  9 Aug 2016 09:57:30 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6D18E112
+	Tue,  9 Aug 2016 12:04:56 +0000 (UTC)
+Received: from mail-it0-f65.google.com (mail-it0-f65.google.com
+	[209.85.214.65])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 085A81EE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  9 Aug 2016 09:57:30 +0000 (UTC)
-Date: Tue, 9 Aug 2016 11:57:28 +0200
-From: =?iso-8859-1?Q?J=F6rg_R=F6del?= <jroedel@suse.de>
-To: "Luis R. Rodriguez" <mcgrof@suse.com>
-Message-ID: <20160809095728.GE30880@suse.de>
-References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
-	<20160727172636.GM11806@sirena.org.uk>
-	<20160727175829.GG5537@wotan.suse.de> <579A7DFD.60305@metafoo.de>
-	<98eb563b-5d62-74df-692a-f2aa4f7b07b8@xs4all.nl>
-	<20160729111303.GA10376@sirena.org.uk>
-	<20160801190309.GX3296@wotan.suse.de>
+	Tue,  9 Aug 2016 12:04:55 +0000 (UTC)
+Received: by mail-it0-f65.google.com with SMTP id f6so786803ith.2
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 09 Aug 2016 05:04:55 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20160801190309.GX3296@wotan.suse.de>
-Cc: Oded Gabbay <oded.gabbay@gmail.com>,
-	ksummit-discuss@lists.linuxfoundation.org,
+In-Reply-To: <20160809081734.GA10279@kroah.com>
+References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
+	<20160727192040.GL5537@wotan.suse.de>
+	<10281749.h0nm8HgLR9@vostro.rjw.lan>
+	<4826466.kMrAaT2rsn@avalon> <87d1lpose8.fsf@intel.com>
+	<20160804095049.GA30029@kroah.com>
+	<CAKMK7uH26eoLZSP=U5muv5U+O3Rr6RuYgw06UcGZzvcPq2f5eQ@mail.gmail.com>
+	<20160809081734.GA10279@kroah.com>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Tue, 9 Aug 2016 14:04:53 +0200
+Message-ID: <CAKMK7uFCjaKKUKn-DTUdsKOqWsAPaaZxVEkUXFZc=m0=82hyvw@mail.gmail.com>
+To: Greg KH <greg@kroah.com>
+Content-Type: text/plain; charset=UTF-8
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
 	Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
-	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
 	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
-	Cristina Moraru <cristina.moraru09@gmail.com>,
-	Roberto Di Cosmo <roberto@dicosmo.org>,
-	Valentin Rothberg <valentinrothberg@gmail.com>,
-	Stefano Zacchiroli <zack@upsilon.cc>,
-	Marek Szyprowski <m.szyprowski@samsung.com>
+	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Valentin Rothberg <valentinrothberg@gmail.com>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
  and semantics (v2)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -43,32 +44,52 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Aug 01, 2016 at 09:03:09PM +0200, Luis R. Rodriguez wrote:
-> Another piece of code that deals with complex dependencies I've recently
-> ventured into was the x86 IOMMU stuff. The complexities here are both at
-> the built-in init level and also later at probe.
+On Tue, Aug 9, 2016 at 10:17 AM, Greg KH <greg@kroah.com> wrote:
+> On Tue, Aug 09, 2016 at 10:08:07AM +0200, Daniel Vetter wrote:
+>> On Thu, Aug 4, 2016 at 11:50 AM, Greg KH <greg@kroah.com> wrote:
+>> > On Thu, Aug 04, 2016 at 11:22:23AM +0300, Jani Nikula wrote:
+>> >> So I admit to being pretty clueless wrt the fine details of module
+>> >> loading, but I'm wondering if there could be any way of the module being
+>> >> loaded telling the kernel (via a call, not by returning from probe) to
+>> >> hold its horses for a while, and keep loading other modules. Sort of
+>> >> like deferred probe, but without the full cleanup-retry cycle. The call
+>> >> would return to the module later (not unlike deferred probe retries the
+>> >> probe), and you could try again whatever it was that made you realize
+>> >> you need to defer.
+>> >
+>> > Nope, it doesn't work that way, sorry.
+>>
+>> Why? If I just postpone the entire driver load to an async worker and
+>> then block if it's not there, that should work?
+>
+> Maybe, but the code patch from probe() in the driver core, and module
+> loader, might be assuming that all is ok, only to have your async init
+> later on realize that things are not ok.  How you could propagate that
+> error back into the driver core might be difficult, if not impossible.
 
-Yeah, everything is fine when both, AMD-KFD and the IOMMUv2 driver are
-built as modules, as the order of loading these modules is
-preserved by symbol dependencies. But when they are built-in these
-modules also need to be initialized in the right order, otherwise the
-KFD-driver will call into an uninialized IOMMU driver and crashes the
-system. Long-term this will be fixed by always build-in the IOMMU-parts
-(when they are merged with the Intel-SVM support), but in general not
-being able to express dependencies between build-in modules remains to
-be a problem.
+Hm, I hoped we've made progress on that entire idea of async driver
+load, and userspace no longer depending upon accurate driver load
+error codes from modprobe.
 
-I have spent spent some thoughts on how this could be solved, and one
-idea I had was to rework the way build-in modules work. If they are not
-linked into the kernel at compile-time, but at boot-time, this problem
-would be solved. On the other hand this slows down boot (is this important
-when distro-kernels build everything as modules anyway?) and probably
-doesn't solve the dependency problems for power-management or elsewhere
-in kernel.
+>> > Nice try, just unwind your initialization properly :)
+>>
+>> There's a slight pratical problem of this being hard to test. Sure in
+>> theory it's easy, but given how often we bomb normal module unload
+>> already (and that's something our CI tests) practice disagrees.
+>
+> probe()/disconnect()/probe() in the driver core as an option might be a
+> fun way to stress this as others have pointed out here.
 
-So I'd like to participate if this is going to be discussed.
-
-
-Thanks,
-
-	Joerg
+I didn't mean "hard to test" as in "I don't know how" - we have a
+testcase in CI for this. More as in, among the bazillion bugs I'm
+fighting, making driver load perfectly race-free in the face of load
+failures (or eventual unloading) isn't a terrible high priority.
+Especially since with an on-chip gpu it's pretty hard for normal users
+to be able to even hit those paths ;-) If instead we'd be able to just
+stall until the thing we need shows up, that would fix the problem
+without sending the validation complexity through the roof.
+-Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
