@@ -1,17 +1,17 @@
-Return-Path: <lurodriguez@suse.de>
+Return-Path: <jroedel@suse.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9B1883EE
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6A11F279
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  9 Aug 2016 16:51:10 +0000 (UTC)
+	Tue,  9 Aug 2016 16:52:38 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F2483193
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E9AD419F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  9 Aug 2016 16:51:09 +0000 (UTC)
-Date: Tue, 9 Aug 2016 18:51:05 +0200
-From: "Luis R. Rodriguez" <mcgrof@kernel.org>
+	Tue,  9 Aug 2016 16:52:37 +0000 (UTC)
+Date: Tue, 9 Aug 2016 18:53:07 +0200
+From: =?iso-8859-1?Q?J=F6rg_R=F6del?= <jroedel@suse.de>
 To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Message-ID: <20160809165105.GB3296@wotan.suse.de>
+Message-ID: <20160809165306.GA2547@suse.de>
 References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
 	<20160727172636.GM11806@sirena.org.uk>
 	<20160727175829.GG5537@wotan.suse.de> <579A7DFD.60305@metafoo.de>
@@ -22,9 +22,8 @@ References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
 	<1470758919.2299.46.camel@HansenPartnership.com>
 	<1470759060.2299.49.camel@HansenPartnership.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
 In-Reply-To: <1470759060.2299.49.camel@HansenPartnership.com>
 Cc: Oded Gabbay <oded.gabbay@gmail.com>,
 	ksummit-discuss@lists.linuxfoundation.org,
@@ -48,46 +47,6 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 On Tue, Aug 09, 2016 at 09:11:00AM -0700, James Bottomley wrote:
-> On Tue, 2016-08-09 at 09:08 -0700, James Bottomley wrote:
-> > On Tue, 2016-08-09 at 11:57 +0200, Jörg Rödel wrote:
-> > > On Mon, Aug 01, 2016 at 09:03:09PM +0200, Luis R. Rodriguez wrote:
-> > > > Another piece of code that deals with complex dependencies I've
-> > > > recently
-> > > > ventured into was the x86 IOMMU stuff. The complexities here are
-> > > > both at
-> > > > the built-in init level and also later at probe.
-> > > 
-> > > Yeah, everything is fine when both, AMD-KFD and the IOMMUv2 driver 
-> > > are built as modules, as the order of loading these modules is
-> > > preserved by symbol dependencies. But when they are built-in these
-> > > modules also need to be initialized in the right order, otherwise
-> > > the
-> > > KFD-driver will call into an uninialized IOMMU driver and crashes
-> > > the
-> > > system. Long-term this will be fixed by always build-in the IOMMU
-> > > -parts (when they are merged with the Intel-SVM support), but in 
-> > > general not being able to express dependencies between build-in 
-> > > modules remains to be a problem.
-> > 
-> > Have you considered using transport templates or attribute 
-> > containers?  That's how we manage the complex hierarchies in 
-> > ATA/SCSI.  If you look we have a complex dependency
-> > 
-> > ata_dev->transport->ata->scsi (or in SCSI dev->transport->scsi)
-> > 
-> > Our chains are much more complex than this because I've stopped 
-> > before probing begins, which is async.
-> > 
-> > The basic way we cope is that both ata and scsi use subsystem_init 
-> > for their exclusive resources, meaning they're order independent. The
-> > probes a kicked off by the hardware modules, so they're done by
-> > module_init (meaning after subsystem_init) again, order independent. 
-> >  The rest of the dependent initialisations is done within the
-> > transport/attribute code, meaning not until a consumer is actually
-> > instantiated.
-> > 
-> > The way attributes/transport classes work is that they're actually
-> > attached to the devices that you instantiate
 > 
 > Hmm, pressed send to early.  However, the basic point is that you can
 > finesse most of the "dependency" issues by separating the
@@ -95,7 +54,18 @@ On Tue, Aug 09, 2016 at 09:11:00AM -0700, James Bottomley wrote:
 > device is probed) and a device part, which can be done at device
 > instantiation time.
 
-This sounds pretty great, what other subsystems use it and most
-importantly, why haven't others picked this up yet ?
+Yeah, that's true, the problem can be solved with this pattern too, and
+this sounds a lot more stable than the current solution for this problem
+on the IOMMU side. Currently this is 'solved' by making sure the iommu
+driver is linked in before the KFD driver is, which affects the order of
+the initcalls.
 
-  Luis
+Anyway, it would be good to have a solution which removes the
+differences between whether something is compiled-in or as a module,
+because this reduces the testing matrix and makes everyones life easier.
+For me it would be nice to know that if something works as a module, it
+will still work when compiled in.
+
+
+
+	Joerg
