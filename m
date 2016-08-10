@@ -1,34 +1,43 @@
-Return-Path: <daniel.vetter@ffwll.ch>
+Return-Path: <lurodriguez@suse.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 86C5A71
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9438F87A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 10 Aug 2016 16:19:45 +0000 (UTC)
-Received: from mail-it0-f68.google.com (mail-it0-f68.google.com
-	[209.85.214.68])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7356114B
+	Wed, 10 Aug 2016 16:42:26 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2316416B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 10 Aug 2016 16:19:44 +0000 (UTC)
-Received: by mail-it0-f68.google.com with SMTP id j124so3337068ith.3
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 10 Aug 2016 09:19:44 -0700 (PDT)
+	Wed, 10 Aug 2016 16:42:26 +0000 (UTC)
+Date: Wed, 10 Aug 2016 18:42:22 +0200
+From: "Luis R. Rodriguez" <mcgrof@kernel.org>
+To: =?iso-8859-1?Q?J=F6rg_R=F6del?= <jroedel@suse.de>
+Message-ID: <20160810164222.GJ3296@wotan.suse.de>
+References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
+	<20160727172636.GM11806@sirena.org.uk>
+	<20160727175829.GG5537@wotan.suse.de> <579A7DFD.60305@metafoo.de>
+	<98eb563b-5d62-74df-692a-f2aa4f7b07b8@xs4all.nl>
+	<20160729111303.GA10376@sirena.org.uk>
+	<20160801190309.GX3296@wotan.suse.de>
+	<20160809095728.GE30880@suse.de>
+	<20160809180651.GC3296@wotan.suse.de>
+	<20160810152124.GC2547@suse.de>
 MIME-Version: 1.0
-In-Reply-To: <20160810150144.GH1437@8bytes.org>
-References: <s5h60rs31z3.wl-tiwai@suse.de> <1560409.5vnWShrmDy@vostro.rjw.lan>
-	<4b6ef14c-cea6-b51d-62db-ba3e708916ea@leemhuis.info>
-	<20160809094046.GA1437@8bytes.org>
-	<a9abc71f-7070-3f60-3f4c-16ac7a082fc9@leemhuis.info>
-	<20160809223118.GG1437@8bytes.org>
-	<87h9asx23l.fsf@intel.com> <20160810150144.GH1437@8bytes.org>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Wed, 10 Aug 2016 18:19:43 +0200
-Message-ID: <CAKMK7uGtyGoGDzLcgw8GDwhVkiCanHkigSfy869a5U4LJBLN2g@mail.gmail.com>
-To: Joerg Roedel <joro@8bytes.org>
-Content-Type: text/plain; charset=UTF-8
-Cc: Thorsten Leemhuis <regressions@leemhuis.info>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Regression tracking
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20160810152124.GC2547@suse.de>
+Cc: Oded Gabbay <oded.gabbay@gmail.com>, "Luis R. Rodriguez" <mcgrof@kenel.org>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
+	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
+	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
+	Cristina Moraru <cristina.moraru09@gmail.com>,
+	Roberto Di Cosmo <roberto@dicosmo.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Stefano Zacchiroli <zack@upsilon.cc>,
+	Valentin Rothberg <valentinrothberg@gmail.com>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
+ and semantics (v2)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,34 +47,36 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Aug 10, 2016 at 5:01 PM, Joerg Roedel <joro@8bytes.org> wrote:
-> On Wed, Aug 10, 2016 at 03:03:42PM +0300, Jani Nikula wrote:
->> How about adding an entry, say "B:", to MAINTAINERS to let each
->> subsystem/driver specify the preferred method of reporting bugs? For
->> example, most drivers/gpu/drm bugs would get more attention at
->> https://bugs.freedesktop.org/ than https://bugzilla.kernel.org/.
->
-> I thought about that too, it might make sense if we can't agree on
-> anything better. In the end it is more hassle for the users and requires
-> more knowledge on their side. They have to know at least in which part of
-> the kernel the problem occured and then look that part up in the
-> MAINTAINERS file to find out how to report the bug. There are probably
-> quite a few users who give up somewhere on that path.
+On Wed, Aug 10, 2016 at 05:21:24PM +0200, Jörg Rödel wrote:
+> On Tue, Aug 09, 2016 at 08:06:52PM +0200, Luis R. Rodriguez wrote:
+> > If the semantics of order would be in place at compile time linker tables
+> > could be used to link at compile time in such a way that order is respected
+> > so linking at compile time is possible, you however would need an explicit
+> > order mentioned, which IMHO would be good.
+> > 
+> > How would linking the kernel at boot time happen so that it can
+> > enable proper ordering ?
+> 
+> The idea was basically to compile module stuff always as a module and
+> put the modules that should be 'built-in' into the kernel-image and let
+> the module-code link them into the kernel at boot time automatically in
+> the right order, as the required symbols become visible.
+> 
+> But thats a rather intrusive change and I am not sure the benefits
+> outweight the conversion cost.
 
-We already have this trouble on the gfx side, just worse: Users
-generally have no idea which one of kernel driver, X driver, mesa/gl,
-libva/video or whatever exactly blew up. Which is why we're
-redirecting everyone to bugs.freedesktop.org, there we can at elast
-reassign between the different parts.
+Yeah linking at boot sounds intrusive but the logic of re-using the module
+ordering scheme for delaying selective built-in inits does not sound so bad to
+me. I believe you are right that if the existing simple module ordering scheme
+suffices for module_init() order, it should also be possible to delay such
+built-in init so long as the same module ordering is followed. With a bit of
+stuffing the driver symbol dep map stuff into built-in, it should be in theory
+possible to have something similar and simple for built-in, with already well
+tested coverage. Also, if there are flaws with module order, or simply we know
+we want something better / different for built-in it begs the question if we
+can borrow similar logic for modules as well.
 
-Of course that then means we can't easily reassing to other kernel
-components, but that seems to happen far less often (for us).
+I'd be surprised if no one had thought of this or tried this before though --
+have we not ?
 
-Anyway, +1 from me for B: in MAINTAINERS to make it at least possible
-for users to figure out where to file a bug. Default would be mailo:
-<mailing list from same maintainer entry>.
--Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-+41 (0) 79 365 57 48 - http://blog.ffwll.ch
+  Luis
