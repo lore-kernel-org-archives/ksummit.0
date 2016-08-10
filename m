@@ -1,41 +1,34 @@
-Return-Path: <lurodriguez@suse.de>
+Return-Path: <daniel.vetter@ffwll.ch>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7EA80279
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 86C5A71
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  9 Aug 2016 18:06:57 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id AAF0D187
+	Wed, 10 Aug 2016 16:19:45 +0000 (UTC)
+Received: from mail-it0-f68.google.com (mail-it0-f68.google.com
+	[209.85.214.68])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7356114B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  9 Aug 2016 18:06:56 +0000 (UTC)
-Date: Tue, 9 Aug 2016 20:06:52 +0200
-From: "Luis R. Rodriguez" <mcgrof@kenel.org>
-To: =?iso-8859-1?Q?J=F6rg_R=F6del?= <jroedel@suse.de>
-Message-ID: <20160809180651.GC3296@wotan.suse.de>
-References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
-	<20160727172636.GM11806@sirena.org.uk>
-	<20160727175829.GG5537@wotan.suse.de> <579A7DFD.60305@metafoo.de>
-	<98eb563b-5d62-74df-692a-f2aa4f7b07b8@xs4all.nl>
-	<20160729111303.GA10376@sirena.org.uk>
-	<20160801190309.GX3296@wotan.suse.de>
-	<20160809095728.GE30880@suse.de>
+	Wed, 10 Aug 2016 16:19:44 +0000 (UTC)
+Received: by mail-it0-f68.google.com with SMTP id j124so3337068ith.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 10 Aug 2016 09:19:44 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20160809095728.GE30880@suse.de>
-Cc: Oded Gabbay <oded.gabbay@gmail.com>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
-	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
-	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
-	Cristina Moraru <cristina.moraru09@gmail.com>,
-	Roberto Di Cosmo <roberto@dicosmo.org>,
-	Valentin Rothberg <valentinrothberg@gmail.com>,
-	Stefano Zacchiroli <zack@upsilon.cc>,
-	Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
- and semantics (v2)
+In-Reply-To: <20160810150144.GH1437@8bytes.org>
+References: <s5h60rs31z3.wl-tiwai@suse.de> <1560409.5vnWShrmDy@vostro.rjw.lan>
+	<4b6ef14c-cea6-b51d-62db-ba3e708916ea@leemhuis.info>
+	<20160809094046.GA1437@8bytes.org>
+	<a9abc71f-7070-3f60-3f4c-16ac7a082fc9@leemhuis.info>
+	<20160809223118.GG1437@8bytes.org>
+	<87h9asx23l.fsf@intel.com> <20160810150144.GH1437@8bytes.org>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Wed, 10 Aug 2016 18:19:43 +0200
+Message-ID: <CAKMK7uGtyGoGDzLcgw8GDwhVkiCanHkigSfy869a5U4LJBLN2g@mail.gmail.com>
+To: Joerg Roedel <joro@8bytes.org>
+Content-Type: text/plain; charset=UTF-8
+Cc: Thorsten Leemhuis <regressions@leemhuis.info>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Regression tracking
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -45,48 +38,34 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Aug 09, 2016 at 11:57:28AM +0200, Jörg Rödel wrote:
-> On Mon, Aug 01, 2016 at 09:03:09PM +0200, Luis R. Rodriguez wrote:
-> > Another piece of code that deals with complex dependencies I've recently
-> > ventured into was the x86 IOMMU stuff. The complexities here are both at
-> > the built-in init level and also later at probe.
-> 
-> Yeah, everything is fine when both, AMD-KFD and the IOMMUv2 driver are
-> built as modules, as the order of loading these modules is
-> preserved by symbol dependencies. But when they are built-in these
-> modules also need to be initialized in the right order, otherwise the
-> KFD-driver will call into an uninialized IOMMU driver and crashes the
-> system. Long-term this will be fixed by always build-in the IOMMU-parts
-> (when they are merged with the Intel-SVM support), but in general not
-> being able to express dependencies between build-in modules remains to
-> be a problem.
-> 
-> I have spent spent some thoughts on how this could be solved, and one
-> idea I had was to rework the way build-in modules work. If they are not
-> linked into the kernel at compile-time, but at boot-time, this problem
-> would be solved.
+On Wed, Aug 10, 2016 at 5:01 PM, Joerg Roedel <joro@8bytes.org> wrote:
+> On Wed, Aug 10, 2016 at 03:03:42PM +0300, Jani Nikula wrote:
+>> How about adding an entry, say "B:", to MAINTAINERS to let each
+>> subsystem/driver specify the preferred method of reporting bugs? For
+>> example, most drivers/gpu/drm bugs would get more attention at
+>> https://bugs.freedesktop.org/ than https://bugzilla.kernel.org/.
+>
+> I thought about that too, it might make sense if we can't agree on
+> anything better. In the end it is more hassle for the users and requires
+> more knowledge on their side. They have to know at least in which part of
+> the kernel the problem occured and then look that part up in the
+> MAINTAINERS file to find out how to report the bug. There are probably
+> quite a few users who give up somewhere on that path.
 
-If the semantics of order would be in place at compile time linker tables
-could be used to link at compile time in such a way that order is respected
-so linking at compile time is possible, you however would need an explicit
-order mentioned, which IMHO would be good.
+We already have this trouble on the gfx side, just worse: Users
+generally have no idea which one of kernel driver, X driver, mesa/gl,
+libva/video or whatever exactly blew up. Which is why we're
+redirecting everyone to bugs.freedesktop.org, there we can at elast
+reassign between the different parts.
 
-How would linking the kernel at boot time happen so that it can
-enable proper ordering ?
+Of course that then means we can't easily reassing to other kernel
+components, but that seems to happen far less often (for us).
 
-> On the other hand this slows down boot (is this important
-> when distro-kernels build everything as modules anyway?)
-
-If done once I think this is reasonable, but again, if you can do this
-arrangement at compile time, why not?
-
-The one issue with this solution however is it does not address
-specialized ordering with information only attainable at run time.
-For this later issue a run time sort is still possible and we have
-precedents for such things in the x86 IOMMU PCI initialization code,
-however note that that code can be replaced by compile time sort given
-the dependencies can be attained also at link order. Nevertheless, its
-precedent shows a demo of how a run time sort is possible if you don't
-all ordering information at compile time.
-
-  Luis
+Anyway, +1 from me for B: in MAINTAINERS to make it at least possible
+for users to figure out where to file a bug. Default would be mailo:
+<mailing list from same maintainer entry>.
+-Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
