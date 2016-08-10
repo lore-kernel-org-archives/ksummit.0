@@ -1,55 +1,42 @@
-Return-Path: <paulmck@linux.vnet.ibm.com>
+Return-Path: <jroedel@suse.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 101E3412
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 12B6C412
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 10 Aug 2016 21:11:27 +0000 (UTC)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
-	[148.163.156.1])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1D8E62A3
+	Wed, 10 Aug 2016 21:36:59 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9EDE11F3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 10 Aug 2016 21:11:26 +0000 (UTC)
-Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.16.0.11/8.16.0.11) with SMTP id
-	u7AL3UnA115711 for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 10 Aug 2016 17:11:25 -0400
-Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
-	by mx0a-001b2d01.pphosted.com with ESMTP id 24qm9tgs4r-1
-	(version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NOT)
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 10 Aug 2016 17:11:25 -0400
-Received: from localhost
-	by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
-	Violators will be prosecuted
-	for <ksummit-discuss@lists.linuxfoundation.org> from
-	<paulmck@linux.vnet.ibm.com>; Wed, 10 Aug 2016 15:11:24 -0600
-Received: from b01cxnp23034.gho.pok.ibm.com (b01cxnp23034.gho.pok.ibm.com
-	[9.57.198.29])
-	by d03dlp03.boulder.ibm.com (Postfix) with ESMTP id ABC5019D8045
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 10 Aug 2016 15:10:49 -0600 (MDT)
-Received: from d01av01.pok.ibm.com (d01av01.pok.ibm.com [9.56.224.215])
-	by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
-	u7ALBJmf18088246 for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 10 Aug 2016 21:11:19 GMT
-Received: from d01av01.pok.ibm.com (localhost [127.0.0.1])
-	by d01av01.pok.ibm.com (8.14.4/8.14.4/NCO v10.0 AVout) with ESMTP id
-	u7ALBFod001520 for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 10 Aug 2016 17:11:15 -0400
-Received: from paulmck-ThinkPad-W541 ([9.70.82.218])
-	by d01av01.pok.ibm.com (8.14.4/8.14.4/NCO v10.0 AVin) with ESMTP id
-	u7ALBFUI001517 for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 10 Aug 2016 17:11:15 -0400
-Date: Wed, 10 Aug 2016 14:11:20 -0700
-From: "Paul E. McKenney" <paulmck@linux.vnet.ibm.com>
-To: ksummit-discuss@lists.linuxfoundation.org
-Reply-To: paulmck@linux.vnet.ibm.com
+	Wed, 10 Aug 2016 21:36:58 +0000 (UTC)
+Date: Wed, 10 Aug 2016 23:37:21 +0200
+From: =?iso-8859-1?Q?J=F6rg_R=F6del?= <jroedel@suse.de>
+To: "Luis R. Rodriguez" <mcgrof@kernel.org>
+Message-ID: <20160810213721.GD2547@suse.de>
+References: <20160727172636.GM11806@sirena.org.uk>
+	<20160727175829.GG5537@wotan.suse.de> <579A7DFD.60305@metafoo.de>
+	<98eb563b-5d62-74df-692a-f2aa4f7b07b8@xs4all.nl>
+	<20160729111303.GA10376@sirena.org.uk>
+	<20160801190309.GX3296@wotan.suse.de>
+	<20160809095728.GE30880@suse.de>
+	<20160809180651.GC3296@wotan.suse.de>
+	<20160810152124.GC2547@suse.de>
+	<20160810164222.GJ3296@wotan.suse.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Message-Id: <20160810211120.GA32514@linux.vnet.ibm.com>
-Subject: [Ksummit-discuss] FYI,
-	Linux Plumbers Conference refereed-track deadline approaching...
+In-Reply-To: <20160810164222.GJ3296@wotan.suse.de>
+Cc: Oded Gabbay <oded.gabbay@gmail.com>, "Luis R. Rodriguez" <mcgrof@kenel.org>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
+	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
+	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
+	Cristina Moraru <cristina.moraru09@gmail.com>,
+	Roberto Di Cosmo <roberto@dicosmo.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Stefano Zacchiroli <zack@upsilon.cc>,
+	Valentin Rothberg <valentinrothberg@gmail.com>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
+ and semantics (v2)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -59,30 +46,24 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hello!
+On Wed, Aug 10, 2016 at 06:42:22PM +0200, Luis R. Rodriguez wrote:
+> Yeah linking at boot sounds intrusive but the logic of re-using the module
+> ordering scheme for delaying selective built-in inits does not sound so bad to
+> me. I believe you are right that if the existing simple module ordering scheme
+> suffices for module_init() order, it should also be possible to delay such
+> built-in init so long as the same module ordering is followed. With a bit of
+> stuffing the driver symbol dep map stuff into built-in, it should be in theory
+> possible to have something similar and simple for built-in, with already well
+> tested coverage. Also, if there are flaws with module order, or simply we know
+> we want something better / different for built-in it begs the question if we
+> can borrow similar logic for modules as well.
 
-Given that Linux Plumbers Conference is co-located with Linux Kernel
-Summit this year, and given that the Linux Kernel Summit Open Day
-is open to all Plumbers attendees, you might be interested in the
-following.
+Hmm, that might indeed work, with some changes to the build system, I
+think. The problem is that on a vmlinux file the module boundaries went
+away (you can't tell anymore which symbol belongs to which module, if at
+all). So we need to work on the .o files to find out the correct order
+(with some depmod-like tool) and sort the initcall-table accordingly in
+an additional linker step.
 
-The refereed talk [1] deadline for Linux Plumbers Conference [2] is only
-a few weeks off, September 1, 2016 at 11:59PM CET.  So there is still
-some time to get your proposals in, but time is growing short.
 
-Note that this year's Plumbers is co-located with Linux Kernel Summit
-rather than LinuxCon, so the refereed track is all Plumbers this
-year.  We are therefore looking forward to seeing your all-Plumbers
-refereed-track submission!
-
-As you might have noticed, earlybird registration has closed, but
-normal-rate registration will be opening up on August 27th--however,
-accepted refereed speaking proposals will receive a free pass.
-
-The conference itself is in Santa Fe, New Mexico on November 1-4, 2016.
-Looking forward to seeing you there!
-
-							Thanx, Paul
-
-[1] https://linuxplumbersconf.org/2016/ocw/events/LPC2016TALKS/proposals">refereed talk
-[2] https://www.linuxplumbersconf.org/2016
+	Joerg
