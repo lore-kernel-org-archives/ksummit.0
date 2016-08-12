@@ -1,25 +1,38 @@
-Return-Path: <neilb@suse.de>
+Return-Path: <willy6545@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 95543413
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0422B898
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 12 Aug 2016 06:24:01 +0000 (UTC)
+Received: from mail-ua0-f169.google.com (mail-ua0-f169.google.com
+	[209.85.217.169])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CE5ECFC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
 	Fri, 12 Aug 2016 06:23:59 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 157F7FC
+Received: by mail-ua0-f169.google.com with SMTP id 74so28180475uau.0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 12 Aug 2016 06:23:58 +0000 (UTC)
-From: NeilBrown <neilb@suse.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>,
-	"Eric W. Biederman" <ebiederm@xmission.com>
-Date: Fri, 12 Aug 2016 16:23:50 +1000
-In-Reply-To: <20160812044211.xysb3larocxob342@redhat.com>
-References: <87inw1skws.fsf@x220.int.ebiederm.org>
-	<20160812044211.xysb3larocxob342@redhat.com>
-Message-ID: <87vaz6jyix.fsf@notabene.neil.brown.name>
+	Thu, 11 Aug 2016 23:23:59 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="=-=-=";
-	micalg=pgp-sha256; protocol="application/pgp-signature"
-Cc: ksummit-discuss@lists.linuxfoundation.org
+In-Reply-To: <20160812090706-mutt-send-email-mst@kernel.org>
+References: <18158a39-1297-7368-3c0e-3e9b3ce2c3ab@suse.com>
+	<alpine.DEB.2.10.1607220808110.3114@hadrien>
+	<b3390bd5-eb54-428a-3030-1d7289880d47@suse.com>
+	<20160811154429.GB4134@mwanda>
+	<CAFhKne_cK9edpgufMTaRJ7zdpJaiNoJqOzPsZ2wBaAhCjMHm4Q@mail.gmail.com>
+	<20160812040155.kvw5322jqshtmljb@x>
+	<CAFhKne9+B9q-dKMYcC9ycKz20T2fRvNzW9wAnZ8_B0d4+89CVQ@mail.gmail.com>
+	<20160812052919.GB2289@p183.telecom.by>
+	<20160812083512-mutt-send-email-mst@kernel.org>
+	<alpine.DEB.2.10.1608120802420.3364@hadrien>
+	<20160812090706-mutt-send-email-mst@kernel.org>
+From: Matthew Wilcox <willy6545@gmail.com>
+Date: Fri, 12 Aug 2016 02:23:57 -0400
+Message-ID: <CAFhKne_VKTODCD42V0RB2BYPTRa_j88HruTqyHXOkmQXbFcrHw@mail.gmail.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Content-Type: multipart/alternative; boundary=001a114dc9e482072d0539d9edcd
+Cc: Dan Carpenter <dan.carpenter@oracle.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] More useful types in the linux
 	kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -31,60 +44,57 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---=-=-=
-Content-Type: text/plain
+--001a114dc9e482072d0539d9edcd
+Content-Type: text/plain; charset=UTF-8
+
+On Fri, Aug 12, 2016 at 2:09 AM, Michael S. Tsirkin <mst@redhat.com> wrote:
+
+> I guess
+> typedef void * errno_t;
+> is one way, maybe marking it noderef for good measure.
+>
+> This means the values are 64 bit unfortunately, which is often
+> overkill.
+>
+
+s/64-bit/native word size/
+
+Does anyone know of an ABI where that's *inefficient*?!  Or at least, less
+efficient than returning a 32-bit int?  Pretty much every ABI I ever saw
+says something along the lines of 'register FOO contains the return value
+if the type is small enough, otherwise for returning aggregates, register
+FOO contains ...'
+
+I can't believe anyone would deliberately design an ABI where calling
+void *foo(void) is less efficient than calling int bar(void);
+
+(and if you have some weird DSP or the CDC6600 in mind where Linux won't
+run anyway, then comp.arch.necrophilia is --> that way)
+
+--001a114dc9e482072d0539d9edcd
+Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Aug 12 2016, Michael S. Tsirkin wrote:
+<div dir=3D"ltr">On Fri, Aug 12, 2016 at 2:09 AM, Michael S. Tsirkin <span =
+dir=3D"ltr">&lt;<a href=3D"mailto:mst@redhat.com" target=3D"_blank">mst@red=
+hat.com</a>&gt;</span> wrote:<br><div class=3D"gmail_extra"><div class=3D"g=
+mail_quote"><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bo=
+rder-left:1px #ccc solid;padding-left:1ex"><div class=3D"HOEnZb"><div class=
+=3D"h5"><span style=3D"color:rgb(34,34,34)">I guess</span><br></div></div>
+typedef void * errno_t;<br>
+is one way, maybe marking it noderef for good measure.<br>
+<br>
+This means the values are 64 bit unfortunately, which is often<br>
+overkill.<br></blockquote><div><br></div><div>s/64-bit/native word size/</d=
+iv><div><br></div><div>Does anyone know of an ABI where that&#39;s *ineffic=
+ient*?!=C2=A0 Or at least, less efficient than returning a 32-bit int?=C2=
+=A0 Pretty much every ABI I ever saw says something along the lines of &#39=
+;register FOO contains the return value if the type is small enough, otherw=
+ise for returning aggregates, register FOO contains ...&#39;</div><div><br>=
+</div><div>I can&#39;t believe anyone would deliberately design an ABI wher=
+e calling</div><div>void *foo(void) is less efficient than calling int bar(=
+void);</div><div><br></div><div>(and if you have some weird DSP or the CDC6=
+600 in mind where Linux won&#39;t run anyway, then comp.arch.necrophilia is=
+ --&gt; that way)</div></div></div></div>
 
-> On Tue, Jul 19, 2016 at 10:32:51AM -0500, Eric W. Biederman wrote:
->> I would really like to get a feel among kernel maintainers and
->> developers if this is something that is interesting, and what kind of
->> constraints they think something like this would need to be usable for
->> the kernel?
->>=20
->> Eric
->
-> Surprised that no one mentioned this yet - I think tagging
-> integers/structs as coming from userspace could be useful,
-> if we can teach e.g. smatch that access to a kernel
-> pointer through this offset might fault.
-
-We already have that.
-Sparse recognizes
-    __attribute__((noderef, address_space(1)))
- to mean "this is a pointer to a different address space which
- cannot be dereferened" and linux has
-
-# define __user                __attribute__((noderef, address_space(1)))
-
-so if you mark a pointer as "__user", then sparse will complain
-if you dereference it.
-
-We've had this for over a decade :-)
-
-  https://lwn.net/Articles/87538/
-
-NeilBrown
-
---=-=-=
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJXrWt2AAoJEDnsnt1WYoG50QUQALkAnCG/8jTSKbD7nkxE5Ius
-QK2kBySKR1a36NNWikrT5VgklF73jmF0Wr3GvFB9Km/6rIEqYjNP2msP+J9k2ePB
-w8+ZHJnD3c5wFq0VF3d3Mb/2dfRVY97pXw23wqG9JSdY0M4fxzAMEBUprbD6IijP
-CXkoCjEFY7jIbF+vaCTzOUeyETcjz2MnCyawCNG/g+7dmLYrpGObFR46wb4pbBJx
-Rk9oR5OslXAyr2zhjX1GsDzNDPLa+G4O35ruv+GWZuL4bSAewCW1H7TcvC49E6at
-/HiKRPNd+RfV7JfjAVgRiW9RBPpsw90zpkMOoXwj3VY04PdBwpdiDOgQvRVErY1W
-rYgoI3vIplSBwno8uXVil13JFnjVrF0JbRrV5jWPCqNr7N9jgSM3OFqExU3sUFA9
-M6XlQTuY48cvBX15YoAqmRTzs8lkPVqT+N8w1e0W/EgAbSGa3GMt6y57rbEQHI53
-A/ZV8wQsOZy8kHdyh/djz5UbXtkXPVfY3ZK81fAnN2kgKra2XdKqAmCilt3aIQ1/
-4ILRueuc0wKAExHKlDUAguXO1QqoMi/rtOsZyKiSGRSIZezYa/7LalYK26t4faqs
-Ub2VBX+MhSZX+72MTySgymC5LfRXMKxmdGI83Z9iT3LlgQLSoX71T5JDIgGgxMNI
-nN5kEMu3ydNimUwssd4+
-=5NRq
------END PGP SIGNATURE-----
---=-=-=--
+--001a114dc9e482072d0539d9edcd--
