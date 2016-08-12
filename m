@@ -1,36 +1,45 @@
-Return-Path: <julia.lawall@lip6.fr>
+Return-Path: <linus.walleij@linaro.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A7CCE2C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1FB12279
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 12 Aug 2016 06:37:13 +0000 (UTC)
-Received: from mail3-relais-sop.national.inria.fr
-	(mail3-relais-sop.national.inria.fr [192.134.164.104])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A71F0ED
+	Fri, 12 Aug 2016 07:33:36 +0000 (UTC)
+Received: from mail-oi0-f52.google.com (mail-oi0-f52.google.com
+	[209.85.218.52])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 96E0F110
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 12 Aug 2016 06:37:12 +0000 (UTC)
-Date: Fri, 12 Aug 2016 08:37:09 +0200 (CEST)
-From: Julia Lawall <julia.lawall@lip6.fr>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-In-Reply-To: <20160812090706-mutt-send-email-mst@kernel.org>
-Message-ID: <alpine.DEB.2.10.1608120836490.3364@hadrien>
-References: <18158a39-1297-7368-3c0e-3e9b3ce2c3ab@suse.com>
-	<alpine.DEB.2.10.1607220808110.3114@hadrien>
-	<b3390bd5-eb54-428a-3030-1d7289880d47@suse.com>
-	<20160811154429.GB4134@mwanda>
-	<CAFhKne_cK9edpgufMTaRJ7zdpJaiNoJqOzPsZ2wBaAhCjMHm4Q@mail.gmail.com>
-	<20160812040155.kvw5322jqshtmljb@x>
-	<CAFhKne9+B9q-dKMYcC9ycKz20T2fRvNzW9wAnZ8_B0d4+89CVQ@mail.gmail.com>
-	<20160812052919.GB2289@p183.telecom.by>
-	<20160812083512-mutt-send-email-mst@kernel.org>
-	<alpine.DEB.2.10.1608120802420.3364@hadrien>
-	<20160812090706-mutt-send-email-mst@kernel.org>
+	Fri, 12 Aug 2016 07:33:35 +0000 (UTC)
+Received: by mail-oi0-f52.google.com with SMTP id c15so25030047oig.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 12 Aug 2016 00:33:35 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] More useful types in the linux
- kernel
+In-Reply-To: <20160809095728.GE30880@suse.de>
+References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
+	<20160727172636.GM11806@sirena.org.uk>
+	<20160727175829.GG5537@wotan.suse.de> <579A7DFD.60305@metafoo.de>
+	<98eb563b-5d62-74df-692a-f2aa4f7b07b8@xs4all.nl>
+	<20160729111303.GA10376@sirena.org.uk>
+	<20160801190309.GX3296@wotan.suse.de>
+	<20160809095728.GE30880@suse.de>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Fri, 12 Aug 2016 09:33:33 +0200
+Message-ID: <CACRpkda7OD9BB33D0nChh=C_=K9tuX-V=+pcOXb6RQLjhBw_bA@mail.gmail.com>
+To: =?UTF-8?B?SsO2cmcgUsO2ZGVs?= <jroedel@suse.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Cc: Oded Gabbay <oded.gabbay@gmail.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
+	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
+	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
+	Cristina Moraru <cristina.moraru09@gmail.com>,
+	Roberto Di Cosmo <roberto@dicosmo.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Stefano Zacchiroli <zack@upsilon.cc>,
+	Valentin Rothberg <valentinrothberg@gmail.com>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
+ and semantics (v2)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,98 +49,21 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Tue, Aug 9, 2016 at 11:57 AM, J=C3=B6rg R=C3=B6del <jroedel@suse.de> wro=
+te:
 
+> one
+> idea I had was to rework the way build-in modules work. If they are not
+> linked into the kernel at compile-time, but at boot-time, this problem
+> would be solved. On the other hand this slows down boot (is this importan=
+t
+> when distro-kernels build everything as modules anyway?)
 
-On Fri, 12 Aug 2016, Michael S. Tsirkin wrote:
+I don't know what you mean by "distro-kernels" but the vast majority if
+not all Android kernels are coming with most stuff built-in, not as modules=
+,
+which means that you would slow down all Android tablets and phones on
+the planet if this becomes slower. So it needs to be as quick or faster :)
 
-> On Fri, Aug 12, 2016 at 08:04:09AM +0200, Julia Lawall wrote:
-> >
-> >
-> > On Fri, 12 Aug 2016, Michael S. Tsirkin wrote:
-> >
-> > > On Fri, Aug 12, 2016 at 08:29:20AM +0300, Alexey Dobriyan wrote:
-> > > > On Fri, Aug 12, 2016 at 12:07:11AM -0400, Matthew Wilcox wrote:
-> > > > > On Aug 11, 2016 9:02 PM, "Josh Triplett" <josh@joshtriplett.org> wrote:
-> > > > > > On Thu, Aug 11, 2016 at 11:51:52PM -0400, Matthew Wilcox wrote:
-> > > > > > > Can we introduce types for this? We have a number of different return
-> > > > > type
-> > > > > > > conventions in the kernel:
-> > > > > > >
-> > > > > > > bool
-> > > > > > > errno_t (-4095 to 0 are valid)
-> > > > > > > count_t (-4095 to INT_MAX)
-> > > > > > > long_count_t (-4095 to LONG_MAX)
-> > > > > > > ulong_count_t (-4095 to -4096)
-> > > > > > > struct foo _err*
-> > > > > > >
-> > > > > > > I think this is good programmer documentation in addition to being
-> > > > > > > potentially useful to smatch.
-> > > > > >
-> > > > > > I'd love to see an explicit type distinct from "int" for "potentially an
-> > > > > > errno".  And if any code uses "potentially an errno *or* a non-errno
-> > > > > > non-zero return value", that should ideally use a distinct type as well.
-> > > > >
-> > > > > I think the biggest problem is coming up with good names for the types. And
-> > > > > the churn of introducing them, particularly converting function pointers
-> > > > > and all occurrences.
-> > > >
-> > > > Names are easy part (errno_t is perfect actually). The problem is that
-> > > > once error is cleared, variable doesn't change to regular type anymore:
-> > > >
-> > > > 	errno_t rv;
-> > > >
-> > > > 	rv = f();
-> > > > 	if (rv < 0)
-> > > > 		return rv;
-> > > > 	int rv = rv;
-> > > >
-> > > > which agains boils down to a language with real type system.
-> > >
-> > > We could maybe do
-> > >
-> > >  	errno_t rv;
-> > >
-> > >  	rv = f();
-> > >  	if (IS_ERR(rv))
-> > >  		return rv;
-> > >  	int r = CHECKED(rv);
-> > >
-> > >
-> > > Tools could maybe verify that all paths to CHECKED
-> > > are actually going through an IS_ERR test as well.
-> >
-> > What does the return value of f look like?
->
-> errno_t f(void);
->
->
-> > Was it intentional to use IS_ERR, which checks for a pointer?
->
-> It seems like a nice name but yes, it's already used to convert
-> pointers to integers.
->
-> Either we find a macro trick to teach IS_ERR to handle
-> integers as well, or we use a different macro.
-> TEST_ERR?
-
-IS_ERRNO?
-
-julia
-
->
-> >  At least in
-> > that case gcc would ensure that CHECKED is used.
-> >
-> > julia
->
->
-> I guess
-> typedef void * errno_t;
-> is one way, maybe marking it noderef for good measure.
->
-> This means the values are 64 bit unfortunately, which is often
-> overkill.
->
-> --
-> MST
->
+Yours,
+Linus Walleij
