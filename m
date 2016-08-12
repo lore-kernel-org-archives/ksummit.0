@@ -1,29 +1,18 @@
-Return-Path: <luto@kernel.org>
+Return-Path: <BATV+168c40fa232d623ac5da+4737+infradead.org+dwmw2@merlin.srs.infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0055688A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A7CF5899
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 12 Aug 2016 12:54:32 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.136])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2F63E1D5
+	Fri, 12 Aug 2016 13:00:17 +0000 (UTC)
+Received: from merlin.infradead.org (merlin.infradead.org [205.233.59.134])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 88301FC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 12 Aug 2016 12:54:31 +0000 (UTC)
-Received: from mail.kernel.org (localhost [127.0.0.1])
-	by mail.kernel.org (Postfix) with ESMTP id BCD4520357
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 12 Aug 2016 12:54:29 +0000 (UTC)
-Received: from mail-ua0-f182.google.com (mail-ua0-f182.google.com
-	[209.85.217.182])
-	(using TLSv1.2 with cipher AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 73AFE201FE
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 12 Aug 2016 12:54:27 +0000 (UTC)
-Received: by mail-ua0-f182.google.com with SMTP id 97so40028669uav.3
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 12 Aug 2016 05:54:27 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <20160812123830.GO9681@localhost>
+	Fri, 12 Aug 2016 13:00:16 +0000 (UTC)
+Message-ID: <1471006807.4080.93.camel@infradead.org>
+From: David Woodhouse <dwmw2@infradead.org>
+To: Andy Lutomirski <luto@kernel.org>, Vinod Koul <vinod.koul@intel.com>
+Date: Fri, 12 Aug 2016 15:00:07 +0200
+In-Reply-To: <CALCETrVy8edVwuCcWT9Dkvr0xY0fAm8KsU-=xzoBxF_pu9iADw@mail.gmail.com>
 References: <20150804152622.GY30479@wotan.suse.de>
 	<1468612258.5335.0.camel@linux.vnet.ibm.com>
 	<1468612671.5335.5.camel@linux.vnet.ibm.com>
@@ -34,11 +23,11 @@ References: <20150804152622.GY30479@wotan.suse.de>
 	<1470147214.2485.8.camel@HansenPartnership.com>
 	<CACRpkdaeeOed5g+teLyOfeuqx1SijeDuyPAWq1-vQd3Z7uozTA@mail.gmail.com>
 	<20160812123830.GO9681@localhost>
-From: Andy Lutomirski <luto@kernel.org>
-Date: Fri, 12 Aug 2016 05:54:25 -0700
-Message-ID: <CALCETrVy8edVwuCcWT9Dkvr0xY0fAm8KsU-=xzoBxF_pu9iADw@mail.gmail.com>
-To: Vinod Koul <vinod.koul@intel.com>
-Content-Type: multipart/alternative; boundary=001a11c00088e8b3b50539df61c9
+	<CALCETrVy8edVwuCcWT9Dkvr0xY0fAm8KsU-=xzoBxF_pu9iADw@mail.gmail.com>
+Content-Type: multipart/signed; micalg="sha-256";
+	protocol="application/x-pkcs7-signature";
+	boundary="=-jptIhvJ1AIVRZVz0MQkZ"
+Mime-Version: 1.0
 Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
 	Mark Brown <broonie@sirena.org.uk>,
 	"ksummit-discuss@lists.linuxfoundation.org"
@@ -55,135 +44,144 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---001a11c00088e8b3b50539df61c9
-Content-Type: text/plain; charset=UTF-8
 
-On Aug 12, 2016 3:30 PM, "Vinod Koul" <vinod.koul@intel.com> wrote:
->
-> On Wed, Aug 03, 2016 at 11:47:26AM +0200, Linus Walleij wrote:
-> > On Tue, Aug 2, 2016 at 4:13 PM, James Bottomley
-> > <James.Bottomley@hansenpartnership.com> wrote:
-> > > On Tue, 2016-08-02 at 14:54 +0200, Linus Walleij wrote:
-> >
-> > >> What I always intuitively felt is that I would be happy if the same
-> > >> GPG keys we use for pull requests of kernel code would extend
-> > >> to firmware signing, so that we move from the overall-industry
-> > >> focus on legislative bodies (Thawte, ...) signing certificates with
-> > >> OpenSSL and thus being the root of trust, over to putting the root
-> > >> of trust for any software related to Linux into the same web of
-> > >> trust that we already use for developing the code per se.
-> > >
-> > > This is the vision that Monkeysphere is based on
-> > >
-> > > http://web.monkeysphere.info/
-> >
-> > That looks nice.
-> >
-> > >> I would certainly trust a firmware signed by say Laurent Pinchart,
-> > >> but not sure about one signed by E.Corp.
-> > >
-> > > Really?  Assuming E.Corp is the one actually producing the firmware,
-> > > why would you say they're less qualified than Laurent to certify their
-> > > own firmware.  Half the SCSI chips I see have proprietary firmware.
-> > >  Even if I were willing to sign it, would you really trust my
-signature
-> > > when I can't even decompile it?
-> >
-> > I would trust an Intel WiFi driver if it was signed by Dirk Hohndel
-> > or H. Peter Anvin whose GPG keys I have in my own web of trust
-> > and work for Intel. And this is simply because I trust these guys
-> > more than the corporate entity they work for.
->
-> One more point worth mentioning here...
->
-> Whatever solution we decide, some firmware is already signed. Some of
-> the Intel firmware we submit to linux-firmware is signed and a firmware
-> with bad or unsigned keys will fail to load on these devices. Now how
-> much we are willing to trust that is entirely different question.
->
-> Any solution needs to comprehend that additional signing might be
-> present.
-
-I see device-verified signatures as orthogonal: the kernel loads a blob,
-optionally verifies the blob, and that blob just happens to contain a
-signature.
-
---Andy
-
---001a11c00088e8b3b50539df61c9
-Content-Type: text/html; charset=UTF-8
+--=-jptIhvJ1AIVRZVz0MQkZ
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<p dir=3D"ltr"></p>
-<p dir=3D"ltr">On Aug 12, 2016 3:30 PM, &quot;Vinod Koul&quot; &lt;<a href=
-=3D"mailto:vinod.koul@intel.com">vinod.koul@intel.com</a>&gt; wrote:<br>
-&gt;<br>
-&gt; On Wed, Aug 03, 2016 at 11:47:26AM +0200, Linus Walleij wrote:<br>
-&gt; &gt; On Tue, Aug 2, 2016 at 4:13 PM, James Bottomley<br>
-&gt; &gt; &lt;<a href=3D"mailto:James.Bottomley@hansenpartnership.com">Jame=
-s.Bottomley@hansenpartnership.com</a>&gt; wrote:<br>
-&gt; &gt; &gt; On Tue, 2016-08-02 at 14:54 +0200, Linus Walleij wrote:<br>
-&gt; &gt;<br>
-&gt; &gt; &gt;&gt; What I always intuitively felt is that I would be happy =
-if the same<br>
-&gt; &gt; &gt;&gt; GPG keys we use for pull requests of kernel code would e=
-xtend<br>
-&gt; &gt; &gt;&gt; to firmware signing, so that we move from the overall-in=
-dustry<br>
-&gt; &gt; &gt;&gt; focus on legislative bodies (Thawte, ...) signing certif=
-icates with<br>
-&gt; &gt; &gt;&gt; OpenSSL and thus being the root of trust, over to puttin=
-g the root<br>
-&gt; &gt; &gt;&gt; of trust for any software related to Linux into the same=
- web of<br>
-&gt; &gt; &gt;&gt; trust that we already use for developing the code per se=
-.<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; This is the vision that Monkeysphere is based on<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; <a href=3D"http://web.monkeysphere.info/">http://web.monkeys=
-phere.info/</a><br>
-&gt; &gt;<br>
-&gt; &gt; That looks nice.<br>
-&gt; &gt;<br>
-&gt; &gt; &gt;&gt; I would certainly trust a firmware signed by say Laurent=
- Pinchart,<br>
-&gt; &gt; &gt;&gt; but not sure about one signed by E.Corp.<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; Really?=C2=A0 Assuming E.Corp is the one actually producing =
-the firmware,<br>
-&gt; &gt; &gt; why would you say they&#39;re less qualified than Laurent to=
- certify their<br>
-&gt; &gt; &gt; own firmware.=C2=A0 Half the SCSI chips I see have proprieta=
-ry firmware.<br>
-&gt; &gt; &gt;=C2=A0 Even if I were willing to sign it, would you really tr=
-ust my signature<br>
-&gt; &gt; &gt; when I can&#39;t even decompile it?<br>
-&gt; &gt;<br>
-&gt; &gt; I would trust an Intel WiFi driver if it was signed by Dirk Hohnd=
-el<br>
-&gt; &gt; or H. Peter Anvin whose GPG keys I have in my own web of trust<br=
+On Fri, 2016-08-12 at 05:54 -0700, Andy Lutomirski wrote:
+>=20
+> > Whatever solution we decide, some firmware is already signed. Some of
+> > the Intel firmware we submit to linux-firmware is signed and a firmware
+> > with bad or unsigned keys will fail to load on these devices. Now how
+> > much we are willing to trust that is entirely different question.
+> >
+> > Any solution needs to comprehend that additional signing might be
+> > present.
 >
-&gt; &gt; and work for Intel. And this is simply because I trust these guys=
-<br>
-&gt; &gt; more than the corporate entity they work for.<br>
-&gt;<br>
-&gt; One more point worth mentioning here...<br>
-&gt;<br>
-&gt; Whatever solution we decide, some firmware is already signed. Some of<=
-br>
-&gt; the Intel firmware we submit to linux-firmware is signed and a firmwar=
-e<br>
-&gt; with bad or unsigned keys will fail to load on these devices. Now how<=
-br>
-&gt; much we are willing to trust that is entirely different question.<br>
-&gt;<br>
-&gt; Any solution needs to comprehend that additional signing might be<br>
-&gt; present.</p>
-<p dir=3D"ltr">I see device-verified signatures as orthogonal: the kernel l=
-oads a blob, optionally verifies the blob, and that blob just happens to co=
-ntain a signature.</p>
-<p dir=3D"ltr">--Andy<br>
-</p>
+> I see device-verified signatures as orthogonal: the kernel loads a
+> blob, optionally verifies the blob, and that blob just happens to
+> contain a signature.
 
---001a11c00088e8b3b50539df61c9--
+To a certain extent yes. If you *know* the device will check the
+signature then you might not bother. Then again, this stuff is often
+fairly opaque and the device *might* not check for itself in some
+circumstances (prototype hardware, debug modes, etc.) so if there *is*
+a signature and *if* it isn't just part of an opaque blob, then it
+might make some sense to validate it for ourselves too.
+
+--=20
+dwmw2
+
+
+
+--=-jptIhvJ1AIVRZVz0MQkZ
+Content-Type: application/x-pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEeAw
+ggXiMIIDyqADAgECAhBrp4p9CteI1lEK+Vnk57ThMA0GCSqGSIb3DQEBCwUAMH0xCzAJBgNVBAYT
+AklMMRYwFAYDVQQKEw1TdGFydENvbSBMdGQuMSswKQYDVQQLEyJTZWN1cmUgRGlnaXRhbCBDZXJ0
+aWZpY2F0ZSBTaWduaW5nMSkwJwYDVQQDEyBTdGFydENvbSBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0
+eTAeFw0xNTEyMTYwMTAwMDVaFw0zMDEyMTYwMTAwMDVaMHUxCzAJBgNVBAYTAklMMRYwFAYDVQQK
+Ew1TdGFydENvbSBMdGQuMSkwJwYDVQQLEyBTdGFydENvbSBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0
+eTEjMCEGA1UEAxMaU3RhcnRDb20gQ2xhc3MgMSBDbGllbnQgQ0EwggEiMA0GCSqGSIb3DQEBAQUA
+A4IBDwAwggEKAoIBAQC9fdr3w6J9g/Zbgv3bW1+uHht1wLUZr5gkrLtXedg17AkefMyUGwrQdvwO
+bhajcVmnKVxhrUwkZPXRAwZZosRHfEIi5FH7x6SV/8Sp5lZEuiMnvMFG2MzLA84J6Ws5T4NfXZ0q
+n4TPgnr3X2vPVS51M7Ua9nIJgn8jvTra4eyyQzxvuA/GZwKg7VQfDCmCS+kICslYYWgXOMt2xlsS
+slxLce0CGWRsT8EpMyt1iDflSjXZIsE7m1uTyHaKZspMLyIyz6mySu8j8BWWHpChNNeTrFuhVfrO
+AyDPFJVUvKZCLKBhibTLloyy+LatoWELrjdI4a8StZY8+dIR9t4APXGzAgMBAAGjggFkMIIBYDAO
+BgNVHQ8BAf8EBAMCAQYwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMBIGA1UdEwEB/wQI
+MAYBAf8CAQAwMgYDVR0fBCswKTAnoCWgI4YhaHR0cDovL2NybC5zdGFydHNzbC5jb20vc2ZzY2Eu
+Y3JsMGYGCCsGAQUFBwEBBFowWDAkBggrBgEFBQcwAYYYaHR0cDovL29jc3Auc3RhcnRzc2wuY29t
+MDAGCCsGAQUFBzAChiRodHRwOi8vYWlhLnN0YXJ0c3NsLmNvbS9jZXJ0cy9jYS5jcnQwHQYDVR0O
+BBYEFCSBbDlhvkkPj7cbRivJKLUnSG1oMB8GA1UdIwQYMBaAFE4L7xqkQFulF2mHMMo0aEPQQa7y
+MD8GA1UdIAQ4MDYwNAYEVR0gADAsMCoGCCsGAQUFBwIBFh5odHRwOi8vd3d3LnN0YXJ0c3NsLmNv
+bS9wb2xpY3kwDQYJKoZIhvcNAQELBQADggIBAIvj94fsAYuErQ8BAluc4SMnIwS9NPBwAm5SH9uh
+2NCXTq7im61g7F1LIiNI/+wq37fUuaMbz4g7VarKQTgf8ubs0p7NZWcIe7Bvem2AWaXBsxsaRTYw
+5kG3DN8pd1hSEUuFoTa7DmNeFe8tiK1BrL3rbA/m48jp4AiFXgvxprJrW7izsyetOrRHPbkW4Y07
+v29MdhaPv3u1JELyszXqOzjIYo4sWlC8iDQXwgSW/ntvWy2n4LuiaozlCfXl149tKeqvwlvrla2Y
+klue/quWp9j9ou4T/OY0CXMuY+B8wNK0ohd2D4ShgFlMSjzAFRoHGKF81snTr2d1A7Ew02oF6UQy
+CkC2aNNsK5cWOojBar5c7HplX9aHYUCZouxIeU28SONJAxnATgR4cJ2jrpmYSz/kliUJ46S6UpVD
+o/ebn9c6PaM/XtDYCCaM/7XX6wc3s++sbQ7CtCn1Ax7df6ufQbwyO0V+oFa9H0KAsjHMzcwk3EV2
+B2NLatidKE/m7G+rB9m+FlVgIiSp0mGlg43QO9Kh1+JqvTCIzv2bJJkmPMLQJNuKKwHNL8F4GGp6
+jbAV+WL+LDeGfVcq8DHS3LrD+xyYEXQBiqZEdiPVOMxLDSUCXsDO0uCWpaNQ8j6y6S9p0xE/Ga0p
+eVLadVHhqf9nXqKaxnr358VgfrxzUIrvOaOjMIIF+TCCBOGgAwIBAgIQaRjuleoVgt0XsPAUByve
+JDANBgkqhkiG9w0BAQsFADB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRkLjEp
+MCcGA1UECxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNVBAMTGlN0YXJ0
+Q29tIENsYXNzIDEgQ2xpZW50IENBMB4XDTE2MDMxMjE2MjEyNVoXDTE3MDMxMjE2MjEyNVowQjEc
+MBoGA1UEAwwTZHdtdzJAaW5mcmFkZWFkLm9yZzEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFk
+ZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBANBDAiGnoeOIQJ/Aolutct4z
+x6Yt3dOUI5d0YnydAMNOiyVLXzHuuuVjUpk/6nRxg1FN3e0i3TWe5MjSTD98760qWoAuF2g5BGU+
+tN/GUsyws26ZWOt82w7xhn4dcI8EhmASUtwDTZs5ZXPQzSkuNs6uX5SY0eKPlBNHkAtMf39hNc4m
+liy6WRDKApZxA1vCbiHsJQZdNEBYO35022bu8PZBe6LSAFKoncoGMHl1xNEkN6kfOJFYnLqBYeXO
+2mDA8KZ4h15EnQyyHGSghN92OUTc9stAWEt9a+q6TCtyW5zNgYTaaOtE41t5x2xDAgsnNU7sVM8f
+wSR3tYeW9IqTgU6eDUllb1a9FK7es3+j9UDg7OxNv9rnXIda6TdXlGWYfFltujF7FMwTofq3UG7t
+w68Ugk0MMfpZadhPhjYLI/qXiEDgQi8Xr+eWSo5P0ygaLvAz8OPcWAt8RG5Y8Id9hpb5neW1HTAR
+Q+k8lbpkx2wDPHZEft0ITROOupf76f9CNF4jYcyCKZNnjSsKeJv69VX1TsVaeqT1LJUEudXLa/BK
+FSb7x5M1KF4z46yImJrnagI19Nk/ufWn1usBXqXh8pY8cVN/I7C+TDPBY5SqIceTq7DaHZp19JQU
+IIWlyRsm2d4UoVcgIdTjX57Odap4Pjzrfp2RmC6hvkW2hQ5EreIPAgMBAAGjggG2MIIBsjAOBgNV
+HQ8BAf8EBAMCBLAwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMAkGA1UdEwQCMAAwHQYD
+VR0OBBYEFBDmK2IjZJ7MKmBK0A7J/tKaSIdoMB8GA1UdIwQYMBaAFCSBbDlhvkkPj7cbRivJKLUn
+SG1oMG8GCCsGAQUFBwEBBGMwYTAkBggrBgEFBQcwAYYYaHR0cDovL29jc3Auc3RhcnRzc2wuY29t
+MDkGCCsGAQUFBzAChi1odHRwOi8vYWlhLnN0YXJ0c3NsLmNvbS9jZXJ0cy9zY2EuY2xpZW50MS5j
+cnQwOAYDVR0fBDEwLzAtoCugKYYnaHR0cDovL2NybC5zdGFydHNzbC5jb20vc2NhLWNsaWVudDEu
+Y3JsMB4GA1UdEQQXMBWBE2R3bXcyQGluZnJhZGVhZC5vcmcwIwYDVR0SBBwwGoYYaHR0cDovL3d3
+dy5zdGFydHNzbC5jb20vMEYGA1UdIAQ/MD0wOwYLKwYBBAGBtTcBAgQwLDAqBggrBgEFBQcCARYe
+aHR0cDovL3d3dy5zdGFydHNzbC5jb20vcG9saWN5MA0GCSqGSIb3DQEBCwUAA4IBAQAn5wvdgC0V
+kS226sFKAbqPnmVhc9jgrbsiXUcpdtYEzv6EZonARIeRC1UlIzK7jzZFRe95W5y4/qlcPQDoAeZL
+cSsbpW3AYPFFWdRgVp/eIR3iy9C5KEcAbkJES2lRUZWyRqAceW1Gur9kfvjM5H0kM6BBwJfCtoqo
+WragTXfsIXGNsF0F+60mUYYsKFPZzPmyz9J0Dr0xx9Lcp4fbD6UckDWCNJt2AJAiEPt/vPiiBzU8
+edaRzkYhzxd9f3pZAzhlzIf2CgTrGtKSL2X1bS/b3siREjQLhVrlGw4qxqllqER3APrDzyijLFuc
+CWpS8hxjTmYcNZSibv+3Oy6uU+wqMIIF+TCCBOGgAwIBAgIQaRjuleoVgt0XsPAUByveJDANBgkq
+hkiG9w0BAQsFADB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRkLjEpMCcGA1UE
+CxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNVBAMTGlN0YXJ0Q29tIENs
+YXNzIDEgQ2xpZW50IENBMB4XDTE2MDMxMjE2MjEyNVoXDTE3MDMxMjE2MjEyNVowQjEcMBoGA1UE
+AwwTZHdtdzJAaW5mcmFkZWFkLm9yZzEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
+ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBANBDAiGnoeOIQJ/Aolutct4zx6Yt3dOU
+I5d0YnydAMNOiyVLXzHuuuVjUpk/6nRxg1FN3e0i3TWe5MjSTD98760qWoAuF2g5BGU+tN/GUsyw
+s26ZWOt82w7xhn4dcI8EhmASUtwDTZs5ZXPQzSkuNs6uX5SY0eKPlBNHkAtMf39hNc4mliy6WRDK
+ApZxA1vCbiHsJQZdNEBYO35022bu8PZBe6LSAFKoncoGMHl1xNEkN6kfOJFYnLqBYeXO2mDA8KZ4
+h15EnQyyHGSghN92OUTc9stAWEt9a+q6TCtyW5zNgYTaaOtE41t5x2xDAgsnNU7sVM8fwSR3tYeW
+9IqTgU6eDUllb1a9FK7es3+j9UDg7OxNv9rnXIda6TdXlGWYfFltujF7FMwTofq3UG7tw68Ugk0M
+MfpZadhPhjYLI/qXiEDgQi8Xr+eWSo5P0ygaLvAz8OPcWAt8RG5Y8Id9hpb5neW1HTARQ+k8lbpk
+x2wDPHZEft0ITROOupf76f9CNF4jYcyCKZNnjSsKeJv69VX1TsVaeqT1LJUEudXLa/BKFSb7x5M1
+KF4z46yImJrnagI19Nk/ufWn1usBXqXh8pY8cVN/I7C+TDPBY5SqIceTq7DaHZp19JQUIIWlyRsm
+2d4UoVcgIdTjX57Odap4Pjzrfp2RmC6hvkW2hQ5EreIPAgMBAAGjggG2MIIBsjAOBgNVHQ8BAf8E
+BAMCBLAwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMAkGA1UdEwQCMAAwHQYDVR0OBBYE
+FBDmK2IjZJ7MKmBK0A7J/tKaSIdoMB8GA1UdIwQYMBaAFCSBbDlhvkkPj7cbRivJKLUnSG1oMG8G
+CCsGAQUFBwEBBGMwYTAkBggrBgEFBQcwAYYYaHR0cDovL29jc3Auc3RhcnRzc2wuY29tMDkGCCsG
+AQUFBzAChi1odHRwOi8vYWlhLnN0YXJ0c3NsLmNvbS9jZXJ0cy9zY2EuY2xpZW50MS5jcnQwOAYD
+VR0fBDEwLzAtoCugKYYnaHR0cDovL2NybC5zdGFydHNzbC5jb20vc2NhLWNsaWVudDEuY3JsMB4G
+A1UdEQQXMBWBE2R3bXcyQGluZnJhZGVhZC5vcmcwIwYDVR0SBBwwGoYYaHR0cDovL3d3dy5zdGFy
+dHNzbC5jb20vMEYGA1UdIAQ/MD0wOwYLKwYBBAGBtTcBAgQwLDAqBggrBgEFBQcCARYeaHR0cDov
+L3d3dy5zdGFydHNzbC5jb20vcG9saWN5MA0GCSqGSIb3DQEBCwUAA4IBAQAn5wvdgC0VkS226sFK
+AbqPnmVhc9jgrbsiXUcpdtYEzv6EZonARIeRC1UlIzK7jzZFRe95W5y4/qlcPQDoAeZLcSsbpW3A
+YPFFWdRgVp/eIR3iy9C5KEcAbkJES2lRUZWyRqAceW1Gur9kfvjM5H0kM6BBwJfCtoqoWragTXfs
+IXGNsF0F+60mUYYsKFPZzPmyz9J0Dr0xx9Lcp4fbD6UckDWCNJt2AJAiEPt/vPiiBzU8edaRzkYh
+zxd9f3pZAzhlzIf2CgTrGtKSL2X1bS/b3siREjQLhVrlGw4qxqllqER3APrDzyijLFucCWpS8hxj
+TmYcNZSibv+3Oy6uU+wqMYIEXjCCBFoCAQEwgYkwdTELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0
+YXJ0Q29tIEx0ZC4xKTAnBgNVBAsTIFN0YXJ0Q29tIENlcnRpZmljYXRpb24gQXV0aG9yaXR5MSMw
+IQYDVQQDExpTdGFydENvbSBDbGFzcyAxIENsaWVudCBDQQIQaRjuleoVgt0XsPAUByveJDANBglg
+hkgBZQMEAgEFAKCCAaUwGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcN
+MTYwODEyMTMwMDA3WjAvBgkqhkiG9w0BCQQxIgQg8bYrIacTLBxYo/PiUNhzBU1a5yjisfeMYa0t
+TZrFV+swgZoGCSsGAQQBgjcQBDGBjDCBiTB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRD
+b20gTHRkLjEpMCcGA1UECxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNV
+BAMTGlN0YXJ0Q29tIENsYXNzIDEgQ2xpZW50IENBAhBpGO6V6hWC3Rew8BQHK94kMIGcBgsqhkiG
+9w0BCRACCzGBjKCBiTB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRkLjEpMCcG
+A1UECxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNVBAMTGlN0YXJ0Q29t
+IENsYXNzIDEgQ2xpZW50IENBAhBpGO6V6hWC3Rew8BQHK94kMA0GCSqGSIb3DQEBAQUABIICAJxw
+cSATD3CH4Nk4Xs6F2WhJGPCAdQdYFWYeXQxb0haaKMi0xiNAX04gP9xTu5VlAX/yEavPt4ty7mfy
+5m+xB5AZRfvgxt2kM2NwLoDlIlws+ZUaSnluPUU9Dn1ZxDIUNcwJTm3Tsdkj98SwsONj5FeyHVVL
+rkalDVX0chriX4rHsbrf1k8nENaNTnySef8a7S6VoX9Bzjx788cc+zCnLGt9uRUkV3Ufgmoq3AkJ
+87JPsIHgdle3J4Vv6doPHBcH1zgGHzXAMBWIMb8I8EJgBobTbH91qsBjp2OZnJf444a7ABqJ5PCs
+BSQLULz7ZH0TsOldYJh6Nam68EO66nAIh6IwmJcCy01+5Plw8mhfNRGG1tK6TJrf86ozJ8CgLTMv
+egFqSLcjlKG+uZ0ri4t8/ygKmhJsVBeff4avX53FxCTJdzDrqo23ya88RtCBUWFSA9BCxBWiKWS2
+duZRvDBLecCvBo4pFL0tdqVRdgBo+qO4GHUr0++zLhQnMtXAgJGgPj01hleS1iUf26hR+xePsh4m
+XzSZCxV0LAsXZ1hNZX9Euy7ch0eaQThqQgtMBO8nIpxlX2++HL9GNeDnIHO6fpCMWNJBxw/4Krd2
+kYDWCnAdBtI7TXLo3FVp04Z8a0v6tG4owrlHH7kjksRAXgCAErz2nXHi5vbXnoxnro6bIYgHAAAA
+AAAA
+
+
+--=-jptIhvJ1AIVRZVz0MQkZ--
