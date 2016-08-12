@@ -1,37 +1,33 @@
-Return-Path: <sboyd@codeaurora.org>
+Return-Path: <willy6545@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 85BD3722
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D210F71
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 12 Aug 2016 01:29:53 +0000 (UTC)
-Received: from smtp.codeaurora.org (smtp.codeaurora.org [198.145.29.96])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 27877120
+	Fri, 12 Aug 2016 03:51:54 +0000 (UTC)
+Received: from mail-ua0-f196.google.com (mail-ua0-f196.google.com
+	[209.85.217.196])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 54233210
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 12 Aug 2016 01:29:53 +0000 (UTC)
-To: Rob Herring <robherring2@gmail.com>, "Bird, Timothy" <Tim.Bird@am.sony.com>
+	Fri, 12 Aug 2016 03:51:54 +0000 (UTC)
+Received: by mail-ua0-f196.google.com with SMTP id d97so1172473uad.1
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 11 Aug 2016 20:51:54 -0700 (PDT)
+MIME-Version: 1.0
+In-Reply-To: <20160811154429.GB4134@mwanda>
 References: <87inw1skws.fsf@x220.int.ebiederm.org>
 	<25598.1469113525@warthog.procyon.org.uk>
 	<18158a39-1297-7368-3c0e-3e9b3ce2c3ab@suse.com>
 	<alpine.DEB.2.10.1607220808110.3114@hadrien>
 	<b3390bd5-eb54-428a-3030-1d7289880d47@suse.com>
-	<1469533716.120686.281.camel@infradead.org>
-	<alpine.DEB.2.10.1607271439250.3117@hadrien>
-	<1469625916.27356.18.camel@HansenPartnership.com>
-	<1469626423.120686.408.camel@infradead.org>
-	<ECADFF3FD767C149AD96A924E7EA6EAF053B96B4@USCULXMSG02.am.sony.com>
-	<CAL_Jsq+dodMDAS4M=CZxjbB5gU7+qUT0XEKgeDQeGN_u4SYkwg@mail.gmail.com>
-From: Stephen Boyd <sboyd@codeaurora.org>
-Message-ID: <9cd47df8-a122-228d-4be5-9c08cb608139@codeaurora.org>
-Date: Thu, 11 Aug 2016 18:29:51 -0700
-MIME-Version: 1.0
-In-Reply-To: <CAL_Jsq+dodMDAS4M=CZxjbB5gU7+qUT0XEKgeDQeGN_u4SYkwg@mail.gmail.com>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 7bit
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+	<20160811154429.GB4134@mwanda>
+From: Matthew Wilcox <willy6545@gmail.com>
+Date: Thu, 11 Aug 2016 23:51:52 -0400
+Message-ID: <CAFhKne_cK9edpgufMTaRJ7zdpJaiNoJqOzPsZ2wBaAhCjMHm4Q@mail.gmail.com>
+To: Dan Carpenter <dan.carpenter@oracle.com>
+Content-Type: multipart/alternative; boundary=001a11439cbc978b0b0539d7cdff
+Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] More useful types in the linux
- kernel
+	kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,26 +37,61 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 08/01/2016 03:17 PM, Rob Herring wrote:
-> On Wed, Jul 27, 2016 at 12:21 PM, Bird, Timothy <Tim.Bird@am.sony.com> wrote:
->>
->> It might be useful to have a list of possible errno generation points, for a particular routine,
->> to make it easier to find the origin of a problem.  Sometimes when you're unfamiliar with
->> some bit of code, manually walking back through the call chain in the source is a hassle.
->> I'm reminded of that trick where someone (I don't recall who) embedded the line number
->> in the errno.
-> I'd be interested if you could find what you are referring to. 
+--001a11439cbc978b0b0539d7cdff
+Content-Type: text/plain; charset=UTF-8
 
-Hugh Dickins:
+On Aug 11, 2016 8:44 AM, "Dan Carpenter" <dan.carpenter@oracle.com> wrote:
+> I need these manual fixes when not knowing the error code causes
+> problems because a function does this:
+>         if (ret)
+>                 return ret;
+> But the caller does:
+>         if (ret < 0)
+>                 return ret;
+> There is a mismatch because Smatch thinks any non-zero is an error but
+> the caller knows only negatives are errors.
 
-#undef EINVAL
-#define EINVAL __LINE__
+Can we introduce types for this? We have a number of different return type
+conventions in the kernel:
 
-https://lwn.net/Articles/614446/
+bool
+errno_t (-4095 to 0 are valid)
+count_t (-4095 to INT_MAX)
+long_count_t (-4095 to LONG_MAX)
+ulong_count_t (-4095 to -4096)
+struct foo _err*
 
-Although it may not work well for error pointers as Linus stated in the
-follow up mail.
+I think this is good programmer documentation in addition to being
+potentially useful to smatch.
 
--- 
-Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
-a Linux Foundation Collaborative Project
+--001a11439cbc978b0b0539d7cdff
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<p dir=3D"ltr">On Aug 11, 2016 8:44 AM, &quot;Dan Carpenter&quot; &lt;<a hr=
+ef=3D"mailto:dan.carpenter@oracle.com">dan.carpenter@oracle.com</a>&gt; wro=
+te:<br>
+&gt; I need these manual fixes when not knowing the error code causes<br>
+&gt; problems because a function does this:<br>
+&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (ret)<br>
+&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return ret;<br=
+>
+&gt; But the caller does:<br>
+&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (ret &lt; 0)<br>
+&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return ret;<br=
+>
+&gt; There is a mismatch because Smatch thinks any non-zero is an error but=
+<br>
+&gt; the caller knows only negatives are errors.</p>
+<p dir=3D"ltr">Can we introduce types for this? We have a number of differe=
+nt return type conventions in the kernel:</p>
+<p dir=3D"ltr">bool<br>
+errno_t (-4095 to 0 are valid)<br>
+count_t (-4095 to INT_MAX)<br>
+long_count_t (-4095 to LONG_MAX)<br>
+ulong_count_t (-4095 to -4096)<br>
+struct foo _err*</p>
+<p dir=3D"ltr">I think this is good programmer documentation in addition to=
+ being potentially useful to smatch.</p>
+
+--001a11439cbc978b0b0539d7cdff--
