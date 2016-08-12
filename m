@@ -1,22 +1,21 @@
 Return-Path: <neilb@suse.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 501C92C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 95543413
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 12 Aug 2016 06:23:47 +0000 (UTC)
+	Fri, 12 Aug 2016 06:23:59 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8890C79
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 157F7FC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 12 Aug 2016 06:23:46 +0000 (UTC)
+	Fri, 12 Aug 2016 06:23:58 +0000 (UTC)
 From: NeilBrown <neilb@suse.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Date: Fri, 12 Aug 2016 16:23:37 +1000
-In-Reply-To: <20160812082417-mutt-send-email-mst@kernel.org>
+To: "Michael S. Tsirkin" <mst@redhat.com>,
+	"Eric W. Biederman" <ebiederm@xmission.com>
+Date: Fri, 12 Aug 2016 16:23:50 +1000
+In-Reply-To: <20160812044211.xysb3larocxob342@redhat.com>
 References: <87inw1skws.fsf@x220.int.ebiederm.org>
 	<20160812044211.xysb3larocxob342@redhat.com>
-	<871t1ulfvz.fsf@notabene.neil.brown.name>
-	<20160812082417-mutt-send-email-mst@kernel.org>
-Message-ID: <87wpjmjyja.fsf@notabene.neil.brown.name>
+Message-ID: <87vaz6jyix.fsf@notabene.neil.brown.name>
 MIME-Version: 1.0
 Content-Type: multipart/signed; boundary="=-=-=";
 	micalg=pgp-sha256; protocol="application/pgp-signature"
@@ -38,104 +37,33 @@ Content-Transfer-Encoding: quoted-printable
 
 On Fri, Aug 12 2016, Michael S. Tsirkin wrote:
 
-> On Fri, Aug 12, 2016 at 03:23:28PM +1000, NeilBrown wrote:
->> On Fri, Aug 12 2016, Michael S. Tsirkin wrote:
+> On Tue, Jul 19, 2016 at 10:32:51AM -0500, Eric W. Biederman wrote:
+>> I would really like to get a feel among kernel maintainers and
+>> developers if this is something that is interesting, and what kind of
+>> constraints they think something like this would need to be usable for
+>> the kernel?
 >>=20
->> > On Tue, Jul 19, 2016 at 10:32:51AM -0500, Eric W. Biederman wrote:
->> >> I would really like to get a feel among kernel maintainers and
->> >> developers if this is something that is interesting, and what kind of
->> >> constraints they think something like this would need to be usable for
->> >> the kernel?
->> >>=20
->> >> Eric
->> >
->> > Surprised that no one mentioned this yet - I think tagging
->> > integers/structs as coming from userspace could be useful,
->> > if we can teach e.g. smatch that access to a kernel
->> > pointer through this offset might fault.
->>=20
->> We already have that.
->> Sparse recognizes
->>     __attribute__((noderef, address_space(1)))
->>  to mean "this is a pointer to a different address space which
->>  cannot be dereferened" and linux has
->>=20
->> # define __user                __attribute__((noderef, address_space(1)))
->>=20
->> so if you mark a pointer as "__user", then sparse will complain
->> if you dereference it.
->>=20
->> We've had this for over a decade :-)
->>=20
->>   https://lwn.net/Articles/87538/
->>=20
->> NeilBrown
+>> Eric
 >
->
-> Of course, everyone uses these.  But what I mean is tagging index types:
->
-> 	int data[256];
->
-> 	int foo(u32 __user *ptr)
-> 	{
-> 		u32 i;
-> 		if (get_user(i, ptr))
-> 			return -EFAULT;
->
-> 		data[i] =3D 0;
-> 			^^^ security vulnerability
->
-> 	}
->
-> Above, i is coming from userspace and so must always be range-checked
-> before it's used as an index.
+> Surprised that no one mentioned this yet - I think tagging
+> integers/structs as coming from userspace could be useful,
+> if we can teach e.g. smatch that access to a kernel
+> pointer through this offset might fault.
 
-Ahhh, I see.  Thanks spelling it out for me.
+We already have that.
+Sparse recognizes
+    __attribute__((noderef, address_space(1)))
+ to mean "this is a pointer to a different address space which
+ cannot be dereferened" and linux has
 
+# define __user                __attribute__((noderef, address_space(1)))
 
->
-> Maybe we could change get_user return a tagged result: __from_user int.
-> And have above warn because __from_user can not be assigned to plain
-> int.
->
-> Then rework the code along the following lines:
->
->
-> 	int data[256];
->
-> 	int force_range(__unsafe u32 value, unsigned idx)
-> 	{
-> 		return ((__force int)value) % idx;
-> 	}
->
-> 	int foo(u32 __user *ptr)
-> 	{
-> 		__unsafe u32 i;
-> 		int ichecked;
-> 		if (get_user(i, ptr))
-> 			return -EFAULT;
->
-> 		ichecked =3D force_range(i, sizeof data);
-> 		data[ichecked] =3D 0;
-> 			^^^ ok now
->
-> 	}
+so if you mark a pointer as "__user", then sparse will complain
+if you dereference it.
 
-You could probably do this today using __attribute__((bitwise))
+We've had this for over a decade :-)
 
-typedef int __attribute__((bitwise)) unsafe32;
-
-Then use "unsafe32" wherever you have "__unsafe u32".
-
-When you try
-
-  data[i] =3D 0;
-
-sparse says "warning: restricted int degrades to integer"
-
-Of course, changing all the code would be a pain.
-I guess you introduce "get_safe_user" then gradually transition code
-over.
+  https://lwn.net/Articles/87538/
 
 NeilBrown
 
@@ -145,18 +73,18 @@ Content-Type: application/pgp-signature; name="signature.asc"
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAEBCAAGBQJXrWtpAAoJEDnsnt1WYoG5xcoP/1g1IBzXtMwHSmgrKGpDIyBl
-5CNj2KIEKNg4chSWtPILvcg6+f3n+L4+OV/RW6mXZLIZBuMoQajM1vFglGtLzbH1
-bcwEAZxdh8Yhx8h9bE5E0Lil3WKFYd/T2uwquqxJsWwaLnIVP5Hn8y1jUe+VhmBt
-bRH7ACjC8NqrPOK94Td7dQpRFPRPOc5pGDnekzo70V/unsVhc0Pqt5D4b6LfPmSg
-RQBIMaAiRsI4hy5xE2Eb032yV1LOUXbCZ9Zl/cYEgqutUXKyYWiPc+sk8RZPqney
-+4Scp2+XbCGaqhtI3zhmlnyNot86mhFQABQVsICDnw5vaSuQM/kwG3z1k5LbOFR3
-bAGylruGCDHhaWxpRQ/qTqlPPwKrKRbriJyVEgdFHVkZJ8d5bTSuJu4yCO1hS4rc
-VM3qyYpcHftu3+lmQpqMzqYlm8gNvIEBjMh5DLjxPtoAw7UODXbOanYLJT+1LFQf
-ztCKQZU1HN4bkMbKA/FQnG+pdY4pvAFoaOvV7tOL2fXmgkV1SOcbVQKQ7Ivp2xND
-Q35GkJWxESdlLQg3iEMa4rTAzFxnurbVN0pg7wnIXdZgNKNq/AiRT54IWfY3HiyT
-f+hxyH0BQY7FFHC+Uq41rUOvBkIJH7n7CApxryF/yJolu1Ye0f6HZZNQAsU74jgS
-agKA0BP/uwuXArriNs7R
-=N3mq
+iQIcBAEBCAAGBQJXrWt2AAoJEDnsnt1WYoG50QUQALkAnCG/8jTSKbD7nkxE5Ius
+QK2kBySKR1a36NNWikrT5VgklF73jmF0Wr3GvFB9Km/6rIEqYjNP2msP+J9k2ePB
+w8+ZHJnD3c5wFq0VF3d3Mb/2dfRVY97pXw23wqG9JSdY0M4fxzAMEBUprbD6IijP
+CXkoCjEFY7jIbF+vaCTzOUeyETcjz2MnCyawCNG/g+7dmLYrpGObFR46wb4pbBJx
+Rk9oR5OslXAyr2zhjX1GsDzNDPLa+G4O35ruv+GWZuL4bSAewCW1H7TcvC49E6at
+/HiKRPNd+RfV7JfjAVgRiW9RBPpsw90zpkMOoXwj3VY04PdBwpdiDOgQvRVErY1W
+rYgoI3vIplSBwno8uXVil13JFnjVrF0JbRrV5jWPCqNr7N9jgSM3OFqExU3sUFA9
+M6XlQTuY48cvBX15YoAqmRTzs8lkPVqT+N8w1e0W/EgAbSGa3GMt6y57rbEQHI53
+A/ZV8wQsOZy8kHdyh/djz5UbXtkXPVfY3ZK81fAnN2kgKra2XdKqAmCilt3aIQ1/
+4ILRueuc0wKAExHKlDUAguXO1QqoMi/rtOsZyKiSGRSIZezYa/7LalYK26t4faqs
+Ub2VBX+MhSZX+72MTySgymC5LfRXMKxmdGI83Z9iT3LlgQLSoX71T5JDIgGgxMNI
+nN5kEMu3ydNimUwssd4+
+=5NRq
 -----END PGP SIGNATURE-----
 --=-=-=--
