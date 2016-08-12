@@ -1,29 +1,30 @@
-Return-Path: <dan.carpenter@oracle.com>
+Return-Path: <neilb@suse.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1BD4F71
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8DD872C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 11 Aug 2016 15:44:49 +0000 (UTC)
-Received: from userp1040.oracle.com (userp1040.oracle.com [156.151.31.81])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F3F6022A
+	Fri, 12 Aug 2016 00:38:46 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1DB4515D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 11 Aug 2016 15:44:47 +0000 (UTC)
-Date: Thu, 11 Aug 2016 18:44:29 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Hannes Reinecke <hare@suse.com>
-Message-ID: <20160811154429.GB4134@mwanda>
+	Fri, 12 Aug 2016 00:38:46 +0000 (UTC)
+From: NeilBrown <neilb@suse.com>
+To: Dan Carpenter <dan.carpenter@oracle.com>, Hannes Reinecke <hare@suse.com>
+Date: Fri, 12 Aug 2016 10:38:35 +1000
+In-Reply-To: <20160811154429.GB4134@mwanda>
 References: <87inw1skws.fsf@x220.int.ebiederm.org>
 	<25598.1469113525@warthog.procyon.org.uk>
 	<18158a39-1297-7368-3c0e-3e9b3ce2c3ab@suse.com>
 	<alpine.DEB.2.10.1607220808110.3114@hadrien>
 	<b3390bd5-eb54-428a-3030-1d7289880d47@suse.com>
+	<20160811154429.GB4134@mwanda>
+Message-ID: <87d1lelt2s.fsf@notabene.neil.brown.name>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b3390bd5-eb54-428a-3030-1d7289880d47@suse.com>
+Content-Type: multipart/signed; boundary="=-=-=";
+	micalg=pgp-sha256; protocol="application/pgp-signature"
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] More useful types in the linux
- kernel
+	kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,67 +34,72 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 22, 2016 at 03:57:40PM +0200, Hannes Reinecke wrote:
-> > 
-> > I guess that almost all functions return only a few possible error codes?
-> 
-> Precisely. If we had a way of specifying "the return value is an errno
-> with the possible values '0', '-EIO', and '-EINVAL'" that would be
-> _so_ cool.
+--=-=-=
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
 
-I think that's a bad idea.  We should be propagating errors from the
-functions we call.  It should be able to change without breaking.
+On Fri, Aug 12 2016, Dan Carpenter wrote:
 
-Smatch does a pretty good job of tracking return values, especially
-if you rebuild the database over and over once a day like I do.
+> On Fri, Jul 22, 2016 at 03:57:40PM +0200, Hannes Reinecke wrote:
+>> >=20
+>> > I guess that almost all functions return only a few possible error cod=
+es?
+>>=20
+>> Precisely. If we had a way of specifying "the return value is an errno
+>> with the possible values '0', '-EIO', and '-EINVAL'" that would be
+>> _so_ cool.
+>
+> I think that's a bad idea.  We should be propagating errors from the
+> functions we call.  It should be able to change without breaking.
 
-In some places I hack the database manually. For legacy reasons there
-are a couple places that happens but the main way is through this file:
-The format is function, space, old value, space, new value:
+Should we?  I recently faced a bug caused by a (proposed) change to
+btrfs which returned a different error code to the ->fh_to_dentry()
+function. That was being propagated up to nfsd, and out on the wire in
+the NFSv4 protocol.
+Only the new error was invalid for the protocol and the client
+(correctly) reported it to user-space rather than handling it
+internally.
 
-http://repo.or.cz/smatch.git/blob/HEAD:/smatch_data/db/kernel.return_fixes
+This happened because not enough thought/documentation had been given to
+which error codes were sensibly meaningful.  I changed
+exportfs_decode_fh() so that any error other than ENOMEM became ESTALE,
+because that is all nfsd can sensibly handle.
 
-One thing that causes problems for Smatch is recursion.  We don't know
-what the function returns the first time it's called so we record that
-it could return anything.  Then the second time we "know" that it can
-return anything.  So the unknown propagates recursively. Another thing
-that causes problems is when we copy a return value from another thread
-or a work queue.  There are a bunch of places like that where the
-programmer knows the return value is negative but it's hard for static
-analysis.
+I'm sure there are some (many!) paths where error codes should be
+propagated transparently, but I don't think we should assume that is
+always true.
 
-I need these manual fixes when not knowing the error code causes
-problems because a function does this:
-	if (ret)
-		return ret;
-But the caller does:
-	if (ret < 0)
-		return ret;
-There is a mismatch because Smatch thinks any non-zero is an error but
-the caller knows only negatives are errors.
+>
+> Smatch does a pretty good job of tracking return values, especially
+> if you rebuild the database over and over once a day like I do.
 
-The other reason for the file is that we want to record that the
-scnprintf() return value is less than the size parameter.  Ideally, we
-could record that strnlen_user() returns "<= count + 1", but Smatch is
-not flexible enough to do that yet.  These upper bounds are needed to
-prevent integer overflow and buffer overflow warnings.
+So it is OK to keep a list of valid return values in a database, but not
+OK to keep them in the code as documentation, and to alert the
+programmer when they make a change so they can declare (and maybe even
+document) if it was an intentional change?
+Maybe I'm just misunderstanding your point of view.
 
-One thing I get annoyed about is when functions return positive values
-but it's not documented what it means.  For example, ocfs2_plock()
-returns negatives, zero or FILE_LOCK_DEFERRED.  Possibly this is a bug.
-How should I know?  Also em_sti_clock_event_next() should return zero or
--ETIME but it returns zero or one so I think it's buggy.
+Thanks,
+NeilBrown
 
-One last thing, is that it's sometimes impossible to tell when we return
-zero unintentionally vs intentionally.  I'm talking about code like
-this:
-	if (frob_whatever())
-		goto out;
+--=-=-=
+Content-Type: application/pgp-signature; name="signature.asc"
 
-It's a missing error code bug 75% of the time and intentional the other
-25% of the time.  I feel like this should _always_ have a comment next
-to them, just like we _always_ comment /* fall through */ in switch
-statements to note the missing break.
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
 
-regards,
-dan carpenter
+iQIcBAEBCAAGBQJXrRqLAAoJEDnsnt1WYoG5rSgP/iOYe1m7cC2QFPS62lgw0xQh
+IER/jCIirXnvbHCUYxJ170bqKwaVNhGAvAsGOx/H2BUoAt7JV2LLgbdJEi4gWFDF
+uFCv7MNGXkX7+HkjGbQKJSUzFps+SY/YA2r7iH+xtcTbUXQxriNF3wlU42KPiMTs
+bzVkb9Lv4u+s2gef6xjVN4OJD0J0Ik0Y9qVvIRBuznDMf5GbcHsKJF0jyAYU/6qo
+ZGiLAMV5R2VcMNHXCQuaCvUi1UxpKB12HKodtTKyEJ/j6ZfnaMwt3uouI3bn/VUK
+IQ6OTYfSSu7k1yZLRJ+UBo4lFw0+utKw1qFWywGkVCneoP2svrh1COvwoeKOuoGL
+7FymxZa3vVl10q3DI4r9+mapNlHFHOoU6HpqhKjXfqD+rXGW8IZg2FsrbX3NXDjT
+JPyWfAZaqcmhiwRi/Y8yCNbv69/S89eX+FT0eUUo5LG/XJrymFmmyHMxvTm5sHiw
+4/WDP1Hz9c/1n10odQ4YHa+HyB3qEzqM9ghQKFl3/TmvlbUR+1djEOBHnv44K2B7
+6o+hXtWooz3VPeUE8G/AzFIhN9X4U9PLreEXa2lvNZ1be5W95IoSA5HDjhH+75G+
+tJin1MU8hARvtJi0of/fK/0/9D72ciMaSpKZE73wfvMP/vIX/L0n+g8/7Xzbqi60
+CwCqlEiHgII/bXQn3dwn
+=yBr/
+-----END PGP SIGNATURE-----
+--=-=-=--
