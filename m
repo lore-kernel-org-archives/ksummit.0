@@ -1,30 +1,37 @@
-Return-Path: <neilb@suse.de>
+Return-Path: <sboyd@codeaurora.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8DD872C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 85BD3722
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 12 Aug 2016 00:38:46 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1DB4515D
+	Fri, 12 Aug 2016 01:29:53 +0000 (UTC)
+Received: from smtp.codeaurora.org (smtp.codeaurora.org [198.145.29.96])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 27877120
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 12 Aug 2016 00:38:46 +0000 (UTC)
-From: NeilBrown <neilb@suse.com>
-To: Dan Carpenter <dan.carpenter@oracle.com>, Hannes Reinecke <hare@suse.com>
-Date: Fri, 12 Aug 2016 10:38:35 +1000
-In-Reply-To: <20160811154429.GB4134@mwanda>
+	Fri, 12 Aug 2016 01:29:53 +0000 (UTC)
+To: Rob Herring <robherring2@gmail.com>, "Bird, Timothy" <Tim.Bird@am.sony.com>
 References: <87inw1skws.fsf@x220.int.ebiederm.org>
 	<25598.1469113525@warthog.procyon.org.uk>
 	<18158a39-1297-7368-3c0e-3e9b3ce2c3ab@suse.com>
 	<alpine.DEB.2.10.1607220808110.3114@hadrien>
 	<b3390bd5-eb54-428a-3030-1d7289880d47@suse.com>
-	<20160811154429.GB4134@mwanda>
-Message-ID: <87d1lelt2s.fsf@notabene.neil.brown.name>
+	<1469533716.120686.281.camel@infradead.org>
+	<alpine.DEB.2.10.1607271439250.3117@hadrien>
+	<1469625916.27356.18.camel@HansenPartnership.com>
+	<1469626423.120686.408.camel@infradead.org>
+	<ECADFF3FD767C149AD96A924E7EA6EAF053B96B4@USCULXMSG02.am.sony.com>
+	<CAL_Jsq+dodMDAS4M=CZxjbB5gU7+qUT0XEKgeDQeGN_u4SYkwg@mail.gmail.com>
+From: Stephen Boyd <sboyd@codeaurora.org>
+Message-ID: <9cd47df8-a122-228d-4be5-9c08cb608139@codeaurora.org>
+Date: Thu, 11 Aug 2016 18:29:51 -0700
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="=-=-=";
-	micalg=pgp-sha256; protocol="application/pgp-signature"
-Cc: ksummit-discuss@lists.linuxfoundation.org
+In-Reply-To: <CAL_Jsq+dodMDAS4M=CZxjbB5gU7+qUT0XEKgeDQeGN_u4SYkwg@mail.gmail.com>
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: 7bit
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] More useful types in the linux
-	kernel
+ kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,72 +41,26 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---=-=-=
-Content-Type: text/plain
-Content-Transfer-Encoding: quoted-printable
+On 08/01/2016 03:17 PM, Rob Herring wrote:
+> On Wed, Jul 27, 2016 at 12:21 PM, Bird, Timothy <Tim.Bird@am.sony.com> wrote:
+>>
+>> It might be useful to have a list of possible errno generation points, for a particular routine,
+>> to make it easier to find the origin of a problem.  Sometimes when you're unfamiliar with
+>> some bit of code, manually walking back through the call chain in the source is a hassle.
+>> I'm reminded of that trick where someone (I don't recall who) embedded the line number
+>> in the errno.
+> I'd be interested if you could find what you are referring to. 
 
-On Fri, Aug 12 2016, Dan Carpenter wrote:
+Hugh Dickins:
 
-> On Fri, Jul 22, 2016 at 03:57:40PM +0200, Hannes Reinecke wrote:
->> >=20
->> > I guess that almost all functions return only a few possible error cod=
-es?
->>=20
->> Precisely. If we had a way of specifying "the return value is an errno
->> with the possible values '0', '-EIO', and '-EINVAL'" that would be
->> _so_ cool.
->
-> I think that's a bad idea.  We should be propagating errors from the
-> functions we call.  It should be able to change without breaking.
+#undef EINVAL
+#define EINVAL __LINE__
 
-Should we?  I recently faced a bug caused by a (proposed) change to
-btrfs which returned a different error code to the ->fh_to_dentry()
-function. That was being propagated up to nfsd, and out on the wire in
-the NFSv4 protocol.
-Only the new error was invalid for the protocol and the client
-(correctly) reported it to user-space rather than handling it
-internally.
+https://lwn.net/Articles/614446/
 
-This happened because not enough thought/documentation had been given to
-which error codes were sensibly meaningful.  I changed
-exportfs_decode_fh() so that any error other than ENOMEM became ESTALE,
-because that is all nfsd can sensibly handle.
+Although it may not work well for error pointers as Linus stated in the
+follow up mail.
 
-I'm sure there are some (many!) paths where error codes should be
-propagated transparently, but I don't think we should assume that is
-always true.
-
->
-> Smatch does a pretty good job of tracking return values, especially
-> if you rebuild the database over and over once a day like I do.
-
-So it is OK to keep a list of valid return values in a database, but not
-OK to keep them in the code as documentation, and to alert the
-programmer when they make a change so they can declare (and maybe even
-document) if it was an intentional change?
-Maybe I'm just misunderstanding your point of view.
-
-Thanks,
-NeilBrown
-
---=-=-=
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJXrRqLAAoJEDnsnt1WYoG5rSgP/iOYe1m7cC2QFPS62lgw0xQh
-IER/jCIirXnvbHCUYxJ170bqKwaVNhGAvAsGOx/H2BUoAt7JV2LLgbdJEi4gWFDF
-uFCv7MNGXkX7+HkjGbQKJSUzFps+SY/YA2r7iH+xtcTbUXQxriNF3wlU42KPiMTs
-bzVkb9Lv4u+s2gef6xjVN4OJD0J0Ik0Y9qVvIRBuznDMf5GbcHsKJF0jyAYU/6qo
-ZGiLAMV5R2VcMNHXCQuaCvUi1UxpKB12HKodtTKyEJ/j6ZfnaMwt3uouI3bn/VUK
-IQ6OTYfSSu7k1yZLRJ+UBo4lFw0+utKw1qFWywGkVCneoP2svrh1COvwoeKOuoGL
-7FymxZa3vVl10q3DI4r9+mapNlHFHOoU6HpqhKjXfqD+rXGW8IZg2FsrbX3NXDjT
-JPyWfAZaqcmhiwRi/Y8yCNbv69/S89eX+FT0eUUo5LG/XJrymFmmyHMxvTm5sHiw
-4/WDP1Hz9c/1n10odQ4YHa+HyB3qEzqM9ghQKFl3/TmvlbUR+1djEOBHnv44K2B7
-6o+hXtWooz3VPeUE8G/AzFIhN9X4U9PLreEXa2lvNZ1be5W95IoSA5HDjhH+75G+
-tJin1MU8hARvtJi0of/fK/0/9D72ciMaSpKZE73wfvMP/vIX/L0n+g8/7Xzbqi60
-CwCqlEiHgII/bXQn3dwn
-=yBr/
------END PGP SIGNATURE-----
---=-=-=--
+-- 
+Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
+a Linux Foundation Collaborative Project
