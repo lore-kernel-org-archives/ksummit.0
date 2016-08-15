@@ -1,28 +1,29 @@
-Return-Path: <mst@redhat.com>
+Return-Path: <josh@joshtriplett.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D14FA26C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 77B2B78D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 15 Aug 2016 23:44:10 +0000 (UTC)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5B78A165
+	Mon, 15 Aug 2016 23:59:25 +0000 (UTC)
+Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
+	[217.70.183.195])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BBE4F10E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 15 Aug 2016 23:44:10 +0000 (UTC)
-Date: Tue, 16 Aug 2016 02:44:06 +0300
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Catalin Marinas <catalin.marinas@arm.com>
-Message-ID: <20160816024253-mutt-send-email-mst@kernel.org>
+	Mon, 15 Aug 2016 23:59:24 +0000 (UTC)
+Date: Mon, 15 Aug 2016 16:59:21 -0700
+From: Josh Triplett <josh@joshtriplett.org>
+To: James Hogan <james.hogan@imgtec.com>
+Message-ID: <20160815235921.GA13874@cloud>
 References: <20160729075039.GA26402@x>
-	<30809.1469794812@warthog.procyon.org.uk> <20160729131151.GF4340@x>
-	<C3AB051F-EDE5-4CF3-9DFB-4AA96B974982@arm.com>
-	<20160805020118-mutt-send-email-mst@kernel.org>
-	<20160808172711.GA8436@e104818-lin.cambridge.arm.com>
+	<20160815125309.GA21566@jhogan-linux.le.imgtec.org>
+	<20160815163443.kpyrgf3fuvmyyx7h@x>
+	<20160815184646.GU19514@jhogan-linux.le.imgtec.org>
+	<20160815213536.f5aq7afgu7bcsrsq@x>
+	<20160815220647.GW19514@jhogan-linux.le.imgtec.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20160808172711.GA8436@e104818-lin.cambridge.arm.com>
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+In-Reply-To: <20160815220647.GW19514@jhogan-linux.le.imgtec.org>
+Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [ANNOUNCE] git-series: track changes to a
  patch series over time
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -34,68 +35,99 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Aug 08, 2016 at 06:27:11PM +0100, Catalin Marinas wrote:
-> On Fri, Aug 05, 2016 at 02:07:15AM +0300, Michael S. Tsirkin wrote:
-> > On Fri, Aug 05, 2016 at 12:46:47AM +0200, Catalin Marinas wrote:
-> > > On 29 Jul 2016, at 15:12, Josh Triplett <josh@joshtriplett.org> wrote:
-> > > > On Fri, Jul 29, 2016 at 01:20:12PM +0100, David Howells wrote:
-> > > >> Josh Triplett <josh@joshtriplett.org> wrote:
-> > > >>> I'd like to announce a project I've been working on for a while.  I sent
-> > > >>> this announcement to LKML, but since many people don't subscribe to LKML
-> > > >>> directly, and since ksummit-discuss has had several discussions
-> > > >>> specifically about patch workflow and development processes, I thought
-> > > >>> I'd send the announcement here as well, in case anyone found it useful
-> > > >>> for their workflow.
-> > > >> 
-> > > >> Can this be used as a direct substitute for stgit for maintaining a patch
-> > > >> series?
-> > > > 
-> > > > Yes, that's exactly what I designed it for.  git-series has the added
-> > > > advantage of tracking the versions of the patch series across rewrites.
-> > > > stgit just directly rewrites history, like rebase -i does; as far as I
-> > > > know, it doesn't remember the old history.  You'd have to go to the
-> > > > reflog for that.  
+On Mon, Aug 15, 2016 at 11:06:47PM +0100, James Hogan wrote:
+> On Mon, Aug 15, 2016 at 02:35:37PM -0700, Josh Triplett wrote:
+> > On Mon, Aug 15, 2016 at 07:46:47PM +0100, James Hogan wrote:
+> > > ...
+> > > $ git series create mips/a/main v4.8-rc2
+> > > ...
+> > > $ git series create kvm/b/main kvm/a/main
+> > > (Implicitly depends on "kvm/a/main" branch / series)
+> > > ...
+> > > $ git series depend add mips/a/main
+> > > (Adds [sequence of] distinct merges at the beginning of the series)
+> > > ...
+> > > $ git series create kvm/c/main kvm/b/main
+> > > ...
+> > > $ git series checkout mips/a/main
+> > > ... hack a bit on that branch
+> > > $ git series update
+> > >  It'd probably be necessary to analyse the graph of dependencies to
+> > >  figure out the order, and for each series regenerate the merges and
+> > >  rebase on top of them:
+> > >    checkout dependency 1
+> > >    merge dependency 2
+> > >    ...
+> > >    rebase --onto HEAD <last merge at beginning of current series> series
 > > > 
-> > > I haven't looked at git-series yet (I actually have a git "series" alias 
-> > > to list the current commits against a parent/tracking branch) 
-> > > but StGit does remember the series history. It stores all the past states 
-> > > of a series in a <branch>.stgit branch and you can inspect the 
-> > > changes, get unlimited undo/redo, even show a diff of diffs for 
-> > > a given patch. 
+> > > it'd probably be convenient to be able to autocommit each rebased
+> > > series too, which I suppose raises the question of conflicts, and how
+> > > hard it'd be to have --abort-all, --abort, & --continue options.
 > > > 
-> > > > Note that git-series doesn't provide a quilt-style push/pop workflow,
-> > > > with applied and unapplied patches; it just looks at HEAD.
+> > > git series rebase -i should obviously go back to the last merge after
+> > > the bases, since you can't meaningfully rebase -i merges.
 > > > 
-> > > Even though I'm the original author of StGit, I find myself using it less 
-> > > and less these days as I'm busier integrating others' patches than 
-> > > creating my own series from scratch. But what I miss though in plain git is the patch "pop" functionality. At 
-> > > some point I may add a 'git stash head' feature to git which 
-> > > would stash away the HEAD commit without losing its content (and 
-> > > the corresponding 'git stash apply' restoring the original commit). 
+> > > git series rebase onto... perhaps that should require a dependent branch
+> > > or series that is being replaced (previously implicitly the current
+> > > base), and I suppose require regenerating the merges too, to avoid
+> > > storing more metadata.
+> > > 
+> > > Sounds like it'd certainly need a fair bit of complexity to do that
+> > > though, although if number of dependencies was limited to 1 it could be
+> > > a lot simpler.
 > > 
-> > This will stash an arbitrary commit:
-> > 	#!/bin/sh
+> > Yeah, I could imagine several possible workflows here, but it would
+> > definitely increase complexity quite a bit.
 > > 
-> > 	commit="${1}";
-> > 	git tag -f stash ${commit}
-> > 	git rebase --onto ${commit}~1 ${commit}
+> > If it would help people with various interdependent maintainer trees,
+> > I'd definitely consider it, especially if the complexity remains limited
+> > to people who actually declare series dependencies.
 > > 
-> > and
+> > As an alternative to doing all of that completely automatically, I could
+> > imagine tracking the dependencies similar to how git tracks upstream
+> > "tracking" branches, and then providing guided next steps but still
+> > requiring you to rebase the series individually.  For instance, if
+> > you have a series 4.7/base, and then another series 4.7/kvm that depends
+> > on 4.7/base, "git series status" on 4.7/kvm could notice if you've made
+> > changes in 4.7/base since the version you based 4.7/kvm on, like this:
 > > 
-> >  git cherry-pick stash
+> > $ git series status
+> > On series 4.7/kvm
+> > Base series 4.7/base updated (rebased N commits ahead)
+> >   (use "git series rebase 4.7/base" to update)
 > > 
-> > will unstash
+> > And conversely, "git series status" on 4.7/base could say:
+> > 
+> > $ git series status
+> > On series 4.7/base
+> > Dependent series 4.7/kvm (and N more) needs update
+> >   ("git series checkout 4.7/kvm" then "git rebase 4.7/base" to update)
+> > 
+> > Would that help simplify the process, to avoid having to carefully
+> > orchestrate it while watching a repository browser?
 > 
-> Thanks for the tip. All it needs is some refining to be able to stash
-> multiple commits (linking into a branch similar to the 'stash' would do;
-> I had a plan to do something similar for stgit but we ended up with a
-> more metadata).
+> I could see that being useful, although personally I'm usually quite
+> aware of the overall commit graph I'm dealing with, so it might be more
+> handy for when I forget that some other random WIP branch is based on
+> it.
 
-Yes - generally a new kind of object that is more like
-a tag than a commit but can point at
-a list of commits and not just a single one would
-solve many problems like this.
+Fair enough.  I might still implement this at some point just to make it
+easier to carry less state in your head. :)
 
+> I suppose though once you have git-series taking away the need to find
+> the base commit, its much simpler to script a sequence of rebases in the
+> right order, so the problem may just fade away.
 
-> -- 
-> Catalin
+I was quite pleased to see that you've already started scripting
+git-series. :)
+
+> Even redundant rebases
+> should be harmless (although I just tried one and "Base unchanged" seems
+> to be treated as an error which necessitates a "git rebase --continue"
+> after it).
+
+Oops.  Fixed in 0.8.9, thanks.  (I also changed rebase itself to not do
+redundant rebases; if the base hasn't changed, a non-interactive rebase
+has nothing to do.)
+
+- Josh Triplett
