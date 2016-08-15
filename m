@@ -1,25 +1,28 @@
 Return-Path: <mst@redhat.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0769726C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D14FA26C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 15 Aug 2016 23:42:16 +0000 (UTC)
+	Mon, 15 Aug 2016 23:44:10 +0000 (UTC)
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 734D2165
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5B78A165
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 15 Aug 2016 23:42:15 +0000 (UTC)
-Date: Tue, 16 Aug 2016 02:42:12 +0300
+	Mon, 15 Aug 2016 23:44:10 +0000 (UTC)
+Date: Tue, 16 Aug 2016 02:44:06 +0300
 From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Josh Triplett <josh@joshtriplett.org>
-Message-ID: <20160816023559-mutt-send-email-mst@kernel.org>
+To: Catalin Marinas <catalin.marinas@arm.com>
+Message-ID: <20160816024253-mutt-send-email-mst@kernel.org>
 References: <20160729075039.GA26402@x>
-	<20160805021426-mutt-send-email-mst@kernel.org>
-	<20160805202615.lpnrhi2lswz24iny@x>
+	<30809.1469794812@warthog.procyon.org.uk> <20160729131151.GF4340@x>
+	<C3AB051F-EDE5-4CF3-9DFB-4AA96B974982@arm.com>
+	<20160805020118-mutt-send-email-mst@kernel.org>
+	<20160808172711.GA8436@e104818-lin.cambridge.arm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20160805202615.lpnrhi2lswz24iny@x>
-Cc: ksummit-discuss@lists.linuxfoundation.org
+In-Reply-To: <20160808172711.GA8436@e104818-lin.cambridge.arm.com>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [ANNOUNCE] git-series: track changes to a
  patch series over time
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -31,64 +34,68 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Aug 05, 2016 at 10:26:15AM -1000, Josh Triplett wrote:
-> On Fri, Aug 05, 2016 at 02:52:18AM +0300, Michael S. Tsirkin wrote:
-> > On Fri, Jul 29, 2016 at 12:50:39AM -0700, Josh Triplett wrote:
-> > > I'd welcome any feedback, whether on the interface and workflow, the
-> > > internals and collaboration, ideas on presenting diffs of patch series,
-> > > or anything else.
+On Mon, Aug 08, 2016 at 06:27:11PM +0100, Catalin Marinas wrote:
+> On Fri, Aug 05, 2016 at 02:07:15AM +0300, Michael S. Tsirkin wrote:
+> > On Fri, Aug 05, 2016 at 12:46:47AM +0200, Catalin Marinas wrote:
+> > > On 29 Jul 2016, at 15:12, Josh Triplett <josh@joshtriplett.org> wrote:
+> > > > On Fri, Jul 29, 2016 at 01:20:12PM +0100, David Howells wrote:
+> > > >> Josh Triplett <josh@joshtriplett.org> wrote:
+> > > >>> I'd like to announce a project I've been working on for a while.  I sent
+> > > >>> this announcement to LKML, but since many people don't subscribe to LKML
+> > > >>> directly, and since ksummit-discuss has had several discussions
+> > > >>> specifically about patch workflow and development processes, I thought
+> > > >>> I'd send the announcement here as well, in case anyone found it useful
+> > > >>> for their workflow.
+> > > >> 
+> > > >> Can this be used as a direct substitute for stgit for maintaining a patch
+> > > >> series?
+> > > > 
+> > > > Yes, that's exactly what I designed it for.  git-series has the added
+> > > > advantage of tracking the versions of the patch series across rewrites.
+> > > > stgit just directly rewrites history, like rebase -i does; as far as I
+> > > > know, it doesn't remember the old history.  You'd have to go to the
+> > > > reflog for that.  
+> > > 
+> > > I haven't looked at git-series yet (I actually have a git "series" alias 
+> > > to list the current commits against a parent/tracking branch) 
+> > > but StGit does remember the series history. It stores all the past states 
+> > > of a series in a <branch>.stgit branch and you can inspect the 
+> > > changes, get unlimited undo/redo, even show a diff of diffs for 
+> > > a given patch. 
+> > > 
+> > > > Note that git-series doesn't provide a quilt-style push/pop workflow,
+> > > > with applied and unapplied patches; it just looks at HEAD.
+> > > 
+> > > Even though I'm the original author of StGit, I find myself using it less 
+> > > and less these days as I'm busier integrating others' patches than 
+> > > creating my own series from scratch. But what I miss though in plain git is the patch "pop" functionality. At 
+> > > some point I may add a 'git stash head' feature to git which 
+> > > would stash away the HEAD commit without losing its content (and 
+> > > the corresponding 'git stash apply' restoring the original commit). 
 > > 
-> > Hi Josh!
-> > A couple of ideas, I hope these will be helpful:
+> > This will stash an arbitrary commit:
+> > 	#!/bin/sh
 > > 
-> > I often need to move series between unrelated trees.
-> > I sometimes use cherry-pick for that (if they are from my tree)
-> > or am (if not).
+> > 	commit="${1}";
+> > 	git tag -f stash ${commit}
+> > 	git rebase --onto ${commit}~1 ${commit}
 > > 
-> > How about "git series am" - get patch series from email,
-> > including a cover letter, and create a series from that?
+> > and
+> > 
+> >  git cherry-pick stash
+> > 
+> > will unstash
 > 
-> Would you expect to feed this one mbox containing all the mails, or a
-> set of files containing one patch each (including the 0000 cover
-> letter), or both?
+> Thanks for the tip. All it needs is some refining to be able to stash
+> multiple commits (linking into a branch similar to the 'stash' would do;
+> I had a plan to do something similar for stgit but we ended up with a
+> more metadata).
 
-If piping from mutt, a set of files. If saving to an mbox
-from mutt and piping from command line, one mbox.
-So both.
-
-> > And how about "git series cherry-pick" - to apply
-> > series to the current head?
-> 
-> Could you elaborate on the semantic of this?  You have a series in your
-> tree, and you want to take all the patches in the series and apply them
-> to HEAD?  Or, do you want to copy the series and rebase the copy on HEAD?
+Yes - generally a new kind of object that is more like
+a tag than a commit but can point at
+a list of commits and not just a single one would
+solve many problems like this.
 
 
-What I had in mind is that I might have multiple patchsets under test
-on an unstable branch X.
-Now I decide to copy one patchset to the stable branch.
-
-With a single patch I would just cherry-pick.
-
-
-
-
-> For the former, once I add support for formatting a series other than
-> the current one, you could do that with "git series format seriesname
-> --stdout | git am".
-
-Yes, except cherry-pick has the -x flag to track where did
-I get the patch from. And I would like this info recorded
-for the cover as well. Maybe format can export that info.
-In fact this might be a handy flag for format-patch too:
-
-ability to add (cherry-picked from commit XYZ "subject")
-
-automatically.
-
-> > Kind of going in the reverse direction from git series format.
-> 
-> I like the idea; I'd like to offer more "import" mechanisms for any
-> other patch-series format people find useful.
-> 
-> - Josh Triplett
+> -- 
+> Catalin
