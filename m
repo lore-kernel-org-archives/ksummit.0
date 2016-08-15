@@ -1,30 +1,29 @@
-Return-Path: <James.Hogan@imgtec.com>
+Return-Path: <mst@redhat.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 29CAB901
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D64F93EE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 15 Aug 2016 22:06:51 +0000 (UTC)
-Received: from imgpgp01.kl.imgtec.org (mailapp01.imgtec.com [195.59.15.196])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 271E9146
+	Mon, 15 Aug 2016 23:26:19 +0000 (UTC)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3A63517D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 15 Aug 2016 22:06:50 +0000 (UTC)
-Date: Mon, 15 Aug 2016 23:06:47 +0100
-From: James Hogan <james.hogan@imgtec.com>
-To: Josh Triplett <josh@joshtriplett.org>
-Message-ID: <20160815220647.GW19514@jhogan-linux.le.imgtec.org>
-References: <20160729075039.GA26402@x>
-	<20160815125309.GA21566@jhogan-linux.le.imgtec.org>
-	<20160815163443.kpyrgf3fuvmyyx7h@x>
-	<20160815184646.GU19514@jhogan-linux.le.imgtec.org>
-	<20160815213536.f5aq7afgu7bcsrsq@x>
+	Mon, 15 Aug 2016 23:26:19 +0000 (UTC)
+Date: Tue, 16 Aug 2016 02:26:16 +0300
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: NeilBrown <nfbrown@novell.com>
+Message-ID: <20160816022254-mutt-send-email-mst@kernel.org>
+References: <87inw1skws.fsf@x220.int.ebiederm.org>
+	<20160812044211.xysb3larocxob342@redhat.com>
+	<871t1ulfvz.fsf@notabene.neil.brown.name>
+	<20160812082417-mutt-send-email-mst@kernel.org>
+	<87y442jytb.fsf@notabene.neil.brown.name>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="CSNFvL6ilyiKL/Hs"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20160815213536.f5aq7afgu7bcsrsq@x>
+In-Reply-To: <87y442jytb.fsf@notabene.neil.brown.name>
 Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [ANNOUNCE] git-series: track changes to a
- patch series over time
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] More useful types in the linux
+ kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,154 +33,122 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---CSNFvL6ilyiKL/Hs
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Fri, Aug 12, 2016 at 04:17:36PM +1000, NeilBrown wrote:
+> On Fri, Aug 12 2016, Michael S. Tsirkin wrote:
+> 
+> > On Fri, Aug 12, 2016 at 03:23:28PM +1000, NeilBrown wrote:
+> >> On Fri, Aug 12 2016, Michael S. Tsirkin wrote:
+> >> 
+> >> > On Tue, Jul 19, 2016 at 10:32:51AM -0500, Eric W. Biederman wrote:
+> >> >> I would really like to get a feel among kernel maintainers and
+> >> >> developers if this is something that is interesting, and what kind of
+> >> >> constraints they think something like this would need to be usable for
+> >> >> the kernel?
+> >> >> 
+> >> >> Eric
+> >> >
+> >> > Surprised that no one mentioned this yet - I think tagging
+> >> > integers/structs as coming from userspace could be useful,
+> >> > if we can teach e.g. smatch that access to a kernel
+> >> > pointer through this offset might fault.
+> >> 
+> >> We already have that.
+> >> Sparse recognizes
+> >>     __attribute__((noderef, address_space(1)))
+> >>  to mean "this is a pointer to a different address space which
+> >>  cannot be dereferened" and linux has
+> >> 
+> >> # define __user                __attribute__((noderef, address_space(1)))
+> >> 
+> >> so if you mark a pointer as "__user", then sparse will complain
+> >> if you dereference it.
+> >> 
+> >> We've had this for over a decade :-)
+> >> 
+> >>   https://lwn.net/Articles/87538/
+> >> 
+> >> NeilBrown
+> >
+> >
+> > Of course, everyone uses these.  But what I mean is tagging index types:
+> >
+> > 	int data[256];
+> >
+> > 	int foo(u32 __user *ptr)
+> > 	{
+> > 		u32 i;
+> > 		if (get_user(i, ptr))
+> > 			return -EFAULT;
+> >
+> > 		data[i] = 0;
+> > 			^^^ security vulnerability
+> >
+> > 	}
+> >
+> > Above, i is coming from userspace and so must always be range-checked
+> > before it's used as an index.
+> 
+> Ahhh, I see.  Thanks spelling it out for me.
+> 
+> 
+> >
+> > Maybe we could change get_user return a tagged result: __from_user int.
+> > And have above warn because __from_user can not be assigned to plain
+> > int.
+> >
+> > Then rework the code along the following lines:
+> >
+> >
+> > 	int data[256];
+> >
+> > 	int force_range(__unsafe u32 value, unsigned idx)
+> > 	{
+> > 		return ((__force int)value) % idx;
+> > 	}
+> >
+> > 	int foo(u32 __user *ptr)
+> > 	{
+> > 		__unsafe u32 i;
+> > 		int ichecked;
+> > 		if (get_user(i, ptr))
+> > 			return -EFAULT;
+> >
+> > 		ichecked = force_range(i, sizeof data);
+> > 		data[ichecked] = 0;
+> > 			^^^ ok now
+> >
+> > 	}
+> 
+> You could probably do this today using __attribute__((bitwise))
+> 
+> typedef int __attribute__((bitwise)) unsafe32;
+> 
+> Then use "unsafe32" wherever you have "__unsafe u32".
+> 
+> When you try
+> 
+>   data[i] = 0;
+> 
+> sparse says "warning: restricted int degrades to integer"
 
-On Mon, Aug 15, 2016 at 02:35:37PM -0700, Josh Triplett wrote:
-> On Mon, Aug 15, 2016 at 07:46:47PM +0100, James Hogan wrote:
-> > The metadata for my current workflow would be a set of other series that
-> > each series is dependent on (usually 1, but sometmes more if there are
-> > series for different subsystems, which need merging together before the
-> > base of the new series).
-> >=20
-> > If I update one of the earlier series, I'd normally just rebase all the
-> > others on top one by one (git rebase -p --onto HEAD <base> <branch>). It
-> > gets a bit repetative, but with tig alongside showing the graph with
-> > commit ids, and -p to preserve merges when necessary, and diffing to
-> > sanity check changes, its doable.
-> >=20
-> > git-series could make that easier as I could just "git series rebase
-> > otherbranch" without having to check the commit id for the base, asside
-> > from when it contains merges of course.
->=20
-> Would it help to suport "git series rebase seriesname" to rebase on top
-> of a series?
->=20
-> Actually you can do that today with "git series rebase
-> git-series/seriesname:series", thanks to git's "extended" syntax.
-> Still, probably a good idea to support a shorter syntax like "git series
-> rebase seriesname" as well.
+Yes, but inability to do math on bitwise integers is rather
+annoying.
 
-Right, I've already done it using a branch with the same name as the
-series, so unless the default branch name is different I guess it
-wouldn't help much.
+E.g. if index is in bytes:
 
->=20
-> > So I suppose it'd be nice to be able to do something roughly like:
-> >=20
-> > $ git series create kvm/a/main v4.8-rc2
->=20
-> I do plan to add a second argument to start to provide a base.  Sounds
-> like I should also consider providing an alias "create" for "start". :)
+	int j = i / sizeof(*data);
 
-Yep, I meant start :-).
+will warn even though nothing bad is going on.
 
->=20
-> > ...
-> > $ git series create mips/a/main v4.8-rc2
-> > ...
-> > $ git series create kvm/b/main kvm/a/main
-> > (Implicitly depends on "kvm/a/main" branch / series)
-> > ...
-> > $ git series depend add mips/a/main
-> > (Adds [sequence of] distinct merges at the beginning of the series)
-> > ...
-> > $ git series create kvm/c/main kvm/b/main
-> > ...
-> > $ git series checkout mips/a/main
-> > ... hack a bit on that branch
-> > $ git series update
-> >  It'd probably be necessary to analyse the graph of dependencies to
-> >  figure out the order, and for each series regenerate the merges and
-> >  rebase on top of them:
-> >    checkout dependency 1
-> >    merge dependency 2
-> >    ...
-> >    rebase --onto HEAD <last merge at beginning of current series> series
-> >=20
-> > it'd probably be convenient to be able to autocommit each rebased
-> > series too, which I suppose raises the question of conflicts, and how
-> > hard it'd be to have --abort-all, --abort, & --continue options.
-> >=20
-> > git series rebase -i should obviously go back to the last merge after
-> > the bases, since you can't meaningfully rebase -i merges.
-> >=20
-> > git series rebase onto... perhaps that should require a dependent branch
-> > or series that is being replaced (previously implicitly the current
-> > base), and I suppose require regenerating the merges too, to avoid
-> > storing more metadata.
-> >=20
-> > Sounds like it'd certainly need a fair bit of complexity to do that
-> > though, although if number of dependencies was limited to 1 it could be
-> > a lot simpler.
->=20
-> Yeah, I could imagine several possible workflows here, but it would
-> definitely increase complexity quite a bit.
->=20
-> If it would help people with various interdependent maintainer trees,
-> I'd definitely consider it, especially if the complexity remains limited
-> to people who actually declare series dependencies.
->=20
-> As an alternative to doing all of that completely automatically, I could
-> imagine tracking the dependencies similar to how git tracks upstream
-> "tracking" branches, and then providing guided next steps but still
-> requiring you to rebase the series individually.  For instance, if
-> you have a series 4.7/base, and then another series 4.7/kvm that depends
-> on 4.7/base, "git series status" on 4.7/kvm could notice if you've made
-> changes in 4.7/base since the version you based 4.7/kvm on, like this:
->=20
-> $ git series status
-> On series 4.7/kvm
-> Base series 4.7/base updated (rebased N commits ahead)
->   (use "git series rebase 4.7/base" to update)
->=20
-> And conversely, "git series status" on 4.7/base could say:
->=20
-> $ git series status
-> On series 4.7/base
-> Dependent series 4.7/kvm (and N more) needs update
->   ("git series checkout 4.7/kvm" then "git rebase 4.7/base" to update)
->=20
-> Would that help simplify the process, to avoid having to carefully
-> orchestrate it while watching a repository browser?
 
-I could see that being useful, although personally I'm usually quite
-aware of the overall commit graph I'm dealing with, so it might be more
-handy for when I forget that some other random WIP branch is based on
-it.
+Maybe we could benefit from a separate
+integer type, such that unsafe integers can interact
+with safe (regular) integers, resulting in unsafe
+integers.
 
-I suppose though once you have git-series taking away the need to find
-the base commit, its much simpler to script a sequence of rebases in the
-right order, so the problem may just fade away. Even redundant rebases
-should be harmless (although I just tried one and "Base unchanged" seems
-to be treated as an error which necessitates a "git rebase --continue"
-after it).
-
-Cheers
-James
-
---CSNFvL6ilyiKL/Hs
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJXsjz3AAoJEGwLaZPeOHZ6tIkQAJ6ULcdmmA2fvm4Fkm1SziVh
-MQmhFVemU4cl98LAtKl5h8t0wyt3cuyQRhGJde4S3txFT73EjnLH9qI3zIQW8uIn
-w9KtcLXoYh6mMoAO9aBoK+6F4jeGfmtQtXM4F88SsiiSr37Aa1XVMh7Fvcx6WTUH
-LOATXHBVrKJTqRloUEovNq2y2PyXbF0Y+ScTf8gS5ZCxQpk4Ago1rbqoOxhf9mZw
-xbGizKyjO39p0nUvOyr43YcV/D9u/2Vte3E2wbbD+YaN4Aa/gcjLT7A5IBw77921
-z2KmkdssLmEF6QkaTsTbnkSz4ahqdFsHOqyhXeAk9eVlQTC2t20ImKeDGSyvY+iL
-yUOtt8Kgfs1H6MFciI1UJgqy2C8yhturOZMcGhLX837GnUGzUAhlGm+MxAI+VDju
-M7yH+y+NFq9z1/iTV5lSZps0bylWmoyDdFLaKsnS2ZPxOzE/B2zDgBY4MmQ/AyoQ
-ELAnDsTCb9BbIDG9Rm884OK7NaHQ0EmlzQ+NUrvRgzjkjica5GBFBa7PIwmk2QEp
-K5eB6p+EhKAXcO7n6biPkDf6q+axfxKg022lTRlHoZ/3U1mRHXLA0ZlAF9/m+LF5
-znMp6Wkbk/DDZBwZUn3coRqu7GxUMgsE6QJiznN6F/vvuHDs9CJ46rYhSzCsFHYW
-4HeAj4y/TYEgCI/aM16D
-=ljlz
------END PGP SIGNATURE-----
-
---CSNFvL6ilyiKL/Hs--
+> 
+> Of course, changing all the code would be a pain.
+> I guess you introduce "get_safe_user" then gradually transition code
+> over.
+> 
+> NeilBrown
