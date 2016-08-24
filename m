@@ -1,28 +1,26 @@
-Return-Path: <daniel.vetter@ffwll.ch>
+Return-Path: <josh@joshtriplett.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 69F0826C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0A3F9483
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 24 Aug 2016 14:38:53 +0000 (UTC)
-Received: from mail-it0-f53.google.com (mail-it0-f53.google.com
-	[209.85.214.53])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DFFB4174
+	Wed, 24 Aug 2016 14:39:41 +0000 (UTC)
+Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
+	[217.70.183.196])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6DF541A0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 24 Aug 2016 14:38:52 +0000 (UTC)
-Received: by mail-it0-f53.google.com with SMTP id n128so37051023ith.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 24 Aug 2016 07:38:52 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <20160824130832.GA28564@kroah.com>
+	Wed, 24 Aug 2016 14:39:40 +0000 (UTC)
+Date: Wed, 24 Aug 2016 10:39:32 -0400
+From: Josh Triplett <josh@joshtriplett.org>
+To: Karen Sandler <karen@sfconservancy.org>
+Message-ID: <20160824143932.roapysz7wmxof6fj@x>
 References: <e315013e77cc851b040b5b5f4fe9f0bf@motives.com>
 	<20160824130832.GA28564@kroah.com>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Wed, 24 Aug 2016 16:38:47 +0200
-Message-ID: <CAKMK7uE=UU3b-WjQbdzO=4zDp8cQ2c6mz0HPMB7Pe8AEkjrovg@mail.gmail.com>
-To: Greg KH <greg@kroah.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+	<1472048738.7013.8.camel@localhost.localdomain>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1472048738.7013.8.camel@localhost.localdomain>
+Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -33,24 +31,46 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Aug 24, 2016 at 3:08 PM, Greg KH <greg@kroah.com> wrote:
-> Anyway, we try to stick to technical topics from the developers of the
-> kernel for the kernel summit wherever possible, and I think that the
-> deadline for proposing new topics has passed, so I don't think there's
-> much that can be done this late in the process.
+On Wed, Aug 24, 2016 at 10:25:38AM -0400, Karen Sandler wrote:
+> On Wed, 2016-08-24 at 09:08 -0400, Greg KH wrote:
+> > On Wed, Aug 24, 2016 at 01:30:00AM -0400, Karen Sandler wrote:
+> > > 
+> > > There have been so many discussions about these topics by industry lawyers
+> > > and executives behind closed doors, but developers have been generally
+> > > kept out of the loop.
+> > 
+> > That's a very unfair comparison, "lawyers and executives" always are
+> > "behind closed doors" as that's the way business works (and has to for
+> > legal reasons as you know).  One can say the same thing about any type
+> > of company meeting where anything is discussed.
+> > 
+> > And "developers" are not being kept out of any "loop" here, please, lots
+> > of us know exactly what is going on here.
+> 
+> I'm of course not talking about internal company meetings, but rather
+> invite-only backchannels where lawyers and executives are invited but
+> developers are typically not.  I know, Greg, that you and a few other
+> developers do cross between these worlds, but most Linux developers I've
+> spoken to do not.  This session is an opportunity for those developers
+> to hear about what's been going on in the last year.
 
-Hm, I always thought the point of KS is to talk about process,
-painpoints in the same and other topics of larger scale. Personally I
-think Karen's topic fits into this, and I think it would be
-interesting (at least for me). The pure technical topics are
-interesting to keep up on general things, but lwn.net does a great job
-at covering these wherever they happen - no reason for me to fly
-around the globe for those. At least that's been my experience with
-the past few KS, I've always took home a lot more from the
-process/more general sessions than the latest deep technical topic.
-Might just be that gfx folks are somewhat in a world of their own.
--Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-+41 (0) 79 365 57 48 - http://blog.ffwll.ch
+Personally, I've seen numerous examples of people not having heard any
+of the background on these issues.  I'd love to see this topic covered
+far and wide.  Not everyone gets to go to LLW or similar, or otherwise
+has access to much of the information about such topics.
+
+The session in a past Kernel Summit providing timely information on the
+ongoing court case seemed quite popular.
+
+I think a session providing information on current legal issues and
+discussing implications of them seems quite relevant, as well as fitting
+the criteria of "something that doesn't work as a mailing list
+discussion".  *Especially* if the session includes discussion of
+practical implications and practices.
+
+Linux has pioneered many best-practices, such as the DCO.  By both
+interest and necessity, we have to deal with issues like these.  Let's
+talk about them, and start trying to find solutions for the next round
+of issues.
+
+- Josh Triplett
