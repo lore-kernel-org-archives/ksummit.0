@@ -1,26 +1,27 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <wsa@the-dreams.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3D1D1932
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 61A62919
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 24 Aug 2016 18:24:28 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id C8231272
+	Wed, 24 Aug 2016 18:30:58 +0000 (UTC)
+Received: from pokefinder.org (sauhun.de [89.238.76.85])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D0718285
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 24 Aug 2016 18:24:27 +0000 (UTC)
-Message-ID: <1472063065.2545.12.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Greg KH <greg@kroah.com>, David Woodhouse <dwmw2@infradead.org>
-Date: Wed, 24 Aug 2016 14:24:25 -0400
-In-Reply-To: <20160824174724.GE30853@kroah.com>
+	Wed, 24 Aug 2016 18:30:57 +0000 (UTC)
+Date: Wed, 24 Aug 2016 20:30:50 +0200
+From: Wolfram Sang <wsa@the-dreams.de>
+To: Greg KH <greg@kroah.com>
+Message-ID: <20160824183050.GA19740@katana>
 References: <e315013e77cc851b040b5b5f4fe9f0bf@motives.com>
 	<20160824130832.GA28564@kroah.com>
-	<1472052583.61594.577.camel@infradead.org>
-	<20160824174724.GE30853@kroah.com>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+	<1472048738.7013.8.camel@localhost.localdomain>
+	<20160824143932.roapysz7wmxof6fj@x>
+	<20160824173949.GD30853@kroah.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="fUYQa+Pmc3FrFX/N"
+Content-Disposition: inline
+In-Reply-To: <20160824173949.GD30853@kroah.com>
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -32,26 +33,54 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-We're getting off into the weeds on this.
 
-The question is whether there's an interest among the attendees of KS
-in hearing about this type of thing.  Based on the feedback from
-Christoph's session last year and some of the replies to this thread,
-I'd say there is.  There is an argument that we shouldn't do this
-because it expands our exposure to legal jeopardy ... if you want to
-argue on that tack, I'm listening.
+--fUYQa+Pmc3FrFX/N
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Dragging up employers not liking it is a red herring: last year's
-session was organised very late and some employer's did veto their
-developers attending (like yours), but the resolution was simple: you
-didn't stay in the room.  Anyone whose employer orders them to stay
-away can do the same.  We can make sure to have the same warnings we
-had last year, so I don't really see the employer angle being an
-objection to holding a GPL session at KS.
 
-One of the good things about last years session was that I think we did
-get an embryo of a process to actually share this type of information
-responsibly with the kernel community and that enabled more information
-to be discussed reliably.
+> > The session in a past Kernel Summit providing timely information on the
+> > ongoing court case seemed quite popular.
+>=20
+> Yes, and I know a number of people who "got in trouble" after the fact
+> that they attended it.
 
-James
+This is really sad news :( That put aside, I don't see the conclusion
+that we shouldn't have topics like this at KS then. As this thread
+shows, there is enough interest from individuals (or employees speaking
+as individuals or companies being fine with it) to justify this topic,
+or?
+
+> So we need be aware that if the kernel summit starts discussing legal
+> issues, we open ourselves up to a much wider range of "issues" than we
+> have ever had before.
+
+I'd think the variety of opinions will make it impossible to reach a
+common statement or conclusion anyhow (as this thread shows as well).
+But to inform (interested) people what is happening right now and
+discuss it, why not? What kind of issues could come from that?
+
+
+--fUYQa+Pmc3FrFX/N
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQIcBAEBAgAGBQJXvefaAAoJEBQN5MwUoCm26fEP/1XW+Qe3j55IpVO0G7qR6Rr0
+EK7d7amzpQkdFPe96HGEkBSJGMBWtdbvgDKZm9vsiFMsWeWIGdHzkYTEvMLkBVNv
+JZetWInmoSYZQR93AJFxMSC5SJ/M9Rae3SPOmG7Rtmr2NtQDO5bimjEDMi1TMVEp
+Jt4wlg9Lfyt3ITipLmRjZ2aF7sa29bBopiAWLRLZrUYJ7QyQt9ycTxlRv2IO7hS5
+DfMLfqMtQ103mysumQc1DTyRqhKxqaePjvVKSuRIVb6M38139vdbGWQNC3iRPuz9
+uIll9smu1s7KAwmK4OzzLf1PJYiisddbsKodItQMUhESidRG8kChJ4ZrSMd/u2po
+rV6Ss7mj/D3oOE6eeh1Q+GjnPxOfPEFvcWIeBlUZtVSuXLt6f3fMmJbUTVXlSby3
+evkK8i/onFNAzs8k7n8JATc8HO57dSi25DZLlTFPd/bHwctmJAfTxQZxiBt3BHI5
+pW0FAGZMjIAqV7HIA1zU7/6LagaQm7715hY98L2xSlRey7Y1LtHOKdMiBWC7P4sM
+SRpWORn3fTri38p/7ZXVxhT5j8BNZ60k534H0bjHvkVpppbV9sPWfzuO2Oh/Quua
+soR66g1HFZNUc1/az68xQp9jwy9LQe00M78M9YCg6MRL7WsNCqSObe1vRYpvtlDc
+USYnL03TrWgGg3PP48uk
+=4p07
+-----END PGP SIGNATURE-----
+
+--fUYQa+Pmc3FrFX/N--
