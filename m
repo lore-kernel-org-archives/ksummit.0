@@ -1,26 +1,28 @@
-Return-Path: <greg@kroah.com>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 16471955
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 179FF412
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 24 Aug 2016 21:54:41 +0000 (UTC)
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
-	[66.111.4.26])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3D37E214
+	Wed, 24 Aug 2016 22:01:59 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A5735E2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 24 Aug 2016 21:54:40 +0000 (UTC)
-Date: Wed, 24 Aug 2016 17:54:47 -0400
-From: Greg KH <greg@kroah.com>
-To: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>
-Message-ID: <20160824215447.GA5368@kroah.com>
+	Wed, 24 Aug 2016 22:01:56 +0000 (UTC)
+Date: Wed, 24 Aug 2016 18:01:54 -0400
+From: Theodore Ts'o <tytso@mit.edu>
+To: Karen Sandler <karen@sfconservancy.org>
+Message-ID: <20160824220154.fhagnm5nijv3pknc@thunk.org>
 References: <e315013e77cc851b040b5b5f4fe9f0bf@motives.com>
 	<20160824130832.GA28564@kroah.com>
-	<1472052583.61594.577.camel@infradead.org>
-	<20160824174724.GE30853@kroah.com> <20160824205011.GA31615@ebb.org>
+	<1472048738.7013.8.camel@localhost.localdomain>
+	<20160824143932.roapysz7wmxof6fj@x>
+	<20160824173949.GD30853@kroah.com> <20160824183050.GA19740@katana>
+	<20160824195759.GA643@kroah.com>
+	<1472073236.9744.11.camel@localhost.localdomain>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20160824205011.GA31615@ebb.org>
+In-Reply-To: <1472073236.9744.11.camel@localhost.localdomain>
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -32,88 +34,55 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Aug 24, 2016 at 01:50:11PM -0700, Bradley M. Kuhn wrote:
-> Greg KH wrote today:
-> > That offer has been taken up on a few times, and has never failed so far.
+On Wed, Aug 24, 2016 at 05:13:56PM -0400, Karen Sandler wrote:
 > 
-> However, I know for a fact that it *has* sometimes failed.  Specifically,
-> I've utilized this service of Linux Foundation (which others can find at
-> https://compliance.linuxfoundation.org/references/open-compliance-directory
-> ), with 0-for-2 results.
+> Perhaps I am confused - are there recordings of kernel summit sessions?
+> Is attendance recorded? I don't see how participating in a closed door
+> discussion here by folks who want to do so is any different risk-wise
+> than discussions happening behind other closed doors.
 
-<snip>
+There are no recordings of kernel summits, but who the attendees of
+the kernel summit is public knowledge, and there is generally
+photographic evidence.  :-)
 
-Ok, let's work together off-list to get these issues resolved, it's not
-on-topic here, thanks.
+	     https://lwn.net/Articles/662699/
 
-> > I want the code, and I want the company that produced that code to join
-> > our community.  ..
-> > So far we are doing really well in achieving that goal.
-> 
-> Yes, with companies who "get it".  There are many of those, and they are
-> great stalwarts of our community.  No one is proposing suing them!
+It's true that an unrecorded conversaion with 75+ of your best is
+"safer" (and a hallway conversation with a handful of people is even
+safer), but nothing is risk-free, and the risks can come in multiple
+dimensions.  I encourage folks to talk to their corporate counsels for
+legal, because nobody else can give you that legal advice.
 
-But note, many, if not all, of those companies who you say "get it", did
-get it 15, 10, or even 5 years ago.  If we had done what you are
-proposing to do here then, those companies would never now be part of
-our community and we would be much worse off, and possibly, not even be
-here at all.
+One of the things which very much worries me is the open scope of the
+proposal.  e.g., let's have "discussions".
 
-Again, "never sue your customer".
+If there was a concrete proposal to consider, it would be much easier
+for people to evaluate whether or not (a) it would be considered safe
+for them to be in the room, and (b) whether it would be safe for them
+to participate in the discussion.
 
-> There are many companies, including some big ones, who just get away
-> with GPL violations year after year, have no intention of complying, and
-> refuse every effort by *everyone* (LF, Conservancy, etc.) to convince them to
-> comply.  In some cases, these bad actors even *flaunt* their violations; they
-> market products by saying that those products do things other products in the
-> sector can't -- because, of course, their products have proprietary Linux
-> modules that aren't available in source and certainly not upstream.
+In the ideal world, said proposal would have already received signoffs
+from a number of General Counsels from most of our employers, and we
+would be looking for the community assent to that proposal before we
+went ahead with it.
 
-I know about these just as well as everyone else.  And we all deal with
-it the best that we can, through various ways.  But to somehow think
-that by taking legal action against them, they will then gladly join our
-community and work to make Linux better overall, is just not true.  It
-never happened with the Busybox lawsuits from what I could tell, right?
+If you have such a proposal, I would suggest bringing it to the
+attention of Mike Dolan and Karen Cooperhaven who are lawyers from the
+Linux Foundation (and since Linus and Greg works for the LF, they can
+provide legal advice to them :-).  If it makes sense, they can help
+with trying to circulate proposals to the various LF members' GC's.
+There are also a number of of the TAB that are quite well informed in
+this area, if you are less comfortable talking to lawyers right off
+the bat.
 
-In fact, it seems the opposite happened, there's now a replacement for
-Busybox that does much the same thing, under a non-copyleft license,
-that is being used in lots of places that Busybox used to be in.  That's
-the exact opposite any project should ever want to see happen to them.
+Cheers,
 
-I don't want Linux to be a test case for the GPL as you put it
-recently[1].  That's not how I personally feel a project succeeds in the
-long run.  And I'm in it for the long haul.  Remember, at this point in
-time, the only thing that will ever be able to stop us, is ourselves.
-So we should do our best not to fuck it up.  The history of Busybox
-development shows me one way a project can fuck up, and I try to learn
-from history.
+						- Ted
 
-> Anyway, as others have said, it's quite clear that there are strong policy
-> opinions on both sides of this issue.  As Luis mentioned, Conservancy is
-> actively enforcing for a growing coalition of Linux copyright holders.  But,
-> as Conservancy representatives, we want to hear from the entire community and
-> coordinate with that community.  KS is the best venue to communicate about
-> complex policy discussions with Linux developers.
-
-The kernel summit is to discuss technical issues involving the kernel,
-and developing it.  Personally, I do not feel that it is a place for
-legal matters.  Our community is made up of people, and companies, that
-have an extremely hard time agreeing on technical matters, throw
-culture, corporate competition, free software vs. open software, and
-legal issues into the mix and it would turn into a total and complete
-mess.
-
-As Linus today said on stage at LinuxCon, some of us barely like each
-other to begin with, but we all know that we are working together to
-make the best technological solution that we can, so we tolerate each
-other :)
-
-And as I said earlier in this thread, I don't want to have to have my
-personal lawyer sitting next to me for me to be able to attend the
-kernel summit.
-
-thanks,
-
-greg k-h
-
-[1] https://lwn.net/Articles/695014/
+P.S.  It would be a lot easier for both the progam committee and your
+lawyers to evaluate whether or not it would make sense for invidual
+engineers to attend such a session is if there was concrete proposal
+on the table, not only because the risks are much easier to evaluate,
+but the upside benefits of such a session are also much easier to
+consider.  It also significantly improves the chances of concrete,
+positive results afterwards!
