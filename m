@@ -1,27 +1,27 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <greg@kroah.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8EEEE949
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6D9FE943
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 24 Aug 2016 20:19:33 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 31835ED
+	Wed, 24 Aug 2016 20:41:33 +0000 (UTC)
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+	[66.111.4.26])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BA7E810F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 24 Aug 2016 20:19:33 +0000 (UTC)
-Message-ID: <1472069969.2570.18.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Greg KH <greg@kroah.com>, Wolfram Sang <wsa@the-dreams.de>
-Date: Wed, 24 Aug 2016 16:19:29 -0400
-In-Reply-To: <20160824195759.GA643@kroah.com>
+	Wed, 24 Aug 2016 20:41:32 +0000 (UTC)
+Date: Wed, 24 Aug 2016 16:41:41 -0400
+From: Greg KH <greg@kroah.com>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Message-ID: <20160824204141.GA3114@kroah.com>
 References: <e315013e77cc851b040b5b5f4fe9f0bf@motives.com>
 	<20160824130832.GA28564@kroah.com>
-	<1472048738.7013.8.camel@localhost.localdomain>
-	<20160824143932.roapysz7wmxof6fj@x> <20160824173949.GD30853@kroah.com>
-	<20160824183050.GA19740@katana> <20160824195759.GA643@kroah.com>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+	<1472052583.61594.577.camel@infradead.org>
+	<20160824174724.GE30853@kroah.com>
+	<1472063065.2545.12.camel@HansenPartnership.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1472063065.2545.12.camel@HansenPartnership.com>
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -33,48 +33,57 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 2016-08-24 at 15:57 -0400, Greg KH wrote:
-> On Wed, Aug 24, 2016 at 08:30:50PM +0200, Wolfram Sang wrote:
-> > > So we need be aware that if the kernel summit starts discussing
-> > > legal
-> > > issues, we open ourselves up to a much wider range of "issues"
-> > > than we
-> > > have ever had before.
-> > 
-> > I'd think the variety of opinions will make it impossible to reach
-> > a
-> > common statement or conclusion anyhow (as this thread shows as
-> > well).
-> > But to inform (interested) people what is happening right now and
-> > discuss it, why not? What kind of issues could come from that?
+On Wed, Aug 24, 2016 at 02:24:25PM -0400, James Bottomley wrote:
+> We're getting off into the weeds on this.
 > 
-> When someone involved in a legal suit talks to other people about it,
-> those other people, in some countries/jurisdictions, can then be 
-> called in to testify / be disposed as part of that suit by the other 
-> member of it.
+> The question is whether there's an interest among the attendees of KS
+> in hearing about this type of thing.  Based on the feedback from
+> Christoph's session last year and some of the replies to this thread,
+> I'd say there is.  There is an argument that we shouldn't do this
+> because it expands our exposure to legal jeopardy ... if you want to
+> argue on that tack, I'm listening.
+
+Yes, that's the issue here.
+
+I discussed this last year with you, and others.  By us talking about
+this in a setting like this, we open ourselves up to being part of any
+lawsuits that are discussed.  That's _really_ dangerous, and is why I
+didn't attend the session last year.  I was not told by anyone that I
+could not, it was my own decision.
+
+That's my objection, I don't want any of us to be exposed to that risk.
+
+> Dragging up employers not liking it is a red herring: last year's
+> session was organised very late and some employer's did veto their
+> developers attending (like yours), but the resolution was simple: you
+> didn't stay in the room.  Anyone whose employer orders them to stay
+> away can do the same.  We can make sure to have the same warnings we
+> had last year, so I don't really see the employer angle being an
+> objection to holding a GPL session at KS.
 > 
-> I do my best to _never_ have to be disposed in anything, and so 
-> should everyone else, as what can be asked in that can be _very_ wide
-> ranging and is almost always used in ways that you never want or 
-> intended it to be.
+> One of the good things about last years session was that I think we did
+> get an embryo of a process to actually share this type of information
+> responsibly with the kernel community and that enabled more information
+> to be discussed reliably.
 
-To clarify for everyone: the specific danger here is that if we have a
-discussion on legal issues, any statement you make as part of the
-discussion is discoverable as evidence in a court proceeding, meaning
-that if one side or the other thinks whatever you said can help them,
-they can call you to repeat it in court.  Worse still, such a statement
-could potentially be portrayed as "the opinion of the community" if
-we're not careful.  Lawyers become trained to recognise what is safe to
-say in this regard and what isn't, but we, as kernel developers, aren't
-used to guarding our opinions in this way.
+Maybe, but really, this has the huge potential to politicize our
+community (if it hasn't already).  The kernel summit has always been
+about technical things.  We have had outside people (user group
+representatives, crazy Germans wanting changes for userspace, etc.)
+attend in the past, but those are all technical issues.  I never want to
+have a topic at the kernel summit be such that I am forced to have my
+personal lawyer present just to ensure that I don't get in any sort of
+legal trouble.
 
-Everyone has to bear this in mind, and that's why, when Christoph gave
-his statement about VMware, we didn't actually allow any discussion.
+So yes, the license matters.  And yes, the GPL is one of the main
+reasons we have succeeded so well.  And yes, us being engineers love
+arguing the technical issues involved in legal matters.  But being as
+these are legal matters, shouldn't we be trusting this to our lawyers
+(personal and corporate?)  That's what they do best, not us!
 
-The way companies escape from this is to have a corporate lawyer be
-part of the conversation so it's protected under attorney client
-privilege.  However, we have no such protections. (In case you're
-wondering, the lawyer who's present actually has to be your counsel,
-it's not enough that they simply be a lawyer).
+As the creators of this body of code, let's stick to the technical
+issues at hand, as we do that really well.
 
-James
+thanks,
+
+greg k-h
