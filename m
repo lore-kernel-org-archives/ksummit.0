@@ -1,39 +1,26 @@
-Return-Path: <mcgrof@kernel.org>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4280E412
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3D1D1932
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 24 Aug 2016 17:55:11 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.136])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DCA2224C
+	Wed, 24 Aug 2016 18:24:28 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id C8231272
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 24 Aug 2016 17:55:10 +0000 (UTC)
-Received: from mail.kernel.org (localhost [127.0.0.1])
-	by mail.kernel.org (Postfix) with ESMTP id 777DF2038D
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 24 Aug 2016 17:55:09 +0000 (UTC)
-Received: from mail-ua0-f180.google.com (mail-ua0-f180.google.com
-	[209.85.217.180])
-	(using TLSv1.2 with cipher AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 6015D20375
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 24 Aug 2016 17:55:07 +0000 (UTC)
-Received: by mail-ua0-f180.google.com with SMTP id m60so1769234uam.3
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 24 Aug 2016 10:55:07 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <20160824173949.GD30853@kroah.com>
+	Wed, 24 Aug 2016 18:24:27 +0000 (UTC)
+Message-ID: <1472063065.2545.12.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Greg KH <greg@kroah.com>, David Woodhouse <dwmw2@infradead.org>
+Date: Wed, 24 Aug 2016 14:24:25 -0400
+In-Reply-To: <20160824174724.GE30853@kroah.com>
 References: <e315013e77cc851b040b5b5f4fe9f0bf@motives.com>
 	<20160824130832.GA28564@kroah.com>
-	<1472048738.7013.8.camel@localhost.localdomain>
-	<20160824143932.roapysz7wmxof6fj@x>
-	<20160824173949.GD30853@kroah.com>
-From: "Luis R. Rodriguez" <mcgrof@kernel.org>
-Date: Wed, 24 Aug 2016 10:54:46 -0700
-Message-ID: <CAB=NE6URyc0F5pnndAvW7VEPnTchdHG+or50hudAtrNAxxQFwg@mail.gmail.com>
-To: Greg KH <greg@kroah.com>
-Content-Type: text/plain; charset=UTF-8
+	<1472052583.61594.577.camel@infradead.org>
+	<20160824174724.GE30853@kroah.com>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -45,66 +32,26 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Aug 24, 2016 at 10:39 AM, Greg KH <greg@kroah.com> wrote:
-> On Wed, Aug 24, 2016 at 10:39:32AM -0400, Josh Triplett wrote:
->> On Wed, Aug 24, 2016 at 10:25:38AM -0400, Karen Sandler wrote:
->> > On Wed, 2016-08-24 at 09:08 -0400, Greg KH wrote:
->> > > On Wed, Aug 24, 2016 at 01:30:00AM -0400, Karen Sandler wrote:
->> > > >
->> > > > There have been so many discussions about these topics by industry lawyers
->> > > > and executives behind closed doors, but developers have been generally
->> > > > kept out of the loop.
->> > >
->> > > That's a very unfair comparison, "lawyers and executives" always are
->> > > "behind closed doors" as that's the way business works (and has to for
->> > > legal reasons as you know).  One can say the same thing about any type
->> > > of company meeting where anything is discussed.
->> > >
->> > > And "developers" are not being kept out of any "loop" here, please, lots
->> > > of us know exactly what is going on here.
->> >
->> > I'm of course not talking about internal company meetings, but rather
->> > invite-only backchannels where lawyers and executives are invited but
->> > developers are typically not.  I know, Greg, that you and a few other
->> > developers do cross between these worlds, but most Linux developers I've
->> > spoken to do not.  This session is an opportunity for those developers
->> > to hear about what's been going on in the last year.
->>
->> Personally, I've seen numerous examples of people not having heard any
->> of the background on these issues.  I'd love to see this topic covered
->> far and wide.  Not everyone gets to go to LLW or similar, or otherwise
->> has access to much of the information about such topics.
->>
->> The session in a past Kernel Summit providing timely information on the
->> ongoing court case seemed quite popular.
->
-> Yes, and I know a number of people who "got in trouble" after the fact
-> that they attended it.
+We're getting off into the weeds on this.
 
-Huh, because of the last discussion at kernel summit? Holy spaghetti monster!
+The question is whether there's an interest among the attendees of KS
+in hearing about this type of thing.  Based on the feedback from
+Christoph's session last year and some of the replies to this thread,
+I'd say there is.  There is an argument that we shouldn't do this
+because it expands our exposure to legal jeopardy ... if you want to
+argue on that tack, I'm listening.
 
->> I think a session providing information on current legal issues and
->> discussing implications of them seems quite relevant, as well as fitting
->> the criteria of "something that doesn't work as a mailing list
->> discussion".  *Especially* if the session includes discussion of
->> practical implications and practices.
->
-> Will your employer allow you to attend something like this?  If so,
-> great, but again we would need to warn people ahead of time to get that
-> type of approval :(
+Dragging up employers not liking it is a red herring: last year's
+session was organised very late and some employer's did veto their
+developers attending (like yours), but the resolution was simple: you
+didn't stay in the room.  Anyone whose employer orders them to stay
+away can do the same.  We can make sure to have the same warnings we
+had last year, so I don't really see the employer angle being an
+objection to holding a GPL session at KS.
 
-Case in point -- can a Linux developer working for a company really
-care about GPL enforcement or has this right been taken away by a lot
-of companies ? Is it a thing only a few can care for ? What are the
-implications ? Do we care ? Do you ?
+One of the good things about last years session was that I think we did
+get an embryo of a process to actually share this type of information
+responsibly with the kernel community and that enabled more information
+to be discussed reliably.
 
-My opinion of course is you should be able to care. The fact that this
-topic can be an issue *is an issue* in and of itself. My own
-logistical approach to addressing this however is a bit different then
--- those that should care should just simply join SFC Conservancy. If
-you are not sure then talk to one of us that is part of the alliance,
-or that do care. If you can't talk to us because your employer does
-want you to talk to us or join SFC -- well snap. There's obviously
-only a few options then.
-
- Luis
+James
