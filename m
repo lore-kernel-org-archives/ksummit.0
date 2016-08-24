@@ -1,27 +1,25 @@
-Return-Path: <greg@kroah.com>
+Return-Path: <bkuhn@ebb.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6D9FE943
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E70F0932
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 24 Aug 2016 20:41:33 +0000 (UTC)
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
-	[66.111.4.26])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BA7E810F
+	Wed, 24 Aug 2016 20:59:42 +0000 (UTC)
+Received: from protestant.ebb.org (protestant.ebb.org [50.56.179.12])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DF1481F1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 24 Aug 2016 20:41:32 +0000 (UTC)
-Date: Wed, 24 Aug 2016 16:41:41 -0400
-From: Greg KH <greg@kroah.com>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Message-ID: <20160824204141.GA3114@kroah.com>
+	Wed, 24 Aug 2016 20:59:41 +0000 (UTC)
+Date: Wed, 24 Aug 2016 13:50:11 -0700
+From: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>
+To: Greg KH <greg@kroah.com>
+Message-ID: <20160824205011.GA31615@ebb.org>
 References: <e315013e77cc851b040b5b5f4fe9f0bf@motives.com>
 	<20160824130832.GA28564@kroah.com>
 	<1472052583.61594.577.camel@infradead.org>
 	<20160824174724.GE30853@kroah.com>
-	<1472063065.2545.12.camel@HansenPartnership.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1472063065.2545.12.camel@HansenPartnership.com>
+In-Reply-To: <20160824174724.GE30853@kroah.com>
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -33,57 +31,89 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Aug 24, 2016 at 02:24:25PM -0400, James Bottomley wrote:
-> We're getting off into the weeds on this.
-> 
-> The question is whether there's an interest among the attendees of KS
-> in hearing about this type of thing.  Based on the feedback from
-> Christoph's session last year and some of the replies to this thread,
-> I'd say there is.  There is an argument that we shouldn't do this
-> because it expands our exposure to legal jeopardy ... if you want to
-> argue on that tack, I'm listening.
+Greg,
 
-Yes, that's the issue here.
+Greg KH wrote today:
+> There's a standing offer from the Linux foundation to get any code from any
+> company that someone things is not open that is in the kernel.
 
-I discussed this last year with you, and others.  By us talking about
-this in a setting like this, we open ourselves up to being part of any
-lawsuits that are discussed.  That's _really_ dangerous, and is why I
-didn't attend the session last year.  I was not told by anyone that I
-could not, it was my own decision.
+I'm certainly glad to hear that in a few cases among the many hundreds of
+active Linux GPL violations, Linux Foundation's "ask for our help to find the
+compliance officer at a violator company" program has helped some.
 
-That's my objection, I don't want any of us to be exposed to that risk.
+> That offer has been taken up on a few times, and has never failed so far.
 
-> Dragging up employers not liking it is a red herring: last year's
-> session was organised very late and some employer's did veto their
-> developers attending (like yours), but the resolution was simple: you
-> didn't stay in the room.  Anyone whose employer orders them to stay
-> away can do the same.  We can make sure to have the same warnings we
-> had last year, so I don't really see the employer angle being an
-> objection to holding a GPL session at KS.
-> 
-> One of the good things about last years session was that I think we did
-> get an embryo of a process to actually share this type of information
-> responsibly with the kernel community and that enabled more information
-> to be discussed reliably.
+However, I know for a fact that it *has* sometimes failed.  Specifically,
+I've utilized this service of Linux Foundation (which others can find at
+https://compliance.linuxfoundation.org/references/open-compliance-directory
+), with 0-for-2 results.
 
-Maybe, but really, this has the huge potential to politicize our
-community (if it hasn't already).  The kernel summit has always been
-about technical things.  We have had outside people (user group
-representatives, crazy Germans wanting changes for userspace, etc.)
-attend in the past, but those are all technical issues.  I never want to
-have a topic at the kernel summit be such that I am forced to have my
-personal lawyer present just to ensure that I don't get in any sort of
-legal trouble.
+I did go through channels.  I used that online form and got no reply.  In
+both cases, I ultimately approached Jim Zemlin directly to discuss the
+matter.  Jim and other LF staff did make efforts, in both cases, to talk with
+the companies, but no compliance results were achieved by Linux Foundation.
 
-So yes, the license matters.  And yes, the GPL is one of the main
-reasons we have succeeded so well.  And yes, us being engineers love
-arguing the technical issues involved in legal matters.  But being as
-these are legal matters, shouldn't we be trusting this to our lawyers
-(personal and corporate?)  That's what they do best, not us!
+First, regarding VMware, Jim told me in August 2012 that Linux Foundation
+(LF) was "in communication with VMware" and "they assured [us] that VMware
+would work with Conservancy and comply".  I explained then to Jim that VMware
+was conflating different issues: (a) their easy-to-resolve violations
+regarding BusyBox and GNOME software, and (b) their more central issue of
+combining their kernel with Linux source code -- an issue which Linus called
+"in very poor taste", and which you yourself, Greg, told me "really bothered
+you".  I also told Jim in 2012 that eventually, if VMware didn't resolve that
+issue, that someone would likely sue them over the matter.
 
-As the creators of this body of code, let's stick to the technical
-issues at hand, as we do that really well.
+Over the next few years, both Karen Sandler and I attempted to follow up with
+LF executives and employees -- up and down Linux Foundation's org chart.
+They were unable (or unwilling) to offer any assistance in bringing VMware
+into compliance.  Christoph got fed up and wanted to sue them.  After 4 years
+of trying every other alternative, Conservancy decided to help him do so.
 
-thanks,
+But, VMware is not my only example here.  I tried again, a year after I'd
+first contacted LF about VMware, with another violator, in the automotive
+industry, who had a zero-day GPL violation in their cars that contain Linux
+-- no source nor offer -- and they remain out of compliance today.  I won't
+name them because, per Conservancy's GPL enforcement principles (see
+https://sfconservancy.org/copyleft-compliance/principles.html ), we're
+keeping their name confidential as we continue to patiently work toward a
+compliant resolution of their violation.
 
-greg k-h
+In that case, I waited about six months for an answer from LF on who to
+contact at that automotive company.  In the end, LF just stopped responding
+to Conservancy staff on the matter and we had to find our own way to get in
+touch with the violator.  LF remains aware ( -- indeed -- I remind Jim, Mike
+Dolan, Karen Copenhaver, and you, too, Greg, every time I see you all) that
+this automotive company remains out of compliance on Linux, but LF has
+rendered no assistance on getting them into compliance.
+
+> I want the code, and I want the company that produced that code to join
+> our community.  ..
+> So far we are doing really well in achieving that goal.
+
+Yes, with companies who "get it".  There are many of those, and they are
+great stalwarts of our community.  No one is proposing suing them!  For those
+companies: Karen or I call the person we know at the company and any GPL
+violation is fixed in a matter of days (usually).  I've had *that* wonderful
+experience with many major companies who employ many kernel developers.
+Those are not the companies we're talking about here.
+
+There are many companies, including some big ones, who just get away
+with GPL violations year after year, have no intention of complying, and
+refuse every effort by *everyone* (LF, Conservancy, etc.) to convince them to
+comply.  In some cases, these bad actors even *flaunt* their violations; they
+market products by saying that those products do things other products in the
+sector can't -- because, of course, their products have proprietary Linux
+modules that aren't available in source and certainly not upstream.
+
+Anyway, as others have said, it's quite clear that there are strong policy
+opinions on both sides of this issue.  As Luis mentioned, Conservancy is
+actively enforcing for a growing coalition of Linux copyright holders.  But,
+as Conservancy representatives, we want to hear from the entire community and
+coordinate with that community.  KS is the best venue to communicate about
+complex policy discussions with Linux developers.
+
+--
+Bradley M. Kuhn
+Distinguished Technologist of Software Freedom Conservancy
+========================================================================
+Become a Conservancy Supporter today: https://sfconservancy.org/supporter
