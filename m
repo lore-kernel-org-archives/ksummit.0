@@ -1,31 +1,35 @@
-Return-Path: <alexander.levin@verizon.com>
+Return-Path: <linus971@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9004592B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id CE59A258
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 26 Aug 2016 13:52:10 +0000 (UTC)
-Received: from omzsmtpe03.verizonbusiness.com (omzsmtpe03.verizonbusiness.com
-	[199.249.25.208])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 071D8AC
+	Fri, 26 Aug 2016 16:52:18 +0000 (UTC)
+Received: from mail-oi0-f45.google.com (mail-oi0-f45.google.com
+	[209.85.218.45])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3143C8A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 26 Aug 2016 13:52:09 +0000 (UTC)
-From: "Levin, Alexander" <alexander.levin@verizon.com>
-To: Greg KH <gregkh@linuxfoundation.org>
-Date: Fri, 26 Aug 2016 09:51:41 -0400
-Message-ID: <20160826135141.GD25341@sasha-lappy>
-References: <20160826044651.GA25341@sasha-lappy>
-	<20160826112635.GA27627@kroah.com>
-	<cfea840fae5911cdff7fbad535e9261b@newmail.lip6.fr>
-	<20160826121119.GA29929@kroah.com>
-In-Reply-To: <20160826121119.GA29929@kroah.com>
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	Fri, 26 Aug 2016 16:52:18 +0000 (UTC)
+Received: by mail-oi0-f45.google.com with SMTP id f189so117981209oig.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 26 Aug 2016 09:52:18 -0700 (PDT)
 MIME-Version: 1.0
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>, "Levin,
-	Alexander" <alexander.levin@verizon.com>
-Subject: Re: [Ksummit-discuss] Self nomination - Sasha Levin
+Sender: linus971@gmail.com
+In-Reply-To: <CA+55aFxLB+1TtSPR9C5HG1+boZcGrub6VMATCa_Og9Jg51ttZw@mail.gmail.com>
+References: <CA+55aFxLRqket8-yCL=FPM0Bz86PxdS+hRSTzXES+=1bOv=feg@mail.gmail.com>
+	<CAPeXnHs_9=m9R+JO=O_p_Q390b1DgnsKyMgP6kGiPyBGn=+3_w@mail.gmail.com>
+	<CA+55aFxXroS=_Mfyg+-3WF0KwqvPXJBKT0tjryWbDUx6G9Qvkw@mail.gmail.com>
+	<CAPeXnHvMUOL4M6y7_9oEF6ovrasfSY9Zqn2tRs-dRst9SS1jYQ@mail.gmail.com>
+	<CA+55aFxZTeJoPqRCHX+o_eEJ4RGDC_rOk6ZuL1Vz8Bk+7LfkfQ@mail.gmail.com>
+	<1472225332.2751.56.camel@redhat.com>
+	<CA+55aFxLB+1TtSPR9C5HG1+boZcGrub6VMATCa_Og9Jg51ttZw@mail.gmail.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Fri, 26 Aug 2016 09:52:16 -0700
+Message-ID: <CA+55aFz9J973mQSO8qmdhLF=CrDrE59w7moJT+JQ1to5dXp5Qw@mail.gmail.com>
+To: Rik van Riel <riel@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Cc: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,47 +39,56 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Aug 26, 2016 at 08:11:19AM -0400, Greg KH wrote:
-> On Fri, Aug 26, 2016 at 01:55:27PM +0200, Julia Lawall wrote:
-> > Not sure if I was clear about what I was asking you to agree to :)
-> >=20
-> > Basically, we can take the patches sent to stable and the patches not s=
-ent
-> > to stable as a training set, but then the machine learning comes up wit=
-h
-> > some algorithm that produces some results.  An expert is needed to eval=
-uate
-> > the results.  Ie for a thousand (number chosen at random) patches, if t=
-he
-> > algorithm says it is a bug fixing patch, is it or isn't it, and vice ve=
-rsa.
-> > Of course, we could also evaluate on patches that previously have and h=
-ave
-> > not been sent too stable, but there is a problem there, because our goa=
-l is
-> > to have more patches sent to stable than are already being sent there, =
-so we
-> > need to show that the algorithm can capture what humans are missing.
->=20
-> I think that is very interesting research and I would be glad to help
-> out with it how ever I can, as the result might be very useful for us.
->=20
-> So sign me up!
+On Fri, Aug 26, 2016 at 9:34 AM, Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
+>
+> So there's been lots of nugding and discussions and talking to people
+> going on when companies sometimes need encouragement to behave well.
+> And public shaming too - I think the things that Matthew does when he
+> points out truly crap hardware or horrible security issues are
+> *wonderful*.
 
-I'd be happy to do this as well.
+I'd like to just highlight this, because (obviously) I and Matthew
+disagree on lots of things quite violently, but that doesn't mean that
+we have to disagree on everything. Not at all.
 
-Per Greg's advice, I'm reviewing distro kernels for upstream commits that
-they carry which should have been in our LTS trees, those commits usually
-aren't tagged in any way and can be a good set of commits for training or
-validation.
+When a company (or individual) does something bad, I'll be the last
+person to say that you shouldn't speak out about it. That would indeed
+be very hypocritical.
 
-I do think that we should be using the algorithm to produce a list of autho=
-rs
-and maintainers who don't provide proper tags when they should and have a
-discussion with them about why that doesn't happen and how we can help them
-to get it "right" (vs just using the algorithm to apply patches).
+I'm not at all a believer in some kind of "dark backroom deals" kind
+of behavior either.
 
---=20
+When people violate the license (or do other really questionable
+things - I think Matthew had an epic rant about just plain shit code,
+which isn't exactly _illegal_ but perhaps should be ;), a bit of
+public shaming is not bad.
 
-Thanks,
-Sasha=
+It's literally "bringing in the legal guns" that I argue against. It's
+very much a last resort. It has huge negative consequences.
+
+Telling a company "btw, you know that that is actually illegal" is one
+thing. Go ahead. Do it publicly. Shame them in public, or talk to them
+strongly in private if you have the connections. Talk to other people,
+and tell them to not buy the crap.
+
+Make a stink.
+
+Companies are big and complex things, and parts of the company may not
+even have *realized* what was going on (or may not have realized it
+was illegal).
+
+Or they may be actively working on fixing things, but can't do it
+until the next version, or whatever.
+
+Sometimes it's a bit like software bugs: we can't fix what's out there
+right now, but we can try to make the next release better.
+
+It's when you have lawyers threatening lawsuits that you get that
+turtle response, and get the managers saying "we can't afford to do
+open source" or "maybe we should push a BSD alternative instead".
+
+That's the thing that kills the next version and kills the project,
+rather than fixing it.
+
+          Linus
