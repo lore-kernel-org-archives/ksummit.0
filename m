@@ -1,34 +1,28 @@
-Return-Path: <tytso@thunk.org>
+Return-Path: <linus971@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4F508258
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8B7EC258
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 26 Aug 2016 21:41:42 +0000 (UTC)
-Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DA913121
+	Fri, 26 Aug 2016 21:51:18 +0000 (UTC)
+Received: from mail-oi0-f43.google.com (mail-oi0-f43.google.com
+	[209.85.218.43])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5B09FA5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 26 Aug 2016 21:41:39 +0000 (UTC)
-Date: Fri, 26 Aug 2016 17:41:36 -0400
-From: Theodore Ts'o <tytso@mit.edu>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Message-ID: <20160826214136.e6oeapzxzwzichdb@thunk.org>
-References: <CAPeXnHvMUOL4M6y7_9oEF6ovrasfSY9Zqn2tRs-dRst9SS1jYQ@mail.gmail.com>
-	<CA+55aFxZTeJoPqRCHX+o_eEJ4RGDC_rOk6ZuL1Vz8Bk+7LfkfQ@mail.gmail.com>
-	<1472225332.2751.56.camel@redhat.com>
-	<CA+55aFxLB+1TtSPR9C5HG1+boZcGrub6VMATCa_Og9Jg51ttZw@mail.gmail.com>
-	<1472230114.2751.67.camel@redhat.com>
-	<CA+55aFxedcKe7q1SsVK48zkrzmUHwb8p3g8oKAHR4nUsbsobxA@mail.gmail.com>
-	<CAPeXnHswT0dSvdzvc1p7yr_cewXrX1mHi0dQE=p1E4sFkjn=HQ@mail.gmail.com>
-	<CA+55aFyOSV0cRGEHWjsKMxsxjs6Kp6oghpE+-ueVFi7irnmSCA@mail.gmail.com>
-	<CAPeXnHvKF2sPoiBiDCMEiguR1QScn5wNpQ7deaz=MDxofReNOw@mail.gmail.com>
-	<1472241199.5189.86.camel@HansenPartnership.com>
+	Fri, 26 Aug 2016 21:51:17 +0000 (UTC)
+Received: by mail-oi0-f43.google.com with SMTP id 188so38058513oif.2
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 26 Aug 2016 14:51:17 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1472241199.5189.86.camel@HansenPartnership.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	"Bradley M. Kuhn" <bkuhn@sfconservancy.org>,
-	ksummit-discuss@lists.linuxfoundation.org
+Sender: linus971@gmail.com
+In-Reply-To: <20160826193331.GA29084@jra3>
+References: <20160826193331.GA29084@jra3>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Fri, 26 Aug 2016 14:51:16 -0700
+Message-ID: <CA+55aFyvFJ0gz++ApyO7gFGd0wz4ysjs=6wNZi-91VUJuVK2_w@mail.gmail.com>
+To: Jeremy Allison <jra@samba.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -39,61 +33,59 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Aug 26, 2016 at 03:53:19PM -0400, James Bottomley wrote:
-> 
-> I think the disagreement is over *when* you give up and go for the
-> final resort.  And who you trust to take that decision.
+On Fri, Aug 26, 2016 at 12:33 PM, Jeremy Allison <jra@samba.org> wrote:
 >
+> These days we rely on Conservancy doing the kind of back-room negotiation
+> that they are really good at, and they've never failed us on this. Lawsui=
+ts
+> *are* a last-ditch nuclear option.
 
-At the end of the day this is really a governance question.  There are
-a huge number of stakeholders involved.  It includes the kernel
-developers who do the work; and those who own the copyright; and those
-who pay many of our salaries; and those who might pay our salaries in
-the future if we can convince them to be good citizens; and so on.
-Not all of them will be represented at the Kernel Summit.
+Jeremy, I trust *you*.
 
-It will include those entities who are GPL maximalists and who believe
-that kernel modules are always infected by the GPLv2, and those who
-take a looser interpretation of that particular issue.  And that's a
-political question and a legal interpretation question.
+But I do not trust Bradley, for example.
 
-(Disclosure: given that I supervised the student at MIT who ported the
-Transarc's Andrew File System to Linux back in the 1990's, and who
-requested a clarification from Linus that taking pre-existing third
-party code and linking it to the Linux kernel via a kernel module
-wouldn't make it a derived work leading to GPL infection, it should be
-pretty clear where I fall on that spectrum.  During those early years
-the Linux AFS port enabled the use of Linux by a huge number of MIT
-students, faculty, and staff, as well as at other universities such as
-CMU and even some National Labs.  As such, I consider that work to be
-a Good Thing and am *completely* unapologetic if it upsets some of the
-GPL maximalists out there.)
+Bradley talks the talk here when called out on it, but elsewhere he
+clearly sees enforcement not as just a last ditch nuclear option. I've
+heard that complaint from people in private conversations, but you can
+find it in public posts too.
 
-These sorts of legal / political questions are things for which I
-believe the Kernel Summit isn't well equipped to handle.  In
-particular, if the SFC has a pre-existing agenda --- that is, if they
-have clients and have lawyers who who believe very strongly that the
-next step is to "bring the question to a lot of Courts"[1] --- and
-they want a forum to try to convince kernel developers to support them
-in trying to force the courts around the world to give us an answer to
-legal questions around the GPL --- that's inherently a political
-question, and I don't think it's appropriate give them a soapbox to
-try to let them advance that agenda at the Kernel Summit.
+For example, we had a really nasty issue with Patrick McHardy, and
+sadly, the companies involved apparently didn't dare talk about it for
+fear of bad press (even if the badness was from our side). I was
+actually informed by Karen that the SFC finally made the thing public
+(thanks Karen - I really appreciated that), but when I went looking
+for it I find Bradley Kuhn making comments like these:
 
-[1] https://lwn.net/Articles/695014/
+  http://lwn.net/Articles/695014/
 
-I've already gotten more than one request from representatives from
-other non-developer stakeholders requesting that they also be able to
-attend.  And in fairness, if we were to give the SFC a soapbox, then
-there will be any number of lawyers who would want to attend to make
-sure that the interests of their clients would also be protected ---
-and under what standards of fairness would we give lawyers with a
-specific agenda that they want to push access, but deny access for
-other lawyers to attend?  Let's just not go there.
+Let me highlight that l;ast sentence:
 
-The Linux Foundation has run Legal Summits before, and has invited
-kernel developers to give input to the legal beagles at those Legal
-Summits.  But we're talking about the Kernel Summit here, and not a LF
-Legal Summit.
+   "Finally, while discussions about GPL and its derivative/combined
+works requirements are basically =E2=80=9Cold hat=E2=80=9D to our community=
+, the
+discussion is completely new to the Courts. We'll have to bring the
+question to a lot of Courts in a lot of different ways to get clarity.
+But, once we do that, then we'll know, and everyone can proceed with
+more certainty."
 
-       	    	  	     	      	    - Ted
+Look, guys. This is Bradley EXPLICITLY talking about using the courts
+as a way to "clarify" issues.
+
+So _excuse_ me for not finding Bradley Kuhn very trustworthy on this
+issue. He's on public record on doing exactly that I am arguing we
+should *NOT* be doing.
+
+Lawsuits aren't about "clarification". They aren't something we should
+hope for in order to "proceed with more certainty".
+
+> Full disclosure: I'm on the Conservancy Board of Directors, so I obviousl=
+y
+> agree with their mission.
+
+Please, see above. If you're on the Conservancy board of directors,
+maybe you should clarify with Bradley, who is listed as _president_ of
+the board, what that mission actually is?
+
+Because right now, I'm getting some _very_ mixed messages.
+
+                  Linus
