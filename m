@@ -1,30 +1,27 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <Julia.Lawall@lip6.fr>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 60F5089F
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6CADE89F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 26 Aug 2016 12:03:59 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id D81A6101
+	Fri, 26 Aug 2016 12:08:52 +0000 (UTC)
+Received: from isis.lip6.fr (isis.lip6.fr [132.227.60.2])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CEA2F156
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 26 Aug 2016 12:03:58 +0000 (UTC)
-Message-ID: <1472213036.5189.37.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>, Greg KH <greg@kroah.com>
-Date: Fri, 26 Aug 2016 08:03:56 -0400
-In-Reply-To: <20160825040619.GA32072@ebb.org>
-References: <e315013e77cc851b040b5b5f4fe9f0bf@motives.com>
-	<20160824130832.GA28564@kroah.com>
-	<1472052583.61594.577.camel@infradead.org>
-	<20160824174724.GE30853@kroah.com> <20160824205011.GA31615@ebb.org>
-	<20160824215447.GA5368@kroah.com> <20160825040619.GA32072@ebb.org>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
+	Fri, 26 Aug 2016 12:08:51 +0000 (UTC)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+Date: Fri, 26 Aug 2016 14:08:49 +0200
+From: Julia Lawall <Julia.Lawall@lip6.fr>
+To: Greg KH <gregkh@linuxfoundation.org>
+In-Reply-To: <20160826112635.GA27627@kroah.com>
+References: <20160826044651.GA25341@sasha-lappy>
+	<20160826112635.GA27627@kroah.com>
+Message-ID: <c87b9e9ad009d259f500637851f18f91@newmail.lip6.fr>
+Cc: ksummit-discuss@lists.linuxfoundation.org, "Levin,
+	Alexander" <alexander.levin@verizon.com>
+Subject: Re: [Ksummit-discuss] Self nomination - Sasha Levin
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,29 +31,16 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 2016-08-24 at 21:06 -0700, Bradley M. Kuhn wrote:
-> I work for an organization that holds copyrights in Linux, and 
-> Conservancy furthermore coordinates a coalition of developers who 
-> signed agreements asking us to enforce their copyrights.  We also 
-> have embedded device users writing us weekly asking us to please get 
-> the Linux sources for their devices.  We have a huge mandate, and 
-> we're going to enforce (always adhering to the Principles of 
-> Community-Oriented Enforcement, of course).  Together, we are a 
-> vocal, but significant, minority of Linux contributors and users.
+Le 26.08.2016 13:26, Greg KH a écrit :
+> On Fri, Aug 26, 2016 at 12:46:51AM -0400, Levin, Alexander wrote:
+>>    - Making checkpatch check for (some) of the stable kernel rules
+>>    (and possibly recommend adding the stable@ tag in certain cases?).
+>>      - Depends on: making checkpatch sane again.
+> 
+> This sounds interesting.  What do you mean by "sane"?  "sane" as in
+> rewriting it so that someone who isn't a perl master can modify it?  Or
+> "sane" as in "don't be so pedantic about things that don't matter"?
 
-Thanks to the ruling you've landed us with in Germany, it does appear
-that this means you actually don't have any standing to enforce GPL for
-the Linux kernel .... and now neither do the rest of us.
+Wouldn't that require interpreting the log message as well?
 
-I fear the two pong test the court required could easily be applied
-here in the US once the lack of standing defence is raised.  I've
-actually spent some time this week working out how we might satisfy the
-tests if they can't be overturned on appeal.  It turns out that Kate
-Stewart and her Montreal Polytechnic crowd have spent years developing
-a tool set that we can use to demonstrate precisely what the two prong
-test demands and if we have to go down this road, I trust you'll be
-grateful for the time and effort the Linux Foundation (Kate's employer
-for all of this) has spent ensuring that the above ruling won't be the
-disaster for us that it currently appears.
-
-James
+julia
