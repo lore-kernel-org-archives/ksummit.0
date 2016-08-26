@@ -1,24 +1,15 @@
-Return-Path: <Julia.Lawall@lip6.fr>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6CADE89F
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 26 Aug 2016 12:08:52 +0000 (UTC)
-Received: from isis.lip6.fr (isis.lip6.fr [132.227.60.2])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CEA2F156
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 26 Aug 2016 12:08:51 +0000 (UTC)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-Date: Fri, 26 Aug 2016 14:08:49 +0200
-From: Julia Lawall <Julia.Lawall@lip6.fr>
-To: Greg KH <gregkh@linuxfoundation.org>
-In-Reply-To: <20160826112635.GA27627@kroah.com>
+Return-Path: <gregkh@linuxfoundation.org>
+Date: Fri, 26 Aug 2016 14:11:19 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Julia Lawall <Julia.Lawall@lip6.fr>
+Message-ID: <20160826121119.GA29929@kroah.com>
 References: <20160826044651.GA25341@sasha-lappy>
 	<20160826112635.GA27627@kroah.com>
-Message-ID: <c87b9e9ad009d259f500637851f18f91@newmail.lip6.fr>
+	<cfea840fae5911cdff7fbad535e9261b@newmail.lip6.fr>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cfea840fae5911cdff7fbad535e9261b@newmail.lip6.fr>
 Cc: ksummit-discuss@lists.linuxfoundation.org, "Levin,
 	Alexander" <alexander.levin@verizon.com>
 Subject: Re: [Ksummit-discuss] Self nomination - Sasha Levin
@@ -31,16 +22,24 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Le 26.08.2016 13:26, Greg KH a écrit :
-> On Fri, Aug 26, 2016 at 12:46:51AM -0400, Levin, Alexander wrote:
->>    - Making checkpatch check for (some) of the stable kernel rules
->>    (and possibly recommend adding the stable@ tag in certain cases?).
->>      - Depends on: making checkpatch sane again.
+On Fri, Aug 26, 2016 at 01:55:27PM +0200, Julia Lawall wrote:
+> Not sure if I was clear about what I was asking you to agree to :)
 > 
-> This sounds interesting.  What do you mean by "sane"?  "sane" as in
-> rewriting it so that someone who isn't a perl master can modify it?  Or
-> "sane" as in "don't be so pedantic about things that don't matter"?
+> Basically, we can take the patches sent to stable and the patches not sent
+> to stable as a training set, but then the machine learning comes up with
+> some algorithm that produces some results.  An expert is needed to evaluate
+> the results.  Ie for a thousand (number chosen at random) patches, if the
+> algorithm says it is a bug fixing patch, is it or isn't it, and vice versa.
+> Of course, we could also evaluate on patches that previously have and have
+> not been sent too stable, but there is a problem there, because our goal is
+> to have more patches sent to stable than are already being sent there, so we
+> need to show that the algorithm can capture what humans are missing.
 
-Wouldn't that require interpreting the log message as well?
+I think that is very interesting research and I would be glad to help
+out with it how ever I can, as the result might be very useful for us.
 
-julia
+So sign me up!
+
+thanks,
+
+greg k-h
