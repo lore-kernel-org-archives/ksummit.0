@@ -1,31 +1,25 @@
-Return-Path: <riel@redhat.com>
+Return-Path: <alexander.levin@verizon.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 27B1725A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4749D89F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 26 Aug 2016 16:48:53 +0000 (UTC)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9B3998A
+	Fri, 26 Aug 2016 04:50:07 +0000 (UTC)
+Received: from omzsmtpe02.verizonbusiness.com (omzsmtpe02.verizonbusiness.com
+	[199.249.25.209])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1B0CA202
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 26 Aug 2016 16:48:52 +0000 (UTC)
-Message-ID: <1472230114.2751.67.camel@redhat.com>
-From: Rik van Riel <riel@redhat.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Fri, 26 Aug 2016 12:48:34 -0400
-In-Reply-To: <CA+55aFxLB+1TtSPR9C5HG1+boZcGrub6VMATCa_Og9Jg51ttZw@mail.gmail.com>
-References: <CA+55aFxLRqket8-yCL=FPM0Bz86PxdS+hRSTzXES+=1bOv=feg@mail.gmail.com>
-	<CAPeXnHs_9=m9R+JO=O_p_Q390b1DgnsKyMgP6kGiPyBGn=+3_w@mail.gmail.com>
-	<CA+55aFxXroS=_Mfyg+-3WF0KwqvPXJBKT0tjryWbDUx6G9Qvkw@mail.gmail.com>
-	<CAPeXnHvMUOL4M6y7_9oEF6ovrasfSY9Zqn2tRs-dRst9SS1jYQ@mail.gmail.com>
-	<CA+55aFxZTeJoPqRCHX+o_eEJ4RGDC_rOk6ZuL1Vz8Bk+7LfkfQ@mail.gmail.com>
-	<1472225332.2751.56.camel@redhat.com>
-	<CA+55aFxLB+1TtSPR9C5HG1+boZcGrub6VMATCa_Og9Jg51ttZw@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
+	Fri, 26 Aug 2016 04:50:05 +0000 (UTC)
+From: "Levin, Alexander" <alexander.levin@verizon.com>
+To: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Date: Fri, 26 Aug 2016 00:46:51 -0400
+Message-ID: <20160826044651.GA25341@sasha-lappy>
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Cc: Greg KH <gregkh@linuxfoundation.org>
+Subject: [Ksummit-discuss] Self nomination - Sasha Levin
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,103 +29,49 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, 2016-08-26 at 09:34 -0700, Linus Torvalds wrote:
-> On Fri, Aug 26, 2016 at 8:28 AM, Rik van Riel <riel@redhat.com>
-> wrote:
-> > On Thu, 2016-08-25 at 22:24 -0700, Linus Torvalds wrote:
-> > > 
-> > > What matters are the people - and companies - that actually
-> > > develop
-> > > and contribute code, and make the future happen.
-> > 
-> > Are you saying that the freedom of end users
-> > to modify the software running on their Linux
-> > devices is irrelevant?
-> 
-> Irrelevant? No. And are companies who violate the license a good
-> thing? No.
-> 
-> But they really don't make a difference. In a very literal sense.
-> They
-> aren't improving the code - even in the hidden product itself.
+Hi all,
 
-They do not have to for the GPL to work.
+Appologies for the late mail - betweem workplace change (and ML mails bounc=
+ing off the old @oracle.com mail), and some personal stuff, I've missed the=
+ fact that planning and discussions have already started!
 
-What matters is that the users downstream
-from them have the freedom to modify the
-code on their devices.
+I wanted to discuss a variety of topics regarding stable kernels, testing, =
+and testing stable kernels:
 
-> 
-> > The downstream freedoms seem to be generating
-> > new upstream communities all around us, for
-> > example OpenWRT.
-> 
-> And I call bullshit. Anybody who tries to point to the lawsuits and
-> say that they were a big factor in the success of OpenWRT is actively
-> ignoring all the other - and hugely *bigger* factors - in the
-> successes of OpenWRT.
+ - My new employer is a heavy user of "cutting edge" stable kernels, and as=
+ such I'm looking into ways to improve the process. Making people complain =
+and express their unhappiness with concrete workflows is a good way for me =
+to make improvements on my end.
 
-I am not saying the lawsuits are any factor in
-the success of OpenWRT.
+ - Automating the while -stable process further: it's too dependant on huma=
+ns getting things right which is a recipe for disaster. I have a few propos=
+als about how to reduce the human aspect of it further to improve the quali=
+ty of the resulting trees (expanding stable-tools even further!).
 
-What I am saying is that the end user freedoms
-specified in the GPL are just as important as
-the upstream community behind the original
-project, since the end user freedoms enable new
-projects, and new communities.
+ - We need to figure out ways to integrate tests better, beyond the usual 3=
+ day review window we have for "testing" where no *actual* user tests anyth=
+ing. In the example of Verizon, it simply doesn't fit in the workflow and w=
+e'd need to make a good amount of modifications to make it happen, so I bet=
+ it's the same issue for other users of the tree.
 
+ - Reviewing the stable rules and adjusting them to reality. There's a mism=
+atch between what the rules say and what actually happens.
 
-> I'm sure you've had many of the same discussions that I have had with
-> other open source people working in various places who are sharing
-> horror stories about how some project was a nightmare and parts of
-> the
-> company was doing bad things.
-> 
-> So even the good companies tend to have their warts.
+ - A few smaller ideas I want to bounce off maintainers:
 
-Of course the good companies make mistakes.
+   - Adding stable@ tags to commits is "complicated", it requires editing t=
+he commit message which is an extra step that people are too lazy to take, =
+how can we improve that?
 
-They tend to get corrected after working with
-those companies for some period of time,
-sometimes several years.
+   - Making checkpatch check for (some) of the stable kernel rules (and pos=
+sibly recommend adding the stable@ tag in certain cases?).
+     - Depends on: making checkpatch sane again.
 
-> So there's been lots of nugding and discussions and talking to people
-> going on when companies sometimes need encouragement to behave well.
-> And public shaming too - I think the things that Matthew does when he
-> points out truly crap hardware or horrible security issues are
-> *wonderful*.
+   - Improving tagging for stable. The "version tag" option is broken and t=
+he "Fixes:" tag is always preferable, how do we get people to use that more=
+ often? (script it somehow? scripts/find-version-it-fixes ?).
 
-There is a lot of nudging and shaming going on,
-but little on the opposite direction.
+--=20
 
-I wonder if it would make sense for an organization
-like SFC to compile a list of devices that are GPL
-compliant?
-
-Companies that sell Linux devices could submit their
-devices for inclusion on that list, with a URL to
-the source code, etc.
-
-The stick of shaming and GPL enforcment efforts
-might be more effective if there is also a carrot,
-directing customers towards the devices that are
-compliant.
-
-> We need to stop the antagonistic threatening stances, and we need to
-> stop having lawyers involved, and have people who can actually talk
-> to
-> companies *without* getting that "turtle" response.
-> 
-> Because that approach really does have a proven track record.  And
-> I'm
-> pretty sure you know that too.
-
-Lawsuits appear to be the absolute last resort
-for the SFC.
-
-If there are people who believe the non-lawsuit
-GPL compliance work by the SFC is still too
-antagonistic, it may be worth discussing exactly
-why people feel that way, and whether anybody
-has ideas for better ways to go about GPL
-compliance.
+Thanks,
+Sasha=
