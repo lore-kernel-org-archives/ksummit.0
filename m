@@ -1,32 +1,23 @@
 Return-Path: <jra@samba.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A76B59D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 895E189F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 26 Aug 2016 20:09:06 +0000 (UTC)
+	Fri, 26 Aug 2016 20:11:11 +0000 (UTC)
 Received: from hr2.samba.org (hr2.samba.org [144.76.82.148])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C8EA228C
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BF74DE2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 26 Aug 2016 20:09:05 +0000 (UTC)
-Date: Fri, 26 Aug 2016 13:09:00 -0700
+	Fri, 26 Aug 2016 20:11:10 +0000 (UTC)
+Date: Fri, 26 Aug 2016 12:33:31 -0700
 From: Jeremy Allison <jra@samba.org>
-To: ksummit-discuss@lists.linuxfoundation.org
-Message-ID: <20160826200900.GB29084@jra3>
+To: ksummit-discuss@lists.linuxfoundation.org,
+	Linus Torvalds <torvalds@linux-foundation.org>, jra@samba.org
+Message-ID: <20160826193331.GA29084@jra3>
 Reply-To: Jeremy Allison <jra@samba.org>
-References: <CA+55aFxLRqket8-yCL=FPM0Bz86PxdS+hRSTzXES+=1bOv=feg@mail.gmail.com>
-	<CA+55aFxedcKe7q1SsVK48zkrzmUHwb8p3g8oKAHR4nUsbsobxA@mail.gmail.com>
-	<CAPeXnHs_9=m9R+JO=O_p_Q390b1DgnsKyMgP6kGiPyBGn=+3_w@mail.gmail.com>
-	<CA+55aFxXroS=_Mfyg+-3WF0KwqvPXJBKT0tjryWbDUx6G9Qvkw@mail.gmail.com>
-	<CAPeXnHvMUOL4M6y7_9oEF6ovrasfSY9Zqn2tRs-dRst9SS1jYQ@mail.gmail.com>
-	<CA+55aFxZTeJoPqRCHX+o_eEJ4RGDC_rOk6ZuL1Vz8Bk+7LfkfQ@mail.gmail.com>
-	<1472225332.2751.56.camel@redhat.com>
-	<CA+55aFxLB+1TtSPR9C5HG1+boZcGrub6VMATCa_Og9Jg51ttZw@mail.gmail.com>
-	<8737lrl8os.fsf@ebb.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <8737lrl8os.fsf@ebb.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
+Subject: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -43,9 +34,6 @@ On Fri Aug 26 19:03:56 UTC 2016, Linus Torvalds <torvalds@linux-foundation.org> 
 > We've also seen how even successful lawsuits haven't actually helped
 > the project involved. So there was certainly an education there too -
 > for the developer side.
-
-(This may also be a re-port, sorry if so - just joined the list
-so not sure if my previous posting of this went through).
 
 Apologies for the drive-by posting. I'm not normally on this list,
 but this discussion is important enough I wanted to correct the
