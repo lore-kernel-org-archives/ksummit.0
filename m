@@ -1,32 +1,40 @@
-Return-Path: <julia.lawall@lip6.fr>
+Return-Path: <linus971@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B11B79D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id BF5CA258
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 26 Aug 2016 19:59:22 +0000 (UTC)
-Received: from mail3-relais-sop.national.inria.fr
-	(mail3-relais-sop.national.inria.fr [192.134.164.104])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DB6D2246
+	Fri, 26 Aug 2016 19:59:55 +0000 (UTC)
+Received: from mail-oi0-f65.google.com (mail-oi0-f65.google.com
+	[209.85.218.65])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3D4A2246
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 26 Aug 2016 19:59:21 +0000 (UTC)
-Date: Fri, 26 Aug 2016 15:59:08 -0400 (EDT)
-From: Julia Lawall <julia.lawall@lip6.fr>
-To: "Levin, Alexander" <alexander.levin@verizon.com>
-In-Reply-To: <20160826185227.GF25341@sasha-lappy>
-Message-ID: <alpine.DEB.2.10.1608261558270.3645@hadrien>
-References: <20160826044651.GA25341@sasha-lappy>
-	<20160826112635.GA27627@kroah.com>
-	<cfea840fae5911cdff7fbad535e9261b@newmail.lip6.fr>
-	<20160826121119.GA29929@kroah.com>
-	<20160826135141.GD25341@sasha-lappy>
-	<alpine.DEB.2.10.1608260954100.3134@hadrien>
-	<20160826185227.GF25341@sasha-lappy>
+	Fri, 26 Aug 2016 19:59:55 +0000 (UTC)
+Received: by mail-oi0-f65.google.com with SMTP id t127so7719730oie.1
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 26 Aug 2016 12:59:55 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
-Cc: Greg KH <gregkh@linuxfoundation.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] Self nomination - Sasha Levin
+Sender: linus971@gmail.com
+In-Reply-To: <CAPeXnHvKF2sPoiBiDCMEiguR1QScn5wNpQ7deaz=MDxofReNOw@mail.gmail.com>
+References: <CA+55aFxLRqket8-yCL=FPM0Bz86PxdS+hRSTzXES+=1bOv=feg@mail.gmail.com>
+	<CAPeXnHs_9=m9R+JO=O_p_Q390b1DgnsKyMgP6kGiPyBGn=+3_w@mail.gmail.com>
+	<CA+55aFxXroS=_Mfyg+-3WF0KwqvPXJBKT0tjryWbDUx6G9Qvkw@mail.gmail.com>
+	<CAPeXnHvMUOL4M6y7_9oEF6ovrasfSY9Zqn2tRs-dRst9SS1jYQ@mail.gmail.com>
+	<CA+55aFxZTeJoPqRCHX+o_eEJ4RGDC_rOk6ZuL1Vz8Bk+7LfkfQ@mail.gmail.com>
+	<1472225332.2751.56.camel@redhat.com>
+	<CA+55aFxLB+1TtSPR9C5HG1+boZcGrub6VMATCa_Og9Jg51ttZw@mail.gmail.com>
+	<1472230114.2751.67.camel@redhat.com>
+	<CA+55aFxedcKe7q1SsVK48zkrzmUHwb8p3g8oKAHR4nUsbsobxA@mail.gmail.com>
+	<CAPeXnHswT0dSvdzvc1p7yr_cewXrX1mHi0dQE=p1E4sFkjn=HQ@mail.gmail.com>
+	<CA+55aFyOSV0cRGEHWjsKMxsxjs6Kp6oghpE+-ueVFi7irnmSCA@mail.gmail.com>
+	<CAPeXnHvKF2sPoiBiDCMEiguR1QScn5wNpQ7deaz=MDxofReNOw@mail.gmail.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Fri, 26 Aug 2016 12:59:53 -0700
+Message-ID: <CA+55aFz8z4-0Fh+-H9Ko0DPUdXtJJS+j=pMWwVfoMqO0doRSFg@mail.gmail.com>
+To: Matthew Garrett <mjg59@coreos.com>
+Content-Type: text/plain; charset=UTF-8
+Cc: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,51 +44,37 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-
-
-On Fri, 26 Aug 2016, Levin, Alexander wrote:
-
-> On Fri, Aug 26, 2016 at 09:55:18AM -0400, Julia Lawall wrote:
-> > On Fri, 26 Aug 2016, Levin, Alexander wrote:
-> > > On Fri, Aug 26, 2016 at 08:11:19AM -0400, Greg KH wrote:
-> > > > On Fri, Aug 26, 2016 at 01:55:27PM +0200, Julia Lawall wrote:
-> > > > > Not sure if I was clear about what I was asking you to agree to :)
-> > > > >
-> > > > > Basically, we can take the patches sent to stable and the patches not sent
-> > > > > to stable as a training set, but then the machine learning comes up with
-> > > > > some algorithm that produces some results.  An expert is needed to evaluate
-> > > > > the results.  Ie for a thousand (number chosen at random) patches, if the
-> > > > > algorithm says it is a bug fixing patch, is it or isn't it, and vice versa.
-> > > > > Of course, we could also evaluate on patches that previously have and have
-> > > > > not been sent too stable, but there is a problem there, because our goal is
-> > > > > to have more patches sent to stable than are already being sent there, so we
-> > > > > need to show that the algorithm can capture what humans are missing.
-> > > >
-> > > > I think that is very interesting research and I would be glad to help
-> > > > out with it how ever I can, as the result might be very useful for us.
-> > > >
-> > > > So sign me up!
-> > >
-> > > I'd be happy to do this as well.
-> > >
-> > > Per Greg's advice, I'm reviewing distro kernels for upstream commits that
-> > > they carry which should have been in our LTS trees, those commits usually
-> > > aren't tagged in any way and can be a good set of commits for training or
-> > > validation.
-> > >
-> > > I do think that we should be using the algorithm to produce a list of authors
-> > > and maintainers who don't provide proper tags when they should and have a
-> > > discussion with them about why that doesn't happen and how we can help them
-> > > to get it "right" (vs just using the algorithm to apply patches).
-> >
-> > Thanks for volunteering and for the suggestions.  I will get back to you
-> > about this shortly.
+On Fri, Aug 26, 2016 at 12:45 PM, Matthew Garrett <mjg59@coreos.com> wrote:
 >
-> I think it's also a great opportunity to discuss the differences between the
-> commits Greg marked for stable and the ones I did. As with everything else we
-> see things differently so it'll be useful to learn more about why each of us
-> picked (or didn't pick) a given commit.
+> We agree that quiet negotiation is the preferred tactic. We agree that
+> lawsuits may be necessary as a final resort. It doesn't seem like
+> we're disagreeing on anything fundamental in that respect. What Karen
+> has suggested is an opportunity for the kernel community to give clear
+> input into when that final resort should be acceptable.
 
-I agree.  This occurred to me also.
+Heh. Sounds like we do indeed end up agreeing here, there was nothing
+I disagreed with in this email for example.
 
-julia
+Maybe I read more into Bradley's saying than I should have, but it
+_really_ rubbed me the wrong way.
+
+I really think the biggest impact of the GPL have been almost
+_entirely_ outside any legal issues, and that it's a great document
+not because it's a great legal piece of writing, but because of much
+bigger issues.
+
+That may be why I reacted *so* negatively to seeing it argued that
+it's pointless without enforcement. Almost none of the successes of
+the GPL have ever been about the legal side.
+
+To put it in ridiculously overly grandiose historical terms: nobody
+enforces the magna carta any more - it's not like you need to. It's
+the *ideas* that matter, and the fact that it changed the world.
+
+But as I started out saying, I actually support discussing this at the
+kernel summit, it's just that I absolutely do *not* think it's about
+having lawyers present.
+
+Because that's not the point.
+
+           Linus
