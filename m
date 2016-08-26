@@ -1,20 +1,19 @@
-Return-Path: <linus971@gmail.com>
+Return-Path: <riel@redhat.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8B53826C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0117B721
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 26 Aug 2016 19:03:58 +0000 (UTC)
-Received: from mail-oi0-f44.google.com (mail-oi0-f44.google.com
-	[209.85.218.44])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id EB9B112D
+	Fri, 26 Aug 2016 19:30:09 +0000 (UTC)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9C70E21F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 26 Aug 2016 19:03:57 +0000 (UTC)
-Received: by mail-oi0-f44.google.com with SMTP id f189so122788918oig.3
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 26 Aug 2016 12:03:57 -0700 (PDT)
-MIME-Version: 1.0
-Sender: linus971@gmail.com
-In-Reply-To: <CAPeXnHswT0dSvdzvc1p7yr_cewXrX1mHi0dQE=p1E4sFkjn=HQ@mail.gmail.com>
+	Fri, 26 Aug 2016 19:30:08 +0000 (UTC)
+Message-ID: <1472239791.2751.88.camel@redhat.com>
+From: Rik van Riel <riel@redhat.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>, Matthew Garrett
+	<mjg59@coreos.com>
+Date: Fri, 26 Aug 2016 15:29:51 -0400
+In-Reply-To: <CA+55aFyOSV0cRGEHWjsKMxsxjs6Kp6oghpE+-ueVFi7irnmSCA@mail.gmail.com>
 References: <CA+55aFxLRqket8-yCL=FPM0Bz86PxdS+hRSTzXES+=1bOv=feg@mail.gmail.com>
 	<CAPeXnHs_9=m9R+JO=O_p_Q390b1DgnsKyMgP6kGiPyBGn=+3_w@mail.gmail.com>
 	<CA+55aFxXroS=_Mfyg+-3WF0KwqvPXJBKT0tjryWbDUx6G9Qvkw@mail.gmail.com>
@@ -25,11 +24,10 @@ References: <CA+55aFxLRqket8-yCL=FPM0Bz86PxdS+hRSTzXES+=1bOv=feg@mail.gmail.com>
 	<1472230114.2751.67.camel@redhat.com>
 	<CA+55aFxedcKe7q1SsVK48zkrzmUHwb8p3g8oKAHR4nUsbsobxA@mail.gmail.com>
 	<CAPeXnHswT0dSvdzvc1p7yr_cewXrX1mHi0dQE=p1E4sFkjn=HQ@mail.gmail.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Fri, 26 Aug 2016 12:03:56 -0700
-Message-ID: <CA+55aFyOSV0cRGEHWjsKMxsxjs6Kp6oghpE+-ueVFi7irnmSCA@mail.gmail.com>
-To: Matthew Garrett <mjg59@coreos.com>
-Content-Type: text/plain; charset=UTF-8
+	<CA+55aFyOSV0cRGEHWjsKMxsxjs6Kp6oghpE+-ueVFi7irnmSCA@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Cc: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>,
 	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
@@ -42,79 +40,44 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Aug 26, 2016 at 10:49 AM, Matthew Garrett <mjg59@coreos.com> wrote:
->
-> And yet Linksys were still in violation (even on the WRT54GL!) in
-> 2008, resulting in a lawsuit (which they settled). That was after two
-> and a half years of quiet negotiation between the FSF and Linksys.
-> People had raised a stink. Discussions happened. Linksys didn't come
-> into compliance until the suit was filed, and to this day they
-> continue to distribute Linux-based routers and provide the source.
->
-> Which part of this was inappropriate? What should have been done instead?
+On Fri, 2016-08-26 at 12:03 -0700, Linus Torvalds wrote:
+> 
+> And the thing is, I think that the reasons to bring in lawyers have
+> weakened markedly over time. I'm sure you remember back when some
+> people used to argue that the GPL was invalid and unenforceable. It
+> was a completely bullshit argument, and had absolutely no sane
+> thinking behind it, but it definitely existed.
+> 
+> For the people who haven't been around enough, just google for it.
+> That insane argument has been made.
+> 
+> Nobody makes that argument any more. The GPL is obviously enforceable
+> and that it's simply not an issue. Legal departments *know* it is
+> enforceable.
+> 
+Legal departments know sections 3, 4, 5 and 6 of
+the GPL are enforceable because they have been
+enforced in court, and judges have decided they
+are enforceable.
 
-So note how I said earlier that it's not an entirely black-and-white thing.
+There is something to be said for the argument
+that the lawyers are no longer needed, because
+they have already done their jobs, however I
+am not aware of eg. GPL section 2 having been
+tested the same way.
 
-I do think that there is some final point where lawyers do need to get
-involved. But it really should be seen as a last effort thing. It's
-the nuclear option.
+This may also be why the VMware thing had been
+dragging on for 7 (IIRC) years before a lawsuit
+was eventually filed. It appears to be about a
+different part of the GPL than the sections that
+everybody now agrees are enforceable.
 
-It is *not* something we should be belligerent about, and something
-you use as a threat. It is very much not a "we can all decide to give
-up on the GPL, or we can enforce it in Courts".
+I totally agree that a lawsuit should be an
+absolute last resort. However, after 7 years
+of attempts to resolve the issue, without 
+progress towards a resolution, probably qualifies
+as a "last resort" situation.
 
-It's essentially echoing "if you're not with us, you are against us".
-It's a completely false dichotomy, and sane people should resist that
-kind of illogical thinking and behavior.
-
-It is simply not a valid argument for going to war. It never has been.
-
-And the thing is, I think that the reasons to bring in lawyers have
-weakened markedly over time. I'm sure you remember back when some
-people used to argue that the GPL was invalid and unenforceable. It
-was a completely bullshit argument, and had absolutely no sane
-thinking behind it, but it definitely existed.
-
-For the people who haven't been around enough, just google for it.
-That insane argument has been made.
-
-Nobody makes that argument any more. The GPL is obviously enforceable
-and that it's simply not an issue. Legal departments *know* it is
-enforceable.
-
-And that's part of a bigger (and good) pattern: people actually know
-and understand the GPL, and there are tons and tons of companies that
-really believe in it. Lawsuits aren't even "educational" any more.
-
-We've also seen how even successful lawsuits haven't actually helped
-the project involved. So there was certainly an education there too -
-for the developer side.
-
-At the same time, when we've obviously convinced people the GPL is
-serious and real, I'm actually seeing *more* noise to go to war, not
-less. That makes no sense.
-
-We solved the whole perception issue, and there is no question
-what-so-ever that the GPL is enforceable, but instead of making some
-people happier, to some o them it's a sign that "now we need to take
-the fight to the next level".
-
-That BS. That's completely idiotic thinking. We've *won*. People know
-that not only is the GPL a valid license, they see and acknowledge
-that it's a very successful model of development (another thing that
-certainly was not universally acknowledged).
-
-These days we only have *more* to lose, and less upside.
-
-As a result, we should be much *less* inclined to make legal threats,
-since so much of the industry has been convinced. Not all, no, but the
-GPL has actually become an accepted license inside a lot of companies.
-Some of those companies used to rant against it and call it "cancer".
-
-I'm sure you've heard the term "GPL maximalist". It's not a pretty
-thing, and it's hurting us. We were successful exactly because we were
-*not* maximalists.
-
-We absolutely should fight that fringe movement.
-
-                  Linus
+I do not think the conservancy would get much
+support if it were enthusiastic about starting
+lawsuits.
