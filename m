@@ -1,39 +1,31 @@
-Return-Path: <linus971@gmail.com>
+Return-Path: <jra@samba.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BF5CA258
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A76B59D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 26 Aug 2016 19:59:55 +0000 (UTC)
-Received: from mail-oi0-f65.google.com (mail-oi0-f65.google.com
-	[209.85.218.65])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3D4A2246
+	Fri, 26 Aug 2016 20:09:06 +0000 (UTC)
+Received: from hr2.samba.org (hr2.samba.org [144.76.82.148])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C8EA228C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 26 Aug 2016 19:59:55 +0000 (UTC)
-Received: by mail-oi0-f65.google.com with SMTP id t127so7719730oie.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 26 Aug 2016 12:59:55 -0700 (PDT)
-MIME-Version: 1.0
-Sender: linus971@gmail.com
-In-Reply-To: <CAPeXnHvKF2sPoiBiDCMEiguR1QScn5wNpQ7deaz=MDxofReNOw@mail.gmail.com>
+	Fri, 26 Aug 2016 20:09:05 +0000 (UTC)
+Date: Fri, 26 Aug 2016 13:09:00 -0700
+From: Jeremy Allison <jra@samba.org>
+To: ksummit-discuss@lists.linuxfoundation.org
+Message-ID: <20160826200900.GB29084@jra3>
+Reply-To: Jeremy Allison <jra@samba.org>
 References: <CA+55aFxLRqket8-yCL=FPM0Bz86PxdS+hRSTzXES+=1bOv=feg@mail.gmail.com>
+	<CA+55aFxedcKe7q1SsVK48zkrzmUHwb8p3g8oKAHR4nUsbsobxA@mail.gmail.com>
 	<CAPeXnHs_9=m9R+JO=O_p_Q390b1DgnsKyMgP6kGiPyBGn=+3_w@mail.gmail.com>
 	<CA+55aFxXroS=_Mfyg+-3WF0KwqvPXJBKT0tjryWbDUx6G9Qvkw@mail.gmail.com>
 	<CAPeXnHvMUOL4M6y7_9oEF6ovrasfSY9Zqn2tRs-dRst9SS1jYQ@mail.gmail.com>
 	<CA+55aFxZTeJoPqRCHX+o_eEJ4RGDC_rOk6ZuL1Vz8Bk+7LfkfQ@mail.gmail.com>
 	<1472225332.2751.56.camel@redhat.com>
 	<CA+55aFxLB+1TtSPR9C5HG1+boZcGrub6VMATCa_Og9Jg51ttZw@mail.gmail.com>
-	<1472230114.2751.67.camel@redhat.com>
-	<CA+55aFxedcKe7q1SsVK48zkrzmUHwb8p3g8oKAHR4nUsbsobxA@mail.gmail.com>
-	<CAPeXnHswT0dSvdzvc1p7yr_cewXrX1mHi0dQE=p1E4sFkjn=HQ@mail.gmail.com>
-	<CA+55aFyOSV0cRGEHWjsKMxsxjs6Kp6oghpE+-ueVFi7irnmSCA@mail.gmail.com>
-	<CAPeXnHvKF2sPoiBiDCMEiguR1QScn5wNpQ7deaz=MDxofReNOw@mail.gmail.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Fri, 26 Aug 2016 12:59:53 -0700
-Message-ID: <CA+55aFz8z4-0Fh+-H9Ko0DPUdXtJJS+j=pMWwVfoMqO0doRSFg@mail.gmail.com>
-To: Matthew Garrett <mjg59@coreos.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>,
-	ksummit-discuss@lists.linuxfoundation.org
+	<8737lrl8os.fsf@ebb.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8737lrl8os.fsf@ebb.org>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -44,37 +36,53 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Aug 26, 2016 at 12:45 PM, Matthew Garrett <mjg59@coreos.com> wrote:
->
-> We agree that quiet negotiation is the preferred tactic. We agree that
-> lawsuits may be necessary as a final resort. It doesn't seem like
-> we're disagreeing on anything fundamental in that respect. What Karen
-> has suggested is an opportunity for the kernel community to give clear
-> input into when that final resort should be acceptable.
+On Fri Aug 26 19:03:56 UTC 2016, Linus Torvalds <torvalds@linux-foundation.org> wrote:
 
-Heh. Sounds like we do indeed end up agreeing here, there was nothing
-I disagreed with in this email for example.
+> So note how I said earlier that it's not an entirely black-and-white thing.
+> ...
+> We've also seen how even successful lawsuits haven't actually helped
+> the project involved. So there was certainly an education there too -
+> for the developer side.
 
-Maybe I read more into Bradley's saying than I should have, but it
-_really_ rubbed me the wrong way.
+(This may also be a re-port, sorry if so - just joined the list
+so not sure if my previous posting of this went through).
 
-I really think the biggest impact of the GPL have been almost
-_entirely_ outside any legal issues, and that it's a great document
-not because it's a great legal piece of writing, but because of much
-bigger issues.
+Apologies for the drive-by posting. I'm not normally on this list,
+but this discussion is important enough I wanted to correct the
+above point.
 
-That may be why I reacted *so* negatively to seeing it argued that
-it's pointless without enforcement. Almost none of the successes of
-the GPL have ever been about the legal side.
+The Samba project has never sued anyone over GPL-violations. We've
+discussed violations with companies more times than I can remember,
+but never had to go to court over the GPL being violated on our code.
 
-To put it in ridiculously overly grandiose historical terms: nobody
-enforces the magna carta any more - it's not like you need to. It's
-the *ideas* that matter, and the fact that it changed the world.
+These days we rely on Conservancy doing the kind of back-room negotiation
+that they are really good at, and they've never failed us on this. Lawsuits
+*are* a last-ditch nuclear option.
 
-But as I started out saying, I actually support discussing this at the
-kernel summit, it's just that I absolutely do *not* think it's about
-having lawyers present.
+However, we do have experience with one successful lawsuit, which
+provides a good counter example to the comment above.
 
-Because that's not the point.
+Samba and the FSFE were the last entities standing in the Microsoft vs EU
+anti-trust lawsuit. We even helped cost them over $1b in fines.
 
-           Linus
+Next month I'll be going up to my second invite-only Microsoft plugfest
+of the year - this one set up specifically for the Team that sued them.
+
+I'll be visiting several of my friends there, including one of their
+lawyers (although the rest of them are engineers :-).
+
+The Microsoft vs EU lawsuit was not only successful, it helped the
+Samba project a great deal. The documentation that was released because of
+the lawsuit has provided impetus for a great deal of new Samba development,
+as well as creating a diverse marketplace of new proprietary competitors
+(which has helped raise everyones code and improved interop for the users).
+
+None of this would have happened without the successful lawsuit, rancorous
+though it was at the time (and in public too :-).
+
+So as someone said earlier, this is not an entirely black-and-white thing :-).
+
+Jeremy.
+
+Full disclosure: I'm on the Conservancy Board of Directors, so I obviously
+agree with their mission.
