@@ -1,24 +1,24 @@
 Return-Path: <Julia.Lawall@lip6.fr>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id E799B483
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 95C1C483
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 26 Aug 2016 11:54:07 +0000 (UTC)
+	Fri, 26 Aug 2016 11:55:30 +0000 (UTC)
 Received: from isis.lip6.fr (isis.lip6.fr [132.227.60.2])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id EC48CFC
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id EE365FC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 26 Aug 2016 11:54:05 +0000 (UTC)
+	Fri, 26 Aug 2016 11:55:29 +0000 (UTC)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8;
+Content-Type: text/plain; charset=US-ASCII;
  format=flowed
-Content-Transfer-Encoding: 8bit
-Date: Fri, 26 Aug 2016 13:48:31 +0200
+Content-Transfer-Encoding: 7bit
+Date: Fri, 26 Aug 2016 13:55:27 +0200
 From: Julia Lawall <Julia.Lawall@lip6.fr>
 To: Greg KH <gregkh@linuxfoundation.org>
 In-Reply-To: <20160826112635.GA27627@kroah.com>
 References: <20160826044651.GA25341@sasha-lappy>
 	<20160826112635.GA27627@kroah.com>
-Message-ID: <024171e5a6955e77a9a55a0088baa9ea@newmail.lip6.fr>
+Message-ID: <cfea840fae5911cdff7fbad535e9261b@newmail.lip6.fr>
 Cc: ksummit-discuss@lists.linuxfoundation.org, "Levin,
 	Alexander" <alexander.levin@verizon.com>
 Subject: Re: [Ksummit-discuss] Self nomination - Sasha Levin
@@ -31,31 +31,17 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Le 26.08.2016 13:26, Greg KH a écrit :
-> On Fri, Aug 26, 2016 at 12:46:51AM -0400, Levin, Alexander wrote:
->>    - Making checkpatch check for (some) of the stable kernel rules
->>    (and possibly recommend adding the stable@ tag in certain cases?).
->>      - Depends on: making checkpatch sane again.
-> 
-> This sounds interesting.  What do you mean by "sane"?  "sane" as in
-> rewriting it so that someone who isn't a perl master can modify it?  Or
-> "sane" as in "don't be so pedantic about things that don't matter"?
+Not sure if I was clear about what I was asking you to agree to :)
 
-A few years ago, I did some work on automatically identifying bug fixing 
-patches, based on combining information from the log message and the 
-code.  For example, one issue would be the number of changes in the 
-code, because a big change, even if it was a bug fix, might be too 
-complex for stable.  Machine learning was involved.  The obvious weak 
-point of the work was that we only had me to label the data, as opposed 
-to a real stable maintainer.  If you think it could be useful to pursue 
-this work, and do a better job, and would be willing to help out in 
-creating the datasets, then perhaps it could be something to pursue 
-again.  My collaborator on this work is David Lo of Singapore Management 
-University.  I will be visiting him in the first week of September and 
-could discuss with him further.  If by chance you think of something 
-else where machine learning could be relevant to kernel development, I 
-could bring that up as well.  He knows everything about applying machine 
-learning to software development issues, but nothing about the Linux 
-kernel, or even C code.
+Basically, we can take the patches sent to stable and the patches not 
+sent to stable as a training set, but then the machine learning comes up 
+with some algorithm that produces some results.  An expert is needed to 
+evaluate the results.  Ie for a thousand (number chosen at random) 
+patches, if the algorithm says it is a bug fixing patch, is it or isn't 
+it, and vice versa.  Of course, we could also evaluate on patches that 
+previously have and have not been sent too stable, but there is a 
+problem there, because our goal is to have more patches sent to stable 
+than are already being sent there, so we need to show that the algorithm 
+can capture what humans are missing.
 
 julia
