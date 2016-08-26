@@ -1,18 +1,18 @@
-Return-Path: <riel@redhat.com>
+Return-Path: <matthew.garrett@coreos.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0117B721
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1DC168D7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 26 Aug 2016 19:30:09 +0000 (UTC)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9C70E21F
+	Fri, 26 Aug 2016 19:45:54 +0000 (UTC)
+Received: from mail-yw0-f169.google.com (mail-yw0-f169.google.com
+	[209.85.161.169])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DA7C223F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 26 Aug 2016 19:30:08 +0000 (UTC)
-Message-ID: <1472239791.2751.88.camel@redhat.com>
-From: Rik van Riel <riel@redhat.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>, Matthew Garrett
-	<mjg59@coreos.com>
-Date: Fri, 26 Aug 2016 15:29:51 -0400
+	Fri, 26 Aug 2016 19:45:52 +0000 (UTC)
+Received: by mail-yw0-f169.google.com with SMTP id u134so54715554ywg.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 26 Aug 2016 12:45:52 -0700 (PDT)
+MIME-Version: 1.0
 In-Reply-To: <CA+55aFyOSV0cRGEHWjsKMxsxjs6Kp6oghpE+-ueVFi7irnmSCA@mail.gmail.com>
 References: <CA+55aFxLRqket8-yCL=FPM0Bz86PxdS+hRSTzXES+=1bOv=feg@mail.gmail.com>
 	<CAPeXnHs_9=m9R+JO=O_p_Q390b1DgnsKyMgP6kGiPyBGn=+3_w@mail.gmail.com>
@@ -25,9 +25,11 @@ References: <CA+55aFxLRqket8-yCL=FPM0Bz86PxdS+hRSTzXES+=1bOv=feg@mail.gmail.com>
 	<CA+55aFxedcKe7q1SsVK48zkrzmUHwb8p3g8oKAHR4nUsbsobxA@mail.gmail.com>
 	<CAPeXnHswT0dSvdzvc1p7yr_cewXrX1mHi0dQE=p1E4sFkjn=HQ@mail.gmail.com>
 	<CA+55aFyOSV0cRGEHWjsKMxsxjs6Kp6oghpE+-ueVFi7irnmSCA@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Matthew Garrett <mjg59@coreos.com>
+Date: Fri, 26 Aug 2016 15:45:50 -0400
+Message-ID: <CAPeXnHvKF2sPoiBiDCMEiguR1QScn5wNpQ7deaz=MDxofReNOw@mail.gmail.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8
 Cc: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>,
 	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
@@ -40,44 +42,88 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, 2016-08-26 at 12:03 -0700, Linus Torvalds wrote:
-> 
+On Fri, Aug 26, 2016 at 3:03 PM, Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
+> On Fri, Aug 26, 2016 at 10:49 AM, Matthew Garrett <mjg59@coreos.com> wrote:
+>>
+>> And yet Linksys were still in violation (even on the WRT54GL!) in
+>> 2008, resulting in a lawsuit (which they settled). That was after two
+>> and a half years of quiet negotiation between the FSF and Linksys.
+>> People had raised a stink. Discussions happened. Linksys didn't come
+>> into compliance until the suit was filed, and to this day they
+>> continue to distribute Linux-based routers and provide the source.
+>>
+>> Which part of this was inappropriate? What should have been done instead?
+>
+> So note how I said earlier that it's not an entirely black-and-white thing.
+>
+> I do think that there is some final point where lawyers do need to get
+> involved. But it really should be seen as a last effort thing. It's
+> the nuclear option.
+
+As far as I know, the last time the SFC was involved in a lawsuit was
+in 2010. Since then they've worked with a large number of vendors and
+secured the release of significant quantities of code. We're not
+talking about ambulance chasers, here.
+
+> It is *not* something we should be belligerent about, and something
+> you use as a threat. It is very much not a "we can all decide to give
+> up on the GPL, or we can enforce it in Courts".
+
+It's hyperbole, but there's truth to it. Some vendors will be
+receptive to quiet negotiation, especially in cases where there's very
+similar precedent (router vendors seem to be well behaved here). But
+if vendors start pushing back, and if it becomes known that there are
+no consequences for pushing back, that's likely to change. If it's
+viewed as socially beneficial to release GPLed source, but not viewed
+as a hard requirement, the distinction between the GPL and a BSD-style
+license vanishes, which is what Bradley means by "giving up on the
+GPL". For companies that don't see any social or technical benefit in
+releasing their source (vendors producing cheap short-term products
+who'll never have to rebase patches, for instance), the only incentive
+is the legal one. I understand why you're just not that interested in
+that case, but there are huge numbers of users who are. Doing what we
+can to help them is worthwhile.
+
 > And the thing is, I think that the reasons to bring in lawyers have
 > weakened markedly over time. I'm sure you remember back when some
 > people used to argue that the GPL was invalid and unenforceable. It
 > was a completely bullshit argument, and had absolutely no sane
 > thinking behind it, but it definitely existed.
-> 
-> For the people who haven't been around enough, just google for it.
-> That insane argument has been made.
-> 
-> Nobody makes that argument any more. The GPL is obviously enforceable
-> and that it's simply not an issue. Legal departments *know* it is
-> enforceable.
-> 
-Legal departments know sections 3, 4, 5 and 6 of
-the GPL are enforceable because they have been
-enforced in court, and judges have decided they
-are enforceable.
 
-There is something to be said for the argument
-that the lawyers are no longer needed, because
-they have already done their jobs, however I
-am not aware of eg. GPL section 2 having been
-tested the same way.
+Oh, I agree, and it's much easier *because* lawyers were involved in
+the past. But there's still plenty of edge cases, and the VMWare case
+demonstrates that there are still significant vendors who won't do the
+right thing even if there's been plenty of quiet negotiation.
 
-This may also be why the VMware thing had been
-dragging on for 7 (IIRC) years before a lawsuit
-was eventually filed. It appears to be about a
-different part of the GPL than the sections that
-everybody now agrees are enforceable.
+> At the same time, when we've obviously convinced people the GPL is
+> serious and real, I'm actually seeing *more* noise to go to war, not
+> less. That makes no sense.
 
-I totally agree that a lawsuit should be an
-absolute last resort. However, after 7 years
-of attempts to resolve the issue, without 
-progress towards a resolution, probably qualifies
-as a "last resort" situation.
+I think you're misinterpreting what people are saying. People want to
+make sure that if we do go to war, that we win. That means having a
+strong cohort of copyright holders who can't be weakened by corporate
+pressure, and making it clear that lawsuits won't be ruled out. Nobody
+*wants* to go to court, not even Bradley. It's only happening because
+everything that could be done before that was done, and failed.
 
-I do not think the conservancy would get much
-support if it were enthusiastic about starting
-lawsuits.
+> As a result, we should be much *less* inclined to make legal threats,
+> since so much of the industry has been convinced. Not all, no, but the
+> GPL has actually become an accepted license inside a lot of companies.
+> Some of those companies used to rant against it and call it "cancer".
+
+The number of companies using Linux has increased significantly since
+2010. The number of lawsuits has decreased. Evidence suggests that
+everybody involved *is* less inclined to make legal threats.
+
+> I'm sure you've heard the term "GPL maximalist". It's not a pretty
+> thing, and it's hurting us. We were successful exactly because we were
+> *not* maximalists.
+>
+> We absolutely should fight that fringe movement.
+
+We agree that quiet negotiation is the preferred tactic. We agree that
+lawsuits may be necessary as a final resort. It doesn't seem like
+we're disagreeing on anything fundamental in that respect. What Karen
+has suggested is an opportunity for the kernel community to give clear
+input into when that final resort should be acceptable.
