@@ -1,27 +1,25 @@
-Return-Path: <bkuhn@sfconservancy.org>
+Return-Path: <wsa@the-dreams.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3F282258
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 93749305
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 27 Aug 2016 17:19:53 +0000 (UTC)
-Received: from pine.sfconservancy.org (pine.sfconservancy.org [162.242.171.33])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9219F14E
+	Sat, 27 Aug 2016 18:35:57 +0000 (UTC)
+Received: from pokefinder.org (sauhun.de [89.238.76.85])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0EBC1D2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 27 Aug 2016 17:19:52 +0000 (UTC)
-From: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>
-To: ksummit-discuss@lists.linuxfoundation.org
+	Sat, 27 Aug 2016 18:35:57 +0000 (UTC)
+Date: Sat, 27 Aug 2016 20:35:50 +0200
+From: Wolfram Sang <wsa@the-dreams.de>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Message-ID: <20160827183550.GB1601@katana>
 References: <CA+55aFxLRqket8-yCL=FPM0Bz86PxdS+hRSTzXES+=1bOv=feg@mail.gmail.com>
-	<1472225020.3680.8.camel@localhost.localdomain>
-	<1472229438.5189.79.camel@HansenPartnership.com>
-	<1472231998.3680.18.camel@localhost.localdomain>
-	<20160827154320.GA27132@kroah.com>
-Date: Sat, 27 Aug 2016 10:14:45 -0700
-In-Reply-To: <20160827154320.GA27132@kroah.com> (Greg KH's message of "Sat, 27
-	Aug 2016 17:43:20 +0200")
-Message-ID: <87r39arv5m.fsf@ebb.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-Cc: Linus Torvalds <torvalds@linux-foundation.org>
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="NDin8bjvE/0mNLFQ"
+Content-Disposition: inline
+In-Reply-To: <CA+55aFxLRqket8-yCL=FPM0Bz86PxdS+hRSTzXES+=1bOv=feg@mail.gmail.com>
+Cc: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -32,43 +30,57 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Greg KH wrote at 08:43 (PDT):
-> [CCFinder is a] much different tool than what James was referring to.  The
-> work that the LF has been doing is not based on CCFinder, and (in my
-> opinion) is much more powerful and provides much more information about
-> attribution of work and the proof of where all code changes came from.
 
-It's really tough to know what this new tool is based on, because it's not
-Open Source and Free Software (not yet anyway).  It's a tool that's been
-presented in talks, but the data and code behind it remains hidden.
+--NDin8bjvE/0mNLFQ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Both I and Karen have talked extensively on multiple occasions with dmg,
-the tool's author.  He verified for me explictly that CCFinderX remains
-indeed state-of-the-art (and still really hard to install ;).  He
-indicated that his system, while it may or may not using CCFinderX's code
-directly [0], has technology that's roughly the same.  Anyone who has worked
-with CCFinderX and reviewed dmg's talks can see the obvious similarity.
+Greg, Linus,
 
-The key new contribution it sounds like dmg has made is data curation.
->From his verbal description, it sounds like dmg has done a really excellent
-job reconstructing the history of contributions to Linux that don't appear
-directly in Git.  I'm excited to (eventually) see his data!
+Putting all the enforcement issues aside, there is one sentence that
+struck me:
 
-In April, I of course asked dmg to make the tool and the data available
-publicly under an Open Source and Free Software license, and he said he will
-do it eventually, but for the moment only his University team and the Linux
-Foundation (as funders of the work) have access to it, and they aren't
-willing to share their software and knowledge at the moment with others.
+> > And corporations are a _huge_ part of our community, and frankly,
+> > the only reason we are where we are today.
 
-[0] dmg was cagey on all this because he's an academic and has not yet had
-    the work published academically, and he lives under a publish-or-perish
-    regime.  I'm sympathetic; he's between a rock and hard place.  Indeed,
-    I've been looking lately into how unfriendly CS academia still remains to
-    Open Source and Free Software that's developed in public -- and it's
-    still as bad as when I was in graduate school.  I had so hoped it'd
-    gotten better.
--- 
-Bradley M. Kuhn
-President & Distinguished Technologist of Software Freedom Conservancy
-========================================================================
-Become a Conservancy Supporter today: https://sfconservancy.org/supporter
+I don't question the first part of the sentence, but I disagree to
+'the only reason' in the second part.
+
+The reason where we are today is the result of _all people_ contributing
+to Linux. I think our community is a lively mixture of particitpants
+hacking because of commercial, technical, enthusiastic, ideological and
+what not reasons. The beauty (and the challenge) is all of us working
+together. IMO this is one very important part which attracts some of the
+special talent which makes our community awesome. For me, it surely did.
+And that talent usually can't be attracted by, say, large investments or
+similar (which admittedly attracts other special talent and is OK, too).
+
+So, I don't think it is fair to give credits "where we are today" _only_
+to the commercial side. And I have a hard time believing this view is
+fundamentally different from yours?
+
+   Wolfram
+
+
+--NDin8bjvE/0mNLFQ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQIcBAEBAgAGBQJXwd2GAAoJEBQN5MwUoCm2frQP/1IPKpGPcRZSJD1jjZBjl6PS
+yXKK2Ji3BEfbHIVhxP4wYmbvFmjduGuvpGmc3/HdefkDyCTfsF9YvJBByJbxvny/
+D/G/OQNqQ42LErxOikWHK/VgZLXA9Bnm2o5B1JSLd73g7/0IHKhCborbxdpp0DLc
+YeGXmh/ClsWfpyAE17lrVsPpjnzudNZCqFQxY9AriEEmxD+TWKk2PxAnK5w7+oCF
+7GpYZO1JYyds3Jkh5KP8Ka8R9UBMRnsLqG3Uxe1Awf1Qflc3t1qlSKUvXU6h4IIk
+rOMl57U37KcBAt5cd59vWvi6yXgpyFyTLRtAnnV2zPfbwO4yG6KY7iqNezbzUN++
+wNSmhKSweJ3CdI/+GjBSx+i0iEn6wVWorSAhTPOebEeJQk9RNmEke1YY48k/AwH7
+V2eoAbfRyKTp0CAwTufbS/OvOlRmqqq8hHVIXb8PoC0bVd4c5vhX6p29eqFogp0h
+nqeIKev9jPfAHY1tO239IlHJJncq8avtHA8WCJzEl6wT6eXR1GB2OJYjhC6/NVBg
+LCh3yGVr/ZnaWO/sJaleN8lp6N9KzKxhPJJJzdjIEUtUFvR1Jeb4wdtUARiSYlWo
+8oOPFCXJeHxdvb0TCKx/tvmMKx4IwRt14bowzQjexyDuPZ+75FOWPwvhgRDVjhFR
+c8Y34kNeUi6SrayXdpZb
+=dCDK
+-----END PGP SIGNATURE-----
+
+--NDin8bjvE/0mNLFQ--
