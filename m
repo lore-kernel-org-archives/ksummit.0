@@ -1,30 +1,29 @@
-Return-Path: <BATV+b39178d164548fb1c7ea+4752+infradead.org+dwmw2@bombadil.srs.infradead.org>
+Return-Path: <greg@kroah.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id CCD629D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 01F0925A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 27 Aug 2016 07:01:01 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 723C68F
+	Sat, 27 Aug 2016 15:43:13 +0000 (UTC)
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+	[66.111.4.28])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1751811C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 27 Aug 2016 07:01:01 +0000 (UTC)
-Message-ID: <1472281256.61594.631.camel@infradead.org>
-From: David Woodhouse <dwmw2@infradead.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>, Jeremy Allison
-	<jra@samba.org>
-Date: Sat, 27 Aug 2016 08:00:56 +0100
-In-Reply-To: <CA+55aFys2c7ts_qoojZANfk2PmPqwOSuN3j1L-Eb_75NYZOP_A@mail.gmail.com>
-References: <20160826193331.GA29084@jra3>
-	<CA+55aFyvFJ0gz++ApyO7gFGd0wz4ysjs=6wNZi-91VUJuVK2_w@mail.gmail.com>
-	<20160826224213.GA1181@jra3>
-	<20160826230236.yky53kd5k4632ftd@thunk.org>
-	<20160826235853.GA6898@jra3>
-	<CA+55aFys2c7ts_qoojZANfk2PmPqwOSuN3j1L-Eb_75NYZOP_A@mail.gmail.com>
-Content-Type: multipart/signed; micalg="sha-256";
-	protocol="application/x-pkcs7-signature";
-	boundary="=-udXFTb9A50g2yYl9vzyH"
-Mime-Version: 1.0
-Cc: ksummit-discuss@lists.linuxfoundation.org
+	Sat, 27 Aug 2016 15:43:13 +0000 (UTC)
+Date: Sat, 27 Aug 2016 17:43:20 +0200
+From: Greg KH <greg@kroah.com>
+To: Karen Sandler <karen@sfconservancy.org>
+Message-ID: <20160827154320.GA27132@kroah.com>
+References: <CA+55aFxLRqket8-yCL=FPM0Bz86PxdS+hRSTzXES+=1bOv=feg@mail.gmail.com>
+	<1472225020.3680.8.camel@localhost.localdomain>
+	<1472229438.5189.79.camel@HansenPartnership.com>
+	<1472231998.3680.18.camel@localhost.localdomain>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1472231998.3680.18.camel@localhost.localdomain>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -35,148 +34,65 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Fri, Aug 26, 2016 at 01:19:58PM -0400, Karen Sandler wrote:
+> On Fri, 2016-08-26 at 12:37 -0400, James Bottomley wrote:
+> 
+> >  The idea that your opinion only counts if you've already agreed to
+> > support SFC actions.  Effectively it disenfranchises the majority in
+> > the kernel and leads directly to a lot of the irritation that's been
+> > coming out on the list.
+> 
+> The whole reason I proposed the session (in addition to information
+> sharing) is to get feedback on our work from those who don't participate
+> and be coordinated as possible with the work you, Greg and others not in
+> our coalition do in your GPL compliance efforts. We're obviously already
+> in touch with those who are in our coalition. :)
 
---=-udXFTb9A50g2yYl9vzyH
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+As I've said before, I don't think the Kernel Summit is a good place for
+this as it involves legal issues, and the Kernel Summit is about
+technical issues.
 
-On Fri, 2016-08-26 at 17:19 -0700, Linus Torvalds wrote:
-> Not only is "linking" not something that has any legal meaning, but
-> the GPLv2 doesn't even mention it.=C2=A0 Yet people _continually_ talk
-> about linking.
+But, I do like Linus's proposal of "only developers" in the room talking
+about stuff like this.  No lawyers, or managers, or "representatives"
+present.  That could be "fun".
 
-They do, and it's a pain.
+As you well know, lawyers can easily get disbarred for discussing things
+with clients of others when the client's lawyers are not present, even
+in "friendly situations".  Almost all of us are already clients of other
+lawyers, given our corporate affiliations, and clients can not waive
+that right to not have council present when talking about things to
+other lawyers.  So proposing a session like you have, seems like a huge
+risk for anyone there.  Unless you expect us all to drag our own lawyers
+along, and again, I don't want to attend a kernel summit where I am
+forced to do that.
 
-> But what the license says - and more importantly, what copyright law
-> itself actually is all about - is not linking, but "derived work".
+> > I just said that I think there's a viable way forward from the
+> > worst case outcome and the LF has been funding the tool work we'll need
+> > to survive in that world.
+> 
+> Conservancy has coordinated with these efforts. We've discussed the tool
+> extensively with its primary author and gave feedback from our work to
+> inform its progress.  We're glad they plan to release their newer tools
+> (and most importantly, curated data) soon under a free and open license.
+> The base tools used for that work, of course, Conservancy has already
+> been using for some time in our compliance work:
+> 
+> https://sfconservancy.org/copyleft-compliance/vmware-code-similarity.html
 
-You're close to one of the other errors that people continually make.
+That's much different tool than what James was referring to.  The work
+that the LF has been doing is not based on CCFinder, and (in my opinion)
+is much more powerful and provides much more information about
+attribution of work and the proof of where all code changes came from.
+Daniel's work was presented at a meeting in Barcelona that I think you
+attended, along with many other legal open source people.  An updated
+version of the tools and their capabilities was also presented this week
+at LinuxCon for everyone to see:
+	https://lcccna2016.sched.org/event/7RUK
 
-The licence specifically talks about "derivative or collective works".
+As you know, academics take attribution very seriously, please don't
+imply you have been working on this project with Daniel and Kate when
+as far as I know, no one from the SFC as been doing so.
 
-It isn't just about "derived work" in the sense of "is your module a
-derived work of the kernel?".
+thanks,
 
-It also includes "is your module shipped as part of a collective work
-including the kernel?".
-
-And I'm not intending to get into specific *answers* to those questions
-in this case, but we should not forget that they *are* the questions.=C2=A0
-
-You're right; we should not keep talking about "linking".
-
-And we should not keep talking about "derived work" as if it's all that
-matters.
-
---=20
-dwmw2
---=-udXFTb9A50g2yYl9vzyH
-Content-Type: application/x-pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEeAw
-ggXiMIIDyqADAgECAhBrp4p9CteI1lEK+Vnk57ThMA0GCSqGSIb3DQEBCwUAMH0xCzAJBgNVBAYT
-AklMMRYwFAYDVQQKEw1TdGFydENvbSBMdGQuMSswKQYDVQQLEyJTZWN1cmUgRGlnaXRhbCBDZXJ0
-aWZpY2F0ZSBTaWduaW5nMSkwJwYDVQQDEyBTdGFydENvbSBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0
-eTAeFw0xNTEyMTYwMTAwMDVaFw0zMDEyMTYwMTAwMDVaMHUxCzAJBgNVBAYTAklMMRYwFAYDVQQK
-Ew1TdGFydENvbSBMdGQuMSkwJwYDVQQLEyBTdGFydENvbSBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0
-eTEjMCEGA1UEAxMaU3RhcnRDb20gQ2xhc3MgMSBDbGllbnQgQ0EwggEiMA0GCSqGSIb3DQEBAQUA
-A4IBDwAwggEKAoIBAQC9fdr3w6J9g/Zbgv3bW1+uHht1wLUZr5gkrLtXedg17AkefMyUGwrQdvwO
-bhajcVmnKVxhrUwkZPXRAwZZosRHfEIi5FH7x6SV/8Sp5lZEuiMnvMFG2MzLA84J6Ws5T4NfXZ0q
-n4TPgnr3X2vPVS51M7Ua9nIJgn8jvTra4eyyQzxvuA/GZwKg7VQfDCmCS+kICslYYWgXOMt2xlsS
-slxLce0CGWRsT8EpMyt1iDflSjXZIsE7m1uTyHaKZspMLyIyz6mySu8j8BWWHpChNNeTrFuhVfrO
-AyDPFJVUvKZCLKBhibTLloyy+LatoWELrjdI4a8StZY8+dIR9t4APXGzAgMBAAGjggFkMIIBYDAO
-BgNVHQ8BAf8EBAMCAQYwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMBIGA1UdEwEB/wQI
-MAYBAf8CAQAwMgYDVR0fBCswKTAnoCWgI4YhaHR0cDovL2NybC5zdGFydHNzbC5jb20vc2ZzY2Eu
-Y3JsMGYGCCsGAQUFBwEBBFowWDAkBggrBgEFBQcwAYYYaHR0cDovL29jc3Auc3RhcnRzc2wuY29t
-MDAGCCsGAQUFBzAChiRodHRwOi8vYWlhLnN0YXJ0c3NsLmNvbS9jZXJ0cy9jYS5jcnQwHQYDVR0O
-BBYEFCSBbDlhvkkPj7cbRivJKLUnSG1oMB8GA1UdIwQYMBaAFE4L7xqkQFulF2mHMMo0aEPQQa7y
-MD8GA1UdIAQ4MDYwNAYEVR0gADAsMCoGCCsGAQUFBwIBFh5odHRwOi8vd3d3LnN0YXJ0c3NsLmNv
-bS9wb2xpY3kwDQYJKoZIhvcNAQELBQADggIBAIvj94fsAYuErQ8BAluc4SMnIwS9NPBwAm5SH9uh
-2NCXTq7im61g7F1LIiNI/+wq37fUuaMbz4g7VarKQTgf8ubs0p7NZWcIe7Bvem2AWaXBsxsaRTYw
-5kG3DN8pd1hSEUuFoTa7DmNeFe8tiK1BrL3rbA/m48jp4AiFXgvxprJrW7izsyetOrRHPbkW4Y07
-v29MdhaPv3u1JELyszXqOzjIYo4sWlC8iDQXwgSW/ntvWy2n4LuiaozlCfXl149tKeqvwlvrla2Y
-klue/quWp9j9ou4T/OY0CXMuY+B8wNK0ohd2D4ShgFlMSjzAFRoHGKF81snTr2d1A7Ew02oF6UQy
-CkC2aNNsK5cWOojBar5c7HplX9aHYUCZouxIeU28SONJAxnATgR4cJ2jrpmYSz/kliUJ46S6UpVD
-o/ebn9c6PaM/XtDYCCaM/7XX6wc3s++sbQ7CtCn1Ax7df6ufQbwyO0V+oFa9H0KAsjHMzcwk3EV2
-B2NLatidKE/m7G+rB9m+FlVgIiSp0mGlg43QO9Kh1+JqvTCIzv2bJJkmPMLQJNuKKwHNL8F4GGp6
-jbAV+WL+LDeGfVcq8DHS3LrD+xyYEXQBiqZEdiPVOMxLDSUCXsDO0uCWpaNQ8j6y6S9p0xE/Ga0p
-eVLadVHhqf9nXqKaxnr358VgfrxzUIrvOaOjMIIF+TCCBOGgAwIBAgIQaRjuleoVgt0XsPAUByve
-JDANBgkqhkiG9w0BAQsFADB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRkLjEp
-MCcGA1UECxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNVBAMTGlN0YXJ0
-Q29tIENsYXNzIDEgQ2xpZW50IENBMB4XDTE2MDMxMjE2MjEyNVoXDTE3MDMxMjE2MjEyNVowQjEc
-MBoGA1UEAwwTZHdtdzJAaW5mcmFkZWFkLm9yZzEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFk
-ZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBANBDAiGnoeOIQJ/Aolutct4z
-x6Yt3dOUI5d0YnydAMNOiyVLXzHuuuVjUpk/6nRxg1FN3e0i3TWe5MjSTD98760qWoAuF2g5BGU+
-tN/GUsyws26ZWOt82w7xhn4dcI8EhmASUtwDTZs5ZXPQzSkuNs6uX5SY0eKPlBNHkAtMf39hNc4m
-liy6WRDKApZxA1vCbiHsJQZdNEBYO35022bu8PZBe6LSAFKoncoGMHl1xNEkN6kfOJFYnLqBYeXO
-2mDA8KZ4h15EnQyyHGSghN92OUTc9stAWEt9a+q6TCtyW5zNgYTaaOtE41t5x2xDAgsnNU7sVM8f
-wSR3tYeW9IqTgU6eDUllb1a9FK7es3+j9UDg7OxNv9rnXIda6TdXlGWYfFltujF7FMwTofq3UG7t
-w68Ugk0MMfpZadhPhjYLI/qXiEDgQi8Xr+eWSo5P0ygaLvAz8OPcWAt8RG5Y8Id9hpb5neW1HTAR
-Q+k8lbpkx2wDPHZEft0ITROOupf76f9CNF4jYcyCKZNnjSsKeJv69VX1TsVaeqT1LJUEudXLa/BK
-FSb7x5M1KF4z46yImJrnagI19Nk/ufWn1usBXqXh8pY8cVN/I7C+TDPBY5SqIceTq7DaHZp19JQU
-IIWlyRsm2d4UoVcgIdTjX57Odap4Pjzrfp2RmC6hvkW2hQ5EreIPAgMBAAGjggG2MIIBsjAOBgNV
-HQ8BAf8EBAMCBLAwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMAkGA1UdEwQCMAAwHQYD
-VR0OBBYEFBDmK2IjZJ7MKmBK0A7J/tKaSIdoMB8GA1UdIwQYMBaAFCSBbDlhvkkPj7cbRivJKLUn
-SG1oMG8GCCsGAQUFBwEBBGMwYTAkBggrBgEFBQcwAYYYaHR0cDovL29jc3Auc3RhcnRzc2wuY29t
-MDkGCCsGAQUFBzAChi1odHRwOi8vYWlhLnN0YXJ0c3NsLmNvbS9jZXJ0cy9zY2EuY2xpZW50MS5j
-cnQwOAYDVR0fBDEwLzAtoCugKYYnaHR0cDovL2NybC5zdGFydHNzbC5jb20vc2NhLWNsaWVudDEu
-Y3JsMB4GA1UdEQQXMBWBE2R3bXcyQGluZnJhZGVhZC5vcmcwIwYDVR0SBBwwGoYYaHR0cDovL3d3
-dy5zdGFydHNzbC5jb20vMEYGA1UdIAQ/MD0wOwYLKwYBBAGBtTcBAgQwLDAqBggrBgEFBQcCARYe
-aHR0cDovL3d3dy5zdGFydHNzbC5jb20vcG9saWN5MA0GCSqGSIb3DQEBCwUAA4IBAQAn5wvdgC0V
-kS226sFKAbqPnmVhc9jgrbsiXUcpdtYEzv6EZonARIeRC1UlIzK7jzZFRe95W5y4/qlcPQDoAeZL
-cSsbpW3AYPFFWdRgVp/eIR3iy9C5KEcAbkJES2lRUZWyRqAceW1Gur9kfvjM5H0kM6BBwJfCtoqo
-WragTXfsIXGNsF0F+60mUYYsKFPZzPmyz9J0Dr0xx9Lcp4fbD6UckDWCNJt2AJAiEPt/vPiiBzU8
-edaRzkYhzxd9f3pZAzhlzIf2CgTrGtKSL2X1bS/b3siREjQLhVrlGw4qxqllqER3APrDzyijLFuc
-CWpS8hxjTmYcNZSibv+3Oy6uU+wqMIIF+TCCBOGgAwIBAgIQaRjuleoVgt0XsPAUByveJDANBgkq
-hkiG9w0BAQsFADB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRkLjEpMCcGA1UE
-CxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNVBAMTGlN0YXJ0Q29tIENs
-YXNzIDEgQ2xpZW50IENBMB4XDTE2MDMxMjE2MjEyNVoXDTE3MDMxMjE2MjEyNVowQjEcMBoGA1UE
-AwwTZHdtdzJAaW5mcmFkZWFkLm9yZzEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
-ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBANBDAiGnoeOIQJ/Aolutct4zx6Yt3dOU
-I5d0YnydAMNOiyVLXzHuuuVjUpk/6nRxg1FN3e0i3TWe5MjSTD98760qWoAuF2g5BGU+tN/GUsyw
-s26ZWOt82w7xhn4dcI8EhmASUtwDTZs5ZXPQzSkuNs6uX5SY0eKPlBNHkAtMf39hNc4mliy6WRDK
-ApZxA1vCbiHsJQZdNEBYO35022bu8PZBe6LSAFKoncoGMHl1xNEkN6kfOJFYnLqBYeXO2mDA8KZ4
-h15EnQyyHGSghN92OUTc9stAWEt9a+q6TCtyW5zNgYTaaOtE41t5x2xDAgsnNU7sVM8fwSR3tYeW
-9IqTgU6eDUllb1a9FK7es3+j9UDg7OxNv9rnXIda6TdXlGWYfFltujF7FMwTofq3UG7tw68Ugk0M
-MfpZadhPhjYLI/qXiEDgQi8Xr+eWSo5P0ygaLvAz8OPcWAt8RG5Y8Id9hpb5neW1HTARQ+k8lbpk
-x2wDPHZEft0ITROOupf76f9CNF4jYcyCKZNnjSsKeJv69VX1TsVaeqT1LJUEudXLa/BKFSb7x5M1
-KF4z46yImJrnagI19Nk/ufWn1usBXqXh8pY8cVN/I7C+TDPBY5SqIceTq7DaHZp19JQUIIWlyRsm
-2d4UoVcgIdTjX57Odap4Pjzrfp2RmC6hvkW2hQ5EreIPAgMBAAGjggG2MIIBsjAOBgNVHQ8BAf8E
-BAMCBLAwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMAkGA1UdEwQCMAAwHQYDVR0OBBYE
-FBDmK2IjZJ7MKmBK0A7J/tKaSIdoMB8GA1UdIwQYMBaAFCSBbDlhvkkPj7cbRivJKLUnSG1oMG8G
-CCsGAQUFBwEBBGMwYTAkBggrBgEFBQcwAYYYaHR0cDovL29jc3Auc3RhcnRzc2wuY29tMDkGCCsG
-AQUFBzAChi1odHRwOi8vYWlhLnN0YXJ0c3NsLmNvbS9jZXJ0cy9zY2EuY2xpZW50MS5jcnQwOAYD
-VR0fBDEwLzAtoCugKYYnaHR0cDovL2NybC5zdGFydHNzbC5jb20vc2NhLWNsaWVudDEuY3JsMB4G
-A1UdEQQXMBWBE2R3bXcyQGluZnJhZGVhZC5vcmcwIwYDVR0SBBwwGoYYaHR0cDovL3d3dy5zdGFy
-dHNzbC5jb20vMEYGA1UdIAQ/MD0wOwYLKwYBBAGBtTcBAgQwLDAqBggrBgEFBQcCARYeaHR0cDov
-L3d3dy5zdGFydHNzbC5jb20vcG9saWN5MA0GCSqGSIb3DQEBCwUAA4IBAQAn5wvdgC0VkS226sFK
-AbqPnmVhc9jgrbsiXUcpdtYEzv6EZonARIeRC1UlIzK7jzZFRe95W5y4/qlcPQDoAeZLcSsbpW3A
-YPFFWdRgVp/eIR3iy9C5KEcAbkJES2lRUZWyRqAceW1Gur9kfvjM5H0kM6BBwJfCtoqoWragTXfs
-IXGNsF0F+60mUYYsKFPZzPmyz9J0Dr0xx9Lcp4fbD6UckDWCNJt2AJAiEPt/vPiiBzU8edaRzkYh
-zxd9f3pZAzhlzIf2CgTrGtKSL2X1bS/b3siREjQLhVrlGw4qxqllqER3APrDzyijLFucCWpS8hxj
-TmYcNZSibv+3Oy6uU+wqMYIEXjCCBFoCAQEwgYkwdTELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0
-YXJ0Q29tIEx0ZC4xKTAnBgNVBAsTIFN0YXJ0Q29tIENlcnRpZmljYXRpb24gQXV0aG9yaXR5MSMw
-IQYDVQQDExpTdGFydENvbSBDbGFzcyAxIENsaWVudCBDQQIQaRjuleoVgt0XsPAUByveJDANBglg
-hkgBZQMEAgEFAKCCAaUwGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcN
-MTYwODI3MDcwMDU2WjAvBgkqhkiG9w0BCQQxIgQge35YCAnTW89GwQjgvxjhk1PFKaPJ8T/25FQB
-Yt44ytwwgZoGCSsGAQQBgjcQBDGBjDCBiTB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRD
-b20gTHRkLjEpMCcGA1UECxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNV
-BAMTGlN0YXJ0Q29tIENsYXNzIDEgQ2xpZW50IENBAhBpGO6V6hWC3Rew8BQHK94kMIGcBgsqhkiG
-9w0BCRACCzGBjKCBiTB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRkLjEpMCcG
-A1UECxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNVBAMTGlN0YXJ0Q29t
-IENsYXNzIDEgQ2xpZW50IENBAhBpGO6V6hWC3Rew8BQHK94kMA0GCSqGSIb3DQEBAQUABIICAAMP
-vV0/Knv5Aw1zz+5llfxiHB6QogEEWrG6GMfcoU9CMbow64ttPdbcncFbzq8tFgpyzz6HJPprbUxq
-lN5po1PY2VnvXz0biMIyXjvNpEzfuskjObV5onuh7oXCtsRwWa7PftIfVv3uoquHKKBv7JSBaNFC
-rK6tZ7hTuMh/LOV2Sm1Gw56u8UNJFz9c6qdPcprvaeTukgHIds+6mClYWpF3XdbMyaTsj41iHmOP
-xUdTi7iAd30H8ntrmaqRestvMmNBXB43ao9aaivfIevau1kmrQfDCphXHn370civBrXOFLDYB8eO
-bvNJsMvtj+qsXI5PcpJPtZ0asg4CxJyedj6TjphJK0SlWbyhEcTjzlwSdCm3oF6CfrQJWHqqiCcS
-pInlW4zbgX92qNSVWPiEi0FlFUyAn/lp2dMu2nFMjeCGlsTRq1bZD2mKcCGPOoxp9X/WP3xCcaGL
-1xOVVeI3jtnu1X/a5SKLX8gzKpqwhFs9OTbmPz3qeEPJAXmgG4ROMYYqTJqlDZfTMzA89VRIcbi3
-g1XIGuCfEfIUm30OVPXAOe64u5iKPkkBW1jqHKL79wCV3k0bfrNzbnw8dgI7tteCF7YwwAXBunl3
-cnEAXduAzdMBo1xpYD4Z5emjI4tzuTm+OcedxFvWCrvxK8/oS0Y7cb+NbDzh50uZqMZFk3+gAAAA
-AAAA
-
-
---=-udXFTb9A50g2yYl9vzyH--
+greg k-h
