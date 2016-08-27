@@ -1,28 +1,27 @@
-Return-Path: <greg@kroah.com>
+Return-Path: <bkuhn@sfconservancy.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7B6E525A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3F282258
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 27 Aug 2016 16:26:47 +0000 (UTC)
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
-	[66.111.4.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 918AE125
+	Sat, 27 Aug 2016 17:19:53 +0000 (UTC)
+Received: from pine.sfconservancy.org (pine.sfconservancy.org [162.242.171.33])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9219F14E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 27 Aug 2016 16:26:46 +0000 (UTC)
-Date: Sat, 27 Aug 2016 18:26:55 +0200
-From: Greg KH <greg@kroah.com>
-To: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>
-Message-ID: <20160827162655.GB27132@kroah.com>
-References: <20160826193331.GA29084@jra3>
-	<CA+55aFyvFJ0gz++ApyO7gFGd0wz4ysjs=6wNZi-91VUJuVK2_w@mail.gmail.com>
-	<87inunxf14.fsf@ebb.org>
+	Sat, 27 Aug 2016 17:19:52 +0000 (UTC)
+From: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>
+To: ksummit-discuss@lists.linuxfoundation.org
+References: <CA+55aFxLRqket8-yCL=FPM0Bz86PxdS+hRSTzXES+=1bOv=feg@mail.gmail.com>
+	<1472225020.3680.8.camel@localhost.localdomain>
+	<1472229438.5189.79.camel@HansenPartnership.com>
+	<1472231998.3680.18.camel@localhost.localdomain>
+	<20160827154320.GA27132@kroah.com>
+Date: Sat, 27 Aug 2016 10:14:45 -0700
+In-Reply-To: <20160827154320.GA27132@kroah.com> (Greg KH's message of "Sat, 27
+	Aug 2016 17:43:20 +0200")
+Message-ID: <87r39arv5m.fsf@ebb.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <87inunxf14.fsf@ebb.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	ksummit-discuss@lists.linuxfoundation.org
+Content-Type: text/plain
+Cc: Linus Torvalds <torvalds@linux-foundation.org>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -33,124 +32,43 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Aug 26, 2016 at 04:54:15PM -0700, Bradley M. Kuhn wrote:
-> > Because right now, I'm getting some _very_ mixed messages.
-> 
-> ... a wise man once said, "talk is cheap; show me the code".  So, judge me by
-> my actual actions, not by twisting my words.  It's easy to do because all
-> this work has been done transparently.  As a public charity, you can look at
-> Conservancy's 990s and see all financial details related to GPL enforcement.
-> As I said in another post, in more than ten years, Conservancy has been
-> involved in exactly *two* lawsuits, with plenty of public documentation of
-> what happened there.  Recently, I and Karen were the *only* ones who were
-> willing to publicly criticized Patrick McHardy for being unnecessarily
-> litigious and non-transparent [1].  Overall, we only began the GPL Compliance
-> program for Linux developers because developers *asked* for it.  We remain
-> accountable to them.  We published the Principles of Community-Oriented GPL
-> Enforcement, which were endorsed and/or lauded by many Linux developers,
-> including the entire Netfilter team, as well as other charitable
-> organizations including FSF, FSF Europe and the Open Source Initiative.
-> 
-> 
-> I *think* you are saying that I'm doing something wrong and hurting Linux.
-> I'm not only willing to hear you on that -- in fact, I am alarmed and want to
-> understand immediately what it is.
+Greg KH wrote at 08:43 (PDT):
+> [CCFinder is a] much different tool than what James was referring to.  The
+> work that the LF has been doing is not based on CCFinder, and (in my
+> opinion) is much more powerful and provides much more information about
+> attribution of work and the proof of where all code changes came from.
 
-As I said earlier, you are somehow saying that if we don't "defend" the
-GPL in courts, we need to give up on it.
+It's really tough to know what this new tool is based on, because it's not
+Open Source and Free Software (not yet anyway).  It's a tool that's been
+presented in talks, but the data and code behind it remains hidden.
 
-And that's just flat out not true, as I said before.
+Both I and Karen have talked extensively on multiple occasions with dmg,
+the tool's author.  He verified for me explictly that CCFinderX remains
+indeed state-of-the-art (and still really hard to install ;).  He
+indicated that his system, while it may or may not using CCFinderX's code
+directly [0], has technology that's roughly the same.  Anyone who has worked
+with CCFinderX and reviewed dmg's talks can see the obvious similarity.
 
-Your LCA talk this past year, which is online, you say many things about
-how the BusyBox lawsuits worked out (caused the creation of Toybox), how
-LLVM came about (supported because companies didn't want to deal with
-the FSF and GPLv3), and how that the only thing left to "fight over" is
-Linux.
+The key new contribution it sounds like dmg has made is data curation.
+>From his verbal description, it sounds like dmg has done a really excellent
+job reconstructing the history of contributions to Linux that don't appear
+directly in Git.  I'm excited to (eventually) see his data!
 
-I don't want to fight.  For when you start fighting like this, you have
-lost, as I, and Linus now, keep pointing out.
+In April, I of course asked dmg to make the tool and the data available
+publicly under an Open Source and Free Software license, and he said he will
+do it eventually, but for the moment only his University team and the Linux
+Foundation (as funders of the work) have access to it, and they aren't
+willing to share their software and knowledge at the moment with others.
 
-Again, when the lawyers get involved, you have lost.  I know you feel
-that you have to get lawyers involved to "win" the last bit of a fight,
-but really, that's pointless, because you just lost.
-
-Someone in a reddit thread about this email conversation said, in trying
-to quote Linus, something along the lines of "the nuclear option should
-have been done to Allwinner a long time ago".  And that proved my point
-exactly.  Allwinner was a pain for a very long time.  But as developers,
-and through the efforts of a lot of people at the Linux Foundation and
-Linaro, Allwinner is now a contributor to the kernel, and actively
-sponsors developers to write GPLv2 code for their chips.  So, if, after
-talks like yours (between a representative of a kernel copyright holder
-and the company) breaks down, you would be forced to take legal action.
-And then we lost, even if you would have "won" the suit.
-
-Seriously, this is NOT how to to things.  Over the years yes, my
-position has changed from being pissed when I see devices ship without
-code for their changes, to realizing that I actually can do much more
-than any lawyer can.  I can take those developers and make them part of
-our own project, ensuring we can survive.
-
-Also, in your LCA talk you say about Linux kernel modules, and if I get
-this quote wrong, please let me know,
-	"And we’re going to have to actually adjudicate that, we don’t
-	have a choice now. I used to shy away from this because it’s
-	considered so controversial but we won’t have copyleft if we
-	don’t have this confrontation."
-
-And that's a very dangerous thing to say, or do.  Because again, if you
-want to adjudicate this, that means you are willing to loose.
-
-I told you this in the lobby of LinuxCon last year in Ireland around a
-table with many others present.  You value the GPL over Linux, and I
-value Linux over the GPL.  You are willing to risk Linux in order to try
-to validate the GPL in some manner.  I an not willing to risk Linux for
-anything as foolish as that.  And I told you that then in front of a
-small audience, and am willing to do so now in front of a much larger
-one.
-
-Both you and Karen keep saying "we have to know and defend this", but
-that's what burned Busybox to the ground, and is what is threatening the
-future of gcc as well.  It's great that Samba has survived this type of
-enforcement effort, but as Jeremy has pointed out, he's done that
-primarily by working directly with the companies, not having legal
-people get involved.  So thanks Jeremy for proving my point :)
-
-Let's please stick to what has gotten us this far, and not change to
-being rude and disrespectful to our users and developers by getting
-lawyers involved.  That way we know will cause us to fail.
-
-I routinely say that the only thing that will cause Linux to fail is if
-we do something stupid to ourselves, it's not going to happen by
-something outside of us.  I see this as one of those extremely stupid
-things that we could easily do to ourselves that would cause us
-to fail.
-
-Again, learn from history, suing people is not the way to survive.
-Working with the developers is the way.  As companies like Intel (who
-used to be one of the worse offenders of the GPL out there before
-members of our community worked very hard to turn them around) and
-Allwinner and RockChip (getting more and more involved in our community)
-and even Microsoft (who now gets huge revenue from running Linux and is
-sponsoring kernel development because of this).
-
-Look at the existing vendors you see today as not as "offenders" but
-rather as "potential members of our community" and treat them that way.
-It is the way we will continue to survive and grow.  To not do so, is to
-kill off our own future.
-
-Do you know who the next "Intel" will be as a huge corporate sponsor of
-Linux developers and intrinsic to our future?  I sure don't, but I do
-know that by treating offenders with lawyers, you ensure that they never
-will be that type of supporter.
-
-It's just like we treat new developers, you never know who will start
-out with just one patch, realize it's a lot of fun, and continue on to
-becoming a core developer.  I started that way, and so did everyone
-except Linus.  You have to treat everyone with respect in order to
-ensure that you can grow and survive.
-
-So please stop this now, it's not helpful, but instead, hurtful, and
-harmful to our very survival.
-
-greg k-h
+[0] dmg was cagey on all this because he's an academic and has not yet had
+    the work published academically, and he lives under a publish-or-perish
+    regime.  I'm sympathetic; he's between a rock and hard place.  Indeed,
+    I've been looking lately into how unfriendly CS academia still remains to
+    Open Source and Free Software that's developed in public -- and it's
+    still as bad as when I was in graduate school.  I had so hoped it'd
+    gotten better.
+-- 
+Bradley M. Kuhn
+President & Distinguished Technologist of Software Freedom Conservancy
+========================================================================
+Become a Conservancy Supporter today: https://sfconservancy.org/supporter
