@@ -1,28 +1,27 @@
-Return-Path: <linus971@gmail.com>
+Return-Path: <jra@samba.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 769E625A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 190439D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 27 Aug 2016 22:50:14 +0000 (UTC)
-Received: from mail-oi0-f46.google.com (mail-oi0-f46.google.com
-	[209.85.218.46])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D0D7A11D
+	Sat, 27 Aug 2016 23:02:23 +0000 (UTC)
+Received: from hr2.samba.org (hr2.samba.org [144.76.82.148])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 26F7AAB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 27 Aug 2016 22:50:13 +0000 (UTC)
-Received: by mail-oi0-f46.google.com with SMTP id j203so8101814oih.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 27 Aug 2016 15:50:13 -0700 (PDT)
+	Sat, 27 Aug 2016 23:02:22 +0000 (UTC)
+Date: Sat, 27 Aug 2016 16:02:10 -0700
+From: Jeremy Allison <jra@samba.org>
+To: Greg KH <greg@kroah.com>
+Message-ID: <20160827230210.GA6717@jeremy-acer>
+Reply-To: Jeremy Allison <jra@samba.org>
+References: <20160826193331.GA29084@jra3>
+	<CA+55aFyvFJ0gz++ApyO7gFGd0wz4ysjs=6wNZi-91VUJuVK2_w@mail.gmail.com>
+	<87inunxf14.fsf@ebb.org> <20160827162655.GB27132@kroah.com>
 MIME-Version: 1.0
-Sender: linus971@gmail.com
-In-Reply-To: <20160827183550.GB1601@katana>
-References: <CA+55aFxLRqket8-yCL=FPM0Bz86PxdS+hRSTzXES+=1bOv=feg@mail.gmail.com>
-	<20160827183550.GB1601@katana>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Sat, 27 Aug 2016 15:50:11 -0700
-Message-ID: <CA+55aFw5=tHEBXw39yVCG+qKi0NBWVjNUaP9f56CgHAYwddjaA@mail.gmail.com>
-To: Wolfram Sang <wsa@the-dreams.de>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20160827162655.GB27132@kroah.com>
 Cc: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
 	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -34,71 +33,131 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, Aug 27, 2016 at 11:35 AM, Wolfram Sang <wsa@the-dreams.de> wrote:
-> Greg, Linus,
->
-> Putting all the enforcement issues aside, there is one sentence that
-> struck me:
->
->> > And corporations are a _huge_ part of our community, and frankly,
->> > the only reason we are where we are today.
->
-> I don't question the first part of the sentence, but I disagree to
-> 'the only reason' in the second part.
+On Sat, Aug 27, 2016 at 06:26:55PM +0200, Greg KH wrote:
+> 
+> Again, when the lawyers get involved, you have lost.  I know you feel
+> that you have to get lawyers involved to "win" the last bit of a fight,
+> but really, that's pointless, because you just lost.
 
-So I think Greg may have phrased it badly. Yes, the "only reason" part
-is clearly not the case, but it could definitely be rephrased slightly
-differently:
+This seems to be your answer to the question:
 
-  "only because we have actively embraced companies being involved are
-we where we are today".
+"Can you describe the conditions you personally would feel justify
+filing a lawsuit over GPL non-compliance ?"
 
-It's not that "only companies" have made Linux be what it is today -
-you are obviously very much right in pointing out that there's been a
-lot (and still is!) individual contributors.
+and your answer is "never".
 
-But it absolutely is the case that _only_ by working with companies
-have we been able to succeed like we have been.
+That's a valid answer, and I respect that.
 
-I just spent some time watching some of Bradley's youtube videos just
-to compare his public stance with what is then claimed in this thread
-(and private emails), and quite frankly, a lot of it was populist
-"corporations are evil" stuff.
+However, other Linux devs feel differently as they joined the
+Conservancy GPL Compliance Project For Linux Developers. There
+are licenses that embody the "no consequence for non compliance"
+attitude, the most popular being the BSD or MIT licenses of course.
 
-It's a very popular sentiment in some corners, but it's clearly
-bullshit. Corporations tend to be largely selfish, yes, but so are
-individuals.
+Indeed there are popular alternative kernels under those
+licenses as I'm sure you're aware.
 
-And the thing is - a community of enlightened self-interest where
-people and corporations work together because they all feel that it's
-good for themselves ("selfish" behavior) is absolutely what we want
-and need (and I'd argue have).
+But they are not the license you have. You have the GPL.
 
-The reason open source works is exactly *because* the process works
-with people who have their own interests at heart.
+The GPL allows legal penalties for non-compliance. We
+know this as there have already been such.
 
-Yes, lots of people have other reasons for embracing open source too,
-but without the basic self-interest angle you simply cannot get to the
-point where you have a positive reinforcement cycle of people *and*
-companies being involved.
+Your project has been enourmously successful - more so
+than any other Free Software project in the world. And it
+did so under the GPL.
 
-So demonizing companies because they are "selfish" is just plain
-stupid. Yet people do it.
+You now appear to want to change the conditions under which
+most contributors added code - to one that has no legal
+penalties for non-compliance with the license.
 
-What we need to do - and what we largely *have* been doing in the
-Linux community - is to emphasize exactly the fact that open source is
-a way to be selfish and get great results. Because that's the real
-power of cooperation.
+If you really want that I'd genuinely be interested in you
+making such a proposal to the Linux kernel developers and
+askng them to change the license. Not being a kernel developer
+(other than some small cifsfs changes) I have no skin in the
+game but I'd love to see the results of that vote, I think
+it would be fascinating (and I give no predictions as to which
+way that vote would go).
 
-The whole "proprietary software is evil" mantra and the "corporations
-are inherently bad" stuff is just crazy talk. It's insane, it's
-stupid, and it's self-limiting.
+But at that point you would have the condition you articulate
+above. You could ask non-compliant companies to send in code,
+and keep patiently working with them if they refused.
 
-Dismissing that kind of crazy talk is definitely a big reason for why
-Linux is where it is today.
+I do feel I should point out to you that this strategy has
+not worked with Apple, EMC, Isilon or NetApp - all of whom
+have significant kernels based on code under the BSD license
+but have refused to return any valuable code to the parent
+project.
 
-It's why Linux has never had anything to do with the FSF.
+But maybe the FreeBSD devs haven't just given them enough
+time or been nice enough to them or asked them enough times.
 
-People call me many things, but very few people call me stupid.
+Maybe this experiment will turn out in their favour, it may
+be too early to tell (and Samba works on all the *BSD's so
+I'm ok either way :-).
 
-                    Linus
+In the meantime if you want to work on a kernel with your
+preferred license could you please fix the missing per-thread
+credentials in FreeBSD ? Samba has been needing that for years
+now (almost as long as I've been needing RichACLs in Linux :-).
+
+> Both you and Karen keep saying "we have to know and defend this", but
+> that's what burned Busybox to the ground, and is what is threatening the
+> future of gcc as well.  It's great that Samba has survived this type of
+> enforcement effort, but as Jeremy has pointed out, he's done that
+> primarily by working directly with the companies, not having legal
+> people get involved.  So thanks Jeremy for proving my point :)
+
+If you think that was the point I was making, I feel you didn't
+understand what I said.
+
+I said that the outcome of lawsuits wasn't always the "loss" you
+seem to claim, and that the Microsoft vs EU lawsuit (although not
+a compliance-based one) is an excellent counterexample. Everyone
+in that lawsuit ended up winning, even Microsoft (give or take a
+billion dollars or so, which is pocket change for them :-).
+
+When I do compliance work for Samba - before Conservancy ever
+hears about it (because I'm talking developer to developer),
+I'd like to think the companies I work with talk to me because
+I'm a nice guy and very helpful.
+
+But on more than one occasion when I've been talking to the devs
+they also arrange a meeting with their legal staff involved.
+
+What they always want to ask is if what we have architected
+or discussed together is sufficient to comply with their responsibilities
+under the GPL.
+
+The reason they take me seriously, and I even get a seat at the table,
+is because of the work that Conservancy (and others) have done to
+ensure that GPL compliance is something that must be respected.
+Would I get a conversation going without that ? Maybe - but on
+more than one occasion I've only ever had a callback from the
+developers *after* I've sent a notice to the company they they
+are violating our license, a situation which if it continued
+could lead to real legal consequences for their products.
+
+> So please stop this now, it's not helpful, but instead, hurtful, and
+> harmful to our very survival.
+
+Greg, that's insulting to the hard work by Karen and Bradley
+and Conservancy staffers and is such a naive statement I find
+it hard to believe you believe it.
+
+It reminds me of the "if only the lawyers would leave us alone
+we'd live in a sunshine paradise of unicorns and rainbows - us
+developers together" attitude I used to have back in the early
+1990's when I first discovered the GPL.
+
+You are second in command of a project that has generated literally
+*trillions* of dollars of revenue around the world and you think
+that involvement in legal issues is hurtful and harmful to the survival
+of that project.
+
+I have news for you - Linux passed out of that phase around
+1.10 in 1994 when you first got TCP/IP support (I think I
+have the history right, it was around then we decided to
+port Samba from SunOS to Linux as you finally had networking :-).
+
+Dealing with legal and compliance issues is *mandatory* for all
+open source projects larger than one developer and their dog
+with a github account.
