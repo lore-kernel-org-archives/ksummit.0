@@ -1,24 +1,27 @@
-Return-Path: <wsa@the-dreams.de>
+Return-Path: <julia.lawall@lip6.fr>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 93749305
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9071225A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 27 Aug 2016 18:35:57 +0000 (UTC)
-Received: from pokefinder.org (sauhun.de [89.238.76.85])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0EBC1D2
+	Sat, 27 Aug 2016 18:47:46 +0000 (UTC)
+Received: from mail3-relais-sop.national.inria.fr
+	(mail3-relais-sop.national.inria.fr [192.134.164.104])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4FE0FD2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 27 Aug 2016 18:35:57 +0000 (UTC)
-Date: Sat, 27 Aug 2016 20:35:50 +0200
-From: Wolfram Sang <wsa@the-dreams.de>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Message-ID: <20160827183550.GB1601@katana>
+	Sat, 27 Aug 2016 18:47:45 +0000 (UTC)
+Date: Sat, 27 Aug 2016 20:47:42 +0200 (CEST)
+From: Julia Lawall <julia.lawall@lip6.fr>
+To: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>
+In-Reply-To: <87r39arv5m.fsf@ebb.org>
+Message-ID: <alpine.DEB.2.10.1608272036260.3363@hadrien>
 References: <CA+55aFxLRqket8-yCL=FPM0Bz86PxdS+hRSTzXES+=1bOv=feg@mail.gmail.com>
+	<1472225020.3680.8.camel@localhost.localdomain>
+	<1472229438.5189.79.camel@HansenPartnership.com>
+	<1472231998.3680.18.camel@localhost.localdomain>
+	<20160827154320.GA27132@kroah.com> <87r39arv5m.fsf@ebb.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="NDin8bjvE/0mNLFQ"
-Content-Disposition: inline
-In-Reply-To: <CA+55aFxLRqket8-yCL=FPM0Bz86PxdS+hRSTzXES+=1bOv=feg@mail.gmail.com>
-Cc: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>,
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
 	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -31,56 +34,68 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---NDin8bjvE/0mNLFQ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-Greg, Linus,
+On Sat, 27 Aug 2016, Bradley M. Kuhn wrote:
 
-Putting all the enforcement issues aside, there is one sentence that
-struck me:
+> Greg KH wrote at 08:43 (PDT):
+> > [CCFinder is a] much different tool than what James was referring to.  The
+> > work that the LF has been doing is not based on CCFinder, and (in my
+> > opinion) is much more powerful and provides much more information about
+> > attribution of work and the proof of where all code changes came from.
+>
+> It's really tough to know what this new tool is based on, because it's not
+> Open Source and Free Software (not yet anyway).  It's a tool that's been
+> presented in talks, but the data and code behind it remains hidden.
+>
+> Both I and Karen have talked extensively on multiple occasions with dmg,
+> the tool's author.  He verified for me explictly that CCFinderX remains
+> indeed state-of-the-art (and still really hard to install ;).  He
+> indicated that his system, while it may or may not using CCFinderX's code
+> directly [0], has technology that's roughly the same.  Anyone who has worked
+> with CCFinderX and reviewed dmg's talks can see the obvious similarity.
+>
+> The key new contribution it sounds like dmg has made is data curation.
+> From his verbal description, it sounds like dmg has done a really excellent
+> job reconstructing the history of contributions to Linux that don't appear
+> directly in Git.  I'm excited to (eventually) see his data!
+>
+> In April, I of course asked dmg to make the tool and the data available
+> publicly under an Open Source and Free Software license, and he said he will
+> do it eventually, but for the moment only his University team and the Linux
+> Foundation (as funders of the work) have access to it, and they aren't
+> willing to share their software and knowledge at the moment with others.
+>
+> [0] dmg was cagey on all this because he's an academic and has not yet had
+>     the work published academically, and he lives under a publish-or-perish
+>     regime.  I'm sympathetic; he's between a rock and hard place.  Indeed,
+>     I've been looking lately into how unfriendly CS academia still remains to
+>     Open Source and Free Software that's developed in public -- and it's
+>     still as bad as when I was in graduate school.  I had so hoped it'd
+>     gotten better.
 
-> > And corporations are a _huge_ part of our community, and frankly,
-> > the only reason we are where we are today.
+As an academic, I don't see the issue.  I've never rejected a paper
+because the tool was already open source.  On the contrary, reviewers
+increasingly complain that a tool is not available, and so they can't see
+how it works.  I don't know who dmg is or in what community he wants to
+publish, but the more typical reason for not making a tool available is
+that the author is not comfortable with the current state, and doesn't
+have time to put it into a state that he is proud of, or doesn't currently
+have the resources to be able to manage outside contributions.  I guess
+that the same happens in non-academic contexts as well.  Maybe this person
+is concerned that if the tool is available, others will be able to collect
+the data this person wants to collect.  But typically it is only the tool
+developer who will initially have the time, motivation, vision, etc
+necessary to collect and interpret the data in an interesting way.
 
-I don't question the first part of the sentence, but I disagree to
-'the only reason' in the second part.
+julia
 
-The reason where we are today is the result of _all people_ contributing
-to Linux. I think our community is a lively mixture of particitpants
-hacking because of commercial, technical, enthusiastic, ideological and
-what not reasons. The beauty (and the challenge) is all of us working
-together. IMO this is one very important part which attracts some of the
-special talent which makes our community awesome. For me, it surely did.
-And that talent usually can't be attracted by, say, large investments or
-similar (which admittedly attracts other special talent and is OK, too).
-
-So, I don't think it is fair to give credits "where we are today" _only_
-to the commercial side. And I have a hard time believing this view is
-fundamentally different from yours?
-
-   Wolfram
-
-
---NDin8bjvE/0mNLFQ
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v1
-
-iQIcBAEBAgAGBQJXwd2GAAoJEBQN5MwUoCm2frQP/1IPKpGPcRZSJD1jjZBjl6PS
-yXKK2Ji3BEfbHIVhxP4wYmbvFmjduGuvpGmc3/HdefkDyCTfsF9YvJBByJbxvny/
-D/G/OQNqQ42LErxOikWHK/VgZLXA9Bnm2o5B1JSLd73g7/0IHKhCborbxdpp0DLc
-YeGXmh/ClsWfpyAE17lrVsPpjnzudNZCqFQxY9AriEEmxD+TWKk2PxAnK5w7+oCF
-7GpYZO1JYyds3Jkh5KP8Ka8R9UBMRnsLqG3Uxe1Awf1Qflc3t1qlSKUvXU6h4IIk
-rOMl57U37KcBAt5cd59vWvi6yXgpyFyTLRtAnnV2zPfbwO4yG6KY7iqNezbzUN++
-wNSmhKSweJ3CdI/+GjBSx+i0iEn6wVWorSAhTPOebEeJQk9RNmEke1YY48k/AwH7
-V2eoAbfRyKTp0CAwTufbS/OvOlRmqqq8hHVIXb8PoC0bVd4c5vhX6p29eqFogp0h
-nqeIKev9jPfAHY1tO239IlHJJncq8avtHA8WCJzEl6wT6eXR1GB2OJYjhC6/NVBg
-LCh3yGVr/ZnaWO/sJaleN8lp6N9KzKxhPJJJzdjIEUtUFvR1Jeb4wdtUARiSYlWo
-8oOPFCXJeHxdvb0TCKx/tvmMKx4IwRt14bowzQjexyDuPZ+75FOWPwvhgRDVjhFR
-c8Y34kNeUi6SrayXdpZb
-=dCDK
------END PGP SIGNATURE-----
-
---NDin8bjvE/0mNLFQ--
+> --
+> Bradley M. Kuhn
+> President & Distinguished Technologist of Software Freedom Conservancy
+> ========================================================================
+> Become a Conservancy Supporter today: https://sfconservancy.org/supporter
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+>
