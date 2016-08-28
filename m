@@ -1,24 +1,29 @@
-Return-Path: <greg@kroah.com>
+Return-Path: <wsa@the-dreams.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7BA2E25A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id BE4789D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 28 Aug 2016 07:46:58 +0000 (UTC)
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
-	[66.111.4.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 50E2F87
+	Sun, 28 Aug 2016 07:49:04 +0000 (UTC)
+Received: from pokefinder.org (sauhun.de [89.238.76.85])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4EC1587
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 28 Aug 2016 07:46:57 +0000 (UTC)
-Date: Sun, 28 Aug 2016 09:47:06 +0200
-From: Greg KH <greg@kroah.com>
-To: Wolfram Sang <wsa@the-dreams.de>
-Message-ID: <20160828074706.GB1370@kroah.com>
-References: <CA+55aFxLRqket8-yCL=FPM0Bz86PxdS+hRSTzXES+=1bOv=feg@mail.gmail.com>
-	<20160827183550.GB1601@katana>
+	Sun, 28 Aug 2016 07:49:04 +0000 (UTC)
+Date: Sun, 28 Aug 2016 09:48:54 +0200
+From: Wolfram Sang <wsa@the-dreams.de>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Message-ID: <20160828074854.GA2383@katana>
+References: <e315013e77cc851b040b5b5f4fe9f0bf@motives.com>
+	<20160824130832.GA28564@kroah.com>
+	<1472052583.61594.577.camel@infradead.org>
+	<20160824174724.GE30853@kroah.com> <20160824205011.GA31615@ebb.org>
+	<20160824215447.GA5368@kroah.com> <20160825040619.GA32072@ebb.org>
+	<20160826005914.GA12749@kroah.com>
+	<1472212180.5189.28.camel@HansenPartnership.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="0OAP2g/MAC+5xKAE"
 Content-Disposition: inline
-In-Reply-To: <20160827183550.GB1601@katana>
+In-Reply-To: <1472212180.5189.28.camel@HansenPartnership.com>
 Cc: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>,
 	Linus Torvalds <torvalds@linux-foundation.org>,
 	ksummit-discuss@lists.linuxfoundation.org
@@ -32,104 +37,45 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, Aug 27, 2016 at 08:35:50PM +0200, Wolfram Sang wrote:
-> Greg, Linus,
-> 
-> Putting all the enforcement issues aside, there is one sentence that
-> struck me:
-> 
-> > > And corporations are a _huge_ part of our community, and frankly,
-> > > the only reason we are where we are today.
-> 
-> I don't question the first part of the sentence, but I disagree to
-> 'the only reason' in the second part.
-> 
-> The reason where we are today is the result of _all people_ contributing
-> to Linux. I think our community is a lively mixture of particitpants
-> hacking because of commercial, technical, enthusiastic, ideological and
-> what not reasons. The beauty (and the challenge) is all of us working
-> together. IMO this is one very important part which attracts some of the
-> special talent which makes our community awesome. For me, it surely did.
-> And that talent usually can't be attracted by, say, large investments or
-> similar (which admittedly attracts other special talent and is OK, too).
-> 
-> So, I don't think it is fair to give credits "where we are today" _only_
-> to the commercial side. And I have a hard time believing this view is
-> fundamentally different from yours?
 
-Ok, yes, that was worded a bit poorly, but we are developers, not
-lawyers, and obviously no one is proof-reading our emails :)
+--0OAP2g/MAC+5xKAE
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-The fact that we have made Linux a very friendly place to work with has
-helped corporations help us out.  Almost everyone contributes to Linux
-in a selfish manner, as I always say, and as Linus just said so again.
 
-And that's great, as we want people to be selfish this way, because it
-turns out that the solution for one company is almost always good for
-everyone else as well.  And, the work that companies do in being selfish
-are almost always things that any one of us working "on our own" would
-have never done.
+> everyone just gets why.  Take a certain Russian company as an example.=20
+>  When I joined, that company really fancied permissive licences.=20
+>  However, it also feared releasing code that its competition would then
+> use against it in the market.  The give back clause of the GPL has a
+> solid answer to this (your competition has to show you the code they
+> would compete with you on),
 
-Some specific examples:
-  - huge SMP support.  Yes, Alan got basic SMP support working in Linux,
-    but in order to scale much larger we had to do different things.  As
-    SMP hardware was rare, it took companies that had that hardware to
-    do the work in the kernel to get things to work better.  Because of
-    that we got access to RCU, which without that, we would have never
-    been able to work as well as we have.  Look at the BSDs for an
-    example of this, they don't have access to RCU, and they can't
-    scale.
-  - New hardware support, without access to specs, or hardware to test
-    on, it takes a long time to get a kernel working.  USB 2 and USB 3
-    support was sponsored by companies who had access to the specs
-    early, and wanted to sell their hardware.  Linux was the better for
-    this as we ended up getting it first.  Again, the BSDs are just now
-    getting the basics of USB 3 support, as it's having to be done by
-    people on their "own time".
-  - LSM support.  My "day job" at the time was working on security
-    things for Linux, and when the topic of a LSM came up at the kernel
-    summit, I saw a way that I could get my employer to "sponsor" that
-    work.  Without that, I certainly wouldn't have done it, as really,
-    who wants to mess with that type of thing unless they have to?  :)
-  - "Enterprise" features.  IBM pumped a lot of money into Linux to
-    advance a lot of functionality that we didn't have, but it was
-    perceived[1] that other operating systems did have at the time.
-    These are things that on our own, we would have never done as we
-    wouldn't have cared, nor would we have ever had access to hardware
-    that "large".
+Here is the core question of consequences for non-compliance again:
 
-And then there's the basic issue of the fact that when Linux kernel
-developers get hired to work on the kernel full time, we get the chance
-to both help our employer out (by letting them sell hardware) and we get
-the chance to notice where other things need to be done.  I'm sure that
-you have seen this when you are working for a client and notice that
-"hey, we should really fix up all of those USB error messages some time
-in the future" :)
+What if the competition doesn't want to show the code? Were you able to
+advertise a "don't sue" approach to that company?
 
-So I strongly believe that without the help of companies contributing to
-Linux, we wouldn't be here where we are today.  It's taken everyone to
-get here, we can't do it alone.  So let's never try to cut ourselves off
-of people we perceive as "the enemy", and instead, treat them as merely
-"oh, they don't quite get it yet", and work to educate them and bring
-them into our community[2].
 
-thanks,
+--0OAP2g/MAC+5xKAE
+Content-Type: application/pgp-signature; name="signature.asc"
 
-greg k-h
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
 
-[1] When Solaris released their code many years ago, I poked around in
-    it to see how they had solved many of the problems that we had had
-    to implement in Linux based on "It's in Solaris so we have to have
-    it in Linux as well!".  Turns out that Solaris never really did
-    implement a lot of those things that they were talking about on
-    their pretty marketing brochures.  We were working against a
-    marketing department that was desperate for sales, so they were
-    making stuff up based on what they thought the customer wanted.  If
-    they would have gotten the sales, then maybe Solaris would have
-    gotten the features.  So in a way, Solaris's marketing department
-    was a driving force in how well Linux succeeded in those markets.
+iQIcBAEBAgAGBQJXwpdmAAoJEBQN5MwUoCm2UEwQAJw0OrNIVE8rGmP9mzNRmRJ3
+RYHEg1xo/DjV6SINhY7zsPHigqCulPKjRBVGEQ4sYHFRh7GyRhsP/Js5WOx85hMH
+syDwRhzZR3i0pcSqNg/u78wLzqFjheI9H8UxKcOdPkADgL7Ud9p51n5ySXVIzf3Q
+I4sv4wXMD0yqmYRUOA9PyjxhNSBTkRIhs04LTQkWnpooiDUeJG9XJHJkHmnSDcCq
+ncxxRhprnDIOO5rxQAq4E/m+VJgrbHrvUIiuO3A1kyJftzHDgdivWvwtrSOEprhg
+CpeBV+H9i7tD3ZLU8T8A/I22t6RbqPqYrG+AD8PC9zRnIPnOnajzJz0VZaqIgHsn
+OqEVC4VTfIzXURY9As+d54dhxgNuh8le3dq3SOvWRdi5g3e6dyJwVbDyBJIHgGoJ
+mjnjhQhKR/OjKWfE08UINYpdC7sBUN2RE40tlRSKbd3G8Z0Yl6NGRvKrMZd1UeuP
+nJYheYMDW5MnaXMG+BoEDbi8aLI6WC3kH3tVAO21MsXBvHo2FcQbcIzNT+vrpFPj
+nR4Z1keRp+ywjTG1terziJ7cEYHdSHp0PDVIcrJKaWpqo6ZmwP5hFnYFuCwngJI7
+61bYq1jK5ouh0vua0Jf/spADeThntOi0ZYeZ/OBbq14xa/2GhQalyvrmHbmF2PmK
+a6TZiKPP51AUVjwVKXKS
+=p8Kj
+-----END PGP SIGNATURE-----
 
-[2] Again, look at Intel as an example of how well this works.  They
-    used to be a horrid example of a company abusing the GPL.  Also now
-    look at Microsoft's support for Linux as another way that us being
-    nice actually helps us.
+--0OAP2g/MAC+5xKAE--
