@@ -1,29 +1,24 @@
-Return-Path: <BATV+01f6da31cad3d859670c+4753+infradead.org+dwmw2@bombadil.srs.infradead.org>
+Return-Path: <greg@kroah.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 64A0425A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7BA2E25A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 28 Aug 2016 06:25:23 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E8C1DEB
+	Sun, 28 Aug 2016 07:46:58 +0000 (UTC)
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+	[66.111.4.28])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 50E2F87
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 28 Aug 2016 06:25:22 +0000 (UTC)
-Message-ID: <1472365513.4611.35.camel@infradead.org>
-From: David Woodhouse <dwmw2@infradead.org>
-To: Jeremy Allison <jra@samba.org>, James Bottomley
-	<James.Bottomley@HansenPartnership.com>
-Date: Sun, 28 Aug 2016 07:25:13 +0100
-In-Reply-To: <20160828044034.GC8742@jeremy-acer>
-References: <20160826193331.GA29084@jra3>
-	<CA+55aFyvFJ0gz++ApyO7gFGd0wz4ysjs=6wNZi-91VUJuVK2_w@mail.gmail.com>
-	<87inunxf14.fsf@ebb.org> <20160827162655.GB27132@kroah.com>
-	<20160827230210.GA6717@jeremy-acer>
-	<1472354316.2440.65.camel@HansenPartnership.com>
-	<20160828044034.GC8742@jeremy-acer>
-Content-Type: multipart/signed; micalg="sha-256";
-	protocol="application/x-pkcs7-signature";
-	boundary="=-bYZbcp/kuldQ/KHpVe5D"
-Mime-Version: 1.0
+	Sun, 28 Aug 2016 07:46:57 +0000 (UTC)
+Date: Sun, 28 Aug 2016 09:47:06 +0200
+From: Greg KH <greg@kroah.com>
+To: Wolfram Sang <wsa@the-dreams.de>
+Message-ID: <20160828074706.GB1370@kroah.com>
+References: <CA+55aFxLRqket8-yCL=FPM0Bz86PxdS+hRSTzXES+=1bOv=feg@mail.gmail.com>
+	<20160827183550.GB1601@katana>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20160827183550.GB1601@katana>
 Cc: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>,
 	Linus Torvalds <torvalds@linux-foundation.org>,
 	ksummit-discuss@lists.linuxfoundation.org
@@ -37,152 +32,104 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Sat, Aug 27, 2016 at 08:35:50PM +0200, Wolfram Sang wrote:
+> Greg, Linus,
+> 
+> Putting all the enforcement issues aside, there is one sentence that
+> struck me:
+> 
+> > > And corporations are a _huge_ part of our community, and frankly,
+> > > the only reason we are where we are today.
+> 
+> I don't question the first part of the sentence, but I disagree to
+> 'the only reason' in the second part.
+> 
+> The reason where we are today is the result of _all people_ contributing
+> to Linux. I think our community is a lively mixture of particitpants
+> hacking because of commercial, technical, enthusiastic, ideological and
+> what not reasons. The beauty (and the challenge) is all of us working
+> together. IMO this is one very important part which attracts some of the
+> special talent which makes our community awesome. For me, it surely did.
+> And that talent usually can't be attracted by, say, large investments or
+> similar (which admittedly attracts other special talent and is OK, too).
+> 
+> So, I don't think it is fair to give credits "where we are today" _only_
+> to the commercial side. And I have a hard time believing this view is
+> fundamentally different from yours?
 
---=-bYZbcp/kuldQ/KHpVe5D
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Ok, yes, that was worded a bit poorly, but we are developers, not
+lawyers, and obviously no one is proof-reading our emails :)
 
-On Sat, 2016-08-27 at 21:40 -0700, Jeremy Allison via Ksummit-discuss
-wrote:
->=20
-> "legal penalties" are a last, worst option - that I think
-> everyone agrees with. The core issue to me is - should
-> "legal penalties" *ever* be an option ?
+The fact that we have made Linux a very friendly place to work with has
+helped corporations help us out.  Almost everyone contributes to Linux
+in a selfish manner, as I always say, and as Linus just said so again.
 
-As I said before, they have to be an option.
+And that's great, as we want people to be selfish this way, because it
+turns out that the solution for one company is almost always good for
+everyone else as well.  And, the work that companies do in being selfish
+are almost always things that any one of us working "on our own" would
+have never done.
 
-Because otherwise you basically don't have a negotiating position at
-all.
+Some specific examples:
+  - huge SMP support.  Yes, Alan got basic SMP support working in Linux,
+    but in order to scale much larger we had to do different things.  As
+    SMP hardware was rare, it took companies that had that hardware to
+    do the work in the kernel to get things to work better.  Because of
+    that we got access to RCU, which without that, we would have never
+    been able to work as well as we have.  Look at the BSDs for an
+    example of this, they don't have access to RCU, and they can't
+    scale.
+  - New hardware support, without access to specs, or hardware to test
+    on, it takes a long time to get a kernel working.  USB 2 and USB 3
+    support was sponsored by companies who had access to the specs
+    early, and wanted to sell their hardware.  Linux was the better for
+    this as we ended up getting it first.  Again, the BSDs are just now
+    getting the basics of USB 3 support, as it's having to be done by
+    people on their "own time".
+  - LSM support.  My "day job" at the time was working on security
+    things for Linux, and when the topic of a LSM came up at the kernel
+    summit, I saw a way that I could get my employer to "sponsor" that
+    work.  Without that, I certainly wouldn't have done it, as really,
+    who wants to mess with that type of thing unless they have to?  :)
+  - "Enterprise" features.  IBM pumped a lot of money into Linux to
+    advance a lot of functionality that we didn't have, but it was
+    perceived[1] that other operating systems did have at the time.
+    These are things that on our own, we would have never done as we
+    wouldn't have cared, nor would we have ever had access to hardware
+    that "large".
 
-The GPL gives a *legal* framework under which a party is required to do
-certain things. You can't even point that fact out to a violator
-without *some* kind of implicit suggestion that they might be held to
-their legal obligations.
+And then there's the basic issue of the fact that when Linux kernel
+developers get hired to work on the kernel full time, we get the chance
+to both help our employer out (by letting them sell hardware) and we get
+the chance to notice where other things need to be done.  I'm sure that
+you have seen this when you are working for a client and notice that
+"hey, we should really fix up all of those USB error messages some time
+in the future" :)
 
-If all it took was "it'll be good for you and everyone else is doing
-it" then we wouldn't actually need the GPL licence at all; a BSD
-licence would be sufficient.
+So I strongly believe that without the help of companies contributing to
+Linux, we wouldn't be here where we are today.  It's taken everyone to
+get here, we can't do it alone.  So let's never try to cut ourselves off
+of people we perceive as "the enemy", and instead, treat them as merely
+"oh, they don't quite get it yet", and work to educate them and bring
+them into our community[2].
 
-And if we added a clause to the kernel's COPYING file which made it
-says that "legally you have to release source... but we promise we'll
-never sue if you don't", then that basically *turns* it into a BSD
-licence for most purposes.
+thanks,
 
-Legal penalties are a last worst option. Absolutely. But they have to
-*be* an option.
+greg k-h
 
---=20
-dwmw2
+[1] When Solaris released their code many years ago, I poked around in
+    it to see how they had solved many of the problems that we had had
+    to implement in Linux based on "It's in Solaris so we have to have
+    it in Linux as well!".  Turns out that Solaris never really did
+    implement a lot of those things that they were talking about on
+    their pretty marketing brochures.  We were working against a
+    marketing department that was desperate for sales, so they were
+    making stuff up based on what they thought the customer wanted.  If
+    they would have gotten the sales, then maybe Solaris would have
+    gotten the features.  So in a way, Solaris's marketing department
+    was a driving force in how well Linux succeeded in those markets.
 
-
-
---=-bYZbcp/kuldQ/KHpVe5D
-Content-Type: application/x-pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEeAw
-ggXiMIIDyqADAgECAhBrp4p9CteI1lEK+Vnk57ThMA0GCSqGSIb3DQEBCwUAMH0xCzAJBgNVBAYT
-AklMMRYwFAYDVQQKEw1TdGFydENvbSBMdGQuMSswKQYDVQQLEyJTZWN1cmUgRGlnaXRhbCBDZXJ0
-aWZpY2F0ZSBTaWduaW5nMSkwJwYDVQQDEyBTdGFydENvbSBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0
-eTAeFw0xNTEyMTYwMTAwMDVaFw0zMDEyMTYwMTAwMDVaMHUxCzAJBgNVBAYTAklMMRYwFAYDVQQK
-Ew1TdGFydENvbSBMdGQuMSkwJwYDVQQLEyBTdGFydENvbSBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0
-eTEjMCEGA1UEAxMaU3RhcnRDb20gQ2xhc3MgMSBDbGllbnQgQ0EwggEiMA0GCSqGSIb3DQEBAQUA
-A4IBDwAwggEKAoIBAQC9fdr3w6J9g/Zbgv3bW1+uHht1wLUZr5gkrLtXedg17AkefMyUGwrQdvwO
-bhajcVmnKVxhrUwkZPXRAwZZosRHfEIi5FH7x6SV/8Sp5lZEuiMnvMFG2MzLA84J6Ws5T4NfXZ0q
-n4TPgnr3X2vPVS51M7Ua9nIJgn8jvTra4eyyQzxvuA/GZwKg7VQfDCmCS+kICslYYWgXOMt2xlsS
-slxLce0CGWRsT8EpMyt1iDflSjXZIsE7m1uTyHaKZspMLyIyz6mySu8j8BWWHpChNNeTrFuhVfrO
-AyDPFJVUvKZCLKBhibTLloyy+LatoWELrjdI4a8StZY8+dIR9t4APXGzAgMBAAGjggFkMIIBYDAO
-BgNVHQ8BAf8EBAMCAQYwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMBIGA1UdEwEB/wQI
-MAYBAf8CAQAwMgYDVR0fBCswKTAnoCWgI4YhaHR0cDovL2NybC5zdGFydHNzbC5jb20vc2ZzY2Eu
-Y3JsMGYGCCsGAQUFBwEBBFowWDAkBggrBgEFBQcwAYYYaHR0cDovL29jc3Auc3RhcnRzc2wuY29t
-MDAGCCsGAQUFBzAChiRodHRwOi8vYWlhLnN0YXJ0c3NsLmNvbS9jZXJ0cy9jYS5jcnQwHQYDVR0O
-BBYEFCSBbDlhvkkPj7cbRivJKLUnSG1oMB8GA1UdIwQYMBaAFE4L7xqkQFulF2mHMMo0aEPQQa7y
-MD8GA1UdIAQ4MDYwNAYEVR0gADAsMCoGCCsGAQUFBwIBFh5odHRwOi8vd3d3LnN0YXJ0c3NsLmNv
-bS9wb2xpY3kwDQYJKoZIhvcNAQELBQADggIBAIvj94fsAYuErQ8BAluc4SMnIwS9NPBwAm5SH9uh
-2NCXTq7im61g7F1LIiNI/+wq37fUuaMbz4g7VarKQTgf8ubs0p7NZWcIe7Bvem2AWaXBsxsaRTYw
-5kG3DN8pd1hSEUuFoTa7DmNeFe8tiK1BrL3rbA/m48jp4AiFXgvxprJrW7izsyetOrRHPbkW4Y07
-v29MdhaPv3u1JELyszXqOzjIYo4sWlC8iDQXwgSW/ntvWy2n4LuiaozlCfXl149tKeqvwlvrla2Y
-klue/quWp9j9ou4T/OY0CXMuY+B8wNK0ohd2D4ShgFlMSjzAFRoHGKF81snTr2d1A7Ew02oF6UQy
-CkC2aNNsK5cWOojBar5c7HplX9aHYUCZouxIeU28SONJAxnATgR4cJ2jrpmYSz/kliUJ46S6UpVD
-o/ebn9c6PaM/XtDYCCaM/7XX6wc3s++sbQ7CtCn1Ax7df6ufQbwyO0V+oFa9H0KAsjHMzcwk3EV2
-B2NLatidKE/m7G+rB9m+FlVgIiSp0mGlg43QO9Kh1+JqvTCIzv2bJJkmPMLQJNuKKwHNL8F4GGp6
-jbAV+WL+LDeGfVcq8DHS3LrD+xyYEXQBiqZEdiPVOMxLDSUCXsDO0uCWpaNQ8j6y6S9p0xE/Ga0p
-eVLadVHhqf9nXqKaxnr358VgfrxzUIrvOaOjMIIF+TCCBOGgAwIBAgIQaRjuleoVgt0XsPAUByve
-JDANBgkqhkiG9w0BAQsFADB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRkLjEp
-MCcGA1UECxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNVBAMTGlN0YXJ0
-Q29tIENsYXNzIDEgQ2xpZW50IENBMB4XDTE2MDMxMjE2MjEyNVoXDTE3MDMxMjE2MjEyNVowQjEc
-MBoGA1UEAwwTZHdtdzJAaW5mcmFkZWFkLm9yZzEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFk
-ZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBANBDAiGnoeOIQJ/Aolutct4z
-x6Yt3dOUI5d0YnydAMNOiyVLXzHuuuVjUpk/6nRxg1FN3e0i3TWe5MjSTD98760qWoAuF2g5BGU+
-tN/GUsyws26ZWOt82w7xhn4dcI8EhmASUtwDTZs5ZXPQzSkuNs6uX5SY0eKPlBNHkAtMf39hNc4m
-liy6WRDKApZxA1vCbiHsJQZdNEBYO35022bu8PZBe6LSAFKoncoGMHl1xNEkN6kfOJFYnLqBYeXO
-2mDA8KZ4h15EnQyyHGSghN92OUTc9stAWEt9a+q6TCtyW5zNgYTaaOtE41t5x2xDAgsnNU7sVM8f
-wSR3tYeW9IqTgU6eDUllb1a9FK7es3+j9UDg7OxNv9rnXIda6TdXlGWYfFltujF7FMwTofq3UG7t
-w68Ugk0MMfpZadhPhjYLI/qXiEDgQi8Xr+eWSo5P0ygaLvAz8OPcWAt8RG5Y8Id9hpb5neW1HTAR
-Q+k8lbpkx2wDPHZEft0ITROOupf76f9CNF4jYcyCKZNnjSsKeJv69VX1TsVaeqT1LJUEudXLa/BK
-FSb7x5M1KF4z46yImJrnagI19Nk/ufWn1usBXqXh8pY8cVN/I7C+TDPBY5SqIceTq7DaHZp19JQU
-IIWlyRsm2d4UoVcgIdTjX57Odap4Pjzrfp2RmC6hvkW2hQ5EreIPAgMBAAGjggG2MIIBsjAOBgNV
-HQ8BAf8EBAMCBLAwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMAkGA1UdEwQCMAAwHQYD
-VR0OBBYEFBDmK2IjZJ7MKmBK0A7J/tKaSIdoMB8GA1UdIwQYMBaAFCSBbDlhvkkPj7cbRivJKLUn
-SG1oMG8GCCsGAQUFBwEBBGMwYTAkBggrBgEFBQcwAYYYaHR0cDovL29jc3Auc3RhcnRzc2wuY29t
-MDkGCCsGAQUFBzAChi1odHRwOi8vYWlhLnN0YXJ0c3NsLmNvbS9jZXJ0cy9zY2EuY2xpZW50MS5j
-cnQwOAYDVR0fBDEwLzAtoCugKYYnaHR0cDovL2NybC5zdGFydHNzbC5jb20vc2NhLWNsaWVudDEu
-Y3JsMB4GA1UdEQQXMBWBE2R3bXcyQGluZnJhZGVhZC5vcmcwIwYDVR0SBBwwGoYYaHR0cDovL3d3
-dy5zdGFydHNzbC5jb20vMEYGA1UdIAQ/MD0wOwYLKwYBBAGBtTcBAgQwLDAqBggrBgEFBQcCARYe
-aHR0cDovL3d3dy5zdGFydHNzbC5jb20vcG9saWN5MA0GCSqGSIb3DQEBCwUAA4IBAQAn5wvdgC0V
-kS226sFKAbqPnmVhc9jgrbsiXUcpdtYEzv6EZonARIeRC1UlIzK7jzZFRe95W5y4/qlcPQDoAeZL
-cSsbpW3AYPFFWdRgVp/eIR3iy9C5KEcAbkJES2lRUZWyRqAceW1Gur9kfvjM5H0kM6BBwJfCtoqo
-WragTXfsIXGNsF0F+60mUYYsKFPZzPmyz9J0Dr0xx9Lcp4fbD6UckDWCNJt2AJAiEPt/vPiiBzU8
-edaRzkYhzxd9f3pZAzhlzIf2CgTrGtKSL2X1bS/b3siREjQLhVrlGw4qxqllqER3APrDzyijLFuc
-CWpS8hxjTmYcNZSibv+3Oy6uU+wqMIIF+TCCBOGgAwIBAgIQaRjuleoVgt0XsPAUByveJDANBgkq
-hkiG9w0BAQsFADB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRkLjEpMCcGA1UE
-CxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNVBAMTGlN0YXJ0Q29tIENs
-YXNzIDEgQ2xpZW50IENBMB4XDTE2MDMxMjE2MjEyNVoXDTE3MDMxMjE2MjEyNVowQjEcMBoGA1UE
-AwwTZHdtdzJAaW5mcmFkZWFkLm9yZzEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
-ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBANBDAiGnoeOIQJ/Aolutct4zx6Yt3dOU
-I5d0YnydAMNOiyVLXzHuuuVjUpk/6nRxg1FN3e0i3TWe5MjSTD98760qWoAuF2g5BGU+tN/GUsyw
-s26ZWOt82w7xhn4dcI8EhmASUtwDTZs5ZXPQzSkuNs6uX5SY0eKPlBNHkAtMf39hNc4mliy6WRDK
-ApZxA1vCbiHsJQZdNEBYO35022bu8PZBe6LSAFKoncoGMHl1xNEkN6kfOJFYnLqBYeXO2mDA8KZ4
-h15EnQyyHGSghN92OUTc9stAWEt9a+q6TCtyW5zNgYTaaOtE41t5x2xDAgsnNU7sVM8fwSR3tYeW
-9IqTgU6eDUllb1a9FK7es3+j9UDg7OxNv9rnXIda6TdXlGWYfFltujF7FMwTofq3UG7tw68Ugk0M
-MfpZadhPhjYLI/qXiEDgQi8Xr+eWSo5P0ygaLvAz8OPcWAt8RG5Y8Id9hpb5neW1HTARQ+k8lbpk
-x2wDPHZEft0ITROOupf76f9CNF4jYcyCKZNnjSsKeJv69VX1TsVaeqT1LJUEudXLa/BKFSb7x5M1
-KF4z46yImJrnagI19Nk/ufWn1usBXqXh8pY8cVN/I7C+TDPBY5SqIceTq7DaHZp19JQUIIWlyRsm
-2d4UoVcgIdTjX57Odap4Pjzrfp2RmC6hvkW2hQ5EreIPAgMBAAGjggG2MIIBsjAOBgNVHQ8BAf8E
-BAMCBLAwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMAkGA1UdEwQCMAAwHQYDVR0OBBYE
-FBDmK2IjZJ7MKmBK0A7J/tKaSIdoMB8GA1UdIwQYMBaAFCSBbDlhvkkPj7cbRivJKLUnSG1oMG8G
-CCsGAQUFBwEBBGMwYTAkBggrBgEFBQcwAYYYaHR0cDovL29jc3Auc3RhcnRzc2wuY29tMDkGCCsG
-AQUFBzAChi1odHRwOi8vYWlhLnN0YXJ0c3NsLmNvbS9jZXJ0cy9zY2EuY2xpZW50MS5jcnQwOAYD
-VR0fBDEwLzAtoCugKYYnaHR0cDovL2NybC5zdGFydHNzbC5jb20vc2NhLWNsaWVudDEuY3JsMB4G
-A1UdEQQXMBWBE2R3bXcyQGluZnJhZGVhZC5vcmcwIwYDVR0SBBwwGoYYaHR0cDovL3d3dy5zdGFy
-dHNzbC5jb20vMEYGA1UdIAQ/MD0wOwYLKwYBBAGBtTcBAgQwLDAqBggrBgEFBQcCARYeaHR0cDov
-L3d3dy5zdGFydHNzbC5jb20vcG9saWN5MA0GCSqGSIb3DQEBCwUAA4IBAQAn5wvdgC0VkS226sFK
-AbqPnmVhc9jgrbsiXUcpdtYEzv6EZonARIeRC1UlIzK7jzZFRe95W5y4/qlcPQDoAeZLcSsbpW3A
-YPFFWdRgVp/eIR3iy9C5KEcAbkJES2lRUZWyRqAceW1Gur9kfvjM5H0kM6BBwJfCtoqoWragTXfs
-IXGNsF0F+60mUYYsKFPZzPmyz9J0Dr0xx9Lcp4fbD6UckDWCNJt2AJAiEPt/vPiiBzU8edaRzkYh
-zxd9f3pZAzhlzIf2CgTrGtKSL2X1bS/b3siREjQLhVrlGw4qxqllqER3APrDzyijLFucCWpS8hxj
-TmYcNZSibv+3Oy6uU+wqMYIEXjCCBFoCAQEwgYkwdTELMAkGA1UEBhMCSUwxFjAUBgNVBAoTDVN0
-YXJ0Q29tIEx0ZC4xKTAnBgNVBAsTIFN0YXJ0Q29tIENlcnRpZmljYXRpb24gQXV0aG9yaXR5MSMw
-IQYDVQQDExpTdGFydENvbSBDbGFzcyAxIENsaWVudCBDQQIQaRjuleoVgt0XsPAUByveJDANBglg
-hkgBZQMEAgEFAKCCAaUwGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcN
-MTYwODI4MDYyNTE0WjAvBgkqhkiG9w0BCQQxIgQgCY3h2YUBFFwXldswWIxwKzjwh79lIgfXmL0T
-bVabZdYwgZoGCSsGAQQBgjcQBDGBjDCBiTB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRD
-b20gTHRkLjEpMCcGA1UECxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNV
-BAMTGlN0YXJ0Q29tIENsYXNzIDEgQ2xpZW50IENBAhBpGO6V6hWC3Rew8BQHK94kMIGcBgsqhkiG
-9w0BCRACCzGBjKCBiTB1MQswCQYDVQQGEwJJTDEWMBQGA1UEChMNU3RhcnRDb20gTHRkLjEpMCcG
-A1UECxMgU3RhcnRDb20gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIzAhBgNVBAMTGlN0YXJ0Q29t
-IENsYXNzIDEgQ2xpZW50IENBAhBpGO6V6hWC3Rew8BQHK94kMA0GCSqGSIb3DQEBAQUABIICAAc0
-Fo399aJ2sasZ5ZlodeqdheHcH7TeTixp61N0Ho9d3N0Yu+zwKaVy3xHrzQnspSOm4l+7Bq9UIkKG
-eaeiqrUbaap3CquCuf1NmmPcZK+BYmcy+OpM61r4PS9S29LH1f5DI0WmC2YqeUMDFgMMJFGIYtnC
-MlFA+Zp0qKNtTn00kPOBwqrp6OH4k7Qt/zEAfKZtnaALCyKhRJTFJGtSrZ8DKk4jrY1/TIpbetEM
-fsgHc/5J22OnKGKzlbsHXZ1Yj1CdASGp6/BQE4qwGTKYzDnDhHOFyneIdh8Rpz2CoAgQ3VlcCki2
-qgbHbtfSXMoVCiQ2tJsmLGDLJHNcjnMlRBPkzUaaRLSS2WxYDP1LEOb1Wy3KM+hpP5/zH6T8SVeZ
-tG+HHVbSQocNy6Y7UfOH8VLb6GA0/r+BGLhhE/aKGpSc+T/4dFJw6aYu5lWJtLCAEIC48y+avPB6
-VCEJKMtWcOp9xq/KQvK7o/sUVCwuWZJtnDrA99pvuexqDz8ilnHU8JkLZjOigQAaoQ0QvM+CqYkk
-HTNWR5DU34cG1DCOZeK7ZH44fhiZwzdRdIUMc4uPCrI5TrdhMcojFW91mN1Nj2CHmJGPtUWi0RwH
-6rAJxqApWW8vXR4BNUMTazCv1Cg1vDxiKQdbfnoI6Rip5dPT0TNOk/ZozqLgOKgS/RTsGQ26AAAA
-AAAA
-
-
---=-bYZbcp/kuldQ/KHpVe5D--
+[2] Again, look at Intel as an example of how well this works.  They
+    used to be a horrid example of a company abusing the GPL.  Also now
+    look at Microsoft's support for Linux as another way that us being
+    nice actually helps us.
