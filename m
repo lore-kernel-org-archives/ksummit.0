@@ -1,32 +1,31 @@
-Return-Path: <joe@perches.com>
-Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
-	[172.17.192.36])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 231C0360
+Return-Path: <tytso@thunk.org>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id ACC82360
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 28 Aug 2016 19:52:56 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0139.hostedemail.com
-	[216.40.44.139])
-	by smtp2.linuxfoundation.org (Postfix) with ESMTPS id 8C0291DAA2
+	Sun, 28 Aug 2016 19:58:07 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1D8431E7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 28 Aug 2016 19:52:54 +0000 (UTC)
-Message-ID: <1472413969.26978.108.camel@perches.com>
-From: Joe Perches <joe@perches.com>
-To: Julia Lawall <julia.lawall@lip6.fr>, Alexey Dobriyan
-	<adobriyan@gmail.com>,  git <git@vger.kernel.org>
-Date: Sun, 28 Aug 2016 12:52:49 -0700
-In-Reply-To: <alpine.DEB.2.10.1608281152080.3321@hadrien>
-References: <1472330452.26978.23.camel@perches.com>
-	<20160828005636.GB19088@sasha-lappy>
-	<20160828075632.GA1852@p183.telecom.by>
-	<alpine.DEB.2.10.1608281152080.3321@hadrien>
-Content-Type: text/plain; charset="ISO-8859-1"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Greg KH <gregkh@linuxfoundation.org>, LKML <linux-kernel@vger.kernel.org>,
-	Sasha Levin <levinsasha928@gmail.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] checkkpatch (in)sanity ?
+	Sun, 28 Aug 2016 19:58:07 +0000 (UTC)
+Date: Sun, 28 Aug 2016 15:58:05 -0400
+From: Theodore Ts'o <tytso@mit.edu>
+To: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>
+Message-ID: <20160828195805.z4tyu3bcabpfyqpw@thunk.org>
+References: <20160826193331.GA29084@jra3>
+	<CA+55aFyvFJ0gz++ApyO7gFGd0wz4ysjs=6wNZi-91VUJuVK2_w@mail.gmail.com>
+	<87inunxf14.fsf@ebb.org> <20160827162655.GB27132@kroah.com>
+	<87bn0dnc6f.fsf@ebb.org>
+	<1472348609.2440.37.camel@HansenPartnership.com>
+	<20160828042454.GA8742@jeremy-acer>
+	<20160828125542.7oejzcbpeozkrq3k@thunk.org>
+	<87y43gx3jq.fsf@ebb.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87y43gx3jq.fsf@ebb.org>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,25 +35,38 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sun, 2016-08-28 at 11:59 +0200, Julia Lawall wrote:
-> On Sun, 28 Aug 2016, Alexey Dobriyan wrote:
-[]
-> > The problem is that c-h.pl generates noise in the commit history and
-> > makes git-blame less useful than it can be.
+On Sun, Aug 28, 2016 at 09:26:49AM -0700, Bradley M. Kuhn wrote:
 > 
-> Could it be that this is a problem with git blame, rather than with
-> checkpatch?  Last year there was a discussion on this list about how there
-> is an option to git blame that will cause it to step through the history,
-> and not show only the most recent patch that has modified a given line.
+> Finally, with regard generally to my past statements, I see a tendency by a
+> small few on this thread to look at statements I made in years ago, and
+> shoehorn those statements as a response to something specific in this
+> discussion.  This is particularly strange behavior given that I am *actually*
+> responding actively to this thread -- it's not as if I'm some inaccessible
+> public figure whom you can't ask to clarify and discuss an issue.
 
-It is more or less an ease-of-use limitation of git blame.
+Actually, we're taking it from your 2016 LCA talk, "Copyleft for the
+Next Decade: A Comprehensive Plan", which you gave in February of this
+year.  And one of the things which is interesting is that on this
+thread, there's an emphasis on "oh, we just want to get access to the
+source", whereas in the talk, it's more of "Linux will be the
+battleground over the future of Copyleft", with an explicit and clear
+emphasis of trying to litigate the question of kernel modules in
+multiple legal jourisdictions.
 
-There are some that want an ncurses only version of git blame
-that could
-use arrow-key style navigation for historical commit
-line-ranges.
+Well, people who live near battlegrounds often have a different
+opinion about sending in the troops compared to generals back in
+Washington D.C. whore are ordering in the drone strikes.  So this is
+where listening to regrets of one of the Busybox founders might be
+educational.
 
-git gui blame kind of works, but it's not ncurses/text based.
-git-cola kind of works too, but it's not text based either.
+The reason why it's fair game to compare your statements with
+statements made a few months ago is for the same reason why the Daily
+Show played back old clips of politicians.  One of the really powerful
+things about You Tube and modern video technology in general is that
+it's much harder for politicians to say one thing to one constituency,
+and another thing to a different constituency.  And to my mind, that's
+a really good thing.
 
-Are there other existing tools for blame history viewing?
+Regards,
+
+						- Ted
