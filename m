@@ -1,29 +1,35 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <joe@perches.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 75D98258
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0A06425A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 28 Aug 2016 01:43:31 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id E47558C
+	Sun, 28 Aug 2016 02:21:03 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0192.hostedemail.com
+	[216.40.44.192])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B288A8C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 28 Aug 2016 01:43:30 +0000 (UTC)
-Message-ID: <1472348609.2440.37.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Date: Sat, 27 Aug 2016 19:43:29 -0600
-In-Reply-To: <87bn0dnc6f.fsf@ebb.org>
-References: <20160826193331.GA29084@jra3>
-	<CA+55aFyvFJ0gz++ApyO7gFGd0wz4ysjs=6wNZi-91VUJuVK2_w@mail.gmail.com>
-	<87inunxf14.fsf@ebb.org> <20160827162655.GB27132@kroah.com>
-	<87bn0dnc6f.fsf@ebb.org>
-Content-Type: text/plain; charset="UTF-8"
+	Sun, 28 Aug 2016 02:21:02 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
+	[10.5.19.251])
+	by smtpgrave03.hostedemail.com (Postfix) with ESMTP id DD11628E8BC
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sun, 28 Aug 2016 02:21:01 +0000 (UTC)
+Message-ID: <1472350854.26978.51.camel@perches.com>
+From: Joe Perches <joe@perches.com>
+To: "Levin, Alexander" <alexander.levin@verizon.com>
+Date: Sat, 27 Aug 2016 19:20:54 -0700
+In-Reply-To: <1472348579.26978.47.camel@perches.com>
+References: <1472330452.26978.23.camel@perches.com>
+	<20160828005636.GB19088@sasha-lappy>
+	<1472348579.26978.47.camel@perches.com>
+Content-Type: text/plain; charset="ISO-8859-1"
 Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: Linus Torvalds <torvalds@linux-foundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
+Content-Transfer-Encoding: 8bit
+Cc: Greg KH <gregkh@linuxfoundation.org>, Sasha Levin <levinsasha928@gmail.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [Ksummit-discuss] checkkpatch (in)sanity ?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,77 +39,38 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, 2016-08-27 at 14:18 -0700, Bradley M. Kuhn wrote:
-> I *thought* this list was for KS proposal meta-discussion,
+On Sat, 2016-08-27 at 18:42 -0700, Joe Perches wrote:
 
-Ideally if we can resolve it in email, we don't need a session ...
+>      46 WARNING:LONG_LINE_COMMENT
+>      45 WARNING:LEADING_SPACE
+>      37 WARNING:LONG_LINE
+>      16 ERROR:GIT_COMMIT_ID
+>      11 WARNING:COMMIT_LOG_LONG_LINE
+>       5 WARNING:BRACES
+>       2 WARNING:BAD_SIGN_OFF
+>       2 WARNING:AVOID_BUG
+>       2 ERROR:SPACING
+>       1 WARNING:SPLIT_STRING
+>       1 WARNING:FILE_PATH_CHANGES
+>       1 WARNING:ENOSYS
+>       1 ERROR:MISSING_SIGN_OFF
 
->  but this thread is now mostly substance and very little meta. :) 
-> However, AFAICT, no one has declared this thread as off-topic, and 
-> generally speaking, I believe everyone in the GPL Compliance Program 
-> for Linux Developers, including me, is glad to see GPL enforcement 
-> discussed openly.  So, I'm continuing with replies:
-> 
-> Today, Greg made references to a talk I gave, and drew broad 
-> conclusions about my beliefs.  Yesterday, Linus made reference to an 
-> LWN comment I made, and made conclusions about my moral character. 
->  This is a complex topic, and the entire breadth of everyone's view 
-> cannot be summarized by out of context snippets.  I do think Greg's 
-> summary of my talk is inaccurate on many fronts, but the details on
-> that don't really matter.
+My copy/pasta mistake, the above was Ingo Molnar's list
 
-OK, let me try for an accurate summary of the salient issues: A lot of
-kernel developers don't trust your motives enough to let you enforce
-their copyrights.  Personally, I don't believe you even understand what
-it takes to convince a company of the business rightness of the GPL and
-thus, when you say "we tried talking to them", I believe you but I
-don't believe you had any conversations which could lead to a
-significant change in business practices, which is my primary issue.
+Here's Linus'
 
-However, Some developers do trust you and you've built a coalition of
-the willing around that and you're off selecting targets; but our
-problem, as a community, is that what you do with your coalition
-affects all of us and impacts the project we care about deeply.
-
-There is a factual disagreement about what enforcement in other
-projects gained them.  However, the loss of momentum in busybox is
-factual and does resonate and so does the theory that it's because of
-too many enforcement actions.
-
-> I believe we function well as a community by trying lots of different
-> strategies in parallel.  This works for Linux development itself, and 
-> it works for GPL enforcement too.  I, Greg, and many others have done
-> excellent work convincing companies to abide by GPL without lawsuits.
->   Nearly all the work by the GPL Compliance Program for Linux 
-> Developers doesn't use lawyers or lawsuits.  We all use the same 
-> strategy, and *almost* all the same tactics to achieve GPL compliance
-> for Linux.
-
-What's this "we"?  Community is generated by contribution and most
-contribution gives rise to copyright.  If you had enough copyright in
-Linux, you wouldn't need a coalition because you could enforce on your
-own.
-
-> Our disagreement is over a finer point of a specific tactic that is 
-> only relevant in roughly 0.57% [0] of GPL violations, which is this: 
-> "What do we do in those cases that have no resolution for years, 
-> after many try to gain compliance and failed. Should anyone sue in
-> that case?".
-
-Heh, well, if I called bullshit, I'd lose my reputation for politeness
-(although perhaps Linus would finally come to respect me).  Let me just
-point at that your 0.57% or however you define it, is why no
-corporation currently trusts you or wants to talk to you unless forced
-by their lawyers.  Without mutual trust, there's no basis for
-negotiation, so all your attempts at compliance are overshadowed by
-this end game.
-
-Your inability to recognise that there are other methods beyond holding
-out this 0.57% club, and that a lot of other people have achieved
-significant compliance and even community contributions using them, is
-why your statements generate such a lot of strong reactions.  It
-reminds me a lot of the 70s and 80s "Mr President, under what
-conditions would you be willing to press the nuclear button?" which
-isn't really a world I want to go back to.
-
-James
+     37 WARNING:LONG_LINE
+     19 ERROR:GIT_COMMIT_ID
+      8 WARNING:PREFER_PR_LEVEL
+      6 ERROR:SPACING
+      4 WARNING:MACRO_WITH_FLOW_CONTROL
+      3 WARNING:COMMIT_LOG_LONG_LINE
+      2 WARNING:TYPO_SPELLING
+      2 WARNING:BAD_SIGN_OFF
+      2 ERROR:TRAILING_STATEMENTS
+      1 WARNING:NEW_TYPEDEFS
+      1 WARNING:LONG_LINE_COMMENT
+      1 WARNING:LINE_SPACING
+      1 WARNING:CONSTANT_COMPARISON
+      1 WARNING:AVOID_BUG
+      1 ERROR:STABLE_ADDRESS
