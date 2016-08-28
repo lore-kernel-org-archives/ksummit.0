@@ -1,29 +1,29 @@
-Return-Path: <alexander.levin@verizon.com>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id EBB9B258
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 75D98258
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 28 Aug 2016 01:07:10 +0000 (UTC)
-Received: from omzsmtpe02.verizonbusiness.com (omzsmtpe02.verizonbusiness.com
-	[199.249.25.209])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DA2DE8C
+	Sun, 28 Aug 2016 01:43:31 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id E47558C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 28 Aug 2016 01:07:09 +0000 (UTC)
-From: "Levin, Alexander" <alexander.levin@verizon.com>
-To: Joe Perches <joe@perches.com>
-Date: Sat, 27 Aug 2016 21:06:13 -0400
-Message-ID: <20160828005636.GB19088@sasha-lappy>
-References: <1472330452.26978.23.camel@perches.com>
-In-Reply-To: <1472330452.26978.23.camel@perches.com>
-Content-Language: en-US
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	Sasha Levin <levinsasha928@gmail.com>, LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [Ksummit-discuss] checkkpatch (in)sanity ?
+	Sun, 28 Aug 2016 01:43:30 +0000 (UTC)
+Message-ID: <1472348609.2440.37.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Date: Sat, 27 Aug 2016 19:43:29 -0600
+In-Reply-To: <87bn0dnc6f.fsf@ebb.org>
+References: <20160826193331.GA29084@jra3>
+	<CA+55aFyvFJ0gz++ApyO7gFGd0wz4ysjs=6wNZi-91VUJuVK2_w@mail.gmail.com>
+	<87inunxf14.fsf@ebb.org> <20160827162655.GB27132@kroah.com>
+	<87bn0dnc6f.fsf@ebb.org>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Cc: Linus Torvalds <torvalds@linux-foundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,70 +33,77 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, Aug 27, 2016 at 04:40:52PM -0400, Joe Perches wrote:
-> On Fri, Aug 26, 2016 at 01:26:35PM +0200, Greg KH wrote:
-> > On Fri, Aug 26, 2016 at 12:46:51AM -0400, Levin, Alexander wrote:
-> >>=A0=A0=A0=A0- Making checkpatch check for (some) of the stable kernel r=
-ules
-> >>=A0=A0=A0=A0(and possibly recommend adding the stable@ tag in certain c=
-ases?).
-> >>=A0=A0=A0=A0=A0=A0- Depends on: making checkpatch sane again.>This soun=
-ds interesting.=A0=A0What do you mean by "sane"?
->=20
-> Sasha, can you expand your thoughts here please?
+On Sat, 2016-08-27 at 14:18 -0700, Bradley M. Kuhn wrote:
+> I *thought* this list was for KS proposal meta-discussion,
 
-Sure. I have 2.5 concerns about the state of checkpatch:
+Ideally if we can resolve it in email, we don't need a session ...
 
-On Sat, Aug 27, 2016 at 04:40:52PM -0400, Joe Perches wrote:=20
-> Most all of the trivial spacing stuff can easily be
-> ignored either by a human determining what's important
-> or by using command line options like --ignore=3Dspacing
+>  but this thread is now mostly substance and very little meta. :) 
+> However, AFAICT, no one has declared this thread as off-topic, and 
+> generally speaking, I believe everyone in the GPL Compliance Program 
+> for Linux Developers, including me, is glad to see GPL enforcement 
+> discussed openly.  So, I'm continuing with replies:
+> 
+> Today, Greg made references to a talk I gave, and drew broad 
+> conclusions about my beliefs.  Yesterday, Linus made reference to an 
+> LWN comment I made, and made conclusions about my moral character. 
+>  This is a complex topic, and the entire breadth of everyone's view 
+> cannot be summarized by out of context snippets.  I do think Greg's 
+> summary of my talk is inaccurate on many fronts, but the details on
+> that don't really matter.
 
-1.
-This is the wrong default. By default checkpatch shouldn't be showing trivi=
-al
-issues that encourage folks to try and work around them and as a result
-produce worse code.
+OK, let me try for an accurate summary of the salient issues: A lot of
+kernel developers don't trust your motives enough to let you enforce
+their copyrights.  Personally, I don't believe you even understand what
+it takes to convince a company of the business rightness of the GPL and
+thus, when you say "we tried talking to them", I believe you but I
+don't believe you had any conversations which could lead to a
+significant change in business practices, which is my primary issue.
 
-Look at the 80 character limit warning for example, what good does it do? I=
-t
-encourages people to do even stupider things to work around it and results =
-in
-a bunch of "fix checkpatch warning" that touch existing code just to make t=
-he
-result harder to read and make 'git blame' harder to work with.
+However, Some developers do trust you and you've built a coalition of
+the willing around that and you're off selecting targets; but our
+problem, as a community, is that what you do with your coalition
+affects all of us and impacts the project we care about deeply.
 
-By default you should only get the most critical warnings we have in the
-kernel like missing S-O-B or corrupt patch.
+There is a factual disagreement about what enforcement in other
+projects gained them.  However, the loss of momentum in busybox is
+factual and does resonate and so does the theory that it's because of
+too many enforcement actions.
 
+> I believe we function well as a community by trying lots of different
+> strategies in parallel.  This works for Linux development itself, and 
+> it works for GPL enforcement too.  I, Greg, and many others have done
+> excellent work convincing companies to abide by GPL without lawsuits.
+>   Nearly all the work by the GPL Compliance Program for Linux 
+> Developers doesn't use lawyers or lawsuits.  We all use the same 
+> strategy, and *almost* all the same tactics to achieve GPL compliance
+> for Linux.
 
-2. A "who wrote these rules?": there seems to be a disconnect between the r=
-ules
-checkpatch is trying to enforce and the accepted coding style enforced by
-maintainers.=20
+What's this "we"?  Community is generated by contribution and most
+contribution gives rise to copyright.  If you had enough copyright in
+Linux, you wouldn't need a coalition because you could enforce on your
+own.
 
-Do a git-format-patch on all of the commits Linus authored in the past year=
- or
-two and see how many of them fail checkpatch (or do the same for any of the
-commits that passed through and were accepted by the top maintainers),
-according to checkpatch we need to make those guys stop touching the kernel=
-.
+> Our disagreement is over a finer point of a specific tactic that is 
+> only relevant in roughly 0.57% [0] of GPL violations, which is this: 
+> "What do we do in those cases that have no resolution for years, 
+> after many try to gain compliance and failed. Should anyone sue in
+> that case?".
 
+Heh, well, if I called bullshit, I'd lose my reputation for politeness
+(although perhaps Linus would finally come to respect me).  Let me just
+point at that your 0.57% or however you define it, is why no
+corporation currently trusts you or wants to talk to you unless forced
+by their lawyers.  Without mutual trust, there's no basis for
+negotiation, so all your attempts at compliance are overshadowed by
+this end game.
 
-3. This one is somewhat subjective: scripts/checkpatch.pl is a massive blob=
- of
-perl code that a fair amount of people don't know how to deal with. In 4.8 =
-it's
-6142 lines, making it the 124th largest source file in the kernel, well wit=
-hin
-the top 1% of source files in the kernel.
+Your inability to recognise that there are other methods beyond holding
+out this 0.57% club, and that a lot of other people have achieved
+significant compliance and even community contributions using them, is
+why your statements generate such a lot of strong reactions.  It
+reminds me a lot of the 70s and 80s "Mr President, under what
+conditions would you be willing to press the nuclear button?" which
+isn't really a world I want to go back to.
 
-This combination of size/language pushes people away from being involved in
-what is supposed to be a central tool and gives them a reason to never use
-it again after they see results they don't agree with (rather than fixing i=
-t).
-
---=20
-
-Thanks,
-Sasha
+James
