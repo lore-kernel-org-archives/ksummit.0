@@ -1,30 +1,29 @@
-Return-Path: <BATV+f2a6f123a39b2feffa5a+4753+infradead.org+dwmw2@twosheds.srs.infradead.org>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id EDDEB71
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 27EA06C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 28 Aug 2016 15:21:14 +0000 (UTC)
-Received: from twosheds.infradead.org (twosheds.infradead.org [90.155.92.209])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 76125177
+	Sun, 28 Aug 2016 15:37:30 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 82494ED
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 28 Aug 2016 15:21:14 +0000 (UTC)
-Message-ID: <c1263e6689434e4044e58499493ce435.squirrel@twosheds.infradead.org>
-In-Reply-To: <20160828125542.7oejzcbpeozkrq3k@thunk.org>
+	Sun, 28 Aug 2016 15:37:29 +0000 (UTC)
+Message-ID: <1472398645.2420.13.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Jeremy Allison <jra@samba.org>
+Date: Sun, 28 Aug 2016 08:37:25 -0700
+In-Reply-To: <20160828042454.GA8742@jeremy-acer>
 References: <20160826193331.GA29084@jra3>
 	<CA+55aFyvFJ0gz++ApyO7gFGd0wz4ysjs=6wNZi-91VUJuVK2_w@mail.gmail.com>
 	<87inunxf14.fsf@ebb.org> <20160827162655.GB27132@kroah.com>
 	<87bn0dnc6f.fsf@ebb.org>
 	<1472348609.2440.37.camel@HansenPartnership.com>
 	<20160828042454.GA8742@jeremy-acer>
-	<20160828125542.7oejzcbpeozkrq3k@thunk.org>
-Date: Sun, 28 Aug 2016 14:06:44 -0000
-From: "David Woodhouse" <dwmw2@infradead.org>
-To: "Theodore Ts'o" <tytso@mit.edu>
-MIME-Version: 1.0
-Content-Type: text/plain;charset=utf-8
-Content-Transfer-Encoding: 8bit
-Cc: James Bottomley <james.bottomley@hansenpartnership.com>,
-	"Bradley M. Kuhn" <bkuhn@sfconservancy.org>,
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Cc: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>,
 	Linus Torvalds <torvalds@linux-foundation.org>,
 	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
@@ -37,47 +36,77 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-> I've said it before, and I've said it again.  For me, this is much
-> more about a project governance issue.  We don't let random pissed off
-> army officers decide when to start World War III.
+On Sat, 2016-08-27 at 21:24 -0700, Jeremy Allison via Ksummit-discuss
+wrote:
+> On Sat, Aug 27, 2016 at 07:43:29PM -0600, James Bottomley wrote:
+> > 
+> > Heh, well, if I called bullshit, I'd lose my reputation for
+> > politeness
+> > (although perhaps Linus would finally come to respect me).  Let me
+> > just
+> > point at that your 0.57% or however you define it, is why no
+> > corporation currently trusts you or wants to talk to you unless
+> > forced
+> > by their lawyers.  Without mutual trust, there's no basis for
+> > negotiation, so all your attempts at compliance are overshadowed by
+> > this end game.
+> 
+> In an discussion, when you accuse your oponent of flat-out lying
+> and being untrustworthy there's no place left to go.
+> 
+> Let's not do that. I don't think it's helpful.
 
-This, too, is completely inappropriate hyperbole. It is bizarre to draw
-comparisons between the level of destruction that a nuclear war would
-involve, and the act of holding a few law-breakers to account when years
-of attempting to get them to stop breaking the law has failed.
+I attacked the argument not the man.
 
-Remember, Harald held criminals to account in Germany for years without
-any signs of triggering armageddon.
+> However, "no corporation currently trusts you or wants to talk to
+> you unless forced by their lawyers" is inaccurate (note I don't
+> think you're lying, just mistaken here).
+> 
+> My employer is a large funder of Conservancy (check their funding
+> spreadsheet for details), and I promise you we talk without legal
+> requests to do so (even though Karen managed to crash the badging
+> system here last time she visited :-).
 
-The only people who have *anything* to fear are those who are breaking the
-law.
+OK, I'll modify no to hardly any.  However, Google isn't such a great
+exemplar given that it's currently doing its new kernel under apache-2
+and sees this as an advantage.
 
-Even though I abhor what Patrick McHardy is doing, I still can't quite
-find it in my heart to have *sympathy* for his victims. Because it's not
-as if he's just taking random pot-shots at passers-by on the street. These
-people defended their actions in court, and lost.
+> > Your inability to recognise that there are other methods beyond 
+> > holding out this 0.57% club, and that a lot of other people have 
+> > achieved significant compliance and even community contributions 
+> > using them, is why your statements generate such a lot of strong 
+> > reactions.  It reminds me a lot of the 70s and 80s "Mr President, 
+> > under what conditions would you be willing to press the nuclear 
+> > button?" which isn't really a world I want to go back to.
+> 
+> That isn't the question that's being asked though. The question
+> that is being asked is "should there be a nuclear button *at all* ?".
+> 
+> Your opinion on that is clear and I understand why you hold it.
+> There are many other developers who hold the same opinion, but
+> lots of them work on FreeBSD not Linux.
+> 
+> Respectfully, I don't agree with you. Greg and Ted seem to agree
+> with you, Linus (like me) seems to imagine there can be a case for
+> that shiny red button.
 
-In some way, we should all take responsibility for Patrick. Because if we
-hadn't been *so* lax about holding offenders to account, and if we hadn't
-allowed *so* much rampant abuse of our code to pass without taking action,
-there wouldn't have been so much low-hanging fruit for Patrick to make use
-of.
+That's a bit of a straw man: I've drawn the equivalency between
+litigation and the nuclear button, but I've never said there shouldn't
+be one.
 
-We'd all have been better off with *someone* doing what Conservancy does,
-and taking the time to work with companies to bring them into compliance
--- using the far-off threat of litigation that nobody *really* wants to
-resort to, purely to keep them at the table..
+I've actually spent a lot of time carefully preserving this option:
+it's not actually an easy feat in modern America to ensure you own
+copyright in your own code, but I've done it.  I certainly believe that
+once you press it, you're forever contaminated by the fallout.
 
-> Similarly Linux has
-> establish consensus processes that take into accout *all* of the
-> stakeholder,
+James
 
-Linus explicitly declined to take copyright assignments, actually, so no
-consensus is required. Of course, you still only really have anything to
-fear from litigation if you'd actually *lose* it.
 
-And sure, courts can be fickle but it's not exactly hard to make sure you
-are *clearly* obeying the licence.
-
--- 
-dwmw2
+> To be honest I never would have put you down as a CND supporter
+> (but I suppose all those years you spent in a tent at Greenham
+> Common should have given me a hint :-).
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+> 
