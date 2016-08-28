@@ -1,22 +1,34 @@
-Return-Path: <gregkh@linuxfoundation.org>
-Date: Sun, 28 Aug 2016 19:59:07 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Joe Perches <joe@perches.com>
-Message-ID: <20160828175907.GA9615@kroah.com>
-References: <1472330452.26978.23.camel@perches.com>
-	<20160828005636.GB19088@sasha-lappy>
-	<1472348579.26978.47.camel@perches.com>
-	<20160828023807.GC19088@sasha-lappy>
-	<1472404557.26978.84.camel@perches.com>
+Return-Path: <tytso@thunk.org>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A2E1F412
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sun, 28 Aug 2016 19:37:05 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9952D1B3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sun, 28 Aug 2016 19:37:01 +0000 (UTC)
+Date: Sun, 28 Aug 2016 15:36:56 -0400
+From: Theodore Ts'o <tytso@mit.edu>
+To: Jeremy Allison <jra@samba.org>
+Message-ID: <20160828193656.cbd64qqenmpsbiwp@thunk.org>
+References: <20160826193331.GA29084@jra3>
+	<CA+55aFyvFJ0gz++ApyO7gFGd0wz4ysjs=6wNZi-91VUJuVK2_w@mail.gmail.com>
+	<87inunxf14.fsf@ebb.org> <20160827162655.GB27132@kroah.com>
+	<87bn0dnc6f.fsf@ebb.org>
+	<1472348609.2440.37.camel@HansenPartnership.com>
+	<20160828042454.GA8742@jeremy-acer>
+	<20160828125542.7oejzcbpeozkrq3k@thunk.org>
+	<20160828154356.GA16414@jeremy-acer>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <1472404557.26978.84.camel@perches.com>
-Cc: LKML <linux-kernel@vger.kernel.org>, Sasha Levin <levinsasha928@gmail.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] checkkpatch (in)sanity ?
+In-Reply-To: <20160828154356.GA16414@jeremy-acer>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	"Bradley M. Kuhn" <bkuhn@sfconservancy.org>, ".jra"@samba.org,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -26,31 +38,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sun, Aug 28, 2016 at 10:15:57AM -0700, Joe Perches wrote:
-> On Sat, 2016-08-27 at 22:47 -0400, Levin, Alexander wrote:
-> > > > By default you should only get the most critical warnings we have in the
-> > > > kernel like missing S-O-B or corrupt patch.
-> > > I don't think so, but if you do, add a filter for ERROR only.
-> > I could, but the problem is the people who see the default output as "holy".
+On Sun, Aug 28, 2016 at 08:43:56AM -0700, Jeremy Allison wrote:
+> On Sun, Aug 28, 2016 at 08:55:42AM -0400, Theodore Ts'o wrote:
+> > 
+> > For the record, I believe there can be a case for the shiny red
+> > button. I just want Linus, and not the SFC (or some --- as admitted
+> > by the SFC --- minority set of developers), to be the one who decides
+> > when it's appropriate to push it.
+> > 
+> > I've said it before, and I've said it again.  For me, this is much
+> > more about a project governance issue.  We don't let random pissed off
+> > army officers decide when to start World War III...
 > 
-> Personally, I think the "my first kernel patch" beginners were
-> overly encouraged to produce these checkpatch whitespace type
-> changes by a couple things:
+> Ted, there is a massive inconsistency here.
 > 
-> o Greg KH's TuxRadar article back in 2010
->   http://www.tuxradar.com/content/newbies-guide-hacking-linux-kernel
-> o The Eudyptula Challenge
->   http://eudyptula-challenge.org/
-> 
-> I don't know if the Eudyptula scripts are specific to
-> drivers/staging and most of those beginners haven't read his
-> email from 2015 that essentially says "don't do that" on
-> anything other than drivers/staging.
+> For decisions on legal action you want a top-town, corporate
+> power structure - with only authorized management making
+> decisions on when and how to proceed.
 
-I have been assured that Eudyptula says to stick only with
-drivers/staging/  If anyone knows otherwise, please let me know and I
-will work to resolve that.
+I didn't say that.  I said consensus driven and taking into account
+all of the stakeholders.  If it makes you feel better, how about
+"Linus as the benevolent dictator"?  He makes a point of gathering
+input from multiple stakeholders, and delegating authority to others
+for day to day decisions.  That's how we do our development, after
+all.
 
-thanks,
-
-greg k-h
+						- Ted
