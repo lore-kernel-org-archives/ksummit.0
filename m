@@ -1,32 +1,38 @@
-Return-Path: <bkuhn@ebb.org>
+Return-Path: <joe@perches.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B75DE305
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id C5438305
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 28 Aug 2016 22:58:47 +0000 (UTC)
-Received: from protestant.ebb.org (protestant.ebb.org [50.56.179.12])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 30B89EB
+	Sun, 28 Aug 2016 23:39:42 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0226.hostedemail.com
+	[216.40.44.226])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 494F51D3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 28 Aug 2016 22:58:47 +0000 (UTC)
-Date: Sun, 28 Aug 2016 15:54:54 -0700
-From: "Bradley M. Kuhn" <bkuhn@ebb.org>
-To: ksummit-discuss@lists.linuxfoundation.org
-Message-ID: <20160828225454.GA19927@ebb.org>
-References: <20160826193331.GA29084@jra3>
-	<CA+55aFyvFJ0gz++ApyO7gFGd0wz4ysjs=6wNZi-91VUJuVK2_w@mail.gmail.com>
-	<87inunxf14.fsf@ebb.org> <20160827162655.GB27132@kroah.com>
-	<87bn0dnc6f.fsf@ebb.org>
-	<1472348609.2440.37.camel@HansenPartnership.com>
-	<20160828042454.GA8742@jeremy-acer>
-	<20160828125542.7oejzcbpeozkrq3k@thunk.org>
-	<87y43gx3jq.fsf@ebb.org>
-	<20160828195805.z4tyu3bcabpfyqpw@thunk.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20160828195805.z4tyu3bcabpfyqpw@thunk.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
+	Sun, 28 Aug 2016 23:39:42 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
+	[10.5.19.251])
+	by smtpgrave04.hostedemail.com (Postfix) with ESMTP id 3B7AFB16FA
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sun, 28 Aug 2016 23:20:57 +0000 (UTC)
+Message-ID: <1472426452.26978.151.camel@perches.com>
+From: Joe Perches <joe@perches.com>
+To: "Levin, Alexander" <alexander.levin@verizon.com>
+Date: Sun, 28 Aug 2016 16:20:52 -0700
+In-Reply-To: <20160828223759.GA12993@sasha-lappy>
+References: <1472330452.26978.23.camel@perches.com>
+	<20160828005636.GB19088@sasha-lappy>
+	<1472348579.26978.47.camel@perches.com>
+	<20160828023807.GC19088@sasha-lappy>
+	<1472404557.26978.84.camel@perches.com>
+	<20160828223759.GA12993@sasha-lappy>
+Content-Type: text/plain; charset="ISO-8859-1"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: Greg KH <gregkh@linuxfoundation.org>, Sasha Levin <levinsasha928@gmail.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [Ksummit-discuss] checkkpatch (in)sanity ?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,41 +42,70 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Theodore Ts'o wrote earlier today:
-> The reason why it's fair game to compare your statements with statements
-> made a few months ago is for the same reason why the Daily Show played back
-> old clips of politicians.
+On Sun, 2016-08-28 at 18:37 -0400, Levin, Alexander wrote:
+> On Sun, Aug 28, 2016 at 01:15:57PM -0400, Joe Perches wrote:
+> > On Sat, 2016-08-27 at 22:47 -0400, Levin, Alexander wrote:
+> > > Would you agree that by default we shouldn't show anything that's
+> > > not an error/defect?
+> > Not particularly, no.
+> I think that we need to figure out this disagreement first then. My
+> claim is that checkpatch's output isn't useful.
+[]
+> It'll be interesting to hear from these people about their view of
+> checkpatch, but IMO when on average there are more issues than commits
+> I can suggest two possible causes:
+> 
+>  1. People are used to ignore checkpatch warnings.
+>  2. People aren't using checkpatch.
+> 
+> Can you really make the claim that this is how checkpatch is supposed
+> to be working?
 
-I'd be delighted to go through a political vetting process with those of you
-that want that, but I suggest it's better to move that off-list.  We could
-later produce the email thread as one unit for people to read if they like.
-Contact me off list if you'd like to do that.  (As such, this will be my last
-on-list response to anything related to material from my past talks, etc.)
+<shrug>.  I make no particular claims about checkpatch.
 
-I do wonder, however, if vetting me will actually yield the results you want.
-Many already pointed out that (a) Conservancy's actions are on behalf of our
-coalition, at their behest, and also that (b) Karen Sandler is my boss.  So,
-I answer to both the coalition *and* her in any actual work that I might do.
-While I admit that I love talking about my own opinions on things (and it
-seems that Ted enjoys watching videos of my opinions -- BTW, I'd certainly
-enjoy the "Daily Show with Ted Ts'o" more than "with Trevor Noah"), I really
-wonder if most folks on the list, or in the larger Linux developer community,
-care about *my* words as opposed to the *coalition's* actual actions, which I
-agree do deserve substantial attention and I encourage you to vet them.
+I think checkpatch isn't particularly useful for those
+thoroughly inculcated in what style the kernel uses and
+is more useful for infrequent or new submitters.
 
-> Well, people who live near battlegrounds often have a different opinion
-> about sending in the troops compared to generals back in Washington
-> D.C. whore are ordering in the drone strikes.
-...
-Linus Torvalds wrote elsewhere in the thread:
->> But the people who then see proprietary software as "evil"
+The long time submitters and key maintainers are already
+pretty consistent about coding style.
 
-I don't believe any company, organization, entity or person mentioned in this
-thread is evil, including the ones that produce proprietary software.  I
-certainly want a world where proprietary software doesn't exist, but
-proprietary software is not evil; calling it such is as hyperbolic as
-comparing enforcing the GPL to drone strikes.
---
-   -- bkuhn
-========================================================================
-Become a Conservancy Supporter today: https://sfconservancy.org/supporter
+It would be good to examine the specific messages though.
+
+For instance, Thomas Gleixner's messages for 200 commits:
+
+     81 WARNING:COMMIT_LOG_LONG_LINE
+     71 WARNING:BAD_SIGN_OFF
+     37 WARNING:LONG_LINE
+     22 WARNING:AVOID_BUG
+     17 ERROR:SPACING
+     16 WARNING:TYPO_SPELLING
+     13 WARNING:UNSPECIFIED_INT
+      7 ERROR:GIT_COMMIT_ID
+      6 WARNING:MINMAX
+      2 WARNING:PREFER_PR_LEVEL
+      2 WARNING:LONG_LINE_COMMENT
+      2 WARNING:LEADING_SPACE
+      2 WARNING:FILE_PATH_CHANGES
+      2 ERROR:CODE_INDENT
+      1 WARNING:SUSPECT_CODE_INDENT
+      1 WARNING:SPACING
+      1 WARNING:ONE_SEMICOLON
+      1 WARNING:LINE_SPACING
+      1 WARNING:BLOCK_COMMENT_STYLE
+      1 ERROR:TRAILING_STATEMENTS
+      1 ERROR:INITIALISED_STATIC
+      1 CHECK:PARENTHESIS_ALIGNMENT
+
+28 ERRORs and a lot more WARNINGs
+
+It seems that most of the BAD_SIGN_OFF uses are where
+he signed his original patches and then did something
+like git-am -s on those same patches.
+
+The COMMIT_LOG_LONG_LINE messages are almost all just
+slightly over the generic 80 column output when used
+with just "git log".
+
+I think the rest of the messages are reasonable and
+generally follow CodingStyle.
