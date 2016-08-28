@@ -1,33 +1,32 @@
-Return-Path: <adobriyan@gmail.com>
+Return-Path: <greg@kroah.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id AA09925A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E53ED6C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 28 Aug 2016 07:56:39 +0000 (UTC)
-Received: from mail-lf0-f68.google.com (mail-lf0-f68.google.com
-	[209.85.215.68])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C45DF87
+	Sun, 28 Aug 2016 08:04:51 +0000 (UTC)
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+	[66.111.4.28])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2F76A9C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 28 Aug 2016 07:56:37 +0000 (UTC)
-Received: by mail-lf0-f68.google.com with SMTP id f93so5651157lfi.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 28 Aug 2016 00:56:37 -0700 (PDT)
-Date: Sun, 28 Aug 2016 10:56:33 +0300
-From: Alexey Dobriyan <adobriyan@gmail.com>
-To: "Levin, Alexander" <alexander.levin@verizon.com>
-Message-ID: <20160828075632.GA1852@p183.telecom.by>
-References: <1472330452.26978.23.camel@perches.com>
-	<20160828005636.GB19088@sasha-lappy>
+	Sun, 28 Aug 2016 08:04:51 +0000 (UTC)
+Date: Sun, 28 Aug 2016 10:04:59 +0200
+From: Greg KH <greg@kroah.com>
+To: Jeremy Allison <jra@samba.org>
+Message-ID: <20160828080459.GC1370@kroah.com>
+References: <20160826193331.GA29084@jra3>
+	<CA+55aFyvFJ0gz++ApyO7gFGd0wz4ysjs=6wNZi-91VUJuVK2_w@mail.gmail.com>
+	<87inunxf14.fsf@ebb.org> <20160827162655.GB27132@kroah.com>
+	<20160827230210.GA6717@jeremy-acer>
+	<20160827225842.3f93f26d@gandalf.local.home>
+	<20160828043401.GB8742@jeremy-acer>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20160828005636.GB19088@sasha-lappy>
-Cc: Joe Perches <joe@perches.com>, Greg KH <gregkh@linuxfoundation.org>,
-	Sasha Levin <levinsasha928@gmail.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [Ksummit-discuss] checkkpatch (in)sanity ?
+In-Reply-To: <20160828043401.GB8742@jeremy-acer>
+Cc: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,29 +36,76 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, Aug 27, 2016 at 09:06:13PM -0400, Levin, Alexander via Ksummit-discuss wrote:
-> 3. This one is somewhat subjective: scripts/checkpatch.pl is a massive blob of
-> perl code that a fair amount of people don't know how to deal with. In 4.8 it's
-> 6142 lines, making it the 124th largest source file in the kernel, well within
-> the top 1% of source files in the kernel.
+On Sat, Aug 27, 2016 at 09:34:01PM -0700, Jeremy Allison wrote:
+> On Sat, Aug 27, 2016 at 10:58:42PM -0400, Steven Rostedt wrote:
+> > 
+> > I'm not sure Greg's answer is really "never". But I think this is
+> > similar to the analogy of dealing with rogue nations. Going to war is
 > 
-> This combination of size/language pushes people away from being involved in
-> what is supposed to be a central tool and gives them a reason to never use
-> it again after they see results they don't agree with (rather than fixing it).
+> It seemed pretty clear to me that Greg's answer was that there
+> was no possible situation where he would countenance an enforcement
+> lawsuit against a GPL violator.
+> 
+> I really don't want to put words in anyones mouth or misread their
+> intent so if I am mistaken or misread what he wrote I'd love to be
+> corrected here.
 
-It is a textbook example of what's wrong with Perl. Instead of parsing
-C code like compilers do, the script is one big pile of regexes.
-It mostly works ("doing its job" in perlspeak) because people mostly
-follow the coding style.
+Ok, I'm not saying "never should legal action be taken", but what I am
+saying is the same thing that Linus said, "only under the most dire
+circumstances", the nuclear option.
 
-Regarding individual warnings: some are good (RETURN_VOID, DATE_TIME,
-USE_NEGATIVE_ERRNO), some are OK given kernel style of allocating memory
-but the rationale is bogus (UNNECESSARY_CASTS, linking to userspace
-example of malloc() returning "int"!).
+So yes, if someone takes all of our source code, slaps a different
+license on it and calls it something else, I would be first in line to
+call up my lawyer to get them to stop doing that.  But that's never been
+the case here.
 
-And then there is ALLOC_SIZEOF_STRUCT which advocates "kmalloc(sizeof(*p))".
+What is the case is that so far, I have seen that it is _ALWAYS_ better
+to work with the offending company than it is to go in with lawyers.  Or
+representatives.
 
-The problem is that c-h.pl generates noise in the commit history and
-makes git-blame less useful than it can be.
+Go back and read my response to Bradley again and think about what a
+company goes through when someone shows up knocking at their door saying
+"I am a representative of copyright holders of the kernel, and want you
+to release all the code you are shipping."  They batten down the hatches
+and work to fight against it for all of the reasons I already gave.
 
-I for one given up on it more or less since its introduction.
+Compare that to a _developer_ going to that same company, finding the
+engineers who wrote that code, and asking them "hey, need any help in
+getting your code merged upstream to make your lives easier for your
+next product?"
+
+Now you can work with that company, getting them to upstream bits and
+pieces of their code, until they are suddenly really invested in this
+community much more so than before and they see the business benefit of
+working together.
+
+It's a totally different question, approach, and in the end, our way
+works, while the SFC's way does not.
+
+I object to the SFC's position of "let us handle those pesky copyright
+issues for you" (paraphrased), as when a developer does that, they give
+up the real power that they have.  The SFC's a one-trick pony (give us
+the code, all of it, throw it over the wall or we will sue), while as a
+developer, I have 101 tricks I can use to achieve even a better
+end-solution (the company is part of the community, not alienated by
+it.)
+
+Developers are in a more powerful position than they realize, and I
+object to the SFC taking that power away.  In fact, the SFC _needs_
+developers in order to even be in business, if no developer signs their
+agreements, there's nothing for them to do!
+
+So I strongly support developers getting the rights to their copyrights,
+not because it can be then used as a legal club to wield against others,
+but as a way to help ensure that their company continues to always
+invest and support Linux, as they know it works out better when everyone
+has a stake in it, not just individuals, and not just corporations.
+
+We really are one big happy family here, but when the SFC (or the FSF)
+gets involved, we start bickering and problems happen.  It did so with
+Busybox, and it is now doing so in Linux.  And I don't want that to
+happen.
+
+thanks,
+
+greg k-h
