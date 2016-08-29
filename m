@@ -1,30 +1,26 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <dan.carpenter@oracle.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D25DF360
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 40763360
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 29 Aug 2016 19:04:34 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 55A27226
+	Mon, 29 Aug 2016 19:06:31 +0000 (UTC)
+Received: from aserp1040.oracle.com (aserp1040.oracle.com [141.146.126.69])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B4981232
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 29 Aug 2016 19:04:34 +0000 (UTC)
-Message-ID: <1472497471.2376.32.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>, Rik van Riel
-	<riel@redhat.com>
-Date: Mon, 29 Aug 2016 12:04:31 -0700
-In-Reply-To: <CA+55aFz98VJR8RNv2=zuV0y4Ke_EmCyAR71eMNdq5p6cYm4OAw@mail.gmail.com>
-References: <CA+55aFxLRqket8-yCL=FPM0Bz86PxdS+hRSTzXES+=1bOv=feg@mail.gmail.com>
-	<20160827183550.GB1601@katana> <20160828074706.GB1370@kroah.com>
-	<1472492553.32433.108.camel@redhat.com>
-	<CA+55aFz98VJR8RNv2=zuV0y4Ke_EmCyAR71eMNdq5p6cYm4OAw@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
+	Mon, 29 Aug 2016 19:06:30 +0000 (UTC)
+Date: Mon, 29 Aug 2016 22:06:18 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Joe Perches <joe@perches.com>
+Message-ID: <20160829190618.GF4180@mwanda>
+References: <1472330452.26978.23.camel@perches.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1472330452.26978.23.camel@perches.com>
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	Greg KH <gregkh@linuxfoundation.org>,
+	Sasha Levin <levinsasha928@gmail.com>, LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [Ksummit-discuss] checkkpatch (in)sanity ?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,42 +30,16 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 2016-08-29 at 11:49 -0700, Linus Torvalds wrote:
-> On Mon, Aug 29, 2016 at 10:42 AM, Rik van Riel <riel@redhat.com>
-> wrote:
-> > 
-> > Companies like IBM and SGI started participating in Linux because
-> > they knew no competitor would run off with their code, improve it
-> > slightly, and offer a proprietary product for sale based it.
-> 
-> Absolutely.
-> 
-> Right now we're in the situation that a lot of companies are very
-> suspicious of the GPL, I do agree with Bradley on that.
-> 
-> But we put the blame on very different things - I at least partly 
-> very much do blame the "culture" that goes with the GPL.  Corporate 
-> users do see the hostility towards commercial use that we have in 
-> some quarters.
-> 
-> We should be much more vocal about how it protects even companies 
-> from people taking advantage of their code. Yes, they'll always want 
-> to have their "value add" on top, but we should push the GPL as a 
-> great model for core infrastructure everywhere.
-> 
-> We should strive to make companies *like* the GPL, and encourage
-> exactly the kinds of things you mention.
+I would like a couple changes which you know already:
 
-As I said way far upthread: this is how I sold the GPL to Parallels.  I
-definitely have real world experience of doing this and I'm happy to do
-it for other companies and be part of the crowd that does this
-encouragement.  We have a lot of support within the industry (Martin
-Fink, ex HP CTO springs immediately to mind here).
+1) Get rid of PREFER_ETHER_ADDR_COPY and similar because the people who
+send checkpatch.pl fixes aren't qualified to say when it's legal or not
+so they sometimes introduce bugs.
 
-As a side note: if you own a project you want to open source, Apache-2
-ends up being practically the worst licence imaginable: not only can
-your competitors make proprietary modified copies of your code they
-don't have to show you, but they also gain rights to your patents with
-which to do it.
+2) We could put some text in the output of --file output to say that if
+it's not a staging patch, then we don't care about just making
+checkpatch happy.  So consider if it is a waste of maintainer time
+before sending.
 
-James
+regards,
+dan carpenter
