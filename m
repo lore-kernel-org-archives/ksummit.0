@@ -1,33 +1,36 @@
-Return-Path: <jra@samba.org>
+Return-Path: <matthew.garrett@coreos.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id F2FFD89E
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B8F329D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 29 Aug 2016 16:26:39 +0000 (UTC)
-Received: from hr2.samba.org (hr2.samba.org [144.76.82.148])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 357DAA9
+	Mon, 29 Aug 2016 16:58:00 +0000 (UTC)
+Received: from mail-yb0-f174.google.com (mail-yb0-f174.google.com
+	[209.85.213.174])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 07D5FCB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 29 Aug 2016 16:26:39 +0000 (UTC)
-Date: Mon, 29 Aug 2016 09:26:26 -0700
-From: Jeremy Allison <jra@samba.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Message-ID: <20160829162626.GB9328@jra3>
-Reply-To: Jeremy Allison <jra@samba.org>
-References: <CA+55aFyvFJ0gz++ApyO7gFGd0wz4ysjs=6wNZi-91VUJuVK2_w@mail.gmail.com>
-	<87inunxf14.fsf@ebb.org> <20160827162655.GB27132@kroah.com>
-	<87bn0dnc6f.fsf@ebb.org>
-	<1472348609.2440.37.camel@HansenPartnership.com>
-	<20160828042454.GA8742@jeremy-acer>
-	<20160828125542.7oejzcbpeozkrq3k@thunk.org>
-	<20160828154356.GA16414@jeremy-acer>
-	<20160828193656.cbd64qqenmpsbiwp@thunk.org>
-	<CA+55aFxFAhESSWRsALE=p2w4sACWuc9Q+WDEoHeGW6S05TsDBw@mail.gmail.com>
+	Mon, 29 Aug 2016 16:57:59 +0000 (UTC)
+Received: by mail-yb0-f174.google.com with SMTP id e31so50360018ybi.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 29 Aug 2016 09:57:59 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CA+55aFxFAhESSWRsALE=p2w4sACWuc9Q+WDEoHeGW6S05TsDBw@mail.gmail.com>
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	"Bradley M. Kuhn" <bkuhn@sfconservancy.org>,
+In-Reply-To: <CA+55aFxaivyPG3YWwU2j6m2Xsicmk-Ed2_qqkfkTw4ExokqucA@mail.gmail.com>
+References: <20160826193331.GA29084@jra3>
+	<CA+55aFyvFJ0gz++ApyO7gFGd0wz4ysjs=6wNZi-91VUJuVK2_w@mail.gmail.com>
+	<87inunxf14.fsf@ebb.org> <20160827162655.GB27132@kroah.com>
+	<20160827230210.GA6717@jeremy-acer>
+	<CA+55aFzE4agwAkbB_zv2oaAa3jsd=Q3MkB+1+J=XjsOoeUT1jA@mail.gmail.com>
+	<CAPeXnHsTskZhwS6Ckp=xRzxbwax9FrMc5gRFmFmySY-Pq3KexA@mail.gmail.com>
+	<CAPeXnHtqc5fYUV89H2E4g-SQmFNmc=3bj1NiCRVAWg=WoP0R7g@mail.gmail.com>
+	<CAPeXnHt1WOTOLSK7jZk9FfUNYNf2i8-e9kzhmzmNdxCUXdK=bQ@mail.gmail.com>
+	<CA+55aFwevwn6-jTRq3t80b6cw5-Emn1cTFai2-kSJLgZOYSQZA@mail.gmail.com>
+	<CAPeXnHtDZFSiasopD4j9xUV856RjV=wSaTQBwS-tkYKonbnY0Q@mail.gmail.com>
+	<CA+55aFxaivyPG3YWwU2j6m2Xsicmk-Ed2_qqkfkTw4ExokqucA@mail.gmail.com>
+From: Matthew Garrett <mjg59@coreos.com>
+Date: Mon, 29 Aug 2016 12:57:56 -0400
+Message-ID: <CAPeXnHtQ7Zfw=Z9KCscMTznx2-Q5AW-qS5kvxFRmBmG_6Qtq7w@mail.gmail.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Content-Type: multipart/alternative; boundary=001a1148ad162f5f59053b38c48b
+Cc: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>,
 	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -39,70 +42,133 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sun, Aug 28, 2016 at 01:36:38PM -0700, Linus Torvalds wrote:
-> 
-> We should put our goal posts in a totally different direction. We
-> don't have a ":community effort" to do marketing. We all realize how
-> completely idiotic and stupid that would be. A "Software Freedom
-> Marketing Center" would be laughed at.
-> 
-> Why the hell do people not laugh at it when it comes to legal issues?
+--001a1148ad162f5f59053b38c48b
+Content-Type: text/plain; charset=UTF-8
 
-Well you don't need any real training to do marketing. I know as I
-have done marketing for Samba for years, and I know bugger-all about it :-).
+On Aug 27, 2016 7:16 PM, "Linus Torvalds" <torvalds@linux-foundation.org>
+wrote:
+>
+> On Sat, Aug 27, 2016 at 5:02 PM, Matthew Garrett <mjg59@coreos.com> wrote:
+> >
+> > OK. A vendor sells 500,000 network-connected devices running a version
+of
+> > Linux that has a vulnerability in the network driver that's discovered a
+> > year later. The hardware is custom, they refuse to release source, and
+> > they've discontinued the product line, so nobody else is able to fix
+it. Is
+> > it acceptable to engage in litigation in order to ensure that owners of
+> > these devices can receive a security update, even if by doing so we
+alienate
+> > the vendor and cause them to choose another kernel in future?
+>
+> So why don't you name them and shame them very publicly and try
+> everything else first?
 
-Like it or not, legal issues *are* different. Screw up your marketing,
-and you just fail to sell stuff. Screw up your legal compliance or anti-trust,
-and you can find yourself with a $1bn fine (See Microsoft vs. EU for
-the example I know most about). That concentrates the mind *wonderfully* :-).
+I'm still at the point of trying to work with the company in a way that
+avoids all that, and things get rather more complicated when you're also
+trying to practice responsible disclosure over security issues. But yes,
+obviously I'm not going to press for anything else unless every other
+option has been exhausted first.
 
-> So I seriously believe that we should not see companies as the "enemy"
-> and as a target of lawsuits. We should see the Linux companies as a
-> big part of the community, and as the natural *defender* of the GPL.
+> If the vendor still exists, and sells other devices, make a big stink
+> about it. It sounds like you've talked to them in private already, but
+> why do you still call them "a vendor" now when you start talking about
+> wanting to sue them?
 
-Expecting Linux companies to be defenders of the GPL is a nice
-thought, but is not going to happen. If it was, it would have
-already happened by now. The IBM lawsuit was IBM counter-suing
-SCO after SCO went nuts, and I believe Red Hat have also counter
-sued a company that went after them for software patents.
+I *don't* want to sue them. I just don't have faith that the other options
+will be fruitful, and that seems to be a case you're not really focusing
+on.
 
-Linux companies, like all companies, look after their own interests.
-Nothing bad about that, just good business. Enforcing the GPL other
-than in a counter-suit or for some other business purpose doesn't
-make any sense.
+> Because without that, the answer is always going to be absolutely no,
+> simply because of the "absolute last option" thing.
+>
+> And you talk about how you're helping users, but how many of them
+> would actually upgrade? Very few people end up upgrading firmware even
+> when it's automatic, much less so if it would mean that they'd switch
+> to OpenWRT or DD-WRT or something (since presumably the *existing*
+> firmware ends up having lots of non-GPL'd sources that you wouldn't
+> get even with a lawsuit)?
 
-Linux companies are our friends, and I'm happy to work for and with
-them, but they're not going to represent the interests of the project
-developers. That's simply not what they are for.
+The number would end up being small, but the alternative is that they *all*
+end up running insecure code. Doesn't giving people the option seem worth
+it?
 
-SFC I'm happy to say, *does* represent our interests. That *IS*
-what they are for so I'm happy to support them.
+> In practical terms, how would that help Linux?
 
-> But the people who then see proprietary software as "evil", and see
-> companies as being amoral, and as the enemy (and this very much is how
-> rms and the FSF was acting), those people were doing exactly the wrong
-> thing, and I have been fighting that idiocy for as long as I've been
-> using the GPLv2.
+There would probably be no direct benefits at all for Linux as a technical
+project. There are potentially benefits in public perception of Linux-based
+IoT devices as being less likely to be left behind after vendors move on.
+But really, that's the question. If something has no significant benefit to
+the Linux project, but does benefit users of the product, are you
+fundamentally against lawsuits after every other option has been exhausted?
 
-I don't see proprietary software as "evil", it's more of a nusance
-(like public littering :-).
+--001a1148ad162f5f59053b38c48b
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-> The fact that we didnt' see proprietary software as evil, and that we
-> opened our arms to companies made all the difference.
+<div dir=3D"ltr"><p dir=3D"ltr">On Aug 27, 2016 7:16 PM, &quot;Linus Torval=
+ds&quot; &lt;<a href=3D"mailto:torvalds@linux-foundation.org" target=3D"_bl=
+ank">torvalds@linux-foundation.org</a><wbr>&gt; wrote:<br>
+&gt;<br>
+&gt; On Sat, Aug 27, 2016 at 5:02 PM, Matthew Garrett &lt;<a href=3D"mailto=
+:mjg59@coreos.com" target=3D"_blank">mjg59@coreos.com</a>&gt; wrote:<br>
+&gt; &gt;<br>
+&gt; &gt; OK. A vendor sells 500,000 network-connected devices running a ve=
+rsion of<br>
+&gt; &gt; Linux that has a vulnerability in the network driver that&#39;s d=
+iscovered a<br>
+&gt; &gt; year later. The hardware is custom, they refuse to release source=
+, and<br>
+&gt; &gt; they&#39;ve discontinued the product line, so nobody else is able=
+ to fix it. Is<br>
+&gt; &gt; it acceptable to engage in litigation in order to ensure that own=
+ers of<br>
+&gt; &gt; these devices can receive a security update, even if by doing so =
+we alienate<br>
+&gt; &gt; the vendor and cause them to choose another kernel in future?<br>
+&gt;<br>
+&gt; So why don&#39;t you name them and shame them very publicly and try<br=
+>
+&gt; everything else first?</p>
+<p>I&#39;m still at the point of trying to work with the company in a way t=
+hat avoids all that, and things get rather more complicated when you&#39;re=
+ also trying to practice responsible disclosure over security issues. But y=
+es, obviously I&#39;m not going to press for anything else unless every oth=
+er option has been exhausted first.<br></p>
+<p dir=3D"ltr">&gt; If the vendor still exists, and sells other devices, ma=
+ke a big stink<br>
+&gt; about it. It sounds like you&#39;ve talked to them in private already,=
+ but<br>
+&gt; why do you still call them &quot;a vendor&quot; now when you start tal=
+king about<br>
+&gt; wanting to sue them?</p>
+<p>I *don&#39;t* want to sue them. I just don&#39;t have faith that the oth=
+er options will be fruitful, and that seems to be a case you&#39;re not rea=
+lly focusing on. </p>
+<p dir=3D"ltr">&gt; Because without that, the answer is always going to be =
+absolutely no,<br>
+&gt; simply because of the &quot;absolute last option&quot; thing.<br>
+&gt;<br>
+&gt; And you talk about how you&#39;re helping users, but how many of them<=
+br>
+&gt; would actually upgrade? Very few people end up upgrading firmware even=
+<br>
+&gt; when it&#39;s automatic, much less so if it would mean that they&#39;d=
+ switch<br>
+&gt; to OpenWRT or DD-WRT or something (since presumably the *existing*<br>
+&gt; firmware ends up having lots of non-GPL&#39;d sources that you wouldn&=
+#39;t<br>
+&gt; get even with a lawsuit)?<br>
+</p><p>The number would end up being small, but the alternative is that the=
+y *all* end up running insecure code. Doesn&#39;t giving people the option =
+seem worth it?<br></p><p dir=3D"ltr">
+&gt; In practical terms, how would that help Linux?<br>
+</p><p>There would probably be no direct benefits at all for Linux as a tec=
+hnical project. There are potentially benefits in public perception of Linu=
+x-based IoT devices as being less likely to be left behind after vendors mo=
+ve on. But really, that&#39;s the question. If something has no significant=
+ benefit to the Linux project, but does benefit users of the product, are y=
+ou fundamentally against lawsuits after every other option has been exhaust=
+ed?</p></div>
 
-This is a good point I think. Samba has always been open to working
-with proprietary software, and it has helped us build our ecosystem
-(although for some reason we get labelled as zealots. I remember at
-one SambaXP conference one company founder told me, "everyone told
-me you were Free Software crazies but you're some of the most business
-friendly developers I've ever met" :-).
-
-> Because quite frankly, I think just by going by existing history,
-> companies are better at lawsuits than the community is anyway. Just
-> look at IBM.
-
-That's because companies have a *lot* more practice at suing
-people than we do. A fact that seems lost on some of the people
-on this list (some of whom seem to think that community lawsuits
-are so common and opportunistic that they simply *must* be gumming
-up the courts :-).
+--001a1148ad162f5f59053b38c48b--
