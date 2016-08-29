@@ -1,35 +1,31 @@
-Return-Path: <joe@perches.com>
-Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
-	[172.17.192.36])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A976C71
+Return-Path: <johannes@sipsolutions.net>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id BC48F483
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 29 Aug 2016 18:47:05 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0242.hostedemail.com
-	[216.40.44.242])
-	by smtp2.linuxfoundation.org (Postfix) with ESMTPS id 1192F1DCA0
+	Mon, 29 Aug 2016 18:48:01 +0000 (UTC)
+Received: from sipsolutions.net (s3.sipsolutions.net [5.9.151.49])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1016E1A9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 29 Aug 2016 18:47:05 +0000 (UTC)
-Message-ID: <1472496420.3425.77.camel@perches.com>
-From: Joe Perches <joe@perches.com>
-To: "Luck, Tony" <tony.luck@intel.com>, "Levin, Alexander"
-	<alexander.levin@verizon.com>
-Date: Mon, 29 Aug 2016 11:47:00 -0700
-In-Reply-To: <1472493700.3425.67.camel@perches.com>
-References: <1472330452.26978.23.camel@perches.com>
-	<20160828005636.GB19088@sasha-lappy>
-	<1472348579.26978.47.camel@perches.com>
-	<20160828023807.GC19088@sasha-lappy>
-	<1472404557.26978.84.camel@perches.com>
-	<3908561D78D1C84285E8C5FCA982C28F3A1B3222@ORSMSX114.amr.corp.intel.com>
-	<1472493700.3425.67.camel@perches.com>
-Content-Type: text/plain; charset="ISO-8859-1"
+	Mon, 29 Aug 2016 18:48:01 +0000 (UTC)
+Message-ID: <1472496471.14003.14.camel@sipsolutions.net>
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Jiri Kosina <jikos@kernel.org>, Steven Rostedt <rostedt@goodmis.org>
+Date: Mon, 29 Aug 2016 20:47:51 +0200
+In-Reply-To: <alpine.LNX.2.00.1608292021550.22028@cbobk.fhfr.pm>
+References: <1472403654.2420.29.camel@HansenPartnership.com>
+	<20160829090703.1c063975@gandalf.local.home>
+	<1472486062.2376.26.camel@HansenPartnership.com>
+	<20160829121615.25e5ddce@gandalf.local.home>
+	<alpine.LNX.2.00.1608292021550.22028@cbobk.fhfr.pm>
+Content-Type: text/plain; charset="UTF-8"
 Mime-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: Greg KH <gregkh@linuxfoundation.org>, Sasha Levin <levinsasha928@gmail.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [Ksummit-discuss] checkkpatch (in)sanity ?
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Owning your own copyrights in
+ Linux
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,31 +35,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 2016-08-29 at 11:01 -0700, Joe Perches wrote:
-> On Mon, 2016-08-29 at 17:46 +0000, Luck, Tony wrote:
-> > [checkpatch] offered the advice
-> > to restructure the code with helper functions etc. to avoid deep
-> > indentation?
-> It suggests that already for 6+ leading tabs,
+On Mon, 2016-08-29 at 20:32 +0200, Jiri Kosina wrote:
 
-And here's an inexact little histogram of the code that
-expands indent levels in the -next kernel source tree.
+> Just for the sake of completness, the situation is quite
+> dramatically different in US (where the jurisdiction system is based
+> on common law, which means that employer indeed owns the copyright in
+> work created by employees), whereas in civil law systems, it's
+> usually legally impossible to assign the moral rights away from the
+> actual person creating the work (the employer just usually owns a
+> licence to the economic rights).
 
-$ grep -rP --include=*.[ch] -oh "^[\t]+(do|while|for|if|else|return|goto|continue|switch|default|case|break)\b" * | \
-  sed -r 's/^(\t+).*$/\1/' | awk '{print length($0)}' | sort -n | uniq -c
-1217165 1
- 783085 2
- 249655 3
-  59775 4
-  11653 5
-   1993 6
-    444 7
-    158 8
-     50 9
-     19 10
-     10 11
-      4 12
-      1 13
+*exclusive* license. That's an important distinction.
 
-Some of that code, as Linus once put it, is eye-gouging.
-Luckily, almost all of the 7+ tab indent code is prehistoric.
+> If there is any kind of session at KS about this matter, this aspectÂ 
+> should be taken into account.
+> 
+
+I'm not really sure it matters *that* much. Where you'd negotiate "own
+copyright and give $company the regular license (perhaps plus some
+extra license to use it as non-GPL, or some covenant not to sue, or
+such)" in the US, you'd have to negotiate "own economic rights [...]"
+in other jurisdictions.
+
+Much of the negotiation leading up to that will be very similar,
+presumably.
+
+johannes
