@@ -1,30 +1,31 @@
-Return-Path: <greg@kroah.com>
+Return-Path: <joe@perches.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 43E4C483
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9ADA8256
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 29 Aug 2016 11:50:20 +0000 (UTC)
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
-	[66.111.4.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 14641F4
+	Mon, 29 Aug 2016 12:31:00 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0030.hostedemail.com
+	[216.40.44.30])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 75E6084
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 29 Aug 2016 11:50:18 +0000 (UTC)
-Date: Mon, 29 Aug 2016 13:50:18 +0200
-From: Greg KH <greg@kroah.com>
-To: Maxime Ripard <maxime.ripard@free-electrons.com>
-Message-ID: <20160829115018.GA16353@kroah.com>
-References: <20160826193331.GA29084@jra3>
-	<CA+55aFyvFJ0gz++ApyO7gFGd0wz4ysjs=6wNZi-91VUJuVK2_w@mail.gmail.com>
-	<87inunxf14.fsf@ebb.org> <20160827162655.GB27132@kroah.com>
-	<20160829112426.GE7612@lukather>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20160829112426.GE7612@lukather>
-Cc: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
+	Mon, 29 Aug 2016 12:30:59 +0000 (UTC)
+Message-ID: <1472473855.3425.18.camel@perches.com>
+From: Joe Perches <joe@perches.com>
+To: Kalle Valo <kvalo@codeaurora.org>
+Date: Mon, 29 Aug 2016 05:30:55 -0700
+In-Reply-To: <874m634yip.fsf@purkki.adurom.net>
+References: <1472330452.26978.23.camel@perches.com>
+	<20160828005636.GB19088@sasha-lappy>
+	<1472348579.26978.47.camel@perches.com>
+	<874m634yip.fsf@purkki.adurom.net>
+Content-Type: text/plain; charset="ISO-8859-1"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	Sasha Levin <levinsasha928@gmail.com>, LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [Ksummit-discuss] checkkpatch (in)sanity ?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,36 +35,64 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Aug 29, 2016 at 01:24:26PM +0200, Maxime Ripard wrote:
-> Hi Greg,
+On Mon, 2016-08-29 at 14:15 +0300, Kalle Valo wrote:
+> I wish that checkpatch would have a way to enable/disable warnings per
+> directory (or file). For example, there would be
+> drivers/net/wireless/ath/ath10k/.checkpatch which would disable the
+> warnings are not suitable for ath10k for one reason or another:
 > 
-> On Sat, Aug 27, 2016 at 06:26:55PM +0200, Greg KH wrote:
-> > Someone in a reddit thread about this email conversation said, in trying
-> > to quote Linus, something along the lines of "the nuclear option should
-> > have been done to Allwinner a long time ago".  And that proved my point
-> > exactly.  Allwinner was a pain for a very long time.  But as developers,
-> > and through the efforts of a lot of people at the Linux Foundation and
-> > Linaro, Allwinner is now a contributor to the kernel, and actively
-> > sponsors developers to write GPLv2 code for their chips.
+> 'MSLEEP',
+> 'USLEEP_RANGE',
+> 'PRINTK_WITHOUT_KERN_LEVEL',
+> 'NETWORKING_BLOCK_COMMENT_STYLE',
+> 'BLOCK_COMMENT_STYLE',
+> 'LINUX_VERSION_CODE',
+> 'COMPLEX_MACRO',
+> 'PREFER_DEV_LEVEL',
+> 'PREFER_PR_LEVEL',
+> 'COMPARISON_TO_NULL',
+> 'BIT_MACRO',
+> 'CONSTANT_COMPARISON',
+> 'MACRO_WITH_FLOW_CONTROL'
 > 
-> While I generally agree with you on this topic, this is simply not
-> true.
+> Currently my workaround is to have a custom ath10k-check script[1] which
+> runs checkpatch with those checks disabled. Oh, and it also filters out
+> some of the warnings based on the symbol it is located in.
 > 
-> As the Allwinner SoC maintainer, I never received any patch from
-> someone either from the Linux Foundation or Linaro. And to the best of
-> my knowledge, I'm not aware of anyone being paid by Allwinner to work
-> on the kernel.
+> https://github.com/qca/qca-swiss-army-knife/blob/master/tools/scripts/ath10k/ath10k-check
 
-You wouldn't have gotten anything from the LF (we don't have many
-developers as you know), but I thought that Allwinner was part of
-Linaro, is that not correct?
+Hey Kalle:
 
-> Allwinner is not a pain anymore because a few hobbyists started
-> working on the kernel to improve the situation.
+I looked at your script (which also does compilation
+and sparse checking) I don't see how a .checkpatch_conf
+hierarchy helps you much there as you've added all those
+long symbol name long line avoidance bits.
 
-Really?  How did the work for the Chip computer come about?  That's an
-Allwinner processor, right?
+Also, there'd be a lot of rework to the globals in
+checkpatch for per-directory specific overrides if someone
+fed it files in multiple directories like
 
-thanks,
+checkpatch.pl <patchfile touching lib/kernel/include>
 
-greg k-h
+A couple btw's:
+
+Why avoid the printk, sleep or macro tests?
+
+And this for ath10k_core_register_work:
+
+    ('ath10k_core_register_work', 'RETURN_VOID'),
+
+and the code associated to it:
+
+err:
+	/* TODO: It's probably a good idea to release device from the driver
+	 * but calling device_release_driver() here will cause a deadlock.
+	 */
+	return;
+}
+
+ia avoided a few times in the kernel by using a bare ";"
+instead of "return;" before the function closing brace.
+
+It's maybe unfortunate that gcc / c spec doesn't allow
+jumping to a label just before the function close brace.
