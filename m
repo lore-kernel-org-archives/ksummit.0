@@ -1,27 +1,32 @@
-Return-Path: <riel@redhat.com>
+Return-Path: <tony.luck@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B34D4308
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id AD2C9902
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 29 Aug 2016 17:42:38 +0000 (UTC)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 67F9F100
+	Mon, 29 Aug 2016 17:46:52 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 48C661A6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 29 Aug 2016 17:42:38 +0000 (UTC)
-Message-ID: <1472492553.32433.108.camel@redhat.com>
-From: Rik van Riel <riel@redhat.com>
-To: Greg KH <greg@kroah.com>, Wolfram Sang <wsa@the-dreams.de>
-Date: Mon, 29 Aug 2016 13:42:33 -0400
-In-Reply-To: <20160828074706.GB1370@kroah.com>
-References: <CA+55aFxLRqket8-yCL=FPM0Bz86PxdS+hRSTzXES+=1bOv=feg@mail.gmail.com>
-	<20160827183550.GB1601@katana> <20160828074706.GB1370@kroah.com>
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-dSqrDlHOMNjZJPN7Hx7m"
-Mime-Version: 1.0
-Cc: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
+	Mon, 29 Aug 2016 17:46:52 +0000 (UTC)
+From: "Luck, Tony" <tony.luck@intel.com>
+To: Joe Perches <joe@perches.com>, "Levin, Alexander"
+	<alexander.levin@verizon.com>
+Date: Mon, 29 Aug 2016 17:46:50 +0000
+Message-ID: <3908561D78D1C84285E8C5FCA982C28F3A1B3222@ORSMSX114.amr.corp.intel.com>
+References: <1472330452.26978.23.camel@perches.com>
+	<20160828005636.GB19088@sasha-lappy>	<1472348579.26978.47.camel@perches.com>
+	<20160828023807.GC19088@sasha-lappy>
+	<1472404557.26978.84.camel@perches.com>
+In-Reply-To: <1472404557.26978.84.camel@perches.com>
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Cc: Greg KH <gregkh@linuxfoundation.org>, Sasha Levin <levinsasha928@gmail.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [Ksummit-discuss] checkkpatch (in)sanity ?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,70 +36,38 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+> 80 columns is simply silly when dealing with either
+> long identifiers or many levels of indentation.
+>
+> One thing that 80 column limit does do is encourage
+> shorter identifiers and fewer levels of indentation.
+>
+> Generally, both of those are good things.
 
---=-dSqrDlHOMNjZJPN7Hx7m
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+I think the main complaint with the limit is that people fix it by simply
+breaking the long line, which often makes for less readable code.
 
-On Sun, 2016-08-28 at 09:47 +0200, Greg KH wrote:
->=C2=A0
-> Some specific examples:
-> =C2=A0 - huge SMP support.=C2=A0=C2=A0Yes, Alan got basic SMP support wor=
-king in
-> Linux,
-> =C2=A0=C2=A0=C2=A0=C2=A0but in order to scale much larger we had to do di=
-fferent
-> things.=C2=A0=C2=A0As
-> =C2=A0=C2=A0=C2=A0=C2=A0SMP hardware was rare, it took companies that had=
- that hardware
-> to
-> =C2=A0=C2=A0=C2=A0=C2=A0do the work in the kernel to get things to work b=
-etter.=C2=A0=C2=A0Because
-> of
-> =C2=A0=C2=A0=C2=A0=C2=A0that we got access to RCU, which without that, we=
- would have
-> never
-> =C2=A0=C2=A0=C2=A0=C2=A0been able to work as well as we have.=C2=A0=C2=A0=
-Look at the BSDs for an
-> =C2=A0=C2=A0=C2=A0=C2=A0example of this, they don't have access to RCU, a=
-nd they can't
-> =C2=A0=C2=A0=C2=A0=C2=A0scale.
+Perhaps there would be less pushback on this if checkpatch also
+complained about clumsily broken long lines and offered the advice
+to restructure the code with helper functions etc. to avoid deep
+indentation?
 
-It is worth remembering why XFS, JFS, and RCU were made available
-only under the GPL, and not under eg. a BSD license.
+FWIW I do find checkpatch is helpful enough with useful tips
+that it has value even when it generates some noise. Generally
+the better you are at conforming to kernel style, the more irritating
+it will be, because you only see the questionable output. For
+newbies, and less frequent contributors (especially those who
+work on other projects with other style guides) it is likely still
+doing a good job.
 
-Linux got access to that code because of the GPL's obligation
-that further improvements be made available to the whole community.
+In the journey from 4.6 to 4.7 we had 13433 commits. 2258 (16%)
+from people with 5 or fewer commits in that release. Those are
+the people most helped by checkpatch (plus the maintainers who
+took those patches didn't have to spend as many cycles complaining
+about style).
 
-Companies like IBM and SGI started participating in Linux because
-they knew no competitor would run off with their code, improve it
-slightly, and offer a proprietary product for sale based it.
+I think the bottom line is whether checkpatch's helpful messages do
+more good than the grey area messages that cause people to make
+questionable changes to shut checkpatch up.
 
-GPL compliance efforts keep that expectation alive, and may be a
-factor for new companies when deciding whether or not they can
-afford to release their code under the GPL.
-
-Persistent GPL violations could be a large negative for companies
-worried about being undercut by competitors.
-
---=20
-
-All Rights Reversed.
---=-dSqrDlHOMNjZJPN7Hx7m
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQEcBAABCAAGBQJXxHQJAAoJEM553pKExN6DF8AH/jMwTfLQt1JHvAlRzIOe3gtW
-ybfYwvboh2NS28FF6LNHfNfQbqihXkcNwjn3VjyYLPAz7/K0utzflre7DIjzOdO1
-qaJyvPVnGEZwTMHRdgHq7IDnxp8SkKVar+xyo25ynbdlwvLqZqD3kS2c4ltXsvk8
-Xuqwn+BYR/PSXKr16rkYwHr6uzrtKrlAbxZh75HaNQe+eKCJ+dYtHR92ylEbQTyp
-3qQXsKN2fosjM+OKvkZGIXTO+/Qz4weED2eHKaNY8we/jHlE96GeTdTTmhxEvKIh
-L45/8kATsDmLmgUkAKzgsRxXaUzHLaY7IEQvrYaNkBxjGaJdDBQ+dVxe5XnCF7Y=
-=GBfF
------END PGP SIGNATURE-----
-
---=-dSqrDlHOMNjZJPN7Hx7m--
+-Tony
