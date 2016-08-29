@@ -1,31 +1,38 @@
 Return-Path: <karen@sfconservancy.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 81B45308
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id C70E0360
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 29 Aug 2016 19:42:55 +0000 (UTC)
+	Mon, 29 Aug 2016 19:45:37 +0000 (UTC)
 Received: from pure.motives.com (pure.motives.com [207.192.71.45])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 46854290
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DFD70292
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 29 Aug 2016 19:42:54 +0000 (UTC)
-Message-ID: <1472499769.4534.59.camel@localhost.localdomain>
+	Mon, 29 Aug 2016 19:45:36 +0000 (UTC)
+Message-ID: <1472499930.4534.60.camel@localhost.localdomain>
 From: Karen Sandler <karen@sfconservancy.org>
 To: Jiri Kosina <jikos@kernel.org>
-Date: Mon, 29 Aug 2016 15:42:49 -0400
-In-Reply-To: <alpine.LNX.2.00.1608292021550.22028@cbobk.fhfr.pm>
-References: <1472403654.2420.29.camel@HansenPartnership.com>
-	<20160829090703.1c063975@gandalf.local.home>
-	<1472486062.2376.26.camel@HansenPartnership.com>
-	<20160829121615.25e5ddce@gandalf.local.home>
-	<alpine.LNX.2.00.1608292021550.22028@cbobk.fhfr.pm>
+Date: Mon, 29 Aug 2016 15:45:30 -0400
+In-Reply-To: <alpine.LNX.2.00.1608291743340.22028@cbobk.fhfr.pm>
+References: <20160826193331.GA29084@jra3>
+	<CA+55aFyvFJ0gz++ApyO7gFGd0wz4ysjs=6wNZi-91VUJuVK2_w@mail.gmail.com>
+	<87inunxf14.fsf@ebb.org> <20160827162655.GB27132@kroah.com>
+	<87bn0dnc6f.fsf@ebb.org>
+	<1472348609.2440.37.camel@HansenPartnership.com>
+	<20160828042454.GA8742@jeremy-acer>
+	<20160828125542.7oejzcbpeozkrq3k@thunk.org>
+	<20160828154356.GA16414@jeremy-acer>
+	<20160828193656.cbd64qqenmpsbiwp@thunk.org>
+	<CA+55aFxFAhESSWRsALE=p2w4sACWuc9Q+WDEoHeGW6S05TsDBw@mail.gmail.com>
+	<20160829113526.1081cbc4@gandalf.local.home>
+	<alpine.LNX.2.00.1608291743340.22028@cbobk.fhfr.pm>
 Content-Type: text/plain; charset="UTF-8"
 Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	"Bradley M. Kuhn" <bkuhn@sfconservancy.org>,
 	Linus Torvalds <torvalds@linux-foundation.org>,
 	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Owning your own copyrights in
- Linux
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,6 +41,7 @@ List-Post: <mailto:ksummit-discuss@lists.linuxfoundation.org>
 List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=help>
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
+
 
 This has all been quite a discussion! I wanted to clarify a few
 things:
