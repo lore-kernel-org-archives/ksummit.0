@@ -1,31 +1,29 @@
-Return-Path: <karen@sfconservancy.org>
+Return-Path: <wsa@the-dreams.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A440D89E
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7EC07483
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 29 Aug 2016 19:51:56 +0000 (UTC)
-Received: from pure.motives.com (pure.motives.com [207.192.71.45])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 317CE283
+	Mon, 29 Aug 2016 20:19:15 +0000 (UTC)
+Received: from pokefinder.org (sauhun.de [89.238.76.85])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E1565A7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 29 Aug 2016 19:51:56 +0000 (UTC)
-Message-ID: <1472500307.4534.66.camel@localhost.localdomain>
-From: Karen Sandler <karen@sfconservancy.org>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Mon, 29 Aug 2016 15:51:47 -0400
-In-Reply-To: <1472499769.4534.59.camel@localhost.localdomain>
-References: <1472403654.2420.29.camel@HansenPartnership.com>
-	<20160829090703.1c063975@gandalf.local.home>
-	<1472486062.2376.26.camel@HansenPartnership.com>
-	<20160829121615.25e5ddce@gandalf.local.home>
-	<alpine.LNX.2.00.1608292021550.22028@cbobk.fhfr.pm>
-	<1472499769.4534.59.camel@localhost.localdomain>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Linus Torvalds <torvalds@linux-foundation.org>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Owning your own copyrights in
- Linux
+	Mon, 29 Aug 2016 20:19:14 +0000 (UTC)
+Date: Mon, 29 Aug 2016 22:19:04 +0200
+From: Wolfram Sang <wsa@the-dreams.de>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Message-ID: <20160829201904.GF1610@katana>
+References: <CA+55aFxLRqket8-yCL=FPM0Bz86PxdS+hRSTzXES+=1bOv=feg@mail.gmail.com>
+	<20160827183550.GB1601@katana> <20160828074706.GB1370@kroah.com>
+	<1472492553.32433.108.camel@redhat.com>
+	<CA+55aFz98VJR8RNv2=zuV0y4Ke_EmCyAR71eMNdq5p6cYm4OAw@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="H4SyuGOnfnj3aJqJ"
+Content-Disposition: inline
+In-Reply-To: <CA+55aFz98VJR8RNv2=zuV0y4Ke_EmCyAR71eMNdq5p6cYm4OAw@mail.gmail.com>
+Cc: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,20 +33,54 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 2016-08-29 at 15:42 -0400, Karen Sandler wrote:
-> This has all been quite a discussion! 
 
-Apologies, my reply was for the other thread that inspired this one (I
-already reposted my email in the right place in the other thread for
-archival purposes).  To comment briefly on this thread, I think the
-session James proposed is important and developers should endeavor to
-keep their own copyrights where that makes sense. 
-
-If I'm around, I'd be happy to participate and talk about Conservancy's
-ContractPatch [1] initiative and if not, I hope attendees get in touch
-to collaborate!
-
-karen
+--H4SyuGOnfnj3aJqJ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
 
-[1] https://sfconservancy.org/blog/2016/aug/04/everything-is-negotiable/
+> But we put the blame on very different things - I at least partly very
+> much do blame the "culture" that goes with the GPL.  Corporate users
+> do see the hostility towards commercial use that we have in some
+> quarters.
+
+I don't support the hostility, yet I'd like to mention that it mostly
+doesn't come out of nowhere. There _are_ bad companies besides the good
+ones and they cause frustration. For example, if I want to watch a DVD,
+it takes more than a minute until I get to the actual content, because
+there is all text about what I am not allowed to do and how I can be
+punished. Yet, the DVD player I am using runs Linux with code I wrote.
+And I can't get the sources to the device driver for that codec chip I'd
+like to have. I can see that it might be irrelevant for Linux as a
+project, but on the individual level, this is frustrating and can easily
+scare talent away. I think this should be seen, too - for the sake of
+mutual understanding.
+
+> We should strive to make companies *like* the GPL, and encourage
+> exactly the kinds of things you mention.
+
+Yes!
+
+
+--H4SyuGOnfnj3aJqJ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQIcBAEBAgAGBQJXxJi4AAoJEBQN5MwUoCm2pvcQAJHMCLrqbuIsI7outMqhKLDX
+UMMuuEPojQOrPZujjgFU8cTsmHiwuBT326vCDAyGYPnmr0ZE/je/yNfw0zmEekur
+6Qj3PlcVNvW5UdrzdGbFBkj67L88WCvp80l4qBVuy2L/3Uykm+Rp6NHc8uuYFc28
+YM3rUKPgwAY/nlj1PJDvHdMDLcM7btCxjftVb0sJbFKVTyDbmbM9h3gk/eOToprt
+o5BQBVpkrUH4aPHSEd1cRFElfvd9GXSursz0z6C7MyA3szV5WRULzksQJCrSTgIj
+0FqQmq6ojhd6OvBkCZj9dYFuIio2ifzHheK6vEduBJ5hG2XREAYNJGQZfsntSAco
+x4R+IMx54h2AkpCulKtHLmkUwpFGD9cCAfnub9haUIsMCvUbDbw4zafeFl02FuHA
+Timr/ljhLMNaiEvs7kT5h+mlGtceG5MV8/SQ1BzMCMwppiTjKAlEs/g+IBZBePkz
+C2A0mUabBpew65K1PuS/5A9PpFA6w/xp1xJ8T5oB1Yiso7przDxdTWC4w1vz6rMX
+QfnzChmQSYh4fmoCJSGmPdDIVrClv9l9wAuxevcaT5chqi5JYX0FHsBd9V0eW9y3
+0HnS4XXqEGM9xkUslyGpgWu6CrlCWEmxInajXS2N1ZSYObB3FwLryFAU9sD4LbVI
+T7J+Vd2krY/dnWxia1PT
+=6Ojb
+-----END PGP SIGNATURE-----
+
+--H4SyuGOnfnj3aJqJ--
