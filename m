@@ -1,29 +1,33 @@
-Return-Path: <joe@perches.com>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B8E949D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D9DB125A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 29 Aug 2016 19:21:41 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0183.hostedemail.com
-	[216.40.44.183])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 958F5243
+	Mon, 29 Aug 2016 19:22:52 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 56B4625B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 29 Aug 2016 19:21:40 +0000 (UTC)
-Message-ID: <1472498497.3425.87.camel@perches.com>
-From: Joe Perches <joe@perches.com>
-To: Josh Triplett <josh@joshtriplett.org>, Dan Carpenter
-	<dan.carpenter@oracle.com>
-Date: Mon, 29 Aug 2016 12:21:37 -0700
-In-Reply-To: <20160829191020.GB27600@cloud>
-References: <1472330452.26978.23.camel@perches.com>
-	<20160829190618.GF4180@mwanda> <20160829191020.GB27600@cloud>
-Content-Type: text/plain; charset="ISO-8859-1"
+	Mon, 29 Aug 2016 19:22:52 +0000 (UTC)
+Message-ID: <1472498570.2376.44.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Johannes Berg <johannes@sipsolutions.net>, Jiri Kosina
+	<jikos@kernel.org>,  Steven Rostedt <rostedt@goodmis.org>
+Date: Mon, 29 Aug 2016 12:22:50 -0700
+In-Reply-To: <1472496471.14003.14.camel@sipsolutions.net>
+References: <1472403654.2420.29.camel@HansenPartnership.com>
+	<20160829090703.1c063975@gandalf.local.home>
+	<1472486062.2376.26.camel@HansenPartnership.com>
+	<20160829121615.25e5ddce@gandalf.local.home>
+	<alpine.LNX.2.00.1608292021550.22028@cbobk.fhfr.pm>
+	<1472496471.14003.14.camel@sipsolutions.net>
+Content-Type: text/plain; charset="UTF-8"
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Greg KH <gregkh@linuxfoundation.org>, Sasha Levin <levinsasha928@gmail.com>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [Ksummit-discuss] checkkpatch (in)sanity ?
+Content-Transfer-Encoding: 7bit
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] Owning your own copyrights in
+ Linux
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,31 +37,56 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 2016-08-29 at 12:10 -0700, Josh Triplett wrote:
-> On Mon, Aug 29, 2016 at 10:06:18PM +0300, Dan Carpenter wrote:
+On Mon, 2016-08-29 at 20:47 +0200, Johannes Berg wrote:
+> On Mon, 2016-08-29 at 20:32 +0200, Jiri Kosina wrote:
+> 
+> > Just for the sake of completness, the situation is quite
+> > dramatically different in US (where the jurisdiction system is
+> > based
+> > on common law, which means that employer indeed owns the copyright
+> > in
+> > work created by employees), whereas in civil law systems, it's
+> > usually legally impossible to assign the moral rights away from the
+> > actual person creating the work (the employer just usually owns a
+> > licence to the economic rights).
+> 
+> *exclusive* license. That's an important distinction.
+
+Indeed: even under jurisdictions which make a distinction between
+economic and moral rights (only the former being assignable), an
+exclusive licence becomes the equivalent of ownership.  You certainly
+can't use residual moral rights to enforce a licence like the GPL
+because that's mostly about economic rights.
+
+> > If there is any kind of session at KS about this matter, this 
+> > aspect should be taken into account.
 > > 
-> > I would like a couple changes which you know already:
-> > 
-> > 1) Get rid of PREFER_ETHER_ADDR_COPY and similar because the people who
-> > send checkpatch.pl fixes aren't qualified to say when it's legal or not
-> > so they sometimes introduce bugs.
-> I do think we should have *something* that catches such things.
-> Perhaps not checkpatch.pl, though.  Perhaps a compiler plugin that
-> generates additional warnings, and can perhaps use more global
-> information to determine legality?
+> 
+> I'm not really sure it matters *that* much. Where you'd negotiate 
+> "own copyright and give $company the regular license (perhaps plus 
+> some extra license to use it as non-GPL, or some covenant not to sue, 
+> or such)" in the US, you'd have to negotiate "own economic rights 
+> [...]" in other jurisdictions.
+> 
+> Much of the negotiation leading up to that will be very similar,
+> presumably.
 
-nit: validity rather than legality.
+Exactly: to be a party to GPL enforcement, you still need to retain
+some of the economic rights ownership you likely gave away in your
+employment contract.
 
-There are still rather a lot of these.
+I suspect the eventual contract may look different. The problem in
+Europe is that the concept of ownership of the work is usually tied to
+the moral rights, so you can't give it up (even if you give up
+effective ownership when you sign away the economic rights).  In the US
+negotiation is definitely over ownership and what you usually end up
+with is so called undivided partial ownership, which gives either party
+full rights to enforce and sublicense.   I think, although never having
+had to negotiate this type of agreement in europe I'm not really
+experienced, that you'd need to negotiate to the point where each party
+has a non-exclusive licence with the right to sublicense to have some
+sort of equivalence.
 
-$ git grep -E "\bmem.*,\s*(ETH_ALEN|6)\s*\);" | wc -l
-1776
+Is there someone who's done this in Europe?
 
-Dunno if any of them are in performance sensitive
-areas where it actually matters.
-
-Someone, I forget who, had a concern about the
-object being set possibly being in a struct where
-it's possible for the alignment of the set object
-to be altered by another change like adding a new
-member.
+James
