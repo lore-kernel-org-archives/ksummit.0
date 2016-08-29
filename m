@@ -1,36 +1,35 @@
-Return-Path: <rostedt@goodmis.org>
+Return-Path: <joe@perches.com>
 Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
 	[172.17.192.36])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7C9BA25A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 538F29D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 29 Aug 2016 23:07:52 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0181.hostedemail.com
-	[216.40.44.181])
-	by smtp2.linuxfoundation.org (Postfix) with ESMTPS id E6FE31DB33
+	Mon, 29 Aug 2016 23:12:49 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0045.hostedemail.com
+	[216.40.44.45])
+	by smtp2.linuxfoundation.org (Postfix) with ESMTPS id A9BD71DCA0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 29 Aug 2016 23:07:51 +0000 (UTC)
+	Mon, 29 Aug 2016 23:12:48 +0000 (UTC)
 Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
 	[10.5.19.251])
-	by smtpgrave08.hostedemail.com (Postfix) with ESMTP id D0DD9211C1F
+	by smtpgrave07.hostedemail.com (Postfix) with ESMTP id 193C311A803
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 29 Aug 2016 23:07:49 +0000 (UTC)
-Date: Mon, 29 Aug 2016 19:07:45 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Message-ID: <20160829190745.415a6545@gandalf.local.home>
-In-Reply-To: <1472510397.2376.48.camel@HansenPartnership.com>
-References: <1472403654.2420.29.camel@HansenPartnership.com>
-	<20160829090703.1c063975@gandalf.local.home>
-	<1472486062.2376.26.camel@HansenPartnership.com>
-	<20160829121615.25e5ddce@gandalf.local.home>
-	<1472510397.2376.48.camel@HansenPartnership.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] Owning your own copyrights in
- Linux
+	Mon, 29 Aug 2016 19:34:17 +0000 (UTC)
+Message-ID: <1472499252.3425.93.camel@perches.com>
+From: Joe Perches <joe@perches.com>
+To: Dan Carpenter <dan.carpenter@oracle.com>, Josh Triplett
+	<josh@joshtriplett.org>
+Date: Mon, 29 Aug 2016 12:34:12 -0700
+In-Reply-To: <20160829191701.GL4129@mwanda>
+References: <1472330452.26978.23.camel@perches.com>
+	<20160829190618.GF4180@mwanda> <20160829191020.GB27600@cloud>
+	<20160829191701.GL4129@mwanda>
+Content-Type: text/plain; charset="ISO-8859-1"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: Greg KH <gregkh@linuxfoundation.org>, Sasha Levin <levinsasha928@gmail.com>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [Ksummit-discuss] checkkpatch (in)sanity ?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,30 +39,23 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 29 Aug 2016 15:39:57 -0700
-James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
+On Mon, 2016-08-29 at 22:17 +0300, Dan Carpenter wrote:
+> On Mon, Aug 29, 2016 at 12:10:20PM -0700, Josh Triplett wrote:
+> > On Mon, Aug 29, 2016 at 10:06:18PM +0300, Dan Carpenter wrote:
+> > > I would like a couple changes which you know already:
+> > > 
+> > > 1) Get rid of PREFER_ETHER_ADDR_COPY and similar because the people who
+> > > send checkpatch.pl fixes aren't qualified to say when it's legal or not
+> > > so they sometimes introduce bugs.
+> > I do think we should have *something* that catches such things.
+> > Perhaps not checkpatch.pl, though.  Perhaps a compiler plugin that
+> > generates additional warnings, and can perhaps use more global
+> > information to determine legality?
+> Perhaps.  But that shouldn't delay us from deleting this code which just
+> encourages newbies to introduce bugs.
 
+You could send a patch.
 
-> Just on this point, one of the problems with companies is that they
-> sell stuff, go bust or get bought out.  Perhaps this will never apply
-> to Red Hat (although never say never) but many other people have to
-> bear in mind that the entity they trust to hold the kernel copyrights
-> today may not be the same entity tomorrow.
-> 
+I still kinda like the --force option
 
-I guess the interesting point is what happens to the copyrights if Red
-Hat goes bust? Who defends it?
-
-Now if another company were to buy out Red Hat, I guess the copyrights
-would then be owned by them. But the code is still under GPLv2, the
-worse that can happen is that they simply let others use it like BSD
-licensed code. But as with most of the Linux kernel, my code is
-interspersed with others code, so any such usage will require
-permission from all copyright owners.
-
-Also, I'm guessing that the new owner should be the one to fight for
-it. I still feel that Red Hat will be around longer than I am, which
-makes things easier when I die. Or perhaps a dual ownership may work in
-such a case.
-
--- Steve
+https://patchwork.kernel.org/patch/5814071/
