@@ -1,28 +1,28 @@
-Return-Path: <arnd@arndb.de>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C632C483
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 455D5486
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 29 Aug 2016 21:08:28 +0000 (UTC)
-Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.73])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F1E5C2BA
+	Mon, 29 Aug 2016 21:31:33 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A36C387
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 29 Aug 2016 21:08:27 +0000 (UTC)
-From: Arnd Bergmann <arnd@arndb.de>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Mon, 29 Aug 2016 23:07:59 +0200
-References: <1472330452.26978.23.camel@perches.com>
-	<3908561D78D1C84285E8C5FCA982C28F3A1B3222@ORSMSX114.amr.corp.intel.com>
-	<1472493700.3425.67.camel@perches.com>
-In-Reply-To: <1472493700.3425.67.camel@perches.com>
+	Mon, 29 Aug 2016 21:31:32 +0000 (UTC)
+Date: Mon, 29 Aug 2016 17:31:28 -0400
+From: Theodore Ts'o <tytso@mit.edu>
+To: Rik van Riel <riel@redhat.com>
+Message-ID: <20160829213128.fr3enaeso6r5s2ki@thunk.org>
+References: <CA+55aFxLRqket8-yCL=FPM0Bz86PxdS+hRSTzXES+=1bOv=feg@mail.gmail.com>
+	<20160827183550.GB1601@katana> <20160828074706.GB1370@kroah.com>
+	<1472492553.32433.108.camel@redhat.com>
 MIME-Version: 1.0
-Content-Type: Text/Plain;
-  charset="iso-8859-1"
-Content-Transfer-Encoding: 7bit
-Message-Id: <201608292307.59835.arnd@arndb.de>
-Cc: Greg KH <gregkh@linuxfoundation.org>, LKML <linux-kernel@vger.kernel.org>,
-	Sasha Levin <levinsasha928@gmail.com>, Joe Perches <joe@perches.com>
-Subject: Re: [Ksummit-discuss] checkkpatch (in)sanity ?
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1472492553.32433.108.camel@redhat.com>
+Cc: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,45 +32,32 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Monday 29 August 2016, Joe Perches wrote:
-> On Mon, 2016-08-29 at 17:46 +0000, Luck, Tony wrote:
-> > > 
-> > > 80 columns is simply silly when dealing with either
-> > > long identifiers or many levels of indentation.
-> > > 
-> > > One thing that 80 column limit does do is encourage
-> > > shorter identifiers and fewer levels of indentation.
-> > > 
-> > > Generally, both of those are good things.
-> > I think the main complaint with the limit is that people fix it by simply
-> > breaking the long line, which often makes for less readable code.
-> > 
-> > Perhaps there would be less pushback on this if checkpatch also
-> > complained about clumsily broken long lines and offered the advice
-> > to restructure the code with helper functions etc. to avoid deep
-> > indentation?
+On Mon, Aug 29, 2016 at 01:42:33PM -0400, Rik van Riel wrote:
 > 
-> It suggests that already for 6+ leading tabs, but some more
-> intelligence for nominally ugly added line breaks would
-> definitely help.
+> It is worth remembering why XFS, JFS, and RCU were made available
+> only under the GPL, and not under eg. a BSD license.
 > 
-> Using longish simple identifiers or multiple dereferences
-> can make the line breaks at 80 columns silly.
+> Linux got access to that code because of the GPL's obligation
+> that further improvements be made available to the whole community.
+> 
+> Companies like IBM and SGI started participating in Linux because
+> they knew no competitor would run off with their code, improve it
+> slightly, and offer a proprietary product for sale based it.
+> 
+> GPL compliance efforts keep that expectation alive, and may be a
+> factor for new companies when deciding whether or not they can
+> afford to release their code under the GPL.
 
-My preferred personal guideline for the maximum indentation is
-the area that a function takes up in the editor. It's sometimes
-ok to have really long functions (hundreds of lines), but only
-with one or two levels of indentation. It's also sometimes ok
-to have five or six levels of intendation, but only if the
-function is really short and you can see immediately how
-it works.
+If some competitor ran off with their code, companies like IBM and SGI
+would be perfectly capable of suing their competitor.  As Linus has
+observed, companies like IBM are prefectly capable of deciding whether
+or not a lawsuit is in their interest, and aggressively pursuing legal
+action when it's called for.
 
-Having a long function with multiple nested loops and conditions
-is almost always a problem for readability, and we should be
-able to detect this programatically if we want to.
+So I don't believe that compliance efforts are necessarily needed in
+order for companies to feel comfortable donating large code bases such
+as XFS or JFS.
 
-There are more accurate ways to tell if you are getting
-too complex (e.g. CONFIG_GCC_PLUGIN_CYC_COMPLEXITY), but that
-becomes harder to warn about.
+Cheers,
 
-	Arnd
+						- Ted
