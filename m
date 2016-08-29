@@ -1,30 +1,32 @@
-Return-Path: <maxime.ripard@free-electrons.com>
+Return-Path: <kvalo@codeaurora.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 91F349D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2CB6F89E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 29 Aug 2016 11:24:28 +0000 (UTC)
-Received: from mail.free-electrons.com (down.free-electrons.com
-	[37.187.137.238])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 1CAF912F
+	Mon, 29 Aug 2016 18:01:16 +0000 (UTC)
+Received: from smtp.codeaurora.org (smtp.codeaurora.org [198.145.29.96])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 196551E5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 29 Aug 2016 11:24:28 +0000 (UTC)
-Date: Mon, 29 Aug 2016 13:24:26 +0200
-From: Maxime Ripard <maxime.ripard@free-electrons.com>
-To: Greg KH <greg@kroah.com>
-Message-ID: <20160829112426.GE7612@lukather>
-References: <20160826193331.GA29084@jra3>
-	<CA+55aFyvFJ0gz++ApyO7gFGd0wz4ysjs=6wNZi-91VUJuVK2_w@mail.gmail.com>
-	<87inunxf14.fsf@ebb.org> <20160827162655.GB27132@kroah.com>
+	Mon, 29 Aug 2016 18:01:14 +0000 (UTC)
+From: Kalle Valo <kvalo@codeaurora.org>
+To: Joe Perches <joe@perches.com>
+References: <1472330452.26978.23.camel@perches.com>
+	<20160828005636.GB19088@sasha-lappy>
+	<1472348579.26978.47.camel@perches.com>
+	<874m634yip.fsf@purkki.adurom.net>
+	<1472473855.3425.18.camel@perches.com>
+Date: Mon, 29 Aug 2016 21:01:06 +0300
+In-Reply-To: <1472473855.3425.18.camel@perches.com> (Joe Perches's message of
+	"Mon, 29 Aug 2016 05:30:55 -0700")
+Message-ID: <87lgzfihel.fsf@kamboji.qca.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="qOrJKOH36bD5yhNe"
-Content-Disposition: inline
-In-Reply-To: <20160827162655.GB27132@kroah.com>
-Cc: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	Sasha Levin <levinsasha928@gmail.com>, LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [Ksummit-discuss] checkkpatch (in)sanity ?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,60 +36,135 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+Joe Perches <joe@perches.com> writes:
 
---qOrJKOH36bD5yhNe
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> On Mon, 2016-08-29 at 14:15 +0300, Kalle Valo wrote:
+>> I wish that checkpatch would have a way to enable/disable warnings per
+>> directory (or file). For example, there would be
+>> drivers/net/wireless/ath/ath10k/.checkpatch which would disable the
+>> warnings are not suitable for ath10k for one reason or another:
+>>=20
+>> 'MSLEEP',
+>> 'USLEEP_RANGE',
+>> 'PRINTK_WITHOUT_KERN_LEVEL',
+>> 'NETWORKING_BLOCK_COMMENT_STYLE',
+>> 'BLOCK_COMMENT_STYLE',
+>> 'LINUX_VERSION_CODE',
+>> 'COMPLEX_MACRO',
+>> 'PREFER_DEV_LEVEL',
+>> 'PREFER_PR_LEVEL',
+>> 'COMPARISON_TO_NULL',
+>> 'BIT_MACRO',
+>> 'CONSTANT_COMPARISON',
+>> 'MACRO_WITH_FLOW_CONTROL'
+>>=20
+>> Currently my workaround is to have a custom ath10k-check script[1] which
+>> runs checkpatch with those checks disabled. Oh, and it also filters out
+>> some of the warnings based on the symbol it is located in.
+>>=20
+>> https://github.com/qca/qca-swiss-army-knife/blob/master/tools/scripts/at=
+h10k/ath10k-check
+>
+> Hey Kalle:
+>
+> I looked at your script (which also does compilation
+> and sparse checking) I don't see how a .checkpatch_conf
+> hierarchy helps you much there as you've added all those
+> long symbol name long line avoidance bits.
 
-Hi Greg,
+Yeah, it would not completely replace my script. But there's now quite a
+difference with checkpatch parameters what other people use and what I
+use.
 
-On Sat, Aug 27, 2016 at 06:26:55PM +0200, Greg KH wrote:
-> Someone in a reddit thread about this email conversation said, in trying
-> to quote Linus, something along the lines of "the nuclear option should
-> have been done to Allwinner a long time ago".  And that proved my point
-> exactly.  Allwinner was a pain for a very long time.  But as developers,
-> and through the efforts of a lot of people at the Linux Foundation and
-> Linaro, Allwinner is now a contributor to the kernel, and actively
-> sponsors developers to write GPLv2 code for their chips.
+> Also, there'd be a lot of rework to the globals in
+> checkpatch for per-directory specific overrides if someone
+> fed it files in multiple directories like
+>
+> checkpatch.pl <patchfile touching lib/kernel/include>
 
-While I generally agree with you on this topic, this is simply not
-true.
+Oh, that's a good point. ath10k patches only touch one directory so I
+didn't think of this.
 
-As the Allwinner SoC maintainer, I never received any patch from
-someone either from the Linux Foundation or Linaro. And to the best of
-my knowledge, I'm not aware of anyone being paid by Allwinner to work
-on the kernel.
+> A couple btw's:
+>
+> Why avoid the printk, sleep or macro tests?
 
-Allwinner is not a pain anymore because a few hobbyists started
-working on the kernel to improve the situation.
+Actually I don't remember anymore :) I should have documented that in
+the script.
 
-Maxime
+(Runs some tests)
+
+PRINTK_WITHOUT_KERN_LEVEL: I think I can enable this again, IIRC earlier
+it gave useless warnings in ath10k_warn() & co.
+
+MSLEEP: I think this is just noise, we don't care if it's actually 20 ms
+even if ask for 10 ms. That's the minimum time to wait, not the maximum
+(from our/HW point of view).
+
+drivers/net/wireless/ath/ath10k/ahb.c:422: msleep < 20ms can sleep for up t=
+o 20ms; see Documentation/timers/timers-howto.txt
+drivers/net/wireless/ath/ath10k/ahb.c:427: msleep < 20ms can sleep for up t=
+o 20ms; see Documentation/timers/timers-howto.txt
+drivers/net/wireless/ath/ath10k/ahb.c:432: msleep < 20ms can sleep for up t=
+o 20ms; see Documentation/timers/timers-howto.txt
+drivers/net/wireless/ath/ath10k/ahb.c:437: msleep < 20ms can sleep for up t=
+o 20ms; see Documentation/timers/timers-howto.txt
+drivers/net/wireless/ath/ath10k/ahb.c:442: msleep < 20ms can sleep for up t=
+o 20ms; see Documentation/timers/timers-howto.txt
+drivers/net/wireless/ath/ath10k/pci.c:2244: msleep < 20ms can sleep for up =
+to 20ms; see Documentation/timers/timers-howto.txt
+drivers/net/wireless/ath/ath10k/pci.c:2251: msleep < 20ms can sleep for up =
+to 20ms; see Documentation/timers/timers-howto.txt
+drivers/net/wireless/ath/ath10k/pci.c:2275: msleep < 20ms can sleep for up =
+to 20ms; see Documentation/timers/timers-howto.txt
+
+USLEEP_RANGE: I don't remember why I disabled this, most likely just
+because of the msleep noise above
+
+drivers/net/wireless/ath/ath10k/pci.c:2672: usleep_range is preferred over =
+udelay; see Documentation/timers/timers-howto.txt
+
+COMPLEX_MACRO: Can't remember this one either, I guess I just didn't
+find a good solution to shut up checkpatch. But that was a long time
+ago, it might be fixable now.
+
+drivers/net/wireless/ath/ath10k/wmi.h:315: Macros with complex values shoul=
+d be enclosed in parentheses
+drivers/net/wireless/ath/ath10k/wmi.h:6344: Macros with complex values shou=
+ld be enclosed in parentheses
+
+BIT_MACRO: there's a lot of warnings from this one, the benefit from
+changing all of them is questionable so I just disabled it.
+
+drivers/net/wireless/ath/ath10k/rx_desc.h:676: Prefer using the BIT macro
+
+> And this for ath10k_core_register_work:
+>
+> =C2=A0 =C2=A0 ('ath10k_core_register_work', 'RETURN_VOID'),
+>
+> and the code associated to it:
+>
+> err:
+> 	/* TODO: It's probably a good idea to release device from the driver
+> 	 * but calling device_release_driver() here will cause a deadlock.
+> 	 */
+> 	return;
+> }
+>
+> ia avoided a few times in the kernel by using a bare ";"
+> instead of "return;" before the function closing brace.
+
+Heh, didn't know that.
+
+> It's maybe unfortunate that gcc / c spec doesn't allow
+> jumping to a label just before the function close brace.
+
+Indeed.
+
+I find checkpatch very useful to maintain certain coding style in ath10k
+and I don't need to worry small details like whitespace. I just need to
+disable some of the warnings so that they don't hide the real warnings
+I'm interested about.
 
 --=20
-Maxime Ripard, Free Electrons
-Embedded Linux and Kernel engineering
-http://free-electrons.com
-
---qOrJKOH36bD5yhNe
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v1
-
-iQIcBAEBAgAGBQJXxBtqAAoJEBx+YmzsjxAgLKgP/jjggqOQ0Fl1AS5yKyTUXCJj
-dcUXIm2xvJHtA9JER4fgUJ8hAutN8BO6q5N0DqcWfgCrJtI0HKxi9yAxjIqvmxm1
-zOjxJHWuCSSv1eBPI/5EaJikzpLch8fcvxqOM87QT2K/hc6QwiQTJanWUnRAqXHs
-lqfYd9E557kYoUgx5QOR1lVLt05th88gGMGo+IQtPQ8Ij7cnDPNFALTtF5yqUIHW
-5WsKF2/wDVThQXrwLR8h5gVUp5K4rv9F756K06k8iX4OI8yfMh1go5jwaLAUQlxn
-hK95sW3eO4lBC9ZaGUjPxCfNab99FBKsSEy2Sp8Uw7qU49B9e2Wpi5kWp3rE0WSh
-pSEyiV40PDHpQqCYIf0wBTyVw3+TcMBHmn5L7w3I9b+fzhuPwg7a3incQTCHkCzc
-4biIGShnh5jnqZCo5afIEIajiWOkDsm4JsDSFd+cUFKMQRSGprD37VOBT/YXYAlD
-DBQmIder/k6GKqzr2x99/zzen0Olq2fhKsxmwmAOhulWVeWg8R3xtuiqQxmXmmp4
-XdhB9DJIX+n2Oh2qNw/dZSQs0yedtD0h0QQwTCBjOAUlHuWNKx0y69SXS6IQH/pa
-992XMGfiXfY4xF7S0veVNaRU3FE0ctVdXgqXJeWf4CKHqfwVZlo6rrvdtuh5yTX/
-H4KRFWDJ2hf55DD5nqpL
-=yyBG
------END PGP SIGNATURE-----
-
---qOrJKOH36bD5yhNe--
+Kalle Valo
