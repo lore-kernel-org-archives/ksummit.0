@@ -1,30 +1,30 @@
-Return-Path: <kvalo@codeaurora.org>
+Return-Path: <maxime.ripard@free-electrons.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C2AD126C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 91F349D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 29 Aug 2016 11:15:15 +0000 (UTC)
-Received: from smtp.codeaurora.org (smtp.codeaurora.org [198.145.29.96])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A57CD16E
+	Mon, 29 Aug 2016 11:24:28 +0000 (UTC)
+Received: from mail.free-electrons.com (down.free-electrons.com
+	[37.187.137.238])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 1CAF912F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 29 Aug 2016 11:15:14 +0000 (UTC)
-From: Kalle Valo <kvalo@codeaurora.org>
-To: Joe Perches <joe@perches.com>
-References: <1472330452.26978.23.camel@perches.com>
-	<20160828005636.GB19088@sasha-lappy>
-	<1472348579.26978.47.camel@perches.com>
-Date: Mon, 29 Aug 2016 14:15:10 +0300
-In-Reply-To: <1472348579.26978.47.camel@perches.com> (Joe Perches's message of
-	"Sat, 27 Aug 2016 18:42:59 -0700")
-Message-ID: <874m634yip.fsf@purkki.adurom.net>
+	Mon, 29 Aug 2016 11:24:28 +0000 (UTC)
+Date: Mon, 29 Aug 2016 13:24:26 +0200
+From: Maxime Ripard <maxime.ripard@free-electrons.com>
+To: Greg KH <greg@kroah.com>
+Message-ID: <20160829112426.GE7612@lukather>
+References: <20160826193331.GA29084@jra3>
+	<CA+55aFyvFJ0gz++ApyO7gFGd0wz4ysjs=6wNZi-91VUJuVK2_w@mail.gmail.com>
+	<87inunxf14.fsf@ebb.org> <20160827162655.GB27132@kroah.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	Sasha Levin <levinsasha928@gmail.com>, LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [Ksummit-discuss] checkkpatch (in)sanity ?
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="qOrJKOH36bD5yhNe"
+Content-Disposition: inline
+In-Reply-To: <20160827162655.GB27132@kroah.com>
+Cc: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,65 +34,60 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Joe Perches <joe@perches.com> writes:
 
-> On Sat, 2016-08-27 at 21:06 -0400, Levin, Alexander wrote:
->> On Sat, Aug 27, 2016 at 04:40:52PM -0400, Joe Perches wrote:
->> > On Fri, Aug 26, 2016 at 01:26:35PM +0200, Greg KH wrote:
->> > > On Fri, Aug 26, 2016 at 12:46:51AM -0400, Levin, Alexander wrote:
->> > > >=20
->> > > > =C2=A0=C2=A0=C2=A0=C2=A0- Making checkpatch check for (some) of th=
-e stable kernel rules
->> > > > =C2=A0=C2=A0=C2=A0=C2=A0(and possibly recommend adding the stable@=
- tag in certain cases?).
->> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0- Depends on: making checkpatc=
-h sane again
->> > > > >This sounds interesting.=C2=A0=C2=A0What do you mean by "sane"?
->> > Sasha, can you expand your thoughts here please?
->> Sure. I have 2.5 concerns about the state of checkpatch:
-> []
->> > Most all of the trivial spacing stuff can easily be
->> > ignored either by a human determining what's important
->> > or by using command line options like --ignore=3Dspacing
->> 1.
->> This is the wrong default. By default checkpatch shouldn't be showing tr=
-ivial
->> issues that encourage folks to try and work around them and as a result
->> produce worse code.
->>=20
->> Look at the 80 character limit warning for example, what good does it do?
->
-> That argument's been done several times. It keeps Linus happy.
-> I don't care one way or another.
->
-> I think the biggest issue is the seriousness that some people
-> take checkpatch messages as dicta instead of ignorable bleats.
+--qOrJKOH36bD5yhNe
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I wish that checkpatch would have a way to enable/disable warnings per
-directory (or file). For example, there would be
-drivers/net/wireless/ath/ath10k/.checkpatch which would disable the
-warnings are not suitable for ath10k for one reason or another:
+Hi Greg,
 
-'MSLEEP',
-'USLEEP_RANGE',
-'PRINTK_WITHOUT_KERN_LEVEL',
-'NETWORKING_BLOCK_COMMENT_STYLE',
-'BLOCK_COMMENT_STYLE',
-'LINUX_VERSION_CODE',
-'COMPLEX_MACRO',
-'PREFER_DEV_LEVEL',
-'PREFER_PR_LEVEL',
-'COMPARISON_TO_NULL',
-'BIT_MACRO',
-'CONSTANT_COMPARISON',
-'MACRO_WITH_FLOW_CONTROL'
+On Sat, Aug 27, 2016 at 06:26:55PM +0200, Greg KH wrote:
+> Someone in a reddit thread about this email conversation said, in trying
+> to quote Linus, something along the lines of "the nuclear option should
+> have been done to Allwinner a long time ago".  And that proved my point
+> exactly.  Allwinner was a pain for a very long time.  But as developers,
+> and through the efforts of a lot of people at the Linux Foundation and
+> Linaro, Allwinner is now a contributor to the kernel, and actively
+> sponsors developers to write GPLv2 code for their chips.
 
-Currently my workaround is to have a custom ath10k-check script[1] which
-runs checkpatch with those checks disabled. Oh, and it also filters out
-some of the warnings based on the symbol it is located in.
+While I generally agree with you on this topic, this is simply not
+true.
 
-https://github.com/qca/qca-swiss-army-knife/blob/master/tools/scripts/ath10=
-k/ath10k-check
+As the Allwinner SoC maintainer, I never received any patch from
+someone either from the Linux Foundation or Linaro. And to the best of
+my knowledge, I'm not aware of anyone being paid by Allwinner to work
+on the kernel.
+
+Allwinner is not a pain anymore because a few hobbyists started
+working on the kernel to improve the situation.
+
+Maxime
 
 --=20
-Kalle Valo
+Maxime Ripard, Free Electrons
+Embedded Linux and Kernel engineering
+http://free-electrons.com
+
+--qOrJKOH36bD5yhNe
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQIcBAEBAgAGBQJXxBtqAAoJEBx+YmzsjxAgLKgP/jjggqOQ0Fl1AS5yKyTUXCJj
+dcUXIm2xvJHtA9JER4fgUJ8hAutN8BO6q5N0DqcWfgCrJtI0HKxi9yAxjIqvmxm1
+zOjxJHWuCSSv1eBPI/5EaJikzpLch8fcvxqOM87QT2K/hc6QwiQTJanWUnRAqXHs
+lqfYd9E557kYoUgx5QOR1lVLt05th88gGMGo+IQtPQ8Ij7cnDPNFALTtF5yqUIHW
+5WsKF2/wDVThQXrwLR8h5gVUp5K4rv9F756K06k8iX4OI8yfMh1go5jwaLAUQlxn
+hK95sW3eO4lBC9ZaGUjPxCfNab99FBKsSEy2Sp8Uw7qU49B9e2Wpi5kWp3rE0WSh
+pSEyiV40PDHpQqCYIf0wBTyVw3+TcMBHmn5L7w3I9b+fzhuPwg7a3incQTCHkCzc
+4biIGShnh5jnqZCo5afIEIajiWOkDsm4JsDSFd+cUFKMQRSGprD37VOBT/YXYAlD
+DBQmIder/k6GKqzr2x99/zzen0Olq2fhKsxmwmAOhulWVeWg8R3xtuiqQxmXmmp4
+XdhB9DJIX+n2Oh2qNw/dZSQs0yedtD0h0QQwTCBjOAUlHuWNKx0y69SXS6IQH/pa
+992XMGfiXfY4xF7S0veVNaRU3FE0ctVdXgqXJeWf4CKHqfwVZlo6rrvdtuh5yTX/
+H4KRFWDJ2hf55DD5nqpL
+=yyBG
+-----END PGP SIGNATURE-----
+
+--qOrJKOH36bD5yhNe--
