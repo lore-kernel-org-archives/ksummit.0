@@ -1,35 +1,34 @@
-Return-Path: <greg@kroah.com>
+Return-Path: <alexandre.belloni@free-electrons.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id DD8E2305
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 413EC71
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 29 Aug 2016 06:26:29 +0000 (UTC)
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
-	[66.111.4.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6B70210E
+	Mon, 29 Aug 2016 07:15:28 +0000 (UTC)
+Received: from mail.free-electrons.com (down.free-electrons.com
+	[37.187.137.238])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 9670810C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 29 Aug 2016 06:26:29 +0000 (UTC)
-Date: Mon, 29 Aug 2016 08:26:38 +0200
-From: Greg KH <greg@kroah.com>
-To: David Woodhouse <dwmw2@infradead.org>
-Message-ID: <20160829062638.GA12415@kroah.com>
-References: <20160826193331.GA29084@jra3>
-	<CA+55aFyvFJ0gz++ApyO7gFGd0wz4ysjs=6wNZi-91VUJuVK2_w@mail.gmail.com>
-	<87inunxf14.fsf@ebb.org> <20160827162655.GB27132@kroah.com>
-	<87bn0dnc6f.fsf@ebb.org>
-	<1472348609.2440.37.camel@HansenPartnership.com>
-	<20160828042454.GA8742@jeremy-acer>
-	<20160828125542.7oejzcbpeozkrq3k@thunk.org>
-	<c1263e6689434e4044e58499493ce435.squirrel@twosheds.infradead.org>
+	Mon, 29 Aug 2016 07:15:27 +0000 (UTC)
+Date: Mon, 29 Aug 2016 09:15:15 +0200
+From: Alexandre Belloni <alexandre.belloni@free-electrons.com>
+To: "Levin, Alexander" <alexander.levin@verizon.com>
+Message-ID: <20160829071515.wqlpjccq7a3vk7u6@piout.net>
+References: <1472330452.26978.23.camel@perches.com>
+	<20160828005636.GB19088@sasha-lappy>
+	<1472348579.26978.47.camel@perches.com>
+	<20160828023807.GC19088@sasha-lappy>
+	<1472404557.26978.84.camel@perches.com>
+	<20160828223759.GA12993@sasha-lappy>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <c1263e6689434e4044e58499493ce435.squirrel@twosheds.infradead.org>
-Cc: James Bottomley <james.bottomley@hansenpartnership.com>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	"Bradley M. Kuhn" <bkuhn@sfconservancy.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
+In-Reply-To: <20160828223759.GA12993@sasha-lappy>
+Cc: Joe Perches <joe@perches.com>, Greg KH <gregkh@linuxfoundation.org>,
+	Sasha Levin <levinsasha928@gmail.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [Ksummit-discuss] checkkpatch (in)sanity ?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,31 +38,54 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sun, Aug 28, 2016 at 02:06:44PM -0000, David Woodhouse wrote:
-> Even though I abhor what Patrick McHardy is doing, I still can't quite
-> find it in my heart to have *sympathy* for his victims. Because it's not
-> as if he's just taking random pot-shots at passers-by on the street. These
-> people defended their actions in court, and lost.
+On 28/08/2016 at 18:37:59 -0400, Levin, Alexander via Ksummit-discuss wrote :
+> On Sun, Aug 28, 2016 at 01:15:57PM -0400, Joe Perches wrote:
+> > On Sat, 2016-08-27 at 22:47 -0400, Levin, Alexander wrote:
+> > 
+> > > Would you agree that by default we shouldn't show anything that's
+> > > not an error/defect?
+> > 
+> > Not particularly, no.
+> 
+> I think that we need to figure out this disagreement first then. My claim is that checkpatch's output isn't useful.
+> 
+> Based on your bash snippet, populated with the KS program committee + the first few maintainers I spotted on 'git log':
+> 
+> commiter	commits		issues
+> arnd		858		2155
+> axboe		53		22
+> corbet		15		9
+> davem		55		81
+> grant.likely	2		0
+> gregkh		38 	 	46
+> hch 	 	393 	 	581
+> James.Bottomley	15 	 	15
+> martin.petersen	18 	 	20
+> mchehab 	678 		1042
+> mgorman 	104 		256
+> mingo 	 	58 		192
+> paulmck 	176 		68
+> peterz 	 	226 		511
+> rostedt 	123 		178
+> shuahkh 	53 		6
+> tglx 	 	200 		287
+> torvalds 	64 		89
+> tytso 		37 		77
+> viro 	 	350	 	256
+> 
+> And for the last 10,000 commits in the log, that script has observed 10,783 issues.
+> 
+> It'll be interesting to hear from these people about their view of checkpatch, but IMO when on average there are more issues than commits I can suggest two possible causes:
+> 
+>  1. People are used to ignore checkpatch warnings.
+>  2. People aren't using checkpatch.
+> 
 
-No, that's not what Patrick did.  Whenever he actually took something to
-court, _he_ lost.  Companies paid him off before then because they were
-scared for foolish reasons, or it was honestly just cheaper to do it
-than go to court and win.  He took the traditional model of patent troll
-to the next level.
+Well, Arnd is used to move around old code when refactoring. As the code
+just moves, he rarely solves checkpatch issues when doing so which is
+the right thing to do.
 
-No one I have talked to has ever said that any of those companies were
-actually doing anything "wrong" with regards to the GPL at all.  He just
-went for small companies who couldn't defend themselves.
-
-Again, just like patent trolls.  Go watch the wonderful talk at the LF
-Collab summit this year from Lee Cheng, the lawyer from New Egg as to
-how he has worked really hard to stop patent trolls, and how, even if
-you don't do anything wrong at all, you can easily get sued by them, and
-how much work it takes to fight these type of things.
-
-We don't want GPL "enforcement" to ever be like patent trolls, that way
-is a death sentence for Linux.  Just like what happened to Busybox.
-
-thanks,
-
-greg k-h
+-- 
+Alexandre Belloni, Free Electrons
+Embedded Linux and Kernel engineering
+http://free-electrons.com
