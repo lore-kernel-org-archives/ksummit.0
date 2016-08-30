@@ -1,26 +1,30 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7A37D904
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id EE785904
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 30 Aug 2016 16:55:33 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 171D81D8
+	Tue, 30 Aug 2016 17:10:33 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id EFF0222F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 30 Aug 2016 16:55:32 +0000 (UTC)
-Date: Tue, 30 Aug 2016 17:55:17 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Arnd Bergmann <arnd@arndb.de>
-Message-ID: <20160830165517.GF3950@sirena.org.uk>
-References: <20160826193331.GA29084@jra3> <20160829115018.GA16353@kroah.com>
-	<20160830095737.GC18605@lukather>
-	<201608301733.36149.arnd@arndb.de>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="7IgncvKP0CVPV/ZZ"
-Content-Disposition: inline
-In-Reply-To: <201608301733.36149.arnd@arndb.de>
+	Tue, 30 Aug 2016 17:10:32 +0000 (UTC)
+Message-ID: <1472577029.2319.20.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: "Luis R. Rodriguez" <mcgrof@kernel.org>, Theodore Ts'o <tytso@mit.edu>
+Date: Tue, 30 Aug 2016 10:10:29 -0700
+In-Reply-To: <20160830161557.GN3296@wotan.suse.de>
+References: <20160826193331.GA29084@jra3>
+	<CA+55aFyvFJ0gz++ApyO7gFGd0wz4ysjs=6wNZi-91VUJuVK2_w@mail.gmail.com>
+	<87inunxf14.fsf@ebb.org> <20160827162655.GB27132@kroah.com>
+	<87bn0dnc6f.fsf@ebb.org>
+	<1472348609.2440.37.camel@HansenPartnership.com>
+	<20160828042454.GA8742@jeremy-acer>
+	<20160828125542.7oejzcbpeozkrq3k@thunk.org>
+	<20160830161557.GN3296@wotan.suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 Cc: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>,
 	Linus Torvalds <torvalds@linux-foundation.org>,
 	ksummit-discuss@lists.linuxfoundation.org
@@ -34,69 +38,55 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Tue, 2016-08-30 at 18:15 +0200, Luis R. Rodriguez wrote:
+> On Sun, Aug 28, 2016 at 08:55:42AM -0400, Theodore Ts'o wrote:
+> > On Sat, Aug 27, 2016 at 09:24:54PM -0700, Jeremy Allison via
+> > Ksummit-discuss wrote:
+> > > Your opinion on that is clear and I understand why you hold it.
+> > > There are many other developers who hold the same opinion, but
+> > > lots of them work on FreeBSD not Linux.
+> > > 
+> > > Respectfully, I don't agree with you. Greg and Ted seem to agree
+> > > with you, Linus (like me) seems to imagine there can be a case 
+> > > for that shiny red button.
+> > 
+> > For the record, I believe there can be a case for the shiny red
+> > button.  I just want Linus, and not the SFC (or some --- as 
+> > admitted by the SFC --- minority set of developers), to be the one 
+> > who decides when it's appropriate to push it.
+> > 
+> > I've said it before, and I've said it again.  For me, this is much
+> > more about a project governance issue.  We don't let random pissed 
+> > off army officers decide when to start World War III.
+> 
+> If you are trying to equate "random pissed off officers" with those 
+> kernel developers part of the SFC alliance, then I have to say that 
+> is perhaps one of the most stupid misrepresentations of members of 
+> SFC that I have heard so far. Unless of course your statement is 
+> educated, you know all members part of SFC and have asked each one
+> why they joined.
 
---7IgncvKP0CVPV/ZZ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Given that the names aren't public, that's somewhat of an impossible
+test.
 
-On Tue, Aug 30, 2016 at 05:33:36PM +0200, Arnd Bergmann wrote:
-> On Tuesday 30 August 2016, Maxime Ripard wrote:
+The problem Ted has is that a tiny minority of the copyright holders
+can launch a GPL action under the law today with out regard to the
+opinions of the majority.  So could one person try to set up a
+permanent fork of linux; What holds it together isn't legal principles,
+it's sound governance, which is why Ted says this is a governance
+issue.
 
-> > They used to yes. However, even though I don't really how Linaro works
-> > internally, my understanding was that being part of Linaro doesn't
-> > imply that you have engineers assigned. It's probably related to some
-> > level of membership.
+The analogy is to try to get you to understand, not to insult you by
+equating members of the SFC coalition with random pissed off generals.
 
-> Correct, the higher membership levels require assigning engineers,
-> but that doesn't mean these engineers work on upstreaming code
-> of that member company, or even working on the kernel.
+> If you don't know then please educate yourself on this as reading 
+> this type of incoherent nonsense being spouted out is just offending 
+> and does nothing to help.
 
-To be more concrete: the assignees function essentially as contractors
-for Linaro.  They're doing Linaro work on free software products and
-infrastructure like direct Linaro employees do, they're not working for
-the member company but rather for Linaro when they're assignees.
+OK, so leaving the rhetoric aside, do you understand why we see this as
+an unsolved governance issue?  Solving it correctly is a hard problem,
+because it involves finding some mechanism for bringing GPL violators
+into line that everyone (including those in the SFC coalition) can
+support.
 
-Linaro does also have landing teams for members at higher levels, these
-function in the opposite direction and have their work assigned by the
-members but there's no requirement that this work be upstreaming or even
-kernel related, it is in some cases (eg, a bunch of the Qualcomm and ST
-work upstream is being done by Linaro landing teams) but not all.
-
-> We do provide all kinds of help to member companies and engineers
-> to learn everything about upstreaming their code and working with
-> the communities, and a lot of member companies use that help, but
-> other members don't.
-
-Plus the fact some member companies are large enough that they have
-several groups working with Linux and in those cases it may only be one
-of those groups that's joined Linaro and the SoCs people generally see
-may be from another group.
-
-[Specifically in the context of Linaro working on Allwinner SoCs]
-> > Anyway, like I was saying, no one from Linaro ever contributed
-> > something meaningful (except some cross-tree patches, and the usual
-> > "maintainance" patches).
-
-> I'm not surprised at all. Most of the kernel work we do in
-> Linaro is intentionally cross-platform (so it benefits all members
-> equally), or it is done on those platforms that the members decide
-> are important upstream.
-
-Where possible we'll try to use platforms that already work well
-upstream rather than trying to do basic upstreaming work.
-
---7IgncvKP0CVPV/ZZ
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEcBAEBCAAGBQJXxbp0AAoJECTWi3JdVIfQJdwH/0NN5ugSB94tGCDkjqKBmKKD
-/DUzGHwhl8suJC6g3rC7TyQCJz9qOLJQ6D09zzvy+wWHR0cgi39BH4um15aq5zDR
-g2dGngdULYy9jqGbGHO6Z0/YeDQx429MqqENGUsnYM863F8Gudza8hv+4JmBFHWR
-GrZ51s3UaLE/UWYpOPrcbKesW9IfHSdwK9vMIR6OGdyu0NXpjSHE3Kba/so+Sq8b
-ONLqTz5QUeAyt0uU3ILyYSlgqvrlUICxA3gL+ASu6FqKZwNtW0hYxQC7hKtNu4zS
-qrimTkiY1S0xRbs/iKfSuUayvXqDmMv4xRYYXKagi2ggKHi+29S681sG7WmQP+A=
-=Glb/
------END PGP SIGNATURE-----
-
---7IgncvKP0CVPV/ZZ--
+James
