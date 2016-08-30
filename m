@@ -1,34 +1,31 @@
-Return-Path: <greg@kroah.com>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0C68D89E
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 12575990
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 30 Aug 2016 18:17:37 +0000 (UTC)
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
-	[66.111.4.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 75263288
+	Tue, 30 Aug 2016 18:25:41 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 678AA297
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 30 Aug 2016 18:17:36 +0000 (UTC)
-Date: Tue, 30 Aug 2016 20:17:46 +0200
-From: Greg KH <greg@kroah.com>
-To: Jeremy Allison <jra@samba.org>
-Message-ID: <20160830181746.GC19450@kroah.com>
-References: <CA+55aFyvFJ0gz++ApyO7gFGd0wz4ysjs=6wNZi-91VUJuVK2_w@mail.gmail.com>
-	<87inunxf14.fsf@ebb.org> <20160827162655.GB27132@kroah.com>
-	<87bn0dnc6f.fsf@ebb.org>
-	<1472348609.2440.37.camel@HansenPartnership.com>
-	<20160828042454.GA8742@jeremy-acer>
-	<20160828125542.7oejzcbpeozkrq3k@thunk.org>
-	<20160830161557.GN3296@wotan.suse.de>
-	<20160830164540.GA4925@kroah.com> <20160830174924.GD36626@jra3>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20160830174924.GD36626@jra3>
-Cc: ksummit-discuss@lists.linuxfoundation.org, .jra@samba.org,
-	James Bottomley <James.Bottomley@HansenPartnership.com>,
-	"Bradley M. Kuhn" <bkuhn@sfconservancy.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>
+	Tue, 30 Aug 2016 18:25:40 +0000 (UTC)
+Message-ID: <1472581538.2319.54.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: "Luis R. Rodriguez" <mcgrof@kernel.org>
+Date: Tue, 30 Aug 2016 11:25:38 -0700
+In-Reply-To: <CAB=NE6VQX5e5WjhM9qTZtvv-jgDrK1Y3c2kPV6Hxe69NBrc9mw@mail.gmail.com>
+References: <CA+55aFxLRqket8-yCL=FPM0Bz86PxdS+hRSTzXES+=1bOv=feg@mail.gmail.com>
+	<20160827183550.GB1601@katana> <20160828074706.GB1370@kroah.com>
+	<1472492553.32433.108.camel@redhat.com>
+	<CA+55aFz98VJR8RNv2=zuV0y4Ke_EmCyAR71eMNdq5p6cYm4OAw@mail.gmail.com>
+	<1472497471.2376.32.camel@HansenPartnership.com>
+	<CAB=NE6VQX5e5WjhM9qTZtvv-jgDrK1Y3c2kPV6Hxe69NBrc9mw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Cc: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -39,37 +36,45 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Aug 30, 2016 at 10:49:24AM -0700, Jeremy Allison wrote:
-> On Tue, Aug 30, 2016 at 06:45:40PM +0200, Greg KH wrote:
-> > 
-> > That brings up a question, who exactly is the SFC representing here?
-> > What developers have signed over copyrights to the SFC?  Was this done
-> > in a "permanent" way?  "revoking" copyright assignment isn't exactly a
-> > simple thing to do, last I checked, so is this really true?
+On Tue, 2016-08-30 at 11:00 -0700, Luis R. Rodriguez wrote:
+> On Mon, Aug 29, 2016 at 12:04 PM, James Bottomley
+> <James.Bottomley@hansenpartnership.com> wrote:
+> > As a side note: if you own a project you want to open source, 
+> > Apache-2 ends up being practically the worst licence imaginable: 
+> > not only can your competitors make proprietary modified copies of 
+> > your code they don't have to show you, but they also gain rights to 
+> > your patents with which to do it.
 > 
-> Ah, this could be a big part of the misapprehensions in this
-> thread !
-> 
-> While it is possible to sign over copyrights to the SFC, this
-> is not commonly done by member projects (I think I'm safe in
-> saying that). It's also not required to assign copyright in
-> order for SFC to represent copyright holders in enforcement
-> actions.
-> 
-> In Samba for example (which I can talk publicly about),
-> *NO* devlopers have assigned any copyrights to the SFC,
-> they are merely acting as an enforcement agent authorized
-> to do so on our behalf - by the wishes of the developers.
+> I disagree. The benefit that Apache 2 provides not that you hold
+> patents per se, but rather if you want to contribute to the ecosystem
+> you have to also contribute to the patent pool. In today's mobile
+> market place the Apache 2 license seems like a rather *genius* move
+> IMHO for the cases where otherwise you do not care for the gains of
+> copyleft. What I'm trying to say is -- in my experience Android folks
+> barely cared about contributing upstream, it always was an uphill
+> battle. Patents however were a serious problem in every possible
+> little corner in the ecosystem. If a lot of new companies are using
+> permissive licenses for Linux, and you don't care over the copyleft
+> gains the Apache 2 license seems to give you a better edge.
 
-I don't understand, what exactly do you mean by "authorized to do so on
-your behalf"?  Are they your project's legal representation?  If you
-haven't assigned your copyright to them to enforce, how does this all
-work?
+Basically, no, you've weakened your own patent shield: we keep OIN
+around for defensive measures around the ecosystem.  Imagine an OIN
+member wishing to defend linux gives OIN access to a set of patents
+which also read on an open project it contributes to under apache-2. 
+ Lets assume these patents are also practised by an evil proprietary
+company that attacks Linux.  OIN defends on the basis of infringing
+these patents but the evil proprietary company claims that it, in fact,
+incorporated code from the open project into its proprietary one and
+thus with the code came the licence to the patents.  End of defence.
 
-When the SFC approaches a company that seems to not be abiding by the
-Samba license, who exactly do they say they are and what rights do they
-have to do so?
+OIN fortunately does have a stock of patents it owns outright as well
+as cross licences, so the shield doesn't die entirely, but it may lose
+a valuable weapon at the time it's most needed.
 
-thanks,
+The problem here is limiting the IP leak.  GPLv2 is easy because the
+patent licence is implied.  GPLv3 works because the patent licence is
+explicit but bounded by the recipient's willingness to release their
+code.  Apache-2 is basically unbounded and this is the problem that has
+a wide range of unintended consequences.
 
-greg k-h
+James
