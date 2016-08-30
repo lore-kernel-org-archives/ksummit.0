@@ -1,36 +1,35 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <lurodriguez@suse.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0B9F0958
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7C915904
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 30 Aug 2016 17:38:19 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8583224F
+	Tue, 30 Aug 2016 17:40:04 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D76BD24F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 30 Aug 2016 17:38:18 +0000 (UTC)
-Date: Tue, 30 Aug 2016 18:38:03 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Greg KH <greg@kroah.com>
-Message-ID: <20160830173803.GG3950@sirena.org.uk>
-References: <20160826193331.GA29084@jra3>
-	<CA+55aFyvFJ0gz++ApyO7gFGd0wz4ysjs=6wNZi-91VUJuVK2_w@mail.gmail.com>
+	Tue, 30 Aug 2016 17:40:03 +0000 (UTC)
+Date: Tue, 30 Aug 2016 19:40:01 +0200
+From: "Luis R. Rodriguez" <mcgrof@kernel.org>
+To: "Luck, Tony" <tony.luck@intel.com>
+Message-ID: <20160830174001.GR3296@wotan.suse.de>
+References: <CA+55aFyvFJ0gz++ApyO7gFGd0wz4ysjs=6wNZi-91VUJuVK2_w@mail.gmail.com>
 	<87inunxf14.fsf@ebb.org> <20160827162655.GB27132@kroah.com>
 	<87bn0dnc6f.fsf@ebb.org>
 	<1472348609.2440.37.camel@HansenPartnership.com>
 	<20160828042454.GA8742@jeremy-acer>
 	<20160828125542.7oejzcbpeozkrq3k@thunk.org>
-	<c1263e6689434e4044e58499493ce435.squirrel@twosheds.infradead.org>
-	<20160829062638.GA12415@kroah.com>
+	<20160830161557.GN3296@wotan.suse.de>
+	<1472577029.2319.20.camel@HansenPartnership.com>
+	<3908561D78D1C84285E8C5FCA982C28F3A1B4F3D@ORSMSX114.amr.corp.intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="2fjX3cMESU3XgGmZ"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20160829062638.GA12415@kroah.com>
-Cc: James Bottomley <james.bottomley@hansenpartnership.com>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
+In-Reply-To: <3908561D78D1C84285E8C5FCA982C28F3A1B4F3D@ORSMSX114.amr.corp.intel.com>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
 	"Bradley M. Kuhn" <bkuhn@sfconservancy.org>,
-	ksummit-discuss@lists.linuxfoundation.org
+	Linus Torvalds <torvalds@linux-foundation.org>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -41,48 +40,17 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Tue, Aug 30, 2016 at 05:16:21PM +0000, Luck, Tony wrote:
+> > Given that the names aren't public, that's somewhat of an impossible
+> > test.
+> 
+> If SFC does at some point sue, and that action ends up in court, would the
+> names become public? I'm assuming that they would since the first discovery
+> request by the defending company would be to find out which code was at
+> stake, and whether the copyright was really owned by the people that
+> SFC represents.
 
---2fjX3cMESU3XgGmZ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+If the law requires it I'm sure the names of those involved would come out.
+Otherwise its a volunteer option.
 
-On Mon, Aug 29, 2016 at 08:26:38AM +0200, Greg KH wrote:
-> On Sun, Aug 28, 2016 at 02:06:44PM -0000, David Woodhouse wrote:
-
-> > Even though I abhor what Patrick McHardy is doing, I still can't quite
-> > find it in my heart to have *sympathy* for his victims. Because it's not
-> > as if he's just taking random pot-shots at passers-by on the street. Th=
-ese
-> > people defended their actions in court, and lost.
-
-> No, that's not what Patrick did.  Whenever he actually took something to
-> court, _he_ lost.  Companies paid him off before then because they were
-> scared for foolish reasons, or it was honestly just cheaper to do it
-> than go to court and win.  He took the traditional model of patent troll
-> to the next level.
-
-Please bear in mind that public information on what's going on there is
-very scarce, I suspect most people have only seen the SFLC statement at:
-
-   https://sfconservancy.org/blog/2016/jul/19/patrick-mchardy-gpl-enforceme=
-nt/
-
-(it seems from followups that there may be some confusion even in what
-I've quoted above). =20
-
---2fjX3cMESU3XgGmZ
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEcBAEBCAAGBQJXxcR3AAoJECTWi3JdVIfQwBcH/iMvJdLWH1NXgSS4vhM2n2zb
-8T6C92RCq0ov+ZORIB+yNoLDTYxRyVhAcY/OQnyyI1H4qsY3XfwfelYaKtE7eKmC
-hm6e6Qr98saRDZFfi9GaK3GkhzYr4WTJOXRqM3P+RGyfmN1JBeYhpburagbIwJsJ
-QkcEy7NfDbV++PB184WgE71Yh2W3QgN5+NTuiX9GBkNpRYUPWU6bvWWtweaaNVAn
-b1lCGE+UWrI0E4egJV2Y1K1WeakDGzrX3LYKyGsmnnw95wXtPtt4odhYURwZZjDa
-bOBKu794UL0YiHXLMTd/CORtsgrrWDRV/0UdDNHB+2EMyGPzTBwFk5GUdrYihf8=
-=1zbk
------END PGP SIGNATURE-----
-
---2fjX3cMESU3XgGmZ--
+  Luis
