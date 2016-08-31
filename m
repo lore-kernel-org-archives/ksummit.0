@@ -1,29 +1,35 @@
-Return-Path: <maxime.ripard@free-electrons.com>
+Return-Path: <lurodriguez@suse.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1DCC5360
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 61C58308
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 31 Aug 2016 09:28:52 +0000 (UTC)
-Received: from mail.free-electrons.com (down.free-electrons.com
-	[37.187.137.238])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 6EB51143
+	Wed, 31 Aug 2016 18:51:48 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DF8421D3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 31 Aug 2016 09:28:51 +0000 (UTC)
-Date: Wed, 31 Aug 2016 11:28:49 +0200
-From: Maxime Ripard <maxime.ripard@free-electrons.com>
-To: Arnd Bergmann <arnd@arndb.de>
-Message-ID: <20160831092849.GB14379@lukather>
-References: <20160826193331.GA29084@jra3> <201608301733.36149.arnd@arndb.de>
-	<20160830160450.GC26785@roeck-us.net>
-	<201608302144.40679.arnd@arndb.de>
+	Wed, 31 Aug 2016 18:51:46 +0000 (UTC)
+Date: Wed, 31 Aug 2016 20:51:43 +0200
+From: "Luis R. Rodriguez" <mcgrof@kernel.org>
+To: Theodore Ts'o <tytso@mit.edu>
+Message-ID: <20160831185143.GE3296@wotan.suse.de>
+References: <87bn0dnc6f.fsf@ebb.org>
+	<1472348609.2440.37.camel@HansenPartnership.com>
+	<20160828042454.GA8742@jeremy-acer>
+	<20160828125542.7oejzcbpeozkrq3k@thunk.org>
+	<20160830161557.GN3296@wotan.suse.de>
+	<20160830164540.GA4925@kroah.com>
+	<20160830172033.GP3296@wotan.suse.de>
+	<20160830181528.GB19450@kroah.com>
+	<20160830191731.GS3296@wotan.suse.de>
+	<20160831025857.353rjb53nhodcmv2@thunk.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="EY/WZ/HvNxOox07X"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <201608302144.40679.arnd@arndb.de>
-Cc: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	ksummit-discuss@lists.linuxfoundation.org
+In-Reply-To: <20160831025857.353rjb53nhodcmv2@thunk.org>
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	"Bradley M. Kuhn" <bkuhn@sfconservancy.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] GPL defense issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -34,70 +40,161 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Tue, Aug 30, 2016 at 10:58:57PM -0400, Theodore Ts'o wrote:
+> On Tue, Aug 30, 2016 at 09:17:31PM +0200, Luis R. Rodriguez wrote:
+> > > Again, the SFC puts the GPL before Linux,
+> > 
+> > That's news to me. I think everyone on the alliance would have a fit if
+> > this were true. So please stop equating Bradley's own sentiments to that
+> > of the alliance's. If that's the message folks get then we need to correct
+> > this.
+> 
+> Given that the alliance's membership is secret, we only have your word
+> on it. 
 
---EY/WZ/HvNxOox07X
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Its optionally secret so developer's privacies can be respected, which means
+some folks are willing to say publicly they are part of it and some are not.
+Why would someone not want to come out ? Well why would they with such
+hostility going around ? First one needs to understand why the hostility is
+there and now it seems some clarify is coming up. Is it because companies who
+use Linux don't want to give developers and users their freedoms, or because of
+tact? It sounds like its the tact. Can you confirm if that is correct ?
 
-On Tue, Aug 30, 2016 at 09:44:40PM +0200, Arnd Bergmann wrote:
-> On Tuesday 30 August 2016, Guenter Roeck wrote:
-> > On Tue, Aug 30, 2016 at 05:33:36PM +0200, Arnd Bergmann wrote:
-> > >=20
-> > > > Anyway, like I was saying, no one from Linaro ever contributed
-> > > > something meaningful (except some cross-tree patches, and the usual
-> > > > "maintainance" patches).
-> > >=20
-> > > I'm not surprised at all. Most of the kernel work we do in
-> > > Linaro is intentionally cross-platform (so it benefits all members
-> > > equally), or it is done on those platforms that the members decide
-> > > are important upstream.
-> > >=20
-> > One may wonder how your Linux kernel patches and merges are classified
-> > per the above.
-> >
-> > Thank you for all your work in the Linux kernel. It is anything but
-> > meaningless, and it obviously goes far beyond "some cross-tree patches,
-> > and the usual maintenance patches".
->=20
-> I'm sure Maxime was specifically referring to mach-sunxi specific code
-> here, but it's clear how that could be interpreted differently, or
-> taken out of context.
+I came out before these clarifications given I have an employer who has built
+into their DNA FOSS and understands these issues are part of our DNA to resolve
+and they have the patience to deal with this. It is critical to both understand
+these issues and resolve them in an amicable way, with the community and
+developers, as transparently as possible. A concern others face is the chance of
+being put on a sort of a persona non grata list for employers. Does such a list
+exist ? I don't know, but such concerns exist. If you have kids to maintain the
+pressure is even harder. I personally have the luxury to not be concerned over
+this since I have a supportive employer and do not have children -- nor plan
+on having any ;) Not only that, if my employer were to start doing crazy things
+I'm assured I would not be the only one to step out, and worst come to worst, I
+could just go and hack on Linux from a beach in Costa Rica. That's not a bad
+thing. I know of some retired developers who go around travelling and
+contributing when they can to Linux on 802.11 :D There's not many folks in
+similar situations though, and you cannot rationally expect someone to
+compromise on this.
 
-Yeah, sorry, I wasn't try to reduce or deny the huge amount of work
-Linaro is doing on the whole kernel.
+If the concerns are not clear for some folks to come out -- please let me know.
 
-My point was just that, on the Allwinner specific code, all the work
-done was on code that was already there, not on any new code.
+> And the governance mechanisms of the alliance have also not
+> been spelled out publically.  Do you guys vote?
 
-Which doesn't prevent us from using a lot of Linaro code everywhere.
+Like I said before -- no, because we so far have pretty much have had
+consensus. We should probably consider voting if such consensus were
+not happening. Its something to discuss in the coalition.
 
-Maxime
+> Is it weighted based
+> on the amount of code someone brings to the "alliance"?  Or is it just
+> one head, one vote?  So if someone with a large amount of code where
+> they own the copyright comes to the project, and Bradley then uses
+> this fact to browbeat a vendor, and that person says, woah, that
+> doesn't seem right?  Do they get one vote, or something proportional
+> to what they bring to the table? 
 
---=20
-Maxime Ripard, Free Electrons
-Embedded Linux and Kernel engineering
-http://free-electrons.com
+We have no had to deal with this issue or concern, we so far have had
+consensus. If the issue comes up then we should talk about it in the
+coalition, among developers.
 
---EY/WZ/HvNxOox07X
-Content-Type: application/pgp-signature; name="signature.asc"
+> Sure, they can withdraw from the
+> alliance, so there is _some_ recourse after you've signed on the
+> dotted lines, but only after 30 days, and a lot of threats could be
+> issued in their name in 30 days...
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v1
+It sounds like these are terms you can discuss with Conservancy and see
+if its possible to address them. After all -- these are the sorts of
+things I would have expected from you know, a Q&A which you could get
+immediate feedback from Karen from.
 
-iQIcBAEBAgAGBQJXxqNRAAoJEBx+YmzsjxAgdToQALROjZxF7lc9NdoxC+lIyBlg
-MEGg/Ld99ERglBMMxsNLrP5tUxw9b1UTpvrxjx2kn1WnIwAYTxW9v+JUE/T0bjXy
-RW0oG1wn+/BntyK81cDeeS1H+R4bXVyndBXqsv3TZek/F8g4js0dTbjwx17QNR3M
-XMi0rFi4iIT0KCwbxgxiqwCsxpLNfi/WKGDvVnkO3YvDFsq3zO/hsj/W84qg84F8
-2E3Y3k1rJd5I9rEHEVuHEHX86e3Cm7wwFHz6i8/Q72vJrWA9cK/EYJ7KGDHgr0Ma
-d6vasCE5tRFsT+5HyeZIQ1+IsfpY+ur/+UxPrT+dQlzLGYG4JQLWLPeSEtngnaLm
-2f84wmPy13nx5gjHBZHpt0OrOVeTT6jlXzt5rTzfcs8TV5mYdExqMHhZ77gmBAFs
-VkWMm9QJKlMTBsYLujFowY7HcyTgJ5f0hA8B2b/ygZ2JjRLERj1aFHL8t9IC4cmX
-kAlSXY8vRxbRLrEYzvg1Q9W73vntcr8WZ57jh2lJJdgxz5+ducgG4GX2jDudXfVA
-VmijKtrHGG3BGaflAoP9siU5b9hEWHGZoGZg0JLmPtkmAwhBnwWU1XZ57pw53pFR
-zKzxI2C0K+HO6dDMYv13n+5uaFYkssqTuVy0UWw9qn4OExW18scbtQvd4NPQdJ3/
-ZEzEVIaJ6CFIr3pVlsR5
-=aMjY
------END PGP SIGNATURE-----
+> It doesn't help the SFC that there's no transparency in its actions.
 
---EY/WZ/HvNxOox07X--
+What type of transparency would you like ?
+
+> A similar dynamic is at work when the FBI issues national security
+> letters with gag orders attached.
+
+Seriously Ted... you are comparing FBI gag orders with Conservancy's
+coalition. Because unless my eyes need LASIK again -- which maybe they
+do -- this just happened. Let us recall Karen was the one who brought
+up in the list the idea of *flying out* to KS and let developers, you
+know, ask questions. Does the FBI does this sort of crap ? Hell no!
+
+> So some kind of regular
+> transparency report where companies have been contacted by the SFC are
+> described in some general way ("a handset vendor", "a consumer
+> electronics product"), the nature of the violation ("lack of
+> apparently otherwise unmodified source code available on the vendor's
+> FTP site", "apparent mixing of GPL code with some incompatible open
+> source license", "out-and-out blatent misuse of Linux code in a
+> completely unrelated commercial virtualization product," etc.) and the
+> steps taken (friendly contact, lawsuit threatened, lawsuit filed,
+> etc.) might be helpful in the long run.
+
+I am not sure, this seems like it might break confidentiality for companies...
+but IANAL, so if we had a Q&A perhaps you could have gotten a direct answer,
+maybe ask Karen in person next time you see her!
+
+> > Its sad that misrepresented statements are why you have given up, instead of
+> > talking to members of the alliance and what we do, and more importantly the how
+> > consensus is reached.
+> 
+> So I don't believe they are misrepresented, because #1, a few years
+> ago, in a hallway discussion, I've asked Bradley point blank whether
+> the GPL or the long-term health of Linux development was more
+> important to him, and he very candidly said "the GPL".  Props for him
+> not dissembling, but this was not a case of my not understanding what
+> he said.
+
+My point was to disregard Bradley as what matters here for Linux is
+what Linux developers part of the alliance care for and what you need
+to do is talk to those involved. The Q&A would have been a perfect
+opportunity you know...
+
+I can only speak for myself so I'll say how I feel.
+
+I care deeply over the long term development and health of the entire Linux
+ecosystem, and above and beyond all things in the ecosystem I care mostly and
+deeply about Linux. Since Linux is GPL I've been an advocate for it, since I
+also care about the license it uses, because it gives both developers and uses
+certain rights that I think are bad ass. So when it comes to "long-term health
+of Linux development" -- this is subjective if we do not take into
+consideration both the practical gains over open collaborative development and
+the *freedoms* that come with Linux that we grant to both our developers and
+users. So if you'd like we can get into specifics here. Please let me know if
+you have any particular questions.
+
+I encourage you to ask others involved similar questions.
+
+> More importantly, #2, if you look at the 2016 linux.conf.au talk, it
+> was quite unambiguous.  Trying to claim that there was
+> misunderstanding or misrepresentation going on is roughly the same as
+> Trump surrogates trying to claim that Donald Trump's very clear
+> statements on Mexicans was all a misunderstanding pushed by the
+> mainstream media.  But hey, don't take my word for it; listen to the
+> talks for yourself and judge for yourself.
+
+Yeah often, but not always, what Bradley says makes me cringe, so I joined
+Conservancy to ensure I can voice my concerns and express exactly what I think
+to him and all other developers.
+
+> Maybe it was all rhetoric was for fundraising purposes, and wasn't
+> actually meant "for real" (just as the claims that Trump's words about
+> immigration was just to appeal to the Republic base, but it wasn't
+> what he _really_ believes and he _really_ isn't a racist in his heart
+> of hearts) --- but to the extent that Bradley is the face of "The
+> Alliance" when he goes and pays visit to companies, the fact that he
+> was making these statements just a few months ago doesn't help "The
+> Alliance" and it certainly doesn't help Linux since it sows FUD to the
+> companies who could just as easily decide to use a commercial OS like
+> QNX, or another Open Source OS such as FreeBSD instead.
+
+Agreed.
+
+> (Never think you are irreplaceable; you aren't.  This is true just as
+> much for programmers and employees, as it is for operating systems.)
+
+Agreed.
+
+  Luis
