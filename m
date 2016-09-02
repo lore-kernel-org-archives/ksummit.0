@@ -1,28 +1,24 @@
-Return-Path: <arnd@arndb.de>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 04C1D982
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 Sep 2016 23:35:38 +0000 (UTC)
-Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.74])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8BA80146
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 Sep 2016 23:35:36 +0000 (UTC)
-From: Arnd Bergmann <arnd@arndb.de>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Sat, 03 Sep 2016 01:35:49 +0200
-Message-ID: <5093654.0BrtFI3yeT@wuerfel>
-In-Reply-To: <7359509.5sppVSLXcK@wuerfel>
-References: <CAKMK7uEuqLLf2bCyB-sAuu5WvVA1Kp7Jvc33k3um5DfdQr4eyg@mail.gmail.com>
-	<CA+55aFwSpNrOuOzaR5hh0A1XvuTu0=xVbE_CV1RVf9GMrTPDNQ@mail.gmail.com>
-	<7359509.5sppVSLXcK@wuerfel>
+Return-Path: <broonie@sirena.org.uk>
+Date: Sat, 3 Sep 2016 00:35:42 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Olof Johansson <olof@lixom.net>
+Message-ID: <20160902233542.GM3950@sirena.org.uk>
+References: <57C78BE9.30009@linaro.org> <20160902012531.GB28461@sasha-lappy>
+	<20160902095417.GJ3950@sirena.org.uk>
+	<1472827326.2519.14.camel@HansenPartnership.com>
+	<CAOesGMibzGC3Nz+DmERJUea4jbJQ28hDGDGMuHkr+o=Wb3iUdA@mail.gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-Cc: Dave Airlie <airlied@linux.ie>, Grant Likely <grant.likely@linaro.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>, "Nikula,
-	Jani" <jani.nikula@linux.intel.com>
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] (group) maintainership models
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="fjEAjMKpll6GDq3U"
+Content-Disposition: inline
+In-Reply-To: <CAOesGMibzGC3Nz+DmERJUea4jbJQ28hDGDGMuHkr+o=Wb3iUdA@mail.gmail.com>
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	"ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
+	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [Stable kernel] feature backporting
+ collaboration
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,23 +28,40 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Friday, September 2, 2016 10:06:02 PM CEST Arnd Bergmann wrote:
-> I'll throw this patch at my randconfig builder and see what breaks:
-> 
 
-I found four dmaengine drivers that built on ARM, two of them were
-actually incorrect, the other ones should work fine either way.
-I've sent patches for those four now, and for the mv_cesa crypto driver
-that was also incorrect.
+--fjEAjMKpll6GDq3U
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-I've also done patches for arch/arm/mach-{mmp,mv78xx0,orion5x}
-and plat-orion, but these are more invasive and I'm still build
-testing to ensure there were no obvious mistakes in my patches.
+On Fri, Sep 02, 2016 at 11:21:38AM -0700, Olof Johansson wrote:
+> On Fri, Sep 2, 2016 at 7:42 AM, James Bottomley
 
-The only other drivers I found using NO_IRQ on ARM are
-drivers/pcmcia/soc_common.c and drivers/mfd/ucb1x00-core.c.
-I haven't looked at those yet, it's possible that the former
-is still problematic as mach-pxa still uses '0' as a valid
-interrupt.
+> > It's crazy because it encourages precisely the wrong behaviour: vendors
+> > target this tree not upstream.
 
-	Arnd
+> The one case where it is warranted is for features that went in since
+> the last LTS release.
+
+> Pushing vendors all the way to target a non-LTS release is a bit more
+> aggressive that needed, in my opinion.
+
+Which is basically what people are doing for the most part - the older
+kernels are either the latest Android baseline (which is effectively the
+latest LTS to people in that part of the game) or products already quite
+far down the development cycle and just getting a bit of polish.
+
+--fjEAjMKpll6GDq3U
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEcBAEBCAAGBQJXygzKAAoJECTWi3JdVIfQsg8H/0D4NJ8un8p5dT28MuJjapLb
+KqClJLFRMRPuW+SJgBL6t9eLVOR0HoGqxVAaXzyg//r5K39xLon+fuhr8dO/ieC9
+fIOwkHVxvenNh3wlytTqyOkVpDNB6uIUja+8lre/gP/zDokEWH25EvDMsEGljmxC
+XsmsIxourxTPUWNrXorM6UfiNUpRvDJiym3u8iM7eSEjPJWTNW6byJDuMbOKL3N7
+4VL0Fo2L7BtvliQvFaHp5jd5WTHmlQZKJfRe3m+sR/M1aHZz4z+VUZCUuS1pq9sT
+V8X8DlPgTBuQxC1V4eYwDhqtLmeJYqnb9sGAKw8v12Ld6b1IQBWxLGYXuhyM5K4=
+=GnDS
+-----END PGP SIGNATURE-----
+
+--fjEAjMKpll6GDq3U--
