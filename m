@@ -1,19 +1,29 @@
-Return-Path: <geert.uytterhoeven@gmail.com>
+Return-Path: <vinod.koul@intel.com>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D580094D
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri,  2 Sep 2016 10:38:18 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 872088A
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri,  2 Sep 2016 10:38:18 +0000 (UTC)
+Date: Fri, 2 Sep 2016 16:16:20 +0530
+From: Vinod Koul <vinod.koul@intel.com>
+To: Arnd Bergmann <arnd@arndb.de>
+Message-ID: <20160902104619.GD9355@localhost>
+References: <CAKMK7uEuqLLf2bCyB-sAuu5WvVA1Kp7Jvc33k3um5DfdQr4eyg@mail.gmail.com>
+	<27648120.ey0ZEtExVa@wuerfel> <20160731175753.GQ9681@localhost>
+	<3132432.DrxSMjl1Vi@wuerfel>
 MIME-Version: 1.0
-Sender: geert.uytterhoeven@gmail.com
-In-Reply-To: <20160902095417.GJ3950@sirena.org.uk>
-References: <57C78BE9.30009@linaro.org> <20160902012531.GB28461@sasha-lappy>
-	<20160902095417.GJ3950@sirena.org.uk>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 2 Sep 2016 12:16:32 +0200
-Message-ID: <CAMuHMdX1UN2WZp4K3se1MyXXWrNawwkWp_RCVYksaUKhwAxXHw@mail.gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Cc: "ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [LTSI-dev] [Stable kernel] feature
-	backporting collaboration
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3132432.DrxSMjl1Vi@wuerfel>
+Cc: ksummit-discuss@lists.linuxfoundation.org, Dave Airlie <airlied@linux.ie>,
+	"Nikula, Jani" <jani.nikula@linux.intel.com>,
+	Grant Likely <grant.likely@linaro.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] (group) maintainership models
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -23,59 +33,21 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Sep 2, 2016 at 11:54 AM, Mark Brown <broonie@kernel.org> wrote:
->> Stable kernels have very strict restrictions that are focused on not taking
->> commits that have high potential to cause unintended side effects, incorrect
->> interactions with the rest of the kernel or just introduce new bugs.
->
->> Mixing in new features that interact with multiple subsystems is a recipe for
->> disaster. We barely pull off backporting what looks like trivial fixes, trying
->> to do the same for more than that is bound be broken.
->
-> It's what people are doing for products, they want newer features but
-> they also don't want to rebase their product kernel onto mainline as
-> that's an even bigger integration risk.  People aren't using this kernel
-> raw, they're using it as the basis for product kernels.  What this is
-> doing is getting a bunch of people using the same backports which shares
-> effort and hopefully makes it more likely that some of the security
-> relevant features will get deployed in products.  Ideally some of the
-> saved time can be spent on upstreaming things though I fear that's a
-> little optimistic.
->
->> As an alternative, why not use more recent stable kernels and customize the
->> config specifically for each user to enable on features that that specific
->> user wants to have.
->
-> That's just shipping a kernel - I don't think anyone is silly enough to
-> ship an allmodconfig or similar in production (though I'm sure someone
-> can come up with an example).
->
->> The benefit here is that if used correctly you'll get to use all the new shiny
->> features you want on a more recent kernel, and none of the things you don't
->> want. So yes, you're upgrading to a newer kernel all the time, but if I
->> understant your use-case right it shouldn't matter too much, more so if
->> you're already taking chances on backporting major features yourself.
->
-> Like I say in this case updating to a newer kernel also means rebasing
-> the out of tree patch stack and taking a bunch of test risk from that -
-> in product development for the sorts of products that end up including
-> the LSK the churn and risk from targeted backports is seen as much safer
-> than updating to an entire new upstream kernel.
+On Mon, Aug 01, 2016 at 08:56:30AM +0200, Arnd Bergmann wrote:
+> 
+> Sounds good. Let me know if you end up having to add a 'depends on ARM'
+> dependency anywhere, as that might indicate that we are doing something
+> different on ARM that should be done in a more generic way.
 
-So it's about finding a good balance between backporting new features into
-your in-house tested kernel vs. forwardporting your in-house patches to a
-community-tested kernel. Mistakes can be made during both back- and
-forwardporting.
+Only one thing :)
 
-Nothing new to see here...
+Arm seems to define NO_IRQ. This is not available in other arch and one
+driver (moxart-dma) is using it. I don't see why this should be arm specific.
 
-Gr{oetje,eeting}s,
+FWIW, now I have a single arm config like x86, ppc, mips for my subsystem with
+this change.
 
-                        Geert
+Thanks for the suggestion :)
 
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+-- 
+~Vinod
