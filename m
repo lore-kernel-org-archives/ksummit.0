@@ -1,16 +1,18 @@
-Return-Path: <linux@roeck-us.net>
-Date: Fri, 2 Sep 2016 22:29:14 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Olof Johansson <olof@lixom.net>
-Message-ID: <20160903052914.GB17057@roeck-us.net>
+Return-Path: <broonie@sirena.org.uk>
+Date: Sat, 3 Sep 2016 11:40:20 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <20160903104020.GR3950@sirena.org.uk>
 References: <57C78BE9.30009@linaro.org> <20160902012531.GB28461@sasha-lappy>
 	<20160902095417.GJ3950@sirena.org.uk>
 	<1472827326.2519.14.camel@HansenPartnership.com>
 	<CAOesGMibzGC3Nz+DmERJUea4jbJQ28hDGDGMuHkr+o=Wb3iUdA@mail.gmail.com>
+	<20160903052914.GB17057@roeck-us.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="JcGvecxLhm+LytDG"
 Content-Disposition: inline
-In-Reply-To: <CAOesGMibzGC3Nz+DmERJUea4jbJQ28hDGDGMuHkr+o=Wb3iUdA@mail.gmail.com>
+In-Reply-To: <20160903052914.GB17057@roeck-us.net>
 Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
 	"ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
 	"ksummit-discuss@lists.linuxfoundation.org"
@@ -27,43 +29,32 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Sep 02, 2016 at 11:21:38AM -0700, Olof Johansson wrote:
-> On Fri, Sep 2, 2016 at 7:42 AM, James Bottomley
-> <James.Bottomley@hansenpartnership.com> wrote:
-> > On Fri, 2016-09-02 at 10:54 +0100, Mark Brown wrote:
-> >> On Thu, Sep 01, 2016 at 09:25:31PM -0400, Levin, Alexander via
-> >> Ksummit-discuss wrote:
-> >> > On Wed, Aug 31, 2016 at 10:01:13PM -0400, Alex Shi wrote:
-> >>
-> >> > > I am a Linaro stable kernel maintainer. Our stable kernel is base
-> >> > > on LTS plus much of upstream features backporting on them. Here
-> >> > > is the detailed
-> >>
-> >> > I really disagree with this approach. I think that backporting
-> >> > board support like what LTSI does might make sense since it's self
-> >> > contained, but what LSK does is just crazy.
-> >>
-> >> The bulk of these features are exactly that - they're isolated driver
-> >> specific code or new subsystems.  There are also some things with
-> >> wider impact but it's nowhere near all of them.
-> >
-> > It's crazy because it encourages precisely the wrong behaviour: vendors
-> > target this tree not upstream.
-> 
-> The one case where it is warranted is for features that went in since
-> the last LTS release.
-> 
-> Pushing vendors all the way to target a non-LTS release is a bit more
-> aggressive that needed, in my opinion.
-> 
-Getting a bit off track here, but at least some vendors don't even track
-stable kernels in the first place because they think it is too risky/unstable.
-We just had a discussion about that, after all. Personally I would prefer
-to get stable kernels to the point where people feel comfortable using them,
-and then consider adding functionality on top of that if needed.
 
-Having said that, an effort like this may still be helpful, I just wonder what
-the intended use case is. Is it for vendors to actually use the new LTS+feature
-branch, or for vendors to cherry-pick features from it ?
+--JcGvecxLhm+LytDG
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Guenter
+On Fri, Sep 02, 2016 at 10:29:14PM -0700, Guenter Roeck wrote:
+
+> Having said that, an effort like this may still be helpful, I just wonder what
+> the intended use case is. Is it for vendors to actually use the new LTS+feature
+> branch, or for vendors to cherry-pick features from it ?
+
+In our case it's both, though we provide less support for cherry picking
+features.
+
+--JcGvecxLhm+LytDG
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEcBAEBCAAGBQJXyqiPAAoJECTWi3JdVIfQGFAH/2Xc7lmBp4WQSPUG9df18g2o
+Y9Is5SdymFXyY4tJz3Gyn/mLG6nvHTSaqO6AZj71rEatgblvLgKVnMRZ7jhZYQu7
+6Psmmx9jjY7M5/3u9+it3wTXM2qq6C/qEuKH0r3DoKDuysUhyANCSqV3Zp36yYkk
+dDj1VCdWZbcDiNHclR6MfTPy/3DQSsdQ/MvJSBH9QumeVjWCNJgbZ2zOW+HONH6c
+9QTD2JPBJiKAvGECJDbQDCjbRKXby03dAWOjiK/dV3c3iUZWr0LF+cpZi4jEvy9Y
+i+m8e9Ro5YxCTOMn6jZIuZvS+6A1St3E/kpVmnkM8l51ZB9afQzLs7Ht/w9S5q8=
+=1tVM
+-----END PGP SIGNATURE-----
+
+--JcGvecxLhm+LytDG--
