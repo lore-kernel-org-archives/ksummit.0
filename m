@@ -1,34 +1,34 @@
-Return-Path: <geert.uytterhoeven@gmail.com>
+Return-Path: <linus971@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 878369C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id ABC3871
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  4 Sep 2016 17:45:07 +0000 (UTC)
-Received: from mail-it0-f66.google.com (mail-it0-f66.google.com
-	[209.85.214.66])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 209AE125
+	Sun,  4 Sep 2016 17:59:48 +0000 (UTC)
+Received: from mail-oi0-f46.google.com (mail-oi0-f46.google.com
+	[209.85.218.46])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 362E2CF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  4 Sep 2016 17:45:05 +0000 (UTC)
-Received: by mail-it0-f66.google.com with SMTP id e124so6962545ith.1
+	Sun,  4 Sep 2016 17:59:48 +0000 (UTC)
+Received: by mail-oi0-f46.google.com with SMTP id y2so3915200oie.0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 04 Sep 2016 10:45:05 -0700 (PDT)
+	Sun, 04 Sep 2016 10:59:48 -0700 (PDT)
 MIME-Version: 1.0
-Sender: geert.uytterhoeven@gmail.com
-In-Reply-To: <CA+55aFwSpNrOuOzaR5hh0A1XvuTu0=xVbE_CV1RVf9GMrTPDNQ@mail.gmail.com>
+Sender: linus971@gmail.com
+In-Reply-To: <CAMuHMdWk2uE0z-67ktpPvTGR7AUD66uZJL=kMGjrhxaPmDD_Xg@mail.gmail.com>
 References: <CAKMK7uEuqLLf2bCyB-sAuu5WvVA1Kp7Jvc33k3um5DfdQr4eyg@mail.gmail.com>
 	<27648120.ey0ZEtExVa@wuerfel> <20160731175753.GQ9681@localhost>
 	<3132432.DrxSMjl1Vi@wuerfel> <20160902104619.GD9355@localhost>
 	<CA+55aFwSpNrOuOzaR5hh0A1XvuTu0=xVbE_CV1RVf9GMrTPDNQ@mail.gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Sun, 4 Sep 2016 19:45:03 +0200
-Message-ID: <CAMuHMdWk2uE0z-67ktpPvTGR7AUD66uZJL=kMGjrhxaPmDD_Xg@mail.gmail.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8
-Cc: Dave Airlie <airlied@linux.ie>, "Nikula,
-	Jani" <jani.nikula@linux.intel.com>,
+	<CAMuHMdWk2uE0z-67ktpPvTGR7AUD66uZJL=kMGjrhxaPmDD_Xg@mail.gmail.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Sun, 4 Sep 2016 10:59:46 -0700
+Message-ID: <CA+55aFxDgsc3aQd6E8mbVz9zkLVoiK3CD7MSztOGze8nd4ezSw@mail.gmail.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Content-Type: multipart/alternative; boundary=001a113cf3e6468267053bb2544f
+Cc: Grant Likely <grant.likely@linaro.org>, Dave Airlie <airlied@linux.ie>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	Grant Likely <grant.likely@linaro.org>
+	Jani Nikula <jani.nikula@linux.intel.com>
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] (group) maintainership models
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -39,49 +39,35 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Linus,
+--001a113cf3e6468267053bb2544f
+Content-Type: text/plain; charset=UTF-8
 
-On Fri, Sep 2, 2016 at 7:25 PM, Linus Torvalds
-<torvalds@linux-foundation.org> wrote:
-> On Fri, Sep 2, 2016 at 3:46 AM, Vinod Koul <vinod.koul@intel.com> wrote:
->>
->> Arm seems to define NO_IRQ. This is not available in other arch and one
->> driver (moxart-dma) is using it. I don't see why this should be arm specific.
+On Sep 4, 2016 10:45, "Geert Uytterhoeven" <geert@linux-m68k.org> wrote:
 >
-> NO_IRQ is broken. We long long since agreed that 0 is "no irq", and
-> that the right way to test for it is just
+> What about the legacy timer interrupt?
+
+That's fine. No driver will ever see it. So it's OK to be zero.
+
+That's obviously how x86 always worked.
+
+And x86 always had "zero means no interrupt".
+
+      Linus
+
+--001a113cf3e6468267053bb2544f
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<p dir=3D"ltr"></p>
+<p dir=3D"ltr">On Sep 4, 2016 10:45, &quot;Geert Uytterhoeven&quot; &lt;<a =
+href=3D"mailto:geert@linux-m68k.org">geert@linux-m68k.org</a>&gt; wrote:<br=
 >
->    if (!irq) ...
->
-> which is what all the generic drivers use.
+&gt;<br>
+&gt; What about the legacy timer interrupt?</p>
+<p dir=3D"ltr">That&#39;s fine. No driver will ever see it. So it&#39;s OK =
+to be zero.</p>
+<p dir=3D"ltr">That&#39;s obviously how x86 always worked.</p>
+<p dir=3D"ltr">And x86 always had &quot;zero means no interrupt&quot;.</p>
+<p dir=3D"ltr">=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Linus</p>
 
-[...]
-
-> Some people have said "..but but but I have a real irq that has the
-> value 0", but that's irrelevant - the kernel "irq" value isn't
-> necessarily the same as the value that an interrupt _controller_ sees,
-> since the interrupt controller can be hiding behind various other
-> nested controllers etc. So an architecture might need to translate
-> "irq" into the actual hw interrupt controller value.
-
-Let's bite ;-)
-
-What about the legacy timer interrupt?
-
-$ git grep 'setup_irq(0,'
-arch/alpha/kernel/sys_ruffian.c:        setup_irq(0, &timer_irqaction);
-arch/avr32/kernel/time.c:       ret = setup_irq(0, &timer_irqaction);
-arch/mips/kernel/i8253.c:       setup_irq(0, &irq0);
-arch/x86/kernel/time.c: setup_irq(0, &irq0);
-$
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+--001a113cf3e6468267053bb2544f--
