@@ -1,31 +1,25 @@
-Return-Path: <alexei.starovoitov@gmail.com>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 38EF78F5
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  5 Sep 2016 19:30:38 +0000 (UTC)
-Received: from mail-lf0-f65.google.com (mail-lf0-f65.google.com
-	[209.85.215.65])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8D54E224
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  5 Sep 2016 19:30:35 +0000 (UTC)
-Received: by mail-lf0-f65.google.com with SMTP id 29so3121337lfv.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 05 Sep 2016 12:30:35 -0700 (PDT)
+Return-Path: <neilb@suse.de>
+From: NeilBrown <neilb@suse.com>
+To: Mark Brown <broonie@kernel.org>
+Date: Tue, 06 Sep 2016 08:44:01 +1000
+In-Reply-To: <20160905110416.GV3950@sirena.org.uk>
+References: <57C78BE9.30009@linaro.org> <20160902012531.GB28461@sasha-lappy>
+	<20160902095417.GJ3950@sirena.org.uk>
+	<1472827326.2519.14.camel@HansenPartnership.com>
+	<ECADFF3FD767C149AD96A924E7EA6EAF053D4A52@USCULXMSG01.am.sony.com>
+	<87twdv9l0v.fsf@notabene.neil.brown.name>
+	<20160905110416.GV3950@sirena.org.uk>
+Message-ID: <87a8fm9dce.fsf@notabene.neil.brown.name>
 MIME-Version: 1.0
-In-Reply-To: <20160903052014.GA4850@outlook.office365.com>
-References: <20160903052014.GA4850@outlook.office365.com>
-From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Date: Mon, 5 Sep 2016 12:30:13 -0700
-Message-ID: <CAADnVQKKCKNU-0B5gz_7WR-sQqApVub4yg+nRfpN92OiskxpYA@mail.gmail.com>
-To: Andrei Vagin <avagin@virtuozzo.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: Kirill Kolyshkin <kir@openvz.org>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	Eric Dumazet <edumazet@google.com>, David Ahern <dsahern@gmail.com>,
-	Pablo Neira Ayuso <pablo@netfilter.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Netlink engine issues,
- and ways to fix those
+Content-Type: multipart/signed; boundary="=-=-=";
+	micalg=pgp-sha256; protocol="application/pgp-signature"
+Cc: "ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+	James Bottomley <James.Bottomley@HansenPartnership.com>
+Subject: Re: [Ksummit-discuss] [Stable kernel] feature backporting
+	collaboration
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,101 +29,58 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Sep 2, 2016 at 10:20 PM, Andrei Vagin <avagin@virtuozzo.com> wrote:
-> The netlink interface proved itself as a great way to perform
-> descriptor-based kernel/userspace communication. It is especially useful
-> for cases involving a big amount of data to transfer. The netlink
-> communication protocol is simple and elegant; it also allows to extend
-> the message format without breaking backward compatibility.
->
-> One big problem of netlink is credentials. When a user-space process is
-> opening a new file descriptor, kernel saves the opener's credentials to
-> f_cred field of the file struct. After that, every access to that fd are
-> checked against the saved credentials. In essence, this allows for a
-> process to open a file descriptor as root and then drop capabilities.
-> With netlink socket, it is not possible to implement this access scheme.
->
-> Currently netlink is widely used in the network subsystem, but there are
-> also a few users outside of networking, such as audit and taskstats.
-> Developers who used netlink for anything except the networking know
-> there are some issues. For example, taskstats code has broken user and
-> pid namespace support.
->
-> Another potential user of netlink socket is task_diag, a faster
-> /proc/PID-like interface proposed some time ago
-> (https://lkml.org/lkml/2015/7/6/142). It makes sense to use the netlink
-> interface for it, too, but the whole feature is currently blocked by the
-> netlink discussion.
->
-> A few months ago Andy Lutomirski suggested to rework the netlink
-> interface in order to solve the known issues. We suggest discussing his
-> idea:
->
-> ----- snip --- snip --- snip -----
-> (taken from http://lists.openwall.net/netdev/2016/05/05/51)
->
-> The tl;dr is that Andrey wants to add an interface to ask a pidns some
-> questions, and netlink looks natural, except that using netlink sockets
-> to interrogate a pidns seems rather problematic.  I would also love to
-> see a decent interface for interrogating user namespaces, and again,
-> netlink would be great, except that it's a socket and makes no sense in
-> this context.
->
-> Netlink had, and possibly still has, tons of serious security bugs
-> involving code checking send() callers' creds.  I found and fixed a few
-> a couple years ago.  To reiterate once again, send() CANNOT use caller
-> creds safely.  (I feel like I say this once every few weeks. It's
-> getting old.)
->
-> I realize that it's convenient to use a socket as a context to keep
-> state between syscalls, but it has some annoying side effects:
->
->  - It makes people want to rely on send()'s caller's creds.
->  - It's miserable in combination with seccomp.
->  - It doesn't play nicely with namespaces.
->  - It makes me wonder why things like task_diag, which have nothing
->    to do with networking, seem to get tangled up with networking.
->
->
-> Would it be worth considering adding a parallel interface, using it for
-> new things, and slowly migrating old use cases over?
->
-> int issue_kernel_command(int ns, int command, const struct iovec *iov, int iovcnt, int flags);
->
-> ns is an actual namespace fd or:
->
-> KERNEL_COMMAND_CURRENT_NETNS
-> KERNEL_COMMAND_CURRENT_PIDNS
-> etc, or a special one:
-> KERNEL_COMMAND_GLOBAL.  KERNEL_COMMAND_GLOBAL can't be used in a
-> non-root namespace.
->
-> KERNEL_COMMAND_GLOBAL works even for namespaced things, if the
-> relevant current ns is the init namespace.  (This feature is optional,
-> but it would allow gradually namespacing global things.)
->
-> command is an enumerated command.  Each command implies a namespace
-> type, and, if you feed this thing the wrong namespace type, you get
-> EINVAL.  The high bit of command indicates whether it's read-only
-> command.
->
-> iov gives a command in the format expected, which, for the most part,
-> would be a netlink message.
->
-> The return value is an fd that you can call read/readv on to read the
-> response.  It's not a socket (or at least you can't do normal socket
-> operations on it if it is a socket behind the scenes).  The
-> implementation of read() promises *not* to look at caller creds.  The
-> returned fd is unconditionally cloexec -- it's 2016 already.  Sheesh.
->
-> When you've read all the data, all you can do is close the fd.  You
-> can't issue another command on the same fd.  You also can't call write()
-> or send() on the fd unless someone has a good reason why you should be
-> able to and why it's safe.  You can't issue another command on the same
-> fd.
->
-> I imagine that the implementation could re-use a bunch of netlink code
-> under the hood.
+--=-=-=
+Content-Type: text/plain
 
-I'm very interested in this discussion.
-Adding few folks as well.
+On Mon, Sep 05 2016, Mark Brown wrote:
+
+> [ Unknown signature status ]
+> On Mon, Sep 05, 2016 at 11:45:52AM +1000, NeilBrown wrote:
+>> On Sat, Sep 03 2016, Bird, Timothy wrote:
+>
+>> > Where we are now with some of these SoCs is at millions of lines of
+>> > code out-of-tree.  It's being reduced, slowly, but there are still
+>> > significant areas where the mainline kernel just doesn't have the
+>> > support needed for shipping product. My pet peeve is support for
+>> > charging over USB, where Linaro has had a patch set
+>> > being stalled and/or ignored by the USB maintainer for 2 years!!
+>
+>> Do you have a link to that?  I have an interest in charging over USB.
+>
+> This is it:
+>
+>     https://lkml.org/lkml/2016/7/1/35
+>
+> it's been more like one year than two and there has been progress but
+> there's also been an awful lot of latency in the process too.
+
+Really?  That is worthy of a "pet peeve"?
+The patch set does highlight an important area of missing functionality,
+but doesn't (IMO) display much understanding of the problem space.  I'm
+not surprised it hasn't made progress.
+
+Maybe I should reply to the patch directly.
+
+Thanks,
+NeilBrown
+
+--=-=-=
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAEBCAAGBQJXzfUxAAoJEDnsnt1WYoG5WGAQAK9KmWnPsfPKam5gmfYDd5gO
+7pB2tI4QI1/dDsU8IzU0HODr/b9PgXVdcc2vTFx6lWDk1jPZuasqkywy3oJfWosU
+gxPOmvzE1GaG4+J/C4Ziu8rtJxiuic3lczEqCJflVdoGvEJmSCG58zU/6tqiHW+G
+9Fgwr5OqjC6VOdNINGtsJZjYQhxzqp+G0C5wuOi2hNLjMBluaPE1+BpbRkQVINQi
+2qDuX4ayt/DUIkHNjNHB+z2U6prgxz+Tk+OTmBoIFV6SBQ9o/BMmS3o05f4M72Jl
+uR8ZzJyZv5u6ooN+3wffDW4puRfcuOTMGw6gAmEkzoO+CaAbOx+mUGhwexvcLD6n
+eUp/OwV7BYzG9RibOH8ukQBx/CzqFfytU56mS0hgV6qme3QdMQO5EepfSuYBq28i
+0ogKKGIkTebdZJ79jUVa/+xPsxsNg/LdHQqtR/OZjR2xS6D1MKc9YMmabHMtdWOU
+uC1PY9k+RAlwHSnkeNbhYq1xrrkhVDpb+RrWSG5SgfLDmchHATT113qwS5Evzusl
+G0F20MkQWrfZMQzzf02i66/Oqglx2NrMjsrM2e5ZWhTjqb+6dwZFI2wQCP6WQqmI
++GhG/jQoQxxwcaHFx1lvePXGFxPtNUmw26hLKGTk08W8FY9QlEbky8/957lnE/C/
+r9toasAr7fhv7uYF+sLo
+=3enI
+-----END PGP SIGNATURE-----
+--=-=-=--
