@@ -1,23 +1,16 @@
-Return-Path: <neilb@suse.de>
-From: NeilBrown <neilb@suse.com>
-To: "Bird\, Timothy" <Tim.Bird@am.sony.com>,
-	James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Mark Brown <broonie@kernel.org>, "Levin\,
-	Alexander" <alexander.levin@verizon.com>
-Date: Mon, 05 Sep 2016 11:45:52 +1000
-In-Reply-To: <ECADFF3FD767C149AD96A924E7EA6EAF053D4A52@USCULXMSG01.am.sony.com>
-References: <57C78BE9.30009@linaro.org> <20160902012531.GB28461@sasha-lappy>
-	<20160902095417.GJ3950@sirena.org.uk>
-	<1472827326.2519.14.camel@HansenPartnership.com>
-	<ECADFF3FD767C149AD96A924E7EA6EAF053D4A52@USCULXMSG01.am.sony.com>
-Message-ID: <87twdv9l0v.fsf@notabene.neil.brown.name>
+Return-Path: <laurent.pinchart@ideasonboard.com>
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Mon, 05 Sep 2016 12:28:17 +0300
+Message-ID: <1656524.OIRTMDr3jV@avalon>
+In-Reply-To: <20160903000518.GN3950@sirena.org.uk>
+References: <57C78BE9.30009@linaro.org> <20160902191637.GC6323@sasha-lappy>
+	<20160903000518.GN3950@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="=-=-=";
-	micalg=pgp-sha256; protocol="application/pgp-signature"
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 Cc: "ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
-	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [Stable kernel] feature backporting
 	collaboration
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -29,40 +22,105 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---=-=-=
-Content-Type: text/plain
+On Saturday 03 Sep 2016 01:05:18 Mark Brown wrote:
+> On Fri, Sep 02, 2016 at 03:16:37PM -0400, Levin, Alexander wrote:
+> > Look at KASLR and KASan, it has complex interactions with pretty much the
+> > rest of the kernel. Quite a few things not directly related to either of
+> > those had to be fixed just because they were found to not integrate right
+> > (For example, KASLR uncovered a bunch of bugs before it was actually
+> > merged in), who says that there aren't any similar interactions with the
+> > older kernels that no one looked into?
+> 
+> Sure, and this sort of thing is one of the reasons we have the ability
+> to disable things in Kconfig.  It's not risk free but it's very much
+> mitigated compared to tracking mainline.
+> 
+> > > It's what people are doing for products, they want newer features but
+> > > they also don't want to rebase their product kernel onto mainline as
+> > > that's an even bigger integration risk.  People aren't using this kernel
+> > 
+> > I'm sorry but just calling a kernel "stable" doesn't mean that suddenly it
+> > acquires the qualities of a stable kernel that follows the very strict
+> > rules we have for those.
+> > 
+> > Given that you're backporting features into a stable kernel it really
+> > inherits the code quality of a release candidate kernel; nowhere close to
+> > a stable kernel.
+> > 
+> > This following is just my opinion as an LTS kernel maintainer: if you
+> > think
+> > that the integration risk of a newer stable/LTS is bigger than using these
+> > frankenstein kernels you are very much mistaken.
+> 
+> I really don't think you understand the environment that this work is
+> done in.  You may have heard people mention the large amount of out of
+> tree code that vendors tend to be sitting on.  That interacts with a
+> *very* large chunk of the kernel, and of course there's also a bunch of
+> performance stuff that's being looked at beyond pure correctness issues.
+> Taking a new upstream requires a bunch of work to update the out of tree
+> code to any new kernel APIs and realistically it's going to trash a huge
+> chunk of the testing that's been done on the product and require at
+> least revalidation.  Taking a targeted update, especially one where the
+> riskier changes are configuration options, isn't free either but the
+> surface that needs to be looked at is much more known and controlled.
+> 
+> > In your case it's nice if you could share backports betweek multiple users
+> > (just like we try doing for all the stable/LTS trees), but the coverage
+> > and
+> > testing you're going to get for that isn't anywhere close to what you'll
+> > have for a more recent stable kernel that already has those features
+> > baked into that.
+> 
+> If everything were upstream, everyone was working directly upstream and
+> everyone had their QA focused on upstream what you're saying would be
+> more true but as everyone is so keen to point out that's just not what's
+> happening.  There's a bunch of other code in play on the relevant
+> systems which makes things that little bit more involved.
+> 
+> > > > As an alternative, why not use more recent stable kernels and
+> > > > customize the
+> > > > config specifically for each user to enable on features that that
+> > > > specific
+> > > > user wants to have.
+> > > 
+> > > That's just shipping a kernel - I don't think anyone is silly enough to
+> > > ship an allmodconfig or similar in production (though I'm sure someone
+> > > can come up with an example).
+> > 
+> > I highly doubt that most shipped kernels actually go through the process
+> > of auditing every single config option and figuring out if they actually
+> > need it or not (in part because the kernel's config is quite a mess). I
+> > really doubt that the kernel is fine-tuned for majority of the released
+> > products that run linux.
+> 
+> I'm sorry but I really don't follow what you're saying here - I'm not
+> sure anyone's out of tree code is the result of a failure to understand
+> Kconfig and I don't really understand the relevance of a detailed study
+> of configuration to the issues around rebasing.
+> 
+> > > Like I say in this case updating to a newer kernel also means rebasing
+> > > the out of tree patch stack and taking a bunch of test risk from that -
+> > > in product development for the sorts of products that end up including
+> > > the LSK the churn and risk from targeted backports is seen as much safer
+> > > than updating to an entire new upstream kernel.
+> > 
+> > Same as I said before, the risk LSK introduces, IMO, is much greater than
+> > rebasing and out-of-tree driver stack.
+> 
+> I'm afraid you're very much mistaken if you believe that people are only
+> working on leaf drivers, or that nothing we do upstream has a meaningful
+> impact at the system level.
 
-On Sat, Sep 03 2016, Bird, Timothy wrote:
+To provide a real-life example, we recently ran into a scheduler issue in a 
+project I'm working on. The device is a phone running a Qualcomm kernel, and 
+the scheduler is so hacked by the vendor to cover the phone use cases that 
+creating a spinning high priority SCHED_FIFO thread in userspace kills the 
+system instantly. That's the kind of crap vendors tend to ship, and moving to 
+a newer kernel version pretty much means they have no revalidate all the 
+scheduler-related use cases (and add more awful hacks to "fix issues 
+introduced in mainline").
 
-> Where we are now with some of these SoCs is at millions of lines of
-> code out-of-tree.  It's being reduced, slowly, but there are still
-> significant areas where the mainline kernel just doesn't have the
-> support needed for shipping product. My pet peeve is support for
-> charging over USB, where Linaro has had a patch set
-> being stalled and/or ignored by the USB maintainer for 2 years!!
+-- 
+Regards,
 
-Do you have a link to that?  I have an interest in charging over USB.
-
-Thanks,
-NeilBrown
-
---=-=-=
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAEBCAAGBQJXzM5QAAoJEDnsnt1WYoG5wMoQAIVvBQoXVVPB2DdEj5F7i3yg
-caZCTGqwQsX8iA++yD3eQxRp3ruFMWCkQwEzh7pEkqV9OkovpbmtrXw4c6pPsngM
-NBDMg8TByzOniJ7wdTPLNInrQnVXA3YjHZ0Tw9YN1PEJNdgdDdsb4zTfypEg15HT
-JNylKExmi3XhESa06KhjE8NPr+C0C/mdlu8mOTWrKS4fYDLbvUXi076ENA0FEjZR
-lDugxrLbTyuuDcPiSYq8jRRd0diZixhejyumxrWKVDYLthGZEDCTX1dPsbwdVynx
-6BiJ8LcA5Ak1kXsLa/ubb44v30b0AGFT5g7mD+YDuTvVed+fY1JjS1xMjvAsENzz
-TMt0SYsDPrAMEO5oevx/vwhdNdmSoCjgicwYy7jGnDiRir3XKqY8CdOyEx5Z9JnO
-SKCk/+djqTNzkrhvm5TuOvM92NEvBYN4pWhgYWTr//3fN39UV7KlMWCMwjeRAFyT
-BS5vgQoAbwxINq/fAZ0BvTbKGiaIiUyWJaU/CZaxkrRkPS/c+I/6+2iCTtMfeiiM
-st3RYQSnZpZ+xxg3FWIefYc986K2i3q7q+Vh/rwxJZ9w34IJAOCIygBneof2Q4e+
-qSFdypQcduw9RDSflFnbGT/SSqPvnrtrVQIasRk14CMk38g/mhqvazyw8mlGVW1g
-FUhay3iQcgoQaHp3n2uT
-=D+2V
------END PGP SIGNATURE-----
---=-=-=--
+Laurent Pinchart
