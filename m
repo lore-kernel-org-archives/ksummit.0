@@ -1,28 +1,30 @@
-Return-Path: <shuahkhan@gmail.com>
+Return-Path: <adobriyan@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id DD55F94F
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E483B8E3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 Sep 2016 21:05:07 +0000 (UTC)
-Received: from mail-oi0-f67.google.com (mail-oi0-f67.google.com
-	[209.85.218.67])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B9374143
+	Tue,  6 Sep 2016 21:36:51 +0000 (UTC)
+Received: from mail-lf0-f66.google.com (mail-lf0-f66.google.com
+	[209.85.215.66])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 988B1AF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 Sep 2016 21:05:05 +0000 (UTC)
-Received: by mail-oi0-f67.google.com with SMTP id w78so11469982oie.0
+	Tue,  6 Sep 2016 21:36:49 +0000 (UTC)
+Received: by mail-lf0-f66.google.com with SMTP id 29so5129020lfv.1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 06 Sep 2016 14:05:05 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <20160906185143.GF2356@ZenIV.linux.org.uk>
+	Tue, 06 Sep 2016 14:36:49 -0700 (PDT)
+Date: Wed, 7 Sep 2016 00:36:44 +0300
+From: Alexey Dobriyan <adobriyan@gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+Message-ID: <20160906213644.GA16732@p183.telecom.by>
 References: <20160906185143.GF2356@ZenIV.linux.org.uk>
-From: Shuah Khan <shuahkhan@gmail.com>
-Date: Tue, 6 Sep 2016 15:05:04 -0600
-Message-ID: <CAKocOON-REZwmQZGsnmqKEo2WJshAn7AbeRC-bZx2CEumRL14w@mail.gmail.com>
-To: Al Viro <viro@zeniv.linux.org.uk>
-Content-Type: text/plain; charset=UTF-8
+	<20160906152243.766f3845@gandalf.local.home>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20160906152243.766f3845@gandalf.local.home>
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [topic proposal] tracepoints and ABI
-	stability warranties
+ stability warranties
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,62 +34,38 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Sep 6, 2016 at 12:51 PM, Al Viro <viro@zeniv.linux.org.uk> wrote:
->         Right now there is no mechanism for saying "if this tracepoints
-> breaks, it's Not Our Problem(tm)".  All of them are parts of userland
-> ABI, potentially casting in stone all kinds of kernel internals.  E.g.
-> just today a patch series adding tracepoints to kobject primitives
-> had been posted; if _that_ becomes a part of stable ABI, we get the
-> lifetime rules for anything with an embedded kobject exposed to userland
-> and potentially impossible to change - all it takes is a single piece of
-> software making non-trivial use of those.
+On Tue, Sep 06, 2016 at 03:22:43PM -0400, Steven Rostedt wrote:
+> On Tue, 6 Sep 2016 19:51:43 +0100
+> Al Viro <viro@ZenIV.linux.org.uk> wrote:
+> 
+> > 	I think this is something that needs to be discussed at KS; IMO we
+> > need at least some way to express the degree of stability promises made
+> > wrt individual tracepoints and some mechanisms for preventing silent creep
+> > towards full stability; something along the lines of "unstable tracepoint $FOO
+> > used by $PROGRAM, kernel tainted", at least.
+> 
+> What about having a set of tracepoints that are only enabled if one
+> adds to the kernel command line "this-kernel-is-broken" and a big
+> printk banner saying something like:
 
-I honestly didn't think that my patch series will result in a special
-KS topic :)
-However, I think it is a good idea to discuss it as general topic for
-what kind of
-kernel information should/should not be made visible via tracepoints or other
-debug mechanisms.
+The solution was out there for quite some time :-)
 
-We do support a wide range of tracepoints and events in various sub-systems
-skb.h, pagemap.h, and pagemap.h so on. Maybe it would be helpful to agree
-on some sort of guidelines for exposure.
+	Scope of Compatibility
+	Packages in Red Hat Enterprise Linux are classified under one of
+	the following four compatibility levels:
 
-Guess I never considered tracepoints as userspace API, anymore than debug
-messages. It is part of debug and only visible to root.
+	[ ] Compatibility level 1: APIs and ABIs are stable across three
+	    major releases;
 
-In my mind it is mainly a debug information that would only make sense to
-kernel developers. That is why I didn't think about needing to keep the
-tracepoints identical. That said, it is a good idea for us to discuss at the KS.
+	[ ] Compatibility level 2: APIs and ABIs are stable within one major
+	    release.
 
-thanks,
--- Shuah
+	[ ] Compatibility level 3: Reserved for future use.
 
->
->         Exposing kernel internals to debugging scripts et.al. is fine,
-> but only as long as we are promising to keep those scripts working.
-> Otherwise we end up promising that arseloads of code we can't even see,
-> sticking its fingers very deep into the kernel internals, will be kept
-> functional through the kernel changes.  This is absolutely insane, of
-> course, and I doubt that anybody would be willing to make such promises,
-> no matter how much value would that add.
->
->         The tracepoints are undiffirentiated mass, with no way for userland
-> to tell whether it's using something stable or an equivalent of someone's
-> debugging printks with no promise of stability.  And folks, there *are*
-> people out there with commit priveleges on assorted userland projects who'd
-> made it perfectly clear that _any_ kernel interface they find is fair game -
-> as in "if you didn't want it used, why did you put it in the kernel?".
-> No matter how much I dislike that bunch for other things, I can't blame them
-> for being less than upfront regarding that policy.  It had been expressed
-> very clearly and we'd better take the warning seriously.
->
->         I think this is something that needs to be discussed at KS; IMO we
-> need at least some way to express the degree of stability promises made
-> wrt individual tracepoints and some mechanisms for preventing silent creep
-> towards full stability; something along the lines of "unstable tracepoint $FOO
-> used by $PROGRAM, kernel tainted", at least.
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+	[X] Compatibility level 4: No compatibility is provided.
+
+The winning move is to not play and let distros sort it out.
+
+P.S.: techically every kernel release almost certainly breaks crash(1)
+program, program many people on this list should be familiar with.
+It is unclear why rules should be different for tracepoints.
