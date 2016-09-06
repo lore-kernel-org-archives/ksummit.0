@@ -1,24 +1,24 @@
-Return-Path: <James.Bottomley@Hansenpartnership.com>
-In-Reply-To: <20160906222058.GS3950@sirena.org.uk>
+Return-Path: <broonie@sirena.org.uk>
+Date: Tue, 6 Sep 2016 23:39:52 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <20160906223952.GV3950@sirena.org.uk>
 References: <57C78BE9.30009@linaro.org> <20160905111105.GW3950@sirena.org.uk>
 	<20160905140327.a6wgdl3lr42nlww4@thunk.org>
-	<9895277.d39OTXtlqC@avalon> <20160906003532.GA3950@sirena.org.uk>
-	<1473175831.17204.29.camel@HansenPartnership.com>
-	<20160906194404.GA22363@kroah.com>
-	<20160906222058.GS3950@sirena.org.uk>
+	<9895277.d39OTXtlqC@avalon>
+	<20160906133429.5ktkvafprbtxr5sd@localhost>
+	<20160906162502.GA15434@roeck-us.net>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain;
- charset=UTF-8
-From: James Bottomley <James.Bottomley@Hansenpartnership.com>
-Date: Tue, 06 Sep 2016 18:34:00 -0400
-To: Mark Brown <broonie@kernel.org>,
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="Io5+l5/qWLIGd1Gn"
+Content-Disposition: inline
+In-Reply-To: <20160906162502.GA15434@roeck-us.net>
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	"ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
+	ksummit-discuss@lists.linuxfoundation.org,
 	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
-Message-ID: <10203253-0df5-4ff3-8cd4-9e6b38661d57@email.android.com>
-Cc: "ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
-	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [Stable kernel] feature backporting
-	collaboration
+ collaboration
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -28,39 +28,55 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On September 6, 2016 6:20:58 PM EDT, Mark Brown <broonie@kernel.org> wrote:
->On Tue, Sep 06, 2016 at 09:44:04PM +0200, gregkh@linuxfoundation.org
->wrote:
->> On Tue, Sep 06, 2016 at 11:30:31AM -0400, James Bottomley wrote:
->> >    3. Increase the pain.  Not sure I like this, but in theory, we
->could
->> >       churn the upstream API to increase the pain of upports, but
->it would
->> >       also cause a lot of issues with backports.
->
->> I tried doing this in the past.  It did cause pain for out-of-tree
->> modules, but then they got really good and abstracted things away so
->> that it made their future kernel porting efforts even easier than
->> before, making their need to upstream code even less.  And then when
->> they did want to upstream stuff, it took more work unwinding the
->> abstraction layer.
->
->> So watch out for unintended consequences here :)
->
->The other big unintended consequence I'd worry about here is that it
->will present an obstacle to someone who wants to try to upstream
->something while working in a downstream environment - if someone is
->looking at some code but the changes for upstream are too great then it
->might make it too much work for them to try if it's not their primary
->job.
->
->I'd also worry about annoying people who are working upstream as well,
->it's annoying having things break randomly due to API changes (both as
->the submitter and as a maintainer or reviewer).
 
-Ok, so everyone went straight for the option I didn't like. I knew I shouldn't have included it.   So what about options 1 or 2, or even something I hadn't thought of?
+--Io5+l5/qWLIGd1Gn
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-James
+On Tue, Sep 06, 2016 at 09:25:02AM -0700, Guenter Roeck wrote:
+> On Tue, Sep 06, 2016 at 02:34:30PM +0100, Catalin Marinas wrote:
 
--- 
-Sent from my Android device with K-9 Mail. Please excuse my brevity.
+> > Things could be different if fewer entities control the software that
+> > gets installed/updated on such hardware. E.g. Google controlling the OTA
+> > updates of the Chromebook kernels, they will at some point take a
+> > similar hard stance to Red Hat on upstream first, single kernel Image.
+
+> Seems to me that Redhat and Google are in different boats. Chromebooks,
+> unlike "standard" PCs, have lots of "custom" hardware, where "custom" means
+> hardware for which upstream support is not available. chromeos-4.4 currently
+
+Right, there's a chicken and egg problem - it'd be a lot easier to
+insist on this if it were possible to produce a viable product that
+way...
+
+> as we can, but it will take a while. Given time constraints, I don't think
+> "upstream first" will ever work. Products have to ship and simply can not
+> wait for upstream patches to be accepted.
+
+...and you'd be looking at pretty major changes in the market, at least
+for the devices shipping bleeding edge silicon.
+
+> Ted was making an excellent point about the complexity of backporting features.
+> Out of personal experience, I fully agree. Instead of reducing risk by avoiding
+> a newer kernel version, backporting actually adds risk. Maybe it would help to
+> educate people about the risks of backporting, and do a better job explaining
+> why a new kernel may be a better choice.
+
+People are aware of the risks here - this is where a lot of the pressure
+to pull forward onto the newer LTSs comes from.
+
+--Io5+l5/qWLIGd1Gn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEcBAEBCAAGBQJXz0W1AAoJECTWi3JdVIfQSjEH/AnMEfP7Q+Dxd29KGTO84dLw
+wOzeYfUeiuYkByHZZ9+PWf+miG0N4rDaHJv96O/UcClpjLxrhSfmVPy7rTCPSkNZ
+gpsebDRV+uLQh4u4xefR5oAm0g088F3KzK86IDAErQa9ZbAjcU1tGFBgL8OA8kfm
+1yyEH1sCbwzhMu6Yr8a9LOeh3QdY485ps0dHtaK5Wdvk0/+8pFgGJpsvvlPwJ2I9
+qZnx659iXzA9b2f84zs/Gup5dcyFhPvvoJK1dQmUyG0fqk3NZHB+hGyqIPFIT3l/
+2v/BPTR/cPNAiUtCIgyw7SL6UJi7YoltKZwmS4gr48RG9Dql6PsLocNvBSlaxYw=
+=wHS9
+-----END PGP SIGNATURE-----
+
+--Io5+l5/qWLIGd1Gn--
