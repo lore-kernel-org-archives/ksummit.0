@@ -1,23 +1,20 @@
-Return-Path: <tshibata@ab.jp.nec.com>
-From: Tsugikazu Shibata <tshibata@ab.jp.nec.com>
-To: "Theodore Ts'o" <tytso@mit.edu>, Alex Shi <alex.shi@linaro.org>
-Date: Tue, 6 Sep 2016 07:20:37 +0000
-Message-ID: <EA994DF73240CA4588A99BF072DB2840021207D3@BPXM12GP.gisp.nec.co.jp>
-References: <57C78BE9.30009@linaro.org>
-	<20160902134711.movdpffcdcsx6kzv@thunk.org>
-In-Reply-To: <20160902134711.movdpffcdcsx6kzv@thunk.org>
-Content-Language: ja-JP
-Content-Type: text/plain; charset="iso-2022-jp"
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-Cc: "ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
-	Tsugikazu Shibata <tshibata@ab.jp.nec.com>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Mark Brown <broonie@linaro.org>
-Subject: Re: [Ksummit-discuss] [LTSI-dev] [Stable kernel] feature
- backporting collaboration
+Return-Path: <b.zolnierkie@samsung.com>
+From: Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>
+To: Catalin Marinas <catalin.marinas@arm.com>
+Date: Tue, 06 Sep 2016 18:24:22 +0200
+Message-id: <2482526.7Pqh7R4B4v@amdc1976>
+In-reply-to: <20160906133429.5ktkvafprbtxr5sd@localhost>
+References: <57C78BE9.30009@linaro.org> <9895277.d39OTXtlqC@avalon>
+	<20160906133429.5ktkvafprbtxr5sd@localhost>
+MIME-version: 1.0
+Content-transfer-encoding: 7Bit
+Content-type: text/plain; charset=us-ascii
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	"ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [Stable kernel] feature backporting
+	collaboration
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -27,106 +24,112 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Sep 02, 2016 at 10:47PM Theodore Ts'o wrote:
->On Thu, Sep 01, 2016 at 10:01:13AM +0800, Alex Shi wrote:
->>
->> I am a Linaro stable kernel maintainer. Our stable kernel is base on
->> LTS plus much of upstream features backporting on them. Here is the
->> detailed info of LSK: https://wiki.linaro.org/LSK
->> https://git.linaro.org/?p=3Dkernel/linux-linaro-stable.git
->
->I'm really not sure what problem you are trying to solve here.
->
->As near as I can tell, the kernels provided by a SOC vendor are a snapshot=
- in time of
->some LTS kernel, and after that, they don't bother merging any bug fixes o=
-r security fixes
->from the upstream kernel.
->They might take individual patches if they notice there's a problem (e.g.,=
- it gets written
->about in the national press), but otherwise, they'll be stuck on some nons=
-ense such as
->3.10.23.
->
->Then the product vendors take the SOC kernel, and further hack it up, and =
-then once
->they take a snapshot, as far as I can tell, they don't take any rolling up=
-dates from the
->SOC vendor either.  I'm not sure how much of this is due to lack of engine=
-ering
->bandwidth, and how much of this is due to being worried that a newer SOC k=
-ernel will
->introduce regressions, but either way, they'll lock onto an old SOC kernel=
-, and
->apparently only take bug fixes when they notice there is a problem.
->(And in multiple cases I've gotten calls from help of SOC vendors asking f=
-or assistance in
->figuring out a problem, and more often than not, the fix is in the latest =
-LTS kernel, but
->that doesn't help them.) And of course, in some cases, "never", unless it'=
-s written about
->in the aforementioned national press, and even then, I'm not convinced the=
- product
->vendors will have the engineering staff to turn out firmware upgrades for =
-an older
->product.
->
->So what's the point of moving features into some ancient kernel?
->Who's going to take it?  Certainly not the product vendors, who consume th=
-e SOC
->kernel.  The SOC vendors?  Why not just encourage them to get their device=
- drivers
->into staging, and just go to a newer LTS kernel?  Because I guarantee that=
-'s going to be
->less risky than taking a random collection of features, and backporting th=
-em into some
->ancient kernel.
->
->Or for that matter, why not simply going to the latest mainline kernel.  S=
-ince the SOC
->vendors aren't taking updates from the LTS kernel anyway, if the LTS kerne=
-l exists only
->as a patch repository where people can look for security fixes and bug fix=
-es (sometimes
->after the upstream maintainer has to point out it's in the LTS kernel), if=
- they take, say,
->4.7, in the future they might need to take a look at 4.8.x, 4.9.x, etc., u=
-ntil the next LTS
->kernel is declared.
->So that means that an SOC vendor or a downstream product vendors might hav=
-e to look
->at 3 or 4 patch releases instead of one.  Is that really that hard?
 
-It seems too late but Here I would like to comment from LTSI project's stan=
-d point:
-We were started LTSI project similar view as above that is:
-- LTSI is based on upstream first policy. We are providing a chance to
-merge vendor-required patches on top of LTS but patches need to be
-in -next or merged in later upstream and back ported to LTS.
-Majority of LTSI's additional patches are drivers but sometimes tools or=20
-new features may proposed. Such patches are reviewed in case by case=20
-basis but should be self-contained.
-- We are approaching to SoC vendors and device manufactures to=20
-convince their in-house patches to be upstream. It seems that
-SoC vendors can create their own fork for their customers but
-providing a chance to merge their patches on top of LTS as LTSI will
-make some motivation to merge such patches into upstream as long=20
-term view. Yes, We hope our activities may reduce the problem=20
-discussed in this thread in longer term.=20
-Actually, some of SoC vendors would send us their patches=20
-backported from upstream. We will continue to discuss with SoCs and=20
-device manufactures to solve the problem.
-- Also, some member of LTSI is employee of companies and they are
-testing hard for LTSI kernel before the release. Those fixes are providing
-to upstream not just LTSI actually. We see LTSI is being one of activity=20
-of filling the gap between companies and community to create the kernel=20
-used for the companies and industry.
+[ sorry if you got this mail twice ]
 
-Finally, A request to the community from LTSI's stand point is:
-We want to have some process to be expected; How or about when=20
-LTS would be released. So that companies can easier to create their plan=20
-to use LTS and that will cause more user can use stable and secure
-kernel.
+Hi,
 
-Thanks,
-Tsugikazu Shibata
+On Tuesday, September 06, 2016 02:34:30 PM Catalin Marinas wrote:
+> On Mon, Sep 05, 2016 at 05:22:59PM +0300, Laurent Pinchart wrote:
+> > On Monday 05 Sep 2016 10:03:27 Theodore Ts'o wrote:
+> > > On Mon, Sep 05, 2016 at 12:11:05PM +0100, Mark Brown wrote:
+> > > > On Mon, Sep 05, 2016 at 04:28:44AM +0530, Amit Kucheria wrote:
+> > > >> The vendors depend on Google providing an Android common tree[1] to
+> > > >> build their BSP on top of. Currently, there isn't anything newer than
+> > > >> a 4.4-based common tree from Google. It'll be early 2017 by the time
+> > > >> 4.9 LTS is released and the Android common tree is available on it
+> > > > 
+> > > > It's not just having an Android tree either, it's having an Android tree
+> > > > that they're confident is actively used and tested by Google.  Simply
+> > > > making a tree available wouldn't be enough, that was tried in the past.
+> > > 
+> > > One of the problems is I can't test the Android common tree, because I
+> > > don't have access to hardware that I can boot on that tree.  (To be
+> > > honest, I'm not even sure what hardware would boot on it.)  And thanks
+> > > to the tender loving care the SOC vendors have lavished on on their
+> > > BSP kernels, if there has been BSP "value added patches" from ARM SOC
+> > > vendors applied to a kernel tree, chances are extremely high that you
+> > > can no longer do testing using kvm-xfstests.  (In some cases I was
+> > > able to bash the tree enough that it would boot under kvm/x86, but in
+> > > many cases, the ARM SOC changes were so horrible that it was
+> > > hopeless.)
+> > > 
+> > > This is why upstream-first is so darned important.  And why sloppy
+> > > patches that break other architectures are a really bad idea, even if
+> > > they are for a vendor-only BSP kernel....
+> > > 
+> > > Maybe there will be some hope if some of the features from ARM64
+> > > server can infect the SOC community --- Jon Masters really had the
+> > > right idea when he insisted on one kernel to boot all ARM64 kernels,
+> > > with all changes pushed upstream, and not hacky, out-of-tree patches
+> > > which only work for one SOC vendor.
+> 
+> From an arm64 kernel perspective, we have similar requirements w.r.t.
+> single Image. However, such requirements have implications beyond just
+> the kernel as we insist on standardisation of the firmware interfaces,
+> use of the Device Tree, no mach-* directories for SoC quirks. Some SoC
+> vendors find such requirements difficult to comply with and won't even
+> bother with mainline (claiming time to market is more important than
+> long term maintenance).
+> 
+> > I don't think that's a fair comparison. For server platforms end-users of the 
+> > hardware will pick a distribution and roll it out on the machines, so hardware 
+> > vendors have a strong incentive to play by our rules. Phones are completely 
+> > different in that the device vendor doesn't care about end-users being able to 
+> > pick what software in general and kernel in particular they want to install on 
+> > the device.
+> 
+> Things could be different if fewer entities control the software that
+> gets installed/updated on such hardware. E.g. Google controlling the OTA
+> updates of the Chromebook kernels, they will at some point take a
+> similar hard stance to Red Hat on upstream first, single kernel Image.
+> For phones, however, that's unlikely to happen given the multitude and
+> short life-time of new products.
+
+[ Disclaimer: below are my personal observations and not official
+  Samsung's stance on upstream first policy, also while I work for
+  Samsung I don't work for its silicon vendor division ]
+
+For phones it feels that upstream itself is moving too slow for
+vendors to get benefits from upstream first policy.  Each year there
+is a new flagship device and new SoC.  With the current upstream model
+(new kernel release every 2-3 months and discussions on upstreaming
+some core subsystems enhancements easily taking weeks/months) upstream
+first policy just doesn't give enough business benefits.  Before you
+have everything upstream and changes propagate itself to LTS and Android
+kernels (which should also move faster BTW) it can be easily 2 years
+since start of the effort and your SoC is now obsolete. Sure there are
+some benefits of core subsystems' changes done for old SoC etc. which
+can be re-used by new SoC.  However in short-term it is still usually
+easier to just backport few selected upstream kernel features that you
+care about to your vendor kernel (which supports all your SoCs, not
+only your flagship one) than to move everything to upstream.
+
+> > Unless customers start boycotting devices that are not 
+> > upstream-friendly - and I don't think anyone expects this to happen - we'll 
+> > need to give SoC vendors a different incentive.
+> 
+> One way to make SoC vendors understand the benefits of upstream is for
+> them to first feel the pain of rebasing their SoC patches to newer
+> kernel versions regularly. But forcing them to do such rebasing means
+
+Some vendors are still stuck on v3.4 (or v3.10) and they have no enough
+incentives to re-base to something newer.
+
+> to stop helping them back-port the features they need to older kernel
+> versions like LSK ;) (this may be difficult from a corporate perspective
+> where significant support contracts are involved; that's where kernel
+> maintainer goals don't always match the business ones).
+
+When talking about more incentives it would help getting embedded/mobile
+oriented features upstream quicker and doing more upstream validation &
+testing on embedded/mobile devices.  This would require more upstream
+involvement from embedded/mobile companies (independently or through
+Linaro) and I think that the ones to get involved first will be the ones
+to reap the biggest benefits from leading the efforts later.
+
+Best regards,
+--
+Bartlomiej Zolnierkiewicz
+Samsung R&D Institute Poland
+Samsung Electronics
