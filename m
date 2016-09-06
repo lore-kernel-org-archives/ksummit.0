@@ -1,21 +1,33 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
-Message-ID: <1473175831.17204.29.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Mark Brown <broonie@kernel.org>, Laurent Pinchart
-	<laurent.pinchart@ideasonboard.com>
-Date: Tue, 06 Sep 2016 11:30:31 -0400
-In-Reply-To: <20160906003532.GA3950@sirena.org.uk>
-References: <57C78BE9.30009@linaro.org> <20160905111105.GW3950@sirena.org.uk>
-	<20160905140327.a6wgdl3lr42nlww4@thunk.org> <9895277.d39OTXtlqC@avalon>
-	<20160906003532.GA3950@sirena.org.uk>
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-pqHgmFfCT9KwmyLzomdC"
-Mime-Version: 1.0
-Cc: "ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
-	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [Stable kernel] feature backporting
- collaboration
+Return-Path: <stephen@networkplumber.org>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B2054A67
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue,  6 Sep 2016 16:05:18 +0000 (UTC)
+Received: from mail-pa0-f41.google.com (mail-pa0-f41.google.com
+	[209.85.220.41])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F1E4D1EE
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue,  6 Sep 2016 16:05:15 +0000 (UTC)
+Received: by mail-pa0-f41.google.com with SMTP id id6so14112179pad.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 06 Sep 2016 09:05:15 -0700 (PDT)
+Date: Tue, 6 Sep 2016 09:05:25 -0700
+From: Stephen Hemminger <stephen@networkplumber.org>
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Message-ID: <20160906090525.68a00704@xeon-e3>
+In-Reply-To: <CAADnVQKKCKNU-0B5gz_7WR-sQqApVub4yg+nRfpN92OiskxpYA@mail.gmail.com>
+References: <20160903052014.GA4850@outlook.office365.com>
+	<CAADnVQKKCKNU-0B5gz_7WR-sQqApVub4yg+nRfpN92OiskxpYA@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: Kirill Kolyshkin <kir@openvz.org>, Andrei Vagin <avagin@virtuozzo.com>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Eric Dumazet <edumazet@google.com>, David Ahern <dsahern@gmail.com>,
+	Pablo Neira Ayuso <pablo@netfilter.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Netlink engine issues,
+ and ways to fix those
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -25,74 +37,106 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Mon, 5 Sep 2016 12:30:13 -0700
+Alexei Starovoitov <alexei.starovoitov@gmail.com> wrote:
 
---=-pqHgmFfCT9KwmyLzomdC
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> On Fri, Sep 2, 2016 at 10:20 PM, Andrei Vagin <avagin@virtuozzo.com> wrote:
+> > The netlink interface proved itself as a great way to perform
+> > descriptor-based kernel/userspace communication. It is especially useful
+> > for cases involving a big amount of data to transfer. The netlink
+> > communication protocol is simple and elegant; it also allows to extend
+> > the message format without breaking backward compatibility.
+> >
+> > One big problem of netlink is credentials. When a user-space process is
+> > opening a new file descriptor, kernel saves the opener's credentials to
+> > f_cred field of the file struct. After that, every access to that fd are
+> > checked against the saved credentials. In essence, this allows for a
+> > process to open a file descriptor as root and then drop capabilities.
+> > With netlink socket, it is not possible to implement this access scheme.
+> >
+> > Currently netlink is widely used in the network subsystem, but there are
+> > also a few users outside of networking, such as audit and taskstats.
+> > Developers who used netlink for anything except the networking know
+> > there are some issues. For example, taskstats code has broken user and
+> > pid namespace support.
+> >
+> > Another potential user of netlink socket is task_diag, a faster
+> > /proc/PID-like interface proposed some time ago
+> > (https://lkml.org/lkml/2015/7/6/142). It makes sense to use the netlink
+> > interface for it, too, but the whole feature is currently blocked by the
+> > netlink discussion.
+> >
+> > A few months ago Andy Lutomirski suggested to rework the netlink
+> > interface in order to solve the known issues. We suggest discussing his
+> > idea:
+> >
+> > ----- snip --- snip --- snip -----
+> > (taken from http://lists.openwall.net/netdev/2016/05/05/51)
+> >
+> > The tl;dr is that Andrey wants to add an interface to ask a pidns some
+> > questions, and netlink looks natural, except that using netlink sockets
+> > to interrogate a pidns seems rather problematic.  I would also love to
+> > see a decent interface for interrogating user namespaces, and again,
+> > netlink would be great, except that it's a socket and makes no sense in
+> > this context.
+> >
+> > Netlink had, and possibly still has, tons of serious security bugs
+> > involving code checking send() callers' creds.  I found and fixed a few
+> > a couple years ago.  To reiterate once again, send() CANNOT use caller
+> > creds safely.  (I feel like I say this once every few weeks. It's
+> > getting old.)
+> >
+> > I realize that it's convenient to use a socket as a context to keep
+> > state between syscalls, but it has some annoying side effects:
+> >
+> >  - It makes people want to rely on send()'s caller's creds.
+> >  - It's miserable in combination with seccomp.
+> >  - It doesn't play nicely with namespaces.
+> >  - It makes me wonder why things like task_diag, which have nothing
+> >    to do with networking, seem to get tangled up with networking.
+> >
+> >
+> > Would it be worth considering adding a parallel interface, using it for
+> > new things, and slowly migrating old use cases over?
+> >
+> > int issue_kernel_command(int ns, int command, const struct iovec *iov, int iovcnt, int flags);
+> >
+> > ns is an actual namespace fd or:
+> >
+> > KERNEL_COMMAND_CURRENT_NETNS
+> > KERNEL_COMMAND_CURRENT_PIDNS
+> > etc, or a special one:
+> > KERNEL_COMMAND_GLOBAL.  KERNEL_COMMAND_GLOBAL can't be used in a
+> > non-root namespace.
+> >
+> > KERNEL_COMMAND_GLOBAL works even for namespaced things, if the
+> > relevant current ns is the init namespace.  (This feature is optional,
+> > but it would allow gradually namespacing global things.)
+> >
+> > command is an enumerated command.  Each command implies a namespace
+> > type, and, if you feed this thing the wrong namespace type, you get
+> > EINVAL.  The high bit of command indicates whether it's read-only
+> > command.
+> >
+> > iov gives a command in the format expected, which, for the most part,
+> > would be a netlink message.
+> >
+> > The return value is an fd that you can call read/readv on to read the
+> > response.  It's not a socket (or at least you can't do normal socket
+> > operations on it if it is a socket behind the scenes).  The
+> > implementation of read() promises *not* to look at caller creds.  The
+> > returned fd is unconditionally cloexec -- it's 2016 already.  Sheesh.
+> >
+> > When you've read all the data, all you can do is close the fd.  You
+> > can't issue another command on the same fd.  You also can't call write()
+> > or send() on the fd unless someone has a good reason why you should be
+> > able to and why it's safe.  You can't issue another command on the same
+> > fd.
+> >
+> > I imagine that the implementation could re-use a bunch of netlink code
+> > under the hood.  
+> 
+> I'm very interested in this discussion.
+> Adding few folks as well.
 
-On Tue, 2016-09-06 at 01:35 +0100, Mark Brown wrote:
-> On Mon, Sep 05, 2016 at 05:22:59PM +0300, Laurent Pinchart wrote:
-> > On Monday 05 Sep 2016 10:03:27 Theodore Ts'o wrote:
-> > > This is why upstream-first is so darned important.  And why=20
-> > > sloppy patches that break other architectures are a really bad=20
-> > > idea, even if they are for a vendor-only BSP kernel....
->=20
-> You're preaching to the converted here but just telling everyone over
-> and over again that they're doing a terrible job isn't helping=20
-> anything. It's not offering any sort of constructive suggestion for=20
-> how to improve the situation that engages with the reality on the
-> ground.
-
-OK, so how do we move forwards?  Everyone who remembers the 2.4->2.6
-transition is convinced of upstream first because it was impossible to
-forward port the patch sets.
-
-However, with the 2.6 release methodology, you have much smaller patch
-sets and we have a much more incremental release strategy, meaning you
-don't have this massive (2 year) gap between upports.  I think it's
-arguable that our change in release strategy coupled with you getting
-enough stuff upstream supports vendors who want to target a stable tree
-because the patch difference is big but not that huge to upport.
-
-So there's probably a couple of things we could do about this
-
-   1. Nothing. =C2=A0Say it's working about as well as can be expected for
-      embedded and stop worrying.
-   2. Accept that the pain will never be great enough and approach from a
-      process view point instead. =C2=A0Perhaps changing the acceptance
-      criteria for the base tree to make it harder to get features in
-      making it less painful to get them upstream and then backported?
-   3. Increase the pain. =C2=A0Not sure I like this, but in theory, we coul=
-d
-      churn the upstream API to increase the pain of upports, but it would
-      also cause a lot of issues with backports.
-
-James
-
-
-
-
---=-pqHgmFfCT9KwmyLzomdC
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAABCAAGBQJXzuEXAAoJEAVr7HOZEZN4GvoP/jl4xpEkWp+0lPtlzQVKPJRp
-aCvygEI/RUNXPLOQBfh+yTpy1Kn9R3Ula5iO4lX7ke+vMpcDMVB8qVbH4twEz70u
-+kfR+qA9K9ddBgt1KYIUcbLDIMiT48sRJv5xeH/5LAmYrN+ZCawVuTNT6wT92IDR
-HuvJSQZhOAV9/KbMHMUElAvXiA2kkH2kFoZiG1EHvZ94rWtPmKYLrYuksnu48DYG
-M2VFoEkRkpmXk7W9mWfsJaFrqP1c1wYsNPCsbZzh942V+RsRg68xxXS0X8yIrDHE
-oUA38Hh2hnL3enLGRKyMDi51mRSDkSGl9GpS+Uff0kOwRH8Bwb17we/RQGNS3SGk
-rC1w+NTvjsvwJIrivwMfNHxVaDogT95cG1bn56UNqBLp/t3pONQM3uG/1TrPbYhU
-tW79a95WQ2VU5MwhGyzjxXIUuVOsuF7P7hGNnpBCN0RuNXq0EMvcbDmKv1Y3FQ/c
-rW0Zu8LTRmXMhCJooi17VHrO2KnaiSX847j/rcQfRP1AuM0Yk+3aeOvIpjt6qopD
-tSkXRJUOtCmk8GCY1T2j5ZARuBDiV3rtIFwrfFVQTVjlsJvd2PIpR+EXeuQaidAc
-4l4tPqQDACu9dX2OZkW5bMoqiCFJITFkxFafvJDqZpZNuzzI3QLOHjkB6v9blfFg
-fFPj32qLJRIoi8ZKQH19
-=FTDr
------END PGP SIGNATURE-----
-
---=-pqHgmFfCT9KwmyLzomdC--
+I am interested as well. We should also put this on agenda at netconf.
