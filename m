@@ -1,24 +1,32 @@
-Return-Path: <broonie@sirena.org.uk>
-Date: Tue, 6 Sep 2016 23:39:52 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Guenter Roeck <linux@roeck-us.net>
-Message-ID: <20160906223952.GV3950@sirena.org.uk>
-References: <57C78BE9.30009@linaro.org> <20160905111105.GW3950@sirena.org.uk>
-	<20160905140327.a6wgdl3lr42nlww4@thunk.org>
-	<9895277.d39OTXtlqC@avalon>
-	<20160906133429.5ktkvafprbtxr5sd@localhost>
-	<20160906162502.GA15434@roeck-us.net>
+Return-Path: <adobriyan@gmail.com>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9022B9CA
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue,  6 Sep 2016 22:41:06 +0000 (UTC)
+Received: from mail-lf0-f65.google.com (mail-lf0-f65.google.com
+	[209.85.215.65])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DAD8C163
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue,  6 Sep 2016 22:41:05 +0000 (UTC)
+Received: by mail-lf0-f65.google.com with SMTP id 29so5188884lfv.1
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 06 Sep 2016 15:41:05 -0700 (PDT)
+Date: Wed, 7 Sep 2016 01:41:00 +0300
+From: Alexey Dobriyan <adobriyan@gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+Message-ID: <20160906224100.GA17212@p183.telecom.by>
+References: <20160906185143.GF2356@ZenIV.linux.org.uk>
+	<20160906152243.766f3845@gandalf.local.home>
+	<20160906213644.GA16732@p183.telecom.by>
+	<20160906175343.2f0d9135@gandalf.local.home>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="Io5+l5/qWLIGd1Gn"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20160906162502.GA15434@roeck-us.net>
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	"ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [Stable kernel] feature backporting
- collaboration
+In-Reply-To: <20160906175343.2f0d9135@gandalf.local.home>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [topic proposal] tracepoints and ABI
+ stability warranties
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -28,55 +36,88 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Tue, Sep 06, 2016 at 05:53:43PM -0400, Steven Rostedt wrote:
+> On Wed, 7 Sep 2016 00:36:44 +0300
+> Alexey Dobriyan <adobriyan@gmail.com> wrote:
+> 
+> 
+> > The solution was out there for quite some time :-)
+> > 
+> > 	Scope of Compatibility
+> > 	Packages in Red Hat Enterprise Linux are classified under one of
+> > 	the following four compatibility levels:
+> > 
+> > 	[ ] Compatibility level 1: APIs and ABIs are stable across three
+> > 	    major releases;
+> > 
+> > 	[ ] Compatibility level 2: APIs and ABIs are stable within one major
+> > 	    release.
+> > 
+> > 	[ ] Compatibility level 3: Reserved for future use.
+> > 
+> > 	[X] Compatibility level 4: No compatibility is provided.
+> > 
+> > The winning move is to not play and let distros sort it out.
+> 
+> Except that Linus has a hard rule for this. See the reason behind his
+> infamous rant:
+> 
+>    https://lkml.org/lkml/2012/12/23/75
+> 
+> Specifically:
+> 
+>  "If a change results in user programs breaking, it's a bug in the
+>   kernel. We never EVER blame the user programs."
 
---Io5+l5/qWLIGd1Gn
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Linus has said many things. I've personally had Python compilation busted
+when Linux 4 appeared but somehow digit 4 is still with us. By that logic,
+major version should have been reverted back to 3 long ago.
 
-On Tue, Sep 06, 2016 at 09:25:02AM -0700, Guenter Roeck wrote:
-> On Tue, Sep 06, 2016 at 02:34:30PM +0100, Catalin Marinas wrote:
+> > P.S.: techically every kernel release almost certainly breaks crash(1)
+> > program, program many people on this list should be familiar with.
+> > It is unclear why rules should be different for tracepoints.
+> 
+> Well, crash() isn't a userspace tool that runs on top of Linux. Well,
+> it does, but only the input from a core dump of a Linux kernel breaks
+> it. It will always run fine on all Linux versions as long as it uses
+> the same input.
 
-> > Things could be different if fewer entities control the software that
-> > gets installed/updated on such hardware. E.g. Google controlling the OTA
-> > updates of the Chromebook kernels, they will at some point take a
-> > similar hard stance to Red Hat on upstream first, single kernel Image.
+It can act on live kernel.
 
-> Seems to me that Redhat and Google are in different boats. Chromebooks,
-> unlike "standard" PCs, have lots of "custom" hardware, where "custom" means
-> hardware for which upstream support is not available. chromeos-4.4 currently
+> Tracepoints are runtime visible. This isn't a postmortem analysis. We
+> already had an issues when powertop read the tracepoints directly
+> without using the tracepoint format file parsing, and we ended up
+> having 4 bytes of useless data in *every* tracepoint. Luckily, that got
+> fixed because this hard coding broke when running powertop from a 32
+> bit userspace on top of a 64 bit kernel. I worked to get powertop to
+> use the tracepoint format parsing that perf and trace-cmd uses.
+> 
+> But if something depends on event fields, we need to maintain that. For
+> now, we have fake fields in the sched_wakeup tracepoint, because of
+> this.
+> 
+> It's a balance that we need to figure out. One is that tracepoints are
+> really helpful for in the field debugging to see what is happening. The
+> other is that they are becoming an ABI and if a useful tool (like
+> powertop) hooks into them, whatever they hooked into becomes set in
+> stone.
 
-Right, there's a chicken and egg problem - it'd be a lot easier to
-insist on this if it were possible to produce a viable product that
-way...
+There is no balance. One can't even reorder gfp_t flags:
 
-> as we can, but it will take a while. Given time constraints, I don't think
-> "upstream first" will ever work. Products have to ship and simply can not
-> wait for upstream patches to be accepted.
+	DECLARE_EVENT_CLASS(kmem_alloc,
+	TP_STRUCT__entry(
+                __field(        unsigned long,  call_site       )
+                __field(        const void *,   ptr             )
+                __field(        size_t,         bytes_req       )
+                __field(        size_t,         bytes_alloc     )
+                __field(        gfp_t,          gfp_flags       )
+        ),
 
-...and you'd be looking at pretty major changes in the market, at least
-for the devices shipping bleeding edge silicon.
 
-> Ted was making an excellent point about the complexity of backporting features.
-> Out of personal experience, I fully agree. Instead of reducing risk by avoiding
-> a newer kernel version, backporting actually adds risk. Maybe it would help to
-> educate people about the risks of backporting, and do a better job explaining
-> why a new kernel may be a better choice.
+> This is a real issue, and has been brought up in past kernel summits
+> without a resolution.
 
-People are aware of the risks here - this is where a lot of the pressure
-to pull forward onto the newer LTSs comes from.
-
---Io5+l5/qWLIGd1Gn
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEcBAEBCAAGBQJXz0W1AAoJECTWi3JdVIfQSjEH/AnMEfP7Q+Dxd29KGTO84dLw
-wOzeYfUeiuYkByHZZ9+PWf+miG0N4rDaHJv96O/UcClpjLxrhSfmVPy7rTCPSkNZ
-gpsebDRV+uLQh4u4xefR5oAm0g088F3KzK86IDAErQa9ZbAjcU1tGFBgL8OA8kfm
-1yyEH1sCbwzhMu6Yr8a9LOeh3QdY485ps0dHtaK5Wdvk0/+8pFgGJpsvvlPwJ2I9
-qZnx659iXzA9b2f84zs/Gup5dcyFhPvvoJK1dQmUyG0fqk3NZHB+hGyqIPFIT3l/
-2v/BPTR/cPNAiUtCIgyw7SL6UJi7YoltKZwmS4gr48RG9Dql6PsLocNvBSlaxYw=
-=wHS9
------END PGP SIGNATURE-----
-
---Io5+l5/qWLIGd1Gn--
+Gentlemen's agreement then:
+* kernel developers don't break tracepoints on purpose and maintain
+  compatibility in simple cases (long => int, deleted field, etc),
+* real, justified tracepoint breakage doesn't count.
