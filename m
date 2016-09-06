@@ -1,34 +1,23 @@
-Return-Path: <rostedt@goodmis.org>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2F00CA1D
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 Sep 2016 22:15:37 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0057.hostedemail.com
-	[216.40.44.57])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BF343148
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 Sep 2016 22:15:36 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
-	[10.5.19.251])
-	by smtpgrave06.hostedemail.com (Postfix) with ESMTP id CE3261724E2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 Sep 2016 22:15:35 +0000 (UTC)
-Date: Tue, 6 Sep 2016 18:15:32 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Alexey Dobriyan <adobriyan@gmail.com>
-Message-ID: <20160906181532.75bed9db@gandalf.local.home>
-In-Reply-To: <20160906220213.GA16979@p183.telecom.by>
-References: <20160906185143.GF2356@ZenIV.linux.org.uk>
-	<20160906152243.766f3845@gandalf.local.home>
-	<20160906213644.GA16732@p183.telecom.by>
-	<20160906220213.GA16979@p183.telecom.by>
+Return-Path: <broonie@sirena.org.uk>
+Date: Tue, 6 Sep 2016 23:20:58 +0100
+From: Mark Brown <broonie@kernel.org>
+To: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
+Message-ID: <20160906222058.GS3950@sirena.org.uk>
+References: <57C78BE9.30009@linaro.org> <20160905111105.GW3950@sirena.org.uk>
+	<20160905140327.a6wgdl3lr42nlww4@thunk.org>
+	<9895277.d39OTXtlqC@avalon> <20160906003532.GA3950@sirena.org.uk>
+	<1473175831.17204.29.camel@HansenPartnership.com>
+	<20160906194404.GA22363@kroah.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [topic proposal] tracepoints and ABI
- stability warranties
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="S1dYL6sY+prtcMLk"
+Content-Disposition: inline
+In-Reply-To: <20160906194404.GA22363@kroah.com>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	"ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [Stable kernel] feature backporting
+ collaboration
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,36 +27,52 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 7 Sep 2016 01:02:13 +0300
-Alexey Dobriyan <adobriyan@gmail.com> wrote:
 
-> On Wed, Sep 07, 2016 at 12:36:44AM +0300, Alexey Dobriyan wrote:
-> > P.S.: techically every kernel release almost certainly breaks crash(1)
-> > program, program many people on this list should be familiar with.
-> > It is unclear why rules should be different for tracepoints.  
-> 
-> Concrete example:
-> 
-> 	TRACE_EVENT(sched_switch,
->         TP_STRUCT__entry(
->                 __array(        char,   prev_comm,      TASK_COMM_LEN   )
->                 __field(        pid_t,  prev_pid                        )
->                 __field(        int,    prev_prio                       )
->                 __field(        long,   prev_state
-> 		^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-> 
-> struct task_struct::state is long but it looks like a historical
-> artifact, it can be just int. In this case it is easy to extend value and
-> preserve compatibility.
+--S1dYL6sY+prtcMLk
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Oh, tracepoints can change, and they do all the time. It's only if that
-change breaks existing tools.
+On Tue, Sep 06, 2016 at 09:44:04PM +0200, gregkh@linuxfoundation.org wrote:
+> On Tue, Sep 06, 2016 at 11:30:31AM -0400, James Bottomley wrote:
+> >    3. Increase the pain. =A0Not sure I like this, but in theory, we cou=
+ld
+> >       churn the upstream API to increase the pain of upports, but it wo=
+uld
+> >       also cause a lot of issues with backports.
 
-The sched_wake_up has a "success" field that tools use to know if the
-wake up was successful or not. That's because the old code where the
-tracepoint was located was hit even if the task was already awake and
-nothing happened. Today the tracepoint is only called when a wake up
-actually happens. That is, "success" is always true. But we need to
-keep that there, because existing tools depend on it.
+> I tried doing this in the past.  It did cause pain for out-of-tree
+> modules, but then they got really good and abstracted things away so
+> that it made their future kernel porting efforts even easier than
+> before, making their need to upstream code even less.  And then when
+> they did want to upstream stuff, it took more work unwinding the
+> abstraction layer.
 
--- Steve
+> So watch out for unintended consequences here :)
+
+The other big unintended consequence I'd worry about here is that it
+will present an obstacle to someone who wants to try to upstream
+something while working in a downstream environment - if someone is
+looking at some code but the changes for upstream are too great then it
+might make it too much work for them to try if it's not their primary
+job.
+
+I'd also worry about annoying people who are working upstream as well,
+it's annoying having things break randomly due to API changes (both as
+the submitter and as a maintainer or reviewer).
+
+--S1dYL6sY+prtcMLk
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEcBAEBCAAGBQJXz0FGAAoJECTWi3JdVIfQpMQH/36d0licjSPTgDUyd2gX9jDt
+aEdXYueYcfglwY87S7oKzQU0aRalIfsPfB5QpdQKKF5jZgDwAJLWdOek0w6s5D6X
+e+pVr9dTkrs7vR2f6iBoPNCXh4XBIySk7xo++8Efxaemi4ztW0d0OqQjvZt+YQxB
+t2FmhvZ2WqMjHvj7wI/qajLVeuKckk+oiGADy1Xw/Hf/n4DUL70Cf7slFxYixqwH
+YAZJ/+9fRbmCTSFS2WK8Fa5/q5wQHtqXOejjHpkPTab4IjmnQWiPjgtRaycLVaCV
+rLVS0aHYe9Eae2tfdzSiTKV/6OJC2Elo2Hxz3V0o14W8w6DRbFGwoyqGubXVPk0=
+=/yDi
+-----END PGP SIGNATURE-----
+
+--S1dYL6sY+prtcMLk--
