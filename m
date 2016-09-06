@@ -1,31 +1,21 @@
-Return-Path: <acme@kernel.org>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 41109950
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 Sep 2016 14:57:55 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.136])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 481E3A5
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 Sep 2016 14:57:54 +0000 (UTC)
-Date: Tue, 6 Sep 2016 11:57:48 -0300
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Ben Hutchings <ben@decadent.org.uk>
-Message-ID: <20160906145748.GC11557@kernel.org>
-References: <0e76826b-6552-e880-42fc-17be0c5bf3fe@infradead.org>
-	<1473023702.25374.119.camel@decadent.org.uk>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <1473023702.25374.119.camel@decadent.org.uk>
-Cc: Michal Marek <mmarek@suse.cz>, "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Arjan van de Ven <arjan@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Ingo Molnar <mingo@kernel.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] tools/Makefile: Fix Many Many
- problems and inconsistencies
+Return-Path: <James.Bottomley@HansenPartnership.com>
+Message-ID: <1473175831.17204.29.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Mark Brown <broonie@kernel.org>, Laurent Pinchart
+	<laurent.pinchart@ideasonboard.com>
+Date: Tue, 06 Sep 2016 11:30:31 -0400
+In-Reply-To: <20160906003532.GA3950@sirena.org.uk>
+References: <57C78BE9.30009@linaro.org> <20160905111105.GW3950@sirena.org.uk>
+	<20160905140327.a6wgdl3lr42nlww4@thunk.org> <9895277.d39OTXtlqC@avalon>
+	<20160906003532.GA3950@sirena.org.uk>
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-pqHgmFfCT9KwmyLzomdC"
+Mime-Version: 1.0
+Cc: "ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
+	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [Stable kernel] feature backporting
+ collaboration
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,83 +25,74 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Em Sun, Sep 04, 2016 at 10:15:02PM +0100, Ben Hutchings escreveu:
-> [Slowly catching up on ksummit-discuss]
-> 
-> On Mon, 2016-08-01 at 20:46 -0700, Randy Dunlap wrote:
-> > and subdir Makefiles.
-> > 
-> > Examples:
-> > 
-> > Use/honor O=outputdir consistently instead of building in <kerneltree>/tools.
-> > (check/compare kernel commit bf35182ffcd00d8b36d56210ffdac110e5624d7d)
-> > 
-> > Honor MAKEFLAGS (well, they aren't even passed to tools/Makefile AFAICT.
-> > from an execution log:
-> > make LDFLAGS= MAKEFLAGS="" O=/local/lnx/kernel/lnx-47/TOOLS subdir=tools -C ../tools/ all
-> > 
-> > Use make's "findstring" correctly (see patch below)
-> > 
-> > There are lots of other problems unless I have just had too much too drink tonight,
-> > so here's the TECH TOPIC:
-> > 
-> > In a 1.5 hour code crunch session, get a bunch of interested people together to fix
-> > a lot of problems quickly.  Then I will be a guinea pig tester.  :)
-> [...]
-> 
-> I don't know how much can be done in that time.  I've had some
-> recurring pains in packaging tools/:
-> 
-> 1. Many different build systems
->    - Inconsistent support for configuration variables (not just 'O')
->    - usbip isn't included in a recursive build, presumably because
->      it uses autotools
 
-Right, that needs improving, I haven't looked at anything outside
-tools/{arch,build,lib,include,objtool,perf}
- 
-> 2. Tools include UAPI headers in one of two ways, neither of which is
->    reliable:
->    - Assume the current headers are on the system include path
->    - Include unprocessed UAPI headers through a relative path
-> 
->    The right thing to do is to run 'make headers_install' and add
->    usr/ to the front of the system include path.  But we'd want a
->    way to avoid re-doing that when the UAPI headers haven't changed.
+--=-pqHgmFfCT9KwmyLzomdC
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Again, haven't checked outside the above list of directories, by now,
-tools/perf/ doesn't use anything outside tools/, are you talking about
-other tools that touch kernel source files outside tools/?
- 
-> 3. Tools frequently fail to build in stable releases (sometimes on
->    specific architectures) - seems like tools/ is not covered by CI
->    or it's ignored
+On Tue, 2016-09-06 at 01:35 +0100, Mark Brown wrote:
+> On Mon, Sep 05, 2016 at 05:22:59PM +0300, Laurent Pinchart wrote:
+> > On Monday 05 Sep 2016 10:03:27 Theodore Ts'o wrote:
+> > > This is why upstream-first is so darned important.  And why=20
+> > > sloppy patches that break other architectures are a really bad=20
+> > > idea, even if they are for a vendor-only BSP kernel....
+>=20
+> You're preaching to the converted here but just telling everyone over
+> and over again that they're doing a terrible job isn't helping=20
+> anything. It's not offering any sort of constructive suggestion for=20
+> how to improve the situation that engages with the reality on the
+> ground.
 
-The list above I've been running over a set of docker image
-repositories, now publicly available, each with a set of tags for distro
-releases and cross build environments.
+OK, so how do we move forwards?  Everyone who remembers the 2.4->2.6
+transition is convinced of upstream first because it was impossible to
+forward port the patch sets.
 
-https://hub.docker.com/r/acmel/linux-perf-tools-build-alpine     
-https://hub.docker.com/r/acmel/linux-perf-tools-build-android-ndk
-https://hub.docker.com/r/acmel/linux-perf-tools-build-archlinux  
-https://hub.docker.com/r/acmel/linux-perf-tools-build-centos     
-https://hub.docker.com/r/acmel/linux-perf-tools-build-debian     
-https://hub.docker.com/r/acmel/linux-perf-tools-build-fedora     
-https://hub.docker.com/r/acmel/linux-perf-tools-build-mageia     
-https://hub.docker.com/r/acmel/linux-perf-tools-build-opensuse   
-https://hub.docker.com/r/acmel/linux-perf-tools-build-ubuntu
+However, with the 2.6 release methodology, you have much smaller patch
+sets and we have a much more incremental release strategy, meaning you
+don't have this massive (2 year) gap between upports.  I think it's
+arguable that our change in release strategy coupled with you getting
+enough stuff upstream supports vendors who want to target a stable tree
+because the patch difference is big but not that huge to upport.
 
-> This last point is more of a core topic though.
-> 
-> Ben.
-> 
-> -- 
-> Ben Hutchings
-> Once a job is fouled up, anything done to improve it makes it worse.
+So there's probably a couple of things we could do about this
+
+   1. Nothing. =C2=A0Say it's working about as well as can be expected for
+      embedded and stop worrying.
+   2. Accept that the pain will never be great enough and approach from a
+      process view point instead. =C2=A0Perhaps changing the acceptance
+      criteria for the base tree to make it harder to get features in
+      making it less painful to get them upstream and then backported?
+   3. Increase the pain. =C2=A0Not sure I like this, but in theory, we coul=
+d
+      churn the upstream API to increase the pain of upports, but it would
+      also cause a lot of issues with backports.
+
+James
 
 
 
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+
+--=-pqHgmFfCT9KwmyLzomdC
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAABCAAGBQJXzuEXAAoJEAVr7HOZEZN4GvoP/jl4xpEkWp+0lPtlzQVKPJRp
+aCvygEI/RUNXPLOQBfh+yTpy1Kn9R3Ula5iO4lX7ke+vMpcDMVB8qVbH4twEz70u
++kfR+qA9K9ddBgt1KYIUcbLDIMiT48sRJv5xeH/5LAmYrN+ZCawVuTNT6wT92IDR
+HuvJSQZhOAV9/KbMHMUElAvXiA2kkH2kFoZiG1EHvZ94rWtPmKYLrYuksnu48DYG
+M2VFoEkRkpmXk7W9mWfsJaFrqP1c1wYsNPCsbZzh942V+RsRg68xxXS0X8yIrDHE
+oUA38Hh2hnL3enLGRKyMDi51mRSDkSGl9GpS+Uff0kOwRH8Bwb17we/RQGNS3SGk
+rC1w+NTvjsvwJIrivwMfNHxVaDogT95cG1bn56UNqBLp/t3pONQM3uG/1TrPbYhU
+tW79a95WQ2VU5MwhGyzjxXIUuVOsuF7P7hGNnpBCN0RuNXq0EMvcbDmKv1Y3FQ/c
+rW0Zu8LTRmXMhCJooi17VHrO2KnaiSX847j/rcQfRP1AuM0Yk+3aeOvIpjt6qopD
+tSkXRJUOtCmk8GCY1T2j5ZARuBDiV3rtIFwrfFVQTVjlsJvd2PIpR+EXeuQaidAc
+4l4tPqQDACu9dX2OZkW5bMoqiCFJITFkxFafvJDqZpZNuzzI3QLOHjkB6v9blfFg
+fFPj32qLJRIoi8ZKQH19
+=FTDr
+-----END PGP SIGNATURE-----
+
+--=-pqHgmFfCT9KwmyLzomdC--
