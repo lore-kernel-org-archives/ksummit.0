@@ -1,35 +1,22 @@
-Return-Path: <rostedt@goodmis.org>
-Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
-	[172.17.192.36])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6CB3C412
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 Sep 2016 23:18:23 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0024.hostedemail.com
-	[216.40.44.24])
-	by smtp2.linuxfoundation.org (Postfix) with ESMTPS id B57881DAB8
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 Sep 2016 23:18:22 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
-	[10.5.19.251])
-	by smtpgrave02.hostedemail.com (Postfix) with ESMTP id 4FBF83426
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 Sep 2016 23:13:03 +0000 (UTC)
-Date: Tue, 6 Sep 2016 19:12:59 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Alexey Dobriyan <adobriyan@gmail.com>
-Message-ID: <20160906191259.14a7d60b@gandalf.local.home>
-In-Reply-To: <20160906224100.GA17212@p183.telecom.by>
-References: <20160906185143.GF2356@ZenIV.linux.org.uk>
-	<20160906152243.766f3845@gandalf.local.home>
-	<20160906213644.GA16732@p183.telecom.by>
-	<20160906175343.2f0d9135@gandalf.local.home>
-	<20160906224100.GA17212@p183.telecom.by>
+Return-Path: <broonie@sirena.org.uk>
+Date: Wed, 7 Sep 2016 00:23:05 +0100
+From: Mark Brown <broonie@kernel.org>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Message-ID: <20160906232305.GY3950@sirena.org.uk>
+References: <57C78BE9.30009@linaro.org> <20160905111105.GW3950@sirena.org.uk>
+	<20160905140327.a6wgdl3lr42nlww4@thunk.org>
+	<9895277.d39OTXtlqC@avalon> <20160906003532.GA3950@sirena.org.uk>
+	<1473175831.17204.29.camel@HansenPartnership.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [topic proposal] tracepoints and ABI
- stability warranties
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="gzJEy4voKlV4eANz"
+Content-Disposition: inline
+In-Reply-To: <1473175831.17204.29.camel@HansenPartnership.com>
+Cc: "ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
+	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [Stable kernel] feature backporting
+ collaboration
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,93 +26,47 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 7 Sep 2016 01:41:00 +0300
-Alexey Dobriyan <adobriyan@gmail.com> wrote:
 
->
-> > Specifically:
-> > 
-> >  "If a change results in user programs breaking, it's a bug in the
-> >   kernel. We never EVER blame the user programs."  
-> 
-> Linus has said many things. I've personally had Python compilation busted
-> when Linux 4 appeared but somehow digit 4 is still with us. By that logic,
-> major version should have been reverted back to 3 long ago.
+--gzJEy4voKlV4eANz
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-There is a limit to the insanity. If a userspace tool depends on a
-kernel version number, then it pinned itself to that version. If Python
-never expected a 4 to appear, then it's compiling will be left to 3.x
-kernels.
+On Tue, Sep 06, 2016 at 11:30:31AM -0400, James Bottomley wrote:
+> On Tue, 2016-09-06 at 01:35 +0100, Mark Brown wrote:
 
-> 
-> > > P.S.: techically every kernel release almost certainly breaks crash(1)
-> > > program, program many people on this list should be familiar with.
-> > > It is unclear why rules should be different for tracepoints.  
-> > 
-> > Well, crash() isn't a userspace tool that runs on top of Linux. Well,
-> > it does, but only the input from a core dump of a Linux kernel breaks
-> > it. It will always run fine on all Linux versions as long as it uses
-> > the same input.  
-> 
-> It can act on live kernel.
+> > You're preaching to the converted here but just telling everyone over
+> > and over again that they're doing a terrible job isn't helping=20
+> > anything. It's not offering any sort of constructive suggestion for=20
+> > how to improve the situation that engages with the reality on the
+> > ground.
 
-Again, there's a limit to the insanity ;-)
+> OK, so how do we move forwards?  Everyone who remembers the 2.4->2.6
+> transition is convinced of upstream first because it was impossible to
+> forward port the patch sets.
 
-> 
-> > Tracepoints are runtime visible. This isn't a postmortem analysis. We
-> > already had an issues when powertop read the tracepoints directly
-> > without using the tracepoint format file parsing, and we ended up
-> > having 4 bytes of useless data in *every* tracepoint. Luckily, that got
-> > fixed because this hard coding broke when running powertop from a 32
-> > bit userspace on top of a 64 bit kernel. I worked to get powertop to
-> > use the tracepoint format parsing that perf and trace-cmd uses.
-> > 
-> > But if something depends on event fields, we need to maintain that. For
-> > now, we have fake fields in the sched_wakeup tracepoint, because of
-> > this.
-> > 
-> > It's a balance that we need to figure out. One is that tracepoints are
-> > really helpful for in the field debugging to see what is happening. The
-> > other is that they are becoming an ABI and if a useful tool (like
-> > powertop) hooks into them, whatever they hooked into becomes set in
-> > stone.  
-> 
-> There is no balance. One can't even reorder gfp_t flags:
-> 
-> 	DECLARE_EVENT_CLASS(kmem_alloc,
-> 	TP_STRUCT__entry(
->                 __field(        unsigned long,  call_site       )
->                 __field(        const void *,   ptr             )
->                 __field(        size_t,         bytes_req       )
->                 __field(        size_t,         bytes_alloc     )
->                 __field(        gfp_t,          gfp_flags       )
->         ),
+> So there's probably a couple of things we could do about this
 
-You mean if a tool depends on the order of bits set? I guess the
-question is, is there such a tool, and have people complained when
-things break? Or has anything broken yet?
+>    1. Nothing. =A0Say it's working about as well as can be expected for
+>       embedded and stop worrying.
 
-> 
-> 
-> > This is a real issue, and has been brought up in past kernel summits
-> > without a resolution.  
-> 
-> Gentlemen's agreement then:
-> * kernel developers don't break tracepoints on purpose and maintain
->   compatibility in simple cases (long => int, deleted field, etc),
-> * real, justified tracepoint breakage doesn't count.
+I think I'd put it more as saying that there are relatively few special
+snowflake things that we can do upstream to help here - most of the
+things I can think of that are useful are just generally useful for
+everyone rather than embedded specific.
 
-According to Linus's rule, it really comes down to a tool that depends
-on some feature in a tracepoint, and later we change it, break the
-tool, and user complains. Then we are stuck with that tracepoint as it
-was.
+--gzJEy4voKlV4eANz
+Content-Type: application/pgp-signature; name="signature.asc"
 
-We can change any user space ABI as long as nobody notices ;-) If a user
-space ABI breaks in the forest and nobody is around to complain about
-it, is it still breakage? According to Linus, the answer is no.
+-----BEGIN PGP SIGNATURE-----
 
-Tracepoints are no different than any other ABI. The problem is, we
-don't know if something is using it until we change it and that
-something breaks.
+iQEcBAEBCAAGBQJXz0/WAAoJECTWi3JdVIfQq18IAIX8bCcwkiIiDHM2CiCsRZVz
+n0h2hHB5lcK4L/5GJd30ELjPxUfr3+51tJqVpxRVBZ9qhrYNrQPfavAjwFiKbEeV
+9YOq7Fee5rNdwa+XgYYMJ7nhpPeXFR+dsvQRD5lw0WhoZ3pH3l6DGdtFOAXof4qP
+wHS2mvh/JysmV9GzdcmAZXS64yqnyTpJKPwz5TRgYs9RUxW9jsqQRX9atbIj4Je7
+fu6XQ2Sz4IlYwWo7JLUEj2pDELlXIutuIy5nl7xz34O3EDMD7q0phdjZ8iXWYwyH
+StOJZYThfEeLE9GjidJp8Z8nd5sUpLC4I+edNaZ96KSF50NKubyN4o0+zDV0a4s=
+=p2MW
+-----END PGP SIGNATURE-----
 
--- Steve
+--gzJEy4voKlV4eANz--
