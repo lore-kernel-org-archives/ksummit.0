@@ -1,27 +1,28 @@
 Return-Path: <adobriyan@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id E483B8E3
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 959BD6C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 Sep 2016 21:36:51 +0000 (UTC)
-Received: from mail-lf0-f66.google.com (mail-lf0-f66.google.com
-	[209.85.215.66])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 988B1AF
+	Tue,  6 Sep 2016 22:02:18 +0000 (UTC)
+Received: from mail-lf0-f65.google.com (mail-lf0-f65.google.com
+	[209.85.215.65])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 05C4A16D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 Sep 2016 21:36:49 +0000 (UTC)
-Received: by mail-lf0-f66.google.com with SMTP id 29so5129020lfv.1
+	Tue,  6 Sep 2016 22:02:17 +0000 (UTC)
+Received: by mail-lf0-f65.google.com with SMTP id s64so1879349lfs.2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 06 Sep 2016 14:36:49 -0700 (PDT)
-Date: Wed, 7 Sep 2016 00:36:44 +0300
+	Tue, 06 Sep 2016 15:02:17 -0700 (PDT)
+Date: Wed, 7 Sep 2016 01:02:13 +0300
 From: Alexey Dobriyan <adobriyan@gmail.com>
 To: Steven Rostedt <rostedt@goodmis.org>
-Message-ID: <20160906213644.GA16732@p183.telecom.by>
+Message-ID: <20160906220213.GA16979@p183.telecom.by>
 References: <20160906185143.GF2356@ZenIV.linux.org.uk>
 	<20160906152243.766f3845@gandalf.local.home>
+	<20160906213644.GA16732@p183.telecom.by>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20160906152243.766f3845@gandalf.local.home>
+In-Reply-To: <20160906213644.GA16732@p183.telecom.by>
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [topic proposal] tracepoints and ABI
  stability warranties
@@ -34,38 +35,21 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Sep 06, 2016 at 03:22:43PM -0400, Steven Rostedt wrote:
-> On Tue, 6 Sep 2016 19:51:43 +0100
-> Al Viro <viro@ZenIV.linux.org.uk> wrote:
-> 
-> > 	I think this is something that needs to be discussed at KS; IMO we
-> > need at least some way to express the degree of stability promises made
-> > wrt individual tracepoints and some mechanisms for preventing silent creep
-> > towards full stability; something along the lines of "unstable tracepoint $FOO
-> > used by $PROGRAM, kernel tainted", at least.
-> 
-> What about having a set of tracepoints that are only enabled if one
-> adds to the kernel command line "this-kernel-is-broken" and a big
-> printk banner saying something like:
+On Wed, Sep 07, 2016 at 12:36:44AM +0300, Alexey Dobriyan wrote:
+> P.S.: techically every kernel release almost certainly breaks crash(1)
+> program, program many people on this list should be familiar with.
+> It is unclear why rules should be different for tracepoints.
 
-The solution was out there for quite some time :-)
+Concrete example:
 
-	Scope of Compatibility
-	Packages in Red Hat Enterprise Linux are classified under one of
-	the following four compatibility levels:
+	TRACE_EVENT(sched_switch,
+        TP_STRUCT__entry(
+                __array(        char,   prev_comm,      TASK_COMM_LEN   )
+                __field(        pid_t,  prev_pid                        )
+                __field(        int,    prev_prio                       )
+                __field(        long,   prev_state
+		^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-	[ ] Compatibility level 1: APIs and ABIs are stable across three
-	    major releases;
-
-	[ ] Compatibility level 2: APIs and ABIs are stable within one major
-	    release.
-
-	[ ] Compatibility level 3: Reserved for future use.
-
-	[X] Compatibility level 4: No compatibility is provided.
-
-The winning move is to not play and let distros sort it out.
-
-P.S.: techically every kernel release almost certainly breaks crash(1)
-program, program many people on this list should be familiar with.
-It is unclear why rules should be different for tracepoints.
+struct task_struct::state is long but it looks like a historical
+artifact, it can be just int. In this case it is easy to extend value and
+preserve compatibility.
