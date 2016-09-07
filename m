@@ -1,32 +1,35 @@
-Return-Path: <riel@redhat.com>
+Return-Path: <khilman@baylibre.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 03F57A6E
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0A035A67
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  7 Sep 2016 16:10:53 +0000 (UTC)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B29E710A
+	Wed,  7 Sep 2016 16:41:02 +0000 (UTC)
+Received: from mail-pf0-f169.google.com (mail-pf0-f169.google.com
+	[209.85.192.169])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5A1E817D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  7 Sep 2016 16:10:52 +0000 (UTC)
-Message-ID: <1473264649.10218.56.camel@redhat.com>
-From: Rik van Riel <riel@redhat.com>
-To: Shuah Khan <shuahkhan@gmail.com>, Andy Lutomirski <luto@kernel.org>
-Date: Wed, 07 Sep 2016 12:10:49 -0400
-In-Reply-To: <CAKocOOM7XJeW79dtFNx2Agi7cyrQxmMROmQrisdTG8oZMSi_qQ@mail.gmail.com>
-References: <20160906185143.GF2356@ZenIV.linux.org.uk>
-	<20160906152243.766f3845@gandalf.local.home>
-	<20160906213644.GA16732@p183.telecom.by>
-	<20160906175343.2f0d9135@gandalf.local.home>
-	<20160906224100.GA17212@p183.telecom.by>
-	<20160907051039.GG2356@ZenIV.linux.org.uk>
-	<CALCETrVRFVkpk5bbH1jYxhh3nWYoJtXMFaMo2yR25sntGOrnDw@mail.gmail.com>
-	<CAKocOOM7XJeW79dtFNx2Agi7cyrQxmMROmQrisdTG8oZMSi_qQ@mail.gmail.com>
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-VLJKQwGjtu0Tt9Av/wk/"
-Mime-Version: 1.0
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [topic proposal] tracepoints and ABI
- stability warranties
+	Wed,  7 Sep 2016 16:41:01 +0000 (UTC)
+Received: by mail-pf0-f169.google.com with SMTP id 128so8281307pfb.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 07 Sep 2016 09:41:01 -0700 (PDT)
+From: Kevin Hilman <khilman@baylibre.com>
+To: Andrzej Hajda <a.hajda@samsung.com>
+References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
+	<579B60C0.9000609@samsung.com>
+Date: Wed, 07 Sep 2016 09:40:59 -0700
+In-Reply-To: <579B60C0.9000609@samsung.com> (Andrzej Hajda's message of "Fri,
+	29 Jul 2016 15:57:20 +0200")
+Message-ID: <7h1t0vy86c.fsf@baylibre.com>
+MIME-Version: 1.0
+Content-Type: text/plain
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	Mauro Carvalho Chehab <mchehab@osg.samsung.com>,
+	"vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
+	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Valentin Rothberg <valentinrothberg@gmail.com>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
+	and semantics (v2)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,63 +39,68 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+Andrzej Hajda <a.hajda@samsung.com> writes:
 
---=-VLJKQwGjtu0Tt9Av/wk/
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> On 07/27/2016 06:50 PM, Luis R. Rodriguez wrote:
+>> (first e-mail bounced)
+>>
+>> Rafael has proposed has a set of patches to help deal with functional
+>> dependencies between devices to help with power management. Mauro has
+>> spoken briefly before over the media controller feature graph used to help
+>> build relationship between complex dynamic dependencies. Dmitry has taken on
+>> to help enable asynchronous probe, however for built-in devices this requires
+>> very specific platform knowledge otherwise using async probe will blow up
+>> your kernel -- if you get it right though, using async probe can help with
+>> boot. Even if you sort things out well -- there are current limitations with
+>> ordering semantics available, case in point the x86 IOMMUs already have a small
+>> sort run which expand beyond the core init entries allowed, and on top of this
+>> the you still have device driver dependencies which are implicitly setting
+>> order via link order: consider the ordering between AMD IOMMUv1, AMD IOMMUv2,
+>> AMD KFD, and AMD radeon. This has made us realize that at the module front the
+>> current 2 levels of init calls limits our ordering semantics leaving only link
+>> order as a last measure when things are built-in. Likewise I've recently have
+>> had to look into dependency issues early in boot been due to differences
+>> between paravirtualization and non-PV kernels, this lead to some current work
+>> to help generalize custom section uses (linker tables) and then for us to
+>> consider expanding x86 semantics early in boot to address some of the
+>> shortcomings implicit by the some paravirtualized boot path.
+>>
+>> The goal behind Rafael's work's goal is essentially to avoid code duplication
+>> (as without doing that in the core many drivers potentially need to do the same
+>> thing in the same way) and help to address the asynchronous system
+>> suspend/resume case that cannot be addressed by any driver by itself anyway.
+>> The effort behind Rafael's, Mauro's, Dmitry's and my work are all independent
+>> however the patterns are very similar: addressing complex dependencies and
+>> relationships at run time and available semantics for these.
+>
+> I am also interested in this topic. I have sent some times ago few
+> early RFCs proposing solution for 'resource' life-time tracking:
 
-On Wed, 2016-09-07 at 09:30 -0600, Shuah Khan wrote:
-> On Tue, Sep 6, 2016 at 11:30 PM, Andy Lutomirski <luto@kernel.org>
-> wrote:
-> >=C2=A0
-> > I wouldn't mind a policy that tracepoints are simply never
-> > stable.=C2=A0=C2=A0Maybe we
-> > should even deliberately change them periodically to drive the
-> > point home.
-> >=20
-> > The kernel should be able to have a debug API that is genuinely for
-> > *debugging* and doesn't freeze the underlying implementation.
-> Agreed. Tracepoints and events provide a powerful tool in debug
-> certain class
-> of problems (races and performance problems) where traditional debug
-> methods
-> such as CONFIG_DEBUG_FOO aren't effective. Trace information includes
-> important
-> status information on thread status which is helpful in debugging.
+[...]
 
-=46rom an enterprise distro (and user) point of view,
-it is important to be able to debug a kernel that
-is running on a production system (and developed
-some problem after a month of running), without
-having to reboot into a special "debug kernel".
+> The framework can be easily expanded to help with power management
 
-Being able to just fire up a tracer debugging
-script that can identify intermittent problems
-is an invaluable tool in making the kernel better
-for our users.
+[sorry to be late to the party, catching up on this after some holidays]
 
-Hamstringing our ability to make the kernel better,
-in order to keep the debugging ABI stable, is
-shooting ourselves (and our users) in the foot.
+I'm also interested in the PM / performance aspects of this topic.
 
---=20
-All rights reversed
+Specifically, I'm working on QoS/performance/PM issues where we need a
+way to "link" one device to another, where that link also includes any
+busses, IOMMUs etc. that are on the path between the two endpoints.
 
---=-VLJKQwGjtu0Tt9Av/wk/
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+Because the busses involved have dynamic voltage and frequency scaling
+(DVFS) capabilities, the goal is to have dynamic QoS for the whole
+link/path so that the busses on that path can aggregate QoS requirements
+and do DVFS in order to meet the bandwidth/throughput requirements, but
+also to scale back when performance is not needed to save power.
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
+We can do much of this today using per-device pm_qos and runtime
+PM/genpd for individual devices, but I'm looking for a way to do similar
+for a "path" that has 2 endpoint devices, and some busses in between,
+especially when these paths are not represented in the parent-child
+relationships.
 
-iQEcBAABCAAGBQJX0DwKAAoJEM553pKExN6DvasIALL8VIgAQ+fqQ69rZz2I8T1g
-dpm7Fv0kCDEYKgj0uGDGx8szXhqPKjcmu042C+TUHXkmsTayjrU3dW9JXTiPhSRj
-PE3Jly4Zgy7WQ0RvRnMCwKynqPHXAZFu14qLOe9D+vnu49XPeTNfDzAwlRhkK+Fu
-8O1GycqLpV+/wjpysazEgO4YJTF0EkWHrYH0ac3k+J28V4LgMvGVR55slRna65ea
-JT5pXeENkuwTPAEpvqSYn+IuqwaY773schDjZ9nTVc5KN8y6ab4qEmWKhMRKKRw0
-vVDac7qZZMb6tczUN1GYAsfvurpiaPjB8U11XZ+/9yfM7d5ywvNGlOUZxMnaMXU=
-=kRh0
------END PGP SIGNATURE-----
+I had a brief look at Rafael's and your patches, but I need to look
+closer at them to see if/how they might be used for this.
 
---=-VLJKQwGjtu0Tt9Av/wk/--
+Kevin
