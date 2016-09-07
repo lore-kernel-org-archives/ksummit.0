@@ -1,24 +1,22 @@
 Return-Path: <broonie@sirena.org.uk>
-Date: Wed, 7 Sep 2016 19:44:03 +0100
+Date: Wed, 7 Sep 2016 19:49:38 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Jiri Kosina <jikos@kernel.org>
-Message-ID: <20160907184403.GA3950@sirena.org.uk>
-References: <57C78BE9.30009@linaro.org> <20160905111105.GW3950@sirena.org.uk>
-	<20160905140327.a6wgdl3lr42nlww4@thunk.org>
-	<9895277.d39OTXtlqC@avalon>
+To: Catalin Marinas <catalin.marinas@arm.com>
+Message-ID: <20160907184938.GB3950@sirena.org.uk>
+References: <57C78BE9.30009@linaro.org> <9895277.d39OTXtlqC@avalon>
 	<20160906133429.5ktkvafprbtxr5sd@localhost>
-	<20160906162502.GA15434@roeck-us.net>
-	<20160907083312.GO28922@quack2.suse.cz>
-	<alpine.LNX.2.00.1609071038080.22028@cbobk.fhfr.pm>
+	<2181684.5VzIQ6DWv4@amdc1976>
+	<20160907093250.qmmcmrq2g64rjmif@localhost>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="9KMRXrBaLD3S8C0H"
+	protocol="application/pgp-signature"; boundary="KPK+YGx+4g/J2wGm"
 Content-Disposition: inline
-In-Reply-To: <alpine.LNX.2.00.1609071038080.22028@cbobk.fhfr.pm>
+In-Reply-To: <20160907093250.qmmcmrq2g64rjmif@localhost>
 Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
 	"ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
+	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
 	ksummit-discuss@lists.linuxfoundation.org,
-	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
+	Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>
 Subject: Re: [Ksummit-discuss] [Stable kernel] feature backporting
  collaboration
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -31,45 +29,40 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---9KMRXrBaLD3S8C0H
+--KPK+YGx+4g/J2wGm
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 07, 2016 at 10:41:08AM +0200, Jiri Kosina wrote:
+On Wed, Sep 07, 2016 at 10:32:50AM +0100, Catalin Marinas wrote:
 
-> consumer space in this area. Consumer space folks seem to be in a=20
-> situation that server space people have been in 2.0 / 2.2 era, where we=
-=20
-> had exactly the same problem with server hardware (i.e lack of timely=20
-> focus on upstream in the process).
+> Trying to get on-topic: where organisations providing kernels like LSK
+> (Linaro) can help is offering to integrate/maintain the SoC back-port
+> while encouraging the SoC vendors to focus on developing against the
+> latest upstream. It looks to me that on (too) many occasions SoC vendors
 
-As people keep saying that's not really entirely it - the timescales on
-consumer hardware are *much* tighter than those on server hardware which
-does make a big difference to what you can do here. =20
+You can sit between a vendor and their customer during bringup and
+integration if you want to but I'm not sure you'll find many other
+people willing to do that, and I'm not sure that anyone else would
+want a third party in that path anyway.
 
-> Also, it feels like consumer HW is more in a "fire and forget" mode of=20
-> operation, while server hardware usually sticks around for a rather long=
-=20
-> time.
+> take LSK as their development base for new SoC ports, making the
+> forward-porting effort significantly larger (and potentially ignored).
 
-This is part of it.  There *is* a long tail lifespan for a lot of
-consumer hardware but it is in the lower tier vendors and products who
-are for the most part reusing earlier work and we do see a lot of IP
-reuse though.
+I'm not sure that one direction is that much harder than the other TBH,
+it's more about the motivation being there in the first place.
 
---9KMRXrBaLD3S8C0H
+--KPK+YGx+4g/J2wGm
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEcBAEBCAAGBQJX0F/vAAoJECTWi3JdVIfQhD0H/1ioMYsgQELgjHAoIaYXZAxL
-VRwHt5TLrJtP83VDgVyrn0lmuwcBkbK94LHmlsawuP+hWymDpHNGfBxa+ycuKKYj
-4M6xrC8IjhgV8oX9Vp47UjlBn1GSdnrFIGM/jFJIoIdpq8ommQewtWzZ8HvW0jpd
-QoPySVECuBJZnW/5aTPgGrez7S0U+/K2LtH5kMGxPjJfykiC8ZkkhEt6juqh9uCn
-wCZ2i/TVqzdNIGJuJHsCKcOaWalx75wbUca84lkvHYwPtG8KxQXA/kQzytto5kDQ
-KHYwlZiNDz3yRBsrNNRImDDK84qjtM1wI92NmF2Kq6FvsxBa2H04RJ3cB0PTwcg=
-=h24G
+iQEcBAEBCAAGBQJX0GFBAAoJECTWi3JdVIfQRq0H/iN6l/nLkBNjNnfkZBhuBgrx
+bQVabBp+NimX4BrsQHMGhcNJ8rHGYI3tg4W4UAf4EfdMxraZ8BhO34SpodW48vwB
+aWNwx2US6Tp50bjVcb7+qLpW1/I++q90tsE7YV9i28vvvKXeCVWXYIE6AKmEgHnQ
+4jPODGZt+F6cipTfx74qGASYWMnxixi+U1pTszKHH3qoI4aRF/yHuSH+dPWbLftP
+FuUM88YS0WqdMvVgUuM/E87Cgs8VXh121w0zi6UfudCCTsYbThJFcctEb5NRvv0V
+a8fysECp/Z+32BeHHvmfND7KwEjded6b46fBEcTasG3cMW7us9hYoDi/7UWs568=
+=uRJu
 -----END PGP SIGNATURE-----
 
---9KMRXrBaLD3S8C0H--
+--KPK+YGx+4g/J2wGm--
