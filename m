@@ -1,22 +1,35 @@
-Return-Path: <broonie@sirena.org.uk>
-Date: Wed, 7 Sep 2016 00:23:05 +0100
-From: Mark Brown <broonie@kernel.org>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Message-ID: <20160906232305.GY3950@sirena.org.uk>
-References: <57C78BE9.30009@linaro.org> <20160905111105.GW3950@sirena.org.uk>
-	<20160905140327.a6wgdl3lr42nlww4@thunk.org>
-	<9895277.d39OTXtlqC@avalon> <20160906003532.GA3950@sirena.org.uk>
-	<1473175831.17204.29.camel@HansenPartnership.com>
+Return-Path: <leon@kernel.org>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 24266A62
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed,  7 Sep 2016 05:03:27 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.136])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B5FBA153
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed,  7 Sep 2016 05:03:26 +0000 (UTC)
+Received: from mail.kernel.org (localhost [127.0.0.1])
+	by mail.kernel.org (Postfix) with ESMTP id A58A1203A1
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed,  7 Sep 2016 05:03:25 +0000 (UTC)
+Received: from mail-yw0-f174.google.com (mail-yw0-f174.google.com
+	[209.85.161.174])
+	(using TLSv1.2 with cipher AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id 9299820397
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed,  7 Sep 2016 05:03:23 +0000 (UTC)
+Received: by mail-yw0-f174.google.com with SMTP id s85so2738725ywg.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 06 Sep 2016 22:03:23 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="gzJEy4voKlV4eANz"
-Content-Disposition: inline
-In-Reply-To: <1473175831.17204.29.camel@HansenPartnership.com>
-Cc: "ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
-	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [Stable kernel] feature backporting
- collaboration
+From: Leon Romanovsky <leon@kernel.org>
+Date: Wed, 7 Sep 2016 08:03:02 +0300
+Message-ID: <CALq1K=L7MWcQVCbQE+QzjMxuUbhwXk=65_T30UThuvaKDo2V-A@mail.gmail.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Content-Type: text/plain; charset=UTF-8
+Cc: Doug Ledford <dledford@redhat.com>
+Subject: [Ksummit-discuss] [CORE TOPIC] (group) maintainership models
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -26,47 +39,26 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+Hi,
 
---gzJEy4voKlV4eANz
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Sorry for my late reply to this thread and I hope that it is not too
+late to join this topic.
 
-On Tue, Sep 06, 2016 at 11:30:31AM -0400, James Bottomley wrote:
-> On Tue, 2016-09-06 at 01:35 +0100, Mark Brown wrote:
+We are in RDMA subsystem in the process of unifying our user-space
+parts of RDMA stack to be similar in structure and schedules to
+kernel. There is over all consensus that current kernel maintainer
+(Doug Ledford) will take responsibility of this meta-bundle [1]
+(initial stage, WIP).
 
-> > You're preaching to the converted here but just telling everyone over
-> > and over again that they're doing a terrible job isn't helping=20
-> > anything. It's not offering any sort of constructive suggestion for=20
-> > how to improve the situation that engages with the reality on the
-> > ground.
+However, in the last year, we saw increasing interest in RDMA
+technology and steady stream of new drivers and features, including
+ABI redesign. The next year is expecting to be more challenging, so it
+is vital to us to rethink our maintainership model, before everything
+collapse :).
 
-> OK, so how do we move forwards?  Everyone who remembers the 2.4->2.6
-> transition is convinced of upstream first because it was impossible to
-> forward port the patch sets.
+We (me and Doug, if he didn't register to this yet) would be very
+interesting to join and discuss different models to manage RDMA stack.
 
-> So there's probably a couple of things we could do about this
+Thanks
 
->    1. Nothing. =A0Say it's working about as well as can be expected for
->       embedded and stop worrying.
-
-I think I'd put it more as saying that there are relatively few special
-snowflake things that we can do upstream to help here - most of the
-things I can think of that are useful are just generally useful for
-everyone rather than embedded specific.
-
---gzJEy4voKlV4eANz
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEcBAEBCAAGBQJXz0/WAAoJECTWi3JdVIfQq18IAIX8bCcwkiIiDHM2CiCsRZVz
-n0h2hHB5lcK4L/5GJd30ELjPxUfr3+51tJqVpxRVBZ9qhrYNrQPfavAjwFiKbEeV
-9YOq7Fee5rNdwa+XgYYMJ7nhpPeXFR+dsvQRD5lw0WhoZ3pH3l6DGdtFOAXof4qP
-wHS2mvh/JysmV9GzdcmAZXS64yqnyTpJKPwz5TRgYs9RUxW9jsqQRX9atbIj4Je7
-fu6XQ2Sz4IlYwWo7JLUEj2pDELlXIutuIy5nl7xz34O3EDMD7q0phdjZ8iXWYwyH
-StOJZYThfEeLE9GjidJp8Z8nd5sUpLC4I+edNaZ96KSF50NKubyN4o0+zDV0a4s=
-=p2MW
------END PGP SIGNATURE-----
-
---gzJEy4voKlV4eANz--
+[1] https://github.com/jgunthorpe/rdma-plumbing/
