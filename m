@@ -1,17 +1,15 @@
-Return-Path: <jikos@kernel.org>
-Date: Wed, 7 Sep 2016 10:41:08 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
-To: Jan Kara <jack@suse.cz>
-In-Reply-To: <20160907083312.GO28922@quack2.suse.cz>
-Message-ID: <alpine.LNX.2.00.1609071038080.22028@cbobk.fhfr.pm>
-References: <57C78BE9.30009@linaro.org> <20160905111105.GW3950@sirena.org.uk>
-	<20160905140327.a6wgdl3lr42nlww4@thunk.org>
-	<9895277.d39OTXtlqC@avalon>
+Return-Path: <catalin.marinas@arm.com>
+Date: Wed, 7 Sep 2016 10:32:50 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>
+Message-ID: <20160907093250.qmmcmrq2g64rjmif@localhost>
+References: <57C78BE9.30009@linaro.org> <9895277.d39OTXtlqC@avalon>
 	<20160906133429.5ktkvafprbtxr5sd@localhost>
-	<20160906162502.GA15434@roeck-us.net>
-	<20160907083312.GO28922@quack2.suse.cz>
+	<2181684.5VzIQ6DWv4@amdc1976>
 MIME-Version: 1.0
-Content-Type: TEXT/PLAIN; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2181684.5VzIQ6DWv4@amdc1976>
 Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
 	"ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
 	ksummit-discuss@lists.linuxfoundation.org,
@@ -27,28 +25,71 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 7 Sep 2016, Jan Kara wrote:
+On Tue, Sep 06, 2016 at 06:06:48PM +0200, Bartlomiej Zolnierkiewicz wrote:
+> On Tuesday, September 06, 2016 02:34:30 PM Catalin Marinas wrote:
+> > On Mon, Sep 05, 2016 at 05:22:59PM +0300, Laurent Pinchart wrote:
+> > > On Monday 05 Sep 2016 10:03:27 Theodore Ts'o wrote:
+> > > > Maybe there will be some hope if some of the features from ARM64
+> > > > server can infect the SOC community --- Jon Masters really had the
+> > > > right idea when he insisted on one kernel to boot all ARM64 kernels,
+> > > > with all changes pushed upstream, and not hacky, out-of-tree patches
+> > > > which only work for one SOC vendor.
+[...]
+> > > I don't think that's a fair comparison. For server platforms end-users of the 
+> > > hardware will pick a distribution and roll it out on the machines, so hardware 
+> > > vendors have a strong incentive to play by our rules. Phones are completely 
+> > > different in that the device vendor doesn't care about end-users being able to 
+> > > pick what software in general and kernel in particular they want to install on 
+> > > the device.
+> > 
+> > Things could be different if fewer entities control the software that
+> > gets installed/updated on such hardware. E.g. Google controlling the OTA
+> > updates of the Chromebook kernels, they will at some point take a
+> > similar hard stance to Red Hat on upstream first, single kernel Image.
+> > For phones, however, that's unlikely to happen given the multitude and
+> > short life-time of new products.
+[...]
+> For phones it feels that upstream itself is moving too slow for
+> vendors to get benefits from upstream first policy.  Each year there
+> is a new flagship device and new SoC.  With the current upstream model
+> (new kernel release every 2-3 months and discussions on upstreaming
+> some core subsystems enhancements easily taking weeks/months) upstream
+> first policy just doesn't give enough business benefits.  Before you
+> have everything upstream and changes propagate itself to LTS and Android
+> kernels (which should also move faster BTW) it can be easily 2 years
+> since start of the effort and your SoC is now obsolete.
 
-> > We are trying to upstream as much as we can, but it will take a while.
-> > Given time constraints, I don't think "upstream first" will ever work.
-> > Products have to ship and simply can not wait for upstream patches to be
-> > accepted.
-> 
-> Well, it works reasonably for us... Actually most of the backports are HW
-> support so server HW vendors seem to be better in getting their drivers
-> upstream before actually shipping the HW. But I understand this is easier
-> for servers as that is a more mature / slower market than phones / tablets.
+If there is a one-off, completely independent SoC that no-one (not even
+the vendor) cares about a year after the device goes on sales, I don't
+think we want it upstream either. However, SoC vendors tend to work on
+SoC families with some variations within a family (like CPU upgrades,
+maybe a new interconnect etc.) but in general a lot of code that can be
+reused. That's where upstreaming is highly beneficial to the vendor on
+the long run since such SoC family has a life span bigger than the
+individual device derived from a specific SoC.
 
-Yeah, unfortunately there really is a difference between server space and 
-consumer space in this area. Consumer space folks seem to be in a 
-situation that server space people have been in 2.0 / 2.2 era, where we 
-had exactly the same problem with server hardware (i.e lack of timely 
-focus on upstream in the process).
+I'm also aware that vendors don't always want to disclose their SoC
+details until the device goes public, so that's another business
+argument against upstreaming first, especially in the mobile world.
 
-Also, it feels like consumer HW is more in a "fire and forget" mode of 
-operation, while server hardware usually sticks around for a rather long 
-time.
+One impediment to upstreaming in my experience is that vendors tend to
+develop the initial SoC port against an old kernel version (e.g. based
+on the Android version they target). Forward-porting to latest mainline
+all of a sudden becomes a much larger task that companies are not always
+willing to (sufficiently) invest in. So if an "upstream first" policy is
+not always feasible from a (mobile) business perspective, "develop
+against upstream" is a better second option. An initial SoC port doesn't
+need all the additional features that Android kernels provide, so it's
+usually doable with what is available upstream. There is more effort
+initially since targeting certain Android versions require back-porting,
+however it pays off in the long run for the SoC *family*.
+
+Trying to get on-topic: where organisations providing kernels like LSK
+(Linaro) can help is offering to integrate/maintain the SoC back-port
+while encouraging the SoC vendors to focus on developing against the
+latest upstream. It looks to me that on (too) many occasions SoC vendors
+take LSK as their development base for new SoC ports, making the
+forward-porting effort significantly larger (and potentially ignored).
 
 -- 
-Jiri Kosina
-SUSE Labs
+Catalin
