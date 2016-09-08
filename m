@@ -1,26 +1,27 @@
-Return-Path: <Tim.Bird@am.sony.com>
-From: "Bird, Timothy" <Tim.Bird@am.sony.com>
-To: James Bottomley <James.Bottomley@Hansenpartnership.com>, Mark Brown
-	<broonie@kernel.org>, "gregkh@linuxfoundation.org"
-	<gregkh@linuxfoundation.org>
-Date: Thu, 8 Sep 2016 18:55:12 +0000
-Message-ID: <ECADFF3FD767C149AD96A924E7EA6EAF053D73F2@USCULXMSG01.am.sony.com>
+Return-Path: <gregkh@linuxfoundation.org>
+Date: Thu, 8 Sep 2016 21:19:30 +0200
+From: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
+To: "Bird, Timothy" <Tim.Bird@am.sony.com>
+Message-ID: <20160908191930.GA32595@kroah.com>
 References: <57C78BE9.30009@linaro.org> <20160905111105.GW3950@sirena.org.uk>
-	<20160905140327.a6wgdl3lr42nlww4@thunk.org>	<9895277.d39OTXtlqC@avalon>
-	<20160906003532.GA3950@sirena.org.uk>
+	<20160905140327.a6wgdl3lr42nlww4@thunk.org>
+	<9895277.d39OTXtlqC@avalon> <20160906003532.GA3950@sirena.org.uk>
 	<1473175831.17204.29.camel@HansenPartnership.com>
-	<20160906194404.GA22363@kroah.com>	<20160906222058.GS3950@sirena.org.uk>
+	<20160906194404.GA22363@kroah.com>
+	<20160906222058.GS3950@sirena.org.uk>
 	<10203253-0df5-4ff3-8cd4-9e6b38661d57@email.android.com>
-In-Reply-To: <10203253-0df5-4ff3-8cd4-9e6b38661d57@email.android.com>
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	<ECADFF3FD767C149AD96A924E7EA6EAF053D73F2@USCULXMSG01.am.sony.com>
 MIME-Version: 1.0
-Cc: "ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ECADFF3FD767C149AD96A924E7EA6EAF053D73F2@USCULXMSG01.am.sony.com>
+Cc: James Bottomley <James.Bottomley@Hansenpartnership.com>,
+	"ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [Stable kernel] feature
-	backporting	collaboration
+Subject: Re: [Ksummit-discuss] [Stable kernel] feature backporting
+ collaboration
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,50 +31,68 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBrc3VtbWl0LWRpc2N1c3MtYm91
-bmNlc0BsaXN0cy5saW51eGZvdW5kYXRpb24ub3JnIFttYWlsdG86a3N1bW1pdC0NCj4gZGlzY3Vz
-cy1ib3VuY2VzQGxpc3RzLmxpbnV4Zm91bmRhdGlvbi5vcmddIE9uIEJlaGFsZiBPZiBKYW1lcyBC
-b3R0b21sZXkNCj4gT24gU2VwdGVtYmVyIDYsIDIwMTYgNjoyMDo1OCBQTSBFRFQsIE1hcmsgQnJv
-d24gPGJyb29uaWVAa2VybmVsLm9yZz4NCj4gd3JvdGU6DQo+ID5PbiBUdWUsIFNlcCAwNiwgMjAx
-NiBhdCAwOTo0NDowNFBNICswMjAwLCBncmVna2hAbGludXhmb3VuZGF0aW9uLm9yZw0KPiA+d3Jv
-dGU6DQo+ID4+IE9uIFR1ZSwgU2VwIDA2LCAyMDE2IGF0IDExOjMwOjMxQU0gLTA0MDAsIEphbWVz
-IEJvdHRvbWxleSB3cm90ZToNCj4gPj4gPiAgICAzLiBJbmNyZWFzZSB0aGUgcGFpbi4gwqBOb3Qg
-c3VyZSBJIGxpa2UgdGhpcywgYnV0IGluIHRoZW9yeSwgd2UNCj4gPmNvdWxkDQo+ID4+ID4gICAg
-ICAgY2h1cm4gdGhlIHVwc3RyZWFtIEFQSSB0byBpbmNyZWFzZSB0aGUgcGFpbiBvZiB1cHBvcnRz
-LCBidXQNCj4gPml0IHdvdWxkDQo+ID4+ID4gICAgICAgYWxzbyBjYXVzZSBhIGxvdCBvZiBpc3N1
-ZXMgd2l0aCBiYWNrcG9ydHMuDQo+ID4NCj4gPj4gSSB0cmllZCBkb2luZyB0aGlzIGluIHRoZSBw
-YXN0LiAgSXQgZGlkIGNhdXNlIHBhaW4gZm9yIG91dC1vZi10cmVlDQo+ID4+IG1vZHVsZXMsIGJ1
-dCB0aGVuIHRoZXkgZ290IHJlYWxseSBnb29kIGFuZCBhYnN0cmFjdGVkIHRoaW5ncyBhd2F5IHNv
-DQo+ID4+IHRoYXQgaXQgbWFkZSB0aGVpciBmdXR1cmUga2VybmVsIHBvcnRpbmcgZWZmb3J0cyBl
-dmVuIGVhc2llciB0aGFuDQo+ID4+IGJlZm9yZSwgbWFraW5nIHRoZWlyIG5lZWQgdG8gdXBzdHJl
-YW0gY29kZSBldmVuIGxlc3MuICBBbmQgdGhlbiB3aGVuDQo+ID4+IHRoZXkgZGlkIHdhbnQgdG8g
-dXBzdHJlYW0gc3R1ZmYsIGl0IHRvb2sgbW9yZSB3b3JrIHVud2luZGluZyB0aGUNCj4gPj4gYWJz
-dHJhY3Rpb24gbGF5ZXIuDQo+ID4NCj4gPj4gU28gd2F0Y2ggb3V0IGZvciB1bmludGVuZGVkIGNv
-bnNlcXVlbmNlcyBoZXJlIDopDQo+ID4NCj4gPlRoZSBvdGhlciBiaWcgdW5pbnRlbmRlZCBjb25z
-ZXF1ZW5jZSBJJ2Qgd29ycnkgYWJvdXQgaGVyZSBpcyB0aGF0IGl0DQo+ID53aWxsIHByZXNlbnQg
-YW4gb2JzdGFjbGUgdG8gc29tZW9uZSB3aG8gd2FudHMgdG8gdHJ5IHRvIHVwc3RyZWFtDQo+ID5z
-b21ldGhpbmcgd2hpbGUgd29ya2luZyBpbiBhIGRvd25zdHJlYW0gZW52aXJvbm1lbnQgLSBpZiBz
-b21lb25lIGlzDQo+ID5sb29raW5nIGF0IHNvbWUgY29kZSBidXQgdGhlIGNoYW5nZXMgZm9yIHVw
-c3RyZWFtIGFyZSB0b28gZ3JlYXQgdGhlbiBpdA0KPiA+bWlnaHQgbWFrZSBpdCB0b28gbXVjaCB3
-b3JrIGZvciB0aGVtIHRvIHRyeSBpZiBpdCdzIG5vdCB0aGVpciBwcmltYXJ5DQo+ID5qb2IuDQo+
-ID4NCj4gPkknZCBhbHNvIHdvcnJ5IGFib3V0IGFubm95aW5nIHBlb3BsZSB3aG8gYXJlIHdvcmtp
-bmcgdXBzdHJlYW0gYXMgd2VsbCwNCj4gPml0J3MgYW5ub3lpbmcgaGF2aW5nIHRoaW5ncyBicmVh
-ayByYW5kb21seSBkdWUgdG8gQVBJIGNoYW5nZXMgKGJvdGggYXMNCj4gPnRoZSBzdWJtaXR0ZXIg
-YW5kIGFzIGEgbWFpbnRhaW5lciBvciByZXZpZXdlcikuDQo+IA0KPiBPaywgc28gZXZlcnlvbmUg
-d2VudCBzdHJhaWdodCBmb3IgdGhlIG9wdGlvbiBJIGRpZG4ndCBsaWtlLiBJIGtuZXcgSSBzaG91
-bGRuJ3QgaGF2ZQ0KPiBpbmNsdWRlZCBpdC4gICBTbyB3aGF0IGFib3V0IG9wdGlvbnMgMSBvciAy
-LCBvciBldmVuIHNvbWV0aGluZyBJIGhhZG4ndCB0aG91Z2h0DQo+IG9mPw0KDQpJIHRoaW5rIHRo
-YXQgaXQncyBpbXBvcnRhbnQgdG8gaWRlbnRpZnkga2V5IGZlYXR1cmVzIHRoYXQgaW5oaWJpdCBu
-b24tdmVuZG9yIGRldmVsb3BlcnMNCmZyb20gd29ya2luZyBvbiBzdHVmZiBpbiBtYWlubGluZSwg
-YW5kIGZpeCB0aG9zZS4gIFRoYXQncyB3aHkgSSd2ZSBnb3QgYSBiZWUgaW4gbXkgYm9ubmV0DQph
-Ym91dCBVU0IgY2hhcmdpbmcuDQoNCldlJ3ZlIGdvdCBsaXRlcmFsbHkgb3ZlciBhIGJpbGxpb24g
-ZGV2aWNlcyBpbiB0aGUgZmllbGQgdGhhdCBydW4gTGludXgsIGJ1dCBjYW4ndCBydW4gbWFpbmxp
-bmUuDQpUaGlzIGlzIHZlcnkgZGlmZmVyZW50IGZyb20gdGhlIGVudGVycHJpc2Ugc3BhY2UsIHdo
-ZXJlIHlvdSBjYW4gcnVuIGEgbWFpbmxpbmUga2VybmVsIGJ1dA0KeW91J3JlIGp1c3QgbWlzc2lu
-ZyBhIGZldyB0aG91c2FuZCB2ZW5kb3IgcGF0Y2hlcy4gIEJhc2ljIGZ1bmN0aW9uYWxpdHkgd2ls
-bCBzdGlsbCB3b3JrLg0KDQpUaGVyZSBhcmUgdGhvdXNhbmRzIG9mIG5vbi12ZW5kb3Iga2VybmVs
-IGRldmVsb3BlcnMgd29ya2luZyBvbiB0aGVzZSBkZXZpY2VzLiBTb21lIG9mDQp0aGVtLCBJIGJl
-bGlldmUsIHdvdWxkIHBsYXkgYXJvdW5kIHdpdGggdGhpcyBzdHVmZiBhbmQgY29udHJpYnV0ZSB0
-byBtYWlubGluZSwgaWYgdGhleSBjb3VsZA0KdXNlIGl0IG9uIHRoZWlyIGRldmljZXMuICBPcHRp
-b24gMywgYnkgdGhlIHdheSwgbWFrZXMgaXQgaGFyZGVyIGZvciB0aGF0IGNhdGVnb3J5IG9mIGRl
-dmVsb3Blcg0KdG8gY29udHJpYnV0ZS4NCiAtLSBUaW0NCg==
+On Thu, Sep 08, 2016 at 06:55:12PM +0000, Bird, Timothy wrote:
+> > -----Original Message-----
+> > From: ksummit-discuss-bounces@lists.linuxfoundation.org [mailto:ksummit-
+> > discuss-bounces@lists.linuxfoundation.org] On Behalf Of James Bottomley
+> > On September 6, 2016 6:20:58 PM EDT, Mark Brown <broonie@kernel.org>
+> > wrote:
+> > >On Tue, Sep 06, 2016 at 09:44:04PM +0200, gregkh@linuxfoundation.org
+> > >wrote:
+> > >> On Tue, Sep 06, 2016 at 11:30:31AM -0400, James Bottomley wrote:
+> > >> >    3. Increase the pain.  Not sure I like this, but in theory, we
+> > >could
+> > >> >       churn the upstream API to increase the pain of upports, but
+> > >it would
+> > >> >       also cause a lot of issues with backports.
+> > >
+> > >> I tried doing this in the past.  It did cause pain for out-of-tree
+> > >> modules, but then they got really good and abstracted things away so
+> > >> that it made their future kernel porting efforts even easier than
+> > >> before, making their need to upstream code even less.  And then when
+> > >> they did want to upstream stuff, it took more work unwinding the
+> > >> abstraction layer.
+> > >
+> > >> So watch out for unintended consequences here :)
+> > >
+> > >The other big unintended consequence I'd worry about here is that it
+> > >will present an obstacle to someone who wants to try to upstream
+> > >something while working in a downstream environment - if someone is
+> > >looking at some code but the changes for upstream are too great then it
+> > >might make it too much work for them to try if it's not their primary
+> > >job.
+> > >
+> > >I'd also worry about annoying people who are working upstream as well,
+> > >it's annoying having things break randomly due to API changes (both as
+> > >the submitter and as a maintainer or reviewer).
+> > 
+> > Ok, so everyone went straight for the option I didn't like. I knew I shouldn't have
+> > included it.   So what about options 1 or 2, or even something I hadn't thought
+> > of?
+> 
+> I think that it's important to identify key features that inhibit non-vendor developers
+> from working on stuff in mainline, and fix those.  That's why I've got a bee in my bonnet
+> about USB charging.
+
+Why about that topic?  NO ONE SUBMITTED PATCHES FOR IT!  Until recently,
+and that's only because Linaro decided to pick one of the random vendor
+tree solutions and tried to upstream it.
+
+That's kind of proof that upstream is being flat-out ignored...
+
+> We've got literally over a billion devices in the field that run Linux, but can't run mainline.
+> This is very different from the enterprise space, where you can run a mainline kernel but
+> you're just missing a few thousand vendor patches.  Basic functionality will still work.
+> 
+> There are thousands of non-vendor kernel developers working on these devices. Some of
+> them, I believe, would play around with this stuff and contribute to mainline, if they could
+> use it on their devices.  Option 3, by the way, makes it harder for that category of developer
+> to contribute.
+
+Well for this topic, upstream was ignored, so I don't know what else we
+could really do here.  Except congratulate Linaro for doing the dirty
+work, they are doing good stuff here in trying to reduce the delta.
+
+thanks,
+
+greg k-h
