@@ -1,27 +1,34 @@
-Return-Path: <gregkh@linuxfoundation.org>
-Date: Thu, 8 Sep 2016 21:19:30 +0200
-From: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
-To: "Bird, Timothy" <Tim.Bird@am.sony.com>
-Message-ID: <20160908191930.GA32595@kroah.com>
-References: <57C78BE9.30009@linaro.org> <20160905111105.GW3950@sirena.org.uk>
-	<20160905140327.a6wgdl3lr42nlww4@thunk.org>
-	<9895277.d39OTXtlqC@avalon> <20160906003532.GA3950@sirena.org.uk>
-	<1473175831.17204.29.camel@HansenPartnership.com>
-	<20160906194404.GA22363@kroah.com>
-	<20160906222058.GS3950@sirena.org.uk>
-	<10203253-0df5-4ff3-8cd4-9e6b38661d57@email.android.com>
-	<ECADFF3FD767C149AD96A924E7EA6EAF053D73F2@USCULXMSG01.am.sony.com>
+Return-Path: <frowand.list@gmail.com>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7CC7C412
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu,  8 Sep 2016 21:04:02 +0000 (UTC)
+Received: from mail-pa0-f65.google.com (mail-pa0-f65.google.com
+	[209.85.220.65])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5C8D415C
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu,  8 Sep 2016 21:04:01 +0000 (UTC)
+Received: by mail-pa0-f65.google.com with SMTP id gi6so2840816pac.1
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 08 Sep 2016 14:04:01 -0700 (PDT)
+To: "Luis R. Rodriguez" <mcgrof@suse.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+References: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
+From: Frank Rowand <frowand.list@gmail.com>
+Message-ID: <57D1D225.3070609@gmail.com>
+Date: Thu, 8 Sep 2016 14:03:33 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ECADFF3FD767C149AD96A924E7EA6EAF053D73F2@USCULXMSG01.am.sony.com>
-Cc: James Bottomley <James.Bottomley@Hansenpartnership.com>,
-	"ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [Stable kernel] feature backporting
- collaboration
+In-Reply-To: <CAB=NE6W7utmX7G57LTFXGwe9QY61FS80iAT=mj_+P9oFBsWb9A@mail.gmail.com>
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: 7bit
+Cc: "vegard.nossum@gmail.com" <vegard.nossum@gmail.com>,
+	Valentin Rothberg <valentinrothberg@gmail.com>,
+	"rafael.j.wysocki" <rafael.j.wysocki@intel.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Mauro Carvalho Chehab <mchehab@osg.samsung.com>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing complex dependencies
+ and semantics (v2)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,68 +38,90 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Sep 08, 2016 at 06:55:12PM +0000, Bird, Timothy wrote:
-> > -----Original Message-----
-> > From: ksummit-discuss-bounces@lists.linuxfoundation.org [mailto:ksummit-
-> > discuss-bounces@lists.linuxfoundation.org] On Behalf Of James Bottomley
-> > On September 6, 2016 6:20:58 PM EDT, Mark Brown <broonie@kernel.org>
-> > wrote:
-> > >On Tue, Sep 06, 2016 at 09:44:04PM +0200, gregkh@linuxfoundation.org
-> > >wrote:
-> > >> On Tue, Sep 06, 2016 at 11:30:31AM -0400, James Bottomley wrote:
-> > >> >    3. Increase the pain.  Not sure I like this, but in theory, we
-> > >could
-> > >> >       churn the upstream API to increase the pain of upports, but
-> > >it would
-> > >> >       also cause a lot of issues with backports.
-> > >
-> > >> I tried doing this in the past.  It did cause pain for out-of-tree
-> > >> modules, but then they got really good and abstracted things away so
-> > >> that it made their future kernel porting efforts even easier than
-> > >> before, making their need to upstream code even less.  And then when
-> > >> they did want to upstream stuff, it took more work unwinding the
-> > >> abstraction layer.
-> > >
-> > >> So watch out for unintended consequences here :)
-> > >
-> > >The other big unintended consequence I'd worry about here is that it
-> > >will present an obstacle to someone who wants to try to upstream
-> > >something while working in a downstream environment - if someone is
-> > >looking at some code but the changes for upstream are too great then it
-> > >might make it too much work for them to try if it's not their primary
-> > >job.
-> > >
-> > >I'd also worry about annoying people who are working upstream as well,
-> > >it's annoying having things break randomly due to API changes (both as
-> > >the submitter and as a maintainer or reviewer).
-> > 
-> > Ok, so everyone went straight for the option I didn't like. I knew I shouldn't have
-> > included it.   So what about options 1 or 2, or even something I hadn't thought
-> > of?
+On 07/27/16 09:50, Luis R. Rodriguez wrote:
+> (first e-mail bounced)
 > 
-> I think that it's important to identify key features that inhibit non-vendor developers
-> from working on stuff in mainline, and fix those.  That's why I've got a bee in my bonnet
-> about USB charging.
-
-Why about that topic?  NO ONE SUBMITTED PATCHES FOR IT!  Until recently,
-and that's only because Linaro decided to pick one of the random vendor
-tree solutions and tried to upstream it.
-
-That's kind of proof that upstream is being flat-out ignored...
-
-> We've got literally over a billion devices in the field that run Linux, but can't run mainline.
-> This is very different from the enterprise space, where you can run a mainline kernel but
-> you're just missing a few thousand vendor patches.  Basic functionality will still work.
+> Rafael has proposed has a set of patches to help deal with functional
+> dependencies between devices to help with power management. Mauro has
+> spoken briefly before over the media controller feature graph used to help
+> build relationship between complex dynamic dependencies. Dmitry has taken on
+> to help enable asynchronous probe, however for built-in devices this requires
+> very specific platform knowledge otherwise using async probe will blow up
+> your kernel -- if you get it right though, using async probe can help with
+> boot. Even if you sort things out well -- there are current limitations with
+> ordering semantics available, case in point the x86 IOMMUs already have a small
+> sort run which expand beyond the core init entries allowed, and on top of this
+> the you still have device driver dependencies which are implicitly setting
+> order via link order: consider the ordering between AMD IOMMUv1, AMD IOMMUv2,
+> AMD KFD, and AMD radeon. This has made us realize that at the module front the
+> current 2 levels of init calls limits our ordering semantics leaving only link
+> order as a last measure when things are built-in. Likewise I've recently have
+> had to look into dependency issues early in boot been due to differences
+> between paravirtualization and non-PV kernels, this lead to some current work
+> to help generalize custom section uses (linker tables) and then for us to
+> consider expanding x86 semantics early in boot to address some of the
+> shortcomings implicit by the some paravirtualized boot path.
 > 
-> There are thousands of non-vendor kernel developers working on these devices. Some of
-> them, I believe, would play around with this stuff and contribute to mainline, if they could
-> use it on their devices.  Option 3, by the way, makes it harder for that category of developer
-> to contribute.
+> The goal behind Rafael's work's goal is essentially to avoid code duplication
+> (as without doing that in the core many drivers potentially need to do the same
+> thing in the same way) and help to address the asynchronous system
+> suspend/resume case that cannot be addressed by any driver by itself anyway.
+> The effort behind Rafael's, Mauro's, Dmitry's and my work are all independent
+> however the patterns are very similar: addressing complex dependencies and
+> relationships at run time and available semantics for these.
+> 
+> This begs a few questions:
+> 
+>  o Are there generic issues here ?
+>  o Are there generic solutions possible ?
+>  o What advanced techniques are out there to deal with this and how
+>    are efforts in those domains going ?
+> 
+> As an example of taste for the last item, consider Vegard Nossum's involvement
+> with a SAT solver (picosat) for AFL fuzzing with ext4 on built-in kernels --
+> and the possibility to share some of the tools to address some of the
+> dependencies here. As it stands kconfig's semantics are a bit of a mess, and
+> in turn often tools have to do a bit of inference work due to some of this,
+> part if this problem is one reason why current kconfig-sat efforts are a bit
+> stalled.
+> 
+> Benefits for addressing some of these topics generally has quite a bit of
+> uses in different domains:
+> 
+>   o Speeding up boot time
+>   o Avoiding dead code, or correctness
+>   o Shrinking kernel size
+> 
+> This is a pretty generally broad topic, and it does cross subsystems,
+> I'm proposing it as a TECH TOPIC given that I had already poked Dmitry,
+> Mauro, and Rafael in February this year about a LPC microconference
+> about this sort of stuff as I thought that would have been a better venue --
+> however even early then (February !) it seems they were busy with existing LPC
+> microconferences. I recently poked them and they seem to agree discussing this
+> somehow at KS would be good. Due to existing time constraints at LPC, but given
+> most interested folks may be at KS or Plumbers, it'd be good to use shared time
+> at KS and LPC to get folks to organize ideas, problems, and solutions and in a
+> more adhoc manner, and then enable organically folks interested to organize and
+> discuss short term and long term roadmaps on respective work items. Its unclear
+> yet if there is a very CORE TOPIC here -- my guess would be that if there were
+> we'd find out at the next KS, but not this one. A workshop for this might
+> help.
+> 
+> Folks required to help with these topics:
+> 
+>   o Dmitry Torokhov <dmitry.torokhov@gmail.com> (async probe)
+>   o "Rafael J. Wysocki" <rafael.j.wysocki@intel.com> (functional dependencies)
+>   o Marek Szyprowski <m.szyprowski@samsung.com> (taking on some of
+> Rafael's previous work)
+>   o Mauro Carvalho Chehab <mchehab@osg.samsung.com> (feature graph)
+>   o Vegard Nossum <vegard.nossum@gmail.com> (SAT)
+>   o Valentin Rothberg <valentinrothberg@gmail.com>  (wary of some
+> kconfig issues)
 
-Well for this topic, upstream was ignored, so I don't know what else we
-could really do here.  Except congratulate Linaro for doing the dirty
-work, they are doing good stuff here in trying to reduce the delta.
+I am also interested in this topic since Device Tree seems to often get
+dragged into this topic.
 
-thanks,
+I have not requested an invitation to the kernel summit, but I will be in
+town and available all week since I will be at Plumbers.
 
-greg k-h
+-Frank Rowand
