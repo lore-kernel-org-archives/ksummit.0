@@ -1,26 +1,38 @@
-Return-Path: <neilb@suse.de>
-From: NeilBrown <neilb@suse.com>
-To: "Bird\, Timothy" <Tim.Bird@am.sony.com>, Mark Brown <broonie@kernel.org>
-Date: Fri, 09 Sep 2016 08:38:07 +1000
-In-Reply-To: <ECADFF3FD767C149AD96A924E7EA6EAF053D73D3@USCULXMSG01.am.sony.com>
-References: <57C78BE9.30009@linaro.org> <20160902012531.GB28461@sasha-lappy>
-	<20160902095417.GJ3950@sirena.org.uk>
-	<1472827326.2519.14.camel@HansenPartnership.com>
-	<ECADFF3FD767C149AD96A924E7EA6EAF053D4A52@USCULXMSG01.am.sony.com>
-	<87twdv9l0v.fsf@notabene.neil.brown.name>
-	<20160905110416.GV3950@sirena.org.uk>
-	<87a8fm9dce.fsf@notabene.neil.brown.name>
-	<ECADFF3FD767C149AD96A924E7EA6EAF053D73D3@USCULXMSG01.am.sony.com>
-Message-ID: <8737la81bk.fsf@notabene.neil.brown.name>
+Return-Path: <keescook@google.com>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3B337483
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu,  8 Sep 2016 23:54:40 +0000 (UTC)
+Received: from mail-wm0-f50.google.com (mail-wm0-f50.google.com [74.125.82.50])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5E851A8
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu,  8 Sep 2016 23:54:39 +0000 (UTC)
+Received: by mail-wm0-f50.google.com with SMTP id w12so8732226wmf.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 08 Sep 2016 16:54:39 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="=-=-=";
-	micalg=pgp-sha256; protocol="application/pgp-signature"
-Cc: "ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
-	James Bottomley <James.Bottomley@HansenPartnership.com>,
+Sender: keescook@google.com
+In-Reply-To: <CALCETrU0sFW7Zy3UVBXU9REvecYKuPTVR8-XTFfjUwETUKeNxA@mail.gmail.com>
+References: <CALCETrXtfzi=G4H+Zttv3kWcCo32V6cO9OBfdyuYT4DHvJTJLg@mail.gmail.com>
+	<CAGXu5j+M06pdOB7Phqg==xg4p7=9ggmZciQuGZaNTXaW=-BCbg@mail.gmail.com>
+	<3aa8df3e-3705-9fd5-640c-37c0be2af561@imgtec.com>
+	<CAGXu5jKZb60=3H8faOG53Aq7H3MeST7_syionmFCE2HQFOG8SA@mail.gmail.com>
+	<0E98DCC5-01EE-4FA7-B6D4-72772279BDFF@arm.com>
+	<CAGXu5jL085S-feY_uy68tCMZwOHcg5QPzyE0eXiJviqCwau90g@mail.gmail.com>
+	<CALCETrVvXWN3q41RvR1-AN86HrNGXk3xv2uneXBO98TrB3JdaA@mail.gmail.com>
+	<CAGXu5j+v7W+kySsmbpkn4NJL=oxvoa6ZFQEg0Txvz5EYOP8cUQ@mail.gmail.com>
+	<CALCETrU0sFW7Zy3UVBXU9REvecYKuPTVR8-XTFfjUwETUKeNxA@mail.gmail.com>
+From: Kees Cook <keescook@chromium.org>
+Date: Thu, 8 Sep 2016 16:54:36 -0700
+Message-ID: <CAGXu5jKFmVvrhXfUBtuFyT0J6EHavGF08xh+H-PDVkv7ApOwtQ@mail.gmail.com>
+To: Andy Lutomirski <luto@amacapital.net>
+Content-Type: text/plain; charset=UTF-8
+Cc: Jann Horn <jann@thejh.net>, Dave Hansen <dave.hansen@linux.intel.com>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [LTSI-dev] [Stable kernel]
-	feature	backporting collaboration
+Subject: Re: [Ksummit-discuss] [TOPIC] kernel hardening / self-protection /
+	whatever
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,95 +42,79 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---=-=-=
-Content-Type: text/plain
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, Sep 09 2016, Bird, Timothy wrote:
-
+On Thu, Aug 4, 2016 at 5:12 PM, Andy Lutomirski <luto@amacapital.net> wrote:
+> On Aug 3, 2016 10:54 PM, "Kees Cook" <keescook@chromium.org> wrote:
+>>
+>> On Wed, Aug 3, 2016 at 10:45 PM, Andy Lutomirski <luto@amacapital.net>
+>> wrote:
+>> > On Wed, Aug 3, 2016 at 10:32 PM, Kees Cook <keescook@chromium.org>
+>> > wrote:
+>> >> On Wed, Aug 3, 2016 at 3:53 PM, Catalin Marinas
+>> >> <catalin.marinas@arm.com> wrote:
+>> >>> On 1 Aug 2016, at 00:05, Kees Cook <keescook@chromium.org> wrote:
+>> >>>> On Sun, Jul 31, 2016 at 2:55 AM, Paul Burton <paul.burton@imgtec.com>
+>> >>>> wrote:
+>> >>>>> It would be very interesting to discuss what's needed from arch code
+>> >>>>> for
+>> >>>>> various hardening features, both those currently in mainline & those
+>> >>>>> in
+>> >>>>> development.
+>> >>>
+>> >>> I'm interested in such topic as well, primarily from an arm/arm64
+>> >>> perspective.
+>> >>>
+>> >>>> - Handling userspace/kernelspace memory segregation. (This is the
+>> >>>> SMAP
+>> >>>> of x86, PAN of ARM, and just native on s390.) For architectures (or
+>> >>>> chipsets within an architecture) that don't support unprivileged
+>> >>>> memory access restrictions in hardware, we must find a way to emulate
+>> >>>> it. (e.g. 32-bit ARM uses Domains, and 64-bit x86 could use PCIDs,
+>> >>>> etc.) Keeping these regions separate is extremely important in
+>> >>>> stopping exploitation.
+>> >>>
+>> >>> For arm64 ARMv8.0 (without hardware PAN), I'm going to post a patch
+>> >>> in a week or so which emulates PAN by switching the user page table
+>> >>> (TTBR0)
+>> >>> to the zero page. I guess a similar approach could work for other
+>> >>> architectures,
+>> >>> maybe using swapper_pg_dir as the PAN page table.
+>> >>
+>> >> At least on x86 I've heard grumblings that it can be prohibitively
+>> >> expensive due to TLB-flushing, but I'd still like to see an
+>> >> implementation doing it first. :)
+>> >
+>> > No TLB flush needed if we use PCID.  Linus will attack you with a
+>> > pitchfork either way, though :)
+>>
+>> Hmm, my asbestos suit won't help me there. I will need to invest in
+>> titanium. :)
+>>
+>> The TLB flushing way I can understand being pitchfork-worthy, though
+>> I'm curious why a PCID implementation would be upsetting?
 >
-> First - thanks for responding to the patch.  I'm hopeful it will see move=
-ment.
-> My "pet peeve" (which *is* a bit histrionic, I suppose) is not so much ab=
-out this
-> individual patch (though IMHO it's taken longer to get worked out than it=
- should have).
-> Rather, I find it shocking that the mainline kernel is missing such a fun=
-damental
-> feature that is critical to mobile devices.  I brought this up at the ker=
-nel summit
-> last year (so it's not a new rant for me).  But basically, one can not ru=
-n a mainline
-> kernel on any phone that I'm aware of, and charge the device.
-
-I think this is mischaracterizing the problem.
-The problem isn't that the kernel is missing this fundamental feature.  The
-problem is that it has multiple half-way attempts to support this
-functionality, but they are inconsistently implemented and bordering on
-incoherent.
-
-There is a usb notifier which allows other drivers, such as power
-managers, to be told when a cable is attached to a USB port.  That is
-enough to get basic charger functionality working.  But not all phys
-send a notification and those that do, don't do it in a consistent way.
-There is also extcon, which some phys use to report a cable, but not
-all.  It provides more details of the cable, but cannot report anything
-about a current limit negotiated with a host.
-
-So you certainly can make this work with mainline (I've done it)
-without any extra infrastructure.
-
-If it were me doing this work, I'd clean up the current infrastructure
-first and make sure it was used consistently, and documented coherently.
-
-The current patchset isn't exactly adding a third way to do things, but
-it is adding stuff without cleaning up what is currently there.  This
-won't make the code less messy.
-
-NeilBrown
-
+> I think the problem is the page table switch, not the PCID.
 >
-> This means that hobbyists are locked out of experimenting with mainline o=
-n their
-> devices (unless they have the fortitude to manually swap batteries, or sw=
-itch to
-> a vendor kernel when they need to charge).  IMHO this is just too much of=
- a burden.
-> I mean, you might expect that some functionality of the phone might be mi=
-ssing if
-> you went all-mainline, or pure open source (like proprietary camera modul=
-es, or NFC
-> support).  You'll probably not have access to trivial things like the tou=
-ch screen or=20
-> display ;-).  But sheesh - to not have your device last longer than a few=
- hours before
-> you have to do some kludgy work-around, if you want to use mainline on it?
-> That's retarded.
+>>
+>> > It shouldn't be *that* hard to build this thing on top of my PCID
+>> > patchset.  I need to dust that off, which I'll do right after vmap
+>> > stacks land and I finish fsgsbase.  Sigh, so many things.
+
+What's the state of the vmap stacks? Are they just waiting for 4.9 to
+open? I haven't seen any further discussion...
+
+>> What does your PCID series do?
 >
-> IMHO this is blocking SoC mainlining efforts by non-vendor people more th=
-an any other
-> single issue.
+> It uses PCID for what it looks like it was designed for: faster context
+> switches.
 >
-> </rant>
->  -- Tim
+> AFAICT it was actually designed for user/kernel switching on Mac OS X,
+> which, if true, would explain some design oddities.
 
---=-=-=
-Content-Type: application/pgp-signature; name="signature.asc"
+Yeah, if it looks anything like the arm64 emulation for swapping page
+tables in and out, it should work very nicely.
 
------BEGIN PGP SIGNATURE-----
+-Kees
 
-iQIcBAEBCAAGBQJX0ehQAAoJEDnsnt1WYoG5T2YP/A8BcaYqDMdOPVeCBBloZ6J2
-DpBkK5xjwiQyKVWIWQ/zhAHueAwjmtHWPEfsFzymFOXx7qT+S5SE5Xi7cuFIBsb7
-JmVOuvtIl0AUyhr/JQ4sF3rQlXhjqdEcsnp9bf0PFYKRCoq7GlFdibYTvzpB3PRj
-TjQcWI46lz7t1HWGYTwzDC7shKsQG/5vADiHDPCLwaOqjbEGs9g/05qtgjctwGM/
-h+PUceTjEGxNuh5olASxcSEMrpI4iQNuTtfqCQWKsI/jBGdllt+AqJDe3j7sIVl8
-NL4cgA3Xf03CIIrQtEnqDteUevagwrv3PVG/FvQ4jqpZe91LqQRRaCImFFLJi/WR
-VC0TiEExamPj34FuFqoeKi98RAKEI5lNgpc2HiR/IR5oBeWumBrcpgpEhP6UiQ5u
-mBz9wI/y/raGnoRRBpuwWS4vhZiVwG/0H9Zic7JiqL44XjQ0VYfswj/HCl8XokK1
-qb1Ok4A2MnYib7BPo1R/LQe6eX1NDfJuvN490ppjfzPk68OC0Rn/9V8ISIeAujJl
-JlmCpyV67BfJ7GfElZap+LKTmJNJbUCc9jy1e6XMES2hgW5GiOmrMB3K/dEJeJE5
-URdFvf1eJt+sSsoZ7vca/hu1+W06q0/5OQZvG3zkGXI8Z4uHioD41g8k1v/Cp7WP
-do3zQNDkr7paTkskOGsi
-=0Xd6
------END PGP SIGNATURE-----
---=-=-=--
+-- 
+Kees Cook
+Nexus Security
