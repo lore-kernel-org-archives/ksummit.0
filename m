@@ -1,26 +1,26 @@
 Return-Path: <Tim.Bird@am.sony.com>
 From: "Bird, Timothy" <Tim.Bird@am.sony.com>
-To: NeilBrown <neilb@suse.com>, Mark Brown <broonie@kernel.org>
-Date: Thu, 8 Sep 2016 18:33:16 +0000
-Message-ID: <ECADFF3FD767C149AD96A924E7EA6EAF053D73D3@USCULXMSG01.am.sony.com>
-References: <57C78BE9.30009@linaro.org> <20160902012531.GB28461@sasha-lappy>
-	<20160902095417.GJ3950@sirena.org.uk>
-	<1472827326.2519.14.camel@HansenPartnership.com>
-	<ECADFF3FD767C149AD96A924E7EA6EAF053D4A52@USCULXMSG01.am.sony.com>
-	<87twdv9l0v.fsf@notabene.neil.brown.name>
-	<20160905110416.GV3950@sirena.org.uk>
-	<87a8fm9dce.fsf@notabene.neil.brown.name>
-In-Reply-To: <87a8fm9dce.fsf@notabene.neil.brown.name>
+To: James Bottomley <James.Bottomley@Hansenpartnership.com>, Mark Brown
+	<broonie@kernel.org>, "gregkh@linuxfoundation.org"
+	<gregkh@linuxfoundation.org>
+Date: Thu, 8 Sep 2016 18:55:12 +0000
+Message-ID: <ECADFF3FD767C149AD96A924E7EA6EAF053D73F2@USCULXMSG01.am.sony.com>
+References: <57C78BE9.30009@linaro.org> <20160905111105.GW3950@sirena.org.uk>
+	<20160905140327.a6wgdl3lr42nlww4@thunk.org>	<9895277.d39OTXtlqC@avalon>
+	<20160906003532.GA3950@sirena.org.uk>
+	<1473175831.17204.29.camel@HansenPartnership.com>
+	<20160906194404.GA22363@kroah.com>	<20160906222058.GS3950@sirena.org.uk>
+	<10203253-0df5-4ff3-8cd4-9e6b38661d57@email.android.com>
+In-Reply-To: <10203253-0df5-4ff3-8cd4-9e6b38661d57@email.android.com>
 Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
 Cc: "ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
-	James Bottomley <James.Bottomley@HansenPartnership.com>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [LTSI-dev] [Stable kernel]
-	feature	backporting collaboration
+Subject: Re: [Ksummit-discuss] [Stable kernel] feature
+	backporting	collaboration
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,80 +30,50 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-> -----Original Message-----
-> From: ltsi-dev-bounces@lists.linuxfoundation.org [mailto:ltsi-dev-
-> bounces@lists.linuxfoundation.org] On Behalf Of NeilBrown
-> Sent: Monday, September 05, 2016 3:44 PM
-> To: Mark Brown <broonie@kernel.org>
-> Cc: ltsi-dev@lists.linuxfoundation.org; ksummit-
-> discuss@lists.linuxfoundation.org; Levin, Alexander
-> <alexander.levin@verizon.com>; James Bottomley
-> <James.Bottomley@HansenPartnership.com>
-> Subject: Re: [LTSI-dev] [Ksummit-discuss] [Stable kernel] feature backpor=
-ting
-> collaboration
->=20
-> On Mon, Sep 05 2016, Mark Brown wrote:
->=20
-> > [ Unknown signature status ]
-> > On Mon, Sep 05, 2016 at 11:45:52AM +1000, NeilBrown wrote:
-> >> On Sat, Sep 03 2016, Bird, Timothy wrote:
-> >
-> >> > Where we are now with some of these SoCs is at millions of lines of
-> >> > code out-of-tree.  It's being reduced, slowly, but there are still
-> >> > significant areas where the mainline kernel just doesn't have the
-> >> > support needed for shipping product. My pet peeve is support for
-> >> > charging over USB, where Linaro has had a patch set
-> >> > being stalled and/or ignored by the USB maintainer for 2 years!!
-> >
-> >> Do you have a link to that?  I have an interest in charging over USB.
-> >
-> > This is it:
-> >
-> >     https://lkml.org/lkml/2016/7/1/35
-> >
-> > it's been more like one year than two and there has been progress but
-> > there's also been an awful lot of latency in the process too.
->=20
-> Really?  That is worthy of a "pet peeve"?
-> The patch set does highlight an important area of missing functionality,
-> but doesn't (IMO) display much understanding of the problem space.  I'm
-> not surprised it hasn't made progress.
-
-First - thanks for responding to the patch.  I'm hopeful it will see moveme=
-nt.
-My "pet peeve" (which *is* a bit histrionic, I suppose) is not so much abou=
-t this
-individual patch (though IMHO it's taken longer to get worked out than it s=
-hould have).
-Rather, I find it shocking that the mainline kernel is missing such a funda=
-mental
-feature that is critical to mobile devices.  I brought this up at the kerne=
-l summit
-last year (so it's not a new rant for me).  But basically, one can not run =
-a mainline
-kernel on any phone that I'm aware of, and charge the device.
-
-This means that hobbyists are locked out of experimenting with mainline on =
-their
-devices (unless they have the fortitude to manually swap batteries, or swit=
-ch to
-a vendor kernel when they need to charge).  IMHO this is just too much of a=
- burden.
-I mean, you might expect that some functionality of the phone might be miss=
-ing if
-you went all-mainline, or pure open source (like proprietary camera modules=
-, or NFC
-support).  You'll probably not have access to trivial things like the touch=
- screen or=20
-display ;-).  But sheesh - to not have your device last longer than a few h=
-ours before
-you have to do some kludgy work-around, if you want to use mainline on it?
-That's retarded.
-
-IMHO this is blocking SoC mainlining efforts by non-vendor people more than=
- any other
-single issue.
-
-</rant>
- -- Tim
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBrc3VtbWl0LWRpc2N1c3MtYm91
+bmNlc0BsaXN0cy5saW51eGZvdW5kYXRpb24ub3JnIFttYWlsdG86a3N1bW1pdC0NCj4gZGlzY3Vz
+cy1ib3VuY2VzQGxpc3RzLmxpbnV4Zm91bmRhdGlvbi5vcmddIE9uIEJlaGFsZiBPZiBKYW1lcyBC
+b3R0b21sZXkNCj4gT24gU2VwdGVtYmVyIDYsIDIwMTYgNjoyMDo1OCBQTSBFRFQsIE1hcmsgQnJv
+d24gPGJyb29uaWVAa2VybmVsLm9yZz4NCj4gd3JvdGU6DQo+ID5PbiBUdWUsIFNlcCAwNiwgMjAx
+NiBhdCAwOTo0NDowNFBNICswMjAwLCBncmVna2hAbGludXhmb3VuZGF0aW9uLm9yZw0KPiA+d3Jv
+dGU6DQo+ID4+IE9uIFR1ZSwgU2VwIDA2LCAyMDE2IGF0IDExOjMwOjMxQU0gLTA0MDAsIEphbWVz
+IEJvdHRvbWxleSB3cm90ZToNCj4gPj4gPiAgICAzLiBJbmNyZWFzZSB0aGUgcGFpbi4gwqBOb3Qg
+c3VyZSBJIGxpa2UgdGhpcywgYnV0IGluIHRoZW9yeSwgd2UNCj4gPmNvdWxkDQo+ID4+ID4gICAg
+ICAgY2h1cm4gdGhlIHVwc3RyZWFtIEFQSSB0byBpbmNyZWFzZSB0aGUgcGFpbiBvZiB1cHBvcnRz
+LCBidXQNCj4gPml0IHdvdWxkDQo+ID4+ID4gICAgICAgYWxzbyBjYXVzZSBhIGxvdCBvZiBpc3N1
+ZXMgd2l0aCBiYWNrcG9ydHMuDQo+ID4NCj4gPj4gSSB0cmllZCBkb2luZyB0aGlzIGluIHRoZSBw
+YXN0LiAgSXQgZGlkIGNhdXNlIHBhaW4gZm9yIG91dC1vZi10cmVlDQo+ID4+IG1vZHVsZXMsIGJ1
+dCB0aGVuIHRoZXkgZ290IHJlYWxseSBnb29kIGFuZCBhYnN0cmFjdGVkIHRoaW5ncyBhd2F5IHNv
+DQo+ID4+IHRoYXQgaXQgbWFkZSB0aGVpciBmdXR1cmUga2VybmVsIHBvcnRpbmcgZWZmb3J0cyBl
+dmVuIGVhc2llciB0aGFuDQo+ID4+IGJlZm9yZSwgbWFraW5nIHRoZWlyIG5lZWQgdG8gdXBzdHJl
+YW0gY29kZSBldmVuIGxlc3MuICBBbmQgdGhlbiB3aGVuDQo+ID4+IHRoZXkgZGlkIHdhbnQgdG8g
+dXBzdHJlYW0gc3R1ZmYsIGl0IHRvb2sgbW9yZSB3b3JrIHVud2luZGluZyB0aGUNCj4gPj4gYWJz
+dHJhY3Rpb24gbGF5ZXIuDQo+ID4NCj4gPj4gU28gd2F0Y2ggb3V0IGZvciB1bmludGVuZGVkIGNv
+bnNlcXVlbmNlcyBoZXJlIDopDQo+ID4NCj4gPlRoZSBvdGhlciBiaWcgdW5pbnRlbmRlZCBjb25z
+ZXF1ZW5jZSBJJ2Qgd29ycnkgYWJvdXQgaGVyZSBpcyB0aGF0IGl0DQo+ID53aWxsIHByZXNlbnQg
+YW4gb2JzdGFjbGUgdG8gc29tZW9uZSB3aG8gd2FudHMgdG8gdHJ5IHRvIHVwc3RyZWFtDQo+ID5z
+b21ldGhpbmcgd2hpbGUgd29ya2luZyBpbiBhIGRvd25zdHJlYW0gZW52aXJvbm1lbnQgLSBpZiBz
+b21lb25lIGlzDQo+ID5sb29raW5nIGF0IHNvbWUgY29kZSBidXQgdGhlIGNoYW5nZXMgZm9yIHVw
+c3RyZWFtIGFyZSB0b28gZ3JlYXQgdGhlbiBpdA0KPiA+bWlnaHQgbWFrZSBpdCB0b28gbXVjaCB3
+b3JrIGZvciB0aGVtIHRvIHRyeSBpZiBpdCdzIG5vdCB0aGVpciBwcmltYXJ5DQo+ID5qb2IuDQo+
+ID4NCj4gPkknZCBhbHNvIHdvcnJ5IGFib3V0IGFubm95aW5nIHBlb3BsZSB3aG8gYXJlIHdvcmtp
+bmcgdXBzdHJlYW0gYXMgd2VsbCwNCj4gPml0J3MgYW5ub3lpbmcgaGF2aW5nIHRoaW5ncyBicmVh
+ayByYW5kb21seSBkdWUgdG8gQVBJIGNoYW5nZXMgKGJvdGggYXMNCj4gPnRoZSBzdWJtaXR0ZXIg
+YW5kIGFzIGEgbWFpbnRhaW5lciBvciByZXZpZXdlcikuDQo+IA0KPiBPaywgc28gZXZlcnlvbmUg
+d2VudCBzdHJhaWdodCBmb3IgdGhlIG9wdGlvbiBJIGRpZG4ndCBsaWtlLiBJIGtuZXcgSSBzaG91
+bGRuJ3QgaGF2ZQ0KPiBpbmNsdWRlZCBpdC4gICBTbyB3aGF0IGFib3V0IG9wdGlvbnMgMSBvciAy
+LCBvciBldmVuIHNvbWV0aGluZyBJIGhhZG4ndCB0aG91Z2h0DQo+IG9mPw0KDQpJIHRoaW5rIHRo
+YXQgaXQncyBpbXBvcnRhbnQgdG8gaWRlbnRpZnkga2V5IGZlYXR1cmVzIHRoYXQgaW5oaWJpdCBu
+b24tdmVuZG9yIGRldmVsb3BlcnMNCmZyb20gd29ya2luZyBvbiBzdHVmZiBpbiBtYWlubGluZSwg
+YW5kIGZpeCB0aG9zZS4gIFRoYXQncyB3aHkgSSd2ZSBnb3QgYSBiZWUgaW4gbXkgYm9ubmV0DQph
+Ym91dCBVU0IgY2hhcmdpbmcuDQoNCldlJ3ZlIGdvdCBsaXRlcmFsbHkgb3ZlciBhIGJpbGxpb24g
+ZGV2aWNlcyBpbiB0aGUgZmllbGQgdGhhdCBydW4gTGludXgsIGJ1dCBjYW4ndCBydW4gbWFpbmxp
+bmUuDQpUaGlzIGlzIHZlcnkgZGlmZmVyZW50IGZyb20gdGhlIGVudGVycHJpc2Ugc3BhY2UsIHdo
+ZXJlIHlvdSBjYW4gcnVuIGEgbWFpbmxpbmUga2VybmVsIGJ1dA0KeW91J3JlIGp1c3QgbWlzc2lu
+ZyBhIGZldyB0aG91c2FuZCB2ZW5kb3IgcGF0Y2hlcy4gIEJhc2ljIGZ1bmN0aW9uYWxpdHkgd2ls
+bCBzdGlsbCB3b3JrLg0KDQpUaGVyZSBhcmUgdGhvdXNhbmRzIG9mIG5vbi12ZW5kb3Iga2VybmVs
+IGRldmVsb3BlcnMgd29ya2luZyBvbiB0aGVzZSBkZXZpY2VzLiBTb21lIG9mDQp0aGVtLCBJIGJl
+bGlldmUsIHdvdWxkIHBsYXkgYXJvdW5kIHdpdGggdGhpcyBzdHVmZiBhbmQgY29udHJpYnV0ZSB0
+byBtYWlubGluZSwgaWYgdGhleSBjb3VsZA0KdXNlIGl0IG9uIHRoZWlyIGRldmljZXMuICBPcHRp
+b24gMywgYnkgdGhlIHdheSwgbWFrZXMgaXQgaGFyZGVyIGZvciB0aGF0IGNhdGVnb3J5IG9mIGRl
+dmVsb3Blcg0KdG8gY29udHJpYnV0ZS4NCiAtLSBUaW0NCg==
