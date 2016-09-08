@@ -1,20 +1,26 @@
-Return-Path: <b.zolnierkie@samsung.com>
-From: Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>
-To: Catalin Marinas <catalin.marinas@arm.com>
-Date: Wed, 07 Sep 2016 15:07:25 +0200
-Message-id: <3177542.BiqEY2Ifyd@amdc1976>
-In-reply-to: <20160907093250.qmmcmrq2g64rjmif@localhost>
-References: <57C78BE9.30009@linaro.org> <2181684.5VzIQ6DWv4@amdc1976>
-	<20160907093250.qmmcmrq2g64rjmif@localhost>
-MIME-version: 1.0
-Content-transfer-encoding: 7Bit
-Content-type: text/plain; charset=us-ascii
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	"ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [Stable kernel] feature backporting
-	collaboration
+Return-Path: <mhiramat@kernel.org>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id F1A9E943
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu,  8 Sep 2016 03:13:29 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.136])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7956D1B2
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu,  8 Sep 2016 03:13:29 +0000 (UTC)
+Date: Thu, 8 Sep 2016 12:13:24 +0900
+From: Masami Hiramatsu <mhiramat@kernel.org>
+To: Shuah Khan <shuahkhan@gmail.com>
+Message-Id: <20160908121324.7139b9f4f150e128e4c5229c@kernel.org>
+In-Reply-To: <CAKocOON-REZwmQZGsnmqKEo2WJshAn7AbeRC-bZx2CEumRL14w@mail.gmail.com>
+References: <20160906185143.GF2356@ZenIV.linux.org.uk>
+	<CAKocOON-REZwmQZGsnmqKEo2WJshAn7AbeRC-bZx2CEumRL14w@mail.gmail.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [topic proposal] tracepoints and ABI
+ stability warranties
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -24,81 +30,61 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wednesday, September 07, 2016 10:32:50 AM Catalin Marinas wrote:
-> On Tue, Sep 06, 2016 at 06:06:48PM +0200, Bartlomiej Zolnierkiewicz wrote:
-> > On Tuesday, September 06, 2016 02:34:30 PM Catalin Marinas wrote:
-> > > On Mon, Sep 05, 2016 at 05:22:59PM +0300, Laurent Pinchart wrote:
-> > > > On Monday 05 Sep 2016 10:03:27 Theodore Ts'o wrote:
-> > > > > Maybe there will be some hope if some of the features from ARM64
-> > > > > server can infect the SOC community --- Jon Masters really had the
-> > > > > right idea when he insisted on one kernel to boot all ARM64 kernels,
-> > > > > with all changes pushed upstream, and not hacky, out-of-tree patches
-> > > > > which only work for one SOC vendor.
-> [...]
-> > > > I don't think that's a fair comparison. For server platforms end-users of the 
-> > > > hardware will pick a distribution and roll it out on the machines, so hardware 
-> > > > vendors have a strong incentive to play by our rules. Phones are completely 
-> > > > different in that the device vendor doesn't care about end-users being able to 
-> > > > pick what software in general and kernel in particular they want to install on 
-> > > > the device.
-> > > 
-> > > Things could be different if fewer entities control the software that
-> > > gets installed/updated on such hardware. E.g. Google controlling the OTA
-> > > updates of the Chromebook kernels, they will at some point take a
-> > > similar hard stance to Red Hat on upstream first, single kernel Image.
-> > > For phones, however, that's unlikely to happen given the multitude and
-> > > short life-time of new products.
-> [...]
-> > For phones it feels that upstream itself is moving too slow for
-> > vendors to get benefits from upstream first policy.  Each year there
-> > is a new flagship device and new SoC.  With the current upstream model
-> > (new kernel release every 2-3 months and discussions on upstreaming
-> > some core subsystems enhancements easily taking weeks/months) upstream
-> > first policy just doesn't give enough business benefits.  Before you
-> > have everything upstream and changes propagate itself to LTS and Android
-> > kernels (which should also move faster BTW) it can be easily 2 years
-> > since start of the effort and your SoC is now obsolete.
+On Tue, 6 Sep 2016 15:05:04 -0600
+Shuah Khan <shuahkhan@gmail.com> wrote:
+
+> On Tue, Sep 6, 2016 at 12:51 PM, Al Viro <viro@zeniv.linux.org.uk> wrote:
+> >         Right now there is no mechanism for saying "if this tracepoints
+> > breaks, it's Not Our Problem(tm)".  All of them are parts of userland
+> > ABI, potentially casting in stone all kinds of kernel internals.  E.g.
+> > just today a patch series adding tracepoints to kobject primitives
+> > had been posted; if _that_ becomes a part of stable ABI, we get the
+> > lifetime rules for anything with an embedded kobject exposed to userland
+> > and potentially impossible to change - all it takes is a single piece of
+> > software making non-trivial use of those.
 > 
-> If there is a one-off, completely independent SoC that no-one (not even
-> the vendor) cares about a year after the device goes on sales, I don't
-> think we want it upstream either. However, SoC vendors tend to work on
-> SoC families with some variations within a family (like CPU upgrades,
-> maybe a new interconnect etc.) but in general a lot of code that can be
-> reused. That's where upstreaming is highly beneficial to the vendor on
-> the long run since such SoC family has a life span bigger than the
-> individual device derived from a specific SoC.
+> I honestly didn't think that my patch series will result in a special
+> KS topic :)
+> However, I think it is a good idea to discuss it as general topic for
+> what kind of
+> kernel information should/should not be made visible via tracepoints or other
+> debug mechanisms.
 
-I agree that for SoC families upstreaming is highly beneficial.
-Unfortunately for the whole products this doesn't seem to be
-the case with current upstream policies.
+Hmm, what the "information" means? I think there are 2 level of information
+the "formal" information and "semantic" information. Tracepoints, debuginfo,
+etc. provided by technical path are formal, and nobody can give the semantic
+one.
 
-> I'm also aware that vendors don't always want to disclose their SoC
-> details until the device goes public, so that's another business
-> argument against upstreaming first, especially in the mobile world.
-> 
-> One impediment to upstreaming in my experience is that vendors tend to
-> develop the initial SoC port against an old kernel version (e.g. based
-> on the Android version they target). Forward-porting to latest mainline
-> all of a sudden becomes a much larger task that companies are not always
-> willing to (sufficiently) invest in. So if an "upstream first" policy is
-> not always feasible from a (mobile) business perspective, "develop
-> against upstream" is a better second option. An initial SoC port doesn't
-> need all the additional features that Android kernels provide, so it's
-> usually doable with what is available upstream. There is more effort
-> initially since targeting certain Android versions require back-porting,
-> however it pays off in the long run for the SoC *family*.
-> 
-> Trying to get on-topic: where organisations providing kernels like LSK
-> (Linaro) can help is offering to integrate/maintain the SoC back-port
-> while encouraging the SoC vendors to focus on developing against the
-> latest upstream. It looks to me that on (too) many occasions SoC vendors
-> take LSK as their development base for new SoC ports, making the
-> forward-porting effort significantly larger (and potentially ignored).
+For example, if we see an "unsigned long flags" in the code, we can understand
+that is unsigned integer value and the size will be 32bit or 64bit depends on
+CPU architecture. However, we can not know what the value means in the context
+except for reading code or comment. It can be used for storing irq-flags, or
+conditional flags, or rarely used for counting something. And also, we may not
+know what will happened if the value is changed, except for precise documents etc.
 
-Fully agreed.
+One possible way to solve this is adding a kerneldoc entry for each tracepoint
+so that we can understand what it means. However, it is still not enough for
+keeping userspace program, because the "meaning" may not be machine readable.
 
-Best regards,
---
-Bartlomiej Zolnierkiewicz
-Samsung R&D Institute Poland
-Samsung Electronics
+Another possible solution is keeping the information meaning fixed with
+its context (iow, make it stable), and write a manpage. But IMHO, it leads
+to haedening of the arteris of the kernel desgin.
+
+So, I would like to recommend someone who are using this kind of "information"
+keep thier code update for newer kernel or contribute it (including test code)
+to kernel tree, so that making it easy to fix/update (or abandon ... if the
+context which tool depends on, is totally changed) it.
+
+> We do support a wide range of tracepoints and events in various sub-systems
+> skb.h, pagemap.h, and pagemap.h so on. Maybe it would be helpful to agree
+> on some sort of guidelines for exposure.
+
+How about adding a kerneldoc comment for each event as I described above?
+I don't like to expose it via debugfs or tracefs, but maybe we can distribute
+it as documents with kernel.
+
+Thank you,
+
+
+-- 
+Masami Hiramatsu <mhiramat@kernel.org>
