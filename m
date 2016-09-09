@@ -1,28 +1,24 @@
-Return-Path: <broonie@sirena.org.uk>
-Date: Fri, 9 Sep 2016 12:48:15 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
-Message-ID: <20160909114815.GL27946@sirena.org.uk>
-References: <9895277.d39OTXtlqC@avalon> <20160906003532.GA3950@sirena.org.uk>
-	<1473175831.17204.29.camel@HansenPartnership.com>
-	<20160906194404.GA22363@kroah.com>
-	<20160906222058.GS3950@sirena.org.uk>
-	<10203253-0df5-4ff3-8cd4-9e6b38661d57@email.android.com>
-	<ECADFF3FD767C149AD96A924E7EA6EAF053D73F2@USCULXMSG01.am.sony.com>
-	<20160908191930.GA32595@kroah.com>
-	<20160909104545.GG27946@sirena.org.uk>
-	<20160909110328.GA6356@kroah.com>
+Return-Path: <robherring2@gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="Mit9XoPEfICDqq/V"
-Content-Disposition: inline
-In-Reply-To: <20160909110328.GA6356@kroah.com>
-Cc: James Bottomley <James.Bottomley@Hansenpartnership.com>,
+In-Reply-To: <CACRpkda=Atrahk6Jfrnj84C548bszkkB1ULnDDw7EowXabGB+A@mail.gmail.com>
+References: <57C78BE9.30009@linaro.org> <20160905111105.GW3950@sirena.org.uk>
+	<20160905140327.a6wgdl3lr42nlww4@thunk.org>
+	<9895277.d39OTXtlqC@avalon>
+	<20160906133429.5ktkvafprbtxr5sd@localhost>
+	<CAOesGMjd0HrrVOZpumaSw8QvpkGqKsNPmEXWkTFz6rRLK7STag@mail.gmail.com>
+	<CACRpkda=Atrahk6Jfrnj84C548bszkkB1ULnDDw7EowXabGB+A@mail.gmail.com>
+From: Rob Herring <robherring2@gmail.com>
+Date: Fri, 9 Sep 2016 09:23:53 -0500
+Message-ID: <CAL_JsqJYDhREG1nP_GSH_b5QJt7DcJG7CM-kw2=dJJ2nzZ80cg@mail.gmail.com>
+To: Linus Walleij <linus.walleij@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
 	"ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
 	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>, Baolin.Wang@linaro.org
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [Stable kernel] feature backporting
- collaboration
+	collaboration
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,55 +28,58 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Thu, Sep 8, 2016 at 3:34 AM, Linus Walleij <linus.walleij@linaro.org> wrote:
+> On Tue, Sep 6, 2016 at 6:46 PM, Olof Johansson <olof@lixom.net> wrote:
+>
+>> Chrome OS was successful in this (if I might say so myself), getting
+>> several vendors who earlier had very thin upstream presence to
+>> significantly improve. I haven't seen all that many other projects
+>> being able to do it, but for those of you who are in positions to help
+>> steer SoC choices, do keep this in mind, work with your internal
+>> development teams to make them understand the importance of this, and
+>> make it a priority.
+>
+> Actually what you did with SoC vendors from Chrome OS and stating
+> clearly that upstream presence is a factor in procurement was the
+> *only* thing I have ever seen that actually works to change the
+> behaviour of an entire company, apart from dedicated individuals on
+> the inside of the companies.
+>
+> It got one major SoC vendor "hooked" on upstreaming to the point
+> that they have now come around to internalize that way of working,
+> at least partly.
 
---Mit9XoPEfICDqq/V
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+I think a large part of that is being hungry for the business to do
+whatever it takes to win it. If QCom was in a ChromeOS device, I don't
+think their tree would be much better than Android other than pieces
+not needed can be dropped. For example, ChromeOS bypasses the whole
+SoC camera subsystem mess by using USB cameras.
 
-On Fri, Sep 09, 2016 at 01:03:28PM +0200, gregkh@linuxfoundation.org wrote:
-> On Fri, Sep 09, 2016 at 11:45:45AM +0100, Mark Brown wrote:
+> So Chrome OS SoC procurement did good. You should be proud.
+>
+> When it comes to Android, as I think I remarked in the past, the
+> problem since its inception is that the Android people making Nexus
+> devices (or whatever they will call it now) have traditionally thought of
+> themselves as inferior by being tied to someone actually doing
+> the hardware such as HTC, Samsung, LG etc, and they see it
+> as those companies are doing the actual procurement of
+> components and SoC, where BSP software is just another
+> "component".
+>
+> The day the Android people say that for a Nexus(-ish) device it's
+> gonna be all upstream kernel and they will pick the SoC that
+> delivers that, then things will happen. But as it seems, they are
+> not doing the SoC pick, it is done by someone else. But I guess
+> they *do* pick which company will make the Nexus-ish device and
+> they could communicate this along to them.
+>
+> They can also say "upstream strategy document or no playstore
+> for you" to all handset and tablet vendors any day, but I guess it
+> would be percieved as too aggressive. But I would personally have
+> used that hammer immediately.
 
-> > Baolin wrote all that code from scratch - it's not based off a vendor
-> > tree.
+It's not that easy. After it's mandated, what's step 2? It would be a
+multi year process even if vendors stopped everything else to only get
+things upstream.
 
-> Oh that's even worse!  Well, worse from the case of "the vendors
-> shipping this type of functionality really do not care".
-
-Well, another way of looking at it is that one of the big goals people
-have in funding Linaro is to get this sort of shared problem worked on.
-
-> > > That's kind of proof that upstream is being flat-out ignored...
-
-> > Or that people were working on other things, it's not like this is the
-> > only thing that people are missing in mainline.
-
-> What is the list of things that you know of that we are currently
-> missing?
-
-There's a page in the elinux wiki that people have been using to track
-some of this (intermittently it must be said):
-
-   http://elinux.org/Kernel_areas_of_focus_for_mainlining
-
-which focuses a lot on specific functionality rather than higher level
-things and obviously internally people will look at their own pain
-points.  There's things like big.LITTLE (the EAS work) and system wide
-voltage and frequency scaling which are needed for competitive products
-but aren't on there.
-
---Mit9XoPEfICDqq/V
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQEcBAEBCAAGBQJX0qF+AAoJECTWi3JdVIfQH+EH/0UU1wo4lS4AmwmfAvNmeHHO
-fEWSPvY2aFesz/s2t896GlmNSxuvn1YYffQfvHZBISwJuBm0PmrSZdvdxPSl/pPH
-XI5lzu7Llt1Iw5SHCx/vGIrq+vt99jff6YAfEOEsaFRRmZZIyBx/lSFBkOAHju6I
-OtQMSYDQsYXIraU0aw+xeqbjO14Od1fTEDZJygruLcCQQf4qGavDC03iODnrXSJc
-3CPBTz2m1kSnC29tByivFqLvS2UySN0G/F49YDHRI10qqinmzQRVWA9fc8kDiget
-gvp+P0RTHhuxx97aKnMoEIvq9ExLgcE9wVeSx6Ji7RLEim09qUntj1lpqciP7YI=
-=mIDI
------END PGP SIGNATURE-----
-
---Mit9XoPEfICDqq/V--
+Rob
