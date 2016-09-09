@@ -1,16 +1,17 @@
 Return-Path: <robherring2@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <CACRpkda=Atrahk6Jfrnj84C548bszkkB1ULnDDw7EowXabGB+A@mail.gmail.com>
+In-Reply-To: <20160908085553.GE9355@localhost>
 References: <57C78BE9.30009@linaro.org> <20160905111105.GW3950@sirena.org.uk>
 	<20160905140327.a6wgdl3lr42nlww4@thunk.org>
 	<9895277.d39OTXtlqC@avalon>
 	<20160906133429.5ktkvafprbtxr5sd@localhost>
 	<CAOesGMjd0HrrVOZpumaSw8QvpkGqKsNPmEXWkTFz6rRLK7STag@mail.gmail.com>
 	<CACRpkda=Atrahk6Jfrnj84C548bszkkB1ULnDDw7EowXabGB+A@mail.gmail.com>
+	<20160908085553.GE9355@localhost>
 From: Rob Herring <robherring2@gmail.com>
-Date: Fri, 9 Sep 2016 09:23:53 -0500
-Message-ID: <CAL_JsqJYDhREG1nP_GSH_b5QJt7DcJG7CM-kw2=dJJ2nzZ80cg@mail.gmail.com>
-To: Linus Walleij <linus.walleij@linaro.org>
+Date: Fri, 9 Sep 2016 09:32:46 -0500
+Message-ID: <CAL_JsqJuAYb6UmH6eG3ji6UYX+qZyBtsxPLGWTD3m4L43wLLVg@mail.gmail.com>
+To: Vinod Koul <vinod.koul@intel.com>
 Content-Type: text/plain; charset=UTF-8
 Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
 	"ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
@@ -28,58 +29,60 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Sep 8, 2016 at 3:34 AM, Linus Walleij <linus.walleij@linaro.org> wrote:
-> On Tue, Sep 6, 2016 at 6:46 PM, Olof Johansson <olof@lixom.net> wrote:
+On Thu, Sep 8, 2016 at 3:55 AM, Vinod Koul <vinod.koul@intel.com> wrote:
+> On Thu, Sep 08, 2016 at 10:34:48AM +0200, Linus Walleij wrote:
+>> On Tue, Sep 6, 2016 at 6:46 PM, Olof Johansson <olof@lixom.net> wrote:
+>>
+>> > Chrome OS was successful in this (if I might say so myself), getting
+>> > several vendors who earlier had very thin upstream presence to
+>> > significantly improve. I haven't seen all that many other projects
+>> > being able to do it, but for those of you who are in positions to help
+>> > steer SoC choices, do keep this in mind, work with your internal
+>> > development teams to make them understand the importance of this, and
+>> > make it a priority.
+>>
+>> Actually what you did with SoC vendors from Chrome OS and stating
+>> clearly that upstream presence is a factor in procurement was the
+>> *only* thing I have ever seen that actually works to change the
+>> behaviour of an entire company, apart from dedicated individuals on
+>> the inside of the companies.
+>>
+>> It got one major SoC vendor "hooked" on upstreaming to the point
+>> that they have now come around to internalize that way of working,
+>> at least partly.
+>>
+>> So Chrome OS SoC procurement did good. You should be proud.
+>>
+>> When it comes to Android, as I think I remarked in the past, the
+>> problem since its inception is that the Android people making Nexus
+>> devices (or whatever they will call it now) have traditionally thought of
+>> themselves as inferior by being tied to someone actually doing
+>> the hardware such as HTC, Samsung, LG etc, and they see it
+>> as those companies are doing the actual procurement of
+>> components and SoC, where BSP software is just another
+>> "component".
+>>
+>> The day the Android people say that for a Nexus(-ish) device it's
+>> gonna be all upstream kernel and they will pick the SoC that
+>> delivers that, then things will happen. But as it seems, they are
+>> not doing the SoC pick, it is done by someone else. But I guess
+>> they *do* pick which company will make the Nexus-ish device and
+>> they could communicate this along to them.
+>>
+>> They can also say "upstream strategy document or no playstore
+>> for you" to all handset and tablet vendors any day, but I guess it
+>> would be percieved as too aggressive. But I would personally have
+>> used that hammer immediately.
 >
->> Chrome OS was successful in this (if I might say so myself), getting
->> several vendors who earlier had very thin upstream presence to
->> significantly improve. I haven't seen all that many other projects
->> being able to do it, but for those of you who are in positions to help
->> steer SoC choices, do keep this in mind, work with your internal
->> development teams to make them understand the importance of this, and
->> make it a priority.
->
-> Actually what you did with SoC vendors from Chrome OS and stating
-> clearly that upstream presence is a factor in procurement was the
-> *only* thing I have ever seen that actually works to change the
-> behaviour of an entire company, apart from dedicated individuals on
-> the inside of the companies.
->
-> It got one major SoC vendor "hooked" on upstreaming to the point
-> that they have now come around to internalize that way of working,
-> at least partly.
+> And I think things might be better in future. Brillo (though Android)
+> seems to have ChromeOS kind of upstream strategy in place, though it is
+> not clear to me yet if that is mandatory.
 
-I think a large part of that is being hungry for the business to do
-whatever it takes to win it. If QCom was in a ChromeOS device, I don't
-think their tree would be much better than Android other than pieces
-not needed can be dropped. For example, ChromeOS bypasses the whole
-SoC camera subsystem mess by using USB cameras.
-
-> So Chrome OS SoC procurement did good. You should be proud.
->
-> When it comes to Android, as I think I remarked in the past, the
-> problem since its inception is that the Android people making Nexus
-> devices (or whatever they will call it now) have traditionally thought of
-> themselves as inferior by being tied to someone actually doing
-> the hardware such as HTC, Samsung, LG etc, and they see it
-> as those companies are doing the actual procurement of
-> components and SoC, where BSP software is just another
-> "component".
->
-> The day the Android people say that for a Nexus(-ish) device it's
-> gonna be all upstream kernel and they will pick the SoC that
-> delivers that, then things will happen. But as it seems, they are
-> not doing the SoC pick, it is done by someone else. But I guess
-> they *do* pick which company will make the Nexus-ish device and
-> they could communicate this along to them.
->
-> They can also say "upstream strategy document or no playstore
-> for you" to all handset and tablet vendors any day, but I guess it
-> would be percieved as too aggressive. But I would personally have
-> used that hammer immediately.
-
-It's not that easy. After it's mandated, what's step 2? It would be a
-multi year process even if vendors stopped everything else to only get
-things upstream.
+You are the first person I've heard say Brillo is doing things right.
+IMO, they are reusing everything that is wrong with Android: the build
+system, HALs and vendor kernels. The initial announcement talked about
+leveraging the broad h/w support of Android. That's vendor kernels and
+HALs (aka BSPs) for which many are not open source. As the saying
+goes, if you have a BSP, you're doing it wrong.
 
 Rob
