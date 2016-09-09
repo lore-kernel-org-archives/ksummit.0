@@ -1,25 +1,36 @@
-Return-Path: <robherring2@gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <20160908085553.GE9355@localhost>
-References: <57C78BE9.30009@linaro.org> <20160905111105.GW3950@sirena.org.uk>
-	<20160905140327.a6wgdl3lr42nlww4@thunk.org>
-	<9895277.d39OTXtlqC@avalon>
+Return-Path: <alex.shi@linaro.org>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3356A98D
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri,  9 Sep 2016 15:06:26 +0000 (UTC)
+Received: from mail-pa0-f46.google.com (mail-pa0-f46.google.com
+	[209.85.220.46])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2AE2AAF
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri,  9 Sep 2016 15:06:25 +0000 (UTC)
+Received: by mail-pa0-f46.google.com with SMTP id id6so29208941pad.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 09 Sep 2016 08:06:25 -0700 (PDT)
+To: Catalin Marinas <catalin.marinas@arm.com>,
+	Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>
+References: <57C78BE9.30009@linaro.org> <9895277.d39OTXtlqC@avalon>
 	<20160906133429.5ktkvafprbtxr5sd@localhost>
-	<CAOesGMjd0HrrVOZpumaSw8QvpkGqKsNPmEXWkTFz6rRLK7STag@mail.gmail.com>
-	<CACRpkda=Atrahk6Jfrnj84C548bszkkB1ULnDDw7EowXabGB+A@mail.gmail.com>
-	<20160908085553.GE9355@localhost>
-From: Rob Herring <robherring2@gmail.com>
-Date: Fri, 9 Sep 2016 09:32:46 -0500
-Message-ID: <CAL_JsqJuAYb6UmH6eG3ji6UYX+qZyBtsxPLGWTD3m4L43wLLVg@mail.gmail.com>
-To: Vinod Koul <vinod.koul@intel.com>
-Content-Type: text/plain; charset=UTF-8
+	<2181684.5VzIQ6DWv4@amdc1976>
+	<20160907093250.qmmcmrq2g64rjmif@localhost>
+From: Alex Shi <alex.shi@linaro.org>
+Message-ID: <57D2CFE9.2060809@linaro.org>
+Date: Fri, 9 Sep 2016 23:06:17 +0800
+MIME-Version: 1.0
+In-Reply-To: <20160907093250.qmmcmrq2g64rjmif@localhost>
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: 7bit
 Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
 	"ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
+	ksummit-discuss@lists.linuxfoundation.org,
 	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [Stable kernel] feature backporting
-	collaboration
+ collaboration
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,60 +40,17 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Sep 8, 2016 at 3:55 AM, Vinod Koul <vinod.koul@intel.com> wrote:
-> On Thu, Sep 08, 2016 at 10:34:48AM +0200, Linus Walleij wrote:
->> On Tue, Sep 6, 2016 at 6:46 PM, Olof Johansson <olof@lixom.net> wrote:
->>
->> > Chrome OS was successful in this (if I might say so myself), getting
->> > several vendors who earlier had very thin upstream presence to
->> > significantly improve. I haven't seen all that many other projects
->> > being able to do it, but for those of you who are in positions to help
->> > steer SoC choices, do keep this in mind, work with your internal
->> > development teams to make them understand the importance of this, and
->> > make it a priority.
->>
->> Actually what you did with SoC vendors from Chrome OS and stating
->> clearly that upstream presence is a factor in procurement was the
->> *only* thing I have ever seen that actually works to change the
->> behaviour of an entire company, apart from dedicated individuals on
->> the inside of the companies.
->>
->> It got one major SoC vendor "hooked" on upstreaming to the point
->> that they have now come around to internalize that way of working,
->> at least partly.
->>
->> So Chrome OS SoC procurement did good. You should be proud.
->>
->> When it comes to Android, as I think I remarked in the past, the
->> problem since its inception is that the Android people making Nexus
->> devices (or whatever they will call it now) have traditionally thought of
->> themselves as inferior by being tied to someone actually doing
->> the hardware such as HTC, Samsung, LG etc, and they see it
->> as those companies are doing the actual procurement of
->> components and SoC, where BSP software is just another
->> "component".
->>
->> The day the Android people say that for a Nexus(-ish) device it's
->> gonna be all upstream kernel and they will pick the SoC that
->> delivers that, then things will happen. But as it seems, they are
->> not doing the SoC pick, it is done by someone else. But I guess
->> they *do* pick which company will make the Nexus-ish device and
->> they could communicate this along to them.
->>
->> They can also say "upstream strategy document or no playstore
->> for you" to all handset and tablet vendors any day, but I guess it
->> would be percieved as too aggressive. But I would personally have
->> used that hammer immediately.
->
-> And I think things might be better in future. Brillo (though Android)
-> seems to have ChromeOS kind of upstream strategy in place, though it is
-> not clear to me yet if that is mandatory.
 
-You are the first person I've heard say Brillo is doing things right.
-IMO, they are reusing everything that is wrong with Android: the build
-system, HALs and vendor kernels. The initial announcement talked about
-leveraging the broad h/w support of Android. That's vendor kernels and
-HALs (aka BSPs) for which many are not open source. As the saying
-goes, if you have a BSP, you're doing it wrong.
 
-Rob
+On 09/07/2016 05:32 PM, Catalin Marinas wrote:
+> Trying to get on-topic: where organisations providing kernels like LSK
+> (Linaro) can help is offering to integrate/maintain the SoC back-port
+> while encouraging the SoC vendors to focus on developing against the
+> latest upstream. It looks to me that on (too) many occasions SoC vendors
+> take LSK as their development base for new SoC ports, making the
+> forward-porting effort significantly larger (and potentially ignored).
+
+W or w/o LSK, vendor are going to hang on android kernel which also base
+on LTS. On the other side, this collaboration will save much of separate
+work time, then give them more time on long term upstream work. I saw
+this thing happens in linaro members.
