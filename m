@@ -1,21 +1,21 @@
-Return-Path: <mhiramat@kernel.org>
-Date: Tue, 13 Sep 2016 01:09:30 +0900
-From: Masami Hiramatsu <mhiramat@kernel.org>
-To: Alex Shi <alex.shi@linaro.org>
-Message-Id: <20160913010930.24ff31da6e055a54136a3797@kernel.org>
-In-Reply-To: <57D62B3F.2070900@linaro.org>
+Return-Path: <broonie@sirena.org.uk>
+Date: Mon, 12 Sep 2016 17:27:14 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Theodore Ts'o <tytso@mit.edu>
+Message-ID: <20160912162714.GC27946@sirena.org.uk>
 References: <57C78BE9.30009@linaro.org>
 	<20160902134711.movdpffcdcsx6kzv@thunk.org>
 	<EA994DF73240CA4588A99BF072DB2840021207D3@BPXM12GP.gisp.nec.co.jp>
-	<57D62B3F.2070900@linaro.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: "ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
+	<20160910120055.gr2cvad7efwci4f2@thunk.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="+b2GFy/wpzNn/yIF"
+Content-Disposition: inline
+In-Reply-To: <20160910120055.gr2cvad7efwci4f2@thunk.org>
+Cc: Tsugikazu Shibata <tshibata@ab.jp.nec.com>,
+	"ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	Mark Brown <broonie@linaro.org>,
-	Tsugikazu Shibata <tshibata@ab.jp.nec.com>,
 	Greg KH <gregkh@linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [LTSI-dev] [Stable kernel] feature
  backporting collaboration
@@ -28,58 +28,58 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Alex,
 
-On Mon, 12 Sep 2016 12:12:47 +0800
-Alex Shi <alex.shi@linaro.org> wrote:
+--+b2GFy/wpzNn/yIF
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> On 09/06/2016 03:20 PM, Tsugikazu Shibata wrote:
-> > It seems too late but Here I would like to comment from LTSI project's stand point:
-> > We were started LTSI project similar view as above that is:
-> > - LTSI is based on upstream first policy. We are providing a chance to
-> > merge vendor-required patches on top of LTS but patches need to be
-> > in -next or merged in later upstream and back ported to LTS.
-> > Majority of LTSI's additional patches are drivers but sometimes tools or 
-> > new features may proposed. Such patches are reviewed in case by case 
-> > basis but should be self-contained.
-> > - We are approaching to SoC vendors and device manufactures to 
-> > convince their in-house patches to be upstream. It seems that
-> > SoC vendors can create their own fork for their customers but
-> > providing a chance to merge their patches on top of LTS as LTSI will
-> > make some motivation to merge such patches into upstream as long 
-> > term view. Yes, We hope our activities may reduce the problem 
-> > discussed in this thread in longer term. 
-> > Actually, some of SoC vendors would send us their patches 
-> > backported from upstream. We will continue to discuss with SoCs and 
-> > device manufactures to solve the problem.
-> > - Also, some member of LTSI is employee of companies and they are
-> > testing hard for LTSI kernel before the release. Those fixes are providing
-> > to upstream not just LTSI actually. We see LTSI is being one of activity 
-> > of filling the gap between companies and community to create the kernel 
-> > used for the companies and industry.
-> 
-> Thanks for Tsugikazu's explanation of LTSI!
-> LSK follows the very similar rules as LTSI, if anyone like to look into
-> LSK's policies: https://wiki.linaro.org/LSK
-> From 'LSK INCLUSION CONSIDERATIONS' chapter.
-> 
-> Compare to LTSI, LSK has newer LTS, and more upstream features
-> backporting which requested by many SoC vendors. Apparently these are
-> needed widely in industry. And the separately feature branch give more
-> feasibility on feature selection to user. If don't like any features
-> branches, That just left pure LTS.
+On Sat, Sep 10, 2016 at 08:00:55AM -0400, Theodore Ts'o wrote:
+> On Tue, Sep 06, 2016 at 07:20:37AM +0000, Tsugikazu Shibata wrote:
 
-If I understand correctly, the major difference of LSK and LTSI is the SoC
-neutral or not. LSK focuses to backport "features" not "SoC/board supports"
-because many vendors may port their kernel on LSK to make a stable
-BSP/AOSP kernel for their devices. But LTSI aims to help vendors to
-push their patches to upstream by giving them a motivation to merge
-their patches within the LTSI merge window.
+> > Finally, A request to the community from LTSI's stand point is:
+> > We want to have some process to be expected; How or about when=20
+> > LTS would be released. So that companies can easier to create their pla=
+n=20
+> > to use LTS and that will cause more user can use stable and secure
+> > kernel.
 
-If we merge the effort of LTSI and LSK, we'll also give vendors a chance
-to *backport* their SoC support from upstream.
+> So the "about when" has been pretty easy to predict for quite a while
+> now.  And the process has also been roughly the same for a while; IIRC
+> the announcement came at the kernel summit, again with the caveat that
 
-Thank you,
+No, it was more usually sometime in late spring or summer (IIRC LinuxCon
+Japan had some announcements).
 
--- 
-Masami Hiramatsu <mhiramat@kernel.org>
+> it might be subject to change if people abused the preannouncement.
+> And even when it wasn't preannounced because of the historic abuse
+> patterns, people who had observed past practices could generally
+> guestimate the LTS candidate to within +/- a release.
+
+> If that is not enough of a process, could you please state what you
+> think would be more helpful?
+
+Personally I think what we've got at the minute with the
+preannouncements is fairly good, though it might help if it were a bit
+more explicit when announcements would be made - the change to
+preannouncements at a less awkward point in the release cycle has helped
+for the users I talk to but there was always a very awkward period where
+people were looking for an announcement but no information to base
+things on.
+
+--+b2GFy/wpzNn/yIF
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQEcBAEBCAAGBQJX1tdgAAoJECTWi3JdVIfQ9OkH/Ag92SDjRdlODtzpRmOjsXmr
+rQECqCGkABofFYBfDybSRhld+sMlsEhdmcxdsO/0ofdlObDCgAenG1dz2IFpwDre
+X0VshHqv1S6yAF2T/DbFEYgw3VUEM0X5srOWTe9itK4Q2w3E5LyIArOgpAtrT9Zp
+lXQt3jvKQg4NCPGQMaILZ0kJg1dfbJk4/I8hHmTv/ft8Xz/N8vtWLmuJWVOPgLX6
+iCELSCgrusma5XCnFkz+JONLunOTdA+ckCWQz8MLZSnWyK1YabYSBo0eNRBYDyRT
+y8LkMc0chk6FPsoK/Fa4kgDDfKlDnJyoSnsiauX/yVcpzWsYIdHFFb6M24/Ihts=
+=p/t4
+-----END PGP SIGNATURE-----
+
+--+b2GFy/wpzNn/yIF--
