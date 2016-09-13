@@ -1,30 +1,16 @@
-Return-Path: <broonie@sirena.org.uk>
-Date: Tue, 13 Sep 2016 20:21:53 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Message-ID: <20160913192153.GT27946@sirena.org.uk>
-References: <57C78BE9.30009@linaro.org>
-	<20160902134711.movdpffcdcsx6kzv@thunk.org>
-	<EA994DF73240CA4588A99BF072DB2840021207D3@BPXM12GP.gisp.nec.co.jp>
-	<20160910120055.gr2cvad7efwci4f2@thunk.org>
-	<20160912162714.GC27946@sirena.org.uk>
-	<20160912171450.GB27349@kroah.com>
-	<20160912234548.GL27946@sirena.org.uk>
-	<20160913061931.GC11047@kroah.com>
-	<20160913103814.GQ27946@sirena.org.uk>
-	<CAMuHMdU=i3b_QWNg1biKKYUTh-cV_BLuJrroAU_E6nBt3x=NFg@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="UefMXxAhg/xpzpuf"
-Content-Disposition: inline
-In-Reply-To: <CAMuHMdU=i3b_QWNg1biKKYUTh-cV_BLuJrroAU_E6nBt3x=NFg@mail.gmail.com>
-Cc: Tsugikazu Shibata <tshibata@ab.jp.nec.com>,
-	Greg KH <gregkh@linuxfoundation.org>, "ltsi-dev@lists.linuxfoundation.org"
-	<ltsi-dev@lists.linuxfoundation.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [LTSI-dev] [Stable kernel] feature
- backporting collaboration
+Return-Path: <joe@perches.com>
+Message-ID: <1473794336.32273.2.camel@perches.com>
+From: Joe Perches <joe@perches.com>
+To: Christian Borntraeger <borntraeger@de.ibm.com>,
+	ksummit-discuss@lists.linux-foundation.org
+Date: Tue, 13 Sep 2016 12:18:56 -0700
+In-Reply-To: <b72e9a2e-64d4-12af-1af3-adf963151466@de.ibm.com>
+References: <b72e9a2e-64d4-12af-1af3-adf963151466@de.ibm.com>
+Content-Type: text/plain; charset="ISO-8859-1"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] checkpatch/Codingstyle and
+	trivial patch spam
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,43 +20,59 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Tue, 2016-09-13 at 20:58 +0200, Christian Borntraeger wrote:
+> A very late proposal, maybe related to Joe Perches thread about checkpatch and
+> previous discussions about getting new people.
+>
+> There are a decent amount of patches just dealing with checkpatch warnings or
+> Codingtyle things and sometimes the quality of these patches is not the best.
+>
+> 1. What is the general opinion about this patch class? It seems to be trade of
+> between attracting new developers vs. letting people create a huge amount of
+> patches for no good reason. The acceptance of these patches seems to differ from
+> maintainer to maintainer. Are there ideas how to improve things for newbies
+> without inviting patch bombers?
 
---UefMXxAhg/xpzpuf
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+checkpatchg is just fine for drivers/staging, but for almost
+everything else, it can lead to a lot of whitespace churn and
+patches with niggling to some maintainers style-only changes.
 
-On Tue, Sep 13, 2016 at 02:25:10PM +0200, Geert Uytterhoeven wrote:
-> On Tue, Sep 13, 2016 at 12:38 PM, Mark Brown <broonie@kernel.org> wrote:
-> > On Tue, Sep 13, 2016 at 08:19:31AM +0200, Greg KH wrote:
+I would like to avoid almost all of these by restricting the
+checkpatch --file|-f option.
 
-> >> 4.4 was a total supprise to everyone, including me, it came out during
-> >> the kernel summit discussions, and we decided right there in the middle
-> >> of my talk to do it.  So there was no "preannouncement" possible there.
+I like the undocumented "--force" option I proposed a couple
+years ago:
 
-> > It was still a preannouncement - you announced before v4.4 came out as
-> > opposed to after.
+Reference threads:
+https://lkml.org/lkml/2014/7/17/427
+https://patchwork.kernel.org/patch/5814071/
 
-> Yes, but still long after the closing of the v4.4 merge window, making it
-> almost impossible to sneak in new features.
+>  2. Some patches are created due to the CodingStyle document, e.g. just
+> changing the name of labels for gotos. Does it make sense to make CodingStyle
+> less specific again to avoid these change? Or maybe add some rules in
+> SubmittingPatches to always think twice before sending patches to existing code.
+> Any better ideas?
 
-That's true but it's not something that makes a different from the point
-of view of the people I've seen caring most about getting advance notice
-- for them just having some notice before the actual release makes a big
-difference.
+Get Markus Elfing to send fewer style only changes?
 
---UefMXxAhg/xpzpuf
-Content-Type: application/pgp-signature; name="signature.asc"
+> 3. CodingStyle seems to get changes which have no ACK or Reviewed-by that seem
+> to be controversial.  e.g.
+> https://git.kernel.org/cgit/linux/kernel/git/next/linux-next.git/commit/Documentation/CodingStyle?id=865a1caa4b6b886babdd9d67e7c3608be4567a51
+> suggested to indent labels with a space, and was then immediately followed by
+> patches. Is there a process in place to verify and challenge such changes?
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
+Perhaps more review of these proposed style changes?
 
-iQEcBAEBCAAGBQJX2FHPAAoJECTWi3JdVIfQa4UH/1A51iHzaemitVNsWrKvY2vo
-QMsSmI8DSrLL6Qf3yojIyqdxhECZ6Fhk/Cdw20haaQLzyzkcojgbnppKlIl2fFF9
-s2lUcmalwbGORN1PebbxG00phu0sPy+LUJjjTOTf8AqBP2TKZFtTJvEFrNYvory5
-YiOnwnEQntIHJtt07ol/RWMhzH4P8jFZVHiIs5Wt8wNtjtqGytZr5A6jFD8EFrTg
-Lf4Y2HCZZxt0fMl1U8Y6E/qmKSEnD5D7KsrO/Tv40rhjMBWHK5Tbk13H4SmqCA7a
-V6APMrWu9IZ90QKJt0HC7C3oDCiMSYKGxvhvLC/Nlxq5PxR1LCnbGM0zy5SKMpU=
-=zT2R
------END PGP SIGNATURE-----
+In a lot of cases, the CodingStyle document, in either the
+.txt form or the new .rst style, is overly detailed.
 
---UefMXxAhg/xpzpuf--
+Style consistency is good, but there's nothing fundamentally
+wrong with developers using different styles as long as the
+code produced is intelligible and maintainable.
+
+> 4.  Does it make sense to make checkpatch less agressive on files than on
+> patches to avoid a big chunk of changes on existing code?
+
+Mostly that's a checkpatch message type classification problem.
+
+> 
