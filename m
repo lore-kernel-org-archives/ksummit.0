@@ -1,43 +1,38 @@
-Return-Path: <alex.shi@linaro.org>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 990FD94B
+Return-Path: <joe@perches.com>
+Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
+	[172.17.192.36])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id AC3BB997
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 Sep 2016 14:47:58 +0000 (UTC)
-Received: from mail-pa0-f47.google.com (mail-pa0-f47.google.com
-	[209.85.220.47])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C6CAD175
+	Wed, 14 Sep 2016 14:51:48 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0128.hostedemail.com
+	[216.40.44.128])
+	by smtp2.linuxfoundation.org (Postfix) with ESMTPS id CE29B1DB0D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 Sep 2016 14:47:53 +0000 (UTC)
-Received: by mail-pa0-f47.google.com with SMTP id oz2so1670494pac.2
+	Wed, 14 Sep 2016 14:51:46 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
+	[10.5.19.251])
+	by smtpgrave04.hostedemail.com (Postfix) with ESMTP id 436EAB133B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 Sep 2016 07:47:53 -0700 (PDT)
-To: Greg KH <gregkh@linuxfoundation.org>,
-	Josh Boyer <jwboyer@fedoraproject.org>
-References: <20160902134711.movdpffcdcsx6kzv@thunk.org>
-	<EA994DF73240CA4588A99BF072DB2840021207D3@BPXM12GP.gisp.nec.co.jp>
-	<20160910120055.gr2cvad7efwci4f2@thunk.org>
-	<20160912162714.GC27946@sirena.org.uk>
-	<20160912171450.GB27349@kroah.com>
-	<20160912234548.GL27946@sirena.org.uk>
-	<20160913061931.GC11047@kroah.com>
-	<20160913103814.GQ27946@sirena.org.uk>
-	<20160913120942.GA18307@kroah.com>
-	<CA+5PVA62NMb5dziRohcSPat5mU-yGzNrDuUFhTYr8Qip306VAg@mail.gmail.com>
-	<20160913131249.GA8470@kroah.com>
-From: Alex Shi <alex.shi@linaro.org>
-Message-ID: <57D96312.20705@linaro.org>
-Date: Wed, 14 Sep 2016 22:47:46 +0800
-MIME-Version: 1.0
-In-Reply-To: <20160913131249.GA8470@kroah.com>
-Content-Type: text/plain; charset=windows-1252
+	Wed, 14 Sep 2016 14:51:45 +0000 (UTC)
+Message-ID: <1473864700.32273.33.camel@perches.com>
+From: Joe Perches <joe@perches.com>
+To: Greg KH <greg@kroah.com>
+Date: Wed, 14 Sep 2016 07:51:40 -0700
+In-Reply-To: <20160914143205.GA11149@kroah.com>
+References: <b72e9a2e-64d4-12af-1af3-adf963151466@de.ibm.com>
+	<20160913194520.GA8071@cloud> <20160913140322.3ccad27c@lwn.net>
+	<4691924.fimvUkKjuv@vostro.rjw.lan> <20160914020332.GA9558@cloud>
+	<1473819862.32273.16.camel@perches.com>
+	<20160914115456.GB22341@kroah.com>
+	<1473863028.32273.28.camel@perches.com>
+	<20160914143205.GA11149@kroah.com>
+Content-Type: text/plain; charset="ISO-8859-1"
+Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Cc: Tsugikazu Shibata <tshibata@ab.jp.nec.com>,
-	"ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [LTSI-dev] [Stable kernel] feature
- backporting collaboration
+Cc: ksummit-discuss@lists.linux-foundation.org,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [CORE TOPIC] checkpatch/Codingstyle and
+ trivial patch spam
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -47,39 +42,34 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-
-
-On 09/13/2016 09:12 PM, Greg KH wrote:
-> People say "look, we are using an LTS kernel in our product, all must be
-> good!" but if they don't update it, it's broken and insecure, and really
-> no better than if they were using 3.10.0 in a way.
+On Wed, 2016-09-14 at 16:32 +0200, Greg KH wrote:
+> On Wed, Sep 14, 2016 at 07:23:48AM -0700, Joe Perches wrote:
+> > I think the primary issue is people using "scripts/checkpatch.pl -f"
+> > I think that shouldn't be done without an understanding of when
+> > it is useful and when it is not useful to use that -f option.
+> I agree, people get annoyed by this.  I personally think that anyone who
+> does get annoyed by it should just ignore them, or fix up the code to
+> not get triggered by the reports.
 > 
-> But if we didn't provide an LTS, would companies constantly update their
-> kernels to newer releases to keep up with the security and bugfixes?
-> That goes against everything those managers/PMs have ever been used to
-> in the past, yet it's actually the best thing they could do.  It's a
-> long road of education and doing work on their part to get test
-> frameworks set up to be able to qualify "larger" upgrades.  It also
-> requires that their chip vendor not add 1.5 million lines of code to
-> their kernel, rewrite the scheduler, and duplicate all existing drivers
-> with a "-2" suffix.
-> 
-> Ok, this is rambling, and something I've been mulling over for a while
-> now.  I'm working with some people at some of the chip companies to see
-> about how we can do this better, hopefully the work of education,
-> testing, and other assurances can help everyone out in the end, and
-> start to resolve these issues, but it's going to be slow going.
+> But who am I to complain :)
 
-Yes, usually the SoC/product vendors get a huge pressure on 'time to
-market' and there are no enough and strong resources to work on upstream
-first policy through they also know that's better for their-self in long
-term.
+Sure, but there really are old and crufty drivers that
+shouldn't ever be touched as the hardware is obsolete
+and churning that stuff really is almost pointless,
+prone to defect insertion, and the result is untested.
 
-So this kind of collaboration like LSTI, LSK would relief these guys,
-save duplicated work in this industry and give them more time to work
-upstream for long term purpose. That's happening in Linaro members.
+Marking those drivers as obsolete or completed in
+MAINTAINERS might help.
 
-> 
-> Yes, I'll have an LTS this year, but next year?  Maybe not, my dream
-> would be that it wouldn't be needed.  And one has to dream :)
-> 
+And there are maintainers that shall remain nameless
+that think their code is especially good 'as-is' and
+don't want it dusted off as code with cobwebs isn't
+worth the bother cleaning to them.
+
+> > I have proposed adding an undocumented --force option to checkpatch
+> > which would disallow -f unless --force is also used.
+> > https://lkml.org/lkml/2015/2/11/433
+> > Does anyone object to this?
+> None from me.
+
+Going once...
