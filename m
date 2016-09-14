@@ -1,15 +1,17 @@
 Return-Path: <julia.lawall@lip6.fr>
-Date: Wed, 14 Sep 2016 07:29:36 +0200 (CEST)
+Date: Wed, 14 Sep 2016 07:57:08 +0200 (CEST)
 From: Julia Lawall <julia.lawall@lip6.fr>
 To: Joe Perches <joe@perches.com>
-In-Reply-To: <1473804840.32273.8.camel@perches.com>
-Message-ID: <alpine.DEB.2.10.1609140727170.3395@hadrien>
+In-Reply-To: <1473819862.32273.16.camel@perches.com>
+Message-ID: <alpine.DEB.2.10.1609140756320.3395@hadrien>
 References: <b72e9a2e-64d4-12af-1af3-adf963151466@de.ibm.com>
 	<20160913194520.GA8071@cloud> <20160913140322.3ccad27c@lwn.net>
-	<1473804840.32273.8.camel@perches.com>
+	<4691924.fimvUkKjuv@vostro.rjw.lan> <20160914020332.GA9558@cloud>
+	<1473819862.32273.16.camel@perches.com>
 MIME-Version: 1.0
 Content-Type: TEXT/PLAIN; charset=US-ASCII
-Cc: ksummit-discuss@lists.linux-foundation.org, Jean Delvare <jdelvare@suse.de>
+Cc: ksummit-discuss@lists.linux-foundation.org,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] checkpatch/Codingstyle and
  trivial patch spam
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -25,46 +27,43 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 
 On Tue, 13 Sep 2016, Joe Perches wrote:
 
-> On Tue, 2016-09-13 at 14:03 -0600, Jonathan Corbet wrote:
-> > On Tue, 13 Sep 2016 12:45:20 -0700 Josh Triplett <josh@joshtriplett.org> wrote:
-> > > On Tue, Sep 13, 2016 at 08:58:49PM +0200, Christian Borntraeger wrote:
-> > > > 3. CodingStyle seems to get changes which have no ACK or Reviewed-by that seem
-> > > > to be controversial.  e.g.
-> > > > https://git.kernel.org/cgit/linux/kernel/git/next/linux-next.git/commit/Documentation/CodingStyle?id=865a1caa4b6b886babdd9d67e7c3608be4567a51
-> > > > suggested to indent labels with a space, and was then immediately followed by
-> > > > patches. Is there a process in place to verify and challenge such changes?
-> > > Ideally, that should come up during review of the CodingStyle patch.
-> > > Changes shouldn't go into CodingStyle except to document existing
-> > > process and unwritten rules, or to document the results of a discussion
-> > > and consensus.  That particular change to CodingStyle should have been
-> > > rejected, and should be reverted.
-> >
-> >
-> >
-> >
-> > So I'm quite reluctant to take CodingStyle patches for just this reason;
-> > *I* certainly don't want to be the one dictating style for the kernel, but
-> > I'm not really sure who does.
-> []
-> > (FWIW, I'm not really sure how I came to take the one mentioned above, I
-> > guess I was having a bad day.  The space-before-label rule strikes me as
-> > strange at best...)
+> On Tue, 2016-09-13 at 19:03 -0700, Josh Triplett wrote:
+> > "Do
+> > not mass-reformat existing code, even if it doesn't follow these
+> > guidelines; doing so creates noise in version control history and makes
+> > patches fail to apply."
 >
-> The space-before-label rule should be removed.
+> It also could be useful to somehow separate newer, more actively
+> developed code from the old stuff that should remain more static.
 >
-> It's a silly work-around rule for those that don't like
-> to see labels in a diff instead of a function name.
+> Old code should really only get code improvements like API changes,
+> size reductions, constifications, performance improvements and bug
+> fixes.
 >
-> A new .gitattributes patch from Jean Delvare fixes that.
+> Maybe change the MAINTAINERS sections S: entries to have more
+> comprehensive descriptions of what types of changes are acceptable
+> for each section.
 >
-> References:
+> Right now it's
 >
-> https://lkml.org/lkml/2011/8/29/410
-> https://lkml.org/lkml/2016/9/6/445
-> https://lkml.org/lkml/2016/9/7/316
+> S:	Supported
+> or
+> S:	Maintained
+>
+> Or maybe add something like a new entry for what types of changes
+> are acceptable with a default of "none"
 
-Having git log etc do the right thing is really useful if one wants to
-analyze patches.  I hope that there will be the right behavior with no
-effort on the part of the user as soon as possible.
+What types of changes are unacceptable?  What types of changes are
+acceptable could be difficult to summarize in advance.
 
 julia
+
+> C:	Whitespace and Style
+>
+> checkpatch could warn when changes are proposed for code that should
+> remain static.
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+>
