@@ -1,35 +1,19 @@
 Return-Path: <joe@perches.com>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1372799F
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 Sep 2016 14:58:32 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0015.hostedemail.com
-	[216.40.44.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E74C4148
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 Sep 2016 14:58:30 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
-	[10.5.19.251])
-	by smtpgrave02.hostedemail.com (Postfix) with ESMTP id 437523905
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 Sep 2016 14:52:03 +0000 (UTC)
-Message-ID: <1473864710.32273.34.camel@perches.com>
+Message-ID: <1473865997.32273.36.camel@perches.com>
 From: Joe Perches <joe@perches.com>
-To: Julia Lawall <julia.lawall@lip6.fr>, Greg KH <greg@kroah.com>
-Date: Wed, 14 Sep 2016 07:51:50 -0700
-In-Reply-To: <alpine.DEB.2.10.1609141633470.3033@hadrien>
+To: Guenter Roeck <linux@roeck-us.net>, Greg KH <greg@kroah.com>
+Date: Wed, 14 Sep 2016 08:13:17 -0700
+In-Reply-To: <77a6ad59-9fdc-7d2b-0186-49016e05a403@roeck-us.net>
 References: <b72e9a2e-64d4-12af-1af3-adf963151466@de.ibm.com>
 	<20160913194520.GA8071@cloud> <20160913140322.3ccad27c@lwn.net>
 	<4691924.fimvUkKjuv@vostro.rjw.lan> <20160914020332.GA9558@cloud>
 	<1473819862.32273.16.camel@perches.com>
 	<20160914115456.GB22341@kroah.com>
 	<1473863028.32273.28.camel@perches.com>
-	<20160914143205.GA11149@kroah.com>
-	<alpine.DEB.2.10.1609141633470.3033@hadrien>
+	<77a6ad59-9fdc-7d2b-0186-49016e05a403@roeck-us.net>
 Content-Type: text/plain; charset="ISO-8859-1"
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Cc: ksummit-discuss@lists.linux-foundation.org,
 	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] checkpatch/Codingstyle and
@@ -43,18 +27,21 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 2016-09-14 at 16:35 +0200, Julia Lawall wrote:
+On Wed, 2016-09-14 at 07:45 -0700, Guenter Roeck wrote:
+> On 09/14/2016 07:23 AM, Joe Perches wrote:
+> > So what would use propose instead?
+> Introduce .checkpatch ?
 
-> The --force is only required for non-staging code?  If it is required for
-> staging code, then we will have to document it in the outreachy tutorial,
-> and then all the (non-outreachy) newbies who look at the tutorial will
-> know about it.
+A generic .checkpatch.conf option already exists which is
+looked for in . then $HOME
 
-Correct.
+Do you mean a directory based hierarchy of .checkpatch.conf
+files in the git tree so a maintainer could add something like:
 
-drivers/staging gets a special exemption to avoid using --force
+$ cat include/trace/events/.checkpatch.conf
+--ignore=spacing
 
-+	if (!$force && $file && $filename !~ m@^drivers/staging/@) {
-+		warn "$P: checking '$filename' is not supported\n";
-+		next;
-+	}
+and that applies only to that directory?
+
+That might get confusing and have conflicting options
+on the command line.
