@@ -1,28 +1,28 @@
-Return-Path: <rjw@rjwysocki.net>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8896094A
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 Sep 2016 23:43:07 +0000 (UTC)
-Received: from cloudserver094114.home.net.pl (cloudserver094114.home.net.pl
-	[79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id 95E071D4
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 Sep 2016 23:43:06 +0000 (UTC)
-From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-To: Jonathan Corbet <corbet@lwn.net>
-Date: Wed, 14 Sep 2016 01:49:13 +0200
-Message-ID: <4691924.fimvUkKjuv@vostro.rjw.lan>
-In-Reply-To: <20160913140322.3ccad27c@lwn.net>
-References: <b72e9a2e-64d4-12af-1af3-adf963151466@de.ibm.com>
-	<20160913194520.GA8071@cloud> <20160913140322.3ccad27c@lwn.net>
+Return-Path: <gregkh@linuxfoundation.org>
+Date: Wed, 14 Sep 2016 03:49:06 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <20160914014906.GA23547@kroah.com>
+References: <20160902134711.movdpffcdcsx6kzv@thunk.org>
+	<EA994DF73240CA4588A99BF072DB2840021207D3@BPXM12GP.gisp.nec.co.jp>
+	<20160910120055.gr2cvad7efwci4f2@thunk.org>
+	<20160912162714.GC27946@sirena.org.uk>
+	<20160912171450.GB27349@kroah.com>
+	<20160912234548.GL27946@sirena.org.uk>
+	<20160913061931.GC11047@kroah.com>
+	<20160913103814.GQ27946@sirena.org.uk>
+	<CAMuHMdU=i3b_QWNg1biKKYUTh-cV_BLuJrroAU_E6nBt3x=NFg@mail.gmail.com>
+	<20160913192153.GT27946@sirena.org.uk>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
-Cc: ksummit-discuss@lists.linux-foundation.org, Joe Perches <joe@perches.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [CORE TOPIC] checkpatch/Codingstyle and
-	trivial patch spam
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20160913192153.GT27946@sirena.org.uk>
+Cc: Tsugikazu Shibata <tshibata@ab.jp.nec.com>,
+	"ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [LTSI-dev] [Stable kernel] feature
+ backporting collaboration
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,44 +32,26 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tuesday, September 13, 2016 02:03:22 PM Jonathan Corbet wrote:
-> On Tue, 13 Sep 2016 12:45:20 -0700
-> Josh Triplett <josh@joshtriplett.org> wrote:
+On Tue, Sep 13, 2016 at 08:21:53PM +0100, Mark Brown wrote:
+> On Tue, Sep 13, 2016 at 02:25:10PM +0200, Geert Uytterhoeven wrote:
+> > On Tue, Sep 13, 2016 at 12:38 PM, Mark Brown <broonie@kernel.org> wrote:
+> > > On Tue, Sep 13, 2016 at 08:19:31AM +0200, Greg KH wrote:
 > 
-> > On Tue, Sep 13, 2016 at 08:58:49PM +0200, Christian Borntraeger wrote:
-> > > 3. CodingStyle seems to get changes which have no ACK or Reviewed-by that seem
-> > > to be controversial.  e.g.
-> > > https://git.kernel.org/cgit/linux/kernel/git/next/linux-next.git/commit/Documentation/CodingStyle?id=865a1caa4b6b886babdd9d67e7c3608be4567a51
-> > > suggested to indent labels with a space, and was then immediately followed by
-> > > patches. Is there a process in place to verify and challenge such changes?  
-> > 
-> > Ideally, that should come up during review of the CodingStyle patch.
-> > Changes shouldn't go into CodingStyle except to document existing
-> > process and unwritten rules, or to document the results of a discussion
-> > and consensus.  That particular change to CodingStyle should have been
-> > rejected, and should be reverted.
+> > >> 4.4 was a total supprise to everyone, including me, it came out during
+> > >> the kernel summit discussions, and we decided right there in the middle
+> > >> of my talk to do it.  So there was no "preannouncement" possible there.
 > 
-> So I'm quite reluctant to take CodingStyle patches for just this reason;
-> *I* certainly don't want to be the one dictating style for the kernel, but
-> I'm not really sure who does.  In my time as the docs maintainer I've only
-> applied two patches there that constitute any sort of rule change - this
-> one and a78a136fa9337fdc25fdbaa2d253f9b4dc90ad44.  
+> > > It was still a preannouncement - you announced before v4.4 came out as
+> > > opposed to after.
 > 
-> In general, I would welcome advice on how any future rule-change patches
-> should be reviewed.
+> > Yes, but still long after the closing of the v4.4 merge window, making it
+> > almost impossible to sneak in new features.
+> 
+> That's true but it's not something that makes a different from the point
+> of view of the people I've seen caring most about getting advance notice
+> - for them just having some notice before the actual release makes a big
+> difference.
 
-I agree with Josh that CodingStyle should reflect the existing practice
-(present in the majority of the kernel source) or a broad consensus.
+Why?  What do they want to do with this notice?
 
-While the "existing practice" case is relatively simple (it boils down to
-demonstrating that the given rule is in fact followed in practice in the
-majority of the kernel source), the "broad consensus" one is not as
-straightforward.  It looks like a Kernel Summit discussion or equivalent
-would be required each time to be honest ...
-
-In any case, it might be good to state somewhere that CodingStyle is a
-guidance for new code and not a prescription for how all of the kernel code
-must look like.
-
-Thanks,
-Rafael
+greg k-h
