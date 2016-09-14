@@ -1,19 +1,18 @@
-Return-Path: <joe@perches.com>
-Message-ID: <1473865997.32273.36.camel@perches.com>
-From: Joe Perches <joe@perches.com>
-To: Guenter Roeck <linux@roeck-us.net>, Greg KH <greg@kroah.com>
-Date: Wed, 14 Sep 2016 08:13:17 -0700
-In-Reply-To: <77a6ad59-9fdc-7d2b-0186-49016e05a403@roeck-us.net>
+Return-Path: <alexandre.belloni@free-electrons.com>
+Date: Wed, 14 Sep 2016 19:11:07 +0200
+From: Alexandre Belloni <alexandre.belloni@free-electrons.com>
+To: Joe Perches <joe@perches.com>
+Message-ID: <20160914170536.77fkhyiyikxc6jab@piout.net>
 References: <b72e9a2e-64d4-12af-1af3-adf963151466@de.ibm.com>
 	<20160913194520.GA8071@cloud> <20160913140322.3ccad27c@lwn.net>
 	<4691924.fimvUkKjuv@vostro.rjw.lan> <20160914020332.GA9558@cloud>
 	<1473819862.32273.16.camel@perches.com>
-	<20160914115456.GB22341@kroah.com>
-	<1473863028.32273.28.camel@perches.com>
-	<77a6ad59-9fdc-7d2b-0186-49016e05a403@roeck-us.net>
-Content-Type: text/plain; charset="ISO-8859-1"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+	<alpine.DEB.2.10.1609140756320.3395@hadrien>
+	<1473834432.32273.21.camel@perches.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1473834432.32273.21.camel@perches.com>
 Cc: ksummit-discuss@lists.linux-foundation.org,
 	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] checkpatch/Codingstyle and
@@ -27,21 +26,31 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 2016-09-14 at 07:45 -0700, Guenter Roeck wrote:
-> On 09/14/2016 07:23 AM, Joe Perches wrote:
-> > So what would use propose instead?
-> Introduce .checkpatch ?
+On 13/09/2016 at 23:27:12 -0700, Joe Perches wrote :
+> On Wed, 2016-09-14 at 07:57 +0200, Julia Lawall wrote:
+> > What types of changes are unacceptable?
+> 
+> It's a mixed bag.
+> 
+> Some maintainers reject all "style/whitespace changes".
+> Some maintainers reject global consistency patches like
+> int -> bool conversions.
+> Some maintainers reject literal -> #define changes like
+> 1 -> true and 0 -> false for booleans.
+> 
+> Some of those maintainers are IMO misguided.
 
-A generic .checkpatch.conf option already exists which is
-looked for in . then $HOME
+On my side, I usually take that kind of changes only when they come with
+other substantial changes, especially when the code hasn't been touched
+for a while.
 
-Do you mean a directory based hierarchy of .checkpatch.conf
-files in the git tree so a maintainer could add something like:
+The other thing that I find annoying are people using Coccinnelle or any
+other static code analysis tool and sending patches without saying how
+they found the alleged bug. Sometimes, this results in pointless
+cleanups that haven't been tested by the patch author.
 
-$ cat include/trace/events/.checkpatch.conf
---ignore=spacing
 
-and that applies only to that directory?
-
-That might get confusing and have conflicting options
-on the command line.
+-- 
+Alexandre Belloni, Free Electrons
+Embedded Linux and Kernel engineering
+http://free-electrons.com
