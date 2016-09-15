@@ -1,33 +1,34 @@
-Return-Path: <linux@roeck-us.net>
+Return-Path: <jic23@jic23.retrosnub.co.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C69069BA
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B7C918D9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 Sep 2016 19:46:39 +0000 (UTC)
-Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C8965143
+	Thu, 15 Sep 2016 16:33:32 +0000 (UTC)
+Received: from saturn.retrosnub.co.uk (saturn.retrosnub.co.uk [178.18.118.26])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 16D9F22D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 Sep 2016 19:46:38 +0000 (UTC)
-Date: Wed, 14 Sep 2016 12:46:32 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Joe Perches <joe@perches.com>
-Message-ID: <20160914194632.GA16397@roeck-us.net>
+	Thu, 15 Sep 2016 16:33:31 +0000 (UTC)
+In-Reply-To: <20160914170536.77fkhyiyikxc6jab@piout.net>
 References: <b72e9a2e-64d4-12af-1af3-adf963151466@de.ibm.com>
 	<20160913194520.GA8071@cloud> <20160913140322.3ccad27c@lwn.net>
 	<4691924.fimvUkKjuv@vostro.rjw.lan> <20160914020332.GA9558@cloud>
 	<1473819862.32273.16.camel@perches.com>
-	<20160914115456.GB22341@kroah.com>
-	<1473863028.32273.28.camel@perches.com>
-	<77a6ad59-9fdc-7d2b-0186-49016e05a403@roeck-us.net>
-	<1473865997.32273.36.camel@perches.com>
+	<alpine.DEB.2.10.1609140756320.3395@hadrien>
+	<1473834432.32273.21.camel@perches.com>
+	<20160914170536.77fkhyiyikxc6jab@piout.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1473865997.32273.36.camel@perches.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+ charset=UTF-8
+From: Jonathan Cameron <jic23@jic23.retrosnub.co.uk>
+Date: Thu, 15 Sep 2016 17:33:22 +0100
+To: Alexandre Belloni <alexandre.belloni@free-electrons.com>,
+	Joe Perches <joe@perches.com>
+Message-ID: <FC03991A-3E78-4BD7-9544-74AC089A9C87@jic23.retrosnub.co.uk>
 Cc: ksummit-discuss@lists.linux-foundation.org,
 	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [CORE TOPIC] checkpatch/Codingstyle and
- trivial patch spam
+	trivial patch spam
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,35 +38,49 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Sep 14, 2016 at 08:13:17AM -0700, Joe Perches wrote:
-> On Wed, 2016-09-14 at 07:45 -0700, Guenter Roeck wrote:
-> > On 09/14/2016 07:23 AM, Joe Perches wrote:
-> > > So what would use propose instead?
-> > Introduce .checkpatch ?
-> 
-> A generic .checkpatch.conf option already exists which is
-> looked for in . then $HOME
-> 
-That isn't kept in the repository as far as I can see.
 
-> Do you mean a directory based hierarchy of .checkpatch.conf
-> files in the git tree so a maintainer could add something like:
-> 
-> $ cat include/trace/events/.checkpatch.conf
-> --ignore=spacing
-> 
-> and that applies only to that directory?
-> 
-That might solve the problem. However,
 
-> That might get confusing and have conflicting options
-> on the command line.
+On 14 September 2016 18:11:07 BST, Alexandre Belloni <alexandre.belloni@free-electrons.com> wrote:
+>On 13/09/2016 at 23:27:12 -0700, Joe Perches wrote :
+>> On Wed, 2016-09-14 at 07:57 +0200, Julia Lawall wrote:
+>> > What types of changes are unacceptable?
+>> 
+>> It's a mixed bag.
+>> 
+>> Some maintainers reject all "style/whitespace changes".
+>> Some maintainers reject global consistency patches like
+>> int -> bool conversions.
+>> Some maintainers reject literal -> #define changes like
+>> 1 -> true and 0 -> false for booleans.
+>> 
+>> Some of those maintainers are IMO misguided.
+>
+>On my side, I usually take that kind of changes only when they come
+>with
+>other substantial changes, especially when the code hasn't been touched
+>for a while.
+>
+>The other thing that I find annoying are people using Coccinnelle or
+>any
+>other static code analysis tool and sending patches without saying how
+>they found the alleged bug. Sometimes, this results in pointless
+>cleanups that haven't been tested by the patch author.
 
-... it currently has a different scope: It is expected to be used in a
-local setting, not delivered as part of the repository. So it would not
-help to declare that per-directory settings override global settings
-since people expect the global settings to work.
+As a maintainer who gets a lot of patches from newbies (partly as I maintain a fair
+set of staging patches but also as we have a steady stream of new drivers in
+IIO) I am quite happy to take 'good' whitespace cleanups.
 
-But, yes, something like that might help.
+Most of the time I can find something deeper to point out in the driver and get
+them moving up the food chain.
 
-Guenter
+Personally I think it is worth the pain in recent driver code at least as the
+ advantage of pulling someone new in outweighs the costs.
+
+Probably helps that IIO has a fair sized group of reviewers many of whom help
+out with advice to newbies.  Hence I have it easy :)
+
+Just thought I'd add a positive viewpoint.
+
+Jonathan
+-- 
+Sent from my Android device with K-9 Mail. Please excuse my brevity.
