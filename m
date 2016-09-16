@@ -1,36 +1,29 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <avagin@virtuozzo.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6919A94D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id C0AAD71
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 15 Sep 2016 19:23:26 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F3AF9139
+	Fri, 16 Sep 2016 05:59:08 +0000 (UTC)
+Received: from EUR02-HE1-obe.outbound.protection.outlook.com
+	(mail-eopbgr10101.outbound.protection.outlook.com [40.107.1.101])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 15DD3A8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 15 Sep 2016 19:23:25 +0000 (UTC)
-Date: Thu, 15 Sep 2016 20:23:11 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Rik van Riel <riel@redhat.com>
-Message-ID: <20160915192311.GS27974@sirena.org.uk>
-References: <20160906185143.GF2356@ZenIV.linux.org.uk>
-	<20160906152243.766f3845@gandalf.local.home>
-	<20160906213644.GA16732@p183.telecom.by>
-	<20160906175343.2f0d9135@gandalf.local.home>
-	<20160906224100.GA17212@p183.telecom.by>
-	<20160907051039.GG2356@ZenIV.linux.org.uk>
-	<CALCETrVRFVkpk5bbH1jYxhh3nWYoJtXMFaMo2yR25sntGOrnDw@mail.gmail.com>
-	<CAKocOOM7XJeW79dtFNx2Agi7cyrQxmMROmQrisdTG8oZMSi_qQ@mail.gmail.com>
-	<1473264649.10218.56.camel@redhat.com>
+	Fri, 16 Sep 2016 05:59:07 +0000 (UTC)
+Date: Thu, 15 Sep 2016 22:58:57 -0700
+From: Andrei Vagin <avagin@virtuozzo.com>
+To: "Eric W. Biederman" <ebiederm@xmission.com>
+Message-ID: <20160916055857.GA29753@outlook.office365.com>
+References: <20160903052014.GA4850@outlook.office365.com>
+	<87mvjbbtds.fsf@x220.int.ebiederm.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="7L9kolmstoDTZ4pm"
+Content-Type: text/plain; charset="koi8-r"
 Content-Disposition: inline
-In-Reply-To: <1473264649.10218.56.camel@redhat.com>
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	Andy Lutomirski <luto@kernel.org>
-Subject: Re: [Ksummit-discuss] [topic proposal] tracepoints and ABI
- stability warranties
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <87mvjbbtds.fsf@x220.int.ebiederm.org>
+Cc: Kirill Kolyshkin <kir@openvz.org>, Patrick McHardy <kaber@trash.net>,
+	ksummit-discuss@lists.linuxfoundation.org, David Ahern <dsahern@gmail.com>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Netlink engine issues,
+ and ways to fix those
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,48 +33,178 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Tue, Sep 13, 2016 at 12:29:35PM -0500, Eric W. Biederman wrote:
+> 
+> Andrei Vagin <avagin@virtuozzo.com> writes:
+> 
+> > The netlink interface proved itself as a great way to perform
+> > descriptor-based kernel/userspace communication. It is especially useful
+> > for cases involving a big amount of data to transfer. The netlink
+> > communication protocol is simple and elegant; it also allows to extend
+> > the message format without breaking backward compatibility.
+> >
+> > One big problem of netlink is credentials. When a user-space process is
+> > opening a new file descriptor, kernel saves the opener's credentials to
+> > f_cred field of the file struct. After that, every access to that fd are
+> > checked against the saved credentials. In essence, this allows for a
+> > process to open a file descriptor as root and then drop capabilities.
+> > With netlink socket, it is not possible to implement this access
+> > scheme.
+> 
+> A historical oversight, and unfortunately implementing it breaks
+> routing daemons.
+> 
+> > Currently netlink is widely used in the network subsystem, but there are
+> > also a few users outside of networking, such as audit and taskstats.
+> > Developers who used netlink for anything except the networking know
+> > there are some issues. For example, taskstats code has broken user and
+> > pid namespace support.
+> >
+> > Another potential user of netlink socket is task_diag, a faster
+> > /proc/PID-like interface proposed some time ago
+> > (https://lkml.org/lkml/2015/7/6/142). It makes sense to use the netlink
+> > interface for it, too, but the whole feature is currently blocked by the
+> > netlink discussion.
+> 
+> I disagree.  It is not part of the networking subystem so netlink does
+> is very very unlikely to make sense.  In general netlink is an over
+> engineered solution outside of networking.
+> 
+> My overall impression is that network people get networking protocols
+> and so netlink makes a good fit for the network stack. On the other had
+> non-network people in general don't in general do well with networking
+> intefaces, so I do not recommend netlink for anything outside of the
+> network subsystem.
+> 
+> All of that is before you start getting into namespace details.
+> 
+> Now some of that is at least in part because of the volume of use the
+> interface is expected to get.  Low volume interfaces tend as a rule to
+> have more ``interesting'' corner cases.  Regardless of the subsystem.
+> 
+> Looking at your referenced task_diag interface I think netlink is
+> completely unsuitable because your interface does not follow the good
+> netlink pattern for binary attributes and binary data.  Possibly
+> a taskdiagfd() system call would make sense.
 
---7L9kolmstoDTZ4pm
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Eric, thank you for the feedback. Could you elaborate what do you mean
+when you say: "does not follow the good netlink pattern for binary
+attributes and binary data." Maybe you can give an example of bad
+patterns.
 
-On Wed, Sep 07, 2016 at 12:10:49PM -0400, Rik van Riel wrote:
+There was an another version where a proc file is used instead of netlink
+sockets:
+https://lwn.net/Articles/683371/
+https://github.com/avagin/linux-task-diag/blob/devel/fs/proc/task_diag.c
 
-> From an enterprise distro (and user) point of view,
-> it is important to be able to debug a kernel that
-> is running on a production system (and developed
-> some problem after a month of running), without
-> having to reboot into a special "debug kernel".
->=20
-> Being able to just fire up a tracer debugging
-> script that can identify intermittent problems
-> is an invaluable tool in making the kernel better
-> for our users.
->=20
-> Hamstringing our ability to make the kernel better,
-> in order to keep the debugging ABI stable, is
-> shooting ourselves (and our users) in the foot.
+In this version, I don't use netlink sockets, but I use the netlink format
+for messages. The motivation here is to have expandable format for the
+future improvements.
 
-This also applies very much to embedded systems development.  The
-flight recorder aspect and the ability to turn on trace without
-requiring a custom build be distributed and flashed are massively
-helpful, I've seen people get really excited when they see tracepoints
-for the first time.
+> Or quite likely a pure taskdiag() system call.
 
---7L9kolmstoDTZ4pm
-Content-Type: application/pgp-signature; name="signature.asc"
+The amount of data may be quite big to get them for one iteration, so I
+would prefer to have a file descriptor.
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
+> 
+> Things should be simplified to the point where the design is clear
+> easily understood and easily tested.  What you are really suggesting is
+> tossing out proc with the motiviation of checkpoint/restart.  Perhaps
+> that is fine.  There are certainly other avenues to consider there.
 
-iQEcBAEBCAAGBQJX2vUeAAoJECTWi3JdVIfQyeYH/iNmLDyc4qEWH8/CtLbSDDx5
-Ebi5iZTtol5PvsARRGlVrN87GvIhWgRVa0YIO5H75D5R3JAwXUFo3f3SGKWQclVF
-MQC9mJDDGDlMAPf8vS0hl8vjHKKfcMw+Pfy0o4eHarmgxfA4PyF4qKZxbOCkyYFf
-yMifSQ9HXhZ9u4Ib5DyPDoIwwuK5J6UcX37CrNAkeT/NllEKK4vMMcA5h9XL2lkY
-fwvKSwBhjXVKNm9R2huLJ1AaJjSyP398X3f5VGPegQ2x9cWU0GnWq84zHck9hdnE
-IbL1jOUstsPPx5FBNDqCnkd3sDPzW++TmzipZYMXMfBhL7QMWVO0erOYHHR33x0=
-=ARQ1
------END PGP SIGNATURE-----
+I want to think that the motivation is to make a good and fast interface
+to use it from code. We already checked this interface in criu, perf and
+procps, in all cases we get significant performance improvements.
 
---7L9kolmstoDTZ4pm--
+Thanks,
+Andrei
+
+> 
+> There are reasons proc is in text format and while useful it is not
+> fundamentally because text is human readable.  The reasons have to do
+> with maintainability of data structures.
+> 
+> I tend to think Andy's solution is also over engineered.  Either we have
+> a file descriptor in which case a ns argument is unnecessary or we have
+> or we have a raw syscall which immediately returns the information.
+> In which case an ns argument is very unnecessary.
+> 
+> So yes I would be interested in the conversation.  Although I think
+> there is some serious homework that needs to happen.
+> 
+> Eric
+> 
+> 
+> > A few months ago Andy Lutomirski suggested to rework the netlink
+> > interface in order to solve the known issues. We suggest discussing his
+> > idea:
+> >
+> > ----- snip --- snip --- snip -----
+> > (taken from http://lists.openwall.net/netdev/2016/05/05/51)
+> >
+> > The tl;dr is that Andrey wants to add an interface to ask a pidns some
+> > questions, and netlink looks natural, except that using netlink sockets
+> > to interrogate a pidns seems rather problematic. šI would also love to
+> > see a decent interface for interrogating user namespaces, and again,
+> > netlink would be great, except that it's a socket and makes no sense in
+> > this context.
+> >
+> > Netlink had, and possibly still has, tons of serious security bugs
+> > involving code checking send() callers' creds. šI found and fixed a few
+> > a couple years ago. šTo reiterate once again, send() CANNOT use caller
+> > creds safely. š(I feel like I say this once every few weeks. It's
+> > getting old.)
+> >
+> > I realize that it's convenient to use a socket as a context to keep
+> > state between syscalls, but it has some annoying side effects:
+> >
+> >  - It makes people want to rely on send()'s caller's creds.
+> >  - It's miserable in combination with seccomp.
+> >  - It doesn't play nicely with namespaces.
+> >  - It makes me wonder why things like task_diag, which have nothing
+> >    to do with networking, seem to get tangled up with networking.
+> >
+> >
+> > Would it be worth considering adding a parallel interface, using it for
+> > new things, and slowly migrating old use cases over?
+> >
+> > int issue_kernel_command(int ns, int command, const struct iovec *iov, int iovcnt, int flags);
+> >
+> > ns is an actual namespace fd or:
+> >
+> > KERNEL_COMMAND_CURRENT_NETNS
+> > KERNEL_COMMAND_CURRENT_PIDNS
+> > etc, or a special one:
+> > KERNEL_COMMAND_GLOBAL. šKERNEL_COMMAND_GLOBAL can't be used in a
+> > non-root namespace.
+> >
+> > KERNEL_COMMAND_GLOBAL works even for namespaced things, if the
+> > relevant current ns is the init namespace. š(This feature is optional,
+> > but it would allow gradually namespacing global things.)
+> >
+> > command is an enumerated command. šEach command implies a namespace
+> > type, and, if you feed this thing the wrong namespace type, you get
+> > EINVAL. šThe high bit of command indicates whether it's read-only
+> > command.
+> >
+> > iov gives a command in the format expected, which, for the most part,
+> > would be a netlink message.
+> >
+> > The return value is an fd that you can call read/readv on to read the
+> > response. šIt's not a socket (or at least you can't do normal socket
+> > operations on it if it is a socket behind the scenes). šThe
+> > implementation of read() promises *not* to look at caller creds. šThe
+> > returned fd is unconditionally cloexec -- it's 2016 already. šSheesh.
+> >
+> > When you've read all the data, all you can do is close the fd. šYou
+> > can't issue another command on the same fd. šYou also can't call write()
+> > or send() on the fd unless someone has a good reason why you should be
+> > able to and why it's safe. šYou can't issue another command on the same
+> > fd.
+> >
+> > I imagine that the implementation could re-use a bunch of netlink code
+> > under the hood.
+> > _______________________________________________
+> > Ksummit-discuss mailing list
+> > Ksummit-discuss@lists.linuxfoundation.org
+> > https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
