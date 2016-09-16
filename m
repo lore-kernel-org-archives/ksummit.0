@@ -1,29 +1,15 @@
-Return-Path: <avagin@virtuozzo.com>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C0AAD71
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 Sep 2016 05:59:08 +0000 (UTC)
-Received: from EUR02-HE1-obe.outbound.protection.outlook.com
-	(mail-eopbgr10101.outbound.protection.outlook.com [40.107.1.101])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 15DD3A8
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 Sep 2016 05:59:07 +0000 (UTC)
-Date: Thu, 15 Sep 2016 22:58:57 -0700
-From: Andrei Vagin <avagin@virtuozzo.com>
-To: "Eric W. Biederman" <ebiederm@xmission.com>
-Message-ID: <20160916055857.GA29753@outlook.office365.com>
-References: <20160903052014.GA4850@outlook.office365.com>
-	<87mvjbbtds.fsf@x220.int.ebiederm.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="koi8-r"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <87mvjbbtds.fsf@x220.int.ebiederm.org>
-Cc: Kirill Kolyshkin <kir@openvz.org>, Patrick McHardy <kaber@trash.net>,
-	ksummit-discuss@lists.linuxfoundation.org, David Ahern <dsahern@gmail.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Netlink engine issues,
- and ways to fix those
+Return-Path: <paolo.valente@linaro.org>
+From: Paolo Valente <paolo.valente@linaro.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 16 Sep 2016 09:55:45 +0200
+Message-Id: <E9D83DEA-B8D1-4E51-AF9C-8C67CFEDCE39@linaro.org>
+To: ksummit-discuss@lists.linux-foundation.org
+Mime-Version: 1.0 (Mac OS X Mail 9.3 \(3124\))
+Cc: b.zolnierkie@samsung.com, Jens Axboe <axboe@fb.com>, hare@suse.de,
+	Tejun Heo <tj@kernel.org>, osandov@osandov.com, hch@lst.de
+Subject: [Ksummit-discuss] [TECH TOPIC] Addressing long-standing
+	high-latency problems related to I/O
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,178 +19,75 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Sep 13, 2016 at 12:29:35PM -0500, Eric W. Biederman wrote:
-> 
-> Andrei Vagin <avagin@virtuozzo.com> writes:
-> 
-> > The netlink interface proved itself as a great way to perform
-> > descriptor-based kernel/userspace communication. It is especially useful
-> > for cases involving a big amount of data to transfer. The netlink
-> > communication protocol is simple and elegant; it also allows to extend
-> > the message format without breaking backward compatibility.
-> >
-> > One big problem of netlink is credentials. When a user-space process is
-> > opening a new file descriptor, kernel saves the opener's credentials to
-> > f_cred field of the file struct. After that, every access to that fd are
-> > checked against the saved credentials. In essence, this allows for a
-> > process to open a file descriptor as root and then drop capabilities.
-> > With netlink socket, it is not possible to implement this access
-> > scheme.
-> 
-> A historical oversight, and unfortunately implementing it breaks
-> routing daemons.
-> 
-> > Currently netlink is widely used in the network subsystem, but there are
-> > also a few users outside of networking, such as audit and taskstats.
-> > Developers who used netlink for anything except the networking know
-> > there are some issues. For example, taskstats code has broken user and
-> > pid namespace support.
-> >
-> > Another potential user of netlink socket is task_diag, a faster
-> > /proc/PID-like interface proposed some time ago
-> > (https://lkml.org/lkml/2015/7/6/142). It makes sense to use the netlink
-> > interface for it, too, but the whole feature is currently blocked by the
-> > netlink discussion.
-> 
-> I disagree.  It is not part of the networking subystem so netlink does
-> is very very unlikely to make sense.  In general netlink is an over
-> engineered solution outside of networking.
-> 
-> My overall impression is that network people get networking protocols
-> and so netlink makes a good fit for the network stack. On the other had
-> non-network people in general don't in general do well with networking
-> intefaces, so I do not recommend netlink for anything outside of the
-> network subsystem.
-> 
-> All of that is before you start getting into namespace details.
-> 
-> Now some of that is at least in part because of the volume of use the
-> interface is expected to get.  Low volume interfaces tend as a rule to
-> have more ``interesting'' corner cases.  Regardless of the subsystem.
-> 
-> Looking at your referenced task_diag interface I think netlink is
-> completely unsuitable because your interface does not follow the good
-> netlink pattern for binary attributes and binary data.  Possibly
-> a taskdiagfd() system call would make sense.
+Linux systems suffers from long-standing high-latency problems, at
+system and application level, related to I/O.  For example, they
+usually suffer from poor responsiveness--or even starvation, depending
+on the workload--while, e.g., one or more files are being
+read/written/copied.  On a similar note, background workloads may
+cause audio/video playback/streaming to stutter, even with long gaps.
+A lot of test results on this problem can be found here [1] (I'm
+citing only this resource just because I'm familiar with it, but
+evidence can be found in countless technical reports, scientific
+papers, forum discussions, and so on).
 
-Eric, thank you for the feedback. Could you elaborate what do you mean
-when you say: "does not follow the good netlink pattern for binary
-attributes and binary data." Maybe you can give an example of bad
-patterns.
+These problems are caused mainly by poor I/O scheduling, although I/O
+schedulers are not the only culprit.  To address these issues, eight
+years ago I started to work on a new I/O scheduler, named BFQ [1], with
+other researchers and developers.  Since then, we have improved
+and fine-tuned BFQ rather constantly.  In particular we have
+tested it extensively, especially on desktop system.  In our
+easily-repeatable experiments, BFQ proves to be able to solve latency
+issues in many, if not most, use cases [2].  For example, regardless of
+the background workload considered in [2], application start-up times
+are about the same as when the storage device is idle.  Similarly,
+audio/video playback is always perfectly smooth.  The feedback
+received so far confirms our results.  In this respect, BFQ is, e.g.,
+the default I/O scheduler in a few distributions, including Sabayon
+and Arch Linux ARM, as well as in CyanoGenMod for several devices.
 
-There was an another version where a proc file is used instead of netlink
-sockets:
-https://lwn.net/Articles/683371/
-https://github.com/avagin/linux-task-diag/blob/devel/fs/proc/task_diag.c
+BFQ has been submitted several times on lkml over the last eight
+years, the last times by me.  But it has not made it, for (apparently)
+other reasons than how serious the latency problem is, or how
+effectively BFQ solves it.  In short, the problem with the first
+patchsets was that they added a new scheduler, while it was decided
+that they should have replaced CFQ instead [3].  Then time passed in
+various submit&revise rounds.  Meanwhile blk-mq has entered mainline,
+and a new objection has been raised: it is not sensible to touch code
+(blk) that will eventually be deprecated [4].
 
-In this version, I don't use netlink sockets, but I use the netlink format
-for messages. The motivation here is to have expandable format for the
-future improvements.
+In view of these facts, I would like to propose a discussion on this
+topic, and, in particular on the following points:
 
-> Or quite likely a pure taskdiag() system call.
+1) If blk will still be used in a considerable number of systems for
+at least one or two more years, as many thinks it is the case, is it
+sensible to prevent a lot of users from enjoying a responsive and
+smooth system?  It does not seem a good idea, also because having
+BFQ, or an even better variant of it, in blk would imply having a
+strong reference benchmark to drive the development of effective I/O
+scheduling also in blk-mq.
 
-The amount of data may be quite big to get them for one iteration, so I
-would prefer to have a file descriptor.
+2) Work is going on in blk-mq to add I/O scheduling, but IMHO current
+approaches and ideas may not be sufficient to solve the above latency
+problems.  So, still IMO, latency issues may get even worse for low-
+and medium-speed single-queue devices in the transition to blk-mq, as
+there is no I/O scheduling yet in blk-mq, and these issues may remain
+there if no accurate-enough scheduler is added.  In contrast, solving
+latency issues, and not only improving throughput, is probably quite
+important to speed up the transition to blk-mq for these devices.
 
-> 
-> Things should be simplified to the point where the design is clear
-> easily understood and easily tested.  What you are really suggesting is
-> tossing out proc with the motiviation of checkpoint/restart.  Perhaps
-> that is fine.  There are certainly other avenues to consider there.
-
-I want to think that the motivation is to make a good and fast interface
-to use it from code. We already checked this interface in criu, perf and
-procps, in all cases we get significant performance improvements.
+3) Can we join forces to solve latency problems in blk-mq?  By working
+on BFQ, I should have gained some experience on I/O scheduling
+and on providing strong service guarantees (low latency, accurate
+bandwidth distribution, ...), yet I'm all but an expert of bulk-mq's
+inner workings and issues.  I'm willing to help on all areas in this
+regard, including tasks related to the previous point.
 
 Thanks,
-Andrei
+Paolo
 
-> 
-> There are reasons proc is in text format and while useful it is not
-> fundamentally because text is human readable.  The reasons have to do
-> with maintainability of data structures.
-> 
-> I tend to think Andy's solution is also over engineered.  Either we have
-> a file descriptor in which case a ns argument is unnecessary or we have
-> or we have a raw syscall which immediately returns the information.
-> In which case an ns argument is very unnecessary.
-> 
-> So yes I would be interested in the conversation.  Although I think
-> there is some serious homework that needs to happen.
-> 
-> Eric
-> 
-> 
-> > A few months ago Andy Lutomirski suggested to rework the netlink
-> > interface in order to solve the known issues. We suggest discussing his
-> > idea:
-> >
-> > ----- snip --- snip --- snip -----
-> > (taken from http://lists.openwall.net/netdev/2016/05/05/51)
-> >
-> > The tl;dr is that Andrey wants to add an interface to ask a pidns some
-> > questions, and netlink looks natural, except that using netlink sockets
-> > to interrogate a pidns seems rather problematic. šI would also love to
-> > see a decent interface for interrogating user namespaces, and again,
-> > netlink would be great, except that it's a socket and makes no sense in
-> > this context.
-> >
-> > Netlink had, and possibly still has, tons of serious security bugs
-> > involving code checking send() callers' creds. šI found and fixed a few
-> > a couple years ago. šTo reiterate once again, send() CANNOT use caller
-> > creds safely. š(I feel like I say this once every few weeks. It's
-> > getting old.)
-> >
-> > I realize that it's convenient to use a socket as a context to keep
-> > state between syscalls, but it has some annoying side effects:
-> >
-> >  - It makes people want to rely on send()'s caller's creds.
-> >  - It's miserable in combination with seccomp.
-> >  - It doesn't play nicely with namespaces.
-> >  - It makes me wonder why things like task_diag, which have nothing
-> >    to do with networking, seem to get tangled up with networking.
-> >
-> >
-> > Would it be worth considering adding a parallel interface, using it for
-> > new things, and slowly migrating old use cases over?
-> >
-> > int issue_kernel_command(int ns, int command, const struct iovec *iov, int iovcnt, int flags);
-> >
-> > ns is an actual namespace fd or:
-> >
-> > KERNEL_COMMAND_CURRENT_NETNS
-> > KERNEL_COMMAND_CURRENT_PIDNS
-> > etc, or a special one:
-> > KERNEL_COMMAND_GLOBAL. šKERNEL_COMMAND_GLOBAL can't be used in a
-> > non-root namespace.
-> >
-> > KERNEL_COMMAND_GLOBAL works even for namespaced things, if the
-> > relevant current ns is the init namespace. š(This feature is optional,
-> > but it would allow gradually namespacing global things.)
-> >
-> > command is an enumerated command. šEach command implies a namespace
-> > type, and, if you feed this thing the wrong namespace type, you get
-> > EINVAL. šThe high bit of command indicates whether it's read-only
-> > command.
-> >
-> > iov gives a command in the format expected, which, for the most part,
-> > would be a netlink message.
-> >
-> > The return value is an fd that you can call read/readv on to read the
-> > response. šIt's not a socket (or at least you can't do normal socket
-> > operations on it if it is a socket behind the scenes). šThe
-> > implementation of read() promises *not* to look at caller creds. šThe
-> > returned fd is unconditionally cloexec -- it's 2016 already. šSheesh.
-> >
-> > When you've read all the data, all you can do is close the fd. šYou
-> > can't issue another command on the same fd. šYou also can't call write()
-> > or send() on the fd unless someone has a good reason why you should be
-> > able to and why it's safe. šYou can't issue another command on the same
-> > fd.
-> >
-> > I imagine that the implementation could re-use a bunch of netlink code
-> > under the hood.
-> > _______________________________________________
-> > Ksummit-discuss mailing list
-> > Ksummit-discuss@lists.linuxfoundation.org
-> > https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+[1] http://algogroup.unimore.it/people/paolo/disk_sched/
+[2] http://algogroup.unimore.it/people/paolo/disk_sched/results.php
+[3] =
+https://lists.linux-foundation.org/pipermail/containers/2014-June/034704.h=
+tml
+[4] https://lkml.org/lkml/2016/8/8/207
