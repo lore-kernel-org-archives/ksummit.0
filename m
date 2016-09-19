@@ -1,28 +1,27 @@
-Return-Path: <ebiederm@xmission.com>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4C5009C
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 18 Sep 2016 20:31:54 +0000 (UTC)
-Received: from out02.mta.xmission.com (out02.mta.xmission.com [166.70.13.232])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9D156210
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 18 Sep 2016 20:31:53 +0000 (UTC)
-From: ebiederm@xmission.com (Eric W. Biederman)
-To: Andrei Vagin <avagin@virtuozzo.com>
-References: <20160903052014.GA4850@outlook.office365.com>
-	<87mvjbbtds.fsf@x220.int.ebiederm.org>
-	<20160916055857.GA29753@outlook.office365.com>
-Date: Sun, 18 Sep 2016 15:18:13 -0500
-In-Reply-To: <20160916055857.GA29753@outlook.office365.com> (Andrei Vagin's
-	message of "Thu, 15 Sep 2016 22:58:57 -0700")
-Message-ID: <874m5dnere.fsf@x220.int.ebiederm.org>
+Return-Path: <jack@suse.cz>
+Date: Mon, 19 Sep 2016 10:17:29 +0200
+From: Jan Kara <jack@suse.cz>
+To: Paolo Valente <paolo.valente@linaro.org>
+Message-ID: <20160919081729.GB11487@quack2.suse.cz>
+References: <E9D83DEA-B8D1-4E51-AF9C-8C67CFEDCE39@linaro.org>
+	<20160916082415.GA15313@kroah.com>
+	<1474038939.2353.13.camel@HansenPartnership.com>
+	<C3B93237-1E57-4F06-9681-B875557FC34F@linaro.org>
+	<1474054593.2353.76.camel@HansenPartnership.com>
+	<7979CF12-3A19-43F0-90AE-C4264B67FC77@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-Cc: Kirill Kolyshkin <kir@openvz.org>, Patrick McHardy <kaber@trash.net>,
-	ksummit-discuss@lists.linuxfoundation.org, David Ahern <dsahern@gmail.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Netlink engine issues,
-	and ways to fix those
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7979CF12-3A19-43F0-90AE-C4264B67FC77@linaro.org>
+Cc: Jens Axboe <axboe@fb.com>,
+	Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+	ksummit-discuss@lists.linux-foundation.org,
+	Greg KH <gregkh@linuxfoundation.org>,
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	hare@suse.de, Tejun Heo <tj@kernel.org>, osandov@osandov.com,
+	Christoph Hellwig <hch@lst.de>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Addressing long-standing
+ high-latency problems related to I/O
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,126 +31,63 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Andrei Vagin <avagin@virtuozzo.com> writes:
+On Fri 16-09-16 22:13:44, Paolo Valente wrote:
+> > Il giorno 16 set 2016, alle ore 21:36, James Bottomley <James.Bottomley@HansenPartnership.com> ha scritto:
+> > 
+> > On Fri, 2016-09-16 at 20:48 +0200, Paolo Valente wrote:
+> >>> Il giorno 16 set 2016, alle ore 17:15, James Bottomley <
+> >>> James.Bottomley@HansenPartnership.com> ha scritto:
+> >>> 
+> >>> On Fri, 2016-09-16 at 10:24 +0200, Greg KH wrote:
+> >>>> On Fri, Sep 16, 2016 at 09:55:45AM +0200, Paolo Valente wrote:
+> >>>>> Linux systems suffers from long-standing high-latency problems, 
+> >>>>> at system and application level, related to I/O.  For example,
+> >>>>> they usually suffer from poor responsiveness--or even 
+> >>>>> starvation, depending on the workload--while, e.g., one or more 
+> >>>>> files are being read/written/copied.  On a similar note, 
+> >>>>> background workloads may cause audio/video playback/streaming 
+> >>>>> to stutter, even with long gaps. A lot of test results on this 
+> >>>>> problem can be found here [1] (I'm citing only this resource 
+> >>>>> just because I'm familiar with it, but evidence can be found in 
+> >>>>> countless technical reports, scientific papers, forum
+> >>>>> discussions, and so on).
+> >>>> 
+> >>>> <snip>
+> >>>> 
+> >>>> Isn't this a better topic for the Vault conference, or the 
+> >>>> storage mini conference?
+> >>> 
+> >>> LSF/MM would be the place to have the technical discussion, yes. 
+> >>> It will be in Cambridge (MA,USA not the real one) in the Feb/March
+> >>> time frame in 2017.  Far more of the storage experts (who likely 
+> >>> want to weigh in) will be present.
+> >>> 
+> >> 
+> >> Perfect venue.  Just it would be a pity IMO to waste the opportunity
+> >> of my being at KS with other people working on the components 
+> >> involved in high-latency issues, and to delay by more months a 
+> >> discussion on possible solutions.
+> > 
+> > OK, so the problem with a formal discussion of something like this at
+> > KS is that of the 80 or so people in the room, likely only 10 have any
+> > interest whatsoever, leading to intense boredom for the remaining 70.
+> 
+> No no, that would be scary to me, given the level of the audience!  I
+> thought it would have been possible to arrange some sort of
+> sub-discussions with limited groups (although maybe the fact the Linux
+> still suffers from high latencies might somehow worry all people that
+> care about the kernel).  I'm sorry, but this will be my first time at KS.
 
-> On Tue, Sep 13, 2016 at 12:29:35PM -0500, Eric W. Biederman wrote:
->> 
->> Andrei Vagin <avagin@virtuozzo.com> writes:
->> 
->> > The netlink interface proved itself as a great way to perform
->> > descriptor-based kernel/userspace communication. It is especially useful
->> > for cases involving a big amount of data to transfer. The netlink
->> > communication protocol is simple and elegant; it also allows to extend
->> > the message format without breaking backward compatibility.
->> >
->> > One big problem of netlink is credentials. When a user-space process is
->> > opening a new file descriptor, kernel saves the opener's credentials to
->> > f_cred field of the file struct. After that, every access to that fd are
->> > checked against the saved credentials. In essence, this allows for a
->> > process to open a file descriptor as root and then drop capabilities.
->> > With netlink socket, it is not possible to implement this access
->> > scheme.
->> 
->> A historical oversight, and unfortunately implementing it breaks
->> routing daemons.
->> 
->> > Currently netlink is widely used in the network subsystem, but there are
->> > also a few users outside of networking, such as audit and taskstats.
->> > Developers who used netlink for anything except the networking know
->> > there are some issues. For example, taskstats code has broken user and
->> > pid namespace support.
->> >
->> > Another potential user of netlink socket is task_diag, a faster
->> > /proc/PID-like interface proposed some time ago
->> > (https://lkml.org/lkml/2015/7/6/142). It makes sense to use the netlink
->> > interface for it, too, but the whole feature is currently blocked by the
->> > netlink discussion.
->> 
->> I disagree.  It is not part of the networking subystem so netlink does
->> is very very unlikely to make sense.  In general netlink is an over
->> engineered solution outside of networking.
->> 
->> My overall impression is that network people get networking protocols
->> and so netlink makes a good fit for the network stack. On the other had
->> non-network people in general don't in general do well with networking
->> intefaces, so I do not recommend netlink for anything outside of the
->> network subsystem.
->> 
->> All of that is before you start getting into namespace details.
->> 
->> Now some of that is at least in part because of the volume of use the
->> interface is expected to get.  Low volume interfaces tend as a rule to
->> have more ``interesting'' corner cases.  Regardless of the subsystem.
->> 
->> Looking at your referenced task_diag interface I think netlink is
->> completely unsuitable because your interface does not follow the good
->> netlink pattern for binary attributes and binary data.  Possibly
->> a taskdiagfd() system call would make sense.
->
-> Eric, thank you for the feedback. Could you elaborate what do you mean
-> when you say: "does not follow the good netlink pattern for binary
-> attributes and binary data." Maybe you can give an example of bad
-> patterns.
+Yeah, so I'll be at KS and I'd be interested in this discussion. Actually
+I expect to have Jens Axboe and Christoph Hellwig around as well which are
+biggest blk-mq proponents so I think the most important people for the
+discussion about what are the blockers for merging are there.
 
-So.  The worst case for binary attributes and binary data that I know of
-is demonstrated by the many many many variants of the stat system call.
+I agree that for a discussion about details of the scheduling algorithm
+LSF/MM is a better venue but at least for a process discussion under which
+conditions BFQ is mergeable KS is OK.
 
-In general when I hear binary interface with attributes what I hear is a
-maintenance disaster, where when I hear ascii I hear something that is
-built in a more maintainable fashion.
-
-The routing netlink protocol handles this by very carefully making every
-attribute returned contained in a tag and length, and perhaps I was
-misread your code but I did not see that discipline in use.  One of the
-good features of it is that rtnetlink can add attributes that were not
-requested by the caller and everything continues to work, even though
-there was not negotiation.
-
-> There was an another version where a proc file is used instead of netlink
-> sockets:
-> https://lwn.net/Articles/683371/
-> https://github.com/avagin/linux-task-diag/blob/devel/fs/proc/task_diag.c
->
-> In this version, I don't use netlink sockets, but I use the netlink format
-> for messages. The motivation here is to have expandable format for the
-> future improvements.
-
-Perhaps I misread how you are using the netlink format.  Your
-description of needing to request additional attributes sounded like you
-were not using such an expandable binary protocol.
-
->> Or quite likely a pure taskdiag() system call.
->
-> The amount of data may be quite big to get them for one iteration, so I
-> would prefer to have a file descriptor.
->
->> 
->> Things should be simplified to the point where the design is clear
->> easily understood and easily tested.  What you are really suggesting is
->> tossing out proc with the motiviation of checkpoint/restart.  Perhaps
->> that is fine.  There are certainly other avenues to consider there.
->
-> I want to think that the motivation is to make a good and fast interface
-> to use it from code. We already checked this interface in criu, perf and
-> procps, in all cases we get significant performance improvements.
-
-Depending it looks like it probably doubles the maintenance work in a
-code base that does not always seem to have enough maintenance.
-
-One idea for this kind of situation is to have a readfile or a readfiles
-system call that is a cousin of readlink.  That for small files just
-gives you the data in the file without the cost of creating a file
-descriptor.  This idea can be extended to multiple files, and it could
-have a readv like interface.
-
-To some extent it matters where the cost is.
-
-At a practical level we already have a binary protocol for getting a
-list of all of the processes in the system, readdir on /proc.
-
-Honestly if the code is well done and does not require too much
-maintenance I don't care.  But I think we need to take a good hard look
-at maintenance issues when adding a duplicate interface for what feels
-like the same information.
-
-Eric
+								Honza
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
