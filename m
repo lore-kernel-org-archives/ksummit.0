@@ -1,36 +1,31 @@
-Return-Path: <mhocko@suse.cz>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 956DF88A
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 19 Sep 2016 12:51:59 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D2359149
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 19 Sep 2016 12:51:58 +0000 (UTC)
-Received: from relay2.suse.de (charybdis-ext.suse.de [195.135.220.254])
-	by mx2.suse.de (Postfix) with ESMTP id 33E67AAEF
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 19 Sep 2016 12:51:56 +0000 (UTC)
-Date: Mon, 19 Sep 2016 14:51:56 +0200
-From: Michal Hocko <mhocko@suse.cz>
-To: Vlastimil Babka <vbabka@suse.cz>
-Message-ID: <20160919125156.GA10793@dhcp22.suse.cz>
-References: <20160906185143.GF2356@ZenIV.linux.org.uk>
-	<20160906152243.766f3845@gandalf.local.home>
-	<20160906213644.GA16732@p183.telecom.by>
-	<20160906175343.2f0d9135@gandalf.local.home>
-	<20160906224100.GA17212@p183.telecom.by>
-	<20160907051039.GG2356@ZenIV.linux.org.uk>
-	<CALCETrVRFVkpk5bbH1jYxhh3nWYoJtXMFaMo2yR25sntGOrnDw@mail.gmail.com>
-	<ec419997-9faa-71fd-1e5b-a8353c5bc5ba@suse.cz>
+Return-Path: <tshibata@ab.jp.nec.com>
+From: Tsugikazu Shibata <tshibata@ab.jp.nec.com>
+To: Greg KH <gregkh@linuxfoundation.org>,
+	Josh Boyer <jwboyer@fedoraproject.org>
+Date: Tue, 20 Sep 2016 05:15:35 +0000
+Message-ID: <EA994DF73240CA4588A99BF072DB284002126D4F@BPXM12GP.gisp.nec.co.jp>
+References: <20160902134711.movdpffcdcsx6kzv@thunk.org>
+	<EA994DF73240CA4588A99BF072DB2840021207D3@BPXM12GP.gisp.nec.co.jp>
+	<20160910120055.gr2cvad7efwci4f2@thunk.org>
+	<20160912162714.GC27946@sirena.org.uk>
+	<20160912171450.GB27349@kroah.com>
+	<20160912234548.GL27946@sirena.org.uk>
+	<20160913061931.GC11047@kroah.com>
+	<20160913103814.GQ27946@sirena.org.uk>
+	<20160913120942.GA18307@kroah.com>
+	<CA+5PVA62NMb5dziRohcSPat5mU-yGzNrDuUFhTYr8Qip306VAg@mail.gmail.com>
+	<20160913131249.GA8470@kroah.com>
+In-Reply-To: <20160913131249.GA8470@kroah.com>
+Content-Language: ja-JP
+Content-Type: text/plain; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ec419997-9faa-71fd-1e5b-a8353c5bc5ba@suse.cz>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [topic proposal] tracepoints and ABI
- stability warranties
+Cc: "ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
+	Tsugikazu Shibata <tshibata@ab.jp.nec.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [LTSI-dev] [Stable kernel] feature
+ backporting collaboration
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,51 +35,141 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed 07-09-16 08:41:23, Vlastimil Babka wrote:
-> On 09/07/2016 07:30 AM, Andy Lutomirski wrote:
-> > On Sep 6, 2016 10:10 PM, "Al Viro" <viro@zeniv.linux.org.uk
-> > <mailto:viro@zeniv.linux.org.uk>> wrote:
-> > > 1) piss-poor API is added in form of tracehook.  It exports some
-> > information
-> > > that can be used to derive something genuinely interesting.  Most of the
-> > > time.  Corner cases are unsolvable, even though it might be possible to
-> > > provide the interesting part sanely.  Just not in that form.  Moreover,
-> > > faking the bits used to derive that information so that existing userland
-> > > logics would yield the right result is bloody hard and restricts what we
-> > > can do kernel-side, even though the real thing userland wants would
-> > not have
-> > > such problems.
-> > > 
-> > 
-> > Agreed.
-> > 
-> > I wouldn't mind a policy that tracepoints are simply never stable.
-> > Maybe we should even deliberately change them periodically to drive the
-> > point home.
-> 
-> I would wish that as well. Tracepoints sometimes must expose implementation
-> details to be useful for debugging *the implementation*. The tools that use
-> them to build some extra interesting metrics on top the tracepoints may
-> often need to know even more about the implementation for correct
-> interpretation of the data.
-> 
-> Even if the kernel implementation changes *without* touching the tracepoint
-> format, the changed behavior might still destroy these metrics. (I hope it's
-> understandable what I'm trying to say, I can't think of a good example right
-> now). Do we want to set the implementation in stone to such extent? That
-> would suck. If not, then the only way would be to indeed not mainline any
-> tracepoints, which would also suck.
 
-Absolutely agreed. As an example just look at the recent reclaim
-changes. We no longer do per-zone and replaced it by per-node. This has
-required changes to the tracepoint as well. Just look at how
-599d0c954f91d0689c9bb421b5bc04ea02437a41 changed
-mm_vmscan_lru_shrink_inactive. We definitely do not want to cast our
-implementation details into stone.
+On Tue, Sep 13, 2016 at 10:13PM, Greg KH wrote:
+>On Tue, Sep 13, 2016 at 08:20:59AM -0400, Josh Boyer wrote:
+>> On Tue, Sep 13, 2016 at 8:09 AM, Greg KH <gregkh@linuxfoundation.org> wr=
+ote:
+>> > On Tue, Sep 13, 2016 at 11:38:14AM +0100, Mark Brown wrote:
+>> >> On Tue, Sep 13, 2016 at 08:19:31AM +0200, Greg KH wrote:
+>> >> > what the next kernel will be.  I work with them to show that it
+>> >> > doesn't really matter _what_ kernel is picked, if their code is
+>> >> > merged upstream, or ready to be merged, the specific kernel number =
+doesn't
+>matter.
+>> >>
+>> >> In the cases I'm aware of it's more about knowing when the kernel
+>> >> will appear so people can commit to integration activities than the
+>> >> version number itself - I've never really heard "I need version X",
+>> >> it's always been "when will we know which version Greg has chosen?".
+>> >
+>> > Yes, I hear that a lot, so you need to follow up with, "why does it
+>> > matter what version Greg picks?", and then their response to me
+>> > always is, "so we know what kernel to start to rebase our huge
+>> > patchsets to earlier", which again, is the thing we want to keep them =
+from doing!
+>> >
+>> > I got a few emails when I stopped 3.14.y this week along the lines
+>> > of, "oops, we were using that kernel, what are we supposed to do
+>> > now!"  Each time I asked if 4.4 or 4.8 worked for them.  And each
+>> > time I got back a response a day later along the lines of, "oh wow,
+>> > yes, it does, we'll use that."
+>> >
+>> > I have half-a-mind to just skip a LTS kernel for a whole year and
+>> > see if anyone even notices, I feel it is being used for all the
+>> > wrong reasons...
+>>
+>> What are the right reasons?  I've always found the LTS kernels to be a
+>> weird thing.  They don't serve the same purpose the normal stable
+>> kernels do for users (fixes after initial release, before the next
+>> release).  They don't serve the same purpose as a vendor kernel
+>> (hardened, stable, tuned, supported).  Developers tend to abuse them
+>> as you've descried.  So I guess I've forgotten the original intention
+>> of the LTS kernels to begin with.  Could you remind me (us)?
+>
+>Originally it was to make my "day job" of maintaining an enterprise kernel=
+ (SLES)
+>easier (didn't have to have a bunch of bugfixes listed in the spec file, t=
+ook advantage
+>of more testers, got to do stable kernel work on company time, etc.)
+>
+>But then, others used it for their "products", especially the embedded spa=
+ce, as they
+>wanted to support a single kernel for the lifetime of the product.  So the=
+y asked for
+>a kernel a year for this.
+>
+>But, it turned out that they would only use the kernel series for a while =
+during the
+>development phase, and then stop after they "shipped"
+>the device.  Look at all of the Android phones sitting on old obsolete ver=
+sions of 3.4
+>and 3.10 stable kernels.  They aren't even updated to newer ones, and so, =
+it didn't
+>really help all that much.  Even though I am fixing security bugs for thes=
+e kernels, no
+>one pushes them to the users.  I have an example of a security bug that a =
+Google
+>researcher found in a 3.10 kernel (but not mainline) I fixed and pushed ou=
+t an update,
+>but never got picked up in Nexus phones until 6 months later when I found =
+the right
+>person/group to poke within Google.
+>
+>That was a 6 month window where anyone could have gotten root on your phon=
+e,
+>easily.
+>
+>People say "look, we are using an LTS kernel in our product, all must be g=
+ood!" but if
+>they don't update it, it's broken and insecure, and really no better than =
+if they were
+>using 3.10.0 in a way.
+>
+>But if we didn't provide an LTS, would companies constantly update their k=
+ernels to
+>newer releases to keep up with the security and bugfixes?
+>That goes against everything those managers/PMs have ever been used to in =
+the past,
+>yet it's actually the best thing they could do.  It's a long road of educa=
+tion and doing
+>work on their part to get test frameworks set up to be able to qualify "la=
+rger" upgrades.
+>It also requires that their chip vendor not add 1.5 million lines of code =
+to their kernel,
+>rewrite the scheduler, and duplicate all existing drivers with a "-2" suff=
+ix.
+>
+>Ok, this is rambling, and something I've been mulling over for a while now=
+.  I'm
+>working with some people at some of the chip companies to see about how we=
+ can do
+>this better, hopefully the work of education, testing, and other assurance=
+s can help
+>everyone out in the end, and start to resolve these issues, but it's going=
+ to be slow
+>going.
+>
+>Yes, I'll have an LTS this year, but next year?  Maybe not, my dream would=
+ be that it
+>wouldn't be needed.  And one has to dream :)
 
-My recollection is that tracepoints will never be considered a stable
-ABI. If we want something stable then we have proper ways to use...
+In this thread, We LTSI team could recognized there is still huge gap betwe=
+en community and industry (especially that have no Enterprise distribution)=
+.
+Some years ago, I think Enterprise distros got number of requests to includ=
+e specific in-house patches from companies but distros were never accepted =
+because of upstream first policy and as the result, companies were going to=
+ send patch to upstream.=20
+And then, It looks better forming now.
+OTH, Industry that have no such distros, companies should build their own d=
+istribution by their own but they have no enough resources to maintain the =
+kernel long term. So, LTS is only the choice for such industry.=20
+In the case, companies should understand LTS is a community work, so they s=
+hould not only consume LTS but also work with upstream.
+By the discussion here, large outstanding patches waiting for next LTS with=
+out considering upstream. Also, others are trying to push unready patches f=
+or next LTS candidates. These are the example of the gap.
+We LTSI were trying to do some activities to reduce the gap but It seems st=
+ill not enough.
+As for a next step, I think industry should discuss this problem to find be=
+tter way otherwise we will lose only a choice. We would try to set up a cha=
+nce of this discussion at coming Embedded Linux Conference Europe. I hope r=
+elated people would join there and exchange their own opinion.
 
--- 
-Michal Hocko
-SUSE Labs
+Thanks,
+Tsugikazu Shibata
+
+>thanks,
+>
+>greg k-h
