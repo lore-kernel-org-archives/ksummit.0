@@ -1,21 +1,35 @@
-Return-Path: <broonie@sirena.org.uk>
-Date: Wed, 21 Sep 2016 19:50:38 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
-Message-ID: <20160921185038.GE7994@sirena.org.uk>
+Return-Path: <linus.walleij@linaro.org>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id BE057B90
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 21 Sep 2016 18:54:39 +0000 (UTC)
+Received: from mail-oi0-f42.google.com (mail-oi0-f42.google.com
+	[209.85.218.42])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 52CB0236
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 21 Sep 2016 18:54:39 +0000 (UTC)
+Received: by mail-oi0-f42.google.com with SMTP id a62so71263670oib.1
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 21 Sep 2016 11:54:39 -0700 (PDT)
+MIME-Version: 1.0
+In-Reply-To: <20160921182204.GD7994@sirena.org.uk>
 References: <57C78BE9.30009@linaro.org> <20160902191637.GC6323@sasha-lappy>
 	<20160903000518.GN3950@sirena.org.uk> <1656524.OIRTMDr3jV@avalon>
 	<57E22F8E.1040801@linaro.org> <20160921092341.GA25038@kroah.com>
-	<57E29EA3.2000605@linaro.org> <20160921152819.GA25212@kroah.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="PPYy/fEw/8QCHSq3"
-Content-Disposition: inline
-In-Reply-To: <20160921152819.GA25212@kroah.com>
+	<20160921182204.GD7994@sirena.org.uk>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Wed, 21 Sep 2016 20:54:37 +0200
+Message-ID: <CACRpkdZ6hXPunn9ZPPwgench4gYALenWBapJWKRWk_-QBUiqJg@mail.gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 Cc: "ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
-	ksummit-discuss@lists.linuxfoundation.org
+	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [Stable kernel] feature backporting
- collaboration
+	collaboration
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -25,91 +39,74 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Wed, Sep 21, 2016 at 8:22 PM, Mark Brown <broonie@kernel.org> wrote:
 
---PPYy/fEw/8QCHSq3
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> When I talk to people about this I tend to talk about doing upstream
+> simultaneously rather than first, that is a lot more tractable.  Work on
+> things, try to push your latest work upstream as you write it and
+> incorporate review feedback from upstream into your product as you go
+> but don't gate things on upstream.  Try to view anything that's still in
+> review as a problem that needs to be fixed but acknowledge that there's
+> also a need to actually get product out the door.
 
-On Wed, Sep 21, 2016 at 05:28:19PM +0200, gregkh@linuxfoundation.org wrote:
-> On Wed, Sep 21, 2016 at 10:52:19PM +0800, Alex Shi wrote:
+This is very similar to my experience working as main responsible for the
+kernel at ST-Ericsson (until their sad demise).
 
-> > I have left Intel Open source center for 3 years, may I miss some
-> > changes in Intel. In my memory, Intel has no soft product on its leading
-> > open source project, like virtualization or others. On android or
-> > previous meego project, it's still use 'old' kernel with much of
-> > down-stream patches.
+The strategy I had was that of trying to minimize hamming distance on
+anything already upstream, incorporate patches from upstream, and also
+empasize that core infrastructure such as irqchips, clocks, regulators,
+pins, GPIOs, dma, timers, UARTs etc need to go upstream first.
 
-> Being one of the previous Meego kernel maintainers, and in charge of a
-> number of laptops that shipped Meego images (we made money on
-> preinstalled Linux!) I strongly disagree with that statement.  We spent
-> a lot of time getting all of the work we did for Meego upstream when we
-> added it to our kernels, there was no deviation there at all.
+This way, whenever one of our developers patched any of these interna
+drivers, that was likely on some lines that were identical to upstream, so
+I could rebase the patch onto upstream, test it, sign it off and
+mail off to the respective subsystem maintainer. Win-win!
 
-Sadly the x86 Android phones I've seen were no different to any other
-Android phone in this regard.
+Leaf drivers were then (in theory) be worked on in isolation.
 
-> We know bug reports come from everyone, there is no such thing as "bug
-> free software", and none of us are claiming it.  What we are claiming is
-> that you should stick to the tree that is tested by as many people as
-> possible the closest (i.e. mainline) as that gets you the most bug
-> fixes, as well as the ability to use the kernel community to help you
-> out when you have problems.  Otherwise you are on your own with your
-> 2.5million lines added franken-kernel that no one will touch if they
-> have a choice not to.
+The storage team (MMC/SD) where the current MMC/SD subsystem
+maintainer Ulf Hansson was working, actually embraced an upstream
+first strategy. This was achieved by backporting the whole set of
+changes in drivers/mmc/* to the upstream until all the files in this
+part of the kernel were identical to a much later kernel version. Luckily
+that part of the kernel was so self-contained behind the block layer
+API that this worked out pretty well. I think it was done solely for that
+part of the kernel because it was the path of least resistance as
+many advanced MMC/SD protocol features had to be squeezed in,
+and upstream actually moved ahead much faster with this.
 
-That diff isn't going to go away overnight of course...
+The big contention points to working upstream on Ux500 were
+(for all of yours amusement):
 
-> > There are do many guys 'ignore' the upstream work with a huge 'time to
-> > market' pressure. But there are not only their fault, community may need
-> > some better ways to help them out.
+- Missing frameworks: system PM and runtime PM especially.
+  And even more the intersection between those two.
+  The situation is still not very good when it comes to this. It
+  is getting better.
 
-> Ok, why are they not talking to us?  We are easy to find, just look at
-> our inboxes :)
+- No working generic power domain. This is getting better.
 
-> What do you think we could do to help them out?  That's what I have been
-> doing for the past 10 years in going around and working with companies.
-> But it's a two-way street, we aren't going to suddenly stop development
-> on new kernels and just focus on one specific one for a full year, you
-> have to be realistic.
+- Huge out-of-tree drivers for on-chip power managment: the PRCMU.
+  (Power-reset control management unit). We now have a better
+  chance of handling that with syscon and also rpmsg and splitting
+  it up per-subsystem after Bj=C3=B6rn Anderssons latest patches but it
+  wasn't there some years ago.
 
-Right, as do we.  People's code isn't magically going to get upstreamed
-overnight, it takes time especially if the hardware isn't designed in a
-way that Linux expects and needs some substantial framework adjustments
-(which is a serious problem for some of the SoCs).
+- Missing UART bus for attaching Bluetooth: the thing that Rob
+  Herring is now working on.
 
-> > BTW, I take back this word. There are may some industry out of my
-> > experience which is doing so. But let me know the case.
+- Missing HCI transport for subdevices piggybacking HCI:
+  FM radio and GPS was using this. Still there is no solution for
+  this.
 
-> Lots of them are, look at the customers of Renesas as one such example
-> of an SoC company that knows how to do this well, and is doing a great
-> job.  And their customers seem to appreciate it from what I can tell.
+- Huge rewrites needed to move a former framebuffer driver to
+  KMS/DRM. The organization was strongly unwilling to rewrite
+  a working driver of that size.
 
-They are one of the better engaged vendors, as are companies like Atmel,
-TI and nVidia (pulling names off the top of my head here), but talking
-to their downstreams they do still have product kernels with a bunch of
-things in them which have not all seen the light of upstream.  It's not
-black or white, it's shades of grey.
+- No proper sensor subsystem. We now have IIO.
 
-You're asking what we can do to help - one of the biggest things I wish
-we did more of was spend time calling out good practice rather than
-complaining about bad practice.  Help people see changes they can make
-today rather than talking only about a far off, distant goal.  Encourage
-people doing these things to talk about the day to day benefits they've
-seen.
+- Third party GPUs (Mali). Even Intel had this problem when using
+  PowerVR IIRC. More of a political problem than a technical one
+  as it seems.
 
---PPYy/fEw/8QCHSq3
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQEcBAEBCAAGBQJX4tZ9AAoJECTWi3JdVIfQDjoH/26SHm/1hYhVslY9k9+t3vvZ
-eBcJDyeXXNYZvI3ae3D85ffXyhQNpEoA1OxQax6dlK/Ef8njGAxGbpgff3l//fmp
-f3JUrhL5BdgSoI561cr3i9EW5cj/pfq1jfBHNo0xDvoMH/6MkMnJERRKO+XsZPcz
-r9A5laqbQ1Fs5lnEuFS0JNe+RcO0Z/+Z0vMLWFG6fq1Xlk4tbv7GP+oFiaBBgKLX
-xSd8ZL9s6hMcYN/hyKyWV3g711BTkUg391xh6w/VPtNk7WgcLIb/ZjAKy8pELn36
-8F+MPNks9YEIEloMLEglooYAyUsvP2qKRQbUt1ac267ti62k0F6dh47o+ABriOY=
-=3fwd
------END PGP SIGNATURE-----
-
---PPYy/fEw/8QCHSq3--
+Yours,
+Linus Walleij
