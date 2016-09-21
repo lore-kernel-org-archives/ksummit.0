@@ -1,19 +1,18 @@
-Return-Path: <broonie@sirena.org.uk>
-Date: Wed, 21 Sep 2016 20:16:23 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
-Message-ID: <20160921191623.GF7994@sirena.org.uk>
+Return-Path: <tytso@thunk.org>
+Date: Wed, 21 Sep 2016 15:52:41 -0400
+From: Theodore Ts'o <tytso@mit.edu>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <20160921195241.bwkizm55y5hjtczc@thunk.org>
 References: <57C78BE9.30009@linaro.org> <20160902191637.GC6323@sasha-lappy>
 	<20160903000518.GN3950@sirena.org.uk> <1656524.OIRTMDr3jV@avalon>
-	<57E22F8E.1040801@linaro.org>
-	<20160921135601.zwsmvrrfbhlez24n@thunk.org>
-	<57E2A5E3.4080407@linaro.org> <20160921153341.GA25677@kroah.com>
+	<57E22F8E.1040801@linaro.org> <20160921092341.GA25038@kroah.com>
+	<20160921182204.GD7994@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="SnV5plBeK2Ge1I9g"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20160921153341.GA25677@kroah.com>
+In-Reply-To: <20160921182204.GD7994@sirena.org.uk>
 Cc: "ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
+	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
 	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [Stable kernel] feature backporting
  collaboration
@@ -26,49 +25,63 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Wed, Sep 21, 2016 at 07:22:04PM +0100, Mark Brown wrote:
+> One problem that bites people fairly hard trying to do upstream first is
+> that upstream turns too slowly to do things for the current product in
+> some markets, when I was working on phones it'd off the top of my head
+> typically be 3-4 months before anything ended up in a release (depending
+> on where we were in the release cycle) and another year or so before
+> that filtered back out into product (and this is mostly with very low
+> resistance subsystems where I'm the maintainer).
 
---SnV5plBeK2Ge1I9g
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+To me, "upstream first" doesn't mean wait for things to cycle out to a
+release.  It means "develop first on upstream" and then backport to
+your product kernel.  And I tend to think of this as something that
+should be done on a per-feature or per-device driver basis.  So yes,
+your product won't run on upstream, at least certainly not at launch time.
 
-On Wed, Sep 21, 2016 at 05:33:41PM +0200, gregkh@linuxfoundation.org wrote:
-> On Wed, Sep 21, 2016 at 11:23:15PM +0800, Alex Shi wrote:
+But this tends to avoid a huge build-up of horrific technical debt
+where you have a completely horrific scheduler change that is
+completely invasive to the core kernel structures, and guarantees that
+your changes will break the kernel building on any other architecture.
+Most of the time, the comments that you will get back from the
+community are actually good ideas; not just nit-picking to slow you
+down.  (And, if you know that your changes are going upstream, this
+tends to invoke a bit more professional pride with the result that
+what you put forward for external review, and what shows up in the
+product kernel, isn't a terrible hack filled with techincal debt.)
 
-> > Or which enterprise distro kernel keep rebasing to upstream?
+> When I talk to people about this I tend to talk about doing upstream
+> simultaneously rather than first, that is a lot more tractable.  Work on
+> things, try to push your latest work upstream as you write it and
+> incorporate review feedback from upstream into your product as you go
+> but don't gate things on upstream.  Try to view anything that's still in
+> review as a problem that needs to be fixed but acknowledge that there's
+> also a need to actually get product out the door.
 
-> Both SuSE and Oracle do this for their releases.
+Sure.  I tend to think of that as upstream first, although if people
+are happier calling it "upstream simultaneously", the terminology
+doesn't really matter all that much.
 
-There's some other distros out there...
+What *does* matter is an attitude that the goal should be to have
+stuff in your product kernel which is upstreamable as the default
+goal, and having things that are out-of-tree should be the exception
+and not the rule.  And if it does happen, there ought to be good
+reasons for each of those changes, and an acknowledgement that
+out-of-tree changes represent technical debt.
 
-> > Thus base layer software update need long time testing for
-> > compatibility and stability.
+> People aren't just ignoring the idea of working upstream entirely.
+> People are doing work here, it's producing results (or at least a pile
+> of mainline code).  Some are doing more than others, some are more
+> successful than others but there is a lot happening here.  There's a lot
+> of things going on that I'm critical of but there's also a lot of
+> perfectly rational, practical decisions being made.  Getting the more
+> complex consumer electronics devices to the point where they work as
+> well upstream as servers do is not trivial and will take some time.
 
-> Why isn't that happening constantly?  Why wait a few years to do this
-> for new versions?  Why is the test frameworks that people have not
-> always churning away at this type of thing to find our bugs as soon as
-> possible?
+Perhaps those that are doing good work here should be called out and
+given praise?  While there are some negative consequences with calling
+out those folks who aren't willing to do more, highlighting the people
+who are doing a good job should be all upside.
 
-We've had plenty of talks at KS from the enterprise vendors about the
-challenges with doing detailed performance testing on upstream on a
-constant basis, the same issues apply.  It's not a case of waiting years
-to start, it's a case of tests that take a very long time or lots of
-other resources to perform and often some skill in knowing how to
-interpret the results. =20
-
---SnV5plBeK2Ge1I9g
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQEcBAEBCAAGBQJX4tyGAAoJECTWi3JdVIfQK7cH/0IxgcglxH740jjFUy9gf3ZQ
-aWPa+hipZjciUYCdx8aMA6WAylUv5G6HWA+9vcRzIs8TACC2acOtDdQbBVjTvPfE
-El65jME5Icano6y0ZnyNwgcRRT8jc/W2s7JJquD7+pZvkBAeerSKOa4Oop96xHG8
-VDfy8HqurrY8fe5yll3FFqDIB4TO1FV9WRR9ybysIsE4rTuRAYaLPJ/vIxdqaHuV
-oItdj9y2yAnq7fxVtNGZclCGjZCnkag7VdXKN/Y12Ui6nv9v4Ivh7DqgF5DwImy6
-FEYZEaMW6btD2DRLhFInrz6VJEyZmXncj0N0dlfE/BDSAj6sUf3lZH+tx5Jluio=
-=Khd0
------END PGP SIGNATURE-----
-
---SnV5plBeK2Ge1I9g--
+    	      	     	 	       - Ted
