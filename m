@@ -1,29 +1,31 @@
 Return-Path: <alex.shi@linaro.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 48AFC954
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 699B5A1C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 21 Sep 2016 14:52:27 +0000 (UTC)
-Received: from mail-pf0-f172.google.com (mail-pf0-f172.google.com
-	[209.85.192.172])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8ED3114C
+	Wed, 21 Sep 2016 15:23:21 +0000 (UTC)
+Received: from mail-pa0-f43.google.com (mail-pa0-f43.google.com
+	[209.85.220.43])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 45A69168
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 21 Sep 2016 14:52:24 +0000 (UTC)
-Received: by mail-pf0-f172.google.com with SMTP id 21so20072161pfy.0
+	Wed, 21 Sep 2016 15:23:20 +0000 (UTC)
+Received: by mail-pa0-f43.google.com with SMTP id qn7so1973664pac.3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 21 Sep 2016 07:52:24 -0700 (PDT)
-To: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
+	Wed, 21 Sep 2016 08:23:20 -0700 (PDT)
+To: Theodore Ts'o <tytso@mit.edu>
 References: <57C78BE9.30009@linaro.org> <20160902191637.GC6323@sasha-lappy>
 	<20160903000518.GN3950@sirena.org.uk> <1656524.OIRTMDr3jV@avalon>
-	<57E22F8E.1040801@linaro.org> <20160921092341.GA25038@kroah.com>
+	<57E22F8E.1040801@linaro.org>
+	<20160921135601.zwsmvrrfbhlez24n@thunk.org>
 From: Alex Shi <alex.shi@linaro.org>
-Message-ID: <57E29EA3.2000605@linaro.org>
-Date: Wed, 21 Sep 2016 22:52:19 +0800
+Message-ID: <57E2A5E3.4080407@linaro.org>
+Date: Wed, 21 Sep 2016 23:23:15 +0800
 MIME-Version: 1.0
-In-Reply-To: <20160921092341.GA25038@kroah.com>
+In-Reply-To: <20160921135601.zwsmvrrfbhlez24n@thunk.org>
 Content-Type: text/plain; charset=windows-1252
 Content-Transfer-Encoding: 7bit
 Cc: "ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
+	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
 	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [Stable kernel] feature backporting
  collaboration
@@ -38,73 +40,47 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 
 
 
-On 09/21/2016 05:23 PM, gregkh@linuxfoundation.org wrote:
->> > 
->> > I am not a fun of some scheduler solution. But focus on this can not
->> > explain why many distributions are using 'old' stable kernel. Looking
->> > into product world, could you find some real product are using
->> > 'upstream' kernel?
->> > 
->> > 'upstream first' is good for feature development, but isn't good for
->> > product.
-> Not true, IBM and Intel have shown that it saves you time and money to
-> do "upstream first", why do people claim that their reports of this is
-> somehow false?  Other companies also agree, but just don't want to take
-> the initial "hit" of time to do it correctly as it will affect the
-> device today to save time and money for the device tomorrow.
+On 09/21/2016 09:56 PM, Theodore Ts'o wrote:
+> On Wed, Sep 21, 2016 at 02:58:22PM +0800, Alex Shi wrote:
+>> 'upstream first' is good for feature development, but isn't good for
+>> product. Many product guys talked to me that the non-upstream porting
+>> didn't cost much and not the reason to pin on some stable kernel. All of
+>> them said that testing and stability was the most cost part. Not only
+>> the regular test case, benchmarks, but also the long time using for some
+>> trick/corner case bugs in whole system.
+>>
+>> I doubt the 'keep rebasing on upstream' guys have been really worked on
+>> product?
+> 
+> I've worked on product kernels for consumer, and I'm horrified by what
+> the cr*p drivers do to stability and testing.  It also means that I've
+> had to port the same feature to N different product kernels, and seen
+> how many bug fixes (including some security-relevant fixes) aren't
+> getting applied the product kernel because the SOC vendor isn't
+> tracking the LTS kernel.  And I've also seen engineers from other
+> companies ask me about bug fixes that were already fixed in the LTS
+> kernel.
 
-Thanks for quick response!
+Thanks Ted!
 
-I have left Intel Open source center for 3 years, may I miss some
-changes in Intel. In my memory, Intel has no soft product on its leading
-open source project, like virtualization or others. On android or
-previous meego project, it's still use 'old' kernel with much of
-down-stream patches.
-
-So would you like to tell me more detailed info of IBM, Intel case?
+Mobile industry is really mess. :)
+But there are still companies that like to update their release for
+consumer report bug.
 
 > 
->> > Many product guys talked to me that the non-upstream porting didn't
->> > cost much and not the reason to pin on some stable kernel.
-> You must be talking to product people who only have to make one device,
-> not a family of devices :)
-
-No, what I asked is one of Linaro core member, they are also leading
-company in mobile phone.
-
+> So yes, I've seen it all, from running upstream leading edge kernels
+> on my laptop, to product kernels for consumer products, to enterprise
+> distro kernels, to data center kernels where we rebase once a year or
+> so --- and I certainly know what I prefer, and what results in the
+> highest quality kernels while still allowing for bleeding edge kernel
+> features that allow for competitive advantages.  (Hint: it's not the
+> current consumer product kernel approach.)
 > 
->> > All of them said that testing and stability was the most cost part.
-> Sure, software is always free, it's that pesky testing and fixing all of
-> the bugs found that costs money :)
-> (hint, all of those backports and non-upstrem stuff is what is causing
-> lots of those bugs...)
-> 
->> > Not only the regular test case, benchmarks, but also the long time
->> > using for some trick/corner case bugs in whole system.
-> What do you mean by this?
 
-Uh, they are not so confident on the whole system stability, bug maybe
-come from middle layer, or user APP the compatibility with kernel.
-Regular testing cannot cover everything, some bug report also come from
-consumers.
-
-> 
->> > I doubt the 'keep rebasing on upstream' guys have been really worked on
->> > product?
-> I doubt those "let's not work upstream" have been in this business for
-> as long as those of us who say "work upstrem first" have :)
-
-There are do many guys 'ignore' the upstream work with a huge 'time to
-market' pressure. But there are not only their fault, community may need
-some better ways to help them out.
-
-BTW, I take back this word. There are may some industry out of my
-experience which is doing so. But let me know the case.
-
-> 
-> Fine, you can ignore us, but realize that it will cost you time and
-> money to _not_ work upstream.  We are just trying to help you out...
-
-Sorry to give you this impression, but that's not what I mean. To save
-mobile industry guys' time and give more help should be better than give
-more pressure on them.
+Yes, personally, I also keep using latest kernel on my laptop. But as to
+a released product, could you let me know data center will ship to other
+as product? Or which enterprise distro kernel keep rebasing to upstream?
+Most of product need team work, like mobile phone, include kernel,
+libraries, user APP, the software number is tremendous. Thus base layer
+software update need long time testing for compatibility and stability.
+Then rebasing to upstream is too luxury to them.
