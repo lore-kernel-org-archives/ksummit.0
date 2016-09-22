@@ -1,15 +1,15 @@
-Return-Path: <broonie@sirena.org.uk>
-Date: Thu, 22 Sep 2016 17:22:18 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Message-ID: <20160922162218.GN7994@sirena.org.uk>
+Return-Path: <tytso@thunk.org>
+Date: Thu, 22 Sep 2016 18:14:51 -0400
+From: Theodore Ts'o <tytso@mit.edu>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <20160922221451.tdh66pm7awzdzzb5@thunk.org>
 References: <57C78BE9.30009@linaro.org> <20160921092341.GA25038@kroah.com>
 	<20160921182204.GD7994@sirena.org.uk> <3836881.SjfcyqP6Si@avalon>
+	<20160922162218.GN7994@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="8CNmCRe8Sh4keFKJ"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <3836881.SjfcyqP6Si@avalon>
+In-Reply-To: <20160922162218.GN7994@sirena.org.uk>
 Cc: "ltsi-dev@lists.linuxfoundation.org" <ltsi-dev@lists.linuxfoundation.org>,
 	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
 	ksummit-discuss@lists.linuxfoundation.org
@@ -24,43 +24,39 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Thu, Sep 22, 2016 at 05:22:18PM +0100, Mark Brown wrote:
+> > That's the strategy we used at Nokia when developing the N900 and N9. It was 
+> > quite painful though, it was largely believed among the developers that having 
+> > separate upstream and product teams would have been better.
+> 
+> Yeah, this is partly a preference thing and also a size thing - if the
+> organization is too small it's not really sustainable to have dedicated
+> team, and if you do split them then there's a big risk that information
+> will stop flowing effectively between the two teams which defeats a lot
+> of the point.
 
---8CNmCRe8Sh4keFKJ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Having a single team is also helpful if you require that the engineers
+who are responsible for forwarding the patch to newer kernels are also
+responsible for getting the patches upstream.  This way, the pain of
+having outstanding technical debt is felt by those who are also
+responsible for doing something to reduce the technical debt.
 
-On Thu, Sep 22, 2016 at 03:56:28PM +0300, Laurent Pinchart wrote:
-> On Wednesday 21 Sep 2016 19:22:04 Mark Brown wrote:
+One of the problem for having one-time, special purpose teams for a
+product bringup, and then breaking them up right after product lanuch
+and reassigning them to another product/team is that there is
+absolutely no incentive to pay down technical debt, and all the
+incentive in the world to leave a cr*p job for someone else to clean
+up, especially if they are given unrealistically tight deadlines.
 
-> > When I talk to people about this I tend to talk about doing upstream
-> > simultaneously rather than first, that is a lot more tractable.
+It's "better" only to have separate product and upstream teams if the
+product team are only measured on product launch, and if no one cares
+if the upstream team is outnumbered by a factor of three compared to
+the product teams throwing cr*p over the wall.  So if it's considered
+a victory condition for the company to want to pay lip service to
+getting things upstream, but doesn't care about whether or not the
+"upstreaming" team is getting enough resources to have any chance of
+success, sure, it's "better".  But to the extent that it can hide
+problems, I suspect it can be a recipe towards building up lots of
+technical debt and sweeping it under the rug....
 
-> That's the strategy we used at Nokia when developing the N900 and N9. It =
-was=20
-> quite painful though, it was largely believed among the developers that h=
-aving=20
-> separate upstream and product teams would have been better.
-
-Yeah, this is partly a preference thing and also a size thing - if the
-organization is too small it's not really sustainable to have dedicated
-team, and if you do split them then there's a big risk that information
-will stop flowing effectively between the two teams which defeats a lot
-of the point.
-
---8CNmCRe8Sh4keFKJ
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQEcBAEBCAAGBQJX5AU5AAoJECTWi3JdVIfQwL8IAIIp2U94GZ4TGBS/e4720SpI
-Gs6hfKo2dM2gLyn1/yGBC0PZXSp+qnZ61hndI/D8E2H64frZpHmE0v8u8nC4Iiue
-ySVhZKYLe6Zk7KzoPTTok1PgPaqcuhzzTx+IZ9P+ylbsKDsk8ylI3hPaj9aTCIAH
-Aeouq5PcYIdeEGxAZjTZtY16JfCS82dtPq1pM0kj8P/RC5iJAhZRhci6sztBtmhS
-uWZuqkzxihePvCJ33tHdmzwGZkZfLxHDz+2mqk+vF/+9/Zg0tFbsY4CCcX6kOYUf
-tW95YCcDjMtToc/5fNZ7DtrK1/719176VYOapAeVsdROI8VeSq44Q6Lfg96N0O8=
-=Qjgp
------END PGP SIGNATURE-----
-
---8CNmCRe8Sh4keFKJ--
+   	       	       	   	 		       - Ted
