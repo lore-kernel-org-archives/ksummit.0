@@ -1,15 +1,17 @@
-Return-Path: <Tim.Bird@am.sony.com>
-From: "Bird, Timothy" <Tim.Bird@am.sony.com>
-To: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Date: Fri, 21 Oct 2016 17:15:11 +0000
-Message-ID: <ECADFF3FD767C149AD96A924E7EA6EAF0ABA11DA@USCULXMSG01.am.sony.com>
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Return-Path: <tytso@thunk.org>
+Date: Fri, 21 Oct 2016 21:19:25 -0400
+From: Theodore Ts'o <tytso@mit.edu>
+To: "Bird, Timothy" <Tim.Bird@am.sony.com>
+Message-ID: <20161022011925.6n3nhq23vbrly364@thunk.org>
+References: <ECADFF3FD767C149AD96A924E7EA6EAF0ABA11DA@USCULXMSG01.am.sony.com>
 MIME-Version: 1.0
-Cc: "fuego@lists.linuxfoundation.org" <fuego@lists.linuxfoundation.org>
-Subject: [Ksummit-discuss] Some ideas on open source testing
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ECADFF3FD767C149AD96A924E7EA6EAF0ABA11DA@USCULXMSG01.am.sony.com>
+Cc: "fuego@lists.linuxfoundation.org" <fuego@lists.linuxfoundation.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] Some ideas on open source testing
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -19,226 +21,208 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hello all,
+On Fri, Oct 21, 2016 at 05:15:11PM +0000, Bird, Timothy wrote:
+> 
+> I have some ideas on Open Source testing that I'd like to throw out there
+> for discussion.  Some of these I have been stewing on for a while, while
+> some came to mind after talking to people at recent conference events.
 
-I have some ideas on Open Source testing that I'd like to throw out there
-for discussion.  Some of these I have been stewing on for a while, while
-some came to mind after talking to people at recent conference events.
+First of all, I'd love to chat with you about this in Santa Fe.  And
+thanks for writing up all of your thoughts.
 
-Sorry - this is going to be long...
+Some quick initial reactions.  Testing is complicated, and I don't
+think having a single testing framework is realistic.  The problem is
+that each test framework will be optimized for various specific use
+cases, and will very likely not be very useful for other use cases.
 
-First, it would be nice to increase the amount of testing we do, by=20
-having more test automation. (ok, that's a no-brainer). Recently there
-has been a trend towards more centralized testing facilities, like the=20
-zero-day stuff or board farms used by kernelci. That makes sense, as
-this requires specialized hardware, setup,  or skills to operate certain
-kinds of test environments.  As one example, an automated test of
-kernel boot requires automated control of power to a board or
-platform, which is not very common among kernel developers.
-A centralized test facility has the expertise and hardware to add
-new test nodes relatively cheaply. They can do this more quickly
-and much less expensively than the first such node by an individual
-new to testing.
+Just to take one dimension --- certain kinds of tests will get a large
+amount of value by running on a wide variety of hardware.  Other tests
+are much less sensitive to hardware (at least at the CPU level), but
+might be more sensitive to the characteristics of the storage device
+(for example).
 
-However, I think to make great strides in test quantity and coverage,
-it's important to focus on ease of use for individual test nodes. My
-vision would be to have tens of thousands of individual test nodes
-running automated tests on thousands of different hardware platforms
-and configurations and workloads.
+Another example is trying to accomodate multiple workflows.  Workflows
+that are optimized for being run a large number of tests across large
+number of machines, in a highly scalable fashion, often end up having
+large setup overheads (in terms of time between kicking off a test run
+and when you get an answer).  This might be because you are scheduling
+the time run on a test machine; it could be because setting up a
+reproducible runtime environment takes time, etc
 
-The kernel selftest project is a step in the right direction for this, beca=
-use
-it allows any kernel developer to easily (in theory) run automated unit tes=
-ts
-for the kernel.  However, this is still a manual process.  I'd like to see
-improved standards and infrastructure for automating tests.=20
+And so you might have alarge number of workflows:
 
-It turns out there are lots of manual steps in the testing
-and bug-fixing process with the kernel (and other Linux-related
-software).  It would be nice if a new system allowed us to capture
-manual steps, and over time convert them to automation.
+* Developers who want a fast smoke test after applying a patch or
+  patch set.
+* Developers who want to dig into a specific test failure, and who
+  want to be able to very quickly iterate over running a specific test
+  against a quick succession of test kernels.
+* Maintainers who want to run a much more comprehensive test suite
+  that might take hours to run.  * Release engineers who want some
+  kind of continuous integration test.
 
-Here are some problems with the manual process that I think need
-addressing:
+A test runner framework which is good for one is very likely not going
+to be good for another.
 
- 1) How does an individual know what tests are valid for their platform?
-Currently, this is a manual decision.  In a world with thousands or tens of
-thousands of tests, this will be very difficult.  We need to have automated
-mechanisms to indicate which tests are relevant for a platform.
-Test definitions should include a description of the hardware they need,
-or the test setup they need.  For example, it would be nice to have tests
-indicate that they need to be run on a node with USB gadget support,
-or on a node with the gadget hardware from a particular vendor (e.g. a
-particular SOC), or with a particular hardware phy (e.g. Synopsis).  As
-another example, if a test requires that the hardware physically reboot,
-then that should be indicated in the test.  If a test requires that a parti=
-cular
-button be pressed (and that the button be available to be pressed), it
-should be listed.  Or if the test requires that an external node be availab=
-le
-to participate in the test (such as a wifi endpoint, CANbus endpoint, or
-i2C device) be present, that should be indicated.  There should be a
-way for the test nodes which provide those hardware capabilities,
-setups, or external resources to identify themselves.  Standards should
-be developed for how a test node and a test can express these capabilities
-and requirements.  Also, standards need to be developed so that
-a test can control those external resources to participate in tests.
-Right now each test framework handles this in its own way (if it provides
-support for it at all).
+> 2) how do you connect people who are interested in a particular
+> test with a node that can perform that test?
+> 
+> My proposal here is simple - for every subsystem of the kernel,
+> put a list of test nodes in the MAINTAINERS file, to
+> indicate nodes that are available to test that subsystem.  
 
-I heard of a neat setup at one company where the video output
-from a system was captured by another video system, and the results
-analyzed automatically.  This type of test setup currently requires an
-enormous investment of expertise, and possibly specialized hardware.
-Once such a setup is performed in a few locations, it makes much
-more sense to direct tests that need such facilities to those locations,
-than it does to try to spread the expertise to lots of different
-individuals (although that certainly has value also).
+Later on you talk about wanting tens of thousands of test nodes.  Is
+putting a list in the MAINTAINERS file really going to be scalable to
+that aspiration?
 
-For a first pass, I think the kernel CONFIG variables needed by a test
-should be indicated, and they could be compared with the config
-for the device under test.  This would be a start on the expression
-of the dependencies between a test and the features of the test node.
+> Basically, in the future, it would be nice if when a person reported
+> a bug, instead of the maintainer manually walking someone through
+> the steps to identify the bug and track down the problem, they could
+> point the user at an existing test that the user could easily run.
 
-2) how do you connect people who are interested in a particular
-test with a node that can perform that test?
+This seems to assume that test runs are highly hardware specific.  If
+they aren't, it's highly likely that the developer will have found the
+problem before the final release of the kernel.  This tends to be the
+case for file system bugs, for example.  It's rare that when a user
+reports a bug, that they would find a way of reproducing the problem
+by their running xfstests locally.  The much more likely scenario is
+that there is some gap in test coverage, or the failure is *extremely*
+flaky, such that it might take 100-200 runs using the current set of
+tests in xfstests to find the problem.  In some cases the failure is
+more likely on a hardware with a certain speed of storage device, but
+in that case, my strong preference at least for file system testing,
+would be to see if we could emulate a larger range of devices by
+adding delays to try to simulate what a slower device might look like,
+and perhaps try using a faster storage device (up to and including a
+large ramdisk) by using a VM.
 
-My proposal here is simple - for every subsystem of the kernel,
-put a list of test nodes in the MAINTAINERS file, to
-indicate nodes that are available to test that subsystem.  Tests can
-be scheduled to run on those nodes, either whenever new patches
-are received for that sub-system, or when a bug is encountered
-and developers for that subsystem want to investigate it by writing
-a new test.  Tests or data collection instructions that are now
-provided manually would be converted to formal test definitions,
-and added to a growing body of tests.  This should help people
-re-use test operations that are common.  Capturing test operations
-that are done manually into a script would need to be very easy
-(possibly itself automated), and it would need to be easy to publish
-the new test for others to use.
+That's the approach which I've used for gce-xfstests.  If you didn't
+see my talk at LCNA, I'll be giving an updated version at Plumbers, or
+you can take a look at the slide deck here:
 
-Basically, in the future, it would be nice if when a person reported
-a bug, instead of the maintainer manually walking someone through
-the steps to identify the bug and track down the problem, they could
-point the user at an existing test that the user could easily run.
+	http://thunk.org/gce-xfstests
 
-I imagine a kind of "test app store", where a tester can
-select from thousands of tests according to their interest.  Also,
-people could rate the tests, and maintainers could point people
-to tests that are helpful to solve specific problems.
+Personally, I find using a VM's to be a huge win for my personal
+development workflow.  I like the fast that I can build a test kernel,
+and then run "gce-xfstests smoke", and 15 minutes layer, the results
+will get e-mailed to me.  I can even do speculative bisections by
+kicking off multiple test runs of different kernels in parallel ---
+since there since I can create a large number of cloud VM's, and they
+are amazingly cheap: a smoke test costs 2 or 3 pennies at full retail
+prices.  And I can if necessary simulate different storage devices by
+using a HDD-backed Persistent disk, or a SSD-backed disk, or even use
+a local PCIe-attached fast local flash device with the VM.  I can also
+dial up an arbitrary number of CPU's and memory sizes, if I want to
+try to test differently sized machines.
 
-3) How does an individual know how to execute a test and how
-to interpret the results?
+Of course, the diversity gap that I have is that I can only test x86
+servers.  But as I've said, file systems tend to be mostly insensitive
+to the CPU architecture, and while I can't catch (for example)
+compiler code generation bugs that might be ARM-specific, the sheer
+*convenience* of using Cloud VM's based testing means that it's highly
+unlikely that you could tempt me to use a tens of thousands of
+available "test nodes", just because it's highly likely that it won't
+be as convenient.
 
-For many features or sub-systems, there are existing tools
-(e.g bonnie for filesystem tests, netperf for networking tests,
-or cyclictest for realtime), but these tools have a variety of
-options for testing different aspects of a problem or for dealing
-with different configurations or setups.  Online you can find tutorials
-for running each of these, and for helping people interpret
-the results. A new test system should take care of running
-these tools with the proper command line arguments for different
-test aspects, and for different test targets ('device-under-test's).
+One of the aspects of convenience is that because the VM's are under
+my control, which means I can easily login to a VM for debugging
+purposes.  If the test is running on some remote node, it's much less
+likely that someone would let me login as root, because the potential
+for abuse and the security issues involved with that are extremely
+high.  And if you *did* let arbitrary kernel developers login as root
+to the raw hardware, you'd probablly want to wipe the OS and reinstall
+from scratch on a very frequent basis (probably after each kernel
+developer is done with the test) and on real hardware, that takes
+time.  (Another nice advantage of VM's, each time a new VM starts up,
+it automatically gets a fresh root file system image each time, which
+is great both from a security and test reproducibility perspective.)
 
-For example, when someone figures out a set of useful
-arguments to cyclictest for testing realtime on a beaglebone board,
-they should be able to easily capture those arguments to allow
-another developer using the same board to easily re-use
-those test parameters, and interpret the cylictest results,
-in an automated fashion.  Basically we want to automate
-the process of finding out "what options do I use for this test
-on this board, and what the heck number am I supposed
-to look at in this output, and what should its value be?".
+Another version of the convenience is that if I want to do quickly
+iterate over many test kernels, or if I want to do some poking and
+proding using GDB, I can run the same test using kvm.  (GCE has a 30
+second startup latency, where as the KVM startup latency is about 4-5
+seconds.  And while in theory I could probably figure out how to plumb
+remote gdb over SSH tunnels, it's way easier and faster to do so using
+KVM.)
 
-Another issue is with interpretation of test results from large test
-suites.  One notorious example of this is LTP.  It produces
-thousands of results, and almost always produces failures or
-results that can be safely  ignored on a particular board or in a
-particular environment. It requires a large amount of manual
-evaluation and expertise to determine which items to pay
-attention to from LTP.  It would be nice to be able to capture
-this evaluation, and share it with others with either the same
-board, or the same test environment, to allow them to avoid
-duplicating this work.
+It's also helpful that all of the file system developers have
+*already* standardized on xfstests for file system test development,
+and using some other test framework will likely just add overhead
+without providing enough benefit to interest most file system
+developers.
 
-Of course, this should not be used to gloss over bugs in LTP or
-bugs that LTP is reporting correctly and actually need to be paid
-attention to.
 
-4) How should this test collateral be expressed, and how should
-it be collected, stored, shared and re-used?
+One final thought --- if you are going to have tens of thousands of
+nodes, something that's going to be critically important is how to
+organize the test results.  Internally inside Google we have a test
+system which is continuously running tests, and if a test fails, and
+it is marked flaky, the test will be automatically rerun, and the fact
+that a test was flaky and did flake is very clearly visible in a
+web-based dashboard.  With that dashboard we can easily look at the
+history of a specific test (e..g, generic/323 running on flash,
+generic/323 running on a HDD, etc.) and whether the test was using a
+dbg kernel, or normal kernel, whether it is running on an older server
+with only a handful of CPU cores, or some brand new server with dozens
+and dozens of CPU cores, etc.  If you have a huge number of test runs,
+being able to query that data and then display it in some easily
+viewable, graphical form, but where you can also drill down to a
+specific test failure and get archived copies of the test artifacts is
+critically important.  Unfortunately that system uses way too many
+internal systems that for it to be made available outside of google,
+but I can tell you having that kind of dashboard system is critically
+important.
 
-There are a multitude of test frameworks available.  I am proposing
-that as a community we develop standards for test packaging which
-include this type of information (test dependencies, test parameters,
-results interpretation).  I don't know all the details yet.  For this reaso=
-n
-I am coming to the community see how others are solving these problems
-and to get ideas for how to solve them in a way that would be useful
-for multiple frameworks.  I'm personally working on the Fuego test
-framework - see http://bird.org/fuego, but I'd like to create something
-that could be used with any test framework.
+I'm hoping to have an intern try to create something like that for
+gce-xfstests that would run on Google App Engine, over the next couple
+of months.  So maybe by next year I'll have something that we'll be
+able to show off.  We'll see....
 
-5) How to trust test collateral from other sources (tests, interpretation)
+Anyway, please take a look at my gce-xfstests slide deck, and feel
+free to ask me any questions you might have.  I have experimented with
+other ways of packaging up xfstests, including as a chroot using
+Debian's armhf architecture, which can be dropped on an Android device
+so we can run xfstests, either using an external disk attached via the
+USB-C port, or using the internal eMMC and the In-line Crypto Engine
+that the Pixel and Pixel XL use.
 
-One issue which arises with this type of sharing (or with any type of shari=
-ng)
-is how to trust the materials involved.  If a user puts up a node with
-their own hardware, and trusts the test framework to automatically download
-and execute a never-before-seen test, this creates a security and trust
-issue.  I believe this will require the same types of authentication and
-trust mechanisms (e.g. signing, validation and trust relationships) that we
-use to manage code in the kernel.
+I've also experimented with packaging up xfstests using Docker, and
+while there are use cases where I've had to use these alternate
+systems, it's still **far** more convenient to test using a VM ----
+enough so that my approach when I was working on ext4 encryption for
+Android is to take a device kernel, curse at Qualcomm or Nvidia while
+I made that vendor kernel compile and boot under x86 again, and then
+run the xfstests on x86 running on KVM or on GCE.  For the sake of
+end-to-end testing (for example, so we can test ext4 using the
+Qualcomm's ICE hardware), of course we have to run on real hardware on
+a real device.  But it's really, much, much less convenient and far
+nastier to have to do so.  Fortunately we can catch the bulk of the
+tests and do most of the debugging and development using an x86-based
+VM.
 
-I think this is more important than it sounds.  I think the real value of t=
-his
-system will come when tens of thousands of nodes are running tests where
-the system owners can largely ignore the operation of the system, and
-instead the test scheduling and priorities can be driven by the needs of
-developers and maintainers who the test node owners have never
-interacted with.
+Maybe someday an ARM64 system will have the necessary hardware
+virtualization systems such that we can quickly test an ARM
+handset/embedded kernel using kvm on an ARM64 server / workstation.
+Maybe that would be a 90% solution for many file system and even
+device driver authors, assuming the necesary SOC IP blocks could be
+emulated by qemu.
 
-Finally,=20
-6) What is the motivation for someone to run a test on their hardware?
+Cheers,
 
-Well, there's an obvious benefit to executing a test if you are personally
-interested in the result.  However, I think the benefit of running an enorm=
-ous
-test system needs to be de-coupled from that immediate direct benefit.
-I think we should look at this the same way  we look at other crowd-sourced
-initiatives, like Wikipedia.  While there is some small benefit for someone
-producing an individual page edit, we need to move beyond that to
-the benefit to the community of the cumulative effort.
+						- Ted
 
-I think that if we want tens of thousands of people to run tests, then we
-need to increase the cost/benefit ratio for the system.  First, you need to
-reduce the cost so that it is very cheap, in all of [time|money|expertise|
-ongoing attention], to set up and maintain a test node.  Second, there
-needs to be a real benefit that people can measure from the cumulative
-effect of participating in the system.  I think it would be valuable to
-report bugs found and fixed by the system as a whole, and possibly to
-attribute positive results to the output provided by individual
-nodes.  (Maybe you could 'game-ify' the operation of test nodes.)
 
-Well, if you are still reading by now, I appreciate it.  I have more ideas,=
- including
-more details for how such a system might work, and what types of things
-it could accomplish. But I'll save that for smaller groups who might be mor=
-e
-directly interested in this topic.
+P.S.  I've done a lot of work to make it possible for other developers
+to use gce-xfstests.  Including creating lots of documentation:
 
-To get started, I will begin working on a prototype of a test packaging sys=
-tem
-that includes some of the ideas mentioned here: inclusion of test collatera=
-l,=20
-and package validation.  I would also like to schedule a "test summit" of
-some kind (maybe associated with ELC or Linaro Connect, or some
-other event), to discuss standards in the area I propose.
+	https://github.com/tytso/xfstests-bld/blob/master/README.md
 
-I welcome any response to these ideas.  I plan to discuss them
-at the upcoming test framework mini-jamboree in Tokyo next week,
-and at Plumbers (particularly during the 'testing and fuzzing' session)
-the week following.  But feel free to respond to this e-mail as well.
+And having public prebuilt images so that the end-user doesn't even
+need build their own test appliance.  They can just do a git clone of
+xfstests-bld, do a "make install" into their home directory, get a GCE
+account which comes with $300 of free credits, and the use the
+prebuilt image.  So it's quite turn key:
 
-Thanks.
- -- Tim Bird
+	 https://github.com/tytso/xfstests-bld/blob/master/Documentation/gce-xfstests.md
+
+The reason why I did this was specifically so that downstream
+developers could run the tests themselves, so I don't have to catch
+problems at integration time.
