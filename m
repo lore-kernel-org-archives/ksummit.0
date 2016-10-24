@@ -1,33 +1,19 @@
-Return-Path: <prvs=9105fee838=clm@fb.com>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BB87471
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 24 Oct 2016 15:47:36 +0000 (UTC)
-Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
-	[67.231.153.30])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F31071B9
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 24 Oct 2016 15:47:35 +0000 (UTC)
-Received: from pps.filterd (m0001255.ppops.net [127.0.0.1])
-	by mx0b-00082601.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
-	u9OFkRx3001223 for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 24 Oct 2016 08:47:35 -0700
-Received: from maileast.thefacebook.com ([199.201.65.23])
-	by mx0b-00082601.pphosted.com with ESMTP id 2683x3j48x-1
-	(version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT)
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 24 Oct 2016 08:47:35 -0700
-From: Chris Mason <clm@fb.com>
-To: "ksummit-discuss@lists.linux..."
-	<ksummit-discuss@lists.linuxfoundation.org>
-Message-ID: <4467045d-42b7-cb94-aeca-9b1fd814954a@fb.com>
-Date: Mon, 24 Oct 2016 11:47:23 -0400
+Return-Path: <broonie@sirena.org.uk>
+Date: Mon, 24 Oct 2016 17:41:16 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Theodore Ts'o <tytso@mit.edu>
+Message-ID: <20161024164116.GB17252@sirena.org.uk>
+References: <ECADFF3FD767C149AD96A924E7EA6EAF0ABA11DA@USCULXMSG01.am.sony.com>
+	<20161022011925.6n3nhq23vbrly364@thunk.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="windows-1252"; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: [Ksummit-discuss] Reminder: Linux Foundation Technical Advisory
- Board Elections and Nomination process
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="rJwd6BRFiFCcLxzm"
+Content-Disposition: inline
+In-Reply-To: <20161022011925.6n3nhq23vbrly364@thunk.org>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	"fuego@lists.linuxfoundation.org" <fuego@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] Some ideas on open source testing
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,36 +23,75 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hello everyone,
 
-The elections for five of the ten members of the Linux Foundation 
-Technical Advisory Board (TAB) are held every year[1]. This year the
-election will be at the 2016 Kernel Summit in Santa Fe, NM.
+--rJwd6BRFiFCcLxzm
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-The elections will take place at the conference center on Wednesday Nov 
-2nd, shortly before the evening Kernel Summit/Plumbers reception.  The 
-elections will be open to all attendees of both the Kernel Summit and 
-the Linux Plumbers.
+On Fri, Oct 21, 2016 at 09:19:25PM -0400, Theodore Ts'o wrote:
 
-Anyone is eligible to stand for election, simply send your nomination to:
+> And so you might have alarge number of workflows:
 
-tech-board-discuss at lists.linux-foundation.org
+> * Developers who want a fast smoke test after applying a patch or
+>   patch set.
+> * Developers who want to dig into a specific test failure, and who
+>   want to be able to very quickly iterate over running a specific test
+>   against a quick succession of test kernels.
+> * Maintainers who want to run a much more comprehensive test suite
+>   that might take hours to run.  * Release engineers who want some
+>   kind of continuous integration test.
 
-Just before the election, everyone will have a chance to introduce 
-themselves and briefly talk about why they would like to participate on 
-the Technical Advisory Board.   This year, we're encouraging everyone to 
-include those details along with their nomination, which we will compile 
-into an online document for quick reference.
+> A test runner framework which is good for one is very likely not going
+> to be good for another.
 
-The deadline for receiving nominations is up until the beginning of
-the event where the election is held.  Any statements for the online 
-document need to be sent by Friday Oct 28th.  Please remember if
-you're not going to be present that things go wrong with both networks
-and mailing lists, so get your nomination in early).
+That's true but there's also an awful lot that can be shared - for
+example, the mechanics of booting on a given system are going to be the
+same regardless of how the test was scheduled or how long it will run
+for.  We should be looking for ways to share things as much as we can,
+especially around the bits where the skills needed to implement align
+less well with kernel skills.
 
-Chris Mason, TAB Chair
+[UI for reporting]
+> I'm hoping to have an intern try to create something like that for
+> gce-xfstests that would run on Google App Engine, over the next couple
+> of months.  So maybe by next year I'll have something that we'll be
+> able to show off.  We'll see....
 
-[1] TAB members sit for a term of two years, and half of the board is up
-for election every year. Five of the seats are up for election now.
-The other five are halfway through their term and will be up for
-election next year.
+This sort of UI thing seems like a prime example of an area where we
+could really use some sharing - for example we've got some capacity to
+run tests in kernelci but nobody to work on UI for doing anything useful
+with the results.
+
+> Maybe someday an ARM64 system will have the necessary hardware
+> virtualization systems such that we can quickly test an ARM
+> handset/embedded kernel using kvm on an ARM64 server / workstation.
+
+Those systems are out there today, KVM works fine on arm64 providing
+it's not been disabled - any of the server boards like Cavium or AMD
+(both of which are orderable now) and a bunch of the embedded boards
+like HiKey ought to be able to run it happily too.
+
+> Maybe that would be a 90% solution for many file system and even
+> device driver authors, assuming the necesary SOC IP blocks could be
+> emulated by qemu.
+
+qemu emulation isn't really that useful for driver testing, the quality
+of the emulation with respect to the hardware is generally not super
+hot.
+
+--rJwd6BRFiFCcLxzm
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQEcBAEBCAAGBQJYDjmrAAoJECTWi3JdVIfQcogIAIA4awanLw2q8jN2Tl0XwUI9
+6K08s1GYo5g/X/CZ2zNkKamA8XNwPnhI1idgSs3MTz+Wb1kpf/YHozN+YFXsWVp4
+6HhRXsqJacEulwFgGquO25fX2HVmmNIZI1HQDdYc9Z2jTupQQ1252wSpzh7tGX3g
+wqS7XAEtcuYa8gFA7xS9ngYVRqTbw7jkt8GLYubhX5Iw2v0/t6Te10BTS79hPPhr
+vHeMnx0MsaXUgQ4sZSVvmN1XjWvm/7jJ725smQn4m3bwBNII2brN3YC7ldK94Gnl
+5c64IymgFAM1Z4UP/+Vj3BqRdY22PwTU2OgW9+e4SPDX0rFpisPImWGYX36FbKw=
+=nEXl
+-----END PGP SIGNATURE-----
+
+--rJwd6BRFiFCcLxzm--
