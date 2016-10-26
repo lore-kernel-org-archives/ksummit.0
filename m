@@ -1,19 +1,33 @@
-Return-Path: <broonie@sirena.org.uk>
-Date: Mon, 24 Oct 2016 17:41:16 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Theodore Ts'o <tytso@mit.edu>
-Message-ID: <20161024164116.GB17252@sirena.org.uk>
-References: <ECADFF3FD767C149AD96A924E7EA6EAF0ABA11DA@USCULXMSG01.am.sony.com>
-	<20161022011925.6n3nhq23vbrly364@thunk.org>
+Return-Path: <rostedt@goodmis.org>
+Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
+	[172.17.192.36])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D78BC9ED
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 26 Oct 2016 18:42:26 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0160.hostedemail.com
+	[216.40.44.160])
+	by smtp2.linuxfoundation.org (Postfix) with ESMTPS id 896D01DABC
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 26 Oct 2016 18:42:25 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
+	[10.5.19.251])
+	by smtpgrave06.hostedemail.com (Postfix) with ESMTP id E7B2B172E6D
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 26 Oct 2016 18:04:17 +0000 (UTC)
+Date: Wed, 26 Oct 2016 14:04:10 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Chris Mason <clm@fb.com>
+Message-ID: <20161026140410.2415d4ea@gandalf.local.home>
+In-Reply-To: <4467045d-42b7-cb94-aeca-9b1fd814954a@fb.com>
+References: <4467045d-42b7-cb94-aeca-9b1fd814954a@fb.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="rJwd6BRFiFCcLxzm"
-Content-Disposition: inline
-In-Reply-To: <20161022011925.6n3nhq23vbrly364@thunk.org>
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	"fuego@lists.linuxfoundation.org" <fuego@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] Some ideas on open source testing
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: tech-board-discuss@lists.linux-foundation.org,
+	"ksummit-discuss@lists.linux..."
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] Reminder: Linux Foundation Technical Advisory
+ Board Elections and Nomination process
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -23,75 +37,30 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Mon, 24 Oct 2016 11:47:23 -0400
+Chris Mason <clm@fb.com> wrote:
 
---rJwd6BRFiFCcLxzm
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> The deadline for receiving nominations is up until the beginning of
+> the event where the election is held.  Any statements for the online 
+> document need to be sent by Friday Oct 28th.  Please remember if
+> you're not going to be present that things go wrong with both networks
+> and mailing lists, so get your nomination in early).
 
-On Fri, Oct 21, 2016 at 09:19:25PM -0400, Theodore Ts'o wrote:
+Note, to encourage people to post early, the list of names in the
+online document will be in the order their nomination emails appear in
+the tech-board-discuss archives:
 
-> And so you might have alarge number of workflows:
+ https://lists.linuxfoundation.org/pipermail/tech-board-discuss/2016-October/thread.html
 
-> * Developers who want a fast smoke test after applying a patch or
->   patch set.
-> * Developers who want to dig into a specific test failure, and who
->   want to be able to very quickly iterate over running a specific test
->   against a quick succession of test kernels.
-> * Maintainers who want to run a much more comprehensive test suite
->   that might take hours to run.  * Release engineers who want some
->   kind of continuous integration test.
+The earlier you get your submissions in, the further up in the document
+you will be listed. So far I have two: Josh Triplett and Rik van Riel.
 
-> A test runner framework which is good for one is very likely not going
-> to be good for another.
+If you later want to update what will be in the document, please email
+me and the list with your update. You will still keep your position in
+the document determined by your original submission.
 
-That's true but there's also an awful lot that can be shared - for
-example, the mechanics of booting on a given system are going to be the
-same regardless of how the test was scheduled or how long it will run
-for.  We should be looking for ways to share things as much as we can,
-especially around the bits where the skills needed to implement align
-less well with kernel skills.
+Also, please do not send a nomination as a reply to any email. All
+nominations should start their own thread, otherwise they may be missed
+and not accounted for.
 
-[UI for reporting]
-> I'm hoping to have an intern try to create something like that for
-> gce-xfstests that would run on Google App Engine, over the next couple
-> of months.  So maybe by next year I'll have something that we'll be
-> able to show off.  We'll see....
-
-This sort of UI thing seems like a prime example of an area where we
-could really use some sharing - for example we've got some capacity to
-run tests in kernelci but nobody to work on UI for doing anything useful
-with the results.
-
-> Maybe someday an ARM64 system will have the necessary hardware
-> virtualization systems such that we can quickly test an ARM
-> handset/embedded kernel using kvm on an ARM64 server / workstation.
-
-Those systems are out there today, KVM works fine on arm64 providing
-it's not been disabled - any of the server boards like Cavium or AMD
-(both of which are orderable now) and a bunch of the embedded boards
-like HiKey ought to be able to run it happily too.
-
-> Maybe that would be a 90% solution for many file system and even
-> device driver authors, assuming the necesary SOC IP blocks could be
-> emulated by qemu.
-
-qemu emulation isn't really that useful for driver testing, the quality
-of the emulation with respect to the hardware is generally not super
-hot.
-
---rJwd6BRFiFCcLxzm
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQEcBAEBCAAGBQJYDjmrAAoJECTWi3JdVIfQcogIAIA4awanLw2q8jN2Tl0XwUI9
-6K08s1GYo5g/X/CZ2zNkKamA8XNwPnhI1idgSs3MTz+Wb1kpf/YHozN+YFXsWVp4
-6HhRXsqJacEulwFgGquO25fX2HVmmNIZI1HQDdYc9Z2jTupQQ1252wSpzh7tGX3g
-wqS7XAEtcuYa8gFA7xS9ngYVRqTbw7jkt8GLYubhX5Iw2v0/t6Te10BTS79hPPhr
-vHeMnx0MsaXUgQ4sZSVvmN1XjWvm/7jJ725smQn4m3bwBNII2brN3YC7ldK94Gnl
-5c64IymgFAM1Z4UP/+Vj3BqRdY22PwTU2OgW9+e4SPDX0rFpisPImWGYX36FbKw=
-=nEXl
------END PGP SIGNATURE-----
-
---rJwd6BRFiFCcLxzm--
+-- Steve
