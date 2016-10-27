@@ -1,31 +1,26 @@
-Return-Path: <dan.j.williams@intel.com>
+Return-Path: <luto@amacapital.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1DB59720
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 96C0449B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 27 Oct 2016 15:39:11 +0000 (UTC)
-Received: from mail-oi0-f44.google.com (mail-oi0-f44.google.com
-	[209.85.218.44])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 058BA203
+	Thu, 27 Oct 2016 17:29:24 +0000 (UTC)
+Received: from mail-ua0-f170.google.com (mail-ua0-f170.google.com
+	[209.85.217.170])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4820419C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 27 Oct 2016 15:39:06 +0000 (UTC)
-Received: by mail-oi0-f44.google.com with SMTP id y2so61939956oie.0
+	Thu, 27 Oct 2016 17:29:23 +0000 (UTC)
+Received: by mail-ua0-f170.google.com with SMTP id 20so18755455uak.0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 27 Oct 2016 08:39:06 -0700 (PDT)
+	Thu, 27 Oct 2016 10:29:23 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20161024164116.GB17252@sirena.org.uk>
-References: <ECADFF3FD767C149AD96A924E7EA6EAF0ABA11DA@USCULXMSG01.am.sony.com>
-	<20161022011925.6n3nhq23vbrly364@thunk.org>
-	<20161024164116.GB17252@sirena.org.uk>
-From: Dan Williams <dan.j.williams@intel.com>
-Date: Thu, 27 Oct 2016 08:39:05 -0700
-Message-ID: <CAPcyv4i2BV9i=CA=R=gHNFk5z4gEVhLmJSpYx-wV_Kam1L_nRQ@mail.gmail.com>
-To: Mark Brown <broonie@kernel.org>
+From: Andy Lutomirski <luto@amacapital.net>
+Date: Thu, 27 Oct 2016 10:29:01 -0700
+Message-ID: <CALCETrV17Eqxa9-ronb_C0xX5usWyzQo6dW_OKaBT+roSr+kaA@mail.gmail.com>
+To: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Peter Zijlstra <peterz@infradead.org>, Tejun Heo <tj@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Cc: "fuego@lists.linuxfoundation.org" <fuego@lists.linuxfoundation.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] Some ideas on open source testing
+Subject: [Ksummit-discuss] [LAST-MINUTE TOPIC] cgroup API
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,21 +30,10 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Oct 24, 2016 at 9:41 AM, Mark Brown <broonie@kernel.org> wrote:
-[..]
->> Maybe that would be a 90% solution for many file system and even
->> device driver authors, assuming the necesary SOC IP blocks could be
->> emulated by qemu.
->
-> qemu emulation isn't really that useful for driver testing, the quality
-> of the emulation with respect to the hardware is generally not super
-> hot.
+Would it make sense to have a session to try to resolve the current
+cgroup v2 API disagreement?
 
-The other problem with emulation is testing corner cases and failures.
-I doubt the qemu project would want to carry deliberately broken
-emulations just for test purposes. This is why I ended up using
-interface mocking (the '--wrap=' linker option) for the libnvdimm unit
-test suite.
-
-I have found this method effective for testing device-driver routines
-in the absence of hardware.
+In the interest of brevity, I'm not going to rehash the issues here,
+but in extremely short summary, they include tasks in non-leaf cgroups
+as well as whether threads in the same process can be in different
+cgroups.
