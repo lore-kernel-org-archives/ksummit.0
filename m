@@ -1,33 +1,36 @@
-Return-Path: <prvs=01099c1856=clm@fb.com>
+Return-Path: <mcgrof@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 29AB5481
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id AE1E4480
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 28 Oct 2016 19:40:26 +0000 (UTC)
-Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
-	[67.231.153.30])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E6DCD23B
+	Fri, 28 Oct 2016 21:17:22 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.136])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5DB70289
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 28 Oct 2016 19:40:24 +0000 (UTC)
-Received: from pps.filterd (m0001255.ppops.net [127.0.0.1])
-	by mx0b-00082601.pphosted.com (8.16.0.17/8.16.0.17) with SMTP id
-	u9SJakNG012504 for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 28 Oct 2016 12:40:24 -0700
-Received: from mail.thefacebook.com ([199.201.64.23])
-	by mx0b-00082601.pphosted.com with ESMTP id 26caj91prm-1
-	(version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT)
+	Fri, 28 Oct 2016 21:17:22 +0000 (UTC)
+Received: from mail.kernel.org (localhost [127.0.0.1])
+	by mail.kernel.org (Postfix) with ESMTP id 666C82044C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 28 Oct 2016 12:40:24 -0700
-From: Chris Mason <clm@fb.com>
-To: "ksummit-discuss@lists.linux..."
-	<ksummit-discuss@lists.linuxfoundation.org>
-Message-ID: <7f973d4a-26ec-d559-6fab-fbaaa8cdc65e@fb.com>
-Date: Fri, 28 Oct 2016 15:40:16 -0400
+	Fri, 28 Oct 2016 21:17:21 +0000 (UTC)
+Received: from mail-ua0-f175.google.com (mail-ua0-f175.google.com
+	[209.85.217.175])
+	(using TLSv1.2 with cipher AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id 7181C20411
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 28 Oct 2016 21:17:20 +0000 (UTC)
+Received: by mail-ua0-f175.google.com with SMTP id 12so64397773uas.2
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 28 Oct 2016 14:17:20 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="windows-1252"; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: [Ksummit-discuss] Linux Foundation Technical Advisory Board
- Elections updates and location
+From: "Luis R. Rodriguez" <mcgrof@kernel.org>
+Date: Fri, 28 Oct 2016 14:16:59 -0700
+Message-ID: <CAB=NE6XscoaYq7_0wbEtgdGZt-duhMb6a-o8O+09FrJRy9EkLQ@mail.gmail.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Content-Type: text/plain; charset=UTF-8
+Cc: Jiri Kosina <jkosina@suse.cz>, Mark Brown <broonie@sirena.org.uk>
+Subject: [Ksummit-discuss] Schedule slot suggestion- Generic drivers - core
+	topic
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,55 +40,19 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hello everyone,
+I see some open slots for Monday, there is some overlap in interest
+between the Audio workshop folks and the tech topic for Tuesday
+"addressing complex dependencies". We seem to have come to some
+arrangement to split topics up to avoid such overlap, but one subject
+overlapping both, but that seems more appropriate for the core day is
+"Generic drivers":
 
-A few updates about the TAB election.  It is scheduled for 5pm on 
-Wednesday November 2nd, in the Coronado/DeVargas room, at the conference 
-center.  We move through the voting pretty quickly, and you'll finish 
-with plenty of time to spare before the evening reception.
+Having some generic device driver load, prior to a specific driver,
+and issues / maintenance issues that come with the hacks currently in
+place to support this / re-invent the wheel to support this per
+subsystem.
 
-The nominees so far:
+It might be good then to move this to a Monday slot, provided most
+interested folks can and will be there. Thoughts?
 
-Josh Triplett
-Rik van Riel
-Dave Taht
-Chris Mason
-Dan Williams
-
-Steve Rostedt is maintaining a list of the nominees and their statements 
-at the URL below.  He promises to stay at the keyboard and keep updating 
-it until 12pm EDT Oct 30th:
-
-https://goo.gl/xlAoJl
-
-The elections for five of the ten members of the Linux Foundation 
-Technical Advisory Board (TAB) are held every year[1]. This year the
-election will be at the 2016 Kernel Summit in Santa Fe, NM.
-
-The elections will take place at the conference center on Wednesday Nov 
-2nd, shortly before the evening Kernel Summit/Plumbers reception.  The 
-elections will be open to all attendees of both the Kernel Summit and 
-the Linux Plumbers.
-
-Anyone is eligible to stand for election, simply send your nomination to:
-
-tech-board-discuss at lists.linux-foundation.org
-
-Just before the election, everyone will have a chance to introduce 
-themselves and briefly talk about why they would like to participate on 
-the Technical Advisory Board.   This year, we're encouraging everyone to 
-include those details along with their nomination, which we will compile 
-into an online document for quick reference.
-
-The deadline for receiving nominations is up until the beginning of
-the event where the election is held.  Any statements for the online 
-document need to be sent by Friday Oct 28th.  Please remember if
-you're not going to be present that things go wrong with both networks
-and mailing lists, so get your nomination in early).
-
-Chris Mason, TAB Chair
-
-[1] TAB members sit for a term of two years, and half of the board is up
-for election every year. Five of the seats are up for election now.
-The other five are halfway through their term and will be up for
-election next year.
+ Luis
