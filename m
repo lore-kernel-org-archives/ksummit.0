@@ -1,26 +1,28 @@
-Return-Path: <luto@amacapital.net>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 593502C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 111C0259
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 30 Oct 2016 22:57:10 +0000 (UTC)
-Received: from mail-ua0-f172.google.com (mail-ua0-f172.google.com
-	[209.85.217.172])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A23E91BD
+	Sun, 30 Oct 2016 23:41:26 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D389819D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 30 Oct 2016 22:57:09 +0000 (UTC)
-Received: by mail-ua0-f172.google.com with SMTP id b35so20702234uaa.3
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 30 Oct 2016 15:57:09 -0700 (PDT)
+	Sun, 30 Oct 2016 23:41:23 +0000 (UTC)
+Date: Sun, 30 Oct 2016 19:41:11 -0400
+From: Theodore Ts'o <tytso@mit.edu>
+To: "Serge E. Hallyn" <serge@hallyn.com>
+Message-ID: <20161030234110.bapvmmabmoqhtgnq@thunk.org>
+References: <CALCETrV17Eqxa9-ronb_C0xX5usWyzQo6dW_OKaBT+roSr+kaA@mail.gmail.com>
+	<20161027200929.GB17657@htj.duckdns.org>
+	<20161030152723.GA27915@mail.hallyn.com>
 MIME-Version: 1.0
-In-Reply-To: <CALCETrXvkszWHN-jTBzoxNtc=__N64h9waEWuWn_ntpA7NK_qw@mail.gmail.com>
-References: <CALCETrXvkszWHN-jTBzoxNtc=__N64h9waEWuWn_ntpA7NK_qw@mail.gmail.com>
-From: Andy Lutomirski <luto@amacapital.net>
-Date: Sun, 30 Oct 2016 15:57:07 -0700
-Message-ID: <CALCETrVAMqQBSiFtq+sF9=jiq9-tHsbUQGsLFPOXUomfFWK1QA@mail.gmail.com>
-To: ksummit-discuss@lists.linuxfoundation.org
-Content-Type: multipart/alternative; boundary=94eb2c05f262c8cce205401d0219
-Subject: [Ksummit-discuss] Carpool from Albuquerque?
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20161030152723.GA27915@mail.hallyn.com>
+Cc: Tejun Heo <tj@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [LAST-MINUTE TOPIC] cgroup API
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,24 +32,30 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---94eb2c05f262c8cce205401d0219
-Content-Type: text/plain; charset=UTF-8
+On Sun, Oct 30, 2016 at 10:27:23AM -0500, Serge E. Hallyn wrote:
+> 
+> FWIW I'm only arriving tuesday morning;  but obviously far more important
+> that Tejun be there, so I think I vote for monday night.
 
-I haven't seen any list of who's arriving when for possible carpooling.
-Anyone want to share a ride from Albuquerque Airport at ~7:35 PM this
-evening?  (I'll probably use Uber or Lyft, and they're eminently
-sharable.). If someone's feeling fancy, they could make a Google Sheet or
-similar.  (I meant to email earlier, but oh well.)
+we have time Monday *afternoon*, if that works for folks.  Monday
+evening will conflict with the evening dinner, so if we want to do it
+on Monday, we have free slots during the kernel summit core day.  If
+there are people who need to attend who aren't core day invitees, we
+have invited people who are needed for a particular discussion into a
+specific core plenary day session before.
 
---94eb2c05f262c8cce205401d0219
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+The other alternative would be to either do it Tuesday (we have a room
+availble), or Wednesday or Thursday, where the kernel summit does have
+a room reserved for technical sessions and for which LPC attendees are
+explicitly invited (just as people with Kernel Summit badges are
+invited to participate in LPC events).
 
-<p dir=3D"ltr">I haven&#39;t seen any list of who&#39;s arriving when for p=
-ossible carpooling.=C2=A0 Anyone want to share a ride from Albuquerque Airp=
-ort at ~7:35 PM this evening?=C2=A0 (I&#39;ll probably use Uber or Lyft, an=
-d they&#39;re eminently sharable.). If someone&#39;s feeling fancy, they co=
-uld make a Google Sheet or similar.=C2=A0 (I meant to email earlier, but oh=
- well.)</p>
+I note there is a Cgroup v2 API session scheduled as part of the
+containers miniconference on Wednesday morning.  I assume the goal is
+try to settle this disagreement before the LPC minisummit?
 
---94eb2c05f262c8cce205401d0219--
+Can someone give a summary of who the critical people are who need to
+be present, and what their availability might be?  Finding a room
+shouldn't be a problem.  It's going to people's availability....
+
+	       		      	       - Ted
