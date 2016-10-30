@@ -1,28 +1,27 @@
-Return-Path: <laurent.pinchart@ideasonboard.com>
+Return-Path: <serge@mail.hallyn.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 443644A4
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7AC4A40D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 29 Oct 2016 01:12:53 +0000 (UTC)
-Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
-	[185.26.127.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 25E031B5
+	Sun, 30 Oct 2016 15:27:15 +0000 (UTC)
+Received: from h2.hallyn.com (h2.hallyn.com [78.46.35.8])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 058E5D5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 29 Oct 2016 01:12:51 +0000 (UTC)
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Sat, 29 Oct 2016 04:12:49 +0300
-Message-ID: <4769392.kbj68IAfRv@avalon>
-In-Reply-To: <CAKdAkRStxcd1TJ0tdDRRV_M7Y_-_+sdXCJjssuTWEifQM5pteg@mail.gmail.com>
-References: <CAB=NE6XscoaYq7_0wbEtgdGZt-duhMb6a-o8O+09FrJRy9EkLQ@mail.gmail.com>
-	<20161028214431.GB12838@kroah.com>
-	<CAKdAkRStxcd1TJ0tdDRRV_M7Y_-_+sdXCJjssuTWEifQM5pteg@mail.gmail.com>
+	Sun, 30 Oct 2016 15:27:14 +0000 (UTC)
+Date: Sun, 30 Oct 2016 10:27:23 -0500
+From: "Serge E. Hallyn" <serge@hallyn.com>
+To: Tejun Heo <tj@kernel.org>
+Message-ID: <20161030152723.GA27915@mail.hallyn.com>
+References: <CALCETrV17Eqxa9-ronb_C0xX5usWyzQo6dW_OKaBT+roSr+kaA@mail.gmail.com>
+	<20161027200929.GB17657@htj.duckdns.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-Cc: Mark Brown <broonie@sirena.org.uk>
-Subject: Re: [Ksummit-discuss] Schedule slot suggestion- Generic drivers -
-	core topic
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20161027200929.GB17657@htj.duckdns.org>
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [LAST-MINUTE TOPIC] cgroup API
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,50 +31,22 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Friday 28 Oct 2016 14:51:36 Dmitry Torokhov wrote:
-> On Fri, Oct 28, 2016 at 2:44 PM, Greg KH <greg@kroah.com> wrote:
-> > On Fri, Oct 28, 2016 at 02:38:13PM -0700, Dmitry Torokhov wrote:
-> >> On Fri, Oct 28, 2016 at 2:29 PM, Jiri Kosina <jikos@kernel.org> wrote:
-> >> > On Fri, 28 Oct 2016, Greg KH wrote:
-> >> >> On Fri, Oct 28, 2016 at 02:16:59PM -0700, Luis R. Rodriguez wrote:
-> >> >> > Having some generic device driver load, prior to a specific driver,
-> >> >> > and issues / maintenance issues that come with the hacks currently
-> >> >> > in
-> >> >> > place to support this / re-invent the wheel to support this per
-> >> >> > subsystem.
-> >> >> 
-> >> >> We have hacks for this today?  What do you mean by this, quirks?
-> >> > 
-> >> > I have to maintain a device-id list that explicitly enumerates "these
-> >> > devices can be handled by generic driver, but would better be handled
-> >> > by
-> >> > specific driver", in the generic driver itself. Which is horrible.
-> >> > 
-> >> > It'd be nice for the specific driver to be able to claim this property
-> >> > somehow.
-> >> 
-> >> Now that most of the environment is ready to handle hotplug, for HID
-> >> it should be doable: have hid-generic probe devices last and have
-> >> driver core recognize generic/vs tailored driver (flag?) and if device
-> >> matches tailored driver forcibly unbind from generic and allow
-> >> tailored to bind to the device. There will be window of time when
-> >> device is bound to a "wrong" driver, but because of hotplug who cares.
-> > 
-> > "forcibly unbind" is the trick here, along with the fact of drivers not
-> > being asked to match with devices already bound to a driver.  It might
-> > be possible, I'd love to see patches to try it, given that the topic
-> > comes up every other year or so...
+On Thu, Oct 27, 2016 at 04:09:29PM -0400, Tejun Heo wrote:
+> Hello,
 > 
-> We already allow forcibly unbinding via sysfs, so it should be
-> possible to do that when loading new driver.
+> (cc'ing Johannes)
+> 
+> On Thu, Oct 27, 2016 at 10:29:01AM -0700, Andy Lutomirski wrote:
+> > Would it make sense to have a session to try to resolve the current
+> > cgroup v2 API disagreement?
+> > 
+> > In the interest of brevity, I'm not going to rehash the issues here,
+> > but in extremely short summary, they include tasks in non-leaf cgroups
+> > as well as whether threads in the same process can be in different
+> > cgroups.
+> 
+> Yeah, sure.  Do we have some time on Mon evening?  I'm not sure I'll
+> be around Tue evening.
 
-I expect many drivers to crash though, especially if userspace starts using 
-the device and races with the unbind. Nothing new under the sun, drivers will 
-need to be fixed, and the new CONFIG_DEBUG_TEST_DRIVER_REMOVE should help a 
-bit. I however still believe the the cargo cult usage of devm_* functions in 
-drivers has only gotten worse since I raised the issue last year.
-
--- 
-Regards,
-
-Laurent Pinchart
+FWIW I'm only arriving tuesday morning;  but obviously far more important
+that Tejun be there, so I think I vote for monday night.
