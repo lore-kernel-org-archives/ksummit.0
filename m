@@ -1,26 +1,25 @@
 Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 111C0259
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 05FC9259
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 30 Oct 2016 23:41:26 +0000 (UTC)
+	Sun, 30 Oct 2016 23:50:06 +0000 (UTC)
 Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D389819D
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 794CE157
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 30 Oct 2016 23:41:23 +0000 (UTC)
-Date: Sun, 30 Oct 2016 19:41:11 -0400
+	Sun, 30 Oct 2016 23:50:05 +0000 (UTC)
+Date: Sun, 30 Oct 2016 19:50:01 -0400
 From: Theodore Ts'o <tytso@mit.edu>
-To: "Serge E. Hallyn" <serge@hallyn.com>
-Message-ID: <20161030234110.bapvmmabmoqhtgnq@thunk.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Message-ID: <20161030235001.naasrcms6fzden63@thunk.org>
 References: <CALCETrV17Eqxa9-ronb_C0xX5usWyzQo6dW_OKaBT+roSr+kaA@mail.gmail.com>
 	<20161027200929.GB17657@htj.duckdns.org>
-	<20161030152723.GA27915@mail.hallyn.com>
+	<20161027211334.GO3102@twins.programming.kicks-ass.net>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20161030152723.GA27915@mail.hallyn.com>
-Cc: Tejun Heo <tj@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
+In-Reply-To: <20161027211334.GO3102@twins.programming.kicks-ass.net>
+Cc: Tejun Heo <tj@kernel.org>, "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [LAST-MINUTE TOPIC] cgroup API
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -32,30 +31,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sun, Oct 30, 2016 at 10:27:23AM -0500, Serge E. Hallyn wrote:
+On Thu, Oct 27, 2016 at 11:13:34PM +0200, Peter Zijlstra wrote:
+> I'll be in santa-fu all week. I figured if I'd go to the trouble of
+> dragging myself all the way to nowhere in the middle of NM, I might as
+> well stay there.
 > 
-> FWIW I'm only arriving tuesday morning;  but obviously far more important
-> that Tejun be there, so I think I vote for monday night.
+> Godawful choice of location.
 
-we have time Monday *afternoon*, if that works for folks.  Monday
-evening will conflict with the evening dinner, so if we want to do it
-on Monday, we have free slots during the kernel summit core day.  If
-there are people who need to attend who aren't core day invitees, we
-have invited people who are needed for a particular discussion into a
-specific core plenary day session before.
+Sorry, any location which is close to a major internaional airport is
+incredibly expensive.
 
-The other alternative would be to either do it Tuesday (we have a room
-availble), or Wednesday or Thursday, where the kernel summit does have
-a room reserved for technical sessions and for which LPC attendees are
-explicitly invited (just as people with Kernel Summit badges are
-invited to participate in LPC events).
+Personally, I was pushing for Providence, Rhode Island, which is about
+45 minutes from the international airports at Boston or New York City
+(Providence also has a larger airport than Santa Fe).
 
-I note there is a Cgroup v2 API session scheduled as part of the
-containers miniconference on Wednesday morning.  I assume the goal is
-try to settle this disagreement before the LPC minisummit?
+Unfortunately, when we were setting the location for Plumbers 18
+months ago, people were still shell-shocked over the record snowfall
+in the North East, and folks forgot that due to the altitude
+differences (sea level versus 7200 feet), Providence is *warmer* and
+has a historical average of 0 inches of snowfall this time of year.
 
-Can someone give a summary of who the critical people are who need to
-be present, and what their availability might be?  Finding a room
-shouldn't be a problem.  It's going to people's availability....
+Santa Fe is an amazing place to visit, with lots of great restaurants,
+so hopefully you'll enjoy your stay, now that you've gotten here.
 
-	       		      	       - Ted
+Cheers,
+
+							- Ted
