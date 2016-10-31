@@ -1,27 +1,30 @@
-Return-Path: <tytso@thunk.org>
+Return-Path: <robherring2@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 05FC9259
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id CF5A771
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 30 Oct 2016 23:50:06 +0000 (UTC)
-Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 794CE157
+	Mon, 31 Oct 2016 02:13:55 +0000 (UTC)
+Received: from mail-yw0-f182.google.com (mail-yw0-f182.google.com
+	[209.85.161.182])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9038D1B8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 30 Oct 2016 23:50:05 +0000 (UTC)
-Date: Sun, 30 Oct 2016 19:50:01 -0400
-From: Theodore Ts'o <tytso@mit.edu>
-To: Peter Zijlstra <peterz@infradead.org>
-Message-ID: <20161030235001.naasrcms6fzden63@thunk.org>
-References: <CALCETrV17Eqxa9-ronb_C0xX5usWyzQo6dW_OKaBT+roSr+kaA@mail.gmail.com>
-	<20161027200929.GB17657@htj.duckdns.org>
-	<20161027211334.GO3102@twins.programming.kicks-ass.net>
+	Mon, 31 Oct 2016 02:13:55 +0000 (UTC)
+Received: by mail-yw0-f182.google.com with SMTP id h14so127843764ywa.2
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sun, 30 Oct 2016 19:13:55 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20161027211334.GO3102@twins.programming.kicks-ass.net>
-Cc: Tejun Heo <tj@kernel.org>, "ksummit-discuss@lists.linuxfoundation.org"
+In-Reply-To: <CAB=NE6XscoaYq7_0wbEtgdGZt-duhMb6a-o8O+09FrJRy9EkLQ@mail.gmail.com>
+References: <CAB=NE6XscoaYq7_0wbEtgdGZt-duhMb6a-o8O+09FrJRy9EkLQ@mail.gmail.com>
+From: Rob Herring <robherring2@gmail.com>
+Date: Sun, 30 Oct 2016 21:13:34 -0500
+Message-ID: <CAL_JsqJ95-7mE+qW8zzPeEPMsOCTXZc-8m8MG-NogM2=os3zBQ@mail.gmail.com>
+To: "Luis R. Rodriguez" <mcgrof@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Cc: Jiri Kosina <jkosina@suse.cz>, Mark Brown <broonie@sirena.org.uk>,
+	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [LAST-MINUTE TOPIC] cgroup API
+Subject: Re: [Ksummit-discuss] Schedule slot suggestion- Generic drivers -
+ core topic
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,29 +34,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Oct 27, 2016 at 11:13:34PM +0200, Peter Zijlstra wrote:
-> I'll be in santa-fu all week. I figured if I'd go to the trouble of
-> dragging myself all the way to nowhere in the middle of NM, I might as
-> well stay there.
-> 
-> Godawful choice of location.
+On Fri, Oct 28, 2016 at 4:16 PM, Luis R. Rodriguez <mcgrof@kernel.org> wrote:
+> I see some open slots for Monday, there is some overlap in interest
+> between the Audio workshop folks and the tech topic for Tuesday
+> "addressing complex dependencies". We seem to have come to some
+> arrangement to split topics up to avoid such overlap, but one subject
+> overlapping both, but that seems more appropriate for the core day is
+> "Generic drivers":
+>
+> Having some generic device driver load, prior to a specific driver,
+> and issues / maintenance issues that come with the hacks currently in
+> place to support this / re-invent the wheel to support this per
+> subsystem.
 
-Sorry, any location which is close to a major internaional airport is
-incredibly expensive.
+This is a looming, unsolved problem for DT as well. We can potentially
+bind different drivers to same device if the device has multiple
+compatible strings. There's not any control of which one binds first
+either other than link or initcall order.
 
-Personally, I was pushing for Providence, Rhode Island, which is about
-45 minutes from the international airports at Boston or New York City
-(Providence also has a larger airport than Santa Fe).
+> It might be good then to move this to a Monday slot, provided most
+> interested folks can and will be there. Thoughts?
 
-Unfortunately, when we were setting the location for Plumbers 18
-months ago, people were still shell-shocked over the record snowfall
-in the North East, and folks forgot that due to the altitude
-differences (sea level versus 7200 feet), Providence is *warmer* and
-has a historical average of 0 inches of snowfall this time of year.
+I'd like to be there and won't be there on Mon.
 
-Santa Fe is an amazing place to visit, with lots of great restaurants,
-so hopefully you'll enjoy your stay, now that you've gotten here.
+BTW, is there a schedule for Tues published?
 
-Cheers,
-
-							- Ted
+Rob
