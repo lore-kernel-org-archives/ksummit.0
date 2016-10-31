@@ -1,35 +1,32 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 77E8D7A5
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 39A425AC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 31 Oct 2016 15:28:55 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 012FF19D
+	Mon, 31 Oct 2016 16:18:36 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3445C1B4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 31 Oct 2016 15:28:54 +0000 (UTC)
-Message-ID: <1477927730.2981.1.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: "Serge E. Hallyn" <serge@hallyn.com>, Theodore Ts'o <tytso@mit.edu>
-Date: Mon, 31 Oct 2016 09:28:50 -0600
-In-Reply-To: <20161031150451.GA7383@mail.hallyn.com>
-References: <CALCETrV17Eqxa9-ronb_C0xX5usWyzQo6dW_OKaBT+roSr+kaA@mail.gmail.com>
-	<20161027200929.GB17657@htj.duckdns.org>
-	<20161030152723.GA27915@mail.hallyn.com>
-	<20161030234110.bapvmmabmoqhtgnq@thunk.org>
-	<20161031150451.GA7383@mail.hallyn.com>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Tycho Andersen <tycho.andersen@canonical.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Christian Brauner <christian.brauner@mailbox.org>,
-	Tejun Heo <tj@kernel.org>,
-	=?ISO-8859-1?Q?St=E9phane?= Graber <stgraber@ubuntu.com>
-Subject: Re: [Ksummit-discuss] [LAST-MINUTE TOPIC] cgroup API
+	Mon, 31 Oct 2016 16:18:34 +0000 (UTC)
+Date: Mon, 31 Oct 2016 12:18:24 -0400
+From: Theodore Ts'o <tytso@mit.edu>
+To: Sergey Senozhatsky <sergey.senozhatsky@gmail.com>
+Message-ID: <20161031161824.3knff5u3m6mipelv@thunk.org>
+References: <20160719034717.GA24189@swordfish> <20160921044156.GA486@swordfish>
+	<20161031065435.GA458@swordfish>
+	<20161031135617.bs7df7kur23gvm6b@thunk.org>
+	<20161031145655.GA433@swordfish>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20161031145655.GA433@swordfish>
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Tejun Heo <tj@kernel.org>, Jiri Kosina <jkosina@suse.com>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] printk considered harmful (was:
+ [TECH TOPIC] asynchronous printk)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,71 +36,21 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 2016-10-31 at 10:04 -0500, Serge E. Hallyn wrote:
-> On Sun, Oct 30, 2016 at 07:41:11PM -0400, Theodore Ts'o wrote:
-> > On Sun, Oct 30, 2016 at 10:27:23AM -0500, Serge E. Hallyn wrote:
-> > > 
-> > > FWIW I'm only arriving tuesday morning;  but obviously far more
-> > > important
-> > > that Tejun be there, so I think I vote for monday night.
-> > 
-> > we have time Monday *afternoon*, if that works for folks.  Monday
-> > evening will conflict with the evening dinner, so if we want to do
-> > it
-> > on Monday, we have free slots during the kernel summit core day. 
-> >  If
-> > there are people who need to attend who aren't core day invitees,
-> > we
-> > have invited people who are needed for a particular discussion into
-> > a
-> > specific core plenary day session before.
-> > 
-> > The other alternative would be to either do it Tuesday (we have a
-> > room
-> > availble), or Wednesday or Thursday, where the kernel summit does
-> > have
-> > a room reserved for technical sessions and for which LPC attendees
-> > are
-> > explicitly invited (just as people with Kernel Summit badges are
-> > invited to participate in LPC events).
-> > 
-> > I note there is a Cgroup v2 API session scheduled as part of the
-> > containers miniconference on Wednesday morning.  I assume the goal
-> > is
-> > try to settle this disagreement before the LPC minisummit?
-> > 
-> > Can someone give a summary of who the critical people are who need
-> > to
-> > be present, and what their availability might be?  Finding a room
-> > shouldn't be a problem.  It's going to people's availability....
+On Mon, Oct 31, 2016 at 11:56:55PM +0900, Sergey Senozhatsky wrote:
+> ok, thanks. I personally will have some conflicts on Wed - "Open
+> panel for discussing MM problems" and some of LPC microconfs.
+
+would 10:00am (after the MM panel) work for you and others?
+
+> and I'd love to change the topic name since async printk is just
+> 25% of the issue we want to discuss. the list I'm looking at now
+> is as follows:
 > 
-> Looks like
-> 	Tejun obviously needs to be there
+> 1) deadlocks in printk and printk recursion
+> 2) async printk
+> 3) pr_cont
+> 4) console semaphore scalability and problems
 
-He's here all week, according to Chris.
+So a topic name like "printk improvements" would be better?
 
-> 	Andy wants to be there, and I assume it relates to his code
-> 	There's an LXC contingency arriving monday night;  I'd like
-> 	  someone (Christian, Stéphane, or Tycho) to make it on Tuesday
-> 	  if possible.
-> 	I'd like to be there, but I arrive at 10:30 Tuesday morning.
-> 	I don't think Eric Biederman is going to be in Santa Fe, but
-> 	  he'd be good to have there.
-
-He's here now.
-
-> 	I assume James Bottomley would like to be there?
-
-Yes. (Provided you don't schedule it over anything I've said I'd go to,
-which is why I like Tuesday).  I've got something 09:30 on Tuesday, so
-late morning or afternoon works.
-
-James
-
-
-> (I assume there are others, but that's the list I'm aware of)
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
-> 
+     	   	     	     		   	 - Ted
