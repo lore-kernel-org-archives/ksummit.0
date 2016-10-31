@@ -1,37 +1,33 @@
-Return-Path: <mcgrof@kernel.org>
+Return-Path: <jack@suse.cz>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id DD547727
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A8B5A5B0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 31 Oct 2016 22:00:45 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.136])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id AD85D90
+	Mon, 31 Oct 2016 22:55:40 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 292FC142
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 31 Oct 2016 22:00:45 +0000 (UTC)
-Received: from mail.kernel.org (localhost [127.0.0.1])
-	by mail.kernel.org (Postfix) with ESMTP id CA9EE2034E
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 31 Oct 2016 22:00:44 +0000 (UTC)
-Received: from mail-ua0-f172.google.com (mail-ua0-f172.google.com
-	[209.85.217.172])
-	(using TLSv1.2 with cipher AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id D108B2034A
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 31 Oct 2016 22:00:43 +0000 (UTC)
-Received: by mail-ua0-f172.google.com with SMTP id 12so115434291uas.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 31 Oct 2016 15:00:43 -0700 (PDT)
+	Mon, 31 Oct 2016 22:55:40 +0000 (UTC)
+Date: Mon, 31 Oct 2016 21:28:30 +0100
+From: Jan Kara <jack@suse.cz>
+To: Theodore Ts'o <tytso@mit.edu>
+Message-ID: <20161031202830.GA23625@quack2.suse.cz>
+References: <20160719034717.GA24189@swordfish> <20160921044156.GA486@swordfish>
+	<20161031065435.GA458@swordfish>
+	<20161031135617.bs7df7kur23gvm6b@thunk.org>
+	<20161031145655.GA433@swordfish>
+	<20161031161824.3knff5u3m6mipelv@thunk.org>
 MIME-Version: 1.0
-In-Reply-To: <CAB=NE6Wo-mWdJF8k9yGcsORatpNtiiug+jXdGP60xhd0F+jydg@mail.gmail.com>
-References: <CAB=NE6Wo-mWdJF8k9yGcsORatpNtiiug+jXdGP60xhd0F+jydg@mail.gmail.com>
-From: "Luis R. Rodriguez" <mcgrof@kernel.org>
-Date: Mon, 31 Oct 2016 15:00:22 -0700
-Message-ID: <CAB=NE6VBCC6SEzXTJi=HRSDbsCVXcw-1gwjXdgZzw+UGDn9j0A@mail.gmail.com>
-To: ksummit-discuss@lists.linuxfoundation.org
-Content-Type: text/plain; charset=UTF-8
-Subject: Re: [Ksummit-discuss] Addressing Complex Dependencies - Tuesday
-	9:30am - Coronado/Devargas
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20161031161824.3knff5u3m6mipelv@thunk.org>
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Tejun Heo <tj@kernel.org>, Jiri Kosina <jkosina@suse.com>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] printk considered harmful (was:
+ [TECH TOPIC] asynchronous printk)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,23 +37,16 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Update:
+On Mon 31-10-16 12:18:24, Ted Tso wrote:
+> On Mon, Oct 31, 2016 at 11:56:55PM +0900, Sergey Senozhatsky wrote:
+> > ok, thanks. I personally will have some conflicts on Wed - "Open
+> > panel for discussing MM problems" and some of LPC microconfs.
+> 
+> would 10:00am (after the MM panel) work for you and others?
 
-We've reduced the topics that will be covered and time that will be
-required as follows:
+Works for me.
 
-The shared topics with the Audio workshop will take place first at
-9:30am-10:30am at Sweeney CDE:
-
-  * Device hierarchy (just not a tree but a graph)
-  * Handling cycles on the graph proposals
-
-Then we move to Coronado room 10:30am-12:30pm for:
-
-  * Functional dependencies (now merged on Greg's tree)
-  * Resource tracking / allocation framework
-  * Media controller feature graph
-  * Linker tables
-  * Async probe
-
-  Luis
+								Honza
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
