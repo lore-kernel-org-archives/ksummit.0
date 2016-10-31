@@ -1,31 +1,23 @@
-Return-Path: <sergey.senozhatsky@gmail.com>
+Return-Path: <BATV+9f2b57e0cf1a0bd0b60c+4817+infradead.org+mchehab@bombadil.srs.infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 16E1F414
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id DFA4A5B1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 31 Oct 2016 06:55:43 +0000 (UTC)
-Received: from mail-oi0-f68.google.com (mail-oi0-f68.google.com
-	[209.85.218.68])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3FFB1D5
+	Mon, 31 Oct 2016 12:30:41 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E8541171
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 31 Oct 2016 06:55:42 +0000 (UTC)
-Received: by mail-oi0-f68.google.com with SMTP id 128so2523682oih.3
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 30 Oct 2016 23:55:42 -0700 (PDT)
-Date: Mon, 31 Oct 2016 15:54:35 +0900
-From: Sergey Senozhatsky <sergey.senozhatsky@gmail.com>
-To: ksummit-discuss@lists.linuxfoundation.org
-Message-ID: <20161031065435.GA458@swordfish>
-References: <20160719034717.GA24189@swordfish> <20160921044156.GA486@swordfish>
+	Mon, 31 Oct 2016 12:30:40 +0000 (UTC)
+Date: Mon, 31 Oct 2016 06:30:36 -0600
+From: Mauro Carvalho Chehab <mchehab@infradead.org>
+To: Jonathan Corbet <corbet@lwn.net>
+Message-ID: <20161031063036.6c04ddfa@vela.lan>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20160921044156.GA486@swordfish>
-Cc: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Tejun Heo <tj@kernel.org>, Jiri Kosina <jkosina@suse.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] asynchronous printk
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	ksummit-discuss@lists.linuxfoundation.org, linux-doc@vger.kernel.org
+Subject: [Ksummit-discuss] Kernel documentation discussions
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,44 +27,109 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hello,
+Hi Jon,
 
-On (09/21/16 13:41), Sergey Senozhatsky wrote:
-> a small addition to [1]
-> 
-> On (07/19/16 12:47), Sergey Senozhatsky wrote:
-> > What I have on my list is:
-> > - synchronous printk()
-> > - synchronous console_unlock()
-> > - console semaphore
-> 
-> Petr Mladek came up with a nice summary [2] of the problems that we
-> discussed (with a small update from my side [3]). So I would like to
-> add one more issue to the list, that is, however, not related to async
-> printk: recursive printk calls. There is a tiny set of cases when
-> printk can correctly handle recursive printk calls, the rest lead to
-> deadlock. Those problems, may be, not commonly seen, we had two or three
-> reports via the public mailing list in the past year; and I've seen 4-5
-> reports in internal bug tracker (not all of those errors were due to
-> incorrect printk usage. An unfortunate ARM imprecise abort [4] delivered
-> while the CPU is in printk->console_unlock->try_to_wake_up under the p->pi_lock
-> is enough to deadlock the system).
-> 
-> There a several ideas how to try to address those issues that I'm aware
-> of [5],[6],[7] and, I'm quite sure, even more ideas that I'm not aware of.
-> Would be interesting to discuss it.
-> 
-> [1] https://lists.linuxfoundation.org/pipermail/ksummit-discuss/2016-July/002740.html
-> [2] https://marc.info/?l=linux-kernel&m=147263639304079
-> [3] https://marc.info/?l=linux-kernel&m=147264799407718&w=2
-> [4] http://infocenter.arm.com/help/topic/com.arm.doc.faqs/14809.html
-> [5] https://marc.info/?l=linux-kernel&m=147158843319944
-> [6] https://marc.info/?l=linux-kernel&m=147183933104154
-> [7] https://marc.info/?l=linux-kernel&m=145440084915204
+As I wake up too early today, due to the time zone differences, and inspired
+by your article about documentation at lwn (https://lwn.net/Articles/704613/),
+I decided to take some time and do some brain storming to help with 
+the KS discussions. Feel free to pick the good things here, and discard 
+the rest ;)
 
+This is based on the work I've doing on the past few months with
+the media conversion, and, mainly my work with regards to development
+process and admin guides. Btw, I wrote some articles to document
+the challenges on those two books that might be interesting for the
+discussions too:
+	https://blogs.s-osg.org/creation-linux-kernel-users-manual/
+	https://blogs.s-osg.org/documenting-linux-kernel-development-process/
 
-Any chance to do this session on Tuesday?
-I prepared some slides; there are some patches circulating
-and there are some things to discuss.
+They're part of an attempt from my side As to document the challenges 
+I'm having with the documentation conversion:
+	https://blogs.s-osg.org/new-improved-linux-kernel-media-documentation/
 
-	-ss
+I'm c/c Greg, as I listed several things related to the ABI documentation.
+
+ReST conversion - some stats
+============================
+
+If I got it right, this is the current status
+
+	- about 600 files on ReST
+	- 305 ABI files + ABI/README
+	- 32 files with translations to Japanase, Korean and Chinese;
+	- 30 files on DocBook
+	- about 6k plain files to be converted, being 97 files at the
+	  Documentation/ root directory (96 after EDAC conversion,
+	  with I did already).
+
+There's still an elephant at the room: who will do the remaining
+conversions :)
+
+Items requiring some sort of definition
+=======================================
+
+(probably, we won't have time on KS regular time to discuss all of them)
+
+Please notice that this is a brainstorm list, with items I remembered,
+with no particular order.
+
+1) Rename: Documentation -> doc (or docs)?
+	- Change the location for the translated documents?
+
+2) What to do with the remaining 96 files under Documentation?
+
+I tried my best to put the "lose" files at Documentation/
+under either admin-guide or process. Yet, I skip several files
+because I didn't know for sure what to do with them...
+
+	- There are some stuff there that could probably be
+	  discarded (for example: eisa.txt);
+	- There are some stuff there that probably belong to
+	  driver-api or to some other subsystem (like, for example
+	  video-output.txt, with seems to be some GPU documentation);
+	- There are some stuff there that contains both admin
+	  documentation and driver documentation (like, for example
+	  ntb.txt, with contains ABI documentation, module parameters,
+	- There are files there with even code examples for userspace
+	  tools, like: cpu-load.txt
+	- On most cases, some work is needed for those files that
+	  are still there...
+
+3) long-term strategy for 00-INDEX:
+
+On converted files, the index will be auto-generated, and the index.rst files
+will contain the documents. Should we keep maintaining the 00-INDEX files in
+long term? or should we do something else:
+	move it to /README?
+	remove it?
+	put only directories there?
+
+4) Should we add a generic Sphinx module to run scripts (e. g.) kernel-cmd?
+
+	- If so, what would be the rules for using it?
+
+My suggestion it to block it to run only scripts under an specific
+directory (like Documentation/sphinx) and selected scripts under ./scripts
+(like ./get-maintainers and ./kernel-doc). Scripts that will be run should
+be submitted to kernel-doc ML and acked-by the documentation maintainer
+or merged via documentation tree.
+
+5) ABI parsing via script;
+	- IMHO, this the onlg viable way of handling it;
+	- Perhaps add part of the contents of ABI/README at the rst file;
+	- ABI format: sort, sub-chapters, etc;
+	- ABI files with a "header" text;
+	- Should ABI be kept under docs, if not converted to ReST?
+	- Should we use a new tag to allow descriptions in ReST format?
+
+6) MAINTAINERS file
+   - Should we add it to process documentation? IMHO, we should, at least a
+     "short" version of it, with the name/location of the modules, the
+      git tree and the ML for submissions.
+
+7) PDF, LaTeX and Math extension
+
+Can it be improved?
+
+Cheers,
+Mauro
