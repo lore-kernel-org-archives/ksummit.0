@@ -1,28 +1,37 @@
-Return-Path: <riel@redhat.com>
+Return-Path: <sergey.senozhatsky@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id AC40B919
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7F5CB892
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 31 Oct 2016 17:41:32 +0000 (UTC)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6E9191F6
+	Mon, 31 Oct 2016 18:22:45 +0000 (UTC)
+Received: from mail-pf0-f194.google.com (mail-pf0-f194.google.com
+	[209.85.192.194])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id EF2FA1E7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 31 Oct 2016 17:41:32 +0000 (UTC)
-Message-ID: <1477935690.4223.6.camel@redhat.com>
-From: Rik van Riel <riel@redhat.com>
-To: "Theodore Ts'o" <tytso@mit.edu>, Peter Zijlstra <peterz@infradead.org>
-Date: Mon, 31 Oct 2016 13:41:30 -0400
-In-Reply-To: <20161030235001.naasrcms6fzden63@thunk.org>
-References: <CALCETrV17Eqxa9-ronb_C0xX5usWyzQo6dW_OKaBT+roSr+kaA@mail.gmail.com>
-	<20161027200929.GB17657@htj.duckdns.org>
-	<20161027211334.GO3102@twins.programming.kicks-ass.net>
-	<20161030235001.naasrcms6fzden63@thunk.org>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: Tejun Heo <tj@kernel.org>, "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [LAST-MINUTE TOPIC] cgroup API
+	Mon, 31 Oct 2016 18:22:43 +0000 (UTC)
+Received: by mail-pf0-f194.google.com with SMTP id n85so9342669pfi.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 31 Oct 2016 11:22:43 -0700 (PDT)
+Date: Tue, 1 Nov 2016 03:21:33 +0900
+From: Sergey Senozhatsky <sergey.senozhatsky@gmail.com>
+To: Theodore Ts'o <tytso@mit.edu>
+Message-ID: <20161031182133.GA490@swordfish>
+References: <20160719034717.GA24189@swordfish> <20160921044156.GA486@swordfish>
+	<20161031065435.GA458@swordfish>
+	<20161031135617.bs7df7kur23gvm6b@thunk.org>
+	<20161031145655.GA433@swordfish>
+	<20161031161824.3knff5u3m6mipelv@thunk.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20161031161824.3knff5u3m6mipelv@thunk.org>
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Tejun Heo <tj@kernel.org>, Jiri Kosina <jkosina@suse.com>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] printk considered harmful (was:
+ [TECH TOPIC] asynchronous printk)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,30 +41,33 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sun, 2016-10-30 at 19:50 -0400, Theodore Ts'o wrote:
-> On Thu, Oct 27, 2016 at 11:13:34PM +0200, Peter Zijlstra wrote:
-> > I'll be in santa-fu all week. I figured if I'd go to the trouble of
-> > dragging myself all the way to nowhere in the middle of NM, I might
-> > as
-> > well stay there.
+Hello,
+
+On (10/31/16 12:18), Theodore Ts'o wrote:
+> On Mon, Oct 31, 2016 at 11:56:55PM +0900, Sergey Senozhatsky wrote:
+> > ok, thanks. I personally will have some conflicts on Wed - "Open
+> > panel for discussing MM problems" and some of LPC microconfs.
+> 
+> would 10:00am (after the MM panel) work for you and others?
+
+speaking for myself only,
+if there are no better options, then I'm OK with Wed 10am. I'd like
+to be in Sweeney AB starting from 11:20am, but can sacrifice it, if
+need be (in case if 10am doesn't work for someone. or if 1hr won't
+be enough (which is quite likely)). so let's hear from others.
+
+> > and I'd love to change the topic name since async printk is just
+> > 25% of the issue we want to discuss. the list I'm looking at now
+> > is as follows:
 > > 
-> > Godawful choice of location.
+> > 1) deadlocks in printk and printk recursion
+> > 2) async printk
+> > 3) pr_cont
+> > 4) console semaphore scalability and problems
 > 
-> Sorry, any location which is close to a major internaional airport is
-> incredibly expensive.
-> 
-> Personally, I was pushing for Providence, Rhode Island, which is
-> about
-> 45 minutes from the international airports at Boston or New York City
-> (Providence also has a larger airport than Santa Fe).
-> 
+> So a topic name like "printk improvements" would be better?
 
-Providence would be a great location.
+"printk considered harmful" sounds good as well :) but "printk improvements"
+can surely work.
 
-Cleveland could be nice too. It is only an
-air hub for domestic flights, but easy to
-reach from any international airport.
-
-The city does not have a great reputation,
-but it actually seems to have a decent
-downtown, a world class art museum, etc.
+	-ss
