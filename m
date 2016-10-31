@@ -1,23 +1,29 @@
-Return-Path: <BATV+9f2b57e0cf1a0bd0b60c+4817+infradead.org+mchehab@bombadil.srs.infradead.org>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id DFA4A5B1
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6329540F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 31 Oct 2016 12:30:41 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E8541171
+	Mon, 31 Oct 2016 13:56:27 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 924868C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 31 Oct 2016 12:30:40 +0000 (UTC)
-Date: Mon, 31 Oct 2016 06:30:36 -0600
-From: Mauro Carvalho Chehab <mchehab@infradead.org>
-To: Jonathan Corbet <corbet@lwn.net>
-Message-ID: <20161031063036.6c04ddfa@vela.lan>
+	Mon, 31 Oct 2016 13:56:26 +0000 (UTC)
+Date: Mon, 31 Oct 2016 09:56:17 -0400
+From: Theodore Ts'o <tytso@mit.edu>
+To: Sergey Senozhatsky <sergey.senozhatsky@gmail.com>
+Message-ID: <20161031135617.bs7df7kur23gvm6b@thunk.org>
+References: <20160719034717.GA24189@swordfish> <20160921044156.GA486@swordfish>
+	<20161031065435.GA458@swordfish>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	ksummit-discuss@lists.linuxfoundation.org, linux-doc@vger.kernel.org
-Subject: [Ksummit-discuss] Kernel documentation discussions
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20161031065435.GA458@swordfish>
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Tejun Heo <tj@kernel.org>, Jiri Kosina <jkosina@suse.com>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] asynchronous printk
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -27,109 +33,19 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Jon,
+On Mon, Oct 31, 2016 at 03:54:35PM +0900, Sergey Senozhatsky wrote:
+> 
+> Any chance to do this session on Tuesday?
+> I prepared some slides; there are some patches circulating
+> and there are some things to discuss.
 
-As I wake up too early today, due to the time zone differences, and inspired
-by your article about documentation at lwn (https://lwn.net/Articles/704613/),
-I decided to take some time and do some brain storming to help with 
-the KS discussions. Feel free to pick the good things here, and discard 
-the rest ;)
-
-This is based on the work I've doing on the past few months with
-the media conversion, and, mainly my work with regards to development
-process and admin guides. Btw, I wrote some articles to document
-the challenges on those two books that might be interesting for the
-discussions too:
-	https://blogs.s-osg.org/creation-linux-kernel-users-manual/
-	https://blogs.s-osg.org/documenting-linux-kernel-development-process/
-
-They're part of an attempt from my side As to document the challenges 
-I'm having with the documentation conversion:
-	https://blogs.s-osg.org/new-improved-linux-kernel-media-documentation/
-
-I'm c/c Greg, as I listed several things related to the ABI documentation.
-
-ReST conversion - some stats
-============================
-
-If I got it right, this is the current status
-
-	- about 600 files on ReST
-	- 305 ABI files + ABI/README
-	- 32 files with translations to Japanase, Korean and Chinese;
-	- 30 files on DocBook
-	- about 6k plain files to be converted, being 97 files at the
-	  Documentation/ root directory (96 after EDAC conversion,
-	  with I did already).
-
-There's still an elephant at the room: who will do the remaining
-conversions :)
-
-Items requiring some sort of definition
-=======================================
-
-(probably, we won't have time on KS regular time to discuss all of them)
-
-Please notice that this is a brainstorm list, with items I remembered,
-with no particular order.
-
-1) Rename: Documentation -> doc (or docs)?
-	- Change the location for the translated documents?
-
-2) What to do with the remaining 96 files under Documentation?
-
-I tried my best to put the "lose" files at Documentation/
-under either admin-guide or process. Yet, I skip several files
-because I didn't know for sure what to do with them...
-
-	- There are some stuff there that could probably be
-	  discarded (for example: eisa.txt);
-	- There are some stuff there that probably belong to
-	  driver-api or to some other subsystem (like, for example
-	  video-output.txt, with seems to be some GPU documentation);
-	- There are some stuff there that contains both admin
-	  documentation and driver documentation (like, for example
-	  ntb.txt, with contains ABI documentation, module parameters,
-	- There are files there with even code examples for userspace
-	  tools, like: cpu-load.txt
-	- On most cases, some work is needed for those files that
-	  are still there...
-
-3) long-term strategy for 00-INDEX:
-
-On converted files, the index will be auto-generated, and the index.rst files
-will contain the documents. Should we keep maintaining the 00-INDEX files in
-long term? or should we do something else:
-	move it to /README?
-	remove it?
-	put only directories there?
-
-4) Should we add a generic Sphinx module to run scripts (e. g.) kernel-cmd?
-
-	- If so, what would be the rules for using it?
-
-My suggestion it to block it to run only scripts under an specific
-directory (like Documentation/sphinx) and selected scripts under ./scripts
-(like ./get-maintainers and ./kernel-doc). Scripts that will be run should
-be submitted to kernel-doc ML and acked-by the documentation maintainer
-or merged via documentation tree.
-
-5) ABI parsing via script;
-	- IMHO, this the onlg viable way of handling it;
-	- Perhaps add part of the contents of ABI/README at the rst file;
-	- ABI format: sort, sub-chapters, etc;
-	- ABI files with a "header" text;
-	- Should ABI be kept under docs, if not converted to ReST?
-	- Should we use a new tag to allow descriptions in ReST format?
-
-6) MAINTAINERS file
-   - Should we add it to process documentation? IMHO, we should, at least a
-     "short" version of it, with the name/location of the modules, the
-      git tree and the ML for submissions.
-
-7) PDF, LaTeX and Math extension
-
-Can it be improved?
+Unless there are strong reasons why this needs to be done on Tuesday,
+my preference would be to try to schedule tech topics on Wednesday or
+Thursday.  But sure, I'm happy to schedule such a topic if folks are
+interested.  Let me know what your potential conflicts might be and/or
+a preferred time slot.
 
 Cheers,
-Mauro
+
+					- Ted
+>
