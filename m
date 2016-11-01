@@ -1,29 +1,30 @@
-Return-Path: <avagin@virtuozzo.com>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id DD5E340C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 239D2480
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  1 Nov 2016 03:15:25 +0000 (UTC)
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
-	(mail-he1eur01on0133.outbound.protection.outlook.com [104.47.0.133])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 29CF7170
+	Tue,  1 Nov 2016 14:58:58 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 9D2A51A4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  1 Nov 2016 03:15:24 +0000 (UTC)
-Date: Mon, 31 Oct 2016 20:15:07 -0700
-From: Andrei Vagin <avagin@openvz.org>
-To: <ksummit-discuss@lists.linuxfoundation.org>
-Message-ID: <20161101031506.GA32626@outlook.office365.com>
+	Tue,  1 Nov 2016 14:58:57 +0000 (UTC)
+Message-ID: <1478012335.2972.9.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Andrei Vagin <avagin@openvz.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Date: Tue, 01 Nov 2016 08:58:55 -0600
+In-Reply-To: <20161101031506.GA32626@outlook.office365.com>
 References: <20160903052014.GA4850@outlook.office365.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="koi8-r"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20160903052014.GA4850@outlook.office365.com>
+	<20161101031506.GA32626@outlook.office365.com>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 Cc: Kirill Kolyshkin <kir@openvz.org>, Eric Dumazet <edumazet@google.com>,
-	David Ahern <dsahern@gmail.com>, Patrick McHardy <kaber@trash.net>,
-	Pablo Neira Ayuso <pablo@netfilter.org>
+	Patrick McHardy <kaber@trash.net>, Pablo Neira Ayuso <pablo@netfilter.org>,
+	David Ahern <dsahern@gmail.com>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Netlink engine issues,
-	and ways to fix those
+ and ways to fix those
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,111 +34,36 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hello everyone,
+On Mon, 2016-10-31 at 20:15 -0700, Andrei Vagin wrote:
+> Hello everyone,
+> 
+> I have never been before on kernel-summit and don't know how talks 
+> are planed here. Looks like we have enough people how want to duscuss
+> the subject. Maybe, if it is not too late, we can choose a time for 
+> this discussion?
+> 
+> I'm here for Linux Plumbers and have a definite plan on Friday from 
+> 2pm to 5pm. Any other time works for me.
 
-I have never been before on kernel-summit and don't know how talks are
-planed here. Looks like we have enough people how want to duscuss
-the subject. Maybe, if it is not too late, we can choose a time for this
-discussion?
+I suppose the process is a bit nebulous, let me try to explain it.
 
-I'm here for Linux Plumbers and have a definite plan on Friday from 2pm
-to 5pm. Any other time works for me.
+Plumbers and the Kernel Summit open track are running in parallel. 
+ Plumbers has room for BoFs if you want to submit one:
 
-Thanks,
-Andrei
+https://linuxplumbersconf.org/2016/ocw/events/LPC2016BOFS/proposals
 
-On Fri, Sep 02, 2016 at 10:20:14PM -0700, Andrei Vagin wrote:
-> The netlink interface proved itself as a great way to perform
-> descriptor-based kernel/userspace communication. It is especially useful
-> for cases involving a big amount of data to transfer. The netlink
-> communication protocol is simple and elegant; it also allows to extend
-> the message format without breaking backward compatibility.
-> 
-> One big problem of netlink is credentials. When a user-space process is
-> opening a new file descriptor, kernel saves the opener's credentials to
-> f_cred field of the file struct. After that, every access to that fd are
-> checked against the saved credentials. In essence, this allows for a
-> process to open a file descriptor as root and then drop capabilities.
-> With netlink socket, it is not possible to implement this access scheme.
-> 
-> Currently netlink is widely used in the network subsystem, but there are
-> also a few users outside of networking, such as audit and taskstats.
-> Developers who used netlink for anything except the networking know
-> there are some issues. For example, taskstats code has broken user and
-> pid namespace support.
-> 
-> Another potential user of netlink socket is task_diag, a faster
-> /proc/PID-like interface proposed some time ago
-> (https://lkml.org/lkml/2015/7/6/142). It makes sense to use the netlink
-> interface for it, too, but the whole feature is currently blocked by the
-> netlink discussion.
-> 
-> A few months ago Andy Lutomirski suggested to rework the netlink
-> interface in order to solve the known issues. We suggest discussing his
-> idea:
-> 
-> ----- snip --- snip --- snip -----
-> (taken from http://lists.openwall.net/netdev/2016/05/05/51)
-> 
-> The tl;dr is that Andrey wants to add an interface to ask a pidns some
-> questions, and netlink looks natural, except that using netlink sockets
-> to interrogate a pidns seems rather problematic. šI would also love to
-> see a decent interface for interrogating user namespaces, and again,
-> netlink would be great, except that it's a socket and makes no sense in
-> this context.
-> 
-> Netlink had, and possibly still has, tons of serious security bugs
-> involving code checking send() callers' creds. šI found and fixed a few
-> a couple years ago. šTo reiterate once again, send() CANNOT use caller
-> creds safely. š(I feel like I say this once every few weeks. It's
-> getting old.)
-> 
-> I realize that it's convenient to use a socket as a context to keep
-> state between syscalls, but it has some annoying side effects:
-> 
->  - It makes people want to rely on send()'s caller's creds.
->  - It's miserable in combination with seccomp.
->  - It doesn't play nicely with namespaces.
->  - It makes me wonder why things like task_diag, which have nothing
->    to do with networking, seem to get tangled up with networking.
-> 
-> 
-> Would it be worth considering adding a parallel interface, using it for
-> new things, and slowly migrating old use cases over?
-> 
-> int issue_kernel_command(int ns, int command, const struct iovec *iov, int iovcnt, int flags);
-> 
-> ns is an actual namespace fd or:
-> 
-> KERNEL_COMMAND_CURRENT_NETNS
-> KERNEL_COMMAND_CURRENT_PIDNS
-> etc, or a special one:
-> KERNEL_COMMAND_GLOBAL. šKERNEL_COMMAND_GLOBAL can't be used in a
-> non-root namespace.
-> 
-> KERNEL_COMMAND_GLOBAL works even for namespaced things, if the
-> relevant current ns is the init namespace. š(This feature is optional,
-> but it would allow gradually namespacing global things.)
-> 
-> command is an enumerated command. šEach command implies a namespace
-> type, and, if you feed this thing the wrong namespace type, you get
-> EINVAL. šThe high bit of command indicates whether it's read-only
-> command.
-> 
-> iov gives a command in the format expected, which, for the most part,
-> would be a netlink message.
-> 
-> The return value is an fd that you can call read/readv on to read the
-> response. šIt's not a socket (or at least you can't do normal socket
-> operations on it if it is a socket behind the scenes). šThe
-> implementation of read() promises *not* to look at caller creds. šThe
-> returned fd is unconditionally cloexec -- it's 2016 already. šSheesh.
-> 
-> When you've read all the data, all you can do is close the fd. šYou
-> can't issue another command on the same fd. šYou also can't call write()
-> or send() on the fd unless someone has a good reason why you should be
-> able to and why it's safe. šYou can't issue another command on the same
-> fd.
-> 
-> I imagine that the implementation could re-use a bunch of netlink code
-> under the hood.
+They'll be scheduled on Thursday evening.  You could also try to get it
+into a relevant MC, but you have to negotiate that with the person
+running the MC.
+
+The Kernel Summit plenary track is also accepting submissions here:
+
+https://linuxplumbersconf.org/2016/ocw/events/KS2016/proposals
+
+The KS track has the Coronado room from Tuesday-Friday (ending around
+14:00 on Friday), so you can work out your best time to schedule this. 
+ Ted (as KS chair) makes the final decision, so it's a good idea as
+well as submitting the proposal to send email here so Ted can gauge how
+much interest there is for the proposal.
+
+James
