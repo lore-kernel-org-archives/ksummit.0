@@ -1,27 +1,18 @@
-Return-Path: <rjw@rjwysocki.net>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4ED3E6C
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  2 Nov 2016 03:40:55 +0000 (UTC)
-Received: from cloudserver094114.home.net.pl (cloudserver094114.home.net.pl
-	[79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with SMTP id 5DA1FAA
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  2 Nov 2016 03:40:53 +0000 (UTC)
-From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Wed, 02 Nov 2016 04:48:06 +0100
-Message-ID: <2057225.YvLP48r0ZV@vostro.rjw.lan>
-In-Reply-To: <CACxGe6smZrw0STpHjzhSjybgW6bLrMKfyETO+-vuhHRT0yzWRQ@mail.gmail.com>
-References: <CAB=NE6Wo-mWdJF8k9yGcsORatpNtiiug+jXdGP60xhd0F+jydg@mail.gmail.com>
-	<CAB=NE6VBCC6SEzXTJi=HRSDbsCVXcw-1gwjXdgZzw+UGDn9j0A@mail.gmail.com>
-	<CACxGe6smZrw0STpHjzhSjybgW6bLrMKfyETO+-vuhHRT0yzWRQ@mail.gmail.com>
+Return-Path: <hpa@zytor.com>
+References: <20161102203040.9A80BC00E5B@callcc.thunk.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+From: "H. Peter Anvin" <hpa@zytor.com>
+Message-ID: <35322fb6-59c1-f1b6-4547-ad957a6056c2@zytor.com>
+Date: Wed, 2 Nov 2016 15:12:30 -0600
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
-Subject: Re: [Ksummit-discuss] Addressing Complex Dependencies - Tuesday
-	9:30am - Coronado/Devargas
+In-Reply-To: <20161102203040.9A80BC00E5B@callcc.thunk.org>
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: 7bit
+Cc: tech-board-discuss@lists.linux-foundation.org,
+	"ksummit-discuss@lists.linux..."
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	ksummit-pc@lists.linux-foundation.org
+Subject: [Ksummit-discuss] TAB 2016 self-nomination for re-election
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,42 +22,39 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tuesday, November 01, 2016 11:56:33 AM Grant Likely wrote:
-> For those who want to brainstorm how to teach driver core about probe order
-> dependencies, we'll be meeting at 2:00 in "Milagro"
-> 
-> This will be a working session to try and come up with a design. If we make
-> any progress, we can do a readout later in the week for a larger audience
-> here at Plumbers.
+Much delayed, here is my self-nomination statement for re-election to
+the Linux Foundation Technical Advisory Board.
 
-For everyone interested, the series of "device dependencies tracking" patches
-mentioned during the discussion today is available from a git branch at
+I first got involved with Linux in early 1992, and have been ever
+since.  I currently work for Intel as Senior Principal Engineer, and
+have been for 8 years, working on the Linux kernel and on CPU
+architecture; I have been co-maintainer of the "tip tree" and the x86
+architecture for close to 10.  I have implemented a number of
+subsystems in both the kernel, userspace, and in the lower levels
+(including the bootloader Syslinux.)
 
-git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm.git device-links-test
+In my role at Intel I have made it part of my mission to interface with
+CPU and firmware designers and architects to make hardware more
+Linux-friendly.
 
-Thanks,
-Rafael
+In recent years, one of my missions have been to bridge the gap
+between Linux developers, especially in the kernel, and (especially)
+the developers of tools.  As such, I have informally been acting a
+kind of liason with the gcc and llvm communities , which seems to have
+been part of why the friction in that interface has been reduced;
+similar things apply to several other communities.
 
+I am passionate about infrastructure, which I consider an oft
+neglected aspect which imposes a chronic tax (technical debt) on
+further development. I set up the original kernel.org in 1997, and have
+worked with the Linux Foundation on a number of infrastructure-related
+projects.  I also implemented the system for handling the ballots for
+this year's election (hence the delay in this statement ;)).
 
-> On Monday, 31 October 2016, Luis R. Rodriguez <mcgrof@kernel.org> wrote:
-> 
-> > Update:
-> >
-> > We've reduced the topics that will be covered and time that will be
-> > required as follows:
-> >
-> > The shared topics with the Audio workshop will take place first at
-> > 9:30am-10:30am at Sweeney CDE:
-> >
-> >   * Device hierarchy (just not a tree but a graph)
-> >   * Handling cycles on the graph proposals
-> >
-> > Then we move to Coronado room 10:30am-12:30pm for:
-> >
-> >   * Functional dependencies (now merged on Greg's tree)
-> >   * Resource tracking / allocation framework
-> >   * Media controller feature graph
-> >   * Linker tables
-> >   * Async probe
-> >
-> >   Luis
+I have a tendency to overengineer, as I believe that doing things right
+from the start allows things to be more easily generalized and have
+wider applicability; this is in many ways the essence of Open Source to me.
+
+I have been on the TAB for two years, and would like to continue.
+
+	-hpa
