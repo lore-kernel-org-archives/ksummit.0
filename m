@@ -1,27 +1,28 @@
-Return-Path: <vinod.koul@intel.com>
+Return-Path: <luto@amacapital.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 31CD85AC
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 341E6416
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  4 Nov 2016 19:37:57 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A2304153
+	Fri,  4 Nov 2016 20:39:01 +0000 (UTC)
+Received: from mail-vk0-f53.google.com (mail-vk0-f53.google.com
+	[209.85.213.53])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2B3EE16B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  4 Nov 2016 19:37:56 +0000 (UTC)
-From: "Koul, Vinod" <vinod.koul@intel.com>
-To: "stephen@networkplumber.org" <stephen@networkplumber.org>,
-	"sergey.senozhatsky@gmail.com" <sergey.senozhatsky@gmail.com>
-Date: Fri, 4 Nov 2016 19:37:51 +0000
-Message-ID: <1478288268.2684.22.camel@intel.com>
+	Fri,  4 Nov 2016 20:39:00 +0000 (UTC)
+Received: by mail-vk0-f53.google.com with SMTP id p9so77061022vkd.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 04 Nov 2016 13:39:00 -0700 (PDT)
+MIME-Version: 1.0
+In-Reply-To: <1478288268.2684.22.camel@intel.com>
 References: <20161104155555.GB422@swordfish>
 	<CAOaVG1563qU3rwsn6WpcY6RrgtA1e=dNsKq4rco9jgMnK5W=0A@mail.gmail.com>
-In-Reply-To: <CAOaVG1563qU3rwsn6WpcY6RrgtA1e=dNsKq4rco9jgMnK5W=0A@mail.gmail.com>
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_1478288268268422camelintelcom_"
-MIME-Version: 1.0
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+	<1478288268.2684.22.camel@intel.com>
+From: Andy Lutomirski <luto@amacapital.net>
+Date: Fri, 4 Nov 2016 13:38:57 -0700
+Message-ID: <CALCETrWu=ngJX0NtntMzJpq_Vx=TUa7m_nErTkZ_oiw=bGtzwQ@mail.gmail.com>
+To: Vinod Koul <vinod.koul@intel.com>
+Content-Type: multipart/alternative; boundary=001a1140fc10e9a52405407fa9e7
+Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] Carpool to Albuquerque
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -32,60 +33,115 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---_000_1478288268268422camelintelcom_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+--001a1140fc10e9a52405407fa9e7
+Content-Type: text/plain; charset=UTF-8
 
-DQpBbnlvbmUgaGFzIGEgc2VhdCBvbiBTdW5kYXkgQU0uLj8NCg0KT24gRnJpLCAyMDE2LTExLTA0
-IGF0IDEzOjM2IC0wNjAwLCBTdGVwaGVuIEhlbW1pbmdlciB3cm90ZToNCkkgaGF2ZSBsb3RzIG9m
-IHNlYXRzIGluIG15IGNhciBsZWF2aW5nIGF0IG5vb24gb24gU2F0dXJkYXkNCg0KT24gRnJpLCBO
-b3YgNCwgMjAxNiBhdCA5OjU1IEFNLCBTZXJnZXkgU2Vub3poYXRza3kgPHNlcmdleS5zZW5vemhh
-dHNreUBnbWFpbC5jb208bWFpbHRvOnNlcmdleS5zZW5vemhhdHNreUBnbWFpbC5jb20+PiB3cm90
-ZToNCkhpLA0KDQpnb3QgMiBzZWF0cyBhdmFpbGFibGUgaW4gbXkgY2FyOyBsZWF2aW5nIGF0IDQ6
-NDBhbSBTYXQgKE5vdiA1KS4NCg0KICAgICAgICAtc3MNCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fDQpLc3VtbWl0LWRpc2N1c3MgbWFpbGluZyBsaXN0DQpL
-c3VtbWl0LWRpc2N1c3NAbGlzdHMubGludXhmb3VuZGF0aW9uLm9yZzxtYWlsdG86S3N1bW1pdC1k
-aXNjdXNzQGxpc3RzLmxpbnV4Zm91bmRhdGlvbi5vcmc+DQpodHRwczovL2xpc3RzLmxpbnV4Zm91
-bmRhdGlvbi5vcmcvbWFpbG1hbi9saXN0aW5mby9rc3VtbWl0LWRpc2N1c3MNCg0KDQoNCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQpLc3VtbWl0LWRpc2N1
-c3MgbWFpbGluZyBsaXN0DQpLc3VtbWl0LWRpc2N1c3NAbGlzdHMubGludXhmb3VuZGF0aW9uLm9y
-ZzxtYWlsdG86S3N1bW1pdC1kaXNjdXNzQGxpc3RzLmxpbnV4Zm91bmRhdGlvbi5vcmc+DQpodHRw
-czovL2xpc3RzLmxpbnV4Zm91bmRhdGlvbi5vcmcvbWFpbG1hbi9saXN0aW5mby9rc3VtbWl0LWRp
-c2N1c3MNCg0KDQotLQ0KflZpbm9kDQo=
+Or two seats this evening?
 
---_000_1478288268268422camelintelcom_
-Content-Type: text/html; charset="utf-8"
-Content-ID: <C9C454129073EF4C9FDE0EC14D8E5567@intel.com>
-Content-Transfer-Encoding: base64
+On Nov 4, 2016 1:37 PM, "Koul, Vinod" <vinod.koul@intel.com> wrote:
 
-PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
-dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjwvaGVhZD4NCjxib2R5Pg0KPGRpdj48YnI+DQo8
-L2Rpdj4NCjxkaXY+QW55b25lIGhhcyBhIHNlYXQgb24gU3VuZGF5IEFNLi4/PC9kaXY+DQo8ZGl2
-Pjxicj4NCjwvZGl2Pg0KPGRpdj5PbiBGcmksIDIwMTYtMTEtMDQgYXQgMTM6MzYgLTA2MDAsIFN0
-ZXBoZW4gSGVtbWluZ2VyIHdyb3RlOjwvZGl2Pg0KPGJsb2NrcXVvdGUgdHlwZT0iY2l0ZSI+DQo8
-ZGl2IGRpcj0ibHRyIj5JIGhhdmUgbG90cyBvZiBzZWF0cyBpbiBteSBjYXIgbGVhdmluZyBhdCBu
-b29uIG9uIFNhdHVyZGF5PC9kaXY+DQo8ZGl2IGNsYXNzPSJnbWFpbF9leHRyYSI+PGJyPg0KPGRp
-diBjbGFzcz0iZ21haWxfcXVvdGUiPk9uIEZyaSwgTm92IDQsIDIwMTYgYXQgOTo1NSBBTSwgU2Vy
-Z2V5IFNlbm96aGF0c2t5IDxzcGFuIGRpcj0ibHRyIj4NCiZsdDs8YSBocmVmPSJtYWlsdG86c2Vy
-Z2V5LnNlbm96aGF0c2t5QGdtYWlsLmNvbSIgdGFyZ2V0PSJfYmxhbmsiPnNlcmdleS5zZW5vemhh
-dHNreUBnbWFpbC5jb208L2E+Jmd0Ozwvc3Bhbj4gd3JvdGU6PGJyPg0KPGJsb2NrcXVvdGUgdHlw
-ZT0iY2l0ZSI+SGksPGJyPg0KPGJyPg0KZ290IDIgc2VhdHMgYXZhaWxhYmxlIGluIG15IGNhcjsg
-bGVhdmluZyBhdCA0OjQwYW0gU2F0IChOb3YgNSkuPGJyPg0KPGJyPg0KJm5ic3A7ICZuYnNwOyAm
-bmJzcDsgJm5ic3A7IC1zczxicj4NCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fXzx3YnI+
-X19fX19fX19fX19fX19fX188YnI+DQpLc3VtbWl0LWRpc2N1c3MgbWFpbGluZyBsaXN0PGJyPg0K
-PGEgaHJlZj0ibWFpbHRvOktzdW1taXQtZGlzY3Vzc0BsaXN0cy5saW51eGZvdW5kYXRpb24ub3Jn
-Ij5Lc3VtbWl0LWRpc2N1c3NAbGlzdHMuPHdicj5saW51eGZvdW5kYXRpb24ub3JnPC9hPjxicj4N
-CjxhIGhyZWY9Imh0dHBzOi8vbGlzdHMubGludXhmb3VuZGF0aW9uLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2tzdW1taXQtZGlzY3VzcyIgcmVsPSJub3JlZmVycmVyIiB0YXJnZXQ9Il9ibGFuayI+aHR0
-cHM6Ly9saXN0cy5saW51eGZvdW5kYXRpb24uPHdicj5vcmcvbWFpbG1hbi9saXN0aW5mby9rc3Vt
-bWl0LTx3YnI+ZGlzY3VzczwvYT48YnI+DQo8YnI+DQo8L2Jsb2NrcXVvdGU+DQo8L2Rpdj4NCjxi
-cj4NCjwvZGl2Pg0KPHByZT5fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXw0KS3N1bW1pdC1kaXNjdXNzIG1haWxpbmcgbGlzdA0KPGEgaHJlZj0ibWFpbHRvOktz
-dW1taXQtZGlzY3Vzc0BsaXN0cy5saW51eGZvdW5kYXRpb24ub3JnIj5Lc3VtbWl0LWRpc2N1c3NA
-bGlzdHMubGludXhmb3VuZGF0aW9uLm9yZzwvYT4NCjxhIGhyZWY9Imh0dHBzOi8vbGlzdHMubGlu
-dXhmb3VuZGF0aW9uLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2tzdW1taXQtZGlzY3VzcyI+aHR0cHM6
-Ly9saXN0cy5saW51eGZvdW5kYXRpb24ub3JnL21haWxtYW4vbGlzdGluZm8va3N1bW1pdC1kaXNj
-dXNzPC9hPg0KPC9wcmU+DQo8L2Jsb2NrcXVvdGU+DQo8ZGl2PjxzcGFuPg0KPHByZT4tLSANCn5W
-aW5vZDwvcHJlPg0KPC9zcGFuPjwvZGl2Pg0KPC9ib2R5Pg0KPC9odG1sPg0K
+>
+> Anyone has a seat on Sunday AM..?
+>
+> On Fri, 2016-11-04 at 13:36 -0600, Stephen Hemminger wrote:
+>
+> I have lots of seats in my car leaving at noon on Saturday
+>
+> On Fri, Nov 4, 2016 at 9:55 AM, Sergey Senozhatsky <
+> sergey.senozhatsky@gmail.com> wrote:
+>
+> Hi,
+>
+> got 2 seats available in my car; leaving at 4:40am Sat (Nov 5).
+>
+>         -ss
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+>
+>
+> _______________________________________________
+> Ksummit-discuss mailing listKsummit-discuss@lists.linuxfoundation.orghttps://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+>
+> --
+> ~Vinod
+>
+>
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+>
+>
 
---_000_1478288268268422camelintelcom_--
+--001a1140fc10e9a52405407fa9e7
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<p dir=3D"ltr">Or two seats this evening?</p>
+<div class=3D"gmail_extra"><br><div class=3D"gmail_quote">On Nov 4, 2016 1:=
+37 PM, &quot;Koul, Vinod&quot; &lt;<a href=3D"mailto:vinod.koul@intel.com">=
+vinod.koul@intel.com</a>&gt; wrote:<br type=3D"attribution"><blockquote cla=
+ss=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;pa=
+dding-left:1ex">
+
+
+
+<div>
+<div><br>
+</div>
+<div>Anyone has a seat on Sunday AM..?</div>
+<div><br>
+</div>
+<div>On Fri, 2016-11-04 at 13:36 -0600, Stephen Hemminger wrote:</div>
+<blockquote type=3D"cite">
+<div dir=3D"ltr">I have lots of seats in my car leaving at noon on Saturday=
+</div>
+<div class=3D"gmail_extra"><br>
+<div class=3D"gmail_quote">On Fri, Nov 4, 2016 at 9:55 AM, Sergey Senozhats=
+ky <span dir=3D"ltr">
+&lt;<a href=3D"mailto:sergey.senozhatsky@gmail.com" target=3D"_blank">serge=
+y.senozhatsky@gmail.com</a>&gt;</span> wrote:<br>
+<blockquote type=3D"cite">Hi,<br>
+<br>
+got 2 seats available in my car; leaving at 4:40am Sat (Nov 5).<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 -ss<br>
+______________________________<wbr>_________________<br>
+Ksummit-discuss mailing list<br>
+<a href=3D"mailto:Ksummit-discuss@lists.linuxfoundation.org" target=3D"_bla=
+nk">Ksummit-discuss@lists.linuxfou<wbr>ndation.org</a><br>
+<a href=3D"https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discu=
+ss" rel=3D"noreferrer" target=3D"_blank">https://lists.linuxfoundation.<wbr=
+>org/mailman/listinfo/ksummit-d<wbr>iscuss</a><br>
+<br>
+</blockquote>
+</div>
+<br>
+</div>
+<pre>______________________________<wbr>_________________
+Ksummit-discuss mailing list
+<a href=3D"mailto:Ksummit-discuss@lists.linuxfoundation.org" target=3D"_bla=
+nk">Ksummit-discuss@lists.<wbr>linuxfoundation.org</a>
+<a href=3D"https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discu=
+ss" target=3D"_blank">https://lists.linuxfoundation.<wbr>org/mailman/listin=
+fo/ksummit-<wbr>discuss</a>
+</pre>
+</blockquote>
+<div><span>
+<pre>--=20
+~Vinod</pre>
+</span></div>
+</div>
+
+<br>______________________________<wbr>_________________<br>
+Ksummit-discuss mailing list<br>
+<a href=3D"mailto:Ksummit-discuss@lists.linuxfoundation.org">Ksummit-discus=
+s@lists.<wbr>linuxfoundation.org</a><br>
+<a href=3D"https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discu=
+ss" rel=3D"noreferrer" target=3D"_blank">https://lists.linuxfoundation.<wbr=
+>org/mailman/listinfo/ksummit-<wbr>discuss</a><br>
+<br></blockquote></div></div>
+
+--001a1140fc10e9a52405407fa9e7--
