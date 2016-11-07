@@ -1,25 +1,26 @@
 Return-Path: <josh@joshtriplett.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5E3A18F5
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id DEEA4955
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  7 Nov 2016 17:01:44 +0000 (UTC)
-Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net
-	[217.70.183.194])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5AEAE171
+	Mon,  7 Nov 2016 17:05:12 +0000 (UTC)
+Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
+	[217.70.183.197])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 69173171
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  7 Nov 2016 17:01:42 +0000 (UTC)
-Date: Mon, 7 Nov 2016 09:01:34 -0800
+	Mon,  7 Nov 2016 17:05:12 +0000 (UTC)
+Date: Mon, 7 Nov 2016 09:05:05 -0800
 From: Josh Triplett <josh@joshtriplett.org>
 To: Mauro Carvalho Chehab <mchehab@s-opensource.com>
-Message-ID: <20161107170133.4jdeuqydthbbchaq@x>
-References: <20161107075524.49d83697@vento.lan>
+Message-ID: <20161107170504.25j4rwfohhqp67fw@x>
+References: <20161107075524.49d83697@vento.lan> <87wpgf8ssc.fsf@intel.com>
+	<20161107094648.55677524@vento.lan>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20161107075524.49d83697@vento.lan>
-Cc: linux-media@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, ksummit-discuss@lists.linuxfoundation.org
+In-Reply-To: <20161107094648.55677524@vento.lan>
+Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	ksummit-discuss@lists.linuxfoundation.org, linux-media@vger.kernel.org
 Subject: Re: [Ksummit-discuss] Including images on Sphinx documents
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -30,15 +31,50 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Nov 07, 2016 at 07:55:24AM -0200, Mauro Carvalho Chehab wrote:
-> 2) add an Sphinx extension that would internally call ImageMagick and/or
->    inkscape to convert the bitmap;
+On Mon, Nov 07, 2016 at 09:46:48AM -0200, Mauro Carvalho Chehab wrote:
+> That's said, PNG also doesn't seem to work fine on Sphinx 1.4.x.
+> 
+> On my tests, I installed *all* texlive extensions on Fedora 24, to
+> be sure that the issue is not the lack of some extension[1], with:
+> 
+> 	# dnf install $(sudo dnf search texlive |grep all|cut -d. -f 1|grep texlive-)
+> 
+> When running LaTeX in interactive mode, building just the media
+> PDF file with:
+> 
+> 	$ cls;make cleandocs; make SPHINXOPTS="-j5" DOCBOOKS="" SPHINXDIRS=media latexdocs 
+> 	$ PDFLATEX=xelatex LATEXOPTS="-interaction=interactive" -C Documentation/output/media/latex
+> 
+> I get this:
+> 
+> 	LaTeX Warning: Hyper reference `uapi/v4l/subdev-formats:bayer-patterns' on page
+> 	 153 undefined on input line 21373.
+> 
+> 	<use  "bayer.png" > [153]
+> 	! Extra alignment tab has been changed to \cr.
+> 	<template> \endtemplate 
+>                         
+> 	l.21429 \unskip}\relax \unskip}
+> 	                               \relax \\
+> 	? 
+> 
+> This patch fixes the issue:
+> 	https://git.linuxtv.org/mchehab/experimental.git/commit/?h=dirty-pdf&id=b709de415f34d77cc121cad95bece9c7ef4d12fd
+> 
+> That means that Sphinx is not generating the right LaTeX output even for
+> (some?) PNG images.
 
-This seems sensible; Sphinx should directly handle the source format we
-want to use for images/diagrams.
+\includegraphics normally works just fine for PNG images in PDF
+documents.
 
-> 3) if possible, add an extension to trick Sphinx for it to consider the 
->    output dir as a source dir too.
+[...]
+> And it may even require "--shell-escape" to be passed at the xelatex
+> call if inkscape is not in the path, with seems to be a strong
+> indication that SVG support is not native to texlive, but, instead,
+> just a way to make LaTeX to call inkscape to do the image conversion.
 
-Or to provide an additional source path and point that at the output
-directory.
+Please don't require --shell-escape as part of the TeX workflow.  If
+LaTeX can't handle the desired image format natively, it needs
+conversion in advance.
+
+- Josh Triplett
