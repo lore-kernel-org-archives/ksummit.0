@@ -1,27 +1,28 @@
-Return-Path: <mchehab@s-opensource.com>
+Return-Path: <jani.nikula@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3CE618D9
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 99355415
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  8 Nov 2016 10:50:46 +0000 (UTC)
-Received: from osg.samsung.com
-	(ec2-52-27-115-49.us-west-2.compute.amazonaws.com [52.27.115.49])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id A29C9198
+	Wed,  9 Nov 2016 11:16:59 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C4925297
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  8 Nov 2016 10:50:43 +0000 (UTC)
-Date: Tue, 8 Nov 2016 08:50:36 -0200
-From: Mauro Carvalho Chehab <mchehab@s-opensource.com>
-To: Josh Triplett <josh@joshtriplett.org>
-Message-ID: <20161108085036.304fdfea@vento.lan>
-In-Reply-To: <20161107170504.25j4rwfohhqp67fw@x>
-References: <20161107075524.49d83697@vento.lan> <87wpgf8ssc.fsf@intel.com>
-	<20161107094648.55677524@vento.lan>
-	<20161107170504.25j4rwfohhqp67fw@x>
+	Wed,  9 Nov 2016 11:16:58 +0000 (UTC)
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Markus Heiser <markus.heiser@darmarit.de>,
+	Josh Triplett <josh@joshtriplett.org>
+In-Reply-To: <A4091944-D727-45B5-AC24-FE3B2700298E@darmarit.de>
+References: <20161107075524.49d83697@vento.lan>
+	<20161107170133.4jdeuqydthbbchaq@x>
+	<A4091944-D727-45B5-AC24-FE3B2700298E@darmarit.de>
+Date: Wed, 09 Nov 2016 13:16:55 +0200
+Message-ID: <8737j0hpi0.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	ksummit-discuss@lists.linuxfoundation.org, linux-media@vger.kernel.org
+Content-Type: text/plain
+Cc: ksummit-discuss@lists.linuxfoundation.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab@s-opensource.com>,
+	linux-media@vger.kernel.org
 Subject: Re: [Ksummit-discuss] Including images on Sphinx documents
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -32,73 +33,73 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Em Mon, 7 Nov 2016 09:05:05 -0800
-Josh Triplett <josh@joshtriplett.org> escreveu:
+On Wed, 09 Nov 2016, Markus Heiser <markus.heiser@darmarit.de> wrote:
+> Am 07.11.2016 um 18:01 schrieb Josh Triplett <josh@joshtriplett.org>:
+>
+>> On Mon, Nov 07, 2016 at 07:55:24AM -0200, Mauro Carvalho Chehab wrote:
+>>> 2) add an Sphinx extension that would internally call ImageMagick and/or
+>>>  inkscape to convert the bitmap;
+>> 
+>> This seems sensible; Sphinx should directly handle the source format we
+>> want to use for images/diagrams.
+>> 
+>>> 3) if possible, add an extension to trick Sphinx for it to consider the 
+>>>  output dir as a source dir too.
+>> 
+>> Or to provide an additional source path and point that at the output
+>> directory.
+>
+> The sphinx-build command excepts only one 'sourcedir' argument. All
+> reST files in this folder (and below) are parsed.
+>
+> Most (all?) directives which include content like images or literalinclude
+> except only relative pathnames. Where *relative* means, relative to the
+> reST file where the directive is used. For security reasons relative 
+> pathnames outside 'sourcepath' are not excepted.
+>
+> So I vote for :
+>
+>> 1) copy (or symlink) all rst files to Documentation/output (or to the
+>>  build dir specified via O= directive) and generate the *.pdf there,
+>>  and produce those converted images via Makefile.;
 
-> On Mon, Nov 07, 2016 at 09:46:48AM -0200, Mauro Carvalho Chehab wrote:
-> > That's said, PNG also doesn't seem to work fine on Sphinx 1.4.x.
-> > 
-> > On my tests, I installed *all* texlive extensions on Fedora 24, to
-> > be sure that the issue is not the lack of some extension[1], with:
-> > 
-> > 	# dnf install $(sudo dnf search texlive |grep all|cut -d. -f 1|grep texlive-)
-> > 
-> > When running LaTeX in interactive mode, building just the media
-> > PDF file with:
-> > 
-> > 	$ cls;make cleandocs; make SPHINXOPTS="-j5" DOCBOOKS="" SPHINXDIRS=media latexdocs 
-> > 	$ PDFLATEX=xelatex LATEXOPTS="-interaction=interactive" -C Documentation/output/media/latex
-> > 
-> > I get this:
-> > 
-> > 	LaTeX Warning: Hyper reference `uapi/v4l/subdev-formats:bayer-patterns' on page
-> > 	 153 undefined on input line 21373.
-> > 
-> > 	<use  "bayer.png" > [153]
-> > 	! Extra alignment tab has been changed to \cr.
-> > 	<template> \endtemplate 
-> >                         
-> > 	l.21429 \unskip}\relax \unskip}
-> > 	                               \relax \\
-> > 	? 
-> > 
-> > This patch fixes the issue:
-> > 	https://git.linuxtv.org/mchehab/experimental.git/commit/?h=dirty-pdf&id=b709de415f34d77cc121cad95bece9c7ef4d12fd
-> > 
-> > That means that Sphinx is not generating the right LaTeX output even for
-> > (some?) PNG images.  
-> 
-> \includegraphics normally works just fine for PNG images in PDF
-> documents.
+We're supposed to solve problems, not create new ones.
 
-I didn't try to fix the Sphinx output in LaTeX format when a PNG
-image is used, but, from the above log, clearly it did something
-wrong. Perhaps there's something bad defined at the sphinx.sty file,
-or it simply generates the wrong LaTeX code when the image
-is not on PDF format.
+> Placing reST files together with the *autogenerated* (intermediate) 
+> content from
+>
+> * image conversions,
+> * reST content build from MAINTAINERS,
+> * reST content build for ABI
+> * etc.
+>
+> has the nice side effect, that we can get rid of all theses BUILDDIR
+> quirks in the Makefile.sphinx
+>
+> Additional, we can write Makefile targets to build the above listed
+> intermediate content relative to the $PWD, which is what Linux's
+> Makefiles usual do (instead of quirking with a BUILDDIR).
+>
+> E.g. with, we can also get rid of the 'kernel-include' directive 
+> and replace it, with Sphinx's common 'literaliclude' and we do not
+> need any extensions to include intermediate PDFs or whatever
+> intermediate content we might want to generate. 
 
-> [...]
-> > And it may even require "--shell-escape" to be passed at the xelatex
-> > call if inkscape is not in the path, with seems to be a strong
-> > indication that SVG support is not native to texlive, but, instead,
-> > just a way to make LaTeX to call inkscape to do the image conversion.  
-> 
-> Please don't require --shell-escape as part of the TeX workflow.  If
-> LaTeX can't handle the desired image format natively, it needs
-> conversion in advance.
+Well, kernel-include is a hack to make parse-headers.pl work, which is
+also a hack that IMHO shouldn't exist...
 
-Agreed. I sent a patch series to linux-doc, doing the conversion in
-advance:
-	https://marc.info/?l=linux-doc&m=147859902804144&w=2
+> IMO placing 'sourcedir' to O= is more sane since this marries the
+> Linux Makefile concept (relative to $PWD) with the sphinx concept
+> (in or below 'sourcedir').
+>
+>
+> -- Markus --
+>
+>
+> --
+> To unsubscribe from this list: send the line "unsubscribe linux-doc" in
+> the body of a message to majordomo@vger.kernel.org
+> More majordomo info at  http://vger.kernel.org/majordomo-info.html
 
-Not sure why, but the archives don't have all patches yet.
-Anyway, the relevant one is this:
-	https://git.linuxtv.org/mchehab/experimental.git/commit/?h=pdf-fixes&id=5d41c452c787f6a6c755a3855312435bc439acb8
-
-It basically calls ImageMagick "convert" tool for all png and
-pdf files currently at the documentation (they're all at media,
-ATM).
-	
-
-Thanks,
-Mauro
+-- 
+Jani Nikula, Intel Open Source Technology Center
