@@ -1,19 +1,20 @@
 Return-Path: <corbet@lwn.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id E17E53EE
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 08363360
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 13 Nov 2016 19:52:52 +0000 (UTC)
+	Sun, 13 Nov 2016 21:00:30 +0000 (UTC)
 Received: from vena.lwn.net (tex.lwn.net [70.33.254.29])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 670B4D0
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 699C81AC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 13 Nov 2016 19:52:52 +0000 (UTC)
-Date: Sun, 13 Nov 2016 12:52:50 -0700
+	Sun, 13 Nov 2016 21:00:29 +0000 (UTC)
+Date: Sun, 13 Nov 2016 14:00:27 -0700
 From: Jonathan Corbet <corbet@lwn.net>
 To: Mauro Carvalho Chehab <mchehab@s-opensource.com>
-Message-ID: <20161113125250.779df4dd@lwn.net>
-In-Reply-To: <20161107075524.49d83697@vento.lan>
-References: <20161107075524.49d83697@vento.lan>
+Message-ID: <20161113140027.2fbe0946@lwn.net>
+In-Reply-To: <20161107094648.55677524@vento.lan>
+References: <20161107075524.49d83697@vento.lan> <87wpgf8ssc.fsf@intel.com>
+	<20161107094648.55677524@vento.lan>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 8bit
@@ -29,40 +30,40 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 7 Nov 2016 07:55:24 -0200
+On Mon, 7 Nov 2016 09:46:48 -0200
 Mauro Carvalho Chehab <mchehab@s-opensource.com> wrote:
 
-> So, we have a few alternatives:
+> When running LaTeX in interactive mode, building just the media
+> PDF file with:
 > 
-> 1) copy (or symlink) all rst files to Documentation/output (or to the
->    build dir specified via O= directive) and generate the *.pdf there,
->    and produce those converted images via Makefile.;
+> 	$ cls;make cleandocs; make SPHINXOPTS="-j5" DOCBOOKS="" SPHINXDIRS=media latexdocs 
+> 	$ PDFLATEX=xelatex LATEXOPTS="-interaction=interactive" -C Documentation/output/media/latex
 > 
-> 2) add an Sphinx extension that would internally call ImageMagick and/or
->    inkscape to convert the bitmap;
+> I get this:
 > 
-> 3) if possible, add an extension to trick Sphinx for it to consider the 
->    output dir as a source dir too.
+> 	LaTeX Warning: Hyper reference `uapi/v4l/subdev-formats:bayer-patterns' on page
+> 	 153 undefined on input line 21373.
+> 
+> 	<use  "bayer.png" > [153]
+> 	! Extra alignment tab has been changed to \cr.
+> 	<template> \endtemplate 
+>                         
+> 	l.21429 \unskip}\relax \unskip}
+> 	                               \relax \\
+> 	? 
+> 
+> This patch fixes the issue:
+> 	https://git.linuxtv.org/mchehab/experimental.git/commit/?h=dirty-pdf&id=b709de415f34d77cc121cad95bece9c7ef4d12fd
+> 
+> That means that Sphinx is not generating the right LaTeX output even for
+> (some?) PNG images.
 
-So, obviously, I've been letting this go by while dealing with other
-stuff...
+So I'm seriously confused.
 
-I really think that 2) is the one we want.  Copying all the stuff and
-operating on the copies, beyond being a bit of a hack, just seems like a
-recipe for weird build problems in the future.
-
-We should figure out why PNG files don't work.  Maybe I'll give that a
-try at some point soon, if I can find a moment.  Working around tools
-bugs seems like the wrong approach.
-
-Working from .svg seems optimial, but I don't like the --shell-escape
-thing at all.
-
-[Along those lines, we've picked up a lot of lines like this:
-
-	 restricted \write18 enabled.
-
-That, too, is shell execution stuff.  I've not been able to figure out
-where it came from, but I would sure like to get rid of it...]
+I can get that particular message - TeX is complaining about too many
+columns in the table.  But applying your patch (with a suitable bayer.pdf
+provided) does not fix the problem.  Indeed, I can remove the figure with
+the image entirely and still not fix the problem.  Are you sure that the
+patch linked here actually fixed it for you?
 
 jon
