@@ -1,32 +1,24 @@
-Return-Path: <markus.heiser@darmarit.de>
+Return-Path: <corbet@lwn.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C579AB7C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E17E53EE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 11 Nov 2016 11:45:20 +0000 (UTC)
-Received: from smtp2-2.goneo.de (smtp2-2.goneo.de [85.220.129.34])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id EB534208
+	Sun, 13 Nov 2016 19:52:52 +0000 (UTC)
+Received: from vena.lwn.net (tex.lwn.net [70.33.254.29])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 670B4D0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 11 Nov 2016 11:45:19 +0000 (UTC)
-Content-Type: text/plain; charset=us-ascii
-Mime-Version: 1.0 (Mac OS X Mail 6.6 \(1510\))
-From: Markus Heiser <markus.heiser@darmarit.de>
-In-Reply-To: <87pom2clcp.fsf@intel.com>
-Date: Fri, 11 Nov 2016 12:45:04 +0100
-Content-Transfer-Encoding: 7bit
-Message-Id: <4021ED64-7A22-4DDF-A1D4-9DC299F69AE7@darmarit.de>
+	Sun, 13 Nov 2016 19:52:52 +0000 (UTC)
+Date: Sun, 13 Nov 2016 12:52:50 -0700
+From: Jonathan Corbet <corbet@lwn.net>
+To: Mauro Carvalho Chehab <mchehab@s-opensource.com>
+Message-ID: <20161113125250.779df4dd@lwn.net>
+In-Reply-To: <20161107075524.49d83697@vento.lan>
 References: <20161107075524.49d83697@vento.lan>
-	<20161107170133.4jdeuqydthbbchaq@x>
-	<A4091944-D727-45B5-AC24-FE3B2700298E@darmarit.de>
-	<8737j0hpi0.fsf@intel.com>
-	<DC27B5F7-D69E-4F22-B184-B7B029392959@darmarit.de>
-	<87shr0g90r.fsf@intel.com>
-	<a6b88e7d-9d6b-4dcc-3d2e-c09bdf366b40@darmarit.de>
-	<87y40rei5z.fsf@intel.com> <87pom2clcp.fsf@intel.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Mauro Carvalho Chehab <mchehab@s-opensource.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	ksummit-discuss@lists.linuxfoundation.org, linux-doc@vger.kernel.org
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
+Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	ksummit-discuss@lists.linuxfoundation.org, linux-media@vger.kernel.org
 Subject: Re: [Ksummit-discuss] Including images on Sphinx documents
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -37,32 +29,40 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Mon, 7 Nov 2016 07:55:24 -0200
+Mauro Carvalho Chehab <mchehab@s-opensource.com> wrote:
 
-Am 11.11.2016 um 12:22 schrieb Jani Nikula <jani.nikula@linux.intel.com>:
-
-> On Thu, 10 Nov 2016, Jani Nikula <jani.nikula@linux.intel.com> wrote:
->> On Thu, 10 Nov 2016, Markus Heiser <markus.heiser@darmarit.de> wrote:
->>> Could this POC persuade you, if so, I send a more elaborate RFC,
->>> what do you think about?
->> 
->> Sorry, I do not wish to be part of this.
+> So, we have a few alternatives:
 > 
-> That was uncalled for, apologies.
+> 1) copy (or symlink) all rst files to Documentation/output (or to the
+>    build dir specified via O= directive) and generate the *.pdf there,
+>    and produce those converted images via Makefile.;
+> 
+> 2) add an Sphinx extension that would internally call ImageMagick and/or
+>    inkscape to convert the bitmap;
+> 
+> 3) if possible, add an extension to trick Sphinx for it to consider the 
+>    output dir as a source dir too.
 
-It's OK, sometimes we are all in a hurry and want shorten things.
+So, obviously, I've been letting this go by while dealing with other
+stuff...
 
-> Like I said, I don't think this is the right approach. Call it an
-> unsubstantiated gut feel coming from experience.
+I really think that 2) is the one we want.  Copying all the stuff and
+operating on the copies, beyond being a bit of a hack, just seems like a
+recipe for weird build problems in the future.
 
-Yes, building a bunch of symbolic links "smells". Unfortunately,
-I currently see no other solution to solve the conflict of 
-Linux's "O=/foo" and Sphinx's "sourcedir", so that was my
-proposal.
+We should figure out why PNG files don't work.  Maybe I'll give that a
+try at some point soon, if I can find a moment.  Working around tools
+bugs seems like the wrong approach.
 
-> However, I do not have
-> the time to properly dig into this either, and that frustrates me. I
-> wish I could be more helpful, but I can't right now.
+Working from .svg seems optimial, but I don't like the --shell-escape
+thing at all.
 
-its a pity
+[Along those lines, we've picked up a lot of lines like this:
 
--- Markus --
+	 restricted \write18 enabled.
+
+That, too, is shell execution stuff.  I've not been able to figure out
+where it came from, but I would sure like to get rid of it...]
+
+jon
