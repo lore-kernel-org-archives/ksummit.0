@@ -1,21 +1,22 @@
 Return-Path: <mchehab@s-opensource.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4B1E9BD1
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4585ABCA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 14 Nov 2016 13:30:56 +0000 (UTC)
+	Mon, 14 Nov 2016 14:16:29 +0000 (UTC)
 Received: from osg.samsung.com
 	(ec2-52-27-115-49.us-west-2.compute.amazonaws.com [52.27.115.49])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id D2DF92EB
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id ECD6A14B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 14 Nov 2016 13:30:55 +0000 (UTC)
-Date: Mon, 14 Nov 2016 11:30:50 -0200
+	Mon, 14 Nov 2016 14:16:27 +0000 (UTC)
+Date: Mon, 14 Nov 2016 12:16:19 -0200
 From: Mauro Carvalho Chehab <mchehab@s-opensource.com>
 To: Jonathan Corbet <corbet@lwn.net>
-Message-ID: <20161114113050.26198f19@vento.lan>
-In-Reply-To: <20161113125250.779df4dd@lwn.net>
-References: <20161107075524.49d83697@vento.lan>
-	<20161113125250.779df4dd@lwn.net>
+Message-ID: <20161114121619.18ba98d8@vento.lan>
+In-Reply-To: <20161113140027.2fbe0946@lwn.net>
+References: <20161107075524.49d83697@vento.lan> <87wpgf8ssc.fsf@intel.com>
+	<20161107094648.55677524@vento.lan>
+	<20161113140027.2fbe0946@lwn.net>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
@@ -31,59 +32,246 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Em Sun, 13 Nov 2016 12:52:50 -0700
+Em Sun, 13 Nov 2016 14:00:27 -0700
 Jonathan Corbet <corbet@lwn.net> escreveu:
 
-> On Mon, 7 Nov 2016 07:55:24 -0200
+> On Mon, 7 Nov 2016 09:46:48 -0200
 > Mauro Carvalho Chehab <mchehab@s-opensource.com> wrote:
 > 
-> > So, we have a few alternatives:
+> > When running LaTeX in interactive mode, building just the media
+> > PDF file with:
 > > 
-> > 1) copy (or symlink) all rst files to Documentation/output (or to the
-> >    build dir specified via O= directive) and generate the *.pdf there,
-> >    and produce those converted images via Makefile.;
+> > 	$ cls;make cleandocs; make SPHINXOPTS="-j5" DOCBOOKS="" SPHINXDIRS=media latexdocs 
+> > 	$ PDFLATEX=xelatex LATEXOPTS="-interaction=interactive" -C Documentation/output/media/latex
 > > 
-> > 2) add an Sphinx extension that would internally call ImageMagick and/or
-> >    inkscape to convert the bitmap;
+> > I get this:
 > > 
-> > 3) if possible, add an extension to trick Sphinx for it to consider the 
-> >    output dir as a source dir too.  
+> > 	LaTeX Warning: Hyper reference `uapi/v4l/subdev-formats:bayer-patterns' on page
+> > 	 153 undefined on input line 21373.
+> > 
+> > 	<use  "bayer.png" > [153]
+> > 	! Extra alignment tab has been changed to \cr.
+> > 	<template> \endtemplate 
+> >                         
+> > 	l.21429 \unskip}\relax \unskip}
+> > 	                               \relax \\
+> > 	? 
+> > 
+> > This patch fixes the issue:
+> > 	https://git.linuxtv.org/mchehab/experimental.git/commit/?h=dirty-pdf&id=b709de415f34d77cc121cad95bece9c7ef4d12fd
+> > 
+> > That means that Sphinx is not generating the right LaTeX output even for
+> > (some?) PNG images.  
 > 
-> So, obviously, I've been letting this go by while dealing with other
-> stuff...
+> So I'm seriously confused.
 > 
-> I really think that 2) is the one we want.  Copying all the stuff and
-> operating on the copies, beyond being a bit of a hack, just seems like a
-> recipe for weird build problems in the future.
+> I can get that particular message - TeX is complaining about too many
+> columns in the table.  But applying your patch (with a suitable bayer.pdf
+> provided) does not fix the problem.  Indeed, I can remove the figure with
+> the image entirely and still not fix the problem.  Are you sure that the
+> patch linked here actually fixed it for you?
 
-Yes, (2) sounds to be the best option.
+There are two patches on the series fixing the column issues for the Bayer
+formats table on the /6 patch series.
 
-> We should figure out why PNG files don't work.  Maybe I'll give that a
-> try at some point soon, if I can find a moment.  Working around tools
-> bugs seems like the wrong approach.
+I guess I got confused with that, because of this warning:
 
-I appreciate any efforts on that.
+ 	LaTeX Warning: Hyper reference `uapi/v4l/subdev-formats:bayer-patterns' on page
+ 	 153 undefined on input line 21373.
 
-> Working from .svg seems optimial, but I don't like the --shell-escape
-> thing at all.
-> 
-> [Along those lines, we've picked up a lot of lines like this:
-> 
-> 	 restricted \write18 enabled.
-> 
-> That, too, is shell execution stuff.  I've not been able to figure out
-> where it came from, but I would sure like to get rid of it...]
+Anyway, you're right: PNG is indeed working fine[1], and the
+cross-reference is OK. The issue is just with SVG.
 
-Didn't know that! I'm new to LaTeX. Frankly, the log output sounds
-very scary to me, as there are lots of warnings there, and debugging
-each of them takes time. I don't see any \write18 inside the generated
-.tex files or inside the sphinx.sty file. Perhaps it comes from some
-Tex extension, like adjustbox?
+I'll fold it with patch 6/6 and submit a new series.
 
-> 
-> jon
+Sorry for the mess.
 
-
+[1] I tested now on sphinx 1.4.8 - I was using an older version
+before (1.4.5, I guess).
 
 Thanks,
 Mauro
+
+[PATCH] docs-rst: Let Sphinx do PNG image conversion
+
+Signed-off-by: Mauro Carvalho Chehab <mchehab@s-opensource.com>
+
+diff --git a/Documentation/media/Makefile b/Documentation/media/Makefile
+index 0f08bd8b87ba..297b85c37ab9 100644
+--- a/Documentation/media/Makefile
++++ b/Documentation/media/Makefile
+@@ -12,17 +12,6 @@ TARGETS := $(addprefix $(BUILDDIR)/, $(FILES))
+ 
+ IMAGES = \
+ 	typical_media_device.svg \
+-	uapi/v4l/fieldseq_tb.png \
+-	uapi/v4l/selection.png \
+-	uapi/v4l/vbi_hsync.png \
+-	uapi/v4l/fieldseq_bt.png \
+-	uapi/v4l/crop.png \
+-	uapi/v4l/nv12mt.png \
+-	uapi/v4l/vbi_525.png \
+-	uapi/v4l/nv12mt_example.png \
+-	uapi/v4l/vbi_625.png \
+-	uapi/v4l/pipeline.png \
+-	uapi/v4l/bayer.png \
+ 	uapi/dvb/dvbstb.svg \
+ 	uapi/v4l/constraints.svg \
+ 	uapi/v4l/subdev-image-processing-full.svg \
+@@ -37,8 +26,6 @@ cmd = $(echo-cmd) $(cmd_$(1))
+ quiet_cmd_genpdf = GENPDF  $2
+       cmd_genpdf = convert $2 $3
+ 
+-%.pdf: %.png
+-	@$(call cmd,genpdf,$<,$@)
+ %.pdf: %.svg
+ 	@$(call cmd,genpdf,$<,$@)
+ 
+diff --git a/Documentation/media/uapi/v4l/crop.rst b/Documentation/media/uapi/v4l/crop.rst
+index 31c5ba5ebd04..578c6f3d20f3 100644
+--- a/Documentation/media/uapi/v4l/crop.rst
++++ b/Documentation/media/uapi/v4l/crop.rst
+@@ -53,8 +53,8 @@ Cropping Structures
+ 
+ .. _crop-scale:
+ 
+-.. figure::  crop.*
+-    :alt:    crop.pdf / crop.png
++.. figure::  crop.png
++    :alt:    crop.png
+     :align:  center
+ 
+     Image Cropping, Insertion and Scaling
+diff --git a/Documentation/media/uapi/v4l/dev-raw-vbi.rst b/Documentation/media/uapi/v4l/dev-raw-vbi.rst
+index fb4d9c4098a0..f81d906137ee 100644
+--- a/Documentation/media/uapi/v4l/dev-raw-vbi.rst
++++ b/Documentation/media/uapi/v4l/dev-raw-vbi.rst
+@@ -221,8 +221,8 @@ and always returns default parameters as :ref:`VIDIOC_G_FMT <VIDIOC_G_FMT>` does
+ 
+ .. _vbi-hsync:
+ 
+-.. figure::  vbi_hsync.*
+-    :alt:    vbi_hsync.pdf / vbi_hsync.png
++.. figure::  vbi_hsync.png
++    :alt:    vbi_hsync.png
+     :align:  center
+ 
+     **Figure 4.1. Line synchronization**
+@@ -230,8 +230,8 @@ and always returns default parameters as :ref:`VIDIOC_G_FMT <VIDIOC_G_FMT>` does
+ 
+ .. _vbi-525:
+ 
+-.. figure::  vbi_525.*
+-    :alt:    vbi_525.pdf / vbi_525.png
++.. figure::  vbi_525.png
++    :alt:    vbi_525.png
+     :align:  center
+ 
+     **Figure 4.2. ITU-R 525 line numbering (M/NTSC and M/PAL)**
+@@ -240,8 +240,8 @@ and always returns default parameters as :ref:`VIDIOC_G_FMT <VIDIOC_G_FMT>` does
+ 
+ .. _vbi-625:
+ 
+-.. figure::  vbi_625.*
+-    :alt:    vbi_625.pdf / vbi_625.png
++.. figure::  vbi_625.png
++    :alt:    vbi_625.png
+     :align:  center
+ 
+     **Figure 4.3. ITU-R 625 line numbering**
+diff --git a/Documentation/media/uapi/v4l/dev-subdev.rst b/Documentation/media/uapi/v4l/dev-subdev.rst
+index b515424b3949..c18e9c5427ee 100644
+--- a/Documentation/media/uapi/v4l/dev-subdev.rst
++++ b/Documentation/media/uapi/v4l/dev-subdev.rst
+@@ -99,8 +99,8 @@ the video sensor and the host image processing hardware.
+ 
+ .. _pipeline-scaling:
+ 
+-.. figure::  pipeline.*
+-    :alt:    pipeline.pdf / pipeline.png
++.. figure::  pipeline.png
++    :alt:    pipeline.png
+     :align:  center
+ 
+     Image Format Negotiation on Pipelines
+diff --git a/Documentation/media/uapi/v4l/field-order.rst b/Documentation/media/uapi/v4l/field-order.rst
+index 26c9a6541493..a7e1b4dae343 100644
+--- a/Documentation/media/uapi/v4l/field-order.rst
++++ b/Documentation/media/uapi/v4l/field-order.rst
+@@ -141,8 +141,8 @@ enum v4l2_field
+ Field Order, Top Field First Transmitted
+ ========================================
+ 
+-.. figure::  fieldseq_tb.*
+-    :alt:    fieldseq_tb.pdf / fieldseq_tb.png
++.. figure::  fieldseq_tb.png
++    :alt:    fieldseq_tb.png
+     :align:  center
+ 
+ 
+@@ -151,7 +151,7 @@ Field Order, Top Field First Transmitted
+ Field Order, Bottom Field First Transmitted
+ ===========================================
+ 
+-.. figure::  fieldseq_bt.*
+-    :alt:    fieldseq_bt.pdf / fieldseq_bt.png
++.. figure::  fieldseq_bt.png
++    :alt:    fieldseq_bt.png
+     :align:  center
+ 
+diff --git a/Documentation/media/uapi/v4l/pixfmt-nv12mt.rst b/Documentation/media/uapi/v4l/pixfmt-nv12mt.rst
+index d088c469f880..c8a77bc79f2f 100644
+--- a/Documentation/media/uapi/v4l/pixfmt-nv12mt.rst
++++ b/Documentation/media/uapi/v4l/pixfmt-nv12mt.rst
+@@ -33,8 +33,8 @@ Layout of macroblocks in memory is presented in the following figure.
+ 
+ .. _nv12mt:
+ 
+-.. figure::  nv12mt.*
+-    :alt:    nv12mt.pdf / nv12mt.png
++.. figure::  nv12mt.png
++    :alt:    nv12mt.png
+     :align:  center
+ 
+     V4L2_PIX_FMT_NV12MT macroblock Z shape memory layout
+@@ -50,8 +50,8 @@ interleaved. Height of the buffer is aligned to 32.
+ 
+ .. _nv12mt_ex:
+ 
+-.. figure::  nv12mt_example.*
+-    :alt:    nv12mt_example.pdf / nv12mt_example.png
++.. figure::  nv12mt_example.png
++    :alt:    nv12mt_example.png
+     :align:  center
+ 
+     Example V4L2_PIX_FMT_NV12MT memory layout of macroblocks
+diff --git a/Documentation/media/uapi/v4l/selection-api-003.rst b/Documentation/media/uapi/v4l/selection-api-003.rst
+index c76e2332116b..207349c17ead 100644
+--- a/Documentation/media/uapi/v4l/selection-api-003.rst
++++ b/Documentation/media/uapi/v4l/selection-api-003.rst
+@@ -7,8 +7,8 @@ Selection targets
+ 
+ .. _sel-targets-capture:
+ 
+-.. figure::  selection.*
+-    :alt:    selection.pdf / selection.png
++.. figure::  selection.png
++    :alt:    selection.png
+     :align:  center
+ 
+     Cropping and composing targets
+diff --git a/Documentation/media/uapi/v4l/subdev-formats.rst b/Documentation/media/uapi/v4l/subdev-formats.rst
+index 5053e284265d..2f9c135dfadd 100644
+--- a/Documentation/media/uapi/v4l/subdev-formats.rst
++++ b/Documentation/media/uapi/v4l/subdev-formats.rst
+@@ -1514,8 +1514,8 @@ be named ``MEDIA_BUS_FMT_SRGGB10_2X8_PADHI_LE``.
+ 
+ .. _bayer-patterns:
+ 
+-.. figure::  bayer.*
+-    :alt:    bayer.pdf / bayer.png
++.. figure::  bayer.png
++    :alt:    bayer.png
+     :align:  center
+ 
+     **Figure 4.8 Bayer Patterns**
