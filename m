@@ -1,32 +1,31 @@
-Return-Path: <linus971@gmail.com>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D11578A6
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1B5E2BD3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 17 Nov 2016 16:04:39 +0000 (UTC)
-Received: from mail-it0-f68.google.com (mail-it0-f68.google.com
-	[209.85.214.68])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DDE37347
+	Thu, 17 Nov 2016 16:25:45 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 76CF719A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 17 Nov 2016 16:04:38 +0000 (UTC)
-Received: by mail-it0-f68.google.com with SMTP id n68so16064455itn.3
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 17 Nov 2016 08:04:38 -0800 (PST)
-MIME-Version: 1.0
-Sender: linus971@gmail.com
-In-Reply-To: <CA+55aFyFrhRefTuRvE2rjrp6d4+wuBmKfT_+a65i0-4tpxa46w@mail.gmail.com>
-References: <20161107075524.49d83697@vento.lan> <11020459.EheIgy38UF@wuerfel>
-	<20161116182633.74559ffd@vento.lan> <2923918.nyphv1Ma7d@wuerfel>
-	<CA+55aFyFrhRefTuRvE2rjrp6d4+wuBmKfT_+a65i0-4tpxa46w@mail.gmail.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Thu, 17 Nov 2016 08:04:37 -0800
-Message-ID: <CA+55aFw6s_1iGjNqf+t1XJ-d0RKNzacLery+JoQk-9_dmnosew@mail.gmail.com>
-To: Arnd Bergmann <arnd@arndb.de>
-Content-Type: text/plain; charset=UTF-8
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	"open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Media Mailing List <linux-media@vger.kernel.org>
+	Thu, 17 Nov 2016 16:25:44 +0000 (UTC)
+Message-ID: <1479399938.4225.28.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Mauro Carvalho Chehab <mchehab@infradead.org>, Theodore Ts'o
+	<tytso@mit.edu>
+Date: Thu, 17 Nov 2016 11:25:38 -0500
+In-Reply-To: <20161117131651.467943e0@vento.lan>
+References: <20161107075524.49d83697@vento.lan>
+	<11020459.EheIgy38UF@wuerfel> <20161116182633.74559ffd@vento.lan>
+	<2923918.nyphv1Ma7d@wuerfel>
+	<20161117145244.sksssz6jvnntsw5u@thunk.org>
+	<20161117131651.467943e0@vento.lan>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Cc: linux-media@vger.kernel.org, Linus Torvalds <torvalds@linux-foundation.org>,
+	linux-kernel@vger.kernel.org, ksummit-discuss@lists.linuxfoundation.org,
+	linux-doc@vger.kernel.org
 Subject: Re: [Ksummit-discuss] Including images on Sphinx documents
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -37,16 +36,66 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Nov 17, 2016 at 8:02 AM, Linus Torvalds
-<torvalds@linux-foundation.org> wrote:
->
-> No. That is how I *noticed* the issue. Those stupid pdf binary files
-> have been around forever, I just didn't notice until the Fedora people
-> started complaining about the patches.
+On Thu, 2016-11-17 at 13:16 -0200, Mauro Carvalho Chehab wrote:
+> Hi Ted,
+> 
+> Em Thu, 17 Nov 2016 09:52:44 -0500
+> Theodore Ts'o <tytso@mit.edu> escreveu:
+> 
+> > On Thu, Nov 17, 2016 at 12:07:15PM +0100, Arnd Bergmann wrote:
+> > > [adding Linus for clarification]
+> > > 
+> > > I understood the concern as being about binary files that you
+> > > cannot
+> > > modify with classic 'patch', which is a separate issue.  
+> > 
+> > I think the other complaint is that the image files aren't "source"
+> > in
+> > the proper term, since they are *not* the preferred form for
+> > modification --- that's the svg files.  Beyond the license
+> > compliance
+> > issues (which are satisified because the .svg files are included in
+> > the git tree), there is the SCM cleaniless argument of not
+> > including
+> > generated files in the distribution, since this increases the
+> > opportunites for the "real" source file and the generated source
+> > file
+> > to get out of sync.  (As just one example, if the patch can't
+> > represent the change to binary file.)
+> > 
+> > I do check in generated files on occasion --- usually because I
+> > don't
+> > trust autoconf to be a stable in terms of generating a correct
+> > configure file from a configure.in across different versions of
+> > autoconf and different macro libraries that might be installed on
+> > the
+> > system.  So this isn't a hard and fast rule by any means (although
+> > Linus may be more strict than I on that issue).
+> > 
+> > I don't understand why it's so terrible to have generate the image
+> > file from the .svg file in a Makefile rule, and then copy it
+> > somewhere
+> > else if Sphinx is too dumb to fetch it from the normal location?
+> 
+> The images whose source are in .svg are now generated via Makefile
+> for the PDF output (after my patches, already applied to the docs
+> -next
+> tree).
+> 
+> So, the problem that remains is for those images whose source
+> is a bitmap. If we want to stick with the Sphinx supported formats,
+> we have only two options for bitmaps: jpg or png. We could eventually
+> use uuencode or base64 to make sure that the patches won't use
+> git binary diff extension, or, as Arnd proposed, use a portable
+> bitmap format, in ascii, converting via Makefile, but losing
+> the alpha channel with makes the background transparent.
 
-Side note: my release patches these days enable both "--binary" and
-"-M", so they require "git apply" now. So we handle the binaries fine
-in patches now, but as mentioned, that was just what made me notice,
-it wasn't a fix for the deeper ("source") problem.
+If it can use svg, why not use that?  SVG files can be a simple xml
+wrapper around a wide variety of graphic image formats which are
+embedded in the svg using the data-uri format, you know ...
 
-                   Linus
+Anything that handles SVGs should be able to handle all the embeddable
+image formats, which should give you a way around image restrictions
+whatever it is would otherwise have.
+
+James
