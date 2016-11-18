@@ -1,31 +1,28 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <jani.nikula@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1B5E2BD3
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3AE86898
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 17 Nov 2016 16:25:45 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 76CF719A
+	Fri, 18 Nov 2016 09:15:14 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B75248B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 17 Nov 2016 16:25:44 +0000 (UTC)
-Message-ID: <1479399938.4225.28.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Mauro Carvalho Chehab <mchehab@infradead.org>, Theodore Ts'o
-	<tytso@mit.edu>
-Date: Thu, 17 Nov 2016 11:25:38 -0500
-In-Reply-To: <20161117131651.467943e0@vento.lan>
-References: <20161107075524.49d83697@vento.lan>
-	<11020459.EheIgy38UF@wuerfel> <20161116182633.74559ffd@vento.lan>
-	<2923918.nyphv1Ma7d@wuerfel>
-	<20161117145244.sksssz6jvnntsw5u@thunk.org>
-	<20161117131651.467943e0@vento.lan>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: linux-media@vger.kernel.org, Linus Torvalds <torvalds@linux-foundation.org>,
-	linux-kernel@vger.kernel.org, ksummit-discuss@lists.linuxfoundation.org,
-	linux-doc@vger.kernel.org
+	Fri, 18 Nov 2016 09:15:13 +0000 (UTC)
+From: Jani Nikula <jani.nikula@intel.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+	Arnd Bergmann <arnd@arndb.de>
+In-Reply-To: <CA+55aFyFrhRefTuRvE2rjrp6d4+wuBmKfT_+a65i0-4tpxa46w@mail.gmail.com>
+References: <20161107075524.49d83697@vento.lan> <11020459.EheIgy38UF@wuerfel>
+	<20161116182633.74559ffd@vento.lan> <2923918.nyphv1Ma7d@wuerfel>
+	<CA+55aFyFrhRefTuRvE2rjrp6d4+wuBmKfT_+a65i0-4tpxa46w@mail.gmail.com>
+Date: Fri, 18 Nov 2016 11:15:09 +0200
+Message-ID: <87y40hxi76.fsf@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain
+Cc: Linux Media Mailing List <linux-media@vger.kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	"open list:DOCUMENTATION" <linux-doc@vger.kernel.org>
 Subject: Re: [Ksummit-discuss] Including images on Sphinx documents
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -36,66 +33,31 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, 2016-11-17 at 13:16 -0200, Mauro Carvalho Chehab wrote:
-> Hi Ted,
-> 
-> Em Thu, 17 Nov 2016 09:52:44 -0500
-> Theodore Ts'o <tytso@mit.edu> escreveu:
-> 
-> > On Thu, Nov 17, 2016 at 12:07:15PM +0100, Arnd Bergmann wrote:
-> > > [adding Linus for clarification]
-> > > 
-> > > I understood the concern as being about binary files that you
-> > > cannot
-> > > modify with classic 'patch', which is a separate issue.  
-> > 
-> > I think the other complaint is that the image files aren't "source"
-> > in
-> > the proper term, since they are *not* the preferred form for
-> > modification --- that's the svg files.  Beyond the license
-> > compliance
-> > issues (which are satisified because the .svg files are included in
-> > the git tree), there is the SCM cleaniless argument of not
-> > including
-> > generated files in the distribution, since this increases the
-> > opportunites for the "real" source file and the generated source
-> > file
-> > to get out of sync.  (As just one example, if the patch can't
-> > represent the change to binary file.)
-> > 
-> > I do check in generated files on occasion --- usually because I
-> > don't
-> > trust autoconf to be a stable in terms of generating a correct
-> > configure file from a configure.in across different versions of
-> > autoconf and different macro libraries that might be installed on
-> > the
-> > system.  So this isn't a hard and fast rule by any means (although
-> > Linus may be more strict than I on that issue).
-> > 
-> > I don't understand why it's so terrible to have generate the image
-> > file from the .svg file in a Makefile rule, and then copy it
-> > somewhere
-> > else if Sphinx is too dumb to fetch it from the normal location?
-> 
-> The images whose source are in .svg are now generated via Makefile
-> for the PDF output (after my patches, already applied to the docs
-> -next
-> tree).
-> 
-> So, the problem that remains is for those images whose source
-> is a bitmap. If we want to stick with the Sphinx supported formats,
-> we have only two options for bitmaps: jpg or png. We could eventually
-> use uuencode or base64 to make sure that the patches won't use
-> git binary diff extension, or, as Arnd proposed, use a portable
-> bitmap format, in ascii, converting via Makefile, but losing
-> the alpha channel with makes the background transparent.
+On Thu, 17 Nov 2016, Linus Torvalds <torvalds@linux-foundation.org> wrote:
+> We have makefiles, but more importantly, few enough people actually
+> *generate* the documentation, that I think if it's an option to just
+> fix sphinx, we should do that instead. If it means that you have to
+> have some development version of sphinx, so be it. Most people read
+> the documentation either directly in the unprocessed text-files
+> ("source code") or on the web (by searching for pre-formatted docs)
+> that I really don't think we need to worry too much about the
+> toolchain.
 
-If it can use svg, why not use that?  SVG files can be a simple xml
-wrapper around a wide variety of graphic image formats which are
-embedded in the svg using the data-uri format, you know ...
+My secret plan was to make building documentation easy, and then trick
+more people into actually doing that on a regular basis, to ensure we
+keep the build working and the output sensible in a variety of
+environments. Sure we have a bunch of people doing this, and we have
+0day doing this, but I'd hate it if it became laborous and fiddly to set
+up the toolchain to generate documentation.
 
-Anything that handles SVGs should be able to handle all the embeddable
-image formats, which should give you a way around image restrictions
-whatever it is would otherwise have.
+So I'm not necessarily disagreeing with anything you say, but I think
+there's value in having a low bar for entry (from the toolchain POV) for
+people interested in working with documentation, whether they're
+seasoned kernel developers or newcomers purely interested in
+documentation.
 
-James
+BR,
+Jani.
+
+-- 
+Jani Nikula, Intel Open Source Technology Center
