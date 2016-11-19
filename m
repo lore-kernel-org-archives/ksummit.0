@@ -1,34 +1,28 @@
-Return-Path: <daniel@ffwll.ch>
+Return-Path: <corbet@lwn.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 55237414
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 621A8258
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 18 Nov 2016 10:23:18 +0000 (UTC)
-Received: from mail-wm0-f65.google.com (mail-wm0-f65.google.com [74.125.82.65])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9AC8912F
+	Sat, 19 Nov 2016 17:21:15 +0000 (UTC)
+Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DE15912F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 18 Nov 2016 10:23:17 +0000 (UTC)
-Received: by mail-wm0-f65.google.com with SMTP id g23so4653922wme.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 18 Nov 2016 02:23:17 -0800 (PST)
-Sender: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Fri, 18 Nov 2016 11:23:12 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Jani Nikula <jani.nikula@intel.com>
-Message-ID: <20161118102312.45boaus2eobz5gs6@phenom.ffwll.local>
+	Sat, 19 Nov 2016 17:21:14 +0000 (UTC)
+Date: Sat, 19 Nov 2016 10:15:43 -0700
+From: Jonathan Corbet <corbet@lwn.net>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Message-ID: <20161119101543.12b89563@lwn.net>
+In-Reply-To: <CA+55aFyFrhRefTuRvE2rjrp6d4+wuBmKfT_+a65i0-4tpxa46w@mail.gmail.com>
 References: <20161107075524.49d83697@vento.lan> <11020459.EheIgy38UF@wuerfel>
 	<20161116182633.74559ffd@vento.lan> <2923918.nyphv1Ma7d@wuerfel>
 	<CA+55aFyFrhRefTuRvE2rjrp6d4+wuBmKfT_+a65i0-4tpxa46w@mail.gmail.com>
-	<87y40hxi76.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87y40hxi76.fsf@intel.com>
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	"open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Linux Media Mailing List <linux-media@vger.kernel.org>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Media Mailing List <linux-media@vger.kernel.org>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	"open list:DOCUMENTATION" <linux-doc@vger.kernel.org>
 Subject: Re: [Ksummit-discuss] Including images on Sphinx documents
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -39,39 +33,45 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Nov 18, 2016 at 11:15:09AM +0200, Jani Nikula wrote:
-> On Thu, 17 Nov 2016, Linus Torvalds <torvalds@linux-foundation.org> wrote:
-> > We have makefiles, but more importantly, few enough people actually
-> > *generate* the documentation, that I think if it's an option to just
-> > fix sphinx, we should do that instead. If it means that you have to
-> > have some development version of sphinx, so be it. Most people read
-> > the documentation either directly in the unprocessed text-files
-> > ("source code") or on the web (by searching for pre-formatted docs)
-> > that I really don't think we need to worry too much about the
-> > toolchain.
-> 
-> My secret plan was to make building documentation easy, and then trick
-> more people into actually doing that on a regular basis, to ensure we
-> keep the build working and the output sensible in a variety of
-> environments. Sure we have a bunch of people doing this, and we have
-> 0day doing this, but I'd hate it if it became laborous and fiddly to set
-> up the toolchain to generate documentation.
-> 
-> So I'm not necessarily disagreeing with anything you say, but I think
-> there's value in having a low bar for entry (from the toolchain POV) for
-> people interested in working with documentation, whether they're
-> seasoned kernel developers or newcomers purely interested in
-> documentation.
+On Thu, 17 Nov 2016 08:02:50 -0800
+Linus Torvalds <torvalds@linux-foundation.org> wrote:
 
-Yeah, I want a low bar for doc building too. The initial hack fest we had
-to add cross-linking and other dearly needed stuff increased the build
-time so much that everyone stopped creating docs. It's of course not as
-extreme, but stating that "no one runs the doc toolchain" is imo akin to
-"no one runs gcc, developers just read the source and users install rpms".
-It's totally true, until you try to change stuff, then you have to be able
-to build that pile fast and with an easily-obtained toolchain.
--Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+> We have makefiles, but more importantly, few enough people actually
+> *generate* the documentation, that I think if it's an option to just
+> fix sphinx, we should do that instead. If it means that you have to
+> have some development version of sphinx, so be it. Most people read
+> the documentation either directly in the unprocessed text-files
+> ("source code") or on the web (by searching for pre-formatted docs)
+> that I really don't think we need to worry too much about the
+> toolchain.
+> 
+> But what we *should* worry about is having the kernel source tree
+> contain source.
+
+I would be happy to take a shot at fixing sphinx; we clearly need to
+engage more with sphinx upstream in general.  But I guess I still haven't
+figured out what "fixing sphinx" means in this case.
+
+I don't know what the ultimate source of these images is (Mauro, perhaps
+you could shed some light there?).  Perhaps its SVG for some of the
+diagrams, but for the raster images, probably not; it's probably some
+weird-ass diagram-editor format.  We could put those in the tree, but
+they are likely to be harder to convert to a useful format and will raise
+all of the same obnoxious binary patch issues.
+
+Rather than beating our heads against the wall trying to convert between
+various image formats, maybe we need to take a step back.  We're trying
+to build better documentation, and there is certainly a place for
+diagrams and such in that documentation.  Johannes was asking about it
+for the 802.11 docs, and I know Paul has run into these issues with the
+RCU docs as well.  Might there be a tool or an extension out there that
+would allow us to express these diagrams in a text-friendly, editable
+form?
+
+With some effort, I bet we could get rid of a number of the images, and
+perhaps end up with something that makes sense when read in the .rst
+source files as an extra benefit.  But I'm not convinced that we can,
+say, sensibly express the differences between different video interlacing
+schemes that way.
+
+jon
