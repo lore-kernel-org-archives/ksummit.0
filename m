@@ -1,30 +1,34 @@
-Return-Path: <andrew@lunn.ch>
+Return-Path: <linus971@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 20D8F483
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6013F71F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 19 Nov 2016 18:10:18 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [178.209.37.122])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 43365136
+	Sat, 19 Nov 2016 18:45:28 +0000 (UTC)
+Received: from mail-oi0-f65.google.com (mail-oi0-f65.google.com
+	[209.85.218.65])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C5B5E15C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 19 Nov 2016 18:10:17 +0000 (UTC)
-Date: Sat, 19 Nov 2016 18:38:46 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Jonathan Corbet <corbet@lwn.net>
-Message-ID: <20161119173846.GB25398@lunn.ch>
+	Sat, 19 Nov 2016 18:45:27 +0000 (UTC)
+Received: by mail-oi0-f65.google.com with SMTP id 128so16265900oih.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sat, 19 Nov 2016 10:45:27 -0800 (PST)
+MIME-Version: 1.0
+Sender: linus971@gmail.com
+In-Reply-To: <1479578112.4382.15.camel@infradead.org>
 References: <20161107075524.49d83697@vento.lan> <11020459.EheIgy38UF@wuerfel>
 	<20161116182633.74559ffd@vento.lan> <2923918.nyphv1Ma7d@wuerfel>
 	<CA+55aFyFrhRefTuRvE2rjrp6d4+wuBmKfT_+a65i0-4tpxa46w@mail.gmail.com>
 	<20161119101543.12b89563@lwn.net>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20161119101543.12b89563@lwn.net>
-Cc: "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
+	<1479578112.4382.15.camel@infradead.org>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Sat, 19 Nov 2016 10:45:26 -0800
+Message-ID: <CA+55aFy1r1ZDZjADvpKULC2sgAnSq4qM4W+_PP4Q2R5RG92LoQ@mail.gmail.com>
+To: David Woodhouse <dwmw2@infradead.org>
+Content-Type: text/plain; charset=UTF-8
+Cc: Linux Media Mailing List <linux-media@vger.kernel.org>,
+	"open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
 	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	Linux Media Mailing List <linux-media@vger.kernel.org>
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] Including images on Sphinx documents
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -35,31 +39,24 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-> Rather than beating our heads against the wall trying to convert between
-> various image formats, maybe we need to take a step back.  We're trying
-> to build better documentation, and there is certainly a place for
-> diagrams and such in that documentation.  Johannes was asking about it
-> for the 802.11 docs, and I know Paul has run into these issues with the
-> RCU docs as well.  Might there be a tool or an extension out there that
-> would allow us to express these diagrams in a text-friendly, editable
-> form?
+On Sat, Nov 19, 2016 at 9:55 AM, David Woodhouse <dwmw2@infradead.org> wrote:
+>
+> I know it's unfashionable these days, but TeX always used to be bloody
+> good at that kind of thing.
 
-Hi Jonathan
+You must have used a different TeX than I did.
 
-A lot depends on what the diagram is supposed to show. I've used
-graphviz dot in documents which get processes with Sphinx. That works
-well for state machine, linked lists, etc. It uses a mainline Sphinx
-extension.
+TeX is a horrible example. The moment you needed to insert anything
+that TeX didn't know about, you were screwed.
 
-It does however increase the size of your documents toolchain, you
-need graphviz. But i doubt there is a distribution which does not have
-it.
+I think my go-to for TeX was LaTeX, the "epsfig" thing, and then xfig
+and eps files (using fig2dev). Christ, I get flashbacks just thinking
+about it.
 
-If you are worried about getting all these needed tools installed, i
-think tools/perf might be a useful guide. When you compile it, it
-gives helpful hints:
+I thought one of the points of Sphinx was to not have to play those games.
 
-No libdw DWARF unwind found, Please install elfutils-devel/libdw-dev >= 0.158
-No sys/sdt.h found, no SDT events are defined, please install systemtap-sdt-devel or systemtap-sdt-dev
+I think that graphviz and svg are the reasonable modern formats. Let's
+try to avoid bitmaps in today's world, except perhaps as intermediate
+generated things for what we can't avoid.
 
-     Andrew
+                    Linus
