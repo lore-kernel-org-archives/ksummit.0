@@ -1,29 +1,26 @@
 Return-Path: <mchehab@osg.samsung.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 010EE40D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5C8F840A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
 	Sun, 20 Nov 2016 16:08:54 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 947291A8
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9BE351AA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
 	Sun, 20 Nov 2016 16:08:52 +0000 (UTC)
 From: Mauro Carvalho Chehab <mchehab@s-opensource.com>
 To: Linux Doc Mailing List <linux-doc@vger.kernel.org>,
 	"Jonathan Corbet" <corbet@lwn.net>
-Date: Sun, 20 Nov 2016 14:08:38 -0200
-Message-Id: <a9dad6e64675a0739e7fc7fe2c17f55fc41a90bb.1479656706.git.mchehab@s-opensource.com>
-In-Reply-To: <cover.1479656706.git.mchehab@s-opensource.com>
-References: <cover.1479656706.git.mchehab@s-opensource.com>
-In-Reply-To: <cover.1479656706.git.mchehab@s-opensource.com>
-References: <cover.1479656706.git.mchehab@s-opensource.com>
+Date: Sun, 20 Nov 2016 14:08:31 -0200
+Message-Id: <cover.1479656706.git.mchehab@s-opensource.com>
 Sender: Mauro Carvalho Chehab <mchehab@osg.samsung.com>
-Cc: Mauro Carvalho Chehab <mchehab@s-opensource.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
+Cc: Markus Heiser <markus.heiser@darmarIT.de>,
+	ksummit-discuss@lists.linuxfoundation.org,
 	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: [Ksummit-discuss] [PATCH 7/9] docs-rst: media: build SVG from
-	graphviz files
+	Mauro Carvalho Chehab <mchehab@s-opensource.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Subject: [Ksummit-discuss] [PATCH 0/9] Get rid of bitmap images
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,150 +30,104 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Instead of keeping both SVG and graphviz files, dynamically
-build SVG from its graphviz sources.
+The goal of this patch series is to get rid of PNG images, using either graphviz
+or SVG for images.
 
-Signed-off-by: Mauro Carvalho Chehab <mchehab@s-opensource.com>
----
- Documentation/media/Makefile              | 20 ++++++---
- Documentation/media/uapi/v4l/pipeline.svg | 68 -------------------------------
- 2 files changed, 14 insertions(+), 74 deletions(-)
- delete mode 100644 Documentation/media/uapi/v4l/pipeline.svg
+For old images generated with xfig, stored inside PDF, just convert them to SVG
+and cleanup the images using inkscape.
 
-diff --git a/Documentation/media/Makefile b/Documentation/media/Makefile
-index 998e8dd49352..547b4105f826 100644
---- a/Documentation/media/Makefile
-+++ b/Documentation/media/Makefile
-@@ -10,6 +10,9 @@ FILES = audio.h.rst ca.h.rst dmx.h.rst frontend.h.rst net.h.rst video.h.rst \
- 
- TARGETS := $(addprefix $(BUILDDIR)/, $(FILES))
- 
-+DOTS = \
-+	uapi/v4l/pipeline.dot \
-+
- IMAGES = \
- 	typical_media_device.svg \
- 	uapi/dvb/dvbstb.svg \
-@@ -29,8 +32,10 @@ IMAGES = \
- 	uapi/v4l/vbi_625.svg \
- 	uapi/v4l/vbi_hsync.svg \
- 
-+DOTTGT := $(patsubst %.dot,%.svg,$(DOTS))
-+IMGDOT := $(patsubst %,$(SRC_DIR)/%,$(DOTTGT))
- 
--IMGTGT := $(patsubst %.png,%.pdf,$(patsubst %.svg,%.pdf,$(IMAGES)))
-+IMGTGT := $(patsubst %.svg,%.pdf,$(IMAGES))
- IMGPDF := $(patsubst %,$(SRC_DIR)/%,$(IMGTGT))
- 
- cmd = $(echo-cmd) $(cmd_$(1))
-@@ -38,19 +43,25 @@ cmd = $(echo-cmd) $(cmd_$(1))
- quiet_cmd_genpdf = GENPDF  $2
-       cmd_genpdf = convert $2 $3
- 
-+quiet_cmd_gendot = DOT     $2
-+      cmd_gendot = dot -Tsvg $2 > $3
-+
- %.pdf: %.svg
- 	@$(call cmd,genpdf,$<,$@)
- 
-+%.svg: %.dot
-+	@$(call cmd,gendot,$<,$@)
-+
- .PHONY: all html epub xml latex
- 
--all: $(BUILDDIR) ${TARGETS}
-+all: $(IMGDOT) $(BUILDDIR) ${TARGETS}
- html: all
- epub: all
- xml: all
- latex: $(IMGPDF) all
- 
- clean:
--	-rm -f $(IMGTGT) 2>/dev/null
-+	-rm -f $(DOTTGT) $(IMGTGT) $(patsubst %,$(SRC_DIR)/%,${TARGETS}) 2>/dev/null
- 
- $(BUILDDIR):
- 	$(Q)mkdir -p $@
-@@ -95,6 +106,3 @@ $(BUILDDIR)/cec.h.rst: ${KAPI}/cec.h ${PARSER} $(SRC_DIR)/cec.h.rst.exceptions
- 
- $(BUILDDIR)/lirc.h.rst: ${UAPI}/lirc.h ${PARSER} $(SRC_DIR)/lirc.h.rst.exceptions
- 	@$($(quiet)gen_rst)
--
--cleandocs:
--	-rm -f ${TARGETS}
-diff --git a/Documentation/media/uapi/v4l/pipeline.svg b/Documentation/media/uapi/v4l/pipeline.svg
-deleted file mode 100644
-index 70f4c1b23ca1..000000000000
---- a/Documentation/media/uapi/v4l/pipeline.svg
-+++ /dev/null
-@@ -1,68 +0,0 @@
--<?xml version="1.0" encoding="UTF-8" standalone="no"?>
--<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
-- "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
--<!-- Generated by graphviz version 2.38.0 (20140413.2041)
-- -->
--<!-- Title: board Pages: 1 -->
--<svg width="317pt" height="358pt"
-- viewBox="0.00 0.00 317.00 358.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
--<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 354)">
--<title>board</title>
--<polygon fill="white" stroke="none" points="-4,4 -4,-354 313,-354 313,4 -4,4"/>
--<!-- scaler -->
--<g id="node1" class="node"><title>scaler</title>
--<path fill="lightblue" stroke="black" d="M154,-103.5C154,-103.5 226,-103.5 226,-103.5 232,-103.5 238,-109.5 238,-115.5 238,-115.5 238,-129.5 238,-129.5 238,-135.5 232,-141.5 226,-141.5 226,-141.5 154,-141.5 154,-141.5 148,-141.5 142,-135.5 142,-129.5 142,-129.5 142,-115.5 142,-115.5 142,-109.5 148,-103.5 154,-103.5"/>
--<text text-anchor="middle" x="153.5" y="-118.8" font-family="Times,serif" font-size="14.00">0</text>
--<polyline fill="none" stroke="black" points="165,-103.5 165,-141.5 "/>
--<text text-anchor="middle" x="190" y="-126.3" font-family="Times,serif" font-size="14.00">Host</text>
--<text text-anchor="middle" x="190" y="-111.3" font-family="Times,serif" font-size="14.00">Scaler</text>
--<polyline fill="none" stroke="black" points="215,-103.5 215,-141.5 "/>
--<text text-anchor="middle" x="226.5" y="-118.8" font-family="Times,serif" font-size="14.00">1</text>
--</g>
--<!-- io -->
--<g id="node4" class="node"><title>io</title>
--<path fill="aquamarine" stroke="black" d="M228,-0.5C228,-0.5 290,-0.5 290,-0.5 296,-0.5 302,-6.5 302,-12.5 302,-12.5 302,-24.5 302,-24.5 302,-30.5 296,-36.5 290,-36.5 290,-36.5 228,-36.5 228,-36.5 222,-36.5 216,-30.5 216,-24.5 216,-24.5 216,-12.5 216,-12.5 216,-6.5 222,-0.5 228,-0.5"/>
--<text text-anchor="middle" x="227.5" y="-14.8" font-family="Times,serif" font-size="14.00">0</text>
--<polyline fill="none" stroke="black" points="239,-0.5 239,-36.5 "/>
--<text text-anchor="middle" x="270.5" y="-14.8" font-family="Times,serif" font-size="14.00">V4L I/O</text>
--</g>
--<!-- scaler&#45;&gt;io -->
--<g id="edge3" class="edge"><title>scaler:scaler_1&#45;&gt;io:io_0</title>
--<path fill="none" stroke="blue" d="M227,-103C227,-77.3333 227,-68.5104 227,-47.0547"/>
--<polygon fill="blue" stroke="blue" points="230.5,-47 227,-37 223.5,-47 230.5,-47"/>
--<text text-anchor="middle" x="268" y="-73.8" font-family="Times,serif" font-size="14.00">HQ: 1280x720</text>
--<text text-anchor="middle" x="268" y="-58.8" font-family="Times,serif" font-size="14.00">HS: 1280x720</text>
--</g>
--<!-- frontend -->
--<g id="node2" class="node"><title>frontend</title>
--<path fill="lightblue" stroke="black" d="M65.5,-208.5C65.5,-208.5 152.5,-208.5 152.5,-208.5 158.5,-208.5 164.5,-214.5 164.5,-220.5 164.5,-220.5 164.5,-234.5 164.5,-234.5 164.5,-240.5 158.5,-246.5 152.5,-246.5 152.5,-246.5 65.5,-246.5 65.5,-246.5 59.5,-246.5 53.5,-240.5 53.5,-234.5 53.5,-234.5 53.5,-220.5 53.5,-220.5 53.5,-214.5 59.5,-208.5 65.5,-208.5"/>
--<text text-anchor="middle" x="65" y="-223.8" font-family="Times,serif" font-size="14.00">0</text>
--<polyline fill="none" stroke="black" points="76.5,-208.5 76.5,-246.5 "/>
--<text text-anchor="middle" x="109" y="-231.3" font-family="Times,serif" font-size="14.00">Host</text>
--<text text-anchor="middle" x="109" y="-216.3" font-family="Times,serif" font-size="14.00">Frontend</text>
--<polyline fill="none" stroke="black" points="141.5,-208.5 141.5,-246.5 "/>
--<text text-anchor="middle" x="153" y="-223.8" font-family="Times,serif" font-size="14.00">1</text>
--</g>
--<!-- frontend&#45;&gt;scaler -->
--<g id="edge2" class="edge"><title>frontend:frontend_1&#45;&gt;scaler:scaler_0</title>
--<path fill="none" stroke="blue" d="M153,-208C153,-182.333 153,-173.51 153,-152.055"/>
--<polygon fill="blue" stroke="blue" points="156.5,-152 153,-142 149.5,-152 156.5,-152"/>
--<text text-anchor="middle" x="197" y="-178.8" font-family="Times,serif" font-size="14.00">HQ: 2592x1968</text>
--<text text-anchor="middle" x="197" y="-163.8" font-family="Times,serif" font-size="14.00">HS: 1296x984</text>
--</g>
--<!-- sensor -->
--<g id="node3" class="node"><title>sensor</title>
--<path fill="aquamarine" stroke="black" d="M12,-313.5C12,-313.5 64,-313.5 64,-313.5 70,-313.5 76,-319.5 76,-325.5 76,-325.5 76,-337.5 76,-337.5 76,-343.5 70,-349.5 64,-349.5 64,-349.5 12,-349.5 12,-349.5 6,-349.5 0,-343.5 0,-337.5 0,-337.5 0,-325.5 0,-325.5 0,-319.5 6,-313.5 12,-313.5"/>
--<text text-anchor="middle" x="26.5" y="-327.8" font-family="Times,serif" font-size="14.00">Sensor</text>
--<polyline fill="none" stroke="black" points="53,-313.5 53,-349.5 "/>
--<text text-anchor="middle" x="64.5" y="-327.8" font-family="Times,serif" font-size="14.00">0</text>
--</g>
--<!-- sensor&#45;&gt;frontend -->
--<g id="edge1" class="edge"><title>sensor:sensor_0&#45;&gt;frontend:frontend_0</title>
--<path fill="none" stroke="blue" d="M65,-313C65,-287.333 65,-278.51 65,-257.055"/>
--<polygon fill="blue" stroke="blue" points="68.5001,-257 65,-247 61.5001,-257 68.5001,-257"/>
--<text text-anchor="middle" x="109" y="-283.8" font-family="Times,serif" font-size="14.00">HQ: 2592x1968</text>
--<text text-anchor="middle" x="109" y="-268.8" font-family="Times,serif" font-size="14.00">HS: 1296x984</text>
--</g>
--</g>
--</svg>
+Other images need to be rewritten in SVG.
+
+The pipeline image is actually a graphviz diagram. So, use dot to convert it
+to SVG.
+
+For now, I'm keeping the image conversion rules inside the
+Documentation/media/Makefile. As we get other docs using images,
+the best would be to move those rules to Documentation/Makefile.sphinx,
+while we don't have a Sphinx extension or fixup that would handle them
+directly.
+
+NOTE: some images use more than 998 columns, causing troubles
+with some MTA and MUA that could refuse them, because of an IETF
+RFC 2821 violation:
+
+	$ git send-email patches/tmp
+	fatal: patches/tmp/0001-media-convert-more-media-images-to-SVG.patch: 191: patch contains a line longer than 998 characters
+
+Due to that, in case you miss a patch, I'm also storing them
+on my development tree at:
+	https://git.linuxtv.org/mchehab/experimental.git/log/?h=svg-images
+
+It is based on docs-next tree.
+
+Mauro Carvalho Chehab (9):
+  [media] convert more media images to SVG
+  [media] svg files: cleanup them
+  [media] docs-rst: nv12mt zigzag images: replace by SVG images
+  [media] docs-rst: convert pipeline to SVG format
+  [media] docs-rst: replace the selection.png by a SVG image
+  [media] docs-rst: replace bayer.png by a SVG image
+  docs-rst: media: build SVG from graphviz files
+  doc-rst: media/Makefile: reorganize the rules
+  docs-rst: fix media cleandocs target
+
+ Documentation/Makefile.sphinx                      |    2 +-
+ Documentation/media/Makefile                       |   67 +-
+ Documentation/media/uapi/v4l/bayer.png             |  Bin 9725 -> 0 bytes
+ Documentation/media/uapi/v4l/bayer.svg             |  984 ++++
+ Documentation/media/uapi/v4l/crop.png              |  Bin 3334 -> 0 bytes
+ Documentation/media/uapi/v4l/crop.rst              |    4 +-
+ Documentation/media/uapi/v4l/crop.svg              |  281 +
+ Documentation/media/uapi/v4l/dev-raw-vbi.rst       |   12 +-
+ Documentation/media/uapi/v4l/dev-subdev.rst        |    4 +-
+ Documentation/media/uapi/v4l/field-order.rst       |    8 +-
+ Documentation/media/uapi/v4l/fieldseq_bt.png       |  Bin 12306 -> 0 bytes
+ Documentation/media/uapi/v4l/fieldseq_bt.svg       | 2613 +++++++++
+ Documentation/media/uapi/v4l/fieldseq_tb.png       |  Bin 12247 -> 0 bytes
+ Documentation/media/uapi/v4l/fieldseq_tb.svg       | 2607 +++++++++
+ Documentation/media/uapi/v4l/nv12mt.png            |  Bin 1920 -> 0 bytes
+ Documentation/media/uapi/v4l/nv12mt.svg            |  450 ++
+ Documentation/media/uapi/v4l/nv12mt_example.png    |  Bin 5261 -> 0 bytes
+ Documentation/media/uapi/v4l/nv12mt_example.svg    | 1589 ++++++
+ Documentation/media/uapi/v4l/pipeline.dot          |   12 +
+ Documentation/media/uapi/v4l/pipeline.png          |  Bin 12130 -> 0 bytes
+ Documentation/media/uapi/v4l/pixfmt-nv12mt.rst     |    8 +-
+ Documentation/media/uapi/v4l/selection-api-003.rst |    4 +-
+ Documentation/media/uapi/v4l/selection.png         |  Bin 11716 -> 0 bytes
+ Documentation/media/uapi/v4l/selection.svg         | 5812 ++++++++++++++++++++
+ Documentation/media/uapi/v4l/subdev-formats.rst    |    4 +-
+ .../uapi/v4l/subdev-image-processing-crop.svg      |  346 +-
+ .../uapi/v4l/subdev-image-processing-full.svg      |  892 ++-
+ ...ubdev-image-processing-scaling-multi-source.svg |  626 ++-
+ Documentation/media/uapi/v4l/vbi_525.png           |  Bin 2053 -> 0 bytes
+ Documentation/media/uapi/v4l/vbi_525.svg           |  811 +++
+ Documentation/media/uapi/v4l/vbi_625.png           |  Bin 2352 -> 0 bytes
+ Documentation/media/uapi/v4l/vbi_625.svg           |  858 +++
+ Documentation/media/uapi/v4l/vbi_hsync.png         |  Bin 906 -> 0 bytes
+ Documentation/media/uapi/v4l/vbi_hsync.svg         |  313 ++
+ 34 files changed, 17980 insertions(+), 327 deletions(-)
+ delete mode 100644 Documentation/media/uapi/v4l/bayer.png
+ create mode 100644 Documentation/media/uapi/v4l/bayer.svg
+ delete mode 100644 Documentation/media/uapi/v4l/crop.png
+ create mode 100644 Documentation/media/uapi/v4l/crop.svg
+ delete mode 100644 Documentation/media/uapi/v4l/fieldseq_bt.png
+ create mode 100644 Documentation/media/uapi/v4l/fieldseq_bt.svg
+ delete mode 100644 Documentation/media/uapi/v4l/fieldseq_tb.png
+ create mode 100644 Documentation/media/uapi/v4l/fieldseq_tb.svg
+ delete mode 100644 Documentation/media/uapi/v4l/nv12mt.png
+ create mode 100644 Documentation/media/uapi/v4l/nv12mt.svg
+ delete mode 100644 Documentation/media/uapi/v4l/nv12mt_example.png
+ create mode 100644 Documentation/media/uapi/v4l/nv12mt_example.svg
+ create mode 100644 Documentation/media/uapi/v4l/pipeline.dot
+ delete mode 100644 Documentation/media/uapi/v4l/pipeline.png
+ delete mode 100644 Documentation/media/uapi/v4l/selection.png
+ create mode 100644 Documentation/media/uapi/v4l/selection.svg
+ delete mode 100644 Documentation/media/uapi/v4l/vbi_525.png
+ create mode 100644 Documentation/media/uapi/v4l/vbi_525.svg
+ delete mode 100644 Documentation/media/uapi/v4l/vbi_625.png
+ create mode 100644 Documentation/media/uapi/v4l/vbi_625.svg
+ delete mode 100644 Documentation/media/uapi/v4l/vbi_hsync.png
+ create mode 100644 Documentation/media/uapi/v4l/vbi_hsync.svg
+
 -- 
 2.7.4
