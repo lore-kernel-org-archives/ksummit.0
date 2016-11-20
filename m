@@ -1,30 +1,30 @@
 Return-Path: <mchehab@osg.samsung.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 513E540D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 880D0949
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 20 Nov 2016 16:08:56 +0000 (UTC)
+	Sun, 20 Nov 2016 16:08:57 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A04A11AC
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id AAD3B1AD
 	for <ksummit-discuss@lists.linuxfoundation.org>;
 	Sun, 20 Nov 2016 16:08:52 +0000 (UTC)
 From: Mauro Carvalho Chehab <mchehab@s-opensource.com>
 To: Linux Doc Mailing List <linux-doc@vger.kernel.org>,
 	"Jonathan Corbet" <corbet@lwn.net>
-Date: Sun, 20 Nov 2016 14:08:35 -0200
-Message-Id: <a650b3c26bac3defd822d8c7e1ffeed2ccc8ab6b.1479656706.git.mchehab@s-opensource.com>
+Date: Sun, 20 Nov 2016 14:08:37 -0200
+Message-Id: <6cd604ebd9512cacac1c1fa07445db6a10c3b77a.1479656706.git.mchehab@s-opensource.com>
 In-Reply-To: <cover.1479656706.git.mchehab@s-opensource.com>
 References: <cover.1479656706.git.mchehab@s-opensource.com>
 In-Reply-To: <cover.1479656706.git.mchehab@s-opensource.com>
 References: <cover.1479656706.git.mchehab@s-opensource.com>
 Sender: Mauro Carvalho Chehab <mchehab@osg.samsung.com>
-Cc: Markus Heiser <markus.heiser@darmarIT.de>,
-	ksummit-discuss@lists.linuxfoundation.org,
+Cc: ksummit-discuss@lists.linuxfoundation.org,
 	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
 	Mauro Carvalho Chehab <mchehab@s-opensource.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>
-Subject: [Ksummit-discuss] [PATCH 4/9] [media] docs-rst: convert pipeline to
-	SVG format
+Subject: [Ksummit-discuss] [PATCH 6/9] [media] docs-rst: replace bayer.png
+	by a SVG image
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,384 +34,1231 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-The pipeline image was produced from some dot file that has
-long missed. Create a pipeline.dot with the graph and convert
-it to SVG. As we're planning to add future support for graphviz
-graphics, also store the .dot file on the tree, as this will
-make easier when we add such Sphinx extension.
+SVG images are scalable, with makes easier to output on
+different formats.
 
 Signed-off-by: Mauro Carvalho Chehab <mchehab@s-opensource.com>
 ---
- Documentation/media/Makefile                |   1 +
- Documentation/media/uapi/v4l/dev-subdev.rst |   4 +-
- Documentation/media/uapi/v4l/pipeline.dot   |  12 +++++
- Documentation/media/uapi/v4l/pipeline.png   | Bin 12130 -> 0 bytes
- Documentation/media/uapi/v4l/pipeline.svg   |  68 ++++++++++++++++++++++++++++
- 5 files changed, 83 insertions(+), 2 deletions(-)
- create mode 100644 Documentation/media/uapi/v4l/pipeline.dot
- delete mode 100644 Documentation/media/uapi/v4l/pipeline.png
- create mode 100644 Documentation/media/uapi/v4l/pipeline.svg
+ Documentation/media/Makefile                    |   1 +
+ Documentation/media/uapi/v4l/bayer.png          | Bin 9725 -> 0 bytes
+ Documentation/media/uapi/v4l/bayer.svg          | 984 ++++++++++++++++++++++++
+ Documentation/media/uapi/v4l/subdev-formats.rst |   4 +-
+ 4 files changed, 987 insertions(+), 2 deletions(-)
+ delete mode 100644 Documentation/media/uapi/v4l/bayer.png
+ create mode 100644 Documentation/media/uapi/v4l/bayer.svg
 
 diff --git a/Documentation/media/Makefile b/Documentation/media/Makefile
-index ec95286e556c..fff8e3b73e25 100644
+index d97e969c3ac0..998e8dd49352 100644
 --- a/Documentation/media/Makefile
 +++ b/Documentation/media/Makefile
-@@ -19,6 +19,7 @@ IMAGES = \
- 	uapi/v4l/fieldseq_tb.svg \
- 	uapi/v4l/nv12mt.svg \
- 	uapi/v4l/nv12mt_example.svg \
-+	uapi/v4l/pipeline.svg \
- 	uapi/v4l/subdev-image-processing-full.svg \
- 	uapi/v4l/subdev-image-processing-scaling-multi-source.svg \
- 	uapi/v4l/subdev-image-processing-crop.svg \
-diff --git a/Documentation/media/uapi/v4l/dev-subdev.rst b/Documentation/media/uapi/v4l/dev-subdev.rst
-index c18e9c5427ee..cd2870180208 100644
---- a/Documentation/media/uapi/v4l/dev-subdev.rst
-+++ b/Documentation/media/uapi/v4l/dev-subdev.rst
-@@ -99,8 +99,8 @@ the video sensor and the host image processing hardware.
- 
- .. _pipeline-scaling:
- 
--.. figure::  pipeline.png
--    :alt:    pipeline.png
-+.. figure::  pipeline.*
-+    :alt:    pipeline.pdf / pipeline.svg
-     :align:  center
- 
-     Image Format Negotiation on Pipelines
-diff --git a/Documentation/media/uapi/v4l/pipeline.dot b/Documentation/media/uapi/v4l/pipeline.dot
-new file mode 100644
-index 000000000000..02d7fcf12b26
---- /dev/null
-+++ b/Documentation/media/uapi/v4l/pipeline.dot
-@@ -0,0 +1,12 @@
-+digraph board {
-+	rankdir=TB
-+	colorscheme=x11
-+	scaler [label="{<scaler_0> 0} | Host\nScaler | {<scaler_1> 1} ", shape=Mrecord, style=filled, fillcolor=lightblue]
-+	frontend [label="{<frontend_0> 0} | Host\nFrontend | {<frontend_1> 1}", shape=Mrecord, style=filled, fillcolor=lightblue]
-+	sensor [label="Sensor | {<sensor_0> 0}", shape=Mrecord, style=filled, fillcolor=aquamarine]
-+	io [label="{<io_0> 0} | V4L I/O", shape=Mrecord, style=filled, fillcolor=aquamarine]
-+
-+	sensor:sensor_0 -> frontend:frontend_0 [color=blue, label="HQ: 2592x1968\nHS: 1296x984"]
-+	frontend:frontend_1 -> scaler:scaler_0 [color=blue, label="HQ: 2592x1968\nHS: 1296x984"]
-+	scaler:scaler_1 -> io:io_0 [color=blue, label="HQ: 1280x720\nHS: 1280x720"]
-+}
-diff --git a/Documentation/media/uapi/v4l/pipeline.png b/Documentation/media/uapi/v4l/pipeline.png
+@@ -13,6 +13,7 @@ TARGETS := $(addprefix $(BUILDDIR)/, $(FILES))
+ IMAGES = \
+ 	typical_media_device.svg \
+ 	uapi/dvb/dvbstb.svg \
++	uapi/v4l/bayer.svg \
+ 	uapi/v4l/constraints.svg \
+ 	uapi/v4l/crop.svg \
+ 	uapi/v4l/fieldseq_bt.svg \
+diff --git a/Documentation/media/uapi/v4l/bayer.png b/Documentation/media/uapi/v4l/bayer.png
 deleted file mode 100644
-index f19b86c2c24d07d5ae437820944d25489a447d7a..0000000000000000000000000000000000000000
+index 9b15fb22e8173c83c3da6df73cd7cdc7d8f41736..0000000000000000000000000000000000000000
 GIT binary patch
 literal 0
 HcmV?d00001
 
-literal 12130
-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
-B;b8y(
+literal 9725
+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
+Ulq-hwxG4posiv!1sSJ(ye?2;OE&u=k
 
-diff --git a/Documentation/media/uapi/v4l/pipeline.svg b/Documentation/media/uapi/v4l/pipeline.svg
+diff --git a/Documentation/media/uapi/v4l/bayer.svg b/Documentation/media/uapi/v4l/bayer.svg
 new file mode 100644
-index 000000000000..70f4c1b23ca1
+index 000000000000..fbd4cfb5e6bf
 --- /dev/null
-+++ b/Documentation/media/uapi/v4l/pipeline.svg
-@@ -0,0 +1,68 @@
++++ b/Documentation/media/uapi/v4l/bayer.svg
+@@ -0,0 +1,984 @@
 +<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
-+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-+<!-- Generated by graphviz version 2.38.0 (20140413.2041)
-+ -->
-+<!-- Title: board Pages: 1 -->
-+<svg width="317pt" height="358pt"
-+ viewBox="0.00 0.00 317.00 358.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 354)">
-+<title>board</title>
-+<polygon fill="white" stroke="none" points="-4,4 -4,-354 313,-354 313,4 -4,4"/>
-+<!-- scaler -->
-+<g id="node1" class="node"><title>scaler</title>
-+<path fill="lightblue" stroke="black" d="M154,-103.5C154,-103.5 226,-103.5 226,-103.5 232,-103.5 238,-109.5 238,-115.5 238,-115.5 238,-129.5 238,-129.5 238,-135.5 232,-141.5 226,-141.5 226,-141.5 154,-141.5 154,-141.5 148,-141.5 142,-135.5 142,-129.5 142,-129.5 142,-115.5 142,-115.5 142,-109.5 148,-103.5 154,-103.5"/>
-+<text text-anchor="middle" x="153.5" y="-118.8" font-family="Times,serif" font-size="14.00">0</text>
-+<polyline fill="none" stroke="black" points="165,-103.5 165,-141.5 "/>
-+<text text-anchor="middle" x="190" y="-126.3" font-family="Times,serif" font-size="14.00">Host</text>
-+<text text-anchor="middle" x="190" y="-111.3" font-family="Times,serif" font-size="14.00">Scaler</text>
-+<polyline fill="none" stroke="black" points="215,-103.5 215,-141.5 "/>
-+<text text-anchor="middle" x="226.5" y="-118.8" font-family="Times,serif" font-size="14.00">1</text>
-+</g>
-+<!-- io -->
-+<g id="node4" class="node"><title>io</title>
-+<path fill="aquamarine" stroke="black" d="M228,-0.5C228,-0.5 290,-0.5 290,-0.5 296,-0.5 302,-6.5 302,-12.5 302,-12.5 302,-24.5 302,-24.5 302,-30.5 296,-36.5 290,-36.5 290,-36.5 228,-36.5 228,-36.5 222,-36.5 216,-30.5 216,-24.5 216,-24.5 216,-12.5 216,-12.5 216,-6.5 222,-0.5 228,-0.5"/>
-+<text text-anchor="middle" x="227.5" y="-14.8" font-family="Times,serif" font-size="14.00">0</text>
-+<polyline fill="none" stroke="black" points="239,-0.5 239,-36.5 "/>
-+<text text-anchor="middle" x="270.5" y="-14.8" font-family="Times,serif" font-size="14.00">V4L I/O</text>
-+</g>
-+<!-- scaler&#45;&gt;io -->
-+<g id="edge3" class="edge"><title>scaler:scaler_1&#45;&gt;io:io_0</title>
-+<path fill="none" stroke="blue" d="M227,-103C227,-77.3333 227,-68.5104 227,-47.0547"/>
-+<polygon fill="blue" stroke="blue" points="230.5,-47 227,-37 223.5,-47 230.5,-47"/>
-+<text text-anchor="middle" x="268" y="-73.8" font-family="Times,serif" font-size="14.00">HQ: 1280x720</text>
-+<text text-anchor="middle" x="268" y="-58.8" font-family="Times,serif" font-size="14.00">HS: 1280x720</text>
-+</g>
-+<!-- frontend -->
-+<g id="node2" class="node"><title>frontend</title>
-+<path fill="lightblue" stroke="black" d="M65.5,-208.5C65.5,-208.5 152.5,-208.5 152.5,-208.5 158.5,-208.5 164.5,-214.5 164.5,-220.5 164.5,-220.5 164.5,-234.5 164.5,-234.5 164.5,-240.5 158.5,-246.5 152.5,-246.5 152.5,-246.5 65.5,-246.5 65.5,-246.5 59.5,-246.5 53.5,-240.5 53.5,-234.5 53.5,-234.5 53.5,-220.5 53.5,-220.5 53.5,-214.5 59.5,-208.5 65.5,-208.5"/>
-+<text text-anchor="middle" x="65" y="-223.8" font-family="Times,serif" font-size="14.00">0</text>
-+<polyline fill="none" stroke="black" points="76.5,-208.5 76.5,-246.5 "/>
-+<text text-anchor="middle" x="109" y="-231.3" font-family="Times,serif" font-size="14.00">Host</text>
-+<text text-anchor="middle" x="109" y="-216.3" font-family="Times,serif" font-size="14.00">Frontend</text>
-+<polyline fill="none" stroke="black" points="141.5,-208.5 141.5,-246.5 "/>
-+<text text-anchor="middle" x="153" y="-223.8" font-family="Times,serif" font-size="14.00">1</text>
-+</g>
-+<!-- frontend&#45;&gt;scaler -->
-+<g id="edge2" class="edge"><title>frontend:frontend_1&#45;&gt;scaler:scaler_0</title>
-+<path fill="none" stroke="blue" d="M153,-208C153,-182.333 153,-173.51 153,-152.055"/>
-+<polygon fill="blue" stroke="blue" points="156.5,-152 153,-142 149.5,-152 156.5,-152"/>
-+<text text-anchor="middle" x="197" y="-178.8" font-family="Times,serif" font-size="14.00">HQ: 2592x1968</text>
-+<text text-anchor="middle" x="197" y="-163.8" font-family="Times,serif" font-size="14.00">HS: 1296x984</text>
-+</g>
-+<!-- sensor -->
-+<g id="node3" class="node"><title>sensor</title>
-+<path fill="aquamarine" stroke="black" d="M12,-313.5C12,-313.5 64,-313.5 64,-313.5 70,-313.5 76,-319.5 76,-325.5 76,-325.5 76,-337.5 76,-337.5 76,-343.5 70,-349.5 64,-349.5 64,-349.5 12,-349.5 12,-349.5 6,-349.5 0,-343.5 0,-337.5 0,-337.5 0,-325.5 0,-325.5 0,-319.5 6,-313.5 12,-313.5"/>
-+<text text-anchor="middle" x="26.5" y="-327.8" font-family="Times,serif" font-size="14.00">Sensor</text>
-+<polyline fill="none" stroke="black" points="53,-313.5 53,-349.5 "/>
-+<text text-anchor="middle" x="64.5" y="-327.8" font-family="Times,serif" font-size="14.00">0</text>
-+</g>
-+<!-- sensor&#45;&gt;frontend -->
-+<g id="edge1" class="edge"><title>sensor:sensor_0&#45;&gt;frontend:frontend_0</title>
-+<path fill="none" stroke="blue" d="M65,-313C65,-287.333 65,-278.51 65,-257.055"/>
-+<polygon fill="blue" stroke="blue" points="68.5001,-257 65,-247 61.5001,-257 68.5001,-257"/>
-+<text text-anchor="middle" x="109" y="-283.8" font-family="Times,serif" font-size="14.00">HQ: 2592x1968</text>
-+<text text-anchor="middle" x="109" y="-268.8" font-family="Times,serif" font-size="14.00">HS: 1296x984</text>
-+</g>
-+</g>
-+</svg>
++<svg
++   xmlns:dc="http://purl.org/dc/elements/1.1/"
++   xmlns:cc="http://creativecommons.org/ns#"
++   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
++   xmlns:svg="http://www.w3.org/2000/svg"
++   xmlns="http://www.w3.org/2000/svg"
++   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
++   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
++   version="1.2"
++   width="164.15334mm"
++   height="46.771107mm"
++   viewBox="0 0 16415.333 4677.1107"
++   preserveAspectRatio="xMidYMid"
++   xml:space="preserve"
++   id="svg2"
++   inkscape:version="0.91 r13725"
++   sodipodi:docname="bayer.svg"
++   style="fill-rule:evenodd;stroke-width:28.22200012;stroke-linejoin:round"><metadata
++     id="metadata652"><rdf:RDF><cc:Work
++         rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
++           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><sodipodi:namedview
++     pagecolor="#ffffff"
++     bordercolor="#666666"
++     borderopacity="1"
++     objecttolerance="10"
++     gridtolerance="10"
++     guidetolerance="10"
++     inkscape:pageopacity="0"
++     inkscape:pageshadow="2"
++     inkscape:window-width="1920"
++     inkscape:window-height="997"
++     id="namedview650"
++     showgrid="false"
++     fit-margin-top="0"
++     fit-margin-left="0"
++     fit-margin-right="0"
++     fit-margin-bottom="0"
++     inkscape:zoom="2.4000866"
++     inkscape:cx="290.82284"
++     inkscape:cy="82.862197"
++     inkscape:window-x="1920"
++     inkscape:window-y="30"
++     inkscape:window-maximized="1"
++     inkscape:current-layer="svg2" /><defs
++     class="ClipPathGroup"
++     id="defs4" /><defs
++     id="defs9" /><defs
++     id="defs82" /><defs
++     id="defs105" /><defs
++     class="TextShapeIndex"
++     id="defs116" /><defs
++     class="EmbeddedBulletChars"
++     id="defs120" /><defs
++     class="TextEmbeddedBitmaps"
++     id="defs149" /><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g186"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id6"><rect
++         class="BoundingBox"
++         x="3299"
++         y="3199"
++         width="1303"
++         height="1203"
++         id="rect189"
++         style="fill:none;stroke:none" /><path
++         d="m 3950,4400 -650,0 0,-1200 1300,0 0,1200 -650,0 z"
++         id="path191"
++         inkscape:connector-curvature="0"
++         style="fill:#0000ff;stroke:none" /><path
++         d="m 3950,4400 -650,0 0,-1200 1300,0 0,1200 -650,0 z"
++         id="path193"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#3465a4" /><text
++         class="TextShape"
++         id="text195"><tspan
++           class="TextParagraph"
++           font-size="635px"
++           font-weight="400"
++           id="tspan197"
++           style="font-weight:400;font-size:635px;font-family:'Liberation Sans', sans-serif"><tspan
++             class="TextPosition"
++             x="3739"
++             y="4021"
++             id="tspan199"><tspan
++               id="tspan201"
++               style="fill:#ffffff;stroke:none">B</tspan></tspan></tspan></text>
++</g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g203"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id7"><rect
++         class="BoundingBox"
++         x="4599"
++         y="3199"
++         width="1303"
++         height="1203"
++         id="rect206"
++         style="fill:none;stroke:none" /><path
++         d="m 5250,4400 -650,0 0,-1200 1300,0 0,1200 -650,0 z"
++         id="path208"
++         inkscape:connector-curvature="0"
++         style="fill:#00cc00;stroke:none" /><path
++         d="m 5250,4400 -650,0 0,-1200 1300,0 0,1200 -650,0 z"
++         id="path210"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#3465a4" /><text
++         class="TextShape"
++         id="text212"><tspan
++           class="TextParagraph"
++           font-size="635px"
++           font-weight="400"
++           id="tspan214"
++           style="font-weight:400;font-size:635px;font-family:'Liberation Sans', sans-serif"><tspan
++             class="TextPosition"
++             x="5003"
++             y="4021"
++             id="tspan216"><tspan
++               id="tspan218"
++               style="fill:#ffffff;stroke:none">G</tspan></tspan></tspan></text>
++</g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g220"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id8"><rect
++         class="BoundingBox"
++         x="3299"
++         y="4399"
++         width="1303"
++         height="1203"
++         id="rect223"
++         style="fill:none;stroke:none" /><path
++         d="m 3950,5600 -650,0 0,-1200 1300,0 0,1200 -650,0 z"
++         id="path225"
++         inkscape:connector-curvature="0"
++         style="fill:#00cc00;stroke:none" /><path
++         d="m 3950,5600 -650,0 0,-1200 1300,0 0,1200 -650,0 z"
++         id="path227"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#3465a4" /><text
++         class="TextShape"
++         id="text229"><tspan
++           class="TextParagraph"
++           font-size="635px"
++           font-weight="400"
++           id="tspan231"
++           style="font-weight:400;font-size:635px;font-family:'Liberation Sans', sans-serif"><tspan
++             class="TextPosition"
++             x="3703"
++             y="5221"
++             id="tspan233"><tspan
++               id="tspan235"
++               style="fill:#ffffff;stroke:none">G</tspan></tspan></tspan></text>
++</g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g237"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id9"><rect
++         class="BoundingBox"
++         x="4599"
++         y="4399"
++         width="1303"
++         height="1203"
++         id="rect240"
++         style="fill:none;stroke:none" /><path
++         d="m 5250,5600 -650,0 0,-1200 1300,0 0,1200 -650,0 z"
++         id="path242"
++         inkscape:connector-curvature="0"
++         style="fill:#ff0000;stroke:none" /><path
++         d="m 5250,5600 -650,0 0,-1200 1300,0 0,1200 -650,0 z"
++         id="path244"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#3465a4" /><text
++         class="TextShape"
++         id="text246"><tspan
++           class="TextParagraph"
++           font-size="635px"
++           font-weight="400"
++           id="tspan248"
++           style="font-weight:400;font-size:635px;font-family:'Liberation Sans', sans-serif"><tspan
++             class="TextPosition"
++             x="5022"
++             y="5221"
++             id="tspan250"><tspan
++               id="tspan252"
++               style="fill:#ffffff;stroke:none">R</tspan></tspan></tspan></text>
++</g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g254"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id10"><rect
++         class="BoundingBox"
++         x="5999"
++         y="3299"
++         width="1003"
++         height="1003"
++         id="rect257"
++         style="fill:none;stroke:none" /><path
++         d="m 6500,4300 -500,0 0,-1000 1000,0 0,1000 -500,0 z"
++         id="path259"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#0000ff" /></g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g261"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id11"><rect
++         class="BoundingBox"
++         x="4699"
++         y="5699"
++         width="1003"
++         height="1003"
++         id="rect264"
++         style="fill:none;stroke:none" /><path
++         d="m 5200,6700 -500,0 0,-1000 1000,0 0,1000 -500,0 z"
++         id="path266"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#00cc00" /></g></g><g
++     class="com.sun.star.drawing.TextShape"
++     id="g268"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id12"><rect
++         class="BoundingBox"
++         x="4000"
++         y="6900"
++         width="2374"
++         height="963"
++         id="rect271"
++         style="fill:none;stroke:none" /><text
++         class="TextShape"
++         id="text273"><tspan
++           class="TextParagraph"
++           font-size="635px"
++           font-weight="400"
++           id="tspan275"
++           style="font-weight:400;font-size:635px;font-family:'Liberation Sans', sans-serif"><tspan
++             class="TextPosition"
++             x="4250"
++             y="7601"
++             id="tspan277"><tspan
++               id="tspan279"
++               style="fill:#000000;stroke:none">BGGR</tspan></tspan></tspan></text>
++</g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g281"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id13"><rect
++         class="BoundingBox"
++         x="8799"
++         y="3199"
++         width="1303"
++         height="1203"
++         id="rect284"
++         style="fill:none;stroke:none" /><path
++         d="m 9450,4400 -650,0 0,-1200 1300,0 0,1200 -650,0 z"
++         id="path286"
++         inkscape:connector-curvature="0"
++         style="fill:#0000ff;stroke:none" /><path
++         d="m 9450,4400 -650,0 0,-1200 1300,0 0,1200 -650,0 z"
++         id="path288"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#3465a4" /><text
++         class="TextShape"
++         id="text290"><tspan
++           class="TextParagraph"
++           font-size="635px"
++           font-weight="400"
++           id="tspan292"
++           style="font-weight:400;font-size:635px;font-family:'Liberation Sans', sans-serif"><tspan
++             class="TextPosition"
++             x="9239"
++             y="4021"
++             id="tspan294"><tspan
++               id="tspan296"
++               style="fill:#ffffff;stroke:none">B</tspan></tspan></tspan></text>
++</g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g298"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id14"><rect
++         class="BoundingBox"
++         x="7499"
++         y="3199"
++         width="1303"
++         height="1203"
++         id="rect301"
++         style="fill:none;stroke:none" /><path
++         d="m 8150,4400 -650,0 0,-1200 1300,0 0,1200 -650,0 z"
++         id="path303"
++         inkscape:connector-curvature="0"
++         style="fill:#00cc00;stroke:none" /><path
++         d="m 8150,4400 -650,0 0,-1200 1300,0 0,1200 -650,0 z"
++         id="path305"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#3465a4" /><text
++         class="TextShape"
++         id="text307"><tspan
++           class="TextParagraph"
++           font-size="635px"
++           font-weight="400"
++           id="tspan309"
++           style="font-weight:400;font-size:635px;font-family:'Liberation Sans', sans-serif"><tspan
++             class="TextPosition"
++             x="7903"
++             y="4021"
++             id="tspan311"><tspan
++               id="tspan313"
++               style="fill:#ffffff;stroke:none">G</tspan></tspan></tspan></text>
++</g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g315"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id15"><rect
++         class="BoundingBox"
++         x="8799"
++         y="4399"
++         width="1303"
++         height="1203"
++         id="rect318"
++         style="fill:none;stroke:none" /><path
++         d="m 9450,5600 -650,0 0,-1200 1300,0 0,1200 -650,0 z"
++         id="path320"
++         inkscape:connector-curvature="0"
++         style="fill:#00cc00;stroke:none" /><path
++         d="m 9450,5600 -650,0 0,-1200 1300,0 0,1200 -650,0 z"
++         id="path322"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#3465a4" /><text
++         class="TextShape"
++         id="text324"><tspan
++           class="TextParagraph"
++           font-size="635px"
++           font-weight="400"
++           id="tspan326"
++           style="font-weight:400;font-size:635px;font-family:'Liberation Sans', sans-serif"><tspan
++             class="TextPosition"
++             x="9203"
++             y="5221"
++             id="tspan328"><tspan
++               id="tspan330"
++               style="fill:#ffffff;stroke:none">G</tspan></tspan></tspan></text>
++</g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g332"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id16"><rect
++         class="BoundingBox"
++         x="7499"
++         y="4399"
++         width="1303"
++         height="1203"
++         id="rect335"
++         style="fill:none;stroke:none" /><path
++         d="m 8150,5600 -650,0 0,-1200 1300,0 0,1200 -650,0 z"
++         id="path337"
++         inkscape:connector-curvature="0"
++         style="fill:#ff0000;stroke:none" /><path
++         d="m 8150,5600 -650,0 0,-1200 1300,0 0,1200 -650,0 z"
++         id="path339"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#3465a4" /><text
++         class="TextShape"
++         id="text341"><tspan
++           class="TextParagraph"
++           font-size="635px"
++           font-weight="400"
++           id="tspan343"
++           style="font-weight:400;font-size:635px;font-family:'Liberation Sans', sans-serif"><tspan
++             class="TextPosition"
++             x="7922"
++             y="5221"
++             id="tspan345"><tspan
++               id="tspan347"
++               style="fill:#ffffff;stroke:none">R</tspan></tspan></tspan></text>
++</g></g><g
++     class="com.sun.star.drawing.TextShape"
++     id="g349"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id17"><rect
++         class="BoundingBox"
++         x="8200"
++         y="6900"
++         width="2374"
++         height="963"
++         id="rect352"
++         style="fill:none;stroke:none" /><text
++         class="TextShape"
++         id="text354"><tspan
++           class="TextParagraph"
++           font-size="635px"
++           font-weight="400"
++           id="tspan356"
++           style="font-weight:400;font-size:635px;font-family:'Liberation Sans', sans-serif"><tspan
++             class="TextPosition"
++             x="8450"
++             y="7601"
++             id="tspan358"><tspan
++               id="tspan360"
++               style="fill:#000000;stroke:none">GBRG</tspan></tspan></tspan></text>
++</g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g362"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id18"><rect
++         class="BoundingBox"
++         x="17299"
++         y="4399"
++         width="1303"
++         height="1203"
++         id="rect365"
++         style="fill:none;stroke:none" /><path
++         d="m 17950,5600 -650,0 0,-1200 1300,0 0,1200 -650,0 z"
++         id="path367"
++         inkscape:connector-curvature="0"
++         style="fill:#0000ff;stroke:none" /><path
++         d="m 17950,5600 -650,0 0,-1200 1300,0 0,1200 -650,0 z"
++         id="path369"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#3465a4" /><text
++         class="TextShape"
++         id="text371"><tspan
++           class="TextParagraph"
++           font-size="635px"
++           font-weight="400"
++           id="tspan373"
++           style="font-weight:400;font-size:635px;font-family:'Liberation Sans', sans-serif"><tspan
++             class="TextPosition"
++             x="17739"
++             y="5221"
++             id="tspan375"><tspan
++               id="tspan377"
++               style="fill:#ffffff;stroke:none">B</tspan></tspan></tspan></text>
++</g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g379"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id19"><rect
++         class="BoundingBox"
++         x="17299"
++         y="3199"
++         width="1303"
++         height="1203"
++         id="rect382"
++         style="fill:none;stroke:none" /><path
++         d="m 17950,4400 -650,0 0,-1200 1300,0 0,1200 -650,0 z"
++         id="path384"
++         inkscape:connector-curvature="0"
++         style="fill:#00cc00;stroke:none" /><path
++         d="m 17950,4400 -650,0 0,-1200 1300,0 0,1200 -650,0 z"
++         id="path386"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#3465a4" /><text
++         class="TextShape"
++         id="text388"><tspan
++           class="TextParagraph"
++           font-size="635px"
++           font-weight="400"
++           id="tspan390"
++           style="font-weight:400;font-size:635px;font-family:'Liberation Sans', sans-serif"><tspan
++             class="TextPosition"
++             x="17703"
++             y="4021"
++             id="tspan392"><tspan
++               id="tspan394"
++               style="fill:#ffffff;stroke:none">G</tspan></tspan></tspan></text>
++</g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g396"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id20"><rect
++         class="BoundingBox"
++         x="15999"
++         y="4399"
++         width="1303"
++         height="1203"
++         id="rect399"
++         style="fill:none;stroke:none" /><path
++         d="m 16650,5600 -650,0 0,-1200 1300,0 0,1200 -650,0 z"
++         id="path401"
++         inkscape:connector-curvature="0"
++         style="fill:#00cc00;stroke:none" /><path
++         d="m 16650,5600 -650,0 0,-1200 1300,0 0,1200 -650,0 z"
++         id="path403"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#3465a4" /><text
++         class="TextShape"
++         id="text405"><tspan
++           class="TextParagraph"
++           font-size="635px"
++           font-weight="400"
++           id="tspan407"
++           style="font-weight:400;font-size:635px;font-family:'Liberation Sans', sans-serif"><tspan
++             class="TextPosition"
++             x="16403"
++             y="5221"
++             id="tspan409"><tspan
++               id="tspan411"
++               style="fill:#ffffff;stroke:none">G</tspan></tspan></tspan></text>
++</g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g413"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id21"><rect
++         class="BoundingBox"
++         x="15999"
++         y="3199"
++         width="1303"
++         height="1203"
++         id="rect416"
++         style="fill:none;stroke:none" /><path
++         d="m 16650,4400 -650,0 0,-1200 1300,0 0,1200 -650,0 z"
++         id="path418"
++         inkscape:connector-curvature="0"
++         style="fill:#ff0000;stroke:none" /><path
++         d="m 16650,4400 -650,0 0,-1200 1300,0 0,1200 -650,0 z"
++         id="path420"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#3465a4" /><text
++         class="TextShape"
++         id="text422"><tspan
++           class="TextParagraph"
++           font-size="635px"
++           font-weight="400"
++           id="tspan424"
++           style="font-weight:400;font-size:635px;font-family:'Liberation Sans', sans-serif"><tspan
++             class="TextPosition"
++             x="16422"
++             y="4021"
++             id="tspan426"><tspan
++               id="tspan428"
++               style="fill:#ffffff;stroke:none">R</tspan></tspan></tspan></text>
++</g></g><g
++     class="com.sun.star.drawing.TextShape"
++     id="g430"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id22"><rect
++         class="BoundingBox"
++         x="16700"
++         y="6900"
++         width="2374"
++         height="963"
++         id="rect433"
++         style="fill:none;stroke:none" /><text
++         class="TextShape"
++         id="text435"><tspan
++           class="TextParagraph"
++           font-size="635px"
++           font-weight="400"
++           id="tspan437"
++           style="font-weight:400;font-size:635px;font-family:'Liberation Sans', sans-serif"><tspan
++             class="TextPosition"
++             x="16950"
++             y="7601"
++             id="tspan439"><tspan
++               id="tspan441"
++               style="fill:#000000;stroke:none">RGGB</tspan></tspan></tspan></text>
++</g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g443"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id23"><rect
++         class="BoundingBox"
++         x="11699"
++         y="4399"
++         width="1303"
++         height="1203"
++         id="rect446"
++         style="fill:none;stroke:none" /><path
++         d="m 12350,5600 -650,0 0,-1200 1300,0 0,1200 -650,0 z"
++         id="path448"
++         inkscape:connector-curvature="0"
++         style="fill:#0000ff;stroke:none" /><path
++         d="m 12350,5600 -650,0 0,-1200 1300,0 0,1200 -650,0 z"
++         id="path450"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#3465a4" /><text
++         class="TextShape"
++         id="text452"><tspan
++           class="TextParagraph"
++           font-size="635px"
++           font-weight="400"
++           id="tspan454"
++           style="font-weight:400;font-size:635px;font-family:'Liberation Sans', sans-serif"><tspan
++             class="TextPosition"
++             x="12139"
++             y="5221"
++             id="tspan456"><tspan
++               id="tspan458"
++               style="fill:#ffffff;stroke:none">B</tspan></tspan></tspan></text>
++</g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g460"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id24"><rect
++         class="BoundingBox"
++         x="11699"
++         y="3199"
++         width="1303"
++         height="1203"
++         id="rect463"
++         style="fill:none;stroke:none" /><path
++         d="m 12350,4400 -650,0 0,-1200 1300,0 0,1200 -650,0 z"
++         id="path465"
++         inkscape:connector-curvature="0"
++         style="fill:#00cc00;stroke:none" /><path
++         d="m 12350,4400 -650,0 0,-1200 1300,0 0,1200 -650,0 z"
++         id="path467"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#3465a4" /><text
++         class="TextShape"
++         id="text469"><tspan
++           class="TextParagraph"
++           font-size="635px"
++           font-weight="400"
++           id="tspan471"
++           style="font-weight:400;font-size:635px;font-family:'Liberation Sans', sans-serif"><tspan
++             class="TextPosition"
++             x="12103"
++             y="4021"
++             id="tspan473"><tspan
++               id="tspan475"
++               style="fill:#ffffff;stroke:none">G</tspan></tspan></tspan></text>
++</g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g477"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id25"><rect
++         class="BoundingBox"
++         x="12999"
++         y="4399"
++         width="1303"
++         height="1203"
++         id="rect480"
++         style="fill:none;stroke:none" /><path
++         d="m 13650,5600 -650,0 0,-1200 1300,0 0,1200 -650,0 z"
++         id="path482"
++         inkscape:connector-curvature="0"
++         style="fill:#00cc00;stroke:none" /><path
++         d="m 13650,5600 -650,0 0,-1200 1300,0 0,1200 -650,0 z"
++         id="path484"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#3465a4" /><text
++         class="TextShape"
++         id="text486"><tspan
++           class="TextParagraph"
++           font-size="635px"
++           font-weight="400"
++           id="tspan488"
++           style="font-weight:400;font-size:635px;font-family:'Liberation Sans', sans-serif"><tspan
++             class="TextPosition"
++             x="13403"
++             y="5221"
++             id="tspan490"><tspan
++               id="tspan492"
++               style="fill:#ffffff;stroke:none">G</tspan></tspan></tspan></text>
++</g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g494"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id26"><rect
++         class="BoundingBox"
++         x="12999"
++         y="3199"
++         width="1303"
++         height="1203"
++         id="rect497"
++         style="fill:none;stroke:none" /><path
++         d="m 13650,4400 -650,0 0,-1200 1300,0 0,1200 -650,0 z"
++         id="path499"
++         inkscape:connector-curvature="0"
++         style="fill:#ff0000;stroke:none" /><path
++         d="m 13650,4400 -650,0 0,-1200 1300,0 0,1200 -650,0 z"
++         id="path501"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#3465a4" /><text
++         class="TextShape"
++         id="text503"><tspan
++           class="TextParagraph"
++           font-size="635px"
++           font-weight="400"
++           id="tspan505"
++           style="font-weight:400;font-size:635px;font-family:'Liberation Sans', sans-serif"><tspan
++             class="TextPosition"
++             x="13422"
++             y="4021"
++             id="tspan507"><tspan
++               id="tspan509"
++               style="fill:#ffffff;stroke:none">R</tspan></tspan></tspan></text>
++</g></g><g
++     class="com.sun.star.drawing.TextShape"
++     id="g511"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id27"><rect
++         class="BoundingBox"
++         x="12400"
++         y="6900"
++         width="2374"
++         height="963"
++         id="rect514"
++         style="fill:none;stroke:none" /><text
++         class="TextShape"
++         id="text516"><tspan
++           class="TextParagraph"
++           font-size="635px"
++           font-weight="400"
++           id="tspan518"
++           style="font-weight:400;font-size:635px;font-family:'Liberation Sans', sans-serif"><tspan
++             class="TextPosition"
++             x="12650"
++             y="7601"
++             id="tspan520"><tspan
++               id="tspan522"
++               style="fill:#000000;stroke:none">GRBG</tspan></tspan></tspan></text>
++</g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g524"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id28"><rect
++         class="BoundingBox"
++         x="5999"
++         y="5699"
++         width="1003"
++         height="1003"
++         id="rect527"
++         style="fill:none;stroke:none" /><path
++         d="m 6500,6700 -500,0 0,-1000 1000,0 0,1000 -500,0 z"
++         id="path529"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#0000ff" /></g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g531"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id29"><rect
++         class="BoundingBox"
++         x="3399"
++         y="5699"
++         width="1003"
++         height="1003"
++         id="rect534"
++         style="fill:none;stroke:none" /><path
++         d="m 3900,6700 -500,0 0,-1000 1000,0 0,1000 -500,0 z"
++         id="path536"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#0000ff" /></g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g538"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id30"><rect
++         class="BoundingBox"
++         x="5999"
++         y="4499"
++         width="1003"
++         height="1003"
++         id="rect541"
++         style="fill:none;stroke:none" /><path
++         d="m 6500,5500 -500,0 0,-1000 1000,0 0,1000 -500,0 z"
++         id="path543"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#00cc00" /></g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g545"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id31"><rect
++         class="BoundingBox"
++         x="7599"
++         y="5799"
++         width="1003"
++         height="1003"
++         id="rect548"
++         style="fill:none;stroke:none" /><path
++         d="m 8100,6800 -500,0 0,-1000 1000,0 0,1000 -500,0 z"
++         id="path550"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#00cc00" /></g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g552"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id32"><rect
++         class="BoundingBox"
++         x="10199"
++         y="5799"
++         width="1003"
++         height="1003"
++         id="rect555"
++         style="fill:none;stroke:none" /><path
++         d="m 10700,6800 -500,0 0,-1000 1000,0 0,1000 -500,0 z"
++         id="path557"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#00cc00" /></g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g559"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id33"><rect
++         class="BoundingBox"
++         x="8899"
++         y="5799"
++         width="1003"
++         height="1003"
++         id="rect562"
++         style="fill:none;stroke:none" /><path
++         d="m 9400,6800 -500,0 0,-1000 1000,0 0,1000 -500,0 z"
++         id="path564"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#0000ff" /></g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g566"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id34"><rect
++         class="BoundingBox"
++         x="10199"
++         y="4499"
++         width="1003"
++         height="1003"
++         id="rect569"
++         style="fill:none;stroke:none" /><path
++         d="m 10700,5500 -500,0 0,-1000 1000,0 0,1000 -500,0 z"
++         id="path571"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#ff0000" /></g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g573"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id35"><rect
++         class="BoundingBox"
++         x="10199"
++         y="3299"
++         width="1003"
++         height="1003"
++         id="rect576"
++         style="fill:none;stroke:none" /><path
++         d="m 10700,4300 -500,0 0,-1000 1000,0 0,1000 -500,0 z"
++         id="path578"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#00cc00" /></g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g580"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id36"><rect
++         class="BoundingBox"
++         x="14399"
++         y="3299"
++         width="1003"
++         height="1003"
++         id="rect583"
++         style="fill:none;stroke:none" /><path
++         d="m 14900,4300 -500,0 0,-1000 1000,0 0,1000 -500,0 z"
++         id="path585"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#00cc00" /></g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g587"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id37"><rect
++         class="BoundingBox"
++         x="14399"
++         y="5799"
++         width="1003"
++         height="1003"
++         id="rect590"
++         style="fill:none;stroke:none" /><path
++         d="m 14900,6800 -500,0 0,-1000 1000,0 0,1000 -500,0 z"
++         id="path592"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#00cc00" /></g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g594"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id38"><rect
++         class="BoundingBox"
++         x="11799"
++         y="5799"
++         width="1003"
++         height="1003"
++         id="rect597"
++         style="fill:none;stroke:none" /><path
++         d="m 12300,6800 -500,0 0,-1000 1000,0 0,1000 -500,0 z"
++         id="path599"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#00cc00" /></g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g601"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id39"><rect
++         class="BoundingBox"
++         x="14399"
++         y="4499"
++         width="1003"
++         height="1003"
++         id="rect604"
++         style="fill:none;stroke:none" /><path
++         d="m 14900,5500 -500,0 0,-1000 1000,0 0,1000 -500,0 z"
++         id="path606"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#0000ff" /></g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g608"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id40"><rect
++         class="BoundingBox"
++         x="13099"
++         y="5799"
++         width="1003"
++         height="1003"
++         id="rect611"
++         style="fill:none;stroke:none" /><path
++         d="m 13600,6800 -500,0 0,-1000 1000,0 0,1000 -500,0 z"
++         id="path613"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#ff0000" /></g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g615"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id41"><rect
++         class="BoundingBox"
++         x="16099"
++         y="5799"
++         width="1003"
++         height="1003"
++         id="rect618"
++         style="fill:none;stroke:none" /><path
++         d="m 16600,6800 -500,0 0,-1000 1000,0 0,1000 -500,0 z"
++         id="path620"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#ff0000" /></g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g622"
++     transform="translate(-3398.7778,-3185.889)"><g
++       id="id42"><rect
++         class="BoundingBox"
++         x="18799"
++         y="5799"
++         width="1003"
++         height="1003"
++         id="rect625"
++         style="fill:none;stroke:none" /><path
++         d="m 19300,6800 -500,0 0,-1000 1000,0 0,1000 -500,0 z"
++         id="path627"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#ff0000" /></g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g629"
++     transform="translate(-3398.7778,-3185.889)"><g
++       id="id43"><rect
++         class="BoundingBox"
++         x="18799"
++         y="3299"
++         width="1003"
++         height="1003"
++         id="rect632"
++         style="fill:none;stroke:none" /><path
++         d="m 19300,4300 -500,0 0,-1000 1000,0 0,1000 -500,0 z"
++         id="path634"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#ff0000" /></g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g636"
++     transform="translate(-3285.889,-3185.889)"><g
++       id="id44"><rect
++         class="BoundingBox"
++         x="17399"
++         y="5799"
++         width="1003"
++         height="1003"
++         id="rect639"
++         style="fill:none;stroke:none" /><path
++         d="m 17900,6800 -500,0 0,-1000 1000,0 0,1000 -500,0 z"
++         id="path641"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#00cc00" /></g></g><g
++     class="com.sun.star.drawing.CustomShape"
++     id="g643"
++     transform="translate(-3398.7778,-3185.889)"><g
++       id="id45"><rect
++         class="BoundingBox"
++         x="18799"
++         y="4499"
++         width="1003"
++         height="1003"
++         id="rect646"
++         style="fill:none;stroke:none" /><path
++         d="m 19300,5500 -500,0 0,-1000 1000,0 0,1000 -500,0 z"
++         id="path648"
++         inkscape:connector-curvature="0"
++         style="fill:none;stroke:#00cc00" /></g></g></svg>
+\ No newline at end of file
+diff --git a/Documentation/media/uapi/v4l/subdev-formats.rst b/Documentation/media/uapi/v4l/subdev-formats.rst
+index 2f9c135dfadd..d6152c907b8b 100644
+--- a/Documentation/media/uapi/v4l/subdev-formats.rst
++++ b/Documentation/media/uapi/v4l/subdev-formats.rst
+@@ -1514,8 +1514,8 @@ be named ``MEDIA_BUS_FMT_SRGGB10_2X8_PADHI_LE``.
+ 
+ .. _bayer-patterns:
+ 
+-.. figure::  bayer.png
+-    :alt:    bayer.png
++.. figure::  bayer.*
++    :alt:    bayer.pdf / bayer.svg
+     :align:  center
+ 
+     **Figure 4.8 Bayer Patterns**
 -- 
 2.7.4
