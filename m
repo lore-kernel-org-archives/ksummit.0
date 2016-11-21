@@ -1,25 +1,29 @@
 Return-Path: <mchehab@osg.samsung.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 67651902
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 16E46902
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 21 Nov 2016 19:27:11 +0000 (UTC)
+	Mon, 21 Nov 2016 19:27:12 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C572C1EA
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C6FE01EE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
 	Mon, 21 Nov 2016 19:27:10 +0000 (UTC)
 From: Mauro Carvalho Chehab <mchehab@s-opensource.com>
 To: Linux Doc Mailing List <linux-doc@vger.kernel.org>,
 	"Jonathan Corbet" <corbet@lwn.net>
-Date: Mon, 21 Nov 2016 17:27:03 -0200
-Message-Id: <4d2770fcc7a65dd1ad05387317bc1fb5c4b879be.1479756387.git.mchehab@s-opensource.com>
+Date: Mon, 21 Nov 2016 17:27:04 -0200
+Message-Id: <923b7099f6dbf193f5b13e15c6d303e8ef073538.1479756387.git.mchehab@s-opensource.com>
+In-Reply-To: <4d2770fcc7a65dd1ad05387317bc1fb5c4b879be.1479756387.git.mchehab@s-opensource.com>
+References: <4d2770fcc7a65dd1ad05387317bc1fb5c4b879be.1479756387.git.mchehab@s-opensource.com>
+In-Reply-To: <4d2770fcc7a65dd1ad05387317bc1fb5c4b879be.1479756387.git.mchehab@s-opensource.com>
+References: <4d2770fcc7a65dd1ad05387317bc1fb5c4b879be.1479756387.git.mchehab@s-opensource.com>
 Sender: Mauro Carvalho Chehab <mchehab@osg.samsung.com>
 Cc: Mauro Carvalho Chehab <mchehab@s-opensource.com>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
 	ksummit-discuss@lists.linuxfoundation.org
-Subject: [Ksummit-discuss] [PATCH v2 1/2] docs-rst: move the rules for svg
-	and graphviz to Makefile.sphinx
+Subject: [Ksummit-discuss] [PATCH v2 2/2] docs-rst: add documentation about
+	how to insert images
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,236 +33,120 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Not only media documents may have images. So, move the
-rules for building images from graphviz and from SVG to
-the Documentation makefile.
+Inserting images with Sphinx is tricky, due to its limited
+image support. So, the Kernel building system needs to
+provide some help for it to work.
 
-With this change, if some Documentation subdir "foo"
-can now specify that he has SVG and/or DOT source images
-that are included inside the documentation.
-
-All it is needed is to create a Documentation/foo/Makefile with:
-
-	DOTS += foo/bar.dot
-	IMAGES += foo/foobar.svg
-
-and, at Makefile.sphinx, add a:
-
-	include foo/Makefile
-
-The build system will generate the SVG image "bar.svg" from
-the graphviz "bar.dot" document for all documentation targets.
-
-If the documentation target is latexdocs or pdfdocs, it will
-also produce a "bar.pdf" image from "bar.svg", and a "foobar.pdf"
-from a SVG source image called "foobar.svg".
+Document how to do it.
 
 Signed-off-by: Mauro Carvalho Chehab <mchehab@s-opensource.com>
 ---
- Documentation/Makefile.sphinx | 41 ++++++++++++++++-----
- Documentation/media/Makefile  | 83 ++++++++++++++++---------------------------
- 2 files changed, 63 insertions(+), 61 deletions(-)
 
-diff --git a/Documentation/Makefile.sphinx b/Documentation/Makefile.sphinx
-index 707c65337ebf..adc24ffa4c6a 100644
---- a/Documentation/Makefile.sphinx
-+++ b/Documentation/Makefile.sphinx
-@@ -2,6 +2,8 @@
- # Makefile for Sphinx documentation
- #
- 
-+include Documentation/media/Makefile
+v2: Add the text fixes proposed by Daniel Vetter.
+
+ Documentation/doc-guide/images.rst | 81 ++++++++++++++++++++++++++++++++++++++
+ Documentation/doc-guide/index.rst  |  1 +
+ 2 files changed, 82 insertions(+)
+ create mode 100644 Documentation/doc-guide/images.rst
+
+diff --git a/Documentation/doc-guide/images.rst b/Documentation/doc-guide/images.rst
+new file mode 100644
+index 000000000000..87516248f7c2
+--- /dev/null
++++ b/Documentation/doc-guide/images.rst
+@@ -0,0 +1,81 @@
++Inserting images
++================
 +
- # You can set these variables from the command line.
- SPHINXBUILD   = sphinx-build
- SPHINXOPTS    =
-@@ -13,6 +15,29 @@ BUILDDIR      = $(obj)/output
- PDFLATEX      = xelatex
- LATEXOPTS     = -interaction=batchmode
- 
-+# Handle SVG and graphviz images
++The Kernel documentation new build system is prepared for two types of
++images: `Graphviz <http://www.graphviz.org/>`__ (``*.dot``) diagrams
++and Scalable Vector Graphics (``*.svg``). While Sphinx also supports a few
++bitmap formats, please don't use it, as it may not work on all output formats.
 +
-+DOTTGT := $(patsubst %.dot,%.svg,$(DOTS))
-+IMGDOT := $(patsubst %,$(srctree)/Documentation/%,$(DOTTGT))
++If you want to add an image on either Graphviz or SVG format, you should
++use Sphinx ``figure``, where the name of the image file should end with
++``.*``, like::
 +
-+IMGTGT := $(patsubst %.svg,%.pdf,$(IMAGES))
-+IMGPDF := $(patsubst %,$(srctree)/Documentation/%,$(IMGTGT))
++	.. figure::  pipeline.*
++		:alt:    pipeline.pdf / pipeline.svg
++		:align:  center
 +
-+cmd = $(echo-cmd) $(cmd_$(1))
++		Image Format Negotiation on Pipelines
 +
-+quiet_cmd_genpdf = GENPDF  $2
-+      cmd_genpdf = convert $2 $3
++Using ``.*`` makes Sphinx to look at the right image extension for
++the actual image file, which is converted by the building system.
 +
-+quiet_cmd_gendot = DOT     $2
-+      cmd_gendot = dot -Tsvg $2 > $3
++Scalable Vector Graphics images
++-------------------------------
 +
-+%.pdf: %.svg
-+	@$(call cmd,genpdf,$<,$@)
++Sphinx has support for SVG only for html and epub outputs. For LaTeX
++and PDF, the images need to be converted to PDF. The Kernel build
++system does the needed conversion. For that to happen, you need to
++add a ``Makefile`` at the ``Documentation`` subdirectory, and include it
++at ``Documentation/Makefile.sphinx``.
 +
-+%.svg: %.dot
-+	@$(call cmd,gendot,$<,$@)
++For example, if you want to add ``foo.svg`` image inside a ``bar`` directory,
++you should create a ``bar/Makefile`` directory with::
 +
++	IMAGES += bar/foo.svg
 +
- # User-friendly check for sphinx-build
- HAVE_SPHINX := $(shell if which $(SPHINXBUILD) >/dev/null 2>&1; then echo 1; else echo 0; fi)
- 
-@@ -54,7 +79,7 @@ loop_cmd = $(echo-cmd) $(cmd_$(1))
- #    e.g. "media" for the linux-tv book-set at ./Documentation/media
- 
- quiet_cmd_sphinx = SPHINX  $@ --> file://$(abspath $(BUILDDIR)/$3/$4)
--      cmd_sphinx = $(MAKE) BUILDDIR=$(abspath $(BUILDDIR)) $(build)=Documentation/media $2;\
-+      cmd_sphinx = $(MAKE) BUILDDIR=$(abspath $(BUILDDIR)) $(build)=Documentation/media mediaheaders;\
- 	BUILDDIR=$(abspath $(BUILDDIR)) SPHINX_CONF=$(abspath $(srctree)/$(src)/$5/$(SPHINX_CONF)) \
- 	$(SPHINXBUILD) \
- 	-b $2 \
-@@ -65,10 +90,10 @@ quiet_cmd_sphinx = SPHINX  $@ --> file://$(abspath $(BUILDDIR)/$3/$4)
- 	$(abspath $(srctree)/$(src)/$5) \
- 	$(abspath $(BUILDDIR)/$3/$4);
- 
--htmldocs:
-+htmldocs: $(IMGDOT)
- 	@$(foreach var,$(SPHINXDIRS),$(call loop_cmd,sphinx,html,$(var),,$(var)))
- 
--latexdocs:
-+latexdocs: $(IMGPDF)
- 	@$(foreach var,$(SPHINXDIRS),$(call loop_cmd,sphinx,latex,$(var),latex,$(var)))
- 
- ifeq ($(HAVE_PDFLATEX),0)
-@@ -79,15 +104,15 @@ pdfdocs:
- 
- else # HAVE_PDFLATEX
- 
--pdfdocs: latexdocs
-+pdfdocs: latexdocs $(IMGPDF)
- 	$(foreach var,$(SPHINXDIRS), $(MAKE) PDFLATEX=$(PDFLATEX) LATEXOPTS="$(LATEXOPTS)" -C $(BUILDDIR)/$(var)/latex;)
- 
- endif # HAVE_PDFLATEX
- 
--epubdocs:
-+epubdocs: $(IMGDOT)
- 	@$(foreach var,$(SPHINXDIRS),$(call loop_cmd,sphinx,epub,$(var),epub,$(var)))
- 
--xmldocs:
-+xmldocs: $(IMGDOT)
- 	@$(foreach var,$(SPHINXDIRS),$(call loop_cmd,sphinx,xml,$(var),xml,$(var)))
- 
- # no-ops for the Sphinx toolchain
-@@ -97,8 +122,8 @@ mandocs:
- installmandocs:
- 
- cleandocs:
--	$(Q)rm -rf $(BUILDDIR)
--	$(Q)$(MAKE) BUILDDIR=$(abspath $(BUILDDIR)) -C Documentation/media clean
-+	$(Q)rm -rf $(BUILDDIR) $(IMGDOT) $(IMGPDF)
-+	$(Q)$(MAKE) BUILDDIR=$(abspath $(BUILDDIR)) -C Documentation/media mediacleandocs
- 
- endif # HAVE_SPHINX
- 
-diff --git a/Documentation/media/Makefile b/Documentation/media/Makefile
-index 4d8e2ff378c4..b27c202beefb 100644
---- a/Documentation/media/Makefile
-+++ b/Documentation/media/Makefile
-@@ -1,54 +1,35 @@
- # Rules to convert DOT and SVG to Sphinx images
- 
--SRC_DIR=$(srctree)/Documentation/media
--
--DOTS = \
--	uapi/v4l/pipeline.dot \
--
--IMAGES = \
--	typical_media_device.svg \
--	uapi/dvb/dvbstb.svg \
--	uapi/v4l/bayer.svg \
--	uapi/v4l/constraints.svg \
--	uapi/v4l/crop.svg \
--	uapi/v4l/fieldseq_bt.svg \
--	uapi/v4l/fieldseq_tb.svg \
--	uapi/v4l/nv12mt.svg \
--	uapi/v4l/nv12mt_example.svg \
--	uapi/v4l/pipeline.svg \
--	uapi/v4l/selection.svg \
--	uapi/v4l/subdev-image-processing-full.svg \
--	uapi/v4l/subdev-image-processing-scaling-multi-source.svg \
--	uapi/v4l/subdev-image-processing-crop.svg \
--	uapi/v4l/vbi_525.svg \
--	uapi/v4l/vbi_625.svg \
--	uapi/v4l/vbi_hsync.svg \
--
--DOTTGT := $(patsubst %.dot,%.svg,$(DOTS))
--IMGDOT := $(patsubst %,$(SRC_DIR)/%,$(DOTTGT))
--
--IMGTGT := $(patsubst %.svg,%.pdf,$(IMAGES))
--IMGPDF := $(patsubst %,$(SRC_DIR)/%,$(IMGTGT))
--
--cmd = $(echo-cmd) $(cmd_$(1))
--
--quiet_cmd_genpdf = GENPDF  $2
--      cmd_genpdf = convert $2 $3
--
--quiet_cmd_gendot = DOT     $2
--      cmd_gendot = dot -Tsvg $2 > $3
--
--%.pdf: %.svg
--	@$(call cmd,genpdf,$<,$@)
--
--%.svg: %.dot
--	@$(call cmd,gendot,$<,$@)
-+UAPI_V4L = media/uapi/v4l
++Please notice that the path for the file should be relative to the
++``Documentation/`` directory. For the Makefile to be parsed, it should
++be included at the ``Documentation/Makefile.sphinx`` file with::
 +
-+DOTS += \
-+	$(UAPI_V4L)/pipeline.dot \
++	include Documentation/bar/Makefile
 +
-+IMAGES += \
-+	media/typical_media_device.svg \
-+	media/uapi/dvb/dvbstb.svg \
-+	$(UAPI_V4L)/bayer.svg \
-+	$(UAPI_V4L)/constraints.svg \
-+	$(UAPI_V4L)/crop.svg \
-+	$(UAPI_V4L)/fieldseq_bt.svg \
-+	$(UAPI_V4L)/fieldseq_tb.svg \
-+	$(UAPI_V4L)/nv12mt.svg \
-+	$(UAPI_V4L)/nv12mt_example.svg \
-+	$(UAPI_V4L)/pipeline.svg \
-+	$(UAPI_V4L)/selection.svg \
-+	$(UAPI_V4L)/subdev-image-processing-full.svg \
-+	$(UAPI_V4L)/subdev-image-processing-scaling-multi-source.svg \
-+	$(UAPI_V4L)/subdev-image-processing-crop.svg \
-+	$(UAPI_V4L)/vbi_525.svg \
-+	$(UAPI_V4L)/vbi_625.svg \
-+	$(UAPI_V4L)/vbi_hsync.svg \
++Please notice that the path for the file should be relative to the
++kernel's root directory.
++
++With that, when generating either a LaTeX or PDF output, the build
++system will automatically convert the image output to ``*.pdf``::
++
++	GENPDF  Documentation/bar/foo.svg
++
++Graphviz diagrams
++-----------------
++
++Sphinx doesn't support Graphviz directly. So, the Kernel building system
++has to convert it first to Scalable Vector Graphics, before calling
++Sphinx to handle the diagram. Also, for LaTeX and PDF, the image also
++needs to be converted to PDF. For that to happen, you need to add a
++``Makefile`` at the ``Documentation`` subdirectory, and include it at
++``Documentation/Makefile.sphinx``.
++
++For example, if you want to add ``foobar.dot`` image inside a ``bar``
++directory, you should create a ``bar/Makefile`` directory with::
++
++	DOTS += bar/foobar.svg
++
++Please notice that the path for the file should be relative to the
++``Documentation/`` directory. For the Makefile to be parsed, it should
++be included at the ``Documentation/Makefile.sphinx`` file with::
++
++	include Documentation/bar/Makefile
++
++Please notice that the path for the file should be relative to the
++kernel's root directory.
++
++With that, before calling Sphinx, the Kernel's build system will generate
++a SVG file using Graphviz::
++
++	DOT     Documentation/bar/foobar.dot
++
++And, if the output is either LaTeX or PDF, it will also convert it to PDF::
++
++	GENPDF  Documentation/bar/foobar.svg
+diff --git a/Documentation/doc-guide/index.rst b/Documentation/doc-guide/index.rst
+index 6fff4024606e..a7080d44105c 100644
+--- a/Documentation/doc-guide/index.rst
++++ b/Documentation/doc-guide/index.rst
+@@ -8,6 +8,7 @@ How to write kernel documentation
+    :maxdepth: 1
  
- # Rules to convert a .h file to inline RST documentation
- 
- PARSER = $(srctree)/Documentation/sphinx/parse-headers.pl
--UAPI = $(srctree)/include/uapi/linux
--KAPI = $(srctree)/include/linux
-+SRC_DIR= $(srctree)/Documentation/media
-+UAPI   = $(srctree)/include/uapi/linux
-+KAPI   = $(srctree)/include/linux
- 
- FILES = audio.h.rst ca.h.rst dmx.h.rst frontend.h.rst net.h.rst video.h.rst \
- 	  videodev2.h.rst media.h.rst cec.h.rst lirc.h.rst
-@@ -96,16 +77,12 @@ $(BUILDDIR)/lirc.h.rst: ${UAPI}/lirc.h ${PARSER} $(SRC_DIR)/lirc.h.rst.exception
- 
- # Media build rules
- 
--.PHONY: all html epub xml latex
-+.PHONY: mediaheaders
- 
--all: $(IMGDOT) $(BUILDDIR) ${TARGETS}
--html: all
--epub: all
--xml: all
--latex: $(IMGPDF) all
-+mediaheaders: $(IMGDOT) $(BUILDDIR) ${TARGETS}
- 
--clean:
--	-rm -f $(DOTTGT) $(IMGTGT) ${TARGETS} 2>/dev/null
-+mediacleandocs:
-+	$(Q)rm -f ${TARGETS} 2>/dev/null
- 
- $(BUILDDIR):
- 	$(Q)mkdir -p $@
+    sphinx.rst
++   images.rst
+    kernel-doc.rst
+    parse-headers.rst
+    docbook.rst
 -- 
 2.9.3
