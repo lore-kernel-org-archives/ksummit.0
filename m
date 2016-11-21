@@ -1,31 +1,25 @@
-Return-Path: <mchehab@s-opensource.com>
+Return-Path: <mchehab@osg.samsung.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1895FB62
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 67651902
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 21 Nov 2016 19:16:05 +0000 (UTC)
-Received: from osg.samsung.com
-	(ec2-52-27-115-49.us-west-2.compute.amazonaws.com [52.27.115.49])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 79D2D1EA
+	Mon, 21 Nov 2016 19:27:11 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.9])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C572C1EA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 21 Nov 2016 19:16:04 +0000 (UTC)
-Date: Mon, 21 Nov 2016 17:15:57 -0200
+	Mon, 21 Nov 2016 19:27:10 +0000 (UTC)
 From: Mauro Carvalho Chehab <mchehab@s-opensource.com>
-To: Jonathan Corbet <corbet@lwn.net>
-Message-ID: <20161121171557.5c0fbe8c@vento.lan>
-In-Reply-To: <20161121104444.28862d80@lwn.net>
-References: <cover.1479656706.git.mchehab@s-opensource.com>
-	<20161121104444.28862d80@lwn.net>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: Markus Heiser <markus.heiser@darmarIT.de>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	Linux Doc Mailing List <linux-doc@vger.kernel.org>,
+To: Linux Doc Mailing List <linux-doc@vger.kernel.org>,
+	"Jonathan Corbet" <corbet@lwn.net>
+Date: Mon, 21 Nov 2016 17:27:03 -0200
+Message-Id: <4d2770fcc7a65dd1ad05387317bc1fb5c4b879be.1479756387.git.mchehab@s-opensource.com>
+Sender: Mauro Carvalho Chehab <mchehab@osg.samsung.com>
+Cc: Mauro Carvalho Chehab <mchehab@s-opensource.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Subject: Re: [Ksummit-discuss] [PATCH 0/9] Get rid of bitmap images
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: [Ksummit-discuss] [PATCH v2 1/2] docs-rst: move the rules for svg
+	and graphviz to Makefile.sphinx
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,66 +29,236 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Em Mon, 21 Nov 2016 10:44:44 -0700
-Jonathan Corbet <corbet@lwn.net> escreveu:
+Not only media documents may have images. So, move the
+rules for building images from graphviz and from SVG to
+the Documentation makefile.
 
-> On Sun, 20 Nov 2016 14:08:31 -0200
-> Mauro Carvalho Chehab <mchehab@s-opensource.com> wrote:
-> 
-> > The goal of this patch series is to get rid of PNG images, using either graphviz
-> > or SVG for images.
-> > 
-> > For old images generated with xfig, stored inside PDF, just convert them to SVG
-> > and cleanup the images using inkscape.
-> > 
-> > Other images need to be rewritten in SVG.
-> > 
-> > The pipeline image is actually a graphviz diagram. So, use dot to convert it
-> > to SVG.
-> > 
-> > For now, I'm keeping the image conversion rules inside the
-> > Documentation/media/Makefile. As we get other docs using images,
-> > the best would be to move those rules to Documentation/Makefile.sphinx,
-> > while we don't have a Sphinx extension or fixup that would handle them
-> > directly.  
-> 
-> So this all seems good to me and makes sense to get in for 4.10.  Should I
-> apply these?
+With this change, if some Documentation subdir "foo"
+can now specify that he has SVG and/or DOT source images
+that are included inside the documentation.
 
-If you are OK with them, please apply on your tree. IMHO, it is better
-to keep those on your tree than on mine. It should not cause conflicts
-with the stuff I have at the media tree.
+All it is needed is to create a Documentation/foo/Makefile with:
 
-> 
-> > NOTE: some images use more than 998 columns, causing troubles
-> > with some MTA and MUA that could refuse them, because of an IETF
-> > RFC 2821 violation:  
-> 
-> Hard would it be to bash out a little tool that could break those long
-> lines?  It seems like the format should be able to support that?  I'm no
-> XML expert, but a quick experiment breaking the long lines in
-> fieldseq_bt.svg didn't create any problems; white space is white space.
+	DOTS += foo/bar.dot
+	IMAGES += foo/foobar.svg
 
-I'm not sure. The problem happens on strings like this one:
+and, at Makefile.sphinx, add a:
 
-x="103.58983 109.09226 113.67899 118.26572 122.85246 127.43919 132.47964 134.77301 140.27545 144.86218 150.81833 155.40506 160.44553 166.86365 188.62184 194.12427 198.711 203.29774 207.88448 212.47121 217.51166 219.80502 225.30746 229.8942 235.85034 240.43707 245.9395 252.35764 257.3981 262.43854 268.85669 375.69293 381.19534 385.78207 390.3688 394.95554 399.54227 404.58273 406.8761 412.37854 416.96527 422.92142 427.50815 433.01059 439.42871 444.46918 449.50961 455.92776 1.551828 7.0542617 11.640993 16.227724 20.814463 25.401194 30.441652 32.735016 38.237442 42.824177 48.780331 53.367065 58.869492 65.287621 70.328079 75.368538 81.786659"
+	include foo/Makefile
 
-I've no idea if breaking lines inside strings on XML would cause
-troubles for SVG handling, and, if all SVG libraries would do the
-same thing.
+The build system will generate the SVG image "bar.svg" from
+the graphviz "bar.dot" document for all documentation targets.
 
-> Indeed, given the small number of images and the infrequency with which
-> they change, perhaps that could just be done by hand?
+If the documentation target is latexdocs or pdfdocs, it will
+also produce a "bar.pdf" image from "bar.svg", and a "foobar.pdf"
+from a SVG source image called "foobar.svg".
 
-I guess so. We can always get them via git pull requests, and at
-least my e-mail servers are OK with long e-mails. I suspect we'll
-have problems with ML servers, like vger, though.
+Signed-off-by: Mauro Carvalho Chehab <mchehab@s-opensource.com>
+---
+ Documentation/Makefile.sphinx | 41 ++++++++++++++++-----
+ Documentation/media/Makefile  | 83 ++++++++++++++++---------------------------
+ 2 files changed, 63 insertions(+), 61 deletions(-)
 
-> 
-> (In the process I learned that if you visit an SVG image in emacs, it
-> actually renders and displays the image!)
-
-That's interesting!
-
-Thanks,
-Mauro
+diff --git a/Documentation/Makefile.sphinx b/Documentation/Makefile.sphinx
+index 707c65337ebf..adc24ffa4c6a 100644
+--- a/Documentation/Makefile.sphinx
++++ b/Documentation/Makefile.sphinx
+@@ -2,6 +2,8 @@
+ # Makefile for Sphinx documentation
+ #
+ 
++include Documentation/media/Makefile
++
+ # You can set these variables from the command line.
+ SPHINXBUILD   = sphinx-build
+ SPHINXOPTS    =
+@@ -13,6 +15,29 @@ BUILDDIR      = $(obj)/output
+ PDFLATEX      = xelatex
+ LATEXOPTS     = -interaction=batchmode
+ 
++# Handle SVG and graphviz images
++
++DOTTGT := $(patsubst %.dot,%.svg,$(DOTS))
++IMGDOT := $(patsubst %,$(srctree)/Documentation/%,$(DOTTGT))
++
++IMGTGT := $(patsubst %.svg,%.pdf,$(IMAGES))
++IMGPDF := $(patsubst %,$(srctree)/Documentation/%,$(IMGTGT))
++
++cmd = $(echo-cmd) $(cmd_$(1))
++
++quiet_cmd_genpdf = GENPDF  $2
++      cmd_genpdf = convert $2 $3
++
++quiet_cmd_gendot = DOT     $2
++      cmd_gendot = dot -Tsvg $2 > $3
++
++%.pdf: %.svg
++	@$(call cmd,genpdf,$<,$@)
++
++%.svg: %.dot
++	@$(call cmd,gendot,$<,$@)
++
++
+ # User-friendly check for sphinx-build
+ HAVE_SPHINX := $(shell if which $(SPHINXBUILD) >/dev/null 2>&1; then echo 1; else echo 0; fi)
+ 
+@@ -54,7 +79,7 @@ loop_cmd = $(echo-cmd) $(cmd_$(1))
+ #    e.g. "media" for the linux-tv book-set at ./Documentation/media
+ 
+ quiet_cmd_sphinx = SPHINX  $@ --> file://$(abspath $(BUILDDIR)/$3/$4)
+-      cmd_sphinx = $(MAKE) BUILDDIR=$(abspath $(BUILDDIR)) $(build)=Documentation/media $2;\
++      cmd_sphinx = $(MAKE) BUILDDIR=$(abspath $(BUILDDIR)) $(build)=Documentation/media mediaheaders;\
+ 	BUILDDIR=$(abspath $(BUILDDIR)) SPHINX_CONF=$(abspath $(srctree)/$(src)/$5/$(SPHINX_CONF)) \
+ 	$(SPHINXBUILD) \
+ 	-b $2 \
+@@ -65,10 +90,10 @@ quiet_cmd_sphinx = SPHINX  $@ --> file://$(abspath $(BUILDDIR)/$3/$4)
+ 	$(abspath $(srctree)/$(src)/$5) \
+ 	$(abspath $(BUILDDIR)/$3/$4);
+ 
+-htmldocs:
++htmldocs: $(IMGDOT)
+ 	@$(foreach var,$(SPHINXDIRS),$(call loop_cmd,sphinx,html,$(var),,$(var)))
+ 
+-latexdocs:
++latexdocs: $(IMGPDF)
+ 	@$(foreach var,$(SPHINXDIRS),$(call loop_cmd,sphinx,latex,$(var),latex,$(var)))
+ 
+ ifeq ($(HAVE_PDFLATEX),0)
+@@ -79,15 +104,15 @@ pdfdocs:
+ 
+ else # HAVE_PDFLATEX
+ 
+-pdfdocs: latexdocs
++pdfdocs: latexdocs $(IMGPDF)
+ 	$(foreach var,$(SPHINXDIRS), $(MAKE) PDFLATEX=$(PDFLATEX) LATEXOPTS="$(LATEXOPTS)" -C $(BUILDDIR)/$(var)/latex;)
+ 
+ endif # HAVE_PDFLATEX
+ 
+-epubdocs:
++epubdocs: $(IMGDOT)
+ 	@$(foreach var,$(SPHINXDIRS),$(call loop_cmd,sphinx,epub,$(var),epub,$(var)))
+ 
+-xmldocs:
++xmldocs: $(IMGDOT)
+ 	@$(foreach var,$(SPHINXDIRS),$(call loop_cmd,sphinx,xml,$(var),xml,$(var)))
+ 
+ # no-ops for the Sphinx toolchain
+@@ -97,8 +122,8 @@ mandocs:
+ installmandocs:
+ 
+ cleandocs:
+-	$(Q)rm -rf $(BUILDDIR)
+-	$(Q)$(MAKE) BUILDDIR=$(abspath $(BUILDDIR)) -C Documentation/media clean
++	$(Q)rm -rf $(BUILDDIR) $(IMGDOT) $(IMGPDF)
++	$(Q)$(MAKE) BUILDDIR=$(abspath $(BUILDDIR)) -C Documentation/media mediacleandocs
+ 
+ endif # HAVE_SPHINX
+ 
+diff --git a/Documentation/media/Makefile b/Documentation/media/Makefile
+index 4d8e2ff378c4..b27c202beefb 100644
+--- a/Documentation/media/Makefile
++++ b/Documentation/media/Makefile
+@@ -1,54 +1,35 @@
+ # Rules to convert DOT and SVG to Sphinx images
+ 
+-SRC_DIR=$(srctree)/Documentation/media
+-
+-DOTS = \
+-	uapi/v4l/pipeline.dot \
+-
+-IMAGES = \
+-	typical_media_device.svg \
+-	uapi/dvb/dvbstb.svg \
+-	uapi/v4l/bayer.svg \
+-	uapi/v4l/constraints.svg \
+-	uapi/v4l/crop.svg \
+-	uapi/v4l/fieldseq_bt.svg \
+-	uapi/v4l/fieldseq_tb.svg \
+-	uapi/v4l/nv12mt.svg \
+-	uapi/v4l/nv12mt_example.svg \
+-	uapi/v4l/pipeline.svg \
+-	uapi/v4l/selection.svg \
+-	uapi/v4l/subdev-image-processing-full.svg \
+-	uapi/v4l/subdev-image-processing-scaling-multi-source.svg \
+-	uapi/v4l/subdev-image-processing-crop.svg \
+-	uapi/v4l/vbi_525.svg \
+-	uapi/v4l/vbi_625.svg \
+-	uapi/v4l/vbi_hsync.svg \
+-
+-DOTTGT := $(patsubst %.dot,%.svg,$(DOTS))
+-IMGDOT := $(patsubst %,$(SRC_DIR)/%,$(DOTTGT))
+-
+-IMGTGT := $(patsubst %.svg,%.pdf,$(IMAGES))
+-IMGPDF := $(patsubst %,$(SRC_DIR)/%,$(IMGTGT))
+-
+-cmd = $(echo-cmd) $(cmd_$(1))
+-
+-quiet_cmd_genpdf = GENPDF  $2
+-      cmd_genpdf = convert $2 $3
+-
+-quiet_cmd_gendot = DOT     $2
+-      cmd_gendot = dot -Tsvg $2 > $3
+-
+-%.pdf: %.svg
+-	@$(call cmd,genpdf,$<,$@)
+-
+-%.svg: %.dot
+-	@$(call cmd,gendot,$<,$@)
++UAPI_V4L = media/uapi/v4l
++
++DOTS += \
++	$(UAPI_V4L)/pipeline.dot \
++
++IMAGES += \
++	media/typical_media_device.svg \
++	media/uapi/dvb/dvbstb.svg \
++	$(UAPI_V4L)/bayer.svg \
++	$(UAPI_V4L)/constraints.svg \
++	$(UAPI_V4L)/crop.svg \
++	$(UAPI_V4L)/fieldseq_bt.svg \
++	$(UAPI_V4L)/fieldseq_tb.svg \
++	$(UAPI_V4L)/nv12mt.svg \
++	$(UAPI_V4L)/nv12mt_example.svg \
++	$(UAPI_V4L)/pipeline.svg \
++	$(UAPI_V4L)/selection.svg \
++	$(UAPI_V4L)/subdev-image-processing-full.svg \
++	$(UAPI_V4L)/subdev-image-processing-scaling-multi-source.svg \
++	$(UAPI_V4L)/subdev-image-processing-crop.svg \
++	$(UAPI_V4L)/vbi_525.svg \
++	$(UAPI_V4L)/vbi_625.svg \
++	$(UAPI_V4L)/vbi_hsync.svg \
+ 
+ # Rules to convert a .h file to inline RST documentation
+ 
+ PARSER = $(srctree)/Documentation/sphinx/parse-headers.pl
+-UAPI = $(srctree)/include/uapi/linux
+-KAPI = $(srctree)/include/linux
++SRC_DIR= $(srctree)/Documentation/media
++UAPI   = $(srctree)/include/uapi/linux
++KAPI   = $(srctree)/include/linux
+ 
+ FILES = audio.h.rst ca.h.rst dmx.h.rst frontend.h.rst net.h.rst video.h.rst \
+ 	  videodev2.h.rst media.h.rst cec.h.rst lirc.h.rst
+@@ -96,16 +77,12 @@ $(BUILDDIR)/lirc.h.rst: ${UAPI}/lirc.h ${PARSER} $(SRC_DIR)/lirc.h.rst.exception
+ 
+ # Media build rules
+ 
+-.PHONY: all html epub xml latex
++.PHONY: mediaheaders
+ 
+-all: $(IMGDOT) $(BUILDDIR) ${TARGETS}
+-html: all
+-epub: all
+-xml: all
+-latex: $(IMGPDF) all
++mediaheaders: $(IMGDOT) $(BUILDDIR) ${TARGETS}
+ 
+-clean:
+-	-rm -f $(DOTTGT) $(IMGTGT) ${TARGETS} 2>/dev/null
++mediacleandocs:
++	$(Q)rm -f ${TARGETS} 2>/dev/null
+ 
+ $(BUILDDIR):
+ 	$(Q)mkdir -p $@
+-- 
+2.9.3
