@@ -1,37 +1,31 @@
-Return-Path: <mchehab@s-opensource.com>
+Return-Path: <jani.nikula@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 783CD727
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7D7B995E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 21 Nov 2016 19:48:29 +0000 (UTC)
-Received: from osg.samsung.com
-	(ec2-52-27-115-49.us-west-2.compute.amazonaws.com [52.27.115.49])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id D93461D3
+	Tue, 22 Nov 2016 13:49:51 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8D137183
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 21 Nov 2016 19:48:28 +0000 (UTC)
-Date: Mon, 21 Nov 2016 17:48:20 -0200
-From: Mauro Carvalho Chehab <mchehab@s-opensource.com>
-To: Johannes Berg <johannes@sipsolutions.net>
-Message-ID: <20161121174820.469b70f1@vento.lan>
-In-Reply-To: <1479743068.4391.4.camel@sipsolutions.net>
-References: <20161107075524.49d83697@vento.lan> <11020459.EheIgy38UF@wuerfel>
-	<20161116182633.74559ffd@vento.lan> <2923918.nyphv1Ma7d@wuerfel>
-	<CA+55aFyFrhRefTuRvE2rjrp6d4+wuBmKfT_+a65i0-4tpxa46w@mail.gmail.com>
-	<20161119101543.12b89563@lwn.net>
-	<1479724781.8662.18.camel@sipsolutions.net>
-	<20161121120657.31eaeca4@vento.lan>
-	<1479742905.2309.16.camel@HansenPartnership.com>
-	<1479743068.4391.4.camel@sipsolutions.net>
+	Tue, 22 Nov 2016 13:49:50 +0000 (UTC)
+From: Jani Nikula <jani.nikula@intel.com>
+To: Mauro Carvalho Chehab <mchehab@s-opensource.com>,
+	Jonathan Corbet <corbet@lwn.net>
+In-Reply-To: <20161121171557.5c0fbe8c@vento.lan>
+References: <cover.1479656706.git.mchehab@s-opensource.com>
+	<20161121104444.28862d80@lwn.net>
+	<20161121171557.5c0fbe8c@vento.lan>
+Date: Tue, 22 Nov 2016 15:49:47 +0200
+Message-ID: <877f7vy684.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	"open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+Content-Type: text/plain
+Cc: Markus Heiser <markus.heiser@darmarIT.de>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Linux Doc Mailing List <linux-doc@vger.kernel.org>,
 	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Linux Media Mailing List <linux-media@vger.kernel.org>
-Subject: Re: [Ksummit-discuss] Including images on Sphinx documents
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Subject: Re: [Ksummit-discuss] [PATCH 0/9] Get rid of bitmap images
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,56 +35,40 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Em Mon, 21 Nov 2016 16:44:28 +0100
-Johannes Berg <johannes@sipsolutions.net> escreveu:
+On Mon, 21 Nov 2016, Mauro Carvalho Chehab <mchehab@s-opensource.com> wrote:
+> Em Mon, 21 Nov 2016 10:44:44 -0700
+> Jonathan Corbet <corbet@lwn.net> escreveu:
+>
+>> On Sun, 20 Nov 2016 14:08:31 -0200
+>> Mauro Carvalho Chehab <mchehab@s-opensource.com> wrote:
+>> > NOTE: some images use more than 998 columns, causing troubles
+>> > with some MTA and MUA that could refuse them, because of an IETF
+>> > RFC 2821 violation:  
+>> 
+>> Hard would it be to bash out a little tool that could break those long
+>> lines?  It seems like the format should be able to support that?  I'm no
+>> XML expert, but a quick experiment breaking the long lines in
+>> fieldseq_bt.svg didn't create any problems; white space is white space.
+>
+> I'm not sure. The problem happens on strings like this one:
+>
+> x="103.58983 109.09226 113.67899 118.26572 122.85246 127.43919 132.47964 134.77301 140.27545 144.86218 150.81833 155.40506 160.44553 166.86365 188.62184 194.12427 198.711 203.29774 207.88448 212.47121 217.51166 219.80502 225.30746 229.8942 235.85034 240.43707 245.9395 252.35764 257.3981 262.43854 268.85669 375.69293 381.19534 385.78207 390.3688 394.95554 399.54227 404.58273 406.8761 412.37854 416.96527 422.92142 427.50815 433.01059 439.42871 444.46918 449.50961 455.92776 1.551828 7.0542617 11.640993 16.227724 20.814463 25.401194 30.441652 32.735016 38.237442 42.824177 48.780331 53.367065 58.869492 65.287621 70.328079 75.368538 81.786659"
+>
+> I've no idea if breaking lines inside strings on XML would cause
+> troubles for SVG handling, and, if all SVG libraries would do the
+> same thing.
 
-> > > > You had pointed me to this plugin before
-> > > > https://pythonhosted.org/sphinxcontrib-aafig/
-> > > >=20
-> > > > but I don't think it can actually represent any of the pictures. =20
-> > >=20
-> > > No, but there are some ascii art images inside some txt/rst files
-> > > and inside some kernel-doc comments. We could either use the above
-> > > extension for them or to convert into some image. The ascii art
-> > > images I saw seem to be diagrams, so Graphviz would allow replacing
-> > > most of them, if not all. =20
-> >=20
-> > Please don't replace ASCII art that effectively conveys conceptual
-> > diagrams.=C2=A0=C2=A0If you do, we'll wind up in situations where someo=
-ne
-> > hasn't built the docs and doesn't possess the tools to see a diagram
-> > that was previously shown by every text editor (or can't be bothered
-> > to dig out the now separate file).=C2=A0=C2=A0In the name of creating
-> > "prettier" diagrams (and final doc), we'll have damaged capacity to
-> > understand stuff by just reading the source if this diagram is in
-> > kernel doc comments.=C2=A0=C2=A0I think this is a good application of "=
-if it
-> > ain't broke, don't fix it". =20
+It *should* be okay to just replace spaces within attributes with
+newlines, and they should be normalized back to spaces by any compliant
+xml parser.
 
-I agree with it as a general rule. Yet, there are cases where the diagram=20
-is so complex that rewriting it with Graphviz would make sense, like
-the one on this document:
+You can use tidy or xmllint to clean up the xml before
+committing. Unfortunately I couldn't make tidy actually wrap the long
+attributes, but could be PEBKAC.
 
-	Documentation/media/v4l-drivers/pxa_camera.rst
-
-Regards,
-Mauro
-
+BR,
+Jani.
 
 
->=20
-> Right, I agree completely!
->=20
-> That's the selling point of aafig though, it translates to pretty
-> diagrams, but looks fine when viewed in a normal text editor (with
-> fixed-width font)
->=20
-> I had a hack elsewhere that would embed the fixed-width text if the
-> plugin isn't present, which seemed like a decent compromise, but nobody
-> is willing to let plugins be used in general to start with, it seems :)
->=20
-> johannes
-
-
-Thanks,
-Mauro
+-- 
+Jani Nikula, Intel Open Source Technology Center
