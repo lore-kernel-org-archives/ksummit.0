@@ -1,24 +1,26 @@
-Return-Path: <jani.nikula@intel.com>
+Return-Path: <mchehab@s-opensource.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id CD02D892
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 09E68728
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 22 Nov 2016 15:40:30 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7FE511D8
+	Tue, 22 Nov 2016 16:38:53 +0000 (UTC)
+Received: from osg.samsung.com
+	(ec2-52-27-115-49.us-west-2.compute.amazonaws.com [52.27.115.49])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 84DC4125
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 22 Nov 2016 15:40:30 +0000 (UTC)
-From: Jani Nikula <jani.nikula@intel.com>
-To: Mauro Carvalho Chehab <mchehab@s-opensource.com>
-In-Reply-To: <20161122131510.0fadabc4@vento.lan>
+	Tue, 22 Nov 2016 16:38:52 +0000 (UTC)
+Date: Tue, 22 Nov 2016 14:38:45 -0200
+From: Mauro Carvalho Chehab <mchehab@s-opensource.com>
+To: Jani Nikula <jani.nikula@intel.com>
+Message-ID: <20161122143845.5b3d8c29@vento.lan>
+In-Reply-To: <871sy3y13o.fsf@intel.com>
 References: <cover.1479656706.git.mchehab@s-opensource.com>
 	<20161121104444.28862d80@lwn.net>
 	<20161121171557.5c0fbe8c@vento.lan> <877f7vy684.fsf@intel.com>
-	<20161122131510.0fadabc4@vento.lan>
-Date: Tue, 22 Nov 2016 17:40:27 +0200
-Message-ID: <871sy3y13o.fsf@intel.com>
+	<20161122131510.0fadabc4@vento.lan> <871sy3y13o.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 Cc: Markus Heiser <markus.heiser@darmarIT.de>,
 	ksummit-discuss@lists.linuxfoundation.org,
 	Linux Doc Mailing List <linux-doc@vger.kernel.org>,
@@ -35,19 +37,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, 22 Nov 2016, Mauro Carvalho Chehab <mchehab@s-opensource.com> wrote:
-> I tried both, none broke the long lines on 
-> Documentation/media/uapi/v4l/fieldseq_tb.svg.
+Em Tue, 22 Nov 2016 17:40:27 +0200
+Jani Nikula <jani.nikula@intel.com> escreveu:
 
-How about:
+> On Tue, 22 Nov 2016, Mauro Carvalho Chehab <mchehab@s-opensource.com> wrote:
+> > I tried both, none broke the long lines on 
+> > Documentation/media/uapi/v4l/fieldseq_tb.svg.  
+> 
+> How about:
+> 
+> 'tidy -xml -i Documentation/media/uapi/v4l/fieldseq_tb.svg | fmt -sw 80'
+> 
+> Both pretty indents and folds. I think it should Just Work(tm).
 
-'tidy -xml -i Documentation/media/uapi/v4l/fieldseq_tb.svg | fmt -sw 80'
+No, it didn't... Try this:
+	$ tidy -xml -i Documentation/media/uapi/dvb/dvbstb.svg|fmt -sw 80 >a.svg
 
-Both pretty indents and folds. I think it should Just Work(tm).
+And open both images with inkscape. You'll see that it mangled the
+texts :-(
+
+Just using fmt didn't seem to cause issues, at least on this image, but
+I'll do more tests to be sure.
 
 
-BR,
-Jani.
 
--- 
-Jani Nikula, Intel Open Source Technology Center
+Regards,
+Mauro
