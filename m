@@ -1,26 +1,32 @@
-Return-Path: <dhowells@redhat.com>
+Return-Path: <luto@amacapital.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id E8167B49
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 71E66BD8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 23 Jan 2017 17:27:35 +0000 (UTC)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7885A23D
+	Mon, 23 Jan 2017 20:11:06 +0000 (UTC)
+Received: from mail-ua0-f180.google.com (mail-ua0-f180.google.com
+	[209.85.217.180])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0C6AE135
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 23 Jan 2017 17:27:35 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <521f636c-c768-2d01-18c6-e5b6b96b6d8f@cisco.com>
-References: <521f636c-c768-2d01-18c6-e5b6b96b6d8f@cisco.com>
-	<31831.1485170425@warthog.procyon.org.uk>
-To: Hans Verkuil <hansverk@cisco.com>
+	Mon, 23 Jan 2017 20:11:02 +0000 (UTC)
+Received: by mail-ua0-f180.google.com with SMTP id i68so118448244uad.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 23 Jan 2017 12:11:02 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <3108.1485192452.1@warthog.procyon.org.uk>
-Date: Mon, 23 Jan 2017 17:27:32 +0000
-Message-ID: <3109.1485192452@warthog.procyon.org.uk>
-Cc: mchehab@s-opensource.com, ksummit-discuss@lists.linuxfoundation.org,
-	apw@canonical.com, hans.verkuil@cisco.com, joe@perches.com
-Subject: Re: [Ksummit-discuss] UAPI headers and inline function policy
+In-Reply-To: <31033.1485168526@warthog.procyon.org.uk>
+References: <CAGXu5j+nVMPk3TTxLr3_6Y=5vNM0=aD+13JM_Q5POts9M7kzuw@mail.gmail.com>
+	<CALCETrVKDAzcS62wTjDOGuRUNec_a-=8iEa7QQ62V83Ce2nk=A@mail.gmail.com>
+	<31033.1485168526@warthog.procyon.org.uk>
+From: Andy Lutomirski <luto@amacapital.net>
+Date: Mon, 23 Jan 2017 12:10:41 -0800
+Message-ID: <CALCETrV5b4Z3MF51pQOPtp-BgMM4TYPLrXPHL+EfsWfm+CczkA@mail.gmail.com>
+To: David Howells <dhowells@redhat.com>,
+	"linux-mm@kvack.org" <linux-mm@kvack.org>
+Content-Type: text/plain; charset=UTF-8
+Cc: Josh Armour <jarmour@google.com>, Greg KH <gregkh@linuxfoundation.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] security-related TODO items?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,22 +36,74 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hans Verkuil <hansverk@cisco.com> wrote:
+On Mon, Jan 23, 2017 at 2:48 AM, David Howells <dhowells@redhat.com> wrote:
+> Andy Lutomirski <luto@amacapital.net> wrote:
+>
+>> This is not easy at all, but: how about rewriting execve() so that the
+>> actual binary format parsers run in user mode?
+>
+> Sounds very chicken-and-egg-ish.  Issues you'd have:
+>
+>  (1) You'd need at least one pre-loader binary image built into the kernel
+>      that you can map into userspace (you can't upcall to userspace to go get
+>      it for your core binfmt).  This could appear as, say, /proc/preloader,
+>      for the kernel to open and mmap.
 
-> >  (1) Inline functions and function declarations.
-> 
-> The reason for putting them there is that these inline functions are used
-> both in the kernel and in userspace. Having them in one place makes life
-> much simpler.
-> 
-> What is the rationale for not allowing this?
-> 
-> >  (2) Anonymous embedded structs and unions.
-> 
-> Same question. Anonymous unions are used in many places and have been for
-> many years. Certainly in the media subsystem they are used frequently.
+No need for it to be visible at all.  I'm imagining the kernel making
+a fresh mm_struct, directly mapping some text, running that text, and
+then using the result as the mm_struct after execve.
 
-Not all compilers support these features.  Also, we have to be very careful
-about using reserved words like "new" in parameter and variable names.
+>
+>  (2) Where would the kernel put the executable image?  It would have to parse
+>      the binary to find out where not to put it - otherwise the code might
+>      have to relocate itself.
 
-David
+In vmlinux.
+
+>
+>  (3) How do you deal with address randomisation?
+
+Non-issue, I think.
+
+>
+>  (4) You may have to start without a stack as the kernel wouldn't necessarily
+>      know where to put it or how big it should be (see 6).  Or you might have
+>      to relocate it, including all the pointers it contains.
+
+The relocation part is indeed a bit nasty.
+
+>
+>  (5) Where should the kernel put arguments, environment and other parameters?
+>      Currently, this presumes a stack, but see (4).
+
+Hmm.
+
+>
+>  (6) NOMMU could be particularly tricky.  For ELF-FDPIC at least, the stack
+>      size is set in the binary.  OTOH, you wouldn't have to relocate the
+>      pre-loader - you'd just mmap it MAP_PRIVATE and execute in place.
+
+For nommu, forget about it.
+
+>
+>  (7) When the kernel finds it's dealing with a script, it goes back through
+>      the security calculation procedure again to deal with the interpreter.
+
+The security calculation isn't what I'm worried about.  I'm worried
+about the parser.
+
+Anyway, I didn't say this would be easy :)
+
+>
+>> A minor one for x86: give binaries a way to opt out of the x86_64
+>> vsyscall page.  I already did the hard part (in a branch), so all
+>> that's really left is figuring out the ABI.
+>
+> munmap() it in the loader?
+
+Hmm, *that's* an interesting thought.  You can't remove the VMA (it's
+not a VMA) but maybe munmap() could be made to work anyway.  Hey mm
+folks, just how weird would it be to let arch code special-case
+unmapping of the gate pseudo-vma?
+
+--Andy
