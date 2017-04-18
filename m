@@ -1,28 +1,35 @@
-Return-Path: <BATV+5c3ddd55659f80f79639+4986+infradead.org+mchehab@bombadil.srs.infradead.org>
+Return-Path: <daniel.vetter@ffwll.ch>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2AAFE955
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 83ECF955
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 18 Apr 2017 21:37:32 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org [65.50.211.133])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8923518D
+	Tue, 18 Apr 2017 21:39:24 +0000 (UTC)
+Received: from mail-it0-f66.google.com (mail-it0-f66.google.com
+	[209.85.214.66])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F3A45136
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 18 Apr 2017 21:37:31 +0000 (UTC)
-Date: Tue, 18 Apr 2017 18:15:06 -0300
-From: Mauro Carvalho Chehab <mchehab@infradead.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Message-ID: <20170418181506.30de0470@vento.lan>
-In-Reply-To: <CA+55aFzo0dPdEYvGBRvpoUQ1ZGsDUMO+n1dv2fDNvP4Y-=31zQ@mail.gmail.com>
-References: <CA+55aFydhKTGAFfqog0gRwKAQnxjjMnM-bKEaOwYbEKNjfRwGg@mail.gmail.com>
-	<s5hd1c9wl4b.wl-tiwai@suse.de>
-	<CA+55aFzo0dPdEYvGBRvpoUQ1ZGsDUMO+n1dv2fDNvP4Y-=31zQ@mail.gmail.com>
+	Tue, 18 Apr 2017 21:39:23 +0000 (UTC)
+Received: by mail-it0-f66.google.com with SMTP id a140so517014ita.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 18 Apr 2017 14:39:23 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Ingo Molnar <mingo@kernel.org>, Dave Airlie <airlied@linux.ie>,
-	Doug Ledford <dledford@redhat.com>, David Miller <davem@davemloft.net>
+In-Reply-To: <CA+55aFxhK=h-wr8kFf42fXFHh-Dsn7QNiFWt+Kcr0umG4k3gQw@mail.gmail.com>
+References: <CA+55aFydhKTGAFfqog0gRwKAQnxjjMnM-bKEaOwYbEKNjfRwGg@mail.gmail.com>
+	<CAPM=9tyU0Q+CZRpgnx34wRNLzMU1B5DmOSA+S-SRXghVbWKnSw@mail.gmail.com>
+	<CAKMK7uE+E0RAB7z3zhtKn5tj45g_0PsLnNrGwJOxGJzUyqos8g@mail.gmail.com>
+	<CA+55aFxhK=h-wr8kFf42fXFHh-Dsn7QNiFWt+Kcr0umG4k3gQw@mail.gmail.com>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Tue, 18 Apr 2017 23:39:22 +0200
+Message-ID: <CAKMK7uHuQgjaGN03omr_c9JTs11zRL6Dxri8jr2CCFXQ4EN7og@mail.gmail.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8
+Cc: Rom Lemarchand <romlem@google.com>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
+	Dave Airlie <airlied@linux.ie>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Nikula,
+	Jani" <jani.nikula@linux.intel.com>, Ingo Molnar <mingo@kernel.org>,
+	Doug Ledford <dledford@redhat.com>, Sean Paul <seanpaul@chromium.org>,
+	David Miller <davem@davemloft.net>
 Subject: Re: [Ksummit-discuss] "Maintainer summit" invitation discussion
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -33,66 +40,74 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Em Tue, 18 Apr 2017 13:13:37 -0700
-Linus Torvalds <torvalds@linux-foundation.org> escreveu:
+On Tue, Apr 18, 2017 at 10:56 PM, Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
+> On Tue, Apr 18, 2017 at 1:38 PM, Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
+>>
+>> Depending what we talk about it might be useful to invite Sean Paul
+>> and/or Jani Nikula as drm-misc co-maintainers (which really is the drm
+>> core + subsystem wide refactorings + misc small drivers in one team
+>> nowadays). Sean Paul is also doing ChromeOS from Google's pov, so
+>> could bring that perspective.
+>
+> So I'm seeing problems keeping it to a small number. We *will* have to cut.
+>
+> One thing to do is to perhaps require that everybody can talk about at
+> least one particular process pain-point with a suggested improvement.
+> Anybody who doesn't have a painpoint (or whose painpoint is something
+> they don't think can be fixed) could recuse themselves as being
+> "happy".
+>
+> Of course, that's not likely to cut down on numbers _that_ much, so
+> we'll just have to be picky ;)
 
-> On Tue, Apr 18, 2017 at 12:50 PM, Takashi Iwai <tiwai@suse.de> wrote:
-> > On Tue, 18 Apr 2017 20:59:37 +0200,
-> > Linus Torvalds wrote:  
-> >>
-> >>    Some driver subsystems may be huge (eg media and sound), but I
-> >> don't know if they have issues. Mauro/Takashi?  
+Yeah, Sean/Jani probably only make sense if we bikeshed group
+maintainer models the entire day.
 
-On media side, I convert all pull requests I receive in a quilt tree,
-reviewing patch per patch. So, you won't see media sub-maintainers
-on a top-50 list based on comitters. Among sub-maintainers, Hans Verkuil 
-is doing a great job sub-maintaining V4L2 drivers, with is a significant
-amount patches that come via my tree.
+>> For Android I think it'd be great to have Rom Lemarchand invited (he's
+>> google's overall android kernel engineer).
+>
+> Good.
+>
+> Side note: people should think about various infrastructure/testing
+> people too  So kernel.org, but also things like zero-day etc test
+> labs.
 
-With regards to issues, I'd say that everything that touches the
-process is relavant to media. Due to its nature, media devices are
-very complex, and interact with a lot of subsystems, like DT, arch,
-drm, input, network, i2c, staging, docs. So, I'm very interested on
-all discussions related to process.
+Hm, we're trying to build up a much more ambitious CI here for drm and
+intel specifically, but nothing all that interesting yet relevant
+beyond drm. What could be interesting (but not for the discussion
+session, more for the general track) is getting our userspace CI team
+to explain what they do. Except that it runs in userspace the gl
+drivers are as much low-level driver nonsense as anything else as far
+as drivers go, and the stuff they're pulling off is seriously
+impressive. Millions of test runs each day (including pre-merge to
+stop any regressions before they even get close to the tree),
+contributor numbers and code size on par with a major Linux subsystem,
+100+ different machines and all the fun of testing hw ("yep, that
+killed all the machines, oops").
 
-There is one particular issue that occurs to me, although I'm not sure
-if it would fit on the new "maintainer summit" format: it is related
-to how to group documentation. Also, this is actually Jon's call, but
-I suspect that he may want to hear comments from the others.
+A hw testing bof thing for different (driver) subsystems to compare
+notes might be good, but I'm not sure that'd be useful for the group
+discussions really. Probably more talking to the audience than what
+you're aiming for.
 
-Right now, all media documents are in a single book.
+> I do *not* think we needs tons and tons of developers - unless they
+> have particular maintenance issues.
 
-There is an alternate model of splitting documentation on multiple
-documents, like, for example, grouping everything that is driver's API
-on a single document that covers multiple subsystems.
+I do think we overall have some big issues with all the folks who
+decide not to contribute to upstream but still ship Linux. Android is
+a big one, but socs in general suffer from this. Like you said in
+another mail, pointing fingers is no use, least because if we put all
+the blame on hw vendors there's nothing we can do on our side to
+improve things :-)
 
-While we could try to discuss this sort of thing via ML, I suspect
-that this is the sort of thing that would be better to discuss it on
-a forum with multiple maintainers, in order to see what would work best
-for the main subsystems.
-
-> > In the sound area, majority of commits come from Mark Brown's ASoC
-> > tree nowadays, and he should be included.  Mark is already in your
-> > list, so we're covered pretty well by that.  
-> 
-> Ok. I don't know how many from that top-50 list we actually would be
-> able to have.
-> 
-> Not only do I think that we should try to limit it to maybe ~35 people
-> (random number taken out of thin air, but feels small enough that
-> people could basically just do it in a smaller room and keep things
-> personal), but the list is just the 50 kernel maintainer side.
-> 
-> And there's another important side to this if we can make it work: the
-> *users* of the kernel. Notably I'd really like to have kernel leads
-> from the main distros, ie Android, Fedora, Suse, Ubuntu.
-> 
-> I think that when we talk about process pain points, we definitely
-> need to have downstream involved. Greg is there with his stable
-> maintainer hat on too, but he's still "ours".
-
-Yeah, having a few downstream maintainers there could be interesting,
-as we can get feedback about what should be improved in the process.
-
-Thanks,
-Mauro
+Since they don't even show it's hard to find out who'd be a good rep,
+so probably not much use getting them in as developers (or I have no
+idea how at least). But I do think we have a big gap here (and e.g.
+drm for a long time entirely lacked the android perspective in
+upstream work, until upstream folks + google worked to fix that).
+-Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
