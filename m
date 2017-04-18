@@ -1,25 +1,27 @@
-Return-Path: <daniel.vetter@ffwll.ch>
+Return-Path: <linus971@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 19701B8C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 85C34B59
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 18 Apr 2017 20:38:48 +0000 (UTC)
-Received: from mail-it0-f50.google.com (mail-it0-f50.google.com
-	[209.85.214.50])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 097921A6
+	Tue, 18 Apr 2017 20:56:22 +0000 (UTC)
+Received: from mail-it0-f41.google.com (mail-it0-f41.google.com
+	[209.85.214.41])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 345C2292
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 18 Apr 2017 20:38:46 +0000 (UTC)
-Received: by mail-it0-f50.google.com with SMTP id e132so2056807ite.1
+	Tue, 18 Apr 2017 20:56:22 +0000 (UTC)
+Received: by mail-it0-f41.google.com with SMTP id 70so17787630ita.0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 18 Apr 2017 13:38:46 -0700 (PDT)
+	Tue, 18 Apr 2017 13:56:22 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CAPM=9tyU0Q+CZRpgnx34wRNLzMU1B5DmOSA+S-SRXghVbWKnSw@mail.gmail.com>
+Sender: linus971@gmail.com
+In-Reply-To: <CAKMK7uE+E0RAB7z3zhtKn5tj45g_0PsLnNrGwJOxGJzUyqos8g@mail.gmail.com>
 References: <CA+55aFydhKTGAFfqog0gRwKAQnxjjMnM-bKEaOwYbEKNjfRwGg@mail.gmail.com>
 	<CAPM=9tyU0Q+CZRpgnx34wRNLzMU1B5DmOSA+S-SRXghVbWKnSw@mail.gmail.com>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Tue, 18 Apr 2017 22:38:45 +0200
-Message-ID: <CAKMK7uE+E0RAB7z3zhtKn5tj45g_0PsLnNrGwJOxGJzUyqos8g@mail.gmail.com>
-To: Dave Airlie <airlied@gmail.com>
+	<CAKMK7uE+E0RAB7z3zhtKn5tj45g_0PsLnNrGwJOxGJzUyqos8g@mail.gmail.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Tue, 18 Apr 2017 13:56:21 -0700
+Message-ID: <CA+55aFxhK=h-wr8kFf42fXFHh-Dsn7QNiFWt+Kcr0umG4k3gQw@mail.gmail.com>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
 Content-Type: text/plain; charset=UTF-8
 Cc: Rom Lemarchand <romlem@google.com>,
 	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
@@ -38,46 +40,53 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Apr 18, 2017 at 10:00 PM, Dave Airlie <airlied@gmail.com> wrote:
->>  11118  David Miller
->>   6004  Greg KH
->>   5337  Dave Airlie
+On Tue, Apr 18, 2017 at 1:38 PM, Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
 >
-> I am not a number, I AM A FREE MAN.
->
->>   5114  Ingo Molnar
->>   3918  Mauro Carvalho Chehab
->>   3381  Arnd Bergmann
->
-> Though it should probably be Arnd sending this considering he's number 6.
->
-> Sorry couldn't resist, on a more serious note, I'm unlikely to be
-> travelling much this year due to have a baby arriving hopefully in September.
->
-> I think for drm stuff Daniel Vetter is definitely the best person to have there,
-> if he can make it.
+> Depending what we talk about it might be useful to invite Sean Paul
+> and/or Jani Nikula as drm-misc co-maintainers (which really is the drm
+> core + subsystem wide refactorings + misc small drivers in one team
+> nowadays). Sean Paul is also doing ChromeOS from Google's pov, so
+> could bring that perspective.
 
-It's on the same continent, I'm low on real excuses :-)
+So I'm seeing problems keeping it to a small number. We *will* have to cut.
 
-Depending what we talk about it might be useful to invite Sean Paul
-and/or Jani Nikula as drm-misc co-maintainers (which really is the drm
-core + subsystem wide refactorings + misc small drivers in one team
-nowadays). Sean Paul is also doing ChromeOS from Google's pov, so
-could bring that perspective.
+One thing to do is to perhaps require that everybody can talk about at
+least one particular process pain-point with a suggested improvement.
+Anybody who doesn't have a painpoint (or whose painpoint is something
+they don't think can be fixed) could recuse themselves as being
+"happy".
 
-For Android I think it'd be great to have Rom Lemarchand invited (he's
-google's overall android kernel engineer). Especially on the drm side
-we've made some great improvements with getting Android stuff running
-on pure upstream over the last year (and not just as a pile of hacks
-and shortcuts, but with all the features Android wants). From the
-infrastructure pov it's essentially mission accomplished afaiui, and
-the gaps are "just" with some of the drivers (but that's nothing new,
-upstream open source gfx is still not supported by many vendors
-unfortunately).
+Of course, that's not likely to cut down on numbers _that_ much, so
+we'll just have to be picky ;)
 
-Sean, Jani&Rom on cc in case you need their mail address.
--Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-+41 (0) 79 365 57 48 - http://blog.ffwll.ch
+> For Android I think it'd be great to have Rom Lemarchand invited (he's
+> google's overall android kernel engineer).
+
+Good.
+
+Side note: people should think about various infrastructure/testing
+people too  So kernel.org, but also things like zero-day etc test
+labs.
+
+I do *not* think we needs tons and tons of developers - unless they
+have particular maintenance issues.
+
+Particular subsystems should aim to have one person per subsystem that
+can speak for that subsystem, I think, unless there are big reasons
+why we'd want more and it's particularly contentious.
+
+If we end up with 20 developers / maintainers and 10 people who are
+downstream / stable / infrastructure, I think we'd likely have a
+reasonable mix.
+
+I think that the top-ten list (that was originally cc'd) was
+reasonably obvious, but it was literallty just a "first round".
+
+And it's good to have numbers to show "these are clearly major
+top-level maintainers", and people on that short-list should at least
+point to an alternate like DaveA already did.
+
+The longer list of 50 was more of a "and here's more people that show
+up high in git that should then have other reasons to be there".
+
+                 Linus
