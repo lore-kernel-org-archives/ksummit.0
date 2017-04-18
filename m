@@ -1,25 +1,22 @@
-Return-Path: <airlied@gmail.com>
+Return-Path: <serge@mail.hallyn.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D56A1B8C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id F210ABAF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 18 Apr 2017 20:00:28 +0000 (UTC)
-Received: from mail-ua0-f176.google.com (mail-ua0-f176.google.com
-	[209.85.217.176])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 71C4A1FF
+	Tue, 18 Apr 2017 20:06:08 +0000 (UTC)
+Received: from h2.hallyn.com (h2.hallyn.com [78.46.35.8])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 80E43D4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 18 Apr 2017 20:00:28 +0000 (UTC)
-Received: by mail-ua0-f176.google.com with SMTP id h2so2267936uaa.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 18 Apr 2017 13:00:28 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <CA+55aFydhKTGAFfqog0gRwKAQnxjjMnM-bKEaOwYbEKNjfRwGg@mail.gmail.com>
-References: <CA+55aFydhKTGAFfqog0gRwKAQnxjjMnM-bKEaOwYbEKNjfRwGg@mail.gmail.com>
-From: Dave Airlie <airlied@gmail.com>
-Date: Wed, 19 Apr 2017 06:00:27 +1000
-Message-ID: <CAPM=9tyU0Q+CZRpgnx34wRNLzMU1B5DmOSA+S-SRXghVbWKnSw@mail.gmail.com>
+	Tue, 18 Apr 2017 20:06:08 +0000 (UTC)
+Date: Tue, 18 Apr 2017 15:06:06 -0500
+From: "Serge E. Hallyn" <serge@hallyn.com>
 To: Linus Torvalds <torvalds@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8
+Message-ID: <20170418200606.GA11728@mail.hallyn.com>
+References: <CA+55aFydhKTGAFfqog0gRwKAQnxjjMnM-bKEaOwYbEKNjfRwGg@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CA+55aFydhKTGAFfqog0gRwKAQnxjjMnM-bKEaOwYbEKNjfRwGg@mail.gmail.com>
 Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
 	Dave Airlie <airlied@linux.ie>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -35,23 +32,10 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+Quoting Linus Torvalds (torvalds@linux-foundation.org):
+>  - security stuff
 >
->  11118  David Miller
->   6004  Greg KH
->   5337  Dave Airlie
+>    Luto, Kees?
 
-I am not a number, I AM A FREE MAN.
-
->   5114  Ingo Molnar
->   3918  Mauro Carvalho Chehab
->   3381  Arnd Bergmann
-
-Though it should probably be Arnd sending this considering he's number 6.
-
-Sorry couldn't resist, on a more serious note, I'm unlikely to be
-travelling much this year due to have a baby arriving hopefully in September.
-
-I think for drm stuff Daniel Vetter is definitely the best person to have there,
-if he can make it.
-
-Dave.
+James Morris for the security tree?  Though it seems to run smoothly, so
+probably no issues.
