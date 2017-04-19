@@ -1,37 +1,28 @@
-Return-Path: <labbott@redhat.com>
+Return-Path: <laurent.pinchart@ideasonboard.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5D484B88
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id C792F480
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 19 Apr 2017 18:21:10 +0000 (UTC)
-Received: from mail-yb0-f175.google.com (mail-yb0-f175.google.com
-	[209.85.213.175])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E3CC6268
+	Wed, 19 Apr 2017 19:24:45 +0000 (UTC)
+Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
+	[185.26.127.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C2DE4252
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 19 Apr 2017 18:21:09 +0000 (UTC)
-Received: by mail-yb0-f175.google.com with SMTP id 6so10215674ybq.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 19 Apr 2017 11:21:09 -0700 (PDT)
-To: Linus Torvalds <torvalds@linux-foundation.org>,
-	Doug Ledford <dledford@redhat.com>
+	Wed, 19 Apr 2017 19:24:44 +0000 (UTC)
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Wed, 19 Apr 2017 22:25:44 +0300
+Message-ID: <20188905.kHbMkj7sB6@avalon>
+In-Reply-To: <CA+55aFzo0dPdEYvGBRvpoUQ1ZGsDUMO+n1dv2fDNvP4Y-=31zQ@mail.gmail.com>
 References: <CA+55aFydhKTGAFfqog0gRwKAQnxjjMnM-bKEaOwYbEKNjfRwGg@mail.gmail.com>
 	<s5hd1c9wl4b.wl-tiwai@suse.de>
 	<CA+55aFzo0dPdEYvGBRvpoUQ1ZGsDUMO+n1dv2fDNvP4Y-=31zQ@mail.gmail.com>
-	<d0173f9f-d68a-995a-af42-a388af93dcca@redhat.com>
-	<CA+55aFyZ-EuGo67DXQegC2K+BqsHxdaFeVSnJgRGnjLOf1FZaw@mail.gmail.com>
-From: Laura Abbott <labbott@redhat.com>
-Message-ID: <cfd0f6a1-77e7-90e0-3726-f56e7ce6badb@redhat.com>
-Date: Wed, 19 Apr 2017 11:21:06 -0700
 MIME-Version: 1.0
-In-Reply-To: <CA+55aFyZ-EuGo67DXQegC2K+BqsHxdaFeVSnJgRGnjLOf1FZaw@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Dave Airlie <airlied@linux.ie>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Ingo Molnar <mingo@kernel.org>,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
-	David Miller <davem@davemloft.net>
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	David Miller <davem@davemloft.net>, Dave Airlie <airlied@linux.ie>,
+	Doug Ledford <dledford@redhat.com>, Ingo Molnar <mingo@kernel.org>
 Subject: Re: [Ksummit-discuss] "Maintainer summit" invitation discussion
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -42,59 +33,73 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 04/19/2017 09:18 AM, Linus Torvalds wrote:
-> On Wed, Apr 19, 2017 at 8:37 AM, Doug Ledford <dledford@redhat.com> wrote:
->> On 4/18/2017 4:13 PM, Linus Torvalds wrote:
->>>
->>> I'm not sure who those people actually are, but I suspect this list
->>> contains people who can point to each tech lead.. I think it's Laura
->>> Abbott for Fedora, for example?
->>
->> There really is no pain point for Fedora.  They take a very simple
->> approach: in rawhide, they pull latest git once you hit the -rc cycles
->> and build it, otherwise it's the latest released kernel; in actual
->> releases, they pull stable tree point releases as they are released (not
->> long term stable, they upgrade to a new stable tree fairly regularly).
->> They really don't do much in the way of having to integrate changes into
->> their kernel (intentionally), it's just a constant rolling update game
->> using newer and newer tarballs.  So, the pain is not in Fedora, it's in
->> RHEL.  What we do there is so totally different from Fedora and hurts so
->> bad as a developer...but I don't know if you really care to even talk
->> about that at the summit since, to be fair, it's largely a consequence
->> of our business model.
-> 
-> Yeah, I don't think we can do much about distros that intentionally
-> want to stay behind and backport. Admittedly Android seems to be very
-> much in that camp too, but I'd at least want to talk to them more.
-> RHEL I feel knows what it's doing and isn't causing the kinds of
-> issues Android is anyway.
-> 
-> That said, even with Fedora I think Laura was at the KS last year, and
-> did talk about what she sees as the stable kernel process. So Fedora
-> may not be a "painpoint", but may well be relevant for the "meet with
-> people and talk about process issues once a year".
-> 
-> Of course, if it really is a question of "we have no problems and no
-> reason to even be there" for Fedora, then that's one (or two) less
-> people to worry about ;)
-> 
->                  Linus
+Hi Linus,
 
-I wouldn't say we have no problems or pain points. It's a different
-kind of paint point than what RHEL deals with. The building and
-integration is simpler but the frequent updates can be difficult
-for end users who are not experienced kernel developers. I brought
-up bug reporting last year and I still consider that to be an
-issue this year. A good example is 
-https://bugzilla.kernel.org/show_bug.cgi?id=194911 which didn't really 
-make progress until
-I sent out a separate e-mail thread summarizing the bisections
-people did. There are only 2 of us on Fedora so having to
-guide users along on every bug doesn't scale well.
+On Tuesday 18 Apr 2017 13:13:37 Linus Torvalds wrote:
+> On Tue, Apr 18, 2017 at 12:50 PM, Takashi Iwai <tiwai@suse.de> wrote:
+> > On Tue, 18 Apr 2017 20:59:37 +0200, Linus Torvalds wrote:
+> >> Some driver subsystems may be huge (eg media and sound), but I
+> >> don't know if they have issues. Mauro/Takashi?
+> > 
+> > In the sound area, majority of commits come from Mark Brown's ASoC
+> > tree nowadays, and he should be included.  Mark is already in your
+> > list, so we're covered pretty well by that.
+> 
+> Ok. I don't know how many from that top-50 list we actually would be
+> able to have.
+> 
+> Not only do I think that we should try to limit it to maybe ~35 people
+> (random number taken out of thin air, but feels small enough that
+> people could basically just do it in a smaller room and keep things
+> personal), but the list is just the 50 kernel maintainer side.
+> 
+> And there's another important side to this if we can make it work: the
+> *users* of the kernel. Notably I'd really like to have kernel leads
+> from the main distros, ie Android, Fedora, Suse, Ubuntu.
 
-The irregular timing of stable updates also makes it difficult
-to give an answer to users who want to know "when will this
-be fixed".
+Agreed, for a maintainer summit to be useful, we need to have multiple sides 
+present. Gathering core maintainers with key representatives of the downstream 
+communities around the table is great, but I think we would be missing one 
+category whose opinion is equally important: kernel developers.
 
-Thanks,
-Laura
+When everything goes well developers can be represented by their maintainers. 
+That's the case where the process flows smoothly, so there isn't likely to be 
+much to discuss. However, problems occurring in the maintenance process are 
+likely to result in, if not conflicts, at least different views between 
+maintainers and developers, in which case developers won't be represented at 
+the summit.
+
+I'm not sure how to handle that. I certainly don't want to increase the number 
+of attendees to include key representatives of developers (and while I'd be 
+very curious to see how they would be selected, I doubt it would work in 
+practice), but I also believe we need to address this class of maintainership 
+issues.
+
+> I think that when we talk about process pain points, we definitely
+> need to have downstream involved. Greg is there with his stable
+> maintainer hat on too, but he's still "ours".
+> 
+> It would be really good to have whoever is in charge of the Android
+> kernel there (not manager, but tech lead), and not make it a blame
+> game, but really try to also talk about how we could perhaps bridge
+> that gap somehow.
+> 
+> I'm not sure who those people actually are, but I suspect this list
+> contains people who can point to each tech lead.. I think it's Laura
+> Abbott for Fedora, for example?
+> 
+> > Do you plan it to be attached with some major conference, or as a
+> > stand-alone one?
+> 
+> Oh, I was just assuming people were aware of the kernel summit <->
+> maintainer summit thing.
+> 
+> So this would be the maintainer side of the traditional kernel summit.
+> 
+> This year it would be October in Prague, co-located with the European
+> ELC / LinuxCon / OpenSourceSummit thing.
+
+-- 
+Regards,
+
+Laurent Pinchart
