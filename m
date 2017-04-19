@@ -1,30 +1,30 @@
 Return-Path: <dledford@redhat.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0CE7098C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 60C67BBE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 19 Apr 2017 15:37:28 +0000 (UTC)
+	Wed, 19 Apr 2017 16:25:09 +0000 (UTC)
 Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6811E18A
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4C19F144
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 19 Apr 2017 15:37:27 +0000 (UTC)
-To: Linus Torvalds <torvalds@linux-foundation.org>,
-	Takashi Iwai <tiwai@suse.de>
+	Wed, 19 Apr 2017 16:25:08 +0000 (UTC)
+To: Linus Torvalds <torvalds@linux-foundation.org>
 References: <CA+55aFydhKTGAFfqog0gRwKAQnxjjMnM-bKEaOwYbEKNjfRwGg@mail.gmail.com>
 	<s5hd1c9wl4b.wl-tiwai@suse.de>
 	<CA+55aFzo0dPdEYvGBRvpoUQ1ZGsDUMO+n1dv2fDNvP4Y-=31zQ@mail.gmail.com>
+	<d0173f9f-d68a-995a-af42-a388af93dcca@redhat.com>
+	<CA+55aFyZ-EuGo67DXQegC2K+BqsHxdaFeVSnJgRGnjLOf1FZaw@mail.gmail.com>
 From: Doug Ledford <dledford@redhat.com>
-Message-ID: <d0173f9f-d68a-995a-af42-a388af93dcca@redhat.com>
-Date: Wed, 19 Apr 2017 11:37:04 -0400
+Message-ID: <1269d256-d6ec-dc9c-c1ec-551d389e9be2@redhat.com>
+Date: Wed, 19 Apr 2017 12:24:51 -0400
 MIME-Version: 1.0
-In-Reply-To: <CA+55aFzo0dPdEYvGBRvpoUQ1ZGsDUMO+n1dv2fDNvP4Y-=31zQ@mail.gmail.com>
+In-Reply-To: <CA+55aFyZ-EuGo67DXQegC2K+BqsHxdaFeVSnJgRGnjLOf1FZaw@mail.gmail.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
 	protocol="application/pgp-signature";
-	boundary="UKthVVbWjSwoc19LlkOGLl0DT9ia0NSxk"
-Cc: Ingo Molnar <mingo@kernel.org>,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
-	Dave Airlie <airlied@linux.ie>,
+	boundary="EDPuNpWFLPOwHhlX97iSRPtkja1lLGUAx"
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Ingo Molnar <mingo@kernel.org>, Dave Airlie <airlied@linux.ie>,
 	David Miller <davem@davemloft.net>
 Subject: Re: [Ksummit-discuss] "Maintainer summit" invitation discussion
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -37,93 +37,78 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---UKthVVbWjSwoc19LlkOGLl0DT9ia0NSxk
-Content-Type: multipart/mixed; boundary="UMMlPjQ023CQ3bgpaUDaEpPWE1F79CjMA";
+--EDPuNpWFLPOwHhlX97iSRPtkja1lLGUAx
+Content-Type: multipart/mixed; boundary="dMJRwTTVOVELwejbvrNfKVlLE8LdhdKKX";
  protected-headers="v1"
 From: Doug Ledford <dledford@redhat.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>,
- Takashi Iwai <tiwai@suse.de>
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Takashi Iwai <tiwai@suse.de>,
+ ksummit <ksummit-discuss@lists.linuxfoundation.org>,
  David Miller <davem@davemloft.net>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Dave Airlie <airlied@linux.ie>, Ingo Molnar <mingo@kernel.org>,
  Mauro Carvalho Chehab <mchehab@infradead.org>, Arnd Bergmann
  <arnd@arndb.de>, Andrew Morton <akpm@linux-foundation.org>,
  Michael Ellerman <mpe@ellerman.id.au>
-Message-ID: <d0173f9f-d68a-995a-af42-a388af93dcca@redhat.com>
+Message-ID: <1269d256-d6ec-dc9c-c1ec-551d389e9be2@redhat.com>
 Subject: Re: "Maintainer summit" invitation discussion
 References: <CA+55aFydhKTGAFfqog0gRwKAQnxjjMnM-bKEaOwYbEKNjfRwGg@mail.gmail.com>
  <s5hd1c9wl4b.wl-tiwai@suse.de>
  <CA+55aFzo0dPdEYvGBRvpoUQ1ZGsDUMO+n1dv2fDNvP4Y-=31zQ@mail.gmail.com>
-In-Reply-To: <CA+55aFzo0dPdEYvGBRvpoUQ1ZGsDUMO+n1dv2fDNvP4Y-=31zQ@mail.gmail.com>
+ <d0173f9f-d68a-995a-af42-a388af93dcca@redhat.com>
+ <CA+55aFyZ-EuGo67DXQegC2K+BqsHxdaFeVSnJgRGnjLOf1FZaw@mail.gmail.com>
+In-Reply-To: <CA+55aFyZ-EuGo67DXQegC2K+BqsHxdaFeVSnJgRGnjLOf1FZaw@mail.gmail.com>
 
---UMMlPjQ023CQ3bgpaUDaEpPWE1F79CjMA
+--dMJRwTTVOVELwejbvrNfKVlLE8LdhdKKX
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On 4/18/2017 4:13 PM, Linus Torvalds wrote:
-> On Tue, Apr 18, 2017 at 12:50 PM, Takashi Iwai <tiwai@suse.de> wrote:
->> On Tue, 18 Apr 2017 20:59:37 +0200,
->> Linus Torvalds wrote:
+On 4/19/2017 12:18 PM, Linus Torvalds wrote:
+> On Wed, Apr 19, 2017 at 8:37 AM, Doug Ledford <dledford@redhat.com> wro=
+te:
+>> On 4/18/2017 4:13 PM, Linus Torvalds wrote:
 >>>
->>>    Some driver subsystems may be huge (eg media and sound), but I
->>> don't know if they have issues. Mauro/Takashi?
+>>> I'm not sure who those people actually are, but I suspect this list
+>>> contains people who can point to each tech lead.. I think it's Laura
+>>> Abbott for Fedora, for example?
 >>
->> In the sound area, majority of commits come from Mark Brown's ASoC
->> tree nowadays, and he should be included.  Mark is already in your
->> list, so we're covered pretty well by that.
->=20
-> Ok. I don't know how many from that top-50 list we actually would be
-> able to have.
->=20
-> Not only do I think that we should try to limit it to maybe ~35 people
-> (random number taken out of thin air, but feels small enough that
-> people could basically just do it in a smaller room and keep things
-> personal), but the list is just the 50 kernel maintainer side.
->=20
-> And there's another important side to this if we can make it work: the
-> *users* of the kernel. Notably I'd really like to have kernel leads
-> from the main distros, ie Android, Fedora, Suse, Ubuntu.
->=20
-> I think that when we talk about process pain points, we definitely
-> need to have downstream involved. Greg is there with his stable
-> maintainer hat on too, but he's still "ours".
->=20
-> It would be really good to have whoever is in charge of the Android
-> kernel there (not manager, but tech lead), and not make it a blame
-> game, but really try to also talk about how we could perhaps bridge
-> that gap somehow.
->=20
-> I'm not sure who those people actually are, but I suspect this list
-> contains people who can point to each tech lead.. I think it's Laura
-> Abbott for Fedora, for example?
+>> There really is no pain point for Fedora.  They take a very simple
+>> approach: in rawhide, they pull latest git once you hit the -rc cycles=
 
-There really is no pain point for Fedora.  They take a very simple
-approach: in rawhide, they pull latest git once you hit the -rc cycles
-and build it, otherwise it's the latest released kernel; in actual
-releases, they pull stable tree point releases as they are released (not
-long term stable, they upgrade to a new stable tree fairly regularly).
-They really don't do much in the way of having to integrate changes into
-their kernel (intentionally), it's just a constant rolling update game
-using newer and newer tarballs.  So, the pain is not in Fedora, it's in
-RHEL.  What we do there is so totally different from Fedora and hurts so
-bad as a developer...but I don't know if you really care to even talk
-about that at the summit since, to be fair, it's largely a consequence
-of our business model.
+>> and build it, otherwise it's the latest released kernel; in actual
+>> releases, they pull stable tree point releases as they are released (n=
+ot
+>> long term stable, they upgrade to a new stable tree fairly regularly).=
 
->> Do you plan it to be attached with some major conference, or as a
->> stand-alone one?
+>> They really don't do much in the way of having to integrate changes in=
+to
+>> their kernel (intentionally), it's just a constant rolling update game=
+
+>> using newer and newer tarballs.  So, the pain is not in Fedora, it's i=
+n
+>> RHEL.  What we do there is so totally different from Fedora and hurts =
+so
+>> bad as a developer...but I don't know if you really care to even talk
+>> about that at the summit since, to be fair, it's largely a consequence=
+
+>> of our business model.
 >=20
-> Oh, I was just assuming people were aware of the kernel summit <->
-> maintainer summit thing.
+> Yeah, I don't think we can do much about distros that intentionally
+> want to stay behind and backport. Admittedly Android seems to be very
+> much in that camp too, but I'd at least want to talk to them more.
+> RHEL I feel knows what it's doing and isn't causing the kinds of
+> issues Android is anyway.
 >=20
-> So this would be the maintainer side of the traditional kernel summit.
->=20
-> This year it would be October in Prague, co-located with the European
-> ELC / LinuxCon / OpenSourceSummit thing.
->=20
->                   Linus
->=20
+> That said, even with Fedora I think Laura was at the KS last year, and
+> did talk about what she sees as the stable kernel process. So Fedora
+> may not be a "painpoint", but may well be relevant for the "meet with
+> people and talk about process issues once a year".
+
+Entirely true.  And I probably shouldn't have said there is no pain
+point for Fedora, because I shouldn't have put words in her mouth
+anyway.  I would *expect* there is no pain point given their model (and
+I've not seen the internal email discussions we see around our RHEL
+kernels), but I can't speak beyond that.
 
 
 --=20
@@ -133,9 +118,9 @@ Doug Ledford <dledford@redhat.com>
 D
 
 
---UMMlPjQ023CQ3bgpaUDaEpPWE1F79CjMA--
+--dMJRwTTVOVELwejbvrNfKVlLE8LdhdKKX--
 
---UKthVVbWjSwoc19LlkOGLl0DT9ia0NSxk
+--EDPuNpWFLPOwHhlX97iSRPtkja1lLGUAx
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="signature.asc"
@@ -144,19 +129,19 @@ Content-Disposition: attachment; filename="signature.asc"
 Version: GnuPG v2
 Comment: Using GnuPG with Thunderbird - http://www.enigmail.net/
 
-iQIcBAEBCAAGBQJY94QmAAoJELgmozMOVy/dvOgQALwC4PEgn/a3Oxdmu5VynMlE
-LqFp5pE7QiXpZizszAYszq7zr/JaMhPCR7MbVUeOXEu4c3Nsw9P7QfDvKLihYCAx
-ZqZYHTFjQOQkgrXSk/EiDICkRByvvjc9PUcZDF5R4MKHk3D61uQu6UKIoCZL47bJ
-Upl1Y9z30KaClLRP36komq2v6W22NVg6DFFWaFJaYlGAZsLJg41iEoOWKMDaKylr
-X8iV7PbgdoudcTE++QGMmEWnjo2wSVE1JWD1b1dtXPFkrLxLrsub2+QnTMxCdWV0
-bblGTE5+hw7D7aYAL5WgCjM7tkiyPu4PRt1qIp0Vs/aL3TkqL8A1YiDrIIhRqDMB
-M1t9+XE0ZBPjR02LnElBYw08w2ZmLuGd+DSBsrBVFXf7DCskRQx7irGIj3VwqQJo
-nNQlDP4a1ys8ogdMmx7ddXsX98R+oNUx2gA90B4tc+EvgaqhF/nruhGOAzGrU2Fu
-3umIftYq8lO9o/XbkZHSavvyw7xIi1wUFPAP4xJURbZJ17m3YGT7GaYWnUqo+6fd
-sW6b7I5vLFkh4dVfC+EeBKr4QVGRa+UkJs46eaVLXlMQiNjz057alq6caZ3fKMuA
-xdwzyzHweqLfMmOfQHH2G54j7VcD9v85lCXBnlW2ZPiYFLT0TbLke50KiNlcdhCG
-lq0W9WIiWcB4TLjUmFy/
-=vT/J
+iQIcBAEBCAAGBQJY949TAAoJELgmozMOVy/dBWEP/3C9jqh8OtCpUm0KUYFVrCB3
+RVeM2dYZ81j/vkwwcGJ8g/T2xJRjEPoMMQX3+qnEVZhEi0qtSmT6BHiJz88rOOoK
+COWMQCzhbTaVqIi1GTbH5i/3bcoNjCAAY80atyOgNYhELjOYwUIpTmvGTRWrYx1Z
+wGgv/s+rDnuHCJS4vDncFAA1iNa2LGG1+IXjtW5kt7hS7yahmNbVDA90KzM7Pthi
+gkHR53j/SxxUTNhv75PnENEERclN+amMzDOJzD5UgZ+vHOvMBceZ1s1CSo0CK9Au
+2kUDsOEaAYz2oNpTb+FauDI9Yn74aZqvnh3Tvwlz7BLxJi4vh70Q/p+DUyr2XeZM
+XqKOR5noKOtsw5SO2kIouhyoYCz2GD6FuiYo1AAXJNqBBsQaALbcJdtBsjUmx7Rh
+6lUrj1Jm/T/P1LsrjCObRd+Pp9dN2bqO7XjSP6GE4EinjA6s2VM+dq19OmhbjpXm
+SmDwcJG0zFLXzt0Mrkk0s54cXwsEb+L7+JKc9d0pDPvqtdinuYc1KqkfLar2xTMs
+aDWg2AyMfbbhefTmM/5ch5/O4eOszfgYCvDS672XIff+DRayGp5p8lCwssa/cJo/
+RHJoyvFtltSw36OOzKI9EiVWtWIDsu/yFXFRzJdLGdCLRfHBQZr2zyLl/Ij65hOn
+VL9puT2GSdfc2Imf+MoK
+=8Mck
 -----END PGP SIGNATURE-----
 
---UKthVVbWjSwoc19LlkOGLl0DT9ia0NSxk--
+--EDPuNpWFLPOwHhlX97iSRPtkja1lLGUAx--
