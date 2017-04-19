@@ -1,36 +1,29 @@
-Return-Path: <axboe@kernel.dk>
+Return-Path: <laurent.pinchart@ideasonboard.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7F056B9E
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3A07DBA9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 19 Apr 2017 19:45:52 +0000 (UTC)
-Received: from mail-io0-f169.google.com (mail-io0-f169.google.com
-	[209.85.223.169])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1C8422AD
+	Wed, 19 Apr 2017 19:49:15 +0000 (UTC)
+Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
+	[185.26.127.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 68AF825D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 19 Apr 2017 19:45:52 +0000 (UTC)
-Received: by mail-io0-f169.google.com with SMTP id o22so36677867iod.3
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 19 Apr 2017 12:45:52 -0700 (PDT)
-To: Linus Torvalds <torvalds@linux-foundation.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+	Wed, 19 Apr 2017 19:49:14 +0000 (UTC)
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Wed, 19 Apr 2017 22:50:15 +0300
+Message-ID: <1834084.5qZ8rLimvk@avalon>
+In-Reply-To: <CA+55aFxFyX-6y0MH2QivC+GAVThEFNHVKc3DBZJzDBc9JU_nCQ@mail.gmail.com>
 References: <CA+55aFydhKTGAFfqog0gRwKAQnxjjMnM-bKEaOwYbEKNjfRwGg@mail.gmail.com>
-	<s5hd1c9wl4b.wl-tiwai@suse.de>
-	<CA+55aFzo0dPdEYvGBRvpoUQ1ZGsDUMO+n1dv2fDNvP4Y-=31zQ@mail.gmail.com>
 	<20188905.kHbMkj7sB6@avalon>
 	<CA+55aFxFyX-6y0MH2QivC+GAVThEFNHVKc3DBZJzDBc9JU_nCQ@mail.gmail.com>
-From: Jens Axboe <axboe@kernel.dk>
-Message-ID: <17749486-d4e0-bbf5-bf46-735bd3b3d15a@kernel.dk>
-Date: Wed, 19 Apr 2017 13:45:48 -0600
 MIME-Version: 1.0
-In-Reply-To: <CA+55aFxFyX-6y0MH2QivC+GAVThEFNHVKc3DBZJzDBc9JU_nCQ@mail.gmail.com>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
-	Dave Airlie <airlied@linux.ie>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Ingo Molnar <mingo@kernel.org>, Doug Ledford <dledford@redhat.com>,
-	David Miller <davem@davemloft.net>
+	David Miller <davem@davemloft.net>, Dave Airlie <airlied@linux.ie>,
+	Doug Ledford <dledford@redhat.com>, Ingo Molnar <mingo@kernel.org>
 Subject: Re: [Ksummit-discuss] "Maintainer summit" invitation discussion
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -41,27 +34,28 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 04/19/2017 01:40 PM, Linus Torvalds wrote:
-> On Wed, Apr 19, 2017 at 12:25 PM, Laurent Pinchart
-> <laurent.pinchart@ideasonboard.com> wrote:
->>
->> Agreed, for a maintainer summit to be useful, we need to have multiple sides
->> present. Gathering core maintainers with key representatives of the downstream
->> communities around the table is great, but I think we would be missing one
->> category whose opinion is equally important: kernel developers.
->>
->> When everything goes well developers can be represented by their maintainers.
->> That's the case where the process flows smoothly, so there isn't likely to be
->> much to discuss. However, problems occurring in the maintenance process are
->> likely to result in, if not conflicts, at least different views between
->> maintainers and developers, in which case developers won't be represented at
->> the summit.
->>
->> I'm not sure how to handle that. I certainly don't want to increase the number
->> of attendees to include key representatives of developers (and while I'd be
->> very curious to see how they would be selected, I doubt it would work in
->> practice), but I also believe we need to address this class of maintainership
->> issues.
+Hi Linus,
+
+On Wednesday 19 Apr 2017 12:40:47 Linus Torvalds wrote:
+> On Wed, Apr 19, 2017 at 12:25 PM, Laurent Pinchart wrote:
+> > Agreed, for a maintainer summit to be useful, we need to have multiple
+> > sides present. Gathering core maintainers with key representatives of the
+> > downstream communities around the table is great, but I think we would be
+> > missing one category whose opinion is equally important: kernel
+> > developers.
+> > 
+> > When everything goes well developers can be represented by their
+> > maintainers. That's the case where the process flows smoothly, so there
+> > isn't likely to be much to discuss. However, problems occurring in the
+> > maintenance process are likely to result in, if not conflicts, at least
+> > different views between maintainers and developers, in which case
+> > developers won't be represented at the summit.
+> > 
+> > I'm not sure how to handle that. I certainly don't want to increase the
+> > number of attendees to include key representatives of developers (and
+> > while I'd be very curious to see how they would be selected, I doubt it
+> > would work in practice), but I also believe we need to address this class
+> > of maintainership issues.
 > 
 > I do agree that it would be a great thing to have a "bitch at
 > maintainers" session where developers get to vent frustration at how
@@ -76,7 +70,22 @@ On 04/19/2017 01:40 PM, Linus Torvalds wrote:
 > But the problem with that "bitch at maintainers" thing is that I can't
 > for the life of me come up with a sane small set of people to do that.
 > So I don't see it happening ;(
-> 
+
+I currently don't have any good idea to make that happen either, but I'll keep 
+thinking about it :-) More than bitching at maintainers, I believe that lots 
+of developers, especially "smaller" or infrequent kernel contributors, are 
+frustrated by maintainership issues that the related maintainers might not 
+even be aware of.
+
+One idea I've been thinking of was to gather constructive feedback (or just 
+feedback that would then be filtered out of pointless finger-pointing and 
+bitching) about our maintainers, aggregate it periodically, and submit it to 
+the maintainers, possibly in an anonymized form. A maintainer summit is 
+certainly no place to gather that feedback, but could be an occasion to decide 
+whether such a process would be deemed useful. I for one, while I only 
+maintain drivers and not whole subsystems, would certainly welcome 
+constructive criticism in that area.
+
 > Anyway, I have tried to gather "other groups" that aren't in that
 > top-10 maintainers list, but are examples of people "around" the
 > maintenance issues:
@@ -123,14 +132,7 @@ On 04/19/2017 01:40 PM, Linus Torvalds wrote:
 > suggestions for the networking side either, still assuming that Daem
 > isn't interested since he never has been before..)
 
-I haven't piped up yet, but the block layer was represented in your
-initial top-20 (or something like that) list. I can attend if you want
-representation on that side.
-
-I'll also mention that upstream kernel users aren't "just" distros.
-Facebook is a large consumer of upstream, and we feed everything we do
-back as well. I suspect we have at least as many users (or more) than
-some of the distros :-)
-
 -- 
-Jens Axboe
+Regards,
+
+Laurent Pinchart
