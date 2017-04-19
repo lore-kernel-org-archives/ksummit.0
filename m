@@ -1,29 +1,32 @@
-Return-Path: <laurent.pinchart@ideasonboard.com>
+Return-Path: <linus971@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 32CE8C3A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B83DEBAA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 19 Apr 2017 21:29:06 +0000 (UTC)
-Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
-	[185.26.127.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 13FFA26D
+	Wed, 19 Apr 2017 21:32:18 +0000 (UTC)
+Received: from mail-io0-f195.google.com (mail-io0-f195.google.com
+	[209.85.223.195])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4FD31F0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 19 Apr 2017 21:29:03 +0000 (UTC)
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Josh Triplett <josh@joshtriplett.org>
-Date: Thu, 20 Apr 2017 00:30:04 +0300
-Message-ID: <2197263.dfzTo4bNkK@avalon>
-In-Reply-To: <20170419201429.GA17383@cloud>
-References: <CA+55aFydhKTGAFfqog0gRwKAQnxjjMnM-bKEaOwYbEKNjfRwGg@mail.gmail.com>
-	<1834084.5qZ8rLimvk@avalon> <20170419201429.GA17383@cloud>
+	Wed, 19 Apr 2017 21:32:18 +0000 (UTC)
+Received: by mail-io0-f195.google.com with SMTP id d203so7773259iof.2
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 19 Apr 2017 14:32:18 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
+Sender: linus971@gmail.com
+In-Reply-To: <CALCETrVVQ4XtMY-fxr_Vmo1OCHWSZ8ry9dUBhJimH30J0L+MGg@mail.gmail.com>
+References: <CA+55aFydhKTGAFfqog0gRwKAQnxjjMnM-bKEaOwYbEKNjfRwGg@mail.gmail.com>
+	<CALCETrVVQ4XtMY-fxr_Vmo1OCHWSZ8ry9dUBhJimH30J0L+MGg@mail.gmail.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Wed, 19 Apr 2017 14:32:17 -0700
+Message-ID: <CA+55aFxy9RjdRJOoCmw9F+s3iQ9BiHK34xd6iB5NqpSgWbL-1g@mail.gmail.com>
+To: Andy Lutomirski <luto@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
 	Dave Airlie <airlied@linux.ie>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Ingo Molnar <mingo@kernel.org>, Doug Ledford <dledford@redhat.com>,
-	David Miller <davem@davemloft.net>
+	David Miller <davem@davemloft.net>, Doug Ledford <dledford@redhat.com>,
+	Ingo Molnar <mingo@kernel.org>
 Subject: Re: [Ksummit-discuss] "Maintainer summit" invitation discussion
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -34,121 +37,61 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Josh,
+On Wed, Apr 19, 2017 at 2:05 PM, Andy Lutomirski <luto@kernel.org> wrote:
+> On Tue, Apr 18, 2017 at 11:59 AM, Linus Torvalds
+> <torvalds@linux-foundation.org> wrote:
+>> The kernel summit is apparently in October, and I promised last year
+>> to at least get the ball rolling with the people *I* would like to
+>> see.
+>
+> What's the nominal subject matter?  I'd be happy to attend, but I only
+> sort-of maintain anything, so, to the extent it's focused on
+> maintenance, I can stay away (down the hallway?) for size reasons too.
 
-On Wednesday 19 Apr 2017 13:14:29 Josh Triplett wrote:
-> On Wed, Apr 19, 2017 at 10:50:15PM +0300, Laurent Pinchart wrote:
-> > On Wednesday 19 Apr 2017 12:40:47 Linus Torvalds wrote:
-> >> On Wed, Apr 19, 2017 at 12:25 PM, Laurent Pinchart wrote:
-> >>> Agreed, for a maintainer summit to be useful, we need to have multiple
-> >>> sides present. Gathering core maintainers with key representatives of
-> >>> the downstream communities around the table is great, but I think we
-> >>> would be missing one category whose opinion is equally important:
-> >>> kernel developers.
-> >>> 
-> >>> When everything goes well developers can be represented by their
-> >>> maintainers. That's the case where the process flows smoothly, so
-> >>> there isn't likely to be much to discuss. However, problems occurring
-> >>> in the maintenance process are likely to result in, if not conflicts,
-> >>> at least different views between maintainers and developers, in which
-> >>> case developers won't be represented at the summit.
-> >>> 
-> >>> I'm not sure how to handle that. I certainly don't want to increase
-> >>> the number of attendees to include key representatives of developers
-> >>> (and while I'd be very curious to see how they would be selected, I
-> >>> doubt it would work in practice), but I also believe we need to
-> >>> address this class of maintainership issues.
-> >> 
-> >> I do agree that it would be a great thing to have a "bitch at
-> >> maintainers" session where developers get to vent frustration at how
-> >> their patches are (or are _not_) accepted by maintainers.
-> >> 
-> >> I know we've had issues in the VFS layer, with Al sometimes
-> >> effectively dropping off the intenet for a time, for example.  And I'm
-> >> sure it happens elsewhere too, I'm just aware of the VFS side because
-> >> it's one of the areas where I end up personally being a secondary
-> >> maintainer.
-> >> 
-> >> But the problem with that "bitch at maintainers" thing is that I can't
-> >> for the life of me come up with a sane small set of people to do that.
-> >> So I don't see it happening ;(
-> > 
-> > I currently don't have any good idea to make that happen either, but I'll
-> > keep thinking about it :-) More than bitching at maintainers, I believe
-> > that lots of developers, especially "smaller" or infrequent kernel
-> > contributors, are frustrated by maintainership issues that the related
-> > maintainers might not even be aware of.
-> > 
-> > One idea I've been thinking of was to gather constructive feedback (or
-> > just feedback that would then be filtered out of pointless finger-pointing
-> > and bitching) about our maintainers, aggregate it periodically, and submit
-> > it to the maintainers, possibly in an anonymized form. A maintainer summit
-> > is certainly no place to gather that feedback, but could be an occasion
-> > to decide whether such a process would be deemed useful. I for one, while
-> > I only maintain drivers and not whole subsystems, would certainly welcome
-> > constructive criticism in that area.
-> > 
-> >> Anyway, I have tried to gather "other groups" that aren't in that
-> >> top-10 maintainers list, but are examples of people "around" the
-> >> 
-> >> maintenance issues:
-> >>  - stable and linux-next:
-> >>    Ben Hutchings (stable)
-> >>    Stephen Rothwell (linux-next)
-> >>  
-> >>  - Infrastructure:
-> >>    Konstantin Ryabitsev (k.org)
-> >>    Fengguang Wu (kernel test robot)
-> >>    Steven Rostedt (ktest)
-> >>    Shuah Khan (tools/testing)
-> >>    Thorsten Leemhuis (regression tracking)
-> >>    Jonathan Corbet (documentation)
-> >>  
-> >>  - Security:
-> >>    Andy Lutomirski (security and core)
-> >>    Kees Cook (security)
-> >>    James Morris (security subsystem)
-> >>  
-> >>  - distro people:
-> >>    Laura Abbott (Fedora)
-> >>    Jiri Kosina (MM? JM?) (Suse)
-> >>    Rom Lemarchand (Android)
-> >>  
-> >>  - Hw vendor people?
-> >>  - Sponsor people?
-> >> 
-> >> but I can't come up with a sane set of "leaf developers" or anything
-> >> like that. We've just got too many. That's obviously a good problem to
-> >> have, but it doesn't fit with the maintainer summit, because unless
-> >> somebody can come up with some kind of prototypical spokesperson for
-> >> that group (and to me, that doesn't seem likely), I don't see how to
-> >> do it.
-> 
-> I'd definitely like to see an "issues that affect casual/occasional
-> contributors" discussion; it wouldn't really fit the maintainer summit,
-> but I like James' suggestion of doing it as part of the attached
-> LinuxCon.
+I think the nominal subject matter is "any process issue".
 
-It's a good idea, I'd be happy to submit a proposal for such a session and 
-lead it.
+We used to have all these specific technical issues, and talk about
+particular subsystems etc. That is *not* what this would be about, and
+would be outside the scope of the maintainer thing.
 
-> In terms of framing, though, I'd suggest keeping it focused on "what
-> issues have you personally encountered or directly observed", rather
-> than "what random process ideas do you have".  The latter would go
-> downhill very quickly; the former seems much more likely to produce
-> productive feedback on real problems.  (It's less important that they
-> come with potential solutions than that the relevant problems get
-> recorded for subsequent consideration.)
+People probably still want to have hallway discussions about things
+like that, of course, and maybe the kernel summit ends up being a good
+time to catch the right people, but it wouldn't be the maintainer
+summit part.
 
-I agree. I would extend it to "what issues have you or anyone your represent 
-personally encountered", as I don't expect most of the casual/occasional 
-contributors to attend the conference.
+But anything that has to not so much with any _particular_ part of the
+kernel, and is rather about some process issue, would be up for grabs.
 
-> Will the maintainer summit occur *after* the overlapped conference, or
-> *before*?  If after, then it'd be plausible to have a "let's talk about
-> what we heard" session in the maintainer summit.
+So questions would be around things like code organization changes or
+anything that cuts across subsystems and might want some hook into the
+process.
 
--- 
-Regards,
+IOW, things like security disclosure rules, test coverage, random
+infrastructure issues, pointing at portions of the kernel that have
+spotty or no maintainership, things like that.
 
-Laurent Pinchart
+Is there something that could be automated better and we could ask the
+infrastructure people (whether k.org or test robot or whatever) for?
+
+Or going the other way, is there something the infrastructure people
+would like us to do so that they'd be able to do more?
+
+Or our interaction (or lack there-of) with the distro people?
+
+So anything like that - but not subsystem specific discussion about
+how to solve some problem (those would be better done at mini-summits
+for that subsystem, which obviously might be co-located).
+
+I *think* we agreed last year to try to limit things to just half a
+day, and a small enough group that we won't be running out of oxygen
+in the room.
+
+I think that if we have 30 people and everybody has some particular
+process gripe in mind that they think they could talk about for five
+minutes, we'll easily be able to fill half a day.
+
+The corollary to that is that if you don't have a process issue in
+mind, and don't expect others to be griping about you, maybe you don't
+want to be there.
+
+                Linus
