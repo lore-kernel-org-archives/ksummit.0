@@ -1,33 +1,31 @@
-Return-Path: <corbet@lwn.net>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 94D87B3F
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B313EB4A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 20 Apr 2017 14:47:38 +0000 (UTC)
-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 77AE01AE
+	Thu, 20 Apr 2017 14:49:48 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4AC8B1AE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 20 Apr 2017 14:47:37 +0000 (UTC)
-Date: Thu, 20 Apr 2017 08:47:35 -0600
-From: Jonathan Corbet <corbet@lwn.net>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Message-ID: <20170420084735.7ef1c3ef@lwn.net>
-In-Reply-To: <1492695238.27758.19.camel@HansenPartnership.com>
+	Thu, 20 Apr 2017 14:49:48 +0000 (UTC)
+Date: Thu, 20 Apr 2017 15:49:33 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Message-ID: <20170420144933.hm4hd3zwvryjbucq@sirena.org.uk>
 References: <CA+55aFydhKTGAFfqog0gRwKAQnxjjMnM-bKEaOwYbEKNjfRwGg@mail.gmail.com>
 	<s5hd1c9wl4b.wl-tiwai@suse.de>
 	<CA+55aFzo0dPdEYvGBRvpoUQ1ZGsDUMO+n1dv2fDNvP4Y-=31zQ@mail.gmail.com>
-	<20170418181506.30de0470@vento.lan>
-	<20170419163636.6747a232@lwn.net>
-	<alpine.LSU.2.20.1704200037430.12121@cbobk.fhfr.pm>
-	<20170420052316.GA24503@infradead.org>
-	<1492695238.27758.19.camel@HansenPartnership.com>
+	<d0173f9f-d68a-995a-af42-a388af93dcca@redhat.com>
+	<CA+55aFyZ-EuGo67DXQegC2K+BqsHxdaFeVSnJgRGnjLOf1FZaw@mail.gmail.com>
+	<87wpafsdbl.fsf@intel.com> <20170420105933.GA26134@kroah.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="k55vgk63mpijzywp"
+Content-Disposition: inline
+In-Reply-To: <20170420105933.GA26134@kroah.com>
 Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
-	Dave Airlie <airlied@linux.ie>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Ingo Molnar <mingo@kernel.org>, Christoph Hellwig <hch@infradead.org>,
+	Ingo Molnar <mingo@kernel.org>, Dave Airlie <airlied@linux.ie>,
 	Doug Ledford <dledford@redhat.com>, David Miller <davem@davemloft.net>
 Subject: Re: [Ksummit-discuss] "Maintainer summit" invitation discussion
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -39,36 +37,53 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, 20 Apr 2017 06:33:58 -0700
-James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
 
-> I think it's worth discussing this.  We accept a lot of patches because
-> we can and because the change looks innocuous enough, but which don't
-> actually have a tangible user visible benefit.  Should we actually have
-> a net benefit threshold test we apply?
+--k55vgk63mpijzywp
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-With regard to the documentation patches, the intended tangible
-user-visible benefit is to turn a jumbled mess of a documentation
-directory into a set of coherent manuals that are aimed at and readily
-accessible to our different audiences (kernel developers, system
-administrators, application developers, etc. as appropriate).
+On Thu, Apr 20, 2017 at 12:59:33PM +0200, Greg Kroah-Hartman wrote:
+> On Thu, Apr 20, 2017 at 11:17:18AM +0300, Jani Nikula wrote:
 
-If we had always tossed the SCSI subsystem source into a single directory
-along with SCTP, user-mode Linux, perf, half of the TTY drivers, and all
-filesystems written before the second Bush administration, it would
-certainly make for easier muscle-memory access for those of us who think
-back nostalgically to installing from floppies.  But for some strange
-reason we don't do that.
+> > 1 stable, 8 longterm, and 1 eol'd longterm kernels. The oldest longterm
+> > is based on a five years old release.
 
-When code needs refactoring, we do so - when, as you said, there is a
-tangible benefit.  The same applies to directory organization.  Though
-that may not apply to Documentation/ since we never really got around to
-an original factoring to refactor.
+> That 5 year old kernel is due to Debian's looney release schedule, go
+> take it up with them :)
 
-Anyway, you can see why I raised the issue.  I think that this process is
-improving the documentation, making it more accessible, and making more
-people interested in improving it.  But I have my hands plenty full of
-other things and, if this work is really swimming against the current, it
-would be good to know.
+A combination of release schedule and lack of desire to update kernels
+mid release.
 
-jon
+> > I just think the multitude of longterm kernels are sending a message
+> > that it's perfectly fine to stay behind. Don't get me wrong, I know why
+> > they are there, but I still think in the past the focus on encouraging
+> > to always use the latest stable kernel was stronger.
+
+> And how do you suggest that we do that any more than we currently do?
+> (i.e. I go around and talk to companies all the time about this issue,
+> did a tour of Asia last month, and will be talking to some US-based
+> companies next month.)
+
+Honestly at this point I'm not even sure how much of an issue it is with
+the idea that people should update - as far as I can tell the main
+problems are similar to the things keeping the enterprise distros from
+upgrading, not wanting to introduce large change in something that's
+already production.  I'm not sure we have any good answers there really
+other than gradually getting through the technical debt with upstreaming.
+
+--k55vgk63mpijzywp
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCAAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlj4ynwACgkQJNaLcl1U
+h9B42gf/QnEFcOLi4+CXnCqPE3VBbUW3GiI7Og0U2BK3wbnLKjqz880R2XMka/B/
+CCPLqFusyHQ+dL2Kc/3WdIPfdBY6od8+zxkKxlwCgrab+1Rf5FchKHqGoQH3vNIl
+J4TvI9uZwX3BzUTW6UlGEHrtXww6Qg+2j6WtlIO6iQXDjuBUSUTFLqHdJqXYWKJ8
+/jr6//Otm8rxc8Vb5cPrDdaQm0kA51l+JUGGZEQ5Sev4KGhjagmj/7soNj3Uipcr
+dosY18lULMVu7+iMprEMswbcRXM5KR/PzZthe5dDFzI0LjcvSJ1DWw2Iw7Z31N2Z
+opsZy9NQr/T+Fh6CwNbEoBfHzA87Ag==
+=iA00
+-----END PGP SIGNATURE-----
+
+--k55vgk63mpijzywp--
