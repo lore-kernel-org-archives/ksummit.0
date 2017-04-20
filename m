@@ -1,34 +1,33 @@
-Return-Path: <daniel.vetter@ffwll.ch>
+Return-Path: <jani.nikula@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 93473B5A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B699D6C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 20 Apr 2017 08:26:10 +0000 (UTC)
-Received: from mail-io0-f194.google.com (mail-io0-f194.google.com
-	[209.85.223.194])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C320B141
+	Thu, 20 Apr 2017 08:31:34 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5CCC6110
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 20 Apr 2017 08:26:08 +0000 (UTC)
-Received: by mail-io0-f194.google.com with SMTP id d203so13695202iof.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 20 Apr 2017 01:26:08 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <1492631703.3217.30.camel@HansenPartnership.com>
+	Thu, 20 Apr 2017 08:31:34 +0000 (UTC)
+From: Jani Nikula <jani.nikula@intel.com>
+To: Laura Abbott <labbott@redhat.com>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Doug Ledford <dledford@redhat.com>
+In-Reply-To: <cfd0f6a1-77e7-90e0-3726-f56e7ce6badb@redhat.com>
 References: <CA+55aFydhKTGAFfqog0gRwKAQnxjjMnM-bKEaOwYbEKNjfRwGg@mail.gmail.com>
-	<20188905.kHbMkj7sB6@avalon>
-	<CA+55aFxFyX-6y0MH2QivC+GAVThEFNHVKc3DBZJzDBc9JU_nCQ@mail.gmail.com>
-	<1834084.5qZ8rLimvk@avalon>
-	<1492631703.3217.30.camel@HansenPartnership.com>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Thu, 20 Apr 2017 10:26:07 +0200
-Message-ID: <CAKMK7uERh_j+N3d-JseDhR64LGC9gO9cu=H25C6fNFxthn_uzw@mail.gmail.com>
-To: James Bottomley <James.Bottomley@hansenpartnership.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
-	Dave Airlie <airlied@linux.ie>,
+	<s5hd1c9wl4b.wl-tiwai@suse.de>
+	<CA+55aFzo0dPdEYvGBRvpoUQ1ZGsDUMO+n1dv2fDNvP4Y-=31zQ@mail.gmail.com>
+	<d0173f9f-d68a-995a-af42-a388af93dcca@redhat.com>
+	<CA+55aFyZ-EuGo67DXQegC2K+BqsHxdaFeVSnJgRGnjLOf1FZaw@mail.gmail.com>
+	<cfd0f6a1-77e7-90e0-3726-f56e7ce6badb@redhat.com>
+Date: Thu, 20 Apr 2017 11:31:31 +0300
+Message-ID: <87tw5jscnw.fsf@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain
+Cc: Dave Airlie <airlied@linux.ie>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	David Miller <davem@davemloft.net>, Doug Ledford <dledford@redhat.com>,
-	Ingo Molnar <mingo@kernel.org>
+	Ingo Molnar <mingo@kernel.org>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
+	David Miller <davem@davemloft.net>
 Subject: Re: [Ksummit-discuss] "Maintainer summit" invitation discussion
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -39,34 +38,26 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Apr 19, 2017 at 9:55 PM, James Bottomley
-<James.Bottomley@hansenpartnership.com> wrote:
-> Isn't it easy?  The Maintainers summit is going to be part of a larger
-> kernel track within LinuxCon EU  (not that everyone plans on staying
-> on, of course, but several will be).  Just put the bitch at Maintainers
-> session in that as a round table, so any attendee of LinuxCon EU can
-> come and complain if they want to.
+On Wed, 19 Apr 2017, Laura Abbott <labbott@redhat.com> wrote:
+> I brought up bug reporting last year and I still consider that to be
+> an issue this year. A good example is
+> https://bugzilla.kernel.org/show_bug.cgi?id=194911 which didn't really
+> make progress until I sent out a separate e-mail thread summarizing
+> the bisections people did.
 
-I don't think it's that easy. I guess due to the "interesting" stuff
-we're doing in drm I get to hear some of the frustration stories from
-leaf contributors. Picking a conference means you exclude folks who
-won't go there (and Linux is so huge that there's simply no single
-conference that would cover it all), but more important a common theme
-I'm hearing is that frustrated folks don't want to speak up in public,
-because if they piss of their maintainer, their problems just get
-worse. On the other hand they lack the power and influence to fix
-anything, so there's very little upside to speaking up about issues.
-The usual solution seems to eventually just quietly abandon upstream,
-or at least the particular subsystem.
+The service level at https://bugzilla.kernel.org heavily depends on the
+subsystem/driver. Some maintainers just ignore it completely.
+MAINTAINERS now has the "B:" entry to document where maintainers want
+bugs reported, and I'd like to see more maintainers document their
+preferences there.
 
-The other thing is that because Linuxcon has such a wide audience you
-might just get the peanut gallery kernel bashing from bystanders, not
-feedback from actual (or at least potential) contributors.
+Would be great to have bugzilla inform the bug reporters if some
+component is likely to be ignored, based on the info in MAINTAINERS, but
+I suppose that's a bunch of manual work unlikely to happen.
 
-Still worth trying I guess, but I wouldn't be surprised if there's not
-much coming out of such a feedback session.
--Daniel
+BR,
+Jani.
+
+
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-+41 (0) 79 365 57 48 - http://blog.ffwll.ch
+Jani Nikula, Intel Open Source Technology Center
