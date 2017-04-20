@@ -1,32 +1,30 @@
-Return-Path: <BATV+cba2d22df955e8193e5b+4988+infradead.org+hch@bombadil.srs.infradead.org>
+Return-Path: <julia.lawall@lip6.fr>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id EB91A94B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0CD1E727
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 20 Apr 2017 05:23:19 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org [65.50.211.133])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8352579
+	Thu, 20 Apr 2017 05:44:18 +0000 (UTC)
+Received: from mail2-relais-roc.national.inria.fr
+	(mail2-relais-roc.national.inria.fr [192.134.164.83])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2DAB0140
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 20 Apr 2017 05:23:19 +0000 (UTC)
-Date: Wed, 19 Apr 2017 22:23:16 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Jiri Kosina <jikos@kernel.org>
-Message-ID: <20170420052316.GA24503@infradead.org>
+	Thu, 20 Apr 2017 05:44:16 +0000 (UTC)
+Date: Thu, 20 Apr 2017 07:44:14 +0200 (CEST)
+From: Julia Lawall <julia.lawall@lip6.fr>
+To: Josh Triplett <josh@joshtriplett.org>
+In-Reply-To: <20170419201429.GA17383@cloud>
+Message-ID: <alpine.DEB.2.20.1704200742480.2015@hadrien>
 References: <CA+55aFydhKTGAFfqog0gRwKAQnxjjMnM-bKEaOwYbEKNjfRwGg@mail.gmail.com>
-	<s5hd1c9wl4b.wl-tiwai@suse.de>
-	<CA+55aFzo0dPdEYvGBRvpoUQ1ZGsDUMO+n1dv2fDNvP4Y-=31zQ@mail.gmail.com>
-	<20170418181506.30de0470@vento.lan>
-	<20170419163636.6747a232@lwn.net>
-	<alpine.LSU.2.20.1704200037430.12121@cbobk.fhfr.pm>
+	<20188905.kHbMkj7sB6@avalon>
+	<CA+55aFxFyX-6y0MH2QivC+GAVThEFNHVKc3DBZJzDBc9JU_nCQ@mail.gmail.com>
+	<1834084.5qZ8rLimvk@avalon> <20170419201429.GA17383@cloud>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <alpine.LSU.2.20.1704200037430.12121@cbobk.fhfr.pm>
+Content-Type: text/plain; charset=US-ASCII
 Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
 	Dave Airlie <airlied@linux.ie>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Ingo Molnar <mingo@kernel.org>, Doug Ledford <dledford@redhat.com>,
-	David Miller <davem@davemloft.net>
+	David Miller <davem@davemloft.net>, Doug Ledford <dledford@redhat.com>,
+	Ingo Molnar <mingo@kernel.org>
 Subject: Re: [Ksummit-discuss] "Maintainer summit" invitation discussion
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -37,11 +35,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Apr 20, 2017 at 12:41:04AM +0200, Jiri Kosina wrote:
-> There is one piece of feedback I guess I can share right away on this -- 
-> I've heard so many complaints that Doc<tab>/kern<tab>-par<tab> completion 
-> stopped to yield Documentation/kernel-parameters.txt that it's not really 
-> funny any more :)
+> I'd definitely like to see an "issues that affect casual/occasional
+> contributors" discussion; it wouldn't really fit the maintainer summit,
+> but I like James' suggestion of doing it as part of the attached
+> LinuxCon.
 
-Yeah.  All this moving files around really messed up my workflows.
-Let's see if I'll be able to adjust eventually.
+I would be happy to help with the organization of such a thing.
+
+julia
+
+
+> In terms of framing, though, I'd suggest keeping it focused on "what
+> issues have you personally encountered or directly observed", rather
+> than "what random process ideas do you have".  The latter would go
+> downhill very quickly; the former seems much more likely to produce
+> productive feedback on real problems.  (It's less important that they
+> come with potential solutions than that the relevant problems get
+> recorded for subsequent consideration.)
+>
+> Will the maintainer summit occur *after* the overlapped conference, or
+> *before*?  If after, then it'd be plausible to have a "let's talk about
+> what we heard" session in the maintainer summit.
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+>
