@@ -1,31 +1,29 @@
-Return-Path: <adobriyan@gmail.com>
+Return-Path: <corbet@lwn.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7A1F7C0A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 94D87B3F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 20 Apr 2017 14:40:44 +0000 (UTC)
-Received: from mail-qt0-f175.google.com (mail-qt0-f175.google.com
-	[209.85.216.175])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 59034268
+	Thu, 20 Apr 2017 14:47:38 +0000 (UTC)
+Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 77AE01AE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 20 Apr 2017 14:40:43 +0000 (UTC)
-Received: by mail-qt0-f175.google.com with SMTP id y33so46729811qta.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 20 Apr 2017 07:40:43 -0700 (PDT)
-MIME-Version: 1.0
+	Thu, 20 Apr 2017 14:47:37 +0000 (UTC)
+Date: Thu, 20 Apr 2017 08:47:35 -0600
+From: Jonathan Corbet <corbet@lwn.net>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Message-ID: <20170420084735.7ef1c3ef@lwn.net>
 In-Reply-To: <1492695238.27758.19.camel@HansenPartnership.com>
 References: <CA+55aFydhKTGAFfqog0gRwKAQnxjjMnM-bKEaOwYbEKNjfRwGg@mail.gmail.com>
 	<s5hd1c9wl4b.wl-tiwai@suse.de>
 	<CA+55aFzo0dPdEYvGBRvpoUQ1ZGsDUMO+n1dv2fDNvP4Y-=31zQ@mail.gmail.com>
-	<20170418181506.30de0470@vento.lan> <20170419163636.6747a232@lwn.net>
+	<20170418181506.30de0470@vento.lan>
+	<20170419163636.6747a232@lwn.net>
 	<alpine.LSU.2.20.1704200037430.12121@cbobk.fhfr.pm>
 	<20170420052316.GA24503@infradead.org>
 	<1492695238.27758.19.camel@HansenPartnership.com>
-From: Alexey Dobriyan <adobriyan@gmail.com>
-Date: Thu, 20 Apr 2017 17:40:41 +0300
-Message-ID: <CACVxJT-nu+oayFA=ncoD0uMJSWYdaiV0A9-PxEmN_HzYgCc=4g@mail.gmail.com>
-To: James Bottomley <James.Bottomley@hansenpartnership.com>
-Content-Type: text/plain; charset=UTF-8
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
 	Dave Airlie <airlied@linux.ie>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -41,25 +39,36 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Apr 20, 2017 at 4:33 PM, James Bottomley
-<James.Bottomley@hansenpartnership.com> wrote:
-> On Wed, 2017-04-19 at 22:23 -0700, Christoph Hellwig wrote:
->> On Thu, Apr 20, 2017 at 12:41:04AM +0200, Jiri Kosina wrote:
->> > There is one piece of feedback I guess I can share right away on
->> > this -- I've heard so many complaints that Doc<tab>/kern<tab>
->> > -par<tab> completion stopped to yield Documentation/kernel
->> > -parameters.txt that it's not really funny any more :)
->>
->> Yeah.  All this moving files around really messed up my workflows.
->> Let's see if I'll be able to adjust eventually.
->
-> Seconded.  The one that trips me up the most is the uapi one ... I
-> always forget that include/linux/X.h might have an
-> include/uapi/linux/X.h counterpart which is where the structure I'm
-> looking for actually is.
+On Thu, 20 Apr 2017 06:33:58 -0700
+James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
 
-Let's not forget x86 master system call definition table movement.
-Just as finger memory is developed they move it again.
+> I think it's worth discussing this.  We accept a lot of patches because
+> we can and because the change looks innocuous enough, but which don't
+> actually have a tangible user visible benefit.  Should we actually have
+> a net benefit threshold test we apply?
 
-And of course drivers/net directory structure explosion
-where drivers/net/e<TAB> doesn't work.
+With regard to the documentation patches, the intended tangible
+user-visible benefit is to turn a jumbled mess of a documentation
+directory into a set of coherent manuals that are aimed at and readily
+accessible to our different audiences (kernel developers, system
+administrators, application developers, etc. as appropriate).
+
+If we had always tossed the SCSI subsystem source into a single directory
+along with SCTP, user-mode Linux, perf, half of the TTY drivers, and all
+filesystems written before the second Bush administration, it would
+certainly make for easier muscle-memory access for those of us who think
+back nostalgically to installing from floppies.  But for some strange
+reason we don't do that.
+
+When code needs refactoring, we do so - when, as you said, there is a
+tangible benefit.  The same applies to directory organization.  Though
+that may not apply to Documentation/ since we never really got around to
+an original factoring to refactor.
+
+Anyway, you can see why I raised the issue.  I think that this process is
+improving the documentation, making it more accessible, and making more
+people interested in improving it.  But I have my hands plenty full of
+other things and, if this work is really swimming against the current, it
+would be good to know.
+
+jon
