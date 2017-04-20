@@ -1,35 +1,31 @@
 Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 29870B8E
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id F010AB5A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 20 Apr 2017 19:02:38 +0000 (UTC)
+	Thu, 20 Apr 2017 19:26:27 +0000 (UTC)
 Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
 	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 507631A3
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CCB5E273
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 20 Apr 2017 19:02:37 +0000 (UTC)
-Date: Thu, 20 Apr 2017 20:02:22 +0100
+	Thu, 20 Apr 2017 19:26:26 +0000 (UTC)
+Date: Thu, 20 Apr 2017 20:26:15 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <20170420190222.bxl5tojgz2psqt74@sirena.org.uk>
+Message-ID: <20170420192615.tflncgfggdgpyptf@sirena.org.uk>
 References: <CA+55aFydhKTGAFfqog0gRwKAQnxjjMnM-bKEaOwYbEKNjfRwGg@mail.gmail.com>
-	<CAPM=9tyU0Q+CZRpgnx34wRNLzMU1B5DmOSA+S-SRXghVbWKnSw@mail.gmail.com>
-	<CAKMK7uE+E0RAB7z3zhtKn5tj45g_0PsLnNrGwJOxGJzUyqos8g@mail.gmail.com>
-	<CA+55aFxhK=h-wr8kFf42fXFHh-Dsn7QNiFWt+Kcr0umG4k3gQw@mail.gmail.com>
-	<CAKMK7uHuQgjaGN03omr_c9JTs11zRL6Dxri8jr2CCFXQ4EN7og@mail.gmail.com>
+	<CAK8P3a2F-C+Mfijbjb2CfDMvO2dgSDhNowx1NJ2=qgRdpDLk0g@mail.gmail.com>
+	<CAKMK7uF8to7iTSK9YgM0+KGbsj3_iMRjVHHd7zVa5Xzc5ftOGQ@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="227qcvm73oxqszl4"
+	protocol="application/pgp-signature"; boundary="66euyputlgh7wqbp"
 Content-Disposition: inline
-In-Reply-To: <CAKMK7uHuQgjaGN03omr_c9JTs11zRL6Dxri8jr2CCFXQ4EN7og@mail.gmail.com>
-Cc: Rom Lemarchand <romlem@google.com>,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
+In-Reply-To: <CAKMK7uF8to7iTSK9YgM0+KGbsj3_iMRjVHHd7zVa5Xzc5ftOGQ@mail.gmail.com>
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
 	Dave Airlie <airlied@linux.ie>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Nikula,
-	Jani" <jani.nikula@linux.intel.com>, David Miller <davem@davemloft.net>,
-	Doug Ledford <dledford@redhat.com>, Sean Paul <seanpaul@chromium.org>,
-	Ingo Molnar <mingo@kernel.org>
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Ingo Molnar <mingo@kernel.org>, Doug Ledford <dledford@redhat.com>,
+	David Miller <davem@davemloft.net>
 Subject: Re: [Ksummit-discuss] "Maintainer summit" invitation discussion
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -41,71 +37,48 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---227qcvm73oxqszl4
+--66euyputlgh7wqbp
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Apr 18, 2017 at 11:39:22PM +0200, Daniel Vetter wrote:
-> On Tue, Apr 18, 2017 at 10:56 PM, Linus Torvalds
+On Thu, Apr 20, 2017 at 10:53:54AM +0200, Daniel Vetter wrote:
 
-> > Side note: people should think about various infrastructure/testing
-> > people too  So kernel.org, but also things like zero-day etc test
-> > labs.
+> Related to this is that there's no single stop-shop for driver
+> submissions for the arm platform stuff, but it's all split up. Fairly
+> often that means at least one of the maintainers doesn't like your
+> face, is on vacation or leave, burried for other reasons, or at least
+> has slightly different ideas about what color the bikeshed needs to
+> be. That makes contributions for people who just want to get their
+> driver for a given platform in a pain.
 
-For kernelci.org the kernel people involved are Kevin Hilman and myself,
-mainly Kevin. =20
+> For non-arm-soc ecosystem drivers things seem a lot more relaxed and
+> efficient and sensible.
 
-There's also some work on automation of actual test running going on in
-Linaro intended to end up fulfiling a similar role to the various
-build/boot bots which should be in a state to talk about usefully by
-October but I don't want to overpromise.  I'll definitely be able to
-talk about some of the experience with getting things up and running by
-then.
+I really think this is more of a cross subsystem issue than an ARM issue
+- I'm seeing it come up just as much with x86 stuff these days as ARM
+(more so at the minute, though I think that's just a bit of learning
+that's going on).  x86 has historically been simpler hardware with less
+interaction between blocks that triggers cross subsystem issues but
+that's becoming less and less the case for the laptops.
 
-> Hm, we're trying to build up a much more ambitious CI here for drm and
-> intel specifically, but nothing all that interesting yet relevant
-> beyond drm. What could be interesting (but not for the discussion
-> session, more for the general track) is getting our userspace CI team
-> to explain what they do. Except that it runs in userspace the gl
+Most of what I'm seeing these days goes pretty smoothly, and we're
+reasonably well decoupled for the common cases so things can make
+progress even if one bit does end up getting stuck.  AFAICT the main
+issues are the normal maintainer scaling problems.
 
-I'm wondering if we should be trying to ge a miniconf together for this
-stuff, there's a reasonable number of people attacking kernel QA from
-various angles and there's probably a lot to be gained from sharing
-ideas and experiences.
-
-> A hw testing bof thing for different (driver) subsystems to compare
-> notes might be good, but I'm not sure that'd be useful for the group
-> discussions really. Probably more talking to the audience than what
-> you're aiming for.
-
-I think there's a useful conversation to be had there if we do have a
-good selection of downstream users in the room, not just about hardware
-testing but more generally about what we're doing upstream around test
-and how that's translating to our downstreams.  How do we make sure that
-people who are either downstream users or just interested in general
-kernel testing find out about tests we're using upstream, how to use
-them and so on?  Are the tests we're using useful for them as well as
-the developers?
-
-Ideally testing could be another way to open up interaction with people
-who haven't been working upstream so much, or if nothing else help
-raise the quality of out of tree code, but at the minute it seems like
-we have a discoverability problem.
-
---227qcvm73oxqszl4
+--66euyputlgh7wqbp
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCAAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlj5Bb0ACgkQJNaLcl1U
-h9A0kgf9GI1OOh/RGgJ5LRIkxljkUsd9NBWRL/L+mNrh0FQ7hWl29pnunOP6JFsD
-+A5DnMqV63tDFUB+svsvggQHLXPwIhihrpRfABsL1Em2APpIInMr6UjblMgUUYjA
-ejswhe/AL9bgTStX/o4dBWuOhitCixkaK95W13+Wfu0lTuJUHkfKKawbNFl5AzzK
-aU+7WGNGrhrntLMb0D57k4a2av+soyyaPwHasji6o0j+WOGAszF/9HKXFGPQjsfB
-NnniLEFgltJi0AcEh8j+VfvYficbuSbc55O5z+SntAj972uEkWPrSWtP1sUyZ6zJ
-wSv6G0G5PBvDKQPczyWVBbPJAN6trg==
-=YWsg
+iQEzBAABCAAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlj5C1cACgkQJNaLcl1U
+h9CaGQf/cZ7w1oRozD357y8LZmc7HkJCtLXFNWye128PQGNaMTwrXFDiQyPdke91
+I0XIURfv14Btfts6/ddWuIuedv/diyIxu9hpN4UsqD3z7RIIEImW4LaO0hisxwsy
+0uKHg0N0/gzhv/hojuIiU5ezfvAauPjlRJiqimHQNWihq+BGomtRmOl6obAfRVr1
+3V1owUZIc9CBAMK751gWT2rJpaYHccULE3TxgsVlfvAiNffMUYJ4mzBUzRklDYde
+LIxRi8s8Lc2D4RU02F3pM+c2Din1lAPInQMLP5iZAFwMztYa/Sbh5ragiuWOE97r
+tia7ve67mrA+MMKU62Gf+tkKaD6GCA==
+=0kFo
 -----END PGP SIGNATURE-----
 
---227qcvm73oxqszl4--
+--66euyputlgh7wqbp--
