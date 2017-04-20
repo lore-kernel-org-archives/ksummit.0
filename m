@@ -1,35 +1,33 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2212B305
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 42600BD0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 20 Apr 2017 13:21:46 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B245B22E
+	Thu, 20 Apr 2017 13:25:40 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 759D11D4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 20 Apr 2017 13:21:45 +0000 (UTC)
-Date: Thu, 20 Apr 2017 13:35:26 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Jani Nikula <jani.nikula@intel.com>
-Message-ID: <20170420123526.ikqbcuji4jzatbmp@sirena.org.uk>
+	Thu, 20 Apr 2017 13:25:38 +0000 (UTC)
+Message-ID: <1492694732.27758.12.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Thu, 20 Apr 2017 06:25:32 -0700
+In-Reply-To: <CAKMK7uERh_j+N3d-JseDhR64LGC9gO9cu=H25C6fNFxthn_uzw@mail.gmail.com>
 References: <CA+55aFydhKTGAFfqog0gRwKAQnxjjMnM-bKEaOwYbEKNjfRwGg@mail.gmail.com>
-	<s5hd1c9wl4b.wl-tiwai@suse.de>
-	<CA+55aFzo0dPdEYvGBRvpoUQ1ZGsDUMO+n1dv2fDNvP4Y-=31zQ@mail.gmail.com>
-	<d0173f9f-d68a-995a-af42-a388af93dcca@redhat.com>
-	<CA+55aFyZ-EuGo67DXQegC2K+BqsHxdaFeVSnJgRGnjLOf1FZaw@mail.gmail.com>
-	<cfd0f6a1-77e7-90e0-3726-f56e7ce6badb@redhat.com>
-	<87tw5jscnw.fsf@intel.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="6rnrczb4zrchbkfc"
-Content-Disposition: inline
-In-Reply-To: <87tw5jscnw.fsf@intel.com>
+	<20188905.kHbMkj7sB6@avalon>
+	<CA+55aFxFyX-6y0MH2QivC+GAVThEFNHVKc3DBZJzDBc9JU_nCQ@mail.gmail.com>
+	<1834084.5qZ8rLimvk@avalon>
+	<1492631703.3217.30.camel@HansenPartnership.com>
+	<CAKMK7uERh_j+N3d-JseDhR64LGC9gO9cu=H25C6fNFxthn_uzw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
 	Dave Airlie <airlied@linux.ie>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	David Miller <davem@davemloft.net>, Doug Ledford <dledford@redhat.com>,
-	Ingo Molnar <mingo@kernel.org>
+	Ingo Molnar <mingo@kernel.org>, Doug Ledford <dledford@redhat.com>,
+	David Miller <davem@davemloft.net>
 Subject: Re: [Ksummit-discuss] "Maintainer summit" invitation discussion
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -40,34 +38,53 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Thu, 2017-04-20 at 10:26 +0200, Daniel Vetter wrote:
+> On Wed, Apr 19, 2017 at 9:55 PM, James Bottomley
+> <James.Bottomley@hansenpartnership.com> wrote:
+> > Isn't it easy?  The Maintainers summit is going to be part of a 
+> > larger kernel track within LinuxCon EU  (not that everyone plans on
+> > staying on, of course, but several will be).  Just put the bitch at
+> > Maintainers session in that as a round table, so any attendee of 
+> > LinuxCon EU can come and complain if they want to.
+> 
+> I don't think it's that easy. I guess due to the "interesting" stuff
+> we're doing in drm I get to hear some of the frustration stories from
+> leaf contributors. Picking a conference means you exclude folks who
+> won't go there (and Linux is so huge that there's simply no single
+> conference that would cover it all),
 
---6rnrczb4zrchbkfc
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Well, that's a reason for never doing anything at a conference, yes. 
+ However, the other way to look at it is that if the Maintainer summit
+rotates between US, EU and Asia and is allied to a tech conference in
+each, then we have a continent-local venue covering most of the world.
 
-On Thu, Apr 20, 2017 at 11:31:31AM +0300, Jani Nikula wrote:
+So the argument isn't that this is a perfect solution, but that it's a
+good one because it gives people the opportunity to come and give
+feedback without having to have an invitation to the Maintainer summit.
 
-> subsystem/driver. Some maintainers just ignore it completely.
-> MAINTAINERS now has the "B:" entry to document where maintainers want
-> bugs reported, and I'd like to see more maintainers document their
-> preferences there.
+> but more important a common theme I'm hearing is that frustrated 
+> folks don't want to speak up in public, because if they piss of their 
+> maintainer, their problems just get worse.
 
-I'd expect that a large proportion of people are assuming the default is
-to report it to the list.
+So perhaps they might turn up to give it privately.
 
---6rnrczb4zrchbkfc
-Content-Type: application/pgp-signature; name="signature.asc"
+>  On the other hand they lack the power and influence to fix
+> anything, so there's very little upside to speaking up about issues.
+> The usual solution seems to eventually just quietly abandon upstream,
+> or at least the particular subsystem.
 
------BEGIN PGP SIGNATURE-----
+Empowerment is about giving people opportunities.  I find most people
+take them.  The fact that a few people may not avail themselves isn't a
+good reason for not trying.
 
-iQEzBAABCAAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlj4qwoACgkQJNaLcl1U
-h9DkfAgAgi6PWrz7gBRSTwXwkaaw8FM15miLSO4EWhrRAoH3TN7Kr5mddDutk4Zg
-jUor+WTdcXU/3Y+nFyR6yfGYeyDzb5yczdB4z8WYyqNkmU6VH3CoBssyDPi8/iJH
-2idkpC+FexW1mwiWmM3O/er5/OULu52Cw3PZ3wMCE3RJe2J5dxtu6cChwB4X9Rqh
-BWXrrPR1M9CwWWiGb7SSYyXKGQnohSB9rvHinFaRSAIR6kvYVz9vExadHWXzxXwD
-sqm5Y0bwIXKxgYSc8jWYwV47xVIBGcC5lfmJVa9tZ8MkMAf0v5ydVVwjTIYq9pWN
-/AqLYxtaxG3JcwcjwKuxBr3Irb85Yg==
-=EECT
------END PGP SIGNATURE-----
+> The other thing is that because Linuxcon has such a wide audience you
+> might just get the peanut gallery kernel bashing from bystanders, not
+> feedback from actual (or at least potential) contributors.
 
---6rnrczb4zrchbkfc--
+On that reasoning, we should abandon democracy immediately.
+
+James
+
+> Still worth trying I guess, but I wouldn't be surprised if there's 
+> not much coming out of such a feedback session.
+> -Daniel
