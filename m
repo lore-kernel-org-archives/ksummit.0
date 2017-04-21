@@ -1,30 +1,31 @@
-Return-Path: <BATV+5ee24d0f248eb13d5bd2+4989+infradead.org+mchehab@bombadil.srs.infradead.org>
+Return-Path: <bhelgaas@google.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9FE93C39
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2B1A8C3B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 21 Apr 2017 17:07:10 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org [65.50.211.133])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id AF5C9142
+	Fri, 21 Apr 2017 23:19:44 +0000 (UTC)
+Received: from mail-wr0-f178.google.com (mail-wr0-f178.google.com
+	[209.85.128.178])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 55CDB18F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 21 Apr 2017 17:07:09 +0000 (UTC)
-Date: Fri, 21 Apr 2017 14:06:58 -0300
-From: Mauro Carvalho Chehab <mchehab@infradead.org>
-To: Michael Ellerman <mpe@ellerman.id.au>
-Message-ID: <20170421140658.407133e3@vento.lan>
-In-Reply-To: <87vapyauj7.fsf@concordia.ellerman.id.au>
+	Fri, 21 Apr 2017 23:19:43 +0000 (UTC)
+Received: by mail-wr0-f178.google.com with SMTP id c55so62497187wrc.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 21 Apr 2017 16:19:43 -0700 (PDT)
+MIME-Version: 1.0
+In-Reply-To: <1492633237.3217.50.camel@HansenPartnership.com>
 References: <CA+55aFydhKTGAFfqog0gRwKAQnxjjMnM-bKEaOwYbEKNjfRwGg@mail.gmail.com>
 	<1492633237.3217.50.camel@HansenPartnership.com>
-	<87vapyauj7.fsf@concordia.ellerman.id.au>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+From: Bjorn Helgaas <bhelgaas@google.com>
+Date: Fri, 21 Apr 2017 18:19:18 -0500
+Message-ID: <CAErSpo5jO_ENmV2u=2QpWF-KYcq1P0DZO-Cuezv8hwAB4ShwYQ@mail.gmail.com>
+To: James Bottomley <James.Bottomley@hansenpartnership.com>
+Content-Type: text/plain; charset=UTF-8
 Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
 	Dave Airlie <airlied@linux.ie>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	David Miller <davem@davemloft.net>,
-	James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Doug Ledford <dledford@redhat.com>, Ingo Molnar <mingo@kernel.org>
+	David Miller <davem@davemloft.net>, Doug Ledford <dledford@redhat.com>,
+	Ingo Molnar <mingo@kernel.org>
 Subject: Re: [Ksummit-discuss] "Maintainer summit" invitation discussion
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -35,83 +36,50 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Em Fri, 21 Apr 2017 21:07:24 +1000
-Michael Ellerman <mpe@ellerman.id.au> escreveu:
+On Wed, Apr 19, 2017 at 3:20 PM, James Bottomley
+<James.Bottomley@hansenpartnership.com> wrote:
+> I'd like closure on one process issue, if we could achieve it:
+>
+> Maintainer script automation: Quite a few of us have maintainer scripts
+> that send automated email notifications of the status of patches in the
+> tree (mostly to stop people flooding the lists with questions about
+> what happened to their patches).  We did a script show and tell at the
+> last kernel summit, but perhaps we could get closure on a couple of
+> issues:
 
-> James Bottomley <James.Bottomley@HansenPartnership.com> writes:
-> 
-> > On Tue, 2017-04-18 at 11:59 -0700, Linus Torvalds wrote:  
-> >> I'd like the maintainership summit list to be fairly small. Not even
-> >> 50 people. Maybe 30. A group that can actually sit in a room for half
-> >> a day and talk to each other about the issues they have rather than
-> >> being talked to. And talk literally about *process* issues, not about
-> >> any particular technical issues within whatever subsystem. Bring up
-> >> peeves or wishes for actual process improvements?
-> >> 
-> >> Comments? People who should be involved? Or people who don't have any
-> >> particular issues and want to not be involved?  
-> >
-> > I'd like closure on one process issue, if we could achieve it:
-> >
-> > Maintainer script automation: Quite a few of us have maintainer scripts
-> > that send automated email notifications of the status of patches in the
-> > tree (mostly to stop people flooding the lists with questions about
-> > what happened to their patches).  We did a script show and tell at the
-> > last kernel summit, but perhaps we could get closure on a couple of
-> > issues:
-> >
-> >    1. Since most people agree that these form of notifications are useful,
-> >       should we have a standard email for it (or at least a list of things
-> >       which should be in that email, like commit-id, tree, maintainer,
-> >       mailing list and the version of the kernel it is expected to be
-> >       pushed for).  
-> 
-> We could have suggestions, I'm not sure an actual standard is feasible
-> given the differences in the processes people use.
-> 
-> >    2. Given that we all run ad-hoc infrastructure to produce these emails,
-> >       could we get a set of blessed scripts up on kernel.org for all
-> >       comers so we can use the central infrastructure rather than rolling
-> >       our own.  
-> 
-> This would be great.
-> 
-> But is there actually a set of scripts out there which are in
-> sufficiently good state that we could ask the kernel.org admins to run
-> them?
-> 
-> If the mail sending happens on kernel.org how do the scripts know which
-> mail to respond to for a given commit? It could be in the commit message
-> somehow, but that's ugly. My scripts use git-notes for that sort of
-> metadata, which works quite well, so maybe that's an option.
-> 
-> Or maybe you're thinking that they don't reply to the original patch,
-> they just mail the author?
-> 
-> There's also times when you push commits that have already been
-> responded to by someone else (ie. a submaintainer), so there'd need to
-> be some way to flag that. And then obviously the case where you fast
-> forward to Linus' branch, you don't want to send mails for all those
-> commits :)
+I wasn't at the last summit, and there's a lot of room for improvement
+in this area of my life.  Is this show and tell available anywhere?
 
-The script I posted on my past e-mail handles it using two algorithms:
+>    1. Since most people agree that these form of notifications are useful,
+>       should we have a standard email for it (or at least a list of things
+>       which should be in that email, like commit-id, tree, maintainer,
+>       mailing list and the version of the kernel it is expected to be
+>       pushed for).
+>    2. Given that we all run ad-hoc infrastructure to produce these emails,
+>       could we get a set of blessed scripts up on kernel.org for all
+>       comers so we can use the central infrastructure rather than rolling
+>       our own.
+>
+> The other things I think it might do us all good is to have a frank
+> session on "tasteful rebasing".  We've come around (finally) to the
+> conclusion that rebasing isn't always bad.  My own opinion is that
+> rebasing to fix issues in patches (particularly those marked for
+> stable) so they can backport cleanly and atomically.  There's also less
+> of a consensus that rebasing to clean up history is a reasonably good
+> thing (provided it's not done just before requesting a pull).  However,
+> we have a divergence of opinions not just on whether we should rebase,
+> but what constitutes a tasteful rebase.  Just telling people,
+> particularly would be new maintainers, that it's a judgement call
+> always is unhelpful, we could do with putting together some more
+> detailed guidance (assuming we can agree on it).
 
-	- It checks for the committer e-mail. If the patch isn't
-	  committed by me, it skips the patch;
+I'm interested in this, too.  I update topic branches regularly to add
+acks, fix typos, fold in fixes discovered before merging to Linus,
+etc.  I assume that as long as it hasn't been merged, doing that as
+separate patches would just be clutter.  But maybe I'm making life
+difficult for contributors who consume those branches.  I almost
+always apply patches from email (as opposed to pulling via git), and I
+typically base the topic branches on -rc1 or -rc2, because that makes
+it simple for me to do these updates.
 
-	- It prevents sending more than a certain number of e-mails,
-	  with is configurable at git config file. That prevents
-	  mailbomb patches that I committed via some other tree
-	  (like edac).
-
-With those two rules, automatic mailbomb actually looks OK.
-
-> Another thing that's nice is to only send one mail when you merge a big
-> series, which complicates things a bit more.
-
-That would be interesting, but prevents pushing the actual patch.
-In our case, we mailbomb patches also to a mailing list, allowing
-others to review and comment on patches actually applied.
-
-Thanks,
-Mauro
+Bjorn
