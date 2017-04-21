@@ -1,28 +1,28 @@
-Return-Path: <alexandre.belloni@free-electrons.com>
+Return-Path: <mpe@ellerman.id.au>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id EB6F69B9
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id AF30BA6E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 21 Apr 2017 11:04:00 +0000 (UTC)
-Received: from mail.free-electrons.com (mail.free-electrons.com [62.4.15.54])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 01DB68D
+	Fri, 21 Apr 2017 11:07:29 +0000 (UTC)
+Received: from ozlabs.org (ozlabs.org [103.22.144.67])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CE1A8141
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 21 Apr 2017 11:03:59 +0000 (UTC)
-Date: Fri, 21 Apr 2017 13:03:58 +0200
-From: Alexandre Belloni <alexandre.belloni@free-electrons.com>
-To: Arnd Bergmann <arnd@arndb.de>
-Message-ID: <20170421110358.nh357rzs65hwdbk6@piout.net>
+	Fri, 21 Apr 2017 11:07:28 +0000 (UTC)
+From: Michael Ellerman <mpe@ellerman.id.au>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>
+In-Reply-To: <1492633237.3217.50.camel@HansenPartnership.com>
 References: <CA+55aFydhKTGAFfqog0gRwKAQnxjjMnM-bKEaOwYbEKNjfRwGg@mail.gmail.com>
-	<CAK8P3a2F-C+Mfijbjb2CfDMvO2dgSDhNowx1NJ2=qgRdpDLk0g@mail.gmail.com>
+	<1492633237.3217.50.camel@HansenPartnership.com>
+Date: Fri, 21 Apr 2017 21:07:24 +1000
+Message-ID: <87vapyauj7.fsf@concordia.ellerman.id.au>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAK8P3a2F-C+Mfijbjb2CfDMvO2dgSDhNowx1NJ2=qgRdpDLk0g@mail.gmail.com>
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
-	Dave Airlie <airlied@linux.ie>,
+Content-Type: text/plain
+Cc: Dave Airlie <airlied@linux.ie>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	David Miller <davem@davemloft.net>, Doug Ledford <dledford@redhat.com>,
-	Ingo Molnar <mingo@kernel.org>
+	Doug Ledford <dledford@redhat.com>, Ingo Molnar <mingo@kernel.org>,
+	David Miller <davem@davemloft.net>
 Subject: Re: [Ksummit-discuss] "Maintainer summit" invitation discussion
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -33,70 +33,72 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi,
+James Bottomley <James.Bottomley@HansenPartnership.com> writes:
 
-On 19/04/2017 at 22:26:34 +0200, Arnd Bergmann wrote:
-> On Tue, Apr 18, 2017 at 8:59 PM, Linus Torvalds
-> <torvalds@linux-foundation.org> wrote:
-> 
-> > What I _would_ like to see is those top maintainers suggest
-> > "submaintainer" names. Particularly Davem, since he doesn't tend to
-> > want to come to the kernel summit, and being at the top of the list
-> > that's a kind of big gaping hole. I guess we haven't had all that many
-> > _problems_ within networking, but if we talk maintainership issues,
-> > it's certainly a bit odd if it's entirely lacking. We have both core
-> > networking and network drivers that both fall under "davem" as far as
-> > my pull statistics go.
-> 
-> For ARM, the work also tends to be fairly spread out across many
-> people, with few of us being overly important. [I think that while Olof and
-> I had similar shares of work in pulling in patches, I ended up in one of
-> the top spots because I happened to send more pull requests during
-> the last year, and I also did quite a bit of kernel stuff outside of
-> arch/arm.]
-> 
-> So while there is no need for having lots of ARM platform maintainers,
-> I would like to see some of the people that I interact with that also
-> work with a larger number of other maintainers:
-> 
-> - One of the device tree maintainers (Rob Herring, Frank Rowand,
->   Mark Rutland), they inevitably deal with almost all device driver
->   writers at some point
-> 
-> - One of the CLK subsystem maintainers (Michael Turquette,
->   Stephen Boyd), they also interact with a large number of
->   subsystem and platform maintainers, and we have had some
->   disagreements particularly when dealing with three subsystems
->   (clk, arm-soc and a device driver) in one patch series.
-> 
-> - One or two ARM platform maintainers, ideally one that also
->   maintains another kernel subsystem.
+> On Tue, 2017-04-18 at 11:59 -0700, Linus Torvalds wrote:
+>> I'd like the maintainership summit list to be fairly small. Not even
+>> 50 people. Maybe 30. A group that can actually sit in a room for half
+>> a day and talk to each other about the issues they have rather than
+>> being talked to. And talk literally about *process* issues, not about
+>> any particular technical issues within whatever subsystem. Bring up
+>> peeves or wishes for actual process improvements?
+>> 
+>> Comments? People who should be involved? Or people who don't have any
+>> particular issues and want to not be involved?
+>
+> I'd like closure on one process issue, if we could achieve it:
+>
+> Maintainer script automation: Quite a few of us have maintainer scripts
+> that send automated email notifications of the status of patches in the
+> tree (mostly to stop people flooding the lists with questions about
+> what happened to their patches).  We did a script show and tell at the
+> last kernel summit, but perhaps we could get closure on a couple of
+> issues:
+>
+>    1. Since most people agree that these form of notifications are useful,
+>       should we have a standard email for it (or at least a list of things
+>       which should be in that email, like commit-id, tree, maintainer,
+>       mailing list and the version of the kernel it is expected to be
+>       pushed for).
 
-I would fit that description, although mach-at91 is so small now that we
-have very few issues with arm-soc. However, I have two particular
-points:
- - what to do which the many coccinelle generated patches that are sent.
-I find that many are not tested, don't really improve readability and
-are sometimes harmful. I used to apply them, I don't anymore because
-they sometimes take too much time to review for absolutely zero benefit.
-The main category is the switch to devm_ functions in old drivers that
-are already handling error case pretty well.
- - my subsystem (RTC) is pretty dependant on two bus subsystems (I2C and
-   SPI). Sometimes, it would be good to be included in discussions that
-will affect many drivers instead of finding that they have to be patched
-after the fact. I'm mainly thinking about recent work from Javier
-regarding OF matching in i2c. The main drawback of including more people
-is probably the bikeshedding that will ensue but I feel like more
-coordination would have been necessary to make Javier's life a bit
-easier.
+We could have suggestions, I'm not sure an actual standard is feasible
+given the differences in the processes people use.
 
->                                       The platforms with  the most
->   changes are usually sunxi (Maxime Ripard), OMAP (Tony
->   Lindgren), Renesas (Simon Horman), Broadcom (Florian
->   Fainelli), Qualcomm (Andy Gross) and Freescale (Shawn Guo).
-> 
+>    2. Given that we all run ad-hoc infrastructure to produce these emails,
+>       could we get a set of blessed scripts up on kernel.org for all
+>       comers so we can use the central infrastructure rather than rolling
+>       our own.
 
--- 
-Alexandre Belloni, Free Electrons
-Embedded Linux and Kernel engineering
-http://free-electrons.com
+This would be great.
+
+But is there actually a set of scripts out there which are in
+sufficiently good state that we could ask the kernel.org admins to run
+them?
+
+If the mail sending happens on kernel.org how do the scripts know which
+mail to respond to for a given commit? It could be in the commit message
+somehow, but that's ugly. My scripts use git-notes for that sort of
+metadata, which works quite well, so maybe that's an option.
+
+Or maybe you're thinking that they don't reply to the original patch,
+they just mail the author?
+
+There's also times when you push commits that have already been
+responded to by someone else (ie. a submaintainer), so there'd need to
+be some way to flag that. And then obviously the case where you fast
+forward to Linus' branch, you don't want to send mails for all those
+commits :)
+
+Another thing that's nice is to only send one mail when you merge a big
+series, which complicates things a bit more.
+
+Anyway a slightly old version of my terrible scripts are here, if anyone
+wants to have a look.
+
+  https://github.com/mpe/patchwork-scripts
+
+They rely on having the mbox of the original patch in .git/patchwork, and
+they don't actually send the mails, just generate them, allowing some
+manual tweaking before sending.
+
+cheers
