@@ -1,18 +1,17 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <linux@roeck-us.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 31C28B1F
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A7290BFF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 25 Apr 2017 16:56:48 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BDA251AA
+	Tue, 25 Apr 2017 17:05:55 +0000 (UTC)
+Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2CB8C264
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 25 Apr 2017 16:56:47 +0000 (UTC)
-Date: Tue, 25 Apr 2017 17:56:32 +0100
-From: Mark Brown <broonie@kernel.org>
+	Tue, 25 Apr 2017 17:05:55 +0000 (UTC)
+Date: Tue, 25 Apr 2017 09:38:20 -0700
+From: Guenter Roeck <linux@roeck-us.net>
 To: Bart Van Assche <bart.vanassche@sandisk.com>
-Message-ID: <20170425165632.5qvc62j2ex3h6rgg@sirena.org.uk>
+Message-ID: <20170425163820.GC8443@roeck-us.net>
 References: <CA+55aFydhKTGAFfqog0gRwKAQnxjjMnM-bKEaOwYbEKNjfRwGg@mail.gmail.com>
 	<20188905.kHbMkj7sB6@avalon>
 	<CA+55aFxFyX-6y0MH2QivC+GAVThEFNHVKc3DBZJzDBc9JU_nCQ@mail.gmail.com>
@@ -20,8 +19,7 @@ References: <CA+55aFydhKTGAFfqog0gRwKAQnxjjMnM-bKEaOwYbEKNjfRwGg@mail.gmail.com>
 	<1492631703.3217.30.camel@HansenPartnership.com>
 	<3f55980c-1e8d-c841-2555-472ed10eb2fc@sandisk.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="2d7mcofwawfbjfwh"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <3f55980c-1e8d-c841-2555-472ed10eb2fc@sandisk.com>
 Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
@@ -40,13 +38,59 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-
---2d7mcofwawfbjfwh
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
 On Tue, Apr 25, 2017 at 09:02:12AM -0700, Bart Van Assche wrote:
-
+> On 04/19/17 12:55, James Bottomley wrote:
+> > On Wed, 2017-04-19 at 22:50 +0300, Laurent Pinchart wrote:
+> >> On Wednesday 19 Apr 2017 12:40:47 Linus Torvalds wrote:
+> >>> On Wed, Apr 19, 2017 at 12:25 PM, Laurent Pinchart wrote:
+> >>>> Agreed, for a maintainer summit to be useful, we need to have 
+> >>>> multiple sides present. Gathering core maintainers with key
+> >>>> representatives of the downstream communities around the table is 
+> >>>> great, but I think we would be missing one category whose opinion 
+> >>>> is equally important: kernel developers.
+> >>>>
+> >>>> When everything goes well developers can be represented by their
+> >>>> maintainers. That's the case where the process flows smoothly, so 
+> >>>> there isn't likely to be much to discuss. However, problems 
+> >>>> occurring in the maintenance process are likely to result in, if 
+> >>>> not conflicts, at least different views between maintainers and 
+> >>>> developers, in which case developers won't be represented at the
+> >>>> summit.
+> >>>>
+> >>>> I'm not sure how to handle that. I certainly don't want to 
+> >>>> increase the number of attendees to include key representatives 
+> >>>> of developers (and while I'd be very curious to see how they 
+> >>>> would be selected, I doubt it would work in practice), but I also 
+> >>>> believe we need to address this class of maintainership issues.
+> >>>
+> >>> I do agree that it would be a great thing to have a "bitch at
+> >>> maintainers" session where developers get to vent frustration at 
+> >>> how their patches are (or are _not_) accepted by maintainers.
+> >>>
+> >>> I know we've had issues in the VFS layer, with Al sometimes
+> >>> effectively dropping off the intenet for a time, for example.  And 
+> >>> I'm sure it happens elsewhere too, I'm just aware of the VFS side
+> >>> because it's one of the areas where I end up personally being a 
+> >>> secondary maintainer.
+> >>>
+> >>> But the problem with that "bitch at maintainers" thing is that I 
+> >>> can't for the life of me come up with a sane small set of people to 
+> >>> do that. So I don't see it happening ;(
+> >>
+> >> I currently don't have any good idea to make that happen either, but 
+> >> I'll keep thinking about it :-) More than bitching at maintainers, I 
+> >> believe that lots of developers, especially "smaller" or infrequent 
+> >> kernel contributors, are frustrated by maintainership issues that the 
+> >> related maintainers might not even be aware of.
+> > 
+> > Isn't it easy?  The Maintainers summit is going to be part of a larger
+> > kernel track within LinuxCon EU  (not that everyone plans on staying
+> > on, of course, but several will be).  Just put the bitch at Maintainers
+> > session in that as a round table, so any attendee of LinuxCon EU can
+> > come and complain if they want to.
+> 
+> We all know that the stability and the long-term success of the Linux
+> kernel strongly depend on how well kernel maintainers do their job. What
 > I noticed myself is that for some subsystems I contribute to (e.g.
 > block, SCSI and RDMA) maintainers provide feedback about patches within
 > a very reasonable time. For two other subsystems I contribute to it can
@@ -54,34 +98,18 @@ On Tue, Apr 25, 2017 at 09:02:12AM -0700, Bart Van Assche wrote:
 > don't think that it is acceptable that it takes that long before
 > feedback is provided and hence that this is a topic that deserves to be
 > discussed during the maintainer summit.
+> 
 
-This comes up most years...  is a discussion likely to come up with
-anything new that's concretely actionable?
+Double edged sword.
 
-That said a related thing that feels like it's definitely a maintainer
-summit thing is getting new things into the kernel that somehow sit
-between maintainers (new subsystems being the most obvious example) - we
-do have a gap where people will negatively review things but won't
-either take them or positively review them which can go on for very long
-periods with people being just ignored (or worse just getting new people
-popping up every once in a while with negative comments).  That's
-obviously offputting for submitters, and can be especially bad if it's
-coupled with other stuff like people taking on board the derogatory
-comments that often get made about some segments of the industry.
+You are right when it comes to a subsystem with active participants
+who are willing to review patches.
 
---2d7mcofwawfbjfwh
-Content-Type: application/pgp-signature; name="signature.asc"
+On the other side, for a subsystem which has been declared "obscure"
+and/or "obsolete" in public, it may well be that the maintainer is
+the only person in the world looking at patches. I would argue
+that you should give the maintainers of such subsystems a little
+slack (or maybe even volunteer to review some patches ?).
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCAAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlj/f78ACgkQJNaLcl1U
-h9AutAf/eYgPJNfz/iwZsuZX1xJQi19kqHL3NpyiDvKruCVxlabl/0rR1gFAuE0W
-9UwZ5wozjuQeTc7wQ20B8xprP44en6UVoP2mIGf5R5d9gKotUPpSVM5cEbjCRNg2
-5804kTaLP698ZUiPj1vClqgLqeKtOMCK/vl2iq0XY1SAHtmNGdR7SUhlGNgyqP7b
-Qj+HKQedYJUkR+FtD9l5mSDRlBDmsLkTAdIeNod33/GAPs1M3Ch9bOg2JlgJwDRR
-YZs/HNKoHKVWncvQLtbqV0EcxJw0JHE02B5RKLaFf995UnbT4cgTccyYsbfdlcux
-nsyQGQCTG45ub5p4wvmd07alUewutw==
-=n8Qd
------END PGP SIGNATURE-----
-
---2d7mcofwawfbjfwh--
+Thanks,
+Guenter
