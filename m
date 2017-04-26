@@ -1,31 +1,39 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <James.Bottomley@Hansenpartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0D66CB4A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6AFF6BA9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 26 Apr 2017 15:16:02 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1F39619B
+	Wed, 26 Apr 2017 15:25:47 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6CF691A4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 26 Apr 2017 15:16:00 +0000 (UTC)
-Date: Wed, 26 Apr 2017 16:15:41 +0100
-From: Mark Brown <broonie@kernel.org>
-To: David Miller <davem@davemloft.net>
-Message-ID: <20170426151541.hks3i4l52jffqyrt@sirena.org.uk>
-References: <20170425165632.5qvc62j2ex3h6rgg@sirena.org.uk>
-	<CY1PR0401MB1536C168983CE148698E7BFC81110@CY1PR0401MB1536.namprd04.prod.outlook.com>
-	<20170426142149.vld4ahatg5xc6qsv@sirena.org.uk>
-	<20170426.105123.1704205188006109179.davem@davemloft.net>
+	Wed, 26 Apr 2017 15:25:46 +0000 (UTC)
+In-Reply-To: <1493218957.2632.1.camel@sandisk.com>
+References: <CA+55aFydhKTGAFfqog0gRwKAQnxjjMnM-bKEaOwYbEKNjfRwGg@mail.gmail.com>
+	<20188905.kHbMkj7sB6@avalon>
+	<CA+55aFxFyX-6y0MH2QivC+GAVThEFNHVKc3DBZJzDBc9JU_nCQ@mail.gmail.com>
+	<1834084.5qZ8rLimvk@avalon>
+	<1492631703.3217.30.camel@HansenPartnership.com>
+	<3f55980c-1e8d-c841-2555-472ed10eb2fc@sandisk.com>
+	<20170426084253.yvxyzb3khh2fej4j@mwanda>
+	<1493218957.2632.1.camel@sandisk.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="idx3g6gdvk3sjqwg"
-Content-Disposition: inline
-In-Reply-To: <20170426.105123.1704205188006109179.davem@davemloft.net>
-Cc: ksummit-discuss@lists.linuxfoundation.org, airlied@linux.ie,
-	gregkh@linuxfoundation.org,
-	James.Bottomley@HansenPartnership.com, dledford@redhat.com,
-	Bart.VanAssche@sandisk.com, mingo@kernel.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+ charset=UTF-8
+From: James Bottomley <James.Bottomley@Hansenpartnership.com>
+Date: Wed, 26 Apr 2017 11:25:12 -0400
+To: Bart Van Assche <Bart.VanAssche@sandisk.com>,
+	"dan.carpenter@oracle.com" <dan.carpenter@oracle.com>
+Message-ID: <a5ca43ba-7bbf-42ee-b41a-333139bf56a5@email.android.com>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	"airlied@linux.ie" <airlied@linux.ie>,
+	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+	"mingo@kernel.org" <mingo@kernel.org>,
+	"dledford@redhat.com" <dledford@redhat.com>,
+	"davem@davemloft.net" <davem@davemloft.net>
 Subject: Re: [Ksummit-discuss] "Maintainer summit" invitation discussion
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -36,44 +44,36 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On April 26, 2017 11:02:39 AM EDT, Bart Van Assche <Bart.VanAssche@sandisk.com> wrote:
+>On Wed, 2017-04-26 at 11:42 +0300, Dan Carpenter wrote:
+>> It's Ok to wait weeks.  Months is not OK.
+>> 
+>> If maintainers are not reading their email then you can try
+>forwarding
+>> the patches through Andrew.
+>> 
+>> I feel like I haven't had such a huge problem with this recently... 
+>Are
+>> we talking about other arches besides x86 and ARM?  My patches are
+>> normally simple is probably part of the difference.
+>
+>Hello Dan,
+>
+>In my e-mail I was referring to the code under drivers/target and
+>drivers/md/dm*. With all due respect, I don't think that Andrew is
+>familiar
+>enough with these code bases to accept patches for these subsystems.
 
---idx3g6gdvk3sjqwg
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+I think what Dan is referring to is that Andrew used to have an override the maintainer role.   He'd take a patch and send out the usual email forcing a nak if it shouldn't go upstream.  I.e forcing at least a response.  You don't need more than a mechanical review to do this because you're challenging the maintainer to respond. 
 
-On Wed, Apr 26, 2017 at 10:51:23AM -0400, David Miller wrote:
+James
 
-> > You'd have to ask the relevant people...  based on the times I've looked
-> > at problematic subsystems it often seems that either people have
-> > completely vanished for whatever reason or there's very little other
-> > interest in the subsystem so no obvious candidates.  I'm not saying that
-> > there isn't a problem, I'm just saying that it's not new and it doesn't
-> > seem like the situation changed much.
+>Bart.
+>_______________________________________________
+>Ksummit-discuss mailing list
+>Ksummit-discuss@lists.linuxfoundation.org
+>https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
 
-> Often people just don't want to let go and give up "control" of
-> something they've watched over for a long period of time.
 
-> I think we suffer from this a lot.
-
-Yeah, that's definitely a part of it too - it often goes hand in hand
-with the lack of other reviewers thing as the two can easily feed off
-each other, it's a lot easier to let go if there's someone to hand
-things over to but if things aren't working well that can be
-discouraging to potential new reviewers.
-
---idx3g6gdvk3sjqwg
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCAAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlkAuZ0ACgkQJNaLcl1U
-h9BKBwf+IfVISMx1x3uIqqq24IqUATzjxDBsTCivr3EvMJEWoWdNmWciep3jsALR
-hXfa8QrnNBkChhFDbYnxk37qvuhKM6iL/MLB0uPbLWq4ijr9jlgduss+1knyZcP9
-dUZFuZLKZShL6lKYneMwy7ECLgqJ+7bTpu1fMDjKHBw1NjnWuDGcgzrZ0SVznYOe
-/Ej2wDbTvdVRs/ctJSPsoPQ0E8gP4H4Gzu5GU0GU2Xm95O8B5cZszLGetg7MPecW
-nZjdqudcLZ574C7xilKcD7CdRGCb50l6N826v/Mhb1qYQqrK5HGyd32/JtHldoin
-mnzvBDOXISgJCsXVRY8pzfmbQVI/nA==
-=qHHU
------END PGP SIGNATURE-----
-
---idx3g6gdvk3sjqwg--
+-- 
+Sent from my Android device with K-9 Mail. Please excuse my brevity.
