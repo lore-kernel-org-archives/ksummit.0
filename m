@@ -1,29 +1,38 @@
-Return-Path: <davem@davemloft.net>
+Return-Path: <jani.nikula@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1CF18B55
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 67C933EE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 26 Apr 2017 14:51:27 +0000 (UTC)
-Received: from shards.monkeyblade.net (shards.monkeyblade.net
-	[184.105.139.130])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id C6AE323C
+	Thu, 27 Apr 2017 09:03:37 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C2B5919B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 26 Apr 2017 14:51:26 +0000 (UTC)
-Date: Wed, 26 Apr 2017 10:51:23 -0400 (EDT)
-Message-Id: <20170426.105123.1704205188006109179.davem@davemloft.net>
-To: broonie@kernel.org
-From: David Miller <davem@davemloft.net>
-In-Reply-To: <20170426142149.vld4ahatg5xc6qsv@sirena.org.uk>
-References: <20170425165632.5qvc62j2ex3h6rgg@sirena.org.uk>
-	<CY1PR0401MB1536C168983CE148698E7BFC81110@CY1PR0401MB1536.namprd04.prod.outlook.com>
-	<20170426142149.vld4ahatg5xc6qsv@sirena.org.uk>
-Mime-Version: 1.0
-Content-Type: Text/Plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org, airlied@linux.ie,
-	gregkh@linuxfoundation.org,
-	James.Bottomley@HansenPartnership.com, dledford@redhat.com,
-	Bart.VanAssche@sandisk.com, mingo@kernel.org
+	Thu, 27 Apr 2017 09:03:36 +0000 (UTC)
+From: Jani Nikula <jani.nikula@intel.com>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Jiri Kosina <jikos@kernel.org>
+In-Reply-To: <1493217836.2526.10.camel@HansenPartnership.com>
+References: <CA+55aFydhKTGAFfqog0gRwKAQnxjjMnM-bKEaOwYbEKNjfRwGg@mail.gmail.com>
+	<20188905.kHbMkj7sB6@avalon>
+	<CA+55aFxFyX-6y0MH2QivC+GAVThEFNHVKc3DBZJzDBc9JU_nCQ@mail.gmail.com>
+	<1834084.5qZ8rLimvk@avalon>
+	<1492631703.3217.30.camel@HansenPartnership.com>
+	<3f55980c-1e8d-c841-2555-472ed10eb2fc@sandisk.com>
+	<20170426084253.yvxyzb3khh2fej4j@mwanda>
+	<yq1h91be0do.fsf@oracle.com>
+	<1493217078.2526.8.camel@HansenPartnership.com>
+	<alpine.LSU.2.20.1704261633140.12121@cbobk.fhfr.pm>
+	<1493217836.2526.10.camel@HansenPartnership.com>
+Date: Thu, 27 Apr 2017 12:06:03 +0300
+Message-ID: <87h91arzic.fsf@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
+	Dave Airlie <airlied@linux.ie>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	David Miller <davem@davemloft.net>, Doug Ledford <dledford@redhat.com>,
+	Bart Van Assche <bart.vanassche@sandisk.com>,
+	Ingo Molnar <mingo@kernel.org>, Dan Carpenter <dan.carpenter@oracle.com>
 Subject: Re: [Ksummit-discuss] "Maintainer summit" invitation discussion
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -34,30 +43,38 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-From: Mark Brown <broonie@kernel.org>
-Date: Wed, 26 Apr 2017 15:21:49 +0100
+On Wed, 26 Apr 2017, James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
+> Agreed, but I think you'll find most maintainers have a "trust factor"
+> for reviewers.  Perhaps we should discuss how we arrive at this and how
+> we should make it more public.  The way I often deal with less trusted
+> reviewers is to redo their review and point out all the things they
+> missed and ask them not to come back until they can be more thorough.
 
-> On Wed, Apr 26, 2017 at 03:47:13AM +0000, Bart Van Assche wrote:
->> On 04/25/17 09:56, Mark Brown wrote:
-> 
->> > This comes up most years...  is a discussion likely to come up with
->> > anything new that's concretely actionable?
-> 
->> If priorities change over time and someone who had initially sufficient 
->> time to be a kernel maintainer and later on that changes that's 
->> something I can understand. But what I do not understand is if someone 
->> no longer has enough time to be a kernel maintainer why he or she does 
->> not look for help and e.g. asks someone who has the required skills and 
->> who is interested in this kind of work to become a co-maintainer?
-> 
-> You'd have to ask the relevant people...  based on the times I've looked
-> at problematic subsystems it often seems that either people have
-> completely vanished for whatever reason or there's very little other
-> interest in the subsystem so no obvious candidates.  I'm not saying that
-> there isn't a problem, I'm just saying that it's not new and it doesn't
-> seem like the situation changed much.
+I think that's also a bit harsh, because I think the only way to become
+a better reviewer is to... review. I know it's hard to balance being
+welcoming to new reviewers and ensuring the patches do get proper review
+in the end.
 
-Often people just don't want to let go and give up "control" of
-something they've watched over for a long period of time.
+Certainly one thing that increases my trust in a review is the amount of
+review comments on the patch, even if there's a Reviewed-by at the
+end. Basically any hints that the reviewer has actually thought about
+the changes.
 
-I think we suffer from this a lot.
+On a related note, as maintainers I think we need to put more attention
+to recording the review credits in the commits. It's not unusual for
+review to be more work than writing the patch. The patch authors may be
+new contributors, or just looking at their specific use case, but the
+reviewer should look at the big picture. I think Jon will start tracking
+reviews more regularly, like he did for v4.11 stats [1], but obviously
+the stats are only as good as the input.
+
+
+BR,
+Jani.
+
+
+[1] https://lwn.net/Articles/720336/
+
+
+-- 
+Jani Nikula, Intel Open Source Technology Center
