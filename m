@@ -1,40 +1,35 @@
-Return-Path: <lee.jones@linaro.org>
+Return-Path: <olof@lixom.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1068FB55
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5722FB44
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  2 May 2017 08:09:21 +0000 (UTC)
-Received: from mail-wr0-f175.google.com (mail-wr0-f175.google.com
-	[209.85.128.175])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 52C43155
+	Mon, 22 May 2017 15:11:33 +0000 (UTC)
+Received: from mail-ua0-f193.google.com (mail-ua0-f193.google.com
+	[209.85.217.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A7E551A5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  2 May 2017 08:09:20 +0000 (UTC)
-Received: by mail-wr0-f175.google.com with SMTP id l50so73945353wrc.3
+	Mon, 22 May 2017 15:11:29 +0000 (UTC)
+Received: by mail-ua0-f193.google.com with SMTP id j17so7937498uag.1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 02 May 2017 01:09:20 -0700 (PDT)
-Date: Tue, 2 May 2017 09:09:15 +0100
-From: Lee Jones <lee.jones@linaro.org>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <20170502080915.jfvmticdqmaygndt@dell>
-References: <CA+55aFydhKTGAFfqog0gRwKAQnxjjMnM-bKEaOwYbEKNjfRwGg@mail.gmail.com>
-	<CAK8P3a2F-C+Mfijbjb2CfDMvO2dgSDhNowx1NJ2=qgRdpDLk0g@mail.gmail.com>
-	<CAKMK7uF8to7iTSK9YgM0+KGbsj3_iMRjVHHd7zVa5Xzc5ftOGQ@mail.gmail.com>
-	<CAK8P3a1dOv2YNALgD+tr-C76wR_esP3FJmYZ7wi3Ee_-fzgpfQ@mail.gmail.com>
-	<CAKMK7uHNDT4UBKCDH=RJs90+FW53nB0nQ2Ggc6p=T9QFU=kLPA@mail.gmail.com>
-	<CACRpkdb5HVcr6aSJwc2cyFVx435ycWCvEeVrs3OEjvrCK54jTg@mail.gmail.com>
-	<20170425091058.qhxkpocnhhd4jysh@dell>
-	<CAKMK7uFOq-7_3x601kc5BN0o-eZ5RMujrVb=Qs3ye+XWwKiq7w@mail.gmail.com>
+	Mon, 22 May 2017 08:11:29 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAKMK7uFOq-7_3x601kc5BN0o-eZ5RMujrVb=Qs3ye+XWwKiq7w@mail.gmail.com>
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
-	Dave Airlie <airlied@linux.ie>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Ingo Molnar <mingo@kernel.org>, Doug Ledford <dledford@redhat.com>,
-	David Miller <davem@davemloft.net>
-Subject: Re: [Ksummit-discuss] "Maintainer summit" invitation discussion
+In-Reply-To: <CACRpkdaRdZTB39-=sAojO+OyHtP02KaFChqGcxy+fWA8qaB2bw@mail.gmail.com>
+References: <20170519193455.GA24206@localhost>
+	<CACRpkdaRdZTB39-=sAojO+OyHtP02KaFChqGcxy+fWA8qaB2bw@mail.gmail.com>
+From: Olof Johansson <olof@lixom.net>
+Date: Mon, 22 May 2017 08:11:27 -0700
+Message-ID: <CAOesGMhfrWSvLtDtGRWBTJiAoeSwzGgsdUTm26j1mpoVu0ghDg@mail.gmail.com>
+To: Linus Walleij <linus.walleij@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: "linux-arch@vger.kernel.org" <linux-arch@vger.kernel.org>,
+	"arm@kernel.org" <arm@kernel.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Rob Herring <robh+dt@kernel.org>, "linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Ksummit-discuss] [GIT PULL] ARM: SoC fixes (and a cross-arch
+	dt-include fix)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -44,59 +39,60 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, 29 Apr 2017, Daniel Vetter wrote:
+[adding ksummit-discuss]
 
-> [Back from a bit of vacation, so I'm just jumping into the middle of
-> the cross-subsystem/invariant topic branch discussion. I read all the
-> other mails, but this seems most relevant.]
-> 
-> On Tue, Apr 25, 2017 at 11:10 AM, Lee Jones <lee.jones@linaro.org> wrote:
-> > Although common place, immutable branches are still treated as the
-> > last resort.  If patches can be taken via their respective subsystem
-> > trees without fear of disruption, they are.  Contributors often
-> > attempt to have their *new* cross-subsystem functionality taken in via
-> > a single tree (requiring an immutable branch), purely because it's
-> > convenient and the merge-time becomes deterministic, but we do not
-> > allow that unless there are hard/unavoidable build-time dependencies.
-> 
-> Honest question, why exactly?
-> 
-> At a quick ignorant glance this seems to trade contributor time
-> against maintainer time, which in my opinion means you should ramp up
-> your maintainer training and mentoring to have much more maintainer
-> time available and make contributing to upstream more attractive. But
-> drm != other subsystems, I'd like to hear more of why you picked this
-> tradeoff.
+On Mon, May 22, 2017 at 4:44 AM, Linus Walleij <linus.walleij@linaro.org> wrote:
+> On Fri, May 19, 2017 at 9:34 PM, Olof Johansson <olof@lixom.net> wrote:
+>
+>>  - We've started telling people to avoid cross-tree shared branches if all
+>>    they're doing is picking up one or two DT-used constants from a
+>>    shared include file, and instead to use the numeric values on first
+>>    submission. Follow-up moving over to symbolic names are sent in right
+>>    after -rc1, i.e. here. It's only a few minor patches of this type.
+>
+> OK it seems like a reasonable process.
+>
+> It's not like I can think about anything better.
+>
+> I was more opting for doing things this way:
+>
+> - Create bindings and <dt-bindings/foo/bar.h> merge it into the
+>   foo subsystem.
+>
+> - Merge driver into drivers/foo/bar.c that use <dt-bindings/foo/bar.h>
+>
+> - Submit DTS patch to ARM SoC (or whetever) using only numerical
+>   values.
+>
+> - After the merge window, follow up with a patch replacing the
+>   numerical constants with #defines from <dt-bindings/foo/bar.h>
 
-It looks like James et. al. have provided some pretty good technical
-reasons as to why taking patches via their associated subsystem repos
-is *always* preferred, so I will not labour this point.  However I
-will provide a frank answer to your trading Maintainer for Contributor
-time query.
+You're describing exactly what we've been pushing people towards.
 
-To be candid, you're right we do that, and it's exactly what we
-should be doing.  There are a couple of reasons for this:
+If it's just a few simple references it's not significantly more
+awkward, and decouples merges and removes need for stable branches.
+Essentially we've become slightly more lax in what we're willing to
+consider _right after_ -rc1 to include these tweaks (and often patches
+to turn on new drivers in defconfigs).
 
-The first is a simple matter of time related mathematics.  Taking an
-average over the past 10 releases, MFD and Backlight had ~30 unique
-submitters per release.  If even some of them managed to get
-themselves into habits which cost me more time than it already does
-to Maintain the subsystems, then either the Maintainership or my
-employment role would be negatively impacted.  I view it better to
-cost each Contributor 30 mins, than it to cost me 30 mins multiplied
-by the amount of Contributors. Moreover, most Contributors are doing
-so *as part* of their employment role, where-as myself and a great
-many other Maintainers are operating *as well as*, or outside of
-ours.
+If the amount of contents grows too large we might need to tweak
+things further, maybe with something pre-rc1 but that's more awkward.
 
-Secondly, this is about Contributor training and the encouragement of
-good practices from the outset; patch separation, expert reviews,
-conflict mitigation, bisection preservation, etc etc.  If we train and
-arm the Contributors of today, we inherently encourage the Maintainers
-of tomorrow.
+> An alternative would obviously be to wait for the next merge window
+> after merging the driver patch but I guess people are too impatient
+> to do that (including me).
 
--- 
-Lee Jones
-Linaro STMicroelectronics Landing Team Lead
-Linaro.org │ Open source software for ARM SoCs
-Follow Linaro: Facebook | Twitter | Blog
+Yeah, asking people to spread out across releases would remove
+dependencies a lot, but it would also slow down progress and frustrate
+a lot of contributors so we don't do that.
+
+> We discussed cross-tree dependencies a bit on ksummit-discuss
+> but this solution was not mentioned back then.
+
+I thought it was, but I wasn't fully engaged in the discussion. We've
+also only started this over the last release or two so it's early to
+tell just how well it'll work in reality. Cc:ing the list.
+
+
+
+-Olof
