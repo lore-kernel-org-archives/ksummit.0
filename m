@@ -1,27 +1,28 @@
-Return-Path: <geert.uytterhoeven@gmail.com>
+Return-Path: <arndbergmann@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 54DC85AC
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 962658D4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 23 May 2017 09:49:03 +0000 (UTC)
-Received: from mail-it0-f68.google.com (mail-it0-f68.google.com
-	[209.85.214.68])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2E5FD1AE
+	Tue, 23 May 2017 14:17:09 +0000 (UTC)
+Received: from mail-oi0-f65.google.com (mail-oi0-f65.google.com
+	[209.85.218.65])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 11F5714B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 23 May 2017 09:49:02 +0000 (UTC)
-Received: by mail-it0-f68.google.com with SMTP id i206so14331163ita.3
+	Tue, 23 May 2017 14:17:08 +0000 (UTC)
+Received: by mail-oi0-f65.google.com with SMTP id w10so28018304oif.1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 23 May 2017 02:49:02 -0700 (PDT)
+	Tue, 23 May 2017 07:17:08 -0700 (PDT)
 MIME-Version: 1.0
-Sender: geert.uytterhoeven@gmail.com
-In-Reply-To: <CAOesGMhfrWSvLtDtGRWBTJiAoeSwzGgsdUTm26j1mpoVu0ghDg@mail.gmail.com>
+Sender: arndbergmann@gmail.com
+In-Reply-To: <CAMuHMdUivf9cw+LTn7UMueH=MMKi6i3wcOdgM6zbZBoxmkTZGQ@mail.gmail.com>
 References: <20170519193455.GA24206@localhost>
 	<CACRpkdaRdZTB39-=sAojO+OyHtP02KaFChqGcxy+fWA8qaB2bw@mail.gmail.com>
 	<CAOesGMhfrWSvLtDtGRWBTJiAoeSwzGgsdUTm26j1mpoVu0ghDg@mail.gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 23 May 2017 11:49:00 +0200
-Message-ID: <CAMuHMdUivf9cw+LTn7UMueH=MMKi6i3wcOdgM6zbZBoxmkTZGQ@mail.gmail.com>
-To: Olof Johansson <olof@lixom.net>
+	<CAMuHMdUivf9cw+LTn7UMueH=MMKi6i3wcOdgM6zbZBoxmkTZGQ@mail.gmail.com>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Tue, 23 May 2017 16:17:07 +0200
+Message-ID: <CAK8P3a2E1LtCNoGkAuzwJJdQdUTB_+8d=FM2asEGkXJprvm8oQ@mail.gmail.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
 Content-Type: text/plain; charset="UTF-8"
 Cc: "linux-arch@vger.kernel.org" <linux-arch@vger.kernel.org>,
 	"arm@kernel.org" <arm@kernel.org>,
@@ -41,79 +42,38 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Olof,
-
-On Mon, May 22, 2017 at 5:11 PM, Olof Johansson <olof@lixom.net> wrote:
-> On Mon, May 22, 2017 at 4:44 AM, Linus Walleij <linus.walleij@linaro.org> wrote:
->> On Fri, May 19, 2017 at 9:34 PM, Olof Johansson <olof@lixom.net> wrote:
->>>  - We've started telling people to avoid cross-tree shared branches if all
->>>    they're doing is picking up one or two DT-used constants from a
->>>    shared include file, and instead to use the numeric values on first
->>>    submission. Follow-up moving over to symbolic names are sent in right
->>>    after -rc1, i.e. here. It's only a few minor patches of this type.
->>
->> OK it seems like a reasonable process.
->>
->> It's not like I can think about anything better.
->>
->> I was more opting for doing things this way:
->>
->> - Create bindings and <dt-bindings/foo/bar.h> merge it into the
->>   foo subsystem.
->>
->> - Merge driver into drivers/foo/bar.c that use <dt-bindings/foo/bar.h>
->>
->> - Submit DTS patch to ARM SoC (or whetever) using only numerical
->>   values.
->>
->> - After the merge window, follow up with a patch replacing the
->>   numerical constants with #defines from <dt-bindings/foo/bar.h>
+On Tue, May 23, 2017 at 11:49 AM, Geert Uytterhoeven
+<geert@linux-m68k.org> wrote:
 >
-> You're describing exactly what we've been pushing people towards.
+> On Mon, May 22, 2017 at 5:11 PM, Olof Johansson <olof@lixom.net> wrote:
+>> On Mon, May 22, 2017 at 4:44 AM, Linus Walleij <linus.walleij@linaro.org> wrote:
+>>> On Fri, May 19, 2017 at 9:34 PM, Olof Johansson <olof@lixom.net> wrote:
+>>
+>> Yeah, asking people to spread out across releases would remove
+>> dependencies a lot, but it would also slow down progress and frustrate
+>> a lot of contributors so we don't do that.
 >
-> If it's just a few simple references it's not significantly more
-> awkward, and decouples merges and removes need for stable branches.
-> Essentially we've become slightly more lax in what we're willing to
-> consider _right after_ -rc1 to include these tweaks (and often patches
-> to turn on new drivers in defconfigs).
+> The above works fine for new support, or for new platforms.
 >
-> If the amount of contents grows too large we might need to tweak
-> things further, maybe with something pre-rc1 but that's more awkward.
+> There's still support being migrated from platform code to DT, which
+> requires three steps:
+>   1. New DT-aware driver support,
+>   2. DT update to use the new driver support,
+>   3. Clean up platform code after optional DTB backwards compatibility
+>      grace period,
+> To make matters worse, 1 may conflict with the existing platform code,
+> and 2 must sometimes not be done before 1. Hence you may need three kernel
+> releases.
+> So we're already planning now what to clean up for v4.15 ;-)
 >
->> An alternative would obviously be to wait for the next merge window
->> after merging the driver patch but I guess people are too impatient
->> to do that (including me).
->
-> Yeah, asking people to spread out across releases would remove
-> dependencies a lot, but it would also slow down progress and frustrate
-> a lot of contributors so we don't do that.
+> Would it be acceptable to do step 2 in the same release, after the driver
+> support has entered in -rc1? I know this is more than just replacing
+> numbers by symbolic values.
 
-The above works fine for new support, or for new platforms.
+I'd say it really depends on the individual case. Do you have a particular
+platform in mind? E.g. For some of the more obsolete platforms that
+Linus Walleij has worked on over time, we have sometimes relaxed the
+rules about clean bisection and just merged everything in parallel, knowing
+that nobody else was likely to run that code on a vanilla kernel anyway.
 
-There's still support being migrated from platform code to DT, which
-requires three steps:
-  1. New DT-aware driver support,
-  2. DT update to use the new driver support,
-  3. Clean up platform code after optional DTB backwards compatibility
-     grace period,
-To make matters worse, 1 may conflict with the existing platform code,
-and 2 must sometimes not be done before 1. Hence you may need three kernel
-releases.
-So we're already planning now what to clean up for v4.15 ;-)
-
-Would it be acceptable to do step 2 in the same release, after the driver
-support has entered in -rc1? I know this is more than just replacing
-numbers by symbolic values.
-
-Thanks!
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+       Arnd
