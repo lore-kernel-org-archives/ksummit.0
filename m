@@ -1,26 +1,28 @@
-Return-Path: <tglx@linutronix.de>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8A26BB30
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9D310B43
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 23 May 2017 18:47:08 +0000 (UTC)
-Received: from Galois.linutronix.de (Galois.linutronix.de [146.0.238.70])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 75B3A26B
+	Tue, 23 May 2017 19:29:59 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 22FAC14B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 23 May 2017 18:47:06 +0000 (UTC)
-Date: Tue, 23 May 2017 20:47:01 +0200 (CEST)
-From: Thomas Gleixner <tglx@linutronix.de>
-To: Linus Torvalds <torvalds@linux-foundation.org>
+	Tue, 23 May 2017 19:29:58 +0000 (UTC)
+Message-ID: <1495567796.27369.29.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>, ksummit
+	<ksummit-discuss@lists.linuxfoundation.org>
+Date: Tue, 23 May 2017 12:29:56 -0700
 In-Reply-To: <CA+55aFw=1uH1vNmG_NzH8mWCP-sfMAdUQtWnB3wDXCfBEyPgtA@mail.gmail.com>
-Message-ID: <alpine.DEB.2.20.1705232043450.2409@nanos>
 References: <CA+55aFydhKTGAFfqog0gRwKAQnxjjMnM-bKEaOwYbEKNjfRwGg@mail.gmail.com>
 	<CALCETrVVQ4XtMY-fxr_Vmo1OCHWSZ8ry9dUBhJimH30J0L+MGg@mail.gmail.com>
 	<CA+55aFxy9RjdRJOoCmw9F+s3iQ9BiHK34xd6iB5NqpSgWbL-1g@mail.gmail.com>
 	<CA+55aFw=1uH1vNmG_NzH8mWCP-sfMAdUQtWnB3wDXCfBEyPgtA@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Cc: David Miller <davem@davemloft.net>,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Cc: David Miller <davem@davemloft.net>
 Subject: Re: [Ksummit-discuss] "Maintainer summit" invitation discussion
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -31,15 +33,22 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, 23 May 2017, Linus Torvalds wrote:
-> I tried to gather up names as they flew past when I thought they fit
-> the maintainership agenda, but I was also trying to keep this
-> particular list fairly minimal. I suspect we'll see
+On Tue, 2017-05-23 at 10:58 -0700, Linus Torvalds wrote:
+> One open question mark that James mentioned is just he vendor people 
+> - particularly if they end up being KS sponsors. I have actually
+> traditionally liked the talks from vendors when they talk about their
+> issues (as long as they were actual technical talks, not the 
+> marketing stuff - that's been a disaster), but I know some people 
+> found them annoying. But I think that is partly organizational and 
+> ends up involving Angela etc. We've always had sponsor people at the 
+> KS, I would not mind if they ended up having double roles as sponsor 
+> people with actual maintainer issues that they'd like to bring up.
 
-I'm probably late, but I would like to add myself to that list. As RT (and
-upstream) maintainer I'm pretty involved in large scale overhauls and
-restructuring which is often enough a process issue.
+I'm happy to try to wrangle interesting and highly technical vendor
+talks.  I believe the current time plan for the maintainer summit is
+half a day (is this correct?), so I propose we do vendor talks in the
+other half of the day.  That way people who aren't interested can take
+the afternoon or morning (depending where people want it in the
+timetable) off to see Prague.
 
-Thanks,
-
-	Thomas
+James
