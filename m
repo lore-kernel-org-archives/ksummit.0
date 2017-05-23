@@ -1,25 +1,26 @@
-Return-Path: <daniel.vetter@ffwll.ch>
+Return-Path: <geert.uytterhoeven@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3B33241C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 54DC85AC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 23 May 2017 08:27:05 +0000 (UTC)
-Received: from mail-io0-f194.google.com (mail-io0-f194.google.com
-	[209.85.223.194])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 28C0C10E
+	Tue, 23 May 2017 09:49:03 +0000 (UTC)
+Received: from mail-it0-f68.google.com (mail-it0-f68.google.com
+	[209.85.214.68])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2E5FD1AE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 23 May 2017 08:27:04 +0000 (UTC)
-Received: by mail-io0-f194.google.com with SMTP id o12so14975726iod.2
+	Tue, 23 May 2017 09:49:02 +0000 (UTC)
+Received: by mail-it0-f68.google.com with SMTP id i206so14331163ita.3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 23 May 2017 01:27:04 -0700 (PDT)
+	Tue, 23 May 2017 02:49:02 -0700 (PDT)
 MIME-Version: 1.0
+Sender: geert.uytterhoeven@gmail.com
 In-Reply-To: <CAOesGMhfrWSvLtDtGRWBTJiAoeSwzGgsdUTm26j1mpoVu0ghDg@mail.gmail.com>
 References: <20170519193455.GA24206@localhost>
 	<CACRpkdaRdZTB39-=sAojO+OyHtP02KaFChqGcxy+fWA8qaB2bw@mail.gmail.com>
 	<CAOesGMhfrWSvLtDtGRWBTJiAoeSwzGgsdUTm26j1mpoVu0ghDg@mail.gmail.com>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Tue, 23 May 2017 10:27:02 +0200
-Message-ID: <CAKMK7uGz0vFiA1sRAbQ0ECdRq0pKWZRd=-RbmD_CcPVhTPF18w@mail.gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 23 May 2017 11:49:00 +0200
+Message-ID: <CAMuHMdUivf9cw+LTn7UMueH=MMKi6i3wcOdgM6zbZBoxmkTZGQ@mail.gmail.com>
 To: Olof Johansson <olof@lixom.net>
 Content-Type: text/plain; charset="UTF-8"
 Cc: "linux-arch@vger.kernel.org" <linux-arch@vger.kernel.org>,
@@ -30,7 +31,7 @@ Cc: "linux-arch@vger.kernel.org" <linux-arch@vger.kernel.org>,
 	Rob Herring <robh+dt@kernel.org>, "linux-arm-kernel@lists.infradead.org"
 	<linux-arm-kernel@lists.infradead.org>
 Subject: Re: [Ksummit-discuss] [GIT PULL] ARM: SoC fixes (and a cross-arch
- dt-include fix)
+	dt-include fix)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,12 +41,11 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+Hi Olof,
+
 On Mon, May 22, 2017 at 5:11 PM, Olof Johansson <olof@lixom.net> wrote:
-> [adding ksummit-discuss]
->
 > On Mon, May 22, 2017 at 4:44 AM, Linus Walleij <linus.walleij@linaro.org> wrote:
 >> On Fri, May 19, 2017 at 9:34 PM, Olof Johansson <olof@lixom.net> wrote:
->>
 >>>  - We've started telling people to avoid cross-tree shared branches if all
 >>>    they're doing is picking up one or two DT-used constants from a
 >>>    shared include file, and instead to use the numeric values on first
@@ -87,19 +87,33 @@ On Mon, May 22, 2017 at 5:11 PM, Olof Johansson <olof@lixom.net> wrote:
 > Yeah, asking people to spread out across releases would remove
 > dependencies a lot, but it would also slow down progress and frustrate
 > a lot of contributors so we don't do that.
->
->> We discussed cross-tree dependencies a bit on ksummit-discuss
->> but this solution was not mentioned back then.
->
-> I thought it was, but I wasn't fully engaged in the discussion. We've
-> also only started this over the last release or two so it's early to
-> tell just how well it'll work in reality. Cc:ing the list.
 
-Yeah, this sounds like a good step towards improving what I've
-complained about, while still keeping topic/shared stable branch
-proliferation under control.
--Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-+41 (0) 79 365 57 48 - http://blog.ffwll.ch
+The above works fine for new support, or for new platforms.
+
+There's still support being migrated from platform code to DT, which
+requires three steps:
+  1. New DT-aware driver support,
+  2. DT update to use the new driver support,
+  3. Clean up platform code after optional DTB backwards compatibility
+     grace period,
+To make matters worse, 1 may conflict with the existing platform code,
+and 2 must sometimes not be done before 1. Hence you may need three kernel
+releases.
+So we're already planning now what to clean up for v4.15 ;-)
+
+Would it be acceptable to do step 2 in the same release, after the driver
+support has entered in -rc1? I know this is more than just replacing
+numbers by symbolic values.
+
+Thanks!
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
