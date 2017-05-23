@@ -1,27 +1,26 @@
-Return-Path: <arndbergmann@gmail.com>
+Return-Path: <olof@lixom.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 962658D4
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 98D0F8EE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 23 May 2017 14:17:09 +0000 (UTC)
-Received: from mail-oi0-f65.google.com (mail-oi0-f65.google.com
-	[209.85.218.65])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 11F5714B
+	Tue, 23 May 2017 16:42:21 +0000 (UTC)
+Received: from mail-ua0-f194.google.com (mail-ua0-f194.google.com
+	[209.85.217.194])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id EADC51F5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 23 May 2017 14:17:08 +0000 (UTC)
-Received: by mail-oi0-f65.google.com with SMTP id w10so28018304oif.1
+	Tue, 23 May 2017 16:42:20 +0000 (UTC)
+Received: by mail-ua0-f194.google.com with SMTP id x47so10249854uab.0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 23 May 2017 07:17:08 -0700 (PDT)
+	Tue, 23 May 2017 09:42:20 -0700 (PDT)
 MIME-Version: 1.0
-Sender: arndbergmann@gmail.com
 In-Reply-To: <CAMuHMdUivf9cw+LTn7UMueH=MMKi6i3wcOdgM6zbZBoxmkTZGQ@mail.gmail.com>
 References: <20170519193455.GA24206@localhost>
 	<CACRpkdaRdZTB39-=sAojO+OyHtP02KaFChqGcxy+fWA8qaB2bw@mail.gmail.com>
 	<CAOesGMhfrWSvLtDtGRWBTJiAoeSwzGgsdUTm26j1mpoVu0ghDg@mail.gmail.com>
 	<CAMuHMdUivf9cw+LTn7UMueH=MMKi6i3wcOdgM6zbZBoxmkTZGQ@mail.gmail.com>
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Tue, 23 May 2017 16:17:07 +0200
-Message-ID: <CAK8P3a2E1LtCNoGkAuzwJJdQdUTB_+8d=FM2asEGkXJprvm8oQ@mail.gmail.com>
+From: Olof Johansson <olof@lixom.net>
+Date: Tue, 23 May 2017 09:42:18 -0700
+Message-ID: <CAOesGMi98hJnUYVLkgcbBpXsi-Xe6QPh-gtLaPWPO-EW+KcGuQ@mail.gmail.com>
 To: Geert Uytterhoeven <geert@linux-m68k.org>
 Content-Type: text/plain; charset="UTF-8"
 Cc: "linux-arch@vger.kernel.org" <linux-arch@vger.kernel.org>,
@@ -42,12 +41,50 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, May 23, 2017 at 11:49 AM, Geert Uytterhoeven
+On Tue, May 23, 2017 at 2:49 AM, Geert Uytterhoeven
 <geert@linux-m68k.org> wrote:
+> Hi Olof,
 >
 > On Mon, May 22, 2017 at 5:11 PM, Olof Johansson <olof@lixom.net> wrote:
 >> On Mon, May 22, 2017 at 4:44 AM, Linus Walleij <linus.walleij@linaro.org> wrote:
 >>> On Fri, May 19, 2017 at 9:34 PM, Olof Johansson <olof@lixom.net> wrote:
+>>>>  - We've started telling people to avoid cross-tree shared branches if all
+>>>>    they're doing is picking up one or two DT-used constants from a
+>>>>    shared include file, and instead to use the numeric values on first
+>>>>    submission. Follow-up moving over to symbolic names are sent in right
+>>>>    after -rc1, i.e. here. It's only a few minor patches of this type.
+>>>
+>>> OK it seems like a reasonable process.
+>>>
+>>> It's not like I can think about anything better.
+>>>
+>>> I was more opting for doing things this way:
+>>>
+>>> - Create bindings and <dt-bindings/foo/bar.h> merge it into the
+>>>   foo subsystem.
+>>>
+>>> - Merge driver into drivers/foo/bar.c that use <dt-bindings/foo/bar.h>
+>>>
+>>> - Submit DTS patch to ARM SoC (or whetever) using only numerical
+>>>   values.
+>>>
+>>> - After the merge window, follow up with a patch replacing the
+>>>   numerical constants with #defines from <dt-bindings/foo/bar.h>
+>>
+>> You're describing exactly what we've been pushing people towards.
+>>
+>> If it's just a few simple references it's not significantly more
+>> awkward, and decouples merges and removes need for stable branches.
+>> Essentially we've become slightly more lax in what we're willing to
+>> consider _right after_ -rc1 to include these tweaks (and often patches
+>> to turn on new drivers in defconfigs).
+>>
+>> If the amount of contents grows too large we might need to tweak
+>> things further, maybe with something pre-rc1 but that's more awkward.
+>>
+>>> An alternative would obviously be to wait for the next merge window
+>>> after merging the driver patch but I guess people are too impatient
+>>> to do that (including me).
 >>
 >> Yeah, asking people to spread out across releases would remove
 >> dependencies a lot, but it would also slow down progress and frustrate
@@ -70,10 +107,17 @@ On Tue, May 23, 2017 at 11:49 AM, Geert Uytterhoeven
 > support has entered in -rc1? I know this is more than just replacing
 > numbers by symbolic values.
 
-I'd say it really depends on the individual case. Do you have a particular
-platform in mind? E.g. For some of the more obsolete platforms that
-Linus Walleij has worked on over time, we have sometimes relaxed the
-rules about clean bisection and just merged everything in parallel, knowing
-that nobody else was likely to run that code on a vanilla kernel anyway.
+Part of why we encouraged a more stretched-out approach in your case
+was that we used to get quite a few dependent branches for Renesas
+platforms, and when there were things to fixup, a lot of respins and
+churn. So we asked to move a little slower to avoid DoS:ing ourselves.
 
-       Arnd
+As far as the above process goes: 1+2 is exactly what we're
+encouraging others to do. The main discussion point here is when
+there's substantial shared dt-includes between driver and the DTS
+contents. Most of the time, for most drivers, that's usually not the
+case. As Arnd suggested, it might be helpful to have specific examples
+to discuss here.
+
+
+-Olof
