@@ -1,33 +1,26 @@
-Return-Path: <linus971@gmail.com>
+Return-Path: <davem@davemloft.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 017CC892
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0E4F541C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 23 May 2017 20:34:32 +0000 (UTC)
-Received: from mail-io0-f194.google.com (mail-io0-f194.google.com
-	[209.85.223.194])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 24F2216F
+	Wed, 24 May 2017 03:34:25 +0000 (UTC)
+Received: from shards.monkeyblade.net (shards.monkeyblade.net
+	[184.105.139.130])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 93FE216A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 23 May 2017 20:34:31 +0000 (UTC)
-Received: by mail-io0-f194.google.com with SMTP id o12so16604914iod.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 23 May 2017 13:34:31 -0700 (PDT)
-MIME-Version: 1.0
-Sender: linus971@gmail.com
-In-Reply-To: <alpine.DEB.2.20.1705232043450.2409@nanos>
-References: <CA+55aFydhKTGAFfqog0gRwKAQnxjjMnM-bKEaOwYbEKNjfRwGg@mail.gmail.com>
-	<CALCETrVVQ4XtMY-fxr_Vmo1OCHWSZ8ry9dUBhJimH30J0L+MGg@mail.gmail.com>
+	Wed, 24 May 2017 03:34:24 +0000 (UTC)
+Date: Tue, 23 May 2017 23:34:20 -0400 (EDT)
+Message-Id: <20170523.233420.139500787670013890.davem@davemloft.net>
+To: torvalds@linux-foundation.org
+From: David Miller <davem@davemloft.net>
+In-Reply-To: <CA+55aFw=1uH1vNmG_NzH8mWCP-sfMAdUQtWnB3wDXCfBEyPgtA@mail.gmail.com>
+References: <CALCETrVVQ4XtMY-fxr_Vmo1OCHWSZ8ry9dUBhJimH30J0L+MGg@mail.gmail.com>
 	<CA+55aFxy9RjdRJOoCmw9F+s3iQ9BiHK34xd6iB5NqpSgWbL-1g@mail.gmail.com>
 	<CA+55aFw=1uH1vNmG_NzH8mWCP-sfMAdUQtWnB3wDXCfBEyPgtA@mail.gmail.com>
-	<alpine.DEB.2.20.1705232043450.2409@nanos>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Tue, 23 May 2017 13:34:29 -0700
-Message-ID: <CA+55aFwJravpoxKS78kbn-yD5Rw7OeMjzKjTc3kCpaVX0sv2=w@mail.gmail.com>
-To: Thomas Gleixner <tglx@linutronix.de>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: David Miller <davem@davemloft.net>,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Mime-Version: 1.0
+Content-Type: Text/Plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] "Maintainer summit" invitation discussion
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -38,57 +31,25 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, May 23, 2017 at 11:47 AM, Thomas Gleixner <tglx@linutronix.de> wrote:
->
-> I'm probably late, but I would like to add myself to that list. As RT (and
-> upstream) maintainer I'm pretty involved in large scale overhauls and
-> restructuring which is often enough a process issue.
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Tue, 23 May 2017 10:58:36 -0700
 
-So I certainly have no objection, but I think we should strive to have
-something approaching a "process" for the picking.
+> Removed everybody from the cc list except for David, because I still
+> want him to give an alternate for the networking subsystem (unless,
+> wonder of wonders, you're planning to be in Prague in October,
+> David?).
 
-I assume there's an actual official KS organizing committee, although
-I have no idea who would be on it, except for the presumed usual
-suspects (ie Ted and James).
+I'm still looking into whether I can be in Prague in October.
 
-And I would suggest that in order to make it easier on them, _and_ to
-actually also have an agenda in place when we show up in October,
-people who want to nominate themselves (or somebody else, for that
-matter), actually write a little blurb about what they want to bring
-up for the agenda.
+My schedule is really tight as we are having netconf/netdev
+in early November in Seoul, South Korea.
 
-That would help both the selection committee and the agenda.
+Unfortunately, I cannot currently recommend anyone seriously as an
+alternate to represent networking.  I know that's not the answer you
+want to hear, but I'll keep thinking about this.
 
-In the "what to bring up" blurb, I'd really suggest not just bringing
-up a problem, but mentioning a possible real constructive (perhaps
-partial) solution too, as part of why that particular person should be
-at the KS and why it's worth discussing. We don't want it to be a
-"this is a problem I have" kvetching session.
+The last time I left the networking tree in someone else's hands
+for even just a few days was about a decade ago and that person's
+focus is significantly different these days.
 
-We know part of the agenda already, it was discussed earlier in the
-thread. We've had the eternal issue about non-responsive maintainers
-and how to try to improve that (whether it's group maintainership or
-"fall-through-the-cracks" people or whatever). And I think we've
-discussed regression tracking pretty much every year too.
-
-But wouldn't it be good if the KS committee could basically get both a
-suggested agenda item and a person selection hint at the same time?
-
-Would there be some convenient way to submit those? We're all email
-people, so perhaps just an email with something to easily search for
-in the subject line. Just to the list, or who are the actual KS point
-men?
-
-On Tue, May 23, 2017 at 12:29 PM, James Bottomley
-<James.Bottomley@hansenpartnership.com> wrote:
->
-> I'm happy to try to wrangle interesting and highly technical vendor
-> talks.  I believe the current time plan for the maintainer summit is
-> half a day (is this correct?), so I propose we do vendor talks in the
-> other half of the day.  That way people who aren't interested can take
-> the afternoon or morning (depending where people want it in the
-> timetable) off to see Prague.
-
-Sounds reasonable by me. Assuming we can get _good_ vendor talks.
-
-              Linus
+Thanks.
