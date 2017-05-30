@@ -1,31 +1,39 @@
-Return-Path: <linus971@gmail.com>
+Return-Path: <geert.uytterhoeven@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 22967910
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B2820B6E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 24 May 2017 04:55:42 +0000 (UTC)
-Received: from mail-it0-f53.google.com (mail-it0-f53.google.com
-	[209.85.214.53])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5CBCF15C
+	Tue, 30 May 2017 09:13:32 +0000 (UTC)
+Received: from mail-it0-f67.google.com (mail-it0-f67.google.com
+	[209.85.214.67])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 444921A2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 24 May 2017 04:55:41 +0000 (UTC)
-Received: by mail-it0-f53.google.com with SMTP id r63so32491373itc.1
+	Tue, 30 May 2017 09:13:32 +0000 (UTC)
+Received: by mail-it0-f67.google.com with SMTP id l145so9066945ita.0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 23 May 2017 21:55:41 -0700 (PDT)
+	Tue, 30 May 2017 02:13:32 -0700 (PDT)
 MIME-Version: 1.0
-Sender: linus971@gmail.com
-In-Reply-To: <20170523.233420.139500787670013890.davem@davemloft.net>
-References: <CALCETrVVQ4XtMY-fxr_Vmo1OCHWSZ8ry9dUBhJimH30J0L+MGg@mail.gmail.com>
-	<CA+55aFxy9RjdRJOoCmw9F+s3iQ9BiHK34xd6iB5NqpSgWbL-1g@mail.gmail.com>
-	<CA+55aFw=1uH1vNmG_NzH8mWCP-sfMAdUQtWnB3wDXCfBEyPgtA@mail.gmail.com>
-	<20170523.233420.139500787670013890.davem@davemloft.net>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Tue, 23 May 2017 21:55:40 -0700
-Message-ID: <CA+55aFzWAErZjWn_cVBCtyWPmB82NK_gdhnVhs_PN3JUvXjUVw@mail.gmail.com>
-To: David Miller <davem@davemloft.net>
+Sender: geert.uytterhoeven@gmail.com
+In-Reply-To: <CAK8P3a2E1LtCNoGkAuzwJJdQdUTB_+8d=FM2asEGkXJprvm8oQ@mail.gmail.com>
+References: <20170519193455.GA24206@localhost>
+	<CACRpkdaRdZTB39-=sAojO+OyHtP02KaFChqGcxy+fWA8qaB2bw@mail.gmail.com>
+	<CAOesGMhfrWSvLtDtGRWBTJiAoeSwzGgsdUTm26j1mpoVu0ghDg@mail.gmail.com>
+	<CAMuHMdUivf9cw+LTn7UMueH=MMKi6i3wcOdgM6zbZBoxmkTZGQ@mail.gmail.com>
+	<CAK8P3a2E1LtCNoGkAuzwJJdQdUTB_+8d=FM2asEGkXJprvm8oQ@mail.gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 30 May 2017 11:13:30 +0200
+Message-ID: <CAMuHMdWxNFUnWJjLj7ynWJFEFMAL=TPsdVSzDtohDprC=EXnaQ@mail.gmail.com>
+To: Arnd Bergmann <arnd@arndb.de>
 Content-Type: text/plain; charset="UTF-8"
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] "Maintainer summit" invitation discussion
+Cc: "linux-arch@vger.kernel.org" <linux-arch@vger.kernel.org>,
+	"arm@kernel.org" <arm@kernel.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Rob Herring <robh+dt@kernel.org>, "linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Ksummit-discuss] [GIT PULL] ARM: SoC fixes (and a cross-arch
+	dt-include fix)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,49 +43,67 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, May 23, 2017 at 8:34 PM, David Miller <davem@davemloft.net> wrote:
+Hi Arnd,
+
+On Tue, May 23, 2017 at 4:17 PM, Arnd Bergmann <arnd@arndb.de> wrote:
+> On Tue, May 23, 2017 at 11:49 AM, Geert Uytterhoeven
+> <geert@linux-m68k.org> wrote:
+>> On Mon, May 22, 2017 at 5:11 PM, Olof Johansson <olof@lixom.net> wrote:
+>>> On Mon, May 22, 2017 at 4:44 AM, Linus Walleij <linus.walleij@linaro.org> wrote:
+>>>> On Fri, May 19, 2017 at 9:34 PM, Olof Johansson <olof@lixom.net> wrote:
+>>>
+>>> Yeah, asking people to spread out across releases would remove
+>>> dependencies a lot, but it would also slow down progress and frustrate
+>>> a lot of contributors so we don't do that.
+>>
+>> The above works fine for new support, or for new platforms.
+>>
+>> There's still support being migrated from platform code to DT, which
+>> requires three steps:
+>>   1. New DT-aware driver support,
+>>   2. DT update to use the new driver support,
+>>   3. Clean up platform code after optional DTB backwards compatibility
+>>      grace period,
+>> To make matters worse, 1 may conflict with the existing platform code,
+>> and 2 must sometimes not be done before 1. Hence you may need three kernel
+>> releases.
+>> So we're already planning now what to clean up for v4.15 ;-)
+>>
+>> Would it be acceptable to do step 2 in the same release, after the driver
+>> support has entered in -rc1? I know this is more than just replacing
+>> numbers by symbolic values.
 >
-> I'm still looking into whether I can be in Prague in October.
->
-> My schedule is really tight as we are having netconf/netdev
-> in early November in Seoul, South Korea.
+> I'd say it really depends on the individual case. Do you have a particular
+> platform in mind? E.g. For some of the more obsolete platforms that
+> Linus Walleij has worked on over time, we have sometimes relaxed the
+> rules about clean bisection and just merged everything in parallel, knowing
+> that nobody else was likely to run that code on a vanilla kernel anyway.
 
-Ok. Which I assume means that all the other networking people will be
-in the same situation.
+This is for Renesas R-Car Gen2 SoCs, so we do care about DT backward
+compatibility (for a while), and about bisection.
 
-But maybe there is somebody who is at least close to you from a
-workflow and maintainership angle, and where Prague is more convenient
-despite netconf/netdev?
+Last headache was "[PATCH v4 00/23] soc: renesas: Add R-Car RST driver for
+obtaining mode pin state" (https://lkml.org/lkml/2016/10/21/500). This used
+a shared immutable branch, but that caused several merge conflicts.
 
-Looking at your merges, you seem to merge mostly from Jef Kirsher,
-Johannes Berg or Pablo Neira Ayuso.
+Next one will be smaller, as it's not really moving functionality from
+platform code to DT, but switching to a new and better clock driver framework,
+so there's only the dependency of DT on the new driver
+"[PATCH v2 00/10] clk: renesas: rcar-gen2: Add new CPG/MSSR drivers"
+(https://lkml.org/lkml/2017/5/19/212)
 
-Although that was from some very rough git scripting that that might
-be debatable:
+I'll go create an inventory of stuff in platform code for Renesas SoCs that
+still needs to be converted to DT...
 
-    git rev-list --merges --author=davem --since=12.months  HEAD |
-        while read i; do git log -1 --pretty='%cn' $i^2; done |
-        sort | uniq -c | sort -n
+Thanks!
 
-although looking at that, it really doesn't look like core networking.
+Gr{oetje,eeting}s,
 
-Another way to show networking maintainership stats:
+                        Geert
 
-    git shortlog -csn --since=12.months net/
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-and yeah, you clearly do seem to work mostly with patches rather than
-submaintainers., backing up that "davem's merge sources aren't very
-interesting"
-
-> Unfortunately, I cannot currently recommend anyone seriously as an
-> alternate to represent networking.  I know that's not the answer you
-> want to hear, but I'll keep thinking about this.
->
-> The last time I left the networking tree in someone else's hands
-> for even just a few days was about a decade ago and that person's
-> focus is significantly different these days.
-
-Heh. Maybe we should have a maintainership discussion about "What if
-davem is hit by a bus?" ;)
-
-                    Linus
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
