@@ -1,40 +1,14 @@
-Return-Path: <arndbergmann@gmail.com>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5C6623EE
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 Jun 2017 15:27:19 +0000 (UTC)
-Received: from mail-oi0-f67.google.com (mail-oi0-f67.google.com
-	[209.85.218.67])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 81EB3FD
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  2 Jun 2017 15:27:18 +0000 (UTC)
-Received: by mail-oi0-f67.google.com with SMTP id f206so2544241oig.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 02 Jun 2017 08:27:18 -0700 (PDT)
+Return-Path: <tytso@thunk.org>
+Date: Wed, 14 Jun 2017 09:29:20 -0400
+From: Theodore Ts'o <tytso@mit.edu>
+To: ksummit-discuss@lists.linux-foundation.org,
+	linux-kernel@vger.kernel.org
+Message-ID: <20170614132920.csogpzkl4k5k7kaj@thunk.org>
 MIME-Version: 1.0
-Sender: arndbergmann@gmail.com
-In-Reply-To: <CAMuHMdWxNFUnWJjLj7ynWJFEFMAL=TPsdVSzDtohDprC=EXnaQ@mail.gmail.com>
-References: <20170519193455.GA24206@localhost>
-	<CACRpkdaRdZTB39-=sAojO+OyHtP02KaFChqGcxy+fWA8qaB2bw@mail.gmail.com>
-	<CAOesGMhfrWSvLtDtGRWBTJiAoeSwzGgsdUTm26j1mpoVu0ghDg@mail.gmail.com>
-	<CAMuHMdUivf9cw+LTn7UMueH=MMKi6i3wcOdgM6zbZBoxmkTZGQ@mail.gmail.com>
-	<CAK8P3a2E1LtCNoGkAuzwJJdQdUTB_+8d=FM2asEGkXJprvm8oQ@mail.gmail.com>
-	<CAMuHMdWxNFUnWJjLj7ynWJFEFMAL=TPsdVSzDtohDprC=EXnaQ@mail.gmail.com>
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Fri, 2 Jun 2017 17:27:17 +0200
-Message-ID: <CAK8P3a2_V8hs7CRRJNjpkeAaqpRwztHhPpUQz8vB5K3GwJRaGQ@mail.gmail.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: "linux-arch@vger.kernel.org" <linux-arch@vger.kernel.org>,
-	"arm@kernel.org" <arm@kernel.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Rob Herring <robh+dt@kernel.org>, "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Ksummit-discuss] [GIT PULL] ARM: SoC fixes (and a cross-arch
-	dt-include fix)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Subject: [Ksummit-discuss] Next steps and plans for the 2017 Maintainer and
+	Kernel Summits
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -44,71 +18,65 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, May 30, 2017 at 11:13 AM, Geert Uytterhoeven
-<geert@linux-m68k.org> wrote:
-> Hi Arnd,
->
-> On Tue, May 23, 2017 at 4:17 PM, Arnd Bergmann <arnd@arndb.de> wrote:
->> On Tue, May 23, 2017 at 11:49 AM, Geert Uytterhoeven
->> <geert@linux-m68k.org> wrote:
->>> On Mon, May 22, 2017 at 5:11 PM, Olof Johansson <olof@lixom.net> wrote:
->>>> On Mon, May 22, 2017 at 4:44 AM, Linus Walleij <linus.walleij@linaro.org> wrote:
->>>>> On Fri, May 19, 2017 at 9:34 PM, Olof Johansson <olof@lixom.net> wrote:
->>>>
->>>> Yeah, asking people to spread out across releases would remove
->>>> dependencies a lot, but it would also slow down progress and frustrate
->>>> a lot of contributors so we don't do that.
->>>
->>> The above works fine for new support, or for new platforms.
->>>
->>> There's still support being migrated from platform code to DT, which
->>> requires three steps:
->>>   1. New DT-aware driver support,
->>>   2. DT update to use the new driver support,
->>>   3. Clean up platform code after optional DTB backwards compatibility
->>>      grace period,
->>> To make matters worse, 1 may conflict with the existing platform code,
->>> and 2 must sometimes not be done before 1. Hence you may need three kernel
->>> releases.
->>> So we're already planning now what to clean up for v4.15 ;-)
->>>
->>> Would it be acceptable to do step 2 in the same release, after the driver
->>> support has entered in -rc1? I know this is more than just replacing
->>> numbers by symbolic values.
->>
->> I'd say it really depends on the individual case. Do you have a particular
->> platform in mind? E.g. For some of the more obsolete platforms that
->> Linus Walleij has worked on over time, we have sometimes relaxed the
->> rules about clean bisection and just merged everything in parallel, knowing
->> that nobody else was likely to run that code on a vanilla kernel anyway.
->
-> This is for Renesas R-Car Gen2 SoCs, so we do care about DT backward
-> compatibility (for a while), and about bisection.
+After talking to Linus about what the next steps should be, here's the
+plan that we've come up with.  The following people drawn from Linus's core
+list will be extended invitations to the Maintainers Summit.
 
-Ok, I see.
+David Miller
+Greg KH
+Daniel Vetter
+Ingo Molnar
+Arnd Bergmann
+Andrew Morton
+Michael Ellerman
+Takashi Iwai
+Linus Torvalds
+Ben Hutchings
+Stephen Rothwell
+Ted Ts'o
+Shuah Kahn
+James Bottomley
 
-> Last headache was "[PATCH v4 00/23] soc: renesas: Add R-Car RST driver for
-> obtaining mode pin state" (https://lkml.org/lkml/2016/10/21/500). This used
-> a shared immutable branch, but that caused several merge conflicts.
->
-> Next one will be smaller, as it's not really moving functionality from
-> platform code to DT, but switching to a new and better clock driver framework,
-> so there's only the dependency of DT on the new driver
-> "[PATCH v2 00/10] clk: renesas: rcar-gen2: Add new CPG/MSSR drivers"
-> (https://lkml.org/lkml/2017/5/19/212)
+A mini-program committee composed of James Bottomley, Shuah Kahn, Greg
+KH, and myself will pick enough names to bring the total number of
+invited attendees to 30 for the Maintainers Summit, using the criteria
+which Linus has described.
 
-Ok, so there is already a working driver for these chips, but you want
-to move to a better driver and binding. That's all fine, but I'm not sure
-about why you want to do this faster at all. Presumably you want to use
-the new driver quickly so you can add new platforms not using the old
-driver, but then you'd have a couple of years of grace period before
-removing the old driver for customers with existing out of tree dts files,
-so I would assume that waiting another release or two before moving
-the DT files over is not adding a huge burden.
+We will use the rest of names that Linus had mentioned as being part
+of his secondary list to preseed the list of people to be considered.
+People who suggest topics that should be discussed on the Maintainer's
+summit will be added to the list.  Please prefix [MAINTAINERS SUMMIT]
+to the subject line, and remember that we only have a half-day, and
+they should be appropriate for the Maintainer's summit --- that is,
+they should be focused on the development process.
 
-> I'll go create an inventory of stuff in platform code for Renesas SoCs that
-> still needs to be converted to DT...
+For technical topics, we will have a "Kernel Summit" that will be work
+much like the Technical Session days last year.  The technical
+sessions will be run in parallel with the Open Source Summit Europe,
+and will be open to anyone who registered with the OSS Europe.  The
+goal will be to provide a forum to discuss specific technical issues
+that would be easier to resolve in person than over e-mail.  The
+program committee will also consider "information sharing" topics if
+they are clearly of interest to the wider development community (i.e.,
+advanced training in topics that would be useful for maintainers).
 
-That would certainly be helpful, yes.
+To suggest a topic for the Kernel Summit, please tag your e-mail with
+[TECH TOPIC].  As before, please use a separate e-mail for each topic,
+and send the topic suggestions to:
 
-       Arnd
+	ksummit-discuss@lists.linuxfoundation.org
+
+We will also be reserving roughly half the slots to be scheduled on
+the day of the conference, but if you know are interested in
+organizing a discussion around a topic, or giving a presentation on
+some topic that would be of interest to kernel developers, please send
+them as soon as possible.  For each topic that is accepted and
+submitted before July 8th, we will give a free admission to OSS Europe
+/ Kernel Summit.  All others will have to pay the normal registration
+fee.
+
+If you were not subscribed on to the kernel-discuss mailing list from
+last year (or if you had removed yourself after the kernel summit),
+you can subscribe to the discuss list using mailman:
+
+   https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
