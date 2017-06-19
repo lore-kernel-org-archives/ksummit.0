@@ -1,23 +1,24 @@
-Return-Path: <hare@suse.com>
+Return-Path: <SRS0=e9z0=5Y=goodmis.org=rostedt@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3D27C4A6
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 85CD9B5D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 19 Jun 2017 06:22:20 +0000 (UTC)
-Received: from smtp.nue.novell.com (smtp.nue.novell.com [195.135.221.5])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 42A26AB
+	Mon, 19 Jun 2017 14:39:15 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E3594A6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 19 Jun 2017 06:22:18 +0000 (UTC)
-To: ksummit-discuss@lists.linuxfoundation.org
+	Mon, 19 Jun 2017 14:39:14 +0000 (UTC)
+Date: Mon, 19 Jun 2017 10:39:12 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Hannes Reinecke <hare@suse.com>
+Message-ID: <20170619103912.2edbf88a@gandalf.local.home>
+In-Reply-To: <ef18231f-c69b-5d88-0410-485cfcf4143b@suse.com>
 References: <20170619052146.GA2889@jagdpanzerIV.localdomain>
-From: Hannes Reinecke <hare@suse.com>
-Message-ID: <ef18231f-c69b-5d88-0410-485cfcf4143b@suse.com>
-Date: Mon, 19 Jun 2017 08:22:13 +0200
+	<ef18231f-c69b-5d88-0410-485cfcf4143b@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <20170619052146.GA2889@jagdpanzerIV.localdomain>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] printk redesign
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -28,44 +29,58 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 06/19/2017 07:21 AM, Sergey Senozhatsky wrote:
-> Hello,
-> 
-> 	I, Petr Mladek and Steven Rostedt would like to propose a printk
-> tech topic (as suggested by Steven). We are currently exploring the idea
-> of complete redesign and rework of printk and it would be extremely helpful
-> to hear from the community. printk serves different purposes, and some of
-> requirements of printk tend to contradict each other; printk is monolithic
-> and quite heavy, no wonder, it causes problems sometimes.
-> 
-> 	So the questions are (a short list) - what the new printk should be?
-> should it remain monolithic, or can we split it? (e.g. core kernel messages
-> don't share the log buffer with debug/info messages, etc.) what are the
-> printk requirements? I've started playing with the idea of moving printk to
-> per-CPU model: log buffers, per-CPU printk flusher threads. does is it make
-> sense (wrt to printk requirements) to have direct and in-direct flushers of
-> printk messages (e.g. core kernel messages are printed directly; debug/info
-> messages are printed by printing kthreads, etc. well, unless in panic)? ...
-> 
-> 	There are many other questions, so it'd be great to have a
-> brainstorming session.
-> 
-I'm all for it.
-Personally, I'd love to see the printk mechanism split into something
-which can be used primarily for logging/debugging (ie slow,
-non-critical, large messages) and emergency messaging (ie fast, direct
-messages like kernel oops and KERN_EMERG thingies).
-Plus I'd love to decouple the message generation (ie writing into the
-message log) from message output (ie printing out the message log).
-That currently is a major performance drag when using slow output
-devices like serial console.
+On Mon, 19 Jun 2017 08:22:13 +0200
+Hannes Reinecke <hare@suse.com> wrote:
 
-Cheers,
+> > 	There are many other questions, so it'd be great to have a
+> > brainstorming session.
+> >   
+> I'm all for it.
+> Personally, I'd love to see the printk mechanism split into something
+> which can be used primarily for logging/debugging (ie slow,
+> non-critical, large messages) and emergency messaging (ie fast, direct
+> messages like kernel oops and KERN_EMERG thingies).
+> Plus I'd love to decouple the message generation (ie writing into the
+> message log) from message output (ie printing out the message log).
+> That currently is a major performance drag when using slow output
+> devices like serial console.
 
-Hannes
--- 
-Dr. Hannes Reinecke		   Teamlead Storage & Networking
-hare@suse.com			               +49 911 74053 688
-SUSE LINUX GmbH, Maxfeldstr. 5, 90409 Nürnberg
-GF: F. Imendörffer, J. Smithard, J. Guild, D. Upmanyu, G. Norton
-HRB 21284 (AG Nürnberg)
+I'd like to find out all the requirements for printk(). And some of
+these requirements contradict each other. If we can sort out exactly
+what people want from a printk() mechanism, perhaps we can group
+together like requirements and then create multiple facilities that can
+handle each group of requirements.
+
+Here's a couple of requirements that I expect from printk:
+
+1) First and for most, is the critical output. Those of warnings, and
+above. Basically all critical messages that can be used to debug a
+system crash. This requires the ability to be executed from any
+context, including NMI.
+
+ This group includes WARN() and BUG() output, and anything in an oops.
+
+2) Activity information. This too can be used to debug a system crash,
+and requires serializations. When a device comes on line. A spurious
+interrupt. A system state change (CPU going on or off line).
+
+3) Status information. Now, I'm sure people will argue about what goes
+in this or the above #2. Here, this would be all pr_info. Useful
+information that should be logged, but perhaps not something that is
+critical knowledge if a crash happens. In other words, something that
+isn't critical to get out immediately.
+
+4) All other kernel information that's not critical at all, and perhaps
+doesn't even need to be serialized. At least, not against the above.
+This could be cached, and outputted at a later time than when the
+printk() was called.
+
+5) Finally, the data from userspace (/dev/kmsg). I believe that this
+really should be in an buffer by itself, and at most interleaved via
+timestamps with the above in dmesg.
+
+That's my idea. If others have more to add, please do so.
+
+Thanks,
+
+-- Steve
