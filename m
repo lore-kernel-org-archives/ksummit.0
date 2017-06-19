@@ -1,26 +1,23 @@
-Return-Path: <andrew@lunn.ch>
+Return-Path: <josh@joshtriplett.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A563BB73
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1387BB9F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 19 Jun 2017 16:35:35 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [178.209.37.122])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 38FAB8E
+	Mon, 19 Jun 2017 23:46:53 +0000 (UTC)
+Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
+	[217.70.183.195])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 855541FB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 19 Jun 2017 16:35:35 +0000 (UTC)
-Date: Mon, 19 Jun 2017 18:35:31 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Steven Rostedt <rostedt@goodmis.org>
-Message-ID: <20170619163531.GP3786@lunn.ch>
+	Mon, 19 Jun 2017 23:46:52 +0000 (UTC)
+Date: Mon, 19 Jun 2017 16:46:50 -0700
+From: Josh Triplett <josh@joshtriplett.org>
+To: Sergey Senozhatsky <sergey.senozhatsky.work@gmail.com>
+Message-ID: <20170619234650.GC30361@cloud>
 References: <20170619052146.GA2889@jagdpanzerIV.localdomain>
-	<ef18231f-c69b-5d88-0410-485cfcf4143b@suse.com>
-	<20170619103912.2edbf88a@gandalf.local.home>
-	<20170619152055.GM3786@lunn.ch>
-	<20170619122651.57ba27c4@gandalf.local.home>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20170619122651.57ba27c4@gandalf.local.home>
+In-Reply-To: <20170619052146.GA2889@jagdpanzerIV.localdomain>
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] printk redesign
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -32,10 +29,32 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-> Perhaps a kernel command line option could force this.
+On Mon, Jun 19, 2017 at 02:21:46PM +0900, Sergey Senozhatsky wrote:
+> Hello,
+> 
+> 	I, Petr Mladek and Steven Rostedt would like to propose a printk
+> tech topic (as suggested by Steven). We are currently exploring the idea
+> of complete redesign and rework of printk and it would be extremely helpful
+> to hear from the community. printk serves different purposes, and some of
+> requirements of printk tend to contradict each other; printk is monolithic
+> and quite heavy, no wonder, it causes problems sometimes.
+> 
+> 	So the questions are (a short list) - what the new printk should be?
+> should it remain monolithic, or can we split it? (e.g. core kernel messages
+> don't share the log buffer with debug/info messages, etc.) what are the
+> printk requirements? I've started playing with the idea of moving printk to
+> per-CPU model: log buffers, per-CPU printk flusher threads. does is it make
+> sense (wrt to printk requirements) to have direct and in-direct flushers of
+> printk messages (e.g. core kernel messages are printed directly; debug/info
+> messages are printed by printing kthreads, etc. well, unless in panic)? ...
+> 
+> 	There are many other questions, so it'd be great to have a
+> brainstorming session.
 
-Yep. And maybe having DEBUG defined in a file, so _dbg() is not a NOP,
-is probably a good indication order output is required. But scope
-becomes an issue.
-
-	 Andrew
+It'd be nice if, when building a kernel with CONFIG_PRINTK disabled, the
+full format-string handling wasn't compiled in to handle snprintf and
+family. In particular, some of the kernel-specific %p format-string
+modifiers only get used when printing to a user, never when formatting a
+string for machine consumption. I can think of a few different ways to
+address that, but I'd love to see that taken into account in the
+requirements for a printk redesign.
