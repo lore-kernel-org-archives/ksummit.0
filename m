@@ -1,14 +1,26 @@
-Return-Path: <tytso@thunk.org>
-Date: Wed, 14 Jun 2017 09:29:20 -0400
-From: Theodore Ts'o <tytso@mit.edu>
-To: ksummit-discuss@lists.linux-foundation.org,
-	linux-kernel@vger.kernel.org
-Message-ID: <20170614132920.csogpzkl4k5k7kaj@thunk.org>
+Return-Path: <sergey.senozhatsky.work@gmail.com>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3A0958DC
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 19 Jun 2017 05:21:40 +0000 (UTC)
+Received: from mail-pf0-f196.google.com (mail-pf0-f196.google.com
+	[209.85.192.196])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D5FCDA6
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 19 Jun 2017 05:21:39 +0000 (UTC)
+Received: by mail-pf0-f196.google.com with SMTP id w12so15006878pfk.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sun, 18 Jun 2017 22:21:39 -0700 (PDT)
+Date: Mon, 19 Jun 2017 14:21:46 +0900
+From: Sergey Senozhatsky <sergey.senozhatsky.work@gmail.com>
+To: ksummit-discuss@lists.linuxfoundation.org, Petr Mladek <pmladek@suse.com>,
+	Steven Rostedt <rostedt@goodmis.org>
+Message-ID: <20170619052146.GA2889@jagdpanzerIV.localdomain>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: [Ksummit-discuss] Next steps and plans for the 2017 Maintainer and
-	Kernel Summits
+Subject: [Ksummit-discuss] [TECH TOPIC] printk redesign
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -18,65 +30,25 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-After talking to Linus about what the next steps should be, here's the
-plan that we've come up with.  The following people drawn from Linus's core
-list will be extended invitations to the Maintainers Summit.
+Hello,
 
-David Miller
-Greg KH
-Daniel Vetter
-Ingo Molnar
-Arnd Bergmann
-Andrew Morton
-Michael Ellerman
-Takashi Iwai
-Linus Torvalds
-Ben Hutchings
-Stephen Rothwell
-Ted Ts'o
-Shuah Kahn
-James Bottomley
+	I, Petr Mladek and Steven Rostedt would like to propose a printk
+tech topic (as suggested by Steven). We are currently exploring the idea
+of complete redesign and rework of printk and it would be extremely helpful
+to hear from the community. printk serves different purposes, and some of
+requirements of printk tend to contradict each other; printk is monolithic
+and quite heavy, no wonder, it causes problems sometimes.
 
-A mini-program committee composed of James Bottomley, Shuah Kahn, Greg
-KH, and myself will pick enough names to bring the total number of
-invited attendees to 30 for the Maintainers Summit, using the criteria
-which Linus has described.
+	So the questions are (a short list) - what the new printk should be?
+should it remain monolithic, or can we split it? (e.g. core kernel messages
+don't share the log buffer with debug/info messages, etc.) what are the
+printk requirements? I've started playing with the idea of moving printk to
+per-CPU model: log buffers, per-CPU printk flusher threads. does is it make
+sense (wrt to printk requirements) to have direct and in-direct flushers of
+printk messages (e.g. core kernel messages are printed directly; debug/info
+messages are printed by printing kthreads, etc. well, unless in panic)? ...
 
-We will use the rest of names that Linus had mentioned as being part
-of his secondary list to preseed the list of people to be considered.
-People who suggest topics that should be discussed on the Maintainer's
-summit will be added to the list.  Please prefix [MAINTAINERS SUMMIT]
-to the subject line, and remember that we only have a half-day, and
-they should be appropriate for the Maintainer's summit --- that is,
-they should be focused on the development process.
+	There are many other questions, so it'd be great to have a
+brainstorming session.
 
-For technical topics, we will have a "Kernel Summit" that will be work
-much like the Technical Session days last year.  The technical
-sessions will be run in parallel with the Open Source Summit Europe,
-and will be open to anyone who registered with the OSS Europe.  The
-goal will be to provide a forum to discuss specific technical issues
-that would be easier to resolve in person than over e-mail.  The
-program committee will also consider "information sharing" topics if
-they are clearly of interest to the wider development community (i.e.,
-advanced training in topics that would be useful for maintainers).
-
-To suggest a topic for the Kernel Summit, please tag your e-mail with
-[TECH TOPIC].  As before, please use a separate e-mail for each topic,
-and send the topic suggestions to:
-
-	ksummit-discuss@lists.linuxfoundation.org
-
-We will also be reserving roughly half the slots to be scheduled on
-the day of the conference, but if you know are interested in
-organizing a discussion around a topic, or giving a presentation on
-some topic that would be of interest to kernel developers, please send
-them as soon as possible.  For each topic that is accepted and
-submitted before July 8th, we will give a free admission to OSS Europe
-/ Kernel Summit.  All others will have to pay the normal registration
-fee.
-
-If you were not subscribed on to the kernel-discuss mailing list from
-last year (or if you had removed yourself after the kernel summit),
-you can subscribe to the discuss list using mailman:
-
-   https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+	-ss
