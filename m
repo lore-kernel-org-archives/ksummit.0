@@ -1,28 +1,33 @@
-Return-Path: <daniel.vetter@ffwll.ch>
+Return-Path: <SRS0=BAny=5Z=goodmis.org=rostedt@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B1BCF96F
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 88AFF902
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 20 Jun 2017 18:45:29 +0000 (UTC)
-Received: from mail-io0-f193.google.com (mail-io0-f193.google.com
-	[209.85.223.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A5CB8E5
+	Tue, 20 Jun 2017 23:29:01 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id EFE151A8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 20 Jun 2017 18:45:28 +0000 (UTC)
-Received: by mail-io0-f193.google.com with SMTP id j200so15785282ioe.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 20 Jun 2017 11:45:28 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <20170619103912.2edbf88a@gandalf.local.home>
+	Tue, 20 Jun 2017 23:29:00 +0000 (UTC)
+Date: Tue, 20 Jun 2017 19:28:58 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <20170620192858.142a43ff@gandalf.local.home>
+In-Reply-To: <20170620172738.zh4maxtfmlwhyrnt@sirena.org.uk>
 References: <20170619052146.GA2889@jagdpanzerIV.localdomain>
 	<ef18231f-c69b-5d88-0410-485cfcf4143b@suse.com>
 	<20170619103912.2edbf88a@gandalf.local.home>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Tue, 20 Jun 2017 20:45:27 +0200
-Message-ID: <CAKMK7uEnsezRz=0-A2oAtSOTxNDR9LOCd8XOaG=tkC8+Xf_puQ@mail.gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<20170619152055.GM3786@lunn.ch>
+	<01a7d603-c0a2-7aae-8c8d-587063da5e61@suse.com>
+	<20170619162317.4nxx6jsvuzvdtasz@sirena.org.uk>
+	<20170620155825.GC409@tigerII.localdomain>
+	<3908561D78D1C84285E8C5FCA982C28F612DAC67@ORSMSX114.amr.corp.intel.com>
+	<20170620171134.GA444@tigerII.localdomain>
+	<20170620172738.zh4maxtfmlwhyrnt@sirena.org.uk>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] printk redesign
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -34,81 +39,52 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Jun 19, 2017 at 4:39 PM, Steven Rostedt <rostedt@goodmis.org> wrote:
-> On Mon, 19 Jun 2017 08:22:13 +0200
-> Hannes Reinecke <hare@suse.com> wrote:
->
->> >     There are many other questions, so it'd be great to have a
->> > brainstorming session.
->> >
->> I'm all for it.
->> Personally, I'd love to see the printk mechanism split into something
->> which can be used primarily for logging/debugging (ie slow,
->> non-critical, large messages) and emergency messaging (ie fast, direct
->> messages like kernel oops and KERN_EMERG thingies).
->> Plus I'd love to decouple the message generation (ie writing into the
->> message log) from message output (ie printing out the message log).
->> That currently is a major performance drag when using slow output
->> devices like serial console.
->
-> I'd like to find out all the requirements for printk(). And some of
-> these requirements contradict each other. If we can sort out exactly
-> what people want from a printk() mechanism, perhaps we can group
-> together like requirements and then create multiple facilities that can
-> handle each group of requirements.
->
-> Here's a couple of requirements that I expect from printk:
->
-> 1) First and for most, is the critical output. Those of warnings, and
-> above. Basically all critical messages that can be used to debug a
-> system crash. This requires the ability to be executed from any
-> context, including NMI.
->
->  This group includes WARN() and BUG() output, and anything in an oops.
->
-> 2) Activity information. This too can be used to debug a system crash,
-> and requires serializations. When a device comes on line. A spurious
-> interrupt. A system state change (CPU going on or off line).
->
-> 3) Status information. Now, I'm sure people will argue about what goes
-> in this or the above #2. Here, this would be all pr_info. Useful
-> information that should be logged, but perhaps not something that is
-> critical knowledge if a crash happens. In other words, something that
-> isn't critical to get out immediately.
->
-> 4) All other kernel information that's not critical at all, and perhaps
-> doesn't even need to be serialized. At least, not against the above.
-> This could be cached, and outputted at a later time than when the
-> printk() was called.
->
-> 5) Finally, the data from userspace (/dev/kmsg). I believe that this
-> really should be in an buffer by itself, and at most interleaved via
-> timestamps with the above in dmesg.
->
-> That's my idea. If others have more to add, please do so.
+On Tue, 20 Jun 2017 18:27:38 +0100
+Mark Brown <broonie@kernel.org> wrote:
 
-My own pet peeve with printk from the drm side:
+> On Wed, Jun 21, 2017 at 02:11:34AM +0900, Sergey Senozhatsky wrote:
+> 
+> > another thing that I found useful is a CPU number of the processor
+> > that stored a particular line to the logbuf.  
+> 
+> At some point we start reinventing ftrace...  there's issues with
+> joining the two up but there should at least be lessons we can learn.
 
-Untangling printk form the console_lock horror show, if at all
-possible. One problem is that heavy printk usage makes the
-console_lock massively contended (we delay restoring the the kernel
-console on resume in kms drivers to a worker because of that). The
-worse problem is that console_lock locking is horribly monolithic and
-defacto requires that large chunks of your gfx driver init code needs
-to run while holding it. Which means no printk output, neither for
-your gfx driver nor anything else while your cpu goes through
-something like a few 100k lines of code (for big drivers).
+I've thought about this a little too.
 
-We have a few pages of kerneldoc explaining how to debug this and what
-happens, and gross debug hacks to just not take console_lock on driver
-(and pray it won't race), but it's a constant trap for new gfx
-hackers.
+I would like printk to have per-cpu buffers. Then we don't even need to
+store the CPU number, that would be explicit by which buffer the data
+is stored in.
 
-Fixing console_lock is much less likely to happen, I (and better
-hackers like Alan Cox) tried, and ran away in tears.
+The one thing that is needed, is the consumer. In ftrace, it's whatever
+reads the buffer, which is usually user space, but can be the kernel
+(see sysctl-z). But there's only one consumer at a time.
 
-Cheers, Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-+41 (0) 79 365 57 48 - http://blog.ffwll.ch
+I was thinking about a new design for printk. Similar to ftrace, but
+different.
+
+1) have per cpu buffers, that are lockless. Writes happen immediately,
+but the output happens later.
+
+2) have two types of console interfaces. A normal and a critical.
+
+3) have a thread that is woken whenever there is data in any of the
+buffers, and reads the buffers, again lockless. But to do this in a
+reasonable manner, unless you break the printks up in sub buffers like
+ftrace, if the consumer isn't fast enough, newer messages are dropped.
+
+4) If a critical print is needed (and here's why we have two console
+interfaces), the normal console interface gets turned off, and the
+buffers stop being output through them. What ever called the critical
+print, will take over, and flush out all the contents of the current
+buffers. Then anything printed during the critical section will go out
+immediately (no buffering). The printk thread, will stop having access
+to the buffers, and shutdown till the critical section is complete.
+
+This is just a rough idea. I think it is possible. The tricky part is
+going to be the switch over to the critical section. Also, have a
+command line parameter that has all printks be critical. Peter Zilstra
+has some patches that already does that with making printk turn into
+early printk.
+
+-- Steve
