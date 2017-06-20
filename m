@@ -1,21 +1,18 @@
-Return-Path: <sergey.senozhatsky@gmail.com>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 71C64B8F
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 19084B50
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 20 Jun 2017 17:12:54 +0000 (UTC)
-Received: from mail-pf0-f193.google.com (mail-pf0-f193.google.com
-	[209.85.192.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 21D7C1F0
+	Tue, 20 Jun 2017 17:27:51 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A68BE235
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 20 Jun 2017 17:12:54 +0000 (UTC)
-Received: by mail-pf0-f193.google.com with SMTP id d5so24583053pfe.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 20 Jun 2017 10:12:54 -0700 (PDT)
-Date: Wed, 21 Jun 2017 02:11:34 +0900
-From: Sergey Senozhatsky <sergey.senozhatsky@gmail.com>
-To: "Luck, Tony" <tony.luck@intel.com>
-Message-ID: <20170620171134.GA444@tigerII.localdomain>
+	Tue, 20 Jun 2017 17:27:50 +0000 (UTC)
+Date: Tue, 20 Jun 2017 18:27:38 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Sergey Senozhatsky <sergey.senozhatsky@gmail.com>
+Message-ID: <20170620172738.zh4maxtfmlwhyrnt@sirena.org.uk>
 References: <20170619052146.GA2889@jagdpanzerIV.localdomain>
 	<ef18231f-c69b-5d88-0410-485cfcf4143b@suse.com>
 	<20170619103912.2edbf88a@gandalf.local.home>
@@ -24,10 +21,12 @@ References: <20170619052146.GA2889@jagdpanzerIV.localdomain>
 	<20170619162317.4nxx6jsvuzvdtasz@sirena.org.uk>
 	<20170620155825.GC409@tigerII.localdomain>
 	<3908561D78D1C84285E8C5FCA982C28F612DAC67@ORSMSX114.amr.corp.intel.com>
+	<20170620171134.GA444@tigerII.localdomain>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="d6eh77clrx5z7gh5"
 Content-Disposition: inline
-In-Reply-To: <3908561D78D1C84285E8C5FCA982C28F612DAC67@ORSMSX114.amr.corp.intel.com>
+In-Reply-To: <20170620171134.GA444@tigerII.localdomain>
 Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] printk redesign
@@ -40,38 +39,32 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On (06/20/17 16:44), Luck, Tony wrote:
-> >> This is a configuration option (PRINTK_TIME) and isn't 100% reliable,
-> >> I've got examples in the syslog of my current system with multiple
-> >> prints being issued with the same timestamp.
-> >
-> > yes, as far as I know, timestamps are not in complete sync between CPUs.
-> 
-> We are pretty deep into the printk() code before we call local_clock() to
-> find out what timestamp to print.
 
-correct, we basically keep the time when the message was finally
-stored (there can be a 'lengthy' spinning on logbuf_lock before
-that), not when the caller issued printk().
+--d6eh77clrx5z7gh5
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> Would it be helpful to grab that much earlier ... so it is closer to
-> the time at which the code that called printk()?
-> 
-> This would make it more likely that messages would appear out of order,
-> but I think it would be better to know when things actually happened, not
-> when we got around to printing them.
+On Wed, Jun 21, 2017 at 02:11:34AM +0900, Sergey Senozhatsky wrote:
 
-so, yes, we probably can do it. and _perhaps_ it makes sense to do it even
-in the current printk, I think. this won't make messages ordered, tho.
-printk() does not sort logbuf records. and the way things work now, even
-if we would sort logbuf entries, we still would have cases of out of
-order messages - because printk_safe and printk_nmi messages in general
-(in general; there is a shortcut for printk_nmi, but not for printk_safe)
-cannot be stored directly to the logbuf because we can deadlock. we flush
-those messages later from irq work instead. so those messages are expected
-to be out of order.
+> another thing that I found useful is a CPU number of the processor
+> that stored a particular line to the logbuf.
 
-another thing that I found useful is a CPU number of the processor
-that stored a particular line to the logbuf.
+At some point we start reinventing ftrace...  there's issues with
+joining the two up but there should at least be lessons we can learn.
 
-	-ss
+--d6eh77clrx5z7gh5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCAAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAllJWwkACgkQJNaLcl1U
+h9Dqjwf+IYDDee0i0xzDLh49ePJUupspO0SuolYcfL3dp30Gw9OEj1DQNKX+RCTM
+6VEq9Q1WNWrZ58ivlPYTVs7oHxBQ5iVyYQTrh9+8y3k+Hxq6/XANW3Pc5pljctAS
+HhqMU3dhdhnEb7VtATAYKxjTYl8wyV3np232bcFg0vzIUoglJkVwzrBovm9gDLgO
+seIYUMtcXv6KOeGX8tpcsEcv4eq/ha1IP9riMPpjRKai0k4Xdk24KVWf6z0LWs4P
+B9Zezr5Gjw2jre0lKq2smJO6SxmimwJNPzsPgKN0PzR8ZeCc/LNdpzPTJOJaGI72
+vmbhXk0Jq/Zvpi1xqtdruMamYT2GUg==
+=PR4M
+-----END PGP SIGNATURE-----
+
+--d6eh77clrx5z7gh5--
