@@ -1,35 +1,26 @@
-Return-Path: <hare@suse.com>
+Return-Path: <pmladek@suse.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 80103412
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id F0C3D491
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 21 Jun 2017 07:17:39 +0000 (UTC)
-Received: from smtp.nue.novell.com (smtp.nue.novell.com [195.135.221.5])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 770631D7
+	Wed, 21 Jun 2017 09:29:03 +0000 (UTC)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 65C901DF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 21 Jun 2017 07:17:38 +0000 (UTC)
-To: Steven Rostedt <rostedt@goodmis.org>, Mark Brown <broonie@kernel.org>
+	Wed, 21 Jun 2017 09:29:03 +0000 (UTC)
+Date: Wed, 21 Jun 2017 11:29:00 +0200
+From: Petr Mladek <pmladek@suse.com>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <20170621092900.GB1538@pathway.suse.cz>
 References: <20170619052146.GA2889@jagdpanzerIV.localdomain>
 	<ef18231f-c69b-5d88-0410-485cfcf4143b@suse.com>
 	<20170619103912.2edbf88a@gandalf.local.home>
-	<20170619152055.GM3786@lunn.ch>
-	<01a7d603-c0a2-7aae-8c8d-587063da5e61@suse.com>
-	<20170619162317.4nxx6jsvuzvdtasz@sirena.org.uk>
-	<20170620155825.GC409@tigerII.localdomain>
-	<3908561D78D1C84285E8C5FCA982C28F612DAC67@ORSMSX114.amr.corp.intel.com>
-	<20170620171134.GA444@tigerII.localdomain>
-	<20170620172738.zh4maxtfmlwhyrnt@sirena.org.uk>
-	<20170620192858.142a43ff@gandalf.local.home>
-From: Hannes Reinecke <hare@suse.com>
-Message-ID: <6d5d0115-6a6a-ecf0-5dc2-d359bb2c10a8@suse.com>
-Date: Wed, 21 Jun 2017 09:17:03 +0200
+	<CAKMK7uEnsezRz=0-A2oAtSOTxNDR9LOCd8XOaG=tkC8+Xf_puQ@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20170620192858.142a43ff@gandalf.local.home>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: Peter Zijlstra <peterz@infradead.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAKMK7uEnsezRz=0-A2oAtSOTxNDR9LOCd8XOaG=tkC8+Xf_puQ@mail.gmail.com>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] printk redesign
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -41,72 +32,68 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 06/21/2017 01:28 AM, Steven Rostedt wrote:
-> On Tue, 20 Jun 2017 18:27:38 +0100
-> Mark Brown <broonie@kernel.org> wrote:
+On Tue 2017-06-20 20:45:27, Daniel Vetter wrote:
+> My own pet peeve with printk from the drm side:
 > 
->> On Wed, Jun 21, 2017 at 02:11:34AM +0900, Sergey Senozhatsky wrote:
->>
->>> another thing that I found useful is a CPU number of the processor
->>> that stored a particular line to the logbuf.  
->>
->> At some point we start reinventing ftrace...  there's issues with
->> joining the two up but there should at least be lessons we can learn.
-> 
-> I've thought about this a little too.
-> 
-Of course you would :-)
+> Untangling printk form the console_lock horror show, if at all
+> possible. One problem is that heavy printk usage makes the
+> console_lock massively contended (we delay restoring the the kernel
+> console on resume in kms drivers to a worker because of that).
 
-> I would like printk to have per-cpu buffers. Then we don't even need to
-> store the CPU number, that would be explicit by which buffer the data
-> is stored in.
-> 
-> The one thing that is needed, is the consumer. In ftrace, it's whatever
-> reads the buffer, which is usually user space, but can be the kernel
-> (see sysctl-z). But there's only one consumer at a time.
-> 
-> I was thinking about a new design for printk. Similar to ftrace, but
-> different.
-> 
-> 1) have per cpu buffers, that are lockless. Writes happen immediately,
-> but the output happens later.
->> 2) have two types of console interfaces. A normal and a critical.
-> 
-> 3) have a thread that is woken whenever there is data in any of the
-> buffers, and reads the buffers, again lockless. But to do this in a
-> reasonable manner, unless you break the printks up in sub buffers like
-> ftrace, if the consumer isn't fast enough, newer messages are dropped.
-> 
-I'd rather have the _older_ messages dropped. Or make this a policy.
-But in general one should be able to adjust the buffer size so that this
-doesn't occur.
+We really need an offload mechanism. The patches are circulating
+for years. The last version uses a kthread. It allows to release
+console_lock even when some messages are pending. It should be
+perfectly fine when the system works normally and the kthread
+will get scheduled eventually.
 
-> 4) If a critical print is needed (and here's why we have two console
-> interfaces), the normal console interface gets turned off, and the
-> buffers stop being output through them. What ever called the critical
-> print, will take over, and flush out all the contents of the current
-> buffers. Then anything printed during the critical section will go out
-> immediately (no buffering). The printk thread, will stop having access
-> to the buffers, and shutdown till the critical section is complete.
-> 
-Hmm. Ideally the critical print will be shipped out _without_ having to
-wait for the normal buffer contents.
-(Adding the message _at the tail_ and rewinding the buffer to that?)
+There is a problem to detect situations where the system is
+in a bad state, the offload might not work and we should switch
+to the sync mode. But we make some progress on this as well.
 
-Remember, there might be _lots_ of 'normal' buffer entries (like system
-screaming just before OOM kicks in), so we might not have enough time
-shipping out all entries, and the really critical one might never be seen.
+IMHO, the best solution would be to avoid sleeping with
+console_lock. Then it will be guaranteed that either someone
+is actively flushing the messages or that anyone else is
+free to do so.
 
-_If_ all messages are proper prefixed with a timestamp (and possibly CPU
-number) it doesn't really matter if messages are printed out of order;
-one can always sort them later on.
+But this would require to untangle all the other uses of
+console_lock where the sleeping is necessary these days.
 
-Cheers,
+Also others might think different.
 
-Hannes
--- 
-Dr. Hannes Reinecke		   Teamlead Storage & Networking
-hare@suse.com			               +49 911 74053 688
-SUSE LINUX GmbH, Maxfeldstr. 5, 90409 Nürnberg
-GF: F. Imendörffer, J. Smithard, J. Guild, D. Upmanyu, G. Norton
-HRB 21284 (AG Nürnberg)
+Anyway, the discussion about the current patchset is at
+https://lkml.kernel.org/r/20170509082859.854-3-sergey.senozhatsky@gmail.com
+
+Sergey already have another RFC using another idea but I did
+not have to review this yet. See
+https://lkml.kernel.org/r/20170602090345.624-1-sergey.senozhatsky@gmail.com
+
+
+
+> The worse problem is that console_lock locking is horribly monolithic and
+> defacto requires that large chunks of your gfx driver init code needs
+> to run while holding it. Which means no printk output, neither for
+> your gfx driver nor anything else while your cpu goes through
+> something like a few 100k lines of code (for big drivers).
+
+To be honest, I still do not know all the dark sides of the console
+handling and this seems to be one of them. I wonder why
+the console_lock is needed in this code. It does not make
+much sense to me. It must be a synchronization task of
+console_lock that I not aware of.
+
+
+> We have a few pages of kerneldoc explaining how to debug this and what
+> happens, and gross debug hacks to just not take console_lock on driver
+> (and pray it won't race), but it's a constant trap for new gfx
+> hackers.
+
+Good to know.
+
+> Fixing console_lock is much less likely to happen, I (and better
+> hackers like Alan Cox) tried, and ran away in tears.
+
+This looks like a real challenge. I feel less shame that it take
+us too long.
+
+Best Regards,
+Petr
