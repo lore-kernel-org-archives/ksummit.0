@@ -1,17 +1,17 @@
 Return-Path: <andrew@lunn.ch>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A3FF89EE
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5AE9C89C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 21 Jun 2017 14:19:10 +0000 (UTC)
+	Wed, 21 Jun 2017 16:10:19 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [178.209.37.122])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 30AAE1D7
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D9710147
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 21 Jun 2017 14:19:10 +0000 (UTC)
-Date: Wed, 21 Jun 2017 16:18:08 +0200
+	Wed, 21 Jun 2017 16:10:18 +0000 (UTC)
+Date: Wed, 21 Jun 2017 18:09:51 +0200
 From: Andrew Lunn <andrew@lunn.ch>
 To: Petr Mladek <pmladek@suse.com>
-Message-ID: <20170621141808.GE27585@lunn.ch>
+Message-ID: <20170621160951.GA20550@lunn.ch>
 References: <20170619103912.2edbf88a@gandalf.local.home>
 	<20170619152055.GM3786@lunn.ch>
 	<01a7d603-c0a2-7aae-8c8d-587063da5e61@suse.com>
@@ -39,38 +39,15 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Jun 21, 2017 at 02:23:04PM +0200, Petr Mladek wrote:
-> On Tue 2017-06-20 19:28:58, Steven Rostedt wrote:
-> > I've thought about this a little too.
-> > 
-> > I would like printk to have per-cpu buffers. Then we don't even need to
-> > store the CPU number, that would be explicit by which buffer the data
-> > is stored in.
-> > 
-> > The one thing that is needed, is the consumer. In ftrace, it's whatever
-> > reads the buffer, which is usually user space, but can be the kernel
-> > (see sysctl-z). But there's only one consumer at a time.
-> > 
-> > I was thinking about a new design for printk. Similar to ftrace, but
-> > different.
-> > 
-> > 1) have per cpu buffers, that are lockless. Writes happen immediately,
-> > but the output happens later.
+> 7. Unreliable time stamps and sorting messages
 > 
-> My problems with per-CPU buffers is that:
-> 
->     + I am not sure how big per-CPU buffers we could afford.
->       Any non-balanced usage increases the chance of loosing
->       messages.
-> 
->     + The information is scattered and extra tools are needed
->       to locate the messages and sort them.
+>    The current extra buffers (cont, printk_safe, printk_safe_nmi)
+>    makes this worse. The timestamp is added later.
 
-Considering this from the Embedded world, during board bring up, you
-might be poking around in memory using a JTAG interface because your
-serial driver is not working yet, or the kernel is crashing before the
-serial port is up and running. The in-memory format needs to be quite
-simple to read. I don't know how early_printk() factors into
-this. Maybe that solves this problem?
+All you need is a sequence number. Since you have the CPU number
+already, it could be a per CPU atomic. And you probably don't even
+need to sort the output, if the sequence number is part of the
+output. How bad is the reordering? Would a sequence space of 256 be
+enough?
 
-      Andrew
+	Andrew
