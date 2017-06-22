@@ -1,33 +1,34 @@
-Return-Path: <daniel.vetter@ffwll.ch>
+Return-Path: <SRS0=sOnO=53=goodmis.org=rostedt@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 547AD71F
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D5157504
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 22 Jun 2017 13:48:36 +0000 (UTC)
-Received: from mail-it0-f66.google.com (mail-it0-f66.google.com
-	[209.85.214.66])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CE2E9171
+	Thu, 22 Jun 2017 14:06:45 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B8E1AD3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 22 Jun 2017 13:48:35 +0000 (UTC)
-Received: by mail-it0-f66.google.com with SMTP id f20so4218224itb.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 22 Jun 2017 06:48:35 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <CAKMK7uGR_Zn1eW9znd_HNF1VS5ELmrrZwXBwmkpaAzB=F_qG3A@mail.gmail.com>
-References: <20170619052146.GA2889@jagdpanzerIV.localdomain>
-	<ef18231f-c69b-5d88-0410-485cfcf4143b@suse.com>
+	Thu, 22 Jun 2017 14:06:44 +0000 (UTC)
+Date: Thu, 22 Jun 2017 10:06:41 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Sergey Senozhatsky <sergey.senozhatsky.work@gmail.com>
+Message-ID: <20170622100641.1dae4e3c@gandalf.local.home>
+In-Reply-To: <20170621111210.GA7502@jagdpanzerIV.localdomain>
+References: <ef18231f-c69b-5d88-0410-485cfcf4143b@suse.com>
 	<20170619103912.2edbf88a@gandalf.local.home>
-	<CAKMK7uEnsezRz=0-A2oAtSOTxNDR9LOCd8XOaG=tkC8+Xf_puQ@mail.gmail.com>
-	<20170621101418.GA455@jagdpanzerIV.localdomain>
-	<CAKMK7uGR_Zn1eW9znd_HNF1VS5ELmrrZwXBwmkpaAzB=F_qG3A@mail.gmail.com>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Thu, 22 Jun 2017 15:48:34 +0200
-Message-ID: <CAKMK7uGWBFJ70KPexoyyYiWMOkKTga5KEO5zPtN70pRHBV90cQ@mail.gmail.com>
-To: Sergey Senozhatsky <sergey.senozhatsky.work@gmail.com>,
-	Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
-	Linux Fbdev development list <linux-fbdev@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<20170619152055.GM3786@lunn.ch>
+	<01a7d603-c0a2-7aae-8c8d-587063da5e61@suse.com>
+	<20170619162317.4nxx6jsvuzvdtasz@sirena.org.uk>
+	<20170620155825.GC409@tigerII.localdomain>
+	<3908561D78D1C84285E8C5FCA982C28F612DAC67@ORSMSX114.amr.corp.intel.com>
+	<20170620171134.GA444@tigerII.localdomain>
+	<20170620172738.zh4maxtfmlwhyrnt@sirena.org.uk>
+	<20170620192858.142a43ff@gandalf.local.home>
+	<20170621111210.GA7502@jagdpanzerIV.localdomain>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] printk redesign
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -39,38 +40,87 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Jun 22, 2017 at 3:42 PM, Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
-> Tears pretty much guaranteed, and after a few hacks from Alan&me I
-> concluded that the only way to fix this is to at least partially
-> rewrite fbdev (a dead subsystem, so no one's volunteering), with the
-> risk that you get to revert it all because someone is indeed relying
-> on that super-flexible module loading order sequence. The simplest fix
-> would probably be to make the entire fbdev->fbcon setup depency a
-> hard-coded function call, or maybe at most a one-shot symbol_get
-> attempt.
+On Wed, 21 Jun 2017 20:12:10 +0900
+Sergey Senozhatsky <sergey.senozhatsky.work@gmail.com> wrote:
 
-I did once hash out a plan how to fix this with the least amount of pain:
 
-1. Merge a patch to build the fbcon support into the overall fb.ko
-module, so that the dynamic loading nonsense is essentially disabled,
-and fbcon becomes a Kconfig/compile-time only option, no longer a
-runtime-selectable thing.
+> I thought about it, and the question is:
+> would lockless per-CPU logbuffers buy us anything? we used to have
 
-2. Wait 1 year and pray that no one reports a regression. If you're
-unlucky, try to fence them of with a runtime option to disable fbcon.
+Well, I'm not 100% happy with the current NMI approach. There is still
+no "print everything" from NMI. That is, prints from NMI must be placed
+in a buffer before going out, and that limits how much can be printed.
+And an ftrace_dump_on_oops can be huge.
 
-3. Rip out the notifier nonsense and replace it by direct function
-calls. You can only do that once 1. won't be reverted anymore.
+> problems with the logbuf_lock, but not any more (to the best of my
+> knowledge). we deal with logbuf_lock deadlocks using printk_nmi and
+> printk_safe. so I'd say that logbuf_lock probably doesn't bother us
+> anymore, it's all those locks that printk can't control that bother
+> us (semaphore, scheduler, timekeeping, serial consoles, etc. etc.).
+> 
+> so would per-CPU logbufs be better? we would need to do N-way merge
+> (N per-CPU logbufs) when we print the kernel messages log, correct?
 
-4. Push the console_lock donw the callchains until it's again at the
-right spots, auditing all the other stuff meanwhile to make sure the
-locking is still correct.
+Yes.
 
-5. Apply your patch to make console_lock sane.
+> 
+> > 2) have two types of console interfaces. A normal and a critical.
+> > 
+> > 3) have a thread that is woken whenever there is data in any of the
+> > buffers, and reads the buffers, again lockless. But to do this in a
+> > reasonable manner, unless you break the printks up in sub buffers like
+> > ftrace, if the consumer isn't fast enough, newer messages are dropped.  
+> 
+> yes, so I definitely want to have printing offloading. but, per my
+> experience, it's not all so simple when it comes to offloading. if
+> we would compare offloading with the direct printing then offloading
+> does change printk behaviour and I saw a number of dropped messages
+> bug reports because of offloading. the existing direct printing can
+> throttle the CPU that printks a lot.
+> 
+> direct printing
+> 
+> 	CPU1
+> 
+> 	printk
+> 	call_console_drivers
+> 	printk
+> 	call_console_drivers
+> 	...
+> 	printk
+> 	call_console_drivers
+> 
+> 
+> so new logbuf entries do not appear in the logbuf until the previous
+> ones are printed to the serial console. while with the offloading
+> it's different:
+> 
+> offloading
+> 
+> 	CPU1				CPU2
+> 	printk
+> 	printk				call_console_drivers
+> 	printk
+> 	printk				call_console_drivers
+> 	printk
+> 					call_console_drivers
+> 
+> new logbuf entries now appear uncontrollably.
+> 
+> well, nothing new here. we already can have hit scenario, we just need
+> one CPU spinning in console_unlock() and one or several CPUs doing
+> printk. but with offloading we potentially break a trivial case - a
+> single CPU that calls printk.
 
-Adding fbdev maintainers and lists just.
--Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-+41 (0) 79 365 57 48 - http://blog.ffwll.ch
+We could come up with another way to throttle the CPU that does all the
+printks.
+
+> 
+> 
+> so may be additionally to offloading we also would need some sort of
+> throttling mechanism in printk.
+
+Yes.
+
+
+-- Steve
