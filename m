@@ -1,34 +1,27 @@
-Return-Path: <pmladek@suse.com>
+Return-Path: <b.zolnierkie@samsung.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9A60DA7B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 39CD3A85
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 23 Jun 2017 08:49:44 +0000 (UTC)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3B947134
+	Fri, 23 Jun 2017 09:07:43 +0000 (UTC)
+Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7771E134
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 23 Jun 2017 08:49:44 +0000 (UTC)
-Date: Fri, 23 Jun 2017 10:49:40 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Message-ID: <20170623084940.GH23337@pathway.suse.cz>
-References: <20170619152055.GM3786@lunn.ch>
-	<01a7d603-c0a2-7aae-8c8d-587063da5e61@suse.com>
-	<20170619162317.4nxx6jsvuzvdtasz@sirena.org.uk>
-	<20170620155825.GC409@tigerII.localdomain>
-	<3908561D78D1C84285E8C5FCA982C28F612DAC67@ORSMSX114.amr.corp.intel.com>
-	<20170620171134.GA444@tigerII.localdomain>
-	<20170620172738.zh4maxtfmlwhyrnt@sirena.org.uk>
-	<20170620192858.142a43ff@gandalf.local.home>
-	<20170621122304.GC1538@pathway.suse.cz>
-	<20170621160951.GA20550@lunn.ch>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20170621160951.GA20550@lunn.ch>
-Cc: Peter Zijlstra <peterz@infradead.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+	Fri, 23 Jun 2017 09:07:42 +0000 (UTC)
+From: Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Fri, 23 Jun 2017 11:07:33 +0200
+Message-id: <10423619.jNvHD4M0jW@amdc3058>
+In-reply-to: <CAKMK7uGWBFJ70KPexoyyYiWMOkKTga5KEO5zPtN70pRHBV90cQ@mail.gmail.com>
+MIME-version: 1.0
+Content-transfer-encoding: 7Bit
+Content-type: text/plain; charset="us-ascii"
+References: <20170619052146.GA2889@jagdpanzerIV.localdomain>
+	<CGME20170622134852epcas2p4b6deccc56b52c71eada58fba2d527793@epcas2p4.samsung.com>
+	<CAKMK7uGWBFJ70KPexoyyYiWMOkKTga5KEO5zPtN70pRHBV90cQ@mail.gmail.com>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Linux Fbdev development list <linux-fbdev@vger.kernel.org>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] printk redesign
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -39,24 +32,45 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed 2017-06-21 18:09:51, Andrew Lunn wrote:
-> > 7. Unreliable time stamps and sorting messages
-> > 
-> >    The current extra buffers (cont, printk_safe, printk_safe_nmi)
-> >    makes this worse. The timestamp is added later.
+
+Hi,
+
+On Thursday, June 22, 2017 03:48:34 PM Daniel Vetter wrote:
+> On Thu, Jun 22, 2017 at 3:42 PM, Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
+> > Tears pretty much guaranteed, and after a few hacks from Alan&me I
+> > concluded that the only way to fix this is to at least partially
+> > rewrite fbdev (a dead subsystem, so no one's volunteering), with the
+> > risk that you get to revert it all because someone is indeed relying
+> > on that super-flexible module loading order sequence. The simplest fix
+> > would probably be to make the entire fbdev->fbcon setup depency a
+> > hard-coded function call, or maybe at most a one-shot symbol_get
+> > attempt.
 > 
-> All you need is a sequence number. Since you have the CPU number
-> already, it could be a per CPU atomic. And you probably don't even
-> need to sort the output, if the sequence number is part of the
-> output.
+> I did once hash out a plan how to fix this with the least amount of pain:
+> 
+> 1. Merge a patch to build the fbcon support into the overall fb.ko
+> module, so that the dynamic loading nonsense is essentially disabled,
+> and fbcon becomes a Kconfig/compile-time only option, no longer a
+> runtime-selectable thing.
+> 
+> 2. Wait 1 year and pray that no one reports a regression. If you're
+> unlucky, try to fence them of with a runtime option to disable fbcon.
+> 
+> 3. Rip out the notifier nonsense and replace it by direct function
+> calls. You can only do that once 1. won't be reverted anymore.
+> 
+> 4. Push the console_lock donw the callchains until it's again at the
+> right spots, auditing all the other stuff meanwhile to make sure the
+> locking is still correct.
+> 
+> 5. Apply your patch to make console_lock sane.
+> 
+> Adding fbdev maintainers and lists just.
 
-Yup.
+Your plan sounds good to me.
 
-> How bad is the reordering? Would a sequence space of 256 be
-> enough?
-
-That is very good question and we need a feedback here. I am not sure
-what fixes are worth the complexity.
-
-Best Regards,
-Petr
+Best regards,
+--
+Bartlomiej Zolnierkiewicz
+Samsung R&D Institute Poland
+Samsung Electronics
