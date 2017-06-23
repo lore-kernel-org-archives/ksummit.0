@@ -1,27 +1,35 @@
-Return-Path: <b.zolnierkie@samsung.com>
+Return-Path: <SRS0=qjaZ=54=goodmis.org=rostedt@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 39CD3A85
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id BFD63B9F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 23 Jun 2017 09:07:43 +0000 (UTC)
-Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7771E134
+	Fri, 23 Jun 2017 13:09:48 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 43B4120A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 23 Jun 2017 09:07:42 +0000 (UTC)
-From: Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Fri, 23 Jun 2017 11:07:33 +0200
-Message-id: <10423619.jNvHD4M0jW@amdc3058>
-In-reply-to: <CAKMK7uGWBFJ70KPexoyyYiWMOkKTga5KEO5zPtN70pRHBV90cQ@mail.gmail.com>
-MIME-version: 1.0
-Content-transfer-encoding: 7Bit
-Content-type: text/plain; charset="us-ascii"
-References: <20170619052146.GA2889@jagdpanzerIV.localdomain>
-	<CGME20170622134852epcas2p4b6deccc56b52c71eada58fba2d527793@epcas2p4.samsung.com>
-	<CAKMK7uGWBFJ70KPexoyyYiWMOkKTga5KEO5zPtN70pRHBV90cQ@mail.gmail.com>
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Linux Fbdev development list <linux-fbdev@vger.kernel.org>
+	Fri, 23 Jun 2017 13:09:48 +0000 (UTC)
+Date: Fri, 23 Jun 2017 09:09:44 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Sergey Senozhatsky <sergey.senozhatsky.work@gmail.com>
+Message-ID: <20170623090944.40d2952c@gandalf.local.home>
+In-Reply-To: <20170623054321.GB844@jagdpanzerIV.localdomain>
+References: <20170619152055.GM3786@lunn.ch>
+	<01a7d603-c0a2-7aae-8c8d-587063da5e61@suse.com>
+	<20170619162317.4nxx6jsvuzvdtasz@sirena.org.uk>
+	<20170620155825.GC409@tigerII.localdomain>
+	<3908561D78D1C84285E8C5FCA982C28F612DAC67@ORSMSX114.amr.corp.intel.com>
+	<20170620171134.GA444@tigerII.localdomain>
+	<20170620172738.zh4maxtfmlwhyrnt@sirena.org.uk>
+	<20170620192858.142a43ff@gandalf.local.home>
+	<20170621111210.GA7502@jagdpanzerIV.localdomain>
+	<20170622100641.1dae4e3c@gandalf.local.home>
+	<20170623054321.GB844@jagdpanzerIV.localdomain>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] printk redesign
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -32,45 +40,25 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Fri, 23 Jun 2017 14:43:22 +0900
+Sergey Senozhatsky <sergey.senozhatsky.work@gmail.com> wrote:
 
-Hi,
+> currently we've got a _very_ accidental fix/hack that lets us to bypass
+> printk_nmi per-CPU buffers in most of the cases and print NMI messages
+> directly to the logbuf, with the only exceptional case (when we store the
+> messages to the per-CPU printk_nmi buffer) being the case when NMI printk
+> happens on the CPU that owned the logbuf_lock at the time when NMI occurred
+> on that CPU. which is may be narrow enough. so we can keep printk_nmi and
+> printk_safe per-CPU buffers relatively small in size, and instead make
+> only logbuf really huge. with per-CPU logbufs design we would need to make
+> each CPU's buffer huge unconditionally.
+> 
+> but, at the same time, with the current implementation, there is a
+> possibility that we will have to make both logbuf and per-CPU buffers
+> really huge.
 
-On Thursday, June 22, 2017 03:48:34 PM Daniel Vetter wrote:
-> On Thu, Jun 22, 2017 at 3:42 PM, Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
-> > Tears pretty much guaranteed, and after a few hacks from Alan&me I
-> > concluded that the only way to fix this is to at least partially
-> > rewrite fbdev (a dead subsystem, so no one's volunteering), with the
-> > risk that you get to revert it all because someone is indeed relying
-> > on that super-flexible module loading order sequence. The simplest fix
-> > would probably be to make the entire fbdev->fbcon setup depency a
-> > hard-coded function call, or maybe at most a one-shot symbol_get
-> > attempt.
-> 
-> I did once hash out a plan how to fix this with the least amount of pain:
-> 
-> 1. Merge a patch to build the fbcon support into the overall fb.ko
-> module, so that the dynamic loading nonsense is essentially disabled,
-> and fbcon becomes a Kconfig/compile-time only option, no longer a
-> runtime-selectable thing.
-> 
-> 2. Wait 1 year and pray that no one reports a regression. If you're
-> unlucky, try to fence them of with a runtime option to disable fbcon.
-> 
-> 3. Rip out the notifier nonsense and replace it by direct function
-> calls. You can only do that once 1. won't be reverted anymore.
-> 
-> 4. Push the console_lock donw the callchains until it's again at the
-> right spots, auditing all the other stuff meanwhile to make sure the
-> locking is still correct.
-> 
-> 5. Apply your patch to make console_lock sane.
-> 
-> Adding fbdev maintainers and lists just.
+Ideally, I would love to have a way that an NMI (on opps) can have a
+way to just print directly to the consoles, without having to use the
+log buffers at all.
 
-Your plan sounds good to me.
-
-Best regards,
---
-Bartlomiej Zolnierkiewicz
-Samsung R&D Institute Poland
-Samsung Electronics
+-- Steve
