@@ -1,12 +1,16 @@
-Return-Path: <corbet@lwn.net>
-Date: Fri, 23 Jun 2017 12:39:36 -0600
-From: Jonathan Corbet <corbet@lwn.net>
-To: ksummit-discuss@lists.linux-foundation.org
-Message-ID: <20170623123936.42dab05f@lwn.net>
+Return-Path: <gregkh@linuxfoundation.org>
+Date: Fri, 23 Jun 2017 22:52:29 +0800
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Laura Abbott <labbott@redhat.com>
+Message-ID: <20170623145229.GB1855@kroah.com>
+References: <1de3c642-a4b7-1065-5c35-ba32866d471d@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 8bit
-Subject: [Ksummit-discuss] [MAINTAINERS SUMMIT] Documentation issues
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1de3c642-a4b7-1065-5c35-ba32866d471d@redhat.com>
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug reporting feedback
+ loop
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -16,21 +20,27 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-The docs pull for 4.13 will include the conversion of the last DocBook
-template files, thanks mostly to Mauro.  That's the good news; the bad
-news is that I get to explain a lot of merge conflicts to Linus, most of
-which result from other trees reaching into Documentation/ and changing
-files that have been converted.
+On Wed, Jun 21, 2017 at 03:34:11PM -0700, Laura Abbott wrote:
+> - There's still a gap between when bugs hit Linus' tree and when
+> stable releases come out. This is not a knock against stable or
+> a request for stable to go faster :). I try
+> and monitor stable@ for fixes but there still seems to be a
+> large time gap for identifying fixes that have been fixes in
+> master that are relevant to a recent stable release.
 
-I can continue in this mode, but I do wonder if there's a better way out
-there somewhere.  So I think there would be value in a session on the
-maintenance of "subsystems" that don't fit neatly into the kernel
-source-tree hierarchy.
+Ok, I'll bite, what exactly do you mean by "large time"?  During the
+-rc1 merge window, it can take a few weeks for me to catch up with the
+large onslaught of patches marked for stable, but almost all of those
+were determined by the develoers to not be all-so-serious, as they were
+delayed in getting to Linus for -rc1, and not before.
 
-We could also talk about the state of the RST conversion and whether/how
-we'd like it to continue.  Perhaps we would rather, as Peter recently
-suggested, "just delete all that nonsense and go back to 80 column 7bit
-ASCII"?  In general, what do the maintainers want from the documentation
-subsystem, and how can we make it easy to continue improving our docs?
+You can always email and ask for specific patches to be queued up now,
+as I go through the list in a semi-random manner.
 
-jon
+After the big -rc1 chunk of patches are merged, it's usually only a week
+at most before the patches hit a stable release, people usually complain
+it goes too fast, not that it's too slow these days.
+
+thanks,
+
+greg k-h
