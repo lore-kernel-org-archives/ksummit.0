@@ -1,25 +1,25 @@
-Return-Path: <jikos@kernel.org>
+Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6EFB9ACB
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E038FAE7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 23 Jun 2017 20:28:31 +0000 (UTC)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id ED0C13CA
+	Fri, 23 Jun 2017 23:16:51 +0000 (UTC)
+Received: from cloudserver094114.home.net.pl (cloudserver094114.home.net.pl
+	[79.96.170.134])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DD8381FB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 23 Jun 2017 20:28:30 +0000 (UTC)
-Date: Fri, 23 Jun 2017 22:28:28 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
-To: Greg KH <gregkh@linuxfoundation.org>
-In-Reply-To: <20170623145229.GB1855@kroah.com>
-Message-ID: <alpine.LSU.2.20.1706232226370.30709@cbobk.fhfr.pm>
-References: <1de3c642-a4b7-1065-5c35-ba32866d471d@redhat.com>
-	<20170623145229.GB1855@kroah.com>
+	Fri, 23 Jun 2017 23:16:50 +0000 (UTC)
+From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+To: Jonathan Corbet <corbet@lwn.net>
+Date: Sat, 24 Jun 2017 01:09:28 +0200
+Message-ID: <8342944.hYkokseh5H@aspire.rjw.lan>
+In-Reply-To: <20170623123936.42dab05f@lwn.net>
+References: <20170623123936.42dab05f@lwn.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug reporting feedback
- loop
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Documentation issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,30 +29,31 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, 23 Jun 2017, Greg KH wrote:
-
-> Ok, I'll bite, what exactly do you mean by "large time"?  During the 
-> -rc1 merge window, it can take a few weeks for me to catch up with the 
-> large onslaught of patches marked for stable, but almost all of those 
-> were determined by the develoers to not be all-so-serious, as they were 
-> delayed in getting to Linus for -rc1, and not before.
+On Friday, June 23, 2017 12:39:36 PM Jonathan Corbet wrote:
+> The docs pull for 4.13 will include the conversion of the last DocBook
+> template files, thanks mostly to Mauro.  That's the good news; the bad
+> news is that I get to explain a lot of merge conflicts to Linus, most of
+> which result from other trees reaching into Documentation/ and changing
+> files that have been converted.
 > 
-> You can always email and ask for specific patches to be queued up now,
-> as I go through the list in a semi-random manner.
+> I can continue in this mode, but I do wonder if there's a better way out
+> there somewhere.  So I think there would be value in a session on the
+> maintenance of "subsystems" that don't fit neatly into the kernel
+> source-tree hierarchy.
 > 
-> After the big -rc1 chunk of patches are merged, it's usually only a week
-> at most before the patches hit a stable release, people usually complain
-> it goes too fast, not that it's too slow these days.
+> We could also talk about the state of the RST conversion and whether/how
+> we'd like it to continue.  Perhaps we would rather, as Peter recently
+> suggested, "just delete all that nonsense and go back to 80 column 7bit
+> ASCII"?  In general, what do the maintainers want from the documentation
+> subsystem, and how can we make it easy to continue improving our docs?
 
-I agree, we don't see the pace at which patches make it into -stable as a 
-big issue for us (*); in case we need anything cherry-picked from Linus' 
-tree earlier than it appears in -stable, we just do that, and drop it from 
-our tree once we merge new -stable.
+For one, I'm going to continue converting PM documentation to RST and I would
+not welcome deleting the existing .txt one until that is complete.
 
-(*) sometimes it's actually quite the contrary :)
+Same goes for ACPI, pretty much.
+
+Also I don't expect too many documentation-related merge conflicts in the PM
+case going forward.
 
 Thanks,
-
--- 
-Jiri Kosina
-SUSE Labs
+Rafael
