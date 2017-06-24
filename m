@@ -1,18 +1,17 @@
-Return-Path: <SRS0=Gzkb=55=goodmis.org=rostedt@kernel.org>
+Return-Path: <viro@ftp.linux.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 870F28DC
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 636CD8EE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 24 Jun 2017 23:40:44 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id ECFA718F
+	Sun, 25 Jun 2017 01:02:40 +0000 (UTC)
+Received: from ZenIV.linux.org.uk (zeniv.linux.org.uk [195.92.253.2])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 98927184
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 24 Jun 2017 23:40:43 +0000 (UTC)
-Date: Sat, 24 Jun 2017 19:40:41 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
+	Sun, 25 Jun 2017 01:02:39 +0000 (UTC)
+Date: Sun, 25 Jun 2017 00:48:05 +0100
+From: Al Viro <viro@ZenIV.linux.org.uk>
 To: Linus Torvalds <torvalds@linux-foundation.org>
-Message-ID: <20170624194041.5591b3ad@gandalf.local.home>
-In-Reply-To: <CA+55aFzQyfVnj2mhsZGsOVP7FEc4g7vguGCtkyGy1cMONPeitw@mail.gmail.com>
+Message-ID: <20170624234805.GT10672@ZenIV.linux.org.uk>
 References: <20170619052146.GA2889@jagdpanzerIV.localdomain>
 	<ef18231f-c69b-5d88-0410-485cfcf4143b@suse.com>
 	<20170619103912.2edbf88a@gandalf.local.home>
@@ -23,8 +22,10 @@ References: <20170619052146.GA2889@jagdpanzerIV.localdomain>
 	<20170624232140.GA27473@lunn.ch>
 	<CA+55aFzQyfVnj2mhsZGsOVP7FEc4g7vguGCtkyGy1cMONPeitw@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CA+55aFzQyfVnj2mhsZGsOVP7FEc4g7vguGCtkyGy1cMONPeitw@mail.gmail.com>
+Sender: Al Viro <viro@ftp.linux.org.uk>
 Cc: Mauro Carvalho Chehab <mchehab@s-opensource.com>,
 	ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] printk redesign
@@ -37,12 +38,10 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, 24 Jun 2017 16:26:42 -0700
-Linus Torvalds <torvalds@linux-foundation.org> wrote:
-
+On Sat, Jun 24, 2017 at 04:26:42PM -0700, Linus Torvalds wrote:
 > On Sat, Jun 24, 2017 at 4:21 PM, Andrew Lunn <andrew@lunn.ch> wrote:
 > > This assumes timestamps are fine grained enough. I still prefer a
-> > sequence number in addition.  
+> > sequence number in addition.
 > 
 > Guyes, you're overdesigning.
 > 
@@ -54,34 +53,8 @@ Linus Torvalds <torvalds@linux-foundation.org> wrote:
 > What *is* going to get used is digital cameras to take pictures of a
 > screen, and "dmesg" output (and no, dmesg will not use those sequence
 > numbers either, see above).
-> 
-> If those two things aren't the absolutely primary goals, the whole
-> thing is pointless to even discuss. No amount of cool features,
-> performance, or theoretical deadlock avoidance matters ONE WHIT
-> compared to the two things above.
->
 
-That was in my original email about the #1 priority. Critical prints.
-Which will always be done in sequence and at the time they are printed.
-A digital camera will only be able to grab the backtrace. Most all the
-other crud that people use printk for will be off screen.
-
-In fact, it would be great to have it so that the first bug stops the
-kernel. I hate it when I get pictures of backtraces only to find out
-it's the fifth backtrace that happened, and whatever caused the bug
-had its backtrace lost by the 4 other bugs that were simply side
-effects of the first real bug.
-
-IMHO, printk is used too freely. Perhaps what comes out of this is to
-create an "info only" printk that is out of band with critical printks.
-Or perhaps even simpler, start auditing printks and remove those that
-are really not needed.
-
-Now the reports I've heard about, these are not theoretical deadlocks,
-they can really happen on large scale machines.
-
-Then there's the "debug" printks. Perhaps they should be converted to
-trace points. If a printk requires a config option, a lot of users may
-not be able to enable it.
-
--- Steve
+I'd really hate to have to use pictures of screen...  I really hope that
+printk to serial console keeps working - I don't care about timestamps
+granularity, etc., but losing this would hurt.  Is it really that
+uncommon use case?
