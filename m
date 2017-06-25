@@ -1,18 +1,20 @@
-Return-Path: <willy6545@gmail.com>
+Return-Path: <alexandre.belloni@free-electrons.com>
+Date: Sun, 25 Jun 2017 23:32:45 +0200
+From: Alexandre Belloni <alexandre.belloni@free-electrons.com>
+To: Leon Romanovsky <leon@kernel.org>
+Message-ID: <20170625213245.ep555qmzwbl4kjpq@piout.net>
+References: <20170625072423.GR1248@mtr-leonro.local>
+	<CA+55aFx9A=5cc0QZ7CySC4F2K7eYaEfzkdYEc9JaNgCcV25=rg@mail.gmail.com>
+	<20170625181954.GU1248@mtr-leonro.local>
+	<CA+55aFyM7X2jWYyNeA-AgbV1A-aYJaRBsPZCG+GeO9L8W1Rqww@mail.gmail.com>
+	<20170625190529.GV1248@mtr-leonro.local>
 MIME-Version: 1.0
-In-Reply-To: <CAFhKne_W-EbjUd_Cm4kyBHrVK6K9r8Ss3gY0ogO1nztbQZYBEg@mail.gmail.com>
-References: <20170623123936.42dab05f@lwn.net>
-	<20170624074641.4820fecd@vento.lan>
-	<1779146.rtcHP5MkoH@aspire.rjw.lan> <20170624104142.70677fcb@vento.lan>
-	<CAFhKne8ZttmqWYJToCw9EDywzeMdp=eiFpoZ+O5xrzmKnpA09Q@mail.gmail.com>
-	<CAFhKne_W-EbjUd_Cm4kyBHrVK6K9r8Ss3gY0ogO1nztbQZYBEg@mail.gmail.com>
-From: Matthew Wilcox <willy6545@gmail.com>
-Date: Sun, 25 Jun 2017 17:32:31 -0400
-Message-ID: <CAFhKne_ajkMYKmf-GXC28c_h+O1c0_=SDq-OFEaHHTKs8Qkvpg@mail.gmail.com>
-To: Mauro Carvalho Chehab <mchehab@s-opensource.com>
-Content-Type: multipart/alternative; boundary="001a113edb94744e610552cf9254"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20170625190529.GV1248@mtr-leonro.local>
 Cc: ksummit-discuss@lists.linux-foundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Documentation issues
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Driver and/or module
+ versions
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -22,50 +24,32 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---001a113edb94744e610552cf9254
-Content-Type: text/plain; charset="UTF-8"
+Hi,
 
-I find documentation comes in the following bins:
+On 25/06/2017 at 22:05:29 +0300, Leon Romanovsky wrote:
+> On Sun, Jun 25, 2017 at 11:37:12AM -0700, Linus Torvalds wrote:
+> > On Sun, Jun 25, 2017 at 11:19 AM, Leon Romanovsky <leon@kernel.org> wrote:
+> > >
+> > > Great, so why are we continuing to allow patches with MODULE_VERSION and
+> > > DRIVER_VERSION changes?
+> >
+> > I suspect they just haven't caused problems elsewhere.
+> >
+> > And honestly, they aren't that common. Grepping for MODULE_VERSION and
+> > DRIVER_VERSION shows more than I would like, but we're talking
+> > hundreds, not thousands (and lots of them are basically dead, stale
+> > code - ATA etc, or just joke names - usb).
+> 
+> I see it differently, from my point of view, it is pretty active,
+> especially in the subsystems where new drivers are added more often,
+> but if you say that the policy exists, it is enough for me.
+> 
 
-1. User documentation (possible sub-split into "how to use this from kernel
-space" and "how to use this from user space")
-2. Information for someone who's interested in modifying the code. Possibly
-including architectural considerations (eg locking), performance, ideas for
-future improvement, etc.
-3. Random swearing and abuse
+A while ago, I went and removed all of them from the RTC subsystem.
 
-I think the second and third categories of documentation should be kept out
-of the kernel books and left as plain comments by the code.
 
-On 24 Jun 2017 9:41 am, "Mauro Carvalho Chehab" <mchehab@s-opensource.com>
-wrote:
 
-Yeah, one of the problems with existing documentation is that,
-sometimes, the same document describes both userspace-relevant
-info and kernelspace APIs.
-
---001a113edb94744e610552cf9254
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto"><div><div class=3D"gmail_extra" dir=3D"auto">I find docum=
-entation comes in the following bins:</div><div class=3D"gmail_extra" dir=
-=3D"auto"><br></div><div class=3D"gmail_extra" dir=3D"auto">1. User documen=
-tation (possible sub-split into &quot;how to use this from kernel space&quo=
-t; and &quot;how to use this from user space&quot;)</div><div class=3D"gmai=
-l_extra" dir=3D"auto">2. Information for someone who&#39;s interested in mo=
-difying the code. Possibly including architectural considerations (eg locki=
-ng), performance, ideas for future improvement, etc.</div><div class=3D"gma=
-il_extra" dir=3D"auto">3. Random swearing and abuse</div><div class=3D"gmai=
-l_extra" dir=3D"auto"><br></div><div class=3D"gmail_extra" dir=3D"auto">I t=
-hink the second and third categories of documentation should be kept out of=
- the kernel books and left as plain comments by the code.</div><div class=
-=3D"gmail_extra"><br><div class=3D"gmail_quote">On 24 Jun 2017 9:41 am, &qu=
-ot;Mauro Carvalho Chehab&quot; &lt;<a href=3D"mailto:mchehab@s-opensource.c=
-om">mchehab@s-opensource.com</a>&gt; wrote:<blockquote class=3D"quote" styl=
-e=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Yeah, o=
-ne of the problems with existing documentation is that,<br>
-sometimes, the same document describes both userspace-relevant<br>
-info and kernelspace APIs.<br></blockquote></div></div></div></div>
-
---001a113edb94744e610552cf9254--
+-- 
+Alexandre Belloni, Free Electrons
+Embedded Linux and Kernel engineering
+http://free-electrons.com
