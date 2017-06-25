@@ -1,20 +1,17 @@
-Return-Path: <leon@kernel.org>
-Date: Sun, 25 Jun 2017 22:05:29 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Message-ID: <20170625190529.GV1248@mtr-leonro.local>
-References: <20170625072423.GR1248@mtr-leonro.local>
-	<CA+55aFx9A=5cc0QZ7CySC4F2K7eYaEfzkdYEc9JaNgCcV25=rg@mail.gmail.com>
-	<20170625181954.GU1248@mtr-leonro.local>
-	<CA+55aFyM7X2jWYyNeA-AgbV1A-aYJaRBsPZCG+GeO9L8W1Rqww@mail.gmail.com>
+Return-Path: <jkosina@suse.cz>
+Date: Sun, 25 Jun 2017 22:56:07 +0200 (CEST)
+From: Jiri Kosina <jkosina@suse.cz>
+To: Mauro Carvalho Chehab <mchehab@s-opensource.com>
+In-Reply-To: <20170624104142.70677fcb@vento.lan>
+Message-ID: <alpine.LSU.2.20.1706252254190.30709@cbobk.fhfr.pm>
+References: <20170623123936.42dab05f@lwn.net>
+	<20170624074641.4820fecd@vento.lan>
+	<1779146.rtcHP5MkoH@aspire.rjw.lan>
+	<20170624104142.70677fcb@vento.lan>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="worL9B4ITIAQZ1FS"
-Content-Disposition: inline
-In-Reply-To: <CA+55aFyM7X2jWYyNeA-AgbV1A-aYJaRBsPZCG+GeO9L8W1Rqww@mail.gmail.com>
+Content-Type: text/plain; charset=US-ASCII
 Cc: ksummit-discuss@lists.linux-foundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Driver and/or module
- versions
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Documentation issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -24,51 +21,38 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Sat, 24 Jun 2017, Mauro Carvalho Chehab wrote:
 
---worL9B4ITIAQZ1FS
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> > There are pieces of .txt documentation falling into the "well-knows source of
+> > information" category, with many references to them all over the Web.
+> > kernel-parameters.txt is probably the most spectacular example here, but there
+> > are others.
+> > 
+> > Let us not move or rename these, please, or at least put symbolic links in
+> > place to point to the new locations or similar, such that the existing WWW
+> > links pointing to the documentation at kernel.org still work going forward.
+> > 
+> > And if we have moved or renamed them already, can we possibly make these
+> > links work again somehow?
+> 
+> Agreed. We discussed in the past about two alternatives for those
+> "well known" documents:
+> 
+> 	1) write a small text on the old file pointing to the
+> 	   new location;
+> 	2) use symlink.
+> 
+> Right now, we're actually mixing (1) and (2). IMHO, we should either
+> do (1) or (2).
 
-On Sun, Jun 25, 2017 at 11:37:12AM -0700, Linus Torvalds wrote:
-> On Sun, Jun 25, 2017 at 11:19 AM, Leon Romanovsky <leon@kernel.org> wrote:
-> >
-> > Great, so why are we continuing to allow patches with MODULE_VERSION and
-> > DRIVER_VERSION changes?
->
-> I suspect they just haven't caused problems elsewhere.
->
-> And honestly, they aren't that common. Grepping for MODULE_VERSION and
-> DRIVER_VERSION shows more than I would like, but we're talking
-> hundreds, not thousands (and lots of them are basically dead, stale
-> code - ATA etc, or just joke names - usb).
+Unfortunately option (3) has also been applied to some of the files:
 
-I see it differently, from my point of view, it is pretty active,
-especially in the subsystems where new drivers are added more often,
-but if you say that the policy exists, it is enough for me.
+	$ ll Documentation/kernel-parameters.txt
+	ls: cannot access 'Documentation/kernel-parameters.txt': No such file or directory
 
-Thanks
+I wasn't sure whether this was intentional or not. But if not, I'll 
+happily send a patch that introduces a symlink.
 
->
->                   Linus
-
---worL9B4ITIAQZ1FS
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEkhr/r4Op1/04yqaB5GN7iDZyWKcFAllQCXkACgkQ5GN7iDZy
-WKcyGA/6AxfJ4AS3uyodD5EKqw2ygAPw6tOfUAcrz04e1gZlPBwPqdeSZ8PhSHK5
-IruyNWePzNKtYAdJKa1ak2EZc6hR1cOizYnmzdgYv1a5z7ZV2JTcYIvbslP5nfUz
-revowroS5eNCF6CfYHZNxsA8YzH7IU2OF43rGhAInFrYoQZptmv/8yBBoPzyV0FU
-+V+w3d7mOztav2eCgL/YTEsI9VCGGB2S+6RUQ7zaabt7Snc78NqFKZHiUYWM5wrM
-M7fJEx7/xYAeIioGBlLAHSygxoCp867Et2e4rSy0naCFeTmChbdHO8uXPMiJ/I7d
-luxtKtyBTrGijsfVGnqFxF1y1CBUDuwlC1mcoeyYImXOtmDz99AiQ48LDfg3aYrX
-i80RS8BfxB2DyKs6GS6TZj0Vc0FWbbQY/XawoLtNqW39MFVwXcaFxyUA6t1jpNn1
-YkNrAFVRUWDpBQt6cET+g2+X3vVOamxi04BF//PAQYhDVLk+2RdFeyh28yuFsZmk
-MwwdQZUJ72zgiL45uODHPVKnjm2uFC3qXihMnOH8RmAYChLMKylN5aAoilKHe1cz
-DZsZN3BHachoezR2zaL1GKtds28X8xHW1q9253xrEZRE4YlQIZl7gkF7F5MZ8AJH
-sDnNXd0tdu/42rXNxgtdk/ZhhSk8lGHrba58WFen+Y/KN9B5jrM=
-=DTI9
------END PGP SIGNATURE-----
-
---worL9B4ITIAQZ1FS--
+-- 
+Jiri Kosina
+SUSE Labs
