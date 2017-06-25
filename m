@@ -1,31 +1,16 @@
-Return-Path: <labbott@redhat.com>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 38DE4415
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 25 Jun 2017 17:11:24 +0000 (UTC)
-Received: from mail-qk0-f176.google.com (mail-qk0-f176.google.com
-	[209.85.220.176])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B7B66184
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 25 Jun 2017 17:11:23 +0000 (UTC)
-Received: by mail-qk0-f176.google.com with SMTP id d78so30713330qkb.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 25 Jun 2017 10:11:23 -0700 (PDT)
-To: Greg KH <gregkh@linuxfoundation.org>
-References: <1de3c642-a4b7-1065-5c35-ba32866d471d@redhat.com>
-	<20170623145229.GB1855@kroah.com>
-From: Laura Abbott <labbott@redhat.com>
-Message-ID: <af2f71f7-27bf-6165-c6fb-e90b3bb23e6a@redhat.com>
-Date: Sun, 25 Jun 2017 10:11:19 -0700
+Return-Path: <linus971@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20170623145229.GB1855@kroah.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug reporting feedback
- loop
+Sender: linus971@gmail.com
+In-Reply-To: <20170625072423.GR1248@mtr-leonro.local>
+References: <20170625072423.GR1248@mtr-leonro.local>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Sun, 25 Jun 2017 10:32:52 -0700
+Message-ID: <CA+55aFx9A=5cc0QZ7CySC4F2K7eYaEfzkdYEc9JaNgCcV25=rg@mail.gmail.com>
+To: Leon Romanovsky <leon@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: ksummit-discuss@lists.linux-foundation.org
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Driver and/or module
+	versions
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,48 +20,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 06/23/2017 07:52 AM, Greg KH wrote:
-> On Wed, Jun 21, 2017 at 03:34:11PM -0700, Laura Abbott wrote:
->> - There's still a gap between when bugs hit Linus' tree and when
->> stable releases come out. This is not a knock against stable or
->> a request for stable to go faster :). I try
->> and monitor stable@ for fixes but there still seems to be a
->> large time gap for identifying fixes that have been fixes in
->> master that are relevant to a recent stable release.
-> 
-> Ok, I'll bite, what exactly do you mean by "large time"?  During the
-> -rc1 merge window, it can take a few weeks for me to catch up with the
-> large onslaught of patches marked for stable, but almost all of those
-> were determined by the develoers to not be all-so-serious, as they were
-> delayed in getting to Linus for -rc1, and not before.>
+On Sun, Jun 25, 2017 at 12:24 AM, Leon Romanovsky <leon@kernel.org> wrote:
+> There is a steady flow of patches which bump driver and module versions.
+>
+>  * Can we come with unified policy about those patches?
 
-'large' is my completely biased perception :)
+We pretty much *have* a unified policy, it's just that I think rdma is crazy.
 
-Fedora generally does not rebase until the .2 or .3 stable release
-which usually takes care of most of the -rc1 issue. The problem
-tends to come from issues which are not found until later -rcs
-and for whatever reason haven't made it to stable yet.
+The unified policy is pretty much that version codes do not matter, do
+not exist, and do not get updated.
 
-> You can always email and ask for specific patches to be queued up now,
-> as I go through the list in a semi-random manner.
-> 
+Things are supposed to be backwards and forwards compatible, because
+we don't accept breakage in user space anyway. So versioning is
+pointless, and only causes problems.
 
-If I can find the patch, I have no problem bringing it into Fedora
-or requesting it for stable. Finding a patch is the tricky part
-which I'd like to improve. My current technique relies on a combination
-of good guessing where a fix might come from and random inspiration.
-Maybe this is just the curse of the maintainer and there isn't a
-better method but having something a bit more systematic to check
-would be useful, especially for training other maintainers.
+It causes problems not just because of the conflict issues, but
+because it's fundamentally wrong, and makes driver writers think that
+it's ok to change interfaces and use versioning to show they changed.
+It's *not* OK.
 
-> After the big -rc1 chunk of patches are merged, it's usually only a week
-> at most before the patches hit a stable release, people usually complain
-> it goes too fast, not that it's too slow these days.
-> > thanks,
-> 
-> greg k-h
-> 
+Sometimes you have feature masks (which just mean that it's ok to
+_add_ interfaces rather than change them, and make it possible for
+user space to check if the new interface exists), but even that is
+generally the exception rather than the rule and should be used very
+very carefully and preferably not at all.
 
-
-Thanks,
-Laura
+                  Linus
