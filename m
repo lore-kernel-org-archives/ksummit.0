@@ -1,13 +1,23 @@
-Return-Path: <leon@kernel.org>
-Date: Sun, 25 Jun 2017 10:24:23 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: ksummit-discuss@lists.linux-foundation.org
-Message-ID: <20170625072423.GR1248@mtr-leonro.local>
+Return-Path: <pavel@ucw.cz>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E3F8E480
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sun, 25 Jun 2017 10:48:53 +0000 (UTC)
+Received: from atrey.karlin.mff.cuni.cz (atrey.karlin.mff.cuni.cz
+	[195.113.26.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 17A0FE9
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sun, 25 Jun 2017 10:48:52 +0000 (UTC)
+Date: Sun, 25 Jun 2017 12:48:50 +0200
+From: Pavel Machek <pavel@ucw.cz>
+To: ksummit-discuss@lists.linuxfoundation.org
+Message-ID: <20170625104850.GA24717@amd>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="7WENQHN97/U9vH7R"
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="vkogqOf2sHV7VnPd"
 Content-Disposition: inline
-Subject: [Ksummit-discuss] [MAINTAINERS SUMMIT] Driver and/or module versions
+Subject: [Ksummit-discuss] [TECH TOPIC] mobile phones
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -18,47 +28,65 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---7WENQHN97/U9vH7R
+--vkogqOf2sHV7VnPd
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-There is a steady flow of patches which bump driver and module versions.
+Hi!
 
-The differences in views add [1] an email burden, which can be easily avoided
-by adding policy into CodingStyle guide.
+Situation around mobile phones is only improving very slowly. We now
+have hardware that is supported in the mainline kernel in useful way
+(Mitac Mio A701, Nokia N900, N9, N950). Graphics acceleration is still
+missing.
 
-As an example of such patches: "Succeeded" [2] vs. "Failed" [3].
+But there are major pieces missing: first is userspace. That's not for
+us to solve. Then there's some kind of hardware abstraction layer;
+kernel currently does NOT provide enough information for userland to
+autoconfigure everything.
 
-I think that maintainers summit with major code "pushers" is the right venue
-to get the answers on the following questions:
- * Can we come with unified policy about those patches?
- * Can we remove them? If yes, is it possible to replace MODULE_VERSION in all patches to point to kernel version?
- * Does such change fail under category "UAPI changes and we can't change" or not?
+There are big questions about kernel / user interface. We have whole
+subsystems missing. They include:
 
-Thanks
+1) Who is responsible for shutting machine down on low battery, and
+not bringing it up unless safe?
 
-[1] https://patchwork.kernel.org/patch/9735855/
-[2] https://patchwork.ozlabs.org/patch/779864/
-[3] https://patchwork.kernel.org/patch/7490321/
+2) How to handle GSM audio?
 
---7WENQHN97/U9vH7R
+3) How to handle differences between GSM modems and between GPS
+receivers? Is AT commands/NMEA good enough? What about AGPS upload?
+
+4) How to handle accelerated RGB LEDs?
+
+5) Do we need suspend-to-RAM to handle power management? If so, how
+can we handle automatic sleep an still be compatible with Unix?
+
+6) Do we provide compatibility for old v4l2 apps on complex hardware,
+or do we wait for libv4l to get support? How do we provide information
+such as camera aperture to the userspace?
+
+=2E..and probably many more.
+
+Plus of course, there's a lot of work to be done to get different
+phones supported.
+
+Best regards,
+								Pavel
+--=20
+(english) http://www.livejournal.com/~pavelmachek
+(cesky, pictures) http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blo=
+g.html
+
+--vkogqOf2sHV7VnPd
 Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
 
-iQIzBAEBCAAdFiEEkhr/r4Op1/04yqaB5GN7iDZyWKcFAllPZScACgkQ5GN7iDZy
-WKc7kg//ftDfTikXw0Rm0xlORI0h1rNjlTKx54b8dQROa1+Zoh9dFsYrv+NqauQz
-PzYaOs6DELl4PmosZ7Lguhx4uIrhAdYnteIgY8znqAdf4k8vDh1hmqNKiUT5+B2A
-R5iorPEF1coHknNsj/ZjU4LIt0vuJkxg3sYhu8Wvp4KXIGHrtZEIV+VIXE17teRN
-RfmpeOUrh1Av2W+yyKESBrW4b6agq2oj+wmy3JZUCFrjv6bFyHTEixC0cIAj/pFY
-QfpPOj/mE/oAHwNwCMKYaYwQRQBG80JoR0CqM3/91AWiq2G8tf4uitbKjbD4L8RT
-2VL2I/JzxwoXOSSAtUvFrkqAbYka7XDOd6JNHeAbI+08yOZFluR2TkczgvbeI00P
-ZHKERkNey1NaXzgp8B+ygzH7Lh5wnFT/feEMOwAffGX+k73BVJFFqxeUy09rMAaN
-nqRTU1op+MSehlzELJUkCNAIp3FigjCHh2kWlNlhKPPnDPht5AJtao+e7WJkXyzh
-QkmCHS3dyeSCJejGerbcr2LR9bFEt8Ydfdi42+qeGx34DowWv0CUFAarIlg9gC8i
-rgYhNRytnIB4pJBlYem9X5ny1VVn+eN/aKzlT7+h57MRvCR7wxmDSXb90AeF2Naq
-8f+0qm5+XyKh6dcBfwPARRwWzja8P3XYIB1tSSmzaRM93FMcPW4=
-=c6OB
+iEYEARECAAYFAllPlRIACgkQMOfwapXb+vKu1wCdHoGz1I+mRlHo51xCubuS8luZ
+9rEAnjIW4FP6aPMjtKrrTDhN+VnnwleP
+=b5d9
 -----END PGP SIGNATURE-----
 
---7WENQHN97/U9vH7R--
+--vkogqOf2sHV7VnPd--
