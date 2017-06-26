@@ -1,27 +1,25 @@
-Return-Path: <Bart.VanAssche@wdc.com>
+Return-Path: <hare@suse.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4FC90516
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7A830727
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 26 Jun 2017 05:54:12 +0000 (UTC)
-Received: from esa6.hgst.iphmx.com (esa6.hgst.iphmx.com [216.71.154.45])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A7DB7180
+	Mon, 26 Jun 2017 05:54:56 +0000 (UTC)
+Received: from smtp.nue.novell.com (smtp.nue.novell.com [195.135.221.5])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 727CB180
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 26 Jun 2017 05:54:11 +0000 (UTC)
-From: Bart Van Assche <Bart.VanAssche@wdc.com>
-To: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	"hare@suse.com" <hare@suse.com>
-Date: Mon, 26 Jun 2017 05:44:42 +0000
-Message-ID: <1498455881.2849.2.camel@wdc.com>
+	Mon, 26 Jun 2017 05:54:55 +0000 (UTC)
+To: Matthew Wilcox <willy6545@gmail.com>
 References: <c0ebdd10-5c7c-dfb1-9bc8-c6c632ac1396@suse.com>
-In-Reply-To: <c0ebdd10-5c7c-dfb1-9bc8-c6c632ac1396@suse.com>
-Content-Language: en-US
-Content-Type: text/plain; charset="iso-8859-1"
-Content-ID: <D565E895F5CFE34E88411683B67765AE@namprd04.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+	<CAFhKne8QN1jcATr_xTCWb7Jn-=UoZmsbf4GTDLzM0V=kgWvB3A@mail.gmail.com>
+From: Hannes Reinecke <hare@suse.com>
+Message-ID: <85e0d92f-628b-8c10-30c3-d8b28b8a1dcf@suse.com>
+Date: Mon, 26 Jun 2017 07:54:52 +0200
 MIME-Version: 1.0
-Cc: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
+In-Reply-To: <CAFhKne8QN1jcATr_xTCWb7Jn-=UoZmsbf4GTDLzM0V=kgWvB3A@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] (PCI) driver rebinding
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -32,52 +30,37 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sun, 2017-06-25 at 17:39 +0200, Hannes Reinecke wrote:
-> How should we handle devices with _several_ possible drivers?
->=20
-> Case in point are some HBAs, for which the plan is to have distinct
-> drivers for either target or initiator mode.
->=20
-> There are several options how this could be handled:
-> - Have a default driver, and manually rebind the 'real' driver once the
-> configuration could be read and acted upon.
-> That would have the drawback that we do an initialisation in the 'wrong'
-> mode, and later have to switch configuration. Which at best will 'just'
-> induce some pointless initialisation, at worst confuse attached devices
-> to no end. Not to mention introducing lots of interesting races with
-> udev and systemd
-> - Inhibit default binding, and load the correct drivers after the
-> configuration has been read.
-> Would be a deviation from the original scenario (where the driver are
-> bound/loaded as soon as the device becomes available). Has the drawback
-> that one would need to inhibit automatic bindings on the _bus_ level (ie
-> PCI), which will be even more interesting.
-> - Add some bus-specific (or even general?) device configuration syntax,
-> which would allow to pass in the required configuration from the
-> command-line (or reasonably early, anyway). For which we need a syntax
-> first, anyway. And need to figure out if we can have an abstract syntax
-> or would need to have a bus- (or even driver-) specific configuration.
->=20
-> So no easy way out here, and it might be worth having input from other
-> parties. And some might have similar problems (just thinking of
-> usb-modeswitch ...), so there might be some synergies to be had.
+On 06/25/2017 11:38 PM, Matthew Wilcox wrote:
+> Is udev the solution here?
+> 
+(Top posting; tsk. Probably the new job environment :-)
 
-(resending from an e-mail address that is subscribed to ksummit-discuss)
+> Have ->probe do common initialisation and return success. Then udev says
+> something to the driver to make it choose one or the other modes.
+> 
+Which would be option 2 from my proposal.
+(And, incidentally, is what zSeries does.)
+Plus you essentially spanning off your own bus from the PCI device,
+which would solve the PCI binding problem.
+But you just delegated the problem one level higher, as you then have to
+configure your private bus. So I don't think it solves the underlying
+problem, namely how to get the configuration to the driver.
 
-Hello Hannes,
+Another problem here is that you rely on udev to do the binding, ie you
+have to configure the device first before it can used. Which requires
+the use of an initrd, and I'm not sure if everyone can agree to that.
 
-Thanks for having brought up this topic. I think this is an important
-topic and something we need to solve. I am interested to join the
-discussion about this topic.
+Or come up with a commandline parameter instructing the driver on which
+devices to bind.
 
-My preference is to solve this by following the same approach as for the
-iSCSI, SRP and several other protocols: design the protocol and HBA such
-that initiator and target mode can coexist on the same HBA port, make one
-driver responsible for controlling the HBA, a second driver responsible
-for providing initiator functionality and make a third driver responsible
-for providing target functionality. Whether initiator and/or target mode
-are activated depends on which drivers are loaded and also on which
-drivers the user chooses to activate.  With this approach no PCI rebinding
-is necessary.
+So it's far from being clear-cut; hence this proposal.
 
-Bart.
+Cheers,
+
+Hannes
+-- 
+Dr. Hannes Reinecke		               zSeries & Storage
+hare@suse.com			               +49 911 74053 688
+SUSE LINUX GmbH, Maxfeldstr. 5, 90409 Nürnberg
+GF: F. Imendörffer, J. Smithard, D. Upmanyu, G. Norton
+HRB 21284 (AG Nürnberg)
