@@ -1,30 +1,22 @@
 Return-Path: <geert.uytterhoeven@gmail.com>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B54D988A
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 26 Jun 2017 06:43:27 +0000 (UTC)
-Received: from mail-it0-f66.google.com (mail-it0-f66.google.com
-	[209.85.214.66])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2E560198
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 26 Jun 2017 06:43:27 +0000 (UTC)
-Received: by mail-it0-f66.google.com with SMTP id f20so12533447itb.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 25 Jun 2017 23:43:27 -0700 (PDT)
 MIME-Version: 1.0
 Sender: geert.uytterhoeven@gmail.com
-In-Reply-To: <87shinzkp9.fsf@notabene.neil.brown.name>
-References: <20170625104850.GA24717@amd>
-	<87shinzkp9.fsf@notabene.neil.brown.name>
+In-Reply-To: <20170626045111.GW1248@mtr-leonro.local>
+References: <20170625072423.GR1248@mtr-leonro.local>
+	<CA+55aFx9A=5cc0QZ7CySC4F2K7eYaEfzkdYEc9JaNgCcV25=rg@mail.gmail.com>
+	<20170625181954.GU1248@mtr-leonro.local>
+	<CA+55aFyM7X2jWYyNeA-AgbV1A-aYJaRBsPZCG+GeO9L8W1Rqww@mail.gmail.com>
+	<20170625190529.GV1248@mtr-leonro.local>
+	<20170625213245.ep555qmzwbl4kjpq@piout.net>
+	<20170626045111.GW1248@mtr-leonro.local>
 From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 26 Jun 2017 08:43:25 +0200
-Message-ID: <CAMuHMdUEB4oDFmjv40BWpKXnD0ETNz=ZkN4caAwp29ZkXZ2BhA@mail.gmail.com>
-To: NeilBrown <neilb@suse.com>
+Date: Mon, 26 Jun 2017 08:47:02 +0200
+Message-ID: <CAMuHMdVffwRAubWaVTBG_Z+MRrcrSgFyg15p3t26JF57_3CwmQ@mail.gmail.com>
+To: Leon Romanovsky <leon@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>, Pavel Machek <pavel@ucw.cz>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] mobile phones
+Cc: ksummit-discuss@lists.linux-foundation.org
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Driver and/or module
+	versions
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,17 +26,36 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Jun 26, 2017 at 1:55 AM, NeilBrown <neilb@suse.com> wrote:
->> 5) Do we need suspend-to-RAM to handle power management? If so, how
->> can we handle automatic sleep an still be compatible with Unix?
+On Mon, Jun 26, 2017 at 6:51 AM, Leon Romanovsky <leon@kernel.org> wrote:
+> On Sun, Jun 25, 2017 at 11:32:45PM +0200, Alexandre Belloni wrote:
+>> Hi,
+>>
+>> On 25/06/2017 at 22:05:29 +0300, Leon Romanovsky wrote:
+>> > On Sun, Jun 25, 2017 at 11:37:12AM -0700, Linus Torvalds wrote:
+>> > > On Sun, Jun 25, 2017 at 11:19 AM, Leon Romanovsky <leon@kernel.org> wrote:
+>> > > >
+>> > > > Great, so why are we continuing to allow patches with MODULE_VERSION and
+>> > > > DRIVER_VERSION changes?
+>> > >
+>> > > I suspect they just haven't caused problems elsewhere.
+>> > >
+>> > > And honestly, they aren't that common. Grepping for MODULE_VERSION and
+>> > > DRIVER_VERSION shows more than I would like, but we're talking
+>> > > hundreds, not thousands (and lots of them are basically dead, stale
+>> > > code - ATA etc, or just joke names - usb).
+>> >
+>> > I see it differently, from my point of view, it is pretty active,
+>> > especially in the subsystems where new drivers are added more often,
+>> > but if you say that the policy exists, it is enough for me.
+>> >
+>>
+>> A while ago, I went and removed all of them from the RTC subsystem.
 >
-> My feeling is that until someone proves otherwise, suspend-to-RAM should
-> be assumed necessary.  It should be possible to get the same power
-> saving with runtime suspend, but that requires all of user-space to
-> co-operated, which is like "herding wild cats".
+> I assume that you are referring to the commit fa5691131a87 ("rtc: remove useless DRV_VERSION").
+>
+> Let's see how similar patch will be accepted in RDMA, netdev communities.
 
-... and the firmware, on architectures where implementing this inside the
-kernel is forbidden by policy.
+The only version that matters is CONFIG_LOCALVERSION_AUTO=y.
 
 Gr{oetje,eeting}s,
 
