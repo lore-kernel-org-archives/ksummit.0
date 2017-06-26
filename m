@@ -1,18 +1,27 @@
-Return-Path: <gregkh@linuxfoundation.org>
-Date: Mon, 26 Jun 2017 08:57:24 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Hannes Reinecke <hare@suse.com>
-Message-ID: <20170626065724.GA31701@kroah.com>
-References: <c0ebdd10-5c7c-dfb1-9bc8-c6c632ac1396@suse.com>
-	<20170626045919.GD17296@kroah.com>
-	<98ef581a-1618-623f-d52c-77fec798fb52@suse.com>
+Return-Path: <pavel@ucw.cz>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id BB42492B
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 26 Jun 2017 08:34:11 +0000 (UTC)
+Received: from atrey.karlin.mff.cuni.cz (atrey.karlin.mff.cuni.cz
+	[195.113.26.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 930FAD3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 26 Jun 2017 08:34:10 +0000 (UTC)
+Date: Mon, 26 Jun 2017 10:34:07 +0200
+From: Pavel Machek <pavel@ucw.cz>
+To: NeilBrown <neilb@suse.com>
+Message-ID: <20170626083407.GA9621@amd>
+References: <20170625104850.GA24717@amd>
+	<87shinzkp9.fsf@notabene.neil.brown.name>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="CE+1k2dSO48ffgeK"
 Content-Disposition: inline
-In-Reply-To: <98ef581a-1618-623f-d52c-77fec798fb52@suse.com>
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] (PCI) driver rebinding
+In-Reply-To: <87shinzkp9.fsf@notabene.neil.brown.name>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] mobile phones
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -22,62 +31,170 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Jun 26, 2017 at 08:05:53AM +0200, Hannes Reinecke wrote:
-> On 06/26/2017 06:59 AM, Greg KH wrote:
-> > How will udev and systemd have "races"?  We do this today all the time
-> > in USB with the usb-modeswitch userspace code, as you point out.
-> > 
-> The problem here is that we will be generating lots of invalid devices
-> (ie devices which are only present in one mode, but not the other).
-> So if we start off with a default mode the driver might be creating lots
-> of devices, which will be torn down once the device is switched to the
-> configured mode.
-> _If_ for some reason one of these invalid devices has the same
-> identifier as one of the 'real' devices (think of eg multipathing),
-> udev/systemd will start processing this device.
-> But then we're killing that device shortly afterwards, making systemd
-> very unhappy and the user left with a stalled system.
 
-If you have someone adding/removing a device on a pcie link (or
-thunderbolt) really quickly, you are going to have this same "issue", so
-it's something you are going to have to handle anyway.  Odds are it's
-not going to be all that complex, userspace, if it is sane, should be
-fine.
+--CE+1k2dSO48ffgeK
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-But you are talking "multipath", which is not sane, good luck!  :)
+Hi!
 
-> So I'd rather not go down that way; ideally I would have the driver
-> start off in the 'correct' mode so that the above issue doesn't occur.
+> > Situation around mobile phones is only improving very slowly. We now
+> > have hardware that is supported in the mainline kernel in useful way
+> > (Mitac Mio A701, Nokia N900, N9, N950). Graphics acceleration is still
+> > missing.
+> >
+> > But there are major pieces missing: first is userspace. That's not for
+> > us to solve. Then there's some kind of hardware abstraction layer;
+> > kernel currently does NOT provide enough information for userland to
+> > autoconfigure everything.
+> >
+> > There are big questions about kernel / user interface. We have whole
+> > subsystems missing. They include:
+> >
+> > 1) Who is responsible for shutting machine down on low battery, and
+> > not bringing it up unless safe?
+>=20
+> My laptop hibernates when the battery level gets too low. Why should a
+> phone be any different?  User-space monitoring and policy seems a
+> suitable answer.
 
-I agree.
+Phone is different... and I'm not talking orderly_shutdown here.
 
-> >> - Inhibit default binding, and load the correct drivers after the
-> >> configuration has been read.
-> > 
-> > You can do that too vfio does it from what I recall.  It's easy in that
-> > you can just not do a MODULE_DEVICE_TABLE() export and no driver will
-> > automatically be loaded and userspace is required to load what it wants.
-> > 
-> Yeah; however, if we do this, we either have to kill the module device
-> table from the driver (but how would the driver then know which device
-> to bind to?) or we have to kill the autoloading from the bus (but then
-> _none_ of the drivers will load, impacting the entire system).
+Boot your notebook with init=3D/bin/bash, and launch fsck on low
+battery. It will blink, it may beep, but in the end it will power off
+abruptly at maybe 3.6V per cell, before battery is damaged. Now try
+the same on N900. It will not blink, and it will run battery down to
+less then 3.0V; various components will fail, you'll get screen
+flicker, and presumably your MMC will be _really_ unhappy. Eventually,
+CPU fails, machine reboots, and machine will attempt to do _the same
+again_.
 
-No, MODULE_DEVICE_TABLE is only needed for auto-loading of modules, it
-does not affect what drivers bind to what devices at all.  Once the
-module is loaded, all should "just work", unless you have multiple
-drivers that say they bind to the same devices, then you have the same
-issue as before.
+Basically we are missing one layer of protection here, compared to the
+PC case.
 
-> While I would prefer this option I'm not sure how we can achieve this
-> sanely.
-> vfio doesn't really count here, as this is a generic PCI driver which
-> would work with any PCI device (at least in theory).
+> I think the "not bring up unless safe" decision needs to be made in
+> the boot-loader.  Once Linux boots, it tends to turn everything on,
+> then the unneeded things back off.  That is no good if all you want to
+> do is start the battery charging.  Changing this approach would need
+> a lot of work and buy-in from lots of people.  I doubt it will
+> happen.
 
-That sounds exactly what vfio does, they handle this all in userspace,
-and do crazy stuff with the bind/unbind sysfs attributes.  That might
-work here too if you have to do it in the end.
+Problem is that bootloader does not even know about battery charging,
+and is far from having required drivers. That's why I'd try to get
+buy-in ;-).
 
-thanks,
+> > 2) How to handle GSM audio?
+>=20
+> What is the issue here?  Isn't GSM audio just another audio source/sink
+> which user-space can send where-ever it likes?
 
-greg k-h
+It is somehow packetized, and has timestamps and gaps in it, I was
+told. That's why we use /dev/cmt_speech, not ALSA. Probably ALSA
+should be improved.
+
+> > 3) How to handle differences between GSM modems and between GPS
+> > receivers? Is AT commands/NMEA good enough? What about AGPS upload?
+>=20
+> My limited exposure to the different varieties of GSM and GPS protocols
+> that are supported suggests that this needs to be done in user-space.
+> There isn't any suitable abstract protocol that we could implement in a
+> kernel interface.
+> gpsd handles multiple GPS protocols and meets a lot of needs.  If it
+> isn't perfect, it can probably be improved.
+
+It is not perfect, indeed.
+
+So we currently have GPSes on serial, producing NMEA. Gpsd there may
+be good enough. But then we have different hardware, not producing
+NMEA (GPS on N900 is exposed as network packet over PHONET
+interface, there's drivers/usb/serial/garmin_gps.c with who-knows-what
+interface)... and it would be nice to have good, "native" GPS
+interface which would work in this case. (We'd like timestamps for
+incoming data and lat/long/alt + speed in lat/long/alt + error in
+lat/long/alt sampled at the same time, at the very least).
+
+Its similar to mice, really. We used to have gpm, now we have real
+drivers.
+
+Plus there's still issue of AGPS data upload.
+
+> An equivalent "gsmd" with pluggable back-ends seems like the right
+> approach.  I think there are several contenders already.
+
+ofono is actually quite usable. But we are putting driver in
+userspace; bye-bye hardware abstraction, bye-bye using old distro on
+new phone.
+
+> > 4) How to handle accelerated RGB LEDs?
+>=20
+> This does sound like a kernel issue.   The hardware has limited
+> programmability so that different patterns and colors are possible.
+> Maybe we want to enhance the LED trigger mechanism to apply to
+> colour LEDs.
+> I guess that we need a concrete proposal so that it can be assessed.
+
+Plus there's an issue of color; all three channels on max will not
+produce white color.
+
+> > 5) Do we need suspend-to-RAM to handle power management? If so, how
+> > can we handle automatic sleep an still be compatible with Unix?
+>=20
+> My feeling is that until someone proves otherwise, suspend-to-RAM should
+> be assumed necessary.  It should be possible to get the same power
+> saving with runtime suspend, but that requires all of user-space to
+> co-operated, which is like "herding wild cats".
+
+Well, N900 proves otherwise.
+
+> I don't really know what "compatible with Unix" means in this context.
+>=20
+> There are really two options:
+> 1/ applications which specific cpu-availability needs explicitly
+>    after for the CPU to be kept available - i.e. "wake locks"
+> 2/ applications that don't have specific cpu-availabilty needs
+>    don't use the cpu at all when they don't need it.
+>=20
+> The first means we suspend-to-RAM, but have "wake lock" calls
+> in code.
+> The second means that all code is very careful not to be wasteful, and
+> we rely on runtime PM.
+> Neither are very "Unixy".
+>=20
+> Is this a kernel issue at all?  User-space can take either approach, and
+> struggle with the difficulties.
+
+Well, I believe 2/ is the way to go. But if we decide 1/ is ok, would
+not it be nice to have some reasonable interface? After all, your fsck
+will need to use it... as will for example trivial program for
+computing prime numbers. And what do we do when program exits with
+wakelock held? What if it is OOM killed?
+
+Yes, Android has some answers here, I just don't think they are any
+good. (As in ... not very Unixy).
+
+In desktop case, we do hardware abstraction right; you can keep old
+distro as your hardware is supported by kernel. Would not it be nice
+to do the same for phones?
+
+Best regards,
+
+									Pavel
+--=20
+(english) http://www.livejournal.com/~pavelmachek
+(cesky, pictures) http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blo=
+g.html
+
+--CE+1k2dSO48ffgeK
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iEYEARECAAYFAllQxv8ACgkQMOfwapXb+vIm3ACePg6N7n2kklQ1sOPvgCs2yglM
+OOoAn26wxoLDh5afMBI0ukSZEAAytf5s
+=q5Td
+-----END PGP SIGNATURE-----
+
+--CE+1k2dSO48ffgeK--
