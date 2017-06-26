@@ -1,16 +1,13 @@
 Return-Path: <mchehab@s-opensource.com>
-Date: Sun, 25 Jun 2017 21:58:27 -0300
+Date: Sun, 25 Jun 2017 22:15:46 -0300
 From: Mauro Carvalho Chehab <mchehab@s-opensource.com>
-To: Matthew Wilcox <willy6545@gmail.com>
-Message-ID: <20170625215827.77cfec11@vento.lan>
-In-Reply-To: <CAFhKne_ajkMYKmf-GXC28c_h+O1c0_=SDq-OFEaHHTKs8Qkvpg@mail.gmail.com>
+To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+Message-ID: <20170625221546.49c4b997@vento.lan>
+In-Reply-To: <9331130.3GseHRJqRx@aspire.rjw.lan>
 References: <20170623123936.42dab05f@lwn.net>
-	<20170624074641.4820fecd@vento.lan>
-	<1779146.rtcHP5MkoH@aspire.rjw.lan>
-	<20170624104142.70677fcb@vento.lan>
-	<CAFhKne8ZttmqWYJToCw9EDywzeMdp=eiFpoZ+O5xrzmKnpA09Q@mail.gmail.com>
 	<CAFhKne_W-EbjUd_Cm4kyBHrVK6K9r8Ss3gY0ogO1nztbQZYBEg@mail.gmail.com>
 	<CAFhKne_ajkMYKmf-GXC28c_h+O1c0_=SDq-OFEaHHTKs8Qkvpg@mail.gmail.com>
+	<9331130.3GseHRJqRx@aspire.rjw.lan>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
@@ -25,51 +22,66 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Em Sun, 25 Jun 2017 17:32:31 -0400
-Matthew Wilcox <willy6545@gmail.com> escreveu:
+Em Sun, 25 Jun 2017 23:42:20 +0200
+"Rafael J. Wysocki" <rjw@rjwysocki.net> escreveu:
 
-> I find documentation comes in the following bins:
+> On Sunday, June 25, 2017 05:32:31 PM Matthew Wilcox wrote:
+> > I find documentation comes in the following bins:
+> > 
+> > 1. User documentation (possible sub-split into "how to use this from kernel
+> > space" and "how to use this from user space")
+> > 2. Information for someone who's interested in modifying the code. Possibly
+> > including architectural considerations (eg locking), performance, ideas for
+> > future improvement, etc.
+> > 3. Random swearing and abuse  
 > 
-> 1. User documentation (possible sub-split into "how to use this from kernel
-> space" and "how to use this from user space")
-> 2. Information for someone who's interested in modifying the code. Possibly
-> including architectural considerations (eg locking), performance, ideas for
-> future improvement, etc.
-> 3. Random swearing and abuse
+> There also is information on various frameworks that driver writers are expected
+> to use and honestly various mixtures of that with 1. above.
 > 
-> I think the second and third categories of documentation should be kept out
-> of the kernel books and left as plain comments by the code.
+> Mutual exclusion mechanisms also need to be documented properly IMO and so on.
+> 
+> > I think the second and third categories of documentation should be kept out
+> > of the kernel books and left as plain comments by the code.
+> > 
+> > On 24 Jun 2017 9:41 am, "Mauro Carvalho Chehab" <mchehab@s-opensource.com>
+> > wrote:
+> > 
+> > Yeah, one of the problems with existing documentation is that,
+> > sometimes, the same document describes both userspace-relevant
+> > info and kernelspace APIs.  
+> 
+> Right.
+> 
+> But, alas, those things happen to be related, especially when framework-provided
+> sysfs attributes and similar come into play.  With the current layout of things
+> it sometimes is hard to avoid documenting the same thing in two different
+> places, risking that the two descriptions of the same thing will diverge in the
+> future eventually.
+> 
 
-Having comments together the code is good, but sometimes it is not enough.
+Well, sysfs attribute description is currently a little messy, IMHO.
+We have (or should have) all of them described under Documentation/ABI/,
+but it is not uncommon to have them described on some other random
+places. As things get bitrot, we end by having different descriptions
+on each place.
 
-Just as an example, last week I received two patch series, from
-different developers, that didn't get right how to collect quality
-measurements from digital TV frontends. The functions they use are
-documented via kernel-doc, and they looked on other drivers as examples.
-Still, that was not not clear enough, as both developers didn't quite
-get some things.
+I also suspect that some sysfs descriptions are only outside
+Documentation/ABI/ (although I never actually tried to seek for such
+issue).
 
-So, I had to write a few patches to actually explain how a
-frontend driver is expected to collect statistics:
-	https://patchwork.linuxtv.org/patch/42081/
+> Moreover, does debugfs fall into "user documentation" or "developer documentation",
+> for example?
+> 
+> And generally documentation on how to diagnose problems for that matter?
 
-And, today, I complemented with two additional texts:
+The same thing for sysfs applies to debugfs.
 
-	https://patchwork.linuxtv.org/patch/42115/
-	https://patchwork.linuxtv.org/patch/42116/
-
-As those explanations complement the kernel-doc macros from
-dvb_frontend.h, they need cross references, in order for the
-driver developer to better understand how things are connected,
-and to avoid the need of having to explain everything that it is
-already documented via kernel-doc tags, as can be seeing at:
-
-	https://www.infradead.org/~mchehab/kernel_docs/media/kapi/dtv-core.html#digital-tv-frontend-kabi
-
-
-That's just today's example. There are plenty of cases where we
-need to add images and complex tables, etc that just don't fit
-well as plain text.
+IMHO, debugfs and information about how to diagnose problems
+belong to "user documentation" / "how to use this from user space"
+(using Matthew's classification), in the sense that an advanced
+admin may use them, in order to properly address some issue that
+will eventually generate a bug report (either for Kernel or to some
+application/library).
 
 Thanks,
 Mauro
