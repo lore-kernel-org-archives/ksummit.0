@@ -1,28 +1,29 @@
 Return-Path: <pavel@ucw.cz>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 05640AB9
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0F23B9C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 26 Jun 2017 12:38:57 +0000 (UTC)
+	Mon, 26 Jun 2017 13:14:05 +0000 (UTC)
 Received: from atrey.karlin.mff.cuni.cz (atrey.karlin.mff.cuni.cz
 	[195.113.26.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6491F3CC
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 252D5180
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 26 Jun 2017 12:38:56 +0000 (UTC)
-Date: Mon, 26 Jun 2017 14:38:53 +0200
+	Mon, 26 Jun 2017 13:14:04 +0000 (UTC)
+Date: Mon, 26 Jun 2017 15:14:01 +0200
 From: Pavel Machek <pavel@ucw.cz>
-To: Mark Brown <broonie@kernel.org>
-Message-ID: <20170626123853.GB11441@amd>
+To: Tony Lindgren <tony@atomide.com>
+Message-ID: <20170626131401.GA11980@amd>
 References: <20170625104850.GA24717@amd>
-	<20170626105451.tv4k7ib2g2kiknah@sirena.org.uk>
-	<20170626111422.GB11688@amd>
-	<20170626114946.bw35etwxa2nungsi@sirena.org.uk>
+	<87shinzkp9.fsf@notabene.neil.brown.name>
+	<20170626064947.GF23064@atomide.com> <20170626111207.GA11688@amd>
+	<20170626114931.GG23064@atomide.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="8GpibOaaTibBMecb"
+	protocol="application/pgp-signature"; boundary="UlVJffcvxoiEqYs2"
 Content-Disposition: inline
-In-Reply-To: <20170626114946.bw35etwxa2nungsi@sirena.org.uk>
-Cc: ksummit-discuss@lists.linuxfoundation.org
+In-Reply-To: <20170626114931.GG23064@atomide.com>
+Cc: Sebastian Reichel <sebastian.reichel@collabora.co.uk>,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] mobile phones
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -34,81 +35,99 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---8GpibOaaTibBMecb
+--UlVJffcvxoiEqYs2
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Mon 2017-06-26 12:49:46, Mark Brown wrote:
-> On Mon, Jun 26, 2017 at 01:14:22PM +0200, Pavel Machek wrote:
+Hi!
+
+> > > > On Sun, Jun 25 2017, Pavel Machek wrote:
+> > > > > Situation around mobile phones is only improving very slowly. We =
+now
+> > > > > have hardware that is supported in the mainline kernel in useful =
+way
+> > > > > (Mitac Mio A701, Nokia N900, N9, N950). Graphics acceleration is =
+still
+> > > > > missing.
+> > >=20
+> > > Also droid 4 should be getting there eventually too with 3G data work=
+ing
+> > > and audio driver in progress.
+> >=20
+> > Yes, good luck with Droid 4 getting there.=20
 >=20
-> > > Do you have some more specific concern?  This already works basically
-> > > fine upstream, we happily support off-SoC audio paths.  The digital
-> > > configuration could do with being more flexible but it works and peop=
-le
-> > > ship it.  It would be awfully nice to have some control/visibility of
-> > > the modem side but that's just a missing driver problem.
+> Well actually it's sort of already there for some use cases as it's been
+> usable for me for about a month as a low-power laptop/ssh terminal with
+> Linux next and lapdock or hdmi dock :) Typing away with kernel
+> 4.12.0-rc6-next-20170622 right now.
+
+Do you have X running in useful configuration?
+
+> > > Maybe setting up the battery as a regulator for the drivers would
+> > > be the simplest solution to allow drivers to do something when the
+> > > battery voltage is low enough?
+> >=20
+> > Well, I agree that kernel should handle this somehow, but I don't
+> > believe drivers should monitor the voltage themselves. We are talking
+> > about battery voltages below 3.6V, right? At that point, we are
+> > already damaging the battery, and the battery is "soft" meaning
+> > voltage will vary with load a lot. Just because voltage was 3.31V few
+> > miliseconds before does not mean it is not be 3.1V now.
 >=20
-> > Well, I was told gsm audio is different, because it is packetized, has
-> > additional timing info, and does not transmit silence.
+> Sure and yes below 3.6V in the MMC case.
+
+Well, battery at 3.6V has < 1% of its capacity remaining. So even
+aside from battery damage, your system will not run much longer if you
+keep it running.
+
+> > Well, the problem seems to be two fold:
+> >=20
+> > 1) very few phones have usable kernel support
+> >=20
+> > (and it is not even clear how the ideal kernel support should look,
+> > because kernel/user interfaces are missing or inadequate)
+> >
+> > 2) normal distributions do not have support for phones
+> >=20
+> > (-> testing is hard because you have to develop both kernel and
+> > userland tests, and motivation is low).
 >=20
-> Those things are true, however this is all handled inside the modem so
-> nothing else in the system sees anything there.  Even if we were to see
-> things this is pretty much just VoIP over a funny carrier (some of the
-> 4G standards are just SIP AIUI) which isn't too hard.
-
-I'm still asking for one example of system that's properly designed
-according to you.
-
-It may be "VoIP over funny carrier" -- but how do you suggest we
-handle it? ALSA is for soundcards, not for VoIP so maybe
-/dev/cmtspeech is okay after all?
-
-> > So we have /dev/cmtspeech instead of second sound card.
+> Yeah, there are use cases that are not handled that way
+> at all currently.
 >=20
-> That's just whatever random thing you're working on.  It really
-> shouldn't be a second sound card on a well designed system, the phone
-> audio generally doesn't go anywhere near the CPU for latency reasons so
-> the whole system is one sound card.
+> Personally I just stick to standard mainline kernel and standard
+> distros so problem solved for me by limiting my use cases..
 
-First, where can I buy example of such well-designed system?
+Well, I'm currently doing the same. On N900, I have X running (miss
+right button on the touchscreen, and 800x480 is a bit small),
+gprs/edge/umts data working, so I have usable ssh and web
+browser. (But bufferbloat is ugly and reconnections are not handled
+well). SMSes work. WIFI works (with exception of networkmanager). GPS
+is usable. Camera is useful, including autofocus, but limited to
+1.2MPix. It lasts for a "day" which is good enough.
 
-Second, no I can't agree. I certainly don't want baseband CPU to talk
-directly to my speakers/microphone, for security reasons. Then there's
-an option to process the sound between sending it over GSM, record
-calls, etc. I quite like the flexibility, too. Latency problems are
-solveable in software -- N900 with Maemo has reasonable call quality.
+Biggest problem I have now is poor quality of audio calls... Fixing
+that would enable me to make it my primary phone...
 
-Third, I already have the system, I'm asking how to support it cleanly.
+Best regards,
 
-> > Is there any GSM audio driver that actually uses sound framework
-> > properly?
->=20
-> The modems tend to just be stub drivers to Linux as the audio port
-> doesn't vary configuration at runtime but I'd be a bit surprised if a
-> modern phone wasn't broadly aiming towards the right thing, this stuff
-> started appearing in flagship devices in about 2012.  The speyside
-> system in mainline isn't actually a phone but models what's going on.
-
-Well, the flagship devices are have 1000000+ lines of diffs relative
-to mainline, due to Qualcomm, right? :-(.
-
-								Pavel
+									Pavel
 --=20
 (english) http://www.livejournal.com/~pavelmachek
 (cesky, pictures) http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blo=
 g.html
 
---8GpibOaaTibBMecb
+--UlVJffcvxoiEqYs2
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1
 
-iEYEARECAAYFAllRAF0ACgkQMOfwapXb+vKEtgCgkI3d2R+T9AS/mWQhr6Pvttjz
-ZfkAmwQkCxRCpf5i24ORbg77xi1h81yC
-=/Bpc
+iEYEARECAAYFAllRCJkACgkQMOfwapXb+vKYZQCdFWc/j3eiJoBJeVWlyjjdvBUP
+yzkAnR2kJ6wVHGkJRJZNhi/QyKt4NScb
+=tAfx
 -----END PGP SIGNATURE-----
 
---8GpibOaaTibBMecb--
+--UlVJffcvxoiEqYs2--
