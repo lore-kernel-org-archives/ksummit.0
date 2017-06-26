@@ -1,16 +1,29 @@
-Return-Path: <broonie@sirena.org.uk>
-Date: Mon, 26 Jun 2017 13:19:39 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Jonathan Corbet <corbet@lwn.net>
-Message-ID: <20170626121939.qedzaccvqflhocq6@sirena.org.uk>
-References: <20170623123936.42dab05f@lwn.net>
+Return-Path: <pavel@ucw.cz>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3EDBD728
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 26 Jun 2017 12:22:28 +0000 (UTC)
+Received: from atrey.karlin.mff.cuni.cz (atrey.karlin.mff.cuni.cz
+	[195.113.26.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 58983CC
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 26 Jun 2017 12:22:27 +0000 (UTC)
+Date: Mon, 26 Jun 2017 14:22:24 +0200
+From: Pavel Machek <pavel@ucw.cz>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <20170626122224.GA11441@amd>
+References: <20170625104850.GA24717@amd>
+	<87shinzkp9.fsf@notabene.neil.brown.name>
+	<20170626083407.GA9621@amd>
+	<20170626112052.oze7qxmxiyu67wzh@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="iuakhqncj6idlb2l"
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="nFreZHaLTZJo0R7j"
 Content-Disposition: inline
-In-Reply-To: <20170623123936.42dab05f@lwn.net>
-Cc: ksummit-discuss@lists.linux-foundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Documentation issues
+In-Reply-To: <20170626112052.oze7qxmxiyu67wzh@sirena.org.uk>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] mobile phones
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -21,49 +34,48 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---iuakhqncj6idlb2l
+--nFreZHaLTZJo0R7j
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jun 23, 2017 at 12:39:36PM -0600, Jonathan Corbet wrote:
+Hi!
 
-> I can continue in this mode, but I do wonder if there's a better way out
-> there somewhere.  So I think there would be value in a session on the
-> maintenance of "subsystems" that don't fit neatly into the kernel
-> source-tree hierarchy.
+> > > > 2) How to handle GSM audio?
+>=20
+> > > What is the issue here?  Isn't GSM audio just another audio source/si=
+nk
+> > > which user-space can send where-ever it likes?
+>=20
+> > It is somehow packetized, and has timestamps and gaps in it, I was
+> > told. That's why we use /dev/cmt_speech, not ALSA. Probably ALSA
+> > should be improved.
+>=20
+> No, such systems can and do work absolutely fine with the existing
+> frameworks.  You just have non-upstream drivers that don't make any
+> effort to work within existing frameworks.  Most of the vendors came
+> round to doing the right thing on this some years ago.
 
-One thing I think it'd be good to do is work out a sensible way of
-keeping the maintainers of the relevant subsystems in the loop on things
-- a combination of the mechanics and how much effort we want to put into
-making sure people have at least seen things.  For example it looks like
-the regulator DocBook got converted to RST without me being aware of it
-(it seems I did get copied on one mail at some point but I can't have
-read it and there don't seem to have been any resends), that case isn't
-a problem itself but it seems like an area where things could end up not
-running smoothly.
+Take a look at ./drivers/hsi/clients/cmt_speech.c in your favourite
+kernel. It was merged in 2010 AFAICT.
 
-I know I rely fairly heavily on subject lines to filter what I'm looking
-at since some of my subsystems mean that I get copied on lots of random
-stuff that's of at most passing relevance to me which ends up being an
-issue with things like DT bindings sometimes (I think this is also part
-of what went wrong with the regulator conversion) but that doesn't
-scale since the subject lines can't easily be useful for multiple
-subsystems simultaneously.  I'm not sure what else to do though, we
-basically only have the subject lines and CC lists to work with here.
+									Pavel
 
---iuakhqncj6idlb2l
+--=20
+(english) http://www.livejournal.com/~pavelmachek
+(cesky, pictures) http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blo=
+g.html
+
+--nFreZHaLTZJo0R7j
 Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
 
-iQEzBAABCAAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAllQ+9oACgkQJNaLcl1U
-h9DzPgf9FEfydp+rh5xvprRU7IT95CuTNgXabmNobpvRtdD/xW+PX0djiGgUQjG1
-GBjqodS5hZAzkkk88PtVFDsH4dZNAXEO0oyfqI8CB8CohYJsP+VELS0UAK5NxCVv
-IPnKid9QrP9lXgop640S7nkR7NIercIj5D8NGu/ck0ldwh+Z2kTWAmmfmNZB9GqC
-etyxhNwTMJW1bxubT8r5yWE2bPJ6C/GrTv12oNrIWUoc+KZmg1F5JmveB7aKcZWe
-AtcjJldRnoCCV/+e5LnqmDq4NZtyLmnpesvS7h/YkYhzaarAGdVwlrZM25wJcSsc
-CI1p592BHX3xTCQcMN8ZNS3WBs2FZw==
-=aOB5
+iEYEARECAAYFAllQ/IAACgkQMOfwapXb+vKrTQCgsz5JvUMbAZB99c2/Q5YHOYD+
+UwMAn0DkmLAPdU+EA4Fj6vuMDkGpQnHm
+=Xb5K
 -----END PGP SIGNATURE-----
 
---iuakhqncj6idlb2l--
+--nFreZHaLTZJo0R7j--
