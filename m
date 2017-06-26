@@ -1,34 +1,26 @@
-Return-Path: <jikos@kernel.org>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5814697A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2E1FA710
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 26 Jun 2017 08:46:42 +0000 (UTC)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D837EEB
+	Mon, 26 Jun 2017 10:55:00 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B61A7E5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 26 Jun 2017 08:46:41 +0000 (UTC)
-Date: Mon, 26 Jun 2017 10:46:39 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-In-Reply-To: <CA+55aFzisqGwwG7nNabu_X7=CR45HBrrV4XhgSEw9RkED-A9yg@mail.gmail.com>
-Message-ID: <alpine.LSU.2.20.1706261040560.30709@cbobk.fhfr.pm>
-References: <ef18231f-c69b-5d88-0410-485cfcf4143b@suse.com>
-	<20170619103912.2edbf88a@gandalf.local.home>
-	<20170619152055.GM3786@lunn.ch>
-	<20170619122651.57ba27c4@gandalf.local.home>
-	<20170624081411.58b4fb6a@vento.lan> <20170624140659.GM4875@lunn.ch>
-	<20170624184216.2ffd4a96@gandalf.local.home>
-	<20170624232140.GA27473@lunn.ch>
-	<CA+55aFzQyfVnj2mhsZGsOVP7FEc4g7vguGCtkyGy1cMONPeitw@mail.gmail.com>
-	<20170624234805.GT10672@ZenIV.linux.org.uk>
-	<20170625012913.GC27473@lunn.ch>
-	<CA+55aFzisqGwwG7nNabu_X7=CR45HBrrV4XhgSEw9RkED-A9yg@mail.gmail.com>
+	Mon, 26 Jun 2017 10:54:59 +0000 (UTC)
+Date: Mon, 26 Jun 2017 11:54:51 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Pavel Machek <pavel@ucw.cz>
+Message-ID: <20170626105451.tv4k7ib2g2kiknah@sirena.org.uk>
+References: <20170625104850.GA24717@amd>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Cc: Mauro Carvalho Chehab <mchehab@s-opensource.com>,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] printk redesign
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="txfdyusjy33ddqb6"
+Content-Disposition: inline
+In-Reply-To: <20170625104850.GA24717@amd>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] mobile phones
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,28 +30,34 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, 24 Jun 2017, Linus Torvalds wrote:
 
-> > It is how the embedded world operates, RS232, or now more often, RS232 
-> > with a built in USB-RS232 converter, so you use USB on the host.
-> 
-> I'm not saying that serial lines shouldn't be an option.
-> 
-> But for a *large* user base, they simply aren't.
-> 
-> On regular PC's, it's often not an option any more. Even in the data
-> center, it's often not an option any more.
+--txfdyusjy33ddqb6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-I don't really agree here. Yes, the mid-to-hig-end servers don't probably 
-contain the actual UART chip any more, but the vast majority of those have 
-somehting that's emulated in firmware, and actually do have a serial 
-console line connector (not the 9-pin one, but rather RJ-45 with either 
-Cisco or Yost pinout), which is then connected into serial-over-TCP 
-concentrator box, exposing the serial console over telnet (or some 
-proprietary client application). This is seen in DCs quite frequently.
+On Sun, Jun 25, 2017 at 12:48:50PM +0200, Pavel Machek wrote:
 
-Even machines that have very good IPMI support still ship with this.
+> 2) How to handle GSM audio?
 
--- 
-Jiri Kosina
-SUSE Labs
+Do you have some more specific concern?  This already works basically
+fine upstream, we happily support off-SoC audio paths.  The digital
+configuration could do with being more flexible but it works and people
+ship it.  It would be awfully nice to have some control/visibility of
+the modem side but that's just a missing driver problem.
+
+--txfdyusjy33ddqb6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCAAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAllQ5/cACgkQJNaLcl1U
+h9A4zQf/Xb+7Fr/U7RJXJhz7jYSdPOroTaVGEp8DX76VVbn+bPk+Jm03rL6G8VM7
+4vy+8wy4cMbcR5bqjHftawMivMmbm7lNs+xzO4mtUZrLGF7yUCAArjgzoufZSTNo
+GiaBdWcY0C+vvHD5K3H/EZgi4sYmV/KAnspjS/XxBYriMyJ+rh2VcgTHr2vAKYye
+eqs5LRpw0S4b8eQbIuDYOCRidHH/zGwtGNb7IdOrN7YcMY9OUVJxbTIILDMpRh65
+Wv80ctwbnhFRK/vi9v9eW1EiNoAgYxGMMOnf9xDt91L0TMw7PF7rbcK+pGsBwyeA
+rPbcXt1YLf/zI/joPZa2SXlQeYYNxQ==
+=yt2L
+-----END PGP SIGNATURE-----
+
+--txfdyusjy33ddqb6--
