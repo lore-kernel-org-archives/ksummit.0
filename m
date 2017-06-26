@@ -1,20 +1,26 @@
-Return-Path: <corbet@lwn.net>
-Date: Mon, 26 Jun 2017 16:18:28 -0600
-From: Jonathan Corbet <corbet@lwn.net>
-To: Jiri Kosina <jkosina@suse.cz>
-Message-ID: <20170626161828.3914fcc1@lwn.net>
-In-Reply-To: <alpine.LSU.2.20.1706252254190.30709@cbobk.fhfr.pm>
-References: <20170623123936.42dab05f@lwn.net>
-	<20170624074641.4820fecd@vento.lan>
-	<1779146.rtcHP5MkoH@aspire.rjw.lan>
-	<20170624104142.70677fcb@vento.lan>
-	<alpine.LSU.2.20.1706252254190.30709@cbobk.fhfr.pm>
+Return-Path: <alexandre.belloni@free-electrons.com>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2AD9EAE0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 26 Jun 2017 22:23:17 +0000 (UTC)
+Received: from mail.free-electrons.com (mail.free-electrons.com [62.4.15.54])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 7B568125
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 26 Jun 2017 22:23:16 +0000 (UTC)
+Date: Tue, 27 Jun 2017 00:23:14 +0200
+From: Alexandre Belloni <alexandre.belloni@free-electrons.com>
+To: Pavel Machek <pavel@ucw.cz>
+Message-ID: <20170626222314.fo4hs4mymdjtuobu@piout.net>
+References: <20170625104850.GA24717@amd>
+	<87shinzkp9.fsf@notabene.neil.brown.name>
+	<20170626083407.GA9621@amd>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 8bit
-Cc: Mauro Carvalho Chehab <mchehab@s-opensource.com>,
-	ksummit-discuss@lists.linux-foundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Documentation issues
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20170626083407.GA9621@amd>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] mobile phones
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -24,32 +30,24 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sun, 25 Jun 2017 22:56:07 +0200 (CEST)
-Jiri Kosina <jkosina@suse.cz> wrote:
-
-> Unfortunately option (3) has also been applied to some of the files:
+On 26/06/2017 at 10:34:07 +0200, Pavel Machek wrote:
+> So we currently have GPSes on serial, producing NMEA. Gpsd there may
+> be good enough. But then we have different hardware, not producing
+> NMEA (GPS on N900 is exposed as network packet over PHONET
+> interface, there's drivers/usb/serial/garmin_gps.c with who-knows-what
+> interface)... and it would be nice to have good, "native" GPS
+> interface which would work in this case. (We'd like timestamps for
+> incoming data and lat/long/alt + speed in lat/long/alt + error in
+> lat/long/alt sampled at the same time, at the very least).
 > 
-> 	$ ll Documentation/kernel-parameters.txt
-> 	ls: cannot access 'Documentation/kernel-parameters.txt': No such file or directory
-> 
-> I wasn't sure whether this was intentional or not. But if not, I'll 
-> happily send a patch that introduces a symlink.
 
-Worries about moving well-known files are why I delayed some of this stuff
-a bit so I could bring it up at conferences and the kernel summit.  It
-only proceeded after I didn't get any real pushback in those settings.
+garmin_gps is actually not desirable and is better handled in
+userspace, see:
+http://wiki.openstreetmap.org/wiki/USB_Garmin_on_GNU/Linux
 
-In general, we move files around in the kernel tree all the time.  We
-don't normally leave symlinks behind; indeed, we never do.  Instead, we
-figure out where the file moved to and get on with life.  Are
-documentation files somehow different, needing different rules in this
-regard?  I wouldn't mind some clarity on that point.
 
-My hope (cue inspirational music here) is that, someday, it will be
-possible to type "ls Documentation" and get back a reasonably sized
-listing that is easy to explore.  Let's just say that's not the situation
-at the moment.  Getting there will certainly involve moving files around;
-replacing them with symlinks or pointer files would, to a real extent,
-defeat the purpose.
 
-jon
+-- 
+Alexandre Belloni, Free Electrons
+Embedded Linux and Kernel engineering
+http://free-electrons.com
