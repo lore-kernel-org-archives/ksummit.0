@@ -1,17 +1,18 @@
 Return-Path: <rjw@rjwysocki.net>
 From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-To: Mauro Carvalho Chehab <mchehab@s-opensource.com>,
-	Jiri Kosina <jkosina@suse.cz>
-Date: Mon, 26 Jun 2017 23:18:45 +0200
-Message-ID: <1603867.tzUgCzNmNQ@aspire.rjw.lan>
-In-Reply-To: <20170625222057.51b1341d@vento.lan>
+To: Takashi Iwai <tiwai@suse.de>
+Date: Mon, 26 Jun 2017 23:28:36 +0200
+Message-ID: <2121039.qAt5UfpHsn@aspire.rjw.lan>
+In-Reply-To: <s5hd19rnvcs.wl-tiwai@suse.de>
 References: <20170623123936.42dab05f@lwn.net>
 	<alpine.LSU.2.20.1706252254190.30709@cbobk.fhfr.pm>
-	<20170625222057.51b1341d@vento.lan>
+	<s5hd19rnvcs.wl-tiwai@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="us-ascii"
-Cc: ksummit-discuss@lists.linux-foundation.org
+Cc: Mauro Carvalho Chehab <mchehab@s-opensource.com>,
+	Jiri Kosina <jkosina@suse.cz>, ksummit-discuss@lists.linux-foundation.org,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Documentation issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -22,10 +23,10 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sunday, June 25, 2017 10:20:57 PM Mauro Carvalho Chehab wrote:
-> Em Sun, 25 Jun 2017 22:56:07 +0200 (CEST)
-> Jiri Kosina <jkosina@suse.cz> escreveu:
-> 
+On Monday, June 26, 2017 07:58:27 AM Takashi Iwai wrote:
+> On Sun, 25 Jun 2017 22:56:07 +0200,
+> Jiri Kosina wrote:
+> > 
 > > On Sat, 24 Jun 2017, Mauro Carvalho Chehab wrote:
 > > 
 > > > > There are pieces of .txt documentation falling into the "well-knows source of
@@ -38,7 +39,7 @@ On Sunday, June 25, 2017 10:20:57 PM Mauro Carvalho Chehab wrote:
 > > > > links pointing to the documentation at kernel.org still work going forward.
 > > > > 
 > > > > And if we have moved or renamed them already, can we possibly make these
-> > > > links work again somehow?  
+> > > > links work again somehow?
 > > > 
 > > > Agreed. We discussed in the past about two alternatives for those
 > > > "well known" documents:
@@ -48,7 +49,7 @@ On Sunday, June 25, 2017 10:20:57 PM Mauro Carvalho Chehab wrote:
 > > > 	2) use symlink.
 > > > 
 > > > Right now, we're actually mixing (1) and (2). IMHO, we should either
-> > > do (1) or (2).  
+> > > do (1) or (2).
 > > 
 > > Unfortunately option (3) has also been applied to some of the files:
 > > 
@@ -58,15 +59,15 @@ On Sunday, June 25, 2017 10:20:57 PM Mauro Carvalho Chehab wrote:
 > > I wasn't sure whether this was intentional or not. But if not, I'll 
 > > happily send a patch that introduces a symlink.
 > 
-> It was not intentional in the sense of "hiding" where it
-> went. The idea is to keep the number of such references "minimum",
-> in order to avoid bloating the Documents/ with lots of (1) or (2).
-> 
-> So, the reason why there's currently no cross reference for it is
-> just because nobody decided to put it at the list of "well known"
-> docs that would require a cross-reference of type (1) or (2).
+> If we do symlinks, wouldn't it be cleaner to separate the old doc
+> directory from the new doc directory?  That is, Documentation/* keeps
+> the old txt or symlinks while the ReST is put in another directory,
+> say, docs/* as originally suggested.
 
-Which I'm reading as "please send a patch if you care" frankly. :-)
+That actually sounds like a good idea to me. :-)
+
+Question is if it's not too late to do that now that we have all that stuff
+under Documentation/.
 
 Thanks,
 Rafael
