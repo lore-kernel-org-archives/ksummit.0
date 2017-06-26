@@ -1,12 +1,13 @@
 Return-Path: <rjw@rjwysocki.net>
 From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-To: Mauro Carvalho Chehab <mchehab@s-opensource.com>
-Date: Mon, 26 Jun 2017 23:16:34 +0200
-Message-ID: <6778198.2AiHWZiSUU@aspire.rjw.lan>
-In-Reply-To: <20170625221546.49c4b997@vento.lan>
+To: Mauro Carvalho Chehab <mchehab@s-opensource.com>,
+	Jiri Kosina <jkosina@suse.cz>
+Date: Mon, 26 Jun 2017 23:18:45 +0200
+Message-ID: <1603867.tzUgCzNmNQ@aspire.rjw.lan>
+In-Reply-To: <20170625222057.51b1341d@vento.lan>
 References: <20170623123936.42dab05f@lwn.net>
-	<9331130.3GseHRJqRx@aspire.rjw.lan>
-	<20170625221546.49c4b997@vento.lan>
+	<alpine.LSU.2.20.1706252254190.30709@cbobk.fhfr.pm>
+	<20170625222057.51b1341d@vento.lan>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="us-ascii"
@@ -21,77 +22,51 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sunday, June 25, 2017 10:15:46 PM Mauro Carvalho Chehab wrote:
-> Em Sun, 25 Jun 2017 23:42:20 +0200
-> "Rafael J. Wysocki" <rjw@rjwysocki.net> escreveu:
+On Sunday, June 25, 2017 10:20:57 PM Mauro Carvalho Chehab wrote:
+> Em Sun, 25 Jun 2017 22:56:07 +0200 (CEST)
+> Jiri Kosina <jkosina@suse.cz> escreveu:
 > 
-> > On Sunday, June 25, 2017 05:32:31 PM Matthew Wilcox wrote:
-> > > I find documentation comes in the following bins:
+> > On Sat, 24 Jun 2017, Mauro Carvalho Chehab wrote:
+> > 
+> > > > There are pieces of .txt documentation falling into the "well-knows source of
+> > > > information" category, with many references to them all over the Web.
+> > > > kernel-parameters.txt is probably the most spectacular example here, but there
+> > > > are others.
+> > > > 
+> > > > Let us not move or rename these, please, or at least put symbolic links in
+> > > > place to point to the new locations or similar, such that the existing WWW
+> > > > links pointing to the documentation at kernel.org still work going forward.
+> > > > 
+> > > > And if we have moved or renamed them already, can we possibly make these
+> > > > links work again somehow?  
 > > > 
-> > > 1. User documentation (possible sub-split into "how to use this from kernel
-> > > space" and "how to use this from user space")
-> > > 2. Information for someone who's interested in modifying the code. Possibly
-> > > including architectural considerations (eg locking), performance, ideas for
-> > > future improvement, etc.
-> > > 3. Random swearing and abuse  
-> > 
-> > There also is information on various frameworks that driver writers are expected
-> > to use and honestly various mixtures of that with 1. above.
-> > 
-> > Mutual exclusion mechanisms also need to be documented properly IMO and so on.
-> > 
-> > > I think the second and third categories of documentation should be kept out
-> > > of the kernel books and left as plain comments by the code.
+> > > Agreed. We discussed in the past about two alternatives for those
+> > > "well known" documents:
 > > > 
-> > > On 24 Jun 2017 9:41 am, "Mauro Carvalho Chehab" <mchehab@s-opensource.com>
-> > > wrote:
+> > > 	1) write a small text on the old file pointing to the
+> > > 	   new location;
+> > > 	2) use symlink.
 > > > 
-> > > Yeah, one of the problems with existing documentation is that,
-> > > sometimes, the same document describes both userspace-relevant
-> > > info and kernelspace APIs.  
+> > > Right now, we're actually mixing (1) and (2). IMHO, we should either
+> > > do (1) or (2).  
 > > 
-> > Right.
+> > Unfortunately option (3) has also been applied to some of the files:
 > > 
-> > But, alas, those things happen to be related, especially when framework-provided
-> > sysfs attributes and similar come into play.  With the current layout of things
-> > it sometimes is hard to avoid documenting the same thing in two different
-> > places, risking that the two descriptions of the same thing will diverge in the
-> > future eventually.
+> > 	$ ll Documentation/kernel-parameters.txt
+> > 	ls: cannot access 'Documentation/kernel-parameters.txt': No such file or directory
 > > 
+> > I wasn't sure whether this was intentional or not. But if not, I'll 
+> > happily send a patch that introduces a symlink.
 > 
-> Well, sysfs attribute description is currently a little messy, IMHO.
-> We have (or should have) all of them described under Documentation/ABI/,
-> but it is not uncommon to have them described on some other random
-> places. As things get bitrot, we end by having different descriptions
-> on each place.
+> It was not intentional in the sense of "hiding" where it
+> went. The idea is to keep the number of such references "minimum",
+> in order to avoid bloating the Documents/ with lots of (1) or (2).
 > 
-> I also suspect that some sysfs descriptions are only outside
-> Documentation/ABI/ (although I never actually tried to seek for such
-> issue).
+> So, the reason why there's currently no cross reference for it is
+> just because nobody decided to put it at the list of "well known"
+> docs that would require a cross-reference of type (1) or (2).
 
-That would be my guess too, although I don't remember any specific
-examples readily.
-
-My point is that some frameworks expose things via sysfs and drivers are
-expected to provide callbacks invoked from there or similar.  The information
-on what is expected to be provided falls under the "driver API", but it is
-strictly related to the "admin guide" part as well.
-
-> > Moreover, does debugfs fall into "user documentation" or "developer documentation",
-> > for example?
-> > 
-> > And generally documentation on how to diagnose problems for that matter?
-> 
-> The same thing for sysfs applies to debugfs.
-> 
-> IMHO, debugfs and information about how to diagnose problems
-> belong to "user documentation" / "how to use this from user space"
-> (using Matthew's classification), in the sense that an advanced
-> admin may use them, in order to properly address some issue that
-> will eventually generate a bug report (either for Kernel or to some
-> application/library).
-
-It also is part of driver developer's toolkit, however, like unit tests and such.
+Which I'm reading as "please send a patch if you care" frankly. :-)
 
 Thanks,
 Rafael
