@@ -1,27 +1,33 @@
-Return-Path: <sre@kernel.org>
+Return-Path: <sergey.senozhatsky.work@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0B7ED92F
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0AEC8504
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 27 Jun 2017 12:39:53 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0E15E1D7
+	Tue, 27 Jun 2017 13:06:34 +0000 (UTC)
+Received: from mail-pf0-f195.google.com (mail-pf0-f195.google.com
+	[209.85.192.195])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E88B53CC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 27 Jun 2017 12:39:51 +0000 (UTC)
-Date: Tue, 27 Jun 2017 14:39:48 +0200
-From: Sebastian Reichel <sre@kernel.org>
-To: Pavel Machek <pavel@ucw.cz>
-Message-ID: <20170627123947.krne6a2saolcndih@earth>
-References: <20170625104850.GA24717@amd>
-	<87shinzkp9.fsf@notabene.neil.brown.name>
-	<20170626083407.GA9621@amd>
+	Tue, 27 Jun 2017 13:06:32 +0000 (UTC)
+Received: by mail-pf0-f195.google.com with SMTP id e199so4714692pfh.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 27 Jun 2017 06:06:32 -0700 (PDT)
+Date: Tue, 27 Jun 2017 22:06:39 +0900
+From: Sergey Senozhatsky <sergey.senozhatsky.work@gmail.com>
+To: Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>
+Message-ID: <20170627130639.GA1886@jagdpanzerIV.localdomain>
+References: <20170619052146.GA2889@jagdpanzerIV.localdomain>
+	<CGME20170622134852epcas2p4b6deccc56b52c71eada58fba2d527793@epcas2p4.samsung.com>
+	<CAKMK7uGWBFJ70KPexoyyYiWMOkKTga5KEO5zPtN70pRHBV90cQ@mail.gmail.com>
+	<10423619.jNvHD4M0jW@amdc3058>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="urzt7uvvvocmxb6i"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20170626083407.GA9621@amd>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] mobile phones
+In-Reply-To: <10423619.jNvHD4M0jW@amdc3058>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Linux Fbdev development list <linux-fbdev@vger.kernel.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] printk redesign
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,119 +37,43 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On (06/23/17 11:07), Bartlomiej Zolnierkiewicz wrote:
+> On Thursday, June 22, 2017 03:48:34 PM Daniel Vetter wrote:
+> > On Thu, Jun 22, 2017 at 3:42 PM, Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
+> > > Tears pretty much guaranteed, and after a few hacks from Alan&me I
+> > > concluded that the only way to fix this is to at least partially
+> > > rewrite fbdev (a dead subsystem, so no one's volunteering), with the
+> > > risk that you get to revert it all because someone is indeed relying
+> > > on that super-flexible module loading order sequence. The simplest fix
+> > > would probably be to make the entire fbdev->fbcon setup depency a
+> > > hard-coded function call, or maybe at most a one-shot symbol_get
+> > > attempt.
+> > 
+> > I did once hash out a plan how to fix this with the least amount of pain:
+> > 
+> > 1. Merge a patch to build the fbcon support into the overall fb.ko
+> > module, so that the dynamic loading nonsense is essentially disabled,
+> > and fbcon becomes a Kconfig/compile-time only option, no longer a
+> > runtime-selectable thing.
+> > 
+> > 2. Wait 1 year and pray that no one reports a regression. If you're
+> > unlucky, try to fence them of with a runtime option to disable fbcon.
+> > 
+> > 3. Rip out the notifier nonsense and replace it by direct function
+> > calls. You can only do that once 1. won't be reverted anymore.
+> > 
+> > 4. Push the console_lock donw the callchains until it's again at the
+> > right spots, auditing all the other stuff meanwhile to make sure the
+> > locking is still correct.
+> > 
+> > 5. Apply your patch to make console_lock sane.
+> > 
+> > Adding fbdev maintainers and lists just.
+> 
+> Your plan sounds good to me.
 
---urzt7uvvvocmxb6i
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+cool.
 
-Hi,
+I'm willing to help. let's coordinate.
 
-On Mon, Jun 26, 2017 at 10:34:07AM +0200, Pavel Machek wrote:
-> > > Situation around mobile phones is only improving very slowly. We now
-> > > have hardware that is supported in the mainline kernel in useful way
-> > > (Mitac Mio A701, Nokia N900, N9, N950). Graphics acceleration is still
-> > > missing.
-> > >
-> > > But there are major pieces missing: first is userspace. That's not for
-> > > us to solve. Then there's some kind of hardware abstraction layer;
-> > > kernel currently does NOT provide enough information for userland to
-> > > autoconfigure everything.
-> > >
-> > > There are big questions about kernel / user interface. We have whole
-> > > subsystems missing. They include:
-> > >
-> > > 1) Who is responsible for shutting machine down on low battery, and
-> > > not bringing it up unless safe?
-> >=20
-> > My laptop hibernates when the battery level gets too low. Why should a
-> > phone be any different?  User-space monitoring and policy seems a
-> > suitable answer.
->=20
-> Phone is different... and I'm not talking orderly_shutdown here.
->=20
-> Boot your notebook with init=3D/bin/bash, and launch fsck on low
-> battery. It will blink, it may beep, but in the end it will power off
-> abruptly at maybe 3.6V per cell, before battery is damaged. Now try
-> the same on N900. It will not blink, and it will run battery down to
-> less then 3.0V; various components will fail, you'll get screen
-> flicker, and presumably your MMC will be _really_ unhappy. Eventually,
-> CPU fails, machine reboots, and machine will attempt to do _the same
-> again_.
->=20
-> Basically we are missing one layer of protection here, compared to the
-> PC case.
-
-It should be fine to add something like Tony's orderly_poweroff to
-the rx51 battery driver.
-
-> > I think the "not bring up unless safe" decision needs to be made in
-> > the boot-loader.  Once Linux boots, it tends to turn everything on,
-> > then the unneeded things back off.  That is no good if all you want to
-> > do is start the battery charging.  Changing this approach would need
-> > a lot of work and buy-in from lots of people.  I doubt it will
-> > happen.
->=20
-> Problem is that bootloader does not even know about battery charging,
-> and is far from having required drivers. That's why I'd try to get
-> buy-in ;-).
-
-Actually Nokia Loader does know about battery charging and does so
-for really empty batteries. Once the battery is full enough it tries
-to boot operating system with better monitoring capabilities,
-though.
-
-> > > 3) How to handle differences between GSM modems and between GPS
-> > > receivers? Is AT commands/NMEA good enough? What about AGPS upload?
-> >=20
-> > My limited exposure to the different varieties of GSM and GPS protocols
-> > that are supported suggests that this needs to be done in user-space.
-> > There isn't any suitable abstract protocol that we could implement in a
-> > kernel interface.
-> > gpsd handles multiple GPS protocols and meets a lot of needs.  If it
-> > isn't perfect, it can probably be improved.
->=20
-> It is not perfect, indeed.
->=20
-> So we currently have GPSes on serial, producing NMEA. Gpsd there may
-> be good enough. But then we have different hardware, not producing
-> NMEA (GPS on N900 is exposed as network packet over PHONET
-> interface, there's drivers/usb/serial/garmin_gps.c with who-knows-what
-> interface)... and it would be nice to have good, "native" GPS
-> interface which would work in this case. (We'd like timestamps for
-> incoming data and lat/long/alt + speed in lat/long/alt + error in
-> lat/long/alt sampled at the same time, at the very least).
->=20
-> Its similar to mice, really. We used to have gpm, now we have real
-> drivers.
->=20
-> Plus there's still issue of AGPS data upload.
-
-On N950 there is an unsupported gps connected via i2c iirc (with
-unknown protocol that needs to be RE'd) and TI's WiLink provides
-GPS on a shared UART link with bluetooth-style header using yet
-another protocol. I agree, that we should have a GPS subsystem.
-
--- Sebastian
-
---urzt7uvvvocmxb6i
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAllSUg8ACgkQ2O7X88g7
-+podGg//QJArREPh765zb2R4/4enB1VJWYsY9L3SFciiXpnyJsrUCfvYq6wGEp/h
-ZjaM9u3PAlPVErVAgtKJUP1ypeuJtc4PUaaBqefSzqI1WDTdVIBNXgJh9FjBvw3B
-PRkKa9yAWDJ9UOmaJU5lbVOKEJYuL3Eitn9thF2uShVS5385R/tBu0Fpxq44VjBm
-KztKxo6J8ubbHGi+leVExp05LIiwMMAs9WIXgGQOd+8Ilau++xfOFdFZe8+ymMXW
-dERGbSYfGYPBw3oAsx5oobnw/Sty0rIp5bAGFbG2VG9oGOHlY2SWoE2tGfXREEaB
-268RcqWFm1gppCF1NlvCWGqtukBZnR54JaouDj4tpF2Xt2ZwT2UEP0SSBTyU6SoM
-5pG/TCj8PuORzRUAuiT3PAsACXZV8oOwPRJH8XdIFADfREqDFxtv7RacFoPFL3DQ
-9LiPiC71wicBilBP2TKgEvT1iUv0uyNVWwPzs0aJX1o+lBcZjt8mTHCdhKn1xxbL
-R8v4Fshs0O666iFPjVpjJ2FZT4DBdkDVElGiH1eVjXFQqLAf59flt0hHOSzi99ei
-F3xQj7iNLf45ZoKCAaM0MpKoGKQdvdmxkJKvcG1gRuViVKS36jvuzVs2/u69dNjZ
-7GgCo0qicTLcv3S+TbqEnkxcdEhsOm/jnmLkXXqNGlIIJnx9qCY=
-=nYnY
------END PGP SIGNATURE-----
-
---urzt7uvvvocmxb6i--
+	-ss
