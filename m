@@ -1,28 +1,28 @@
-Return-Path: <pavel@ucw.cz>
+Return-Path: <tony@atomide.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2562972A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3C7465B1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 27 Jun 2017 07:06:47 +0000 (UTC)
-Received: from atrey.karlin.mff.cuni.cz (atrey.karlin.mff.cuni.cz
-	[195.113.26.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 409D1CE
+	Tue, 27 Jun 2017 07:18:40 +0000 (UTC)
+Received: from muru.com (muru.com [72.249.23.125])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 9CB791A6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 27 Jun 2017 07:06:46 +0000 (UTC)
-Date: Tue, 27 Jun 2017 09:06:44 +0200
-From: Pavel Machek <pavel@ucw.cz>
-To: Alexandre Belloni <alexandre.belloni@free-electrons.com>
-Message-ID: <20170627070644.GA16256@amd>
+	Tue, 27 Jun 2017 07:18:39 +0000 (UTC)
+Date: Tue, 27 Jun 2017 00:18:36 -0700
+From: Tony Lindgren <tony@atomide.com>
+To: Pavel Machek <pavel@ucw.cz>
+Message-ID: <20170627071835.GJ23064@atomide.com>
 References: <20170625104850.GA24717@amd>
 	<87shinzkp9.fsf@notabene.neil.brown.name>
-	<20170626083407.GA9621@amd>
-	<20170626222314.fo4hs4mymdjtuobu@piout.net>
+	<20170626064947.GF23064@atomide.com> <20170626111207.GA11688@amd>
+	<20170626114931.GG23064@atomide.com> <20170626131401.GA11980@amd>
+	<20170626134904.GH23064@atomide.com> <20170626204932.GA19396@amd>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="NzB8fVQJ5HfG6fxh"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20170626222314.fo4hs4mymdjtuobu@piout.net>
-Cc: ksummit-discuss@lists.linuxfoundation.org
+In-Reply-To: <20170626204932.GA19396@amd>
+Cc: Sebastian Reichel <sebastian.reichel@collabora.co.uk>,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] mobile phones
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -33,51 +33,62 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+* Pavel Machek <pavel@ucw.cz> [170626 13:49]:
+> HDMI is nice; that's a feature I'd like. And I guess you also have
+> real and working USB host?
 
---NzB8fVQJ5HfG6fxh
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Yeah USB host works, so far only with battery VBUS so unable to power
+all devices. I think there's a proper VBUS regulator too but I need to
+look around more for it.
 
-On Tue 2017-06-27 00:23:14, Alexandre Belloni wrote:
-> On 26/06/2017 at 10:34:07 +0200, Pavel Machek wrote:
-> > So we currently have GPSes on serial, producing NMEA. Gpsd there may
-> > be good enough. But then we have different hardware, not producing
-> > NMEA (GPS on N900 is exposed as network packet over PHONET
-> > interface, there's drivers/usb/serial/garmin_gps.c with who-knows-what
-> > interface)... and it would be nice to have good, "native" GPS
-> > interface which would work in this case. (We'd like timestamps for
-> > incoming data and lat/long/alt + speed in lat/long/alt + error in
-> > lat/long/alt sampled at the same time, at the very least).
->=20
-> garmin_gps is actually not desirable and is better handled in
-> userspace, see:
-> http://wiki.openstreetmap.org/wiki/USB_Garmin_on_GNU/Linux
+> Anyway I was interested... do you have useful X running on localhost?
+> I mean... finger is too big to control X applications, and you have
+> capacitive touchsreen, right?
 
-Well, yes, you can put usb drivers in userspace. And in garmin_gps
-case, userspace driver currently works better than kernel one.
+I use i3 so I did not even note that right now atmel_mxt_ts no longer
+works for me in next.. But yeah I can point to screens and activate
+them. So far I have not needed anything more complex.
 
-But in case of GPS not connected on simple serial bus (USB, serial),
-that will mean two drivers, one in kernel, and one in userspace, and
-that's wrong.
+> Ah, thanks for the pointer. Built-in battery is very bad for
+> debugging, and very bad when PM is not quite finished. But I remember
+> droid4 was something that disqualified it for European use. Aha, LTE @
+> 700MHz, which is not available here. Hmm, but GSM/UMTS works in v4.12
+> according to the table, so that's not too bad.
 
-Best regards,
-									Pavel
---=20
-(english) http://www.livejournal.com/~pavelmachek
-(cesky, pictures) http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blo=
-g.html
+Hmm the battery can be disconnected with t5.. And watchdog works.. But
+we still need to somehow produce sysrq with power button + volume
+down. In this case those are in separate drivers, gpio-keys for
+volume down and then cpcap-pwrbutton. I'm also pretty sure the PMIC
+supports powerdown on pressing down the power button some some seconds
+but I have not found that bit so far :)
 
---NzB8fVQJ5HfG6fxh
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
+> Does ofonod support the modems in an useful way?
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v1
+No idea, I've only used qmicli so far.
 
-iEYEARECAAYFAllSBAQACgkQMOfwapXb+vLx5gCeN5faJJkzjDrDCAsgT9Xc77/5
-amEAoLGxtZl06yfvggZLXQMZyu6uh4yx
-=TapB
------END PGP SIGNATURE-----
+> Is GSM connected directly to the audio, or does it need real-time
+> task, similar to N900?
 
---NzB8fVQJ5HfG6fxh--
+The audio mixer is on CPCAP PMIC, and I think mdm6600 modem audio needs
+help from the Linux kernel on the applications processor as it probably
+goes to it first then to CPCAP PMIC. I guess it's possible that mdm6600
+audio goes directly to CPCAP PMIC too.
+
+I believe LTE modem is connected to the second SPI interface on the
+CPCAP PMIC and can use it directly for audio depending on how Linux
+kernel configures the PMIC secondary interface device access. What
+seems to be a similar PMIC for the CPCAP internal devices is documented
+in MC13783UG.pdf on NXP site so that might be worth looking at for
+the audio overview.
+
+> It looks like nice machine. OTOH N950 looks like a nice machine, too,
+> and N900 is actually nicer because of the resistive touch, battery,
+> and friendly bootloader...
+
+Sure, my n950 just got so worn down I was afraid I don't have any
+replacement. And we need some kind of potential community upgrade for
+n900/n9/n950 anyways while waiting for better devices :)
+
+Regards,
+
+Tony
