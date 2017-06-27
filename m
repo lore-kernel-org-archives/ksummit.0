@@ -1,30 +1,22 @@
-Return-Path: <sebastian.reichel@collabora.co.uk>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id E2EF48E3
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 27 Jun 2017 12:15:00 +0000 (UTC)
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4EF13125
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 27 Jun 2017 12:15:00 +0000 (UTC)
-Date: Tue, 27 Jun 2017 14:14:55 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.co.uk>
-To: Tony Lindgren <tony@atomide.com>
-Message-ID: <20170627121455.tljtekx6bmzlezxa@earth>
-References: <20170625104850.GA24717@amd>
-	<87shinzkp9.fsf@notabene.neil.brown.name>
-	<20170626064947.GF23064@atomide.com> <20170626111207.GA11688@amd>
-	<20170626114931.GG23064@atomide.com> <20170626131401.GA11980@amd>
-	<20170626134904.GH23064@atomide.com> <20170626204932.GA19396@amd>
-	<20170627071835.GJ23064@atomide.com>
+Return-Path: <Tim.Bird@sony.com>
+From: "Bird, Timothy" <Tim.Bird@sony.com>
+To: Jonathan Corbet <corbet@lwn.net>, Jiri Kosina <jkosina@suse.cz>
+Date: Tue, 27 Jun 2017 18:42:20 +0000
+Message-ID: <ECADFF3FD767C149AD96A924E7EA6EAF2E262BCF@USCULXMSG03.am.sony.com>
+References: <20170623123936.42dab05f@lwn.net>
+	<20170624074641.4820fecd@vento.lan>	<1779146.rtcHP5MkoH@aspire.rjw.lan>
+	<20170624104142.70677fcb@vento.lan>
+	<alpine.LSU.2.20.1706252254190.30709@cbobk.fhfr.pm>
+	<20170626161828.3914fcc1@lwn.net>
+In-Reply-To: <20170626161828.3914fcc1@lwn.net>
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="jruozkgwahg3n4nz"
-Content-Disposition: inline
-In-Reply-To: <20170627071835.GJ23064@atomide.com>
-Cc: ksummit-discuss@lists.linuxfoundation.org, Pavel Machek <pavel@ucw.cz>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] mobile phones
+Cc: Mauro Carvalho Chehab <mchehab@s-opensource.com>,
+	"ksummit-discuss@lists.linux-foundation.org"
+	<ksummit-discuss@lists.linux-foundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Documentation issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,78 +26,58 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-
---jruozkgwahg3n4nz
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hi,
-
-On Tue, Jun 27, 2017 at 12:18:36AM -0700, Tony Lindgren wrote:
-> > Does ofonod support the modems in an useful way?
+> -----Original Message-----
+> From: Jonathan Corbet on  Monday, June 26, 2017 3:18 PM
+> On Sun, 25 Jun 2017 22:56:07 +0200 (CEST)
+> Jiri Kosina <jkosina@suse.cz> wrote:
 >=20
-> No idea, I've only used qmicli so far.
-
-There is a qmi plugin for ofono, but I also just used qmi utils [0]
-so far.
-
-[0] https://packages.debian.org/sid/libqmi-utils
-
-> > Is GSM connected directly to the audio, or does it need real-time
-> > task, similar to N900?
+> > Unfortunately option (3) has also been applied to some of the files:
+> >
+> > 	$ ll Documentation/kernel-parameters.txt
+> > 	ls: cannot access 'Documentation/kernel-parameters.txt': No such
+> file or directory
+> >
+> > I wasn't sure whether this was intentional or not. But if not, I'll
+> > happily send a patch that introduces a symlink.
 >=20
-> The audio mixer is on CPCAP PMIC, and I think mdm6600 modem audio needs
-> help from the Linux kernel on the applications processor as it probably
-> goes to it first then to CPCAP PMIC. I guess it's possible that mdm6600
-> audio goes directly to CPCAP PMIC too.
+> Worries about moving well-known files are why I delayed some of this stuf=
+f
+> a bit so I could bring it up at conferences and the kernel summit.  It
+> only proceeded after I didn't get any real pushback in those settings.
 >=20
-> I believe LTE modem is connected to the second SPI interface on the
-> CPCAP PMIC and can use it directly for audio depending on how Linux
-> kernel configures the PMIC secondary interface device access. What
-> seems to be a similar PMIC for the CPCAP internal devices is documented
-> in MC13783UG.pdf on NXP site so that might be worth looking at for
-> the audio overview.
+> In general, we move files around in the kernel tree all the time.  We
+> don't normally leave symlinks behind; indeed, we never do.  Instead, we
+> figure out where the file moved to and get on with life.  Are
+> documentation files somehow different, needing different rules in this
+> regard?  I wouldn't mind some clarity on that point.
 
-GSM audio is connected to the audio codec using digital audio
-interface. The audio data normally does not flow through the CPU
-(but as far as I can see it could be routed that way, if desired).
-So no need for any low latency stuff on CPU side. Actually no need
-to do anything except for proper setup of modem & audio codec :)
+My 2 cents is that files in Documentation are much more often linked to
+or referenced by things outside the kernel tree, than source code is.
+A quick perusal of elinux.org shows a fair number of references to text fil=
+es under
+Documentation, some with direct links to online git trees.
+Documentation/SubmittingPatches is a good example.
+This one has a "This file has moved..." line in its content, which I believ=
+e
+suffices for getting people to the right place.  IMHO that's better than
+a symlink, at least for web references.
 
-> > It looks like nice machine. OTOH N950 looks like a nice machine, too,
-> > and N900 is actually nicer because of the resistive touch, battery,
-> > and friendly bootloader...
 >=20
-> Sure, my n950 just got so worn down I was afraid I don't have any
-> replacement. And we need some kind of potential community upgrade for
-> n900/n9/n950 anyways while waiting for better devices :)
+> My hope (cue inspirational music here) is that, someday, it will be
+> possible to type "ls Documentation" and get back a reasonably sized
+> listing that is easy to explore.  Let's just say that's not the situation
+> at the moment.  Getting there will certainly involve moving files around;
+> replacing them with symlinks or pointer files would, to a real extent,
+> defeat the purpose.
 
-I think Droid4 and N950 are almost on par regarding to mainline
-support. N900 is has better hardware support in mainline - actually
-once your camera bits land it reached basically 100% with just the
-GPU missing. OTOH it's quite slow and has only 256MB of memory.
-
--- Sebastian
-
---jruozkgwahg3n4nz
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAllSTDwACgkQ2O7X88g7
-+poB8Q/+NNcTX9Kkn443F969RnWRNpujuKgSRJOx1Du7F5dJTe4Lt9T7QwAm4F4/
-NTBg5T0cfnm0PaQVVadvVApz6Tk2KyM1nIXQRi/PSGaln3kjeX34IgsjmH0qx0AR
-o4fJmrMLY0spRR26oI1Ie+ESGaTHToFDsIKjfrbuNSzOAWP4R38YgADRuDJ6m9sF
-ZF7S23KrMUOgfFPcqbmpDgGVGimJ2IYS0Z6V/pujNMxk7Gw6/r0Iar1eLlXoD3jI
-IlxyJEgj7TfW7gP2VOtDeumSUM2WPAFIhLXbndI1i1+3gKd87DQ8NMOFq3whquhJ
-S4wbuTkNtp5FpvV9iW6TcKj9BlZP2gTvbG9Td46Kv3l1EHA1hKbJTAKSsmhV3JPv
-oi/hI5b452bMpW89gcpCxAuwU0VgWHkxw2DxTPvOeDWiIm2dTiviWYYziRWYb25X
-zxNaDSzrNU7blDWm/ni/13Eq3F5ZCdoe+f+1HHoO5/qTs9ylJ6umy9mOnPCn9hun
-mL+Zv+S7QUJCHAD1HP+lahH2ZdEyB3WK+cZWiXEP5KcDlx7mb6L8SIy1rXl6IdeC
-3MyEBzc0D/SiGaCmmqz3UMWCpNdGZQFSBAFUZN4TK+Vh/hFpE+J4I6EzeaCgIAaC
-ZWXaf0UvEWPD+Sb2bt0lJ0NiGMGk5SOWDYEU5nUfYJF7mE1+Uc8=
-=FO/1
------END PGP SIGNATURE-----
-
---jruozkgwahg3n4nz--
+I like the suggestion by Takashi Iwai to separate the new docs from the old=
+,
+putting symlinks and leaving legacy (not-yet-converted) docs in Documentati=
+on,
+and new stuff in 'docs/*'.  I think that the new docs have not been 'pinned=
+' yet
+by external references, and could still be moved around (in the short term)=
+,
+without much pain. Then "ls docs" could produce the nice listing, while
+"ls Documentation" would show ugly symlinks, placeholders, and legacy junk.
+ -- Tim
