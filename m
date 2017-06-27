@@ -1,29 +1,15 @@
-Return-Path: <tony@atomide.com>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3C7465B1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 27 Jun 2017 07:18:40 +0000 (UTC)
-Received: from muru.com (muru.com [72.249.23.125])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 9CB791A6
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 27 Jun 2017 07:18:39 +0000 (UTC)
-Date: Tue, 27 Jun 2017 00:18:36 -0700
-From: Tony Lindgren <tony@atomide.com>
-To: Pavel Machek <pavel@ucw.cz>
-Message-ID: <20170627071835.GJ23064@atomide.com>
-References: <20170625104850.GA24717@amd>
-	<87shinzkp9.fsf@notabene.neil.brown.name>
-	<20170626064947.GF23064@atomide.com> <20170626111207.GA11688@amd>
-	<20170626114931.GG23064@atomide.com> <20170626131401.GA11980@amd>
-	<20170626134904.GH23064@atomide.com> <20170626204932.GA19396@amd>
+Return-Path: <daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20170626204932.GA19396@amd>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.co.uk>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] mobile phones
+In-Reply-To: <20170626121939.qedzaccvqflhocq6@sirena.org.uk>
+References: <20170623123936.42dab05f@lwn.net>
+	<20170626121939.qedzaccvqflhocq6@sirena.org.uk>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Tue, 27 Jun 2017 10:38:54 +0200
+Message-ID: <CAKMK7uHwS0UsJtdOLstg01h3VajtPh_J7pzxQH65+fkJHfhgrQ@mail.gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: ksummit-discuss@lists.linux-foundation.org
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Documentation issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,62 +19,46 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-* Pavel Machek <pavel@ucw.cz> [170626 13:49]:
-> HDMI is nice; that's a feature I'd like. And I guess you also have
-> real and working USB host?
+On Mon, Jun 26, 2017 at 2:19 PM, Mark Brown <broonie@kernel.org> wrote:
+> On Fri, Jun 23, 2017 at 12:39:36PM -0600, Jonathan Corbet wrote:
+>
+>> I can continue in this mode, but I do wonder if there's a better way out
+>> there somewhere.  So I think there would be value in a session on the
+>> maintenance of "subsystems" that don't fit neatly into the kernel
+>> source-tree hierarchy.
+>
+> One thing I think it'd be good to do is work out a sensible way of
+> keeping the maintainers of the relevant subsystems in the loop on things
+> - a combination of the mechanics and how much effort we want to put into
+> making sure people have at least seen things.  For example it looks like
+> the regulator DocBook got converted to RST without me being aware of it
+> (it seems I did get copied on one mail at some point but I can't have
+> read it and there don't seem to have been any resends), that case isn't
+> a problem itself but it seems like an area where things could end up not
+> running smoothly.
+>
+> I know I rely fairly heavily on subject lines to filter what I'm looking
+> at since some of my subsystems mean that I get copied on lots of random
+> stuff that's of at most passing relevance to me which ends up being an
+> issue with things like DT bindings sometimes (I think this is also part
+> of what went wrong with the regulator conversion) but that doesn't
+> scale since the subject lines can't easily be useful for multiple
+> subsystems simultaneously.  I'm not sure what else to do though, we
+> basically only have the subject lines and CC lists to work with here.
 
-Yeah USB host works, so far only with battery VBUS so unable to power
-all devices. I think there's a proper VBUS regulator too but I need to
-look around more for it.
+Looking at MAINTAINERS, there's relatively few entries for files under
+Documentation/, and most are for individual files (about 450). None
+are for one of the remaining DocBook files still in 4.12 afaics. I
+think we can fix this problem by making sure that a) docs are sorted
+usefully into directories (e.g. we put all the gpu stuff into
+Documentation/gpu/) and b) there's MAINTAINERS entries for all of them
+(which atm doesn't seem to be the case for a lot of stuff).
 
-> Anyway I was interested... do you have useful X running on localhost?
-> I mean... finger is too big to control X applications, and you have
-> capacitive touchsreen, right?
-
-I use i3 so I did not even note that right now atmel_mxt_ts no longer
-works for me in next.. But yeah I can point to screens and activate
-them. So far I have not needed anything more complex.
-
-> Ah, thanks for the pointer. Built-in battery is very bad for
-> debugging, and very bad when PM is not quite finished. But I remember
-> droid4 was something that disqualified it for European use. Aha, LTE @
-> 700MHz, which is not available here. Hmm, but GSM/UMTS works in v4.12
-> according to the table, so that's not too bad.
-
-Hmm the battery can be disconnected with t5.. And watchdog works.. But
-we still need to somehow produce sysrq with power button + volume
-down. In this case those are in separate drivers, gpio-keys for
-volume down and then cpcap-pwrbutton. I'm also pretty sure the PMIC
-supports powerdown on pressing down the power button some some seconds
-but I have not found that bit so far :)
-
-> Does ofonod support the modems in an useful way?
-
-No idea, I've only used qmicli so far.
-
-> Is GSM connected directly to the audio, or does it need real-time
-> task, similar to N900?
-
-The audio mixer is on CPCAP PMIC, and I think mdm6600 modem audio needs
-help from the Linux kernel on the applications processor as it probably
-goes to it first then to CPCAP PMIC. I guess it's possible that mdm6600
-audio goes directly to CPCAP PMIC too.
-
-I believe LTE modem is connected to the second SPI interface on the
-CPCAP PMIC and can use it directly for audio depending on how Linux
-kernel configures the PMIC secondary interface device access. What
-seems to be a similar PMIC for the CPCAP internal devices is documented
-in MC13783UG.pdf on NXP site so that might be worth looking at for
-the audio overview.
-
-> It looks like nice machine. OTOH N950 looks like a nice machine, too,
-> and N900 is actually nicer because of the resistive touch, battery,
-> and friendly bootloader...
-
-Sure, my n950 just got so worn down I was afraid I don't have any
-replacement. And we need some kind of potential community upgrade for
-n900/n9/n950 anyways while waiting for better devices :)
-
-Regards,
-
-Tony
+But I think the lack of clear maintainer responsibilities for docs was
+something Jon already brough up at the previous KS, and we didn't
+really get anywhere with it.
+-Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
