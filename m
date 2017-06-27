@@ -1,17 +1,26 @@
-Return-Path: <daniel.vetter@ffwll.ch>
+Return-Path: <sergey.senozhatsky.work@gmail.com>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E6C9D5A7
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 27 Jun 2017 13:58:32 +0000 (UTC)
+Received: from mail-pf0-f176.google.com (mail-pf0-f176.google.com
+	[209.85.192.176])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B193F3E2
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 27 Jun 2017 13:58:32 +0000 (UTC)
+Received: by mail-pf0-f176.google.com with SMTP id q86so17012826pfl.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 27 Jun 2017 06:58:32 -0700 (PDT)
+Date: Tue, 27 Jun 2017 22:58:39 +0900
+From: Sergey Senozhatsky <sergey.senozhatsky.work@gmail.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Message-ID: <20170627135839.GB1886@jagdpanzerIV.localdomain>
 MIME-Version: 1.0
-In-Reply-To: <20170614132920.csogpzkl4k5k7kaj@thunk.org>
-References: <20170614132920.csogpzkl4k5k7kaj@thunk.org>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Tue, 27 Jun 2017 15:23:01 +0200
-Message-ID: <CAKMK7uHM8FN1EuQi-fFdwbphud+7krjdbvkFfoK84r-zAae1qw@mail.gmail.com>
-To: "Theodore Ts'o" <tytso@mit.edu>, ksummit-discuss@lists.linux-foundation.org,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Alex Deucher <alexdeucher@gmail.com>, Sean Paul <seanpaul@chromium.org>,
-	"Nikula, Jani" <jani.nikula@linux.intel.com>
-Subject: Re: [Ksummit-discuss] Next steps and plans for the 2017 Maintainer
- and Kernel Summits
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Cc: Michal Hocko <mhocko@kernel.org>
+Subject: [Ksummit-discuss] [TECH TOPIC] is Kconfig a bit hard sometimes?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -21,24 +30,15 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Jun 14, 2017 at 3:29 PM, Theodore Ts'o <tytso@mit.edu> wrote:
-> Daniel Vetter
+Hello,
 
-So I've completely screwed up travel planning (well properly checking
-my calendar back when we discuss this a while back) and I can't attend
-ks :-/
+am I the only one who struggle with the Kconfig sometimes? can there
+be a way to make it more general/simpler, in some parts at least? e.g.
+the hardening effort? (just an example. *ABSOLUTELY NOT* blaming Kess
+or anyone else who is involved, that's not the point, they are doing
+great job, no doubt. it's just the most recent thing I saw was
+CONFIG_SLAB_MERGE_DEFAULT). do people who really want to harden their
+kernels go all-in anyway (enable all of the options at once)? if so,
+can there be a single Kconfig option then? just curious.
 
-We discussed this among drm maintainers and we'd like to volunteer
-Sean Paul as drm rep. He's done drm-misc maintainer (so knows drm core
-stuff, and drm-misc is run with the committer model too), and he could
-also bring in the drm consumer pov being on google's cros team. Jani
-would be another option, but he's busy building a house then, Alex
-would be another (he's been around as maintainer forever, at least
-longer than me), but Dave thinks Sean would be better fit for
-representing drm overall at ks.
-
-Cheers, Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-+41 (0) 79 365 57 48 - http://blog.ffwll.ch
+	-ss
