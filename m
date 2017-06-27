@@ -1,28 +1,32 @@
-Return-Path: <lurodriguez@suse.de>
+Return-Path: <linus971@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 13C1ACA2
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 77158BCE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 27 Jun 2017 19:04:27 +0000 (UTC)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 44C8ECC
+	Tue, 27 Jun 2017 19:27:12 +0000 (UTC)
+Received: from mail-io0-f196.google.com (mail-io0-f196.google.com
+	[209.85.223.196])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4B8CE198
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 27 Jun 2017 19:04:26 +0000 (UTC)
-Date: Tue, 27 Jun 2017 21:04:24 +0200
-From: "Luis R. Rodriguez" <mcgrof@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Message-ID: <20170627190424.GW21846@wotan.suse.de>
-References: <1de3c642-a4b7-1065-5c35-ba32866d471d@redhat.com>
-	<alpine.LSU.2.20.1706221422360.30709@cbobk.fhfr.pm>
-	<20170627175321.GS21846@wotan.suse.de>
-	<s5hh8z1wadm.wl-tiwai@suse.de>
+	Tue, 27 Jun 2017 19:27:11 +0000 (UTC)
+Received: by mail-io0-f196.google.com with SMTP id m19so3450523ioe.1
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 27 Jun 2017 12:27:11 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <s5hh8z1wadm.wl-tiwai@suse.de>
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug reporting feedback
- loop
+Sender: linus971@gmail.com
+In-Reply-To: <20170627184448.GU21846@wotan.suse.de>
+References: <20170627135839.GB1886@jagdpanzerIV.localdomain>
+	<CA+55aFxBUe4QAa11i-ySr2i959EpvcEZYf=9NumWyTDH+6BEQw@mail.gmail.com>
+	<20170627184448.GU21846@wotan.suse.de>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Tue, 27 Jun 2017 12:27:10 -0700
+Message-ID: <CA+55aFyvssxg63UoQ-rOaf1TMacJ6T5jyLkWECosQJ_N=9gaaQ@mail.gmail.com>
+To: "Luis R. Rodriguez" <mcgrof@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Michal Hocko <mhocko@kernel.org>, Christoph Hellwig <hch@infradead.org>,
+	Cristina Moraru <cristina.moraru09@gmail.com>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] is Kconfig a bit hard sometimes?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,83 +36,108 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Jun 27, 2017 at 08:31:17PM +0200, Takashi Iwai wrote:
-> On Tue, 27 Jun 2017 19:53:21 +0200,
-> Luis R. Rodriguez wrote:
-> > 
-> > On Thu, Jun 22, 2017 at 02:36:13PM +0200, Jiri Kosina wrote:
-> > > On Wed, 21 Jun 2017, Laura Abbott wrote:
-> > > 
-> > > > Fedora tends to follow the most recent stable kernel very closely
-> > > > (e.g. 4.11.6 is currently pending for Fedora 24, 25, and 26).
-> > > > This works well enough, but there still seem to be some
-> > > > disconnects in the bug reporting process. Examples I can think of:
-> > > > 
-> > > > - When users report bugs on the Fedora tracker that look like
-> > > > actual upstream bugs, what's the best way to have those reported?
-> > > > I typically end up having to summarize from the Fedora bugzilla
-> > > > and send an e-mail which ends up being tedious. Can we make this
-> > > > bug reporting easier for non-kernel developers?
-> > > 
-> > > Just as a data point -- we do a "Kernel of the day" build of a branch that 
-> > > follows Linus' tree (with a few SUSE specific patches floating on top of 
-> > > it) and provide it in an optional package repository.
-> > > 
-> > > That allows the reporter to easily check whether the issue has been fixed 
-> > > in latest upstream without needing to have the skills required to compile 
-> > > own kernel.
-> > > 
-> > > If the issue is confirmed to be present in latest upstream as well, our 
-> > > internal person / maintainer responsible for that particular area usually 
-> > > takes over (there are cases when the reporter prefers to report the bug 
-> > > upstream by himself though).
-> > > 
-> > > I am not sure if there is a way how to improve this process even further 
-> > > ... do you have any particular ideas?
-> > 
-> > The Kernel Of The Day (KOTD) helps *a lot*. On the XFS front I can say that 90%
-> > of the time so far most bugs can simply be reverse bisected by testing an issue
-> > with KOTD and if it works then doing a reverse bisect. So much so that I
-> > actually *yearn* for the day we get an actual real valid upstream bug. The
-> > other 10% BTW consist of "bad backports" so far.
-> > 
-> > But one day it comes that KOTD is not sufficient, and there is that pesky delta
-> > on linux-next which *might* also have a fix for you. Problem is booting
-> > linux-next can often fail. Based on personal experience with testing linux-next
-> > more regularly on more machines over the years I can say we are getting much
-> > better with this these days, but every now and then its just poop. That said,
-> > we have a not-so-well known daily linux-next KOTD rpm type of tree as well.
-> > So I recommend that as a next step.
-> > 
-> > Due to the possible failures possible with linux-next, or random regressions
-> > with other subsystems you often only want to test *one* subsystem. To help
-> > with this there are two options I'm aware of:
-> > 
-> >   o Subsystem maintiners also backport their -next tree for vanilla, in the
-> >     the like of wireless-testing, which only carries 802.11 on Linus' tree.
-> >     Not sure if other subsystems have similar type of trees, if not I encourage
-> >     it.
-> > 
-> >   o Backports: backporting to random kernels can be a pain in the ass, but
-> >     backporting to the KOTD should not take much effort if you have the
-> >     right framework [0]. For instance I just created an XFS backport from
-> >     linux-next to KOTD in one day's effort, I can use this to generate
-> >     a tarball for modules for folks to try on top of KOTD. If this would 
-> >     actually be maintained upstream then the amount of work needed is even less,
-> >     and you can have daily snapshots generated. Although sometimes backports
-> >     can be buggy, to my surprise using Coccinelle actually has improved
-> >     correctness of backports, this is only visible once you replace a series
-> >     of patches with the output form an SmPL grammar patch. Given Coccinelle
-> >     is also used, once you backport one subsystem driver, adding more is
-> >     drivers from the same subsystem becomes relatively easier.
-> 
-> I guess it shouldn't be too difficult to build a kernel package based
-> on subsystem for-next branch regularly like we do for KOTD and
-> linux-next kernel packages.  You'd need to set up some cron job to git
-> pull, repackage tarball and adjust config file somehow automatically,
-> then feed it to osc (in the case of openSUSE/SUSE OBS).
+On Tue, Jun 27, 2017 at 11:44 AM, Luis R. Rodriguez <mcgrof@kernel.org> wrote:
+>
+> Such things exist now:
+>
+> make kvmconfig
+> make xenconfig
 
-That'd be great. It sounds like we have trees like this for media, and
-wireless. Not sure of others.
+Not really. Not for normal users. Those are literally only for the
+special cases that are *not* normal.
 
-  Luis
+> So you mean a menu of the defconfigs ?
+
+No. The defconfigs are useless. They are fundamentally broken, excatly
+because there is never one config that can work.
+
+They do need to be of the "kvmconfig" type, but for sane subconfirurations.
+
+So I'd look for something like
+
+    make modernpcconfig # enable minimal modern PC workstation stuff
+    make f25config  # enable minimal stuff required for F25
+    make amdconfig # enable the core modern AMD stuff
+
+or something like that.
+
+But it's not going to happen, because everybody thinks *their* code is
+so supremely important, so the "minimal config" is literally a doomed
+concept ;(
+
+> Sensible defaults per subsystem would help.
+
+No. We've tried. The only sensible default (and that I try to enforce)
+is "new featrures default to 'n'"
+
+Why? Exactly because of that "everybody thinks *their* code is
+important". Developers always think "I have to enable my code". It
+doesn't matter how stupid or esoteric their code is, the developer by
+definition thinks their own code is supremely important, and
+particularly all the new cool features.
+
+So subsystem defaults are always completely broken, unless I come
+along and swear at people who think their new cool feature is
+important.
+
+Which I do regularly. And I'm sure I miss things, because I just don't see them.
+
+> If you have a set of requirements but need to fold in a large lump of
+> other desirables then surely a SAT solver can help.
+
+No. The SAT solver will only hurt, because it will bring in all those
+irrelevant people who are interested in SAT solving, not in making
+things easy for users.
+
+It should be perfectly sufficient to just have a series of 'select
+XYZ' statements, and yes, update them manually, but since the point is
+to go for minimal, automation by definition just breaks it. It will
+just make people select big things and leave it at that.
+
+> Actually ideally something like udevadm dumping respective kconfig symbols
+> should give you what kconfig a system needs at a specific boot time.
+
+So we already have localmodconfig that uses other things to figure out
+what is needed, but no, it's not good enough.
+
+Partly it's not good enough because realistically there are base
+configs that you want enabled whether they are used or not. For
+example, enabling USB without enabling USB_STORAGE is kind of crazy in
+this day and age. But USB storage is not required for booting in most
+circumstances, it's just reuired for occasional day-to-day things.
+
+Also, one problem really is that distro configurations by definition
+will be pretty damn large. If you want that config, then use the
+distro config. But if you want anything else, then udevadm isn't going
+to help you at all, because it's not going to show you any of the
+stuff that just worked because it was built in and never neeed any
+action at all.
+
+
+>   * Arnd noted a kconfig "Suggests" tag seems appropriate, he seems to have
+>     volunteered to work on it :)
+
+Yeah, that's not goping to work either, simply because what is
+suggested in one context makes no sense at all in another.
+
+Are you doing a PC workstation kind of thing like many developers are?
+Very different from qwhen you're doing an embedded thing or a server
+or whatever.
+
+>   * David Howells noted he'd prefer to have a cache of enabled features.
+>     He also volunteered this ;)
+
+I do that. There's a reason "make defconfig" reads your
+/etc/kernel-config. It's just that it's machine-specific.
+
+And it's there exactly so that you can make your machine-specific
+config *once*, and then it's there, and it never affects anybody else
+(unless you share your /etc directory, but that's crazy).
+
+But even with that, I find our config stuff annoying. Upgrading
+hardware or distros is always just painful, because it means
+re-generating a new machine-specific configuration (either because the
+hardware changed, or because the distro baseline requirements
+changed).
+
+                    Linus
