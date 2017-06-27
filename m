@@ -1,29 +1,26 @@
-Return-Path: <linus971@gmail.com>
+Return-Path: <lurodriguez@suse.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8B4EFB1B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5955BC94
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 27 Jun 2017 17:18:06 +0000 (UTC)
-Received: from mail-io0-f193.google.com (mail-io0-f193.google.com
-	[209.85.223.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 34DE310A
+	Tue, 27 Jun 2017 17:53:24 +0000 (UTC)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 34A5420A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 27 Jun 2017 17:18:06 +0000 (UTC)
-Received: by mail-io0-f193.google.com with SMTP id h134so3168946iof.3
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 27 Jun 2017 10:18:06 -0700 (PDT)
+	Tue, 27 Jun 2017 17:53:23 +0000 (UTC)
+Date: Tue, 27 Jun 2017 19:53:21 +0200
+From: "Luis R. Rodriguez" <mcgrof@kernel.org>
+To: Jiri Kosina <jikos@kernel.org>
+Message-ID: <20170627175321.GS21846@wotan.suse.de>
+References: <1de3c642-a4b7-1065-5c35-ba32866d471d@redhat.com>
+	<alpine.LSU.2.20.1706221422360.30709@cbobk.fhfr.pm>
 MIME-Version: 1.0
-Sender: linus971@gmail.com
-In-Reply-To: <20170627135839.GB1886@jagdpanzerIV.localdomain>
-References: <20170627135839.GB1886@jagdpanzerIV.localdomain>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Tue, 27 Jun 2017 10:18:04 -0700
-Message-ID: <CA+55aFxBUe4QAa11i-ySr2i959EpvcEZYf=9NumWyTDH+6BEQw@mail.gmail.com>
-To: Sergey Senozhatsky <sergey.senozhatsky.work@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
-	Michal Hocko <mhocko@kernel.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] is Kconfig a bit hard sometimes?
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alpine.LSU.2.20.1706221422360.30709@cbobk.fhfr.pm>
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug reporting feedback
+ loop
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,69 +30,74 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Jun 27, 2017 at 6:58 AM, Sergey Senozhatsky
-<sergey.senozhatsky.work@gmail.com> wrote:
->
-> am I the only one who struggle with the Kconfig sometimes?
+On Thu, Jun 22, 2017 at 02:36:13PM +0200, Jiri Kosina wrote:
+> On Wed, 21 Jun 2017, Laura Abbott wrote:
+> 
+> > Fedora tends to follow the most recent stable kernel very closely
+> > (e.g. 4.11.6 is currently pending for Fedora 24, 25, and 26).
+> > This works well enough, but there still seem to be some
+> > disconnects in the bug reporting process. Examples I can think of:
+> > 
+> > - When users report bugs on the Fedora tracker that look like
+> > actual upstream bugs, what's the best way to have those reported?
+> > I typically end up having to summarize from the Fedora bugzilla
+> > and send an e-mail which ends up being tedious. Can we make this
+> > bug reporting easier for non-kernel developers?
+> 
+> Just as a data point -- we do a "Kernel of the day" build of a branch that 
+> follows Linus' tree (with a few SUSE specific patches floating on top of 
+> it) and provide it in an optional package repository.
+> 
+> That allows the reporter to easily check whether the issue has been fixed 
+> in latest upstream without needing to have the skills required to compile 
+> own kernel.
+> 
+> If the issue is confirmed to be present in latest upstream as well, our 
+> internal person / maintainer responsible for that particular area usually 
+> takes over (there are cases when the reporter prefers to report the bug 
+> upstream by himself though).
+> 
+> I am not sure if there is a way how to improve this process even further 
+> ... do you have any particular ideas?
 
-I hate our Kconfig. It's my least favorite part of the kernel. It asks
-questions about insane things that nobody can know the answer to.
+The Kernel Of The Day (KOTD) helps *a lot*. On the XFS front I can say that 90%
+of the time so far most bugs can simply be reverse bisected by testing an issue
+with KOTD and if it works then doing a reverse bisect. So much so that I
+actually *yearn* for the day we get an actual real valid upstream bug. The
+other 10% BTW consist of "bad backports" so far.
 
-Taking a distro default config and doing"make localmodconfig" is what
-I end up doing on new machines, and it has all kinds of suckage too.
+But one day it comes that KOTD is not sufficient, and there is that pesky delta
+on linux-next which *might* also have a fix for you. Problem is booting
+linux-next can often fail. Based on personal experience with testing linux-next
+more regularly on more machines over the years I can say we are getting much
+better with this these days, but every now and then its just poop. That said,
+we have a not-so-well known daily linux-next KOTD rpm type of tree as well.
+So I recommend that as a next step.
 
-I don't have a solution to it. But I think part of the solution would
-be for us to have various "sane minimal requirement" Kconfig
-fragments, and trhe ability to feed them incrementally, so that people
-can build up a sane Kconfig from "I want this".
+Due to the possible failures possible with linux-next, or random regressions
+with other subsystems you often only want to test *one* subsystem. To help
+with this there are two options I'm aware of:
 
-For example, instead of answering a million odd questions about
-specific features that the base distro expects to always be there
-(say, just the networking firewall rules and stuff like that), have
-some "minimal required features to boot Fedora 25 or SuSE 12 sp2".
+  o Subsystem maintiners also backport their -next tree for vanilla, in the
+    the like of wireless-testing, which only carries 802.11 on Linus' tree.
+    Not sure if other subsystems have similar type of trees, if not I encourage
+    it.
 
-And then a "I use Intel KVM, so I need those minimal features, but I
-do *not* want paravirtualization or any other virtualization
-services".
+  o Backports: backporting to random kernels can be a pain in the ass, but
+    backporting to the KOTD should not take much effort if you have the
+    right framework [0]. For instance I just created an XFS backport from
+    linux-next to KOTD in one day's effort, I can use this to generate
+    a tarball for modules for folks to try on top of KOTD. If this would 
+    actually be maintained upstream then the amount of work needed is even less,
+    and you can have daily snapshots generated. Although sometimes backports
+    can be buggy, to my surprise using Coccinelle actually has improved
+    correctness of backports, this is only visible once you replace a series
+    of patches with the output form an SmPL grammar patch. Given Coccinelle
+    is also used, once you backport one subsystem driver, adding more is
+    drivers from the same subsystem becomes relatively easier.
 
-We could *maybe* make it part of some "make simpleconfig" that just
-basically uses "select" a lot with s special architecture-specific
-Kconfig file, and try to help people with a few bigger questions.
+HTH,
 
-Not the thousands of detailed questions. Just do the big strokes, and
-enable teh *normal* still. The "defconfig" approach doesn't work (and
-hasn't for a long time except for cases where you have very specific
-configurations), but just having the abilitty to enable a *sane* basic
-config for modern machines would be fine.
+[0] https://backports.wiki.kernel.org/index.php/Documentation/backports/hacking#Adding_new_driver
 
-Would you have to tweak it later when you have odd hardware or speific
-issues? Yes. But there shouldn't be a single question about USB - just
-enable basic support, and then add support for HID and USB storage
-that pretty much everybody will need. Things like that, to get a
-workign but basic config going.
-
-And yes, the security questions are all insane. Nobody knows what the
-answers are, since some of it is distro-specific, and others are just
-"do you want to test hardening". And because people don't even know
-which is which, they often end up enabling features that they
-shouldn't, just because they are unsure.
-
-The default distro config still enables PCCARD support, even if you
-don't have a laptop at all (or if your laptop is not from the middle
-ages any more). Big things like that make a big difference in what
-questions you are then asked about random devices.
-
-ISDN? ATM? They're dead. Some sane simple config shouldn't ask about
-them any more. The "ten thousand questions" could probably be narrowed
-down to maybe a few tens, with some tweaking for special devices
-people have lying around.
-
-And note that none of this is about technoliogy, and SAT solvers and
-resolving the KConfig depdendencies that some techie people love
-talking about. It's all about "what if we just had some kconfig
-fragments to enable some commonly used stuff" (where "commonly used"
-is obviously architecture dependent, but also target-dependent - a
-"simpleconfig" for a PC workstation kind of config is very different
-from a "simpleconfig" for a server or some ARM embedded thing).
-
-                  Linus
+  Luis
