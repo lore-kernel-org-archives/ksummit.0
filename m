@@ -1,35 +1,32 @@
-Return-Path: <linus971@gmail.com>
+Return-Path: <pavel@ucw.cz>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 274E1BBD
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 80C60B7D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 27 Jun 2017 21:36:46 +0000 (UTC)
-Received: from mail-io0-f169.google.com (mail-io0-f169.google.com
-	[209.85.223.169])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 823A6223
+	Tue, 27 Jun 2017 21:57:31 +0000 (UTC)
+Received: from atrey.karlin.mff.cuni.cz (atrey.karlin.mff.cuni.cz
+	[195.113.26.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9B395183
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 27 Jun 2017 21:36:45 +0000 (UTC)
-Received: by mail-io0-f169.google.com with SMTP id h64so25541989iod.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 27 Jun 2017 14:36:45 -0700 (PDT)
+	Tue, 27 Jun 2017 21:57:30 +0000 (UTC)
+Date: Tue, 27 Jun 2017 23:57:27 +0200
+From: Pavel Machek <pavel@ucw.cz>
+To: Sebastian Reichel <sebastian.reichel@collabora.co.uk>
+Message-ID: <20170627215727.GA5250@amd>
+References: <20170625104850.GA24717@amd>
+	<87shinzkp9.fsf@notabene.neil.brown.name>
+	<20170626064947.GF23064@atomide.com> <20170626111207.GA11688@amd>
+	<20170626114931.GG23064@atomide.com> <20170626131401.GA11980@amd>
+	<20170626134904.GH23064@atomide.com> <20170626204932.GA19396@amd>
+	<20170627071835.GJ23064@atomide.com>
+	<20170627121455.tljtekx6bmzlezxa@earth>
 MIME-Version: 1.0
-Sender: linus971@gmail.com
-In-Reply-To: <CAOesGMimO1rYi7RpcsZYX9uDgWUJdv4XSgQR+RJaaS2qt_FCLw@mail.gmail.com>
-References: <20170627135839.GB1886@jagdpanzerIV.localdomain>
-	<CA+55aFxBUe4QAa11i-ySr2i959EpvcEZYf=9NumWyTDH+6BEQw@mail.gmail.com>
-	<20170627184448.GU21846@wotan.suse.de>
-	<CA+55aFyvssxg63UoQ-rOaf1TMacJ6T5jyLkWECosQJ_N=9gaaQ@mail.gmail.com>
-	<CAOesGMimO1rYi7RpcsZYX9uDgWUJdv4XSgQR+RJaaS2qt_FCLw@mail.gmail.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Tue, 27 Jun 2017 14:36:44 -0700
-Message-ID: <CA+55aFxDyj-9koeDemqUvxYrLyKxV8Xggy=ad_EQmGrfEef_gg@mail.gmail.com>
-To: Olof Johansson <olof@lixom.net>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Christoph Hellwig <hch@infradead.org>,
-	Cristina Moraru <cristina.moraru09@gmail.com>,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
-	Michal Hocko <mhocko@kernel.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] is Kconfig a bit hard sometimes?
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="k+w/mQv8wyuph6w0"
+Content-Disposition: inline
+In-Reply-To: <20170627121455.tljtekx6bmzlezxa@earth>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] mobile phones
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,92 +36,79 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Jun 27, 2017 at 2:16 PM, Olof Johansson <olof@lixom.net> wrote:
->
-> It sounds to me like you want to turn it from option/driver selection
-> to feature selection, where features could be stuff like:
->
-> So, a meta config layer if seen in the context of our current config system.
 
-Yes.
+--k+w/mQv8wyuph6w0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Most people are really bad at knowing details, but they may well know
-some big-picture stuff. They can certainly answer questions like "do
-you have a laptop", and "does it have a PCMCIA card slot".
+Hi!
 
-They might even be able to answer some HW specifics ("Is it 64-bit?"
-"Is the CPU an Intel/AMD or ARM chip?").
+> > > Is GSM connected directly to the audio, or does it need real-time
+> > > task, similar to N900?
+> >=20
+> > The audio mixer is on CPCAP PMIC, and I think mdm6600 modem audio needs
+> > help from the Linux kernel on the applications processor as it probably
+> > goes to it first then to CPCAP PMIC. I guess it's possible that mdm6600
+> > audio goes directly to CPCAP PMIC too.
+> >=20
+> > I believe LTE modem is connected to the second SPI interface on the
+> > CPCAP PMIC and can use it directly for audio depending on how Linux
+> > kernel configures the PMIC secondary interface device access. What
+> > seems to be a similar PMIC for the CPCAP internal devices is documented
+> > in MC13783UG.pdf on NXP site so that might be worth looking at for
+> > the audio overview.
+>=20
+> GSM audio is connected to the audio codec using digital audio
+> interface. The audio data normally does not flow through the CPU
+> (but as far as I can see it could be routed that way, if desired).
+> So no need for any low latency stuff on CPU side. Actually no need
+> to do anything except for proper setup of modem & audio codec :)
 
-But answering questions like "do you have broadcom wireless" is
-already much much harder, particularly if it's one very particular
-broadcom chipset, that isn't even sold as broadcom, because HP or Dell
-or Lenovo whatever laptop you have doesn't even really sell it as
-such.
+Thanks. Droid 4 just got more desirable ;-).
 
-So asking a normal user about details like that is already fraught
-with error, and that *should* be a really trivial question from a
-technical angle. Some other questions are *much* harder.  When you get
-into some of the esoteric interfaces like "do you need CGROUPS
-support", any normal person has no friggin clue about the details of
-their particular user land installation.
+> > > It looks like nice machine. OTOH N950 looks like a nice machine, too,
+> > > and N900 is actually nicer because of the resistive touch, battery,
+> > > and friendly bootloader...
+> >=20
+> > Sure, my n950 just got so worn down I was afraid I don't have any
+> > replacement. And we need some kind of potential community upgrade for
+> > n900/n9/n950 anyways while waiting for better devices :)
+>=20
+> I think Droid4 and N950 are almost on par regarding to mainline
+> support. N900 is has better hardware support in mainline - actually
+> once your camera bits land it reached basically 100% with just the
+> GPU missing. OTOH it's quite slow and has only 256MB of memory.
 
-> If we were to do this incrementally with current Kconfig on the
-> backend, I think most of the above could be done as one config action,
-> that in turn would select a set of kconfig snippets on the backend,
-> concatenate them all and give you the config to build with.
+Well, the camera pieces only work with 1.2Mpix resolution... and still
+need a ton of userland code to be useful. But yes, major pieces are
+there, with exception of ... useful audio for voice calls (and tons of
+little omissions and flakiness and bugs).
 
-I agree that our current Kconfig backend might be able to do it. At
-the same time, I'm not sure it necessarily the right model.
+Oh, another major piece is DSP coprocessor that is there. Unlike
+graphics, we don't even know how support for it should like.
 
-For example, I think we migth want to use scripts that are *not* about
-current Kconfig stuff, but instead are tailored towards particular
-special cases.
+And actually, N950 has working Bluetooth, which gives some interesting
+possibilities, too.
 
-For example, how about a script that takes a list of PCI devices, and
-figures out the modules for that, and generates a list of Kconfig
-symbols you want?
+Best regards,
 
-It's kind of what "make localmodconfig" does, not not really. It's
-more targeted to a particular subsystem, and it's *not* necessarily
-something that Kconfig itself would do. It's a helper script, and then
-you could do
+									Pavel
+--=20
+(english) http://www.livejournal.com/~pavelmachek
+(cesky, pictures) http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blo=
+g.html
 
-    make localpciconfig
+--k+w/mQv8wyuph6w0
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
 
-to enable those PCI options that are local to that device (or run the
-script with the list from somebody else)
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
 
-Same for various hotplug devices (including, but not limited, to USB)
-- but maybe it could generate a list of USB devices by looking at your
-system logs, and seeing what you used in the last month?
+iEYEARECAAYFAllS1McACgkQMOfwapXb+vJT0ACeIuow0OnEvoqYLTgplCGadOlU
+HVUAn02gpO6areTDar1+8KFNZ4dJ8zF9
+=AzDX
+-----END PGP SIGNATURE-----
 
-Ok, that's a very specific example, and I'm not saying either of those
-are really great ideas and should be implemented, but more throwing it
-out as the kind of things we *could* do to make it easier for people
-to build their own kernels.
-
-I think there are a lot of people that are afraid of testing a new
-kernel purely because of the high KConfig pain threshold.
-
-It's hopefully not because the build is all that complex - christ, I
-have been building my own version of Qt the last couple of weeks for
-reasons you do *not* want to know, and compared to that a kernel build
-is a breeze and completes almost immediately, and has almost no build
-dependencies, but also should have no pain in installing because we
-allow multiple kernels at the same time _and_ they should all work
-because of the "no user space regressions" rule.
-
-That is, they should all work as long as you get that incredibly
-complicated configuration phase right ;)
-
-So I'd love to have this made easier.
-
-I'm just not necessarily very optimistic, since kernel config has
-never EVER been easy/
-
-Well, I guess it was easy back in 1991, when you just didn't have any
-options. You got what you got, and if you didn't have the right
-hardware, it didn't work, but at least you didn't need to configure
-the kernel much.
-
-                        Linus
+--k+w/mQv8wyuph6w0--
