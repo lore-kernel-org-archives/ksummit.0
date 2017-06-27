@@ -1,20 +1,30 @@
-Return-Path: <mchehab@s-opensource.com>
-Date: Tue, 27 Jun 2017 07:31:21 -0300
-From: Mauro Carvalho Chehab <mchehab@s-opensource.com>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <20170627073121.784388ad@vento.lan>
-In-Reply-To: <CAKMK7uE+nG==pdEEDsT6or1wWa=izc1UKEyn0V-66hkVwsTmog@mail.gmail.com>
-References: <20170623123936.42dab05f@lwn.net>
-	<alpine.LSU.2.20.1706252254190.30709@cbobk.fhfr.pm>
-	<s5hd19rnvcs.wl-tiwai@suse.de> <2121039.qAt5UfpHsn@aspire.rjw.lan>
-	<CAKMK7uE+nG==pdEEDsT6or1wWa=izc1UKEyn0V-66hkVwsTmog@mail.gmail.com>
+Return-Path: <broonie@sirena.org.uk>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id BCEE472A
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 27 Jun 2017 11:40:39 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2A530EB
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 27 Jun 2017 11:40:39 +0000 (UTC)
+Date: Tue, 27 Jun 2017 12:40:26 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Pavel Machek <pavel@ucw.cz>
+Message-ID: <20170627114026.iwsqbbwytleyurmi@sirena.org.uk>
+References: <20170625104850.GA24717@amd>
+	<87shinzkp9.fsf@notabene.neil.brown.name>
+	<20170626083407.GA9621@amd>
+	<20170626112052.oze7qxmxiyu67wzh@sirena.org.uk>
+	<20170626122224.GA11441@amd>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: Jiri Kosina <jkosina@suse.cz>, ksummit-discuss@lists.linux-foundation.org,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Documentation issues
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="mob3evo7xbefmy5e"
+Content-Disposition: inline
+In-Reply-To: <20170626122224.GA11441@amd>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] mobile phones
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -24,72 +34,42 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Em Tue, 27 Jun 2017 10:41:27 +0200
-Daniel Vetter <daniel.vetter@ffwll.ch> escreveu:
 
-> On Mon, Jun 26, 2017 at 11:28 PM, Rafael J. Wysocki <rjw@rjwysocki.net> wrote:
-> > On Monday, June 26, 2017 07:58:27 AM Takashi Iwai wrote:  
-> >> On Sun, 25 Jun 2017 22:56:07 +0200,
-> >> Jiri Kosina wrote:  
-> >> >
-> >> > On Sat, 24 Jun 2017, Mauro Carvalho Chehab wrote:
-> >> >  
-> >> > > > There are pieces of .txt documentation falling into the "well-knows source of
-> >> > > > information" category, with many references to them all over the Web.
-> >> > > > kernel-parameters.txt is probably the most spectacular example here, but there
-> >> > > > are others.
-> >> > > >
-> >> > > > Let us not move or rename these, please, or at least put symbolic links in
-> >> > > > place to point to the new locations or similar, such that the existing WWW
-> >> > > > links pointing to the documentation at kernel.org still work going forward.
-> >> > > >
-> >> > > > And if we have moved or renamed them already, can we possibly make these
-> >> > > > links work again somehow?  
-> >> > >
-> >> > > Agreed. We discussed in the past about two alternatives for those
-> >> > > "well known" documents:
-> >> > >
-> >> > >   1) write a small text on the old file pointing to the
-> >> > >      new location;
-> >> > >   2) use symlink.
-> >> > >
-> >> > > Right now, we're actually mixing (1) and (2). IMHO, we should either
-> >> > > do (1) or (2).  
-> >> >
-> >> > Unfortunately option (3) has also been applied to some of the files:
-> >> >
-> >> >     $ ll Documentation/kernel-parameters.txt
-> >> >     ls: cannot access 'Documentation/kernel-parameters.txt': No such file or directory
-> >> >
-> >> > I wasn't sure whether this was intentional or not. But if not, I'll
-> >> > happily send a patch that introduces a symlink.  
-> >>
-> >> If we do symlinks, wouldn't it be cleaner to separate the old doc
-> >> directory from the new doc directory?  That is, Documentation/* keeps
-> >> the old txt or symlinks while the ReST is put in another directory,
-> >> say, docs/* as originally suggested.  
-> >
-> > That actually sounds like a good idea to me. :-)
-> >
-> > Question is if it's not too late to do that now that we have all that stuff
-> > under Documentation/.  
-> 
-> I think it's a bit late, at least from more documentation-active
-> susbsystems like gpu/. The docbook->rst switch was pains, dealing once
-> more with piles of renames isn't really something I'd like to do. And
-> one of the main selling points of .rst was that it integrates much
-> more smoothly into our existing pile of .txt docs, whereas the
-> DocBook/ subdir was always a bit a ghetto. Forcing another split seems
-> ill-advised to me.
+--mob3evo7xbefmy5e
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Yeah, while I would love that the docs dir would be just docs/, I
-also think it is a bit late. Well, renaming patches are actually
-handled nice by git (a way nicer than docbook->rst conversion),
-and shouldn't hurt that much.
+On Mon, Jun 26, 2017 at 02:22:24PM +0200, Pavel Machek wrote:
 
-Still, all references by filename will require changes due to the
-directory change, both inside the Kernel and on website URLs).
-So, we may end needing to have another set of symlinks.
+> > No, such systems can and do work absolutely fine with the existing
+> > frameworks.  You just have non-upstream drivers that don't make any
+> > effort to work within existing frameworks.  Most of the vendors came
+> > round to doing the right thing on this some years ago.
 
-Thanks,
-Mauro
+> Take a look at ./drivers/hsi/clients/cmt_speech.c in your favourite
+> kernel. It was merged in 2010 AFAICT.
+
+That looks like it went in in 2015, not 2010 - the commit date is in
+March 2015, I suspect the 2010 date comes from whatever vendor tree it
+came from.  The code isn't super clear but it looks like a fairly
+standard DSP streaming interface which should be supportable as a
+compressed audio stream in ALSA (or regular one if the data is
+uncompressed), there's no reason I can see for it to be done outside of
+the standard audio framework.
+
+--mob3evo7xbefmy5e
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCAAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAllSRCoACgkQJNaLcl1U
+h9DLaAf+Ki2rYshoWeQ5jljvd1oBd+OPbymUrGwqwYxbbdxQxjBQNoYiIBz4X6x1
+JxI7oDgKS/ME7es69eoeNuAeTmSP1vj5zJ9M5sG647L8SeDmOSWUVk4jm0DHZ/fT
+MBo/diSrgBMGu3gjefREwlZy905BPUjzOagupL4A6kCKUVqml0oW8E9nHatgKHfg
+P+20ayYplCPkZFg/+v5AVgywWOm4iOn0sD3VMq0zFlNUO4b0QVFPFDhQE56pSyoL
+uLUdZTdTohvX4zO+eSR1IGZoIwo1npenUxeEffkhzCptmwEkPi7NEIrwUhKngvwJ
+eLoxjTJ/cSRMH/qDae2ftXiP1nco4Q==
+=TKlG
+-----END PGP SIGNATURE-----
+
+--mob3evo7xbefmy5e--
