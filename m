@@ -1,42 +1,26 @@
-Return-Path: <SRS0=aia5=6D=goodmis.org=rostedt@kernel.org>
+Return-Path: <sebastian.reichel@collabora.co.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4AD7A8CC
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8E22C8E2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 Jun 2017 18:30:33 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D16BB3FC
+	Tue, 27 Jun 2017 11:50:23 +0000 (UTC)
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 20CC418D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 Jun 2017 18:30:32 +0000 (UTC)
-Date: Fri, 30 Jun 2017 14:30:30 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Josef Bacik <jbacik@fb.com>
-Message-ID: <20170630143030.305b68a0@gandalf.local.home>
-In-Reply-To: <20170630142956.7e0cb2d6@gandalf.local.home>
-References: <20170629195537.534445e7@gandalf.local.home>
-	<CA+55aFxW_vhYWRoWFwy4zQgG7iPJg3V4u0-XkjZiGJJfZtZ=ng@mail.gmail.com>
-	<20170629203224.6bf7f29a@gandalf.local.home>
-	<20170629205218.5b9a7923@gandalf.local.home>
-	<CA+55aFyQE_T7Rp7ay_EbAZNDqLE6ffJ-6xkL6B_961oZ0+aSpA@mail.gmail.com>
-	<20170629211641.5aeb3af7@gandalf.local.home>
-	<20170629212750.5c3542ee@gandalf.local.home>
-	<CA+55aFzzCPMUDt72hckauYu+fj=Q2MWjx+XiR06KpMLAr1EBAA@mail.gmail.com>
-	<20170629221245.489760b1@gandalf.local.home>
-	<CA+55aFxFLvX62SyOC9qyVwEQXH8J224Fe03tvy624AUx0U2fRQ@mail.gmail.com>
-	<20170630025852.xjoif3aai6rny5a2@ast-mbp>
-	<20170629230251.02f380cb@gandalf.local.home>
-	<6AE378F0-42F7-45DE-9F3C-050A5019A1E8@fb.com>
-	<20170630142956.7e0cb2d6@gandalf.local.home>
+	Tue, 27 Jun 2017 11:50:23 +0000 (UTC)
+Date: Tue, 27 Jun 2017 13:41:22 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.co.uk>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <20170627114122.glrzwray6oi34jla@earth>
+References: <20170625104850.GA24717@amd>
+	<20170626105451.tv4k7ib2g2kiknah@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Cc: Tom Zanussi <tom.zanussi@linux.intel.com>,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
-	Peter Zijlstra <peterz@infradead.org>, bristot <bristot@redhat.com>,
-	Julien Desfossez <jdesfossez@efficios.com>,
-	Ingo Molnar <mingo@kernel.org>, daolivei <daolivei@redhat.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Pulling away from the tracing
- ABI quicksands
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="z2kmqv7lcc5bwupr"
+Content-Disposition: inline
+In-Reply-To: <20170626105451.tv4k7ib2g2kiknah@sirena.org.uk>
+Cc: ksummit-discuss@lists.linuxfoundation.org, Pavel Machek <pavel@ucw.cz>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] mobile phones
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -47,34 +31,59 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
-[ I forgot to add Tom to the Cc list. Sending again. ]
+--z2kmqv7lcc5bwupr
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 30 Jun 2017 14:29:56 -0400
-Steven Rostedt <rostedt@goodmis.org> wrote:
+Hi,
 
-> On Fri, 30 Jun 2017 18:24:12 +0000
-> Josef Bacik <jbacik@fb.com> wrote:
+On Mon, Jun 26, 2017 at 11:54:51AM +0100, Mark Brown wrote:
+> On Sun, Jun 25, 2017 at 12:48:50PM +0200, Pavel Machek wrote:
 >=20
-> > Yup I=E2=80=99ll start bugging people to submit talk proposals, startin=
-g with you!  I=E2=80=99ll put up my proposal in the next day or two, I thin=
-k Brendan has something he=E2=80=99s going to talk about.  Thanks, =20
+> > 2) How to handle GSM audio?
 >=20
-> I shouldn't have used the term "talk", as it really is all about
-> discussions. In fact, if you need more than one slide, you have too
-> many.
->=20
-> That said, I could probably come up with a few things, starting with
-> this trace event issue. But it will be pointless if Peter Zijlstra and
-> Mathieu are not there.
->=20
-> But having ideas about dynamic fields in tracepoints is always
-> interesting. Not to mention talking about Tom Zanussi's latest
-> histogram work. It may be pretty much completed, but I would like to
-> discuss where we go from there.
->=20
-> One last thing. I don't want to have too many responsibilities, as I'm
-> on the LPC program committee and I need to make sure I have time to
-> fulfill any action items I'm responsible for during the conference.
->=20
-> -- Steve
->=20
+> Do you have some more specific concern?  This already works basically
+> fine upstream, we happily support off-SoC audio paths.  The digital
+> configuration could do with being more flexible but it works and people
+> ship it.  It would be awfully nice to have some control/visibility of
+> the modem side but that's just a missing driver problem.
+
+This is not a general problem, but only with the Nokia phones,
+which sends raw audio data to the CPU. Nokia's userspace did
+postprocessing on DSP and then played the audio via pulseaudio.
+As you mentioned this requires a low latency setup of ~20ms.
+
+@Pavel: The Nokia phones are the only ones I'm aware of, that
+are implemented this way. Basically all other phones provide
+a normal digital audio interface. On those systems you only
+have to configure soundcard correctly and will have working
+audio.
+
+And as Mark mentioned modern 4G basically uses VoIP, so if some
+vendor decides to drop audio handling from modem again it can
+simply be done in userspace using normal VoIP application.
+
+-- Sebastian
+
+--z2kmqv7lcc5bwupr
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAllSRF4ACgkQ2O7X88g7
++ppdig//RmGTHDU3PUe3OxKUHlApPRGfUicvKn+s0yWwiuRcS4dvfipDgh90WRZU
+I7uN+QgJx9EsCGj0xuviV+c8gAifSUZfA/GjqJcymMctl+IA1L2h7vUJFVrql9dk
+klj+n2gfhjD8caD8UJRB+SHnnuWnycF3SgxRmictXZlW6Us3iQetnMNWiTlvPKm3
+CCac/ddPs7wtARorUsm2PTxbWzvgYvhthq3UVZ8HY8LQRVL4h8iMQLAX4PYrp/zb
+6na13bAsFec3FVCpHD78Cd/5jgZznq22yQm1Hn0tpNXiIcCasbIzi3v/e3cmArrs
+gpGzdhozX6Fwn14uQa+0yVbKCZbkma+eO9AcYCb4kKKh+BvHfsRv9XcCJ8tFnNQ3
+Vr8PvC2t6cDkeOGAFEucgrsnRdD+uKa6+w2HSl7SgOaYSxgM4WmsJILJfDvaogan
+PLM4fo/lPPgKXaAgZWw2XRcoRV+1YOP4DId+3PLT76m5uxAzf5yZxUuPWimvpZWG
+cq2CrlP0FgI+Ou5e6AHtKkoKDtRIvoFuWFsWh/5EPEe3DU1EzjTDMOV0Bn4C6NlW
+FE/g9svzUNwzpQkfHAPZb6hg/svkTvzK1gVmAlVTW2z7Thr0+Lb+I92bVCqZS52y
+jImtCqYoefYiPT2j89OP191n2OAYFVxyuWva/XlNlpXHYfpJYF8=
+=hoN8
+-----END PGP SIGNATURE-----
+
+--z2kmqv7lcc5bwupr--
