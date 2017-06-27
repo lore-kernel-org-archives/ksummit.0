@@ -1,18 +1,29 @@
-Return-Path: <broonie@sirena.org.uk>
-Date: Tue, 27 Jun 2017 16:33:18 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <20170627153318.m77j53wfh34mxbwt@sirena.org.uk>
-References: <20170623123936.42dab05f@lwn.net>
-	<20170626121939.qedzaccvqflhocq6@sirena.org.uk>
-	<CAKMK7uHwS0UsJtdOLstg01h3VajtPh_J7pzxQH65+fkJHfhgrQ@mail.gmail.com>
+Return-Path: <linus971@gmail.com>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8B4EFB1B
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 27 Jun 2017 17:18:06 +0000 (UTC)
+Received: from mail-io0-f193.google.com (mail-io0-f193.google.com
+	[209.85.223.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 34DE310A
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 27 Jun 2017 17:18:06 +0000 (UTC)
+Received: by mail-io0-f193.google.com with SMTP id h134so3168946iof.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 27 Jun 2017 10:18:06 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="yek3teccjc424cql"
-Content-Disposition: inline
-In-Reply-To: <CAKMK7uHwS0UsJtdOLstg01h3VajtPh_J7pzxQH65+fkJHfhgrQ@mail.gmail.com>
-Cc: ksummit-discuss@lists.linux-foundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Documentation issues
+Sender: linus971@gmail.com
+In-Reply-To: <20170627135839.GB1886@jagdpanzerIV.localdomain>
+References: <20170627135839.GB1886@jagdpanzerIV.localdomain>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Tue, 27 Jun 2017 10:18:04 -0700
+Message-ID: <CA+55aFxBUe4QAa11i-ySr2i959EpvcEZYf=9NumWyTDH+6BEQw@mail.gmail.com>
+To: Sergey Senozhatsky <sergey.senozhatsky.work@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
+	Michal Hocko <mhocko@kernel.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] is Kconfig a bit hard sometimes?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -22,46 +33,69 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Tue, Jun 27, 2017 at 6:58 AM, Sergey Senozhatsky
+<sergey.senozhatsky.work@gmail.com> wrote:
+>
+> am I the only one who struggle with the Kconfig sometimes?
 
---yek3teccjc424cql
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+I hate our Kconfig. It's my least favorite part of the kernel. It asks
+questions about insane things that nobody can know the answer to.
 
-On Tue, Jun 27, 2017 at 10:38:54AM +0200, Daniel Vetter wrote:
+Taking a distro default config and doing"make localmodconfig" is what
+I end up doing on new machines, and it has all kinds of suckage too.
 
-> Looking at MAINTAINERS, there's relatively few entries for files under
-> Documentation/, and most are for individual files (about 450). None
-> are for one of the remaining DocBook files still in 4.12 afaics. I
-> think we can fix this problem by making sure that a) docs are sorted
-> usefully into directories (e.g. we put all the gpu stuff into
-> Documentation/gpu/) and b) there's MAINTAINERS entries for all of them
-> (which atm doesn't seem to be the case for a lot of stuff).
+I don't have a solution to it. But I think part of the solution would
+be for us to have various "sane minimal requirement" Kconfig
+fragments, and trhe ability to feed them incrementally, so that people
+can build up a sane Kconfig from "I want this".
 
-Yeah, there's directories there for my subsystems but I have to confess
-I'd not checked the broader picture recently.
+For example, instead of answering a million odd questions about
+specific features that the base distro expects to always be there
+(say, just the networking firewall rules and stuff like that), have
+some "minimal required features to boot Fedora 25 or SuSE 12 sp2".
 
-> But I think the lack of clear maintainer responsibilities for docs was
-> something Jon already brough up at the previous KS, and we didn't
-> really get anywhere with it.
+And then a "I use Intel KVM, so I need those minimal features, but I
+do *not* want paravirtualization or any other virtualization
+services".
 
-Is that a case of people actively getting in the way somehow or more a
-case that we're not able to generate enough interest for people to
-actually work on improving the docs (which is partly about us showing
-that we care of course)?
+We could *maybe* make it part of some "make simpleconfig" that just
+basically uses "select" a lot with s special architecture-specific
+Kconfig file, and try to help people with a few bigger questions.
 
---yek3teccjc424cql
-Content-Type: application/pgp-signature; name="signature.asc"
+Not the thousands of detailed questions. Just do the big strokes, and
+enable teh *normal* still. The "defconfig" approach doesn't work (and
+hasn't for a long time except for cases where you have very specific
+configurations), but just having the abilitty to enable a *sane* basic
+config for modern machines would be fine.
 
------BEGIN PGP SIGNATURE-----
+Would you have to tweak it later when you have odd hardware or speific
+issues? Yes. But there shouldn't be a single question about USB - just
+enable basic support, and then add support for HID and USB storage
+that pretty much everybody will need. Things like that, to get a
+workign but basic config going.
 
-iQEzBAABCAAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAllSer0ACgkQJNaLcl1U
-h9BNwwf9EaY4/zGtwP5Bt7ocVYpolUe/CFM/Zhxkc7kVmsnpRacwHo/lzWbviFoW
-Jkx00sExUEn5ao85/h7haFPIt7xSaYbWOL0AWhRIx4FmuFmKwhKu0ZxoL2JZrhGv
-/o2PGxGut/Luw4AB0ePs81g7OaPZ+GItvW1SlLxu58Ba5ANsY3pX5ZuyA1GJ0ITV
-MCl2kGrMrNGn0JD4l8pjFi5vm3en8cvVWfkRtWHEhcwox0Cd6wfnVm0Y7mbuHlgp
-q4AJ7x+fDE0JdsyaWjCfrjZlsTXMcOp13VZRtTJ8iazpF6R4cUTl33hunIpnqkcF
-5zP9J8EkCEDahGXRsh1K2nI2SEkZJw==
-=jsQQ
------END PGP SIGNATURE-----
+And yes, the security questions are all insane. Nobody knows what the
+answers are, since some of it is distro-specific, and others are just
+"do you want to test hardening". And because people don't even know
+which is which, they often end up enabling features that they
+shouldn't, just because they are unsure.
 
---yek3teccjc424cql--
+The default distro config still enables PCCARD support, even if you
+don't have a laptop at all (or if your laptop is not from the middle
+ages any more). Big things like that make a big difference in what
+questions you are then asked about random devices.
+
+ISDN? ATM? They're dead. Some sane simple config shouldn't ask about
+them any more. The "ten thousand questions" could probably be narrowed
+down to maybe a few tens, with some tweaking for special devices
+people have lying around.
+
+And note that none of this is about technoliogy, and SAT solvers and
+resolving the KConfig depdendencies that some techie people love
+talking about. It's all about "what if we just had some kconfig
+fragments to enable some commonly used stuff" (where "commonly used"
+is obviously architecture dependent, but also target-dependent - a
+"simpleconfig" for a PC workstation kind of config is very different
+from a "simpleconfig" for a server or some ARM embedded thing).
+
+                  Linus
