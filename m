@@ -1,27 +1,30 @@
 Return-Path: <lurodriguez@suse.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 10BA4C93
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5CC1ECBC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 27 Jun 2017 18:44:52 +0000 (UTC)
+	Tue, 27 Jun 2017 19:02:05 +0000 (UTC)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2AFCB1A6
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 896CDCC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 27 Jun 2017 18:44:51 +0000 (UTC)
-Date: Tue, 27 Jun 2017 20:44:48 +0200
+	Tue, 27 Jun 2017 19:02:04 +0000 (UTC)
+Date: Tue, 27 Jun 2017 21:02:02 +0200
 From: "Luis R. Rodriguez" <mcgrof@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Message-ID: <20170627184448.GU21846@wotan.suse.de>
-References: <20170627135839.GB1886@jagdpanzerIV.localdomain>
-	<CA+55aFxBUe4QAa11i-ySr2i959EpvcEZYf=9NumWyTDH+6BEQw@mail.gmail.com>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Guenter Roeck <linux@roeck-us.net>
+Message-ID: <20170627190202.GV21846@wotan.suse.de>
+References: <1de3c642-a4b7-1065-5c35-ba32866d471d@redhat.com>
+	<alpine.LSU.2.20.1706221422360.30709@cbobk.fhfr.pm>
+	<20170627175321.GS21846@wotan.suse.de>
+	<1498588234.18166.29.camel@HansenPartnership.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <CA+55aFxBUe4QAa11i-ySr2i959EpvcEZYf=9NumWyTDH+6BEQw@mail.gmail.com>
-Cc: Michal Hocko <mhocko@kernel.org>, Christoph Hellwig <hch@infradead.org>,
-	Cristina Moraru <cristina.moraru09@gmail.com>,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] is Kconfig a bit hard sometimes?
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <1498588234.18166.29.camel@HansenPartnership.com>
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug reporting feedback
+ loop
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,87 +34,80 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Jun 27, 2017 at 10:18:04AM -0700, Linus Torvalds wrote:
-> And then a "I use Intel KVM, so I need those minimal features, but I
-> do *not* want paravirtualization or any other virtualization
-> services".
-
-Such things exist now:
-
-make kvmconfig
-make xenconfig
-
-> We could *maybe* make it part of some "make simpleconfig" that just
-> basically uses "select" a lot with s special architecture-specific
-> Kconfig file, and try to help people with a few bigger questions.
-
-So you mean a menu of the defconfigs ?
-
-> Not the thousands of detailed questions. Just do the big strokes, and
-> enable teh *normal* still. The "defconfig" approach doesn't work (and
-> hasn't for a long time except for cases where you have very specific
-> configurations), but just having the abilitty to enable a *sane* basic
-> config for modern machines would be fine.
+On Tue, Jun 27, 2017 at 11:30:34AM -0700, James Bottomley wrote:
+> On Tue, 2017-06-27 at 19:53 +0200, Luis R. Rodriguez wrote:
+> > The Kernel Of The Day (KOTD) helps *a lot*. On the XFS front I can
+> > say that 90% of the time so far most bugs can simply be reverse
+> > bisected by testing an issue with KOTD and if it works then doing a
+> > reverse bisect. So much so that I actually *yearn* for the day we get
+> > an actual real valid upstream bug. The other 10% BTW consist of "bad
+> > backports" so far.
+> > 
+> > But one day it comes that KOTD is not sufficient, and there is that
+> > pesky delta on linux-next which *might* also have a fix for you.
+> > Problem is booting linux-next can often fail.
 > 
-> Would you have to tweak it later when you have odd hardware or speific
-> issues? Yes. But there shouldn't be a single question about USB - just
-> enable basic support, and then add support for HID and USB storage
-> that pretty much everybody will need. Things like that, to get a
-> workign but basic config going.
+> Just a minute: I'd like to question that assumption. -next is supposed
+> to be all the upstream trees targetting the merge window.  Boot failure
+> regressions in those trees are very rare.
+
+Like I said, we've gotten better. For my day to day development systems it
+is true that linux-next can be groovy. When it comes to actually booting it
+on a real system being evaluated though, your luck varies. My luck recently
+was not so great.
+
+Guenter Rock maintains a map of both kernel compile and qemu run time
+testign of linux-next accross a different set of architectures, he can
+perhaps tell you better how things look these days on his map. This is
+outside of the scope of the architectures that Stephen tests AFAICT.
+
+> Fine, not non-existent so
+> that's why we run testing and inspection on them, but "often fail" is a
+> mischaracterisation.  I think the correct characterisation would be
+> "rarely fail", but I can compromise on "sometimes fail".
+
+That's fair, how about this: for my development system linux-next rarely fails
+now. For production test system, linux-next sometimes fails :D
+
+> >  Based on personal experience with testing linux-next more regularly
+> > on more machines over the years I can say we are getting much better
+> > with this these days, but every now and then its just poop.
 > 
-> And yes, the security questions are all insane. Nobody knows what the
-> answers are, since some of it is distro-specific, and others are just
-> "do you want to test hardening". And because people don't even know
-> which is which, they often end up enabling features that they
-> shouldn't, just because they are unsure.
+> Really?  Even assuming it to be true for the sake of argument, next
+> stop for that "poop" is mainline via the merge window, so perhaps
+> detecting we have a problem before it hits would be a valuable service.
 
-Sensible defaults per subsystem would help.
+Of course. Its why everyone and their uncles should be giving linux-next
+a go often.
 
-> And note that none of this is about technoliogy, and SAT solvers and
-> resolving the KConfig depdendencies that some techie people love
-> talking about.
+> >  That said, we have a not-so-well known daily linux-next KOTD rpm
+> > type of tree as well. So I recommend that as a next step.
+> > 
+> > Due to the possible failures possible with linux-next, or random
+> > regressions with other subsystems you often only want to test *one*
+> > subsystem. To help with this there are two options I'm aware of:
+> 
+> I still don't see what's wrong with booting -next?  Fine, there will
+> occasionally be the rare boot failure regressions, in which case you
+> can move on to all your other stuff (which is very time intensive), but
+> if -next boots fine, whether the bug is present or not tells you
+> something and if it's not present, it saves you a lot of time which is
+> very valuable because we shouldn't be wasting the time of our most
+> valuable test group (those which are close to mainline).
 
-If you have a set of requirements but need to fold in a large lump of
-other desirables then surely a SAT solver can help.
+Note how Laura mentioned they actually skip rc1. Even though my own
+experience these days is linux-next is *more stable* than rc1, its
+can't be a surprise linux-next can have issues.
 
-> It's all about "what if we just had some kconfig
-> fragments to enable some commonly used stuff" (where "commonly used"
-> is obviously architecture dependent, but also target-dependent - a
-> "simpleconfig" for a PC workstation kind of config is very different
-> from a "simpleconfig" for a server or some ARM embedded thing).
+We're talking about *all* development ramp up. One commit is bound
+to have a pesky stupid thing merged.
 
-Actually ideally something like udevadm dumping respective kconfig symbols
-should give you what kconfig a system needs at a specific boot time. Solving
-this was part of Cristina Moraru's  2016 GSoC effort which tried to streamline
-scripts/kconfig/streamline_config.pl (make localmodconfig). That effort ended
-up producing simple patches to associate modules with respective kconfig
-symbols, to enable udevadm to dump the info later.
+> So I think it would be a useful service for distro's to provide a
+> release of -next that users can try.  Perhaps it doesn't have to be
+> daily, but at least weekly would be enormously helpful.
 
-Cristoph didn't like the reverse engineering approach this seemed to take
-though so proposed an alternative which could even fold Makefiles into Kconfig
-[2]. I however found issues with built-in with this model [3], other than this
-it seemed fair and reasonable provided we actually worked on it.
+Daily. No questions asked.
 
-At Linux Plumbers Sante Fe we had a small kernel session about Kconfig
-semantics to talk more about this. Some loose ideas and notes from that
-sessions:
-
-  * Arnd noted a kconfig "Suggests" tag seems appropriate, he seems to have
-    volunteered to work on it :)
-
-  * David Howells noted he'd prefer to have a cache of enabled features.
-    He also volunteered this ;)
-
-  * We all seem to have decided having *both* depends and select is dumb.
-    So we decided we could remove select but fix tools first to give you
-    what you need:
-
-    - make selectconfig
-    - make dependsconfig
-
-[0] https://kernelsense.wordpress.com/2016/08/23/gsoc-2016-summary/
-[1] https://lkml.kernel.org/r/1471462023-119645-1-git-send-email-cristina.moraru09@gmail.com
-[2] https://marc.info/?l=linux-backports&m=147211126311774&w=2
-[3] https://marc.info/?l=linux-kernel&m=147215738525058&w=2
+A) KOTD --> B) linux-next --> mailing list
 
   Luis
