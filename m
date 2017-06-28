@@ -1,20 +1,31 @@
-Return-Path: <geert.uytterhoeven@gmail.com>
+Return-Path: <pavel@ucw.cz>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5959F723
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 28 Jun 2017 20:27:25 +0000 (UTC)
+Received: from atrey.karlin.mff.cuni.cz (atrey.karlin.mff.cuni.cz
+	[195.113.26.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C1CCB271
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 28 Jun 2017 20:27:24 +0000 (UTC)
+Date: Wed, 28 Jun 2017 22:27:22 +0200
+From: Pavel Machek <pavel@ucw.cz>
+To: Sebastian Reichel <sre@kernel.org>
+Message-ID: <20170628202722.GC18101@amd>
+References: <20170626064947.GF23064@atomide.com> <20170626111207.GA11688@amd>
+	<20170626114931.GG23064@atomide.com> <20170626131401.GA11980@amd>
+	<20170626134904.GH23064@atomide.com> <20170626204932.GA19396@amd>
+	<20170627071835.GJ23064@atomide.com>
+	<20170627121455.tljtekx6bmzlezxa@earth> <20170627215727.GA5250@amd>
+	<20170628160112.ip2ambkzlkkoz2ww@earth>
 MIME-Version: 1.0
-Sender: geert.uytterhoeven@gmail.com
-In-Reply-To: <20170626161828.3914fcc1@lwn.net>
-References: <20170623123936.42dab05f@lwn.net>
-	<20170624074641.4820fecd@vento.lan>
-	<1779146.rtcHP5MkoH@aspire.rjw.lan> <20170624104142.70677fcb@vento.lan>
-	<alpine.LSU.2.20.1706252254190.30709@cbobk.fhfr.pm>
-	<20170626161828.3914fcc1@lwn.net>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 28 Jun 2017 21:48:47 +0200
-Message-ID: <CAMuHMdWJLkJe=a0YiiypzZ728Sv=SK87-E2qXw5dBiz2zSfB-Q@mail.gmail.com>
-To: Jonathan Corbet <corbet@lwn.net>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Mauro Carvalho Chehab <mchehab@s-opensource.com>,
-	Jiri Kosina <jkosina@suse.cz>, ksummit-discuss@lists.linux-foundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Documentation issues
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="Bu8it7iiRSEf40bY"
+Content-Disposition: inline
+In-Reply-To: <20170628160112.ip2ambkzlkkoz2ww@earth>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] mobile phones
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -24,47 +35,71 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Jon,
 
-On Tue, Jun 27, 2017 at 12:18 AM, Jonathan Corbet <corbet@lwn.net> wrote:
-> On Sun, 25 Jun 2017 22:56:07 +0200 (CEST)
-> Jiri Kosina <jkosina@suse.cz> wrote:
->> Unfortunately option (3) has also been applied to some of the files:
->>
->>       $ ll Documentation/kernel-parameters.txt
->>       ls: cannot access 'Documentation/kernel-parameters.txt': No such file or directory
->>
->> I wasn't sure whether this was intentional or not. But if not, I'll
->> happily send a patch that introduces a symlink.
->
-> Worries about moving well-known files are why I delayed some of this stuff
-> a bit so I could bring it up at conferences and the kernel summit.  It
-> only proceeded after I didn't get any real pushback in those settings.
->
-> In general, we move files around in the kernel tree all the time.  We
-> don't normally leave symlinks behind; indeed, we never do.  Instead, we
-> figure out where the file moved to and get on with life.  Are
-> documentation files somehow different, needing different rules in this
-> regard?  I wouldn't mind some clarity on that point.
+--Bu8it7iiRSEf40bY
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Documentation files are special in that they (some of them) are much more
-likely to be linked from an external web page, and may be read by mere
-mortals.
+Hi!
 
-My gut feeling says this is mostly limited to SubmittingPatches and
-CodingStyle, which are (coincidently?) the only two files in the top level
-using CamelCase.
+> > Oh, another major piece is DSP coprocessor that is there. Unlike
+> > graphics, we don't even know how support for it should like.
+>=20
+> https://www.kernel.org/doc/Documentation/remoteproc.txt
+>=20
+> config OMAP_REMOTEPROC
+> 	tristate "OMAP remoteproc support"
+> 	[...]
+> 	help
+> 	  Say y here to support OMAP's remote processors (dual M3
+> 	  and DSP on OMAP4) via the remote processor framework.
+>=20
+> 	  Currently only supported on OMAP4.
+>=20
+> 	  Usually you want to say Y here, in order to enable multimedia
+> 	  use-cases to run on your platform (multimedia codecs are
+> 	  offloaded to remote DSP processors using this framework).
+>=20
+> 	  It's safe to say N here if you're not interested in multimedia
+> 	  offloading or just want a bare minimum kernel.
+>=20
+> I have been told by some Nokia people (I do not remember who it
+> was, possibly Sakari), that the DSP is not that powerful and any
+> calculation should also be possible on CPU (wasting a bit of
+> energy).
 
-Source files are mostly used by developers, who don't rely on external links,
-and who are used to work with the source file hierarchy on a regular basis.
+Ok, we probably don't care about DSP, but lets say we had really
+fast DSP or really cared about power.
 
-Gr{oetje,eeting}s,
+We'd need remoteproc. Sure. But that has no interface for userland,
+right?
 
-                        Geert
+So we'd need to introduce interface for userland... fine.
 
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+And then we'd need cross-compilers for the DSP used. Ok.
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+And then we'd need to split mpg123 to CPU and DSP parts, and modify it
+so that it can run the DSP parts using remoteproc, when available?
+
+That starts to be ... complex, with changes all over the system :-(.
+
+								Pavel
+--=20
+(english) http://www.livejournal.com/~pavelmachek
+(cesky, pictures) http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blo=
+g.html
+
+--Bu8it7iiRSEf40bY
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iEYEARECAAYFAllUESoACgkQMOfwapXb+vI+/QCcDKtO2dKKTCt9UPNEzn+jR+0N
+bCMAoLORV4S/wEEh+KRT0w0FGFazZwxc
+=ZSSU
+-----END PGP SIGNATURE-----
+
+--Bu8it7iiRSEf40bY--
