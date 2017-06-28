@@ -1,28 +1,37 @@
-Return-Path: <pavel@ucw.cz>
-Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
-	[172.17.192.36])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1C0CDB2E
+Return-Path: <geert.uytterhoeven@gmail.com>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 21614BAC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 28 Jun 2017 17:02:41 +0000 (UTC)
-Received: from atrey.karlin.mff.cuni.cz (atrey.karlin.mff.cuni.cz
-	[195.113.26.193])
-	by smtp2.linuxfoundation.org (Postfix) with ESMTPS id 5F1EC1DABF
+	Wed, 28 Jun 2017 17:56:04 +0000 (UTC)
+Received: from mail-io0-f195.google.com (mail-io0-f195.google.com
+	[209.85.223.195])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9B296A4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 28 Jun 2017 17:02:40 +0000 (UTC)
-Date: Wed, 28 Jun 2017 19:01:53 +0200
-From: Pavel Machek <pavel@ucw.cz>
-To: Linus Walleij <linus.walleij@linaro.org>
-Message-ID: <20170628170153.GA26179@amd>
-References: <20170625104850.GA24717@amd>
-	<CACRpkdYA6Tai+dAJ8Q2w_xEJonuDtHdUnTeJze_8JyX43KntPQ@mail.gmail.com>
+	Wed, 28 Jun 2017 17:56:03 +0000 (UTC)
+Received: by mail-io0-f195.google.com with SMTP id j200so5898854ioe.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 28 Jun 2017 10:56:03 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="rwEMma7ioTxnRzrJ"
-Content-Disposition: inline
-In-Reply-To: <CACRpkdYA6Tai+dAJ8Q2w_xEJonuDtHdUnTeJze_8JyX43KntPQ@mail.gmail.com>
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] mobile phones
+Sender: geert.uytterhoeven@gmail.com
+In-Reply-To: <CA+55aFzgumwC-HqDpsj-OEVoQdhcnRo9Fh2Kg7SMPL6+wP4ctg@mail.gmail.com>
+References: <20170627135839.GB1886@jagdpanzerIV.localdomain>
+	<CA+55aFxBUe4QAa11i-ySr2i959EpvcEZYf=9NumWyTDH+6BEQw@mail.gmail.com>
+	<20170627184448.GU21846@wotan.suse.de>
+	<CA+55aFyvssxg63UoQ-rOaf1TMacJ6T5jyLkWECosQJ_N=9gaaQ@mail.gmail.com>
+	<CAOesGMimO1rYi7RpcsZYX9uDgWUJdv4XSgQR+RJaaS2qt_FCLw@mail.gmail.com>
+	<CA+55aFxDyj-9koeDemqUvxYrLyKxV8Xggy=ad_EQmGrfEef_gg@mail.gmail.com>
+	<20170627231011.GA10543@mail.hallyn.com>
+	<CAB=NE6Wd9WWCyRzO=TjaTiPNruSwt24G3BD2qTuUue8B3kRX5g@mail.gmail.com>
+	<CA+55aFzgumwC-HqDpsj-OEVoQdhcnRo9Fh2Kg7SMPL6+wP4ctg@mail.gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 28 Jun 2017 19:56:01 +0200
+Message-ID: <CAMuHMdXQ3FVOQcRBfbc68f5KWmZw7q=YKyeQYUfKqikqrcAAmQ@mail.gmail.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Cristina Moraru <cristina.moraru09@gmail.com>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] is Kconfig a bit hard sometimes?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,48 +41,45 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Wed, Jun 28, 2017 at 2:14 AM, Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
+> On Tue, Jun 27, 2017 at 5:09 PM, Luis R. Rodriguez <mcgrof@kernel.org> wrote:
+>> The *easier* thing to do for now was to just map a loaded module to a
+>> kconfig symbol, and she proposed fairly simple patches to do this.
+>
+> Well, localmodconfig does that today already.
+>
+> And as mentioned, this is *not* even primarily about devices.
+>
+> Devices are actually the easy case. Not only are they generally fairly
+> easy to enumerate (ie lsusb etc), they are things that people are at
+> least more or less aware of.
 
---rwEMma7ioTxnRzrJ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Devices are indeed the easy part.  And on systems using DT, it's fairly easy
+to find out which drivers you need to enable.
+However, many drivers cannot be enabled without enabling a subsystem and
+a few subsystem-specific options first.  Finding out which is already much
+harder. E.g. the media subsystem has many of these.
 
-Hi!
+> The config options that don't enable drivers, but enable particular
+> behavior - *those* are actually the nastiest ones.
+>
+> And you don't see those in module names (well, you obviously sometimes
+> do, since the module might be what implements the behavior, but quite
+> often it's a built-in or just a setting for a module)
 
-> I'd be happy if I could "just" compile and boot the latest kernel with
-> the latest AOSP (Android Open Source Project) on the Nokia n900 or
-> n950 and use it as a smartphone. I would even accept an out-of-tree
-> GPU driver since everything and its dog requires 3D acceleration these
-> days. Maybe it would nit even drain the battery in 5 minutes and that
-> would be GREAT.
->=20
-> As far as I know we not even close to anything like that. Or are there
-> people actually booting Android on these? Or any other phone form-factor
-> device running a mainline Linux+Android?
+Module names assume you already have a running system to get a list of modules.
+I don't want to go into systemd bashing (you can probably find other examples),
+but when a Debian upgrade pulled in systemd, I had a hard time finding out
+which Kconfig options I had to enable to make the system boot again.
 
-Actually, you may want to check out the Motorola Droid 4. Pretty new,
-so still supported with LineageOS IIRC and hardware support in the
-mainline is pretty complete (as mentioned elsewhere in this
-thread). You may still have some work to do, but likely easier than
-N900/N950.
+Gr{oetje,eeting}s,
 
-Best regards,
-									Pavel
---=20
-(english) http://www.livejournal.com/~pavelmachek
-(cesky, pictures) http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blo=
-g.html
+                        Geert
 
---rwEMma7ioTxnRzrJ
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v1
-
-iEYEARECAAYFAllT4QEACgkQMOfwapXb+vJ3SACeJF3UAuxAgOr0swhrsXKfTrVM
-epUAoIJnerWkF/gJSkAa2ATwNipe/iZx
-=Jsnz
------END PGP SIGNATURE-----
-
---rwEMma7ioTxnRzrJ--
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
