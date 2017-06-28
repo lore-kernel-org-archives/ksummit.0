@@ -1,25 +1,21 @@
-Return-Path: <mcgrof@kernel.org>
+Return-Path: <stephen@networkplumber.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BA914ACB
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1E268722
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 28 Jun 2017 00:26:25 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 643BECE
+	Wed, 28 Jun 2017 03:54:56 +0000 (UTC)
+Received: from mail-pg0-f43.google.com (mail-pg0-f43.google.com [74.125.83.43])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 993BF152
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 28 Jun 2017 00:26:25 +0000 (UTC)
-Received: from mail-yw0-f180.google.com (mail-yw0-f180.google.com
-	[209.85.161.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 0E3CC22B60
+	Wed, 28 Jun 2017 03:54:55 +0000 (UTC)
+Received: by mail-pg0-f43.google.com with SMTP id u62so25180084pgb.3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 28 Jun 2017 00:26:25 +0000 (UTC)
-Received: by mail-yw0-f180.google.com with SMTP id j11so18483425ywa.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 27 Jun 2017 17:26:25 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <CA+55aFzgumwC-HqDpsj-OEVoQdhcnRo9Fh2Kg7SMPL6+wP4ctg@mail.gmail.com>
+	Tue, 27 Jun 2017 20:54:55 -0700 (PDT)
+Date: Tue, 27 Jun 2017 20:54:43 -0700
+From: Stephen Hemminger <stephen@networkplumber.org>
+To: "Luis R. Rodriguez" <mcgrof@kernel.org>
+Message-ID: <20170627205443.1de0f0d8@xeon-e3>
+In-Reply-To: <CAB=NE6VS9iA+VN_-QOL1f8WGO-wrcQP5n+W=R6yjwQ=_OO3Sfg@mail.gmail.com>
 References: <20170627135839.GB1886@jagdpanzerIV.localdomain>
 	<CA+55aFxBUe4QAa11i-ySr2i959EpvcEZYf=9NumWyTDH+6BEQw@mail.gmail.com>
 	<20170627184448.GU21846@wotan.suse.de>
@@ -29,11 +25,10 @@ References: <20170627135839.GB1886@jagdpanzerIV.localdomain>
 	<20170627231011.GA10543@mail.hallyn.com>
 	<CAB=NE6Wd9WWCyRzO=TjaTiPNruSwt24G3BD2qTuUue8B3kRX5g@mail.gmail.com>
 	<CA+55aFzgumwC-HqDpsj-OEVoQdhcnRo9Fh2Kg7SMPL6+wP4ctg@mail.gmail.com>
-From: "Luis R. Rodriguez" <mcgrof@kernel.org>
-Date: Tue, 27 Jun 2017 17:26:03 -0700
-Message-ID: <CAB=NE6VS9iA+VN_-QOL1f8WGO-wrcQP5n+W=R6yjwQ=_OO3Sfg@mail.gmail.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Content-Type: text/plain; charset="UTF-8"
+	<CAB=NE6VS9iA+VN_-QOL1f8WGO-wrcQP5n+W=R6yjwQ=_OO3Sfg@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 Cc: Cristina Moraru <cristina.moraru09@gmail.com>,
 	ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] is Kconfig a bit hard sometimes?
@@ -46,14 +41,20 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Jun 27, 2017 at 5:14 PM, Linus Torvalds
-<torvalds@linux-foundation.org> wrote:
->
-> The config options that don't enable drivers, but enable particular
-> behavior - *those* are actually the nastiest ones.
+On Tue, 27 Jun 2017 17:26:03 -0700
+"Luis R. Rodriguez" <mcgrof@kernel.org> wrote:
 
-Ah yes... addressing this with the meta thingy would certainly be
-nice. It can help close one of the big gaps and flaws of
-localmodconfig.
+> On Tue, Jun 27, 2017 at 5:14 PM, Linus Torvalds
+> <torvalds@linux-foundation.org> wrote:
+> >
+> > The config options that don't enable drivers, but enable particular
+> > behavior - *those* are actually the nastiest ones.  
+> 
+> Ah yes... addressing this with the meta thingy would certainly be
+> nice. It can help close one of the big gaps and flaws of
+> localmodconfig.
+> 
 
-  Luis
+I also run into issues with things like USB sticks with FAT filesystem.
+If no stick has been plugged in the module isn't loaded, and therefore the module
+doesn't get included. This is a general problem with hot pluggable hardware.
