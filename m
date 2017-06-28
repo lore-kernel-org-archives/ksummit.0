@@ -1,33 +1,29 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <dan.carpenter@oracle.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 33630596
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D6F32A91
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 28 Jun 2017 10:19:51 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BDB72D3
+	Wed, 28 Jun 2017 12:59:07 +0000 (UTC)
+Received: from aserp1040.oracle.com (aserp1040.oracle.com [141.146.126.69])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 717A1125
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 28 Jun 2017 10:19:50 +0000 (UTC)
-Date: Wed, 28 Jun 2017 11:19:37 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Guenter Roeck <linux@roeck-us.net>
-Message-ID: <20170628101937.zfpk2xtf5qw7wlay@sirena.org.uk>
-References: <1de3c642-a4b7-1065-5c35-ba32866d471d@redhat.com>
-	<alpine.LSU.2.20.1706221422360.30709@cbobk.fhfr.pm>
-	<20170627175321.GS21846@wotan.suse.de>
-	<1498588234.18166.29.camel@HansenPartnership.com>
-	<20170627190202.GV21846@wotan.suse.de>
-	<20170627194622.GE16189@roeck-us.net>
+	Wed, 28 Jun 2017 12:59:07 +0000 (UTC)
+Date: Wed, 28 Jun 2017 15:58:19 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: "Luis R. Rodriguez" <mcgrof@kernel.org>
+Message-ID: <20170628125819.vgmr63uw3hl5yoib@mwanda>
+References: <20170627135839.GB1886@jagdpanzerIV.localdomain>
+	<CA+55aFxBUe4QAa11i-ySr2i959EpvcEZYf=9NumWyTDH+6BEQw@mail.gmail.com>
+	<20170627184448.GU21846@wotan.suse.de>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="vvyklgwms7wwq4bw"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20170627194622.GE16189@roeck-us.net>
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug reporting feedback
- loop
+In-Reply-To: <20170627184448.GU21846@wotan.suse.de>
+Cc: Christoph Hellwig <hch@infradead.org>,
+	Cristina Moraru <cristina.moraru09@gmail.com>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
+	Michal Hocko <mhocko@kernel.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] is Kconfig a bit hard sometimes?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,35 +33,15 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Tue, Jun 27, 2017 at 08:44:48PM +0200, Luis R. Rodriguez wrote:
+>   * We all seem to have decided having *both* depends and select is dumb.
+>     So we decided we could remove select but fix tools first to give you
+>     what you need:
 
---vvyklgwms7wwq4bw
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+They're totally different and both make sense.  You can select a library
+but you can select an ARM.  Select is for hiding infratructure that
+users don't care about and depend is for hiding features that users
+can't have.
 
-On Tue, Jun 27, 2017 at 12:46:22PM -0700, Guenter Roeck wrote:
-
-> There are almost always some build and/or runtime failures in -next. Right now
-> we are lucky (the current qemu boot failures are really build failures).
-> For reference, from next-20170627:
-
-Right, the important thing is that we sit on the results and no
-individual failure tends to last for terribly long and hopefully by the
-time things hit Linus' tree we're in good shape - the failure rate in
-mainline from the build and boot tests is very much better.
-
---vvyklgwms7wwq4bw
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCAAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAllTgrkACgkQJNaLcl1U
-h9CT9Qf/emKEYTSiu9Yk6dku1xT5yPiZxyFZ0kluNNTZuYJXEpu4meQwcwvBgcN5
-9DU1Xp4oDvJdvOilpCOQNK+5/F2wgb81Bzy+YpxiGzav87tQJxcm6rN/pr9DkPYT
-xrRla9UIATFqAor5iEDN8Nf0pgGcYcMROjyFq7nA3DYD4I38I5MBwjvSvjQVo+Hc
-6JYbLIREB0emmri7opdO1mDwzXGmypU8qLrcBuKJlXQRsVfvaJpGEH3BBuhAoHt8
-ms8cddAxaN+i2BBPd/GRZZMsL9tPT5Z0FEd0OV4GjjegWrCkMaClnhxX4PHW/w07
-k+kNjZo5ypPDUY9OAO0qhTmy/1TLiQ==
-=VdNv
------END PGP SIGNATURE-----
-
---vvyklgwms7wwq4bw--
+regards,
+dan carpetner
