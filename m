@@ -1,29 +1,27 @@
 Return-Path: <pavel@ucw.cz>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5959F723
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 03F6C98A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 28 Jun 2017 20:27:25 +0000 (UTC)
+	Wed, 28 Jun 2017 21:10:11 +0000 (UTC)
 Received: from atrey.karlin.mff.cuni.cz (atrey.karlin.mff.cuni.cz
 	[195.113.26.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C1CCB271
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8343D3CB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 28 Jun 2017 20:27:24 +0000 (UTC)
-Date: Wed, 28 Jun 2017 22:27:22 +0200
+	Wed, 28 Jun 2017 21:10:10 +0000 (UTC)
+Date: Wed, 28 Jun 2017 23:10:08 +0200
 From: Pavel Machek <pavel@ucw.cz>
 To: Sebastian Reichel <sre@kernel.org>
-Message-ID: <20170628202722.GC18101@amd>
-References: <20170626064947.GF23064@atomide.com> <20170626111207.GA11688@amd>
-	<20170626114931.GG23064@atomide.com> <20170626131401.GA11980@amd>
-	<20170626134904.GH23064@atomide.com> <20170626204932.GA19396@amd>
-	<20170627071835.GJ23064@atomide.com>
-	<20170627121455.tljtekx6bmzlezxa@earth> <20170627215727.GA5250@amd>
-	<20170628160112.ip2ambkzlkkoz2ww@earth>
+Message-ID: <20170628211008.GA19571@amd>
+References: <20170625104850.GA24717@amd>
+	<87shinzkp9.fsf@notabene.neil.brown.name>
+	<20170626083407.GA9621@amd> <20170627123947.krne6a2saolcndih@earth>
+	<20170627215755.GC5250@amd> <20170628164502.itggbf4xuhsv3oyf@earth>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="Bu8it7iiRSEf40bY"
+	protocol="application/pgp-signature"; boundary="AqsLC8rIMeq19msA"
 Content-Disposition: inline
-In-Reply-To: <20170628160112.ip2ambkzlkkoz2ww@earth>
+In-Reply-To: <20170628164502.itggbf4xuhsv3oyf@earth>
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] mobile phones
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -36,70 +34,98 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---Bu8it7iiRSEf40bY
+--AqsLC8rIMeq19msA
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
 Hi!
 
-> > Oh, another major piece is DSP coprocessor that is there. Unlike
-> > graphics, we don't even know how support for it should like.
+> > So to be exact... u-boot does not know about battery charging. And
+> > NoLo can only do very, very slow charging.
 >=20
-> https://www.kernel.org/doc/Documentation/remoteproc.txt
+> Yes. The idea is, that normally NoLo only charges far enough, that
+> Linux can be booted.
 >=20
-> config OMAP_REMOTEPROC
-> 	tristate "OMAP remoteproc support"
-> 	[...]
-> 	help
-> 	  Say y here to support OMAP's remote processors (dual M3
-> 	  and DSP on OMAP4) via the remote processor framework.
+> > Yes, unfortunately that does not work quite well here. Voltage goes
+> > too low before Linux can boot, so it resets, but it is still high
+> > enough for the bootloader, so it attempts to boot Linux one more time,
+> > but battery is empty and voltage goes too low before Linux can boot, ...
 >=20
-> 	  Currently only supported on OMAP4.
+> I guess your battery is not the fittest anymore?
+
+I guess that's one issue. (One of my batteries is actually so bad that
+GSM modem fails with it.)
+
+Well, I guess Debian boots a little longer than Maemo. Plus, I believe
+we should charge the battery from kernel by default; it will enable
+running fsck etc, and it will mean slow userspace boot will not
+break...
+
+> > > On N950 there is an unsupported gps connected via i2c iirc (with
+> > > unknown protocol that needs to be RE'd) and TI's WiLink provides
+> > > GPS on a shared UART link with bluetooth-style header using yet
+> > > another protocol. I agree, that we should have a GPS subsystem.
+> >=20
+> > Two GPSes in one box, interesting design. Are both of them connected
+> > to useful antenna?
 >=20
-> 	  Usually you want to say Y here, in order to enable multimedia
-> 	  use-cases to run on your platform (multimedia codecs are
-> 	  offloaded to remote DSP processors using this framework).
+> Actually there are probably 3 GPS implementations in Droid 4:
 >=20
-> 	  It's safe to say N here if you're not interested in multimedia
-> 	  offloading or just want a bare minimum kernel.
+>  * WL1285
+>  * MDM6600 modem
+>  * LTE modem
 >=20
-> I have been told by some Nokia people (I do not remember who it
-> was, possibly Sakari), that the DSP is not that powerful and any
-> calculation should also be possible on CPU (wasting a bit of
-> energy).
+> As far as I understand it modems are required to have GPS access in
+> US. I'm not yet sure which of the implementations is used by Droid 4's
+> stock system, but Motorola explicitly added a driver for the WL1285 GPS
+> making it a likely candidate (The userspace part is a closed source
+> shared object used by Android).
 
-Ok, we probably don't care about DSP, but lets say we had really
-fast DSP or really cared about power.
+Interesting :-). I guess you could do really fair comparison of the
+chipsets.
 
-We'd need remoteproc. Sure. But that has no interface for userland,
-right?
+(Binary driver -- bad Motorola :-( )
 
-So we'd need to introduce interface for userland... fine.
+> > +static int generic_protect(struct power_supply *psy)
+> > +{
+> > +	union power_supply_propval val;
+> > +	int res;
+> > +	int mV, mA, mOhm =3D 430, mVadj =3D 0;
+>=20
+> 430 mOhm?
 
-And then we'd need cross-compilers for the DSP used. Ok.
+Yes, 0.43 Ohm.
 
-And then we'd need to split mpg123 to CPU and DSP parts, and modify it
-so that it can run the DSP parts using remoteproc, when available?
+> > +	if (mVadj < 3150)
+> > +		shutdown("Battery internal voltage below 3.15V.");
+> > +=09
+> > +	printk(KERN_INFO "Main battery %d mV, internal voltage %d mV\n",
+> > +	       mV, mVadj);
+>=20
+> s/internal voltage/open circuit voltage/g?
 
-That starts to be ... complex, with changes all over the system :-(.
+Will do.
 
-								Pavel
+Best regards,
+									Pavel
+
+
 --=20
 (english) http://www.livejournal.com/~pavelmachek
 (cesky, pictures) http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blo=
 g.html
 
---Bu8it7iiRSEf40bY
+--AqsLC8rIMeq19msA
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: Digital signature
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1
 
-iEYEARECAAYFAllUESoACgkQMOfwapXb+vI+/QCcDKtO2dKKTCt9UPNEzn+jR+0N
-bCMAoLORV4S/wEEh+KRT0w0FGFazZwxc
-=ZSSU
+iEYEARECAAYFAllUGzAACgkQMOfwapXb+vIhfgCgqQpC3Qp9MuBWfPWw/fXS+z39
+W4UAmwRv6HwLTpEpvbqCDyTszMlwH9Ma
+=CgcZ
 -----END PGP SIGNATURE-----
 
---Bu8it7iiRSEf40bY--
+--AqsLC8rIMeq19msA--
