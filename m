@@ -1,30 +1,28 @@
-Return-Path: <keescook@google.com>
+Return-Path: <lurodriguez@suse.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 44BE5899
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id BC11F486
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 29 Jun 2017 17:52:54 +0000 (UTC)
-Received: from mail-io0-f175.google.com (mail-io0-f175.google.com
-	[209.85.223.175])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4CA1DA4
+	Thu, 29 Jun 2017 18:20:47 +0000 (UTC)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E6067CE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 29 Jun 2017 17:52:53 +0000 (UTC)
-Received: by mail-io0-f175.google.com with SMTP id h64so11438655iod.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 29 Jun 2017 10:52:53 -0700 (PDT)
-MIME-Version: 1.0
-Sender: keescook@google.com
-In-Reply-To: <1498758126.2834.70.camel@HansenPartnership.com>
+	Thu, 29 Jun 2017 18:20:46 +0000 (UTC)
+Date: Thu, 29 Jun 2017 20:20:44 +0200
+From: "Luis R. Rodriguez" <mcgrof@kernel.org>
+To: Kees Cook <keescook@chromium.org>
+Message-ID: <20170629182044.GP21846@wotan.suse.de>
 References: <CAGXu5j+bpi6-krTYwN_BdhFnHZRYpQwhtc9Z-kcRerm+t-Xyfw@mail.gmail.com>
 	<1498754169.2834.61.camel@HansenPartnership.com>
 	<CAGXu5jJ011-7JH7w4n0No=gon-jp4VTeN=0JPWaQsGh5zz79eA@mail.gmail.com>
 	<1498758126.2834.70.camel@HansenPartnership.com>
-From: Kees Cook <keescook@chromium.org>
-Date: Thu, 29 Jun 2017 10:52:51 -0700
-Message-ID: <CAGXu5jLL8_h3AYrpCm4LKV8-rTPf793gAJckS0rQag6iGqk9xw@mail.gmail.com>
-To: James Bottomley <James.Bottomley@hansenpartnership.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+	<CAGXu5jLL8_h3AYrpCm4LKV8-rTPf793gAJckS0rQag6iGqk9xw@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAGXu5jLL8_h3AYrpCm4LKV8-rTPf793gAJckS0rQag6iGqk9xw@mail.gmail.com>
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Developing across
  multiple areas of the kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -36,63 +34,50 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Jun 29, 2017 at 10:42 AM, James Bottomley
-<James.Bottomley@hansenpartnership.com> wrote:
-> On Thu, 2017-06-29 at 09:51 -0700, Kees Cook wrote:
->> On Thu, Jun 29, 2017 at 9:36 AM, James Bottomley
->> <James.Bottomley@hansenpartnership.com> wrote:
->> >
->> > On Wed, 2017-06-28 at 16:01 -0700, Kees Cook wrote:
->> > >
->> > > For refcount_t, the conversions have been going per-maintainer,
->> > > and while this is likely the right way to do things, there are
->> > > dependencies that are crossing releases, which seems inefficient.
->> > > For example, obviously doing a refcount_t conversion requires the
->> > > refcount_t implementation first (which landed in v4.11), but then
->> > > later conversions wanted an option for a light implementation
->> > > (expected for v4.13), but in both cases most maintainers wanted
->> > > the implementations entirely landed, not just in -next (vast
->> > > majority of refcount_t conversions currently in the kernel landed
->> > > in v4.12, so the next wave will have to wait until v4.14 it
->> > > seems). This appears mostly to be about avoiding tree
->> > > dependencies, IIUC, but is an awfully slow way to do things.
->> >
->> > Given the performance concerns of the first implementation, this
->> > timetable and the interactions that went with it seem to be pretty
->> > much textbook correct, especially as none of the hot paths seemed
->> > susceptible to overflow attacks.
->> >
->> > Any other way would have produced a lot more friction: imagine if
->> > it had been done tree at once for 4.12 and then performance had
->> > tanked and we'd got reversions all over the place ... you'd be
->> > spending a lot more than a couple of kernel releases trying to
->> > persuade maintainers to take the new improved stuff.
->>
->> Right, I've got no objection to the performance concerns and how that
->> played out, but it's API-to-conversion steps that seem inefficient.
->> E.g., instead of API 1 in v4.11, conversion wave 1 in v4.12, API 2 in
->> v4.13, conversion wave 2 in v4.14, it looks like tree dependencies
->> was the only reason we couldn't have had: API 1 and conversion wave 1
->> in v4.11, API 2 and conversion wave 2 in v4.12 (e.g. btrfs couldn't
->> compile their tree with the API living in tip, so they had to wait
->> until the API was in a release).
->
-> Well don't discount tree merge problems, having seen a few caused by
-> API plus conversion all at once.  However, by putting them through the
-> maintainer trees you got the review that would otherwise have been
-> missing which highlighted the performance concerns.  Even this time
-> around the affected trees have a whole merge window to run performance
-> regressions to verify everything is OK.  Based on this I think the rule
-> should be API in release R - 1 and conversion in release R through the
-> affected trees with the only exception being changes that are trivial
-> enough (for some value of trivial).
+On Thu, Jun 29, 2017 at 10:52:51AM -0700, Kees Cook wrote:
+> On Thu, Jun 29, 2017 at 10:42 AM, James Bottomley
+> <James.Bottomley@hansenpartnership.com> wrote:
+> > On Thu, 2017-06-29 at 09:51 -0700, Kees Cook wrote:
+> >> On Thu, Jun 29, 2017 at 9:36 AM, James Bottomley
+> >> <James.Bottomley@hansenpartnership.com> wrote:
+> >> > On Wed, 2017-06-28 at 16:01 -0700, Kees Cook wrote:
+> >> Right, I've got no objection to the performance concerns and how that
+> >> played out, but it's API-to-conversion steps that seem inefficient.
+> >
+> > Well don't discount tree merge problems, having seen a few caused by
+> > API plus conversion all at once.  However, by putting them through the
+> > maintainer trees you got the review that would otherwise have been
+> > missing which highlighted the performance concerns.  Even this time
+> > around the affected trees have a whole merge window to run performance
+> > regressions to verify everything is OK.  Based on this I think the rule
+> > should be API in release R - 1 and conversion in release R through the
+> > affected trees with the only exception being changes that are trivial
+> > enough (for some value of trivial).
 
-I'd argue that's what -next is for, but we lack a way to have people
-base their trees on -next sanely. Regardless, I will commence
-beer-crying. :)
+Do you mean add API with no users? If so perhaps test drivers can be the
+first users for it then. Then they are not naked APIs.
 
--Kees
+> I'd argue that's what -next is for, but we lack a way to have people
+> base their trees on -next sanely.
 
--- 
-Kees Cook
-Pixel Security
+Linus has said before cross-tree collateral evolutions *could* just be sent to
+him as a set of scripts he could run. It might sound easier said than done
+though, but we can improve on the process by practicing it daily.
+
+We could just mimic this on linux-next as either a last step as part of its
+scripts and a new tag issued, or this could be done on a separate tree.
+
+Its perhaps easier to think about it first as a separate tree, let's call it a
+linux-oven [0] -- it would reset itself daily based on linux-next's latest tag,
+and as a secondary step just run the tooling to do the API conversions.
+
+An agreed upon set of tools can be supported for the API conversion tasks.  The
+rules for what goes in and how would need to be decided. The above rules James
+proposed for instance seem to make sense to me, modulo the test driver on R-1
+as well.
+
+Just a thought of course.
+
+[0] https://kernelnewbies.org/KernelProjects/linux-oven
+
+  Luis
