@@ -1,23 +1,24 @@
-Return-Path: <BATV+a3f5f3e6054314e6ea5e+5058+infradead.org+hch@bombadil.srs.infradead.org>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id CE12295D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 788249C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 29 Jun 2017 13:39:50 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org [65.50.211.133])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 566F2AD
+	Thu, 29 Jun 2017 16:36:11 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1852816B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 29 Jun 2017 13:39:50 +0000 (UTC)
-Date: Thu, 29 Jun 2017 06:39:49 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Kees Cook <keescook@chromium.org>
-Message-ID: <20170629133949.GA19691@infradead.org>
-References: <CAGXu5j+bpi6-krTYwN_BdhFnHZRYpQwhtc9Z-kcRerm+t-Xyfw@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+	Thu, 29 Jun 2017 16:36:11 +0000 (UTC)
+Message-ID: <1498754169.2834.61.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Kees Cook <keescook@chromium.org>, ksummit
+	<ksummit-discuss@lists.linuxfoundation.org>
+Date: Thu, 29 Jun 2017 09:36:09 -0700
 In-Reply-To: <CAGXu5j+bpi6-krTYwN_BdhFnHZRYpQwhtc9Z-kcRerm+t-Xyfw@mail.gmail.com>
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+References: <CAGXu5j+bpi6-krTYwN_BdhFnHZRYpQwhtc9Z-kcRerm+t-Xyfw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Developing across
  multiple areas of the kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -29,27 +30,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Jun 28, 2017 at 04:01:34PM -0700, Kees Cook wrote:
-> If there is time at the summit, I'd like to quickly discuss best
-> practices for the mechanics of doing security defense development in
-> the kernel. This has always been a bit tricky and I've done my best to
-> navigate it, but it still feels like there are glitches that could be
-> ironed out with a more clearly declared process (or ownership).
+On Wed, 2017-06-28 at 16:01 -0700, Kees Cook wrote:
+> For refcount_t, the conversions have been going per-maintainer, and
+> while this is likely the right way to do things, there are
+> dependencies that are crossing releases, which seems inefficient. For
+> example, obviously doing a refcount_t conversion requires the
+> refcount_t implementation first (which landed in v4.11), but then
+> later conversions wanted an option for a light implementation
+> (expected for v4.13), but in both cases most maintainers wanted the
+> implementations entirely landed, not just in -next (vast majority of
+> refcount_t conversions currently in the kernel landed in v4.12, so
+> the next wave will have to wait until v4.14 it seems). This appears
+> mostly to be about avoiding tree dependencies, IIUC, but is an
+> awfully slow way to do things.
 
-It's pretty hard as a general rule.  As someone who does a lot of
-cross-subsystem work I usually try to find a "lead" subsystem to
-funnel thing through, and if there isn't one yet I create it
-(see the new uuid and dma-mappings ones for the next merge window).
+Given the performance concerns of the first implementation, this
+timetable and the interactions that went with it seem to be pretty much
+textbook correct, especially as none of the hot paths seemed
+susceptible to overflow attacks.
 
-> made in sources maintained outside the kernel itself (i.e. ACPICA)
-> before they'd be accepted back into the kernel. Making tree-wide
+Any other way would have produced a lot more friction: imagine if it
+had been done tree at once for 4.12 and then performance had tanked and
+we'd got reversions all over the place ... you'd be spending a lot more
+than a couple of kernel releases trying to persuade maintainers to take
+the new improved stuff.
 
-And that's crap we just need to stop.  While I'm too some extent
-ok with maintainers having their own little quirky requirements
-on code style and organization that's simply a step too much.
-Every subsystem in the kernel MUST accept suitable patches on the
-proper, open mailing list.
-
-And for ACPICA in general I think we'd reduce code size by 50%
-and the bug amount by probably the same by stopping to treat it
-special and apply the normal kernel rules to it.
+James
