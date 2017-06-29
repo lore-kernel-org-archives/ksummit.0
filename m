@@ -1,26 +1,35 @@
-Return-Path: <keescook@google.com>
+Return-Path: <mchehab@s-opensource.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C5001B13
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 803475B1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 28 Jun 2017 23:01:40 +0000 (UTC)
-Received: from mail-io0-f181.google.com (mail-io0-f181.google.com
-	[209.85.223.181])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C1D86AD
+	Thu, 29 Jun 2017 10:03:00 +0000 (UTC)
+Received: from osg.samsung.com
+	(ec2-52-27-115-49.us-west-2.compute.amazonaws.com [52.27.115.49])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id D24571FB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 28 Jun 2017 23:01:39 +0000 (UTC)
-Received: by mail-io0-f181.google.com with SMTP id h64so44308089iod.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 28 Jun 2017 16:01:39 -0700 (PDT)
+	Thu, 29 Jun 2017 10:02:59 +0000 (UTC)
+Date: Thu, 29 Jun 2017 07:02:52 -0300
+From: Mauro Carvalho Chehab <mchehab@s-opensource.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Message-ID: <20170629070252.21c782d3@vento.lan>
+In-Reply-To: <CAMuHMdXQ3FVOQcRBfbc68f5KWmZw7q=YKyeQYUfKqikqrcAAmQ@mail.gmail.com>
+References: <20170627135839.GB1886@jagdpanzerIV.localdomain>
+	<CA+55aFxBUe4QAa11i-ySr2i959EpvcEZYf=9NumWyTDH+6BEQw@mail.gmail.com>
+	<20170627184448.GU21846@wotan.suse.de>
+	<CA+55aFyvssxg63UoQ-rOaf1TMacJ6T5jyLkWECosQJ_N=9gaaQ@mail.gmail.com>
+	<CAOesGMimO1rYi7RpcsZYX9uDgWUJdv4XSgQR+RJaaS2qt_FCLw@mail.gmail.com>
+	<CA+55aFxDyj-9koeDemqUvxYrLyKxV8Xggy=ad_EQmGrfEef_gg@mail.gmail.com>
+	<20170627231011.GA10543@mail.hallyn.com>
+	<CAB=NE6Wd9WWCyRzO=TjaTiPNruSwt24G3BD2qTuUue8B3kRX5g@mail.gmail.com>
+	<CA+55aFzgumwC-HqDpsj-OEVoQdhcnRo9Fh2Kg7SMPL6+wP4ctg@mail.gmail.com>
+	<CAMuHMdXQ3FVOQcRBfbc68f5KWmZw7q=YKyeQYUfKqikqrcAAmQ@mail.gmail.com>
 MIME-Version: 1.0
-Sender: keescook@google.com
-From: Kees Cook <keescook@chromium.org>
-Date: Wed, 28 Jun 2017 16:01:34 -0700
-Message-ID: <CAGXu5j+bpi6-krTYwN_BdhFnHZRYpQwhtc9Z-kcRerm+t-Xyfw@mail.gmail.com>
-To: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: [Ksummit-discuss] [MAINTAINERS SUMMIT] Developing across multiple
-	areas of the kernel
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: Cristina Moraru <cristina.moraru09@gmail.com>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] is Kconfig a bit hard sometimes?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,93 +39,139 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-If there is time at the summit, I'd like to quickly discuss best
-practices for the mechanics of doing security defense development in
-the kernel. This has always been a bit tricky and I've done my best to
-navigate it, but it still feels like there are glitches that could be
-ironed out with a more clearly declared process (or ownership).
+Em Wed, 28 Jun 2017 19:56:01 +0200
+Geert Uytterhoeven <geert@linux-m68k.org> escreveu:
 
-The specific problem I (and others doing this sort of work) face is
-that changes tend to be needed across a very wide area of the kernel,
-especially across architectures (e.g. hardened usercopy, fortify) and
-subsystems (e.g. refcount_t). For kernel-wide defenses (e.g.
-randstruct), things get even more complex. Landing things in a
-coordinated fashion across multiple maintainers seems overly
-difficult, and leads to dependencies between trees which complicates
-merges.
+> On Wed, Jun 28, 2017 at 2:14 AM, Linus Torvalds
+> <torvalds@linux-foundation.org> wrote:
+> > On Tue, Jun 27, 2017 at 5:09 PM, Luis R. Rodriguez <mcgrof@kernel.org> wrote:  
+> >> The *easier* thing to do for now was to just map a loaded module to a
+> >> kconfig symbol, and she proposed fairly simple patches to do this.  
+> >
+> > Well, localmodconfig does that today already.
+> >
+> > And as mentioned, this is *not* even primarily about devices.
+> >
+> > Devices are actually the easy case. Not only are they generally fairly
+> > easy to enumerate (ie lsusb etc), they are things that people are at
+> > least more or less aware of.  
 
-For usercopy, I just carried the changes in a separate tree and got
-Acks from the various maintainers as needed (the arch changes were
-small, though we still collided with KASan changes). This was,
-comparatively, a small series.
+That depends. When the devices don't have I2C buses, this is usually
+trivial. However, when then have it, it not uncommon that the same
+USB/PCI ID to be shipped with different I2C chips for the same function.
 
-For refcount_t, the conversions have been going per-maintainer, and
-while this is likely the right way to do things, there are
-dependencies that are crossing releases, which seems inefficient. For
-example, obviously doing a refcount_t conversion requires the
-refcount_t implementation first (which landed in v4.11), but then
-later conversions wanted an option for a light implementation
-(expected for v4.13), but in both cases most maintainers wanted the
-implementations entirely landed, not just in -next (vast majority of
-refcount_t conversions currently in the kernel landed in v4.12, so the
-next wave will have to wait until v4.14 it seems). This appears mostly
-to be about avoiding tree dependencies, IIUC, but is an awfully slow
-way to do things.
+That is the case of media drivers: the support for, let's say, a TV
+device usually requires 3 or 4 different drivers, one bridge driver
+and multiple I2C drivers.
 
-For the randstruct gcc plugin there have been multiple kernel-wide
-fixes needed (e.g. designated initializers and sorting out various
-"unusual" cross-structure casts). I followed the pattern of sending
-these to maintainers, but ended up in tree dependency hell (the gcc
-plugin tree must be merged at the end of -next to see all the required
-changes in various trees), and faced cases where changes needed to
-made in sources maintained outside the kernel itself (i.e. ACPICA)
-before they'd be accepted back into the kernel. Making tree-wide
-zero-binary changes (e.g. designated initializer updates) shouldn't be
-that hard.
+To make things worse, the same brand name and PCI/USB ID is sometimes
+shipped with different TV decoders if they're manufactured for Europe,
+US, Asia or South America market. There are even some cases where
+the same USB ID (with different BCD revision) use completely different
+bridge drivers.
 
-For fortify source, I was sending stand-alone fixes to maintainers
-(e.g. memcpy to strncpy changes) while staging the fortify changes in
-a tree not intended for -next yet (as it had more features pending)
-but it got cherry-picked "early" into -mm. This lead to several days
-of confusion that was mostly solved by dumping all the pending fixes
-(that hadn't already been picked up by other maintainers) into the -mm
-tree. The -mm tree has an implicit "merged after all other -next
-trees" dependency, so it worked there, but it seems odd to gate this
-kind of development entirely via -mm.
+> 
+> Devices are indeed the easy part.  And on systems using DT, it's fairly easy
+> to find out which drivers you need to enable.
+> However, many drivers cannot be enabled without enabling a subsystem and
+> a few subsystem-specific options first.  Finding out which is already much
+> harder. E.g. the media subsystem has many of these.
 
-So, I'm left wondering what the best approach for doing kernel-wide
-development is. The existing heuristic ("break up the changes by
-maintainer and send them") doesn't recognize dependencies (e.g.
-coccinelle identified code pattern fixes rarely depend on each other,
-so those kinds of things work fine), or don't care too much about
-changes spanning time (e.g. switching to a new API to avoid open-coded
-versions result in equivalent code and can land independently).
+The media subsystem is harder for DT-based drivers, because it has no
+way to know what I2C devices some bridge driver would use. Basically,
+any bridge driver could, in thesis, use any available camera sensor.
 
-The other heuristic is "carry it all in your own tree" but this tends
-to run afoul of maintainers not wanting changes to their area living
-in your tree (e.g. arch/x86 changes not in the tip tree), or a lack of
-review (e.g. I don't want to carry a patch to mm/slub.c without
-_someone_ giving an Ack).
+For PC (e. g. non-platform devices), what's equivalent to DT is hardcoded
+at the bridge driver: it has to explicitly bind each I2C device used
+on it.
 
-Another approach appears to be a multi-phase merge heuristic (similar
-to -mm) for things that have multi-tree dependencies. (This is going
-to be the case for the randstruct merge in v4.13, since later patches
-in its series depend on other trees. I'll send it in two parts and
-pray than Linus doesn't murder me.) However, this breaks things like
-0-day that have no idea that some tree is designed to be applied on
-top of -next, and gives sfr a headache since there is an implicit
-dependency on other trees in -next.
+As such driver dependency is known by the Kernel module, we do lots of
+efforts to make easier for users to select what they want, trying to
+avoid technical questins. That actually required us a lot of magic at 
+Kconfig dialect, because select is not recursive. So, we had to do
+some sort of "reverse polish notation" type of thing, where possible, in
+order to convert select into depends on. Ugly, and harder to maintain,
+but it works on several cases.
 
-So, if I'm missing something obvious, we can quickly solve this over
-email. :) If this is all "operating as expected" I can go cry in my
-beer, but if there are other ideas, I'd love to discuss them at the
-summit (assuming I can actually hear people through the monitor
-speaker on the stage this year).
+In the past, the Kconfig questions there were if the user wanted V4L,
+V4L2  and/or DVB API, and then a series of other technical questions. 
+Now, it starts by asking if the user wants to enable a functionality
+visible to him (camera/video, analog TV, digital TV, radio, etc),
+with is something that the user likely knows how to answer. With that,
+it allows to select adapter per their bus (USB, PCI).
 
-Thanks!
+There are still a bunch of more technical questions, though, that we
+could possible avoid if were there some Kconfig option that would
+tell that the user wants a "simplified" version as he would be compiling
+the kernel for a PC or a Laptop.
 
--Kees
+Yet, the user has to know if his "Win TV" board uses bt8xx, cx88,
+cx231xx, em28xx... chipset. 
 
--- 
-Kees Cook
-Pixel Security
+That's not an easy question for the user. We have a wiki to help,
+and we document the PCI/USB IDs for several commonly used drivers.
+
+Once the driver is selected, by default, Kconfig enables the option
+"Autoselect ancillary drivers", with basically means that, if the user
+selects, for example, the em28xx driver, all possible combinations
+of tuners and other I2C devices that all em28xx boards supports
+will be selected.
+
+Not optimal, but that warrants that, if the user has an em28xx
+driver, it will work out of the box, no matter what variant he
+has, preventing us to ask what tuner, analog TV demod, digital TV
+demod, camera sensor... such hardware has.
+
+An improvement would be to let the user tell what boards he has
+(either via PCI/USB ID running some ancillary script or by presenting 
+him a menu of all supported hardware per brand name.
+
+We would likely need a list of all supported boards by their 
+brand names (we have that already hardcoded at drivers - either as
+string names or as comments), and likely a SAT solver, in order 
+to allow selecting the needed drivers for such board.
+
+-
+
+Anyway, if you think selecting media drivers for DT-based drivers is
+hard, perhaps you could take a look at the current approach and see
+how to extend it to the DT case.
+
+I guess we would need some sort of script that would inspect all
+DT files and convert their dependencies into something that we could
+import to Kconfig in a way that, for example, one selects OMAP3 driver,
+it would, by default, select all sensors that this driver uses, 
+according with the existing DT files.
+
+> 
+> > The config options that don't enable drivers, but enable particular
+> > behavior - *those* are actually the nastiest ones.
+> >
+> > And you don't see those in module names (well, you obviously sometimes
+> > do, since the module might be what implements the behavior, but quite
+> > often it's a built-in or just a setting for a module)  
+> 
+> Module names assume you already have a running system to get a list of modules.
+> I don't want to go into systemd bashing (you can probably find other examples),
+> but when a Debian upgrade pulled in systemd, I had a hard time finding out
+> which Kconfig options I had to enable to make the system boot again.
+> 
+> Gr{oetje,eeting}s,
+> 
+>                         Geert
+> 
+> --
+> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+> 
+> In personal conversations with technical people, I call myself a hacker. But
+> when I'm talking to journalists I just say "programmer" or something like that.
+>                                 -- Linus Torvalds
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+
+
+
+Thanks,
+Mauro
