@@ -1,32 +1,26 @@
-Return-Path: <sfr@canb.auug.org.au>
+Return-Path: <compudj@efficios.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id E73E38A1
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id AFC79A82
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 29 Jun 2017 20:27:20 +0000 (UTC)
-Received: from ozlabs.org (ozlabs.org [103.22.144.67])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 40642403
+	Thu, 29 Jun 2017 21:20:28 +0000 (UTC)
+Received: from mail.efficios.com (mail.efficios.com [167.114.142.141])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A511D19B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 29 Jun 2017 20:27:20 +0000 (UTC)
-Date: Fri, 30 Jun 2017 06:27:17 +1000
-From: Stephen Rothwell <sfr@canb.auug.org.au>
-To: Kees Cook <keescook@chromium.org>
-Message-ID: <20170630062717.534b06e9@canb.auug.org.au>
-In-Reply-To: <CAGXu5jL21gKAO1DxNHH-4x6H9jw1t84Z=Z8iCSDRmgcxh4TFrQ@mail.gmail.com>
-References: <CAGXu5j+bpi6-krTYwN_BdhFnHZRYpQwhtc9Z-kcRerm+t-Xyfw@mail.gmail.com>
-	<1498754169.2834.61.camel@HansenPartnership.com>
-	<CAGXu5jJ011-7JH7w4n0No=gon-jp4VTeN=0JPWaQsGh5zz79eA@mail.gmail.com>
-	<1498758126.2834.70.camel@HansenPartnership.com>
-	<CAGXu5jLL8_h3AYrpCm4LKV8-rTPf793gAJckS0rQag6iGqk9xw@mail.gmail.com>
-	<20170629182044.GP21846@wotan.suse.de>
-	<CAGXu5jL21gKAO1DxNHH-4x6H9jw1t84Z=Z8iCSDRmgcxh4TFrQ@mail.gmail.com>
+	Thu, 29 Jun 2017 21:20:27 +0000 (UTC)
+Date: Thu, 29 Jun 2017 21:20:54 +0000 (UTC)
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Message-ID: <152520246.5707.1498771254819.JavaMail.zimbra@efficios.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Developing across
- multiple areas of the kernel
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	Julien Desfossez <jdesfossez@efficios.com>,
+	daolivei <daolivei@redhat.com>, bristot <bristot@redhat.com>,
+	Ingo Molnar <mingo@kernel.org>
+Subject: [Ksummit-discuss] [TECH TOPIC] Pulling away from the tracing ABI
+	quicksands
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,29 +30,45 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Kees,
+Our attempts at extending the Linux scheduler Tracepoints [1,2,3] to cover sched
+rt and deadline policies went fairly well until we reached the point where
+we had to extend the tracing ABI exposed to user-space by Ftrace through the
+DebugFS tracing sub-directory. We aim to expose more accurate and complete
+scheduler information (based on the scheduling class), and eventually deprecate
+implementation-specific fields that should never have been exposed to user-space
+in the first place.
 
-On Thu, 29 Jun 2017 13:16:40 -0700 Kees Cook <keescook@chromium.org> wrote:
->
-> [1] If the solution for this is to merge other -next trees into mine,
-> I guess I can do that, though it can be very messy if any of them are
-> forced to make their commits unstable. It also creates headaches,
-> AIUI, for sfr if my tree suddenly gains a bunch of other trees so it's
-> not clear where something came from.
+Example of problems we are facing:
 
-I don't have a problem with trees in linux-next sharing *commits* - I
-have problems when they share *patches* that are different commits
-(that affect files that get changed in other commits).
+  * Humans on the receiving end of a kernel ABI
 
-For the "create a new API" case, if you put that in an immutable
-tree/branch, then other maintainers can merge that branch as they
-change to use the new API ...
+    Should we limit the design of kernel ABIs based on their direct
+    use by humans through echo and redirections, or can we aim design
+    of those interfaces at scripts and user-space programs/libraries ?
 
-Immutable doesn't mean that fixes can't be applied, it just means that
-the part that has already been merged by some other tree cannot
-change.  I guess it is useful to track who is merging that immutable
-branch so that they can be informed if relevant changes are added to it.
+    A simple and extensible kernel ABI is rarely an easy to use end-user
+    interface.
+
+  * How can we deprecate, remove, or re-purpose a field in an
+    event ? For instance, the "prio" field in the scheduler
+    instrumentation is an internal implementation detail.
+
+Perhaps it would be good to use the opportunity to meet at the
+Kernel Summit and discuss this issue.
+
+Thanks,
+
+Mathieu and Julien
+
+
+[1] [RFC PATCH 5/6] tracing: extend scheduling tracepoints
+    http://lkml.kernel.org/r/1474060148-13171-5-git-send-email-jdesfossez@efficios.com
+[2] [RFC PATCH v2 0/5] Additional scheduling information in tracepoints
+    http://lkml.kernel.org/r/1474649375-28056-1-git-send-email-jdesfossez@efficios.com
+[3] [RFC PATCH v3 0/2] Extend scheduling tracepoints
+    http://lkml.kernel.org/r/1484327993-5036-1-git-send-email-jdesfossez@efficios.com
 
 -- 
-Cheers,
-Stephen Rothwell
+Mathieu Desnoyers
+EfficiOS Inc.
+http://www.efficios.com
