@@ -1,22 +1,44 @@
-Return-Path: <Tim.Bird@sony.com>
-From: "Bird, Timothy" <Tim.Bird@sony.com>
-To: Jonathan Corbet <corbet@lwn.net>, Jiri Kosina <jkosina@suse.cz>
-Date: Tue, 27 Jun 2017 18:42:20 +0000
-Message-ID: <ECADFF3FD767C149AD96A924E7EA6EAF2E262BCF@USCULXMSG03.am.sony.com>
-References: <20170623123936.42dab05f@lwn.net>
-	<20170624074641.4820fecd@vento.lan>	<1779146.rtcHP5MkoH@aspire.rjw.lan>
-	<20170624104142.70677fcb@vento.lan>
-	<alpine.LSU.2.20.1706252254190.30709@cbobk.fhfr.pm>
-	<20170626161828.3914fcc1@lwn.net>
-In-Reply-To: <20170626161828.3914fcc1@lwn.net>
+Return-Path: <prvs=835413cd26=jbacik@fb.com>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 81DC3710
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 30 Jun 2017 18:24:58 +0000 (UTC)
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
+	[67.231.153.30])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C1481152
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 30 Jun 2017 18:24:57 +0000 (UTC)
+From: Josef Bacik <jbacik@fb.com>
+To: Steven Rostedt <rostedt@goodmis.org>, Alexei Starovoitov
+	<alexei.starovoitov@gmail.com>
+Date: Fri, 30 Jun 2017 18:24:12 +0000
+Message-ID: <6AE378F0-42F7-45DE-9F3C-050A5019A1E8@fb.com>
+References: <20170629195537.534445e7@gandalf.local.home>
+	<CA+55aFxW_vhYWRoWFwy4zQgG7iPJg3V4u0-XkjZiGJJfZtZ=ng@mail.gmail.com>
+	<20170629203224.6bf7f29a@gandalf.local.home>
+	<20170629205218.5b9a7923@gandalf.local.home>
+	<CA+55aFyQE_T7Rp7ay_EbAZNDqLE6ffJ-6xkL6B_961oZ0+aSpA@mail.gmail.com>
+	<20170629211641.5aeb3af7@gandalf.local.home>
+	<20170629212750.5c3542ee@gandalf.local.home>
+	<CA+55aFzzCPMUDt72hckauYu+fj=Q2MWjx+XiR06KpMLAr1EBAA@mail.gmail.com>
+	<20170629221245.489760b1@gandalf.local.home>
+	<CA+55aFxFLvX62SyOC9qyVwEQXH8J224Fe03tvy624AUx0U2fRQ@mail.gmail.com>
+	<20170630025852.xjoif3aai6rny5a2@ast-mbp>
+	<20170629230251.02f380cb@gandalf.local.home>
+In-Reply-To: <20170629230251.02f380cb@gandalf.local.home>
 Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <E1EA811F1118EA4BA2240DE3B9C02219@namprd15.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Cc: Mauro Carvalho Chehab <mchehab@s-opensource.com>,
-	"ksummit-discuss@lists.linux-foundation.org"
-	<ksummit-discuss@lists.linux-foundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Documentation issues
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Julien Desfossez <jdesfossez@efficios.com>,
+	daolivei <daolivei@redhat.com>, bristot <bristot@redhat.com>,
+	Ingo Molnar <mingo@kernel.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Pulling away from the tracing
+ ABI quicksands
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -26,58 +48,17 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-> -----Original Message-----
-> From: Jonathan Corbet on  Monday, June 26, 2017 3:18 PM
-> On Sun, 25 Jun 2017 22:56:07 +0200 (CEST)
-> Jiri Kosina <jkosina@suse.cz> wrote:
->=20
-> > Unfortunately option (3) has also been applied to some of the files:
-> >
-> > 	$ ll Documentation/kernel-parameters.txt
-> > 	ls: cannot access 'Documentation/kernel-parameters.txt': No such
-> file or directory
-> >
-> > I wasn't sure whether this was intentional or not. But if not, I'll
-> > happily send a patch that introduces a symlink.
->=20
-> Worries about moving well-known files are why I delayed some of this stuf=
-f
-> a bit so I could bring it up at conferences and the kernel summit.  It
-> only proceeded after I didn't get any real pushback in those settings.
->=20
-> In general, we move files around in the kernel tree all the time.  We
-> don't normally leave symlinks behind; indeed, we never do.  Instead, we
-> figure out where the file moved to and get on with life.  Are
-> documentation files somehow different, needing different rules in this
-> regard?  I wouldn't mind some clarity on that point.
-
-My 2 cents is that files in Documentation are much more often linked to
-or referenced by things outside the kernel tree, than source code is.
-A quick perusal of elinux.org shows a fair number of references to text fil=
-es under
-Documentation, some with direct links to online git trees.
-Documentation/SubmittingPatches is a good example.
-This one has a "This file has moved..." line in its content, which I believ=
-e
-suffices for getting people to the right place.  IMHO that's better than
-a symlink, at least for web references.
-
->=20
-> My hope (cue inspirational music here) is that, someday, it will be
-> possible to type "ls Documentation" and get back a reasonably sized
-> listing that is easy to explore.  Let's just say that's not the situation
-> at the moment.  Getting there will certainly involve moving files around;
-> replacing them with symlinks or pointer files would, to a real extent,
-> defeat the purpose.
-
-I like the suggestion by Takashi Iwai to separate the new docs from the old=
-,
-putting symlinks and leaving legacy (not-yet-converted) docs in Documentati=
-on,
-and new stuff in 'docs/*'.  I think that the new docs have not been 'pinned=
-' yet
-by external references, and could still be moved around (in the short term)=
-,
-without much pain. Then "ls docs" could produce the nice listing, while
-"ls Documentation" would show ugly symlinks, placeholders, and legacy junk.
- -- Tim
+T24gNi8yOS8xNywgMTE6MDIgUE0sICJTdGV2ZW4gUm9zdGVkdCIgPHJvc3RlZHRAZ29vZG1pcy5v
+cmc+IHdyb3RlOg0KDQpPbiBUaHUsIDI5IEp1biAyMDE3IDE5OjU4OjU0IC0wNzAwDQpBbGV4ZWkg
+U3Rhcm92b2l0b3YgPGFsZXhlaS5zdGFyb3ZvaXRvdkBnbWFpbC5jb20+IHdyb3RlOg0KDQoNCj4g
+QWxzbyBJJ20gbm90IHBsYW5uaW5nIHRvIGZseSB0byBQcmFndWUganVzdCBmb3IgdHJhY2luZyBk
+aXNjdXNzaW9uLg0KPiBUaGVyZSBpcyBuZXRkZXYyLjIgcmlnaHQgYWZ0ZXIgaW4gU2VvdWwuDQo+
+IEFuZCB0cmFjaW5nIG1pY3JvY29uZiBhdCBwbHVtYmVycyBpbiBTZXB0ZW1iZXIgd2hpY2ggaXMg
+aW1vIGJldHRlcg0KPiBzdWl0ZWQgdG8gZGlzY3VzcyB0cmFjaW5nIHJlbGF0ZWQgdG9waWNzLg0K
+DQpXaGljaCByZW1pbmRzIG1lLiBUaGUgTFBDIFRyYWNpbmcgTWljcm9jb25mIFdJS0kgaGFzIGJl
+ZW4gc3RhbGUsIGFuZCBub3QNCm1vdmluZyBhdCBhbGwuIElmIGl0IGlzIHRvIGJlIGFjY2VwdGVk
+LCBpdCBuZWVkcyBzb21lIHRhbGsgcHJvcG9zYWxzLA0KYW5kIGZhc3QhDQoNCll1cCBJ4oCZbGwg
+c3RhcnQgYnVnZ2luZyBwZW9wbGUgdG8gc3VibWl0IHRhbGsgcHJvcG9zYWxzLCBzdGFydGluZyB3
+aXRoIHlvdSEgIEnigJlsbCBwdXQgdXAgbXkgcHJvcG9zYWwgaW4gdGhlIG5leHQgZGF5IG9yIHR3
+bywgSSB0aGluayBCcmVuZGFuIGhhcyBzb21ldGhpbmcgaGXigJlzIGdvaW5nIHRvIHRhbGsgYWJv
+dXQuICBUaGFua3MsDQoNCkpvc2VmDQoNCg==
