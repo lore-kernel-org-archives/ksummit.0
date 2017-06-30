@@ -1,29 +1,17 @@
-Return-Path: <daniel.vetter@ffwll.ch>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BDA768CC
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 Jun 2017 13:02:15 +0000 (UTC)
-Received: from mail-io0-f173.google.com (mail-io0-f173.google.com
-	[209.85.223.173])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 463B7201
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 Jun 2017 13:02:15 +0000 (UTC)
-Received: by mail-io0-f173.google.com with SMTP id h64so23542306iod.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 Jun 2017 06:02:15 -0700 (PDT)
+Return-Path: <dvhart@infradead.org>
+Date: Fri, 30 Jun 2017 09:21:55 -0700
+From: Darren Hart <dvhart@infradead.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Message-ID: <20170630162155.GB26257@fury>
+References: <20170625072423.GR1248@mtr-leonro.local>
+	<CA+55aFx9A=5cc0QZ7CySC4F2K7eYaEfzkdYEc9JaNgCcV25=rg@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20170629133949.GA19691@infradead.org>
-References: <CAGXu5j+bpi6-krTYwN_BdhFnHZRYpQwhtc9Z-kcRerm+t-Xyfw@mail.gmail.com>
-	<20170629133949.GA19691@infradead.org>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Fri, 30 Jun 2017 15:02:13 +0200
-Message-ID: <CAKMK7uEXxc+dSvGk6XR1712h+VB3gDkOKbOmm7wnkvgN9HKdNg@mail.gmail.com>
-To: Christoph Hellwig <hch@infradead.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Developing across
- multiple areas of the kernel
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CA+55aFx9A=5cc0QZ7CySC4F2K7eYaEfzkdYEc9JaNgCcV25=rg@mail.gmail.com>
+Cc: ksummit-discuss@lists.linux-foundation.org
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Driver and/or module
+ versions
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,33 +21,63 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Jun 29, 2017 at 3:39 PM, Christoph Hellwig <hch@infradead.org> wrote:
-> On Wed, Jun 28, 2017 at 04:01:34PM -0700, Kees Cook wrote:
->> If there is time at the summit, I'd like to quickly discuss best
->> practices for the mechanics of doing security defense development in
->> the kernel. This has always been a bit tricky and I've done my best to
->> navigate it, but it still feels like there are glitches that could be
->> ironed out with a more clearly declared process (or ownership).
->
-> It's pretty hard as a general rule.  As someone who does a lot of
-> cross-subsystem work I usually try to find a "lead" subsystem to
-> funnel thing through, and if there isn't one yet I create it
-> (see the new uuid and dma-mappings ones for the next merge window).
+On Sun, Jun 25, 2017 at 10:32:52AM -0700, Linus Torvalds wrote:
+> On Sun, Jun 25, 2017 at 12:24 AM, Leon Romanovsky <leon@kernel.org> wrote:
+> > There is a steady flow of patches which bump driver and module versions.
+> >
+> >  * Can we come with unified policy about those patches?
+> 
+> We pretty much *have* a unified policy, it's just that I think rdma is crazy.
+> 
+> The unified policy is pretty much that version codes do not matter, do
+> not exist, and do not get updated.
+> 
 
-I've only done cross-subsystem with 2-3 subsystems maybe for driver
-work, and there the "topic branch in lead subsystem" plus maybe "send
-pull requests to other subsystems when they insist they merge their
-own patches through there tree" seems to work fairly well. Needs all
-maintainers to understand the flow, but we've got that now scripted
-entirely in drm so easy to do.
+I make the point internally that without a stable-abi, the driver is not
+stand-alone, and so the "version" is easily shown to not be independent
+from the kernel version (or the distro package version).
 
-Large-scale cross-subsystem API stuff probably always needs multiple
-releases, since you'll have some new usage grown no matter what. If
-the current pace is too slow I guess we should think about shrinking
-the release cycle maybe, to be able to sync up more often across
-trees.
--Daniel
+> Things are supposed to be backwards and forwards compatible, because
+> we don't accept breakage in user space anyway. So versioning is
+> pointless, and only causes problems.
+> 
+> It causes problems not just because of the conflict issues, but
+> because it's fundamentally wrong, and makes driver writers think that
+> it's ok to change interfaces and use versioning to show they changed.
+> It's *not* OK.
+> 
+> Sometimes you have feature masks (which just mean that it's ok to
+> _add_ interfaces rather than change them, and make it possible for
+> user space to check if the new interface exists), but even that is
+> generally the exception rather than the rule and should be used very
+> very carefully and preferably not at all.
+> 
+
+While the module version is clearly a flawed concept for Linux drivers,
+I do think we should discuss the problem they are intended to address:
+knowing what's in a particular instance of a driver.
+
+I see three categories of changes vendors need to be able to track:
+
+1. Bug Fixes
+2. Performance enhancements
+3. New Features
+
+The first is easily managed through the stable kernel process. Vendors
+ensure bug fixes are pushed back to stable, distros pick them up from
+there, done.
+
+The second is split into two categories. Many performance regressions
+can be accommodated via the stable kernel rules. Regressions with large
+mitigation patches and performance enhancements currently need to be
+tracked independently from kernel version as they are backported to
+distro / product kernels.
+
+New features also fall into the independent tracking bucket, although
+your point about feature masks could reduce that need. Is there a
+definitive mechanism for the feature mask approach? I see a lot of
+sysfs_filename:value key:value pairs for this kind of thing.
+
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-+41 (0) 79 365 57 48 - http://blog.ffwll.ch
+Darren Hart
+VMware Open Source Technology Center
