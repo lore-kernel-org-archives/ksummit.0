@@ -1,22 +1,23 @@
 Return-Path: <SRS0=aia5=6D=goodmis.org=rostedt@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 904448CC
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A22CD8D9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 Jun 2017 00:52:22 +0000 (UTC)
+	Fri, 30 Jun 2017 00:59:05 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id AE1B8A3
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 32AA3A3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 Jun 2017 00:52:21 +0000 (UTC)
-Date: Thu, 29 Jun 2017 20:52:18 -0400
+	Fri, 30 Jun 2017 00:59:05 +0000 (UTC)
+Date: Thu, 29 Jun 2017 20:59:02 -0400
 From: Steven Rostedt <rostedt@goodmis.org>
 To: Linus Torvalds <torvalds@linux-foundation.org>
-Message-ID: <20170629205218.5b9a7923@gandalf.local.home>
-In-Reply-To: <20170629203224.6bf7f29a@gandalf.local.home>
+Message-ID: <20170629205902.00870bf3@gandalf.local.home>
+In-Reply-To: <CA+55aFzFa0xSKpr9+E+RqOKNZzU78TZib8OKZCtcQqRBnH6-xQ@mail.gmail.com>
 References: <152520246.5707.1498771254819.JavaMail.zimbra@efficios.com>
 	<20170629195537.534445e7@gandalf.local.home>
 	<CA+55aFxW_vhYWRoWFwy4zQgG7iPJg3V4u0-XkjZiGJJfZtZ=ng@mail.gmail.com>
 	<20170629203224.6bf7f29a@gandalf.local.home>
+	<CA+55aFzFa0xSKpr9+E+RqOKNZzU78TZib8OKZCtcQqRBnH6-xQ@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
@@ -36,44 +37,39 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, 29 Jun 2017 20:32:24 -0400
-Steven Rostedt <rostedt@goodmis.org> wrote:
+On Thu, 29 Jun 2017 17:41:29 -0700
+Linus Torvalds <torvalds@linux-foundation.org> wrote:
 
-
-> The problem we have is how to implement it?
+> On Thu, Jun 29, 2017 at 5:32 PM, Steven Rostedt <rostedt@goodmis.org> wrote:
+> >
+> > This is actually something quite different, and new. It sounds similar,
+> > but its not.  
 > 
-> We could make one tracepoint hook location have several different
-> "tracepoints" in the tracefs directory letting the user choose how much
-> information they want to trace. Have different tracepoints that can be
-> enabled for a single location, where it may show extended fields.
+> No, I remember the particular scheduler tracepoint discussion.
 > 
-> I know people would like to have a way to cut down some fields, as
-> real-estate in the ring buffer is of high value, and the smaller the
-> events are, the more data one can collect. People who use tracing
-> really do care about any wasted space (which is why we like to avoid
-> writing zeros in fields no longer valued, it makes it harder to get the
-> data you are after).
+> And the answer remains exactly the same. If some internal detail no
+> longer exists, just zero out the field.
 > 
-> In summary, this is not another beat the dead horse how to do stable
-> tracepoints. The focus is, how to make tracepoints more user
-> customizable for their use cases.
+> And no, don't add new, even more specialized fields.
+> 
+> Just get over this discussion already.
+> 
 
-Just to explain what Mathieu was talking about with echo and such, is
-that Peter Zijlstra has been against multiple tracepoints for that one
-sched switch location. He would prefer a dynamic case, instead of
-having to enable all tracepoints, to get full functionality, as he
-tends to use echo / cat to interact with ftrace than by using the
-tools. He doesn't want the hassle of enabling more than one tracepoint
-for sched_switch. One could call him lazy ;) but he's also the
-maintainer of that tracepoint!
+How does this solve adding key information that lots of people want
+added. SCHED_DEADLINE is new, and lots of people want to use the
+tracing infrastructure to analyze their applications. I know when I was
+at Red Hat, we had our own tracepoints that we added to our kernel to
+do just that. Right now, everyone has to patch their kernel to get the
+necessary information. Red Hat isn't the only one. Mathieu is doing it
+too. Perhaps SuSE is as well.
 
-What would be really nice is a way to have sched_switch be a dynamic
-tracepoint where it can trace differently depending on what is being
-scheduled in and out. I'm sure other tracepoints locations may want a
-similar feature.
+It doesn't solve anything.
 
-But the devil is in the details of implementation, and we need to do
-all this without breaking the existing tools that use the tracing
-system. (See I have been listening to you!)
+Basically, what you are saying is the opposite of what we feared might
+happen. People have always been afraid that a tracepoint might inhibit
+kernel development because of some key information it exposes. Now you
+are saying, don't touch the tracepoint, and just let it rot. Now the
+usefulness of a tracepoint has become limited due to advancements in
+the development of the kernel.
 
 -- Steve
