@@ -1,40 +1,29 @@
-Return-Path: <SRS0=aia5=6D=goodmis.org=rostedt@kernel.org>
+Return-Path: <daniel.vetter@ffwll.ch>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A9699A74
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id BDA768CC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 Jun 2017 03:20:19 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0B48B14E
+	Fri, 30 Jun 2017 13:02:15 +0000 (UTC)
+Received: from mail-io0-f173.google.com (mail-io0-f173.google.com
+	[209.85.223.173])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 463B7201
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 Jun 2017 03:20:18 +0000 (UTC)
-Date: Thu, 29 Jun 2017 23:20:16 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Message-ID: <20170629232016.4cde203e@gandalf.local.home>
-In-Reply-To: <20170629230251.02f380cb@gandalf.local.home>
-References: <20170629195537.534445e7@gandalf.local.home>
-	<CA+55aFxW_vhYWRoWFwy4zQgG7iPJg3V4u0-XkjZiGJJfZtZ=ng@mail.gmail.com>
-	<20170629203224.6bf7f29a@gandalf.local.home>
-	<20170629205218.5b9a7923@gandalf.local.home>
-	<CA+55aFyQE_T7Rp7ay_EbAZNDqLE6ffJ-6xkL6B_961oZ0+aSpA@mail.gmail.com>
-	<20170629211641.5aeb3af7@gandalf.local.home>
-	<20170629212750.5c3542ee@gandalf.local.home>
-	<CA+55aFzzCPMUDt72hckauYu+fj=Q2MWjx+XiR06KpMLAr1EBAA@mail.gmail.com>
-	<20170629221245.489760b1@gandalf.local.home>
-	<CA+55aFxFLvX62SyOC9qyVwEQXH8J224Fe03tvy624AUx0U2fRQ@mail.gmail.com>
-	<20170630025852.xjoif3aai6rny5a2@ast-mbp>
-	<20170629230251.02f380cb@gandalf.local.home>
+	Fri, 30 Jun 2017 13:02:15 +0000 (UTC)
+Received: by mail-io0-f173.google.com with SMTP id h64so23542306iod.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 30 Jun 2017 06:02:15 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Julien Desfossez <jdesfossez@efficios.com>, jbacik@fb.com,
-	daolivei <daolivei@redhat.com>, bristot <bristot@redhat.com>,
-	Ingo Molnar <mingo@kernel.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Pulling away from the tracing
- ABI quicksands
+In-Reply-To: <20170629133949.GA19691@infradead.org>
+References: <CAGXu5j+bpi6-krTYwN_BdhFnHZRYpQwhtc9Z-kcRerm+t-Xyfw@mail.gmail.com>
+	<20170629133949.GA19691@infradead.org>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Fri, 30 Jun 2017 15:02:13 +0200
+Message-ID: <CAKMK7uEXxc+dSvGk6XR1712h+VB3gDkOKbOmm7wnkvgN9HKdNg@mail.gmail.com>
+To: Christoph Hellwig <hch@infradead.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Developing across
+ multiple areas of the kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -44,23 +33,33 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, 29 Jun 2017 23:02:51 -0400
-Steven Rostedt <rostedt@goodmis.org> wrote:
+On Thu, Jun 29, 2017 at 3:39 PM, Christoph Hellwig <hch@infradead.org> wrote:
+> On Wed, Jun 28, 2017 at 04:01:34PM -0700, Kees Cook wrote:
+>> If there is time at the summit, I'd like to quickly discuss best
+>> practices for the mechanics of doing security defense development in
+>> the kernel. This has always been a bit tricky and I've done my best to
+>> navigate it, but it still feels like there are glitches that could be
+>> ironed out with a more clearly declared process (or ownership).
+>
+> It's pretty hard as a general rule.  As someone who does a lot of
+> cross-subsystem work I usually try to find a "lead" subsystem to
+> funnel thing through, and if there isn't one yet I create it
+> (see the new uuid and dma-mappings ones for the next merge window).
 
-> On Thu, 29 Jun 2017 19:58:54 -0700
-> Alexei Starovoitov <alexei.starovoitov@gmail.com> wrote:
-> 
-> 
-> > Also I'm not planning to fly to Prague just for tracing discussion.
-> > There is netdev2.2 right after in Seoul.
-> > And tracing microconf at plumbers in September which is imo better
-> > suited to discuss tracing related topics.  
-> 
-> Which reminds me. The LPC Tracing Microconf WIKI has been stale, and not
-> moving at all. If it is to be accepted, it needs some talk proposals,
-> and fast!
+I've only done cross-subsystem with 2-3 subsystems maybe for driver
+work, and there the "topic branch in lead subsystem" plus maybe "send
+pull requests to other subsystems when they insist they merge their
+own patches through there tree" seems to work fairly well. Needs all
+maintainers to understand the flow, but we've got that now scripted
+entirely in drm so easy to do.
 
-Also note, Mathieu has stated he wont be attending Plumbers, and I'm
-not sure Peter will be either as he has smaller things to attend to.
-
--- Steve
+Large-scale cross-subsystem API stuff probably always needs multiple
+releases, since you'll have some new usage grown no matter what. If
+the current pace is too slow I guess we should think about shrinking
+the release cycle maybe, to be able to sync up more often across
+trees.
+-Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
