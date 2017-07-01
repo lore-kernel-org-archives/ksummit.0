@@ -1,46 +1,26 @@
-Return-Path: <prvs=835413cd26=jbacik@fb.com>
+Return-Path: <hare@suse.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C7587A74
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A4B7A2C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 Jun 2017 18:38:40 +0000 (UTC)
-Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
-	[67.231.153.30])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3E719152
+	Sat,  1 Jul 2017 17:25:10 +0000 (UTC)
+Received: from smtp.nue.novell.com (smtp.nue.novell.com [195.135.221.5])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F1021CE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 30 Jun 2017 18:38:40 +0000 (UTC)
-From: Josef Bacik <jbacik@fb.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-Date: Fri, 30 Jun 2017 18:37:59 +0000
-Message-ID: <658A3F80-5E48-4EC4-A591-E3783AD3DADC@fb.com>
-References: <20170629195537.534445e7@gandalf.local.home>
-	<CA+55aFxW_vhYWRoWFwy4zQgG7iPJg3V4u0-XkjZiGJJfZtZ=ng@mail.gmail.com>
-	<20170629203224.6bf7f29a@gandalf.local.home>
-	<20170629205218.5b9a7923@gandalf.local.home>
-	<CA+55aFyQE_T7Rp7ay_EbAZNDqLE6ffJ-6xkL6B_961oZ0+aSpA@mail.gmail.com>
-	<20170629211641.5aeb3af7@gandalf.local.home>
-	<20170629212750.5c3542ee@gandalf.local.home>
-	<CA+55aFzzCPMUDt72hckauYu+fj=Q2MWjx+XiR06KpMLAr1EBAA@mail.gmail.com>
-	<20170629221245.489760b1@gandalf.local.home>
-	<CA+55aFxFLvX62SyOC9qyVwEQXH8J224Fe03tvy624AUx0U2fRQ@mail.gmail.com>
-	<20170630025852.xjoif3aai6rny5a2@ast-mbp>
-	<20170629230251.02f380cb@gandalf.local.home>
-	<6AE378F0-42F7-45DE-9F3C-050A5019A1E8@fb.com>
-	<20170630142956.7e0cb2d6@gandalf.local.home>
-	<20170630143030.305b68a0@gandalf.local.home>
-In-Reply-To: <20170630143030.305b68a0@gandalf.local.home>
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <77FF1E04EE85C74A8FAEAFE8BB05C81C@namprd15.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	Sat,  1 Jul 2017 17:25:05 +0000 (UTC)
+To: ksummit-discuss@lists.linuxfoundation.org
+References: <20170627135839.GB1886@jagdpanzerIV.localdomain>
+	<CA+55aFxBUe4QAa11i-ySr2i959EpvcEZYf=9NumWyTDH+6BEQw@mail.gmail.com>
+	<20170630175201.GC26257@fury>
+From: Hannes Reinecke <hare@suse.com>
+Message-ID: <92305974-328a-d1b2-7301-4321f374ab8f@suse.com>
+Date: Sat, 1 Jul 2017 19:24:39 +0200
 MIME-Version: 1.0
-Cc: Tom Zanussi <tom.zanussi@linux.intel.com>,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
-	Peter Zijlstra <peterz@infradead.org>, bristot <bristot@redhat.com>,
-	Julien Desfossez <jdesfossez@efficios.com>,
-	Ingo Molnar <mingo@kernel.org>, daolivei <daolivei@redhat.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Pulling away from the tracing
- ABI quicksands
+In-Reply-To: <20170630175201.GC26257@fury>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] is Kconfig a bit hard sometimes?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -50,38 +30,78 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-DQpbIEkgZm9yZ290IHRvIGFkZCBUb20gdG8gdGhlIENjIGxpc3QuIFNlbmRpbmcgYWdhaW4uIF0N
-Cg0KT24gRnJpLCAzMCBKdW4gMjAxNyAxNDoyOTo1NiAtMDQwMA0KU3RldmVuIFJvc3RlZHQgPHJv
-c3RlZHRAZ29vZG1pcy5vcmc+IHdyb3RlOg0KDQo+IE9uIEZyaSwgMzAgSnVuIDIwMTcgMTg6MjQ6
-MTIgKzAwMDANCj4gSm9zZWYgQmFjaWsgPGpiYWNpa0BmYi5jb20+IHdyb3RlOg0KPiANCj4gPiBZ
-dXAgSeKAmWxsIHN0YXJ0IGJ1Z2dpbmcgcGVvcGxlIHRvIHN1Ym1pdCB0YWxrIHByb3Bvc2Fscywg
-c3RhcnRpbmcgd2l0aCB5b3UhICBJ4oCZbGwgcHV0IHVwIG15IHByb3Bvc2FsIGluIHRoZSBuZXh0
-IGRheSBvciB0d28sIEkgdGhpbmsgQnJlbmRhbiBoYXMgc29tZXRoaW5nIGhl4oCZcyBnb2luZyB0
-byB0YWxrIGFib3V0LiAgVGhhbmtzLCAgDQo+IA0KPiBJIHNob3VsZG4ndCBoYXZlIHVzZWQgdGhl
-IHRlcm0gInRhbGsiLCBhcyBpdCByZWFsbHkgaXMgYWxsIGFib3V0DQo+IGRpc2N1c3Npb25zLiBJ
-biBmYWN0LCBpZiB5b3UgbmVlZCBtb3JlIHRoYW4gb25lIHNsaWRlLCB5b3UgaGF2ZSB0b28NCj4g
-bWFueS4NCj4gDQo+IFRoYXQgc2FpZCwgSSBjb3VsZCBwcm9iYWJseSBjb21lIHVwIHdpdGggYSBm
-ZXcgdGhpbmdzLCBzdGFydGluZyB3aXRoDQo+IHRoaXMgdHJhY2UgZXZlbnQgaXNzdWUuIEJ1dCBp
-dCB3aWxsIGJlIHBvaW50bGVzcyBpZiBQZXRlciBaaWpsc3RyYSBhbmQNCj4gTWF0aGlldSBhcmUg
-bm90IHRoZXJlLg0KPiANCj4gQnV0IGhhdmluZyBpZGVhcyBhYm91dCBkeW5hbWljIGZpZWxkcyBp
-biB0cmFjZXBvaW50cyBpcyBhbHdheXMNCj4gaW50ZXJlc3RpbmcuIE5vdCB0byBtZW50aW9uIHRh
-bGtpbmcgYWJvdXQgVG9tIFphbnVzc2kncyBsYXRlc3QNCj4gaGlzdG9ncmFtIHdvcmsuIEl0IG1h
-eSBiZSBwcmV0dHkgbXVjaCBjb21wbGV0ZWQsIGJ1dCBJIHdvdWxkIGxpa2UgdG8NCj4gZGlzY3Vz
-cyB3aGVyZSB3ZSBnbyBmcm9tIHRoZXJlLg0KPiANCj4gT25lIGxhc3QgdGhpbmcuIEkgZG9uJ3Qg
-d2FudCB0byBoYXZlIHRvbyBtYW55IHJlc3BvbnNpYmlsaXRpZXMsIGFzIEknbQ0KPiBvbiB0aGUg
-TFBDIHByb2dyYW0gY29tbWl0dGVlIGFuZCBJIG5lZWQgdG8gbWFrZSBzdXJlIEkgaGF2ZSB0aW1l
-IHRvDQo+IGZ1bGZpbGwgYW55IGFjdGlvbiBpdGVtcyBJJ20gcmVzcG9uc2libGUgZm9yIGR1cmlu
-ZyB0aGUgY29uZmVyZW5jZS4NCj4gDQoNClllYWggcGx1bWJlcnMgaXMgYSB3ZWlyZCB2ZW51ZSBm
-b3IgdHJhY2luZywgSSBhbHdheXMgaG9wZSB0aGF0IHdlIGFyZSBnb2luZyB0byBoYXZlIHBlb3Bs
-ZSBsaWtlIEJyZW5kYW4gb3Igb3RoZXIgc3lzYWRtaW4teSBwZW9wbGUgc2hvdyB1cCBhbmQgc2F5
-IOKAnHRoaXMgaXMgd2hhdCBzdWNrcyBhYm91dCB0cmFjaW5nLCBwbGVhc2UgZml4IGl04oCdLCBh
-bmQgdGhlbiB3ZSBjYW4gZ28gZml4IGl0LiAgSXQgZG9lc27igJl0IHJlYWxseSBzZWVtIHRvIGhh
-cHBlbiB0aGF0IHdheSB0aG8sIGFuZCBmb3IgdGhpbmdzIGxpa2UgdHJhY2luZyBBQkkgdGhlcmUg
-anVzdCBhcmVu4oCZdCB0aGUgcmlnaHQgcGVvcGxlIGluIHRoZSByb29tIHRvIGhhdmUgdGhhdCBr
-aW5kIG9mIGRpc2N1c3Npb24uICBNeSBwcm9wb3NhbCB3YXMganVzdCBnb2luZyB0byBiZSBhIGxh
-dW5kcnkgbGlzdCBvZiB0aGluZ3MgdGhhdCB3b3VsZCBtYWtlIG15IGxpZmUgZWFzaWVyLCBidXQg
-aXQgZG9lc27igJl0IHJlYWxseSB3YXJyYW50IGEgZnVsbCBtaWNyby1jb25mZXJlbmNlIHRvIGxp
-c3RlbiB0byBtZSBiaXRjaCBmb3IgYW4gaG91ci4gIElmIGl0IHR1cm5zIG91dCBub2JvZHkgZWxz
-ZSBoYXMgbXVjaCB0byB0YWxrIGFib3V0IHRoZW4gd2UgY2FuIGp1c3QgZGVjbGFyZSB0cmFjaW5n
-IGlzIGZlYXR1cmUgY29tcGxldGUgYW5kIHdlIGNhbiB0YWxrIGFib3V0IHNvbWV0aGluZyBlbHNl
-IDspLiAgVGhhbmtzLA0KDQpKb3NlZg0KDQoNCg0K
+On 06/30/2017 07:52 PM, Darren Hart wrote:
+> On Tue, Jun 27, 2017 at 10:18:04AM -0700, Linus Torvalds wrote:
+>> On Tue, Jun 27, 2017 at 6:58 AM, Sergey Senozhatsky
+>> <sergey.senozhatsky.work@gmail.com> wrote:
+>>>
+>>> am I the only one who struggle with the Kconfig sometimes?
+>>
+>> I hate our Kconfig. It's my least favorite part of the kernel. It asks
+>> questions about insane things that nobody can know the answer to.
+>>
+>> Taking a distro default config and doing"make localmodconfig" is what
+>> I end up doing on new machines, and it has all kinds of suckage too.
+>>
+>> I don't have a solution to it. But I think part of the solution would
+>> be for us to have various "sane minimal requirement" Kconfig
+>> fragments, and trhe ability to feed them incrementally, so that people
+>> can build up a sane Kconfig from "I want this".
+> 
+> This was, in part, the intent behind the configuration fragments and the
+> merge_config.sh script. I use this with the x86 platform drivers:
+> 
+> $ make defconfig pdx86.config
+> 
+> But I have to generate, also scripted, the pdx86.config by scraping the
+> Kconfig file. The kvm_guest.config. There are other things I would like
+> to see subconfigs for, like "efi.config" - but I wasn't sure what the
+> current view on such things were. I'm glad to know I'm not along in my
+> frustration with the overly granular nature of Kconfig.
+> 
+> The problem with this model of course is keeping the config fragments
+> current with Kconfig changes. The mergeconfig script does call out
+> problems with specified config options. We can address this with
+> a configcheck target or similar which would audit the config fragments
+> to ensure they are kept in sync with the Kconfig files.
+> 
+> ...
+> 
+>>
+>> And note that none of this is about technoliogy, and SAT solvers and
+>> resolving the KConfig depdendencies that some techie people love
+>> talking about. It's all about "what if we just had some kconfig
+>> fragments to enable some commonly used stuff" (where "commonly used"
+>> is obviously architecture dependent, but also target-dependent - a
+>> "simpleconfig" for a PC workstation kind of config is very different
+>> from a "simpleconfig" for a server or some ARM embedded thing).
+>>
+> 
+> It sounds like the existing config fragment mechanism is sufficient for
+> what you describe and what we need to do is create these fragments.
+> 
+> One thing that would be nice is if we could have fragment nesting so you
+> could create your "simpleconfig" which in turn includes a few of the
+> more specific config fragments.
+> 
+And what would be totally cool if we could have fragments _per default_.
+EG by not having a massive .config, but rather keeping it per directory,
+or maybe corresponding in the directory where each Kconfig lives.
+That way it would be easier to figure out where this blasted option cam
+from, plus one could easily provide (and check!) configurations for
+several systems, keeping the common parts intact and modify only the
+machine specific ones.
+
+And it would solve the 'keeping the config current' problem, as one
+could quite simply identify which configuration will need to be changed
+for a Kconfig change, seeing that both will be kept in the same directory.
+
+Cheers,
+
+Hannes
+-- 
+Dr. Hannes Reinecke		   Teamlead Storage & Networking
+hare@suse.com			               +49 911 74053 688
+SUSE LINUX GmbH, Maxfeldstr. 5, 90409 Nürnberg
+GF: F. Imendörffer, J. Smithard, J. Guild, D. Upmanyu, G. Norton
+HRB 21284 (AG Nürnberg)
