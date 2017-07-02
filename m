@@ -1,27 +1,28 @@
 Return-Path: <sre@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 67F0D2C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B87646C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  2 Jul 2017 11:28:31 +0000 (UTC)
+	Sun,  2 Jul 2017 12:03:24 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4A05F1CE
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5DB02A7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  2 Jul 2017 11:28:30 +0000 (UTC)
-Date: Sun, 2 Jul 2017 13:28:26 +0200
+	Sun,  2 Jul 2017 12:03:24 +0000 (UTC)
+Date: Sun, 2 Jul 2017 14:03:21 +0200
 From: Sebastian Reichel <sre@kernel.org>
 To: Pavel Machek <pavel@ucw.cz>
-Message-ID: <20170702112826.zirafz7lbo5lnabd@earth>
-References: <20170625104850.GA24717@amd>
-	<87shinzkp9.fsf@notabene.neil.brown.name>
-	<20170626083407.GA9621@amd> <20170627123947.krne6a2saolcndih@earth>
-	<20170627215755.GC5250@amd> <20170628164502.itggbf4xuhsv3oyf@earth>
-	<20170628211008.GA19571@amd>
+Message-ID: <20170702120321.tskgcrbfehg4fccx@earth>
+References: <20170626111207.GA11688@amd> <20170626114931.GG23064@atomide.com>
+	<20170626131401.GA11980@amd> <20170626134904.GH23064@atomide.com>
+	<20170626204932.GA19396@amd> <20170627071835.GJ23064@atomide.com>
+	<20170627121455.tljtekx6bmzlezxa@earth> <20170627215727.GA5250@amd>
+	<20170628160112.ip2ambkzlkkoz2ww@earth>
+	<20170628202722.GC18101@amd>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="633s4xxfpc7dagkk"
+	protocol="application/pgp-signature"; boundary="3whyfooflsfv7zxc"
 Content-Disposition: inline
-In-Reply-To: <20170628211008.GA19571@amd>
+In-Reply-To: <20170628202722.GC18101@amd>
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] mobile phones
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -34,99 +35,84 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---633s4xxfpc7dagkk
+--3whyfooflsfv7zxc
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
 Hi,
 
-On Wed, Jun 28, 2017 at 11:10:08PM +0200, Pavel Machek wrote:
-> > > So to be exact... u-boot does not know about battery charging. And
-> > > NoLo can only do very, very slow charging.
+On Wed, Jun 28, 2017 at 10:27:22PM +0200, Pavel Machek wrote:
+> > > Oh, another major piece is DSP coprocessor that is there. Unlike
+> > > graphics, we don't even know how support for it should like.
 > >=20
-> > Yes. The idea is, that normally NoLo only charges far enough, that
-> > Linux can be booted.
+> > https://www.kernel.org/doc/Documentation/remoteproc.txt
 > >=20
-> > > Yes, unfortunately that does not work quite well here. Voltage goes
-> > > too low before Linux can boot, so it resets, but it is still high
-> > > enough for the bootloader, so it attempts to boot Linux one more time,
-> > > but battery is empty and voltage goes too low before Linux can boot, =
-=2E..
+> > config OMAP_REMOTEPROC
+> > 	tristate "OMAP remoteproc support"
+> > 	[...]
+> > 	help
+> > 	  Say y here to support OMAP's remote processors (dual M3
+> > 	  and DSP on OMAP4) via the remote processor framework.
 > >=20
-> > I guess your battery is not the fittest anymore?
+> > 	  Currently only supported on OMAP4.
+> >=20
+> > 	  Usually you want to say Y here, in order to enable multimedia
+> > 	  use-cases to run on your platform (multimedia codecs are
+> > 	  offloaded to remote DSP processors using this framework).
+> >=20
+> > 	  It's safe to say N here if you're not interested in multimedia
+> > 	  offloading or just want a bare minimum kernel.
+> >=20
+> > I have been told by some Nokia people (I do not remember who it
+> > was, possibly Sakari), that the DSP is not that powerful and any
+> > calculation should also be possible on CPU (wasting a bit of
+> > energy).
 >=20
-> I guess that's one issue. (One of my batteries is actually so bad that
-> GSM modem fails with it.)
+> Ok, we probably don't care about DSP, but lets say we had really
+> fast DSP or really cared about power.
 >=20
-> Well, I guess Debian boots a little longer than Maemo. Plus, I believe
-> we should charge the battery from kernel by default; it will enable
-> running fsck etc, and it will mean slow userspace boot will not
-> break...
+> We'd need remoteproc. Sure. But that has no interface for userland,
+> right?
 
-That sounds like really bad battery :)
+remoteproc is only for start/stop + fw loading. The actual
+communication is done using rpmsg, which does not yet have a
+userspace API afaik.
 
-> > > > On N950 there is an unsupported gps connected via i2c iirc (with
-> > > > unknown protocol that needs to be RE'd) and TI's WiLink provides
-> > > > GPS on a shared UART link with bluetooth-style header using yet
-> > > > another protocol. I agree, that we should have a GPS subsystem.
-> > >=20
-> > > Two GPSes in one box, interesting design. Are both of them connected
-> > > to useful antenna?
-> >=20
-> > Actually there are probably 3 GPS implementations in Droid 4:
-> >=20
-> >  * WL1285
-> >  * MDM6600 modem
-> >  * LTE modem
-> >=20
-> > As far as I understand it modems are required to have GPS access in
-> > US. I'm not yet sure which of the implementations is used by Droid 4's
-> > stock system, but Motorola explicitly added a driver for the WL1285 GPS
-> > making it a likely candidate (The userspace part is a closed source
-> > shared object used by Android).
+> So we'd need to introduce interface for userland... fine.
 >=20
-> Interesting :-). I guess you could do really fair comparison of the
-> chipsets.
+> And then we'd need cross-compilers for the DSP used. Ok.
+
+Yes. As far as I know there is currently no open source toolchain
+for the TI DSP.
+
+> And then we'd need to split mpg123 to CPU and DSP parts, and modify it
+> so that it can run the DSP parts using remoteproc, when available?
 >=20
-> (Binary driver -- bad Motorola :-( )
+> That starts to be ... complex, with changes all over the system :-(.
 
-Yeah :( Note, that Nokia also has binary driver for the N900 (which
-had been reverse engineered) and a different on on N950 (which has
-not been reverse engineered so far).
-
-> > > +static int generic_protect(struct power_supply *psy)
-> > > +{
-> > > +	union power_supply_propval val;
-> > > +	int res;
-> > > +	int mV, mA, mOhm =3D 430, mVadj =3D 0;
-> >=20
-> > 430 mOhm?
->=20
-> Yes, 0.43 Ohm.
-
-What's the source of this value?
+With little gain expected on N900...
 
 -- Sebastian
 
---633s4xxfpc7dagkk
+--3whyfooflsfv7zxc
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAllY2NQACgkQ2O7X88g7
-+pobFQ/+Itw+Mw+B3TmRMzgr0BzwsjyrVR5miFQ/TZns24mmRwpy2TXaecAeU8iG
-mmBXnnJxig1GfkYuKjjqed4cWgWD4fbKr3h5sxFO3rm/qAluVePdrnDe7EaMKULQ
-dWsJppr0oJRnxoPW7YIpwA5zhsZlnHQ9z1glJ9OJwFFKfXddYswwOaGdk+0EusWC
-CR3Rfuv4uNm0DNcV3KYDZs2LutHGvY81urWinUJyWFWtUtG569rz5iDvIOIKCeOq
-wGSyFgQGzC9Y4f0EO7RleTGBE9rbzxQ/uKHoNR+Y3Ydw9CTVEGQNWM2Xo2R6hqbp
-yDIvlC6XPd3QJUR6ySx5bLMNo0IqIWhsw+nRaFtMQ0iHPXl+bdJV+ubjKB697C3w
-G9VF1CFZljfCtZnClInirZg3QgE3jyu8bR5Ta7oCAWVh7Ok4Yifz+KTTSo/IfThZ
-/TcHDlcJjsdgagCLC+dM28W/JRBiDoa/LC0f5h83SjhgCAEAavPnn2AUy9KHE/nh
-cWLBL3eTVDQyitnJ477l8MzGSKnNVhNqrW03WNhSGOnwwANDTJnBL7YzOtrQDCnB
-Rmpjftr4WiXKC9eOHBPkiWBOFUJsYcJfzo8wP/v3FxyfYUEwfpLFDwblVmQxv1qM
-jArxRzg4rAtUKpp69K4d+PGtoU9Afr4ituUU4NxqOZzTsWkg5jE=
-=Ts1z
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAllY4QYACgkQ2O7X88g7
++pqmJQ//SmQF7+D4JbzxQEioTVwAGm8jRUoycgE+ls3gLXvsWlyDcFz93Jy0O4d7
+YquD+p+XBIfaxj8R0NFOcDdZyrU0RMynn7+HUhJPH07cMdTCESHpSjZJT2Ol/UBe
++fyjAvzKiPMRjJKAiQMsXu9VzFHdaV5Z7hsTJmWIMNwyQLgyDTQFCbFDpU2NXD8p
+v2ES033XnmPelbTXujK7ysAbd5vkkkTlIQDJC2d5x63d0l4iH484oRgUMWl2rfNq
+erjDBNQ6+6z2FSPZ4xotO5Al5Wy713vv/RB0F/j9MQJD0e2gymQI9EQGuZ5dJuIh
+RgCC2XYTIJ63txl2WgKT0AGJizp9AcIIkDKjtM8grlvZpYO2pulZGESqp2Mo8Z5g
+RzH8Ewshu2S6PSyjNshZgrNmCTBf9zhA847VEqOT6OoKRkSyu9atYwwV5uEVWLYC
+ESaKn5Ogk2OqJJK9ZKNePxQXkE87FS4pYddKb1TvWtfEFF3tZPIa5GzV6j/lO7Ft
+4kDQ/dkkISfTwBS0dRgogcV1K68pf6Dgo1YBWlEKhYWvMg8nBCFwcuRlGmAl8KGM
+unkzwJ4fe5wkyq0s2we9AlxKB8M/wAUxXJuzZ3/1y3KeAIz29JwqHr2yGPBuS2y1
+pTvbX8MnMsTUshjGXXjAKa1G0RYqTKJ9ZA9WYf4elBynC4VSOJs=
+=TjVX
 -----END PGP SIGNATURE-----
 
---633s4xxfpc7dagkk--
+--3whyfooflsfv7zxc--
