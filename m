@@ -1,26 +1,29 @@
-Return-Path: <hare@suse.com>
+Return-Path: <sre@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A4B7A2C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 67F0D2C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  1 Jul 2017 17:25:10 +0000 (UTC)
-Received: from smtp.nue.novell.com (smtp.nue.novell.com [195.135.221.5])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F1021CE
+	Sun,  2 Jul 2017 11:28:31 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4A05F1CE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  1 Jul 2017 17:25:05 +0000 (UTC)
-To: ksummit-discuss@lists.linuxfoundation.org
-References: <20170627135839.GB1886@jagdpanzerIV.localdomain>
-	<CA+55aFxBUe4QAa11i-ySr2i959EpvcEZYf=9NumWyTDH+6BEQw@mail.gmail.com>
-	<20170630175201.GC26257@fury>
-From: Hannes Reinecke <hare@suse.com>
-Message-ID: <92305974-328a-d1b2-7301-4321f374ab8f@suse.com>
-Date: Sat, 1 Jul 2017 19:24:39 +0200
+	Sun,  2 Jul 2017 11:28:30 +0000 (UTC)
+Date: Sun, 2 Jul 2017 13:28:26 +0200
+From: Sebastian Reichel <sre@kernel.org>
+To: Pavel Machek <pavel@ucw.cz>
+Message-ID: <20170702112826.zirafz7lbo5lnabd@earth>
+References: <20170625104850.GA24717@amd>
+	<87shinzkp9.fsf@notabene.neil.brown.name>
+	<20170626083407.GA9621@amd> <20170627123947.krne6a2saolcndih@earth>
+	<20170627215755.GC5250@amd> <20170628164502.itggbf4xuhsv3oyf@earth>
+	<20170628211008.GA19571@amd>
 MIME-Version: 1.0
-In-Reply-To: <20170630175201.GC26257@fury>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] is Kconfig a bit hard sometimes?
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="633s4xxfpc7dagkk"
+Content-Disposition: inline
+In-Reply-To: <20170628211008.GA19571@amd>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] mobile phones
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,78 +33,100 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 06/30/2017 07:52 PM, Darren Hart wrote:
-> On Tue, Jun 27, 2017 at 10:18:04AM -0700, Linus Torvalds wrote:
->> On Tue, Jun 27, 2017 at 6:58 AM, Sergey Senozhatsky
->> <sergey.senozhatsky.work@gmail.com> wrote:
->>>
->>> am I the only one who struggle with the Kconfig sometimes?
->>
->> I hate our Kconfig. It's my least favorite part of the kernel. It asks
->> questions about insane things that nobody can know the answer to.
->>
->> Taking a distro default config and doing"make localmodconfig" is what
->> I end up doing on new machines, and it has all kinds of suckage too.
->>
->> I don't have a solution to it. But I think part of the solution would
->> be for us to have various "sane minimal requirement" Kconfig
->> fragments, and trhe ability to feed them incrementally, so that people
->> can build up a sane Kconfig from "I want this".
-> 
-> This was, in part, the intent behind the configuration fragments and the
-> merge_config.sh script. I use this with the x86 platform drivers:
-> 
-> $ make defconfig pdx86.config
-> 
-> But I have to generate, also scripted, the pdx86.config by scraping the
-> Kconfig file. The kvm_guest.config. There are other things I would like
-> to see subconfigs for, like "efi.config" - but I wasn't sure what the
-> current view on such things were. I'm glad to know I'm not along in my
-> frustration with the overly granular nature of Kconfig.
-> 
-> The problem with this model of course is keeping the config fragments
-> current with Kconfig changes. The mergeconfig script does call out
-> problems with specified config options. We can address this with
-> a configcheck target or similar which would audit the config fragments
-> to ensure they are kept in sync with the Kconfig files.
-> 
-> ...
-> 
->>
->> And note that none of this is about technoliogy, and SAT solvers and
->> resolving the KConfig depdendencies that some techie people love
->> talking about. It's all about "what if we just had some kconfig
->> fragments to enable some commonly used stuff" (where "commonly used"
->> is obviously architecture dependent, but also target-dependent - a
->> "simpleconfig" for a PC workstation kind of config is very different
->> from a "simpleconfig" for a server or some ARM embedded thing).
->>
-> 
-> It sounds like the existing config fragment mechanism is sufficient for
-> what you describe and what we need to do is create these fragments.
-> 
-> One thing that would be nice is if we could have fragment nesting so you
-> could create your "simpleconfig" which in turn includes a few of the
-> more specific config fragments.
-> 
-And what would be totally cool if we could have fragments _per default_.
-EG by not having a massive .config, but rather keeping it per directory,
-or maybe corresponding in the directory where each Kconfig lives.
-That way it would be easier to figure out where this blasted option cam
-from, plus one could easily provide (and check!) configurations for
-several systems, keeping the common parts intact and modify only the
-machine specific ones.
 
-And it would solve the 'keeping the config current' problem, as one
-could quite simply identify which configuration will need to be changed
-for a Kconfig change, seeing that both will be kept in the same directory.
+--633s4xxfpc7dagkk
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Cheers,
+Hi,
 
-Hannes
--- 
-Dr. Hannes Reinecke		   Teamlead Storage & Networking
-hare@suse.com			               +49 911 74053 688
-SUSE LINUX GmbH, Maxfeldstr. 5, 90409 Nürnberg
-GF: F. Imendörffer, J. Smithard, J. Guild, D. Upmanyu, G. Norton
-HRB 21284 (AG Nürnberg)
+On Wed, Jun 28, 2017 at 11:10:08PM +0200, Pavel Machek wrote:
+> > > So to be exact... u-boot does not know about battery charging. And
+> > > NoLo can only do very, very slow charging.
+> >=20
+> > Yes. The idea is, that normally NoLo only charges far enough, that
+> > Linux can be booted.
+> >=20
+> > > Yes, unfortunately that does not work quite well here. Voltage goes
+> > > too low before Linux can boot, so it resets, but it is still high
+> > > enough for the bootloader, so it attempts to boot Linux one more time,
+> > > but battery is empty and voltage goes too low before Linux can boot, =
+=2E..
+> >=20
+> > I guess your battery is not the fittest anymore?
+>=20
+> I guess that's one issue. (One of my batteries is actually so bad that
+> GSM modem fails with it.)
+>=20
+> Well, I guess Debian boots a little longer than Maemo. Plus, I believe
+> we should charge the battery from kernel by default; it will enable
+> running fsck etc, and it will mean slow userspace boot will not
+> break...
+
+That sounds like really bad battery :)
+
+> > > > On N950 there is an unsupported gps connected via i2c iirc (with
+> > > > unknown protocol that needs to be RE'd) and TI's WiLink provides
+> > > > GPS on a shared UART link with bluetooth-style header using yet
+> > > > another protocol. I agree, that we should have a GPS subsystem.
+> > >=20
+> > > Two GPSes in one box, interesting design. Are both of them connected
+> > > to useful antenna?
+> >=20
+> > Actually there are probably 3 GPS implementations in Droid 4:
+> >=20
+> >  * WL1285
+> >  * MDM6600 modem
+> >  * LTE modem
+> >=20
+> > As far as I understand it modems are required to have GPS access in
+> > US. I'm not yet sure which of the implementations is used by Droid 4's
+> > stock system, but Motorola explicitly added a driver for the WL1285 GPS
+> > making it a likely candidate (The userspace part is a closed source
+> > shared object used by Android).
+>=20
+> Interesting :-). I guess you could do really fair comparison of the
+> chipsets.
+>=20
+> (Binary driver -- bad Motorola :-( )
+
+Yeah :( Note, that Nokia also has binary driver for the N900 (which
+had been reverse engineered) and a different on on N950 (which has
+not been reverse engineered so far).
+
+> > > +static int generic_protect(struct power_supply *psy)
+> > > +{
+> > > +	union power_supply_propval val;
+> > > +	int res;
+> > > +	int mV, mA, mOhm =3D 430, mVadj =3D 0;
+> >=20
+> > 430 mOhm?
+>=20
+> Yes, 0.43 Ohm.
+
+What's the source of this value?
+
+-- Sebastian
+
+--633s4xxfpc7dagkk
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAllY2NQACgkQ2O7X88g7
++pobFQ/+Itw+Mw+B3TmRMzgr0BzwsjyrVR5miFQ/TZns24mmRwpy2TXaecAeU8iG
+mmBXnnJxig1GfkYuKjjqed4cWgWD4fbKr3h5sxFO3rm/qAluVePdrnDe7EaMKULQ
+dWsJppr0oJRnxoPW7YIpwA5zhsZlnHQ9z1glJ9OJwFFKfXddYswwOaGdk+0EusWC
+CR3Rfuv4uNm0DNcV3KYDZs2LutHGvY81urWinUJyWFWtUtG569rz5iDvIOIKCeOq
+wGSyFgQGzC9Y4f0EO7RleTGBE9rbzxQ/uKHoNR+Y3Ydw9CTVEGQNWM2Xo2R6hqbp
+yDIvlC6XPd3QJUR6ySx5bLMNo0IqIWhsw+nRaFtMQ0iHPXl+bdJV+ubjKB697C3w
+G9VF1CFZljfCtZnClInirZg3QgE3jyu8bR5Ta7oCAWVh7Ok4Yifz+KTTSo/IfThZ
+/TcHDlcJjsdgagCLC+dM28W/JRBiDoa/LC0f5h83SjhgCAEAavPnn2AUy9KHE/nh
+cWLBL3eTVDQyitnJ477l8MzGSKnNVhNqrW03WNhSGOnwwANDTJnBL7YzOtrQDCnB
+Rmpjftr4WiXKC9eOHBPkiWBOFUJsYcJfzo8wP/v3FxyfYUEwfpLFDwblVmQxv1qM
+jArxRzg4rAtUKpp69K4d+PGtoU9Afr4ituUU4NxqOZzTsWkg5jE=
+=Ts1z
+-----END PGP SIGNATURE-----
+
+--633s4xxfpc7dagkk--
