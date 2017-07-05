@@ -1,29 +1,30 @@
 Return-Path: <carlos@redhat.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D2B58BD4
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id AAE13BEE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Jul 2017 14:06:28 +0000 (UTC)
-Received: from mail-qk0-f172.google.com (mail-qk0-f172.google.com
-	[209.85.220.172])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6889E1BB
+	Wed,  5 Jul 2017 14:28:34 +0000 (UTC)
+Received: from mail-qk0-f178.google.com (mail-qk0-f178.google.com
+	[209.85.220.178])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 483AEAD
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Jul 2017 14:06:28 +0000 (UTC)
-Received: by mail-qk0-f172.google.com with SMTP id 16so190527024qkg.2
+	Wed,  5 Jul 2017 14:28:34 +0000 (UTC)
+Received: by mail-qk0-f178.google.com with SMTP id d78so190397781qkb.1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 05 Jul 2017 07:06:28 -0700 (PDT)
-To: Steven Rostedt <rostedt@goodmis.org>
+	Wed, 05 Jul 2017 07:28:34 -0700 (PDT)
+To: Greg KH <greg@kroah.com>, Steven Rostedt <rostedt@goodmis.org>
 References: <576cea07-770a-4864-c3f5-0832ff211e94@leemhuis.info>
 	<20170703123025.7479702e@gandalf.local.home>
 	<ad94dc65-cc9c-f4f1-27c1-5a48603c7f59@leemhuis.info>
 	<20170705084528.67499f8c@gandalf.local.home>
 	<4080ecc7-1aa8-2940-f230-1b79d656cdb4@redhat.com>
 	<20170705092757.63dc2328@gandalf.local.home>
+	<20170705140607.GA30187@kroah.com>
 From: Carlos O'Donell <carlos@redhat.com>
-Message-ID: <9b377a08-bf38-b41e-040c-41cb078bcfc3@redhat.com>
-Date: Wed, 5 Jul 2017 10:06:24 -0400
+Message-ID: <6401b327-cc2c-5e0a-716b-0b9ea70adcb0@redhat.com>
+Date: Wed, 5 Jul 2017 10:28:30 -0400
 MIME-Version: 1.0
-In-Reply-To: <20170705092757.63dc2328@gandalf.local.home>
+In-Reply-To: <20170705140607.GA30187@kroah.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -41,79 +42,36 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 07/05/2017 09:27 AM, Steven Rostedt wrote:
->> As a concrete action item, glibc core developers took a harder stance on
->> (a) all user-visible bugs need a bug # (forces people to think about the
-> 
-> Unfortunately, we don't have a good system for a "bug #". Most kernel
-> developers hate bugzilla, and I think that includes Linus ;-) Which
-> means, unless Linus builds us a new bug tracking system, there wont be
-> any mandate for it.
+On 07/05/2017 10:06 AM, Greg KH wrote:
+> I don't mean to poo-poo the idea, but please realize that around 75% of
+> the kernel is hardware/arch support, so that means that 75% of the
+> changes/fixes deal with hardware things (yes, change is in direct
+> correlation to size of the codebase in the tree, strange but true).
 
-Use the XMLRPC API to build a better interface for kernel developers?
+We should distinguish between the reviewer reviewing the regression test
+and running the regression test. As long as the submitter ran the 
+regression test on their hardware, and it passed, the reviewer need only
+review the test for logical consistency and correctness?
 
-Our "fixed bugs" list is automatically culled via XMLRPC to generate our
-release announcement with "fixed bugs."
+Lack of test infrastructure was a serious problem for us in glibc. We are
+relying on namespaces for more complex network and filesystem testing.
+Without namespaces we would have needed a much more complex setup that
+might never have seen developer adoption. When I attended LPC 2016 I
+prioritized listening in on namespaces discussions to make sure nothing
+was changing that might break our testing framework.
 
-The bug # mandate has had a few key effects. It allows non-developers to
-search for old similar regressions in an easier fashion than having to
-trawl the mailing list for incomprehensible (to them) discussions about
-semantics. The bugs are described and talked about in terms of user
-facing aspects, not internal implementation details. Regressed bugs can
-be reopened and discussed on the mailing list with links to the discussions
-and summaries of conclusions.
+This conversation is going to lead down the path of driver HAL or
+emulation in order to provide regression testing for code above the actual
+hardware, and that's another hard problem, but one need not go there.
 
-All of this means we have a cleaner, clearer, description of the problem
-from the user side. This again needs priority from a group of people for
-whom time is precious, so you have to get buy in from them.
+Starting with real hardware tests can have benefit.
 
-I don't think (a) is needed, but the glibc community found it helpful.
- 
->> problem and file a coherent public bug about it) (b) all bugs needs a
->> regression test if possible, (c) and if not possible we need to extend
-> 
-> I would love all bug fixes to come with a test (when possible).
-
-We have lots of hardware-specific tests that are marked UNSUPPORTED if
-say you're not running on AVX512 enabled hardware.
-
->> the testing framework to make it possible (we've started using kernel
->> namespaces to create isolated test configurations).
-> 
-> Well, we have a selftest directory that should include all of these.
-> And most people run them on either a test box or a VM.
-Improving the test infrastructure must also be a priority, otherwise you
-will grow to the limit of that infrastructure.
-
->> This change in reviewer priorities has had a noticeable impact on developer
->> priorities over the last 5 years. Timelines for this problem will be
->> measured in years.
-> 
-> Your "b" above is what I would like to push. But who's going to enforce
-> this? With 10,000 changes per release, and a lot of them are fixes, the
-> best we can do is the honor system. Start shaming people that don't
-> have a regression test along with a Fixes tag (but we don't want people
-> to fix bugs without adding that tag either). There is a fine line one
-> must walk between getting people to change their approaches to bugs and
-> regression tests, and pissing them off where they start doing the
-> opposite of what would be best for the community.
-
-I did say "hard problem" earlier didn't I?
-
-* Start with yourself.
-
-* For everyone you know well, and have met in person, be brutal and
-  require them to submit regression tests with their bug fixes. These
-  people are already committed to getting their fixes in and they will
-  understand you are making an example of them.
-
-* For everyone you don't know well, be gentle, and begin reminding
-  them you need a regression test, and if you feel generous try to write
-  one yourself for them. Often the act of writing such a test will show
-  you how hard it is, and what is missing from your infrastructure to make
-  this easy, because if it was easy everyone would do it.
-
-YMMV.
+In glibc we test SSE, AVX, AVX512, TSX etc. but if you don't have the
+extensions you get a bunch of UNSUPPORTED tests. While upstream kernel 
+may have a more limited set of available hardware per-person, the
+collective set of developers has hardware to cover all configurations,
+and they should run the regression tests for hardware they care about
+... and *must* do so if they submit a patch to fix a bug! :-)
 
 -- 
 Cheers,
