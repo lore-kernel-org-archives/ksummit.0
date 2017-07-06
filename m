@@ -1,24 +1,24 @@
 Return-Path: <dan.carpenter@oracle.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 87769A7F
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 94626A7F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Jul 2017 14:41:28 +0000 (UTC)
-Received: from aserp1040.oracle.com (aserp1040.oracle.com [141.146.126.69])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A87C6A4
+	Thu,  6 Jul 2017 14:42:24 +0000 (UTC)
+Received: from userp1040.oracle.com (userp1040.oracle.com [156.151.31.81])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8AA2AA4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Jul 2017 14:41:27 +0000 (UTC)
-Date: Thu, 6 Jul 2017 17:41:16 +0300
+	Thu,  6 Jul 2017 14:42:23 +0000 (UTC)
+Date: Thu, 6 Jul 2017 17:42:08 +0300
 From: Dan Carpenter <dan.carpenter@oracle.com>
 To: Sergey Senozhatsky <sergey.senozhatsky.work@gmail.com>
-Message-ID: <20170706144116.kcvhyxezcpinhwq7@mwanda>
+Message-ID: <20170706144208.6hlgxwo37gntk6qm@mwanda>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <20170706144028.46a2mt2mdzpt6ip7@mwanda>
 Cc: ksummit-discuss@lists.linuxfoundation.org, Michal Hocko <mhocko@kernel.org>
-Subject: [Ksummit-discuss] [PATCH 1/2] kconfig: add a silent option to
-	conf_write()
+Subject: [Ksummit-discuss] [PATCH 2/2] kconfig: new command line kernel
+	configuration tool
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -28,142 +28,454 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-The conf_write() function prints output "configuration written to .config" but
-I don't want it to print anything so I have added an option for that.
+This tool barely works, it's just a rough draft.
+
+Sometimes I want to search for a config so I have to load menuconfig,
+then search for the config entry, then exit.  With this script I
+simply run:
+
+    ./scripts/kconfig/kconfig search COMEDI
+
+Quite often I find myself trying to enable a feature by doing this:
+
+    echo CONFIG_FEATURE=y >> .config
+
+But when I try to boot the new kernel, I find that the feature isn't
+there because the kernel runs `make oldconfig` and I didn't have all
+the depends selected so it silently removed it.  With this feature
+what you can do is:
+
+    ./scripts/kconfig/kconfig set FEATURE=y
+
+It helps you enable the dependencies or it at least prints an error
+if it can't enable the feature.
+
+But this code isn't all implemented.  1) It doesn't calculate the
+dependencies well.  See expr_parse() for more details.  2)  It
+doesn't work well for things like:
+
+	./scripts/kconfig/kconfig set BT_INTEL=m
+
+because those aren't visible, they can only be using depend
+statements.  Or say you try to set FEATURE=m when something else
+depends on it be set =y then the error message is wrong.  The
+other problem is that I don't know how to print the help text.
+Again, this is just a rough draft.
 
 Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
 ---
- scripts/kconfig/conf.c      | 4 ++--
- scripts/kconfig/confdata.c  | 5 +++--
- scripts/kconfig/gconf.c     | 4 ++--
- scripts/kconfig/lkc_proto.h | 2 +-
- scripts/kconfig/mconf.c     | 4 ++--
- scripts/kconfig/nconf.c     | 4 ++--
- 6 files changed, 12 insertions(+), 11 deletions(-)
+ scripts/kconfig/Makefile |   6 +-
+ scripts/kconfig/kconfig  |  33 +++++
+ scripts/kconfig/lconf.c  | 332 +++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 370 insertions(+), 1 deletion(-)
+ create mode 100755 scripts/kconfig/kconfig
+ create mode 100644 scripts/kconfig/lconf.c
 
-diff --git a/scripts/kconfig/conf.c b/scripts/kconfig/conf.c
-index 866369f10ff8..c73b5ab859a2 100644
---- a/scripts/kconfig/conf.c
-+++ b/scripts/kconfig/conf.c
-@@ -690,7 +690,7 @@ int main(int ac, char **av)
- 		/* silentoldconfig is used during the build so we shall update autoconf.
- 		 * All other commands are only used to generate a config.
- 		 */
--		if (conf_get_changed() && conf_write(NULL)) {
-+		if (conf_get_changed() && conf_write(NULL, 0)) {
- 			fprintf(stderr, _("\n*** Error during writing of the configuration.\n\n"));
- 			exit(1);
- 		}
-@@ -705,7 +705,7 @@ int main(int ac, char **av)
- 			return 1;
- 		}
- 	} else if (input_mode != listnewconfig) {
--		if (conf_write(NULL)) {
-+		if (conf_write(NULL, 0)) {
- 			fprintf(stderr, _("\n*** Error during writing of the configuration.\n\n"));
- 			exit(1);
- 		}
-diff --git a/scripts/kconfig/confdata.c b/scripts/kconfig/confdata.c
-index 297b079ae4d9..7e8dbae6af30 100644
---- a/scripts/kconfig/confdata.c
-+++ b/scripts/kconfig/confdata.c
-@@ -738,7 +738,7 @@ int conf_write_defconfig(const char *filename)
- 	return 0;
- }
+diff --git a/scripts/kconfig/Makefile b/scripts/kconfig/Makefile
+index eb8144643b78..a2a90be2e149 100644
+--- a/scripts/kconfig/Makefile
++++ b/scripts/kconfig/Makefile
+@@ -33,6 +33,9 @@ config: $(obj)/conf
+ nconfig: $(obj)/nconf
+ 	$< $(silent) $(Kconfig)
  
--int conf_write(const char *name)
-+int conf_write(const char *name, bool silent)
- {
- 	FILE *out;
- 	struct symbol *sym;
-@@ -831,7 +831,8 @@ int conf_write(const char *name)
- 			return 1;
- 	}
++lconfig: $(obj)/lconf
++	@ $< $(silent) $(Kconfig)
++
+ silentoldconfig: $(obj)/conf
+ 	$(Q)mkdir -p include/config include/generated
+ 	$(Q)test -e include/generated/autoksyms.h || \
+@@ -183,12 +186,13 @@ lxdialog += lxdialog/textbox.o lxdialog/yesno.o lxdialog/menubox.o
+ conf-objs	:= conf.o  zconf.tab.o
+ mconf-objs     := mconf.o zconf.tab.o $(lxdialog)
+ nconf-objs     := nconf.o zconf.tab.o nconf.gui.o
++lconf-objs     := lconf.o zconf.tab.o
+ kxgettext-objs	:= kxgettext.o zconf.tab.o
+ qconf-cxxobjs	:= qconf.o
+ qconf-objs	:= zconf.tab.o
+ gconf-objs	:= gconf.o zconf.tab.o
  
--	conf_message(_("configuration written to %s"), newname);
-+	if (!silent)
-+		conf_message(_("configuration written to %s"), newname);
+-hostprogs-y := conf nconf mconf kxgettext qconf gconf
++hostprogs-y := conf nconf mconf kxgettext qconf gconf lconf
  
- 	sym_set_change_count(0);
- 
-diff --git a/scripts/kconfig/gconf.c b/scripts/kconfig/gconf.c
-index cfddddb9c9d7..115b5602d05e 100644
---- a/scripts/kconfig/gconf.c
-+++ b/scripts/kconfig/gconf.c
-@@ -523,7 +523,7 @@ void on_load1_activate(GtkMenuItem * menuitem, gpointer user_data)
- 
- void on_save_activate(GtkMenuItem * menuitem, gpointer user_data)
- {
--	if (conf_write(NULL))
-+	if (conf_write(NULL), 0)
- 		text_insert_msg(_("Error"), _("Unable to save configuration !"));
- }
- 
-@@ -536,7 +536,7 @@ store_filename(GtkFileSelection * file_selector, gpointer user_data)
- 	fn = gtk_file_selection_get_filename(GTK_FILE_SELECTION
- 					     (user_data));
- 
--	if (conf_write(fn))
-+	if (conf_write(fn), 0)
- 		text_insert_msg(_("Error"), _("Unable to save configuration !"));
- 
- 	gtk_widget_destroy(GTK_WIDGET(user_data));
-diff --git a/scripts/kconfig/lkc_proto.h b/scripts/kconfig/lkc_proto.h
-index d5398718ec2a..1690888bdbc4 100644
---- a/scripts/kconfig/lkc_proto.h
-+++ b/scripts/kconfig/lkc_proto.h
-@@ -5,7 +5,7 @@ void conf_parse(const char *name);
- int conf_read(const char *name);
- int conf_read_simple(const char *name, int);
- int conf_write_defconfig(const char *name);
--int conf_write(const char *name);
-+int conf_write(const char *name, bool silent);
- int conf_write_autoconf(void);
- bool conf_get_changed(void);
- void conf_set_changed_callback(void (*fn)(void));
-diff --git a/scripts/kconfig/mconf.c b/scripts/kconfig/mconf.c
-index 315ce2c7cb9d..c029b5417fa9 100644
---- a/scripts/kconfig/mconf.c
-+++ b/scripts/kconfig/mconf.c
-@@ -937,7 +937,7 @@ static void conf_save(void)
- 		case 0:
- 			if (!dialog_input_result[0])
- 				return;
--			if (!conf_write(dialog_input_result)) {
-+			if (!conf_write(dialog_input_result, 0)) {
- 				set_config_filename(dialog_input_result);
- 				return;
- 			}
-@@ -971,7 +971,7 @@ static int handle_exit(void)
- 
- 	switch (res) {
- 	case 0:
--		if (conf_write(filename)) {
-+		if (conf_write(filename, 0)) {
- 			fprintf(stderr, _("\n\n"
- 					  "Error while writing of the configuration.\n"
- 					  "Your configuration changes were NOT saved."
-diff --git a/scripts/kconfig/nconf.c b/scripts/kconfig/nconf.c
-index 003114779815..b4b0666bdc4c 100644
---- a/scripts/kconfig/nconf.c
-+++ b/scripts/kconfig/nconf.c
-@@ -666,7 +666,7 @@ static int do_exit(void)
- 	/* if we got here, the user really wants to exit */
- 	switch (res) {
- 	case 0:
--		res = conf_write(filename);
-+		res = conf_write(filename, 0);
- 		if (res)
- 			btn_dialog(
- 				main_window,
-@@ -1436,7 +1436,7 @@ static void conf_save(void)
- 		case 0:
- 			if (!dialog_input_result[0])
- 				return;
--			res = conf_write(dialog_input_result);
-+			res = conf_write(dialog_input_result, 0);
- 			if (!res) {
- 				set_config_filename(dialog_input_result);
- 				return;
+ clean-files	:= qconf.moc .tmp_qtcheck .tmp_gtkcheck
+ clean-files	+= zconf.tab.c zconf.lex.c zconf.hash.c gconf.glade.h
+diff --git a/scripts/kconfig/kconfig b/scripts/kconfig/kconfig
+new file mode 100755
+index 000000000000..beab8fc829c9
+--- /dev/null
++++ b/scripts/kconfig/kconfig
+@@ -0,0 +1,33 @@
++#!/bin/sh
++
++usage() {
++	echo "kconfig [search|set] string"
++	exit 1;
++}
++
++if [ "$1" = "" ] ; then
++	usage
++fi
++
++if [ "$1" = "search" ] ; then
++
++	search=$2
++	NCONFIG_MODE=kconfig_search SEARCH=${search} make lconfig
++
++elif [ "$1" = "set" ] ; then
++
++	config=$2
++	setting=$3
++
++	if [ $config = "" ] ; then
++		echo "nothing to set"
++		exit 1
++	fi
++
++	NCONFIG_MODE=kconfig_set CONFIG=${config} SETTING=${setting} make lconfig
++
++else
++	usage
++fi
++
++
+diff --git a/scripts/kconfig/lconf.c b/scripts/kconfig/lconf.c
+new file mode 100644
+index 000000000000..ebc3cbd4ef83
+--- /dev/null
++++ b/scripts/kconfig/lconf.c
+@@ -0,0 +1,332 @@
++/*
++ * Copyright (C) 2015 Oracle
++ * Released under the terms of the GNU GPL v2.0.
++ *
++ */
++#define _GNU_SOURCE
++#include <string.h>
++#include <stdlib.h>
++
++#include "lkc.h"
++#include "nconf.h"
++#include <ctype.h>
++
++static int indent;
++static char line[128];
++
++static int get_depends(struct symbol *sym);
++
++static void strip(char *str)
++{
++	char *p = str;
++	int l;
++
++	while ((isspace(*p)))
++		p++;
++	l = strlen(p);
++	if (p != str)
++		memmove(str, p, l + 1);
++	if (!l)
++		return;
++	p = str + l - 1;
++	while ((isspace(*p)))
++		*p-- = 0;
++}
++
++static void xfgets(char *str, int size, FILE *in)
++{
++	if (fgets(str, size, in) == NULL)
++		fprintf(stderr, "\nError in reading or end of file.\n");
++}
++
++static tristate str_to_tristate(const char *str)
++{
++	switch (str[0]) {
++	case 'y': case 'Y':
++		return yes;
++	case 'm': case 'M':
++		return mod;
++	case 'n': case 'N':
++	default:
++		return no;
++	}
++}
++
++static int conf_askvalue(struct symbol *sym, const char *def)
++{
++	enum symbol_type type = sym_get_type(sym);
++
++	if (!sym_has_value(sym))
++		printf(_("(NEW) "));
++
++	line[0] = '\n';
++	line[1] = 0;
++
++	if (!sym_is_changable(sym)) {
++		printf("%s\n", def);
++		line[0] = '\n';
++		line[1] = 0;
++		return 0;
++	}
++
++	fflush(stdout);
++	xfgets(line, 128, stdin);
++
++	switch (type) {
++	case S_INT:
++	case S_HEX:
++	case S_STRING:
++		printf("%s\n", def);
++		return 1;
++	default:
++		;
++	}
++	printf("%s", line);
++	return 1;
++}
++
++static struct property *get_symbol_prop(struct symbol *sym)
++{
++	struct property *prop = NULL;
++
++	for_all_properties(sym, prop, P_SYMBOL)
++		break;
++	return prop;
++}
++
++static int conf_sym(struct symbol *sym)
++{
++	tristate oldval, newval;
++	struct property *prop;
++
++	while (1) {
++		if (sym->name)
++			printf("%s: ", sym->name);
++		for_all_prompts(sym, prop)
++			printf("%*s%s ", indent - 1, "",  _(prop->text));
++		putchar('[');
++		oldval = sym_get_tristate_value(sym);
++		switch (oldval) {
++		case no:
++			putchar('N');
++			break;
++		case mod:
++			putchar('M');
++			break;
++		case yes:
++			putchar('Y');
++			break;
++		}
++		if (oldval != no && sym_tristate_within_range(sym, no))
++			printf("/n");
++		if (oldval != mod && sym_tristate_within_range(sym, mod))
++			printf("/m");
++		if (oldval != yes && sym_tristate_within_range(sym, yes))
++			printf("/y");
++		/* FIXME: I don't know how to get the help text from the sym */
++		printf("] ");
++		if (!conf_askvalue(sym, sym_get_string_value(sym)))
++			return 0;
++		strip(line);
++
++		switch (line[0]) {
++		case 'n':
++		case 'N':
++			newval = no;
++			if (!line[1] || !strcmp(&line[1], "o"))
++				break;
++			continue;
++		case 'm':
++		case 'M':
++			newval = mod;
++			if (!line[1])
++				break;
++			continue;
++		case 'y':
++		case 'Y':
++			newval = yes;
++			if (!line[1] || !strcmp(&line[1], "es"))
++				break;
++			continue;
++		case 0:
++			newval = oldval;
++			break;
++		default:
++			continue;
++		}
++		if (sym_set_tristate_value(sym, newval)) {
++			/* FIXME: if I don't write it doesn't save */
++			conf_write(NULL, 1);
++			return 1;
++		}
++	}
++}
++
++static int enable_sym(struct symbol *sym)
++{
++	if (sym_get_tristate_value(sym) != no)
++		return 0;
++
++	if (!sym->visible) {
++		if (!get_depends(sym))
++			return 0;
++		printf("%s: has missing dependencies\n", sym->name);
++	}
++
++	return conf_sym(sym);
++}
++
++static void expr_parse(struct expr *e)
++{
++	if (!e)
++		return;
++
++	switch (e->type) {
++	case E_EQUAL:
++		printf("set '%s' to '%s'\n", e->left.sym->name, e->right.sym->name);
++		break;
++
++	case E_AND:
++		expr_parse(e->left.expr);
++		expr_parse(e->right.expr);
++		break;
++
++	case E_SYMBOL:
++		enable_sym(e->left.sym);
++		break;
++
++	case E_NOT:
++	case E_UNEQUAL:
++	case E_OR:
++	case E_LIST:
++	case E_RANGE:
++	default:
++		printf("HELP.  Lot of unimplemented code.  %d\n", e->type);
++		break;
++	}
++}
++
++static int get_depends(struct symbol *sym)
++{
++	struct property *prop;
++	struct gstr res = str_new();
++
++	prop = get_symbol_prop(sym);
++	if (!prop)
++		return 0;
++
++	expr_gstr_print(prop->visible.expr, &res);
++	printf("%s\n\n", str_get(&res));
++
++	expr_parse(prop->visible.expr);
++
++	return 1;
++}
++
++static void kconfig_search(void)
++{
++	char *search_str;
++	struct symbol **sym_arr;
++	struct gstr res;
++
++	search_str = getenv("SEARCH");
++	if (!search_str)
++		return;
++
++	sym_arr = sym_re_search(search_str);
++	res = get_relations_str(sym_arr, NULL);
++	printf("%s", str_get(&res));
++}
++
++static void kconfig_set(void)
++{
++	struct symbol *sym;
++	char *config;
++	char *setting;
++	int res;
++
++	config = getenv("CONFIG");
++	if (!config)
++		return;
++	if (strncmp(config, "CONFIG_", 7) == 0)
++		config += 7;
++
++	setting = strchr(config, '=');
++	if (setting) {
++		*setting = '\0';
++		setting++;
++	} else {
++		setting = getenv("SETTING");
++		if (setting && *setting == '\0')
++			setting = NULL;
++	}
++
++	sym = sym_find(config);
++	if (!sym) {
++		printf("Error: '%s' not found.\n", config);
++		return;
++	}
++
++	if (sym->curr.tri == str_to_tristate(setting)) {
++		printf("Already set:  %s=%s\n", sym->name, setting);
++		return;
++	}
++
++	if (!sym->visible) {
++		printf("\n%s: has missing dependencies\n", sym->name);
++		if (!get_depends(sym))
++			return;
++	}
++	if (!sym->visible) {
++		printf("Error: unmet dependencies\n");
++		return;
++	}
++
++	if (!setting) {
++		conf_sym(sym);
++	} else if (!sym_set_string_value(sym, setting)) {
++		printf("Error: setting '%s=%s' failed.\n", sym->name, setting);
++		return;
++	}
++
++	res = conf_write(NULL, 1);
++	if (res) {
++		printf("Error during writing of configuration.\n"
++			"Your configuration changes were NOT saved.\n");
++		return;
++	}
++
++	printf("set: %s=%s\n", config, sym_get_string_value(sym));
++}
++
++int main(int ac, char **av)
++{
++	char *mode;
++
++	setlocale(LC_ALL, "");
++	bindtextdomain(PACKAGE, LOCALEDIR);
++	textdomain(PACKAGE);
++
++	if (ac > 1 && strcmp(av[1], "-s") == 0) {
++		/* Silence conf_read() until the real callback is set up */
++		conf_set_message_callback(NULL);
++		av++;
++	}
++	conf_parse(av[1]);
++	conf_read(NULL);
++
++	mode = getenv("NCONFIG_MODE");
++	if (!mode)
++		return 1;
++
++	if (strcmp(mode, "kconfig_search") == 0) {
++		kconfig_search();
++		return 0;
++	}
++	if (strcmp(mode, "kconfig_set") == 0) {
++		kconfig_set();
++		return 0;
++	}
++
++	return 1;
++}
 -- 
 2.11.0
