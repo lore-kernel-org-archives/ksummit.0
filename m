@@ -1,29 +1,44 @@
-Return-Path: <rdunlap@infradead.org>
+Return-Path: <SRS0=orc5=6J=goodmis.org=rostedt@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id F0CED901
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 79E56970
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Jul 2017 17:49:10 +0000 (UTC)
-Received: from merlin.infradead.org (merlin.infradead.org [205.233.59.134])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6EAB08D
+	Thu,  6 Jul 2017 19:10:11 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DCB0B3FE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Jul 2017 17:49:10 +0000 (UTC)
-To: Linus Torvalds <torvalds@linux-foundation.org>,
-	Dan Carpenter <dan.carpenter@oracle.com>
-References: <20170627135839.GB1886@jagdpanzerIV.localdomain>
-	<20170706144028.46a2mt2mdzpt6ip7@mwanda>
-	<CA+55aFyPQeMYUafR32parh=jGU0O8prn5vhOhhW+WBU-LbR4HQ@mail.gmail.com>
-From: Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <966c1fce-6f2f-d158-d086-cf8e2eac97a9@infradead.org>
-Date: Thu, 6 Jul 2017 10:11:26 -0700
+	Thu,  6 Jul 2017 19:10:10 +0000 (UTC)
+Date: Thu, 6 Jul 2017 15:10:08 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Josef Bacik <jbacik@fb.com>
+Message-ID: <20170706151008.24addd2b@gandalf.local.home>
+In-Reply-To: <658A3F80-5E48-4EC4-A591-E3783AD3DADC@fb.com>
+References: <20170629195537.534445e7@gandalf.local.home>
+	<CA+55aFxW_vhYWRoWFwy4zQgG7iPJg3V4u0-XkjZiGJJfZtZ=ng@mail.gmail.com>
+	<20170629203224.6bf7f29a@gandalf.local.home>
+	<20170629205218.5b9a7923@gandalf.local.home>
+	<CA+55aFyQE_T7Rp7ay_EbAZNDqLE6ffJ-6xkL6B_961oZ0+aSpA@mail.gmail.com>
+	<20170629211641.5aeb3af7@gandalf.local.home>
+	<20170629212750.5c3542ee@gandalf.local.home>
+	<CA+55aFzzCPMUDt72hckauYu+fj=Q2MWjx+XiR06KpMLAr1EBAA@mail.gmail.com>
+	<20170629221245.489760b1@gandalf.local.home>
+	<CA+55aFxFLvX62SyOC9qyVwEQXH8J224Fe03tvy624AUx0U2fRQ@mail.gmail.com>
+	<20170630025852.xjoif3aai6rny5a2@ast-mbp>
+	<20170629230251.02f380cb@gandalf.local.home>
+	<6AE378F0-42F7-45DE-9F3C-050A5019A1E8@fb.com>
+	<20170630142956.7e0cb2d6@gandalf.local.home>
+	<20170630143030.305b68a0@gandalf.local.home>
+	<658A3F80-5E48-4EC4-A591-E3783AD3DADC@fb.com>
 MIME-Version: 1.0
-In-Reply-To: <CA+55aFyPQeMYUafR32parh=jGU0O8prn5vhOhhW+WBU-LbR4HQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
-	Michal Hocko <mhocko@kernel.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] is Kconfig a bit hard sometimes?
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Cc: Tom Zanussi <tom.zanussi@linux.intel.com>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
+	Peter Zijlstra <peterz@infradead.org>, bristot <bristot@redhat.com>,
+	Julien Desfossez <jdesfossez@efficios.com>,
+	Ingo Molnar <mingo@kernel.org>, daolivei <daolivei@redhat.com>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Pulling away from the tracing
+ ABI quicksands
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,41 +48,57 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 07/06/2017 09:41 AM, Linus Torvalds wrote:
-> On Thu, Jul 6, 2017 at 7:40 AM, Dan Carpenter <dan.carpenter@oracle.com> wrote:
->> People have mentioned "make oldconfig" but I've never had a lot of luck
->> with that.  It always just prints "* Restart config..." and deletes my
->> config.
-> 
-> Really?
-> 
-> For me, "make oldconfig" is pretty much the only thing I ever use
-> (apart from build testing).
-> 
-> It's very convenient once you have a baseline, and want to just get
-> the new questions for when the Kconfig files change. It's also how I
-> notice when somebody adds a new config entry that doesn't default to
-> 'n'.
-> 
-> It's also very convenient when you end up changing your config: just
-> edit the damn .config file directly, and then re-run "make oldconfig"
-> just to make sure everything gets updated (and then you'll notice that
-> you tried to disable some config entry, but it got re-enabled again
-> because there was something else that depended on it and selected it
-> ;)
-> 
-> So I wonder why it wouldn't work for you.
-> 
-> Now, admittedly, I literally only ever use two source files: the
-> previous ".config" file, and if that is missing (after a "git clean
-> -dqfx" or similar), just /etc/kernel-config.
-> 
-> The oldconfig logic has fallbacks to other cases, but they are all useless imho.
-> 
-> Also, I build in the source tree. Maybe you use a separate object tree
-> and it gets that case wrong.
+On Fri, 30 Jun 2017 18:37:59 +0000
+Josef Bacik <jbacik@fb.com> wrote:
 
-Nah, I use O=objdir all the time and oldconfig works for me.
+> [ I forgot to add Tom to the Cc list. Sending again. ]
+>=20
+> On Fri, 30 Jun 2017 14:29:56 -0400
+> Steven Rostedt <rostedt@goodmis.org> wrote:
+>=20
+> > On Fri, 30 Jun 2017 18:24:12 +0000
+> > Josef Bacik <jbacik@fb.com> wrote:
+> >  =20
+> > > Yup I=E2=80=99ll start bugging people to submit talk proposals, start=
+ing with you!  I=E2=80=99ll put up my proposal in the next day or two, I th=
+ink Brendan has something he=E2=80=99s going to talk about.  Thanks,   =20
+> >=20
+> > I shouldn't have used the term "talk", as it really is all about
+> > discussions. In fact, if you need more than one slide, you have too
+> > many.
+> >=20
+> > That said, I could probably come up with a few things, starting with
+> > this trace event issue. But it will be pointless if Peter Zijlstra and
+> > Mathieu are not there.
+> >=20
+> > But having ideas about dynamic fields in tracepoints is always
+> > interesting. Not to mention talking about Tom Zanussi's latest
+> > histogram work. It may be pretty much completed, but I would like to
+> > discuss where we go from there.
+> >=20
+> > One last thing. I don't want to have too many responsibilities, as I'm
+> > on the LPC program committee and I need to make sure I have time to
+> > fulfill any action items I'm responsible for during the conference.
+> >  =20
+>=20
+> Yeah plumbers is a weird venue for tracing, I always hope that we are
+> going to have people like Brendan or other sysadmin-y people show up
+> and say =E2=80=9Cthis is what sucks about tracing, please fix it=E2=80=9D=
+, and then
+> we can go fix it.  It doesn=E2=80=99t really seem to happen that way tho,=
+ and
+> for things like tracing ABI there just aren=E2=80=99t the right people in=
+ the
+> room to have that kind of discussion.  My proposal was just going to
+> be a laundry list of things that would make my life easier, but it
+> doesn=E2=80=99t really warrant a full micro-conference to listen to me bi=
+tch
+> for an hour.  If it turns out nobody else has much to talk about then
+> we can just declare tracing is feature complete and we can talk about
+> something else ;).  Thanks,
+>=20
 
--- 
-~Randy
+At this rate, I'm guessing that Tracing is not going to be on the
+Plumbers' agenda.
+
+-- Steve
