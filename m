@@ -1,24 +1,39 @@
-Return-Path: <dan.carpenter@oracle.com>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 94626A7F
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 461C9AB6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Jul 2017 14:42:24 +0000 (UTC)
-Received: from userp1040.oracle.com (userp1040.oracle.com [156.151.31.81])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8AA2AA4
+	Thu,  6 Jul 2017 14:48:17 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6FDE31E8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Jul 2017 14:42:23 +0000 (UTC)
-Date: Thu, 6 Jul 2017 17:42:08 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Sergey Senozhatsky <sergey.senozhatsky.work@gmail.com>
-Message-ID: <20170706144208.6hlgxwo37gntk6qm@mwanda>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20170706144028.46a2mt2mdzpt6ip7@mwanda>
-Cc: ksummit-discuss@lists.linuxfoundation.org, Michal Hocko <mhocko@kernel.org>
-Subject: [Ksummit-discuss] [PATCH 2/2] kconfig: new command line kernel
-	configuration tool
+	Thu,  6 Jul 2017 14:48:15 +0000 (UTC)
+Message-ID: <1499352485.2765.14.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Mark Brown <broonie@kernel.org>, Steven Rostedt <rostedt@goodmis.org>
+Date: Thu, 06 Jul 2017 07:48:05 -0700
+In-Reply-To: <20170706092836.ifcnc2qqwufndhdl@sirena.org.uk>
+References: <20170703123025.7479702e@gandalf.local.home>
+	<ad94dc65-cc9c-f4f1-27c1-5a48603c7f59@leemhuis.info>
+	<20170705084528.67499f8c@gandalf.local.home>
+	<4080ecc7-1aa8-2940-f230-1b79d656cdb4@redhat.com>
+	<20170705092757.63dc2328@gandalf.local.home>
+	<20170705140607.GA30187@kroah.com>
+	<a462fb3b-a6d4-e969-b301-b404981de224@roeck-us.net>
+	<20170705112707.54d7f345@gandalf.local.home>
+	<c782a15a-4e73-7373-ca66-5b55e9406059@roeck-us.net>
+	<20170705130200.7c653f61@gandalf.local.home>
+	<20170706092836.ifcnc2qqwufndhdl@sirena.org.uk>
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-2smHFfIwEV/LKJhyy71B"
+Mime-Version: 1.0
+Cc: Carlos O'Donell <carlos@redhat.com>, linux-api@vger.kernel.org,
+	Thorsten Leemhuis <linux@leemhuis.info>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Shuah Khan <shuahkh@osg.samsung.com>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] & [TECH TOPIC] Improve
+ regression tracking
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -28,454 +43,79 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-This tool barely works, it's just a rough draft.
 
-Sometimes I want to search for a config so I have to load menuconfig,
-then search for the config entry, then exit.  With this script I
-simply run:
+--=-2smHFfIwEV/LKJhyy71B
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-    ./scripts/kconfig/kconfig search COMEDI
+On Thu, 2017-07-06 at 10:28 +0100, Mark Brown wrote:
+> On Wed, Jul 05, 2017 at 01:02:00PM -0400, Steven Rostedt wrote:
+> >=20
+> > Guenter Roeck <linux@roeck-us.net> wrote:
+>=20
+> >=20
+> > >=20
+> > > If a test to reproduce a problem exists, it might be more
+> > > beneficial to suggest to the patch submitter that it would be
+> > > great if that test would be submitted as unit test instead of
+> > > shaming that person for not doing so. Acknowledging and
+> > > praising kselftest submissions might help more than shaming for
+> > > non-submissions.
+>=20
+> >=20
+> > >=20
+> > > My concern would be that once the shaming starts, it won't stop.
+>=20
+> >=20
+> > I think this is a communication issue. My word for "shaming" was to
+> > call out a developer for not submitting a test. It wasn't about
+> > making fun of them, or anything like that. I was only making a
+> > point about how to teach people that they need to be more aware of
+> > the testing infrastructure. Not about actually demeaning people.
+>=20
+> I think before anything like that is viable we need to show a
+> concerted and visible interest in actually running the tests we
+> already have and paying attention to the results - if people can see
+> that they're just checking a checkbox that will often result in low
+> quality tests which can do more harm than good.
 
-Quite often I find myself trying to enable a feature by doing this:
+it depends what you mean by "we". =C2=A0I used to run a battery of tests
+over every SCSI commit. =C2=A0It was time consuming and slowed down the
+process, plus it was me who always got to diagnose failures. =C2=A0Nowadays
+I don't bother: I rely on 0day to run its usual tests plus a couple of
+extras I asked for it's a much more streamlined process (meaning less
+work for me) and everyone is happy.
 
-    echo CONFIG_FEATURE=y >> .config
+The corollary I take away from this is that the less intrusive the test
+infrastructure is (at least to my process) the happier I am. =C2=A0The 0day
+quantum leap for me was going from testing my tree and telling me of
+problems after I've added the patch to testing patches posted to the
+mailing list, which tells me of problems *before* the commit gets added
+to the tree.
 
-But when I try to boot the new kernel, I find that the feature isn't
-there because the kernel runs `make oldconfig` and I didn't have all
-the depends selected so it silently removed it.  With this feature
-what you can do is:
+James
 
-    ./scripts/kconfig/kconfig set FEATURE=y
+--=-2smHFfIwEV/LKJhyy71B
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
-It helps you enable the dependencies or it at least prints an error
-if it can't enable the feature.
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
 
-But this code isn't all implemented.  1) It doesn't calculate the
-dependencies well.  See expr_parse() for more details.  2)  It
-doesn't work well for things like:
+iQIcBAABCAAGBQJZXk2pAAoJEAVr7HOZEZN4wB8P/j/H4/3FovOkSenV3F0+DC8t
+7XA5MdfuaoJv/e9Ft+P9lc6lNl39WEX/wArYccRn2JLClISQ78uMIqvaRndjze75
+sVWjx55PJ+pK1TiDbN39R5Sk/I6GELkIfeY7Wm/cjcrDLoDWmmB1HQTy/8WPXQ49
+2FxX7Wut/9DTi+E0Yx2E+8AYJ+hEsYwTDdOsGe09LF4E5uiCF0AmLqwrwIG76Wq4
+oLIku4tAzk3ijAJ+OvfGDQpFaVKD5TZqpZc718cS3CB/8I7tNNWI2AX/8JCrrV1D
+ZuTBaPtOZwRS1WrFt7T/Gg+JmGLY82bAKjeCU/yZM47VvxaOOgHn35M0kxGp9Xki
+kMKKh1AdPEHg1vgGUkUU7DX2SgVq1XRnyMN6VCNhdD9YY58n9aZfccp3/z0YdtVo
+dFgt0oEt+R6GXLrPQSnZ1xE4/DvK0nHo7JVNcdcRNLmRkR2CJA1kQCmpvqKEcfVl
+fd/k5TK2X1vwtmL+SIsSUm0eCwVJQdCBpY/BUtX3zS8T0bdHl4xA/FbZ0APZ+adc
+PT+RmXY/u84J066IacaIqGhw8cxrF1LraczcKMjPTxDw053NWnhC/w3Ey9HasNue
+l/oLA39Glon79bltrnlZFFxJ/Utowob6Mj52eXeX1v3IkjVwCOSVpfD8Kwr6aqdT
+CADjZ3e9eq2Y+v87HmwV
+=d5aR
+-----END PGP SIGNATURE-----
 
-	./scripts/kconfig/kconfig set BT_INTEL=m
-
-because those aren't visible, they can only be using depend
-statements.  Or say you try to set FEATURE=m when something else
-depends on it be set =y then the error message is wrong.  The
-other problem is that I don't know how to print the help text.
-Again, this is just a rough draft.
-
-Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
----
- scripts/kconfig/Makefile |   6 +-
- scripts/kconfig/kconfig  |  33 +++++
- scripts/kconfig/lconf.c  | 332 +++++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 370 insertions(+), 1 deletion(-)
- create mode 100755 scripts/kconfig/kconfig
- create mode 100644 scripts/kconfig/lconf.c
-
-diff --git a/scripts/kconfig/Makefile b/scripts/kconfig/Makefile
-index eb8144643b78..a2a90be2e149 100644
---- a/scripts/kconfig/Makefile
-+++ b/scripts/kconfig/Makefile
-@@ -33,6 +33,9 @@ config: $(obj)/conf
- nconfig: $(obj)/nconf
- 	$< $(silent) $(Kconfig)
- 
-+lconfig: $(obj)/lconf
-+	@ $< $(silent) $(Kconfig)
-+
- silentoldconfig: $(obj)/conf
- 	$(Q)mkdir -p include/config include/generated
- 	$(Q)test -e include/generated/autoksyms.h || \
-@@ -183,12 +186,13 @@ lxdialog += lxdialog/textbox.o lxdialog/yesno.o lxdialog/menubox.o
- conf-objs	:= conf.o  zconf.tab.o
- mconf-objs     := mconf.o zconf.tab.o $(lxdialog)
- nconf-objs     := nconf.o zconf.tab.o nconf.gui.o
-+lconf-objs     := lconf.o zconf.tab.o
- kxgettext-objs	:= kxgettext.o zconf.tab.o
- qconf-cxxobjs	:= qconf.o
- qconf-objs	:= zconf.tab.o
- gconf-objs	:= gconf.o zconf.tab.o
- 
--hostprogs-y := conf nconf mconf kxgettext qconf gconf
-+hostprogs-y := conf nconf mconf kxgettext qconf gconf lconf
- 
- clean-files	:= qconf.moc .tmp_qtcheck .tmp_gtkcheck
- clean-files	+= zconf.tab.c zconf.lex.c zconf.hash.c gconf.glade.h
-diff --git a/scripts/kconfig/kconfig b/scripts/kconfig/kconfig
-new file mode 100755
-index 000000000000..beab8fc829c9
---- /dev/null
-+++ b/scripts/kconfig/kconfig
-@@ -0,0 +1,33 @@
-+#!/bin/sh
-+
-+usage() {
-+	echo "kconfig [search|set] string"
-+	exit 1;
-+}
-+
-+if [ "$1" = "" ] ; then
-+	usage
-+fi
-+
-+if [ "$1" = "search" ] ; then
-+
-+	search=$2
-+	NCONFIG_MODE=kconfig_search SEARCH=${search} make lconfig
-+
-+elif [ "$1" = "set" ] ; then
-+
-+	config=$2
-+	setting=$3
-+
-+	if [ $config = "" ] ; then
-+		echo "nothing to set"
-+		exit 1
-+	fi
-+
-+	NCONFIG_MODE=kconfig_set CONFIG=${config} SETTING=${setting} make lconfig
-+
-+else
-+	usage
-+fi
-+
-+
-diff --git a/scripts/kconfig/lconf.c b/scripts/kconfig/lconf.c
-new file mode 100644
-index 000000000000..ebc3cbd4ef83
---- /dev/null
-+++ b/scripts/kconfig/lconf.c
-@@ -0,0 +1,332 @@
-+/*
-+ * Copyright (C) 2015 Oracle
-+ * Released under the terms of the GNU GPL v2.0.
-+ *
-+ */
-+#define _GNU_SOURCE
-+#include <string.h>
-+#include <stdlib.h>
-+
-+#include "lkc.h"
-+#include "nconf.h"
-+#include <ctype.h>
-+
-+static int indent;
-+static char line[128];
-+
-+static int get_depends(struct symbol *sym);
-+
-+static void strip(char *str)
-+{
-+	char *p = str;
-+	int l;
-+
-+	while ((isspace(*p)))
-+		p++;
-+	l = strlen(p);
-+	if (p != str)
-+		memmove(str, p, l + 1);
-+	if (!l)
-+		return;
-+	p = str + l - 1;
-+	while ((isspace(*p)))
-+		*p-- = 0;
-+}
-+
-+static void xfgets(char *str, int size, FILE *in)
-+{
-+	if (fgets(str, size, in) == NULL)
-+		fprintf(stderr, "\nError in reading or end of file.\n");
-+}
-+
-+static tristate str_to_tristate(const char *str)
-+{
-+	switch (str[0]) {
-+	case 'y': case 'Y':
-+		return yes;
-+	case 'm': case 'M':
-+		return mod;
-+	case 'n': case 'N':
-+	default:
-+		return no;
-+	}
-+}
-+
-+static int conf_askvalue(struct symbol *sym, const char *def)
-+{
-+	enum symbol_type type = sym_get_type(sym);
-+
-+	if (!sym_has_value(sym))
-+		printf(_("(NEW) "));
-+
-+	line[0] = '\n';
-+	line[1] = 0;
-+
-+	if (!sym_is_changable(sym)) {
-+		printf("%s\n", def);
-+		line[0] = '\n';
-+		line[1] = 0;
-+		return 0;
-+	}
-+
-+	fflush(stdout);
-+	xfgets(line, 128, stdin);
-+
-+	switch (type) {
-+	case S_INT:
-+	case S_HEX:
-+	case S_STRING:
-+		printf("%s\n", def);
-+		return 1;
-+	default:
-+		;
-+	}
-+	printf("%s", line);
-+	return 1;
-+}
-+
-+static struct property *get_symbol_prop(struct symbol *sym)
-+{
-+	struct property *prop = NULL;
-+
-+	for_all_properties(sym, prop, P_SYMBOL)
-+		break;
-+	return prop;
-+}
-+
-+static int conf_sym(struct symbol *sym)
-+{
-+	tristate oldval, newval;
-+	struct property *prop;
-+
-+	while (1) {
-+		if (sym->name)
-+			printf("%s: ", sym->name);
-+		for_all_prompts(sym, prop)
-+			printf("%*s%s ", indent - 1, "",  _(prop->text));
-+		putchar('[');
-+		oldval = sym_get_tristate_value(sym);
-+		switch (oldval) {
-+		case no:
-+			putchar('N');
-+			break;
-+		case mod:
-+			putchar('M');
-+			break;
-+		case yes:
-+			putchar('Y');
-+			break;
-+		}
-+		if (oldval != no && sym_tristate_within_range(sym, no))
-+			printf("/n");
-+		if (oldval != mod && sym_tristate_within_range(sym, mod))
-+			printf("/m");
-+		if (oldval != yes && sym_tristate_within_range(sym, yes))
-+			printf("/y");
-+		/* FIXME: I don't know how to get the help text from the sym */
-+		printf("] ");
-+		if (!conf_askvalue(sym, sym_get_string_value(sym)))
-+			return 0;
-+		strip(line);
-+
-+		switch (line[0]) {
-+		case 'n':
-+		case 'N':
-+			newval = no;
-+			if (!line[1] || !strcmp(&line[1], "o"))
-+				break;
-+			continue;
-+		case 'm':
-+		case 'M':
-+			newval = mod;
-+			if (!line[1])
-+				break;
-+			continue;
-+		case 'y':
-+		case 'Y':
-+			newval = yes;
-+			if (!line[1] || !strcmp(&line[1], "es"))
-+				break;
-+			continue;
-+		case 0:
-+			newval = oldval;
-+			break;
-+		default:
-+			continue;
-+		}
-+		if (sym_set_tristate_value(sym, newval)) {
-+			/* FIXME: if I don't write it doesn't save */
-+			conf_write(NULL, 1);
-+			return 1;
-+		}
-+	}
-+}
-+
-+static int enable_sym(struct symbol *sym)
-+{
-+	if (sym_get_tristate_value(sym) != no)
-+		return 0;
-+
-+	if (!sym->visible) {
-+		if (!get_depends(sym))
-+			return 0;
-+		printf("%s: has missing dependencies\n", sym->name);
-+	}
-+
-+	return conf_sym(sym);
-+}
-+
-+static void expr_parse(struct expr *e)
-+{
-+	if (!e)
-+		return;
-+
-+	switch (e->type) {
-+	case E_EQUAL:
-+		printf("set '%s' to '%s'\n", e->left.sym->name, e->right.sym->name);
-+		break;
-+
-+	case E_AND:
-+		expr_parse(e->left.expr);
-+		expr_parse(e->right.expr);
-+		break;
-+
-+	case E_SYMBOL:
-+		enable_sym(e->left.sym);
-+		break;
-+
-+	case E_NOT:
-+	case E_UNEQUAL:
-+	case E_OR:
-+	case E_LIST:
-+	case E_RANGE:
-+	default:
-+		printf("HELP.  Lot of unimplemented code.  %d\n", e->type);
-+		break;
-+	}
-+}
-+
-+static int get_depends(struct symbol *sym)
-+{
-+	struct property *prop;
-+	struct gstr res = str_new();
-+
-+	prop = get_symbol_prop(sym);
-+	if (!prop)
-+		return 0;
-+
-+	expr_gstr_print(prop->visible.expr, &res);
-+	printf("%s\n\n", str_get(&res));
-+
-+	expr_parse(prop->visible.expr);
-+
-+	return 1;
-+}
-+
-+static void kconfig_search(void)
-+{
-+	char *search_str;
-+	struct symbol **sym_arr;
-+	struct gstr res;
-+
-+	search_str = getenv("SEARCH");
-+	if (!search_str)
-+		return;
-+
-+	sym_arr = sym_re_search(search_str);
-+	res = get_relations_str(sym_arr, NULL);
-+	printf("%s", str_get(&res));
-+}
-+
-+static void kconfig_set(void)
-+{
-+	struct symbol *sym;
-+	char *config;
-+	char *setting;
-+	int res;
-+
-+	config = getenv("CONFIG");
-+	if (!config)
-+		return;
-+	if (strncmp(config, "CONFIG_", 7) == 0)
-+		config += 7;
-+
-+	setting = strchr(config, '=');
-+	if (setting) {
-+		*setting = '\0';
-+		setting++;
-+	} else {
-+		setting = getenv("SETTING");
-+		if (setting && *setting == '\0')
-+			setting = NULL;
-+	}
-+
-+	sym = sym_find(config);
-+	if (!sym) {
-+		printf("Error: '%s' not found.\n", config);
-+		return;
-+	}
-+
-+	if (sym->curr.tri == str_to_tristate(setting)) {
-+		printf("Already set:  %s=%s\n", sym->name, setting);
-+		return;
-+	}
-+
-+	if (!sym->visible) {
-+		printf("\n%s: has missing dependencies\n", sym->name);
-+		if (!get_depends(sym))
-+			return;
-+	}
-+	if (!sym->visible) {
-+		printf("Error: unmet dependencies\n");
-+		return;
-+	}
-+
-+	if (!setting) {
-+		conf_sym(sym);
-+	} else if (!sym_set_string_value(sym, setting)) {
-+		printf("Error: setting '%s=%s' failed.\n", sym->name, setting);
-+		return;
-+	}
-+
-+	res = conf_write(NULL, 1);
-+	if (res) {
-+		printf("Error during writing of configuration.\n"
-+			"Your configuration changes were NOT saved.\n");
-+		return;
-+	}
-+
-+	printf("set: %s=%s\n", config, sym_get_string_value(sym));
-+}
-+
-+int main(int ac, char **av)
-+{
-+	char *mode;
-+
-+	setlocale(LC_ALL, "");
-+	bindtextdomain(PACKAGE, LOCALEDIR);
-+	textdomain(PACKAGE);
-+
-+	if (ac > 1 && strcmp(av[1], "-s") == 0) {
-+		/* Silence conf_read() until the real callback is set up */
-+		conf_set_message_callback(NULL);
-+		av++;
-+	}
-+	conf_parse(av[1]);
-+	conf_read(NULL);
-+
-+	mode = getenv("NCONFIG_MODE");
-+	if (!mode)
-+		return 1;
-+
-+	if (strcmp(mode, "kconfig_search") == 0) {
-+		kconfig_search();
-+		return 0;
-+	}
-+	if (strcmp(mode, "kconfig_set") == 0) {
-+		kconfig_set();
-+		return 0;
-+	}
-+
-+	return 1;
-+}
--- 
-2.11.0
+--=-2smHFfIwEV/LKJhyy71B--
