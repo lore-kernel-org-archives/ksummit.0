@@ -1,26 +1,43 @@
-Return-Path: <laurent.pinchart@ideasonboard.com>
+Return-Path: <daniel.vetter@ffwll.ch>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2A6CCA80
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B87C7891
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Jul 2017 21:19:49 +0000 (UTC)
-Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
-	[185.26.127.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 829D23F5
+	Thu,  6 Jul 2017 21:28:30 +0000 (UTC)
+Received: from mail-it0-f66.google.com (mail-it0-f66.google.com
+	[209.85.214.66])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 18BDC248
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Jul 2017 21:19:48 +0000 (UTC)
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Fri, 07 Jul 2017 00:19:46 +0300
-Message-ID: <1601331.LiGNiPeBdk@avalon>
-In-Reply-To: <20170706144028.46a2mt2mdzpt6ip7@mwanda>
-References: <20170627135839.GB1886@jagdpanzerIV.localdomain>
-	<20170706144028.46a2mt2mdzpt6ip7@mwanda>
+	Thu,  6 Jul 2017 21:28:30 +0000 (UTC)
+Received: by mail-it0-f66.google.com with SMTP id k3so2505410ita.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 06 Jul 2017 14:28:30 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-Cc: Dan Carpenter <dan.carpenter@oracle.com>, Michal Hocko <mhocko@kernel.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] is Kconfig a bit hard sometimes?
+In-Reply-To: <20170706145346.6w2uzcf7xacbr3or@thunk.org>
+References: <20170705084528.67499f8c@gandalf.local.home>
+	<4080ecc7-1aa8-2940-f230-1b79d656cdb4@redhat.com>
+	<20170705092757.63dc2328@gandalf.local.home>
+	<20170705140607.GA30187@kroah.com>
+	<a462fb3b-a6d4-e969-b301-b404981de224@roeck-us.net>
+	<20170705112707.54d7f345@gandalf.local.home>
+	<c782a15a-4e73-7373-ca66-5b55e9406059@roeck-us.net>
+	<20170705130200.7c653f61@gandalf.local.home>
+	<20170706092836.ifcnc2qqwufndhdl@sirena.org.uk>
+	<CAKMK7uFH+Kz8Mdph=J_FCZ4LC3tzoOmwNJPpSO+snTz6p0Xz+w@mail.gmail.com>
+	<20170706145346.6w2uzcf7xacbr3or@thunk.org>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Thu, 6 Jul 2017 23:28:28 +0200
+Message-ID: <CAKMK7uGQz8soDJ-+eLnDArx382jiMAWeFwrJK_LxJkWYJ6DKmQ@mail.gmail.com>
+To: "Theodore Ts'o" <tytso@mit.edu>
+Content-Type: text/plain; charset="UTF-8"
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Carlos O'Donell <carlos@redhat.com>,
+	"open list:ABI/API" <linux-api@vger.kernel.org>,
+	Thorsten Leemhuis <linux@leemhuis.info>,
+	Shuah Khan <shuahkh@osg.samsung.com>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] & [TECH TOPIC] Improve
+ regression tracking
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,35 +47,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thursday 06 Jul 2017 17:40:29 Dan Carpenter wrote:
-> People have mentioned "make oldconfig" but I've never had a lot of luck
-> with that.  It always just prints "* Restart config..." and deletes my
-> config.
+On Thu, Jul 6, 2017 at 4:53 PM, Theodore Ts'o <tytso@mit.edu> wrote:
+> On Thu, Jul 06, 2017 at 11:41:39AM +0200, Daniel Vetter wrote:
+>> +1. That pretty much means large-scale CI. The i915 test suite has
+>> suffered quite a bit over the past years because the CI infrastructure
+>> didn't keep up. Result is that running full CI kills pretty much every
+>> platform there is eventually, and it's really hard to get back to a
+>> state where the testsuite can be used to catch regressions again.
+>
+> I assume the i915 test suite requires real hardware and can't be run
+> on VM's; is that correct?
 
-I like oldconfig as it makes it easy to find about new options when upgrading 
-the kernel. However, there's one thing that bothers me. When jumping by more 
-than one kernel version, the number of options can be quite high, in which 
-case I sometimes make mistakes answering questions. I'd love it if Kconfig 
-allowed me to go back and correct mistakes, instead of having to note the 
-option down and modify it manually afterwards.
+Yes, that's another problem. If all bigger teams/subsystems would do
+what we'd do, but extended to all mailing lists, your patch series
+would get replies from a few hundred CI farms. Not sure that would
+scale ... And there's no way ever that one single entity will have
+hardware for everything.
 
-> Also I hate menus.  It's such a pain if you want to enable a feature and
-> you have to do a dungeon crawl through our menu system to try find it.
-> 
-> I wrote a script a couple years ago to create kernel configs.  I do a
-> make defconfig, then I take a distro config and I do:
-> 
->     for i in $(grep =m old_config) ; do
-> 	./scripts/kconfig/kconfig set $i
->     done
-> 
-> This prints a lot of errors and the code is only half implemented but
-> it's honestly the easiest way for me to get a bootable kernel these
-> days.  If someone wanted to the could add a "./scripts/kconfig/kconfig
-> file <name>" command that would read a line at a time and call
-> `./scripts/kconfig/kconfig set $line` over and over.
-
+And if you only CI the mailing list for your own subsystem then every
+time a merge window happens your CI will be out of service (4.13 seems
+extremely bad, atm nothing survives an extended run on linux-next for
+us).
+-Daniel
 -- 
-Regards,
-
-Laurent Pinchart
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
