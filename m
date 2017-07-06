@@ -1,30 +1,24 @@
-Return-Path: <laurent.pinchart@ideasonboard.com>
+Return-Path: <dan.carpenter@oracle.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1519989C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E5AB59AF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Jul 2017 11:34:46 +0000 (UTC)
-Received: from galahad.ideasonboard.com (galahad.ideasonboard.com
-	[185.26.127.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CB98C151
+	Thu,  6 Jul 2017 14:40:43 +0000 (UTC)
+Received: from userp1040.oracle.com (userp1040.oracle.com [156.151.31.81])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8B977A4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Jul 2017 11:34:44 +0000 (UTC)
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Thu, 06 Jul 2017 14:34:38 +0300
-Message-ID: <7042009.5tkGy6PEBL@avalon>
-In-Reply-To: <20170705121000.5430d7d0@gandalf.local.home>
-References: <576cea07-770a-4864-c3f5-0832ff211e94@leemhuis.info>
-	<8c6843e8-73d9-a898-0366-0b72dfeb79a2@redhat.com>
-	<20170705121000.5430d7d0@gandalf.local.home>
+	Thu,  6 Jul 2017 14:40:43 +0000 (UTC)
+Date: Thu, 6 Jul 2017 17:40:29 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Sergey Senozhatsky <sergey.senozhatsky.work@gmail.com>
+Message-ID: <20170706144028.46a2mt2mdzpt6ip7@mwanda>
+References: <20170627135839.GB1886@jagdpanzerIV.localdomain>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-Cc: Carlos O'Donell <carlos@redhat.com>, linux-api@vger.kernel.org,
-	Thorsten Leemhuis <linux@leemhuis.info>,
-	Shuah Khan <shuahkh@osg.samsung.com>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] & [TECH TOPIC] Improve
-	regression tracking
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20170627135839.GB1886@jagdpanzerIV.localdomain>
+Cc: ksummit-discuss@lists.linuxfoundation.org, Michal Hocko <mhocko@kernel.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] is Kconfig a bit hard sometimes?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,30 +28,25 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wednesday 05 Jul 2017 12:10:00 Steven Rostedt wrote:
-> On Wed, 5 Jul 2017 11:08:48 -0400 Carlos O'Donell wrote:
-> > On 07/05/2017 10:33 AM, Steven Rostedt wrote:
-> > > No test should be written for a single specific hardware. It should be a
-> > > general functionality that different hardware can execute.
-> > 
-> > Why? We test all sorts of hardware in userspace and we see value in that
-> > testing.
-> 
-> One reason is for bit rot. I'm not totally against it. But I envision
-> that if we have hundreds of tests for very specific pieces of hardware,
-> it's value will diminish over time. Unless we can get a good
-> infrastructure written where the hardware info is more of a data sheet
-> then a single test itself.
+People have mentioned "make oldconfig" but I've never had a lot of luck
+with that.  It always just prints "* Restart config..." and deletes my
+config.
 
-That's all nice, but when the hardware is complex and not fully abstracted 
-behind a kernel API, tests are bound to be hardware-specific. Of course, a bug 
-or regression observed only with a specific device, but triggered through the 
-usage of abstract APIs only, can lead to a test case written for that device 
-but runnable with any device in the same category. In that case the test case 
-should certainly be added to a test suite for the corresponding API/subsystem, 
-not to an hidden test suite for a particular device.
+Also I hate menus.  It's such a pain if you want to enable a feature and
+you have to do a dungeon crawl through our menu system to try find it.
 
--- 
-Regards,
+I wrote a script a couple years ago to create kernel configs.  I do a
+make defconfig, then I take a distro config and I do:
 
-Laurent Pinchart
+    for i in $(grep =m old_config) ; do
+	./scripts/kconfig/kconfig set $i
+    done
+
+This prints a lot of errors and the code is only half implemented but
+it's honestly the easiest way for me to get a bootable kernel these
+days.  If someone wanted to the could add a "./scripts/kconfig/kconfig
+file <name>" command that would read a line at a time and call
+`./scripts/kconfig/kconfig set $line` over and over.
+
+regards,
+dan carpenter
