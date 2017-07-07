@@ -1,39 +1,27 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <dan.carpenter@oracle.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6E82871F
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 42D54901
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  7 Jul 2017 10:03:54 +0000 (UTC)
-Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
-	[106.187.55.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id AF8C0152
+	Fri,  7 Jul 2017 11:37:06 +0000 (UTC)
+Received: from userp1040.oracle.com (userp1040.oracle.com [156.151.31.81])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id EC091140
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  7 Jul 2017 10:03:53 +0000 (UTC)
-Date: Fri, 7 Jul 2017 11:03:40 +0100
-From: Mark Brown <broonie@kernel.org>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Message-ID: <20170707100340.kgks5aykbnwtc6om@sirena.org.uk>
-References: <20170705084528.67499f8c@gandalf.local.home>
-	<4080ecc7-1aa8-2940-f230-1b79d656cdb4@redhat.com>
-	<20170705092757.63dc2328@gandalf.local.home>
-	<20170705140607.GA30187@kroah.com>
-	<a462fb3b-a6d4-e969-b301-b404981de224@roeck-us.net>
-	<20170705112707.54d7f345@gandalf.local.home>
-	<c782a15a-4e73-7373-ca66-5b55e9406059@roeck-us.net>
-	<20170705130200.7c653f61@gandalf.local.home>
-	<20170706092836.ifcnc2qqwufndhdl@sirena.org.uk>
-	<1499352485.2765.14.camel@HansenPartnership.com>
+	Fri,  7 Jul 2017 11:37:04 +0000 (UTC)
+Date: Fri, 7 Jul 2017 14:36:51 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Message-ID: <20170707113650.ee6oys5u4vq5hgdi@mwanda>
+References: <20170627135839.GB1886@jagdpanzerIV.localdomain>
+	<20170706144028.46a2mt2mdzpt6ip7@mwanda>
+	<CA+55aFyPQeMYUafR32parh=jGU0O8prn5vhOhhW+WBU-LbR4HQ@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="attlk64ykvabgczj"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1499352485.2765.14.camel@HansenPartnership.com>
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	Carlos O'Donell <carlos@redhat.com>, linux-api@vger.kernel.org,
-	Shuah Khan <shuahkh@osg.samsung.com>,
-	Thorsten Leemhuis <linux@leemhuis.info>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] & [TECH TOPIC] Improve
- regression tracking
+In-Reply-To: <CA+55aFyPQeMYUafR32parh=jGU0O8prn5vhOhhW+WBU-LbR4HQ@mail.gmail.com>
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
+	Michal Hocko <mhocko@kernel.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] is Kconfig a bit hard sometimes?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -43,52 +31,17 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Thu, Jul 06, 2017 at 09:41:36AM -0700, Linus Torvalds wrote:
+> On Thu, Jul 6, 2017 at 7:40 AM, Dan Carpenter <dan.carpenter@oracle.com> wrote:
+> > People have mentioned "make oldconfig" but I've never had a lot of luck
+> > with that.  It always just prints "* Restart config..." and deletes my
+> > config.
+> 
+> Really?
+> 
 
---attlk64ykvabgczj
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Argh.  You're right.  I'm an idiot.  It's actually working fine, but it
+asked so many questions I thought it was broken.
 
-On Thu, Jul 06, 2017 at 07:48:05AM -0700, James Bottomley wrote:
-> On Thu, 2017-07-06 at 10:28 +0100, Mark Brown wrote:
-
-> > I think before anything like that is viable we need to show a
-> > concerted and visible interest in actually running the tests we
-> > already have and paying attention to the results - if people can see
-> > that they're just checking a checkbox that will often result in low
-> > quality tests which can do more harm than good.
-
-> it depends what you mean by "we". =A0I used to run a battery of tests
-> over every SCSI commit. =A0It was time consuming and slowed down the
-
-We as a community, I think something viable needs to be central services
-like kernelci that's automated and allows multiple people to be involved
-with the analysis.  Hand running tests at scale just doesn't.
-
-> The corollary I take away from this is that the less intrusive the test
-> infrastructure is (at least to my process) the happier I am. =A0The 0day
-> quantum leap for me was going from testing my tree and telling me of
-> problems after I've added the patch to testing patches posted to the
-> mailing list, which tells me of problems *before* the commit gets added
-> to the tree.
-
-I think we'd get a long way just by looking at what's ending up in -next
-- it's not as good as detecting things before they go in but it's
-workable if people keep on top of things.
-
---attlk64ykvabgczj
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCAAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAllfXHsACgkQJNaLcl1U
-h9CIagf/We9o3cz3RguWNDRdF+cqAUlVet+sULv+7LpwQmvBbeKkLKFgXwd8iRN6
-nNSE6FQxjg7NkhkrGvuRCZAmF+u2gx/IhMNpCwSsYltH3oecP0yfzCvU5IXev3R5
-slIgKIglkMBVpKKpe2db+JaKKrXxfKZLtkTA2q8NACzHDrtBniW/ixIVnS5mK2CC
-y1XH3weBDJWYn+An35e9OKmYgsA4OKae+tuKpRtvdbP9Y1rQkOC4geLse2+95ZX9
-u4Hh8pcIXiyJC6IddgaI+zuqAnptdPm9jlVGh5AUGAwPMouZ2uIN/edpovcUuhyV
-0aCB5BZP9I4hYWxwKHGyqvcYh1OYxQ==
-=JrOG
------END PGP SIGNATURE-----
-
---attlk64ykvabgczj--
+regards,
+dan carpenter
