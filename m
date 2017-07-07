@@ -1,27 +1,35 @@
-Return-Path: <dan.carpenter@oracle.com>
+Return-Path: <krzk@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 42D54901
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 86375A55
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  7 Jul 2017 11:37:06 +0000 (UTC)
-Received: from userp1040.oracle.com (userp1040.oracle.com [156.151.31.81])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id EC091140
+	Fri,  7 Jul 2017 05:55:30 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 139E5E4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  7 Jul 2017 11:37:04 +0000 (UTC)
-Date: Fri, 7 Jul 2017 14:36:51 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Message-ID: <20170707113650.ee6oys5u4vq5hgdi@mwanda>
-References: <20170627135839.GB1886@jagdpanzerIV.localdomain>
-	<20170706144028.46a2mt2mdzpt6ip7@mwanda>
-	<CA+55aFyPQeMYUafR32parh=jGU0O8prn5vhOhhW+WBU-LbR4HQ@mail.gmail.com>
+	Fri,  7 Jul 2017 05:55:29 +0000 (UTC)
+Received: from mail-wr0-f169.google.com (mail-wr0-f169.google.com
+	[209.85.128.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id 8799C22BDE
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri,  7 Jul 2017 05:55:29 +0000 (UTC)
+Received: by mail-wr0-f169.google.com with SMTP id k67so31202518wrc.2
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 06 Jul 2017 22:55:29 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CA+55aFyPQeMYUafR32parh=jGU0O8prn5vhOhhW+WBU-LbR4HQ@mail.gmail.com>
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
-	Michal Hocko <mhocko@kernel.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] is Kconfig a bit hard sometimes?
+In-Reply-To: <20170706144208.6hlgxwo37gntk6qm@mwanda>
+References: <20170706144028.46a2mt2mdzpt6ip7@mwanda>
+	<20170706144208.6hlgxwo37gntk6qm@mwanda>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Date: Fri, 7 Jul 2017 07:55:27 +0200
+Message-ID: <CAJKOXPfE+ffRWq_1JB_1LSpg4gDne5pWNN2fKd-3t1hwX7amFA@mail.gmail.com>
+To: Dan Carpenter <dan.carpenter@oracle.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: ksummit-discuss@lists.linuxfoundation.org, Michal Hocko <mhocko@kernel.org>
+Subject: Re: [Ksummit-discuss] [PATCH 2/2] kconfig: new command line kernel
+ configuration tool
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,17 +39,59 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Jul 06, 2017 at 09:41:36AM -0700, Linus Torvalds wrote:
-> On Thu, Jul 6, 2017 at 7:40 AM, Dan Carpenter <dan.carpenter@oracle.com> wrote:
-> > People have mentioned "make oldconfig" but I've never had a lot of luck
-> > with that.  It always just prints "* Restart config..." and deletes my
-> > config.
-> 
-> Really?
-> 
+On Thu, Jul 6, 2017 at 4:42 PM, Dan Carpenter <dan.carpenter@oracle.com> wrote:
+> This tool barely works, it's just a rough draft.
+>
+> Sometimes I want to search for a config so I have to load menuconfig,
+> then search for the config entry, then exit.  With this script I
+> simply run:
+>
+>     ./scripts/kconfig/kconfig search COMEDI
+>
+> Quite often I find myself trying to enable a feature by doing this:
+>
+>     echo CONFIG_FEATURE=y >> .config
+>
+> But when I try to boot the new kernel, I find that the feature isn't
+> there because the kernel runs `make oldconfig` and I didn't have all
+> the depends selected so it silently removed it.  With this feature
+> what you can do is:
+>
+>     ./scripts/kconfig/kconfig set FEATURE=y
 
-Argh.  You're right.  I'm an idiot.  It's actually working fine, but it
-asked so many questions I thought it was broken.
+Sounds useful. I need to enable few options from scripts and if
+dependencies change they could be silently skipped.
 
-regards,
-dan carpenter
+Probably it would be nice to print what was effectively enabled to get
+your feature in. However why not extending existing scripts/config? It
+already has the feature for setting kconfig options (without looking
+at dependencies - so like >> of yours).
+
+Best regards,
+Krzysztof
+
+>
+> It helps you enable the dependencies or it at least prints an error
+> if it can't enable the feature.
+>
+> But this code isn't all implemented.  1) It doesn't calculate the
+> dependencies well.  See expr_parse() for more details.  2)  It
+> doesn't work well for things like:
+>
+>         ./scripts/kconfig/kconfig set BT_INTEL=m
+>
+> because those aren't visible, they can only be using depend
+> statements.  Or say you try to set FEATURE=m when something else
+> depends on it be set =y then the error message is wrong.  The
+> other problem is that I don't know how to print the help text.
+> Again, this is just a rough draft.
+>
+> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+> ---
+>  scripts/kconfig/Makefile |   6 +-
+>  scripts/kconfig/kconfig  |  33 +++++
+>  scripts/kconfig/lconf.c  | 332 +++++++++++++++++++++++++++++++++++++++++++++++
+>  3 files changed, 370 insertions(+), 1 deletion(-)
+>  create mode 100755 scripts/kconfig/kconfig
+>  create mode 100644 scripts/kconfig/lconf.c
+>
