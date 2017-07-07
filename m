@@ -1,27 +1,39 @@
-Return-Path: <dan.carpenter@oracle.com>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9F279891
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6E82871F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  7 Jul 2017 09:02:21 +0000 (UTC)
-Received: from aserp1040.oracle.com (aserp1040.oracle.com [141.146.126.69])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0F3DB18D
+	Fri,  7 Jul 2017 10:03:54 +0000 (UTC)
+Received: from mezzanine.sirena.org.uk (mezzanine.sirena.org.uk
+	[106.187.55.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id AF8C0152
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  7 Jul 2017 09:02:20 +0000 (UTC)
-Date: Fri, 7 Jul 2017 12:02:06 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Message-ID: <20170707090206.uiry6j7yizpl7yw4@mwanda>
-References: <20170706144028.46a2mt2mdzpt6ip7@mwanda>
-	<20170706144208.6hlgxwo37gntk6qm@mwanda>
-	<CAJKOXPfE+ffRWq_1JB_1LSpg4gDne5pWNN2fKd-3t1hwX7amFA@mail.gmail.com>
+	Fri,  7 Jul 2017 10:03:53 +0000 (UTC)
+Date: Fri, 7 Jul 2017 11:03:40 +0100
+From: Mark Brown <broonie@kernel.org>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Message-ID: <20170707100340.kgks5aykbnwtc6om@sirena.org.uk>
+References: <20170705084528.67499f8c@gandalf.local.home>
+	<4080ecc7-1aa8-2940-f230-1b79d656cdb4@redhat.com>
+	<20170705092757.63dc2328@gandalf.local.home>
+	<20170705140607.GA30187@kroah.com>
+	<a462fb3b-a6d4-e969-b301-b404981de224@roeck-us.net>
+	<20170705112707.54d7f345@gandalf.local.home>
+	<c782a15a-4e73-7373-ca66-5b55e9406059@roeck-us.net>
+	<20170705130200.7c653f61@gandalf.local.home>
+	<20170706092836.ifcnc2qqwufndhdl@sirena.org.uk>
+	<1499352485.2765.14.camel@HansenPartnership.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="attlk64ykvabgczj"
 Content-Disposition: inline
-In-Reply-To: <CAJKOXPfE+ffRWq_1JB_1LSpg4gDne5pWNN2fKd-3t1hwX7amFA@mail.gmail.com>
-Cc: ksummit-discuss@lists.linuxfoundation.org, Michal Hocko <mhocko@kernel.org>
-Subject: Re: [Ksummit-discuss] [PATCH 2/2] kconfig: new command line kernel
- configuration tool
+In-Reply-To: <1499352485.2765.14.camel@HansenPartnership.com>
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	Carlos O'Donell <carlos@redhat.com>, linux-api@vger.kernel.org,
+	Shuah Khan <shuahkh@osg.samsung.com>,
+	Thorsten Leemhuis <linux@leemhuis.info>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] & [TECH TOPIC] Improve
+ regression tracking
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,39 +43,52 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 07, 2017 at 07:55:27AM +0200, Krzysztof Kozlowski wrote:
-> On Thu, Jul 6, 2017 at 4:42 PM, Dan Carpenter <dan.carpenter@oracle.com> wrote:
-> > This tool barely works, it's just a rough draft.
-> >
-> > Sometimes I want to search for a config so I have to load menuconfig,
-> > then search for the config entry, then exit.  With this script I
-> > simply run:
-> >
-> >     ./scripts/kconfig/kconfig search COMEDI
-> >
-> > Quite often I find myself trying to enable a feature by doing this:
-> >
-> >     echo CONFIG_FEATURE=y >> .config
-> >
-> > But when I try to boot the new kernel, I find that the feature isn't
-> > there because the kernel runs `make oldconfig` and I didn't have all
-> > the depends selected so it silently removed it.  With this feature
-> > what you can do is:
-> >
-> >     ./scripts/kconfig/kconfig set FEATURE=y
-> 
-> Sounds useful. I need to enable few options from scripts and if
-> dependencies change they could be silently skipped.
-> 
-> Probably it would be nice to print what was effectively enabled to get
-> your feature in. However why not extending existing scripts/config? It
-> already has the feature for setting kconfig options (without looking
-> at dependencies - so like >> of yours).
-> 
 
-I didn't know about scripts/config when I wrote it.  scripts/config is
-essentially a UI around "echo CONFIG_FOO=m >> .config".  It's totally
-useless.
+--attlk64ykvabgczj
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-regards,
-dan carpenter
+On Thu, Jul 06, 2017 at 07:48:05AM -0700, James Bottomley wrote:
+> On Thu, 2017-07-06 at 10:28 +0100, Mark Brown wrote:
+
+> > I think before anything like that is viable we need to show a
+> > concerted and visible interest in actually running the tests we
+> > already have and paying attention to the results - if people can see
+> > that they're just checking a checkbox that will often result in low
+> > quality tests which can do more harm than good.
+
+> it depends what you mean by "we". =A0I used to run a battery of tests
+> over every SCSI commit. =A0It was time consuming and slowed down the
+
+We as a community, I think something viable needs to be central services
+like kernelci that's automated and allows multiple people to be involved
+with the analysis.  Hand running tests at scale just doesn't.
+
+> The corollary I take away from this is that the less intrusive the test
+> infrastructure is (at least to my process) the happier I am. =A0The 0day
+> quantum leap for me was going from testing my tree and telling me of
+> problems after I've added the patch to testing patches posted to the
+> mailing list, which tells me of problems *before* the commit gets added
+> to the tree.
+
+I think we'd get a long way just by looking at what's ending up in -next
+- it's not as good as detecting things before they go in but it's
+workable if people keep on top of things.
+
+--attlk64ykvabgczj
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCAAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAllfXHsACgkQJNaLcl1U
+h9CIagf/We9o3cz3RguWNDRdF+cqAUlVet+sULv+7LpwQmvBbeKkLKFgXwd8iRN6
+nNSE6FQxjg7NkhkrGvuRCZAmF+u2gx/IhMNpCwSsYltH3oecP0yfzCvU5IXev3R5
+slIgKIglkMBVpKKpe2db+JaKKrXxfKZLtkTA2q8NACzHDrtBniW/ixIVnS5mK2CC
+y1XH3weBDJWYn+An35e9OKmYgsA4OKae+tuKpRtvdbP9Y1rQkOC4geLse2+95ZX9
+u4Hh8pcIXiyJC6IddgaI+zuqAnptdPm9jlVGh5AUGAwPMouZ2uIN/edpovcUuhyV
+0aCB5BZP9I4hYWxwKHGyqvcYh1OYxQ==
+=JrOG
+-----END PGP SIGNATURE-----
+
+--attlk64ykvabgczj--
