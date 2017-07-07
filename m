@@ -1,38 +1,28 @@
-Return-Path: <frowand.list@gmail.com>
+Return-Path: <avagin@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 78C60AA6
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3DBA8258
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  7 Jul 2017 04:52:33 +0000 (UTC)
-Received: from mail-pg0-f41.google.com (mail-pg0-f41.google.com [74.125.83.41])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0C4CFA7
+	Fri,  7 Jul 2017 06:15:28 +0000 (UTC)
+Received: from mail-pf0-f176.google.com (mail-pf0-f176.google.com
+	[209.85.192.176])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A049CAD
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  7 Jul 2017 04:52:32 +0000 (UTC)
-Received: by mail-pg0-f41.google.com with SMTP id t186so11340031pgb.1
+	Fri,  7 Jul 2017 06:15:26 +0000 (UTC)
+Received: by mail-pf0-f176.google.com with SMTP id q86so12186279pfl.3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 06 Jul 2017 21:52:32 -0700 (PDT)
-To: Fengguang Wu <fengguang.wu@intel.com>, Steven Rostedt <rostedt@goodmis.org>
+	Thu, 06 Jul 2017 23:15:26 -0700 (PDT)
+Date: Thu, 6 Jul 2017 23:15:20 -0700
+From: Andrei Vagin <avagin@gmail.com>
+To: Thorsten Leemhuis <linux@leemhuis.info>
+Message-ID: <20170707061519.GA25786@gmail.com>
 References: <576cea07-770a-4864-c3f5-0832ff211e94@leemhuis.info>
-	<20170703123025.7479702e@gandalf.local.home>
-	<ad94dc65-cc9c-f4f1-27c1-5a48603c7f59@leemhuis.info>
-	<20170705084528.67499f8c@gandalf.local.home>
-	<4080ecc7-1aa8-2940-f230-1b79d656cdb4@redhat.com>
-	<20170705092757.63dc2328@gandalf.local.home>
-	<20170705140607.GA30187@kroah.com>
-	<a462fb3b-a6d4-e969-b301-b404981de224@roeck-us.net>
-	<20170705112707.54d7f345@gandalf.local.home>
-	<20170707033302.rgpq5knzx3qvvr2p@wfg-t540p.sh.intel.com>
-From: Frank Rowand <frowand.list@gmail.com>
-Message-ID: <595F1389.60308@gmail.com>
-Date: Thu, 6 Jul 2017 21:52:25 -0700
 MIME-Version: 1.0
-In-Reply-To: <20170707033302.rgpq5knzx3qvvr2p@wfg-t540p.sh.intel.com>
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 7bit
-Cc: Carlos O'Donell <carlos@redhat.com>, linux-api@vger.kernel.org,
-	Thorsten Leemhuis <linux@leemhuis.info>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	Shuah Khan <shuahkh@osg.samsung.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <576cea07-770a-4864-c3f5-0832ff211e94@leemhuis.info>
+Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] & [TECH TOPIC] Improve
  regression tracking
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -44,51 +34,284 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 07/06/17 20:33, Fengguang Wu wrote:
-> On Wed, Jul 05, 2017 at 11:27:07AM -0400, Steven Rostedt wrote:
-> [snip]
->> I need to be clearer on this. What I meant was, if there's a bug
->> where someone has a test that easily reproduces the bug, then if
->> there's not a test added to selftests for said bug, then we should
->> shame those into doing so.
+Here I want to share our experience of testing linux-next and other
+trees. In CRIU we have a lot of tests for all sort of user-visible
+primitives. Our goal is to catch changes which breaks CRIU before they
+will be pushed to the Linus tree.
+
+https://criu.org/linux-next
+
+We run our test suite once a day for linux-next and a dozen of other
+trees. About a year ago we used DO to get a virtual machine to run
+tests, but now we use travis-ci.
+
+Here is an example of a daily report:
+https://travis-ci.org/avagin/criu/builds/250632728
+
+What are benefits of this approach?
+
+* It is free.
+* Everyone can run these tests for any kernel and he/she doesn't
+  need to spend hours to understand how to do that.
+* You don't need to have a hardware to run tests
+* You can do this periodically or for each patch or patchset
+
+For example, If we want to run CRIU tests for a kernel,
+we need to apply this patch to it:
+https://github.com/avagin/linux/commit/2f34796b04cead83fa85cf92cf694ac4369ca970
+
+and push its code to github, then travis-ci will run test for this
+kernel:
+
+https://travis-ci.org/avagin/linux/builds/250895561
+
+Here is a detailed article which describes how we start a new kernel in
+travis-ci:
+https://avagin.github.io/travis-kexec-criu
+
+The main idea, what I want to say, is that developers will use tests,
+only if they will be able to execute them with minimal forces. In ideal
+case, someone else has to run tests for them.
+
+In CRIU, we run our tests for each patchset and a patchset can be
+accepted only if it passed all test:
+
+https://patchwork.criu.org/project/criu/series/?ordering=-last_updated
+
+I know that the first problem is to write tests, but the next step is to
+setup CI to run these tests for all changes and I think we can start
+thinking about this problem too.
+
+On Sun, Jul 02, 2017 at 07:51:43PM +0200, Thorsten Leemhuis wrote:
+> Hi! Sorry, I know I'm late -- real life (travel, day job, ...) kept me
+> away from spending time on Linux kernel regression work :-/
 > 
-> Besides shaming, there's one more option -- acknowledgement.
+> Maybe I'm taking it a bit to far for the new kid in town, but I think I
+> want to propose two sessions. One for the maintainer summit, that deals
+> with a the most critical issues relevant to regression tracking. And one
+> technical session to deal with all the other stuff. Obviously we can
+> move below mentioned topics from one to the other or talk about them at
+> both if we want.
 > 
-> When it's a test case or test tool that discovered the bug, we could
-> acknowledge it by adding one line in the bug fixing patch. The exact
-> forms can be discussed, but here are some examples to show the basic
-> idea:
+> = [MAINTAINERS SUMMIT] Improve regression tracking =
 > 
-> Tool: lockdep
-> Tool: ktest
-> Tool: smatch
-> Tool: trinity
-> Tool: syzkaller
-> Tool: xfstests/tests/ext4/025
-> Tool: scripts/coccinelle/locks/call_kern.cocci
-> Tool: tools/testing/selftests/bpf/test_align.c
+>  * Follow up from last year: What to do about bugzilla.kernel.org?
+> Reporters still get stranded there.
+>  * How to get subsystems maintainer involved more in regression tracking
+> to better make sure that reported regressions are tracked and not
+> forgotten accidentally.
+>  * Frustrations with regression tracking aka. how to establish
+> regression tracking properly to make sure it will never go away again.
 > 
-> Reports from test infrastructures like 0day could go further to help
-> acknowledge the tool author or maintainer by showing such lines in its
-> bug report email:
+> = [TECH TOPIC] Improve the kernels quality by getting more people
+> involved in regression testing and reporting =
 > 
-> You may consider adding these lines in the bug fixing patch:
+>  * A short report from the outcome of the maintainer summit discussion;
+> also pick up and topics here that where not properly discussed on the
+> maintainer summit or were postponed to this session.
+>  * How to get distros more involved in regression tracking; especially
+> those that have a technical aware user base or normally ship up2date
+> kernel images (and thus have an greater interest in avoiding
+> regressions). I'm mainly thinking about Arch Linux, Debian, Fedora, and
+> openSUSE Tumbleweed here; having Ubuntu in the boat would be good, too!
+> (might be wise to talk about this on the maintainers summit as well, if
+> the right people are there)
+>  * How to make it more easy to (ideally automatically!) track the
+> current status and the progress of each regression? Are there any tools
+> that could make regression tracking easier for all of us while not
+> introducing much overhead for maintainers?
 > 
-> -----------------------[ cut here ]----------------------------------
-> Fixes: XXXXXXXXXX ("title of the buggy commit")
-> Tool: tools/testing/selftests/bpf/test_align.c <davem@davemloft.net>
-> Reported-by: 0day test robot <xiaolong.ye@intel.com>
-> -----------------------[ cut here ]----------------------------------
+> = Details =
 > 
-> Regards,
-> Fengguang
+> Below you'll find few more words about some points mentioned above;
+> there are a few other topics as well we could discuss if we want. But
+> first, a few general words on regression tracking from my point of view:
+> 
+>  * There are a lot of areas in regression tracking where things are far
+> from good (read: in a bad state). That makes it easy to discuss current
+> problems and their solutions for hours -- and at the same time forget
+> that discussing itself doesn't get us much forward (the old bugzilla
+> issue mentioned in this mail is a good example). We thus IMHO should
+> focus on the most important issues and lay the groundwork to establish
+> regression tracking properly again, then we move on to solve things that
+> are harder to solve.
+> 
+>  * Regression tracking currently is quite boring and exhausting (read:
+> high burn-out risk), as it involves quite a lot of manual work finding
+> regressions and keeping track of their progress (and at the end of the
+> day it does not feel like you achieved much). Some of that work can not
+> be automated. But quite a bit can and that would help a great deal to
+> establish regression tracking properly (currently I'm the only one doing
+> it and some development cycles I simply don't find spare time for it).
+> 
+>    I currently don't see any existing solutions that fit well with our
+> mail focused workflow and at the same time do not introduce much
+> overhead for subsystem maintainers (which I assume is what everyone
+> wants, as I fear solutions with much overhead won't fly at all). Ideas
+> how to solve this tricky problem area are highly welcomed. It's
+> something that can be discussed when the aforementioned points
+> "establish regression tracking properly" and "make it more easy to
+> manually or automatically track the current status of a regression" come up.
+> 
+> == What to do about bugzilla.kernel.org =
+> 
+> Discussed last year already; see https://lwn.net/Articles/705245/ for
+> details. Situation didn't change much since then: the bugzilla instance
+> was updated, but people still get stranded there as most subsystems
+> ignore it. That afaics frustrates people and makes them stop testing or
+> reporting bugs.
+> 
+> Discuss how to improve things. [my2cent] Maybe a short term solution
+> like this could work: Serve a static page on bugzilla.kernel.org that
+> tells people where regressions/bugs for certain subsystems can be
+> reported, as it most of the time is some mailing list anyway. Such a
+> page could get compiled from MAINTAINERS (there is the "B:" field now
+> that points to bugzilla; if its not there point to a mailing lists; also
+> explain get_maintainers.pl).
+> 
+>   Leave our bugzilla reachable via bugzilla.kernel.org/frontpage (or
+> something like that) for those few subsystems that use it; that's afaics
+> ACPI and PM (including Cpufreq, Cpuidle, Hibernation, Suspend, ...) and
+> maybe PCI (not sure) -- or should we tell them to move to
+> bugzilla.freedesktop.org (or somewhere else) to get rid of our bugzilla
+> in the long etrm and make Konstantins life easier? Anyway: Make sure
+> bugs for other subsystems can't get filed in bugzilla.kernel.org anymore
+> to make sure they get lost there. [/my2cent]
+> 
+> == How to get subsystems maintainer more involved in regression tracking
+> to […] ==
+> 
+> One reasons why I put this up is: It would help me a lot if people let
+> regressions@leemhuis.info (side note: might be wise to make a
+> mailing-list that replaces this address) get told about regressions --
+> simply CCing it on reports or answers to regressions reports is enough;
+> forwarding/bouncing mails there (even without additional text) is fine,
+> too.
+> 
+> The other reason I included it: This came up in last years discussion on
+> this list and it seemed some people thought we can get the subsystems
+> maintainers more involved; so I thought it might be wise to discuss it.
+> Might also be a good idea to discuss here how to get distro kernel
+> maintainer more involved if enough are around.
+> 
+> == How to establish regression tracking properly […] ==
+> 
+> This is a pretty vague topic on purpose. People seem to agree that
+> regression tracking is important, but for years nobody did it (it
+> stopped a little while after Rafael had to move on) and the little bit
+> that I can do in my rare spare time won't help much (and I have no idea
+> how long I can continue to find time for it).
+> 
+> == Make it easier to track the progress of regression ==
+> 
+> One of the main reasons that makes regression tracking hard currently:
+> getting aware or regressions and tracking their progress is a lot of
+> manual work. I plan one step that hopefully makes the job a little
+> easier and at the same time might allow some automation in the long
+> term: ask people to include a certain keyword in their regressions
+> reports. Maybe something like "Linux-Regression" that doesn't get too
+> much false positives when searching for it on lists and via Google
+> (suggestions for a better tag welcome).
+> 
+> In addition, I plan to hand out some form of ID for each regressions I
+> track and ask people to include it -- especially when they post patches
+> that fix said regression or move the discussion to a new place (like
+> "Corrects: Linux-Regression-d2afd"; again: suggestions welcome! Maybe I
+> should just use a URL where people find details?).
+> 
+> That way I can notice more easy when a fix for a regression hits
+> linux-next or master; I also get aware if a discussion moves from
+> bugzilla to LKML or from one thread to another (fingers crossed).
+> Obviously it depends on cooperation of those involved.
+> 
+> If this works out we could write a script or something that watches
+> mailing lists, bug trackers and git trees for the tag in question. That
+> script could file a database and automatically do some of the tracking job.
+> 
+> == get distros more involved ==
+> 
+> I assume at least Ben (Debian), Laura (Fedora), and Takashi (openSUSE)
+> are around, so it might be a good idea to sit together and talk
+> regression tracking in general and how we could get the distros kernel
+> maintainers more involved. Even better would be to sit down before to
+> maybe come up with some ideas/plans we could talk during this session.
+> 
+> One topic could be: How to make it easier for users of popular distros
+> to get involved in testing. The "Kernel of the day" (KOTD) from
+> SUSE/openSUSE was mentioned recently on this list already, but I got the
+> impression that the existence of this repo is not well known; guess it's
+> the same for my own Kernel Vanilla Repositories for Fedora (those
+> contain packages with a quite recent mainline version; see
+> https://fedoraproject.org/wiki/Kernel_Vanilla_Repositories ) or the fact
+> that Fedora rawhide ships a recent mainline snapshot all the time. But
+> should distros also offer Linux-next somewhere? Or anything else? And
+> should the distros send experienced users upstream when they found a
+> regression? Or will subsystem maintainers send those users away because
+> they assume those kernels are not vanilla?
+> 
+> 
+> == Topics or vague ideas I left out on purpose ==
+> 
+> Here is a list of other things we could talk about, but I think better
+> left for a later time:
+> 
+>  * Kerneloops (http://oops.kernel.org/): It was discussed last year on
+> this list. I have no idea what the current status is. Is someone
+> watching & analysing it? And poking the right people when needed? (I
+> doubt it)
+> 
+>  * Regression tracking for stable kernels (many bugs only get noticed
+> once a new mainline version got released; at that time it might still be
+> easy to revert a certain patch in mainline and stable)
+> 
+>  * statistics: I didn't spend time to create statistics, like Rafael did
+> in the past. They'd be nice to have, but for now I think my time is
+> better spend elsewhere.
+> 
+>  * work towards growing the number of tester by making it easier for
+> them (better documentation, easier configuration, bisection scripts, ...)
+> 
+>  * maybe document a few some procedures for those that are not regular
+> kernel developers (like the "When users report bugs on the Fedora
+> tracker that look like actual upstream bugs, what's the best way to have
+> those reported?" thing that Laura mentioned earlier this month in the
+> mail "Bug reporting feedback loop"
+> 
+>  * provide better services than only a plain text list of regression on
+> a mailing list?
+> 
+>  * better documentation? for example explain the difference between bugs
+> and regressions somewhere to make people understand why their bugs might
+> get ignored, but as the same time know that we handle regressions more
+> seriously.
+> 
+>  * Should the regression tracker nag subsystem maintainers (and
+> reporters) more often if they are inactive? How do people for example
+> feel about (Semi-)Automatic nagging mails for regressions where there is
+> no progress?
+> 
+>  * Is the data and the format of the current reports show useful at all?
+> If not: How to improve it?
+> 
+>  * regression tracking is a fair amount of work, and it's frustrating,
+> and people burn out. How to avoid that? Can we maybe get regression
+> tracking on solid ground by somehow building a healthy community around
+> it (containing kernel developers, Distro maintainers and people that are
+> willing to help in their spare time) that work on regressions
+> testing/tracking and other QA stuff?
+> 
+>  * how to make the Linux kernel development so good that the mainstream
+> distros stop their kernel forks and do what they do with Firefox: Ship
+> the latest stable version (users get a new version with new features
+> every few weeks) or a longterm branch (makes a big version jump about
+> once a year; see Firefox ESR).
+> 
+> Ugh, pretty long mail. Sorry about that. Maybe I shouldn't have looked
+> so closely into LWN.net articles about regression tracking and older
+> discussions about it.
+> 
+> Ciao, Thorsten
 > _______________________________________________
 > Ksummit-discuss mailing list
 > Ksummit-discuss@lists.linuxfoundation.org
 > https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
-> 
-
-That is a great idea!  If a tool is shown to be catching a large
-number of bugs then I am more likely to add it to my test process.
-
--Frank
