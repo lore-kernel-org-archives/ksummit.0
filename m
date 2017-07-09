@@ -1,31 +1,33 @@
-Return-Path: <linus.walleij@linaro.org>
+Return-Path: <geert.uytterhoeven@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 685052C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 21C686C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  9 Jul 2017 03:56:50 +0000 (UTC)
-Received: from mail-io0-f174.google.com (mail-io0-f174.google.com
-	[209.85.223.174])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3F746400
+	Sun,  9 Jul 2017 08:32:02 +0000 (UTC)
+Received: from mail-it0-f68.google.com (mail-it0-f68.google.com
+	[209.85.214.68])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 56FDE8D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  9 Jul 2017 03:56:49 +0000 (UTC)
-Received: by mail-io0-f174.google.com with SMTP id h134so12128634iof.2
+	Sun,  9 Jul 2017 08:32:01 +0000 (UTC)
+Received: by mail-it0-f68.google.com with SMTP id o202so9278491itc.1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 08 Jul 2017 20:56:49 -0700 (PDT)
+	Sun, 09 Jul 2017 01:32:01 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20170707090206.uiry6j7yizpl7yw4@mwanda>
+Sender: geert.uytterhoeven@gmail.com
+In-Reply-To: <CACRpkdZB9g3rCgRDnZFDT2g9qQTtUZhKG2Pxp8qKrGP3u1p5+Q@mail.gmail.com>
 References: <20170706144028.46a2mt2mdzpt6ip7@mwanda>
 	<20170706144208.6hlgxwo37gntk6qm@mwanda>
 	<CAJKOXPfE+ffRWq_1JB_1LSpg4gDne5pWNN2fKd-3t1hwX7amFA@mail.gmail.com>
 	<20170707090206.uiry6j7yizpl7yw4@mwanda>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Sun, 9 Jul 2017 05:56:47 +0200
-Message-ID: <CACRpkdZB9g3rCgRDnZFDT2g9qQTtUZhKG2Pxp8qKrGP3u1p5+Q@mail.gmail.com>
-To: Dan Carpenter <dan.carpenter@oracle.com>
+	<CACRpkdZB9g3rCgRDnZFDT2g9qQTtUZhKG2Pxp8qKrGP3u1p5+Q@mail.gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Sun, 9 Jul 2017 10:31:59 +0200
+Message-ID: <CAMuHMdUBt4g=VHNBeN9OCq76hWMtR=_Giu55MkeqQZT9+TsX4w@mail.gmail.com>
+To: Linus Walleij <linus.walleij@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
 Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	Michal Hocko <mhocko@kernel.org>
+	Dan Carpenter <dan.carpenter@oracle.com>, Michal Hocko <mhocko@kernel.org>
 Subject: Re: [Ksummit-discuss] [PATCH 2/2] kconfig: new command line kernel
  configuration tool
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -37,57 +39,35 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jul 7, 2017 at 11:02 AM, Dan Carpenter <dan.carpenter@oracle.com> wrote:
-
-> Krzysztof Kozlowski wrote:
->> However why not extending existing scripts/config? It
->> already has the feature for setting kconfig options (without looking
->> at dependencies - so like >> of yours).
+On Sun, Jul 9, 2017 at 5:56 AM, Linus Walleij <linus.walleij@linaro.org> wrote:
+>> Krzysztof Kozlowski wrote:
+>>> However why not extending existing scripts/config? It
+>>> already has the feature for setting kconfig options (without looking
+>>> at dependencies - so like >> of yours).
+>>
+>> I didn't know about scripts/config when I wrote it.  scripts/config is
+>> essentially a UI around "echo CONFIG_FOO=m >> .config".  It's totally
+>> useless.
 >
-> I didn't know about scripts/config when I wrote it.  scripts/config is
-> essentially a UI around "echo CONFIG_FOO=m >> .config".  It's totally
-> useless.
+> Maybe useless for you but i use it every day in my work. To compile a kernel
 
-Maybe useless for you but i use it every day in my work. To compile a kernel
-for a purpose I have a custom makefile.mak in my top kernel dir
-that calls scripts/config to set stuff up on-the-fly with multiple rules like
-this:
+I assume the script has it uses.
+But to scratch Dan's itch (and mine, for generating .config from DTS), which
+is the non-trivial case, it may not work.
+So I'll definitely give Dan's script a try, thanks!
 
-config-base: FORCE
-        @mkdir -p $(build_dir)
-        @cp $(rootfs) $(build_dir)/$(rootfsbase)
-        $(MAKE) $(make_options) u8500_defconfig
+>         yes "" | make $(make_options) oldconfig
 
-config-initramfs: have-rootfs config-base
-        # Configure in the initramfs
-        $(CURDIR)/scripts/config --file $(config_file) \
-        --enable BLK_DEV_INITRD \
-        --set-str INITRAMFS_SOURCE $(rootfsbase) \
-        --enable RD_GZIP \
-        --enable INITRAMFS_COMPRESSION_GZIP
+That will become an infinite loop if "y" is not a valid answer for the newly
+introduced option (e.g. if it needs a number)?
 
-(....)
+Gr{oetje,eeting}s,
 
-config: config-common config-distro config-initramfs
-        $(CURDIR)/scripts/config --file $(config_file) \
-        --enable USE_OF \
-        --enable ARM_APPENDED_DTB \
-        --enable ARM_ATAG_DTB_COMPAT \
-        --enable PROC_DEVICETREE
-        yes "" | make $(make_options) oldconfig
+                        Geert
 
-For the full Makefile see:
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-https://dflund.se/~triad/krad/makefiles/ux500.mak
-
-There are several of these, like some that create a minimal
-i586 system with busybox on an initramfs:
-https://dflund.se/~triad/krad/makefiles/i586.mak
-
-I don't know if I am stupid in using this rather than config
-fragments, but it works for me.
-
-That said, what you have brewing looks better :)
-
-Yours,
-Linus Walleij
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
