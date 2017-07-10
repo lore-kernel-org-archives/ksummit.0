@@ -1,30 +1,30 @@
-Return-Path: <dan.carpenter@oracle.com>
+Return-Path: <tony.luck@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 18148B10
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E475FA92
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Jul 2017 11:16:11 +0000 (UTC)
-Received: from userp1040.oracle.com (userp1040.oracle.com [156.151.31.81])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BD76A152
+	Mon, 10 Jul 2017 17:15:35 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7803412F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Jul 2017 11:16:10 +0000 (UTC)
-Date: Mon, 10 Jul 2017 14:15:56 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Message-ID: <20170710111555.b66w4vuc6irur5n4@mwanda>
-References: <20170706144028.46a2mt2mdzpt6ip7@mwanda>
-	<20170706144208.6hlgxwo37gntk6qm@mwanda>
-	<CAMuHMdW4FFJkhA7oj0uA1an_WNt1wS-tM1KvnjYWwdfjRLjQ7A@mail.gmail.com>
+	Mon, 10 Jul 2017 17:15:35 +0000 (UTC)
+From: "Luck, Tony" <tony.luck@intel.com>
+To: Dan Carpenter <dan.carpenter@oracle.com>, Linus Torvalds
+	<torvalds@linux-foundation.org>
+Date: Mon, 10 Jul 2017 17:15:33 +0000
+Message-ID: <3908561D78D1C84285E8C5FCA982C28F613009A7@ORSMSX114.amr.corp.intel.com>
+References: <20170627135839.GB1886@jagdpanzerIV.localdomain>
+	<20170706144028.46a2mt2mdzpt6ip7@mwanda>
+	<CA+55aFyPQeMYUafR32parh=jGU0O8prn5vhOhhW+WBU-LbR4HQ@mail.gmail.com>
+	<20170707113650.ee6oys5u4vq5hgdi@mwanda>
+In-Reply-To: <20170707113650.ee6oys5u4vq5hgdi@mwanda>
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAMuHMdW4FFJkhA7oj0uA1an_WNt1wS-tM1KvnjYWwdfjRLjQ7A@mail.gmail.com>
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
 	Michal Hocko <mhocko@kernel.org>
-Subject: Re: [Ksummit-discuss] [PATCH 2/2] kconfig: new command line kernel
- configuration tool
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] is Kconfig a bit hard sometimes?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,65 +34,17 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Jul 10, 2017 at 11:44:22AM +0200, Geert Uytterhoeven wrote:
-> > --- /dev/null
-> > +++ b/scripts/kconfig/lconf.c
-> > @@ -0,0 +1,332 @@
-> > +/*
-> > + * Copyright (C) 2015 Oracle
-> > + * Released under the terms of the GNU GPL v2.0.
-> > + *
-> > + */
-> > +#define _GNU_SOURCE
-> 
->     scripts/kconfig/lconf.c:6:0: warning: "_GNU_SOURCE" redefined
->      #define _GNU_SOURCE
->      ^
->     <command-line>:0:0: note: this is the location of the previous definition
-> 
-> You can do:
-> 
->     #ifndef _GNU_SOURCE
->     #define _GNU_SOURCE
->     #endif
-> 
-> like scripts/kconfig/nconf.c does.
+> Argh.  You're right.  I'm an idiot.  It's actually working fine, but it
+> asked so many questions I thought it was broken.
 
-Will do.
+I run:
 
-> 
-> 
-> > +static int conf_sym(struct symbol *sym)
-> > +{
-> 
-> > +               if (sym_set_tristate_value(sym, newval)) {
-> > +                       /* FIXME: if I don't write it doesn't save */
-> > +                       conf_write(NULL, 1);
-> 
->     scripts/kconfig/lconf.c: In function ‘conf_sym’:
->     scripts/kconfig/lconf.c:159:4: error: too many arguments to
-> function ‘conf_write’
->         conf_write(NULL, 1);
+$ yes "" | make oldconfig
 
+to just pick the default answer for all the questions.  It works
+almost all of the time.  Only recent break was when using
+a RHEL config as the start point some change in the MPT2SAS
+and MPT3SAS bits left me with a kernel with no driver to get to
+my root file system.
 
-I added that in [PATCH 1/2], otherwise there is a lot of unwanted
-output.
-
-> Likewise
-> 
-> 
-> For search, it doesn't work with the CONFIG_ prefix:
-
-
-Will fix.
-
-> 
-> Nice!
-> 
-> BTW, forgetting the =y causes a crash:
-> 
-
-Oops.  Sorry.  Will fix.
-
-regards,
-dan carpenter
+-Tony
