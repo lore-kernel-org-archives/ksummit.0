@@ -1,27 +1,29 @@
-Return-Path: <stephen@networkplumber.org>
+Return-Path: <linus971@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6D55FA80
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 56261A7B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Jul 2017 15:21:49 +0000 (UTC)
-Received: from mail-pg0-f49.google.com (mail-pg0-f49.google.com [74.125.83.49])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E7D2B23C
+	Wed, 12 Jul 2017 16:19:57 +0000 (UTC)
+Received: from mail-oi0-f48.google.com (mail-oi0-f48.google.com
+	[209.85.218.48])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D410B1AE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Jul 2017 15:21:48 +0000 (UTC)
-Received: by mail-pg0-f49.google.com with SMTP id u62so14589132pgb.3
+	Wed, 12 Jul 2017 16:19:56 +0000 (UTC)
+Received: by mail-oi0-f48.google.com with SMTP id l130so23997991oib.1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Jul 2017 08:21:48 -0700 (PDT)
-Date: Wed, 12 Jul 2017 08:21:39 -0700
-From: Stephen Hemminger <stephen@networkplumber.org>
-To: David Howells <dhowells@redhat.com>
-Message-ID: <20170712082139.17cfd33a@xeon-e3>
-In-Reply-To: <12463.1499871476@warthog.procyon.org.uk>
+	Wed, 12 Jul 2017 09:19:56 -0700 (PDT)
+MIME-Version: 1.0
+Sender: linus971@gmail.com
+In-Reply-To: <20170712082139.17cfd33a@xeon-e3>
 References: <10144.1499863410@warthog.procyon.org.uk>
 	<12463.1499871476@warthog.procyon.org.uk>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org
+	<20170712082139.17cfd33a@xeon-e3>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Wed, 12 Jul 2017 09:19:55 -0700
+Message-ID: <CA+55aFySG7NAvsphb76J-M2YuM8_4wQ8Cvufu24Gb=EhpaoKTg@mail.gmail.com>
+To: Stephen Hemminger <stephen@networkplumber.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Getting better/supplementary
  error info back to userspace
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -33,40 +35,33 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 12 Jul 2017 15:57:56 +0100
-David Howells <dhowells@redhat.com> wrote:
+On Wed, Jul 12, 2017 at 8:21 AM, Stephen Hemminger
+<stephen@networkplumber.org> wrote:
+>
+> Netlink has recently got extended error reporting, still not used widely
+> and library support is lacking in most places.
 
-> David Howells <dhowells@redhat.com> wrote:
-> 
-> > In which case, would it make sense to attach such a facility to the
-> > task_struct instead?  I implemented a test of this using prctl, but a new
-> > syscall might be a better idea, at least for reading.
-> > 
-> >  (*) int old_setting = prctl(PR_ERRMSG_ENABLE, int setting);
-> > 
-> >      Enable (setting == 1) or disable (setting == 0) the facility.
-> >      Disabling the facility clears the error buffer.
-> > 
-> >  (*) int size = prctl(PR_ERRMSG_READ, char *buffer, int buf_size);
-> > 
-> >      Read back a message and discard it.    
-> 
-> I forgot to add that I've kept the in-kernel interface I have for this very
-> simple for the moment:
-> 
-> 	void errorf(const char *fmt, ...);
-> 	int invalf(const char *fmt, ...);
-> 
-> where these functions take printf-style arguments and where invalf() is the
-> same as errorf(), but returns -EINVAL for convenience.  To take an example
-> from NFS:
-> 
-> -	if (auth_info->flavor_len + 1 >= max_flavor_len) {
-> -		dfprintk(MOUNT, "NFS: too many sec= flavors\n");
-> -		return -EINVAL;
-> -	}
-> +	if (auth_info->flavor_len + 1 >= max_flavor_len)
-> +		return invalf("NFS: too many sec= flavors");
+Yeah, and that "not widely supported and library support is lacking"
+is always going to be an issue with anything like that.
 
-Netlink has recently got extended error reporting, still not used widely
-and library support is lacking in most places.
+Along with internationalization, which is a whole nasty set of issues
+in itself with error messages.
+
+It's not going to happen, in other words. The problems are basically
+insurmountable, and the thing it fixes will always be some special
+case that doesn't much matter.
+
+Every time it comes up it is because some developer found one case
+that they were hunting down and it annoyed them, and the developer
+went "if only it had included more information and it would have been
+obvious".
+
+But every time it comes up people ignore this basic issue:
+
+     [torvalds@i7 linux]$ git grep -e '-E[A-Z]\{4\}' | wc -l
+     182523
+
+
+Give it up. It's really is a horrible idea for so many reasons.
+
+                     Linus
