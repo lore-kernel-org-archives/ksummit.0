@@ -1,21 +1,18 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <leon@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 522BDA81
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id C7684B2F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 14 Jul 2017 15:44:05 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6CC8F16A
+	Fri, 14 Jul 2017 15:51:46 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 66DF0133
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 14 Jul 2017 15:44:04 +0000 (UTC)
-Message-ID: <1500047038.2853.16.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Leon Romanovsky <leon@kernel.org>, Andrew Lunn <andrew@lunn.ch>
-Date: Fri, 14 Jul 2017 08:43:58 -0700
-In-Reply-To: <20170714153544.GE1528@mtr-leonro.local>
-References: <CAGXu5jJ011-7JH7w4n0No=gon-jp4VTeN=0JPWaQsGh5zz79eA@mail.gmail.com>
-	<1498758126.2834.70.camel@HansenPartnership.com>
+	Fri, 14 Jul 2017 15:51:46 +0000 (UTC)
+Date: Fri, 14 Jul 2017 18:51:42 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <20170714155142.GF1528@mtr-leonro.local>
+References: <1498758126.2834.70.camel@HansenPartnership.com>
 	<CAGXu5jLL8_h3AYrpCm4LKV8-rTPf793gAJckS0rQag6iGqk9xw@mail.gmail.com>
 	<20170629182044.GP21846@wotan.suse.de>
 	<CAGXu5jL21gKAO1DxNHH-4x6H9jw1t84Z=Z8iCSDRmgcxh4TFrQ@mail.gmail.com>
@@ -24,11 +21,14 @@ References: <CAGXu5jJ011-7JH7w4n0No=gon-jp4VTeN=0JPWaQsGh5zz79eA@mail.gmail.com>
 	<20170714095409.GF2269@kroah.com>
 	<20170714102920.GY1528@mtr-leonro.local>
 	<20170714141057.GC21743@lunn.ch>
-	<20170714153544.GE1528@mtr-leonro.local>
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-Ci898XVEFxukLxgTc2zZ"
-Mime-Version: 1.0
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+	<20170714150550.ubtkwmd3wcx554m6@sirena.org.uk>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="bXVaen7Op4LYXSUn"
+Content-Disposition: inline
+In-Reply-To: <20170714150550.ubtkwmd3wcx554m6@sirena.org.uk>
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Developing across
  multiple areas of the kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -41,72 +41,48 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---=-Ci898XVEFxukLxgTc2zZ
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+--bXVaen7Op4LYXSUn
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Fri, 2017-07-14 at 18:35 +0300, Leon Romanovsky wrote:
+On Fri, Jul 14, 2017 at 04:05:50PM +0100, Mark Brown wrote:
 > On Fri, Jul 14, 2017 at 04:10:57PM +0200, Andrew Lunn wrote:
-> >=20
-> > >=20
-> > > The difference in maintainers style between netdev and RDMA
-> > > causes to have long queue
-> > > (100+) of patches posted to the ML [2], which are not cross-
-> > > checked in various CIs.
-> >=20
-> > It is possible to get 0-day to run against any arbitrary git tree,
-> > if you ask nicely. If same is true for the kernel-ci project. So if
-> > you are willing to do the merge work, you can get it tested.
->=20
-> 0-day is checking my tree, so it is not the problem.
->=20
-> I don't see how kernel-ci can help me, because RDMA requires special
-> hardware to run it and it usually requires more than two endpoints
-> (servers) connected together.
->=20
-> My problem is related to changes in other trees for example netdev,
-> which can break RDMA functionality.
->=20
-> Technology wise, there are:
-> 1. RoCE - RDMA over Converged Ethernet - netdev is below RDMA
-> 2. IPoIB - IP over Infiniband - netdev is above RDMA
-> 3. HFI-VNIC - Ethernet over OmniPath - netdev is above RDMA
-> 4. iWARP - RDMA over IP networks
-> e.t.c.
+> > > The difference in maintainers style between netdev and RDMA causes to have long queue
+> > > (100+) of patches posted to the ML [2], which are not cross-checked in various CIs.
+>
+> > It is possible to get 0-day to run against any arbitrary git tree, if
+> > you ask nicely. If same is true for the kernel-ci project. So if you
+> > are willing to do the merge work, you can get it tested.
+>
+> Trees can be added to kernelci, yes.  Another approach would be to work
+> out a workflow with the upstreams that makes this better, if they'd take
+> pull requests for example.
 
-So I think your goal is to get your tree and the one above you (Doug's
-tree) into linux-next without causing a mismerge nightmare?
+Isn't the goal of this topic in maintainers summit? Improving workflows :)
 
-I still didn't get why you can't change workflow to share commits? If
-you can do that, linux-next can be based on both your tree and the one
-above it. You can do this either by you sending pull requests or by you
-basing on the upstream tree and rebasing when the patches are accepted
-(rebase is very good at recognizing and discarding the same patch with
-a different commit id).
+So, my way to overcome my issues was to add "parallel" tree and to stop
+crying about "long queues".
 
-James
+Thanks
 
---=-Ci898XVEFxukLxgTc2zZ
+--bXVaen7Op4LYXSUn
 Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
 
-iQIcBAABCAAGBQJZaObCAAoJEAVr7HOZEZN4rywQAKvFlmq3aJ8F7R7uQOTyJA6b
-SgEmFEXKJ0BvSyjC3aXBgOVT1GQwldhVR4M2NjG+5L+/NhW2NdvKaVQquCRR2I4e
-yXhiQnTihBG3WtoBuTN7O5C0FQoMPTGml51NiT9Abvq89I1SDkVYWv5AzBYqGt3H
-yIUwW9udWmLlFhFi4TiThnUke9M9Mnh5FCbhuaQW9IVdktqVIbfAJHNZYEjbpKlt
-ub7HhXGAWDdG266tK6Dv6EIyPYewYVJ18dKWKTUdE9cBpailQS6QtsK+LfkzTzcl
-PXD0ZPj1Ks3dYkLVYeKZCxjQUXYJXVvIDD4W53JuP0OpM1+vSYNeYZtCQuslqQ5s
-vX85sYK8jry6FWCoH4tYCLz9RrJnsihrLrl3AsJ4JyaCHthWEZm73qy9uRfOnB3a
-T2gZuF9PosO/tf08p7kAKy+Xea+/OmSprlmoPBvEzRX2tKDyUKkJBiAiRELQPYY1
-zwROr2SgcDFkkU335h/ARTwiG7R9CNBDlPrqW6Ezp7pAjrrtwTYeg+JXl9jt97fa
-BRri8klBlczrmf/F8fnggUHy35fzF+qU8YJE8mxNZQvuja58q/XQ+0tQk4g532aL
-95UovE6kKVXEw0nc+KoYSnXiWXdSmKX68aDc4u5tfRb/Xw3ErILg+H3WfMfaUt4H
-A+axysYgWFa3dudWNjL3
-=dlHO
+iQIzBAEBCAAdFiEEkhr/r4Op1/04yqaB5GN7iDZyWKcFAllo6I4ACgkQ5GN7iDZy
+WKet+Q//dC7RujKQetYBpeREme3Aa/qJwvkqzWoqc0FznyfcNUBi8/yCulF45I6c
+ZBiARHhIjfLhRwq/HCgDC9oj1ATfS7yTQHsg0szm/R3oYmJsNo1ZNa9c+WC3YaLG
+2f42Kj2xFoCBNWWFGtLHBlnnWaVinoDM0OymN/vafwLATkf+5l6ncw9gC2hDGzDT
+kOG/He95fOITg+LPhvdYfdn+NZWDFouYakosIR8yYlzmQzuWGaaYXxB24m4ywnv9
+Fp60+ksBZkSZtidC4n6frASNAM6q62zsR2JrKnQ9itHRogfZWZDT2Yfjx3JtEZoQ
+/QEeUv0JtAiLKcHBKCluJCUkx4AUgG7wIsjRZyyzKSNw1kOHkHoLN0FbznngT2T4
+v+Ugj4smL2AkoWWLH+aO4RsRDXlsHMUkEz+gTbac/927yxL15PQaQcw3T2oWI6dl
+HF045JliXrRzHoyS/5AzPSiN/sSFOHr6/F2FDRuO/X3v0KJBNCcb4pjGQRwn7u3g
+sYE6gLy9AO0i5/yUHcVXzNsjwRgymZ1ZhlwY0TXoziyEE4u/spqPZRF/B5qQ1Rie
+Th2kGDf6xDpDNsTJ2n2/D0j/0blzoVDcCXhyrYuPOXgxC7RkF/t3cXPQjUzIbaUE
+1ktWVCUU++fz+yZB8Xw2XU0TrTMUYHcbZCGMQhLsv1gbxZIq26k=
+=CjbH
 -----END PGP SIGNATURE-----
 
---=-Ci898XVEFxukLxgTc2zZ--
+--bXVaen7Op4LYXSUn--
