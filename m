@@ -1,32 +1,34 @@
-Return-Path: <stephen@networkplumber.org>
+Return-Path: <leon@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C2779B68
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6C484481
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Jul 2017 16:35:16 +0000 (UTC)
-Received: from mail-pf0-f178.google.com (mail-pf0-f178.google.com
-	[209.85.192.178])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 41F2BFC
+	Fri, 14 Jul 2017 04:04:51 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D70C914D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Jul 2017 16:35:16 +0000 (UTC)
-Received: by mail-pf0-f178.google.com with SMTP id q86so15495156pfl.3
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Jul 2017 09:35:16 -0700 (PDT)
-Date: Wed, 12 Jul 2017 09:35:07 -0700
-From: Stephen Hemminger <stephen@networkplumber.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Message-ID: <20170712093507.4482f3fc@xeon-e3>
-In-Reply-To: <CA+55aFySG7NAvsphb76J-M2YuM8_4wQ8Cvufu24Gb=EhpaoKTg@mail.gmail.com>
-References: <10144.1499863410@warthog.procyon.org.uk>
-	<12463.1499871476@warthog.procyon.org.uk>
-	<20170712082139.17cfd33a@xeon-e3>
-	<CA+55aFySG7NAvsphb76J-M2YuM8_4wQ8Cvufu24Gb=EhpaoKTg@mail.gmail.com>
+	Fri, 14 Jul 2017 04:04:50 +0000 (UTC)
+Date: Fri, 14 Jul 2017 07:04:47 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Stephen Rothwell <sfr@canb.auug.org.au>
+Message-ID: <20170714040447.GT1528@mtr-leonro.local>
+References: <CAGXu5j+bpi6-krTYwN_BdhFnHZRYpQwhtc9Z-kcRerm+t-Xyfw@mail.gmail.com>
+	<1498754169.2834.61.camel@HansenPartnership.com>
+	<CAGXu5jJ011-7JH7w4n0No=gon-jp4VTeN=0JPWaQsGh5zz79eA@mail.gmail.com>
+	<1498758126.2834.70.camel@HansenPartnership.com>
+	<CAGXu5jLL8_h3AYrpCm4LKV8-rTPf793gAJckS0rQag6iGqk9xw@mail.gmail.com>
+	<20170629182044.GP21846@wotan.suse.de>
+	<CAGXu5jL21gKAO1DxNHH-4x6H9jw1t84Z=Z8iCSDRmgcxh4TFrQ@mail.gmail.com>
+	<20170630062717.534b06e9@canb.auug.org.au>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Getting better/supplementary
- error info back to userspace
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="oekZONiSGfIUbonp"
+Content-Disposition: inline
+In-Reply-To: <20170630062717.534b06e9@canb.auug.org.au>
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Developing across
+ multiple areas of the kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,45 +38,67 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 12 Jul 2017 09:19:55 -0700
-Linus Torvalds <torvalds@linux-foundation.org> wrote:
 
-> On Wed, Jul 12, 2017 at 8:21 AM, Stephen Hemminger
-> <stephen@networkplumber.org> wrote:
+--oekZONiSGfIUbonp
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Fri, Jun 30, 2017 at 06:27:17AM +1000, Stephen Rothwell wrote:
+> Hi Kees,
+>
+> On Thu, 29 Jun 2017 13:16:40 -0700 Kees Cook <keescook@chromium.org> wrote:
 > >
-> > Netlink has recently got extended error reporting, still not used widely
-> > and library support is lacking in most places.  
-> 
-> Yeah, and that "not widely supported and library support is lacking"
-> is always going to be an issue with anything like that.
-> 
-> Along with internationalization, which is a whole nasty set of issues
-> in itself with error messages.
-> 
-> It's not going to happen, in other words. The problems are basically
-> insurmountable, and the thing it fixes will always be some special
-> case that doesn't much matter.
-> 
-> Every time it comes up it is because some developer found one case
-> that they were hunting down and it annoyed them, and the developer
-> went "if only it had included more information and it would have been
-> obvious".
-> 
-> But every time it comes up people ignore this basic issue:
-> 
->      [torvalds@i7 linux]$ git grep -e '-E[A-Z]\{4\}' | wc -l
->      182523
-> 
-> 
-> Give it up. It's really is a horrible idea for so many reasons.
+> > [1] If the solution for this is to merge other -next trees into mine,
+> > I guess I can do that, though it can be very messy if any of them are
+> > forced to make their commits unstable. It also creates headaches,
+> > AIUI, for sfr if my tree suddenly gains a bunch of other trees so it's
+> > not clear where something came from.
+>
+> I don't have a problem with trees in linux-next sharing *commits* - I
+> have problems when they share *patches* that are different commits
+> (that affect files that get changed in other commits).
 
-For netlink, it isn't so bad. 80% of the usage is in iproute2 and
-therefore getting tool support for the usual cases isn't too hard.
+Do we have any sane way to overcome this limitation?
 
-I fear kernel developers think at too low a level. They think if glibc
-and/or 1st level command can handle an extension, their work is done.
-But in the modern world, there are many scripts and layers above that.
-For the networking case, the worst case examples are things where configuration
-is done in stuff like some layer on top of Openstack, in python code
-which is scripting ip commands, which is talking to the kernel. Good luck
-on trying to get any meaningful error handling out of that dog pile.
+I tried to add my tree [1] to participate in linux-next. My tree
+includes my submission queue and important patches posted to the mailing list
+to the RDMA subsystem.
+
+The absence of ability to add parallel tree with same commits doesn't allow us
+effectively test the RDMA patches.
+
+The reasons to it are combination of mostly two factors: my tree is not
+official one [2] (all patches in my tree are not officially final) and very
+sporadic update very close and/or during merge window [3].
+
+In this cycle, we missed merge window [4] because lack of ready for pull tree [5].
+
+Thanks
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/leon/linux-rdma.git/
+[2] https://git.kernel.org/cgit/linux/kernel/git/dledford/rdma.git/
+[3] http://marc.info/?l=linux-next&m=149999488214297&w=2
+[4] http://marc.info/?l=linux-rdma&m=149980130008834&w=2
+[5] http://marc.info/?l=linux-rdma&m=149987945120683&w=2
+
+--oekZONiSGfIUbonp
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEkhr/r4Op1/04yqaB5GN7iDZyWKcFAlloQt4ACgkQ5GN7iDZy
+WKfa1A/8CHHPdtqs2eR97zQa0M0vEryYfCPnFzYQzOg7Eh/gNmcJCaDabd+W2AOR
+ez3KnatSLBNKa7i2ff+pcN6OH+SKeP8y7CalhbNAzUjCTRXI/T+SuQD5nLChsE4P
+w//2coC+zg68XqBbYpnq0oQmy9yXyjg+86J1jRxohQz7IowRrWGjcwK6gzp4HCYk
+2JXwSwgGHqQ9OC/SvpgJqYDd4cVz2zK8HdMRuJDdUJ76m2FGsHC2ct8e8vypJ+wq
+3dC8fADyKG5SnQ3R2asAH8Kmkmb4LjZEdqnAE/7sURxh0Jry3Cqy+GGSmotCYakm
+6PhUkL6RBj6UnyUnlbaoF4QQjaCqblnrfb9pgujZYMm7gsQnOcnP8WPHdbkBDV6O
+xn+IsggtgTpUIoE6C2w5yIXErGKj1j4rpQVAylPC08y/gMhVKfAohioSEM/DAVgT
+kuJ6w285aqABQgjVOh+zTjAHa8IvuLL0gW5sOM/K6/VeCDGIaqEyrEbBHWX/ubzw
++tu0rmuKx9ZKf4cpozRglgEH0RcwBkPQkXwhSv9t7Tb5xRPZW3AuG7tT9CqRi+Nb
+2NXeWH/tK34TtKhKeiJOH+nrR8HN/KXhL3LXbflodVOiJAQ5hcXhc+4XGFSFmsBC
+RzA3iwPKxI8J3noL6SBtq6/cd4wK5m8x1bc8GQQgqVzesXSwl/4=
+=aAjw
+-----END PGP SIGNATURE-----
+
+--oekZONiSGfIUbonp--
