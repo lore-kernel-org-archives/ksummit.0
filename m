@@ -1,35 +1,37 @@
 Return-Path: <BATV+9c6bd584b2cf5d9c90f3+5078+infradead.org+dwmw2@twosheds.srs.infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id E7047927
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 82C2C93C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 19 Jul 2017 07:35:27 +0000 (UTC)
+	Wed, 19 Jul 2017 07:59:37 +0000 (UTC)
 Received: from twosheds.infradead.org (twosheds.infradead.org [90.155.92.209])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1D539AD
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DC7BCAD
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 19 Jul 2017 07:35:27 +0000 (UTC)
-Message-ID: <1500449720.19151.7.camel@infradead.org>
+	Wed, 19 Jul 2017 07:59:36 +0000 (UTC)
+Message-ID: <1500451171.19151.13.camel@infradead.org>
 From: David Woodhouse <dwmw2@infradead.org>
-To: Mark Brown <broonie@kernel.org>, Sergey Senozhatsky
-	<sergey.senozhatsky@gmail.com>
-In-Reply-To: <20170620172738.zh4maxtfmlwhyrnt@sirena.org.uk>
-References: <20170619052146.GA2889@jagdpanzerIV.localdomain>
-	<ef18231f-c69b-5d88-0410-485cfcf4143b@suse.com>
+To: Jiri Kosina <jikos@kernel.org>, Linus Torvalds
+	<torvalds@linux-foundation.org>
+In-Reply-To: <alpine.LSU.2.20.1706261040560.30709@cbobk.fhfr.pm>
+References: <ef18231f-c69b-5d88-0410-485cfcf4143b@suse.com>
 	<20170619103912.2edbf88a@gandalf.local.home>
 	<20170619152055.GM3786@lunn.ch>
-	<01a7d603-c0a2-7aae-8c8d-587063da5e61@suse.com>
-	<20170619162317.4nxx6jsvuzvdtasz@sirena.org.uk>
-	<20170620155825.GC409@tigerII.localdomain>
-	<3908561D78D1C84285E8C5FCA982C28F612DAC67@ORSMSX114.amr.corp.intel.com>
-	<20170620171134.GA444@tigerII.localdomain>
-	<20170620172738.zh4maxtfmlwhyrnt@sirena.org.uk>
+	<20170619122651.57ba27c4@gandalf.local.home>
+	<20170624081411.58b4fb6a@vento.lan> <20170624140659.GM4875@lunn.ch>
+	<20170624184216.2ffd4a96@gandalf.local.home>
+	<20170624232140.GA27473@lunn.ch>
+	<CA+55aFzQyfVnj2mhsZGsOVP7FEc4g7vguGCtkyGy1cMONPeitw@mail.gmail.com>
+	<20170624234805.GT10672@ZenIV.linux.org.uk>
+	<20170625012913.GC27473@lunn.ch>
+	<CA+55aFzisqGwwG7nNabu_X7=CR45HBrrV4XhgSEw9RkED-A9yg@mail.gmail.com>
+	<alpine.LSU.2.20.1706261040560.30709@cbobk.fhfr.pm>
 Content-Type: multipart/signed; micalg="sha-256";
 	protocol="application/x-pkcs7-signature";
-	boundary="=-3LQZQz+cmmvI0GPPTw69"
-Date: Wed, 19 Jul 2017 09:35:20 +0200
+	boundary="=-qLjMcMcS9KWhpCwujnaH"
+Date: Wed, 19 Jul 2017 09:59:31 +0200
 Mime-Version: 1.0
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+Cc: Mauro Carvalho Chehab <mchehab@s-opensource.com>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] printk redesign
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -41,44 +43,55 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---=-3LQZQz+cmmvI0GPPTw69
+--=-qLjMcMcS9KWhpCwujnaH
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2017-06-20 at 18:27 +0100, Mark Brown wrote:
-> On Wed, Jun 21, 2017 at 02:11:34AM +0900, Sergey Senozhatsky wrote:
+On Mon, 2017-06-26 at 10:46 +0200, Jiri Kosina wrote:
+> On Sat, 24 Jun 2017, Linus Torvalds wrote:
 >=20
 > >=20
-> > another thing that I found useful is a CPU number of the processor
-> > that stored a particular line to the logbuf.
->
-> At some point we start reinventing ftrace...=C2=A0=C2=A0there's issues wi=
-th
-> joining the two up but there should at least be lessons we can learn.
+> > >=20
+> > > It is how the embedded world operates, RS232, or now more often, RS23=
+2=C2=A0
+> > > with a built in USB-RS232 converter, so you use USB on the host.
+> > I'm not saying that serial lines shouldn't be an option.
+> >=20
+> > But for a *large* user base, they simply aren't.
+> >=20
+> > On regular PC's, it's often not an option any more. Even in the data
+> > center, it's often not an option any more.
+> I don't really agree here. Yes, the mid-to-hig-end servers don't probably=
+=C2=A0
+> contain the actual UART chip any more, but the vast majority of those hav=
+e=C2=A0
+> somehting that's emulated in firmware, and actually do have a serial=C2=
+=A0
+> console line connector (not the 9-pin one, but rather RJ-45 with either=
+=C2=A0
+> Cisco or Yost pinout), which is then connected into serial-over-TCP=C2=A0
+> concentrator box, exposing the serial console over telnet (or some=C2=A0
+> proprietary client application). This is seen in DCs quite frequently.
 >=20
+> Even machines that have very good IPMI support still ship with this.
 
-The other way of looking at this is "why are you abusing printk for
-stuff that should have been done via ftrace or other means instead".
+Yeah, we definitely still have a "serial console" in the data centre,
+even if it's not actually RS232 any more. Or indeed "serial".
 
-I confess I haven't got my curmudgeonly brain out of that mode at all,
-ever since realising that printk had been made asynchronous and
-unreliable (how long ago was that?) and that you could no longer see
-the dying gasp of a crashing kernel on its serial console.
+You want to catch those failures where even kdump doesn't manage to
+give you a viable report of the original crash? You'd better be
+watching...
 
-Rather than morphing printk into something more capable of bulk
-transport, I'd rather see it go back to its roots of
-debugging/diagnostics.
+Even on regular PCs we have the USB debug ports which can serve the
+same purpose.
 
-The original complaint of "all this printk output makes things too
-slow" was better addressed by printing less or at lower severity (or
-adjusting the console loglevel), IMO.
+But still, we're talking about printk being used for its original
+$DEITY-intended purpose for debugging and diagnostic data. Not for the
+random "hey, here's a channel I can abuse to send data up to userspace"
+stuff. I heartily agree with Steven when he says that "printk is used
+too freely".
 
-As things stand, the requirements for the various printk (ab)use cases
-seem to be contradictory =E2=80=94 if we're going to have a redesign then I
-think it would be good to take a holistic view and decide what it's
-actually *supposed* to be used for. And, perhaps more to the point,
-what it isn't supposed to be used for.
---=-3LQZQz+cmmvI0GPPTw69
+--=-qLjMcMcS9KWhpCwujnaH
 Content-Type: application/x-pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -156,8 +169,8 @@ GeE6+vmbHDFFQ9Ealsti3jGCA9MwggPPAgEBMIGwMIGbMQswCQYDVQQGEwJHQjEbMBkGA1UECBMS
 R3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRowGAYDVQQKExFDT01PRE8gQ0Eg
 TGltaXRlZDFBMD8GA1UEAxM4Q09NT0RPIFNIQS0yNTYgQ2xpZW50IEF1dGhlbnRpY2F0aW9uIGFu
 ZCBTZWN1cmUgRW1haWwgQ0ECEGoLUFiVUy0EUE3iKBH+GjAwDQYJYIZIAWUDBAIBBQCgggHzMBgG
-CSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTE3MDcxOTA3MzUyMFowLwYJ
-KoZIhvcNAQkEMSIEIC2Cxi9AiOODCrysneNBcnqfi5f/bhz7pMnEJ5pgBqKnMIHBBgkrBgEEAYI3
+CSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTE3MDcxOTA3NTkzMVowLwYJ
+KoZIhvcNAQkEMSIEIEOhflvBE6NXm8+Hi1IXheTyaLGatEPYnl1IIQBd8ATgMIHBBgkrBgEEAYI3
 EAQxgbMwgbAwgZsxCzAJBgNVBAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAO
 BgNVBAcTB1NhbGZvcmQxGjAYBgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMUEwPwYDVQQDEzhDT01P
 RE8gU0hBLTI1NiBDbGllbnQgQXV0aGVudGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIQagtQ
@@ -165,11 +178,11 @@ WJVTLQRQTeIoEf4aMDCBwwYLKoZIhvcNAQkQAgsxgbOggbAwgZsxCzAJBgNVBAYTAkdCMRswGQYD
 VQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAYBgNVBAoTEUNPTU9E
 TyBDQSBMaW1pdGVkMUEwPwYDVQQDEzhDT01PRE8gU0hBLTI1NiBDbGllbnQgQXV0aGVudGljYXRp
 b24gYW5kIFNlY3VyZSBFbWFpbCBDQQIQagtQWJVTLQRQTeIoEf4aMDANBgkqhkiG9w0BAQEFAASC
-AQApcbXHKJLO3fZBOX3TAoEMoBeY3G5/hd+lj6x06cDC6kWg41d6kVfOXY8wzH6idsO0i9lNWMtJ
-tERhOEo6eLvQW7dtbn28Z1GYZBJEaFBERWSfVOnvi2tx7OPxJXpOX/XROww2V+UkDUKtZpT71pSo
-ovUKvyKIJ1eBdr5OOi4wPnMkzgaTpcFqbERnKgbpmyMltgfnu+TTzE4511H0HoCSjg2Fu1iH90mr
-YT0S99s1vp/DGdx5/6mEJ6BeMyKfnLe+8I07DIdHKjYzN/k1+PfhOO4FVLas7l4yA6PJBgblDN5g
-Se6mHoWLzOTNoVbTsn0Ws290nUqx+T7GLylRdqNEAAAAAAAA
+AQBBDeP3ZDtu2yBXPMqfNLSYZDM8CgU8+bjn7NTa8DSWjhCJjG5upwLWIaA1wAMUJq59Fp31FvP+
+0Xo/VC+vfj2OUvmEujayqDT96mtRr8sbSc4QbRQ55+gSUlNIvnHG9XTKEvh4DTCVr0P+JF0ElqRI
+1wJukzJ5jo1nAPjL3CIHKnawxzL0XoBoGJIjG1mVc9LmpLkQbjWq+iZehyC5JzEwLP2Z3o8qrtxG
+y5txqW2YgOodulPPrZ2LuIxb91tRZhGlcjbW7l7USQEcrmnNPrZ3zphAZS8Xytv1K3P8R0lWFBju
+mZkRVlYPeyajQxe85g/c4uQwFL0jflBt6i+3vC9UAAAAAAAA
 
 
---=-3LQZQz+cmmvI0GPPTw69--
+--=-qLjMcMcS9KWhpCwujnaH--
