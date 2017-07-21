@@ -1,28 +1,37 @@
-Return-Path: <dhowells@redhat.com>
+Return-Path: <compudj@efficios.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2F4DCAF8
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9AD9FB75
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 21 Jul 2017 13:41:42 +0000 (UTC)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9B9D5151
+	Fri, 21 Jul 2017 21:44:15 +0000 (UTC)
+Received: from mail.efficios.com (mail.efficios.com [167.114.142.141])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 980ED17E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 21 Jul 2017 13:41:41 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <CA+55aFySG7NAvsphb76J-M2YuM8_4wQ8Cvufu24Gb=EhpaoKTg@mail.gmail.com>
-References: <CA+55aFySG7NAvsphb76J-M2YuM8_4wQ8Cvufu24Gb=EhpaoKTg@mail.gmail.com>
-	<10144.1499863410@warthog.procyon.org.uk>
-	<12463.1499871476@warthog.procyon.org.uk>
-	<20170712082139.17cfd33a@xeon-e3>
-To: Linus Torvalds <torvalds@linux-foundation.org>
+	Fri, 21 Jul 2017 21:44:14 +0000 (UTC)
+Date: Fri, 21 Jul 2017 21:45:57 +0000 (UTC)
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+To: rostedt <rostedt@goodmis.org>
+Message-ID: <1188050494.22035.1500673557010.JavaMail.zimbra@efficios.com>
+In-Reply-To: <20170706151008.24addd2b@gandalf.local.home>
+References: <20170629195537.534445e7@gandalf.local.home>
+	<20170630025852.xjoif3aai6rny5a2@ast-mbp>
+	<20170629230251.02f380cb@gandalf.local.home>
+	<6AE378F0-42F7-45DE-9F3C-050A5019A1E8@fb.com>
+	<20170630142956.7e0cb2d6@gandalf.local.home>
+	<20170630143030.305b68a0@gandalf.local.home>
+	<658A3F80-5E48-4EC4-A591-E3783AD3DADC@fb.com>
+	<20170706151008.24addd2b@gandalf.local.home>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <7883.1500644499.1@warthog.procyon.org.uk>
-Date: Fri, 21 Jul 2017 14:41:39 +0100
-Message-ID: <7884.1500644499@warthog.procyon.org.uk>
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Getting better/supplementary
-	error info back to userspace
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Cc: Tom Zanussi <tom.zanussi@linux.intel.com>,
+	ksummit-discuss <ksummit-discuss@lists.linuxfoundation.org>,
+	Josef Bacik <jbacik@fb.com>, Julien Desfossez <jdesfossez@efficios.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	daolivei <daolivei@redhat.com>, bristot <bristot@redhat.com>,
+	Ingo Molnar <mingo@kernel.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Pulling away from the tracing
+ ABI quicksands
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,44 +41,84 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Linus Torvalds <torvalds@linux-foundation.org> wrote:
 
-> But every time it comes up people ignore this basic issue:
-> 
->      [torvalds@i7 linux]$ git grep -e '-E[A-Z]\{4\}' | wc -l
->      182523
-> 
-> 
-> Give it up. It's really is a horrible idea for so many reasons.
 
-Are you okay with me making it possible to retrieve mount errors, warnings and
-informational messages through fd-arbitrated-mount I'm working on?  For
-example (and skipping some of the parameters for brevity):
+----- On Jul 6, 2017, at 3:10 PM, rostedt rostedt@goodmis.org wrote:
 
-	int fs_fd;
+> On Fri, 30 Jun 2017 18:37:59 +0000
+> Josef Bacik <jbacik@fb.com> wrote:
+>=20
+>> [ I forgot to add Tom to the Cc list. Sending again. ]
+>>=20
+>> On Fri, 30 Jun 2017 14:29:56 -0400
+>> Steven Rostedt <rostedt@goodmis.org> wrote:
+>>=20
+>> > On Fri, 30 Jun 2017 18:24:12 +0000
+>> > Josef Bacik <jbacik@fb.com> wrote:
+>> >  =20
+>> > > Yup I=E2=80=99ll start bugging people to submit talk proposals, star=
+ting with you!  I=E2=80=99ll
+>> > > put up my proposal in the next day or two, I think Brendan has somet=
+hing he=E2=80=99s
+>> > > going to talk about.  Thanks,
+>> >=20
+>> > I shouldn't have used the term "talk", as it really is all about
+>> > discussions. In fact, if you need more than one slide, you have too
+>> > many.
+>> >=20
+>> > That said, I could probably come up with a few things, starting with
+>> > this trace event issue. But it will be pointless if Peter Zijlstra and
+>> > Mathieu are not there.
+>> >=20
+>> > But having ideas about dynamic fields in tracepoints is always
+>> > interesting. Not to mention talking about Tom Zanussi's latest
+>> > histogram work. It may be pretty much completed, but I would like to
+>> > discuss where we go from there.
+>> >=20
+>> > One last thing. I don't want to have too many responsibilities, as I'm
+>> > on the LPC program committee and I need to make sure I have time to
+>> > fulfill any action items I'm responsible for during the conference.
+>> >  =20
+>>=20
+>> Yeah plumbers is a weird venue for tracing, I always hope that we are
+>> going to have people like Brendan or other sysadmin-y people show up
+>> and say =E2=80=9Cthis is what sucks about tracing, please fix it=E2=80=
+=9D, and then
+>> we can go fix it.  It doesn=E2=80=99t really seem to happen that way tho=
+, and
+>> for things like tracing ABI there just aren=E2=80=99t the right people i=
+n the
+>> room to have that kind of discussion.  My proposal was just going to
+>> be a laundry list of things that would make my life easier, but it
+>> doesn=E2=80=99t really warrant a full micro-conference to listen to me b=
+itch
+>> for an hour.  If it turns out nobody else has much to talk about then
+>> we can just declare tracing is feature complete and we can talk about
+>> something else ;).  Thanks,
+>>=20
+>=20
+> At this rate, I'm guessing that Tracing is not going to be on the
+> Plumbers' agenda.
 
-	static inline void e(int x)
-	{
-		char buf[1024];
-		int i;
-		if (x == -1)
-			fprintf(stderr, "Mount error: %m\n");
-		/* Read back any messages */
-		while (i = read(fs_fd, buf), i != -1) {
-			buf[i] = 0;
-			fprintf(stderr, "%s\n", buf);
-		}
-		if (x == -1)
-			exit(1);
-	}
+Since the Kernel Summit and Plumbers do not seem like a good fit to have
+discussions involving both tracing end users and developers, we have
+adapted the Tracing Summit schedule to have half day of the usual
+presentations, and half day dedicated to such discussions. Steven has
+volunteered to run the discussion part.
 
-	fs_fd = fsopen("ext4");
-	e(write(fs_fd, "d /dev/sda3"));
-	e(write(fs_fd, "o user_xattr"));
-	e(write(fs_fd, "o acl"));
-	e(write(fs_fd, "o data=ordered"));
-	e(write(fs_fd, "x create"));
-	e(fsmount(fs_fd, AT_FDCWD, "/mnt", MS_NODEV));
-	close(fs_fd);
+The Tracing Summit will take place on October 27th in Prague, on the
+Friday right after Kernel Summit.
 
-David
+So if you have tracing topics that you would like to discuss at this
+event, the CFP/CFD and all the information are available here:
+
+http://tracingsummit.org/wiki/TracingSummit2017
+
+Thanks,
+
+Mathieu
+
+--=20
+Mathieu Desnoyers
+EfficiOS Inc.
+http://www.efficios.com
