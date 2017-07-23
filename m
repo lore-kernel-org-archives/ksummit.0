@@ -1,21 +1,18 @@
-Return-Path: <rostedt@goodmis.org>
-Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
-	[172.17.192.36])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 163B340C
+Return-Path: <prvs=8377448567=jbacik@fb.com>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9A0AA918
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 23 Jul 2017 21:48:49 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0213.hostedemail.com
-	[216.40.44.213])
-	by smtp2.linuxfoundation.org (Postfix) with ESMTPS id 17E6A1DAA2
+	Sun, 23 Jul 2017 16:24:52 +0000 (UTC)
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+	[67.231.145.42])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DFDB2147
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 23 Jul 2017 21:48:47 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
-	[10.5.19.251])
-	by smtpgrave04.hostedemail.com (Postfix) with ESMTP id 8B09B1800C0F7
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 23 Jul 2017 15:49:05 +0000 (UTC)
-Date: Fri, 21 Jul 2017 22:18:25 -0400
-In-Reply-To: <1188050494.22035.1500673557010.JavaMail.zimbra@efficios.com>
+	Sun, 23 Jul 2017 16:24:51 +0000 (UTC)
+From: Josef Bacik <jbacik@fb.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+Date: Sun, 23 Jul 2017 16:24:09 +0000
+Message-ID: <40F38E70-C173-463F-99AF-099927AC63E4@fb.com>
 References: <20170629195537.534445e7@gandalf.local.home>
 	<20170630025852.xjoif3aai6rny5a2@ast-mbp>
 	<20170629230251.02f380cb@gandalf.local.home>
@@ -24,22 +21,21 @@ References: <20170629195537.534445e7@gandalf.local.home>
 	<20170630143030.305b68a0@gandalf.local.home>
 	<658A3F80-5E48-4EC4-A591-E3783AD3DADC@fb.com>
 	<20170706151008.24addd2b@gandalf.local.home>
-	<1188050494.22035.1500673557010.JavaMail.zimbra@efficios.com>
+	<1188050494.22035.1500673557010.JavaMail.zimbra@efficios.com>,
+	<37EF4BA7-FC04-4580-8AD8-28E4C384DA88@goodmis.org>
+In-Reply-To: <37EF4BA7-FC04-4580-8AD8-28E4C384DA88@goodmis.org>
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-From: Steven Rostedt <rostedt@goodmis.org>
-Message-ID: <37EF4BA7-FC04-4580-8AD8-28E4C384DA88@goodmis.org>
 Cc: Tom Zanussi <tom.zanussi@linux.intel.com>,
 	ksummit-discuss <ksummit-discuss@lists.linuxfoundation.org>,
-	Josef Bacik <jbacik@fb.com>, Julien Desfossez <jdesfossez@efficios.com>,
 	Peter Zijlstra <peterz@infradead.org>,
+	Julien Desfossez <jdesfossez@efficios.com>,
 	daolivei <daolivei@redhat.com>, bristot <bristot@redhat.com>,
 	Ingo Molnar <mingo@kernel.org>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Pulling away from the tracing
-	ABI quicksands
+ ABI quicksands
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -49,104 +45,73 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Actually, Brendan Gregg got enough proposals together and there will be a t=
-racing MC at Plumbers this year=2E
-
--- Steve
-
-
-On July 21, 2017 5:45:57 PM EDT, Mathieu Desnoyers <mathieu=2Edesnoyers@ef=
-ficios=2Ecom> wrote:
->
->
->----- On Jul 6, 2017, at 3:10 PM, rostedt rostedt@goodmis=2Eorg wrote:
->
->> On Fri, 30 Jun 2017 18:37:59 +0000
->> Josef Bacik <jbacik@fb=2Ecom> wrote:
->>=20
->>> [ I forgot to add Tom to the Cc list=2E Sending again=2E ]
->>>=20
->>> On Fri, 30 Jun 2017 14:29:56 -0400
->>> Steven Rostedt <rostedt@goodmis=2Eorg> wrote:
->>>=20
->>> > On Fri, 30 Jun 2017 18:24:12 +0000
->>> > Josef Bacik <jbacik@fb=2Ecom> wrote:
->>> >  =20
->>> > > Yup I=E2=80=99ll start bugging people to submit talk proposals, st=
-arting
->with you!  I=E2=80=99ll
->>> > > put up my proposal in the next day or two, I think Brendan has
->something he=E2=80=99s
->>> > > going to talk about=2E  Thanks,
->>> >=20
->>> > I shouldn't have used the term "talk", as it really is all about
->>> > discussions=2E In fact, if you need more than one slide, you have
->too
->>> > many=2E
->>> >=20
->>> > That said, I could probably come up with a few things, starting
->with
->>> > this trace event issue=2E But it will be pointless if Peter Zijlstra
->and
->>> > Mathieu are not there=2E
->>> >=20
->>> > But having ideas about dynamic fields in tracepoints is always
->>> > interesting=2E Not to mention talking about Tom Zanussi's latest
->>> > histogram work=2E It may be pretty much completed, but I would like
->to
->>> > discuss where we go from there=2E
->>> >=20
->>> > One last thing=2E I don't want to have too many responsibilities, as
->I'm
->>> > on the LPC program committee and I need to make sure I have time
->to
->>> > fulfill any action items I'm responsible for during the
->conference=2E
->>> >  =20
->>>=20
->>> Yeah plumbers is a weird venue for tracing, I always hope that we
->are
->>> going to have people like Brendan or other sysadmin-y people show up
->>> and say =E2=80=9Cthis is what sucks about tracing, please fix it=E2=80=
-=9D, and then
->>> we can go fix it=2E  It doesn=E2=80=99t really seem to happen that way=
- tho,
->and
->>> for things like tracing ABI there just aren=E2=80=99t the right people=
- in
->the
->>> room to have that kind of discussion=2E  My proposal was just going to
->>> be a laundry list of things that would make my life easier, but it
->>> doesn=E2=80=99t really warrant a full micro-conference to listen to me=
- bitch
->>> for an hour=2E  If it turns out nobody else has much to talk about
->then
->>> we can just declare tracing is feature complete and we can talk
->about
->>> something else ;)=2E  Thanks,
->>>=20
->>=20
->> At this rate, I'm guessing that Tracing is not going to be on the
->> Plumbers' agenda=2E
->
->Since the Kernel Summit and Plumbers do not seem like a good fit to
->have
->discussions involving both tracing end users and developers, we have
->adapted the Tracing Summit schedule to have half day of the usual
->presentations, and half day dedicated to such discussions=2E Steven has
->volunteered to run the discussion part=2E
->
->The Tracing Summit will take place on October 27th in Prague, on the
->Friday right after Kernel Summit=2E
->
->So if you have tracing topics that you would like to discuss at this
->event, the CFP/CFD and all the information are available here:
->
->http://tracingsummit=2Eorg/wiki/TracingSummit2017
->
->Thanks,
->
->Mathieu
-
---=20
-Sent from my Android device with K-9 Mail=2E Please excuse my brevity=2E
+RG8gd2Ugd2FudCB0byB0YWxrIGFib3V0IEFCSSBhdCB0aGUgbWljcm8gY29uZmVyZW5jZT8gIEZh
+Y2Vib29rIHVzZXMgdHJhY2luZyBldmVyeXdoZXJlIGluIHByb2R1Y3Rpb24gc28gSSBjYW4gdGFs
+ayBhYm91dCBpdCBmcm9tIGJvdGggYSB1c2VyIGFuZCBtYWludGFpbmVyIHN0YW5kcG9pbnQuICBU
+aGFua3MsDQoNCkpvc2VmDQoNClNlbnQgZnJvbSBteSBpUGhvbmUNCg0KPiBPbiBKdWwgMjMsIDIw
+MTcsIGF0IDExOjQ5IEFNLCBTdGV2ZW4gUm9zdGVkdCA8cm9zdGVkdEBnb29kbWlzLm9yZz4gd3Jv
+dGU6DQo+IA0KPiBBY3R1YWxseSwgQnJlbmRhbiBHcmVnZyBnb3QgZW5vdWdoIHByb3Bvc2FscyB0
+b2dldGhlciBhbmQgdGhlcmUgd2lsbCBiZSBhIHRyYWNpbmcgTUMgYXQgUGx1bWJlcnMgdGhpcyB5
+ZWFyLg0KPiANCj4gLS0gU3RldmUNCj4gDQo+IA0KPj4gT24gSnVseSAyMSwgMjAxNyA1OjQ1OjU3
+IFBNIEVEVCwgTWF0aGlldSBEZXNub3llcnMgPG1hdGhpZXUuZGVzbm95ZXJzQGVmZmljaW9zLmNv
+bT4gd3JvdGU6DQo+PiANCj4+IA0KPj4gLS0tLS0gT24gSnVsIDYsIDIwMTcsIGF0IDM6MTAgUE0s
+IHJvc3RlZHQgcm9zdGVkdEBnb29kbWlzLm9yZyB3cm90ZToNCj4+IA0KPj4+IE9uIEZyaSwgMzAg
+SnVuIDIwMTcgMTg6Mzc6NTkgKzAwMDANCj4+PiBKb3NlZiBCYWNpayA8amJhY2lrQGZiLmNvbT4g
+d3JvdGU6DQo+Pj4gDQo+Pj4+IFsgSSBmb3Jnb3QgdG8gYWRkIFRvbSB0byB0aGUgQ2MgbGlzdC4g
+U2VuZGluZyBhZ2Fpbi4gXQ0KPj4+PiANCj4+Pj4gT24gRnJpLCAzMCBKdW4gMjAxNyAxNDoyOTo1
+NiAtMDQwMA0KPj4+PiBTdGV2ZW4gUm9zdGVkdCA8cm9zdGVkdEBnb29kbWlzLm9yZz4gd3JvdGU6
+DQo+Pj4+IA0KPj4+Pj4gT24gRnJpLCAzMCBKdW4gMjAxNyAxODoyNDoxMiArMDAwMA0KPj4+Pj4g
+Sm9zZWYgQmFjaWsgPGpiYWNpa0BmYi5jb20+IHdyb3RlOg0KPj4+Pj4gDQo+Pj4+Pj4gWXVwIEni
+gJlsbCBzdGFydCBidWdnaW5nIHBlb3BsZSB0byBzdWJtaXQgdGFsayBwcm9wb3NhbHMsIHN0YXJ0
+aW5nDQo+PiB3aXRoIHlvdSEgIEnigJlsbA0KPj4+Pj4+IHB1dCB1cCBteSBwcm9wb3NhbCBpbiB0
+aGUgbmV4dCBkYXkgb3IgdHdvLCBJIHRoaW5rIEJyZW5kYW4gaGFzDQo+PiBzb21ldGhpbmcgaGXi
+gJlzDQo+Pj4+Pj4gZ29pbmcgdG8gdGFsayBhYm91dC4gIFRoYW5rcywNCj4+Pj4+IA0KPj4+Pj4g
+SSBzaG91bGRuJ3QgaGF2ZSB1c2VkIHRoZSB0ZXJtICJ0YWxrIiwgYXMgaXQgcmVhbGx5IGlzIGFs
+bCBhYm91dA0KPj4+Pj4gZGlzY3Vzc2lvbnMuIEluIGZhY3QsIGlmIHlvdSBuZWVkIG1vcmUgdGhh
+biBvbmUgc2xpZGUsIHlvdSBoYXZlDQo+PiB0b28NCj4+Pj4+IG1hbnkuDQo+Pj4+PiANCj4+Pj4+
+IFRoYXQgc2FpZCwgSSBjb3VsZCBwcm9iYWJseSBjb21lIHVwIHdpdGggYSBmZXcgdGhpbmdzLCBz
+dGFydGluZw0KPj4gd2l0aA0KPj4+Pj4gdGhpcyB0cmFjZSBldmVudCBpc3N1ZS4gQnV0IGl0IHdp
+bGwgYmUgcG9pbnRsZXNzIGlmIFBldGVyIFppamxzdHJhDQo+PiBhbmQNCj4+Pj4+IE1hdGhpZXUg
+YXJlIG5vdCB0aGVyZS4NCj4+Pj4+IA0KPj4+Pj4gQnV0IGhhdmluZyBpZGVhcyBhYm91dCBkeW5h
+bWljIGZpZWxkcyBpbiB0cmFjZXBvaW50cyBpcyBhbHdheXMNCj4+Pj4+IGludGVyZXN0aW5nLiBO
+b3QgdG8gbWVudGlvbiB0YWxraW5nIGFib3V0IFRvbSBaYW51c3NpJ3MgbGF0ZXN0DQo+Pj4+PiBo
+aXN0b2dyYW0gd29yay4gSXQgbWF5IGJlIHByZXR0eSBtdWNoIGNvbXBsZXRlZCwgYnV0IEkgd291
+bGQgbGlrZQ0KPj4gdG8NCj4+Pj4+IGRpc2N1c3Mgd2hlcmUgd2UgZ28gZnJvbSB0aGVyZS4NCj4+
+Pj4+IA0KPj4+Pj4gT25lIGxhc3QgdGhpbmcuIEkgZG9uJ3Qgd2FudCB0byBoYXZlIHRvbyBtYW55
+IHJlc3BvbnNpYmlsaXRpZXMsIGFzDQo+PiBJJ20NCj4+Pj4+IG9uIHRoZSBMUEMgcHJvZ3JhbSBj
+b21taXR0ZWUgYW5kIEkgbmVlZCB0byBtYWtlIHN1cmUgSSBoYXZlIHRpbWUNCj4+IHRvDQo+Pj4+
+PiBmdWxmaWxsIGFueSBhY3Rpb24gaXRlbXMgSSdtIHJlc3BvbnNpYmxlIGZvciBkdXJpbmcgdGhl
+DQo+PiBjb25mZXJlbmNlLg0KPj4+Pj4gDQo+Pj4+IA0KPj4+PiBZZWFoIHBsdW1iZXJzIGlzIGEg
+d2VpcmQgdmVudWUgZm9yIHRyYWNpbmcsIEkgYWx3YXlzIGhvcGUgdGhhdCB3ZQ0KPj4gYXJlDQo+
+Pj4+IGdvaW5nIHRvIGhhdmUgcGVvcGxlIGxpa2UgQnJlbmRhbiBvciBvdGhlciBzeXNhZG1pbi15
+IHBlb3BsZSBzaG93IHVwDQo+Pj4+IGFuZCBzYXkg4oCcdGhpcyBpcyB3aGF0IHN1Y2tzIGFib3V0
+IHRyYWNpbmcsIHBsZWFzZSBmaXggaXTigJ0sIGFuZCB0aGVuDQo+Pj4+IHdlIGNhbiBnbyBmaXgg
+aXQuICBJdCBkb2VzbuKAmXQgcmVhbGx5IHNlZW0gdG8gaGFwcGVuIHRoYXQgd2F5IHRobywNCj4+
+IGFuZA0KPj4+PiBmb3IgdGhpbmdzIGxpa2UgdHJhY2luZyBBQkkgdGhlcmUganVzdCBhcmVu4oCZ
+dCB0aGUgcmlnaHQgcGVvcGxlIGluDQo+PiB0aGUNCj4+Pj4gcm9vbSB0byBoYXZlIHRoYXQga2lu
+ZCBvZiBkaXNjdXNzaW9uLiAgTXkgcHJvcG9zYWwgd2FzIGp1c3QgZ29pbmcgdG8NCj4+Pj4gYmUg
+YSBsYXVuZHJ5IGxpc3Qgb2YgdGhpbmdzIHRoYXQgd291bGQgbWFrZSBteSBsaWZlIGVhc2llciwg
+YnV0IGl0DQo+Pj4+IGRvZXNu4oCZdCByZWFsbHkgd2FycmFudCBhIGZ1bGwgbWljcm8tY29uZmVy
+ZW5jZSB0byBsaXN0ZW4gdG8gbWUgYml0Y2gNCj4+Pj4gZm9yIGFuIGhvdXIuICBJZiBpdCB0dXJu
+cyBvdXQgbm9ib2R5IGVsc2UgaGFzIG11Y2ggdG8gdGFsayBhYm91dA0KPj4gdGhlbg0KPj4+PiB3
+ZSBjYW4ganVzdCBkZWNsYXJlIHRyYWNpbmcgaXMgZmVhdHVyZSBjb21wbGV0ZSBhbmQgd2UgY2Fu
+IHRhbGsNCj4+IGFib3V0DQo+Pj4+IHNvbWV0aGluZyBlbHNlIDspLiAgVGhhbmtzLA0KPj4+PiAN
+Cj4+PiANCj4+PiBBdCB0aGlzIHJhdGUsIEknbSBndWVzc2luZyB0aGF0IFRyYWNpbmcgaXMgbm90
+IGdvaW5nIHRvIGJlIG9uIHRoZQ0KPj4+IFBsdW1iZXJzJyBhZ2VuZGEuDQo+PiANCj4+IFNpbmNl
+IHRoZSBLZXJuZWwgU3VtbWl0IGFuZCBQbHVtYmVycyBkbyBub3Qgc2VlbSBsaWtlIGEgZ29vZCBm
+aXQgdG8NCj4+IGhhdmUNCj4+IGRpc2N1c3Npb25zIGludm9sdmluZyBib3RoIHRyYWNpbmcgZW5k
+IHVzZXJzIGFuZCBkZXZlbG9wZXJzLCB3ZSBoYXZlDQo+PiBhZGFwdGVkIHRoZSBUcmFjaW5nIFN1
+bW1pdCBzY2hlZHVsZSB0byBoYXZlIGhhbGYgZGF5IG9mIHRoZSB1c3VhbA0KPj4gcHJlc2VudGF0
+aW9ucywgYW5kIGhhbGYgZGF5IGRlZGljYXRlZCB0byBzdWNoIGRpc2N1c3Npb25zLiBTdGV2ZW4g
+aGFzDQo+PiB2b2x1bnRlZXJlZCB0byBydW4gdGhlIGRpc2N1c3Npb24gcGFydC4NCj4+IA0KPj4g
+VGhlIFRyYWNpbmcgU3VtbWl0IHdpbGwgdGFrZSBwbGFjZSBvbiBPY3RvYmVyIDI3dGggaW4gUHJh
+Z3VlLCBvbiB0aGUNCj4+IEZyaWRheSByaWdodCBhZnRlciBLZXJuZWwgU3VtbWl0Lg0KPj4gDQo+
+PiBTbyBpZiB5b3UgaGF2ZSB0cmFjaW5nIHRvcGljcyB0aGF0IHlvdSB3b3VsZCBsaWtlIHRvIGRp
+c2N1c3MgYXQgdGhpcw0KPj4gZXZlbnQsIHRoZSBDRlAvQ0ZEIGFuZCBhbGwgdGhlIGluZm9ybWF0
+aW9uIGFyZSBhdmFpbGFibGUgaGVyZToNCj4+IA0KPj4gaHR0cHM6Ly91cmxkZWZlbnNlLnByb29m
+cG9pbnQuY29tL3YyL3VybD91PWh0dHAtM0FfX3RyYWNpbmdzdW1taXQub3JnX3dpa2lfVHJhY2lu
+Z1N1bW1pdDIwMTcmZD1Ed0lGYVEmYz01VkQwUlR0TmxUaDN5Y2Q0MWIzTVV3JnI9c0R6ZzZNdkh5
+bUtPVWdJOFNGSW00USZtPWkwV1V3eEd0TU5xV2Ywc1VmY0pHdThtank0RW1BTGh6R2o0RlNTQWpf
+MTAmcz11U3FWTkNqa3ZmZ0R5OG00YlYwZlJoTHhYWnpkMmI1TU9ueklzNXVBdWdNJmU9IA0KPj4g
+DQo+PiBUaGFua3MsDQo+PiANCj4+IE1hdGhpZXUNCj4gDQo+IC0tIA0KPiBTZW50IGZyb20gbXkg
+QW5kcm9pZCBkZXZpY2Ugd2l0aCBLLTkgTWFpbC4gUGxlYXNlIGV4Y3VzZSBteSBicmV2aXR5Lg0K
