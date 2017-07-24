@@ -1,41 +1,32 @@
-Return-Path: <prvs=8377448567=jbacik@fb.com>
+Return-Path: <miklos@szeredi.hu>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9A0AA918
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3506F959
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 23 Jul 2017 16:24:52 +0000 (UTC)
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
-	[67.231.145.42])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DFDB2147
+	Mon, 24 Jul 2017 07:55:22 +0000 (UTC)
+Received: from mail-oi0-f67.google.com (mail-oi0-f67.google.com
+	[209.85.218.67])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F3ADD16B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 23 Jul 2017 16:24:51 +0000 (UTC)
-From: Josef Bacik <jbacik@fb.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-Date: Sun, 23 Jul 2017 16:24:09 +0000
-Message-ID: <40F38E70-C173-463F-99AF-099927AC63E4@fb.com>
-References: <20170629195537.534445e7@gandalf.local.home>
-	<20170630025852.xjoif3aai6rny5a2@ast-mbp>
-	<20170629230251.02f380cb@gandalf.local.home>
-	<6AE378F0-42F7-45DE-9F3C-050A5019A1E8@fb.com>
-	<20170630142956.7e0cb2d6@gandalf.local.home>
-	<20170630143030.305b68a0@gandalf.local.home>
-	<658A3F80-5E48-4EC4-A591-E3783AD3DADC@fb.com>
-	<20170706151008.24addd2b@gandalf.local.home>
-	<1188050494.22035.1500673557010.JavaMail.zimbra@efficios.com>,
-	<37EF4BA7-FC04-4580-8AD8-28E4C384DA88@goodmis.org>
-In-Reply-To: <37EF4BA7-FC04-4580-8AD8-28E4C384DA88@goodmis.org>
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	Mon, 24 Jul 2017 07:55:20 +0000 (UTC)
+Received: by mail-oi0-f67.google.com with SMTP id j194so1622144oib.4
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 24 Jul 2017 00:55:20 -0700 (PDT)
 MIME-Version: 1.0
-Cc: Tom Zanussi <tom.zanussi@linux.intel.com>,
-	ksummit-discuss <ksummit-discuss@lists.linuxfoundation.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Julien Desfossez <jdesfossez@efficios.com>,
-	daolivei <daolivei@redhat.com>, bristot <bristot@redhat.com>,
-	Ingo Molnar <mingo@kernel.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Pulling away from the tracing
- ABI quicksands
+In-Reply-To: <20170719090239.39f031c5@gandalf.local.home>
+References: <10144.1499863410@warthog.procyon.org.uk>
+	<12463.1499871476@warthog.procyon.org.uk>
+	<20170712082139.17cfd33a@xeon-e3>
+	<CA+55aFySG7NAvsphb76J-M2YuM8_4wQ8Cvufu24Gb=EhpaoKTg@mail.gmail.com>
+	<20170719090239.39f031c5@gandalf.local.home>
+From: Miklos Szeredi <miklos@szeredi.hu>
+Date: Mon, 24 Jul 2017 09:55:19 +0200
+Message-ID: <CAJfpegsK_SvLOg9rTMSwVSZpDG4HFkPrkfaPtGrniLhtr1vUhw@mail.gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Getting better/supplementary
+ error info back to userspace
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -45,73 +36,55 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-RG8gd2Ugd2FudCB0byB0YWxrIGFib3V0IEFCSSBhdCB0aGUgbWljcm8gY29uZmVyZW5jZT8gIEZh
-Y2Vib29rIHVzZXMgdHJhY2luZyBldmVyeXdoZXJlIGluIHByb2R1Y3Rpb24gc28gSSBjYW4gdGFs
-ayBhYm91dCBpdCBmcm9tIGJvdGggYSB1c2VyIGFuZCBtYWludGFpbmVyIHN0YW5kcG9pbnQuICBU
-aGFua3MsDQoNCkpvc2VmDQoNClNlbnQgZnJvbSBteSBpUGhvbmUNCg0KPiBPbiBKdWwgMjMsIDIw
-MTcsIGF0IDExOjQ5IEFNLCBTdGV2ZW4gUm9zdGVkdCA8cm9zdGVkdEBnb29kbWlzLm9yZz4gd3Jv
-dGU6DQo+IA0KPiBBY3R1YWxseSwgQnJlbmRhbiBHcmVnZyBnb3QgZW5vdWdoIHByb3Bvc2FscyB0
-b2dldGhlciBhbmQgdGhlcmUgd2lsbCBiZSBhIHRyYWNpbmcgTUMgYXQgUGx1bWJlcnMgdGhpcyB5
-ZWFyLg0KPiANCj4gLS0gU3RldmUNCj4gDQo+IA0KPj4gT24gSnVseSAyMSwgMjAxNyA1OjQ1OjU3
-IFBNIEVEVCwgTWF0aGlldSBEZXNub3llcnMgPG1hdGhpZXUuZGVzbm95ZXJzQGVmZmljaW9zLmNv
-bT4gd3JvdGU6DQo+PiANCj4+IA0KPj4gLS0tLS0gT24gSnVsIDYsIDIwMTcsIGF0IDM6MTAgUE0s
-IHJvc3RlZHQgcm9zdGVkdEBnb29kbWlzLm9yZyB3cm90ZToNCj4+IA0KPj4+IE9uIEZyaSwgMzAg
-SnVuIDIwMTcgMTg6Mzc6NTkgKzAwMDANCj4+PiBKb3NlZiBCYWNpayA8amJhY2lrQGZiLmNvbT4g
-d3JvdGU6DQo+Pj4gDQo+Pj4+IFsgSSBmb3Jnb3QgdG8gYWRkIFRvbSB0byB0aGUgQ2MgbGlzdC4g
-U2VuZGluZyBhZ2Fpbi4gXQ0KPj4+PiANCj4+Pj4gT24gRnJpLCAzMCBKdW4gMjAxNyAxNDoyOTo1
-NiAtMDQwMA0KPj4+PiBTdGV2ZW4gUm9zdGVkdCA8cm9zdGVkdEBnb29kbWlzLm9yZz4gd3JvdGU6
-DQo+Pj4+IA0KPj4+Pj4gT24gRnJpLCAzMCBKdW4gMjAxNyAxODoyNDoxMiArMDAwMA0KPj4+Pj4g
-Sm9zZWYgQmFjaWsgPGpiYWNpa0BmYi5jb20+IHdyb3RlOg0KPj4+Pj4gDQo+Pj4+Pj4gWXVwIEni
-gJlsbCBzdGFydCBidWdnaW5nIHBlb3BsZSB0byBzdWJtaXQgdGFsayBwcm9wb3NhbHMsIHN0YXJ0
-aW5nDQo+PiB3aXRoIHlvdSEgIEnigJlsbA0KPj4+Pj4+IHB1dCB1cCBteSBwcm9wb3NhbCBpbiB0
-aGUgbmV4dCBkYXkgb3IgdHdvLCBJIHRoaW5rIEJyZW5kYW4gaGFzDQo+PiBzb21ldGhpbmcgaGXi
-gJlzDQo+Pj4+Pj4gZ29pbmcgdG8gdGFsayBhYm91dC4gIFRoYW5rcywNCj4+Pj4+IA0KPj4+Pj4g
-SSBzaG91bGRuJ3QgaGF2ZSB1c2VkIHRoZSB0ZXJtICJ0YWxrIiwgYXMgaXQgcmVhbGx5IGlzIGFs
-bCBhYm91dA0KPj4+Pj4gZGlzY3Vzc2lvbnMuIEluIGZhY3QsIGlmIHlvdSBuZWVkIG1vcmUgdGhh
-biBvbmUgc2xpZGUsIHlvdSBoYXZlDQo+PiB0b28NCj4+Pj4+IG1hbnkuDQo+Pj4+PiANCj4+Pj4+
-IFRoYXQgc2FpZCwgSSBjb3VsZCBwcm9iYWJseSBjb21lIHVwIHdpdGggYSBmZXcgdGhpbmdzLCBz
-dGFydGluZw0KPj4gd2l0aA0KPj4+Pj4gdGhpcyB0cmFjZSBldmVudCBpc3N1ZS4gQnV0IGl0IHdp
-bGwgYmUgcG9pbnRsZXNzIGlmIFBldGVyIFppamxzdHJhDQo+PiBhbmQNCj4+Pj4+IE1hdGhpZXUg
-YXJlIG5vdCB0aGVyZS4NCj4+Pj4+IA0KPj4+Pj4gQnV0IGhhdmluZyBpZGVhcyBhYm91dCBkeW5h
-bWljIGZpZWxkcyBpbiB0cmFjZXBvaW50cyBpcyBhbHdheXMNCj4+Pj4+IGludGVyZXN0aW5nLiBO
-b3QgdG8gbWVudGlvbiB0YWxraW5nIGFib3V0IFRvbSBaYW51c3NpJ3MgbGF0ZXN0DQo+Pj4+PiBo
-aXN0b2dyYW0gd29yay4gSXQgbWF5IGJlIHByZXR0eSBtdWNoIGNvbXBsZXRlZCwgYnV0IEkgd291
-bGQgbGlrZQ0KPj4gdG8NCj4+Pj4+IGRpc2N1c3Mgd2hlcmUgd2UgZ28gZnJvbSB0aGVyZS4NCj4+
-Pj4+IA0KPj4+Pj4gT25lIGxhc3QgdGhpbmcuIEkgZG9uJ3Qgd2FudCB0byBoYXZlIHRvbyBtYW55
-IHJlc3BvbnNpYmlsaXRpZXMsIGFzDQo+PiBJJ20NCj4+Pj4+IG9uIHRoZSBMUEMgcHJvZ3JhbSBj
-b21taXR0ZWUgYW5kIEkgbmVlZCB0byBtYWtlIHN1cmUgSSBoYXZlIHRpbWUNCj4+IHRvDQo+Pj4+
-PiBmdWxmaWxsIGFueSBhY3Rpb24gaXRlbXMgSSdtIHJlc3BvbnNpYmxlIGZvciBkdXJpbmcgdGhl
-DQo+PiBjb25mZXJlbmNlLg0KPj4+Pj4gDQo+Pj4+IA0KPj4+PiBZZWFoIHBsdW1iZXJzIGlzIGEg
-d2VpcmQgdmVudWUgZm9yIHRyYWNpbmcsIEkgYWx3YXlzIGhvcGUgdGhhdCB3ZQ0KPj4gYXJlDQo+
-Pj4+IGdvaW5nIHRvIGhhdmUgcGVvcGxlIGxpa2UgQnJlbmRhbiBvciBvdGhlciBzeXNhZG1pbi15
-IHBlb3BsZSBzaG93IHVwDQo+Pj4+IGFuZCBzYXkg4oCcdGhpcyBpcyB3aGF0IHN1Y2tzIGFib3V0
-IHRyYWNpbmcsIHBsZWFzZSBmaXggaXTigJ0sIGFuZCB0aGVuDQo+Pj4+IHdlIGNhbiBnbyBmaXgg
-aXQuICBJdCBkb2VzbuKAmXQgcmVhbGx5IHNlZW0gdG8gaGFwcGVuIHRoYXQgd2F5IHRobywNCj4+
-IGFuZA0KPj4+PiBmb3IgdGhpbmdzIGxpa2UgdHJhY2luZyBBQkkgdGhlcmUganVzdCBhcmVu4oCZ
-dCB0aGUgcmlnaHQgcGVvcGxlIGluDQo+PiB0aGUNCj4+Pj4gcm9vbSB0byBoYXZlIHRoYXQga2lu
-ZCBvZiBkaXNjdXNzaW9uLiAgTXkgcHJvcG9zYWwgd2FzIGp1c3QgZ29pbmcgdG8NCj4+Pj4gYmUg
-YSBsYXVuZHJ5IGxpc3Qgb2YgdGhpbmdzIHRoYXQgd291bGQgbWFrZSBteSBsaWZlIGVhc2llciwg
-YnV0IGl0DQo+Pj4+IGRvZXNu4oCZdCByZWFsbHkgd2FycmFudCBhIGZ1bGwgbWljcm8tY29uZmVy
-ZW5jZSB0byBsaXN0ZW4gdG8gbWUgYml0Y2gNCj4+Pj4gZm9yIGFuIGhvdXIuICBJZiBpdCB0dXJu
-cyBvdXQgbm9ib2R5IGVsc2UgaGFzIG11Y2ggdG8gdGFsayBhYm91dA0KPj4gdGhlbg0KPj4+PiB3
-ZSBjYW4ganVzdCBkZWNsYXJlIHRyYWNpbmcgaXMgZmVhdHVyZSBjb21wbGV0ZSBhbmQgd2UgY2Fu
-IHRhbGsNCj4+IGFib3V0DQo+Pj4+IHNvbWV0aGluZyBlbHNlIDspLiAgVGhhbmtzLA0KPj4+PiAN
-Cj4+PiANCj4+PiBBdCB0aGlzIHJhdGUsIEknbSBndWVzc2luZyB0aGF0IFRyYWNpbmcgaXMgbm90
-IGdvaW5nIHRvIGJlIG9uIHRoZQ0KPj4+IFBsdW1iZXJzJyBhZ2VuZGEuDQo+PiANCj4+IFNpbmNl
-IHRoZSBLZXJuZWwgU3VtbWl0IGFuZCBQbHVtYmVycyBkbyBub3Qgc2VlbSBsaWtlIGEgZ29vZCBm
-aXQgdG8NCj4+IGhhdmUNCj4+IGRpc2N1c3Npb25zIGludm9sdmluZyBib3RoIHRyYWNpbmcgZW5k
-IHVzZXJzIGFuZCBkZXZlbG9wZXJzLCB3ZSBoYXZlDQo+PiBhZGFwdGVkIHRoZSBUcmFjaW5nIFN1
-bW1pdCBzY2hlZHVsZSB0byBoYXZlIGhhbGYgZGF5IG9mIHRoZSB1c3VhbA0KPj4gcHJlc2VudGF0
-aW9ucywgYW5kIGhhbGYgZGF5IGRlZGljYXRlZCB0byBzdWNoIGRpc2N1c3Npb25zLiBTdGV2ZW4g
-aGFzDQo+PiB2b2x1bnRlZXJlZCB0byBydW4gdGhlIGRpc2N1c3Npb24gcGFydC4NCj4+IA0KPj4g
-VGhlIFRyYWNpbmcgU3VtbWl0IHdpbGwgdGFrZSBwbGFjZSBvbiBPY3RvYmVyIDI3dGggaW4gUHJh
-Z3VlLCBvbiB0aGUNCj4+IEZyaWRheSByaWdodCBhZnRlciBLZXJuZWwgU3VtbWl0Lg0KPj4gDQo+
-PiBTbyBpZiB5b3UgaGF2ZSB0cmFjaW5nIHRvcGljcyB0aGF0IHlvdSB3b3VsZCBsaWtlIHRvIGRp
-c2N1c3MgYXQgdGhpcw0KPj4gZXZlbnQsIHRoZSBDRlAvQ0ZEIGFuZCBhbGwgdGhlIGluZm9ybWF0
-aW9uIGFyZSBhdmFpbGFibGUgaGVyZToNCj4+IA0KPj4gaHR0cHM6Ly91cmxkZWZlbnNlLnByb29m
-cG9pbnQuY29tL3YyL3VybD91PWh0dHAtM0FfX3RyYWNpbmdzdW1taXQub3JnX3dpa2lfVHJhY2lu
-Z1N1bW1pdDIwMTcmZD1Ed0lGYVEmYz01VkQwUlR0TmxUaDN5Y2Q0MWIzTVV3JnI9c0R6ZzZNdkh5
-bUtPVWdJOFNGSW00USZtPWkwV1V3eEd0TU5xV2Ywc1VmY0pHdThtank0RW1BTGh6R2o0RlNTQWpf
-MTAmcz11U3FWTkNqa3ZmZ0R5OG00YlYwZlJoTHhYWnpkMmI1TU9ueklzNXVBdWdNJmU9IA0KPj4g
-DQo+PiBUaGFua3MsDQo+PiANCj4+IE1hdGhpZXUNCj4gDQo+IC0tIA0KPiBTZW50IGZyb20gbXkg
-QW5kcm9pZCBkZXZpY2Ugd2l0aCBLLTkgTWFpbC4gUGxlYXNlIGV4Y3VzZSBteSBicmV2aXR5Lg0K
+On Wed, Jul 19, 2017 at 3:02 PM, Steven Rostedt <rostedt@goodmis.org> wrote:
+> On Wed, 12 Jul 2017 09:19:55 -0700
+> Linus Torvalds <torvalds@linux-foundation.org> wrote:
+>
+>> On Wed, Jul 12, 2017 at 8:21 AM, Stephen Hemminger
+>> <stephen@networkplumber.org> wrote:
+>> >
+>> > Netlink has recently got extended error reporting, still not used widely
+>> > and library support is lacking in most places.
+>>
+>> Yeah, and that "not widely supported and library support is lacking"
+>> is always going to be an issue with anything like that.
+>>
+>> Along with internationalization, which is a whole nasty set of issues
+>> in itself with error messages.
+>>
+>> It's not going to happen, in other words. The problems are basically
+>> insurmountable, and the thing it fixes will always be some special
+>> case that doesn't much matter.
+>>
+>> Every time it comes up it is because some developer found one case
+>> that they were hunting down and it annoyed them, and the developer
+>> went "if only it had included more information and it would have been
+>> obvious".
+>>
+>> But every time it comes up people ignore this basic issue:
+>>
+>>      [torvalds@i7 linux]$ git grep -e '-E[A-Z]\{4\}' | wc -l
+>>      182523
+>>
+>
+> Note a lot of those -E* are not going to user space. Some are in
+> comments, and some are used internally. I use them to pass back
+> information to other kernel only routines, as some errors are more
+> critical than others.
+
+a) it wouldn't have to be for every error
+
+b) kernel prints detailed error in dmesg anyway, why not allow that
+info to be bound to the syscall that triggered the error?
+
+c) internationalization can be solved at the level where it matters
+(NOT in the kernel)
+
+My suggestion was to keep the kernel interface really simple, e.g.:
+
+   return detailed_error(-EINVAL, "failure to do foo because of bar");
+
+What are the insurmountable issues you are talking about?
+
+Thanks,
+Miklos
