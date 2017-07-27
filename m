@@ -1,30 +1,36 @@
-Return-Path: <dhowells@redhat.com>
+Return-Path: <compudj@efficios.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5EE2D900
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 22E62B3F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 24 Jul 2017 08:25:20 +0000 (UTC)
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CDF231BB
+	Thu, 27 Jul 2017 14:33:42 +0000 (UTC)
+Received: from mail.efficios.com (mail.efficios.com [167.114.142.141])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A286B469
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 24 Jul 2017 08:25:19 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <CAJfpegsK_SvLOg9rTMSwVSZpDG4HFkPrkfaPtGrniLhtr1vUhw@mail.gmail.com>
-References: <CAJfpegsK_SvLOg9rTMSwVSZpDG4HFkPrkfaPtGrniLhtr1vUhw@mail.gmail.com>
-	<10144.1499863410@warthog.procyon.org.uk>
-	<12463.1499871476@warthog.procyon.org.uk>
-	<20170712082139.17cfd33a@xeon-e3>
-	<CA+55aFySG7NAvsphb76J-M2YuM8_4wQ8Cvufu24Gb=EhpaoKTg@mail.gmail.com>
-	<20170719090239.39f031c5@gandalf.local.home>
-To: Miklos Szeredi <miklos@szeredi.hu>
+	Thu, 27 Jul 2017 14:33:41 +0000 (UTC)
+Date: Thu, 27 Jul 2017 14:35:45 +0000 (UTC)
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+To: rostedt <rostedt@goodmis.org>
+Message-ID: <292206664.28374.1501166145927.JavaMail.zimbra@efficios.com>
+In-Reply-To: <20170629232016.4cde203e@gandalf.local.home>
+References: <20170629195537.534445e7@gandalf.local.home>
+	<20170629212750.5c3542ee@gandalf.local.home>
+	<CA+55aFzzCPMUDt72hckauYu+fj=Q2MWjx+XiR06KpMLAr1EBAA@mail.gmail.com>
+	<20170629221245.489760b1@gandalf.local.home>
+	<CA+55aFxFLvX62SyOC9qyVwEQXH8J224Fe03tvy624AUx0U2fRQ@mail.gmail.com>
+	<20170630025852.xjoif3aai6rny5a2@ast-mbp>
+	<20170629230251.02f380cb@gandalf.local.home>
+	<20170629232016.4cde203e@gandalf.local.home>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <25484.1500884717.1@warthog.procyon.org.uk>
-Date: Mon, 24 Jul 2017 09:25:17 +0100
-Message-ID: <25485.1500884717@warthog.procyon.org.uk>
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Getting better/supplementary
-	error info back to userspace
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Cc: ksummit-discuss <ksummit-discuss@lists.linuxfoundation.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Julien Desfossez <jdesfossez@efficios.com>,
+	Ingo Molnar <mingo@kernel.org>, Josef Bacik <jbacik@fb.com>,
+	daolivei <daolivei@redhat.com>, bristot <bristot@redhat.com>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Pulling away from the tracing
+ ABI quicksands
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,13 +40,36 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Miklos Szeredi <miklos@szeredi.hu> wrote:
+----- On Jun 29, 2017, at 11:20 PM, rostedt rostedt@goodmis.org wrote:
 
-> My suggestion was to keep the kernel interface really simple, e.g.:
+> On Thu, 29 Jun 2017 23:02:51 -0400
+> Steven Rostedt <rostedt@goodmis.org> wrote:
 > 
->    return detailed_error(-EINVAL, "failure to do foo because of bar");
+>> On Thu, 29 Jun 2017 19:58:54 -0700
+>> Alexei Starovoitov <alexei.starovoitov@gmail.com> wrote:
+>> 
+>> 
+>> > Also I'm not planning to fly to Prague just for tracing discussion.
+>> > There is netdev2.2 right after in Seoul.
+>> > And tracing microconf at plumbers in September which is imo better
+>> > suited to discuss tracing related topics.
+>> 
+>> Which reminds me. The LPC Tracing Microconf WIKI has been stale, and not
+>> moving at all. If it is to be accepted, it needs some talk proposals,
+>> and fast!
+> 
+> Also note, Mathieu has stated he wont be attending Plumbers, and I'm
+> not sure Peter will be either as he has smaller things to attend to.
 
-That's what I was thinking of, though I'd prefix the string with a source tag,
-such as "nfs", "vfs" or "dvb-core".
+I take it back. Work permit delays postpone my conflicting house
+renovation work, so I will likely be able to make it to LPC finally. :)
 
-David
+Thanks,
+
+Mathieu
+
+
+-- 
+Mathieu Desnoyers
+EfficiOS Inc.
+http://www.efficios.com
