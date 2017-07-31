@@ -1,18 +1,15 @@
-Return-Path: <SRS0=GJLE=7C=goodmis.org=rostedt@kernel.org>
+Return-Path: <ebiederm@xmission.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A33AEB09
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 30B29B6D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 31 Jul 2017 20:11:27 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 00CBBE5
+	Mon, 31 Jul 2017 20:21:06 +0000 (UTC)
+Received: from out01.mta.xmission.com (out01.mta.xmission.com [166.70.13.231])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BD8DDE5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 31 Jul 2017 20:11:26 +0000 (UTC)
-Date: Mon, 31 Jul 2017 16:11:23 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: ebiederm@xmission.com (Eric W. Biederman)
-Message-ID: <20170731161123.4d1e80ac@gandalf.local.home>
-In-Reply-To: <87zibkzgve.fsf@xmission.com>
+	Mon, 31 Jul 2017 20:21:05 +0000 (UTC)
+From: ebiederm@xmission.com (Eric W. Biederman)
+To: Steven Rostedt <rostedt@goodmis.org>
 References: <576cea07-770a-4864-c3f5-0832ff211e94@leemhuis.info>
 	<20170703123025.7479702e@gandalf.local.home>
 	<ad94dc65-cc9c-f4f1-27c1-5a48603c7f59@leemhuis.info>
@@ -25,15 +22,19 @@ References: <576cea07-770a-4864-c3f5-0832ff211e94@leemhuis.info>
 	<c782a15a-4e73-7373-ca66-5b55e9406059@roeck-us.net>
 	<20170705130200.7c653f61@gandalf.local.home>
 	<87zibkzgve.fsf@xmission.com>
+	<20170731161123.4d1e80ac@gandalf.local.home>
+Date: Mon, 31 Jul 2017 15:12:46 -0500
+In-Reply-To: <20170731161123.4d1e80ac@gandalf.local.home> (Steven Rostedt's
+	message of "Mon, 31 Jul 2017 16:11:23 -0400")
+Message-ID: <87o9s0z7pd.fsf@xmission.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 Cc: ksummit-discuss@lists.linuxfoundation.org,
 	Carlos O'Donell <carlos@redhat.com>, linux-api@vger.kernel.org,
 	Thorsten Leemhuis <linux@leemhuis.info>,
 	Shuah Khan <shuahkh@osg.samsung.com>
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] & [TECH TOPIC] Improve
- regression tracking
+	regression tracking
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -43,12 +44,16 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 31 Jul 2017 11:54:45 -0500
-ebiederm@xmission.com (Eric W. Biederman) wrote:
+Steven Rostedt <rostedt@goodmis.org> writes:
 
-> Until kselftests get easier to run I don't think they are something we
-> want to push to hard.
+> On Mon, 31 Jul 2017 11:54:45 -0500
+> ebiederm@xmission.com (Eric W. Biederman) wrote:
+>
+>> Until kselftests get easier to run I don't think they are something we
+>> want to push to hard.
+>
+> Then perhaps we should push making them easier to run.
 
-Then perhaps we should push making them easier to run.
+Please.
 
--- Steve
+Eric
