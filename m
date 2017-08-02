@@ -1,40 +1,27 @@
-Return-Path: <ebiederm@xmission.com>
+Return-Path: <glikely@secretlab.ca>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 30B29B6D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id BD70FB00
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 31 Jul 2017 20:21:06 +0000 (UTC)
-Received: from out01.mta.xmission.com (out01.mta.xmission.com [166.70.13.231])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BD8DDE5
+	Wed,  2 Aug 2017 14:08:42 +0000 (UTC)
+Received: from mail-ua0-f170.google.com (mail-ua0-f170.google.com
+	[209.85.217.170])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 100DB167
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 31 Jul 2017 20:21:05 +0000 (UTC)
-From: ebiederm@xmission.com (Eric W. Biederman)
-To: Steven Rostedt <rostedt@goodmis.org>
-References: <576cea07-770a-4864-c3f5-0832ff211e94@leemhuis.info>
-	<20170703123025.7479702e@gandalf.local.home>
-	<ad94dc65-cc9c-f4f1-27c1-5a48603c7f59@leemhuis.info>
-	<20170705084528.67499f8c@gandalf.local.home>
-	<4080ecc7-1aa8-2940-f230-1b79d656cdb4@redhat.com>
-	<20170705092757.63dc2328@gandalf.local.home>
-	<20170705140607.GA30187@kroah.com>
-	<a462fb3b-a6d4-e969-b301-b404981de224@roeck-us.net>
-	<20170705112707.54d7f345@gandalf.local.home>
-	<c782a15a-4e73-7373-ca66-5b55e9406059@roeck-us.net>
-	<20170705130200.7c653f61@gandalf.local.home>
-	<87zibkzgve.fsf@xmission.com>
-	<20170731161123.4d1e80ac@gandalf.local.home>
-Date: Mon, 31 Jul 2017 15:12:46 -0500
-In-Reply-To: <20170731161123.4d1e80ac@gandalf.local.home> (Steven Rostedt's
-	message of "Mon, 31 Jul 2017 16:11:23 -0400")
-Message-ID: <87o9s0z7pd.fsf@xmission.com>
+	Wed,  2 Aug 2017 14:08:41 +0000 (UTC)
+Received: by mail-ua0-f170.google.com with SMTP id f9so21075988uaf.4
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 02 Aug 2017 07:08:41 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	Carlos O'Donell <carlos@redhat.com>, linux-api@vger.kernel.org,
-	Thorsten Leemhuis <linux@leemhuis.info>,
-	Shuah Khan <shuahkh@osg.samsung.com>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] & [TECH TOPIC] Improve
-	regression tracking
+Sender: glikely@secretlab.ca
+From: Grant Likely <grant.likely@secretlab.ca>
+Date: Wed, 2 Aug 2017 15:08:20 +0100
+Message-ID: <CACxGe6sjbZZG=Tai4gYKMrmOnsjXjwp8AEVsuasGMh6WTVHRcg@mail.gmail.com>
+To: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	devicetree-spec@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Subject: [Ksummit-discuss] [TECH TOPIC] Devicetree Tooling and Validation
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -44,16 +31,21 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Steven Rostedt <rostedt@goodmis.org> writes:
+Hi folks,
 
-> On Mon, 31 Jul 2017 11:54:45 -0500
-> ebiederm@xmission.com (Eric W. Biederman) wrote:
->
->> Until kselftests get easier to run I don't think they are something we
->> want to push to hard.
->
-> Then perhaps we should push making them easier to run.
+Late entry: I'd like to propose holding a 1/2 day Devicetree
+miniconference at Kernel Summit this year. There is a need to talk
+about current proposals on the table for devicetree validation and
+tooling options, as well as hammering out better sharing between
+projects.
 
-Please.
+I had originally been planning to do this at Linux Plumbers Conference
+13-15 September in LA, but a large number of the key participants will
+be in Prague for ELCE, but not in LA for Plumbers.
 
-Eric
+The Plumbers devicetree wiki page is being used to wrangle specific topics:
+
+http://wiki.linuxplumbersconf.org/2017:device_tree
+
+Cheers,
+g.
