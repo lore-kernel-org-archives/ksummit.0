@@ -1,15 +1,15 @@
-Return-Path: <rdunlap@infradead.org>
+Return-Path: <shuahkh@osg.samsung.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6793FA85
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 172DCABC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  2 Aug 2017 18:24:12 +0000 (UTC)
-Received: from merlin.infradead.org (merlin.infradead.org [205.233.59.134])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CF294AC
+	Wed,  2 Aug 2017 18:42:08 +0000 (UTC)
+Received: from osg.samsung.com
+	(ec2-52-27-115-49.us-west-2.compute.amazonaws.com [52.27.115.49])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 490C33D6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  2 Aug 2017 18:24:11 +0000 (UTC)
-To: "Eric W. Biederman" <ebiederm@xmission.com>,
-	Shuah Khan <shuahkh@osg.samsung.com>
+	Wed,  2 Aug 2017 18:42:07 +0000 (UTC)
+To: "Eric W. Biederman" <ebiederm@xmission.com>
 References: <576cea07-770a-4864-c3f5-0832ff211e94@leemhuis.info>
 	<20170703123025.7479702e@gandalf.local.home>
 	<ad94dc65-cc9c-f4f1-27c1-5a48603c7f59@leemhuis.info>
@@ -26,9 +26,9 @@ References: <576cea07-770a-4864-c3f5-0832ff211e94@leemhuis.info>
 	<87lgn1nac8.fsf@xmission.com>
 	<61093c3f-6ad0-c033-a524-f2624f8d55ba@osg.samsung.com>
 	<87r2wtluc1.fsf@xmission.com>
-From: Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <8a863ffe-84b5-e65a-988f-b5eda326181d@infradead.org>
-Date: Wed, 2 Aug 2017 11:23:59 -0700
+From: Shuah Khan <shuahkh@osg.samsung.com>
+Message-ID: <92c31d6f-f98d-c764-eeec-bd0a2316d769@osg.samsung.com>
+Date: Wed, 2 Aug 2017 12:42:04 -0600
 MIME-Version: 1.0
 In-Reply-To: <87r2wtluc1.fsf@xmission.com>
 Content-Type: text/plain; charset=utf-8
@@ -36,7 +36,8 @@ Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 Cc: ksummit-discuss@lists.linuxfoundation.org,
 	Carlos O'Donell <carlos@redhat.com>, linux-api@vger.kernel.org,
-	Thorsten Leemhuis <linux@leemhuis.info>, Shuah Khan <shuah@kernel.org>
+	Thorsten Leemhuis <linux@leemhuis.info>,
+	Shuah Khan <shuahkh@osg.samsung.com>, Shuah Khan <shuah@kernel.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] & [TECH TOPIC] Improve
  regression tracking
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -48,7 +49,7 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 08/02/2017 11:04 AM, Eric W. Biederman wrote:
+On 08/02/2017 12:04 PM, Eric W. Biederman wrote:
 > Shuah Khan <shuahkh@osg.samsung.com> writes:
 > 
 >> On 08/02/2017 11:33 AM, Eric W. Biederman wrote:
@@ -132,6 +133,13 @@ On 08/02/2017 11:04 AM, Eric W. Biederman wrote:
 >>> make[1]: Leaving directory 'linux-build'
 >>> Makefile:145: recipe for target 'sub-make' failed
 >>> make: *** [sub-make] Error 2
+
+There are multiple ways to run selftests at the moment. If your
+preferred use-case isn't supported, I don't see why it can't be
+added.
+
+Would you like to add support for this use-case?
+
 >>
 >> It is "make kselftest"
 > 
@@ -140,9 +148,11 @@ On 08/02/2017 11:04 AM, Eric W. Biederman wrote:
 > that "make kselftest" needs to be followed by I think "make mrproper"
 > to get back to my normal development workflow.
 
-I mentioned that problem/issue about 6 months ago. I too would like to
-use O=builddir, but it is ignored.
+Hmm. not sure why you would need to run "make mrproper" after running
+"make kselftest" - I never have to. I would like to understand why though
+if you are seeing problems without running "make mrproper".
 
+> 
 > I don't remember exactly what the issue was but I could not get:
 > tools/testing/selftests/x86/mpx-mini-test.c
 > tools/testing/selftests/x86/protection_keys.c
@@ -170,7 +180,9 @@ use O=builddir, but it is ignored.
 > 
 > Given that some of those other tests take a little while to run, running
 > individual tests is actually quite important during development.
+> 
+> Eric
+> 
 
-
--- 
-~Randy
+thanks,
+-- Shuah
