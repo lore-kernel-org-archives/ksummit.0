@@ -1,23 +1,18 @@
-Return-Path: <shuahkh@osg.samsung.com>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 172DCABC
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2EB42B2B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  2 Aug 2017 18:42:08 +0000 (UTC)
-Received: from osg.samsung.com
-	(ec2-52-27-115-49.us-west-2.compute.amazonaws.com [52.27.115.49])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 490C33D6
+	Thu,  3 Aug 2017 03:03:34 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 341D81A6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  2 Aug 2017 18:42:07 +0000 (UTC)
-To: "Eric W. Biederman" <ebiederm@xmission.com>
-References: <576cea07-770a-4864-c3f5-0832ff211e94@leemhuis.info>
-	<20170703123025.7479702e@gandalf.local.home>
-	<ad94dc65-cc9c-f4f1-27c1-5a48603c7f59@leemhuis.info>
-	<20170705084528.67499f8c@gandalf.local.home>
-	<4080ecc7-1aa8-2940-f230-1b79d656cdb4@redhat.com>
-	<20170705092757.63dc2328@gandalf.local.home>
-	<20170705140607.GA30187@kroah.com>
-	<a462fb3b-a6d4-e969-b301-b404981de224@roeck-us.net>
+	Thu,  3 Aug 2017 03:03:32 +0000 (UTC)
+Date: Wed, 2 Aug 2017 23:03:27 -0400
+From: Theodore Ts'o <tytso@mit.edu>
+To: Shuah Khan <shuahkh@osg.samsung.com>
+Message-ID: <20170803030327.gf7pl7foer3abdpe@thunk.org>
+References: <a462fb3b-a6d4-e969-b301-b404981de224@roeck-us.net>
 	<20170705112707.54d7f345@gandalf.local.home>
 	<c782a15a-4e73-7373-ca66-5b55e9406059@roeck-us.net>
 	<20170705130200.7c653f61@gandalf.local.home>
@@ -26,18 +21,14 @@ References: <576cea07-770a-4864-c3f5-0832ff211e94@leemhuis.info>
 	<87lgn1nac8.fsf@xmission.com>
 	<61093c3f-6ad0-c033-a524-f2624f8d55ba@osg.samsung.com>
 	<87r2wtluc1.fsf@xmission.com>
-From: Shuah Khan <shuahkh@osg.samsung.com>
-Message-ID: <92c31d6f-f98d-c764-eeec-bd0a2316d769@osg.samsung.com>
-Date: Wed, 2 Aug 2017 12:42:04 -0600
+	<92c31d6f-f98d-c764-eeec-bd0a2316d769@osg.samsung.com>
 MIME-Version: 1.0
-In-Reply-To: <87r2wtluc1.fsf@xmission.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <92c31d6f-f98d-c764-eeec-bd0a2316d769@osg.samsung.com>
 Cc: ksummit-discuss@lists.linuxfoundation.org,
 	Carlos O'Donell <carlos@redhat.com>, linux-api@vger.kernel.org,
-	Thorsten Leemhuis <linux@leemhuis.info>,
-	Shuah Khan <shuahkh@osg.samsung.com>, Shuah Khan <shuah@kernel.org>
+	Thorsten Leemhuis <linux@leemhuis.info>, Shuah Khan <shuah@kernel.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] & [TECH TOPIC] Improve
  regression tracking
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -49,140 +40,86 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 08/02/2017 12:04 PM, Eric W. Biederman wrote:
-> Shuah Khan <shuahkh@osg.samsung.com> writes:
+On Wed, Aug 02, 2017 at 12:42:04PM -0600, Shuah Khan wrote:
+> >>> $ make O=$PWD-build -j8 kselftests
+> >>> make[1]: Entering directory 'linux-build'
+> >>> make[1]: *** No rule to make target 'kselftests'.  Stop.
+> >>> make[1]: Leaving directory 'linux-build'
+> >>> Makefile:145: recipe for target 'sub-make' failed
+> >>> make: *** [sub-make] Error 2
 > 
->> On 08/02/2017 11:33 AM, Eric W. Biederman wrote:
->>> Shuah Khan <shuahkh@osg.samsung.com> writes:
->>>
->>>> On 07/31/2017 10:54 AM, Eric W. Biederman wrote:
->>>>> Steven Rostedt <rostedt@goodmis.org> writes:
->>>>>
->>>>>> On Wed, 5 Jul 2017 09:48:31 -0700
->>>>>> Guenter Roeck <linux@roeck-us.net> wrote:
->>>>>>
->>>>>>> On 07/05/2017 08:27 AM, Steven Rostedt wrote:
->>>>>>>> On Wed, 5 Jul 2017 08:16:33 -0700
->>>>>>>> Guenter Roeck <linux@roeck-us.net> wrote:  
->>>>>>> [ ... ]
->>>>>>>>>
->>>>>>>>> If we start shaming people for not providing unit tests, all we'll accomplish is
->>>>>>>>> that people will stop providing bug fixes.  
->>>>>>>>
->>>>>>>> I need to be clearer on this. What I meant was, if there's a bug
->>>>>>>> where someone has a test that easily reproduces the bug, then if
->>>>>>>> there's not a test added to selftests for said bug, then we should
->>>>>>>> shame those into doing so.
->>>>>>>>   
->>>>>>>
->>>>>>> I don't think that public shaming of kernel developers is going to work
->>>>>>> any better than public shaming of children or teenagers.
->>>>>>>
->>>>>>> Maybe a friendlier approach would be more useful ?
->>>>>>
->>>>>> I'm a friendly shamer ;-)
->>>>>>
->>>>>>>
->>>>>>> If a test to reproduce a problem exists, it might be more beneficial to suggest
->>>>>>> to the patch submitter that it would be great if that test would be submitted
->>>>>>> as unit test instead of shaming that person for not doing so. Acknowledging and
->>>>>>> praising kselftest submissions might help more than shaming for non-submissions.
->>>>>>>
->>>>>>>> A bug that is found by inspection or hard to reproduce test cases are
->>>>>>>> not applicable, as they don't have tests that can show a regression.
->>>>>>>>   
->>>>>>>
->>>>>>> My concern would be that once the shaming starts, it won't stop.
->>>>>>
->>>>>> I think this is a communication issue. My word for "shaming" was to
->>>>>> call out a developer for not submitting a test. It wasn't about making
->>>>>> fun of them, or anything like that. I was only making a point
->>>>>> about how to teach people that they need to be more aware of the
->>>>>> testing infrastructure. Not about actually demeaning people.
->>>>>>
->>>>>> Lets take a hypothetical sample. Say someone posted a bug report with
->>>>>> an associated reproducer for it. The developer then runs the reproducer
->>>>>> sees the bug, makes a fix and sends it to Linus and stable. Now the
->>>>>> developer forgets this and continues on their merry way. Along comes
->>>>>> someone like myself and sees a reproducing test case for a bug, but
->>>>>> sees no test added to kselftests. I would send an email along the lines
->>>>>> of "Hi, I noticed that there was a reproducer for this bug you fixed.
->>>>>> How come there was no test added to the kselftests to make sure it
->>>>>> doesn't appear again?" There, I "shamed" them ;-)
->>>>>
->>>>> I just want to point out that kselftests are hard to build and run.
->>>>>
->>>>> As I was looking at another issue I found a bug in one of the tests.  It
->>>>> had defined a constant wrong.  I have a patch.  It took me a week of
->>>>> poking at the kselftest code and trying one thing or another (between
->>>>> working on other things) before I could figure out which combination of
->>>>> things would let the test build and run.
->>>>>
->>>>> Until kselftests get easier to run I don't think they are something we
->>>>> want to push to hard.
->>>>>
->>>>
->>>> I would say it is easy to run ksefltests - "make kseflttest" from the
->>>> main Makefile does this for you. You can also run individual tests:
->>>
->>> On 4.13-rc1  That doesn't work.
->>>
->>> $ make O=$PWD-build -j8 kselftests
->>> make[1]: Entering directory 'linux-build'
->>> make[1]: *** No rule to make target 'kselftests'.  Stop.
->>> make[1]: Leaving directory 'linux-build'
->>> Makefile:145: recipe for target 'sub-make' failed
->>> make: *** [sub-make] Error 2
+> There are multiple ways to run selftests at the moment. If your
+> preferred use-case isn't supported, I don't see why it can't be
+> added.
 
-There are multiple ways to run selftests at the moment. If your
-preferred use-case isn't supported, I don't see why it can't be
-added.
+There are many of us who use separate object directories so we can
+build the same kernel tree with multiple configurations.  So for
+example, my kernel sources will be on an SSD, but sometimes my /build
+directory will be on a HDD since storing the object files on an HDD
+don't really buy as much as keeping the sources on SSD.
 
-Would you like to add support for this use-case?
+For example, so I might be doing builds via: 
 
->>
->> It is "make kselftest"
-> 
-> If I include the standard O= to keep my source tree pristine
-> it still fails.  Which is a practical issue.  Especially because
-> that "make kselftest" needs to be followed by I think "make mrproper"
-> to get back to my normal development workflow.
+make O=/build/ext4 -j8
 
-Hmm. not sure why you would need to run "make mrproper" after running
-"make kselftest" - I never have to. I would like to understand why though
-if you are seeing problems without running "make mrproper".
+   and
 
-> 
-> I don't remember exactly what the issue was but I could not get:
-> tools/testing/selftests/x86/mpx-mini-test.c
-> tools/testing/selftests/x86/protection_keys.c
-> 
-> to build let alone run when I did "make kselftest"
-> 
->>> And why I have to use some esoteric command and not just the
->>> traditional "make path/to/test/output" to run an individual
->>> test is beyond me.
->>>
->>
->> make kselftest from top level Makefile is a way to run all the tests.
->> As I mentioned in my previous email 
->>
->> "You can also run individual tests:
->>
->> "make -C tools/testing/selftests/sync" for example to run sync tests.
->>
->> or you can also run:
->>
->> make -C tools/testing/selftests/ run_tests
-> 
-> As I said complicated.  That is definitely not the ordinary way of
-> building things in the kernel tree.
-> 
-> Given that some of those other tests take a little while to run, running
-> individual tests is actually quite important during development.
-> 
-> Eric
-> 
+make O=/build/ext4-32 ARCH=i386 -j8
 
-thanks,
--- Shuah
+Or someone might have a separate config file for doing debugging which
+is different from their production kernel, which they could do by
+having a different .config file in /build/ext4-debug/.config.
+
+> >> It is "make kselftest"
+> > 
+> > If I include the standard O= to keep my source tree pristine
+> > it still fails.  Which is a practical issue.  Especially because
+> > that "make kselftest" needs to be followed by I think "make mrproper"
+> > to get back to my normal development workflow.
+> 
+> Hmm. not sure why you would need to run "make mrproper" after running
+> "make kselftest" - I never have to. I would like to understand why though
+> if you are seeing problems without running "make mrproper".
+
+The problem is that if you are doing builds in separate object
+directories, you must not have any build files in the source tree.
+Otherwise make gets terribly confused.  If you have done a build in
+the source tree, then "make O=..." will because the Kernel makefile
+system has safety check which detects this case and complains:
+
+% make O=/build/linux-build
+make[1]: Entering directory '/build/linux-build'
+  CHK     include/config/kernel.release
+  GEN     ./Makefile
+  CHK     include/generated/uapi/linux/version.h
+  CHK     scripts/mod/devicetable-offsets.h
+  Using /home/tytso/linux/linux as source for kernel
+  /home/tytso/linux/linux is not clean, please run 'make mrproper'
+  ...
+
+So this is why Eric said that he has to run "make mrproper" after
+doing "make kselftest".  That's because doing any kind of build in the
+source tree breaks his (and my) normal kernel building system.
+
+Personally, I do all of my testing using xfstests (and gce-xfstests in
+particular).  And so I don't have a lot of reason to spend time making
+kselftest work with the "make O=xxx" build paradigm.
+
+It's fair to say the fact that kselftest doesn't work with my kernel
+development workflow hasn't helped my motivation to try it out.  But
+as I told the systemtap folks many years ago --- "you're not under any
+obligation to support my workflow; but if systemtap is hostile to my
+kernel development workflow, you also can't expect me to help support
+and grow the use of systemtap, either.  It works both ways."
+
+The same I think applies to kselftest.  Telling developers who
+complain that kselftest doesn't work well with their workflow to "send
+a patch" may not result in the reaction that you hope.  Especially for
+something as similar as "make O=xxx", which I think is a pretty common
+development workflow.  Anyway, I hope someone will care enough about
+kselftest to help support "make O=xxx"; I have to admit that someone
+isn't me, though.  Sorry; I just don't have the time....
+
+Cheers,
+
+						- Ted
