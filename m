@@ -1,27 +1,29 @@
-Return-Path: <julia.lawall@lip6.fr>
+Return-Path: <daniel.vetter@ffwll.ch>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4AE3AA49
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9C4E7B7D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  4 Aug 2017 05:13:27 +0000 (UTC)
-Received: from mail3-relais-sop.national.inria.fr
-	(mail3-relais-sop.national.inria.fr [192.134.164.104])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 28BD2CB
+	Fri,  4 Aug 2017 08:24:00 +0000 (UTC)
+Received: from mail-io0-f182.google.com (mail-io0-f182.google.com
+	[209.85.223.182])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0D9ED1A6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  4 Aug 2017 05:13:25 +0000 (UTC)
-Date: Fri, 4 Aug 2017 07:13:10 +0200 (CEST)
-From: Julia Lawall <julia.lawall@lip6.fr>
-To: Stephen Rothwell <sfr@canb.auug.org.au>
-In-Reply-To: <20170804132704.73c49b64@canb.auug.org.au>
-Message-ID: <alpine.DEB.2.20.1708040705240.1994@hadrien>
-References: <CALCETrUb0mJEdL48gq9K2RoqULuwgs==CeXRCNw9+3R2BwkXVw@mail.gmail.com>
-	<20170804022639.p27oliuinqqatar2@thunk.org>
-	<20170804132704.73c49b64@canb.auug.org.au>
+	Fri,  4 Aug 2017 08:23:59 +0000 (UTC)
+Received: by mail-io0-f182.google.com with SMTP id j32so3651297iod.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 04 Aug 2017 01:23:59 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Cc: Andy Lutomirski <luto@kernel.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+In-Reply-To: <20170804013010.GA425@kroah.com>
+References: <CALCETrUb0mJEdL48gq9K2RoqULuwgs==CeXRCNw9+3R2BwkXVw@mail.gmail.com>
+	<20170804013010.GA425@kroah.com>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Fri, 4 Aug 2017 10:23:58 +0200
+Message-ID: <CAKMK7uFObmJ-Ps99yLQBp5d9vkQ+dAbDASNByDS5s_N4urVqhA@mail.gmail.com>
+To: Greg KH <greg@kroah.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Andy Lutomirski <luto@kernel.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINER TOPIC] ABI feature gates?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -32,102 +34,93 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-
-
-On Fri, 4 Aug 2017, Stephen Rothwell wrote:
-
-> Hi Ted,
+On Fri, Aug 4, 2017 at 3:30 AM, Greg KH <greg@kroah.com> wrote:
+> On Thu, Aug 03, 2017 at 06:16:44PM -0700, Andy Lutomirski wrote:
+>> [Note: I'm not entirely sure I can make it to the kernel summit this
+>> year, due to having a tiny person and tons of travel]
+>>
+>> This may be highly controversial, but: there seems to be a weakness in
+>> the kernel development model in the way that new ABI features become
+>> stable.  The current model is, roughly:
+>>
+>> 1. Someone writes the code.  Maybe they cc linux-abi, maybe they don't.
+>> 2. People hopefully review the code.
+>> 3. A subsystem maintainer merges the code.  They hope the ABI is right.
+>> 4. Linus gets a pull request.  Linus probably doesn't review the ABI
+>> for sanity, style, blatant bugs, etc.  If Linus did, then he'd never
+>> get anything else done.
+>> 5. The new ABI lands in -rc1.
+>> 6. If someone finds a problem or objects, it had better get fixed
+>> before the next real release.
+>>
+>> There's a few problems here.  One is that the people who would really
+>> review the ABI might not even notice until step 5 or 6 or so.  Another
+>> is that it takes some time for userspace to get experience with a new
+>> ABI.
+>>
+>> I'm wondering if there are other models that could work.  I think it
+>> would be nice for us to be able to land a kernel in Linus tree and
+>> still wait a while before stabilizing it.  Rust, for example, has a
+>> strict policy for this that seems to work quite well.
 >
-> On Thu, 3 Aug 2017 22:26:39 -0400 Theodore Ts'o <tytso@mit.edu> wrote:
-> >
-> > One way that we could try to make things better is by having some kind
-> > of semi-automated system which monitors changes in include/uapi/*.h in
-> > linux-next.  Unfortunately there will be a lot of false negatives, so
-> > it's going to require a human to figure out which of the changes
-> > represent new/changed API's, and which are just cleanups /
-> > rearragements.  (We could try to see if we could train a Machine
-> > Learning model --- but even if we can make a some nueral nets play Go,
-> > I'm personally dubious this is something that ML would be successful
-> > at.  I might be pleasantly surprised, though, if someone wanted to
-> > give it a try.  :-)
+> What does Rust do here?
 >
-> OK, so this is what we have so far in linux-next:
+>> Maybe we could pull something off where big new features hide behind a
+>> named feature gate for a while.  That feature gate can only be enabled
+>> under some circumstances that make it very hard to mistake it for true
+>> stability.  (For example, maybe you *can't* enable feature gates on a
+>> final kernel unless you manually patch something.)
+>>
+>> Here are a few examples that come to mind for where this would have helped:
+>>
+>>  - Whatever that new RDMA socket type was that was deemed totally
+>> broken but only just after it hit a real release.
+>>  - O_TMPFILE.  I discovered that it corrupted filesystems in -rc6 or
+>> -rc7.  That got fixed, the the API is still a steaming pile of crap.
+>>  - Some cgroup+bpf stuff that got cleaned up in a -rc7 or so a few releases ago.
+>>
+>> I'm sure there are tons more.
+>>
+>> Is this too crazy, or is it worth discussing?
+>
+> I think it is, it keeps coming up over and over and it's not getting any
+> easier.  We are long past the time when we only had to duplicate what
+> other operating systems do, adding new features is much different.
+>
+> I like the "manually patch" thing as an good idea for how to maybe do
+> this, but who is going to do that patching for testing?  What's the rule
+> for how long time has to pass before it can be enabled?
 
-I did some work on a semantic patch for collecting the error codes
-returned by all of the system class.  Things were going fairly well until
-I discovered that is fairly common near the user level to return error
-codes in reference parameters rather than by direct returns, and that
-meant that I was going to have to duplicate my entire rule set.  I also
-observed that the documentation is not always that precise.  It will say
-typically returns -E1, -E2, -E3, and may return other stuff, so in that
-case there is less to check.
+Imo the real fix is to crank up requirements. What we have right now
+for gpu drivers is:
+- Kernel patch, fully reviewed.
+- Full docs for the internals for the same.
+- Testcases for the same.
+- The entire userspace stack using that feature. Not some tech demo,
+prototype or testcase, but the real deal. Also no vendor forks. In
+extreme cases this means patches to 3+ projects (other than the
+kernel) to wire the entire thing through the desktop stack.
+- Testcases for all those userspace bits.
+- Full review on all those userspace bits. This generally means kernel
+hackers review the userspace and userpace people the kernel bits too.
+- Not quite there yet, but some starts on real docs for the uapi.
+- Also not quite where it needs to be yet, but full CI over everything
+(at least on for the i915 driver, which is still the team that pushes
+for most of the generic drm uapi additions).
 
-I was thinking of getting an intern to address the first problem, and then
-to check the results to the extent that they are checkable.  One could
-also run the rules over time, to see if there have been changes, to see
-even in the other stuff case if something should be added.
+Some drivers chicken a bit on some of these pieces (less docs/review),
+but for the big ones and all the core bits, that's what we do. That's
+some steep requirements, and it makes adding new uapi a fairly big
+pain, but as a result we generally ship it as soon as it hits
+linux-next, with very few regrets in hindsight. Ship as in, it e.g.
+hits a stable mese release which distros often ship in their stable
+release way before the much slower kernel release process has gone
+through it's paces.
 
-julia
-
->
-> $ git log --no-merges --pretty="%h %s" stable..next-20170803 include/uapi
-> 9aa302aaede8 membarrier: Expedited private command
-> b3a88f222ae1 drm/msm: Add a parameter query for the number of ringbuffers
-> 7f1779fd071b drm/msm: Implement per-submitqueue fences
-> 20ab08455d3c drm/msm: Add per-instance submit queues
-> 80fe969b5d50 uapi: fix linux/sysctl.h userspace compilation errors
-> 4edc19eeeee3 mm: userfaultfd: add feature to request for a signal delivery
-> 0d33bdf5ea6c mm: shm: use new hugetlb size encoding definitions
-> b217edddf5c2 mm: arch: consolidate mmap hugetlb size encodings
-> 21d75dd8e83d mm: hugetlb: define system call hugetlb size encodings in single file
-> cdbc78ba7026 drm/msm: Remove __user from __u64 data types
-> db1689aa61bd drm: Create a format/modifier blob
-> e6fc3b68558e drm: Plumb modifiers through plane init
-> bb7c19f96012 tcp: add related fields into SCM_TIMESTAMPING_OPT_STATS
-> 3282e65558b3 tcp: remove unused mib counters
-> 615095752100 netfilter: nf_tables: Allow object names of up to 255 chars
-> 387454901bd6 netfilter: nf_tables: Allow set names of up to 255 chars
-> b7263e071aba netfilter: nf_tables: Allow chain name of up to 255 chars
-> e46abbcc05aa netfilter: nf_tables: Allow table names of up to 255 chars
-> e62e484df049 net sched actions: add time filter for action dumping
-> 90825b23a887 net sched actions: dump more than TCA_ACT_MAX_PRIO actions per batch
-> 64c83d837329 net netlink: Add new type NLA_BITFIELD32
-> 1a5f3da20bd9 net: ethtool: add support for forward error correction modes
-> ca1136c99b66 blktrace: export cgroup info in trace
-> f30994622b2b drm/vc4: Add an ioctl for labeling GEM BOs for summary stats
-> 67cbe3532c2c RDMA/qedr: notify user application of supported WIDs
-> ad84dad2160d RDMA/qedr: notify user application if DPM is supported
-> cc731525f26a signal: Remove kernel interal si_code magic
-> d08477aa975e fcntl: Don't use ambiguous SIG_POLL si_codes
-> 3078f5f1bd8b IB/mlx4: Add support for RSS QP
-> b8d46ca03506 IB/mlx4: Add support for WQ indirection table related verbs
-> 400b1ebcfe31 IB/mlx4: Add support for WQ related verbs
-> ea30b966f7dd IB/mlx4: Add inline-receive support
-> 2dee0e545894 IB/uverbs: Enable QP creation with a given source QP number
-> 784b4e612d42 netfilter: nf_tables: Attach process info to NFT_MSG_NEWGEN notifications
-> ddc6c70f07bb rxrpc: Move the packet.h include file into net/rxrpc/
-> 727f8914477e rxrpc: Expose UAPI definitions to userspace
-> eb0baf8a0d92 perf/core: Define the common branch type classification
-> 6b2bbb08747a media: cec: rework the cec event handling
-> 6303d97873d3 media: linux/cec.h: add pin monitoring API support
-> fc60a8b675bd tty: serial: owl: Implement console driver
-> 97f91a7cf04f bpf: add bpf_redirect_map helper routine
-> 546ac1ffb70d bpf: add devmap, a map for storing net device references
-> 814abfabef3c xdp: add bpf_redirect helper function
-> 66bf97967726 annotate RWF_... flags
-> 6545135a5ed2 drm/qxl: fix __user annotations
->
-> Some of these are just fixing bugs or moving things around.  I wonder
-> where we can go from here?  Does every change to a uapi file need a
-> corresponding documentation and man pages update?  Do we dare try doing
-> (shock! horror!) design before implementation?  ;-)
->
-> The, of course, there is the whole sysfs and tracing mess :-(
-> --
-> Cheers,
-> Stephen Rothwell
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
->
+And yes, each of the rules we have for new uapi is because there's at
+least one case where we did regret not doing that :-)
+-Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
