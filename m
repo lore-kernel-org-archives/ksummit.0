@@ -1,34 +1,30 @@
-Return-Path: <geert.uytterhoeven@gmail.com>
+Return-Path: <linus971@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id AE358BE4
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2E97DBF8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  9 Aug 2017 20:06:37 +0000 (UTC)
-Received: from mail-pf0-f193.google.com (mail-pf0-f193.google.com
-	[209.85.192.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9F3B64F3
+	Wed,  9 Aug 2017 20:21:06 +0000 (UTC)
+Received: from mail-oi0-f66.google.com (mail-oi0-f66.google.com
+	[209.85.218.66])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 172BC443
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  9 Aug 2017 20:06:37 +0000 (UTC)
-Received: by mail-pf0-f193.google.com with SMTP id j68so7044727pfc.2
+	Wed,  9 Aug 2017 20:21:06 +0000 (UTC)
+Received: by mail-oi0-f66.google.com with SMTP id q70so6731433oic.2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 09 Aug 2017 13:06:37 -0700 (PDT)
+	Wed, 09 Aug 2017 13:21:05 -0700 (PDT)
 MIME-Version: 1.0
-Sender: geert.uytterhoeven@gmail.com
-In-Reply-To: <20170804175353.GB13252@kroah.com>
+Sender: linus971@gmail.com
+In-Reply-To: <87efslsj7w.fsf@notabene.neil.brown.name>
 References: <CALCETrUb0mJEdL48gq9K2RoqULuwgs==CeXRCNw9+3R2BwkXVw@mail.gmail.com>
-	<20170804022639.p27oliuinqqatar2@thunk.org>
-	<alpine.LSU.2.20.1708041040220.30597@cbobk.fhfr.pm>
-	<c2091a67-0a06-44ae-86e0-84879f3c7865@suse.com>
-	<20170804160454.GC13098@kroah.com>
-	<20170804171444.gv7ev6zhkj3bzf5u@thunk.org>
-	<20170804175353.GB13252@kroah.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 9 Aug 2017 22:06:36 +0200
-Message-ID: <CAMuHMdWtcMUA=C7Pe=QAY8AS-tjyxo357MEs_kb+_vZC9MAPDw@mail.gmail.com>
-To: Greg KH <greg@kroah.com>
+	<87efslsj7w.fsf@notabene.neil.brown.name>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Wed, 9 Aug 2017 13:21:04 -0700
+Message-ID: <CA+55aFz5NNCE6JMHfoqKtxAFSPBKkGvaDQQ+bqMzySYr--an-w@mail.gmail.com>
+To: NeilBrown <neilb@suse.com>
 Content-Type: text/plain; charset="UTF-8"
 Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Andy Lutomirski <luto@kernel.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINER TOPIC] ABI feature gates?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -39,40 +35,32 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Aug 4, 2017 at 7:53 PM, Greg KH <greg@kroah.com> wrote:
-> On Fri, Aug 04, 2017 at 01:14:44PM -0400, Theodore Ts'o wrote:
->> On Fri, Aug 04, 2017 at 09:04:54AM -0700, Greg KH wrote:
->> > We could start searching linux-next for new additions of sysfs files
->> > (search for the ATTR macros), and complain that there are no matching
->> > Documentation/ABI/ updates at the same time.  I try to do that when
->> > reviewing patches that come through my trees, but yes, this is hard to
->> > keep up to date with.
->> >
->> > Sounds like a good GSoC project though, setting up the infrastructure to
->> > do this in a semi-automated fashion.
->>
->> This sounds like an obvious thing to add to checkpatch?
+On Tue, Aug 8, 2017 at 5:00 PM, NeilBrown <neilb@suse.com> wrote:
 >
-> Probably, but lots of times this would be a false-positive as
-> documentation shows up in a later patch in the series to make things
-> easier to review.
+> I think this is primarily a social/communication issue.  We need to know
+> what is expected and what can be trusted.  We need clear rules that
+> everyone knows and that work for everyone.  Currently we have (fairly)
+> clear rules that work fairly well in many cases, but can be problematic.
+>
+> The rules, as you outline, are that users should not experience
+> regressions from one released kernel to a subsequent released kernel.
+> So people working on -rc kernels can expect to experience regressions.
+> Also kernel devs are free to create theoretical regressions as long an
+> no-one experiences them.
+>
+> My strawman is to suggest that we relax this.
 
-On the sender side, checkpatch will work fine, as it works against your
-current tree, which usually contains all patches from the series you've just
-created.
+No.
 
-On the receiver side, a different order will indeed cause false positives.
-But usually you can catch people not having run checkpatch before sending
-their patches by the presence of other checkpatch issues, so those can be
-used as a canary to switch to "more thorough review mode".
+The whole "no regressions" is a hard rule, and it will remain so.
+It's pretty much the only really hard rule we have, and I will
+continue to insist on it.
 
-Gr{oetje,eeting}s,
+There are no loopholes. No "but it's been only one release". No, no,
+no. The whole point is that users are supposed to be able to *trust*
+the kernel. If we do something, we keep on doing it.
 
-                        Geert
+And if it makes it harder to add new user-visible interfaces, then
+that's a *good* thing.
 
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+                   Linus
