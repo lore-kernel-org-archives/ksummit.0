@@ -1,26 +1,31 @@
-Return-Path: <neilb@suse.com>
+Return-Path: <linus971@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B24084A3
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 430C498C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 11 Aug 2017 08:02:33 +0000 (UTC)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 818388C
+	Fri, 11 Aug 2017 23:10:53 +0000 (UTC)
+Received: from mail-oi0-f65.google.com (mail-oi0-f65.google.com
+	[209.85.218.65])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2B3BC479
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 11 Aug 2017 08:02:33 +0000 (UTC)
-From: NeilBrown <neilb@suse.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Fri, 11 Aug 2017 18:02:23 +1000
-In-Reply-To: <CA+55aFx0__GOf1BbM7w8K9A4mMJh8wGhsDK7J2MieHyBaX_2cQ@mail.gmail.com>
+	Fri, 11 Aug 2017 23:10:53 +0000 (UTC)
+Received: by mail-oi0-f65.google.com with SMTP id e124so4627467oig.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 11 Aug 2017 16:10:53 -0700 (PDT)
+MIME-Version: 1.0
+Sender: linus971@gmail.com
+In-Reply-To: <87zib6pm5s.fsf@notabene.neil.brown.name>
 References: <CALCETrUb0mJEdL48gq9K2RoqULuwgs==CeXRCNw9+3R2BwkXVw@mail.gmail.com>
 	<87efslsj7w.fsf@notabene.neil.brown.name>
 	<CA+55aFz5NNCE6JMHfoqKtxAFSPBKkGvaDQQ+bqMzySYr--an-w@mail.gmail.com>
 	<878tiqr5eb.fsf@notabene.neil.brown.name>
 	<CA+55aFx0__GOf1BbM7w8K9A4mMJh8wGhsDK7J2MieHyBaX_2cQ@mail.gmail.com>
-Message-ID: <87zib6pm5s.fsf@notabene.neil.brown.name>
-MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="=-=-=";
-	micalg=pgp-sha256; protocol="application/pgp-signature"
+	<87zib6pm5s.fsf@notabene.neil.brown.name>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Fri, 11 Aug 2017 16:10:51 -0700
+Message-ID: <CA+55aFxFh8K_HxXEDXGizCj097u7VE8NZB8LpAVEdA2aSYgHHg@mail.gmail.com>
+To: NeilBrown <neilb@suse.com>
+Content-Type: text/plain; charset="UTF-8"
 Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
 	Andy Lutomirski <luto@kernel.org>
@@ -34,62 +39,50 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---=-=-=
-Content-Type: text/plain
-
-On Thu, Aug 10 2017, Linus Torvalds wrote:
-
-> On Thu, Aug 10, 2017 at 11:21 PM, NeilBrown <neilb@suse.com> wrote:
->>
->> With this pattern, people can still trust an X.Y kernel,
+On Fri, Aug 11, 2017 at 1:02 AM, NeilBrown <neilb@suse.com> wrote:
 >
-> I do *NOT* want people to trust an X.Y kernel.
->
-> Quite the opposite.
->
-> I want people to realize that the version doesn't matter, and that
-> they should feel safe in upgrading. The X and the Y don't matter, and
-> they *MUST*NOT*MATTER*.
->
-> If they do, the process is completely and utterly broken.
->
-> So what people should be able to trust is that they can always upgrade.
+> What do you mean by "upgrade"?
+> Can I upgrade from 3.15 to 3.16-rc1?  If not, why not?
 
-What do you mean by "upgrade"?
-Can I upgrade from 3.15 to 3.16-rc1?  If not, why not?
+Yes..
 
-NeilBrown
+Of course, bugs happen, and then they get fixed.
 
+But yes, even including things like -rc1 (or just "random untagged
+kernel of the day") you should
 
->
-> Not the shit that I see *ALL* the time, where you upgrade something,
-> and it breaks.
->
-> And no, the excuse "but the API was new in X.Y, so it could change in
-> X.Y+1" does *not* hold water.
->
-> It very much violates that basic principle of trust and makes people
-> go "I don't want to upgrade, because it might break something I do".
->
->                     Linus
+ (a) feel safe in always upgrading to any higher version (I *hope* you
+can always also downgrade to a lower kernel version, but obviously at
+some point user space may start depending on newer features that
+simply don't exist in older kernels).
 
---=-=-=
-Content-Type: application/pgp-signature; name="signature.asc"
+ (b) also feel that if something breaks, it's a bug, and people will
+take it seriously and not dismiss it with some crazy "N+1 version"
+excuse.
 
------BEGIN PGP SIGNATURE-----
+There are some cases where we may not be able to avoid breakage: the
+main two are "security issues" and "insanely old hardware".
 
-iQIzBAEBCAAdFiEEG8Yp69OQ2HB7X0l6Oeye3VZigbkFAlmNZJAACgkQOeye3VZi
-gbmARg//a1J8RfsHTBLj0O9S+1Ov+wWlAUTDPYWkMG7xsq0FcgzQX/p70RZIhdha
-p+Qm8Zpg+yOa44t7OUcLS9F/fh+cwT/muOwimtyRlIjp8GkzLU9a94IrNzkf0dnC
-M77jAiBO5tgg2rZN2WT95JmQbtat26LPOTc3qERnx445Zht+VgVKk7O3tzQS6Nk8
-c3AlPEt0G4eqLS48uH1kYiTCZOkmrXv6nHGRa4QUvDBS7/qYOB/iOH4hFgyFFVxF
-DrCzbqPvZaCHX3FFH5En2y6ZOdwtbl4WGliT0clGwE8py3KyyHdO2th8vI/0DsE/
-WrM15B/B4j8bvLEs24+hDWRaRm5RKn/GrdC1VdHqAIwAq6831JSE09OZpVhGYAXP
-clkg+tGBshz4qMRr0wty4DplcdCiSbGX/S0V2MLhwsk7LqbFFlEE/hfSQznOPSMr
-ECx883rqvlczqHXoN6Cl2FlrWoxRcC0C5Ha04oIHF0nZYvVuwTcs88rKIgHz6gUb
-eDGMrdutFP7xXOHvfj9LKfAJhzDxacvT6O/OLKo2UR6J/YeXQNrp8BMO87Nzwq7s
-vFcFQXiSa07HBpJkafBCXhJZ/gx4TmeCwAyFNx/09C/VvXyM7dssGCJTIG0tVQQN
-JI5AHAbuf5c5+ZpyNMBrj4kzfi/0rZZVZaFzzjdBlOfqCCybWy8=
-=gRqn
------END PGP SIGNATURE-----
---=-=-=--
+And even for security issues, we try really really hard to avoid breakage.
+
+And the key word in "insanely old hardware" is that "insanely" part.
+At some point it just gets too hard to test (and sometimes the
+hardware is too broken, like the original i386 non-working supervisor
+page fault workarounds).
+
+Now, it can get really interesting if somebody notices an ABI change
+so late that others have started to depend on that ABI change. At that
+point, it's a "damned if you do, damned if you don't". We've actually
+been able to handle even that occasionally (by just adjusting behavior
+automatically based on some pattern), but at some point it obviously
+is impossible to fix both cases.
+
+And then I say "if it took you three years to upgrade and notice a
+behavioral change that nobody else noticed, it's no longer _our_
+fault".
+
+So there is _some_ onus on people actually testing and reporting these
+things, but I can't off-hand actually remember any case of this really
+being a major issue. So it's largely a theoretical thing.
+
+                Linus
