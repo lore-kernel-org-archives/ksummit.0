@@ -1,27 +1,30 @@
-Return-Path: <vbabka@suse.cz>
+Return-Path: <sergey.senozhatsky.work@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BC5C4B69
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id AEB01BA2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  5 Sep 2017 11:57:48 +0000 (UTC)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2FA6F42E
+	Tue,  5 Sep 2017 13:00:49 +0000 (UTC)
+Received: from mail-pf0-f175.google.com (mail-pf0-f175.google.com
+	[209.85.192.175])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 890123F5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  5 Sep 2017 11:57:48 +0000 (UTC)
-To: Sergey Senozhatsky <sergey.senozhatsky.work@gmail.com>,
-	Grant Likely <grant.likely@secretlab.ca>
+	Tue,  5 Sep 2017 13:00:49 +0000 (UTC)
+Received: by mail-pf0-f175.google.com with SMTP id g13so7688601pfm.2
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 05 Sep 2017 06:00:49 -0700 (PDT)
+Date: Tue, 5 Sep 2017 21:58:01 +0900
+From: Sergey Senozhatsky <sergey.senozhatsky.work@gmail.com>
+To: Vlastimil Babka <vbabka@suse.cz>
+Message-ID: <20170905125801.GD521@jagdpanzerIV.localdomain>
 References: <CACxGe6ue0MoKuJfUESFEeT-P8-XGCfb1HYiULSgXxNONnCAYww@mail.gmail.com>
 	<20170905043807.GA2066@jagdpanzerIV.localdomain>
 	<CACxGe6teLk0WOsMmDxmBWyr36neLX3kPTYuyC9yMc+uRQEQM1w@mail.gmail.com>
 	<20170905111543.GA521@jagdpanzerIV.localdomain>
-From: Vlastimil Babka <vbabka@suse.cz>
-Message-ID: <94a12cfa-846e-718e-a49e-02be9d12168c@suse.cz>
-Date: Tue, 5 Sep 2017 13:57:45 +0200
+	<94a12cfa-846e-718e-a49e-02be9d12168c@suse.cz>
 MIME-Version: 1.0
-In-Reply-To: <20170905111543.GA521@jagdpanzerIV.localdomain>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <94a12cfa-846e-718e-a49e-02be9d12168c@suse.cz>
 Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] KSummit workshop schedule
@@ -34,38 +37,20 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 09/05/2017 01:15 PM, Sergey Senozhatsky wrote:
-> On (09/05/17 10:20), Grant Likely wrote:
-> [..]
->> I posted an update to the devicetree-spec list. This workshop has been
->> scheduled. It will be Thursday afternoon, 26 October. Attendees need
->> to be registered for OSSE/ELCE to attend, or be invited to the Kernel
->> Maintainers Summit.
->>
->> Now I need to pull together an agenda.
->>
->> Keep an eye on this wiki page for details:
->>
->> http://wiki.linuxplumbersconf.org/2017:device_tree
+On (09/05/17 13:57), Vlastimil Babka wrote:
+[..]
+> > p.s.
+> > wondering if there is some sort of "KSummit workshop schedule"
+> > available anywhere.
 > 
-> thanks! got it.
+> Hi,
 > 
+> I only found this:
 > 
-> p.s.
-> wondering if there is some sort of "KSummit workshop schedule"
-> available anywhere.
+> http://events.linuxfoundation.org/events/linux-kernel-summit/program/about
 
-Hi,
+Hi Vlastimil,
 
-I only found this:
+thanks.
 
-http://events.linuxfoundation.org/events/linux-kernel-summit/program/about
-
-Vlastimil
-
-> 	-ss
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
-> 
+	-ss
