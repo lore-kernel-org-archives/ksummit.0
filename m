@@ -1,12 +1,29 @@
-Return-Path: <shuahkhan@gmail.com>
+Return-Path: <sergey.senozhatsky.work@gmail.com>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 582947AA
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue,  5 Sep 2017 04:40:54 +0000 (UTC)
+Received: from mail-pf0-f194.google.com (mail-pf0-f194.google.com
+	[209.85.192.194])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 173091E2
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue,  5 Sep 2017 04:40:54 +0000 (UTC)
+Received: by mail-pf0-f194.google.com with SMTP id m1so1137196pfk.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 04 Sep 2017 21:40:54 -0700 (PDT)
+Date: Tue, 5 Sep 2017 13:38:07 +0900
+From: Sergey Senozhatsky <sergey.senozhatsky.work@gmail.com>
+To: Grant Likely <grant.likely@secretlab.ca>
+Message-ID: <20170905043807.GA2066@jagdpanzerIV.localdomain>
+References: <CACxGe6ue0MoKuJfUESFEeT-P8-XGCfb1HYiULSgXxNONnCAYww@mail.gmail.com>
 MIME-Version: 1.0
-From: Shuah Khan <shuahkhan@gmail.com>
-Date: Thu, 31 Aug 2017 11:52:30 -0600
-Message-ID: <CAKocOOP638Y_PrLSze2TFm=kmYGFhT9ujGzrAJF40bukY5YSPQ@mail.gmail.com>
-To: ksummit-discuss@lists.linux-foundation.org
-Content-Type: text/plain; charset="UTF-8"
-Cc: shuahkh@osg.samsung.com
-Subject: [Ksummit-discuss]  [TECH TOPIC] Kselftest use-cases
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CACxGe6ue0MoKuJfUESFEeT-P8-XGCfb1HYiULSgXxNONnCAYww@mail.gmail.com>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] KSummit workshop schedule
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -16,14 +33,15 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-I would like to propose a session to go over Kselftest. It might be
-useful to go over currently supported use-cases and discuss
-improvements to make it easier to use them in various workflows.
+Hello,
 
-Kselftest TAP13 conversion is in progress with bulk of the work done
-in 4.13 more of planned for 4.14-rc1.
+On (08/28/17 13:44), Grant Likely wrote:
+> 
+> Does anyone know when the Kernel Summit workshop schedule will be
+> announced? I've got people asking whether or not the Devicetree
+> workshop will be accepted so that they can make travel plans, but I've
+> not found any information about when that will be available.
 
-Please let me know if this is something that would of interest.
+any update on this?
 
-thanks,
--- Shuah
+	-ss
