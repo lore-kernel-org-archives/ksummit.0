@@ -1,14 +1,28 @@
-Return-Path: <SRS0=LIaE=AV=goodmis.org=rostedt@kernel.org>
-Date: Wed, 20 Sep 2017 09:50:31 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: ksummit-discuss@lists.linux-foundation.org
-Message-ID: <20170920095031.1972fba5@gandalf.local.home>
+Return-Path: <dledford@redhat.com>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7C5CDAD2
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 20 Sep 2017 14:45:33 +0000 (UTC)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 42393432
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 20 Sep 2017 14:45:33 +0000 (UTC)
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>
+References: <CA+55aFydhKTGAFfqog0gRwKAQnxjjMnM-bKEaOwYbEKNjfRwGg@mail.gmail.com>
+From: Doug Ledford <dledford@redhat.com>
+Message-ID: <5a06ed25-6110-c639-b7d6-a6b3544fbc30@redhat.com>
+Date: Wed, 20 Sep 2017 10:45:10 -0400
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: Josef Bacik <jbacik@fb.com>, Peter Zijlstra <peterz@infradead.org>
-Subject: [Ksummit-discuss] [MAINTAINER TOPIC] tracepoints without user space
-	interfaces
+In-Reply-To: <CA+55aFydhKTGAFfqog0gRwKAQnxjjMnM-bKEaOwYbEKNjfRwGg@mail.gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature";
+	boundary="pDV8Nh92Ns73p5Qfe3uC9AqBkujMKnR20"
+Cc: Ingo Molnar <mingo@kernel.org>, Dave Airlie <airlied@linux.ie>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	David Miller <davem@davemloft.net>
+Subject: Re: [Ksummit-discuss] "Maintainer summit" invitation discussion
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -18,55 +32,80 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-The topic came up again at (of all places) the Schedule Workloads
-Microconf at Linux Plumbers in LA last week. The addition of
-tracepoints in locations that maintainers don't want them, only because
-they don't want them to become an ABI for user space tools. Where
-these tools then must be supported indefinitely, and may prevent
-future development of the kernel. This includes the scheduler as well
-as VFS (mandated by Al Viro).
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--pDV8Nh92Ns73p5Qfe3uC9AqBkujMKnR20
+Content-Type: multipart/mixed; boundary="LEShUqMCdWXXi9nxN4n9PT49UqOkarU2U";
+ protected-headers="v1"
+From: Doug Ledford <dledford@redhat.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+ ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Cc: David Miller <davem@davemloft.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dave Airlie <airlied@linux.ie>, Ingo Molnar <mingo@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@infradead.org>, Arnd Bergmann
+ <arnd@arndb.de>, Andrew Morton <akpm@linux-foundation.org>,
+ Michael Ellerman <mpe@ellerman.id.au>, Takashi Iwai <tiwai@suse.de>
+Message-ID: <5a06ed25-6110-c639-b7d6-a6b3544fbc30@redhat.com>
+Subject: Re: "Maintainer summit" invitation discussion
+References: <CA+55aFydhKTGAFfqog0gRwKAQnxjjMnM-bKEaOwYbEKNjfRwGg@mail.gmail.com>
+In-Reply-To: <CA+55aFydhKTGAFfqog0gRwKAQnxjjMnM-bKEaOwYbEKNjfRwGg@mail.gmail.com>
 
-The current solution by Facebook (told to us by Josef Bacik) is to just
-hand write kprobes with BPF programs to the locations that they need.
-When they get a new kernel, they just rewrite the programs because the
-kprobes and BPF programs break at each new release (or can break).
+--LEShUqMCdWXXi9nxN4n9PT49UqOkarU2U
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
 
-First it was mentioned to add a hook to locations where it would be
-easier to get variables, as the compiler could optimize them out, and
-it becomes difficult even with BPF and kprobes to get the information
-one would like to have. It was asked if we could add a tracepoint hook
-in these locations that are not exported to user space where it runs
-the risk of becoming an ABI. It was pointed out that this mechanism
-already exists in the kernel.
+On 4/18/2017 2:59 PM, Linus Torvalds wrote:
 
-A tracepoint is the hook in the kernel. The TRACE_EVENT() macro is
-built on top of a tracepoint to export it to user space. But the
-tracepoint itself can be manually added anywhere and there will be no
-creation of trace event files in the tracefs directory, nor would perf
-be able to access it. But the advantage of having this hook is that a
-kernel module could access it without a problem.
+> I'd like the maintainership summit list to be fairly small. Not even
+> 50 people. Maybe 30. A group that can actually sit in a room for half
+> a day and talk to each other about the issues they have rather than
+> being talked to. And talk literally about *process* issues, not about
+> any particular technical issues within whatever subsystem. Bring up
+> peeves or wishes for actual process improvements?
+>=20
+> Comments? People who should be involved? Or people who don't have any
+> particular issues and want to not be involved?
 
-By adding tracepoints in the scheduler and VFS, without the TRACE_EVENT
-macros that export them to user space, it would be much easier for
-companies like Facebook, Red Hat and SuSE to add a module that can tap
-into these hooks and build their custom analysis tools on top.
+Hi Linus,
 
-Requiring an external and custom module to access the tracepoints on
-live systems (that is, an unmodified vanilla kernel or distro kernel)
-will help these companies implement advance analytical tools to monitor
-their production kernels, and because it requires a module, and it has
-been stated several times in the past that there is no KABI with module
-interfaces, the maintainers of these hooks should have no fear that
-they will become a stable interface.
+Do we have a final determination as to whether or not this is going to
+happen?  I got the impression from this thread that it was "tentative"
+and not certain.  If it's going to happen, I should probably get my
+travel request in.
 
-Now, I will also point out that if one of the tracepoint hooks prove to
-be useful for a generic tool, then this could be an incentive to have
-the maintainer change the tracepoint hook into a full blown
-TRACE_EVENT() and upgrade it to an ABI, after having time to see how it
-is useful. This is a better method than having tens of trace events
-where one random one proves to be useful for tools and surprises the
-maintainer that the code it affects can no longer be changed.
 
-Thoughts?
+--=20
+Doug Ledford <dledford@redhat.com>
+    GPG Key ID: B826A3330E572FDD
+    Key fingerprint =3D AE6B 1BDA 122B 23B4 265B  1274 B826 A333 0E57 2FD=
+D
 
--- Steve
+
+--LEShUqMCdWXXi9nxN4n9PT49UqOkarU2U--
+
+--pDV8Nh92Ns73p5Qfe3uC9AqBkujMKnR20
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+Comment: Using GnuPG with Thunderbird - http://www.enigmail.net/
+
+iQIcBAEBCAAGBQJZwn78AAoJELgmozMOVy/dLBcQAKyDXgHLwy7Azv8LGnPAil5x
+rVUUPbiGOvRoAvBAAeyspUvfFzXqgt4xzWfn0ymN9m6Iktn3QHsmi2mntSqnj2ua
+WgcS4jZvS8Fy/NuTIYJhtfCLHnGKX1PV6mmlzPhA0dKuHxoOsTEpdRLi4xV2OBo/
+OHWIgqfHAjjM1N5IA0QSPAJvk8RYsmBjKtBwyCg+9f5b2s1eeYQtApkB+7ALN2m5
+RmqHlFgq3B6P5uY4eUWEBaJKLL1D3LYqPQswwTDDbBXakP5e7UTzfBo6EvK8r3Uz
+D/3gvrbJ4H5BviDxTFRSmBEURmMZasc1Br4eoaPUnoTESlXgoKNUH/ltHVtpF8m5
+DFN0RkoPd6USgNJhl8Wf7c1tNJlzoehCSqTuu8crZqfQf0N6VdnPHtwvRq8hmiRu
+Wm9hC2Ty+eUpoLN+hutEzUDOafCpdFIgSU+dsng5t96A+VFOvJNRmVmb2G5BWEqE
+OVsgMVBK5f9LQCmtuQFgC28Tn4ZQQL4FslqL/QwgodV0t3NDVwNhnc1SAu5ZTsQZ
+LIBRBEGm5nLsgyk1F/SO0x/F4SJxrbm1dPD85auiiPCaTUSPny4j6spgZr8wxnUg
+woLOQS1DWdB5lJKVhfmK3QX5IJGW9+cKaZIUS7wsPRfCxnIzupg8ElGcI5TSM2Vx
+1zKW1I/hOzgo6G1VJhbe
+=J8d2
+-----END PGP SIGNATURE-----
+
+--pDV8Nh92Ns73p5Qfe3uC9AqBkujMKnR20--
