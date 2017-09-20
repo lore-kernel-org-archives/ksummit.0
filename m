@@ -1,23 +1,20 @@
-Return-Path: <jmorris@namei.org>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6E461A70
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Sep 2017 22:50:19 +0000 (UTC)
-Received: from namei.org (namei.org [65.99.196.166])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0C8AF472
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Sep 2017 22:50:18 +0000 (UTC)
-Date: Fri, 29 Sep 2017 08:50:12 +1000 (AEST)
-From: James Morris <jmorris@namei.org>
-To: ksummit-discuss@lists.linuxfoundation.org
-In-Reply-To: <alpine.LRH.2.21.1709231416010.10766@namei.org>
-Message-ID: <alpine.LRH.2.21.1709290833470.15742@namei.org>
-References: <alpine.LRH.2.21.1709231416010.10766@namei.org>
+Return-Path: <prvs=0436a0a6fe=jbacik@fb.com>
+From: Josef Bacik <jbacik@fb.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	"ksummit-discuss@lists.linux-foundation.org"
+	<ksummit-discuss@lists.linux-foundation.org>
+Date: Wed, 20 Sep 2017 14:54:07 +0000
+Message-ID: <0C1E6F2D-2E7D-4477-9F35-8C59F62BB409@fb.com>
+References: <20170920095031.1972fba5@gandalf.local.home>
+In-Reply-To: <20170920095031.1972fba5@gandalf.local.home>
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <81FD70106F119548BC67F2BAF799E9A3@namprd15.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Cc: "Jason A. Donenfeld" <Jason@zx2c4.com>, Eric Biggers <ebiggers@google.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Kernel security
+Cc: Peter Zijlstra <peterz@infradead.org>, Josef Bacik <josef@toxicpanda.com>
+Subject: Re: [Ksummit-discuss] [MAINTAINER TOPIC] tracepoints without user
+	space interfaces
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -27,34 +24,56 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, 23 Sep 2017, James Morris wrote:
-
-> I'd like to propose a kernel security tech topic, where we can discuss 
-> current development issues, with both core kernel folk and European 
-> security developers who may not have attended LSS.
-> 
-> Potential agenda items include:
-> 
-> - KSPP update (Kees Cook)
-> - TPM status (Jarkko, if available)
-> - LSS & LPC container security discussion readout (myself)
-> 
-> And possibly other items depending on who is available at the conference, 
-> and how much time is available for the topic.
-
-Another potential topic would be whether we can provide better review of 
-crypto users within the kernel.
-
-One idea would be to create a mailing list for this purpose, which 
-developers can cc: if they are posting new code or updates to code which 
-uses the crypto API.  We could encourage folk with crypto design & 
-analysis skills (who may not necessarily be kernel developers, or 
-following every possibly related mailing list) to help out with crypto 
-review.
-
-It seems worth discussing, in any case.
-
-
--- 
-James Morris
-<jmorris@namei.org>
+Q2PigJlpbmcgbXkgcGVyc29uYWwgYWRkcmVzcyBzbyBJIGNhbiByZXBseSB3aXRoIGEgc2FuZSBl
+bWFpbCBjbGllbnQuDQoNCk9uIDkvMjAvMTcsIDk6NTAgQU0sICJTdGV2ZW4gUm9zdGVkdCIgPHJv
+c3RlZHRAZ29vZG1pcy5vcmc+IHdyb3RlOg0KDQpUaGUgdG9waWMgY2FtZSB1cCBhZ2FpbiBhdCAo
+b2YgYWxsIHBsYWNlcykgdGhlIFNjaGVkdWxlIFdvcmtsb2Fkcw0KTWljcm9jb25mIGF0IExpbnV4
+IFBsdW1iZXJzIGluIExBIGxhc3Qgd2Vlay4gVGhlIGFkZGl0aW9uIG9mDQp0cmFjZXBvaW50cyBp
+biBsb2NhdGlvbnMgdGhhdCBtYWludGFpbmVycyBkb24ndCB3YW50IHRoZW0sIG9ubHkgYmVjYXVz
+ZQ0KdGhleSBkb24ndCB3YW50IHRoZW0gdG8gYmVjb21lIGFuIEFCSSBmb3IgdXNlciBzcGFjZSB0
+b29scy4gV2hlcmUNCnRoZXNlIHRvb2xzIHRoZW4gbXVzdCBiZSBzdXBwb3J0ZWQgaW5kZWZpbml0
+ZWx5LCBhbmQgbWF5IHByZXZlbnQNCmZ1dHVyZSBkZXZlbG9wbWVudCBvZiB0aGUga2VybmVsLiBU
+aGlzIGluY2x1ZGVzIHRoZSBzY2hlZHVsZXIgYXMgd2VsbA0KYXMgVkZTIChtYW5kYXRlZCBieSBB
+bCBWaXJvKS4NCg0KVGhlIGN1cnJlbnQgc29sdXRpb24gYnkgRmFjZWJvb2sgKHRvbGQgdG8gdXMg
+YnkgSm9zZWYgQmFjaWspIGlzIHRvIGp1c3QNCmhhbmQgd3JpdGUga3Byb2JlcyB3aXRoIEJQRiBw
+cm9ncmFtcyB0byB0aGUgbG9jYXRpb25zIHRoYXQgdGhleSBuZWVkLg0KV2hlbiB0aGV5IGdldCBh
+IG5ldyBrZXJuZWwsIHRoZXkganVzdCByZXdyaXRlIHRoZSBwcm9ncmFtcyBiZWNhdXNlIHRoZQ0K
+a3Byb2JlcyBhbmQgQlBGIHByb2dyYW1zIGJyZWFrIGF0IGVhY2ggbmV3IHJlbGVhc2UgKG9yIGNh
+biBicmVhaykuDQoNCkZpcnN0IGl0IHdhcyBtZW50aW9uZWQgdG8gYWRkIGEgaG9vayB0byBsb2Nh
+dGlvbnMgd2hlcmUgaXQgd291bGQgYmUNCmVhc2llciB0byBnZXQgdmFyaWFibGVzLCBhcyB0aGUg
+Y29tcGlsZXIgY291bGQgb3B0aW1pemUgdGhlbSBvdXQsIGFuZA0KaXQgYmVjb21lcyBkaWZmaWN1
+bHQgZXZlbiB3aXRoIEJQRiBhbmQga3Byb2JlcyB0byBnZXQgdGhlIGluZm9ybWF0aW9uDQpvbmUg
+d291bGQgbGlrZSB0byBoYXZlLiBJdCB3YXMgYXNrZWQgaWYgd2UgY291bGQgYWRkIGEgdHJhY2Vw
+b2ludCBob29rDQppbiB0aGVzZSBsb2NhdGlvbnMgdGhhdCBhcmUgbm90IGV4cG9ydGVkIHRvIHVz
+ZXIgc3BhY2Ugd2hlcmUgaXQgcnVucw0KdGhlIHJpc2sgb2YgYmVjb21pbmcgYW4gQUJJLiBJdCB3
+YXMgcG9pbnRlZCBvdXQgdGhhdCB0aGlzIG1lY2hhbmlzbQ0KYWxyZWFkeSBleGlzdHMgaW4gdGhl
+IGtlcm5lbC4NCg0KQSB0cmFjZXBvaW50IGlzIHRoZSBob29rIGluIHRoZSBrZXJuZWwuIFRoZSBU
+UkFDRV9FVkVOVCgpIG1hY3JvIGlzDQpidWlsdCBvbiB0b3Agb2YgYSB0cmFjZXBvaW50IHRvIGV4
+cG9ydCBpdCB0byB1c2VyIHNwYWNlLiBCdXQgdGhlDQp0cmFjZXBvaW50IGl0c2VsZiBjYW4gYmUg
+bWFudWFsbHkgYWRkZWQgYW55d2hlcmUgYW5kIHRoZXJlIHdpbGwgYmUgbm8NCmNyZWF0aW9uIG9m
+IHRyYWNlIGV2ZW50IGZpbGVzIGluIHRoZSB0cmFjZWZzIGRpcmVjdG9yeSwgbm9yIHdvdWxkIHBl
+cmYNCmJlIGFibGUgdG8gYWNjZXNzIGl0LiBCdXQgdGhlIGFkdmFudGFnZSBvZiBoYXZpbmcgdGhp
+cyBob29rIGlzIHRoYXQgYQ0Ka2VybmVsIG1vZHVsZSBjb3VsZCBhY2Nlc3MgaXQgd2l0aG91dCBh
+IHByb2JsZW0uDQoNCkJ5IGFkZGluZyB0cmFjZXBvaW50cyBpbiB0aGUgc2NoZWR1bGVyIGFuZCBW
+RlMsIHdpdGhvdXQgdGhlIFRSQUNFX0VWRU5UDQptYWNyb3MgdGhhdCBleHBvcnQgdGhlbSB0byB1
+c2VyIHNwYWNlLCBpdCB3b3VsZCBiZSBtdWNoIGVhc2llciBmb3INCmNvbXBhbmllcyBsaWtlIEZh
+Y2Vib29rLCBSZWQgSGF0IGFuZCBTdVNFIHRvIGFkZCBhIG1vZHVsZSB0aGF0IGNhbiB0YXANCmlu
+dG8gdGhlc2UgaG9va3MgYW5kIGJ1aWxkIHRoZWlyIGN1c3RvbSBhbmFseXNpcyB0b29scyBvbiB0
+b3AuDQoNClJlcXVpcmluZyBhbiBleHRlcm5hbCBhbmQgY3VzdG9tIG1vZHVsZSB0byBhY2Nlc3Mg
+dGhlIHRyYWNlcG9pbnRzIG9uDQpsaXZlIHN5c3RlbXMgKHRoYXQgaXMsIGFuIHVubW9kaWZpZWQg
+dmFuaWxsYSBrZXJuZWwgb3IgZGlzdHJvIGtlcm5lbCkNCndpbGwgaGVscCB0aGVzZSBjb21wYW5p
+ZXMgaW1wbGVtZW50IGFkdmFuY2UgYW5hbHl0aWNhbCB0b29scyB0byBtb25pdG9yDQp0aGVpciBw
+cm9kdWN0aW9uIGtlcm5lbHMsIGFuZCBiZWNhdXNlIGl0IHJlcXVpcmVzIGEgbW9kdWxlLCBhbmQg
+aXQgaGFzDQpiZWVuIHN0YXRlZCBzZXZlcmFsIHRpbWVzIGluIHRoZSBwYXN0IHRoYXQgdGhlcmUg
+aXMgbm8gS0FCSSB3aXRoIG1vZHVsZQ0KaW50ZXJmYWNlcywgdGhlIG1haW50YWluZXJzIG9mIHRo
+ZXNlIGhvb2tzIHNob3VsZCBoYXZlIG5vIGZlYXIgdGhhdA0KdGhleSB3aWxsIGJlY29tZSBhIHN0
+YWJsZSBpbnRlcmZhY2UuDQoNCk5vdywgSSB3aWxsIGFsc28gcG9pbnQgb3V0IHRoYXQgaWYgb25l
+IG9mIHRoZSB0cmFjZXBvaW50IGhvb2tzIHByb3ZlIHRvDQpiZSB1c2VmdWwgZm9yIGEgZ2VuZXJp
+YyB0b29sLCB0aGVuIHRoaXMgY291bGQgYmUgYW4gaW5jZW50aXZlIHRvIGhhdmUNCnRoZSBtYWlu
+dGFpbmVyIGNoYW5nZSB0aGUgdHJhY2Vwb2ludCBob29rIGludG8gYSBmdWxsIGJsb3duDQpUUkFD
+RV9FVkVOVCgpIGFuZCB1cGdyYWRlIGl0IHRvIGFuIEFCSSwgYWZ0ZXIgaGF2aW5nIHRpbWUgdG8g
+c2VlIGhvdyBpdA0KaXMgdXNlZnVsLiBUaGlzIGlzIGEgYmV0dGVyIG1ldGhvZCB0aGFuIGhhdmlu
+ZyB0ZW5zIG9mIHRyYWNlIGV2ZW50cw0Kd2hlcmUgb25lIHJhbmRvbSBvbmUgcHJvdmVzIHRvIGJl
+IHVzZWZ1bCBmb3IgdG9vbHMgYW5kIHN1cnByaXNlcyB0aGUNCm1haW50YWluZXIgdGhhdCB0aGUg
+Y29kZSBpdCBhZmZlY3RzIGNhbiBubyBsb25nZXIgYmUgY2hhbmdlZC4NCg0KVGhvdWdodHM/DQoN
+Ci0tIFN0ZXZlDQoNCg0K
