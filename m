@@ -1,18 +1,18 @@
-Return-Path: <prvs=0436a0a6fe=jbacik@fb.com>
-From: Josef Bacik <jbacik@fb.com>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	"ksummit-discuss@lists.linux-foundation.org"
-	<ksummit-discuss@lists.linux-foundation.org>
-Date: Wed, 20 Sep 2017 14:54:07 +0000
-Message-ID: <0C1E6F2D-2E7D-4477-9F35-8C59F62BB409@fb.com>
+Return-Path: <josef@toxicpanda.com>
+Date: Wed, 20 Sep 2017 11:04:05 -0400
+From: Josef Bacik <josef@toxicpanda.com>
+To: Josef Bacik <jbacik@fb.com>
+Message-ID: <20170920150404.2x63t3bd4pkusoa3@destiny>
 References: <20170920095031.1972fba5@gandalf.local.home>
-In-Reply-To: <20170920095031.1972fba5@gandalf.local.home>
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <81FD70106F119548BC67F2BAF799E9A3@namprd15.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	<0C1E6F2D-2E7D-4477-9F35-8C59F62BB409@fb.com>
 MIME-Version: 1.0
-Cc: Peter Zijlstra <peterz@infradead.org>, Josef Bacik <josef@toxicpanda.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <0C1E6F2D-2E7D-4477-9F35-8C59F62BB409@fb.com>
+Cc: "ksummit-discuss@lists.linux-foundation.org"
+	<ksummit-discuss@lists.linux-foundation.org>,
+	Peter Zijlstra <peterz@infradead.org>, Josef Bacik <josef@toxicpanda.com>
 Subject: Re: [Ksummit-discuss] [MAINTAINER TOPIC] tracepoints without user
 	space interfaces
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -24,56 +24,56 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Q2PigJlpbmcgbXkgcGVyc29uYWwgYWRkcmVzcyBzbyBJIGNhbiByZXBseSB3aXRoIGEgc2FuZSBl
-bWFpbCBjbGllbnQuDQoNCk9uIDkvMjAvMTcsIDk6NTAgQU0sICJTdGV2ZW4gUm9zdGVkdCIgPHJv
-c3RlZHRAZ29vZG1pcy5vcmc+IHdyb3RlOg0KDQpUaGUgdG9waWMgY2FtZSB1cCBhZ2FpbiBhdCAo
-b2YgYWxsIHBsYWNlcykgdGhlIFNjaGVkdWxlIFdvcmtsb2Fkcw0KTWljcm9jb25mIGF0IExpbnV4
-IFBsdW1iZXJzIGluIExBIGxhc3Qgd2Vlay4gVGhlIGFkZGl0aW9uIG9mDQp0cmFjZXBvaW50cyBp
-biBsb2NhdGlvbnMgdGhhdCBtYWludGFpbmVycyBkb24ndCB3YW50IHRoZW0sIG9ubHkgYmVjYXVz
-ZQ0KdGhleSBkb24ndCB3YW50IHRoZW0gdG8gYmVjb21lIGFuIEFCSSBmb3IgdXNlciBzcGFjZSB0
-b29scy4gV2hlcmUNCnRoZXNlIHRvb2xzIHRoZW4gbXVzdCBiZSBzdXBwb3J0ZWQgaW5kZWZpbml0
-ZWx5LCBhbmQgbWF5IHByZXZlbnQNCmZ1dHVyZSBkZXZlbG9wbWVudCBvZiB0aGUga2VybmVsLiBU
-aGlzIGluY2x1ZGVzIHRoZSBzY2hlZHVsZXIgYXMgd2VsbA0KYXMgVkZTIChtYW5kYXRlZCBieSBB
-bCBWaXJvKS4NCg0KVGhlIGN1cnJlbnQgc29sdXRpb24gYnkgRmFjZWJvb2sgKHRvbGQgdG8gdXMg
-YnkgSm9zZWYgQmFjaWspIGlzIHRvIGp1c3QNCmhhbmQgd3JpdGUga3Byb2JlcyB3aXRoIEJQRiBw
-cm9ncmFtcyB0byB0aGUgbG9jYXRpb25zIHRoYXQgdGhleSBuZWVkLg0KV2hlbiB0aGV5IGdldCBh
-IG5ldyBrZXJuZWwsIHRoZXkganVzdCByZXdyaXRlIHRoZSBwcm9ncmFtcyBiZWNhdXNlIHRoZQ0K
-a3Byb2JlcyBhbmQgQlBGIHByb2dyYW1zIGJyZWFrIGF0IGVhY2ggbmV3IHJlbGVhc2UgKG9yIGNh
-biBicmVhaykuDQoNCkZpcnN0IGl0IHdhcyBtZW50aW9uZWQgdG8gYWRkIGEgaG9vayB0byBsb2Nh
-dGlvbnMgd2hlcmUgaXQgd291bGQgYmUNCmVhc2llciB0byBnZXQgdmFyaWFibGVzLCBhcyB0aGUg
-Y29tcGlsZXIgY291bGQgb3B0aW1pemUgdGhlbSBvdXQsIGFuZA0KaXQgYmVjb21lcyBkaWZmaWN1
-bHQgZXZlbiB3aXRoIEJQRiBhbmQga3Byb2JlcyB0byBnZXQgdGhlIGluZm9ybWF0aW9uDQpvbmUg
-d291bGQgbGlrZSB0byBoYXZlLiBJdCB3YXMgYXNrZWQgaWYgd2UgY291bGQgYWRkIGEgdHJhY2Vw
-b2ludCBob29rDQppbiB0aGVzZSBsb2NhdGlvbnMgdGhhdCBhcmUgbm90IGV4cG9ydGVkIHRvIHVz
-ZXIgc3BhY2Ugd2hlcmUgaXQgcnVucw0KdGhlIHJpc2sgb2YgYmVjb21pbmcgYW4gQUJJLiBJdCB3
-YXMgcG9pbnRlZCBvdXQgdGhhdCB0aGlzIG1lY2hhbmlzbQ0KYWxyZWFkeSBleGlzdHMgaW4gdGhl
-IGtlcm5lbC4NCg0KQSB0cmFjZXBvaW50IGlzIHRoZSBob29rIGluIHRoZSBrZXJuZWwuIFRoZSBU
-UkFDRV9FVkVOVCgpIG1hY3JvIGlzDQpidWlsdCBvbiB0b3Agb2YgYSB0cmFjZXBvaW50IHRvIGV4
-cG9ydCBpdCB0byB1c2VyIHNwYWNlLiBCdXQgdGhlDQp0cmFjZXBvaW50IGl0c2VsZiBjYW4gYmUg
-bWFudWFsbHkgYWRkZWQgYW55d2hlcmUgYW5kIHRoZXJlIHdpbGwgYmUgbm8NCmNyZWF0aW9uIG9m
-IHRyYWNlIGV2ZW50IGZpbGVzIGluIHRoZSB0cmFjZWZzIGRpcmVjdG9yeSwgbm9yIHdvdWxkIHBl
-cmYNCmJlIGFibGUgdG8gYWNjZXNzIGl0LiBCdXQgdGhlIGFkdmFudGFnZSBvZiBoYXZpbmcgdGhp
-cyBob29rIGlzIHRoYXQgYQ0Ka2VybmVsIG1vZHVsZSBjb3VsZCBhY2Nlc3MgaXQgd2l0aG91dCBh
-IHByb2JsZW0uDQoNCkJ5IGFkZGluZyB0cmFjZXBvaW50cyBpbiB0aGUgc2NoZWR1bGVyIGFuZCBW
-RlMsIHdpdGhvdXQgdGhlIFRSQUNFX0VWRU5UDQptYWNyb3MgdGhhdCBleHBvcnQgdGhlbSB0byB1
-c2VyIHNwYWNlLCBpdCB3b3VsZCBiZSBtdWNoIGVhc2llciBmb3INCmNvbXBhbmllcyBsaWtlIEZh
-Y2Vib29rLCBSZWQgSGF0IGFuZCBTdVNFIHRvIGFkZCBhIG1vZHVsZSB0aGF0IGNhbiB0YXANCmlu
-dG8gdGhlc2UgaG9va3MgYW5kIGJ1aWxkIHRoZWlyIGN1c3RvbSBhbmFseXNpcyB0b29scyBvbiB0
-b3AuDQoNClJlcXVpcmluZyBhbiBleHRlcm5hbCBhbmQgY3VzdG9tIG1vZHVsZSB0byBhY2Nlc3Mg
-dGhlIHRyYWNlcG9pbnRzIG9uDQpsaXZlIHN5c3RlbXMgKHRoYXQgaXMsIGFuIHVubW9kaWZpZWQg
-dmFuaWxsYSBrZXJuZWwgb3IgZGlzdHJvIGtlcm5lbCkNCndpbGwgaGVscCB0aGVzZSBjb21wYW5p
-ZXMgaW1wbGVtZW50IGFkdmFuY2UgYW5hbHl0aWNhbCB0b29scyB0byBtb25pdG9yDQp0aGVpciBw
-cm9kdWN0aW9uIGtlcm5lbHMsIGFuZCBiZWNhdXNlIGl0IHJlcXVpcmVzIGEgbW9kdWxlLCBhbmQg
-aXQgaGFzDQpiZWVuIHN0YXRlZCBzZXZlcmFsIHRpbWVzIGluIHRoZSBwYXN0IHRoYXQgdGhlcmUg
-aXMgbm8gS0FCSSB3aXRoIG1vZHVsZQ0KaW50ZXJmYWNlcywgdGhlIG1haW50YWluZXJzIG9mIHRo
-ZXNlIGhvb2tzIHNob3VsZCBoYXZlIG5vIGZlYXIgdGhhdA0KdGhleSB3aWxsIGJlY29tZSBhIHN0
-YWJsZSBpbnRlcmZhY2UuDQoNCk5vdywgSSB3aWxsIGFsc28gcG9pbnQgb3V0IHRoYXQgaWYgb25l
-IG9mIHRoZSB0cmFjZXBvaW50IGhvb2tzIHByb3ZlIHRvDQpiZSB1c2VmdWwgZm9yIGEgZ2VuZXJp
-YyB0b29sLCB0aGVuIHRoaXMgY291bGQgYmUgYW4gaW5jZW50aXZlIHRvIGhhdmUNCnRoZSBtYWlu
-dGFpbmVyIGNoYW5nZSB0aGUgdHJhY2Vwb2ludCBob29rIGludG8gYSBmdWxsIGJsb3duDQpUUkFD
-RV9FVkVOVCgpIGFuZCB1cGdyYWRlIGl0IHRvIGFuIEFCSSwgYWZ0ZXIgaGF2aW5nIHRpbWUgdG8g
-c2VlIGhvdyBpdA0KaXMgdXNlZnVsLiBUaGlzIGlzIGEgYmV0dGVyIG1ldGhvZCB0aGFuIGhhdmlu
-ZyB0ZW5zIG9mIHRyYWNlIGV2ZW50cw0Kd2hlcmUgb25lIHJhbmRvbSBvbmUgcHJvdmVzIHRvIGJl
-IHVzZWZ1bCBmb3IgdG9vbHMgYW5kIHN1cnByaXNlcyB0aGUNCm1haW50YWluZXIgdGhhdCB0aGUg
-Y29kZSBpdCBhZmZlY3RzIGNhbiBubyBsb25nZXIgYmUgY2hhbmdlZC4NCg0KVGhvdWdodHM/DQoN
-Ci0tIFN0ZXZlDQoNCg0K
+On Wed, Sep 20, 2017 at 02:54:07PM +0000, Josef Bacik wrote:
+> Cc’ing my personal address so I can reply with a sane email client.
+> 
+> On 9/20/17, 9:50 AM, "Steven Rostedt" <rostedt@goodmis.org> wrote:
+> 
+> The topic came up again at (of all places) the Schedule Workloads
+> Microconf at Linux Plumbers in LA last week. The addition of
+> tracepoints in locations that maintainers don't want them, only because
+> they don't want them to become an ABI for user space tools. Where
+> these tools then must be supported indefinitely, and may prevent
+> future development of the kernel. This includes the scheduler as well
+> as VFS (mandated by Al Viro).
+> 
+> The current solution by Facebook (told to us by Josef Bacik) is to just
+> hand write kprobes with BPF programs to the locations that they need.
+> When they get a new kernel, they just rewrite the programs because the
+> kprobes and BPF programs break at each new release (or can break).
+> 
+> First it was mentioned to add a hook to locations where it would be
+> easier to get variables, as the compiler could optimize them out, and
+> it becomes difficult even with BPF and kprobes to get the information
+> one would like to have. It was asked if we could add a tracepoint hook
+> in these locations that are not exported to user space where it runs
+> the risk of becoming an ABI. It was pointed out that this mechanism
+> already exists in the kernel.
+> 
+> A tracepoint is the hook in the kernel. The TRACE_EVENT() macro is
+> built on top of a tracepoint to export it to user space. But the
+> tracepoint itself can be manually added anywhere and there will be no
+> creation of trace event files in the tracefs directory, nor would perf
+> be able to access it. But the advantage of having this hook is that a
+> kernel module could access it without a problem.
+> 
+> By adding tracepoints in the scheduler and VFS, without the TRACE_EVENT
+> macros that export them to user space, it would be much easier for
+> companies like Facebook, Red Hat and SuSE to add a module that can tap
+> into these hooks and build their custom analysis tools on top.
+> 
+> Requiring an external and custom module to access the tracepoints on
+> live systems (that is, an unmodified vanilla kernel or distro kernel)
+> will help these companies implement advance analytical tools to monitor
+> their production kernels, and because it requires a module, and it has
+> been stated several times in the past that there is no KABI with module
+> interfaces, the maintainers of these hooks should have no fear that
+> they will become a stable interface.
+> 
+
+The tricky part is we want to be able to access these from eBPF.  I argue that
+eBPF is run in the kernel so it has the same rules as kernel modules.  Others
+seem less convinced of this argument, so it would be good to get a definitive
+answer.  Thanks,
+
+Josef
