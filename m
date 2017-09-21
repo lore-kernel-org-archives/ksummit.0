@@ -1,32 +1,27 @@
-Return-Path: <tytso@thunk.org>
+Return-Path: <jmorris@namei.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id F3C37ABB
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0E7C1266
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 20 Sep 2017 22:57:52 +0000 (UTC)
-Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 766ABD3
+	Thu, 21 Sep 2017 04:54:56 +0000 (UTC)
+Received: from namei.org (namei.org [65.99.196.166])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id EBAE441D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 20 Sep 2017 22:57:52 +0000 (UTC)
-Date: Wed, 20 Sep 2017 18:55:34 -0400
-From: Theodore Ts'o <tytso@mit.edu>
-To: Doug Ledford <dledford@redhat.com>
-Message-ID: <20170920225534.halqkaghi7dfguqn@thunk.org>
+	Thu, 21 Sep 2017 04:54:54 +0000 (UTC)
+Date: Thu, 21 Sep 2017 14:54:41 +1000 (AEST)
+From: James Morris <jmorris@namei.org>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+In-Reply-To: <1505920038.4410.5.camel@HansenPartnership.com>
+Message-ID: <alpine.LRH.2.21.1709211452380.768@namei.org>
 References: <CA+55aFydhKTGAFfqog0gRwKAQnxjjMnM-bKEaOwYbEKNjfRwGg@mail.gmail.com>
 	<5a06ed25-6110-c639-b7d6-a6b3544fbc30@redhat.com>
 	<1505920038.4410.5.camel@HansenPartnership.com>
-	<def505be-3904-b020-7e7a-d70fa3a1c3cb@redhat.com>
-	<1505921466.4410.9.camel@HansenPartnership.com>
-	<5895d8c6-0f56-1ff3-6fce-4a8d417860f9@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5895d8c6-0f56-1ff3-6fce-4a8d417860f9@redhat.com>
+Content-Type: multipart/mixed; boundary="1665246916-1843092004-1505969682=:768"
 Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
 	Dave Airlie <airlied@linux.ie>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	David Miller <davem@davemloft.net>,
-	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	David Miller <davem@davemloft.net>, Doug Ledford <dledford@redhat.com>,
 	Ingo Molnar <mingo@kernel.org>
 Subject: Re: [Ksummit-discuss] "Maintainer summit" invitation discussion
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -38,21 +33,30 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Sep 20, 2017 at 11:58:28AM -0400, Doug Ledford wrote:
-> Ah, see, while I was on this thread and named by Linus as one of the
-> subsystems that he sees might benefit from this, I never got an invite
-> so I didn't know the maintainer summit was happening versus tentative.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Linus sent a list of names to the program committee, and with a list a
-core people he definitely wanted there, and set of other names, and
-asked the program committee to make the final selection, using
-criteria that he gave us.
+--1665246916-1843092004-1505969682=:768
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-Invites have gone out, and I'll post a draft agenda and confirmed
-attendees shortly --- a few people who did receive invites (including
-James, cough, cough) haven't RSVP'ed yet.  I'll send nag mails out as
-well.
+On Wed, 20 Sep 2017, James Bottomley wrote:
 
-Cheers,
+> We've collected the sponsor's money and paid for the space, so it's as
+> certain to happen as any previous kernel summit.  The maintainer's
+> summit is tacked on to a bigger kernel summit, which is open to all and
+> also has reserved space in Prague.  You just register for the Open
+> Source Summit Europe to come to that one:
+> 
+> http://events.linuxfoundation.org/events/linux-kernel-summit/attend/register
 
-					- Ted
+Is there any information available on the format of the open kernel 
+summit?  I couldn't find anything on the event web site except a mention 
+of a kernel summit track at OSS Europe.
+
+
+-- 
+James Morris
+<jmorris@namei.org>
+
+--1665246916-1843092004-1505969682=:768--
