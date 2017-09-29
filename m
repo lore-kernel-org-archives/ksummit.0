@@ -1,35 +1,21 @@
-Return-Path: <Jason@zx2c4.com>
-Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
-	[172.17.192.36])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A71A8710
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Sep 2017 23:21:34 +0000 (UTC)
-Received: from frisell.zx2c4.com (frisell.zx2c4.com [192.95.5.64])
-	by smtp2.linuxfoundation.org (Postfix) with ESMTPS id 7734D1DB0A
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Sep 2017 23:21:22 +0000 (UTC)
-Received: by frisell.zx2c4.com (ZX2C4 Mail Server) with ESMTP id 60eea2dd
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Sep 2017 23:00:04 +0000 (UTC)
-Received: by frisell.zx2c4.com (ZX2C4 Mail Server) with ESMTPSA id 50b429b4
-	(TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128:NO)
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Sep 2017 23:00:03 +0000 (UTC)
-Received: by mail-oi0-f52.google.com with SMTP id p187so4867420oif.4
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 28 Sep 2017 16:09:20 -0700 (PDT)
+Return-Path: <alexei.starovoitov@gmail.com>
+Date: Fri, 29 Sep 2017 16:50:23 -0700
+From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+To: Josef Bacik <josef@toxicpanda.com>
+Message-ID: <20170929235022.2f3rm7shb3plkcim@ast-mbp>
+References: <20170920095031.1972fba5@gandalf.local.home>
+	<0C1E6F2D-2E7D-4477-9F35-8C59F62BB409@fb.com>
+	<20170920150404.2x63t3bd4pkusoa3@destiny>
 MIME-Version: 1.0
-In-Reply-To: <alpine.LRH.2.21.1709290833470.15742@namei.org>
-References: <alpine.LRH.2.21.1709231416010.10766@namei.org>
-	<alpine.LRH.2.21.1709290833470.15742@namei.org>
-From: "Jason A. Donenfeld" <Jason@zx2c4.com>
-Date: Fri, 29 Sep 2017 01:09:18 +0200
-Message-ID: <CAHmME9qb2EAKxJwCvQU_SkxjUaWjDaB2uh-7smFMw=04kSgvDw@mail.gmail.com>
-To: James Morris <jmorris@namei.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	Eric Biggers <ebiggers@google.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Kernel security
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20170920150404.2x63t3bd4pkusoa3@destiny>
+Cc: Josef Bacik <jbacik@fb.com>, "ksummit-discuss@lists.linux-foundation.org"
+	<ksummit-discuss@lists.linux-foundation.org>,
+	Peter Zijlstra <peterz@infradead.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINER TOPIC] tracepoints without user
+ space interfaces
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,39 +25,55 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Sep 29, 2017 at 12:50 AM, James Morris <jmorris@namei.org> wrote:
-> Another potential topic would be whether we can provide better review of
-> crypto users within the kernel.
-> One idea would be to create a mailing list for this purpose, which
-> developers can cc: if they are posting new code or updates to code which
-> uses the crypto API.  We could encourage folk with crypto design &
-> analysis skills (who may not necessarily be kernel developers, or
-> following every possibly related mailing list) to help out with crypto
-> review.
+On Wed, Sep 20, 2017 at 11:04:05AM -0400, Josef Bacik wrote:
+> On Wed, Sep 20, 2017 at 02:54:07PM +0000, Josef Bacik wrote:
+> > Cc’ing my personal address so I can reply with a sane email client.
+> > 
+> > On 9/20/17, 9:50 AM, "Steven Rostedt" <rostedt@goodmis.org> wrote:
+> > 
+> > The topic came up again at (of all places) the Schedule Workloads
+> > Microconf at Linux Plumbers in LA last week. The addition of
+> > tracepoints in locations that maintainers don't want them, only because
+> > they don't want them to become an ABI for user space tools. Where
+> > these tools then must be supported indefinitely, and may prevent
+> > future development of the kernel. This includes the scheduler as well
+> > as VFS (mandated by Al Viro).
+> > 
+> > The current solution by Facebook (told to us by Josef Bacik) is to just
+> > hand write kprobes with BPF programs to the locations that they need.
+> > When they get a new kernel, they just rewrite the programs because the
+> > kprobes and BPF programs break at each new release (or can break).
+> > 
+> > First it was mentioned to add a hook to locations where it would be
+> > easier to get variables, as the compiler could optimize them out, and
+> > it becomes difficult even with BPF and kprobes to get the information
+> > one would like to have. It was asked if we could add a tracepoint hook
+> > in these locations that are not exported to user space where it runs
+> > the risk of becoming an ABI. It was pointed out that this mechanism
+> > already exists in the kernel.
 
-To cross-post what I wrote in our other thread, which wasn't CCd to this list:
+Aren't we beating the dead horse?
+A year ago at the kernel summit:
+https://lwn.net/Articles/705270/
+"The session concluded with Linus saying that, in the history of kernel development,
+nobody has ever screamed about a change to a tracepoint. He allowed that this might
+happen as the use of tracepoints increases. But, he said, there is no point in
+making a big deal about that possibility before it proves to be a problem."
 
-> I won't be at kernel summit, regrettably, but I do intend to
-> methodically work through the kernel reviewing the various crypto
-> [mis]uses in places. I also have some larger plans regarding reworking
-> a few aspects of the crypto API, that I'll start a discussion with
-> Herbert about during the next several months.
-> So, expect some more things like this patch to gradually be rolling
-> your way, along with maybe larger overall changes. If you wind up
-> discussing this in any substantial way at the summit this year, please
-> do try to loop me in at some point.
-
-So, I really like the idea of having a dedicated mailing list or even
-a simple email alias for that kind of discussion. I know a few
-pure-academics who would actually be interested in participating in
-that, and personally I'm kind of existing in the void between the
-kernel world and the crypto world, so that sort of list is of course
-interesting to me.
-
-One potential difficulty with "security-related" lists, and
-crypto-related things in particular, is that there are often many
-people eager to share misinformation or who read Schneier way back
-when and then... Anyway, I suspect at kernel summit, a discussion will
-yield some way to approach that.
-
-Jason
+So instead of inventing trace markers and other new things that are just
+like existing tracepoints but without arguments how about
+adding normal tracepoints with one or two arguments task* and rq*
+bpf progs can walk whatever internals of these structs they need
+with probe_read() and that would be plenty of info for most users
+including kernel developers.
+In that sense the only difference between these new sched tracepoints
+and existing kprobe-based scripts will be the speed and ease of
+access to task/rq pointers.
+If pretty print of tracepoints into trace_pipe is an abi
+concern then don't print anything.
+Existing sched tracepoints are not useful from bpf point of view,
+since they don't have pointers in arguments and instead print
+comm/pid/cpu which is not very interesting.
+Dumb kprobe in enqueue_task_*() is more powerful
+since progs can simply bpf_trace_printk("%d\n", rq->nr_running);
+btw I won't be in Prague, so best to discuss over email.
