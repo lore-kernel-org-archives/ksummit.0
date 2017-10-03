@@ -1,21 +1,41 @@
-Return-Path: <alexei.starovoitov@gmail.com>
-Date: Fri, 29 Sep 2017 16:50:23 -0700
-From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-To: Josef Bacik <josef@toxicpanda.com>
-Message-ID: <20170929235022.2f3rm7shb3plkcim@ast-mbp>
-References: <20170920095031.1972fba5@gandalf.local.home>
-	<0C1E6F2D-2E7D-4477-9F35-8C59F62BB409@fb.com>
-	<20170920150404.2x63t3bd4pkusoa3@destiny>
+Return-Path: <glikely@secretlab.ca>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 17B035AC
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue,  3 Oct 2017 22:51:08 +0000 (UTC)
+Received: from mail-pg0-f68.google.com (mail-pg0-f68.google.com [74.125.83.68])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1DA0F151
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue,  3 Oct 2017 22:51:06 +0000 (UTC)
+Received: by mail-pg0-f68.google.com with SMTP id u27so11176580pgn.1
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 03 Oct 2017 15:51:06 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20170920150404.2x63t3bd4pkusoa3@destiny>
-Cc: Josef Bacik <jbacik@fb.com>, "ksummit-discuss@lists.linux-foundation.org"
-	<ksummit-discuss@lists.linux-foundation.org>,
-	Peter Zijlstra <peterz@infradead.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINER TOPIC] tracepoints without user
- space interfaces
+Sender: glikely@secretlab.ca
+In-Reply-To: <CACxGe6vOMsL=5tRzAyOoW-Rh5CjvJcvnn_Zv34L3g_tQVGfK4A@mail.gmail.com>
+References: <CACxGe6v0hm_YC+JdatGpNcYtaeSiUgm58Gnj1ZWndLHCPcA1tQ@mail.gmail.com>
+	<CACxGe6vz65ZhVRNCUYE91LAOJu7eQQRHkFOm5BS22Jvac=UaYA@mail.gmail.com>
+	<CACxGe6vX4tz9QiCvSyaf9kqHXk+ubpGx0+2w608b7NBY0yNnyQ@mail.gmail.com>
+	<CACxGe6u9v1pW=FFPJc04fwZqJRsvRaYHK4qfGzAmW=4Ft+Q_QQ@mail.gmail.com>
+	<CACxGe6uEmrho8n5XrXOOEBybQGp7NJ2Jy68Gen+CVxv2Jj95Og@mail.gmail.com>
+	<CACxGe6vOMsL=5tRzAyOoW-Rh5CjvJcvnn_Zv34L3g_tQVGfK4A@mail.gmail.com>
+From: Grant Likely <grant.likely@secretlab.ca>
+Date: Tue, 3 Oct 2017 23:50:45 +0100
+Message-ID: <CACxGe6uoRz1qUSxFNykgSHTO8mAaOoqLvJVbJ6oB3s09YMzzKw@mail.gmail.com>
+To: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	devicetree-spec@vger.kernel.org,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Rob Herring <rob.herring@linaro.org>, Jon Loeliger <jdl@jdl.com>,
+	Kumar Gala <kumar.gala@linaro.org>, Stephen Warren <SWarren@nvidia.com>,
+	=?UTF-8?Q?Pawe=C5=82_Moll?= <Pawel.Moll@arm.com>,
+	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
+	Fabien Parent <fparent@baylibre.com>, Ian Campbell <ijc@debian.org>,
+	Olof Johansson <olof.johansson@gmail.com>,
+	David Gibson <david@gibson.dropbear.id.au>
+Subject: Re: [Ksummit-discuss] Devicetree at Linux Plumbers Conference 2017
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -25,55 +45,34 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Sep 20, 2017 at 11:04:05AM -0400, Josef Bacik wrote:
-> On Wed, Sep 20, 2017 at 02:54:07PM +0000, Josef Bacik wrote:
-> > Cc’ing my personal address so I can reply with a sane email client.
-> > 
-> > On 9/20/17, 9:50 AM, "Steven Rostedt" <rostedt@goodmis.org> wrote:
-> > 
-> > The topic came up again at (of all places) the Schedule Workloads
-> > Microconf at Linux Plumbers in LA last week. The addition of
-> > tracepoints in locations that maintainers don't want them, only because
-> > they don't want them to become an ABI for user space tools. Where
-> > these tools then must be supported indefinitely, and may prevent
-> > future development of the kernel. This includes the scheduler as well
-> > as VFS (mandated by Al Viro).
-> > 
-> > The current solution by Facebook (told to us by Josef Bacik) is to just
-> > hand write kprobes with BPF programs to the locations that they need.
-> > When they get a new kernel, they just rewrite the programs because the
-> > kprobes and BPF programs break at each new release (or can break).
-> > 
-> > First it was mentioned to add a hook to locations where it would be
-> > easier to get variables, as the compiler could optimize them out, and
-> > it becomes difficult even with BPF and kprobes to get the information
-> > one would like to have. It was asked if we could add a tracepoint hook
-> > in these locations that are not exported to user space where it runs
-> > the risk of becoming an ABI. It was pointed out that this mechanism
-> > already exists in the kernel.
+On Wed, Aug 30, 2017 at 11:41 AM, Grant Likely
+<grant.likely@secretlab.ca> wrote:
+> On Mon, Aug 28, 2017 at 1:30 PM, Grant Likely <grant.likely@secretlab.ca> wrote:
+>> I owe all of you an update. Unfortunately I don't have any new
+>> information yet. I've still got a proposal in to hold a devicetree
+>> workshop at Kernel Summit, and if it does get accepted, then /most
+>> likely/ it will happen on Thursday afternoon. Don't make any travel
+>> plans based on that.
+>>
+>> As soon as I hear something either way I'll reply to this thread with
+>> the new information.
+>
+> Confirmed! The Devicetree Workshop will be Thursday 26 October in the
+> afternoon. Anyone registered for OSS will be able to attend. I don't
+> know yet if there are any other consessions for registration. I'm
+> finding out now and will update as soon as I know.
 
-Aren't we beating the dead horse?
-A year ago at the kernel summit:
-https://lwn.net/Articles/705270/
-"The session concluded with Linus saying that, in the history of kernel development,
-nobody has ever screamed about a change to a tracepoint. He allowed that this might
-happen as the use of tracepoints increases. But, he said, there is no point in
-making a big deal about that possibility before it proves to be a problem."
+Some more information. I've actually got the workshop room booked for
+the full day on Thursday, 26th October. I'm planning to use the
+morning as a hacking sprint for anyone who is available, and the
+afternoon for discussion topics. I'll pull together a schedule this
+week and post an update. As always, feel free to add topics to the
+wiki page[1]
 
-So instead of inventing trace markers and other new things that are just
-like existing tracepoints but without arguments how about
-adding normal tracepoints with one or two arguments task* and rq*
-bpf progs can walk whatever internals of these structs they need
-with probe_read() and that would be plenty of info for most users
-including kernel developers.
-In that sense the only difference between these new sched tracepoints
-and existing kprobe-based scripts will be the speed and ease of
-access to task/rq pointers.
-If pretty print of tracepoints into trace_pipe is an abi
-concern then don't print anything.
-Existing sched tracepoints are not useful from bpf point of view,
-since they don't have pointers in arguments and instead print
-comm/pid/cpu which is not very interesting.
-Dumb kprobe in enqueue_task_*() is more powerful
-since progs can simply bpf_trace_printk("%d\n", rq->nr_running);
-btw I won't be in Prague, so best to discuss over email.
+However, the timing is flexible. I can move some topics to the morning
+if there are people who aren't going to be around in the afternoon.
+
+[1] http://wiki.linuxplumbersconf.org/2017:device_tree
+
+Cheers,
+g.
