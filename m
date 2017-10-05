@@ -1,44 +1,21 @@
-Return-Path: <glikely@secretlab.ca>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 38E1C94F
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 058EAB5E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  4 Oct 2017 17:57:35 +0000 (UTC)
-Received: from mail-pf0-f194.google.com (mail-pf0-f194.google.com
-	[209.85.192.194])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1567041E
+	Thu,  5 Oct 2017 19:20:07 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 21565502
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  4 Oct 2017 17:57:33 +0000 (UTC)
-Received: by mail-pf0-f194.google.com with SMTP id m28so12751928pfi.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 04 Oct 2017 10:57:33 -0700 (PDT)
+	Thu,  5 Oct 2017 19:20:04 +0000 (UTC)
+Date: Thu, 5 Oct 2017 15:20:02 -0400
+From: Theodore Ts'o <tytso@mit.edu>
+To: ksummit-discuss@lists.linuxfoundation.org
+Message-ID: <20171005192002.hxbjjdjhrfa4oa37@thunk.org>
 MIME-Version: 1.0
-References: <CACxGe6v0hm_YC+JdatGpNcYtaeSiUgm58Gnj1ZWndLHCPcA1tQ@mail.gmail.com>
-	<CACxGe6vz65ZhVRNCUYE91LAOJu7eQQRHkFOm5BS22Jvac=UaYA@mail.gmail.com>
-	<CACxGe6vX4tz9QiCvSyaf9kqHXk+ubpGx0+2w608b7NBY0yNnyQ@mail.gmail.com>
-	<CACxGe6u9v1pW=FFPJc04fwZqJRsvRaYHK4qfGzAmW=4Ft+Q_QQ@mail.gmail.com>
-	<CACxGe6uEmrho8n5XrXOOEBybQGp7NJ2Jy68Gen+CVxv2Jj95Og@mail.gmail.com>
-	<CACxGe6vOMsL=5tRzAyOoW-Rh5CjvJcvnn_Zv34L3g_tQVGfK4A@mail.gmail.com>
-	<CACxGe6uoRz1qUSxFNykgSHTO8mAaOoqLvJVbJ6oB3s09YMzzKw@mail.gmail.com>
-	<341aede4-a5ca-b324-c09c-51026a9c3fe0@codethink.co.uk>
-In-Reply-To: <341aede4-a5ca-b324-c09c-51026a9c3fe0@codethink.co.uk>
-From: Grant Likely <grant.likely@secretlab.ca>
-Date: Wed, 04 Oct 2017 17:57:21 +0000
-Message-ID: <CACxGe6s-0tu_QQKfvQkd0HAGe0bUdSwz8aua+A8+JdKsU-6U7Q@mail.gmail.com>
-To: Ben Dooks <ben.dooks@codethink.co.uk>, devicetree-spec@vger.kernel.org,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Content-Type: multipart/alternative; boundary="089e08203808942166055abc579e"
-Cc: Rob Herring <rob.herring@linaro.org>, Jon Loeliger <jdl@jdl.com>,
-	Kumar Gala <kumar.gala@linaro.org>,
-	Olof Johansson <olof.johansson@gmail.com>,
-	=?UTF-8?Q?Pawe=C5=82_Moll?= <Pawel.Moll@arm.com>,
-	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
-	Fabien Parent <fparent@baylibre.com>, Ian Campbell <ijc@debian.org>,
-	Stephen Warren <SWarren@nvidia.com>,
-	David Gibson <david@gibson.dropbear.id.au>
-Subject: Re: [Ksummit-discuss] Devicetree at Linux Plumbers Conference 2017
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Subject: [Ksummit-discuss] Maintainer's Summit Agenda Planning
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -48,134 +25,71 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---089e08203808942166055abc579e
-Content-Type: text/plain; charset="UTF-8"
+This is a rough draft of a proposed agenda for the Maintainer's
+Summit.
 
-On Wed, 4 Oct 2017 at 14:40, Ben Dooks <ben.dooks@codethink.co.uk> wrote:
+I've fliled in most of the slots with those topics that seemed to make
+the most amount of sense as topics for us to talk about, with some
+room intentionally blank sponts.
 
-> On 03/10/17 23:50, Grant Likely wrote:
-> > On Wed, Aug 30, 2017 at 11:41 AM, Grant Likely
-> > <grant.likely@secretlab.ca> wrote:
-> >> On Mon, Aug 28, 2017 at 1:30 PM, Grant Likely <
-> grant.likely@secretlab.ca> wrote:
-> >>> I owe all of you an update. Unfortunately I don't have any new
-> >>> information yet. I've still got a proposal in to hold a devicetree
-> >>> workshop at Kernel Summit, and if it does get accepted, then /most
-> >>> likely/ it will happen on Thursday afternoon. Don't make any travel
-> >>> plans based on that.
-> >>>
-> >>> As soon as I hear something either way I'll reply to this thread with
-> >>> the new information.
-> >>
-> >> Confirmed! The Devicetree Workshop will be Thursday 26 October in the
-> >> afternoon. Anyone registered for OSS will be able to attend. I don't
-> >> know yet if there are any other consessions for registration. I'm
-> >> finding out now and will update as soon as I know.
-> >
-> > Some more information. I've actually got the workshop room booked for
-> > the full day on Thursday, 26th October. I'm planning to use the
-> > morning as a hacking sprint for anyone who is available, and the
-> > afternoon for discussion topics. I'll pull together a schedule this
-> > week and post an update. As always, feel free to add topics to the
-> > wiki page[1]
-> >
-> > However, the timing is flexible. I can move some topics to the morning
-> > if there are people who aren't going to be around in the afternoon.
-> >
-> > [1] http://wiki.linuxplumbersconf.org/2017:device_tree
->
-> I tried to register for the device-tree workshop, but couldn't seem
-> to get it to work.
+Please comment about topics you think we should include in the agenda;
+or if you think there are topics that should not be included, please
+also let us know.
+
+Thanks!!
+
+					- Ted
+
+Maintainers Summit  -- Thursday
+
+ 8:00 am Breakfast
+ 9:00 am Agenda Bashing
+ 9:30 am Improve regression tracking
+10:00 am Bash the kernel maintainers
+10:30 am Android Kernel Issues (drivers, long-term stable)
+11:00 am What is Linus Happy/Unhappy about?
+11:30 am 
+12:00 am 
+12:30 pm Lunch
 
 
-Was that on the OSSummit Europe registration page? What is the error you
-are seeing? I can ask the LF staff to help if you can describe the problem
-you are having.
+Appendix: Other topics that were brought up
+-------------------------------------------
 
-g.
+Documentation
+Bug reporting feedback loop
+Driver and/or module versions
+Developing across multiple areas of the kernel
+ABI feature gates
+tracepoints without user space interfaces (EBPF)
 
+Appendix: Maintainer's Summit Attendees
+---------------------------------------
 
+(Does not include the sponsored attendees; I don't have most of those
+names yet.)
 
->
->
-> --
-> Ben Dooks                               http://www.codethink.co.uk/
-> Senior Engineer                         Codethink - Providing Genius
->
-
---089e08203808942166055abc579e
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div><br><div class=3D"gmail_quote"><div dir=3D"auto">On Wed, 4 Oct 2017 at=
- 14:40, Ben Dooks &lt;<a href=3D"mailto:ben.dooks@codethink.co.uk">ben.dook=
-s@codethink.co.uk</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote"=
- style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">On=
- 03/10/17 23:50, Grant Likely wrote:<br>
-&gt; On Wed, Aug 30, 2017 at 11:41 AM, Grant Likely<br>
-&gt; &lt;<a href=3D"mailto:grant.likely@secretlab.ca" target=3D"_blank">gra=
-nt.likely@secretlab.ca</a>&gt; wrote:<br>
-&gt;&gt; On Mon, Aug 28, 2017 at 1:30 PM, Grant Likely &lt;<a href=3D"mailt=
-o:grant.likely@secretlab.ca" target=3D"_blank">grant.likely@secretlab.ca</a=
->&gt; wrote:<br>
-&gt;&gt;&gt; I owe all of you an update. Unfortunately I don&#39;t have any=
- new<br>
-&gt;&gt;&gt; information yet. I&#39;ve still got a proposal in to hold a de=
-vicetree<br>
-&gt;&gt;&gt; workshop at Kernel Summit, and if it does get accepted, then /=
-most<br>
-&gt;&gt;&gt; likely/ it will happen on Thursday afternoon. Don&#39;t make a=
-ny travel<br>
-&gt;&gt;&gt; plans based on that.<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; As soon as I hear something either way I&#39;ll reply to this =
-thread with<br>
-&gt;&gt;&gt; the new information.<br>
-&gt;&gt;<br>
-&gt;&gt; Confirmed! The Devicetree Workshop will be Thursday 26 October in =
-the<br>
-&gt;&gt; afternoon. Anyone registered for OSS will be able to attend. I don=
-&#39;t<br>
-&gt;&gt; know yet if there are any other consessions for registration. I&#3=
-9;m<br>
-&gt;&gt; finding out now and will update as soon as I know.<br>
-&gt;<br>
-&gt; Some more information. I&#39;ve actually got the workshop room booked =
-for<br>
-&gt; the full day on Thursday, 26th October. I&#39;m planning to use the<br=
->
-&gt; morning as a hacking sprint for anyone who is available, and the<br>
-&gt; afternoon for discussion topics. I&#39;ll pull together a schedule thi=
-s<br>
-&gt; week and post an update. As always, feel free to add topics to the<br>
-&gt; wiki page[1]<br>
-&gt;<br>
-&gt; However, the timing is flexible. I can move some topics to the morning=
-<br>
-&gt; if there are people who aren&#39;t going to be around in the afternoon=
-.<br>
-&gt;<br>
-&gt; [1] <a href=3D"http://wiki.linuxplumbersconf.org/2017:device_tree" rel=
-=3D"noreferrer" target=3D"_blank">http://wiki.linuxplumbersconf.org/2017:de=
-vice_tree</a><br>
-<br>
-I tried to register for the device-tree workshop, but couldn&#39;t seem<br>
-to get it to work.</blockquote><div dir=3D"auto"><br></div><div dir=3D"auto=
-">Was that on the OSSummit Europe registration page? What is the error you =
-are seeing? I can ask the LF staff to help if you can describe the problem =
-you are having.</div><div dir=3D"auto"><br></div><div dir=3D"auto">g.</div>=
-<div dir=3D"auto"><br></div><div dir=3D"auto"><br></div><blockquote class=
-=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padd=
-ing-left:1ex"><br>
-<br>
-<br>
---<br>
-Ben Dooks=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<a href=3D"http://www.codethin=
-k.co.uk/" rel=3D"noreferrer" target=3D"_blank">http://www.codethink.co.uk/<=
-/a><br>
-Senior Engineer=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Codethink - Providing Genius<br>
-</blockquote></div></div>
-
---089e08203808942166055abc579e--
+Andrew Morton
+Arnd Bergmann
+Ben Hutchings
+Chris Mason
+Dan Williams
+Fengguang Wu
+Greg KH
+H. Peter Anvin
+James Bottomley
+Jens Axboe
+Jiri Kosina
+Jonathan Corbet
+Kees Cook
+Laura Abbott
+Linus Torvalds
+Martin Petersen
+Michael Ellerman
+Rom Lemarchand
+Sean Paul
+Shuah Khan
+Stephen Rothwell
+Takashi Iwai
+Ted Ts'o
+Thorsten Leemhuis
