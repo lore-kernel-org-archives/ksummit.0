@@ -1,34 +1,35 @@
-Return-Path: <prvs=1455c8997b=clm@fb.com>
+Return-Path: <glikely@secretlab.ca>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 96B1D949
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7DCE7BEE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  9 Oct 2017 16:57:14 +0000 (UTC)
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
-	[67.231.145.42])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DC0C8433
+	Mon,  9 Oct 2017 20:40:13 +0000 (UTC)
+Received: from mail-pf0-f193.google.com (mail-pf0-f193.google.com
+	[209.85.192.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CEAAEA8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  9 Oct 2017 16:57:13 +0000 (UTC)
-Received: from pps.filterd (m0044008.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
-	v99GrwIv011713 for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 9 Oct 2017 09:57:12 -0700
-Received: from mail.thefacebook.com ([199.201.64.23])
-	by mx0a-00082601.pphosted.com with ESMTP id 2dg6f42cw4-4
-	(version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT)
+	Mon,  9 Oct 2017 20:40:12 +0000 (UTC)
+Received: by mail-pf0-f193.google.com with SMTP id z11so12931779pfk.3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 09 Oct 2017 09:57:12 -0700
-From: Chris Mason <clm@fb.com>
-To: "ksummit-discuss@lists.linux..."
-	<ksummit-discuss@lists.linuxfoundation.org>
-Message-ID: <88805d44-cb20-12d1-fc74-8a07217b4cb4@fb.com>
-Date: Mon, 9 Oct 2017 12:57:05 -0400
+	Mon, 09 Oct 2017 13:40:12 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="windows-1252"; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Subject: [Ksummit-discuss] Linux Foundation Technical Advisory Board
- Elections -- Call for nominations
+Sender: glikely@secretlab.ca
+From: Grant Likely <grant.likely@secretlab.ca>
+Date: Mon, 9 Oct 2017 21:39:51 +0100
+Message-ID: <CACxGe6sxKzNKZbdGA-G=Th2oHwuanyC2kGYuaFcKbSRkuhep+Q@mail.gmail.com>
+To: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	devicetree-spec@vger.kernel.org,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	David Gibson <david@gibson.dropbear.id.au>,
+	Julia Lawall <Julia.Lawall@lip6.fr>,
+	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
+	Lucas Stach <l.stach@pengutronix.de>,
+	Kumar Gala <kumar.gala@linaro.org>, Andy Gross <andy.gross@linaro.org>,
+	Rob Herring <rob.herring@linaro.org>, Frank Rowand <frowand.list@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: [Ksummit-discuss] Devicetree Workshop at Kernel Summit Prague (26
+	Oct 2017)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,41 +39,38 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hello everyone,
+Kernel Summit is now just over 2 weeks away and it is time to pull
+together the schedule for the Devicetree workshop. Originally I
+planned on just an afternoon, but I've got the room for the whole day,
+so I've got a lot of flexibility on the schedule. Unscheduled time can
+be used for hacking.
 
-The Linux Foundation Technical Advisory Board (TAB) serves as the
-interface between the kernel development community and the Foundation.
-The TAB advises the Foundation on kernel-related matters, helps member
-companies learn to work with the community, and works to resolve
-community-related problems before they get out of hand.  The board has
-ten members, one of whom sits on the LF board of directors.  The 
-election to select five TAB members will be held at the 2017 Kernel
-Summit in Prague, Czech Republic.  The elections will take place at the
-conference center on Wednesday Oct 25th, shortly before the evening
-reception.
+Date: 26 Oct 2017
+Time: 9:00am-5:30pm (Lunch from 12:30-2:30)
+Location: Athens room - Hilton Prague
 
-The election will be open to all attendees of all of the Linux
-Foundation events taking place that week in Prague.  Anyone is eligible
-to stand for election, simply send your nomination to:
+If you plan to attend, make sure you update your OSSunmitE/ELCE
+registration to include the DT Workshop (log in to access and modify
+your registration):
 
-tech-board-discuss at lists.linux-foundation.org
+https://www.regonline.com/register/login.aspx?eventID=1883377&MethodId=0&EventsessionId=&Email_Address=&membershipID=
 
-Just before the election, everyone will have a chance to introduce
-themselves and briefly talk about why they would like to participate on
-the Technical Advisory Board.  This year, we're encouraging everyone to
-include those details along with their nomination, which we will compile
-into an online document for quick reference here:
+Here is my current list of topics in no particular order, including
+the topic moderator:
 
-https://goo.gl/ADVFtT
+Runtime memory consumption (Rob Herring)
+Overlay maintenance plan (TBC)
+Stable ABI for devicetree (TBC)
+DT YAML encoding (Pantelis Antoniou)
+DT Schema format - option 1 (Pantelis Antoniou)
+DT Schema format - option 2 (Grant Likely)
+Sharing Generic bindings (TBC)
+devicetree.org update (Grant)
 
-The deadline for receiving nominations is up until the beginning of the
-election event.  Any statements for the online document need to be sent
-by Monday Oct 23rd.  Please get your nomination in early so everyone has
-a chance to review the nominations before voting.
+Reply to this email if you want to propose another topic.
 
-Chris Mason, TAB Chair
+Reply privately if there is a particular topic you want to attend but
+you are unable to be there in the morning or afternoon. I'll put the
+actual agenda together a week out from the event.
 
-[1] TAB members sit for a term of two years, and half of the board is up
-for election every year. Five of the seats are up for election now.  The
-other five are halfway through their term and will be up for election
-next year.
+g.
