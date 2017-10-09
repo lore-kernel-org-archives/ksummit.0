@@ -1,25 +1,24 @@
-Return-Path: <jikos@kernel.org>
+Return-Path: <jarkko.sakkinen@linux.intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 179DB722
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4884788A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  9 Oct 2017 15:54:43 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5CE613F2
+	Mon,  9 Oct 2017 16:23:27 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F37B1F8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  9 Oct 2017 15:54:42 +0000 (UTC)
-Date: Mon, 9 Oct 2017 17:54:38 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-In-Reply-To: <1507303665.3104.13.camel@HansenPartnership.com>
-Message-ID: <nycvar.YFH.7.76.1710091750540.14384@jbgna.fhfr.qr>
-References: <20171005192002.hxbjjdjhrfa4oa37@thunk.org>
-	<1507303665.3104.13.camel@HansenPartnership.com>
+	Mon,  9 Oct 2017 16:23:26 +0000 (UTC)
+Date: Mon, 9 Oct 2017 19:23:25 +0300
+From: Jarkko Sakkinen <jarkko.sakkinen@linux.intel.com>
+To: James Morris <jmorris@namei.org>, ksummit-discuss@lists.linuxfoundation.org
+Message-ID: <20171009162325.ia2qtrej6w2vrcrb@linux.intel.com>
+References: <alpine.LRH.2.21.1709231416010.10766@namei.org>
+	<1506619679.11425.4.camel@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8BIT
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Maintainer's Summit Agenda Planning
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1506619679.11425.4.camel@linux.intel.com>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Kernel security
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,32 +28,26 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, 6 Oct 2017, James Bottomley wrote:
-
-> 2) Trivial patches (again). OpenStack has recently started to become
-> annoyed by these 
+On Thu, Sep 28, 2017 at 08:27:59PM +0300, Jarkko Sakkinen wrote:
+> On Sat, 2017-09-23 at 14:24 +1000, James Morris wrote:
+> > I'd like to propose a kernel security tech topic, where we can discuss 
+> > current development issues, with both core kernel folk and European 
+> > security developers who may not have attended LSS.
+> > 
+> > Potential agenda items include:
+> > 
+> > - KSPP update (Kees Cook)
+> > - TPM status (Jarkko, if available)
+> > - LSS & LPC container security discussion readout (myself)
+> > 
+> > And possibly other items depending on who is available at the conference, 
+> > and how much time is available for the topic
 > 
-> http://lists.openstack.org/pipermail/openstack-dev/2017-September/thread.html#122472
+> I apologize for late response. I just sent a travel request and should get
+> response next week.
 > 
-> I thought about our process around the trivial tree, but it hasn't been
-> updated in the last few releases, so effectively we no longer use it.
+> /Jarkko
 
-This has been caused solely by me being buried in other things, and there 
-was always something else that overrode trivial tree in priority.
+My travel request was accepted. I will be available.
 
->  So is what we're currently doing (variable standards by tree) OK, or
-> should we have a more concerted trivial policy?
-
-My original plan was to revive trivial tree for 4.15, as there are quite a 
-few patches in the queue (that still apply). But if it's generally 
-considered annoying (although I am pretty sure we don't suffer from what's 
-in the openstack thread), I don't object and can ditch it completely.
-
-The thing is that such patches will keep coming anyway, and I think they 
-have the value (although the priority is really lower than other changes 
-of course). I still believe that having greppable comments, for example, 
-is nice to have.
-
--- 
-Jiri Kosina
-SUSE Labs
+/Jarkko
