@@ -1,35 +1,36 @@
-Return-Path: <glikely@secretlab.ca>
+Return-Path: <joe@perches.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7DCE7BEE
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3B71A5B1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  9 Oct 2017 20:40:13 +0000 (UTC)
-Received: from mail-pf0-f193.google.com (mail-pf0-f193.google.com
-	[209.85.192.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CEAAEA8
+	Tue, 10 Oct 2017 02:33:51 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0159.hostedemail.com
+	[216.40.44.159])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C6585472
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  9 Oct 2017 20:40:12 +0000 (UTC)
-Received: by mail-pf0-f193.google.com with SMTP id z11so12931779pfk.3
+	Tue, 10 Oct 2017 02:33:50 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
+	[10.5.19.251])
+	by smtpgrave07.hostedemail.com (Postfix) with ESMTP id BACCC183553AB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 09 Oct 2017 13:40:12 -0700 (PDT)
-MIME-Version: 1.0
-Sender: glikely@secretlab.ca
-From: Grant Likely <grant.likely@secretlab.ca>
-Date: Mon, 9 Oct 2017 21:39:51 +0100
-Message-ID: <CACxGe6sxKzNKZbdGA-G=Th2oHwuanyC2kGYuaFcKbSRkuhep+Q@mail.gmail.com>
-To: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	devicetree-spec@vger.kernel.org,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	David Gibson <david@gibson.dropbear.id.au>,
-	Julia Lawall <Julia.Lawall@lip6.fr>,
-	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
-	Lucas Stach <l.stach@pengutronix.de>,
-	Kumar Gala <kumar.gala@linaro.org>, Andy Gross <andy.gross@linaro.org>,
-	Rob Herring <rob.herring@linaro.org>, Frank Rowand <frowand.list@gmail.com>
+	Mon,  9 Oct 2017 17:04:10 +0000 (UTC)
+Message-ID: <1507568645.3552.10.camel@perches.com>
+From: Joe Perches <joe@perches.com>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>, Julia Lawall
+	<julia.lawall@lip6.fr>
+Date: Mon, 09 Oct 2017 10:04:05 -0700
+In-Reply-To: <1507568189.3100.29.camel@HansenPartnership.com>
+References: <20171005192002.hxbjjdjhrfa4oa37@thunk.org>
+	<1507303665.3104.13.camel@HansenPartnership.com>
+	<nycvar.YFH.7.76.1710091750540.14384@jbgna.fhfr.qr>
+	<1507567045.3100.16.camel@HansenPartnership.com>
+	<alpine.DEB.2.20.1710091848390.3870@hadrien>
+	<1507568189.3100.29.camel@HansenPartnership.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: [Ksummit-discuss] Devicetree Workshop at Kernel Summit Prague (26
-	Oct 2017)
+Mime-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] Maintainer's Summit Agenda Planning
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,38 +40,23 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Kernel Summit is now just over 2 weeks away and it is time to pull
-together the schedule for the Devicetree workshop. Originally I
-planned on just an afternoon, but I've got the room for the whole day,
-so I've got a lot of flexibility on the schedule. Unscheduled time can
-be used for hacking.
+On Mon, 2017-10-09 at 09:56 -0700, James Bottomley wrote:
+> I was actually thinking we validate the script
 
-Date: 26 Oct 2017
-Time: 9:00am-5:30pm (Lunch from 12:30-2:30)
-Location: Athens room - Hilton Prague
+That's the hard part.
+Completeness and correctness are non trivial.
 
-If you plan to attend, make sure you update your OSSunmitE/ELCE
-registration to include the DT Workshop (log in to access and modify
-your registration):
+> and if there are no problems, apply it at -rc1
 
-https://www.regonline.com/register/login.aspx?eventID=1883377&MethodId=0&EventsessionId=&Email_Address=&membershipID=
+I also think that might be the best mechanism.
 
-Here is my current list of topics in no particular order, including
-the topic moderator:
+> However, if we agree a
+> curation path for the script, the application could be done by Jíři as
+> a pull from the trivial tree (unless Linus wanted to do it himself or
+> someone else wanted to manage this).
 
-Runtime memory consumption (Rob Herring)
-Overlay maintenance plan (TBC)
-Stable ABI for devicetree (TBC)
-DT YAML encoding (Pantelis Antoniou)
-DT Schema format - option 1 (Pantelis Antoniou)
-DT Schema format - option 2 (Grant Likely)
-Sharing Generic bindings (TBC)
-devicetree.org update (Grant)
+Perhaps a kbuild robot variant could be utilized here.
 
-Reply to this email if you want to propose another topic.
-
-Reply privately if there is a particular topic you want to attend but
-you are unable to be there in the morning or afternoon. I'll put the
-actual agenda together a week out from the event.
-
-g.
+Many changes should produce no object code differences
+and validation of the correctness of the changes might
+be better done using compilation comparison tools.
