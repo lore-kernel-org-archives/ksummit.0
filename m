@@ -1,25 +1,23 @@
-Return-Path: <broonie@sirena.co.uk>
+Return-Path: <jikos@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 11441958
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 179DB722
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  9 Oct 2017 08:28:47 +0000 (UTC)
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
-	[172.104.155.198])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id EBD5AF8
+	Mon,  9 Oct 2017 15:54:43 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5CE613F2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  9 Oct 2017 08:28:45 +0000 (UTC)
-Date: Mon, 9 Oct 2017 09:13:28 +0100
-From: Mark Brown <broonie@kernel.org>
+	Mon,  9 Oct 2017 15:54:42 +0000 (UTC)
+Date: Mon, 9 Oct 2017 17:54:38 +0200 (CEST)
+From: Jiri Kosina <jikos@kernel.org>
 To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Message-ID: <20171009081328.rni3hynh5grp7wsu@sirena.co.uk>
+In-Reply-To: <1507303665.3104.13.camel@HansenPartnership.com>
+Message-ID: <nycvar.YFH.7.76.1710091750540.14384@jbgna.fhfr.qr>
 References: <20171005192002.hxbjjdjhrfa4oa37@thunk.org>
 	<1507303665.3104.13.camel@HansenPartnership.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="7evhcdztgg6mlifq"
-Content-Disposition: inline
-In-Reply-To: <1507303665.3104.13.camel@HansenPartnership.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8BIT
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] Maintainer's Summit Agenda Planning
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -31,38 +29,32 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Fri, 6 Oct 2017, James Bottomley wrote:
 
---7evhcdztgg6mlifq
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> 2) Trivial patches (again). OpenStack has recently started to become
+> annoyed by these 
+> 
+> http://lists.openstack.org/pipermail/openstack-dev/2017-September/thread.html#122472
+> 
+> I thought about our process around the trivial tree, but it hasn't been
+> updated in the last few releases, so effectively we no longer use it.
 
-On Fri, Oct 06, 2017 at 08:27:45AM -0700, James Bottomley wrote:
+This has been caused solely by me being buried in other things, and there 
+was always something else that overrode trivial tree in priority.
 
-> 1) git tree script alignment. =A0Most of us send out some type of your
-> patch was added and your patch was dropped email notifications. =A0We
-> usually automate it through a private tree git commit or update script.
-> =A0Should we standardise these (because if we do, we could have
-> kernel.org do it for us instead of running our own infrastructure).
+>  So is what we're currently doing (variable standards by tree) OK, or
+> should we have a more concerted trivial policy?
 
-This has been talked about in the past on the list - there were
-concernes about monoculture making any problems with the scripts much
-worse and just there being enough differences in workflow to cause
-problems. =20
+My original plan was to revive trivial tree for 4.15, as there are quite a 
+few patches in the queue (that still apply). But if it's generally 
+considered annoying (although I am pretty sure we don't suffer from what's 
+in the openstack thread), I don't object and can ditch it completely.
 
---7evhcdztgg6mlifq
-Content-Type: application/pgp-signature; name="signature.asc"
+The thing is that such patches will keep coming anyway, and I think they 
+have the value (although the priority is really lower than other changes 
+of course). I still believe that having greppable comments, for example, 
+is nice to have.
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCAAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlnbL6cACgkQJNaLcl1U
-h9AFzQf9EJYFuFcUw8Jfi+q4QahVWdA8PAnScZbEfMh+c3uuk1Py+Muxjl/wnBX2
-yIivu8s6Sj7+oAeJljpL326yhIjoyQ7nQLw9s3rvnzOqKYembYIHSHRe+4vOgjul
-ecnAjWGPEUd8SQO7VT0OJN3FQOiNB4DHVr+kKITomAPMAjrdqsnWeYEXC5HiP+sw
-1Ckb7Qp3YJSwdEeRw7Dc0t0gDN7EQ7Ss7s78+Gzuv/Aa/cu3mLCgC+ByRR8ZHAU9
-6YnYKczNKlXa95iuG5qfPp66yloKnEx4WVre26yn+Z1Tn1omYdR1/1/waAC6f2RO
-o61xFbkiqp4qcoBZtQOLDkZe9DPvQg==
-=z3HF
------END PGP SIGNATURE-----
-
---7evhcdztgg6mlifq--
+-- 
+Jiri Kosina
+SUSE Labs
