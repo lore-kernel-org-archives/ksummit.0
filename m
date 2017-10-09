@@ -1,29 +1,34 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <prvs=1455c8997b=clm@fb.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6DBE8AB2
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 96B1D949
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  9 Oct 2017 16:56:35 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4301F3F9
+	Mon,  9 Oct 2017 16:57:14 +0000 (UTC)
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+	[67.231.145.42])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DC0C8433
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  9 Oct 2017 16:56:32 +0000 (UTC)
-Message-ID: <1507568189.3100.29.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Julia Lawall <julia.lawall@lip6.fr>
-Date: Mon, 09 Oct 2017 09:56:29 -0700
-In-Reply-To: <alpine.DEB.2.20.1710091848390.3870@hadrien>
-References: <20171005192002.hxbjjdjhrfa4oa37@thunk.org>
-	<1507303665.3104.13.camel@HansenPartnership.com>
-	<nycvar.YFH.7.76.1710091750540.14384@jbgna.fhfr.qr>
-	<1507567045.3100.16.camel@HansenPartnership.com>
-	<alpine.DEB.2.20.1710091848390.3870@hadrien>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Maintainer's Summit Agenda Planning
+	Mon,  9 Oct 2017 16:57:13 +0000 (UTC)
+Received: from pps.filterd (m0044008.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.16.0.21/8.16.0.21) with SMTP id
+	v99GrwIv011713 for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 9 Oct 2017 09:57:12 -0700
+Received: from mail.thefacebook.com ([199.201.64.23])
+	by mx0a-00082601.pphosted.com with ESMTP id 2dg6f42cw4-4
+	(version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT)
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 09 Oct 2017 09:57:12 -0700
+From: Chris Mason <clm@fb.com>
+To: "ksummit-discuss@lists.linux..."
+	<ksummit-discuss@lists.linuxfoundation.org>
+Message-ID: <88805d44-cb20-12d1-fc74-8a07217b4cb4@fb.com>
+Date: Mon, 9 Oct 2017 12:57:05 -0400
+MIME-Version: 1.0
+Content-Type: text/plain; charset="windows-1252"; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Subject: [Ksummit-discuss] Linux Foundation Technical Advisory Board
+ Elections -- Call for nominations
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,89 +38,41 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 2017-10-09 at 18:49 +0200, Julia Lawall wrote:
-> 
-> On Mon, 9 Oct 2017, James Bottomley wrote:
-> 
-> > 
-> > On Mon, 2017-10-09 at 17:54 +0200, Jiri Kosina wrote:
-> > > 
-> > > On Fri, 6 Oct 2017, James Bottomley wrote:
-> > > 
-> > > > 
-> > > > 
-> > > > 2) Trivial patches (again). OpenStack has recently started to
-> > > > become annoyed by these 
-> > > > 
-> > > > http://lists.openstack.org/pipermail/openstack-dev/2017-Septemb
-> > > > er/t
-> > > > hread.html#122472
-> > > > 
-> > > > I thought about our process around the trivial tree, but it
-> > > > hasn't been updated in the last few releases, so effectively we
-> > > > no longer use it.
-> > > 
-> > > This has been caused solely by me being buried in other things,
-> > > and there was always something else that overrode trivial tree in
-> > > priority.
-> > > 
-> > > > 
-> > > > 
-> > > >  So is what we're currently doing (variable standards by tree)
-> > > > OK, or should we have a more concerted trivial policy?
-> > > 
-> > > My original plan was to revive trivial tree for 4.15, as there
-> > > are quite a few patches in the queue (that still apply). But if
-> > > it's generally considered annoying (although I am pretty sure we
-> > > don't suffer from what's in the openstack thread), I don't object
-> > > and can ditch it completely.
-> > 
-> > Well, their objection was core (by which they mean Maintainer)
-> > review and merge time, plus the interference to higher priority
-> > patches caused by mismerges.  I was actually thinking a trivial
-> > tree might help them because it would offload all the mismerges and
-> > review and they only need do a real merge just before release
-> > stabilisation.
-> > 
-> > > 
-> > > The thing is that such patches will keep coming anyway, and I
-> > > think they have the value (although the priority is really lower
-> > > than other changes of course). I still believe that having
-> > > greppable comments, for example, is nice to have.
-> > 
-> > Well, we tend to veto changes to old drivers in various subsystems
-> > anyway (having been burned by the this is only a trivial change and
-> > then finding out six months later that the driver is broken).
-> > 
-> > Trivial changes seem to fall broadly into three categories:
-> > 
-> >    1. spelling fixes
-> >    2. whitespace changes (I ran checkpatch.pl on your file and it
-> > returned
-> >       these issues).
-> >    3. pattern imposition (we now have a new API for this so lets
-> > change
-> >       all prior open coded incarnations)
-> >    4. trivial pattern fixes (things like replacing if(x) kfree(x);
-> > with
-> >       kfree(x);)
-> > 
-> > I don't want to open the whole spelling/whitespace can of worms,
-> > but perhaps we could have a more meaningful discussion about the
-> > pattern based issues ... for instance if we agree it's useful and
-> > coccinelle can do it, then tree wide replacement at -rc1 might be a
-> > better solution than ad-hoc application of hundreds of patches.
-> 
-> Do you suggest one big patch, that goes to who?  Or lots of little
-> patches that go out at once to the individual maintainers of the
-> affected code?
+Hello everyone,
 
-I was actually thinking we validate the script and if there are no
-problems, apply it at -rc1 ... so effectively one big patch.  What
-actually gets applied (script or big patch) would be up to Linus ...
-he's the one that makes the -rc1 changes.  However, if we agree a
-curation path for the script, the application could be done by Jíři as
-a pull from the trivial tree (unless Linus wanted to do it himself or
-someone else wanted to manage this).
+The Linux Foundation Technical Advisory Board (TAB) serves as the
+interface between the kernel development community and the Foundation.
+The TAB advises the Foundation on kernel-related matters, helps member
+companies learn to work with the community, and works to resolve
+community-related problems before they get out of hand.  The board has
+ten members, one of whom sits on the LF board of directors.  The 
+election to select five TAB members will be held at the 2017 Kernel
+Summit in Prague, Czech Republic.  The elections will take place at the
+conference center on Wednesday Oct 25th, shortly before the evening
+reception.
 
-James
+The election will be open to all attendees of all of the Linux
+Foundation events taking place that week in Prague.  Anyone is eligible
+to stand for election, simply send your nomination to:
+
+tech-board-discuss at lists.linux-foundation.org
+
+Just before the election, everyone will have a chance to introduce
+themselves and briefly talk about why they would like to participate on
+the Technical Advisory Board.  This year, we're encouraging everyone to
+include those details along with their nomination, which we will compile
+into an online document for quick reference here:
+
+https://goo.gl/ADVFtT
+
+The deadline for receiving nominations is up until the beginning of the
+election event.  Any statements for the online document need to be sent
+by Monday Oct 23rd.  Please get your nomination in early so everyone has
+a chance to review the nominations before voting.
+
+Chris Mason, TAB Chair
+
+[1] TAB members sit for a term of two years, and half of the board is up
+for election every year. Five of the seats are up for election now.  The
+other five are halfway through their term and will be up for election
+next year.
