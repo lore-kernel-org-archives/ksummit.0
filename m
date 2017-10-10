@@ -1,26 +1,40 @@
-Return-Path: <jikos@kernel.org>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 47B7C98C
+Return-Path: <joe@perches.com>
+Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
+	[172.17.192.36])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D1C1FACB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 10 Oct 2017 08:53:37 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A1442442
+	Tue, 10 Oct 2017 16:57:51 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0176.hostedemail.com
+	[216.40.44.176])
+	by smtp2.linuxfoundation.org (Postfix) with ESMTPS id 523991DABB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 10 Oct 2017 08:53:36 +0000 (UTC)
-Date: Tue, 10 Oct 2017 10:53:34 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-In-Reply-To: <1507567045.3100.16.camel@HansenPartnership.com>
-Message-ID: <nycvar.YFH.7.76.1710101052191.14384@jbgna.fhfr.qr>
-References: <20171005192002.hxbjjdjhrfa4oa37@thunk.org>
-	<1507303665.3104.13.camel@HansenPartnership.com>
-	<nycvar.YFH.7.76.1710091750540.14384@jbgna.fhfr.qr>
-	<1507567045.3100.16.camel@HansenPartnership.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Maintainer's Summit Agenda Planning
+	Tue, 10 Oct 2017 16:57:51 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
+	[10.5.19.251])
+	by smtpgrave08.hostedemail.com (Postfix) with ESMTP id 77EAA180039FC
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 10 Oct 2017 16:57:31 +0000 (UTC)
+Message-ID: <1507654645.3552.37.camel@perches.com>
+From: Joe Perches <joe@perches.com>
+To: Mark Rutland <mark.rutland@arm.com>
+Date: Tue, 10 Oct 2017 09:57:25 -0700
+In-Reply-To: <20171010164139.GN27659@leverpostej>
+References: <1507573730-8083-1-git-send-email-mark.rutland@arm.com>
+	<1507573730-8083-14-git-send-email-mark.rutland@arm.com>
+	<20171009195112.GL3521@linux.vnet.ibm.com>
+	<20171010095413.GE27659@leverpostej>
+	<20171010124712.GV3521@linux.vnet.ibm.com>
+	<20171010125039.GI27659@leverpostej>
+	<20171010145252.GX3521@linux.vnet.ibm.com>
+	<1507652874.3552.34.camel@perches.com>
+	<20171010164139.GN27659@leverpostej>
+Content-Type: text/plain; charset="ISO-8859-1"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Cc: linux-kernel@vger.kernel.org,
+	ksummit-discuss <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [PATCH 13/13] rcutorture: formal: prepare for
+ ACCESS_ONCE() removal
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,28 +44,13 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 9 Oct 2017, James Bottomley wrote:
-
-> Trivial changes seem to fall broadly into three categories:
+On Tue, 2017-10-10 at 17:41 +0100, Mark Rutland wrote:
+> On Tue, Oct 10, 2017 at 09:27:54AM -0700, Joe Perches wrote:
+> > Once ACCESS_ONCE is removed from the code in the tree
+> > it can also be removed from checkpatch
 > 
-[ ... snip ... ]
->    2. whitespace changes (I ran checkpatch.pl on your file and it returned
->       these issues).
+> Sure thing. We're expecting to rip that out with the ACCESS_ONCE
+> definitions in a post-Coccinelle patch.
 
-Just to be clear on this -- I'm not taking such patches through 
-trivial.git.
-
-> I don't want to open the whole spelling/whitespace can of worms, but
-> perhaps we could have a more meaningful discussion about the pattern
-> based issues ... for instance if we agree it's useful and coccinelle
-> can do it, then tree wide replacement at -rc1 might be a better
-> solution than ad-hoc application of hundreds of patches.
-
-Agreed, and I think Linus did this several times in the past and has no 
-issues with doing so.
-
-Thanks,
-
--- 
-Jiri Kosina
-SUSE Labs
+This treewide series is one of the types that would be nice to
+have done at -rc1 via some external automated script service.
