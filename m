@@ -1,35 +1,30 @@
-Return-Path: <mark.rutland@arm.com>
+Return-Path: <jani.nikula@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id E3FC1722
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id DAADABD0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 10 Oct 2017 17:08:26 +0000 (UTC)
-Received: from foss.arm.com (usa-sjc-mx-foss1.foss.arm.com [217.140.101.70])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id CD6A0A8
+	Wed, 11 Oct 2017 18:52:10 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 402DD4F0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 10 Oct 2017 17:08:25 +0000 (UTC)
-Date: Tue, 10 Oct 2017 18:06:52 +0100
-From: Mark Rutland <mark.rutland@arm.com>
-To: Joe Perches <joe@perches.com>
-Message-ID: <20171010170652.GO27659@leverpostej>
-References: <1507573730-8083-1-git-send-email-mark.rutland@arm.com>
-	<1507573730-8083-14-git-send-email-mark.rutland@arm.com>
-	<20171009195112.GL3521@linux.vnet.ibm.com>
-	<20171010095413.GE27659@leverpostej>
-	<20171010124712.GV3521@linux.vnet.ibm.com>
-	<20171010125039.GI27659@leverpostej>
-	<20171010145252.GX3521@linux.vnet.ibm.com>
-	<1507652874.3552.34.camel@perches.com>
-	<20171010164139.GN27659@leverpostej>
-	<1507654645.3552.37.camel@perches.com>
+	Wed, 11 Oct 2017 18:52:10 +0000 (UTC)
+From: Jani Nikula <jani.nikula@intel.com>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Julia Lawall <julia.lawall@lip6.fr>
+In-Reply-To: <1507568189.3100.29.camel@HansenPartnership.com>
+References: <20171005192002.hxbjjdjhrfa4oa37@thunk.org>
+	<1507303665.3104.13.camel@HansenPartnership.com>
+	<nycvar.YFH.7.76.1710091750540.14384@jbgna.fhfr.qr>
+	<1507567045.3100.16.camel@HansenPartnership.com>
+	<alpine.DEB.2.20.1710091848390.3870@hadrien>
+	<1507568189.3100.29.camel@HansenPartnership.com>
+Date: Wed, 11 Oct 2017 21:51:52 +0300
+Message-ID: <871sm9plfb.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1507654645.3552.37.camel@perches.com>
-Cc: linux-kernel@vger.kernel.org,
-	ksummit-discuss <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [PATCH 13/13] rcutorture: formal: prepare for
- ACCESS_ONCE() removal
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] Maintainer's Summit Agenda Planning
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,48 +34,27 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Oct 10, 2017 at 09:57:25AM -0700, Joe Perches wrote:
-> On Tue, 2017-10-10 at 17:41 +0100, Mark Rutland wrote:
-> > On Tue, Oct 10, 2017 at 09:27:54AM -0700, Joe Perches wrote:
-> > > Once ACCESS_ONCE is removed from the code in the tree
-> > > it can also be removed from checkpatch
-> > 
-> > Sure thing. We're expecting to rip that out with the ACCESS_ONCE
-> > definitions in a post-Coccinelle patch.
-> 
-> This treewide series is one of the types that would be nice to
-> have done at -rc1 via some external automated script service.
+On Mon, 09 Oct 2017, James Bottomley <James.Bottomley@HansenPartnership.com=
+> wrote:
+> On Mon, 2017-10-09 at 18:49 +0200, Julia Lawall wrote:
+>> Do you suggest one big patch, that goes to who?=C2=A0=C2=A0Or lots of li=
+ttle
+>> patches that go out at once to the individual maintainers of the
+>> affected code?
+>
+> I was actually thinking we validate the script and if there are no
+> problems, apply it at -rc1 ... so effectively one big patch.
 
-Agreed, and this is exactly the plan.
+By -rc1 we (drm in general, drm/i915 in particular) will already have
+accumulated easily 4-5 weeks' worth of commits for the *next* merge
+window. Applying treewide stuff to Linus' tree at -rc1 forces a
+backmerge and potentially conflicts galore I'm not particularly thrilled
+about. I'd much rather see the patches to our driver come through our
+tree, and we generally deal with them without a fuss.
 
-As mentioned above, the treewide conversion is scripted with Coccinelle
-(script below). The plan would be to regenerate this at an rc boundary,
-once the preparatory patches (which cannot be scripted) have been
-merged.
+BR,
+Jani.
 
-The ACCESS_ONCE() definitions and checkpatch bits would be removed in a
-subsequent patch or series of patches.
 
-Thanks,
-Mark.
-
-----
-// Convert trivial ACCESS_ONCE() uses to equivalent READ_ONCE() and
-// WRITE_ONCE()
-
-virtual patch
-
-@ depends on patch @
-expression E1, E2;
-@@
-
-- ACCESS_ONCE(E1) = E2
-+ WRITE_ONCE(E1, E2)
-
-@ depends on patch @
-expression E;
-@@
-
-- ACCESS_ONCE(E)
-+ READ_ONCE(E)
-----
+--=20
+Jani Nikula, Intel Open Source Technology Center
