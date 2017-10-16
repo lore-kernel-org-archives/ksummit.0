@@ -1,25 +1,41 @@
-Return-Path: <SRS0=OgFJ=BP=goodmis.org=rostedt@kernel.org>
+Return-Path: <robh@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 70B6FAB8
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 96F34BC4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 16 Oct 2017 21:26:09 +0000 (UTC)
+	Mon, 16 Oct 2017 14:12:21 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F1BBB433
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 878B14D9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 16 Oct 2017 21:26:08 +0000 (UTC)
-Date: Mon, 16 Oct 2017 17:26:06 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Chris Mason <clm@fb.com>
-Message-ID: <20171016172606.0babf8f4@gandalf.local.home>
-In-Reply-To: <1cf733b7-524e-744d-0206-985dc05c76d7@fb.com>
-References: <1cf733b7-524e-744d-0206-985dc05c76d7@fb.com>
+	Mon, 16 Oct 2017 14:12:20 +0000 (UTC)
+Received: from mail-wm0-f42.google.com (mail-wm0-f42.google.com [74.125.82.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id DE2BD21925
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 16 Oct 2017 14:12:19 +0000 (UTC)
+Received: by mail-wm0-f42.google.com with SMTP id l68so3744946wmd.5
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 16 Oct 2017 07:12:19 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: Tech Board Discuss <tech-board-discuss@lists.linux-foundation.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: [Ksummit-discuss] [NOMINATION] Steven Rostedt
+In-Reply-To: <39f87f46-da67-11d9-4336-213c13025568@monstr.eu>
+References: <CACxGe6sxKzNKZbdGA-G=Th2oHwuanyC2kGYuaFcKbSRkuhep+Q@mail.gmail.com>
+	<39f87f46-da67-11d9-4336-213c13025568@monstr.eu>
+From: Rob Herring <robh@kernel.org>
+Date: Mon, 16 Oct 2017 09:11:57 -0500
+Message-ID: <CABGGiswXP800Pshc8jpVv3N4O-u2hFHJs-Ut_xVe8xV9ixcJSw@mail.gmail.com>
+To: Michal Simek <monstr@monstr.eu>
+Content-Type: text/plain; charset="UTF-8"
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	Kumar Gala <kumar.gala@linaro.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	devicetree-spec@vger.kernel.org,
+	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
+	Andy Gross <andy.gross@linaro.org>, Lucas Stach <l.stach@pengutronix.de>,
+	David Gibson <david@gibson.dropbear.id.au>
+Subject: Re: [Ksummit-discuss] Devicetree Workshop at Kernel Summit Prague
+ (26 Oct 2017)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,36 +45,68 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-I'm throwing my name into the nomination list as I'm up for re-election.
+On Mon, Oct 16, 2017 at 12:36 AM, Michal Simek <monstr@monstr.eu> wrote:
+> Hi,
+>
+> On 9.10.2017 22:39, Grant Likely wrote:
+>> Kernel Summit is now just over 2 weeks away and it is time to pull
+>> together the schedule for the Devicetree workshop. Originally I
+>> planned on just an afternoon, but I've got the room for the whole day,
+>> so I've got a lot of flexibility on the schedule. Unscheduled time can
+>> be used for hacking.
+>>
+>> Date: 26 Oct 2017
+>> Time: 9:00am-5:30pm (Lunch from 12:30-2:30)
+>> Location: Athens room - Hilton Prague
+>>
+>> If you plan to attend, make sure you update your OSSunmitE/ELCE
+>> registration to include the DT Workshop (log in to access and modify
+>> your registration):
+>>
+>> https://www.regonline.com/register/login.aspx?eventID=1883377&MethodId=0&EventsessionId=&Email_Address=&membershipID=
+>>
+>> Here is my current list of topics in no particular order, including
+>> the topic moderator:
+>>
+>> Runtime memory consumption (Rob Herring)
+>> Overlay maintenance plan (TBC)
+>> Stable ABI for devicetree (TBC)
+>> DT YAML encoding (Pantelis Antoniou)
+>> DT Schema format - option 1 (Pantelis Antoniou)
+>> DT Schema format - option 2 (Grant Likely)
+>> Sharing Generic bindings (TBC)
+>> devicetree.org update (Grant)
+>>
+>> Reply to this email if you want to propose another topic.
+>>
+>> Reply privately if there is a particular topic you want to attend but
+>> you are unable to be there in the morning or afternoon. I'll put the
+>> actual agenda together a week out from the event.
+>
+> I would like to talk how to add support for AArch32 based on arm64 dts file.
 
-Here's my statement:
+We already have that for RPi3, but it's a bit hacky in that you have
+to include files from one arch to the other. What I'd like to see
+ideally is no dependency on $ARCH to build dts files. You can't build
+dts files for an arch without a cross-compiler installed which is an
+artificial dependency. The dtb should be independent of whether you're
+building for 32 or 64 bit.
 
-====
-Steven has been professionally working on the Linux kernel since 2001. He's
-the maintainer of the tracing subsystem, and has been very involved in the
-development of the PREEMPT_RT patch set. He has improved the Linux scheduler,
-and works to improve the performance of other subsystems when he discovers
-inefficiencies. He is the creator of "make localmodconfig" as well as
-"ktest.pl" which is a testing framework to help other kernel developers set up
-their testing infrastructure.
+There's the other aspect of being able to do armv8 32-bit builds as
+there's no explicit support for v8 in arch/arm/. But that's not a DT
+issue.
 
-Over the last ten years, Steven has been giving talks all over the world at various
-conferences. He works hard in trying to bridge the gap between developers that
-normally do not interact with each other, in an effort to make the Linux kernel
-ecosystem work more in harmony.
+> And next topic is discuss criteria for adding new DTS board files to
+> kernel for supporting custom boards especially for arm32 which can end
+> up with a lot of dts files in this folder.
 
-One of Steven's first contributions as a TAB member was to improve the
-TAB election process by including statements from all nominees to be
-posted in a central location such that the election is less of a
-popularity contest and give the nominees a chance to express themselves
-for what they want to achieve while on the TAB.
+We really should move the arm32 files into subdirs for each SoC vendor
+IMO, but I think armsoc maintainers have been against that churn.
 
-Steven's focus in the TAB has been to find new ways to have kernel developers
-be able to interact with non kernel developers. He has joined the Linux
-Plumber's Program Committee and with his influence on the TAB, he is working to
-make Linux Plumbers and Kernel Summit more coupled in the future. Steven has
-been making a lot of headway in this regard, and is hoping to have another
-term on the TAB to continue his objectives.
-====
+> If make sense to permit only boards with something new or just enable
+> reference boards to go in.
 
--- Steve
+The board dts files are generally pretty minimal. What's the issue
+here? Just lots of files in arch/arm/boot/dts?
+
+Rob
