@@ -1,32 +1,33 @@
-Return-Path: <heiko@sntech.de>
+Return-Path: <broonie@sirena.co.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BC9EFB1D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 980F7B1D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 16 Oct 2017 18:44:39 +0000 (UTC)
-Received: from gloria.sntech.de (gloria.sntech.de [95.129.55.99])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1EF9F13E
+	Mon, 16 Oct 2017 18:52:36 +0000 (UTC)
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+	[172.104.155.198])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 16E7A13E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 16 Oct 2017 18:44:39 +0000 (UTC)
-From: Heiko =?ISO-8859-1?Q?St=FCbner?= <heiko@sntech.de>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Mon, 16 Oct 2017 20:44:35 +0200
-Message-ID: <3991995.cBZA2o0zRC@diego>
-In-Reply-To: <8a168960-2dae-35cc-e610-0fe257c9121d@codethink.co.uk>
-References: <CACxGe6sxKzNKZbdGA-G=Th2oHwuanyC2kGYuaFcKbSRkuhep+Q@mail.gmail.com>
-	<39f87f46-da67-11d9-4336-213c13025568@monstr.eu>
-	<8a168960-2dae-35cc-e610-0fe257c9121d@codethink.co.uk>
+	Mon, 16 Oct 2017 18:52:35 +0000 (UTC)
+Date: Mon, 16 Oct 2017 19:52:18 +0100
+From: Mark Brown <broonie@sirena.org.uk>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Message-ID: <20171016185218.57obu7biasbjocpo@sirena.co.uk>
+References: <20171005192002.hxbjjdjhrfa4oa37@thunk.org>
+	<1507303665.3104.13.camel@HansenPartnership.com>
+	<nycvar.YFH.7.76.1710091750540.14384@jbgna.fhfr.qr>
+	<1507567045.3100.16.camel@HansenPartnership.com>
+	<alpine.DEB.2.20.1710091848390.3870@hadrien>
+	<1507568189.3100.29.camel@HansenPartnership.com>
+	<871sm9plfb.fsf@intel.com>
+	<1508163175.7571.2.camel@HansenPartnership.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	Kumar Gala <kumar.gala@linaro.org>, Rob Herring <rob.herring@linaro.org>,
-	devicetree-spec@vger.kernel.org,
-	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
-	Andy Gross <andy.gross@linaro.org>, Lucas Stach <l.stach@pengutronix.de>,
-	David Gibson <david@gibson.dropbear.id.au>
-Subject: Re: [Ksummit-discuss] Devicetree Workshop at Kernel Summit Prague
-	(26 Oct 2017)
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="kqfk25balu37tth4"
+Content-Disposition: inline
+In-Reply-To: <1508163175.7571.2.camel@HansenPartnership.com>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] Maintainer's Summit Agenda Planning
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,68 +37,40 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Am Montag, 16. Oktober 2017, 17:40:57 CEST schrieb Ben Dooks:
-> On 16/10/17 06:36, Michal Simek wrote:
-> > Hi,
-> > 
-> > On 9.10.2017 22:39, Grant Likely wrote:
-> >> Kernel Summit is now just over 2 weeks away and it is time to pull
-> >> together the schedule for the Devicetree workshop. Originally I
-> >> planned on just an afternoon, but I've got the room for the whole day,
-> >> so I've got a lot of flexibility on the schedule. Unscheduled time can
-> >> be used for hacking.
-> >> 
-> >> Date: 26 Oct 2017
-> >> Time: 9:00am-5:30pm (Lunch from 12:30-2:30)
-> >> Location: Athens room - Hilton Prague
-> >> 
-> >> If you plan to attend, make sure you update your OSSunmitE/ELCE
-> >> registration to include the DT Workshop (log in to access and modify
-> >> your registration):
-> >> 
-> >> https://www.regonline.com/register/login.aspx?eventID=1883377&MethodId=0&
-> >> EventsessionId=&Email_Address=&membershipID=
-> >> 
-> >> Here is my current list of topics in no particular order, including
-> >> the topic moderator:
-> >> 
-> >> Runtime memory consumption (Rob Herring)
-> >> Overlay maintenance plan (TBC)
-> >> Stable ABI for devicetree (TBC)
-> >> DT YAML encoding (Pantelis Antoniou)
-> >> DT Schema format - option 1 (Pantelis Antoniou)
-> >> DT Schema format - option 2 (Grant Likely)
-> >> Sharing Generic bindings (TBC)
-> >> devicetree.org update (Grant)
-> >> 
-> >> Reply to this email if you want to propose another topic.
-> >> 
-> >> Reply privately if there is a particular topic you want to attend but
-> >> you are unable to be there in the morning or afternoon. I'll put the
-> >> actual agenda together a week out from the event.
-> > 
-> > I would like to talk how to add support for AArch32 based on arm64 dts
-> > file.
-> > 
-> > And next topic is discuss criteria for adding new DTS board files to
-> > kernel for supporting custom boards especially for arm32 which can end
-> > up with a lot of dts files in this folder.
-> > If make sense to permit only boards with something new or just enable
-> > reference boards to go in.
-> 
-> I am interested in this, as we seem to be repeating the quantity
-> issue with the board file of having many .dts sources in the kernel.
-> 
-> I'm not sure how to deal with this, on one hand only having the
-> reference (and possibly popular) boards is going to keep the size
-> down. On the other hand out of tree .dts files are going to be
-> difficult to find (or vanish with the vendor).
-> 
-> It seems we are still no closer to having a DT repository outside
-> the kernel.
 
-There exists
-https://git.kernel.org/pub/scm/linux/kernel/git/devicetree/devicetree-rebasing.git/
+--kqfk25balu37tth4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-While the in-kernel sources are still the authoritative ones, you can
-at least get a feel for what an out-of-tree repo would feel like.
+On Mon, Oct 16, 2017 at 07:12:55AM -0700, James Bottomley wrote:
+> On Wed, 2017-10-11 at 21:51 +0300, Jani Nikula wrote:
+
+> > By -rc1 we (drm in general, drm/i915 in particular) will already have
+> > accumulated easily 4-5 weeks' worth of commits for the *next* merge
+> > window. Applying treewide stuff to Linus' tree at -rc1 forces a
+> > backmerge and potentially conflicts galore
+
+> If we're applying a semantic patch script (and we've verified it works
+> well enough to use the script on the -rc1 main tree), couldn't you
+> simply apply it to your tree at the same time?
+
+git doesn't do the best job figuring out that the same change was made
+in two different commits so you still end up with the conflicts.  It's
+much easier if we can just get changes in through the maintainer tree.
+
+--kqfk25balu37tth4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCAAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlnk/+EACgkQJNaLcl1U
+h9Ckagf/fxmFTzPNX89XZYqJx+d1vluoFSfCSZvslLnuwwByK9XaTdELWajI2k91
+4VjBqxiRH+nEAkRjcky0aydDXl+/cNSzKgjYX4YSFozM7eSAkW5drQpV4VY1sCQX
+X2U/JL54GBNz9mL+TiShdz/nhgCqyMhxhNO9OgXRIvPNlyuN4bSRqMMyacGk5Oq5
+fU5eG5fGc0oYvI98z51diBZeYPESaxih+t40tJK2JyMQWSjW4GFm4I/dA1lb+ZLM
+wwG/HogRz9sCd8Jm1J2rPURgfSl9fCIoSj+XSoJUm6YJQ7AgXXEJ8J6E67sBLnZH
+h6H2M1PMM0CZWU91KalxmRgsz+MVZg==
+=4d6C
+-----END PGP SIGNATURE-----
+
+--kqfk25balu37tth4--
