@@ -1,33 +1,25 @@
-Return-Path: <broonie@sirena.co.uk>
+Return-Path: <SRS0=OgFJ=BP=goodmis.org=rostedt@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 980F7B1D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 70B6FAB8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 16 Oct 2017 18:52:36 +0000 (UTC)
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
-	[172.104.155.198])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 16E7A13E
+	Mon, 16 Oct 2017 21:26:09 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F1BBB433
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 16 Oct 2017 18:52:35 +0000 (UTC)
-Date: Mon, 16 Oct 2017 19:52:18 +0100
-From: Mark Brown <broonie@sirena.org.uk>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Message-ID: <20171016185218.57obu7biasbjocpo@sirena.co.uk>
-References: <20171005192002.hxbjjdjhrfa4oa37@thunk.org>
-	<1507303665.3104.13.camel@HansenPartnership.com>
-	<nycvar.YFH.7.76.1710091750540.14384@jbgna.fhfr.qr>
-	<1507567045.3100.16.camel@HansenPartnership.com>
-	<alpine.DEB.2.20.1710091848390.3870@hadrien>
-	<1507568189.3100.29.camel@HansenPartnership.com>
-	<871sm9plfb.fsf@intel.com>
-	<1508163175.7571.2.camel@HansenPartnership.com>
+	Mon, 16 Oct 2017 21:26:08 +0000 (UTC)
+Date: Mon, 16 Oct 2017 17:26:06 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Chris Mason <clm@fb.com>
+Message-ID: <20171016172606.0babf8f4@gandalf.local.home>
+In-Reply-To: <1cf733b7-524e-744d-0206-985dc05c76d7@fb.com>
+References: <1cf733b7-524e-744d-0206-985dc05c76d7@fb.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="kqfk25balu37tth4"
-Content-Disposition: inline
-In-Reply-To: <1508163175.7571.2.camel@HansenPartnership.com>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Maintainer's Summit Agenda Planning
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: Tech Board Discuss <tech-board-discuss@lists.linux-foundation.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: [Ksummit-discuss] [NOMINATION] Steven Rostedt
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,40 +29,36 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+I'm throwing my name into the nomination list as I'm up for re-election.
 
---kqfk25balu37tth4
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Here's my statement:
 
-On Mon, Oct 16, 2017 at 07:12:55AM -0700, James Bottomley wrote:
-> On Wed, 2017-10-11 at 21:51 +0300, Jani Nikula wrote:
+====
+Steven has been professionally working on the Linux kernel since 2001. He's
+the maintainer of the tracing subsystem, and has been very involved in the
+development of the PREEMPT_RT patch set. He has improved the Linux scheduler,
+and works to improve the performance of other subsystems when he discovers
+inefficiencies. He is the creator of "make localmodconfig" as well as
+"ktest.pl" which is a testing framework to help other kernel developers set up
+their testing infrastructure.
 
-> > By -rc1 we (drm in general, drm/i915 in particular) will already have
-> > accumulated easily 4-5 weeks' worth of commits for the *next* merge
-> > window. Applying treewide stuff to Linus' tree at -rc1 forces a
-> > backmerge and potentially conflicts galore
+Over the last ten years, Steven has been giving talks all over the world at various
+conferences. He works hard in trying to bridge the gap between developers that
+normally do not interact with each other, in an effort to make the Linux kernel
+ecosystem work more in harmony.
 
-> If we're applying a semantic patch script (and we've verified it works
-> well enough to use the script on the -rc1 main tree), couldn't you
-> simply apply it to your tree at the same time?
+One of Steven's first contributions as a TAB member was to improve the
+TAB election process by including statements from all nominees to be
+posted in a central location such that the election is less of a
+popularity contest and give the nominees a chance to express themselves
+for what they want to achieve while on the TAB.
 
-git doesn't do the best job figuring out that the same change was made
-in two different commits so you still end up with the conflicts.  It's
-much easier if we can just get changes in through the maintainer tree.
+Steven's focus in the TAB has been to find new ways to have kernel developers
+be able to interact with non kernel developers. He has joined the Linux
+Plumber's Program Committee and with his influence on the TAB, he is working to
+make Linux Plumbers and Kernel Summit more coupled in the future. Steven has
+been making a lot of headway in this regard, and is hoping to have another
+term on the TAB to continue his objectives.
+====
 
---kqfk25balu37tth4
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCAAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlnk/+EACgkQJNaLcl1U
-h9Ckagf/fxmFTzPNX89XZYqJx+d1vluoFSfCSZvslLnuwwByK9XaTdELWajI2k91
-4VjBqxiRH+nEAkRjcky0aydDXl+/cNSzKgjYX4YSFozM7eSAkW5drQpV4VY1sCQX
-X2U/JL54GBNz9mL+TiShdz/nhgCqyMhxhNO9OgXRIvPNlyuN4bSRqMMyacGk5Oq5
-fU5eG5fGc0oYvI98z51diBZeYPESaxih+t40tJK2JyMQWSjW4GFm4I/dA1lb+ZLM
-wwG/HogRz9sCd8Jm1J2rPURgfSl9fCIoSj+XSoJUm6YJQ7AgXXEJ8J6E67sBLnZH
-h6H2M1PMM0CZWU91KalxmRgsz+MVZg==
-=4d6C
------END PGP SIGNATURE-----
-
---kqfk25balu37tth4--
+-- Steve
