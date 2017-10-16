@@ -1,34 +1,40 @@
-Return-Path: <prvs=14629bc2c1=clm@fb.com>
+Return-Path: <joe@perches.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B34A0A7A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D98C7AAC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 16 Oct 2017 16:58:56 +0000 (UTC)
-Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
-	[67.231.153.30])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E3E5E4C5
+	Mon, 16 Oct 2017 18:37:38 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0190.hostedemail.com
+	[216.40.44.190])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F02CC4D4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 16 Oct 2017 16:58:55 +0000 (UTC)
-Received: from pps.filterd (m0001303.ppops.net [127.0.0.1])
-	by m0001303.ppops.net (8.16.0.21/8.16.0.21) with SMTP id v9GGvHeB002536
+	Mon, 16 Oct 2017 18:37:37 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
+	[10.5.19.251])
+	by smtpgrave03.hostedemail.com (Postfix) with ESMTP id E8C5018014D2F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 16 Oct 2017 09:58:55 -0700
-Received: from maileast.thefacebook.com ([199.201.65.23])
-	by m0001303.ppops.net with ESMTP id 2dke8knww7-1
-	(version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT)
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 16 Oct 2017 09:58:55 -0700
-From: Chris Mason <clm@fb.com>
-To: "ksummit-discuss@lists.linux..."
-	<ksummit-discuss@lists.linuxfoundation.org>
-Message-ID: <e96b6674-f196-26b3-614e-632671dce226@fb.com>
-Date: Mon, 16 Oct 2017 12:58:32 -0400
-MIME-Version: 1.0
-Content-Type: text/plain; charset="windows-1252"; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Subject: [Ksummit-discuss] Reminder: Linux Foundation Technical Advisory
- Board Elections -- Call for nominations
+	Mon, 16 Oct 2017 16:07:42 +0000 (UTC)
+Message-ID: <1508170057.6530.13.camel@perches.com>
+From: Joe Perches <joe@perches.com>
+To: Jani Nikula <jani.nikula@intel.com>, James Bottomley
+	<James.Bottomley@HansenPartnership.com>,
+	Julia Lawall <julia.lawall@lip6.fr>
+Date: Mon, 16 Oct 2017 09:07:37 -0700
+In-Reply-To: <8760bfmaoz.fsf@intel.com>
+References: <20171005192002.hxbjjdjhrfa4oa37@thunk.org>
+	<1507303665.3104.13.camel@HansenPartnership.com>
+	<nycvar.YFH.7.76.1710091750540.14384@jbgna.fhfr.qr>
+	<1507567045.3100.16.camel@HansenPartnership.com>
+	<alpine.DEB.2.20.1710091848390.3870@hadrien>
+	<1507568189.3100.29.camel@HansenPartnership.com>
+	<871sm9plfb.fsf@intel.com>
+	<1508163175.7571.2.camel@HansenPartnership.com>
+	<8760bfmaoz.fsf@intel.com>
+Content-Type: text/plain; charset="ISO-8859-1"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] Maintainer's Summit Agenda Planning
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,54 +44,36 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hello everyone,
+On Mon, 2017-10-16 at 17:25 +0300, Jani Nikula wrote:
+> On Mon, 16 Oct 2017, James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
+> > On Wed, 2017-10-11 at 21:51 +0300, Jani Nikula wrote:
+> > > On Mon, 09 Oct 2017, James Bottomley <James.Bottomley@HansenPartnersh
+> > > ip.com> wrote:
+> > > > 
+> > > > On Mon, 2017-10-09 at 18:49 +0200, Julia Lawall wrote:
+> > > > > 
+> > > > > Do you suggest one big patch, that goes to who?  Or lots of
+> > > > > little
+> > > > > patches that go out at once to the individual maintainers of the
+> > > > > affected code?
+> > > > 
+> > > > I was actually thinking we validate the script and if there are no
+> > > > problems, apply it at -rc1 ... so effectively one big patch.
+> > > 
+> > > By -rc1 we (drm in general, drm/i915 in particular) will already have
+> > > accumulated easily 4-5 weeks' worth of commits for the *next* merge
+> > > window. Applying treewide stuff to Linus' tree at -rc1 forces a
+> > > backmerge and potentially conflicts galore
+> > 
+> > If we're applying a semantic patch script (and we've verified it works
+> > well enough to use the script on the -rc1 main tree), couldn't you
+> > simply apply it to your tree at the same time?
+> 
+> If we did, the fixes would show up in a later kernel release. Which is
+> just fine for us. In other words, just let subsystems and drivers handle
+> this as they see fit?
 
-Quick update on the TAB elections, we have 5 nominations so far:
+Scheduling and acceptance rates are the issue.
 
-Jon Corbet
-Greg Kroah-Hartman
-Shuah Khan
-Steve Rostedt
-Ted Tso
-
-The elections are next week, please feel free to contact me if you have 
-any questions about the TAB.
-
------------------
-
-The Linux Foundation Technical Advisory Board (TAB) serves as the
-interface between the kernel development community and the Foundation.
-The TAB advises the Foundation on kernel-related matters, helps member
-companies learn to work with the community, and works to resolve
-community-related problems before they get out of hand.  The board has
-ten members, one of whom sits on the LF board of directors.  The 
-election to select five TAB members will be held at the 2017 Kernel
-Summit in Prague, Czech Republic.  The elections will take place at the
-conference center on Wednesday Oct 25th, shortly before the evening
-reception.
-
-The election will be open to all attendees of all of the Linux
-Foundation events taking place that week in Prague.  Anyone is eligible
-to stand for election, simply send your nomination to:
-
-tech-board-discuss at lists.linux-foundation.org
-
-Just before the election, everyone will have a chance to introduce
-themselves and briefly talk about why they would like to participate on
-the Technical Advisory Board.  This year, we're encouraging everyone to
-include those details along with their nomination, which we will compile
-into an online document for quick reference here:
-
-https://goo.gl/ADVFtT
-
-The deadline for receiving nominations is up until the beginning of the
-election event.  Any statements for the online document need to be sent
-by Monday Oct 23rd.  Please get your nomination in early so everyone has
-a chance to review the nominations before voting.
-
-Chris Mason, TAB Chair
-
-[1] TAB members sit for a term of two years, and half of the board is up
-for election every year. Five of the seats are up for election now.  The
-other five are halfway through their term and will be up for election
-next year.
+Also some scripted patches require complete treewide
+application to allow things like API changes.
