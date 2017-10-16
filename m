@@ -1,30 +1,37 @@
-Return-Path: <thomas.petazzoni@free-electrons.com>
+Return-Path: <monstr@monstr.eu>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 467E54A5
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B3C043EE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 14 Oct 2017 12:41:22 +0000 (UTC)
-Received: from mail.free-electrons.com (mail.free-electrons.com [62.4.15.54])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 77B47F8
+	Mon, 16 Oct 2017 05:36:20 +0000 (UTC)
+Received: from mail-wm0-f68.google.com (mail-wm0-f68.google.com [74.125.82.68])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 77688F8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 14 Oct 2017 12:41:21 +0000 (UTC)
-Date: Sat, 14 Oct 2017 14:34:57 +0200
-From: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
-To: Grant Likely <grant.likely@secretlab.ca>
-Message-ID: <20171014143457.72df1f54@windsurf.home>
-In-Reply-To: <CACxGe6sxKzNKZbdGA-G=Th2oHwuanyC2kGYuaFcKbSRkuhep+Q@mail.gmail.com>
-References: <CACxGe6sxKzNKZbdGA-G=Th2oHwuanyC2kGYuaFcKbSRkuhep+Q@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	Kumar Gala <kumar.gala@linaro.org>,
+	Mon, 16 Oct 2017 05:36:19 +0000 (UTC)
+Received: by mail-wm0-f68.google.com with SMTP id q124so6517159wmb.5
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sun, 15 Oct 2017 22:36:19 -0700 (PDT)
+Reply-To: monstr@monstr.eu
+To: Grant Likely <grant.likely@secretlab.ca>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	devicetree-spec@vger.kernel.org,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	Rob Herring <rob.herring@linaro.org>, devicetree-spec@vger.kernel.org,
+	David Gibson <david@gibson.dropbear.id.au>,
+	Julia Lawall <Julia.Lawall@lip6.fr>,
 	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
-	Andy Gross <andy.gross@linaro.org>, Lucas Stach <l.stach@pengutronix.de>,
-	David Gibson <david@gibson.dropbear.id.au>
+	Lucas Stach <l.stach@pengutronix.de>, Kumar Gala <kumar.gala@linaro.org>,
+	Andy Gross <andy.gross@linaro.org>, Rob Herring <rob.herring@linaro.org>,
+	Frank Rowand <frowand.list@gmail.com>
+References: <CACxGe6sxKzNKZbdGA-G=Th2oHwuanyC2kGYuaFcKbSRkuhep+Q@mail.gmail.com>
+From: Michal Simek <monstr@monstr.eu>
+Message-ID: <39f87f46-da67-11d9-4336-213c13025568@monstr.eu>
+Date: Mon, 16 Oct 2017 07:36:08 +0200
+MIME-Version: 1.0
+In-Reply-To: <CACxGe6sxKzNKZbdGA-G=Th2oHwuanyC2kGYuaFcKbSRkuhep+Q@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 Subject: Re: [Ksummit-discuss] Devicetree Workshop at Kernel Summit Prague
  (26 Oct 2017)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -36,10 +43,25 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hello,
+Hi,
 
-On Mon, 9 Oct 2017 21:39:51 +0100, Grant Likely wrote:
-
+On 9.10.2017 22:39, Grant Likely wrote:
+> Kernel Summit is now just over 2 weeks away and it is time to pull
+> together the schedule for the Devicetree workshop. Originally I
+> planned on just an afternoon, but I've got the room for the whole day,
+> so I've got a lot of flexibility on the schedule. Unscheduled time can
+> be used for hacking.
+> 
+> Date: 26 Oct 2017
+> Time: 9:00am-5:30pm (Lunch from 12:30-2:30)
+> Location: Athens room - Hilton Prague
+> 
+> If you plan to attend, make sure you update your OSSunmitE/ELCE
+> registration to include the DT Workshop (log in to access and modify
+> your registration):
+> 
+> https://www.regonline.com/register/login.aspx?eventID=1883377&MethodId=0&EventsessionId=&Email_Address=&membershipID=
+> 
 > Here is my current list of topics in no particular order, including
 > the topic moderator:
 > 
@@ -53,34 +75,25 @@ On Mon, 9 Oct 2017 21:39:51 +0100, Grant Likely wrote:
 > devicetree.org update (Grant)
 > 
 > Reply to this email if you want to propose another topic.
+> 
+> Reply privately if there is a particular topic you want to attend but
+> you are unable to be there in the morning or afternoon. I'll put the
+> actual agenda together a week out from the event.
 
-I'd like to propose a quick discussion on how to avoid duplicating DT
-description when a SoC is composed of aggregations of IP blocks that
-are duplicated (in 2, 4 or 8 copies).
+I would like to talk how to add support for AArch32 based on arm64 dts file.
 
-As an example, we currently have
-arch/arm64/boot/dts/marvell/armada-cp110-master.dtsi and
-arch/arm64/boot/dts/marvell/armada-cp110-slave.dtsi that are almost
-identical, because they represent the same aggregation of IP blocks,
-present two times in the same SoC (Marvell Armada 8K). As we are going
-to have SoCs with more than 2 copies in the future, we want to find a
-way to avoid duplicating the description of those aggregations.
+And next topic is discuss criteria for adding new DTS board files to
+kernel for supporting custom boards especially for arm32 which can end
+up with a lot of dts files in this folder.
+If make sense to permit only boards with something new or just enable
+reference boards to go in.
 
-I'd like to present the problem scope, a possible solution solely based
-on C preprocessor macros, and then open the discussion to see what is
-the right approach to solve this problem.
+Thanks,
+Michal
 
-I don't think that more than 10-15 minutes is needed for presenting the
-problem scope and one possible solution. The following discussion may
-be longer though.
-
-I'll be attending on both the morning and afternoon, but I'll be
-leaving at ~4:30 PM.
-
-Best regards,
-
-Thomas Petazzoni
 -- 
-Thomas Petazzoni, CTO, Free Electrons
-Embedded Linux and Kernel engineering
-http://free-electrons.com
+Michal Simek, Ing. (M.Eng), OpenPGP -> KeyID: FE3D1F91
+w: www.monstr.eu p: +42-0-721842854
+Maintainer of Linux kernel - Xilinx Microblaze
+Maintainer of Linux kernel - Xilinx Zynq ARM and ZynqMP ARM64 SoCs
+U-Boot custodian - Xilinx Microblaze/Zynq/ZynqMP SoCs
