@@ -1,35 +1,34 @@
-Return-Path: <ben.dooks@codethink.co.uk>
+Return-Path: <prvs=14629bc2c1=clm@fb.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3FC58BF8
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B34A0A7A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 16 Oct 2017 16:42:37 +0000 (UTC)
-Received: from imap1.codethink.co.uk (imap1.codethink.co.uk [176.9.8.82])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 732B34CC
+	Mon, 16 Oct 2017 16:58:56 +0000 (UTC)
+Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
+	[67.231.153.30])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E3E5E4C5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 16 Oct 2017 16:42:36 +0000 (UTC)
-To: Grant Likely <grant.likely@secretlab.ca>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	devicetree-spec@vger.kernel.org,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	David Gibson <david@gibson.dropbear.id.au>,
-	Julia Lawall <Julia.Lawall@lip6.fr>,
-	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
-	Lucas Stach <l.stach@pengutronix.de>, Kumar Gala <kumar.gala@linaro.org>,
-	Andy Gross <andy.gross@linaro.org>, Rob Herring <rob.herring@linaro.org>,
-	Frank Rowand <frowand.list@gmail.com>
-References: <CACxGe6sxKzNKZbdGA-G=Th2oHwuanyC2kGYuaFcKbSRkuhep+Q@mail.gmail.com>
-From: Ben Dooks <ben.dooks@codethink.co.uk>
-Message-ID: <7384dfc6-1068-eb6a-ae5f-7e805be8c48e@codethink.co.uk>
-Date: Mon, 16 Oct 2017 17:42:31 +0100
+	Mon, 16 Oct 2017 16:58:55 +0000 (UTC)
+Received: from pps.filterd (m0001303.ppops.net [127.0.0.1])
+	by m0001303.ppops.net (8.16.0.21/8.16.0.21) with SMTP id v9GGvHeB002536
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 16 Oct 2017 09:58:55 -0700
+Received: from maileast.thefacebook.com ([199.201.65.23])
+	by m0001303.ppops.net with ESMTP id 2dke8knww7-1
+	(version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT)
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 16 Oct 2017 09:58:55 -0700
+From: Chris Mason <clm@fb.com>
+To: "ksummit-discuss@lists.linux..."
+	<ksummit-discuss@lists.linuxfoundation.org>
+Message-ID: <e96b6674-f196-26b3-614e-632671dce226@fb.com>
+Date: Mon, 16 Oct 2017 12:58:32 -0400
 MIME-Version: 1.0
-In-Reply-To: <CACxGe6sxKzNKZbdGA-G=Th2oHwuanyC2kGYuaFcKbSRkuhep+Q@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+Content-Type: text/plain; charset="windows-1252"; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Ksummit-discuss] Devicetree Workshop at Kernel Summit Prague
- (26 Oct 2017)
+Subject: [Ksummit-discuss] Reminder: Linux Foundation Technical Advisory
+ Board Elections -- Call for nominations
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,46 +38,54 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 09/10/17 21:39, Grant Likely wrote:
-> Kernel Summit is now just over 2 weeks away and it is time to pull
-> together the schedule for the Devicetree workshop. Originally I
-> planned on just an afternoon, but I've got the room for the whole day,
-> so I've got a lot of flexibility on the schedule. Unscheduled time can
-> be used for hacking.
-> 
-> Date: 26 Oct 2017
-> Time: 9:00am-5:30pm (Lunch from 12:30-2:30)
-> Location: Athens room - Hilton Prague
-> 
-> If you plan to attend, make sure you update your OSSunmitE/ELCE
-> registration to include the DT Workshop (log in to access and modify
-> your registration):
-> 
-> https://www.regonline.com/register/login.aspx?eventID=1883377&MethodId=0&EventsessionId=&Email_Address=&membershipID=
-> 
-> Here is my current list of topics in no particular order, including
-> the topic moderator:
-> 
-> Runtime memory consumption (Rob Herring)
-> Overlay maintenance plan (TBC)
-> Stable ABI for devicetree (TBC)
-> DT YAML encoding (Pantelis Antoniou)
-> DT Schema format - option 1 (Pantelis Antoniou)
-> DT Schema format - option 2 (Grant Likely)
-> Sharing Generic bindings (TBC)
-> devicetree.org update (Grant)
-> 
-> Reply to this email if you want to propose another topic.
+Hello everyone,
 
-I'd like to see a "device-tree overview" comprising of at-least
+Quick update on the TAB elections, we have 5 nominations so far:
 
-- where is dt at
-- where is dt going
+Jon Corbet
+Greg Kroah-Hartman
+Shuah Khan
+Steve Rostedt
+Ted Tso
 
+The elections are next week, please feel free to contact me if you have 
+any questions about the TAB.
 
-I am also interested in an
-"are we actually solving enough of the old board file problems"
+-----------------
 
--- 
-Ben Dooks				http://www.codethink.co.uk/
-Senior Engineer				Codethink - Providing Genius
+The Linux Foundation Technical Advisory Board (TAB) serves as the
+interface between the kernel development community and the Foundation.
+The TAB advises the Foundation on kernel-related matters, helps member
+companies learn to work with the community, and works to resolve
+community-related problems before they get out of hand.  The board has
+ten members, one of whom sits on the LF board of directors.  The 
+election to select five TAB members will be held at the 2017 Kernel
+Summit in Prague, Czech Republic.  The elections will take place at the
+conference center on Wednesday Oct 25th, shortly before the evening
+reception.
+
+The election will be open to all attendees of all of the Linux
+Foundation events taking place that week in Prague.  Anyone is eligible
+to stand for election, simply send your nomination to:
+
+tech-board-discuss at lists.linux-foundation.org
+
+Just before the election, everyone will have a chance to introduce
+themselves and briefly talk about why they would like to participate on
+the Technical Advisory Board.  This year, we're encouraging everyone to
+include those details along with their nomination, which we will compile
+into an online document for quick reference here:
+
+https://goo.gl/ADVFtT
+
+The deadline for receiving nominations is up until the beginning of the
+election event.  Any statements for the online document need to be sent
+by Monday Oct 23rd.  Please get your nomination in early so everyone has
+a chance to review the nominations before voting.
+
+Chris Mason, TAB Chair
+
+[1] TAB members sit for a term of two years, and half of the board is up
+for election every year. Five of the seats are up for election now.  The
+other five are halfway through their term and will be up for election
+next year.
