@@ -1,25 +1,26 @@
 Return-Path: <glikely@secretlab.ca>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A70E2BAF
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A63D6AF7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 17 Oct 2017 13:30:23 +0000 (UTC)
-Received: from mail-pg0-f68.google.com (mail-pg0-f68.google.com [74.125.83.68])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DEF6247E
+	Tue, 17 Oct 2017 13:32:40 +0000 (UTC)
+Received: from mail-pf0-f195.google.com (mail-pf0-f195.google.com
+	[209.85.192.195])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CE53612A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 17 Oct 2017 13:30:21 +0000 (UTC)
-Received: by mail-pg0-f68.google.com with SMTP id m18so1415809pgd.13
+	Tue, 17 Oct 2017 13:32:39 +0000 (UTC)
+Received: by mail-pf0-f195.google.com with SMTP id b85so1351740pfj.13
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 17 Oct 2017 06:30:21 -0700 (PDT)
+	Tue, 17 Oct 2017 06:32:39 -0700 (PDT)
 MIME-Version: 1.0
 Sender: glikely@secretlab.ca
-In-Reply-To: <20171014143457.72df1f54@windsurf.home>
+In-Reply-To: <39f87f46-da67-11d9-4336-213c13025568@monstr.eu>
 References: <CACxGe6sxKzNKZbdGA-G=Th2oHwuanyC2kGYuaFcKbSRkuhep+Q@mail.gmail.com>
-	<20171014143457.72df1f54@windsurf.home>
+	<39f87f46-da67-11d9-4336-213c13025568@monstr.eu>
 From: Grant Likely <grant.likely@secretlab.ca>
-Date: Tue, 17 Oct 2017 14:30:00 +0100
-Message-ID: <CACxGe6uH0A9s+tuaS3SrUmnRfRPUsxCsGP8wT6vOd4Q3QxXc4w@mail.gmail.com>
-To: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
+Date: Tue, 17 Oct 2017 14:32:18 +0100
+Message-ID: <CACxGe6uiDCJw5g070kCbDEUBEPoz9rqswUc75Bx2h-9+6mxe2Q@mail.gmail.com>
+To: Michal Simek <monstr@monstr.eu>
 Content-Type: text/plain; charset="UTF-8"
 Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
 	Kumar Gala <kumar.gala@linaro.org>,
@@ -40,12 +41,26 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, Oct 14, 2017 at 1:34 PM, Thomas Petazzoni
-<thomas.petazzoni@free-electrons.com> wrote:
-> Hello,
+On Mon, Oct 16, 2017 at 6:36 AM, Michal Simek <monstr@monstr.eu> wrote:
+> Hi,
 >
-> On Mon, 9 Oct 2017 21:39:51 +0100, Grant Likely wrote:
->
+> On 9.10.2017 22:39, Grant Likely wrote:
+>> Kernel Summit is now just over 2 weeks away and it is time to pull
+>> together the schedule for the Devicetree workshop. Originally I
+>> planned on just an afternoon, but I've got the room for the whole day,
+>> so I've got a lot of flexibility on the schedule. Unscheduled time can
+>> be used for hacking.
+>>
+>> Date: 26 Oct 2017
+>> Time: 9:00am-5:30pm (Lunch from 12:30-2:30)
+>> Location: Athens room - Hilton Prague
+>>
+>> If you plan to attend, make sure you update your OSSunmitE/ELCE
+>> registration to include the DT Workshop (log in to access and modify
+>> your registration):
+>>
+>> https://www.regonline.com/register/login.aspx?eventID=1883377&MethodId=0&EventsessionId=&Email_Address=&membershipID=
+>>
 >> Here is my current list of topics in no particular order, including
 >> the topic moderator:
 >>
@@ -59,40 +74,33 @@ On Sat, Oct 14, 2017 at 1:34 PM, Thomas Petazzoni
 >> devicetree.org update (Grant)
 >>
 >> Reply to this email if you want to propose another topic.
+>>
+>> Reply privately if there is a particular topic you want to attend but
+>> you are unable to be there in the morning or afternoon. I'll put the
+>> actual agenda together a week out from the event.
 >
-> I'd like to propose a quick discussion on how to avoid duplicating DT
-> description when a SoC is composed of aggregations of IP blocks that
-> are duplicated (in 2, 4 or 8 copies).
->
-> As an example, we currently have
-> arch/arm64/boot/dts/marvell/armada-cp110-master.dtsi and
-> arch/arm64/boot/dts/marvell/armada-cp110-slave.dtsi that are almost
-> identical, because they represent the same aggregation of IP blocks,
-> present two times in the same SoC (Marvell Armada 8K). As we are going
-> to have SoCs with more than 2 copies in the future, we want to find a
-> way to avoid duplicating the description of those aggregations.
->
-> I'd like to present the problem scope, a possible solution solely based
-> on C preprocessor macros, and then open the discussion to see what is
-> the right approach to solve this problem.
+> I would like to talk how to add support for AArch32 based on arm64 dts file.
 
-I'll include time for this alongside the overlay maintenance plan
-topic. It seems to me that they are closely related problems.
-
-g.
+This sounds a lot like the duplicate descriptions topic Thomas
+proposed. I'll lump them into a single agenda item.
 
 >
-> I don't think that more than 10-15 minutes is needed for presenting the
-> problem scope and one possible solution. The following discussion may
-> be longer though.
+> And next topic is discuss criteria for adding new DTS board files to
+> kernel for supporting custom boards especially for arm32 which can end
+> up with a lot of dts files in this folder.
+> If make sense to permit only boards with something new or just enable
+> reference boards to go in.
+
+Added.
+
 >
-> I'll be attending on both the morning and afternoon, but I'll be
-> leaving at ~4:30 PM.
+> Thanks,
+> Michal
 >
-> Best regards,
->
-> Thomas Petazzoni
 > --
-> Thomas Petazzoni, CTO, Free Electrons
-> Embedded Linux and Kernel engineering
-> http://free-electrons.com
+> Michal Simek, Ing. (M.Eng), OpenPGP -> KeyID: FE3D1F91
+> w: www.monstr.eu p: +42-0-721842854
+> Maintainer of Linux kernel - Xilinx Microblaze
+> Maintainer of Linux kernel - Xilinx Zynq ARM and ZynqMP ARM64 SoCs
+> U-Boot custodian - Xilinx Microblaze/Zynq/ZynqMP SoCs
+>
