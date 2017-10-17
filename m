@@ -1,26 +1,26 @@
 Return-Path: <glikely@secretlab.ca>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A63D6AF7
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9F43EBCF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 17 Oct 2017 13:32:40 +0000 (UTC)
-Received: from mail-pf0-f195.google.com (mail-pf0-f195.google.com
-	[209.85.192.195])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CE53612A
+	Tue, 17 Oct 2017 13:34:43 +0000 (UTC)
+Received: from mail-pf0-f196.google.com (mail-pf0-f196.google.com
+	[209.85.192.196])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E6C5E12A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 17 Oct 2017 13:32:39 +0000 (UTC)
-Received: by mail-pf0-f195.google.com with SMTP id b85so1351740pfj.13
+	Tue, 17 Oct 2017 13:34:42 +0000 (UTC)
+Received: by mail-pf0-f196.google.com with SMTP id t188so1358325pfd.10
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 17 Oct 2017 06:32:39 -0700 (PDT)
+	Tue, 17 Oct 2017 06:34:42 -0700 (PDT)
 MIME-Version: 1.0
 Sender: glikely@secretlab.ca
-In-Reply-To: <39f87f46-da67-11d9-4336-213c13025568@monstr.eu>
+In-Reply-To: <7384dfc6-1068-eb6a-ae5f-7e805be8c48e@codethink.co.uk>
 References: <CACxGe6sxKzNKZbdGA-G=Th2oHwuanyC2kGYuaFcKbSRkuhep+Q@mail.gmail.com>
-	<39f87f46-da67-11d9-4336-213c13025568@monstr.eu>
+	<7384dfc6-1068-eb6a-ae5f-7e805be8c48e@codethink.co.uk>
 From: Grant Likely <grant.likely@secretlab.ca>
-Date: Tue, 17 Oct 2017 14:32:18 +0100
-Message-ID: <CACxGe6uiDCJw5g070kCbDEUBEPoz9rqswUc75Bx2h-9+6mxe2Q@mail.gmail.com>
-To: Michal Simek <monstr@monstr.eu>
+Date: Tue, 17 Oct 2017 14:34:21 +0100
+Message-ID: <CACxGe6tc-=4hkGu=Ltg9=+1TNc6vvDLQBDJb-fNDCw-JYs33sg@mail.gmail.com>
+To: Ben Dooks <ben.dooks@codethink.co.uk>
 Content-Type: text/plain; charset="UTF-8"
 Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
 	Kumar Gala <kumar.gala@linaro.org>,
@@ -41,10 +41,9 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Oct 16, 2017 at 6:36 AM, Michal Simek <monstr@monstr.eu> wrote:
-> Hi,
->
-> On 9.10.2017 22:39, Grant Likely wrote:
+On Mon, Oct 16, 2017 at 5:42 PM, Ben Dooks <ben.dooks@codethink.co.uk> wrote:
+> On 09/10/17 21:39, Grant Likely wrote:
+>>
 >> Kernel Summit is now just over 2 weeks away and it is time to pull
 >> together the schedule for the Devicetree workshop. Originally I
 >> planned on just an afternoon, but I've got the room for the whole day,
@@ -58,6 +57,7 @@ On Mon, Oct 16, 2017 at 6:36 AM, Michal Simek <monstr@monstr.eu> wrote:
 >> If you plan to attend, make sure you update your OSSunmitE/ELCE
 >> registration to include the DT Workshop (log in to access and modify
 >> your registration):
+>>
 >>
 >> https://www.regonline.com/register/login.aspx?eventID=1883377&MethodId=0&EventsessionId=&Email_Address=&membershipID=
 >>
@@ -74,33 +74,18 @@ On Mon, Oct 16, 2017 at 6:36 AM, Michal Simek <monstr@monstr.eu> wrote:
 >> devicetree.org update (Grant)
 >>
 >> Reply to this email if you want to propose another topic.
->>
->> Reply privately if there is a particular topic you want to attend but
->> you are unable to be there in the morning or afternoon. I'll put the
->> actual agenda together a week out from the event.
 >
-> I would like to talk how to add support for AArch32 based on arm64 dts file.
+>
+> I'd like to see a "device-tree overview" comprising of at-least
+>
+> - where is dt at
+> - where is dt going
+>
+>
+> I am also interested in an
+> "are we actually solving enough of the old board file problems"
 
-This sounds a lot like the duplicate descriptions topic Thomas
-proposed. I'll lump them into a single agenda item.
+Added all three under a "DT health check" topic. Hopefully it won't
+morph into "Complain about DT".  :-)
 
->
-> And next topic is discuss criteria for adding new DTS board files to
-> kernel for supporting custom boards especially for arm32 which can end
-> up with a lot of dts files in this folder.
-> If make sense to permit only boards with something new or just enable
-> reference boards to go in.
-
-Added.
-
->
-> Thanks,
-> Michal
->
-> --
-> Michal Simek, Ing. (M.Eng), OpenPGP -> KeyID: FE3D1F91
-> w: www.monstr.eu p: +42-0-721842854
-> Maintainer of Linux kernel - Xilinx Microblaze
-> Maintainer of Linux kernel - Xilinx Zynq ARM and ZynqMP ARM64 SoCs
-> U-Boot custodian - Xilinx Microblaze/Zynq/ZynqMP SoCs
->
+g.
