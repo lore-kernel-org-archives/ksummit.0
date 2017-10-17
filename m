@@ -1,32 +1,35 @@
 Return-Path: <glikely@secretlab.ca>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9F43EBCF
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id AFD02891
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 17 Oct 2017 13:34:43 +0000 (UTC)
-Received: from mail-pf0-f196.google.com (mail-pf0-f196.google.com
-	[209.85.192.196])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E6C5E12A
+	Tue, 17 Oct 2017 13:38:54 +0000 (UTC)
+Received: from mail-pf0-f195.google.com (mail-pf0-f195.google.com
+	[209.85.192.195])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0DED312A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 17 Oct 2017 13:34:42 +0000 (UTC)
-Received: by mail-pf0-f196.google.com with SMTP id t188so1358325pfd.10
+	Tue, 17 Oct 2017 13:38:53 +0000 (UTC)
+Received: by mail-pf0-f195.google.com with SMTP id d28so1381774pfe.2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 17 Oct 2017 06:34:42 -0700 (PDT)
+	Tue, 17 Oct 2017 06:38:53 -0700 (PDT)
 MIME-Version: 1.0
 Sender: glikely@secretlab.ca
-In-Reply-To: <7384dfc6-1068-eb6a-ae5f-7e805be8c48e@codethink.co.uk>
+In-Reply-To: <CAL_JsqJxFJSE-=778oHvNgpaBzhX9mBSzh1a0ZMvwSG69qStLw@mail.gmail.com>
 References: <CACxGe6sxKzNKZbdGA-G=Th2oHwuanyC2kGYuaFcKbSRkuhep+Q@mail.gmail.com>
-	<7384dfc6-1068-eb6a-ae5f-7e805be8c48e@codethink.co.uk>
+	<39f87f46-da67-11d9-4336-213c13025568@monstr.eu>
+	<8a168960-2dae-35cc-e610-0fe257c9121d@codethink.co.uk>
+	<CAL_JsqJxFJSE-=778oHvNgpaBzhX9mBSzh1a0ZMvwSG69qStLw@mail.gmail.com>
 From: Grant Likely <grant.likely@secretlab.ca>
-Date: Tue, 17 Oct 2017 14:34:21 +0100
-Message-ID: <CACxGe6tc-=4hkGu=Ltg9=+1TNc6vvDLQBDJb-fNDCw-JYs33sg@mail.gmail.com>
-To: Ben Dooks <ben.dooks@codethink.co.uk>
+Date: Tue, 17 Oct 2017 14:38:32 +0100
+Message-ID: <CACxGe6vkxTwUw2ma_ykZQ0JsKUQTeffMC+g4pq6LnaN9qoY2_A@mail.gmail.com>
+To: Rob Herring <robh@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
 	Kumar Gala <kumar.gala@linaro.org>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	Rob Herring <rob.herring@linaro.org>, devicetree-spec@vger.kernel.org,
+	Rob Herring <rob.herring@linaro.org>,
+	"devicetree-spec@vger.kernel.org" <devicetree-spec@vger.kernel.org>,
 	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
 	Andy Gross <andy.gross@linaro.org>, Lucas Stach <l.stach@pengutronix.de>,
 	David Gibson <david@gibson.dropbear.id.au>
@@ -41,51 +44,94 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Oct 16, 2017 at 5:42 PM, Ben Dooks <ben.dooks@codethink.co.uk> wrote:
-> On 09/10/17 21:39, Grant Likely wrote:
+On Mon, Oct 16, 2017 at 8:45 PM, Rob Herring <robh@kernel.org> wrote:
+> On Mon, Oct 16, 2017 at 11:40 AM, Ben Dooks <ben.dooks@codethink.co.uk> wrote:
+>> On 16/10/17 06:36, Michal Simek wrote:
+>>>
+>>> Hi,
+>>>
+>>> On 9.10.2017 22:39, Grant Likely wrote:
+>>>>
+>>>> Kernel Summit is now just over 2 weeks away and it is time to pull
+>>>> together the schedule for the Devicetree workshop. Originally I
+>>>> planned on just an afternoon, but I've got the room for the whole day,
+>>>> so I've got a lot of flexibility on the schedule. Unscheduled time can
+>>>> be used for hacking.
+>>>>
+>>>> Date: 26 Oct 2017
+>>>> Time: 9:00am-5:30pm (Lunch from 12:30-2:30)
+>>>> Location: Athens room - Hilton Prague
+>>>>
+>>>> If you plan to attend, make sure you update your OSSunmitE/ELCE
+>>>> registration to include the DT Workshop (log in to access and modify
+>>>> your registration):
+>>>>
+>>>>
+>>>> https://www.regonline.com/register/login.aspx?eventID=1883377&MethodId=0&EventsessionId=&Email_Address=&membershipID=
+>>>>
+>>>> Here is my current list of topics in no particular order, including
+>>>> the topic moderator:
+>>>>
+>>>> Runtime memory consumption (Rob Herring)
+>>>> Overlay maintenance plan (TBC)
+>>>> Stable ABI for devicetree (TBC)
+>>>> DT YAML encoding (Pantelis Antoniou)
+>>>> DT Schema format - option 1 (Pantelis Antoniou)
+>>>> DT Schema format - option 2 (Grant Likely)
+>>>> Sharing Generic bindings (TBC)
+>>>> devicetree.org update (Grant)
+>>>>
+>>>> Reply to this email if you want to propose another topic.
+>>>>
+>>>> Reply privately if there is a particular topic you want to attend but
+>>>> you are unable to be there in the morning or afternoon. I'll put the
+>>>> actual agenda together a week out from the event.
+>>>
+>>>
+>>> I would like to talk how to add support for AArch32 based on arm64 dts
+>>> file.
+>>>
+>>> And next topic is discuss criteria for adding new DTS board files to
+>>> kernel for supporting custom boards especially for arm32 which can end
+>>> up with a lot of dts files in this folder.
+>>> If make sense to permit only boards with something new or just enable
+>>> reference boards to go in.
 >>
->> Kernel Summit is now just over 2 weeks away and it is time to pull
->> together the schedule for the Devicetree workshop. Originally I
->> planned on just an afternoon, but I've got the room for the whole day,
->> so I've got a lot of flexibility on the schedule. Unscheduled time can
->> be used for hacking.
 >>
->> Date: 26 Oct 2017
->> Time: 9:00am-5:30pm (Lunch from 12:30-2:30)
->> Location: Athens room - Hilton Prague
->>
->> If you plan to attend, make sure you update your OSSunmitE/ELCE
->> registration to include the DT Workshop (log in to access and modify
->> your registration):
->>
->>
->> https://www.regonline.com/register/login.aspx?eventID=1883377&MethodId=0&EventsessionId=&Email_Address=&membershipID=
->>
->> Here is my current list of topics in no particular order, including
->> the topic moderator:
->>
->> Runtime memory consumption (Rob Herring)
->> Overlay maintenance plan (TBC)
->> Stable ABI for devicetree (TBC)
->> DT YAML encoding (Pantelis Antoniou)
->> DT Schema format - option 1 (Pantelis Antoniou)
->> DT Schema format - option 2 (Grant Likely)
->> Sharing Generic bindings (TBC)
->> devicetree.org update (Grant)
->>
->> Reply to this email if you want to propose another topic.
+>> I am interested in this, as we seem to be repeating the quantity
+>> issue with the board file of having many .dts sources in the kernel.
 >
+> The problem was not so much having board files in the kernel. It was
+> how to scale support for boards and SoCs with each family structuring
+> things their own, different way.
 >
-> I'd like to see a "device-tree overview" comprising of at-least
+> IIRC, the ARM tree was at ~400 boards at the start of DT conversion.
+> Now we're at ~1100 boards for arm/arm64. Plus we still have 264 that
+> aren't converted to DT.
 >
-> - where is dt at
-> - where is dt going
+>> I'm not sure how to deal with this, on one hand only having the
+>> reference (and possibly popular) boards is going to keep the size
+>> down. On the other hand out of tree .dts files are going to be
+>> difficult to find (or vanish with the vendor).
 >
->
-> I am also interested in an
-> "are we actually solving enough of the old board file problems"
+> Why do we care? What problem is that causing?
 
-Added all three under a "DT health check" topic. Hopefully it won't
-morph into "Complain about DT".  :-)
+In fact, for many platforms that would be a good place to get to if
+the firmware is providing the .dtb. Plus the DT data formats are so
+simple that it is not difficult to get a DTB back into a DTS.
+
+>
+>> It seems we are still no closer to having a DT repository outside
+>> the kernel.
+>
+> In relationship to the above what problem would that solve? We've got
+> all the platform maintainers and arm-soc maintainers to handle dts
+> files. Mark and myself along with subsystem maintainers reviewing and
+> applying device bindings. If you move all that to a separate
+> repository, then you have me because no one else has volunteered. I'm
+> pretty sure no one wants me as the single point of failure.
+
+Yes. When it comes to the bindings, and schema files when we have
+them, they should be maintained with the tools.
 
 g.
