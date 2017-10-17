@@ -1,44 +1,34 @@
-Return-Path: <robh@kernel.org>
+Return-Path: <jani.nikula@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D63D1AAB
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id F20CA5AA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 16 Oct 2017 19:46:21 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 374641AD
+	Tue, 17 Oct 2017 08:32:55 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4EDC8463
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 16 Oct 2017 19:46:21 +0000 (UTC)
-Received: from mail-qt0-f169.google.com (mail-qt0-f169.google.com
-	[209.85.216.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id C331C2191E
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 16 Oct 2017 19:46:20 +0000 (UTC)
-Received: by mail-qt0-f169.google.com with SMTP id k31so34160105qta.6
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 16 Oct 2017 12:46:20 -0700 (PDT)
+	Tue, 17 Oct 2017 08:32:55 +0000 (UTC)
+From: Jani Nikula <jani.nikula@intel.com>
+To: Joe Perches <joe@perches.com>,
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Julia Lawall <julia.lawall@lip6.fr>
+In-Reply-To: <1508170057.6530.13.camel@perches.com>
+References: <20171005192002.hxbjjdjhrfa4oa37@thunk.org>
+	<1507303665.3104.13.camel@HansenPartnership.com>
+	<nycvar.YFH.7.76.1710091750540.14384@jbgna.fhfr.qr>
+	<1507567045.3100.16.camel@HansenPartnership.com>
+	<alpine.DEB.2.20.1710091848390.3870@hadrien>
+	<1507568189.3100.29.camel@HansenPartnership.com>
+	<871sm9plfb.fsf@intel.com>
+	<1508163175.7571.2.camel@HansenPartnership.com>
+	<8760bfmaoz.fsf@intel.com> <1508170057.6530.13.camel@perches.com>
+Date: Tue, 17 Oct 2017 11:34:23 +0300
+Message-ID: <87lgkakwa8.fsf@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <8a168960-2dae-35cc-e610-0fe257c9121d@codethink.co.uk>
-References: <CACxGe6sxKzNKZbdGA-G=Th2oHwuanyC2kGYuaFcKbSRkuhep+Q@mail.gmail.com>
-	<39f87f46-da67-11d9-4336-213c13025568@monstr.eu>
-	<8a168960-2dae-35cc-e610-0fe257c9121d@codethink.co.uk>
-From: Rob Herring <robh@kernel.org>
-Date: Mon, 16 Oct 2017 14:45:59 -0500
-Message-ID: <CAL_JsqJxFJSE-=778oHvNgpaBzhX9mBSzh1a0ZMvwSG69qStLw@mail.gmail.com>
-To: Ben Dooks <ben.dooks@codethink.co.uk>
-Content-Type: text/plain; charset="UTF-8"
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	Kumar Gala <kumar.gala@linaro.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Rob Herring <rob.herring@linaro.org>,
-	"devicetree-spec@vger.kernel.org" <devicetree-spec@vger.kernel.org>,
-	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
-	Andy Gross <andy.gross@linaro.org>, Lucas Stach <l.stach@pengutronix.de>,
-	David Gibson <david@gibson.dropbear.id.au>
-Subject: Re: [Ksummit-discuss] Devicetree Workshop at Kernel Summit Prague
- (26 Oct 2017)
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] Maintainer's Summit Agenda Planning
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -48,85 +38,58 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Oct 16, 2017 at 11:40 AM, Ben Dooks <ben.dooks@codethink.co.uk> wrote:
-> On 16/10/17 06:36, Michal Simek wrote:
->>
->> Hi,
->>
->> On 9.10.2017 22:39, Grant Likely wrote:
->>>
->>> Kernel Summit is now just over 2 weeks away and it is time to pull
->>> together the schedule for the Devicetree workshop. Originally I
->>> planned on just an afternoon, but I've got the room for the whole day,
->>> so I've got a lot of flexibility on the schedule. Unscheduled time can
->>> be used for hacking.
->>>
->>> Date: 26 Oct 2017
->>> Time: 9:00am-5:30pm (Lunch from 12:30-2:30)
->>> Location: Athens room - Hilton Prague
->>>
->>> If you plan to attend, make sure you update your OSSunmitE/ELCE
->>> registration to include the DT Workshop (log in to access and modify
->>> your registration):
->>>
->>>
->>> https://www.regonline.com/register/login.aspx?eventID=1883377&MethodId=0&EventsessionId=&Email_Address=&membershipID=
->>>
->>> Here is my current list of topics in no particular order, including
->>> the topic moderator:
->>>
->>> Runtime memory consumption (Rob Herring)
->>> Overlay maintenance plan (TBC)
->>> Stable ABI for devicetree (TBC)
->>> DT YAML encoding (Pantelis Antoniou)
->>> DT Schema format - option 1 (Pantelis Antoniou)
->>> DT Schema format - option 2 (Grant Likely)
->>> Sharing Generic bindings (TBC)
->>> devicetree.org update (Grant)
->>>
->>> Reply to this email if you want to propose another topic.
->>>
->>> Reply privately if there is a particular topic you want to attend but
->>> you are unable to be there in the morning or afternoon. I'll put the
->>> actual agenda together a week out from the event.
->>
->>
->> I would like to talk how to add support for AArch32 based on arm64 dts
->> file.
->>
->> And next topic is discuss criteria for adding new DTS board files to
->> kernel for supporting custom boards especially for arm32 which can end
->> up with a lot of dts files in this folder.
->> If make sense to permit only boards with something new or just enable
->> reference boards to go in.
+On Mon, 16 Oct 2017, Joe Perches <joe@perches.com> wrote:
+> On Mon, 2017-10-16 at 17:25 +0300, Jani Nikula wrote:
+>> On Mon, 16 Oct 2017, James Bottomley <James.Bottomley@HansenPartnership.=
+com> wrote:
+>> > On Wed, 2017-10-11 at 21:51 +0300, Jani Nikula wrote:
+>> > > On Mon, 09 Oct 2017, James Bottomley <James.Bottomley@HansenPartnersh
+>> > > ip.com> wrote:
+>> > > >=20
+>> > > > On Mon, 2017-10-09 at 18:49 +0200, Julia Lawall wrote:
+>> > > > >=20
+>> > > > > Do you suggest one big patch, that goes to who?=C2=A0=C2=A0Or lo=
+ts of
+>> > > > > little
+>> > > > > patches that go out at once to the individual maintainers of the
+>> > > > > affected code?
+>> > > >=20
+>> > > > I was actually thinking we validate the script and if there are no
+>> > > > problems, apply it at -rc1 ... so effectively one big patch.
+>> > >=20
+>> > > By -rc1 we (drm in general, drm/i915 in particular) will already have
+>> > > accumulated easily 4-5 weeks' worth of commits for the *next* merge
+>> > > window. Applying treewide stuff to Linus' tree at -rc1 forces a
+>> > > backmerge and potentially conflicts galore
+>> >=20
+>> > If we're applying a semantic patch script (and we've verified it works
+>> > well enough to use the script on the -rc1 main tree), couldn't you
+>> > simply apply it to your tree at the same time?
+>>=20
+>> If we did, the fixes would show up in a later kernel release. Which is
+>> just fine for us. In other words, just let subsystems and drivers handle
+>> this as they see fit?
 >
+> Scheduling and acceptance rates are the issue.
 >
-> I am interested in this, as we seem to be repeating the quantity
-> issue with the board file of having many .dts sources in the kernel.
+> Also some scripted patches require complete treewide
+> application to allow things like API changes.
 
-The problem was not so much having board files in the kernel. It was
-how to scale support for boards and SoCs with each family structuring
-things their own, different way.
+As described in https://lwn.net/Articles/735468/ we have a pretty
+extensive and growing CI system in place. We don't apply a single patch
+without a pre-merge green light from CI, no exceptions. I take issue
+with applying any patches to our driver that didn't go through our CI
+first, let alone bypassing our repositories.
 
-IIRC, the ARM tree was at ~400 boards at the start of DT conversion.
-Now we're at ~1100 boards for arm/arm64. Plus we still have 264 that
-aren't converted to DT.
+If an API change requires a flag day treewide change in a 15M+ line
+hierarchically developed codebase, you're just plain doing it wrong.
 
-> I'm not sure how to deal with this, on one hand only having the
-> reference (and possibly popular) boards is going to keep the size
-> down. On the other hand out of tree .dts files are going to be
-> difficult to find (or vanish with the vendor).
+Please just let subsystems and drivers handle this as they see fit, and
+queue changes via their trees.
 
-Why do we care? What problem is that causing?
+BR,
+Jani.
 
-> It seems we are still no closer to having a DT repository outside
-> the kernel.
 
-In relationship to the above what problem would that solve? We've got
-all the platform maintainers and arm-soc maintainers to handle dts
-files. Mark and myself along with subsystem maintainers reviewing and
-applying device bindings. If you move all that to a separate
-repository, then you have me because no one else has volunteered. I'm
-pretty sure no one wants me as the single point of failure.
-
-Rob
+--=20
+Jani Nikula, Intel Open Source Technology Center
