@@ -1,34 +1,39 @@
-Return-Path: <Tim.Bird@sony.com>
+Return-Path: <frowand.list@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D6583BF5
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 80F6FA88
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 17 Oct 2017 19:03:54 +0000 (UTC)
-Received: from NAM01-SN1-obe.outbound.protection.outlook.com
-	(mail-sn1nam01on0116.outbound.protection.outlook.com [104.47.32.116])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D8C914E8
+	Tue, 17 Oct 2017 23:46:00 +0000 (UTC)
+Received: from mail-pf0-f193.google.com (mail-pf0-f193.google.com
+	[209.85.192.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id EC5AC184
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 17 Oct 2017 19:03:53 +0000 (UTC)
-From: "Bird, Timothy" <Tim.Bird@sony.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>, Kumar Gala
-	<kumar.gala@linaro.org>
-Date: Tue, 17 Oct 2017 19:03:46 +0000
-Message-ID: <ECADFF3FD767C149AD96A924E7EA6EAF3E64B904@USCULXMSG01.am.sony.com>
+	Tue, 17 Oct 2017 23:45:59 +0000 (UTC)
+Received: by mail-pf0-f193.google.com with SMTP id e64so2515227pfk.9
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 17 Oct 2017 16:45:59 -0700 (PDT)
+To: Grant Likely <grant.likely@secretlab.ca>, Rob Herring <robh@kernel.org>
 References: <CACxGe6sxKzNKZbdGA-G=Th2oHwuanyC2kGYuaFcKbSRkuhep+Q@mail.gmail.com>
-	<20171017114823.58476908@bbrezillon>
-	<CACxGe6tPQxwzN14TZtgNhw7OOuePLJxODrn-_b4gMDGzAFEf1Q@mail.gmail.com>
-	<1508257276.74236.38.camel@freebsd.org>
-	<2D4E6B6D-8F07-46D0-BB36-D97916802893@linaro.org>
-	<CAMuHMdW-=-CdnD5Eb_w7fc7=c64i+bu=yv9_c0cj3UM940d8EA@mail.gmail.com>
-In-Reply-To: <CAMuHMdW-=-CdnD5Eb_w7fc7=c64i+bu=yv9_c0cj3UM940d8EA@mail.gmail.com>
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	<39f87f46-da67-11d9-4336-213c13025568@monstr.eu>
+	<8a168960-2dae-35cc-e610-0fe257c9121d@codethink.co.uk>
+	<CAL_JsqJxFJSE-=778oHvNgpaBzhX9mBSzh1a0ZMvwSG69qStLw@mail.gmail.com>
+	<CACxGe6vkxTwUw2ma_ykZQ0JsKUQTeffMC+g4pq6LnaN9qoY2_A@mail.gmail.com>
+From: Frank Rowand <frowand.list@gmail.com>
+Message-ID: <59E69634.7020100@gmail.com>
+Date: Tue, 17 Oct 2017 16:45:56 -0700
 MIME-Version: 1.0
-Cc: "devicetree-spec@vger.kernel.org" <devicetree-spec@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	Ian Lepore <ian@freebsd.org>, "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+In-Reply-To: <CACxGe6vkxTwUw2ma_ykZQ0JsKUQTeffMC+g4pq6LnaN9qoY2_A@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	Kumar Gala <kumar.gala@linaro.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Rob Herring <rob.herring@linaro.org>,
+	"devicetree-spec@vger.kernel.org" <devicetree-spec@vger.kernel.org>,
+	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
+	Andy Gross <andy.gross@linaro.org>, Lucas Stach <l.stach@pengutronix.de>,
+	David Gibson <david@gibson.dropbear.id.au>
 Subject: Re: [Ksummit-discuss] Devicetree Workshop at Kernel Summit Prague
  (26 Oct 2017)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -40,16 +45,115 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tIEdlZXJ0IFV5dHRlcmhvZXZlbiBv
-biBUdWVzZGF5LCBPY3RvYmVyIDE3LCAyMDE3IDEwOjI0IEFNDQo+IE9uIFR1ZSwgT2N0IDE3LCAy
-MDE3IGF0IDc6MDIgUE0sIEt1bWFyIEdhbGEgPGt1bWFyLmdhbGFAbGluYXJvLm9yZz4gd3JvdGU6
-DQo+ID4gSSB0aGluayB0aGlzIGFsc28gZ2V0cyB0byBoYXZpbmcgYmluZGluZ3MgZGVzY3JpYmVk
-IGluIGEgc3RydWN0dXJlZCB3YXkgc28NCj4gdGhleSBjYW4gYmUgdXRpbGl6ZWQgZm9yIHZhbGlk
-YXRpb24gb2YgZHRzIGZpbGVzLiAgV2UgYXJlIGRvaW5nIGEgbGl0dGxlIG9mIHRoaXMgaW4NCj4g
-WmVwaHlyIHNpbmNlIHdlIGFyZSB1c2luZyBhIHN0cnVjdHVyZWQgYmluZGluZyBzcGVjIHRvIGdl
-bmVyYXRlIGNvZGUgZnJvbQ0KPiAuZHRzIChzaW5jZSB3ZSBkb27igJl0IHV0aWxpemUgYSBydW50
-aW1lIGR0YikuDQo+IA0KPiBTbyB5b3UgYXJlIGJhc2ljYWxseSBnZW5lcmF0aW5nIGJvYXJkIGZp
-bGVzIGZyb20gLmR0cz8NCj4gKGNsb3NpbmcgdGhlIGxvb3AgOy0pDQoNCkkgdGhpbmsgd2Ugb3Vn
-aHQgdG8gZG8gdGhpcyBvbiBMaW51eCwgYXMgYSBzaXplIG9wdGltaXphdGlvbi4NCiAtLSBUaW0N
-Cg0KUC5TLiAgSSB0aGluayBJJ2xsIGxlYXZlIGl0IGFtYmlndW91cyB3aGV0aGVyIHRoaXMgd2Fz
-IG1lYW50IGFzIGEgam9rZSBvciBub3QuIDotKQ0K
+On 10/17/17 06:38, Grant Likely wrote:
+> On Mon, Oct 16, 2017 at 8:45 PM, Rob Herring <robh@kernel.org> wrote:
+>> On Mon, Oct 16, 2017 at 11:40 AM, Ben Dooks <ben.dooks@codethink.co.uk> wrote:
+>>> On 16/10/17 06:36, Michal Simek wrote:
+>>>>
+>>>> Hi,
+>>>>
+>>>> On 9.10.2017 22:39, Grant Likely wrote:
+>>>>>
+>>>>> Kernel Summit is now just over 2 weeks away and it is time to pull
+>>>>> together the schedule for the Devicetree workshop. Originally I
+>>>>> planned on just an afternoon, but I've got the room for the whole day,
+>>>>> so I've got a lot of flexibility on the schedule. Unscheduled time can
+>>>>> be used for hacking.
+>>>>>
+>>>>> Date: 26 Oct 2017
+>>>>> Time: 9:00am-5:30pm (Lunch from 12:30-2:30)
+>>>>> Location: Athens room - Hilton Prague
+>>>>>
+>>>>> If you plan to attend, make sure you update your OSSunmitE/ELCE
+>>>>> registration to include the DT Workshop (log in to access and modify
+>>>>> your registration):
+>>>>>
+>>>>>
+>>>>> https://www.regonline.com/register/login.aspx?eventID=1883377&MethodId=0&EventsessionId=&Email_Address=&membershipID=
+>>>>>
+>>>>> Here is my current list of topics in no particular order, including
+>>>>> the topic moderator:
+>>>>>
+>>>>> Runtime memory consumption (Rob Herring)
+>>>>> Overlay maintenance plan (TBC)
+>>>>> Stable ABI for devicetree (TBC)
+>>>>> DT YAML encoding (Pantelis Antoniou)
+>>>>> DT Schema format - option 1 (Pantelis Antoniou)
+>>>>> DT Schema format - option 2 (Grant Likely)
+>>>>> Sharing Generic bindings (TBC)
+>>>>> devicetree.org update (Grant)
+>>>>>
+>>>>> Reply to this email if you want to propose another topic.
+>>>>>
+>>>>> Reply privately if there is a particular topic you want to attend but
+>>>>> you are unable to be there in the morning or afternoon. I'll put the
+>>>>> actual agenda together a week out from the event.
+>>>>
+>>>>
+>>>> I would like to talk how to add support for AArch32 based on arm64 dts
+>>>> file.
+>>>>
+>>>> And next topic is discuss criteria for adding new DTS board files to
+>>>> kernel for supporting custom boards especially for arm32 which can end
+>>>> up with a lot of dts files in this folder.
+>>>> If make sense to permit only boards with something new or just enable
+>>>> reference boards to go in.
+>>>
+>>>
+>>> I am interested in this, as we seem to be repeating the quantity
+>>> issue with the board file of having many .dts sources in the kernel.
+>>
+>> The problem was not so much having board files in the kernel. It was
+>> how to scale support for boards and SoCs with each family structuring
+>> things their own, different way.
+>>
+>> IIRC, the ARM tree was at ~400 boards at the start of DT conversion.
+>> Now we're at ~1100 boards for arm/arm64. Plus we still have 264 that
+>> aren't converted to DT.
+>>
+>>> I'm not sure how to deal with this, on one hand only having the
+>>> reference (and possibly popular) boards is going to keep the size
+>>> down. On the other hand out of tree .dts files are going to be
+>>> difficult to find (or vanish with the vendor).
+>>
+>> Why do we care? What problem is that causing?
+> 
+> In fact, for many platforms that would be a good place to get to if
+> the firmware is providing the .dtb. Plus the DT data formats are so
+> simple that it is not difficult to get a DTB back into a DTS.
+
+No, it _is_ difficult to convert a DTB to a useful DTS.
+
+The DTB might not be easily extracted from a vendor provided
+boot image.
+
+You do not get a full DTS back from a decompiled DTB.  Phandle
+references are integers instead of strings.  Labels are missing.
+
+
+>>
+>>> It seems we are still no closer to having a DT repository outside
+>>> the kernel.
+>>
+>> In relationship to the above what problem would that solve? We've got
+>> all the platform maintainers and arm-soc maintainers to handle dts
+>> files. Mark and myself along with subsystem maintainers reviewing and
+>> applying device bindings. If you move all that to a separate
+>> repository, then you have me because no one else has volunteered. I'm
+>> pretty sure no one wants me as the single point of failure.
+> 
+
+
+> Yes. When it comes to the bindings, and schema files when we have
+> them, they should be maintained with the tools.
+
+Totally disagree.  I'm sure we'll have the same discussion we have had
+at various ELC and ELCE events, where a handful of people want to move
+the DTS files out of the kernel source tree, and the vast majority of
+the room is opposed to that.
+
+
+> 
+> g.
+> .
+> 
