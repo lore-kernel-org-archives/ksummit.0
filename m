@@ -1,30 +1,36 @@
-Return-Path: <rostedt@goodmis.org>
+Return-Path: <andre.przywara@arm.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 868F894F
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D030CBD9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 20 Oct 2017 15:32:07 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0064.hostedemail.com
-	[216.40.44.64])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 25DB1483
+	Wed, 18 Oct 2017 14:29:08 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.101.70])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 0C35712A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 20 Oct 2017 15:32:07 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
-	[10.5.19.251])
-	by smtpgrave06.hostedemail.com (Postfix) with ESMTP id 7A517812311D
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 20 Oct 2017 06:04:43 +0000 (UTC)
-Date: Fri, 20 Oct 2017 02:04:34 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Theodore Ts'o <tytso@mit.edu>
-Message-ID: <20171020020434.731d6615@vmware.local.home>
-In-Reply-To: <20171013001534.x35ipyu5fg3pdbaa@thunk.org>
-References: <20171013001534.x35ipyu5fg3pdbaa@thunk.org>
+	Wed, 18 Oct 2017 14:29:07 +0000 (UTC)
+To: monstr@monstr.eu, Rob Herring <robh@kernel.org>
+References: <CACxGe6sxKzNKZbdGA-G=Th2oHwuanyC2kGYuaFcKbSRkuhep+Q@mail.gmail.com>
+	<39f87f46-da67-11d9-4336-213c13025568@monstr.eu>
+	<CABGGiswXP800Pshc8jpVv3N4O-u2hFHJs-Ut_xVe8xV9ixcJSw@mail.gmail.com>
+	<52c0aa5e-4995-9c0e-babb-60ec84a3deff@monstr.eu>
+From: Andre Przywara <andre.przywara@arm.com>
+Message-ID: <00068711-a9b8-e879-8212-b7eb4141e4b7@arm.com>
+Date: Wed, 18 Oct 2017 15:28:57 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+In-Reply-To: <52c0aa5e-4995-9c0e-babb-60ec84a3deff@monstr.eu>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Draft Agenda for the Kernel Summit
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	Kumar Gala <kumar.gala@linaro.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	devicetree-spec@vger.kernel.org,
+	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
+	Andy Gross <andy.gross@linaro.org>, Lucas Stach <l.stach@pengutronix.de>,
+	David Gibson <david@gibson.dropbear.id.au>
+Subject: Re: [Ksummit-discuss] Devicetree Workshop at Kernel Summit Prague
+ (26 Oct 2017)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,14 +40,106 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, 12 Oct 2017 20:15:34 -0400
-Theodore Ts'o <tytso@mit.edu> wrote:
+Hi,
 
-> Tuesday
-> ========
+On 18/10/17 15:04, Michal Simek wrote:
+> On 16.10.2017 16:11, Rob Herring wrote:
+>> On Mon, Oct 16, 2017 at 12:36 AM, Michal Simek <monstr@monstr.eu> wrote:
+>>> Hi,
+>>>
+>>> On 9.10.2017 22:39, Grant Likely wrote:
+>>>> Kernel Summit is now just over 2 weeks away and it is time to pull
+>>>> together the schedule for the Devicetree workshop. Originally I
+>>>> planned on just an afternoon, but I've got the room for the whole day,
+>>>> so I've got a lot of flexibility on the schedule. Unscheduled time can
+>>>> be used for hacking.
+>>>>
+>>>> Date: 26 Oct 2017
+>>>> Time: 9:00am-5:30pm (Lunch from 12:30-2:30)
+>>>> Location: Athens room - Hilton Prague
+>>>>
+>>>> If you plan to attend, make sure you update your OSSunmitE/ELCE
+>>>> registration to include the DT Workshop (log in to access and modify
+>>>> your registration):
+>>>>
+>>>> https://www.regonline.com/register/login.aspx?eventID=1883377&MethodId=0&EventsessionId=&Email_Address=&membershipID=
+>>>>
+>>>> Here is my current list of topics in no particular order, including
+>>>> the topic moderator:
+>>>>
+>>>> Runtime memory consumption (Rob Herring)
+>>>> Overlay maintenance plan (TBC)
+>>>> Stable ABI for devicetree (TBC)
+>>>> DT YAML encoding (Pantelis Antoniou)
+>>>> DT Schema format - option 1 (Pantelis Antoniou)
+>>>> DT Schema format - option 2 (Grant Likely)
+>>>> Sharing Generic bindings (TBC)
+>>>> devicetree.org update (Grant)
+>>>>
+>>>> Reply to this email if you want to propose another topic.
+>>>>
+>>>> Reply privately if there is a particular topic you want to attend but
+>>>> you are unable to be there in the morning or afternoon. I'll put the
+>>>> actual agenda together a week out from the event.
+>>>
+>>> I would like to talk how to add support for AArch32 based on arm64 dts file.
+>>
+>> We already have that for RPi3, but it's a bit hacky in that you have
+>> to include files from one arch to the other. What I'd like to see
+>> ideally is no dependency on $ARCH to build dts files. You can't build
+>> dts files for an arch without a cross-compiler installed which is an
+>> artificial dependency. The dtb should be independent of whether you're
+>> building for 32 or 64 bit.
+> 
+> I wasn't aware about RPI3 but yes - I have seen the same for ZynqMP.
+> 
+>>
+>> There's the other aspect of being able to do armv8 32-bit builds as
+>> there's no explicit support for v8 in arch/arm/. But that's not a DT
+>> issue.
+> 
+> Yep including Kconfig.platforms is required.
+> 
+>>
+>>> And next topic is discuss criteria for adding new DTS board files to
+>>> kernel for supporting custom boards especially for arm32 which can end
+>>> up with a lot of dts files in this folder.
+>>
+>> We really should move the arm32 files into subdirs for each SoC vendor
+>> IMO, but I think armsoc maintainers have been against that churn.
+> 
+> As you said above maybe we should consider to move all DTS files out of
+> arch folder and sorted them based on SoC vendor. It sounds like a good
+> topic to discuss.
+> 
+> 
+>>> If make sense to permit only boards with something new or just enable
+>>> reference boards to go in.
+>>
+>> The board dts files are generally pretty minimal. What's the issue
+>> here? Just lots of files in arch/arm/boot/dts?
+> 
+> yep. A lot of files there.
 
-> 11:45 Printk redesign (Petr Mladek & Steve Rostedt)
+I was wondering whether we should really stop providing .dts files for
+*boards* in the *kernel* tree. In my impression this was more a stop-gap
+measure to bridge the transition from board files to DT.
 
-Sergey needs to be part of this discussion too.
+Given that the particular board files are rather boring anyway, wouldn't
+it be sufficient to just include the SoC .dtsi plus one (or two) example
+.dts, for instance for the official evaluation board?
+This could be used as a template for creating specific board DTs.
+Ideally vendors could put those on their boards: into some flash or
+integrated into the firmware (as part of U-Boot, for instance).
 
--- Steve
+And having a source for the .dtsi should make it easier to get a
+readable de-compilation of a given .dtb.
+
+We could collect .dts files for boards somewhere else. It's already the
+case that we have some boards with a specific SoC "supported by the
+kernel" and some not, for no technical reason at all, actually. It's
+just whether there is someone willing to post (and push through) a .dts
+file.
+
+Cheers,
+Andre.
