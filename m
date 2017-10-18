@@ -1,46 +1,43 @@
 Return-Path: <robh@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A5DA08EE
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 254A4BDB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 18 Oct 2017 14:14:15 +0000 (UTC)
+	Wed, 18 Oct 2017 15:33:04 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9AD0F12A
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 146F74CE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 18 Oct 2017 14:14:14 +0000 (UTC)
-Received: from mail-qt0-f174.google.com (mail-qt0-f174.google.com
-	[209.85.216.174])
+	Wed, 18 Oct 2017 15:33:02 +0000 (UTC)
+Received: from mail-qk0-f177.google.com (mail-qk0-f177.google.com
+	[209.85.220.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id 3ED502191C
+	by mail.kernel.org (Postfix) with ESMTPSA id A7A9521926
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 18 Oct 2017 14:14:14 +0000 (UTC)
-Received: by mail-qt0-f174.google.com with SMTP id 31so10373512qtz.9
+	Wed, 18 Oct 2017 15:33:02 +0000 (UTC)
+Received: by mail-qk0-f177.google.com with SMTP id d67so6728238qkg.5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 18 Oct 2017 07:14:14 -0700 (PDT)
+	Wed, 18 Oct 2017 08:33:02 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <B7292660-D602-473E-9B47-CF7B4D2449D7@antoniou-consulting.com>
+In-Reply-To: <00068711-a9b8-e879-8212-b7eb4141e4b7@arm.com>
 References: <CACxGe6sxKzNKZbdGA-G=Th2oHwuanyC2kGYuaFcKbSRkuhep+Q@mail.gmail.com>
-	<20171017114823.58476908@bbrezillon>
-	<CACxGe6tPQxwzN14TZtgNhw7OOuePLJxODrn-_b4gMDGzAFEf1Q@mail.gmail.com>
-	<1508257276.74236.38.camel@freebsd.org>
-	<2D4E6B6D-8F07-46D0-BB36-D97916802893@linaro.org>
-	<CAMuHMdW-=-CdnD5Eb_w7fc7=c64i+bu=yv9_c0cj3UM940d8EA@mail.gmail.com>
-	<ECADFF3FD767C149AD96A924E7EA6EAF3E64B904@USCULXMSG01.am.sony.com>
-	<CACxGe6s8CbzRY7L1znq-nQ52eHp3pOu4X3pCX35ocQShnA_Ecw@mail.gmail.com>
-	<B7292660-D602-473E-9B47-CF7B4D2449D7@antoniou-consulting.com>
+	<39f87f46-da67-11d9-4336-213c13025568@monstr.eu>
+	<CABGGiswXP800Pshc8jpVv3N4O-u2hFHJs-Ut_xVe8xV9ixcJSw@mail.gmail.com>
+	<52c0aa5e-4995-9c0e-babb-60ec84a3deff@monstr.eu>
+	<00068711-a9b8-e879-8212-b7eb4141e4b7@arm.com>
 From: Rob Herring <robh@kernel.org>
-Date: Wed, 18 Oct 2017 09:13:52 -0500
-Message-ID: <CAL_JsqJk8mnNGo=eywW0wApxNeLM3dQ0MQAeP6UKNRW852zs=A@mail.gmail.com>
-To: Pantelis Antoniou <panto@antoniou-consulting.com>
+Date: Wed, 18 Oct 2017 10:32:41 -0500
+Message-ID: <CAL_Jsq+JiLgPLZSncWu=rQh80pnCXd0WpkLEkASPXeFSOMt4yg@mail.gmail.com>
+To: Andre Przywara <andre.przywara@arm.com>, Michal Simek <monstr@monstr.eu>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
 	Kumar Gala <kumar.gala@linaro.org>,
 	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>, Ian Lepore <ian@freebsd.org>,
+	<ksummit-discuss@lists.linuxfoundation.org>,
 	"devicetree-spec@vger.kernel.org" <devicetree-spec@vger.kernel.org>,
-	"Bird, Timothy" <Tim.Bird@sony.com>
+	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
+	Andy Gross <andy.gross@linaro.org>, Lucas Stach <l.stach@pengutronix.de>,
+	David Gibson <david@gibson.dropbear.id.au>
 Subject: Re: [Ksummit-discuss] Devicetree Workshop at Kernel Summit Prague
  (26 Oct 2017)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -52,66 +49,152 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Oct 18, 2017 at 7:59 AM, Pantelis Antoniou
-<panto@antoniou-consulting.com> wrote:
-> Hi Grant,
+On Wed, Oct 18, 2017 at 9:28 AM, Andre Przywara <andre.przywara@arm.com> wrote:
+> Hi,
 >
->> On Oct 18, 2017, at 15:14 , Grant Likely <grant.likely@secretlab.ca> wro=
-te:
->>
->> On Tue, Oct 17, 2017 at 8:03 PM, Bird, Timothy <Tim.Bird@sony.com> wrote=
-:
->>>> -----Original Message-----
->>>> From Geert Uytterhoeven on Tuesday, October 17, 2017 10:24 AM
->>>> On Tue, Oct 17, 2017 at 7:02 PM, Kumar Gala <kumar.gala@linaro.org> wr=
-ote:
->>>>> I think this also gets to having bindings described in a structured w=
-ay so
->>>> they can be utilized for validation of dts files.  We are doing a litt=
-le of this in
->>>> Zephyr since we are using a structured binding spec to generate code f=
-rom
->>>> .dts (since we don=E2=80=99t utilize a runtime dtb).
+> On 18/10/17 15:04, Michal Simek wrote:
+>> On 16.10.2017 16:11, Rob Herring wrote:
+>>> On Mon, Oct 16, 2017 at 12:36 AM, Michal Simek <monstr@monstr.eu> wrote:
+>>>> Hi,
 >>>>
->>>> So you are basically generating board files from .dts?
->>>> (closing the loop ;-)
-
-Briefly, what Zephyr is doing is controlling configuration (what
-drivers are built) and generating register base addresses and maybe
-interrupts. That's not really board.dts -> board.c.
-
+>>>> On 9.10.2017 22:39, Grant Likely wrote:
+>>>>> Kernel Summit is now just over 2 weeks away and it is time to pull
+>>>>> together the schedule for the Devicetree workshop. Originally I
+>>>>> planned on just an afternoon, but I've got the room for the whole day,
+>>>>> so I've got a lot of flexibility on the schedule. Unscheduled time can
+>>>>> be used for hacking.
+>>>>>
+>>>>> Date: 26 Oct 2017
+>>>>> Time: 9:00am-5:30pm (Lunch from 12:30-2:30)
+>>>>> Location: Athens room - Hilton Prague
+>>>>>
+>>>>> If you plan to attend, make sure you update your OSSunmitE/ELCE
+>>>>> registration to include the DT Workshop (log in to access and modify
+>>>>> your registration):
+>>>>>
+>>>>> https://www.regonline.com/register/login.aspx?eventID=1883377&MethodId=0&EventsessionId=&Email_Address=&membershipID=
+>>>>>
+>>>>> Here is my current list of topics in no particular order, including
+>>>>> the topic moderator:
+>>>>>
+>>>>> Runtime memory consumption (Rob Herring)
+>>>>> Overlay maintenance plan (TBC)
+>>>>> Stable ABI for devicetree (TBC)
+>>>>> DT YAML encoding (Pantelis Antoniou)
+>>>>> DT Schema format - option 1 (Pantelis Antoniou)
+>>>>> DT Schema format - option 2 (Grant Likely)
+>>>>> Sharing Generic bindings (TBC)
+>>>>> devicetree.org update (Grant)
+>>>>>
+>>>>> Reply to this email if you want to propose another topic.
+>>>>>
+>>>>> Reply privately if there is a particular topic you want to attend but
+>>>>> you are unable to be there in the morning or afternoon. I'll put the
+>>>>> actual agenda together a week out from the event.
+>>>>
+>>>> I would like to talk how to add support for AArch32 based on arm64 dts file.
 >>>
->>> I think we ought to do this on Linux, as a size optimization.
->>> -- Tim
->>>
->>> P.S.  I think I'll leave it ambiguous whether this was meant as a joke =
-or not. :-)
+>>> We already have that for RPi3, but it's a bit hacky in that you have
+>>> to include files from one arch to the other. What I'd like to see
+>>> ideally is no dependency on $ARCH to build dts files. You can't build
+>>> dts files for an arch without a cross-compiler installed which is an
+>>> artificial dependency. The dtb should be independent of whether you're
+>>> building for 32 or 64 bit.
 >>
->
-> As crazy that sounds it is possible using the YAML bindings, i.e. C struc=
-ture definitions
-> and fill-up from DT automatically. Whether this is a good idea it=E2=80=
-=99s another question :)
+>> I wasn't aware about RPI3 but yes - I have seen the same for ZynqMP.
+>>
+>>>
+>>> There's the other aspect of being able to do armv8 32-bit builds as
+>>> there's no explicit support for v8 in arch/arm/. But that's not a DT
+>>> issue.
+>>
+>> Yep including Kconfig.platforms is required.
+>>
+>>>
+>>>> And next topic is discuss criteria for adding new DTS board files to
+>>>> kernel for supporting custom boards especially for arm32 which can end
+>>>> up with a lot of dts files in this folder.
+>>>
+>>> We really should move the arm32 files into subdirs for each SoC vendor
+>>> IMO, but I think armsoc maintainers have been against that churn.
+>>
+>> As you said above maybe we should consider to move all DTS files out of
+>> arch folder and sorted them based on SoC vendor. It sounds like a good
+>> topic to discuss.
 
-Yeah, yeah. YAML solves *all* the problems.
+That is 2 separate topics really. For the latter, you need to come up
+with reasons to justify the churn.
 
->> Talk to Nicolas Pitre and Rob Herring about this. They've already made
->> a bunch of progress on reducing memory footprint.
+>>>> If make sense to permit only boards with something new or just enable
+>>>> reference boards to go in.
+>>>
+>>> The board dts files are generally pretty minimal. What's the issue
+>>> here? Just lots of files in arch/arm/boot/dts?
+>>
+>> yep. A lot of files there.
 
-Or just look at linux-next. :) The focus is purely on runtime RAM
-usage with all code being XIP. Basically, I've reduced the size of the
-unflattened tree by skipping unflattening of disabled nodes and
-shrinking the unflattened tree structs. For example removing the
-kobject for !SYSFS. This reduced RAM usage from 120K to 11K on an
-stm32 board. The next thing in the heat map of RAM usage is struct
-device size. There's some things like DMA related elements that could
-be moved to separate structures, but that will be quite invasive.
+Are we approaching the limits of # of files in one directory? Is
+Arnd/Olof or Linus complaining about there being too many files to
+maintain? Do sub-arch maintainers not know which files are theirs?
+What problem are we trying to solve here?
 
-Another idea is to run the kernel unflattening code on the tree at
-build time and embed that as const data into the kernel. The
-unflattening code is pretty self contained and XIP images are platform
-specific anyway. It would also allow running all dtb files thru
-unflattening at build time for some validation. Though I'm not sure
-there's anything unflattening would fail on that dtc can't check.
+If we're talking about moving bindings and dts files out of the
+kernel, then call it that. Otherwise, let's not mix the topics. Unless
+you want nothing to happen then tie it to moving to a separate
+repository.
+
+> I was wondering whether we should really stop providing .dts files for
+> *boards* in the *kernel* tree. In my impression this was more a stop-gap
+> measure to bridge the transition from board files to DT.
+
+Not really. A stop-gap would be a couple of kernel cycles in my mind.
+PPC dts files have been there forever practically.
+
+> Given that the particular board files are rather boring anyway, wouldn't
+> it be sufficient to just include the SoC .dtsi plus one (or two) example
+> .dts, for instance for the official evaluation board?
+
+That sounds horrible to manage. You are assuming the split between
+board and SoC specifics are done perfectly from the start. I haven't
+checked the history, but I'm going to guess that has not been the
+case. That would effectively make the split be an ABI. Folks have
+enough issues with the entire dtb being an ABI.
+
+However, there is a coming issue with Android project Treble which
+does say all board specifics are an overlay (or multiple overlays) to
+a common SoC base dtb which does make the split an ABI. For mainline
+to handle this, we'd need to start making the board files overlays.
+And to not break everything, we'd need to apply those overlays at
+build time to produce a single board dtb. OTOH, phones aren't really
+supported in mainline and vendors will do it wrong before mainline
+gets around to it.
+
+> This could be used as a template for creating specific board DTs.
+> Ideally vendors could put those on their boards: into some flash or
+> integrated into the firmware (as part of U-Boot, for instance).
+
+That's really a separate problem from where are dts files maintained.
+
+Does u-boot support using the same dtb to configure itself and to pass
+to the kernel yet? That was a foreign concept though I think it was
+being worked on.
+
+> And having a source for the .dtsi should make it easier to get a
+> readable de-compilation of a given .dtb.
+
+If such a tool existed to add back the annotations. YAML will solve
+that, I'm sure.
+
+> We could collect .dts files for boards somewhere else. It's already the
+> case that we have some boards with a specific SoC "supported by the
+> kernel" and some not, for no technical reason at all, actually. It's
+> just whether there is someone willing to post (and push through) a .dts
+> file.
+
+We could start accepting (but not requiring) patches against the
+devicetree-rebasing.git tree if that solves the problem of "kernel
+bindings" and "kernel dts files". We can mechanically convert their
+paths back to kernel paths and apply them. I've got no issue signing
+up to that because I fully expect that to be only a trickle.
 
 Rob
