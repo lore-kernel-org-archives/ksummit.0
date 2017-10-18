@@ -1,33 +1,31 @@
-Return-Path: <andre.przywara@arm.com>
+Return-Path: <andrew@fubar.geek.nz>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D918AC79
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 410C95AA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 18 Oct 2017 16:05:47 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.101.70])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id C08274F3
+	Wed, 18 Oct 2017 23:36:12 +0000 (UTC)
+Received: from fry.fubar.geek.nz (fry.fubar.geek.nz [139.59.165.16])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 727F6196
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 18 Oct 2017 16:05:46 +0000 (UTC)
-To: Rob Herring <robh@kernel.org>, Michal Simek <monstr@monstr.eu>
-References: <CACxGe6sxKzNKZbdGA-G=Th2oHwuanyC2kGYuaFcKbSRkuhep+Q@mail.gmail.com>
-	<39f87f46-da67-11d9-4336-213c13025568@monstr.eu>
-	<CABGGiswXP800Pshc8jpVv3N4O-u2hFHJs-Ut_xVe8xV9ixcJSw@mail.gmail.com>
-	<52c0aa5e-4995-9c0e-babb-60ec84a3deff@monstr.eu>
-	<00068711-a9b8-e879-8212-b7eb4141e4b7@arm.com>
-	<CAL_Jsq+JiLgPLZSncWu=rQh80pnCXd0WpkLEkASPXeFSOMt4yg@mail.gmail.com>
-From: Andre Przywara <andre.przywara@arm.com>
-Message-ID: <44857e9c-85c3-f1f7-514d-28d9966d243e@arm.com>
-Date: Wed, 18 Oct 2017 17:05:35 +0100
-MIME-Version: 1.0
-In-Reply-To: <CAL_Jsq+JiLgPLZSncWu=rQh80pnCXd0WpkLEkASPXeFSOMt4yg@mail.gmail.com>
+	Wed, 18 Oct 2017 23:36:11 +0000 (UTC)
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	Kumar Gala <kumar.gala@linaro.org>,
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+From: Andrew Turner <andrew@fubar.geek.nz>
+In-Reply-To: <20171018175910.GP12015@bill-the-cat>
+Date: Thu, 19 Oct 2017 00:28:56 +0100
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <FD387FCC-3F95-48DF-B412-3384EF96FCFC@fubar.geek.nz>
+References: <CACxGe6sxKzNKZbdGA-G=Th2oHwuanyC2kGYuaFcKbSRkuhep+Q@mail.gmail.com>
+	<20171017114823.58476908@bbrezillon>
+	<CAGb2v67GU4uW7uPMrqFjTW0qBR6LPNeX4Md+tf9S=HRWT_GVqA@mail.gmail.com>
+	<20171018110958.mh76pngzluazmc7y@sirena.co.uk>
+	<20171018175910.GP12015@bill-the-cat>
+To: Tom Rini <trini@konsulko.com>
+Cc: Rob Herring <rob.herring@linaro.org>, Kumar Gala <kumar.gala@linaro.org>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	"devicetree-spec@vger.kernel.org" <devicetree-spec@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	devicetree-spec@vger.kernel.org,
 	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
 	Andy Gross <andy.gross@linaro.org>, Lucas Stach <l.stach@pengutronix.de>,
 	David Gibson <david@gibson.dropbear.id.au>
@@ -42,191 +40,55 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi,
 
-On 18/10/17 16:32, Rob Herring wrote:
-> On Wed, Oct 18, 2017 at 9:28 AM, Andre Przywara <andre.przywara@arm.com> wrote:
->> Hi,
->>
->> On 18/10/17 15:04, Michal Simek wrote:
->>> On 16.10.2017 16:11, Rob Herring wrote:
->>>> On Mon, Oct 16, 2017 at 12:36 AM, Michal Simek <monstr@monstr.eu> wrote:
->>>>> Hi,
->>>>>
->>>>> On 9.10.2017 22:39, Grant Likely wrote:
->>>>>> Kernel Summit is now just over 2 weeks away and it is time to pull
->>>>>> together the schedule for the Devicetree workshop. Originally I
->>>>>> planned on just an afternoon, but I've got the room for the whole day,
->>>>>> so I've got a lot of flexibility on the schedule. Unscheduled time can
->>>>>> be used for hacking.
->>>>>>
->>>>>> Date: 26 Oct 2017
->>>>>> Time: 9:00am-5:30pm (Lunch from 12:30-2:30)
->>>>>> Location: Athens room - Hilton Prague
->>>>>>
->>>>>> If you plan to attend, make sure you update your OSSunmitE/ELCE
->>>>>> registration to include the DT Workshop (log in to access and modify
->>>>>> your registration):
->>>>>>
->>>>>> https://www.regonline.com/register/login.aspx?eventID=1883377&MethodId=0&EventsessionId=&Email_Address=&membershipID=
->>>>>>
->>>>>> Here is my current list of topics in no particular order, including
->>>>>> the topic moderator:
->>>>>>
->>>>>> Runtime memory consumption (Rob Herring)
->>>>>> Overlay maintenance plan (TBC)
->>>>>> Stable ABI for devicetree (TBC)
->>>>>> DT YAML encoding (Pantelis Antoniou)
->>>>>> DT Schema format - option 1 (Pantelis Antoniou)
->>>>>> DT Schema format - option 2 (Grant Likely)
->>>>>> Sharing Generic bindings (TBC)
->>>>>> devicetree.org update (Grant)
->>>>>>
->>>>>> Reply to this email if you want to propose another topic.
->>>>>>
->>>>>> Reply privately if there is a particular topic you want to attend but
->>>>>> you are unable to be there in the morning or afternoon. I'll put the
->>>>>> actual agenda together a week out from the event.
->>>>>
->>>>> I would like to talk how to add support for AArch32 based on arm64 dts file.
->>>>
->>>> We already have that for RPi3, but it's a bit hacky in that you have
->>>> to include files from one arch to the other. What I'd like to see
->>>> ideally is no dependency on $ARCH to build dts files. You can't build
->>>> dts files for an arch without a cross-compiler installed which is an
->>>> artificial dependency. The dtb should be independent of whether you're
->>>> building for 32 or 64 bit.
->>>
->>> I wasn't aware about RPI3 but yes - I have seen the same for ZynqMP.
->>>
->>>>
->>>> There's the other aspect of being able to do armv8 32-bit builds as
->>>> there's no explicit support for v8 in arch/arm/. But that's not a DT
->>>> issue.
->>>
->>> Yep including Kconfig.platforms is required.
->>>
->>>>
->>>>> And next topic is discuss criteria for adding new DTS board files to
->>>>> kernel for supporting custom boards especially for arm32 which can end
->>>>> up with a lot of dts files in this folder.
->>>>
->>>> We really should move the arm32 files into subdirs for each SoC vendor
->>>> IMO, but I think armsoc maintainers have been against that churn.
->>>
->>> As you said above maybe we should consider to move all DTS files out of
->>> arch folder and sorted them based on SoC vendor. It sounds like a good
->>> topic to discuss.
-> 
-> That is 2 separate topics really. For the latter, you need to come up
-> with reasons to justify the churn.
-> 
->>>>> If make sense to permit only boards with something new or just enable
->>>>> reference boards to go in.
->>>>
->>>> The board dts files are generally pretty minimal. What's the issue
->>>> here? Just lots of files in arch/arm/boot/dts?
->>>
->>> yep. A lot of files there.
-> 
-> Are we approaching the limits of # of files in one directory? Is
-> Arnd/Olof or Linus complaining about there being too many files to
-> maintain? Do sub-arch maintainers not know which files are theirs?
-> What problem are we trying to solve here?
-> 
-> If we're talking about moving bindings and dts files out of the
-> kernel, then call it that. Otherwise, let's not mix the topics. Unless
-> you want nothing to happen then tie it to moving to a separate
-> repository.
-> 
->> I was wondering whether we should really stop providing .dts files for
->> *boards* in the *kernel* tree. In my impression this was more a stop-gap
->> measure to bridge the transition from board files to DT.
-> 
-> Not really. A stop-gap would be a couple of kernel cycles in my mind.
-> PPC dts files have been there forever practically.
-> 
->> Given that the particular board files are rather boring anyway, wouldn't
->> it be sufficient to just include the SoC .dtsi plus one (or two) example
->> .dts, for instance for the official evaluation board?
-> 
-> That sounds horrible to manage. You are assuming the split between
-> board and SoC specifics are done perfectly from the start. I haven't
-> checked the history, but I'm going to guess that has not been the
-> case. That would effectively make the split be an ABI. Folks have
-> enough issues with the entire dtb being an ABI.
+> On 18 Oct 2017, at 18:59, Tom Rini <trini@konsulko.com> wrote:
+>=20
+> On Wed, Oct 18, 2017 at 12:09:58PM +0100, Mark Brown wrote:
+>> On Wed, Oct 18, 2017 at 06:35:24PM +0800, Chen-Yu Tsai wrote:
+>>=20
+>>> I'd like to add something on the topic of non-Linux projects. In =
+this
+>>> case it's diverging DT bindings from U-boot:
+>>=20
+>>> https://patchwork.ozlabs.org/patch/823158/
+>>=20
+>>> U-boot already has a set of devicetree binding additions:
+>>> =
+https://github.com/u-boot/u-boot/tree/master/doc/device-tree-bindings
+>>=20
+>>> The patch in question wants to ab(use) the regulator-name property =
+for
+>>> driver instance binding. In my opinion this is not going to fly, as
+>>> boards are free to define the names. This either sees no use other =
+than
+>>> as a dirty workaround for dts files that aren't following the PMIC
+>>> regulator bindings (regulator node names should follow well defined,
+>>> identifying names), or results in divergence of the DT files.
+>>=20
+>> One meta issue I'm seeing here is that the u-boot people appear to =
+have
+>> their own divergent copy of some of the binding documents.
+>=20
+> Putting on my U-Boot hat now, it's mostly unintentional and something =
+in
+> general (yes, the initial topic here is not such an example) we try =
+and
+> avoid, or use u-boot, as the prefix on as it's something that had been
+> previously rejected or deemed inappropriate to be in the upstream
+> version of the binding.
+>=20
+> But perhaps it's time to try and force the issue again, given what Rob
+> and others have said in other parts of the thread.
 
-I agree that we should not create an ABI between the SoC's .dtsi the
-board's .dts files. But eventually people would put *.dtbs* on their
-boards, so we don't really care, as long as they are created from the
-right combination of both.
-At the end of the day a vendor actually doesn't really need to provide a
-DT matching exactly the kernel version, as long as it does not violate
-any bindings.
+=46rom the FreeBSD perspective I=E2=80=99d like it if there was a common =
+repo for all devicetree consumers to share. We are trying to not have =
+FreeBSD specific properties as this has caused issues in the past where =
+we had (and still have) FreeBSD specific dts files. We are trying to =
+remove these as drivers are updated to handle the common bindings.
 
-> However, there is a coming issue with Android project Treble which
-> does say all board specifics are an overlay (or multiple overlays) to
-> a common SoC base dtb which does make the split an ABI. For mainline
-> to handle this, we'd need to start making the board files overlays.
+I have also spoken with some NetBSD and OpenBSD developers. They are =
+both using devicetree to handle device enumeration. Having all 5 =
+projects using a common set of dts files and binding would simplify =
+keeping them in sync.
 
-That does not sound good ...
-
-> And to not break everything, we'd need to apply those overlays at
-> build time to produce a single board dtb. OTOH, phones aren't really
-> supported in mainline and vendors will do it wrong before mainline
-> gets around to it.
-> 
->> This could be used as a template for creating specific board DTs.
->> Ideally vendors could put those on their boards: into some flash or
->> integrated into the firmware (as part of U-Boot, for instance).
-> 
-> That's really a separate problem from where are dts files maintained.
-> 
-> Does u-boot support using the same dtb to configure itself and to pass
-> to the kernel yet? That was a foreign concept though I think it was
-> being worked on.
-
-That works already for some platforms or SoCs, as long as someone cares
-to keep the U-Boot copy up-to-date with the kernel version [1].
-I boot the Pine64 with $fdtcontroladdr (which points to U-Boot's .dtb)
-these days, without the need to load any .dtb. And on some boards U-Boot
-lives in SPI flash, so the .dtb is really tied to the board. Like on
-Highbank/Midway ;-)
-
-Also this is the default address which the bootuefi command takes when
-there is nothing more specific provided.
-
-But this is purely platform specific, and for some of them the DT used
-in U-Boot is quite different from the kernel version. Although this can
-be fixed, as the U-Boot drivers can be changed and don't adhere to some ABI.
-
->> And having a source for the .dtsi should make it easier to get a
->> readable de-compilation of a given .dtb.
-> 
-> If such a tool existed to add back the annotations. YAML will solve
-> that, I'm sure.
-
-Yes, but you need some extra JSON to recover the formatting ;-)
-
->> We could collect .dts files for boards somewhere else. It's already the
->> case that we have some boards with a specific SoC "supported by the
->> kernel" and some not, for no technical reason at all, actually. It's
->> just whether there is someone willing to post (and push through) a .dts
->> file.
-> 
-> We could start accepting (but not requiring) patches against the
-> devicetree-rebasing.git tree if that solves the problem of "kernel
-> bindings" and "kernel dts files". We can mechanically convert their
-> paths back to kernel paths and apply them. I've got no issue signing
-> up to that because I fully expect that to be only a trickle.
-
-But that would mean that they would still live in the kernel, right?
-
-Cheers,
-Andre.
-
-[1]
-http://git.denx.de/?p=u-boot.git;a=commit;h=f98852bfa9a99d7258eb06e4849e5c3d075f44cf
-> 
-> Rob
-> 
+Andrew
