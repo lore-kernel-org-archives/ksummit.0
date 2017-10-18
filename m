@@ -1,39 +1,38 @@
-Return-Path: <Tim.Bird@sony.com>
+Return-Path: <trini@konsulko.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2FAF4BD9
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 07F9E486
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 18 Oct 2017 17:45:41 +0000 (UTC)
-Received: from NAM03-CO1-obe.outbound.protection.outlook.com
-	(mail-co1nam03on0101.outbound.protection.outlook.com [104.47.40.101])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BE7AB4BE
+	Wed, 18 Oct 2017 17:59:15 +0000 (UTC)
+Received: from mail-yw0-f196.google.com (mail-yw0-f196.google.com
+	[209.85.161.196])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 63F6144D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 18 Oct 2017 17:45:39 +0000 (UTC)
-From: "Bird, Timothy" <Tim.Bird@sony.com>
-To: Rob Herring <robh@kernel.org>, Pantelis Antoniou
-	<panto@antoniou-consulting.com>
-Date: Wed, 18 Oct 2017 17:45:33 +0000
-Message-ID: <ECADFF3FD767C149AD96A924E7EA6EAF3E64BBED@USCULXMSG01.am.sony.com>
+	Wed, 18 Oct 2017 17:59:14 +0000 (UTC)
+Received: by mail-yw0-f196.google.com with SMTP id w5so1286651ywg.11
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 18 Oct 2017 10:59:14 -0700 (PDT)
+Date: Wed, 18 Oct 2017 13:59:10 -0400
+From: Tom Rini <trini@konsulko.com>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <20171018175910.GP12015@bill-the-cat>
 References: <CACxGe6sxKzNKZbdGA-G=Th2oHwuanyC2kGYuaFcKbSRkuhep+Q@mail.gmail.com>
 	<20171017114823.58476908@bbrezillon>
-	<CACxGe6tPQxwzN14TZtgNhw7OOuePLJxODrn-_b4gMDGzAFEf1Q@mail.gmail.com>
-	<1508257276.74236.38.camel@freebsd.org>
-	<2D4E6B6D-8F07-46D0-BB36-D97916802893@linaro.org>
-	<CAMuHMdW-=-CdnD5Eb_w7fc7=c64i+bu=yv9_c0cj3UM940d8EA@mail.gmail.com>
-	<ECADFF3FD767C149AD96A924E7EA6EAF3E64B904@USCULXMSG01.am.sony.com>
-	<CACxGe6s8CbzRY7L1znq-nQ52eHp3pOu4X3pCX35ocQShnA_Ecw@mail.gmail.com>
-	<B7292660-D602-473E-9B47-CF7B4D2449D7@antoniou-consulting.com>
-	<CAL_JsqJk8mnNGo=eywW0wApxNeLM3dQ0MQAeP6UKNRW852zs=A@mail.gmail.com>
-In-Reply-To: <CAL_JsqJk8mnNGo=eywW0wApxNeLM3dQ0MQAeP6UKNRW852zs=A@mail.gmail.com>
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	<CAGb2v67GU4uW7uPMrqFjTW0qBR6LPNeX4Md+tf9S=HRWT_GVqA@mail.gmail.com>
+	<20171018110958.mh76pngzluazmc7y@sirena.co.uk>
 MIME-Version: 1.0
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	Kumar Gala <kumar.gala@linaro.org>,
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="Y5U3e7U54RGuQ3mm"
+Content-Disposition: inline
+In-Reply-To: <20171018110958.mh76pngzluazmc7y@sirena.co.uk>
+Cc: Rob Herring <rob.herring@linaro.org>, Kumar Gala <kumar.gala@linaro.org>,
 	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>, Ian Lepore <ian@freebsd.org>,
-	"devicetree-spec@vger.kernel.org" <devicetree-spec@vger.kernel.org>
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	devicetree-spec@vger.kernel.org,
+	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
+	Andy Gross <andy.gross@linaro.org>, Lucas Stach <l.stach@pengutronix.de>,
+	David Gibson <david@gibson.dropbear.id.au>
 Subject: Re: [Ksummit-discuss] Devicetree Workshop at Kernel Summit Prague
  (26 Oct 2017)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -45,56 +44,64 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogUm9iIG9uIFdlZG5lc2Rh
-eSwgT2N0b2JlciAxOCwgMjAxNyA3OjE0IEFNDQo+IE9uIFdlZCwgT2N0IDE4LCAyMDE3IGF0IDc6
-NTkgQU0sIFBhbnRlbGlzIEFudG9uaW91DQo+IDxwYW50b0BhbnRvbmlvdS1jb25zdWx0aW5nLmNv
-bT4gd3JvdGU6DQo+ID4gSGkgR3JhbnQsDQo+ID4NCj4gPj4gT24gT2N0IDE4LCAyMDE3LCBhdCAx
-NToxNCAsIEdyYW50IExpa2VseSA8Z3JhbnQubGlrZWx5QHNlY3JldGxhYi5jYT4gd3JvdGU6DQo+
-ID4+DQo+ID4+IE9uIFR1ZSwgT2N0IDE3LCAyMDE3IGF0IDg6MDMgUE0sIEJpcmQsIFRpbW90aHkg
-PFRpbS5CaXJkQHNvbnkuY29tPg0KPiB3cm90ZToNCj4gPj4+PiAtLS0tLU9yaWdpbmFsIE1lc3Nh
-Z2UtLS0tLQ0KPiA+Pj4+IEZyb20gR2VlcnQgVXl0dGVyaG9ldmVuIG9uIFR1ZXNkYXksIE9jdG9i
-ZXIgMTcsIDIwMTcgMTA6MjQgQU0NCj4gPj4+PiBPbiBUdWUsIE9jdCAxNywgMjAxNyBhdCA3OjAy
-IFBNLCBLdW1hciBHYWxhIDxrdW1hci5nYWxhQGxpbmFyby5vcmc+DQo+IHdyb3RlOg0KPiA+Pj4+
-PiBJIHRoaW5rIHRoaXMgYWxzbyBnZXRzIHRvIGhhdmluZyBiaW5kaW5ncyBkZXNjcmliZWQgaW4g
-YSBzdHJ1Y3R1cmVkIHdheQ0KPiBzbw0KPiA+Pj4+IHRoZXkgY2FuIGJlIHV0aWxpemVkIGZvciB2
-YWxpZGF0aW9uIG9mIGR0cyBmaWxlcy4gIFdlIGFyZSBkb2luZyBhIGxpdHRsZSBvZg0KPiB0aGlz
-IGluDQo+ID4+Pj4gWmVwaHlyIHNpbmNlIHdlIGFyZSB1c2luZyBhIHN0cnVjdHVyZWQgYmluZGlu
-ZyBzcGVjIHRvIGdlbmVyYXRlIGNvZGUNCj4gZnJvbQ0KPiA+Pj4+IC5kdHMgKHNpbmNlIHdlIGRv
-buKAmXQgdXRpbGl6ZSBhIHJ1bnRpbWUgZHRiKS4NCj4gPj4+Pg0KPiA+Pj4+IFNvIHlvdSBhcmUg
-YmFzaWNhbGx5IGdlbmVyYXRpbmcgYm9hcmQgZmlsZXMgZnJvbSAuZHRzPw0KPiA+Pj4+IChjbG9z
-aW5nIHRoZSBsb29wIDstKQ0KPiANCj4gQnJpZWZseSwgd2hhdCBaZXBoeXIgaXMgZG9pbmcgaXMg
-Y29udHJvbGxpbmcgY29uZmlndXJhdGlvbiAod2hhdA0KPiBkcml2ZXJzIGFyZSBidWlsdCkgYW5k
-IGdlbmVyYXRpbmcgcmVnaXN0ZXIgYmFzZSBhZGRyZXNzZXMgYW5kIG1heWJlDQo+IGludGVycnVw
-dHMuIFRoYXQncyBub3QgcmVhbGx5IGJvYXJkLmR0cyAtPiBib2FyZC5jLg0KPiANCj4gPj4+DQo+
-ID4+PiBJIHRoaW5rIHdlIG91Z2h0IHRvIGRvIHRoaXMgb24gTGludXgsIGFzIGEgc2l6ZSBvcHRp
-bWl6YXRpb24uDQo+ID4+PiAtLSBUaW0NCj4gPj4+DQo+ID4+PiBQLlMuICBJIHRoaW5rIEknbGwg
-bGVhdmUgaXQgYW1iaWd1b3VzIHdoZXRoZXIgdGhpcyB3YXMgbWVhbnQgYXMgYSBqb2tlIG9yDQo+
-IG5vdC4gOi0pDQo+ID4+DQo+ID4NCj4gPiBBcyBjcmF6eSB0aGF0IHNvdW5kcyBpdCBpcyBwb3Nz
-aWJsZSB1c2luZyB0aGUgWUFNTCBiaW5kaW5ncywgaS5lLiBDIHN0cnVjdHVyZQ0KPiBkZWZpbml0
-aW9ucw0KPiA+IGFuZCBmaWxsLXVwIGZyb20gRFQgYXV0b21hdGljYWxseS4gV2hldGhlciB0aGlz
-IGlzIGEgZ29vZCBpZGVhIGl04oCZcyBhbm90aGVyDQo+IHF1ZXN0aW9uIDopDQo+IA0KPiBZZWFo
-LCB5ZWFoLiBZQU1MIHNvbHZlcyAqYWxsKiB0aGUgcHJvYmxlbXMuDQo+IA0KPiA+PiBUYWxrIHRv
-IE5pY29sYXMgUGl0cmUgYW5kIFJvYiBIZXJyaW5nIGFib3V0IHRoaXMuIFRoZXkndmUgYWxyZWFk
-eSBtYWRlDQo+ID4+IGEgYnVuY2ggb2YgcHJvZ3Jlc3Mgb24gcmVkdWNpbmcgbWVtb3J5IGZvb3Rw
-cmludC4NCj4gDQo+IE9yIGp1c3QgbG9vayBhdCBsaW51eC1uZXh0LiA6KSBUaGUgZm9jdXMgaXMg
-cHVyZWx5IG9uIHJ1bnRpbWUgUkFNDQo+IHVzYWdlIHdpdGggYWxsIGNvZGUgYmVpbmcgWElQLiBC
-YXNpY2FsbHksIEkndmUgcmVkdWNlZCB0aGUgc2l6ZSBvZiB0aGUNCj4gdW5mbGF0dGVuZWQgdHJl
-ZSBieSBza2lwcGluZyB1bmZsYXR0ZW5pbmcgb2YgZGlzYWJsZWQgbm9kZXMgYW5kDQo+IHNocmlu
-a2luZyB0aGUgdW5mbGF0dGVuZWQgdHJlZSBzdHJ1Y3RzLiBGb3IgZXhhbXBsZSByZW1vdmluZyB0
-aGUNCj4ga29iamVjdCBmb3IgIVNZU0ZTLiBUaGlzIHJlZHVjZWQgUkFNIHVzYWdlIGZyb20gMTIw
-SyB0byAxMUsgb24gYW4NCj4gc3RtMzIgYm9hcmQuIFRoZSBuZXh0IHRoaW5nIGluIHRoZSBoZWF0
-IG1hcCBvZiBSQU0gdXNhZ2UgaXMgc3RydWN0DQo+IGRldmljZSBzaXplLiBUaGVyZSdzIHNvbWUg
-dGhpbmdzIGxpa2UgRE1BIHJlbGF0ZWQgZWxlbWVudHMgdGhhdCBjb3VsZA0KPiBiZSBtb3ZlZCB0
-byBzZXBhcmF0ZSBzdHJ1Y3R1cmVzLCBidXQgdGhhdCB3aWxsIGJlIHF1aXRlIGludmFzaXZlLg0K
-PiANCj4gQW5vdGhlciBpZGVhIGlzIHRvIHJ1biB0aGUga2VybmVsIHVuZmxhdHRlbmluZyBjb2Rl
-IG9uIHRoZSB0cmVlIGF0DQo+IGJ1aWxkIHRpbWUgYW5kIGVtYmVkIHRoYXQgYXMgY29uc3QgZGF0
-YSBpbnRvIHRoZSBrZXJuZWwuIFRoZQ0KPiB1bmZsYXR0ZW5pbmcgY29kZSBpcyBwcmV0dHkgc2Vs
-ZiBjb250YWluZWQgYW5kIFhJUCBpbWFnZXMgYXJlIHBsYXRmb3JtDQo+IHNwZWNpZmljIGFueXdh
-eS4gSXQgd291bGQgYWxzbyBhbGxvdyBydW5uaW5nIGFsbCBkdGIgZmlsZXMgdGhydQ0KPiB1bmZs
-YXR0ZW5pbmcgYXQgYnVpbGQgdGltZSBmb3Igc29tZSB2YWxpZGF0aW9uLiBUaG91Z2ggSSdtIG5v
-dCBzdXJlDQo+IHRoZXJlJ3MgYW55dGhpbmcgdW5mbGF0dGVuaW5nIHdvdWxkIGZhaWwgb24gdGhh
-dCBkdGMgY2FuJ3QgY2hlY2suDQoNCkkgc2hvdWxkIGhhdmUgcmVhZCBhbGwgdGhlIHdheSB0byB0
-aGUgZW5kIG9mIHRoZSB0aHJlYWQgYmVmb3JlIHJlc3BvbmRpbmcuDQpJdCBsb29rcyBsaWtlIHBl
-b3BsZSBhcmUgYWxyZWFkeSBsb29raW5nIGF0IHdoYXQgSSd2ZSBiZWVuIHRoaW5raW5nIGFib3V0
-IGZvciBhIHdoaWxlLg0KU29ycnkgSSBtaXNzZWQgTmljb2xhcycgdGFsayBhdCBMQy4gIEknbGwg
-Z28gdGFrZSBhIGxvb2sgYXQgdGhlIHZpZGVvLg0KIC0tIFRpbQ0K
+
+--Y5U3e7U54RGuQ3mm
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, Oct 18, 2017 at 12:09:58PM +0100, Mark Brown wrote:
+> On Wed, Oct 18, 2017 at 06:35:24PM +0800, Chen-Yu Tsai wrote:
+>=20
+> > I'd like to add something on the topic of non-Linux projects. In this
+> > case it's diverging DT bindings from U-boot:
+>=20
+> > https://patchwork.ozlabs.org/patch/823158/
+>=20
+> > U-boot already has a set of devicetree binding additions:
+> > https://github.com/u-boot/u-boot/tree/master/doc/device-tree-bindings
+>=20
+> > The patch in question wants to ab(use) the regulator-name property for
+> > driver instance binding. In my opinion this is not going to fly, as
+> > boards are free to define the names. This either sees no use other than
+> > as a dirty workaround for dts files that aren't following the PMIC
+> > regulator bindings (regulator node names should follow well defined,
+> > identifying names), or results in divergence of the DT files.
+>=20
+> One meta issue I'm seeing here is that the u-boot people appear to have
+> their own divergent copy of some of the binding documents.
+
+Putting on my U-Boot hat now, it's mostly unintentional and something in
+general (yes, the initial topic here is not such an example) we try and
+avoid, or use u-boot, as the prefix on as it's something that had been
+previously rejected or deemed inappropriate to be in the upstream
+version of the binding.
+
+But perhaps it's time to try and force the issue again, given what Rob
+and others have said in other parts of the thread.
+
+--=20
+Tom
+
+--Y5U3e7U54RGuQ3mm
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQIcBAEBAgAGBQJZ55ZuAAoJEIf59jXTHXZS/zsQALR0lw2OwGhx/6uTExhOCIx5
+C7rFyqbUtJayNjXZh5Qp6vGIdVkC7eNTinTyfKJ2Mq5bcv/KGh0kfxDj9CzB/8MA
+YfEQDxuGUAs4zALiUD6k4kTqWNhM7Sr6gEGUa4dTmZMXOiIwBIgiy3il6MaAJGHv
+SRcQZsXNUVAcxTXzUu628idbCtCmMUpFaPxSNET7KbjbjYqeiySEFDf1prMhzKvD
+bq0Q17Vf9ZPO+7jqb1GE9W6tlD4TL7X2oU+DTySrQgUlei6PelA4/MnciWGo82ik
+oezMUk6TtkmnUNzSYm9g55ZcyQEZyzlQd2kQ/9/SoBM3YkbQAqroDQ+LHHJWXqjN
+ElZANJU4CTdabTBHUilU74HAzXXB1A+/1keI6zJ0FE4c61v9x0jh5Kl7WZnfEdQY
+/kMyh+2mCBEVEIVM7znna/rOtVYU3jyhsUAbW84JlBfuLC4gr7zXN4kWe3a6BWWZ
+kt1OFJr0l2RCxBJ2kJC4o+MrHRsCqSx0bx9ujxmxV4O+SuTysE+Jkdxh2xbW/612
+Cv7x1jabMYiWEfe8kbADoZldAiXTaSIvAzaLVW5DApDDwAK0ujEqriO9igHTelCq
+3lhta8FekAp5yYd4bog5Q0uExaaJwCW4WNrlpyeXWKJjY0nUI8A/Ww+opF+OuTp7
++eC10pLJJGfMGv3Fkm11
+=HSQB
+-----END PGP SIGNATURE-----
+
+--Y5U3e7U54RGuQ3mm--
