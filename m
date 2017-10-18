@@ -1,41 +1,34 @@
-Return-Path: <wens@csie.org>
+Return-Path: <broonie@sirena.co.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B564F978
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1C67AACC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 18 Oct 2017 10:41:02 +0000 (UTC)
-Received: from smtp.csie.ntu.edu.tw (smtp.csie.ntu.edu.tw [140.112.30.61])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B116C3F9
+	Wed, 18 Oct 2017 11:10:09 +0000 (UTC)
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+	[172.104.155.198])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 95BA74EB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 18 Oct 2017 10:41:01 +0000 (UTC)
-Received: from mail-wr0-f172.google.com (mail-wr0-f172.google.com
-	[209.85.128.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested) (Authenticated sender: b93043)
-	by smtp.csie.ntu.edu.tw (Postfix) with ESMTPSA id BB82326F42
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 18 Oct 2017 18:35:48 +0800 (CST)
-Received: by mail-wr0-f172.google.com with SMTP id k7so4492021wre.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 18 Oct 2017 03:35:48 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <20171017114823.58476908@bbrezillon>
+	Wed, 18 Oct 2017 11:10:05 +0000 (UTC)
+Date: Wed, 18 Oct 2017 12:09:58 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Chen-Yu Tsai <wens@csie.org>
+Message-ID: <20171018110958.mh76pngzluazmc7y@sirena.co.uk>
 References: <CACxGe6sxKzNKZbdGA-G=Th2oHwuanyC2kGYuaFcKbSRkuhep+Q@mail.gmail.com>
 	<20171017114823.58476908@bbrezillon>
-From: Chen-Yu Tsai <wens@csie.org>
-Date: Wed, 18 Oct 2017 18:35:24 +0800
-Message-ID: <CAGb2v67GU4uW7uPMrqFjTW0qBR6LPNeX4Md+tf9S=HRWT_GVqA@mail.gmail.com>
-To: Grant Likely <grant.likely@secretlab.ca>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Kumar Gala <kumar.gala@linaro.org>,
+	<CAGb2v67GU4uW7uPMrqFjTW0qBR6LPNeX4Md+tf9S=HRWT_GVqA@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="bzphq2jqparykyo3"
+Content-Disposition: inline
+In-Reply-To: <CAGb2v67GU4uW7uPMrqFjTW0qBR6LPNeX4Md+tf9S=HRWT_GVqA@mail.gmail.com>
+Cc: Rob Herring <rob.herring@linaro.org>, Kumar Gala <kumar.gala@linaro.org>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	Rob Herring <rob.herring@linaro.org>, devicetree-spec@vger.kernel.org,
-	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
 	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	Andy Gross <andy.gross@linaro.org>,
-	David Gibson <david@gibson.dropbear.id.au>, Tom Rini <trini@konsulko.com>,
-	Lucas Stach <l.stach@pengutronix.de>
+	devicetree-spec@vger.kernel.org,
+	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
+	Andy Gross <andy.gross@linaro.org>, Lucas Stach <l.stach@pengutronix.de>,
+	Tom Rini <trini@konsulko.com>, David Gibson <david@gibson.dropbear.id.au>
 Subject: Re: [Ksummit-discuss] Devicetree Workshop at Kernel Summit Prague
  (26 Oct 2017)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -47,77 +40,44 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Grant,
 
-On Tue, Oct 17, 2017 at 5:48 PM, Boris Brezillon
-<boris.brezillon@free-electrons.com> wrote:
-> Hello Grant,
->
-> On Mon, 9 Oct 2017 21:39:51 +0100
-> Grant Likely <grant.likely@secretlab.ca> wrote:
->
->> Kernel Summit is now just over 2 weeks away and it is time to pull
->> together the schedule for the Devicetree workshop. Originally I
->> planned on just an afternoon, but I've got the room for the whole day,
->> so I've got a lot of flexibility on the schedule. Unscheduled time can
->> be used for hacking.
->>
->> Date: 26 Oct 2017
->> Time: 9:00am-5:30pm (Lunch from 12:30-2:30)
->> Location: Athens room - Hilton Prague
->>
->> If you plan to attend, make sure you update your OSSunmitE/ELCE
->> registration to include the DT Workshop (log in to access and modify
->> your registration):
->>
->> https://www.regonline.com/register/login.aspx?eventID=1883377&MethodId=0&EventsessionId=&Email_Address=&membershipID=
->>
->> Here is my current list of topics in no particular order, including
->> the topic moderator:
->>
->> Runtime memory consumption (Rob Herring)
->> Overlay maintenance plan (TBC)
->> Stable ABI for devicetree (TBC)
->> DT YAML encoding (Pantelis Antoniou)
->> DT Schema format - option 1 (Pantelis Antoniou)
->> DT Schema format - option 2 (Grant Likely)
->> Sharing Generic bindings (TBC)
->> devicetree.org update (Grant)
->>
->> Reply to this email if you want to propose another topic.
->
-> Not sure yet if I'll attend the DT workshop or not, but I thought I
-> could ask my question here because it might be of interest to someone
-> else who is attending.
->
-> What happens when the DT bindings is not documented in Linux but in an
-> another project because this project was the first to use it.
->
-> I had the case here http://patchwork.ozlabs.org/patch/810275/, and I'm
-> not sure what's the policy when this happens. Should we add a file
-> under Documentation/devicetree/bindings/... that points to the external
-> doc file, should we duplicate the DT bindings doc in Linux, or should
-> we just leave the bindings undocumented in the kernel tree?
+--bzphq2jqparykyo3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-I'd like to add something on the topic of non-Linux projects. In this
-case it's diverging DT bindings from U-boot:
+On Wed, Oct 18, 2017 at 06:35:24PM +0800, Chen-Yu Tsai wrote:
 
-https://patchwork.ozlabs.org/patch/823158/
+> I'd like to add something on the topic of non-Linux projects. In this
+> case it's diverging DT bindings from U-boot:
 
-U-boot already has a set of devicetree binding additions:
-https://github.com/u-boot/u-boot/tree/master/doc/device-tree-bindings
+> https://patchwork.ozlabs.org/patch/823158/
 
-The patch in question wants to ab(use) the regulator-name property for
-driver instance binding. In my opinion this is not going to fly, as
-boards are free to define the names. This either sees no use other than
-as a dirty workaround for dts files that aren't following the PMIC
-regulator bindings (regulator node names should follow well defined,
-identifying names), or results in divergence of the DT files.
+> U-boot already has a set of devicetree binding additions:
+> https://github.com/u-boot/u-boot/tree/master/doc/device-tree-bindings
 
-So far I've been unable to dissuade the author. Unfortunately I won't
-be attending the workshop, as I had planned on some sightseeing and
-the workshop is already full right now. Hope this gets discussed in
-some manner.
+> The patch in question wants to ab(use) the regulator-name property for
+> driver instance binding. In my opinion this is not going to fly, as
+> boards are free to define the names. This either sees no use other than
+> as a dirty workaround for dts files that aren't following the PMIC
+> regulator bindings (regulator node names should follow well defined,
+> identifying names), or results in divergence of the DT files.
 
-Regards
-ChenYu
+One meta issue I'm seeing here is that the u-boot people appear to have
+their own divergent copy of some of the binding documents.
+
+--bzphq2jqparykyo3
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCAAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlnnNoYACgkQJNaLcl1U
+h9Aqqgf/Tt4qP1izi+d7AxDn/VDK+wgO0/ocjIkcXydHOqk0RhEn8wavrIJhHbbt
+4f4xxJbZ17LOCFEAWpF4mK0zq4TOkWqx3WUgmV82rXAa8ItYReSH1u3/e61gvrOI
+5dzN3UQkP6f6D16nams1ObLkzQ/UzfsYyVIXoOkV3Rq6kXY5CYM5QD1ugPJWIw7g
+Y3PB9nBdbTf8tDKBONCkL4G2JPC0ZWP7vL5D0rKfXshW3B+/4m2njuHi1LRwcuz2
+i19ma/YxjEXmhKSGL1YdU9kQtoKJgGI1XLX81YjYWYUoFnCTh9cv4kYFky01Smp2
+mkqC+lRLx+0VIcTNfzjwiP5Nnxwnrg==
+=fc0l
+-----END PGP SIGNATURE-----
+
+--bzphq2jqparykyo3--
