@@ -1,41 +1,40 @@
-Return-Path: <joe@perches.com>
+Return-Path: <alexandre.belloni@free-electrons.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 100D3B01
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 479E0AE0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 18 Oct 2017 19:07:10 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0146.hostedemail.com
-	[216.40.44.146])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 282E4500
+	Wed, 18 Oct 2017 21:10:55 +0000 (UTC)
+Received: from mail.free-electrons.com (mail.free-electrons.com [62.4.15.54])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 1682A496
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 18 Oct 2017 19:07:08 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
-	[10.5.19.251])
-	by smtpgrave06.hostedemail.com (Postfix) with ESMTP id B0E70812566A
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 18 Oct 2017 01:27:46 +0000 (UTC)
-Message-ID: <1508290061.6530.40.camel@perches.com>
-From: Joe Perches <joe@perches.com>
-To: Jani Nikula <jani.nikula@intel.com>, James Bottomley
-	<James.Bottomley@HansenPartnership.com>,
-	Julia Lawall <julia.lawall@lip6.fr>
-Date: Tue, 17 Oct 2017 18:27:41 -0700
-In-Reply-To: <87lgkakwa8.fsf@intel.com>
-References: <20171005192002.hxbjjdjhrfa4oa37@thunk.org>
-	<1507303665.3104.13.camel@HansenPartnership.com>
-	<nycvar.YFH.7.76.1710091750540.14384@jbgna.fhfr.qr>
-	<1507567045.3100.16.camel@HansenPartnership.com>
-	<alpine.DEB.2.20.1710091848390.3870@hadrien>
-	<1507568189.3100.29.camel@HansenPartnership.com>
-	<871sm9plfb.fsf@intel.com>
-	<1508163175.7571.2.camel@HansenPartnership.com>
-	<8760bfmaoz.fsf@intel.com>
-	<1508170057.6530.13.camel@perches.com> <87lgkakwa8.fsf@intel.com>
-Content-Type: text/plain; charset="ISO-8859-1"
-Mime-Version: 1.0
+	Wed, 18 Oct 2017 21:10:53 +0000 (UTC)
+Date: Wed, 18 Oct 2017 23:10:41 +0200
+From: Alexandre Belloni <alexandre.belloni@free-electrons.com>
+To: "Bird, Timothy" <Tim.Bird@sony.com>
+Message-ID: <20171018211041.3764qpfy2xkzuxjf@piout.net>
+References: <CACxGe6tPQxwzN14TZtgNhw7OOuePLJxODrn-_b4gMDGzAFEf1Q@mail.gmail.com>
+	<1508257276.74236.38.camel@freebsd.org>
+	<2D4E6B6D-8F07-46D0-BB36-D97916802893@linaro.org>
+	<CAMuHMdW-=-CdnD5Eb_w7fc7=c64i+bu=yv9_c0cj3UM940d8EA@mail.gmail.com>
+	<ECADFF3FD767C149AD96A924E7EA6EAF3E64B904@USCULXMSG01.am.sony.com>
+	<CACxGe6s8CbzRY7L1znq-nQ52eHp3pOu4X3pCX35ocQShnA_Ecw@mail.gmail.com>
+	<B7292660-D602-473E-9B47-CF7B4D2449D7@antoniou-consulting.com>
+	<20171018131809.q5nccysb2j7lu4bn@piout.net>
+	<CAMuHMdXhQQpnQEgOu92MVNd=m2FvkqD9XcYS3rMVMHpB2zY0Qw@mail.gmail.com>
+	<ECADFF3FD767C149AD96A924E7EA6EAF3E64BBCD@USCULXMSG01.am.sony.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Maintainer's Summit Agenda Planning
+In-Reply-To: <ECADFF3FD767C149AD96A924E7EA6EAF3E64BBCD@USCULXMSG01.am.sony.com>
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	Kumar Gala <kumar.gala@linaro.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>, Ian Lepore <ian@freebsd.org>,
+	"devicetree-spec@vger.kernel.org" <devicetree-spec@vger.kernel.org>,
+	Pantelis Antoniou <panto@antoniou-consulting.com>
+Subject: Re: [Ksummit-discuss] Devicetree Workshop at Kernel Summit Prague
+ (26 Oct 2017)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -45,50 +44,59 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, 2017-10-17 at 11:34 +0300, Jani Nikula wrote:
-> On Mon, 16 Oct 2017, Joe Perches <joe@perches.com> wrote:
-> > On Mon, 2017-10-16 at 17:25 +0300, Jani Nikula wrote:
-> > > On Mon, 16 Oct 2017, James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
-> > > > On Wed, 2017-10-11 at 21:51 +0300, Jani Nikula wrote:
-> > > > > On Mon, 09 Oct 2017, James Bottomley <James.Bottomley@HansenPartnersh
-> > > > > ip.com> wrote:
-> > > > > > 
-> > > > > > On Mon, 2017-10-09 at 18:49 +0200, Julia Lawall wrote:
-> > > > > > > 
-> > > > > > > Do you suggest one big patch, that goes to who?  Or lots of
-> > > > > > > little
-> > > > > > > patches that go out at once to the individual maintainers of the
-> > > > > > > affected code?
-> > > > > > 
-> > > > > > I was actually thinking we validate the script and if there are no
-> > > > > > problems, apply it at -rc1 ... so effectively one big patch.
-> > > > > 
-> > > > > By -rc1 we (drm in general, drm/i915 in particular) will already have
-> > > > > accumulated easily 4-5 weeks' worth of commits for the *next* merge
-> > > > > window. Applying treewide stuff to Linus' tree at -rc1 forces a
-> > > > > backmerge and potentially conflicts galore
-> > > > 
-> > > > If we're applying a semantic patch script (and we've verified it works
-> > > > well enough to use the script on the -rc1 main tree), couldn't you
-> > > > simply apply it to your tree at the same time?
-> > > 
-> > > If we did, the fixes would show up in a later kernel release. Which is
-> > > just fine for us. In other words, just let subsystems and drivers handle
-> > > this as they see fit?
-> > 
-> > Scheduling and acceptance rates are the issue.
-> > 
-> > Also some scripted patches require complete treewide
-> > application to allow things like API changes.
+On 18/10/2017 at 17:41:11 +0000, Bird, Timothy wrote:
 > 
-> As described in https://lwn.net/Articles/735468/ we have a pretty
-> extensive and growing CI system in place. We don't apply a single patch
-> without a pre-merge green light from CI, no exceptions. I take issue
-> with applying any patches to our driver that didn't go through our CI
-> first, let alone bypassing our repositories.
 > 
-> If an API change requires a flag day treewide change in a 15M+ line
-> hierarchically developed codebase, you're just plain doing it wrong.
+> > -----Original Message-----
+> > From Geert Uytterhoeven on Wednesday, October 18, 2017 6:22 AM
+> > On Wed, Oct 18, 2017 at 3:18 PM, Alexandre Belloni
+> > <alexandre.belloni@free-electrons.com> wrote:
+> > > On 18/10/2017 at 15:59:00 +0300, Pantelis Antoniou wrote:
+> > >> > On Oct 18, 2017, at 15:14 , Grant Likely <grant.likely@secretlab.ca>
+> > wrote:
+> > >> > On Tue, Oct 17, 2017 at 8:03 PM, Bird, Timothy <Tim.Bird@sony.com>
+> > wrote:
+> > >> >>> -----Original Message-----
+> > >> >>> From Geert Uytterhoeven on Tuesday, October 17, 2017 10:24 AM
+> > >> >>> On Tue, Oct 17, 2017 at 7:02 PM, Kumar Gala
+> > <kumar.gala@linaro.org> wrote:
+> > >> >>>> I think this also gets to having bindings described in a structured way
+> > so
+> > >> >>> they can be utilized for validation of dts files.  We are doing a little of
+> > this in
+> > >> >>> Zephyr since we are using a structured binding spec to generate code
+> > from
+> > >> >>> .dts (since we donâ€™t utilize a runtime dtb).
+> > >> >>>
+> > >> >>> So you are basically generating board files from .dts?
+> > >> >>> (closing the loop ;-)
+> > >> >>
+> > >> >> I think we ought to do this on Linux, as a size optimization.
+> > >> >> -- Tim
+> > >> >>
+> > >> >> P.S.  I think I'll leave it ambiguous whether this was meant as a joke or
+> > not. :-)
+> > >>
+> > >> As crazy that sounds it is possible using the YAML bindings, i.e. C structure
+> > definitions
+> > >> and fill-up from DT automatically. Whether this is a good idea itâ€™s another
+> > question :)
+> > >
+> > > But that doesn't work with any driver parsing custom properties (using
+> > > of_property_read_* and the likes). I would very much like to see what
+> > > are the boot time improvements when doing that ;)
+> > 
+> > Unless you override of_property_read_*() to work on the dense C
+> > structures instead?
+> 
+> Or turn the property reads into macros that then turn into constant declarations inline in the code.
+> No need stop at dense C structures.  Of course you lose all configuration flexibility at runtime.
+> But then that's the kind of trade-off one often makes with embedded software, isn't it?
 
-THe size of the codebase is not particularly relevant and
-that's simply not always possible.
+That is not easily doable unless you are sure you only have only one
+instance of each device or they all have the same properties.
+
+-- 
+Alexandre Belloni, Free Electrons
+Embedded Linux and Kernel engineering
+http://free-electrons.com
