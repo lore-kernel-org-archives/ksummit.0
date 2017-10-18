@@ -1,35 +1,43 @@
-Return-Path: <jani.nikula@intel.com>
+Return-Path: <wens@csie.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 49D2795D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B564F978
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 18 Oct 2017 10:40:10 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5DFFC463
+	Wed, 18 Oct 2017 10:41:02 +0000 (UTC)
+Received: from smtp.csie.ntu.edu.tw (smtp.csie.ntu.edu.tw [140.112.30.61])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B116C3F9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 18 Oct 2017 10:40:09 +0000 (UTC)
-From: Jani Nikula <jani.nikula@intel.com>
-To: Joe Perches <joe@perches.com>,
-	James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Julia Lawall <julia.lawall@lip6.fr>
-In-Reply-To: <1508290061.6530.40.camel@perches.com>
-References: <20171005192002.hxbjjdjhrfa4oa37@thunk.org>
-	<1507303665.3104.13.camel@HansenPartnership.com>
-	<nycvar.YFH.7.76.1710091750540.14384@jbgna.fhfr.qr>
-	<1507567045.3100.16.camel@HansenPartnership.com>
-	<alpine.DEB.2.20.1710091848390.3870@hadrien>
-	<1507568189.3100.29.camel@HansenPartnership.com>
-	<871sm9plfb.fsf@intel.com>
-	<1508163175.7571.2.camel@HansenPartnership.com>
-	<8760bfmaoz.fsf@intel.com> <1508170057.6530.13.camel@perches.com>
-	<87lgkakwa8.fsf@intel.com> <1508290061.6530.40.camel@perches.com>
-Date: Wed, 18 Oct 2017 13:41:37 +0300
-Message-ID: <878tg8lov2.fsf@intel.com>
+	Wed, 18 Oct 2017 10:41:01 +0000 (UTC)
+Received: from mail-wr0-f172.google.com (mail-wr0-f172.google.com
+	[209.85.128.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested) (Authenticated sender: b93043)
+	by smtp.csie.ntu.edu.tw (Postfix) with ESMTPSA id BB82326F42
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 18 Oct 2017 18:35:48 +0800 (CST)
+Received: by mail-wr0-f172.google.com with SMTP id k7so4492021wre.2
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 18 Oct 2017 03:35:48 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Maintainer's Summit Agenda Planning
+In-Reply-To: <20171017114823.58476908@bbrezillon>
+References: <CACxGe6sxKzNKZbdGA-G=Th2oHwuanyC2kGYuaFcKbSRkuhep+Q@mail.gmail.com>
+	<20171017114823.58476908@bbrezillon>
+From: Chen-Yu Tsai <wens@csie.org>
+Date: Wed, 18 Oct 2017 18:35:24 +0800
+Message-ID: <CAGb2v67GU4uW7uPMrqFjTW0qBR6LPNeX4Md+tf9S=HRWT_GVqA@mail.gmail.com>
+To: Grant Likely <grant.likely@secretlab.ca>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Kumar Gala <kumar.gala@linaro.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Rob Herring <rob.herring@linaro.org>, devicetree-spec@vger.kernel.org,
+	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	Andy Gross <andy.gross@linaro.org>,
+	David Gibson <david@gibson.dropbear.id.au>, Tom Rini <trini@konsulko.com>,
+	Lucas Stach <l.stach@pengutronix.de>
+Subject: Re: [Ksummit-discuss] Devicetree Workshop at Kernel Summit Prague
+ (26 Oct 2017)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,77 +47,77 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, 17 Oct 2017, Joe Perches <joe@perches.com> wrote:
-> On Tue, 2017-10-17 at 11:34 +0300, Jani Nikula wrote:
->> On Mon, 16 Oct 2017, Joe Perches <joe@perches.com> wrote:
->> > On Mon, 2017-10-16 at 17:25 +0300, Jani Nikula wrote:
->> > > On Mon, 16 Oct 2017, James Bottomley <James.Bottomley@HansenPartners=
-hip.com> wrote:
->> > > > On Wed, 2017-10-11 at 21:51 +0300, Jani Nikula wrote:
->> > > > > On Mon, 09 Oct 2017, James Bottomley <James.Bottomley@HansenPart=
-nersh
->> > > > > ip.com> wrote:
->> > > > > >=20
->> > > > > > On Mon, 2017-10-09 at 18:49 +0200, Julia Lawall wrote:
->> > > > > > >=20
->> > > > > > > Do you suggest one big patch, that goes to who?=C2=A0=C2=A0O=
-r lots of
->> > > > > > > little
->> > > > > > > patches that go out at once to the individual maintainers of=
- the
->> > > > > > > affected code?
->> > > > > >=20
->> > > > > > I was actually thinking we validate the script and if there ar=
-e no
->> > > > > > problems, apply it at -rc1 ... so effectively one big patch.
->> > > > >=20
->> > > > > By -rc1 we (drm in general, drm/i915 in particular) will already=
- have
->> > > > > accumulated easily 4-5 weeks' worth of commits for the *next* me=
-rge
->> > > > > window. Applying treewide stuff to Linus' tree at -rc1 forces a
->> > > > > backmerge and potentially conflicts galore
->> > > >=20
->> > > > If we're applying a semantic patch script (and we've verified it w=
-orks
->> > > > well enough to use the script on the -rc1 main tree), couldn't you
->> > > > simply apply it to your tree at the same time?
->> > >=20
->> > > If we did, the fixes would show up in a later kernel release. Which =
-is
->> > > just fine for us. In other words, just let subsystems and drivers ha=
-ndle
->> > > this as they see fit?
->> >=20
->> > Scheduling and acceptance rates are the issue.
->> >=20
->> > Also some scripted patches require complete treewide
->> > application to allow things like API changes.
->>=20
->> As described in https://lwn.net/Articles/735468/ we have a pretty
->> extensive and growing CI system in place. We don't apply a single patch
->> without a pre-merge green light from CI, no exceptions. I take issue
->> with applying any patches to our driver that didn't go through our CI
->> first, let alone bypassing our repositories.
->>=20
->> If an API change requires a flag day treewide change in a 15M+ line
->> hierarchically developed codebase, you're just plain doing it wrong.
+Hi Grant,
+
+On Tue, Oct 17, 2017 at 5:48 PM, Boris Brezillon
+<boris.brezillon@free-electrons.com> wrote:
+> Hello Grant,
 >
-> THe size of the codebase is not particularly relevant and
+> On Mon, 9 Oct 2017 21:39:51 +0100
+> Grant Likely <grant.likely@secretlab.ca> wrote:
+>
+>> Kernel Summit is now just over 2 weeks away and it is time to pull
+>> together the schedule for the Devicetree workshop. Originally I
+>> planned on just an afternoon, but I've got the room for the whole day,
+>> so I've got a lot of flexibility on the schedule. Unscheduled time can
+>> be used for hacking.
+>>
+>> Date: 26 Oct 2017
+>> Time: 9:00am-5:30pm (Lunch from 12:30-2:30)
+>> Location: Athens room - Hilton Prague
+>>
+>> If you plan to attend, make sure you update your OSSunmitE/ELCE
+>> registration to include the DT Workshop (log in to access and modify
+>> your registration):
+>>
+>> https://www.regonline.com/register/login.aspx?eventID=1883377&MethodId=0&EventsessionId=&Email_Address=&membershipID=
+>>
+>> Here is my current list of topics in no particular order, including
+>> the topic moderator:
+>>
+>> Runtime memory consumption (Rob Herring)
+>> Overlay maintenance plan (TBC)
+>> Stable ABI for devicetree (TBC)
+>> DT YAML encoding (Pantelis Antoniou)
+>> DT Schema format - option 1 (Pantelis Antoniou)
+>> DT Schema format - option 2 (Grant Likely)
+>> Sharing Generic bindings (TBC)
+>> devicetree.org update (Grant)
+>>
+>> Reply to this email if you want to propose another topic.
+>
+> Not sure yet if I'll attend the DT workshop or not, but I thought I
+> could ask my question here because it might be of interest to someone
+> else who is attending.
+>
+> What happens when the DT bindings is not documented in Linux but in an
+> another project because this project was the first to use it.
+>
+> I had the case here http://patchwork.ozlabs.org/patch/810275/, and I'm
+> not sure what's the policy when this happens. Should we add a file
+> under Documentation/devicetree/bindings/... that points to the external
+> doc file, should we duplicate the DT bindings doc in Linux, or should
+> we just leave the bindings undocumented in the kernel tree?
 
-Sure it is. It translates to the amount of people and subsystems and the
-pain you're causing them.
+I'd like to add something on the topic of non-Linux projects. In this
+case it's diverging DT bindings from U-boot:
 
-> that's simply not always possible.
+https://patchwork.ozlabs.org/patch/823158/
 
-That something is not always possible is not a reason to change the
-usual process to cater for the rare outlier case. Making it easier to do
-treewide changes encourages people to do just that, and discourages them
-from finding the ways to not cause trouble to subsystems.
+U-boot already has a set of devicetree binding additions:
+https://github.com/u-boot/u-boot/tree/master/doc/device-tree-bindings
 
+The patch in question wants to ab(use) the regulator-name property for
+driver instance binding. In my opinion this is not going to fly, as
+boards are free to define the names. This either sees no use other than
+as a dirty workaround for dts files that aren't following the PMIC
+regulator bindings (regulator node names should follow well defined,
+identifying names), or results in divergence of the DT files.
 
-BR,
-Jani.
+So far I've been unable to dissuade the author. Unfortunately I won't
+be attending the workshop, as I had planned on some sightseeing and
+the workshop is already full right now. Hope this gets discussed in
+some manner.
 
---=20
-Jani Nikula, Intel Open Source Technology Center
+Regards
+ChenYu
