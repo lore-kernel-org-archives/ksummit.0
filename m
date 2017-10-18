@@ -1,38 +1,46 @@
-Return-Path: <alexandre.belloni@free-electrons.com>
+Return-Path: <robh@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 479E0AE0
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0400994B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 18 Oct 2017 21:10:55 +0000 (UTC)
-Received: from mail.free-electrons.com (mail.free-electrons.com [62.4.15.54])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 1682A496
+	Wed, 18 Oct 2017 23:54:03 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2900DA1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 18 Oct 2017 21:10:53 +0000 (UTC)
-Date: Wed, 18 Oct 2017 23:10:41 +0200
-From: Alexandre Belloni <alexandre.belloni@free-electrons.com>
-To: "Bird, Timothy" <Tim.Bird@sony.com>
-Message-ID: <20171018211041.3764qpfy2xkzuxjf@piout.net>
-References: <CACxGe6tPQxwzN14TZtgNhw7OOuePLJxODrn-_b4gMDGzAFEf1Q@mail.gmail.com>
-	<1508257276.74236.38.camel@freebsd.org>
-	<2D4E6B6D-8F07-46D0-BB36-D97916802893@linaro.org>
-	<CAMuHMdW-=-CdnD5Eb_w7fc7=c64i+bu=yv9_c0cj3UM940d8EA@mail.gmail.com>
-	<ECADFF3FD767C149AD96A924E7EA6EAF3E64B904@USCULXMSG01.am.sony.com>
-	<CACxGe6s8CbzRY7L1znq-nQ52eHp3pOu4X3pCX35ocQShnA_Ecw@mail.gmail.com>
-	<B7292660-D602-473E-9B47-CF7B4D2449D7@antoniou-consulting.com>
-	<20171018131809.q5nccysb2j7lu4bn@piout.net>
-	<CAMuHMdXhQQpnQEgOu92MVNd=m2FvkqD9XcYS3rMVMHpB2zY0Qw@mail.gmail.com>
-	<ECADFF3FD767C149AD96A924E7EA6EAF3E64BBCD@USCULXMSG01.am.sony.com>
+	Wed, 18 Oct 2017 23:54:02 +0000 (UTC)
+Received: from mail-qt0-f170.google.com (mail-qt0-f170.google.com
+	[209.85.216.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id B2D9221924
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 18 Oct 2017 23:54:01 +0000 (UTC)
+Received: by mail-qt0-f170.google.com with SMTP id 1so12474205qtn.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 18 Oct 2017 16:54:01 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ECADFF3FD767C149AD96A924E7EA6EAF3E64BBCD@USCULXMSG01.am.sony.com>
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	Kumar Gala <kumar.gala@linaro.org>,
+In-Reply-To: <FD387FCC-3F95-48DF-B412-3384EF96FCFC@fubar.geek.nz>
+References: <CACxGe6sxKzNKZbdGA-G=Th2oHwuanyC2kGYuaFcKbSRkuhep+Q@mail.gmail.com>
+	<20171017114823.58476908@bbrezillon>
+	<CAGb2v67GU4uW7uPMrqFjTW0qBR6LPNeX4Md+tf9S=HRWT_GVqA@mail.gmail.com>
+	<20171018110958.mh76pngzluazmc7y@sirena.co.uk>
+	<20171018175910.GP12015@bill-the-cat>
+	<FD387FCC-3F95-48DF-B412-3384EF96FCFC@fubar.geek.nz>
+From: Rob Herring <robh@kernel.org>
+Date: Wed, 18 Oct 2017 18:53:40 -0500
+Message-ID: <CAL_JsqJTE5p0zjm-66D2143dEx+xQ0uKCV-20kMt-kq=SOa-8Q@mail.gmail.com>
+To: Andrew Turner <andrew@fubar.geek.nz>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Cc: Tom Rini <trini@konsulko.com>, Kumar Gala <kumar.gala@linaro.org>,
 	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>, Ian Lepore <ian@freebsd.org>,
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Rob Herring <rob.herring@linaro.org>,
 	"devicetree-spec@vger.kernel.org" <devicetree-spec@vger.kernel.org>,
-	Pantelis Antoniou <panto@antoniou-consulting.com>
+	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
+	Andy Gross <andy.gross@linaro.org>, Lucas Stach <l.stach@pengutronix.de>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	David Gibson <david@gibson.dropbear.id.au>
 Subject: Re: [Ksummit-discuss] Devicetree Workshop at Kernel Summit Prague
  (26 Oct 2017)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -44,59 +52,69 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 18/10/2017 at 17:41:11 +0000, Bird, Timothy wrote:
-> 
-> 
-> > -----Original Message-----
-> > From Geert Uytterhoeven on Wednesday, October 18, 2017 6:22 AM
-> > On Wed, Oct 18, 2017 at 3:18 PM, Alexandre Belloni
-> > <alexandre.belloni@free-electrons.com> wrote:
-> > > On 18/10/2017 at 15:59:00 +0300, Pantelis Antoniou wrote:
-> > >> > On Oct 18, 2017, at 15:14 , Grant Likely <grant.likely@secretlab.ca>
-> > wrote:
-> > >> > On Tue, Oct 17, 2017 at 8:03 PM, Bird, Timothy <Tim.Bird@sony.com>
-> > wrote:
-> > >> >>> -----Original Message-----
-> > >> >>> From Geert Uytterhoeven on Tuesday, October 17, 2017 10:24 AM
-> > >> >>> On Tue, Oct 17, 2017 at 7:02 PM, Kumar Gala
-> > <kumar.gala@linaro.org> wrote:
-> > >> >>>> I think this also gets to having bindings described in a structured way
-> > so
-> > >> >>> they can be utilized for validation of dts files.  We are doing a little of
-> > this in
-> > >> >>> Zephyr since we are using a structured binding spec to generate code
-> > from
-> > >> >>> .dts (since we don’t utilize a runtime dtb).
-> > >> >>>
-> > >> >>> So you are basically generating board files from .dts?
-> > >> >>> (closing the loop ;-)
-> > >> >>
-> > >> >> I think we ought to do this on Linux, as a size optimization.
-> > >> >> -- Tim
-> > >> >>
-> > >> >> P.S.  I think I'll leave it ambiguous whether this was meant as a joke or
-> > not. :-)
-> > >>
-> > >> As crazy that sounds it is possible using the YAML bindings, i.e. C structure
-> > definitions
-> > >> and fill-up from DT automatically. Whether this is a good idea it’s another
-> > question :)
-> > >
-> > > But that doesn't work with any driver parsing custom properties (using
-> > > of_property_read_* and the likes). I would very much like to see what
-> > > are the boot time improvements when doing that ;)
-> > 
-> > Unless you override of_property_read_*() to work on the dense C
-> > structures instead?
-> 
-> Or turn the property reads into macros that then turn into constant declarations inline in the code.
-> No need stop at dense C structures.  Of course you lose all configuration flexibility at runtime.
-> But then that's the kind of trade-off one often makes with embedded software, isn't it?
+On Wed, Oct 18, 2017 at 6:28 PM, Andrew Turner <andrew@fubar.geek.nz> wrote=
+:
+>
+>> On 18 Oct 2017, at 18:59, Tom Rini <trini@konsulko.com> wrote:
+>>
+>> On Wed, Oct 18, 2017 at 12:09:58PM +0100, Mark Brown wrote:
+>>> On Wed, Oct 18, 2017 at 06:35:24PM +0800, Chen-Yu Tsai wrote:
+>>>
+>>>> I'd like to add something on the topic of non-Linux projects. In this
+>>>> case it's diverging DT bindings from U-boot:
+>>>
+>>>> https://patchwork.ozlabs.org/patch/823158/
+>>>
+>>>> U-boot already has a set of devicetree binding additions:
+>>>> https://github.com/u-boot/u-boot/tree/master/doc/device-tree-bindings
+>>>
+>>>> The patch in question wants to ab(use) the regulator-name property for
+>>>> driver instance binding. In my opinion this is not going to fly, as
+>>>> boards are free to define the names. This either sees no use other tha=
+n
+>>>> as a dirty workaround for dts files that aren't following the PMIC
+>>>> regulator bindings (regulator node names should follow well defined,
+>>>> identifying names), or results in divergence of the DT files.
+>>>
+>>> One meta issue I'm seeing here is that the u-boot people appear to have
+>>> their own divergent copy of some of the binding documents.
+>>
+>> Putting on my U-Boot hat now, it's mostly unintentional and something in
+>> general (yes, the initial topic here is not such an example) we try and
+>> avoid, or use u-boot, as the prefix on as it's something that had been
+>> previously rejected or deemed inappropriate to be in the upstream
+>> version of the binding.
+>>
+>> But perhaps it's time to try and force the issue again, given what Rob
+>> and others have said in other parts of the thread.
+>
+> From the FreeBSD perspective I=E2=80=99d like it if there was a common re=
+po for all devicetree consumers to share. We are trying to not have FreeBSD=
+ specific properties as this has caused issues in the past where we had (an=
+d still have) FreeBSD specific dts files. We are trying to remove these as =
+drivers are updated to handle the common bindings.
 
-That is not easily doable unless you are sure you only have only one
-instance of each device or they all have the same properties.
+Are you aware of this repo[1]? I don't have a sense for how widely
+used it is. If not, it is intended to provide a common repository of
+binding docs and dts files. If so, what are your issues with using it?
+It's generated from the kernel tree with git-filter-branch and through
+the kernel tree is the only way to add things currently. But there's
+no requirement that you add a Linux driver to submit a binding or dts
+change. We could consider taking patches against the tree directly,
+and the maintainers (me) can fixup the paths and apply to the kernel
+tree.
 
--- 
-Alexandre Belloni, Free Electrons
-Embedded Linux and Kernel engineering
-http://free-electrons.com
+If there's bindings in the kernel tree you think are crap and Linux
+specific, I'd like to know that too. We should start flagging those.
+
+> I have also spoken with some NetBSD and OpenBSD developers. They are both=
+ using devicetree to handle device enumeration. Having all 5 projects using=
+ a common set of dts files and binding would simplify keeping them in sync.
+
+There's more than 5 likely: linux, 3x BSD, u-boot, barebox, zephyr,
+ARM trusted firmware?, UEFI?, ?
+
+Rob
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/devicetree/devicetree-r=
+ebasing.git/
