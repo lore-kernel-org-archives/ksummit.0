@@ -1,30 +1,37 @@
-Return-Path: <ulf.hansson@linaro.org>
+Return-Path: <glikely@secretlab.ca>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6C4417A9
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 663C5ACA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 19 Oct 2017 08:55:44 +0000 (UTC)
-Received: from mail-io0-f182.google.com (mail-io0-f182.google.com
-	[209.85.223.182])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BEAAE488
+	Thu, 19 Oct 2017 11:10:53 +0000 (UTC)
+Received: from mail-pf0-f195.google.com (mail-pf0-f195.google.com
+	[209.85.192.195])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8ABA4433
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 19 Oct 2017 08:55:43 +0000 (UTC)
-Received: by mail-io0-f182.google.com with SMTP id 101so9088216ioj.3
+	Thu, 19 Oct 2017 11:10:52 +0000 (UTC)
+Received: by mail-pf0-f195.google.com with SMTP id e64so6338813pfk.9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 19 Oct 2017 01:55:43 -0700 (PDT)
+	Thu, 19 Oct 2017 04:10:52 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1647817.aU4A16bmHW@aspire.rjw.lan>
-References: <1647817.aU4A16bmHW@aspire.rjw.lan>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Thu, 19 Oct 2017 10:55:42 +0200
-Message-ID: <CAPDyKFqFDH7kupxkQfEm9jMuGvOC1Nt2s7ydG2Xp78R8Y_NVdA@mail.gmail.com>
-To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Sender: glikely@secretlab.ca
+In-Reply-To: <CACxGe6sxKzNKZbdGA-G=Th2oHwuanyC2kGYuaFcKbSRkuhep+Q@mail.gmail.com>
+References: <CACxGe6sxKzNKZbdGA-G=Th2oHwuanyC2kGYuaFcKbSRkuhep+Q@mail.gmail.com>
+From: Grant Likely <grant.likely@secretlab.ca>
+Date: Thu, 19 Oct 2017 12:10:31 +0100
+Message-ID: <CACxGe6vhYV5dbnNQXyRoPq=XSA5HOtpN0FCqyoKvGVbRu-aRqA@mail.gmail.com>
+To: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	devicetree-spec@vger.kernel.org,
 	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Device power management during
-	system-wide PM transitions
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	David Gibson <david@gibson.dropbear.id.au>,
+	Julia Lawall <Julia.Lawall@lip6.fr>,
+	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
+	Lucas Stach <l.stach@pengutronix.de>,
+	Kumar Gala <kumar.gala@linaro.org>, Andy Gross <andy.gross@linaro.org>,
+	Rob Herring <rob.herring@linaro.org>, Frank Rowand <frowand.list@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Ksummit-discuss] Devicetree Workshop at Kernel Summit Prague
+	(26 Oct 2017)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,52 +41,104 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 18 October 2017 at 13:17, Rafael J. Wysocki <rjw@rjwysocki.net> wrote:
-> Hi,
->
-> If this isn't too late, I'd like to put a PM topic on the agenda.
->
-> One problem basically is that runtime PM interacts with system-wide PM for
-> devices in ways that need to be taken care of.  The most common patterns are:
->
-> - What if a device is in runtime suspend before system suspend?  Can it
->   remain suspended and under what conditions if so?
->
-> - Can devices be left in suspend when the system is resuming from
->   system-wide suspend?
->
-> - Can driver runtime PM callbacks be used for system-wide PM too and to
->   what extent?  If they can, how to make that happen?
->
-> We have tried to address these points in a couple of different ways so
-> far, but none of them is universal enough.  Moreover, one approach is
-> mostly for systems with PCI/ACPI and the other one is used on systems
-> without those and they both are not compatible.  That sort of didn't
-> matter until IP block sharing between vendors led to situations in
-> which one and the same driver is expected to work in both environments.
->
-> It would be good to have a common approach and IMO it should be based on
-> changing the PM core to help address the most common cases, so I posted
-> a set of patches to that end:
->
-> https://marc.info/?l=linux-kernel&m=150811822405206&w=2
->
-> and I'd like to have a discussion regarding that and it spans many
-> different subsystems potentially, so the KS seems to be the right venue
-> for that discussion to happen.
->
-> The second issue is that some bus types and quite a few drivers still use
-> legacy power management callbacks and I'd like to get rid of those at last,
-> first from the bus types and then from drivers too.  That's more of a
-> heads-up thing, but also possibly touches multiple places, so should be
-> suitable for a KS session as well.
->
-> Thanks,
-> Rafael
->
+Hi folks,
 
-Rafael, thanks for suggesting this topic, of course I share your
-interest in discussion this in Prague.
+I've flushed out the schedule. It is still a draft, but I've got names
+against the topics and put them into a rough order.
 
-Kind regards
-Uffe
+If your name is listed below, it means I've asked you to frame the
+problem and moderate discussion for that topic. I'm *not* asking you
+to present unless the topic is specifically listed as a presentation.
+If you want you can have a slide or two, but you must get them to me
+by Tuesday evening, 24 October. I want to keep the time fiddling with
+projectors to a minimum.
+
+Originally this was intended as a 1/2 day workshop, but given that we
+have the room for the full day, I've spread things out to give a bit
+more time for hallway track. I can also move things around if need be
+to avoid conflicts with the maintainers summit and KVM forum. The
+maintenance topics are in the afternoon under the assumption that
+there are folks in the maintainers summit who will want to attend. The
+tooling and schema topics are in the morning. I've also tried really
+hard to preserve the breaks and lunch to give time for hallway
+discussion.
+
+As always, none of this is set in stone. If you have any specific
+conflicts or concerns then please say so.
+
+Cheers,
+g.
+
+==Morning==
+9:30 Welcome and Schedule bashing (0:10) (Grant Likely)
+
+===Tooling & Schema===
+9:40 (5min) Encoding and Schema checking: Framing the problem (Grant Likely)
+9:45 (15min) DT YAML encoding overview (Pantelis Antoniou - presentation)
+10:00 (20min) YAML encoding discussion
+10:20 (15min) DT Schema format - option 1 (Pantelis Antoniou - presentation)
+10:35 (15min) DT Schema format - option 2 (Grant Likely - presentation)
+10:50 (20min) DT Schema discussion - what should go in the spec?
+
+11:10-11:50 [Break]
+
+===Runtime usage===
+11:50 (20min) Code Generation from DT (Kumar Gala - presentation)
+12:10 (20min) Runtime memory consumption (Rob Herring - presentation)
+
+12:30-14:30 [Lunch]
+
+==Afternoon==
+===DTS maintenance issues===
+14:30 (15min) Overlay maintenance plan (Bill Mills)
+14:45 (15min) Avoiding duplicate descriptions (Thomas Petazzoni)
+15:00 (15min) Criteria for accepting board files
+15:15 (15min) Location for maintaining bindings - how to handle
+'foreign bindings' (Boris Brezillon)
+15:30 (15min) Sharing Generic bindings (Geert Uytterhoeven)
+15:45 (15min) ABI Stability (Lucas Stach)
+
+16:00-16:30 [break and overflow discussion]
+
+16:30 (20min) DT health check (Ben Dooks)
+16:50 (15min) devicetree.org update (Grant Likely)
+17:05 (15min) EBBR Discussion (Grant Likely)
+17:20 Closing and feedback
+
+
+On Mon, Oct 9, 2017 at 9:39 PM, Grant Likely <grant.likely@secretlab.ca> wrote:
+> Kernel Summit is now just over 2 weeks away and it is time to pull
+> together the schedule for the Devicetree workshop. Originally I
+> planned on just an afternoon, but I've got the room for the whole day,
+> so I've got a lot of flexibility on the schedule. Unscheduled time can
+> be used for hacking.
+>
+> Date: 26 Oct 2017
+> Time: 9:00am-5:30pm (Lunch from 12:30-2:30)
+> Location: Athens room - Hilton Prague
+>
+> If you plan to attend, make sure you update your OSSunmitE/ELCE
+> registration to include the DT Workshop (log in to access and modify
+> your registration):
+>
+> https://www.regonline.com/register/login.aspx?eventID=1883377&MethodId=0&EventsessionId=&Email_Address=&membershipID=
+>
+> Here is my current list of topics in no particular order, including
+> the topic moderator:
+>
+> Runtime memory consumption (Rob Herring)
+> Overlay maintenance plan (TBC)
+> Stable ABI for devicetree (TBC)
+> DT YAML encoding (Pantelis Antoniou)
+> DT Schema format - option 1 (Pantelis Antoniou)
+> DT Schema format - option 2 (Grant Likely)
+> Sharing Generic bindings (TBC)
+> devicetree.org update (Grant)
+>
+> Reply to this email if you want to propose another topic.
+>
+> Reply privately if there is a particular topic you want to attend but
+> you are unable to be there in the morning or afternoon. I'll put the
+> actual agenda together a week out from the event.
+>
+> g.
