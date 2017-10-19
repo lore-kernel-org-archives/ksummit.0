@@ -1,38 +1,30 @@
-Return-Path: <broonie@sirena.co.uk>
+Return-Path: <ulf.hansson@linaro.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 040A8900
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6C4417A9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 19 Oct 2017 00:04:40 +0000 (UTC)
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
-	[172.104.155.198])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5C31747E
+	Thu, 19 Oct 2017 08:55:44 +0000 (UTC)
+Received: from mail-io0-f182.google.com (mail-io0-f182.google.com
+	[209.85.223.182])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BEAAE488
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 19 Oct 2017 00:04:39 +0000 (UTC)
-Date: Thu, 19 Oct 2017 01:04:33 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Tom Rini <trini@konsulko.com>
-Message-ID: <20171019000433.y3qt3xaw4nnzvsga@sirena.co.uk>
-References: <CACxGe6sxKzNKZbdGA-G=Th2oHwuanyC2kGYuaFcKbSRkuhep+Q@mail.gmail.com>
-	<20171017114823.58476908@bbrezillon>
-	<CAGb2v67GU4uW7uPMrqFjTW0qBR6LPNeX4Md+tf9S=HRWT_GVqA@mail.gmail.com>
-	<20171018110958.mh76pngzluazmc7y@sirena.co.uk>
-	<20171018175910.GP12015@bill-the-cat>
+	Thu, 19 Oct 2017 08:55:43 +0000 (UTC)
+Received: by mail-io0-f182.google.com with SMTP id 101so9088216ioj.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 19 Oct 2017 01:55:43 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="lvrnqi4f33lcbutf"
-Content-Disposition: inline
-In-Reply-To: <20171018175910.GP12015@bill-the-cat>
-Cc: Rob Herring <rob.herring@linaro.org>, Kumar Gala <kumar.gala@linaro.org>,
+In-Reply-To: <1647817.aU4A16bmHW@aspire.rjw.lan>
+References: <1647817.aU4A16bmHW@aspire.rjw.lan>
+From: Ulf Hansson <ulf.hansson@linaro.org>
+Date: Thu, 19 Oct 2017 10:55:42 +0200
+Message-ID: <CAPDyKFqFDH7kupxkQfEm9jMuGvOC1Nt2s7ydG2Xp78R8Y_NVdA@mail.gmail.com>
+To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	devicetree-spec@vger.kernel.org,
-	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
-	Andy Gross <andy.gross@linaro.org>, Lucas Stach <l.stach@pengutronix.de>,
-	David Gibson <david@gibson.dropbear.id.au>
-Subject: Re: [Ksummit-discuss] Devicetree Workshop at Kernel Summit Prague
- (26 Oct 2017)
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Device power management during
+	system-wide PM transitions
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -42,45 +34,52 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On 18 October 2017 at 13:17, Rafael J. Wysocki <rjw@rjwysocki.net> wrote:
+> Hi,
+>
+> If this isn't too late, I'd like to put a PM topic on the agenda.
+>
+> One problem basically is that runtime PM interacts with system-wide PM for
+> devices in ways that need to be taken care of.  The most common patterns are:
+>
+> - What if a device is in runtime suspend before system suspend?  Can it
+>   remain suspended and under what conditions if so?
+>
+> - Can devices be left in suspend when the system is resuming from
+>   system-wide suspend?
+>
+> - Can driver runtime PM callbacks be used for system-wide PM too and to
+>   what extent?  If they can, how to make that happen?
+>
+> We have tried to address these points in a couple of different ways so
+> far, but none of them is universal enough.  Moreover, one approach is
+> mostly for systems with PCI/ACPI and the other one is used on systems
+> without those and they both are not compatible.  That sort of didn't
+> matter until IP block sharing between vendors led to situations in
+> which one and the same driver is expected to work in both environments.
+>
+> It would be good to have a common approach and IMO it should be based on
+> changing the PM core to help address the most common cases, so I posted
+> a set of patches to that end:
+>
+> https://marc.info/?l=linux-kernel&m=150811822405206&w=2
+>
+> and I'd like to have a discussion regarding that and it spans many
+> different subsystems potentially, so the KS seems to be the right venue
+> for that discussion to happen.
+>
+> The second issue is that some bus types and quite a few drivers still use
+> legacy power management callbacks and I'd like to get rid of those at last,
+> first from the bus types and then from drivers too.  That's more of a
+> heads-up thing, but also possibly touches multiple places, so should be
+> suitable for a KS session as well.
+>
+> Thanks,
+> Rafael
+>
 
---lvrnqi4f33lcbutf
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Rafael, thanks for suggesting this topic, of course I share your
+interest in discussion this in Prague.
 
-On Wed, Oct 18, 2017 at 01:59:10PM -0400, Tom Rini wrote:
-> On Wed, Oct 18, 2017 at 12:09:58PM +0100, Mark Brown wrote:
-
-> > One meta issue I'm seeing here is that the u-boot people appear to have
-> > their own divergent copy of some of the binding documents.
-
-> Putting on my U-Boot hat now, it's mostly unintentional and something in
-> general (yes, the initial topic here is not such an example) we try and
-> avoid, or use u-boot, as the prefix on as it's something that had been
-> previously rejected or deemed inappropriate to be in the upstream
-> version of the binding.
-
-Yeah, I didn't get the impression this was at all intentional.
-Unfortunately it's a shared property with divergent definitions rather
-than something u-boot specific that got added.
-
-> But perhaps it's time to try and force the issue again, given what Rob
-> and others have said in other parts of the thread.
-
-Yeah, if DT is going to be cross project we need to do better here.
-
---lvrnqi4f33lcbutf
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCAAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlnn7BAACgkQJNaLcl1U
-h9B0Awf9Fb9ds/if88WdUyhXMveJnzD10GiVuZ+Q9QIo/Po1PFYUPHi9l4Fu6fbc
-fc3HdxF1DDy7ID3ejBJkagio0xqHnI20snL7kTJKFz+wy1TT0irx0To6iJfc202I
-3Ce/19fzEhes1uBpiMBhr9YJpi6ANBVGo6bOyYyva3ofgcmpUVizW0xPHCqwHcPA
-UXe7IhtVWcTh4dulOHksPJKMXnmdpyewcIIeQkon9zJxOc5eGENlWmeVWq/ah/aD
-JcEg1iin145YSBSCa3bIBlC+mXDC2vmJTD+SuylqZCSuOP2l8Iz5O+6plCwLlUGC
-3i9SZ4FlkPg7YAYG0KiLKJnBinVQCw==
-=Z5fZ
------END PGP SIGNATURE-----
-
---lvrnqi4f33lcbutf--
+Kind regards
+Uffe
