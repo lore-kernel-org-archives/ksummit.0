@@ -1,37 +1,24 @@
-Return-Path: <glikely@secretlab.ca>
+Return-Path: <BATV+2585e5bea6578d96f265+5170+infradead.org+mchehab@bombadil.srs.infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 663C5ACA
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1D102AD5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 19 Oct 2017 11:10:53 +0000 (UTC)
-Received: from mail-pf0-f195.google.com (mail-pf0-f195.google.com
-	[209.85.192.195])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8ABA4433
+	Thu, 19 Oct 2017 11:35:04 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org [65.50.211.133])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2ED061AD
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 19 Oct 2017 11:10:52 +0000 (UTC)
-Received: by mail-pf0-f195.google.com with SMTP id e64so6338813pfk.9
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 19 Oct 2017 04:10:52 -0700 (PDT)
+	Thu, 19 Oct 2017 11:35:02 +0000 (UTC)
+Date: Thu, 19 Oct 2017 04:35:01 -0700
+From: Mauro Carvalho Chehab <mchehab@infradead.org>
+To: Theodore Ts'o <tytso@mit.edu>, Jonathan Corbet <corbet@lwn.net>
+Message-ID: <20171019043501.7de7aee3@vela.lan>
+In-Reply-To: <20171013001534.x35ipyu5fg3pdbaa@thunk.org>
+References: <20171013001534.x35ipyu5fg3pdbaa@thunk.org>
 MIME-Version: 1.0
-Sender: glikely@secretlab.ca
-In-Reply-To: <CACxGe6sxKzNKZbdGA-G=Th2oHwuanyC2kGYuaFcKbSRkuhep+Q@mail.gmail.com>
-References: <CACxGe6sxKzNKZbdGA-G=Th2oHwuanyC2kGYuaFcKbSRkuhep+Q@mail.gmail.com>
-From: Grant Likely <grant.likely@secretlab.ca>
-Date: Thu, 19 Oct 2017 12:10:31 +0100
-Message-ID: <CACxGe6vhYV5dbnNQXyRoPq=XSA5HOtpN0FCqyoKvGVbRu-aRqA@mail.gmail.com>
-To: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	devicetree-spec@vger.kernel.org,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	David Gibson <david@gibson.dropbear.id.au>,
-	Julia Lawall <Julia.Lawall@lip6.fr>,
-	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
-	Lucas Stach <l.stach@pengutronix.de>,
-	Kumar Gala <kumar.gala@linaro.org>, Andy Gross <andy.gross@linaro.org>,
-	Rob Herring <rob.herring@linaro.org>, Frank Rowand <frowand.list@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Ksummit-discuss] Devicetree Workshop at Kernel Summit Prague
-	(26 Oct 2017)
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] Draft Agenda for the Kernel Summit
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,104 +28,107 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi folks,
+Hi Ted,
 
-I've flushed out the schedule. It is still a draft, but I've got names
-against the topics and put them into a rough order.
+Em Thu, 12 Oct 2017 20:15:34 -0400
+Theodore Ts'o <tytso@mit.edu> escreveu:
 
-If your name is listed below, it means I've asked you to frame the
-problem and moderate discussion for that topic. I'm *not* asking you
-to present unless the topic is specifically listed as a presentation.
-If you want you can have a slide or two, but you must get them to me
-by Tuesday evening, 24 October. I want to keep the time fiddling with
-projectors to a minimum.
+> The following is a draft agenda for the Kernel Summit.
+>=20
+> Please note that three are still a number of TBD slots, and there will
+> also be another room available for unconference topics.  The timeslots
+> are still largely arbitrary and subject to change.
+>=20
+> Please comment and propose any requests you might have for schedule
+> changes, things that you would like to talk about, etc.
+>=20
+> Thanks!
+>=20
+> 						- Ted
+>=20
+>=20
+> Tuesday
+> =3D=3D=3D=3D=3D=3D=3D=3D
+>=20
+>  9:00 Keynotes
+> 10:25 Coffee Break=20
+> 10:55 Pulling away from the tracing ABI quicksand (Mattieu Desnoyer, Stev=
+e Rostedt)
+> 11:45 Printk redesign (Petr Mladek & Steve Rostedt)
+> 12:25 Lunch
+> 14:05 Media Summit issues to discuss (Mauro Carvalho)
 
-Originally this was intended as a 1/2 day workshop, but given that we
-have the room for the full day, I've spread things out to give a bit
-more time for hallway track. I can also move things around if need be
-to avoid conflicts with the maintainers summit and KVM forum. The
-maintenance topics are in the afternoon under the assumption that
-there are folks in the maintainers summit who will want to attend. The
-tooling and schema topics are in the morning. I've also tried really
-hard to preserve the breaks and lunch to give time for hallway
-discussion.
+The idea here were to have the media summit discussions as part of the
+KS. We'll end by doing it on Friday. So, we can remove it as a topic.
 
-As always, none of this is set in stone. If you have any specific
-conflicts or concerns then please say so.
+-
+
+Yet, as we'll now have an open slot, and we ended by not adding
+documentation to the Maintainers Summit, if this would be OK for
+Jonathan, I propose to take this slot to do some technical discuss
+about documentation.
+
+=46rom my side, there are two topics related to documentation that
+that could fit at the technical non-maintainers part of KS:
+
+
+1) Grouping drivers documentation files
+
+While working on media and input doc file conversion to ReST, and while
+looking to other similar driver-specific subsystems, I found a problem
+about how we gather driver documentation.
+
+On a typical driver subsystem, we have different sorts of documentation:
+
+	- uAPI;
+	- subsystem's core kAPI;
+	- driver's implementation:
+	- driver's user-centric stuff (like driver's specific modprobe
+	  parameters and explanation about how hardware features will
+	  be visible on userspace);
+
+The model that it was used with DocBook were to place the uAPI docs under
+the driver API book, and the rest on plain files.
+
+I believe that the main reason for it was technical: with the old building=
+=20
+system, we needed a XML file in order to handle kernel-doc markups.
+However, using XML for every single doc file was not too practical.
+
+Now that all doc files can include kernel-doc markups, IMHO we could do
+a better job organizing them.
+
+2) Documentation conversion to ReST
+
+We finally got rid of the DocBook documents, with were all converted
+to ReST. So, now documentation outside kernel-doc source file markups
+are all in plain text, either using a ReST compatible format or
+using some other random format[1].
+
+[1] On a patch series I wrote to convert Documentation/*.txt files
+    to a common style, I found several documents using some other
+    Markup language (Markdown, Twiki, media wiki, ...). I also
+    found several documents that seemed to be created by cloning
+    a documentation style that were presenting on other .txt files
+    (probably some de-facto Kernel's own documentation style).
+
+=46rom maintainer's PoV, in order to make the Kernel documentation
+coherent, we need to stick with just one format and ensure that=20
+all new documents should follow it (that's basically why I proposed
+it as a theme for the Maintainers summit), using some tool to check
+if those files are following the documentation style - perhaps adding
+some logic at checkpatch.pl to call Sphinx if a text file is inside a
+patch - letting Sphinx do the file validation. In other words, I still
+think we should discuss it at the Maintainer's summit.
+
+Yet, from technical standpoint, it makes sense to discuss about how should
+we organize the files at Documentation/ that aren't currently included
+into any existing book.
+
+My proposal is to cleanup all Documentation/*.txt files, discarding
+the ones that are too outdated up to a point where it won't make sense to
+keep. The remaining files would be moved into a sub-directory,
+renamed to *.rst and added into an existing book (or a new one).
 
 Cheers,
-g.
-
-==Morning==
-9:30 Welcome and Schedule bashing (0:10) (Grant Likely)
-
-===Tooling & Schema===
-9:40 (5min) Encoding and Schema checking: Framing the problem (Grant Likely)
-9:45 (15min) DT YAML encoding overview (Pantelis Antoniou - presentation)
-10:00 (20min) YAML encoding discussion
-10:20 (15min) DT Schema format - option 1 (Pantelis Antoniou - presentation)
-10:35 (15min) DT Schema format - option 2 (Grant Likely - presentation)
-10:50 (20min) DT Schema discussion - what should go in the spec?
-
-11:10-11:50 [Break]
-
-===Runtime usage===
-11:50 (20min) Code Generation from DT (Kumar Gala - presentation)
-12:10 (20min) Runtime memory consumption (Rob Herring - presentation)
-
-12:30-14:30 [Lunch]
-
-==Afternoon==
-===DTS maintenance issues===
-14:30 (15min) Overlay maintenance plan (Bill Mills)
-14:45 (15min) Avoiding duplicate descriptions (Thomas Petazzoni)
-15:00 (15min) Criteria for accepting board files
-15:15 (15min) Location for maintaining bindings - how to handle
-'foreign bindings' (Boris Brezillon)
-15:30 (15min) Sharing Generic bindings (Geert Uytterhoeven)
-15:45 (15min) ABI Stability (Lucas Stach)
-
-16:00-16:30 [break and overflow discussion]
-
-16:30 (20min) DT health check (Ben Dooks)
-16:50 (15min) devicetree.org update (Grant Likely)
-17:05 (15min) EBBR Discussion (Grant Likely)
-17:20 Closing and feedback
-
-
-On Mon, Oct 9, 2017 at 9:39 PM, Grant Likely <grant.likely@secretlab.ca> wrote:
-> Kernel Summit is now just over 2 weeks away and it is time to pull
-> together the schedule for the Devicetree workshop. Originally I
-> planned on just an afternoon, but I've got the room for the whole day,
-> so I've got a lot of flexibility on the schedule. Unscheduled time can
-> be used for hacking.
->
-> Date: 26 Oct 2017
-> Time: 9:00am-5:30pm (Lunch from 12:30-2:30)
-> Location: Athens room - Hilton Prague
->
-> If you plan to attend, make sure you update your OSSunmitE/ELCE
-> registration to include the DT Workshop (log in to access and modify
-> your registration):
->
-> https://www.regonline.com/register/login.aspx?eventID=1883377&MethodId=0&EventsessionId=&Email_Address=&membershipID=
->
-> Here is my current list of topics in no particular order, including
-> the topic moderator:
->
-> Runtime memory consumption (Rob Herring)
-> Overlay maintenance plan (TBC)
-> Stable ABI for devicetree (TBC)
-> DT YAML encoding (Pantelis Antoniou)
-> DT Schema format - option 1 (Pantelis Antoniou)
-> DT Schema format - option 2 (Grant Likely)
-> Sharing Generic bindings (TBC)
-> devicetree.org update (Grant)
->
-> Reply to this email if you want to propose another topic.
->
-> Reply privately if there is a particular topic you want to attend but
-> you are unable to be there in the morning or afternoon. I'll put the
-> actual agenda together a week out from the event.
->
-> g.
+Mauro
