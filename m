@@ -1,23 +1,23 @@
 Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 39E3F98A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E2FE65AA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 20 Oct 2017 00:30:28 +0000 (UTC)
+	Fri, 20 Oct 2017 00:32:13 +0000 (UTC)
 Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8F31F466
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 709E4174
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 20 Oct 2017 00:30:26 +0000 (UTC)
-Date: Thu, 19 Oct 2017 20:30:22 -0400
+	Fri, 20 Oct 2017 00:32:13 +0000 (UTC)
+Date: Thu, 19 Oct 2017 20:32:10 -0400
 From: Theodore Ts'o <tytso@mit.edu>
-To: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Message-ID: <20171020003022.3447wodvpoduzkn2@thunk.org>
+To: Mauro Carvalho Chehab <mchehab@s-opensource.com>
+Message-ID: <20171020003210.ompiwonsu3rbl3dx@thunk.org>
 References: <20171013001534.x35ipyu5fg3pdbaa@thunk.org>
-	<20171013182804.GE2079@gmail.com>
+	<20171019043501.7de7aee3@vela.lan>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20171013182804.GE2079@gmail.com>
+In-Reply-To: <20171019043501.7de7aee3@vela.lan>
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] Draft Agenda for the Kernel Summit
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -29,18 +29,17 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Oct 13, 2017 at 02:28:04PM -0400, Konstantin Ryabitsev wrote:
-> Ted:
+On Thu, Oct 19, 2017 at 01:12:27PM -0700, Mauro Carvalho Chehab wrote:
+> > 14:05 Media Summit issues to discuss (Mauro Carvalho)  
 > 
-> If there is a 40-ish minute slot to talk about basic developer workstation
-> security hygiene, I'm up for doing it. It would cover things like:
+> The idea here were to have the media summit discussions as part of the
+> KS. We'll end by doing it on Friday. So, we can remove it as a topic.
 > 
-> - PGP and ssh keys best practices
-> - Git and PGP signatures overview
-> - Safer browsing with firefox+firejail
-> - Security benefits of Wayland
-> - Q&A
+> Yet, as we'll now have an open slot, and we ended by not adding
+> documentation to the Maintainers Summit, if this would be OK for
+> Jonathan, I propose to take this slot to do some technical discuss
+> about documentation.
 
-That sounds execellent, thanks!
+OK, sounds good.
 
-							- Ted
+						- Ted
