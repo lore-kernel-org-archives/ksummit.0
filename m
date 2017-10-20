@@ -1,15 +1,15 @@
 Return-Path: <alexandre.torgue@st.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4158FBBE
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9EFF3BF6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 20 Oct 2017 09:55:47 +0000 (UTC)
+	Fri, 20 Oct 2017 13:47:47 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
 	[91.207.212.93])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C62C8483
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7EB6EE0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 20 Oct 2017 09:55:45 +0000 (UTC)
-To: Frank Rowand <frowand.list@gmail.com>, Rob Herring <robh@kernel.org>
+	Fri, 20 Oct 2017 13:47:46 +0000 (UTC)
+To: Rob Herring <robh@kernel.org>
 References: <CACxGe6sxKzNKZbdGA-G=Th2oHwuanyC2kGYuaFcKbSRkuhep+Q@mail.gmail.com>
 	<20171017114823.58476908@bbrezillon>
 	<CAGb2v67GU4uW7uPMrqFjTW0qBR6LPNeX4Md+tf9S=HRWT_GVqA@mail.gmail.com>
@@ -19,12 +19,11 @@ References: <CACxGe6sxKzNKZbdGA-G=Th2oHwuanyC2kGYuaFcKbSRkuhep+Q@mail.gmail.com>
 	<CAL_JsqJTE5p0zjm-66D2143dEx+xQ0uKCV-20kMt-kq=SOa-8Q@mail.gmail.com>
 	<23a238d7-0b3d-8b46-b2fe-88b9d0841aa1@st.com>
 	<CAL_Jsq+p=-yTY4BNKXdSccPcBWsCUkP8HPQ-ergZXPB8msY5ig@mail.gmail.com>
-	<59E8F2EC.5090602@gmail.com>
 From: Alexandre Torgue <alexandre.torgue@st.com>
-Message-ID: <fea62563-6629-6d79-06a9-3d17c97ad238@st.com>
-Date: Fri, 20 Oct 2017 11:55:20 +0200
+Message-ID: <9ba8453b-84f9-5e37-b0f5-6a0d9ebb2ce3@st.com>
+Date: Fri, 20 Oct 2017 15:47:21 +0200
 MIME-Version: 1.0
-In-Reply-To: <59E8F2EC.5090602@gmail.com>
+In-Reply-To: <CAL_Jsq+p=-yTY4BNKXdSccPcBWsCUkP8HPQ-ergZXPB8msY5ig@mail.gmail.com>
 Content-Type: text/plain; charset="utf-8"; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -34,12 +33,11 @@ Cc: Tom Rini <trini@konsulko.com>, Kumar Gala <kumar.gala@linaro.org>,
 	Rob Herring <rob.herring@linaro.org>,
 	"devicetree-spec@vger.kernel.org" <devicetree-spec@vger.kernel.org>,
 	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
-	Andrew Turner <andrew@fubar.geek.nz>,
+	Andrew Turner <andrew@fubar.geek.nz>, Andy Gross <andy.gross@linaro.org>,
 	Grant Likely <grant.likely@linaro.org>,
+	Lucas Stach <l.stach@pengutronix.de>,
 	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	Andy Gross <andy.gross@linaro.org>,
-	David Gibson <david@gibson.dropbear.id.au>,
-	Lucas Stach <l.stach@pengutronix.de>
+	David Gibson <david@gibson.dropbear.id.au>
 Subject: Re: [Ksummit-discuss] Devicetree Workshop at Kernel Summit Prague
  (26 Oct 2017)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -51,193 +49,154 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Frank,
+Hi Rob,
 
-On 10/19/2017 08:46 PM, Frank Rowand wrote:
-> On 10/19/17 07:59, Rob Herring wrote:
->> On Thu, Oct 19, 2017 at 9:00 AM, Alexandre Torgue
->> <alexandre.torgue@st.com> wrote:
->>> Hi Rob,
->>>
->>>
->>> On 10/19/2017 01:53 AM, Rob Herring wrote:
->>>> On Wed, Oct 18, 2017 at 6:28 PM, Andrew Turner <andrew@fubar.geek.nz>
->>>> wrote:
+On 10/19/2017 04:59 PM, Rob Herring wrote:
+> On Thu, Oct 19, 2017 at 9:00 AM, Alexandre Torgue
+> <alexandre.torgue@st.com> wrote:
+>> Hi Rob,
 >>
->> [...]
 >>
->>>>>   From the FreeBSD perspective I’d like it if there was a common repo for
->>>>> all devicetree consumers to share. We are trying to not have FreeBSD
->>>>> specific properties as this has caused issues in the past where we had (and
->>>>> still have) FreeBSD specific dts files. We are trying to remove these as
->>>>> drivers are updated to handle the common bindings.
->>>>
->>>>
->>>> Are you aware of this repo[1]? I don't have a sense for how widely
->>>> used it is. If not, it is intended to provide a common repository of
->>>> binding docs and dts files. If so, what are your issues with using it?
->>>> It's generated from the kernel tree with git-filter-branch and through
->>>> the kernel tree is the only way to add things currently. But there's
->>>> no requirement that you add a Linux driver to submit a binding or dts
->>>> change. We could consider taking patches against the tree directly,
->>>> and the maintainers (me) can fixup the paths and apply to the kernel
->>>> tree.
->>>>
->>>> If there's bindings in the kernel tree you think are crap and Linux
->>>> specific, I'd like to know that too. We should start flagging those.
->>>>
->>>>> I have also spoken with some NetBSD and OpenBSD developers. They are both
->>>>> using devicetree to handle device enumeration. Having all 5 projects using a
->>>>> common set of dts files and binding would simplify keeping them in sync.
->>>>
->>>>
->>>> There's more than 5 likely: linux, 3x BSD, u-boot, barebox, zephyr,
->>>> ARM trusted firmware?, UEFI?, ?
->>>
->>>
->>> First, sorry to come late in this discussion (please be tolerant if you
->>> already respond to following requests/interrogations in precedent mails :)).
->>>  From STmicro point of view we have the same kind of requests/needs than
->>> Andrew. We think about the possibility to use same DTS files for Linux,
->>> U-boot, ATF and Zephir (others could come with other vendors). Currently our
->>> main concerns about this are:
->>>
->>> 1-How to reduce dtb size:
->>>          --> Reading some thread, you already start this task with Nicolas.
->>> Does it concerns only XiP system ?
->>
->> That's the main focus ATM. Nico has looked at shrinking code usage too
->> such as the tty layer and scheduler, but those have faced resistance.
->> We need actual products to prove the value (and that's a chicken and
->> egg problem).
->>
->>>          -->For example, I want to use the same dtsi files between Linux and
->>> U-boot. If in u-boot dts file I overload several "status" entry by
->>> "disabled", is it possible that compiler doesn't build it ? And what about
->>> not used phandle ?
->>
->> You certainly could remove disabled nodes in dtc. I'm not sure how
->> hard it would be to plumb into dtc. I think phandle properties are
->> already only created if there's a reference to them. If that is
+>> On 10/19/2017 01:53 AM, Rob Herring wrote:
+>>> On Wed, Oct 18, 2017 at 6:28 PM, Andrew Turner <andrew@fubar.geek.nz>
+>>> wrote:
 > 
-> Yes, phandles are only created if referenced, unless compiled
-> for loading overlays into:
+> [...]
+> 
+>>>>   From the FreeBSD perspective I’d like it if there was a common repo for
+>>>> all devicetree consumers to share. We are trying to not have FreeBSD
+>>>> specific properties as this has caused issues in the past where we had (and
+>>>> still have) FreeBSD specific dts files. We are trying to remove these as
+>>>> drivers are updated to handle the common bindings.
+>>>
+>>>
+>>> Are you aware of this repo[1]? I don't have a sense for how widely
+>>> used it is. If not, it is intended to provide a common repository of
+>>> binding docs and dts files. If so, what are your issues with using it?
+>>> It's generated from the kernel tree with git-filter-branch and through
+>>> the kernel tree is the only way to add things currently. But there's
+>>> no requirement that you add a Linux driver to submit a binding or dts
+>>> change. We could consider taking patches against the tree directly,
+>>> and the maintainers (me) can fixup the paths and apply to the kernel
+>>> tree.
+>>>
+>>> If there's bindings in the kernel tree you think are crap and Linux
+>>> specific, I'd like to know that too. We should start flagging those.
+>>>
+>>>> I have also spoken with some NetBSD and OpenBSD developers. They are both
+>>>> using devicetree to handle device enumeration. Having all 5 projects using a
+>>>> common set of dts files and binding would simplify keeping them in sync.
+>>>
+>>>
+>>> There's more than 5 likely: linux, 3x BSD, u-boot, barebox, zephyr,
+>>> ARM trusted firmware?, UEFI?, ?
+>>
+>>
+>> First, sorry to come late in this discussion (please be tolerant if you
+>> already respond to following requests/interrogations in precedent mails :)).
+>>  From STmicro point of view we have the same kind of requests/needs than
+>> Andrew. We think about the possibility to use same DTS files for Linux,
+>> U-boot, ATF and Zephir (others could come with other vendors). Currently our
+>> main concerns about this are:
+>>
+>> 1-How to reduce dtb size:
+>>          --> Reading some thread, you already start this task with Nicolas.
+>> Does it concerns only XiP system ?
+> 
+> That's the main focus ATM. Nico has looked at shrinking code usage too
+> such as the tty layer and scheduler, but those have faced resistance.
+> We need actual products to prove the value (and that's a chicken and
+> egg problem).
+> 
+>>          -->For example, I want to use the same dtsi files between Linux and
+>> U-boot. If in u-boot dts file I overload several "status" entry by
+>> "disabled", is it possible that compiler doesn't build it ? And what about
+>> not used phandle ?
+> 
+> You certainly could remove disabled nodes in dtc. I'm not sure how
+> hard it would be to plumb into dtc. I think phandle properties are
+> already only created if there's a reference to them. If that is
+> created before you deleted nodes, then it would probably be hard to
+> find and remove all of those. It would be similar to solving the
+> device dependency problem. Or do you mean something like disable the
+> clock controller node if there are no enabled references to it? I
+> don't think we could do something like that generically and reliably.
+> 
+> We did recently stop creating both "phandle" and "linux,phandle"
+> properties by default in dtc, so that will save some size.
+
+I responded to Frank. On my side, disabled nodes and not used phandles 
+are presents in DTB binary. Maybe I didn't use correctly the DTC. Are 
+there specific things to do ?
+
+> 
+>> 2- The place of DT files (sources/scripts). I see (and clone) your
+>> "devicetree-rebasing.git" tree, it's a good start point. Currently (correct
+>> me  if I'm wrong) the Kernel seems to "lead" the devicetree bindings and
+>> devicetree dts(i) files.
+> 
+> Yes, and there's not really any changing that regardless of where
+> bindings and dts files live given Linux has the broadest h/w support.
+> 
+>> By using this external repo, it would be maybe
+>> easier to integrate changes for other components than Linux Kernel ?
+> 
+> Yes, barebox at least regularly imports it.
+
+Yes, I just saw that. So currently it means that we could push DT 
+changes by component (ATF/uBOOT) in this repo directly ?  and then get 
+it in our local ATF or Uboot project ?
+
+> 
+>> We
+>> could have (per vendor), same dtsi files which describes the hardware (SoC +
+>> board) and a extra dts files (at least at beginning) per software components
+>> to overload nodes (to disable some nodes not required (see (1)), to change
+>> bindings which are different regarding component ...).
+> 
+> You mean dtsi files to disable nodes for linux, u-boot, etc. That may
+> make sense for mutually exclusive things like FreeBSD vs. Linux, but
+> for say u-boot, we really want u-boot and Linux (or whatever OS is
+> loaded) to use the same dtb. Having different dtbs is going to
+> increase your memory usage.
 > 
 
-Are there DTC "extra" options to use to not build those useless phandles 
-? I just tried to revert the dtb to dts (using following command:
-  ./scripts/dtc/dtc -I dtb -O dts -o stm32f469-disco-flat.dts 
-arch/arm/boot/dts/stm32f469-disco.dtb)
+We could have different needs. For example I have a board and I would 
+like to have he following bootchain: ATF then Uboot then Kernel. For 
+that, I would like to use the same DTs files for the 3 components (and 
+the memory footprint is not an issue). The idea is to share HW 
+description between several components. But some differences implies to 
+overload dts files per component:
 
-I see that phandles not used are in the dts output file. It is 
-especially an issue for pinmux phandles. All pinmux groups possibilities 
-are written inside (in my case) stm32f4-pinctrl.dtsi. This file is 
-included in each stm32 board dts files, and in those stm32 board dts 
-files only required node are enabled. But I see that all pinmux 
-definitions are embedded inside dtb binary (even ones not used in board 
-dts file).
+-bindings could be slightly different (the case between Linux and uboot)
+-frameworks bindings (basically phandles) depends on sw component: ATF 
+will not define clocks as kernel done.
+-Using several DTB is not an issue. For ATF we have to use a DTB as 
+small as possible.
+
+It's for this reason I said that using the external repo could be a good 
+thing in order to add extra dts files per components for overloading.
+
+I understand that people wants also to have the same binary for several 
+components but it doesn't prevent to have the both solutions.
 
 
-regards
+>> It will also allow to have all dt script / tools for all components at only
+>> one place.
+>>
+>> Once again, sorry if I repeat things already discussed but I wanted to
+>> expose what STMicro has in mind for DT. It will be a good topic to discuss
+>> at Prague.
+> 
+> Yes, but I won't be there.
+
+Ok. I hope we will arrive to converge at Prague with Grant and involved 
+peoples ;). As we (ST) have already several components using DT, we 
+could help to prototype.
+
+Regards
 Alex
 
-> $ cat test1.dts
-> /dts-v1/;
-> / {
-> 	mynode: node {
-> 	};
-> };
-> $ cat test2.dts
-> /dts-v1/;
-> / {
-> 	mynode: node {
-> 		myprop = < &mynode >;
-> 	};
-> };
-> $ scripts/dtc/dtx_diff test1.dts
-> /dts-v1/;
 > 
-> / {
-> 
-> 	mynode: node {
-> 	};
-> };
-> $ scripts/dtc/dtx_diff test2.dts
-> /dts-v1/;
-> 
-> / {
-> 
-> 	mynode: node {
-> 		myprop = <0x1>;
-> 		phandle = <0x1>;
-> 	};
-> };
-> 
-> 
-> If symbols are enabled for a base device tree, so that overlays
-> can later reference them, then all symbols generate phandles:
-> 
-> $ dtc -@ -O dts test1.dts
-> /dts-v1/;
-> 
-> / {
-> 
-> 	mynode: node {
-> 		phandle = <0x1>;
-> 	};
-> 
-> 	__symbols__ {
-> 		mynode = "/node";
-> 	};
-> };
-> 
->> created before you deleted nodes, then it would probably be hard to
->> find and remove all of those. It would be similar to solving the
->> device dependency problem. Or do you mean something like disable the
->> clock controller node if there are no enabled references to it? I
->> don't think we could do something like that generically and reliably.
->>
->> We did recently stop creating both "phandle" and "linux,phandle"
->> properties by default in dtc, so that will save some size.
->>
->>> 2- The place of DT files (sources/scripts). I see (and clone) your
->>> "devicetree-rebasing.git" tree, it's a good start point. Currently (correct
->>> me  if I'm wrong) the Kernel seems to "lead" the devicetree bindings and
->>> devicetree dts(i) files.
->>
->> Yes, and there's not really any changing that regardless of where
->> bindings and dts files live given Linux has the broadest h/w support.
->>
->>> By using this external repo, it would be maybe
->>> easier to integrate changes for other components than Linux Kernel ?
->>
->> Yes, barebox at least regularly imports it.
->>
->>> We
->>> could have (per vendor), same dtsi files which describes the hardware (SoC +
->>> board) and a extra dts files (at least at beginning) per software components
->>> to overload nodes (to disable some nodes not required (see (1)), to change
->>> bindings which are different regarding component ...).
->>
->> You mean dtsi files to disable nodes for linux, u-boot, etc. That may
->> make sense for mutually exclusive things like FreeBSD vs. Linux, but
->> for say u-boot, we really want u-boot and Linux (or whatever OS is
->> loaded) to use the same dtb. Having different dtbs is going to
->> increase your memory usage.
->>
->>> It will also allow to have all dt script / tools for all components at only
->>> one place.
->>>
->>> Once again, sorry if I repeat things already discussed but I wanted to
->>> expose what STMicro has in mind for DT. It will be a good topic to discuss
->>> at Prague.
->>
->> Yes, but I won't be there.
->>
->> Rob
->> _______________________________________________
->> Ksummit-discuss mailing list
->> Ksummit-discuss@lists.linuxfoundation.org
->> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
->>
+> Rob
 > 
