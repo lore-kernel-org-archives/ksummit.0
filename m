@@ -1,28 +1,25 @@
-Return-Path: <shuahkh@osg.samsung.com>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3E7DCBC8
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 605C8BB3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 20 Oct 2017 19:16:34 +0000 (UTC)
-Received: from osg.samsung.com (osg.samsung.com [64.30.133.232])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id CF8C64F7
+	Fri, 20 Oct 2017 19:46:19 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DADEE4FB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 20 Oct 2017 19:16:33 +0000 (UTC)
-To: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Theodore Ts'o <tytso@mit.edu>, ksummit-discuss@lists.linuxfoundation.org,
-	Shuah Khan <shuahkh@osg.samsung.com>
+	Fri, 20 Oct 2017 19:46:18 +0000 (UTC)
+Date: Fri, 20 Oct 2017 15:46:16 -0400
+From: Theodore Ts'o <tytso@mit.edu>
+To: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+Message-ID: <20171020194616.a652xzm3rw2qv3ll@thunk.org>
 References: <20171013001534.x35ipyu5fg3pdbaa@thunk.org>
-	<20171020021929.y6huqssdny543gyz@thunk.org>
-	<0c7dea93-caee-b91c-3932-a084066e257a@osg.samsung.com>
-	<1508513264.3064.8.camel@HansenPartnership.com>
-From: Shuah Khan <shuahkh@osg.samsung.com>
-Message-ID: <8510ff38-c54a-cb33-0a92-8ba6363dcd51@osg.samsung.com>
-Date: Fri, 20 Oct 2017 13:16:31 -0600
+	<2702341.d09qLObUfe@aspire.rjw.lan>
 MIME-Version: 1.0
-In-Reply-To: <1508513264.3064.8.camel@HansenPartnership.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2702341.d09qLObUfe@aspire.rjw.lan>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] Draft Agenda for the Kernel Summit
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -33,44 +30,14 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 10/20/2017 09:27 AM, James Bottomley wrote:
-> On Fri, 2017-10-20 at 08:31 -0600, Shuah Khan wrote:
->> On 10/19/2017 08:19 PM, Theodore Ts'o wrote:
->>>
->>> On Thu, Oct 12, 2017 at 08:15:34PM -0400, Theodore Ts'o wrote:
->>>>
->>>>
->>>> Wednesday
->>>> =========
->>>>
->>>> 11:55 Kselftest use-cases (Shuah Khan)
->>>
->>> I'm finalizing the schedule for the kernel summit, and I wanted to
->>> check in with you about whether (a) you think this topic is still a
->>> useful one for us to have, and (b) whether you will be available /
->>> the
->>> best person to lead the topic.
->>>
->>
->> Hi Ted,
->>
->> Sorry - I have been traveling didn't get back to you earlier.
->> I haven't seen much response to my original posting, so I am
->> not very sure how useful people think this would be as a topic.
->>
->> If you need to drop this in favor of another topic, it would be
->> fine.
+On Fri, Oct 20, 2017 at 02:53:05AM +0200, Rafael J. Wysocki wrote:
 > 
-> Actually, it would be really useful to do an overview for people who
-> run git trees of what resources are available to us for easy tree
-> testing.  Most people are aware of linux-next and 0day, but fewer
-> understand how to customise the tests of the latter and get email
-> failure reports on specific branches.  I suspect even fewer know how to
-> run their own CI based on something like kselftests or xfstests.
+> I haven't CCed you directly on my recent tech-topic message, so
+> let me repeat it below:
 > 
+> If this isn't too late, I'd like to put a PM topic on the agenda.
 
-Awesome. I can go over how to and various use-cases and how I am using
-kselftest for stable realease testing.
+Sorry, I thought I had acked you earlier.  Sure, no problem, I'll add
+a power management topic onto the agenda.
 
-thanks,
--- Shuah
+					- Ted
