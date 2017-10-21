@@ -1,30 +1,27 @@
-Return-Path: <linus.walleij@linaro.org>
+Return-Path: <prvs=4607da9fb=Bart.VanAssche@wdc.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 925667A9
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 519CB3EE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 21 Oct 2017 10:56:07 +0000 (UTC)
-Received: from mail-it0-f68.google.com (mail-it0-f68.google.com
-	[209.85.214.68])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A2E95488
+	Sat, 21 Oct 2017 18:51:45 +0000 (UTC)
+Received: from esa3.hgst.iphmx.com (esa3.hgst.iphmx.com [216.71.153.141])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 84A594EB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 21 Oct 2017 10:56:06 +0000 (UTC)
-Received: by mail-it0-f68.google.com with SMTP id j140so1273223itj.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 21 Oct 2017 03:56:06 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <1647817.aU4A16bmHW@aspire.rjw.lan>
+	Sat, 21 Oct 2017 18:51:44 +0000 (UTC)
+From: Bart Van Assche <Bart.VanAssche@wdc.com>
+To: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>, "rjw@rjwysocki.net"
+	<rjw@rjwysocki.net>
+Date: Sat, 21 Oct 2017 18:51:41 +0000
+Message-ID: <1508611900.9251.17.camel@wdc.com>
 References: <1647817.aU4A16bmHW@aspire.rjw.lan>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Sat, 21 Oct 2017 12:56:05 +0200
-Message-ID: <CACRpkdYuAduT1oH=+2gLjdP2_805PO5Ubpu6XY5B=mz9gU1BMQ@mail.gmail.com>
-To: "Rafael J. Wysocki" <rjw@rjwysocki.net>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Wolfram Sang <wsa@the-dreams.de>, Mark Brown <broonie@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+In-Reply-To: <1647817.aU4A16bmHW@aspire.rjw.lan>
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <C28A99030979AC4D853877AE36B545C5@namprd04.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Cc: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Device power management during
  system-wide PM transitions
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -36,51 +33,49 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Oct 18, 2017 at 1:17 PM, Rafael J. Wysocki <rjw@rjwysocki.net> wrote:
-
-> One problem basically is that runtime PM interacts with system-wide PM for
-> devices in ways that need to be taken care of.  The most common patterns are:
->
-> - What if a device is in runtime suspend before system suspend?  Can it
->   remain suspended and under what conditions if so?
->
-> - Can devices be left in suspend when the system is resuming from
->   system-wide suspend?
->
-> - Can driver runtime PM callbacks be used for system-wide PM too and to
->   what extent?  If they can, how to make that happen?
-
-These are very important topics for PM.
-
-Maybe more of an ELC workshop than KS though?
-
-A while back I augmented I2C and SPI to use runtime PM and we achived
-nice PM on such off-chip devices for case (1) and (3) above using the
-force* callbacks.
-
-Examples:
-commit 04f59143b571161d25315dd52d7a2ecc022cb71a
-"i2c: let I2C masters ignore their children for PM"
-commit d7e2ee257038baeb03baef602500368a51ee9eef
-"spi: let SPI masters ignore their children for PM"
-commit 9a9a369d6178dd4e263c49085ce1b37e1e8f63a0
-"iio: accel: kxsd9: Deploy system and runtime PM"
-
-So in I2C or SPI runtime PM is reused for suspending, and resuming,
-if the device is already in suspend, it just remains suspended in system-wide
-sleep.
-
-I didn't achive (2), so slow peripheral bus devices still resume when
-the system (main chip/bridges) resume. Then after a while it puts itself to
-runtime sleep again. Which is not optimal and a bit annoying.
-
-I won't be in Prague, but the SPI and I2C maintainers may be
-so paging them.
-
->From my standpoint it looks like a conflict between firmware-oriented
-(such as ACPI, proper OpenFirmware (not just device tree), SFI etc)
-design paradigm and full kernel control of peripheral power states.
-The two camps need to understand each other.
-
-Yours,
-Linus Walleij
+T24gV2VkLCAyMDE3LTEwLTE4IGF0IDEzOjE3ICswMjAwLCBSYWZhZWwgSi4gV3lzb2NraSB3cm90
+ZToNCj4gSWYgdGhpcyBpc24ndCB0b28gbGF0ZSwgSSdkIGxpa2UgdG8gcHV0IGEgUE0gdG9waWMg
+b24gdGhlIGFnZW5kYS4NCj4gDQo+IE9uZSBwcm9ibGVtIGJhc2ljYWxseSBpcyB0aGF0IHJ1bnRp
+bWUgUE0gaW50ZXJhY3RzIHdpdGggc3lzdGVtLXdpZGUgUE0gZm9yDQo+IGRldmljZXMgaW4gd2F5
+cyB0aGF0IG5lZWQgdG8gYmUgdGFrZW4gY2FyZSBvZi4gIFRoZSBtb3N0IGNvbW1vbiBwYXR0ZXJu
+cyBhcmU6DQo+IA0KPiAtIFdoYXQgaWYgYSBkZXZpY2UgaXMgaW4gcnVudGltZSBzdXNwZW5kIGJl
+Zm9yZSBzeXN0ZW0gc3VzcGVuZD8gIENhbiBpdA0KPiAgIHJlbWFpbiBzdXNwZW5kZWQgYW5kIHVu
+ZGVyIHdoYXQgY29uZGl0aW9ucyBpZiBzbz8NCj4gDQo+IC0gQ2FuIGRldmljZXMgYmUgbGVmdCBp
+biBzdXNwZW5kIHdoZW4gdGhlIHN5c3RlbSBpcyByZXN1bWluZyBmcm9tDQo+ICAgc3lzdGVtLXdp
+ZGUgc3VzcGVuZD8NCj4gDQo+IC0gQ2FuIGRyaXZlciBydW50aW1lIFBNIGNhbGxiYWNrcyBiZSB1
+c2VkIGZvciBzeXN0ZW0td2lkZSBQTSB0b28gYW5kIHRvDQo+ICAgd2hhdCBleHRlbnQ/ICBJZiB0
+aGV5IGNhbiwgaG93IHRvIG1ha2UgdGhhdCBoYXBwZW4/DQo+IA0KPiBXZSBoYXZlIHRyaWVkIHRv
+IGFkZHJlc3MgdGhlc2UgcG9pbnRzIGluIGEgY291cGxlIG9mIGRpZmZlcmVudCB3YXlzIHNvDQo+
+IGZhciwgYnV0IG5vbmUgb2YgdGhlbSBpcyB1bml2ZXJzYWwgZW5vdWdoLiAgTW9yZW92ZXIsIG9u
+ZSBhcHByb2FjaCBpcw0KPiBtb3N0bHkgZm9yIHN5c3RlbXMgd2l0aCBQQ0kvQUNQSSBhbmQgdGhl
+IG90aGVyIG9uZSBpcyB1c2VkIG9uIHN5c3RlbXMNCj4gd2l0aG91dCB0aG9zZSBhbmQgdGhleSBi
+b3RoIGFyZSBub3QgY29tcGF0aWJsZS4gIFRoYXQgc29ydCBvZiBkaWRuJ3QNCj4gbWF0dGVyIHVu
+dGlsIElQIGJsb2NrIHNoYXJpbmcgYmV0d2VlbiB2ZW5kb3JzIGxlZCB0byBzaXR1YXRpb25zIGlu
+DQo+IHdoaWNoIG9uZSBhbmQgdGhlIHNhbWUgZHJpdmVyIGlzIGV4cGVjdGVkIHRvIHdvcmsgaW4g
+Ym90aCBlbnZpcm9ubWVudHMuDQo+IA0KPiBJdCB3b3VsZCBiZSBnb29kIHRvIGhhdmUgYSBjb21t
+b24gYXBwcm9hY2ggYW5kIElNTyBpdCBzaG91bGQgYmUgYmFzZWQgb24NCj4gY2hhbmdpbmcgdGhl
+IFBNIGNvcmUgdG8gaGVscCBhZGRyZXNzIHRoZSBtb3N0IGNvbW1vbiBjYXNlcywgc28gSSBwb3N0
+ZWQNCj4gYSBzZXQgb2YgcGF0Y2hlcyB0byB0aGF0IGVuZDoNCj4gDQo+IGh0dHBzOi8vbWFyYy5p
+bmZvLz9sPWxpbnV4LWtlcm5lbCZtPTE1MDgxMTgyMjQwNTIwNiZ3PTINCj4gDQo+IGFuZCBJJ2Qg
+bGlrZSB0byBoYXZlIGEgZGlzY3Vzc2lvbiByZWdhcmRpbmcgdGhhdCBhbmQgaXQgc3BhbnMgbWFu
+eQ0KPiBkaWZmZXJlbnQgc3Vic3lzdGVtcyBwb3RlbnRpYWxseSwgc28gdGhlIEtTIHNlZW1zIHRv
+IGJlIHRoZSByaWdodCB2ZW51ZQ0KPiBmb3IgdGhhdCBkaXNjdXNzaW9uIHRvIGhhcHBlbi4NCj4g
+DQo+IFRoZSBzZWNvbmQgaXNzdWUgaXMgdGhhdCBzb21lIGJ1cyB0eXBlcyBhbmQgcXVpdGUgYSBm
+ZXcgZHJpdmVycyBzdGlsbCB1c2UNCj4gbGVnYWN5IHBvd2VyIG1hbmFnZW1lbnQgY2FsbGJhY2tz
+IGFuZCBJJ2QgbGlrZSB0byBnZXQgcmlkIG9mIHRob3NlIGF0IGxhc3QsDQo+IGZpcnN0IGZyb20g
+dGhlIGJ1cyB0eXBlcyBhbmQgdGhlbiBmcm9tIGRyaXZlcnMgdG9vLiAgVGhhdCdzIG1vcmUgb2Yg
+YQ0KPiBoZWFkcy11cCB0aGluZywgYnV0IGFsc28gcG9zc2libHkgdG91Y2hlcyBtdWx0aXBsZSBw
+bGFjZXMsIHNvIHNob3VsZCBiZQ0KPiBzdWl0YWJsZSBmb3IgYSBLUyBzZXNzaW9uIGFzIHdlbGwu
+DQoNCkhlbGxvIFJhZmFlbCwNCg0KSG93IGFib3V0IGFkZGluZyBvcmRlcmx5IGZyZWV6aW5nIG9m
+IHRoZSBzdG9yYWdlIHN0YWNrIHRvIHRoZSBsaXN0IG9mIGl0ZW1zDQp0byBkaXNjdXNzPyBTb21l
+IHBlb3BsZSB1c2UgdGhlIG1kIFJBSUQxIGRyaXZlciBvbiB0aGVpciBsYXB0b3AgYW5kIHJ1biBh
+DQpmaWxlc3lzdGVtIG9uIHRvcCBvZiB0aGUgbWQgUkFJRDEgZHJpdmVyLiBCb3RoIHRoZSBYRlMg
+ZmlsZXN5c3RlbSBhbmQgdGhlIG1kDQpSQUlEMSBkcml2ZXIgY3JlYXRlIGtlcm5lbCB0aHJlYWRz
+LiBGcmVlemluZyBvZiBrZXJuZWwgdGhyZWFkcyBkb2VzIG5vdCB5ZXQNCmhhcHBlbiBpbiBhIHRv
+cC1kb3duIG9yZGVyIGNvbXBhcmVkIHRvIHRoZSBvcmRlciBpbiB3aGljaCBzdG9yYWdlIGRyaXZl
+cnMNCmFuZCBmaWxlc3lzdGVtcyBoYXZlIGJlZW4gc3RhY2tlZC4gRG8geW91IHRoaW5rIHRoaXMg
+c2hvdWxkIGJlIGRpc2N1c3NlZA0KZHVyaW5nIHRoZSBLUyB0aW1lIHNsb3QgYWJvdXQgUE0/DQoN
+CkZvciBhIHJlbGF0ZWQgZGlzY3Vzc2lvbiwgc2VlIGFsc28gTHVpcyBSLiBSb2RyaWd1ZXosIFtS
+RkMgMC81XSBmczogcmVwbGFjZQ0Ka3RocmVhZCBmcmVlemluZyB3aXRoIGZpbGVzeXN0ZW0gZnJl
+ZXplL3RoYXcsIDMgT2N0b2JlciAyMDE3DQooaHR0cHM6Ly9sa21sLm9yZy9sa21sLzIwMTcvMTAv
+My84MjEpLg0KDQpUaGFua3MsDQoNCkJhcnQu
