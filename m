@@ -1,24 +1,24 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2BDAA8D7
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id C0EC394B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 23 Oct 2017 08:28:47 +0000 (UTC)
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
-	[172.104.155.198])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7EBD5433
+	Mon, 23 Oct 2017 10:10:08 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A61B04C7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 23 Oct 2017 08:28:46 +0000 (UTC)
-Date: Mon, 23 Oct 2017 09:03:15 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Theodore Ts'o <tytso@mit.edu>
-Message-ID: <20171023080315.mipq7kyernjg2re6@sirena.org.uk>
+	Mon, 23 Oct 2017 10:10:07 +0000 (UTC)
+Date: Mon, 23 Oct 2017 06:10:03 -0400
+From: Theodore Ts'o <tytso@mit.edu>
+To: Jonathan Corbet <corbet@lwn.net>,
+	Mauro Carvalho Chehab <mchehab@infradead.org>
+Message-ID: <20171023101003.vzftxyhywp4agtdh@thunk.org>
 References: <20171021105302.arm4w3wn24o5b5x5@thunk.org>
+	<20171021134143.6e4d2f73@lwn.net>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="gciirr6rq5e5jvdj"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20171021105302.arm4w3wn24o5b5x5@thunk.org>
+In-Reply-To: <20171021134143.6e4d2f73@lwn.net>
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] Draft Agenda v2 for Kernel Summit
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -30,37 +30,15 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Sat, Oct 21, 2017 at 01:41:43PM -0600, Jonathan Corbet wrote:
+> > 14:05 Kernel Documentation (Mauro Carvalho)
+> 
+> I'm supposed to be moderating a kernel panel over at OSS at 2:55, so I
+> would likely have to leave this session before the end.  Perhaps
+> not a problem as long as nobody sticks me with work after I go...:)
 
---gciirr6rq5e5jvdj
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Thanks, I had forgotten about the kernel panel at OSS.
 
-On Sat, Oct 21, 2017 at 06:53:02AM -0400, Theodore Ts'o wrote:
-> The following is the v2 draft of the agenda for the Kernel Summit.
+I'll move the Kernel Documentation slot to the 16:55 Tuesday TBA slot.
 
-> We will also have a track to allow for sessions that to be scheduled
-> "unconference style".
-
-> Please take a look and if you have any requests to reschedule any
-> sessions, please let me know.
-
-I'm probably just being thick I can't seem to find where these sessions
-will be physically located?  I can't see anything on the web site for
-kernel summit or OSS Europe.
-
---gciirr6rq5e5jvdj
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlntokIACgkQJNaLcl1U
-h9BDNwf/cQSaBSc6YGT4ttqtdHSIM2UZv+lHKm0TcS5+zEe+YQjSNTO6a0dF8Ci/
-3p5pHL9a4tqy5gPB8dzkUc/SL7ZINR7RvLebVCcGkbTk1e8oXymU7UJN37KHQhMY
-asVBFVBh4EVai23R00P+d2CEVsMfAQv+HQcyYgouW9wCNC9Z0z8Siy5qIiF75L6o
-2TajreuB82MHWUy7BScTCW98Ux3OACg7jzctWt4+GoCc2ZDb0cBhf8mQnUMf9zJQ
-5Zb+H9W8D/PcY6zXGPgabNZMl9EAZrI1al6BFoKgYGdsuS3JsGHh2YouSHdMN9gk
-k5gF+mHUS27DXPecbL18BA/k7FEzUg==
-=EEhc
------END PGP SIGNATURE-----
-
---gciirr6rq5e5jvdj--
+     	      	     		   	   - Ted
