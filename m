@@ -1,27 +1,29 @@
-Return-Path: <rjw@rjwysocki.net>
+Return-Path: <keescook@google.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8D2A89AF
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9FCB6C07
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 24 Oct 2017 08:53:23 +0000 (UTC)
-Received: from cloudserver094114.home.net.pl (cloudserver094114.home.net.pl
-	[79.96.170.134])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8F29C47E
+	Tue, 24 Oct 2017 23:03:05 +0000 (UTC)
+Received: from mail-it0-f68.google.com (mail-it0-f68.google.com
+	[209.85.214.68])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2BA49180
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 24 Oct 2017 08:53:22 +0000 (UTC)
-From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-To: Megan Phillips <mphillips@linuxfoundation.org>
-Date: Tue, 24 Oct 2017 10:43:35 +0200
-Message-ID: <2083434.SfpjnWIACS@aspire.rjw.lan>
-In-Reply-To: <CAFhhKt5KxppQtDz=Mt54rtw7CAekcO6==RQBzfjewiM-XWxZ0g@mail.gmail.com>
-References: <20171023131154.lrmbsfh5o44cvh4i@thunk.org>
-	<20171024082232.k6dnovmcdi3utjyl@thunk.org>
-	<CAFhhKt5KxppQtDz=Mt54rtw7CAekcO6==RQBzfjewiM-XWxZ0g@mail.gmail.com>
+	Tue, 24 Oct 2017 23:03:05 +0000 (UTC)
+Received: by mail-it0-f68.google.com with SMTP id l196so11989234itl.4
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 24 Oct 2017 16:03:05 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-Cc: rafael@kernel.org, ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Kernel Summit / Maintainer's Summit Agenda
+Sender: keescook@google.com
+In-Reply-To: <1507303665.3104.13.camel@HansenPartnership.com>
+References: <20171005192002.hxbjjdjhrfa4oa37@thunk.org>
+	<1507303665.3104.13.camel@HansenPartnership.com>
+From: Kees Cook <keescook@chromium.org>
+Date: Tue, 24 Oct 2017 16:03:03 -0700
+Message-ID: <CAGXu5jJAUbhEZPFYSU1ExON49LqQMTgjmRSszp6eMuaDuSimsA@mail.gmail.com>
+To: James Bottomley <James.Bottomley@hansenpartnership.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] Maintainer's Summit Agenda Planning
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,26 +33,26 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tuesday, October 24, 2017 10:24:41 AM CEST Megan Phillips wrote:
-> Sure thing! Ted, I sent you an email earlier - we had to move some rooms
-> around! They are all updated on Sched. Could you update on the google doc?
-> Thanks so much!
+On Fri, Oct 6, 2017 at 8:27 AM, James Bottomley
+<James.Bottomley@hansenpartnership.com> wrote:
+> On Thu, 2017-10-05 at 15:20 -0400, Theodore Ts'o wrote:
+>> Appendix: Other topics that were brought up
+>> [...]
+>> Developing across multiple areas of the kernel
+>
+> I've got a couple of extra possibilities
+> [...]
+> 2) Trivial patches (again).
 
-There seems to be a glitch, though, because the main schedule page in
-Sched shows the Power Management session at 14:55 still, but if you click
-on the session itself, then it will show 14:05 - 14:45 (also if you add it
-to My Sched, things look OK in there).
+Given that the "trivial patches" topic's discussion ended up boiling
+down to a discussion about developing across multiple areas of the
+kernel, maybe we should make space for a "tree-wide changes"
+discussion? Even after the earlier thread about it, I tripped all over
+this in the last couple months while doing timer conversions, so I
+would at least have some more strong opinions on the subject. ;)
 
-> On Tue, Oct 24, 2017 at 2:22 AM, Theodore Ts'o <tytso@mit.edu> wrote:
-> 
-> > On Mon, Oct 23, 2017 at 10:08:29PM +0200, Rafael J. Wysocki wrote:
-> > > > Rafael, would you like the Power Management session moved one slot
-> > > > earlier to 14:05, and leave 14:55 to be a TBA slot?
-> > >
-> > > Yes, I'd prefer it to go earlier.
-> >
-> > Done.  Megan, could you move Rafael's Power Management session to
-> > 14:05 on sched.org?
+-Kees
 
-Thanks,
-Rafael
+-- 
+Kees Cook
+Pixel Security
