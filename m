@@ -1,35 +1,16 @@
-Return-Path: <josh@joshtriplett.org>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id DA8CBA7F
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 25 Oct 2017 16:42:24 +0000 (UTC)
-Received: from slow1-d.mail.gandi.net (slow1-d.mail.gandi.net [217.70.178.86])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 553594F7
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 25 Oct 2017 16:42:23 +0000 (UTC)
-Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
-	[217.70.183.196])
-	by slow1-d.mail.gandi.net (Postfix) with ESMTP id 4EA8E48698D
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 25 Oct 2017 18:17:07 +0200 (CEST)
-Date: Wed, 25 Oct 2017 09:16:56 -0700
-From: Josh Triplett <josh@joshtriplett.org>
-To: David Woodhouse <dwmw2@infradead.org>
-Message-ID: <20171025161655.psufkrr6u62ivmba@jtriplet-mobl2.jf.intel.com>
-References: <1508924843.4165.6.camel@wdc.com>
-	<CACVxJT_oJsfEDkcr2iQKerBTXXVkt-dv-7sLpihLGTTqVhJhMQ@mail.gmail.com>
-	<1508937108.29215.4.camel@infradead.org>
+Return-Path: <hpa@zytor.com>
+To: tech-board-discuss@lists.linux-foundation.org
+From: "H. Peter Anvin" <hpa@zytor.com>
+Message-ID: <9779b6c3-acd6-10aa-b9ca-c024cd77a861@zytor.com>
+Date: Wed, 25 Oct 2017 18:47:10 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <1508937108.29215.4.camel@infradead.org>
-Cc: "leonro@mellanox.com" <leonro@mellanox.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] How to encourage driver authors
- to annotate integer endianness properly
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Kernel Summit Discussions <ksummit-discuss@lists.linux-foundation.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: [Ksummit-discuss] Linux Foundation Technical Advisory Board
+	election results 2017
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,28 +20,46 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Oct 25, 2017 at 03:11:48PM +0200, David Woodhouse wrote:
-> On Wed, 2017-10-25 at 14:40 +0200, Alexey Dobriyan wrote:
-> > On 10/25/17, Bart Van Assche <Bart.VanAssche@wdc.com> wrote:
-> > > 
-> > > I think we need a way to encourage driver authors
-> > > to pay attention to endianness annotations,
-> > typedef struct {
-> >         uint32_t _;
-> > } __le32;
-> 
-> I actually did that in JFFS2 years ago; before sparse could do it. It
-> was very useful.
-> 
-> I'd really like to have proper compiler support for big-endian and
-> little-endian integers too. We're half-way there now with
-> __builtin_bswap32() et al, and compilers can optimise things properly
-> (instead of the opaque inline asm we had before I cleaned that up).
-> 
-> But being able to just mark a given integer storage as big- or little-
-> endian and have all loads and stores *automatically* do the right thing
-> would be extremely useful in many cases.
+The TAB elections are now complete. Thank you to all the candidates for
+putting their names forward.
 
-See https://gcc.gnu.org/bugzilla/show_bug.cgi?id=59852 for a proposal to
-implement Sparse's __attribute__((bitwise)) in GCC. The GCC developers
-are amenable, if someone's willing to write a patch.
+With 73 ballots cast, the top 5 candidates received:
+
+Steve Rostedt		58
+Jonathan Corbet		57
+Greg Kroah-Hartman	57
+Tim Bird		39
+Ted Ts'o		37
+
+It was a very close election, with the next candidate on the list
+receiving 36 votes.  Full results are available on request.
+
+This year the ballot counting was done automatically, with visual review
+of the scanned ballots v. the automatic results done by myself and Chris
+Mason.
+
+A big thank you to all the candidates, to everyone that voted, and
+congratulations to the top candidates.
+
+	-hpa
+
+-------------------------------------------------------------------------
+
+For the curious, technical details:
+
+The ballots were produced and counted by SDAPS, an open-source project
+(http://www.sdaps.org/).  A set of custom scripts were used to simplify
+the generation and counting of ballots specifically for the purpose of
+these elections; those scripts are available at:
+
+	http://git.zytor.com/users/hpa/ballot.git
+
+Eventually I hope to clean up these scripts, generalize them for other
+voting methods, document them a little better, and formally release them
+as an election package, but for now they are relatively specific to the
+approval voting.
+
+SDAPS is a bit difficult to build, due to a very large number of
+dependencies, some of which aren't well documented.  It would be a very
+nice thing if distros would consider packaging it, especially since it
+is a very useful package.
