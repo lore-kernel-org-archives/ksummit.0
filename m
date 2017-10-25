@@ -1,36 +1,35 @@
-Return-Path: <maxime.ripard@free-electrons.com>
+Return-Path: <josh@joshtriplett.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D22CEBD8
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id DA8CBA7F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 25 Oct 2017 14:40:41 +0000 (UTC)
-Received: from mail.free-electrons.com (mail.free-electrons.com [62.4.15.54])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 63FD91DF
+	Wed, 25 Oct 2017 16:42:24 +0000 (UTC)
+Received: from slow1-d.mail.gandi.net (slow1-d.mail.gandi.net [217.70.178.86])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 553594F7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 25 Oct 2017 14:40:41 +0000 (UTC)
-Date: Wed, 25 Oct 2017 16:40:27 +0200
-From: Maxime Ripard <maxime.ripard@free-electrons.com>
-To: Boris Brezillon <boris.brezillon@free-electrons.com>
-Message-ID: <20171025144027.qryjocn2zjblro4x@flea>
-References: <CACxGe6sxKzNKZbdGA-G=Th2oHwuanyC2kGYuaFcKbSRkuhep+Q@mail.gmail.com>
-	<CACxGe6vhYV5dbnNQXyRoPq=XSA5HOtpN0FCqyoKvGVbRu-aRqA@mail.gmail.com>
-	<20171024093755.501c9045@bbrezillon>
+	Wed, 25 Oct 2017 16:42:23 +0000 (UTC)
+Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
+	[217.70.183.196])
+	by slow1-d.mail.gandi.net (Postfix) with ESMTP id 4EA8E48698D
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 25 Oct 2017 18:17:07 +0200 (CEST)
+Date: Wed, 25 Oct 2017 09:16:56 -0700
+From: Josh Triplett <josh@joshtriplett.org>
+To: David Woodhouse <dwmw2@infradead.org>
+Message-ID: <20171025161655.psufkrr6u62ivmba@jtriplet-mobl2.jf.intel.com>
+References: <1508924843.4165.6.camel@wdc.com>
+	<CACVxJT_oJsfEDkcr2iQKerBTXXVkt-dv-7sLpihLGTTqVhJhMQ@mail.gmail.com>
+	<1508937108.29215.4.camel@infradead.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="xgvf4odqsyzxok2f"
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20171024093755.501c9045@bbrezillon>
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	Kumar Gala <kumar.gala@linaro.org>,
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <1508937108.29215.4.camel@infradead.org>
+Cc: "leonro@mellanox.com" <leonro@mellanox.com>,
 	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Rob Herring <rob.herring@linaro.org>, devicetree-spec@vger.kernel.org,
-	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
-	Andy Gross <andy.gross@linaro.org>,
-	David Gibson <david@gibson.dropbear.id.au>,
-	Lucas Stach <l.stach@pengutronix.de>
-Subject: Re: [Ksummit-discuss] Devicetree Workshop at Kernel Summit Prague
- (26 Oct 2017)
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] How to encourage driver authors
+ to annotate integer endianness properly
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,48 +39,28 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Wed, Oct 25, 2017 at 03:11:48PM +0200, David Woodhouse wrote:
+> On Wed, 2017-10-25 at 14:40 +0200, Alexey Dobriyan wrote:
+> > On 10/25/17, Bart Van Assche <Bart.VanAssche@wdc.com> wrote:
+> > > 
+> > > I think we need a way to encourage driver authors
+> > > to pay attention to endianness annotations,
+> > typedef struct {
+> >         uint32_t _;
+> > } __le32;
+> 
+> I actually did that in JFFS2 years ago; before sparse could do it. It
+> was very useful.
+> 
+> I'd really like to have proper compiler support for big-endian and
+> little-endian integers too. We're half-way there now with
+> __builtin_bswap32() et al, and compilers can optimise things properly
+> (instead of the opaque inline asm we had before I cleaned that up).
+> 
+> But being able to just mark a given integer storage as big- or little-
+> endian and have all loads and stores *automatically* do the right thing
+> would be extremely useful in many cases.
 
---xgvf4odqsyzxok2f
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, Oct 24, 2017 at 09:37:55AM +0200, Boris Brezillon wrote:
-> > 15:15 (15min) Location for maintaining bindings - how to handle
-> > 'foreign bindings' (Boris Brezillon)
->=20
-> Sorry for late reply, but I will not attend the Device Tree workshop.
-> I still think the problem should be discussed and you seemed to have an
-> opinion on this, so maybe you can lead the discussion.
-
-I will be here though, so I can discuss this instead of Boris, we've
-been confronted to this recently as well.
-
-Maxime
-
---=20
-Maxime Ripard, Free Electrons
-Embedded Linux and Kernel engineering
-http://free-electrons.com
-
---xgvf4odqsyzxok2f
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAEBAgAGBQJZ8KJbAAoJEBx+YmzsjxAgK2kQALyqvlJcsgsU88R/+yQlRP1E
-DVqeo+MTye1ab78cCUsUU0uHKeoDc77POaz1WeNy2+z9D5IBr/nBH2FxODoW3COu
-SotcbRk8JoB92eCP9Mf29GqkexgBQkcZp22QOWC/dU69q+bmiNmMuB6re2SJ7dqj
-KjXTmD1Nvp1aml9fEey2bfQ6vZ6MyskC1bbumEnJpmWHJkdo6iT3W+C/l9Uh1/ls
-MTAGvuJohw5coy3uoAzYaF6MJziHPoSXtWCg/tl4NWZr/r72pcHbx+BQaiPzIz8O
-8NGhN5J1syHCBDDdjiaBrzWvrSngJSh9KmUFTGJjDeEfbucomerF2Lx9Bgd1PS4y
-NMPPHh3b0511x3FNP8H2asVxe+HUWJcjZk4C3R9j7jtY9EfRPOYs2JWxNAzDAAc2
-7CO7Jgng51832+SfsR4lmjjn+7P9lAc5LJ6ML97E6ZNwUbAEYj6U3LJ2MHG0V/PS
-gFlWkS40E5XzZDseC4O0XSnJh/CB9bB8L8X750gxs/gRfdC4Jr9Rda+L4bgV0k0Q
-91Ynb9XgGQmRTpjzq6TLYfBcE+rkz0bcsalk3xtgjCkJoYWp7qHWBigJzuYfmPZA
-zYspiWeJWmUAMhb/gWbm8dpLCQd6iYPsPHEoTBtkw1NJBBq9l6Mj3eEib/ZN/WCO
-gcU9+DWOlXfgnuv6LApv
-=rlaO
------END PGP SIGNATURE-----
-
---xgvf4odqsyzxok2f--
+See https://gcc.gnu.org/bugzilla/show_bug.cgi?id=59852 for a proposal to
+implement Sparse's __attribute__((bitwise)) in GCC. The GCC developers
+are amenable, if someone's willing to write a patch.
