@@ -1,28 +1,26 @@
-Return-Path: <julia.lawall@lip6.fr>
+Return-Path: <martin.petersen@oracle.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B130BAAE
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8B8528DC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 25 Oct 2017 04:37:02 +0000 (UTC)
-Received: from mail2-relais-roc.national.inria.fr
-	(mail2-relais-roc.national.inria.fr [192.134.164.83])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A00B214B
+	Wed, 25 Oct 2017 06:05:30 +0000 (UTC)
+Received: from aserp1040.oracle.com (aserp1040.oracle.com [141.146.126.69])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 65C15271
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 25 Oct 2017 04:37:01 +0000 (UTC)
-Date: Wed, 25 Oct 2017 06:36:56 +0200 (CEST)
-From: Julia Lawall <julia.lawall@lip6.fr>
-To: Joe Perches <joe@perches.com>
-In-Reply-To: <1508905764.10651.10.camel@perches.com>
-Message-ID: <alpine.DEB.2.20.1710250636420.2242@hadrien>
+	Wed, 25 Oct 2017 06:05:29 +0000 (UTC)
+To: Kees Cook <keescook@chromium.org>
+From: "Martin K. Petersen" <martin.petersen@oracle.com>
 References: <20171005192002.hxbjjdjhrfa4oa37@thunk.org>
 	<1507303665.3104.13.camel@HansenPartnership.com>
 	<CAGXu5jJAUbhEZPFYSU1ExON49LqQMTgjmRSszp6eMuaDuSimsA@mail.gmail.com>
 	<1508888508.1955.16.camel@perches.com>
 	<CAGXu5jJYCRVr5DpRfVD0NNuJ0yzNTeKrDOo8u1tXeSw8GxjyBQ@mail.gmail.com>
-	<alpine.DEB.2.20.1710250605170.2242@hadrien>
-	<1508905764.10651.10.camel@perches.com>
+Date: Wed, 25 Oct 2017 02:05:20 -0400
+In-Reply-To: <CAGXu5jJYCRVr5DpRfVD0NNuJ0yzNTeKrDOo8u1tXeSw8GxjyBQ@mail.gmail.com>
+	(Kees Cook's message of "Tue, 24 Oct 2017 17:54:47 -0700")
+Message-ID: <yq11slrkbj3.fsf@oracle.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain
 Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
 	ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] Maintainer's Summit Agenda Planning
@@ -36,112 +34,62 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
+Kees,
 
-On Tue, 24 Oct 2017, Joe Perches wrote:
+> 3) Maintainers (sanely) balk at getting a massive dump of patches all
+> at once. It would be nice to document "batch limits" in the
+> MAINTAINERS file too. (For example, davem asked me after I sent him 60
+> patches in a single day if I could please limit the batch size to 12
+> between commits (i.e. only send the next batch after the prior batch
+> has been applied/processed). "H:"ow many at once, maybe?
 
-> On Wed, 2017-10-25 at 06:21 +0200, Julia Lawall wrote:
-> >
-> > On Tue, 24 Oct 2017, Kees Cook wrote:
-> >
-> > > On Tue, Oct 24, 2017 at 4:41 PM, Joe Perches <joe@perches.com> wrote:
-> > > > On Tue, 2017-10-24 at 16:03 -0700, Kees Cook wrote:
-> > > > > On Fri, Oct 6, 2017 at 8:27 AM, James Bottomley
-> > > > > <James.Bottomley@hansenpartnership.com> wrote:
-> > > > > > On Thu, 2017-10-05 at 15:20 -0400, Theodore Ts'o wrote:
-> > > > > > > Appendix: Other topics that were brought up
-> > > > > > > [...]
-> > > > > > > Developing across multiple areas of the kernel
-> > > > > >
-> > > > > > I've got a couple of extra possibilities
-> > > > > > [...]
-> > > > > > 2) Trivial patches (again).
-> > > > >
-> > > > > Given that the "trivial patches" topic's discussion ended up boiling
-> > > > > down to a discussion about developing across multiple areas of the
-> > > > > kernel, maybe we should make space for a "tree-wide changes"
-> > > > > discussion? Even after the earlier thread about it, I tripped all over
-> > > > > this in the last couple months while doing timer conversions, so I
-> > > > > would at least have some more strong opinions on the subject. ;)
-> > > >
-> > > > It's a ripe area (like months old limburger cheese) for discussion.
-> > > >
-> > > > There's currently no good way to do tree-wide changes.
-> > >
-> > > Some things stand out for me:
-> > >
-> > > 1) I would like a standard way to distinguish patch submissions
-> > > between "please ack this (it's going into my tree)" and "please apply
-> > > this to your tree." I have tried post-"---"-line notes, cover letter
-> > > notes, etc, and maintainers still miss it. It can sometimes be very
-> > > disruptive (to both me and the maintainer) to have a maintainer take a
-> > > patch out of the middle of a series that was intending to land via a
-> > > different tree. Would "[ACK-PLEASE][PATCH]" be sufficient? Or
-> > > "[MY-TREE]" or something?
-> >
-> > Nothing is going into my tree, since I don't have one.
->
-> Me too.
->
-> > Most changes I do
-> > are independent, so I hope that the recipient of the patch will take it.
->
-> And generally I will only send such a patch series once.
+I generally think 10-15 patches are reasonable. But it also depends on
+the patch size and the nature of the changes.
 
-Likewise.
+For me, the deciding factors are:
 
-julia
+1. What's the point of this series?
 
->
-> > I only send such patches to the maintainers of the patch, with the cover
-> > letter CCd to some superset of all relevant mailing lists.  I don't really
-> > know what to do with dependent patches.  Sending all patches to the union
-> > of all maintainers can lead to a huge CC list.  In that case, I would have
-> > to hope that someone who step up to pick up the patch, perhaps the person
-> > who is maintaining the dependency part, or when someone asked for the
-> > change, the person whoc asked for it in the first place.
->
-> I generally send treewide patches by second-level directory,
-> third if it's drivers/net/
->
-> > > 2) When you have a 200+ patch series, it is outrageously difficult to
-> > > figure out where to send things.
->
-> More like impossible.
->
-> > > This would allow
-> > > for a sane set of "Cc"s not based on git log guessing, and provide an
-> > > obvious "escalation" path in the face of silence (or uncommitted
-> > > Acks).
->
-> More likely a treewide maintainer for the obvious/trivial but acceptable
-> would help more.
->
-> > I send things to maintainers and mailing lists only.  My hypothesis is
-> > that the things affected by treewide canges are typically not things that
-> > other developers feel a strong ownership of.
->
-> Unfortunately, that's also the class of patches that no one cares much
-> about.
->
-> > > 8) Whatever the results of this, I'd really like to get _something_
-> > > documented as an adjunct to the SubmittingPatches document. Maybe
-> > > named TreewideChanges or MultiSubsystemChanges or something. I'm happy
-> > > to DO this documentation, I just want to have consensus on the ways to
-> > > do things, and then I can point maintainers to the document to explain
-> > > why I did something the way I did.
-> >
-> > Documentation would indeed be very helpful.
-> >
-> > Another question is how a patch series should be cut up?  Some people have
-> > complained about it being cut up by file, if the changes are all going
-> > into the same tree.  And of course there are complaints if files from two
-> > trees are mixed into a single patch.  I normally cut them up by unique set
-> > of maintainers, but sometimes quite different files get put into a single
-> > patch, or files that are very similar get split between different patches
-> > just because there is one extra maintainer on one of them.  Would it be
-> > better to follow the T: entry in MAINTAINERS, if there is one?  That
-> > information doesn't seem to be complete.
->
-> It's not and it's also incomplete when overlap of ownership occurs.
->
->
+2. Can I complete review of this series within 30 minutes before my next
+   concall.
+
+3. Can I complete review of this series without my brain turning into
+   complete mush.
+
+> 5) When sending a large series, it's infeasible to either repeat the
+> massive cover letter [...] My understanding was that everyone should
+> be subscribed to lkml, and it acts as the common thread archive, so
+> when a maintainer gets a few patches out of a /N series, they can
+> trivially go look at the 0/N patch for more context.
+
+First of all, as a subsystem maintainer I rely heavily on other people
+to review patches. Either individual driver maintainers or people with a
+vested interest in SCSI (enterprise distro developers).
+
+It's virtually impossible to entice people to review patches in the
+first place. Forcing people to go switch from their email context to go
+peruse the lkml archives in a web browser to decide whether a patch
+series is worth reviewing in the first place is a non-starter.
+
+People have really short attention spans. Realistically, reviews only
+happen when people see the mail in their inbox and they have N minutes
+to spare. After that point, your opportunity is essentially lost.
+
+If a reviewer has a particular interest in a file or area, they may tag
+it for later review. And then after a few days of working on something
+else they come back and realize they have no time this week and delete
+the series from their inbox so they don't feel bad about it over the
+weekend.
+
+As a subsystem maintainer, the burden then falls upon me. And if
+something has been collecting dust in patchwork for several weeks, there
+is absolutely no chance that I or anybody else will get to it. I'm
+reasonably sure that I'm the only person that ever visits the SCSI
+patchwork with the intent to clear out the queue.
+
+Consequently, the only way to revive interest is to resubmit. With a
+comprehensive cover letter (which, incidentally, it would be nice if
+patchwork would capture).
+
+-- 
+Martin K. Petersen	Oracle Linux Engineering
