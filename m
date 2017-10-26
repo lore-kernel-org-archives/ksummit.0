@@ -1,21 +1,27 @@
-Return-Path: <hpa@zytor.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+Return-Path: <James.Bottomley@HansenPartnership.com>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 871CD9AF
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 26 Oct 2017 05:45:45 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2640B271
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 26 Oct 2017 05:45:45 +0000 (UTC)
+Message-ID: <1508996735.3245.1.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Greg KH <greg@kroah.com>, Theodore Ts'o <tytso@mit.edu>
+Date: Thu, 26 Oct 2017 07:45:35 +0200
+In-Reply-To: <20171025143007.GA7111@kroah.com>
+References: <20171023131154.lrmbsfh5o44cvh4i@thunk.org>
+	<20171025143007.GA7111@kroah.com>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: Megan Phillips <mphillips@linuxfoundation.org>,
 	ksummit-discuss@lists.linuxfoundation.org
-References: <9779b6c3-acd6-10aa-b9ca-c024cd77a861@zytor.com>
-	<2984302.a0WA3y5s5U@avalon>
-From: "H. Peter Anvin" <hpa@zytor.com>
-Message-ID: <dcabec8a-ed6c-bfb0-d601-1913f1e6ec8d@zytor.com>
-Date: Thu, 26 Oct 2017 02:23:20 +0200
-MIME-Version: 1.0
-In-Reply-To: <2984302.a0WA3y5s5U@avalon>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: tech-board-discuss@lists.linux-foundation.org,
-	Kernel Summit Discussions <ksummit-discuss@lists.linux-foundation.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Subject: Re: [Ksummit-discuss] Linux Foundation Technical Advisory Board
- election results 2017
+Subject: Re: [Ksummit-discuss] Kernel Summit / Maintainer's Summit Agenda
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -25,21 +31,23 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 10/26/17 00:14, Laurent Pinchart wrote:
->
->> It was a very close election, with the next candidate on the list
->> receiving 36 votes.
+On Wed, 2017-10-25 at 16:30 +0200, Greg KH wrote:
+> On Mon, Oct 23, 2017 at 09:11:54AM -0400, Theodore Ts'o wrote:
+> > 
+> > Maintainers Summit  -- Thursday
+> > 
+> >  8:00 am Breakfast
+> >  9:00 am Agenda Bashing
+> >  9:30 am Improve regression tracking
+> > 10:00 am Bash the kernel maintainers
+> > 10:30 am Android Kernel Issues (drivers, long-term stable)
+> > 11:00 am What is Linus Happy/Unhappy about?
+> > 11:30 am 
+> > 12:00 am 
+> > 12:30 pm Lunch
 > 
-> Do we have a procedure in place in case the tie that we only avoided by one 
-> vote would have happened ?
-> 
+> Any hint as to what room this is going to be in?
 
-In that case thw winner(s) would be drawn randomly.  The scanning tool
-scripts actually assigns each candidate a tiebreaker number via
-/dev/urandom, but we have not yet decided if we would do that or, for
-example, a physical coin toss.
+Did we get an answer to this?
 
-We have had ties in the past, and had one this time too, but none that
-has ever crossed the cut line.
-
-	-hpa
+James
