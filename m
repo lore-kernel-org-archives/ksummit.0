@@ -1,21 +1,33 @@
-Return-Path: <dave.taht@gmail.com>
+Return-Path: <prvs=468168f87=Bart.VanAssche@wdc.com>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 038E4899
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sun, 29 Oct 2017 02:05:53 +0000 (UTC)
+Received: from esa1.hgst.iphmx.com (esa1.hgst.iphmx.com [68.232.141.245])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CAFF8196
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sun, 29 Oct 2017 02:05:51 +0000 (UTC)
+From: Bart Van Assche <Bart.VanAssche@wdc.com>
+To: "josh@joshtriplett.org" <josh@joshtriplett.org>, "dwmw2@infradead.org"
+	<dwmw2@infradead.org>
+Date: Sun, 29 Oct 2017 02:05:47 +0000
+Message-ID: <1509242746.11855.0.camel@wdc.com>
+References: <1508924843.4165.6.camel@wdc.com>
+	<CACVxJT_oJsfEDkcr2iQKerBTXXVkt-dv-7sLpihLGTTqVhJhMQ@mail.gmail.com>
+	<1508937108.29215.4.camel@infradead.org>
+	<20171025161655.psufkrr6u62ivmba@jtriplet-mobl2.jf.intel.com>
+In-Reply-To: <20171025161655.psufkrr6u62ivmba@jtriplet-mobl2.jf.intel.com>
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <6631EF809997C04687456892EA30D2A6@namprd04.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-In-Reply-To: <dcabec8a-ed6c-bfb0-d601-1913f1e6ec8d@zytor.com>
-References: <9779b6c3-acd6-10aa-b9ca-c024cd77a861@zytor.com>
-	<2984302.a0WA3y5s5U@avalon>
-	<dcabec8a-ed6c-bfb0-d601-1913f1e6ec8d@zytor.com>
-From: Dave Taht <dave.taht@gmail.com>
-Date: Wed, 25 Oct 2017 19:00:57 -0700
-Message-ID: <CAA93jw5rwU+qR4yAM9rZEtPTygOi0xceiqgcTz3Yoe8H6e-OUg@mail.gmail.com>
-To: "H. Peter Anvin" <hpa@zytor.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Cc: Tech Board Discuss <tech-board-discuss@lists.linux-foundation.org>,
-	Kernel Summit Discussions <ksummit-discuss@lists.linux-foundation.org>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Subject: Re: [Ksummit-discuss] [Tech-board-discuss] Linux Foundation
- Technical Advisory Board election results 2017
+Cc: "leonro@mellanox.com" <leonro@mellanox.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] How to encourage driver authors
+ to annotate integer endianness properly
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -25,45 +37,9 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Oct 25, 2017 at 5:23 PM, H. Peter Anvin <hpa@zytor.com> wrote:
-> On 10/26/17 00:14, Laurent Pinchart wrote:
->>
->>> It was a very close election, with the next candidate on the list
->>> receiving 36 votes.
->>
->> Do we have a procedure in place in case the tie that we only avoided by =
-one
->> vote would have happened ?
->>
->
-> In that case thw winner(s) would be drawn randomly.  The scanning tool
-> scripts actually assigns each candidate a tiebreaker number via
-> /dev/urandom, but we have not yet decided if we would do that or, for
-> example, a physical coin toss.
-
-Once upon a time, Heinlein, it was, I think, suggested that a
-candidate for office be
-picked entirely randomly from the pool. The lottery concept - the idea
-that if you ran,
-you had a small chance of serving no matter the popular vote - encouraged
-participation.
-
->
-> We have had ties in the past, and had one this time too, but none that
-> has ever crossed the cut line.
->
->         -hpa
->
-> _______________________________________________
-> Tech-board-discuss mailing list
-> Tech-board-discuss@lists.linux-foundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/tech-board-discuss
-
-
-
---=20
-
-Dave T=C3=A4ht
-CEO, TekLibre, LLC
-http://www.teklibre.com
-Tel: 1-669-226-2619
+T24gV2VkLCAyMDE3LTEwLTI1IGF0IDA5OjE2IC0wNzAwLCBKb3NoIFRyaXBsZXR0IHdyb3RlOg0K
+PiBTZWUgaHR0cHM6Ly9nY2MuZ251Lm9yZy9idWd6aWxsYS9zaG93X2J1Zy5jZ2k/aWQ9NTk4NTIg
+Zm9yIGEgcHJvcG9zYWwgdG8NCj4gaW1wbGVtZW50IFNwYXJzZSdzIF9fYXR0cmlidXRlX18oKGJp
+dHdpc2UpKSBpbiBHQ0MuIFRoZSBHQ0MgZGV2ZWxvcGVycw0KPiBhcmUgYW1lbmFibGUsIGlmIHNv
+bWVvbmUncyB3aWxsaW5nIHRvIHdyaXRlIGEgcGF0Y2guDQoNClRoYW5rcyBKb3NoLiBJIHdpbGwg
+aGF2ZSBhIGxvb2sgYXQgdGhhdCBidWd6aWxsYSB0aWNrZXQuDQoNCkJhcnQu
