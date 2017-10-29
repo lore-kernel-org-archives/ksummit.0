@@ -1,33 +1,21 @@
-Return-Path: <prvs=468168f87=Bart.VanAssche@wdc.com>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 038E4899
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 330E7416
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 29 Oct 2017 02:05:53 +0000 (UTC)
-Received: from esa1.hgst.iphmx.com (esa1.hgst.iphmx.com [68.232.141.245])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CAFF8196
+	Sun, 29 Oct 2017 10:08:20 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 87966175
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 29 Oct 2017 02:05:51 +0000 (UTC)
-From: Bart Van Assche <Bart.VanAssche@wdc.com>
-To: "josh@joshtriplett.org" <josh@joshtriplett.org>, "dwmw2@infradead.org"
-	<dwmw2@infradead.org>
-Date: Sun, 29 Oct 2017 02:05:47 +0000
-Message-ID: <1509242746.11855.0.camel@wdc.com>
-References: <1508924843.4165.6.camel@wdc.com>
-	<CACVxJT_oJsfEDkcr2iQKerBTXXVkt-dv-7sLpihLGTTqVhJhMQ@mail.gmail.com>
-	<1508937108.29215.4.camel@infradead.org>
-	<20171025161655.psufkrr6u62ivmba@jtriplet-mobl2.jf.intel.com>
-In-Reply-To: <20171025161655.psufkrr6u62ivmba@jtriplet-mobl2.jf.intel.com>
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <6631EF809997C04687456892EA30D2A6@namprd04.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	Sun, 29 Oct 2017 10:08:19 +0000 (UTC)
+Date: Sun, 29 Oct 2017 06:08:16 -0400
+From: Theodore Ts'o <tytso@mit.edu>
+To: ksummit-discuss@lists.linuxfoundation.org
+Message-ID: <20171029100816.pmq5dpmck4cclmdw@thunk.org>
 MIME-Version: 1.0
-Cc: "leonro@mellanox.com" <leonro@mellanox.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] How to encourage driver authors
- to annotate integer endianness properly
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Subject: [Ksummit-discuss] Maintainer's Summit 2017 Feedback Thread
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,9 +25,14 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-T24gV2VkLCAyMDE3LTEwLTI1IGF0IDA5OjE2IC0wNzAwLCBKb3NoIFRyaXBsZXR0IHdyb3RlOg0K
-PiBTZWUgaHR0cHM6Ly9nY2MuZ251Lm9yZy9idWd6aWxsYS9zaG93X2J1Zy5jZ2k/aWQ9NTk4NTIg
-Zm9yIGEgcHJvcG9zYWwgdG8NCj4gaW1wbGVtZW50IFNwYXJzZSdzIF9fYXR0cmlidXRlX18oKGJp
-dHdpc2UpKSBpbiBHQ0MuIFRoZSBHQ0MgZGV2ZWxvcGVycw0KPiBhcmUgYW1lbmFibGUsIGlmIHNv
-bWVvbmUncyB3aWxsaW5nIHRvIHdyaXRlIGEgcGF0Y2guDQoNClRoYW5rcyBKb3NoLiBJIHdpbGwg
-aGF2ZSBhIGxvb2sgYXQgdGhhdCBidWd6aWxsYSB0aWNrZXQuDQoNCkJhcnQu
+Hi,
+
+Please reply to this thread if you have any comments about how we can
+organize the Maintainer's Summit for next year.  Given that Linus
+seemed fairly happy with how things went, it's likely we will stick
+with the same format for next year, but if there are any details about
+how we could do things better, I'd greatly appreciate them.
+
+Thanks!!
+
+					- Ted
