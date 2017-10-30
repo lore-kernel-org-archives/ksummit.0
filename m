@@ -1,37 +1,31 @@
-Return-Path: <glikely@secretlab.ca>
+Return-Path: <shuahkhan@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 69629CAB
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4F743B9E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 30 Oct 2017 22:08:46 +0000 (UTC)
-Received: from mail-pg0-f53.google.com (mail-pg0-f53.google.com [74.125.83.53])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E75A7248
+	Mon, 30 Oct 2017 22:20:00 +0000 (UTC)
+Received: from mail-wr0-f194.google.com (mail-wr0-f194.google.com
+	[209.85.128.194])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BA160483
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 30 Oct 2017 22:08:45 +0000 (UTC)
-Received: by mail-pg0-f53.google.com with SMTP id g6so12846821pgn.6
+	Mon, 30 Oct 2017 22:19:59 +0000 (UTC)
+Received: by mail-wr0-f194.google.com with SMTP id y9so14135418wrb.2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 30 Oct 2017 15:08:45 -0700 (PDT)
+	Mon, 30 Oct 2017 15:19:59 -0700 (PDT)
 MIME-Version: 1.0
-References: <CACxGe6tfRByeJrp43Taj166K4Ni0KjmZkC=Xc1pz2=ga6fvDZQ@mail.gmail.com>
-	<CAL_Jsq+rZ6nNJnxNq6mrGEeb6RLmyAhG4V+K8uqG_irDR_BCsA@mail.gmail.com>
-In-Reply-To: <CAL_Jsq+rZ6nNJnxNq6mrGEeb6RLmyAhG4V+K8uqG_irDR_BCsA@mail.gmail.com>
-From: Grant Likely <grant.likely@secretlab.ca>
-Date: Mon, 30 Oct 2017 22:08:35 +0000
-Message-ID: <CACxGe6sH_Zd0L77N+23dmPq8NLduGMhYQnxGoLNbHzamdS9d1w@mail.gmail.com>
-To: Rob Herring <robh@kernel.org>
-Content-Type: multipart/alternative; boundary="94eb2c0caea0d37c1d055ccae1e0"
-Cc: Rob Herring <rob.herring@linaro.org>, Kumar Gala <kumar.gala@linaro.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Sean Hudson <darknighte@darknighte.com>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"devicetree-spec@vger.kernel.org" <devicetree-spec@vger.kernel.org>,
-	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
-	Lucas Stach <l.stach@pengutronix.de>, Andy Gross <andy.gross@linaro.org>,
-	Kanta Vekaria <kanta.vekaria@linaro.org>,
-	David Gibson <david@gibson.dropbear.id.au>
-Subject: Re: [Ksummit-discuss] Notes & Slides from Devicetree Workshop at
- Kernel Summit Prague (26 Oct 2017)
+In-Reply-To: <20171030220652.mintguegkoln4vgz@thunk.org>
+References: <20171029101257.wgujjxh7ert3lxl2@thunk.org>
+	<5a569d45-ef78-3ab6-1926-2359ffb2ddb9@redhat.com>
+	<20171030194130.mzkd6zvxuxoumx6k@thunk.org>
+	<CAK8P3a10_DG=uLWUA5cPx50KYi-icb_uScEjvG=sCcje5sYusg@mail.gmail.com>
+	<20171030220652.mintguegkoln4vgz@thunk.org>
+From: Shuah Khan <shuahkhan@gmail.com>
+Date: Mon, 30 Oct 2017 16:19:57 -0600
+Message-ID: <CAKocOOPGx8EYgmXzEfWa4XQj+caaTt=YboDc25ct52EHXLLeEg@mail.gmail.com>
+To: "Theodore Ts'o" <tytso@mit.edu>
+Content-Type: text/plain; charset="UTF-8"
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] Kernel Summit 2017 Feedback Thread
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,99 +35,49 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---94eb2c0caea0d37c1d055ccae1e0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, 30 Oct 2017 at 17:49, Rob Herring <robh@kernel.org> wrote:
-
-> On Mon, Oct 30, 2017 at 11:01 AM, Grant Likely
-> <grant.likely@secretlab.ca> wrote:
-> > Thank you to everyone who attended the Devicetree Workshop as part of
-> > the 2017 Kernel Summit in Prague last week. I heard lots of good
-> > feedback, and I'm already thinking about how to organize next year's
-> > gathering.
-> >
-> > Slides and notes have been uploaded to elinux.org. A summary of the
-> > topics and next steps still needs to be written. You can find the
-> > notes and slides here:
-> >
-> >
-> https://elinux.org/Device_tree_future#Kernel_Summit_2017.2C_Devicetree_Wo=
-rkshop
+On Mon, Oct 30, 2017 at 4:06 PM, Theodore Ts'o <tytso@mit.edu> wrote:
+> On Mon, Oct 30, 2017 at 09:09:10PM +0100, Arnd Bergmann wrote:
+>>
+>> I think a lot of people were simply unaware of the new format and
+>> how to use it. I heard from multiple people that were at the kernel
+>> summit that they only learned on the same day that they would be
+>> allowed to participate. I'm sure others didn't get the message at all
+>> and just didn't show up, either to the entire event or the kernel summit
+>> sessions.
 >
-> Grant, your slides are from 2016 LPC. Is that the right deck? (It's
-> also ODP, not PDF as labeled in the wiki.)
-
-
-Your looking at the 2016 section from last year. The 2017 stuff is below
-that. I noticed the odp/pdf problem as well on last year=E2=80=99s slides, =
-but
-didn=E2=80=99t get around to fixing it.
-
-
+> It was announced several months ago on the ksummit-discuss list when
+> we sent out the call for Maintainer's Summit and Kernel Summit topics.
+> There was also a note in the Kernel Summit Agenda sent out the week
+> beforehand that the it was open to anyone with a Maintainer Summit or
+> OSS Europe badge[1]) to the LKML list.
 >
-> From the notes, I don't get a sense if there's some direction on JSON
-> Schema vs. eBPF. Any comments on that.
-
-
-Pantelis and I are going to merge our plans and present a new proposal. It
-will be mostly json schema with DT specific extensions. eBPF would be
-encoded in that.
-
-g.
-
-
+> I thought about cc'ing that note to LKML, but I decided against it on
+> the theory it would be spamming LKML, and figured everyone who might
+> be interested was on ksummit-discuss anyway.  Also, this was a
+> continuation of the Kernel Summit "Open Day", where the technical
+> track was open to all attendees of the colocated conference (e.g.,
+> Plumbers in Santa Fe, Linux Con Korea in Seoul, etc.) in previous
+> years.
 >
-> Rob
+> Clearly, I had forgotten the key e-mail marketing dictum that there is
+> no such thing as over-communicating (at least until you get dropped
+> into people's SPAM filters :-).
 >
 
---94eb2c0caea0d37c1d055ccae1e0
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+The smaller group worked well for the regression tracking, and maintainer
+discussions.
 
-<div><br><div class=3D"gmail_quote"><div dir=3D"auto">On Mon, 30 Oct 2017 a=
-t 17:49, Rob Herring &lt;<a href=3D"mailto:robh@kernel.org">robh@kernel.org=
-</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:=
-0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">On Mon, Oct 30, 201=
-7 at 11:01 AM, Grant Likely<br>
-&lt;<a href=3D"mailto:grant.likely@secretlab.ca" target=3D"_blank">grant.li=
-kely@secretlab.ca</a>&gt; wrote:<br>
-&gt; Thank you to everyone who attended the Devicetree Workshop as part of<=
-br>
-&gt; the 2017 Kernel Summit in Prague last week. I heard lots of good<br>
-&gt; feedback, and I&#39;m already thinking about how to organize next year=
-&#39;s<br>
-&gt; gathering.<br>
-&gt;<br>
-&gt; Slides and notes have been uploaded to <a href=3D"http://elinux.org" r=
-el=3D"noreferrer" target=3D"_blank">elinux.org</a>. A summary of the<br>
-&gt; topics and next steps still needs to be written. You can find the<br>
-&gt; notes and slides here:<br>
-&gt;<br>
-&gt; <a href=3D"https://elinux.org/Device_tree_future#Kernel_Summit_2017.2C=
-_Devicetree_Workshop" rel=3D"noreferrer" target=3D"_blank">https://elinux.o=
-rg/Device_tree_future#Kernel_Summit_2017.2C_Devicetree_Workshop</a><br>
-<br>
-Grant, your slides are from 2016 LPC. Is that the right deck? (It&#39;s<br>
-also ODP, not PDF as labeled in the wiki.)</blockquote><div dir=3D"auto"><b=
-r></div><div dir=3D"auto">Your looking at the 2016 section from last year. =
-The 2017 stuff is below that. I noticed the odp/pdf problem as well on last=
- year=E2=80=99s slides, but didn=E2=80=99t get around to fixing it.</div><d=
-iv dir=3D"auto"><br></div><blockquote class=3D"gmail_quote" style=3D"margin=
-:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><br>
-<br>
->From the notes, I don&#39;t get a sense if there&#39;s some direction on JS=
-ON<br>
-Schema vs. eBPF. Any comments on that.</blockquote><div dir=3D"auto"><br></=
-div><div dir=3D"auto">Pantelis and I are going to merge our plans and prese=
-nt a new proposal. It will be mostly json schema with DT specific extension=
-s. eBPF would be encoded in that.</div><div dir=3D"auto"><br></div><div dir=
-=3D"auto">g.</div><div dir=3D"auto"><br></div><blockquote class=3D"gmail_qu=
-ote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex=
-"><br>
-<br>
-Rob<br>
-</blockquote></div></div>
+However one thing that was missing was the lightening talks. These
+stemmed from a larger group interaction. If we can find a way to get
+them into the current format, that would be awesome. Maybe we can
+add a session to  Kernel summit or make that part of unconference track.
+Even so, it is important to have the right mix of people.  We just got that
+by default with the older format.
 
---94eb2c0caea0d37c1d055ccae1e0--
+I am interested in summary for the session especially the discussion around
+working across sub-systems Kees brought up. It would be good to send a
+summary for the entire session. Anybody taking notes, I was busy listening
+and talking :)
+
+thanks,
+-- Shuah
