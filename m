@@ -1,38 +1,27 @@
-Return-Path: <glikely@secretlab.ca>
+Return-Path: <prvs=469d6a95f=Bart.VanAssche@wdc.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C375FBE9
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id DA16DC01
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 30 Oct 2017 16:15:38 +0000 (UTC)
-Received: from mail-pg0-f68.google.com (mail-pg0-f68.google.com [74.125.83.68])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6D87D16A
+	Mon, 30 Oct 2017 16:29:17 +0000 (UTC)
+Received: from esa4.hgst.iphmx.com (esa4.hgst.iphmx.com [216.71.154.42])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5EFF2175
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 30 Oct 2017 16:15:38 +0000 (UTC)
-Received: by mail-pg0-f68.google.com with SMTP id s2so12016103pge.10
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 30 Oct 2017 09:15:38 -0700 (PDT)
-MIME-Version: 1.0
-Sender: glikely@secretlab.ca
-In-Reply-To: <52cacde7-575c-44b8-b0f3-e56d6cfc4aeb@gmail.com>
-References: <CACxGe6tfRByeJrp43Taj166K4Ni0KjmZkC=Xc1pz2=ga6fvDZQ@mail.gmail.com>
-	<52cacde7-575c-44b8-b0f3-e56d6cfc4aeb@gmail.com>
-From: Grant Likely <grant.likely@secretlab.ca>
-Date: Mon, 30 Oct 2017 16:15:17 +0000
-Message-ID: <CACxGe6sFoeRVNkRjv+zYcqkEXVy1NnTMJAEP6zby=6aTWmV4iQ@mail.gmail.com>
-To: Frank Rowand <frowand.list@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	Kumar Gala <kumar.gala@linaro.org>,
-	Sean Hudson <darknighte@darknighte.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
+	Mon, 30 Oct 2017 16:29:17 +0000 (UTC)
+From: Bart Van Assche <Bart.VanAssche@wdc.com>
+To: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	Rob Herring <rob.herring@linaro.org>, devicetree-spec@vger.kernel.org,
-	Kanta Vekaria <kanta.vekaria@linaro.org>,
-	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
-	Andy Gross <andy.gross@linaro.org>, Lucas Stach <l.stach@pengutronix.de>,
-	David Gibson <david@gibson.dropbear.id.au>
-Subject: Re: [Ksummit-discuss] Notes & Slides from Devicetree Workshop at
- Kernel Summit Prague (26 Oct 2017)
+	"tytso@mit.edu" <tytso@mit.edu>
+Date: Mon, 30 Oct 2017 16:29:14 +0000
+Message-ID: <1509380953.3660.28.camel@wdc.com>
+References: <20171029100816.pmq5dpmck4cclmdw@thunk.org>
+In-Reply-To: <20171029100816.pmq5dpmck4cclmdw@thunk.org>
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <2093CEB492B18542929ACA12E98D2869@namprd04.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Subject: Re: [Ksummit-discuss] Maintainer's Summit 2017 Feedback Thread
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -42,16 +31,21 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Oct 30, 2017 at 4:11 PM, Frank Rowand <frowand.list@gmail.com> wrote:
-> On 10/30/17 09:01, Grant Likely wrote:
->> Particular thanks to everyone who helped take notes (Sadly, I didn't
->> grab the list of names before they disappeared from Etherpad, so the
->> only person I can thank by name is Julia Lawall who emailed me notes
->> separately). Also thanks to Sean Hudson for taking care of sound and
->> to Frank Roland for running microphones around the room. Finally, a
->            ^^^^^^
->            Rowand   :-)
-
-Ugh. Sorry Frank. I do know how to spell your name, but I was going too fast.
-
-g.
+T24gU3VuLCAyMDE3LTEwLTI5IGF0IDA2OjA4IC0wNDAwLCBUaGVvZG9yZSBUcydvIHdyb3RlOg0K
+PiBQbGVhc2UgcmVwbHkgdG8gdGhpcyB0aHJlYWQgaWYgeW91IGhhdmUgYW55IGNvbW1lbnRzIGFi
+b3V0IGhvdyB3ZSBjYW4NCj4gb3JnYW5pemUgdGhlIE1haW50YWluZXIncyBTdW1taXQgZm9yIG5l
+eHQgeWVhci4gIEdpdmVuIHRoYXQgTGludXMNCj4gc2VlbWVkIGZhaXJseSBoYXBweSB3aXRoIGhv
+dyB0aGluZ3Mgd2VudCwgaXQncyBsaWtlbHkgd2Ugd2lsbCBzdGljaw0KPiB3aXRoIHRoZSBzYW1l
+IGZvcm1hdCBmb3IgbmV4dCB5ZWFyLCBidXQgaWYgdGhlcmUgYXJlIGFueSBkZXRhaWxzIGFib3V0
+DQo+IGhvdyB3ZSBjb3VsZCBkbyB0aGluZ3MgYmV0dGVyLCBJJ2QgZ3JlYXRseSBhcHByZWNpYXRl
+IHRoZW0uDQoNCkhlbGxvIFRlZCwNCg0KU29tZXRoaW5nIHRoYXQgc3VycHJpc2VkIG1lIGlzIGFs
+dGhvdWdoIEknbSByZWFkaW5nIExpbnVzJyByZXBsaWVzIHRvIHB1bGwNCnJlcXVlc3RzIHRoYXQg
+YXBwZWFyIG9uIHRoZSBMS01MIG1haWxpbmcgbGlzdCB0aGF0IGR1cmluZyB0aGUgbWFpbnRhaW5l
+cg0Kc3VtbWl0IEkgbGVhcm5lZCBtb3JlIGFib3V0IHdoYXQgTGludXMgZXhwZWN0cyBmcm9tIG1h
+aW50YWluZXJzIHRoYW4gYnkNCnJlYWRpbmcgTGludXMnIGUtbWFpbHMuIEkgdGhpbmsgdGhpcyBz
+aG93cyB0aGF0IHJlYWRpbmcgTGludXMnIGUtbWFpbHMgaXMNCm5vdCBlbm91Z2ggdG8gbGVhcm4g
+d2hhdCBMaW51cyBleHBlY3RzIGZyb20gbWFpbnRhaW5lcnMuIFRoaXMgbWFkZSBtZSB3b25kZXIN
+CmhvdyBtYWludGFpbmVycyBhcmUgaW5mb3JtZWQgYWJvdXQgd2hhdCBpcyBleHBlY3RlZCBmcm9t
+IHRoZW0sIGVzcGVjaWFsbHkNCm5ldyBtYWludGFpbmVycz8gRG8gd2UgcGVyaGFwcyBuZWVkIGEg
+ZG9jdW1lbnQgaW4gdGhlIGtlcm5lbCB0cmVlIHRoYXQNCmV4cGxhaW5zIHdoYXQgaXMgZXhwZWN0
+ZWQgZnJvbSBtYWludGFpbmVycz8NCg0KVGhhbmtzLA0KDQpCYXJ0Lg==
