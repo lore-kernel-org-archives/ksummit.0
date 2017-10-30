@@ -1,26 +1,24 @@
-Return-Path: <dan.j.williams@intel.com>
+Return-Path: <prvs=469d6a95f=Bart.VanAssche@wdc.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 217B89B9
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5A966C3A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 30 Oct 2017 16:32:51 +0000 (UTC)
-Received: from mail-oi0-f66.google.com (mail-oi0-f66.google.com
-	[209.85.218.66])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B1A4A4DA
+	Mon, 30 Oct 2017 17:42:37 +0000 (UTC)
+Received: from esa1.hgst.iphmx.com (esa1.hgst.iphmx.com [68.232.141.245])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A1A62F8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 30 Oct 2017 16:32:50 +0000 (UTC)
-Received: by mail-oi0-f66.google.com with SMTP id c202so23038868oih.9
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 30 Oct 2017 09:32:50 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <1509380953.3660.28.camel@wdc.com>
+	Mon, 30 Oct 2017 17:42:36 +0000 (UTC)
+From: Bart Van Assche <Bart.VanAssche@wdc.com>
+To: "tytso@mit.edu" <tytso@mit.edu>
+Date: Mon, 30 Oct 2017 17:42:33 +0000
+Message-ID: <1509385352.3660.35.camel@wdc.com>
 References: <20171029100816.pmq5dpmck4cclmdw@thunk.org>
-	<1509380953.3660.28.camel@wdc.com>
-From: Dan Williams <dan.j.williams@intel.com>
-Date: Mon, 30 Oct 2017 09:32:49 -0700
-Message-ID: <CAPcyv4guN0PPdE5tV1i6PN70_uy=xzXSHX6Gy7rjaad5Z+DW2g@mail.gmail.com>
-To: Bart Van Assche <Bart.VanAssche@wdc.com>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20171029100816.pmq5dpmck4cclmdw@thunk.org>
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <0AADA98147C21F449E5FF6B455850EEF@namprd04.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
 Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] Maintainer's Summit 2017 Feedback Thread
@@ -33,25 +31,21 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Oct 30, 2017 at 9:29 AM, Bart Van Assche <Bart.VanAssche@wdc.com> wrote:
-> On Sun, 2017-10-29 at 06:08 -0400, Theodore Ts'o wrote:
->> Please reply to this thread if you have any comments about how we can
->> organize the Maintainer's Summit for next year.  Given that Linus
->> seemed fairly happy with how things went, it's likely we will stick
->> with the same format for next year, but if there are any details about
->> how we could do things better, I'd greatly appreciate them.
->
-> Hello Ted,
->
-> Something that surprised me is although I'm reading Linus' replies to pull
-> requests that appear on the LKML mailing list that during the maintainer
-> summit I learned more about what Linus expects from maintainers than by
-> reading Linus' e-mails. I think this shows that reading Linus' e-mails is
-> not enough to learn what Linus expects from maintainers. This made me wonder
-> how maintainers are informed about what is expected from them, especially
-> new maintainers? Do we perhaps need a document in the kernel tree that
-> explains what is expected from maintainers?
-
-Yes, we do. Especially with the number of people that are sending pull
-requests directly to Linus. I am taking a look at putting a first
-draft of such a document together in the next week or so.
+T24gU3VuLCAyMDE3LTEwLTI5IGF0IDA2OjA4IC0wNDAwLCBUaGVvZG9yZSBUcydvIHdyb3RlOg0K
+PiBQbGVhc2UgcmVwbHkgdG8gdGhpcyB0aHJlYWQgaWYgeW91IGhhdmUgYW55IGNvbW1lbnRzIGFi
+b3V0IGhvdyB3ZSBjYW4NCj4gb3JnYW5pemUgdGhlIE1haW50YWluZXIncyBTdW1taXQgZm9yIG5l
+eHQgeWVhci4gIEdpdmVuIHRoYXQgTGludXMNCj4gc2VlbWVkIGZhaXJseSBoYXBweSB3aXRoIGhv
+dyB0aGluZ3Mgd2VudCwgaXQncyBsaWtlbHkgd2Ugd2lsbCBzdGljaw0KPiB3aXRoIHRoZSBzYW1l
+IGZvcm1hdCBmb3IgbmV4dCB5ZWFyLCBidXQgaWYgdGhlcmUgYXJlIGFueSBkZXRhaWxzIGFib3V0
+DQo+IGhvdyB3ZSBjb3VsZCBkbyB0aGluZ3MgYmV0dGVyLCBJJ2QgZ3JlYXRseSBhcHByZWNpYXRl
+IHRoZW0uDQoNClNvbWV0aGluZyBMaW51cyB3YXMgdmVyeSBjbGVhciBhYm91dCBpcyB0aGF0IHJl
+Z3Jlc3Npb25zIGFyZSBub3QgYWNjZXB0YWJsZS4NClRoZSBiZXN0IHdheSBJIGtub3cgdG8gcmVk
+dWNlIHRoZSBudW1iZXIgb2YgcmVncmVzc2lvbnMgaXMgdG8gaW5jcmVhc2UgdGhlDQplZmZvcnRz
+IG9uIGF1dG9tYXRpYyB0ZXN0aW5nLiBTaG91bGQgdGhlIG51bWJlciBvZiB0ZXN0cyB0aGF0IGlz
+IHJ1biBieSB0aGUNCnplcm8tZGF5IHRlc3RpbmcgaW5mcmFzdHJ1Y3R1cmUgYmUgaW5jcmVhc2Vk
+PyBTaG91bGQgbW9yZSB0ZXN0cyBiZSBhZGRlZD8NClNob3VsZCB0aGUgZG9jdW1lbnRhdGlvbiB0
+aGF0IGlzIGF2YWlsYWJsZSBvbg0KaHR0cHM6Ly8wMS5vcmcvbGtwL2RvY3VtZW50YXRpb24vMC1k
+YXktdGVzdC1zZXJ2aWNlIHBlcmhhcHMgYmUgbW92ZWQNCmVsc2V3aGVyZSwgZS5nLiBpbnNpZGUg
+dGhhdCByZXBvc2l0b3J5PyBEbyB3ZSBuZWVkIGEgbGluayBvbiBrZXJuZWwub3JnIG9yDQppbiB0
+aGUga2VybmVsIGRvY3VtZW50YXRpb24gdG8gdGhhdCBwcm9qZWN0Pw0KDQpUaGFua3MsDQoNCkJh
+cnQu
