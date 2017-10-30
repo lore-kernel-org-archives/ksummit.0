@@ -1,30 +1,26 @@
-Return-Path: <arndbergmann@gmail.com>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id E6DF6CFC
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E7F5FBEE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 30 Oct 2017 20:09:11 +0000 (UTC)
-Received: from mail-oi0-f65.google.com (mail-oi0-f65.google.com
-	[209.85.218.65])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8CE9E44D
+	Mon, 30 Oct 2017 21:03:31 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 547DF47D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 30 Oct 2017 20:09:11 +0000 (UTC)
-Received: by mail-oi0-f65.google.com with SMTP id m198so24137752oig.5
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 30 Oct 2017 13:09:11 -0700 (PDT)
+	Mon, 30 Oct 2017 21:03:31 +0000 (UTC)
+Date: Mon, 30 Oct 2017 17:03:25 -0400
+From: Theodore Ts'o <tytso@mit.edu>
+To: Bart Van Assche <Bart.VanAssche@wdc.com>
+Message-ID: <20171030210325.huhspunztpkmuo5h@thunk.org>
+References: <20171029100816.pmq5dpmck4cclmdw@thunk.org>
+	<1509385352.3660.35.camel@wdc.com>
 MIME-Version: 1.0
-Sender: arndbergmann@gmail.com
-In-Reply-To: <20171030194130.mzkd6zvxuxoumx6k@thunk.org>
-References: <20171029101257.wgujjxh7ert3lxl2@thunk.org>
-	<5a569d45-ef78-3ab6-1926-2359ffb2ddb9@redhat.com>
-	<20171030194130.mzkd6zvxuxoumx6k@thunk.org>
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Mon, 30 Oct 2017 21:09:10 +0100
-Message-ID: <CAK8P3a10_DG=uLWUA5cPx50KYi-icb_uScEjvG=sCcje5sYusg@mail.gmail.com>
-To: "Theodore Ts'o" <tytso@mit.edu>
-Content-Type: text/plain; charset="UTF-8"
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] Kernel Summit 2017 Feedback Thread
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1509385352.3660.35.camel@wdc.com>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] Maintainer's Summit 2017 Feedback Thread
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,34 +30,45 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Oct 30, 2017 at 8:41 PM, Theodore Ts'o <tytso@mit.edu> wrote:
-> On Mon, Oct 30, 2017 at 08:26:01AM -0700, Laura Abbott wrote:
->>
->> What ended up happening in the unconference anyway? I mostly didn't
->> think about it but part of that was not knowing what was being
->> discussed. I get the nature of the unconference makes it hard to
->> plan ahead but there didn't seem to be a good way to know what was
->> being discussed.
->
-> There was one unconference slot used this year, and it was a
-> continuation of the Linux security discussion.  People were supposed
-> to post proposals to the ksummit-discuss list, but this didn't seem to
-> work very well this year compared to last year in Santa Fe (where
-> roughly half of the unconference slots were used).
->
-> It could have been that between KVM Forum, ELC, and OSS Europe, there
-> was simply less of a need for more kernel-oriented discussions.
+On Mon, Oct 30, 2017 at 05:42:33PM +0000, Bart Van Assche wrote:
+> On Sun, 2017-10-29 at 06:08 -0400, Theodore Ts'o wrote:
+> > Please reply to this thread if you have any comments about how we can
+> > organize the Maintainer's Summit for next year.  Given that Linus
+> > seemed fairly happy with how things went, it's likely we will stick
+> > with the same format for next year, but if there are any details about
+> > how we could do things better, I'd greatly appreciate them.
+> 
+> Something Linus was very clear about is that regressions are not acceptable.
+> The best way I know to reduce the number of regressions is to increase the
+> efforts on automatic testing. Should the number of tests that is run by the
+> zero-day testing infrastructure be increased?
 
-I think a lot of people were simply unaware of the new format and
-how to use it. I heard from multiple people that were at the kernel
-summit that they only learned on the same day that they would be
-allowed to participate. I'm sure others didn't get the message at all
-and just didn't show up, either to the entire event or the kernel summit
-sessions.
+The 0-day system has sent a whole series of reports in response to
+Linus's v4.14-rc6 announcement.  So it sounds like Fengguang is
+already on it.  :-)
 
-> One of the things I've thought about doing for next year is to set up
-> a wiki page to make it easier for people to sign up slots.
+At least, for those things where we have tests and where the 0-day
+hardware tickles the code paths of various arch-specific and drivers.
 
-Good idea.
+The good news is that we've picked a lot of the low-hanging fruit.
+The bad news is that a lot of what is left is hardware-specific driver
+issues, where fixing a bug for the current generation of devices might
+break some device from an older generation.  I recall one change to
+the Intel Wireless which only regressed when talking to an Aruba
+Enterprise-grade Access Point, for which the Intel wireless driver
+folks did not have in their hardware test library.
 
-      Arnd
+I would hope that most maintainers are doing testing on their own
+subsystems.  I certainly do a large amount of exhaustive testing of
+ext4 before I send a pull request (including most cases doing a trial
+merge before launching a gce-xfstests run).  And I would assume (for
+example), that Damien does a large amount of test of his ZBC support
+code against SMR HDD's (bonus points if he tests SMR drives from both
+WDC and Seagate :-) before he does he submits patches for review, and
+as they get merged into Linus's tree.
+
+More test in the zero-day testing infrastructure is good, but this
+can't be a substitute for maintainers testing their own subsystems.
+That's the only thing that can possibly scale.
+
+	     	    	     	   	    - Ted
