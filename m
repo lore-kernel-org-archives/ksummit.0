@@ -1,17 +1,18 @@
-Return-Path: <tytso@thunk.org>
+Return-Path: <greg@kroah.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id E7F5FBEE
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A8CF9C8E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 30 Oct 2017 21:03:31 +0000 (UTC)
-Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 547DF47D
+	Mon, 30 Oct 2017 21:20:46 +0000 (UTC)
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+	[66.111.4.28])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 372C54DA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 30 Oct 2017 21:03:31 +0000 (UTC)
-Date: Mon, 30 Oct 2017 17:03:25 -0400
-From: Theodore Ts'o <tytso@mit.edu>
+	Mon, 30 Oct 2017 21:20:46 +0000 (UTC)
+Date: Mon, 30 Oct 2017 22:20:57 +0100
+From: Greg KH <greg@kroah.com>
 To: Bart Van Assche <Bart.VanAssche@wdc.com>
-Message-ID: <20171030210325.huhspunztpkmuo5h@thunk.org>
+Message-ID: <20171030212057.GB7379@kroah.com>
 References: <20171029100816.pmq5dpmck4cclmdw@thunk.org>
 	<1509385352.3660.35.camel@wdc.com>
 MIME-Version: 1.0
@@ -41,34 +42,20 @@ On Mon, Oct 30, 2017 at 05:42:33PM +0000, Bart Van Assche wrote:
 > Something Linus was very clear about is that regressions are not acceptable.
 > The best way I know to reduce the number of regressions is to increase the
 > efforts on automatic testing. Should the number of tests that is run by the
-> zero-day testing infrastructure be increased?
+> zero-day testing infrastructure be increased? Should more tests be added?
 
-The 0-day system has sent a whole series of reports in response to
-Linus's v4.14-rc6 announcement.  So it sounds like Fengguang is
-already on it.  :-)
+Are there tests out there that 0-day does not currently run?  If there
+are any out there that 0-day should run that it does not, you can always
+add new ones, the 0-day client code is on github...
 
-At least, for those things where we have tests and where the 0-day
-hardware tickles the code paths of various arch-specific and drivers.
+> Should the documentation that is available on
+> https://01.org/lkp/documentation/0-day-test-service perhaps be moved
+> elsewhere, e.g. inside that repository? Do we need a link on kernel.org or
+> in the kernel documentation to that project?
 
-The good news is that we've picked a lot of the low-hanging fruit.
-The bad news is that a lot of what is left is hardware-specific driver
-issues, where fixing a bug for the current generation of devices might
-break some device from an older generation.  I recall one change to
-the Intel Wireless which only regressed when talking to an Aruba
-Enterprise-grade Access Point, for which the Intel wireless driver
-folks did not have in their hardware test library.
+0-day is just one of the many different test systems for the kernel,
+should we add links to them all?  :)
 
-I would hope that most maintainers are doing testing on their own
-subsystems.  I certainly do a large amount of exhaustive testing of
-ext4 before I send a pull request (including most cases doing a trial
-merge before launching a gce-xfstests run).  And I would assume (for
-example), that Damien does a large amount of test of his ZBC support
-code against SMR HDD's (bonus points if he tests SMR drives from both
-WDC and Seagate :-) before he does he submits patches for review, and
-as they get merged into Linus's tree.
+thanks,
 
-More test in the zero-day testing infrastructure is good, but this
-can't be a substitute for maintainers testing their own subsystems.
-That's the only thing that can possibly scale.
-
-	     	    	     	   	    - Ted
+greg k-h
