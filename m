@@ -1,23 +1,39 @@
-Return-Path: <jikos@kernel.org>
+Return-Path: <pantelis.antoniou@konsulko.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7017EC14
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5F892957
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 30 Oct 2017 23:10:59 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0BC8242D
+	Tue, 31 Oct 2017 11:03:19 +0000 (UTC)
+Received: from mail-wr0-f196.google.com (mail-wr0-f196.google.com
+	[209.85.128.196])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2A3FA47D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 30 Oct 2017 23:10:58 +0000 (UTC)
-Date: Tue, 31 Oct 2017 00:10:56 +0100 (CET)
-From: Jiri Kosina <jikos@kernel.org>
-To: Theodore Ts'o <tytso@mit.edu>
-In-Reply-To: <20171029100816.pmq5dpmck4cclmdw@thunk.org>
-Message-ID: <nycvar.YFH.7.76.1710310001580.9213@cbobk.fhfr.pm>
-References: <20171029100816.pmq5dpmck4cclmdw@thunk.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Maintainer's Summit 2017 Feedback Thread
+	Tue, 31 Oct 2017 11:03:12 +0000 (UTC)
+Received: by mail-wr0-f196.google.com with SMTP id z55so15559480wrz.1
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 31 Oct 2017 04:03:12 -0700 (PDT)
+Content-Type: text/plain; charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
+From: Pantelis Antoniou <pantelis.antoniou@konsulko.com>
+In-Reply-To: <CACxGe6tfRByeJrp43Taj166K4Ni0KjmZkC=Xc1pz2=ga6fvDZQ@mail.gmail.com>
+Date: Tue, 31 Oct 2017 13:03:07 +0200
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <F6E65640-A8DE-43EA-A89D-4302092904FF@konsulko.com>
+References: <CACxGe6tfRByeJrp43Taj166K4Ni0KjmZkC=Xc1pz2=ga6fvDZQ@mail.gmail.com>
+To: Grant Likely <grant.likely@secretlab.ca>
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	Kumar Gala <kumar.gala@linaro.org>,
+	Sean Hudson <darknighte@darknighte.com>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Rob Herring <rob.herring@linaro.org>,
+	Devicetree Spec List <devicetree-spec@vger.kernel.org>,
+	Kanta Vekaria <kanta.vekaria@linaro.org>,
+	Andy Gross <andy.gross@linaro.org>,
+	David Gibson <david@gibson.dropbear.id.au>,
+	Lucas Stach <l.stach@pengutronix.de>
+Subject: Re: [Ksummit-discuss] Notes & Slides from Devicetree Workshop at
+ Kernel Summit Prague (26 Oct 2017)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -27,35 +43,56 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sun, 29 Oct 2017, Theodore Ts'o wrote:
+Hi all,
 
-> Please reply to this thread if you have any comments about how we can 
-> organize the Maintainer's Summit for next year.  Given that Linus seemed 
-> fairly happy with how things went, it's likely we will stick with the 
-> same format for next year, but if there are any details about how we 
-> could do things better, I'd greatly appreciate them.
+> On Oct 30, 2017, at 18:01 , Grant Likely <grant.likely@secretlab.ca> =
+wrote:
+>=20
+> Thank you to everyone who attended the Devicetree Workshop as part of
+> the 2017 Kernel Summit in Prague last week. I heard lots of good
+> feedback, and I'm already thinking about how to organize next year's
+> gathering.
+>=20
+> Slides and notes have been uploaded to elinux.org. A summary of the
+> topics and next steps still needs to be written. You can find the
+> notes and slides here:
+>=20
+> =
+https://elinux.org/Device_tree_future#Kernel_Summit_2017.2C_Devicetree_Wor=
+kshop
+>=20
+> I also have an audio recording of the entire day, but they are large
+> audio files (100-200MB each) and I haven't decided how to publish them
+> yet.
+>=20
+> Particular thanks to everyone who helped take notes (Sadly, I didn't
+> grab the list of names before they disappeared from Etherpad, so the
+> only person I can thank by name is Julia Lawall who emailed me notes
+> separately). Also thanks to Sean Hudson for taking care of sound and
+> to Frank Roland for running microphones around the room. Finally, a
+> big thank you to the Linux Foundation staff who sorted out all of the
+> hotel logistics for us.
+>=20
+> Please look at the notes to check for accuracy, and I would appreciate
+> any volunteers to help write up the summary for the day.
+>=20
+> I'll post the group photo as soon as I receive it.
+>=20
 
-I think the format generally proved to make sense; it really helped the 
-conversation to flow in an informal but still productive fashion.
+I=E2=80=99ve taken the liberty of creating a wiki of initial Action =
+Items.
 
-The two downsides from my personal POV:
+I=E2=80=99m including the initial list here so that we can hash it out, =
+and I=E2=80=99ll
+update with everything that comes up.
 
-- room choice; I guess that's pretty obvious and not really worth too 
-  much discussion (especially the pillars and the constant noise being 
-  generated by the staff in the background)
+https://elinux.org/Device_tree_kernel_summit_2017_action_items
 
-- I can't help it, but the overall number of attendees seemed to be a 
-  little bit *too* small. I'm not asking for a revival of a 90+ people
-  on the kernel summit (that absolutely doesn't fit the nature of 
-  discussions and the format), but perhaps 40 would make sense? There 
-  definitely were a few moments when I felt that the discussion came to 
-  a point where having one particular missing person would be helpful.
+Sorry about the formatting, the markup being used is pretty weird.
 
-  I guess that given this was the first time we've had this limited
-  setup, we are still converging to the "best" group size?
+> Cheers,
+> g.
 
-Thanks,
+Regards
 
--- 
-Jiri Kosina
-SUSE Labs
+=E2=80=94 Pantelis
