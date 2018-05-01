@@ -1,39 +1,26 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <Alexander.Levin@microsoft.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C6E73115B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id BA08188D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 17 May 2018 16:45:05 +0000 (UTC)
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
-	[172.104.155.198])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7670DD3
+	Tue,  1 May 2018 16:38:23 +0000 (UTC)
+Received: from NAM03-DM3-obe.outbound.protection.outlook.com
+	(mail-dm3nam03on0112.outbound.protection.outlook.com [104.47.41.112])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 255872C4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 17 May 2018 16:45:05 +0000 (UTC)
-Date: Thu, 17 May 2018 14:10:15 +0900
-From: Mark Brown <broonie@kernel.org>
-To: Ulf Hansson <ulf.hansson@linaro.org>
-Message-ID: <20180517051015.GH20254@sirena.org.uk>
-References: <20180503031000.GC29205@thunk.org>
-	<0276fcda-0385-8f22-dbdb-e063f7ed8bbe@roeck-us.net>
-	<20180503224217.GR2714@sirena.org.uk>
-	<20180503230905.GA98604@atomide.com>
-	<CAPDyKFrCKkRHwOh-7yfFbvMp+Ykhs7oXrDwhTShSPvUBvpn2ZQ@mail.gmail.com>
-	<20180509084440.GW13402@sirena.org.uk>
-	<CAKMK7uEWYmhA3owSeYM9tNA0tpMm5=4Yqda2j=VfMWi7i8ya8w@mail.gmail.com>
-	<20180509090346.GY13402@sirena.org.uk>
-	<20180509204727.7ff38021@canb.auug.org.au>
-	<CAPDyKFrhRtLUFfmNNg0iPtJ+Tj5ZzDq6EsYPFc=PY7CmqkFX-g@mail.gmail.com>
+	Tue,  1 May 2018 16:38:23 +0000 (UTC)
+From: Sasha Levin <Alexander.Levin@microsoft.com>
+To: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Message-ID: <20180501163818.GD1468@sasha-vm>
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <86E8C4986260EF4295B63073D067B2CB@namprd21.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Enx9fNJ0XV5HaWRu"
-Content-Disposition: inline
-In-Reply-To: <CAPDyKFrhRtLUFfmNNg0iPtJ+Tj5ZzDq6EsYPFc=PY7CmqkFX-g@mail.gmail.com>
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"w@1wt.eu" <w@1wt.eu>
-Subject: Re: [Ksummit-discuss] bug-introducing patches
+Cc: Greg KH <gregkh@linuxfoundation.org>, "w@1wt.eu" <w@1wt.eu>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: [Ksummit-discuss] bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -42,32 +29,108 @@ List-Post: <mailto:ksummit-discuss@lists.linuxfoundation.org>
 List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=help>
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
+Date: Tue, 01 May 2018 16:38:23 -0000
+
+Working on AUTOSEL, it became even more obvious to me how difficult it is f=
+or a
+patch to get a proper review. Maintainers found it difficult to keep up wit=
+h
+the upstream work for their subsystem, and reviewing additional -stable pat=
+ches
+put even more load on them which some suggested would be more than what the=
+y
+can handle.
+
+While AUTOSEL tries to understand if a patch fixes a bug, this was a bit la=
+te:
+the bug was already introduced, folks already have to deal with it, and the
+kernel is broken. I was wondering if I can do a similar process to AUTOSEL,=
+ but
+teach the AI about bug-introducing patches.
+
+When someone fixes a bug, he would describe the patch differently than he w=
+ould
+if he was writing a new feature. This lets AUTOSEL build on different commi=
+t
+message constructs, among various inputs, to recognize bug fixes. However,
+people are unaware that they introduce a bug, so the commit message for bug
+introducing patches is essentially the same as for commits that don't intro=
+duce
+a bug. This meant that I had to try and source data out of different source=
+s.
+
+Few of the parameters I ended up using are:
+ - -next data (days spent in -next, changes in the patch between -next tree=
+s)
+ - Mailing list data (was this patch ever sent to a ML? How long before it =
+was
+   merged? How many replies did it get? ...)
+ - Author/commiter/maintainer chain data. Just like sports, some folks are =
+more
+   likely to produce better results than others. This goes beyond just "ski=
+ll",
+but also looks at things such as whether the author patches a subsystem he'=
+s
+"familiar with" (=3D=3D subsystem where most of his patches usually go), or=
+ is he
+modifying a subsystem he never sent a patch for.
+ - Patch complexity metrics - various code metrics to indicate how "complex=
+" a
+   patch is. Think 100 lines of whitespace fixes vs 100 lines that
+significantly changes a subsystem.
+ - Kernel process correctness - I tried using "violations" of the kernel
+   process (patch formatting, correctness of the mailing to lkml, etc) as a=
+n
+indicator of how familiar the author is with the kernel, with the presumpti=
+on
+that folks who are newer to kernel development are more likely to introduce
+bugs
+
+Running an initial iteration on a set of commits made two things very obvio=
+us
+to me:
+
+1. -rc releases suck. seriously suck. The quality of commits that went in -=
+rc
+cycles was much worse that merge window commit:
+ - All commits had the same chance of introducing a bug whether they came i=
+n a
+   merge window or an -rc cycle. This means that -rc commits mostly end up
+replacing obvious bugs with less obvious ones.
+ - While the average merge window commit changes, on average, 3x more lines
+   than an -rc commit, the chances of a bug introduced per patch is the sam=
+e,
+which means that bugs-per-line metric of code is much higher with -rc patch=
+es.
+ - A merge window commit spent 50% more days, on average, in -next than a -=
+rc
+   commit.
+ - The number of -rc commits that never saw any mailing list or has never b=
+een
+   replied to on a mailing list was **way** higher than merge window commit=
+s.
+ - For some reason, the odds of a -rc commit to be targetted for -stable is
+   over 20%, while for merge window commits it's about 3%. I can't quite
+explain why that happens, but this would suggest that -rc commits end up
+hurting -stable pretty badly.
+
+2. Maintainers need to stop writing patches, commiting them, and pushing th=
+em
+in without reviews.  In -rc cycles there is quite a large number of commits
+that were either written by maintainers, commited, and merged upstream the =
+same
+day. These patches are very likely to introduce a new bug.
 
 
---Enx9fNJ0XV5HaWRu
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+I don't really have a proposal beyond "tighten up -rc cycles", but I think =
+it's
+a discussion worth having. We have enough data to show what parts of kernel
+development work, and what parts are just hurting us.
 
-On Mon, May 14, 2018 at 10:36:04AM +0200, Ulf Hansson wrote:
+I'd be happy to gather more data if someone has an idea he wants to look
+into. The data used for this work is based on:
 
-> I will ping the kernelci folkz to request them to include your new
-> fixes branch for daily builds.
-
-No need, I already added it.
-
---Enx9fNJ0XV5HaWRu
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlr9DrcACgkQJNaLcl1U
-h9Cq3wf/Tbiuue1NyeqRMTkySgYEB+jvkhuFBEjKp8jPufkrABCZS3rzqJ0rREPs
-B6B+H0vbla3tWgY3BHwx6lCv1rt9E+ivY7JA70bSBwYrjkIEhSnbmi4t5dOz/Uc5
-gaXS6B9a/sh54Kv6YbhcieWZOu8iApje0VRTYQg/634xexy2KkvjHps1Q0outpWw
-Jzr2mUU/GwqKQHCIUVujyY+/CjitdXmi4yiOV+k8m+jCwValCtvydnlSJHyKFxHL
-Pw/U9wLu4ZI5BbHGect8w1UBQAgDAVr/vZXXUYLzDo/FRJCsRPfn00gKhvQabEWE
-3O7dtN2yt92srUYU51fcyPY6o7WWPA==
-=569S
------END PGP SIGNATURE-----
-
---Enx9fNJ0XV5HaWRu--
+ - v4.4..v4.16 (just becuase it's as far as linux-next-history goes).
+ - "bugs" are commits that were mentioned in a Fixes: tag of a later
+   commit.
+ - "stable commits" are commits that made it to a -stable tree.
