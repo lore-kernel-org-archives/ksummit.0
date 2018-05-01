@@ -1,40 +1,27 @@
-Return-Path: <frowand.list@gmail.com>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9B2069C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1144325A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  2 Nov 2017 16:02:57 +0000 (UTC)
-Received: from mail-pf0-f179.google.com (mail-pf0-f179.google.com
-	[209.85.192.179])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3AFBE52B
+	Tue,  1 May 2018 19:44:59 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 07A3AF8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  2 Nov 2017 16:02:57 +0000 (UTC)
-Received: by mail-pf0-f179.google.com with SMTP id b6so9129pfh.7
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 02 Nov 2017 09:02:57 -0700 (PDT)
-To: Grant Likely <grant.likely@secretlab.ca>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	devicetree-spec@vger.kernel.org,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	David Gibson <david@gibson.dropbear.id.au>,
-	Julia Lawall <Julia.Lawall@lip6.fr>,
-	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
-	Lucas Stach <l.stach@pengutronix.de>, Kumar Gala <kumar.gala@linaro.org>,
-	Andy Gross <andy.gross@linaro.org>, Rob Herring <rob.herring@linaro.org>,
-	Sean Hudson <darknighte@darknighte.com>,
-	Kanta Vekaria <kanta.vekaria@linaro.org>
-References: <CACxGe6tfRByeJrp43Taj166K4Ni0KjmZkC=Xc1pz2=ga6fvDZQ@mail.gmail.com>
-From: Frank Rowand <frowand.list@gmail.com>
-Message-ID: <09f89fb1-85d3-4d2b-4cdf-93ce32c5e78a@gmail.com>
-Date: Thu, 2 Nov 2017 09:02:53 -0700
+	Tue,  1 May 2018 19:44:57 +0000 (UTC)
+Date: Tue, 1 May 2018 15:44:50 -0400
+From: "Theodore Y. Ts'o" <tytso@mit.edu>
+To: Sasha Levin <Alexander.Levin@microsoft.com>
+Message-ID: <20180501194450.GD10479@thunk.org>
+References: <20180501163818.GD1468@sasha-vm>
 MIME-Version: 1.0
-In-Reply-To: <CACxGe6tfRByeJrp43Taj166K4Ni0KjmZkC=Xc1pz2=ga6fvDZQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Ksummit-discuss] Notes & Slides from Devicetree Workshop at
- Kernel Summit Prague (26 Oct 2017)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20180501163818.GD1468@sasha-vm>
+Cc: Greg KH <gregkh@linuxfoundation.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"w@1wt.eu" <w@1wt.eu>, "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -44,40 +31,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 10/30/17 09:01, Grant Likely wrote:
-> Thank you to everyone who attended the Devicetree Workshop as part of
-> the 2017 Kernel Summit in Prague last week. I heard lots of good
-> feedback, and I'm already thinking about how to organize next year's
-> gathering.
-> 
-> Slides and notes have been uploaded to elinux.org. A summary of the
-> topics and next steps still needs to be written. You can find the
-> notes and slides here:
-> 
-> https://elinux.org/Device_tree_future#Kernel_Summit_2017.2C_Devicetree_Workshop
+On Tue, May 01, 2018 at 04:38:21PM +0000, Sasha Levin wrote:
+>  - A merge window commit spent 50% more days, on average, in -next than a -rc
+>    commit.
 
-Grant and I have updated this information several times in the last few days.
-Some added information and slides, some added comments, reformatted the
-etherpad notes for wiki format, etc.
+So it *used* to be the case that after the merge window, I would queue
+up bug fixes for the next merge window.  Greg K-H pushed for me to
+send them to Linus sooner, instead of waiting for the next merge
+window.  TBH, it's actually easier for me to just wait until the next
+merge window, but please understand that there are multiple pressures
+on maintainers going on here, and the latest efforts to try to use
+AUTOSEL is just the most recent pressure placed on maintainers.
 
+The other thing is that when there is a regression users who are
+testing linux-next want it fixed *fast*.  That's considered more
+important to them than waiting for one, perfect patch, just to keep
+AUTOSEL happy.
 
-> I also have an audio recording of the entire day, but they are large
-> audio files (100-200MB each) and I haven't decided how to publish them
-> yet.
-> 
-> Particular thanks to everyone who helped take notes (Sadly, I didn't
-> grab the list of names before they disappeared from Etherpad, so the
-> only person I can thank by name is Julia Lawall who emailed me notes
-> separately). Also thanks to Sean Hudson for taking care of sound and
-> to Frank Roland for running microphones around the room. Finally, a
-> big thank you to the Linux Foundation staff who sorted out all of the
-> hotel logistics for us.
-> 
-> Please look at the notes to check for accuracy, and I would appreciate
-> any volunteers to help write up the summary for the day.
-> 
-> I'll post the group photo as soon as I receive it.
-> 
-> Cheers,
-> g.
-> 
+So please understand that when you say that maintainers *need* to do X
+or Y, that there you are not the only one standing in line putting
+pressures on maintainers saying they *need* to do something.  And
+quite frankly, I consider keeping people who are nice enough to test
+linux-next happy to be **far** more important than AUTOSEL.
+
+Sorry.
+
+						- Ted
