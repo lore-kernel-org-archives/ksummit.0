@@ -1,29 +1,27 @@
-Return-Path: <sfr@canb.auug.org.au>
+Return-Path: <w@1wt.eu>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 14F9A8A5
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 290545AD
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  1 May 2018 23:28:54 +0000 (UTC)
-Received: from ozlabs.org (ozlabs.org [203.11.71.1])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7112318A
+	Wed,  2 May 2018 04:30:24 +0000 (UTC)
+Received: from 1wt.eu (wtarreau.pck.nerim.net [62.212.114.60])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 24DB44FA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  1 May 2018 23:28:53 +0000 (UTC)
-From: Stephen Rothwell <sfr@canb.auug.org.au>
+	Wed,  2 May 2018 04:30:22 +0000 (UTC)
+From: Willy Tarreau <w@1wt.eu>
 To: Sasha Levin <Alexander.Levin@microsoft.com>
-Message-ID: <20180502092850.5985b0fb@canb.auug.org.au>
-In-Reply-To: <20180501200019.GA7397@sasha-vm>
+Message-ID: <20180502043017.GA11938@1wt.eu>
 References: <20180501163818.GD1468@sasha-vm> <20180501194450.GD10479@thunk.org>
-	<20180501200019.GA7397@sasha-vm>
+	<20180501200019.GA7397@sasha-vm> <20180501205448.GE10479@thunk.org>
+	<20180501220228.GD7397@sasha-vm>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	boundary="Sig_/RjqM6d1FNoifwZZW4ZOVoOa";
-	protocol="application/pgp-signature"
-Cc: "ksummit-discuss@lists.linuxfoundation.org"        
-	<ksummit-discuss@lists.linuxfoundation.org>, Greg KH
-	<gregkh@linuxfoundation.org>, "w@1wt.eu, " <w@1wt.eu>,
-	"julia.lawall@lip6.fr, "
-	<julia.lawall@lip6.fr>, "linux-kernel@vger.kernel.org,
-	<linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20180501220228.GD7397@sasha-vm>
+Cc: Greg KH <gregkh@linuxfoundation.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -33,44 +31,64 @@ List-Post: <mailto:ksummit-discuss@lists.linuxfoundation.org>
 List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=help>
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
-Date: Tue, 01 May 2018 23:28:54 -0000
+Date: Wed, 02 May 2018 04:30:24 -0000
 
---Sig_/RjqM6d1FNoifwZZW4ZOVoOa
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+On Tue, May 01, 2018 at 10:02:30PM +0000, Sasha Levin wrote:
+> On Tue, May 01, 2018 at 04:54:48PM -0400, Theodore Y. Ts'o wrote:
+> >Post -rc3 or -rc4, in my opinion bug fixes should wait until the next
+> >merge window before they get merged at all.  (And certainly features
+> >bugs should be Right Out.)  And sure, bug fixes should certainly get
+> >more testing.  So I guess my main objection is your making a blanket
+> >statement about all fixes, instead of breaking out regression fixes
+> >versus bug fixes.  Since in my opinion they are very different animals...
+> 
+> I understant your point, you want to make fixes available to testers as
+> soon as possible. This might make sense, as you've mentioned, in < -rc3.
+> 
+> So yes, maybe the solution isn't to force -next, but rather add more
+> "quiet time" at the end of the cycle? Make special rules for -rc7/8? Or
+> even add a "test"/"beta" release at the end of the cycle?
 
-Hi Sasha,
+I disagree with the proposals above, and for multiple reasons :
+  - leaving a known bug on purpose automatically degrades the quality of
+    each release. Given that less than 100% of the fixes introduce
+    regressions, by not merging any of these fixes, we'll end up with
+    more bugs. That's a very bad idea.
 
-On Tue, 1 May 2018 20:00:21 +0000 Sasha Levin <Alexander.Levin@microsoft.co=
-m> wrote:
->
-> I've just finished reading an interesting article on LWN about the
-> PostgreSQL fsync issues (https://lwn.net/Articles/752952/). If you
-> look at Willy's commit, he wrote the final version of it about 5 days
-> ago, Jeff merged it in 3 days ago, and Linus merged it in the tree
-> today. Did it spend any time getting -next testing? nope.
+  - this will give a worse image of dot-0 releases, and users will be
+    even less interested in testing them, prefering to wait for the
+    first stable version. In this case what's the point of dot-0 if it
+    is known broken and nobody uses it ?
 
-The patch was in linux-next from Monday, so it had at least one release
-before Linus merged it.  How much testing that got is another issue.
+  - letting fixes rot longer on the developer side will send a very bad
+    signal to developers : "we don't care about your bugs". Companies
+    relying on contractors will have a harder time including fixes in
+    the contract, as it will only cover what's needed to get the feature
+    merged. Again this will put the focus on extremely fast and dirty
+    development, given that fixes will not be considered during the same
+    window.
 
---=20
-Cheers,
-Stephen Rothwell
+I'd rather do the exact opposite except for those who introduce too many
+regressions : set up a delay penalty to developers who create too many
+regressions and make this penalty easy to check. I think it will generally
+not affect subsystem maintainers, unless they pull and push lots of crap
+without checking, of course. But it could prove very useful for those
+developing under contract, because companies employing them will want to
+ensure that their work will not be delayed due to a penalty. Thus is will
+be important for these developers to be more careful.
 
---Sig_/RjqM6d1FNoifwZZW4ZOVoOa
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
+After all, the person proposing a fix always knows better than anyone
+else if this fix was done seriously or not. Developers who do lots of
+testing before sending should not be penalized, and should get their
+fix merged immediately. Those who just send untested patches should be
+trusted much less.
 
------BEGIN PGP SIGNATURE-----
+> From what I see, the same number of bugs-per-line-of-code applies for
+> commits accross all -rc releases, so while it makes sense to get a fix
+> in quickly at -rc1 to allow testing to continue, the same must not
+> happen during -rc8, but unfourtenately it does now.
 
-iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAlro+DIACgkQAVBC80lX
-0Gz1CwgAjf3Fk6mT/XelVPL7owk2jDG6jr3p3VYkQoLX92GZfQTetnp2nNcAattA
-BY31E2l8hucF2qBDhKj7pv7hGEwKgNRjQrGpyB2l1PCxQWI042Xix6rYV6GI12DU
-xdxkR40JP9t7inkJZcT3AeHc8QRw66UxfOpIQwXAEn2PLqBaKMP0/eyyWfw0LpAA
-VhVxo25uYcif37abeMLvHdno/DtOcte8ylgNQxBPJl3CGuG66UpNt7Xk/9ET7OOn
-d7fRZSothXnCkPEzSBXxotMc0y4zTr8OOnoN8OhnXKp8Mcng1ZS2lLrQ3gJAsUrJ
-yG+L3levq5APKn3KRpinLICUg1H6ZQ==
-=sajT
------END PGP SIGNATURE-----
+That's where I strongly disagree, since it would mean releasing with even
+more bugs than today.
 
---Sig_/RjqM6d1FNoifwZZW4ZOVoOa--
+Willy
