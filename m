@@ -1,31 +1,33 @@
-Return-Path: <linux@roeck-us.net>
+Return-Path: <SRS0=63qv=HW=linuxfoundation.org=gregkh@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3CF9F8E3
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D1B1693E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  3 May 2018 18:46:11 +0000 (UTC)
-Received: from bh-25.webhostbox.net (bh-25.webhostbox.net [208.91.199.152])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E62105D4
+	Thu,  3 May 2018 18:55:40 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7B578299
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  3 May 2018 18:46:10 +0000 (UTC)
-Date: Thu, 3 May 2018 11:46:07 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Sasha Levin <Alexander.Levin@microsoft.com>
-Message-ID: <20180503184607.GA21155@roeck-us.net>
-References: <20180503000620.GA29205@thunk.org>
-	<20180503144612.GJ18390@sasha-vm> <20180503145205.GD23311@1wt.eu>
-	<20180503150104.GL18390@sasha-vm> <20180503160046.GH23311@1wt.eu>
-	<20180503161452.GP18390@sasha-vm> <20180503163516.GJ23311@1wt.eu>
-	<20180503172926.GQ18390@sasha-vm> <20180503175723.GA23467@1wt.eu>
-	<20180503181234.GT18390@sasha-vm>
+	Thu,  3 May 2018 18:55:40 +0000 (UTC)
+Date: Thu, 3 May 2018 11:55:29 -0700
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Al Viro <viro@ZenIV.linux.org.uk>
+Message-ID: <20180503185529.GB15247@kroah.com>
+References: <20180501163818.GD1468@sasha-vm>
+	<CAMuHMdWNFz_9OpddZ6tTaQcNVH01pkhwd0+3Z31uDcZvbkV6Ow@mail.gmail.com>
+	<20180502195138.GC18390@sasha-vm>
+	<CAMuHMdW_i-KQpqMz0zsz77tRcE-Sron5zAyh0SHAOJ5ap7x60w@mail.gmail.com>
+	<20180503000620.GA29205@thunk.org>
+	<20180503144612.GJ18390@sasha-vm>
+	<20180503165446.GB30522@ZenIV.linux.org.uk>
+	<20180503173422.GR18390@sasha-vm>
+	<20180503182039.GC30522@ZenIV.linux.org.uk>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20180503181234.GT18390@sasha-vm>
-Cc: Greg KH <gregkh@linuxfoundation.org>, Willy Tarreau <w@1wt.eu>,
+In-Reply-To: <20180503182039.GC30522@ZenIV.linux.org.uk>
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
 	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+	<ksummit-discuss@lists.linuxfoundation.org>, "w@1wt.eu" <w@1wt.eu>
 Subject: Re: [Ksummit-discuss] bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -36,18 +38,64 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, May 03, 2018 at 06:12:36PM +0000, Sasha Levin via Ksummit-discuss wrote:
+On Thu, May 03, 2018 at 07:20:39PM +0100, Al Viro wrote:
+> On Thu, May 03, 2018 at 05:34:24PM +0000, Sasha Levin wrote:
 > 
-> For example, how about extending the release cycle until the amount of
-> fixes for regressions introduced in the current merge window drops under
-> a certain thershold? (so go to -rc20 if we need to).
+> > >Moreover, what the hell do you suggest in situation when
+> > >	* foofs_barf() is b0rken in quite a few ways.  There's an
+> > >easily triggerable memory corruptor that can be fixed locally as well
+> > >as something else that needs a change of e.g. ->mkdir() calling
+> > >conventions to take care of.  The change is mechanical and fairly
+> > >simple, but it's already -rc4.
+> > 
+> > I'm not advocating to forcefully block people from submitting patches
+> > after -rc4 (that was Ted's suggesting).
 > 
-Reminds me of what happened at a previous employer. We had a hard rule that
-a product shall not be released unless it has no more than 2 severe or
-critical bugs. Solution: Stop testing 2-3 weeks ahead of the scheduled
-release day.
+> I am, though - change of a method signature when we have several dozens
+> of instances does *not* belong in -rc5; if nothing else, it guarantees
+> a nightmare pile of conflicts with individual filesystem trees.
+> 
+> > I'm just saying that as a maintainer, you should use your brain and
+> > figure out how critical the bug is, how good is the fix and how well was
+> > it tested, and decide if you want to merge it in or not.
+> > 
+> > If it fixed the bug and didn't introduce a regression, great! If it
+> > messed something else, you'd have some input on how to address it better
+> > in the future.
+> > 
+> > I'm trying to come up with a tool/system to help maintainers with
+> > this task because right now it's not working too well. I'm not trying to
+> > introduce arbitrary rules to make your life miserable.
+> 
+> And I am asking you what kind of rules do you want/expect/would prefer
+> for Fixes: pseudo-header.  *I* do not give a flying fuck for its
+> contents; I can put it in, if there is a good reason, though.  And
+> the obvious consumers of that thing are -stable maintainers.  Including
+> yourself.  Which is why I am asking you what should go in there in
+> situation described above.  And no, that's not a rhetorical question;
+> I really want to know.
+> 
+> Let me describe it again:
+> 	* a bunch of holes is found in a function; all of them go back
+> several years
+> 	* a clean fix for the whole pile is a composition of
+> 1) local fix of trivially triggered memory corruptor
+> 2) tree-wide mechanical change of method signature + matching modifications
+> of callers of that method (say, all five of them).
+> 3) further changes in the function in question and its caller (which happens
+> to be an instance of the method modified by (2).
+> 	* dependencies between parts: (1) is standalone, (3) has a hard
+> dependency on (2), (1) can be reordered past (2)+(modified 3), but modifications
+> needed in (1) and (3) are not trivial.
+> 	* the crap fixed by (1) is much more severe than that fixed by (3)
+> (and (2) is an equivalent transformation which does not affect behaviour of
+> anything).
+> 	* too late in the cycle for tree-wide patches like (2).
+> 
+> As far as I'm concerned (and if it makes -stable folks' lives unpleasant,
+> too fucking bad)
 
-Here: We don't want to see -rc20. Solution: Stop applying bug fixes
-at -rcX.
+Don't care about me for stuff like this.  Fix it correctly and I'll
+worry about any dependancy issues later :)
 
-Guenter
+greg k-h
