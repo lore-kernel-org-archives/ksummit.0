@@ -1,36 +1,31 @@
-Return-Path: <jmforbes@linuxtx.org>
+Return-Path: <w@1wt.eu>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D3863951
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 103EEAE7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  3 May 2018 16:50:02 +0000 (UTC)
-Received: from mail-io0-f193.google.com (mail-io0-f193.google.com
-	[209.85.223.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 234A1148
+	Thu,  3 May 2018 17:57:29 +0000 (UTC)
+Received: from 1wt.eu (wtarreau.pck.nerim.net [62.212.114.60])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 203E5673
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  3 May 2018 16:50:02 +0000 (UTC)
-Received: by mail-io0-f193.google.com with SMTP id e20-v6so22427090iof.4
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 03 May 2018 09:50:02 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <20180503160210.GO18390@sasha-vm>
-References: <20180501163818.GD1468@sasha-vm>
-	<CAMuHMdWNFz_9OpddZ6tTaQcNVH01pkhwd0+3Z31uDcZvbkV6Ow@mail.gmail.com>
-	<20180502195138.GC18390@sasha-vm>
+	Thu,  3 May 2018 17:57:27 +0000 (UTC)
+From: Willy Tarreau <w@1wt.eu>
+To: Sasha Levin <Alexander.Levin@microsoft.com>
+Message-ID: <20180503175723.GA23467@1wt.eu>
+References: <20180502195138.GC18390@sasha-vm>
 	<CAMuHMdW_i-KQpqMz0zsz77tRcE-Sron5zAyh0SHAOJ5ap7x60w@mail.gmail.com>
 	<20180503000620.GA29205@thunk.org>
-	<ed65dc49-dad0-21a1-676c-f9ba43ba5c6c@roeck-us.net>
-	<20180503145533.GK18390@sasha-vm> <20180503154911.GA26754@roeck-us.net>
-	<20180503160210.GO18390@sasha-vm>
-From: Justin Forbes <jmforbes@linuxtx.org>
-Message-ID: <CAFxkdAotxEpMwf_SCxpP0TMDkWA44CMA6NEu9YA-mkt03gUXAg@mail.gmail.com>
-To: Sasha Levin <Alexander.Levin@microsoft.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<20180503144612.GJ18390@sasha-vm> <20180503145205.GD23311@1wt.eu>
+	<20180503150104.GL18390@sasha-vm> <20180503160046.GH23311@1wt.eu>
+	<20180503161452.GP18390@sasha-vm> <20180503163516.GJ23311@1wt.eu>
+	<20180503172926.GQ18390@sasha-vm>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20180503172926.GQ18390@sasha-vm>
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"w@1wt.eu" <w@1wt.eu>
+	Greg KH <gregkh@linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -40,132 +35,52 @@ List-Post: <mailto:ksummit-discuss@lists.linuxfoundation.org>
 List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=help>
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
-Date: Thu, 03 May 2018 16:50:02 -0000
+Date: Thu, 03 May 2018 17:57:29 -0000
 
-On Thu, May 3, 2018 at 11:02 AM, Sasha Levin
-<Alexander.Levin@microsoft.com> wrote:
-> On Thu, May 03, 2018 at 08:49:11AM -0700, Guenter Roeck wrote:
->>On Thu, May 03, 2018 at 02:55:36PM +0000, Sasha Levin wrote:
->>> On Wed, May 02, 2018 at 05:38:32PM -0700, Guenter Roeck wrote:
->>> >On 05/02/2018 05:06 PM, Theodore Y. Ts'o wrote:
->>> >>On Wed, May 02, 2018 at 10:41:56PM +0200, Geert Uytterhoeven wrote:
->>> >>>
->>> >>>Between v4.17-rc1 and v4.17-rc3, there are 660 non-merge commits, of which
->>> >>>   - 245 carry a Fixes tag,
->>> >>>   - 196 carry a CC stable,
->>> >>>   - 395 contain the string "fix".
->>> >>>(non-mutually exclusive)
->>> >>>
->>> >>>That leaves us with 200 commits not falling in the bugfix category.
->>> >>
->>> >>Some non-bug fixes are allowed in -rc2.  So perhaps what might be
->>> >>interesting is to look at v4.16 (which is completed), and look at the
->>> >>distribution of commits:
->>> >>
->>> >>   * regressions fixes (for bugs introduced during the current
->>> >>           release cycle)
->>> >>   * "normal" bug fixes
->>> >>   * commits which don't touch code (e.g., spelling or
->>> >>           documentation-only fixes)
->>> >>   * other commits (features or cleanup fixes)
->>> >>
->>> >>at each rcX level.  The historic "standard" has been feature commits
->>> >>in -rc1 and -rc2 (tolerated, but ideally should before the merge
->>> >>window), bug fixes / regressions in -rc3 and -rc4, and after -rc4,
->>> >>regression fixes only.  It would be interesting to see how well we
->>> >>have been holding to the historical ideal.
->>> >>
->>> >>It would then be intersting to use Sasha's analysis to see whether
->>> >>there are more bug fixes caused by regression fixes versus normal bug
->>> >>fixes, and whether or not they are common when fixes come "out of
->>> >>cycle" --- for example, a non-regression bug fix in -rc5 or -rc6.
->>> >>
->>> >>Because if that last is the case, then the prescription is very simple
->>> >>and not controversial --- bug fixes found post -rc4 should be held to
->>> >>the next merge window.
->>> >>
->>> >
->>> >Holding up even fixes for severe bugs for 4-6 weeks ? Seriously, that is
->>> >unrealistic. Holding up the fix for the next SpeckHammer because it was not
->>> >ready before -rc4 ? I don't think so.
->>>
->>> For severe problems, the patch usually gets more than enough reviews and
->>> testing, so I don't see a need to soak it in -next more than some
->>> minimal amount of time to get bot coverage.
->>>
->>> However, these things show up only a few times per year. Most of the
->>> fixes even in late -rc cycles are for older bugs that aren't too
->>> critical. We can't base our decision on severe bugs that get exceptional
->>> treatment anyways (see PTI getting pushed in -stable).
->>>
->>> >Even when not counting severe problems, you are adding lots of additional work
->>> >for those who do and want to rely on stable releases to merge in bug fixes.
->>> >Sure, I am at times annoyed having to deal with a regression in a stable
->>> >release, but it very much beats digging through various mailing lists for
->>> >pending patches to fix CVEs, or for crashes seen in the field, just because
->>> >they are held hostage by some restrictive process. Even worse, I'd end up
->>> >picking the regressions anyway because I can _not_ wait those 4-6 weeks
->>> >plus the time it takes for the fixes to show up in a stable release.
->>>
->>> I think that for -stable we don't have a good idea how soon we want to
->>> merge patches in. On one hand enterprise distro folks complain we're
->>> jumping the gun, and on the other hand folks like yourself claim we're
->>> too slow :)
->>>
->>
->>You are misquoting me. I am saying that it would be a bad idea to hold up
->>bug fixes after -rc4, which is quite different to saying that patches
->>don't make it into stable releases fast enough. I am perfectly happy to
->>wait a week or so for a patch to soak in _mainline_ before being applied
->>to stable.
->
-> Most bug fixes that go in at that point are fixes for previous released
-> kernels, what's the harm in keeping them around for longer?
->
-> I'm not saying that it should be some arbitrary rule for everyone, but
-> just suggesting that maintainers should exercise more caution merging
-> untested commits that don't even fix a current regression.
->
-There is a balance here. In the past, one of the biggest complaints we
-had as distro maintainers was that known regressions get reported, and
-fixed, and then the maintainer would sit on the fix until the next
-merge window. This happened even for trivial fixes. And not being in
-tree does keep it out of stable.  This has improved greatly recently.
-Perhaps things have over compensated, but I don' t think that putting
-a blanket rule out there is the answer. Just perhaps some best
-practices for test coverage.
+On Thu, May 03, 2018 at 05:29:29PM +0000, Sasha Levin wrote:
+> I tried pulling all the fixes that went in 4.17 (so far) for bugs that
+> were introduced as fixes in the v4.16 cycle, I got this list:
+> 
+> d65026c6c62e v4.16-rc7 5 6b1e6cc7855b v4.7   d14d2b78090c
+> 63489f8e8211 v4.16-rc6 13 045c7a3f53d9 v4.11-rc6   5df63c2a149a
+> 5dcd8400884c v4.16-rc6 6 0759e552bce7 v4.7   bd28899dd34f
+> 0ef58b0a05c1 v4.16-rc6 6 0cf737808ae7 v4.14   a56d99d71466 7992894c305e 2afc5d61a719
+> 8936ef7604c1 v4.16-rc6 6 6c8702c60b88 v4.9   a957fa190aa9
+> bbc09e7842a5 v4.16-rc6 6 65a206c01e8e v4.13   3239534a79ee
+> 6a2cf8d3663e v4.16-rc5 12 d64d6c5671db v4.15   6d6340672ba3
+> 859d880cf544 v4.16-rc4 14 b68a68d3dcc1 v4.15   8420f71943ae
+> e39a97353e53 v4.16-rc4 16 2a842acab109 v4.12   cbe095e2b584
+> a27fd7a8ed38 v4.16-rc4 19 f214f915e7db v4.13   bffd168c3fc5
+> 0f9da844d877 v4.16-rc2 16 28128c61e08e v4.16-rc2   a95b37e20db9
+> 7324f5399b06 v4.16-rc2 19 186b3c998c50 v4.14   51568d69407d
+> e78c637127ee v4.16-rc3 25 187d7967a5ee v4.4   e988867fd774
+> ca9eee95a2de v4.16-rc3 25 d717f7352ec6 v4.12   e988867fd774
+> 
+> So out of 755 commits, 14 have been fixed, that's about 2% and we're not
+> even done with 4.17.
 
-> w.r.t stable, as you just said, you're fine with a week or two, the
-> enterprise folks (as well as Ted, to some extend, in this thread)
-> suggest that this should be a month+
+OK but this is low. Quite frankly, at 2% regressions, even if this is
+never fun, it means 98% of the fixes were right. Now just delay them
+longer and you'll have 500 commits instead of 755, thus 255 more bugs
+unfixed in the release just to try to save 14 wrong ones. *this* is
+the problem I'm concerned about by enforcing extra delays on everyone.
+This is the reason why in my opinion the most important is to raise
+awareness about this so people are more careful or more verbose (and
+more detailed commit messages don't hurt, I think all stable maintainers
+have many times thought "WTF is this supposed to fix?"), and then remind
+everyone that when some get caught abusing, they'll get a public blame.
 
-I don' t have an issue with some things percolating in mainline for a
-bit before being pulled into stable, it might have saved us a lot of
-grief with the random patches last week.  But again there isn't a set
-rule that seems logical here. Adequate test coverage is the concern,
-not some set time, especially for obvious fixes.  I know for Fedora,
-we do have (some) people testing rawhide daily, so things in Linus'
-tree start getting end user testing usually within 24 hours.
+> >Some may get caught by your automated script if a later commit fixes
+> >an issue introduced by their patch. And there public shaming is the
+> >only option (or maybe only the second time if you really want to be
+> >nice).
+> 
+> I'd much prefer to blame this on maintainers. Authors should be able to
+> submit a patch whenever they feel like it, maintainers should only merge
+> a patch in when it's right.
 
-I am not saying that things are great now, or cannot be improved. I am
-just concerned that we come up with some "rule" that takes us back to
-keeping legitimate fixes out of tree for much longer than necessary.
+Sorry, wrong word on my side, I also meant maintainers (I very much favor
+pushing back to ensure everyone in the chain is responsible for what is
+done).
 
->>I am absolutely _not_ happy with the number of patches making it into
->>-stable releases recently. I am especially very concerned that the current
->>flurry of patches queued for -stable will destabilize pretty much all
->>stable releases, and pretty badly, for that matter. I am seriously
->>contemplating not to integrate the next few stable releases into ChromeOS
->>for that very reason. That would be a different discussion, though.
-
-There is certainly concern here. If end users stop trusting stable
-kernel updates, the next time there is a big security issue, they may
-just ignore the fix until there is consensus that it is safe to update
-.
->
-> For AUTOSEL, I'd be happy to learn of issues you encounter and address
-> them in my process.
->
-> I've been submitting automatically selected patches for over a year now
-> and the track record for regressions is on par with patches that are
-> tagged for stable.
+Willy
