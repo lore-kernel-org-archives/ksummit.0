@@ -1,34 +1,36 @@
 Return-Path: <Alexander.Levin@microsoft.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 355F38E3
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9CF188FF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  3 May 2018 15:43:48 +0000 (UTC)
-Received: from NAM01-BN3-obe.outbound.protection.outlook.com
-	(mail-bn3nam01on0115.outbound.protection.outlook.com [104.47.33.115])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6BE04F8
+	Thu,  3 May 2018 16:02:16 +0000 (UTC)
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com
+	(mail-bl2nam02on0133.outbound.protection.outlook.com [104.47.38.133])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A8E854FA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  3 May 2018 15:43:47 +0000 (UTC)
+	Thu,  3 May 2018 16:02:15 +0000 (UTC)
 From: Sasha Levin <Alexander.Levin@microsoft.com>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Date: Thu, 3 May 2018 15:43:44 +0000
-Message-ID: <20180503154342.GN18390@sasha-vm>
+To: Guenter Roeck <linux@roeck-us.net>
+Date: Thu, 3 May 2018 16:02:12 +0000
+Message-ID: <20180503160210.GO18390@sasha-vm>
 References: <20180501163818.GD1468@sasha-vm>
-	<20180501194450.GD10479@thunk.org> <20180501200019.GA7397@sasha-vm>
-	<20180501205448.GE10479@thunk.org> <877eol808s.fsf@intel.com>
-	<1525357984.3225.12.camel@HansenPartnership.com>
-	<20180503144850.GC23311@1wt.eu> <20180503150608.GM18390@sasha-vm>
-	<1525361268.3225.17.camel@HansenPartnership.com>
-In-Reply-To: <1525361268.3225.17.camel@HansenPartnership.com>
+	<CAMuHMdWNFz_9OpddZ6tTaQcNVH01pkhwd0+3Z31uDcZvbkV6Ow@mail.gmail.com>
+	<20180502195138.GC18390@sasha-vm>
+	<CAMuHMdW_i-KQpqMz0zsz77tRcE-Sron5zAyh0SHAOJ5ap7x60w@mail.gmail.com>
+	<20180503000620.GA29205@thunk.org>
+	<ed65dc49-dad0-21a1-676c-f9ba43ba5c6c@roeck-us.net>
+	<20180503145533.GK18390@sasha-vm> <20180503154911.GA26754@roeck-us.net>
+In-Reply-To: <20180503154911.GA26754@roeck-us.net>
 Content-Language: en-US
-Content-Type: text/plain; charset="iso-8859-1"
-Content-ID: <E351D48CCF52AB4EA795D833AF51862D@namprd21.prod.outlook.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <A910F29274E2FD4C8E174CBFA990C819@namprd21.prod.outlook.com>
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Cc: Greg KH <gregkh@linuxfoundation.org>, Willy Tarreau <w@1wt.eu>,
-	"ksummit-discuss@lists.linuxfoundation.org"
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+	Greg KH <gregkh@linuxfoundation.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"w@1wt.eu" <w@1wt.eu>
 Subject: Re: [Ksummit-discuss] bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -39,78 +41,111 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, May 03, 2018 at 08:27:48AM -0700, James Bottomley wrote:
->On Thu, 2018-05-03 at 15:06 +0000, Sasha Levin via Ksummit-discuss
->wrote:
->> On Thu, May 03, 2018 at 04:48:50PM +0200, Willy Tarreau wrote:
->> > On Thu, May 03, 2018 at 07:33:04AM -0700, James Bottomley wrote:
->> > > They're definitely for bug fixes, but there's a spectrum: obvious
->> > > bug fixes with no side effects are easy to justify.=A0=A0More comple=
-x
->> > > bug fixes run the risk of having side effects which introduce
->> > > other bugs, so could potentially destabilize the -rc process.=A0=A0I=
-n
->> > > SCSI we tend to look at what the user visible effects of the bug
->> > > are in the post -rc5 region and if they're slight or wouldn't be
->> > > visible to most users, we'll hold them over.=A0=A0If the fix looks
->> > > complex and we're not sure we caught the ramifications, we often
->> > > add it to the merge window tree with a cc to stable and a note
->> > > saying to wait X weeks before actually adding to the
->> > > stable tree just to make sure no side effects show up with wider
->> > > testing.=A0=A0So, as with most things, it's a judgment call for the
->> > > maintainer.
+On Thu, May 03, 2018 at 08:49:11AM -0700, Guenter Roeck wrote:
+>On Thu, May 03, 2018 at 02:55:36PM +0000, Sasha Levin wrote:
+>> On Wed, May 02, 2018 at 05:38:32PM -0700, Guenter Roeck wrote:
+>> >On 05/02/2018 05:06 PM, Theodore Y. Ts'o wrote:
+>> >>On Wed, May 02, 2018 at 10:41:56PM +0200, Geert Uytterhoeven wrote:
+>> >>>
+>> >>>Between v4.17-rc1 and v4.17-rc3, there are 660 non-merge commits, of =
+which
+>> >>>   - 245 carry a Fixes tag,
+>> >>>   - 196 carry a CC stable,
+>> >>>   - 395 contain the string "fix".
+>> >>>(non-mutually exclusive)
+>> >>>
+>> >>>That leaves us with 200 commits not falling in the bugfix category.
+>> >>
+>> >>Some non-bug fixes are allowed in -rc2.  So perhaps what might be
+>> >>interesting is to look at v4.16 (which is completed), and look at the
+>> >>distribution of commits:
+>> >>
+>> >>	* regressions fixes (for bugs introduced during the current
+>> >>		release cycle)
+>> >>	* "normal" bug fixes
+>> >>	* commits which don't touch code (e.g., spelling or
+>> >>		documentation-only fixes)
+>> >>	* other commits (features or cleanup fixes)
+>> >>
+>> >>at each rcX level.  The historic "standard" has been feature commits
+>> >>in -rc1 and -rc2 (tolerated, but ideally should before the merge
+>> >>window), bug fixes / regressions in -rc3 and -rc4, and after -rc4,
+>> >>regression fixes only.  It would be interesting to see how well we
+>> >>have been holding to the historical ideal.
+>> >>
+>> >>It would then be intersting to use Sasha's analysis to see whether
+>> >>there are more bug fixes caused by regression fixes versus normal bug
+>> >>fixes, and whether or not they are common when fixes come "out of
+>> >>cycle" --- for example, a non-regression bug fix in -rc5 or -rc6.
+>> >>
+>> >>Because if that last is the case, then the prescription is very simple
+>> >>and not controversial --- bug fixes found post -rc4 should be held to
+>> >>the next merge window.
+>> >>
 >> >
->> > For me this is the right, and responsible way to deal with bug
->> > fixes. Self-control is much more efficient than random rejection
->> > and favors a good analysis.
+>> >Holding up even fixes for severe bugs for 4-6 weeks ? Seriously, that i=
+s
+>> >unrealistic. Holding up the fix for the next SpeckHammer because it was=
+ not
+>> >ready before -rc4 ? I don't think so.
 >>
->> I think that the ideal outcome of this discussion, at least for me,
->> is a tool to go under scripts/ that would allow maintainers to get
->> some sort of (quantifiable) data that will indicate how well the
->> patch was tested via the regular channels.
+>> For severe problems, the patch usually gets more than enough reviews and
+>> testing, so I don't see a need to soak it in -next more than some
+>> minimal amount of time to get bot coverage.
 >>
->> At which point it's the maintainer's judgement call on whether he
->> wants to grab the patch or wait for more tests or reviews.
+>> However, these things show up only a few times per year. Most of the
+>> fixes even in late -rc cycles are for older bugs that aren't too
+>> critical. We can't base our decision on severe bugs that get exceptional
+>> treatment anyways (see PTI getting pushed in -stable).
 >>
->> This is very similar to what James has described, it just needs to
->> leave his brain and turn into code :)
+>> >Even when not counting severe problems, you are adding lots of addition=
+al work
+>> >for those who do and want to rely on stable releases to merge in bug fi=
+xes.
+>> >Sure, I am at times annoyed having to deal with a regression in a stabl=
+e
+>> >release, but it very much beats digging through various mailing lists f=
+or
+>> >pending patches to fix CVEs, or for crashes seen in the field, just bec=
+ause
+>> >they are held hostage by some restrictive process. Even worse, I'd end =
+up
+>> >picking the regressions anyway because I can _not_ wait those 4-6 weeks
+>> >plus the time it takes for the fixes to show up in a stable release.
+>>
+>> I think that for -stable we don't have a good idea how soon we want to
+>> merge patches in. On one hand enterprise distro folks complain we're
+>> jumping the gun, and on the other hand folks like yourself claim we're
+>> too slow :)
+>>
 >
->I appreciate the sentiment, but if we could script taste, we'd have
->replaced Linus with something far less cantankerous a long time ago ...
+>You are misquoting me. I am saying that it would be a bad idea to hold up
+>bug fixes after -rc4, which is quite different to saying that patches
+>don't make it into stable releases fast enough. I am perfectly happy to
+>wait a week or so for a patch to soak in _mainline_ before being applied
+>to stable.
 
-Linus, IMO, is getting replaced. Look at how many functions he used to
-do 10 years ago he's no longer responsible for.
+Most bug fixes that go in at that point are fixes for previous released
+kernels, what's the harm in keeping them around for longer?
 
-One of the most obvious examples is -next, where most integration issues
-are resolved before they even reach to Linus.
+I'm not saying that it should be some arbitrary rule for everyone, but
+just suggesting that maintainers should exercise more caution merging
+untested commits that don't even fix a current regression.
 
-This is good for the community, as it allows us make the process better
-and scale out. It is also good for Linus, as I'm not sure how long he'd
-last if he still had to edit patches by hand too often. Instead, he gets
-to play with things that interest him more where his is irreplaceable.
+w.r.t stable, as you just said, you're fine with a week or two, the
+enterprise folks (as well as Ted, to some extend, in this thread)
+suggest that this should be a month+
 
->It's also a sad fact that a lot of things which look like obvious fixes
->actually turn out not to be so with later testing.  This is why the
->user visibility test is paramount.  If a bug fix has no real user
->visible effects, it's often better to defer it no matter how obvious it
->looks, which is why the static code checkers often get short shrift
->before a merge window.
->
->A script measuring user visibility would be nice, but looks a bit
->complex ...
+>I am absolutely _not_ happy with the number of patches making it into
+>-stable releases recently. I am especially very concerned that the current
+>flurry of patches queued for -stable will destabilize pretty much all
+>stable releases, and pretty badly, for that matter. I am seriously
+>contemplating not to integrate the next few stable releases into ChromeOS
+>for that very reason. That would be a different discussion, though.
 
-It is, but I think it's worthwhile. Would something that'll show you
-things like:
+For AUTOSEL, I'd be happy to learn of issues you encounter and address
+them in my process.
 
- - How long a patch has been in -next?
- - How many replies/reviews/comments it got on a mailing list?
- - Did the 0day bot test it?
- - Did syzbot fuzz it? for how long?
- - If it references a bugzilla of some sort, how many
-   comments/reviews/etc it got there?
- - Is it -stable material, or does it fix a regression in the current
-   merge window?
- - If subsystem has custom testing rig, results from those tests
-
-be a step in the right way? is it something you'd use to make decisions
-on whether you'd take a patch in?=
+I've been submitting automatically selected patches for over a year now
+and the track record for regressions is on par with patches that are
+tagged for stable.=
