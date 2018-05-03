@@ -1,32 +1,29 @@
-Return-Path: <geert.uytterhoeven@gmail.com>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 99C1D266
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id AB77682
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  2 May 2018 20:41:58 +0000 (UTC)
-Received: from mail-vk0-f53.google.com (mail-vk0-f53.google.com
-	[209.85.213.53])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 07038681
+	Thu,  3 May 2018 00:06:27 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 82CD762A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  2 May 2018 20:41:57 +0000 (UTC)
-Received: by mail-vk0-f53.google.com with SMTP id i190-v6so9889845vkd.13
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 02 May 2018 13:41:57 -0700 (PDT)
-MIME-Version: 1.0
-Sender: geert.uytterhoeven@gmail.com
-In-Reply-To: <20180502195138.GC18390@sasha-vm>
+	Thu,  3 May 2018 00:06:26 +0000 (UTC)
+Date: Wed, 2 May 2018 20:06:20 -0400
+From: "Theodore Y. Ts'o" <tytso@mit.edu>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Message-ID: <20180503000620.GA29205@thunk.org>
 References: <20180501163818.GD1468@sasha-vm>
 	<CAMuHMdWNFz_9OpddZ6tTaQcNVH01pkhwd0+3Z31uDcZvbkV6Ow@mail.gmail.com>
 	<20180502195138.GC18390@sasha-vm>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 2 May 2018 22:41:56 +0200
-Message-ID: <CAMuHMdW_i-KQpqMz0zsz77tRcE-Sron5zAyh0SHAOJ5ap7x60w@mail.gmail.com>
-To: Sasha Levin <Alexander.Levin@microsoft.com>
-Content-Type: text/plain; charset="UTF-8"
+	<CAMuHMdW_i-KQpqMz0zsz77tRcE-Sron5zAyh0SHAOJ5ap7x60w@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAMuHMdW_i-KQpqMz0zsz77tRcE-Sron5zAyh0SHAOJ5ap7x60w@mail.gmail.com>
 Cc: Greg KH <gregkh@linuxfoundation.org>,
 	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"w@1wt.eu" <w@1wt.eu>, "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>, "w@1wt.eu" <w@1wt.eu>
 Subject: Re: [Ksummit-discuss] bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -37,80 +34,59 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Sasha,
+On Wed, May 02, 2018 at 10:41:56PM +0200, Geert Uytterhoeven wrote:
+> 
+> Between v4.17-rc1 and v4.17-rc3, there are 660 non-merge commits, of which
+>   - 245 carry a Fixes tag,
+>   - 196 carry a CC stable,
+>   - 395 contain the string "fix".
+> (non-mutually exclusive)
+> 
+> That leaves us with 200 commits not falling in the bugfix category.
 
-On Wed, May 2, 2018 at 9:51 PM, Sasha Levin
-<Alexander.Levin@microsoft.com> wrote:
-> On Wed, May 02, 2018 at 05:32:37PM +0200, Geert Uytterhoeven wrote:
->>On Tue, May 1, 2018 at 6:38 PM, Sasha Levin
->><Alexander.Levin@microsoft.com> wrote:
->>> Working on AUTOSEL, it became even more obvious to me how difficult it is for a
->>> patch to get a proper review. Maintainers found it difficult to keep up with
->>> the upstream work for their subsystem, and reviewing additional -stable patches
->>> put even more load on them which some suggested would be more than what they
->>> can handle.
->>
->>Thanks for your work!
->>
->>>  - For some reason, the odds of a -rc commit to be targetted for -stable is
->>>    over 20%, while for merge window commits it's about 3%. I can't quite
->>> explain why that happens, but this would suggest that -rc commits end up
->>> hurting -stable pretty badly.
->>
->>Aren't more -rc commits targeted for -stable because they are bugfixes?
->>Ideally, new features are supposed to be merged during the merge window,
->>while -rc commits fix bugs.
->
-> new features can only be merged during a merge window, bug fixes can
-> be merged at any point.
+Some non-bug fixes are allowed in -rc2.  So perhaps what might be
+interesting is to look at v4.16 (which is completed), and look at the
+distribution of commits:
 
-I wrote "ideally". There's a big difference between theory and practice...
+	* regressions fixes (for bugs introduced during the current
+		release cycle)
+	* "normal" bug fixes
+	* commits which don't touch code (e.g., spelling or
+		documentation-only fixes)
+	* other commits (features or cleanup fixes)
 
->>So they can be categorized like:
->>  1. Plain -rc commits,
->
-> What's this exactly? -rc commits are only supposed to fix bugs.
+at each rcX level.  The historic "standard" has been feature commits
+in -rc1 and -rc2 (tolerated, but ideally should before the merge
+window), bug fixes / regressions in -rc3 and -rc4, and after -rc4,
+regression fixes only.  It would be interesting to see how well we
+have been holding to the historical ideal.
 
-... hence not all of them are fixes.
+It would then be intersting to use Sasha's analysis to see whether
+there are more bug fixes caused by regression fixes versus normal bug
+fixes, and whether or not they are common when fixes come "out of
+cycle" --- for example, a non-regression bug fix in -rc5 or -rc6.
 
-Sometimes fast-tracking a new feature or API reduces dependencies for the
-next merge window. This is just one example of IMHO valid non-bugfix
--rc commits.
+Because if that last is the case, then the prescription is very simple
+and not controversial --- bug fixes found post -rc4 should be held to
+the next merge window.
 
-Between v4.17-rc1 and v4.17-rc3, there are 660 non-merge commits, of which
-  - 245 carry a Fixes tag,
-  - 196 carry a CC stable,
-  - 395 contain the string "fix".
-(non-mutually exclusive)
+If the concern is regression fixes which require one or two tries
+before they are fixed before 4.16-FINAL is released, then that's a
+"life is hard for AUTOSEL" issue, and I suspect Sasha will find that
+there is rather less sympathy for holding regression fixes for an
+extra week or two.
+ 
+If the concern is bug fixes that show up in -rc3 and -rc4, but which
+aren't hitting linux-next first, then holding bug fixes in linux-next
+for a week makes sense, and if that means that a bug fix found post
+-rc3 needs to marinate in linux-next for a week, and then it then
+misses the -rc4 "bug fix" deadline, we can have a discussion about
+whether bug fixes should be allowed in -rc5 after a week's marination.
 
-That leaves us with 200 commits not falling in the bugfix category.
+My personal opinion is "to hell with it, just wait until the next
+merge window" --- but this can cause more work for the stable
+maintainers since a lot of bug fixes would then land in -rc1.
 
->>  2. -rc commits fixing a bug:
->>       a. in the same release cycle,
->>       b. in a previous release.
->>
->>2a assumes the bug was backported to -stable, too, doesn't it?
->
-> Bug fixes for features introduced in that release cycle won't be
-> backported to stable.
+Cheers,
 
-They do, if the original commit was introduced during the same cycle and
-backported to stable.
-
->>Do you have statistics for which categories are most buggy?
->
-> I haven't broken it down to subsystems for a few reasons:
-
-I didn't mean break down by subsystem, but by category from the list above
-(1, 2a, 2b).
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+					- Ted
