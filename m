@@ -1,36 +1,35 @@
-Return-Path: <Alexander.Levin@microsoft.com>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7615AC0A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 89E06255
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  3 May 2018 19:17:13 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
-	(mail-sn1nam02on0094.outbound.protection.outlook.com [104.47.36.94])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id EF83442D
+	Thu,  3 May 2018 22:42:29 +0000 (UTC)
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+	[172.104.155.198])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 11A5718A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  3 May 2018 19:17:12 +0000 (UTC)
-From: Sasha Levin <Alexander.Levin@microsoft.com>
-To: Willy Tarreau <w@1wt.eu>
-Date: Thu, 3 May 2018 19:17:10 +0000
-Message-ID: <20180503191708.GW18390@sasha-vm>
-References: <CAMuHMdWNFz_9OpddZ6tTaQcNVH01pkhwd0+3Z31uDcZvbkV6Ow@mail.gmail.com>
-	<20180502195138.GC18390@sasha-vm>
-	<CAMuHMdW_i-KQpqMz0zsz77tRcE-Sron5zAyh0SHAOJ5ap7x60w@mail.gmail.com>
-	<20180503000620.GA29205@thunk.org> <20180503144612.GJ18390@sasha-vm>
-	<20180503165446.GB30522@ZenIV.linux.org.uk>
-	<20180503173422.GR18390@sasha-vm>
-	<20180503182039.GC30522@ZenIV.linux.org.uk>
-	<20180503185529.GB15247@kroah.com> <20180503191405.GC23467@1wt.eu>
-In-Reply-To: <20180503191405.GC23467@1wt.eu>
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <CD35F29F3EE5334BB0C9886691350C4C@namprd21.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+	Thu,  3 May 2018 22:42:28 +0000 (UTC)
+Date: Fri, 4 May 2018 07:42:17 +0900
+From: Mark Brown <broonie@kernel.org>
+To: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <20180503224217.GR2714@sirena.org.uk>
+References: <20180501163818.GD1468@sasha-vm> <20180501194450.GD10479@thunk.org>
+	<20180501200019.GA7397@sasha-vm> <20180501205448.GE10479@thunk.org>
+	<20180501211551.GI2714@sirena.org.uk>
+	<CAKMK7uHjA27K8y-kwYFyhLy3cSkJJw8Oe1gP=3hZXdfxcWAcNQ@mail.gmail.com>
+	<20180502194632.GB18390@sasha-vm>
+	<20180503020550.GP2714@sirena.org.uk>
+	<20180503031000.GC29205@thunk.org>
+	<0276fcda-0385-8f22-dbdb-e063f7ed8bbe@roeck-us.net>
 MIME-Version: 1.0
-Cc: Greg KH <gregkh@linuxfoundation.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="soWJpSPh+l8Y6Fy7"
+Content-Disposition: inline
+In-Reply-To: <0276fcda-0385-8f22-dbdb-e063f7ed8bbe@roeck-us.net>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Greg KH <gregkh@linuxfoundation.org>, "w@1wt.eu" <w@1wt.eu>
 Subject: Re: [Ksummit-discuss] bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -41,12 +40,39 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, May 03, 2018 at 09:14:05PM +0200, Willy Tarreau wrote:
->The dependency chain however matters less because once you start fighting
->with a small patch set for 1 hour you can spend an extra minute testing
->several combinations or figuring the dependencies in mainline.
 
-https://git.kernel.org/pub/scm/linux/kernel/git/sashal/stable-tools.git/tre=
-e/stable-deps
+--soWJpSPh+l8Y6Fy7
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-:)=
+On Wed, May 02, 2018 at 08:52:29PM -0700, Guenter Roeck wrote:
+
+> As for -next, me and others stopped reporting bugs in it, because when we do
+> we tend to get flamed for the "noise". Is anyone aware (or cares) that mips
+> and nds32 images don't build ? Soaking clothes in an empty bathtub won't make
+> them wet, and bugs in code which no one builds, much less tests or uses, won't
+> be found.
+
+You've been flamed for testing -next?  That's not been my experience and
+frankly it's pretty horrifying that it's happening.  Testing is pretty
+much the whole point of -next existing in the first place so you have to
+wonder why people are putting their trees there if they don't want
+testing.  I have seen a few issues with people reporting bugs on old
+versions of -next but otherwise...
+
+--soWJpSPh+l8Y6Fy7
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlrrkEYACgkQJNaLcl1U
+h9D6aAf/aWjbgLYQ25BOZg7Np2lo4EMzezJlcssRLQiCtkGkfdF8gyl/ZOJ2FokB
+RPhuUzekpRnqp8uCZi1GjTPPEU5efGBlYbdxISDDU6Rc5zCRqz0w48lq0XJMLiEH
++Vo5MkdxKjTovaZ1/pz7VOk4dgv/cKdgRuKxzsMTX+rRsdzaBxACSIjWL7XCPxy7
+17UaZSWkcjmO8AEkJe6oRoXOx7hrvT6SViX/+TQ7wrXzSrkL29n9/CG7MNR0TTUi
+EnIB4P/PcZvHDqPMskzgD8Taf0zNGmQGyfGxd4vgC9V3u7RCzayUUQ9OI3jrpASo
+tgKZVC1MOdMTB2GpgMekBFkGLEYHNw==
+=uYX5
+-----END PGP SIGNATURE-----
+
+--soWJpSPh+l8Y6Fy7--
