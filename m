@@ -1,33 +1,34 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <Alexander.Levin@microsoft.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A5DC4AE7
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6773BAF8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  3 May 2018 18:10:24 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4EC33626
+	Thu,  3 May 2018 18:12:39 +0000 (UTC)
+Received: from NAM03-CO1-obe.outbound.protection.outlook.com
+	(mail-co1nam03on0105.outbound.protection.outlook.com [104.47.40.105])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E4F94299
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  3 May 2018 18:10:24 +0000 (UTC)
-Message-ID: <1525371022.3225.22.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Sasha Levin <Alexander.Levin@microsoft.com>
-Date: Thu, 03 May 2018 11:10:22 -0700
-In-Reply-To: <20180503154342.GN18390@sasha-vm>
-References: <20180501163818.GD1468@sasha-vm>
-	<20180501194450.GD10479@thunk.org> <20180501200019.GA7397@sasha-vm>
-	<20180501205448.GE10479@thunk.org> <877eol808s.fsf@intel.com>
-	<1525357984.3225.12.camel@HansenPartnership.com>
-	<20180503144850.GC23311@1wt.eu> <20180503150608.GM18390@sasha-vm>
-	<1525361268.3225.17.camel@HansenPartnership.com>
-	<20180503154342.GN18390@sasha-vm>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Greg KH <gregkh@linuxfoundation.org>, Willy Tarreau <w@1wt.eu>,
+	Thu,  3 May 2018 18:12:38 +0000 (UTC)
+From: Sasha Levin <Alexander.Levin@microsoft.com>
+To: Willy Tarreau <w@1wt.eu>
+Date: Thu, 3 May 2018 18:12:36 +0000
+Message-ID: <20180503181234.GT18390@sasha-vm>
+References: <CAMuHMdW_i-KQpqMz0zsz77tRcE-Sron5zAyh0SHAOJ5ap7x60w@mail.gmail.com>
+	<20180503000620.GA29205@thunk.org> <20180503144612.GJ18390@sasha-vm>
+	<20180503145205.GD23311@1wt.eu> <20180503150104.GL18390@sasha-vm>
+	<20180503160046.GH23311@1wt.eu> <20180503161452.GP18390@sasha-vm>
+	<20180503163516.GJ23311@1wt.eu> <20180503172926.GQ18390@sasha-vm>
+	<20180503175723.GA23467@1wt.eu>
+In-Reply-To: <20180503175723.GA23467@1wt.eu>
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <475EDAC50CA8E2408D6D35C296CADBA0@namprd21.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+	Greg KH <gregkh@linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -38,52 +39,58 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, 2018-05-03 at 15:43 +0000, Sasha Levin via Ksummit-discuss
-wrote:
-> On Thu, May 03, 2018 at 08:27:48AM -0700, James Bottomley wrote:
-[...]
-> > It's also a sad fact that a lot of things which look like obvious
-> > fixes actually turn out not to be so with later testing.  This is
-> > why the user visibility test is paramount.  If a bug fix has no
-> > real user visible effects, it's often better to defer it no matter
-> > how obvious it looks, which is why the static code checkers often
-> > get short shrift before a merge window.
-> > 
-> > A script measuring user visibility would be nice, but looks a bit
-> > complex ...
-> 
-> It is, but I think it's worthwhile. Would something that'll show you
-> things like:
-> 
->  - How long a patch has been in -next?
->  - How many replies/reviews/comments it got on a mailing list?
->  - Did the 0day bot test it?
->  - Did syzbot fuzz it? for how long?
->  - If it references a bugzilla of some sort, how many
->    comments/reviews/etc it got there?
->  - Is it -stable material, or does it fix a regression in the current
->    merge window?
->  - If subsystem has custom testing rig, results from those tests
-> 
-> be a step in the right way? is it something you'd use to make
-> decisions on whether you'd take a patch in?
+On Thu, May 03, 2018 at 07:57:23PM +0200, Willy Tarreau wrote:
+>On Thu, May 03, 2018 at 05:29:29PM +0000, Sasha Levin wrote:
+>> I tried pulling all the fixes that went in 4.17 (so far) for bugs that
+>> were introduced as fixes in the v4.16 cycle, I got this list:
+>>
+>> d65026c6c62e v4.16-rc7 5 6b1e6cc7855b v4.7   d14d2b78090c
+>> 63489f8e8211 v4.16-rc6 13 045c7a3f53d9 v4.11-rc6   5df63c2a149a
+>> 5dcd8400884c v4.16-rc6 6 0759e552bce7 v4.7   bd28899dd34f
+>> 0ef58b0a05c1 v4.16-rc6 6 0cf737808ae7 v4.14   a56d99d71466 7992894c305e =
+2afc5d61a719
+>> 8936ef7604c1 v4.16-rc6 6 6c8702c60b88 v4.9   a957fa190aa9
+>> bbc09e7842a5 v4.16-rc6 6 65a206c01e8e v4.13   3239534a79ee
+>> 6a2cf8d3663e v4.16-rc5 12 d64d6c5671db v4.15   6d6340672ba3
+>> 859d880cf544 v4.16-rc4 14 b68a68d3dcc1 v4.15   8420f71943ae
+>> e39a97353e53 v4.16-rc4 16 2a842acab109 v4.12   cbe095e2b584
+>> a27fd7a8ed38 v4.16-rc4 19 f214f915e7db v4.13   bffd168c3fc5
+>> 0f9da844d877 v4.16-rc2 16 28128c61e08e v4.16-rc2   a95b37e20db9
+>> 7324f5399b06 v4.16-rc2 19 186b3c998c50 v4.14   51568d69407d
+>> e78c637127ee v4.16-rc3 25 187d7967a5ee v4.4   e988867fd774
+>> ca9eee95a2de v4.16-rc3 25 d717f7352ec6 v4.12   e988867fd774
+>>
+>> So out of 755 commits, 14 have been fixed, that's about 2% and we're not
+>> even done with 4.17.
+>
+>OK but this is low. Quite frankly, at 2% regressions, even if this is
+>never fun, it means 98% of the fixes were right. Now just delay them
+>longer and you'll have 500 commits instead of 755, thus 255 more bugs
+>unfixed in the release just to try to save 14 wrong ones. *this* is
+>the problem I'm concerned about by enforcing extra delays on everyone.
+>This is the reason why in my opinion the most important is to raise
+>awareness about this so people are more careful or more verbose (and
+>more detailed commit messages don't hurt, I think all stable maintainers
+>have many times thought "WTF is this supposed to fix?"), and then remind
+>everyone that when some get caught abusing, they'll get a public blame.
 
-Actually, no, these are all not what I'm talking about:  They're all
-measures of whether the commit triggers another bug.  Which, I agree,
-is the fear, so it would be good to have them of course, but they all
-take time the maintainer doesn't have when making a quick decision
-about a late -rc bug fix.
+This is low because we're only about a month in 4.17. Historical=20
+figures are around 7% for these kinds of commits.
 
-At late -rc the decision is the current user visible problem set
-against the risk of -rc destabilization.  You're measuring the latter
-in the above, but in the rule of thumb decision making we just assume
-that's constant.  What we're looking to measure is the user visible
-effect of not fixing the problem.
+I'm also not trying to argue whether 7% is high or low, only that it's 3
+times as many bugs per line of code than what we get from the merge
+window.
 
-So, for instance, a boot failure on a widely used SCSI board is a no
-brainer for fix now and tackle consequences later.  An obvious fix to
-an error leg of a little used board is the other way: no-one is really
-affected, so we don't take the risk.  The judgment call is the spectrum
-in between these two extremes.
+Isn't the merge window supposed to be the "risky" part?
 
-James
+I understand your concern about delays, I'm not arguing for or against
+it, I'm just trying to discuss option.
+
+For example, how about extending the release cycle until the amount of
+fixes for regressions introduced in the current merge window drops under
+a certain thershold? (so go to -rc20 if we need to).
+
+It has the advantage of less bugs when the kernel is released, it
+doesn't stop bug fixes from coming in and it prevents the urge some
+folks have to push things in last minute. OTOH, it makes the release
+cycle unpredictable time-wise.=
