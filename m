@@ -1,35 +1,37 @@
 Return-Path: <Alexander.Levin@microsoft.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 80613AE0
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 02839AE7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  3 May 2018 17:34:59 +0000 (UTC)
-Received: from NAM01-BN3-obe.outbound.protection.outlook.com
-	(mail-bn3nam01on0135.outbound.protection.outlook.com [104.47.33.135])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 29C60728
+	Thu,  3 May 2018 17:39:19 +0000 (UTC)
+Received: from NAM03-BY2-obe.outbound.protection.outlook.com
+	(mail-by2nam03on0135.outbound.protection.outlook.com [104.47.42.135])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5E5D3683
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  3 May 2018 17:34:58 +0000 (UTC)
+	Thu,  3 May 2018 17:39:18 +0000 (UTC)
 From: Sasha Levin <Alexander.Levin@microsoft.com>
-To: Al Viro <viro@ZenIV.linux.org.uk>
-Date: Thu, 3 May 2018 17:34:24 +0000
-Message-ID: <20180503173422.GR18390@sasha-vm>
-References: <20180501163818.GD1468@sasha-vm>
-	<CAMuHMdWNFz_9OpddZ6tTaQcNVH01pkhwd0+3Z31uDcZvbkV6Ow@mail.gmail.com>
-	<20180502195138.GC18390@sasha-vm>
-	<CAMuHMdW_i-KQpqMz0zsz77tRcE-Sron5zAyh0SHAOJ5ap7x60w@mail.gmail.com>
-	<20180503000620.GA29205@thunk.org> <20180503144612.GJ18390@sasha-vm>
-	<20180503165446.GB30522@ZenIV.linux.org.uk>
-In-Reply-To: <20180503165446.GB30522@ZenIV.linux.org.uk>
+To: Randy Dunlap <rdunlap@infradead.org>
+Date: Thu, 3 May 2018 17:39:16 +0000
+Message-ID: <20180503173913.GS18390@sasha-vm>
+References: <20180501194450.GD10479@thunk.org>
+	<20180501200019.GA7397@sasha-vm> <20180501205448.GE10479@thunk.org>
+	<877eol808s.fsf@intel.com>
+	<1525357984.3225.12.camel@HansenPartnership.com>
+	<20180503144850.GC23311@1wt.eu> <20180503150608.GM18390@sasha-vm>
+	<1525361268.3225.17.camel@HansenPartnership.com>
+	<20180503154342.GN18390@sasha-vm>
+	<80974b02-8037-b412-36f9-1b7656ec9d4e@infradead.org>
+In-Reply-To: <80974b02-8037-b412-36f9-1b7656ec9d4e@infradead.org>
 Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <30FD635C725D2C4CA6CA4F76831D91D5@namprd21.prod.outlook.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-ID: <660A9CC8ADCB7E469836DF126648ECFD@namprd21.prod.outlook.com>
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Greg KH <gregkh@linuxfoundation.org>, Willy Tarreau <w@1wt.eu>,
+	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"w@1wt.eu" <w@1wt.eu>
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 Subject: Re: [Ksummit-discuss] bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -40,85 +42,109 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, May 03, 2018 at 05:54:46PM +0100, Al Viro wrote:
->On Thu, May 03, 2018 at 02:46:14PM +0000, Sasha Levin via Ksummit-discuss =
-wrote:
->
->> Fixes in -rc cycles:
->> rc1 68
->> rc2 147
->> rc3 88
->> rc4 121
->> rc5 40
->> rc6 193
->> rc7 98
+On Thu, May 03, 2018 at 10:17:57AM -0700, Randy Dunlap wrote:
+>On 05/03/2018 08:43 AM, Sasha Levin wrote:
+>> On Thu, May 03, 2018 at 08:27:48AM -0700, James Bottomley wrote:
+>>> On Thu, 2018-05-03 at 15:06 +0000, Sasha Levin via Ksummit-discuss
+>>> wrote:
+>>>> On Thu, May 03, 2018 at 04:48:50PM +0200, Willy Tarreau wrote:
+>>>>> On Thu, May 03, 2018 at 07:33:04AM -0700, James Bottomley wrote:
+>>>>>> They're definitely for bug fixes, but there's a spectrum: obvious
+>>>>>> bug fixes with no side effects are easy to justify.=A0=A0More comple=
+x
+>>>>>> bug fixes run the risk of having side effects which introduce
+>>>>>> other bugs, so could potentially destabilize the -rc process.=A0=A0I=
+n
+>>>>>> SCSI we tend to look at what the user visible effects of the bug
+>>>>>> are in the post -rc5 region and if they're slight or wouldn't be
+>>>>>> visible to most users, we'll hold them over.=A0=A0If the fix looks
+>>>>>> complex and we're not sure we caught the ramifications, we often
+>>>>>> add it to the merge window tree with a cc to stable and a note
+>>>>>> saying to wait X weeks before actually adding to the
+>>>>>> stable tree just to make sure no side effects show up with wider
+>>>>>> testing.=A0=A0So, as with most things, it's a judgment call for the
+>>>>>> maintainer.
+>>>>>
+>>>>> For me this is the right, and responsible way to deal with bug
+>>>>> fixes. Self-control is much more efficient than random rejection
+>>>>> and favors a good analysis.
+>>>>
+>>>> I think that the ideal outcome of this discussion, at least for me,
+>>>> is a tool to go under scripts/ that would allow maintainers to get
+>>>> some sort of (quantifiable) data that will indicate how well the
+>>>> patch was tested via the regular channels.
+>>>>
+>>>> At which point it's the maintainer's judgement call on whether he
+>>>> wants to grab the patch or wait for more tests or reviews.
+>>>>
+>>>> This is very similar to what James has described, it just needs to
+>>>> leave his brain and turn into code :)
+>>>
+>>> I appreciate the sentiment, but if we could script taste, we'd have
+>>> replaced Linus with something far less cantankerous a long time ago ...
 >>
->> Average days in -next, for a fix, per -rc cycle:
->> rc1 27.25
->> rc2 21.4286
->> rc3 22.5114
->> rc4 18.281
->> rc5 14.65
->> rc6 12.6166
->> rc7 8.70408
->>
->> Fixes for bugs not introduced in current merge window:
->> rc1 40
->> rc2 113
->> rc3 61
->> rc4 79
->> rc5 25
->> rc6 139
->> rc7 72
->>
->> So for some reason, there is a rush to push fixes for older bugs (that
->> were not introduced in the current merge window) to the point that rc7
->> commits that only existed for a few days are merged in to address older
->> bugs.
+>> Linus, IMO, is getting replaced. Look at how many functions he used to
+>> do 10 years ago he's no longer responsible for.
 >
->I really wonder how accurate your interpretation of Fixes: is.
->Consider e.g. the situation when an old bug is found and partial fixes
->applied.  Then we find that those fixes did not cover everything and,
->come next cycle, add more on top of those.  Where should Fixes: on
->the incrementals point to?  Original commit?  But they won't apply
->without the first batch.  The last in the original pile?  But it
->would imply (by your metrics) that original fixes had *INTRODUCED*
->bugs.
-
-It's vaguely close. Beyond the things you mentioned, some commits don't
-have a fixes tag, some mention what commit they fixed in the body rather
-than a tag, and so on.
-
-This is just an approximation.
-
->Moreover, what the hell do you suggest in situation when
->	* foofs_barf() is b0rken in quite a few ways.  There's an
->easily triggerable memory corruptor that can be fixed locally as well
->as something else that needs a change of e.g. ->mkdir() calling
->conventions to take care of.  The change is mechanical and fairly
->simple, but it's already -rc4.
-
-I'm not advocating to forcefully block people from submitting patches
-after -rc4 (that was Ted's suggesting).
-
-I'm just saying that as a maintainer, you should use your brain and
-figure out how critical the bug is, how good is the fix and how well was
-it tested, and decide if you want to merge it in or not.
-
-If it fixed the bug and didn't introduce a regression, great! If it
-messed something else, you'd have some input on how to address it better
-in the future.
-
-I'm trying to come up with a tool/system to help maintainers with
-this task because right now it's not working too well. I'm not trying to
-introduce arbitrary rules to make your life miserable.
-
->Even though the whole thing is well-understood at that point,
->we *can't* apply all 3 - it's too late in the cycle for the
->calling conventions' change in the middle of the series.
+>Agree.
 >
->Should we apply the first fix that cycle, or should it slide to the
->next one?  We can't apply #1 + #3 --- #3 won't even compile without
->#2.  We can't apply #3 without #1 --- they can be transposed, but
->it's nowhere near a mechanical transformation.  So WTF should #3
->have in "Fixes:"?=
+>> One of the most obvious examples is -next, where most integration issues
+>> are resolved before they even reach to Linus.
+>>
+>> This is good for the community, as it allows us make the process better
+>> and scale out. It is also good for Linus, as I'm not sure how long he'd
+>> last if he still had to edit patches by hand too often. Instead, he gets
+>> to play with things that interest him more where his is irreplaceable.
+>>
+>>> It's also a sad fact that a lot of things which look like obvious fixes
+>>> actually turn out not to be so with later testing.  This is why the
+>>> user visibility test is paramount.  If a bug fix has no real user
+>>> visible effects, it's often better to defer it no matter how obvious it
+>>> looks, which is why the static code checkers often get short shrift
+>>> before a merge window.
+>>>
+>>> A script measuring user visibility would be nice, but looks a bit
+>>> complex ...
+>>
+>> It is, but I think it's worthwhile. Would something that'll show you
+>> things like:
+>>
+>>  - How long a patch has been in -next?
+>>  - How many replies/reviews/comments it got on a mailing list?
+>>  - Did the 0day bot test it?
+>>  - Did syzbot fuzz it? for how long?
+>>  - If it references a bugzilla of some sort, how many
+>>    comments/reviews/etc it got there?
+>>  - Is it -stable material, or does it fix a regression in the current
+>>    merge window?
+>>  - If subsystem has custom testing rig, results from those tests
+>>
+>> be a step in the right way? is it something you'd use to make decisions
+>> on whether you'd take a patch in?
+>>
+>
+>Reminds me (too much) of checkpatch.  Sure checkpatch has its uses,
+>as long as its not seen as the only true voice. (some beginners don't
+>know about that yet)
+>
+>So with this new script, human evaluation would still be needed.
+>It's just a tool.  I could be used or misused or abused.
+>$maintainer still has a job to do, but having a tool could help.
+>
+>But be careful what you wish for.  Having such a tool could help get
+>patches merged even quicker.
+
+While checkpatch is a tool for both authors and maintainers, I'm hoping
+that this tool will only be useful for maintainers, who are less likely
+to abuse it. I hope.
+
+Maintainers are still needed. I started this discussion because right
+now maintainers don't scale enough, and that in turn causes both delays
+and mistakes in the process. We have a bunch of tools to help patch
+authors, but not as many for maintainers.
+
+To some extent, I do wish that this will help patches get merged
+earlier. If a maintainer sees that the patch spent a while in -next,
+passed all his subsystem's internal testing, got a few reviews, he could
+just go ahead and merge it in faster without starting to dig through his
+mail client and git tree.=
