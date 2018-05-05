@@ -1,35 +1,33 @@
-Return-Path: <Alexander.Levin@microsoft.com>
+Return-Path: <SRS0=Mgfk=HY=linuxfoundation.org=gregkh@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3F74922
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A84BB11
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  5 May 2018 05:27:23 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
-	(mail-sn1nam02on0106.outbound.protection.outlook.com [104.47.36.106])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A023518A
+	Sat,  5 May 2018 16:38:07 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 74E7BF8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  5 May 2018 05:27:22 +0000 (UTC)
-From: Sasha Levin <Alexander.Levin@microsoft.com>
-To: "Theodore Y. Ts'o" <tytso@mit.edu>, James Bottomley
-	<James.Bottomley@HansenPartnership.com>, Greg KH
-	<gregkh@linuxfoundation.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>, "w@1wt.eu" <w@1wt.eu>
-Date: Sat, 5 May 2018 05:27:20 +0000
-Message-ID: <20180505052717.GY18390@sasha-vm>
-References: <20180503173422.GR18390@sasha-vm>
-	<20180503182039.GC30522@ZenIV.linux.org.uk>
-	<8669.1525427874@warthog.procyon.org.uk> <87fu377gbu.fsf@intel.com>
-	<20180504130932.GI29205@thunk.org> <20180504174055.GF4649@kroah.com>
+	Sat,  5 May 2018 16:38:07 +0000 (UTC)
+Date: Sat, 5 May 2018 09:37:56 -0700
+From: Greg KH <gregkh@linuxfoundation.org>
+To: "Eric W. Biederman" <ebiederm@xmission.com>
+Message-ID: <20180505163756.GC7746@kroah.com>
+References: <8669.1525427874@warthog.procyon.org.uk> <87fu377gbu.fsf@intel.com>
+	<20180504130932.GI29205@thunk.org>
+	<20180504174055.GF4649@kroah.com>
 	<20180504211317.GK29205@thunk.org>
 	<1525469881.4114.5.camel@HansenPartnership.com>
-	<20180504215111.GX18390@sasha-vm> <20180504233542.GM29205@thunk.org>
-In-Reply-To: <20180504233542.GM29205@thunk.org>
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <BE6FE16E71934946B152AC6C5360239D@namprd21.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+	<20180504215111.GX18390@sasha-vm>
+	<20180504233542.GM29205@thunk.org> <20180505042356.GA24575@1wt.eu>
+	<878t8y8zk8.fsf@xmission.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <878t8y8zk8.fsf@xmission.com>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Willy Tarreau <w@1wt.eu>, "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 Subject: Re: [Ksummit-discuss] bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -40,41 +38,24 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, May 04, 2018 at 07:35:42PM -0400, Theodore Y. Ts'o wrote:
->On Fri, May 04, 2018 at 09:51:14PM +0000, Sasha Levin wrote:
->> I don't have an objection to moving this to it's own tag. It will make
->> my scripts somewhat simpler for sure.
->
->It's not a matter "moving this it's own tag", but creating a new tag
->--- because what is in the docs is a lie.  It does not describe what
->we do today.  And current practice is the reality, not what is in the
->docs.
+On Sat, May 05, 2018 at 12:02:47AM -0500, Eric W. Biederman wrote:
+> So the way I use headers today is:
+> Cc: stable@vger.kernel.org
+> Fixes: sha1hash "commit subject"
 
-I'm really confused here. What do you mean with "not describe what we do
-today"?
+And that makes my life _so_ much easier.  The Fixes: tag is great
+(thanks James!), I have scripts that I use to track if a fix was applied
+to a stable tree to know if it needs to go into that branch as well.
+Without that, the "# 4.9" marking just doesn't work, as it doesn't tell
+me if that commit got backported to 4.4.y as well.  I used to do that
+type of detection by hand, but automating it is so much better and I
+miss less patches that way.
 
-The doc allows for three ways to tag a patch:
+Anyway, just my two cents, let's try to keep this simple for both
+maintainers, and stable developers, if at all possible.  I think what we
+have now works well, but if people think the documentation should be
+cleaned up, great, send patches :)
 
-1. Empty tag: "Cc: stable@vger.kernel.org"
-2. With a version, quoting from the doc:
+thanks,
 
-	Also, some patches may have kernel version prerequisites.  This can be
-	specified in the following format in the sign-off area:
-
-	     Cc: <stable@vger.kernel.org> # 3.3.x
-
-	The tag has the meaning of:
-
-	     git cherry-pick <this commit>
-
-	For each "-stable" tree starting with the specified version.
-
-3. With a prereq commit, which is in the form of:
-
-	Cc: <stable@vger.kernel.org> # 3.3.x: a1f84a3: sched: Check for idle
-
-We expect this to be used rarely used, and indeed it's not used as much.
-
->As to whether we should create a new tag to support explicit
->dependencies, I'll leave that between you and Greg K-H and the rest of
->the stable maintainers.  :-)=
+greg k-h
