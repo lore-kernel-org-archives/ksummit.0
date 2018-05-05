@@ -1,33 +1,35 @@
 Return-Path: <w@1wt.eu>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A66E4BD4
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6D42D12
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  3 May 2018 19:14:08 +0000 (UTC)
+	Sat,  5 May 2018 04:24:05 +0000 (UTC)
 Received: from 1wt.eu (wtarreau.pck.nerim.net [62.212.114.60])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id DBF9542D
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 61A0114F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  3 May 2018 19:14:07 +0000 (UTC)
+	Sat,  5 May 2018 04:24:03 +0000 (UTC)
 From: Willy Tarreau <w@1wt.eu>
-To: Greg KH <gregkh@linuxfoundation.org>
-Message-ID: <20180503191405.GC23467@1wt.eu>
-References: <20180501163818.GD1468@sasha-vm>
-	<CAMuHMdWNFz_9OpddZ6tTaQcNVH01pkhwd0+3Z31uDcZvbkV6Ow@mail.gmail.com>
-	<20180502195138.GC18390@sasha-vm>
-	<CAMuHMdW_i-KQpqMz0zsz77tRcE-Sron5zAyh0SHAOJ5ap7x60w@mail.gmail.com>
-	<20180503000620.GA29205@thunk.org>
-	<20180503144612.GJ18390@sasha-vm>
-	<20180503165446.GB30522@ZenIV.linux.org.uk>
-	<20180503173422.GR18390@sasha-vm>
+To: "Theodore Y. Ts'o" <tytso@mit.edu>,
+	Sasha Levin <Alexander.Levin@microsoft.com>,
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Message-ID: <20180505042356.GA24575@1wt.eu>
+References: <20180503173422.GR18390@sasha-vm>
 	<20180503182039.GC30522@ZenIV.linux.org.uk>
-	<20180503185529.GB15247@kroah.com>
+	<8669.1525427874@warthog.procyon.org.uk> <87fu377gbu.fsf@intel.com>
+	<20180504130932.GI29205@thunk.org>
+	<20180504174055.GF4649@kroah.com>
+	<20180504211317.GK29205@thunk.org>
+	<1525469881.4114.5.camel@HansenPartnership.com>
+	<20180504215111.GX18390@sasha-vm>
+	<20180504233542.GM29205@thunk.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20180503185529.GB15247@kroah.com>
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+In-Reply-To: <20180504233542.GM29205@thunk.org>
 Subject: Re: [Ksummit-discuss] bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -37,27 +39,65 @@ List-Post: <mailto:ksummit-discuss@lists.linuxfoundation.org>
 List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=help>
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
-Date: Thu, 03 May 2018 19:14:08 -0000
+Date: Sat, 05 May 2018 04:24:05 -0000
 
-On Thu, May 03, 2018 at 11:55:29AM -0700, Greg KH wrote:
-> Don't care about me for stuff like this.  Fix it correctly and I'll
-> worry about any dependancy issues later :)
+On Fri, May 04, 2018 at 07:35:42PM -0400, Theodore Y. Ts'o wrote:
+> On Fri, May 04, 2018 at 09:51:14PM +0000, Sasha Levin wrote:
+> > I don't have an objection to moving this to it's own tag. It will make
+> > my scripts somewhat simpler for sure.
+> 
+> It's not a matter "moving this it's own tag", but creating a new tag
+> --- because what is in the docs is a lie.  It does not describe what
+> we do today.  And current practice is the reality, not what is in the
+> docs.
+> 
+> As to whether we should create a new tag to support explicit
+> dependencies, I'll leave that between you and Greg K-H and the rest of
+> the stable maintainers.  :-)
 
-For me the real value of the Fixes header is to let the person doing
-the backport know if they must search when the patch looks irrelevant
-at first glance. On old kernels more than half of the patches don't
-apply and sometimes you really do not know if the code moved somewhere
-else or if it was not there. Fixes gives some clues what to look for
-and sometimes about an exact commit to get more details. I've been
-quite happy with those mentioning only "3.2+" in it just like those
-copy-pasting the commit ID is pretty fine as well. The former making it
-easier to skip a useless patch, the latter providing more information.
-But in my opinion these must not add burden on the committer. Even some
-vague information like "4.4, maybe 4.2" or "oldest one having subsystem
-foo" is extremely helpful there.
+Guys, *personally*, I've sometimes been a bit annoyed by the huge amount
+of irregular extra headers trying to compensate for horribly vague commit
+messages, and I'm pretty sure it pisses off patch authors who don't know
+anymore what to put in their description. We need to keep in mind that
+authors are humans and not machines, and that natural language remains
+the best to explain complex dependencies. I'd prefer to see :
 
-The dependency chain however matters less because once you start fighting
-with a small patch set for 1 hour you can spend an extra minute testing
-several combinations or figuring the dependencies in mainline.
+    This patch needs to be backported to all stable branches that contain
+    717d3133 and 207f5b3c (that's 3.10+) or their respective backports but
+    must be adapted (contact me) if only a backport of 717d3133 is present.
+
+    Cc: stable # v3.10+
+
+Rather than horrible stuff like this :
+
+    Cc: stable # v3.10+ (717d3133 && 207f5b3c) || WARN_ON(back(717d3133))
+
+Of course it's a bit made up, but not too far from what is being discussed
+here, probably only the next step. People will often get complex rules
+wrong, both on the producer and on the consumer side. The day we need a
+compiler to emit commit messages, we'll have to wonder if we didn't go
+too far.
+
+Also I've found the Fixes header pretty useful. It allows patch authors
+to mention what is being fixed without necessarily copying stable,
+because sometimes you'd rather not see your patch immediately backported
+or you think the risks are higher than the bug. And here as well, it's
+only suited for simple situations with a single commit ID, complex
+desriptions have to be part of the commit message body.
+
+I think that what we have now works pretty well but that some descriptions
+lack a bit of detail, especially on the impact of the bug which would help
+decide to backport or drop. This is understandable because often the person
+fixing a bug documents it for people knowing the same subsystem well. But
+when you backport fixes into other kernel versions, you don't know well
+how each subsystem works, and guessing the impact of a bug is not always
+obvious. Most of the time, authors who add Fixes: and/or Cc: stable take
+care of providing enough information, though I'd suspect that sometimes
+they're making efforts trying to figure how to place the information
+there and possibly try to avoid redundancy by writing a shorter body.
+
+At this point, I'm really not seeing what we're trying to improve or
+optimize, and to be honest this discussion worries me a bit, by just
+thinking that it could result in annoying changes...
 
 Willy
