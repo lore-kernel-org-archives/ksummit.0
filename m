@@ -1,19 +1,23 @@
-Return-Path: <tytso@thunk.org>
+Return-Path: <tony@atomide.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BFF1922
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2C684BBD
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  8 May 2018 03:48:26 +0000 (UTC)
-Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 193D65D0
+	Tue,  8 May 2018 14:50:04 +0000 (UTC)
+Received: from muru.com (muru.com [72.249.23.125])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 7EEC114F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  8 May 2018 03:48:25 +0000 (UTC)
-Date: Mon, 7 May 2018 23:48:20 -0400
-From: "Theodore Y. Ts'o" <tytso@mit.edu>
-To: Sasha Levin <Alexander.Levin@microsoft.com>
-Message-ID: <20180508034820.GE999@thunk.org>
-References: <20180501205448.GE10479@thunk.org>
-	<20180501211551.GI2714@sirena.org.uk>
+	Tue,  8 May 2018 14:50:03 +0000 (UTC)
+Date: Tue, 8 May 2018 07:49:59 -0700
+From: Tony Lindgren <tony@atomide.com>
+To: "Theodore Y. Ts'o" <tytso@mit.edu>,
+	Sasha Levin <Alexander.Levin@microsoft.com>,
+	Greg KH <gregkh@linuxfoundation.org>, "w@1wt.eu" <w@1wt.eu>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Message-ID: <20180508144958.GU98604@atomide.com>
+References: <20180501211551.GI2714@sirena.org.uk>
 	<CAKMK7uHjA27K8y-kwYFyhLy3cSkJJw8Oe1gP=3hZXdfxcWAcNQ@mail.gmail.com>
 	<20180502194632.GB18390@sasha-vm>
 	<20180503020550.GP2714@sirena.org.uk>
@@ -21,15 +25,11 @@ References: <20180501205448.GE10479@thunk.org>
 	<0276fcda-0385-8f22-dbdb-e063f7ed8bbe@roeck-us.net>
 	<20180503224217.GR2714@sirena.org.uk>
 	<20180503230905.GA98604@atomide.com>
-	<20180508023439.GA8514@sasha-vm>
+	<20180508023439.GA8514@sasha-vm> <20180508034820.GE999@thunk.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20180508023439.GA8514@sasha-vm>
-Cc: Greg KH <gregkh@linuxfoundation.org>, "w@1wt.eu" <w@1wt.eu>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+In-Reply-To: <20180508034820.GE999@thunk.org>
 Subject: Re: [Ksummit-discuss] bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -40,66 +40,84 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, May 08, 2018 at 02:34:41AM +0000, Sasha Levin via Ksummit-discuss wrote:
+* Theodore Y. Ts'o <tytso@mit.edu> [180508 03:50]:
+> On Tue, May 08, 2018 at 02:34:41AM +0000, Sasha Levin via Ksummit-discuss wrote:
+> > 
+> > Tony, I'm curious, how many users are you aware of who actually run
+> > Linus's tree? All the users I've encountered so far on Azure seem to be
+> > running something based on -stable.
 > 
-> Tony, I'm curious, how many users are you aware of who actually run
-> Linus's tree? All the users I've encountered so far on Azure seem to be
-> running something based on -stable.
+> The people who run Linus's tree and test -rc kernels tend to be kernel
+> developers and individual users who want to run bleeding edge kernels
+> and who generally are technically clueful.  If you were talking about
+> SLR cameras, you'd call them the "prosumers" segment of the market.
 
-The people who run Linus's tree and test -rc kernels tend to be kernel
-developers and individual users who want to run bleeding edge kernels
-and who generally are technically clueful.  If you were talking about
-SLR cameras, you'd call them the "prosumers" segment of the market.
+Yup that's the category. People tinkering with their devices and
+using bleeding edge kernels because of some new device driver only
+being in thr -rc series for example.
 
-It tends to be more on desktops and laptops, so it doesn't surprise me
-that you don't often see them in a hosting environment where you have
-to pay $$$.  (And where you do see them in a hosting environment, it's
-probably for things like gce-xfstests.)
+> > I think that a question we should be asking ourselves is whether we
+> > should be basing our decisions here on the assumption that (pretty much)
+> > no one runs Linus's tree anymore?
+> 
+> These people *do* exist, because as a maintainer, I get bug reports
+> from them.  (And sometimes as a user, I send bug reports when running
+> -rc kernels to other maintainers, such as the i915 drivers and the
+> Intel Wireless driver folks.)
 
-> I think that a question we should be asking ourselves is whether we
-> should be basing our decisions here on the assumption that (pretty much)
-> no one runs Linus's tree anymore?
+Yes.
 
-These people *do* exist, because as a maintainer, I get bug reports
-from them.  (And sometimes as a user, I send bug reports when running
--rc kernels to other maintainers, such as the i915 drivers and the
-Intel Wireless driver folks.)
+> Such reports are incredibly valuable and precious to me, since it
+> allows me to find problems that weren't picked up in my own testing.
+> (In the case of Intel Wireless, a while back the IWL team didn't have
+> Aruba Enterprise Access Points in their test hardware library, so I
+> found a regression after the merge window because I was running -rcX
+> on my laptop, and wireless access to googleguest network broke.  If I
+> hadn't been running -rcX, they probably wouldn't have discovered this
+> problem until after that particular kernel had been released.)
 
-Such reports are incredibly valuable and precious to me, since it
-allows me to find problems that weren't picked up in my own testing.
-(In the case of Intel Wireless, a while back the IWL team didn't have
-Aruba Enterprise Access Points in their test hardware library, so I
-found a regression after the merge window because I was running -rcX
-on my laptop, and wireless access to googleguest network broke.  If I
-hadn't been running -rcX, they probably wouldn't have discovered this
-problem until after that particular kernel had been released.)
+Yes. So as maintainers, we should all test Linux next on frequent
+basis to aim for usable -rc1 with no regressions based on that
+testing. Then the rest of the -rc cycle should be easy with more
+testing and reports from the "prosumer" market :)
 
-So keeping those users happy is a good thing; since they tend to be
-very technically clueful, they can do bisections for you, and they are
-able to give a detailed and useful bug report.  If they report that a
-regression that was introduced in -rc2 is fixed by a particular patch,
-I want to push it into -rc3 immediately, and not let it stall in
-linux-next.  If the reason why is because you don't trust my patch
-because it "only" got tested by the technically advanced user
-reporting the regression, then don't take patches from -rc3 into your
-stable branch right away!  Let it bake in Linus's tree anfor a week or
-two, instead of demanding that patches stick around in Linux-next
-before flowing into Linus's tree.
+> So keeping those users happy is a good thing; since they tend to be
+> very technically clueful, they can do bisections for you, and they are
+> able to give a detailed and useful bug report.  If they report that a
+> regression that was introduced in -rc2 is fixed by a particular patch,
+> I want to push it into -rc3 immediately, and not let it stall in
+> linux-next.  If the reason why is because you don't trust my patch
+> because it "only" got tested by the technically advanced user
+> reporting the regression, then don't take patches from -rc3 into your
+> stable branch right away!  Let it bake in Linus's tree anfor a week or
+> two, instead of demanding that patches stick around in Linux-next
+> before flowing into Linus's tree.
+> 
+> Because I will guarantee you this --- there are more real users
+> running Linus's tree than linux-next.  This is because Linus's tree
+> tends to be far more stable than linux-next, since after -rc2
+> linux-next starts getting the first set of experiments for what will
+> be going into the next merge window.  So while I am willing to run
+> something based on -rc2 or later on my laptop, there is no way in heck
+> I would be willing to put linux-next on my laptop.  That's just way
+> too exciting for me....
 
-Because I will guarantee you this --- there are more real users
-running Linus's tree than linux-next.  This is because Linus's tree
-tends to be far more stable than linux-next, since after -rc2
-linux-next starts getting the first set of experiments for what will
-be going into the next merge window.  So while I am willing to run
-something based on -rc2 or later on my laptop, there is no way in heck
-I would be willing to put linux-next on my laptop.  That's just way
-too exciting for me....
+I follow Linux next on few test systems. Then when I see no regressions,
+I might dare try it on my laptop. Something that's usable one week in
+next may not be so any longer the next week. So testing minimum few
+times a week and carrying occasional reverts are often needed to be
+able to test Linux next on daily basis.
 
-Would I pull down linux-next, and fire up a VM running gce-xfstests?
-Sure.  But that's not a real-life use case; that's just running canned
-test cases.  And more often than not, linux-next will be broken while
-Linus's -rcX tree is just fine; which is why I do most of my ext4
-testing using patches based on top of -rcX, not based on top of
-linux-next.
+> Would I pull down linux-next, and fire up a VM running gce-xfstests?
+> Sure.  But that's not a real-life use case; that's just running canned
+> test cases.  And more often than not, linux-next will be broken while
+> Linus's -rcX tree is just fine; which is why I do most of my ext4
+> testing using patches based on top of -rcX, not based on top of
+> linux-next.
 
-       		     		 	     - Ted
+Ideally we would somehow always end up with an -rc1 that people dare
+to use though for the "prosumer" testing :)
+
+Regards,
+
+Tony
