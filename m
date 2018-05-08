@@ -1,35 +1,33 @@
-Return-Path: <andy.shevchenko@gmail.com>
+Return-Path: <zarniwhoop73@googlemail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7F080D31
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D3D29D26
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 13 May 2018 13:53:36 +0000 (UTC)
-Received: from mail-qt0-f194.google.com (mail-qt0-f194.google.com
-	[209.85.216.194])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C4822189
+	Tue,  8 May 2018 21:08:19 +0000 (UTC)
+Received: from mail-vk0-f53.google.com (mail-vk0-f53.google.com
+	[209.85.213.53])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 42F89299
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 13 May 2018 13:53:35 +0000 (UTC)
-Received: by mail-qt0-f194.google.com with SMTP id e8-v6so12988592qth.0
+	Tue,  8 May 2018 21:08:19 +0000 (UTC)
+Received: by mail-vk0-f53.google.com with SMTP id t63-v6so20547417vkb.1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 13 May 2018 06:53:35 -0700 (PDT)
+	Tue, 08 May 2018 14:08:19 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20180512143809.7c6a06ab@canb.auug.org.au>
-References: <CAKMK7uHjA27K8y-kwYFyhLy3cSkJJw8Oe1gP=3hZXdfxcWAcNQ@mail.gmail.com>
+In-Reply-To: <20180508202912.GC8514@sasha-vm>
+References: <20180501211551.GI2714@sirena.org.uk>
+	<CAKMK7uHjA27K8y-kwYFyhLy3cSkJJw8Oe1gP=3hZXdfxcWAcNQ@mail.gmail.com>
 	<20180502194632.GB18390@sasha-vm> <20180503020550.GP2714@sirena.org.uk>
 	<20180503031000.GC29205@thunk.org>
 	<0276fcda-0385-8f22-dbdb-e063f7ed8bbe@roeck-us.net>
 	<20180503224217.GR2714@sirena.org.uk>
 	<20180503230905.GA98604@atomide.com>
-	<CAPDyKFrCKkRHwOh-7yfFbvMp+Ykhs7oXrDwhTShSPvUBvpn2ZQ@mail.gmail.com>
-	<20180509084440.GW13402@sirena.org.uk>
-	<CAKMK7uEWYmhA3owSeYM9tNA0tpMm5=4Yqda2j=VfMWi7i8ya8w@mail.gmail.com>
-	<20180509090346.GY13402@sirena.org.uk>
-	<20180509204727.7ff38021@canb.auug.org.au>
-	<20180512143809.7c6a06ab@canb.auug.org.au>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Message-ID: <CAHp75Vf4-MAODmGUwK1CfqbRs3gMjw3ysn97i27u3ms60ddPjg@mail.gmail.com>
-To: Stephen Rothwell <sfr@canb.auug.org.au>
+	<20180508023439.GA8514@sasha-vm> <20180508034820.GE999@thunk.org>
+	<20180508202912.GC8514@sasha-vm>
+From: Ken Moffat <zarniwhoop73@googlemail.com>
+Message-ID: <CANVEwpawkz0FHii-QOKLj+=WELf06F+mWPqs5L8DA_n4fetLGg@mail.gmail.com>
+To: Sasha Levin <Alexander.Levin@microsoft.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
 	Greg KH <gregkh@linuxfoundation.org>,
@@ -44,43 +42,67 @@ List-Post: <mailto:ksummit-discuss@lists.linuxfoundation.org>
 List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=help>
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
-Date: Sun, 13 May 2018 13:53:36 -0000
+Date: Tue, 08 May 2018 21:08:19 -0000
 
-On Sat, May 12, 2018 at 7:38 AM, Stephen Rothwell <sfr@canb.auug.org.au> wrote:
-> Hi all,
+On 8 May 2018 at 21:29, Sasha Levin <Alexander.Levin@microsoft.com> wrote:
+
 >
-> On Wed, 9 May 2018 20:47:27 +1000 Stephen Rothwell <sfr@canb.auug.org.au> wrote:
->>
->> On Wed, 9 May 2018 18:03:46 +0900 Mark Brown <broonie@kernel.org> wrote:
->> >
->> > On Wed, May 09, 2018 at 10:47:57AM +0200, Daniel Vetter wrote:
->> > > On Wed, May 9, 2018 at 10:44 AM, Mark Brown <broonie@kernel.org> wrote:
->> >
->> > > > I think this is an excellent idea, copying in Stephen for his input.
->> > > > I'm currently on holiday but unless someone convinces me it's a terrible
->> > > > idea I'm willing to at least give it a go on a trial basis once I'm back
->> > > > home.
->> >
->> > > Since Stephen merges all -fixes branches first, before merging all the
->> > > -next branches, he already generates that as part of linux-next. All
->> > > he'd need to do is push that intermediate state out to some
->> > > linux-fixes branch for consumption by test bots.
->>
->> Good idea ... I will see what I can do.
+> This is interesting. We have a group of power users who are testing out
+> -rc releases, who are usually happy to test out a fast moving target and
+> provide helpful reports back. We also have a group who run a -stable
+> kernel (-stable build/distro/android/etc) who want to avoid having to
+> report bugs to us.
 >
-> See my announcement of a pending-fixes branch in linux-next (on LKML
-> and others)
+> What we don't have is a group of people who use Linus's actual releases
+> (not the -rc stuff, but the actual point releases). Power users will
+> move on to the next kernel, and -stable folks won't touch that release
+> until there's a corresponding -stable.
+
+I resent that assumption :)
+
+As a 'prosumer' in this context, I try to test an early -rc (usually
+not until -rc2, sometimes not until later, depending on what I see on
+this list), and then intermittently I spread the testing to more of my
+desktop machines using later -rc versions. Once linus releases .0 I
+hope to move my current systems to that in the next few days. But as
+always, other things (sometimes real life, sometimes just new changes
+in userspace) intervene.
+
+After that, I will pick up Greg's latest if I build a new system
+before the next kernel release, or if I become aware of something
+critical (for my usage) in it.  And then probably 4 or 5 weeks after
+linus's release I will start the next cycle of testing -rc verisons.
+
+So no, I rarely test Greg's current stable version, but there _is_ a
+period of some weeks where I run .0 kernels.
+
+=C4=B8en
+
+
 >
->> I currently have 44 such fixes branches.  More welcome!
+> Even rawhide, like Josh mentioned, will just fill back with the merge
+> window commits after the release of an older kernel.
 >
-> We are up to 55.
-
-For PDx86 we have
-
-git://git.infradead.org/linux-platform-drivers-x86.git fixes
-
-branch
-
--- 
-With Best Regards,
-Andy Shevchenko
+> So the problem I'm seeing is that since a merge window is open only once
+> every 2-3 months people will sometimes try to push poorly tested code
+> just to make that merge window. Additionally, as later -rc releases
+> start showing up people will again merge poorly tested fixes just to
+> make it in time for that release.
+>
+> For both cases, people will push poorly tested code in the kernel just
+> because they want to make it in time for a kernel release that no one
+> will actually use.
+>
+> What if, instead, Linus doesn't actually ever release a point release?
+> We can make the merge window open more often, and since there's no
+> actual release, people won't rush to push fixes in later -rc cycles.
+>
+> We take away the incentive to push poorly tested code. Maintainers still
+> free to commit anything they'd like, but there's no reason to commit
+> code they're not confident of just to make it to a random release no one
+> will use.
+>
+> Merge window will happen more often, so there's no real reason to rush
+> things in a particular window, and since -stable releases every week
+> there's no rush to push a fix in since the next release is just a week
+> away.
