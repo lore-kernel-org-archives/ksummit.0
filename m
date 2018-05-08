@@ -1,35 +1,37 @@
-Return-Path: <w@1wt.eu>
+Return-Path: <jmforbes@linuxtx.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6D42D12
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 97C68A47
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  5 May 2018 04:24:05 +0000 (UTC)
-Received: from 1wt.eu (wtarreau.pck.nerim.net [62.212.114.60])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 61A0114F
+	Tue,  8 May 2018 13:58:21 +0000 (UTC)
+Received: from mail-it0-f45.google.com (mail-it0-f45.google.com
+	[209.85.214.45])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 233E2637
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  5 May 2018 04:24:03 +0000 (UTC)
-From: Willy Tarreau <w@1wt.eu>
-To: "Theodore Y. Ts'o" <tytso@mit.edu>,
-	Sasha Levin <Alexander.Levin@microsoft.com>,
-	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Tue,  8 May 2018 13:58:21 +0000 (UTC)
+Received: by mail-it0-f45.google.com with SMTP id e20-v6so16471939itc.1
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 08 May 2018 06:58:20 -0700 (PDT)
+MIME-Version: 1.0
+In-Reply-To: <20180508023439.GA8514@sasha-vm>
+References: <20180501200019.GA7397@sasha-vm> <20180501205448.GE10479@thunk.org>
+	<20180501211551.GI2714@sirena.org.uk>
+	<CAKMK7uHjA27K8y-kwYFyhLy3cSkJJw8Oe1gP=3hZXdfxcWAcNQ@mail.gmail.com>
+	<20180502194632.GB18390@sasha-vm> <20180503020550.GP2714@sirena.org.uk>
+	<20180503031000.GC29205@thunk.org>
+	<0276fcda-0385-8f22-dbdb-e063f7ed8bbe@roeck-us.net>
+	<20180503224217.GR2714@sirena.org.uk>
+	<20180503230905.GA98604@atomide.com>
+	<20180508023439.GA8514@sasha-vm>
+From: Justin Forbes <jmforbes@linuxtx.org>
+Message-ID: <CAFxkdAqEK3Kv1Q8Jy4KZ7AHPXAA7ux6CYsQ4m6grKwFGwzNrXQ@mail.gmail.com>
+To: Sasha Levin <Alexander.Levin@microsoft.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
 	Greg KH <gregkh@linuxfoundation.org>,
 	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Message-ID: <20180505042356.GA24575@1wt.eu>
-References: <20180503173422.GR18390@sasha-vm>
-	<20180503182039.GC30522@ZenIV.linux.org.uk>
-	<8669.1525427874@warthog.procyon.org.uk> <87fu377gbu.fsf@intel.com>
-	<20180504130932.GI29205@thunk.org>
-	<20180504174055.GF4649@kroah.com>
-	<20180504211317.GK29205@thunk.org>
-	<1525469881.4114.5.camel@HansenPartnership.com>
-	<20180504215111.GX18390@sasha-vm>
-	<20180504233542.GM29205@thunk.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20180504233542.GM29205@thunk.org>
+	"w@1wt.eu" <w@1wt.eu>
 Subject: Re: [Ksummit-discuss] bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -39,65 +41,57 @@ List-Post: <mailto:ksummit-discuss@lists.linuxfoundation.org>
 List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=help>
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
-Date: Sat, 05 May 2018 04:24:05 -0000
+Date: Tue, 08 May 2018 13:58:21 -0000
 
-On Fri, May 04, 2018 at 07:35:42PM -0400, Theodore Y. Ts'o wrote:
-> On Fri, May 04, 2018 at 09:51:14PM +0000, Sasha Levin wrote:
-> > I don't have an objection to moving this to it's own tag. It will make
-> > my scripts somewhat simpler for sure.
-> 
-> It's not a matter "moving this it's own tag", but creating a new tag
-> --- because what is in the docs is a lie.  It does not describe what
-> we do today.  And current practice is the reality, not what is in the
-> docs.
-> 
-> As to whether we should create a new tag to support explicit
-> dependencies, I'll leave that between you and Greg K-H and the rest of
-> the stable maintainers.  :-)
+On Mon, May 7, 2018 at 9:34 PM, Sasha Levin
+<Alexander.Levin@microsoft.com> wrote:
+> On Thu, May 03, 2018 at 04:09:05PM -0700, Tony Lindgren wrote:
+>>* Mark Brown <broonie@kernel.org> [180503 22:44]:
+>>> On Wed, May 02, 2018 at 08:52:29PM -0700, Guenter Roeck wrote:
+>>>
+>>> > As for -next, me and others stopped reporting bugs in it, because when we do
+>>> > we tend to get flamed for the "noise". Is anyone aware (or cares) that mips
+>>> > and nds32 images don't build ? Soaking clothes in an empty bathtub won't make
+>>> > them wet, and bugs in code which no one builds, much less tests or uses, won't
+>>> > be found.
+>>>
+>>> You've been flamed for testing -next?  That's not been my experience and
+>>> frankly it's pretty horrifying that it's happening.  Testing is pretty
+>>> much the whole point of -next existing in the first place so you have to
+>>> wonder why people are putting their trees there if they don't want
+>>> testing.  I have seen a few issues with people reporting bugs on old
+>>> versions of -next but otherwise...
+>>
+>>Yes I agree testing Linux next is very important. That's the best way for
+>>maintainers to ensure a usable -rc1 after a merge window. And then for
+>>the -rc cycle, there not much of need for chasing bugs to get things working.
+>>
+>>Bugs reported for Linux next often seem to get fixed or reverted faster
+>>compared to the -rc cycle too. I think that's because people realize that
+>>their code will not get merged until it's been fixed.
+>>
+>>So some daily testing of Linux next can save a lot scrambling after the
+>>merge window :)
+>>
+>>Users don't usually upgrade kernels until after later -rc releases or only
+>>after major releases so that probably explains some of the -rc cycle fixes.
+>
+> Tony, I'm curious, how many users are you aware of who actually run
+> Linus's tree? All the users I've encountered so far on Azure seem to be
+> running something based on -stable.
 
-Guys, *personally*, I've sometimes been a bit annoyed by the huge amount
-of irregular extra headers trying to compensate for horribly vague commit
-messages, and I'm pretty sure it pisses off patch authors who don't know
-anymore what to put in their description. We need to keep in mind that
-authors are humans and not machines, and that natural language remains
-the best to explain complex dependencies. I'd prefer to see :
+I couldn't tell you the number of users we have running rawhide
+kernels (daily builds of Linus's tree), but it is a positive integer.
+We do get bug reports on things, sometimes a day after Linus commits
+them.
 
-    This patch needs to be backported to all stable branches that contain
-    717d3133 and 207f5b3c (that's 3.10+) or their respective backports but
-    must be adapted (contact me) if only a backport of 717d3133 is present.
-
-    Cc: stable # v3.10+
-
-Rather than horrible stuff like this :
-
-    Cc: stable # v3.10+ (717d3133 && 207f5b3c) || WARN_ON(back(717d3133))
-
-Of course it's a bit made up, but not too far from what is being discussed
-here, probably only the next step. People will often get complex rules
-wrong, both on the producer and on the consumer side. The day we need a
-compiler to emit commit messages, we'll have to wonder if we didn't go
-too far.
-
-Also I've found the Fixes header pretty useful. It allows patch authors
-to mention what is being fixed without necessarily copying stable,
-because sometimes you'd rather not see your patch immediately backported
-or you think the risks are higher than the bug. And here as well, it's
-only suited for simple situations with a single commit ID, complex
-desriptions have to be part of the commit message body.
-
-I think that what we have now works pretty well but that some descriptions
-lack a bit of detail, especially on the impact of the bug which would help
-decide to backport or drop. This is understandable because often the person
-fixing a bug documents it for people knowing the same subsystem well. But
-when you backport fixes into other kernel versions, you don't know well
-how each subsystem works, and guessing the impact of a bug is not always
-obvious. Most of the time, authors who add Fixes: and/or Cc: stable take
-care of providing enough information, though I'd suspect that sometimes
-they're making efforts trying to figure how to place the information
-there and possibly try to avoid redundancy by writing a shorter body.
-
-At this point, I'm really not seeing what we're trying to improve or
-optimize, and to be honest this discussion worries me a bit, by just
-thinking that it could result in annoying changes...
-
-Willy
+>
+> I can't really get any solid statistics about that on my end both
+> because I don't have visibility inside user VMs (I don't actually have
+> prod access believe it or not), and even if I had it would probably be
+> confidential, so I'm just basing this on reports from user's I've seen
+> so far.
+>
+> I think that a question we should be asking ourselves is whether we
+> should be basing our decisions here on the assumption that (pretty much)
+> no one runs Linus's tree anymore?
