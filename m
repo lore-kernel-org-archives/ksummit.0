@@ -1,36 +1,35 @@
-Return-Path: <Alexander.Levin@microsoft.com>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D247C5A7
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id BFF1922
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  8 May 2018 02:39:39 +0000 (UTC)
-Received: from NAM01-SN1-obe.outbound.protection.outlook.com
-	(mail-sn1nam01on0130.outbound.protection.outlook.com [104.47.32.130])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 715C618A
+	Tue,  8 May 2018 03:48:26 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 193D65D0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  8 May 2018 02:39:38 +0000 (UTC)
-From: Sasha Levin <Alexander.Levin@microsoft.com>
-To: Mark Brown <broonie@kernel.org>
-Date: Tue, 8 May 2018 02:39:36 +0000
-Message-ID: <20180508023934.GB8514@sasha-vm>
-References: <20180501194450.GD10479@thunk.org>
-	<20180501200019.GA7397@sasha-vm> <20180501205448.GE10479@thunk.org>
+	Tue,  8 May 2018 03:48:25 +0000 (UTC)
+Date: Mon, 7 May 2018 23:48:20 -0400
+From: "Theodore Y. Ts'o" <tytso@mit.edu>
+To: Sasha Levin <Alexander.Levin@microsoft.com>
+Message-ID: <20180508034820.GE999@thunk.org>
+References: <20180501205448.GE10479@thunk.org>
 	<20180501211551.GI2714@sirena.org.uk>
 	<CAKMK7uHjA27K8y-kwYFyhLy3cSkJJw8Oe1gP=3hZXdfxcWAcNQ@mail.gmail.com>
-	<20180502194632.GB18390@sasha-vm> <20180503020550.GP2714@sirena.org.uk>
+	<20180502194632.GB18390@sasha-vm>
+	<20180503020550.GP2714@sirena.org.uk>
 	<20180503031000.GC29205@thunk.org>
 	<0276fcda-0385-8f22-dbdb-e063f7ed8bbe@roeck-us.net>
 	<20180503224217.GR2714@sirena.org.uk>
-In-Reply-To: <20180503224217.GR2714@sirena.org.uk>
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <E851300F49D9D54EA7E19779A19A7A12@namprd21.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+	<20180503230905.GA98604@atomide.com>
+	<20180508023439.GA8514@sasha-vm>
 MIME-Version: 1.0
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20180508023439.GA8514@sasha-vm>
+Cc: Greg KH <gregkh@linuxfoundation.org>, "w@1wt.eu" <w@1wt.eu>,
+	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Greg KH <gregkh@linuxfoundation.org>, "w@1wt.eu" <w@1wt.eu>
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 Subject: Re: [Ksummit-discuss] bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -41,30 +40,66 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, May 04, 2018 at 07:42:17AM +0900, Mark Brown wrote:
->On Wed, May 02, 2018 at 08:52:29PM -0700, Guenter Roeck wrote:
->
->> As for -next, me and others stopped reporting bugs in it, because when w=
-e do
->> we tend to get flamed for the "noise". Is anyone aware (or cares) that m=
-ips
->> and nds32 images don't build ? Soaking clothes in an empty bathtub won't=
- make
->> them wet, and bugs in code which no one builds, much less tests or uses,=
- won't
->> be found.
->
->You've been flamed for testing -next?  That's not been my experience and
->frankly it's pretty horrifying that it's happening.  Testing is pretty
->much the whole point of -next existing in the first place so you have to
->wonder why people are putting their trees there if they don't want
->testing.  I have seen a few issues with people reporting bugs on old
->versions of -next but otherwise...
+On Tue, May 08, 2018 at 02:34:41AM +0000, Sasha Levin via Ksummit-discuss wrote:
+> 
+> Tony, I'm curious, how many users are you aware of who actually run
+> Linus's tree? All the users I've encountered so far on Azure seem to be
+> running something based on -stable.
 
-This is just wrong, what else is -next for?
+The people who run Linus's tree and test -rc kernels tend to be kernel
+developers and individual users who want to run bleeding edge kernels
+and who generally are technically clueful.  If you were talking about
+SLR cameras, you'd call them the "prosumers" segment of the market.
 
-FWIW, our (MSFT) testing folks should now be reporting issues they see
-on our -next testing pipeline directly to LKML. There's not much volume
-there given that the 0-day bot catches most of the issues anyways, but
-we sometimes see odd regressions given that no one else seems to test
-Linux on Hyper-V but us :)=
+It tends to be more on desktops and laptops, so it doesn't surprise me
+that you don't often see them in a hosting environment where you have
+to pay $$$.  (And where you do see them in a hosting environment, it's
+probably for things like gce-xfstests.)
+
+> I think that a question we should be asking ourselves is whether we
+> should be basing our decisions here on the assumption that (pretty much)
+> no one runs Linus's tree anymore?
+
+These people *do* exist, because as a maintainer, I get bug reports
+from them.  (And sometimes as a user, I send bug reports when running
+-rc kernels to other maintainers, such as the i915 drivers and the
+Intel Wireless driver folks.)
+
+Such reports are incredibly valuable and precious to me, since it
+allows me to find problems that weren't picked up in my own testing.
+(In the case of Intel Wireless, a while back the IWL team didn't have
+Aruba Enterprise Access Points in their test hardware library, so I
+found a regression after the merge window because I was running -rcX
+on my laptop, and wireless access to googleguest network broke.  If I
+hadn't been running -rcX, they probably wouldn't have discovered this
+problem until after that particular kernel had been released.)
+
+So keeping those users happy is a good thing; since they tend to be
+very technically clueful, they can do bisections for you, and they are
+able to give a detailed and useful bug report.  If they report that a
+regression that was introduced in -rc2 is fixed by a particular patch,
+I want to push it into -rc3 immediately, and not let it stall in
+linux-next.  If the reason why is because you don't trust my patch
+because it "only" got tested by the technically advanced user
+reporting the regression, then don't take patches from -rc3 into your
+stable branch right away!  Let it bake in Linus's tree anfor a week or
+two, instead of demanding that patches stick around in Linux-next
+before flowing into Linus's tree.
+
+Because I will guarantee you this --- there are more real users
+running Linus's tree than linux-next.  This is because Linus's tree
+tends to be far more stable than linux-next, since after -rc2
+linux-next starts getting the first set of experiments for what will
+be going into the next merge window.  So while I am willing to run
+something based on -rc2 or later on my laptop, there is no way in heck
+I would be willing to put linux-next on my laptop.  That's just way
+too exciting for me....
+
+Would I pull down linux-next, and fire up a VM running gce-xfstests?
+Sure.  But that's not a real-life use case; that's just running canned
+test cases.  And more often than not, linux-next will be broken while
+Linus's -rcX tree is just fine; which is why I do most of my ext4
+testing using patches based on top of -rcX, not based on top of
+linux-next.
+
+       		     		 	     - Ted
