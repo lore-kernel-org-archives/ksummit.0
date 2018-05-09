@@ -1,21 +1,19 @@
 Return-Path: <sfr@canb.auug.org.au>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7015ECE6
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5DAB4D20
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  9 May 2018 21:58:32 +0000 (UTC)
+	Wed,  9 May 2018 22:09:13 +0000 (UTC)
 Received: from ozlabs.org (ozlabs.org [203.11.71.1])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 829FA680
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9A84F680
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  9 May 2018 21:58:31 +0000 (UTC)
-Date: Thu, 10 May 2018 07:58:28 +1000
+	Wed,  9 May 2018 22:09:12 +0000 (UTC)
+Date: Thu, 10 May 2018 08:09:09 +1000
 From: Stephen Rothwell <sfr@canb.auug.org.au>
-To: Boris Brezillon <boris.brezillon@bootlin.com>
-Message-ID: <20180510075828.32167ead@canb.auug.org.au>
-In-Reply-To: <20180509213528.54bad29b@bbrezillon>
-References: <CAKMK7uHjA27K8y-kwYFyhLy3cSkJJw8Oe1gP=3hZXdfxcWAcNQ@mail.gmail.com>
-	<20180502194632.GB18390@sasha-vm>
-	<20180503020550.GP2714@sirena.org.uk>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <20180510080909.47c3068b@canb.auug.org.au>
+In-Reply-To: <20180509140532.GA949@sirena.org.uk>
+References: <20180503020550.GP2714@sirena.org.uk>
 	<20180503031000.GC29205@thunk.org>
 	<0276fcda-0385-8f22-dbdb-e063f7ed8bbe@roeck-us.net>
 	<20180503224217.GR2714@sirena.org.uk>
@@ -25,15 +23,16 @@ References: <CAKMK7uHjA27K8y-kwYFyhLy3cSkJJw8Oe1gP=3hZXdfxcWAcNQ@mail.gmail.com>
 	<CAKMK7uEWYmhA3owSeYM9tNA0tpMm5=4Yqda2j=VfMWi7i8ya8w@mail.gmail.com>
 	<20180509090346.GY13402@sirena.org.uk>
 	<20180509204727.7ff38021@canb.auug.org.au>
-	<20180509213528.54bad29b@bbrezillon>
+	<20180509140532.GA949@sirena.org.uk>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	boundary="Sig_/wJg1F16Hn9qJQJcUeJNMO7u";
+	boundary="Sig_/ldJO_07QX328KjF_NOT_tX0";
 	protocol="application/pgp-signature"
-Cc: Greg KH <gregkh@linuxfoundation.org>, "w@1wt.eu" <w@1wt.eu>,
-	"ksummit-discuss@lists.linuxfoundation.org"
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+	Liam Girdwood <lgirdwood@gmail.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Greg KH <gregkh@linuxfoundation.org>, "w@1wt.eu" <w@1wt.eu>
 Subject: Re: [Ksummit-discuss] bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -44,27 +43,19 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---Sig_/wJg1F16Hn9qJQJcUeJNMO7u
+--Sig_/ldJO_07QX328KjF_NOT_tX0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-Hi Boris,
+Hi Mark,
 
-On Wed, 9 May 2018 21:35:28 +0200 Boris Brezillon <boris.brezillon@bootlin.=
-com> wrote:
+On Wed, 9 May 2018 23:05:32 +0900 Mark Brown <broonie@kernel.org> wrote:
 >
-> I see that the nand/fixes and spi-nor/fixes branch are already there [1].
-> You can add:
->=20
-> mtd-fixes	git	git://git.infradead.org/linux-mtd.git#master
+> Well, all my trees have a for-linus branch to go with the for-next
+> branch for a start.
 
-Added from today.
-
-> You can also remove the mtd entry [2], since mtd-2.6.git is just a sym
-> link to linux-mtd.git, so it will just be a duplicate of the mtd-fixes
-> entry. You can also rename the l2-mtd entry [3] into mtd.
-
-All done.
+The regmap and regulator trees have no for-linus branch (currently).
+Added sound-asoc-fixes and spi-fixes from today.
 
 Thanks for adding your subsystem tree as a participant of linux-next.  As
 you may know, this is not a judgement of your code.  The purpose of
@@ -88,20 +79,20 @@ Cheers,
 Stephen Rothwell=20
 sfr@canb.auug.org.au
 
---Sig_/wJg1F16Hn9qJQJcUeJNMO7u
+--Sig_/ldJO_07QX328KjF_NOT_tX0
 Content-Type: application/pgp-signature
 Content-Description: OpenPGP digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAlrzbwQACgkQAVBC80lX
-0Gwdxwf9HWzPcwbaddsDWl4yjDDlRsL4RERn+NPFO1jVWtO8bxEjZsayREmUYgIB
-hSvemPip3eSkZ+zPoPUWdGjN7nAa50YzsEwcr591lPX/QEkJGDRy4s46OUmvutCU
-kEd3Pv4tWtFZQx+8fP9/LvjtYzToOm/EtmXGZ0handM8mclIgIh/oLoDWFFMV/2q
-GROxYCVCckcjRHJs/8vckn9dJT4ReaJDVgvY3vmF4hcDAPdbvcH8GJJBuM2WOuw/
-avGxi1hmLvI08b1zd9REbMjA4Dklr4SIRfqkT01/cxdEcxRbNxDuY+rvh1GRSefr
-eNtfRrvYShn44eFQKCE0hu2i2yLw8Q==
-=XT7Z
+iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAlrzcYUACgkQAVBC80lX
+0GzZqQgApHxkyJiWf1G5HUnwNinxKQshxLRflaxKOCsPNEqEC7shFhnemvJPss/i
+8JNyotvxeWjaykN+fGTcyYQ2227WeET+UkO/5WLT98V9DU0EcMVdoDWD+dskZtuS
+Uk7X96hIJdOqYTACrzZossF2tlhKFXku2PmrzOP94CpNEttOCbFVzR4TKnQ/PLlY
+m4SFIXrNrJNlDcJ/UUNFdSV19P6noRKkNjFHR2++A0UOEmAE+Y1xidcLY04tfWjt
+vBUj/YRJtfNe/q+4HGo9u+UVd5fQp4BM2ZjO9TCNdV+EBgbbHRu6dzIHtXMSkbDh
+XcFHxLdbWHC80LODYVlDFEV4nGIpVA==
+=d/bF
 -----END PGP SIGNATURE-----
 
---Sig_/wJg1F16Hn9qJQJcUeJNMO7u--
+--Sig_/ldJO_07QX328KjF_NOT_tX0--
