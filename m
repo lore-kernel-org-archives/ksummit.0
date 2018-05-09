@@ -1,18 +1,18 @@
-Return-Path: <sfr@canb.auug.org.au>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5BF0B407
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B21F59D1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  9 May 2018 12:43:18 +0000 (UTC)
-Received: from ozlabs.org (ozlabs.org [203.11.71.1])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A85CC67A
+	Wed,  9 May 2018 14:05:47 +0000 (UTC)
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+	[172.104.155.198])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2BC84671
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  9 May 2018 12:43:17 +0000 (UTC)
-Date: Wed, 9 May 2018 22:43:13 +1000
-From: Stephen Rothwell <sfr@canb.auug.org.au>
-To: Vinod Koul <vinod.koul@linaro.org>
-Message-ID: <20180509224313.5e5fe381@canb.auug.org.au>
-In-Reply-To: <20180509105534.GE7985@vkoul-mobl>
+	Wed,  9 May 2018 14:05:46 +0000 (UTC)
+Date: Wed, 9 May 2018 23:05:32 +0900
+From: Mark Brown <broonie@kernel.org>
+To: Stephen Rothwell <sfr@canb.auug.org.au>
+Message-ID: <20180509140532.GA949@sirena.org.uk>
 References: <20180503020550.GP2714@sirena.org.uk>
 	<20180503031000.GC29205@thunk.org>
 	<0276fcda-0385-8f22-dbdb-e063f7ed8bbe@roeck-us.net>
@@ -23,15 +23,16 @@ References: <20180503020550.GP2714@sirena.org.uk>
 	<CAKMK7uEWYmhA3owSeYM9tNA0tpMm5=4Yqda2j=VfMWi7i8ya8w@mail.gmail.com>
 	<20180509090346.GY13402@sirena.org.uk>
 	<20180509204727.7ff38021@canb.auug.org.au>
-	<20180509105534.GE7985@vkoul-mobl>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	boundary="Sig_/aQBQzqyF/.gCNJZYOb3UsPn";
-	protocol="application/pgp-signature"
-Cc: Greg KH <gregkh@linuxfoundation.org>, "w@1wt.eu" <w@1wt.eu>,
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="qMm9M+Fa2AknHoGS"
+Content-Disposition: inline
+In-Reply-To: <20180509204727.7ff38021@canb.auug.org.au>
+Cc: "w@1wt.eu" <w@1wt.eu>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+	Greg KH <gregkh@linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -42,45 +43,42 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---Sig_/aQBQzqyF/.gCNJZYOb3UsPn
-Content-Type: text/plain; charset=US-ASCII
+
+--qMm9M+Fa2AknHoGS
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi Vinod,
+On Wed, May 09, 2018 at 08:47:27PM +1000, Stephen Rothwell wrote:
+> On Wed, 9 May 2018 18:03:46 +0900 Mark Brown <broonie@kernel.org> wrote:
+> > On Wed, May 09, 2018 at 10:47:57AM +0200, Daniel Vetter wrote:
+> > > On Wed, May 9, 2018 at 10:44 AM, Mark Brown <broonie@kernel.org> wrot=
+e: =20
 
-On Wed, 9 May 2018 16:25:34 +0530 Vinod Koul <vinod.koul@linaro.org> wrote:
-> >=20
-> > I currently have 44 such fixes branches.  More welcome! =20
->=20
-> Great so do you want us to send fixes branch or scan the existing trees a=
-nd add
-> them.
+> > True.  It's currently only those -fixes branches that people have asked
+> > him to merge separately which isn't as big a proportion of trees as have
+> > them (perhaps fortunately given people's enthusiasm for fixes branches
+> > that don't merge cleanly with their development branches) so we'd also
+> > need to encourage people to add them separately.
 
-The former.
+> I currently have 44 such fixes branches.  More welcome!
 
-> In case of former please do add slave-dma/fixes as well
+Well, all my trees have a for-linus branch to go with the for-next
+branch for a start.
 
-Done.  Should I switch your contact address to your kernel.org one
-(from your Intel one)?
-
---=20
-Cheers,
-Stephen Rothwell
-
---Sig_/aQBQzqyF/.gCNJZYOb3UsPn
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
+--qMm9M+Fa2AknHoGS
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAlry7OEACgkQAVBC80lX
-0GypjAf9Eu4wch6Mlzdh6JijoxRYW0OxPXkyh/8vyjjQKt4XSwSUM84Q6D9dzNbM
-RimuzlgQFOaZ76xqI//hscGjBpF9Pvsm8YVWfG3Gzb2aPV/AI5USL+GTZ+6s3ees
-35y/ogvOKLqcNwQ2JVePX2E+cCKv+H39PxX2RlzATPjCsCyOktsPSJKdzhW27KF4
-LwS/lLMCY+4wQ/rP4bRFuElyoVw8boYlF9pI3ApSpde894tIEFdyiOZukSwzPVoc
-tOr7AxsxnLsyfJIEO0fmMWnR9H7F2juQ59ZtcudDZLyIHxY3UymVrw48aSYLvWpR
-OjYmEO/25MmgPssRM7UIndkNHhp/QQ==
-=CvRB
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlrzACsACgkQJNaLcl1U
+h9AM4wf9HbaLz7zmjo8UU2Cxru60+sQAhl40X7n283AXOvOUB+4pWhjY80f+BYtU
+L0RMovyujHyA75df9rlVPDAeIz2aGRVGJMED77szUhHm3N5XB5SdAkrH4e2CyO4n
+gO3+8Y0lXiMnZqPupnQrFx6vrgNWeeAu9+c+znKIo9GKfsrXrOmC6EexzAT4dg7y
+7qzgdF1DdNt/9GSSoWEcrVoTrGdZCGlN0PAU01NQOZUgm0VCiGJey+vCYETGUeVt
+Ka6yW/BWCXb2XYWtiG/a996hoXqlslBesZRkcMVuXq2KA5gLG0wZIQuZSMvqJDNR
+5mkBGlF+kj82fUXeu2PAKjctGaz5kA==
+=Wsaq
 -----END PGP SIGNATURE-----
 
---Sig_/aQBQzqyF/.gCNJZYOb3UsPn--
+--qMm9M+Fa2AknHoGS--
