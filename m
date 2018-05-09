@@ -1,21 +1,19 @@
-Return-Path: <dan.j.williams@intel.com>
+Return-Path: <sfr@canb.auug.org.au>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0EDFB9D7
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4B674CEE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  9 May 2018 16:04:34 +0000 (UTC)
-Received: from mail-ot0-f195.google.com (mail-ot0-f195.google.com
-	[74.125.82.195])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6C980F4
+	Wed,  9 May 2018 21:45:26 +0000 (UTC)
+Received: from ozlabs.org (ozlabs.org [203.11.71.1])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8FF63681
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  9 May 2018 16:04:32 +0000 (UTC)
-Received: by mail-ot0-f195.google.com with SMTP id l13-v6so40756740otk.9
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 09 May 2018 09:04:32 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <20180509204727.7ff38021@canb.auug.org.au>
-References: <CAKMK7uHjA27K8y-kwYFyhLy3cSkJJw8Oe1gP=3hZXdfxcWAcNQ@mail.gmail.com>
-	<20180502194632.GB18390@sasha-vm> <20180503020550.GP2714@sirena.org.uk>
+	Wed,  9 May 2018 21:45:25 +0000 (UTC)
+Date: Thu, 10 May 2018 07:45:07 +1000
+From: Stephen Rothwell <sfr@canb.auug.org.au>
+To: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <20180510074507.75423824@canb.auug.org.au>
+In-Reply-To: <20180509155733.GA13575@roeck-us.net>
+References: <20180503020550.GP2714@sirena.org.uk>
 	<20180503031000.GC29205@thunk.org>
 	<0276fcda-0385-8f22-dbdb-e063f7ed8bbe@roeck-us.net>
 	<20180503224217.GR2714@sirena.org.uk>
@@ -25,17 +23,15 @@ References: <CAKMK7uHjA27K8y-kwYFyhLy3cSkJJw8Oe1gP=3hZXdfxcWAcNQ@mail.gmail.com>
 	<CAKMK7uEWYmhA3owSeYM9tNA0tpMm5=4Yqda2j=VfMWi7i8ya8w@mail.gmail.com>
 	<20180509090346.GY13402@sirena.org.uk>
 	<20180509204727.7ff38021@canb.auug.org.au>
-From: Dan Williams <dan.j.williams@intel.com>
-Date: Wed, 9 May 2018 09:04:31 -0700
-Message-ID: <CAPcyv4jtNXhMwCqpbKkHe5e-nDPK+2Wq=maFsB_SMSGyg7fw5w@mail.gmail.com>
-To: Stephen Rothwell <sfr@canb.auug.org.au>
-Content-Type: text/plain; charset="UTF-8"
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<20180509155733.GA13575@roeck-us.net>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	boundary="Sig_/lU+hWpCKhqV3z7H0WtOau._";
+	protocol="application/pgp-signature"
+Cc: Greg KH <gregkh@linuxfoundation.org>, "w@1wt.eu" <w@1wt.eu>,
+	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	linux-nvdimm <linux-nvdimm@lists.01.org>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"w@1wt.eu" <w@1wt.eu>
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 Subject: Re: [Ksummit-discuss] bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -46,38 +42,59 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, May 9, 2018 at 3:47 AM, Stephen Rothwell <sfr@canb.auug.org.au> wrote:
-> On Wed, 9 May 2018 18:03:46 +0900 Mark Brown <broonie@kernel.org> wrote:
->>
->> On Wed, May 09, 2018 at 10:47:57AM +0200, Daniel Vetter wrote:
->> > On Wed, May 9, 2018 at 10:44 AM, Mark Brown <broonie@kernel.org> wrote:
->>
->> > > I think this is an excellent idea, copying in Stephen for his input.
->> > > I'm currently on holiday but unless someone convinces me it's a terrible
->> > > idea I'm willing to at least give it a go on a trial basis once I'm back
->> > > home.
->>
->> > Since Stephen merges all -fixes branches first, before merging all the
->> > -next branches, he already generates that as part of linux-next. All
->> > he'd need to do is push that intermediate state out to some
->> > linux-fixes branch for consumption by test bots.
->
-> Good idea ... I will see what I can do.
->
->> True.  It's currently only those -fixes branches that people have asked
->> him to merge separately which isn't as big a proportion of trees as have
->> them (perhaps fortunately given people's enthusiasm for fixes branches
->> that don't merge cleanly with their development branches) so we'd also
->> need to encourage people to add them separately.
->
-> I currently have 44 such fixes branches.  More welcome!
+--Sig_/lU+hWpCKhqV3z7H0WtOau._
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Please add:
+Hi Guenter,
 
-    git://git.kernel.org/pub/scm/linux/kernel/git/nvdimm/nvdimm.git
-libnvdimm-fixes
+On Wed, 9 May 2018 08:57:33 -0700 Guenter Roeck <linux@roeck-us.net> wrote:
+>
+> Please add
+>=20
+> git://git.kernel.org/pub/scm/linux/kernel/git/groeck/linux-staging.git hw=
+mon
+>=20
+> as fixes branch.
 
-We currently merge this into libnvdimm-for-next for -next coverage,
-and resolve any conflicts vs new development. Do you want to see those
-conflicts? Otherwise I would recommend only pulling libnvdimm-for-next
-for -next and libnvdimm-fixes for this new -next-fixes effort.
+Added from today.
+
+Thanks for adding your subsystem tree as a participant of linux-next.  As
+you may know, this is not a judgement of your code.  The purpose of
+linux-next is for integration testing and to lower the impact of
+conflicts between subsystems in the next merge window.=20
+
+You will need to ensure that the patches/commits in your tree/series have
+been:
+     * submitted under GPL v2 (or later) and include the Contributor's
+        Signed-off-by,
+     * posted to the relevant mailing list,
+     * reviewed by you (or another maintainer of your subsystem tree),
+     * successfully unit tested, and=20
+     * destined for the current or next Linux merge window.
+
+Basically, this should be just what you would send to Linus (or ask him
+to fetch).  It is allowed to be rebased if you deem it necessary.
+
+--=20
+Cheers,
+Stephen Rothwell=20
+sfr@canb.auug.org.au
+
+--Sig_/lU+hWpCKhqV3z7H0WtOau._
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAlrza+MACgkQAVBC80lX
+0GzYGAf/fceOXkMiVU0RWyaGOjbP5Uen/SIAB/QZeY9+3DYkEcLAnw3Osx+1tzPt
+nBuo+bOYaO4nMSIzXYtUFHYbd02fmcvvFKUdFhqOOBcTRPeNGoKtJCzBMIGwYdKx
+yFDGY+KPeLPH/GpK2YLkTzxz+Ezcj4kPjI+7mpIHKa4UgtnX39/aKSi71eQtuP+y
+8Gp5ReapawAcLTCWcuBMy9C63/LsynetiDk467lNbM9Z/UiJBpA0LAkkkOe0xGeK
+vFP5Et0MXXM1ZmO+cxe2C3seBke+5f7pjmxKsJAPMk4YhJCAb3Vm9hhmLF/2sjDe
+3HiWvHj4oABlH/pp+cGEUfxzdfefkQ==
+=mrqg
+-----END PGP SIGNATURE-----
+
+--Sig_/lU+hWpCKhqV3z7H0WtOau._--
