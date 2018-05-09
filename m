@@ -1,18 +1,18 @@
 Return-Path: <sfr@canb.auug.org.au>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2A730D07
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7015ECE6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  9 May 2018 21:51:54 +0000 (UTC)
+	Wed,  9 May 2018 21:58:32 +0000 (UTC)
 Received: from ozlabs.org (ozlabs.org [203.11.71.1])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4B611681
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 829FA680
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  9 May 2018 21:51:53 +0000 (UTC)
-Date: Thu, 10 May 2018 07:51:49 +1000
+	Wed,  9 May 2018 21:58:31 +0000 (UTC)
+Date: Thu, 10 May 2018 07:58:28 +1000
 From: Stephen Rothwell <sfr@canb.auug.org.au>
-To: Dan Williams <dan.j.williams@intel.com>
-Message-ID: <20180510075149.57c3034a@canb.auug.org.au>
-In-Reply-To: <CAPcyv4jtNXhMwCqpbKkHe5e-nDPK+2Wq=maFsB_SMSGyg7fw5w@mail.gmail.com>
+To: Boris Brezillon <boris.brezillon@bootlin.com>
+Message-ID: <20180510075828.32167ead@canb.auug.org.au>
+In-Reply-To: <20180509213528.54bad29b@bbrezillon>
 References: <CAKMK7uHjA27K8y-kwYFyhLy3cSkJJw8Oe1gP=3hZXdfxcWAcNQ@mail.gmail.com>
 	<20180502194632.GB18390@sasha-vm>
 	<20180503020550.GP2714@sirena.org.uk>
@@ -25,17 +25,15 @@ References: <CAKMK7uHjA27K8y-kwYFyhLy3cSkJJw8Oe1gP=3hZXdfxcWAcNQ@mail.gmail.com>
 	<CAKMK7uEWYmhA3owSeYM9tNA0tpMm5=4Yqda2j=VfMWi7i8ya8w@mail.gmail.com>
 	<20180509090346.GY13402@sirena.org.uk>
 	<20180509204727.7ff38021@canb.auug.org.au>
-	<CAPcyv4jtNXhMwCqpbKkHe5e-nDPK+2Wq=maFsB_SMSGyg7fw5w@mail.gmail.com>
+	<20180509213528.54bad29b@bbrezillon>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	boundary="Sig_/KyNS2/d6MOKSvSK194yyHAA";
+	boundary="Sig_/wJg1F16Hn9qJQJcUeJNMO7u";
 	protocol="application/pgp-signature"
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
+Cc: Greg KH <gregkh@linuxfoundation.org>, "w@1wt.eu" <w@1wt.eu>,
+	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	linux-nvdimm <linux-nvdimm@lists.01.org>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"w@1wt.eu" <w@1wt.eu>
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 Subject: Re: [Ksummit-discuss] bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -46,31 +44,27 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---Sig_/KyNS2/d6MOKSvSK194yyHAA
+--Sig_/wJg1F16Hn9qJQJcUeJNMO7u
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-Hi Dan,
+Hi Boris,
 
-On Wed, 9 May 2018 09:04:31 -0700 Dan Williams <dan.j.williams@intel.com> w=
-rote:
+On Wed, 9 May 2018 21:35:28 +0200 Boris Brezillon <boris.brezillon@bootlin.=
+com> wrote:
 >
-> Please add:
+> I see that the nand/fixes and spi-nor/fixes branch are already there [1].
+> You can add:
 >=20
->     git://git.kernel.org/pub/scm/linux/kernel/git/nvdimm/nvdimm.git
-> libnvdimm-fixes
->=20
-> We currently merge this into libnvdimm-for-next for -next coverage,
-> and resolve any conflicts vs new development. Do you want to see those
-> conflicts? Otherwise I would recommend only pulling libnvdimm-for-next
-> for -next and libnvdimm-fixes for this new -next-fixes effort.
-
-The conflicts are usually fine (but if you do the merges, I won't see
-them - which is even better :-)).  I like to have the fixes branches in
-linux-next so that noone has to worry about probelsm in Linus' tree
-that have pending fixes already.
+> mtd-fixes	git	git://git.infradead.org/linux-mtd.git#master
 
 Added from today.
+
+> You can also remove the mtd entry [2], since mtd-2.6.git is just a sym
+> link to linux-mtd.git, so it will just be a duplicate of the mtd-fixes
+> entry. You can also rename the l2-mtd entry [3] into mtd.
+
+All done.
 
 Thanks for adding your subsystem tree as a participant of linux-next.  As
 you may know, this is not a judgement of your code.  The purpose of
@@ -94,20 +88,20 @@ Cheers,
 Stephen Rothwell=20
 sfr@canb.auug.org.au
 
---Sig_/KyNS2/d6MOKSvSK194yyHAA
+--Sig_/wJg1F16Hn9qJQJcUeJNMO7u
 Content-Type: application/pgp-signature
 Content-Description: OpenPGP digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAlrzbXUACgkQAVBC80lX
-0GwzAgf/TxQI4NrJdZFoI7Y//UmYxwfeeSgkLWVg4aKZOOJPzX93qoqf+uLItfGn
-RGKO51U4QQ+CFurwUXGuLOnjTKB2/ehyZYjDxj/UVsp709bDd+1A0vctYf8coYvn
-dmPL+CpX9cLwl8w+FpP1ehy9wxDHlZich7Jh8fspSC34NZ/CuVSFn4e2QpTaq9zb
-rJ2OaZ6Zy/t0+y/dFWtJD+o10Kp6aK4SXdF3o9sBEc9hp/nEBipVBK0BFnSYRbfo
-4xfFh26jpvRLRV64JyK8kzsOJmn6mQRktV6xEEoeN9dDRH1XawwJVSAh7Rb4Xhri
-/9UyA5kh8GCOqE8mQOuie/iO3IGFow==
-=Sccc
+iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAlrzbwQACgkQAVBC80lX
+0Gwdxwf9HWzPcwbaddsDWl4yjDDlRsL4RERn+NPFO1jVWtO8bxEjZsayREmUYgIB
+hSvemPip3eSkZ+zPoPUWdGjN7nAa50YzsEwcr591lPX/QEkJGDRy4s46OUmvutCU
+kEd3Pv4tWtFZQx+8fP9/LvjtYzToOm/EtmXGZ0handM8mclIgIh/oLoDWFFMV/2q
+GROxYCVCckcjRHJs/8vckn9dJT4ReaJDVgvY3vmF4hcDAPdbvcH8GJJBuM2WOuw/
+avGxi1hmLvI08b1zd9REbMjA4Dklr4SIRfqkT01/cxdEcxRbNxDuY+rvh1GRSefr
+eNtfRrvYShn44eFQKCE0hu2i2yLw8Q==
+=XT7Z
 -----END PGP SIGNATURE-----
 
---Sig_/KyNS2/d6MOKSvSK194yyHAA--
+--Sig_/wJg1F16Hn9qJQJcUeJNMO7u--
