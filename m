@@ -1,19 +1,21 @@
 Return-Path: <sfr@canb.auug.org.au>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4B674CEE
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2A730D07
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  9 May 2018 21:45:26 +0000 (UTC)
+	Wed,  9 May 2018 21:51:54 +0000 (UTC)
 Received: from ozlabs.org (ozlabs.org [203.11.71.1])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8FF63681
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4B611681
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  9 May 2018 21:45:25 +0000 (UTC)
-Date: Thu, 10 May 2018 07:45:07 +1000
+	Wed,  9 May 2018 21:51:53 +0000 (UTC)
+Date: Thu, 10 May 2018 07:51:49 +1000
 From: Stephen Rothwell <sfr@canb.auug.org.au>
-To: Guenter Roeck <linux@roeck-us.net>
-Message-ID: <20180510074507.75423824@canb.auug.org.au>
-In-Reply-To: <20180509155733.GA13575@roeck-us.net>
-References: <20180503020550.GP2714@sirena.org.uk>
+To: Dan Williams <dan.j.williams@intel.com>
+Message-ID: <20180510075149.57c3034a@canb.auug.org.au>
+In-Reply-To: <CAPcyv4jtNXhMwCqpbKkHe5e-nDPK+2Wq=maFsB_SMSGyg7fw5w@mail.gmail.com>
+References: <CAKMK7uHjA27K8y-kwYFyhLy3cSkJJw8Oe1gP=3hZXdfxcWAcNQ@mail.gmail.com>
+	<20180502194632.GB18390@sasha-vm>
+	<20180503020550.GP2714@sirena.org.uk>
 	<20180503031000.GC29205@thunk.org>
 	<0276fcda-0385-8f22-dbdb-e063f7ed8bbe@roeck-us.net>
 	<20180503224217.GR2714@sirena.org.uk>
@@ -23,15 +25,17 @@ References: <20180503020550.GP2714@sirena.org.uk>
 	<CAKMK7uEWYmhA3owSeYM9tNA0tpMm5=4Yqda2j=VfMWi7i8ya8w@mail.gmail.com>
 	<20180509090346.GY13402@sirena.org.uk>
 	<20180509204727.7ff38021@canb.auug.org.au>
-	<20180509155733.GA13575@roeck-us.net>
+	<CAPcyv4jtNXhMwCqpbKkHe5e-nDPK+2Wq=maFsB_SMSGyg7fw5w@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	boundary="Sig_/lU+hWpCKhqV3z7H0WtOau._";
+	boundary="Sig_/KyNS2/d6MOKSvSK194yyHAA";
 	protocol="application/pgp-signature"
-Cc: Greg KH <gregkh@linuxfoundation.org>, "w@1wt.eu" <w@1wt.eu>,
-	"ksummit-discuss@lists.linuxfoundation.org"
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+	linux-nvdimm <linux-nvdimm@lists.01.org>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"w@1wt.eu" <w@1wt.eu>
 Subject: Re: [Ksummit-discuss] bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -42,20 +46,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---Sig_/lU+hWpCKhqV3z7H0WtOau._
+--Sig_/KyNS2/d6MOKSvSK194yyHAA
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-Hi Guenter,
+Hi Dan,
 
-On Wed, 9 May 2018 08:57:33 -0700 Guenter Roeck <linux@roeck-us.net> wrote:
+On Wed, 9 May 2018 09:04:31 -0700 Dan Williams <dan.j.williams@intel.com> w=
+rote:
 >
-> Please add
+> Please add:
 >=20
-> git://git.kernel.org/pub/scm/linux/kernel/git/groeck/linux-staging.git hw=
-mon
+>     git://git.kernel.org/pub/scm/linux/kernel/git/nvdimm/nvdimm.git
+> libnvdimm-fixes
 >=20
-> as fixes branch.
+> We currently merge this into libnvdimm-for-next for -next coverage,
+> and resolve any conflicts vs new development. Do you want to see those
+> conflicts? Otherwise I would recommend only pulling libnvdimm-for-next
+> for -next and libnvdimm-fixes for this new -next-fixes effort.
+
+The conflicts are usually fine (but if you do the merges, I won't see
+them - which is even better :-)).  I like to have the fixes branches in
+linux-next so that noone has to worry about probelsm in Linus' tree
+that have pending fixes already.
 
 Added from today.
 
@@ -81,20 +94,20 @@ Cheers,
 Stephen Rothwell=20
 sfr@canb.auug.org.au
 
---Sig_/lU+hWpCKhqV3z7H0WtOau._
+--Sig_/KyNS2/d6MOKSvSK194yyHAA
 Content-Type: application/pgp-signature
 Content-Description: OpenPGP digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAlrza+MACgkQAVBC80lX
-0GzYGAf/fceOXkMiVU0RWyaGOjbP5Uen/SIAB/QZeY9+3DYkEcLAnw3Osx+1tzPt
-nBuo+bOYaO4nMSIzXYtUFHYbd02fmcvvFKUdFhqOOBcTRPeNGoKtJCzBMIGwYdKx
-yFDGY+KPeLPH/GpK2YLkTzxz+Ezcj4kPjI+7mpIHKa4UgtnX39/aKSi71eQtuP+y
-8Gp5ReapawAcLTCWcuBMy9C63/LsynetiDk467lNbM9Z/UiJBpA0LAkkkOe0xGeK
-vFP5Et0MXXM1ZmO+cxe2C3seBke+5f7pjmxKsJAPMk4YhJCAb3Vm9hhmLF/2sjDe
-3HiWvHj4oABlH/pp+cGEUfxzdfefkQ==
-=mrqg
+iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAlrzbXUACgkQAVBC80lX
+0GwzAgf/TxQI4NrJdZFoI7Y//UmYxwfeeSgkLWVg4aKZOOJPzX93qoqf+uLItfGn
+RGKO51U4QQ+CFurwUXGuLOnjTKB2/ehyZYjDxj/UVsp709bDd+1A0vctYf8coYvn
+dmPL+CpX9cLwl8w+FpP1ehy9wxDHlZich7Jh8fspSC34NZ/CuVSFn4e2QpTaq9zb
+rJ2OaZ6Zy/t0+y/dFWtJD+o10Kp6aK4SXdF3o9sBEc9hp/nEBipVBK0BFnSYRbfo
+4xfFh26jpvRLRV64JyK8kzsOJmn6mQRktV6xEEoeN9dDRH1XawwJVSAh7Rb4Xhri
+/9UyA5kh8GCOqE8mQOuie/iO3IGFow==
+=Sccc
 -----END PGP SIGNATURE-----
 
---Sig_/lU+hWpCKhqV3z7H0WtOau._--
+--Sig_/KyNS2/d6MOKSvSK194yyHAA--
