@@ -1,18 +1,23 @@
-Return-Path: <tony@atomide.com>
+Return-Path: <jikos@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5494F825
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E7F0D89E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 10 May 2018 15:57:59 +0000 (UTC)
-Received: from muru.com (muru.com [72.249.23.125])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id E38EB682
+	Thu, 10 May 2018 16:03:25 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 645B16B0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 10 May 2018 15:57:58 +0000 (UTC)
-Date: Thu, 10 May 2018 08:57:55 -0700
-From: Tony Lindgren <tony@atomide.com>
-To: Stephen Rothwell <sfr@canb.auug.org.au>
-Message-ID: <20180510155755.GF98604@atomide.com>
-References: <20180503020550.GP2714@sirena.org.uk>
+	Thu, 10 May 2018 16:03:24 +0000 (UTC)
+Date: Thu, 10 May 2018 18:03:22 +0200 (CEST)
+From: Jiri Kosina <jikos@kernel.org>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+In-Reply-To: <CAKMK7uEWYmhA3owSeYM9tNA0tpMm5=4Yqda2j=VfMWi7i8ya8w@mail.gmail.com>
+Message-ID: <nycvar.YFH.7.76.1805101802150.27054@cbobk.fhfr.pm>
+References: <20180501205448.GE10479@thunk.org>
+	<20180501211551.GI2714@sirena.org.uk>
+	<CAKMK7uHjA27K8y-kwYFyhLy3cSkJJw8Oe1gP=3hZXdfxcWAcNQ@mail.gmail.com>
+	<20180502194632.GB18390@sasha-vm>
+	<20180503020550.GP2714@sirena.org.uk>
 	<20180503031000.GC29205@thunk.org>
 	<0276fcda-0385-8f22-dbdb-e063f7ed8bbe@roeck-us.net>
 	<20180503224217.GR2714@sirena.org.uk>
@@ -20,17 +25,12 @@ References: <20180503020550.GP2714@sirena.org.uk>
 	<CAPDyKFrCKkRHwOh-7yfFbvMp+Ykhs7oXrDwhTShSPvUBvpn2ZQ@mail.gmail.com>
 	<20180509084440.GW13402@sirena.org.uk>
 	<CAKMK7uEWYmhA3owSeYM9tNA0tpMm5=4Yqda2j=VfMWi7i8ya8w@mail.gmail.com>
-	<20180509090346.GY13402@sirena.org.uk>
-	<20180509204727.7ff38021@canb.auug.org.au>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="r5Pyd7+fXNt84Ff3"
-Content-Disposition: inline
-In-Reply-To: <20180509204727.7ff38021@canb.auug.org.au>
-Cc: Greg KH <gregkh@linuxfoundation.org>, "w@1wt.eu" <w@1wt.eu>,
+Content-Type: text/plain; charset=US-ASCII
+Cc: Greg KH <gregkh@linuxfoundation.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
 	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+	<ksummit-discuss@lists.linuxfoundation.org>, "w@1wt.eu" <w@1wt.eu>
 Subject: Re: [Ksummit-discuss] bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -41,42 +41,34 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Wed, 9 May 2018, Daniel Vetter wrote:
 
---r5Pyd7+fXNt84Ff3
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> >> Then, why don't we have a pre-integration tree for fixes? That would
+> >> at least simply automated testing of fixes separately from new
+> >> material.
+> >
+> >> Perhaps this has already been discussed, and concluded and it's not
+> >> worth it, then apologize for my ignorance.
+> >
+> > I think this is an excellent idea, copying in Stephen for his input.
+> > I'm currently on holiday but unless someone convinces me it's a terrible
+> > idea I'm willing to at least give it a go on a trial basis once I'm back
+> > home.
+> 
+> Since Stephen merges all -fixes branches first, before merging all the
+> -next branches, he already generates that as part of linux-next. All
+> he'd need to do is push that intermediate state out to some
+> linux-fixes branch for consumption by test bots.
 
-* Stephen Rothwell <sfr@canb.auug.org.au> [180509 10:49]:
-> I currently have 44 such fixes branches.  More welcome!
+What I do for my trees is that I actually merge the '-fixes' branch (that 
+is scheduled to go to Linus in the 'current' cycle) into my for-next 
+branch as well.
 
-Can you please also add mine:
+This has the advantage of (a) getting all the coverage linux-next does (b) 
+seeing any potential merge conflicts early
 
-git://git.kernel.org/pub/scm/linux/kernel/git/tmlind/linux-omap.git fixes
+Is this not feasible for other trees?
 
-Thanks,
-
-Tony
-
-
-
---r5Pyd7+fXNt84Ff3
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEkgNvrZJU/QSQYIcQG9Q+yVyrpXMFAlr0bAAACgkQG9Q+yVyr
-pXPEpw//Xf2XUKq9mvoygg2qozGp0qMdr4i/+4t9hP8gwYl2ZXlmzeaVoJvJb1jb
-xE/bKEMazXZ0xs3k9kDIqeZAG/f9TRT/BLJudkjGm4iJz49FA35rp1caY2OEjL3z
-R3AmDsaREWSQ+rEuWU0M8wtroxbsEmNEtYF1EpAL7St0eQvfHIvQhoN17Gnf81tS
-/OoBpNyupNaooZY17xtf7/OSGJgdkfvoh3Mpntvkv5k48tLGo7BHhjxgwYLf2xo+
-VSlcaB+To+Hvf+1qpuqEhsgY8kODL/f7oBB/bGsXfQ4SnAwnBUErYGudS/c9D8bz
-von8xjXAPCIvtJ3g7TKTfaQemffGnQ0gpUPcOcu8RS4aew3dGyssOd/oC8C3pGLy
-E9LrdBfHaB2/mQPyuK5zBozFgrjbC5/TKIFGpt0NxG4GC6jQFN0HR87MXIdDTjaF
-g3drs+aqR7GB1hgmb1KyCNP+fryRGO4Z5xZ6nMzfiP/nsROkDTd5qF//K4tho0bT
-rAuhpUXw67iF7tBBBDQ3zUEgdzlWx9MTlVnt8YYcLPF4YQd5ATOqXNroi382YwES
-tzkdNTfY6pvDWffNSYCSCaeMWM9YS7d5owjMwP6LX4itEq+I1kpOz/hvfWQzkkNV
-GBYLHZGIpX9eHNzPKob5yWoLy6qJIOoLH9+d1ruTdFJ24gg6HvU=
-=GSF7
------END PGP SIGNATURE-----
-
---r5Pyd7+fXNt84Ff3--
+-- 
+Jiri Kosina
+SUSE Labs
