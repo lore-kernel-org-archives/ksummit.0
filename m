@@ -1,38 +1,35 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <tony@atomide.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 49E4AAEF
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 77FE7480
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 10 May 2018 13:36:46 +0000 (UTC)
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
-	[172.104.155.198])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B4375682
+	Thu, 10 May 2018 15:37:04 +0000 (UTC)
+Received: from muru.com (muru.com [72.249.23.125])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 9B4FB6B0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 10 May 2018 13:36:45 +0000 (UTC)
-Date: Thu, 10 May 2018 22:36:28 +0900
-From: Mark Brown <broonie@kernel.org>
-To: Stephen Rothwell <sfr@canb.auug.org.au>
-Message-ID: <20180510133628.GC949@sirena.org.uk>
-References: <0276fcda-0385-8f22-dbdb-e063f7ed8bbe@roeck-us.net>
+	Thu, 10 May 2018 15:37:02 +0000 (UTC)
+Date: Thu, 10 May 2018 08:36:58 -0700
+From: Tony Lindgren <tony@atomide.com>
+To: "Theodore Y. Ts'o" <tytso@mit.edu>,
+	Sasha Levin <Alexander.Levin@microsoft.com>,
+	Greg KH <gregkh@linuxfoundation.org>, "w@1wt.eu" <w@1wt.eu>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Message-ID: <20180510153658.GE98604@atomide.com>
+References: <CAKMK7uHjA27K8y-kwYFyhLy3cSkJJw8Oe1gP=3hZXdfxcWAcNQ@mail.gmail.com>
+	<20180502194632.GB18390@sasha-vm>
+	<20180503020550.GP2714@sirena.org.uk>
+	<20180503031000.GC29205@thunk.org>
+	<0276fcda-0385-8f22-dbdb-e063f7ed8bbe@roeck-us.net>
 	<20180503224217.GR2714@sirena.org.uk>
 	<20180503230905.GA98604@atomide.com>
-	<CAPDyKFrCKkRHwOh-7yfFbvMp+Ykhs7oXrDwhTShSPvUBvpn2ZQ@mail.gmail.com>
-	<20180509084440.GW13402@sirena.org.uk>
-	<CAKMK7uEWYmhA3owSeYM9tNA0tpMm5=4Yqda2j=VfMWi7i8ya8w@mail.gmail.com>
-	<20180509090346.GY13402@sirena.org.uk>
-	<20180509204727.7ff38021@canb.auug.org.au>
-	<20180509140532.GA949@sirena.org.uk>
-	<20180510080909.47c3068b@canb.auug.org.au>
+	<20180508023439.GA8514@sasha-vm> <20180508034820.GE999@thunk.org>
+	<20180508144958.GU98604@atomide.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3siQDZowHQqNOShm"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20180510080909.47c3068b@canb.auug.org.au>
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Greg KH <gregkh@linuxfoundation.org>, "w@1wt.eu" <w@1wt.eu>
+In-Reply-To: <20180508144958.GU98604@atomide.com>
 Subject: Re: [Ksummit-discuss] bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -43,36 +40,27 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+* Tony Lindgren <tony@atomide.com> [180508 14:52]:
+> * Theodore Y. Ts'o <tytso@mit.edu> [180508 03:50]:
+> > Would I pull down linux-next, and fire up a VM running gce-xfstests?
+> > Sure.  But that's not a real-life use case; that's just running canned
+> > test cases.  And more often than not, linux-next will be broken while
+> > Linus's -rcX tree is just fine; which is why I do most of my ext4
+> > testing using patches based on top of -rcX, not based on top of
+> > linux-next.
+> 
+> Ideally we would somehow always end up with an -rc1 that people dare
+> to use though for the "prosumer" testing :)
 
---3siQDZowHQqNOShm
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+BTW, the reason why I think we all should test Linux next on regular
+basis is that it's often "some other people's branches(tm)" that cause
+the regressions :) Maybe because their own test cases did not show
+any regressions, or because they were unable to test the patches.
+Or it's because of some "clean-up" work that's completely untested
+on some systems.
 
-On Thu, May 10, 2018 at 08:09:09AM +1000, Stephen Rothwell wrote:
-> On Wed, 9 May 2018 23:05:32 +0900 Mark Brown <broonie@kernel.org> wrote:
+And that's how we end up with regressions getting merged into -rc1.
 
-> > Well, all my trees have a for-linus branch to go with the for-next
-> > branch for a start.
+Regards,
 
-> The regmap and regulator trees have no for-linus branch (currently).
-> Added sound-asoc-fixes and spi-fixes from today.
-
-That's not what git claims when I try to push...  no idea what's going
-on there, I just deleted and repushed - hopefully that helps.
-
---3siQDZowHQqNOShm
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlr0StsACgkQJNaLcl1U
-h9Dj6Af6A7R2O0TcCWtDoFPSCYveXPFG4Akuszbhtrx28lTaMIF7BxQcPxnCDD37
-pwYt3AIwXkLYwRsmYRnsV9GdF3iY6AGPsmfPJl4P8eRMlKvKGNgE7Lnb0zyqbXil
-srPIv6hQ3LO1lKcaIyM65pPexYDb8UBR+gyNd8LrgVP7DQjSg88zE8+R4NkVykv0
-KLloURnFuKjBTVPbLWjU1LAraoEVkIuSs8q0j4uNcfGiATjQkLVTvHb0KC2jKMel
-YL8Y3ZxE5dBhg/iqcDKLDOcHC9sZRAcrI7TTcLXL1QKDQf6BbitGQfh3uRMxSUSc
-vupY7VFThTJyuCCkXq6eWELul7a/AQ==
-=sZvA
------END PGP SIGNATURE-----
-
---3siQDZowHQqNOShm--
+Tony
