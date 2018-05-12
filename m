@@ -1,20 +1,19 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <sfr@canb.auug.org.au>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 19398E34
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 022E82110
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 11 May 2018 02:10:32 +0000 (UTC)
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
-	[172.104.155.198])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7E75169F
+	Sat, 12 May 2018 04:04:07 +0000 (UTC)
+Received: from ozlabs.org (ozlabs.org [203.11.71.1])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5C75B14D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 11 May 2018 02:10:31 +0000 (UTC)
-Date: Fri, 11 May 2018 11:10:18 +0900
-From: Mark Brown <broonie@kernel.org>
-To: Jiri Kosina <jikos@kernel.org>
-Message-ID: <20180511021018.GE949@sirena.org.uk>
-References: <20180502194632.GB18390@sasha-vm>
-	<20180503020550.GP2714@sirena.org.uk>
+	Sat, 12 May 2018 04:04:05 +0000 (UTC)
+Date: Sat, 12 May 2018 14:03:58 +1000
+From: Stephen Rothwell <sfr@canb.auug.org.au>
+To: David Sterba <dsterba@suse.cz>
+Message-ID: <20180512140358.7f9fb8cc@canb.auug.org.au>
+In-Reply-To: <20180511084701.tosopl7oso5j7wfq@twin.jikos.cz>
+References: <20180503020550.GP2714@sirena.org.uk>
 	<20180503031000.GC29205@thunk.org>
 	<0276fcda-0385-8f22-dbdb-e063f7ed8bbe@roeck-us.net>
 	<20180503224217.GR2714@sirena.org.uk>
@@ -22,17 +21,17 @@ References: <20180502194632.GB18390@sasha-vm>
 	<CAPDyKFrCKkRHwOh-7yfFbvMp+Ykhs7oXrDwhTShSPvUBvpn2ZQ@mail.gmail.com>
 	<20180509084440.GW13402@sirena.org.uk>
 	<CAKMK7uEWYmhA3owSeYM9tNA0tpMm5=4Yqda2j=VfMWi7i8ya8w@mail.gmail.com>
-	<nycvar.YFH.7.76.1805101802150.27054@cbobk.fhfr.pm>
+	<20180509090346.GY13402@sirena.org.uk>
+	<20180509204727.7ff38021@canb.auug.org.au>
+	<20180511084701.tosopl7oso5j7wfq@twin.jikos.cz>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="G6nVm6DDWH/FONJq"
-Content-Disposition: inline
-In-Reply-To: <nycvar.YFH.7.76.1805101802150.27054@cbobk.fhfr.pm>
-Cc: "w@1wt.eu" <w@1wt.eu>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	boundary="Sig_//oFAaz9Pzc5V+u55NtwwjGi";
+	protocol="application/pgp-signature"
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	Greg KH <gregkh@linuxfoundation.org>
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Greg KH <gregkh@linuxfoundation.org>, "w@1wt.eu" <w@1wt.eu>
 Subject: Re: [Ksummit-discuss] bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -43,50 +42,56 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-
---G6nVm6DDWH/FONJq
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--Sig_//oFAaz9Pzc5V+u55NtwwjGi
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, May 10, 2018 at 06:03:22PM +0200, Jiri Kosina wrote:
-> On Wed, 9 May 2018, Daniel Vetter wrote:
+Hi David,
 
-> > Since Stephen merges all -fixes branches first, before merging all the
-> > -next branches, he already generates that as part of linux-next. All
-> > he'd need to do is push that intermediate state out to some
-> > linux-fixes branch for consumption by test bots.
+On Fri, 11 May 2018 10:47:01 +0200 David Sterba <dsterba@suse.cz> wrote:
+>
+> Please add
+>=20
+>   git://git.kernel.org/pub/scm/linux/kernel/git/kdave/linux.git next-fixes
 
-> What I do for my trees is that I actually merge the '-fixes' branch (that=
-=20
-> is scheduled to go to Linus in the 'current' cycle) into my for-next=20
-> branch as well.
+Added from Monday (as btrfs-fixes).
 
-> This has the advantage of (a) getting all the coverage linux-next does (b=
-)=20
-> seeing any potential merge conflicts early
+Thanks for adding your subsystem tree as a participant of linux-next.  As
+you may know, this is not a judgement of your code.  The purpose of
+linux-next is for integration testing and to lower the impact of
+conflicts between subsystems in the next merge window.=20
 
-> Is this not feasible for other trees?
+You will need to ensure that the patches/commits in your tree/series have
+been:
+     * submitted under GPL v2 (or later) and include the Contributor's
+        Signed-off-by,
+     * posted to the relevant mailing list,
+     * reviewed by you (or another maintainer of your subsystem tree),
+     * successfully unit tested, and=20
+     * destined for the current or next Linux merge window.
 
-That's obviously best practice which I hope everyone who doesn't have a
-separate fix branch in -next is doing but it means that the fixes branch
-is not getting tested without the changes in your -next branch, and also
-reduces the coverage separate to other people's -next branches.  This
-means that there's room for implicit dependencies to slip through.
+Basically, this should be just what you would send to Linus (or ask him
+to fetch).  It is allowed to be rebased if you deem it necessary.
 
---G6nVm6DDWH/FONJq
-Content-Type: application/pgp-signature; name="signature.asc"
+--=20
+Cheers,
+Stephen Rothwell=20
+sfr@canb.auug.org.au
+
+--Sig_//oFAaz9Pzc5V+u55NtwwjGi
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlr0+4oACgkQJNaLcl1U
-h9AgNgf/bAT4jhMrJUeKLkhow6ag+iOj8415TKB+/4p5WdMsxL3NTK1+I2+yyL6s
-FQ4pCIgT0MY29Gkxj778/kCcY1pZVsqp2RlGKELU9GTNY2FpblWnXoUoocibcbwO
-s/fQhbkpHpkz5vDTa86rHaD5KgtY5GhYh1SW0N5P6zxm2K0PtKcVW6Z+tJlx46mG
-XaRSJIKtzOQmKpXqWMP0cBGQlk7k7tQdH0Twxhj8IjVTvoBSbY0eo/z+S27j2TyS
-hWH/Y3FRGqOVcbvfFA2G0jPHBGRlsV9N0JESO8JU1baMMoExvwZobDHHg0Xq0KF+
-1VN+C1lVyWhFJrMPdpJL7A67nOnI3w==
-=4Usi
+iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAlr2Z64ACgkQAVBC80lX
+0GwELwgAoLyNQil6o/x3wggZy1TaBRWzoYiZtT+LnyIgeruC5qjsk6Qz2VhKdnbj
+n3/rFt+piaLdf3HD29aiMcoZJCoaFhkOnBi8eXn41kJI49S+1koGLfUgbuLP2Nnf
+6WGuNRlESpkXiizfoM+7wEsRzUJjF3kIkzCw6Hk7NL+g88ymsKsAUf7HKghjoVuM
+BYqhZ8lwtw5xwMBiUzGWDAJ4NdYBFG0j17zG94K2+jMJ8fMngcQcWDS5tT8K/WRn
+CWhR+GB+2PHZTzilFAN2QzGS/5sQPxHpcPRDrheh8lQKUHXdqTOBF1ersTh9MoXA
+memkEVLRLUqc4VdoyarIAjBBfhHA9w==
+=AdGq
 -----END PGP SIGNATURE-----
 
---G6nVm6DDWH/FONJq--
+--Sig_//oFAaz9Pzc5V+u55NtwwjGi--
