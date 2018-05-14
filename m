@@ -1,36 +1,39 @@
-Return-Path: <fengguang.wu@intel.com>
+Return-Path: <sfr@canb.auug.org.au>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8700F1E41
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 82EA22707
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 14 May 2018 09:25:53 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7F558196
+	Mon, 14 May 2018 21:45:08 +0000 (UTC)
+Received: from ozlabs.org (ozlabs.org [203.11.71.1])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9BEF86A4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 14 May 2018 09:25:52 +0000 (UTC)
-Date: Mon, 14 May 2018 17:25:48 +0800
-From: Fengguang Wu <fengguang.wu@intel.com>
-To: Boris Brezillon <boris.brezillon@bootlin.com>
-Message-ID: <20180514092548.qwv4ycsixduqd6q3@wfg-t540p.sh.intel.com>
-References: <CAKMK7uEWYmhA3owSeYM9tNA0tpMm5=4Yqda2j=VfMWi7i8ya8w@mail.gmail.com>
-	<nycvar.YFH.7.76.1805101802150.27054@cbobk.fhfr.pm>
-	<20180510164722.GH8514@sasha-vm>
-	<CAMuHMdWDNjsba29id4Svjy_tauKivWDUixub3qf82Nx_6rYueA@mail.gmail.com>
-	<CAMuHMdUHK=kmJB-=G-Y7YEneZityMzi5YZ3nJFD6uCs61bOaiQ@mail.gmail.com>
-	<20180514101237.5df1e0d7@bbrezillon>
-	<CAMuHMdWQTOioXPmWX+_jetECpp9=SCK_BfWq9kJ7xj3WTnB_ng@mail.gmail.com>
-	<20180514103428.55285a70@bbrezillon>
-	<CAMuHMdVwA6jK1fPu3Dzc4-+_kWv1yTNvOGJP811Fdyrrnbc18w@mail.gmail.com>
-	<20180514104803.23d2a8a3@bbrezillon>
+	Mon, 14 May 2018 21:45:07 +0000 (UTC)
+Date: Tue, 15 May 2018 07:45:03 +1000
+From: Stephen Rothwell <sfr@canb.auug.org.au>
+To: Ulf Hansson <ulf.hansson@linaro.org>
+Message-ID: <20180515074503.35ec6658@canb.auug.org.au>
+In-Reply-To: <CAPDyKFrhRtLUFfmNNg0iPtJ+Tj5ZzDq6EsYPFc=PY7CmqkFX-g@mail.gmail.com>
+References: <CAKMK7uHjA27K8y-kwYFyhLy3cSkJJw8Oe1gP=3hZXdfxcWAcNQ@mail.gmail.com>
+	<20180502194632.GB18390@sasha-vm>
+	<20180503020550.GP2714@sirena.org.uk>
+	<20180503031000.GC29205@thunk.org>
+	<0276fcda-0385-8f22-dbdb-e063f7ed8bbe@roeck-us.net>
+	<20180503224217.GR2714@sirena.org.uk>
+	<20180503230905.GA98604@atomide.com>
+	<CAPDyKFrCKkRHwOh-7yfFbvMp+Ykhs7oXrDwhTShSPvUBvpn2ZQ@mail.gmail.com>
+	<20180509084440.GW13402@sirena.org.uk>
+	<CAKMK7uEWYmhA3owSeYM9tNA0tpMm5=4Yqda2j=VfMWi7i8ya8w@mail.gmail.com>
+	<20180509090346.GY13402@sirena.org.uk>
+	<20180509204727.7ff38021@canb.auug.org.au>
+	<CAPDyKFrhRtLUFfmNNg0iPtJ+Tj5ZzDq6EsYPFc=PY7CmqkFX-g@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20180514104803.23d2a8a3@bbrezillon>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	boundary="Sig_/nofJIjpfIzlhIonduYhKAWa";
+	protocol="application/pgp-signature"
 Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
-	Greg KH <gregkh@linuxfoundation.org>,
 	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"w@1wt.eu" <w@1wt.eu>
+	Greg KH <gregkh@linuxfoundation.org>, "w@1wt.eu" <w@1wt.eu>
 Subject: Re: [Ksummit-discuss] bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -41,81 +44,62 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, May 14, 2018 at 10:48:03AM +0200, Boris Brezillon wrote:
->+Fengguang
+--Sig_/nofJIjpfIzlhIonduYhKAWa
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
+
+Hi Ulf,
+
+On Mon, 14 May 2018 10:36:04 +0200 Ulf Hansson <ulf.hansson@linaro.org> wro=
+te:
 >
->On Mon, 14 May 2018 10:40:10 +0200
->Geert Uytterhoeven <geert@linux-m68k.org> wrote:
->
->> Hi Boris,
->>
->> On Mon, May 14, 2018 at 10:34 AM, Boris Brezillon
->> <boris.brezillon@bootlin.com> wrote:
->> > On Mon, 14 May 2018 10:29:04 +0200
->> > Geert Uytterhoeven <geert@linux-m68k.org> wrote:
->> >> On Mon, May 14, 2018 at 10:12 AM, Boris Brezillon
->> >> <boris.brezillon@bootlin.com> wrote:
->> >> > On Mon, 14 May 2018 10:00:30 +0200
->> >> > Geert Uytterhoeven <geert@linux-m68k.org> wrote:
->> >> >> On Tue, May 1, 2018 at 10:00 PM, Sasha Levin
->> >> >> <Alexander.Levin@microsoft.com> wrote:
->> >> >> > On Tue, May 01, 2018 at 03:44:50PM -0400, Theodore Y. Ts'o wrote:
->> >> >> >>On Tue, May 01, 2018 at 04:38:21PM +0000, Sasha Levin wrote:
->> >> >> > What's worse is that that commit is tagged for stable, which means
->> >> >> > that (given Greg's schedule) it may find it's way to -stable users
->> >> >> > even before some -next users/bots had a chance to test it out.
->> >> >>
->> >> >> I just noticed a case where a commit was picked up for stable, while a
->> >> >> bot had flagged it as a build regression 18 hours earlier (with a CC to
->> >> >> lkml).
->> >> >
->> >> > Also, this patch has been on a tree that I know is tested by Fengguang's
->> >> > robots for more than a week (and in linux-next for 2 days, which, I
->> >> > agree, is probably not enough), and still, I only received the bug
->> >> > report when the patch reached mainline. Are there tests that are only
->> >> > run on Linus' tree?
->> >>
->> >> Have your received a success report from Fengguang's bot, listing all
->> >> configs tested (the broken one should be included; it is included in the
->> >> configs tested on my branches)?
->> >
->> > Yes I did (see below).
->> >
->> > -->8--
->> > From: kbuild test robot <lkp@intel.com>
->> > To: Boris Brezillon <boris.brezillon@bootlin.com>
->> > Subject: [bbrezillon-0day:mtd/fixes] BUILD SUCCESS  fc3a9e15b492eef707afd56b7478001fdecfe53f
->> > Date: Mon, 07 May 2018 20:05:52 +0800
->> > User-Agent: Heirloom mailx 12.5 6/20/10
->> >
->> > tree/branch: https://github.com/bbrezillon/linux-0day  mtd/fixes
->> > branch HEAD: fc3a9e15b492eef707afd56b7478001fdecfe53f  mtd: rawnand: Make sure we wait tWB before polling the STATUS reg
->> >
->> > elapsed time: 49m
->> >
->> > configs tested: 142
->>
->> But the failed config (m68k/allmodconfig) is not listed?
->
->Yes, that's my point. It seems that some configs are only rarely
->(never?) tested on my linux-0day tree (probably because they take longer
->to build), and I should only take kbuild robot results as an indication
->not a guarantee.
+> I will ping the kernelci folkz to request them to include your new
+> fixes branch for daily builds.
 
-Yeah sorry, there is no 100% guarantee. There are 2 main aspects to
-this problem.
+Excellent, thanks.
 
-- Response time vs coverage. Most build errors can be caught within 1
-  day. The build success notification email is typically sent within
-  half day (a reasonable feedback time). At this time, it can only be
-  a rough indication not a guarantee. After sending the 0day build
-  success notification, the build tests will actually continue for
-  about 1 week to increase test coverage. 
+> For mmc, please add my fixes branch according to below.
+>=20
+> git://git.kernel.org/pub/scm/linux/kernel/git/ulfh/mmc.git fixes
 
-- Merge-test-bisect based workflow. If one branch is hard to merge
-  with others, especially if it's based on old kernel, it'll receive
-  much less test coverage. Branches with known build/boot errors will
-  be excluded from further merges, too.
+Added from today.
 
-Thanks,
-Fengguang
+Thanks for adding your subsystem tree as a participant of linux-next.  As
+you may know, this is not a judgement of your code.  The purpose of
+linux-next is for integration testing and to lower the impact of
+conflicts between subsystems in the next merge window.=20
+
+You will need to ensure that the patches/commits in your tree/series have
+been:
+     * submitted under GPL v2 (or later) and include the Contributor's
+        Signed-off-by,
+     * posted to the relevant mailing list,
+     * reviewed by you (or another maintainer of your subsystem tree),
+     * successfully unit tested, and=20
+     * destined for the current or next Linux merge window.
+
+Basically, this should be just what you would send to Linus (or ask him
+to fetch).  It is allowed to be rebased if you deem it necessary.
+
+--=20
+Cheers,
+Stephen Rothwell=20
+sfr@canb.auug.org.au
+
+--Sig_/nofJIjpfIzlhIonduYhKAWa
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAlr6A18ACgkQAVBC80lX
+0GwIaAgApYTmL+dWa+5871wsgGFrgIYW/DFTyePVGLr5j5wRZRyTP9uNmbru1IWl
+/uvYZn7IT1O3gmCd0QMnSuhqk6VKr/B/DYzAiy3iIRg0gbByDgpXUOoBU/DJXt4z
+1zZxVJcmlnxKJzNvtWaJkNjIqF89KdCrXcqoPR1uk0yBn3mlMqTnxRT/neK3kQyt
+JQ85vxKSCoSOxhIOfAFvFqVmJFe3NAGK8uDNrFlrQbR4oPUMzNGlx+fdXez82/U8
+lvVoAT0WqNh/ruA33M5skzgMpvcnl3QNgmO6oFzZJO8tOasJ4oLjoVMhCN5tVg5D
+6MLlnF5ojog08uBq8z8n0ol7RNqhQA==
+=FjhI
+-----END PGP SIGNATURE-----
+
+--Sig_/nofJIjpfIzlhIonduYhKAWa--
