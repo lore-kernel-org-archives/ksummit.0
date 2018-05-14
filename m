@@ -1,20 +1,22 @@
-Return-Path: <groeck7@gmail.com>
+Return-Path: <geert.uytterhoeven@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0511839
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E5703116E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 12 May 2018 18:34:37 +0000 (UTC)
-Received: from mail-pg0-f68.google.com (mail-pg0-f68.google.com [74.125.83.68])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 138346A2
+	Mon, 14 May 2018 07:53:40 +0000 (UTC)
+Received: from mail-vk0-f66.google.com (mail-vk0-f66.google.com
+	[209.85.213.66])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 43F86189
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 12 May 2018 18:34:35 +0000 (UTC)
-Received: by mail-pg0-f68.google.com with SMTP id n1-v6so3776420pgs.2
+	Mon, 14 May 2018 07:53:40 +0000 (UTC)
+Received: by mail-vk0-f66.google.com with SMTP id g83-v6so6871671vkc.6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 12 May 2018 11:34:35 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-To: Stephen Rothwell <sfr@canb.auug.org.au>, Mark Brown <broonie@kernel.org>
-References: <CAKMK7uHjA27K8y-kwYFyhLy3cSkJJw8Oe1gP=3hZXdfxcWAcNQ@mail.gmail.com>
-	<20180502194632.GB18390@sasha-vm> <20180503020550.GP2714@sirena.org.uk>
+	Mon, 14 May 2018 00:53:40 -0700 (PDT)
+MIME-Version: 1.0
+Sender: geert.uytterhoeven@gmail.com
+In-Reply-To: <20180510164722.GH8514@sasha-vm>
+References: <20180502194632.GB18390@sasha-vm>
+	<20180503020550.GP2714@sirena.org.uk>
 	<20180503031000.GC29205@thunk.org>
 	<0276fcda-0385-8f22-dbdb-e063f7ed8bbe@roeck-us.net>
 	<20180503224217.GR2714@sirena.org.uk>
@@ -22,17 +24,13 @@ References: <CAKMK7uHjA27K8y-kwYFyhLy3cSkJJw8Oe1gP=3hZXdfxcWAcNQ@mail.gmail.com>
 	<CAPDyKFrCKkRHwOh-7yfFbvMp+Ykhs7oXrDwhTShSPvUBvpn2ZQ@mail.gmail.com>
 	<20180509084440.GW13402@sirena.org.uk>
 	<CAKMK7uEWYmhA3owSeYM9tNA0tpMm5=4Yqda2j=VfMWi7i8ya8w@mail.gmail.com>
-	<20180509090346.GY13402@sirena.org.uk>
-	<20180509204727.7ff38021@canb.auug.org.au>
-	<20180512143809.7c6a06ab@canb.auug.org.au>
-From: Guenter Roeck <linux@roeck-us.net>
-Message-ID: <6cd1dc7b-f9fe-602d-2b8f-d078d110da32@roeck-us.net>
-Date: Sat, 12 May 2018 11:34:32 -0700
-MIME-Version: 1.0
-In-Reply-To: <20180512143809.7c6a06ab@canb.auug.org.au>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+	<nycvar.YFH.7.76.1805101802150.27054@cbobk.fhfr.pm>
+	<20180510164722.GH8514@sasha-vm>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 14 May 2018 09:53:38 +0200
+Message-ID: <CAMuHMdWDNjsba29id4Svjy_tauKivWDUixub3qf82Nx_6rYueA@mail.gmail.com>
+To: Sasha Levin <Alexander.Levin@microsoft.com>
+Content-Type: text/plain; charset="UTF-8"
 Cc: Greg KH <gregkh@linuxfoundation.org>, "w@1wt.eu" <w@1wt.eu>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>,
@@ -47,43 +45,75 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 05/11/2018 09:38 PM, Stephen Rothwell wrote:
-> Hi all,
-> 
-> On Wed, 9 May 2018 20:47:27 +1000 Stephen Rothwell <sfr@canb.auug.org.au> wrote:
->>
->> On Wed, 9 May 2018 18:03:46 +0900 Mark Brown <broonie@kernel.org> wrote:
+On Thu, May 10, 2018 at 6:47 PM, Sasha Levin via Ksummit-discuss
+<ksummit-discuss@lists.linuxfoundation.org> wrote:
+> On Thu, May 10, 2018 at 06:03:22PM +0200, Jiri Kosina wrote:
+>>On Wed, 9 May 2018, Daniel Vetter wrote:
+>>> >> Then, why don't we have a pre-integration tree for fixes? That would
+>>> >> at least simply automated testing of fixes separately from new
+>>> >> material.
+>>> >
+>>> >> Perhaps this has already been discussed, and concluded and it's not
+>>> >> worth it, then apologize for my ignorance.
+>>> >
+>>> > I think this is an excellent idea, copying in Stephen for his input.
+>>> > I'm currently on holiday but unless someone convinces me it's a terrible
+>>> > idea I'm willing to at least give it a go on a trial basis once I'm back
+>>> > home.
 >>>
->>> On Wed, May 09, 2018 at 10:47:57AM +0200, Daniel Vetter wrote:
->>>> On Wed, May 9, 2018 at 10:44 AM, Mark Brown <broonie@kernel.org> wrote:
->>>    
->>>>> I think this is an excellent idea, copying in Stephen for his input.
->>>>> I'm currently on holiday but unless someone convinces me it's a terrible
->>>>> idea I'm willing to at least give it a go on a trial basis once I'm back
->>>>> home.
->>>    
->>>> Since Stephen merges all -fixes branches first, before merging all the
->>>> -next branches, he already generates that as part of linux-next. All
->>>> he'd need to do is push that intermediate state out to some
->>>> linux-fixes branch for consumption by test bots.
+>>> Since Stephen merges all -fixes branches first, before merging all the
+>>> -next branches, he already generates that as part of linux-next. All
+>>> he'd need to do is push that intermediate state out to some
+>>> linux-fixes branch for consumption by test bots.
 >>
->> Good idea ... I will see what I can do.
-> 
-> See my announcement of a pending-fixes branch in linux-next (on LKML
-> and others)
+>>What I do for my trees is that I actually merge the '-fixes' branch (that
+>>is scheduled to go to Linus in the 'current' cycle) into my for-next
+>>branch as well.
+>>
+>>This has the advantage of (a) getting all the coverage linux-next does (b)
+>>seeing any potential merge conflicts early
+>>
+>>Is this not feasible for other trees?
+>
+> When Linus tags -rc1, -next will start filling up with commits destined
+> for the next merge window. The resulting -next tree becomes very
+> unstable, and very difficult to test.
+>
+> The idea behind next-fixes is to provide a tree that will contain fixes
+> for the current merge window, which will generate a much more stable
+> tree that users/bots could actually run and validate the fixes that will
+> be merged in the upcoming weeks.
+>
+> Right now, with the method you've described, there is no easy way to
+> test your '-fixes' branch even though the commits in there will be
+> pulled in by Linus much sooner than your 'for-next' branch.
+>
+> You'll still get the same coverage from -next, but if you provide your
+> -fixes branch seperately you'll also get more coverage for the fixes
+> you're about to send to Linus.
 
-Excellent.
+I think you missed the "as well" in Jiri's response.
 
-Build/test results match mainline.
+When I create the bi-weekly renesas-drivers release (see e.g.
+https://www.spinics.net/lists/linux-renesas-soc/msg27350.html), there are
+some subsystems that manage to have several conflicts between their
+for-next branch and their fixes in Linus' tree almost every single release.
+Hence I strongly support merging your own fixes branches into your own
+for-next branch, and resolve the conflicts yourself, to keep your for-next
+branch conflict free.
 
-For v4.17-rc4-241-ga1b6c55:
+(Note that the last release linked above was very atypical: it was one of
+the very few (first one ever?) that didn't have any conflicts).
 
-Build results:
-	total: 132 pass: 130 fail: 2
-Failed builds:
-	m68k:allmodconfig
-	xtensa:allmodconfig
-Qemu test results:
-	total: 138 pass: 138 fail: 0
+Thanks!
 
-Guenter
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
