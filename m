@@ -1,21 +1,26 @@
-Return-Path: <sfr@canb.auug.org.au>
+Return-Path: <krzk@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 82EA22707
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1344ECD2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 14 May 2018 21:45:08 +0000 (UTC)
-Received: from ozlabs.org (ozlabs.org [203.11.71.1])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9BEF86A4
+	Tue, 15 May 2018 10:42:53 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 66E1D6A4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 14 May 2018 21:45:07 +0000 (UTC)
-Date: Tue, 15 May 2018 07:45:03 +1000
-From: Stephen Rothwell <sfr@canb.auug.org.au>
-To: Ulf Hansson <ulf.hansson@linaro.org>
-Message-ID: <20180515074503.35ec6658@canb.auug.org.au>
-In-Reply-To: <CAPDyKFrhRtLUFfmNNg0iPtJ+Tj5ZzDq6EsYPFc=PY7CmqkFX-g@mail.gmail.com>
-References: <CAKMK7uHjA27K8y-kwYFyhLy3cSkJJw8Oe1gP=3hZXdfxcWAcNQ@mail.gmail.com>
-	<20180502194632.GB18390@sasha-vm>
-	<20180503020550.GP2714@sirena.org.uk>
+	Tue, 15 May 2018 10:42:52 +0000 (UTC)
+Received: from mail-wr0-f174.google.com (mail-wr0-f174.google.com
+	[209.85.128.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPSA id E31C52176F
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 15 May 2018 10:42:51 +0000 (UTC)
+Received: by mail-wr0-f174.google.com with SMTP id g21-v6so15446121wrb.8
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 15 May 2018 03:42:51 -0700 (PDT)
+MIME-Version: 1.0
+In-Reply-To: <20180509224313.5e5fe381@canb.auug.org.au>
+References: <20180503020550.GP2714@sirena.org.uk>
 	<20180503031000.GC29205@thunk.org>
 	<0276fcda-0385-8f22-dbdb-e063f7ed8bbe@roeck-us.net>
 	<20180503224217.GR2714@sirena.org.uk>
@@ -25,15 +30,16 @@ References: <CAKMK7uHjA27K8y-kwYFyhLy3cSkJJw8Oe1gP=3hZXdfxcWAcNQ@mail.gmail.com>
 	<CAKMK7uEWYmhA3owSeYM9tNA0tpMm5=4Yqda2j=VfMWi7i8ya8w@mail.gmail.com>
 	<20180509090346.GY13402@sirena.org.uk>
 	<20180509204727.7ff38021@canb.auug.org.au>
-	<CAPDyKFrhRtLUFfmNNg0iPtJ+Tj5ZzDq6EsYPFc=PY7CmqkFX-g@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	boundary="Sig_/nofJIjpfIzlhIonduYhKAWa";
-	protocol="application/pgp-signature"
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Greg KH <gregkh@linuxfoundation.org>, "w@1wt.eu" <w@1wt.eu>
+	<20180509105534.GE7985@vkoul-mobl>
+	<20180509224313.5e5fe381@canb.auug.org.au>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Date: Tue, 15 May 2018 12:42:49 +0200
+Message-ID: <CAJKOXPf=y_D4qA-M=cf4nuL3-J4D9k5UrVo=fDPjJwtntCUBFA@mail.gmail.com>
+To: Stephen Rothwell <sfr@canb.auug.org.au>
+Content-Type: text/plain; charset="UTF-8"
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -44,62 +50,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---Sig_/nofJIjpfIzlhIonduYhKAWa
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
-
-Hi Ulf,
-
-On Mon, 14 May 2018 10:36:04 +0200 Ulf Hansson <ulf.hansson@linaro.org> wro=
-te:
+On Wed, May 9, 2018 at 2:43 PM, Stephen Rothwell <sfr@canb.auug.org.au> wrote:
+> Hi Vinod,
 >
-> I will ping the kernelci folkz to request them to include your new
-> fixes branch for daily builds.
+> On Wed, 9 May 2018 16:25:34 +0530 Vinod Koul <vinod.koul@linaro.org> wrote:
+>> >
+>> > I currently have 44 such fixes branches.  More welcome!
+>>
+>> Great so do you want us to send fixes branch or scan the existing trees and add
+>> them.
+>
+> The former.
 
-Excellent, thanks.
+Please merge following fixes branches from my trees:
+Tree: samsung-krzk
+git://git.kernel.org/pub/scm/linux/kernel/git/krzk/linux.git
+branch: fixes
 
-> For mmc, please add my fixes branch according to below.
->=20
-> git://git.kernel.org/pub/scm/linux/kernel/git/ulfh/mmc.git fixes
+Tree: pinctrl-samsung
+git://git.kernel.org/pub/scm/linux/kernel/git/pinctrl/samsung.git
+branch: pinctrl-fixes
 
-Added from today.
+Although both are currently empty... but I guess you are collecting
+this also for future.
 
-Thanks for adding your subsystem tree as a participant of linux-next.  As
-you may know, this is not a judgement of your code.  The purpose of
-linux-next is for integration testing and to lower the impact of
-conflicts between subsystems in the next merge window.=20
-
-You will need to ensure that the patches/commits in your tree/series have
-been:
-     * submitted under GPL v2 (or later) and include the Contributor's
-        Signed-off-by,
-     * posted to the relevant mailing list,
-     * reviewed by you (or another maintainer of your subsystem tree),
-     * successfully unit tested, and=20
-     * destined for the current or next Linux merge window.
-
-Basically, this should be just what you would send to Linus (or ask him
-to fetch).  It is allowed to be rebased if you deem it necessary.
-
---=20
-Cheers,
-Stephen Rothwell=20
-sfr@canb.auug.org.au
-
---Sig_/nofJIjpfIzlhIonduYhKAWa
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAlr6A18ACgkQAVBC80lX
-0GwIaAgApYTmL+dWa+5871wsgGFrgIYW/DFTyePVGLr5j5wRZRyTP9uNmbru1IWl
-/uvYZn7IT1O3gmCd0QMnSuhqk6VKr/B/DYzAiy3iIRg0gbByDgpXUOoBU/DJXt4z
-1zZxVJcmlnxKJzNvtWaJkNjIqF89KdCrXcqoPR1uk0yBn3mlMqTnxRT/neK3kQyt
-JQ85vxKSCoSOxhIOfAFvFqVmJFe3NAGK8uDNrFlrQbR4oPUMzNGlx+fdXez82/U8
-lvVoAT0WqNh/ruA33M5skzgMpvcnl3QNgmO6oFzZJO8tOasJ4oLjoVMhCN5tVg5D
-6MLlnF5ojog08uBq8z8n0ol7RNqhQA==
-=FjhI
------END PGP SIGNATURE-----
-
---Sig_/nofJIjpfIzlhIonduYhKAWa--
+Best regards,
+Krzysztof
