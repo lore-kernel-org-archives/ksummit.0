@@ -1,34 +1,28 @@
-Return-Path: <pavel@ucw.cz>
+Return-Path: <Nicolas.Ferre@microchip.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id DC12AAEF
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 69FACCCC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 15 Jul 2018 20:15:21 +0000 (UTC)
-Received: from atrey.karlin.mff.cuni.cz (atrey.karlin.mff.cuni.cz
-	[195.113.26.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0AF9B42D
+	Wed, 22 Aug 2018 12:57:30 +0000 (UTC)
+Received: from esa5.microchip.iphmx.com (esa5.microchip.iphmx.com
+	[216.71.150.166])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 230A5177
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 15 Jul 2018 20:15:20 +0000 (UTC)
-Date: Sun, 15 Jul 2018 22:15:18 +0200
-From: Pavel Machek <pavel@ucw.cz>
-To: Greg KH <gregkh@linuxfoundation.org>
-Message-ID: <20180715201518.GA19675@amd>
-References: <20180501163818.GD1468@sasha-vm> <20180501194450.GD10479@thunk.org>
-	<20180501200019.GA7397@sasha-vm> <20180501205448.GE10479@thunk.org>
-	<20180501220228.GD7397@sasha-vm> <20180502043017.GA11938@1wt.eu>
-	<20180502194139.GA18390@sasha-vm> <20180502200229.GA12729@1wt.eu>
-	<20180714173812.xhfwtcijlxebmn2k@devuan>
-	<20180715085403.GA21992@kroah.com>
+	Wed, 22 Aug 2018 12:57:30 +0000 (UTC)
+To: Stephen Rothwell <sfr@canb.auug.org.au>
+References: <551A9FAC.2010203@atmel.com>
+From: Nicolas Ferre <nicolas.ferre@microchip.com>
+Message-ID: <f15a82c8-5960-34ea-e7fc-dffdfdd369c6@microchip.com>
+Date: Wed, 22 Aug 2018 14:47:56 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="ReaqsoxgOBHFXBhH"
-Content-Disposition: inline
-In-Reply-To: <20180715085403.GA21992@kroah.com>
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Willy Tarreau <w@1wt.eu>
-Subject: Re: [Ksummit-discuss] bug-introducing patches
+In-Reply-To: <551A9FAC.2010203@atmel.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Ludovic Desroches <ludovic.desroches@microchip.com>,
+	ksummit-discuss@lists.linuxfoundation.org, linux-kernel@vger.kernel.org
+Subject: [Ksummit-discuss] at91 git tree in linux-next
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,58 +32,52 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+Stephen,
 
---ReaqsoxgOBHFXBhH
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Alexandre Ludovic and myself are the group of maintainers for Microchip 
+ARM SoCs. The current tree that we have in linux-next is mine [1] and we 
+are moving to a common group kernel.org tree.
 
-On Sun 2018-07-15 10:54:03, Greg KH wrote:
-> On Sat, Jul 14, 2018 at 07:38:12PM +0200, Pavel Machek wrote:
-> > Hi!
-> >=20
-> > > > The way I see it, if a commit can get one or two tested-by, it's a =
-good
-> > > > alternative to a week in -next.
-> > >=20
->=20
-> Pavel, I "love" how you fail to point out that you are responding to a 2
-> month old thread :(
->=20
-> And that thread was beaten to death, and still you want to revise it,
-> which is odd to me, perhaps you just don't like stable releases?  Given
-> that you never mark any of the patches for your subsystem for stable
-> releases, why do you care about how they are maintained?
+So, can you please add our new tree to linux-next:
+at91 git 
+git://git.kernel.org/pub/scm/linux/kernel/git/at91/linux.git#at91-next
 
-I do mark patches -- acording to stable kernel rules. But you are
-apparently using different rules, not written anywhere, and I get
-complains when I don't mark patches according to _those_.
+instead of:
+git://git.kernel.org/pub/scm/linux/kernel/git/nferre/linux-at91.git#at91-next
 
-But this was supposed to be about testing.
+In addition to that, we also have now a "fixes" branch. Can you please 
+add it to your "fixes" tree?
 
-And I'd like to see Tested: no/compile headers, instead.
+at91 git 
+git://git.kernel.org/pub/scm/linux/kernel/git/at91/linux.git#at91-fixes
 
-[And yes, motivation for this was that broken LED patches were merged
-to stable without any testing, and when that was questioned, I was
-told that testing was not performed because it would require unusual
-hardware called "USB keyboard".]
+Thanks for your help, best regards,
+   Nicolas
 
-									Pavel
---=20
-(english) http://www.livejournal.com/~pavelmachek
-(cesky, pictures) http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blo=
-g.html
 
---ReaqsoxgOBHFXBhH
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
+[1] 
+https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/Next/Trees#n84
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v1
 
-iEYEARECAAYFAltLq1YACgkQMOfwapXb+vJ/4ACgsOGbawFAbEXJ2EfBdN5W5Ltq
-rtsAn2oKuVsakR8nWQM97UFoBtsYEH8A
-=akRE
------END PGP SIGNATURE-----
+Reference of previous request below... back in the days...
 
---ReaqsoxgOBHFXBhH--
+On 31/03/2015 at 15:22, Nicolas Ferre wrote:
+> Hi Stephen,
+> 
+> I am the maintainer for the Atmel ARM SoCs (aka at91) and I would like to
+> know if it's possible for you to include my git tree in linux-next. It is
+> usually pulled in by the ARM-soc guys (in copy).
+> 
+> Here it is, with the branch that you would pull: "at91-next".
+> 
+> git://git.kernel.org/pub/scm/linux/kernel/git/nferre/linux-at91.git  at91-next
+> 
+> I usually merge branches in this particular one when I send a pull-request to
+> Arnd, Olof and Kevin so the material is usually pretty "stable".
+> 
+> Thanks, bye,
+> 
+
+
+-- 
+Nicolas Ferre
