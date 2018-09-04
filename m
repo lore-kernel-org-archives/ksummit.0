@@ -1,15 +1,24 @@
-Return-Path: <vbabka@suse.cz>
-Resent-Message-ID: <2f954bbf-e865-7624-3930-69c243209334@suse.cz>
-Date: Thu, 30 Aug 2018 17:35:17 -0400
-From: "Theodore Y. Ts'o" <tytso@mit.edu>
-To: linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org, netdev@vger.kernel.org, linux-block@vger.kernel.org
-Message-ID: <20180830213517.GA19110@thunk.org>
+Return-Path: <rodrigo.vivi@gmail.com>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2C1D084B
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue,  4 Sep 2018 19:54:31 +0000 (UTC)
+Received: from mail-wm0-f46.google.com (mail-wm0-f46.google.com [74.125.82.46])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A82C67A6
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue,  4 Sep 2018 19:54:30 +0000 (UTC)
+Received: by mail-wm0-f46.google.com with SMTP id y139-v6so5619285wmc.2
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 04 Sep 2018 12:54:30 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Sender: owner-linux-mm@kvack.org
-Subject: [Ksummit-discuss] Maintainer / Kernel Summit 2018 planning kick-off
+From: Rodrigo Vivi <rodrigo.vivi@gmail.com>
+Date: Tue, 4 Sep 2018 12:54:16 -0700
+Message-ID: <CABVU7+vBVivOZ32aEokJ0y3=C2z0Ev12O3vSVfyTC9TDrBOr8A@mail.gmail.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Content-Type: multipart/alternative; boundary="00000000000096406105751106af"
+Subject: [Ksummit-discuss] [MAINTAINERS SUMMIT] Challenges in Upstream vs.
+ Embargoed Development in Intel Graphics.
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -19,93 +28,54 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-[ Feel free to forward this to other Linux kernel mailing lists as
-  appropriate -- Ted ]
+--00000000000096406105751106af
+Content-Type: text/plain; charset="UTF-8"
 
-This year, the Maintainer and Kernel Summit will be in Vancouver,
-B.C., November 12th -- 15th.  The Maintainer's summit will be held on
-Monday, November 12th, in Vancouver, immediately before the Linux
-Plumber's Conference (LPC) November 13th -- 15th.
+Hi there,
 
-For the past few years, before 2017, we've scheduled mostly management
-and development process issues on the first day.  We then opened up
-the second day of the Kernel Summit to all attendees of the conference
-with which the Kernel Summit has been colocated, and called it the
-"Open Technical Day".  This is something that just made sense in order
-to assure that all of the necessary people needed to discuss a
-particular technical issue could be in the room.
+I've submitted a proposal for plumber's referred track. There, I want to
+talk
+about tools and challenges we have on embargo development vs upstream one
+and
+how to get focus on upstream first and upstream always mentality.
 
-Starting last year in Prague, we took the next logical step, and split
-the Kernel Summit in two.  The "Maintainer's Summit" is an
-invite-only, half-day event, where the primary focus will be process
-issues of Linux Kernel Development.  It will be limited to 30 invitees
-and a handful of sponsored attendees.  This makes it smaller than the
-first few kernel summits (which were limited to around 50 attendees).
+The name of plumbers proposal talk is:
+"Unveiling Intel Graphics Internal Development"
 
-The "Kernel Summit" is now organized as a track which is run in
-parallel with the other tracks at the Linux Plumber's Conference, and
-is open to all registered attendees of Plumbers.  Much as how we
-organized the Kernel Summit "open technical day" in 2016 in Santa Fe,
-the Kernel Summit schedule will be synchronized with the other tracks
-at the Plumber's Conference, and it will be open to all registered
-Plumber's attendees.
+I'm not sure if the talk will get accepted, but anyway I'd like to have the
+chance to talk to other maintainers to exchange views on different ways of
+maintaining this kind of embargo development including challenges, tools,
+processes, and rules.
 
-Linus has suggested the following ten people as the core of the people
-he would like invited to the Maintainer's Summit, which was calculated
-from statistics from his git tree.
+So I'm interested in hallway tracks of Maintainer / Kernel Summit, or maybe
+a
+bof session if there's interest.
 
-	David Miller
-	Dave Airlie
-	Greg KH
-	Arnd Bergmann
-	Ingo Molnar
-	Mauro Carvalho Chehab
-	Takashi Iwai
-	Thomas Gleixner
-	Andrew Morton
-	Olof Johansson
+Please let me know if there's interested or if further information and/or
+clarification is needed.
 
-As we did last year, there will be a mini-program committee that will
-be pick enough names to bring the total number of 30 for the
-Maintainer's Summit.  That program committee will consist of Arnd
-Bergmann, Thomas Gleixner, Greg KH, Paul McKenney, and Ted Ts'o.
+Thanks in advance,
+Rodrigo.
 
-We will use the rest of names on the list generated by Linus's script
-as a starting point of people to be considered.  People who suggest
-topics that should be discussed on the Maintainer's summit will also
-be added to the list.  To make topic suggestions for the Maintainer's
-Summit, please send e-mail to the ksummit-discuss list with a subject
-prefix of [MAINTAINERS SUMMIT].
+--00000000000096406105751106af
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+<div dir=3D"ltr"><div>Hi there,</div><div><br></div><div>I&#39;ve submitted=
+ a proposal for plumber&#39;s referred track. There, I want to talk</div><d=
+iv>about tools and challenges we have on embargo development vs upstream on=
+e and</div><div>how to get focus on upstream first and upstream always ment=
+ality.</div><div><br></div><div>The name of plumbers proposal talk is:<br><=
+/div><div>&quot;Unveiling Intel Graphics Internal Development&quot;</div><d=
+iv><br></div><div>I&#39;m not sure if the talk will get accepted, but anywa=
+y I&#39;d like to have the</div><div>chance to talk to other maintainers to=
+ exchange views on different ways of</div><div>maintaining this kind of emb=
+argo development including challenges, tools,</div><div>processes, and rule=
+s.</div><div><br></div><div>So I&#39;m interested in hallway tracks of Main=
+tainer / Kernel Summit, or maybe a</div><div>bof session if there&#39;s int=
+erest.</div><div><br></div><div>Please let me know if there&#39;s intereste=
+d or if further information and/or<br></div><div>clarification is needed.</=
+div><div><br></div><div>Thanks in advance,<br></div><div>Rodrigo.</div><div=
+><br></div></div>
 
-The other job of the program committee will be to organize the program
-for the Kernel Summit.  The goal of the Kernel Summit track will be to
-provide a forum to discuss specific technical issues that would be
-easier to resolve in person than over e-mail.  The program committee
-will also consider "information sharing" topics if they are clearly of
-interest to the wider development community (i.e., advanced training
-in topics that would be useful to kernel developers).
-
-To suggest a topic for the Kernel Summit, please tag your e-mail with
-[TECH TOPIC].  As before, please use a separate e-mail for each topic,
-and send the topic suggestions to:
-
-	ksummit-discuss@lists.linuxfoundation.org
-
-People who submit topic suggestions before September 21st and which
-are accepted, will be given a free admission to the Linux Plumbers
-Conference.
-
-We will reserving roughly half the Kernel Summit slots for last-minute
-discussions that will be scheduled during the week of Plumber's, in an
-"unconference style".  This was extremely popular in Santa Fe and in
-Prague, since it allowed ideas that came up in hallway discussions,
-and in Plumber's Miniconference, to be given scheduled, dedicated
-times for that discussion.
-
-
-If you were not subscribed on to the kernel-discuss mailing list from
-last year (or if you had removed yourself after the kernel summit),
-you can subscribe to the discuss list using mailman:
-
-   https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+--00000000000096406105751106af--
