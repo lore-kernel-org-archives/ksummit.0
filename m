@@ -1,24 +1,25 @@
-Return-Path: <rodrigo.vivi@gmail.com>
+Return-Path: <Alexander.Levin@microsoft.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2C1D084B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id AEC02CAC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  4 Sep 2018 19:54:31 +0000 (UTC)
-Received: from mail-wm0-f46.google.com (mail-wm0-f46.google.com [74.125.82.46])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A82C67A6
+	Tue,  4 Sep 2018 20:16:24 +0000 (UTC)
+Received: from NAM01-BN3-obe.outbound.protection.outlook.com
+	(mail-bn3nam01on0132.outbound.protection.outlook.com [104.47.33.132])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 23DA271C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  4 Sep 2018 19:54:30 +0000 (UTC)
-Received: by mail-wm0-f46.google.com with SMTP id y139-v6so5619285wmc.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 04 Sep 2018 12:54:30 -0700 (PDT)
+	Tue,  4 Sep 2018 20:16:24 +0000 (UTC)
+From: Sasha Levin <Alexander.Levin@microsoft.com>
+To: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Date: Tue, 4 Sep 2018 20:16:21 +0000
+Message-ID: <20180904201620.GC16300@sasha-vm>
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <401EE1831B58A54A933914A3B40D095A@namprd21.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-From: Rodrigo Vivi <rodrigo.vivi@gmail.com>
-Date: Tue, 4 Sep 2018 12:54:16 -0700
-Message-ID: <CABVU7+vBVivOZ32aEokJ0y3=C2z0Ev12O3vSVfyTC9TDrBOr8A@mail.gmail.com>
-To: ksummit-discuss@lists.linuxfoundation.org
-Content-Type: multipart/alternative; boundary="00000000000096406105751106af"
-Subject: [Ksummit-discuss] [MAINTAINERS SUMMIT] Challenges in Upstream vs.
- Embargoed Development in Intel Graphics.
+Subject: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -28,54 +29,28 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---00000000000096406105751106af
-Content-Type: text/plain; charset="UTF-8"
+Hi folks,
 
-Hi there,
+I've previously sent a mail
+(https://lwn.net/ml/linux-kernel/20180501163818.GD1468@sasha-vm/) about
+this topic, so I won't repeat everything here.
 
-I've submitted a proposal for plumber's referred track. There, I want to
-talk
-about tools and challenges we have on embargo development vs upstream one
-and
-how to get focus on upstream first and upstream always mentality.
+>From the dicussion that ensued, it seems that there is an agreement that
+there is a problem with the process, but different maintainers have
+different ideas on how to resolve this. Achieving any sort of a
+consensus over mails seems to be impossible.
 
-The name of plumbers proposal talk is:
-"Unveiling Intel Graphics Internal Development"
+I'd like to have a discussion about this topic. It is my belief that
+this is a "low hanging fruit" and by addressing it we can prevent a good
+portion of the bugs we have to deal with from creeping in in the first
+place.
 
-I'm not sure if the talk will get accepted, but anyway I'd like to have the
-chance to talk to other maintainers to exchange views on different ways of
-maintaining this kind of embargo development including challenges, tools,
-processes, and rules.
+If there is more information folks need to support making a decision I'd
+be happy to work on it so it will be available during discussions. I
+could also propose a few possible solutions, but I suspect we have more
+than enough ideas about how that might look - we just need to reach a
+consensus about one.
 
-So I'm interested in hallway tracks of Maintainer / Kernel Summit, or maybe
-a
-bof session if there's interest.
 
-Please let me know if there's interested or if further information and/or
-clarification is needed.
-
-Thanks in advance,
-Rodrigo.
-
---00000000000096406105751106af
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Hi there,</div><div><br></div><div>I&#39;ve submitted=
- a proposal for plumber&#39;s referred track. There, I want to talk</div><d=
-iv>about tools and challenges we have on embargo development vs upstream on=
-e and</div><div>how to get focus on upstream first and upstream always ment=
-ality.</div><div><br></div><div>The name of plumbers proposal talk is:<br><=
-/div><div>&quot;Unveiling Intel Graphics Internal Development&quot;</div><d=
-iv><br></div><div>I&#39;m not sure if the talk will get accepted, but anywa=
-y I&#39;d like to have the</div><div>chance to talk to other maintainers to=
- exchange views on different ways of</div><div>maintaining this kind of emb=
-argo development including challenges, tools,</div><div>processes, and rule=
-s.</div><div><br></div><div>So I&#39;m interested in hallway tracks of Main=
-tainer / Kernel Summit, or maybe a</div><div>bof session if there&#39;s int=
-erest.</div><div><br></div><div>Please let me know if there&#39;s intereste=
-d or if further information and/or<br></div><div>clarification is needed.</=
-div><div><br></div><div>Thanks in advance,<br></div><div>Rodrigo.</div><div=
-><br></div></div>
-
---00000000000096406105751106af--
+Thanks,
+Sasha=
