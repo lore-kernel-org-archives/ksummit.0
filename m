@@ -1,37 +1,28 @@
-Return-Path: <Alexander.Levin@microsoft.com>
+Return-Path: <andrew@lunn.ch>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9DC8D1498
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A03931427
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 15:29:46 +0000 (UTC)
-Received: from NAM02-BL2-obe.outbound.protection.outlook.com
-	(mail-bl2nam02on0116.outbound.protection.outlook.com [104.47.38.116])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 027DD7E7
+	Wed,  5 Sep 2018 15:35:16 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 470F47A6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 15:29:45 +0000 (UTC)
-From: Sasha Levin <Alexander.Levin@microsoft.com>
-To: Thomas Gleixner <tglx@linutronix.de>
-Date: Wed, 5 Sep 2018 15:29:43 +0000
-Message-ID: <20180905152942.GR16300@sasha-vm>
-References: <1536141525.8121.2.camel@HansenPartnership.com>
-	<20180905104700.GE9781@sirena.org.uk>
-	<6a25761a-c640-4eb2-952c-4bcd91da28a2@email.android.com>
-	<s5hefe8cd0u.wl-tiwai@suse.de> <20180905142038.GI16300@sasha-vm>
-	<s5h1sa8c8z7.wl-tiwai@suse.de> <20180905144155.GK16300@sasha-vm>
-	<s5hy3cgatod.wl-tiwai@suse.de> <20180905145413.GL16300@sasha-vm>
-	<alpine.DEB.2.21.1809051717460.1416@nanos.tec.linutronix.de>
-In-Reply-To: <alpine.DEB.2.21.1809051717460.1416@nanos.tec.linutronix.de>
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <BC67C25EE329B8468615B6DFF0FD4D40@namprd21.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+	Wed,  5 Sep 2018 15:35:15 +0000 (UTC)
+Date: Wed, 5 Sep 2018 16:51:10 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Greg KH <greg@kroah.com>
+Message-ID: <20180905145110.GC28719@lunn.ch>
+References: <s5hbm9ccbie.wl-tiwai@suse.de>
+	<20180905135528.ase6evcv7rlwufyr@mwanda>
+	<s5h4lf4ca7t.wl-tiwai@suse.de> <20180905142046.GA8396@kroah.com>
 MIME-Version: 1.0
-Cc: James Bottomley <James.Bottomley@Hansenpartnership.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Greg KH <gregkh@linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Stable trees and release
- time
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20180905142046.GA8396@kroah.com>
+Cc: Dan Carpenter <dan.carpenter@oracle.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] How can we treat staging
+ drivers better?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,33 +32,26 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Sep 05, 2018 at 05:19:59PM +0200, Thomas Gleixner wrote:
->On Wed, 5 Sep 2018, Sasha Levin via Ksummit-discuss wrote:
->> On Wed, Sep 05, 2018 at 04:46:26PM +0200, Takashi Iwai wrote:
->> >On Wed, 05 Sep 2018 16:41:56 +0200,
->> >Sasha Levin wrote:
->> >> So right now I'm lagging a few weeks behind upstream. If I limit it t=
-o
->> >> patches that are at least 1 month old will that help with your concer=
-ns?
->> >
->> >A few weeks after rc-release or the final release?
->> >If it's the latter, that should be fine.
->>
->> A few weeks after a given patch was merged upstream. The tricky part is
->> if I wait a month from final release then the relevant stable tree is
->> already EOL.
->
->If the thing is close to EOL then it wont get the next fix or worse the fi=
-x
->for the subtly broken one either. It really does not matter at all.
+> Look at what moved out this, and the past, kernel releases for examples
+> (I can't remember the names at the moment, sorry).  Another driver just
+> got moved last week into the networking tree, so that's another success
+> story.
 
-Given that we release a kernel every ~2 months and that the Stable tree
-goes EOL a week or two after the next kernel is released, we will
-essentially ignore half of the release cycle (in particular the -rc
-ones, when more fixes come in).
+I tend to look at all new network drivers, and i was involved in that
+one.
 
+In general, there is no interaction between people working on network
+drivers in staging and netdev. So i have no idea what network drivers
+are currently in staging. There are no requests to review them to help
+get them up to mainline quality. Generally, the first time netdev
+hears of them is when somebody submits a patch moving the driver. And
+often that patch is created with git format-patch -M, so all we see
+are renames, not the actual code. That makes it impossible to actual
+review the patch.
 
---
-Thanks,
-Sasha=
+So i think it would be useful to add some hints to the documentation
+about how to get out of staging. When to get the target subsystem
+involved, how to ask for reviews, how to submit it to the target
+subsystem, etc.
+
+	Andrew
