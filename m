@@ -1,29 +1,30 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 43314D84
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9204CD2E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 09:58:53 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D1AE66D6
+	Wed,  5 Sep 2018 10:12:02 +0000 (UTC)
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+	[172.104.155.198])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 18CB3A8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 09:58:52 +0000 (UTC)
-Message-ID: <1536141525.8121.2.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Jiri Kosina <jikos@kernel.org>, Jan Kara <jack@suse.cz>
-Date: Wed, 05 Sep 2018 10:58:45 +0100
-In-Reply-To: <nycvar.YFH.7.76.1809051029400.15880@cbobk.fhfr.pm>
+	Wed,  5 Sep 2018 10:12:02 +0000 (UTC)
+Date: Wed, 5 Sep 2018 11:11:59 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Greg KH <gregkh@linuxfoundation.org>
+Message-ID: <20180905101159.GD9781@sirena.org.uk>
 References: <5c9c41b2-14f9-41cc-ae85-be9721f37c86@redhat.com>
 	<20180904213340.GD16300@sasha-vm>
 	<nycvar.YFH.7.76.1809050838570.15880@cbobk.fhfr.pm>
 	<20180905081658.GB24902@quack2.suse.cz>
 	<nycvar.YFH.7.76.1809051029400.15880@cbobk.fhfr.pm>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Greg KH <gregkh@linuxfoundation.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
+	<20180905085642.GA29931@kroah.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="i7F3eY7HS/tUJxUd"
+Content-Disposition: inline
+In-Reply-To: <20180905085642.GA29931@kroah.com>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Stable trees and release
  time
@@ -36,57 +37,45 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 2018-09-05 at 10:32 +0200, Jiri Kosina wrote:
-> On Wed, 5 Sep 2018, Jan Kara wrote:
-> 
-> > So I agree that with current amount of patches in stable tree, the 
-> > review is cursory at best. However that does not really seem to be 
-> > related to the frequency of stable releases (which is what I
-> > believe  Laura complains about in this thread) but rather to the
-> > amount of 
-> > patches going into stable.
-> 
-> I think the psychological aspect shouldn't be ignored in this
-> particular  case.
 
-This really shouldn't be an issue: stable trees are backported from
-upstream.  The patch (should) work in upstream, so it should work in
-stable.  There are only a few real cases you need to worry about:
+--i7F3eY7HS/tUJxUd
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-   1. Buggy patch in upstream backported to stable. (will be caught and
-      the fix backported soon)
-   2. Missing precursor causing issues in stable alone.
-   3. Bug introduced when hand applying.
+On Wed, Sep 05, 2018 at 10:56:42AM +0200, Greg KH wrote:
 
-The chances of one of these happening is non-zero, but the criteria for
-stable should mean its still better odds than the odds of hitting the
-bug it was fixing.
+> 	- We have finally woken some subsystem maintainers up into
+> 	  actually properly tagging patches for stable.  We used to have
+> 	  a horrid rate of this happening, and it is getting better.
+> 	  However, we still have whole major subsystems that _never_ tag
+> 	  anything, which is a problem, so things will get larger.
 
-This is the thing: backporting is an expediency process, not a perfect
-process.  We are going to get bugs with backports, we just make sure
-the backport is for an issue serious enough that on balance we reduce
-the bugginess of the stable kernels.
+Some of us have been doing this for 5+ years :/
 
-> Maintainers and patch authors being constantly flooded by stable
-> queues would never really get back to reviewing it, as it's always
-> there, more is  already in flight, and the previous pile is still
-> unreviewed.
-> 
-> If it comes at regular pace though, it's a bit easier to align with
-> it and establish for example "friday afternoon stable review 2 hours"
-> into maintainer's workflow :)
-> 
-> But yeah, it's weak and doesn't solve the primary thing, which is
-> just the  size of stable itself.
+> 	- Sasha's work in finding the patches that maintainers/developer
+> 	  fail to tag is paying off really well, which also increases
+> 	  the size.
 
-Look, this just isn't going to happen.  As a maintainer I'm going to
-see the backport, think it fixed a bug in upstream and stop there. 
-That's no better review than you get by insisting that the patch be
-upstream first.  Can we embrace this as the actual review in upstream
-process and move on?
+These and the few other patches that I didn't tag for stable myself are
+the only ones I try to review reliably, the others I already looked at
+for stable at least once and especially where things are automated it's
+better to have some manual checking.  It's good that Sasha's stuff is
+flagged now, and most other submissions are obvious as well, so that's
+fairly easy to do and means that the review burden is relatively light.
 
-As I said there's a small but non-zero chance of bugs because of the
-issues listed above, but I'm not going to spot them even if I performed
-a full review for a kernel I forgot about months ago.
+--i7F3eY7HS/tUJxUd
+Content-Type: application/pgp-signature; name="signature.asc"
 
-James
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAluPq+4ACgkQJNaLcl1U
+h9Cf1QgAgFfYtqbDvKLBWnaFHcX56YCmxEo0EVrPj6fSmkcbZo9mFkv1FxA012sR
+MQIF0yrvP3P+ZwEYuRXRHOZl5gNRGW9RZjQ/IXb0jKGVsg3etQNWI/2viZo+BuRm
+kVS3AvK37TXSlEPXnYDSuIgJ+3L31oKHxlK61Vur8bBVCSozuRRch0lbuhGemFMY
+Ejb6BB/tB7SqSkK78GQSBTenmnnXWOYBpZ1eXosoQYcBV4+rkLA8xImUC6RTERPQ
+xZu35BTcMrgbvPX2VIrX9cV3K52H+FMhumCv1C4Fq+OWeO7SAUj4zzf38xJbXIvA
+kge0pwaiyMHZmSKXN3a6Bt5qQM5oMQ==
+=LGI/
+-----END PGP SIGNATURE-----
+
+--i7F3eY7HS/tUJxUd--
