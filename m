@@ -1,26 +1,18 @@
-Return-Path: <jikos@kernel.org>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1C536D37
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 08:32:48 +0000 (UTC)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id AAFE98B
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 08:32:47 +0000 (UTC)
-Date: Wed, 5 Sep 2018 10:32:45 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
-To: Jan Kara <jack@suse.cz>
-In-Reply-To: <20180905081658.GB24902@quack2.suse.cz>
-Message-ID: <nycvar.YFH.7.76.1809051029400.15880@cbobk.fhfr.pm>
+Return-Path: <gregkh@linuxfoundation.org>
+Date: Wed, 5 Sep 2018 10:56:42 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Jiri Kosina <jikos@kernel.org>
+Message-ID: <20180905085642.GA29931@kroah.com>
 References: <5c9c41b2-14f9-41cc-ae85-be9721f37c86@redhat.com>
 	<20180904213340.GD16300@sasha-vm>
 	<nycvar.YFH.7.76.1809050838570.15880@cbobk.fhfr.pm>
 	<20180905081658.GB24902@quack2.suse.cz>
+	<nycvar.YFH.7.76.1809051029400.15880@cbobk.fhfr.pm>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Cc: Greg KH <gregkh@linuxfoundation.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <nycvar.YFH.7.76.1809051029400.15880@cbobk.fhfr.pm>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Stable trees and release
  time
@@ -33,28 +25,56 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 5 Sep 2018, Jan Kara wrote:
+On Wed, Sep 05, 2018 at 10:32:45AM +0200, Jiri Kosina wrote:
+> But yeah, it's weak and doesn't solve the primary thing, which is just the 
+> size of stable itself.
 
-> So I agree that with current amount of patches in stable tree, the 
-> review is cursory at best. However that does not really seem to be 
-> related to the frequency of stable releases (which is what I believe 
-> Laura complains about in this thread) but rather to the amount of 
-> patches going into stable.
+I've held off on responding so far, but I think this is the big point of
+"fear" that many people seem to have with the stable updates over the
+past years.
 
-I think the psychological aspect shouldn't be ignored in this particular 
-case.
+Yes, the "size" is bigger than before, but that is because of the
+following things:
+	- our development process is going faster (9 patches an hour)
+	  than it used to a few years ago.
+	- We have finally woken some subsystem maintainers up into
+	  actually properly tagging patches for stable.  We used to have
+	  a horrid rate of this happening, and it is getting better.
+	  However, we still have whole major subsystems that _never_ tag
+	  anything, which is a problem, so things will get larger.
+	- I have more time to work on this than when I used to work for
+	  a distro.
+	- The "Fixes:" tag has helped out a lot in finding patches that
+	  people forgot to tag with stable@ lines.
+	- We have more people using and caring about stable kernels, so
+	  they submit more patches for them, allowing them to replace
+	  their internal trees
+	- Sasha's work in finding the patches that maintainers/developer
+	  fail to tag is paying off really well, which also increases
+	  the size.
+	- fuzzing tools are finding loads of stuff that have always been
+	  there.  syzbot is wonderful in this, and still has many
+	  hundreds of open bugs left to be fixed.  When they are fixed,
+	  those patches will be backported.  This means we are getting
+	  better at finding and fixing things, not that the bugs were
+	  not ever there in the first place.
 
-Maintainers and patch authors being constantly flooded by stable queues 
-would never really get back to reviewing it, as it's always there, more is 
-already in flight, and the previous pile is still unreviewed.
+So yes, things are "bigger" than before, but still, overall, we are only
+accepting a small percentage of patches that hit Linus's tree (12
+patches a day for stable vs. 216 a day for Linus).
 
-If it comes at regular pace though, it's a bit easier to align with it and 
-establish for example "friday afternoon stable review 2 hours" into 
-maintainer's workflow :)
+Are you also worried that Linus's tree is getting "bigger"?  :)
 
-But yeah, it's weak and doesn't solve the primary thing, which is just the 
-size of stable itself.
+So we are larger than before, but this is a good thing, because we are
+actually catching more problems than we were before.  Which means your
+older kernels had more bugs...
 
--- 
-Jiri Kosina
-SUSE Labs
+Anyway, just a comment in that you should not "fear" the increased size,
+it is to be expected as more people pay more attention to Linux,
+combined with the fact that we are still growing.  If the stable patches
+were shrinking, then I would get worried as that would imply that people
+don't care anymore.
+
+thanks,
+
+greg k-h
