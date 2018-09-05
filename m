@@ -1,40 +1,29 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <tglx@linutronix.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 704A8D2E
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 42FE0D90
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 10:14:01 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1A17570D
+	Wed,  5 Sep 2018 10:28:46 +0000 (UTC)
+Received: from Galois.linutronix.de (Galois.linutronix.de [146.0.238.70])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 90FD56D6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 10:14:01 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
-	by bedivere.hansenpartnership.com (Postfix) with ESMTP id 5190D8EE108
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 03:13:59 -0700 (PDT)
-Received: from bedivere.hansenpartnership.com ([127.0.0.1])
-	by localhost (bedivere.hansenpartnership.com [127.0.0.1]) (amavisd-new,
-	port 10024) with ESMTP id tBy8n_CnHd0B
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 03:13:57 -0700 (PDT)
-Received: from [192.168.1.74] (host81-136-19-214.range81-136.btcentralplus.com
-	[81.136.19.214])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by bedivere.hansenpartnership.com (Postfix) with ESMTPSA id B65418EE104
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 03:13:56 -0700 (PDT)
-Message-ID: <1536142432.8121.6.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: "ksummit-discuss@lists.linuxfoundation.org"
+	Wed,  5 Sep 2018 10:28:45 +0000 (UTC)
+Date: Wed, 5 Sep 2018 12:28:39 +0200 (CEST)
+From: Thomas Gleixner <tglx@linutronix.de>
+To: Jan Kara <jack@suse.cz>
+In-Reply-To: <20180905081658.GB24902@quack2.suse.cz>
+Message-ID: <alpine.DEB.2.21.1809051108220.1416@nanos.tec.linutronix.de>
+References: <5c9c41b2-14f9-41cc-ae85-be9721f37c86@redhat.com>
+	<20180904213340.GD16300@sasha-vm>
+	<nycvar.YFH.7.76.1809050838570.15880@cbobk.fhfr.pm>
+	<20180905081658.GB24902@quack2.suse.cz>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Cc: Greg KH <gregkh@linuxfoundation.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
-Date: Wed, 05 Sep 2018 11:13:52 +0100
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: [Ksummit-discuss] [MAINTAINER SUMMIT] Distribution kernel bugzillas
-	considered harmful
+Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Stable trees and release
+ time
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -44,41 +33,110 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-I'm seeing a lot of wasted effort by our customers on kernel bugs and
-trying to engage the distribution to fix them.  As a caveat, I'm
-working in the cloud, so the distributions in question are usually
-community ones not enterprise ones.  However, we do have a fair few
-customers on LTS kernels from Distributions.
+On Wed, 5 Sep 2018, Jan Kara wrote:
+> On Wed 05-09-18 08:48:03, Jiri Kosina wrote:
+> > If this would be happening at smaller cadence, chances of people (original 
+> > patch author, reviewers and maintainer) actually investing brain energy 
+> > into evaluating whether particular patch is suitable for particular stable 
+> > without introducing backporting regression would be much higher.
+> 
+> So I agree that with current amount of patches in stable tree, the review
+> is cursory at best. However that does not really seem to be related to
+> the frequency of stable releases (which is what I believe Laura complains
+> about in this thread) but rather to the amount of patches going into
+> stable.
 
-Mostly they find a cloud performance regression, they try to engage the
-distro, spend ages working on it or submitting bugs and usually end up
-with an unsatisfactory result.  By the time they call my team in, we've
-likely only got a week to fix the issue.  However, step one is always
-confirming whether upstream works (95% of the time it does) and then
-finding the fix by bisection (usually assisted by knowledge of where
-the bug is).  To do the bisection we usually have to build a kernel
-package with our guesses and get them to try it, so it can be a bit
-slow.  Once we have the backport, we send it to stable and notify the
-distribution to include it in their next kernel release.
+Having a fixed schedule is not solving anything IMO. I won't have more time
+to review stable patches than I have now.
 
-Here's the rub: community distributions (even LTS ones) don't have the
-resources even to triage cloud bugs in environments they likely can't
-reproduce, so we really need to develop assistive tools for customers
-to perform bisections to identify what caused the bug or (in the 95%
-case) what fixed it.  Having a bugzilla and using it as first line of
-support implies a service expectation (usually coming from Enterprise)
-that simply isn't met, so distributions need to fix this at the point
-of interaction: bugzilla.
+And to be blunt, I actually do not look at anything which goes into dead
+kernels at all. Right now I skim through the 4.14 stable patches, but I
+really can't be bothered to look at something like 4.4 or even 3.16.
 
-The first suggestion is that kernel builds are pretty much automated
-and we try to make every commit buildable, so could we automate the
-machinery that allows a customer to do bisection simply by installing a
-kernel package? (we here, obviously means the distro, but going from
-git bisect to kernel package would be the useful link).
+The whole speculation mess has shown, that backporting anything complex to
+old kernels is a complete fail.
 
-Second suggestion is that the bugzillas need to say much more strongly
-that the reporter really needs to confirm the fix in upstream and do
-the bisection themselves (and ideally request the backport to stable
-themselves).
+It's not only the meltdown/spectre mess which has been mostly caused by the
+irresponsible secrecy mess which resulted in different distros getting
+different patch sets for the same dead kernel from Intel.
 
-James
+The same problem persisted with L1TF. I've done the L1TF backports for 4.14
+and spent quite some time on doing that, but my first attempt of doing so
+for 4.9 made me run away screaming.
+
+If you look at the whole picture then you have to take into account, that:
+
+   1) The number of changes in Linus tree increases steadily and also the
+      complexity of those changes increases. Substantial refactoring of
+      subsystems is not an exceptional event. It happens all the time.
+
+      As a consequence backporting becomes more complex as well and the
+      farther you go back, the probability of introducing subtle bugs and
+      regressions increases.
+
+   2) The test coverage including fuzzers has increased enourmosly over the
+      last couple of years and given the fact that even the increased
+      coverage does not catch all regressions and new bugs between -rc1 and
+      final, I seriously doubt that having the fixed weekly stable schedule
+      will make a substantial difference.
+
+   3) You'll never catch the weird corner cases of the oddball hardware
+      people are using before a release. Even if you have that piece of
+      hardware in your test rig, the user will trigger issues which you
+      never can reproduce.
+
+Aside of that we have limited resources in upstream review already, so no
+matter whether you change the release frequency of stable or not, the
+situation won't improve.
+
+I totally agree that we want backports and stable kernels, but I really
+have to ask whether backporting all the way back to the begin of the
+universe makes any sense at all. I know that the enterprise folks still
+believe that their frankenkernels are valuable and make sense, but given
+the shit they rolled out this year, there is enough factual evidence that
+this model is broken beyond repair.
+
+We really have to sit down and ask ourself the question whether backporting
+of complex changes all the way is the right thing to do. I rather have a
+very stable and well tested/reviewed 4.14 LTS today than a gazillion of
+half baken LTS variants.
+
+So given the above I think it makes sense to think about a strict rolling
+model and limit the LTS support to two years and even in the event of
+something like meltdown/spectre/l1tf think hard whether backporting makes
+sense in the first place or introduces more risks than what it fixes.
+
+>From a product perspective, people really have to rethink what they are
+doing. This technology is changing and evolving too fast for models which
+were invented when semiconductors were guaranteed to be available for 20
+years and the change rate in technology was comparable to snail mail. The
+illusion to support a product for 20 years with software from 20 years ago
+has been destroyed long ago, but still people cling to it for any price.
+
+The whole 'we can't change the version number' QA argument is complete and
+utter bullshit especially given the fact, that after 2 years these so
+called stable versions have absolutely nothing to do with the version they
+are allegedly based on.
+
+In fact, from a maintainability and also quality POV, lots of effort should
+be put into stabilizing an LTS from the day it is selected. So if massive
+changes need to be made after a year, then switching over to a well tested
+and QA'ed code base in order to avoid backport complexity hell becomes a no
+brainer decision. IOW, in the light of meltdown/spectre all effort
+should have been put into getting 4.14 and 4.9 fixed instead of diverting
+our very limited capcity to create monstrosities back to 2.6 variants.
+
+The upstream development model was changed to rolling releases over a
+decade ago after the 2.5 disaster to accomodate with the technology
+churn. It has been the right decision. Now we really should make the next
+step and switch upstream to a strict rolling 2 years LTS model instead of
+supporting the kernel necrophilia cult forever.
+
+I surely know that this will hurt the out of tree mess of vendors who fail
+to get their act together, but I've seen a lot of these out of tree kernels
+and getting security updates is the least of their worries. In fact many of
+them do not even follow the LTS releases in a timely and responsible way.
+
+Thanks,
+
+	tglx
