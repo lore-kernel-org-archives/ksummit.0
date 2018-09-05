@@ -1,23 +1,13 @@
-Return-Path: <leon@kernel.org>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4DAA1CF8
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 07:38:31 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D2B778B
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 07:38:30 +0000 (UTC)
-Date: Wed, 5 Sep 2018 10:38:26 +0300
-From: Leon Romanovsky <leon@kernel.org>
+Return-Path: <gregkh@linuxfoundation.org>
+Date: Wed, 5 Sep 2018 09:48:40 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
 To: Rodrigo Vivi <rodrigo.vivi@gmail.com>
-Message-ID: <20180905073826.GL2977@mtr-leonro.mtl.com>
+Message-ID: <20180905074840.GB29052@kroah.com>
 References: <CABVU7+vBVivOZ32aEokJ0y3=C2z0Ev12O3vSVfyTC9TDrBOr8A@mail.gmail.com>
 	<20180905042246.GA2977@mtr-leonro.mtl.com>
 	<CABVU7+u+F1CXAW48_XfhLy59BOTxAS-qa_pG4Xjkki=f4Rr9Kg@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="l0l+eSofNeLXHSnY"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <CABVU7+u+F1CXAW48_XfhLy59BOTxAS-qa_pG4Xjkki=f4Rr9Kg@mail.gmail.com>
 Cc: ksummit-discuss@lists.linuxfoundation.org
@@ -31,11 +21,6 @@ List-Post: <mailto:ksummit-discuss@lists.linuxfoundation.org>
 List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=help>
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
-
-
---l0l+eSofNeLXHSnY
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
 On Tue, Sep 04, 2018 at 09:49:13PM -0700, Rodrigo Vivi wrote:
 > On Tue, Sep 4, 2018 at 9:22 PM Leon Romanovsky <leon@kernel.org> wrote:
@@ -66,97 +51,42 @@ On Tue, Sep 04, 2018 at 09:49:13PM -0700, Rodrigo Vivi wrote:
 > >
 > > What is "embargo development"? Are you referring to US government
 > > restrictions or to anything else?
->
+> 
 > No. nothing to do with government.
 > Embargoed by company's temporary restrictions.
->
+> 
 > Sorry for not being clear here.
->
-> >
+
+Why do we care about something like this?  It sounds like it is an Intel
+issue in that they want to delay pushing stuff upstream.  Why does
+upstream care about this?
+
 > > Also can you please explain why should we know about internal Intel
 > > development flow?
->
+> 
 > First of all I don't believe that we are the only one that need to
-> keep this kind
-> of flow and i915 has a very active development and we are strongly
-> committed with
-> upstream development. Our golden rules for internal development is
-> upstream first, upstream always.
+> keep this kind of flow and i915 has a very active development and we
+> are strongly committed with upstream development. Our golden rules for
+> internal development is upstream first, upstream always.
 
-Good, indeed you are not alone in this attitude.
+Great!  So if this rule runs into opposition to people within your
+company, doesn't that sound like a meeting with those company members is
+the best solution?
 
-> So, maybe sharing some knowledge and lessons we learned on the past years
-> might be useful to someone else that might still struggle with closed source
-> style of development.
+> So, maybe sharing some knowledge and lessons we learned on the past
+> years might be useful to someone else that might still struggle with
+> closed source style of development.
 
-Honestly, I hardly can see how this topic fits "kernel summit" format,
-but maybe I'm wrong here.
+Ah, so you want to talk about how to change your process to work better
+with companies that don't like doing upstream-first work?  That sounds
+like a nice talk, but you need to make that a bit more clear here :)
 
->
-> Also we have some challenges on keeping everything updated and
-> ready for upstreaming at any moment. Maybe someone else has better tools
-> and better procedures than us, but we are just not aware because we
-> never talked.
+> Also we have some challenges on keeping everything updated and ready
+> for upstreaming at any moment.
 
-As the one who was involved in transforming Mellanox from closed-source
-company to be upstream-driven company, I can assure you that all changes
-are contained inside the company. They include change of responsibilities,
-organization restructure, legal, HR and many more. Those changes take
-a loooooot of time with enormous internal pushback.
+"any moment"?  Don't you know this ahead of time?  If not, that sounds
+like a company problem...
 
->
-> Ultimately there are some essential questions that I'd like to open to community
-> and ask for feedback and ideas. Some issues and gaps that cannot be solved, or
-> even come to a consensus on, internally.
->
-> But my hope is that we can keep that on the constructive space.
->
+thanks,
 
-First you need to raise your questions in this ML, but from the little I
-saw in this thread, you are struggling with business justification to
-reduce "embargo".
-
-Thanks
-
-> Thanks,
-> Rodrigo.
->
-> >
-> > Thanks
-> >
-> > >
-> > > Thanks in advance,
-> > > Rodrigo.
-> >
-> > > _______________________________________________
-> > > Ksummit-discuss mailing list
-> > > Ksummit-discuss@lists.linuxfoundation.org
-> > > https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
-> >
->
->
-> --
-> Rodrigo Vivi
-> Blog: http://blog.vivi.eng.br
-
---l0l+eSofNeLXHSnY
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIcBAEBAgAGBQJbj4fyAAoJEORje4g2clin9ngQAJqVhRRZ7oYAasHGccz1RSg1
-vkZUjXMfCJs+x+wQtSaFQohEU2p+dWSiyrVdRRiCredr7bfG1xzgD0cBSbIVS46f
-RZGklbY9MSL8tXwHm3wRIZ9gcrbGseI2TvOS6RLktDVSwLOPWRJjKyAtGFo0K9PQ
-ecdXJ1gM+yCqfFjBQb8NFg78anKyoAZdV26uiHVHVLMoZHyUNFERiV63HiT/G3Y9
-6vDIvXxCrr2DLV2oiwKgkgAVT871FRQ1X8lsR62e4Hw+q/G7b6/LzcHLKlcDNw7l
-2OVJKWN6I4TOeomOyuP0tEeJ3+yjFrKF+JoF0Krhr9ehKmQrjCkFOjIuT0FAMLxM
-4V2xNIOBt6hP6XNVb2k9mqyKCgAtAYASV9hpDQN5mXf9ybgZflR5959hs57NekZD
-E4heC9QMXWqweGhC1X7Oa5eGfTFxypbTnn1wDy/k9SUV6qIBrIUzohVsjQA8OGud
-VX/HWcOXSiTpwzvsO4D+nRFkIpj6rqSJmy+QH2+eC0SGt1R77xJFVtf9iEdzPlOK
-ap6OfyCQJC4fQCwYZeuJYdrF5aiWR0O5SHmuZoajcd0B6l4BW4KhjjD6OKvVZVzs
-SJAuuJgEpqyHVddGQEBWEA7hvCEPQ3i9CCgMWCt1OR4cW4behc6jP1Wa4LIzTrc3
-ydGydXgsCBV3I0e8UyjI
-=uqlB
------END PGP SIGNATURE-----
-
---l0l+eSofNeLXHSnY--
+greg k-h
