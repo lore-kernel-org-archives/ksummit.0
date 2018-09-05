@@ -1,29 +1,32 @@
-Return-Path: <rodrigo.vivi@gmail.com>
+Return-Path: <Alexander.Levin@microsoft.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2B30FC49
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E9E62C03
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 04:49:28 +0000 (UTC)
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
-	[209.85.221.53])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 85FFD8B
+	Wed,  5 Sep 2018 04:53:28 +0000 (UTC)
+Received: from NAM01-BY2-obe.outbound.protection.outlook.com
+	(mail-by2nam01on0115.outbound.protection.outlook.com [104.47.34.115])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5B8E48B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 04:49:27 +0000 (UTC)
-Received: by mail-wr1-f53.google.com with SMTP id v16-v6so6057168wro.11
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 04 Sep 2018 21:49:27 -0700 (PDT)
+	Wed,  5 Sep 2018 04:53:28 +0000 (UTC)
+From: Sasha Levin <Alexander.Levin@microsoft.com>
+To: Laura Abbott <labbott@redhat.com>
+Date: Wed, 5 Sep 2018 04:53:26 +0000
+Message-ID: <20180905045325.GG16300@sasha-vm>
+References: <5c9c41b2-14f9-41cc-ae85-be9721f37c86@redhat.com>
+	<20180904213340.GD16300@sasha-vm>
+	<60ed8d94-c793-9c51-5904-c4fd05bd065f@redhat.com>
+In-Reply-To: <60ed8d94-c793-9c51-5904-c4fd05bd065f@redhat.com>
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <7EF7E0E1A3B1F64BBB0E4E809243857C@namprd21.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-References: <CABVU7+vBVivOZ32aEokJ0y3=C2z0Ev12O3vSVfyTC9TDrBOr8A@mail.gmail.com>
-	<20180905042246.GA2977@mtr-leonro.mtl.com>
-In-Reply-To: <20180905042246.GA2977@mtr-leonro.mtl.com>
-From: Rodrigo Vivi <rodrigo.vivi@gmail.com>
-Date: Tue, 4 Sep 2018 21:49:13 -0700
-Message-ID: <CABVU7+u+F1CXAW48_XfhLy59BOTxAS-qa_pG4Xjkki=f4Rr9Kg@mail.gmail.com>
-To: leon@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Challenges in Upstream
- vs. Embargoed Development in Intel Graphics.
+Cc: Greg KH <gregkh@linuxfoundation.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Stable trees and release
+ time
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,82 +36,37 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Sep 4, 2018 at 9:22 PM Leon Romanovsky <leon@kernel.org> wrote:
+On Tue, Sep 04, 2018 at 02:58:42PM -0700, Laura Abbott wrote:
+>On 09/04/2018 02:33 PM, Sasha Levin wrote:
+>>Why not set your own release schedule and just take the latest stable
+>>kernel at that point? So what if the .Z+1 kernel is out a day later? You
+>>could just queue it up for your next release.
+>>
 >
-> On Tue, Sep 04, 2018 at 12:54:16PM -0700, Rodrigo Vivi wrote:
-> > Hi there,
-> >
-> > I've submitted a proposal for plumber's referred track. There, I want to
-> > talk
-> > about tools and challenges we have on embargo development vs upstream one
-> > and
-> > how to get focus on upstream first and upstream always mentality.
-> >
-> > The name of plumbers proposal talk is:
-> > "Unveiling Intel Graphics Internal Development"
-> >
-> > I'm not sure if the talk will get accepted, but anyway I'd like to have the
-> > chance to talk to other maintainers to exchange views on different ways of
-> > maintaining this kind of embargo development including challenges, tools,
-> > processes, and rules.
-> >
-> > So I'm interested in hallway tracks of Maintainer / Kernel Summit, or maybe
-> > a
-> > bof session if there's interest.
-> >
-> > Please let me know if there's interested or if further information and/or
-> > clarification is needed.
+>It's really rough on users to update that frequently. Fedora relies
+>on users to give feedback to let us know to push an update and on
+>older releases it can be hard to get feedback. We've sometimes had
+>issues where multiple stable issues get delayed because they haven't
+>gotten enough testing to be pushed. Admittedly that's a Fedora quirk
+>but it's still an issue that the short rc and release window is not
+>enough for many users to test and give feedback. When stable regressions
+>are introduced it's very difficult to guide users to bisect.
 >
-> What is "embargo development"? Are you referring to US government
-> restrictions or to anything else?
-
-No. nothing to do with government.
-Embargoed by company's temporary restrictions.
-
-Sorry for not being clear here.
-
+>>This is exactly what would happen if you ask Greg to go on some sort of
+>>a schedule - he'll just defer the .Z+1 commits to what would have been
+>>the .Z+2 release, so you don't really win anything by moving to a
+>>stricter schedule.
 >
-> Also can you please explain why should we know about internal Intel
-> development flow?
+>I'd actually be okay with that. I'd rather focus on testing a known
+>set of commits and getting those stable before pushing out.
 
-First of all I don't believe that we are the only one that need to
-keep this kind
-of flow and i915 has a very active development and we are strongly
-committed with
-upstream development. Our golden rules for internal development is
-upstream first, upstream always.
-So, maybe sharing some knowledge and lessons we learned on the past years
-might be useful to someone else that might still struggle with closed source
-style of development.
+My point is that Fedora can just skip a certain stable release if the
+timing is off. If Greg releases .Z+1 but you just started testing .Z
+just proceed with .Z and go with .Z+2 for your next release.
 
-Also we have some challenges on keeping everything updated and
-ready for upstreaming at any moment. Maybe someone else has better tools
-and better procedures than us, but we are just not aware because we
-never talked.
+The set of commits in .Z and .Z+2 would be exactly the same if Greg is
+asked to wait longer between releases.
 
-Ultimately there are some essential questions that I'd like to open to community
-and ask for feedback and ideas. Some issues and gaps that cannot be solved, or
-even come to a consensus on, internally.
-
-But my hope is that we can keep that on the constructive space.
-
+--
 Thanks,
-Rodrigo.
-
->
-> Thanks
->
-> >
-> > Thanks in advance,
-> > Rodrigo.
->
-> > _______________________________________________
-> > Ksummit-discuss mailing list
-> > Ksummit-discuss@lists.linuxfoundation.org
-> > https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
->
-
-
--- 
-Rodrigo Vivi
-Blog: http://blog.vivi.eng.br
+Sasha=
