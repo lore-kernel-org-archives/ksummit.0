@@ -1,30 +1,38 @@
-Return-Path: <labbott@redhat.com>
+Return-Path: <Alexander.Levin@microsoft.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id E1A35DD8
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0852F18FD
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 18:32:02 +0000 (UTC)
-Received: from mail-qt0-f170.google.com (mail-qt0-f170.google.com
-	[209.85.216.170])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 52252A8
+	Wed,  5 Sep 2018 19:09:10 +0000 (UTC)
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com
+	(mail-bl2nam02on0106.outbound.protection.outlook.com [104.47.38.106])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E668D7E0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 18:32:02 +0000 (UTC)
-Received: by mail-qt0-f170.google.com with SMTP id n6-v6so9275318qtl.4
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 05 Sep 2018 11:32:02 -0700 (PDT)
-To: Greg KH <gregkh@linuxfoundation.org>, Justin Forbes <jforbes@redhat.com>
-References: <5c9c41b2-14f9-41cc-ae85-be9721f37c86@redhat.com>
-	<CAFbkSA3Zjojhb4uUFrdpJUTSWz1V9RbG_EL83roQY3bzX80i-g@mail.gmail.com>
-	<20180905144233.GB15573@kroah.com>
-From: Laura Abbott <labbott@redhat.com>
-Message-ID: <d9beac12-ad3b-3ac6-12eb-b2294acee7ac@redhat.com>
-Date: Wed, 5 Sep 2018 11:31:58 -0700
-MIME-Version: 1.0
-In-Reply-To: <20180905144233.GB15573@kroah.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+	Wed,  5 Sep 2018 19:09:06 +0000 (UTC)
+From: Sasha Levin <Alexander.Levin@microsoft.com>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Wed, 5 Sep 2018 19:09:04 +0000
+Message-ID: <20180905190902.GU16300@sasha-vm>
+References: <nycvar.YFH.7.76.1809051029400.15880@cbobk.fhfr.pm>
+	<1536141525.8121.2.camel@HansenPartnership.com>
+	<20180905104700.GE9781@sirena.org.uk>
+	<6a25761a-c640-4eb2-952c-4bcd91da28a2@email.android.com>
+	<s5hefe8cd0u.wl-tiwai@suse.de>
+	<CAKMK7uFMHkw4jw3D6ijGNZF84+p+EGY_6YAdCOTcXe0DQbLC6g@mail.gmail.com>
+	<20180905140535.GB7556@kroah.com>
+	<CAKMK7uFMCL95mrvFQvxzjZhEk+QvkaYmZDRvp7PY6FgJTQnWzw@mail.gmail.com>
+	<20180905161859.GS16300@sasha-vm>
+	<CAKMK7uFf_Wv3eG18JQr9Pp5NTUiCHsxXEmKrB2EDzNdCizRR=g@mail.gmail.com>
+In-Reply-To: <CAKMK7uFf_Wv3eG18JQr9Pp5NTUiCHsxXEmKrB2EDzNdCizRR=g@mail.gmail.com>
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <6026E953D5ADF640A086D2AA910F1BED@namprd21.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Stable trees and release
  time
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -36,102 +44,288 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 09/05/2018 07:42 AM, Greg KH wrote:
-> On Tue, Sep 04, 2018 at 04:22:59PM -0500, Justin Forbes wrote:
->> On Tue, Sep 4, 2018 at 3:58 PM, Laura Abbott <labbott@redhat.com> wrote:
->>> I'd like to start a discussion about the stable release cycle.
+On Wed, Sep 05, 2018 at 06:26:17PM +0200, Daniel Vetter wrote:
+>On Wed, Sep 5, 2018 at 6:19 PM, Sasha Levin
+><Alexander.Levin@microsoft.com> wrote:
+>> On Wed, Sep 05, 2018 at 05:54:47PM +0200, Daniel Vetter wrote:
+>>>On Wed, Sep 5, 2018 at 4:05 PM, Greg KH <gregkh@linuxfoundation.org> wro=
+te:
+>>>> On Wed, Sep 05, 2018 at 03:27:58PM +0200, Daniel Vetter wrote:
+>>>>> On Wed, Sep 5, 2018 at 3:03 PM, Takashi Iwai <tiwai@suse.de> wrote:
+>>>>> > On Wed, 05 Sep 2018 14:24:18 +0200,
+>>>>> > James Bottomley wrote:
+>>>>> >>
+>>>>> >> On September 5, 2018 11:47:00 AM GMT+01:00, Mark Brown <broonie@ke=
+rnel.org> wrote:
+>>>>> >> >On Wed, Sep 05, 2018 at 10:58:45AM +0100, James Bottomley wrote:
+>>>>> >> >
+>>>>> >> >> This really shouldn't be an issue: stable trees are backported =
+from
+>>>>> >> >> upstream.  The patch (should) work in upstream, so it should wo=
+rk in
+>>>>> >> >> stable.  There are only a few real cases you need to worry abou=
+t:
+>>>>> >> >
+>>>>> >> >>    1. Buggy patch in upstream backported to stable. (will be ca=
+ught
+>>>>> >> >and
+>>>>> >> >>       the fix backported soon)
+>>>>> >> >>    2. Missing precursor causing issues in stable alone.
+>>>>> >> >>    3. Bug introduced when hand applying.
+>>>>> >> >
+>>>>> >> >> The chances of one of these happening is non-zero, but the crit=
+eria
+>>>>> >> >for
+>>>>> >> >> stable should mean its still better odds than the odds of hitti=
+ng the
+>>>>> >> >> bug it was fixing.
+>>>>> >> >
+>>>>> >> >Some of those are substantial enough to be worth worrying about,
+>>>>> >> >especially the missing precursor issues.  It's rarely an issue wi=
+th the
+>>>>> >> >human generated backports but the automated ones don't have a sen=
+se of
+>>>>> >> >context in the selection.
+>>>>> >> >
+>>>>> >> >There's also a risk/reward tradeoff to consider with more minor i=
+ssues,
+>>>>> >> >especially performance related ones.  We want people to be enthus=
+iastic
+>>>>> >> >about taking stable updates and every time they find a problem wi=
+th a
+>>>>> >> >backport that works against them doing that.
+>>>>> >>
+>>>>> >> I absolutely agree.  That's why I said our process is expediency
+>>>>> >> based:  you have to trade off the value of applying the patch vs t=
+he
+>>>>> >> probability of introducing bugs.  However the maintainers are most=
+ly
+>>>>> >> considering this which is why stable is largely free from trivial
+>>>>> >> but pointless patches.  The rule should be: if it doesn't fix a us=
+er
+>>>>> >> visible bug, it doesn't go into stable.
+>>>>> >
+>>>>> > Right, and here the current AUTOSEL (and some other not-stable-mark=
+ed)
+>>>>> > patches coming to a gray zone.  The picked-up patches are often rig=
+ht
+>>>>> > as "some" fixes, but they are not necessarily qualified as "stable
+>>>>> > fixes".
+>>>>> >
+>>>>> > How about allowing to change the choice of AUTOSEL to be opt-in and
+>>>>> > opt-out, depending on the tree?  In my case, usually the patches
+>>>>> > caught by AUTOSEL aren't really the patches with forgotten stable
+>>>>> > marker, but rather left intentionally by various reasons.  Most of
+>>>>> > them are fine to apply in anyway, but it was uncertain whether they
+>>>>> > are really needed / qualifying as stable fixes.  So, I'd be happy t=
+o
+>>>>> > see them as opt-in, i.e. applied only via manual approval.
+>>>>> >
+>>>>> > Meanwhile, some trees have no stable-maintenance, and AUTOSEL would
+>>>>> > help for them.  They can be opt-out, i.e. kept until someone reject=
+s.
+>>>>>
+>>>>> +1 on AUTOSEL opt-in. It's annyoing at best, when it backports cleanu=
+p
+>>>>> patches (because somehow those look like stealthy security fixes
+>>>>> sometimes) and breaks a bunch of people's boxes for no good reason.
+>>>>>
+>>>>> In general it'd be really good if -stable had a clearer audit path.
+>>>>> Every patch have a recorded reason why it's being applied (e.g. Cc:
+>>>>> stable in upstream, Link to the lkml thread/bug report, AUTOSEL mail,
+>>>>> whatever), so that after the fact I can figure out why a -stable patc=
+h
+>>>>> happend, that would be really great. Atm -stable occasionally blows
+>>>>> up, with a patch we didn't mark as cc: stable, and we have no idea
+>>>>> whyiit showed up in -stable even. That makes it really hard to do
+>>>>> better next time around.
+>>>>
+>>>> I try to keep the audit thread here, as I get asked all the time why
+>>>> stuff got added.
+>>>>
+>>>> Here's what I do, it's not exactly obvious, sorry:
+>>>>         - if it came from a stable@ tag, just leave it alone and add m=
+y
+>>>>           signed-off-by
+>>>>         - if it was manually requested by someone, I add a "cc:
+>>>>           requestor" to the signed-off-by area and add my s-o-b
 >>>
->>> Fedora is a heavy user of the most recent stable trees and we
->>> generally do a pretty good job of keeping up to date. As we
->>> try and increase testing though, the stable release process
->>> gets to be a bit difficult. We often run into the problem where
->>> release .Z is officially released and then .Z+1 comes
->>> out as an -rc immediately after. Given Fedora release processes,
->>> we haven't always finished testing .Z by the time .Z+1 comes
->>> out. What to do in this situation really depends on what's in
->>> .Z and .Z+1 and how stable we think things are. This usually
->>> works out fine but a) sometimes we guess wrong and should have
->>> tested .Z more b) we're only looking to increase testing.
+>>>Cc-stable-requested-by: would be more obvious. If you have, lkml
+>>>archive link with the bug report is even better.
 >>>
->>> What I'd like to see is stable updates that come on a regular
->>> schedule with a longer -rc interval, say Sunday with
->>> a one week -rc period. I understand that much of the current
->>> stable schedule is based on Greg's schedule. As a distro
->>> maintainer though, a regular release schedule with a longer
->>> testing window makes it much easier to plan and deliver something
->>> useful to our users. It's also a much easier sell for encouraging
->>> everyone to pick up every stable update if there's a known
->>> schedule. I also realize Greg is probably reading this with a very
->>> skeptical look on his face so I'd be interested to hear from
->>> other distro maintainers as well.
+>>>An additional quirk in drm is that we have committers, so normal Cc:
+>>>rules (author + committer + anyone already on Cc:) has a good chance
+>>>of leaving out maintainers. And generally committers don't care one
+>>>bit about some multi-year old LTS kernel, not their job ... You'll
+>>>never get any review from them.
 >>>
+>>>>         - if it came from Sasha's tree, Sasha's s-o-b is on it
+>>>
+>>>How do things end up in Sasha's tree? Is that just AUTOSEL, or also
+>>>other patches?
 >>
->> This has been a fairly recent problem. There was a roughly weekly
->> cadence for a very long time and that was pretty easy to work with.  I
->> know that some of these updates do fix embargoed security issues that
->> we don't find out are actual fixes until later, but frequently in
->> those cases, the fixes are pushed well before embargo lifts, and they
->> could be fit into a weekly cadence.  Personally I don't have a problem
->> with the 3 day rc period, but pushing 2 kernels a week can be a
->> problem for users. (skipping a stable update is also a problem for
->> users.)  What I would prefer is 1 stable update per week with an
->> exception for *serious* security issues, where serious would mean
->> either real end user impact or high profile lots of press users are
->> going to be wondering where a fix is.
-> 
-> Laura, thanks for bringing this up.  I'll try to respond here given that
-> Justin agrees with the issue of timing.
-> 
-> Honestly, this year has been a total shit-storm for stable due to the
-> whole security mess we have been dealing with.  The number of
-> totally-crazy-intrusive patches I have had to take is insane.  Combine
-> that with a total lack of regard for the security issues for some arches
-> (arm32 comes to mind), it's been a very rough year and I have been just
-> trying to keep on top of everything.
-> 
-> Because of these issues (and it wasn't just spectre/meltdown, we have
-> had other major fire drills in some subsystems), the release cycles have
-> been quick and contain a lot of patches, sorry about that.  But that is
-> reflected in Linus's tree as well, so maybe this is just the "new
-> normal" that we all need to get used to.
-> 
+>> Just autosel. Other patches take the regular way into Stable.
+>>
+>>>>         - if it came from David Miller's patchset, his s-o-b is on it.
+>>>
+>>>Ok, that's netdev and Dave knows what's he doing :-)
+>>>
+>>>> That should cover all types of patches currently going into the trees,
+>>>> right?
+>>>>
+>>>> So always, you can cc: everyone on the s-o-b area and get the people
+>>>> involved in the patch and someone involved in reviewing it for stable
+>>>> inclusion.
+>>>
+>>>Let's pick a concrete example:
+>>>
+>>>commit c81350c31d0d20661a0aa839b79182bcb0e7a45d
+>>>Author: Satendra Singh Thakur <satendra.t@samsung.com>
+>>>Date:   Thu May 3 11:19:32 2018 +0530
+>>>
+>>>    drm/atomic: Handling the case when setting old crtc for plane
+>>>
+>>>    [ Upstream commit fc2a69f3903dfd97cd47f593e642b47918c949df ]
+>>>
+>>>    In the func drm_atomic_set_crtc_for_plane, with the current code,
+>>>    if crtc of the plane_state and crtc passed as argument to the func
+>>>    are same, entire func will executed in vein.
+>>>    It will get state of crtc and clear and set the bits in plane_mask.
+>>>    All these steps are not required for same old crtc.
+>>>    Ideally, we should do nothing in this case, this patch handles the s=
+ame,
+>>>    and causes the program to return without doing anything in such scen=
+ario.
+>>>
+>>>    Signed-off-by: Satendra Singh Thakur <satendra.t@samsung.com>
+>>>    Cc: Madhur Verma <madhur.verma@samsung.com>
+>>>    Cc: Hemanshu Srivastava <hemanshu.s@samsung.com>
+>>>    Signed-off-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+>>>    Link: https://na01.safelinks.protection.outlook.com/?url=3Dhttps%3A%=
+2F%2Fpatchwork.freedesktop.org%2Fpatch%2Fmsgid%2F1525326572-25854-1-git-sen=
+d-email-satendra.t%40samsung.com&amp;data=3D02%7C01%7CAlexander.Levin%40mic=
+rosoft.com%7Cf2a367b80fd448c6387708d6134c4f76%7C72f988bf86f141af91ab2d7cd01=
+1db47%7C1%7C0%7C636717615809686536&amp;sdata=3DCGkkBSha3ZIuIQY%2Bz4lgAhBl5X=
+YrYYlqE3cT%2Fx7iAjI%3D&amp;reserved=3D0
+>>>    Signed-off-by: Sasha Levin <alexander.levin@microsoft.com>
+>>>    Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+>>>
+>>>Upstream patch doesn't have a cc: stable. I tried looking for it in my
+>>>mail archives (and it's a patch committed by myself, so I guess I'll
+>>>get cc'ed?), didn't find anything.
+>>
+>> I'm really not sure why you don't see the mail. Can you maybe see if it
+>> got filtered as spam?
+>
+>Nothing in spam either. Maybe gmail cleaned it out already.
+>
+>>>I have no idea why this got added at all. Looking at the discussion on
+>>>dri-devel, it's purely a cleanup for consistency with another
+>>>function. And it blew up :-/
+>>
+>> On the flip side, what about:
+>>
+>> commit 3fd34ac02ae8cc20d78e3aed2cf6e67f0ae109ea
+>> Author: Hang Yuan <hang.yuan@linux.intel.com>
+>> Date:   Mon Jul 23 20:15:46 2018 +0800
+>>
+>>     drm/i915/gvt: fix cleanup sequence in intel_gvt_clean_device
+>>
+>>     Create one vGPU and then unbind IGD device from i915 driver. The fol=
+lowing
+>>     oops will happen. This patch will free vgpu resource first and then =
+gvt
+>>     resource to remove these oops.
+>>
+>>     BUG: unable to handle kernel NULL pointer dereference at       00000=
+000000000a8
+>>       PGD 80000003c9d2c067 P4D 80000003c9d2c067 PUD 3c817c067 P      MD =
+0
+>>       Oops: 0002 [#1] SMP PTI
+>>       RIP: 0010:down_write+0x1b/0x40
+>>     Call Trace:
+>>       debugfs_remove_recursive+0x46/0x1a0
+>>       intel_gvt_debugfs_remove_vgpu+0x15/0x30 [i915]
+>>       intel_gvt_destroy_vgpu+0x2d/0xf0 [i915]
+>>       intel_vgpu_remove+0x2c/0x30 [kvmgt]
+>>       mdev_device_remove_ops+0x23/0x50 [mdev]
+>>       mdev_device_remove+0xdb/0x190 [mdev]
+>>       mdev_device_remove+0x190/0x190 [mdev]
+>>       device_for_each_child+0x47/0x90
+>>       mdev_unregister_device+0xd5/0x120 [mdev]
+>>       intel_gvt_clean_device+0x91/0x120 [i915]
+>>       i915_driver_unload+0x9d/0x120 [i915]
+>>       i915_pci_remove+0x15/0x20 [i915]
+>>       pci_device_remove+0x3b/0xc0
+>>       device_release_driver_internal+0x157/0x230
+>>       unbind_store+0xfc/0x150
+>>       kernfs_fop_write+0x10f/0x180
+>>       __vfs_write+0x36/0x180
+>>       ? common_file_perm+0x41/0x130
+>>       ? _cond_resched+0x16/0x40
+>>       vfs_write+0xb3/0x1a0
+>>       ksys_write+0x52/0xc0
+>>       do_syscall_64+0x55/0x100
+>>       entry_SYSCALL_64_after_hwframe+0x44/0xa9
+>>
+>>     BUG: unable to handle kernel NULL pointer dereference at 0      0000=
+00000000038
+>>       PGD 8000000405bce067 P4D 8000000405bce067 PUD 405bcd067 PM      D =
+0
+>>       Oops: 0000 [#1] SMP PTI
+>>       RIP: 0010:hrtimer_active+0x5/0x40
+>>     Call Trace:
+>>       hrtimer_try_to_cancel+0x25/0x120
+>>       ? tbs_sched_clean_vgpu+0x1f/0x50 [i915]
+>>       hrtimer_cancel+0x15/0x20
+>>       intel_gvt_destroy_vgpu+0x4c/0xf0 [i915]
+>>       intel_vgpu_remove+0x2c/0x30 [kvmgt]
+>>       mdev_device_remove_ops+0x23/0x50 [mdev]
+>>       mdev_device_remove+0xdb/0x190 [mdev]
+>>       ? mdev_device_remove+0x190/0x190 [mdev]
+>>       device_for_each_child+0x47/0x90
+>>       mdev_unregister_device+0xd5/0x120 [mdev]
+>>       intel_gvt_clean_device+0x89/0x120 [i915]
+>>       i915_driver_unload+0x9d/0x120 [i915]
+>>       i915_pci_remove+0x15/0x20 [i915]
+>>       pci_device_remove+0x3b/0xc0
+>>       device_release_driver_internal+0x157/0x230
+>>       unbind_store+0xfc/0x150
+>>       kernfs_fop_write+0x10f/0x180
+>>       __vfs_write+0x36/0x180
+>>       ? common_file_perm+0x41/0x130
+>>       ? _cond_resched+0x16/0x40
+>>       vfs_write+0xb3/0x1a0
+>>       ksys_write+0x52/0xc0
+>>       do_syscall_64+0x55/0x100
+>>       entry_SYSCALL_64_after_hwframe+0x44/0xa9
+>>
+>>     Fixes: bc7b0be316ae("drm/i915/gvt: Add basic debugfs infrastructure"=
+)
+>>     Fixes: afe04fbe6c52("drm/i915/gvt: create an idle vGPU")
+>>     Signed-off-by: Hang Yuan <hang.yuan@linux.intel.com>
+>>     Signed-off-by: Zhenyu Wang <zhenyuw@linux.intel.com>
+>>
+>> Which wasn't tagged for (and is not in any) stable trees?
+>
+>Not stable material, it fixes just a driver unload bug. That's for
+>developers only. Worst case you break some user's box for this, which
+>I don't think is cool. Since we're a 100% upstream driver team this
+>won't harm developers if it's not backported.
+>
+>Note that because of fbcon and other reasons, an rmmod i915 will fail.
+>You need to enable a bunch of CONFIG_EXPERT options (with scary texts
+>and stuff) and have a script from our test suite to be able to even
+>make this happen.
 
-While the specdown stuff was bad, I was seeing this pattern well
-before all that happened as well. I do agree this may be a new normal
-which is why I brought up the discussion topic.
+Hm, how does that work?
 
-> I could do a "one release a week" cycle, which I would _love_ but that
-> is not going to decrease the number of patches per release, it is only
-> going to make them large (patch rate stays the same, and increases, no
-> matter when I release)  So I had been thinking that to break the
-> releases up into a "here's a hundred or so patches" per release, was a
-> helpful thing to the reviewers.
-I'm really not that concerned with the number of patches going in.
-We'll be testing if there's 1 or 300 patches and trying to pick
-and choose tests also doesn't work. Stable updates that contain
-a headline making bug can be handled differently.
+On an Ubuntu 4.18 kernel I can remove i915 just by:
 
-> If this assumption is incorrect, yes, I can go to one-per-week, if
-> people agree that they can handle the large increase per release
-> properly.  Can you all do that?
-> 
-> Are we going to do a "patch tuesday" like our friends in Redmond now? :)
-> > Note, if we do pick a specific day-per-week, then anything outside of
-> that cycle will cause people to look _very_ close at the release.  I
-> don't know if that's a good thing or not, but be aware that it could
-> cause unintended side-affects.  Personally I think the fact that we are
-> _not_ regular is a good thing, no out-of-band information leakage
-> happens that way.
-> 
+root@jumpy:~# echo 1 > /sys/devices/pci0000\:00/0000\:00\:02.0/remove
+root@jumpy:~# sudo rmmod i915
 
-There's certainly trade offs to be made. A side-channel for our
-side-channel patches could be bad but most people who are seriously
-interested are looking already.
 
+--
 Thanks,
-Laura
-
-> thanks,
-> 
-> greg k-h
-> 
+Sasha=
