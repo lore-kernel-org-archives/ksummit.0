@@ -1,18 +1,18 @@
-Return-Path: <dmitry.torokhov@gmail.com>
+Return-Path: <SRS0=+gHD=LT=goodmis.org=rostedt@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id CB9CF1642
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7803116C2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 17:06:25 +0000 (UTC)
-Received: from mail-lj1-f194.google.com (mail-lj1-f194.google.com
-	[209.85.208.194])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 22A29A8
+	Wed,  5 Sep 2018 17:33:39 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E5DA27C6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 17:06:25 +0000 (UTC)
-Received: by mail-lj1-f194.google.com with SMTP id y17-v6so6869272ljy.8
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 05 Sep 2018 10:06:24 -0700 (PDT)
-MIME-Version: 1.0
+	Wed,  5 Sep 2018 17:33:38 +0000 (UTC)
+Date: Wed, 5 Sep 2018 13:33:36 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Message-ID: <20180905133336.0d2be162@gandalf.local.home>
+In-Reply-To: <1536165561.3627.15.camel@HansenPartnership.com>
 References: <5c9c41b2-14f9-41cc-ae85-be9721f37c86@redhat.com>
 	<20180904213340.GD16300@sasha-vm>
 	<nycvar.YFH.7.76.1809050838570.15880@cbobk.fhfr.pm>
@@ -23,16 +23,14 @@ References: <5c9c41b2-14f9-41cc-ae85-be9721f37c86@redhat.com>
 	<6a25761a-c640-4eb2-952c-4bcd91da28a2@email.android.com>
 	<nycvar.YFH.7.76.1809051437300.15880@cbobk.fhfr.pm>
 	<1536165561.3627.15.camel@HansenPartnership.com>
-In-Reply-To: <1536165561.3627.15.camel@HansenPartnership.com>
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Date: Wed, 5 Sep 2018 10:06:11 -0700
-Message-ID: <CAKdAkRRvFWWyayw4WXYfKwzSVBd4856xQLk3knCCLdu5FAcwQw@mail.gmail.com>
-To: James Bottomley <James.Bottomley@hansenpartnership.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	ksummit-discuss@lists.linuxfoundation.org
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Cc: Greg KH <gregkh@linuxfoundation.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Stable trees and release
-	time
+ time
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -42,84 +40,40 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Sep 5, 2018 at 9:39 AM James Bottomley
-<James.Bottomley@hansenpartnership.com> wrote:
->
-> On Wed, 2018-09-05 at 14:53 +0200, Jiri Kosina wrote:
-> > On Wed, 5 Sep 2018, James Bottomley wrote:
-> >
-> > > The rule should be: if it doesn't fix a user visible bug, it
-> > > doesn't go
-> > > into stable.
-> >
-> > So I just looked at the latest (and newest) stable 4.18.5. It
-> > contains 22
-> > patches:
-> >
-> >       $ grep "commit [a-f0-9]\+ upstream" ChangeLog-4.18.5
-> >           commit a13f085d111e90469faf2d9965eb39b11c114d7e upstream.
-> >           commit bed4ff1ed4d8f2ef5007c5c6ae1b29c5677a3632 upstream.
-> >           commit c463a158cb6c5d9a85b7d894cd4f8116e8bd6be0 upstream.
-> >           commit 1204e35bedf4e5015cda559ed8c84789a6dae24e upstream.
-> >           commit 281e878eab191cce4259abbbf1a0322e3adae02c upstream.
-> >           commit 3dbe97efe8bf450b183d6dee2305cbc032e6b8a4 upstream.
-> >           commit 91a2968e245d6ba616db37001fa1a043078b1a65 upstream.
-> >           commit 4ce6435820d1f1cc2c2788e232735eb244bcc8a3 upstream.
-> >           commit 9d64b539b738fc181442caab95f1f76d9bd58539 upstream.
-> >           commit d3252ace0bc652a1a244455556b6a549f969bf99 upstream.
-> >           commit 7797167ffde1f00446301cb22b37b7c03194cfaf upstream.
-> >           commit 3b885ac1dc35b87a39ee176a6c7e2af9c789d8b8 upstream.
-> >           commit ddf74e79a54070f277ae520722d3bab7f7a6c67a upstream.
-> >           commit de5372da605d3bca46e3102bab51b7e1c0e0a6f6 upstream.
-> >           commit 1a5d5e5d51e75a5bca67dadbcea8c841934b7b85 upstream.
-> >           commit 6d44acae1937b81cf8115ada8958e04f601f3f2e upstream.
-> >           commit c40a56a7818cfe735fc93a69e1875f8bba834483 upstream.
-> >           commit 6ea2738e0ca0e626c75202fb051c1e88d7a950fa upstream.
-> >           commit 9f515cdb411ef34f1aaf4c40bb0c932cf6db5de1 upstream.
-> >           commit 0d83432811f26871295a9bc24d3c387924da6071 upstream.
-> >           commit 36ecc1481dc8d8c52d43ba18c6b642c1d2fde789 upstream.
-> >           commit b748f2de4b2f578599f46c6000683a8da755bf68 upstream.
-> >
+On Wed, 05 Sep 2018 17:39:21 +0100
+James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
+
 > > Just randomly scrolling through those, I am wondering how at least
-> >
-> >       7797167ffde1f00446301cb22b37b7c03194cfaf
-> >       3b885ac1dc35b87a39ee176a6c7e2af9c789d8b8
-> >
+> >=20
+> > 	7797167ffde1f00446301cb22b37b7c03194cfaf
+> > 	3b885ac1dc35b87a39ee176a6c7e2af9c789d8b8
+> >=20
 > > made it past any stable tree acceptance criteria.
-> >
-> > They are memory ordering changes (so exactly area which is generally
+> >=20
+> > They are memory ordering changes (so exactly area which is generally=C2=
+=A0
 > > fragile by itself and the risk of regressions simply can't be
-> > completely ignored), yet they fix absolutely no functional issue.
-> >
+> > completely=C2=A0ignored), yet they fix absolutely no functional issue.
+> >=20
 > > In addition to that, they all exist upstream only for one single -rc,
-> > so the public testing exposure is also currently minimal.
-> >
+> > so=C2=A0the public testing exposure is also currently minimal.
+> >=20
 > > Yeah, I know I know, those are parisc, so noone cares anyway :P but
-> > that's really just the first randomly chosen kernel, with a small
-> > number of patches, and still 10% of them are something we'd not want
-> > to put into an enterprise distro kernel without a lot of
-> > justification and regression testing.
->
+> > that's=C2=A0really just the first randomly chosen kernel, with a small
+> > number of=C2=A0patches, and still 10% of them are something we'd not wa=
+nt
+> > to put into an=C2=A0enterprise distro kernel without a lot of
+> > justification and regression=C2=A0testing. =20
+>=20
 > [puts PA-RISC hat on]
->
+>=20
 > The maintainers believe these two patches will fix a persistent
 > segmentation fault problem that's blocking forward progress on the
 > debian parisc port.  So, given the parisc specificity of the patches
 > and the maintainer input, I very much think they fit the criteria.
 
-Should we try to add a blurb justifying why it was marked for stable
-in unobvious cases? I do believe that we often are trigger happy to
-mark changes for stable, especially changes that add support for new
-hardware, even though it might not be that well tested (guilty myself)
-or changes that introduce error handling that may be technically
-correct but will not actually fix any real user issues as errors never
-triggered in real life.
+But the change logs don't mention anything about that. The only thing
+the change logs talk about is that this has performance improvements.
+Was this info embargoed for some reason?
 
-Some of it comes from how easy it is for maintainer to tag a patch for
-stable as we apply it to our tree compared to the effort for sending
-it to stable at a later time.
-
-Thanks.
-
--- 
-Dmitry
+-- Steve
