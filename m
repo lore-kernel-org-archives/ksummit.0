@@ -1,48 +1,38 @@
-Return-Path: <paulmck@linux.vnet.ibm.com>
+Return-Path: <dmitry.torokhov@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2BF1C163D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id CB9CF1642
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 17:01:05 +0000 (UTC)
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
-	[148.163.158.5])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8835B7FF
+	Wed,  5 Sep 2018 17:06:25 +0000 (UTC)
+Received: from mail-lj1-f194.google.com (mail-lj1-f194.google.com
+	[209.85.208.194])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 22A29A8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 17:01:04 +0000 (UTC)
-Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
-	by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
-	w85Gj0hG137065 for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 5 Sep 2018 13:01:03 -0400
-Received: from e13.ny.us.ibm.com (e13.ny.us.ibm.com [129.33.205.203])
-	by mx0b-001b2d01.pphosted.com with ESMTP id 2majcq28wa-1
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+	Wed,  5 Sep 2018 17:06:25 +0000 (UTC)
+Received: by mail-lj1-f194.google.com with SMTP id y17-v6so6869272ljy.8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 05 Sep 2018 13:01:03 -0400
-Received: from localhost
-	by e13.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
-	Violators will be prosecuted
-	for <ksummit-discuss@lists.linuxfoundation.org> from
-	<paulmck@linux.vnet.ibm.com>; Wed, 5 Sep 2018 13:01:02 -0400
-Date: Wed, 5 Sep 2018 10:00:58 -0700
-From: "Paul E. McKenney" <paulmck@linux.vnet.ibm.com>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Reply-To: paulmck@linux.vnet.ibm.com
-References: <1536142432.8121.6.camel@HansenPartnership.com>
-	<20180905113715.GJ9781@sirena.org.uk>
-	<20180905150315.GA10819@linux.vnet.ibm.com>
-	<20180905115008.22e3d21f@gandalf.local.home>
-	<20180905162007.GO4225@linux.vnet.ibm.com>
-	<1536165914.3627.17.camel@HansenPartnership.com>
+	Wed, 05 Sep 2018 10:06:24 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <1536165914.3627.17.camel@HansenPartnership.com>
-Message-Id: <20180905170058.GU4225@linux.vnet.ibm.com>
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Distribution kernel
- bugzillas considered harmful
+References: <5c9c41b2-14f9-41cc-ae85-be9721f37c86@redhat.com>
+	<20180904213340.GD16300@sasha-vm>
+	<nycvar.YFH.7.76.1809050838570.15880@cbobk.fhfr.pm>
+	<20180905081658.GB24902@quack2.suse.cz>
+	<nycvar.YFH.7.76.1809051029400.15880@cbobk.fhfr.pm>
+	<1536141525.8121.2.camel@HansenPartnership.com>
+	<20180905104700.GE9781@sirena.org.uk>
+	<6a25761a-c640-4eb2-952c-4bcd91da28a2@email.android.com>
+	<nycvar.YFH.7.76.1809051437300.15880@cbobk.fhfr.pm>
+	<1536165561.3627.15.camel@HansenPartnership.com>
+In-Reply-To: <1536165561.3627.15.camel@HansenPartnership.com>
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Date: Wed, 5 Sep 2018 10:06:11 -0700
+Message-ID: <CAKdAkRRvFWWyayw4WXYfKwzSVBd4856xQLk3knCCLdu5FAcwQw@mail.gmail.com>
+To: James Bottomley <James.Bottomley@hansenpartnership.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Stable trees and release
+	time
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -52,47 +42,84 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Sep 05, 2018 at 05:45:14PM +0100, James Bottomley wrote:
-> On Wed, 2018-09-05 at 09:20 -0700, Paul E. McKenney wrote:
-> > On Wed, Sep 05, 2018 at 11:50:08AM -0400, Steven Rostedt wrote:
-> > > On Wed, 5 Sep 2018 08:03:15 -0700
-> > > "Paul E. McKenney" <paulmck@linux.vnet.ibm.com> wrote:
-> > > 
-> > > > I am one of those strange people who rebase in order to improve
-> > > > bisectability.  But one reason I can do that is that I have
-> > > > relatively
-> > > > few patches, and it gets harder the more patches I am
-> > > > carrying.  I suppose
-> > > > that someone (not me!) could rebase -stable to make it more
-> > > > bisectable,
-> > > 
-> > > How would rebasing it make stable more bisectable? Once you rebase,
-> > > you don't have a tree that use to work? Although I guess you may
-> > > find the commit that caused the problem better. But rebasing
-> > > creates a lot of other issues, I would not recommend rebasing
-> > > stable, as that would totally break the RT stable tree work flow.
-> > 
-> > Instead of leaving the buggy commit and the span where the bug
-> > exists, you rebase the fix into the original buggy fix.
-> 
-> We do this in SCSI as well, but only if the tree hasn't yet been
-> submitted to Linus.  The technical term is folding.  It's obviously
-> better to fix buggy commits that haven't gone upstream because it
-> improves bisectability.
+On Wed, Sep 5, 2018 at 9:39 AM James Bottomley
+<James.Bottomley@hansenpartnership.com> wrote:
+>
+> On Wed, 2018-09-05 at 14:53 +0200, Jiri Kosina wrote:
+> > On Wed, 5 Sep 2018, James Bottomley wrote:
+> >
+> > > The rule should be: if it doesn't fix a user visible bug, it
+> > > doesn't go
+> > > into stable.
+> >
+> > So I just looked at the latest (and newest) stable 4.18.5. It
+> > contains 22
+> > patches:
+> >
+> >       $ grep "commit [a-f0-9]\+ upstream" ChangeLog-4.18.5
+> >           commit a13f085d111e90469faf2d9965eb39b11c114d7e upstream.
+> >           commit bed4ff1ed4d8f2ef5007c5c6ae1b29c5677a3632 upstream.
+> >           commit c463a158cb6c5d9a85b7d894cd4f8116e8bd6be0 upstream.
+> >           commit 1204e35bedf4e5015cda559ed8c84789a6dae24e upstream.
+> >           commit 281e878eab191cce4259abbbf1a0322e3adae02c upstream.
+> >           commit 3dbe97efe8bf450b183d6dee2305cbc032e6b8a4 upstream.
+> >           commit 91a2968e245d6ba616db37001fa1a043078b1a65 upstream.
+> >           commit 4ce6435820d1f1cc2c2788e232735eb244bcc8a3 upstream.
+> >           commit 9d64b539b738fc181442caab95f1f76d9bd58539 upstream.
+> >           commit d3252ace0bc652a1a244455556b6a549f969bf99 upstream.
+> >           commit 7797167ffde1f00446301cb22b37b7c03194cfaf upstream.
+> >           commit 3b885ac1dc35b87a39ee176a6c7e2af9c789d8b8 upstream.
+> >           commit ddf74e79a54070f277ae520722d3bab7f7a6c67a upstream.
+> >           commit de5372da605d3bca46e3102bab51b7e1c0e0a6f6 upstream.
+> >           commit 1a5d5e5d51e75a5bca67dadbcea8c841934b7b85 upstream.
+> >           commit 6d44acae1937b81cf8115ada8958e04f601f3f2e upstream.
+> >           commit c40a56a7818cfe735fc93a69e1875f8bba834483 upstream.
+> >           commit 6ea2738e0ca0e626c75202fb051c1e88d7a950fa upstream.
+> >           commit 9f515cdb411ef34f1aaf4c40bb0c932cf6db5de1 upstream.
+> >           commit 0d83432811f26871295a9bc24d3c387924da6071 upstream.
+> >           commit 36ecc1481dc8d8c52d43ba18c6b642c1d2fde789 upstream.
+> >           commit b748f2de4b2f578599f46c6000683a8da755bf68 upstream.
+> >
+> > Just randomly scrolling through those, I am wondering how at least
+> >
+> >       7797167ffde1f00446301cb22b37b7c03194cfaf
+> >       3b885ac1dc35b87a39ee176a6c7e2af9c789d8b8
+> >
+> > made it past any stable tree acceptance criteria.
+> >
+> > They are memory ordering changes (so exactly area which is generally
+> > fragile by itself and the risk of regressions simply can't be
+> > completely ignored), yet they fix absolutely no functional issue.
+> >
+> > In addition to that, they all exist upstream only for one single -rc,
+> > so the public testing exposure is also currently minimal.
+> >
+> > Yeah, I know I know, those are parisc, so noone cares anyway :P but
+> > that's really just the first randomly chosen kernel, with a small
+> > number of patches, and still 10% of them are something we'd not want
+> > to put into an enterprise distro kernel without a lot of
+> > justification and regression testing.
+>
+> [puts PA-RISC hat on]
+>
+> The maintainers believe these two patches will fix a persistent
+> segmentation fault problem that's blocking forward progress on the
+> debian parisc port.  So, given the parisc specificity of the patches
+> and the maintainer input, I very much think they fit the criteria.
 
-So I am not the only one doing this.  ;-)
+Should we try to add a blurb justifying why it was marked for stable
+in unobvious cases? I do believe that we often are trigger happy to
+mark changes for stable, especially changes that add support for new
+hardware, even though it might not be that well tested (guilty myself)
+or changes that introduce error handling that may be technically
+correct but will not actually fix any real user issues as errors never
+triggered in real life.
 
-> > And I bet that rebasing -stable would cause no end of broken glass in
-> > a great many  projects.  ;-)
-> 
-> If others rely on your tree, rebasing is harder and must be done more
-> carefully and with co-ordination, but it's not impossible assuming you
-> have a problem big enough.  Again, it's an expediency based trade off.
+Some of it comes from how easy it is for maintainer to tag a patch for
+stable as we apply it to our tree compared to the effort for sending
+it to stable at a later time.
 
-I use date-coded branches to keep the old commits around.  I delete
-them periodically, but keep them around for at least six months, on the
-theory that if you are developing against a two-year old -rcu branch,
-you have bigger problems.  And you should have instead developed against
-a formal release anyway.
+Thanks.
 
-							Thanx, Paul
+-- 
+Dmitry
