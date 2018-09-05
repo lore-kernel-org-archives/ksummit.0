@@ -1,34 +1,32 @@
 Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8C01FD9B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A8170D4C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 10:47:06 +0000 (UTC)
+	Wed,  5 Sep 2018 11:14:01 +0000 (UTC)
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
 	[172.104.155.198])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 10F347A6
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 21B258B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 10:47:05 +0000 (UTC)
-Date: Wed, 5 Sep 2018 11:47:00 +0100
+	Wed,  5 Sep 2018 11:14:01 +0000 (UTC)
+Date: Wed, 5 Sep 2018 12:13:58 +0100
 From: Mark Brown <broonie@kernel.org>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Message-ID: <20180905104700.GE9781@sirena.org.uk>
-References: <5c9c41b2-14f9-41cc-ae85-be9721f37c86@redhat.com>
-	<20180904213340.GD16300@sasha-vm>
-	<nycvar.YFH.7.76.1809050838570.15880@cbobk.fhfr.pm>
-	<20180905081658.GB24902@quack2.suse.cz>
-	<nycvar.YFH.7.76.1809051029400.15880@cbobk.fhfr.pm>
-	<1536141525.8121.2.camel@HansenPartnership.com>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <20180905111358.GH9781@sirena.org.uk>
+References: <CABVU7+vBVivOZ32aEokJ0y3=C2z0Ev12O3vSVfyTC9TDrBOr8A@mail.gmail.com>
+	<20180905042246.GA2977@mtr-leonro.mtl.com>
+	<CABVU7+u+F1CXAW48_XfhLy59BOTxAS-qa_pG4Xjkki=f4Rr9Kg@mail.gmail.com>
+	<20180905074840.GB29052@kroah.com>
+	<CAKMK7uEJfgACdzLdfh+EeG-NFkr47Bn3PFWCEOPA+1D1=5J7kA@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="C+ts3FVlLX8+P6JN"
+	protocol="application/pgp-signature"; boundary="0qt3EE9wi45a2ZFX"
 Content-Disposition: inline
-In-Reply-To: <1536141525.8121.2.camel@HansenPartnership.com>
+In-Reply-To: <CAKMK7uEJfgACdzLdfh+EeG-NFkr47Bn3PFWCEOPA+1D1=5J7kA@mail.gmail.com>
 Cc: Greg KH <gregkh@linuxfoundation.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Stable trees and release
- time
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Challenges in Upstream
+ vs. Embargoed Development in Intel Graphics.
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,48 +37,42 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---C+ts3FVlLX8+P6JN
+--0qt3EE9wi45a2ZFX
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Wed, Sep 05, 2018 at 10:58:45AM +0100, James Bottomley wrote:
+On Wed, Sep 05, 2018 at 10:17:44AM +0200, Daniel Vetter wrote:
 
-> This really shouldn't be an issue: stable trees are backported from
-> upstream.  The patch (should) work in upstream, so it should work in
-> stable.  There are only a few real cases you need to worry about:
+> This was an invitation to exchange experience in how to best deal with
+> the fallout - I do actually know that this is not an intel-only issue
+> because I chatted with non-Intel people about how they deal with this.
 
->    1. Buggy patch in upstream backported to stable. (will be caught and
->       the fix backported soon)
->    2. Missing precursor causing issues in stable alone.
->    3. Bug introduced when hand applying.
+It's definitely not an Intel only problem, I know I worked with this
+when I was at a chip vendor and I know there are Linaro members with
+various approaches to this.
 
-> The chances of one of these happening is non-zero, but the criteria for
-> stable should mean its still better odds than the odds of hitting the
-> bug it was fixing.
+> And I thought that figuring out how to do better upstream-first is
+> very much within the scope of ks/lpc, hence why I suggested Rodrigo
+> brings this up as a talk proposal.
 
-Some of those are substantial enough to be worth worrying about,
-especially the missing precursor issues.  It's rarely an issue with the
-human generated backports but the automated ones don't have a sense of
-context in the selection.
+I agree that there's a valuable discussion to have.  So long as people
+are selling physical chips I don't think we can realistically tell
+people that they should just upstream everything immediately without
+regard for marketing, lead customer relationships and so on.
 
-There's also a risk/reward tradeoff to consider with more minor issues,
-especially performance related ones.  We want people to be enthusiastic
-about taking stable updates and every time they find a problem with a
-backport that works against them doing that.
-
---C+ts3FVlLX8+P6JN
+--0qt3EE9wi45a2ZFX
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAluPtCMACgkQJNaLcl1U
-h9BIXAf/XoGwrWj4LPS7z29pDESIzRKq1hSp8h9TE1lCi+1WzkEQmtghDiogXGhS
-z+/WF1NxuvUoyGMxUS3u3irYbsfKWt106pLtX21ln+SvrdUPVY2ACyppJrt+FkpJ
-gfkKN4CmJcz9ocD4zyrHy7dFBxvgKkqHZHwODIGzfpHITUacChE4cPFlJoLbMmmK
-TkndsT5mcoHXfd7qQT+3dTPjZ1wmcBkwd1Dtwys0zL/myPVflhRakAiQu1/hjCIs
-ARuT0dT5FnxUiDqgfIQjXVbuxH8BKOHNCzveRf9F5MPnk0WzmvvXNVjoNP2k4xHf
-rcVTP7/CfOX+ohah3qvjC/tbZ5r66w==
-=MpOj
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAluPunUACgkQJNaLcl1U
+h9CLXwf9EdW+9srEJQ01Bzu7GvjjK5ahN2/OreICqmgG3Zll2iHpntboMyhybmRq
+IbP/55VTui3BpZ4x80H73koLjNDLsORCPEABqvwIOPd8AJOOndB1jmtmWXWjjF/Y
+9n2ZRMuvZOlxHYndr4rqeX5CGHxDBUDFPfV/+7OJr24hmuThaIoCnHerwyUZe544
+6dDbrgaG1rMZSkf0LmXK8ib1EHdEuMaIj11+3RN7SBH/ZWa5g/IyJtRwWaIhXiDg
+4nIQAyydeSSvfo1qU9mHiTjO894PS57pmPqYzDS66HqhPO5n5EX6Yi1MfgF9QX46
+T5e0e/KLNVmvFu9ejjKo6SDkLTBvog==
+=l+LY
 -----END PGP SIGNATURE-----
 
---C+ts3FVlLX8+P6JN--
+--0qt3EE9wi45a2ZFX--
