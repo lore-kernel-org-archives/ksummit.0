@@ -1,22 +1,33 @@
-Return-Path: <gregkh@linuxfoundation.org>
-Date: Wed, 5 Sep 2018 11:33:49 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Message-ID: <20180905093349.GB1756@kroah.com>
-References: <5c9c41b2-14f9-41cc-ae85-be9721f37c86@redhat.com>
-	<20180904213340.GD16300@sasha-vm>
-	<nycvar.YFH.7.76.1809050838570.15880@cbobk.fhfr.pm>
-	<20180905081658.GB24902@quack2.suse.cz>
-	<nycvar.YFH.7.76.1809051029400.15880@cbobk.fhfr.pm>
-	<20180905085642.GA29931@kroah.com>
-	<CAMuHMdW_XhDddW3KdpK0k0i5VtP8DGO4OCYw4n6tcy3OhKJObQ@mail.gmail.com>
+Return-Path: <leon@kernel.org>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id F2B47D83
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed,  5 Sep 2018 09:34:10 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5F1652D5
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed,  5 Sep 2018 09:34:10 +0000 (UTC)
+Date: Wed, 5 Sep 2018 12:34:06 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <20180905093406.GO2977@mtr-leonro.mtl.com>
+References: <CABVU7+vBVivOZ32aEokJ0y3=C2z0Ev12O3vSVfyTC9TDrBOr8A@mail.gmail.com>
+	<20180905042246.GA2977@mtr-leonro.mtl.com>
+	<CABVU7+u+F1CXAW48_XfhLy59BOTxAS-qa_pG4Xjkki=f4Rr9Kg@mail.gmail.com>
+	<20180905074840.GB29052@kroah.com>
+	<CAKMK7uEJfgACdzLdfh+EeG-NFkr47Bn3PFWCEOPA+1D1=5J7kA@mail.gmail.com>
+	<20180905083120.GA28353@kroah.com>
+	<CAKMK7uHLACdr4vGexqO-oh+QrRqxq0_KyJdhnr_eAZy6ApwWUQ@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="/qIPZgKzMPM+y5U5"
 Content-Disposition: inline
-In-Reply-To: <CAMuHMdW_XhDddW3KdpK0k0i5VtP8DGO4OCYw4n6tcy3OhKJObQ@mail.gmail.com>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Stable trees and release
- time
+In-Reply-To: <CAKMK7uHLACdr4vGexqO-oh+QrRqxq0_KyJdhnr_eAZy6ApwWUQ@mail.gmail.com>
+Cc: Greg KH <gregkh@linuxfoundation.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Challenges in Upstream
+ vs. Embargoed Development in Intel Graphics.
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -26,45 +37,171 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Sep 05, 2018 at 11:13:01AM +0200, Geert Uytterhoeven wrote:
-> Hi Greg,
-> 
-> On Wed, Sep 5, 2018 at 10:56 AM Greg KH <gregkh@linuxfoundation.org> wrote:
-> > On Wed, Sep 05, 2018 at 10:32:45AM +0200, Jiri Kosina wrote:
-> > > But yeah, it's weak and doesn't solve the primary thing, which is just the
-> > > size of stable itself.
-> >
-> > I've held off on responding so far, but I think this is the big point of
-> > "fear" that many people seem to have with the stable updates over the
-> > past years.
-> >
-> > Yes, the "size" is bigger than before, but that is because of the
-> > following things:
-> 
-> [...]
-> 
-> > So yes, things are "bigger" than before, but still, overall, we are only
-> > accepting a small percentage of patches that hit Linus's tree (12
-> > patches a day for stable vs. 216 a day for Linus).
-> >
-> > Are you also worried that Linus's tree is getting "bigger"?  :)
-> >
-> > So we are larger than before, but this is a good thing, because we are
-> > actually catching more problems than we were before.  Which means your
-> > older kernels had more bugs...
-> >
-> > Anyway, just a comment in that you should not "fear" the increased size,
-> > it is to be expected as more people pay more attention to Linux,
-> > combined with the fact that we are still growing.  If the stable patches
-> > were shrinking, then I would get worried as that would imply that people
-> > don't care anymore.
-> 
-> So we're slowly evolving to the point where distros/companies/... can just
-> follow Linus' tree instead, and stable trees are no longer needed, except for
-> the last released point version (no-one wants to run plain rc1 or rc2) ;-)
 
-I would _love_ if if that were to start happening!
+--/qIPZgKzMPM+y5U5
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Seriously, I would...
+On Wed, Sep 05, 2018 at 11:00:12AM +0200, Daniel Vetter wrote:
+> On Wed, Sep 5, 2018 at 10:31 AM, Greg KH <gregkh@linuxfoundation.org> wrote:
+> > On Wed, Sep 05, 2018 at 10:17:44AM +0200, Daniel Vetter wrote:
+> >> On Wed, Sep 5, 2018 at 9:48 AM, Greg KH <gregkh@linuxfoundation.org> wrote:
+> >> > On Tue, Sep 04, 2018 at 09:49:13PM -0700, Rodrigo Vivi wrote:
+> >> >> On Tue, Sep 4, 2018 at 9:22 PM Leon Romanovsky <leon@kernel.org> wrote:
+> >> >> >
+> >> >> > On Tue, Sep 04, 2018 at 12:54:16PM -0700, Rodrigo Vivi wrote:
+> >> >> > > Hi there,
+> >> >> > >
+> >> >> > > I've submitted a proposal for plumber's referred track. There, I want to
+> >> >> > > talk
+> >> >> > > about tools and challenges we have on embargo development vs upstream one
+> >> >> > > and
+> >> >> > > how to get focus on upstream first and upstream always mentality.
+> >> >> > >
+> >> >> > > The name of plumbers proposal talk is:
+> >> >> > > "Unveiling Intel Graphics Internal Development"
+> >> >> > >
+> >> >> > > I'm not sure if the talk will get accepted, but anyway I'd like to have the
+> >> >> > > chance to talk to other maintainers to exchange views on different ways of
+> >> >> > > maintaining this kind of embargo development including challenges, tools,
+> >> >> > > processes, and rules.
+> >> >> > >
+> >> >> > > So I'm interested in hallway tracks of Maintainer / Kernel Summit, or maybe
+> >> >> > > a
+> >> >> > > bof session if there's interest.
+> >> >> > >
+> >> >> > > Please let me know if there's interested or if further information and/or
+> >> >> > > clarification is needed.
+> >> >> >
+> >> >> > What is "embargo development"? Are you referring to US government
+> >> >> > restrictions or to anything else?
+> >> >>
+> >> >> No. nothing to do with government.
+> >> >> Embargoed by company's temporary restrictions.
+> >> >>
+> >> >> Sorry for not being clear here.
+> >> >
+> >> > Why do we care about something like this?  It sounds like it is an Intel
+> >> > issue in that they want to delay pushing stuff upstream.  Why does
+> >> > upstream care about this?
+> >> >
+> >> >> > Also can you please explain why should we know about internal Intel
+> >> >> > development flow?
+> >> >>
+> >> >> First of all I don't believe that we are the only one that need to
+> >> >> keep this kind of flow and i915 has a very active development and we
+> >> >> are strongly committed with upstream development. Our golden rules for
+> >> >> internal development is upstream first, upstream always.
+> >> >
+> >> > Great!  So if this rule runs into opposition to people within your
+> >> > company, doesn't that sound like a meeting with those company members is
+> >> > the best solution?
+> >> >
+> >> >> So, maybe sharing some knowledge and lessons we learned on the past
+> >> >> years might be useful to someone else that might still struggle with
+> >> >> closed source style of development.
+> >> >
+> >> > Ah, so you want to talk about how to change your process to work better
+> >> > with companies that don't like doing upstream-first work?  That sounds
+> >> > like a nice talk, but you need to make that a bit more clear here :)
+> >> >
+> >> >> Also we have some challenges on keeping everything updated and ready
+> >> >> for upstreaming at any moment.
+> >> >
+> >> > "any moment"?  Don't you know this ahead of time?  If not, that sounds
+> >> > like a company problem...
+> >>
+> >> The only companies which do not have this problems (at least in the
+> >> graphics space) are those which don't care one bit about upstream at
+> >> all. So yes, all the problems we have (and everyone else I've talked
+> >> to in gfx) are dealing with are direct consequences of doing
+> >> upstream-first drivers for a proprietary piece of hardware developed
+> >> behind closed doors. And until we have exclusively open source IP
+> >> hardware this problem won't go away.
+> >
+> > Why are graphics companies "special" here somehow?  What about network
+> > driver companies (like Intel?)  CPU manufactures?  IB controller
+> > companies?  Any company really...
+>
+> I have no idea how this works outside of intel or graphics, I tend to
+> not chat with those people as much as I do with graphics people. Would
+> be interesting to know how it is outside of the graphics bubble
+> indeed.
+>
+> Looking just at what intel does, this is a problem everywhere.
+> Graphics is a bit worse, simply because our driver stack moves faster
+> and is bigger (our driver is bigger than most kernel subsystems in
+> their entirety). So we have slightly more fancy tooling and process to
+> handle things. But the problem is the exact same thing for all hw
+> teams here at Intel. Extrapolating from what I know I'd be surprised
+> if this isn't a problem everywhere.
+>
+> Note that the simplest solution here is to forget about upstream and
+> ship on LTS kernels only. Avoids all the pain we have. And that's what
+> pretty much everyone in the SoC/gfx space is actually doing, outside
+> of very few exceptions like AMD&Intel. Most of the SoC drivers you see
+> are reverse-engineered, so naturally they don't have to deal with
+> pre-production hw fun simply because they can't even get at the hw
+> this early in the cycle.
+>
+> >> This was an invitation to exchange experience in how to best deal with
+> >> the fallout - I do actually know that this is not an intel-only issue
+> >> because I chatted with non-Intel people about how they deal with this.
+> >> And I thought that figuring out how to do better upstream-first is
+> >> very much within the scope of ks/lpc, hence why I suggested Rodrigo
+> >> brings this up as a talk proposal.
+> >
+> > Ok, a "Here is how we work with pre-release hardware and upstream" type
+> > of talk, giving suggestions for how to deal with this at a company level
+> > would be a nice proposal.  But that was a bit hard to tease out of the
+> > original submission here :)
+>
+> Yeah Rodrigo's text maybe had a bit much intel-lingo in it, without
+> more context to explain. Still, I found it a bit suprising that you
+> assume a submission from the maintainers of one of the most aggressive
+> upstream-first driver teams would have no idea how to do upstream
+> development and therefore it must be their self-inflicted pain for not
+> doing the right thing ...
 
-greg "please put me out of a job" k-h
+Daniel,
+
+Sorry but it is how it is sound from the original proposal. Can you or
+Rodrigo share your pain points?
+
+In case this topic will be accepted, I would like to participate too and
+share our experience with dealing with upstream-first methodology.
+
+Thanks
+
+>
+> Thanks, Daniel
+> --
+> Daniel Vetter
+> Software Engineer, Intel Corporation
+> +41 (0) 79 365 57 48 - http://blog.ffwll.ch
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+
+--/qIPZgKzMPM+y5U5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAEBAgAGBQJbj6MOAAoJEORje4g2clin+6AP/2Qx1aXQ/0YSxZF6hurWNiBa
+Y9m9xgHNdFtvfqEmi/fgeFf/3JHaMDG7dfBqTejqBdgEKFvZAAyT3VR58LNhQeJr
+lQk6Xdihq5gkuYDBfHlUUXAoxE66/xlGOVl4F8FBArxn2YKKd6qk7Xhe+fO0Iyce
+Q8QLsNfvbqQAUN6zniM+rDcDZy7McpYjVp6xji9QG7knpIIxpP3m94hY/ezHDluq
+mBd0LIIAx1OPwqaKyibQlQVVpXXUqtPz3qcLR6w2H5ZTz0PG0YBEEDtYHpeox/Pc
+UFfDcjMpcCbv/Jn4B9KCBJ4BAOcdkx54kFaL3zQ6qIzcCgKoZ94SM+xUchbslWwj
+qpZJll14zjzMUHad5QunP29LqUiWsNoyp2KN6VsdkXBvCGlo3VbzdJNGqnW8cq1h
+SO12jhit/GaZzsuVJRf0Z1D+FelUxO6brHfke7BavLBRWW1fiZsQGkbjDD07QGsg
+cT99AQuhEmfp7+ep7DJKQSKJ79kSj39RzeY6ZFtA2JaS+F/jh4W69g2f4TspLyWm
+u3ZS2mumGpH4VLiyKiq2hZeCi9BHIH1Tw5KkKXFpEyWlJqT//dPdFThIdwvD1Bsf
+N3cqBICPILDlxzWdK8b2mfXlRwPrA0jHlSRB5nfTiM+i7vR+pFJnnwNpHilwQKy9
+WnlAQhkZyaERLCzah+VI
+=eKkJ
+-----END PGP SIGNATURE-----
+
+--/qIPZgKzMPM+y5U5--
