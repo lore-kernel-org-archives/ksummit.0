@@ -1,31 +1,32 @@
-Return-Path: <SRS0=+gHD=LT=goodmis.org=rostedt@kernel.org>
+Return-Path: <tglx@linutronix.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id EFBA9CBD
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0AC861486
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 15:18:52 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id EB4FD7A6
+	Wed,  5 Sep 2018 15:20:06 +0000 (UTC)
+Received: from Galois.linutronix.de (Galois.linutronix.de [146.0.238.70])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9F20D7C3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 15:18:51 +0000 (UTC)
-Date: Wed, 5 Sep 2018 11:18:49 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Thomas Gleixner <tglx@linutronix.de>
-Message-ID: <20180905111849.1d08653c@gandalf.local.home>
-In-Reply-To: <alpine.DEB.2.21.1809051603100.1416@nanos.tec.linutronix.de>
-References: <5c9c41b2-14f9-41cc-ae85-be9721f37c86@redhat.com>
-	<20180904213340.GD16300@sasha-vm>
-	<nycvar.YFH.7.76.1809050838570.15880@cbobk.fhfr.pm>
-	<20180905081658.GB24902@quack2.suse.cz>
-	<alpine.DEB.2.21.1809051108220.1416@nanos.tec.linutronix.de>
-	<nycvar.YFH.7.76.1809051246380.15880@cbobk.fhfr.pm>
-	<alpine.DEB.2.21.1809051603100.1416@nanos.tec.linutronix.de>
+	Wed,  5 Sep 2018 15:20:05 +0000 (UTC)
+Date: Wed, 5 Sep 2018 17:19:59 +0200 (CEST)
+From: Thomas Gleixner <tglx@linutronix.de>
+To: Sasha Levin <Alexander.Levin@microsoft.com>
+In-Reply-To: <20180905145413.GL16300@sasha-vm>
+Message-ID: <alpine.DEB.2.21.1809051717460.1416@nanos.tec.linutronix.de>
+References: <20180905081658.GB24902@quack2.suse.cz>
+	<nycvar.YFH.7.76.1809051029400.15880@cbobk.fhfr.pm>
+	<1536141525.8121.2.camel@HansenPartnership.com>
+	<20180905104700.GE9781@sirena.org.uk>
+	<6a25761a-c640-4eb2-952c-4bcd91da28a2@email.android.com>
+	<s5hefe8cd0u.wl-tiwai@suse.de> <20180905142038.GI16300@sasha-vm>
+	<s5h1sa8c8z7.wl-tiwai@suse.de> <20180905144155.GK16300@sasha-vm>
+	<s5hy3cgatod.wl-tiwai@suse.de> <20180905145413.GL16300@sasha-vm>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: Greg KH <gregkh@linuxfoundation.org>,
+Cc: James Bottomley <James.Bottomley@Hansenpartnership.com>,
 	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Greg KH <gregkh@linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Stable trees and release
  time
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -37,50 +38,23 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 5 Sep 2018 16:41:50 +0200 (CEST)
-Thomas Gleixner <tglx@linutronix.de> wrote:
-
-> Yeah, I've heard that song over and over. Of course you can't undo the
-> mistakes of the past, but the shades of meltdown & co. should give all
-> vendors enough ammunition to start serious negotiations with their
-> customers.
-
-Perhaps that's the most distros can do.
-
+On Wed, 5 Sep 2018, Sasha Levin via Ksummit-discuss wrote:
+> On Wed, Sep 05, 2018 at 04:46:26PM +0200, Takashi Iwai wrote:
+> >On Wed, 05 Sep 2018 16:41:56 +0200,
+> >Sasha Levin wrote:
+> >> So right now I'm lagging a few weeks behind upstream. If I limit it to
+> >> patches that are at least 1 month old will that help with your concerns?
+> >
+> >A few weeks after rc-release or the final release?
+> >If it's the latter, that should be fine.
 > 
-> > Such contracts are usually set up in a way that only very specific fixes 
-> > can be requested for said kernels. We've historically put our bets on the 
-> > fact that we'll be able to provide those rare fixes even for 2.6, and it 
-> > worked well.
-> > Now we're paying back a bit of course (because spectre/meltdown of course 
-> > qualifies), but upstream can completely and happily ignore that.  
-> 
-> Hell, no. It affects upstream very much because the whole dead kernel
-> rituals consume a massive amount of brain power.
-> 
-> These backports are not done by random code monkeys, they waste the scarse
-> time of top notch developers and maintainers. This time is not available
-> for concentrating on upstream and a very restricted set of LTS kernels,
-> which would benefit everybody, including distros and their customers.
-> 
-> I very well know how many developers and maintainers are trainwrecked and
-> frustrated by that. Not to talk about the massive backlog this creates,
-> which hurts everyone again.
-> 
-> So no, we cannot shrug it off and happily ignore it. We have to tell
-> distros over and over that they are doing a massive damage.
+> A few weeks after a given patch was merged upstream. The tricky part is
+> if I wait a month from final release then the relevant stable tree is
+> already EOL.
 
-It's not the distros that need convincing, it's the vendors that pay to
-have it done. When I first started at Red Hat and was told about the
-"Stable Kernel ABI", the person telling me about this (a very
-established kernel developer) also said "Yeah it really sucks, but
-companies are willing to pay a shite load of money to have it done". And
-it's in the distros best interest to get that shite load of money. It
-also funds the same developers to do this work, and hopefully continue
-to help upstream as well.
+If the thing is close to EOL then it wont get the next fix or worse the fix
+for the subtly broken one either. It really does not matter at all.
 
-If we remove that nasty work, these companies wont need to continue
-paying that shite load anymore, and they may not be able to afford
-paying these talented developers.
+Thanks,
 
--- Steve
+	tglx
