@@ -1,40 +1,38 @@
-Return-Path: <Alexander.Levin@microsoft.com>
+Return-Path: <seanpaul@chromium.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5314A10A5
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 23A9A106D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 14:06:20 +0000 (UTC)
-Received: from NAM01-BN3-obe.outbound.protection.outlook.com
-	(mail-bn3nam01on0119.outbound.protection.outlook.com [104.47.33.119])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9307F786
+	Wed,  5 Sep 2018 14:08:41 +0000 (UTC)
+Received: from mail-ed1-f67.google.com (mail-ed1-f67.google.com
+	[209.85.208.67])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 861D5713
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 14:06:19 +0000 (UTC)
-From: Sasha Levin <Alexander.Levin@microsoft.com>
-To: Jiri Kosina <jikos@kernel.org>
-Date: Wed, 5 Sep 2018 14:06:16 +0000
-Message-ID: <20180905140615.GH16300@sasha-vm>
-References: <20180904213340.GD16300@sasha-vm>
-	<nycvar.YFH.7.76.1809050838570.15880@cbobk.fhfr.pm>
-	<20180905081658.GB24902@quack2.suse.cz>
-	<nycvar.YFH.7.76.1809051029400.15880@cbobk.fhfr.pm>
-	<1536141525.8121.2.camel@HansenPartnership.com>
-	<20180905104700.GE9781@sirena.org.uk>
-	<6a25761a-c640-4eb2-952c-4bcd91da28a2@email.android.com>
-	<nycvar.YFH.7.76.1809051437300.15880@cbobk.fhfr.pm>
-	<20180905130512.GA5601@kroah.com>
-	<nycvar.YFH.7.76.1809051509100.15880@cbobk.fhfr.pm>
-In-Reply-To: <nycvar.YFH.7.76.1809051509100.15880@cbobk.fhfr.pm>
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <CB56963A7C0B8843860A925493155DC7@namprd21.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+	Wed,  5 Sep 2018 14:08:40 +0000 (UTC)
+Received: by mail-ed1-f67.google.com with SMTP id s10-v6so6168427edb.11
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 05 Sep 2018 07:08:40 -0700 (PDT)
+Received: from mail-wm0-f46.google.com (mail-wm0-f46.google.com.
+	[74.125.82.46]) by smtp.gmail.com with ESMTPSA id
+	h34-v6sm1269487eda.58.2018.09.05.07.08.37
+	for <ksummit-discuss@lists.linuxfoundation.org>
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Wed, 05 Sep 2018 07:08:38 -0700 (PDT)
+Received: by mail-wm0-f46.google.com with SMTP id n11-v6so7873289wmc.2
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 05 Sep 2018 07:08:37 -0700 (PDT)
 MIME-Version: 1.0
-Cc: James Bottomley <James.Bottomley@Hansenpartnership.com>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Stable trees and release
- time
+References: <s5hbm9ccbie.wl-tiwai@suse.de>
+	<20180905135528.ase6evcv7rlwufyr@mwanda>
+In-Reply-To: <20180905135528.ase6evcv7rlwufyr@mwanda>
+From: Sean Paul <seanpaul@chromium.org>
+Date: Wed, 5 Sep 2018 10:08:00 -0400
+Message-ID: <CAOw6vbKa+85J0gDbh0Fj3GYQFcDma_qPPYjSUKxYvjmHvO3a5A@mail.gmail.com>
+To: Dan Carpenter <dan.carpenter@oracle.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] How can we treat staging
+ drivers better?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -44,48 +42,60 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Sep 05, 2018 at 03:15:25PM +0200, Jiri Kosina wrote:
->On Wed, 5 Sep 2018, Greg KH wrote:
+On Wed, Sep 5, 2018 at 9:56 AM Dan Carpenter <dan.carpenter@oracle.com> wrote:
 >
->> For these specific ones, I trusted that the maintainer of the subsystem
->> knew what they were doing when they marked them for the stable tree.
+> On Wed, Sep 05, 2018 at 03:35:53PM +0200, Takashi Iwai wrote:
+> > The staging driver is a wonderful process to promote the downstream
+> > code to the upstream, but I have doubt whether it's working really as
+> > expected for now.
+> >
+> > - Often the drivers live forever in staging although they should have
+> >   been moved to the upper, properly maintained, subsystems.
 >
->And do you honestly think they should be marked for stable tree in the
->first place?
-
-If you can't trust a maintainer's judgement about his very own subsystem
-then you're shit out of luck. In this scenario Greg's opinion weighs
-less (IMO) than the maintainer, so if Greg was asked to include them
-then there better be a solid reason to challange that request.
-
->> Which is what we do in kernel development, we trust others that their
->> stewardship of their code subsystems is in the best interest of their
->> users.
+> The only one that comes to mind is comedi.  I think those guys know that
+> everyone is fine with them moving the code.
 >
->Sure, I wholeheartedly agree. For Linus' tree, all the web of trust is
->there so that changes can be propagated up the maintainership structure,
->and we trust the maintainers and developers that they did all the
->development and testing as well as they possibly could, and that eventual
->bugs in the code will be responsibly fixed.
+> Do you have another example?
 >
->For stable, there is another aspect that needs to be trusted -- that the
->relevance for stable has been properly considered, so that we ideally
->avoid the need for "eventual bugs will be fixed" much more pro-actively
->than in Linus' tree (that's "stable", right?).
+
+The android stuff has been in a constant state of almost graduating
+for a while now.
+
+> >
+> > - Code changes in staging are mostly only scratching surfaces, minor
+> >   code style cleanups, etc, what checkpatch suggests.
 >
->And I think we simply could improve there (well, again, this all very much
->depends on the target audience I guess).
+> That's probably true for the wireless drivers because converting them
+> to use mac80211 is complicated.  The other drivers seem to be doing
+> better.
 >
->*Especially* with the automatic selection thing -- who exactly is the
->entity you trust there?
 
-Me!
+We have the same problem in drm. There have been a few subsystem
+refactors that have missed updating drivers in staging. It's also
+trickier to coordinate refactors across drm/staging trees. As such, we
+have been trying to dissuade people from using staging for drm.
 
-Greg can (and does) criticize/yell/flame me and I will address his and
-any other reviewer concerns. I go through every patch that gets
-selected by the engine and sent upstream.
+> >
+> > - There are little communications with the corresponding subsystem;
+> >   already a few times I was surprised by casually finding a staging
+> >   driver code by grepping for preparing API changes.
+>
+> Which ones are you interested in?  I'd always prefer to hand off staging
+> drivers to an existing subsystem but it's not always clear who that
+> should be.
 
+In the case of vboxvideo, we won't accept it in drm since it's not an
+atomic driver. staging's bar for entry was lower, so the driver was
+stuck in there. Perhaps we would have been better to take it in drm
+behind a config, but that's not ideal either.
 
---
-Thanks,
-Sasha=
+Sean
+
+>
+> regards,
+> dan carpenter
+>
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
