@@ -1,39 +1,44 @@
-Return-Path: <Alexander.Levin@microsoft.com>
+Return-Path: <paulmck@linux.vnet.ibm.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3DAD0135F
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 32FD01404
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 15:00:49 +0000 (UTC)
-Received: from NAM03-CO1-obe.outbound.protection.outlook.com
-	(mail-co1nam03on0113.outbound.protection.outlook.com [104.47.40.113])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 87D1B7F3
+	Wed,  5 Sep 2018 15:03:23 +0000 (UTC)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+	[148.163.156.1])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DA4A57E7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 15:00:48 +0000 (UTC)
-From: Sasha Levin <Alexander.Levin@microsoft.com>
+	Wed,  5 Sep 2018 15:03:22 +0000 (UTC)
+Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+	w85Ewpgu077408 for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 5 Sep 2018 11:03:22 -0400
+Received: from e15.ny.us.ibm.com (e15.ny.us.ibm.com [129.33.205.205])
+	by mx0a-001b2d01.pphosted.com with ESMTP id 2magp9tbn3-1
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 05 Sep 2018 11:03:21 -0400
+Received: from localhost
+	by e15.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+	Violators will be prosecuted
+	for <ksummit-discuss@lists.linuxfoundation.org> from
+	<paulmck@linux.vnet.ibm.com>; Wed, 5 Sep 2018 11:03:20 -0400
+Date: Wed, 5 Sep 2018 08:03:15 -0700
+From: "Paul E. McKenney" <paulmck@linux.vnet.ibm.com>
 To: Mark Brown <broonie@kernel.org>
-Date: Wed, 5 Sep 2018 15:00:46 +0000
-Message-ID: <20180905150045.GM16300@sasha-vm>
-References: <20180904213340.GD16300@sasha-vm>
-	<nycvar.YFH.7.76.1809050838570.15880@cbobk.fhfr.pm>
-	<20180905081658.GB24902@quack2.suse.cz>
-	<nycvar.YFH.7.76.1809051029400.15880@cbobk.fhfr.pm>
-	<1536141525.8121.2.camel@HansenPartnership.com>
-	<20180905104700.GE9781@sirena.org.uk>
-	<6a25761a-c640-4eb2-952c-4bcd91da28a2@email.android.com>
-	<20180905131643.GM9781@sirena.org.uk> <20180905142728.GJ16300@sasha-vm>
-	<20180905145029.GQ9781@sirena.org.uk>
-In-Reply-To: <20180905145029.GQ9781@sirena.org.uk>
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <1E4EC4A07888B845842C4D0AFFCEC110@namprd21.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+Reply-To: paulmck@linux.vnet.ibm.com
+References: <1536142432.8121.6.camel@HansenPartnership.com>
+	<20180905113715.GJ9781@sirena.org.uk>
 MIME-Version: 1.0
-Cc: James Bottomley <James.Bottomley@Hansenpartnership.com>,
-	Greg KH <gregkh@linuxfoundation.org>,
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20180905113715.GJ9781@sirena.org.uk>
+Message-Id: <20180905150315.GA10819@linux.vnet.ibm.com>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Stable trees and release
- time
+Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Distribution kernel
+ bugzillas considered harmful
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -43,36 +48,34 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Sep 05, 2018 at 03:50:29PM +0100, Mark Brown wrote:
->On Wed, Sep 05, 2018 at 02:27:29PM +0000, Sasha Levin wrote:
->> On Wed, Sep 05, 2018 at 02:16:43PM +0100, Mark Brown wrote:
->
->> >It's not just maintainers any more - in particular we've got Sasha's
->> >neural net thing picking patches as well and it's substantially more
->> >trigger happy than at least I am.  People do get a chance to review wha=
-t
->> >it's picking but that's different to maintainers picking things.
->
->> What can I do to make the process better?
->
->> I tried giving longer review periods, I tried sending emails right when
->> the patch is merged upstream instead of weeks later and I tried actively
->> pursuing some maintainers for explicit Acks. None of which seemed to
->> make anyone happier.
->
->Honestly the whole thing just gives me a bit of anxiety.  I'd say most
->of the patches my thinking is "it's *probably* fine" and it's rare for
->me to think "Oh, I missed that important patch!".  As you know I do
->sometimes actively push back on things.  On balance it mostly doesn't
->break things though and I'm not sure what can be improved process wise
->here, a lot of it is fundamentally that if I thought it was clearly good
->for stable I'd have flagged it already.
+On Wed, Sep 05, 2018 at 12:37:15PM +0100, Mark Brown wrote:
+> On Wed, Sep 05, 2018 at 11:13:52AM +0100, James Bottomley wrote:
+> 
+> > The first suggestion is that kernel builds are pretty much automated
+> > and we try to make every commit buildable, so could we automate the
+> > machinery that allows a customer to do bisection simply by installing a
+> > kernel package? (we here, obviously means the distro, but going from
+> > git bisect to kernel package would be the useful link).
+> 
+> Improving bisectability would obviously help with other testing efforts
+> too - we have existing users, Guillaume Tucker implemented automated
+> bisection support in KernelCI which is incredibly useful providing one
+> can actually bisect.  Right now it works pretty well a lot of the time
+> but there are cases where it gets messy, especially when you add boot
+> issues onto the buildability ones.
 
-Indeed. Some maintainers do a better job than others with tagging things
-for Stable, so to them it seems like AUTOSEL patches are just noise, but
-for other maintainers they basically do all the job for them.
+I am one of those strange people who rebase in order to improve
+bisectability.  But one reason I can do that is that I have relatively
+few patches, and it gets harder the more patches I am carrying.  I suppose
+that someone (not me!) could rebase -stable to make it more bisectable,
+but that sounds difficult, painful, and error-prone.  Could added tooling
+make bisection work better?  Sounds valuable, but non-trivial.
 
+In some of my bisection efforts, I have had to apply fix patches to
+fix various unrelated bugs.  I suppose that this could be automated,
+for example by tracking which fix-patches are needed at which potential
+bisection points, though this sounds like a large effort.  Of course,
+automated backporting of patches would make it easier, and much else
+easier as well.  ;-)
 
---
-Thanks,
-Sasha=
+							Thanx, Paul
