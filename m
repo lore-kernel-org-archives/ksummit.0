@@ -1,31 +1,31 @@
-Return-Path: <daniel.vetter@ffwll.ch>
+Return-Path: <jack@suse.cz>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8C8DED36
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2CE36D14
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 08:17:46 +0000 (UTC)
-Received: from mail-it0-f53.google.com (mail-it0-f53.google.com
-	[209.85.214.53])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 082068B
+	Wed,  5 Sep 2018 08:31:09 +0000 (UTC)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 45BA28B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 08:17:45 +0000 (UTC)
-Received: by mail-it0-f53.google.com with SMTP id h23-v6so8388396ita.5
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 05 Sep 2018 01:17:45 -0700 (PDT)
+	Wed,  5 Sep 2018 08:31:08 +0000 (UTC)
+Date: Wed, 5 Sep 2018 10:31:04 +0200
+From: Jan Kara <jack@suse.cz>
+To: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <20180905083104.GC24902@quack2.suse.cz>
+References: <5c9c41b2-14f9-41cc-ae85-be9721f37c86@redhat.com>
+	<2c3b5669-bf03-326e-e61a-73100c141857@roeck-us.net>
+	<71cd50f3-9cd8-9d88-b8f2-cb5eca1f1133@redhat.com>
+	<fb1fb268-6198-627f-deea-5b83d0fffddc@roeck-us.net>
+	<ac3db59e-d352-8e1c-1d70-44d63de8b2eb@redhat.com>
+	<29e25677-f840-dc0d-9577-49611f95b17d@roeck-us.net>
 MIME-Version: 1.0
-In-Reply-To: <20180905074840.GB29052@kroah.com>
-References: <CABVU7+vBVivOZ32aEokJ0y3=C2z0Ev12O3vSVfyTC9TDrBOr8A@mail.gmail.com>
-	<20180905042246.GA2977@mtr-leonro.mtl.com>
-	<CABVU7+u+F1CXAW48_XfhLy59BOTxAS-qa_pG4Xjkki=f4Rr9Kg@mail.gmail.com>
-	<20180905074840.GB29052@kroah.com>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Wed, 5 Sep 2018 10:17:44 +0200
-Message-ID: <CAKMK7uEJfgACdzLdfh+EeG-NFkr47Bn3PFWCEOPA+1D1=5J7kA@mail.gmail.com>
-To: Greg KH <gregkh@linuxfoundation.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Challenges in Upstream
- vs. Embargoed Development in Intel Graphics.
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <29e25677-f840-dc0d-9577-49611f95b17d@roeck-us.net>
+Cc: Greg KH <gregkh@linuxfoundation.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Stable trees and release
+ time
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,89 +35,105 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Sep 5, 2018 at 9:48 AM, Greg KH <gregkh@linuxfoundation.org> wrote:
-> On Tue, Sep 04, 2018 at 09:49:13PM -0700, Rodrigo Vivi wrote:
->> On Tue, Sep 4, 2018 at 9:22 PM Leon Romanovsky <leon@kernel.org> wrote:
->> >
->> > On Tue, Sep 04, 2018 at 12:54:16PM -0700, Rodrigo Vivi wrote:
->> > > Hi there,
->> > >
->> > > I've submitted a proposal for plumber's referred track. There, I want to
->> > > talk
->> > > about tools and challenges we have on embargo development vs upstream one
->> > > and
->> > > how to get focus on upstream first and upstream always mentality.
->> > >
->> > > The name of plumbers proposal talk is:
->> > > "Unveiling Intel Graphics Internal Development"
->> > >
->> > > I'm not sure if the talk will get accepted, but anyway I'd like to have the
->> > > chance to talk to other maintainers to exchange views on different ways of
->> > > maintaining this kind of embargo development including challenges, tools,
->> > > processes, and rules.
->> > >
->> > > So I'm interested in hallway tracks of Maintainer / Kernel Summit, or maybe
->> > > a
->> > > bof session if there's interest.
->> > >
->> > > Please let me know if there's interested or if further information and/or
->> > > clarification is needed.
->> >
->> > What is "embargo development"? Are you referring to US government
->> > restrictions or to anything else?
->>
->> No. nothing to do with government.
->> Embargoed by company's temporary restrictions.
->>
->> Sorry for not being clear here.
->
-> Why do we care about something like this?  It sounds like it is an Intel
-> issue in that they want to delay pushing stuff upstream.  Why does
-> upstream care about this?
->
->> > Also can you please explain why should we know about internal Intel
->> > development flow?
->>
->> First of all I don't believe that we are the only one that need to
->> keep this kind of flow and i915 has a very active development and we
->> are strongly committed with upstream development. Our golden rules for
->> internal development is upstream first, upstream always.
->
-> Great!  So if this rule runs into opposition to people within your
-> company, doesn't that sound like a meeting with those company members is
-> the best solution?
->
->> So, maybe sharing some knowledge and lessons we learned on the past
->> years might be useful to someone else that might still struggle with
->> closed source style of development.
->
-> Ah, so you want to talk about how to change your process to work better
-> with companies that don't like doing upstream-first work?  That sounds
-> like a nice talk, but you need to make that a bit more clear here :)
->
->> Also we have some challenges on keeping everything updated and ready
->> for upstreaming at any moment.
->
-> "any moment"?  Don't you know this ahead of time?  If not, that sounds
-> like a company problem...
+On Tue 04-09-18 19:54:34, Guenter Roeck wrote:
+> On 09/04/2018 06:45 PM, Laura Abbott wrote:
+> > On 09/04/2018 04:35 PM, Guenter Roeck wrote:
+> > > On 09/04/2018 03:06 PM, Laura Abbott wrote:
+> > > > On 09/04/2018 02:49 PM, Guenter Roeck wrote:
+> > > > > On 09/04/2018 01:58 PM, Laura Abbott wrote:
+> > > > > > I'd like to start a discussion about the stable release cycle.
+> > > > > > 
+> > > > > > Fedora is a heavy user of the most recent stable trees and we
+> > > > > > generally do a pretty good job of keeping up to date. As we
+> > > > > > try and increase testing though, the stable release process
+> > > > > > gets to be a bit difficult. We often run into the problem where
+> > > > > > release .Z is officially released and then .Z+1 comes
+> > > > > > out as an -rc immediately after. Given Fedora release processes,
+> > > > > > we haven't always finished testing .Z by the time .Z+1 comes
+> > > > > > out. What to do in this situation really depends on what's in
+> > > > > > .Z and .Z+1 and how stable we think things are. This usually
+> > > > > > works out fine but a) sometimes we guess wrong and should have
+> > > > > > tested .Z more b) we're only looking to increase testing.
+> > > > > > 
+> > > > > > What I'd like to see is stable updates that come on a regular
+> > > > > > schedule with a longer -rc interval, say Sunday with
+> > > > > > a one week -rc period. I understand that much of the current
+> > > > > > stable schedule is based on Greg's schedule. As a distro
+> > > > > > maintainer though, a regular release schedule with a longer
+> > > > > > testing window makes it much easier to plan and deliver something
+> > > > > > useful to our users. It's also a much easier sell for encouraging
+> > > > > > everyone to pick up every stable update if there's a known
+> > > > > > schedule. I also realize Greg is probably reading this with a very
+> > > > > > skeptical look on his face so I'd be interested to hear from
+> > > > > > other distro maintainers as well.
+> > > > > > 
+> > > > > 
+> > > > > For my part, a longer -rc interval would not help or improve the
+> > > > > situation. Given the large number of security fixes, it would
+> > > > > actually make the situation worse: In many cases I could no longer
+> > > > > wait for a fix to be available in a release. Instead, I would have
+> > > > > to pick and pre-apply individual patches from a pending release.
+> > > > > 
+> > > > 
+> > > > Fedora does this already. We frequently carry patches which have
+> > > > not yet made it into a stable release. Sometimes they only stay
+> > > > around for one release but we've had ones that stayed around for
+> > > > multiple releases.
+> > > > 
+> > > Sure, but having to pull them from release candidates adds additional
+> > > work and increases risk.
+> > > 
+> > > > > I like the idea of having (no more than) one release per week with
+> > > > > the exception of security fixes, but longer -rc intervals would be
+> > > > > problematic.
+> > > > > 
+> > > > 
+> > > > Security fixes are an interesting question. The problem is that
+> > > > not every security issue is actually equal and even patches
+> > > > that fix CVEs can cause regressions.
+> > > > 
+> > > 
+> > > We do have a pretty well defined process for handling CVEs depending
+> > > on their severity. The preferred handling for all CVEs is to get the
+> > > fixes through stable releases.
+> > > 
+> > 
+> > Yes, I agree CVEs should eventually go through a stable release
+> > for the same reason all fixes are security fixes. There's also a
+> > difference between a CVE that should be picked up urgently and one that
+> > can be applied as part of a regular update cycle.
+> > 
+> > > As for regressions, only a system with no patches applied is safe from
+> > > regressions. Otherwise regressions are unavoidable. The key is to improve
+> > > testing to a point where the pain from regressions is acceptable.
+> > 
+> > This may just be kernel tree philosophy but I'm not sure any regression
+> > in the stable tree should be acceptable. In Greg's blog post
+> > http://www.kroah.com/log/blog/2018/08/24/what-stable-kernel-should-i-use/
+> > he suggested "Server: Latest stable release or latest LTS release"
+> > I don't think anyone wants their server regressing. I've talked
+> > with the CoreOS team about their experience using stable kernels
+> > and it gets tricky to convince users to update when there are
+> > regressions.
+> > 
+> 
+> I understand that philosophy very well. Each and every regression is an argument
+> to not use stable releases in the first place. We have been there. My solution
+> is to do everything I can to improve testing to the point where regressions
+> are all but non-existent.
+> 
+> However, realistically, there will _always_ be regressions, and some of them
+> _will_ be found post-release. If zero regressions is your absolute must-have
+> condition for a release, the only guaranteed means to accomplish that is to
+> make zero changes in that release.
 
-The only companies which do not have this problems (at least in the
-graphics space) are those which don't care one bit about upstream at
-all. So yes, all the problems we have (and everyone else I've talked
-to in gfx) are dealing with are direct consequences of doing
-upstream-first drivers for a proprietary piece of hardware developed
-behind closed doors. And until we have exclusively open source IP
-hardware this problem won't go away.
+Agreed. Even enterprise distro kernels with all the QA and review and
+experienced people doing the work regress occasionally. In the end what
+matters to users is: "If I update, how big is the probability that my
+current workload stops working?" And you can make that 1%, 0.1% or 0.01%
+(with adequately increasing costs to achieve that) but never 0.
 
-This was an invitation to exchange experience in how to best deal with
-the fallout - I do actually know that this is not an intel-only issue
-because I chatted with non-Intel people about how they deal with this.
-And I thought that figuring out how to do better upstream-first is
-very much within the scope of ks/lpc, hence why I suggested Rodrigo
-brings this up as a talk proposal.
-
-Cheers, Daniel
+								Honza
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-+41 (0) 79 365 57 48 - http://blog.ffwll.ch
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
