@@ -1,31 +1,29 @@
-Return-Path: <labbott@redhat.com>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id EB2B3D4A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 01F7E15B3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 16:44:27 +0000 (UTC)
-Received: from mail-qt0-f196.google.com (mail-qt0-f196.google.com
-	[209.85.216.196])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8C130806
+	Wed,  5 Sep 2018 16:45:19 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A7BA07FE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 16:44:27 +0000 (UTC)
-Received: by mail-qt0-f196.google.com with SMTP id o15-v6so8834511qtk.6
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 05 Sep 2018 09:44:27 -0700 (PDT)
-To: Takashi Iwai <tiwai@suse.de>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+	Wed,  5 Sep 2018 16:45:18 +0000 (UTC)
+Message-ID: <1536165914.3627.17.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: paulmck@linux.vnet.ibm.com, Steven Rostedt <rostedt@goodmis.org>
+Date: Wed, 05 Sep 2018 17:45:14 +0100
+In-Reply-To: <20180905162007.GO4225@linux.vnet.ibm.com>
 References: <1536142432.8121.6.camel@HansenPartnership.com>
-	<s5hd0tsccdw.wl-tiwai@suse.de> <20180905133916.GA22160@puremoods>
-From: Laura Abbott <labbott@redhat.com>
-Message-ID: <25765076-0a55-babc-cd34-dc5b0971d293@redhat.com>
-Date: Wed, 5 Sep 2018 09:44:23 -0700
-MIME-Version: 1.0
-In-Reply-To: <20180905133916.GA22160@puremoods>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+	<20180905113715.GJ9781@sirena.org.uk>
+	<20180905150315.GA10819@linux.vnet.ibm.com>
+	<20180905115008.22e3d21f@gandalf.local.home>
+	<20180905162007.GO4225@linux.vnet.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Distribution kernel
  bugzillas considered harmful
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -37,45 +35,38 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 09/05/2018 06:39 AM, Konstantin Ryabitsev wrote:
-> On Wed, Sep 05, 2018 at 03:16:59PM +0200, Takashi Iwai wrote:
->>> Second suggestion is that the bugzillas need to say much more strongly
->>> that the reporter really needs to confirm the fix in upstream and do
->>> the bisection themselves (and ideally request the backport to stable
->>> themselves).
->>
->> OK, distros definitely need to try hard not to annoy upstream devs.
->>
->> In the case of SUSE Kernel, we usually ask testing the latest
->> (more-or-less) vanilla kernel at first.  If it's an upstream problem,
->> then it's often tossed to the upstream.  If it's already addressed in
->> the upstream kernel, we take the responsibility for backports.  Asking
->> bisection by reporter is usually the last resort.
->>
->> It'd be helpful if we get any suggestion to improve the process.
+On Wed, 2018-09-05 at 09:20 -0700, Paul E. McKenney wrote:
+> On Wed, Sep 05, 2018 at 11:50:08AM -0400, Steven Rostedt wrote:
+> > On Wed, 5 Sep 2018 08:03:15 -0700
+> > "Paul E. McKenney" <paulmck@linux.vnet.ibm.com> wrote:
+> > 
+> > > I am one of those strange people who rebase in order to improve
+> > > bisectability.  But one reason I can do that is that I have
+> > > relatively
+> > > few patches, and it gets harder the more patches I am
+> > > carrying.  I suppose
+> > > that someone (not me!) could rebase -stable to make it more
+> > > bisectable,
+> > 
+> > How would rebasing it make stable more bisectable? Once you rebase,
+> > you don't have a tree that use to work? Although I guess you may
+> > find the commit that caused the problem better. But rebasing
+> > creates a lot of other issues, I would not recommend rebasing
+> > stable, as that would totally break the RT stable tree work flow.
 > 
-> It would be awesome to have a "bisect@home" type of thing with a similar
-> idea like seti@home and folding@home. Have a central queue where
-> developers can submit upstream commits and testcases, and a swarm of
-> volunteer drones would grab and bisect-build them until the
-> bug-introducing commit is identified and reported back.
-> 
-> I'll totally host the hell out of this.
-> 
+> Instead of leaving the buggy commit and the span where the bug
+> exists, you rebase the fix into the original buggy fix.
 
-I played around with bisect scripts for Fedora a while ago but mostly
-abandoned them due to lack of interest and fragility. I was attempting
-to use the full Fedora patch set and spec file but making that work
-for arbitrary kernel commits was a pain.
+We do this in SCSI as well, but only if the tree hasn't yet been
+submitted to Linus.  The technical term is folding.  It's obviously
+better to fix buggy commits that haven't gone upstream because it
+improves bisectability.
 
-Developers usually have no problem building and bisecting kernels,
-it's non-kernel developers who often struggle with bisection.
-One idea that I haven't followed up on was to extend the existing
-targets for building distro packages to just build the source
-side of things and then take advantage of existing environments
-(e.g. COPR) to build the package binaries. I'd love a web interface
-that would handle some of this automatically but, again, lack of
-resources and knowledge of web frameworks.
+> And I bet that rebasing -stable would cause no end of broken glass in
+> a great many  projects.  ;-)
 
-Thanks,
-Laura
+If others rely on your tree, rebasing is harder and must be done more
+carefully and with co-ordination, but it's not impossible assuming you
+have a problem big enough.  Again, it's an expediency based trade off.
+
+James
