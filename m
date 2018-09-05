@@ -1,18 +1,18 @@
-Return-Path: <jikos@kernel.org>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D7767E8F
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 84E89EC6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 13:15:29 +0000 (UTC)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 73260A8
+	Wed,  5 Sep 2018 13:16:47 +0000 (UTC)
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+	[172.104.155.198])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1B7BAA8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 13:15:29 +0000 (UTC)
-Date: Wed, 5 Sep 2018 15:15:25 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
-To: Greg KH <gregkh@linuxfoundation.org>
-In-Reply-To: <20180905130512.GA5601@kroah.com>
-Message-ID: <nycvar.YFH.7.76.1809051509100.15880@cbobk.fhfr.pm>
+	Wed,  5 Sep 2018 13:16:47 +0000 (UTC)
+Date: Wed, 5 Sep 2018 14:16:43 +0100
+From: Mark Brown <broonie@kernel.org>
+To: James Bottomley <James.Bottomley@Hansenpartnership.com>
+Message-ID: <20180905131643.GM9781@sirena.org.uk>
 References: <5c9c41b2-14f9-41cc-ae85-be9721f37c86@redhat.com>
 	<20180904213340.GD16300@sasha-vm>
 	<nycvar.YFH.7.76.1809050838570.15880@cbobk.fhfr.pm>
@@ -21,11 +21,12 @@ References: <5c9c41b2-14f9-41cc-ae85-be9721f37c86@redhat.com>
 	<1536141525.8121.2.camel@HansenPartnership.com>
 	<20180905104700.GE9781@sirena.org.uk>
 	<6a25761a-c640-4eb2-952c-4bcd91da28a2@email.android.com>
-	<nycvar.YFH.7.76.1809051437300.15880@cbobk.fhfr.pm>
-	<20180905130512.GA5601@kroah.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Cc: James Bottomley <James.Bottomley@Hansenpartnership.com>,
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="3xQkynibq3FKlJyM"
+Content-Disposition: inline
+In-Reply-To: <6a25761a-c640-4eb2-952c-4bcd91da28a2@email.android.com>
+Cc: Greg KH <gregkh@linuxfoundation.org>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Stable trees and release
@@ -39,35 +40,38 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 5 Sep 2018, Greg KH wrote:
 
-> For these specific ones, I trusted that the maintainer of the subsystem
-> knew what they were doing when they marked them for the stable tree.
+--3xQkynibq3FKlJyM
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-And do you honestly think they should be marked for stable tree in the 
-first place?
+On Wed, Sep 05, 2018 at 01:24:18PM +0100, James Bottomley wrote:
 
-> Which is what we do in kernel development, we trust others that their 
-> stewardship of their code subsystems is in the best interest of their 
-> users.  
+> I absolutely agree.  That's why I said our process is expediency
+> based:  you have to trade off the value of applying the patch vs the
+> probability of introducing bugs.  However the maintainers are mostly
+> considering this which is why stable is largely free from trivial but
+> pointless patches.  The rule should be: if it doesn't fix a user
+> visible bug, it doesn't go into stable.
 
-Sure, I wholeheartedly agree. For Linus' tree, all the web of trust is 
-there so that changes can be propagated up the maintainership structure, 
-and we trust the maintainers and developers that they did all the 
-development and testing as well as they possibly could, and that eventual 
-bugs in the code will be responsibly fixed.
+It's not just maintainers any more - in particular we've got Sasha's
+neural net thing picking patches as well and it's substantially more
+trigger happy than at least I am.  People do get a chance to review what
+it's picking but that's different to maintainers picking things.
 
-For stable, there is another aspect that needs to be trusted -- that the 
-relevance for stable has been properly considered, so that we ideally 
-avoid the need for "eventual bugs will be fixed" much more pro-actively 
-than in Linus' tree (that's "stable", right?).
+--3xQkynibq3FKlJyM
+Content-Type: application/pgp-signature; name="signature.asc"
 
-And I think we simply could improve there (well, again, this all very much 
-depends on the target audience I guess).
+-----BEGIN PGP SIGNATURE-----
 
-*Especially* with the automatic selection thing -- who exactly is the 
-entity you trust there?
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAluP1zsACgkQJNaLcl1U
+h9Agcgf/U1ugBD8fiaIAHJCTBbQSvHtIux1LX+476Zawn6/BTensVoqjnaMYnZ7u
+vXbBOuiEyxG22NjvkNbUgCGpQrCWMrZKRYas5FgOGwMVBQYwu2bnfXDLOj1JZIy1
+pl2LqW5RH6ouyAi/7/vCbIinYMfoCiesXzZbmTaj92oUxOq1FWVBOIY5VLZFg/rK
++Jx5AeSyorvuWjGrbBw5ZqdKgKXJe3gcYXSqFMEhEHYXoYeIOe2LgUsBuE/E0WL+
+Twj4zVHZYIGjp1W9FeSmLMaXd8EqwmnKhcuNn1CLYWgQLVHTNyc1Lv5acY/OfwPq
+y7Q0rF+ME1Mg0/MfJBoVpGl1H/b8Eg==
+=UmS5
+-----END PGP SIGNATURE-----
 
--- 
-Jiri Kosina
-SUSE Labs
+--3xQkynibq3FKlJyM--
