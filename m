@@ -1,34 +1,28 @@
 Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 21A4FDA3
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 79EF1DDF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 11:21:33 +0000 (UTC)
+	Wed,  5 Sep 2018 11:37:18 +0000 (UTC)
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
 	[172.104.155.198])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A3BC17A8
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 00CEC8B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 11:21:32 +0000 (UTC)
-Date: Wed, 5 Sep 2018 12:21:30 +0100
+	Wed,  5 Sep 2018 11:37:17 +0000 (UTC)
+Date: Wed, 5 Sep 2018 12:37:15 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <20180905112130.GI9781@sirena.org.uk>
-References: <CABVU7+vBVivOZ32aEokJ0y3=C2z0Ev12O3vSVfyTC9TDrBOr8A@mail.gmail.com>
-	<20180905042246.GA2977@mtr-leonro.mtl.com>
-	<CABVU7+u+F1CXAW48_XfhLy59BOTxAS-qa_pG4Xjkki=f4Rr9Kg@mail.gmail.com>
-	<20180905074840.GB29052@kroah.com>
-	<CAKMK7uEJfgACdzLdfh+EeG-NFkr47Bn3PFWCEOPA+1D1=5J7kA@mail.gmail.com>
-	<20180905083120.GA28353@kroah.com>
-	<CAKMK7uHLACdr4vGexqO-oh+QrRqxq0_KyJdhnr_eAZy6ApwWUQ@mail.gmail.com>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Message-ID: <20180905113715.GJ9781@sirena.org.uk>
+References: <1536142432.8121.6.camel@HansenPartnership.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="2oox5VnwalALFvA7"
+	protocol="application/pgp-signature"; boundary="hABqaeELJqnDDeDE"
 Content-Disposition: inline
-In-Reply-To: <CAKMK7uHLACdr4vGexqO-oh+QrRqxq0_KyJdhnr_eAZy6ApwWUQ@mail.gmail.com>
-Cc: Greg KH <gregkh@linuxfoundation.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Challenges in Upstream
- vs. Embargoed Development in Intel Graphics.
+In-Reply-To: <1536142432.8121.6.camel@HansenPartnership.com>
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Distribution kernel
+ bugzillas considered harmful
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,41 +33,38 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---2oox5VnwalALFvA7
+--hABqaeELJqnDDeDE
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Wed, Sep 05, 2018 at 11:00:12AM +0200, Daniel Vetter wrote:
+On Wed, Sep 05, 2018 at 11:13:52AM +0100, James Bottomley wrote:
 
-> Note that the simplest solution here is to forget about upstream and
-> ship on LTS kernels only. Avoids all the pain we have. And that's what
-> pretty much everyone in the SoC/gfx space is actually doing, outside
-> of very few exceptions like AMD&Intel. Most of the SoC drivers you see
-> are reverse-engineered, so naturally they don't have to deal with
-> pre-production hw fun simply because they can't even get at the hw
-> this early in the cycle.
+> The first suggestion is that kernel builds are pretty much automated
+> and we try to make every commit buildable, so could we automate the
+> machinery that allows a customer to do bisection simply by installing a
+> kernel package? (we here, obviously means the distro, but going from
+> git bisect to kernel package would be the useful link).
 
-One thing I've done in the past and I know some people do currently is
-to use a LTS backport as an integration point for internal testing and
-development but simultaneously maintain something against -next as the
-primary development platform, upstreaming anything that can be (things
-like framework changes or fixes/improvements to already upstream code)
-as you go.  Then when the marketing people do their thing just push out
-all the patches that were held back.  That seems to work pretty well.
+Improving bisectability would obviously help with other testing efforts
+too - we have existing users, Guillaume Tucker implemented automated
+bisection support in KernelCI which is incredibly useful providing one
+can actually bisect.  Right now it works pretty well a lot of the time
+but there are cases where it gets messy, especially when you add boot
+issues onto the buildability ones.
 
---2oox5VnwalALFvA7
+--hABqaeELJqnDDeDE
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAluPvDkACgkQJNaLcl1U
-h9B/HQf/aZqM1SocOVCD3Gu4cIM7vBda3cG36xQWm5CQZsvrEIbu62Japr6TnaZJ
-idE6C42z38hdM0qnOpFqVGRFjMcSF+wAA6YMCa9WXuv2YWAC3Ha0Q2RRSq9dldjg
-+h29/zpRCs3i/Sd8hkSF6TyyaI17qQV/YlkHJ43LGoW16UbePDLRI/5d3pzYK8gk
-EE6EBJewIDayNNUim4UcImoYYMQ5YljD+mdY7ooH/jp4A5Jel0c5osrn+iXYX21S
-Zcp5fDK2jhxmfP0WxO9IuqpkT0D5nu7jP2XGdak9c/aUhU1ROjBSoc9iRkqeOrhi
-j8x8Yriq/Zwf4nVXedX48LNAm2FKWA==
-=NPRT
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAluPv+oACgkQJNaLcl1U
+h9BBZwf6AriMg8QWw64DE76/kUhR+zdgrdfYEaQ+M7K+ZG97mKS1j6qJJEpzGg4m
+CK3FD5HWP/VEyEXt88imJm8KfaFI46HNzmt17uCQwOaHckDDE88LChNUza4HFxsi
+e6f622oeGhojd84K3eyt0TwIZJnG2uv8b74cVDJPq4Y6sb6sFaQnHeUrRYXEf9MN
+h6Wj2b5EM2g1cz//PuBdjVs47bU+s1eGWKTJKj0MiwB+T9REVf+adPe/Gwt0DEwL
+35wnWHlAjaBeP6gXCuJcSHzf3+sqKJw6pR2OTLO2vHUXfOCn4u5qnq9NlOl4AX/X
+WRFBBHO4RrUv9U+dobW6V3+Fy7Jrwg==
+=uacL
 -----END PGP SIGNATURE-----
 
---2oox5VnwalALFvA7--
+--hABqaeELJqnDDeDE--
