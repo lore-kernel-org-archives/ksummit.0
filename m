@@ -1,33 +1,26 @@
-Return-Path: <keescook@chromium.org>
+Return-Path: <sfr@canb.auug.org.au>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 39ACAD90
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 81662E19
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 22:57:06 +0000 (UTC)
-Received: from mail-yw1-f65.google.com (mail-yw1-f65.google.com
-	[209.85.161.65])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B53037CF
+	Wed,  5 Sep 2018 23:42:02 +0000 (UTC)
+Received: from ozlabs.org (ozlabs.org [203.11.71.1])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 005D87C3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 22:57:05 +0000 (UTC)
-Received: by mail-yw1-f65.google.com with SMTP id j131-v6so3317515ywc.13
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 05 Sep 2018 15:57:05 -0700 (PDT)
-Received: from mail-yw1-f45.google.com (mail-yw1-f45.google.com.
-	[209.85.161.45]) by smtp.gmail.com with ESMTPSA id
-	r3-v6sm2278069ywr.80.2018.09.05.15.57.03
-	for <ksummit-discuss@lists.linuxfoundation.org>
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Wed, 05 Sep 2018 15:57:03 -0700 (PDT)
-Received: by mail-yw1-f45.google.com with SMTP id z143-v6so3328997ywa.7
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 05 Sep 2018 15:57:03 -0700 (PDT)
+	Wed,  5 Sep 2018 23:42:01 +0000 (UTC)
+Date: Thu, 6 Sep 2018 09:41:58 +1000
+From: Stephen Rothwell <sfr@canb.auug.org.au>
+To: Kees Cook <keescook@chromium.org>
+Message-ID: <20180906094158.1eba4f50@canb.auug.org.au>
+In-Reply-To: <CAGXu5j+-X6WQNdTYK2ZA5OOJgc0RfCq9Gr9WRAMkYTSQOT7QdQ@mail.gmail.com>
+References: <CAGXu5j+-X6WQNdTYK2ZA5OOJgc0RfCq9Gr9WRAMkYTSQOT7QdQ@mail.gmail.com>
 MIME-Version: 1.0
-From: Kees Cook <keescook@chromium.org>
-Date: Wed, 5 Sep 2018 15:57:02 -0700
-Message-ID: <CAGXu5j+-X6WQNdTYK2ZA5OOJgc0RfCq9Gr9WRAMkYTSQOT7QdQ@mail.gmail.com>
-To: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: [Ksummit-discuss] [MAINTAINERS SUMMIT] API replacement/deprecation
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	boundary="Sig_/i7y7BPS99bruxskL+btfuoh";
+	protocol="application/pgp-signature"
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] API
+ replacement/deprecation
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,74 +30,43 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi,
+--Sig_/i7y7BPS99bruxskL+btfuoh
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-I'd like to discuss ways that we could deprecate APIs more sanely. At
-present I've seen (and used) two approaches, fast and slow:
+Hi all,
 
-Fast:
-Introduce new API in release N. Perform massive patch bombs drowning
-maintainers in a single release for release N+1, and remove the old
-API before -rc2.
-Pros:
-- it gets done in 2 releases!
-Cons:
-- writing the API transition patches may span multiple release prior
-to N without entering linux-next, which causes rebase/conflict cycles
-- patches developed prior to N may not get adequate testing
-- maintainers drown in patches
-Example: timer_setup() refactoring, kmalloc()->kmalloc_array()
+On Wed, 5 Sep 2018 15:57:02 -0700 Kees Cook <keescook@chromium.org> wrote:
+>
+> I'd like to discuss ways that we could deprecate APIs more sanely. At
+> present I've seen (and used) two approaches, fast and slow:
 
-Slow:
-Introduce new API in release N. Trickle patches in over N+M releases,
-removing old API when no more uses are present.
-Pros:
-- patches are written and handed to maintainers at a regular rate
-- testing happens normally
-Cons:
-- new users of the old API continue to enter the kernel, causing an
-endless cycle of needing more work
-- API may never get deprecated
-Example: strscpy(), VLA removal
+As the one who often has the "fun" of coping with API changes, I would
+like to be involved in this discussion.
 
-Note that "Fast" isn't actually fast, since the bulk of the prep work
-happens "in the dark".
+My first point would be that (almost) every time someone has tried the
+"ultra fast" method (i.e. add new interface, convert everyone in the
+current kernel, remove the old interface all in one go) we have had new
+users of the old interface introduced at the same time.  (pain for the
+linux-next bunny :-()
+--=20
+Cheers,
+Stephen Rothwell
 
-The primary issue with "Slow" is the introduction of uses of the old
-API. With a "small" API, this is managemable (e.g. with VLA removal we
-started with only about 120 instances, and only 2-3 new ones got added
-each release). With large mechanical changes (kmalloc_array()) it's
-easy to keep up with new users, since the fixes are mechanical.
+--Sig_/i7y7BPS99bruxskL+btfuoh
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
 
-While trying to prepare to move away from bare strcpy(),
-not-always-terminated strncpy(), and
-read-entire-src-and-do-full-NUL-padding strlen(), there are literally
-thousands of users to move to strscpy(), and I expect new users to
-keep entering the kernel at a high rate. Adding warnings to
-checkpatch.pl isn't sufficient since only a subset of maintainers
-require patches be "checkpatch clean".
+-----BEGIN PGP SIGNATURE-----
 
-Some str*cpy() numbers for context:
-$ for i in '' n l s; do j=str${i}cpy; echo -en "$j\t"; git grep
-'\b'"$j"'\b' | grep -Ev '^(Documentation|tools)/' | wc -l ; done
-strcpy  2490
-strncpy 865
-strlcpy 2361
-strscpy 29
+iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAluQacYACgkQAVBC80lX
+0GzGXgf9E6HDzyhEhirmHhNYqdZ+3kFDxckgwrm8QOYIPHXWKnG/rCbrZaOb7O8s
+IWiKmTjoflhaOVtFonWOfGy/aa1yBAzYtf+Yg63kgUjgQeYORUdn9f/JWanX86ky
+4ZYNtOnR5lop5mZHVvXvESpmPW378B2TJ4q8q6dC/EJb3nKMzn196qgoB1+XM+fs
+spqg7He8GfBAYKQzG2z97Rhjr4Q+FS0wx6hpIgD55lV301yJujj9YYA/w2rSGpLg
+/x6gfon1KtUOpA0YhpRviO8A3QoFLyrHjfSreLFWljfZjvg/ypiqjw957J1vl7hN
+YgsQfxVMaYdTZcjamsWlK65+qWFZPg==
+=u8+G
+-----END PGP SIGNATURE-----
 
-Linus correctly removed __deprecated since it's just noisy: marking
-strcpy() as __deprecated would be an absolute nightmare. What would be
-great would be a way to mark NEW users of an API with a warning, but
-outside of voluntary checkpatch use, we have no global patch checker
-that is always run. Adding some kind of "__grandfathered" mark to
-existing users that would silence a __deprecated warning seems like
-just creating two problems, and would create massive churn in the
-existing code.
-
-I'd really like a solution besides "masochism". :)
-
--Kees
-
--- 
-Kees Cook
-Pixel Security
+--Sig_/i7y7BPS99bruxskL+btfuoh--
