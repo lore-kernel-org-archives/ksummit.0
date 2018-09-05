@@ -1,39 +1,41 @@
-Return-Path: <Alexander.Levin@microsoft.com>
+Return-Path: <seanpaul@chromium.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0BF981108
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0F5B0115A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 14:27:32 +0000 (UTC)
-Received: from NAM01-BN3-obe.outbound.protection.outlook.com
-	(mail-bn3nam01on0129.outbound.protection.outlook.com [104.47.33.129])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 67CC32D5
+	Wed,  5 Sep 2018 14:30:39 +0000 (UTC)
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
+	[209.85.208.54])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7ABED2D5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 14:27:31 +0000 (UTC)
-From: Sasha Levin <Alexander.Levin@microsoft.com>
-To: Mark Brown <broonie@kernel.org>
-Date: Wed, 5 Sep 2018 14:27:29 +0000
-Message-ID: <20180905142728.GJ16300@sasha-vm>
-References: <5c9c41b2-14f9-41cc-ae85-be9721f37c86@redhat.com>
-	<20180904213340.GD16300@sasha-vm>
-	<nycvar.YFH.7.76.1809050838570.15880@cbobk.fhfr.pm>
-	<20180905081658.GB24902@quack2.suse.cz>
-	<nycvar.YFH.7.76.1809051029400.15880@cbobk.fhfr.pm>
-	<1536141525.8121.2.camel@HansenPartnership.com>
-	<20180905104700.GE9781@sirena.org.uk>
-	<6a25761a-c640-4eb2-952c-4bcd91da28a2@email.android.com>
-	<20180905131643.GM9781@sirena.org.uk>
-In-Reply-To: <20180905131643.GM9781@sirena.org.uk>
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <C7992B0AF1B8A04CB58DAE80DBB160D2@namprd21.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+	Wed,  5 Sep 2018 14:30:38 +0000 (UTC)
+Received: by mail-ed1-f54.google.com with SMTP id p52-v6so6219414eda.12
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 05 Sep 2018 07:30:38 -0700 (PDT)
+Received: from mail-wm0-f53.google.com (mail-wm0-f53.google.com.
+	[74.125.82.53]) by smtp.gmail.com with ESMTPSA id
+	g19-v6sm1059931edh.22.2018.09.05.07.30.35
+	for <ksummit-discuss@lists.linuxfoundation.org>
+	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+	Wed, 05 Sep 2018 07:30:36 -0700 (PDT)
+Received: by mail-wm0-f53.google.com with SMTP id 207-v6so7920182wme.5
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 05 Sep 2018 07:30:35 -0700 (PDT)
 MIME-Version: 1.0
-Cc: James Bottomley <James.Bottomley@Hansenpartnership.com>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Stable trees and release
- time
+References: <s5hbm9ccbie.wl-tiwai@suse.de>
+	<20180905135528.ase6evcv7rlwufyr@mwanda>
+	<CAOw6vbKa+85J0gDbh0Fj3GYQFcDma_qPPYjSUKxYvjmHvO3a5A@mail.gmail.com>
+	<20180905142225.GA8757@kroah.com>
+In-Reply-To: <20180905142225.GA8757@kroah.com>
+From: Sean Paul <seanpaul@chromium.org>
+Date: Wed, 5 Sep 2018 10:29:58 -0400
+Message-ID: <CAOw6vbLUnpZGm1MdfUpm5W8hp6b_6VuOqOSQUwbXHKYC=P0Bjw@mail.gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] How can we treat staging
+ drivers better?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -43,28 +45,40 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Sep 05, 2018 at 02:16:43PM +0100, Mark Brown wrote:
->On Wed, Sep 05, 2018 at 01:24:18PM +0100, James Bottomley wrote:
+On Wed, Sep 5, 2018 at 10:23 AM Greg KH <gregkh@linuxfoundation.org> wrote:
 >
->> I absolutely agree.  That's why I said our process is expediency
->> based:  you have to trade off the value of applying the patch vs the
->> probability of introducing bugs.  However the maintainers are mostly
->> considering this which is why stable is largely free from trivial but
->> pointless patches.  The rule should be: if it doesn't fix a user
->> visible bug, it doesn't go into stable.
+> On Wed, Sep 05, 2018 at 10:08:00AM -0400, Sean Paul wrote:
+> > > Which ones are you interested in?  I'd always prefer to hand off staging
+> > > drivers to an existing subsystem but it's not always clear who that
+> > > should be.
+> >
+> > In the case of vboxvideo, we won't accept it in drm since it's not an
+> > atomic driver. staging's bar for entry was lower, so the driver was
+> > stuck in there. Perhaps we would have been better to take it in drm
+> > behind a config, but that's not ideal either.
 >
->It's not just maintainers any more - in particular we've got Sasha's
->neural net thing picking patches as well and it's substantially more
->trigger happy than at least I am.  People do get a chance to review what
->it's picking but that's different to maintainers picking things.
+> for vboxvideo, I am pretty sure I got an "it's ok to put it there" from
+> the DRM maintainers before I accepted it.  So they know it is there :)
+>
 
-What can I do to make the process better?
+Oh for sure, I didn't mean to imply it was there without our knowledge
+(reading my mail back the implication is definitely there, apologies).
+I think the narrative was "ack to put it there, but it'll cause pain".
+If the atomic conversion was done expediently, it wouldn't be so bad,
+but it's starting to become an anchor (IMO).
 
-I tried giving longer review periods, I tried sending emails right when
-the patch is merged upstream instead of weeks later and I tried actively
-pursuing some maintainers for explicit Acks. None of which seemed to
-make anyone happier.
+> If it's not ever going to be merged, maybe we should just drop it?
 
---
-Thanks,
-Sasha=
+Yeah, I'm fine with that. It doesn't seem like anyone is super
+motivated to do the atomic conversion any time soon.
+
+Generally speaking, I think the vboxvideo experiment has shown that
+staging isn't a good fit for us. For subsystems with less churn or
+surrounding infrastructure, it's probably much less of an issue.
+
+Sean
+
+>
+> thanks,
+>
+> greg k-h
