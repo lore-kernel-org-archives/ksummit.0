@@ -1,27 +1,39 @@
-Return-Path: <jikos@kernel.org>
+Return-Path: <daniel.vetter@ffwll.ch>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B9A02E9F
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 05DA8EB2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 13:20:58 +0000 (UTC)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 53D4E70D
+	Wed,  5 Sep 2018 13:28:01 +0000 (UTC)
+Received: from mail-it0-f67.google.com (mail-it0-f67.google.com
+	[209.85.214.67])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 75B038B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 13:20:58 +0000 (UTC)
-Date: Wed, 5 Sep 2018 15:20:55 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-In-Reply-To: <s5hd0tsccdw.wl-tiwai@suse.de>
-Message-ID: <nycvar.YFH.7.76.1809051519450.15880@cbobk.fhfr.pm>
-References: <1536142432.8121.6.camel@HansenPartnership.com>
-	<s5hd0tsccdw.wl-tiwai@suse.de>
+	Wed,  5 Sep 2018 13:28:00 +0000 (UTC)
+Received: by mail-it0-f67.google.com with SMTP id h3-v6so9837798ita.2
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 05 Sep 2018 06:28:00 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+In-Reply-To: <s5hefe8cd0u.wl-tiwai@suse.de>
+References: <5c9c41b2-14f9-41cc-ae85-be9721f37c86@redhat.com>
+	<20180904213340.GD16300@sasha-vm>
+	<nycvar.YFH.7.76.1809050838570.15880@cbobk.fhfr.pm>
+	<20180905081658.GB24902@quack2.suse.cz>
+	<nycvar.YFH.7.76.1809051029400.15880@cbobk.fhfr.pm>
+	<1536141525.8121.2.camel@HansenPartnership.com>
+	<20180905104700.GE9781@sirena.org.uk>
+	<6a25761a-c640-4eb2-952c-4bcd91da28a2@email.android.com>
+	<s5hefe8cd0u.wl-tiwai@suse.de>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Wed, 5 Sep 2018 15:27:58 +0200
+Message-ID: <CAKMK7uFMHkw4jw3D6ijGNZF84+p+EGY_6YAdCOTcXe0DQbLC6g@mail.gmail.com>
+To: Takashi Iwai <tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Greg KH <gregkh@linuxfoundation.org>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Distribution kernel
- bugzillas considered harmful
+Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Stable trees and release
+	time
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,21 +43,76 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 5 Sep 2018, Takashi Iwai wrote:
+On Wed, Sep 5, 2018 at 3:03 PM, Takashi Iwai <tiwai@suse.de> wrote:
+> On Wed, 05 Sep 2018 14:24:18 +0200,
+> James Bottomley wrote:
+>>
+>> On September 5, 2018 11:47:00 AM GMT+01:00, Mark Brown <broonie@kernel.org> wrote:
+>> >On Wed, Sep 05, 2018 at 10:58:45AM +0100, James Bottomley wrote:
+>> >
+>> >> This really shouldn't be an issue: stable trees are backported from
+>> >> upstream.  The patch (should) work in upstream, so it should work in
+>> >> stable.  There are only a few real cases you need to worry about:
+>> >
+>> >>    1. Buggy patch in upstream backported to stable. (will be caught
+>> >and
+>> >>       the fix backported soon)
+>> >>    2. Missing precursor causing issues in stable alone.
+>> >>    3. Bug introduced when hand applying.
+>> >
+>> >> The chances of one of these happening is non-zero, but the criteria
+>> >for
+>> >> stable should mean its still better odds than the odds of hitting the
+>> >> bug it was fixing.
+>> >
+>> >Some of those are substantial enough to be worth worrying about,
+>> >especially the missing precursor issues.  It's rarely an issue with the
+>> >human generated backports but the automated ones don't have a sense of
+>> >context in the selection.
+>> >
+>> >There's also a risk/reward tradeoff to consider with more minor issues,
+>> >especially performance related ones.  We want people to be enthusiastic
+>> >about taking stable updates and every time they find a problem with a
+>> >backport that works against them doing that.
+>>
+>> I absolutely agree.  That's why I said our process is expediency
+>> based:  you have to trade off the value of applying the patch vs the
+>> probability of introducing bugs.  However the maintainers are mostly
+>> considering this which is why stable is largely free from trivial
+>> but pointless patches.  The rule should be: if it doesn't fix a user
+>> visible bug, it doesn't go into stable.
+>
+> Right, and here the current AUTOSEL (and some other not-stable-marked)
+> patches coming to a gray zone.  The picked-up patches are often right
+> as "some" fixes, but they are not necessarily qualified as "stable
+> fixes".
+>
+> How about allowing to change the choice of AUTOSEL to be opt-in and
+> opt-out, depending on the tree?  In my case, usually the patches
+> caught by AUTOSEL aren't really the patches with forgotten stable
+> marker, but rather left intentionally by various reasons.  Most of
+> them are fine to apply in anyway, but it was uncertain whether they
+> are really needed / qualifying as stable fixes.  So, I'd be happy to
+> see them as opt-in, i.e. applied only via manual approval.
+>
+> Meanwhile, some trees have no stable-maintenance, and AUTOSEL would
+> help for them.  They can be opt-out, i.e. kept until someone rejects.
 
-> Asking bisection by reporter is usually the last resort.
-> 
-> It'd be helpful if we get any suggestion to improve the process.
++1 on AUTOSEL opt-in. It's annyoing at best, when it backports cleanup
+patches (because somehow those look like stealthy security fixes
+sometimes) and breaks a bunch of people's boxes for no good reason.
 
-IIRC, years ago someone started on "web-based bisection tool", but that 
-was never finished.
+In general it'd be really good if -stable had a clearer audit path.
+Every patch have a recorded reason why it's being applied (e.g. Cc:
+stable in upstream, Link to the lkml thread/bug report, AUTOSEL mail,
+whatever), so that after the fact I can figure out why a -stable patch
+happend, that would be really great. Atm -stable occasionally blows
+up, with a patch we didn't mark as cc: stable, and we have no idea
+whyiit showed up in -stable even. That makes it really hard to do
+better next time around.
 
-The idea was that the user would just click "Good" and "Bad" buttons, and 
-would be getting kernel RPMs to test.
-
-If this would have been picked up and finished (GSoC perhaps?), it might 
-help a lot with this aspect.
-
+Thanks, Danile
 -- 
-Jiri Kosina
-SUSE Labs
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
