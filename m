@@ -1,15 +1,31 @@
-Return-Path: <gregkh@linuxfoundation.org>
-Date: Wed, 5 Sep 2018 16:42:33 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Justin Forbes <jforbes@redhat.com>
-Message-ID: <20180905144233.GB15573@kroah.com>
+Return-Path: <SRS0=+gHD=LT=goodmis.org=rostedt@kernel.org>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id ECDE71285
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed,  5 Sep 2018 14:44:13 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 823557AF
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed,  5 Sep 2018 14:44:13 +0000 (UTC)
+Date: Wed, 5 Sep 2018 10:44:11 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <20180905104411.572c5112@gandalf.local.home>
+In-Reply-To: <20180905101159.GD9781@sirena.org.uk>
 References: <5c9c41b2-14f9-41cc-ae85-be9721f37c86@redhat.com>
-	<CAFbkSA3Zjojhb4uUFrdpJUTSWz1V9RbG_EL83roQY3bzX80i-g@mail.gmail.com>
+	<20180904213340.GD16300@sasha-vm>
+	<nycvar.YFH.7.76.1809050838570.15880@cbobk.fhfr.pm>
+	<20180905081658.GB24902@quack2.suse.cz>
+	<nycvar.YFH.7.76.1809051029400.15880@cbobk.fhfr.pm>
+	<20180905085642.GA29931@kroah.com>
+	<20180905101159.GD9781@sirena.org.uk>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAFbkSA3Zjojhb4uUFrdpJUTSWz1V9RbG_EL83roQY3bzX80i-g@mail.gmail.com>
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: Greg KH <gregkh@linuxfoundation.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Stable trees and release
  time
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -21,84 +37,41 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Sep 04, 2018 at 04:22:59PM -0500, Justin Forbes wrote:
-> On Tue, Sep 4, 2018 at 3:58 PM, Laura Abbott <labbott@redhat.com> wrote:
-> > I'd like to start a discussion about the stable release cycle.
-> >
-> > Fedora is a heavy user of the most recent stable trees and we
-> > generally do a pretty good job of keeping up to date. As we
-> > try and increase testing though, the stable release process
-> > gets to be a bit difficult. We often run into the problem where
-> > release .Z is officially released and then .Z+1 comes
-> > out as an -rc immediately after. Given Fedora release processes,
-> > we haven't always finished testing .Z by the time .Z+1 comes
-> > out. What to do in this situation really depends on what's in
-> > .Z and .Z+1 and how stable we think things are. This usually
-> > works out fine but a) sometimes we guess wrong and should have
-> > tested .Z more b) we're only looking to increase testing.
-> >
-> > What I'd like to see is stable updates that come on a regular
-> > schedule with a longer -rc interval, say Sunday with
-> > a one week -rc period. I understand that much of the current
-> > stable schedule is based on Greg's schedule. As a distro
-> > maintainer though, a regular release schedule with a longer
-> > testing window makes it much easier to plan and deliver something
-> > useful to our users. It's also a much easier sell for encouraging
-> > everyone to pick up every stable update if there's a known
-> > schedule. I also realize Greg is probably reading this with a very
-> > skeptical look on his face so I'd be interested to hear from
-> > other distro maintainers as well.
-> >
+On Wed, 5 Sep 2018 11:11:59 +0100
+Mark Brown <broonie@kernel.org> wrote:
+
+> On Wed, Sep 05, 2018 at 10:56:42AM +0200, Greg KH wrote:
 > 
-> This has been a fairly recent problem. There was a roughly weekly
-> cadence for a very long time and that was pretty easy to work with.  I
-> know that some of these updates do fix embargoed security issues that
-> we don't find out are actual fixes until later, but frequently in
-> those cases, the fixes are pushed well before embargo lifts, and they
-> could be fit into a weekly cadence.  Personally I don't have a problem
-> with the 3 day rc period, but pushing 2 kernels a week can be a
-> problem for users. (skipping a stable update is also a problem for
-> users.)  What I would prefer is 1 stable update per week with an
-> exception for *serious* security issues, where serious would mean
-> either real end user impact or high profile lots of press users are
-> going to be wondering where a fix is.
+> > 	- We have finally woken some subsystem maintainers up into
+> > 	  actually properly tagging patches for stable.  We used to have
+> > 	  a horrid rate of this happening, and it is getting better.
+> > 	  However, we still have whole major subsystems that _never_ tag
+> > 	  anything, which is a problem, so things will get larger.  
+> 
+> Some of us have been doing this for 5+ years :/
 
-Laura, thanks for bringing this up.  I'll try to respond here given that
-Justin agrees with the issue of timing.
+Yep.
 
-Honestly, this year has been a total shit-storm for stable due to the
-whole security mess we have been dealing with.  The number of
-totally-crazy-intrusive patches I have had to take is insane.  Combine
-that with a total lack of regard for the security issues for some arches
-(arm32 comes to mind), it's been a very rough year and I have been just
-trying to keep on top of everything.
+> 
+> > 	- Sasha's work in finding the patches that maintainers/developer
+> > 	  fail to tag is paying off really well, which also increases
+> > 	  the size.  
+> 
+> These and the few other patches that I didn't tag for stable myself are
+> the only ones I try to review reliably, the others I already looked at
+> for stable at least once and especially where things are automated it's
+> better to have some manual checking.  It's good that Sasha's stuff is
+> flagged now, and most other submissions are obvious as well, so that's
+> fairly easy to do and means that the review burden is relatively light.
 
-Because of these issues (and it wasn't just spectre/meltdown, we have
-had other major fire drills in some subsystems), the release cycles have
-been quick and contain a lot of patches, sorry about that.  But that is
-reflected in Linus's tree as well, so maybe this is just the "new
-normal" that we all need to get used to.
+I tend to too. As there's some fixes I don't tag for stable because it
+doesn't "break" things too bad (things that were always broken for
+years, but nobody noticed.. like a bad format of the trace output), or
+I have another fix for the problem. For instance, I just replied to an
+AUTOSEL patch that fixed a symptom of a bug, but the bug fix itself was
+tagged for stable. The symptom fix was just to make the code more
+"robust" and shouldn't hurt anything, but it really wasn't a bug fix.
+I don't think it was necessary to backport that, but if someone else
+thinks it is, I'll just let it be.
 
-I could do a "one release a week" cycle, which I would _love_ but that
-is not going to decrease the number of patches per release, it is only
-going to make them large (patch rate stays the same, and increases, no
-matter when I release)  So I had been thinking that to break the
-releases up into a "here's a hundred or so patches" per release, was a
-helpful thing to the reviewers.
-
-If this assumption is incorrect, yes, I can go to one-per-week, if
-people agree that they can handle the large increase per release
-properly.  Can you all do that?
-
-Are we going to do a "patch tuesday" like our friends in Redmond now? :)
-
-Note, if we do pick a specific day-per-week, then anything outside of
-that cycle will cause people to look _very_ close at the release.  I
-don't know if that's a good thing or not, but be aware that it could
-cause unintended side-affects.  Personally I think the fact that we are
-_not_ regular is a good thing, no out-of-band information leakage
-happens that way.
-
-thanks,
-
-greg k-h
+-- Steve
