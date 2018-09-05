@@ -1,31 +1,32 @@
 Return-Path: <labbott@redhat.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2F8421700
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E1A35DD8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 17:41:35 +0000 (UTC)
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com
-	[209.85.222.170])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 98901786
+	Wed,  5 Sep 2018 18:32:02 +0000 (UTC)
+Received: from mail-qt0-f170.google.com (mail-qt0-f170.google.com
+	[209.85.216.170])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 52252A8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 17:41:34 +0000 (UTC)
-Received: by mail-qk1-f170.google.com with SMTP id g197-v6so5455322qke.5
+	Wed,  5 Sep 2018 18:32:02 +0000 (UTC)
+Received: by mail-qt0-f170.google.com with SMTP id n6-v6so9275318qtl.4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 05 Sep 2018 10:41:34 -0700 (PDT)
-To: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-References: <1536142432.8121.6.camel@HansenPartnership.com>
+	Wed, 05 Sep 2018 11:32:02 -0700 (PDT)
+To: Greg KH <gregkh@linuxfoundation.org>, Justin Forbes <jforbes@redhat.com>
+References: <5c9c41b2-14f9-41cc-ae85-be9721f37c86@redhat.com>
+	<CAFbkSA3Zjojhb4uUFrdpJUTSWz1V9RbG_EL83roQY3bzX80i-g@mail.gmail.com>
+	<20180905144233.GB15573@kroah.com>
 From: Laura Abbott <labbott@redhat.com>
-Message-ID: <f5c3a8c7-b1bc-2566-59be-619d637c1293@redhat.com>
-Date: Wed, 5 Sep 2018 10:41:30 -0700
+Message-ID: <d9beac12-ad3b-3ac6-12eb-b2294acee7ac@redhat.com>
+Date: Wed, 5 Sep 2018 11:31:58 -0700
 MIME-Version: 1.0
-In-Reply-To: <1536142432.8121.6.camel@HansenPartnership.com>
+In-Reply-To: <20180905144233.GB15573@kroah.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Distribution kernel
- bugzillas considered harmful
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Stable trees and release
+ time
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,74 +36,102 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 09/05/2018 03:13 AM, James Bottomley wrote:
-> I'm seeing a lot of wasted effort by our customers on kernel bugs and
-> trying to engage the distribution to fix them.  As a caveat, I'm
-> working in the cloud, so the distributions in question are usually
-> community ones not enterprise ones.  However, we do have a fair few
-> customers on LTS kernels from Distributions.
+On 09/05/2018 07:42 AM, Greg KH wrote:
+> On Tue, Sep 04, 2018 at 04:22:59PM -0500, Justin Forbes wrote:
+>> On Tue, Sep 4, 2018 at 3:58 PM, Laura Abbott <labbott@redhat.com> wrote:
+>>> I'd like to start a discussion about the stable release cycle.
+>>>
+>>> Fedora is a heavy user of the most recent stable trees and we
+>>> generally do a pretty good job of keeping up to date. As we
+>>> try and increase testing though, the stable release process
+>>> gets to be a bit difficult. We often run into the problem where
+>>> release .Z is officially released and then .Z+1 comes
+>>> out as an -rc immediately after. Given Fedora release processes,
+>>> we haven't always finished testing .Z by the time .Z+1 comes
+>>> out. What to do in this situation really depends on what's in
+>>> .Z and .Z+1 and how stable we think things are. This usually
+>>> works out fine but a) sometimes we guess wrong and should have
+>>> tested .Z more b) we're only looking to increase testing.
+>>>
+>>> What I'd like to see is stable updates that come on a regular
+>>> schedule with a longer -rc interval, say Sunday with
+>>> a one week -rc period. I understand that much of the current
+>>> stable schedule is based on Greg's schedule. As a distro
+>>> maintainer though, a regular release schedule with a longer
+>>> testing window makes it much easier to plan and deliver something
+>>> useful to our users. It's also a much easier sell for encouraging
+>>> everyone to pick up every stable update if there's a known
+>>> schedule. I also realize Greg is probably reading this with a very
+>>> skeptical look on his face so I'd be interested to hear from
+>>> other distro maintainers as well.
+>>>
+>>
+>> This has been a fairly recent problem. There was a roughly weekly
+>> cadence for a very long time and that was pretty easy to work with.  I
+>> know that some of these updates do fix embargoed security issues that
+>> we don't find out are actual fixes until later, but frequently in
+>> those cases, the fixes are pushed well before embargo lifts, and they
+>> could be fit into a weekly cadence.  Personally I don't have a problem
+>> with the 3 day rc period, but pushing 2 kernels a week can be a
+>> problem for users. (skipping a stable update is also a problem for
+>> users.)  What I would prefer is 1 stable update per week with an
+>> exception for *serious* security issues, where serious would mean
+>> either real end user impact or high profile lots of press users are
+>> going to be wondering where a fix is.
 > 
-> Mostly they find a cloud performance regression, they try to engage the
-> distro, spend ages working on it or submitting bugs and usually end up
-> with an unsatisfactory result.  By the time they call my team in, we've
-> likely only got a week to fix the issue.  However, step one is always
-> confirming whether upstream works (95% of the time it does) and then
-> finding the fix by bisection (usually assisted by knowledge of where
-> the bug is).  To do the bisection we usually have to build a kernel
-> package with our guesses and get them to try it, so it can be a bit
-> slow.  Once we have the backport, we send it to stable and notify the
-> distribution to include it in their next kernel release.
+> Laura, thanks for bringing this up.  I'll try to respond here given that
+> Justin agrees with the issue of timing.
 > 
-> Here's the rub: community distributions (even LTS ones) don't have the
-> resources even to triage cloud bugs in environments they likely can't
-> reproduce, so we really need to develop assistive tools for customers
-> to perform bisections to identify what caused the bug or (in the 95%
-> case) what fixed it.  Having a bugzilla and using it as first line of
-> support implies a service expectation (usually coming from Enterprise)
-> that simply isn't met, so distributions need to fix this at the point
-> of interaction: bugzilla.
+> Honestly, this year has been a total shit-storm for stable due to the
+> whole security mess we have been dealing with.  The number of
+> totally-crazy-intrusive patches I have had to take is insane.  Combine
+> that with a total lack of regard for the security issues for some arches
+> (arm32 comes to mind), it's been a very rough year and I have been just
+> trying to keep on top of everything.
 > 
-> The first suggestion is that kernel builds are pretty much automated
-> and we try to make every commit buildable, so could we automate the
-> machinery that allows a customer to do bisection simply by installing a
-> kernel package? (we here, obviously means the distro, but going from
-> git bisect to kernel package would be the useful link).
+> Because of these issues (and it wasn't just spectre/meltdown, we have
+> had other major fire drills in some subsystems), the release cycles have
+> been quick and contain a lot of patches, sorry about that.  But that is
+> reflected in Linus's tree as well, so maybe this is just the "new
+> normal" that we all need to get used to.
 > 
 
-As mentioned further down, I did try having scripts to do this but
-it was ultimately fairly fragile. I think a better approach is
-leveraging the existing in tree support for building a distro
-package and using that with regular git bisect.
+While the specdown stuff was bad, I was seeing this pattern well
+before all that happened as well. I do agree this may be a new normal
+which is why I brought up the discussion topic.
 
-> Second suggestion is that the bugzillas need to say much more strongly
-> that the reporter really needs to confirm the fix in upstream and do
-> the bisection themselves (and ideally request the backport to stable
-> themselves).
+> I could do a "one release a week" cycle, which I would _love_ but that
+> is not going to decrease the number of patches per release, it is only
+> going to make them large (patch rate stays the same, and increases, no
+> matter when I release)  So I had been thinking that to break the
+> releases up into a "here's a hundred or so patches" per release, was a
+> helpful thing to the reviewers.
+I'm really not that concerned with the number of patches going in.
+We'll be testing if there's 1 or 300 patches and trying to pick
+and choose tests also doesn't work. Stable updates that contain
+a headline making bug can be handled differently.
+
+> If this assumption is incorrect, yes, I can go to one-per-week, if
+> people agree that they can handle the large increase per release
+> properly.  Can you all do that?
+> 
+> Are we going to do a "patch tuesday" like our friends in Redmond now? :)
+> > Note, if we do pick a specific day-per-week, then anything outside of
+> that cycle will cause people to look _very_ close at the release.  I
+> don't know if that's a good thing or not, but be aware that it could
+> cause unintended side-affects.  Personally I think the fact that we are
+> _not_ regular is a good thing, no out-of-band information leakage
+> happens that way.
 > 
 
-At least in Fedora this is something we hit fairly frequently. We
-do strongly encourage people to report bugs and bisect. This runs
-into a number of problems:
-
-- Bisecting on local machines is slow and people often don't want
-to give up their machine resources.
-- If people give me a test case I can reproduce, I'm usually
-okay to run a bisect myself but it's pretty rare to get a
-test case.
-- People are hesitant to run bisections and build kernels.
-There's a lot of steps involved. We try and point people to wiki
-pages with instructions but many times we end up having to
-go back and forth explaining how to do the setup.
-- People are hesitant to report bugs to the upstream. I end up
-having to explain where to report bugs or run get_maintainer.pl
-for people otherwise they just file it against kernel.org
-bugzilla or just e-mail LKML. I started a skeleton of a web
-project to make a web interface for get_maintainer.pl but it
-never got very far.
-
-Tooling can certainly help with a lot of this but some of
-this may also just be more documentation and needing to
-guide people.
+There's certainly trade offs to be made. A side-channel for our
+side-channel patches could be bad but most people who are seriously
+interested are looking already.
 
 Thanks,
 Laura
+
+> thanks,
+> 
+> greg k-h
+> 
