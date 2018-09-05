@@ -1,29 +1,40 @@
-Return-Path: <SRS0=+gHD=LT=goodmis.org=rostedt@kernel.org>
+Return-Path: <daniel.vetter@ffwll.ch>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5DB491164
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8A9F5148F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 15:50:11 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DA25071C
+	Wed,  5 Sep 2018 15:54:50 +0000 (UTC)
+Received: from mail-it0-f67.google.com (mail-it0-f67.google.com
+	[209.85.214.67])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 53E6F71C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Sep 2018 15:50:10 +0000 (UTC)
-Date: Wed, 5 Sep 2018 11:50:08 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: "Paul E. McKenney" <paulmck@linux.vnet.ibm.com>
-Message-ID: <20180905115008.22e3d21f@gandalf.local.home>
-In-Reply-To: <20180905150315.GA10819@linux.vnet.ibm.com>
-References: <1536142432.8121.6.camel@HansenPartnership.com>
-	<20180905113715.GJ9781@sirena.org.uk>
-	<20180905150315.GA10819@linux.vnet.ibm.com>
+	Wed,  5 Sep 2018 15:54:49 +0000 (UTC)
+Received: by mail-it0-f67.google.com with SMTP id h23-v6so10075702ita.5
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 05 Sep 2018 08:54:49 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+In-Reply-To: <20180905140535.GB7556@kroah.com>
+References: <5c9c41b2-14f9-41cc-ae85-be9721f37c86@redhat.com>
+	<20180904213340.GD16300@sasha-vm>
+	<nycvar.YFH.7.76.1809050838570.15880@cbobk.fhfr.pm>
+	<20180905081658.GB24902@quack2.suse.cz>
+	<nycvar.YFH.7.76.1809051029400.15880@cbobk.fhfr.pm>
+	<1536141525.8121.2.camel@HansenPartnership.com>
+	<20180905104700.GE9781@sirena.org.uk>
+	<6a25761a-c640-4eb2-952c-4bcd91da28a2@email.android.com>
+	<s5hefe8cd0u.wl-tiwai@suse.de>
+	<CAKMK7uFMHkw4jw3D6ijGNZF84+p+EGY_6YAdCOTcXe0DQbLC6g@mail.gmail.com>
+	<20180905140535.GB7556@kroah.com>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Wed, 5 Sep 2018 17:54:47 +0200
+Message-ID: <CAKMK7uFMCL95mrvFQvxzjZhEk+QvkaYmZDRvp7PY6FgJTQnWzw@mail.gmail.com>
+To: Greg KH <gregkh@linuxfoundation.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Distribution kernel
- bugzillas considered harmful
+Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Stable trees and release
+	time
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,22 +44,145 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 5 Sep 2018 08:03:15 -0700
-"Paul E. McKenney" <paulmck@linux.vnet.ibm.com> wrote:
+On Wed, Sep 5, 2018 at 4:05 PM, Greg KH <gregkh@linuxfoundation.org> wrote:
+> On Wed, Sep 05, 2018 at 03:27:58PM +0200, Daniel Vetter wrote:
+>> On Wed, Sep 5, 2018 at 3:03 PM, Takashi Iwai <tiwai@suse.de> wrote:
+>> > On Wed, 05 Sep 2018 14:24:18 +0200,
+>> > James Bottomley wrote:
+>> >>
+>> >> On September 5, 2018 11:47:00 AM GMT+01:00, Mark Brown <broonie@kernel.org> wrote:
+>> >> >On Wed, Sep 05, 2018 at 10:58:45AM +0100, James Bottomley wrote:
+>> >> >
+>> >> >> This really shouldn't be an issue: stable trees are backported from
+>> >> >> upstream.  The patch (should) work in upstream, so it should work in
+>> >> >> stable.  There are only a few real cases you need to worry about:
+>> >> >
+>> >> >>    1. Buggy patch in upstream backported to stable. (will be caught
+>> >> >and
+>> >> >>       the fix backported soon)
+>> >> >>    2. Missing precursor causing issues in stable alone.
+>> >> >>    3. Bug introduced when hand applying.
+>> >> >
+>> >> >> The chances of one of these happening is non-zero, but the criteria
+>> >> >for
+>> >> >> stable should mean its still better odds than the odds of hitting the
+>> >> >> bug it was fixing.
+>> >> >
+>> >> >Some of those are substantial enough to be worth worrying about,
+>> >> >especially the missing precursor issues.  It's rarely an issue with the
+>> >> >human generated backports but the automated ones don't have a sense of
+>> >> >context in the selection.
+>> >> >
+>> >> >There's also a risk/reward tradeoff to consider with more minor issues,
+>> >> >especially performance related ones.  We want people to be enthusiastic
+>> >> >about taking stable updates and every time they find a problem with a
+>> >> >backport that works against them doing that.
+>> >>
+>> >> I absolutely agree.  That's why I said our process is expediency
+>> >> based:  you have to trade off the value of applying the patch vs the
+>> >> probability of introducing bugs.  However the maintainers are mostly
+>> >> considering this which is why stable is largely free from trivial
+>> >> but pointless patches.  The rule should be: if it doesn't fix a user
+>> >> visible bug, it doesn't go into stable.
+>> >
+>> > Right, and here the current AUTOSEL (and some other not-stable-marked)
+>> > patches coming to a gray zone.  The picked-up patches are often right
+>> > as "some" fixes, but they are not necessarily qualified as "stable
+>> > fixes".
+>> >
+>> > How about allowing to change the choice of AUTOSEL to be opt-in and
+>> > opt-out, depending on the tree?  In my case, usually the patches
+>> > caught by AUTOSEL aren't really the patches with forgotten stable
+>> > marker, but rather left intentionally by various reasons.  Most of
+>> > them are fine to apply in anyway, but it was uncertain whether they
+>> > are really needed / qualifying as stable fixes.  So, I'd be happy to
+>> > see them as opt-in, i.e. applied only via manual approval.
+>> >
+>> > Meanwhile, some trees have no stable-maintenance, and AUTOSEL would
+>> > help for them.  They can be opt-out, i.e. kept until someone rejects.
+>>
+>> +1 on AUTOSEL opt-in. It's annyoing at best, when it backports cleanup
+>> patches (because somehow those look like stealthy security fixes
+>> sometimes) and breaks a bunch of people's boxes for no good reason.
+>>
+>> In general it'd be really good if -stable had a clearer audit path.
+>> Every patch have a recorded reason why it's being applied (e.g. Cc:
+>> stable in upstream, Link to the lkml thread/bug report, AUTOSEL mail,
+>> whatever), so that after the fact I can figure out why a -stable patch
+>> happend, that would be really great. Atm -stable occasionally blows
+>> up, with a patch we didn't mark as cc: stable, and we have no idea
+>> whyiit showed up in -stable even. That makes it really hard to do
+>> better next time around.
+>
+> I try to keep the audit thread here, as I get asked all the time why
+> stuff got added.
+>
+> Here's what I do, it's not exactly obvious, sorry:
+>         - if it came from a stable@ tag, just leave it alone and add my
+>           signed-off-by
+>         - if it was manually requested by someone, I add a "cc:
+>           requestor" to the signed-off-by area and add my s-o-b
 
-> I am one of those strange people who rebase in order to improve
-> bisectability.  But one reason I can do that is that I have relatively
-> few patches, and it gets harder the more patches I am carrying.  I suppose
-> that someone (not me!) could rebase -stable to make it more bisectable,
+Cc-stable-requested-by: would be more obvious. If you have, lkml
+archive link with the bug report is even better.
 
-How would rebasing it make stable more bisectable? Once you rebase, you
-don't have a tree that use to work? Although I guess you may find the
-commit that caused the problem better. But rebasing creates a lot of
-other issues, I would not recommend rebasing stable, as that would
-totally break the RT stable tree work flow.
+An additional quirk in drm is that we have committers, so normal Cc:
+rules (author + committer + anyone already on Cc:) has a good chance
+of leaving out maintainers. And generally committers don't care one
+bit about some multi-year old LTS kernel, not their job ... You'll
+never get any review from them.
 
--- Steve
+>         - if it came from Sasha's tree, Sasha's s-o-b is on it
 
+How do things end up in Sasha's tree? Is that just AUTOSEL, or also
+other patches?
 
-> but that sounds difficult, painful, and error-prone.  Could added tooling
-> make bisection work better?  Sounds valuable, but non-trivial.
+>         - if it came from David Miller's patchset, his s-o-b is on it.
+
+Ok, that's netdev and Dave knows what's he doing :-)
+
+> That should cover all types of patches currently going into the trees,
+> right?
+>
+> So always, you can cc: everyone on the s-o-b area and get the people
+> involved in the patch and someone involved in reviewing it for stable
+> inclusion.
+
+Let's pick a concrete example:
+
+commit c81350c31d0d20661a0aa839b79182bcb0e7a45d
+Author: Satendra Singh Thakur <satendra.t@samsung.com>
+Date:   Thu May 3 11:19:32 2018 +0530
+
+    drm/atomic: Handling the case when setting old crtc for plane
+
+    [ Upstream commit fc2a69f3903dfd97cd47f593e642b47918c949df ]
+
+    In the func drm_atomic_set_crtc_for_plane, with the current code,
+    if crtc of the plane_state and crtc passed as argument to the func
+    are same, entire func will executed in vein.
+    It will get state of crtc and clear and set the bits in plane_mask.
+    All these steps are not required for same old crtc.
+    Ideally, we should do nothing in this case, this patch handles the same,
+    and causes the program to return without doing anything in such scenario.
+
+    Signed-off-by: Satendra Singh Thakur <satendra.t@samsung.com>
+    Cc: Madhur Verma <madhur.verma@samsung.com>
+    Cc: Hemanshu Srivastava <hemanshu.s@samsung.com>
+    Signed-off-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+    Link: https://patchwork.freedesktop.org/patch/msgid/1525326572-25854-1-git-send-email-satendra.t@samsung.com
+    Signed-off-by: Sasha Levin <alexander.levin@microsoft.com>
+    Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+Upstream patch doesn't have a cc: stable. I tried looking for it in my
+mail archives (and it's a patch committed by myself, so I guess I'll
+get cc'ed?), didn't find anything.
+
+I have no idea why this got added at all. Looking at the discussion on
+dri-devel, it's purely a cleanup for consistency with another
+function. And it blew up :-/
+-Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
