@@ -1,28 +1,33 @@
-Return-Path: <linus.walleij@linaro.org>
+Return-Path: <dhowells@redhat.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6AA11E7B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 62FDBF99
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Sep 2018 10:05:06 +0000 (UTC)
-Received: from mail-io0-f193.google.com (mail-io0-f193.google.com
-	[209.85.223.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1C2E56D6
+	Thu,  6 Sep 2018 10:05:46 +0000 (UTC)
+Received: from mx1.redhat.com (mx3-rdu2.redhat.com [66.187.233.73])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0626971C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Sep 2018 10:05:06 +0000 (UTC)
-Received: by mail-io0-f193.google.com with SMTP id l14-v6so8351634iob.7
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 06 Sep 2018 03:05:06 -0700 (PDT)
+	Thu,  6 Sep 2018 10:05:45 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+In-Reply-To: <87y3cfymgr.fsf@intel.com>
+References: <87y3cfymgr.fsf@intel.com>
+	<17533.1536166384@warthog.procyon.org.uk>
+	<nycvar.YFH.7.76.1809052132190.15880@cbobk.fhfr.pm>
+	<CAFxkdAp6FxwT5XO9C_4_naSTEzs4iFosj+ijbK0rfW8FsyuMsA@mail.gmail.com>
+	<32341.1536178494@warthog.procyon.org.uk>
+	<CAFxkdAoiQMuzEq1Dv0=fO6uB2fLcc+0Wb+zuVvSFsAweROfhQQ@mail.gmail.com>
+	<CALCETrVFSk=8eMyzsjkOPKne2kVuZzjyn5tLNDnB3ZaBGh1qrQ@mail.gmail.com>
+To: Jani Nikula <jani.nikula@intel.com>
 MIME-Version: 1.0
-References: <CAGXu5j+-X6WQNdTYK2ZA5OOJgc0RfCq9Gr9WRAMkYTSQOT7QdQ@mail.gmail.com>
-In-Reply-To: <CAGXu5j+-X6WQNdTYK2ZA5OOJgc0RfCq9Gr9WRAMkYTSQOT7QdQ@mail.gmail.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Thu, 6 Sep 2018 12:04:53 +0200
-Message-ID: <CACRpkdaVs8sY2OjLWOZNhBEHt+uAVct+8oF23wrsj2Lnt+UKfw@mail.gmail.com>
-To: Kees Cook <keescook@chromium.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] API
-	replacement/deprecation
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <17242.1536228343.1@warthog.procyon.org.uk>
+Date: Thu, 06 Sep 2018 11:05:43 +0100
+Message-ID: <17243.1536228343@warthog.procyon.org.uk>
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	joeyli.kernel@gmail.com, ksummit-discuss@lists.linuxfoundation.org,
+	Justin Forbes <jmforbes@linuxtx.org>, Peter Jones <pjones@redhat.com>,
+	Andy Lutomirski <luto@kernel.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Kernel lockdown and secure boot
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,33 +37,11 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Sep 6, 2018 at 12:57 AM Kees Cook <keescook@chromium.org> wrote:
+Jani Nikula <jani.nikula@intel.com> wrote:
 
-> Slow:
-> Introduce new API in release N. Trickle patches in over N+M releases,
-> removing old API when no more uses are present.
-> Pros:
-> - patches are written and handed to maintainers at a regular rate
-> - testing happens normally
-> Cons:
-> - new users of the old API continue to enter the kernel, causing an
-> endless cycle of needing more work
-> - API may never get deprecated
-> Example: strscpy(), VLA removal
+> I guess I'm asking, have you considered an audit log for lockdown
+> blocked access, and if you've rejected the idea, why?
 
-GPIO descriptors trying to remove the global GPIO numbers, in
-turn inspired by the IRQ number removal trying to remove
-global IRQ numbers.
+It logs a message to dmesg telling you what caused the rejection.
 
-I am moving forward with the GPIO work, sometimes I even get
-help.
-
-As the process involves building manu esoteric architectures
-I have been most helped by Arnd deleting cruft archs such as
-blackfin and the 0day kbuild hitting me on the head for all
-stupid mistakes I make, this has added some momentum to
-the trickliness so it is more like a brook these days. It's still
-not quick.
-
-Yours,
-Linus Walleij
+David
