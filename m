@@ -1,22 +1,25 @@
-Return-Path: <tytso@thunk.org>
+Return-Path: <jikos@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id ED7A710F2
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A30C4E18
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Sep 2018 18:50:46 +0000 (UTC)
-Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7DCA6800
+	Thu,  6 Sep 2018 19:18:10 +0000 (UTC)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3683B7D3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Sep 2018 18:50:46 +0000 (UTC)
-Date: Thu, 6 Sep 2018 14:50:43 -0400
-From: "Theodore Y. Ts'o" <tytso@mit.edu>
+	Thu,  6 Sep 2018 19:18:10 +0000 (UTC)
+Received: from relay1.suse.de (unknown [195.135.220.254])
+	by mx1.suse.de (Postfix) with ESMTP id 772EFAE70
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu,  6 Sep 2018 19:18:08 +0000 (UTC)
+Date: Thu, 6 Sep 2018 21:18:07 +0200 (CEST)
+From: Jiri Kosina <jikos@kernel.org>
 To: ksummit-discuss@lists.linuxfoundation.org
-Message-ID: <20180906185043.GA14607@thunk.org>
+Message-ID: <nycvar.YFH.7.76.1809062054450.15880@cbobk.fhfr.pm>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Subject: [Ksummit-discuss] CHANGE OF PLAN: Maintainer Summit will be in
-	Edinburgh
+Content-Type: text/plain; charset=US-ASCII
+Subject: [Ksummit-discuss] [MAINTAINERS SUMMIT] Handling of embargoed
+	security issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -26,46 +29,44 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Last Friday (just before Labor Day) I learned that Linus had gotten
-confused about when and where the Maintainer's Summit was going to be
-held this year.  And most unfortunately, he has already scheduled a
-family vacation overlapping with the week of the Maintainer's Summit.
+I believe we have reasonably well-established process for handling 
+security issues that are a matter of a single, reasonably self-contained 
+fixup.
 
-Over the weekend, I've been conferring with folks from the Linux
-Foundation, Linus, and the Maintainer's / Kernel Summit program
-committee.  We explored a lot of options, but ultimately there were
-only two choices that were workable:
+Past experiences with Meltdown, Spectre and L1TF have shown that we're not 
+really ready to handle that in a reasonably sane way yet.
 
-1)  Have the Maintainer's Summit in Vancouver, without Linus.
+Yeah, at the end of the day we managed to have the fixes propagated in 
+time to Linus' tree, to stable, and to distros as well, but it was 
+completely out of anything regular, and definitely had permanent damaging 
+effects (I'd say both in personal and business aspects for almost 
+everybody who had to participate).
 
-2)  Move the Maintainer's Summit to Edinburgh, with Linus.
+I'd believe that everybody involved would agree that this didn't work 
+really well, and if it potentially would have to happen again (and we 
+already went through it at least twice this year), it would not be 
+sustainable.
 
-Curiously enough, Linus suggested option #1.  And while holding the
-Maintainer's Summit without Linus might be an interesting experiment,
-ultimately, the Program Committee had a strong consensus that moving
-it Summit to Edinburgh was the better option.
+I am not completely sure what we could do to improve this, especially with 
+our kernel community hats on -- I am pretty sure a lot is happening on the 
+corporate level between individual "corporate stakeholders". Ideas I think 
+would be worth discussing:
 
-This means that the Maintainer's Summit will take place in Edinburgh,
-on Monday afternoon, October 22nd.  As a reminder, the Maintainer's
-Summit is an invite-only workshop, with ~30 people attending.  The
-focus of the Maintainer's Summit is process and development issues,
-*not* technical issues.
+- how to adapt our processess to be able to deal with such situations 
+  better should they happen in the future again. So far all our 
+  longer-term development has been concentrated around LKML (and other 
+  MLs) and the existing maintainership communities / structures, but the 
+  embargos for new big features don't really fit into this
 
-The Kernel Summit track will still be held in Vancouver alongside
-Plumber's.  Technical discussions will take place there; we simply
-won't have the time, or necessarily, the right people, to have
-technical discussions at the Maintainer's Summit.
+- how to make sure that proper pressure is applied on the companies that 
+  are handling embargoes irresponsibly wrt. linux/opensource development 
+  (well, even some proprietary vendors were rather unhappy with those 
+  events) from us as the linux kernel community
+  + and perhaps even more importantly, what exactly we should be pressing 
+    for
 
-This means that people who get an invite to the Maintainer's Summit
-may have an extra trip this year (some may have been planning to
-attend OSS EU anyway).  For those for which this will be an extra
-trip, I apologize in advance.  Maintainer's Summit invitees will still
-receive a free (non-transferrable) registration to the Linux Plumber's
-Conference.
+Thanks,
 
-This also means that the process by which we issue invites to the
-Maintainer's Summit is going to have been significantly accelerated.
-So if you have any ideas for the Maintainer's Summit Topics, please
-chime in soon!
-
-					- Ted
+-- 
+Jiri Kosina
+SUSE Labs
