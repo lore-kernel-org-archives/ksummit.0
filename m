@@ -1,37 +1,27 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <daniel.vetter@ffwll.ch>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 23F16EF6
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 43632F68
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Sep 2018 19:44:37 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DCAC98B
+	Thu,  6 Sep 2018 19:48:01 +0000 (UTC)
+Received: from mail-it0-f49.google.com (mail-it0-f49.google.com
+	[209.85.214.49])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E033C8B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Sep 2018 19:44:36 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
-	by bedivere.hansenpartnership.com (Postfix) with ESMTP id BE3B58EE1F4
+	Thu,  6 Sep 2018 19:48:00 +0000 (UTC)
+Received: by mail-it0-f49.google.com with SMTP id j81-v6so17232242ite.0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Sep 2018 12:44:35 -0700 (PDT)
-Received: from bedivere.hansenpartnership.com ([127.0.0.1])
-	by localhost (bedivere.hansenpartnership.com [127.0.0.1]) (amavisd-new,
-	port 10024) with ESMTP id qpbYHXD-lxPA
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Sep 2018 12:44:35 -0700 (PDT)
-Received: from [153.66.254.194] (unknown [50.35.68.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by bedivere.hansenpartnership.com (Postfix) with ESMTPSA id 550F68EE101
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Sep 2018 12:44:35 -0700 (PDT)
-Message-ID: <1536263073.6012.3.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Thu, 06 Sep 2018 12:44:33 -0700
+	Thu, 06 Sep 2018 12:48:00 -0700 (PDT)
+MIME-Version: 1.0
+In-Reply-To: <1536263073.6012.3.camel@HansenPartnership.com>
+References: <1536263073.6012.3.camel@HansenPartnership.com>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Thu, 6 Sep 2018 21:47:59 +0200
+Message-ID: <CAKMK7uFHOP+shcnAdHEEELOth+d3BR0LdUZ9rXdrhYueHdqF9A@mail.gmail.com>
+To: James Bottomley <James.Bottomley@hansenpartnership.com>
 Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: [Ksummit-discuss] [MAINTAINER TOPIC] Succession Planning: Is It
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [MAINTAINER TOPIC] Succession Planning: Is It
  time to Throw Linus Under a Bus?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -42,12 +32,21 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Since our fearless leader apparently can't even remember the dates of
-the only conference he goes to, perhaps now might be a good time to
-talk about how we'd run an orderly succession process (purely
-theoretically, of course ...)
+On Thu, Sep 6, 2018 at 9:44 PM, James Bottomley
+<James.Bottomley@hansenpartnership.com> wrote:
+> Since our fearless leader apparently can't even remember the dates of
+> the only conference he goes to, perhaps now might be a good time to
+> talk about how we'd run an orderly succession process (purely
+> theoretically, of course ...)
+>
+> I think a vote amongst the Maintainer Summit attendees might be the way
+> to elect a new leader, but others probably have different ideas.
 
-I think a vote amongst the Maintainer Summit attendees might be the way
-to elect a new leader, but others probably have different ideas.
+Why I single leader?
 
-James
+This group maintainer ship thing ... it  works.
+-Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
