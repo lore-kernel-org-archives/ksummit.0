@@ -1,27 +1,33 @@
-Return-Path: <julia.lawall@lip6.fr>
+Return-Path: <tglx@linutronix.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 91052E2A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 01DAAE8E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Sep 2018 06:12:25 +0000 (UTC)
-Received: from mail3-relais-sop.national.inria.fr
-	(mail3-relais-sop.national.inria.fr [192.134.164.104])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 94B566D6
+	Thu,  6 Sep 2018 08:48:49 +0000 (UTC)
+Received: from Galois.linutronix.de (Galois.linutronix.de [146.0.238.70])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 920885E2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Sep 2018 06:12:24 +0000 (UTC)
-Date: Thu, 6 Sep 2018 08:12:21 +0200 (CEST)
-From: Julia Lawall <julia.lawall@lip6.fr>
+	Thu,  6 Sep 2018 08:48:48 +0000 (UTC)
+Date: Thu, 6 Sep 2018 10:48:42 +0200 (CEST)
+From: Thomas Gleixner <tglx@linutronix.de>
 To: Steven Rostedt <rostedt@goodmis.org>
-In-Reply-To: <20180905222437.5d2a1730@vmware.local.home>
-Message-ID: <alpine.DEB.2.20.1809060806110.3065@hadrien>
-References: <CAGXu5j+-X6WQNdTYK2ZA5OOJgc0RfCq9Gr9WRAMkYTSQOT7QdQ@mail.gmail.com>
-	<20180906094158.1eba4f50@canb.auug.org.au>
-	<20180905222437.5d2a1730@vmware.local.home>
+In-Reply-To: <20180905111849.1d08653c@gandalf.local.home>
+Message-ID: <alpine.DEB.2.21.1809061046110.1416@nanos.tec.linutronix.de>
+References: <5c9c41b2-14f9-41cc-ae85-be9721f37c86@redhat.com>
+	<20180904213340.GD16300@sasha-vm>
+	<nycvar.YFH.7.76.1809050838570.15880@cbobk.fhfr.pm>
+	<20180905081658.GB24902@quack2.suse.cz>
+	<alpine.DEB.2.21.1809051108220.1416@nanos.tec.linutronix.de>
+	<nycvar.YFH.7.76.1809051246380.15880@cbobk.fhfr.pm>
+	<alpine.DEB.2.21.1809051603100.1416@nanos.tec.linutronix.de>
+	<20180905111849.1d08653c@gandalf.local.home>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] API
- replacement/deprecation
+Cc: Greg KH <gregkh@linuxfoundation.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Stable trees and release
+ time
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,52 +37,27 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-
-
 On Wed, 5 Sep 2018, Steven Rostedt wrote:
+> It's not the distros that need convincing, it's the vendors that pay to
+> have it done. When I first started at Red Hat and was told about the
+> "Stable Kernel ABI", the person telling me about this (a very
+> established kernel developer) also said "Yeah it really sucks, but
+> companies are willing to pay a shite load of money to have it done". And
+> it's in the distros best interest to get that shite load of money. It
+> also funds the same developers to do this work, and hopefully continue
+> to help upstream as well.
+> 
+> If we remove that nasty work, these companies wont need to continue
+> paying that shite load anymore, and they may not be able to afford
+> paying these talented developers.
 
-> On Thu, 6 Sep 2018 09:41:58 +1000
-> Stephen Rothwell <sfr@canb.auug.org.au> wrote:
->
-> > Hi all,
-> >
-> > On Wed, 5 Sep 2018 15:57:02 -0700 Kees Cook <keescook@chromium.org> wrote:
-> > >
-> > > I'd like to discuss ways that we could deprecate APIs more sanely. At
-> > > present I've seen (and used) two approaches, fast and slow:
-> >
-> > As the one who often has the "fun" of coping with API changes, I would
-> > like to be involved in this discussion.
-> >
-> > My first point would be that (almost) every time someone has tried the
-> > "ultra fast" method (i.e. add new interface, convert everyone in the
-> > current kernel, remove the old interface all in one go) we have had new
-> > users of the old interface introduced at the same time.  (pain for the
-> > linux-next bunny :-()
->
-> Can this be solved with a script on kernel.org? Or a zero-day bot that
-> checks new commits (and perhaps patches to LKML) that checks for
-> deprecated functions being added by new code (like strcpy) and the
-> author would then get a nasty email about adding deprecated interfaces.
+Come on. Unless you have hard evidence for this, you are merily
+proliferating a decades old distro fairy tale.
 
-There are some Coccinelle scripts already for functions the DRM people
-want to get rid of.  They regularly trigger reports.  The advantage is to
-show people what they should do, and not just tell people what they should
-not do.  There could be a generic script that would just complain, for
-cases where the relation between the undesired code and the desired code
-is not easy to express.  Updating such a script would involve just adding
-the name of the function to a list.
+Seriously, those old kernels are part of the revenue stream, but if any
+vendors engineering investment, which is securing the future, depends on
+this, then the company is close to the state of the dead kernels.
 
-julia
+Thanks,
 
->
-> This would solve the issue of not everyone using the latest checkpatch,
-> as this wouldn't be a voluntary self-check. It would also quickly
-> educate developers on what code is not acceptable to be added.
->
-> -- Steve
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
->
+	tglx
