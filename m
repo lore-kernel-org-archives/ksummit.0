@@ -1,37 +1,34 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <tglx@linutronix.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4A799E32
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 62E98CE7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Sep 2018 10:51:09 +0000 (UTC)
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
-	[172.104.155.198])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D24EE6D6
+	Thu,  6 Sep 2018 12:47:29 +0000 (UTC)
+Received: from Galois.linutronix.de (Galois.linutronix.de [146.0.238.70])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id ED7A88B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Sep 2018 10:51:08 +0000 (UTC)
-Date: Thu, 6 Sep 2018 11:51:05 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Linus Walleij <linus.walleij@linaro.org>
-Message-ID: <20180906105105.GD5360@sirena.org.uk>
-References: <CABVU7+vBVivOZ32aEokJ0y3=C2z0Ev12O3vSVfyTC9TDrBOr8A@mail.gmail.com>
-	<20180905042246.GA2977@mtr-leonro.mtl.com>
-	<CABVU7+u+F1CXAW48_XfhLy59BOTxAS-qa_pG4Xjkki=f4Rr9Kg@mail.gmail.com>
-	<20180905074840.GB29052@kroah.com>
-	<CAKMK7uEJfgACdzLdfh+EeG-NFkr47Bn3PFWCEOPA+1D1=5J7kA@mail.gmail.com>
-	<20180905083120.GA28353@kroah.com>
-	<CAKMK7uHLACdr4vGexqO-oh+QrRqxq0_KyJdhnr_eAZy6ApwWUQ@mail.gmail.com>
-	<CACRpkdYP1_kG+nzg0Op-3VoLqRm8nUpXf8Daf_1B17-wWJyLjA@mail.gmail.com>
-	<CAK8P3a09LAbSUyLR5DTAea35xtOgRpjRYkK1EGo1kDMEQjH4uA@mail.gmail.com>
-	<CACRpkdZW03DuMVQ8Rn5GOiiN2z16cqq0WMmQFZquaGBp4BpsCA@mail.gmail.com>
+	Thu,  6 Sep 2018 12:47:28 +0000 (UTC)
+Date: Thu, 6 Sep 2018 14:47:25 +0200 (CEST)
+From: Thomas Gleixner <tglx@linutronix.de>
+To: Steven Rostedt <rostedt@goodmis.org>
+In-Reply-To: <alpine.DEB.2.21.1809061046110.1416@nanos.tec.linutronix.de>
+Message-ID: <alpine.DEB.2.21.1809061438140.1570@nanos.tec.linutronix.de>
+References: <5c9c41b2-14f9-41cc-ae85-be9721f37c86@redhat.com>
+	<20180904213340.GD16300@sasha-vm>
+	<nycvar.YFH.7.76.1809050838570.15880@cbobk.fhfr.pm>
+	<20180905081658.GB24902@quack2.suse.cz>
+	<alpine.DEB.2.21.1809051108220.1416@nanos.tec.linutronix.de>
+	<nycvar.YFH.7.76.1809051246380.15880@cbobk.fhfr.pm>
+	<alpine.DEB.2.21.1809051603100.1416@nanos.tec.linutronix.de>
+	<20180905111849.1d08653c@gandalf.local.home>
+	<alpine.DEB.2.21.1809061046110.1416@nanos.tec.linutronix.de>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="EY/WZ/HvNxOox07X"
-Content-Disposition: inline
-In-Reply-To: <CACRpkdZW03DuMVQ8Rn5GOiiN2z16cqq0WMmQFZquaGBp4BpsCA@mail.gmail.com>
-Cc: Jon Masters <jcm@redhat.com>, ksummit-discuss@lists.linuxfoundation.org,
-	Greg KH <gregkh@linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Challenges in Upstream
- vs. Embargoed Development in Intel Graphics.
+Content-Type: text/plain; charset=US-ASCII
+Cc: Greg KH <gregkh@linuxfoundation.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Stable trees and release
+ time
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,52 +38,42 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Thu, 6 Sep 2018, Thomas Gleixner wrote:
 
---EY/WZ/HvNxOox07X
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> On Wed, 5 Sep 2018, Steven Rostedt wrote:
+> > It's not the distros that need convincing, it's the vendors that pay to
+> > have it done. When I first started at Red Hat and was told about the
+> > "Stable Kernel ABI", the person telling me about this (a very
+> > established kernel developer) also said "Yeah it really sucks, but
+> > companies are willing to pay a shite load of money to have it done". And
+> > it's in the distros best interest to get that shite load of money. It
+> > also funds the same developers to do this work, and hopefully continue
+> > to help upstream as well.
+> > 
+> > If we remove that nasty work, these companies wont need to continue
+> > paying that shite load anymore, and they may not be able to afford
+> > paying these talented developers.
+> 
+> Come on. Unless you have hard evidence for this, you are merily
+> proliferating a decades old distro fairy tale.
+> 
+> Seriously, those old kernels are part of the revenue stream, but if any
+> vendors engineering investment, which is securing the future, depends on
+> this, then the company is close to the state of the dead kernels.
 
-On Thu, Sep 06, 2018 at 12:43:05PM +0200, Linus Walleij wrote:
+Clarification. I meant that mostly vs. the 2.6 myth, but for the not that
+old kernel crap including the KABI mess, which makes a large part of the
+revenue indeed, the problem was introduced by the distros in the first
+place.
 
-> It happened at one point that we were sourcing hardware from
-> a third party, and it was pretty complex and I asked procurement
-> to put a demand on the company to provide upstream support
-> so we could just grab the latest kernel and use that driver.
+The people who warned about the issues and predicted the horrors (in a way
+too small scale) were ignored and I have no indication that there is a
+serious change happening.
 
-> I heard other very FOSS-oriented companies ask the same
-> and is pretty much what I've heard people like Jon Masters
-> and the Chromebook people say in relation to upstream first
-> (they can slam me if they disagree) - others also want an
-> upstream first approach from their component suppliers and
-> it is going to be part of the procurement process so having
-> upstream first is going to be a competitive advantage or
-> even strict requirement for the component vendor.
+I wouldn't care at all if this would not affect upstream and not totally
+trainwreck engineers and maintainers. No money in the world can compensate
+for people getting on the edge of burnouts. 
 
-I've had experience of this from the component vendor side, we managed
-to convince some of our customers that our upstream first approach was
-good for them and that it should be something they look for in other
-vendors.  The basic idea was that as we were working with the system and
-getting things reviewed any integration problems were unlikley to be on
-our side but rather with drivers from companies that weren't working
-with the community and may have misunderstood things and things were
-more likely to be robust, and it increased the chances that they'd get
-long term support and be able to upgrade their kernel if they wanted to.
-They might not ship upstream themselves but they benefited by working
-with vendors who were focused on upstream.
+Thanks,
 
---EY/WZ/HvNxOox07X
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAluRBpgACgkQJNaLcl1U
-h9DMrAf/QmYEmf6XnqV+kS0Htjc4zC8f12QYhw6Pf9vOy99gt75I9JovnIofc4Kz
-bDjEVccM2sOpSLkve63p7JQ8IUOh9TW3+543jLbvJvlU1uuV5R//FPH7hgeboSvf
-aZzq8TUONNpb/oqNs9VFGNrgOY+/T5KJo5Ks/Um2ofH5p0r8rs4BArB6zwDn0VZr
-D6fcGtEGbFTXYhlTbtmQY1t8vU4lvuGw/y5DminID7rvAiu+wl3m+MhbfyojY2Gc
-zbcXlaENZC0t5vT4aguoPrZt1xZskWQTebiZZNEg5K3e/2MOeYzIRPSfm2uisFPL
-f2kMcWy6m9gmIR/Y5Nqtf9ULLxlNVg==
-=yC2e
------END PGP SIGNATURE-----
-
---EY/WZ/HvNxOox07X--
+	tglx
