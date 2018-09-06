@@ -1,31 +1,31 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <edubezval@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id F3F90CEC
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id C9ED610B1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Sep 2018 22:29:52 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8BE89713
+	Thu,  6 Sep 2018 22:51:08 +0000 (UTC)
+Received: from mail-oi0-f68.google.com (mail-oi0-f68.google.com
+	[209.85.218.68])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4F4F37A6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Sep 2018 22:29:52 +0000 (UTC)
-Message-ID: <1536272989.6012.17.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Thu, 06 Sep 2018 15:29:49 -0700
-In-Reply-To: <CA+55aFwBx1u4Rq=UjFYk2UNFSt=ek55XbJXJSoszzvEOPrWcEw@mail.gmail.com>
-References: <1536263073.6012.3.camel@HansenPartnership.com>
-	<CA+55aFysTUkDByFx-dy=jz9OGURgUO=pTt_hUzOOBm7noNr9zg@mail.gmail.com>
-	<1536267088.6012.7.camel@HansenPartnership.com>
-	<CA+55aFztYx_jjbOCAJcrnej0Vq+S_0a+QZTbkcm9G1fJEn5_pg@mail.gmail.com>
-	<1536268421.6012.9.camel@HansenPartnership.com>
-	<CA+55aFwBx1u4Rq=UjFYk2UNFSt=ek55XbJXJSoszzvEOPrWcEw@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
+	Thu,  6 Sep 2018 22:51:08 +0000 (UTC)
+Received: by mail-oi0-f68.google.com with SMTP id x197-v6so23770457oix.5
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 06 Sep 2018 15:51:08 -0700 (PDT)
+Date: Thu, 6 Sep 2018 15:51:04 -0700
+From: Eduardo Valentin <edubezval@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>
+Message-ID: <20180906225103.GA2251@localhost.localdomain>
+References: <nycvar.YFH.7.76.1809062054450.15880@cbobk.fhfr.pm>
+	<CA+55aFx635GmuiojjD-dvqCvHBfGCt4zwSR5k8PyznSoy1xYWg@mail.gmail.com>
+	<nycvar.YFH.7.76.1809062301480.15880@cbobk.fhfr.pm>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <nycvar.YFH.7.76.1809062301480.15880@cbobk.fhfr.pm>
 Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINER TOPIC] Succession Planning: Is It
- time to Throw Linus Under a Bus?
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Handling of embargoed
+ security issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,64 +35,95 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, 2018-09-06 at 14:41 -0700, Linus Torvalds wrote:
-> On Thu, Sep 6, 2018 at 2:13 PM James Bottomley
-> <James.Bottomley@hansenpartnership.com> wrote:
+Hello,
+
+On Thu, Sep 06, 2018 at 11:14:08PM +0200, Jiri Kosina wrote:
+> On Thu, 6 Sep 2018, Linus Torvalds wrote:
+> 
+> > > I am not completely sure what we could do to improve this, especially with
+> > > our kernel community hats on -- I am pretty sure a lot is happening on the
+> > > corporate level between individual "corporate stakeholders".
 > > 
-> > However, I really think for an orderly succession plan, you need to
-> > be part of it rather than having a palace coup which could end up
-> > being really messy and divisive.  I suspect people treated your
-> > proposal last year as more of a joke last year because they didn't
-> > think you were serious.  If you're really serious about doing this,
-> > let's try to come up with the succession process in Edinburgh in
-> > October and see if we can run a Maintainer Summit with the new
-> > Leadership in Vancouver in November.
-> 
-> So I do want to make it clear that it's not like I am all that
-> serious about it, because I'm perfectly happy to continue to do what
-> I've been doing for the past almost three decades.
-> 
-> It's not like *I* care about the bus scenario, pretty much by
-> definition.
-> 
-> Honestly, I think the real issue is when *others* have serious and
-> practical proposals.
-> 
-> In many ways I think that is the real issue: people who feel like
-> there would be advantages to new models.
-> 
-> The advantages could range from just the "I'd really prefer to work
-> with somebody else" to more of a "look, Linus isn't getting any
-> younger, so to make for a smooth transition we should start moving
-> towards xyz, because then in <N >years we'll be ready".
-> 
-> Regardless, I don't think _my_ opinions matter all that much on this,
-> and I honestly think some people might be more willing to speak their
-> mind without me in the room.
-> 
-> And guys, it's not like my ego is all that fragile.  I think people
-> do know that.  So the only thing I *do* want to be serious about is
-> that if people actually come up with something that they honestly
-> agree is better, you don't need to worry about me throwing some
-> hissy-fit, and "take my ball and go home".
-> 
-> That said, I think we all might have some very real doubts about how
-> practical it's going to be, and getting people to actually agree on
-> anything.
-> 
-> What I do *not* want to see is some random flailing discussion while
-> we're all in the same room. Because I can think of more productive
-> things to do in Edinburgh, and most of them involve drinking.
-> 
-> So I think people should have some real suggestions before-hand, not
-> some "let's leave it to an open discussion for the summit itself".
+> > One particular pain point this last time around were the stable
+> > backports, I feel.
+> > 
 
-OK, so here's a practical suggestion: let's propose two people to have
-ongoing push rights to your kernel tree from a vote of the maintainer
-summit invitees in Edinburgh.  You establish the day to day ground
-rules (say X takes the drivers and Y takes the -rc fixes and you do the
-rest) and we simply see how it works out.  If it works out reasonably
-we have our succession and also a distributed maintainer model.  If it
-doesn't work out we try something else next year.
+Totally agree.
 
-James
+> > A lot of that was that the actual *fixes* were marked for stable, but
+> > quite often they were preceded by cleanups and other updates that
+> > didn't actually fix things directly, and that weren't in themselves
+> > explicitly marked for stable and didn't have a Fixes: tag, because
+> > they were prep-work.
+> > 
+> > So we had _several_ nasty regressions in stable that never showed up
+> > in mainline, because there was some non-obvious dependency that didn't
+> > cause a merge conflict, but did cause a "this commit needed that other
+> > commit to work right".
+> 
+
+Yeah, I think the later case of hidden dependencies is nastier to 
+deal with than the first case of long patchset with lots of rework. 
+And I remember the meltdown spectre case required quite a lot of elbow
+grease from different involved developers to find those hidden patches,
+specially on backports to kernels older than 4.14. Obviously with help 
+from more experienced x86 maintainers, eventually things were fixed.
+
+Now, one thing that really helped was the fact that 4.14.y backport was
+done by the x86 maintainers. However, it is not feasible to expect that
+happening for all stable branches, like it did not happen during the
+spectre/meltdown story.
+
+> I fully agree that this is an issue for stable. On the other hand, I would 
+> be reasonably sure this has been equally painful issue for stable even 
+> before this particular disaster (and all the preceeding stable discussions 
+> on this very ML sort of do support that).
+> 
+> > We should probably at least think about having a way to mark those. 
+> > Something like a "for-stable-because-of-subsequent-patches" tag?
+> > 
+> > Or just more eager use of the table cc? I often feel bad about adding
+> > "cc: stable" to preparatory patches that don't actually fix the bug,
+> > but I think it was bad this time around.
+> 
+> Maybe at least partial solution (or first step) to this would be to 
+> somehow make sure that "these patches form an actual patchset that belongs 
+> together and is in fact one single thing" information somehow gets 
+> preserved in maintainer's / your tree.
+> 
+> It's sort-of achievable if everybody (not only the patchset producers, but 
+> also the consumers) would be very familiar with the idea of strictly topic 
+> git branches, but that's probably not realistic.
+> 
+> I currently have no good idea how exactly this should be done technically, 
+> but certainly it's doable and would be of a tremendous help to downstream, 
+> older-codebase consumers of your tree.
+
+Well, keeping the topic branch for future reference can help yes. Now,
+the more problematic part is the dependencies needed due to changes that
+happened after the target backport kernel (say 4.9.y)  and the reference
+backport / topic branch (say 4.15), but that were not necessarily part
+of the original patch set that either prepare the code or really fixes
+the issue finally.
+
+And that even brings the question if all of those should be brought to
+stable, or if some other version of the fix should be considered.
+
+> 
+> > Of course, I also hope that we're over the worst.
+> 
+> Fully agreed. Also, I hope that world is flat :)
+> 
+
+hehe..
+
+> Thanks,
+> 
+> -- 
+> Jiri Kosina
+> SUSE Labs
+> 
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
