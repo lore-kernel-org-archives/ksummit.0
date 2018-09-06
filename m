@@ -1,33 +1,36 @@
-Return-Path: <tglx@linutronix.de>
+Return-Path: <linus.walleij@linaro.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 01DAAE8E
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 298CBDB4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Sep 2018 08:48:49 +0000 (UTC)
-Received: from Galois.linutronix.de (Galois.linutronix.de [146.0.238.70])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 920885E2
+	Thu,  6 Sep 2018 09:54:31 +0000 (UTC)
+Received: from mail-it0-f67.google.com (mail-it0-f67.google.com
+	[209.85.214.67])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7D5B4713
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Sep 2018 08:48:48 +0000 (UTC)
-Date: Thu, 6 Sep 2018 10:48:42 +0200 (CEST)
-From: Thomas Gleixner <tglx@linutronix.de>
-To: Steven Rostedt <rostedt@goodmis.org>
-In-Reply-To: <20180905111849.1d08653c@gandalf.local.home>
-Message-ID: <alpine.DEB.2.21.1809061046110.1416@nanos.tec.linutronix.de>
-References: <5c9c41b2-14f9-41cc-ae85-be9721f37c86@redhat.com>
-	<20180904213340.GD16300@sasha-vm>
-	<nycvar.YFH.7.76.1809050838570.15880@cbobk.fhfr.pm>
-	<20180905081658.GB24902@quack2.suse.cz>
-	<alpine.DEB.2.21.1809051108220.1416@nanos.tec.linutronix.de>
-	<nycvar.YFH.7.76.1809051246380.15880@cbobk.fhfr.pm>
-	<alpine.DEB.2.21.1809051603100.1416@nanos.tec.linutronix.de>
-	<20180905111849.1d08653c@gandalf.local.home>
+	Thu,  6 Sep 2018 09:54:30 +0000 (UTC)
+Received: by mail-it0-f67.google.com with SMTP id h1-v6so13353506itj.4
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 06 Sep 2018 02:54:30 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+References: <CABVU7+vBVivOZ32aEokJ0y3=C2z0Ev12O3vSVfyTC9TDrBOr8A@mail.gmail.com>
+	<20180905042246.GA2977@mtr-leonro.mtl.com>
+	<CABVU7+u+F1CXAW48_XfhLy59BOTxAS-qa_pG4Xjkki=f4Rr9Kg@mail.gmail.com>
+	<20180905074840.GB29052@kroah.com>
+	<CAKMK7uEJfgACdzLdfh+EeG-NFkr47Bn3PFWCEOPA+1D1=5J7kA@mail.gmail.com>
+	<20180905083120.GA28353@kroah.com>
+	<CAKMK7uHLACdr4vGexqO-oh+QrRqxq0_KyJdhnr_eAZy6ApwWUQ@mail.gmail.com>
+In-Reply-To: <CAKMK7uHLACdr4vGexqO-oh+QrRqxq0_KyJdhnr_eAZy6ApwWUQ@mail.gmail.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Thu, 6 Sep 2018 11:54:17 +0200
+Message-ID: <CACRpkdYP1_kG+nzg0Op-3VoLqRm8nUpXf8Daf_1B17-wWJyLjA@mail.gmail.com>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Cc: Greg KH <gregkh@linuxfoundation.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Stable trees and release
- time
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Challenges in Upstream
+ vs. Embargoed Development in Intel Graphics.
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,27 +40,60 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 5 Sep 2018, Steven Rostedt wrote:
-> It's not the distros that need convincing, it's the vendors that pay to
-> have it done. When I first started at Red Hat and was told about the
-> "Stable Kernel ABI", the person telling me about this (a very
-> established kernel developer) also said "Yeah it really sucks, but
-> companies are willing to pay a shite load of money to have it done". And
-> it's in the distros best interest to get that shite load of money. It
-> also funds the same developers to do this work, and hopefully continue
-> to help upstream as well.
-> 
-> If we remove that nasty work, these companies wont need to continue
-> paying that shite load anymore, and they may not be able to afford
-> paying these talented developers.
+On Wed, Sep 5, 2018 at 11:00 AM Daniel Vetter <daniel.vetter@ffwll.ch> wrot=
+e:
 
-Come on. Unless you have hard evidence for this, you are merily
-proliferating a decades old distro fairy tale.
+> I have no idea how this works outside of intel or graphics, I tend to
+> not chat with those people as much as I do with graphics people. Would
+> be interesting to know how it is outside of the graphics bubble
+> indeed.
 
-Seriously, those old kernels are part of the revenue stream, but if any
-vendors engineering investment, which is securing the future, depends on
-this, then the company is close to the state of the dead kernels.
+More or less any SoC company for routers, handsets, tablets etc
+have the same problem.
 
-Thanks,
+At one point I was made responsible for such a scenario. The
+approach I developed was a bit ad hoc but contained some of this:
 
-	tglx
+- Classify the components into embargoed and non-embargoed
+  so anything not affected by embargo can be pushed upstream.
+  (OK it's maybe obvious).
+
+- Get management to provide a cut-off date for embargo. Like
+  "after this point in time we certainly do not care what code you
+  publish pertaining to X" and make that formal so that when that
+  day comes developers can simply start sending the code without
+  having to ask permission again, because having to do that is
+  pointless and bureaucratic. This is a property of the company
+  "FOSS-OUT legal process" that is simple but still often
+  forgotten. It relieves the developers for the need to hammer
+  management for approvals.
+
+- Use internal developers with high upstream experience and
+  NDA to make internal reviews and try to anticipate any problems
+  that will be seen when posting the code to the community and
+  fix it before it happens. Get the code in upstream shape.
+  (This is a good reason to hire kernel maintainers and have them
+  spend time upstream BTW.)
+
+- Minimize hamming distance to mainline, which means rebase
+  internal development as often as possible, track mainline,
+  bring in entire branches of development if need be just to not
+  deviate, because deviating too much from mainline is inviting
+  disaster. This goes counter to the conventional wisdom that
+  says you should use stable releases and baselines and LTS
+  and what not. I am not a big fan of the latter. Rebase on
+  Torvald's -rcN or even linux-next if you are aiming for upstream,
+  else you are not really aiming for upstream, but secondary
+  goals such as feature completion, "not disturbing development",
+  or getting tests to pass cleanly all the time. Get your priorities
+  straight: is upstream first really what you want? Then that
+  should be priority number one, not feature completion, not
+  "not disturbing developers", not passing internal tests.
+  If you find upstream first isn't really your number one priority
+  then call your strategy upstream second or upstream
+  third so that it reflects reality instead of trying to sound good.
+
+The last point was always the most controversial.
+
+Just my =E2=82=AC0.01
+Linus Walleij
