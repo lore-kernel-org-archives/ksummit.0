@@ -1,25 +1,35 @@
-Return-Path: <jikos@kernel.org>
+Return-Path: <axboe@kernel.dk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 35BBE1344
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id ACE23133C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Sep 2018 21:14:11 +0000 (UTC)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B00752D5
+	Thu,  6 Sep 2018 21:20:12 +0000 (UTC)
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
+	[209.85.210.173])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 254612D5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Sep 2018 21:14:10 +0000 (UTC)
-Date: Thu, 6 Sep 2018 23:14:08 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-In-Reply-To: <CA+55aFx635GmuiojjD-dvqCvHBfGCt4zwSR5k8PyznSoy1xYWg@mail.gmail.com>
-Message-ID: <nycvar.YFH.7.76.1809062301480.15880@cbobk.fhfr.pm>
-References: <nycvar.YFH.7.76.1809062054450.15880@cbobk.fhfr.pm>
-	<CA+55aFx635GmuiojjD-dvqCvHBfGCt4zwSR5k8PyznSoy1xYWg@mail.gmail.com>
+	Thu,  6 Sep 2018 21:20:12 +0000 (UTC)
+Received: by mail-pf1-f173.google.com with SMTP id k19-v6so5912147pfi.1
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 06 Sep 2018 14:20:12 -0700 (PDT)
+To: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Linus Torvalds <torvalds@linux-foundation.org>
+References: <1536263073.6012.3.camel@HansenPartnership.com>
+	<CA+55aFysTUkDByFx-dy=jz9OGURgUO=pTt_hUzOOBm7noNr9zg@mail.gmail.com>
+	<1536267088.6012.7.camel@HansenPartnership.com>
+	<CA+55aFztYx_jjbOCAJcrnej0Vq+S_0a+QZTbkcm9G1fJEn5_pg@mail.gmail.com>
+	<1536268421.6012.9.camel@HansenPartnership.com>
+From: Jens Axboe <axboe@kernel.dk>
+Message-ID: <a1cad487-9423-17d8-8cc4-30d03a751843@kernel.dk>
+Date: Thu, 6 Sep 2018 15:20:08 -0600
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+In-Reply-To: <1536268421.6012.9.camel@HansenPartnership.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Handling of embargoed
- security issues
+Subject: Re: [Ksummit-discuss] [MAINTAINER TOPIC] Succession Planning: Is It
+ time to Throw Linus Under a Bus?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,57 +39,40 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, 6 Sep 2018, Linus Torvalds wrote:
-
-> > I am not completely sure what we could do to improve this, especially with
-> > our kernel community hats on -- I am pretty sure a lot is happening on the
-> > corporate level between individual "corporate stakeholders".
+On 9/6/18 3:13 PM, James Bottomley wrote:
+> On Thu, 2018-09-06 at 13:59 -0700, Linus Torvalds wrote:
+>> On Thu, Sep 6, 2018 at 1:51 PM James Bottomley
+>> <James.Bottomley@hansenpartnership.com> wrote:
+>>>
+>>> It's happened occasionally, but it's not very traditional.  Usually
+>>> when people do a palace coup replacement, the tumbrels are waiting
+>>> outside to cart the old dictator off to their sticky end.
+>>
+>> This has taken a dark turn.
 > 
-> One particular pain point this last time around were the stable
-> backports, I feel.
+> You were the one who mentioned dictators ... I was perfectly happy with
+> the bus.
 > 
-> A lot of that was that the actual *fixes* were marked for stable, but
-> quite often they were preceded by cleanups and other updates that
-> didn't actually fix things directly, and that weren't in themselves
-> explicitly marked for stable and didn't have a Fixes: tag, because
-> they were prep-work.
+>> I do want to point out that I brought the question up last year on
+>> the spot. I didn't get any reaction then. I was thinking me not being
+>> around would have been more conducive to discussion. But whatever.
 > 
-> So we had _several_ nasty regressions in stable that never showed up
-> in mainline, because there was some non-obvious dependency that didn't
-> cause a merge conflict, but did cause a "this commit needed that other
-> commit to work right".
-
-I fully agree that this is an issue for stable. On the other hand, I would 
-be reasonably sure this has been equally painful issue for stable even 
-before this particular disaster (and all the preceeding stable discussions 
-on this very ML sort of do support that).
-
-> We should probably at least think about having a way to mark those. 
-> Something like a "for-stable-because-of-subsequent-patches" tag?
+> OK, so we could still have a plebiscite in Vancouver; we have the room
+> and the time still reserved.  It could propose a succession plan and
+> just present it to you.  I admit there's precedent; it's how we did the
+> next TAB chair for instance.
 > 
-> Or just more eager use of the table cc? I often feel bad about adding
-> "cc: stable" to preparatory patches that don't actually fix the bug,
-> but I think it was bad this time around.
+> However, I really think for an orderly succession plan, you need to be
+> part of it rather than having a palace coup which could end up being
+> really messy and divisive.  I suspect people treated your proposal last
+> year as more of a joke last year because they didn't think you were
+> serious.  If you're really serious about doing this, let's try to come
+> up with the succession process in Edinburgh in October and see if we
+> can run a Maintainer Summit with the new Leadership in Vancouver in
+> November.
 
-Maybe at least partial solution (or first step) to this would be to 
-somehow make sure that "these patches form an actual patchset that belongs 
-together and is in fact one single thing" information somehow gets 
-preserved in maintainer's / your tree.
-
-It's sort-of achievable if everybody (not only the patchset producers, but 
-also the consumers) would be very familiar with the idea of strictly topic 
-git branches, but that's probably not realistic.
-
-I currently have no good idea how exactly this should be done technically, 
-but certainly it's doable and would be of a tremendous help to downstream, 
-older-codebase consumers of your tree.
-
-> Of course, I also hope that we're over the worst.
-
-Fully agreed. Also, I hope that world is flat :)
-
-Thanks,
+This seems rather hasty to me, I think it would be prudent to establish
+a timeline (on both sides?). Unless you are really proposing a coup?
 
 -- 
-Jiri Kosina
-SUSE Labs
+Jens Axboe
