@@ -1,30 +1,30 @@
-Return-Path: <olof@lixom.net>
+Return-Path: <linus971@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 63614BE0
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 08C80C7D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Sep 2018 21:37:36 +0000 (UTC)
-Received: from mail-lf1-f66.google.com (mail-lf1-f66.google.com
-	[209.85.167.66])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B9B5E713
+	Thu,  6 Sep 2018 21:41:17 +0000 (UTC)
+Received: from mail-it0-f66.google.com (mail-it0-f66.google.com
+	[209.85.214.66])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id ABFB07DF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Sep 2018 21:37:35 +0000 (UTC)
-Received: by mail-lf1-f66.google.com with SMTP id r4-v6so10301131lff.12
+	Thu,  6 Sep 2018 21:41:16 +0000 (UTC)
+Received: by mail-it0-f66.google.com with SMTP id u13-v6so17249810iti.1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 06 Sep 2018 14:37:35 -0700 (PDT)
+	Thu, 06 Sep 2018 14:41:16 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CA+55aFztYx_jjbOCAJcrnej0Vq+S_0a+QZTbkcm9G1fJEn5_pg@mail.gmail.com>
 References: <1536263073.6012.3.camel@HansenPartnership.com>
 	<CA+55aFysTUkDByFx-dy=jz9OGURgUO=pTt_hUzOOBm7noNr9zg@mail.gmail.com>
 	<1536267088.6012.7.camel@HansenPartnership.com>
 	<CA+55aFztYx_jjbOCAJcrnej0Vq+S_0a+QZTbkcm9G1fJEn5_pg@mail.gmail.com>
-From: Olof Johansson <olof@lixom.net>
-Date: Thu, 6 Sep 2018 14:37:32 -0700
-Message-ID: <CAOesGMh8oni1GASydd5K=tN8Q-YkMkSooka5qT4-KUJQFa488A@mail.gmail.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
+	<1536268421.6012.9.camel@HansenPartnership.com>
+In-Reply-To: <1536268421.6012.9.camel@HansenPartnership.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Thu, 6 Sep 2018 14:41:04 -0700
+Message-ID: <CA+55aFwBx1u4Rq=UjFYk2UNFSt=ek55XbJXJSoszzvEOPrWcEw@mail.gmail.com>
+To: James Bottomley <James.Bottomley@hansenpartnership.com>
 Content-Type: text/plain; charset="UTF-8"
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINER TOPIC] Succession Planning: Is It
  time to Throw Linus Under a Bus?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -36,51 +36,54 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Sep 6, 2018 at 1:59 PM, Linus Torvalds
-<torvalds@linux-foundation.org> wrote:
-> On Thu, Sep 6, 2018 at 1:51 PM James Bottomley
-> <James.Bottomley@hansenpartnership.com> wrote:
->>
->> It's happened occasionally, but it's not very traditional.  Usually
->> when people do a palace coup replacement, the tumbrels are waiting
->> outside to cart the old dictator off to their sticky end.
+On Thu, Sep 6, 2018 at 2:13 PM James Bottomley
+<James.Bottomley@hansenpartnership.com> wrote:
 >
-> This has taken a dark turn.
->
-> I do want to point out that I brought the question up last year on the
-> spot. I didn't get any reaction then. I was thinking me not being
-> around would have been more conducive to discussion. But whatever.
+> However, I really think for an orderly succession plan, you need to be
+> part of it rather than having a palace coup which could end up being
+> really messy and divisive.  I suspect people treated your proposal last
+> year as more of a joke last year because they didn't think you were
+> serious.  If you're really serious about doing this, let's try to come
+> up with the succession process in Edinburgh in October and see if we
+> can run a Maintainer Summit with the new Leadership in Vancouver in
+> November.
 
-Assuming here that the discussion is NOT about a coup-style immediate
-takeover, but instead either:
-1) Start sharing more work so that you can scale back sometimes, go
-dive without worrying about internet connectivity etc.
-or:
-2) Prepare for disaster.
+So I do want to make it clear that it's not like I am all that serious
+about it, because I'm perfectly happy to continue to do what I've been
+doing for the past almost three decades.
 
-I know you have yourself said you don't care what happens in case of
-(2) since you won't be around, but I think the best approach is to get
-there through (1), if possible.
+It's not like *I* care about the bus scenario, pretty much by definition.
 
-My suggestion if you want this: Have someone start out doing some of
-the simpler mechanics, starting with merging non-controversial fixes
-during non-merge window for a cycle or two, and take it from there. It
-could even initially be a rotation where a few people try it out for a
-bit of time. Some might realize they hate it and should be able to
-change their minds without losing face.
+Honestly, I think the real issue is when *others* have serious and
+practical proposals.
 
-I think it was two years ago you proposed having someone else
-substitute for a bit, but I don't know if anyone ever volunteered?
+In many ways I think that is the real issue: people who feel like
+there would be advantages to new models.
 
-You will probably need to approach some of the people you'd trust
-enough to do it. Some might find it too intimidating, mistakes are
-going to be fairly visible, and I doubt too many will be excited to
-volunteer and be turned down, in particular if due to lack of trust.
+The advantages could range from just the "I'd really prefer to work
+with somebody else" to more of a "look, Linus isn't getting any
+younger, so to make for a smooth transition we should start moving
+towards xyz, because then in <N >years we'll be ready".
 
-I think all of that will be easier than finding a new solo maintainer
-available at the strike of disaster -- but even if that's what the
-goal is, having said person spin up in the same way (i.e. a group of
-two for now), seems like the most robust approach.
+Regardless, I don't think _my_ opinions matter all that much on this,
+and I honestly think some people might be more willing to speak their
+mind without me in the room.
 
+And guys, it's not like my ego is all that fragile.  I think people do
+know that.  So the only thing I *do* want to be serious about is that
+if people actually come up with something that they honestly agree is
+better, you don't need to worry about me throwing some hissy-fit, and
+"take my ball and go home".
 
--Olof
+That said, I think we all might have some very real doubts about how
+practical it's going to be, and getting people to actually agree on
+anything.
+
+What I do *not* want to see is some random flailing discussion while
+we're all in the same room. Because I can think of more productive
+things to do in Edinburgh, and most of them involve drinking.
+
+So I think people should have some real suggestions before-hand, not
+some "let's leave it to an open discussion for the summit itself".
+
+                  Linus
