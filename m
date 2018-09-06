@@ -1,27 +1,33 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <jikos@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0ED7910AF
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id C7C67F69
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Sep 2018 19:51:19 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9F7BA8B
+	Thu,  6 Sep 2018 19:55:02 +0000 (UTC)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5CD858B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Sep 2018 19:51:18 +0000 (UTC)
-Message-ID: <1536263475.6012.5.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Thu, 06 Sep 2018 12:51:15 -0700
-In-Reply-To: <CAKMK7uFHOP+shcnAdHEEELOth+d3BR0LdUZ9rXdrhYueHdqF9A@mail.gmail.com>
-References: <1536263073.6012.3.camel@HansenPartnership.com>
-	<CAKMK7uFHOP+shcnAdHEEELOth+d3BR0LdUZ9rXdrhYueHdqF9A@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINER TOPIC] Succession Planning: Is It
- time to Throw Linus Under a Bus?
+	Thu,  6 Sep 2018 19:55:02 +0000 (UTC)
+Date: Thu, 6 Sep 2018 21:54:59 +0200 (CEST)
+From: Jiri Kosina <jikos@kernel.org>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+In-Reply-To: <1536176428.3627.28.camel@HansenPartnership.com>
+Message-ID: <nycvar.YFH.7.76.1809062152330.15880@cbobk.fhfr.pm>
+References: <1536142432.8121.6.camel@HansenPartnership.com>
+	<20180905113715.GJ9781@sirena.org.uk>
+	<20180905150315.GA10819@linux.vnet.ibm.com>
+	<20180905115008.22e3d21f@gandalf.local.home>
+	<20180905162007.GO4225@linux.vnet.ibm.com>
+	<1536165914.3627.17.camel@HansenPartnership.com>
+	<nycvar.YFH.7.76.1809052119580.15880@cbobk.fhfr.pm>
+	<1536176428.3627.28.camel@HansenPartnership.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Distribution kernel
+ bugzillas considered harmful
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,30 +37,40 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, 2018-09-06 at 21:47 +0200, Daniel Vetter wrote:
-> On Thu, Sep 6, 2018 at 9:44 PM, James Bottomley
-> <James.Bottomley@hansenpartnership.com> wrote:
-> > Since our fearless leader apparently can't even remember the dates
-> > of
-> > the only conference he goes to, perhaps now might be a good time to
-> > talk about how we'd run an orderly succession process (purely
-> > theoretically, of course ...)
-> > 
-> > I think a vote amongst the Maintainer Summit attendees might be the
-> > way
-> > to elect a new leader, but others probably have different ideas.
+On Wed, 5 Sep 2018, James Bottomley wrote:
+
+> > We are drifting away a bit here, but now that you have mentioned it,
+> > let me add a datapoint to this -- it's actually causing issues to
+> > our workflow, as we have scsi.git as one of the upstreams [1], and
+> > when you rebase, it blows up our git workflow and we have to fixup
+> > things manually.
 > 
-> Why I single leader?
+> Describe the issues and we'll try to come up with a fix, but on the
+> whole you should regard the scsi trees somewhat similarly to linux-
+> next: it's our proposal for a patch set but we may update it.
+
+We order patches in our trees in the same git-topological-ordering as they 
+are upstream. It has a lot of benefits, most importantly: it doesn't 
+introduce artificial conflicts that don't exist in reality.
+
+In order to achieve that, we of course need 1:1 mapping between our 
+patches and upstream commits.
+Rebases destroy that mapping.
+
+And in some areas (scsi is one, but not the only one), we basically had no 
+other choice than considering maintainer's tree to be already "upstream 
+enough", without waiting for Linus' tree merge.
+
+> > So if you are aware of your tree having downstreams, and care about
+> > not breaking them and want to be nice to them, you shouldn't rebase
+> > that tree [2].
 > 
-> This group maintainer ship thing ... it  works.
+> Well, I wasn't aware of this one, but I'm sure we can come up with a
+> functional workflow once I understand what's happening with the
+> downstream tree.
 
-Well, lets talk about that.  I like the single leader model because it
-doesn't lead to the cabal cult like the group maintainer model does in
-BSD.  However, if we have a plan that can avoid that, I think it would
-be a reasonable thing to try out.
+Thanks,
 
-I also note that group maintainership seems only to work for you in
-DRM; most of the other subsystems seem to have single leader
-hierarchical maintainership.
-
-James
+-- 
+Jiri Kosina
+SUSE Labs
