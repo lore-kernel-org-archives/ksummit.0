@@ -1,22 +1,38 @@
-Return-Path: <rodrigo.vivi@intel.com>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D2B6CA73
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 23F16EF6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  4 Sep 2018 17:42:44 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8CEB27E0
+	Thu,  6 Sep 2018 19:44:37 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DCAC98B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  4 Sep 2018 17:42:44 +0000 (UTC)
-Date: Tue, 4 Sep 2018 10:42:43 -0700
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+	Thu,  6 Sep 2018 19:44:36 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+	by bedivere.hansenpartnership.com (Postfix) with ESMTP id BE3B58EE1F4
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu,  6 Sep 2018 12:44:35 -0700 (PDT)
+Received: from bedivere.hansenpartnership.com ([127.0.0.1])
+	by localhost (bedivere.hansenpartnership.com [127.0.0.1]) (amavisd-new,
+	port 10024) with ESMTP id qpbYHXD-lxPA
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu,  6 Sep 2018 12:44:35 -0700 (PDT)
+Received: from [153.66.254.194] (unknown [50.35.68.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by bedivere.hansenpartnership.com (Postfix) with ESMTPSA id 550F68EE101
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu,  6 Sep 2018 12:44:35 -0700 (PDT)
+Message-ID: <1536263073.6012.3.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
 To: ksummit-discuss@lists.linuxfoundation.org
-Message-ID: <20180904174242.GF2316@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Subject: [Ksummit-discuss] [MAINTAINERS SUMMIT] Challenges in Upstream vs.
- Embargoed Development in Intel Graphics.
+Date: Thu, 06 Sep 2018 12:44:33 -0700
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: [Ksummit-discuss] [MAINTAINER TOPIC] Succession Planning: Is It
+ time to Throw Linus Under a Bus?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -26,25 +42,12 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi there,
+Since our fearless leader apparently can't even remember the dates of
+the only conference he goes to, perhaps now might be a good time to
+talk about how we'd run an orderly succession process (purely
+theoretically, of course ...)
 
-I've submitted a proposal for plumber's referred track. There, I want to talk
-about tools and challenges we have on embargo development vs upstream one and
-how to get focus on upstream first and upstream always mentality.
+I think a vote amongst the Maintainer Summit attendees might be the way
+to elect a new leader, but others probably have different ideas.
 
-The name of plumbers proposal talk is:
-"Unveiling Intel Graphics Internal Development"
-
-I'm not sure if the talk will get accepted, but anyway I'd like to have the
-chance to talk to other maintainers to exchange views on different ways of
-maintaining this kind of embargo development including challenges, tools,
-processes, and rules.
-
-So I'm interested in hallway tracks of Maintainer / Kernel Summit, or maybe a
-bof session if there's interest.
-
-Please let me know if there's interested or if further information and/or
-clarification is needed.
-
-Thanks in advance,
-Rodrigo.
+James
