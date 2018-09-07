@@ -1,33 +1,30 @@
-Return-Path: <Alexander.Levin@microsoft.com>
+Return-Path: <dan.carpenter@oracle.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BF5E8FA4
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 220EEA7B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  7 Sep 2018 21:13:45 +0000 (UTC)
-Received: from NAM04-SN1-obe.outbound.protection.outlook.com
-	(mail-eopbgr700107.outbound.protection.outlook.com [40.107.70.107])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F2AA37C7
+	Fri,  7 Sep 2018 21:32:23 +0000 (UTC)
+Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B2C3F7C6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  7 Sep 2018 21:13:44 +0000 (UTC)
-From: Sasha Levin <Alexander.Levin@microsoft.com>
-To: Greg KH <gregkh@linuxfoundation.org>
-Date: Fri, 7 Sep 2018 21:13:42 +0000
-Message-ID: <20180907211341.GJ16300@sasha-vm>
-References: <20180905101710.73137669@gandalf.local.home>
+	Fri,  7 Sep 2018 21:32:22 +0000 (UTC)
+Date: Sat, 8 Sep 2018 00:32:13 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Sasha Levin <Alexander.Levin@microsoft.com>
+Message-ID: <20180907213212.xrgsle6modrz6ss5@mwanda>
+References: <20180904201620.GC16300@sasha-vm>
+	<CAKMK7uFO3xiKxa+mEDgEfDx6ZKY7aFPibD1xuK3z-Ybi0Zr3Sw@mail.gmail.com>
+	<20180905101710.73137669@gandalf.local.home>
 	<20180907004944.GD16300@sasha-vm>
 	<CA+55aFwfcNuH4p+rKHuQcgOSt3coT=cN6ZdSG1OKNQ5GTWgoxg@mail.gmail.com>
 	<20180907014930.GE16300@sasha-vm>
 	<2534be10-2e70-6932-39c1-7caca2cff044@roeck-us.net>
 	<4990d2c1-6f26-0500-9afa-986a61fce3bf@redhat.com>
 	<20180907150623.GH16300@sasha-vm>
-	<9fb15d7c-c59f-ee21-9c30-6d81d53a1456@redhat.com>
-	<20180907160945.GI16300@sasha-vm> <20180907202328.GE25756@kroah.com>
-In-Reply-To: <20180907202328.GE25756@kroah.com>
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <0A061B590C8D3D4A8F4DAFB6D35B75A4@namprd21.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20180907150623.GH16300@sasha-vm>
 Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -39,56 +36,57 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Sep 07, 2018 at 10:23:28PM +0200, Greg KH wrote:
->On Fri, Sep 07, 2018 at 04:09:46PM +0000, Sasha Levin via Ksummit-discuss =
-wrote:
->> What are your thoughts about a stable-next branch of sorts where we can
->> push stable tagged fixes as soon as they hit either Linus's tree or
->> maybe the pending-fixes branch in linux-next?
->>
->> This way we'll have a longer term stable tree to test, and Greg can just
->> cut releases from there.
->
->No one will pay attention to "stable-next", why would putting something
->there be any different from what I do now?  We run all of the normal
->bots on the stable-rc releases, putting it out for a week longer would
->not cause anything else to happen.
+On Fri, Sep 07, 2018 at 03:06:24PM +0000, Sasha Levin via Ksummit-discuss wrote:
+> Let me use the CoreOS example here again. Here are the 5 user visible
+> stable regressions they had this year:
+> 
+> 8844618d8aa ("ext4: only look at the bg_flags field if it is valid")
 
-We run bots on stable-rc, but the point I think Laura was trying to make
-(and I agree with) is that the 2-3 days of stable-rc isn't enough for
-non-bot tests. We'd like to have actual users run stable-rc as well.
+The fix was 501228470077 ("ext4: fix check to prevent initializing
+reserved inodes").  The bug was found by running the test suite but with
+nojournal?
 
-So yes, putting it for longer will add a lot more testing.
+> f46ecbd97f5 ("cifs: Fix slab-out-of-bounds in send_set_info() on SMB2
+> ACE setting")
 
-So the stable-next is just a way for folks to test out new stable
-commits without you having to do longer -rc cycles or maintaining extra
-trees.
+What was the bug with this one?
 
-Right now your workflow seems to be:
+> a6f81fcb2c3 ("tcp: avoid integer overflows in tcp_rcv_space_adjust()")
 
-1. Grab a batch of ~2-3 week old commits from Linus's tree.
-2. Review, basic tests and send stable-rc notification.
-3. Wait a few days for reviews.
-4. Ship it.
+My understanding was that this one was applied without a patch it
+depended on? 02db55718d53 ("tcp: do not overshoot window_clamp in
+tcp_rcv_space_adjust()")
 
-The part that's tricky here is that there are only a few days during
-step 3 to test out that stable-rc kernel. Not enough for Fedora to let
-their testers to get it and play around with.
+> 7b2ee50c0cd ("hv_netvsc: common detach logic")
 
-With a -next branch, this might look something like this:
+The patch summary sells this as a cleanup but it's a bugfix.  The fix
+for it was commit 52acf73b6e9a ("hv_netvsc: Fix a network regression
+after ifdown/ifup").  It took two months for anyone to notice the if
+up/down sometimes fails.  Are there any standard tests for network
+drivers?  There is no way we're going to hold back the patch for two
+months.
 
-1. Grab stable tagged commits as they go in Linus's tree and put them on
-top of the appropriate stable-next branches (i.e. linux-4.14.y-next).
-2. X times a week pick a batch of ~2-3 week old commits, put them in the
--rc branch and send out a review request.
-3. Wait a few days for reviews.
-4. Ship it.
+> f599c64fdf7 ("xen-netfront: Fix race between device setup and open")
 
-So it's very similar, but between steps 1 and 2 folks have a chance to
-further test out stable commits. This is something that Fedora, for
-example, could offer to it's testers as a kernel option.
+Two bugs:
+cb257783c292 ("xen-netfront: Fix mismatched rtnl_unlock")
+45c8184c1bed ("xen-netfront: Update features after registering netdev")
 
+We should add a static checker warning to prevent the first one from
+re-occuring.  Just send an email to Julia or me.  For the second one, it
+really feels like we should have a test suite to see if setting the MTU
+works.
 
---
-Thanks,
-Sasha=
+> a93bf0ff449 ("vxlan: update skb dst pmtu on tx path")
+
+The fix was commit f15ca723c1eb ("net: don't call update_pmtu
+unconditionally").
+
+Why does this patch add a NULL check for "dst"?  Is that required?  The
+original code generated a static checker warning for me that "error:
+potential null dereference 'dst'.  (skb_dst returns null)".  I have 54
+places where the skb_dst() return isn't checked but I don't really
+understand the code so I ignore those.
+
+regards,
+dan carpenter
