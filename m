@@ -1,30 +1,31 @@
-Return-Path: <geert.uytterhoeven@gmail.com>
+Return-Path: <jani.nikula@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9583EF8F
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A0F1CF8E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  7 Sep 2018 10:40:38 +0000 (UTC)
-Received: from mail-ua1-f67.google.com (mail-ua1-f67.google.com
-	[209.85.222.67])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0ED227A8
+	Fri,  7 Sep 2018 10:43:57 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4696EA8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  7 Sep 2018 10:40:37 +0000 (UTC)
-Received: by mail-ua1-f67.google.com with SMTP id f4-v6so11545238uao.10
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 07 Sep 2018 03:40:37 -0700 (PDT)
-MIME-Version: 1.0
+	Fri,  7 Sep 2018 10:43:57 +0000 (UTC)
+From: Jani Nikula <jani.nikula@intel.com>
+To: Julia Lawall <julia.lawall@lip6.fr>
+In-Reply-To: <alpine.DEB.2.20.1809071203570.3036@hadrien>
 References: <CAGXu5j+-X6WQNdTYK2ZA5OOJgc0RfCq9Gr9WRAMkYTSQOT7QdQ@mail.gmail.com>
 	<20180906094158.1eba4f50@canb.auug.org.au>
 	<20180905222437.5d2a1730@vmware.local.home>
 	<CAGXu5jKfbVUcyGu6U1dVR8dKjGK0sY7=pLdmYXUC9_G8KmgZ0A@mail.gmail.com>
 	<20180907091842.6c55bd9a@canb.auug.org.au>
-In-Reply-To: <20180907091842.6c55bd9a@canb.auug.org.au>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 7 Sep 2018 12:40:24 +0200
-Message-ID: <CAMuHMdW2ARY6hJi7KDYN_VyYTRT2YRUPzkVfAhBrVthrnV4Q1w@mail.gmail.com>
-To: Stephen Rothwell <sfr@canb.auug.org.au>
-Content-Type: text/plain; charset="UTF-8"
-Cc: ksummit-discuss@lists.linuxfoundation.org
+	<CAGXu5jKQJfeOmTRBXB7ofW1iH6FNGROnSZzYdpG=H_Hu8zep=w@mail.gmail.com>
+	<s5h36ulrdps.wl-tiwai@suse.de> <87zhwtybr3.fsf@intel.com>
+	<alpine.DEB.2.20.1809071135090.3036@hadrien>
+	<87r2i5y6n6.fsf@intel.com>
+	<alpine.DEB.2.20.1809071203570.3036@hadrien>
+Date: Fri, 07 Sep 2018 13:43:15 +0300
+Message-ID: <87o9d9y4e4.fsf@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] API
 	replacement/deprecation
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -36,45 +37,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Sep 7, 2018 at 1:19 AM Stephen Rothwell <sfr@canb.auug.org.au> wrote:
-> On Thu, 6 Sep 2018 11:24:11 -0700 Kees Cook <keescook@chromium.org> wrote:
-> > If there was an agreement by all maintainers that deprecated
-> > functions/patterns should not be added, and we documented the
-> > deprecation somewhere like Documentation/process/deprecated.rst, then
-> > we could make the declaration that if such functions got added (it's
-> > easy to mechanically check for them), it would be the responsibility
-> > of the author and maintainer chain to see that it got fixed before the
-> > release is cut. We already have this for things like "breaks the x86
-> > allmodconfig build" or similar. The checking would be manual, and the
-> > enforcement would be by agreement, but it'd be better than the kind of
-> > "please don't do this" hand-waving we've had in the past.
+On Fri, 07 Sep 2018, Julia Lawall <julia.lawall@lip6.fr> wrote:
+> On Fri, 7 Sep 2018, Jani Nikula wrote:
 >
-> I could do this in linux-next, of course, the same way I check for
-> missing signed-off-bys.  All I would need is the list of deprecated
-> things.
+>> On Fri, 07 Sep 2018, Julia Lawall <julia.lawall@lip6.fr> wrote:
+>> > I came up with the following Coccinelle semantic patch.  The advantage is
+>> > that it can also give a hint as to what should be done.  The intent is
+>> > that it should be easily extensible.
+>>
+>> The only real downside that I can see is that it centralizes the
+>> deprecation information in the semantic patch instead of the functions
+>> themselves.
+>
+> It's possible to put comments in the code near the definition.  There are
+> a number of occurrences of deprecated already.  People who are just
+> copying code from something else may not actually look at the definition
+> of all of the functions they are copying, so there should be some benefit
+> to having the information somehow attached to uses.
 
-The sooner it is detected, the better.
-So that means, in order of decreasing agility:
-  1. git commit hook:
-       - Needs installation of the hook everywere,
-       - Anyone still not using git?
-  2. checkpatch:
-     - All patch authors should run checkpatch,
-     - All maintainers should, too.
-  3. coccinelle script et al run by bots:
-     - Needs rework when detected (list bot), or fixup (already in next).
+Hmm, generate the semantic patch based on the __deprecated attributes?
 
-Any other options?
+BR,
+Jani.
 
-So checkpatch looks like the best option to me.
-
-Gr{oetje,eeting}s,
-
-                        Geert
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Jani Nikula, Intel Open Source Graphics Center
