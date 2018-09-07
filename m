@@ -1,32 +1,34 @@
 Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0329FE88
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4E36FCDD
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  7 Sep 2018 11:32:47 +0000 (UTC)
+	Fri,  7 Sep 2018 11:44:29 +0000 (UTC)
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
 	[172.104.155.198])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BE8EFA8
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CA6842D5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  7 Sep 2018 11:32:45 +0000 (UTC)
-Date: Fri, 7 Sep 2018 12:32:41 +0100
+	Fri,  7 Sep 2018 11:44:28 +0000 (UTC)
+Date: Fri, 7 Sep 2018 12:44:21 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <20180907113241.GC17459@sirena.org.uk>
-References: <20180904201620.GC16300@sasha-vm>
-	<CAKMK7uFO3xiKxa+mEDgEfDx6ZKY7aFPibD1xuK3z-Ybi0Zr3Sw@mail.gmail.com>
-	<20180905101710.73137669@gandalf.local.home>
-	<20180907004944.GD16300@sasha-vm>
-	<CA+55aFwfcNuH4p+rKHuQcgOSt3coT=cN6ZdSG1OKNQ5GTWgoxg@mail.gmail.com>
-	<20180907014930.GE16300@sasha-vm> <20180907042754.GL5098@thunk.org>
-	<CAKMK7uEsN9YDjEus5hndhhF1jbSS+=P804bS8iKJmyp76hmtKA@mail.gmail.com>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Message-ID: <20180907114421.GD17459@sirena.org.uk>
+References: <20180906094158.1eba4f50@canb.auug.org.au>
+	<20180905222437.5d2a1730@vmware.local.home>
+	<CAGXu5jKfbVUcyGu6U1dVR8dKjGK0sY7=pLdmYXUC9_G8KmgZ0A@mail.gmail.com>
+	<20180907091842.6c55bd9a@canb.auug.org.au>
+	<CAGXu5jKQJfeOmTRBXB7ofW1iH6FNGROnSZzYdpG=H_Hu8zep=w@mail.gmail.com>
+	<s5h36ulrdps.wl-tiwai@suse.de> <87zhwtybr3.fsf@intel.com>
+	<alpine.DEB.2.20.1809071135090.3036@hadrien>
+	<87r2i5y6n6.fsf@intel.com> <20180907102519.GX13888@piout.net>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Pk6IbRAofICFmK5e"
+	protocol="application/pgp-signature"; boundary="vni90+aGYgRvsTuO"
 Content-Disposition: inline
-In-Reply-To: <CAKMK7uEsN9YDjEus5hndhhF1jbSS+=P804bS8iKJmyp76hmtKA@mail.gmail.com>
+In-Reply-To: <20180907102519.GX13888@piout.net>
 Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] API
+ replacement/deprecation
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,62 +39,43 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---Pk6IbRAofICFmK5e
+--vni90+aGYgRvsTuO
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Fri, Sep 07, 2018 at 11:13:20AM +0200, Daniel Vetter wrote:
+On Fri, Sep 07, 2018 at 12:25:19PM +0200, Alexandre Belloni wrote:
+> On 07/09/2018 12:54:37+0300, Jani Nikula wrote:
 
-> Of course this is much harder for anything that needs physical
-> hardware, but even for driver subsystems there's lots you can do with
-> test-drivers, selftests and a pile of emulation, to at least catch
-> bugs in generic code. And for reasonably sized teams like drm/i915
-> building a proper CI is a very obvious investement that will pay off.
+> > The only real downside that I can see is that it centralizes the
+> > deprecation information in the semantic patch instead of the functions
+> > themselves.
 
-It does depend what the primary focus of the QA people is of course -
-one of the challenges that comes from people shipping stable in products
-is that this tends to be where all the QA investment from vendors goes.
-Vendors who are taking a longer term view of their investment in
-upstream (and especially those who realistically still have to ship an
-out of tree patch stack on top of whatever's upstream) often work on the
-basis that they'll figure things out when they pick up the release for
-production.  It's a cost, they know it's a cost but there's also costs
-in having QA tracking upstream.
+> Which is not bad because how do you expect maintainers to learn about
+> the deprecation?
+> I don't think anyone will go and read the strcpy's code or
+> documentation.
 
-> > But other trees seem to be much more loosey-goosey about what they
-> > will push to linux-next, since they want to let the 'bots catch
-> > problems.  With the net result that they scare users away from wanting
-> > to use linux-next.
+Right, this is the most common pain point I see with these transitions -
+people hear about these things through word of mouth which creates
+confusion.  This thread is the first time I heard about strscpy()
+existing, let alone that the other variants were deprecated in favour of
+it.  A similar thing happened with the SPDX tags, people were querying
+what was going on with the patches and links to mailing list posts were
+getting passed around.
 
-> Yeah, if maintainers see linux-next as their personal testing ground
-> then it becomes useless for actual integration testing. But it's not
-> quite as bleak as it was 2 years ago I think, at least from what I'm
-> seeing when in our linux-next runs for drm/i915. It still does need to
-> get a lot better though.
-
-My experience has been a lot better here working on embedded - yes,
-things do occasionally collapse horribly but for the most part it's a
-reasonably solid basis to work from for as long as I can remember and
-when things do break they normally get fixed fast enough.  Things were a
-bit worse before KernelCI and Olof's boot farm, over time (and with the
-breakage the DT transition introduced winding down) those have helped
-quite a bit.  I think some of that's down to differences in the
-underlying hardware with more being directly visible it's easier to unit
-test, don't know if there's anything else going on.
-
---Pk6IbRAofICFmK5e
+--vni90+aGYgRvsTuO
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAluSYdgACgkQJNaLcl1U
-h9AYnAf9EqJ6ohwitjE7rXWNWBTUCxd0YearR51ItSKPkO0KkGnbg63if6gFS8fk
-g6Din+W2b6pr3WOZc8RGTS0LmkJUnJlep0IcCfk3bOIx9Kx77O+3sheL8O+r48FZ
-4F0C+/Ubm/BN/99saP6LUKP/8kOPuBaSSQyofbKE4mZPetne8JhPlI9cZ4ebmrII
-HKBs5+lgadzJ3S8AfWRqAGt5+e9uxTm34PRW67a2Mx/QZFP5afKRV+RbPpLAf91t
-XtH6vv3Al8F2G1PlYRrObmcoHl9l5a8KFhnoOFBnbaEx8ta/O8EBcGQOQcVJI7NF
-vMus9DkA9xLMVEVXlJg2ATfbvLdarg==
-=MkOi
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAluSZJQACgkQJNaLcl1U
+h9DzlAf8D45BllSQse1VCrG34I4NxN2Is5zjpO5vYkV92oT0wxRbbgnz0Mn79vXx
+nQJRkI6OY6gTBh0kgIc5GxkJjb7OcwjTM0ZxHlhWOZ3J4YejjJLoGQhBW34UYp0d
+vSctSzlPrRvOsVmbq5YjZsO4Xg3EqjxV7S08Q6ifiFOLBGF3xPbK21w7o2AOLneQ
+FgyXPckCs71usGcz1AcsjWK3KgIZEA5bWdBItCnqMcR9+3jef0dT27B8LWKIzxEl
+x1BkDuUybHkBynT0iXDVooRQtkItOsSouH5asedvkVusBr1lw8r9/sFzKWsI88wk
+ucwBt0a4O3YzVcJiVGNNZIhNwctuRA==
+=yYDl
 -----END PGP SIGNATURE-----
 
---Pk6IbRAofICFmK5e--
+--vni90+aGYgRvsTuO--
