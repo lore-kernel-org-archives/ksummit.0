@@ -1,29 +1,30 @@
-Return-Path: <maxime.ripard@bootlin.com>
+Return-Path: <mchehab+samsung@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 72667F4B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id EB2B2D54
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  7 Sep 2018 08:40:52 +0000 (UTC)
-Received: from mail.bootlin.com (mail.bootlin.com [62.4.15.54])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id AD0CEA8
+	Fri,  7 Sep 2018 19:53:57 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+	[198.137.202.133])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 987F5A8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  7 Sep 2018 08:40:51 +0000 (UTC)
-Date: Fri, 7 Sep 2018 10:40:39 +0200
-From: Maxime Ripard <maxime.ripard@bootlin.com>
-To: Kees Cook <keescook@chromium.org>
-Message-ID: <20180907084039.kqvnlamrfjll7zae@flea>
-References: <CAGXu5j+-X6WQNdTYK2ZA5OOJgc0RfCq9Gr9WRAMkYTSQOT7QdQ@mail.gmail.com>
-	<20180906094158.1eba4f50@canb.auug.org.au>
-	<20180905222437.5d2a1730@vmware.local.home>
-	<CAGXu5jKfbVUcyGu6U1dVR8dKjGK0sY7=pLdmYXUC9_G8KmgZ0A@mail.gmail.com>
+	Fri,  7 Sep 2018 19:53:57 +0000 (UTC)
+Date: Fri, 7 Sep 2018 16:53:50 -0300
+From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+To: Justin Forbes <jmforbes@linuxtx.org>
+Message-ID: <20180907165350.44039a6a@coco.lan>
+In-Reply-To: <CAFxkdAoiQMuzEq1Dv0=fO6uB2fLcc+0Wb+zuVvSFsAweROfhQQ@mail.gmail.com>
+References: <17533.1536166384@warthog.procyon.org.uk>
+	<nycvar.YFH.7.76.1809052132190.15880@cbobk.fhfr.pm>
+	<CAFxkdAp6FxwT5XO9C_4_naSTEzs4iFosj+ijbK0rfW8FsyuMsA@mail.gmail.com>
+	<32341.1536178494@warthog.procyon.org.uk>
+	<CAFxkdAoiQMuzEq1Dv0=fO6uB2fLcc+0Wb+zuVvSFsAweROfhQQ@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="c736pzwykkc3lv57"
-Content-Disposition: inline
-In-Reply-To: <CAGXu5jKfbVUcyGu6U1dVR8dKjGK0sY7=pLdmYXUC9_G8KmgZ0A@mail.gmail.com>
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] API
- replacement/deprecation
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: James.Bottomley@hansenpartnership.com, Peter Jones <pjones@redhat.com>,
+	joeyli.kernel@gmail.com, ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Kernel lockdown and secure boot
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,92 +34,35 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+Em Wed, 5 Sep 2018 15:34:04 -0500
+Justin Forbes <jmforbes@linuxtx.org> escreveu:
 
---c736pzwykkc3lv57
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hi Kees,
-
-On Thu, Sep 06, 2018 at 11:24:11AM -0700, Kees Cook wrote:
-> On Wed, Sep 5, 2018 at 7:24 PM, Steven Rostedt <rostedt@goodmis.org> wrot=
-e:
-> > On Thu, 6 Sep 2018 09:41:58 +1000
-> > Stephen Rothwell <sfr@canb.auug.org.au> wrote:
-> >> On Wed, 5 Sep 2018 15:57:02 -0700 Kees Cook <keescook@chromium.org> wr=
-ote:
-> >> >
-> >> > I'd like to discuss ways that we could deprecate APIs more sanely. At
-> >> > present I've seen (and used) two approaches, fast and slow:
-> >>
-> >> As the one who often has the "fun" of coping with API changes, I would
-> >> like to be involved in this discussion.
-> >>
-> >> My first point would be that (almost) every time someone has tried the
-> >> "ultra fast" method (i.e. add new interface, convert everyone in the
-> >> current kernel, remove the old interface all in one go) we have had new
-> >> users of the old interface introduced at the same time.  (pain for the
-> >> linux-next bunny :-()
+> On Wed, Sep 5, 2018 at 3:14 PM, David Howells <dhowells@redhat.com> wrote:
+> > Justin Forbes <jmforbes@linuxtx.org> wrote:
+> >  
+> >> Lockdown is a config option on it's own, just also add a separate
+> >> config option option to enable lockdown on UEFI secure boot.  
 > >
-> > Can this be solved with a script on kernel.org? Or a zero-day bot that
-> > checks new commits (and perhaps patches to LKML) that checks for
-> > deprecated functions being added by new code (like strcpy) and the
-> > author would then get a nasty email about adding deprecated interfaces.
+> > The patchset has that already (CONFIG_LOCK_DOWN_IN_EFI_SECURE_BOOT).
 > >
-> > This would solve the issue of not everyone using the latest checkpatch,
-> > as this wouldn't be a voluntary self-check. It would also quickly
-> > educate developers on what code is not acceptable to be added.
->=20
-> I think this boils down to how our development ecosystem works. Things
-> are pretty "voluntary" right now: one could easily ignore zero-day or
-> checkpatch all the time, and if a maintainer isn't checking these
-> things, a patch will go in.
+> > One of the issues appears to be that we're making it boot-time conditional at
+> > all.  If I understand him correctly, Linus seems to want us to make everything
+> > locked down at compile time or not at all.
+> >  
+> 
+> The last push attempt dropped that patch and did have the compile time
+> (CONFIG_LOCK_DOWN_MANDATORY) as well as an option for command line
+> enabling with lockdown=1 (CONFIG_LOCK_DOWN_KERNEL).  It just didn't
+> have an option for triggering off of UEFI Secure Boot.   As a distro,
+> running   CONFIG_LOCK_DOWN_MANDATORY isn't much of an option. We ran
+> the 4.17 development series in rawhide with CONFIG_LOCK_DOWN_KERNEL,
+> and no one noticed that their secure boot was off.  
 
-I have the feeling that the problem is a bit different than what
-you're actually describing. It's not so much that we ignore (as in
-voluntarily ignore) these new deprecated functions, but more that it's
-quite easy to overlook them if you're not following closely the
-current effort being done, especially when you don't really have a
-security culture.
+Heh, I actually had to turn secure boot off due to that :-)
 
-And then, there's some changes where the benefit is really not obvious
-(kmalloc_array comes to my mind).
+(long story short, it was on an Intel 8 gen CPU with Radeon GPU on it,
+with required 4.17 + DRM for 4.18 in order to detect my 3 monitors,
+so I had to build my own kernel, not signed by Red Hat).
 
-Polling actively some file isn't going to work, since well, we're all
-too busy and lazy to actually do that, but maybe adding
-warnings/errors to checkpatch would help, in a similar way than what's
-being done for the msleep vs mdelay warning, with a link to the
-documentation to explain why that is needed in the first place.
-
-I think that this would help to address the discoverability of those
-API changes.
-
-Maxime
-
---=20
-Maxime Ripard, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
---c736pzwykkc3lv57
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEE0VqZU19dR2zEVaqr0rTAlCFNr3QFAluSOYYACgkQ0rTAlCFN
-r3SMFg//cnALf7TeyFv8xooXP0KUX3yZ8VgfA6X/3qGbkOcrsKL1fzBaW+X1CB5W
-zmDVHb7jvtgg4pXYQSeSDlKu5dFCDNMVcqWCFqZAloRvZ73ja3hub0Duy0JKxsn5
-1yndl8ZEoO1PQ8z6VFW25a+mXDNRwc2MX/RieCNepvE9C9GDpyMaJyoONzadqviV
-SCPpWki551Qo72X1Rbe9pv+NQ6HofR2fKoNP8TEbyvIB2fpL6/aaJfHlNDo7SbHn
-c9gZ6aCIzLOl+g8Q1KIbhq35dAIWJdu6tlMKv4uo7rZ2GyFWsNH7BYjbWTe4qR8K
-RGLEROa1AAxK5NgTL3FfmGAwnztei1W+rxUvr0/As7TqYy0o1RBHmOMRO88hiUNI
-xHJAVm8IClHAD0hDewl1X/6AH7dyxvN+oyKeI9Vcy90WUG4A4xRue43DpbWbKqZY
-o603fmziTrekR6DSYAyExES9F73jHieqY7PQIE1rbJ3kVIzdkMFbTVPp/Hx2HVti
-0q2v/KavW+trqlse93pT6RibwJ+v0X6CGX8B2ZIugRMGzRw5AKSaw+cnRUvxQcCE
-/gW1a9kHeJYnqi/FpTdomy7qF7rhyOOYBgSYh066Mqsg5496NZ3tWODG8n3NKSHY
-9kbx9H+YURZ4qiamNHMBIWFXv68jHSphLqb/vdp8yOOeSecDzT0=
-=YQSE
------END PGP SIGNATURE-----
-
---c736pzwykkc3lv57--
+Thanks,
+Mauro
