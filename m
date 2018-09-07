@@ -1,27 +1,26 @@
 Return-Path: <mchehab+samsung@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id F352AE85
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B59D8E8F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  7 Sep 2018 20:58:14 +0000 (UTC)
+	Fri,  7 Sep 2018 21:06:38 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A272B7C6
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5D8047C6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  7 Sep 2018 20:58:14 +0000 (UTC)
-Date: Fri, 7 Sep 2018 17:58:06 -0300
+	Fri,  7 Sep 2018 21:06:38 +0000 (UTC)
+Date: Fri, 7 Sep 2018 18:06:33 -0300
 From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-To: Jens Axboe <axboe@kernel.dk>
-Message-ID: <20180907175806.29be76c9@coco.lan>
-In-Reply-To: <f8060a24-812b-ea81-dcf6-fb587cdf485e@kernel.dk>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <20180907180633.564b798c@coco.lan>
+In-Reply-To: <CAKMK7uEsN9YDjEus5hndhhF1jbSS+=P804bS8iKJmyp76hmtKA@mail.gmail.com>
 References: <20180904201620.GC16300@sasha-vm>
 	<CAKMK7uFO3xiKxa+mEDgEfDx6ZKY7aFPibD1xuK3z-Ybi0Zr3Sw@mail.gmail.com>
 	<20180905101710.73137669@gandalf.local.home>
 	<20180907004944.GD16300@sasha-vm>
 	<CA+55aFwfcNuH4p+rKHuQcgOSt3coT=cN6ZdSG1OKNQ5GTWgoxg@mail.gmail.com>
 	<20180907014930.GE16300@sasha-vm> <20180907042754.GL5098@thunk.org>
-	<20180907145639.GG16300@sasha-vm>
-	<f8060a24-812b-ea81-dcf6-fb587cdf485e@kernel.dk>
+	<CAKMK7uEsN9YDjEus5hndhhF1jbSS+=P804bS8iKJmyp76hmtKA@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
@@ -36,37 +35,39 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Em Fri, 7 Sep 2018 09:07:41 -0600
-Jens Axboe <axboe@kernel.dk> escreveu:
+Em Fri, 7 Sep 2018 11:13:20 +0200
+Daniel Vetter <daniel.vetter@ffwll.ch> escreveu:
 
-> On 9/7/18 8:56 AM, Sasha Levin via Ksummit-discuss wrote:
-> > On Fri, Sep 07, 2018 at 12:27:54AM -0400, Theodore Y. Ts'o wrote:  
-> >> As far as users testing Linux-next --- I'm willing to try running
-> >> anything past, say, -rc3 on my laptop.  But running linux-next?  Heck,
-> >> no!  That's way too scary for me.  
-> > 
-> > That's why linux-next has a pending-fixes branch. IMO it makes more
-> > sense to run that than a random -rcX release.  
+> On Fri, Sep 7, 2018 at 6:27 AM, Theodore Y. Ts'o <tytso@mit.edu> wrote:
+> > On Fri, Sep 07, 2018 at 01:49:31AM +0000, Sasha Levin via Ksummit-discuss wrote:  
+
+> > There actually is a perverse incentive to having all of the test
+> > 'bots, which is that I suspect some people have come to rely on it to
+> > catch problems.  I generally run a full set of regression tests before
+> > I push an update to git.kernel.org (it only takes about 2 hours, and
+> > 12 VM's :-); and by the time we get to the late -rc's I *always* will
+> > do a full regression test.  
 > 
-> I'm pretty convinced that linux-next is very useful as integration
-> testing. On numerous occasions I learn of conflicts that will impact me
-> for the merge window, and Stephen is great at providing merge fixes that
-> helps everybody out. I'm much less convinced that it's useful for
-> runtime testing. It's extremely rare that I get a bug report on
-> linux-next, whereas I get them after patches have been merged into
-> Linus's tree all the time. Nobody is going to be running that
-> pending-fixes branch.
+> This is what imo a well-run subsystem should sound like from a testing
+> pov. All the subsystem specific testing should be done before merging.
+> Post-merge is only for integration testing and catching the long-tail
+> issues that need months/years of machine time to surface.
+> 
+> Of course this is much harder for anything that needs physical
+> hardware, but even for driver subsystems there's lots you can do with
+> test-drivers, selftests and a pile of emulation, to at least catch
+> bugs in generic code. And for reasonably sized teams like drm/i915
+> building a proper CI is a very obvious investement that will pay off.
 
-Same applies here: the stuff I usually get from linux-next bots
-are usually due to some random config that, and, while it is nice
-to fix, there's no real impact in practice, as it usually means 
-building a driver for an architecture where it doesn't apply, or
-a weird mix of modules/builtin drivers with no users.
+IMHO, CI would do even a better job for smaller teams, as they won't
+have much resources for testing, but the problem here is that those
+teams probably lack resources and money to invest on a physical hardware
+to setup a CI infra and to buy the myriad of different hardware to
+do regression testing.
 
-Yet, I always wait for a patch to be merged at next before sending
-upstream, although I usually don't wait for a long time after
--next in order to send stuff upstream, as I don't expect users
-to actually test what's at -next.
+Also, some devices are harder to test: how would you check if a camera
+microphone is working? How to check if the camera captured images
+are ok?
 
 Thanks,
 Mauro
