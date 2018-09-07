@@ -1,24 +1,25 @@
 Return-Path: <SRS0=wPzZ=LV=goodmis.org=rostedt@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8E95FE47
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 60F98D08
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  7 Sep 2018 02:33:57 +0000 (UTC)
+	Fri,  7 Sep 2018 02:45:44 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 317467AF
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0B055623
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  7 Sep 2018 02:33:57 +0000 (UTC)
-Date: Thu, 6 Sep 2018 22:33:54 -0400
+	Fri,  7 Sep 2018 02:45:43 +0000 (UTC)
+Date: Thu, 6 Sep 2018 22:45:41 -0400
 From: Steven Rostedt <rostedt@goodmis.org>
-To: Sasha Levin <Alexander.Levin@microsoft.com>
-Message-ID: <20180906223354.7971fe50@vmware.local.home>
-In-Reply-To: <20180907014930.GE16300@sasha-vm>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Message-ID: <20180906224541.27a9c8fe@vmware.local.home>
+In-Reply-To: <CA+55aFz57ASBqAvXnCv4_uZ3niPJjTDdSmOOdyaFeW8gCAwSHQ@mail.gmail.com>
 References: <20180904201620.GC16300@sasha-vm>
 	<CAKMK7uFO3xiKxa+mEDgEfDx6ZKY7aFPibD1xuK3z-Ybi0Zr3Sw@mail.gmail.com>
 	<20180905101710.73137669@gandalf.local.home>
 	<20180907004944.GD16300@sasha-vm>
 	<CA+55aFwfcNuH4p+rKHuQcgOSt3coT=cN6ZdSG1OKNQ5GTWgoxg@mail.gmail.com>
 	<20180907014930.GE16300@sasha-vm>
+	<CA+55aFz57ASBqAvXnCv4_uZ3niPJjTDdSmOOdyaFeW8gCAwSHQ@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
@@ -33,20 +34,32 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, 7 Sep 2018 01:49:31 +0000
-Sasha Levin <Alexander.Levin@microsoft.com> wrote:
+On Thu, 6 Sep 2018 19:31:18 -0700
+Linus Torvalds <torvalds@linux-foundation.org> wrote:
 
-> Look at v4.17-rc8..v4.18: how many of those commits fix something
-> introduced in the v4.17 merge window vs fixing something older?
+> What do you suggest you do about a patch that is a bug fix? Delay it
+> until it has two weeks of testing? Which it won't get, because nobody
+> actually runs it until it is merged?
 
-I will note that from my own experience, I have found a lot of older
-bugs because new code that was added triggers the easier. Or I will
-find old bugs while debugging a bug that was introduced in the last
-merge window.
+A good statistic to take is to see what found a bug that was caused by
+something added after rc5. Was it a bot (then there's credence that
+running through linux-next would be helpful). Is it because someone
+triggered it because it was in Linus's tree (which means the bug
+wouldn't show up until it hit Linus's tree). Or was it something that
+was discovered when it got into the distros?
 
-Why should this bug that I found and fixed be treated differently than
-a bug that was introduced in the merge window. A lot of times, these
-older bugs become "crap, this is bad, I need to get this to stable
-ASAP" too.
+Really, the only testing coverage that a patch gets in linux-next is by
+the bots that are run on them. I will agree that the number of bots and
+automated tests are getting better. I don't push even late fixes to
+Linus without waiting for the zero day bot to give me the OK, because
+sometimes it finds a subtle mistake I made, which would embarrass me if
+it was found after I pushed it to Linus.
+
+Another issue about having fixes sit in linux-next for some time after
+-rc5, is that by that time, linux-next is filled with new development
+code waiting for the next merge window. A subtle fix for a bug that
+wasn't caught by linux-next in the first place (how else would that bug
+still be around by rc5?) is highly likely not to catch a bug with the
+fix to that subtle bug.
 
 -- Steve
