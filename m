@@ -1,28 +1,37 @@
-Return-Path: <airlied@gmail.com>
+Return-Path: <linus971@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5DCC4E33
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 826C0DC6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  7 Sep 2018 22:14:08 +0000 (UTC)
-Received: from mail-qk1-f194.google.com (mail-qk1-f194.google.com
-	[209.85.222.194])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E9D05786
+	Fri,  7 Sep 2018 22:27:14 +0000 (UTC)
+Received: from mail-io1-f68.google.com (mail-io1-f68.google.com
+	[209.85.166.68])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3E6397A8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  7 Sep 2018 22:14:07 +0000 (UTC)
-Received: by mail-qk1-f194.google.com with SMTP id z125-v6so10632806qkb.12
+	Fri,  7 Sep 2018 22:27:14 +0000 (UTC)
+Received: by mail-io1-f68.google.com with SMTP id e12-v6so2720420iok.12
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 07 Sep 2018 15:14:07 -0700 (PDT)
+	Fri, 07 Sep 2018 15:27:14 -0700 (PDT)
 MIME-Version: 1.0
-References: <20180906185043.GA14607@thunk.org>
-In-Reply-To: <20180906185043.GA14607@thunk.org>
-From: Dave Airlie <airlied@gmail.com>
-Date: Sat, 8 Sep 2018 08:13:54 +1000
-Message-ID: <CAPM=9tz7uwj7QZVdSZ8URAY0ZkwrX1ACdat39vsuaJXeytFLfQ@mail.gmail.com>
-To: "Theodore Ts'o" <tytso@mit.edu>
+References: <20180905101710.73137669@gandalf.local.home>
+	<20180907004944.GD16300@sasha-vm>
+	<CA+55aFwfcNuH4p+rKHuQcgOSt3coT=cN6ZdSG1OKNQ5GTWgoxg@mail.gmail.com>
+	<20180907014930.GE16300@sasha-vm>
+	<2534be10-2e70-6932-39c1-7caca2cff044@roeck-us.net>
+	<4990d2c1-6f26-0500-9afa-986a61fce3bf@redhat.com>
+	<20180907150623.GH16300@sasha-vm>
+	<9fb15d7c-c59f-ee21-9c30-6d81d53a1456@redhat.com>
+	<20180907160945.GI16300@sasha-vm>
+	<20180907202328.GE25756@kroah.com> <20180907211341.GJ16300@sasha-vm>
+In-Reply-To: <20180907211341.GJ16300@sasha-vm>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Fri, 7 Sep 2018 15:27:01 -0700
+Message-ID: <CA+55aFyAWowFVi_UOkoJSfFb30Djk7JxRi4QFv7oJgpRKJxK0A@mail.gmail.com>
+To: Sasha Levin <Alexander.Levin@microsoft.com>
 Content-Type: text/plain; charset="UTF-8"
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] CHANGE OF PLAN: Maintainer Summit will be in
-	Edinburgh
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,60 +41,36 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, 7 Sep 2018 at 04:50, Theodore Y. Ts'o <tytso@mit.edu> wrote:
+On Fri, Sep 7, 2018 at 2:13 PM Sasha Levin via Ksummit-discuss
+<ksummit-discuss@lists.linuxfoundation.org> wrote:
 >
-> Last Friday (just before Labor Day) I learned that Linus had gotten
-> confused about when and where the Maintainer's Summit was going to be
-> held this year.  And most unfortunately, he has already scheduled a
-> family vacation overlapping with the week of the Maintainer's Summit.
->
-> Over the weekend, I've been conferring with folks from the Linux
-> Foundation, Linus, and the Maintainer's / Kernel Summit program
-> committee.  We explored a lot of options, but ultimately there were
-> only two choices that were workable:
->
-> 1)  Have the Maintainer's Summit in Vancouver, without Linus.
->
-> 2)  Move the Maintainer's Summit to Edinburgh, with Linus.
->
-> Curiously enough, Linus suggested option #1.  And while holding the
-> Maintainer's Summit without Linus might be an interesting experiment,
-> ultimately, the Program Committee had a strong consensus that moving
-> it Summit to Edinburgh was the better option.
->
-> This means that the Maintainer's Summit will take place in Edinburgh,
-> on Monday afternoon, October 22nd.  As a reminder, the Maintainer's
-> Summit is an invite-only workshop, with ~30 people attending.  The
-> focus of the Maintainer's Summit is process and development issues,
-> *not* technical issues.
->
-> The Kernel Summit track will still be held in Vancouver alongside
-> Plumber's.  Technical discussions will take place there; we simply
-> won't have the time, or necessarily, the right people, to have
-> technical discussions at the Maintainer's Summit.
->
-> This means that people who get an invite to the Maintainer's Summit
-> may have an extra trip this year (some may have been planning to
-> attend OSS EU anyway).  For those for which this will be an extra
-> trip, I apologize in advance.  Maintainer's Summit invitees will still
-> receive a free (non-transferrable) registration to the Linux Plumber's
-> Conference.
->
-> This also means that the process by which we issue invites to the
-> Maintainer's Summit is going to have been significantly accelerated.
-> So if you have any ideas for the Maintainer's Summit Topics, please
-> chime in soon!
+> 1. Grab a batch of ~2-3 week old commits from Linus's tree.
+> 2. Review, basic tests and send stable-rc notification.
 
-Way to go team :-)
+Side note: maybe the stable grabbing and testing could be automated?
 
-I was unsure on making to Vancouver, getting to Edinburgh in a shorter
-timeframe is even more unlikely at this stage, surprisingly I prefer
-being married to hanging out with Linus.
+IOW, right now the stable people intentionally (generally) wait a week
+before they even start. Maybe there could be an automated queue for
+"this has been marked for stable" (and the whole "fixes:" magic that
+you guys already trigger on) that gets applied to the previous stable
+tree, and starts testing immediately.
 
-3) Have it next year. It's all ticking along nicely, and we probably
-won't make major changes anyways.
+Because one of the patterns we *do* obviously see is that something
+was fine in mainline, but then broke in stable because of an unforseen
+lack of depdenencies. Sure, it's probably pretty rare (and *many*
+dependencies willl show up as an actual conflict), but I think the
+times it does happen it's particularly painful because it can be so
+non-obvious.
 
-I assume this means the Monday at LPC is empty now, unless we can
-propose a use for it, or a mini-summit no Linus.
+So maybe an automated "linux-next" that starts happening *before* the
+rc stage would catch some things?
 
-Dave.
+Done right, maybe it can be helpful to the stable flow in other ways
+too (ie trigger "oops, this doesn't even apply" flow even before you
+guys start actively looking at patches)?
+
+Of course, it's easy to say "maybe we could add automation". Possibly
+it would be really difficult to actually do that due to  conflicts etc
+being *so* common that it just ends up being an unhelpful mess.
+
+             Linus
