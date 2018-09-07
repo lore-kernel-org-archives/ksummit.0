@@ -1,41 +1,30 @@
-Return-Path: <keescook@chromium.org>
+Return-Path: <Alexander.Levin@microsoft.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C6A26DB3
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7F4B4F26
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Sep 2018 23:24:07 +0000 (UTC)
-Received: from mail-yb1-f176.google.com (mail-yb1-f176.google.com
-	[209.85.219.176])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 618C7786
+	Fri,  7 Sep 2018 00:51:46 +0000 (UTC)
+Received: from NAM03-BY2-obe.outbound.protection.outlook.com
+	(mail-by2nam03on0132.outbound.protection.outlook.com [104.47.42.132])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4999D806
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Sep 2018 23:24:07 +0000 (UTC)
-Received: by mail-yb1-f176.google.com with SMTP id u33-v6so4798605ybi.8
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 06 Sep 2018 16:24:07 -0700 (PDT)
-Received: from mail-yb1-f180.google.com (mail-yb1-f180.google.com.
-	[209.85.219.180]) by smtp.gmail.com with ESMTPSA id
-	f82-v6sm2395961ywf.58.2018.09.06.16.24.05
-	for <ksummit-discuss@lists.linuxfoundation.org>
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Thu, 06 Sep 2018 16:24:05 -0700 (PDT)
-Received: by mail-yb1-f180.google.com with SMTP id d34-v6so4813238yba.3
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 06 Sep 2018 16:24:05 -0700 (PDT)
+	Fri,  7 Sep 2018 00:51:45 +0000 (UTC)
+From: Sasha Levin <Alexander.Levin@microsoft.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+Date: Fri, 7 Sep 2018 00:51:42 +0000
+Message-ID: <20180907004944.GD16300@sasha-vm>
+References: <20180904201620.GC16300@sasha-vm>
+	<CAKMK7uFO3xiKxa+mEDgEfDx6ZKY7aFPibD1xuK3z-Ybi0Zr3Sw@mail.gmail.com>
+	<20180905101710.73137669@gandalf.local.home>
+In-Reply-To: <20180905101710.73137669@gandalf.local.home>
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <E4D32E56772A3449806031C40EA596B0@namprd21.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-In-Reply-To: <20180907091842.6c55bd9a@canb.auug.org.au>
-References: <CAGXu5j+-X6WQNdTYK2ZA5OOJgc0RfCq9Gr9WRAMkYTSQOT7QdQ@mail.gmail.com>
-	<20180906094158.1eba4f50@canb.auug.org.au>
-	<20180905222437.5d2a1730@vmware.local.home>
-	<CAGXu5jKfbVUcyGu6U1dVR8dKjGK0sY7=pLdmYXUC9_G8KmgZ0A@mail.gmail.com>
-	<20180907091842.6c55bd9a@canb.auug.org.au>
-From: Kees Cook <keescook@chromium.org>
-Date: Thu, 6 Sep 2018 16:24:03 -0700
-Message-ID: <CAGXu5jKQJfeOmTRBXB7ofW1iH6FNGROnSZzYdpG=H_Hu8zep=w@mail.gmail.com>
-To: Stephen Rothwell <sfr@canb.auug.org.au>
-Content-Type: text/plain; charset="UTF-8"
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] API
-	replacement/deprecation
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -45,31 +34,53 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Sep 6, 2018 at 4:18 PM, Stephen Rothwell <sfr@canb.auug.org.au> wrote:
-> Hi Kees,
+On Wed, Sep 05, 2018 at 10:17:10AM -0400, Steven Rostedt wrote:
+>On Tue, 4 Sep 2018 22:53:23 +0200
+>Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
 >
-> On Thu, 6 Sep 2018 11:24:11 -0700 Kees Cook <keescook@chromium.org> wrote:
+>> > I've previously sent a mail
+>> > (https://na01.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flw=
+n.net%2Fml%2Flinux-kernel%2F20180501163818.GD1468%40sasha-vm%2F&amp;data=3D=
+02%7C01%7CAlexander.Levin%40microsoft.com%7C7643e868bb5e4d76817c08d6133a46c=
+b%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C636717538346291007&amp;sdata=
+=3DMEleczglT%2FGM46uI0F4hwbofY9ARD2NEQLS7NW37ntg%3D&amp;reserved=3D0) about
+>> > this topic, so I won't repeat everything here.
 >>
->> If there was an agreement by all maintainers that deprecated
->> functions/patterns should not be added, and we documented the
->> deprecation somewhere like Documentation/process/deprecated.rst, then
->> we could make the declaration that if such functions got added (it's
->> easy to mechanically check for them), it would be the responsibility
->> of the author and maintainer chain to see that it got fixed before the
->> release is cut. We already have this for things like "breaks the x86
->> allmodconfig build" or similar. The checking would be manual, and the
->> enforcement would be by agreement, but it'd be better than the kind of
->> "please don't do this" hand-waving we've had in the past.
+>> That thread sprawled all over the place, and I honestly don't even
+>> recollect half of it. I'd very much appreciate a summary of the
+>> problems and different viewpoints shared in there. Otherwise I think
+>> we'll just have the exact same discussion once more ...
 >
-> I could do this in linux-next, of course, the same way I check for
-> missing signed-off-bys.  All I would need is the list of deprecated
-> things.
+>I was thinking the exact same thing.
 
-Hopefully we can all agree on deprecating strcpy() and strncpy() in
-favor of strscpy()?
+Assuming you've read the original mail, it appears that most parties who
+participated in the discussion agreed that there's an issue where
+patches that go in during (late) -rc cycles seems to be less tested and
+are buggier than they should be.
 
--Kees
+Most of that thread discussed possible solutions such as:
 
--- 
-Kees Cook
-Pixel Security
+ - Not taking non-critical patches past -rcX (-rc4 seemed to be a
+   popular one).
+ - -rc patches must fix something introduced in the current merge
+   window. Patches fixing anything older should go in the next merge
+   window.
+ - 1 or more weeks at the end of the cycle where nothing is taken at all
+   and we only run testing.
+ - Mandate X days/weeks in linux-next before a patch goes in.
+
+We've never reached a conclusion because maintainers have different
+approach to this and different pain points, so it seemed difficult
+finding a one-size-fits-all solution.
+
+If you look at the few last -rc cycles of every release in recent
+history, almost all of them were written within 2-3 days of being
+merged. There is no way to properly test these patches.
+
+Furthermore, these patches often end up in Stable, which is quite bad of
+the Stable kernel's regression rates.
+
+
+--
+Thanks,
+Sasha=
