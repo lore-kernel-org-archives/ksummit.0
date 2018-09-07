@@ -1,31 +1,32 @@
 Return-Path: <mchehab+samsung@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BA6D2EFC
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id F352AE85
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  7 Sep 2018 20:24:29 +0000 (UTC)
+	Fri,  7 Sep 2018 20:58:14 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 677C87FD
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A272B7C6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  7 Sep 2018 20:24:29 +0000 (UTC)
-Date: Fri, 7 Sep 2018 17:24:23 -0300
+	Fri,  7 Sep 2018 20:58:14 +0000 (UTC)
+Date: Fri, 7 Sep 2018 17:58:06 -0300
 From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-To: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Message-ID: <20180907172423.1c11e1be@coco.lan>
-In-Reply-To: <20180905201533.GA6117@chatter>
-References: <1536142432.8121.6.camel@HansenPartnership.com>
-	<s5hd0tsccdw.wl-tiwai@suse.de> <20180905133916.GA22160@puremoods>
-	<25765076-0a55-babc-cd34-dc5b0971d293@redhat.com>
-	<20180905201533.GA6117@chatter>
+To: Jens Axboe <axboe@kernel.dk>
+Message-ID: <20180907175806.29be76c9@coco.lan>
+In-Reply-To: <f8060a24-812b-ea81-dcf6-fb587cdf485e@kernel.dk>
+References: <20180904201620.GC16300@sasha-vm>
+	<CAKMK7uFO3xiKxa+mEDgEfDx6ZKY7aFPibD1xuK3z-Ybi0Zr3Sw@mail.gmail.com>
+	<20180905101710.73137669@gandalf.local.home>
+	<20180907004944.GD16300@sasha-vm>
+	<CA+55aFwfcNuH4p+rKHuQcgOSt3coT=cN6ZdSG1OKNQ5GTWgoxg@mail.gmail.com>
+	<20180907014930.GE16300@sasha-vm> <20180907042754.GL5098@thunk.org>
+	<20180907145639.GG16300@sasha-vm>
+	<f8060a24-812b-ea81-dcf6-fb587cdf485e@kernel.dk>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Distribution kernel
- bugzillas considered harmful
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,27 +36,37 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Em Wed, 5 Sep 2018 16:15:33 -0400
-Konstantin Ryabitsev <konstantin@linuxfoundation.org> escreveu:
+Em Fri, 7 Sep 2018 09:07:41 -0600
+Jens Axboe <axboe@kernel.dk> escreveu:
 
-> I'm excited that kernelci.org is coming on board as a full-fledged Linux 
-> Foundation project, since I'm hoping that their charter would include 
-> funding this kind of development. [1] I was already chatting with Kevin 
-> about some of the cool things we could do to make various 
-> CI/fuzzing/bug-reporting tools more streamlined, so I'll add "bisecting 
-> as a service" to my list of suggestions for the glorious kernel CI tool 
-> of the future. :)
+> On 9/7/18 8:56 AM, Sasha Levin via Ksummit-discuss wrote:
+> > On Fri, Sep 07, 2018 at 12:27:54AM -0400, Theodore Y. Ts'o wrote:  
+> >> As far as users testing Linux-next --- I'm willing to try running
+> >> anything past, say, -rc3 on my laptop.  But running linux-next?  Heck,
+> >> no!  That's way too scary for me.  
+> > 
+> > That's why linux-next has a pending-fixes branch. IMO it makes more
+> > sense to run that than a random -rcX release.  
+> 
+> I'm pretty convinced that linux-next is very useful as integration
+> testing. On numerous occasions I learn of conflicts that will impact me
+> for the merge window, and Stephen is great at providing merge fixes that
+> helps everybody out. I'm much less convinced that it's useful for
+> runtime testing. It's extremely rare that I get a bug report on
+> linux-next, whereas I get them after patches have been merged into
+> Linus's tree all the time. Nobody is going to be running that
+> pending-fixes branch.
 
-Kernel-ci seems interesting. Yet, 1/3 of the Kernel patches are drivers.
-At least for media stuff, IMO, CI is too far away from our needs, as one
-would need some real hardware to do some testing stuff (like for example, 
-some webcams and some ways to check if the webcam support is actually
-working). To make it worse, there are a wide variety of different hardware
-with different features and their quirk needs. I suspect that similar
-troubles would affect sound devices as well.
+Same applies here: the stuff I usually get from linux-next bots
+are usually due to some random config that, and, while it is nice
+to fix, there's no real impact in practice, as it usually means 
+building a driver for an architecture where it doesn't apply, or
+a weird mix of modules/builtin drivers with no users.
 
-It could be worth to have some discussions with CI people with regards
-to how it can better cope with driver's subsystem needs.
+Yet, I always wait for a patch to be merged at next before sending
+upstream, although I usually don't wait for a long time after
+-next in order to send stuff upstream, as I don't expect users
+to actually test what's at -next.
 
 Thanks,
 Mauro
