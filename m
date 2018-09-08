@@ -1,27 +1,32 @@
-Return-Path: <mchehab+samsung@kernel.org>
+Return-Path: <daniel.vetter@ffwll.ch>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6DEF4CE6
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B2251CF2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  8 Sep 2018 11:48:27 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D0CB48B
+	Sat,  8 Sep 2018 12:21:21 +0000 (UTC)
+Received: from mail-it0-f65.google.com (mail-it0-f65.google.com
+	[209.85.214.65])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 28E6670D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  8 Sep 2018 11:48:26 +0000 (UTC)
-Date: Sat, 8 Sep 2018 08:48:22 -0300
-From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Message-ID: <20180908084822.79b321e8@coco.lan>
-In-Reply-To: <10978266.ZcOyfo1TOH@avalon>
-References: <20180904201620.GC16300@sasha-vm>
-	<CAKMK7uEsN9YDjEus5hndhhF1jbSS+=P804bS8iKJmyp76hmtKA@mail.gmail.com>
-	<20180907180633.564b798c@coco.lan> <10978266.ZcOyfo1TOH@avalon>
+	Sat,  8 Sep 2018 12:21:21 +0000 (UTC)
+Received: by mail-it0-f65.google.com with SMTP id 139-v6so23182299itf.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sat, 08 Sep 2018 05:21:21 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
+In-Reply-To: <20180908074708.249571f4@coco.lan>
+References: <1536263073.6012.3.camel@HansenPartnership.com>
+	<CAKMK7uFHOP+shcnAdHEEELOth+d3BR0LdUZ9rXdrhYueHdqF9A@mail.gmail.com>
+	<1536263475.6012.5.camel@HansenPartnership.com>
+	<20180908074708.249571f4@coco.lan>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Sat, 8 Sep 2018 14:21:19 +0200
+Message-ID: <CAKMK7uGh6BLc8Mmq7R5t29L+6emshkWMJd91kGQrhbCmi2pz4Q@mail.gmail.com>
+To: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINER TOPIC] Succession Planning: Is It
+ time to Throw Linus Under a Bus?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,62 +36,95 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Em Sat, 08 Sep 2018 12:44:32 +0300
-Laurent Pinchart <laurent.pinchart@ideasonboard.com> escreveu:
+On Sat, Sep 8, 2018 at 12:47 PM, Mauro Carvalho Chehab
+<mchehab+samsung@kernel.org> wrote:
+> Em Thu, 06 Sep 2018 12:51:15 -0700
+> James Bottomley <James.Bottomley@HansenPartnership.com> escreveu:
+>
+>> On Thu, 2018-09-06 at 21:47 +0200, Daniel Vetter wrote:
+>> > On Thu, Sep 6, 2018 at 9:44 PM, James Bottomley
+>> > <James.Bottomley@hansenpartnership.com> wrote:
+>> > > Since our fearless leader apparently can't even remember the dates
+>> > > of
+>> > > the only conference he goes to, perhaps now might be a good time to
+>> > > talk about how we'd run an orderly succession process (purely
+>> > > theoretically, of course ...)
+>> > >
+>> > > I think a vote amongst the Maintainer Summit attendees might be the
+>> > > way
+>> > > to elect a new leader, but others probably have different ideas.
+>> >
+>> > Why I single leader?
+>> >
+>> > This group maintainer ship thing ... it  works.
+>>
+>> I also note that group maintainership seems only to work for you in
+>> DRM; most of the other subsystems seem to have single leader
+>> hierarchical maintainership.
+>
+> If we're seriously thinking on have a plan for maintainership
+> replacement with a group, we need first to answer:
+>
+>         Q: How many Kernel developers does it take to replace Linus?
+>
+> That's said, I doubt that the DRM model would work outside DRM
+> subsystem: too many people with commit rights can be hard, specially
+> if they all can touch the core. Btw, we tried a similar model in
+> the past on media (by the time we were using Mercurial, about
+> 10 years ago): all core developers had commit rights. It worked
+> smoothly for years, until one of the developers decided
+> to commit a very intrusive patch touching all drivers at the
+> subsystem and stepping on everyone else feet. Handling it was
+> really painful. If our official model would be a group
+> maintainership, it would probably take months for us to put the
+> tree on a sane state. I ended by using my maintainership status
+> to revert the patch, returning the tree to a sane state and allowing
+> the others to keep sending patches. Yet, it took months, even
+> years for us to recover from the disaster. Also, due to the
+> heated discussions, we end by losing several developers due
+> to that.
 
-> On Saturday, 8 September 2018 00:06:33 EEST Mauro Carvalho Chehab wrote:
-> > Em Fri, 7 Sep 2018 11:13:20 +0200 Daniel Vetter escreveu:  
-> > > On Fri, Sep 7, 2018 at 6:27 AM, Theodore Y. Ts'o <tytso@mit.edu> wrote:  
-> > > > On Fri, Sep 07, 2018 at 01:49:31AM +0000, Sasha Levin via
-> > > > Ksummit-discuss wrote:
-> > > > 
-> > > > There actually is a perverse incentive to having all of the test
-> > > > 'bots, which is that I suspect some people have come to rely on it to
-> > > > catch problems.  I generally run a full set of regression tests before
-> > > > I push an update to git.kernel.org (it only takes about 2 hours, and
-> > > > 12 VM's :-); and by the time we get to the late -rc's I *always* will
-> > > > do a full regression test.  
-> > > 
-> > > This is what imo a well-run subsystem should sound like from a testing
-> > > pov. All the subsystem specific testing should be done before merging.
-> > > Post-merge is only for integration testing and catching the long-tail
-> > > issues that need months/years of machine time to surface.
-> > > 
-> > > Of course this is much harder for anything that needs physical
-> > > hardware, but even for driver subsystems there's lots you can do with
-> > > test-drivers, selftests and a pile of emulation, to at least catch
-> > > bugs in generic code. And for reasonably sized teams like drm/i915
-> > > building a proper CI is a very obvious investement that will pay off.  
-> > 
-> > IMHO, CI would do even a better job for smaller teams, as they won't
-> > have much resources for testing, but the problem here is that those
-> > teams probably lack resources and money to invest on a physical hardware
-> > to setup a CI infra and to buy the myriad of different hardware to
-> > do regression testing.
-> > 
-> > Also, some devices are harder to test: how would you check if a camera
-> > microphone is working? How to check if the camera captured images
-> > are ok?  
-> 
-> The same way you would check the display output. Cameras can be pointed at 
-> known scenes with controlled lightning. TV capture cards can be fed a known 
-> signal. Even for microphone testing we could put the camera in a sound-proof 
-> enclosure, with an audio source. Solutions exist, whether we have the budget 
-> to implement them is the real question.
+I'm not advocating for a committer model at the top level, but it
+would be awesome if people bothered to look at the talks and blogs
+we've done about what we're actually doing with commit rights, instead
+of making assumptions. We don't just throw out commit rights like hot
+candy, since that indeed is bound to fail. Instead:
 
-Solutions exist, but they require a hole new kind of environment control.
+- We have clearly documented merge criteria, and as much of that as
+possible enforced using tooling.
+- One of those is mandatory review, no one is allowed to do anything solo.
+- We have massive CI, available to all contributors automatically -
+that gives us mandatory in-depth testing way before committing is even
+on the table.
+- And finally we have a CoC to just ban people who don't get it and
+cant work together in a group
+- a bunch of smaller things all over to make it fit together
 
-In the case of DRM (and TV cards), display output can be tested with some
-HDMI grabber card. No need for a "controlled lightning environment" or
-anything like that. Once it is set, people can just place it into a
-random datacenter located anywhere and forget about it.
+I know that the commit right thing is very radical by kernel
+standards. But outside of the kernel, "how to make commit rights work"
+is largely a solved problem. Of course if you ignore that trove of
+experience from other open source projects, then you're bound to
+repeat all the fail, no surprises.
 
-However, in the case of hardware like cameras, microphones, speakers,
-keyboards, mice, touchscreen, etc, it is a way more complex, as the
-environment will require adjustments (a silent room, specific
-lightning, mechanical components, etc) and a more proactive supervision,
-as it would tend to produce more false positive errors if something
-changes there. A normal datacenter won't fit those needs.
+Apologies for the interlude, back to the topic (which is apparently
+... throwing Linus under the bus?!?).
+-Daniel
 
-Thanks,
-Mauro
+> A triumvirate like x86 and arm might work, but I suspect that it
+> would be easier to start with a more hierarchical model, like
+> for example having one (sub-)maintainer for arch, another
+> one for core and a third one for drivers.
+>
+> Also, if we want to consider the bus scenario and other disaster
+> threats, it could be worth to consider having them geographically
+> distributed (if possible even on different Countries).
+>
+> Thanks,
+> Mauro
+
+
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
