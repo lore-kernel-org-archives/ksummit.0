@@ -1,30 +1,34 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 33B57D4D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3EE5AD1D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  8 Sep 2018 15:00:34 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CB07C5D3
+	Sat,  8 Sep 2018 15:19:59 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id AC8FF5E2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  8 Sep 2018 15:00:33 +0000 (UTC)
-Message-ID: <1536418829.22308.1.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Greg KH <greg@kroah.com>, Mauro Carvalho Chehab
-	<mchehab+samsung@kernel.org>
-Date: Sat, 08 Sep 2018 08:00:29 -0700
-In-Reply-To: <20180908113411.GA3111@kroah.com>
-References: <nycvar.YFH.7.76.1809062054450.15880@cbobk.fhfr.pm>
-	<CALCETrWsWGbo0B7=_AAOinJVCLrZbhJ75W2eUPxLCyo2BspBxA@mail.gmail.com>
-	<alpine.DEB.2.21.1809081037440.1402@nanos.tec.linutronix.de>
-	<20180908082141.15d72684@coco.lan> <20180908113411.GA3111@kroah.com>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
+	Sat,  8 Sep 2018 15:19:58 +0000 (UTC)
+Date: Sat, 8 Sep 2018 11:19:53 -0400
+From: "Theodore Y. Ts'o" <tytso@mit.edu>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Message-ID: <20180908151953.GB2296@thunk.org>
+References: <20180906094158.1eba4f50@canb.auug.org.au>
+	<20180905222437.5d2a1730@vmware.local.home>
+	<CAGXu5jKfbVUcyGu6U1dVR8dKjGK0sY7=pLdmYXUC9_G8KmgZ0A@mail.gmail.com>
+	<20180907091842.6c55bd9a@canb.auug.org.au>
+	<CAGXu5jKQJfeOmTRBXB7ofW1iH6FNGROnSZzYdpG=H_Hu8zep=w@mail.gmail.com>
+	<20180907143326.GM5098@thunk.org>
+	<CAGXu5jJ9EP3UEWjyTJum0YM7=549kVcCOk5Jk_i+dt_B0SY+nQ@mail.gmail.com>
+	<CAK8P3a2F5Q0PEUR-0D287GkWHGpv3b6p65o95vdDhkWWX1rEWw@mail.gmail.com>
+	<20180907205607.GZ5098@thunk.org>
+	<CAMuHMdUkqSfhUqgzkxPwG6jAofLrsuwvTZdWk_trmP5_jrWDCA@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAMuHMdUkqSfhUqgzkxPwG6jAofLrsuwvTZdWk_trmP5_jrWDCA@mail.gmail.com>
 Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Handling of embargoed
- security issues
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] API
+ replacement/deprecation
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,37 +38,24 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, 2018-09-08 at 13:34 +0200, Greg KH wrote:
-> On Sat, Sep 08, 2018 at 08:21:41AM -0300, Mauro Carvalho Chehab
-> wrote:
-> > IMHO, the best would be to have a formal/legal way to handle it.
+On Sat, Sep 08, 2018 at 10:15:01AM +0200, Geert Uytterhoeven wrote:
+> Why the memset()? strncpy() pads the destination with zeroes, so it
+> is not needed. This is basically the major reason to use strncpy().
+
+I had completely forgotten about that!  I've always focused on when
+strncpy would stop copying, and the lack of NUL termination in some
+cases; not that it automatically zero'ed the padding.  Since I tend to
+always memset the entire structure to be zero, I started assuming that
+I couldn't count on strncpy to NUL pad.
+
+Perhaps all we need to do is to rename strncpy to make it clear when
+it's appropriate it, and when it simply is not.
+
+
+> >         strncpy(src, dest, size);
 > 
-> No, sorry, some of us are not allowed legally to sign NDAs for stuff
-> like this.
+> Oh, you're copying in the wrong direction ;-)
 
-As a blanket statement this simply isn't true.  It is certainly
-possible for a specific NDA to conflict with other agreed obligations
-an individual has in which case that specific NDA can't be signed. 
-However, knowing the obligations, it's also possible to craft a
-different version of the NDA that can be signed.
+Yeah, oops.  What I get for typing too quickly.  :-)
 
-There's also significant problems with badly worded NDAs and Open
-Source: given you're going to produce a thing which everyone can see,
-disclosure ipso facto eventually occurs so the NDA has to take this
-correctly into account but again, this can be done.
-
-I can respect the moral position that NDAs are incompatible with the
-values of open source but it's an individual choice and conscience
-issue not a legal one.
-
->   So keeping legal out of is it the best solution and we have
-> done that pretty well so far.
-
-I think we might benefit from a discussion of whether we could have
-handled Meltdown/Spectre better in an NDA framework ... I'm not saying
-it would have been any better, just that we might consider if some
-driving need for secrecy caused us to be left out of the loop and
-whether a small cabal in the know with an NDA might have steered us
-better.
-
-James
+      	     	    	    	   - Ted
