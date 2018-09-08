@@ -1,34 +1,33 @@
-Return-Path: <tytso@thunk.org>
+Return-Path: <greg@kroah.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3EE5AD1D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4F9A3D54
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  8 Sep 2018 15:19:59 +0000 (UTC)
-Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id AC8FF5E2
+	Sat,  8 Sep 2018 15:29:32 +0000 (UTC)
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+	[66.111.4.25])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C77D0623
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  8 Sep 2018 15:19:58 +0000 (UTC)
-Date: Sat, 8 Sep 2018 11:19:53 -0400
-From: "Theodore Y. Ts'o" <tytso@mit.edu>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Message-ID: <20180908151953.GB2296@thunk.org>
-References: <20180906094158.1eba4f50@canb.auug.org.au>
-	<20180905222437.5d2a1730@vmware.local.home>
-	<CAGXu5jKfbVUcyGu6U1dVR8dKjGK0sY7=pLdmYXUC9_G8KmgZ0A@mail.gmail.com>
-	<20180907091842.6c55bd9a@canb.auug.org.au>
-	<CAGXu5jKQJfeOmTRBXB7ofW1iH6FNGROnSZzYdpG=H_Hu8zep=w@mail.gmail.com>
-	<20180907143326.GM5098@thunk.org>
-	<CAGXu5jJ9EP3UEWjyTJum0YM7=549kVcCOk5Jk_i+dt_B0SY+nQ@mail.gmail.com>
-	<CAK8P3a2F5Q0PEUR-0D287GkWHGpv3b6p65o95vdDhkWWX1rEWw@mail.gmail.com>
-	<20180907205607.GZ5098@thunk.org>
-	<CAMuHMdUkqSfhUqgzkxPwG6jAofLrsuwvTZdWk_trmP5_jrWDCA@mail.gmail.com>
+	Sat,  8 Sep 2018 15:29:31 +0000 (UTC)
+Date: Sat, 8 Sep 2018 17:29:28 +0200
+From: Greg KH <greg@kroah.com>
+To: Andy Lutomirski <luto@amacapital.net>
+Message-ID: <20180908152928.GA11120@kroah.com>
+References: <nycvar.YFH.7.76.1809062054450.15880@cbobk.fhfr.pm>
+	<CALCETrWsWGbo0B7=_AAOinJVCLrZbhJ75W2eUPxLCyo2BspBxA@mail.gmail.com>
+	<alpine.DEB.2.21.1809081037440.1402@nanos.tec.linutronix.de>
+	<20180908082141.15d72684@coco.lan>
+	<20180908113411.GA3111@kroah.com>
+	<A243E221-F38D-441F-A888-481010478996@amacapital.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <CAMuHMdUkqSfhUqgzkxPwG6jAofLrsuwvTZdWk_trmP5_jrWDCA@mail.gmail.com>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] API
- replacement/deprecation
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <A243E221-F38D-441F-A888-481010478996@amacapital.net>
+Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Handling of embargoed
+ security issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,24 +37,35 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, Sep 08, 2018 at 10:15:01AM +0200, Geert Uytterhoeven wrote:
-> Why the memset()? strncpy() pads the destination with zeroes, so it
-> is not needed. This is basically the major reason to use strncpy().
-
-I had completely forgotten about that!  I've always focused on when
-strncpy would stop copying, and the lack of NUL termination in some
-cases; not that it automatically zero'ed the padding.  Since I tend to
-always memset the entire structure to be zero, I started assuming that
-I couldn't count on strncpy to NUL pad.
-
-Perhaps all we need to do is to rename strncpy to make it clear when
-it's appropriate it, and when it simply is not.
-
-
-> >         strncpy(src, dest, size);
+On Sat, Sep 08, 2018 at 07:20:00AM -0700, Andy Lutomirski wrote:
 > 
-> Oh, you're copying in the wrong direction ;-)
+> 
+> > On Sep 8, 2018, at 4:34 AM, Greg KH <greg@kroah.com> wrote:
+> > 
+> >> On Sat, Sep 08, 2018 at 08:21:41AM -0300, Mauro Carvalho Chehab wrote:
+> >> IMHO, the best would be to have a formal/legal way to handle it.
+> > 
+> > No, sorry, some of us are not allowed legally to sign NDAs for stuff
+> > like this.  So keeping legal out of is it the best solution and we have
+> > done that pretty well so far.
+> > 
+> 
+> A lot us us (such as yours truly) have NDAs in place. I would love a
+> clear mechanism by which a vendor gives explicit permission for me to
+> communicate with other relevant parties. It doesn’t need to be fancy
+> and legalistic, but having it written down would be very, very nice.
 
-Yeah, oops.  What I get for typing too quickly.  :-)
+I agree, what we have now is a mis-match of different people working for
+different companies with different types of NDAs through different
+companies or not, trying to deal with different companies trying to work
+with us.
 
-      	     	    	    	   - Ted
+Having something "simple" for us to work off of would be good, and this
+isn't the first thread that this topic has come up on.  I know people
+want to solve this, and maybe the LF is the way to go here.  There was a
+meeting last week at Harvard to start to consider how this could happen.
+Hopefully in a few months we will have something "solid" to discuss.
+
+thanks,
+
+greg k-h
