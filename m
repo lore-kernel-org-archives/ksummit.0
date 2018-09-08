@@ -1,25 +1,27 @@
-Return-Path: <tglx@linutronix.de>
+Return-Path: <laurent.pinchart@ideasonboard.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8AEEEB14
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 33162C83
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  8 Sep 2018 08:56:40 +0000 (UTC)
-Received: from Galois.linutronix.de (Galois.linutronix.de [146.0.238.70])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6F338623
+	Sat,  8 Sep 2018 09:44:27 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+	[213.167.242.64])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8D1648B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  8 Sep 2018 08:56:39 +0000 (UTC)
-Date: Sat, 8 Sep 2018 10:56:35 +0200 (CEST)
-From: Thomas Gleixner <tglx@linutronix.de>
-To: Andy Lutomirski <luto@amacapital.net>
-In-Reply-To: <CALCETrWsWGbo0B7=_AAOinJVCLrZbhJ75W2eUPxLCyo2BspBxA@mail.gmail.com>
-Message-ID: <alpine.DEB.2.21.1809081037440.1402@nanos.tec.linutronix.de>
-References: <nycvar.YFH.7.76.1809062054450.15880@cbobk.fhfr.pm>
-	<CALCETrWsWGbo0B7=_AAOinJVCLrZbhJ75W2eUPxLCyo2BspBxA@mail.gmail.com>
+	Sat,  8 Sep 2018 09:44:26 +0000 (UTC)
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Sat, 08 Sep 2018 12:44:32 +0300
+Message-ID: <10978266.ZcOyfo1TOH@avalon>
+In-Reply-To: <20180907180633.564b798c@coco.lan>
+References: <20180904201620.GC16300@sasha-vm>
+	<CAKMK7uEsN9YDjEus5hndhhF1jbSS+=P804bS8iKJmyp76hmtKA@mail.gmail.com>
+	<20180907180633.564b798c@coco.lan>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Handling of embargoed
- security issues
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,41 +31,47 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, 7 Sep 2018, Andy Lutomirski wrote:
-> (There was another CVE that got much less press that I was involved,
-> and it didn't get much attention in Linux land because Linux was only
-> minimally affected.  Despite being an Intel/AMD issue, all of the
-> coordination was done by Microsoft, and it was done remarkably well
-> once the process actually got started.)
+On Saturday, 8 September 2018 00:06:33 EEST Mauro Carvalho Chehab wrote:
+> Em Fri, 7 Sep 2018 11:13:20 +0200 Daniel Vetter escreveu:
+> > On Fri, Sep 7, 2018 at 6:27 AM, Theodore Y. Ts'o <tytso@mit.edu> wrote:
+> > > On Fri, Sep 07, 2018 at 01:49:31AM +0000, Sasha Levin via
+> > > Ksummit-discuss wrote:
+> > > 
+> > > There actually is a perverse incentive to having all of the test
+> > > 'bots, which is that I suspect some people have come to rely on it to
+> > > catch problems.  I generally run a full set of regression tests before
+> > > I push an update to git.kernel.org (it only takes about 2 hours, and
+> > > 12 VM's :-); and by the time we get to the late -rc's I *always* will
+> > > do a full regression test.
+> > 
+> > This is what imo a well-run subsystem should sound like from a testing
+> > pov. All the subsystem specific testing should be done before merging.
+> > Post-merge is only for integration testing and catching the long-tail
+> > issues that need months/years of machine time to surface.
+> > 
+> > Of course this is much harder for anything that needs physical
+> > hardware, but even for driver subsystems there's lots you can do with
+> > test-drivers, selftests and a pile of emulation, to at least catch
+> > bugs in generic code. And for reasonably sized teams like drm/i915
+> > building a proper CI is a very obvious investement that will pay off.
+> 
+> IMHO, CI would do even a better job for smaller teams, as they won't
+> have much resources for testing, but the problem here is that those
+> teams probably lack resources and money to invest on a physical hardware
+> to setup a CI infra and to buy the myriad of different hardware to
+> do regression testing.
+> 
+> Also, some devices are harder to test: how would you check if a camera
+> microphone is working? How to check if the camera captured images
+> are ok?
 
-The point is that the coordination done by the entity who 'owns' the thing
-is the key.
+The same way you would check the display output. Cameras can be pointed at 
+known scenes with controlled lightning. TV capture cards can be fed a known 
+signal. Even for microphone testing we could put the camera in a sound-proof 
+enclosure, with an audio source. Solutions exist, whether we have the budget 
+to implement them is the real question.
 
-Contrary to Meltdown/Spectre Intel informed us about L1Tf halfways early
-and allowed _all_ involved parties to talk to each other. There were still
-some rough edges to bring key people like Greg in, but that was a minor
-nuisance compared to the whole Meltdown/Spectre mess.
+-- 
+Regards,
 
-Of course there was no communication channel which allowed us to talk in a
-workable way, but that got resolved by ourself setting up a encrypted
-mailing list which made halfways normal kernel style cooperation
-possible. That still has its rough edges vs. limited review capacity and
-testing, but compared to Meltdown/Spectre L1TF was halfways workable.
-
-So we surely have the ability to communicate properly in an embargo
-situation, but that requires that the entity who controls the issue is
-
- 1) Telling us in time and putting all cards on the table
- 2) Setting no silly restrictions vs. who can talk to whom
-
-That said, I agree that a more formal process with clear rules might make
-it easier for companies to handle that proper. It's definitely worth to
-try.
-
-Though it won't make the issues which come inherently with embargo
-development go away. Mechanisms we rely on like 0-bot, kernel-ci and others
-need to grow an embargo mode as well.
-
-Thanks,
-
-	tglx
+Laurent Pinchart
