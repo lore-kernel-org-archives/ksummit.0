@@ -1,37 +1,34 @@
-Return-Path: <mchehab+samsung@kernel.org>
+Return-Path: <sfr@canb.auug.org.au>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 79AE8927
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 35CEDBE0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  9 Sep 2018 12:18:25 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E6C8B2C4
+	Sun,  9 Sep 2018 12:50:50 +0000 (UTC)
+Received: from ozlabs.org (ozlabs.org [203.11.71.1])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8709E2C4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  9 Sep 2018 12:18:24 +0000 (UTC)
-Date: Sun, 9 Sep 2018 09:18:18 -0300
-From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-To: Andy Lutomirski <luto@kernel.org>
-Message-ID: <20180909091818.2d28a1ee@coco.lan>
-In-Reply-To: <CALCETrXwqgX41dmZhG55wGoZvmsn8qUdYMHG5_ne2hH7Oa65=A@mail.gmail.com>
-References: <nycvar.YFH.7.76.1809062054450.15880@cbobk.fhfr.pm>
-	<CALCETrWsWGbo0B7=_AAOinJVCLrZbhJ75W2eUPxLCyo2BspBxA@mail.gmail.com>
-	<alpine.DEB.2.21.1809081037440.1402@nanos.tec.linutronix.de>
-	<20180908082141.15d72684@coco.lan>
-	<20180908113411.GA3111@kroah.com>
-	<1536418829.22308.1.camel@HansenPartnership.com>
-	<20180908153235.GB11120@kroah.com>
-	<1536422066.22308.3.camel@HansenPartnership.com>
-	<CA+55aFwiW9eeC0Z1+HnhCVzH=LmfBQfpdFZ0eYSuHdp5U6bpEg@mail.gmail.com>
-	<1536441899.22308.11.camel@HansenPartnership.com>
-	<CALCETrXwqgX41dmZhG55wGoZvmsn8qUdYMHG5_ne2hH7Oa65=A@mail.gmail.com>
+	Sun,  9 Sep 2018 12:50:49 +0000 (UTC)
+Date: Sun, 9 Sep 2018 22:50:31 +1000
+From: Stephen Rothwell <sfr@canb.auug.org.au>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Message-ID: <20180909225031.0c12d00f@canb.auug.org.au>
+In-Reply-To: <CA+55aFxJ5JVrNVA06BhpL9Q4y2uh5PVizuZtP6+9npLs15CZVQ@mail.gmail.com>
+References: <20180904201620.GC16300@sasha-vm>
+	<CAKMK7uFO3xiKxa+mEDgEfDx6ZKY7aFPibD1xuK3z-Ybi0Zr3Sw@mail.gmail.com>
+	<20180905101710.73137669@gandalf.local.home>
+	<20180907004944.GD16300@sasha-vm>
+	<CA+55aFwfcNuH4p+rKHuQcgOSt3coT=cN6ZdSG1OKNQ5GTWgoxg@mail.gmail.com>
+	<20180907014930.GE16300@sasha-vm>
+	<CA+55aFz57ASBqAvXnCv4_uZ3niPJjTDdSmOOdyaFeW8gCAwSHQ@mail.gmail.com>
+	<20180907145437.GF16300@sasha-vm>
+	<CA+55aFzp340RDJUDoOGtN5ENgdCSSkksvG0yPt74BgyvTrAE4Q@mail.gmail.com>
+	<CA+55aFxJ5JVrNVA06BhpL9Q4y2uh5PVizuZtP6+9npLs15CZVQ@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Handling of embargoed
- security issues
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	boundary="Sig_/qy4lVjVntbrTel04oVkLHG/";
+	protocol="application/pgp-signature"
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,91 +38,47 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Em Sat, 8 Sep 2018 15:33:22 -0700
-Andy Lutomirski <luto@kernel.org> escreveu:
+--Sig_/qy4lVjVntbrTel04oVkLHG/
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-> On Sat, Sep 8, 2018 at 2:24 PM, James Bottomley
-> <James.Bottomley@hansenpartnership.com> wrote:
-> > On Sat, 2018-09-08 at 12:49 -0700, Linus Torvalds wrote:  
-> >> On Sat, Sep 8, 2018, 08:54 James Bottomley <  
-> >> James.Bottomley@hansenpartnership.com> wrote:  
-> >>  
-> >> >
-> >> > OK, let me make it more specific: there exists no individual
-> >> > contributing to open source in a leadership capacity for whom a
-> >> > signable NDA cannot be crafted.
-> >> >  
-> >>
-> >> No.
-> >>
-> >> I don't sign NDA's. I just don't do it.
-> >>
-> >> It's that simple.  
-> >
-> > But that's you're choice; it's not because legally you can't.
-> >  
-> >> It's actually worked pretty well. It started because I worked for a
-> >> direct competitor to Intel, and couldn't sign an NDA for the really
-> >> old f0 0f lockup issue.
-> >>
-> >> Not having an NDA back then turned out to be a good thing, because it
-> >> made it a non-issue when leaks happened. So I started the policy that
-> >> I never want to be in the position that I had to worry legally about
-> >> being in the position of being under an NDA and knowing things
-> >> outside of the leaks.
-> >>
-> >> Instead, I've had a gentleman's agreement with companies - nothing
-> >> legally binding, but over the years people have come to realize that
-> >> the leaks don't come from me.
-> >>
-> >> So I don't do NDA's. Maybe some Linux Foundation NDA agreement
-> >> technically covers me, but at least with the Intel cases, Intel is
-> >> actually aware of my non-NDA situation and is fine with it.  
-> >
-> > I'm fine with all of this as an argument.  If we believe that signing
-> > NDAs would eventually lead to worse disasters because agreeing to them
-> > now means corporations never change and never take our views into
-> > account, then we should have the debate and make the decision for sound
-> > policy reasons not because there's some spurious legal bar.
-> >  
-> 
-> My NDA is through my company.  I would *love* to cancel it and set up
-> a replacement arrangement through LF or a similar entity, or to just
-> not replace it at all.  My company is not equipped for the kind of
-> wrangling that would have helped during Meltdown and a couple of other
-> situations, whereas anything reasonable set up for the purpose would
-> work much better.
+Hi Linus,
 
-I guess this is the situation of most of all. My contract has a
-NDA covering my work, so I'm legally bound to whatever NDA my
-employer has to some other companies. I'm almost certain that 
-none of those were designed to cover Open Source. 
+On Fri, 7 Sep 2018 09:17:18 -0700 Linus Torvalds <torvalds@linux-foundation=
+.org> wrote:
+>
+> For example, for me, the merge window is my busiest season by far
+> (obviously).  I try to schedule my time off to coincide with late in
+> the rc, because it's just quieter: at that point I'm mostly waiting
+> for stuff.
+>=20
+> But that's actually _supposed_ to be just me (and maybe Stephen Rothwell).
 
-So, I'm pretty sure that, if I had to deal with an embargoed
-security issue that would require an NDA to get access to details,
-I would need to spend a lot of time and effort talking with the
-legal department to explain the needs and discuss about a set of
-clauses that would work for both sides(with won't be trivial, 
-as they usually don't usually deal with open source).
+Actually, my quiet time is about rc1 to rc3, because everything I was
+dealing with is now in your tree and people haven't added new stuff to
+their trees yet (at least not much).  My busiest time is rc6 to the
+middle of the merge window as people stuff in all the bits and pieces
+that need to be merged (and manage to create conflicts with what you
+have already merged during the merge window) :-(
 
-There's also a language barrier: some lawyers expect NDAs to be
-under the Country's official language, in order for it to have
-legal value on that Country.
+--=20
+Cheers,
+Stephen Rothwell
 
-All that process can take weeks to happen, as that would likely
-envolve discussions between several parties. During that period of
-time, I won't likely be able to access the data relevant to solve
-the embargoed issue.
+--Sig_/qy4lVjVntbrTel04oVkLHG/
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
 
-So, as much as I would prefer to live in a world that would 
-work without any NDAs (and on a first world Country), reality 
-takes place. Having something prepared in forehand would
-significantly improve the process.
+-----BEGIN PGP SIGNATURE-----
 
-Granted, it is unlikely that I would have to deal with those issues
-with the stuff I currently handle, as usually most serious security
-threats are not at drivers, but I suspect that others would have 
-to deal with similar issues.
+iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAluVFxcACgkQAVBC80lX
+0GyP2wgAlVt1RlfETf9mvnukNabjuGQql5w9mwREadxH5ZP/lF/hJb5HrdSam2lF
+CLL/Eeu2O0RMvRIeZokG9KyUdOiau+Jh6nrfn1baCCePej3Uluqf3KDUZcTXD9gP
+d0+ovUjBYwXR37VAFFuCZd8Fk4bZ5mh747HvQ6gdLZg4PvAHEBOXIzYo6TGFk9Xu
+/fmaJYeKt6XNeO8e7bwNa9yvdYH3Qwy3yfiVnePWiYf2FpwU+3h75xBSimbzphpT
+xHYLSy5s37uu7xZBuIXWcuUW8She+f7TMvmrb1/IQIpqXyGQBq3W4/b3tcbuAyXe
+5FP5eEpbw2HqD8DWVspVbSRvwerIKQ==
+=idM2
+-----END PGP SIGNATURE-----
 
-Thanks,
-Mauro
+--Sig_/qy4lVjVntbrTel04oVkLHG/--
