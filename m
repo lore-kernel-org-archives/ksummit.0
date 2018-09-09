@@ -1,34 +1,35 @@
-Return-Path: <sfr@canb.auug.org.au>
+Return-Path: <greg@kroah.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 35CEDBE0
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 45AC2CA8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  9 Sep 2018 12:50:50 +0000 (UTC)
-Received: from ozlabs.org (ozlabs.org [203.11.71.1])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8709E2C4
+	Sun,  9 Sep 2018 12:51:35 +0000 (UTC)
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+	[66.111.4.25])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 294552C4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  9 Sep 2018 12:50:49 +0000 (UTC)
-Date: Sun, 9 Sep 2018 22:50:31 +1000
-From: Stephen Rothwell <sfr@canb.auug.org.au>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Message-ID: <20180909225031.0c12d00f@canb.auug.org.au>
-In-Reply-To: <CA+55aFxJ5JVrNVA06BhpL9Q4y2uh5PVizuZtP6+9npLs15CZVQ@mail.gmail.com>
-References: <20180904201620.GC16300@sasha-vm>
-	<CAKMK7uFO3xiKxa+mEDgEfDx6ZKY7aFPibD1xuK3z-Ybi0Zr3Sw@mail.gmail.com>
-	<20180905101710.73137669@gandalf.local.home>
-	<20180907004944.GD16300@sasha-vm>
-	<CA+55aFwfcNuH4p+rKHuQcgOSt3coT=cN6ZdSG1OKNQ5GTWgoxg@mail.gmail.com>
-	<20180907014930.GE16300@sasha-vm>
-	<CA+55aFz57ASBqAvXnCv4_uZ3niPJjTDdSmOOdyaFeW8gCAwSHQ@mail.gmail.com>
-	<20180907145437.GF16300@sasha-vm>
-	<CA+55aFzp340RDJUDoOGtN5ENgdCSSkksvG0yPt74BgyvTrAE4Q@mail.gmail.com>
-	<CA+55aFxJ5JVrNVA06BhpL9Q4y2uh5PVizuZtP6+9npLs15CZVQ@mail.gmail.com>
+	Sun,  9 Sep 2018 12:51:34 +0000 (UTC)
+Date: Sun, 9 Sep 2018 14:51:30 +0200
+From: Greg KH <greg@kroah.com>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Message-ID: <20180909125130.GA16474@kroah.com>
+References: <nycvar.YFH.7.76.1809062054450.15880@cbobk.fhfr.pm>
+	<CALCETrWsWGbo0B7=_AAOinJVCLrZbhJ75W2eUPxLCyo2BspBxA@mail.gmail.com>
+	<alpine.DEB.2.21.1809081037440.1402@nanos.tec.linutronix.de>
+	<20180908082141.15d72684@coco.lan>
+	<20180908113411.GA3111@kroah.com>
+	<1536418829.22308.1.camel@HansenPartnership.com>
+	<20180908153235.GB11120@kroah.com>
+	<1536422066.22308.3.camel@HansenPartnership.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	boundary="Sig_/qy4lVjVntbrTel04oVkLHG/";
-	protocol="application/pgp-signature"
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <1536422066.22308.3.camel@HansenPartnership.com>
+Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Handling of embargoed
+ security issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,47 +39,46 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---Sig_/qy4lVjVntbrTel04oVkLHG/
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+On Sat, Sep 08, 2018 at 08:54:26AM -0700, James Bottomley wrote:
+> On Sat, 2018-09-08 at 17:32 +0200, Greg KH wrote:
+> > On Sat, Sep 08, 2018 at 08:00:29AM -0700, James Bottomley wrote:
+> > > On Sat, 2018-09-08 at 13:34 +0200, Greg KH wrote:
+> > > > On Sat, Sep 08, 2018 at 08:21:41AM -0300, Mauro Carvalho Chehab
+> > > > wrote:
+> > > > > IMHO, the best would be to have a formal/legal way to handle
+> > > > > it.
+> > > > 
+> > > > No, sorry, some of us are not allowed legally to sign NDAs for
+> > > > stuff like this.
+> > > 
+> > > As a blanket statement this simply isn't true.
+> > 
+> > Um, I said "some of us".  Some of us can, some of us can not.  That's
+> > a blanket statement that has to be true :)
+> 
+> OK, let me make it more specific: there exists no individual
+> contributing to open source in a leadership capacity for whom a
+> signable NDA cannot be crafted.
 
-Hi Linus,
+"can be crafted eventually" :)
 
-On Fri, 7 Sep 2018 09:17:18 -0700 Linus Torvalds <torvalds@linux-foundation=
-.org> wrote:
->
-> For example, for me, the merge window is my busiest season by far
-> (obviously).  I try to schedule my time off to coincide with late in
-> the rc, because it's just quieter: at that point I'm mostly waiting
-> for stuff.
->=20
-> But that's actually _supposed_ to be just me (and maybe Stephen Rothwell).
+There are language issues, corporate issues, and lots and lots of other
+issues involved here, you know this.  Look at Mauro's situation for one
+example.
 
-Actually, my quiet time is about rc1 to rc3, because everything I was
-dealing with is now in your tree and people haven't added new stuff to
-their trees yet (at least not much).  My busiest time is rc6 to the
-middle of the merge window as people stuff in all the bits and pieces
-that need to be merged (and manage to create conflicts with what you
-have already merged during the merge window) :-(
+Anyway, if the main goal here is to somehow have the LF provide some
+sort of situation where we can invoke the old "3-way" NDA process to
+handle security issues, then fine, let's propose that and see if the LF
+wishes to do this.
 
---=20
-Cheers,
-Stephen Rothwell
+But remember, this is only needed for the "crazy" issues, like Meltdown.
+What we put together add-hoc for L1TF worked well, and what we do every
+week in handling security issues sent to security@k.org works very well
+also.  So well that no one really realizes what we do there :)
 
---Sig_/qy4lVjVntbrTel04oVkLHG/
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
+So again, if this is something that people strongly feel the LF should
+handle, let the TAB know and they will be glad to work on it.
 
------BEGIN PGP SIGNATURE-----
+thanks,
 
-iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAluVFxcACgkQAVBC80lX
-0GyP2wgAlVt1RlfETf9mvnukNabjuGQql5w9mwREadxH5ZP/lF/hJb5HrdSam2lF
-CLL/Eeu2O0RMvRIeZokG9KyUdOiau+Jh6nrfn1baCCePej3Uluqf3KDUZcTXD9gP
-d0+ovUjBYwXR37VAFFuCZd8Fk4bZ5mh747HvQ6gdLZg4PvAHEBOXIzYo6TGFk9Xu
-/fmaJYeKt6XNeO8e7bwNa9yvdYH3Qwy3yfiVnePWiYf2FpwU+3h75xBSimbzphpT
-xHYLSy5s37uu7xZBuIXWcuUW8She+f7TMvmrb1/IQIpqXyGQBq3W4/b3tcbuAyXe
-5FP5eEpbw2HqD8DWVspVbSRvwerIKQ==
-=idM2
------END PGP SIGNATURE-----
-
---Sig_/qy4lVjVntbrTel04oVkLHG/--
+greg k-h
