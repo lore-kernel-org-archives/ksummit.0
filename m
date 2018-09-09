@@ -1,43 +1,34 @@
-Return-Path: <luto@kernel.org>
+Return-Path: <Alexander.Levin@microsoft.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BEC0FC9D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 086048B1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  8 Sep 2018 22:33:45 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6383D8B
+	Sun,  9 Sep 2018 04:36:17 +0000 (UTC)
+Received: from NAM05-BY2-obe.outbound.protection.outlook.com
+	(mail-eopbgr710113.outbound.protection.outlook.com [40.107.71.113])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 57D4B8D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  8 Sep 2018 22:33:45 +0000 (UTC)
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
-	[209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id B8F512086E
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  8 Sep 2018 22:33:44 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id j26-v6so18219893wre.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 08 Sep 2018 15:33:44 -0700 (PDT)
+	Sun,  9 Sep 2018 04:36:16 +0000 (UTC)
+From: Sasha Levin <Alexander.Levin@microsoft.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Date: Sun, 9 Sep 2018 04:36:14 +0000
+Message-ID: <20180909043612.GM16300@sasha-vm>
+References: <20180907150623.GH16300@sasha-vm>
+	<9fb15d7c-c59f-ee21-9c30-6d81d53a1456@redhat.com>
+	<20180907160945.GI16300@sasha-vm> <20180907202328.GE25756@kroah.com>
+	<20180907211341.GJ16300@sasha-vm>
+	<CA+55aFyAWowFVi_UOkoJSfFb30Djk7JxRi4QFv7oJgpRKJxK0A@mail.gmail.com>
+	<20180907224346.GA21546@roeck-us.net>
+	<CA+55aFwqvy-NVg73RX-k0WNBU5FOyBFeOsBTbOr2N5egk6v_Mw@mail.gmail.com>
+	<20180907225744.GL16300@sasha-vm> <20180908163351.GD11120@kroah.com>
+In-Reply-To: <20180908163351.GD11120@kroah.com>
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <A2EACE9F93C3704B8351B82986D09AE5@namprd21.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-In-Reply-To: <1536441899.22308.11.camel@HansenPartnership.com>
-References: <nycvar.YFH.7.76.1809062054450.15880@cbobk.fhfr.pm>
-	<CALCETrWsWGbo0B7=_AAOinJVCLrZbhJ75W2eUPxLCyo2BspBxA@mail.gmail.com>
-	<alpine.DEB.2.21.1809081037440.1402@nanos.tec.linutronix.de>
-	<20180908082141.15d72684@coco.lan> <20180908113411.GA3111@kroah.com>
-	<1536418829.22308.1.camel@HansenPartnership.com>
-	<20180908153235.GB11120@kroah.com>
-	<1536422066.22308.3.camel@HansenPartnership.com>
-	<CA+55aFwiW9eeC0Z1+HnhCVzH=LmfBQfpdFZ0eYSuHdp5U6bpEg@mail.gmail.com>
-	<1536441899.22308.11.camel@HansenPartnership.com>
-From: Andy Lutomirski <luto@kernel.org>
-Date: Sat, 8 Sep 2018 15:33:22 -0700
-Message-ID: <CALCETrXwqgX41dmZhG55wGoZvmsn8qUdYMHG5_ne2hH7Oa65=A@mail.gmail.com>
-To: James Bottomley <James.Bottomley@hansenpartnership.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Handling of embargoed
- security issues
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -47,54 +38,50 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, Sep 8, 2018 at 2:24 PM, James Bottomley
-<James.Bottomley@hansenpartnership.com> wrote:
-> On Sat, 2018-09-08 at 12:49 -0700, Linus Torvalds wrote:
->> On Sat, Sep 8, 2018, 08:54 James Bottomley <
->> James.Bottomley@hansenpartnership.com> wrote:
->>
+On Sat, Sep 08, 2018 at 06:33:51PM +0200, Greg Kroah-Hartman wrote:
+>On Fri, Sep 07, 2018 at 10:57:45PM +0000, Sasha Levin via Ksummit-discuss =
+wrote:
+>> On Fri, Sep 07, 2018 at 03:53:08PM -0700, Linus Torvalds wrote:
+>> >On Fri, Sep 7, 2018 at 3:43 PM Guenter Roeck <linux@roeck-us.net> wrote=
+:
+>> >>
+>> >> On Fri, Sep 07, 2018 at 03:27:01PM -0700, Linus Torvalds wrote:
+>> >> >
+>> >> > So maybe an automated "linux-next" that starts happening *before* t=
+he
+>> >> > rc stage would catch some things?
+>> >>
+>> >> And it does, as soon as Greg publishes a set of patches.
 >> >
->> > OK, let me make it more specific: there exists no individual
->> > contributing to open source in a leadership capacity for whom a
->> > signable NDA cannot be crafted.
+>> >Yes, yes, I was clearly not explaining myself well.
 >> >
+>> >I see all the reports that you (and Nathan, and Shuah, and others) do
+>> >for stable rc's. So I very much know that happens.
+>> >
+>> >But I was literally thinking of that week or two *before* Greg
+>> >actually picks up the stable patches because he wants to have them get
+>> >some testing in mainline first.
+>> >
+>> >*If* the same kinds of scripts that Greg and Sasha already use to pick
+>> >up their stable patches could be automated early, maybe the patches
+>> >would also get a bit of special testing in the *context* of the stable
+>> >tree? A special automated "these are marked for stable, but haven't
+>> >been picked up yet" stable-next testing thing?
 >>
->> No.
->>
->> I don't sign NDA's. I just don't do it.
->>
->> It's that simple.
+>> I agree. This is what I was suggesting with stable-next branches.
 >
-> But that's you're choice; it's not because legally you can't.
+>Ok, this sounds semi-reasonable.  I'll knock something up this week to
+>see if it's viable to do automated and then have it get sent to 0-day to
+>do a basic "smoke test".
 >
->> It's actually worked pretty well. It started because I worked for a
->> direct competitor to Intel, and couldn't sign an NDA for the really
->> old f0 0f lockup issue.
->>
->> Not having an NDA back then turned out to be a good thing, because it
->> made it a non-issue when leaks happened. So I started the policy that
->> I never want to be in the position that I had to worry legally about
->> being in the position of being under an NDA and knowing things
->> outside of the leaks.
->>
->> Instead, I've had a gentleman's agreement with companies - nothing
->> legally binding, but over the years people have come to realize that
->> the leaks don't come from me.
->>
->> So I don't do NDA's. Maybe some Linux Foundation NDA agreement
->> technically covers me, but at least with the Intel cases, Intel is
->> actually aware of my non-NDA situation and is fine with it.
->
-> I'm fine with all of this as an argument.  If we believe that signing
-> NDAs would eventually lead to worse disasters because agreeing to them
-> now means corporations never change and never take our views into
-> account, then we should have the debate and make the decision for sound
-> policy reasons not because there's some spurious legal bar.
->
+>let's see how that works...
 
-My NDA is through my company.  I would *love* to cancel it and set up
-a replacement arrangement through LF or a similar entity, or to just
-not replace it at all.  My company is not equipped for the kind of
-wrangling that would have helped during Meltdown and a couple of other
-situations, whereas anything reasonable set up for the purpose would
-work much better.
+I've pushed an autogenerated branch for 4.14 here: https://git.kernel.org/p=
+ub/scm/linux/kernel/git/sashal/linux-stable.git/log/?h=3Dlinux-4.14.y-next
+
+Would be interesting to compare with what you end up with.
+
+
+--
+Thanks,
+Sasha=
