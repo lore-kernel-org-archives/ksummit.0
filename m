@@ -1,33 +1,26 @@
 Return-Path: <greg@kroah.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 45AC2CA8
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6991EC83
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  9 Sep 2018 12:51:35 +0000 (UTC)
+	Sun,  9 Sep 2018 12:55:57 +0000 (UTC)
 Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
 	[66.111.4.25])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 294552C4
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DE40F2C4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  9 Sep 2018 12:51:34 +0000 (UTC)
-Date: Sun, 9 Sep 2018 14:51:30 +0200
+	Sun,  9 Sep 2018 12:55:56 +0000 (UTC)
+Date: Sun, 9 Sep 2018 14:55:54 +0200
 From: Greg KH <greg@kroah.com>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Message-ID: <20180909125130.GA16474@kroah.com>
+To: Jiri Kosina <jikos@kernel.org>
+Message-ID: <20180909125554.GB16474@kroah.com>
 References: <nycvar.YFH.7.76.1809062054450.15880@cbobk.fhfr.pm>
-	<CALCETrWsWGbo0B7=_AAOinJVCLrZbhJ75W2eUPxLCyo2BspBxA@mail.gmail.com>
-	<alpine.DEB.2.21.1809081037440.1402@nanos.tec.linutronix.de>
-	<20180908082141.15d72684@coco.lan>
-	<20180908113411.GA3111@kroah.com>
-	<1536418829.22308.1.camel@HansenPartnership.com>
-	<20180908153235.GB11120@kroah.com>
-	<1536422066.22308.3.camel@HansenPartnership.com>
+	<20180906225531.GB2251@localhost.localdomain>
+	<nycvar.YFH.7.76.1809071526320.15880@cbobk.fhfr.pm>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <1536422066.22308.3.camel@HansenPartnership.com>
-Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
-	ksummit-discuss@lists.linuxfoundation.org
+In-Reply-To: <nycvar.YFH.7.76.1809071526320.15880@cbobk.fhfr.pm>
+Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Handling of embargoed
  security issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -39,45 +32,47 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, Sep 08, 2018 at 08:54:26AM -0700, James Bottomley wrote:
-> On Sat, 2018-09-08 at 17:32 +0200, Greg KH wrote:
-> > On Sat, Sep 08, 2018 at 08:00:29AM -0700, James Bottomley wrote:
-> > > On Sat, 2018-09-08 at 13:34 +0200, Greg KH wrote:
-> > > > On Sat, Sep 08, 2018 at 08:21:41AM -0300, Mauro Carvalho Chehab
-> > > > wrote:
-> > > > > IMHO, the best would be to have a formal/legal way to handle
-> > > > > it.
-> > > > 
-> > > > No, sorry, some of us are not allowed legally to sign NDAs for
-> > > > stuff like this.
-> > > 
-> > > As a blanket statement this simply isn't true.
-> > 
-> > Um, I said "some of us".  Some of us can, some of us can not.  That's
-> > a blanket statement that has to be true :)
+On Fri, Sep 07, 2018 at 03:30:32PM +0200, Jiri Kosina wrote:
+> On Thu, 6 Sep 2018, Eduardo Valentin wrote:
 > 
-> OK, let me make it more specific: there exists no individual
-> contributing to open source in a leadership capacity for whom a
-> signable NDA cannot be crafted.
+> > Should we add maybe a point here to discuss which kernels are to be 
+> > considered for patching in these cases? All the stable branches? Only 
+> > mainline? Obviously, either extreme cases can hurt people. Patching 
+> > older kernels requires insane amount of work and patching only mainline 
+> > leaves distros on limbo.
+> 
+> That'd be mostly question for the stable guys I guess. I am not sure how 
+> often did they in the past have to say "sorry, the backport is horribly 
+> complex, so we are not backporting the fix and we're keeping the bug 
+> unfixed".
+> 
+> Greg, is this something that actually has been happening for real in the 
+> past? Or would that absolutely break the expectations that stable tree 
+> consumers have?
 
-"can be crafted eventually" :)
+Yes, this is something that is happening today.
 
-There are language issues, corporate issues, and lots and lots of other
-issues involved here, you know this.  Look at Mauro's situation for one
-example.
+If you look, L1TF is not fully backported to 4.4.y, for anyone running
+4.4.y as a host operating system.  The backport was just too horrible
+and no one wanted to do it and test it as all of the major hosting
+services have moved on to 4.9.y or better.
 
-Anyway, if the main goal here is to somehow have the LF provide some
-sort of situation where we can invoke the old "3-way" NDA process to
-handle security issues, then fine, let's propose that and see if the LF
-wishes to do this.
+There are other examples of this, spectre fixes for arm32 are not in any
+stable tree older than 4.18.y.  Same for other arches and kernel
+versions.
 
-But remember, this is only needed for the "crazy" issues, like Meltdown.
-What we put together add-hoc for L1TF worked well, and what we do every
-week in handling security issues sent to security@k.org works very well
-also.  So well that no one really realizes what we do there :)
+I tried to write up "what kernel version to use" on my blog a few weeks
+back to answer this type of question.  Basically, only "trust" the
+latest LTS stable kernel for security issues to be able to use it to run
+untrusted users.  When you start getting older kernels involved, nasty
+problems like what Meltdown and the like are having to implement, it
+just does not work.
 
-So again, if this is something that people strongly feel the LF should
-handle, let the TAB know and they will be glad to work on it.
+So only "stay" with on old LTS kernel if your hardware requires you to
+(i.e. the horrid SoC nightmare).  And even then, be careful about things
+(sandboxes, selinux, etc.) and go yell at your SoC vendor for forcing
+you into this nightmare of a problem.  If they do not hear from
+companies, they will not change.
 
 thanks,
 
