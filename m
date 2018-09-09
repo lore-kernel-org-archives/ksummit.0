@@ -1,28 +1,18 @@
-Return-Path: <luto@amacapital.net>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id DD6D7BC4
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 91101C84
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  9 Sep 2018 18:17:24 +0000 (UTC)
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
-	[209.85.214.180])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7BEAD102
+	Sun,  9 Sep 2018 18:56:56 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2E2F3766
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  9 Sep 2018 18:17:24 +0000 (UTC)
-Received: by mail-pl1-f180.google.com with SMTP id u11-v6so8685922plq.5
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 09 Sep 2018 11:17:24 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (1.0)
-From: Andy Lutomirski <luto@amacapital.net>
-In-Reply-To: <20180909172039.GE22251@thunk.org>
-Date: Sun, 9 Sep 2018 11:17:20 -0700
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <9E5C84F3-410E-4177-AA96-FA09A8D53BC6@amacapital.net>
-References: <alpine.DEB.2.21.1809081037440.1402@nanos.tec.linutronix.de>
-	<20180908082141.15d72684@coco.lan>
-	<20180908113411.GA3111@kroah.com>
+	Sun,  9 Sep 2018 18:56:56 +0000 (UTC)
+Date: Sun, 9 Sep 2018 14:56:51 -0400
+From: "Theodore Y. Ts'o" <tytso@mit.edu>
+To: Andy Lutomirski <luto@amacapital.net>
+Message-ID: <20180909185651.GF22251@thunk.org>
+References: <20180908113411.GA3111@kroah.com>
 	<1536418829.22308.1.camel@HansenPartnership.com>
 	<20180908153235.GB11120@kroah.com>
 	<1536422066.22308.3.camel@HansenPartnership.com>
@@ -31,12 +21,17 @@ References: <alpine.DEB.2.21.1809081037440.1402@nanos.tec.linutronix.de>
 	<1536503930.3192.2.camel@HansenPartnership.com>
 	<6ECFDF7E-2674-4096-BFB5-25243D62913E@amacapital.net>
 	<20180909172039.GE22251@thunk.org>
-To: "Theodore Y. Ts'o" <tytso@mit.edu>
+	<9E5C84F3-410E-4177-AA96-FA09A8D53BC6@amacapital.net>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <9E5C84F3-410E-4177-AA96-FA09A8D53BC6@amacapital.net>
 Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
 	mchehab+samsung@kernel.org,
 	ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Handling of embargoed
-	security issues
+ security issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -46,47 +41,32 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Sun, Sep 09, 2018 at 11:17:20AM -0700, Andy Lutomirski wrote:
+> 
+> What I want is the opposite of an NDA. I want a gentlemen’s
+> agreement plus an explicit statement that the relevant people *may*
+> talk about the issue among themselves despite any NDAs that might
+> already exist. And that they may release patches when the embargo is
+> up. And that the embargo has an end date, and that the developers
+> may decline an extension.
 
-> On Sep 9, 2018, at 10:20 AM, Theodore Y. Ts'o <tytso@mit.edu> wrote:
->=20
-> On Sun, Sep 09, 2018 at 07:51:09AM -0700, Andy Lutomirski wrote:
->>> So it seems we have the two choices:
->>>=20
->>>  1. Conform to industry norms for disclosures and find a way of bringing=
+So what you're talking about is some kind of "Memo of Understanding"
+that has no talk about "if this leaks it will Intel will suffer
+millons and billons and zillons of dollars and Intel well sue you
+until your assets are a smoking crater in the ground"?
 
->>>     an NDA framework to Linux Security fix handling=20
->>>  2. Force industry to adopt new norms that actually work well with open
->>>     source.
->>>=20
->>=20
->> Or my proposal of 3: have a policy, get lawyers to agree to it, and
->> make it barely be an NDA.  I don=E2=80=99t know how practical it is, but i=
-t
->> could be a nice middle ground.
->=20
-> The only middle ground is "gentleman's agreement".  The main problem
-> any legal agreement is what are the teeth if someone violates the NDA
-> and breaks the embargo.  The reason why it will be very hard for some
-> third-party, like the LF, to sign any kind of NDA on behalf of
-> independent developers is that it puts the liability risk on the LF.
-> And the LF's lawyers aren't going to be comfortable with this.
+If there are no consequences to violating the Gentleman's agreement
+(other than not being included the next time *when* another CPU
+vulnerability comes up), then nothing really needs to be signed, since
+it has no legal impact.
 
+I'd certainly support such a thing, but in my view it's really no
+different from Linus's #2:
 
-What I want is the opposite of an NDA. I want a gentlemen=E2=80=99s agreemen=
-t plus an explicit statement that the relevant people *may* talk about the i=
-ssue among themselves despite any NDAs that might already exist. And that th=
-ey may release patches when the embargo is up. And that the embargo has an e=
-nd date, and that the developers may decline an extension.
+   2. Force industry to adopt new norms that actually work well with open
+      source.
 
-The business people are well aware that even the strongest NDA isn=E2=80=99t=
- worth a damn thing in these scenarios. If Meltdown had leaked in September,=
- then Intel would have had egg all over its face and no amount of lawsuits o=
-r injunctions would have helped. In fact, it would have been worse than noth=
-ing because now the news would say =E2=80=9CIntel failed to permit vendors t=
-o fix it *and* the embargo got blown, and rather than doing something about i=
-t, they=E2=80=99re suing people.=E2=80=9D
+If the MOU with no teeth is enough to save the lawyer's face, that
+would be great.
 
-I personally would have liked such an arrangement for Meltdown.
-
-So maybe a business case could be made to vendors that they should sign the t=
-hing.=
+					- Ted
