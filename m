@@ -1,27 +1,28 @@
 Return-Path: <jikos@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0C80DC23
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8C174BC8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  9 Sep 2018 19:49:01 +0000 (UTC)
+	Sun,  9 Sep 2018 20:06:03 +0000 (UTC)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 963E2766
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2A419102
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  9 Sep 2018 19:49:00 +0000 (UTC)
-Date: Sun, 9 Sep 2018 21:48:58 +0200 (CEST)
+	Sun,  9 Sep 2018 20:06:03 +0000 (UTC)
+Date: Sun, 9 Sep 2018 22:05:59 +0200 (CEST)
 From: Jiri Kosina <jikos@kernel.org>
-To: Greg KH <greg@kroah.com>
-In-Reply-To: <20180909125554.GB16474@kroah.com>
-Message-ID: <nycvar.YFH.7.76.1809092143280.15880@cbobk.fhfr.pm>
-References: <nycvar.YFH.7.76.1809062054450.15880@cbobk.fhfr.pm>
-	<20180906225531.GB2251@localhost.localdomain>
-	<nycvar.YFH.7.76.1809071526320.15880@cbobk.fhfr.pm>
-	<20180909125554.GB16474@kroah.com>
+To: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+In-Reply-To: <20180908074708.249571f4@coco.lan>
+Message-ID: <nycvar.YFH.7.76.1809092200470.15880@cbobk.fhfr.pm>
+References: <1536263073.6012.3.camel@HansenPartnership.com>
+	<CAKMK7uFHOP+shcnAdHEEELOth+d3BR0LdUZ9rXdrhYueHdqF9A@mail.gmail.com>
+	<1536263475.6012.5.camel@HansenPartnership.com>
+	<20180908074708.249571f4@coco.lan>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Handling of embargoed
- security issues
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [MAINTAINER TOPIC] Succession Planning: Is It
+ time to Throw Linus Under a Bus?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,33 +32,24 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sun, 9 Sep 2018, Greg KH wrote:
+On Sat, 8 Sep 2018, Mauro Carvalho Chehab wrote:
 
-> Yes, this is something that is happening today.
-> 
-> If you look, L1TF is not fully backported to 4.4.y, for anyone running
-> 4.4.y as a host operating system.  The backport was just too horrible
-> and no one wanted to do it and test it as all of the major hosting
-> services have moved on to 4.9.y or better.
+> 	Q: How many Kernel developers does it take to replace Linus?
 
-Unrelated sidenote: we have the whole thing backported to SUSE 4.4 kernel, 
-so it can be cherry-picked from there if needed.
+Somebody please remind me, what problem exactly are we trying to solve 
+here, again? :)
 
-> There are other examples of this, spectre fixes for arm32 are not in any
-> stable tree older than 4.18.y.  Same for other arches and kernel
-> versions.
-> 
-> I tried to write up "what kernel version to use" on my blog a few weeks
-> back to answer this type of question.  Basically, only "trust" the
-> latest LTS stable kernel for security issues to be able to use it to run
-> untrusted users.  When you start getting older kernels involved, nasty
-> problems like what Meltdown and the like are having to implement, it
-> just does not work.
+I honestly believe this all started as a joke from James (the mixed up 
+conferences etc. of course providing excellent grounds for such a joke :) 
+), but now that this keeps going on, I think the problem that is actually 
+being solved (and what would be the properties of expected 
+outcome/solution) should be formulated again :)
 
-OK, so as long as this message is completely clear to the stable tree 
-consumers (see my other mail about potential legal implications for the 
-downstream consumers in case they are not aware of this), then all is 
-fine.
+Linus explicitly stated that he's willing to go on merging, and we don't 
+have any "bus factor" plans for other critical people either anyway.
+
+So if this "how do we generally deal with all the buses out there?", so be 
+it, but it really should be clearly stated I think :)
 
 Thanks,
 
