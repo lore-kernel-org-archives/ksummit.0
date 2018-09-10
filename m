@@ -1,31 +1,37 @@
 Return-Path: <edubezval@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id E91AFDBC
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E2BC1C9B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Sep 2018 23:26:56 +0000 (UTC)
-Received: from mail-pl1-f195.google.com (mail-pl1-f195.google.com
-	[209.85.214.195])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 901EAF1
+	Mon, 10 Sep 2018 23:32:43 +0000 (UTC)
+Received: from mail-oi0-f67.google.com (mail-oi0-f67.google.com
+	[209.85.218.67])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 858CFF1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Sep 2018 23:26:56 +0000 (UTC)
-Received: by mail-pl1-f195.google.com with SMTP id s17-v6so10424414plp.7
+	Mon, 10 Sep 2018 23:32:43 +0000 (UTC)
+Received: by mail-oi0-f67.google.com with SMTP id b15-v6so43652716oib.10
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Sep 2018 16:26:56 -0700 (PDT)
-Date: Mon, 10 Sep 2018 16:26:53 -0700
+	Mon, 10 Sep 2018 16:32:43 -0700 (PDT)
+Date: Mon, 10 Sep 2018 16:32:40 -0700
 From: Eduardo Valentin <edubezval@gmail.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Message-ID: <20180910232652.GC1764@localhost.localdomain>
-References: <nycvar.YFH.7.76.1809062054450.15880@cbobk.fhfr.pm>
-	<20180906225531.GB2251@localhost.localdomain>
-	<CAMuHMdVqhOq11fxOf7RUXEq+oT5A2gGKSVx=FadtiVz23AywHA@mail.gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+Message-ID: <20180910233239.GD1764@localhost.localdomain>
+References: <20180907004944.GD16300@sasha-vm>
+	<CA+55aFwfcNuH4p+rKHuQcgOSt3coT=cN6ZdSG1OKNQ5GTWgoxg@mail.gmail.com>
+	<20180907014930.GE16300@sasha-vm>
+	<CA+55aFz57ASBqAvXnCv4_uZ3niPJjTDdSmOOdyaFeW8gCAwSHQ@mail.gmail.com>
+	<20180907145437.GF16300@sasha-vm>
+	<CA+55aFzp340RDJUDoOGtN5ENgdCSSkksvG0yPt74BgyvTrAE4Q@mail.gmail.com>
+	<20180910194310.GV16300@sasha-vm>
+	<20180910164519.6cbcc116@vmware.local.home>
+	<20180910230104.GA1764@localhost.localdomain>
+	<20180910191239.7e558479@vmware.local.home>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAMuHMdVqhOq11fxOf7RUXEq+oT5A2gGKSVx=FadtiVz23AywHA@mail.gmail.com>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Handling of embargoed
- security issues
+In-Reply-To: <20180910191239.7e558479@vmware.local.home>
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,51 +41,57 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hello Geert,
-
-On Fri, Sep 07, 2018 at 10:21:15AM +0200, Geert Uytterhoeven wrote:
-> Hi Eduardo,
+On Mon, Sep 10, 2018 at 07:12:39PM -0400, Steven Rostedt wrote:
+> On Mon, 10 Sep 2018 16:01:06 -0700
+> Eduardo Valentin <edubezval@gmail.com> wrote:
 > 
-> On Fri, Sep 7, 2018 at 12:55 AM Eduardo Valentin <edubezval@gmail.com> wrote:
-> > On Thu, Sep 06, 2018 at 09:18:07PM +0200, Jiri Kosina wrote:
-> > Honestly, the fact that somehow the community managed to make this to
-> > stable (and eventually to distros) is really good. Imagine for a second
-> > a world in which these made only mainline and no stable branch..
+> > One thing that could be done to help is to ask from developers for
+> > some sort of selftest that can be executed by the bots and used while
+> > backporting their fixes to stable. That way the developer can have a way
 > 
-> It could have been the disaster needed to trigger a paradigm shift in the
-> software industry?
+> We have that already, it's tools/testing/selftests/...
 
-Well yeah. Just to clarify, what I meant is that the community did a
-really great job handling the event, despite the fact that we could have
-dont better. But I still think pushing everyone to make sure they can
-move to newer kernels is best thing to do. How achieve it is that is a
-different discussion.
+well, yes, but what I really meant was to populate that directory with a
+full set of tests that can detect regressions, on all subsystems
 
 > 
-> For a fully isolated/controlled system old stable may make sense, but in
-> the post-Internet connected world, where the whole world population can
-> peek at your front door, you'd better be prepared to upgrade any time.
+> There's a series of ftrace selftests there that I run before running my
+> own more complicated tests. There's still tests I need to move to that
+> selftest directory and out of my own suite, but there's some tests that
+> are too complicated for the the selftests directory.
+> 
+> 
+> > to tell how to check if the kernel did not regress and whoever wants to
+> > try out the fix can validate it. Of course, can this really fly, that is
+> > a different story. Not sure the community will end up in a place where
+> > all patches post -rc5 requires a selftest :-)
+> > 
+> > And of course, there is the other type of regression, which is the fix /
+> > backport causing issue on other parts of the kernel/subsystem. Maybe
+> > forcing each subsystem to have some sort of selftest/sanity check would
+> > be one way to improve the reliability of the results of the bots
+> > overall.
+> 
+> Heh, "forcing"? That hasn't been able to work yet ;-)
+> 
 
-Well yeah, I would do the same. But then there is thing called vendor
-trees. That makes developers life even more horrible. As you hear in
-this thread, even top noch developer would avoid backporting stuff to
-too old kernels, and latest LTS is probably the oldest one can trust.
-But vendor trees, which is the stuff that really ends up running on
-those cameras running Linux at your front door, are usually old and
-have bunch of code that community is not aware (and really should not be). 
-And backporting stuff to those kernels is even a worse nighmare than
-backporting to older stables.
+:-)
 
-> Despite backporting, you'll always be vulnerable to some security issues
-> that were fixed in mainline.
+> Also, tests for others that don't have the necessary hardware is not
+> going to help much. A lot of regressions show up on hardware that we
+> don't use.
 > 
-> Gr{oetje,eeting}s,
-> 
->                         Geert
-> 
-> -- 
-> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-> 
-> In personal conversations with technical people, I call myself a hacker. But
-> when I'm talking to journalists I just say "programmer" or something like that.
->                                 -- Linus Torvalds
+
+I agree. Thermal is one of those weird cases one would find most of real
+problems while putting devices inside a thermal chamber and running real
+workloads in a controlled manner. And on top of that, those are many
+times not enough, and only end users would really trigger corner cases
+that can really be seen when the device gets into a person's hand.
+
+But still, the fact that selftests do not get all bugs does not mean it
+cannot be used to catch at least a subset of it.
+
+Also, some CI / bots do have a rig of hardware attached (kernelCI for
+one). But yeah, I agree, hardware availability is a real issue.
+
+> -- Steve
