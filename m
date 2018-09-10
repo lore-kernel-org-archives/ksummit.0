@@ -1,30 +1,31 @@
-Return-Path: <edubezval@gmail.com>
+Return-Path: <daniel.vetter@ffwll.ch>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0EB1BEBD
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 51FE6F00
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Sep 2018 22:14:53 +0000 (UTC)
-Received: from mail-pl1-f194.google.com (mail-pl1-f194.google.com
-	[209.85.214.194])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7B3D0716
+	Mon, 10 Sep 2018 22:45:00 +0000 (UTC)
+Received: from mail-io0-f179.google.com (mail-io0-f179.google.com
+	[209.85.223.179])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5CAF6102
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Sep 2018 22:14:52 +0000 (UTC)
-Received: by mail-pl1-f194.google.com with SMTP id t19-v6so10360640ply.13
+	Mon, 10 Sep 2018 22:44:59 +0000 (UTC)
+Received: by mail-io0-f179.google.com with SMTP id v14-v6so2044988iob.4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Sep 2018 15:14:52 -0700 (PDT)
-Date: Mon, 10 Sep 2018 15:14:49 -0700
-From: Eduardo Valentin <edubezval@gmail.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Message-ID: <20180910221448.GA22778@localhost.localdomain>
-References: <20180904201620.GC16300@sasha-vm> <10978266.ZcOyfo1TOH@avalon>
-	<20180908084822.79b321e8@coco.lan> <2137581.AtEH63VYsS@avalon>
+	Mon, 10 Sep 2018 15:44:59 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2137581.AtEH63VYsS@avalon>
-Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
+In-Reply-To: <2019489.6joTqyUi4Z@avalon>
+References: <CAKMK7uE=FwpPFnvOvuvGBZ0vjh3UMPW=zgSk1dmiyCLQPPuZvg@mail.gmail.com>
+	<8412864.7ztUKcXNNC@avalon>
+	<CAKMK7uFAXoVG+nBX=Om9A7R9xPYa-hd0JrRX1RNKSNhxnL_VsA@mail.gmail.com>
+	<2019489.6joTqyUi4Z@avalon>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Tue, 11 Sep 2018 00:44:57 +0200
+Message-ID: <CAKMK7uE535-7Vs9EAa2725XL2TX2ChJCN0Zb3YaMe=MarYJOyw@mail.gmail.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
+ management/subsystem governance
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,100 +35,132 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hello,
+Hi Laurent,
 
-On Sun, Sep 09, 2018 at 05:26:48PM +0300, Laurent Pinchart wrote:
-> On Saturday, 8 September 2018 14:48:22 EEST Mauro Carvalho Chehab wrote:
-> > Em Sat, 08 Sep 2018 12:44:32 +0300 Laurent Pinchart escreveu:
-> > > On Saturday, 8 September 2018 00:06:33 EEST Mauro Carvalho Chehab wrote:
-> > >> Em Fri, 7 Sep 2018 11:13:20 +0200 Daniel Vetter escreveu:
-> > >>> On Fri, Sep 7, 2018 at 6:27 AM, Theodore Y. Ts'o wrote:
-> > >>>> On Fri, Sep 07, 2018 at 01:49:31AM +0000, Sasha Levin via
-> > >>>> Ksummit-discuss wrote:
-> > >>>> 
-> > >>>> There actually is a perverse incentive to having all of the test
-> > >>>> 'bots, which is that I suspect some people have come to rely on it
-> > >>>> to catch problems.  I generally run a full set of regression tests
-> > >>>> before I push an update to git.kernel.org (it only takes about 2
-> > >>>> hours, and 12 VM's :-); and by the time we get to the late -rc's I
-> > >>>> *always* will do a full regression test.
-> > >>> 
-> > >>> This is what imo a well-run subsystem should sound like from a testing
-> > >>> pov. All the subsystem specific testing should be done before merging.
-> > >>> Post-merge is only for integration testing and catching the long-tail
-> > >>> issues that need months/years of machine time to surface.
-> > >>> 
-> > >>> Of course this is much harder for anything that needs physical
-> > >>> hardware, but even for driver subsystems there's lots you can do with
-> > >>> test-drivers, selftests and a pile of emulation, to at least catch
-> > >>> bugs in generic code. And for reasonably sized teams like drm/i915
-> > >>> building a proper CI is a very obvious investement that will pay off.
-> > >> 
-> > >> IMHO, CI would do even a better job for smaller teams, as they won't
-> > >> have much resources for testing, but the problem here is that those
-> > >> teams probably lack resources and money to invest on a physical hardware
-> > >> to setup a CI infra and to buy the myriad of different hardware to
-> > >> do regression testing.
-> > >> 
-> > >> Also, some devices are harder to test: how would you check if a camera
-> > >> microphone is working? How to check if the camera captured images
-> > >> are ok?
-> > > 
-> > > The same way you would check the display output. Cameras can be pointed at
-> > > known scenes with controlled lightning. TV capture cards can be fed a
-> > > known signal. Even for microphone testing we could put the camera in a
-> > > sound-proof enclosure, with an audio source. Solutions exist, whether we
-> > > have the budget to implement them is the real question.
-> > 
-> > Solutions exist, but they require a hole new kind of environment control.
-> > 
-> > In the case of DRM (and TV cards), display output can be tested with some
-> > HDMI grabber card. No need for a "controlled lightning environment" or
-> > anything like that. Once it is set, people can just place it into a
-> > random datacenter located anywhere and forget about it.
-> > 
-> > However, in the case of hardware like cameras, microphones, speakers,
-> > keyboards, mice, touchscreen, etc, it is a way more complex, as the
-> > environment will require adjustments (a silent room, specific
-> > lightning, mechanical components, etc) and a more proactive supervision,
-> > as it would tend to produce more false positive errors if something
-> > changes there. A normal datacenter won't fit those needs.
-> 
-> We would have to build hardware (in the generic sense, not necessarily 
-> electronics), but that's not specific to cameras. An exclosure with a scene, a 
-> light and a camera wouldn't necessarily be larger than someone of the ARM 
-> development boards I've had the "pleasure" to work with.
-> 
-> Again, solutions exist, it's a matter of how willing we are to implement them. 
-> If we consider testing crucial, then we have to invest resources in making it 
-> happen. If we don't invest the resources, then we can't claim that we value 
-> these particular tests very high.
+On Mon, Sep 10, 2018 at 11:33 PM, Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+> On Monday, 10 September 2018 23:55:22 EEST Daniel Vetter wrote:
+>> On Mon, Sep 10, 2018 at 10:32 PM, Laurent Pinchart wrote:
+>> > On Monday, 10 September 2018 18:56:18 EEST Daniel Vetter wrote:
+>> >> My goal at least with this is much more in figuring out new workflows,
+>> >> and running a pile of experiments. As mentioned, we don't yet even
+>> >> have a plan for all this, the goal here is to spark some discussions
+>> >> and figure out whether maybe others want to come along for the ride.
+>> >
+>> > I recently had to deal with a new bugs and tasks management tool that was
+>> > developed in-house by a customer of mine. The tool was presented to us in
+>> > its first RFC version (and in source code form, which is very nice), with
+>> > very few implemented features, and without telling us what process it was
+>> > supposed to support. When I inquired I got told that the process hasn't
+>> > been taken into consideration to develop the tool, and that it would just
+>> > come into existence as a result of the tool. Needless to say, it was hard
+>> > for me to review the code, without knowing what it was supposed to do.
+>> >
+>> > I don't claim we're going to that extreme, but I believe it would be
+>> > useful to detail the problems we have in order to find solutions, instead
+>> > of proposing solutions and then trying to retrofit them to problems.
+>>
+>> We're definitely starting with some pain points, and don't do this
+>> gitlab thing as an a solution looking desperately for a problem. With
+>> my intel hat on there's a few main ones:
+>>
+>> - CI integration with patchwork is a pain, for developers, maintainers
+>> and CI people all alike. I plan to do some slides on what exactly
+>> sucks and what gitlab is doing better, but I'm just not quite there
+>> yet. As mentioned somewhere else, ideally we'd have the full demo
+>> ready for LPC using the userspace igt gpu tests repo.
+>
+> I'm interested in knowing whether you think this is due to the concept behind
+> patchwork, or to the current implementation. I like the idea of patchwork as a
+> tool that assists an email-based workflow in areas where emails are too
+> limited. I think we could do much more, and I believe we could achieve a good
+> result, while keeping the same philosophy.
 
-Yeah, taking the camera case aside for a moment, thermal has similar
-issues. For proper characterization and testing of the control loop
-algorithms, one requires a controlled environment to isolate variability
-across runs (e.g. ambient temperature).
+The problem with patchwork is that it's a sidelined add-on. It's not
+in your face when doing a normal contribution. Our patchwork tries to
+fix that by sending replies to the mailing lists, but to avoid spam,
+it only does that when CI is done. While it's still crunching through
+your series you have to know a magic link where you can watch it go
+through it's backlog. We could update more often, but people already
+complain about the spam our CI produces.
 
-But there two aspects here. While I do agree with Mauro that a CI may
-have more value for a targeted team (say specific driver, specific board,
-specific product, etc) and prohibitive for a larger project (do we want
-to setup all cameras supported by v4l into a CI, or all thermal sensors
-supported by thermal subsystem into a CI?), limiting the scope of the
-testing and getting at least some automation, maybe based on emulation,
-to test out the core code and maybe a subset of drivers, it is still
-worth to have into a CI setup. Of course, the sizing and investment
-needed may change from subsystem to subsystem.
+gitlab otoh gives you a neat status indicator, and direct links where
+you can watch it do its thing live. All neatly integrated into the one
+merge request interface.
 
+Now if you've never done CI before, you'll probably go meh on this.
+But the trick in making CI really effective is to make it about as
+addictive as a slot machine. Instant gratification and quick results
+is absolutely key, and developers want to watch it do its things. The
+more you can give them that, the more your developers will care about
+CI results (the green checkmark quickly starts to look like candy in
+your eyes), and the less maintainers have to check this themselves.
 
-> 
-> -- 
-> Regards,
-> 
-> Laurent Pinchart
-> 
-> 
-> 
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+There's a bunch of other things, like integration with the git side of
+things (you can block a merge if it fails CI). So the above is the
+contributor/maintainer perspective.
+
+The CI perspective is that the guy maintaining patchwork for us would
+like to do more useful things than maintain a pile of duct-tape :-)
+The fully integrated REST api of gitlab is pretty good catnip for
+devops types.
+
+>> - First contributor flow can be (if done correctly) so much more fun
+>> than mailing lists. There's been a bit of chatting on this already in
+>> this thread.
+>
+> I recall lots of frustration from regular contributors during a discussion
+> about kernel maintainership, where many considered that we went to extremes to
+> help first contributors, while very little was done to address the issues of
+> regular contributors. Let's keep both sides in mind, otherwise we'll end up
+> moving our development process to instagram because, you know, that's where
+> the new generation is, people don't use e-mails anymore.
+
+First contributors aren't your antagonists, they're your canaries for
+bad process. Long timers just suck it up (or don't even see it
+anymore), first timers don't even bother because the hurdle is
+insurmountable. And yes sometimes it's the other way round, were
+problems really show up at scale, but only hurt a bit on the very
+first patch. The goal, at least mine, is to make it easier for
+everyone, at all levels of experience&contribution.
+
+>> - Tracking patch series as they evolve from RFC to final reviewed
+>> version. Patchwork, even with all the extensions we have since years
+>> in the fd.o one, just can't cope. This might be an artifact of our
+>> group maintainership + committer model, I think for single maintainer
+>> patchwork does work a bit better. This is the "patches on mailing
+>> lists don't scale, I have the T-shirt" problem Linus already
+>> mentioned. Our PMs/managers also don't like that they can't keep track
+>> of what the fairly big drm/i915 team is doing :-)
+>
+> I've pointed out the issue that patch series don't always have fixed
+> boundaries in another reply to this thread, and I think that's the core reason
+> why this problem isn't solvable. We should have a working solution for the
+> common case though, and I fail to see why a tool like patchwork couldn't do it
+> (not claiming it does at the moment of course).
+
+gitlab (or well anything with a concept like pull requests) makes the
+90% so much easier. And it doesn't take more work for contributors if
+you set things up right - it's just a git push instead of a git
+send-email. At least after initial setup is done.
+
+And at least in a corporate environment (and I kinda have to care
+about that) gitlab wins on the initial setup front hands down against
+email. gitlab only needs https (even for git push/pull), and
+coproporate firewalls are pretty ok with https. They are not ok with
+smtp, like at all. And the amount of time we spend debugging random
+git send-email setup issues is epic.
+
+There's alwasy going to be the thing where you have to split up a
+patch series into multiple patch series, or merge a few. And then you
+need to manually add links to the other/past discussions in either
+system. The gitlab plaintext syntax for auto-closing/linking other
+issues and merge requests is pretty good, whereas emails it's all
+colating web links and msg-id, which at least I personally fine a
+chore and so almost never bother with.
+
+Cheers, Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
