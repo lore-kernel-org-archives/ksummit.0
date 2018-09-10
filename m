@@ -1,33 +1,28 @@
-Return-Path: <tony@atomide.com>
+Return-Path: <laurent.pinchart@ideasonboard.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 815AF126D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 43BBF11F1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Sep 2018 20:10:53 +0000 (UTC)
-Received: from muru.com (muru.com [72.249.23.125])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 1FD72766
+	Mon, 10 Sep 2018 20:15:32 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+	[213.167.242.64])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C6FBA793
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Sep 2018 20:10:53 +0000 (UTC)
-Date: Mon, 10 Sep 2018 13:05:19 -0700
-From: Tony Lindgren <tony@atomide.com>
-To: Stephen Rothwell <sfr@canb.auug.org.au>
-Message-ID: <20180910200519.GC5659@atomide.com>
-References: <CAKMK7uFO3xiKxa+mEDgEfDx6ZKY7aFPibD1xuK3z-Ybi0Zr3Sw@mail.gmail.com>
-	<20180905101710.73137669@gandalf.local.home>
-	<20180907004944.GD16300@sasha-vm>
-	<CA+55aFwfcNuH4p+rKHuQcgOSt3coT=cN6ZdSG1OKNQ5GTWgoxg@mail.gmail.com>
-	<20180907014930.GE16300@sasha-vm>
-	<CA+55aFz57ASBqAvXnCv4_uZ3niPJjTDdSmOOdyaFeW8gCAwSHQ@mail.gmail.com>
-	<20180907145437.GF16300@sasha-vm>
-	<CA+55aFzp340RDJUDoOGtN5ENgdCSSkksvG0yPt74BgyvTrAE4Q@mail.gmail.com>
-	<CA+55aFxJ5JVrNVA06BhpL9Q4y2uh5PVizuZtP6+9npLs15CZVQ@mail.gmail.com>
-	<20180909225031.0c12d00f@canb.auug.org.au>
+	Mon, 10 Sep 2018 20:15:31 +0000 (UTC)
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Mon, 10 Sep 2018 23:15:40 +0300
+Message-ID: <2620504.doLR7ekjFm@avalon>
+In-Reply-To: <nycvar.YFH.7.76.1809101709371.15880@cbobk.fhfr.pm>
+References: <CAKMK7uE=FwpPFnvOvuvGBZ0vjh3UMPW=zgSk1dmiyCLQPPuZvg@mail.gmail.com>
+	<1536592110.4035.5.camel@HansenPartnership.com>
+	<nycvar.YFH.7.76.1809101709371.15880@cbobk.fhfr.pm>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20180909225031.0c12d00f@canb.auug.org.au>
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>
+Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
+	management/subsystem governance
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,42 +32,42 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-* Stephen Rothwell <sfr@canb.auug.org.au> [180909 12:55]:
-> Hi Linus,
+On Monday, 10 September 2018 18:13:05 EEST Jiri Kosina wrote:
+> On Mon, 10 Sep 2018, James Bottomley wrote:
+> >    1. How do reviews happen?  Non email projects tend to have only one
+> >       review mechanism (gerrit, github, gitlab, etc.) and stick to it.  Do
+> >       we want to pick a technology or allow multiple?  I don't think this
+> >       is kernel wide, it could be a sybsystem choice.
 > 
-> On Fri, 7 Sep 2018 09:17:18 -0700 Linus Torvalds <torvalds@linux-foundation.org> wrote:
-> >
-> > For example, for me, the merge window is my busiest season by far
-> > (obviously).  I try to schedule my time off to coincide with late in
-> > the rc, because it's just quieter: at that point I'm mostly waiting
-> > for stuff.
-> > 
-> > But that's actually _supposed_ to be just me (and maybe Stephen Rothwell).
-> 
-> Actually, my quiet time is about rc1 to rc3, because everything I was
-> dealing with is now in your tree and people haven't added new stuff to
-> their trees yet (at least not much).  My busiest time is rc6 to the
-> middle of the merge window as people stuff in all the bits and pieces
-> that need to be merged (and manage to create conflicts with what you
-> have already merged during the merge window) :-(
+> Yeah, but OTOH even now I've heard a lot of feedback about the irregular
+> contributors / newcomers being confused by different subsystems having
+> different processess and requirements; and those are basically just rather
+> "minor" things currently (bugzilla usage, patchwork usage, subscriber-only
+> mailinglists, etc), but it's still enough to confuse the hell out of
+> people.
 
-Yeah with Linux next, rc6 and later seems to be where we often
-see surprise regressions.
+That's also one of my concerns. The differences between subsystems that all 
+use an email-based review process can already be confusing, or just annoying 
+to handle, especially when specific tools are mandated (the DRM dim tool or 
+the ARM patch system come to mind). I dread to think about how painful it 
+would be if one subsystem adopted gitlab, another one gerrit, ... That would 
+also make changes that cross subsystem boundaries a nightmare to handle. Let's 
+not forget that many developers are not confined within a single subsystem.
 
-What has worked good for me for past three or so years is keep
-testing Linux next few times a week and report the regressions.
-Usually the regressions in Linux next get fixed fast within a
-few days.
+On the other hand, I don't really see how switching the whole kernel to gitlab 
+(or another system) could happen without frustrating a very large number of 
+developers. We all know how conservative the community tend to be.
 
-Before I was doing that I would always end up wasting my time
-chasing multiple regressions during the -rc cycle.
+One possible course of action would be to make the new tools optional and keep 
+email as a common denominator. That way the old dinosaurs who won't adopt any 
+tool introducing even the slightest disturbance in their work flow (it's not 
+pleasant to realize that I may well be one of them) will still be able to work 
+undisturbed, and all the other developers would be able to enjoy the myriad of 
+amazing features offered by their tooling of choice. This would however put an 
+extra burden on the new tools that would need to have first-class email 
+compatibility. I don't know whether that would be feasible.
 
-I think we should always aim for a regression free -rc1.
-
-Not sure what we could do to get people test Linux next
-more and keep it regression free. But that could potentially
-make the -rc cycles very quiet.
-
+-- 
 Regards,
 
-Tony
+Laurent Pinchart
