@@ -1,29 +1,16 @@
-Return-Path: <laurent.pinchart@ideasonboard.com>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2BF3E143A
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Sep 2018 21:38:05 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
-	[213.167.242.64])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 65891102
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Sep 2018 21:38:04 +0000 (UTC)
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Sean Paul <seanpaul@chromium.org>
-Date: Tue, 11 Sep 2018 00:38:13 +0300
-Message-ID: <3446025.tlHTe8tT15@avalon>
-In-Reply-To: <CAOw6vbJq=aHrwgCKDACEm01Wz_4zs-Trpb1U8SXzmLkyH2PtRQ@mail.gmail.com>
-References: <CAKMK7uE=FwpPFnvOvuvGBZ0vjh3UMPW=zgSk1dmiyCLQPPuZvg@mail.gmail.com>
-	<2620504.doLR7ekjFm@avalon>
-	<CAOw6vbJq=aHrwgCKDACEm01Wz_4zs-Trpb1U8SXzmLkyH2PtRQ@mail.gmail.com>
+Return-Path: <arndbergmann@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-Cc: James.Bottomley@hansenpartnership.com,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
-	management/subsystem governance
+References: <trinity-b7dcc7ee-84eb-4ba9-ab94-b2936551a388-1536588284133@3c-app-gmx-bs33>
+	<CACRpkdYk1JKEQ=bumrxRk1eJ97xkQti8E1MRJ_xxen+dZ1a1Xw@mail.gmail.com>
+In-Reply-To: <CACRpkdYk1JKEQ=bumrxRk1eJ97xkQti8E1MRJ_xxen+dZ1a1Xw@mail.gmail.com>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Mon, 10 Sep 2018 23:40:59 +0200
+Message-ID: <CAK8P3a0a=eAwAg5i6z-5Hs56BXKP3CSsv2383zuMh6TrrDPwug@mail.gmail.com>
+To: Linus Walleij <linus.walleij@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: ksummit <Ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Deprecation / Removal of
+ old hardware support
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,81 +20,83 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Sean,
+On Mon, Sep 10, 2018 at 5:35 PM Linus Walleij <linus.walleij@linaro.org> wrote:
+>
+> On Mon, Sep 10, 2018 at 4:04 PM Peter Huewe <PeterHuewe@gmx.de> wrote:
+>
+> > one topic I would like to discuss is: when is it time to remove support for old hardware?
+> > Should we support as much hardware as possible forever, or does it make sense to cut down the support?
+> > If so, when would be appropriate?
+>
+> I've been thinking a lot about it. I just recently prepared a talk on the
+> subject.
+>
+> My thinking has been something along the lines: if it has active
+> users we don't delete it, by the same token that we don't destroy
+> kernel interfaces that have active users.
+>
+> Of course the definition of "users" is a bit complex there. In our
+> opinion the "users" are those who regularly compile new kernels
+> and test them, finds regressions, bisects problems and generally
+> do a good job in the community. Not ranting bloggers.
+>
+> By this reasoning it is absolutely forbidden to propose something
+> like to delete arch/m68k (the last CPU M68060 produced in
+> 1994 IIUC) as long as these maintainers put in an honest effort to
+> keep running that kernel on increasingly aging and hard to obtain
+> hardware like Apollo/Domain or Amiga 4000.
+>
+> One day the last m68k users stops responding to regressions and
+> then it can be deleted.
 
-On Tuesday, 11 September 2018 00:09:02 EEST Sean Paul wrote:
-> On Mon, Sep 10, 2018 at 4:15 PM Laurent Pinchart wrote:
-> > On Monday, 10 September 2018 18:13:05 EEST Jiri Kosina wrote:
-> >> On Mon, 10 Sep 2018, James Bottomley wrote:
-> >>>    1. How do reviews happen?  Non email projects tend to have only one
-> >>>       review mechanism (gerrit, github, gitlab, etc.) and stick to it.
-> >>>       Do we want to pick a technology or allow multiple?  I don't
-> >>>       think this is kernel wide, it could be a sybsystem choice.
-> >> 
-> >> Yeah, but OTOH even now I've heard a lot of feedback about the irregular
-> >> contributors / newcomers being confused by different subsystems having
-> >> different processess and requirements; and those are basically just
-> >> rather "minor" things currently (bugzilla usage, patchwork usage,
-> >> subscriber-only mailinglists, etc), but it's still enough to confuse the
-> >> hell out of people.
-> > 
-> > That's also one of my concerns. The differences between subsystems that
-> > all use an email-based review process can already be confusing, or just
-> > annoying to handle, especially when specific tools are mandated (the DRM
-> > dim tool or the ARM patch system come to mind). I dread to think about
-> > how painful it would be if one subsystem adopted gitlab, another one
-> > gerrit, ...
-> 
-> The other way to look at this is as a feature, not a bug. As mentioned
-> upthread, each subsystem is essentially its own oss project at this
-> point, so why keep pretending they're all the same thing?
+When I prepared the series to remove eight unmaintained architectures,
+that is roughly what I did. I also managed to contact at least one
+core developer for each of those architectures (or at least one
+person representing the company owning that IP), and it was all
+done in agreement with them.
 
-Subsystems are given lots of freedom in how they implement their development 
-process, and many use that freedom, but in the end they are all integrated in 
-the same kernel. This works because we have a common communication tool.
+One architecture (unicore32) got saved in the last minute by
+the maintainer saying that he'd rather keep it in tree, despite not
+even having a publicly available toolchain with sources.
 
-> At least in the gitlab/gerrit/github nightmare, the differing contributing
-> rules would be obvious as opposed to implicit as they are today.
+For architecture support, I don't think we are removing anything
+in the next few years now, but there are two notable categories
+of platform ports that are definitely obsolete, and we may want
+to consider how to manage their remaining lives:
 
-And we would lose the common communication tool.
+- Server architectures without a future: alpha, parisc, (mostly)
+  ia64, (arguably) sparc are in a similar category as m68k;
+  they are kept alive by enthusiasts that still have the hardware,
+  but nobody in their right minds is putting new workloads on
+  them.
 
-(And if we went for gerrit, we'd likely lose the majority of developers, but 
-that's a separate topic - after having to use gerrit when working on project 
-Ara, I now reject any customer project that would force me to use gerrit 
-again)
+- In some architectures (arm, mips, ppc, sh, m68k), we support
+   many different machines, but only a small number of those
+   machines are actively being used by anyone. We did a big
+   cleanup on ARM a few years ago, and ppc dropped some
+   machines during the conversion to DT, but in some of the
+   others that never happened, and some have died in the
+   meantime (or in some cases died just after they got merged,
+   such as arm/mach-axxia).
 
-> > That would also make changes that cross subsystem boundaries a nightmare
-> > to handle. Let's not forget that many developers are not confined within a
-> > single subsystem.
-> 
-> Well, yeah, this kind of blows a hole in what I said above. I'm
-> imagining Kees crying out in pain thinking about tree-wide changes in
-> this new world :-).
+Making the correct call on which platforms exactly are dead
+takes a lot of knowledge and work to get right, e.g. you want
+to also remove all hacks in device drivers that were added for
+a platform when that gets removed.
 
-I had the exact same image :-)
+One big problem with removing code in general is that code that
+becomes unmaintained often also has nobody left that knows
+about it being unmaintained.
 
-> That said, there's probably a pretty good middle ground between what
-> we have now and the gitlab utopia.
+> My ARMv4 is another example, but I can point at new devices
+> beging deployed as we speak, using that ISA, even though it is
+> from 1999. So it has many active users (and maintainers).
 
-I believe we all agree there's lots of room for improvement, that's already 
-quite positive.
+Note that even though gcc is dropping ARMv4 support from new
+compilers, you can still use old toolchains, and there are tricks to
+make ARMv4T binary code work on ARMv4. However, if gcc
+ever stops supporting ARMv4T, this becomes a problem. My guess
+is that will take another 10 years though, and we might have
+removed some or all of the individual ARMv4 platforms by then.
 
-> > On the other hand, I don't really see how switching the whole kernel to
-> > gitlab (or another system) could happen without frustrating a very large
-> > number of developers. We all know how conservative the community tend to
-> > be.
-> > 
-> > One possible course of action would be to make the new tools optional and
-> > keep email as a common denominator. That way the old dinosaurs who won't
-> > adopt any tool introducing even the slightest disturbance in their work
-> > flow (it's not pleasant to realize that I may well be one of them) will
-> > still be able to work undisturbed, and all the other developers would be
-> > able to enjoy the myriad of amazing features offered by their tooling of
-> > choice. This would however put an extra burden on the new tools that
-> > would need to have first-class email compatibility. I don't know whether
-> > that would be feasible.
-
--- 
-Regards,
-
-Laurent Pinchart
+      Arnd
