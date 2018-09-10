@@ -1,33 +1,32 @@
-Return-Path: <SRS0=XBBg=LY=goodmis.org=rostedt@kernel.org>
+Return-Path: <daniel.vetter@ffwll.ch>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 616C21334
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 571EF128F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Sep 2018 20:45:24 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B35A3766
+	Mon, 10 Sep 2018 20:50:52 +0000 (UTC)
+Received: from mail-io0-f175.google.com (mail-io0-f175.google.com
+	[209.85.223.175])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BDA95766
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Sep 2018 20:45:23 +0000 (UTC)
-Date: Mon, 10 Sep 2018 16:45:19 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Sasha Levin <Alexander.Levin@microsoft.com>
-Message-ID: <20180910164519.6cbcc116@vmware.local.home>
-In-Reply-To: <20180910194310.GV16300@sasha-vm>
-References: <20180904201620.GC16300@sasha-vm>
-	<CAKMK7uFO3xiKxa+mEDgEfDx6ZKY7aFPibD1xuK3z-Ybi0Zr3Sw@mail.gmail.com>
-	<20180905101710.73137669@gandalf.local.home>
-	<20180907004944.GD16300@sasha-vm>
-	<CA+55aFwfcNuH4p+rKHuQcgOSt3coT=cN6ZdSG1OKNQ5GTWgoxg@mail.gmail.com>
-	<20180907014930.GE16300@sasha-vm>
-	<CA+55aFz57ASBqAvXnCv4_uZ3niPJjTDdSmOOdyaFeW8gCAwSHQ@mail.gmail.com>
-	<20180907145437.GF16300@sasha-vm>
-	<CA+55aFzp340RDJUDoOGtN5ENgdCSSkksvG0yPt74BgyvTrAE4Q@mail.gmail.com>
-	<20180910194310.GV16300@sasha-vm>
+	Mon, 10 Sep 2018 20:50:51 +0000 (UTC)
+Received: by mail-io0-f175.google.com with SMTP id q4-v6so1806989iob.8
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 10 Sep 2018 13:50:51 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
+In-Reply-To: <4225967.GZjQHerNMI@avalon>
+References: <CAKMK7uE=FwpPFnvOvuvGBZ0vjh3UMPW=zgSk1dmiyCLQPPuZvg@mail.gmail.com>
+	<20180910154738.GA3712@chatter>
+	<CAKMK7uFyW-Xfhe1mWESjrcVzPzKzKEJr8BibUPPLgBTWbTSATA@mail.gmail.com>
+	<4225967.GZjQHerNMI@avalon>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Mon, 10 Sep 2018 22:50:50 +0200
+Message-ID: <CAKMK7uFLMqS2btMQSdKPFjiUZHi8K7uvZxpni0TfCxkT29=tMw@mail.gmail.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
+ management/subsystem governance
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,75 +36,47 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 10 Sep 2018 19:43:11 +0000
-Sasha Levin <Alexander.Levin@microsoft.com> wrote:
+On Mon, Sep 10, 2018 at 9:48 PM, Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+> Hi Daniel,
+>
+> On Monday, 10 September 2018 19:07:35 EEST Daniel Vetter wrote:
+>> On Mon, Sep 10, 2018 at 5:47 PM, Konstantin Ryabitsev wrote:
+>> > On Mon, Sep 10, 2018 at 03:38:07PM +0000, Sasha Levin wrote:
+>> >> Yes, some maintainers started adding links to lkml archives, but those
+>> >> are very inconsistent and often just point to the patch submission
+>> >> rather than relevant discussions.
+>> >>
+>> >> I'm not sure what's a good way to solve this, but I'd really like to
+>> >> stop losing this valuable information as a result of the current
+>> >> process.
+>> >
+>> > This is partly the goal behind cregit:
+>> >
+>> > https://cregit.linuxsources.org/
+>> >
+>> > The plan is that the next version of cregit will become an official
+>> > kernel.org resource some time mid-next year, and will aggregate as much
+>> > information about the kernel code as it can from various places, including
+>> > patchwork.
+>>
+>> Assuming we do indeed switch some parts of the drm process over to
+>> gitlab (very big assumption here), whom would we need to chat with to
+>> do that?
+>
+> Could you elaborate on what that means exactly ? For most subsystems the
+> development process encompasses a large number of tasks, so switching to
+> gitlab doesn't mean much without knowing exactly how the new process would
+> look like. Which part(s) of the development process would be affected, and how
+> ? And as an added bonus, it would be helpful if you could also describe why
+> you think they don't work today and would be better handled differently.
 
-> On Fri, Sep 07, 2018 at 08:52:40AM -0700, Linus Torvalds wrote:
-> >So this is what my argument really boils down to: the more critical a
-> >patch is, the more likely it is to be pushed more aggressively, which
-> >in turn makes it statistically much more likely to show up not only
-> >during the latter part of the development cycle, but it will directly
-> >mean that it looks "less tested".
-> >
-> >And AT THE SAME TIME, the more critical a patch is, the more likely it
-> >is to also show up as a problem spot for distros. Because, by
-> >definition, it touched something critical and likely subtle.
-> >
-> >End result: BY DEFINITION you'll see a correlation between "less
-> >testing" and "more problems".
-> >
-> >But THAT is correlation. That's not the fundamental causation.
-> >
-> >Now, I agree that it's correlation that makes sense to treat as
-> >causation. It just is very tempting to say: "less testing obviously
-> >means more problems". And I do think that it's very possibly a real
-> >causal property as well, but my argument has been that it's not at all
-> >obviously so, exactly because I would expect that correlation to exist
-> >even if there was absolutely ZERO causality.
-> >
-> >See what my argument is? You're arguing from correlation. And I think
-> >there is a much more direct causal argument that explains a lot of the
-> >correlation.  
-> 
-> Both of us agree that patches in later -rc cycles are buggier. We don't
-> agree on why, but I think that it actually doesn't matter much. For the
-> sake of the argument, let's go with what you're saying and assume that
-> they're buggier because they are are more critical, tricky and subtle.
-> 
-> So we have this time period of a few weeks where we know that we're
-> going to see tricky patches. What can we do to better deal with it?
-> Saying that we'll just see more bugs and we should just live with it
-> because it's "BY DEFINITION" is not really a good answer IMO.
-> 
-> For stable trees, we can address that by waiting even longer before
-> picking up -rc5+ stuff, but that will move us further away from your
-> tree which is an undesirable effect.
-> 
-> I don't have anything beyond guesses, but I don't think the
-> solution here is WONTFIX.
-> 
-
-I think it may be more of CANTFIX.
-
-The bugs introduced after -rc5 are more subtle and harder to trigger. I
-(and I presume Linus, but he can talk for himself) don't believe that
-keeping it in linux-next any longer will help find them, unless the
-bots get better to do so. The problem is that these bugs are not going
-to be triggered until they get into the mainline kernel and perhaps not
-even until they get into the distros. We want to find them before that,
-but it's not until they are used in production environments that they
-will get found.
-
-The best we can do is make the automated testing of linux-next better
-such that there's less -rc5 patches that need to go in in the first
-place.
-
-I do think that anything that goes into -rc5 or later should be tested
-by the developer and the 0day bot, to make sure they don't introduce
-some silly bug. But linux-next was mainly to deal with bugs caused by
-integration of various sub systems. But -rc5 fixes only care about
-integrating with mainline. And as Linus pointed out, when it gets into
-mainline, it will then be pulled into linux-next where it gets
-integrated with new code coming into the next merge window.
-
--- Steve
+Let's move all the "how to gitab, or can we live without email?"
+discussions in the other part of this thread. This here was just a
+quick question about cregit (and I already regret that I mentioned
+gitlab here, it seems to somewhat distract).
+-Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
