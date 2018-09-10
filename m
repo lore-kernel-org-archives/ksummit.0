@@ -1,29 +1,28 @@
-Return-Path: <daniel.vetter@ffwll.ch>
+Return-Path: <laurent.pinchart@ideasonboard.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BA3F8FAA
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 34066F8C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Sep 2018 19:44:22 +0000 (UTC)
-Received: from mail-io0-f170.google.com (mail-io0-f170.google.com
-	[209.85.223.170])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id AF6C6716
+	Mon, 10 Sep 2018 19:48:46 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+	[213.167.242.64])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BBF0771C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Sep 2018 19:44:21 +0000 (UTC)
-Received: by mail-io0-f170.google.com with SMTP id y3-v6so1656920ioc.5
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Sep 2018 12:44:21 -0700 (PDT)
+	Mon, 10 Sep 2018 19:48:45 +0000 (UTC)
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Mon, 10 Sep 2018 22:48:54 +0300
+Message-ID: <4225967.GZjQHerNMI@avalon>
+In-Reply-To: <CAKMK7uFyW-Xfhe1mWESjrcVzPzKzKEJr8BibUPPLgBTWbTSATA@mail.gmail.com>
+References: <CAKMK7uE=FwpPFnvOvuvGBZ0vjh3UMPW=zgSk1dmiyCLQPPuZvg@mail.gmail.com>
+	<20180910154738.GA3712@chatter>
+	<CAKMK7uFyW-Xfhe1mWESjrcVzPzKzKEJr8BibUPPLgBTWbTSATA@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <06539e48-f20c-431d-51aa-3d299ef894ac@linuxfoundation.org>
-References: <06539e48-f20c-431d-51aa-3d299ef894ac@linuxfoundation.org>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Mon, 10 Sep 2018 21:44:20 +0200
-Message-ID: <CAKMK7uGLyP4yk+gcJfAdJxr5h7q4F5d9+UTHr9_juFATBM4HZA@mail.gmail.com>
-To: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Gitlab (or similar)
- hosting at kernel.org
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>
+Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
+	management/subsystem governance
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,51 +32,46 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Sep 10, 2018 at 9:00 PM, Konstantin Ryabitsev
-<konstantin@linuxfoundation.org> wrote:
-> Hi, all:
->
-> The topic of Gitlab comes up quite a bit recently, so I think it's worth
-> having a separate conversation about it. Kernel.org provides gitolite
-> hosting, which works great for most "old skool" maintainers who are
-> comfortable with "everything over email" (see Greg's talk about patches
-> carved into stone tablets [1]). However, just in case I'm stuck in an
-> echo chamber, I wanted to ask if providing a more "holistic" platform
-> like Gitlab (or one of its alternatives like Pagure, pending evaluation)
-> is something we should be actively considering to be offered centrally
-> as a standard kernel.org service.
+Hi Daniel,
 
-Except I'm massively misreading the tea leaves I don't expect drm to
-move from fd.o to k.org. Our interaction surface towards the userspace
-projects hosted on fd.o (mesa, X11, wayland, ...) is much bigger than
-towards the other parts of the kernel, I expect us to stay with those
-folks. Being able to reassign/move issues and have simple
-cross-project discussions with those guys matters a lot. Same reasons
-really for us abandoning kernel bugzilla in favour of the fd.o one.
+On Monday, 10 September 2018 19:07:35 EEST Daniel Vetter wrote:
+> On Mon, Sep 10, 2018 at 5:47 PM, Konstantin Ryabitsev wrote:
+> > On Mon, Sep 10, 2018 at 03:38:07PM +0000, Sasha Levin wrote:
+> >> Yes, some maintainers started adding links to lkml archives, but those
+> >> are very inconsistent and often just point to the patch submission
+> >> rather than relevant discussions.
+> >> 
+> >> I'm not sure what's a good way to solve this, but I'd really like to
+> >> stop losing this valuable information as a result of the current
+> >> process.
+> > 
+> > This is partly the goal behind cregit:
+> > 
+> > https://cregit.linuxsources.org/
+> > 
+> > The plan is that the next version of cregit will become an official
+> > kernel.org resource some time mid-next year, and will aggregate as much
+> > information about the kernel code as it can from various places, including
+> > patchwork.
+> 
+> Assuming we do indeed switch some parts of the drm process over to
+> gitlab (very big assumption here), whom would we need to chat with to
+> do that?
 
-Of course that's just drm, no idea who else might entertain this.
--Daniel
+Could you elaborate on what that means exactly ? For most subsystems the 
+development process encompasses a large number of tasks, so switching to 
+gitlab doesn't mean much without knowing exactly how the new process would 
+look like. Which part(s) of the development process would be affected, and how 
+? And as an added bonus, it would be helpful if you could also describe why 
+you think they don't work today and would be better handled differently.
 
->
-> .. [1]
-> https://kernel-recipes.org/en/2016/talks/patches-carved-into-stone-tablets/
->
-> Regards,
-> --
-> Konstantin Ryabitsev
-> The Linux Foundation
-> kernel.org
->
->
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
->
-
-
+> Atm what we're doing with patchwork is automatically add a Link: with
+> the https:// patchwork url for that patch. Which then has links to the
+> overall series, with CI results and discussions and all that. Plan for
+> gitlab is to do something similar, if we start using it for real for
+> anything. Would that be good enough?
 
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-+41 (0) 79 365 57 48 - http://blog.ffwll.ch
+Regards,
+
+Laurent Pinchart
