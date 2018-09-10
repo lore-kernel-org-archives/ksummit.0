@@ -1,21 +1,19 @@
-Return-Path: <konstantin@linuxfoundation.org>
+Return-Path: <daniel.vetter@ffwll.ch>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 55DAA10A0
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D38DB10DC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Sep 2018 16:40:30 +0000 (UTC)
-Received: from mail-io0-f176.google.com (mail-io0-f176.google.com
-	[209.85.223.176])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0AD8BF1
+	Mon, 10 Sep 2018 17:06:26 +0000 (UTC)
+Received: from mail-it0-f51.google.com (mail-it0-f51.google.com
+	[209.85.214.51])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5BF667E1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Sep 2018 16:40:29 +0000 (UTC)
-Received: by mail-io0-f176.google.com with SMTP id y12-v6so1143020ioj.13
+	Mon, 10 Sep 2018 17:06:26 +0000 (UTC)
+Received: by mail-it0-f51.google.com with SMTP id u13-v6so29651875iti.1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Sep 2018 09:40:29 -0700 (PDT)
-Date: Mon, 10 Sep 2018 12:41:07 -0400
-From: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <20180910164107.GA4543@chatter>
+	Mon, 10 Sep 2018 10:06:26 -0700 (PDT)
+MIME-Version: 1.0
+In-Reply-To: <20180910164107.GA4543@chatter>
 References: <CAKMK7uE=FwpPFnvOvuvGBZ0vjh3UMPW=zgSk1dmiyCLQPPuZvg@mail.gmail.com>
 	<CA+55aFyCdGstDu2u11veh3YxabpQrfaPEzuZB2x=eRXpw89prA@mail.gmail.com>
 	<1536592110.4035.5.camel@HansenPartnership.com>
@@ -24,13 +22,16 @@ References: <CAKMK7uE=FwpPFnvOvuvGBZ0vjh3UMPW=zgSk1dmiyCLQPPuZvg@mail.gmail.com>
 	<CAKMK7uFyW-Xfhe1mWESjrcVzPzKzKEJr8BibUPPLgBTWbTSATA@mail.gmail.com>
 	<20180910161837.GA4459@chatter>
 	<CAKMK7uEV-GQ=FJXDdboWbdOVxMyLYEpS2B20em5LUukjhtqBqA@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="UlVJffcvxoiEqYs2"
-Content-Disposition: inline
-In-Reply-To: <CAKMK7uEV-GQ=FJXDdboWbdOVxMyLYEpS2B20em5LUukjhtqBqA@mail.gmail.com>
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	<20180910164107.GA4543@chatter>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Mon, 10 Sep 2018 19:06:24 +0200
+Message-ID: <CAKMK7uF=VDYkKrHFjhq94ytqU8au40DVtcMy_rqWuCFGkHkweQ@mail.gmail.com>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>,
+	Sasha Levin <Alexander.Levin@microsoft.com>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	James Bottomley <James.Bottomley@hansenpartnership.com>,
 	ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Content-Type: text/plain; charset="UTF-8"
 Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
  management/subsystem governance
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -42,61 +43,62 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-
---UlVJffcvxoiEqYs2
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, Sep 10, 2018 at 06:23:52PM +0200, Daniel Vetter wrote:
->> Hm... For the purposes of cregit or repository hosting?
+On Mon, Sep 10, 2018 at 6:41 PM, Konstantin Ryabitsev
+<konstantin@linuxfoundation.org> wrote:
+> On Mon, Sep 10, 2018 at 06:23:52PM +0200, Daniel Vetter wrote:
+>>>
+>>> Hm... For the purposes of cregit or repository hosting?
+>>
+>>
+>> For cregit integration. Tbh I don't even know how the current mailing
+>> lists hosted on freedesktop.org infrastructure are integrated into
+>> cregit. But I assume they are somehow, since that's were all the drm
+>> talk is happening. gitlab will also be hosted on fd.o infrastructure
+>> for us.
 >
->For cregit integration. Tbh I don't even know how the current mailing
->lists hosted on freedesktop.org infrastructure are integrated into
->cregit. But I assume they are somehow, since that's were all the drm
->talk is happening. gitlab will also be hosted on fd.o infrastructure
->for us.
-
-Cregit only considers LKML and the mainline tree -- at least right now. =20
-So, as long as all patches and discussions are cc'd to LKML, they will=20
-be within cregit's reach. I'm not sure there are any plans to look at=20
-any other lists at this point (I'm only very tangentially involved in=20
-cregit's development). Kate Stewart would be the right person to ask=20
-this.
-
->> That shouldn't be necessary in the near future. There is work under=20
->> way for
->> patchwork to accept message-id based URLs, so using the
->> lkml.kernel.org/r/message-id URLs in commit messages should be enough for
->> cregit to provide a link to the relevant patchwork thread. We will also
->> probably end up integrating lore.kernel.org/patchwork with git in a way =
-that
->> would associate patches with final commit-ids and auto-archive them. It's
->> not going to be 100% accurate for various reasons, but will at lest prov=
-ide
->> more hooks for projects like cregit to provide extra details about git
->> commits.
 >
->There's at least 4 forks of patchwork :-/ The one we have on fd.o has
->been doing this since ages. We added the Link: stuff so you can easily
->go from e.g. git log to the patch discussion, without a detour through
->google.
+> Cregit only considers LKML and the mainline tree -- at least right now.  So,
+> as long as all patches and discussions are cc'd to LKML, they will be within
+> cregit's reach. I'm not sure there are any plans to look at any other lists
+> at this point (I'm only very tangentially involved in cregit's development).
+> Kate Stewart would be the right person to ask this.
 
-It's too bad that this hasn't percolated up to ozlabs, because I believe=20
-numeric-ID based patch links are actually harmful because they are 100%=20
-lossy.
+Hm yeah that's a bit a bummer. We don't tend to cc: lkml on anything
+we do. And I think that holds true for many subsystems (but honestly I
+didn't check). Can you pls pull Kate into this thread, so I have their
+contact information?
 
--K
+>>> That shouldn't be necessary in the near future. There is work under way
+>>> for
+>>> patchwork to accept message-id based URLs, so using the
+>>> lkml.kernel.org/r/message-id URLs in commit messages should be enough for
+>>> cregit to provide a link to the relevant patchwork thread. We will also
+>>> probably end up integrating lore.kernel.org/patchwork with git in a way
+>>> that
+>>> would associate patches with final commit-ids and auto-archive them. It's
+>>> not going to be 100% accurate for various reasons, but will at lest
+>>> provide
+>>> more hooks for projects like cregit to provide extra details about git
+>>> commits.
+>>
+>>
+>> There's at least 4 forks of patchwork :-/ The one we have on fd.o has
+>> been doing this since ages. We added the Link: stuff so you can easily
+>> go from e.g. git log to the patch discussion, without a detour through
+>> google.
+>
+>
+> It's too bad that this hasn't percolated up to ozlabs, because I believe
+> numeric-ID based patch links are actually harmful because they are 100%
+> lossy.
 
---UlVJffcvxoiEqYs2
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQR2vl2yUnHhSB5njDW2xBzjVmSZbAUCW5aeowAKCRC2xBzjVmSZ
-bD5IAQDys1jUcuf9LjAnY2Szcb3LatKxNVtIuboGlI1qvwNJdQD/Ws8bm2Y5FW1M
-orKPheZ6Vok+jlMdW/dPc+offwpr/gE=
-=SEjk
------END PGP SIGNATURE-----
-
---UlVJffcvxoiEqYs2--
+We tried to upstream - it died in a bikeshed of competing approaches
+and someone else won (but then took years longer to get their approach
+merged). Anyway, from our experiences patchwork, even with the things
+you've listed implemented, is miles away from what we actually need.
+It's definitely better than old patchwork though.
+-Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
