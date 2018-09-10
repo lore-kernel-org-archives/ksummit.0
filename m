@@ -1,29 +1,30 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 48CC0E40
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E5E4DE63
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Sep 2018 15:47:10 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C03A571C
+	Mon, 10 Sep 2018 15:49:31 +0000 (UTC)
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+	[172.104.155.198])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 721287CF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Sep 2018 15:47:09 +0000 (UTC)
-Message-ID: <1536594427.4035.14.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Sasha Levin <Alexander.Levin@microsoft.com>, Linus Torvalds
-	<torvalds@linux-foundation.org>
-Date: Mon, 10 Sep 2018 08:47:07 -0700
-In-Reply-To: <20180910153806.GR16300@sasha-vm>
+	Mon, 10 Sep 2018 15:49:31 +0000 (UTC)
+Date: Mon, 10 Sep 2018 16:49:27 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Sasha Levin <Alexander.Levin@microsoft.com>
+Message-ID: <20180910154927.GB10889@sirena.org.uk>
 References: <CAKMK7uE=FwpPFnvOvuvGBZ0vjh3UMPW=zgSk1dmiyCLQPPuZvg@mail.gmail.com>
 	<CA+55aFyCdGstDu2u11veh3YxabpQrfaPEzuZB2x=eRXpw89prA@mail.gmail.com>
 	<1536592110.4035.5.camel@HansenPartnership.com>
 	<CA+55aFwg+iP-R9=fiJ_uzggiQi39Ce7wO707rPYx7C9BGQ0-Rw@mail.gmail.com>
 	<20180910153806.GR16300@sasha-vm>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="b5gNqxB1S1yM7hjW"
+Content-Disposition: inline
+In-Reply-To: <20180910153806.GR16300@sasha-vm>
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
  management/subsystem governance
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -35,49 +36,39 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 2018-09-10 at 15:38 +0000, Sasha Levin via Ksummit-discuss
-wrote:
-> On Mon, Sep 10, 2018 at 05:10:48AM -1000, Linus Torvalds wrote:
-> > On Mon, Sep 10, 2018 at 5:08 AM James Bottomley
-> > <James.Bottomley@hansenpartnership.com> wrote:
-> > > 
-> > > On Mon, 2018-09-10 at 04:53 -1000, Linus Torvalds wrote:
-> > > >   "Live without email - possible?"
-> > > 
-> > > Can I propose one small alteration to the topic:
-> > > 
-> > >         "Patches without Email - Possible?"
-> > 
-> > Yes, better. That's what I meant anyway.
-> > 
-> > I still want the pull requests as email, and I still think email is
-> > often the best way to discuss things.
-> 
-> Yes, email is great for discussions, but one concern I have is that
-> once discussions ended and a patch was merged, a lot of those
-> discussions are lost forever.
-> 
-> It's somewhat easy to google a patch and look in lkml archives to see
-> some discussion as a result of the patch, but that's far from
-> perfect:
-> 
-> 1. For different patch revisions, some discussions manage to hide in
-> the archives.
-> 2. Discussions that resulted in a patch being sent aren't linked to
-> the patch itself.
-> 3. Any discussions after the patch was merged aren't easy to locate,
-> specially if they're not in the same thread as the original patch.
-> 
-> This makes the lives of stable/distro folks more difficult than it
-> should be.
 
-I disagree on this.  I have had occasion, when identifying patches that
-screwed something up, to go back to the emails to try to find out who
-did this and why.  As long as you're used to search interfaces it's
-usually easy to find.  Usually they are all threaded under the patch
-but the worst case I've seen is when v1, v2 ... vn aren't linked by
-thread, but even there searching for the specific patch set (0/n)
-subject title works.  So I think the data is all there in multiple
-archives and we do have powerful enough tools to find it.
+--b5gNqxB1S1yM7hjW
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-James
+On Mon, Sep 10, 2018 at 03:38:07PM +0000, Sasha Levin via Ksummit-discuss wrote:
+
+> Yes, some maintainers started adding links to lkml archives, but those
+> are very inconsistent and often just point to the patch submission
+> rather than relevant discussions.
+
+> I'm not sure what's a good way to solve this, but I'd really like to
+> stop losing this valuable information as a result of the current
+> process.
+
+Patchwork does a credible job of that for me - I especially like the
+fact that you can look things up by hash from a commit in your local
+tree.  It's not ideally formatted but it mostly gets the job done as
+well as anything else I've seen for archive use.
+
+--b5gNqxB1S1yM7hjW
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAluWkocACgkQJNaLcl1U
+h9BryQf/eUA/Xf/5RdUKoHyn8OM20cAceJrnXFx/4CoD/qDK44HbDjYnxAVeqTju
+fM18dNrYKVaaIAXYxr60/aCrjOf38dl9NK2eye/I+qMtdQ5Dp42VBsodqG3Kj+TA
+wXHePO0rIZRJNAmEeIk7quEQygnyMNEnjO0nF6T90R8rzgOF+Cmb6s/M321wxfgf
+IeZUXEN23AAKcWBTuW2GAHJAjZi01AOiAZA/+VbpZ1xZE0aO1EWKkZw1acEN/2c/
+HAFjMaJ+NBaFEh+bEAbId3T0RC7nkYR5dgZrC4Dk7QSqpH8gOm2ev5yBtNVJBxrX
+9Y7bH0Cj0hauQQGG5O1iHa26B/TNdg==
+=1V2v
+-----END PGP SIGNATURE-----
+
+--b5gNqxB1S1yM7hjW--
