@@ -1,28 +1,36 @@
-Return-Path: <olof@lixom.net>
+Return-Path: <konstantin@linuxfoundation.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 30A731075
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 55DAA10A0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Sep 2018 16:40:03 +0000 (UTC)
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
-	[209.85.167.48])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D34B2F1
+	Mon, 10 Sep 2018 16:40:30 +0000 (UTC)
+Received: from mail-io0-f176.google.com (mail-io0-f176.google.com
+	[209.85.223.176])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0AD8BF1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Sep 2018 16:40:01 +0000 (UTC)
-Received: by mail-lf1-f48.google.com with SMTP id i7-v6so17999205lfh.5
+	Mon, 10 Sep 2018 16:40:29 +0000 (UTC)
+Received: by mail-io0-f176.google.com with SMTP id y12-v6so1143020ioj.13
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Sep 2018 09:40:01 -0700 (PDT)
-MIME-Version: 1.0
-In-Reply-To: <CAKMK7uF+RyTVxvg0HyzponA-orENm-n0GiDXr6EDTGSkOFp+FQ@mail.gmail.com>
+	Mon, 10 Sep 2018 09:40:29 -0700 (PDT)
+Date: Mon, 10 Sep 2018 12:41:07 -0400
+From: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <20180910164107.GA4543@chatter>
 References: <CAKMK7uE=FwpPFnvOvuvGBZ0vjh3UMPW=zgSk1dmiyCLQPPuZvg@mail.gmail.com>
 	<CA+55aFyCdGstDu2u11veh3YxabpQrfaPEzuZB2x=eRXpw89prA@mail.gmail.com>
-	<CAKMK7uF+RyTVxvg0HyzponA-orENm-n0GiDXr6EDTGSkOFp+FQ@mail.gmail.com>
-From: Olof Johansson <olof@lixom.net>
-Date: Mon, 10 Sep 2018 09:39:58 -0700
-Message-ID: <CAOesGMh037Q-yT+FdDCjs=uVET3RQZDPesyEXzH8EABu2GQNzQ@mail.gmail.com>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Content-Type: text/plain; charset="UTF-8"
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+	<1536592110.4035.5.camel@HansenPartnership.com>
+	<CA+55aFwg+iP-R9=fiJ_uzggiQi39Ce7wO707rPYx7C9BGQ0-Rw@mail.gmail.com>
+	<20180910153806.GR16300@sasha-vm> <20180910154738.GA3712@chatter>
+	<CAKMK7uFyW-Xfhe1mWESjrcVzPzKzKEJr8BibUPPLgBTWbTSATA@mail.gmail.com>
+	<20180910161837.GA4459@chatter>
+	<CAKMK7uEV-GQ=FJXDdboWbdOVxMyLYEpS2B20em5LUukjhtqBqA@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="UlVJffcvxoiEqYs2"
+Content-Disposition: inline
+In-Reply-To: <CAKMK7uEV-GQ=FJXDdboWbdOVxMyLYEpS2B20em5LUukjhtqBqA@mail.gmail.com>
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
  management/subsystem governance
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -34,78 +42,61 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Sep 10, 2018 at 8:31 AM, Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
-> I need to split this up, otherwise I'll get lost on the different
-> sub-topics. I'll start with the easy ones.
 
-Agreed, I probably won't be able to keep up with this whole thread
-this week due to $job, but a few stray comments:
+--UlVJffcvxoiEqYs2
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> On Mon, Sep 10, 2018 at 4:53 PM, Linus Torvalds
-> <torvalds@linux-foundation.org> wrote:
->>> Specific topics I'm interested in:
->>> - New experiments in group maintainership, and sharing lessons learned
->>> in general.
->>
->> I think that's good. But again, partly because these kinds of subjects
->> tend to devolve into too much of a generic overview, may I suggest
->> again trying to make things very concrete.
->>
->> For example, talk about the actual tools you use. Make it tangible. A
->> couple of years ago the ARM people talked about the way they split
->> their time to avoid stepping on each other (both in timezones, but
->> also in how they pass the baton around in general, in addition to
->> using branches).
->>
->> And yes, a lot of it probably ends up being "we didn't actually make
->> this official or write it up, but we worked enough together that we
->> ended up doing XYZ". That's fine. That's how real flows develop. With
->> discussion of what the problems were, and what this solved.
->>
->> In other words, make it down to earth. Not the "visionary keynote",
->> but the "this is the everyday flow".
+On Mon, Sep 10, 2018 at 06:23:52PM +0200, Daniel Vetter wrote:
+>> Hm... For the purposes of cregit or repository hosting?
 >
-> Yup, fully agreed. We don't need another overview over group
-> maintainer ship. Also I don't think an update from arm-soc/tip or drm
-> is interesting either. I think only if there's a new group/subsystem
-> trying this out, with all the nitty-gritty details of "this totally
-> blew up in our faces" and "this worked shockingly well" and "here we
-> need to improve still, we're not happy" is what I'm looking for.
-> Without those details there's nothing really to learn, beyond just
-> rehashing one of the old discussions. I guess I should have put more
-> emphasis on _new_ experiments :-)
+>For cregit integration. Tbh I don't even know how the current mailing
+>lists hosted on freedesktop.org infrastructure are integrated into
+>cregit. But I assume they are somehow, since that's were all the drm
+>talk is happening. gitlab will also be hosted on fd.o infrastructure
+>for us.
 
-I'm not interested in standing up and talking about how Arnd and I
-handle things right now, but what I would be really interested in
-talking about is where we still have chafing, where things don't
-actually work great (Linus might be happy, but we're definitely in a
-spot where we could simplify life for _us_ quite a bit).
+Cregit only considers LKML and the mainline tree -- at least right now. =20
+So, as long as all patches and discussions are cc'd to LKML, they will=20
+be within cregit's reach. I'm not sure there are any plans to look at=20
+any other lists at this point (I'm only very tangentially involved in=20
+cregit's development). Kate Stewart would be the right person to ask=20
+this.
 
-I'm super excited to hear a bit about the _actual_ plans of gitlab
-move. As mentioned, not a visionary keynote, but others also talking
-about what they're looking at to fix their current pain points.
+>> That shouldn't be necessary in the near future. There is work under=20
+>> way for
+>> patchwork to accept message-id based URLs, so using the
+>> lkml.kernel.org/r/message-id URLs in commit messages should be enough for
+>> cregit to provide a link to the relevant patchwork thread. We will also
+>> probably end up integrating lore.kernel.org/patchwork with git in a way =
+that
+>> would associate patches with final commit-ids and auto-archive them. It's
+>> not going to be 100% accurate for various reasons, but will at lest prov=
+ide
+>> more hooks for projects like cregit to provide extra details about git
+>> commits.
+>
+>There's at least 4 forks of patchwork :-/ The one we have on fd.o has
+>been doing this since ages. We added the Link: stuff so you can easily
+>go from e.g. git log to the patch discussion, without a detour through
+>google.
 
+It's too bad that this hasn't percolated up to ozlabs, because I believe=20
+numeric-ID based patch links are actually harmful because they are 100%=20
+lossy.
 
-For us on arm-soc, we've gotten a bit better at reducing our overhead,
-but the bulk of material coming in these days tends to be a no-op from
-us (just figure out that it merges, that we have handshakes with any
-external dependencies or shared branches, and pick it up). We have
-some submaintainers who need more work, and we pay closer attention to
-and have more feedback, but reducing the overhead for some of the
-others by letting them cross-review and merge themselves would be
-useful.
+-K
 
-I'm also starting to get mildly annoyed by the single-patch pull
-requests that we sometimes get. In some ways, applying patches are
-easier, not harder. For those, the model where "cherry pick when
-merging" in common code review tools would work really well.
+--UlVJffcvxoiEqYs2
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> And if nothing changed, no new groups I think think we should table
-> this right away.
+-----BEGIN PGP SIGNATURE-----
 
-I really want to talk about this, but if there isn't enough interest
-from others, we could just do it in a hallway. But I think the topic
-is on point for the maintainer summit.
+iHUEABYIAB0WIQR2vl2yUnHhSB5njDW2xBzjVmSZbAUCW5aeowAKCRC2xBzjVmSZ
+bD5IAQDys1jUcuf9LjAnY2Szcb3LatKxNVtIuboGlI1qvwNJdQD/Ws8bm2Y5FW1M
+orKPheZ6Vok+jlMdW/dPc+offwpr/gE=
+=SEjk
+-----END PGP SIGNATURE-----
 
-
--Olof
+--UlVJffcvxoiEqYs2--
