@@ -1,34 +1,28 @@
-Return-Path: <Alexander.Levin@microsoft.com>
+Return-Path: <daniel.vetter@ffwll.ch>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1FD3CFF6
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 57323FC6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Sep 2018 16:24:08 +0000 (UTC)
-Received: from NAM01-SN1-obe.outbound.protection.outlook.com
-	(mail-sn1nam01on0132.outbound.protection.outlook.com [104.47.32.132])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6E90FF1
+	Mon, 10 Sep 2018 16:29:38 +0000 (UTC)
+Received: from mail-it0-f68.google.com (mail-it0-f68.google.com
+	[209.85.214.68])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 96197716
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Sep 2018 16:24:07 +0000 (UTC)
-From: Sasha Levin <Alexander.Levin@microsoft.com>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Date: Mon, 10 Sep 2018 16:24:05 +0000
-Message-ID: <20180910162404.GU16300@sasha-vm>
+	Mon, 10 Sep 2018 16:29:37 +0000 (UTC)
+Received: by mail-it0-f68.google.com with SMTP id e14-v6so30332294itf.1
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 10 Sep 2018 09:29:37 -0700 (PDT)
+MIME-Version: 1.0
+In-Reply-To: <CA+55aFyCdGstDu2u11veh3YxabpQrfaPEzuZB2x=eRXpw89prA@mail.gmail.com>
 References: <CAKMK7uE=FwpPFnvOvuvGBZ0vjh3UMPW=zgSk1dmiyCLQPPuZvg@mail.gmail.com>
 	<CA+55aFyCdGstDu2u11veh3YxabpQrfaPEzuZB2x=eRXpw89prA@mail.gmail.com>
-	<1536592110.4035.5.camel@HansenPartnership.com>
-	<CA+55aFwg+iP-R9=fiJ_uzggiQi39Ce7wO707rPYx7C9BGQ0-Rw@mail.gmail.com>
-	<20180910153806.GR16300@sasha-vm>
-	<1536594427.4035.14.camel@HansenPartnership.com>
-	<20180910155551.GS16300@sasha-vm>
-	<1536596019.4035.17.camel@HansenPartnership.com>
-In-Reply-To: <1536596019.4035.17.camel@HansenPartnership.com>
-Content-Language: en-US
-Content-Type: text/plain; charset="iso-8859-1"
-Content-ID: <31151D44DCA6B34C8BF56E7C2956D343@namprd21.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Mon, 10 Sep 2018 18:29:35 +0200
+Message-ID: <CAKMK7uFYBthvmHOUMnSbbfn7O=EcU0krB-bzgMEHxDn1eE=h8A@mail.gmail.com>
+To: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: [Ksummit-discuss] Fwd: [MAINTAINER SUMMIT] community
  management/subsystem governance
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -39,115 +33,159 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Sep 10, 2018 at 09:13:39AM -0700, James Bottomley wrote:
->On Mon, 2018-09-10 at 15:55 +0000, Sasha Levin via Ksummit-discuss
->wrote:
->> On Mon, Sep 10, 2018 at 08:47:07AM -0700, James Bottomley wrote:
->> > On Mon, 2018-09-10 at 15:38 +0000, Sasha Levin via Ksummit-discuss
->> > wrote:
->> > > On Mon, Sep 10, 2018 at 05:10:48AM -1000, Linus Torvalds wrote:
->> > > > On Mon, Sep 10, 2018 at 5:08 AM James Bottomley
->> > > > <James.Bottomley@hansenpartnership.com> wrote:
->> > > > >
->> > > > > On Mon, 2018-09-10 at 04:53 -1000, Linus Torvalds wrote:
->> > > > > > =A0 "Live without email - possible?"
->> > > > >
->> > > > > Can I propose one small alteration to the topic:
->> > > > >
->> > > > > =A0=A0=A0=A0=A0=A0=A0=A0"Patches without Email - Possible?"
->> > > >
->> > > > Yes, better. That's what I meant anyway.
->> > > >
->> > > > I still want the pull requests as email, and I still think
->> > > > email is often the best way to discuss things.
->> > >
->> > > Yes, email is great for discussions, but one concern I have is
->> > > that once discussions ended and a patch was merged, a lot of
->> > > those discussions are lost forever.
->> > >
->> > > It's somewhat easy to google a patch and look in lkml archives to
->> > > see some discussion as a result of the patch, but that's far from
->> > > perfect:
->> > >
->> > > 1. For different patch revisions, some discussions manage to hide
->> > > in the archives.
->> > > 2. Discussions that resulted in a patch being sent aren't linked
->> > > to the patch itself.
->> > > 3. Any discussions after the patch was merged aren't easy to
->> > > locate, specially if they're not in the same thread as the
->> > > original patch.
->> > >
->> > > This makes the lives of stable/distro folks more difficult than
->> > > it should be.
->> >
->> > I disagree on this.=A0=A0I have had occasion, when identifying patches
->> > that screwed something up, to go back to the emails to try to find
->> > out who did this and why.=A0=A0As long as you're used to search
->> > interfaces it's usually easy to find.=A0=A0Usually they are all
->> > threaded under the patch but the worst case I've seen is when v1,
->> > v2 ... vn aren't linked by thread, but even there searching for the
->> > specific patch set (0/n) subject title works.=A0=A0So I think the data
->> > is all there in multiple archives and we do have powerful enough
->> > tools to find it.
+On Mon, Sep 10, 2018 at 4:53 PM, Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
+> On Sun, Sep 9, 2018 at 10:59 PM Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
 >>
->> Indeed, if *all* discussions happened in a single thread that was
->> used to submit the patch then sure - it's straightforward. However,
->> consider 2 scenarios that we encounter on a weekly basis:
->>
->> 1. We see a stable patch but not sure why/how it fixes an issue. The
->> patch itself doesn't have enough information and there was no
->> discussion after the patch was submitted. However, there was a lot of
->> discussion in a completely unrelated thread unlinked from the patch
->> submission. We can't find that because it doesn't refer to the patch
->> at all, it just describes the problem and a solution.
+>> I think for pratical reasons (the linux kernel is huge) focusing on
+>> subsystems is more useful, at least in the short term. Much easier to
+>> experiment with new things in smaller groups.
 >
->This means the commit message was bad if it doesn't give you the
->information.  If a patch is tagged for stable you know the Maintainer
->made the decision before it was committed and they should have the
->courtesy to explain the user visible issues (or make sure the submitter
->did).  I really don't think you need to second guess the maintainer on
->this.
-
-We don't always do it to "second guess". A more common case is us trying
-to understand if we missed anything. Look at the following patch (from
-last week) for example:
-
-	https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/=
-?id=3Dd806afa495e2e2a1a726e26c5e44f27818e804c1
-
-It states no functional changes, there are no related patches
-before/after it, and yet it's still tagged for stable. Is it us missing
-a related fix? Is it just not stable material? How do we explain it to
-ourselves?
-
-Another related reason is that I look at patches without stable tags
-trying to understand whether they should go in stable or not, and then I
-try to understand whether a certain patch is a fix or not.
-
->There is a workflow issue in that not all maintainers tag for stable,
->but I think that could be a separate topic.
+> I think that realistically, it's never going to be anything *but*
+> subsystem-specific, not just because the kernel is huge.
 >
->> 2. We pull in a patch into the stable tree, but a few days later
->> someone reports a bug and points to that patch. It's easier to solve
->> these cases by grepping through mailboxes before shipping out stable
->> releases, but it adds a considerable amount of effort.
+> There are simply often very different concerns.
 >
->So, again, don't second guess; triage by user visible fixes.  If the
->patch doesn't really fix anything essential: revert it and notify the
->subsystem and if it does ask the relevant subsystem for help ... that
->is what they're there for.
+> An individual filesystem can be a big project, and people work on
+> filesystems for decades. They can get quite complex indeed. But at the
+> same time, an individual filesystem just doesn't tend to *impact*
+> other things. Sure, we may end up adding features to the VM or the VFS
+> layer to make it possible for it to do some particular thing, and we
+> may end up having lots of common code that a lot of filesystems end up
+> sharing, but in a very real sense, it is its own _mostly_ independent
+> thing, and what happens inside the community for that filesystem
+> doesn't tend to much affect anybody else.
 >
->Sure, it's nice to have the historical information, but it shouldn't be
->your first port of call when you have a live subsystem and maintainer
->who should be on top of all the issues and should be more expert than
->you.
+> Same goes for a lot of drivers. Yes, they have connections to the
+> outside, but what happens in one driver seldom affects anything else.
+>
+> Equally importantly, filesystem changes can generally be tested with a
+> fairly targeted test-suite. When you make changes to one filesystem,
+> you need to test only _that_ filesystem.
+>
+> The same _tends_ to be true for drivers too, although there testing
+> can be "interesting" because of the hardware dependency - a single
+> driver often covers a few tens (to a few hundred) different hardware
+> implementations. But the changes still don't tend to affect *other*
+> devices.
+>
+> But things change once you start going up from individual filesystems
+> or drivers to a common layer. Making changes to a common layer is
+> simply _fundamentally_ way more painful. Sure, part of the pain is
+> that now you have to convert all the filesystems or drivers that
+> depended on that common layer to the new changes, but a large part is
+> simply that now the changes affect many different kinds of filesystems
+> or drivers, and testing is *much* harder.
+>
+> You obviously see that with the whole drm layer (example: atomic
+> modesetting). That's still a fairly small set of different drivers
+> (small in number, not in code-size), and it already causes issues.
+>
+> At the other end of the spectrum, some of the most painful changes
+> we've ever done have basically gone across *all* drivers, and caused
+> untold bugs for the better part of a decade. I'm thinking of all the
+> power management work we did back ten+ years ago.
+>
+> The VM people (and some other groups - the scheduler comes to mind)
+> have had a different kind of issue entirely: not that the kernel has
+> tons of "sub-drivers" that depend on them - although that obviously is
+> true in a very real sense for any memory allocator etc - but simply
+> that there are lots of different loads. In a filesystem or a driver,
+> you can have a test-suite for correct behavior, but the behavior is
+> largely the same. When it comes to VM or scheduler, the problem is
+> that you have different loads, and performing well on one load does
+> not mean at all that you do well on another.
+>
+> We had a few years when people were pushing scheduler rchanges without
+> really appreciating that "your load isn't everybody elses load" issue.
+>
+> In contrast, in drivers and filesystems, things are usually more
+> black-and-white wrt "does this work well".  Yes, yes, you have latency
+> vs throughput issues etc, and you might have some scalability issues
+> with per-cpu queues etc, but at the individual driver level, those
+> kinds of concerns tend to not dominate. You want a stress-test setup
+> for testing, but you don't need to worry too much about lots of crazy
+> users.
+>
+> So different areas of the kernel just tend to have different concerns.
+> You can allow people to work more freely on a driver that doesn't
+> affect other things than on something that possibly screws over a lot
+> of other developers.
+>
+> But if we find "models that work", maybe we can at least have
+> processes that look a bit more like each other, even across
+> subsystems.
 
-This is a bit different, in these cases I want to understand if I should
-be applying an additional fix or reverting a patch from stable. The
-sooner we get that information the less known buggy kernels will be
-shipped out.
+Yeah, fully agreed, I think this is the kernel community's real
+strength. It's one overall project on one hand, everyone pushes into
+the exact same directory structure with one overall git history (in
+the end at least, once something has made it to upstream). But zooming
+in, it's very much just a loosely-coupled pile of associated projects;
+each can optimize for their local constraints. HW testing and hacking
+is indeed totally different from core work that affects everyone.
 
+This also ties somewhat into the gitlab discussions: github doesn't
+support this model, and isn't interested in fixing this. gitlab at
+least has made some foundational work in their internals already (how
+they handle the fork tree mostly, since that's the big one), and
+they're interested in exploring how to support something like the
+kernel's git tree flow at a higher level, in their web UI. I wrote
+this entire thing up semi-coherently a while ago on my blog:
+https://blog.ffwll.ch/2017/08/github-why-cant-host-the-kernel.html
 
---
-Thanks,
-Sasha=
+>> That's why I added
+>> "subsystem governance". If there's enough interest on specific topics
+>> we could schedule some BOF sessions, otherwise just hallway track with
+>> interested parties.
+>
+> So what I think would be good is to not talk about some nebulous
+> "community management", but talk about very specific and very real
+> examples of actual technical problems.
+>
+> Partly exactly *because* I think the areas are not all the same, and
+> the friction points are likely *between* these areas that may even
+> have really good reasons to act differently, and mostly they are
+> independent and have little interaction, but then when interaction
+> happens, things don't work well.
+>
+> IOW, if we have the top-level maintainers around, we should have a
+> gripe-fest where people come in and say "Hey, you, look, this
+> *particular* problem has been around for a year now, there's a patch,
+> why did it not get applied"?
+>
+> Don't make it about some nebulous "we could do better as a community".
+>
+> Instead, make it about some very *particular* issue where the process
+> failed. Make it something concrete and practical.
+>
+>    "Look, this patch took a year to get in, for no good reason".
+>
+> Or
+>
+>   "Look, here's a feature that I *tried* to get accepted for a month,
+> nothing happened, so I gave up".
+>
+> And if we have a few of those, maybe we can see a pattern, and perhaps
+> even come up with some suggestion on how to fix some flow.
+>
+> And if people can't come up with particular examples, I don't think
+> it's much worth discussing. At that point it's not productive.
+>
+> We need to name names, show patches, and talk about exactly where and
+> how something broke down.
+
+Yeah, it's much easier to discuss concrete stuff than high-level
+abstract concepts. That's why I listed a bunch of specific things I'm
+interested in. Mostly that's stuff I'm actively working on in areas
+that arent working perfectly in drm. Or at least where things are
+painful enough that we're grasping for anything that looks like it
+might help.
+
+And if no one cares for a specific topic, then we'll best just throw
+it off the agenda instead of having a generic discussion that goes
+nowhere.
+-Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
