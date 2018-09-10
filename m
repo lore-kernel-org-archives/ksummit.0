@@ -1,31 +1,28 @@
 Return-Path: <olof@lixom.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6A8F11027
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 30A731075
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Sep 2018 16:33:14 +0000 (UTC)
-Received: from mail-lj1-f195.google.com (mail-lj1-f195.google.com
-	[209.85.208.195])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A18BC716
+	Mon, 10 Sep 2018 16:40:03 +0000 (UTC)
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
+	[209.85.167.48])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D34B2F1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Sep 2018 16:33:13 +0000 (UTC)
-Received: by mail-lj1-f195.google.com with SMTP id f8-v6so18492158ljk.1
+	Mon, 10 Sep 2018 16:40:01 +0000 (UTC)
+Received: by mail-lf1-f48.google.com with SMTP id i7-v6so17999205lfh.5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Sep 2018 09:33:13 -0700 (PDT)
+	Mon, 10 Sep 2018 09:40:01 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20180910153806.GR16300@sasha-vm>
+In-Reply-To: <CAKMK7uF+RyTVxvg0HyzponA-orENm-n0GiDXr6EDTGSkOFp+FQ@mail.gmail.com>
 References: <CAKMK7uE=FwpPFnvOvuvGBZ0vjh3UMPW=zgSk1dmiyCLQPPuZvg@mail.gmail.com>
 	<CA+55aFyCdGstDu2u11veh3YxabpQrfaPEzuZB2x=eRXpw89prA@mail.gmail.com>
-	<1536592110.4035.5.camel@HansenPartnership.com>
-	<CA+55aFwg+iP-R9=fiJ_uzggiQi39Ce7wO707rPYx7C9BGQ0-Rw@mail.gmail.com>
-	<20180910153806.GR16300@sasha-vm>
+	<CAKMK7uF+RyTVxvg0HyzponA-orENm-n0GiDXr6EDTGSkOFp+FQ@mail.gmail.com>
 From: Olof Johansson <olof@lixom.net>
-Date: Mon, 10 Sep 2018 09:33:09 -0700
-Message-ID: <CAOesGMjoe3XGeAoLhVpY2a-8q0Pgvc2bt9Dt58MYx=ZTuKHZTQ@mail.gmail.com>
-To: Sasha Levin <Alexander.Levin@microsoft.com>
+Date: Mon, 10 Sep 2018 09:39:58 -0700
+Message-ID: <CAOesGMh037Q-yT+FdDCjs=uVET3RQZDPesyEXzH8EABu2GQNzQ@mail.gmail.com>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
 Content-Type: text/plain; charset="UTF-8"
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
  management/subsystem governance
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -37,80 +34,78 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi,
+On Mon, Sep 10, 2018 at 8:31 AM, Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
+> I need to split this up, otherwise I'll get lost on the different
+> sub-topics. I'll start with the easy ones.
 
-On Mon, Sep 10, 2018 at 8:38 AM, Sasha Levin via Ksummit-discuss
-<ksummit-discuss@lists.linuxfoundation.org> wrote:
-> On Mon, Sep 10, 2018 at 05:10:48AM -1000, Linus Torvalds wrote:
->>On Mon, Sep 10, 2018 at 5:08 AM James Bottomley
->><James.Bottomley@hansenpartnership.com> wrote:
->>>
->>> On Mon, 2018-09-10 at 04:53 -1000, Linus Torvalds wrote:
->>> >   "Live without email - possible?"
->>>
->>> Can I propose one small alteration to the topic:
->>>
->>>         "Patches without Email - Possible?"
+Agreed, I probably won't be able to keep up with this whole thread
+this week due to $job, but a few stray comments:
+
+> On Mon, Sep 10, 2018 at 4:53 PM, Linus Torvalds
+> <torvalds@linux-foundation.org> wrote:
+>>> Specific topics I'm interested in:
+>>> - New experiments in group maintainership, and sharing lessons learned
+>>> in general.
 >>
->>Yes, better. That's what I meant anyway.
+>> I think that's good. But again, partly because these kinds of subjects
+>> tend to devolve into too much of a generic overview, may I suggest
+>> again trying to make things very concrete.
 >>
->>I still want the pull requests as email, and I still think email is
->>often the best way to discuss things.
+>> For example, talk about the actual tools you use. Make it tangible. A
+>> couple of years ago the ARM people talked about the way they split
+>> their time to avoid stepping on each other (both in timezones, but
+>> also in how they pass the baton around in general, in addition to
+>> using branches).
+>>
+>> And yes, a lot of it probably ends up being "we didn't actually make
+>> this official or write it up, but we worked enough together that we
+>> ended up doing XYZ". That's fine. That's how real flows develop. With
+>> discussion of what the problems were, and what this solved.
+>>
+>> In other words, make it down to earth. Not the "visionary keynote",
+>> but the "this is the everyday flow".
 >
-> Yes, email is great for discussions, but one concern I have is that once
-> discussions ended and a patch was merged, a lot of those discussions are
-> lost forever.
+> Yup, fully agreed. We don't need another overview over group
+> maintainer ship. Also I don't think an update from arm-soc/tip or drm
+> is interesting either. I think only if there's a new group/subsystem
+> trying this out, with all the nitty-gritty details of "this totally
+> blew up in our faces" and "this worked shockingly well" and "here we
+> need to improve still, we're not happy" is what I'm looking for.
+> Without those details there's nothing really to learn, beyond just
+> rehashing one of the old discussions. I guess I should have put more
+> emphasis on _new_ experiments :-)
 
-It's great for ephemeral discussions of the current patch set, but
-several of your points sort of indicate that it _isn't_ a good
-discussion forum either.
+I'm not interested in standing up and talking about how Arnd and I
+handle things right now, but what I would be really interested in
+talking about is where we still have chafing, where things don't
+actually work great (Linus might be happy, but we're definitely in a
+spot where we could simplify life for _us_ quite a bit).
+
+I'm super excited to hear a bit about the _actual_ plans of gitlab
+move. As mentioned, not a visionary keynote, but others also talking
+about what they're looking at to fix their current pain points.
 
 
->
-> It's somewhat easy to google a patch and look in lkml archives to see
-> some discussion as a result of the patch, but that's far from perfect:
->
-> 1. For different patch revisions, some discussions manage to hide in
-> the archives.
-> 2. Discussions that resulted in a patch being sent aren't linked to the
-> patch itself.
-> 3. Any discussions after the patch was merged aren't easy to locate,
-> specially if they're not in the same thread as the original patch.
->
-> This makes the lives of stable/distro folks more difficult than it
-> should be.
->
-> Yes, some maintainers started adding links to lkml archives, but those
-> are very inconsistent and often just point to the patch submission
-> rather than relevant discussions.
+For us on arm-soc, we've gotten a bit better at reducing our overhead,
+but the bulk of material coming in these days tends to be a no-op from
+us (just figure out that it merges, that we have handshakes with any
+external dependencies or shared branches, and pick it up). We have
+some submaintainers who need more work, and we pay closer attention to
+and have more feedback, but reducing the overhead for some of the
+others by letting them cross-review and merge themselves would be
+useful.
 
-It makes it a pain for me as well. The way we deal with code coming in
-is that very often we don't see patches until they're sent to us in a
-pull request. I look through them (i.e. a light review), and if I find
-something, I'll go look for the patch on the mailing list and reply on
-it.
+I'm also starting to get mildly annoyed by the single-patch pull
+requests that we sometimes get. In some ways, applying patches are
+easier, not harder. For those, the model where "cherry pick when
+merging" in common code review tools would work really well.
 
-If that patch is up at higher versions, there's no way for me to
-easily find all previous discussion about it, which sometimes means I
-will have conflicting feedback from some other maintainer. If it's
-minor feedback that isn't a really big deal, it's better to see the
-other side early on and just not introduce the noise and conflicting
-requests to the contributor.
+> And if nothing changed, no new groups I think think we should table
+> this right away.
 
-Having worked in several corporate setups, none of them are ideal, but
-some of them do fill the gaps we have while they introduce others.
-There is definitely lots of opportunity for better tooling all around.
-
-> I'm not sure what's a good way to solve this, but I'd really like to
-> stop losing this valuable information as a result of the current
-> process.
-
-I think any tool we choose can/should/will have an email backed such
-that email archives could always be a canonical historical fallback.
-Especially for services where URLs to pull requests might not be
-around 5 years from now, etc. We've already gone through a cycle of
-this for email archives recently.
-
+I really want to talk about this, but if there isn't enough interest
+from others, we could just do it in a hallway. But I think the topic
+is on point for the maintainer summit.
 
 
 -Olof
