@@ -1,16 +1,34 @@
-Return-Path: <arndbergmann@gmail.com>
+Return-Path: <SRS0=XBBg=LY=goodmis.org=rostedt@kernel.org>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 23330146F
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 10 Sep 2018 21:46:42 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A6E26102
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 10 Sep 2018 21:46:41 +0000 (UTC)
+Date: Mon, 10 Sep 2018 17:46:38 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <20180910174638.26fff182@vmware.local.home>
+In-Reply-To: <20180910212019.GA32269@roeck-us.net>
+References: <CAKMK7uFO3xiKxa+mEDgEfDx6ZKY7aFPibD1xuK3z-Ybi0Zr3Sw@mail.gmail.com>
+	<20180905101710.73137669@gandalf.local.home>
+	<20180907004944.GD16300@sasha-vm>
+	<CA+55aFwfcNuH4p+rKHuQcgOSt3coT=cN6ZdSG1OKNQ5GTWgoxg@mail.gmail.com>
+	<20180907014930.GE16300@sasha-vm>
+	<CA+55aFz57ASBqAvXnCv4_uZ3niPJjTDdSmOOdyaFeW8gCAwSHQ@mail.gmail.com>
+	<20180907145437.GF16300@sasha-vm>
+	<CA+55aFzp340RDJUDoOGtN5ENgdCSSkksvG0yPt74BgyvTrAE4Q@mail.gmail.com>
+	<20180910194310.GV16300@sasha-vm>
+	<20180910164519.6cbcc116@vmware.local.home>
+	<20180910212019.GA32269@roeck-us.net>
 MIME-Version: 1.0
-References: <trinity-b7dcc7ee-84eb-4ba9-ab94-b2936551a388-1536588284133@3c-app-gmx-bs33>
-	<CACRpkdYk1JKEQ=bumrxRk1eJ97xkQti8E1MRJ_xxen+dZ1a1Xw@mail.gmail.com>
-In-Reply-To: <CACRpkdYk1JKEQ=bumrxRk1eJ97xkQti8E1MRJ_xxen+dZ1a1Xw@mail.gmail.com>
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Mon, 10 Sep 2018 23:40:59 +0200
-Message-ID: <CAK8P3a0a=eAwAg5i6z-5Hs56BXKP3CSsv2383zuMh6TrrDPwug@mail.gmail.com>
-To: Linus Walleij <linus.walleij@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: ksummit <Ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Deprecation / Removal of
- old hardware support
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -20,83 +38,46 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Sep 10, 2018 at 5:35 PM Linus Walleij <linus.walleij@linaro.org> wrote:
+On Mon, 10 Sep 2018 14:20:19 -0700
+Guenter Roeck <linux@roeck-us.net> wrote:
+
+> On Mon, Sep 10, 2018 at 04:45:19PM -0400, Steven Rostedt wrote:
+> > 
+> > The best we can do is make the automated testing of linux-next better
+> > such that there's less -rc5 patches that need to go in in the first
+> > place.
+> >   
+> 
+> Would that help ? -next has been more or less unusable for a week or so.
+> Maybe it is just a bad time (it hasn't been as bad as it is right now
+> for quite some time), but
+> 
+> Build results:
+> 	total: 135 pass: 133 fail: 2
+> Qemu test results:
+> 	total: 315 pass: 112 fail: 203
+> 
+> on next-20180910 doesn't really make me very confident that useful regression
+> tests on -next are even possible. it seems to me that -next is quite often
+> used as dumping ground for sparsely tested changes, and is far from "ready
+> for upstream".
 >
-> On Mon, Sep 10, 2018 at 4:04 PM Peter Huewe <PeterHuewe@gmx.de> wrote:
->
-> > one topic I would like to discuss is: when is it time to remove support for old hardware?
-> > Should we support as much hardware as possible forever, or does it make sense to cut down the support?
-> > If so, when would be appropriate?
->
-> I've been thinking a lot about it. I just recently prepared a talk on the
-> subject.
->
-> My thinking has been something along the lines: if it has active
-> users we don't delete it, by the same token that we don't destroy
-> kernel interfaces that have active users.
->
-> Of course the definition of "users" is a bit complex there. In our
-> opinion the "users" are those who regularly compile new kernels
-> and test them, finds regressions, bisects problems and generally
-> do a good job in the community. Not ranting bloggers.
->
-> By this reasoning it is absolutely forbidden to propose something
-> like to delete arch/m68k (the last CPU M68060 produced in
-> 1994 IIUC) as long as these maintainers put in an honest effort to
-> keep running that kernel on increasingly aging and hard to obtain
-> hardware like Apollo/Domain or Amiga 4000.
->
-> One day the last m68k users stops responding to regressions and
-> then it can be deleted.
 
-When I prepared the series to remove eight unmaintained architectures,
-that is roughly what I did. I also managed to contact at least one
-core developer for each of those architectures (or at least one
-person representing the company owning that IP), and it was all
-done in agreement with them.
+Honestly, I think this is something that Linus should yell at
+maintainers for. I treat my pushes into linux-next the same as I treat
+my pull requests to Linus. I don't push anything into next until it's
+been fully run through my test suite, and passes. That also makes it
+easier for me to know that whatever I have in next is also ready for
+Linus (the way it was suppose to be).
 
-One architecture (unicore32) got saved in the last minute by
-the maintainer saying that he'd rather keep it in tree, despite not
-even having a publicly available toolchain with sources.
+With the 0day bot, I think it's become much better. But honestly, I
+think any branch that causes next to fail to build, or run basic tests,
+should be taken out of linux-next and a nasty message sent to the
+guilty maintainer. With the exception that a breakage was caused by two
+conflicting commits (for example, one that changes an API, and another
+branch that uses that API without the update). Those types of breakages
+is what linux-next is made for. But if the branch being pulled into
+linux-next breaks something without the integration, then that's
+unacceptable.
 
-For architecture support, I don't think we are removing anything
-in the next few years now, but there are two notable categories
-of platform ports that are definitely obsolete, and we may want
-to consider how to manage their remaining lives:
-
-- Server architectures without a future: alpha, parisc, (mostly)
-  ia64, (arguably) sparc are in a similar category as m68k;
-  they are kept alive by enthusiasts that still have the hardware,
-  but nobody in their right minds is putting new workloads on
-  them.
-
-- In some architectures (arm, mips, ppc, sh, m68k), we support
-   many different machines, but only a small number of those
-   machines are actively being used by anyone. We did a big
-   cleanup on ARM a few years ago, and ppc dropped some
-   machines during the conversion to DT, but in some of the
-   others that never happened, and some have died in the
-   meantime (or in some cases died just after they got merged,
-   such as arm/mach-axxia).
-
-Making the correct call on which platforms exactly are dead
-takes a lot of knowledge and work to get right, e.g. you want
-to also remove all hacks in device drivers that were added for
-a platform when that gets removed.
-
-One big problem with removing code in general is that code that
-becomes unmaintained often also has nobody left that knows
-about it being unmaintained.
-
-> My ARMv4 is another example, but I can point at new devices
-> beging deployed as we speak, using that ISA, even though it is
-> from 1999. So it has many active users (and maintainers).
-
-Note that even though gcc is dropping ARMv4 support from new
-compilers, you can still use old toolchains, and there are tricks to
-make ARMv4T binary code work on ARMv4. However, if gcc
-ever stops supporting ARMv4T, this becomes a problem. My guess
-is that will take another 10 years though, and we might have
-removed some or all of the individual ARMv4 platforms by then.
-
-      Arnd
+-- Steve
