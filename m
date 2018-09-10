@@ -1,25 +1,28 @@
 Return-Path: <mchehab+samsung@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 82006CC6
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 83318CD5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Sep 2018 12:28:22 +0000 (UTC)
+	Mon, 10 Sep 2018 12:51:37 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 059F9766
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1FE28782
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Sep 2018 12:28:21 +0000 (UTC)
-Date: Mon, 10 Sep 2018 09:28:14 -0300
+	Mon, 10 Sep 2018 12:51:37 +0000 (UTC)
+Date: Mon, 10 Sep 2018 09:51:23 -0300
 From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-To: Kees Cook <keescook@chromium.org>
-Message-ID: <20180910092814.085dcebd@coco.lan>
-In-Reply-To: <CAGXu5jKQJfeOmTRBXB7ofW1iH6FNGROnSZzYdpG=H_Hu8zep=w@mail.gmail.com>
+To: Jani Nikula <jani.nikula@intel.com>
+Message-ID: <20180910095123.4d83fd9c@coco.lan>
+In-Reply-To: <87r2i5y6n6.fsf@intel.com>
 References: <CAGXu5j+-X6WQNdTYK2ZA5OOJgc0RfCq9Gr9WRAMkYTSQOT7QdQ@mail.gmail.com>
 	<20180906094158.1eba4f50@canb.auug.org.au>
 	<20180905222437.5d2a1730@vmware.local.home>
 	<CAGXu5jKfbVUcyGu6U1dVR8dKjGK0sY7=pLdmYXUC9_G8KmgZ0A@mail.gmail.com>
 	<20180907091842.6c55bd9a@canb.auug.org.au>
 	<CAGXu5jKQJfeOmTRBXB7ofW1iH6FNGROnSZzYdpG=H_Hu8zep=w@mail.gmail.com>
+	<s5h36ulrdps.wl-tiwai@suse.de> <87zhwtybr3.fsf@intel.com>
+	<alpine.DEB.2.20.1809071135090.3036@hadrien>
+	<87r2i5y6n6.fsf@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
@@ -35,57 +38,33 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Em Thu, 6 Sep 2018 16:24:03 -0700
-Kees Cook <keescook@chromium.org> escreveu:
+Em Fri, 07 Sep 2018 12:54:37 +0300
+Jani Nikula <jani.nikula@intel.com> escreveu:
 
-> On Thu, Sep 6, 2018 at 4:18 PM, Stephen Rothwell <sfr@canb.auug.org.au> wrote:
-> > Hi Kees,
-> >
-> > On Thu, 6 Sep 2018 11:24:11 -0700 Kees Cook <keescook@chromium.org> wrote:  
-> >>
-> >> If there was an agreement by all maintainers that deprecated
-> >> functions/patterns should not be added, and we documented the
-> >> deprecation somewhere like Documentation/process/deprecated.rst, then
-> >> we could make the declaration that if such functions got added (it's
-> >> easy to mechanically check for them), it would be the responsibility
-> >> of the author and maintainer chain to see that it got fixed before the
-> >> release is cut. We already have this for things like "breaks the x86
-> >> allmodconfig build" or similar. The checking would be manual, and the
-> >> enforcement would be by agreement, but it'd be better than the kind of
-> >> "please don't do this" hand-waving we've had in the past.  
-> >
-> > I could do this in linux-next, of course, the same way I check for
-> > missing signed-off-bys.  All I would need is the list of deprecated
-> > things.  
+> On Fri, 07 Sep 2018, Julia Lawall <julia.lawall@lip6.fr> wrote:
+> > I came up with the following Coccinelle semantic patch.  The advantage is
+> > that it can also give a hint as to what should be done.  The intent is
+> > that it should be easily extensible.  
 > 
-> Hopefully we can all agree on deprecating strcpy() and strncpy() in
-> favor of strscpy()?
+> The only real downside that I can see is that it centralizes the
+> deprecation information in the semantic patch instead of the functions
+> themselves.
 
-I suspect that that's the way to go for most use cases.
+While both works, the __deprecated markup at the header looks
+better for me, as it makes easier to check inside a header file
+what's deprecated. Also, it helps avoiding conflicts.
 
-In the case of media, I double-checked: 100% of the usages can be
-replaced by strscpy() [1]. I just sent a patchset for review with
-such changes.
+Anyway, if we either use Coccinelle or __deprecated, I doubt that
+most people will remember to add a:
+	-D__deprecated=__attribute__((deprecated))
+or to call a coccinelle script to do such checks, even if properly
+documented.
 
-[1] doing a:
-	
-$ git grep -E "str.?cpy" drivers/media drivers/staging/media/ |grep -v strscpy
+IMHO, whatever solution, the best would be to have a makefile
+target equivalent to allmodconfig and allyesconfig that would 
+add such extra maintainership logic.
 
-after this patchset, we have one case of strncpy_from_user(), 
-at av7110:
 
-		if (strncpy_from_user(textbuf, dc->data, 240) < 0) {
-			ret = -EFAULT;
-			break;
-		}
-		textbuf[239] = 0;
-
-The above code seems OK, so no real need to change.
-
-Yet, there are 104 occurrences of strncpy_from_user(). If they
-all do something similar, it could make sense to have a 
-strscpy_from_user() function. If you're willing to do so, 
-feel free to also convert av7110 to it.
 
 Thanks,
 Mauro
