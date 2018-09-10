@@ -1,32 +1,27 @@
-Return-Path: <daniel.vetter@ffwll.ch>
+Return-Path: <laurent.pinchart@ideasonboard.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 571EF128F
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 092011377
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Sep 2018 20:50:52 +0000 (UTC)
-Received: from mail-io0-f175.google.com (mail-io0-f175.google.com
-	[209.85.223.175])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BDA95766
+	Mon, 10 Sep 2018 20:51:27 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+	[213.167.242.64])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 46F21766
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Sep 2018 20:50:51 +0000 (UTC)
-Received: by mail-io0-f175.google.com with SMTP id q4-v6so1806989iob.8
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Sep 2018 13:50:51 -0700 (PDT)
+	Mon, 10 Sep 2018 20:51:26 +0000 (UTC)
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Tim.Bird@sony.com
+Date: Mon, 10 Sep 2018 23:51:35 +0300
+Message-ID: <41546152.LJFTXF7tbj@avalon>
+In-Reply-To: <ECADFF3FD767C149AD96A924E7EA6EAF7C1DEDA0@USCULXMSG01.am.sony.com>
+References: <s5hbm9ccbie.wl-tiwai@suse.de> <2330245.LW6OXaHVC6@avalon>
+	<ECADFF3FD767C149AD96A924E7EA6EAF7C1DEDA0@USCULXMSG01.am.sony.com>
 MIME-Version: 1.0
-In-Reply-To: <4225967.GZjQHerNMI@avalon>
-References: <CAKMK7uE=FwpPFnvOvuvGBZ0vjh3UMPW=zgSk1dmiyCLQPPuZvg@mail.gmail.com>
-	<20180910154738.GA3712@chatter>
-	<CAKMK7uFyW-Xfhe1mWESjrcVzPzKzKEJr8BibUPPLgBTWbTSATA@mail.gmail.com>
-	<4225967.GZjQHerNMI@avalon>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Mon, 10 Sep 2018 22:50:50 +0200
-Message-ID: <CAKMK7uFLMqS2btMQSdKPFjiUZHi8K7uvZxpni0TfCxkT29=tMw@mail.gmail.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
- management/subsystem governance
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: mchehab+samsung@kernel.org, ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] How can we treat staging
+	drivers better?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,47 +31,94 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Sep 10, 2018 at 9:48 PM, Laurent Pinchart
-<laurent.pinchart@ideasonboard.com> wrote:
-> Hi Daniel,
->
-> On Monday, 10 September 2018 19:07:35 EEST Daniel Vetter wrote:
->> On Mon, Sep 10, 2018 at 5:47 PM, Konstantin Ryabitsev wrote:
->> > On Mon, Sep 10, 2018 at 03:38:07PM +0000, Sasha Levin wrote:
->> >> Yes, some maintainers started adding links to lkml archives, but those
->> >> are very inconsistent and often just point to the patch submission
->> >> rather than relevant discussions.
->> >>
->> >> I'm not sure what's a good way to solve this, but I'd really like to
->> >> stop losing this valuable information as a result of the current
->> >> process.
->> >
->> > This is partly the goal behind cregit:
->> >
->> > https://cregit.linuxsources.org/
->> >
->> > The plan is that the next version of cregit will become an official
->> > kernel.org resource some time mid-next year, and will aggregate as much
->> > information about the kernel code as it can from various places, including
->> > patchwork.
->>
->> Assuming we do indeed switch some parts of the drm process over to
->> gitlab (very big assumption here), whom would we need to chat with to
->> do that?
->
-> Could you elaborate on what that means exactly ? For most subsystems the
-> development process encompasses a large number of tasks, so switching to
-> gitlab doesn't mean much without knowing exactly how the new process would
-> look like. Which part(s) of the development process would be affected, and how
-> ? And as an added bonus, it would be helpful if you could also describe why
-> you think they don't work today and would be better handled differently.
+Hi Tim,
 
-Let's move all the "how to gitab, or can we live without email?"
-discussions in the other part of this thread. This here was just a
-quick question about cregit (and I already regret that I mentioned
-gitlab here, it seems to somewhat distract).
--Daniel
+On Monday, 10 September 2018 22:22:05 EEST Tim.Bird@sony.com wrote:
+> > On Monday, 10 September 2018 21:52:30 EEST Takashi Iwai wrote:
+> >> On Fri, 07 Sep 2018 21:44:54 +0200, Mauro Carvalho Chehab wrote:
+> >>> Em Wed, 05 Sep 2018 15:35:53 +0200 Takashi Iwai escreveu:
+> >>>> The staging driver is a wonderful process to promote the downstream
+> >>>> code to the upstream, but I have doubt whether it's working really
+> >>>> as expected for now.
+> >>>> 
+> >>>> - Often the drivers live forever in staging although they should
+> >>>>   have been moved to the upper, properly maintained, subsystems.
+> >>>> 
+> >>>> - Code changes in staging are mostly only scratching surfaces, minor
+> >>>>   code style cleanups, etc, what checkpatch suggests.
+> >>>> 
+> >>>> - There are little communications with the corresponding subsystem;
+> >>>>   already a few times I was surprised by casually finding a staging
+> >>>>   driver code by grepping for preparing API changes.
+> 
+> ...
+> 
+> >>>> - Then some drivers are pushed back after long time stay in staging
+> >>>>   (lustre is the recent remarkable case);
+> >>>>   it's understandable, but is definitely no happy end in both sides,
+> >>>>   after all.
+> >>> 
+> >>> We had a recent case: the (really big) atomisp driver.
+> >> 
+> >> What was the reason of drawback, BTW?
+> > 
+> > Intel pushed a huge code drop that clearly required a staging period, and
+> > then simply left it bitrot. No developer was committed to perform the work
+> > needed to de-stage the driver. I don't know whether priorities had changed
+> > internally or if there were no resources from day 1, but in the end it's
+> > pretty clear that if we had known beforehand of the outcome, the driver
+> > would likely not have been even a staging candidate.
+> > 
+> >> I think it'd be helpful if we can gather more data, e.g. good examples
+> >> to show how it can succeed, as well as anti-patterns to learn what
+> >> makes things failing.
+> > 
+> > Anti-pattern number one: push a large driver to staging knowing that you
+> > won't work on it anymore, and expect the community to do your work for
+> > free.
+> > 
+> > I would have expected a company like Intel to know better. Or, rather
+> > sadly, I probably have given up on such expectations already :-S
+> 
+> I thought staging was where work was done on drivers that were submitted
+> to Greg's Free Linux Driver project (https://lkml.org/lkml/2007/1/29/345)
+> (among other things).
+> 
+> Is that project still active?  Do things still move through staging as
+> originally intended?  Am I conflating two different things?
+
+I'll let Greg answer.
+
+> I'm not sure if Intel's driver qualifies as a Free Linux Driver project or
+> not.
+
+$ git show a49d25364dfb | diffstat -s
+ 920 files changed, 204645 insertions(+)
+
+That may be part of the answer :-)
+
+> I can think of other companies, less experienced with kernel work than
+> Intel, that might still benefit from the Free Linux Driver project, and
+> staging.
+> 
+> I thought the whole idea of staging was that something was better than
+> nothing, and that cruddy code could be taken even if the hardware vendor
+> didn't have the skills or inclination to do proper mainlining.
+
+I'd say that in that case staging doesn't work for the company's benefit, but 
+for the community's benefit. For smaller drivers that are deemed useful by the 
+community, when the company manufacturing the hardware isn't helpful 
+(regardless of the reason, I'm not trying to blame anyone here), and if there 
+are community members willing and able to do the work, staging is certainly 
+helpful, and better than nothing. For a 200k+ lines of code driver in a very 
+bad state to start with, I can't really picture how anything could be done in 
+someone's free time.
+
+I don't know how the atomisp ended up in staging and whether it was an attempt 
+from Intel to tick a "upstream driver" box or not, but one thing that is clear 
+is that they haven't put the necessary resources behind it.
+
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-+41 (0) 79 365 57 48 - http://blog.ffwll.ch
+Regards,
+
+Laurent Pinchart
