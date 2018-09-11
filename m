@@ -1,33 +1,35 @@
-Return-Path: <tglx@linutronix.de>
+Return-Path: <SRS0=zQUY=LZ=goodmis.org=rostedt@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 43BB914B5
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 20CDC1287
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Sep 2018 20:15:19 +0000 (UTC)
-Received: from Galois.linutronix.de (Galois.linutronix.de [146.0.238.70])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A97B87E5
+	Tue, 11 Sep 2018 20:31:40 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 73AA8716
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Sep 2018 20:15:18 +0000 (UTC)
-Date: Tue, 11 Sep 2018 22:15:14 +0200 (CEST)
-From: Thomas Gleixner <tglx@linutronix.de>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-In-Reply-To: <CAKMK7uEhoQ_bq9u3fJu-9PrpEH1iJWqBHbDDS9_LJ0tg8mmA_g@mail.gmail.com>
-Message-ID: <alpine.DEB.2.21.1809112131540.1427@nanos.tec.linutronix.de>
-References: <20180907004944.GD16300@sasha-vm>
-	<CA+55aFwfcNuH4p+rKHuQcgOSt3coT=cN6ZdSG1OKNQ5GTWgoxg@mail.gmail.com>
-	<20180907014930.GE16300@sasha-vm>
-	<CA+55aFz57ASBqAvXnCv4_uZ3niPJjTDdSmOOdyaFeW8gCAwSHQ@mail.gmail.com>
+	Tue, 11 Sep 2018 20:31:39 +0000 (UTC)
+Date: Tue, 11 Sep 2018 16:31:36 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Message-ID: <20180911163136.1d6653a6@vmware.local.home>
+In-Reply-To: <1536696572.3511.12.camel@HansenPartnership.com>
+References: <CA+55aFz57ASBqAvXnCv4_uZ3niPJjTDdSmOOdyaFeW8gCAwSHQ@mail.gmail.com>
 	<20180907145437.GF16300@sasha-vm>
 	<CA+55aFzp340RDJUDoOGtN5ENgdCSSkksvG0yPt74BgyvTrAE4Q@mail.gmail.com>
 	<20180910194310.GV16300@sasha-vm>
 	<20180910164519.6cbcc116@vmware.local.home>
 	<20180910212019.GA32269@roeck-us.net>
-	<20180911111853.GB8018@sirena.org.uk>
-	<20180911170212.GC8284@roeck-us.net>
-	<20180911144538.3ceecd8d@vmware.local.home>
-	<CAKMK7uEhoQ_bq9u3fJu-9PrpEH1iJWqBHbDDS9_LJ0tg8mmA_g@mail.gmail.com>
+	<20180910174638.26fff182@vmware.local.home>
+	<20180910230301.GB1764@localhost.localdomain>
+	<20180910191329.70f90a14@vmware.local.home>
+	<20180911114227.241f2e5d@vmware.local.home>
+	<20180911174043.GK5659@atomide.com>
+	<1536688022.3511.5.camel@HansenPartnership.com>
+	<20180911143923.11e479ea@vmware.local.home>
+	<1536696572.3511.12.camel@HansenPartnership.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -39,37 +41,76 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, 11 Sep 2018, Daniel Vetter wrote:
-> and yelling the report will cause. Note: There's also other reasons we
-> have patches in our local fixup tree, so don't go looking there now
-> and shredding the involved subsystem maintainers, pls.
+On Tue, 11 Sep 2018 16:09:32 -0400
+James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
 
-I nevertheless went to look just to see what touches my areas of
-interest. And interestingly I found two patches which I looked at before
-and both were discussed on the mailing list in civilized ways. Both ended
-up with recommendations and requests for change from reviewers and then
-nada.
+> On Tue, 2018-09-11 at 14:39 -0400, Steven Rostedt wrote:
+> > On Tue, 11 Sep 2018 10:47:02 -0700
+> > James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
+> > =C2=A0 =20
+> > > I really don't think that helps.=C2=A0=C2=A0The 0day mailing list bot=
+ seems
+> > > to be a bit overloaded and about 80% of the automation isn't run
+> > > *unless* =20
+> >=20
+> > Really? I get reports on my branches about a lot of issues without
+> > ever pushing it to next. Maybe I lucked out and these issues were
+> > caught by the 20%.
+> >=20
+> > When I have a branch ready to test, I push it to my local branch on
+> > kernel.org and then kick off my own test suite. I like to see which
+> > one will catch any bugs first. I usually get a response from 0day and
+> > a couple of hours later my tests will fail with the same error. Thus
+> > I found 0day to be quite efficient. =20
+>=20
+> I treat -next as the integration tree: I push to it when we're ready to
+> integrate.  I don't think that's unreasonable and I do see it being
+> unreasonable to impose a delay on this process.
 
-One is an enhancement and the other is a bug fix. I dont care about the
-former too much other than having wasted time for reviewing it and thinking
-about a cleaner solution. That happens and I know that everyone is
-overworked.
+I believe that's exactly what -next is for. Integration with
+development from other sub systems.
 
-But for the bug fix I really have to ask _WHY_ this is carried in some
-random drm branch and not followed up for more than 18 month. The
-maintainer in question was obviously putting it aside and waiting for the
-review comment to be addressed and then forgot about it, but you cannot
-have forgotten about it because you or whoever is in charge of that tree
-rebased it a gazillion of times.
+>=20
+> > > your branch hits -next.=C2=A0=C2=A0Our criterion for -next queueing i=
+s local
+> > > tests pass, code inspection complete and 0day ML didn't complain.=C2=
+=A0
+> > > However, we still get quite a few reports from the -next automated
+> > > testing even after our local stuff.=C2=A0=C2=A0I really don't see what
+> > > delaying into -next buys you except delaying finding and fixing
+> > > bugs. =20
+> >=20
+> > But you state you have your own local tests, which I think could be
+> > enough of a requirement. Although running allmod and allyes should be
+> > part of a local test, but I think 0day does that too (as that's
+> > usually the test that fails most often that 0day catches first). =20
+>=20
+> So when local tests are complete we're ready for integration.
 
-There is another fix which has a similar fate, which has a bugzilla entry
-updated a few days ago telling the world that the fix is not upstreamed
-yet, but now documented in the BZ so everyone can find it.
+If your local tests catch most common bugs. (testing on non-SMP,
+x86_32, and other non-common cases where things can break).
 
-Nothing of this has to do with the 'oh I gave up on talking to those people
-because they are so hard to work with' AFAICT. So what are you trying to
-tell us here?
+>=20
+> > > This applies to 0day as well, because, by agreement, it has a much
+> > > deeper set of xfstest runs for branches we actually queue for -next
+> > > rather than the more cursory set of tests it runs on ML patches. =20
+> >=20
+> > What about the tests on local branches? Not what you post to the ML. =20
+>=20
+> I don't really see any point having a local -pre-next pass and hoping
+> 0day will find it.  It's much more valuable (and faster) to push to
+> -next and have all the integrated tests work on it once we've done
+> everything we can locally.
 
-Thanks,
+Why not do what I do and push to a -pre-next branch when you kick off
+your local tests? Then perhaps 0day may catch something you introduced
+before it heads off to -next. -next is about catching bugs due to
+integration with other sub systems, it shouldn't be used to catch bugs
+that could have been caught without the integration.
 
-	tglx
+Kind of like if you give blood in the US. There's a note that tells you
+to not use blood donation as a way to get tested for a particular
+disease. Just get tested for it before giving blood and possibly
+infecting others.
+
+-- Steve
