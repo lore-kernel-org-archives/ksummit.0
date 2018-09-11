@@ -1,37 +1,35 @@
-Return-Path: <arndbergmann@gmail.com>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id EAFA2FB0
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8FB9DBA9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Sep 2018 11:08:24 +0000 (UTC)
-Received: from mail-qk1-f194.google.com (mail-qk1-f194.google.com
-	[209.85.222.194])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E0899786
+	Tue, 11 Sep 2018 11:18:57 +0000 (UTC)
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+	[172.104.155.198])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1443A7AF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Sep 2018 11:08:23 +0000 (UTC)
-Received: by mail-qk1-f194.google.com with SMTP id j7-v6so16423393qkd.13
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Sep 2018 04:08:23 -0700 (PDT)
+	Tue, 11 Sep 2018 11:18:57 +0000 (UTC)
+Date: Tue, 11 Sep 2018 12:18:53 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <20180911111853.GB8018@sirena.org.uk>
+References: <20180905101710.73137669@gandalf.local.home>
+	<20180907004944.GD16300@sasha-vm>
+	<CA+55aFwfcNuH4p+rKHuQcgOSt3coT=cN6ZdSG1OKNQ5GTWgoxg@mail.gmail.com>
+	<20180907014930.GE16300@sasha-vm>
+	<CA+55aFz57ASBqAvXnCv4_uZ3niPJjTDdSmOOdyaFeW8gCAwSHQ@mail.gmail.com>
+	<20180907145437.GF16300@sasha-vm>
+	<CA+55aFzp340RDJUDoOGtN5ENgdCSSkksvG0yPt74BgyvTrAE4Q@mail.gmail.com>
+	<20180910194310.GV16300@sasha-vm>
+	<20180910164519.6cbcc116@vmware.local.home>
+	<20180910212019.GA32269@roeck-us.net>
 MIME-Version: 1.0
-References: <CAGXu5j+-X6WQNdTYK2ZA5OOJgc0RfCq9Gr9WRAMkYTSQOT7QdQ@mail.gmail.com>
-	<20180906094158.1eba4f50@canb.auug.org.au>
-	<20180905222437.5d2a1730@vmware.local.home>
-	<CAGXu5jKfbVUcyGu6U1dVR8dKjGK0sY7=pLdmYXUC9_G8KmgZ0A@mail.gmail.com>
-	<20180907091842.6c55bd9a@canb.auug.org.au>
-	<CAGXu5jKQJfeOmTRBXB7ofW1iH6FNGROnSZzYdpG=H_Hu8zep=w@mail.gmail.com>
-	<s5h36ulrdps.wl-tiwai@suse.de> <87zhwtybr3.fsf@intel.com>
-	<alpine.DEB.2.20.1809071135090.3036@hadrien>
-	<87r2i5y6n6.fsf@intel.com> <20180910095123.4d83fd9c@coco.lan>
-	<87ftyg315d.fsf@intel.com> <20180911063436.2f6d696e@coco.lan>
-In-Reply-To: <20180911063436.2f6d696e@coco.lan>
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Tue, 11 Sep 2018 13:08:03 +0200
-Message-ID: <CAK8P3a1r0Ufr9Vsf1qZ4L1UFFCjgQjEfASsVFCCq6hrf7RsbfQ@mail.gmail.com>
-To: mchehab+samsung@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] API
-	replacement/deprecation
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="bCsyhTFzCvuiizWE"
+Content-Disposition: inline
+In-Reply-To: <20180910212019.GA32269@roeck-us.net>
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,66 +39,63 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Sep 11, 2018 at 11:35 AM Mauro Carvalho Chehab
-<mchehab+samsung@kernel.org> wrote:
->
-> Em Tue, 11 Sep 2018 11:10:22 +0300
-> Jani Nikula <jani.nikula@intel.com> escreveu:
->
-> > On Mon, 10 Sep 2018, Mauro Carvalho Chehab <mchehab+samsung@kernel.org> wrote:
-> > > IMHO, whatever solution, the best would be to have a makefile
-> > > target equivalent to allmodconfig and allyesconfig that would
-> > > add such extra maintainership logic.
-> >
-> > There's 'make W=n' for enabling extra gcc checks. Seems like a good fit.
->
-> I wouldn't mess with W. On media, we work to have zero warnings with W=1.
-> However, W=2 (and W=3) is almost unusable: lots of complains about
-> signed/unsigned mix and other things that usually are ok. With gcc 8,
-> the amount of warnings with W=2/W=3 at core kAPI functions makes them
-> useless.
->
-> People will very likely ignore or miss deprecated stuff if we
-> place it as W=4.
->
-> Perhaps we could add a D=1, in order to point for deprecated stuff.
 
-I don't like the idea of adding another dimension with D=1, but I'm all for
-reviewing the sets of warnings we enable at W=2/W=3  and possibly
-introducing a W=4.
+--bCsyhTFzCvuiizWE
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I've done some research on this in the past, and can probably do that
-again (not sure how valuable my old data still is).
-https://github.com/Barro/compiler-warnings has a list of warnings
-for all compiler releases we support, and some categorizations.
+On Mon, Sep 10, 2018 at 02:20:19PM -0700, Guenter Roeck wrote:
 
-I would like to add a line for each of those warnings in
-include/linux/compiler-warnings.h with the compiler version that
-introduced it and the warning level we want to have it enabled at,
-plus some comment about why that level. We can start with the
-status quo (listing the level that each warning is currently
-enabled at) and then do changes based on the output of
-'make W=123', which I'm sure immediately shows some that
-are misclassified based on the number of warnings they produce
-for randconfig and allmodconfig builds.
+> Would that help ? -next has been more or less unusable for a week or so.
+> Maybe it is just a bad time (it hasn't been as bad as it is right now
+> for quite some time), but
 
-The definitions that I'd use for the levels would be (close to the
-current definition)
+> Build results:
+> 	total: 135 pass: 133 fail: 2
+> Qemu test results:
+> 	total: 315 pass: 112 fail: 203
 
-W=0 (default): -Wall warnings and some -Wextra warnings that
-      have zero known false positives
-W=1: Most -Wextra warnings, plus everything from -Wall
-      that didn't make it into W=0
-W=2: clang -Wmost and the the gcc equivalent, as long as
-     they are useful in the kernel context. There should be no
-     warnings in common header files
-W=3: clang -Weverything warnings and the gcc equivalent,
-     including very noisy ones, but still only the ones that make
-     sense for the kernel.
+> on next-20180910 doesn't really make me very confident that useful regres=
+sion
+> tests on -next are even possible. it seems to me that -next is quite often
+> used as dumping ground for sparsely tested changes, and is far from "ready
+> for upstream".
 
-I think being able to warn for deprecated functions would fit
-into W=1 or W=2 if we want to bring that back, though given that
-Linus just removed __deprecated with prejudice, I wouldn't
-invest any work into that part myself.
+I suspect this is something where if someone starts consistently
+reporting test results things will get a lot better if someone
+consistently reports test results and chases people to fix problems.  I
+expect it to go like builds - used to see huge numbers of build and boot
+failures in -next, and even in mainline, but ever since people started
+actively pushing on them the results have got much better to the point
+where it's the exeception rather than the rule.  You can see it
+happening if you look at the build error/warning results from releases
+over a few years (stable doesn't show it so clearly any more as a lot of
+these fixes got backported there).
 
-        Arnd
+FWIW kernelci isn't nearly so bad on -next today - only four build
+failures from the configurations it tests (someone managed to break
+arm64) and the boot tests are clean apart from one board that's been
+having what look like intermittent board specific issues. =20
+
+   https://kernelci.org/boot/all/job/next/branch/master/kernel/next-2018091=
+1/
+
+No testsuites run there though.
+
+--bCsyhTFzCvuiizWE
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAluXpJ0ACgkQJNaLcl1U
+h9BWqwf7BeJsVVBVsK3ivFdU3LF+xwQlD4TrgfFMRr0/3VZohwSLCvFfIKbTiO0m
+7COjpiv/e6MEtM5mJsf5tT7g4Sb40lUCfWUgXdmWyASlX99v2dWs0C5DYiM34SSd
+8p+BtHGfgw4veXnB/Jn9fFi2a/IjLVh0vzneiroDgOToLufj56ckycbaPfuVWXQ9
+ZYVmDqyUFwohA05GJtZPCFNgDt3S04gAa2dKD4qXi5EgdZc4RKDb1Oh6113b4q+L
+AzG7s5KHgBRW7SR5ckCAzcKvm9EEmNouaJC5RkqmFIr3hF8IWdkkyA2L+w4igfTe
+ElcEgLtTYV7r9XOhkW9dFAS1pJCn2A==
+=r0RB
+-----END PGP SIGNATURE-----
+
+--bCsyhTFzCvuiizWE--
