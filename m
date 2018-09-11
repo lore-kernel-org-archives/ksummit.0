@@ -1,22 +1,38 @@
-Return-Path: <lukma@denx.de>
-Date: Tue, 11 Sep 2018 11:37:25 +0200
-From: Lukasz Majewski <lukma@denx.de>
-To: Linus Walleij <linus.walleij@linaro.org>
-Message-ID: <20180911113725.5d91b945@jawa>
-In-Reply-To: <CACRpkdYi66Lgq7OAGchQyfqEUUGVKV9m3YzL6t_nS+Hm0G2rRg@mail.gmail.com>
-References: <trinity-b7dcc7ee-84eb-4ba9-ab94-b2936551a388-1536588284133@3c-app-gmx-bs33>
-	<CACRpkdYk1JKEQ=bumrxRk1eJ97xkQti8E1MRJ_xxen+dZ1a1Xw@mail.gmail.com>
-	<CAK8P3a0a=eAwAg5i6z-5Hs56BXKP3CSsv2383zuMh6TrrDPwug@mail.gmail.com>
-	<CACRpkdYi66Lgq7OAGchQyfqEUUGVKV9m3YzL6t_nS+Hm0G2rRg@mail.gmail.com>
+Return-Path: <groeck7@gmail.com>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id DD4B7DB8
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 11 Sep 2018 16:49:40 +0000 (UTC)
+Received: from mail-pf1-f194.google.com (mail-pf1-f194.google.com
+	[209.85.210.194])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E3C74716
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 11 Sep 2018 16:49:39 +0000 (UTC)
+Received: by mail-pf1-f194.google.com with SMTP id u24-v6so12505375pfn.13
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 11 Sep 2018 09:49:39 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Tue, 11 Sep 2018 09:49:38 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Stephen Rothwell <sfr@canb.auug.org.au>
+Message-ID: <20180911164938.GB8284@roeck-us.net>
+References: <20180907004944.GD16300@sasha-vm>
+	<CA+55aFwfcNuH4p+rKHuQcgOSt3coT=cN6ZdSG1OKNQ5GTWgoxg@mail.gmail.com>
+	<20180907014930.GE16300@sasha-vm>
+	<CA+55aFz57ASBqAvXnCv4_uZ3niPJjTDdSmOOdyaFeW8gCAwSHQ@mail.gmail.com>
+	<20180907145437.GF16300@sasha-vm>
+	<CA+55aFzp340RDJUDoOGtN5ENgdCSSkksvG0yPt74BgyvTrAE4Q@mail.gmail.com>
+	<20180910194310.GV16300@sasha-vm>
+	<20180910164519.6cbcc116@vmware.local.home>
+	<20180910212019.GA32269@roeck-us.net>
+	<20180911104339.46143f61@canb.auug.org.au>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	boundary="Sig_/YxXvblU3AsRXkNJ13QQUifZ";
-	protocol="application/pgp-signature"
-Cc: Ksummit-discuss@lists.linuxfoundation.org,
-	Jonas Jensen <jonas.jensen@gmail.com>,
-	Alexander Sverdlin <alexander.sverdlin@gmail.com>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Deprecation / Removal of
- old hardware support
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20180911104339.46143f61@canb.auug.org.au>
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -26,127 +42,41 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---Sig_/YxXvblU3AsRXkNJ13QQUifZ
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
-
-Hi Linus,
-
-> Including Alexander Sverdlin, Lukasz Majewski  and Jonas
-> Jensen here, they may or may not be able to share some of
-> their industrial IoT experience. (Contract terms with vendors
-> may make it necessary to stay silent sometimes.)
-
-Thank you for putting me on CC.
-
->=20
-> On Mon, Sep 10, 2018 at 11:41 PM Arnd Bergmann <arnd@arndb.de> wrote:
-> > On Mon, Sep 10, 2018 at 5:35 PM Linus Walleij
-> > <linus.walleij@linaro.org> wrote: =20
->=20
-> > > My ARMv4 is another example, but I can point at new devices
-> > > beging deployed as we speak, using that ISA, even though it is
-> > > from 1999. So it has many active users (and maintainers). =20
+On Tue, Sep 11, 2018 at 10:43:39AM +1000, Stephen Rothwell wrote:
+> Hi Guenter,
+> 
+> On Mon, 10 Sep 2018 14:20:19 -0700 Guenter Roeck <linux@roeck-us.net> wrote:
 > >
-> > Note that even though gcc is dropping ARMv4 support from new
-> > compilers, you can still use old toolchains, and there are tricks to
-> > make ARMv4T binary code work on ARMv4. However, if gcc
-> > ever stops supporting ARMv4T, this becomes a problem. My guess
-> > is that will take another 10 years though, and we might have
-> > removed some or all of the individual ARMv4 platforms by then. =20
->=20
-> ARMv4 is becoming a trouble, not that it is hard to maintain,
-> actually we're on top of things there. The problem is that among
-> the FA526 systems from Faraday and the ARMv4T in EP93xx
-> there are very serious IoT deployments that have been going
-> on for soon 15 years and continuing.
+> > On Mon, Sep 10, 2018 at 04:45:19PM -0400, Steven Rostedt wrote:
+> > > 
+> > > The best we can do is make the automated testing of linux-next better
+> > > such that there's less -rc5 patches that need to go in in the first
+> > > place.
+> > >   
+> > 
+> > Would that help ? -next has been more or less unusable for a week or so.
+> > Maybe it is just a bad time (it hasn't been as bad as it is right now
+> > for quite some time), but
+> > 
+> > Build results:
+> > 	total: 135 pass: 133 fail: 2
+> > Qemu test results:
+> > 	total: 315 pass: 112 fail: 203
+> 
+> I assume that most of that is the mount api changes.  I also assume you
+> have reported these?
+> 
+I think so. I just noticed that the failure pattern changed yesterday,
+and did not have time to run bisect. So, no, I have not reported this
+specific failure.
 
-The ARMv4T shall be supported. The 15 years may be a bare minimum for
-some "heavy duty/industrial" systems...
-
-It may happen that the same HW (certified already) will be used for 30+
-years (with the SW BSP replaced a few times).
-
->=20
-> New MOXA ART ARMv4 FA526 systems are being deployed
-> in buildings across the planet as we speak. They just replaced
-> one in the office block where I sit, that is how I got to know.
->=20
-> These are mostly for ventilation and
-> similar systems but also heavy duty from Liebherr controlling
-> unspecified hydraulic systems. The ventilation systems are
-> definately Internet-connected, I don't know about the others.
-
-The "unspecified hydraulic systems" do have a way to update the SW
-(which is already done).
-
->=20
-> These pose an increasing security threat, and for that reason
-> I personally feel it is irresponsible to remove the option to
-> create new kernels and upgrade these devices.
-
-Frankly speaking the possibility to have the new kernel in a relatively
-easy (and cheap) way was a strong motivator to add support to mainline.
-
->=20
-> I think for depreciation one has to be aware that some archs
-> used in IoT deployments have life cycles of 20-30 or more years,
-> whereas some tablet or handset SoCs may be something like
-> 5 years maximum before maintainers get annoyed that you
-> even use them.
->=20
-> Sometimes I get the feeling that people focused on desktops
-> or servers suffer from velocitate (speed blindness) and think
-> everybody is like them. (Well don't we all.)
-
-I do must agree here. In general ARM9 (v4T) will stay with us for a
-long, long time.
-
-In the kernel community we pose a lot of attention to security (for
-example the prompt reaction on meltdown/spectre), but in the same time
-we tend to forget about the "long lived" devices and force their
-maintainers to use 2.6.x kernels..... (or even 2.4.x).
-
->=20
-> With all the hoopla about IoT in the business right now since
-> a year or two back, the question of their extremely long life
-> cycle and effect on development has not really been
-> considered AFAICT those are some of the most important
-> systems to keep maintained.
-
-+1
-
->=20
-> Yours,
-> Linus Walleij
-
-
-
-
-Best regards,
-
-Lukasz Majewski
-
---
-
-DENX Software Engineering GmbH,      Managing Director: Wolfgang Denk
-HRB 165235 Munich, Office: Kirchenstr.5, D-82194 Groebenzell, Germany
-Phone: (+49)-8142-66989-10 Fax: (+49)-8142-66989-80 Email: wd@denx.de
-
---Sig_/YxXvblU3AsRXkNJ13QQUifZ
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEgAyFJ+N6uu6+XupJAR8vZIA0zr0FAluXjNUACgkQAR8vZIA0
-zr1MHQf9HEqIFzJCkLrJatzop1G1CmMj79Na2Xi4okPTC1EGyJX++fDNKKAvFibg
-dm1RAWrWr/lI+vk2JcldpU6iwoXMvDd5xEpkqlM1Xvi32Ff3yPe7DkSJJpabn9Xl
-C5gzzapyhsMfRxmaEBQNVjeSl4B1BEYfsgJE3NqSPY6U8k3vJ56hLypq4Mo0ifhl
-ITHn+1WxWaMvra8Dw3rE9CC2IaALWa3py8qcPrjIKUS/apjNzXpxcDNw/Qutbvjb
-ftS0xPRy2PyibMX5HcX+aF7T4Q0ynn3Mj8uGhvrBT25osWhZ3t3TA1mBjtsLpqTG
-1g8CYgpgcBgGTYCFlDSIaCsa2Dgv3A==
-=VI1d
------END PGP SIGNATURE-----
-
---Sig_/YxXvblU3AsRXkNJ13QQUifZ--
+> > on next-20180910 doesn't really make me very confident that useful regression
+> > tests on -next are even possible. it seems to me that -next is quite often
+> > used as dumping ground for sparsely tested changes, and is far from "ready
+> > for upstream".
+> 
+> Well, we do get some of that, but also some things are harder to test
+> in isolation.
+> -- 
+> Cheers,
+> Stephen Rothwell
