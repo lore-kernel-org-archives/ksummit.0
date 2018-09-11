@@ -1,31 +1,34 @@
-Return-Path: <tony@atomide.com>
+Return-Path: <daniel.vetter@ffwll.ch>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 73822EE4
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0A630FBE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Sep 2018 17:40:47 +0000 (UTC)
-Received: from muru.com (muru.com [72.249.23.125])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id F30467CD
+	Tue, 11 Sep 2018 17:41:43 +0000 (UTC)
+Received: from mail-io0-f193.google.com (mail-io0-f193.google.com
+	[209.85.223.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A70E87CD
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Sep 2018 17:40:46 +0000 (UTC)
-Date: Tue, 11 Sep 2018 10:40:43 -0700
-From: Tony Lindgren <tony@atomide.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-Message-ID: <20180911174043.GK5659@atomide.com>
-References: <CA+55aFz57ASBqAvXnCv4_uZ3niPJjTDdSmOOdyaFeW8gCAwSHQ@mail.gmail.com>
+	Tue, 11 Sep 2018 17:41:42 +0000 (UTC)
+Received: by mail-io0-f193.google.com with SMTP id r196-v6so4289091iod.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 11 Sep 2018 10:41:42 -0700 (PDT)
+MIME-Version: 1.0
+In-Reply-To: <20180911173143.GE10123@sirena.org.uk>
+References: <20180907014930.GE16300@sasha-vm>
+	<CA+55aFz57ASBqAvXnCv4_uZ3niPJjTDdSmOOdyaFeW8gCAwSHQ@mail.gmail.com>
 	<20180907145437.GF16300@sasha-vm>
 	<CA+55aFzp340RDJUDoOGtN5ENgdCSSkksvG0yPt74BgyvTrAE4Q@mail.gmail.com>
 	<20180910194310.GV16300@sasha-vm>
 	<20180910164519.6cbcc116@vmware.local.home>
 	<20180910212019.GA32269@roeck-us.net>
-	<20180910174638.26fff182@vmware.local.home>
-	<20180910230301.GB1764@localhost.localdomain>
-	<20180910191329.70f90a14@vmware.local.home>
-	<20180911114227.241f2e5d@vmware.local.home>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20180911114227.241f2e5d@vmware.local.home>
+	<20180911111853.GB8018@sirena.org.uk>
+	<20180911170212.GC8284@roeck-us.net> <87k1nsdkl6.fsf@intel.com>
+	<20180911173143.GE10123@sirena.org.uk>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Tue, 11 Sep 2018 19:41:40 +0200
+Message-ID: <CAKMK7uH+TeXzi7GrashWPpop3TQznHbdoPWZHFEyLxASisGk3g@mail.gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -37,44 +40,31 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-* Steven Rostedt <rostedt@goodmis.org> [180911 15:46]:
-> On Mon, 10 Sep 2018 19:13:29 -0400
-> Steven Rostedt <rostedt@goodmis.org> wrote:
-> 
-> > On Mon, 10 Sep 2018 16:03:03 -0700
-> > Eduardo Valentin <edubezval@gmail.com> wrote:
-> > 
-> > > I thought that was the case already, everthing that goes to linux-next
-> > > is ready to go to Linus.  
-> > 
-> > It's suppose to be, but not always, and this is why I suggested that
-> > Linus start yelling at those that are not doing it.
-> > 
-> 
-> This may have come across a bit too strong. We don't need Linus to
-> yell, but there should definitely be consequences for any maintainer
-> that pushes untested code to linux-next. At a bare minimum, all code
-> that goes into linux-next should have passed 0day bot. Push code to a
-> non-linux-next branch on kernel.org, wait a few days, if you don't get
-> any reports that a bot caught something broken, you should be good to
-> go (also you can opt-in to get reports on 0day success, which I do, to
-> make that cycle even shorter). And that's a pretty low bar to have to
-> pass. Ideally, all maintainers should have a set of tests they run
-> before pushing anything to linux-next, or to Linus in the late -rcs. If
-> you can't be bothered just to rely on at least 0day then you should not
-> be a maintainer.
+On Tue, Sep 11, 2018 at 7:31 PM, Mark Brown <broonie@kernel.org> wrote:
+> On Tue, Sep 11, 2018 at 08:12:37PM +0300, Jani Nikula wrote:
+>> On Tue, 11 Sep 2018, Guenter Roeck <linux@roeck-us.net> wrote:
+>
+>> > FWIW, for the most part I stopped reporting issues with -next after some people
+>> > yelled at me for the 'noise' I was creating. Along the line of "This has been
+>> > fixed in branch xxx; why don't you do your homework and check there", with
+>> > branch xxx not even being in -next.
+>
+>> What would be the reason for *not* having all the branches, including
+>> fixes, of a subsystem/driver in linux-next? Baffled.
+>
+> Some people only put things into -next after they've passed QA (like
+> Steven's thing about 0day) so you'll see branches that are undergoing QA
+> in git before they get merged into the -next branch.
 
-Based on the regressions I seem to hit quite a few Linux next
-regressions could have been avoided if Andrew's mm tree had seem some
-more testing before being added to next. Probably because Andrew
-queues lots of complicated patches :)
-
-So yeah what you're suggesting might help with that if we establish
-a let's say 24 hour period before adding branches to next. At
-least that gives the automated systems a chance to test stuff
-before it hits next. And people who want to can then test various
-branches separately in advance.
-
-Regards,
-
-Tony
+This is why we have a pre-merge CI SLA of mean latency < 6h for the
+full pre-merge run. This is from the time your patch hits the m-l to
+when the most extensive runs have completed (representing about 1 week
+of machine). Early smoke-test results show up much earlier. In
+practice this means you're almost always limited by review
+turn-around, and not by CI. Exactly to avoid the "the regression fix
+is ready except not yet fully tested" issues.
+-Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
