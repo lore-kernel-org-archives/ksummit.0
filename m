@@ -1,25 +1,21 @@
-Return-Path: <tiejunc@vmware.com>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C3B18D8C
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Sep 2018 01:18:28 +0000 (UTC)
-Received: from NAM04-SN1-obe.outbound.protection.outlook.com
-	(mail-eopbgr700052.outbound.protection.outlook.com [40.107.70.52])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C325C2C4
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Sep 2018 01:18:26 +0000 (UTC)
-From: Tiejun Chen <tiejunc@vmware.com>
-To: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Date: Wed, 12 Sep 2018 01:18:24 +0000
-Message-ID: <BY1PR0501MB14623C8F42765E4852FD5A39C51B0@BY1PR0501MB1462.namprd05.prod.outlook.com>
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Return-Path: <alexander.sverdlin@gmail.com>
+To: Linus Walleij <linus.walleij@linaro.org>, Arnd Bergmann <arnd@arndb.de>,
+	Lukasz Majewski <lukma@denx.de>, Jonas Jensen <jonas.jensen@gmail.com>
+References: <trinity-b7dcc7ee-84eb-4ba9-ab94-b2936551a388-1536588284133@3c-app-gmx-bs33>
+	<CACRpkdYk1JKEQ=bumrxRk1eJ97xkQti8E1MRJ_xxen+dZ1a1Xw@mail.gmail.com>
+	<CAK8P3a0a=eAwAg5i6z-5Hs56BXKP3CSsv2383zuMh6TrrDPwug@mail.gmail.com>
+	<CACRpkdYi66Lgq7OAGchQyfqEUUGVKV9m3YzL6t_nS+Hm0G2rRg@mail.gmail.com>
+From: Alexander Sverdlin <alexander.sverdlin@gmail.com>
+Message-ID: <3764c777-61eb-857c-f5b8-71c96358a084@gmail.com>
+Date: Tue, 11 Sep 2018 23:16:11 +0200
 MIME-Version: 1.0
-Subject: [Ksummit-discuss] [TECH TOPIC] A Safety-critical Linux system
-	architecture
+In-Reply-To: <CACRpkdYi66Lgq7OAGchQyfqEUUGVKV9m3YzL6t_nS+Hm0G2rRg@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: Ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Deprecation / Removal of
+ old hardware support
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,34 +25,26 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-TGludXggaXMgcGxheWluZyB2ZXJ5IHdlbGwgaW4gdGhlIGNhc2Ugb2YgZW1iZWRkZWQgc3lzdGVt
-LiBBbmQgdGhlcmUgaXMgbm8gZG91YnQgdGhhdCBJb1QsIGludGVybmV0IG9mIHRoaW5ncywgZ3Jv
-d3MgYXMgbGFyZ2VyLiBBY3R1YWxseSBhIHZhcmlldHkgb2YgZW1iZWRkZWQgc3lzdGVtcyBtYWtl
-IElvVCBzbyBMaW51eCBkZWZpbml0ZWx5IHN0aWxsIGNhbiBjb250cmlidXRlIHRvIElvVC4gVGhl
-IHRoaW5nIGhlcmUgaXMgbWFueSBJb1Qgc3lzdGVtcyBhcmUgZGVwbG95ZWQgaW4gdGhlIGNyaXRp
-Y2FsIGluZnJhc3RydWN0dXJlcyBsaWtlIHRoZSBlbmVyZ3kgZ2VuZXJhdGlvbiwgb2lsIGFuZCBn
-YXMgY2VudGVyLCBhdmlvbmljLCBhdXRvbW90aXZlLCBldGMsIHdoZXJlIHNvZnR3YXJlIGNvbnRl
-eHRzIG5lZWQgdG8gYmUgY2VydGlmaWVkIGFjY29yZGluZyB0byBkaWZmZXJlbnQgc3BlY2lmaWNh
-dGlvbnMgbGlrZSBBUklOQyA2NTMsIEF1dG9tb3RpdmUgU2FmZXR5IEludGVncml0eSBMZXZlbCwg
-YW5kIHNvIG9uLiBTbyB3ZSBuZWVkIHRvIGV4cGxvcmUgbWFraW5nIExpbnV4IGl0c2VsZiBjZXJ0
-aWZpZWQuDQoNClNvbWUgZWZmb3J0cyBsaWtlIFNJTDJMaW51eE1QLCB3aGljaCAiYWltcyBhdCB0
-aGUgY2VydGlmaWNhdGlvbiBvZiB0aGUgYmFzZSBjb21wb25lbnRzIG9mIGFuIGVtYmVkZGVkIEdO
-VS9MaW51eCBSVE9TIHJ1bm5pbmcgb24gYSBzaW5nbGUtY29yZSBvciBtdWx0aS1jb3JlIGluZHVz
-dHJpYWwgQ09UUyBjb21wdXRlciBib2FyZC4gQmFzZSBjb21wb25lbnRzIGFyZSBib290IGxvYWRl
-ciwgcm9vdCBmaWxlc3lzdGVtLCBMaW51eCBrZXJuZWwgYW5kIEMgbGlicmFyeSBiaW5kaW5ncyB0
-byBhY2Nlc3MgdGhlIExpbnV4IGtlcm5lbC4gV2l0aCB0aGUgZXhjZXB0aW9uIG9mIGEgbWluaW1h
-bCBzZXQgb2YgdXRpbGl0aWVzIHRvIGluc3BlY3QgdGhlIHN5c3RlbSwgbWFuYWdlIGZpbGVzIGFu
-ZCBzdGFydCB0ZXN0IHByb2NlZHVyZXMsIHVzZXIgc3BhY2UgYXBwbGljYXRpb25zIGFyZSBub3Qg
-aW5jbHVkZWQuIiBCdXQgbG9va3Mgbm93IGl0J3Mgc3RpbGwgYXQgdGhlIGVhcmx5IHN0YWdlIGFu
-ZCBub3QgZ29vZCBlbm91Z2ggaW4gdGhlIHByb2R1Y3Rpb24gZW52aXJvbm1lbnQuDQoNClNvIGNv
-dWxkIHdlIGRpc2N1c3MgdG9nZXRoZXIgaWYtaG93IHdlIGJ1aWxkIGEgc2FmZXR5LWNyaXRpY2Fs
-IExpbnV4IHN5c3RlbSBhcmNoaXRlY3R1cmU/IEhlcmUgYXJlIHNvbWUgcG90ZW50aWFsIHRlY2hu
-b2xvZ2llczoNCg0KTWluaW1hbCBrZXJuZWwgcGFydCB3aXRoIHNvbWUgbGlnaHQgd2VpZ2h0IHN0
-YWNrcy4NCkV2ZXJ5IHN5c3RlbSBhbmQgdXNlciBzZXJ2aWNlIGFyZSBjb250YWluZXJpemVkLCBh
-bmQgZXZlbiB3aXRoIGhhcmR3YXJlIGFzc2lzdGVkIHRlY2hub2xvZ2llcyBsaWtlIFNHWC4NCkl0
-J3MgYmFzZWQgb24gVW5pa2VybmVsIGNvbmNlcHQuDQpPbmUgcHJvY2VzcyBvciBldmVuIG9uZSB0
-aHJlYWQgaXMgcmVzdHJpY3RlZCByaWdodCB0aGVyZS4NCkl0IG1pZ2h0IGJlIGhhdmluZyBzeXN0
-ZW0gYXVkaXQgd2l0aCBoeXBlcnZpc29yLg0KSG93IHRvIHZlcmlmeSBMaW51eCBpbiBzdWNoIGEg
-c2FmZXR5LWNyaXRpY2FsIGVudmlyb25tZW50DQoNCkJ1dCBub3QgbGltaXRlZCB0aGVzZSBmYWN0
-b3JzIGluIHRlcm1zIG9mIG91ciBzYWZldHktY3JpdGljYWwgTGludXggc3lzdGVtIGFyY2hpdGVj
-dHVyZS4NCg0KVGhhbmtzDQpUaWVqdW4NCg==
+Hello!
+
+On 11/09/2018 10:37, Linus Walleij wrote:
+> Including Alexander Sverdlin, Lukasz Majewski  and Jonas
+> Jensen here, they may or may not be able to share some of
+> their industrial IoT experience. (Contract terms with vendors
+> may make it necessary to stay silent sometimes.)
+
+Yes, that's the reason I took the maintainer role for EP93xx.
+I'm as well aware of several thousands of industrial devices which are
+expected to run 24/7 for the next 5 years at least.
+Linux firmware on them is still updated from time to time.
+
+[...]
+
+> ARMv4 is becoming a trouble, not that it is hard to maintain,
+> actually we're on top of things there. The problem is that among
+> the FA526 systems from Faraday and the ARMv4T in EP93xx
+> there are very serious IoT deployments that have been going
+> on for soon 15 years and continuing.
+
+--
+Alex.
