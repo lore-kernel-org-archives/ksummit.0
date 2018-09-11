@@ -1,21 +1,19 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 81E5AED1
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1EE76F47
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Sep 2018 17:22:15 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B4BC47D3
+	Tue, 11 Sep 2018 17:26:44 +0000 (UTC)
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+	[172.104.155.198])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8B1ED766
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Sep 2018 17:22:14 +0000 (UTC)
-Message-ID: <1536686530.3511.1.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Guenter Roeck <linux@roeck-us.net>, Mark Brown <broonie@kernel.org>
-Date: Tue, 11 Sep 2018 10:22:10 -0700
-In-Reply-To: <20180911170212.GC8284@roeck-us.net>
-References: <20180907004944.GD16300@sasha-vm>
-	<CA+55aFwfcNuH4p+rKHuQcgOSt3coT=cN6ZdSG1OKNQ5GTWgoxg@mail.gmail.com>
+	Tue, 11 Sep 2018 17:26:43 +0000 (UTC)
+Date: Tue, 11 Sep 2018 18:26:40 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <20180911172640.GD10123@sirena.org.uk>
+References: <CA+55aFwfcNuH4p+rKHuQcgOSt3coT=cN6ZdSG1OKNQ5GTWgoxg@mail.gmail.com>
 	<20180907014930.GE16300@sasha-vm>
 	<CA+55aFz57ASBqAvXnCv4_uZ3niPJjTDdSmOOdyaFeW8gCAwSHQ@mail.gmail.com>
 	<20180907145437.GF16300@sasha-vm>
@@ -25,9 +23,11 @@ References: <20180907004944.GD16300@sasha-vm>
 	<20180910212019.GA32269@roeck-us.net>
 	<20180911111853.GB8018@sirena.org.uk>
 	<20180911170212.GC8284@roeck-us.net>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="bjuZg6miEcdLYP6q"
+Content-Disposition: inline
+In-Reply-To: <20180911170212.GC8284@roeck-us.net>
 Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -39,53 +39,76 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, 2018-09-11 at 10:02 -0700, Guenter Roeck wrote:
-> On Tue, Sep 11, 2018 at 12:18:53PM +0100, Mark Brown wrote:
-> > On Mon, Sep 10, 2018 at 02:20:19PM -0700, Guenter Roeck wrote:
-> > 
-> > > Would that help ? -next has been more or less unusable for a week
-> > > or so. Maybe it is just a bad time (it hasn't been as bad as it
-> > > is right now for quite some time), but Build results:
-> > > 	total: 135 pass: 133 fail: 2
-> > > Qemu test results:
-> > > 	total: 315 pass: 112 fail: 203
-> > > on next-20180910 doesn't really make me very confident that
-> > > useful regression tests on -next are even possible. it seems to
-> > > me that -next is quite often used as dumping ground for sparsely
-> > > tested changes, and is far from "ready for upstream".
-> > 
-> > I suspect this is something where if someone starts consistently
-> > reporting test results things will get a lot better if someone
-> > consistently reports test results and chases people to fix
-> > problems.  I expect it to go like builds - used to see huge numbers
-> > of build and boot failures in -next, and even in mainline, but ever
-> > since people started actively pushing on them the results have got
-> > much better to the point where it's the exeception rather than the
-> > rule.  You can see it happening if you look at the build
-> > error/warning results from releases over a few years (stable
-> > doesn't show it so clearly any more as a lot of these fixes got
-> > backported there).
-> > 
-> 
-> FWIW, for the most part I stopped reporting issues with -next after
-> some people yelled at me for the 'noise' I was creating. Along the
-> line of "This has been fixed in branch xxx; why don't you do your
-> homework and check there", with branch xxx not even being in -next. I
-> don't mind "this has already been reported/fixed", quite the
-> contrary, but the "why don't you do your homework" got me over the
-> edge.
 
-Not to excuse rudeness, we always try to be polite on lists when this
-happens, but -next builds on Australian time, so when we find and fix
-an issue there can be up to 24h before it propagates.  In that time,
-particularly if it's a stupid bug, it gets picked up and flagged by a
-number of self contained 0day type projects and possibly a couple of
-coccinelle type ones as well.  It does get a bit repetitive for
-maintainers to receive and have to respond to 4 or 5 bug reports for
-something they just fixed ...
+--bjuZg6miEcdLYP6q
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Perhaps the -next tracking projects could have some sort of co-
-ordination list to prevent the five bug reports for the same issue
-problem?
+On Tue, Sep 11, 2018 at 10:02:12AM -0700, Guenter Roeck wrote:
 
-James
+> FWIW, for the most part I stopped reporting issues with -next after some =
+people
+> yelled at me for the 'noise' I was creating. Along the line of "This has =
+been
+> fixed in branch xxx; why don't you do your homework and check there", with
+> branch xxx not even being in -next. I don't mind "this has already been
+> reported/fixed", quite the contrary, but the "why don't you do your homew=
+ork"
+> got me over the edge.
+
+Ugh, yeah - that sort of response is super annoying, especially when it
+also comes along with something about not fixing -next for a while for
+some process reason.  I have found it's very rare these days fortunately
+but it has happened.
+
+> To even consider reporting issues in -next on a more regular basis, I'd l=
+ike
+> to see a common agreement that reporting such issues does not warrant bei=
+ng
+> yelled at, even if the issue has been fixed somewhere or if it has already
+> been reported. Otherwise I'll stick with doing what I do now: If something
+> is broken for more than a week, I _may_ start looking at it if I have some
+> spare time and/or need a break from my day-to-day work.
+
+I'd say that should be true in general, being pointed at some previous
+discussion or whatever is clearly fine but it's unreasonable to expect
+people doing general purpose testing to know about random other threads
+or branches.  It's especially true if it's something that disrupts other
+testing in an integration tree.
+
+> > FWIW kernelci isn't nearly so bad on -next today - only four build
+> > failures from the configurations it tests (someone managed to break
+> > arm64) and the boot tests are clean apart from one board that's been
+> > having what look like intermittent board specific issues. =20
+
+> >    https://kernelci.org/boot/all/job/next/branch/master/kernel/next-201=
+80911/
+
+> > No testsuites run there though.
+
+> It doesn't require test suites. The crash happens on reboot/poweroff when
+> unmounting the root file system. initrd/initramfs boots don't see the
+> problem. Pretty much every architecture except arm (for whatever reason)
+> should see the problem.
+
+You'd also need to reboot or power off which KernelCI doesn't do for
+boot tests - it's just happy if we make it as far as a prompt then kills
+the power.
+
+--bjuZg6miEcdLYP6q
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAluX+s8ACgkQJNaLcl1U
+h9APpAf/QDklZ0UD9S7oey3Ecsoph2/OOChAKAJITjj3iKw9eczSWQz9KS2vXitx
+/sZGBmYICSO1sEII7tWiWWQXmBrHF02kk2hybqez89PXqUcffWgBVdt4csbZQojc
+hHy2uFIve+hILIf0rdCtCvcvzvT80VvxgTEMWkbanQdbNMvnj1k3NZBFVXG7tOOE
+tI0Gw7+9d3Ak293p0xi6uECfCkPMpcYVZ58GedeAJ8pOa4CtS+wPI8dNQ+rLcDIL
+crrcwjUlteNzfAsDAWrjxSpVrGGBmbMH73CA0NwVZpajxrjVeg3pgmkJ+lhuOstm
+qcUdtJzF1W9K6dLzTjFTOH1ouIDFUg==
+=fX1y
+-----END PGP SIGNATURE-----
+
+--bjuZg6miEcdLYP6q--
