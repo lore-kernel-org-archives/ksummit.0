@@ -1,20 +1,21 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <geert.uytterhoeven@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BBDC01283
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3B4CB122B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Sep 2018 18:00:52 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 62FB03F7
+	Tue, 11 Sep 2018 18:03:26 +0000 (UTC)
+Received: from mail-ua1-f67.google.com (mail-ua1-f67.google.com
+	[209.85.222.67])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BD16E8D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Sep 2018 18:00:52 +0000 (UTC)
-Message-ID: <1536688832.3511.10.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Mark Brown <broonie@kernel.org>
-Date: Tue, 11 Sep 2018 11:00:32 -0700
-In-Reply-To: <20180911175634.GF10123@sirena.org.uk>
-References: <20180907014930.GE16300@sasha-vm>
+	Tue, 11 Sep 2018 18:03:25 +0000 (UTC)
+Received: by mail-ua1-f67.google.com with SMTP id m11-v6so21470249uao.11
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 11 Sep 2018 11:03:25 -0700 (PDT)
+MIME-Version: 1.0
+References: <20180907004944.GD16300@sasha-vm>
+	<CA+55aFwfcNuH4p+rKHuQcgOSt3coT=cN6ZdSG1OKNQ5GTWgoxg@mail.gmail.com>
+	<20180907014930.GE16300@sasha-vm>
 	<CA+55aFz57ASBqAvXnCv4_uZ3niPJjTDdSmOOdyaFeW8gCAwSHQ@mail.gmail.com>
 	<20180907145437.GF16300@sasha-vm>
 	<CA+55aFzp340RDJUDoOGtN5ENgdCSSkksvG0yPt74BgyvTrAE4Q@mail.gmail.com>
@@ -22,13 +23,14 @@ References: <20180907014930.GE16300@sasha-vm>
 	<20180910164519.6cbcc116@vmware.local.home>
 	<20180910212019.GA32269@roeck-us.net>
 	<20180911111853.GB8018@sirena.org.uk>
-	<20180911170212.GC8284@roeck-us.net>
-	<1536686530.3511.1.camel@HansenPartnership.com>
-	<20180911175634.GF10123@sirena.org.uk>
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-3Z5qJGgAE4yjmlDTP5uO"
-Mime-Version: 1.0
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+	<20180911170212.GC8284@roeck-us.net> <87k1nsdkl6.fsf@intel.com>
+In-Reply-To: <87k1nsdkl6.fsf@intel.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 11 Sep 2018 20:03:11 +0200
+Message-ID: <CAMuHMdXCCL6bQ7fxRL_5+c+vaqt0TTN+8Ggk6rD_X-F-oGRoKg@mail.gmail.com>
+To: Jani Nikula <jani.nikula@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -39,52 +41,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Tue, Sep 11, 2018 at 7:13 PM Jani Nikula <jani.nikula@intel.com> wrote:
+> On Tue, 11 Sep 2018, Guenter Roeck <linux@roeck-us.net> wrote:
+> > FWIW, for the most part I stopped reporting issues with -next after some people
+> > yelled at me for the 'noise' I was creating. Along the line of "This has been
+> > fixed in branch xxx; why don't you do your homework and check there", with
+> > branch xxx not even being in -next.
+>
+> What would be the reason for *not* having all the branches, including
+> fixes, of a subsystem/driver in linux-next? Baffled.
 
---=-3Z5qJGgAE4yjmlDTP5uO
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+The same reason why there may be a periof of a few weeks in between
+receiving an "applied" email response, and discovering the branch has
+finally been updated on git.kernel.org?
 
-On Tue, 2018-09-11 at 18:56 +0100, Mark Brown wrote:
-> On Tue, Sep 11, 2018 at 10:22:10AM -0700, James Bottomley wrote:
->=20
-> > Not to excuse rudeness, we always try to be polite on lists when
-> > this happens, but -next builds on Australian time, so when we find
-> > and fix an issue there can be up to 24h before it propagates.=C2=A0=C2=
-=A0In
-> > that time, particularly if it's a stupid bug, it gets picked up and
-> > flagged by a number of self contained 0day type projects and
-> > possibly a couple of coccinelle type ones as well.=C2=A0=C2=A0It does g=
-et a
-> > bit repetitive for maintainers to receive and have to respond to 4
-> > or 5 bug reports for something they just fixed ...
->=20
-> I'd have thought most maintainers would be pretty used to sending
-> repetitive e-mail by now :)
->=20
-> > Perhaps the -next tracking projects could have some sort of co-
-> > ordination list to prevent the five bug reports for the same issue
-> > problem?
->=20
-> We're not *that* overburdened with people running testing, and
-> especially not with people actively reporting the results, at the
-> minute.
+"release early, release often".
 
-We are if a maintainer snapping at someone causes tests not to be run
-or results not to be reported.
+Gr{oetje,eeting}s,
 
-James
+                        Geert
 
---=-3Z5qJGgAE4yjmlDTP5uO
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABMIAB0WIQTnYEDbdso9F2cI+arnQslM7pishQUCW5gCwAAKCRDnQslM7pis
-hRD3AQDZv0pbjWKOTvhIHzARwiV/Nv7mHLpkMeV3/juKYsvdEAD/dc7aZ0ifwFt2
-aN2HoRlu3eR3aKlo+ippUbJ9mWQGuPY=
-=8Ra1
------END PGP SIGNATURE-----
-
---=-3Z5qJGgAE4yjmlDTP5uO--
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
