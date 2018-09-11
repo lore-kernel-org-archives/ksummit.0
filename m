@@ -1,37 +1,19 @@
-Return-Path: <jikos@kernel.org>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 88E98B9E
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Sep 2018 08:20:27 +0000 (UTC)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6AB06766
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Sep 2018 08:20:26 +0000 (UTC)
-Date: Tue, 11 Sep 2018 10:20:23 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
-To: Thomas Gleixner <tglx@linutronix.de>
-In-Reply-To: <alpine.DEB.2.21.1809101026160.1402@nanos.tec.linutronix.de>
-Message-ID: <nycvar.YFH.7.76.1809111013260.15880@cbobk.fhfr.pm>
-References: <20180908113411.GA3111@kroah.com>
-	<1536418829.22308.1.camel@HansenPartnership.com>
-	<20180908153235.GB11120@kroah.com>
-	<1536422066.22308.3.camel@HansenPartnership.com>
-	<20180909125130.GA16474@kroah.com>
-	<CA+55aFwHH7cN0GXcV7trRs1zgdak+_e8-TyXEsXu62G5V_248A@mail.gmail.com>
-	<1536503930.3192.2.camel@HansenPartnership.com>
-	<6ECFDF7E-2674-4096-BFB5-25243D62913E@amacapital.net>
-	<20180909172039.GE22251@thunk.org>
-	<9E5C84F3-410E-4177-AA96-FA09A8D53BC6@amacapital.net>
-	<20180909185651.GF22251@thunk.org>
-	<alpine.DEB.2.21.1809101026160.1402@nanos.tec.linutronix.de>
+Return-Path: <linus.walleij@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	mchehab+samsung@kernel.org,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Handling of embargoed
- security issues
+References: <trinity-b7dcc7ee-84eb-4ba9-ab94-b2936551a388-1536588284133@3c-app-gmx-bs33>
+	<CACRpkdYk1JKEQ=bumrxRk1eJ97xkQti8E1MRJ_xxen+dZ1a1Xw@mail.gmail.com>
+	<CAK8P3a0a=eAwAg5i6z-5Hs56BXKP3CSsv2383zuMh6TrrDPwug@mail.gmail.com>
+In-Reply-To: <CAK8P3a0a=eAwAg5i6z-5Hs56BXKP3CSsv2383zuMh6TrrDPwug@mail.gmail.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Tue, 11 Sep 2018 10:37:36 +0200
+Message-ID: <CACRpkdYi66Lgq7OAGchQyfqEUUGVKV9m3YzL6t_nS+Hm0G2rRg@mail.gmail.com>
+To: Arnd Bergmann <arnd@arndb.de>,
+	Alexander Sverdlin <alexander.sverdlin@gmail.com>,
+	Lukasz Majewski <lukma@denx.de>, Jonas Jensen <jonas.jensen@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Deprecation / Removal of
+ old hardware support
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,27 +23,59 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 10 Sep 2018, Thomas Gleixner wrote:
+Including Alexander Sverdlin, Lukasz Majewski  and Jonas
+Jensen here, they may or may not be able to share some of
+their industrial IoT experience. (Contract terms with vendors
+may make it necessary to stay silent sometimes.)
 
-> Looking at SSBD/L1TF only and ignoring the Meltdown/Spectre disaster (which
-> was completely FUBARed by Intel), having something like this in place could
-> have certainly solved the main gap which we had. We were able to
-> communicate freely between the informed parties and their allowed to know
-> kernel developers, even accross vendors. 
+On Mon, Sep 10, 2018 at 11:41 PM Arnd Bergmann <arnd@arndb.de> wrote:
+> On Mon, Sep 10, 2018 at 5:35 PM Linus Walleij <linus.walleij@linaro.org> wrote:
 
-Agreed, this worked pretty well this time.
+> > My ARMv4 is another example, but I can point at new devices
+> > beging deployed as we speak, using that ISA, even though it is
+> > from 1999. So it has many active users (and maintainers).
+>
+> Note that even though gcc is dropping ARMv4 support from new
+> compilers, you can still use old toolchains, and there are tricks to
+> make ARMv4T binary code work on ARMv4. However, if gcc
+> ever stops supporting ARMv4T, this becomes a problem. My guess
+> is that will take another 10 years though, and we might have
+> removed some or all of the individual ARMv4 platforms by then.
 
-> But there was no simple way to bring in anybody else. It tooks us almost 
-> 2 months to get GregKH on board, but there was no way to talk to e.g. 
-> the BPF folks in time.
+ARMv4 is becoming a trouble, not that it is hard to maintain,
+actually we're on top of things there. The problem is that among
+the FA526 systems from Faraday and the ARMv4T in EP93xx
+there are very serious IoT deployments that have been going
+on for soon 15 years and continuing.
 
-But this was what has caused real pain indeed. Do we know / can it be 
-publicly said what exactly was the issue in those cases? Was it perhaps 
-that those people were not employed by a company the disclosing party had 
-a NDA in place already (like it probably had with all the involved 
-vendors, etc)?
+New MOXA ART ARMv4 FA526 systems are being deployed
+in buildings across the planet as we speak. They just replaced
+one in the office block where I sit, that is how I got to know.
 
-Thanks,
+These are mostly for ventilation and
+similar systems but also heavy duty from Liebherr controlling
+unspecified hydraulic systems. The ventilation systems are
+definately Internet-connected, I don't know about the others.
 
--- 
-Jiri Kosina
+These pose an increasing security threat, and for that reason
+I personally feel it is irresponsible to remove the option to
+create new kernels and upgrade these devices.
+
+I think for depreciation one has to be aware that some archs
+used in IoT deployments have life cycles of 20-30 or more years,
+whereas some tablet or handset SoCs may be something like
+5 years maximum before maintainers get annoyed that you
+even use them.
+
+Sometimes I get the feeling that people focused on desktops
+or servers suffer from velocitate (speed blindness) and think
+everybody is like them. (Well don't we all.)
+
+With all the hoopla about IoT in the business right now since
+a year or two back, the question of their extremely long life
+cycle and effect on development has not really been
+considered AFAICT those are some of the most important
+systems to keep maintained.
+
+Yours,
+Linus Walleij
