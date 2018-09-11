@@ -1,38 +1,39 @@
-Return-Path: <groeck7@gmail.com>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 37D2BD00
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 51538E4A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Sep 2018 22:17:17 +0000 (UTC)
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com
-	[209.85.210.180])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 372382C4
+	Tue, 11 Sep 2018 22:53:43 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F30A713A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Sep 2018 22:17:16 +0000 (UTC)
-Received: by mail-pf1-f180.google.com with SMTP id h69-v6so12910427pfd.4
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Sep 2018 15:17:16 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Tue, 11 Sep 2018 15:17:14 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Message-ID: <20180911221714.GB13208@roeck-us.net>
-References: <CAKMK7uE=FwpPFnvOvuvGBZ0vjh3UMPW=zgSk1dmiyCLQPPuZvg@mail.gmail.com>
-	<8412864.7ztUKcXNNC@avalon>
-	<CAKMK7uFAXoVG+nBX=Om9A7R9xPYa-hd0JrRX1RNKSNhxnL_VsA@mail.gmail.com>
-	<2019489.6joTqyUi4Z@avalon>
-	<CAKMK7uE535-7Vs9EAa2725XL2TX2ChJCN0Zb3YaMe=MarYJOyw@mail.gmail.com>
-	<20180911124423.GM2494@piout.net>
-	<CAKMK7uE55eEP8L74z7HMyPb2nVnK9=bBX8tUEqmsDYSqjO-CZg@mail.gmail.com>
-	<20180911220047.GQ2494@piout.net>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+	Tue, 11 Sep 2018 22:53:42 +0000 (UTC)
+Message-ID: <1536706409.3511.14.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+Date: Tue, 11 Sep 2018 18:53:29 -0400
+In-Reply-To: <20180911163136.1d6653a6@vmware.local.home>
+References: <CA+55aFz57ASBqAvXnCv4_uZ3niPJjTDdSmOOdyaFeW8gCAwSHQ@mail.gmail.com>
+	<20180907145437.GF16300@sasha-vm>
+	<CA+55aFzp340RDJUDoOGtN5ENgdCSSkksvG0yPt74BgyvTrAE4Q@mail.gmail.com>
+	<20180910194310.GV16300@sasha-vm>
+	<20180910164519.6cbcc116@vmware.local.home>
+	<20180910212019.GA32269@roeck-us.net>
+	<20180910174638.26fff182@vmware.local.home>
+	<20180910230301.GB1764@localhost.localdomain>
+	<20180910191329.70f90a14@vmware.local.home>
+	<20180911114227.241f2e5d@vmware.local.home>
+	<20180911174043.GK5659@atomide.com>
+	<1536688022.3511.5.camel@HansenPartnership.com>
+	<20180911143923.11e479ea@vmware.local.home>
+	<1536696572.3511.12.camel@HansenPartnership.com>
+	<20180911163136.1d6653a6@vmware.local.home>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20180911220047.GQ2494@piout.net>
 Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
- management/subsystem governance
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -42,48 +43,35 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Sep 12, 2018 at 12:00:47AM +0200, Alexandre Belloni wrote:
+On Tue, 2018-09-11 at 16:31 -0400, Steven Rostedt wrote:
+> On Tue, 11 Sep 2018 16:09:32 -0400
+> James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
+> 
+> > On Tue, 2018-09-11 at 14:39 -0400, Steven Rostedt wrote:
+[...]
+> > > > This applies to 0day as well, because, by agreement, it has a
+> > > > much deeper set of xfstest runs for branches we actually queue
+> > > > for -next rather than the more cursory set of tests it runs on
+> > > > ML patches.  
+> > > 
+> > > What about the tests on local branches? Not what you post to the
+> > > ML.  
 > > 
-> > Looking at drivers/rtc over the past 2-3 years it seems like a
-> > decently active subsystem. Probably on the small side of things, but
-> > not catastrophically so. But looking at contributor stats the picture
-> > is totally different:
-> > 
-> >    241  Alexandre Belloni
-> >     28  Linus Torvalds
-> >     27  Arnd Bergmann
-> >     25  Javier Martinez Canillas
-> >     20  Uwe Kleine-K�nig
-> > 
-> > That kind of skewed contribution statistics is indeed not sustainable,
-> > and indicates some serious problem imo. What exactly goes wrong, and
-> > how to best fix it I can't tell without more information though. From
-> > my experience in drm, where we also have some areas with highly skewed
-> > contribution statistics, it could be the maintainer driving people
-> > away, ensuring that there's only one-off contributions. Usually
-> > unkowningly.
-> > 
+> > I don't really see any point having a local -pre-next pass and
+> > hoping 0day will find it.  It's much more valuable (and faster) to
+> > push to -next and have all the integrated tests work on it once
+> > we've done everything we can locally.
+> 
+> Why not do what I do and push to a -pre-next branch when you kick off
+> your local tests?
 
-I have just seen this. I guess I must be driving _lots_ of people away.
+Because there's no point.  As I said, when we complete the local
+criteria the branch is ready for integration.  We push to -next and
+*all* the built bots tell us if there are any problems (which I don't
+expect there are but there's room for me to be wrong) ... including
+0day.  I don't see what the delay and the process hassle would buy us
+if we only get a review by 0day in the -pre-next branch.  It seems more
+efficient to let every bot loose on what we think is mergeable.
 
-git shortlog --no-merges -e -s -n v4.4..v4.18 drivers/watchdog 
 
-   83	Guenter Roeck <linux@roeck-us.net>
-   24	Wolfram Sang <wsa+renesas@sang-engineering.com>
-   20	Damien Riegel <damien.riegel@savoirfairelinux.com>
-   17	Arnd Bergmann <arnd@arndb.de>
-
-git shortlog --no-merges -e -s -n v4.4..v4.18 drivers/hwmon
-
-   157	Guenter Roeck <linux@roeck-us.net>
-    70	Julia Lawall <Julia.Lawall@lip6.fr>
-    23	Javier Martinez Canillas <javier@osg.samsung.com>
-    10	Linus Walleij <linus.walleij@linaro.org>
-    9	Pali Roh�r <pali.rohar@gmail.com>
-
-And there it was me erroneously thinking that this might be related to
-me picking up subsystems for which there is not much interest, and to
-doing a lot of cleanup in those subsystems in my non-existing spare
-time. Bummer. Oh well, my apologies to everyone I have driven away.
-
-Guenter
+James
