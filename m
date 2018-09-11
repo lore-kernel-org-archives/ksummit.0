@@ -1,37 +1,30 @@
-Return-Path: <SRS0=zQUY=LZ=goodmis.org=rostedt@kernel.org>
+Return-Path: <laurent.pinchart@ideasonboard.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 20CDC1287
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 55E1D10EA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Sep 2018 20:31:40 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 73AA8716
+	Tue, 11 Sep 2018 21:39:25 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+	[213.167.242.64])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D32E3716
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Sep 2018 20:31:39 +0000 (UTC)
-Date: Tue, 11 Sep 2018 16:31:36 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Message-ID: <20180911163136.1d6653a6@vmware.local.home>
-In-Reply-To: <1536696572.3511.12.camel@HansenPartnership.com>
-References: <CA+55aFz57ASBqAvXnCv4_uZ3niPJjTDdSmOOdyaFeW8gCAwSHQ@mail.gmail.com>
-	<20180907145437.GF16300@sasha-vm>
-	<CA+55aFzp340RDJUDoOGtN5ENgdCSSkksvG0yPt74BgyvTrAE4Q@mail.gmail.com>
-	<20180910194310.GV16300@sasha-vm>
-	<20180910164519.6cbcc116@vmware.local.home>
-	<20180910212019.GA32269@roeck-us.net>
-	<20180910174638.26fff182@vmware.local.home>
-	<20180910230301.GB1764@localhost.localdomain>
-	<20180910191329.70f90a14@vmware.local.home>
-	<20180911114227.241f2e5d@vmware.local.home>
-	<20180911174043.GK5659@atomide.com>
-	<1536688022.3511.5.camel@HansenPartnership.com>
-	<20180911143923.11e479ea@vmware.local.home>
-	<1536696572.3511.12.camel@HansenPartnership.com>
+	Tue, 11 Sep 2018 21:39:24 +0000 (UTC)
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Wed, 12 Sep 2018 00:39:34 +0300
+Message-ID: <2400444.QbA1LOmrIy@avalon>
+In-Reply-To: <20180911193308.GA4429@kroah.com>
+References: <trinity-b7dcc7ee-84eb-4ba9-ab94-b2936551a388-1536588284133@3c-app-gmx-bs33>
+	<20180911113725.5d91b945@jawa> <20180911193308.GA4429@kroah.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: Greg KH <gregkh@linuxfoundation.org>,
+	Alexander Sverdlin <alexander.sverdlin@gmail.com>,
+	Lukasz Majewski <lukma@denx.de>, Ksummit-discuss@lists.linuxfoundation.org,
+	Jonas Jensen <jonas.jensen@gmail.com>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Deprecation / Removal of
+	old hardware support
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,76 +34,46 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, 11 Sep 2018 16:09:32 -0400
-James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
+Hi Greg,
 
-> On Tue, 2018-09-11 at 14:39 -0400, Steven Rostedt wrote:
-> > On Tue, 11 Sep 2018 10:47:02 -0700
-> > James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
-> > =C2=A0 =20
-> > > I really don't think that helps.=C2=A0=C2=A0The 0day mailing list bot=
- seems
-> > > to be a bit overloaded and about 80% of the automation isn't run
-> > > *unless* =20
-> >=20
-> > Really? I get reports on my branches about a lot of issues without
-> > ever pushing it to next. Maybe I lucked out and these issues were
-> > caught by the 20%.
-> >=20
-> > When I have a branch ready to test, I push it to my local branch on
-> > kernel.org and then kick off my own test suite. I like to see which
-> > one will catch any bugs first. I usually get a response from 0day and
-> > a couple of hours later my tests will fail with the same error. Thus
-> > I found 0day to be quite efficient. =20
->=20
-> I treat -next as the integration tree: I push to it when we're ready to
-> integrate.  I don't think that's unreasonable and I do see it being
-> unreasonable to impose a delay on this process.
+On Tuesday, 11 September 2018 22:33:08 EEST Greg KH wrote:
+> On Tue, Sep 11, 2018 at 11:37:25AM +0200, Lukasz Majewski wrote:
+> > In the kernel community we pose a lot of attention to security (for
+> > example the prompt reaction on meltdown/spectre), but in the same time
+> > we tend to forget about the "long lived" devices and force their
+> > maintainers to use 2.6.x kernels..... (or even 2.4.x).
+> 
+> We care, but really, how much can we do here?
+> 
+> I've been working a lot with the Adroid ecosystem to try to help fix
+> their bad habits of "grab a random kernel and ship it and never update
+> it" by providing longer lived kernels that they can constantly update
+> their devices to.
+> 
+> But their lifetimes is much shorter compared to yours, and I have no
+> insight into what kernels are being used, what configurations you all
+> care about, and how long you need/want them updated.
+> 
+> Working with really old kernels like you have, without hardware
+> available to test is a hard task.  If your hardware is in a system like
+> kernelci, then you can be sure that any new kernel will work properly
+> with your system and then you might not want to have to stay with really
+> old kernels that no one can maintain :)
+> 
+> There's a Linux Foundation project, "CIP" that wants to maintain kernels
+> for devices like what you are making for 20+ years.  They are having the
+> problems of not knowing exactly what platforms they wish to support, but
+> their goal is good, hopefully they eventually nail something down and we
+> can work together.  Perhaps you should contact them to try to help solve
+> this issue for everyone?
 
-I believe that's exactly what -next is for. Integration with
-development from other sub systems.
+I may be wrong, but I understand Lukasz's comment as the exact opposite: we 
+forget about long-lived devices and drop their support while they're still in 
+active use, forcing vendors to start using old and unsupported kernels. If a 
+large number of ARMv4(T) devices are still being actively deployed and 
+maintain, we should treat them as first-class citizens.
 
->=20
-> > > your branch hits -next.=C2=A0=C2=A0Our criterion for -next queueing i=
-s local
-> > > tests pass, code inspection complete and 0day ML didn't complain.=C2=
-=A0
-> > > However, we still get quite a few reports from the -next automated
-> > > testing even after our local stuff.=C2=A0=C2=A0I really don't see what
-> > > delaying into -next buys you except delaying finding and fixing
-> > > bugs. =20
-> >=20
-> > But you state you have your own local tests, which I think could be
-> > enough of a requirement. Although running allmod and allyes should be
-> > part of a local test, but I think 0day does that too (as that's
-> > usually the test that fails most often that 0day catches first). =20
->=20
-> So when local tests are complete we're ready for integration.
+-- 
+Regards,
 
-If your local tests catch most common bugs. (testing on non-SMP,
-x86_32, and other non-common cases where things can break).
-
->=20
-> > > This applies to 0day as well, because, by agreement, it has a much
-> > > deeper set of xfstest runs for branches we actually queue for -next
-> > > rather than the more cursory set of tests it runs on ML patches. =20
-> >=20
-> > What about the tests on local branches? Not what you post to the ML. =20
->=20
-> I don't really see any point having a local -pre-next pass and hoping
-> 0day will find it.  It's much more valuable (and faster) to push to
-> -next and have all the integrated tests work on it once we've done
-> everything we can locally.
-
-Why not do what I do and push to a -pre-next branch when you kick off
-your local tests? Then perhaps 0day may catch something you introduced
-before it heads off to -next. -next is about catching bugs due to
-integration with other sub systems, it shouldn't be used to catch bugs
-that could have been caught without the integration.
-
-Kind of like if you give blood in the US. There's a note that tells you
-to not use blood donation as a way to get tested for a particular
-disease. Just get tested for it before giving blood and possibly
-infecting others.
-
--- Steve
+Laurent Pinchart
