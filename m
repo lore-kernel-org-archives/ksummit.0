@@ -1,26 +1,19 @@
-Return-Path: <gregkh@linuxfoundation.org>
-Date: Tue, 11 Sep 2018 10:48:07 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Dave Hansen <dave@sr71.net>
-Message-ID: <20180911084807.GC23570@kroah.com>
-References: <nycvar.YFH.7.76.1809062054450.15880@cbobk.fhfr.pm>
-	<CALCETrWsWGbo0B7=_AAOinJVCLrZbhJ75W2eUPxLCyo2BspBxA@mail.gmail.com>
-	<alpine.DEB.2.21.1809081037440.1402@nanos.tec.linutronix.de>
-	<20180908082141.15d72684@coco.lan>
-	<20180908113411.GA3111@kroah.com>
-	<1536418829.22308.1.camel@HansenPartnership.com>
-	<20180908153235.GB11120@kroah.com>
-	<1536422066.22308.3.camel@HansenPartnership.com>
-	<CA+55aFwiW9eeC0Z1+HnhCVzH=LmfBQfpdFZ0eYSuHdp5U6bpEg@mail.gmail.com>
-	<cd13e5bd-1d1f-4e0b-4a64-ee6251172888@sr71.net>
+Return-Path: <geert.uytterhoeven@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cd13e5bd-1d1f-4e0b-4a64-ee6251172888@sr71.net>
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	mchehab+samsung@kernel.org, ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Handling of embargoed
- security issues
+References: <trinity-b7dcc7ee-84eb-4ba9-ab94-b2936551a388-1536588284133@3c-app-gmx-bs33>
+	<CACRpkdYk1JKEQ=bumrxRk1eJ97xkQti8E1MRJ_xxen+dZ1a1Xw@mail.gmail.com>
+	<CAK8P3a0a=eAwAg5i6z-5Hs56BXKP3CSsv2383zuMh6TrrDPwug@mail.gmail.com>
+	<20180910220208.GB17966@roeck-us.net>
+In-Reply-To: <20180910220208.GB17966@roeck-us.net>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 11 Sep 2018 10:49:25 +0200
+Message-ID: <CAMuHMdXm3i7ihWDQCfqt-rDtL4t_zE=bPJj_e=tVzF1HV-dutA@mail.gmail.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Cc: Ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Deprecation / Removal of
+ old hardware support
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,21 +23,47 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Sep 10, 2018 at 03:59:26PM -0700, Dave Hansen wrote:
-> I *do* wish that companies like Intel who are actively doing these
-> non-NDA things would find some way to share their methods.  Maybe the LF
-> can help here by providing a semi-anonymous way for folks to share what
-> has worked.  Or, maybe folks like Intel need to just to it ourselves.
+Hi G=C3=BCnter,
 
-There is a framework where Intel can share these types of methods
-already.  The LF has at least one meeting a year for all of the
-Linux-related company's legal people to come together and share
-information and talk in a way that all can benefit, using the Chatham
-House rules.
+On Tue, Sep 11, 2018 at 12:02 AM Guenter Roeck <linux@roeck-us.net> wrote:
+> On Mon, Sep 10, 2018 at 11:40:59PM +0200, Arnd Bergmann wrote:
+> > One architecture (unicore32) got saved in the last minute by
+> > the maintainer saying that he'd rather keep it in tree, despite not
+> > even having a publicly available toolchain with sources.
+>
+> unicore32 no longer builds with the mainline kernel because the
+> (private) toolchain is too old (gcc < 4.6), so it may be time
+> to revisit that decision.
 
-I'm sure a presentation from Intel to that group would always be most
-welcome.
+I'm still building mainline with gcc-4.1.2, using:
 
-thanks,
+    git revert 815f0ddb346c1960 # "include/linux/compiler*.h: make
+compiler-*.h mutually exclusive"
+    git revert cafa0010cd51fb71 # "Raise the minimum required gcc
+version to 4.6"
 
-greg k-h
+leading to one recent bug fix:
+
+    https://lore.kernel.org/lkml/20180823212738.18431-1-geert@linux-m68k.or=
+g/
+
+and two code improvements:
+
+    https://lore.kernel.org/lkml/20180823212436.17423-1-geert@linux-m68k.or=
+g/
+    https://lore.kernel.org/lkml/20180823213027.18856-1-geert@linux-m68k.or=
+g/
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--=20
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
+.org
+
+In personal conversations with technical people, I call myself a hacker. Bu=
+t
+when I'm talking to journalists I just say "programmer" or something like t=
+hat.
+                                -- Linus Torvalds
