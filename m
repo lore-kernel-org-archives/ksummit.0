@@ -1,32 +1,31 @@
-Return-Path: <edubezval@gmail.com>
+Return-Path: <josh@joshtriplett.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 70C83144F
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6FBA1CAF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Sep 2018 01:11:06 +0000 (UTC)
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com
-	[209.85.215.177])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9F46F7E9
+	Tue, 11 Sep 2018 01:14:19 +0000 (UTC)
+Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
+	[217.70.183.197])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id AF6C37D5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Sep 2018 01:11:04 +0000 (UTC)
-Received: by mail-pg1-f177.google.com with SMTP id d19-v6so11361296pgv.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 10 Sep 2018 18:11:04 -0700 (PDT)
-Received: from localhost.localdomain
-	([2600:1010:b025:5d53:7256:81ff:febd:926d])
-	by smtp.gmail.com with ESMTPSA id
-	b14-v6sm25781544pfc.178.2018.09.10.18.11.02
-	for <ksummit-discuss@lists.linuxfoundation.org>
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Mon, 10 Sep 2018 18:11:03 -0700 (PDT)
-Date: Mon, 10 Sep 2018 18:11:00 -0700
-From: Eduardo Valentin <edubezval@gmail.com>
-To: ksummit-discuss@lists.linuxfoundation.org
-Message-ID: <20180911011056.GA6958@localhost.localdomain>
+	Tue, 11 Sep 2018 01:14:18 +0000 (UTC)
+Date: Mon, 10 Sep 2018 18:14:12 -0700
+From: Josh Triplett <josh@joshtriplett.org>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <20180911011412.GA19044@localhost>
+References: <CAKMK7uE=FwpPFnvOvuvGBZ0vjh3UMPW=zgSk1dmiyCLQPPuZvg@mail.gmail.com>
+	<20180910153806.GR16300@sasha-vm>
+	<CAOesGMjoe3XGeAoLhVpY2a-8q0Pgvc2bt9Dt58MYx=ZTuKHZTQ@mail.gmail.com>
+	<2789743.8CivUegSaj@avalon> <20180910213019.GB2579@localhost>
+	<CAKMK7uFZzx_Q4h9uf-e3_n1_+-NiToBe1HS-p96gKWaMo7SO+w@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: [Ksummit-discuss] [MAINTAINERS SUMMIT] CVE patches annotation
+In-Reply-To: <CAKMK7uFZzx_Q4h9uf-e3_n1_+-NiToBe1HS-p96gKWaMo7SO+w@mail.gmail.com>
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
+ management/subsystem governance
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,31 +35,24 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hello,
+On Tue, Sep 11, 2018 at 01:16:18AM +0200, Daniel Vetter wrote:
+> On Mon, Sep 10, 2018 at 11:30 PM, Josh Triplett <josh@joshtriplett.org> wrote:
+> > On Mon, Sep 10, 2018 at 10:59:26PM +0300, Laurent Pinchart wrote:
+> >> One of the issues here is that patch series don't have fixed boundaries over
+> >> their lifetime, the same way patches don't. A patch can evolve in scope from
+> >> version to version, and similarly so can a patch series. It's not uncommon for
+> >> patches to be dropped or added and for series to be split or merged. I've in
+> >> the past incorporated part of an RFC patch series in the v1 of a series with a
+> >> larger scope (after discussing it with the original developer of course).
+> >
+> > I do have some tools and algorithms that could be adapted to help
+> > cross-match patch series and show how they evolve over time. It isn't
+> > that hard to detect patch reordering and show interdiffs between
+> > corresponding patches. Extending that to match patches between series
+> > isn't much harder.
+> 
+> Is that built on top of the new git range-diff tool, or at least that
+> concept? Or something else?
 
-I would like to open a discussion on improving the annotation
-around CVE patches on the Linux kernel. Today, the kernel Documentation
-mentions about CVE assignment and asks as a good practice to at least
-mention the CVE  number in the patch [1]. But, is that enough?
-Should the kernel have more info about what patches fixes a specific
-CVE?
-
-Some of the challenges with current process:
-- The info about of about what CVEs have been patched in a kernel is
-  outside the kernel tree / git history.
-- Today, some patches have the CVE info, and many others do not mention
-  anything about CVE number.
-- As mentioned in the kernel documentation [1], not always the CVE
-  number is assigned when the patch(es) go into the kernel tree, so
-  maybe this may require some post merge annotation?
-- It is not always straight forward to know what patches are needed to
-  fix the CVE, specially on cases the fix require a series of
-  preparation work before the actual fix.
-
-  Specially on the later case, annotation can help, specially while
-  backporting.
-
-BR,
-
-
-[1] - https://www.kernel.org/doc/html/latest/admin-guide/security-bugs.html
+Same concept, just a different implementation of an algorithm comparable
+to tbdiff's.
