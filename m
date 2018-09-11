@@ -1,19 +1,38 @@
-Return-Path: <geert.uytterhoeven@gmail.com>
+Return-Path: <tglx@linutronix.de>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A312AE18
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 11 Sep 2018 09:03:32 +0000 (UTC)
+Received: from Galois.linutronix.de (Galois.linutronix.de [146.0.238.70])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 34DF52C4
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 11 Sep 2018 09:03:32 +0000 (UTC)
+Date: Tue, 11 Sep 2018 11:03:25 +0200 (CEST)
+From: Thomas Gleixner <tglx@linutronix.de>
+To: Jiri Kosina <jikos@kernel.org>
+In-Reply-To: <nycvar.YFH.7.76.1809111013260.15880@cbobk.fhfr.pm>
+Message-ID: <alpine.DEB.2.21.1809111050280.5110@nanos.tec.linutronix.de>
+References: <20180908113411.GA3111@kroah.com>
+	<1536418829.22308.1.camel@HansenPartnership.com>
+	<20180908153235.GB11120@kroah.com>
+	<1536422066.22308.3.camel@HansenPartnership.com>
+	<20180909125130.GA16474@kroah.com>
+	<CA+55aFwHH7cN0GXcV7trRs1zgdak+_e8-TyXEsXu62G5V_248A@mail.gmail.com>
+	<1536503930.3192.2.camel@HansenPartnership.com>
+	<6ECFDF7E-2674-4096-BFB5-25243D62913E@amacapital.net>
+	<20180909172039.GE22251@thunk.org>
+	<9E5C84F3-410E-4177-AA96-FA09A8D53BC6@amacapital.net>
+	<20180909185651.GF22251@thunk.org>
+	<alpine.DEB.2.21.1809101026160.1402@nanos.tec.linutronix.de>
+	<nycvar.YFH.7.76.1809111013260.15880@cbobk.fhfr.pm>
 MIME-Version: 1.0
-References: <trinity-b7dcc7ee-84eb-4ba9-ab94-b2936551a388-1536588284133@3c-app-gmx-bs33>
-	<CACRpkdYk1JKEQ=bumrxRk1eJ97xkQti8E1MRJ_xxen+dZ1a1Xw@mail.gmail.com>
-	<CAK8P3a0a=eAwAg5i6z-5Hs56BXKP3CSsv2383zuMh6TrrDPwug@mail.gmail.com>
-	<20180910220208.GB17966@roeck-us.net>
-In-Reply-To: <20180910220208.GB17966@roeck-us.net>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 11 Sep 2018 10:49:25 +0200
-Message-ID: <CAMuHMdXm3i7ihWDQCfqt-rDtL4t_zE=bPJj_e=tVzF1HV-dutA@mail.gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Cc: Ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Deprecation / Removal of
- old hardware support
+Content-Type: text/plain; charset=US-ASCII
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	mchehab+samsung@kernel.org,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Handling of embargoed
+ security issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -23,47 +42,50 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi G=C3=BCnter,
+On Tue, 11 Sep 2018, Jiri Kosina wrote:
+> On Mon, 10 Sep 2018, Thomas Gleixner wrote:
+> 
+> > Looking at SSBD/L1TF only and ignoring the Meltdown/Spectre disaster (which
+> > was completely FUBARed by Intel), having something like this in place could
+> > have certainly solved the main gap which we had. We were able to
+> > communicate freely between the informed parties and their allowed to know
+> > kernel developers, even accross vendors. 
+> 
+> Agreed, this worked pretty well this time.
+> 
+> > But there was no simple way to bring in anybody else. It tooks us almost 
+> > 2 months to get GregKH on board, but there was no way to talk to e.g. 
+> > the BPF folks in time.
+> 
+> But this was what has caused real pain indeed. Do we know / can it be 
+> publicly said what exactly was the issue in those cases? Was it perhaps 
+> that those people were not employed by a company the disclosing party had 
+> a NDA in place already (like it probably had with all the involved 
+> vendors, etc)?
 
-On Tue, Sep 11, 2018 at 12:02 AM Guenter Roeck <linux@roeck-us.net> wrote:
-> On Mon, Sep 10, 2018 at 11:40:59PM +0200, Arnd Bergmann wrote:
-> > One architecture (unicore32) got saved in the last minute by
-> > the maintainer saying that he'd rather keep it in tree, despite not
-> > even having a publicly available toolchain with sources.
->
-> unicore32 no longer builds with the mainline kernel because the
-> (private) toolchain is too old (gcc < 4.6), so it may be time
-> to revisit that decision.
+Greg is not employed by one of the companies to which the issue was
+disclosed and had no NDA in place. AFAIK he's not doing the NDA mess
+either, so it took time to sort it out.
 
-I'm still building mainline with gcc-4.1.2, using:
+For others, who were not employed by one of the involved parties and were
+not covered by some magic NDA construct, we just gave up because at the
+point we realized that we need their expertise it was way too late to wait
+a couple of month/weeks to get that sorted.
 
-    git revert 815f0ddb346c1960 # "include/linux/compiler*.h: make
-compiler-*.h mutually exclusive"
-    git revert cafa0010cd51fb71 # "Raise the minimum required gcc
-version to 4.6"
+That's where I see the embargo coordination to have it's place. If the
+people working on the embargoed issue need the expertise of somebody who is
+not covered in one way or the other, then the embargo team can disclose it
+due to technical necessarity and based on trust.
 
-leading to one recent bug fix:
+And I can see that working, because if someone gets pulled in and spills
+the beans then he has not only violated the trust put into him for this
+particular embargo issue, he also killed his reputation and trust
+relationships in the community as a whole.
 
-    https://lore.kernel.org/lkml/20180823212738.18431-1-geert@linux-m68k.or=
-g/
+I doubt that any coordinator in a company - despite the whole NDA/work
+contract/whatever stuff in place - will disclose a sensitive embargo issue
+to an engineer whom he doesn't trust fully.
 
-and two code improvements:
+Thanks,
 
-    https://lore.kernel.org/lkml/20180823212436.17423-1-geert@linux-m68k.or=
-g/
-    https://lore.kernel.org/lkml/20180823213027.18856-1-geert@linux-m68k.or=
-g/
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
-
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+	tglx
