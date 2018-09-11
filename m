@@ -1,35 +1,22 @@
-Return-Path: <broonie@sirena.org.uk>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1EE76F47
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Sep 2018 17:26:44 +0000 (UTC)
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
-	[172.104.155.198])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8B1ED766
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Sep 2018 17:26:43 +0000 (UTC)
-Date: Tue, 11 Sep 2018 18:26:40 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Guenter Roeck <linux@roeck-us.net>
-Message-ID: <20180911172640.GD10123@sirena.org.uk>
-References: <CA+55aFwfcNuH4p+rKHuQcgOSt3coT=cN6ZdSG1OKNQ5GTWgoxg@mail.gmail.com>
-	<20180907014930.GE16300@sasha-vm>
-	<CA+55aFz57ASBqAvXnCv4_uZ3niPJjTDdSmOOdyaFeW8gCAwSHQ@mail.gmail.com>
-	<20180907145437.GF16300@sasha-vm>
-	<CA+55aFzp340RDJUDoOGtN5ENgdCSSkksvG0yPt74BgyvTrAE4Q@mail.gmail.com>
-	<20180910194310.GV16300@sasha-vm>
-	<20180910164519.6cbcc116@vmware.local.home>
-	<20180910212019.GA32269@roeck-us.net>
-	<20180911111853.GB8018@sirena.org.uk>
-	<20180911170212.GC8284@roeck-us.net>
+Return-Path: <groeck7@gmail.com>
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Tue, 11 Sep 2018 10:27:41 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Message-ID: <20180911172741.GA2767@roeck-us.net>
+References: <trinity-b7dcc7ee-84eb-4ba9-ab94-b2936551a388-1536588284133@3c-app-gmx-bs33>
+	<CACRpkdYk1JKEQ=bumrxRk1eJ97xkQti8E1MRJ_xxen+dZ1a1Xw@mail.gmail.com>
+	<CAK8P3a0a=eAwAg5i6z-5Hs56BXKP3CSsv2383zuMh6TrrDPwug@mail.gmail.com>
+	<20180910220208.GB17966@roeck-us.net>
+	<CAMuHMdXm3i7ihWDQCfqt-rDtL4t_zE=bPJj_e=tVzF1HV-dutA@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bjuZg6miEcdLYP6q"
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20180911170212.GC8284@roeck-us.net>
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAMuHMdXm3i7ihWDQCfqt-rDtL4t_zE=bPJj_e=tVzF1HV-dutA@mail.gmail.com>
+Cc: Ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Deprecation / Removal of
+ old hardware support
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,76 +26,40 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+Hi Geert,
 
---bjuZg6miEcdLYP6q
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Tue, Sep 11, 2018 at 10:49:25AM +0200, Geert Uytterhoeven wrote:
+> Hi Günter,
+> 
+> On Tue, Sep 11, 2018 at 12:02 AM Guenter Roeck <linux@roeck-us.net> wrote:
+> > On Mon, Sep 10, 2018 at 11:40:59PM +0200, Arnd Bergmann wrote:
+> > > One architecture (unicore32) got saved in the last minute by
+> > > the maintainer saying that he'd rather keep it in tree, despite not
+> > > even having a publicly available toolchain with sources.
+> >
+> > unicore32 no longer builds with the mainline kernel because the
+> > (private) toolchain is too old (gcc < 4.6), so it may be time
+> > to revisit that decision.
+> 
+> I'm still building mainline with gcc-4.1.2, using:
+> 
+>     git revert 815f0ddb346c1960 # "include/linux/compiler*.h: make
+> compiler-*.h mutually exclusive"
+>     git revert cafa0010cd51fb71 # "Raise the minimum required gcc
+> version to 4.6"
+> 
+> leading to one recent bug fix:
+> 
+>     https://lore.kernel.org/lkml/20180823212738.18431-1-geert@linux-m68k.org/
+> 
+> and two code improvements:
+> 
+>     https://lore.kernel.org/lkml/20180823212436.17423-1-geert@linux-m68k.org/
+>     https://lore.kernel.org/lkml/20180823213027.18856-1-geert@linux-m68k.org/
+> 
 
-On Tue, Sep 11, 2018 at 10:02:12AM -0700, Guenter Roeck wrote:
+Interesting. How to you manage to not hit the problem reported with
+https://lkml.org/lkml/2018/8/14/472 ?
 
-> FWIW, for the most part I stopped reporting issues with -next after some =
-people
-> yelled at me for the 'noise' I was creating. Along the line of "This has =
-been
-> fixed in branch xxx; why don't you do your homework and check there", with
-> branch xxx not even being in -next. I don't mind "this has already been
-> reported/fixed", quite the contrary, but the "why don't you do your homew=
-ork"
-> got me over the edge.
-
-Ugh, yeah - that sort of response is super annoying, especially when it
-also comes along with something about not fixing -next for a while for
-some process reason.  I have found it's very rare these days fortunately
-but it has happened.
-
-> To even consider reporting issues in -next on a more regular basis, I'd l=
-ike
-> to see a common agreement that reporting such issues does not warrant bei=
-ng
-> yelled at, even if the issue has been fixed somewhere or if it has already
-> been reported. Otherwise I'll stick with doing what I do now: If something
-> is broken for more than a week, I _may_ start looking at it if I have some
-> spare time and/or need a break from my day-to-day work.
-
-I'd say that should be true in general, being pointed at some previous
-discussion or whatever is clearly fine but it's unreasonable to expect
-people doing general purpose testing to know about random other threads
-or branches.  It's especially true if it's something that disrupts other
-testing in an integration tree.
-
-> > FWIW kernelci isn't nearly so bad on -next today - only four build
-> > failures from the configurations it tests (someone managed to break
-> > arm64) and the boot tests are clean apart from one board that's been
-> > having what look like intermittent board specific issues. =20
-
-> >    https://kernelci.org/boot/all/job/next/branch/master/kernel/next-201=
-80911/
-
-> > No testsuites run there though.
-
-> It doesn't require test suites. The crash happens on reboot/poweroff when
-> unmounting the root file system. initrd/initramfs boots don't see the
-> problem. Pretty much every architecture except arm (for whatever reason)
-> should see the problem.
-
-You'd also need to reboot or power off which KernelCI doesn't do for
-boot tests - it's just happy if we make it as far as a prompt then kills
-the power.
-
---bjuZg6miEcdLYP6q
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAluX+s8ACgkQJNaLcl1U
-h9APpAf/QDklZ0UD9S7oey3Ecsoph2/OOChAKAJITjj3iKw9eczSWQz9KS2vXitx
-/sZGBmYICSO1sEII7tWiWWQXmBrHF02kk2hybqez89PXqUcffWgBVdt4csbZQojc
-hHy2uFIve+hILIf0rdCtCvcvzvT80VvxgTEMWkbanQdbNMvnj1k3NZBFVXG7tOOE
-tI0Gw7+9d3Ak293p0xi6uECfCkPMpcYVZ58GedeAJ8pOa4CtS+wPI8dNQ+rLcDIL
-crrcwjUlteNzfAsDAWrjxSpVrGGBmbMH73CA0NwVZpajxrjVeg3pgmkJ+lhuOstm
-qcUdtJzF1W9K6dLzTjFTOH1ouIDFUg==
-=fX1y
------END PGP SIGNATURE-----
-
---bjuZg6miEcdLYP6q--
+Thanks,
+Guenter
