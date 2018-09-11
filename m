@@ -1,37 +1,31 @@
-Return-Path: <linus971@gmail.com>
+Return-Path: <tony@atomide.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id F215FF40
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 73822EE4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Sep 2018 17:35:53 +0000 (UTC)
-Received: from mail-io0-f180.google.com (mail-io0-f180.google.com
-	[209.85.223.180])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A65257CD
+	Tue, 11 Sep 2018 17:40:47 +0000 (UTC)
+Received: from muru.com (muru.com [72.249.23.125])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id F30467CD
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Sep 2018 17:35:53 +0000 (UTC)
-Received: by mail-io0-f180.google.com with SMTP id l14-v6so4242751iob.7
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Sep 2018 10:35:53 -0700 (PDT)
-MIME-Version: 1.0
-References: <CAKMK7uFO3xiKxa+mEDgEfDx6ZKY7aFPibD1xuK3z-Ybi0Zr3Sw@mail.gmail.com>
-	<20180905101710.73137669@gandalf.local.home>
-	<20180907004944.GD16300@sasha-vm>
-	<CA+55aFwfcNuH4p+rKHuQcgOSt3coT=cN6ZdSG1OKNQ5GTWgoxg@mail.gmail.com>
-	<20180907014930.GE16300@sasha-vm>
-	<CA+55aFz57ASBqAvXnCv4_uZ3niPJjTDdSmOOdyaFeW8gCAwSHQ@mail.gmail.com>
+	Tue, 11 Sep 2018 17:40:46 +0000 (UTC)
+Date: Tue, 11 Sep 2018 10:40:43 -0700
+From: Tony Lindgren <tony@atomide.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+Message-ID: <20180911174043.GK5659@atomide.com>
+References: <CA+55aFz57ASBqAvXnCv4_uZ3niPJjTDdSmOOdyaFeW8gCAwSHQ@mail.gmail.com>
 	<20180907145437.GF16300@sasha-vm>
 	<CA+55aFzp340RDJUDoOGtN5ENgdCSSkksvG0yPt74BgyvTrAE4Q@mail.gmail.com>
 	<20180910194310.GV16300@sasha-vm>
 	<20180910164519.6cbcc116@vmware.local.home>
 	<20180910212019.GA32269@roeck-us.net>
 	<20180910174638.26fff182@vmware.local.home>
-	<20180911104707.65613222@canb.auug.org.au>
-In-Reply-To: <20180911104707.65613222@canb.auug.org.au>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Tue, 11 Sep 2018 07:35:40 -1000
-Message-ID: <CA+55aFyxpYJ=ia_ip+9xYHa=foMLxtbKY4od8z7vQ79JAZABgQ@mail.gmail.com>
-To: Stephen Rothwell <sfr@canb.auug.org.au>
-Content-Type: text/plain; charset="UTF-8"
+	<20180910230301.GB1764@localhost.localdomain>
+	<20180910191329.70f90a14@vmware.local.home>
+	<20180911114227.241f2e5d@vmware.local.home>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20180911114227.241f2e5d@vmware.local.home>
 Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -43,28 +37,44 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Sep 10, 2018 at 2:47 PM Stephen Rothwell <sfr@canb.auug.org.au> wrote:
->
-> I am pretty sure that Linus does not follow linux-next (except to see
-> what is still coming during the merge window),
+* Steven Rostedt <rostedt@goodmis.org> [180911 15:46]:
+> On Mon, 10 Sep 2018 19:13:29 -0400
+> Steven Rostedt <rostedt@goodmis.org> wrote:
+> 
+> > On Mon, 10 Sep 2018 16:03:03 -0700
+> > Eduardo Valentin <edubezval@gmail.com> wrote:
+> > 
+> > > I thought that was the case already, everthing that goes to linux-next
+> > > is ready to go to Linus.  
+> > 
+> > It's suppose to be, but not always, and this is why I suggested that
+> > Linus start yelling at those that are not doing it.
+> > 
+> 
+> This may have come across a bit too strong. We don't need Linus to
+> yell, but there should definitely be consequences for any maintainer
+> that pushes untested code to linux-next. At a bare minimum, all code
+> that goes into linux-next should have passed 0day bot. Push code to a
+> non-linux-next branch on kernel.org, wait a few days, if you don't get
+> any reports that a bot caught something broken, you should be good to
+> go (also you can opt-in to get reports on 0day success, which I do, to
+> make that cycle even shorter). And that's a pretty low bar to have to
+> pass. Ideally, all maintainers should have a set of tests they run
+> before pushing anything to linux-next, or to Linus in the late -rcs. If
+> you can't be bothered just to rely on at least 0day then you should not
+> be a maintainer.
 
-Correct. I follow next only for tracking how much to expect, and then
-verifying the occasional borderline pull (if if something looks fishy,
-I might check :was it in linux-next?"). I don't really track it
-otherwise.
+Based on the regressions I seem to hit quite a few Linux next
+regressions could have been avoided if Andrew's mm tree had seem some
+more testing before being added to next. Probably because Andrew
+queues lots of complicated patches :)
 
->                   so maybe I should be
-> yelling at people - but yelling is not one of my better skills :-)
+So yeah what you're suggesting might help with that if we establish
+a let's say 24 hour period before adding branches to next. At
+least that gives the automated systems a chance to test stuff
+before it hits next. And people who want to can then test various
+branches separately in advance.
 
-I wish I wasn't always the bad guy ("when daddy gets home, you'll
-really get it"), but one thing that might be worth doing is to just
-track what causes failures, and inform me.
+Regards,
 
-If a failure persists, I'll know at least to not pull it.
-
-But that requires that the failures be pinpointed at lest to which
-linux-next pull it was, so that you (or somebody else who runs tests)
-can do more than "build/boot failed for linux-next", and actually
-point to where the failure came in.
-
-             Linus
+Tony
