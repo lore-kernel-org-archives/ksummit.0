@@ -1,35 +1,25 @@
-Return-Path: <broonie@sirena.org.uk>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8FB9DBA9
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Sep 2018 11:18:57 +0000 (UTC)
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
-	[172.104.155.198])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1443A7AF
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Sep 2018 11:18:57 +0000 (UTC)
-Date: Tue, 11 Sep 2018 12:18:53 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Guenter Roeck <linux@roeck-us.net>
-Message-ID: <20180911111853.GB8018@sirena.org.uk>
-References: <20180905101710.73137669@gandalf.local.home>
-	<20180907004944.GD16300@sasha-vm>
-	<CA+55aFwfcNuH4p+rKHuQcgOSt3coT=cN6ZdSG1OKNQ5GTWgoxg@mail.gmail.com>
-	<20180907014930.GE16300@sasha-vm>
-	<CA+55aFz57ASBqAvXnCv4_uZ3niPJjTDdSmOOdyaFeW8gCAwSHQ@mail.gmail.com>
-	<20180907145437.GF16300@sasha-vm>
-	<CA+55aFzp340RDJUDoOGtN5ENgdCSSkksvG0yPt74BgyvTrAE4Q@mail.gmail.com>
-	<20180910194310.GV16300@sasha-vm>
-	<20180910164519.6cbcc116@vmware.local.home>
-	<20180910212019.GA32269@roeck-us.net>
+Return-Path: <linus.walleij@linaro.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bCsyhTFzCvuiizWE"
-Content-Disposition: inline
-In-Reply-To: <20180910212019.GA32269@roeck-us.net>
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
+References: <trinity-b7dcc7ee-84eb-4ba9-ab94-b2936551a388-1536588284133@3c-app-gmx-bs33>
+	<CACRpkdYk1JKEQ=bumrxRk1eJ97xkQti8E1MRJ_xxen+dZ1a1Xw@mail.gmail.com>
+	<CAK8P3a0a=eAwAg5i6z-5Hs56BXKP3CSsv2383zuMh6TrrDPwug@mail.gmail.com>
+	<CACRpkdYi66Lgq7OAGchQyfqEUUGVKV9m3YzL6t_nS+Hm0G2rRg@mail.gmail.com>
+	<20180911105233.GA8018@sirena.org.uk>
+In-Reply-To: <20180911105233.GA8018@sirena.org.uk>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Tue, 11 Sep 2018 13:22:03 +0200
+Message-ID: <CACRpkdbcRCBFoBa88qKWHQMW-dTppH8pxxnUZZibrtUwtohgLg@mail.gmail.com>
+To: Mark Brown <broonie@kernel.org>,
+	=?UTF-8?B?U1ogTGluICjmnpfkuIrmmbop?= <sz.lin@moxa.com>,
+	=?UTF-8?B?SG9sc2V0eSBDaGVuICjpmbPmhrLovJ0p?= <Holsety.Chen@moxa.com>,
+	=?UTF-8?B?SGFycnkgWUogSmhvdSAo5ZGo5Lqe6KuEKQ==?= <harryyj.jhou@moxa.com>,
+	=?UTF-8?B?SmltbXkgQ2hlbiAo6Zmz5rC46YGUKQ==?= <jimmy.chen@moxa.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Ksummit-discuss@lists.linuxfoundation.org,
+	Alexander Sverdlin <alexander.sverdlin@gmail.com>,
+	Lukasz Majewski <lukma@denx.de>, Jonas Jensen <jonas.jensen@gmail.com>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Deprecation / Removal of
+ old hardware support
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,63 +29,50 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+Found some moxa.com mail addresses in the kernel log,
+so including them. You can speak about the status of the
+MOXA ART deployments if you like, I am talking about
 
---bCsyhTFzCvuiizWE
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 10, 2018 at 02:20:19PM -0700, Guenter Roeck wrote:
+On Tue, Sep 11, 2018 at 12:52 PM Mark Brown <broonie@kernel.org> wrote:
+> On Tue, Sep 11, 2018 at 10:37:36AM +0200, Linus Walleij wrote:
+>
+> > Sometimes I get the feeling that people focused on desktops
+> > or servers suffer from velocitate (speed blindness) and think
+> > everybody is like them. (Well don't we all.)
+>
+> Conversely, the approaches that keep stable kernels going also get
+> applied to designing hardware that people intend to be stable - if
+> it works well enough now why try something new, especially where that
+> new stuff is most likely going to be more expensive to either buy or
+> work with?
 
-> Would that help ? -next has been more or less unusable for a week or so.
-> Maybe it is just a bad time (it hasn't been as bad as it is right now
-> for quite some time), but
+Exactly. I think this is what happened at MOXA with the ART SoC.
 
-> Build results:
-> 	total: 135 pass: 133 fail: 2
-> Qemu test results:
-> 	total: 315 pass: 112 fail: 203
+It seems that MOXA made that with a bunch of consultants from
+Faraday in Taiwan supplying their IP blocks and know-how. Since
+then they have had zero incentive to upgrade the SoC to a newer
+version, as this SoC handles the ethernet, GPIO and serial lines
+they need just fine.
 
-> on next-20180910 doesn't really make me very confident that useful regres=
-sion
-> tests on -next are even possible. it seems to me that -next is quite often
-> used as dumping ground for sparsely tested changes, and is far from "ready
-> for upstream".
+They recently made a new design using Freescale (now NXP)
+LS1021a dualcore A7, but I can see that the ART (ARMv4) in
+EM-1240 and their EP93xx products (ARMv4T) are still in active
+deployment and even recommended for new projects, samples can
+be easily obtained.[1]
 
-I suspect this is something where if someone starts consistently
-reporting test results things will get a lot better if someone
-consistently reports test results and chases people to fix problems.  I
-expect it to go like builds - used to see huge numbers of build and boot
-failures in -next, and even in mainline, but ever since people started
-actively pushing on them the results have got much better to the point
-where it's the exeception rather than the rule.  You can see it
-happening if you look at the build error/warning results from releases
-over a few years (stable doesn't show it so clearly any more as a lot of
-these fixes got backported there).
+And this is good stuff, it's rock solid at this point. I just wish and
+hope that they really invest in using the very latest kernels
+also for these elder boards even though I rarely hear from them
+on the mailing lists.
 
-FWIW kernelci isn't nearly so bad on -next today - only four build
-failures from the configurations it tests (someone managed to break
-arm64) and the boot tests are clean apart from one board that's been
-having what look like intermittent board specific issues. =20
+At companies that have their internal ASIC design teams I
+sometimes get the feeling that these are churning out newer
+and more powerful ASICs as a therapeutic exercise just to
+keep their skills up. But I hope it is pure prejudice on my
+part.
 
-   https://kernelci.org/boot/all/job/next/branch/master/kernel/next-2018091=
-1/
+Yours,
+Linus Walleij
 
-No testsuites run there though.
-
---bCsyhTFzCvuiizWE
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAluXpJ0ACgkQJNaLcl1U
-h9BWqwf7BeJsVVBVsK3ivFdU3LF+xwQlD4TrgfFMRr0/3VZohwSLCvFfIKbTiO0m
-7COjpiv/e6MEtM5mJsf5tT7g4Sb40lUCfWUgXdmWyASlX99v2dWs0C5DYiM34SSd
-8p+BtHGfgw4veXnB/Jn9fFi2a/IjLVh0vzneiroDgOToLufj56ckycbaPfuVWXQ9
-ZYVmDqyUFwohA05GJtZPCFNgDt3S04gAa2dKD4qXi5EgdZc4RKDb1Oh6113b4q+L
-AzG7s5KHgBRW7SR5ckCAzcKvm9EEmNouaJC5RkqmFIr3hF8IWdkkyA2L+w4igfTe
-ElcEgLtTYV7r9XOhkW9dFAS1pJCn2A==
-=r0RB
------END PGP SIGNATURE-----
-
---bCsyhTFzCvuiizWE--
+[1] https://www.moxa.com/product/compact_fanless_computers.htm
