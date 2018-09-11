@@ -1,36 +1,33 @@
-Return-Path: <groeck7@gmail.com>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9D36A11CA
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9C92211B0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Sep 2018 17:47:33 +0000 (UTC)
-Received: from mail-pf1-f195.google.com (mail-pf1-f195.google.com
-	[209.85.210.195])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5E88A7D5
+	Tue, 11 Sep 2018 17:56:37 +0000 (UTC)
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+	[172.104.155.198])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0C6658D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Sep 2018 17:47:33 +0000 (UTC)
-Received: by mail-pf1-f195.google.com with SMTP id u24-v6so12580403pfn.13
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Sep 2018 10:47:33 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Tue, 11 Sep 2018 10:47:31 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Stephen Rothwell <sfr@canb.auug.org.au>
-Message-ID: <20180911174731.GA15367@roeck-us.net>
-References: <CA+55aFwfcNuH4p+rKHuQcgOSt3coT=cN6ZdSG1OKNQ5GTWgoxg@mail.gmail.com>
-	<20180907014930.GE16300@sasha-vm>
+	Tue, 11 Sep 2018 17:56:36 +0000 (UTC)
+Date: Tue, 11 Sep 2018 18:56:34 +0100
+From: Mark Brown <broonie@kernel.org>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Message-ID: <20180911175634.GF10123@sirena.org.uk>
+References: <20180907014930.GE16300@sasha-vm>
 	<CA+55aFz57ASBqAvXnCv4_uZ3niPJjTDdSmOOdyaFeW8gCAwSHQ@mail.gmail.com>
 	<20180907145437.GF16300@sasha-vm>
 	<CA+55aFzp340RDJUDoOGtN5ENgdCSSkksvG0yPt74BgyvTrAE4Q@mail.gmail.com>
 	<20180910194310.GV16300@sasha-vm>
 	<20180910164519.6cbcc116@vmware.local.home>
 	<20180910212019.GA32269@roeck-us.net>
-	<20180911104339.46143f61@canb.auug.org.au>
-	<20180911164938.GB8284@roeck-us.net>
+	<20180911111853.GB8018@sirena.org.uk>
+	<20180911170212.GC8284@roeck-us.net>
+	<1536686530.3511.1.camel@HansenPartnership.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="NGIwU0kFl1Z1A3An"
 Content-Disposition: inline
-In-Reply-To: <20180911164938.GB8284@roeck-us.net>
+In-Reply-To: <1536686530.3511.1.camel@HansenPartnership.com>
 Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -42,35 +39,51 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Sep 11, 2018 at 09:49:38AM -0700, Guenter Roeck wrote:
-> On Tue, Sep 11, 2018 at 10:43:39AM +1000, Stephen Rothwell wrote:
-> > Hi Guenter,
-> > 
-> > On Mon, 10 Sep 2018 14:20:19 -0700 Guenter Roeck <linux@roeck-us.net> wrote:
-> > >
-> > > On Mon, Sep 10, 2018 at 04:45:19PM -0400, Steven Rostedt wrote:
-> > > > 
-> > > > The best we can do is make the automated testing of linux-next better
-> > > > such that there's less -rc5 patches that need to go in in the first
-> > > > place.
-> > > >   
-> > > 
-> > > Would that help ? -next has been more or less unusable for a week or so.
-> > > Maybe it is just a bad time (it hasn't been as bad as it is right now
-> > > for quite some time), but
-> > > 
-> > > Build results:
-> > > 	total: 135 pass: 133 fail: 2
-> > > Qemu test results:
-> > > 	total: 315 pass: 112 fail: 203
-> > 
-> > I assume that most of that is the mount api changes.  I also assume you
-> > have reported these?
-> > 
-> I think so. I just noticed that the failure pattern changed yesterday,
-> and did not have time to run bisect. So, no, I have not reported this
-> specific failure.
-> 
-Now reported.
 
-Guenter
+--NGIwU0kFl1Z1A3An
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Tue, Sep 11, 2018 at 10:22:10AM -0700, James Bottomley wrote:
+
+> Not to excuse rudeness, we always try to be polite on lists when this
+> happens, but -next builds on Australian time, so when we find and fix
+> an issue there can be up to 24h before it propagates.  In that time,
+> particularly if it's a stupid bug, it gets picked up and flagged by a
+> number of self contained 0day type projects and possibly a couple of
+> coccinelle type ones as well.  It does get a bit repetitive for
+> maintainers to receive and have to respond to 4 or 5 bug reports for
+> something they just fixed ...
+
+I'd have thought most maintainers would be pretty used to sending
+repetitive e-mail by now :)
+
+> Perhaps the -next tracking projects could have some sort of co-
+> ordination list to prevent the five bug reports for the same issue
+> problem?
+
+We're not *that* overburdened with people running testing, and
+especially not with people actively reporting the results, at the
+minute.  A lot of the testers do have different focuses too which
+reduces overlap quite a bit.  When I've seen this happening it's more
+been collisions with people testing a specific platform for their own
+use duplicating things.  There is kernel-build-reports@lists.linaro.org
+but it's very much a firehose right now, really this would want a bug
+tracker.
+
+--NGIwU0kFl1Z1A3An
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAluYAdEACgkQJNaLcl1U
+h9DqpQf7BAtgh/f01DB8+RR9q88D0O5XEyDFrW4yx08RLD1WqWGA2xupiSlH2LFW
+ulxgyRlgO0ypMSzzJ2Ad4ccxTdfeqyhh4dcQH/NpnEQTjf9SpU7PpSe4nSRXFxcs
+Pt2wrGZTX/dLSlzziL7LLP0N8XiW7IbdD1IBo5CstO+sRaPTB9v+DUVC9XVCt1Ez
+0PgFXWWIQQW/1tUpZiwuVy63o7W5OtGHpoO7TJArcEjWh0H3Yoy9eWleyHRMfwsC
+9jhrDsxFiOWhoTODBWuA+BSPOG4pZAQbiYk175TPUnyf5wuKyA0KtTjMz3DaUNga
+Q6RTPMbHqaWHL/mf5dAB0NmBnZ82dg==
+=4KNV
+-----END PGP SIGNATURE-----
+
+--NGIwU0kFl1Z1A3An--
