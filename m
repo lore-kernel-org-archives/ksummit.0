@@ -1,32 +1,37 @@
-Return-Path: <jani.nikula@intel.com>
+Return-Path: <jikos@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 113EDC7A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 88E98B9E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Sep 2018 08:10:10 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D1315782
+	Tue, 11 Sep 2018 08:20:27 +0000 (UTC)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6AB06766
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Sep 2018 08:10:09 +0000 (UTC)
-From: Jani Nikula <jani.nikula@intel.com>
-To: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-In-Reply-To: <20180910095123.4d83fd9c@coco.lan>
-References: <CAGXu5j+-X6WQNdTYK2ZA5OOJgc0RfCq9Gr9WRAMkYTSQOT7QdQ@mail.gmail.com>
-	<20180906094158.1eba4f50@canb.auug.org.au>
-	<20180905222437.5d2a1730@vmware.local.home>
-	<CAGXu5jKfbVUcyGu6U1dVR8dKjGK0sY7=pLdmYXUC9_G8KmgZ0A@mail.gmail.com>
-	<20180907091842.6c55bd9a@canb.auug.org.au>
-	<CAGXu5jKQJfeOmTRBXB7ofW1iH6FNGROnSZzYdpG=H_Hu8zep=w@mail.gmail.com>
-	<s5h36ulrdps.wl-tiwai@suse.de> <87zhwtybr3.fsf@intel.com>
-	<alpine.DEB.2.20.1809071135090.3036@hadrien>
-	<87r2i5y6n6.fsf@intel.com> <20180910095123.4d83fd9c@coco.lan>
-Date: Tue, 11 Sep 2018 11:10:22 +0300
-Message-ID: <87ftyg315d.fsf@intel.com>
+	Tue, 11 Sep 2018 08:20:26 +0000 (UTC)
+Date: Tue, 11 Sep 2018 10:20:23 +0200 (CEST)
+From: Jiri Kosina <jikos@kernel.org>
+To: Thomas Gleixner <tglx@linutronix.de>
+In-Reply-To: <alpine.DEB.2.21.1809101026160.1402@nanos.tec.linutronix.de>
+Message-ID: <nycvar.YFH.7.76.1809111013260.15880@cbobk.fhfr.pm>
+References: <20180908113411.GA3111@kroah.com>
+	<1536418829.22308.1.camel@HansenPartnership.com>
+	<20180908153235.GB11120@kroah.com>
+	<1536422066.22308.3.camel@HansenPartnership.com>
+	<20180909125130.GA16474@kroah.com>
+	<CA+55aFwHH7cN0GXcV7trRs1zgdak+_e8-TyXEsXu62G5V_248A@mail.gmail.com>
+	<1536503930.3192.2.camel@HansenPartnership.com>
+	<6ECFDF7E-2674-4096-BFB5-25243D62913E@amacapital.net>
+	<20180909172039.GE22251@thunk.org>
+	<9E5C84F3-410E-4177-AA96-FA09A8D53BC6@amacapital.net>
+	<20180909185651.GF22251@thunk.org>
+	<alpine.DEB.2.21.1809101026160.1402@nanos.tec.linutronix.de>
 MIME-Version: 1.0
-Content-Type: text/plain
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] API
-	replacement/deprecation
+Content-Type: text/plain; charset=US-ASCII
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	mchehab+samsung@kernel.org,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Handling of embargoed
+ security issues
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,16 +41,27 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 10 Sep 2018, Mauro Carvalho Chehab <mchehab+samsung@kernel.org> wrote:
-> IMHO, whatever solution, the best would be to have a makefile
-> target equivalent to allmodconfig and allyesconfig that would 
-> add such extra maintainership logic.
+On Mon, 10 Sep 2018, Thomas Gleixner wrote:
 
-There's 'make W=n' for enabling extra gcc checks. Seems like a good fit.
+> Looking at SSBD/L1TF only and ignoring the Meltdown/Spectre disaster (which
+> was completely FUBARed by Intel), having something like this in place could
+> have certainly solved the main gap which we had. We were able to
+> communicate freely between the informed parties and their allowed to know
+> kernel developers, even accross vendors. 
 
-BR,
-Jani.
+Agreed, this worked pretty well this time.
 
+> But there was no simple way to bring in anybody else. It tooks us almost 
+> 2 months to get GregKH on board, but there was no way to talk to e.g. 
+> the BPF folks in time.
+
+But this was what has caused real pain indeed. Do we know / can it be 
+publicly said what exactly was the issue in those cases? Was it perhaps 
+that those people were not employed by a company the disclosing party had 
+a NDA in place already (like it probably had with all the involved 
+vendors, etc)?
+
+Thanks,
 
 -- 
-Jani Nikula, Intel Open Source Graphics Center
+Jiri Kosina
