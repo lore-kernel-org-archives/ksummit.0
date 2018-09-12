@@ -1,27 +1,32 @@
-Return-Path: <dvhart@infradead.org>
+Return-Path: <alexandre.belloni@bootlin.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3A95DDA4
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1EE901073
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Sep 2018 16:29:27 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C27B0784
+	Wed, 12 Sep 2018 18:23:46 +0000 (UTC)
+Received: from mail.bootlin.com (mail.bootlin.com [62.4.15.54])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 46F867C6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Sep 2018 16:29:26 +0000 (UTC)
-Date: Wed, 12 Sep 2018 09:29:23 -0700
-From: Darren Hart <dvhart@infradead.org>
+	Wed, 12 Sep 2018 18:23:45 +0000 (UTC)
+Date: Wed, 12 Sep 2018 20:23:43 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
 To: Linus Walleij <linus.walleij@linaro.org>
-Message-ID: <20180912162923.GA25894@wrath>
-References: <BY1PR0501MB14623C8F42765E4852FD5A39C51B0@BY1PR0501MB1462.namprd05.prod.outlook.com>
-	<CACRpkdb8c51RABEVhn5tibVxiqTDBRXJ5A5wU5nDfubr6p3nMw@mail.gmail.com>
+Message-ID: <20180912182343.GI2760@piout.net>
+References: <CAKMK7uE=FwpPFnvOvuvGBZ0vjh3UMPW=zgSk1dmiyCLQPPuZvg@mail.gmail.com>
+	<8412864.7ztUKcXNNC@avalon>
+	<CAKMK7uFAXoVG+nBX=Om9A7R9xPYa-hd0JrRX1RNKSNhxnL_VsA@mail.gmail.com>
+	<2019489.6joTqyUi4Z@avalon>
+	<CAKMK7uE535-7Vs9EAa2725XL2TX2ChJCN0Zb3YaMe=MarYJOyw@mail.gmail.com>
+	<20180911124423.GM2494@piout.net>
+	<CAKMK7uE55eEP8L74z7HMyPb2nVnK9=bBX8tUEqmsDYSqjO-CZg@mail.gmail.com>
+	<CACRpkdZeR=0-_tN03jFLGc-j1pW4hfOtqB6icjhpF190A8Z0=A@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CACRpkdb8c51RABEVhn5tibVxiqTDBRXJ5A5wU5nDfubr6p3nMw@mail.gmail.com>
+In-Reply-To: <CACRpkdZeR=0-_tN03jFLGc-j1pW4hfOtqB6icjhpF190A8Z0=A@mail.gmail.com>
 Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] A Safety-critical Linux system
- architecture
+Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
+ management/subsystem governance
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,73 +36,73 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Sep 12, 2018 at 12:35:07PM +0200, Linus Walleij wrote:
-> On Wed, Sep 12, 2018 at 3:18 AM Tiejun Chen <tiejunc@vmware.com> wrote:
+On 12/09/2018 11:14:14+0200, Linus Walleij wrote:
+> On Tue, Sep 11, 2018 at 5:02 PM Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
+> > That kind of skewed contribution statistics is indeed not sustainable,
+> > and indicates some serious problem imo. What exactly goes wrong, and
+> > how to best fix it I can't tell without more information though. From
+> > my experience in drm, where we also have some areas with highly skewed
+> > contribution statistics, it could be the maintainer driving people
+> > away, ensuring that there's only one-off contributions. Usually
+> > unkowningly.
 > 
-> > software contexts need to be certified according to different specifications
-> > like ARINC 653, Automotive Safety Integrity Level, and so on. So we
-> > need to explore making Linux itself certified.
+> This problem is likely psychological and/or sociologial or even
+> ethnological rather than technical.
 > 
-> There is a bunch of these certifications and specifications. Many of them
-> include manual review of "all code on the system", which is why several
-> approaches to this includes stripping down the kernel source to only
-> the code (after removing all Kconfig buzz and ifdefs) that will compile
-> and run on the target.
+> Despite several attempts of kernel maintainers to actively downplay
+> their role (Torvalds sets a good example in
+> Documentation/process/management-style.rst)
+> kernel maintainers are still perceived from the outside as some
+> kind of superior beings to which layperson developers feel
+> inferior to and look up to.
 > 
-> This should of course be possible to integrate into the existing Linux
-> build system, like "make sources" that would create a reduced
-> kernel tree that will also compile (russian matroska dolls come to
-> mind). I think such projects exist in Japan but I haven't heard from
-> them recently.
+> I think it's not an option to try to stop people from looking
+> up to kernel maintainers no matter how much we'd like that,
+> instead we need to assume the responsibility.
 > 
-> My pet peeve is that the review process appears to be something
-> along the lines that a "certified person/consultant" who has training
-> in this standard is supposed to review all the code for safety, so
-> after reviewing IMO we should work on (A) making sure that these
-> reviews and comments and the exact lines of the kernel and which
-> version/commit ID of it it pertains to is made public and (B) that the
-> review persons statement be merged into the kernel git log as
-> some kind of annotation along the lines of:
+> I do not know how to best deal with this, I guess maintainers
+> really need to watch their behaviors, but we would better ask
+> someone experienced in group dynamics what desirable
+> behaviors are.
 > 
-> Reviewed-for-ISO-26262-by: Linus Walleij <linus.walleij@linaro.org>
+> If I take a guess I suspect the same qualities are desired for any
+> good leader or good parent: maintainers should have infinite
+> patience, infinite time to reply to questions (also infinitisemal
+> latency so they are always there!), recognize all their own
+> weaknesses and always say they are sorry when they have
+> been rude, be encouraging, sweet, nurturing, criticize in a
+> way that makes it clear that it is the performance not the person
+> that needs improvement, and throwing in some extra rewards
+> for desired behavior every now and then. (I think someone
+> mentioned a pareto ratio of 80% praise and 20% critique
+> is ideal, it's likely an unscientific rule of thumb.)
+> 
+> Needless to say no real person lives up to the above.
+> No parent does either. Some just fail less or in less obvious
+> ways.
+> 
+> I am worried that the intersection of the sets of people that
+> naturally have the desired personality traits and also are
+> reasonably good engineers is actually pretty small and that is
+> why we have a problem.
 > 
 
-Functional Safety (FuSa) is the freedom from unacceptable risk. It typically
-involves safety measures that manage known and acceptable risk.
+But is there really a problem to begin with? This is what Daniel wants
+everybody to believe. He didn't scale in his own subsystem and basically
+gave up reviewing drivers and this seems to be working fine for DRM.
 
-There is a significant difference in the traditional Functional Safety (FuSa)
-systems and the systems built with Linux. As opposed to purpose built micro
-processors and less than 100k lines of code, Linux systems on general purpose
-CPUs present a "complex" system - where "complex" is referring to a system which
-exhibits emergent properties - properties which can only be observed in the assembled
-system, and not in the individual components.
+But trying to impose that supposedly "new maintainership model" (again,
+the numbers would indicate it is as hierarchical as any other part of
+the kernel) to all the maintainers is quite far fetched. Many
+maintainers are keeping up with their load and patches are getting
+reviewed and applied.
 
-This is significant because it requires a new approach to qualifying systems. We
-cannot apply traditional hazard analysis for fault trees to systems with CPUs
-made up of 7 Billion transistors (each) and a pre-existing software stack with
-10s of millions lines of code.
-
-Point being: starting to add safety specific reviews to a pre-existing complex
-software stack doesn't help. Linux will never be developed in a strictly
-compliant manner to any FuSa standard (especially 26262 which is not suitable
-for any complex software stack, fortunately it allows you to defer to the more
-generic IEC 61508).
-
-The problem facing us here is not "how do we make Linux safe", it is "how do we
-show that Linux has been developed in such a way that it presents an acceptable
-level of risk which can be managed with a defined set of safety measures".
-
-To the point of "Architecture". While it is tempting to try to "make it safe" or
-"design an architecture", safety critical systems are designed first from a
-safety case.
-
-The problem we need to solve here is not a technical Linux kernel problem. We
-need to understand a set of use cases, determine safety requirements, and then
-complete the methods and procedures begun by the SIL2LinuxMP project to show
-that Linux (pretty much as is) can be used with an acceptable level of risk.
-
-I do not feel Kernel Summit is the right venue for this discussion.
+I'm not saying there aren't any issues and that the level of reviews is
+sufficient but I really don't think problematic maintainers are as
+widespread as Daniel claims. It is really getting tiring to see him
+show random statistics and draw wrong conclusions from them.
 
 -- 
-Darren Hart
-VMware Open Source Technology Center
+Alexandre Belloni, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
