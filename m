@@ -1,35 +1,25 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <tiejunc@vmware.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1DDB9CF1
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id C3B18D8C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Sep 2018 23:29:24 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BADCE3F7
+	Wed, 12 Sep 2018 01:18:28 +0000 (UTC)
+Received: from NAM04-SN1-obe.outbound.protection.outlook.com
+	(mail-eopbgr700052.outbound.protection.outlook.com [40.107.70.52])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C325C2C4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 11 Sep 2018 23:29:23 +0000 (UTC)
-Message-ID: <1536708545.3511.18.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Tony Lindgren <tony@atomide.com>
-Date: Tue, 11 Sep 2018 19:29:05 -0400
-In-Reply-To: <20180911232249.GL5659@atomide.com>
-References: <20180910174638.26fff182@vmware.local.home>
-	<20180910230301.GB1764@localhost.localdomain>
-	<20180910191329.70f90a14@vmware.local.home>
-	<20180911114227.241f2e5d@vmware.local.home>
-	<20180911174043.GK5659@atomide.com>
-	<1536688022.3511.5.camel@HansenPartnership.com>
-	<20180911143923.11e479ea@vmware.local.home>
-	<1536696572.3511.12.camel@HansenPartnership.com>
-	<20180911163136.1d6653a6@vmware.local.home>
-	<1536706409.3511.14.camel@HansenPartnership.com>
-	<20180911232249.GL5659@atomide.com>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
+	Wed, 12 Sep 2018 01:18:26 +0000 (UTC)
+From: Tiejun Chen <tiejunc@vmware.com>
+To: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Date: Wed, 12 Sep 2018 01:18:24 +0000
+Message-ID: <BY1PR0501MB14623C8F42765E4852FD5A39C51B0@BY1PR0501MB1462.namprd05.prod.outlook.com>
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Subject: [Ksummit-discuss] [TECH TOPIC] A Safety-critical Linux system
+	architecture
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,43 +29,34 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, 2018-09-11 at 16:22 -0700, Tony Lindgren wrote:
-> * James Bottomley <James.Bottomley@HansenPartnership.com> [180911
-> 22:58]:
-> > On Tue, 2018-09-11 at 16:31 -0400, Steven Rostedt wrote:
-> > > 
-> > > Why not do what I do and push to a -pre-next branch when you kick
-> > > off
-> > > your local tests?
-> > 
-> > Because there's no point.  As I said, when we complete the local
-> > criteria the branch is ready for integration.  We push to -next and
-> > *all* the built bots tell us if there are any problems (which I
-> > don't
-> > expect there are but there's room for me to be wrong) ... including
-> > 0day.  I don't see what the delay and the process hassle would buy
-> > us
-> > if we only get a review by 0day in the -pre-next branch.  It seems
-> > more
-> > efficient to let every bot loose on what we think is mergeable.
-> 
-> Well what we're after is providing a trigger for people writing test
-> scripts to test individual branches before they get merged into next.
-> 
-> With the goal of trying to keep next usable constantly.
-> 
-> Establishing a branch naming standard like "-pre-next" would allow
-> the scripts to test the various branches where available before
-> they hit next and warn about issues.
-
-I still don't get the purpose: as I've said several times, SCSI pushes
-to -next when it thinks the patches are ready for merging.  Almost none
-of the subsequently discovered bugs (by both bots and humans) affect
-anything other than SCSI (and usually only a specific driver) so there
-would have been no benefit to testing them in a separate branch and
-indeed probably the detriment of diverting resources.
-
-That's my point: from my point of view the -next process is actually
-working; I don't see a reason to complicate it.
-
-James
+TGludXggaXMgcGxheWluZyB2ZXJ5IHdlbGwgaW4gdGhlIGNhc2Ugb2YgZW1iZWRkZWQgc3lzdGVt
+LiBBbmQgdGhlcmUgaXMgbm8gZG91YnQgdGhhdCBJb1QsIGludGVybmV0IG9mIHRoaW5ncywgZ3Jv
+d3MgYXMgbGFyZ2VyLiBBY3R1YWxseSBhIHZhcmlldHkgb2YgZW1iZWRkZWQgc3lzdGVtcyBtYWtl
+IElvVCBzbyBMaW51eCBkZWZpbml0ZWx5IHN0aWxsIGNhbiBjb250cmlidXRlIHRvIElvVC4gVGhl
+IHRoaW5nIGhlcmUgaXMgbWFueSBJb1Qgc3lzdGVtcyBhcmUgZGVwbG95ZWQgaW4gdGhlIGNyaXRp
+Y2FsIGluZnJhc3RydWN0dXJlcyBsaWtlIHRoZSBlbmVyZ3kgZ2VuZXJhdGlvbiwgb2lsIGFuZCBn
+YXMgY2VudGVyLCBhdmlvbmljLCBhdXRvbW90aXZlLCBldGMsIHdoZXJlIHNvZnR3YXJlIGNvbnRl
+eHRzIG5lZWQgdG8gYmUgY2VydGlmaWVkIGFjY29yZGluZyB0byBkaWZmZXJlbnQgc3BlY2lmaWNh
+dGlvbnMgbGlrZSBBUklOQyA2NTMsIEF1dG9tb3RpdmUgU2FmZXR5IEludGVncml0eSBMZXZlbCwg
+YW5kIHNvIG9uLiBTbyB3ZSBuZWVkIHRvIGV4cGxvcmUgbWFraW5nIExpbnV4IGl0c2VsZiBjZXJ0
+aWZpZWQuDQoNClNvbWUgZWZmb3J0cyBsaWtlIFNJTDJMaW51eE1QLCB3aGljaCAiYWltcyBhdCB0
+aGUgY2VydGlmaWNhdGlvbiBvZiB0aGUgYmFzZSBjb21wb25lbnRzIG9mIGFuIGVtYmVkZGVkIEdO
+VS9MaW51eCBSVE9TIHJ1bm5pbmcgb24gYSBzaW5nbGUtY29yZSBvciBtdWx0aS1jb3JlIGluZHVz
+dHJpYWwgQ09UUyBjb21wdXRlciBib2FyZC4gQmFzZSBjb21wb25lbnRzIGFyZSBib290IGxvYWRl
+ciwgcm9vdCBmaWxlc3lzdGVtLCBMaW51eCBrZXJuZWwgYW5kIEMgbGlicmFyeSBiaW5kaW5ncyB0
+byBhY2Nlc3MgdGhlIExpbnV4IGtlcm5lbC4gV2l0aCB0aGUgZXhjZXB0aW9uIG9mIGEgbWluaW1h
+bCBzZXQgb2YgdXRpbGl0aWVzIHRvIGluc3BlY3QgdGhlIHN5c3RlbSwgbWFuYWdlIGZpbGVzIGFu
+ZCBzdGFydCB0ZXN0IHByb2NlZHVyZXMsIHVzZXIgc3BhY2UgYXBwbGljYXRpb25zIGFyZSBub3Qg
+aW5jbHVkZWQuIiBCdXQgbG9va3Mgbm93IGl0J3Mgc3RpbGwgYXQgdGhlIGVhcmx5IHN0YWdlIGFu
+ZCBub3QgZ29vZCBlbm91Z2ggaW4gdGhlIHByb2R1Y3Rpb24gZW52aXJvbm1lbnQuDQoNClNvIGNv
+dWxkIHdlIGRpc2N1c3MgdG9nZXRoZXIgaWYtaG93IHdlIGJ1aWxkIGEgc2FmZXR5LWNyaXRpY2Fs
+IExpbnV4IHN5c3RlbSBhcmNoaXRlY3R1cmU/IEhlcmUgYXJlIHNvbWUgcG90ZW50aWFsIHRlY2hu
+b2xvZ2llczoNCg0KTWluaW1hbCBrZXJuZWwgcGFydCB3aXRoIHNvbWUgbGlnaHQgd2VpZ2h0IHN0
+YWNrcy4NCkV2ZXJ5IHN5c3RlbSBhbmQgdXNlciBzZXJ2aWNlIGFyZSBjb250YWluZXJpemVkLCBh
+bmQgZXZlbiB3aXRoIGhhcmR3YXJlIGFzc2lzdGVkIHRlY2hub2xvZ2llcyBsaWtlIFNHWC4NCkl0
+J3MgYmFzZWQgb24gVW5pa2VybmVsIGNvbmNlcHQuDQpPbmUgcHJvY2VzcyBvciBldmVuIG9uZSB0
+aHJlYWQgaXMgcmVzdHJpY3RlZCByaWdodCB0aGVyZS4NCkl0IG1pZ2h0IGJlIGhhdmluZyBzeXN0
+ZW0gYXVkaXQgd2l0aCBoeXBlcnZpc29yLg0KSG93IHRvIHZlcmlmeSBMaW51eCBpbiBzdWNoIGEg
+c2FmZXR5LWNyaXRpY2FsIGVudmlyb25tZW50DQoNCkJ1dCBub3QgbGltaXRlZCB0aGVzZSBmYWN0
+b3JzIGluIHRlcm1zIG9mIG91ciBzYWZldHktY3JpdGljYWwgTGludXggc3lzdGVtIGFyY2hpdGVj
+dHVyZS4NCg0KVGhhbmtzDQpUaWVqdW4NCg==
