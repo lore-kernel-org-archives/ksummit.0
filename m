@@ -1,32 +1,33 @@
-Return-Path: <jani.nikula@intel.com>
+Return-Path: <dan.carpenter@oracle.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D37A9E3C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 56E40D53
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Sep 2018 08:42:41 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7307113A
+	Wed, 12 Sep 2018 09:04:10 +0000 (UTC)
+Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D9DA813A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Sep 2018 08:42:41 +0000 (UTC)
-From: Jani Nikula <jani.nikula@intel.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Daniel Vetter <daniel.vetter@ffwll.ch>
-In-Reply-To: <20180911220047.GQ2494@piout.net>
-References: <CAKMK7uE=FwpPFnvOvuvGBZ0vjh3UMPW=zgSk1dmiyCLQPPuZvg@mail.gmail.com>
-	<8412864.7ztUKcXNNC@avalon>
-	<CAKMK7uFAXoVG+nBX=Om9A7R9xPYa-hd0JrRX1RNKSNhxnL_VsA@mail.gmail.com>
-	<2019489.6joTqyUi4Z@avalon>
-	<CAKMK7uE535-7Vs9EAa2725XL2TX2ChJCN0Zb3YaMe=MarYJOyw@mail.gmail.com>
-	<20180911124423.GM2494@piout.net>
-	<CAKMK7uE55eEP8L74z7HMyPb2nVnK9=bBX8tUEqmsDYSqjO-CZg@mail.gmail.com>
-	<20180911220047.GQ2494@piout.net>
-Date: Wed, 12 Sep 2018 11:42:53 +0300
-Message-ID: <87worr14z6.fsf@intel.com>
+	Wed, 12 Sep 2018 09:04:09 +0000 (UTC)
+Date: Wed, 12 Sep 2018 12:03:57 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <20180912090357.4i3bvh5ioca7tfok@mwanda>
+References: <CA+55aFwfcNuH4p+rKHuQcgOSt3coT=cN6ZdSG1OKNQ5GTWgoxg@mail.gmail.com>
+	<20180907014930.GE16300@sasha-vm>
+	<CA+55aFz57ASBqAvXnCv4_uZ3niPJjTDdSmOOdyaFeW8gCAwSHQ@mail.gmail.com>
+	<20180907145437.GF16300@sasha-vm>
+	<CA+55aFzp340RDJUDoOGtN5ENgdCSSkksvG0yPt74BgyvTrAE4Q@mail.gmail.com>
+	<20180910194310.GV16300@sasha-vm>
+	<20180910164519.6cbcc116@vmware.local.home>
+	<20180910212019.GA32269@roeck-us.net>
+	<20180911111853.GB8018@sirena.org.uk>
+	<20180911170212.GC8284@roeck-us.net>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20180911170212.GC8284@roeck-us.net>
 Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
-	management/subsystem governance
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,45 +37,40 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 12 Sep 2018, Alexandre Belloni <alexandre.belloni@bootlin.com> wrote:
-> Most of the drivers are developed by their maintainer or someone paid
-> by the vendor (which is basically the same because the maintainer is
-> actually getting paid to get his colleagues patches upstream).
->
-> I also see that the review numbers hint at biased reviews for the big
-> drivers as they are not coming from outsiders.
->
-> So what I see in DRM is exactly what you despis in other areas of the
-> kernel: mostly unreviewed maintainer self commits.
+On Tue, Sep 11, 2018 at 10:02:12AM -0700, Guenter Roeck wrote:
+> FWIW, for the most part I stopped reporting issues with -next after some people
+> yelled at me for the 'noise' I was creating. Along the line of "This has been
+> fixed in branch xxx; why don't you do your homework and check there", with
+> branch xxx not even being in -next. I don't mind "this has already been
+> reported/fixed", quite the contrary, but the "why don't you do your homework"
+> got me over the edge.
+> 
+> To even consider reporting issues in -next on a more regular basis, I'd like
+> to see a common agreement that reporting such issues does not warrant being
+> yelled at, even if the issue has been fixed somewhere or if it has already
+> been reported. Otherwise I'll stick with doing what I do now: If something
+> is broken for more than a week, I _may_ start looking at it if I have some
+> spare time and/or need a break from my day-to-day work.
 
-I'll only speak for drm/i915 here as one of its maintainers, and I'll
-steer clear of the preceding debate, but your conclusions don't hold
-water wrt drm/i915.
+I ran into the same issue with static checker warnings.  I tried to make
+it more obvious that my bug reports were basically automated.  I tried
+to make the language a bit stilted and robotic.  Robots don't judge you
+and it does no good to get angry with a robot.
 
-Sure, most of the contributions, both patches and review, come from paid
-Intel developers. It's a very busy driver. We pushed just under 8
-commits per day on the average in the v4.4..v4.18 range. For reference,
-that's 6.6% of all of drivers/. More than sound/, a bit less than fs/ or
-net/ top level directories, but in the same ballpark.
+The static checker people sometimes do send duplicate fixes.  But really
+if people don't want that they should stop writing buggy code to begin
+with.  I think everyone is used to getting duplicate warnings and
+patches now maybe so they don't complain so much any more.  (to me).
 
-By our rules, *nobody* gets to push unreviewed patches, and we follow
-that religiously. The more complicated the patch, the more rigorous the
-review must be, involving domain experts or generally more sets of eyes.
+The deal with using a different tree.  I do that for networking because
+Dave Miller is a very busy maintainer, but for everyone else I just use
+linux-next.  Some people have complained that they are special but all
+the static checker devs assured them that they are not.  We are not
+going to read the custom documentation for sending patches to their
+git tree.  Unless they can script it so it works automatically for
+everyone then, sorry.  I will still send them bug reports, but I'm not
+going to send custom formatted patches.  Just give me Reported-by credit
+and custom format it your own blasted self.  :)
 
-If we had to rely on outside reviews, either our rate of change would
-grind to a halt, or we'd have to loosen our rules. Instead, we trust our
-maintainers and committers to have the integrity to follow our
-documented merge criteria. And bypassing the rules would be a fast lane
-to losing the maintainer/committer status.
-
-Anyone contributing to drm/i915 will tell you there are no biased
-reviews. Some might say we are more gentle towards outside contributors
-than our own. I'm also pretty confident you won't find examples of
-unreviewed commits, let alone unreviewed maintainer self commits.
-
-
-BR,
-Jani.
-
--- 
-Jani Nikula, Intel Open Source Graphics Center
+regards,
+dan carpenter
