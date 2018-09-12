@@ -1,23 +1,25 @@
-Return-Path: <alexander.sverdlin@gmail.com>
-To: Arnd Bergmann <arnd@arndb.de>, Linus Walleij <linus.walleij@linaro.org>
-References: <trinity-b7dcc7ee-84eb-4ba9-ab94-b2936551a388-1536588284133@3c-app-gmx-bs33>
-	<CACRpkdYk1JKEQ=bumrxRk1eJ97xkQti8E1MRJ_xxen+dZ1a1Xw@mail.gmail.com>
-	<CAK8P3a0a=eAwAg5i6z-5Hs56BXKP3CSsv2383zuMh6TrrDPwug@mail.gmail.com>
-	<CACRpkdYi66Lgq7OAGchQyfqEUUGVKV9m3YzL6t_nS+Hm0G2rRg@mail.gmail.com>
-	<CAK8P3a3Eq0URSpniC8F5h+V_1mcY2XYsC7zx4_Ux0w+JgyCj6g@mail.gmail.com>
-From: Alexander Sverdlin <alexander.sverdlin@gmail.com>
-Message-ID: <1aff0668-026a-d5e5-484a-891ef484d03f@gmail.com>
-Date: Tue, 11 Sep 2018 23:28:29 +0200
-MIME-Version: 1.0
-In-Reply-To: <CAK8P3a3Eq0URSpniC8F5h+V_1mcY2XYsC7zx4_Ux0w+JgyCj6g@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
+Return-Path: <wanpeng.li@hotmail.com>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B3378C18
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 12 Sep 2018 00:39:29 +0000 (UTC)
+Received: from APC01-SG2-obe.outbound.protection.outlook.com
+	(mail-oln040092253067.outbound.protection.outlook.com [40.92.253.67])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DC61F2C4
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 12 Sep 2018 00:39:28 +0000 (UTC)
+From: Wanpeng Li <wanpeng.li@hotmail.com>
+To: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Date: Wed, 12 Sep 2018 00:39:26 +0000
+Message-ID: <SG2PR02MB1312314C35B7B82C5EF34A50801B0@SG2PR02MB1312.apcprd02.prod.outlook.com>
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Lukasz Majewski <lukma@denx.de>,
-	ksummit <Ksummit-discuss@lists.linuxfoundation.org>,
-	Jonas Jensen <jonas.jensen@gmail.com>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Deprecation / Removal of
- old hardware support
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Subject: [Ksummit-discuss] [TECH TOPIC] Torwards a more scalable KVM
+	hypervisor
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -27,24 +29,15 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi!
+The kvm hypervisor is at the core of cloud computing, Virtual Machine based=
+ approaches to workload consolidation, as seen in IaaS cloud as well as dat=
+a center platforms, have long had to contend with performance degradation c=
+aused by synchronization primitives inside the guest environments. These pr=
+imitives can be affected by virtual CPU preemptions by the host scheduler t=
+hat can introduce delays that are orders of magnitude longer than those pri=
+mitives were designed for. In this presentation, Wanpeng Li will introduce =
+current progress to mitigate TLB Shootdown Preemption. In addition, Wanpeng=
+ Li will also introduce Exitless IPIs to scale large VMs.
 
-On 11/09/2018 13:53, Arnd Bergmann wrote:
-> If you have specific examples for the 20-30 year deployment
-> that you know is running Linux on ARM9, please point me to
-> pictures that I can include them in my y2038 presentation.
-
-These devices were installed since 2006 all over Russia (mostly
-in block houses):
-
-http://wiki.tekon.ru/index.php?title=%D0%9A%D0%A3%D0%9D-IPM
-http://wiki.tekon.ru/index.php?title=%D0%A4%D0%B0%D0%B9%D0%BB:Kun_ipmv1.jpg
-http://wiki.tekon.ru/index.php?title=%D0%A4%D0%B0%D0%B9%D0%BB:Kun_ipmv3.jpg
-
-They are still in service and their operators are not motivated to
-swap them for newer generations. It could happen that they will approach
-their 20 years anniversary in service. But I really hope it will not
-be 20 more years from now :)
-
---
-Alex.
+Regards,
+Wanpeng Li
