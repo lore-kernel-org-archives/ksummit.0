@@ -1,37 +1,38 @@
 Return-Path: <edubezval@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BEB27FE6
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id BAF0D10FB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Sep 2018 15:17:59 +0000 (UTC)
-Received: from mail-pg1-f194.google.com (mail-pg1-f194.google.com
-	[209.85.215.194])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 370A913A
+	Wed, 12 Sep 2018 15:41:22 +0000 (UTC)
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
+	[209.85.214.177])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2EB5A13A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Sep 2018 15:17:59 +0000 (UTC)
-Received: by mail-pg1-f194.google.com with SMTP id t84-v6so1230456pgb.5
+	Wed, 12 Sep 2018 15:41:22 +0000 (UTC)
+Received: by mail-pl1-f177.google.com with SMTP id u11-v6so1164745plq.5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Sep 2018 08:17:59 -0700 (PDT)
-Date: Wed, 12 Sep 2018 08:17:55 -0700
+	Wed, 12 Sep 2018 08:41:22 -0700 (PDT)
+Date: Wed, 12 Sep 2018 08:41:15 -0700
 From: Eduardo Valentin <edubezval@gmail.com>
-To: James Bottomley <James.Bottomley@Hansenpartnership.com>
-Message-ID: <20180912151753.GB5155@localhost.localdomain>
-References: <20180910164519.6cbcc116@vmware.local.home>
-	<20180910212019.GA32269@roeck-us.net>
-	<20180910174638.26fff182@vmware.local.home>
-	<20180910230301.GB1764@localhost.localdomain>
-	<20180910191329.70f90a14@vmware.local.home>
-	<20180911114227.241f2e5d@vmware.local.home>
+To: Sasha Levin <Alexander.Levin@microsoft.com>
+Message-ID: <20180912154114.GA5786@localhost.localdomain>
+References: <20180911114227.241f2e5d@vmware.local.home>
 	<20180911174043.GK5659@atomide.com>
 	<1536688022.3511.5.camel@HansenPartnership.com>
-	<20180911181249.GA1783@localhost.localdomain>
-	<0f1c0bda-61f1-4df4-9161-1230eb5eef46@email.android.com>
+	<20180911143923.11e479ea@vmware.local.home>
+	<1536696572.3511.12.camel@HansenPartnership.com>
+	<20180911163136.1d6653a6@vmware.local.home>
+	<1536706409.3511.14.camel@HansenPartnership.com>
+	<20180911230421.GA3821@sasha-vm>
+	<1536707508.3511.16.camel@HansenPartnership.com>
+	<20180911232000.GB3821@sasha-vm>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <0f1c0bda-61f1-4df4-9161-1230eb5eef46@email.android.com>
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+In-Reply-To: <20180911232000.GB3821@sasha-vm>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -42,108 +43,107 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Sep 11, 2018 at 11:19:20AM -0700, James Bottomley wrote:
-> On September 11, 2018 11:12:51 AM PDT, Eduardo Valentin <edubezval@gmail.com> wrote:
-> >Hey,
+On Tue, Sep 11, 2018 at 11:20:01PM +0000, Sasha Levin via Ksummit-discuss wrote:
+> On Tue, Sep 11, 2018 at 07:11:48PM -0400, James Bottomley wrote:
+> >On Tue, 2018-09-11 at 23:04 +0000, Sasha Levin via Ksummit-discuss
+> >wrote:
+> >> On Tue, Sep 11, 2018 at 06:53:29PM -0400, James Bottomley wrote:
+> >> > On Tue, 2018-09-11 at 16:31 -0400, Steven Rostedt wrote:
+> >> > > On Tue, 11 Sep 2018 16:09:32 -0400
+> >> > > James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
+> >> > >
+> >> > > > On Tue, 2018-09-11 at 14:39 -0400, Steven Rostedt wrote:
+> >> >
+> >> > [...]
+> >> > > > > > This applies to 0day as well, because, by agreement, it has
+> >> > > > > > a much deeper set of xfstest runs for branches we actually
+> >> > > > > > queue for -next rather than the more cursory set of tests
+> >> > > > > > it runs on ML patches.  
+> >> > > > >
+> >> > > > > What about the tests on local branches? Not what you post to
+> >> > > > > the ML.  
+> >> > > >
+> >> > > > I don't really see any point having a local -pre-next pass and
+> >> > > > hoping 0day will find it.  It's much more valuable (and faster)
+> >> > > > to push to -next and have all the integrated tests work on it
+> >> > > > once we've done everything we can locally.
+> >> > >
+> >> > > Why not do what I do and push to a -pre-next branch when you kick
+> >> > > off your local tests?
+> >> >
+> >> > Because there's no point.  As I said, when we complete the local
+> >> > criteria the branch is ready for integration.  We push to -next and
+> >> > *all* the built bots tell us if there are any problems (which I
+> >> > don't expect there are but there's room for me to be wrong) ...
+> >> > including 0day.  I don't see what the delay and the process hassle
+> >> > would buy us if we only get a review by 0day in the -pre-next
+> >> > branch.  It seems more efficient to let every bot loose on what we
+> >> > think is mergeable.
+> >>
+> >> The problem with that approach is that it will break build more
+> >> often, and if build is broken then usually no automated testing are
+> >> getting done for that day.
 > >
-> >On Tue, Sep 11, 2018 a 10:47:02AM -0700, James Bottomley wrote:
-> >> On Tue, 2018-09-11 at 10:40 -0700, Tony Lindgren wrote:
-> >> > * Steven Rostedt <rostedt@goodmis.org> [180911 15:46]:
-> >> > > On Mon, 10 Sep 2018 19:13:29 -0400
-> >> > > Steven Rostedt <rostedt@goodmis.org> wrote:
-> >> > > 
-> >> > > > On Mon, 10 Sep 2018 16:03:03 -0700
-> >> > > > Eduardo Valentin <edubezval@gmail.com> wrote:
-> >> > > > 
-> >> > > > > I thought that was the case already, everthing that goes to
-> >> > > > > linux-next is ready to go to Linus.  
-> >> > > > 
-> >> > > > It's suppose to be, but not always, and this is why I suggested
-> >> > > > that Linus start yelling at those that are not doing it.
-> >> > > > 
-> >> > > 
-> >> > > This may have come across a bit too strong. We don't need Linus
-> >to
-> >> > > yell, but there should definitely be consequences for any
-> >> > > maintainer that pushes untested code to linux-next. At a bare
-> >> > > minimum, all code that goes into linux-next should have passed
-> >0day
-> >> > > bot. Push code to a non-linux-next branch on kernel.org, wait a
-> >few
-> >> > > days, if you don't get any reports that a bot caught something
-> >> > > broken, you should be good to go (also you can opt-in to get
-> >> > > reports on 0day success, which I do, to make that cycle even
-> >> > > shorter). And that's a pretty low bar to have to
-> >> > > pass. Ideally, all maintainers should have a set of tests they
-> >run
-> >> > > before pushing anything to linux-next, or to Linus in the late
-> >> > > -rcs. If you can't be bothered just to rely on at least 0day then
-> >> > > you should not be a maintainer.
-> >> > 
-> >> > Based on the regressions I seem to hit quite a few Linux next
-> >> > regressions could have been avoided if Andrew's mm tree had seem
-> >some
-> >> > more testing before being added to next. Probably because Andrew
-> >> > queues lots of complicated patches :)
-> >> > 
-> >> > So yeah what you're suggesting might help with that if we establish
-> >> > a let's say 24 hour period before adding branches to next. At
-> >> > least that gives the automated systems a chance to test stuff
-> >> > before it hits next. And people who want to can then test various
-> >> > branches separately in advance.
-> >> 
-> >> I really don't think that helps.  The 0day mailing list bot seems to
-> >be
-> >
-> >I think the idea is to minimize the failures on -next, and use the
-> >linux-next tree for its original purpose: check for integration issues.
+> >You're making the wrong assumption: most bugs aren't build breaks.  We
+> >do occasionally have them, usually because of an obscure config
+> >interaction issue, but it's a tiny percentage, so the impact to the
+> >entire tree usually isn't great.
 > 
-> We thought the patch was ready based on our acceptance criteria. That's why it went into our -next integration branch.  Finding bugs after we thought it was ready is a legitimate integration issue...
-> 
-> 
-> >> a bit overloaded and about 80% of the automation isn't run *unless*
-> >> your branch hits -next.  Our criterion for -next queueing is local
-> >
-> >Oh, I see. I was not aware of such dependency of the 0day bot. The
-> >kernelCI bot, which I mainly use after my local test, has no such
-> >requirement.
-> >
-> >> tests pass, code inspection complete and 0day ML didn't complain. 
-> >> However, we still get quite a few reports from the -next automated
-> >> testing even after our local stuff.  I really don't see what delaying
-> >> into -next buys you except delaying finding and fixing bugs.
-> >> 
-> >
-> >having a larger build/boot/test coverage before pushing on linux-next.
-> >But given the 0day dependency on -next itself, I am not sure it is
-> >worth
-> >it. Why is that a thing anyways? 0day cannot test individual branches?
-> 
-> 0day does test most branches it finds but its better to work off a curated list which the -next build bot has.
+> Right, most bugs aren't build/boot bugs, but between all various
+> subsystems there's always the one that snuck through. It only takes one
+> to kill build.
 
-Oh I see your point now. This is really a load / capacity issue then. I
-am assuming, based on this dicussion, that 0day would put resources
-first on stuff that is already in -next, then test individual branches,
-when possible. 
+
+Right, I agree build/boot bugs are not necessarily the more complex
+issues.  But one single boot problem in linux next has a huge impact on
+everyone that cares about testing it, and catching it to sooner the
+better, no?
+
+Also one maintainer may consider a config combination as an obscure one,
+but not every may think that way. Having bots build/boot testing
+branches on multiple configs is a thing that actually helps, specially
+if done before pushing to -next. Then again, I am not saying that we
+should push the responsibility of maintainers to bots to test stuff, but
+improving the test coverage is always welcome, IMO.
 
 > 
-> James
+> >However, think of this like release early, release often.  If we think
+> >a branch is ready but there's a lurking bug, even a build related one,
+> >it's better we find out sooner than later, so it's still better we
+> >expose it ASAP to the full test machinery.  If it's one the local
+> >criteria should have caught, I'm sure there'll be a huge line up of
+> >people wanting to complain (which is why we try to make sure any
+> >lurking bugs aren't build related).
+
+I agree. Looks like everyone wants to improve the testing coverage, the
+disagreement seams to be on when and how.
+
+
 > 
-> >> This applies to 0day as well, because, by agreement, it has a much
-> >> deeper set of xfstest runs for branches we actually queue for -next
-> >> rather than the more cursory set of tests it runs on ML patches.
-> >> 
-> >> James
-> >> 
-> >> _______________________________________________
-> >> Ksummit-discuss mailing list
-> >> Ksummit-discuss@lists.linuxfoundation.org
-> >> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
-> >_______________________________________________
-> >Ksummit-discuss mailing list
-> >Ksummit-discuss@lists.linuxfoundation.org
-> >https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+> Right, I'm not saying delay it, I'm just saying that you should feed it
+> to the bots *while* you run your testsuites, even if to just get build
+> coverage.
+
+I agree with this proposal, specially if the idea is to get more people
+to use a stabilized -next.
+
+However, I also tend to agree that other nasty bugs will be found only
+when changes hit a release or -rc kernel, or when they hit a stable
+release. Specially when those gets released by distros. Obviously, this
+should not prevent us to try to improve the process, specially wrt
+testing.
+
+
 > 
+> Also remember that -next releases once a day in a very predictable
+> timing, there's usually a few hours to spare between your push and the
+> time linux-next gets constructed, so ASAP isn't really all that critical
+> here as long as it gets in the same day.
 > 
-> -- 
-> Sent from my Android device with K-9 Mail. Please excuse my brevity.
+> --
+> Thanks,
+> Sasha
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
