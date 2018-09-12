@@ -1,32 +1,25 @@
-Return-Path: <tony@atomide.com>
+Return-Path: <tglx@linutronix.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D9E8BF31
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E883ECF2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Sep 2018 13:59:59 +0000 (UTC)
-Received: from muru.com (muru.com [72.249.23.125])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 8621C63D
+	Wed, 12 Sep 2018 14:11:37 +0000 (UTC)
+Received: from Galois.linutronix.de (Galois.linutronix.de [146.0.238.70])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 557F513A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Sep 2018 13:59:59 +0000 (UTC)
-Date: Wed, 12 Sep 2018 06:59:55 -0700
-From: Tony Lindgren <tony@atomide.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Message-ID: <20180912135955.GP5659@atomide.com>
-References: <1536688022.3511.5.camel@HansenPartnership.com>
-	<20180911143923.11e479ea@vmware.local.home>
-	<1536696572.3511.12.camel@HansenPartnership.com>
-	<20180911163136.1d6653a6@vmware.local.home>
-	<1536706409.3511.14.camel@HansenPartnership.com>
-	<20180911232249.GL5659@atomide.com>
-	<1536708545.3511.18.camel@HansenPartnership.com>
-	<CAMuHMdUTkrT6Jovw1wwCTQj3Cg+5yw5WPn5QKRNOhrcvB13s7g@mail.gmail.com>
-	<1536755770.3506.3.camel@HansenPartnership.com>
-	<3e6baddf-3e62-f6fe-4bbf-1a62694d4c96@roeck-us.net>
+	Wed, 12 Sep 2018 14:11:37 +0000 (UTC)
+Date: Wed, 12 Sep 2018 16:11:34 +0200 (CEST)
+From: Thomas Gleixner <tglx@linutronix.de>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+In-Reply-To: <3070742.JVHc92YBtH@avalon>
+Message-ID: <alpine.DEB.2.21.1809121531280.9957@nanos.tec.linutronix.de>
+References: <20180910174638.26fff182@vmware.local.home>
+	<3146009.WtUYtaxuno@avalon>
+	<alpine.DEB.2.21.1809121411180.9957@nanos.tec.linutronix.de>
+	<3070742.JVHc92YBtH@avalon>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3e6baddf-3e62-f6fe-4bbf-1a62694d4c96@roeck-us.net>
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+Content-Type: text/plain; charset=US-ASCII
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
 	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -38,48 +31,88 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-* Guenter Roeck <linux@roeck-us.net> [180912 13:42]:
-> On 09/12/2018 05:36 AM, James Bottomley wrote:
-> > 
-> > Look, shit happens occasionally.  What then happens is that you get a
-> > note from Stephen saying your tree is dropped for a day for crapping on
-> > the carpet and you fix it.  -next still builds without you so I don't
-> > get what all the fuss is about.  From my point of view the -next
-> > process works very well and I don't see a need to complicate it with a
-> > -next-next or a -pre-next or whatever.
+On Wed, 12 Sep 2018, Laurent Pinchart wrote:
+> 
+> Maintainers are much more than patch juggling monkeys, otherwise they could be 
+> replaced by machines. I believe that maintainers are given the huge 
+> responsibility of taking care of their community. Fostering a productive work 
+> environment, attracting (and keeping) talented developers and reviewers is a 
+> huge and honourable task, and gets my full respect. On top of that, if a 
+> maintainer has great technical skills, it's even better, and I've learnt a lot 
+> from talented maintainers over the time. I however believe that technical 
+> skills are not an excuse for not leading by example and showing what the good 
+> practices are by applying them.
 
-Fine so I trust James and many maintainers to do proper testing before
-next. And I do testing too for the stuff I queue. And in many cases the
-damage is quite limited in case of issues.
+I surely agree, but reality is different.
 
-But then we have constant stream of patches that affect everybody and cause
-regressions that don't seem to have much testing done on them before they
-hit next.
+I definitely apply my own patches w/o a review tag from time to time. And
+aside of obvious typo cleanups/fixlets, which really can and have to do
+without, all of my patches are posted to LKML and I carefuly respect and
+address review comments.
 
-> Not sure if I agree with the "works very well" part. I would say it works,
-> for the most part, decently well, and we would be in a much worse situation
-> without it. I would hope for code in -next to be tested a bit better,
-> and problems to be fixed faster, but one can not have everything.
+Though, what am I supposed to do if nothing happens? Repost them five times
+to annoy people? Been there, tried that. Does not help.
 
-I think we can do much better. If we get next into usable shape then more
-people will use it for testing. And then the -rc cycle becomes easy as
-things have been mostly done already in next. Well, at least for me the
--rc cycle is now much easier after doing constant testing with next.
+Most of these patches are refactoring and cleanups of the subsystems I
+maintain and I do them for three reasons:
 
-After all, next is really our common development tree, right? :)
+  1) Making the code more maintainable, which in the first place serves the
+     egoistic bastard I am, because it makes my life as a maintainer
+     simpler in the long run. It also allows others to work easier on top
+     of that, which again makes it easier for me to review.
 
-So "How to keep Linux next working and usable continuously" might actually
-be a somewhat constructive topic to dicuss.
+  2) During review of a feature patch submitted by someone else, I notice
+     that the code is crap already and the feature adds more crap to it.
 
-> However, I definitely agree that we don't need -next-next or -pre-next.
-> That would not improve the situation at all; it would just create even
-> more noise and result in people testing their code even less before
-> publishing it.
+     So I first try to nudge the submitter to fix that up, but either it's
+     outside their expertise level or they are simply telling me: 'I need
+     to get this in and cleanup is outside of the scope of my task'.
 
-We could still establish a standard naming for "please-test-me" type
-branches. Then we would at least provide a trigger for the test scripts
-to go test them.
+     For the latter, I just refuse to merge it most of the times, but then
+     I already identified how it should be done and go back to #1
 
-Regards,
+  3) New hardware, new levels of scale unearth shortcomings in the code. I
+     get problem reports and because I deeply care about the stuff I'm
+     responsible for, I go and fix it if nobody else cares. Guess what,
+     often enough I do not even get a tested-by reply by the people who
+     complained in the first place. But with the knowledge of the problem
+     and the solution, I would be outright stupid to just put them into
+     /dev/null because applying them again makes my life easier.
 
-Tony
+So again, it's a problem which has to do with the lack of review capacity
+and the lack of people who really care beyond the brim of their teacup.
+
+The 'Make feature X work upstream' task mentality of companies is part of
+the problem along with the expectation, that maintainers will coach,
+educate and babysit their newbies when they have been tasked with problems
+way over their expertise levels. Especially the last part is frustrating
+for everyone. The submitter has worked on this feature for a long time just
+to get it shredded in pieces and then after I got frustrated by the review
+ping pong, I give up and fix it myself in order to have time for other
+things on that ever growing todo list.
+
+This simply cannot scale at all and I'm well aware of it, but I completely
+disagree that this can be fixed by more formalistic processes, gitlab or
+whatever people dream up.
+
+It has to be fixed at the mindset level. A code base as large and as
+complex as the kernel needs continous refactoring and cannot be used as
+dumping ground for new features in a drive by mode.
+
+Aside of that, I see people working for large companies doing reviews in
+their spare time, because they care about it. But that's just wrong, they
+should be able to enjoy their spare time as anybody else and get the time
+to review during their work hours.
+
+I surely encourage people to review things and I offload quite some of the
+work to people who care, but finding them and keeping them on board is hard
+because their daily work just does not allow them to keep up.
+
+I'm definitely open for new ideas and new ways to work, but OTOH I'm not
+interested at all in the 'fix the symptoms' approach and thereby hoping
+that the root cause will cure itself. It simply does not work independent
+of the problem space.
+
+Thanks,
+
+	tglx
