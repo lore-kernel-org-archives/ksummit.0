@@ -1,36 +1,35 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <arndbergmann@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 35D06F25
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2D6B7F42
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Sep 2018 10:04:58 +0000 (UTC)
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
-	[172.104.155.198])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E7C8376D
+	Wed, 12 Sep 2018 10:23:26 +0000 (UTC)
+Received: from mail-qk1-f194.google.com (mail-qk1-f194.google.com
+	[209.85.222.194])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 99664784
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Sep 2018 10:04:56 +0000 (UTC)
-Date: Wed, 12 Sep 2018 11:04:51 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Tony Lindgren <tony@atomide.com>
-Message-ID: <20180912100451.GA6062@sirena.org.uk>
-References: <20180910230301.GB1764@localhost.localdomain>
-	<20180910191329.70f90a14@vmware.local.home>
-	<20180911114227.241f2e5d@vmware.local.home>
-	<20180911174043.GK5659@atomide.com>
-	<1536688022.3511.5.camel@HansenPartnership.com>
-	<20180911143923.11e479ea@vmware.local.home>
-	<1536696572.3511.12.camel@HansenPartnership.com>
-	<20180911163136.1d6653a6@vmware.local.home>
-	<1536706409.3511.14.camel@HansenPartnership.com>
-	<20180911232249.GL5659@atomide.com>
+	Wed, 12 Sep 2018 10:23:25 +0000 (UTC)
+Received: by mail-qk1-f194.google.com with SMTP id f17-v6so748876qkh.4
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 12 Sep 2018 03:23:25 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lrZ03NoBR/3+SXJZ"
-Content-Disposition: inline
-In-Reply-To: <20180911232249.GL5659@atomide.com>
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
+References: <trinity-b7dcc7ee-84eb-4ba9-ab94-b2936551a388-1536588284133@3c-app-gmx-bs33>
+	<20180911113725.5d91b945@jawa> <20180911193308.GA4429@kroah.com>
+	<2400444.QbA1LOmrIy@avalon>
+	<alpine.DEB.2.21.1809112347320.1427@nanos.tec.linutronix.de>
+	<CAMuHMdXRtMjE3dXDmagVQrPC-UDy6Po0BckWH=CBj-WOsdL38Q@mail.gmail.com>
+In-Reply-To: <CAMuHMdXRtMjE3dXDmagVQrPC-UDy6Po0BckWH=CBj-WOsdL38Q@mail.gmail.com>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Wed, 12 Sep 2018 12:23:06 +0200
+Message-ID: <CAK8P3a1YfSLzQmK_879KgWT7w-0+=X-iC4ue6YxPF-tjPSk=0w@mail.gmail.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
+	gregkh <gregkh@linuxfoundation.org>, Lukasz Majewski <lukma@denx.de>,
+	Jonas Jensen <jonas.jensen@gmail.com>,
+	Alexander Sverdlin <alexander.sverdlin@gmail.com>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Deprecation / Removal of
+ old hardware support
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,42 +39,60 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Wed, Sep 12, 2018 at 8:41 AM Geert Uytterhoeven <geert@linux-m68k.org> wrote:
+> On Tue, Sep 11, 2018 at 11:50 PM Thomas Gleixner <tglx@linutronix.de> wrote:
+> > On Wed, 12 Sep 2018, Laurent Pinchart wrote:
+> > > On Tuesday, 11 September 2018 22:33:08 EEST Greg KH wrote:
+> > But that does not mean, that we have to support ancient compilers
+> > forever. If that stuff needs to be treated as first class citizens then
+> > someone who has vested interest in this needs to fix that. That's none of
+> > our business, really.
+>
+> The issue here is that gcc dropped armv4 (not v4t AFAIK) support.
 
---lrZ03NoBR/3+SXJZ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Let me clarify here: we are talking to the gcc developers all the time,
+and we can still change the plans here if we decide that we want it
+to be dropped later.
 
-On Tue, Sep 11, 2018 at 04:22:49PM -0700, Tony Lindgren wrote:
+There is currently no plan to deprecate ARMv4T support in gcc.
 
-> Well what we're after is providing a trigger for people writing test
-> scripts to test individual branches before they get merged into next.
+ARMv2/3/4 have been marked "deprecated" since gcc-6 two years
+ago. This is the official way for gcc to figure out whether anyone still
+needs it. If someone steps up and says they need to keep it for future
+releases (and ideally ensure that it keeps getting tested properly),
+ARMv4 can stay.
 
-> With the goal of trying to keep next usable constantly.
+gcc-8 (released this spring) still contains (deprecated) support for
+ARMv2 and up. gcc-9 (the development branch) has removed
+support for ARMv2 and ARMv3, but not ARMv4. As a result, the
+ARM610 and ARM710 processors cannot be supported any more
+with gcc-9. This may be a problem for the RiscOS folks, but Linux
+has dropped support for both of these years ago.
 
-One issue here is that the systems to build and run tests aren't free -
-some will be able to cope with scaling up but a lot wouldn't be able to
-add many extra branches in. =20
+We do see one regression with the removal of ARMv3 support:
+The arch/arm/mach-rpc/ target (using the SA110 CPU) will not
+be buildable with gcc-9 (or clang, for that matter), but require a
+gcc-8 at most (some other versions were broken in the past as
+well, but 6/7/8 should all work). If the next compiler deprecation
+waves are similar to the current one (dropping support for 12
+year old compilers, while still allowing 7 year old one, i.e. gcc-4.6
+from 2011 instead of gcc-4.1 from 2006), that puts the final end
+of life of mach-rpc between 2026 and 2031, which I feel is an
+acceptable trade-off (apparently keeping it working did cause
+significant work in gcc), especially considering this is hardware
+introduced in 1994!
 
-> Establishing a branch naming standard like "-pre-next" would allow
-> the scripts to test the various branches where available before
-> they hit next and warn about issues.
+Regarding ARMv4 (i.e. FA526 and StrongARM) vs ARMv4T
+(all ARM7 and the early ARM9 we support), the kernel build isn't
+actually different at all, as long as we turn off
+CONFIG_ARM_THUMB. The main difference in the code produced
+by gcc is the 'bx' instruction for branches, and the linker will turn
+those into ARMv4-compatible branches with the '-Wl,--fix-v4bx'
+option. This means that even after gcc removes the deprecated
+ARMv4 target, and we stop supporting older compilers that still
+had it, we can keep building new kernels for fa526 as long as
+gcc supports ARMv4T and the linker supports --fix-v4bx.
+Alternatively we can ask the compiler folks to un-deprecate
+ARMv4.
 
-Add enough delays in and someone will end up making a linux-next-next...
-
---lrZ03NoBR/3+SXJZ
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAluY5MIACgkQJNaLcl1U
-h9DiTwf9FMJf+qqo1+I5HFi/27uaHiT0P7qw/dk6hTyuHUMsKjG20volJNZGQeVn
-YgZbBxhThniGrRCyHhYKCvW80gdHVeA7DlKVm+V0WAYidEyFsE00WqPc0pWwbO7P
-cxpULsKUJIIrGRFYGh633DYcAREYl+xBir+zXE8Lw9ebpept2YDoDpLoQqCd/5Ya
-9AnC2xT8nJQXVIsFF+99lCMF1fgroOFMno0wU7GrQ7QG2ojP/cIEQz+xY2AElUZv
-KktFMxUHjoOc53hkjv+UMYu7ODOlvjW1SIxx4ANwyo3Lfbsq+ng23ws8DQ1oZ8rF
-WYi5JLg+X7SDXLSZ6ncb8bsybOb3ig==
-=VVrC
------END PGP SIGNATURE-----
-
---lrZ03NoBR/3+SXJZ--
+      Arnd
