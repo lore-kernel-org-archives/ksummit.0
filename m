@@ -1,28 +1,38 @@
-Return-Path: <linus.walleij@linaro.org>
+Return-Path: <geert.uytterhoeven@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 30AFDD54
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6B366D06
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Sep 2018 10:35:21 +0000 (UTC)
-Received: from mail-it0-f65.google.com (mail-it0-f65.google.com
-	[209.85.214.65])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C1DB1798
+	Wed, 12 Sep 2018 11:55:58 +0000 (UTC)
+Received: from mail-vk0-f67.google.com (mail-vk0-f67.google.com
+	[209.85.213.67])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B0F2476D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Sep 2018 10:35:20 +0000 (UTC)
-Received: by mail-it0-f65.google.com with SMTP id e14-v6so2317943itf.1
+	Wed, 12 Sep 2018 11:55:57 +0000 (UTC)
+Received: by mail-vk0-f67.google.com with SMTP id j14-v6so226446vke.8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Sep 2018 03:35:20 -0700 (PDT)
+	Wed, 12 Sep 2018 04:55:57 -0700 (PDT)
 MIME-Version: 1.0
-References: <BY1PR0501MB14623C8F42765E4852FD5A39C51B0@BY1PR0501MB1462.namprd05.prod.outlook.com>
-In-Reply-To: <BY1PR0501MB14623C8F42765E4852FD5A39C51B0@BY1PR0501MB1462.namprd05.prod.outlook.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Wed, 12 Sep 2018 12:35:07 +0200
-Message-ID: <CACRpkdb8c51RABEVhn5tibVxiqTDBRXJ5A5wU5nDfubr6p3nMw@mail.gmail.com>
-To: tiejunc@vmware.com
+References: <20180910174638.26fff182@vmware.local.home>
+	<20180910230301.GB1764@localhost.localdomain>
+	<20180910191329.70f90a14@vmware.local.home>
+	<20180911114227.241f2e5d@vmware.local.home>
+	<20180911174043.GK5659@atomide.com>
+	<1536688022.3511.5.camel@HansenPartnership.com>
+	<20180911143923.11e479ea@vmware.local.home>
+	<1536696572.3511.12.camel@HansenPartnership.com>
+	<20180911163136.1d6653a6@vmware.local.home>
+	<1536706409.3511.14.camel@HansenPartnership.com>
+	<20180911232249.GL5659@atomide.com>
+	<1536708545.3511.18.camel@HansenPartnership.com>
+In-Reply-To: <1536708545.3511.18.camel@HansenPartnership.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 12 Sep 2018 13:55:44 +0200
+Message-ID: <CAMuHMdUTkrT6Jovw1wwCTQj3Cg+5yw5WPn5QKRNOhrcvB13s7g@mail.gmail.com>
+To: James Bottomley <James.Bottomley@hansenpartnership.com>
 Content-Type: text/plain; charset="UTF-8"
 Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] A Safety-critical Linux system
-	architecture
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,47 +42,60 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Sep 12, 2018 at 3:18 AM Tiejun Chen <tiejunc@vmware.com> wrote:
+Hi James,
 
-> software contexts need to be certified according to different specifications
-> like ARINC 653, Automotive Safety Integrity Level, and so on. So we
-> need to explore making Linux itself certified.
+On Wed, Sep 12, 2018 at 1:29 AM James Bottomley
+<James.Bottomley@hansenpartnership.com> wrote:
+> On Tue, 2018-09-11 at 16:22 -0700, Tony Lindgren wrote:
+> > * James Bottomley <James.Bottomley@HansenPartnership.com> [180911
+> > 22:58]:
+> > > On Tue, 2018-09-11 at 16:31 -0400, Steven Rostedt wrote:
+> > > >
+> > > > Why not do what I do and push to a -pre-next branch when you kick
+> > > > off
+> > > > your local tests?
+> > >
+> > > Because there's no point.  As I said, when we complete the local
+> > > criteria the branch is ready for integration.  We push to -next and
+> > > *all* the built bots tell us if there are any problems (which I
+> > > don't
+> > > expect there are but there's room for me to be wrong) ... including
+> > > 0day.  I don't see what the delay and the process hassle would buy
+> > > us
+> > > if we only get a review by 0day in the -pre-next branch.  It seems
+> > > more
+> > > efficient to let every bot loose on what we think is mergeable.
+> >
+> > Well what we're after is providing a trigger for people writing test
+> > scripts to test individual branches before they get merged into next.
+> >
+> > With the goal of trying to keep next usable constantly.
+> >
+> > Establishing a branch naming standard like "-pre-next" would allow
+> > the scripts to test the various branches where available before
+> > they hit next and warn about issues.
+>
+> I still don't get the purpose: as I've said several times, SCSI pushes
+> to -next when it thinks the patches are ready for merging.  Almost none
+> of the subsequently discovered bugs (by both bots and humans) affect
+> anything other than SCSI (and usually only a specific driver) so there
+> would have been no benefit to testing them in a separate branch and
+> indeed probably the detriment of diverting resources.
+>
+> That's my point: from my point of view the -next process is actually
+> working; I don't see a reason to complicate it.
 
-There is a bunch of these certifications and specifications. Many of them
-include manual review of "all code on the system", which is why several
-approaches to this includes stripping down the kernel source to only
-the code (after removing all Kconfig buzz and ifdefs) that will compile
-and run on the target.
+Good. Then this discussion wasn't targeted to the SCSI people, but to
+other maintainers pushing brown paper bags and other trivial breakages
+they should have caught beforehand to linux-next ;-)
 
-This should of course be possible to integrate into the existing Linux
-build system, like "make sources" that would create a reduced
-kernel tree that will also compile (russian matroska dolls come to
-mind). I think such projects exist in Japan but I haven't heard from
-them recently.
+Gr{oetje,eeting}s,
 
-My pet peeve is that the review process appears to be something
-along the lines that a "certified person/consultant" who has training
-in this standard is supposed to review all the code for safety, so
-after reviewing IMO we should work on (A) making sure that these
-reviews and comments and the exact lines of the kernel and which
-version/commit ID of it it pertains to is made public and (B) that the
-review persons statement be merged into the kernel git log as
-some kind of annotation along the lines of:
+                        Geert
 
-Reviewed-for-ISO-26262-by: Linus Walleij <linus.walleij@linaro.org>
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-This way we can help the safety community by making the safety
-critical review process more open and public, and also making these
-reviewers put their personal names behind it.
-
-If they also propose patches and follow up on them: even better.
-
-The idea is not (as one could maybe think) that of public shaming
-for all the stuff these people invariably are going to miss, but to
-create a space where they can learn about the kernel and the
-weaknesses pertaining to safety critical deployments and also
-spread this knowledge to kernel maintainers instead of keeping
-it all in their private safety engineering bubble.
-
-Yours,
-Linus Walleij
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
