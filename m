@@ -1,34 +1,36 @@
-Return-Path: <linus.walleij@linaro.org>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1F744BBD
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 35D06F25
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Sep 2018 09:14:29 +0000 (UTC)
-Received: from mail-io0-f196.google.com (mail-io0-f196.google.com
-	[209.85.223.196])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 92449102
+	Wed, 12 Sep 2018 10:04:58 +0000 (UTC)
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+	[172.104.155.198])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E7C8376D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Sep 2018 09:14:28 +0000 (UTC)
-Received: by mail-io0-f196.google.com with SMTP id y10-v6so928535ioa.10
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Sep 2018 02:14:28 -0700 (PDT)
+	Wed, 12 Sep 2018 10:04:56 +0000 (UTC)
+Date: Wed, 12 Sep 2018 11:04:51 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Tony Lindgren <tony@atomide.com>
+Message-ID: <20180912100451.GA6062@sirena.org.uk>
+References: <20180910230301.GB1764@localhost.localdomain>
+	<20180910191329.70f90a14@vmware.local.home>
+	<20180911114227.241f2e5d@vmware.local.home>
+	<20180911174043.GK5659@atomide.com>
+	<1536688022.3511.5.camel@HansenPartnership.com>
+	<20180911143923.11e479ea@vmware.local.home>
+	<1536696572.3511.12.camel@HansenPartnership.com>
+	<20180911163136.1d6653a6@vmware.local.home>
+	<1536706409.3511.14.camel@HansenPartnership.com>
+	<20180911232249.GL5659@atomide.com>
 MIME-Version: 1.0
-References: <CAKMK7uE=FwpPFnvOvuvGBZ0vjh3UMPW=zgSk1dmiyCLQPPuZvg@mail.gmail.com>
-	<8412864.7ztUKcXNNC@avalon>
-	<CAKMK7uFAXoVG+nBX=Om9A7R9xPYa-hd0JrRX1RNKSNhxnL_VsA@mail.gmail.com>
-	<2019489.6joTqyUi4Z@avalon>
-	<CAKMK7uE535-7Vs9EAa2725XL2TX2ChJCN0Zb3YaMe=MarYJOyw@mail.gmail.com>
-	<20180911124423.GM2494@piout.net>
-	<CAKMK7uE55eEP8L74z7HMyPb2nVnK9=bBX8tUEqmsDYSqjO-CZg@mail.gmail.com>
-In-Reply-To: <CAKMK7uE55eEP8L74z7HMyPb2nVnK9=bBX8tUEqmsDYSqjO-CZg@mail.gmail.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Wed, 12 Sep 2018 11:14:14 +0200
-Message-ID: <CACRpkdZeR=0-_tN03jFLGc-j1pW4hfOtqB6icjhpF190A8Z0=A@mail.gmail.com>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Content-Type: text/plain; charset="UTF-8"
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
- management/subsystem governance
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="lrZ03NoBR/3+SXJZ"
+Content-Disposition: inline
+In-Reply-To: <20180911232249.GL5659@atomide.com>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,71 +40,42 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Sep 11, 2018 at 5:02 PM Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
 
-> - Merge enough trees together until you have enough people capable to
-> doing maintainer duties for a triumvirate. That allows you to rotate,
-> arm-soc style. Rule of thumb is anything below 100 patches per release
-> cycle is probably too small, but you might need a lot more than that.
-> 3 maintainers seems to be ideal.
+--lrZ03NoBR/3+SXJZ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-This is the kind of rules of thumb we need to scale development
-IMO. "My" subsystems (GPIO and pinctrl) is on some hard to define
-threshold. I keep at it for now. Maybe I should just merge them
-into one single tree to deliberately get a big enough mass to get
-some group maintainership going.
+On Tue, Sep 11, 2018 at 04:22:49PM -0700, Tony Lindgren wrote:
 
-> - Intentionally abandon stuff. Sometimes no one else bothers to work
-> because the current maintainer is all over the place, does everything,
-> and suffocates any newbie's attempt to help out.
-(...)
-> That kind of skewed contribution statistics is indeed not sustainable,
-> and indicates some serious problem imo. What exactly goes wrong, and
-> how to best fix it I can't tell without more information though. From
-> my experience in drm, where we also have some areas with highly skewed
-> contribution statistics, it could be the maintainer driving people
-> away, ensuring that there's only one-off contributions. Usually
-> unkowningly.
+> Well what we're after is providing a trigger for people writing test
+> scripts to test individual branches before they get merged into next.
 
-This problem is likely psychological and/or sociologial or even
-ethnological rather than technical.
+> With the goal of trying to keep next usable constantly.
 
-Despite several attempts of kernel maintainers to actively downplay
-their role (Torvalds sets a good example in
-Documentation/process/management-style.rst)
-kernel maintainers are still perceived from the outside as some
-kind of superior beings to which layperson developers feel
-inferior to and look up to.
+One issue here is that the systems to build and run tests aren't free -
+some will be able to cope with scaling up but a lot wouldn't be able to
+add many extra branches in. =20
 
-I think it's not an option to try to stop people from looking
-up to kernel maintainers no matter how much we'd like that,
-instead we need to assume the responsibility.
+> Establishing a branch naming standard like "-pre-next" would allow
+> the scripts to test the various branches where available before
+> they hit next and warn about issues.
 
-I do not know how to best deal with this, I guess maintainers
-really need to watch their behaviors, but we would better ask
-someone experienced in group dynamics what desirable
-behaviors are.
+Add enough delays in and someone will end up making a linux-next-next...
 
-If I take a guess I suspect the same qualities are desired for any
-good leader or good parent: maintainers should have infinite
-patience, infinite time to reply to questions (also infinitisemal
-latency so they are always there!), recognize all their own
-weaknesses and always say they are sorry when they have
-been rude, be encouraging, sweet, nurturing, criticize in a
-way that makes it clear that it is the performance not the person
-that needs improvement, and throwing in some extra rewards
-for desired behavior every now and then. (I think someone
-mentioned a pareto ratio of 80% praise and 20% critique
-is ideal, it's likely an unscientific rule of thumb.)
+--lrZ03NoBR/3+SXJZ
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Needless to say no real person lives up to the above.
-No parent does either. Some just fail less or in less obvious
-ways.
+-----BEGIN PGP SIGNATURE-----
 
-I am worried that the intersection of the sets of people that
-naturally have the desired personality traits and also are
-reasonably good engineers is actually pretty small and that is
-why we have a problem.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAluY5MIACgkQJNaLcl1U
+h9DiTwf9FMJf+qqo1+I5HFi/27uaHiT0P7qw/dk6hTyuHUMsKjG20volJNZGQeVn
+YgZbBxhThniGrRCyHhYKCvW80gdHVeA7DlKVm+V0WAYidEyFsE00WqPc0pWwbO7P
+cxpULsKUJIIrGRFYGh633DYcAREYl+xBir+zXE8Lw9ebpept2YDoDpLoQqCd/5Ya
+9AnC2xT8nJQXVIsFF+99lCMF1fgroOFMno0wU7GrQ7QG2ojP/cIEQz+xY2AElUZv
+KktFMxUHjoOc53hkjv+UMYu7ODOlvjW1SIxx4ANwyo3Lfbsq+ng23ws8DQ1oZ8rF
+WYi5JLg+X7SDXLSZ6ncb8bsybOb3ig==
+=VVrC
+-----END PGP SIGNATURE-----
 
-Yours,
-Linus Walleij
+--lrZ03NoBR/3+SXJZ--
