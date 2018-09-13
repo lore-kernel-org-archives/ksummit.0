@@ -1,31 +1,31 @@
-Return-Path: <daniel.vetter@ffwll.ch>
+Return-Path: <linus.walleij@linaro.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 742F9A73
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 98ED192B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 13 Sep 2018 05:17:16 +0000 (UTC)
-Received: from mail-io1-f46.google.com (mail-io1-f46.google.com
-	[209.85.166.46])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D70AE13A
+	Thu, 13 Sep 2018 07:57:27 +0000 (UTC)
+Received: from mail-it0-f65.google.com (mail-it0-f65.google.com
+	[209.85.214.65])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3FF8F13A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 13 Sep 2018 05:17:15 +0000 (UTC)
-Received: by mail-io1-f46.google.com with SMTP id q5-v6so2169848iop.3
+	Thu, 13 Sep 2018 07:57:27 +0000 (UTC)
+Received: by mail-it0-f65.google.com with SMTP id 139-v6so6635530itf.0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Sep 2018 22:17:15 -0700 (PDT)
+	Thu, 13 Sep 2018 00:57:27 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20180913025609.GD20595@thunk.org>
-References: <CAKMK7uE=FwpPFnvOvuvGBZ0vjh3UMPW=zgSk1dmiyCLQPPuZvg@mail.gmail.com>
-	<CA+55aFyCdGstDu2u11veh3YxabpQrfaPEzuZB2x=eRXpw89prA@mail.gmail.com>
-	<CAKMK7uF+RyTVxvg0HyzponA-orENm-n0GiDXr6EDTGSkOFp+FQ@mail.gmail.com>
-	<20180913025609.GD20595@thunk.org>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Thu, 13 Sep 2018 07:17:13 +0200
-Message-ID: <CAKMK7uGnCL1nTCGw9f-yrLZXNchtVOYO-UnkVJwGRGFjWHiYnQ@mail.gmail.com>
-To: "Theodore Y. Ts'o" <tytso@mit.edu>
+References: <BY1PR0501MB14623C8F42765E4852FD5A39C51B0@BY1PR0501MB1462.namprd05.prod.outlook.com>
+	<CACRpkdb8c51RABEVhn5tibVxiqTDBRXJ5A5wU5nDfubr6p3nMw@mail.gmail.com>
+	<20180912162923.GA25894@wrath>
+	<BY1PR0501MB1462CF95EB4423BD59F5D3EBC51A0@BY1PR0501MB1462.namprd05.prod.outlook.com>
+In-Reply-To: <BY1PR0501MB1462CF95EB4423BD59F5D3EBC51A0@BY1PR0501MB1462.namprd05.prod.outlook.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Thu, 13 Sep 2018 09:57:13 +0200
+Message-ID: <CACRpkdaUxrX2bPo8nCGHeV6uvx6HDbqP+ufssNAxdyJCH735Rw@mail.gmail.com>
+To: tiejunc@vmware.com
 Content-Type: text/plain; charset="UTF-8"
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
- management/subsystem governance
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] A Safety-critical Linux system
+	architecture
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,34 +35,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Sep 13, 2018 at 4:56 AM, Theodore Y. Ts'o <tytso@mit.edu> wrote:
-> On Mon, Sep 10, 2018 at 05:31:25PM +0200, Daniel Vetter wrote:
->>
->> Yup, fully agreed. We don't need another overview over group
->> maintainer ship. Also I don't think an update from arm-soc/tip or drm
->> is interesting either. I think only if there's a new group/subsystem
->> trying this out, with all the nitty-gritty details of "this totally
->> blew up in our faces" and "this worked shockingly well" and "here we
->> need to improve still, we're not happy" is what I'm looking for.
->> Without those details there's nothing really to learn, beyond just
->> rehashing one of the old discussions. I guess I should have put more
->> emphasis on _new_ experiments :-)
->>
->> And if nothing changed, no new groups I think think we should table
->> this right away.
->
-> I wonder if this is something that would be better done at the Kernel
-> Summit (e.g., in Vancouver), as a discussion session.  It's important
-> to remember that Maintainer's Summit has (by design) a small number of
-> attendees.  If the goal is to compare notes about various experiments,
-> it's likely there will be many kernel developers present in Vancouver.
-> After all, getting input from just "Maintainers" but all developers
-> participating in development process would be valuable.
+On Thu, Sep 13, 2018 at 5:13 AM Tiejun Chen <tiejunc@vmware.com> wrote:
+> > On Wed, Sep 12, 2018 at 12:35:07PM +0200, Linus Walleij wrote:
+> > > On Wed, Sep 12, 2018 at 3:18 AM Tiejun Chen <tiejunc@vmware.com> wrote:
 
-Yes, that was at least my idea for all of these topics. I wasn't sure
-what label to pick since it's not really a tech topic either.
--Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-+41 (0) 79 365 57 48 - http://blog.ffwll.ch
+> > I do not feel Kernel Summit is the right venue for this discussion.
+
+> I cannot understand why we cannot make this over there.
+
+I have to side with Darren on this one, but I will likely not be at KS myself
+so take whatever I say with a grain of salt.
+
+I think the LF projects, specifically SIL2LinuxMP etc need to find their
+right place to gather people and IMO the Linux Plumbers Conference
+or Embedded Linux Conference would be the best place, it just intuitively
+fits the type of subject.
+
+But it is not for me to decide.
+
+For the core kernel, I think tooling to the build system and git annotation
+of safety reviews are the only things that come to mind, and it doesn't
+need much discussion: somone needs to send patches. If they prove
+extremely controversial and lead to lots of discussion (etc) THEN we
+might want to discuss it at the kernel summit if things grind to a halt.
+
+Yours,
+Linus Walleij
