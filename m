@@ -1,31 +1,31 @@
-Return-Path: <tiejunc@vmware.com>
+Return-Path: <daniel.vetter@ffwll.ch>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6316FC84
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 742F9A73
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 13 Sep 2018 03:13:18 +0000 (UTC)
-Received: from NAM02-BL2-obe.outbound.protection.outlook.com
-	(mail-bl2nam02on0088.outbound.protection.outlook.com [104.47.38.88])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3962B782
+	Thu, 13 Sep 2018 05:17:16 +0000 (UTC)
+Received: from mail-io1-f46.google.com (mail-io1-f46.google.com
+	[209.85.166.46])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D70AE13A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 13 Sep 2018 03:13:17 +0000 (UTC)
-From: Tiejun Chen <tiejunc@vmware.com>
-To: Darren Hart <dvhart@infradead.org>, Linus Walleij
-	<linus.walleij@linaro.org>
-Date: Thu, 13 Sep 2018 03:13:11 +0000
-Message-ID: <BY1PR0501MB1462CF95EB4423BD59F5D3EBC51A0@BY1PR0501MB1462.namprd05.prod.outlook.com>
-References: <BY1PR0501MB14623C8F42765E4852FD5A39C51B0@BY1PR0501MB1462.namprd05.prod.outlook.com>
-	<CACRpkdb8c51RABEVhn5tibVxiqTDBRXJ5A5wU5nDfubr6p3nMw@mail.gmail.com>
-	<20180912162923.GA25894@wrath>
-In-Reply-To: <20180912162923.GA25894@wrath>
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	Thu, 13 Sep 2018 05:17:15 +0000 (UTC)
+Received: by mail-io1-f46.google.com with SMTP id q5-v6so2169848iop.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 12 Sep 2018 22:17:15 -0700 (PDT)
 MIME-Version: 1.0
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] A Safety-critical Linux system
- architecture
+In-Reply-To: <20180913025609.GD20595@thunk.org>
+References: <CAKMK7uE=FwpPFnvOvuvGBZ0vjh3UMPW=zgSk1dmiyCLQPPuZvg@mail.gmail.com>
+	<CA+55aFyCdGstDu2u11veh3YxabpQrfaPEzuZB2x=eRXpw89prA@mail.gmail.com>
+	<CAKMK7uF+RyTVxvg0HyzponA-orENm-n0GiDXr6EDTGSkOFp+FQ@mail.gmail.com>
+	<20180913025609.GD20595@thunk.org>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Thu, 13 Sep 2018 07:17:13 +0200
+Message-ID: <CAKMK7uGnCL1nTCGw9f-yrLZXNchtVOYO-UnkVJwGRGFjWHiYnQ@mail.gmail.com>
+To: "Theodore Y. Ts'o" <tytso@mit.edu>
+Content-Type: text/plain; charset="UTF-8"
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
+ management/subsystem governance
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,103 +35,34 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBEYXJyZW4gSGFydCA8ZHZoYXJ0
-QGluZnJhZGVhZC5vcmc+DQo+IFNlbnQ6IFRodXJzZGF5LCBTZXB0ZW1iZXIgMTMsIDIwMTggMTI6
-MjkgQU0NCj4gVG86IExpbnVzIFdhbGxlaWogPGxpbnVzLndhbGxlaWpAbGluYXJvLm9yZz4NCj4g
-Q2M6IFRpZWp1biBDaGVuIDx0aWVqdW5jQHZtd2FyZS5jb20+OyBrc3VtbWl0LQ0KPiBkaXNjdXNz
-QGxpc3RzLmxpbnV4Zm91bmRhdGlvbi5vcmcNCj4gU3ViamVjdDogUmU6IFtLc3VtbWl0LWRpc2N1
-c3NdIFtURUNIIFRPUElDXSBBIFNhZmV0eS1jcml0aWNhbCBMaW51eCBzeXN0ZW0NCj4gYXJjaGl0
-ZWN0dXJlDQo+IA0KPiBPbiBXZWQsIFNlcCAxMiwgMjAxOCBhdCAxMjozNTowN1BNICswMjAwLCBM
-aW51cyBXYWxsZWlqIHdyb3RlOg0KPiA+IE9uIFdlZCwgU2VwIDEyLCAyMDE4IGF0IDM6MTggQU0g
-VGllanVuIENoZW4gPHRpZWp1bmNAdm13YXJlLmNvbT4gd3JvdGU6DQo+ID4NCj4gPiA+IHNvZnR3
-YXJlIGNvbnRleHRzIG5lZWQgdG8gYmUgY2VydGlmaWVkIGFjY29yZGluZyB0byBkaWZmZXJlbnQN
-Cj4gPiA+IHNwZWNpZmljYXRpb25zIGxpa2UgQVJJTkMgNjUzLCBBdXRvbW90aXZlIFNhZmV0eSBJ
-bnRlZ3JpdHkgTGV2ZWwsDQo+ID4gPiBhbmQgc28gb24uIFNvIHdlIG5lZWQgdG8gZXhwbG9yZSBt
-YWtpbmcgTGludXggaXRzZWxmIGNlcnRpZmllZC4NCj4gPg0KPiA+IFRoZXJlIGlzIGEgYnVuY2gg
-b2YgdGhlc2UgY2VydGlmaWNhdGlvbnMgYW5kIHNwZWNpZmljYXRpb25zLiBNYW55IG9mDQo+ID4g
-dGhlbSBpbmNsdWRlIG1hbnVhbCByZXZpZXcgb2YgImFsbCBjb2RlIG9uIHRoZSBzeXN0ZW0iLCB3
-aGljaCBpcyB3aHkNCj4gPiBzZXZlcmFsIGFwcHJvYWNoZXMgdG8gdGhpcyBpbmNsdWRlcyBzdHJp
-cHBpbmcgZG93biB0aGUga2VybmVsIHNvdXJjZQ0KPiA+IHRvIG9ubHkgdGhlIGNvZGUgKGFmdGVy
-IHJlbW92aW5nIGFsbCBLY29uZmlnIGJ1enogYW5kIGlmZGVmcykgdGhhdA0KPiA+IHdpbGwgY29t
-cGlsZSBhbmQgcnVuIG9uIHRoZSB0YXJnZXQuDQo+ID4NCj4gPiBUaGlzIHNob3VsZCBvZiBjb3Vy
-c2UgYmUgcG9zc2libGUgdG8gaW50ZWdyYXRlIGludG8gdGhlIGV4aXN0aW5nIExpbnV4DQo+ID4g
-YnVpbGQgc3lzdGVtLCBsaWtlICJtYWtlIHNvdXJjZXMiIHRoYXQgd291bGQgY3JlYXRlIGEgcmVk
-dWNlZCBrZXJuZWwNCj4gPiB0cmVlIHRoYXQgd2lsbCBhbHNvIGNvbXBpbGUgKHJ1c3NpYW4gbWF0
-cm9za2EgZG9sbHMgY29tZSB0byBtaW5kKS4gSQ0KPiA+IHRoaW5rIHN1Y2ggcHJvamVjdHMgZXhp
-c3QgaW4gSmFwYW4gYnV0IEkgaGF2ZW4ndCBoZWFyZCBmcm9tIHRoZW0NCj4gPiByZWNlbnRseS4N
-Cj4gPg0KPiA+IE15IHBldCBwZWV2ZSBpcyB0aGF0IHRoZSByZXZpZXcgcHJvY2VzcyBhcHBlYXJz
-IHRvIGJlIHNvbWV0aGluZyBhbG9uZw0KPiA+IHRoZSBsaW5lcyB0aGF0IGEgImNlcnRpZmllZCBw
-ZXJzb24vY29uc3VsdGFudCIgd2hvIGhhcyB0cmFpbmluZyBpbg0KPiA+IHRoaXMgc3RhbmRhcmQg
-aXMgc3VwcG9zZWQgdG8gcmV2aWV3IGFsbCB0aGUgY29kZSBmb3Igc2FmZXR5LCBzbyBhZnRlcg0K
-PiA+IHJldmlld2luZyBJTU8gd2Ugc2hvdWxkIHdvcmsgb24gKEEpIG1ha2luZyBzdXJlIHRoYXQg
-dGhlc2UgcmV2aWV3cyBhbmQNCj4gPiBjb21tZW50cyBhbmQgdGhlIGV4YWN0IGxpbmVzIG9mIHRo
-ZSBrZXJuZWwgYW5kIHdoaWNoIHZlcnNpb24vY29tbWl0IElEDQo+ID4gb2YgaXQgaXQgcGVydGFp
-bnMgdG8gaXMgbWFkZSBwdWJsaWMgYW5kIChCKSB0aGF0IHRoZSByZXZpZXcgcGVyc29ucw0KPiA+
-IHN0YXRlbWVudCBiZSBtZXJnZWQgaW50byB0aGUga2VybmVsIGdpdCBsb2cgYXMgc29tZSBraW5k
-IG9mIGFubm90YXRpb24NCj4gPiBhbG9uZyB0aGUgbGluZXMgb2Y6DQo+ID4NCj4gPiBSZXZpZXdl
-ZC1mb3ItSVNPLTI2MjYyLWJ5OiBMaW51cyBXYWxsZWlqIDxsaW51cy53YWxsZWlqQGxpbmFyby5v
-cmc+DQo+ID4NCg0KVGhhbmtzIGEgbG90LiBTb21ldGhpbmcgaXMgcmVhbGx5IGJlaW5nIGluc3Bp
-cmluZyBtZSBpbiB0aGlzIGFyZWEuDQoNCj4gDQo+IEZ1bmN0aW9uYWwgU2FmZXR5IChGdVNhKSBp
-cyB0aGUgZnJlZWRvbSBmcm9tIHVuYWNjZXB0YWJsZSByaXNrLiBJdCB0eXBpY2FsbHkNCj4gaW52
-b2x2ZXMgc2FmZXR5IG1lYXN1cmVzIHRoYXQgbWFuYWdlIGtub3duIGFuZCBhY2NlcHRhYmxlIHJp
-c2suDQo+IA0KPiBUaGVyZSBpcyBhIHNpZ25pZmljYW50IGRpZmZlcmVuY2UgaW4gdGhlIHRyYWRp
-dGlvbmFsIEZ1bmN0aW9uYWwgU2FmZXR5IChGdVNhKQ0KPiBzeXN0ZW1zIGFuZCB0aGUgc3lzdGVt
-cyBidWlsdCB3aXRoIExpbnV4LiBBcyBvcHBvc2VkIHRvIHB1cnBvc2UgYnVpbHQgbWljcm8NCj4g
-cHJvY2Vzc29ycyBhbmQgbGVzcyB0aGFuIDEwMGsgbGluZXMgb2YgY29kZSwgTGludXggc3lzdGVt
-cyBvbiBnZW5lcmFsIHB1cnBvc2UNCj4gQ1BVcyBwcmVzZW50IGEgImNvbXBsZXgiIHN5c3RlbSAt
-IHdoZXJlICJjb21wbGV4IiBpcyByZWZlcnJpbmcgdG8gYSBzeXN0ZW0NCj4gd2hpY2ggZXhoaWJp
-dHMgZW1lcmdlbnQgcHJvcGVydGllcyAtIHByb3BlcnRpZXMgd2hpY2ggY2FuIG9ubHkgYmUgb2Jz
-ZXJ2ZWQgaW4NCj4gdGhlIGFzc2VtYmxlZCBzeXN0ZW0sIGFuZCBub3QgaW4gdGhlIGluZGl2aWR1
-YWwgY29tcG9uZW50cy4NCj4gDQo+IFRoaXMgaXMgc2lnbmlmaWNhbnQgYmVjYXVzZSBpdCByZXF1
-aXJlcyBhIG5ldyBhcHByb2FjaCB0byBxdWFsaWZ5aW5nIHN5c3RlbXMuIFdlDQo+IGNhbm5vdCBh
-cHBseSB0cmFkaXRpb25hbCBoYXphcmQgYW5hbHlzaXMgZm9yIGZhdWx0IHRyZWVzIHRvIHN5c3Rl
-bXMgd2l0aCBDUFVzDQo+IG1hZGUgdXAgb2YgNyBCaWxsaW9uIHRyYW5zaXN0b3JzIChlYWNoKSBh
-bmQgYSBwcmUtZXhpc3Rpbmcgc29mdHdhcmUgc3RhY2sgd2l0aCAxMHMNCj4gb2YgbWlsbGlvbnMg
-bGluZXMgb2YgY29kZS4NCj4gDQo+IFBvaW50IGJlaW5nOiBzdGFydGluZyB0byBhZGQgc2FmZXR5
-IHNwZWNpZmljIHJldmlld3MgdG8gYSBwcmUtZXhpc3RpbmcgY29tcGxleA0KPiBzb2Z0d2FyZSBz
-dGFjayBkb2Vzbid0IGhlbHAuIExpbnV4IHdpbGwgbmV2ZXIgYmUgZGV2ZWxvcGVkIGluIGEgc3Ry
-aWN0bHkNCj4gY29tcGxpYW50IG1hbm5lciB0byBhbnkgRnVTYSBzdGFuZGFyZCAoZXNwZWNpYWxs
-eSAyNjI2MiB3aGljaCBpcyBub3Qgc3VpdGFibGUNCj4gZm9yIGFueSBjb21wbGV4IHNvZnR3YXJl
-IHN0YWNrLCBmb3J0dW5hdGVseSBpdCBhbGxvd3MgeW91IHRvIGRlZmVyIHRvIHRoZSBtb3JlDQo+
-IGdlbmVyaWMgSUVDIDYxNTA4KS4NCj4gDQo+IFRoZSBwcm9ibGVtIGZhY2luZyB1cyBoZXJlIGlz
-IG5vdCAiaG93IGRvIHdlIG1ha2UgTGludXggc2FmZSIsIGl0IGlzICJob3cgZG8NCj4gd2Ugc2hv
-dyB0aGF0IExpbnV4IGhhcyBiZWVuIGRldmVsb3BlZCBpbiBzdWNoIGEgd2F5IHRoYXQgaXQgcHJl
-c2VudHMgYW4NCj4gYWNjZXB0YWJsZSBsZXZlbCBvZiByaXNrIHdoaWNoIGNhbiBiZSBtYW5hZ2Vk
-IHdpdGggYSBkZWZpbmVkIHNldCBvZiBzYWZldHkNCj4gbWVhc3VyZXMiLg0KPiANCj4gVG8gdGhl
-IHBvaW50IG9mICJBcmNoaXRlY3R1cmUiLiBXaGlsZSBpdCBpcyB0ZW1wdGluZyB0byB0cnkgdG8g
-Im1ha2UgaXQgc2FmZSIgb3INCj4gImRlc2lnbiBhbiBhcmNoaXRlY3R1cmUiLCBzYWZldHkgY3Jp
-dGljYWwgc3lzdGVtcyBhcmUgZGVzaWduZWQgZmlyc3QgZnJvbSBhIHNhZmV0eQ0KPiBjYXNlLg0K
-PiANCj4gVGhlIHByb2JsZW0gd2UgbmVlZCB0byBzb2x2ZSBoZXJlIGlzIG5vdCBhIHRlY2huaWNh
-bCBMaW51eCBrZXJuZWwgcHJvYmxlbS4gV2UNCj4gbmVlZCB0byB1bmRlcnN0YW5kIGEgc2V0IG9m
-IHVzZSBjYXNlcywgZGV0ZXJtaW5lIHNhZmV0eSByZXF1aXJlbWVudHMsIGFuZCB0aGVuDQo+IGNv
-bXBsZXRlIHRoZSBtZXRob2RzIGFuZCBwcm9jZWR1cmVzIGJlZ3VuIGJ5IHRoZSBTSUwyTGludXhN
-UCBwcm9qZWN0IHRvDQo+IHNob3cgdGhhdCBMaW51eCAocHJldHR5IG11Y2ggYXMgaXMpIGNhbiBi
-ZSB1c2VkIHdpdGggYW4gYWNjZXB0YWJsZSBsZXZlbCBvZiByaXNrLg0KPiANCj4gSSBkbyBub3Qg
-ZmVlbCBLZXJuZWwgU3VtbWl0IGlzIHRoZSByaWdodCB2ZW51ZSBmb3IgdGhpcyBkaXNjdXNzaW9u
-Lg0KPiANCg0KSSBjYW5ub3QgdW5kZXJzdGFuZCB3aHkgd2UgY2Fubm90IG1ha2UgdGhpcyBvdmVy
-IHRoZXJlLg0KDQpJbiB0aGUgb25lIGhhbmQsIHR5cGljYWxseSB3ZSBhbHJlYWR5IGhhdmUgc2V2
-ZXJhbCBhcHByb2FjaGVzIHRvIGVuYWJsZSBMaW51eCBrZXJuZWwgaW50byBzdWNoIGEgc2FmZXR5
-LWNyaXRpY2FsIGVudmlyb25tZW50LCBsaWtlIFNJTDJMaW51eE1QLCBKYWlsaG91c2UgYW5kIHNv
-IG9uLiBFdmVuIHNpbmNlIE9TUyBOQSwgSW50ZWwgaGFzIGFubm91bmNlZCB0aGF0IENsZWFybGlu
-dXggY291bGQgYmUgY29uc2lkZXJlZCBhcyBhIGdvb2QgY2FuZGlkYXRlLiBBbmQgc29tZSBuZXcg
-e3NvZnR3YXJlLCBoYXJkd2FyZX0gZmVhdHVyZXMgaGF2ZSBiZWVuIGludHJvZHVjZWQgaW50byBM
-aW51eCBrZXJuZWwgaW4gcmVjZW50IHllYXJzLiBTbyBvbiBteSBzaWRlLCBJJ2QgbGlrZSB0byBz
-b21lIHBvdGVudGlhbCBpbmNvcnBvcmF0aW9uIG9mIHRoZXNlIGV4aXN0aW5nIHRlY2hub2xvZ2ll
-cy4gU28gYXQgdGhpcyBwb2ludCBpdCdzIHdvcnRoIGRpc2N1c3Npbmcgd2hhdCBMaW51eCBpdHNl
-bGYgY2FuIGRvIHJpZ2h0IG5vdywgYW5kIHdoYXQgTGludXgga2VybmVsIGl0c2VsZiBjb3VsZCBk
-byBpbiBzb21lIHdheXMuDQoNCk9uIHRoZSBvdGhlciBoYW5kLCBldmVuIHdpdGhvdXQgc29tZXRo
-aW5nIGFzIHlvdSBzYWlkLCAidW5kZXJzdGFuZCBhIHNldCBvZiB1c2UgY2FzZXMsIGRldGVybWlu
-ZSBzYWZldHkgcmVxdWlyZW1lbnRzLCBhbmQgdGhlbiBjb21wbGV0ZSB0aGUgbWV0aG9kcyBhbmQg
-cHJvY2VkdXJlcyIuIFllcywgSSB0ZW5kIHRvIGFncmVlIHRoYXQgd2UgbmVlZCB0byBtYWtlIHRo
-ZXNlIHN0dWZmIGNsZWFyIHZlcnkgd2VsbCwgYnV0IHRoaXMgZG9lc24ndCBtZWFuIHdlIHNob3Vs
-ZG4ndCB0YWxrIGFib3V0IExpbnV4IGl0c2VsZiBub3cuIEJlY2F1c2Ugd2UgYWxyZWFkeSBoYXZl
-IGZ1bmRhbWVudGFsIGlzc3VlcyByaWdodCB0aGVyZSBsaWtlLCANCjEuIFJlYWwgdGltZSBpc3N1
-ZTogd2UgbmVlZCB0byBnZXQgTGludXggYmVpbmcgUlRPUyB0byBtZWV0IHNhZmV0eS1jcml0aWNh
-bCByZXF1aXJlbWVudHMuICANCjIuIFBhcnRpdGlvbmluZyB7c29mdHdhcmUsIGhhcmR3YXJlfXJl
-c291cmNlczogd2UgbmVlZCB0byBoYXZlIHN0cm9uZyBiYXJyaWVyIHRvIHByb3ZpZGluZyBzdWNo
-IGFuIGV2aWRlbmNlIHRoYXQgb25lIHByb2dyYW0gY2FuJ3QgaW50ZXJhY3Qgd2l0aCBhbm90aGVy
-IGluIGFueSB3YXlzIGluY2x1ZGluZyBzaGFyZWQgbWVtb3J5LCBpbnRlcnJ1cHRzLCBldGMuDQoz
-LiBIb3cgdG8gInJlbW92ZSIgb3IgZGlzYWJsZSBhbnkgdW5uZWNlc3Nhcnkgb3IgdW51c2VkIGNv
-ZGVzIGluIHNhZmV0eS1jcml0aWNhbCBlbnZpcm9ubWVudC4NCjQuIGRvY3VtZW50YXRpb25zIHRv
-IHNhZmV0eSBhbmQgc2VjdXJpdHkgaW4gTGludXguDQo1LiAuLi4NCg0KVGhhbmtzDQpUaWVqdW4N
-Cg0KDQo=
+On Thu, Sep 13, 2018 at 4:56 AM, Theodore Y. Ts'o <tytso@mit.edu> wrote:
+> On Mon, Sep 10, 2018 at 05:31:25PM +0200, Daniel Vetter wrote:
+>>
+>> Yup, fully agreed. We don't need another overview over group
+>> maintainer ship. Also I don't think an update from arm-soc/tip or drm
+>> is interesting either. I think only if there's a new group/subsystem
+>> trying this out, with all the nitty-gritty details of "this totally
+>> blew up in our faces" and "this worked shockingly well" and "here we
+>> need to improve still, we're not happy" is what I'm looking for.
+>> Without those details there's nothing really to learn, beyond just
+>> rehashing one of the old discussions. I guess I should have put more
+>> emphasis on _new_ experiments :-)
+>>
+>> And if nothing changed, no new groups I think think we should table
+>> this right away.
+>
+> I wonder if this is something that would be better done at the Kernel
+> Summit (e.g., in Vancouver), as a discussion session.  It's important
+> to remember that Maintainer's Summit has (by design) a small number of
+> attendees.  If the goal is to compare notes about various experiments,
+> it's likely there will be many kernel developers present in Vancouver.
+> After all, getting input from just "Maintainers" but all developers
+> participating in development process would be valuable.
+
+Yes, that was at least my idea for all of these topics. I wasn't sure
+what label to pick since it's not really a tech topic either.
+-Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
