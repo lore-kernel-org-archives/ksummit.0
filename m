@@ -1,33 +1,24 @@
-Return-Path: <dvhart@infradead.org>
+Return-Path: <dan.j.williams@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 30312CC2
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 511DAC0C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 13 Sep 2018 17:08:16 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B27F9798
+	Thu, 13 Sep 2018 19:43:18 +0000 (UTC)
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com
+	[209.85.210.54])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BDF14716
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 13 Sep 2018 17:08:15 +0000 (UTC)
-Date: Thu, 13 Sep 2018 10:08:12 -0700
-From: Darren Hart <dvhart@infradead.org>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <20180913170812.GC35251@wrath>
-References: <CAKMK7uE=FwpPFnvOvuvGBZ0vjh3UMPW=zgSk1dmiyCLQPPuZvg@mail.gmail.com>
-	<CA+55aFyCdGstDu2u11veh3YxabpQrfaPEzuZB2x=eRXpw89prA@mail.gmail.com>
-	<CAKMK7uF+RyTVxvg0HyzponA-orENm-n0GiDXr6EDTGSkOFp+FQ@mail.gmail.com>
-	<20180912185949.GC25894@wrath>
-	<CAKMK7uFpat8PxSq9EqEJ7Ec43o_0AcMzxFGC_fLY0c-Ncycegg@mail.gmail.com>
-	<20180913112738.GA8411@sirena.org.uk>
-	<CAKMK7uEwX1GLN5K1=dPq9rdpVBPS259zYj3r25A=dWBqHUV2Jw@mail.gmail.com>
+	Thu, 13 Sep 2018 19:43:17 +0000 (UTC)
+Received: by mail-ot1-f54.google.com with SMTP id n5-v6so2399080otl.5
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 13 Sep 2018 12:43:17 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAKMK7uEwX1GLN5K1=dPq9rdpVBPS259zYj3r25A=dWBqHUV2Jw@mail.gmail.com>
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
- management/subsystem governance
+From: Dan Williams <dan.j.williams@intel.com>
+Date: Thu, 13 Sep 2018 12:43:15 -0700
+Message-ID: <CAPcyv4i=h-7CHpu5ZvXxPsgUOPY-B-wAjX3e5+W9vCm+o081xw@mail.gmail.com>
+To: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: [Ksummit-discuss] [MAINTAINER SUMMIT] EXPORT_SYMBOL_GPL
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,61 +28,34 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Sep 13, 2018 at 01:41:26PM +0200, Daniel Vetter wrote:
-> On Thu, Sep 13, 2018 at 1:27 PM, Mark Brown <broonie@kernel.org> wrote:
-> > On Wed, Sep 12, 2018 at 10:05:19PM +0200, Daniel Vetter wrote:
-> >> On Wed, Sep 12, 2018 at 8:59 PM, Darren Hart <dvhart@infradead.org> wrote:
-> >
-> >> > Regarding tooling, Andy and I have documented our process and shared our
-> >> > tooling which has evolved to try and prevent human error. I believe DRM
-> >> > has something even more evolved.
-> >
-> >> > https://github.com/dvhart/pdx86-tools
-> >
-> >> Hm, the gen-config scrips looks like a really neat idea. Atm we
-> >> manually maintain some configs for all the drm drivers, but this is
-> >> much better I think. Next step up would be to double-check that make
-> >
-> > Yes, I've got a script like that as well (mine's a *tiny* bit less
-> > sophisticated) - it's super handy if you frequently add new drivers.
-> >
-> >> Bit of googling and fooling around says make CONFIG_FOO=y olddefconfig
-> >> seems to do this, including enabling (all?) dependencies you need.
-> >
-> > That only works for dependencies that are selected, if there's a config
-> > option that stops CONFIG_FOO being seen by the user (eg, having MFD_FOO
-> > preventing SUBSYSTEM_FOO being enabled) then it'll just get silently
-> > ignored.
-> 
-> I guess I fumbled something with my testing, this does indeed not work
-> like I hoped :-/
+Currently the only guidance we have about EXPORT_SYMBOL_GPL usage in
+Documentation/ is:
 
-merge-config will tell you if the CONFIG_* you specified differs in the
-resulting .config.
+"It implies that the function is considered an internal implementation
+issue, and not really an interface."
 
-e.g.
+The topics for a Maintainer Summit discussion are:
 
-$ ls arch/x86/configs/pd*
-arch/x86/configs/pdx86-mods.config
+1/ The criteria "is considered an internal implementation issue" is
+sufficiently vague and seems to lead to arbitrary and subjective
+decisions by individual developers. Are there some objective technical
+criteria we can apply? For example, the symbol consumes other
+EXPORT_SYMBOL_GPL functionality, the symbol can effect kernel-wide
+state / policy, or the symbol leaks internal implementation details
+that are more unstable than typical EXPORT_SYMBOL apis. Any additional
+subjective criteria to consider? For example, it would be better for
+long term health of Linux if the consumers of a given API had the
+EXPORT_SYMBOL_GPL-related encouragement to get their code upstream.
 
-$ make defconfig pdx86-mods.config
-*** Default configuration is based on 'x86_64_defconfig'
-#
-# configuration written to .config
-#
-Using .config as base
-Merging ./arch/x86/configs/pdx86-mods.config
-Value of CONFIG_MELLANOX_PLATFORM is redefined by fragment ./arch/x86/configs/pdx86-mods.config:
-Previous value: # CONFIG_MELLANOX_PLATFORM is not set
-New value: CONFIG_MELLANOX_PLATFORM=y
+2/ With expanded criteria in hand the question then becomes what are
+the considerations for changing an existing symbol between
+EXPORT_SYMBOL or EXPORT_SYMBOL_GPL? I expect it would be awkward and
+unwanted to set down hard rules, but a list of considerations that a
+change proposal needs to address would at least help guide such
+discussions.
 
-Value of CONFIG_ACER_WIRELESS is redefined by fragment ./arch/x86/configs/pdx86-mods.config:
-Previous value: # CONFIG_ACER_WIRELESS is not set
-New value: CONFIG_ACER_WIRELESS=m
+Not being a lawyer, I'm less interested in legal concerns, and more
+the technical, code maintenance, and health of the kernel aspects of
+what EXPORT_SYMBOL_GPL influences.
 
-...
-
-
--- 
-Darren Hart
-VMware Open Source Technology Center
+Note, I am not available to travel to Edinburgh to lead this discussion.
