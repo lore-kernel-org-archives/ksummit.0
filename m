@@ -1,20 +1,32 @@
-Return-Path: <gregkh@linuxfoundation.org>
-Date: Thu, 13 Sep 2018 11:50:51 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Tiejun Chen <tiejunc@vmware.com>
-Message-ID: <20180913095051.GC634@kroah.com>
-References: <BY1PR0501MB14623C8F42765E4852FD5A39C51B0@BY1PR0501MB1462.namprd05.prod.outlook.com>
-	<CACRpkdb8c51RABEVhn5tibVxiqTDBRXJ5A5wU5nDfubr6p3nMw@mail.gmail.com>
-	<20180912162923.GA25894@wrath>
-	<BY1PR0501MB1462CF95EB4423BD59F5D3EBC51A0@BY1PR0501MB1462.namprd05.prod.outlook.com>
+Return-Path: <broonie@sirena.org.uk>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id F3CCDBE6
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 13 Sep 2018 11:27:44 +0000 (UTC)
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+	[172.104.155.198])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 71AEB2C4
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 13 Sep 2018 11:27:44 +0000 (UTC)
+Date: Thu, 13 Sep 2018 12:27:38 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <20180913112738.GA8411@sirena.org.uk>
+References: <CAKMK7uE=FwpPFnvOvuvGBZ0vjh3UMPW=zgSk1dmiyCLQPPuZvg@mail.gmail.com>
+	<CA+55aFyCdGstDu2u11veh3YxabpQrfaPEzuZB2x=eRXpw89prA@mail.gmail.com>
+	<CAKMK7uF+RyTVxvg0HyzponA-orENm-n0GiDXr6EDTGSkOFp+FQ@mail.gmail.com>
+	<20180912185949.GC25894@wrath>
+	<CAKMK7uFpat8PxSq9EqEJ7Ec43o_0AcMzxFGC_fLY0c-Ncycegg@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="IJpNTDwzlM2Ie8A6"
 Content-Disposition: inline
-In-Reply-To: <BY1PR0501MB1462CF95EB4423BD59F5D3EBC51A0@BY1PR0501MB1462.namprd05.prod.outlook.com>
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] A Safety-critical Linux system
- architecture
+In-Reply-To: <CAKMK7uFpat8PxSq9EqEJ7Ec43o_0AcMzxFGC_fLY0c-Ncycegg@mail.gmail.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
+ management/subsystem governance
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -24,43 +36,48 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Sep 13, 2018 at 03:13:11AM +0000, Tiejun Chen wrote:
-> On the other hand, even without something as you said, "understand a
-> set of use cases, determine safety requirements, and then complete the
-> methods and procedures". Yes, I tend to agree that we need to make
-> these stuff clear very well, but this doesn't mean we shouldn't talk
-> about Linux itself now. Because we already have fundamental issues
-> right there like, 
-> 1. Real time issue: we need to get Linux being RTOS to meet
-> safety-critical requirements.  
 
-So listing what is "lacking" from the existing -rt patchset would be
-great, I'm sure those developers would want to know this.
+--IJpNTDwzlM2Ie8A6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Combined with some resources to help get the remaining -rt patches
-merged upstream would also be great.
+On Wed, Sep 12, 2018 at 10:05:19PM +0200, Daniel Vetter wrote:
+> On Wed, Sep 12, 2018 at 8:59 PM, Darren Hart <dvhart@infradead.org> wrote:
 
-> 2. Partitioning {software, hardware}resources: we need to have strong
-> barrier to providing such an evidence that one program can't interact
-> with another in any ways including shared memory, interrupts, etc.
+> > Regarding tooling, Andy and I have documented our process and shared our
+> > tooling which has evolved to try and prevent human error. I believe DRM
+> > has something even more evolved.
 
-What is preventing you from adding this to Linux now?
+> > https://github.com/dvhart/pdx86-tools
 
-> 3. How to "remove" or disable any unnecessary or unused codes in
-> safety-critical environment.
+> Hm, the gen-config scrips looks like a really neat idea. Atm we
+> manually maintain some configs for all the drm drivers, but this is
+> much better I think. Next step up would be to double-check that make
 
-If unused code is unused, why is it an issue?
+Yes, I've got a script like that as well (mine's a *tiny* bit less
+sophisticated) - it's super handy if you frequently add new drivers.
 
-And how do you describe "unnecessary"?  Who determines this?
+> Bit of googling and fooling around says make CONFIG_FOO=y olddefconfig
+> seems to do this, including enabling (all?) dependencies you need.
 
-> 4. documentations to safety and security in Linux.
+That only works for dependencies that are selected, if there's a config
+option that stops CONFIG_FOO being seen by the user (eg, having MFD_FOO
+preventing SUBSYSTEM_FOO being enabled) then it'll just get silently
+ignored.
 
-What type of documentation is lacking?
+--IJpNTDwzlM2Ie8A6
+Content-Type: application/pgp-signature; name="signature.asc"
 
-These are all very generic questions/topics, why not propose a talk for
-the KS track at Plumbers for it?  Or many talks as these really are a
-lot of different, individual things.
+-----BEGIN PGP SIGNATURE-----
 
-thanks,
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAluaSacACgkQJNaLcl1U
+h9ACNAf9EYZN15YnhdJSnf01zKp7z45ivsSzU7NYKsYk5KSBn5qBoKUHUtnwzbYh
+fh9C2d19raukJhCOydKYgvelfESLOCC7/aNIVpMGL/DVXuoh3IM05aEoTmK1EHPm
+HqIDNxi72VjS1GBT346TB/TYxOtacwG9iGH4vv7zGycnbxWrBfzDuTWdARQYJpGh
+vOFJG1rgQOk/kY4btgWyNe1A4EfWSZy6js6yJ49YxlTxwAGUkkgdadHaIbHeETTd
+AZs5OTl0BRa8x0mZRyYZ4NgkEBhv6WNP/SGww4PJzm5eIhCp12Y/LxSbK0r6RncJ
+9uhUZ8gaYNtCG/32E/y2NF+LqyBnaw==
+=Vo8j
+-----END PGP SIGNATURE-----
 
-greg k-h
+--IJpNTDwzlM2Ie8A6--
