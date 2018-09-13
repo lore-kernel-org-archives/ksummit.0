@@ -1,26 +1,41 @@
-Return-Path: <laurent.pinchart@ideasonboard.com>
+Return-Path: <sfr@canb.auug.org.au>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7AB74E33
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 59A58D4A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Sep 2018 23:16:31 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
-	[213.167.242.64])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A1CB376D
+	Thu, 13 Sep 2018 00:20:16 +0000 (UTC)
+Received: from ozlabs.org (ozlabs.org [203.11.71.1])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0488013A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Sep 2018 23:16:30 +0000 (UTC)
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Date: Thu, 13 Sep 2018 02:16:42 +0300
-Message-ID: <21957566.oGo64dIWLN@avalon>
-In-Reply-To: <20180912131001.GG2760@piout.net>
-References: <20180910174638.26fff182@vmware.local.home>
-	<3070742.JVHc92YBtH@avalon> <20180912131001.GG2760@piout.net>
+	Thu, 13 Sep 2018 00:20:14 +0000 (UTC)
+Date: Thu, 13 Sep 2018 10:19:55 +1000
+From: Stephen Rothwell <sfr@canb.auug.org.au>
+To: Steven Rostedt <rostedt@goodmis.org>
+Message-ID: <20180913101955.3163ef05@canb.auug.org.au>
+In-Reply-To: <20180912162422.37d545ec@vmware.local.home>
+References: <CA+55aFz57ASBqAvXnCv4_uZ3niPJjTDdSmOOdyaFeW8gCAwSHQ@mail.gmail.com>
+	<20180907145437.GF16300@sasha-vm>
+	<CA+55aFzp340RDJUDoOGtN5ENgdCSSkksvG0yPt74BgyvTrAE4Q@mail.gmail.com>
+	<20180910194310.GV16300@sasha-vm>
+	<20180910164519.6cbcc116@vmware.local.home>
+	<20180910212019.GA32269@roeck-us.net>
+	<20180910174638.26fff182@vmware.local.home>
+	<20180910230301.GB1764@localhost.localdomain>
+	<20180910191329.70f90a14@vmware.local.home>
+	<20180911114227.241f2e5d@vmware.local.home>
+	<20180911174043.GK5659@atomide.com>
+	<1536688022.3511.5.camel@HansenPartnership.com>
+	<20180911143923.11e479ea@vmware.local.home>
+	<1536696572.3511.12.camel@HansenPartnership.com>
+	<20180911163136.1d6653a6@vmware.local.home>
+	<1536706409.3511.14.camel@HansenPartnership.com>
+	<20180912162422.37d545ec@vmware.local.home>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	ksummit-discuss@lists.linuxfoundation.org
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	boundary="Sig_/=LYvMYsMBJMon_jL3HtfTpA";
+	protocol="application/pgp-signature"
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -31,114 +46,77 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Alex,
+--Sig_/=LYvMYsMBJMon_jL3HtfTpA
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-On Wednesday, 12 September 2018 16:10:01 EEST Alexandre Belloni wrote:
-> On 12/09/2018 15:53:59+0300, Laurent Pinchart wrote:
-> > On Wednesday, 12 September 2018 15:29:25 EEST Thomas Gleixner wrote:
-> >> On Wed, 12 Sep 2018, Laurent Pinchart wrote:
-> >>> On Wednesday, 12 September 2018 14:55:44 EEST Geert Uytterhoeven wrote:
-> >>>> Good. Then this discussion wasn't targeted to the SCSI people, but to
-> >>>> other maintainers pushing brown paper bags and other trivial
-> >>>> breakages they should have caught beforehand to linux-next ;-)
-> >>> 
-> >>> That's a behaviour that has been annoying me lately, maintainers
-> >>> should have no special privilege when it comes to pushing code
-> >>> upstream. All patches should be posted publicly, given enough time to
-> >>> be reviewed, and review comments should be addressed before anything
-> >>> is merged to a -next branch. Unfortunately that's not always the case
-> >>> :-S
-> >> 
-> >> Come on. Do you really expect me to wait for review when I fix up the
-> >> internal testing/ 0-day fallout which is often enough something trivial?
-> >> Do you really expect me to wait for review when I worked with a bug
-> >> reporter to decode something and have a 100% explanation that it fixes
-> >> the root cause and not the symptom?
-> >> 
-> >> 1) Our review capacity is small enough already, so we don't have to
-> >>    throw more stuff out for review.
-> >> 
-> >> 2) With that modus, bugs will stay unfixed way longer and merging of
-> >>    code will even be more delayed.
-> > 
-> > I don't expect to wait for review forever, but I expect maintainers to
-> > give an opportunity to reviewers to review patches. We obviously need to
-> > consider the balance between review opportunity and problems (such as
-> > build breakages) that could affect hundreds of developers if left unfixed
-> > even for a few days.
-> > 
-> > Too often I've noticed changes to code I maintain that introduced bugs or
-> > other issues, performed by a maintainer who didn't even bother to post the
-> > patch before pushing to to his -next branch, who didn't CC me (I could
-> > take part of the blame for not reading mailing lists with enough
-> > attention, but the volume is very high), or, possibly worse, who sent a
-> > patch out, received my review on the same day, and completely ignored it.
-> > The last issue is very demotivating for reviewers. Those changes were not
-> > at all urgent, some of them were "cleanups", or replacement of a
-> > deprecated API by a new one. That's very different than fixing a build
-> > breakage in -next which clearly can't wait.
-> > 
-> >> If I don't have special rights as a maintainer and you don't trust me
-> >> that I use my common sense when I'm using these special rights, then you
-> >> degraded me to a patch juggling monkey. On the day this happens, I'll
-> >> step down.
-> > 
-> > Maintainers are much more than patch juggling monkeys, otherwise they
-> > could be replaced by machines. I believe that maintainers are given the
-> > huge responsibility of taking care of their community. Fostering a
-> > productive work environment, attracting (and keeping) talented developers
-> > and reviewers is a huge and honourable task, and gets my full respect. On
-> > top of that, if a maintainer has great technical skills, it's even
-> > better, and I've learnt a lot from talented maintainers over the time. I
-> > however believe that technical skills are not an excuse for not leading
-> > by example and showing what the good practices are by applying them.
-> > 
-> > (This goes without saying, but even better when said explicitly, there's
-> > not judgment about your or any particular maintainer's technical or
-> > non-technical skills here)
-> > 
-> >>> I would even go as far as saying that all patches should have
-> >>> Reviewed-by or Acked-by tag, without enforcing that rule too strictly
-> >>> (I'm thinking in particular about drivers that only a single person
-> >>> cares about, it's sometimes hard to get patches reviewed).
-> >> 
-> >> If we enforce that, then a large part of reviewed-by and acked-by tags
-> >> will just come from coworkers or other affiliates and have no value at
-> >> all.
-> > 
-> > That's a concern I share, and one of the reasons why I have my doubts
-> > about some of the maintainership experiments in the DRM subsystem. The
-> > proponents of the changes there pointed out to me that development has
-> > sped up as a result, but I think the costs associated with the
-> > acceleration haven't been fully evaluated.
-> > 
-> >> That's anyway a growing disease that patches already carry reviewed tags
-> >> when they are posted the first time and then you look at them and they
-> >> have at least one easy to spot or easy to detect by tools bug in them.
-> > 
-> > Do you get bothered that they carry a tag when they are posted the first
-> > time, or only that they do so *and* have clear problems ?
-> 
-> I guess the issue is that it is very difficult to trust reviewed-by or
-> acked-by tags that are coming from coworkers/affiliates, especially more
-> when the review didn't happen publicly. From my point of view, that
-> review may or may not have happened.
+Hi Steve,
 
-I'm not sure we can put more trust on public review when the reply only 
-contains a Reviewed-by without any other comment, just because the review is 
-public. In the end it's a matter of trusting the reviewer. I'll try that you 
-have carefully reviewed an RTC patch carrying your R-b tag when it gets posted 
-by another bootlin developer, because I trust you. I won't have much trust in 
-a R-b coming in an otherwise empty e-mail from someone who has never sent or 
-reviewed any patch and who has no history of open source contributions, even 
-if that review e-mail is public and done by a non-coworker/affiliate.
+On Wed, 12 Sep 2018 16:24:22 -0400 Steven Rostedt <rostedt@goodmis.org> wro=
+te:
+>
+> On Tue, 11 Sep 2018 18:53:29 -0400
+> James Bottomley <James.Bottomley@HansenPartnership.com> wrote:
+>=20
+> > > Why not do what I do and push to a -pre-next branch when you kick off
+> > > your local tests?   =20
+> >=20
+> > Because there's no point.  As I said, when we complete the local
+> > criteria the branch is ready for integration.  We push to -next and
+> > *all* the built bots tell us if there are any problems (which I don't
+> > expect there are but there's room for me to be wrong) ... including
+> > 0day.  I don't see what the delay and the process hassle would buy us
+> > if we only get a review by 0day in the -pre-next branch.  It seems more
+> > efficient to let every bot loose on what we think is mergeable. =20
+>=20
+> If a bot discovers a new failure in linux-next, do you look to see
+> which tree caused it? And then create a new linux-next without that
+> tree?
 
-I don't think we disagree fundamentally here, R-b carries a value when the 
-reviewer has done enough work to gain trust from the community, regardless of 
-whether reviews are first done in private or don't contain any other 
-information than the R-b tag.
+Well, obviously, that depends.  Firstly, I have only once done 2
+linux-next release in one day (and that was way back in 2008) as it is
+mostly just to much work (a minimal linux-next release takes 4 hours or
+more ... just before the merge window opens, it can take over 12 hours).
 
--- 
-Regards,
+Sometimes a bot will actually identify the actual commit and sometimes
+not.  Sometimes I don't even see the notifications :-(
 
-Laurent Pinchart
+Reverting a whole tree can be a real challenge in itself.  I currently
+have to consider 286 branches for merging every day (a lot are empty
+especially in the first few -rcs, obviously) and if the branch has been
+merged early, then there is a reasonable chance that there is some
+interaction with later merges.
+
+An alternative is to reset linux-next to just before the offending
+branch was merged and remerge all the following branches without doing
+the intermediate builds (optimistically).
+
+As Sacha said, I often don't see reports until after I have finished
+for the day (or woken up the next morning), so the best chance is to
+fix the next linux-next release.
+
+> If not, then perhaps we should do so.
+
+I will think about how I could go about it.
+
+--=20
+Cheers,
+Stephen Rothwell
+
+--Sig_/=LYvMYsMBJMon_jL3HtfTpA
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAluZrSsACgkQAVBC80lX
+0Gx7fwgAgJWH8n/dKP30M7F/ohfGJPU+fKL5FsH1B/TPR71cRFAXoOd3gRg5AoR9
+wz/08scGcQVxi21Yz7ndMFn+/FsKqk5eNybcgL0NQy7gEw3XXdNRXNdK+QmXaoLA
+uFYLzU2+MmZ+H+eQCWUhzgaWNIwASKUoAWmdlElEVI+kcAQ3Rok6QW+xfxgEEE2Q
+2bXP+42m8cpw7IX+72igoPfwh9k5hvFtt1rey4L0TfQOdF1zyzf9IGmT4/v13n3E
+m+c0ghUUgYYyRbaRUL1+MoTX/CUlDAi6G1rqtNjgJZEEEXSVsJb3/fjTqWA6VJUS
+6vEugSIuGTG8G0X91G+7oKgnRsh1jQ==
+=06gS
+-----END PGP SIGNATURE-----
+
+--Sig_/=LYvMYsMBJMon_jL3HtfTpA--
