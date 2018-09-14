@@ -1,38 +1,27 @@
-Return-Path: <linus.walleij@linaro.org>
+Return-Path: <laurent.pinchart@ideasonboard.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 07A08BA9
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A894EC22
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 14 Sep 2018 07:08:21 +0000 (UTC)
-Received: from mail-io1-f66.google.com (mail-io1-f66.google.com
-	[209.85.166.66])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 73A8113A
+	Fri, 14 Sep 2018 07:08:36 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+	[213.167.242.64])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C66AA13A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 14 Sep 2018 07:08:20 +0000 (UTC)
-Received: by mail-io1-f66.google.com with SMTP id w11-v6so5251590iob.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 14 Sep 2018 00:08:20 -0700 (PDT)
+	Fri, 14 Sep 2018 07:08:35 +0000 (UTC)
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Dave Airlie <airlied@gmail.com>
+Date: Fri, 14 Sep 2018 10:08:47 +0300
+Message-ID: <7500551.ylj9XQ2o2G@avalon>
+In-Reply-To: <CAPM=9txDYkWu3Ta1HN0vw5Hp-isHccA4Nfj+XbPOma6BskKrKg@mail.gmail.com>
+References: <CAPcyv4i=h-7CHpu5ZvXxPsgUOPY-B-wAjX3e5+W9vCm+o081xw@mail.gmail.com>
+	<1591325.98K2JSm7l9@avalon>
+	<CAPM=9txDYkWu3Ta1HN0vw5Hp-isHccA4Nfj+XbPOma6BskKrKg@mail.gmail.com>
 MIME-Version: 1.0
-References: <CAKMK7uE=FwpPFnvOvuvGBZ0vjh3UMPW=zgSk1dmiyCLQPPuZvg@mail.gmail.com>
-	<8412864.7ztUKcXNNC@avalon>
-	<CAKMK7uFAXoVG+nBX=Om9A7R9xPYa-hd0JrRX1RNKSNhxnL_VsA@mail.gmail.com>
-	<2019489.6joTqyUi4Z@avalon>
-	<CAKMK7uE535-7Vs9EAa2725XL2TX2ChJCN0Zb3YaMe=MarYJOyw@mail.gmail.com>
-	<20180911124423.GM2494@piout.net>
-	<CAKMK7uE55eEP8L74z7HMyPb2nVnK9=bBX8tUEqmsDYSqjO-CZg@mail.gmail.com>
-	<CACRpkdZeR=0-_tN03jFLGc-j1pW4hfOtqB6icjhpF190A8Z0=A@mail.gmail.com>
-	<20180912182343.GI2760@piout.net>
-	<alpine.DEB.2.21.1809122037450.1473@nanos.tec.linutronix.de>
-	<20180913120811.oilaweiun3z4l5wo@flea>
-In-Reply-To: <20180913120811.oilaweiun3z4l5wo@flea>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Fri, 14 Sep 2018 09:08:07 +0200
-Message-ID: <CACRpkdbJFZ+SkCY4QJwhbO+moyNpSVA1SjNozNxLdzHmBJQA1w@mail.gmail.com>
-To: Maxime Ripard <maxime.ripard@bootlin.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
- management/subsystem governance
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] EXPORT_SYMBOL_GPL
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -42,50 +31,100 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Sep 13, 2018 at 2:08 PM Maxime Ripard <maxime.ripard@bootlin.com> wrote:
+Hi Dave,
 
-> If there's a very significant part of the work that is
-> done by the maintainer of a given subsystem, and that there is a
-> single maintainer for that subsystem, what will happen when that
-> maintainer decides to stop contributing for some reason?
->
-> All the knowledge they built, experience they got (including at
-> reviewing) is gone, possibly forever, and there's no one to pick up
-> the subsystem, and the code is left to rot.
+On Friday, 14 September 2018 09:32:36 EEST Dave Airlie wrote:
+> On Fri, 14 Sep 2018 at 07:04, Laurent Pinchart wrote:
+> > On Thursday, 13 September 2018 23:14:06 EEST Greg KH wrote:
+> > > On Thu, Sep 13, 2018 at 12:43:15PM -0700, Dan Williams wrote:
+> > > > Currently the only guidance we have about EXPORT_SYMBOL_GPL usage in
+> > > > Documentation/ is:
+> > > > 
+> > > > "It implies that the function is considered an internal implementation
+> > > > issue, and not really an interface."
+> > > > 
+> > > > The topics for a Maintainer Summit discussion are:
+> > > > 
+> > > > 1/ The criteria "is considered an internal implementation issue" is
+> > > > sufficiently vague and seems to lead to arbitrary and subjective
+> > > > decisions by individual developers. Are there some objective technical
+> > > > criteria we can apply? For example, the symbol consumes other
+> > > > EXPORT_SYMBOL_GPL functionality, the symbol can effect kernel-wide
+> > > > state / policy, or the symbol leaks internal implementation details
+> > > > that are more unstable than typical EXPORT_SYMBOL apis. Any additional
+> > > > subjective criteria to consider? For example, it would be better for
+> > > > long term health of Linux if the consumers of a given API had the
+> > > > EXPORT_SYMBOL_GPL-related encouragement to get their code upstream.
+> > > > 
+> > > > 2/ With expanded criteria in hand the question then becomes what are
+> > > > the considerations for changing an existing symbol between
+> > > > EXPORT_SYMBOL or EXPORT_SYMBOL_GPL? I expect it would be awkward and
+> > > > unwanted to set down hard rules, but a list of considerations that a
+> > > > change proposal needs to address would at least help guide such
+> > > > discussions.
+> > > > 
+> > > > Not being a lawyer, I'm less interested in legal concerns, and more
+> > > > the technical, code maintenance, and health of the kernel aspects of
+> > > > what EXPORT_SYMBOL_GPL influences.
+> > > > 
+> > > > Note, I am not available to travel to Edinburgh to lead this
+> > > > discussion.
+> > > 
+> > > Nice topic, I like it!
+> > > 
+> > > Being the one who used this symbol first (I think, maybe I am wrong),
+> > > I'd be glad to lead this if others think it would be a good thing to
+> > > formally document.
+> > > 
+> > > And yes, I'm in the "let's document this thing somehow to keep
+> > > maintainers from getting stuck in the middle" camp :)
+> > 
+> > As Guenter, I use EXPORT_SYMBOL_GPL as a political mean more than a
+> > technical mean. From a legal point of view it has always seemed a very
+> > grey area to me (especially since nobody has tested this particular in
+> > court). While a clear documentation would be useful to agree on a common
+> > meaning, I fear we will have many stakeholders trying to pull in
+> > different directions.
+> > 
+> > From a technical point of view, this is the first time I hear about
+> > EXPORT_SYMBOL_GPL implying an internal implementation instead of an
+> > interface. The sentence has been introduced in
+> > 
+> > commit b6c17ea4eff360359d1741272028610035bb2da9
+> > Author: Rusty Russell <rusty@rustcorp.com.au>
+> > Date:   Fri Sep 9 13:10:11 2005 -0700
+> > 
+> >     [PATCH] Update Documentation/DocBook/kernel-hacking.tmpl
+> > 
+> > without any explanation in the commit message. That seems a dubious claim
+> > to me, given that EXPORT_SYMBOL_GPL allows linking a module to the
+> > kernel, in effect creating an API.
+> 
+> https://lwn.net/Articles/154602/
+> 
+> Was the original advice Linus got and raised.
+> 
+> Since then I think this advice has been sufficiently diluted by people
+> lobbying for _GPL on any/all new exports, which means that we've
+> probably neutered the actual usefulness of it from a legal point of
+> view, instead of having a discussion about why a symbol is internal
+> and hints at a derived work, we slapped it on a bunch of interfaces
+> where it probably isn't applicable.
+> 
+> (like refcounts had it for a while, anyone arguing that refcounts
+> created a derived work was definitely neither legal nor technical, it
+> was pure political.).
 
-Unfortunately this is what happened when David Brownell
-passed away. His passing had a long-standing and serious
-impact on the quality of the subsystems he helped creating.
+The argument that any module is a derived work of the kernel (at the very 
+least when the module has been developed specifically for the Linux kernel) 
+still hasn't been disproved, so this is a grey area as well. The argument is 
+certainly political, but I don't see why it wouldn't be legal as well.
 
-GPIO was left unmaintained and patches were coming in
-and merged by Andrew Morton, as is default (and it is a
-good thing that we don't just stop merging code, that would
-probably have been even worse). Most of it was fine.
+I do agree that EXPORT_SYMBOL_GPL is useful though, as it makes the intent of 
+the developer clear. As a mean of telling whether an interface is internal or 
+not, however, I hae my doubts.
 
-However one piece that got merged at this turbulent time
-was the GPIO sysfs ABI which in my opinion
-was not very nice. The main problem was that it exposed
-kernel internals (the global GPIO numberspace) to the whole
-world and made them semi-ABI which is really tricky to
-maintain in the long run. It probably didn't seem like a big
-problem at the time and GPIO was seen as obscure. But
-it has created a major maintenance headache, and I imagine
-that an active maintainer would have come up with something
-a bit different. I have moved that ABI to "obsolete" and try
-to make the new character device ABI as tasty as possible
-to encourage migration but it will have to be maintained
-until there is noone left in the forest to hear the tree fall
-when I cut it. I guess in 2045 or so.
+-- 
+Regards,
 
-There are other things that was David's ideas, such as highly
-optimized bit-banging routines in SPI where it would have
-been great to have his input. Those are less severe, but I
-can't help to compare with the MMC/SD subsystem where at
-one point last year I could reach out to the previous-to-previous
-maintainer (Pierre Ossman) and ask why the subsystem had
-a bounce buffer mechanism, which was really helpful because
-he quickly provided the answer and we managed to fix it up
-nicely (commit bd9b902798ab).
-
-Yours,
-Linus Walleij
+Laurent Pinchart
