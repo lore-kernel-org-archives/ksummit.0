@@ -1,20 +1,19 @@
-Return-Path: <linus.walleij@linaro.org>
+Return-Path: <tglx@linutronix.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B2A76C49
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9741DE18
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 14 Sep 2018 08:09:12 +0000 (UTC)
-Received: from mail-it0-f67.google.com (mail-it0-f67.google.com
-	[209.85.214.67])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 60AAF782
+	Fri, 14 Sep 2018 14:15:51 +0000 (UTC)
+Received: from Galois.linutronix.de (Galois.linutronix.de [146.0.238.70])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id ED5EC7E4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 14 Sep 2018 08:09:12 +0000 (UTC)
-Received: by mail-it0-f67.google.com with SMTP id u13-v6so1484157iti.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 14 Sep 2018 01:09:12 -0700 (PDT)
-MIME-Version: 1.0
-References: <CAKMK7uE=FwpPFnvOvuvGBZ0vjh3UMPW=zgSk1dmiyCLQPPuZvg@mail.gmail.com>
-	<8412864.7ztUKcXNNC@avalon>
+	Fri, 14 Sep 2018 14:15:50 +0000 (UTC)
+Date: Fri, 14 Sep 2018 16:15:46 +0200 (CEST)
+From: Thomas Gleixner <tglx@linutronix.de>
+To: Dave Airlie <airlied@gmail.com>
+In-Reply-To: <CAPM=9twrXd4W-Qf_mmqXkBj5bi=PaTdy0KPPTfW9A6bN5uk0sw@mail.gmail.com>
+Message-ID: <alpine.DEB.2.21.1809141530360.10480@nanos.tec.linutronix.de>
+References: <8412864.7ztUKcXNNC@avalon>
 	<CAKMK7uFAXoVG+nBX=Om9A7R9xPYa-hd0JrRX1RNKSNhxnL_VsA@mail.gmail.com>
 	<2019489.6joTqyUi4Z@avalon>
 	<CAKMK7uE535-7Vs9EAa2725XL2TX2ChJCN0Zb3YaMe=MarYJOyw@mail.gmail.com>
@@ -24,15 +23,12 @@ References: <CAKMK7uE=FwpPFnvOvuvGBZ0vjh3UMPW=zgSk1dmiyCLQPPuZvg@mail.gmail.com>
 	<20180912182343.GI2760@piout.net>
 	<alpine.DEB.2.21.1809122037450.1473@nanos.tec.linutronix.de>
 	<20180913120811.oilaweiun3z4l5wo@flea>
-	<CACRpkdbJFZ+SkCY4QJwhbO+moyNpSVA1SjNozNxLdzHmBJQA1w@mail.gmail.com>
-	<CAMuHMdX3w1M8PyFZbym0f-_we9y6uw3tW6ep7m4kmfsyWfr74Q@mail.gmail.com>
-In-Reply-To: <CAMuHMdX3w1M8PyFZbym0f-_we9y6uw3tW6ep7m4kmfsyWfr74Q@mail.gmail.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Fri, 14 Sep 2018 10:08:57 +0200
-Message-ID: <CACRpkdakjMQQ8Zxp89uhQgUKLYmPHLAkrNNtp=omu2e6CusA4A@mail.gmail.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: ksummit-discuss@lists.linuxfoundation.org
+	<20180913125723.GC14988@piout.net> <87a7olzd7s.fsf@intel.com>
+	<alpine.DEB.2.21.1809132136350.1473@nanos.tec.linutronix.de>
+	<CAPM=9twrXd4W-Qf_mmqXkBj5bi=PaTdy0KPPTfW9A6bN5uk0sw@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
  management/subsystem governance
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -44,34 +40,69 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Sep 14, 2018 at 9:39 AM Geert Uytterhoeven <geert@linux-m68k.org> wrote:
-> On Fri, Sep 14, 2018 at 9:08 AM Linus Walleij <linus.walleij@linaro.org> wrote:
+On Fri, 14 Sep 2018, Dave Airlie wrote:
+> I think it's valuable discussion to move from "you didn't invent this,
+> we've been doing it since 1956 on mainframes, to how can we make this
+> into a process that works for other subsystem maintainers).
 
-> > However one piece that got merged at this turbulent time
-> > was the GPIO sysfs ABI which in my opinion
-> > was not very nice. The main problem was that it exposed
-> > kernel internals (the global GPIO numberspace) to the whole
-> > world and made them semi-ABI which is really tricky to
-> > maintain in the long run. It probably didn't seem like a big
-> > problem at the time and GPIO was seen as obscure. But
-> > it has created a major maintenance headache, and I imagine
-> > that an active maintainer would have come up with something
-> > a bit different.
->
-> While we do miss David Brownell, I think there are some errors in your
-> timeline. Commit d8f388d8dc8d4f36 ("gpio: sysfs interface") was authored
-> by David himself.
+It would be also valuable to sit back and think about
 
-Sigh yeah git history never lies, things were wrong in my head ... :/
+  - why the DRM model works well for DRM
 
-It would nevertheless have been nice to have him
-around to explain how this was thought out. Possibly I would
-have been told off and discouraged to remove the sysfs
-ABI at all.
+  - why it is not necessarily applicable for other subsystems
 
-IIRC I asked some of the other people of this commit at one
-point what the ideas was, and the answer was "we just needed
-something to control GPIOs from userspace".
+  - why other maintainer groups have different setups and issues
 
-Yours,
-Linus Walleij
+instead of telling everyone it works great for DRM, everyone should do that
+and then pull random statistics to tell people that they have a problem.
+
+I'm all for exchanging ideas and information, but I'm totally not
+interested in the condescending tone which tells the world that anyone not
+doing the DRM thing has a problem.
+
+DRM is fundamentally different than anything I maintain. The vast majority
+of contributors and therefore potential maintainers are working in
+corporate teams, which are there to care about DRM and the corporates
+graphics cards.
+
+On my end, the only larger group of constant contributors is around perf
+tooling as there seems to be a vested interest of distros to make this
+work. We have a well working setup there.
+
+The kernel side looks fundamentally different. We surely have maintainers
+where we could gain them. We have a few regular reviewers, but that's it.
+
+Everything else is drive by, random corporate feature enablement thrown
+over the fence, distro value add etc. Nothing where you can keep people
+affiliated.
+
+We do not have the concept of teams dedicated to the problem space. We
+can't split it into bits and pieces as it's intervowen at the hardware
+level to quite some extent. Aside of that there are neither teams nor
+individuals who care about one particular piece more than they care about
+the whole thing.
+
+I'm well aware of these problems, I talk openly about them, and try to come
+up with solutions since years, but I can't change the way corporates work
+and people tick at all. I lost at least two submaintainers after they
+gained speed just because they changed jobs and vanished into nirwana.
+
+I'm not buying at all, that having standardized setups and tools and
+whatever, will change any of the underlying issues magically.
+
+It won't make contributors more careful, it won't make developers magically
+take over responsibility, it won't change the corporate 'get this feature
+thrown over the fence' mentality, it won't make people appear who deeply
+care.
+
+It's nice that it works so well for you and I wish it would work in other
+places similarly well, but please can we take that step back and look at
+the specific problems of a specific subsystem instead of telling everyone
+that they have a problem and offering the DRM way as Panacea.
+
+Unless that systematic and specific analysis happens, I'm out of this
+discussion.
+
+Thanks,
+
+	tglx
