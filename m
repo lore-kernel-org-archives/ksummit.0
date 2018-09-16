@@ -1,28 +1,32 @@
-Return-Path: <hare@suse.com>
+Return-Path: <tiejunc@vmware.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0DCF3904
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 522D3BA2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 16 Sep 2018 10:53:12 +0000 (UTC)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 79871102
+	Sun, 16 Sep 2018 11:30:29 +0000 (UTC)
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com
+	(mail-bl2nam02on0060.outbound.protection.outlook.com [104.47.38.60])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A3BDAF8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 16 Sep 2018 10:53:11 +0000 (UTC)
-Received: from relay1.suse.de (unknown [195.135.220.254])
-	by mx1.suse.de (Postfix) with ESMTP id DB2DBAE86
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 16 Sep 2018 10:53:08 +0000 (UTC)
-To: ksummit-discuss@lists.linuxfoundation.org
-References: <CAFhKne8kiF6k-QUJ9x-cCyBcVvfuWKdcUtQZNz=1sx_iHR+64g@mail.gmail.com>
-From: Hannes Reinecke <hare@suse.com>
-Message-ID: <80c03d82-4de4-63bb-f692-109fccef61f7@suse.com>
-Date: Sun, 16 Sep 2018 12:53:08 +0200
-MIME-Version: 1.0
-In-Reply-To: <CAFhKne8kiF6k-QUJ9x-cCyBcVvfuWKdcUtQZNz=1sx_iHR+64g@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
+	Sun, 16 Sep 2018 11:30:27 +0000 (UTC)
+From: Tiejun Chen <tiejunc@vmware.com>
+To: Greg KH <gregkh@linuxfoundation.org>
+Date: Sun, 16 Sep 2018 11:30:21 +0000
+Message-ID: <BY1PR0501MB1462154020BE9F249685728AC51F0@BY1PR0501MB1462.namprd05.prod.outlook.com>
+References: <BY1PR0501MB14623C8F42765E4852FD5A39C51B0@BY1PR0501MB1462.namprd05.prod.outlook.com>
+	<CACRpkdb8c51RABEVhn5tibVxiqTDBRXJ5A5wU5nDfubr6p3nMw@mail.gmail.com>
+	<20180912162923.GA25894@wrath>
+	<BY1PR0501MB1462CF95EB4423BD59F5D3EBC51A0@BY1PR0501MB1462.namprd05.prod.outlook.com>
+	<20180913095051.GC634@kroah.com>
+In-Reply-To: <20180913095051.GC634@kroah.com>
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Project Banbury
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Cc: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] A Safety-critical Linux system
+ architecture
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,21 +36,10 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 09/14/2018 07:28 PM, Matthew Wilcox wrote:
-> We've all pulled the wrong drive out of a machine or unplugged a USB key
-> before the write back has completely finished. You try to plug it back
-> in, but the damage is done. The pending writes are lost, the filesystem
-> is damaged and full of errors and you are having a Bad Day. What if ...
-> plugging the drive back in could be made to work?
-> 
-> This session would be more of a discussion than a presentation since
-> I've not written a single line of code towards fixing the problem. I
-> have written a web page sketching out an architecture for how we might
-> make this work:
-> 
-I'd be all for it.
-Maybe we can have a session in Edinburgh to discuss things further
-
-Cheers,
-
-Hannes
+W3NuaXBdDQoNCj4gVGhlc2UgYXJlIGFsbCB2ZXJ5IGdlbmVyaWMgcXVlc3Rpb25zL3RvcGljcywg
+d2h5IG5vdCBwcm9wb3NlIGEgdGFsayBmb3IgdGhlIEtTDQo+IHRyYWNrIGF0IFBsdW1iZXJzIGZv
+ciBpdD8gIE9yIG1hbnkgdGFsa3MgYXMgdGhlc2UgcmVhbGx5IGFyZSBhIGxvdCBvZiBkaWZmZXJl
+bnQsDQo+IGluZGl2aWR1YWwgdGhpbmdzLg0KDQpHcmVnIGFuZCBMaW51cywNCg0KVGhhbmsgeW91
+IGZvciB0YWtpbmcgeW91ciB0aW1lIG9uIHRoaXMgcmV2aWV3Lg0KDQpOb3cgSSB0ZW5kIHRvIGFn
+cmVlIHRoYXQgdGhpcydkIGJldHRlciBiZSBwcm9wb3NlZCBhcyBhIGNhbmRpZGF0ZSB0byB0ZWNo
+IHRhbGsuIA0KDQpUaGFua3MNClRpZWp1bg0K
