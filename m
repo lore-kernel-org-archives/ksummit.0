@@ -1,25 +1,27 @@
 Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id AF94E8BF
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5C81ABA0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 16 Sep 2018 19:25:17 +0000 (UTC)
+	Sun, 16 Sep 2018 22:15:28 +0000 (UTC)
 Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0E32E79
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B473A2D4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 16 Sep 2018 19:25:16 +0000 (UTC)
-Date: Sun, 16 Sep 2018 15:25:13 -0400
+	Sun, 16 Sep 2018 22:15:27 +0000 (UTC)
+Date: Sun, 16 Sep 2018 18:15:23 -0400
 From: "Theodore Y. Ts'o" <tytso@mit.edu>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Message-ID: <20180916192513.GA3575@thunk.org>
-References: <CAFhKne8kiF6k-QUJ9x-cCyBcVvfuWKdcUtQZNz=1sx_iHR+64g@mail.gmail.com>
-	<1537115870.3056.1.camel@HansenPartnership.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Message-ID: <20180916221523.GB3575@thunk.org>
+References: <CAPcyv4i=h-7CHpu5ZvXxPsgUOPY-B-wAjX3e5+W9vCm+o081xw@mail.gmail.com>
+	<1591325.98K2JSm7l9@avalon>
+	<CAPM=9txDYkWu3Ta1HN0vw5Hp-isHccA4Nfj+XbPOma6BskKrKg@mail.gmail.com>
+	<7500551.ylj9XQ2o2G@avalon>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1537115870.3056.1.camel@HansenPartnership.com>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Project Banbury
+In-Reply-To: <7500551.ylj9XQ2o2G@avalon>
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] EXPORT_SYMBOL_GPL
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,63 +31,53 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sun, Sep 16, 2018 at 09:37:50AM -0700, James Bottomley wrote:
-> 
-> For a lot of modern external storage devices this simply can't be made
-> to work.  The reason is they all have an internal write back cache to
-> make operations faster and if they're SATA they may lie about it and if
-> they're USB they always lie about it.  For these devices we have a set
-> of writes that we think are completed but in-fact only hit the device
-> cache.  When you pulled it out, the cache was lost and so were these
-> writes.  This is unfixable on the host side unless there's some way we
-> can get the device to tell us it has a write back cache and behave
-> correctly with regard to flushes.
-> 
-> Even for devices that behave correctly, we currently have no real way
-> to repeat the I/O that was lost in the powered down cache, unless you
-> have a way to cope with this case (it doesn't seem to be accounted for
-> in your plan)?  The reason is we use barrier type caches which assume
-> everything behind them is available to the device (either on disk or in
-> the cache).  The block layer would need some way to replay I/Os (in
-> order) from the last barrier because some of them might have been lost
-> from the cache.
-> 
-> Provided we have write through caches (not a given), the lower layer
-> error handling will mostly take care of repeating the lost but
-> unacknowledged I/O provided you preserve the queue, so I agree that
-> part can work, but the big thing is having a write through cache.
+On Fri, Sep 14, 2018 at 10:08:47AM +0300, Laurent Pinchart wrote:
+> > 
+> > https://lwn.net/Articles/154602/
+> > 
+> > Was the original advice Linus got and raised.
+> > 
+> > Since then I think this advice has been sufficiently diluted by people
+> > lobbying for _GPL on any/all new exports, which means that we've
+> > probably neutered the actual usefulness of it from a legal point of
+> > view, instead of having a discussion about why a symbol is internal
+> > and hints at a derived work, we slapped it on a bunch of interfaces
+> > where it probably isn't applicable.
 
-The way I'd suggest approaching this is not by making any changes in
-the block layer at all.  Instead, I'd suggest putting all of the magic
-into a device-mapper device.  The device mapper driver would be
-responsible for keeping a copy of all blocks written to the removeable
-device in kernel memory.  This would work much like the TCP retransmit
-buffers; which is to say, until we are *sure* that we don't need to
-retransmit the writes to the device, we have to keep a copy in
-non-swappable kernel memory.
+First of all, there's no real value (and probably some real harm) to
+have programmers trying to debate questions of legal interpretation.
+It would be much like asking lawyers to debug deadlocks in kernel
+code.  It's not highest and best use of the people involved's talents.  :-)
 
-To avoid overflowing all available memory, there must be a
-configurable cap of the maximum memory that can be used for retransmit
-buffers; and to periodically send a CACHE FLUSH command to the block
-device to free up buffer space once the device has acknowledged the
-CACHE FLUSH command.
+Secondly, if you look very carefully at the above e-mail, the advice
+didn't say anything about what criteria should be used.  In fact, the
+advice was to say that instead of trying to define the criteria
+(whether or not it is about internal implementation or anything else),
+what was important was that there *was* a difference, and that it be
+expressed explicitly in the code.
 
-If the real device ever gets yanked, this ends up disconnecting the
-block device from the device-mapper psuedo-device.  When the USB thumb
-drive gets plugged back in, userspace would be responsible for
-determining that it is the previously attached external attach, and
-reconnecting it to the device-mapper device, which can then replay all
-of the blocks in retransmit buffers.
 
-Advantages of this strategy:
+In practice, it's been mostly been up to the person who originally
+implements the interface to decide whether it should be exported at
+all, and if so, whether it's exported using EXPORT_SYMBOL, or
+EXPORTED_SYMBOL_GPL.  I don't think there has ever been a commonly
+agreed-upon set of criteria.
 
-* No need to make changes to the block device layer
+My personal opinion is that a good dividing line is whether the
+interface is likely to stay ABI-compatible.  After all, that's the
+promise that we make for userspace interfaces; once an interface is
+established, it can only be changed in a way that breaks userspace for
+extraordinary reasons (e.g., if it's the only way to deal with a
+security issue).  And it's *clearly* understood that whether or not
+you believe the GPL can infect over any interface (which is a legal
+question for which the answer may vary in different jourisdictions),
+that it doesn't infect across the system call boundary.
 
-* The overhead of dealing with removable devices can be avoided for
-  devices which are non-removeable.
+Now, obviously we don't make guarantees of absolute ABI stability of
+EXPORT_SYMBOL interfaces.  But my personal take on it is that one of
+the essential differences between EXPORT_SYMBOL_GPL and EXPORT_SYMBOL
+is that EXPORT_SYMBOL_GPL is _more_ unstable than EXPORT_SYMBOL.
 
-* It deals with devices that don't support a write through cache; it
-  only requires devices that don't lie about supporting CACHE FLUSH
-  correctly.
+Cheers,
 
-						- Ted
+					- Ted
