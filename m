@@ -1,27 +1,24 @@
-Return-Path: <tytso@thunk.org>
+Return-Path: <dhowells@redhat.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5C81ABA0
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 356EF84B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 16 Sep 2018 22:15:28 +0000 (UTC)
-Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B473A2D4
+	Sun, 16 Sep 2018 23:58:05 +0000 (UTC)
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D48103CC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 16 Sep 2018 22:15:27 +0000 (UTC)
-Date: Sun, 16 Sep 2018 18:15:23 -0400
-From: "Theodore Y. Ts'o" <tytso@mit.edu>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Message-ID: <20180916221523.GB3575@thunk.org>
-References: <CAPcyv4i=h-7CHpu5ZvXxPsgUOPY-B-wAjX3e5+W9vCm+o081xw@mail.gmail.com>
-	<1591325.98K2JSm7l9@avalon>
-	<CAPM=9txDYkWu3Ta1HN0vw5Hp-isHccA4Nfj+XbPOma6BskKrKg@mail.gmail.com>
-	<7500551.ylj9XQ2o2G@avalon>
+	Sun, 16 Sep 2018 23:58:04 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+In-Reply-To: <CAFhKne8kiF6k-QUJ9x-cCyBcVvfuWKdcUtQZNz=1sx_iHR+64g@mail.gmail.com>
+References: <CAFhKne8kiF6k-QUJ9x-cCyBcVvfuWKdcUtQZNz=1sx_iHR+64g@mail.gmail.com>
+To: Matthew Wilcox <willy6545@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7500551.ylj9XQ2o2G@avalon>
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] EXPORT_SYMBOL_GPL
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <9927.1537142282.1@warthog.procyon.org.uk>
+Date: Mon, 17 Sep 2018 00:58:02 +0100
+Message-ID: <9928.1537142282@warthog.procyon.org.uk>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Project Banbury
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,53 +28,15 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Sep 14, 2018 at 10:08:47AM +0300, Laurent Pinchart wrote:
-> > 
-> > https://lwn.net/Articles/154602/
-> > 
-> > Was the original advice Linus got and raised.
-> > 
-> > Since then I think this advice has been sufficiently diluted by people
-> > lobbying for _GPL on any/all new exports, which means that we've
-> > probably neutered the actual usefulness of it from a legal point of
-> > view, instead of having a discussion about why a symbol is internal
-> > and hints at a derived work, we slapped it on a bunch of interfaces
-> > where it probably isn't applicable.
+Matthew Wilcox <willy6545@gmail.com> wrote:
 
-First of all, there's no real value (and probably some real harm) to
-have programmers trying to debate questions of legal interpretation.
-It would be much like asking lawyers to debug deadlocks in kernel
-code.  It's not highest and best use of the people involved's talents.  :-)
+> We've all pulled the wrong drive out of a machine or unplugged a USB key
+> before the write back has completely finished. You try to plug it back in,
+> but the damage is done.  The pending writes are lost, the filesystem is
+> damaged and full of errors and you are having a Bad Day. What if
+> ... plugging the drive back in could be made to work?
 
-Secondly, if you look very carefully at the above e-mail, the advice
-didn't say anything about what criteria should be used.  In fact, the
-advice was to say that instead of trying to define the criteria
-(whether or not it is about internal implementation or anything else),
-what was important was that there *was* a difference, and that it be
-expressed explicitly in the code.
+Is this something fscache could be made to help with?  Though that might be
+more at a filesystem level than a blockdev level.
 
-
-In practice, it's been mostly been up to the person who originally
-implements the interface to decide whether it should be exported at
-all, and if so, whether it's exported using EXPORT_SYMBOL, or
-EXPORTED_SYMBOL_GPL.  I don't think there has ever been a commonly
-agreed-upon set of criteria.
-
-My personal opinion is that a good dividing line is whether the
-interface is likely to stay ABI-compatible.  After all, that's the
-promise that we make for userspace interfaces; once an interface is
-established, it can only be changed in a way that breaks userspace for
-extraordinary reasons (e.g., if it's the only way to deal with a
-security issue).  And it's *clearly* understood that whether or not
-you believe the GPL can infect over any interface (which is a legal
-question for which the answer may vary in different jourisdictions),
-that it doesn't infect across the system call boundary.
-
-Now, obviously we don't make guarantees of absolute ABI stability of
-EXPORT_SYMBOL interfaces.  But my personal take on it is that one of
-the essential differences between EXPORT_SYMBOL_GPL and EXPORT_SYMBOL
-is that EXPORT_SYMBOL_GPL is _more_ unstable than EXPORT_SYMBOL.
-
-Cheers,
-
-					- Ted
+David
