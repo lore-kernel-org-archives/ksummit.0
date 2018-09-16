@@ -1,28 +1,28 @@
-Return-Path: <willy6545@gmail.com>
+Return-Path: <wsa@the-dreams.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A9EF7BA2
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1B3AFBAC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 16 Sep 2018 12:45:26 +0000 (UTC)
-Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com
-	[209.85.210.48])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 42104102
+	Sun, 16 Sep 2018 12:58:43 +0000 (UTC)
+Received: from pokefinder.org (sauhun.de [88.99.104.3])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 90972F8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 16 Sep 2018 12:45:26 +0000 (UTC)
-Received: by mail-ot1-f48.google.com with SMTP id o13-v6so8706128otl.4
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 16 Sep 2018 05:45:26 -0700 (PDT)
+	Sun, 16 Sep 2018 12:58:42 +0000 (UTC)
+Date: Sun, 16 Sep 2018 14:58:40 +0200
+From: Wolfram Sang <wsa@the-dreams.de>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Message-ID: <20180916125840.GA1083@kunai>
+References: <CAPcyv4i=h-7CHpu5ZvXxPsgUOPY-B-wAjX3e5+W9vCm+o081xw@mail.gmail.com>
+	<1591325.98K2JSm7l9@avalon>
+	<CAPM=9txDYkWu3Ta1HN0vw5Hp-isHccA4Nfj+XbPOma6BskKrKg@mail.gmail.com>
+	<7500551.ylj9XQ2o2G@avalon>
 MIME-Version: 1.0
-References: <CAFhKne8kiF6k-QUJ9x-cCyBcVvfuWKdcUtQZNz=1sx_iHR+64g@mail.gmail.com>
-	<80c03d82-4de4-63bb-f692-109fccef61f7@suse.com>
-In-Reply-To: <80c03d82-4de4-63bb-f692-109fccef61f7@suse.com>
-From: Matthew Wilcox <willy6545@gmail.com>
-Date: Sun, 16 Sep 2018 13:45:14 +0100
-Message-ID: <CAFhKne-T1bTDE0QtDXxWBn7Quyk_kHes_XX=1yQAdMxVVx4zDg@mail.gmail.com>
-To: Hannes Reinecke <hare@suse.com>
-Content-Type: multipart/alternative; boundary="0000000000003d1c860575fc6e6f"
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Project Banbury
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="2fHTh5uZTiUOsy+g"
+Content-Disposition: inline
+In-Reply-To: <7500551.ylj9XQ2o2G@avalon>
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] EXPORT_SYMBOL_GPL
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,84 +32,48 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---0000000000003d1c860575fc6e6f
-Content-Type: text/plain; charset="UTF-8"
 
-Unfortunately I won't be in Edinburgh. My understanding was that the tech
-topics are for Plumbers. Since the user  space component is probably the
-more interesting and complex component, Plumbers is probably the better
-conference for a discussion anyway.
-
-On Sun., Sep. 16, 2018, 11:53 Hannes Reinecke, <hare@suse.com> wrote:
-
-> On 09/14/2018 07:28 PM, Matthew Wilcox wrote:
-> > We've all pulled the wrong drive out of a machine or unplugged a USB key
-> > before the write back has completely finished. You try to plug it back
-> > in, but the damage is done. The pending writes are lost, the filesystem
-> > is damaged and full of errors and you are having a Bad Day. What if ...
-> > plugging the drive back in could be made to work?
-> >
-> > This session would be more of a discussion than a presentation since
-> > I've not written a single line of code towards fixing the problem. I
-> > have written a web page sketching out an architecture for how we might
-> > make this work:
-> >
-> I'd be all for it.
-> Maybe we can have a session in Edinburgh to discuss things further
->
-> Cheers,
->
-> Hannes
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
->
-
---0000000000003d1c860575fc6e6f
-Content-Type: text/html; charset="UTF-8"
+--2fHTh5uZTiUOsy+g
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"auto">Unfortunately I won&#39;t be in Edinburgh. My understandi=
-ng was that the tech topics are for Plumbers. Since the user=C2=A0 space co=
-mponent is probably the more interesting and complex component, Plumbers is=
- probably the better conference for a discussion anyway.</div><br><div clas=
-s=3D"gmail_quote"><div dir=3D"ltr">On Sun., Sep. 16, 2018, 11:53 Hannes Rei=
-necke, &lt;<a href=3D"mailto:hare@suse.com">hare@suse.com</a>&gt; wrote:<br=
-></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-=
-left:1px #ccc solid;padding-left:1ex">On 09/14/2018 07:28 PM, Matthew Wilco=
-x wrote:<br>
-&gt; We&#39;ve all pulled the wrong drive out of a machine or unplugged a U=
-SB key<br>
-&gt; before the write back has completely finished. You try to plug it back=
-<br>
-&gt; in, but the damage is done. The pending writes are lost, the filesyste=
-m<br>
-&gt; is damaged and full of errors and you are having a Bad Day. What if ..=
-.<br>
-&gt; plugging the drive back in could be made to work?<br>
-&gt; <br>
-&gt; This session would be more of a discussion than a presentation since<b=
-r>
-&gt; I&#39;ve not written a single line of code towards fixing the problem.=
- I<br>
-&gt; have written a web page sketching out an architecture for how we might=
-<br>
-&gt; make this work:<br>
-&gt; <br>
-I&#39;d be all for it.<br>
-Maybe we can have a session in Edinburgh to discuss things further<br>
-<br>
-Cheers,<br>
-<br>
-Hannes<br>
-_______________________________________________<br>
-Ksummit-discuss mailing list<br>
-<a href=3D"mailto:Ksummit-discuss@lists.linuxfoundation.org" target=3D"_bla=
-nk" rel=3D"noreferrer">Ksummit-discuss@lists.linuxfoundation.org</a><br>
-<a href=3D"https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discu=
-ss" rel=3D"noreferrer noreferrer" target=3D"_blank">https://lists.linuxfoun=
-dation.org/mailman/listinfo/ksummit-discuss</a><br>
-</blockquote></div>
 
---0000000000003d1c860575fc6e6f--
+> The argument that any module is a derived work of the kernel (at the very=
+=20
+> least when the module has been developed specifically for the Linux kerne=
+l)=20
+> still hasn't been disproved, so this is a grey area as well. The argument=
+ is=20
+> certainly political, but I don't see why it wouldn't be legal as well.
+>=20
+> I do agree that EXPORT_SYMBOL_GPL is useful though, as it makes the inten=
+t of=20
+> the developer clear. As a mean of telling whether an interface is interna=
+l or=20
+> not, however, I hae my doubts.
+
+I fully agree.
+
+
+--2fHTh5uZTiUOsy+g
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAlueU3wACgkQFA3kzBSg
+KbabMA//ROO6cPvKgmCKKZ2G72WIzbi1Iv4ug8d7rpg4M2RkQC9iW+psG43tW1kJ
+dSEQ1CtcCz9qMJenojspGKoQ3SgFGmMJvSjHwr5Nl4XSuXfBmmZr+rcwDD8yYqJL
+GmIZjIgQE7Am62EJHsziJUPoGS2mMbOoqjGxg1d3TVL83cPV3Y8AZN4TIWwD/rji
+iTngVlKBD3nkKRw8c3IBIA7u5qBTaAqdbqXc40rQDDfbO7qKs8Cnk1eAkbbV9whr
+j/6NDst15jjgsyjTHxcvLMApprLzLCxWr0x5cFCkWPiR0ZkGNVoPp86f1Hl6Ce6H
+anbG0/vN/N9wZJ1HvsegTR23S3W0Y6BHdMuKD/pf6k6qDyZwuaCQmUCqVAElBoqI
+JqCX0FEDVTtzxSx2nz8K42bUM/UABGvs6I7g+t+X8TXTcTZQ6P82hiKRqQnNMWi6
+K1pXAITV5xCn5LnyvHlUU1NwznL06I/kX40WVv7G30BRmnfPOTFu31Jt4MmZerAU
+MF1UA+9Zv+yWTcCfP8PmUZ4yLZRu9xjySrI+oYiP06a2xHL6Iypn/BdSjhPOGAFF
+Ams38OuSJrcjIkRJvbac6gx9BGqSW3zPVUHCuXDkvn98KoRPtUpUxZxHBmf7rc3w
+gAp5f9MpVjmTN5rGWcszTbkzmRxaJSPC15/P4XpyvQOOdBQ6qVg=
+=ivqX
+-----END PGP SIGNATURE-----
+
+--2fHTh5uZTiUOsy+g--
