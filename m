@@ -1,36 +1,29 @@
-Return-Path: <mchehab+samsung@kernel.org>
+Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C8E1BEEA
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D52D5C87
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 17 Sep 2018 15:21:16 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C95667F2
+	Mon, 17 Sep 2018 22:02:10 +0000 (UTC)
+Received: from cloudserver094114.home.pl (cloudserver094114.home.pl
+	[79.96.170.134])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 850EB63D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 17 Sep 2018 15:21:15 +0000 (UTC)
-Date: Mon, 17 Sep 2018 12:21:10 -0300
-From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Message-ID: <20180917122110.2e85fc36@coco.lan>
-In-Reply-To: <CAMuHMdWQi5NzzS4GA5Am3sKyWdh2p7on6yo9FcJC6HWwdVAW=A@mail.gmail.com>
+	Mon, 17 Sep 2018 22:02:09 +0000 (UTC)
+From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+To: Christoph Hellwig <hch@infradead.org>
+Date: Mon, 17 Sep 2018 23:59:22 +0200
+Message-ID: <3546549.SGOmEv5aQK@aspire.rjw.lan>
+In-Reply-To: <20180917131218.GA23637@infradead.org>
 References: <CAKMK7uE=FwpPFnvOvuvGBZ0vjh3UMPW=zgSk1dmiyCLQPPuZvg@mail.gmail.com>
-	<8412864.7ztUKcXNNC@avalon> <20180910211128.GH16557@thunk.org>
-	<1939259.kNhvOyGpTJ@avalon> <20180917084335.007012ec@coco.lan>
-	<CAMuHMdVj28tZKep+DPA4W3vz28hPRZTWAb7BtuQBBTSWT3Brnw@mail.gmail.com>
-	<20180917100413.22eac00d@coco.lan>
-	<alpine.DEB.2.20.1809171508120.3417@hadrien>
-	<20180917132908.GA15424@infradead.org>
-	<20180917105805.0ccf0064@coco.lan>
-	<20180917141801.GA8759@infradead.org>
-	<CAMuHMdWQi5NzzS4GA5Am3sKyWdh2p7on6yo9FcJC6HWwdVAW=A@mail.gmail.com>
+	<20180917084335.007012ec@coco.lan>
+	<20180917131218.GA23637@infradead.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: Christoph Hellwig <hch@infradead.org>,
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
 	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
- management/subsystem governance
+	management/subsystem governance
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,42 +33,27 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Em Mon, 17 Sep 2018 16:50:23 +0200
-Geert Uytterhoeven <geert@linux-m68k.org> escreveu:
-
-> Hi Christoph,
+On Monday, September 17, 2018 3:12:18 PM CEST Christoph Hellwig wrote:
+> On Mon, Sep 17, 2018 at 08:43:35AM -0300, Mauro Carvalho Chehab wrote:
+> > While I do agree that the main Kernel development should happen via
+> > email on the foreseen future, Why e-mail would be a mandatory
+> > requirement for all kinds of Kernel development? 
+> > 
+> > I don't believe that a single development model fits all cases.
+> > 
+> > Let's say that someone is using something like github to manage the
+> > development of a single driver - or even a low traffic subsystem.
 > 
-> On Mon, Sep 17, 2018 at 4:18 PM Christoph Hellwig <hch@infradead.org> wrote:
-> > On Mon, Sep 17, 2018 at 10:58:05AM -0300, Mauro Carvalho Chehab wrote:  
-> > > > > specifically).  The only problem is that people tend to omit context,
-> > > > > because they assume that you see the code or previous messages that they
-> > > > > see in the web interface, which you do not.  
-> > > >
-> > > > The major problem with github is that as far as I can tell there is no
-> > > > way to interact with it without creating an account.  
-> > >
-> > > Well, the same happens with moderated mailing lists. There are a
-> > > lot of them:
-> > >       $ git grep moderated MAINTAINERS|wc -l
-> > >       221  
-> >
-> > Note that moderated doesn't mean that it always rejects non-subscribers.
-> > For example I post to linux-arm-kernel frequently, and my mails always
-> > seem to make it through with a delay.  
+> Sadly enough that already is the case.  The ACPI maintainers refuse
+> to take perfectly fine patches and instead redirect people to a
+> github version (which doesn't look like the kernel code at all),
+> which requires a signup with a not exactly trust-worthy webservice.
 
-Yeah, same happens to me. I stopped receiving emails from several such
-lists. Not sure if I ended by subscribing to it (in order to actively
-participate on some discussions) or if my email was simply whitelisted.
+That's ACPICA to be precise and that's because it is a separate project really
+that's used by the kernel.  It generally is better to get patches to the
+upstream first and to the kernel from there.
 
-> linux-arm-kernel is a gateway to many maintainers, most of them will take
-> your patches fine.
-> 
-> But if it is for core ARM, it still has to be submitted to the ARM patch system
-> separately.
+That's nothing new, though, it's been like that for years.
 
-Provided that get_maintainers.pl gets it, and someone will manually
-whitelist either my e-mail or my patch on an eventual patch
-submission, no issues with that.
-
-Thanks,
-Mauro
+Cheers,
+Rafael
