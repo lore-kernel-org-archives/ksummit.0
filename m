@@ -1,29 +1,37 @@
-Return-Path: <airlied@gmail.com>
+Return-Path: <joe@perches.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id DD5D8C50
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D4FAECA0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 17 Sep 2018 22:40:02 +0000 (UTC)
-Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com
-	[209.85.222.177])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 700D07E2
+	Mon, 17 Sep 2018 22:48:21 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (smtprelay0165.hostedemail.com
+	[216.40.44.165])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E89807F6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 17 Sep 2018 22:40:02 +0000 (UTC)
-Received: by mail-qk1-f177.google.com with SMTP id f62-v6so9963073qke.2
+	Mon, 17 Sep 2018 22:48:19 +0000 (UTC)
+Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
+	[10.5.19.251])
+	by smtpgrave07.hostedemail.com (Postfix) with ESMTP id 48A441803D0D3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 17 Sep 2018 15:40:02 -0700 (PDT)
-MIME-Version: 1.0
+	Mon, 17 Sep 2018 16:50:40 +0000 (UTC)
+Message-ID: <d72dd6cfd74cae177b645d7f709c4635f3c359b9.camel@perches.com>
+From: Joe Perches <joe@perches.com>
+To: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>, Christoph Hellwig
+	<hch@infradead.org>
+Date: Mon, 17 Sep 2018 09:50:33 -0700
+In-Reply-To: <20180917105805.0ccf0064@coco.lan>
 References: <CAKMK7uE=FwpPFnvOvuvGBZ0vjh3UMPW=zgSk1dmiyCLQPPuZvg@mail.gmail.com>
+	<8412864.7ztUKcXNNC@avalon> <20180910211128.GH16557@thunk.org>
+	<1939259.kNhvOyGpTJ@avalon> <20180917084335.007012ec@coco.lan>
 	<CAMuHMdVj28tZKep+DPA4W3vz28hPRZTWAb7BtuQBBTSWT3Brnw@mail.gmail.com>
-	<20180917100413.22eac00d@coco.lan> <2072478.UYspZ1xLTN@avalon>
-	<20180917115916.37fd5388@coco.lan>
-In-Reply-To: <20180917115916.37fd5388@coco.lan>
-From: Dave Airlie <airlied@gmail.com>
-Date: Tue, 18 Sep 2018 08:39:48 +1000
-Message-ID: <CAPM=9tzSaQX7iVCH94jrM+xgEveY4B8+DwQSykiE3L0BM-s-Pw@mail.gmail.com>
-To: mchehab+samsung@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+	<20180917100413.22eac00d@coco.lan>
+	<alpine.DEB.2.20.1809171508120.3417@hadrien>
+	<20180917132908.GA15424@infradead.org>
+	<20180917105805.0ccf0064@coco.lan>
+Content-Type: text/plain; charset="ISO-8859-1"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
  management/subsystem governance
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -35,20 +43,32 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-> This is a valid point: whatever development process is used, drive-by
-> contributors should be allowed to send e-mails without needing to subscribe
-> (neither to a moderated list nor to a web-UI). I don't care how the
-> maintainer will handle such patches, provided that they will be properly
-> handled.
->
-It really depends on what type of one-off contributor they are.
+On Mon, 2018-09-17 at 10:58 -0300, Mauro Carvalho Chehab wrote:
+> Em Mon, 17 Sep 2018 06:29:08 -0700
+> Christoph Hellwig <hch@infradead.org> escreveu:
+> 
+> > On Mon, Sep 17, 2018 at 03:10:50PM +0200, Julia Lawall wrote:
+> > > > Btw, on a quick look, it seems that github has/had an email
+> > > > interface already:
+> > > > 	https://blog.github.com/2011-03-10-reply-to-comments-from-email/  
+> > > 
+> > > I only interact with issues posted to github via email (alpine
+> > > specifically).  The only problem is that people tend to omit context,
+> > > because they assume that you see the code or previous messages that they
+> > > see in the web interface, which you do not.  
+> > 
+> > The major problem with github is that as far as I can tell there is no
+> > way to interact with it without creating an account.
+> 
+> Well, the same happens with moderated mailing lists. There are a
+> lot of them:
+> 	$ git grep moderated MAINTAINERS|wc -l
+> 	221
 
-Setting up git send-email isn't trivial for everyone, if you are a
-gmail user and work for a company that doesn't embrace smtp so much,
-then having a webui and https git access will be a lot easier for
-one-off contributions.
+moderation doesn't mean rejection by non-subscribers and
+it's nowhere near that number.
 
-Beware of thinking our setup with email is in any way simple for a
-newcomer to setup properly.
+$ git grep -i moderated MAINTAINERS | sort | uniq -c | wc -l
+32
 
-Dave.
+Most all of those have public archives too.
