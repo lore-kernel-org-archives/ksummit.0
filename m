@@ -1,26 +1,38 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <geert.uytterhoeven@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BF62ED12
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1EDEECEB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 18 Sep 2018 14:02:12 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B3B5E8D
+	Tue, 18 Sep 2018 14:12:46 +0000 (UTC)
+Received: from mail-vs1-f65.google.com (mail-vs1-f65.google.com
+	[209.85.217.65])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2D8978D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 18 Sep 2018 14:02:11 +0000 (UTC)
-Message-ID: <1537279328.3424.6.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Dave Airlie <airlied@gmail.com>, ksummit
-	<ksummit-discuss@lists.linuxfoundation.org>
-Date: Tue, 18 Sep 2018 10:02:08 -0400
-In-Reply-To: <CAPM=9tz6_byufs2xdOmU73VPVU2ojb=Ox0YzQxFpOs7jztjbFg@mail.gmail.com>
-References: <CAPM=9tz6_byufs2xdOmU73VPVU2ojb=Ox0YzQxFpOs7jztjbFg@mail.gmail.com>
+	Tue, 18 Sep 2018 14:12:45 +0000 (UTC)
+Received: by mail-vs1-f65.google.com with SMTP id v18-v6so656854vsl.11
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 18 Sep 2018 07:12:45 -0700 (PDT)
+MIME-Version: 1.0
+References: <1536142432.8121.6.camel@HansenPartnership.com>
+	<20180905113715.GJ9781@sirena.org.uk>
+	<20180905150315.GA10819@linux.vnet.ibm.com>
+	<20180905115008.22e3d21f@gandalf.local.home>
+	<20180905162007.GO4225@linux.vnet.ibm.com>
+	<1536165914.3627.17.camel@HansenPartnership.com>
+	<nycvar.YFH.7.76.1809052119580.15880@cbobk.fhfr.pm>
+	<1536176428.3627.28.camel@HansenPartnership.com>
+	<nycvar.YFH.7.76.1809062152330.15880@cbobk.fhfr.pm>
+	<yq1bm8urker.fsf@oracle.com>
+In-Reply-To: <yq1bm8urker.fsf@oracle.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 18 Sep 2018 16:12:31 +0200
+Message-ID: <CAMuHMdXbrJHe_4z5hZO3p-pKS0iU3yjzt5PgP3yzPifhfCb3XA@mail.gmail.com>
+To: "Martin K. Petersen" <martin.petersen@oracle.com>
 Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Ksummit-discuss] [MAINTAINER TOPIC FOR KS] CoC and Linus
- position (perhaps undocumented/closed/limited/invite session)
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Distribution kernel
+ bugzillas considered harmful
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,60 +42,106 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, 2018-09-18 at 15:55 +1000, Dave Airlie wrote:
-> Hey,
-> 
-> Allow me to open this large can of worms I find sitting in front of
-> me, I'm not sure where it came from and I certainly didn't own it
-> last week.
-> 
-> I'm unlikely to be able to produce a trip to Edinburgh (even
-> Vancouver might be touch and go, travel budgets and family
-> commitments don't always line up).
-> 
-> I think there might be place for a report from the people who did
-> sign off the CoC about the thoughts/process involved in updating it
-> (and/or urgency) to the rest of the Maintainer group.
-> 
-> Now I understand that having a public talk about such a thing will
-> likely descend into farce, there may be scope for something of a
-> Chatham House Rule style meeting, or just a non-recorded, non-public
-> session like we've done for sensitive subjects are previous kernel
-> summits.
-> 
-> It might just be a readout from a similar meeting at Edinburgh summit
-> (maybe someone else can propose that), or maybe some sort of Q&A
-> session. Maybe Linus could record a piece to camera for the
-> maintainers that can't make Edinburgh, but would still like to
-> understand where everything currently sits. Said piece would of
-> course be burned afterwards.
+On Tue, Sep 18, 2018 at 3:43 PM Martin K. Petersen
+<martin.petersen@oracle.com> wrote:
+> > We order patches in our trees in the same git-topological-ordering as they
+> > are upstream. It has a lot of benefits, most importantly: it doesn't
+> > introduce artificial conflicts that don't exist in reality.
+> >
+> > In order to achieve that, we of course need 1:1 mapping between our
+> > patches and upstream commits.  Rebases destroy that mapping.
+> >
+> > And in some areas (scsi is one, but not the only one), we basically had no
+> > other choice than considering maintainer's tree to be already "upstream
+> > enough", without waiting for Linus' tree merge.
+>
+> When I discussed this with Johannes a little while ago, I suggested you
+> guys used git patch-id to track patches instead of commit ids. That's
+> how we track patches applied across many different trees internally.
+> Works much better than using the upstream sha.
+>
+> I would like to understand your "upstream enough" requirement. Why do
+> you need a tree that's stable before Linus pulls the changes?
+>
+> Note that I am generally only rebasing as a last resort and typically
+> only very early in the rc cycle. It usually happens when I need to drop
+> a patch series that turned out to be unfixable in its current state.
+>
+> And before everyone screams because I'm not supposed to be pushing stuff
+> that breaks, please realize that it is impossible to test all the
+> different types of hardware I have to merge drivers for. There is no
+> regression test suite or lab setup with anything resembling
+> comprehensive coverage. I test changes to the SCSI core code and do some
+> rudimentary testing on SAS and FC on x86_64. But that's really the best
+> I can do.
+>
+> Even though most patches posted to linux-scsi get picked up by 0day,
+> more often than not they only get x86_64 build coverage. Whereas 0day
+> build failures on arm, mips, sparc32, whatever typically only get
+> reported after patches have been simmering in linux-next for a
+> while. Depends how busy 0day is.
+>
+> Also, actual driver failures on platforms not officially supported and
+> tested by the controller vendor are only found after the fact. And most
+> of the time it's not a matter of reverting a single patch but
+> effectively dropping all of the patches in the series until they can be
+> reworked. Sometimes a workaround takes a week or two to deliver, and
+> people don't appreciate not being able to boot their systems in the
+> meantime. So that's why I generally drop the series instead.
+>
+> I would love for every patch sent to linux-scsi to be bug free and
+> instantly build tested by 0day on every architecture.  And I would love
+> for hardware vendors to be more cognizant about architectures they don't
+> commercially support.  But reality is that things break frequently when
+> I merge big, complex driver update patch series.
+>
+> As a result, the preference has been to have the flexibility to amend or
+> drop patches early in every cycle. It hasn't really been a problem
+> because there have been no downstream users of SCSI at all. I only
+> recently found out about your use case.
+>
+> I'm pretty flexible about how to address this, there are a couple of
+> ways to go about it.
+>
+> 1. I could just always revert instead of dropping the patches. The
+>    downside is that we end up with a pretty messy history because, as I
+>    pointed out above, it's usually a matter of dropping tens of patches
+>    at a time and not reverting a single offending commit. In addition,
+>    having a messy history makes it harder on distro kernel people to
+>    track driver updates.
+>
+> 2. The other option is that I set up a scsi-staging tree where stuff can
+>    simmer for a bit and hopefully get some 0day coverage before getting
+>    shuffled over to scsi-queue. However, I do question how much actual
+>    real hardware coverage we'll get by having a SCSI tree that people
+>    would explicitly have to pull to test. As opposed to linux-next which
+>    at least gets some coverage by test farms and users.
+>
+> 3. The third option is that we pick a number like rc4 and I will promise
+>    not to rebase after that. We can see how that works out.
+>
+> I'm open to ideas. The most important thing to me is that 0day and
+> linux-next are indispensable tools in my workflow given that I have no
+> way to personally test most of the code I merge. So it is imperative
+> that I have the ability to push code early because that's where I get
+> the bulk of my (non-SCSI-core) build and test coverage.
 
-I'll let the people who signed off on it address this.
+You could start using topic branches (for core, and per driver/vendor),
+and recreate your for-next branch as a merge of all topic branches on a
+daily basis. If one patch series turns out to be bad, at least the commit
+IDs in the other topic branches will remain stable.
 
-> After the past 2-3 days I get the feeling there are maintainers
-> unsure about how this affects them and I think assuaging those fears
-> might be a good thing.
-> 
-> (Daniel and I have worked under the freedesktop CoC for graphics
-> projects for over a year now, so this actually doesn't affect me in
-> any way I haven't already considered over a year ago, when I
-> signed'off introducing a CoC to the drm subsystem).
-> 
-> I'm also equally happy nailing the lid back on the can of worms and
-> never discussing it again.
+I believe Mark Brown used to have such a system (except for dropping
+patches, he never rebases his topic branches), unless he got bashed by
+Linus for his cephalopodic merges having more branches than an octopus(?).
 
->From my perspective, which is probably fairly widespread: we're already
-pretty much policing the lists using a set of rules which match fairly
-closely to the new CoC, so there should really be no huge impact.
+Gr{oetje,eeting}s,
 
-The can of worms is that you can endlessly debate CoCs.  I don't think
-this one is the best we could have chosen because it separates
-behaviour into "contributing to positive environment" and
-"unacceptable" but we have a lot of borderline problem behaviour that
-isn't mentioned at all: things like being excessively nit picking in
-reviews; being unable or unwilling to reach a compromise in a code
-related dispute.  However, I think I'd rather have a root canal than a
-debate on how to amend the new CoC, so I think it's good enough, lets
-just go with it.
+                        Geert
 
-James
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
