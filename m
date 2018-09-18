@@ -1,31 +1,30 @@
 Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A5A22FC7
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id DEB27FA7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 18 Sep 2018 17:21:44 +0000 (UTC)
+	Tue, 18 Sep 2018 17:24:58 +0000 (UTC)
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
 	[172.104.155.198])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 243727F4
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 660677F4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 18 Sep 2018 17:21:44 +0000 (UTC)
-Date: Tue, 18 Sep 2018 10:21:32 -0700
+	Tue, 18 Sep 2018 17:24:58 +0000 (UTC)
+Date: Tue, 18 Sep 2018 10:24:50 -0700
 From: Mark Brown <broonie@kernel.org>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Message-ID: <20180918172132.GR2471@sirena.org.uk>
+To: David Woodhouse <dwmw2@infradead.org>
+Message-ID: <20180918172450.GS2471@sirena.org.uk>
 References: <CAKMK7uE=FwpPFnvOvuvGBZ0vjh3UMPW=zgSk1dmiyCLQPPuZvg@mail.gmail.com>
 	<20180917115916.37fd5388@coco.lan>
 	<CAPM=9tzSaQX7iVCH94jrM+xgEveY4B8+DwQSykiE3L0BM-s-Pw@mail.gmail.com>
 	<2174637.IVJC5EhCEq@avalon> <20180918160236.GK2471@sirena.org.uk>
-	<20180918163231.GB10134@agluck-desk>
-	<CAKdAkRRc8U+Y9M3mP378hw5PsUoG-TM33gX_0oT8PX9APT9pyw@mail.gmail.com>
+	<86046026ff5a83c48d87c41abaf89bf04ddd71b7.camel@infradead.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="IUSVF+LtaR4kWxuH"
+	protocol="application/pgp-signature"; boundary="QHhm1I6mwQR20oIa"
 Content-Disposition: inline
-In-Reply-To: <CAKdAkRRc8U+Y9M3mP378hw5PsUoG-TM33gX_0oT8PX9APT9pyw@mail.gmail.com>
-Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>, tim.bird@sony.com,
-	ksummit-discuss@lists.linuxfoundation.org
+In-Reply-To: <86046026ff5a83c48d87c41abaf89bf04ddd71b7.camel@infradead.org>
+Cc: mchehab+samsung@kernel.org, Tim Bird <tim.bird@sony.com>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
  management/subsystem governance
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -38,46 +37,43 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---IUSVF+LtaR4kWxuH
+--QHhm1I6mwQR20oIa
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Tue, Sep 18, 2018 at 09:35:28AM -0700, Dmitry Torokhov wrote:
-> On Tue, Sep 18, 2018 at 9:33 AM Luck, Tony <tony.luck@intel.com> wrote:
-> > On Tue, Sep 18, 2018 at 09:02:36AM -0700, Mark Brown wrote:
+On Tue, Sep 18, 2018 at 05:50:45PM +0100, David Woodhouse wrote:
+> On Tue, 2018-09-18 at 09:02 -0700, Mark Brown wrote:
 
-> > > At least with Outlook the problem is partly that Outlook's model of how
-> > > e-mail works isn't really able to cope with what we need, it translates
-> > > everything into internal formats in a way that is at best fragile for
-> > > what we need.
+> > At least with Outlook the problem is partly that Outlook's model of how
+> > e-mail works isn't really able to cope with what we need, it translates
+> > everything into internal formats in a way that is at best fragile for
+> > what we need.
 
-> > Or, shock, horror, tell one-time contributors that it is OK to
-> > put the patch in an attachment to the e-mail.  Outlook doesn't
-> > (usually) mess with the contents of attachments.
+> Outlook is a pile of crap, but Exchange itself works tolerably these
+> days. It's fairly simple to send and receive patches through Exchange
+> if you don't make the mistake of using Outlook.
 
-> And then have maintainer having hard time trying to comment on said
-> patch in the attachment. I'd rather not.
+Unfortunately some people do get forced into that :(
 
-Right, that can be an issue - things usually make it through without
-modification which is good but depending on the e-mail client it can be
-a pain to review, especially if the patch ends up not being given a text
-MIME type.  It is doable but it's not great.  It also doesn't scale well
-in cases where it's a company that's actively engaging and sending a lot
-of stuff and participating in discussions.
+> Perhaps I should add an Exchange Web Services back end to
+> git-send-email so that people can use that instead of SMTP... :)
 
---IUSVF+LtaR4kWxuH
+There's a smiley there but I'm pretty sure that'd be really useful for
+some people.
+
+--QHhm1I6mwQR20oIa
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAluhNBwACgkQJNaLcl1U
-h9B60wf/YEfg+Eo/n78qc7YHKvmpCFOpg8QvuqHUwIwzwWGMAxrubKXYJMuqlgX4
-n2nE1I6K9M5dU7TgHIXdtVJMZlB3ww5dLpUSMk2QbSl6FqCOp/y0fITuGwCKPWu1
-hAc9WX1PdDT3sAh0cC+9Eqds+4/qtAtd6JXxyH37LDYDdFjiibVcWnfGnixk2OtQ
-RdVNXS2uHGPE4eJS5wIj13ezMFUwKoF/K3YPx9/s1Q9SxriuU5oYkqRUgWOj3kJk
-VwTlUjTjl3MuZhYmpwjHmWCaiLOh1PqJmtLX7xbDjVOjnUDM5T+IvLG82XntnWkN
-pA+wSt3UnkHaDT40F9kTjUS8z0LnVQ==
-=ie9B
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAluhNN8ACgkQJNaLcl1U
+h9BScwf+IBBCnhk/wlQV9GAIXTKItOzs0nG7QfDPFUBj/qPGBXNAmkJZxFkbUzeb
+PU3cy2nqHBEgLCcdVbqNEDAmyWyc4ZsSKh9Jc8VmhDqJF53DbW0+czjdNEq6Dzlf
+cPubWOSYgY/BenxRNkC2RjeT+bCTwBqbU++mjcXh3IVrVTiMk64bGCQoBqvOaKlq
+igp7Lz8RqxXNhJkU9fsZWWRAvgAX6Aht+LN7iPo4J96G++AzcOy5uLTm2DlQvvuM
+mqXy07Y9DY+Bn3RbgXtOI+JApNMZVK4C7L+Yh8rxRgJdcyV8bQ2vcTCJo/niJZdE
+2GNJUG+WPVjrDGq7bpexpUEpHlJa7Q==
+=+UWd
 -----END PGP SIGNATURE-----
 
---IUSVF+LtaR4kWxuH--
+--QHhm1I6mwQR20oIa--
