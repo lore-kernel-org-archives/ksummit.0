@@ -1,18 +1,18 @@
-Return-Path: <Alexander.Levin@microsoft.com>
+Return-Path: <Tim.Bird@sony.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1AA76EA4
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B7837D89
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 18 Sep 2018 18:56:53 +0000 (UTC)
-Received: from NAM01-SN1-obe.outbound.protection.outlook.com
-	(mail-sn1nam01on0122.outbound.protection.outlook.com [104.47.32.122])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7032D7FA
+	Tue, 18 Sep 2018 18:58:50 +0000 (UTC)
+Received: from NAM03-DM3-obe.outbound.protection.outlook.com
+	(mail-dm3nam03on0126.outbound.protection.outlook.com [104.47.41.126])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 09DA87E2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 18 Sep 2018 18:56:52 +0000 (UTC)
-From: Sasha Levin <Alexander.Levin@microsoft.com>
-To: Greg KH <gregkh@linuxfoundation.org>
-Date: Tue, 18 Sep 2018 18:56:50 +0000
-Message-ID: <20180918185649.GO3821@sasha-vm>
+	Tue, 18 Sep 2018 18:58:49 +0000 (UTC)
+From: <Tim.Bird@sony.com>
+To: <konstantin@linuxfoundation.org>
+Date: Tue, 18 Sep 2018 18:58:45 +0000
+Message-ID: <ECADFF3FD767C149AD96A924E7EA6EAF7C1EAC96@USCULXMSG01.am.sony.com>
 References: <20180917115916.37fd5388@coco.lan>
 	<CAPM=9tzSaQX7iVCH94jrM+xgEveY4B8+DwQSykiE3L0BM-s-Pw@mail.gmail.com>
 	<5b434160-07d9-4071-ac77-9d64ea69c980@email.android.com>
@@ -21,19 +21,16 @@ References: <20180917115916.37fd5388@coco.lan>
 	<ECADFF3FD767C149AD96A924E7EA6EAF7C1EAA24@USCULXMSG01.am.sony.com>
 	<20180918165917.GA9728@chatter>
 	<ECADFF3FD767C149AD96A924E7EA6EAF7C1EAA99@USCULXMSG01.am.sony.com>
-	<20180918173148.GB9728@chatter> <20180918174913.GA22988@kroah.com>
-In-Reply-To: <20180918174913.GA22988@kroah.com>
+	<20180918173148.GB9728@chatter>
+	<ECADFF3FD767C149AD96A924E7EA6EAF7C1EABB7@USCULXMSG01.am.sony.com>
+	<20180918175515.GA10055@chatter>
+In-Reply-To: <20180918175515.GA10055@chatter>
 Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <B75514FCDF67DA4FA469CA639AB60FF1@namprd21.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Cc: "James.Bottomley@hansenpartnership.com"
-	<James.Bottomley@hansenpartnership.com>,
-	"mchehab+samsung@kernel.org" <mchehab+samsung@kernel.org>,
-	"Tim.Bird@sony.com" <Tim.Bird@sony.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+Cc: James.Bottomley@hansenpartnership.com, mchehab+samsung@kernel.org,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
  management/subsystem governance
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -45,30 +42,45 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Sep 18, 2018 at 07:49:13PM +0200, Greg KH wrote:
->On Tue, Sep 18, 2018 at 01:31:48PM -0400, Konstantin Ryabitsev wrote:
->> So, what if we imagine that there's an imaginary web tool that does this=
-:
->>
->> 1. Allows people to generate an account
->> 2. Verifies their email address
->> 3. Instructs people how to generate a patch or series of patches
->> 4. Gives a way to upload generated patches
->> 5. Runs checkpatch to make sure there are no errors
->> 6. Runs get_maintainer to find out where the patch(es) should be sent to
->> 7. (Does more imaginary magic, such as looking up message-id references)
->> 8. Mails it out
->
->That last step might be hard, you have to "mail it out" to look like it
->came from the original author, right?  Then all crud breaks out as you
->can't deliver an email from "sony.com" successfully.
-
-Why do we need to make it look like it came from the original author? If
-we include a "From:" field in the patch then git will do the right
-thing, and if we just Cc the original author then any
-questions/reviews/comments will be directed to the author without going
-through this system.
-
---
-Thanks,
-Sasha=
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBLb25zdGFudGluIFJ5YWJpdHNl
+diANCj4gT24gVHVlLCBTZXAgMTgsIDIwMTggYXQgMDU6NDI6NTdQTSArMDAwMCwgVGltLkJpcmRA
+c29ueS5jb20gd3JvdGU6DQo+ID4+IFNvLCB3aGF0IGlmIHdlIGltYWdpbmUgdGhhdCB0aGVyZSdz
+IGFuIGltYWdpbmFyeSB3ZWIgdG9vbCB0aGF0IGRvZXMNCj4gPj4gdGhpczoNCj4gPj4NCj4gPj4g
+MS4gQWxsb3dzIHBlb3BsZSB0byBnZW5lcmF0ZSBhbiBhY2NvdW50DQo+ID4+IDIuIFZlcmlmaWVz
+IHRoZWlyIGVtYWlsIGFkZHJlc3MNCj4gPj4gMy4gSW5zdHJ1Y3RzIHBlb3BsZSBob3cgdG8gZ2Vu
+ZXJhdGUgYSBwYXRjaCBvciBzZXJpZXMgb2YgcGF0Y2hlcw0KPiA+PiA0LiBHaXZlcyBhIHdheSB0
+byB1cGxvYWQgZ2VuZXJhdGVkIHBhdGNoZXMNCj4gPj4gNS4gUnVucyBjaGVja3BhdGNoIHRvIG1h
+a2Ugc3VyZSB0aGVyZSBhcmUgbm8gZXJyb3JzDQo+ID4+IDYuIFJ1bnMgZ2V0X21haW50YWluZXIg
+dG8gZmluZCBvdXQgd2hlcmUgdGhlIHBhdGNoKGVzKSBzaG91bGQgYmUgc2VudCB0bw0KPiA+PiA3
+LiAoRG9lcyBtb3JlIGltYWdpbmFyeSBtYWdpYywgc3VjaCBhcyBsb29raW5nIHVwIG1lc3NhZ2Ut
+aWQgcmVmZXJlbmNlcykNCj4gPj4gOC4gTWFpbHMgaXQgb3V0DQo+ID4+DQo+ID4+IFdvdWxkIHRo
+YXQgYmUgdXNlZnVsIG9yIHNvbHZlIGFueSBwcm9ibGVtcz8gT3Igd291bGQgdGhhdCwgb24gdGhl
+DQo+ID4+IGNvbnRyYXJ5LCBjcmVhdGUgbW9yZSBwcm9ibGVtcyB0aGFuIGl0IHNvbHZlcz8NCj4g
+Pg0KPiA+S29uc3RhbnRpbiwNCj4gPg0KPiA+SSBmZWVsIGxpa2UgdGhpcyB0aHJlYWQgcmUtY29u
+dmVyZ2VkIGFuZCB5b3UgcHJvcG9zZWQgdGhlIGV4YWN0IHRoaW5nIEkganVzdA0KPiA+ZXhwcmVz
+c2VkIGludGVyZXN0IGluIHRvIExpbnVzLiAgWW91IHdlcmUgcHJvYmFibHkgd3JpdGluZyB5b3Vy
+IG1lc3NhZ2UgYXQNCj4gPnRoZSBzYW1lIHRpbWUgSSB3YXMgd3JpdGluZyBtaW5lLiAgV293IQ0K
+PiA+DQo+ID5QZXJzb25hbGx5LCBJIGZlZWwgdGhpcyB3b3VsZCBiZSBhIEdSRUFUIHRoaW5nLg0K
+PiANCj4gT2theSwgdGFja2luZyBvbiBzb21lIG1vcmUgaW1hZ2luYXJ5IGZlYXR1cmVzIG9uIHRv
+cCBvZiB0aGlzLCBsZXQncyBzYXkNCj4gaXQgYWxzbyBoYWQgYSB3YXkgdG8gYWRkIGEgcmVtb3Rl
+bHkgaG9zdGVkIGdpdCB0cmVlIHRvIHlvdXIgYWNjb3VudCwNCj4gZS5nLjoNCj4gDQo+IGh0dHBz
+Oi8vZ2l0aHViLmNvbS9zb21lY29ycC9saW51eC1jb3JwZmlkZ2V0LmdpdCBhbGlhcyBjb3JwZmlk
+Z2V0DQo+IA0KPiBJdCBjb3VsZCB0aGVuIG9mZmVyIGEgQ0xJIHV0aWxpdHkgdG8gaXNzdWUgYSBj
+b21tYW5kIGxpa2UgdGhpcyB1c2luZyB0aGUNCj4gaHR0cHMgQVBJOg0KPiANCj4gdmFwb3ItZ2l0
+LXRoaW5neSAtZyBjb3JwZmlkZ2V0IC1yIDEyMzRhYmNkLi41Njc4ZGNiYSAtdjIgLWMgY292ZXJs
+ZXR0ZXIudHh0DQo+IA0KPiBUaGF0IHdvdWxkIGRvIHRoZSBzYW1lIGFzIHRoZSBhYm92ZSwgcGx1
+cyBkbyB0aGUgcGF0Y2ggZ2VuZXJhdGlvbg0KPiBpdHNlbGYuLi4NCj4gDQo+IE9rYXksIEkgdGhp
+bmsgSSBtaWdodCBiZSBhYmxlIHRvIHNjcmFwZSB1cCBmdW5kaW5nIHRvIGdldCB0aGlzIGJ1aWx0
+DQo+IG9uY2UgSSBwdXQgdGhpcyBpbnRvIGEgbW9yZSBwcmVzZW50YWJsZSBmb3JtLg0KVGhhdCB3
+b3VsZCBiZSBncmVhdCENCg0KVGhpcyBjb3VsZCBoZWxwIHNvbHZlIGEgbG90IG9mIGUtbWFpbCBp
+c3N1ZXMgdGhhdCBjb250cmlidXRvcnMgaGF2ZSwgYnV0IGFsc28NCkknbSB2ZXJ5IGludGVyZXN0
+ZWQgaW4gc3RlcCA1IC0gdGhlIHRlc3RpbmcgYXNwZWN0LiAgSSB3b3VsZCBsaWtlIHRvIGJlIGlu
+dm9sdmVkIGluDQpkaXNjdXNzaW9ucyBvZiB0aGUgZGVzaWduIG9mIHRoYXQgc3RlcCwgc28gd2Ug
+Y291bGQgcGx1ZyBsb3RzIG9mIGRpZmZlcmVudCB0ZXN0cw0KaW4sIGF0IHRoZSByZXF1ZXN0IG9m
+IHZhcmlvdXMgc3ViLXN5c3RlbSBtYWludGFpbmVycy4gIEkgbWFpbnRhaW4gdGhlIEZ1ZWdvDQp0
+ZXN0IHN5c3RlbSwgc28gSSdkIGJlIGludGVyZXN0ZWQgaW4gbWFraW5nIGF2YWlsYWJsZSBvdXIg
+dGVzdCBzdWl0ZXMgZm9yIHRoYXQNCnN0ZXAuDQoNClBsZWFzZSBsZXQgbWUga25vdyBpZiB0aGVy
+ZSdzIHNvbWUgb3Bwb3J0dW5pdHkgdG8gZm9sbG93IHVwIHdpdGggeW91IG9uIHRoaXMNCiggaWUs
+IGEgbGlzdCB3aGVyZSB0aGlzIG1pZ2h0IGJlIGRpc2N1c3NlZCBpbiBtb3JlIGRldGFpbCwgb3Ig
+YW4gZXZlbnQgd2hlcmUgd2UNCmNvdWxkIHRhbGsgZmFjZS10by1mYWNlKS4NCg0KVGhhbmtzLA0K
+IC0tIFRpbQ0KDQo=
