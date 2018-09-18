@@ -1,36 +1,34 @@
-Return-Path: <Tim.Bird@sony.com>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B7837D89
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6E3DB109C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 18 Sep 2018 18:58:50 +0000 (UTC)
-Received: from NAM03-DM3-obe.outbound.protection.outlook.com
-	(mail-dm3nam03on0126.outbound.protection.outlook.com [104.47.41.126])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 09DA87E2
+	Tue, 18 Sep 2018 19:16:59 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E35EA8D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 18 Sep 2018 18:58:49 +0000 (UTC)
-From: <Tim.Bird@sony.com>
-To: <konstantin@linuxfoundation.org>
-Date: Tue, 18 Sep 2018 18:58:45 +0000
-Message-ID: <ECADFF3FD767C149AD96A924E7EA6EAF7C1EAC96@USCULXMSG01.am.sony.com>
-References: <20180917115916.37fd5388@coco.lan>
-	<CAPM=9tzSaQX7iVCH94jrM+xgEveY4B8+DwQSykiE3L0BM-s-Pw@mail.gmail.com>
+	Tue, 18 Sep 2018 19:16:58 +0000 (UTC)
+Date: Tue, 18 Sep 2018 15:16:54 -0400
+From: "Theodore Y. Ts'o" <tytso@mit.edu>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Message-ID: <20180918191654.GA14744@thunk.org>
+References: <CAPM=9tzSaQX7iVCH94jrM+xgEveY4B8+DwQSykiE3L0BM-s-Pw@mail.gmail.com>
 	<5b434160-07d9-4071-ac77-9d64ea69c980@email.android.com>
 	<CAKMK7uExDUFjXcX6zPmZMjse6gf00bO-uBsjiWMk+vqjV2MEvQ@mail.gmail.com>
 	<1537269419.3424.1.camel@HansenPartnership.com>
 	<ECADFF3FD767C149AD96A924E7EA6EAF7C1EAA24@USCULXMSG01.am.sony.com>
 	<20180918165917.GA9728@chatter>
 	<ECADFF3FD767C149AD96A924E7EA6EAF7C1EAA99@USCULXMSG01.am.sony.com>
-	<20180918173148.GB9728@chatter>
-	<ECADFF3FD767C149AD96A924E7EA6EAF7C1EABB7@USCULXMSG01.am.sony.com>
-	<20180918175515.GA10055@chatter>
-In-Reply-To: <20180918175515.GA10055@chatter>
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	<20180918173148.GB9728@chatter> <20180918174913.GA22988@kroah.com>
+	<CAKdAkRSt7MpTmUFP8WEWPUKWjqUgfS4GhfSu+oT9E4ziDgYgTg@mail.gmail.com>
 MIME-Version: 1.0
-Cc: James.Bottomley@hansenpartnership.com, mchehab+samsung@kernel.org,
-	ksummit-discuss@lists.linuxfoundation.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAKdAkRSt7MpTmUFP8WEWPUKWjqUgfS4GhfSu+oT9E4ziDgYgTg@mail.gmail.com>
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Tim.Bird@sony.com, ksummit-discuss@lists.linuxfoundation.org,
+	Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
  management/subsystem governance
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -42,45 +40,36 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBLb25zdGFudGluIFJ5YWJpdHNl
-diANCj4gT24gVHVlLCBTZXAgMTgsIDIwMTggYXQgMDU6NDI6NTdQTSArMDAwMCwgVGltLkJpcmRA
-c29ueS5jb20gd3JvdGU6DQo+ID4+IFNvLCB3aGF0IGlmIHdlIGltYWdpbmUgdGhhdCB0aGVyZSdz
-IGFuIGltYWdpbmFyeSB3ZWIgdG9vbCB0aGF0IGRvZXMNCj4gPj4gdGhpczoNCj4gPj4NCj4gPj4g
-MS4gQWxsb3dzIHBlb3BsZSB0byBnZW5lcmF0ZSBhbiBhY2NvdW50DQo+ID4+IDIuIFZlcmlmaWVz
-IHRoZWlyIGVtYWlsIGFkZHJlc3MNCj4gPj4gMy4gSW5zdHJ1Y3RzIHBlb3BsZSBob3cgdG8gZ2Vu
-ZXJhdGUgYSBwYXRjaCBvciBzZXJpZXMgb2YgcGF0Y2hlcw0KPiA+PiA0LiBHaXZlcyBhIHdheSB0
-byB1cGxvYWQgZ2VuZXJhdGVkIHBhdGNoZXMNCj4gPj4gNS4gUnVucyBjaGVja3BhdGNoIHRvIG1h
-a2Ugc3VyZSB0aGVyZSBhcmUgbm8gZXJyb3JzDQo+ID4+IDYuIFJ1bnMgZ2V0X21haW50YWluZXIg
-dG8gZmluZCBvdXQgd2hlcmUgdGhlIHBhdGNoKGVzKSBzaG91bGQgYmUgc2VudCB0bw0KPiA+PiA3
-LiAoRG9lcyBtb3JlIGltYWdpbmFyeSBtYWdpYywgc3VjaCBhcyBsb29raW5nIHVwIG1lc3NhZ2Ut
-aWQgcmVmZXJlbmNlcykNCj4gPj4gOC4gTWFpbHMgaXQgb3V0DQo+ID4+DQo+ID4+IFdvdWxkIHRo
-YXQgYmUgdXNlZnVsIG9yIHNvbHZlIGFueSBwcm9ibGVtcz8gT3Igd291bGQgdGhhdCwgb24gdGhl
-DQo+ID4+IGNvbnRyYXJ5LCBjcmVhdGUgbW9yZSBwcm9ibGVtcyB0aGFuIGl0IHNvbHZlcz8NCj4g
-Pg0KPiA+S29uc3RhbnRpbiwNCj4gPg0KPiA+SSBmZWVsIGxpa2UgdGhpcyB0aHJlYWQgcmUtY29u
-dmVyZ2VkIGFuZCB5b3UgcHJvcG9zZWQgdGhlIGV4YWN0IHRoaW5nIEkganVzdA0KPiA+ZXhwcmVz
-c2VkIGludGVyZXN0IGluIHRvIExpbnVzLiAgWW91IHdlcmUgcHJvYmFibHkgd3JpdGluZyB5b3Vy
-IG1lc3NhZ2UgYXQNCj4gPnRoZSBzYW1lIHRpbWUgSSB3YXMgd3JpdGluZyBtaW5lLiAgV293IQ0K
-PiA+DQo+ID5QZXJzb25hbGx5LCBJIGZlZWwgdGhpcyB3b3VsZCBiZSBhIEdSRUFUIHRoaW5nLg0K
-PiANCj4gT2theSwgdGFja2luZyBvbiBzb21lIG1vcmUgaW1hZ2luYXJ5IGZlYXR1cmVzIG9uIHRv
-cCBvZiB0aGlzLCBsZXQncyBzYXkNCj4gaXQgYWxzbyBoYWQgYSB3YXkgdG8gYWRkIGEgcmVtb3Rl
-bHkgaG9zdGVkIGdpdCB0cmVlIHRvIHlvdXIgYWNjb3VudCwNCj4gZS5nLjoNCj4gDQo+IGh0dHBz
-Oi8vZ2l0aHViLmNvbS9zb21lY29ycC9saW51eC1jb3JwZmlkZ2V0LmdpdCBhbGlhcyBjb3JwZmlk
-Z2V0DQo+IA0KPiBJdCBjb3VsZCB0aGVuIG9mZmVyIGEgQ0xJIHV0aWxpdHkgdG8gaXNzdWUgYSBj
-b21tYW5kIGxpa2UgdGhpcyB1c2luZyB0aGUNCj4gaHR0cHMgQVBJOg0KPiANCj4gdmFwb3ItZ2l0
-LXRoaW5neSAtZyBjb3JwZmlkZ2V0IC1yIDEyMzRhYmNkLi41Njc4ZGNiYSAtdjIgLWMgY292ZXJs
-ZXR0ZXIudHh0DQo+IA0KPiBUaGF0IHdvdWxkIGRvIHRoZSBzYW1lIGFzIHRoZSBhYm92ZSwgcGx1
-cyBkbyB0aGUgcGF0Y2ggZ2VuZXJhdGlvbg0KPiBpdHNlbGYuLi4NCj4gDQo+IE9rYXksIEkgdGhp
-bmsgSSBtaWdodCBiZSBhYmxlIHRvIHNjcmFwZSB1cCBmdW5kaW5nIHRvIGdldCB0aGlzIGJ1aWx0
-DQo+IG9uY2UgSSBwdXQgdGhpcyBpbnRvIGEgbW9yZSBwcmVzZW50YWJsZSBmb3JtLg0KVGhhdCB3
-b3VsZCBiZSBncmVhdCENCg0KVGhpcyBjb3VsZCBoZWxwIHNvbHZlIGEgbG90IG9mIGUtbWFpbCBp
-c3N1ZXMgdGhhdCBjb250cmlidXRvcnMgaGF2ZSwgYnV0IGFsc28NCkknbSB2ZXJ5IGludGVyZXN0
-ZWQgaW4gc3RlcCA1IC0gdGhlIHRlc3RpbmcgYXNwZWN0LiAgSSB3b3VsZCBsaWtlIHRvIGJlIGlu
-dm9sdmVkIGluDQpkaXNjdXNzaW9ucyBvZiB0aGUgZGVzaWduIG9mIHRoYXQgc3RlcCwgc28gd2Ug
-Y291bGQgcGx1ZyBsb3RzIG9mIGRpZmZlcmVudCB0ZXN0cw0KaW4sIGF0IHRoZSByZXF1ZXN0IG9m
-IHZhcmlvdXMgc3ViLXN5c3RlbSBtYWludGFpbmVycy4gIEkgbWFpbnRhaW4gdGhlIEZ1ZWdvDQp0
-ZXN0IHN5c3RlbSwgc28gSSdkIGJlIGludGVyZXN0ZWQgaW4gbWFraW5nIGF2YWlsYWJsZSBvdXIg
-dGVzdCBzdWl0ZXMgZm9yIHRoYXQNCnN0ZXAuDQoNClBsZWFzZSBsZXQgbWUga25vdyBpZiB0aGVy
-ZSdzIHNvbWUgb3Bwb3J0dW5pdHkgdG8gZm9sbG93IHVwIHdpdGggeW91IG9uIHRoaXMNCiggaWUs
-IGEgbGlzdCB3aGVyZSB0aGlzIG1pZ2h0IGJlIGRpc2N1c3NlZCBpbiBtb3JlIGRldGFpbCwgb3Ig
-YW4gZXZlbnQgd2hlcmUgd2UNCmNvdWxkIHRhbGsgZmFjZS10by1mYWNlKS4NCg0KVGhhbmtzLA0K
-IC0tIFRpbQ0KDQo=
+On Tue, Sep 18, 2018 at 11:22:15AM -0700, Dmitry Torokhov wrote:
+> > Seriously, it would be good, but no gerrit please...
+> 
+> Seconded. I swear 75% of time I spend on patch reviews that I do for
+> Chrome OS is spent on clicking around UI, not actually commenting on
+> the issues I find.
+
+Heh.  I don't know if I'm an outlier, but I actually *like* Gerrit.
+(I use it at work for reviewing changes to Google's data center,
+Chrome OS, and Android kernels.)
+
+For small changes, being able to directly see the context of a change
+via the web UI is really nice.  Also being able to make a comment
+in-line where the change is, and then seeing the replies chained off
+of it, right next to the code, is also really nice.  I also really
+like being able to trivially look at differences between the -v3 and
+-v5 version of the commit via the web UI.
+
+It doesn't work as well for large patch series, certainly.  For that
+what I tend to do is to download the branch from gerrit into the my
+local git repo, and look at all of the changes using standard git
+tools (e.g., git grep, git blame, etc.)
+
+So while Gerrit does have some shortcomings, it definitely does have
+some things that it does do very well.  For large patch series and for
+the sort of things that I need to deal with for upstream development,
+I still use e-mail a lot, obviously.  But if we're talking about the
+platonic ideal of large-scale distributed development, we shouldn't
+dismiss all of Gerrit's functionality out of hand.
+
+Cheers,
+
+						- Ted
