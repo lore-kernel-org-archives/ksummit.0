@@ -1,33 +1,28 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <SRS0=A0yR=MA=goodmis.org=rostedt@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D0A2ACAA
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 47FB2CE0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 18 Sep 2018 11:17:04 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6220F8D
+	Tue, 18 Sep 2018 13:36:01 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DB3E72D4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 18 Sep 2018 11:17:04 +0000 (UTC)
-Message-ID: <1537269419.3424.1.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Tue, 18 Sep 2018 07:16:59 -0400
-In-Reply-To: <CAKMK7uExDUFjXcX6zPmZMjse6gf00bO-uBsjiWMk+vqjV2MEvQ@mail.gmail.com>
-References: <CAKMK7uE=FwpPFnvOvuvGBZ0vjh3UMPW=zgSk1dmiyCLQPPuZvg@mail.gmail.com>
-	<CAMuHMdVj28tZKep+DPA4W3vz28hPRZTWAb7BtuQBBTSWT3Brnw@mail.gmail.com>
-	<20180917100413.22eac00d@coco.lan> <2072478.UYspZ1xLTN@avalon>
-	<20180917115916.37fd5388@coco.lan>
-	<CAPM=9tzSaQX7iVCH94jrM+xgEveY4B8+DwQSykiE3L0BM-s-Pw@mail.gmail.com>
-	<5b434160-07d9-4071-ac77-9d64ea69c980@email.android.com>
-	<CAKMK7uExDUFjXcX6zPmZMjse6gf00bO-uBsjiWMk+vqjV2MEvQ@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
+	Tue, 18 Sep 2018 13:36:00 +0000 (UTC)
+Date: Tue, 18 Sep 2018 09:35:58 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+Message-ID: <20180918093558.7ad355dc@gandalf.local.home>
+In-Reply-To: <20180917072250.5bbcb736@coco.lan>
+References: <CAPcyv4i=h-7CHpu5ZvXxPsgUOPY-B-wAjX3e5+W9vCm+o081xw@mail.gmail.com>
+	<1591325.98K2JSm7l9@avalon>
+	<CAPM=9txDYkWu3Ta1HN0vw5Hp-isHccA4Nfj+XbPOma6BskKrKg@mail.gmail.com>
+	<7500551.ylj9XQ2o2G@avalon> <20180916221523.GB3575@thunk.org>
+	<20180917072250.5bbcb736@coco.lan>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
- management/subsystem governance
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] EXPORT_SYMBOL_GPL
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,52 +32,23 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, 2018-09-18 at 10:00 +0200, Daniel Vetter wrote:
-> On Tue, Sep 18, 2018 at 1:04 AM, James Bottomley
-> <James.Bottomley@hansenpartnership.com> wrote:
-> > On September 17, 2018 4:39:48 PM MST, Dave Airlie <airlied@gmail.co
-> > m> wrote:
-> > > > This is a valid point: whatever development process is used,
-> > > > drive-by contributors should be allowed to send e-mails without
-> > > > needing to
-> > > 
-> > > subscribe
-> > > > (neither to a moderated list nor to a web-UI). I don't care how
-> > > > the maintainer will handle such patches, provided that they
-> > > > will be
-> > > 
-> > > properly handled.
-> > > > 
-> > > 
-> > > It really depends on what type of one-off contributor they are.
-> > > 
-> > > Setting up git send-email isn't trivial for everyone, if you are
-> > > a gmail user and work for a company that doesn't embrace smtp so
-> > > much, then having a webui and https git access will be a lot
-> > > easier for one-off contributions.
-> > 
-> > Agree with this but that's why I don't use git-send-email
-> > 
-> > > Beware of thinking our setup with email is in any way simple for
-> > > a newcomer to setup properly.
-> > 
-> > Right, but there are many other ways of doing this which still work
-> > with mailing lists.
-> 
-> Aside from bare diffs stuffed into plaintext mails directly (which I
-> is a lot harder to set up than git send-email for new people),
+On Mon, 17 Sep 2018 07:22:50 -0300
+Mauro Carvalho Chehab <mchehab+samsung@kernel.org> wrote:
 
-Well, that is how I do it: git format-patch followed by preformatted
-text insertion in evolution.  I've got to say I don't find it at all
-hard, but I do understand if you use outlook or gmail it can be a pain.
+> A common practice there is that, when someone rewrites the implementation
+> of some symbol using EXPORT_SYMBOL() is to use EXPORT_SYMBOL_GPL() at
+> the new implementation, to make clear about our desire that media modules
+> should be GPL'd, but when we do simpler changes (even adding/removing
+> parameters at the interface), we tend not to change it[1].
 
->  what else is there that works with mailing lists? I'd be great if we
-> have other options here, since it is a fairly annoying problem for
-> us.
+To add to this bike-shed discussion, my view is that if the function is
+unique to Linux, it should be EXPORT_SYMBOL_GPL(), and if it is a
+common functionality among all operating systems (like request_irq())
+then I would consider it EXPORT_SYMBOL().
 
-This is more about mail tools than actual lists, isn't it?  In which
-case I find the Documentation/email-clients.txt and invaluable resource
- to point people to (wait, where is it now, ah:
-Documentation/process/email-clients.rst)
+The tracing infrastructure that we have is unique to Linux and thus
+all functions are EXPORT_SYMBOL_GPL(). Proprietary modules can't even
+add trace events without breaking that. Although they could use kprobes
+and function based events (when we finish that).
 
-James
+-- Steve
