@@ -1,29 +1,30 @@
-Return-Path: <laurent.pinchart@ideasonboard.com>
+Return-Path: <SRS0=A0yR=MA=goodmis.org=rostedt@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 79EC110F1
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 508C9116F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 18 Sep 2018 23:05:27 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
-	[213.167.242.64])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BE9D15D4
+	Tue, 18 Sep 2018 23:06:21 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DBFB15D4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 18 Sep 2018 23:05:26 +0000 (UTC)
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Wed, 19 Sep 2018 02:05:37 +0300
-Message-ID: <2862428.aifHJM1PbC@avalon>
-In-Reply-To: <20180918173148.GB9728@chatter>
-References: <20180917100413.22eac00d@coco.lan>
-	<ECADFF3FD767C149AD96A924E7EA6EAF7C1EAA99@USCULXMSG01.am.sony.com>
-	<20180918173148.GB9728@chatter>
+	Tue, 18 Sep 2018 23:06:20 +0000 (UTC)
+Date: Tue, 18 Sep 2018 19:06:18 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Josh Triplett <josh@joshtriplett.org>
+Message-ID: <20180918190618.6be95e7b@gandalf.local.home>
+In-Reply-To: <20180918193644.GA5400@localhost>
+References: <CAPM=9tz6_byufs2xdOmU73VPVU2ojb=Ox0YzQxFpOs7jztjbFg@mail.gmail.com>
+	<1537279328.3424.6.camel@HansenPartnership.com>
+	<20180918162948.769dda1d@coco.lan>
+	<20180918193644.GA5400@localhost>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-Cc: James.Bottomley@hansenpartnership.com, mchehab+samsung@kernel.org,
-	Tim.Bird@sony.com, Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
-	management/subsystem governance
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINER TOPIC FOR KS] CoC and Linus
+ position (perhaps undocumented/closed/limited/invite session)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,49 +34,27 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Konstantin,
+On Tue, 18 Sep 2018 12:36:45 -0700
+Josh Triplett <josh@joshtriplett.org> wrote:
 
-On Tuesday, 18 September 2018 20:31:48 EEST Konstantin Ryabitsev wrote:
-> On Tue, Sep 18, 2018 at 05:08:02PM +0000, Tim.Bird@sony.com wrote:
-> >> https://urldefense.proofpoint.com/v2/url?u=https-> >> 3A__korg.wiki.kernel.org_userdoc_mail-23sending-5Foutgoing-
-> >> 5Fmail&d=DwICAg&c=fP4tf--1dS0biCFlB0saz0I0kjO5v7-
-> >> GLPtvShAo4cc&r=rUvFawR4KzgZu1gSN5tuozUn7iTTP0Y-
-> >> INWqfY8MsF0&m=90EMZrRfkvlzWBNtrJ8QnHDj3-EwehEZhQiC5YJY-
-> >> Uk&s=xtUgBLn5bjLazevAEIdAoHAGclbgin-D9Cek15hsuZk&e=
+> > When we publish a patch with a Signed-off-by, Reviewed-by, Acked-by,
+> > Requested-by, Suggested-by, etc, we are actually publishing an electronic
+> > address.  
 > 
-> Ick.
+> If they've posted public mails from that email address, that isn't
+> "private information" at that point. And in any case someone offering
+> such a tag would constitute permission.
 > 
-> > Thank you for the offer.  However, while that's a solution that might
-> > work for me (modulo my ability to punch my way through the firewall to
-> > that mail server), it doesn't scale or help my colleagues at Sony who I'm
-> > trying to remove barriers for as well.   I'm senior enough at Sony to have
-> > a somewhat different situation than other Sony Linux developers, however 
-> > I intentionally work through the IT department and use commonly provided
-> > tools here in order to 1) understand the hurdles other developers at Sony
-> > have, and 2) work on general solutions.
-> 
-> Ah, I understand your situation better now.
-> 
-> So, what if we imagine that there's an imaginary web tool that does
-> this:
-> 
-> 1. Allows people to generate an account
-> 2. Verifies their email address
-> 3. Instructs people how to generate a patch or series of patches
-> 4. Gives a way to upload generated patches
-> 5. Runs checkpatch to make sure there are no errors
-> 6. Runs get_maintainer to find out where the patch(es) should be sent to
-> 7. (Does more imaginary magic, such as looking up message-id references)
-> 8. Mails it out
-> 
-> Would that be useful or solve any problems? Or would that, on the
-> contrary, create more problems than it solves?
+> (Publishing someone's private, otherwise-unpublished email address in an
+> Acked-by, on the other hand, *could* be problematic. Don't do that.)
 
-What if that imaginary web tool accepted a git push fo steps 3 and 4 ? It 
-would be nice if the git push could be unauthenticated, but I understand that 
-could cause spam and other related issues.
+And this has been my work flow all along. I'm very conscience of taking
+someone's email and publishing it in a "Reported-by". I will first send
+an email to the submitter and ask if it is OK to include them if they
+sent me the bug report privately.
 
--- 
-Regards,
+But yes, if someone sends me a report and Cc's LKML, I will add the
+Reported-by with the email address that they used to a public address
+without any confirmation.
 
-Laurent Pinchart
+-- Steve
