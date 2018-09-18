@@ -1,34 +1,27 @@
-Return-Path: <daniel.vetter@ffwll.ch>
+Return-Path: <hare@suse.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0A830D0B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 062F7D07
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 18 Sep 2018 08:00:27 +0000 (UTC)
-Received: from mail-it0-f67.google.com (mail-it0-f67.google.com
-	[209.85.214.67])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7451C7CD
+	Tue, 18 Sep 2018 08:17:15 +0000 (UTC)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 82FBB42D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 18 Sep 2018 08:00:26 +0000 (UTC)
-Received: by mail-it0-f67.google.com with SMTP id h3-v6so1917473ita.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 18 Sep 2018 01:00:26 -0700 (PDT)
+	Tue, 18 Sep 2018 08:17:14 +0000 (UTC)
+To: Matthew Wilcox <willy6545@gmail.com>
+References: <CAFhKne8kiF6k-QUJ9x-cCyBcVvfuWKdcUtQZNz=1sx_iHR+64g@mail.gmail.com>
+	<80c03d82-4de4-63bb-f692-109fccef61f7@suse.com>
+	<CAFhKne-T1bTDE0QtDXxWBn7Quyk_kHes_XX=1yQAdMxVVx4zDg@mail.gmail.com>
+From: Hannes Reinecke <hare@suse.com>
+Message-ID: <1e7100f5-5e45-633f-09b2-4982547789a5@suse.com>
+Date: Tue, 18 Sep 2018 10:17:10 +0200
 MIME-Version: 1.0
-In-Reply-To: <5b434160-07d9-4071-ac77-9d64ea69c980@email.android.com>
-References: <CAKMK7uE=FwpPFnvOvuvGBZ0vjh3UMPW=zgSk1dmiyCLQPPuZvg@mail.gmail.com>
-	<CAMuHMdVj28tZKep+DPA4W3vz28hPRZTWAb7BtuQBBTSWT3Brnw@mail.gmail.com>
-	<20180917100413.22eac00d@coco.lan> <2072478.UYspZ1xLTN@avalon>
-	<20180917115916.37fd5388@coco.lan>
-	<CAPM=9tzSaQX7iVCH94jrM+xgEveY4B8+DwQSykiE3L0BM-s-Pw@mail.gmail.com>
-	<5b434160-07d9-4071-ac77-9d64ea69c980@email.android.com>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Tue, 18 Sep 2018 10:00:24 +0200
-Message-ID: <CAKMK7uExDUFjXcX6zPmZMjse6gf00bO-uBsjiWMk+vqjV2MEvQ@mail.gmail.com>
-To: James Bottomley <James.Bottomley@hansenpartnership.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
- management/subsystem governance
+In-Reply-To: <CAFhKne-T1bTDE0QtDXxWBn7Quyk_kHes_XX=1yQAdMxVVx4zDg@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Project Banbury
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,37 +31,30 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Sep 18, 2018 at 1:04 AM, James Bottomley
-<James.Bottomley@hansenpartnership.com> wrote:
-> On September 17, 2018 4:39:48 PM MST, Dave Airlie <airlied@gmail.com> wrote:
->>> This is a valid point: whatever development process is used, drive-by
->>> contributors should be allowed to send e-mails without needing to
->>subscribe
->>> (neither to a moderated list nor to a web-UI). I don't care how the
->>> maintainer will handle such patches, provided that they will be
->>properly
->>> handled.
->>>
->>It really depends on what type of one-off contributor they are.
->>
->>Setting up git send-email isn't trivial for everyone, if you are a
->>gmail user and work for a company that doesn't embrace smtp so much,
->>then having a webui and https git access will be a lot easier for
->>one-off contributions.
->
-> Agree with this but that's why I don't use git-send-email
->
->>Beware of thinking our setup with email is in any way simple for a
->>newcomer to setup properly.
->
-> Right, but there are many other ways of doing this which still work with mailing lists.
+On 09/16/2018 02:45 PM, Matthew Wilcox wrote:
+> Unfortunately I won't be in Edinburgh. My understanding was that the
+> tech topics are for Plumbers. Since the user  space component is
+> probably the more interesting and complex component, Plumbers is
+> probably the better conference for a discussion anyway.
+> 
+Au contraire.
 
-Aside from bare diffs stuffed into plaintext mails directly (which I
-is a lot harder to set up than git send-email for new people), what
-else is there that works with mailing lists? I'd be great if we have
-other options here, since it is a fairly annoying problem for us.
--Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-+41 (0) 79 365 57 48 - http://blog.ffwll.ch
+ATM most filesystems are not able to report any I/O error directly to
+the application due to internal caching. An I/O error will only ever be
+seen once the cached data is written to disk, but by then the fs has
+already acknowledged the write to the application, so there literally is
+no way of how we could signal the I/O error (other than setting the fs
+read-only).
+
+So from that it might be possible to switch to an asynchronous model of
+signalling I/O errors much like DAX does nowadays.
+IE we could signal errors to the filesystem via asynchronous methods,
+and do away with the current synchronous model.
+
+I guess some further discussion is warranted here.
+Sadly I can't go to Vancouver, so we'll need to find another venue; LSF
+next year?
+
+Cheers,
+
+Hannes
