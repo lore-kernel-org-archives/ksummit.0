@@ -1,18 +1,18 @@
-Return-Path: <Tim.Bird@sony.com>
+Return-Path: <geert.uytterhoeven@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7725610A5
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 16EEF10A8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 18 Sep 2018 17:43:02 +0000 (UTC)
-Received: from NAM04-BN3-obe.outbound.protection.outlook.com
-	(mail-eopbgr680119.outbound.protection.outlook.com [40.107.68.119])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B13BE42D
+	Tue, 18 Sep 2018 17:47:15 +0000 (UTC)
+Received: from mail-ua1-f66.google.com (mail-ua1-f66.google.com
+	[209.85.222.66])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6556779F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 18 Sep 2018 17:43:01 +0000 (UTC)
-From: <Tim.Bird@sony.com>
-To: <konstantin@linuxfoundation.org>
-Date: Tue, 18 Sep 2018 17:42:57 +0000
-Message-ID: <ECADFF3FD767C149AD96A924E7EA6EAF7C1EABB7@USCULXMSG01.am.sony.com>
+	Tue, 18 Sep 2018 17:47:14 +0000 (UTC)
+Received: by mail-ua1-f66.google.com with SMTP id q7-v6so1297763uam.12
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 18 Sep 2018 10:47:14 -0700 (PDT)
+MIME-Version: 1.0
 References: <20180917100413.22eac00d@coco.lan> <2072478.UYspZ1xLTN@avalon>
 	<20180917115916.37fd5388@coco.lan>
 	<CAPM=9tzSaQX7iVCH94jrM+xgEveY4B8+DwQSykiE3L0BM-s-Pw@mail.gmail.com>
@@ -24,12 +24,14 @@ References: <20180917100413.22eac00d@coco.lan> <2072478.UYspZ1xLTN@avalon>
 	<ECADFF3FD767C149AD96A924E7EA6EAF7C1EAA99@USCULXMSG01.am.sony.com>
 	<20180918173148.GB9728@chatter>
 In-Reply-To: <20180918173148.GB9728@chatter>
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-Cc: James.Bottomley@hansenpartnership.com, mchehab+samsung@kernel.org,
-	ksummit-discuss@lists.linuxfoundation.org
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 18 Sep 2018 19:47:00 +0200
+Message-ID: <CAMuHMdVCBD7hY-z8=d+vf=90ZJC5x8rL=cXFS-p2wNuBWocQLg@mail.gmail.com>
+To: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Mauro Carvalho Chehab <mchehab+samsung@kernel.org>, "Bird,
+	Timothy" <Tim.Bird@sony.com>, ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
  management/subsystem governance
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -41,43 +43,54 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogS29uc3RhbnRpbiBSeWFi
-aXRzZXYgDQo+IA0KPiBPbiBUdWUsIFNlcCAxOCwgMjAxOCBhdCAwNTowODowMlBNICswMDAwLCBU
-aW0uQmlyZEBzb255LmNvbSB3cm90ZToNCj4gPj4gaHR0cHM6Ly91cmxkZWZlbnNlLnByb29mcG9p
-bnQuY29tL3YyL3VybD91PWh0dHBzLQ0KPiA+PiAzQV9fa29yZy53aWtpLmtlcm5lbC5vcmdfdXNl
-cmRvY19tYWlsLTIzc2VuZGluZy01Rm91dGdvaW5nLQ0KPiA+PiA1Rm1haWwmZD1Ed0lDQWcmYz1m
-UDR0Zi0tMWRTMGJpQ0ZsQjBzYXowSTBrak81djctDQo+ID4+IEdMUHR2U2hBbzRjYyZyPXJVdkZh
-d1I0S3pnWnUxZ1NONXR1b3pVbjdpVFRQMFktDQo+ID4+IElOV3FmWThNc0YwJm09OTBFTVpyUmZr
-dmx6V0JOdHJKOFFuSERqMy1Fd2VoRVpoUWlDNVlKWS0NCj4gPj4gVWsmcz14dFVnQkxuNWJqTGF6
-ZXZBRUlkQW9IQUdjbGJnaW4tRDlDZWsxNWhzdVprJmU9DQo+IA0KPiBJY2suDQpUaGFua3MuICBJ
-IGFwcHJlY2lhdGUgdGhlIHN5bXBhdGh5LiA6LSkNCg0KPiANCj4gPlRoYW5rIHlvdSBmb3IgdGhl
-IG9mZmVyLiAgSG93ZXZlciwgd2hpbGUgdGhhdCdzIGEgc29sdXRpb24gdGhhdCBtaWdodA0KPiA+
-d29yaw0KPiA+Zm9yIG1lIChtb2R1bG8gbXkgYWJpbGl0eSB0byBwdW5jaCBteSB3YXkgdGhyb3Vn
-aCB0aGUgZmlyZXdhbGwgdG8gdGhhdCBtYWlsDQo+ID5zZXJ2ZXIpLCBpdCBkb2Vzbid0IHNjYWxl
-IG9yIGhlbHAgbXkgY29sbGVhZ3VlcyBhdCBTb255IHdobyBJJ20gdHJ5aW5nIHRvDQo+ID5yZW1v
-dmUgYmFycmllcnMgZm9yIGFzIHdlbGwuICAgSSdtIHNlbmlvciBlbm91Z2ggYXQgU29ueSB0byBo
-YXZlIGEgc29tZXdoYXQNCj4gPmRpZmZlcmVudCBzaXR1YXRpb24gdGhhbiBvdGhlciBTb255IExp
-bnV4IGRldmVsb3BlcnMsIGhvd2V2ZXIgIEkNCj4gaW50ZW50aW9uYWxseQ0KPiA+d29yayB0aHJv
-dWdoIHRoZSBJVCBkZXBhcnRtZW50IGFuZCB1c2UgY29tbW9ubHkgcHJvdmlkZWQgdG9vbHMgaGVy
-ZQ0KPiA+aW4gb3JkZXIgdG8gMSkgdW5kZXJzdGFuZCB0aGUgaHVyZGxlcyBvdGhlciBkZXZlbG9w
-ZXJzIGF0IFNvbnkgaGF2ZSwgYW5kDQo+ID4yKSB3b3JrIG9uIGdlbmVyYWwgc29sdXRpb25zLg0K
-PiANCj4gQWgsIEkgdW5kZXJzdGFuZCB5b3VyIHNpdHVhdGlvbiBiZXR0ZXIgbm93Lg0KPiANCj4g
-U28sIHdoYXQgaWYgd2UgaW1hZ2luZSB0aGF0IHRoZXJlJ3MgYW4gaW1hZ2luYXJ5IHdlYiB0b29s
-IHRoYXQgZG9lcw0KPiB0aGlzOg0KPiANCj4gMS4gQWxsb3dzIHBlb3BsZSB0byBnZW5lcmF0ZSBh
-biBhY2NvdW50DQo+IDIuIFZlcmlmaWVzIHRoZWlyIGVtYWlsIGFkZHJlc3MNCj4gMy4gSW5zdHJ1
-Y3RzIHBlb3BsZSBob3cgdG8gZ2VuZXJhdGUgYSBwYXRjaCBvciBzZXJpZXMgb2YgcGF0Y2hlcw0K
-PiA0LiBHaXZlcyBhIHdheSB0byB1cGxvYWQgZ2VuZXJhdGVkIHBhdGNoZXMNCj4gNS4gUnVucyBj
-aGVja3BhdGNoIHRvIG1ha2Ugc3VyZSB0aGVyZSBhcmUgbm8gZXJyb3JzDQo+IDYuIFJ1bnMgZ2V0
-X21haW50YWluZXIgdG8gZmluZCBvdXQgd2hlcmUgdGhlIHBhdGNoKGVzKSBzaG91bGQgYmUgc2Vu
-dCB0bw0KPiA3LiAoRG9lcyBtb3JlIGltYWdpbmFyeSBtYWdpYywgc3VjaCBhcyBsb29raW5nIHVw
-IG1lc3NhZ2UtaWQgcmVmZXJlbmNlcykNCj4gOC4gTWFpbHMgaXQgb3V0DQo+IA0KPiBXb3VsZCB0
-aGF0IGJlIHVzZWZ1bCBvciBzb2x2ZSBhbnkgcHJvYmxlbXM/IE9yIHdvdWxkIHRoYXQsIG9uIHRo
-ZQ0KPiBjb250cmFyeSwgY3JlYXRlIG1vcmUgcHJvYmxlbXMgdGhhbiBpdCBzb2x2ZXM/DQoNCktv
-bnN0YW50aW4sDQoNCkkgZmVlbCBsaWtlIHRoaXMgdGhyZWFkIHJlLWNvbnZlcmdlZCBhbmQgeW91
-IHByb3Bvc2VkIHRoZSBleGFjdCB0aGluZyBJIGp1c3QNCmV4cHJlc3NlZCBpbnRlcmVzdCBpbiB0
-byBMaW51cy4gIFlvdSB3ZXJlIHByb2JhYmx5IHdyaXRpbmcgeW91ciBtZXNzYWdlIGF0DQp0aGUg
-c2FtZSB0aW1lIEkgd2FzIHdyaXRpbmcgbWluZS4gIFdvdyENCg0KUGVyc29uYWxseSwgSSBmZWVs
-IHRoaXMgd291bGQgYmUgYSBHUkVBVCB0aGluZy4NCg0KSSdtIG5vdCBhIGtlcm5lbCBtYWludGFp
-bmVyLCBhbmQgSSB0aGluayB0aGF0IHRoZXJlIHdvdWxkIGhhdmUgdG8gYmUgbWFpbnRhaW5lcg0K
-YnV5LWluIGZvciB0aGlzLiAgU28gSSdtIGludGVyZXN0ZWQgd2hhdCBvdGhlcnMgdGhpbmsuDQog
-LS0gVGltDQogDQo=
+[ To/Cc edited manually, Mail-Followup-To: seems to be weird ]
+
+On Tue, Sep 18, 2018 at 7:31 PM Konstantin Ryabitsev
+<konstantin@linuxfoundation.org> wrote:
+> On Tue, Sep 18, 2018 at 05:08:02PM +0000, Tim.Bird@sony.com wrote:
+> >> https://urldefense.proofpoint.com/v2/url?u=https-
+> >> 3A__korg.wiki.kernel.org_userdoc_mail-23sending-5Foutgoing-
+> >> 5Fmail&d=DwICAg&c=fP4tf--1dS0biCFlB0saz0I0kjO5v7-
+> >> GLPtvShAo4cc&r=rUvFawR4KzgZu1gSN5tuozUn7iTTP0Y-
+> >> INWqfY8MsF0&m=90EMZrRfkvlzWBNtrJ8QnHDj3-EwehEZhQiC5YJY-
+> >> Uk&s=xtUgBLn5bjLazevAEIdAoHAGclbgin-D9Cek15hsuZk&e=
+>
+> Ick.
+
+Cool. And that URL actually works for me, even though wget truncated it.
+Can't see any damage in the actual result.
+
+But, is the service exploitable?
+
+> So, what if we imagine that there's an imaginary web tool that does
+> this:
+>
+> 1. Allows people to generate an account
+> 2. Verifies their email address
+> 3. Instructs people how to generate a patch or series of patches
+> 4. Gives a way to upload generated patches
+> 5. Runs checkpatch to make sure there are no errors
+> 6. Runs get_maintainer to find out where the patch(es) should be sent to
+> 7. (Does more imaginary magic, such as looking up message-id references)
+> 8. Mails it out
+>
+> Would that be useful or solve any problems? Or would that, on the
+> contrary, create more problems than it solves?
+
+Sounds useful. Perhaps even with github integration, so you can send a
+series with the work in your branch? Needs some serious safeguards, to
+prevent spamming everyone with e.g. the full patch series since v2.6.12-rc2.
+
+I'm actually surprised such an accident never happened so far with
+git send-email ;-)
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
