@@ -1,31 +1,35 @@
 Return-Path: <Tim.Bird@sony.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 13E8E1073
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7725610A5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 18 Sep 2018 17:37:20 +0000 (UTC)
-Received: from NAM01-BY2-obe.outbound.protection.outlook.com
-	(mail-by2nam01on0138.outbound.protection.outlook.com [104.47.34.138])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7527179F
+	Tue, 18 Sep 2018 17:43:02 +0000 (UTC)
+Received: from NAM04-BN3-obe.outbound.protection.outlook.com
+	(mail-eopbgr680119.outbound.protection.outlook.com [40.107.68.119])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B13BE42D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 18 Sep 2018 17:37:18 +0000 (UTC)
+	Tue, 18 Sep 2018 17:43:01 +0000 (UTC)
 From: <Tim.Bird@sony.com>
-To: <torvalds@linux-foundation.org>, <dmitry.torokhov@gmail.com>
-Date: Tue, 18 Sep 2018 17:37:13 +0000
-Message-ID: <ECADFF3FD767C149AD96A924E7EA6EAF7C1EAB94@USCULXMSG01.am.sony.com>
-References: <CAKMK7uE=FwpPFnvOvuvGBZ0vjh3UMPW=zgSk1dmiyCLQPPuZvg@mail.gmail.com>
+To: <konstantin@linuxfoundation.org>
+Date: Tue, 18 Sep 2018 17:42:57 +0000
+Message-ID: <ECADFF3FD767C149AD96A924E7EA6EAF7C1EABB7@USCULXMSG01.am.sony.com>
+References: <20180917100413.22eac00d@coco.lan> <2072478.UYspZ1xLTN@avalon>
 	<20180917115916.37fd5388@coco.lan>
 	<CAPM=9tzSaQX7iVCH94jrM+xgEveY4B8+DwQSykiE3L0BM-s-Pw@mail.gmail.com>
-	<2174637.IVJC5EhCEq@avalon> <20180918160236.GK2471@sirena.org.uk>
-	<20180918163231.GB10134@agluck-desk>
-	<CAKdAkRRc8U+Y9M3mP378hw5PsUoG-TM33gX_0oT8PX9APT9pyw@mail.gmail.com>
-	<CA+55aFxgc+OOs4E8z9vdEpbArwi2+MaxfUUnZSisX6Y3K1HTHQ@mail.gmail.com>
-In-Reply-To: <CA+55aFxgc+OOs4E8z9vdEpbArwi2+MaxfUUnZSisX6Y3K1HTHQ@mail.gmail.com>
+	<5b434160-07d9-4071-ac77-9d64ea69c980@email.android.com>
+	<CAKMK7uExDUFjXcX6zPmZMjse6gf00bO-uBsjiWMk+vqjV2MEvQ@mail.gmail.com>
+	<1537269419.3424.1.camel@HansenPartnership.com>
+	<ECADFF3FD767C149AD96A924E7EA6EAF7C1EAA24@USCULXMSG01.am.sony.com>
+	<20180918165917.GA9728@chatter>
+	<ECADFF3FD767C149AD96A924E7EA6EAF7C1EAA99@USCULXMSG01.am.sony.com>
+	<20180918173148.GB9728@chatter>
+In-Reply-To: <20180918173148.GB9728@chatter>
 Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Cc: mchehab+samsung@kernel.org, ksummit-discuss@lists.linuxfoundation.org
+Cc: James.Bottomley@hansenpartnership.com, mchehab+samsung@kernel.org,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
  management/subsystem governance
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -37,61 +41,43 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-
-
-> -----Original Message-----
-> From: Linus Torvalds
->=20
-> On Tue, Sep 18, 2018 at 9:35 AM Dmitry Torokhov
-> <dmitry.torokhov@gmail.com> wrote:
-> > On Tue, Sep 18, 2018 at 9:33 AM Luck, Tony <tony.luck@intel.com> wrote:
-> > >
-> > > Or, shock, horror, tell one-time contributors that it is OK to
-> > > put the patch in an attachment to the e-mail.  Outlook doesn't
-> > > (usually) mess with the contents of attachments.
-> >
-> > And then have maintainer having hard time trying to comment on said
-> > patch in the attachment. I'd rather not.
->=20
-> I actually think that *this* could be easily handled by trivial
-> tooling that doesn't have to be set up over and over again inside
-> companies or teaching people.
->=20
-> In fact, doesn't patchwork already do exactly that?
->=20
-> I have to say, there are real technical advantages to using
-> attachments for patches, particularly when you have odd combinations
-> of locales. It's gotten to be less of an issue over time and we're
-> still almost entirely US-ASCII with the occasional UTF-8, but we do
-> still have the occasional problem. Using attachments at least detaches
-> the email charset from the user locale, and from random other MUA
-> issues.
->=20
-> But yes, the "comment on individual parts of the patch" part is very
-> important too.
->=20
-> The main problem with having something that rewrites things is that it
-> breaks DKIM etc, so you can't just have a pure email gateway. It
-> almost needs to be something at a higher semantic level like patchwork
-> (that could still send out rewritten emails).
->=20
-> In many cases, you might want that anyway (ie wouldn't it be lovely
-> when the patch is also checked for "does it build" and looks up the
-> maintainers based on what paths it touches etc etc).
->=20
-> So a sane email / web-interface kind of gateway that allows people to
-> work the way they prefer.
-
-Would it suffice to have some front-end e-mail receiver, listed in=20
-MAINTAINERS even, where patches were sent to, that did patch
-processing (including CI stuff) before sending it on to the "official"
-list?  It could also automatically send responses to submitters with
-things to fix.  That would be good for both the senders and the receivers.
-I'm not that familiar with 0day, but it does some of this now, right,
-but without the separate e-mail address?
-
-The benefit of putting together this kind of gateway is that it clearly
-delineates where the automatic patch pre-processing will occur,
-and different sub-systems could opt in or out of individual checks
-by the service.
- -- Tim
+DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogS29uc3RhbnRpbiBSeWFi
+aXRzZXYgDQo+IA0KPiBPbiBUdWUsIFNlcCAxOCwgMjAxOCBhdCAwNTowODowMlBNICswMDAwLCBU
+aW0uQmlyZEBzb255LmNvbSB3cm90ZToNCj4gPj4gaHR0cHM6Ly91cmxkZWZlbnNlLnByb29mcG9p
+bnQuY29tL3YyL3VybD91PWh0dHBzLQ0KPiA+PiAzQV9fa29yZy53aWtpLmtlcm5lbC5vcmdfdXNl
+cmRvY19tYWlsLTIzc2VuZGluZy01Rm91dGdvaW5nLQ0KPiA+PiA1Rm1haWwmZD1Ed0lDQWcmYz1m
+UDR0Zi0tMWRTMGJpQ0ZsQjBzYXowSTBrak81djctDQo+ID4+IEdMUHR2U2hBbzRjYyZyPXJVdkZh
+d1I0S3pnWnUxZ1NONXR1b3pVbjdpVFRQMFktDQo+ID4+IElOV3FmWThNc0YwJm09OTBFTVpyUmZr
+dmx6V0JOdHJKOFFuSERqMy1Fd2VoRVpoUWlDNVlKWS0NCj4gPj4gVWsmcz14dFVnQkxuNWJqTGF6
+ZXZBRUlkQW9IQUdjbGJnaW4tRDlDZWsxNWhzdVprJmU9DQo+IA0KPiBJY2suDQpUaGFua3MuICBJ
+IGFwcHJlY2lhdGUgdGhlIHN5bXBhdGh5LiA6LSkNCg0KPiANCj4gPlRoYW5rIHlvdSBmb3IgdGhl
+IG9mZmVyLiAgSG93ZXZlciwgd2hpbGUgdGhhdCdzIGEgc29sdXRpb24gdGhhdCBtaWdodA0KPiA+
+d29yaw0KPiA+Zm9yIG1lIChtb2R1bG8gbXkgYWJpbGl0eSB0byBwdW5jaCBteSB3YXkgdGhyb3Vn
+aCB0aGUgZmlyZXdhbGwgdG8gdGhhdCBtYWlsDQo+ID5zZXJ2ZXIpLCBpdCBkb2Vzbid0IHNjYWxl
+IG9yIGhlbHAgbXkgY29sbGVhZ3VlcyBhdCBTb255IHdobyBJJ20gdHJ5aW5nIHRvDQo+ID5yZW1v
+dmUgYmFycmllcnMgZm9yIGFzIHdlbGwuICAgSSdtIHNlbmlvciBlbm91Z2ggYXQgU29ueSB0byBo
+YXZlIGEgc29tZXdoYXQNCj4gPmRpZmZlcmVudCBzaXR1YXRpb24gdGhhbiBvdGhlciBTb255IExp
+bnV4IGRldmVsb3BlcnMsIGhvd2V2ZXIgIEkNCj4gaW50ZW50aW9uYWxseQ0KPiA+d29yayB0aHJv
+dWdoIHRoZSBJVCBkZXBhcnRtZW50IGFuZCB1c2UgY29tbW9ubHkgcHJvdmlkZWQgdG9vbHMgaGVy
+ZQ0KPiA+aW4gb3JkZXIgdG8gMSkgdW5kZXJzdGFuZCB0aGUgaHVyZGxlcyBvdGhlciBkZXZlbG9w
+ZXJzIGF0IFNvbnkgaGF2ZSwgYW5kDQo+ID4yKSB3b3JrIG9uIGdlbmVyYWwgc29sdXRpb25zLg0K
+PiANCj4gQWgsIEkgdW5kZXJzdGFuZCB5b3VyIHNpdHVhdGlvbiBiZXR0ZXIgbm93Lg0KPiANCj4g
+U28sIHdoYXQgaWYgd2UgaW1hZ2luZSB0aGF0IHRoZXJlJ3MgYW4gaW1hZ2luYXJ5IHdlYiB0b29s
+IHRoYXQgZG9lcw0KPiB0aGlzOg0KPiANCj4gMS4gQWxsb3dzIHBlb3BsZSB0byBnZW5lcmF0ZSBh
+biBhY2NvdW50DQo+IDIuIFZlcmlmaWVzIHRoZWlyIGVtYWlsIGFkZHJlc3MNCj4gMy4gSW5zdHJ1
+Y3RzIHBlb3BsZSBob3cgdG8gZ2VuZXJhdGUgYSBwYXRjaCBvciBzZXJpZXMgb2YgcGF0Y2hlcw0K
+PiA0LiBHaXZlcyBhIHdheSB0byB1cGxvYWQgZ2VuZXJhdGVkIHBhdGNoZXMNCj4gNS4gUnVucyBj
+aGVja3BhdGNoIHRvIG1ha2Ugc3VyZSB0aGVyZSBhcmUgbm8gZXJyb3JzDQo+IDYuIFJ1bnMgZ2V0
+X21haW50YWluZXIgdG8gZmluZCBvdXQgd2hlcmUgdGhlIHBhdGNoKGVzKSBzaG91bGQgYmUgc2Vu
+dCB0bw0KPiA3LiAoRG9lcyBtb3JlIGltYWdpbmFyeSBtYWdpYywgc3VjaCBhcyBsb29raW5nIHVw
+IG1lc3NhZ2UtaWQgcmVmZXJlbmNlcykNCj4gOC4gTWFpbHMgaXQgb3V0DQo+IA0KPiBXb3VsZCB0
+aGF0IGJlIHVzZWZ1bCBvciBzb2x2ZSBhbnkgcHJvYmxlbXM/IE9yIHdvdWxkIHRoYXQsIG9uIHRo
+ZQ0KPiBjb250cmFyeSwgY3JlYXRlIG1vcmUgcHJvYmxlbXMgdGhhbiBpdCBzb2x2ZXM/DQoNCktv
+bnN0YW50aW4sDQoNCkkgZmVlbCBsaWtlIHRoaXMgdGhyZWFkIHJlLWNvbnZlcmdlZCBhbmQgeW91
+IHByb3Bvc2VkIHRoZSBleGFjdCB0aGluZyBJIGp1c3QNCmV4cHJlc3NlZCBpbnRlcmVzdCBpbiB0
+byBMaW51cy4gIFlvdSB3ZXJlIHByb2JhYmx5IHdyaXRpbmcgeW91ciBtZXNzYWdlIGF0DQp0aGUg
+c2FtZSB0aW1lIEkgd2FzIHdyaXRpbmcgbWluZS4gIFdvdyENCg0KUGVyc29uYWxseSwgSSBmZWVs
+IHRoaXMgd291bGQgYmUgYSBHUkVBVCB0aGluZy4NCg0KSSdtIG5vdCBhIGtlcm5lbCBtYWludGFp
+bmVyLCBhbmQgSSB0aGluayB0aGF0IHRoZXJlIHdvdWxkIGhhdmUgdG8gYmUgbWFpbnRhaW5lcg0K
+YnV5LWluIGZvciB0aGlzLiAgU28gSSdtIGludGVyZXN0ZWQgd2hhdCBvdGhlcnMgdGhpbmsuDQog
+LS0gVGltDQogDQo=
