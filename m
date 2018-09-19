@@ -1,36 +1,35 @@
-Return-Path: <sfr@canb.auug.org.au>
+Return-Path: <mchehab+samsung@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 22E511077
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2D64DF04
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 19 Sep 2018 21:42:57 +0000 (UTC)
-Received: from ozlabs.org (ozlabs.org [203.11.71.1])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 866D1165
+	Wed, 19 Sep 2018 23:29:00 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+	[198.137.202.133])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F19C867F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 19 Sep 2018 21:42:56 +0000 (UTC)
-Date: Thu, 20 Sep 2018 07:42:40 +1000
-From: Stephen Rothwell <sfr@canb.auug.org.au>
-To: Mark Brown <broonie@kernel.org>
-Message-ID: <20180920074240.44311e49@canb.auug.org.au>
-In-Reply-To: <20180919172448.GB2471@sirena.org.uk>
-References: <20180911174043.GK5659@atomide.com>
-	<1536688022.3511.5.camel@HansenPartnership.com>
-	<20180911143923.11e479ea@vmware.local.home>
-	<1536696572.3511.12.camel@HansenPartnership.com>
-	<20180911163136.1d6653a6@vmware.local.home>
-	<1536706409.3511.14.camel@HansenPartnership.com>
-	<20180912162422.37d545ec@vmware.local.home>
-	<20180913101955.3163ef05@canb.auug.org.au>
-	<20180913113919.GD8411@sirena.org.uk>
-	<20180919162731.049e4618@canb.auug.org.au>
-	<20180919172448.GB2471@sirena.org.uk>
+	Wed, 19 Sep 2018 23:28:58 +0000 (UTC)
+Date: Wed, 19 Sep 2018 20:28:52 -0300
+From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+To: "Luck, Tony" <tony.luck@intel.com>
+Message-ID: <20180919202852.0da5c649@coco.lan>
+In-Reply-To: <20180919201015.GA31523@agluck-desk>
+References: <CAPM=9tz6_byufs2xdOmU73VPVU2ojb=Ox0YzQxFpOs7jztjbFg@mail.gmail.com>
+	<1537279328.3424.6.camel@HansenPartnership.com>
+	<20180918162948.769dda1d@coco.lan>
+	<1537356482.4640.7.camel@HansenPartnership.com>
+	<20180919083749.49268562@coco.lan>
+	<20180919090332.723c1b75@coco.lan>
+	<1537366581.6816.1.camel@HansenPartnership.com>
+	<20180919165552.0f30bbef@coco.lan>
+	<20180919201015.GA31523@agluck-desk>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	boundary="Sig_/IxCn7ChVebZzRHmzkdSFWTQ";
-	protocol="application/pgp-signature"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
 	ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
+Subject: Re: [Ksummit-discuss] [MAINTAINER TOPIC FOR KS] CoC and Linus
+ position (perhaps undocumented/closed/limited/invite session)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,48 +39,64 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---Sig_/IxCn7ChVebZzRHmzkdSFWTQ
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+Em Wed, 19 Sep 2018 13:10:15 -0700
+"Luck, Tony" <tony.luck@intel.com> escreveu:
 
-Hi Mark,
-
-On Wed, 19 Sep 2018 10:24:48 -0700 Mark Brown <broonie@kernel.org> wrote:
->
-> On Wed, Sep 19, 2018 at 04:27:31PM +1000, Stephen Rothwell wrote:
-> > On Thu, 13 Sep 2018 12:39:19 +0100 Mark Brown <broonie@kernel.org> wrot=
-e: =20
+> On Wed, Sep 19, 2018 at 04:55:52PM -0300, Mauro Carvalho Chehab wrote:
+> > After re-reading it, I'm pretty sure that, the way it is, publishing
+> > e-mails violate this CoC.
+> >=20
+> > The thing is that, when it uses the commas there:
+> >=20
+> > 	"private information, such as a physical or electronic address,"=20
+> >=20
+> > The commas actually defines what "private information" is. Even if
+> > this would be changed by "foo information", what we have here is actual=
+ly two
+> > English sentences that were merged together:
+> >=20
+> > First sentence:
+> > 	"Private information, such as a physical or electronic address."
+> >=20
+> > Second sentence:
+> > 	"Publishing others=E2=80=99 private information without explicit permi=
+ssion"
+> >=20
+> > See, replace it by foo at the original text:
+> > 	"Publishing others=E2=80=99 *foo* information, such as a physical=20
+> > 	 or electronic address, without explicit permission"
+> >=20
+> > You'll see that "*foo* information" becomes defined. =20
 >=20
-> > > Do you want to see these sent to you directly as a matter of course
-> > > (rather than just if they're particularly disruptive)?  I don't CC you
-> > > on stuff normally because I figure it'd be too noisy. =20
+> So perhaps we can move on to discussing a patch to fix it?
 >=20
-> > I do get your summaries each evening on the linux-next list, though,
-> > right?  Certainly I guess I should know about disruptive problems. =20
 >=20
-> Yes, everything's on the list - I just don't CC you personally on
-> everything unless it's urgent, but I can if you want.
+> diff --git a/Documentation/process/code-of-conduct.rst b/Documentation/pr=
+ocess/code-of-conduct.rst
+> index ab7c24b5478c..ec99a17ab646 100644
+> --- a/Documentation/process/code-of-conduct.rst
+> +++ b/Documentation/process/code-of-conduct.rst
+> @@ -31,10 +31,13 @@ Examples of unacceptable behavior by participants inc=
+lude:
+>  * Trolling, insulting/derogatory comments, and personal or political att=
+acks
+>  * Public or private harassment
+>  * Publishing others=E2=80=99 private information, such as a physical or =
+electronic
+> -  address, without explicit permission
+> +  address[1], without explicit permission
+>  * Other conduct which could reasonably be considered inappropriate in a
+>    professional setting
+> =20
+> +[1] Note that e-mail addresses used on public mailing lists are not
+> +considered to be private information and can (in fact should) be used
+> +to give credit in Reported-by, Acked-by, Tested-by etc. tags.
+> =20
+>  Our Responsibilities
+>  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 
-No, I do see everything on the linux-next list, so that's fine.
+Reviewed-by: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
 
---=20
-Cheers,
-Stephen Rothwell
 
---Sig_/IxCn7ChVebZzRHmzkdSFWTQ
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAluiwtAACgkQAVBC80lX
-0GzUogf9HIQoJXhE7z0K8vm123O6G1+QN3HDo+0wfzTy6t1iMvYXHuOkW6ZmrKvv
-AdJSCiq7u0TB+bPmcGog/DI2V85rDmOoexX4+A5r5wcOSTv+IZg6nj7H3hyRxXwK
-rLQC6fZoxvTCEu0VtbHJQIgoLx07Vgms9l+58AMu4oZFon2Nrx6k/qSi3SChkjQ1
-JHcksWNBaXD4LWSjsuapH4rgMR5Iqs6GUAqp5AN7DEfihyddE+XmuHidJCMPG0xL
-LNdta2p3OkD501kWQWoXBVkGlsm7kCCuFl4nBiDTtfaZf4Dl6R/9EeWanQRREA9p
-JzxUgCmz/EpOE26kb56EWwHd2ywYoQ==
-=b8BY
------END PGP SIGNATURE-----
-
---Sig_/IxCn7ChVebZzRHmzkdSFWTQ--
+Thanks,
+Mauro
