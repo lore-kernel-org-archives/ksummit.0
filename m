@@ -1,33 +1,33 @@
-Return-Path: <mchehab+samsung@kernel.org>
+Return-Path: <Tim.Bird@sony.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2D64DF04
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 38E32FA0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 19 Sep 2018 23:29:00 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F19C867F
+	Wed, 19 Sep 2018 23:45:46 +0000 (UTC)
+Received: from NAM04-CO1-obe.outbound.protection.outlook.com
+	(mail-eopbgr690137.outbound.protection.outlook.com [40.107.69.137])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6B9215D4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 19 Sep 2018 23:28:58 +0000 (UTC)
-Date: Wed, 19 Sep 2018 20:28:52 -0300
-From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-To: "Luck, Tony" <tony.luck@intel.com>
-Message-ID: <20180919202852.0da5c649@coco.lan>
-In-Reply-To: <20180919201015.GA31523@agluck-desk>
+	Wed, 19 Sep 2018 23:45:45 +0000 (UTC)
+From: <Tim.Bird@sony.com>
+To: <mchehab+samsung@kernel.org>, <tony.luck@intel.com>
+Date: Wed, 19 Sep 2018 23:45:41 +0000
+Message-ID: <ECADFF3FD767C149AD96A924E7EA6EAF7C1EB8D1@USCULXMSG01.am.sony.com>
 References: <CAPM=9tz6_byufs2xdOmU73VPVU2ojb=Ox0YzQxFpOs7jztjbFg@mail.gmail.com>
 	<1537279328.3424.6.camel@HansenPartnership.com>
 	<20180918162948.769dda1d@coco.lan>
 	<1537356482.4640.7.camel@HansenPartnership.com>
-	<20180919083749.49268562@coco.lan>
-	<20180919090332.723c1b75@coco.lan>
+	<20180919083749.49268562@coco.lan>	<20180919090332.723c1b75@coco.lan>
 	<1537366581.6816.1.camel@HansenPartnership.com>
-	<20180919165552.0f30bbef@coco.lan>
-	<20180919201015.GA31523@agluck-desk>
+	<20180919165552.0f30bbef@coco.lan>	<20180919201015.GA31523@agluck-desk>
+	<20180919202852.0da5c649@coco.lan>
+In-Reply-To: <20180919202852.0da5c649@coco.lan>
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Cc: James.Bottomley@HansenPartnership.com,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [MAINTAINER TOPIC FOR KS] CoC and Linus
  position (perhaps undocumented/closed/limited/invite session)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -39,64 +39,58 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Em Wed, 19 Sep 2018 13:10:15 -0700
-"Luck, Tony" <tony.luck@intel.com> escreveu:
-
-> On Wed, Sep 19, 2018 at 04:55:52PM -0300, Mauro Carvalho Chehab wrote:
-> > After re-reading it, I'm pretty sure that, the way it is, publishing
-> > e-mails violate this CoC.
-> >=20
-> > The thing is that, when it uses the commas there:
-> >=20
-> > 	"private information, such as a physical or electronic address,"=20
-> >=20
-> > The commas actually defines what "private information" is. Even if
-> > this would be changed by "foo information", what we have here is actual=
-ly two
-> > English sentences that were merged together:
-> >=20
-> > First sentence:
-> > 	"Private information, such as a physical or electronic address."
-> >=20
-> > Second sentence:
-> > 	"Publishing others=E2=80=99 private information without explicit permi=
-ssion"
-> >=20
-> > See, replace it by foo at the original text:
-> > 	"Publishing others=E2=80=99 *foo* information, such as a physical=20
-> > 	 or electronic address, without explicit permission"
-> >=20
-> > You'll see that "*foo* information" becomes defined. =20
->=20
-> So perhaps we can move on to discussing a patch to fix it?
->=20
->=20
-> diff --git a/Documentation/process/code-of-conduct.rst b/Documentation/pr=
-ocess/code-of-conduct.rst
-> index ab7c24b5478c..ec99a17ab646 100644
-> --- a/Documentation/process/code-of-conduct.rst
-> +++ b/Documentation/process/code-of-conduct.rst
-> @@ -31,10 +31,13 @@ Examples of unacceptable behavior by participants inc=
-lude:
->  * Trolling, insulting/derogatory comments, and personal or political att=
-acks
->  * Public or private harassment
->  * Publishing others=E2=80=99 private information, such as a physical or =
-electronic
-> -  address, without explicit permission
-> +  address[1], without explicit permission
->  * Other conduct which could reasonably be considered inappropriate in a
->    professional setting
-> =20
-> +[1] Note that e-mail addresses used on public mailing lists are not
-> +considered to be private information and can (in fact should) be used
-> +to give credit in Reported-by, Acked-by, Tested-by etc. tags.
-> =20
->  Our Responsibilities
->  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-Reviewed-by: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-
-
-Thanks,
-Mauro
+DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogTWF1cm8gQ2FydmFsaG8g
+Q2hlaGFiDQo+IA0KPiBFbSBXZWQsIDE5IFNlcCAyMDE4IDEzOjEwOjE1IC0wNzAwDQo+ICJMdWNr
+LCBUb255IiA8dG9ueS5sdWNrQGludGVsLmNvbT4gZXNjcmV2ZXU6DQo+IA0KPiA+IE9uIFdlZCwg
+U2VwIDE5LCAyMDE4IGF0IDA0OjU1OjUyUE0gLTAzMDAsIE1hdXJvIENhcnZhbGhvIENoZWhhYiB3
+cm90ZToNCj4gPiA+IEFmdGVyIHJlLXJlYWRpbmcgaXQsIEknbSBwcmV0dHkgc3VyZSB0aGF0LCB0
+aGUgd2F5IGl0IGlzLCBwdWJsaXNoaW5nDQo+ID4gPiBlLW1haWxzIHZpb2xhdGUgdGhpcyBDb0Mu
+DQo+ID4gPg0KPiA+ID4gVGhlIHRoaW5nIGlzIHRoYXQsIHdoZW4gaXQgdXNlcyB0aGUgY29tbWFz
+IHRoZXJlOg0KPiA+ID4NCj4gPiA+IAkicHJpdmF0ZSBpbmZvcm1hdGlvbiwgc3VjaCBhcyBhIHBo
+eXNpY2FsIG9yIGVsZWN0cm9uaWMgYWRkcmVzcywiDQo+ID4gPg0KPiA+ID4gVGhlIGNvbW1hcyBh
+Y3R1YWxseSBkZWZpbmVzIHdoYXQgInByaXZhdGUgaW5mb3JtYXRpb24iIGlzLiBFdmVuIGlmDQo+
+ID4gPiB0aGlzIHdvdWxkIGJlIGNoYW5nZWQgYnkgImZvbyBpbmZvcm1hdGlvbiIsIHdoYXQgd2Ug
+aGF2ZSBoZXJlIGlzDQo+IGFjdHVhbGx5IHR3bw0KPiA+ID4gRW5nbGlzaCBzZW50ZW5jZXMgdGhh
+dCB3ZXJlIG1lcmdlZCB0b2dldGhlcjoNCj4gPiA+DQo+ID4gPiBGaXJzdCBzZW50ZW5jZToNCj4g
+PiA+IAkiUHJpdmF0ZSBpbmZvcm1hdGlvbiwgc3VjaCBhcyBhIHBoeXNpY2FsIG9yIGVsZWN0cm9u
+aWMgYWRkcmVzcy4iDQo+ID4gPg0KPiA+ID4gU2Vjb25kIHNlbnRlbmNlOg0KPiA+ID4gCSJQdWJs
+aXNoaW5nIG90aGVyc+KAmSBwcml2YXRlIGluZm9ybWF0aW9uIHdpdGhvdXQgZXhwbGljaXQgcGVy
+bWlzc2lvbiINCj4gPiA+DQo+ID4gPiBTZWUsIHJlcGxhY2UgaXQgYnkgZm9vIGF0IHRoZSBvcmln
+aW5hbCB0ZXh0Og0KPiA+ID4gCSJQdWJsaXNoaW5nIG90aGVyc+KAmSAqZm9vKiBpbmZvcm1hdGlv
+biwgc3VjaCBhcyBhIHBoeXNpY2FsDQo+ID4gPiAJIG9yIGVsZWN0cm9uaWMgYWRkcmVzcywgd2l0
+aG91dCBleHBsaWNpdCBwZXJtaXNzaW9uIg0KPiA+ID4NCj4gPiA+IFlvdSdsbCBzZWUgdGhhdCAi
+KmZvbyogaW5mb3JtYXRpb24iIGJlY29tZXMgZGVmaW5lZC4NCj4gPg0KPiA+IFNvIHBlcmhhcHMg
+d2UgY2FuIG1vdmUgb24gdG8gZGlzY3Vzc2luZyBhIHBhdGNoIHRvIGZpeCBpdD8NCj4gPg0KPiA+
+DQo+ID4gZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24vcHJvY2Vzcy9jb2RlLW9mLWNvbmR1Y3Qu
+cnN0DQo+IGIvRG9jdW1lbnRhdGlvbi9wcm9jZXNzL2NvZGUtb2YtY29uZHVjdC5yc3QNCj4gPiBp
+bmRleCBhYjdjMjRiNTQ3OGMuLmVjOTlhMTdhYjY0NiAxMDA2NDQNCj4gPiAtLS0gYS9Eb2N1bWVu
+dGF0aW9uL3Byb2Nlc3MvY29kZS1vZi1jb25kdWN0LnJzdA0KPiA+ICsrKyBiL0RvY3VtZW50YXRp
+b24vcHJvY2Vzcy9jb2RlLW9mLWNvbmR1Y3QucnN0DQo+ID4gQEAgLTMxLDEwICszMSwxMyBAQCBF
+eGFtcGxlcyBvZiB1bmFjY2VwdGFibGUgYmVoYXZpb3IgYnkgcGFydGljaXBhbnRzDQo+IGluY2x1
+ZGU6DQo+ID4gICogVHJvbGxpbmcsIGluc3VsdGluZy9kZXJvZ2F0b3J5IGNvbW1lbnRzLCBhbmQg
+cGVyc29uYWwgb3IgcG9saXRpY2FsIGF0dGFja3MNCj4gPiAgKiBQdWJsaWMgb3IgcHJpdmF0ZSBo
+YXJhc3NtZW50DQo+ID4gICogUHVibGlzaGluZyBvdGhlcnPigJkgcHJpdmF0ZSBpbmZvcm1hdGlv
+biwgc3VjaCBhcyBhIHBoeXNpY2FsIG9yIGVsZWN0cm9uaWMNCj4gPiAtICBhZGRyZXNzLCB3aXRo
+b3V0IGV4cGxpY2l0IHBlcm1pc3Npb24NCj4gPiArICBhZGRyZXNzWzFdLCB3aXRob3V0IGV4cGxp
+Y2l0IHBlcm1pc3Npb24NCj4gPiAgKiBPdGhlciBjb25kdWN0IHdoaWNoIGNvdWxkIHJlYXNvbmFi
+bHkgYmUgY29uc2lkZXJlZCBpbmFwcHJvcHJpYXRlIGluIGENCj4gPiAgICBwcm9mZXNzaW9uYWwg
+c2V0dGluZw0KPiA+DQo+ID4gK1sxXSBOb3RlIHRoYXQgZS1tYWlsIGFkZHJlc3NlcyB1c2VkIG9u
+IHB1YmxpYyBtYWlsaW5nIGxpc3RzIGFyZSBub3QNCj4gPiArY29uc2lkZXJlZCB0byBiZSBwcml2
+YXRlIGluZm9ybWF0aW9uIGFuZCBjYW4gKGluIGZhY3Qgc2hvdWxkKSBiZSB1c2VkDQo+ID4gK3Rv
+IGdpdmUgY3JlZGl0IGluIFJlcG9ydGVkLWJ5LCBBY2tlZC1ieSwgVGVzdGVkLWJ5IGV0Yy4gdGFn
+cy4NCj4gPg0KPiA+ICBPdXIgUmVzcG9uc2liaWxpdGllcw0KPiA+ICA9PT09PT09PT09PT09PT09
+PT09PQ0KPiANCj4gUmV2aWV3ZWQtYnk6IE1hdXJvIENhcnZhbGhvIENoZWhhYiA8bWNoZWhhYitz
+YW1zdW5nQGtlcm5lbC5vcmc+DQoNClRoaXMgbG9va3MgbGlrZSBhIHN0cmFpZ2h0Zm9yd2FyZCB3
+YXkgdG8gYWRkcmVzcyB0aGUgYW1iaWd1aXR5LiAgSXQgZG9lcyBhIGJpdCANCm9mIGV4dHJhIHNv
+Y2lhbCBlbmdpbmVlcmluZywgd2l0aCB0aGUgIihpbiBmYWN0IHNob3VsZCkiIHBhcnQsIGJ1dCBw
+ZXJzb25hbGx5DQpJIGZpbmQgdGhhdCBPSy4NCg0KSSBkb24ndCBrbm93IGlmIHRoZSBDb0MgY2hh
+bmdlcyBhcmUgc3VwcG9zZWQgdG8gYmUgY29uc2lkZXJlZCByYXRoZXIgbW9yZQ0KY2F1dGlvdXNs
+eSB0aGFuIG90aGVyIGNoYW5nZXMgb3Igbm90ICh3ZWxsIC0gYWZ0ZXIgdGhlIGluaXRpYWwgc29t
+ZXdoYXQgcnVzaGVkDQppbmNsdXNpb24pLiAgRG8geW91IGhhdmUgdG8gd2FpdCBmb3IgYSBtZXJn
+ZSB3aW5kb3c/ICBXaGF0IGlzDQp0aGUgc2V2ZXJpdHkgb2YgYSAiYnVnIiBpbiB0aGUgQ29DLCBh
+bmQgZG9lcyBpdCBtZXJpdCBhIHF1aWNrIGNoYW5nZSBvciBtb3JlDQpzbG93IGRlbGliZXJhdGlv
+bj8gIFdobyBrbm93cz8gSXQncyB1cCB0byBHcmVnIHRvIGRlY2lkZSBmb3IgdGhlIHRpbWUgYmVp
+bmcgSSBndWVzcy4NCg0KTHVja2lseSB0aGlzIHdvbid0IGJyZWFrIGFueXRoaW5nIGluIHVzZXIg
+c3BhY2UsIHNvIGV2ZW4gaWYgdGhpcyBpcyBub3QgZXhhY3RseQ0KdGhlIGZpeCB3ZSdyZSBsb29r
+aW5nIGZvciwgaXQncyBwcm9iYWJseSBub3QgYSBiaWcgZGVhbCB0byBhY2NlcHQgdGhpcyBub3cu
+ICA7LSkNCg0KQW55d2F5IC0gdGhhdCdzIG15IDIgY2VudHMuDQogLS0gVGltDQoNCg0K
