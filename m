@@ -1,34 +1,38 @@
-Return-Path: <BATV+9d30f6832173cf33d89c+5505+infradead.org+hch@bombadil.srs.infradead.org>
+Return-Path: <geert.uytterhoeven@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 99C4F516
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 463B1904
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 19 Sep 2018 05:27:28 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 51D3A79
+	Wed, 19 Sep 2018 06:16:32 +0000 (UTC)
+Received: from mail-ua1-f67.google.com (mail-ua1-f67.google.com
+	[209.85.222.67])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9A57AB0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 19 Sep 2018 05:27:28 +0000 (UTC)
-Date: Tue, 18 Sep 2018 22:27:24 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Mark Brown <broonie@kernel.org>
-Message-ID: <20180919052724.GA10372@infradead.org>
-References: <CAKMK7uE=FwpPFnvOvuvGBZ0vjh3UMPW=zgSk1dmiyCLQPPuZvg@mail.gmail.com>
-	<20180917115916.37fd5388@coco.lan>
-	<CAPM=9tzSaQX7iVCH94jrM+xgEveY4B8+DwQSykiE3L0BM-s-Pw@mail.gmail.com>
-	<2174637.IVJC5EhCEq@avalon> <20180918160236.GK2471@sirena.org.uk>
-	<20180918163231.GB10134@agluck-desk>
-	<CAKdAkRRc8U+Y9M3mP378hw5PsUoG-TM33gX_0oT8PX9APT9pyw@mail.gmail.com>
-	<20180918170147.61fe4135@gandalf.local.home>
-	<20180918235412.GY2471@sirena.org.uk>
+	Wed, 19 Sep 2018 06:16:31 +0000 (UTC)
+Received: by mail-ua1-f67.google.com with SMTP id f4-v6so2122699uao.10
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 18 Sep 2018 23:16:31 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20180918235412.GY2471@sirena.org.uk>
-Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>, tim.bird@sony.com,
+References: <1536142432.8121.6.camel@HansenPartnership.com>
+	<20180905113715.GJ9781@sirena.org.uk>
+	<20180905150315.GA10819@linux.vnet.ibm.com>
+	<20180905115008.22e3d21f@gandalf.local.home>
+	<20180905162007.GO4225@linux.vnet.ibm.com>
+	<1536165914.3627.17.camel@HansenPartnership.com>
+	<nycvar.YFH.7.76.1809052119580.15880@cbobk.fhfr.pm>
+	<1536176428.3627.28.camel@HansenPartnership.com>
+	<nycvar.YFH.7.76.1809062152330.15880@cbobk.fhfr.pm>
+	<yq1bm8urker.fsf@oracle.com> <s5h8t3yv8xa.wl-tiwai@suse.de>
+In-Reply-To: <s5h8t3yv8xa.wl-tiwai@suse.de>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 19 Sep 2018 08:16:17 +0200
+Message-ID: <CAMuHMdVhBhTF13yTBgADD5=ps7X=fZr_VDtbNvhGEJK1ppYTYA@mail.gmail.com>
+To: Takashi Iwai <tiwai@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
 	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
- management/subsystem governance
+Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] Distribution kernel
+ bugzillas considered harmful
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,18 +42,80 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Sep 18, 2018 at 04:54:12PM -0700, Mark Brown wrote:
-> > This is why I use claws-mail. One of the nice features to it, is if you
-> > receive a patch as an attachment, you open it up, select all the text
-> > (right-click->select all), and then hit "reply". It makes it just as if
-> > the patch was the email. Then you can easily make your inline comments
-> > as usual.
-> 
-> mutt's even nicer here, if the attachment has a text MIME type it'l just
-> include it in the reply (possibly this is configurable but it's what I
-> want and it does it by default for me).  This does get broken if the
-> sender flags the message with a non-text type for some reason though :(
+Hi Iwai-san,
 
-I was just going to say that I rarely had problems with attached
-patched recently as mutt seems to handle them right in replies
-transparently. 
+On Tue, Sep 18, 2018 at 10:37 PM Takashi Iwai <tiwai@suse.de> wrote:
+> On Tue, 18 Sep 2018 15:43:08 +0200,
+> Martin K. Petersen wrote:
+> > Sorry I'm a little late to the game here. Been out on vacation.
+> >
+> > > We order patches in our trees in the same git-topological-ordering as they
+> > > are upstream. It has a lot of benefits, most importantly: it doesn't
+> > > introduce artificial conflicts that don't exist in reality.
+> > >
+> > > In order to achieve that, we of course need 1:1 mapping between our
+> > > patches and upstream commits.  Rebases destroy that mapping.
+> > >
+> > > And in some areas (scsi is one, but not the only one), we basically had no
+> > > other choice than considering maintainer's tree to be already "upstream
+> > > enough", without waiting for Linus' tree merge.
+> >
+> > When I discussed this with Johannes a little while ago, I suggested you
+> > guys used git patch-id to track patches instead of commit ids. That's
+> > how we track patches applied across many different trees internally.
+> > Works much better than using the upstream sha.
+>
+> What is git patch id?  Is there any internal patch tag?
+
+It's the output of "git patch-id", which is a hash of the patch, without
+including its dependencies.  This allows to match identical commits in
+different branches, and is what "git cherry" and "git rebase" use to detect
+already applied patches.
+
+Example (from v4.18.y):
+
+$ git show -s e496c9a4c17d4a97ed8d222f368f3b8ad8133fb9
+commit e496c9a4c17d4a97ed8d222f368f3b8ad8133fb9
+Author: Robert Munteanu <rombert@apache.org>
+Date:   Tue Jun 19 11:20:40 2018 +0300
+
+    HID: redragon: fix num lock and caps lock LEDs
+
+    commit dc9b8e85ed95cbe7e3ad0eabb5b48d617bbc365e upstream.
+
+    The redragon asura keyboard registers two input devices. The initial commit
+    85455dd906d5 ("HID: redragon: Fix modifier keys for Redragon Asura
+Keyboard")
+    considered this an error and prevented one of the devices from registering.
+    However, once this is done the num lock and caps lock leds no
+longer toggle on
+    and off, although the key functionality is not affected.
+
+    This commit removes the code that prevents the input device
+    registration and restores the num lock and caps lock LEDs.
+
+    Fixes: 85455dd906d5 ("HID: redragon: Fix modifier keys for
+Redragon Asura Keyboard")
+    Signed-off-by: Robert Munteanu <rombert@apache.org>
+    Signed-off-by: Jiri Kosina <jkosina@suse.cz>
+    Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+$ git show e496c9a4c17d4a97ed8d222f368f3b8ad8133fb9 | git patch-id
+9d4546a92b459de7249748c0a38b50c989f13bd1
+e496c9a4c17d4a97ed8d222f368f3b8ad8133fb9
+$ git show dc9b8e85ed95cbe7e3ad0eabb5b48d617bbc365e | git patch-id
+9d4546a92b459de7249748c0a38b50c989f13bd1
+dc9b8e85ed95cbe7e3ad0eabb5b48d617bbc365e
+
+So both commits are identical, as they have the same patch ID.
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
