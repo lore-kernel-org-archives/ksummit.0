@@ -1,34 +1,34 @@
-Return-Path: <ebiederm@xmission.com>
+Return-Path: <jani.nikula@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 441D3FF4
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4D8701055
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 20 Sep 2018 12:28:19 +0000 (UTC)
-Received: from out01.mta.xmission.com (out01.mta.xmission.com [166.70.13.231])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1A1E163D
+	Thu, 20 Sep 2018 12:31:00 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A9E94784
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 20 Sep 2018 12:28:17 +0000 (UTC)
-Received: from in02.mta.xmission.com ([166.70.13.52])
-	by out01.mta.xmission.com with esmtps
-	(TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.87)
-	(envelope-from <ebiederm@xmission.com>) id 1g2y48-00020Z-Ci
-	for ksummit-discuss@lists.linuxfoundation.org;
-	Thu, 20 Sep 2018 06:28:16 -0600
-Received: from [105.184.227.67] (helo=x220.xmission.com)
-	by in02.mta.xmission.com with esmtpsa
-	(TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.87)
-	(envelope-from <ebiederm@xmission.com>) id 1g2y47-0005Wx-6p
-	for ksummit-discuss@lists.linuxfoundation.org;
-	Thu, 20 Sep 2018 06:28:16 -0600
-From: ebiederm@xmission.com (Eric W. Biederman)
-To: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+	Thu, 20 Sep 2018 12:30:59 +0000 (UTC)
+From: Jani Nikula <jani.nikula@intel.com>
+To: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+In-Reply-To: <20180920072351.49c41618@coco.lan>
 References: <CAPM=9tz6_byufs2xdOmU73VPVU2ojb=Ox0YzQxFpOs7jztjbFg@mail.gmail.com>
-Date: Thu, 20 Sep 2018 14:28:05 +0200
-In-Reply-To: <CAPM=9tz6_byufs2xdOmU73VPVU2ojb=Ox0YzQxFpOs7jztjbFg@mail.gmail.com>
-	(Dave Airlie's message of "Tue, 18 Sep 2018 15:55:23 +1000")
-Message-ID: <87h8ik9wve.fsf@xmission.com>
+	<1537279328.3424.6.camel@HansenPartnership.com>
+	<20180918162948.769dda1d@coco.lan>
+	<1537356482.4640.7.camel@HansenPartnership.com>
+	<20180919083749.49268562@coco.lan>
+	<20180919090332.723c1b75@coco.lan>
+	<1537366581.6816.1.camel@HansenPartnership.com>
+	<20180919165552.0f30bbef@coco.lan>
+	<CAPM=9tyrsJx5oaY-umNAmNDGUAFQWQ-dmh=FdsOUEQynr_yqjg@mail.gmail.com>
+	<20180919210122.694bf4a3@coco.lan>
+	<ECADFF3FD767C149AD96A924E7EA6EAF7C1EB915@USCULXMSG01.am.sony.com>
+	<875zz0y8ym.fsf@intel.com> <20180920072351.49c41618@coco.lan>
+Date: Thu, 20 Sep 2018 15:31:03 +0300
+Message-ID: <871s9oxse0.fsf@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain
+Cc: James.Bottomley@hansenpartnership.com, Tim.Bird@sony.com,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [MAINTAINER TOPIC FOR KS] CoC and Linus
 	position (perhaps undocumented/closed/limited/invite session)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -40,63 +40,109 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Dave Airlie <airlied@gmail.com> writes:
+On Thu, 20 Sep 2018, Mauro Carvalho Chehab <mchehab+samsung@kernel.org> wrote:
+> Em Thu, 20 Sep 2018 09:33:05 +0300
+> Jani Nikula <jani.nikula@intel.com> escreveu:
+>
+>> On Thu, 20 Sep 2018, Tim.Bird@sony.com wrote:
+>> > My view is that it's intended to be a social document, with guidelines
+>> > for actions within the community  (Actions by maintainers, actions
+>> > by contributors, actions by the TAB).  To me it's more like rules for
+>> > a party at my house.  If someone doesn't abide by the rules, I'll ask
+>> > them to leave the party.  And I'll ask others at the party to remind people
+>> > to abide by the rules.  But the person kicked out can hardly call the cops
+>> > on me for doing so.  
+>> 
+>> Agreed.
+>> 
+>> I think there's much more value in adopting a widely used code of
+>> conduct than writing your own, or even trying to tweak it. If a project
+>> uses the Contributor Covenant, you pretty much know the rules without
+>> actually having to read another document and wonder what this all means.
+>> In this regard, it's really not unlike the GPL for copyleft licenses;
+>> one acronym tells you what you can and can't do.
+>> 
+>> With that perspective, I think the changes proposed in this thread do
+>> more harm than good. If people still insist the text should be improved,
+>> I think the proper flow is to file issues or pull requests to
+>> Contributor Covenant upstream [1], and later update to a new version of
+>> the document.
+>
+> The main experience of the Contributor Covenant's author seems to be
+> on Github. There is a fundamental difference between a Github-based
+> project workflow and the Kernel: there, everything happens inside a GUI
+> interface. Usually, those projects don't have a large number of
+> maintainers, nor contributors. Message traffic is typically not high.
+>
+> On such kind of interface, the maintainers can edit or delete all
+> kinds of messages, even posted by a third party. So, a text like:
+>
+> 	"Maintainers have the right and responsibility to remove, edit,..."
+>
+> would work. If the number of messages are small, it is also an easy
+> task.
+>
+> It could also work on a smaller e-mail-based project where there is
+> just one or two moderated ML.
+>
+> However, on a higly e-mail based project like the Kernel, where we receive
+> hundreds to thousands of messages per day, and we have a large
+> number of mailing lists, in order to comply with that CoC statement, 
+> all email lists should be moderated. I can't imagine any way to have
+> a list like LKML moderated. Even moderating the linux-media ML nowadays
+> would be really hard, and would be someone's full time job.
+>
+> Even if LF hires a team of moderators for all Kernel mailing lists,
+> if someone cross-post a message on more than one list, different
+> moderators could take different measurements, with could be a problem,
+> if the same email is threated different by the different moderators.
+>
+> Not practical (and it comes with a cost).
+>
+> Using the terms of the CoC, by not taking any measure to stop
+> offensive posts, maintainers wouldn't be "acting in good faith".
+> So, maintainers are violating the policy.
+>
+> Also, if someone felt abused, the "unacceptable behavior may be
+> reported by contacting the Technical Advisory Board (TAB)".
+> The *may* word indicates that he can also go to other places to
+> do a similar complain. Implicitly, it opens space to go to court.
+>
+> So, the practical effect is that, if someone wants to fire
+> a random maintainer, all it has to do is to create a fake account,
+> send a bunch of random offensive messages to himself on his real
+> account, and then complain - first on TAB - then filing a lawsuit
+> (with can envolve both the TAB and the maintainer).
+>
+> That's why I don't think that, the way it is, this CoC applies
+> to us. The way it is, it is just FUD. I can see a few 
+> alternatives:
+>
+> 1) Revert the CoC patch;
+> 2) Use another CoC that would work for e-mail-based workflows;
+> 3) Patch it - either changing the text of the CoC or adding
+>    a prologue adding ammendments to prevent the above risk
+>    and solving the e-mail addresses on review tags.
+>
+> My view is that, currently, we have a major issue at the 
+> contributing process. So, if nothing happens, I may wait until
+> the Maintainer's Summit before sending any pull requests
+> upstream.
 
-> I think there might be place for a report from the people who did sign
-> off the CoC about the thoughts/process involved in updating it (and/or
-> urgency) to the rest of the Maintainer group.
+I think most of what you write here is FUD.
 
-I would very much appreciate that.
+At the most basic level it says as a maintainer you can't ignore
+unacceptable behaviour when you see it or are pointed at it.
 
-> After the past 2-3 days I get the feeling there are maintainers unsure
-> about how this affects them and I think assuaging those fears might be
-> a good thing.
+Surely there are discussions to be had about what enforcement methods
+maintainers have at their disposal, beyond just asking people to behave
+themselves, and this may well be subsystem specific. For example, the
+drm subsystem operates under freedesktop.org infrastructure, also using
+the Contributor Covenant, and we can trivially escalate there to ban
+people if asking them is not enough.
 
-I definitely uncertain about this proposed code of conduct.  Judging
-8a104f8b5867 ("Code of Conduct: Let's revamp it.") as an oridnary patch
-I am concerned that we just merged a bad patch.
+BR,
+Jani.
 
-My least concern is that it is not an obviously correct bug fix making
-rc4 an inappropriate time to merge the change.
-
-There has been no discussion that I can see leading up to the new CoC.
-
-No motiviation for the change have presented in the changelog.
-
-The presumably failing remedies (escalation to the TAB) have not
-changed.  Which makes me wonder (since there is no description) how
-anything will change.
-
-The document appears to be a horrible sign of leadership in the Linux
-kernel where the only real power maintainers have is to include or not
-to include code.  As has been pointed out we can't police mailing lists
-and even if we could maintainers don't have the time.
-
-If the new CoC acts as a legal document as Mauro has suggested those
-extra requirements on the edge of being a GPL violation.
-
-This concept of official project anything is just plain strange.  We
-have kernel.org but it isn't official, it is just the infrastructure
-that HPA put together one day and formed a non-profit to run.  That
-makes kernel.org a project in itself but not the linux-kernel project
-per se.  Similarly there is the Linux Foundation that exists to support
-the work of linux development and give suits someone to interact with,
-but is not actually the linux kernel project.  The Linux Foundation
-requires the TAB to keep it from getting out of line and harming the
-kernel development.
-
-So as a whole I don't think this change has been well explained or well
-thought through.  As human beings if we need a change we need some real
-communication about what is trying to be fixed and some real discussions
-about how to fix things.
-
-Eric
-
-p.s.  As a maintainer I am concerned that the most frequent kind of
-abuse I see:  Submitting code endlessly without listening to feedback
-is not dealt with.  To my knowledge that is the only kind of abusive
-behavior that has every gotten anyone banned from linux mailing lists.
-
-A similar abuse is maintainers pushing too hard for their changes and
-pushing code to be included without listening to feedback.  It is very
-human but certainly something we should strive to avoid.
+-- 
+Jani Nikula, Intel Open Source Graphics Center
