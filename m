@@ -1,39 +1,28 @@
-Return-Path: <daniel.vetter@ffwll.ch>
+Return-Path: <rjw@rjwysocki.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3E509CFC
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 83491FC1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 20 Sep 2018 07:11:55 +0000 (UTC)
-Received: from mail-io1-f51.google.com (mail-io1-f51.google.com
-	[209.85.166.51])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E0E5E8D
+	Thu, 20 Sep 2018 09:05:25 +0000 (UTC)
+Received: from cloudserver094114.home.pl (cloudserver094114.home.pl
+	[79.96.170.134])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0E778174
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 20 Sep 2018 07:11:53 +0000 (UTC)
-Received: by mail-io1-f51.google.com with SMTP id c22-v6so6581115iob.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 20 Sep 2018 00:11:53 -0700 (PDT)
+	Thu, 20 Sep 2018 09:05:23 +0000 (UTC)
+From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Date: Thu, 20 Sep 2018 11:02:33 +0200
+Message-ID: <5667498.l7gq0jG24g@aspire.rjw.lan>
+In-Reply-To: <17698287.4NULLKGPAa@avalon>
+References: <20180910174638.26fff182@vmware.local.home>
+	<alpine.DEB.2.21.1809121531280.9957@nanos.tec.linutronix.de>
+	<17698287.4NULLKGPAa@avalon>
 MIME-Version: 1.0
-In-Reply-To: <20180920070100.GA21848@localhost>
-References: <20180918162948.769dda1d@coco.lan>
-	<1537356482.4640.7.camel@HansenPartnership.com>
-	<20180919083749.49268562@coco.lan> <20180919090332.723c1b75@coco.lan>
-	<1537366581.6816.1.camel@HansenPartnership.com>
-	<20180919165552.0f30bbef@coco.lan>
-	<CAPM=9tyrsJx5oaY-umNAmNDGUAFQWQ-dmh=FdsOUEQynr_yqjg@mail.gmail.com>
-	<20180919210122.694bf4a3@coco.lan>
-	<ECADFF3FD767C149AD96A924E7EA6EAF7C1EB915@USCULXMSG01.am.sony.com>
-	<875zz0y8ym.fsf@intel.com> <20180920070100.GA21848@localhost>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Thu, 20 Sep 2018 09:11:52 +0200
-Message-ID: <CAKMK7uGvhTFmq1RZX7OZ8=AW+voh+gm386durxRD+D5jeHxrQg@mail.gmail.com>
-To: Josh Triplett <josh@joshtriplett.org>,
-	David Woodhouse <dwmw2@infradead.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>, Tim.Bird@sony.com,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINER TOPIC FOR KS] CoC and Linus
- position (perhaps undocumented/closed/limited/invite session)
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -43,59 +32,157 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Sep 20, 2018 at 9:01 AM, Josh Triplett <josh@joshtriplett.org> wrote:
-> On Thu, Sep 20, 2018 at 09:33:05AM +0300, Jani Nikula wrote:
->> On Thu, 20 Sep 2018, Tim.Bird@sony.com wrote:
->> > My view is that it's intended to be a social document, with guidelines
->> > for actions within the community  (Actions by maintainers, actions
->> > by contributors, actions by the TAB).  To me it's more like rules for
->> > a party at my house.  If someone doesn't abide by the rules, I'll ask
->> > them to leave the party.  And I'll ask others at the party to remind people
->> > to abide by the rules.  But the person kicked out can hardly call the cops
->> > on me for doing so.
->>
->> Agreed.
->>
->> I think there's much more value in adopting a widely used code of
->> conduct than writing your own, or even trying to tweak it. If a project
->> uses the Contributor Covenant, you pretty much know the rules without
->> actually having to read another document and wonder what this all means.
->> In this regard, it's really not unlike the GPL for copyleft licenses;
->> one acronym tells you what you can and can't do.
+On Wednesday, September 19, 2018 10:26:20 AM CEST Laurent Pinchart wrote:
+> Hi Thomas,
+> 
+> On Wednesday, 12 September 2018 17:11:34 EEST Thomas Gleixner wrote:
+> > On Wed, 12 Sep 2018, Laurent Pinchart wrote:
+> > > Maintainers are much more than patch juggling monkeys, otherwise they
+> > > could be replaced by machines. I believe that maintainers are given the
+> > > huge responsibility of taking care of their community. Fostering a
+> > > productive work environment, attracting (and keeping) talented developers
+> > > and reviewers is a huge and honourable task, and gets my full respect. On
+> > > top of that, if a maintainer has great technical skills, it's even
+> > > better, and I've learnt a lot from talented maintainers over the time. I
+> > > however believe that technical skills are not an excuse for not leading
+> > > by example and showing what the good practices are by applying them.
+> > 
+> > I surely agree, but reality is different.
+> > 
+> > I definitely apply my own patches w/o a review tag from time to time. And
+> > aside of obvious typo cleanups/fixlets, which really can and have to do
+> > without, all of my patches are posted to LKML and I carefuly respect and
+> > address review comments.
+> > 
+> > Though, what am I supposed to do if nothing happens? Repost them five times
+> > to annoy people? Been there, tried that. Does not help.
+> 
+> Certainly not. I do apply my own patches without Reviewed-by tags from time to 
+> time as well because nobody cared enough about a particular driver to review 
+> the code. When working in corporate environment, or on code that is developed 
+> by a group of people, it gets a bit easier to find interested (or in the 
+> corporate case one could argue coerced) reviewers, but in the general case 
+> it's not always possible. I trust that you will actively try to find a 
+> reviewer for changes you have doubts about yourself, while you won't 
+> necessarily go and ping people for a typo fix.
+> 
+> I don't see anything wrong with this. My point with maintainers privilege was 
+> that maintainers shouldn't bypass the normal review procedure of sending 
+> patches out to public mailing lists, CC'ing the appropriate developers, giving 
+> a bit of time for the review to take place, and incorporating review comments 
+> in new versions. If no reviewer shows up, it's business as usual, but not 
+> different than what happens with other developers than subsystem maintainers, 
+> code can still be merged (I'd love our review rate to be improved, but that's 
+> not specific to maintainers patches, it's a general issue).
+> 
+> As I believe I have mentioned before a case where a maintainer submitted a 
+> patch touching my code, I reviewed it within a few hours, asking for changes, 
+> and the patch was still merged as-is. That's very demotivating for reviewers. 
+> Worse, I've pointed out the problem twice by replying to my original review, 
+> and still haven't received an answer. This is the kind of maintainers 
+> privilege culture that I think isn't acceptable.
 
-Yup, this matches the universal recommendation we've received when
-looking into what CoC to wrap freedesktop.org in.
+Agreed, but how many maintainers do that?
 
->> With that perspective, I think the changes proposed in this thread do
->> more harm than good. If people still insist the text should be improved,
->> I think the proper flow is to file issues or pull requests to
->> Contributor Covenant upstream [1], and later update to a new version of
->> the document.
->
-> Seconded. I've seen many changes accepted upstream, and it seems
-> reasonable to start there first.
->
-> To the extent we need any kernel-specific process clarifications that
-> *can't* usefully go upstream, I would suggest keeping them in a separate
-> document.
+Also, did you talk about the situation to anyone except for the given
+maintainer?
 
-This is the same approach we're picking on the freedesktop.org/x.org
-foundation side (the freedesktop.org CoC applied to a lot more than
-just drm). We're still working on some of the process and
-implementation details (e.g. the exact appeals procudures isn't
-defined yet). But that's all going to be written out in a separate
-policy, not in the code of conduct itself.
+Such practices are potentially dangerous from the technical standpoint too,
+so it would be good to bring them more to light when such things happen.
 
-I think that's also a good place to put clarifications (along the line
-of what David Woodhouse just suggested in another reply), like that we
-don't consider email addresses that showed up on public mailing lists
-as private data. Which is also what the freedesktop.org privacy policy
-spells out: If you send mails to mailing lists, everything in there is
-public (and due to the nature of distributed archives, can't be taken
-down again, since freedesktop.org doesn't even control them). If you
-don't like that, don't send mails to mailing lists.
--Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-+41 (0) 79 365 57 48 - http://blog.ffwll.ch
+That said, talking about "maintainers privilege" in general terms sort of puts
+all maintainers into one "ugly" bucket which many of them don't deserve.
+
+> > Most of these patches are refactoring and cleanups of the subsystems I
+> > maintain and I do them for three reasons:
+> > 
+> >   1) Making the code more maintainable, which in the first place serves the
+> >      egoistic bastard I am, because it makes my life as a maintainer
+> >      simpler in the long run. It also allows others to work easier on top
+> >      of that, which again makes it easier for me to review.
+> > 
+> >   2) During review of a feature patch submitted by someone else, I notice
+> >      that the code is crap already and the feature adds more crap to it.
+> > 
+> >      So I first try to nudge the submitter to fix that up, but either it's
+> >      outside their expertise level or they are simply telling me: 'I need
+> >      to get this in and cleanup is outside of the scope of my task'.
+> > 
+> >      For the latter, I just refuse to merge it most of the times, but then
+> >      I already identified how it should be done and go back to #1
+> > 
+> >   3) New hardware, new levels of scale unearth shortcomings in the code. I
+> >      get problem reports and because I deeply care about the stuff I'm
+> >      responsible for, I go and fix it if nobody else cares. Guess what,
+> >      often enough I do not even get a tested-by reply by the people who
+> >      complained in the first place. But with the knowledge of the problem
+> >      and the solution, I would be outright stupid to just put them into
+> >      /dev/null because applying them again makes my life easier.
+> > 
+> > So again, it's a problem which has to do with the lack of review capacity
+> > and the lack of people who really care beyond the brim of their teacup.
+> > 
+> > The 'Make feature X work upstream' task mentality of companies is part of
+> > the problem along with the expectation, that maintainers will coach,
+> > educate and babysit their newbies when they have been tasked with problems
+> > way over their expertise levels. Especially the last part is frustrating
+> > for everyone. The submitter has worked on this feature for a long time just
+> > to get it shredded in pieces and then after I got frustrated by the review
+> > ping pong, I give up and fix it myself in order to have time for other
+> > things on that ever growing todo list.
+> > 
+> > This simply cannot scale at all and I'm well aware of it, but I completely
+> > disagree that this can be fixed by more formalistic processes, gitlab or
+> > whatever people dream up.
+> 
+> No disagreement here. While gitlab offers interesting features (such as CI 
+> integration), no tool will magically improve our review capacity (a new tool 
+> could cause a marginal influx of new reviewers currently put off by the need 
+> to use e-mail, but I think that in many cases it would be canceled by the 
+> exodus of current reviewers who would be forced to use something else - gerrit 
+> comes to mind, I think that particular tool it could kill the kernel 
+> community).
+
+Well, to be a meaningful reviewer, you need to be sufficiently familiar with
+the code in question and, to put it bluntly, switching over to a new tool
+won't make people magically acquire that knowledge.
+
+Honestly, do we have any research data on how many people actually are put off
+by the "unfriendly" e-mail use for patch review requirement or is it just pure
+speculation?
+
+> > It has to be fixed at the mindset level. A code base as large and as
+> > complex as the kernel needs continous refactoring and cannot be used as
+> > dumping ground for new features in a drive by mode.
+> > 
+> > Aside of that, I see people working for large companies doing reviews in
+> > their spare time, because they care about it. But that's just wrong, they
+> > should be able to enjoy their spare time as anybody else and get the time
+> > to review during their work hours.
+> 
+> I've successfully negotiated in the past budget (as in time) with a customer 
+> to review code in subsystems of interest not directly related to the 
+> customer's needs. My main argument was that review was allowing the team to be 
+> recognized as a major actor in the subsystem, and to influence technical 
+> decisions in a direction as favourable as possible for the customer (but not 
+> at the detriment of others of course). This was unfortunately an exception 
+> rather than a rule, but I think that if we could hammer the message in at a 
+> larger scale, there would be hope for improvement.
+
+In the first place, as stated above, there need to be more people sufficiently
+failiar with the code where the review is needed and, importantly enough, with
+the assumptions behind it.  Unfortunately, this requires quite a bit of
+learning and, in many cases, significant involvement in the development of
+the code in question.  For mature and complex pieces of code this means
+a steep learning curve for pretty much no benefit at least to start with,
+unless you have a vested interest in that code for some reason.
+
+IMO the only way to improve the situation in that respect would be to find a
+way to retain the people who had already invested time and effort in thorough
+understanding of some kernel code in the community as reviewers, but
+unfortunately I don't see any easy way to achieve that.  Also, I don't really
+think that the tooling and workflow organization changes discussed in this
+thread and elsewhere are likely to really help with this particular thing.
+
+Cheers,
+Rafael
