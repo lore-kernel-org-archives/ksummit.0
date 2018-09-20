@@ -1,33 +1,34 @@
-Return-Path: <mchehab+samsung@kernel.org>
+Return-Path: <Tim.Bird@sony.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 08324FD7
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 87E00100D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 20 Sep 2018 00:01:29 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 208C47D6
+	Thu, 20 Sep 2018 00:22:29 +0000 (UTC)
+Received: from NAM01-BY2-obe.outbound.protection.outlook.com
+	(mail-by2nam01on0131.outbound.protection.outlook.com [104.47.34.131])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 193967D6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 20 Sep 2018 00:01:28 +0000 (UTC)
-Date: Wed, 19 Sep 2018 21:01:22 -0300
-From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-To: Dave Airlie <airlied@gmail.com>
-Message-ID: <20180919210122.694bf4a3@coco.lan>
-In-Reply-To: <CAPM=9tyrsJx5oaY-umNAmNDGUAFQWQ-dmh=FdsOUEQynr_yqjg@mail.gmail.com>
+	Thu, 20 Sep 2018 00:22:27 +0000 (UTC)
+From: <Tim.Bird@sony.com>
+To: <mchehab+samsung@kernel.org>, <airlied@gmail.com>
+Date: Thu, 20 Sep 2018 00:22:22 +0000
+Message-ID: <ECADFF3FD767C149AD96A924E7EA6EAF7C1EB915@USCULXMSG01.am.sony.com>
 References: <CAPM=9tz6_byufs2xdOmU73VPVU2ojb=Ox0YzQxFpOs7jztjbFg@mail.gmail.com>
 	<1537279328.3424.6.camel@HansenPartnership.com>
 	<20180918162948.769dda1d@coco.lan>
 	<1537356482.4640.7.camel@HansenPartnership.com>
-	<20180919083749.49268562@coco.lan>
-	<20180919090332.723c1b75@coco.lan>
+	<20180919083749.49268562@coco.lan>	<20180919090332.723c1b75@coco.lan>
 	<1537366581.6816.1.camel@HansenPartnership.com>
 	<20180919165552.0f30bbef@coco.lan>
 	<CAPM=9tyrsJx5oaY-umNAmNDGUAFQWQ-dmh=FdsOUEQynr_yqjg@mail.gmail.com>
+	<20180919210122.694bf4a3@coco.lan>
+In-Reply-To: <20180919210122.694bf4a3@coco.lan>
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Cc: James.Bottomley@hansenpartnership.com,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [MAINTAINER TOPIC FOR KS] CoC and Linus
  position (perhaps undocumented/closed/limited/invite session)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -39,253 +40,235 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Em Thu, 20 Sep 2018 06:23:05 +1000
-Dave Airlie <airlied@gmail.com> escreveu:
-
-> On Thu, 20 Sep 2018 at 05:56, Mauro Carvalho Chehab
-> <mchehab+samsung@kernel.org> wrote:
-> >
-> > Em Wed, 19 Sep 2018 10:16:21 -0400
-> > James Bottomley <James.Bottomley@HansenPartnership.com> escreveu:
-> > =20
-> > > On Wed, 2018-09-19 at 09:03 -0300, Mauro Carvalho Chehab wrote: =20
-> > > > Em Wed, 19 Sep 2018 08:37:49 -0300
-> > > > Mauro Carvalho Chehab <mchehab+samsung@kernel.org> escreveu:
-> > > > =20
-> > > > > Em Wed, 19 Sep 2018 07:28:02 -0400
-> > > > > James Bottomley <James.Bottomley@HansenPartnership.com> escreveu:
-> > > > > =20
-> > > > > > On Tue, 2018-09-18 at 16:29 -0300, Mauro Carvalho Chehab wrote:=
- =20
-> > > > > > > Em Tue, 18 Sep 2018 10:02:08 -0400
-> > > > > > > James Bottomley <James.Bottomley@HansenPartnership.com>
-> > > > > > > escreveu:
-> > > > > > > =20
-> > > > > > > > > After the past 2-3 days I get the feeling there are
-> > > > > > > > > maintainers unsure about how this affects them and I think
-> > > > > > > > > assuaging those fears might be a good thing.
-> > > > > > > > > =20
-> > > > > > > >
-> > > > > > > > From my perspective, which is probably fairly widespread:
-> > > > > > > > we're already pretty much policing the lists using a set of
-> > > > > > > > rules which match fairly closely to the new CoC, so there
-> > > > > > > > should really be no huge impact. =20
-> > > > > > >
-> > > > > > > After carefully reading it a couple of times, I think it has a
-> > > > > > > huge impact.
-> > > > > > >
-> > > > > > > The more immediate impact is with regards to this wording:
-> > > > > > >
-> > > > > > >       "Examples of unacceptable behavior by participants
-> > > > > > > include:
-> > > > > > >       ...
-> > > > > > >       * Publishing others=E2=80=99 private information, such =
-as a
-> > > > > > > physical or electronic
-> > > > > > >         address, without explicit permission"
-> > > > > > >
-> > > > > > > When we publish a patch with a Signed-off-by, Reviewed-by,
-> > > > > > > Acked-by, Requested-by, Suggested-by, etc, we are actually
-> > > > > > > publishing an electronic address.
-> > > > > > >
-> > > > > > > The DCO 1.1 has an explicit clause that would allow to publish
-> > > > > > > the email address from the SOB's, together to its
-> > > > > > > redistribution:
-> > > > > > >
-> > > > > > > "       (d) I understand and agree that this project and the
-> > > > > > > contribution
-> > > > > > >             are public and that a record of the contribution
-> > > > > > > (including all
-> > > > > > >             personal information I submit with it, including =
-my
-> > > > > > > sign-off) is
-> > > > > > >             maintained indefinitely and may be redistributed
-> > > > > > > consistent with
-> > > > > > >             this project or the open source license(s)
-> > > > > > > involved."
-> > > > > > >
-> > > > > > > But that doesn't cover the other tags. =20
-> > > > > >
-> > > > > > I disagree with the strictness of the interpretation: "including
-> > > > > > all personal information I submit with it" covers all the other
-> > > > > > tags. Although the expectation is the permission was obtained by
-> > > > > > one of the people adding the sign off because that's how the DCO
-> > > > > > flows, which might be a bit wishful thinking, we've always
-> > > > > > thought that it covers the additional tags for the use case
-> > > > > > section (d) was created for: national data protection acts and =
-if
-> > > > > > it covers that case, it surely covers the CoC permission case. =
-=20
-> > > > >
-> > > > > I see your point. Yes, that places the SOB signer's as^W backs
-> > > > > responsible for such thing.
-> > > > > =20
-> > > > > > Additionally, as others have said, if the tag was added from
-> > > > > > information in the public mailing list, it's not private within
-> > > > > > the meaning of the CoC.  I think the electronic mail example in
-> > > > > > the CoC is simply because it's more used in a github type
-> > > > > > environment where email addresses are private and not necessari=
-ly
-> > > > > > part of the workflow. =20
-> > > > >
-> > > > > If it doesn't apply, it should be removed. Legal documents with
-> > > > > unneeded terms only cause confusion (and this *is* a legal docume=
-nt
-> > > > > - a =20
-> > > >
-> > > > In time:
-> > > >     and this *is* a legal document -> I believe that this is a
-> > > > legal document
-> > > >
-> > > > I'm actually waiting for a legal advice about this under US laws.
-> > > > Under Brazilian laws (and probably other civil law system), I'm
-> > > > almost sure it is a contract - if this is a valid or a void one has
-> > > > yet to be seen. =20
-> > >
-> > > OK, I can't disagree with this.  It does definitely impose obligations
-> > > that are legally meaningful.  However ... =20
->=20
-> A legal document would mean there were legal repercussions for
-> violating it, like violating copyright laws or getting fired for
-> violating your employment contract.
->=20
-> This doesn't seem to stand on that, this is a set of guidelines for
-> how a community should act.=20
-
-The previous CoC were a set of guidelines. That's not the case of
-this one anymore. It has a legal language, defining a mediation forum
-(TAB), improper conducts, penalties, scope, responsibilities, etc.
-
-> The people interpreting the document are
-> members of the community that we in theory trust (via TAB elections).
-
-My view is that, the way it is, if someone is not happy with TAB
-decisions, it can use CoC to fill a suit in court. If this happens,
-I suspect that it will turn very badly, as the improper conducts
-are too wide. The ones that will be hurt are the maintainers
-(as about half of the document is about duties and penalties to
-maintainers).
-
-I don't see there a single word about penalties for false claims.
-
-> These are examples of things that cause problems, and guidelines to
-> follow to avoid bad behaviours, but the intent still matters at the
-> end of the day. If someone complains you accidentally tagged their
-> email, the people on the complaints review will figure that out.
->=20
-> It's funny we don't really have this problem with the drm so far, due
-> to mainly group maintainership. If someone sends me a private email
-> unless it's a security issue, I ask them to resend it to the public
-> lists and/or use a public bugzilla, before I action it. This ensures
-> that members of group teams can engage as a group instead of one
-> maintainer having the primary inbox load.
->=20
-> I've no objections to clarifying this sort of thing and I think it's
-> important that we do, but trying to turn this document into something
-> like an legal employment contract isn't going to be helpful.
-
-I'm actually in favor of the opposite: to remove everything that looks
-like a legal contract.
-
-Something like the patch below.
-
-PS. It incorporates Tony's suggestions, with an addition with regards
-to IRC public channels. It is not common, but sometimes we give
-credits on some patches from people that commented on IRC chats,
-and that sometimes we don't know their emails.
-
-I opted to not realign the document, in order to make easier to review.
-
-Thanks,
-Mauro
-
-diff --git a/Documentation/process/code-of-conduct.rst b/Documentation/proc=
-ess/code-of-conduct.rst
-index ab7c24b5478c..aa763c51f421 100644
---- a/Documentation/process/code-of-conduct.rst
-+++ b/Documentation/process/code-of-conduct.rst
-@@ -30,50 +30,48 @@ Examples of unacceptable behavior by participants inclu=
-de:
-   advances
- * Trolling, insulting/derogatory comments, and personal or political attac=
-ks
- * Public or private harassment
--* Publishing others=E2=80=99 private information, such as a physical or el=
-ectronic
--  address, without explicit permission
-+* Publishing others' private information, such as a physical or electronic
-+  address[1], without explicit permission
- * Other conduct which could reasonably be considered inappropriate in a
-   professional setting
-=20
-+[1] Note that electronic addresses used on public mailing lists and public
-+IRC channels associated with the Kernel community are not considered to be
-+private information and can (in fact should) be used to give credit in
-+Reported-by, Acked-by, Tested-by etc. tags.
-=20
- Our Responsibilities
- =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-=20
- Maintainers are responsible for clarifying the standards of acceptable beh=
-avior
--and are expected to take appropriate and fair corrective action in respons=
-e to
-+and are asked to take appropriate and fair corrective action in response to
- any instances of unacceptable behavior.
-=20
--Maintainers have the right and responsibility to remove, edit, or reject
--comments, commits, code, wiki edits, issues, and other contributions that =
-are
-+Maintainers have the right to remove, edit, or reject
-+comments, commits, code, wiki edits, issues and other contributions that a=
-re
- not aligned to this Code of Conduct, or to ban temporarily or permanently =
-any
- contributor for other behaviors that they deem inappropriate, threatening,
--offensive, or harmful.
-+offensive or harmful.
-=20
- Scope
- =3D=3D=3D=3D=3D
-=20
- This Code of Conduct applies both within project spaces and in public spac=
-es
--when an individual is representing the project or its community. Examples =
-of
--representing a project or community include using an official project e-ma=
-il
--address, posting via an official social media account, or acting as an app=
-ointed
--representative at an online or offline event. Representation of a project =
-may be
-+when an individual is representing the project or its community. It also
-+applies to e-mails using kernel.org address. Representation of a project m=
-ay be
- further defined and clarified by project maintainers.
-=20
- Enforcement
- =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-=20
--Instances of abusive, harassing, or otherwise unacceptable behavior may be
-+Instances of abusive, harassing, or otherwise unacceptable behavior should=
- be
- reported by contacting the Technical Advisory Board (TAB) at
- <tab@lists.linux-foundation.org>. All complaints will be reviewed and
- investigated and will result in a response that is deemed necessary and
--appropriate to the circumstances. The TAB is obligated to maintain
--confidentiality with regard to the reporter of an incident.  Further detai=
-ls of
-+appropriate to the circumstances. The TAB will maintain
-+confidentiality with regards to the reporter of an incident. Further detai=
-ls of
- specific enforcement policies may be posted separately.
-=20
--Maintainers who do not follow or enforce the Code of Conduct in good faith=
- may
--face temporary or permanent repercussions as determined by other members o=
-f the
--project=E2=80=99s leadership.
--
- Attribution
- =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-=20
+DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogTWF1cm8gQ2FydmFsaG8g
+Q2hlaGFiDQo+IEVtIFRodSwgMjAgU2VwIDIwMTggMDY6MjM6MDUgKzEwMDANCj4gRGF2ZSBBaXJs
+aWUgPGFpcmxpZWRAZ21haWwuY29tPiBlc2NyZXZldToNCj4gDQo+ID4gT24gVGh1LCAyMCBTZXAg
+MjAxOCBhdCAwNTo1NiwgTWF1cm8gQ2FydmFsaG8gQ2hlaGFiDQo+ID4gPG1jaGVoYWIrc2Ftc3Vu
+Z0BrZXJuZWwub3JnPiB3cm90ZToNCj4gPiA+DQo+ID4gPiBFbSBXZWQsIDE5IFNlcCAyMDE4IDEw
+OjE2OjIxIC0wNDAwDQo+ID4gPiBKYW1lcyBCb3R0b21sZXkgPEphbWVzLkJvdHRvbWxleUBIYW5z
+ZW5QYXJ0bmVyc2hpcC5jb20+DQo+IGVzY3JldmV1Og0KPiA+ID4NCj4gPiA+ID4gT24gV2VkLCAy
+MDE4LTA5LTE5IGF0IDA5OjAzIC0wMzAwLCBNYXVybyBDYXJ2YWxobyBDaGVoYWIgd3JvdGU6DQo+
+ID4gPiA+ID4gRW0gV2VkLCAxOSBTZXAgMjAxOCAwODozNzo0OSAtMDMwMA0KPiA+ID4gPiA+IE1h
+dXJvIENhcnZhbGhvIENoZWhhYiA8bWNoZWhhYitzYW1zdW5nQGtlcm5lbC5vcmc+IGVzY3JldmV1
+Og0KPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiBFbSBXZWQsIDE5IFNlcCAyMDE4IDA3OjI4OjAyIC0w
+NDAwDQo+ID4gPiA+ID4gPiBKYW1lcyBCb3R0b21sZXkgPEphbWVzLkJvdHRvbWxleUBIYW5zZW5Q
+YXJ0bmVyc2hpcC5jb20+DQo+IGVzY3JldmV1Og0KPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4g
+T24gVHVlLCAyMDE4LTA5LTE4IGF0IDE2OjI5IC0wMzAwLCBNYXVybyBDYXJ2YWxobyBDaGVoYWIg
+d3JvdGU6DQo+ID4gPiA+ID4gPiA+ID4gRW0gVHVlLCAxOCBTZXAgMjAxOCAxMDowMjowOCAtMDQw
+MA0KPiA+ID4gPiA+ID4gPiA+IEphbWVzIEJvdHRvbWxleSA8SmFtZXMuQm90dG9tbGV5QEhhbnNl
+blBhcnRuZXJzaGlwLmNvbT4NCj4gPiA+ID4gPiA+ID4gPiBlc2NyZXZldToNCj4gPiA+ID4gPiA+
+ID4gPg0KPiA+ID4gPiA+ID4gPiA+ID4gPiBBZnRlciB0aGUgcGFzdCAyLTMgZGF5cyBJIGdldCB0
+aGUgZmVlbGluZyB0aGVyZSBhcmUNCj4gPiA+ID4gPiA+ID4gPiA+ID4gbWFpbnRhaW5lcnMgdW5z
+dXJlIGFib3V0IGhvdyB0aGlzIGFmZmVjdHMgdGhlbSBhbmQgSSB0aGluaw0KPiA+ID4gPiA+ID4g
+PiA+ID4gPiBhc3N1YWdpbmcgdGhvc2UgZmVhcnMgbWlnaHQgYmUgYSBnb29kIHRoaW5nLg0KPiA+
+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+IEZy
+b20gbXkgcGVyc3BlY3RpdmUsIHdoaWNoIGlzIHByb2JhYmx5IGZhaXJseSB3aWRlc3ByZWFkOg0K
+PiA+ID4gPiA+ID4gPiA+ID4gd2UncmUgYWxyZWFkeSBwcmV0dHkgbXVjaCBwb2xpY2luZyB0aGUg
+bGlzdHMgdXNpbmcgYSBzZXQgb2YNCj4gPiA+ID4gPiA+ID4gPiA+IHJ1bGVzIHdoaWNoIG1hdGNo
+IGZhaXJseSBjbG9zZWx5IHRvIHRoZSBuZXcgQ29DLCBzbyB0aGVyZQ0KPiA+ID4gPiA+ID4gPiA+
+ID4gc2hvdWxkIHJlYWxseSBiZSBubyBodWdlIGltcGFjdC4NCj4gPiA+ID4gPiA+ID4gPg0KPiA+
+ID4gPiA+ID4gPiA+IEFmdGVyIGNhcmVmdWxseSByZWFkaW5nIGl0IGEgY291cGxlIG9mIHRpbWVz
+LCBJIHRoaW5rIGl0IGhhcyBhDQo+ID4gPiA+ID4gPiA+ID4gaHVnZSBpbXBhY3QuDQo+ID4gPiA+
+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiBUaGUgbW9yZSBpbW1lZGlhdGUgaW1wYWN0IGlzIHdp
+dGggcmVnYXJkcyB0byB0aGlzIHdvcmRpbmc6DQo+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+
+ID4gPiAgICAgICAiRXhhbXBsZXMgb2YgdW5hY2NlcHRhYmxlIGJlaGF2aW9yIGJ5IHBhcnRpY2lw
+YW50cw0KPiA+ID4gPiA+ID4gPiA+IGluY2x1ZGU6DQo+ID4gPiA+ID4gPiA+ID4gICAgICAgLi4u
+DQo+ID4gPiA+ID4gPiA+ID4gICAgICAgKiBQdWJsaXNoaW5nIG90aGVyc+KAmSBwcml2YXRlIGlu
+Zm9ybWF0aW9uLCBzdWNoIGFzIGENCj4gPiA+ID4gPiA+ID4gPiBwaHlzaWNhbCBvciBlbGVjdHJv
+bmljDQo+ID4gPiA+ID4gPiA+ID4gICAgICAgICBhZGRyZXNzLCB3aXRob3V0IGV4cGxpY2l0IHBl
+cm1pc3Npb24iDQo+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiBXaGVuIHdlIHB1Ymxp
+c2ggYSBwYXRjaCB3aXRoIGEgU2lnbmVkLW9mZi1ieSwgUmV2aWV3ZWQtYnksDQo+ID4gPiA+ID4g
+PiA+ID4gQWNrZWQtYnksIFJlcXVlc3RlZC1ieSwgU3VnZ2VzdGVkLWJ5LCBldGMsIHdlIGFyZSBh
+Y3R1YWxseQ0KPiA+ID4gPiA+ID4gPiA+IHB1Ymxpc2hpbmcgYW4gZWxlY3Ryb25pYyBhZGRyZXNz
+Lg0KPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gVGhlIERDTyAxLjEgaGFzIGFuIGV4
+cGxpY2l0IGNsYXVzZSB0aGF0IHdvdWxkIGFsbG93IHRvIHB1Ymxpc2gNCj4gPiA+ID4gPiA+ID4g
+PiB0aGUgZW1haWwgYWRkcmVzcyBmcm9tIHRoZSBTT0IncywgdG9nZXRoZXIgdG8gaXRzDQo+ID4g
+PiA+ID4gPiA+ID4gcmVkaXN0cmlidXRpb246DQo+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+
+ID4gPiAiICAgICAgIChkKSBJIHVuZGVyc3RhbmQgYW5kIGFncmVlIHRoYXQgdGhpcyBwcm9qZWN0
+IGFuZCB0aGUNCj4gPiA+ID4gPiA+ID4gPiBjb250cmlidXRpb24NCj4gPiA+ID4gPiA+ID4gPiAg
+ICAgICAgICAgICBhcmUgcHVibGljIGFuZCB0aGF0IGEgcmVjb3JkIG9mIHRoZSBjb250cmlidXRp
+b24NCj4gPiA+ID4gPiA+ID4gPiAoaW5jbHVkaW5nIGFsbA0KPiA+ID4gPiA+ID4gPiA+ICAgICAg
+ICAgICAgIHBlcnNvbmFsIGluZm9ybWF0aW9uIEkgc3VibWl0IHdpdGggaXQsIGluY2x1ZGluZyBt
+eQ0KPiA+ID4gPiA+ID4gPiA+IHNpZ24tb2ZmKSBpcw0KPiA+ID4gPiA+ID4gPiA+ICAgICAgICAg
+ICAgIG1haW50YWluZWQgaW5kZWZpbml0ZWx5IGFuZCBtYXkgYmUgcmVkaXN0cmlidXRlZA0KPiA+
+ID4gPiA+ID4gPiA+IGNvbnNpc3RlbnQgd2l0aA0KPiA+ID4gPiA+ID4gPiA+ICAgICAgICAgICAg
+IHRoaXMgcHJvamVjdCBvciB0aGUgb3BlbiBzb3VyY2UgbGljZW5zZShzKQ0KPiA+ID4gPiA+ID4g
+PiA+IGludm9sdmVkLiINCj4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+IEJ1dCB0aGF0
+IGRvZXNuJ3QgY292ZXIgdGhlIG90aGVyIHRhZ3MuDQo+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4g
+PiA+IEkgZGlzYWdyZWUgd2l0aCB0aGUgc3RyaWN0bmVzcyBvZiB0aGUgaW50ZXJwcmV0YXRpb246
+ICJpbmNsdWRpbmcNCj4gPiA+ID4gPiA+ID4gYWxsIHBlcnNvbmFsIGluZm9ybWF0aW9uIEkgc3Vi
+bWl0IHdpdGggaXQiIGNvdmVycyBhbGwgdGhlIG90aGVyDQo+ID4gPiA+ID4gPiA+IHRhZ3MuIEFs
+dGhvdWdoIHRoZSBleHBlY3RhdGlvbiBpcyB0aGUgcGVybWlzc2lvbiB3YXMgb2J0YWluZWQgYnkN
+Cj4gPiA+ID4gPiA+ID4gb25lIG9mIHRoZSBwZW9wbGUgYWRkaW5nIHRoZSBzaWduIG9mZiBiZWNh
+dXNlIHRoYXQncyBob3cgdGhlIERDTw0KPiA+ID4gPiA+ID4gPiBmbG93cywgd2hpY2ggbWlnaHQg
+YmUgYSBiaXQgd2lzaGZ1bCB0aGlua2luZywgd2UndmUgYWx3YXlzDQo+ID4gPiA+ID4gPiA+IHRo
+b3VnaHQgdGhhdCBpdCBjb3ZlcnMgdGhlIGFkZGl0aW9uYWwgdGFncyBmb3IgdGhlIHVzZSBjYXNl
+DQo+ID4gPiA+ID4gPiA+IHNlY3Rpb24gKGQpIHdhcyBjcmVhdGVkIGZvcjogbmF0aW9uYWwgZGF0
+YSBwcm90ZWN0aW9uIGFjdHMgYW5kIGlmDQo+ID4gPiA+ID4gPiA+IGl0IGNvdmVycyB0aGF0IGNh
+c2UsIGl0IHN1cmVseSBjb3ZlcnMgdGhlIENvQyBwZXJtaXNzaW9uIGNhc2UuDQo+ID4gPiA+ID4g
+Pg0KPiA+ID4gPiA+ID4gSSBzZWUgeW91ciBwb2ludC4gWWVzLCB0aGF0IHBsYWNlcyB0aGUgU09C
+IHNpZ25lcidzIGFzXlcgYmFja3MNCj4gPiA+ID4gPiA+IHJlc3BvbnNpYmxlIGZvciBzdWNoIHRo
+aW5nLg0KPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gQWRkaXRpb25hbGx5LCBhcyBvdGhlcnMg
+aGF2ZSBzYWlkLCBpZiB0aGUgdGFnIHdhcyBhZGRlZCBmcm9tDQo+ID4gPiA+ID4gPiA+IGluZm9y
+bWF0aW9uIGluIHRoZSBwdWJsaWMgbWFpbGluZyBsaXN0LCBpdCdzIG5vdCBwcml2YXRlIHdpdGhp
+bg0KPiA+ID4gPiA+ID4gPiB0aGUgbWVhbmluZyBvZiB0aGUgQ29DLiAgSSB0aGluayB0aGUgZWxl
+Y3Ryb25pYyBtYWlsIGV4YW1wbGUgaW4NCj4gPiA+ID4gPiA+ID4gdGhlIENvQyBpcyBzaW1wbHkg
+YmVjYXVzZSBpdCdzIG1vcmUgdXNlZCBpbiBhIGdpdGh1YiB0eXBlDQo+ID4gPiA+ID4gPiA+IGVu
+dmlyb25tZW50IHdoZXJlIGVtYWlsIGFkZHJlc3NlcyBhcmUgcHJpdmF0ZSBhbmQgbm90DQo+IG5l
+Y2Vzc2FyaWx5DQo+ID4gPiA+ID4gPiA+IHBhcnQgb2YgdGhlIHdvcmtmbG93Lg0KPiA+ID4gPiA+
+ID4NCj4gPiA+ID4gPiA+IElmIGl0IGRvZXNuJ3QgYXBwbHksIGl0IHNob3VsZCBiZSByZW1vdmVk
+LiBMZWdhbCBkb2N1bWVudHMgd2l0aA0KPiA+ID4gPiA+ID4gdW5uZWVkZWQgdGVybXMgb25seSBj
+YXVzZSBjb25mdXNpb24gKGFuZCB0aGlzICppcyogYSBsZWdhbA0KPiBkb2N1bWVudA0KPiA+ID4g
+PiA+ID4gLSBhDQo+ID4gPiA+ID4NCj4gPiA+ID4gPiBJbiB0aW1lOg0KPiA+ID4gPiA+ICAgICBh
+bmQgdGhpcyAqaXMqIGEgbGVnYWwgZG9jdW1lbnQgLT4gSSBiZWxpZXZlIHRoYXQgdGhpcyBpcyBh
+DQo+ID4gPiA+ID4gbGVnYWwgZG9jdW1lbnQNCj4gPiA+ID4gPg0KPiA+ID4gPiA+IEknbSBhY3R1
+YWxseSB3YWl0aW5nIGZvciBhIGxlZ2FsIGFkdmljZSBhYm91dCB0aGlzIHVuZGVyIFVTIGxhd3Mu
+DQo+ID4gPiA+ID4gVW5kZXIgQnJhemlsaWFuIGxhd3MgKGFuZCBwcm9iYWJseSBvdGhlciBjaXZp
+bCBsYXcgc3lzdGVtKSwgSSdtDQo+ID4gPiA+ID4gYWxtb3N0IHN1cmUgaXQgaXMgYSBjb250cmFj
+dCAtIGlmIHRoaXMgaXMgYSB2YWxpZCBvciBhIHZvaWQgb25lIGhhcw0KPiA+ID4gPiA+IHlldCB0
+byBiZSBzZWVuLg0KPiA+ID4gPg0KPiA+ID4gPiBPSywgSSBjYW4ndCBkaXNhZ3JlZSB3aXRoIHRo
+aXMuICBJdCBkb2VzIGRlZmluaXRlbHkgaW1wb3NlIG9ibGlnYXRpb25zDQo+ID4gPiA+IHRoYXQg
+YXJlIGxlZ2FsbHkgbWVhbmluZ2Z1bC4gIEhvd2V2ZXIgLi4uDQo+ID4NCj4gPiBBIGxlZ2FsIGRv
+Y3VtZW50IHdvdWxkIG1lYW4gdGhlcmUgd2VyZSBsZWdhbCByZXBlcmN1c3Npb25zIGZvcg0KPiA+
+IHZpb2xhdGluZyBpdCwgbGlrZSB2aW9sYXRpbmcgY29weXJpZ2h0IGxhd3Mgb3IgZ2V0dGluZyBm
+aXJlZCBmb3INCj4gPiB2aW9sYXRpbmcgeW91ciBlbXBsb3ltZW50IGNvbnRyYWN0Lg0KPiA+DQo+
+ID4gVGhpcyBkb2Vzbid0IHNlZW0gdG8gc3RhbmQgb24gdGhhdCwgdGhpcyBpcyBhIHNldCBvZiBn
+dWlkZWxpbmVzIGZvcg0KPiA+IGhvdyBhIGNvbW11bml0eSBzaG91bGQgYWN0Lg0KPiANCj4gVGhl
+IHByZXZpb3VzIENvQyB3ZXJlIGEgc2V0IG9mIGd1aWRlbGluZXMuIFRoYXQncyBub3QgdGhlIGNh
+c2Ugb2YNCj4gdGhpcyBvbmUgYW55bW9yZS4gSXQgaGFzIGEgbGVnYWwgbGFuZ3VhZ2UsIGRlZmlu
+aW5nIGEgbWVkaWF0aW9uIGZvcnVtDQo+IChUQUIpLCBpbXByb3BlciBjb25kdWN0cywgcGVuYWx0
+aWVzLCBzY29wZSwgcmVzcG9uc2liaWxpdGllcywgZXRjLg0KSnVzdCBiZWNhdXNlIGl0IGhhcyB0
+aGVzZSBzZWN0aW9ucywgYW5kIGxhbmd1YWdlIHRoYXQgaXMgYWxzbyB1c2VkDQppbiBsZWdhbCBk
+b2N1bWVudHMsIGRvZXMgbm90IG1ha2UgaXQgYSBsZWdhbCBkb2N1bWVudC4NCg0KTXkgdmlldyBp
+cyB0aGF0IGl0J3MgaW50ZW5kZWQgdG8gYmUgYSBzb2NpYWwgZG9jdW1lbnQsIHdpdGggZ3VpZGVs
+aW5lcw0KZm9yIGFjdGlvbnMgd2l0aGluIHRoZSBjb21tdW5pdHkgIChBY3Rpb25zIGJ5IG1haW50
+YWluZXJzLCBhY3Rpb25zDQpieSBjb250cmlidXRvcnMsIGFjdGlvbnMgYnkgdGhlIFRBQikuICBU
+byBtZSBpdCdzIG1vcmUgbGlrZSBydWxlcyBmb3INCmEgcGFydHkgYXQgbXkgaG91c2UuICBJZiBz
+b21lb25lIGRvZXNuJ3QgYWJpZGUgYnkgdGhlIHJ1bGVzLCBJJ2xsIGFzaw0KdGhlbSB0byBsZWF2
+ZSB0aGUgcGFydHkuICBBbmQgSSdsbCBhc2sgb3RoZXJzIGF0IHRoZSBwYXJ0eSB0byByZW1pbmQg
+cGVvcGxlDQp0byBhYmlkZSBieSB0aGUgcnVsZXMuICBCdXQgdGhlIHBlcnNvbiBraWNrZWQgb3V0
+IGNhbiBoYXJkbHkgY2FsbCB0aGUgY29wcw0Kb24gbWUgZm9yIGRvaW5nIHNvLg0KICAgLS0gVGlt
+DQoNCj4gDQo+ID4gVGhlIHBlb3BsZSBpbnRlcnByZXRpbmcgdGhlIGRvY3VtZW50IGFyZQ0KPiA+
+IG1lbWJlcnMgb2YgdGhlIGNvbW11bml0eSB0aGF0IHdlIGluIHRoZW9yeSB0cnVzdCAodmlhIFRB
+QiBlbGVjdGlvbnMpLg0KPiANCj4gTXkgdmlldyBpcyB0aGF0LCB0aGUgd2F5IGl0IGlzLCBpZiBz
+b21lb25lIGlzIG5vdCBoYXBweSB3aXRoIFRBQg0KPiBkZWNpc2lvbnMsIGl0IGNhbiB1c2UgQ29D
+IHRvIGZpbGwgYSBzdWl0IGluIGNvdXJ0Lg0KDQpJcyB0aGVyZSBhbiBleGFtcGxlIHdoZXJlIHRo
+aXMgaGFzIGhhcHBlbmVkLCBvciBldmVuIGNvbWUgY2xvc2UgdG8NCmhhcHBlbmluZyAoZS5nLiBz
+b21lb25lIHZlcmJhbGx5IHRocmVhdGVuZWQgdG8gc3VlIGJhc2VkIG9uIGEgDQpDb0MgYWN0aW9u
+IGxpa2UgZS1tYWlsIGJhbm5pbmc/KSAgSWYgc28sIEknZCBsaWtlIHRvIGxvb2sgYXQgdGhlIGRl
+dGFpbHMuDQpUaGUgb25seSB0aGluZ3MgSSBjYW4gdGhpbmsgb2YgYXJlIGNhc2VzIHdoZXJlIHRo
+ZXJlIGFjdHVhbGx5IGlzIGEgbGVnYWwNCmRvY3VtZW50IGdvdmVybmluZyBncmFudGluZyBhY2Nl
+c3MgdG8sIGZvciBleGFtcGxlLCBhIHNvY2lhbCBtZWRpYQ0Kc2l0ZS4NCg0KPiBJZiB0aGlzIGhh
+cHBlbnMsDQo+IEkgc3VzcGVjdCB0aGF0IGl0IHdpbGwgdHVybiB2ZXJ5IGJhZGx5LCBhcyB0aGUg
+aW1wcm9wZXIgY29uZHVjdHMNCj4gYXJlIHRvbyB3aWRlLiBUaGUgb25lcyB0aGF0IHdpbGwgYmUg
+aHVydCBhcmUgdGhlIG1haW50YWluZXJzDQo+IChhcyBhYm91dCBoYWxmIG9mIHRoZSBkb2N1bWVu
+dCBpcyBhYm91dCBkdXRpZXMgYW5kIHBlbmFsdGllcyB0bw0KPiBtYWludGFpbmVycykuDQo+IA0K
+PiBJIGRvbid0IHNlZSB0aGVyZSBhIHNpbmdsZSB3b3JkIGFib3V0IHBlbmFsdGllcyBmb3IgZmFs
+c2UgY2xhaW1zLg0KRGVtb25zdHJhYmx5IGZhbHNlIGNsYWltcywgbWFkZSBpbiBiYWQgZmFpdGgs
+IHdvdWxkIHZpb2xhdGUgdGhlDQpDb0MsIElNSE8uICBTbyB0aGV5J2QgYmUgY292ZXJlZC4NCj4g
+DQo+ID4gVGhlc2UgYXJlIGV4YW1wbGVzIG9mIHRoaW5ncyB0aGF0IGNhdXNlIHByb2JsZW1zLCBh
+bmQgZ3VpZGVsaW5lcyB0bw0KPiA+IGZvbGxvdyB0byBhdm9pZCBiYWQgYmVoYXZpb3VycywgYnV0
+IHRoZSBpbnRlbnQgc3RpbGwgbWF0dGVycyBhdCB0aGUNCj4gPiBlbmQgb2YgdGhlIGRheS4gSWYg
+c29tZW9uZSBjb21wbGFpbnMgeW91IGFjY2lkZW50YWxseSB0YWdnZWQgdGhlaXINCj4gPiBlbWFp
+bCwgdGhlIHBlb3BsZSBvbiB0aGUgY29tcGxhaW50cyByZXZpZXcgd2lsbCBmaWd1cmUgdGhhdCBv
+dXQuDQo+ID4NCj4gPiBJdCdzIGZ1bm55IHdlIGRvbid0IHJlYWxseSBoYXZlIHRoaXMgcHJvYmxl
+bSB3aXRoIHRoZSBkcm0gc28gZmFyLCBkdWUNCj4gPiB0byBtYWlubHkgZ3JvdXAgbWFpbnRhaW5l
+cnNoaXAuIElmIHNvbWVvbmUgc2VuZHMgbWUgYSBwcml2YXRlIGVtYWlsDQo+ID4gdW5sZXNzIGl0
+J3MgYSBzZWN1cml0eSBpc3N1ZSwgSSBhc2sgdGhlbSB0byByZXNlbmQgaXQgdG8gdGhlIHB1Ymxp
+Yw0KPiA+IGxpc3RzIGFuZC9vciB1c2UgYSBwdWJsaWMgYnVnemlsbGEsIGJlZm9yZSBJIGFjdGlv
+biBpdC4gVGhpcyBlbnN1cmVzDQo+ID4gdGhhdCBtZW1iZXJzIG9mIGdyb3VwIHRlYW1zIGNhbiBl
+bmdhZ2UgYXMgYSBncm91cCBpbnN0ZWFkIG9mIG9uZQ0KPiA+IG1haW50YWluZXIgaGF2aW5nIHRo
+ZSBwcmltYXJ5IGluYm94IGxvYWQuDQo+ID4NCj4gPiBJJ3ZlIG5vIG9iamVjdGlvbnMgdG8gY2xh
+cmlmeWluZyB0aGlzIHNvcnQgb2YgdGhpbmcgYW5kIEkgdGhpbmsgaXQncw0KPiA+IGltcG9ydGFu
+dCB0aGF0IHdlIGRvLCBidXQgdHJ5aW5nIHRvIHR1cm4gdGhpcyBkb2N1bWVudCBpbnRvIHNvbWV0
+aGluZw0KPiA+IGxpa2UgYW4gbGVnYWwgZW1wbG95bWVudCBjb250cmFjdCBpc24ndCBnb2luZyB0
+byBiZSBoZWxwZnVsLg0KPiANCj4gSSdtIGFjdHVhbGx5IGluIGZhdm9yIG9mIHRoZSBvcHBvc2l0
+ZTogdG8gcmVtb3ZlIGV2ZXJ5dGhpbmcgdGhhdCBsb29rcw0KPiBsaWtlIGEgbGVnYWwgY29udHJh
+Y3QuDQo+IA0KPiBTb21ldGhpbmcgbGlrZSB0aGUgcGF0Y2ggYmVsb3cuDQoNClNpbmNlIHRoaXMg
+Q29DIGhhcyBiZWVuIHVzZWQgYnkgYSBMT1Qgb2YgcHJvamVjdHMsIGl0IG1pZ2h0IGJlIHdvcnRo
+DQpyZXNlYXJjaGluZyB0aGUgZGlzY3Vzc2lvbnMgbGVhZGluZyB0byB0aGUgYWRvcHRpb24gb2Yg
+aXQgaW4gdGhvc2UNCm90aGVyIHByb2plY3RzLCB0byBzZWUgaWYgc2ltaWxhciBpc3N1ZXMgd2Vy
+ZSByYWlzZWQsIGFuZCB3aGF0ICB0aGUgcmVzcG9uc2UNCndhcy4gIEknbSBub3Qgc3VyZSBpZiBJ
+J2xsIGhhdmUgdGltZSB0byBkbyB0aGF0IG15c2VsZiBpbiB0aGUgc2hvcnQgdGVybSwNCmJ1dCBJ
+J2xsIHRyeSB0byBhdCBsZWFzdCBsb29rIGF0IHNvbWUgb2YgdGhlIHB1YmxpYyByZXZpc2lvbiBo
+aXN0b3J5IG9mIHRoZSBDb0MNCnRvIHNlZSBpZiB0aGVyZSdzIGFueSBlbmxpZ2h0ZW5tZW50IHRo
+ZXJlLg0KDQpSZWdhcmRzLA0KIC0tIFRpbQ0KDQoNCj4gDQo+IFBTLiBJdCBpbmNvcnBvcmF0ZXMg
+VG9ueSdzIHN1Z2dlc3Rpb25zLCB3aXRoIGFuIGFkZGl0aW9uIHdpdGggcmVnYXJkcw0KPiB0byBJ
+UkMgcHVibGljIGNoYW5uZWxzLiBJdCBpcyBub3QgY29tbW9uLCBidXQgc29tZXRpbWVzIHdlIGdp
+dmUNCj4gY3JlZGl0cyBvbiBzb21lIHBhdGNoZXMgZnJvbSBwZW9wbGUgdGhhdCBjb21tZW50ZWQg
+b24gSVJDIGNoYXRzLA0KPiBhbmQgdGhhdCBzb21ldGltZXMgd2UgZG9uJ3Qga25vdyB0aGVpciBl
+bWFpbHMuDQo+IA0KPiBJIG9wdGVkIHRvIG5vdCByZWFsaWduIHRoZSBkb2N1bWVudCwgaW4gb3Jk
+ZXIgdG8gbWFrZSBlYXNpZXIgdG8gcmV2aWV3Lg0KPiANCj4gVGhhbmtzLA0KPiBNYXVybw0KPiAN
+Cj4gZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24vcHJvY2Vzcy9jb2RlLW9mLWNvbmR1Y3QucnN0
+DQo+IGIvRG9jdW1lbnRhdGlvbi9wcm9jZXNzL2NvZGUtb2YtY29uZHVjdC5yc3QNCj4gaW5kZXgg
+YWI3YzI0YjU0NzhjLi5hYTc2M2M1MWY0MjEgMTAwNjQ0DQo+IC0tLSBhL0RvY3VtZW50YXRpb24v
+cHJvY2Vzcy9jb2RlLW9mLWNvbmR1Y3QucnN0DQo+ICsrKyBiL0RvY3VtZW50YXRpb24vcHJvY2Vz
+cy9jb2RlLW9mLWNvbmR1Y3QucnN0DQo+IEBAIC0zMCw1MCArMzAsNDggQEAgRXhhbXBsZXMgb2Yg
+dW5hY2NlcHRhYmxlIGJlaGF2aW9yIGJ5IHBhcnRpY2lwYW50cw0KPiBpbmNsdWRlOg0KPiAgICBh
+ZHZhbmNlcw0KPiAgKiBUcm9sbGluZywgaW5zdWx0aW5nL2Rlcm9nYXRvcnkgY29tbWVudHMsIGFu
+ZCBwZXJzb25hbCBvciBwb2xpdGljYWwgYXR0YWNrcw0KPiAgKiBQdWJsaWMgb3IgcHJpdmF0ZSBo
+YXJhc3NtZW50DQo+IC0qIFB1Ymxpc2hpbmcgb3RoZXJz4oCZIHByaXZhdGUgaW5mb3JtYXRpb24s
+IHN1Y2ggYXMgYSBwaHlzaWNhbCBvciBlbGVjdHJvbmljDQo+IC0gIGFkZHJlc3MsIHdpdGhvdXQg
+ZXhwbGljaXQgcGVybWlzc2lvbg0KPiArKiBQdWJsaXNoaW5nIG90aGVycycgcHJpdmF0ZSBpbmZv
+cm1hdGlvbiwgc3VjaCBhcyBhIHBoeXNpY2FsIG9yIGVsZWN0cm9uaWMNCj4gKyAgYWRkcmVzc1sx
+XSwgd2l0aG91dCBleHBsaWNpdCBwZXJtaXNzaW9uDQo+ICAqIE90aGVyIGNvbmR1Y3Qgd2hpY2gg
+Y291bGQgcmVhc29uYWJseSBiZSBjb25zaWRlcmVkIGluYXBwcm9wcmlhdGUgaW4gYQ0KPiAgICBw
+cm9mZXNzaW9uYWwgc2V0dGluZw0KPiANCj4gK1sxXSBOb3RlIHRoYXQgZWxlY3Ryb25pYyBhZGRy
+ZXNzZXMgdXNlZCBvbiBwdWJsaWMgbWFpbGluZyBsaXN0cyBhbmQgcHVibGljDQo+ICtJUkMgY2hh
+bm5lbHMgYXNzb2NpYXRlZCB3aXRoIHRoZSBLZXJuZWwgY29tbXVuaXR5IGFyZSBub3QgY29uc2lk
+ZXJlZCB0bw0KPiBiZQ0KPiArcHJpdmF0ZSBpbmZvcm1hdGlvbiBhbmQgY2FuIChpbiBmYWN0IHNo
+b3VsZCkgYmUgdXNlZCB0byBnaXZlIGNyZWRpdCBpbg0KPiArUmVwb3J0ZWQtYnksIEFja2VkLWJ5
+LCBUZXN0ZWQtYnkgZXRjLiB0YWdzLg0KPiANCj4gIE91ciBSZXNwb25zaWJpbGl0aWVzDQo+ICA9
+PT09PT09PT09PT09PT09PT09PQ0KPiANCj4gIE1haW50YWluZXJzIGFyZSByZXNwb25zaWJsZSBm
+b3IgY2xhcmlmeWluZyB0aGUgc3RhbmRhcmRzIG9mIGFjY2VwdGFibGUNCj4gYmVoYXZpb3INCj4g
+LWFuZCBhcmUgZXhwZWN0ZWQgdG8gdGFrZSBhcHByb3ByaWF0ZSBhbmQgZmFpciBjb3JyZWN0aXZl
+IGFjdGlvbiBpbiByZXNwb25zZQ0KPiB0bw0KPiArYW5kIGFyZSBhc2tlZCB0byB0YWtlIGFwcHJv
+cHJpYXRlIGFuZCBmYWlyIGNvcnJlY3RpdmUgYWN0aW9uIGluIHJlc3BvbnNlIHRvDQo+ICBhbnkg
+aW5zdGFuY2VzIG9mIHVuYWNjZXB0YWJsZSBiZWhhdmlvci4NCj4gDQo+IC1NYWludGFpbmVycyBo
+YXZlIHRoZSByaWdodCBhbmQgcmVzcG9uc2liaWxpdHkgdG8gcmVtb3ZlLCBlZGl0LCBvciByZWpl
+Y3QNCj4gLWNvbW1lbnRzLCBjb21taXRzLCBjb2RlLCB3aWtpIGVkaXRzLCBpc3N1ZXMsIGFuZCBv
+dGhlciBjb250cmlidXRpb25zIHRoYXQNCj4gYXJlDQo+ICtNYWludGFpbmVycyBoYXZlIHRoZSBy
+aWdodCB0byByZW1vdmUsIGVkaXQsIG9yIHJlamVjdA0KPiArY29tbWVudHMsIGNvbW1pdHMsIGNv
+ZGUsIHdpa2kgZWRpdHMsIGlzc3VlcyBhbmQgb3RoZXIgY29udHJpYnV0aW9ucyB0aGF0DQo+IGFy
+ZQ0KPiAgbm90IGFsaWduZWQgdG8gdGhpcyBDb2RlIG9mIENvbmR1Y3QsIG9yIHRvIGJhbiB0ZW1w
+b3JhcmlseSBvciBwZXJtYW5lbnRseQ0KPiBhbnkNCj4gIGNvbnRyaWJ1dG9yIGZvciBvdGhlciBi
+ZWhhdmlvcnMgdGhhdCB0aGV5IGRlZW0gaW5hcHByb3ByaWF0ZSwgdGhyZWF0ZW5pbmcsDQo+IC1v
+ZmZlbnNpdmUsIG9yIGhhcm1mdWwuDQo+ICtvZmZlbnNpdmUgb3IgaGFybWZ1bC4NCj4gDQo+ICBT
+Y29wZQ0KPiAgPT09PT0NCj4gDQo+ICBUaGlzIENvZGUgb2YgQ29uZHVjdCBhcHBsaWVzIGJvdGgg
+d2l0aGluIHByb2plY3Qgc3BhY2VzIGFuZCBpbiBwdWJsaWMgc3BhY2VzDQo+IC13aGVuIGFuIGlu
+ZGl2aWR1YWwgaXMgcmVwcmVzZW50aW5nIHRoZSBwcm9qZWN0IG9yIGl0cyBjb21tdW5pdHkuIEV4
+YW1wbGVzIG9mDQo+IC1yZXByZXNlbnRpbmcgYSBwcm9qZWN0IG9yIGNvbW11bml0eSBpbmNsdWRl
+IHVzaW5nIGFuIG9mZmljaWFsIHByb2plY3QgZS1tYWlsDQo+IC1hZGRyZXNzLCBwb3N0aW5nIHZp
+YSBhbiBvZmZpY2lhbCBzb2NpYWwgbWVkaWEgYWNjb3VudCwgb3IgYWN0aW5nIGFzIGFuDQo+IGFw
+cG9pbnRlZA0KPiAtcmVwcmVzZW50YXRpdmUgYXQgYW4gb25saW5lIG9yIG9mZmxpbmUgZXZlbnQu
+IFJlcHJlc2VudGF0aW9uIG9mIGEgcHJvamVjdA0KPiBtYXkgYmUNCj4gK3doZW4gYW4gaW5kaXZp
+ZHVhbCBpcyByZXByZXNlbnRpbmcgdGhlIHByb2plY3Qgb3IgaXRzIGNvbW11bml0eS4gSXQgYWxz
+bw0KPiArYXBwbGllcyB0byBlLW1haWxzIHVzaW5nIGtlcm5lbC5vcmcgYWRkcmVzcy4gUmVwcmVz
+ZW50YXRpb24gb2YgYSBwcm9qZWN0IG1heQ0KPiBiZQ0KPiAgZnVydGhlciBkZWZpbmVkIGFuZCBj
+bGFyaWZpZWQgYnkgcHJvamVjdCBtYWludGFpbmVycy4NCj4gDQo+ICBFbmZvcmNlbWVudA0KPiAg
+PT09PT09PT09PT0NCj4gDQo+IC1JbnN0YW5jZXMgb2YgYWJ1c2l2ZSwgaGFyYXNzaW5nLCBvciBv
+dGhlcndpc2UgdW5hY2NlcHRhYmxlIGJlaGF2aW9yIG1heSBiZQ0KPiArSW5zdGFuY2VzIG9mIGFi
+dXNpdmUsIGhhcmFzc2luZywgb3Igb3RoZXJ3aXNlIHVuYWNjZXB0YWJsZSBiZWhhdmlvciBzaG91
+bGQNCj4gYmUNCj4gIHJlcG9ydGVkIGJ5IGNvbnRhY3RpbmcgdGhlIFRlY2huaWNhbCBBZHZpc29y
+eSBCb2FyZCAoVEFCKSBhdA0KPiAgPHRhYkBsaXN0cy5saW51eC1mb3VuZGF0aW9uLm9yZz4uIEFs
+bCBjb21wbGFpbnRzIHdpbGwgYmUgcmV2aWV3ZWQgYW5kDQo+ICBpbnZlc3RpZ2F0ZWQgYW5kIHdp
+bGwgcmVzdWx0IGluIGEgcmVzcG9uc2UgdGhhdCBpcyBkZWVtZWQgbmVjZXNzYXJ5IGFuZA0KPiAt
+YXBwcm9wcmlhdGUgdG8gdGhlIGNpcmN1bXN0YW5jZXMuIFRoZSBUQUIgaXMgb2JsaWdhdGVkIHRv
+IG1haW50YWluDQo+IC1jb25maWRlbnRpYWxpdHkgd2l0aCByZWdhcmQgdG8gdGhlIHJlcG9ydGVy
+IG9mIGFuIGluY2lkZW50LiAgRnVydGhlciBkZXRhaWxzIG9mDQo+ICthcHByb3ByaWF0ZSB0byB0
+aGUgY2lyY3Vtc3RhbmNlcy4gVGhlIFRBQiB3aWxsIG1haW50YWluDQo+ICtjb25maWRlbnRpYWxp
+dHkgd2l0aCByZWdhcmRzIHRvIHRoZSByZXBvcnRlciBvZiBhbiBpbmNpZGVudC4gRnVydGhlciBk
+ZXRhaWxzIG9mDQo+ICBzcGVjaWZpYyBlbmZvcmNlbWVudCBwb2xpY2llcyBtYXkgYmUgcG9zdGVk
+IHNlcGFyYXRlbHkuDQo+IA0KPiAtTWFpbnRhaW5lcnMgd2hvIGRvIG5vdCBmb2xsb3cgb3IgZW5m
+b3JjZSB0aGUgQ29kZSBvZiBDb25kdWN0IGluIGdvb2QgZmFpdGgNCj4gbWF5DQo+IC1mYWNlIHRl
+bXBvcmFyeSBvciBwZXJtYW5lbnQgcmVwZXJjdXNzaW9ucyBhcyBkZXRlcm1pbmVkIGJ5IG90aGVy
+DQo+IG1lbWJlcnMgb2YgdGhlDQo+IC1wcm9qZWN04oCZcyBsZWFkZXJzaGlwLg0KPiAtDQo+ICBB
+dHRyaWJ1dGlvbg0KPiAgPT09PT09PT09PT0NCj4gDQo+IF9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fDQo+IEtzdW1taXQtZGlzY3VzcyBtYWlsaW5nIGxpc3QN
+Cj4gS3N1bW1pdC1kaXNjdXNzQGxpc3RzLmxpbnV4Zm91bmRhdGlvbi5vcmcNCj4gaHR0cHM6Ly91
+cmxkZWZlbnNlLnByb29mcG9pbnQuY29tL3YyL3VybD91PWh0dHBzLQ0KPiAzQV9fbGlzdHMubGlu
+dXhmb3VuZGF0aW9uLm9yZ19tYWlsbWFuX2xpc3RpbmZvX2tzdW1taXQtDQo+IDJEZGlzY3VzcyZk
+PUR3SUdhUSZjPWZQNHRmLS0xZFMwYmlDRmxCMHNhejBJMGtqTzV2Ny0NCj4gR0xQdHZTaEFvNGNj
+JnI9clV2RmF3UjRLemdadTFnU041dHVvelVuN2lUVFAwWS0NCj4gSU5XcWZZOE1zRjAmbT1uNVZC
+WkY1U2h0dFhUSXFDRVJEeGQ4OFBWRmlZS21lRlhmeXk1b1pjQ2NrJnM9emMNCj4gN3ZjWE9sNGRN
+RVBPXzJYRG1GWDBVTmc2dXA0ZDdaTUtMS0Z3U2FpS1EmZT0NCg==
