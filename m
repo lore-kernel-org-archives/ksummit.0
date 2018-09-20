@@ -1,31 +1,36 @@
-Return-Path: <daniel.vetter@ffwll.ch>
+Return-Path: <ebiederm@xmission.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A75BEF98
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 441D3FF4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 20 Sep 2018 11:49:16 +0000 (UTC)
-Received: from mail-it0-f65.google.com (mail-it0-f65.google.com
-	[209.85.214.65])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 399A442D
+	Thu, 20 Sep 2018 12:28:19 +0000 (UTC)
+Received: from out01.mta.xmission.com (out01.mta.xmission.com [166.70.13.231])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1A1E163D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 20 Sep 2018 11:49:16 +0000 (UTC)
-Received: by mail-it0-f65.google.com with SMTP id h23-v6so11883156ita.5
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 20 Sep 2018 04:49:16 -0700 (PDT)
+	Thu, 20 Sep 2018 12:28:17 +0000 (UTC)
+Received: from in02.mta.xmission.com ([166.70.13.52])
+	by out01.mta.xmission.com with esmtps
+	(TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.87)
+	(envelope-from <ebiederm@xmission.com>) id 1g2y48-00020Z-Ci
+	for ksummit-discuss@lists.linuxfoundation.org;
+	Thu, 20 Sep 2018 06:28:16 -0600
+Received: from [105.184.227.67] (helo=x220.xmission.com)
+	by in02.mta.xmission.com with esmtpsa
+	(TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.87)
+	(envelope-from <ebiederm@xmission.com>) id 1g2y47-0005Wx-6p
+	for ksummit-discuss@lists.linuxfoundation.org;
+	Thu, 20 Sep 2018 06:28:16 -0600
+From: ebiederm@xmission.com (Eric W. Biederman)
+To: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+References: <CAPM=9tz6_byufs2xdOmU73VPVU2ojb=Ox0YzQxFpOs7jztjbFg@mail.gmail.com>
+Date: Thu, 20 Sep 2018 14:28:05 +0200
+In-Reply-To: <CAPM=9tz6_byufs2xdOmU73VPVU2ojb=Ox0YzQxFpOs7jztjbFg@mail.gmail.com>
+	(Dave Airlie's message of "Tue, 18 Sep 2018 15:55:23 +1000")
+Message-ID: <87h8ik9wve.fsf@xmission.com>
 MIME-Version: 1.0
-In-Reply-To: <4485753.QfrrHSnrUr@avalon>
-References: <20180910174638.26fff182@vmware.local.home>
-	<6032585.bO9iOMYsh1@avalon>
-	<CAKMK7uHwMzXaDMA8jLty50ueut8ycckoqSwYxVy31piM4O0hVA@mail.gmail.com>
-	<4485753.QfrrHSnrUr@avalon>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Thu, 20 Sep 2018 13:49:14 +0200
-Message-ID: <CAKMK7uGWC_Rb85wu1N5fp_1epma+2hcVs2NENiXPyJW=5Gmg3Q@mail.gmail.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
+Content-Type: text/plain
+Subject: Re: [Ksummit-discuss] [MAINTAINER TOPIC FOR KS] CoC and Linus
+	position (perhaps undocumented/closed/limited/invite session)
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,52 +40,63 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Sep 20, 2018 at 1:08 PM, Laurent Pinchart
-<laurent.pinchart@ideasonboard.com> wrote:
-> On Thursday, 20 September 2018 14:00:47 EEST Daniel Vetter wrote:
->> On Thu, Sep 20, 2018 at 12:10 PM, Laurent Pinchart wrote:
->> > On Thursday, 20 September 2018 12:02:33 EEST Rafael J. Wysocki wrote:
->> >> Honestly, do we have any research data on how many people actually are
->> >> put off by the "unfriendly" e-mail use for patch review requirement or is
->> >> it just pure speculation?
->> >
->> > I believe Daniel has more information.
->>
->> I think 2 people left the drm/i915 team (and kernel development at
->> large) explicitly because of our archaic toolchain. A pile more left,
->> where the archaic toolchain at least motivated a switch in
->> teams/projects. No solid data yet on what happens when we'd enable
->> merge request, but some of the engineers (who never contributed to the
->> kernel before) I've chatted with are absolutely raving about the mere
->> possibility even if very small&distant.
->
-> Have you asked them for precise points that bother them (up to the point they
-> wouldn't contribute) in the existing process ?
+Dave Airlie <airlied@gmail.com> writes:
 
-Frankly, I was a bit much in denial that patches on mailing lists
-might not be the most awesome thing ever. One of them spent
-cocnsiderable time working on the fd.o patchwrok, in a in hindsight
-futile attempt to fix things up. So I guess it's all the reasons
-already discussed on why patchwork isn't really the promised land that
-can make sense of the chaos on mailing lists.
+> I think there might be place for a report from the people who did sign
+> off the CoC about the thoughts/process involved in updating it (and/or
+> urgency) to the rest of the Maintainer group.
 
->> This might be biased towards coporate teams, since I have no data on the
->> people who might join as volunteers or from random places - I only know this
->> because they all worked for Intel.
->
-> Thank you for providing a bit of data.
->
->> Also, no data ofc about how many we might lose if we force a merge
->> request flow instead of patches scribbled on chalk boards :-)
->
-> Is that the opposite of the patches through instagram workflow ? :-)
+I would very much appreciate that.
 
-Ah, should have looked up the quote first. It's "patches carved into
-stone tablets":
+> After the past 2-3 days I get the feeling there are maintainers unsure
+> about how this affects them and I think assuaging those fears might be
+> a good thing.
 
-https://www.youtube.com/watch?v=L8OOzaqS37s
--Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-+41 (0) 79 365 57 48 - http://blog.ffwll.ch
+I definitely uncertain about this proposed code of conduct.  Judging
+8a104f8b5867 ("Code of Conduct: Let's revamp it.") as an oridnary patch
+I am concerned that we just merged a bad patch.
+
+My least concern is that it is not an obviously correct bug fix making
+rc4 an inappropriate time to merge the change.
+
+There has been no discussion that I can see leading up to the new CoC.
+
+No motiviation for the change have presented in the changelog.
+
+The presumably failing remedies (escalation to the TAB) have not
+changed.  Which makes me wonder (since there is no description) how
+anything will change.
+
+The document appears to be a horrible sign of leadership in the Linux
+kernel where the only real power maintainers have is to include or not
+to include code.  As has been pointed out we can't police mailing lists
+and even if we could maintainers don't have the time.
+
+If the new CoC acts as a legal document as Mauro has suggested those
+extra requirements on the edge of being a GPL violation.
+
+This concept of official project anything is just plain strange.  We
+have kernel.org but it isn't official, it is just the infrastructure
+that HPA put together one day and formed a non-profit to run.  That
+makes kernel.org a project in itself but not the linux-kernel project
+per se.  Similarly there is the Linux Foundation that exists to support
+the work of linux development and give suits someone to interact with,
+but is not actually the linux kernel project.  The Linux Foundation
+requires the TAB to keep it from getting out of line and harming the
+kernel development.
+
+So as a whole I don't think this change has been well explained or well
+thought through.  As human beings if we need a change we need some real
+communication about what is trying to be fixed and some real discussions
+about how to fix things.
+
+Eric
+
+p.s.  As a maintainer I am concerned that the most frequent kind of
+abuse I see:  Submitting code endlessly without listening to feedback
+is not dealt with.  To my knowledge that is the only kind of abusive
+behavior that has every gotten anyone banned from linux mailing lists.
+
+A similar abuse is maintainers pushing too hard for their changes and
+pushing code to be included without listening to feedback.  It is very
+human but certainly something we should strive to avoid.
