@@ -1,29 +1,31 @@
-Return-Path: <laurent.pinchart@ideasonboard.com>
+Return-Path: <daniel.vetter@ffwll.ch>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 847B0F2D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A75BEF98
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 20 Sep 2018 11:11:18 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
-	[213.167.242.64])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 45FBD7D2
+	Thu, 20 Sep 2018 11:49:16 +0000 (UTC)
+Received: from mail-it0-f65.google.com (mail-it0-f65.google.com
+	[209.85.214.65])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 399A442D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 20 Sep 2018 11:11:17 +0000 (UTC)
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Thu, 20 Sep 2018 14:11:28 +0300
-Message-ID: <2092331.rBCbgXVgiM@avalon>
-In-Reply-To: <1f375c3d2c41da463d0cd055428d2933984a5942.camel@perches.com>
-References: <CAPM=9tz6_byufs2xdOmU73VPVU2ojb=Ox0YzQxFpOs7jztjbFg@mail.gmail.com>
-	<20180919210122.694bf4a3@coco.lan>
-	<1f375c3d2c41da463d0cd055428d2933984a5942.camel@perches.com>
+	Thu, 20 Sep 2018 11:49:16 +0000 (UTC)
+Received: by mail-it0-f65.google.com with SMTP id h23-v6so11883156ita.5
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 20 Sep 2018 04:49:16 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>
-Subject: Re: [Ksummit-discuss] [MAINTAINER TOPIC FOR KS] CoC and Linus
-	position (perhaps undocumented/closed/limited/invite session)
+In-Reply-To: <4485753.QfrrHSnrUr@avalon>
+References: <20180910174638.26fff182@vmware.local.home>
+	<6032585.bO9iOMYsh1@avalon>
+	<CAKMK7uHwMzXaDMA8jLty50ueut8ycckoqSwYxVy31piM4O0hVA@mail.gmail.com>
+	<4485753.QfrrHSnrUr@avalon>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Thu, 20 Sep 2018 13:49:14 +0200
+Message-ID: <CAKMK7uGWC_Rb85wu1N5fp_1epma+2hcVs2NENiXPyJW=5Gmg3Q@mail.gmail.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,47 +35,52 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Joe,
+On Thu, Sep 20, 2018 at 1:08 PM, Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+> On Thursday, 20 September 2018 14:00:47 EEST Daniel Vetter wrote:
+>> On Thu, Sep 20, 2018 at 12:10 PM, Laurent Pinchart wrote:
+>> > On Thursday, 20 September 2018 12:02:33 EEST Rafael J. Wysocki wrote:
+>> >> Honestly, do we have any research data on how many people actually are
+>> >> put off by the "unfriendly" e-mail use for patch review requirement or is
+>> >> it just pure speculation?
+>> >
+>> > I believe Daniel has more information.
+>>
+>> I think 2 people left the drm/i915 team (and kernel development at
+>> large) explicitly because of our archaic toolchain. A pile more left,
+>> where the archaic toolchain at least motivated a switch in
+>> teams/projects. No solid data yet on what happens when we'd enable
+>> merge request, but some of the engineers (who never contributed to the
+>> kernel before) I've chatted with are absolutely raving about the mere
+>> possibility even if very small&distant.
+>
+> Have you asked them for precise points that bother them (up to the point they
+> wouldn't contribute) in the existing process ?
 
-On Thursday, 20 September 2018 05:44:44 EEST Joe Perches wrote:
-> On Wed, 2018-09-19 at 21:01 -0300, Mauro Carvalho Chehab wrote:
-> > I'm actually in favor of the opposite: to remove everything that looks
-> > like a legal contract.
-> 
-> Yes please.
-> 
->  Our Responsibilities
-> 
-> >  ====================
-> >  
-> >  Maintainers are responsible for clarifying the standards of acceptable
-> >  behavior
-> > -and are expected to take appropriate and fair corrective action in
-> > response to +and are asked to take appropriate and fair corrective action
-> > in response to
-> >  any instances of unacceptable behavior.
-> 
-> []
-> 
-> > -Maintainers have the right and responsibility to remove, edit, or reject
-> > -comments, commits, code, wiki edits, issues, and other contributions that
-> > are +Maintainers have the right to remove, edit, or reject
-> > +comments, commits, code, wiki edits, issues and other contributions that
-> > are
-> >  not aligned to this Code of Conduct, or to ban temporarily or permanently
-> >  any contributor for other behaviors that they deem inappropriate,
-> >  threatening,
-> > -offensive, or harmful.
-> > +offensive or harmful.
-> 
-> This paragraph is unnecessary.
-> 
-> Maintainers are responsible for code.
-> Community is responsible for behavior.
+Frankly, I was a bit much in denial that patches on mailing lists
+might not be the most awesome thing ever. One of them spent
+cocnsiderable time working on the fd.o patchwrok, in a in hindsight
+futile attempt to fix things up. So I guess it's all the reasons
+already discussed on why patchwork isn't really the promised land that
+can make sense of the chaos on mailing lists.
 
-Who is "the community", aren't maintainers part of it ?
+>> This might be biased towards coporate teams, since I have no data on the
+>> people who might join as volunteers or from random places - I only know this
+>> because they all worked for Intel.
+>
+> Thank you for providing a bit of data.
+>
+>> Also, no data ofc about how many we might lose if we force a merge
+>> request flow instead of patches scribbled on chalk boards :-)
+>
+> Is that the opposite of the patches through instagram workflow ? :-)
 
+Ah, should have looked up the quote first. It's "patches carved into
+stone tablets":
+
+https://www.youtube.com/watch?v=L8OOzaqS37s
+-Daniel
 -- 
-Regards,
-
-Laurent Pinchart
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
