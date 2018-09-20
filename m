@@ -1,38 +1,30 @@
-Return-Path: <mchehab+samsung@kernel.org>
+Return-Path: <daniel.vetter@ffwll.ch>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D8F18E9A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id EDC5ADB8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 20 Sep 2018 10:24:01 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3766963D
+	Thu, 20 Sep 2018 11:00:49 +0000 (UTC)
+Received: from mail-it0-f66.google.com (mail-it0-f66.google.com
+	[209.85.214.66])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 56674798
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 20 Sep 2018 10:24:01 +0000 (UTC)
-Date: Thu, 20 Sep 2018 07:23:51 -0300
-From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-To: Jani Nikula <jani.nikula@intel.com>
-Message-ID: <20180920072351.49c41618@coco.lan>
-In-Reply-To: <875zz0y8ym.fsf@intel.com>
-References: <CAPM=9tz6_byufs2xdOmU73VPVU2ojb=Ox0YzQxFpOs7jztjbFg@mail.gmail.com>
-	<1537279328.3424.6.camel@HansenPartnership.com>
-	<20180918162948.769dda1d@coco.lan>
-	<1537356482.4640.7.camel@HansenPartnership.com>
-	<20180919083749.49268562@coco.lan>
-	<20180919090332.723c1b75@coco.lan>
-	<1537366581.6816.1.camel@HansenPartnership.com>
-	<20180919165552.0f30bbef@coco.lan>
-	<CAPM=9tyrsJx5oaY-umNAmNDGUAFQWQ-dmh=FdsOUEQynr_yqjg@mail.gmail.com>
-	<20180919210122.694bf4a3@coco.lan>
-	<ECADFF3FD767C149AD96A924E7EA6EAF7C1EB915@USCULXMSG01.am.sony.com>
-	<875zz0y8ym.fsf@intel.com>
+	Thu, 20 Sep 2018 11:00:49 +0000 (UTC)
+Received: by mail-it0-f66.google.com with SMTP id e14-v6so12556198itf.1
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 20 Sep 2018 04:00:49 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: James.Bottomley@hansenpartnership.com, Tim.Bird@sony.com,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINER TOPIC FOR KS] CoC and Linus
- position (perhaps undocumented/closed/limited/invite session)
+In-Reply-To: <6032585.bO9iOMYsh1@avalon>
+References: <20180910174638.26fff182@vmware.local.home>
+	<17698287.4NULLKGPAa@avalon>
+	<5667498.l7gq0jG24g@aspire.rjw.lan> <6032585.bO9iOMYsh1@avalon>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Thu, 20 Sep 2018 13:00:47 +0200
+Message-ID: <CAKMK7uHwMzXaDMA8jLty50ueut8ycckoqSwYxVy31piM4O0hVA@mail.gmail.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Bug-introducing patches
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -42,93 +34,31 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Em Thu, 20 Sep 2018 09:33:05 +0300
-Jani Nikula <jani.nikula@intel.com> escreveu:
+On Thu, Sep 20, 2018 at 12:10 PM, Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+> On Thursday, 20 September 2018 12:02:33 EEST Rafael J. Wysocki wrote:
+>> Honestly, do we have any research data on how many people actually are put
+>> off by the "unfriendly" e-mail use for patch review requirement or is it
+>> just pure speculation?
+>
+> I believe Daniel has more information.
 
-> On Thu, 20 Sep 2018, Tim.Bird@sony.com wrote:
-> > My view is that it's intended to be a social document, with guidelines
-> > for actions within the community  (Actions by maintainers, actions
-> > by contributors, actions by the TAB).  To me it's more like rules for
-> > a party at my house.  If someone doesn't abide by the rules, I'll ask
-> > them to leave the party.  And I'll ask others at the party to remind people
-> > to abide by the rules.  But the person kicked out can hardly call the cops
-> > on me for doing so.  
-> 
-> Agreed.
-> 
-> I think there's much more value in adopting a widely used code of
-> conduct than writing your own, or even trying to tweak it. If a project
-> uses the Contributor Covenant, you pretty much know the rules without
-> actually having to read another document and wonder what this all means.
-> In this regard, it's really not unlike the GPL for copyleft licenses;
-> one acronym tells you what you can and can't do.
-> 
-> With that perspective, I think the changes proposed in this thread do
-> more harm than good. If people still insist the text should be improved,
-> I think the proper flow is to file issues or pull requests to
-> Contributor Covenant upstream [1], and later update to a new version of
-> the document.
+I think 2 people left the drm/i915 team (and kernel development at
+large) explicitly because of our archaic toolchain. A pile more left,
+where the archaic toolchain at least motivated a switch in
+teams/projects. No solid data yet on what happens when we'd enable
+merge request, but some of the engineers (who never contributed to the
+kernel before) I've chatted with are absolutely raving about the mere
+possibility even if very small&distant. This might be biased towards
+coporate teams, since I have no data on the people who might join as
+volunteers or from random places - I only know this because they all
+worked for Intel.
 
-The main experience of the Contributor Covenant's author seems to be
-on Github. There is a fundamental difference between a Github-based
-project workflow and the Kernel: there, everything happens inside a GUI
-interface. Usually, those projects don't have a large number of
-maintainers, nor contributors. Message traffic is typically not high.
-
-On such kind of interface, the maintainers can edit or delete all
-kinds of messages, even posted by a third party. So, a text like:
-
-	"Maintainers have the right and responsibility to remove, edit,..."
-
-would work. If the number of messages are small, it is also an easy
-task.
-
-It could also work on a smaller e-mail-based project where there is
-just one or two moderated ML.
-
-However, on a higly e-mail based project like the Kernel, where we receive
-hundreds to thousands of messages per day, and we have a large
-number of mailing lists, in order to comply with that CoC statement, 
-all email lists should be moderated. I can't imagine any way to have
-a list like LKML moderated. Even moderating the linux-media ML nowadays
-would be really hard, and would be someone's full time job.
-
-Even if LF hires a team of moderators for all Kernel mailing lists,
-if someone cross-post a message on more than one list, different
-moderators could take different measurements, with could be a problem,
-if the same email is threated different by the different moderators.
-
-Not practical (and it comes with a cost).
-
-Using the terms of the CoC, by not taking any measure to stop
-offensive posts, maintainers wouldn't be "acting in good faith".
-So, maintainers are violating the policy.
-
-Also, if someone felt abused, the "unacceptable behavior may be
-reported by contacting the Technical Advisory Board (TAB)".
-The *may* word indicates that he can also go to other places to
-do a similar complain. Implicitly, it opens space to go to court.
-
-So, the practical effect is that, if someone wants to fire
-a random maintainer, all it has to do is to create a fake account,
-send a bunch of random offensive messages to himself on his real
-account, and then complain - first on TAB - then filing a lawsuit
-(with can envolve both the TAB and the maintainer).
-
-That's why I don't think that, the way it is, this CoC applies
-to us. The way it is, it is just FUD. I can see a few 
-alternatives:
-
-1) Revert the CoC patch;
-2) Use another CoC that would work for e-mail-based workflows;
-3) Patch it - either changing the text of the CoC or adding
-   a prologue adding ammendments to prevent the above risk
-   and solving the e-mail addresses on review tags.
-
-My view is that, currently, we have a major issue at the 
-contributing process. So, if nothing happens, I may wait until
-the Maintainer's Summit before sending any pull requests
-upstream.
-
-Thanks,
-Mauro
+Also, no data ofc about how many we might lose if we force a merge
+request flow instead of patches scribbled on chalk boards :-) And a
+good middle ground should be achievable, giving us everyone.
+-Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
