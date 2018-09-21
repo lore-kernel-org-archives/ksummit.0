@@ -1,29 +1,33 @@
-Return-Path: <konandai@chikusen.ne.jp>
+Return-Path: <mchehab@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1877513E1
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6B9371000
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 20 Sep 2018 14:32:47 +0000 (UTC)
-Received: from www1883.sakura.ne.jp (www1883.sakura.ne.jp [112.78.112.223])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A53E175B
+	Fri, 21 Sep 2018 17:08:17 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+	[198.137.202.133])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DA6BE764
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 20 Sep 2018 14:32:46 +0000 (UTC)
-Received: from WIN-2LPEFJ7HNBJ
-	(ec2-52-199-66-0.ap-northeast-1.compute.amazonaws.com [52.199.66.0])
-	(authenticated bits=0)
-	by www1883.sakura.ne.jp (8.15.2/8.15.2) with ESMTPA id w8KBjRMe047219
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 20 Sep 2018 20:50:41 +0900 (JST)
-	(envelope-from konandai@chikusen.ne.jp)
-Message-Id: <201809201150.w8KBjRMe047219@www1883.sakura.ne.jp>
-From: "Dr. Sean Kim." <konandai@chikusen.ne.jp>
-To: ksummit-discuss@lists.linuxfoundation.org
+	Fri, 21 Sep 2018 17:08:16 +0000 (UTC)
+Date: Fri, 21 Sep 2018 14:08:09 -0300
+From: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Olof Johansson <olof@lixom.net>
+Message-ID: <20180921140809.18ba8eae@coco.lan>
+In-Reply-To: <CAOesGMg72JXk6SA3eJCmEWC207JJqNEEx9hCOo-vcE4whDudtA@mail.gmail.com>
+References: <CAKMK7uE=FwpPFnvOvuvGBZ0vjh3UMPW=zgSk1dmiyCLQPPuZvg@mail.gmail.com>
+	<20180917115916.37fd5388@coco.lan>
+	<CAPM=9tzSaQX7iVCH94jrM+xgEveY4B8+DwQSykiE3L0BM-s-Pw@mail.gmail.com>
+	<2174637.IVJC5EhCEq@avalon> <20180918160236.GK2471@sirena.org.uk>
+	<20180918163231.GB10134@agluck-desk>
+	<CAKdAkRRc8U+Y9M3mP378hw5PsUoG-TM33gX_0oT8PX9APT9pyw@mail.gmail.com>
+	<CA+55aFxgc+OOs4E8z9vdEpbArwi2+MaxfUUnZSisX6Y3K1HTHQ@mail.gmail.com>
+	<CAOesGMg72JXk6SA3eJCmEWC207JJqNEEx9hCOo-vcE4whDudtA@mail.gmail.com>
 MIME-Version: 1.0
-Reply-To: seankim2220@gmail.com
-Date: Thu, 20 Sep 2018 11:50:40 +0000
-Content-Type: text/plain
-Content-Transfer-Encoding: quoted-printable
-Subject: [Ksummit-discuss] Urgent Response.
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: tim.bird@sony.com, ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
+ management/subsystem governance
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,28 +37,94 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hello,
+Em Fri, 21 Sep 2018 17:46:13 +0100
+Olof Johansson <olof@lixom.net> escreveu:
 
-We are a US company based in the UK.
+> On Tue, Sep 18, 2018 at 6:18 PM, Linus Torvalds
+> <torvalds@linux-foundation.org> wrote:
+> > [ Still very much on break, but reading ksuummit-discuss and answering
+> > this one ]
+> >
+> > On Tue, Sep 18, 2018 at 9:35 AM Dmitry Torokhov
+> > <dmitry.torokhov@gmail.com> wrote:  
+> >> On Tue, Sep 18, 2018 at 9:33 AM Luck, Tony <tony.luck@intel.com> wrote:  
+> >> >
+> >> > Or, shock, horror, tell one-time contributors that it is OK to
+> >> > put the patch in an attachment to the e-mail.  Outlook doesn't
+> >> > (usually) mess with the contents of attachments.  
+> >>
+> >> And then have maintainer having hard time trying to comment on said
+> >> patch in the attachment. I'd rather not.  
+> >
+> > I actually think that *this* could be easily handled by trivial
+> > tooling that doesn't have to be set up over and over again inside
+> > companies or teaching people.
+> >
+> > In fact, doesn't patchwork already do exactly that?
+> >
+> > I have to say, there are real technical advantages to using
+> > attachments for patches, particularly when you have odd combinations
+> > of locales. It's gotten to be less of an issue over time and we're
+> > still almost entirely US-ASCII with the occasional UTF-8, but we do
+> > still have the occasional problem. Using attachments at least detaches
+> > the email charset from the user locale, and from random other MUA
+> > issues.
+> >
+> > But yes, the "comment on individual parts of the patch" part is very
+> > important too.
+> >
+> > The main problem with having something that rewrites things is that it
+> > breaks DKIM etc, so you can't just have a pure email gateway. It
+> > almost needs to be something at a higher semantic level like patchwork
+> > (that could still send out rewritten emails).
+> >
+> > In many cases, you might want that anyway (ie wouldn't it be lovely
+> > when the patch is also checked for "does it build" and looks up the
+> > maintainers based on what paths it touches etc etc).
+> >
+> > So a sane email / web-interface kind of gateway that allows people to
+> > work the way they prefer.
+> >
+> > But I guess "trivial" is completely the wrong word to use.  
+> 
+> We're already starting to use some bots that sit on the mailing lists
+> and monitor incoming material.
+> 
+> This could be solved with something as simple as a bot that takes the
+> patch-as-attachment, does a few useful things like runs checkpatch and
+> makes sure it applies cleanly (maybe report what trees it applies
+> cleanly to, such as current mainline and next), and then inlines the
+> whole patch. All as a reply-all to the sender + original recipients.
+> 
+> That way, anyone looking to do an inline review can do it on the bot
+> version, and the originator will still receive the feedback, etc. It'd
+> also solve the DKIM-related aspects, if I'm not mistaken.
+> 
+> People who get distracted by the bot emails can easily choose to filter it.
 
-Please confirm if you received the email we sent to you concerning the=
- supply of an industrial raw material to our company. These raw materi=
-als can only be purchased from India and Fiji Island but cheaper in In=
-dia. Our Company is desperatley in need of this product of which we ho=
-pe you could help us source for it since our previous supplier in Indi=
-a died a few months back.
+Seems to work.
 
-Note that you will be fully compensated and paid for your services to =
-our Company upon confirmation of the product.
+Still, there are some issues with that. Depending on the email client,
+it may not recognize the patch as is, and use a wrong mime-type.
+If the mail server doesn't recognize the mime-type, or considers it
+evil, it may reject the e-mail, and the bot will get nothing.
+Not sure what's the current status of e-mailers and patches, but on
+my past experiences on another company (lots of years ago), usually
+webmail solutions are worse[1], and don't properly tag certain types
+of attachments.
 
-Kindly view our website for further information.
+[1] I know places where only a corporate webmail solution is allowed
+by default, and using any other solution would require an special
+security approval. Not sure if is worth to consider such scenario,
+though.
 
-Further details will be emailed to you upon receipt of your response a=
-s I await for your reply via my personal email:=20
+Another problem is that bots will receive the same e-mail twice
+(the original one and the inlined one). We may start having
+multiple kernel-test robots reply for such emails, with is not
+a good thing. So, if done this way, it is probably worth to add
+some meta-tags to avoid the new e-mail with the same patch
+to be parsed again by (other) robots.
+
 
 Thanks,
-
-
-Dr. Sean Kim.
-US No/Whatsapp: +1-651-927-4361.
-UK No: +44-748-053-3470
+Mauro
