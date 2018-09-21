@@ -1,39 +1,35 @@
-Return-Path: <mchehab+samsung@kernel.org>
+Return-Path: <olof@lixom.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B9F1414E5
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 92FA48FF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 20 Sep 2018 20:52:39 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9020979
+	Fri, 21 Sep 2018 16:46:17 +0000 (UTC)
+Received: from mail-lf1-f65.google.com (mail-lf1-f65.google.com
+	[209.85.167.65])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C44B042D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 20 Sep 2018 20:52:38 +0000 (UTC)
-Date: Thu, 20 Sep 2018 17:52:29 -0300
-From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-To: <Tim.Bird@sony.com>
-Message-ID: <20180920175229.4371ad58@coco.lan>
-In-Reply-To: <ECADFF3FD767C149AD96A924E7EA6EAF7C1EBC69@USCULXMSG01.am.sony.com>
-References: <CAPM=9tz6_byufs2xdOmU73VPVU2ojb=Ox0YzQxFpOs7jztjbFg@mail.gmail.com>
-	<1537279328.3424.6.camel@HansenPartnership.com>
-	<20180918162948.769dda1d@coco.lan>
-	<1537356482.4640.7.camel@HansenPartnership.com>
-	<20180919083749.49268562@coco.lan>
-	<20180919090332.723c1b75@coco.lan>
-	<1537366581.6816.1.camel@HansenPartnership.com>
-	<20180919165552.0f30bbef@coco.lan>
-	<CAPM=9tyrsJx5oaY-umNAmNDGUAFQWQ-dmh=FdsOUEQynr_yqjg@mail.gmail.com>
-	<20180919210122.694bf4a3@coco.lan>
-	<ECADFF3FD767C149AD96A924E7EA6EAF7C1EB915@USCULXMSG01.am.sony.com>
-	<875zz0y8ym.fsf@intel.com> <20180920072351.49c41618@coco.lan>
-	<ECADFF3FD767C149AD96A924E7EA6EAF7C1EBC69@USCULXMSG01.am.sony.com>
+	Fri, 21 Sep 2018 16:46:16 +0000 (UTC)
+Received: by mail-lf1-f65.google.com with SMTP id z186-v6so12022296lfa.5
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 21 Sep 2018 09:46:16 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: James.Bottomley@hansenpartnership.com,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINER TOPIC FOR KS] CoC and Linus
- position (perhaps undocumented/closed/limited/invite session)
+In-Reply-To: <CA+55aFxgc+OOs4E8z9vdEpbArwi2+MaxfUUnZSisX6Y3K1HTHQ@mail.gmail.com>
+References: <CAKMK7uE=FwpPFnvOvuvGBZ0vjh3UMPW=zgSk1dmiyCLQPPuZvg@mail.gmail.com>
+	<20180917115916.37fd5388@coco.lan>
+	<CAPM=9tzSaQX7iVCH94jrM+xgEveY4B8+DwQSykiE3L0BM-s-Pw@mail.gmail.com>
+	<2174637.IVJC5EhCEq@avalon> <20180918160236.GK2471@sirena.org.uk>
+	<20180918163231.GB10134@agluck-desk>
+	<CAKdAkRRc8U+Y9M3mP378hw5PsUoG-TM33gX_0oT8PX9APT9pyw@mail.gmail.com>
+	<CA+55aFxgc+OOs4E8z9vdEpbArwi2+MaxfUUnZSisX6Y3K1HTHQ@mail.gmail.com>
+From: Olof Johansson <olof@lixom.net>
+Date: Fri, 21 Sep 2018 17:46:13 +0100
+Message-ID: <CAOesGMg72JXk6SA3eJCmEWC207JJqNEEx9hCOo-vcE4whDudtA@mail.gmail.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: mchehab+samsung@kernel.org, tim.bird@sony.com,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINER SUMMIT] community
+ management/subsystem governance
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -43,34 +39,67 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Em Thu, 20 Sep 2018 13:49:40 +0000
-<Tim.Bird@sony.com> escreveu:
+On Tue, Sep 18, 2018 at 6:18 PM, Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
+> [ Still very much on break, but reading ksuummit-discuss and answering
+> this one ]
+>
+> On Tue, Sep 18, 2018 at 9:35 AM Dmitry Torokhov
+> <dmitry.torokhov@gmail.com> wrote:
+>> On Tue, Sep 18, 2018 at 9:33 AM Luck, Tony <tony.luck@intel.com> wrote:
+>> >
+>> > Or, shock, horror, tell one-time contributors that it is OK to
+>> > put the patch in an attachment to the e-mail.  Outlook doesn't
+>> > (usually) mess with the contents of attachments.
+>>
+>> And then have maintainer having hard time trying to comment on said
+>> patch in the attachment. I'd rather not.
+>
+> I actually think that *this* could be easily handled by trivial
+> tooling that doesn't have to be set up over and over again inside
+> companies or teaching people.
+>
+> In fact, doesn't patchwork already do exactly that?
+>
+> I have to say, there are real technical advantages to using
+> attachments for patches, particularly when you have odd combinations
+> of locales. It's gotten to be less of an issue over time and we're
+> still almost entirely US-ASCII with the occasional UTF-8, but we do
+> still have the occasional problem. Using attachments at least detaches
+> the email charset from the user locale, and from random other MUA
+> issues.
+>
+> But yes, the "comment on individual parts of the patch" part is very
+> important too.
+>
+> The main problem with having something that rewrites things is that it
+> breaks DKIM etc, so you can't just have a pure email gateway. It
+> almost needs to be something at a higher semantic level like patchwork
+> (that could still send out rewritten emails).
+>
+> In many cases, you might want that anyway (ie wouldn't it be lovely
+> when the patch is also checked for "does it build" and looks up the
+> maintainers based on what paths it touches etc etc).
+>
+> So a sane email / web-interface kind of gateway that allows people to
+> work the way they prefer.
+>
+> But I guess "trivial" is completely the wrong word to use.
 
-> May I suggest that a more productive way to proceed is to keep
-> doing what you usually do.  The TAB is working out the details
-> of enforcement policy, and a FAQ to go along with the CoC, that we
-> plan to present at the Maintainers Summit.  I think the roll-out of
-> CoC enforcement will be a long, slow process, with plenty of
-> time for us to hash out what we, as a community, believe are the
-> best practices for dealing with violations. 
+We're already starting to use some bots that sit on the mailing lists
+and monitor incoming material.
 
-Good to know! I'm looking forward to see it and participate at
-the discussions there.
+This could be solved with something as simple as a bot that takes the
+patch-as-attachment, does a few useful things like runs checkpatch and
+makes sure it applies cleanly (maybe report what trees it applies
+cleanly to, such as current mainline and next), and then inlines the
+whole patch. All as a reply-all to the sender + original recipients.
 
-As a side note, IMHO, this would be a way better handled if you had
-added the new CoC document with some top note on it explaining about
-that, and saying that the roll-out to the new CoC will happen only
-after having such FAQ discussed and merged upstream.
+That way, anyone looking to do an inline review can do it on the bot
+version, and the originator will still receive the feedback, etc. It'd
+also solve the DKIM-related aspects, if I'm not mistaken.
 
-> I think the vast majority of
-> the kernel community consists of respectful and well-meaning
-> individuals, who will see no negative repercussions personally, from
-> the adoption of this CoC.
+People who get distracted by the bot emails can easily choose to filter it.
 
-Yeah, fully agreed. The concept of having a CoC and be respectful is good. 
 
-The only points I'm not happy is that this particular one doesn't seem to fit
-to our development model, as it was conceived with Github in mind.
-
-Thanks,
-Mauro
+-Olof
