@@ -1,37 +1,36 @@
 Return-Path: <Jason@zx2c4.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 05EE1D74
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B7E75D74
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 24 Sep 2018 01:55:20 +0000 (UTC)
+	Mon, 24 Sep 2018 01:57:48 +0000 (UTC)
 Received: from frisell.zx2c4.com (frisell.zx2c4.com [192.95.5.64])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4E691180
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2E519A8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 24 Sep 2018 01:55:19 +0000 (UTC)
-Received: by frisell.zx2c4.com (ZX2C4 Mail Server) with ESMTP id 6d746104
+	Mon, 24 Sep 2018 01:57:48 +0000 (UTC)
+Received: by frisell.zx2c4.com (ZX2C4 Mail Server) with ESMTP id 9242cc24
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 24 Sep 2018 01:37:03 +0000 (UTC)
-Received: by frisell.zx2c4.com (ZX2C4 Mail Server) with ESMTPSA id d78d1712
+	Mon, 24 Sep 2018 01:39:32 +0000 (UTC)
+Received: by frisell.zx2c4.com (ZX2C4 Mail Server) with ESMTPSA id af107617
 	(TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128:NO)
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 24 Sep 2018 01:37:03 +0000 (UTC)
-Received: by mail-oi0-f45.google.com with SMTP id l82-v6so15716087oih.11
+	Mon, 24 Sep 2018 01:39:31 +0000 (UTC)
+Received: by mail-ot1-f42.google.com with SMTP id i12-v6so18443401otl.1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 23 Sep 2018 18:55:17 -0700 (PDT)
+	Sun, 23 Sep 2018 18:57:46 -0700 (PDT)
 MIME-Version: 1.0
 References: <CAHmME9oVReKvhpm1CSnF3KLDYtt63SvauHXZ-m6mWR=zno2OJA@mail.gmail.com>
-	<CAHmME9pP+iGLecaQQCLw4_wNDDt9_1dBMW1uY0DVYLqA=JgQYg@mail.gmail.com>
-	<1537748495.15095.4.camel@HansenPartnership.com>
-In-Reply-To: <1537748495.15095.4.camel@HansenPartnership.com>
+	<CAHmME9rRnPydFT0CVugiEkVhjHsGukruYqcfdiHu1sSU40A9bQ@mail.gmail.com>
+In-Reply-To: <CAHmME9rRnPydFT0CVugiEkVhjHsGukruYqcfdiHu1sSU40A9bQ@mail.gmail.com>
 From: "Jason A. Donenfeld" <Jason@zx2c4.com>
-Date: Mon, 24 Sep 2018 03:55:06 +0200
-Message-ID: <CAHmME9rjhwpOvC=oyeUCpJ6Ahexq6XJQo6-H8D4xQCb6Uerw_A@mail.gmail.com>
-To: James Bottomley <James.Bottomley@hansenpartnership.com>
+Date: Mon, 24 Sep 2018 03:57:34 +0200
+Message-ID: <CAHmME9ovay9H9PNoAEHpQRFYOOPcsZAHCYYEPL-11mVONBTK4g@mail.gmail.com>
+To: ksummit-discuss@lists.linuxfoundation.org
 Content-Type: text/plain; charset="UTF-8"
-Cc: Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TALK] WireGuard: Next-Generation Secure
- Kernel Network Tunnel
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+Subject: [Ksummit-discuss] Fwd: [TECH TALK] Zinc: Minimal Light-weight
+	Kernel Cryptography API
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,38 +40,35 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Sep 24, 2018 at 2:21 AM James Bottomley
-<James.Bottomley@hansenpartnership.com> wrote:
->
-> On Mon, 2018-09-24 at 02:12 +0200, Jason A. Donenfeld wrote:
-> > Confusingly, this talk was actually accepted for the main refereed
-> > track at Plumbers, which probably makes more sense anyway for it. So
-> > I should probably retract this submission.
-> >
-> > However, the more important and relevant talk -- the one on Zinc --
-> > is really quite appropriate for the kernel track and is sure to spur
-> > a lot of needed discussion. So please focus attention on that
-> > instead.
->
-> Just so you know, this is the only email on the ksummit discuss list
-> I've seen from you ... there isn't one proposing either zinc or
-> wireguard as a tech topic.
->
-> The list archive also only sees this email from you:
->
-> https://lists.linuxfoundation.org/pipermail/ksummit-discuss/
->
-> so there may be an issue with your outgoing server.
-
-Yikes! However, I'm certain it's not my outgoing server. My mail
-server logs show that lists.linuxfoundation.org replied with the
-following IDs for each of the two messages:
+Following up from the other thread, it appears that the below message
+was rejected silently by linuxfoundation.org's mailing list server. It
+should have been accepted as either:
 
 - 250 2.0.0 Ok: queued as AC122174
 - 250 2.0.0 Ok: queued as 8EF1AF8
 
-The one I sent earlier today following up gave a similar response:
+Hopefully the below submission does make it this time.
 
-- 250 2.0.0 Ok: queued as 63A72180
+(Thanks to James for pointing out that these never made it the first
+time around.)
 
-I'm adding Konstantin to the CC to see what's up.
+
+
+---------- Forwarded message ---------
+From: Jason A. Donenfeld <Jason@zx2c4.com>
+Date: Fri, Sep 21, 2018 at 6:43 AM
+Subject: [TECH TALK] Zinc: Minimal Light-weight Kernel Cryptography API
+To: <ksummit-discuss@lists.linuxfoundation.org>
+
+
+Zinc is a new minimal cryptography API for the kernel that is in the
+process of being upstreamed. Rather than providing an abstracted
+framework, Zinc provides simple functions. This talk will address the
+design considerations of the new API, its approach to implementation
+choice and fuzzing, and touch on formally verified cryptography
+implementations. We'll explore the difference between, on one hand,
+reference code for a particular algorithm, and on the other hand, the
+present crypto API with its large and complicated abstractions, and
+how Zinc fits into the middle of these extremes. We'll also examine
+issues relating to using SIMD from kernel space and the costs
+associated with it, and what we can do about it.
