@@ -1,40 +1,26 @@
-Return-Path: <mgorman@techsingularity.net>
+Return-Path: <shuah@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 34A61FCC
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id DCF0F105B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 24 Sep 2018 14:02:29 +0000 (UTC)
-Received: from outbound-smtp10.blacknight.com (outbound-smtp10.blacknight.com
-	[46.22.139.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 825F077C
+	Mon, 24 Sep 2018 14:34:17 +0000 (UTC)
+Received: from mailout.easymail.ca (mailout.easymail.ca [64.68.200.34])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 63FAA76A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 24 Sep 2018 14:02:28 +0000 (UTC)
-Received: from mail.blacknight.com (pemlinmail05.blacknight.ie [81.17.254.26])
-	by outbound-smtp10.blacknight.com (Postfix) with ESMTPS id
-	A10AE1C2F28 for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 24 Sep 2018 14:53:13 +0100 (IST)
-Date: Mon, 24 Sep 2018 14:53:11 +0100
-From: Mel Gorman <mgorman@techsingularity.net>
-To: David Woodhouse <dwmw2@infradead.org>
-Message-ID: <20180924135311.GM1719@techsingularity.net>
-References: <1537356482.4640.7.camel@HansenPartnership.com>
-	<20180919083749.49268562@coco.lan>
-	<20180919090332.723c1b75@coco.lan>
-	<1537366581.6816.1.camel@HansenPartnership.com>
-	<20180919165552.0f30bbef@coco.lan>
-	<CAPM=9tyrsJx5oaY-umNAmNDGUAFQWQ-dmh=FdsOUEQynr_yqjg@mail.gmail.com>
-	<20180919210122.694bf4a3@coco.lan>
-	<ECADFF3FD767C149AD96A924E7EA6EAF7C1EB915@USCULXMSG01.am.sony.com>
-	<875zz0y8ym.fsf@intel.com>
-	<a5d0c23c244027dc8f27136df98f28bac1058173.camel@infradead.org>
+	Mon, 24 Sep 2018 14:34:17 +0000 (UTC)
+To: ksummit-discuss@lists.linuxfoundation.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, clm@fb.com,
+	dan.j.williams@intel.com, Jonathan Corbet <corbet@lwn.net>, olof@lxom.net,
+	rostedt@goodmis.org, torvalds@linux-foundation.org
+From: Shuah Khan <shuah@kernel.org>
+Message-ID: <cf7638b9-c25d-d47e-f539-192a43268122@kernel.org>
+Date: Mon, 24 Sep 2018 08:24:07 -0600
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-15
-Content-Disposition: inline
-In-Reply-To: <a5d0c23c244027dc8f27136df98f28bac1058173.camel@infradead.org>
-Cc: ksummit-discuss@lists.linuxfoundation.org, Tim.Bird@sony.com,
-	James.Bottomley@hansenpartnership.com, mchehab+samsung@kernel.org
-Subject: Re: [Ksummit-discuss] [MAINTAINER TOPIC FOR KS] CoC and Linus
- position (perhaps undocumented/closed/limited/invite session)
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Subject: [Ksummit-discuss] [TECH-TOPIC] Review - Code of Conduct: Let's
+ revamp it.
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -44,34 +30,41 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Sep 20, 2018 at 08:04:39AM +0100, David Woodhouse wrote:
-> On Thu, 2018-09-20 at 09:33 +0300, Jani Nikula wrote:
-> > Agreed.
-> > 
-> > I think there's much more value in adopting a widely used code of
-> > conduct than writing your own, or even trying to tweak it. If a project
-> > uses the Contributor Covenant, you pretty much know the rules without
-> > actually having to read another document and wonder what this all means.
-> > In this regard, it's really not unlike the GPL for copyleft licenses;
-> > one acronym tells you what you can and can't do.
-> > 
-> > With that perspective, I think the changes proposed in this thread do
-> > more harm than good. If people still insist the text should be improved,
-> > I think the proper flow is to file issues or pull requests to
-> > Contributor Covenant upstream [1], and later update to a new version of
-> > the document.
-> 
-> I'll note that isn't what Linus did with the GPL.
-> 
-> But perhaps there's a possible solution: Instead of editing the text of
-> the covenant, just preface it with a statement that email addresses
-> used on mailing lists are not considered to be private and that it is
-> acceptable (and indeed recommended) to credit individuals who have
-> contributed to reporting and testing by using their email addresses.
+I have been trying to follow various threads on this topic and none of them address
+the review of this patch that went in. There is no mistake in the title of this topic.
+I do consider this topic to be more general than limited to Maintainer Summit. Hence,
+the choice of a wider Technical designation.
 
-It's not just email addresses We generally require people to use their
-real name and not pseudonyms for patches and their Signed-off-by.
+So I am kicking off a thread to do the review with my comments. I am in general
+agreement with the spirit of this change to the existing "Code of Conflict".
 
--- 
-Mel Gorman
-SUSE Labs
+Now specific concerns and comments:
+
+I am concerned about the added responsibilities as a maintainer. I have to not only
+worry about the quality of code and technical aspects, but also be responsible for
+behavior of individuals I might not have any control or sway over. That said, I am
+hopeful that this will help all of us in the community, maintainers and contributors
+alike to think a bit more about how their response will be received and would they like
+it if they are at the receiving end of that kind of message, before hitting that send
+button. When we see a response that is offensive and/or hurtful, there is usually silence
+on such threads. So maybe that will change with this CoC and at least some of us will say,
+let's use a firm and polite message as opposed to offensive/hurtful message.
+
+I also have a concern that what is hurtful can be somewhat subjective. What a maintainer
+considers isn't hurtful, could be perceived as hurtful by the individual at the receiving
+end.
+
+What is offensive is a bit more clear. It will be learning curve for us as a community and
+I do think we will get there. I believe our kernel community at large is respectful and helpful.
+
+This decision to change the existing "Code of Conflict" signed off by a large number of developers,
+has been changed and committed with a few people signing off on it.
+
+It would be good to know the circumstances that necessitated the decision to include this patch
+without the proper review process. if that isn't possible, it is important to follow the review
+process now for v2. Also, discussing this in the Maintainer summit and/or kernel summit will not
+make the community feel like it is a community approved decision. At least, kernel community should
+be given a chance to discuss this change just like any other change.
+
+thanks,
+-- Shuah
