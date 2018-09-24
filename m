@@ -1,36 +1,26 @@
-Return-Path: <Jason@zx2c4.com>
+Return-Path: <dan.carpenter@oracle.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B7E75D74
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 05321E8A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 24 Sep 2018 01:57:48 +0000 (UTC)
-Received: from frisell.zx2c4.com (frisell.zx2c4.com [192.95.5.64])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2E519A8
+	Mon, 24 Sep 2018 09:21:52 +0000 (UTC)
+Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7D00B180
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 24 Sep 2018 01:57:48 +0000 (UTC)
-Received: by frisell.zx2c4.com (ZX2C4 Mail Server) with ESMTP id 9242cc24
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 24 Sep 2018 01:39:32 +0000 (UTC)
-Received: by frisell.zx2c4.com (ZX2C4 Mail Server) with ESMTPSA id af107617
-	(TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128:NO)
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 24 Sep 2018 01:39:31 +0000 (UTC)
-Received: by mail-ot1-f42.google.com with SMTP id i12-v6so18443401otl.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 23 Sep 2018 18:57:46 -0700 (PDT)
+	Mon, 24 Sep 2018 09:21:51 +0000 (UTC)
+Date: Mon, 24 Sep 2018 12:21:36 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Jiri Kosina <jikos@kernel.org>
+Message-ID: <20180924092136.fqlane5t2p3jx3ee@mwanda>
+References: <alpine.LRH.2.21.1809220709090.19240@namei.org>
+	<20180922131640.pxjwukrckggxtg3s@mwanda>
+	<nycvar.YFH.7.76.1809231518440.15880@cbobk.fhfr.pm>
 MIME-Version: 1.0
-References: <CAHmME9oVReKvhpm1CSnF3KLDYtt63SvauHXZ-m6mWR=zno2OJA@mail.gmail.com>
-	<CAHmME9rRnPydFT0CVugiEkVhjHsGukruYqcfdiHu1sSU40A9bQ@mail.gmail.com>
-In-Reply-To: <CAHmME9rRnPydFT0CVugiEkVhjHsGukruYqcfdiHu1sSU40A9bQ@mail.gmail.com>
-From: "Jason A. Donenfeld" <Jason@zx2c4.com>
-Date: Mon, 24 Sep 2018 03:57:34 +0200
-Message-ID: <CAHmME9ovay9H9PNoAEHpQRFYOOPcsZAHCYYEPL-11mVONBTK4g@mail.gmail.com>
-To: ksummit-discuss@lists.linuxfoundation.org
-Content-Type: text/plain; charset="UTF-8"
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Subject: [Ksummit-discuss] Fwd: [TECH TALK] Zinc: Minimal Light-weight
-	Kernel Cryptography API
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <nycvar.YFH.7.76.1809231518440.15880@cbobk.fhfr.pm>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Security
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,35 +30,42 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Following up from the other thread, it appears that the below message
-was rejected silently by linuxfoundation.org's mailing list server. It
-should have been accepted as either:
+On Sun, Sep 23, 2018 at 03:20:22PM +0200, Jiri Kosina wrote:
+> On Sat, 22 Sep 2018, Dan Carpenter wrote:
+> 
+> > Sort of related to this.  I think we should have a public email list to
+> > discuss potential security problems.  We've actually talked about making
+> > the security@kernel.org list public at some point when people started
+> > flooding it with static checker warnings about potential SELinux missing
+> > checks.
+> > 
+> > The downsides are 1) Maintainers will be annoyed.  They don't want me or
+> > anyone to forward them static checker output (they are polite about
+> > this).  But they also want to be the first to know about real bugs found
+> > by static analysis.  These are conflicting and impossible desires...  2)
+> > Script kiddies will follow the list and learn about bugs earlier.  I
+> > don't see this as a huge issue if we restricted it to driver specific
+> > bugs.
+> 
+> 3) there simply is a need for CRD process for the kernel (which pretty 
+>    much by definition is not happening publicly). Currently, security@ 
+>    serves that purpose, so if you make that public, you have to 
+>    instantiate some other process to deal with CRDs.
 
-- 250 2.0.0 Ok: queued as AC122174
-- 250 2.0.0 Ok: queued as 8EF1AF8
+I'm not saying we would eliminate security@kernel.org.  We would keep
+that.  security@kernel.org also does not want to answer questions about
+every "suspicious code" that people find.
 
-Hopefully the below submission does make it this time.
+For coordinated responses you need linux-distros. security@kernel.org
+does not do it.
 
-(Thanks to James for pointing out that these never made it the first
-time around.)
+security@kernel.org is there for two reasons.  First we need a contact
+to deal with security issues.  About half the time when people send us
+security reports to security@kernel.org then we just forward it to the
+appropriate maintainer.  Second, it's has a bunch of core developers for
+serious bugs in ptrace or similar which affect everyone.  Those kinds of
+fixes are risky and complicated.  But after a fix is found then distros
+are expected to handle the release and getting the CVE etc.
 
-
-
----------- Forwarded message ---------
-From: Jason A. Donenfeld <Jason@zx2c4.com>
-Date: Fri, Sep 21, 2018 at 6:43 AM
-Subject: [TECH TALK] Zinc: Minimal Light-weight Kernel Cryptography API
-To: <ksummit-discuss@lists.linuxfoundation.org>
-
-
-Zinc is a new minimal cryptography API for the kernel that is in the
-process of being upstreamed. Rather than providing an abstracted
-framework, Zinc provides simple functions. This talk will address the
-design considerations of the new API, its approach to implementation
-choice and fuzzing, and touch on formally verified cryptography
-implementations. We'll explore the difference between, on one hand,
-reference code for a particular algorithm, and on the other hand, the
-present crypto API with its large and complicated abstractions, and
-how Zinc fits into the middle of these extremes. We'll also examine
-issues relating to using SIMD from kernel space and the costs
-associated with it, and what we can do about it.
+regards,
+dan carpenter
