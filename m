@@ -1,27 +1,33 @@
-Return-Path: <jikos@kernel.org>
+Return-Path: <Jason@zx2c4.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C55D11113
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0985C8DC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 23 Sep 2018 18:54:34 +0000 (UTC)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B896EA8
+	Mon, 24 Sep 2018 00:12:33 +0000 (UTC)
+Received: from frisell.zx2c4.com (frisell.zx2c4.com [192.95.5.64])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 63A72180
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 23 Sep 2018 18:54:32 +0000 (UTC)
-Date: Sun, 23 Sep 2018 20:54:29 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
-To: "Theodore Y. Ts'o" <tytso@mit.edu>
-In-Reply-To: <20180923183407.GA2774@thunk.org>
-Message-ID: <nycvar.YFH.7.76.1809232052170.15880@cbobk.fhfr.pm>
-References: <alpine.LRH.2.21.1809220709090.19240@namei.org>
-	<20180922131640.pxjwukrckggxtg3s@mwanda>
-	<nycvar.YFH.7.76.1809231518440.15880@cbobk.fhfr.pm>
-	<20180923183407.GA2774@thunk.org>
+	Mon, 24 Sep 2018 00:12:32 +0000 (UTC)
+Received: by frisell.zx2c4.com (ZX2C4 Mail Server) with ESMTP id 5ec3ad68
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sun, 23 Sep 2018 23:54:16 +0000 (UTC)
+Received: by frisell.zx2c4.com (ZX2C4 Mail Server) with ESMTPSA id 333d55f1
+	(TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128:NO)
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sun, 23 Sep 2018 23:54:16 +0000 (UTC)
+Received: by mail-oi0-f47.google.com with SMTP id k64-v6so1214276oia.13
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sun, 23 Sep 2018 17:12:30 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Security
+References: <CAHmME9oVReKvhpm1CSnF3KLDYtt63SvauHXZ-m6mWR=zno2OJA@mail.gmail.com>
+In-Reply-To: <CAHmME9oVReKvhpm1CSnF3KLDYtt63SvauHXZ-m6mWR=zno2OJA@mail.gmail.com>
+From: "Jason A. Donenfeld" <Jason@zx2c4.com>
+Date: Mon, 24 Sep 2018 02:12:19 +0200
+Message-ID: <CAHmME9pP+iGLecaQQCLw4_wNDDt9_1dBMW1uY0DVYLqA=JgQYg@mail.gmail.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Ksummit-discuss] [TECH TALK] WireGuard: Next-Generation Secure
+	Kernel Network Tunnel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,17 +37,13 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sun, 23 Sep 2018, Theodore Y. Ts'o wrote:
+Confusingly, this talk was actually accepted for the main refereed
+track at Plumbers, which probably makes more sense anyway for it. So I
+should probably retract this submission.
 
-> > 3) there simply is a need for CRD process for the kernel (which pretty 
-> >    much by definition is not happening publicly). Currently, security@ 
-> >    serves that purpose, so if you make that public, you have to 
-> >    instantiate some other process to deal with CRDs.
-> 
-> Can you expand the acronym "CRD".
+However, the more important and relevant talk -- the one on Zinc -- is
+really quite appropriate for the kernel track and is sure to spur a
+lot of needed discussion. So please focus attention on that instead.
 
-"Coordinated release date" across the various affected vendors.
-
--- 
-Jiri Kosina
-SUSE Labs
+Thanks,
+Jason
