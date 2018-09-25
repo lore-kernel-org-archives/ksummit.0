@@ -1,36 +1,34 @@
-Return-Path: <leon@kernel.org>
+Return-Path: <olof@lixom.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 275ED10BA
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 923FF101F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 25 Sep 2018 05:45:39 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 448AC711
+	Tue, 25 Sep 2018 06:21:30 +0000 (UTC)
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
+	[209.85.167.52])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 91BBD27B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 25 Sep 2018 05:45:38 +0000 (UTC)
-Date: Tue, 25 Sep 2018 08:45:35 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Mel Gorman <mgorman@techsingularity.net>
-Message-ID: <20180925054534.GZ3519@mtr-leonro.mtl.com>
-References: <20180919083749.49268562@coco.lan>
-	<20180919090332.723c1b75@coco.lan>
-	<1537366581.6816.1.camel@HansenPartnership.com>
-	<20180919165552.0f30bbef@coco.lan>
-	<CAPM=9tyrsJx5oaY-umNAmNDGUAFQWQ-dmh=FdsOUEQynr_yqjg@mail.gmail.com>
-	<20180919210122.694bf4a3@coco.lan>
-	<ECADFF3FD767C149AD96A924E7EA6EAF7C1EB915@USCULXMSG01.am.sony.com>
-	<875zz0y8ym.fsf@intel.com>
-	<a5d0c23c244027dc8f27136df98f28bac1058173.camel@infradead.org>
-	<20180924135311.GM1719@techsingularity.net>
+	Tue, 25 Sep 2018 06:21:29 +0000 (UTC)
+Received: by mail-lf1-f52.google.com with SMTP id m80-v6so8359216lfi.12
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 24 Sep 2018 23:21:29 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="hIO1AjEoFJ7b3ahE"
-Content-Disposition: inline
-In-Reply-To: <20180924135311.GM1719@techsingularity.net>
-Cc: James.Bottomley@hansenpartnership.com, mchehab+samsung@kernel.org,
-	Tim.Bird@sony.com, ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINER TOPIC FOR KS] CoC and Linus
- position (perhaps undocumented/closed/limited/invite session)
+References: <cf7638b9-c25d-d47e-f539-192a43268122@kernel.org>
+	<alpine.LRH.2.21.1809250351090.21310@namei.org>
+	<20180924181138.GA16086@tuxdriver.com>
+	<CAOesGMi3rRZj-qJ03HbSctPVZybHoaapQnffhj5eP+w7RdKDRw@mail.gmail.com>
+	<alpine.DEB.2.21.1809242310200.1398@nanos.tec.linutronix.de>
+	<CAKMK7uFczn2KHrKEbUan-E1adXKs24LZFY3Re4UHsXyfjB6byw@mail.gmail.com>
+In-Reply-To: <CAKMK7uFczn2KHrKEbUan-E1adXKs24LZFY3Re4UHsXyfjB6byw@mail.gmail.com>
+From: Olof Johansson <olof@lixom.net>
+Date: Tue, 25 Sep 2018 08:21:15 +0200
+Message-ID: <CAOesGMjYT0pCtms8LeoKCWLXyEzRQ+=7AczWz07m0YpQyHBq9w@mail.gmail.com>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Content-Type: text/plain; charset="UTF-8"
+Cc: olof@lxom.net, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [TECH-TOPIC] Review - Code of Conduct: Let's
+ revamp it.
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,78 +38,64 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-
---hIO1AjEoFJ7b3ahE
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, Sep 24, 2018 at 02:53:11PM +0100, Mel Gorman wrote:
-> On Thu, Sep 20, 2018 at 08:04:39AM +0100, David Woodhouse wrote:
-> > On Thu, 2018-09-20 at 09:33 +0300, Jani Nikula wrote:
-> > > Agreed.
-> > >
-> > > I think there's much more value in adopting a widely used code of
-> > > conduct than writing your own, or even trying to tweak it. If a proje=
-ct
-> > > uses the Contributor Covenant, you pretty much know the rules without
-> > > actually having to read another document and wonder what this all mea=
-ns.
-> > > In this regard, it's really not unlike the GPL for copyleft licenses;
-> > > one acronym tells you what you can and can't do.
-> > >
-> > > With that perspective, I think the changes proposed in this thread do
-> > > more harm than good. If people still insist the text should be improv=
-ed,
-> > > I think the proper flow is to file issues or pull requests to
-> > > Contributor Covenant upstream [1], and later update to a new version =
-of
-> > > the document.
-> >
-> > I'll note that isn't what Linus did with the GPL.
-> >
-> > But perhaps there's a possible solution: Instead of editing the text of
-> > the covenant, just preface it with a statement that email addresses
-> > used on mailing lists are not considered to be private and that it is
-> > acceptable (and indeed recommended) to credit individuals who have
-> > contributed to reporting and testing by using their email addresses.
+On Tue, Sep 25, 2018 at 6:26 AM Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
 >
-> It's not just email addresses We generally require people to use their
-> real name and not pseudonyms for patches and their Signed-off-by.
+> Thomas Gleixner <tglx@linutronix.de> schrieb am Di., 25. Sep. 2018, 00:22:
+>>
+>> On Mon, 24 Sep 2018, Olof Johansson wrote:
+>> > Ah yes, Popper's Paradox. The answer is not that we have to be
+>> > tolerant of the intolerant -- or at least not infinitely. We also all
+>> > know that people need a bit of time to adjust to new habits and I
+>> > think we should focus more on (quick) improvement over time than
+>> > absolutes. We're all humans.
+>>
+>> That's the important point here: we are _all_ humans. That includes those
+>> who occasionally lose their temper (I know what I'm talking about and I
+>> know for sure that it is a life long struggle to control it).
+>>
+>> If someone puts that person in his place, that's absolutely correct and
+>> necessary. Most people immediately react, regret and apologize and they
+>> mean it.
 
-=46rom my understanding, it is covered by DCO clause (d).
-https://developercertificate.org/
-https://wiki.linuxfoundation.org/dco
+Minor note: "put in place" can be interpreted as someone standing up
+and yelling even louder back at the person who's already aggravated.
+That's not how things should have to work.
 
-Thanks
-
+>>
+>> Now if someone gets put in his place and the person who does that then goes
+>> one step further and asks (privately) what's wrong and what caused that
+>> pointless explosion, in other words deeply cares about the other person who
+>> failed, then a way deeper change happens than just using the Code of
+>> Conflict/Conduct as a one edged sword.
 >
-> --
-> Mel Gorman
-> SUSE Labs
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+>
+>
+> All this coc asks you to do is stop putting yourself first and start considering others. Instead of lashing out and then expecting your recipients to also handle the fallout for, plus showing deep empathy for the harassment they just received.
+>>
+>>
+>> Then 'be excellent to each other' becomes what it's really meant to be.
+>
+> Seems rather one way instead of mutual, what you have in mind.
 
---hIO1AjEoFJ7b3ahE
-Content-Type: application/pgp-signature; name="signature.asc"
+I don't think anyone is in disagreement about the base case: That
+everybody will work on changing, and that it's considered OK and
+expected to call out when someone is starting to get out of line. Also
+that we're all expecting things to converge on "excellent to each
+other" very quickly even if there ends up being a couple of stumbles
+along the way. Nobody gets free passes.
 
------BEGIN PGP SIGNATURE-----
+The second part I think there are two ways to interpret, and I read it
+differently than you (but I might be the one who missed Thomas'
+intention):
 
-iQIcBAEBAgAGBQJbqct+AAoJEORje4g2clineVgQAJNkOSAHbAyoJh08ONEAfFeX
-7RHmHVoTnAPvvnorClt4tAIO1xPAA9Otb75P++xVf9Z85QH9hSQ5vCjKY5FrF2KI
-HcepcCH49yM1m4adY64emF/YNzvF60DZkmPBRRQt9/Tqh2LfNz9dlvdKlEf5l1tv
-AkNdgEAP5iaf42QuTM9q3Q6rphApmHwBfyHGq3HIQ9sWvZQWzclz7dSVX2Tcrt6X
-wmEO/9HpqOxVMfjx6u8U1pHiO3lJEr9Ownms/dWk5MpAQfvi6lBTXQUmoWVq3Wcu
-WQnXxGOGqiXxNyFbPDTQNafZ0RQ2qp0KXgBBDzqQogiBZvmPmuvzdx/GH2FhQnTG
-fQJXdEJ5+f99WttY2aNKMfpUf3Pkaqn+7G11uK/kCDWyYlTQsuzLWwuWrZuX9Hl1
-9gLwLjkIzwd31uv+GvgkrpZ3svswZKq9qjlAUWUGW16y9PJWV/cdLofruHvq5zGx
-BclBWFWpS8SVKMewFIcsuNzChwkUty6Yr03AkWbq/c9il1nfWsGrHNsRQozpfKnM
-93h6miwN3XnnTr6luODrGqt24FLE0/uj1LqOZVfXAWoI/oFYNoNHMscZtZMNx1Ek
-lhsmeBBgiQOK/IZJNxg3cxGHtLGUeEeB7asCkfzhUwANulXqE0WPGuKwDwu0gFRY
-ARMpvL70h2TSQFE/qfYN
-=2Vye
------END PGP SIGNATURE-----
+Reaching out to the one who's misbehaving I see more as something
+friends will do to each other, not what the community as such is
+expected to do. I.e. if I enjoy having Thomas around (I do, but I'm
+also looking forward to him not blowing up ever so often), it's worth
+checking in to see if everything is OK and if there's anything I can
+do to help. Not before someone has checked in with the person at the
+receiving end, and I definitely would never expect that person to be
+the one checking in with Thomas.
 
---hIO1AjEoFJ7b3ahE--
+
+-Olof
