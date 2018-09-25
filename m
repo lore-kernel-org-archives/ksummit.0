@@ -1,34 +1,28 @@
-Return-Path: <daniel.vetter@ffwll.ch>
+Return-Path: <Tim.Bird@sony.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 15182E69
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id CED8D1003
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 25 Sep 2018 16:43:13 +0000 (UTC)
-Received: from mail-it1-f180.google.com (mail-it1-f180.google.com
-	[209.85.166.180])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5746AF8
+	Tue, 25 Sep 2018 16:51:46 +0000 (UTC)
+Received: from NAM05-BY2-obe.outbound.protection.outlook.com
+	(mail-eopbgr710126.outbound.protection.outlook.com [40.107.71.126])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1E73A7EC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 25 Sep 2018 16:43:12 +0000 (UTC)
-Received: by mail-it1-f180.google.com with SMTP id m9-v6so2705550ita.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 25 Sep 2018 09:43:12 -0700 (PDT)
-MIME-Version: 1.0
+	Tue, 25 Sep 2018 16:51:46 +0000 (UTC)
+From: <Tim.Bird@sony.com>
+To: <shuah@kernel.org>, <corbet@lwn.net>, <jani.nikula@intel.com>
+Date: Tue, 25 Sep 2018 16:51:40 +0000
+Message-ID: <ECADFF3FD767C149AD96A924E7EA6EAF80512DBA@USCULXMSG01.am.sony.com>
 References: <cf7638b9-c25d-d47e-f539-192a43268122@kernel.org>
-	<alpine.LRH.2.21.1809250351090.21310@namei.org>
-	<20180924181138.GA16086@tuxdriver.com>
-	<CAOesGMi3rRZj-qJ03HbSctPVZybHoaapQnffhj5eP+w7RdKDRw@mail.gmail.com>
-	<alpine.DEB.2.21.1809242310200.1398@nanos.tec.linutronix.de>
-	<CAKMK7uFczn2KHrKEbUan-E1adXKs24LZFY3Re4UHsXyfjB6byw@mail.gmail.com>
-	<CAOesGMjYT0pCtms8LeoKCWLXyEzRQ+=7AczWz07m0YpQyHBq9w@mail.gmail.com>
-	<alpine.DEB.2.21.1809250837370.1398@nanos.tec.linutronix.de>
-In-Reply-To: <alpine.DEB.2.21.1809250837370.1398@nanos.tec.linutronix.de>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Tue, 25 Sep 2018 18:42:58 +0200
-Message-ID: <CAKMK7uH7YMZ-3SHeJOwT=CVsOjHTMd97cGFf-e+3JCj8FOyQLA@mail.gmail.com>
-To: Thomas Gleixner <tglx@linutronix.de>
-Content-Type: text/plain; charset="UTF-8"
-Cc: olof@lxom.net, ksummit <ksummit-discuss@lists.linuxfoundation.org>,
-	Greg KH <gregkh@linuxfoundation.org>
+	<87tvmdvoaj.fsf@intel.com> <20180925073848.5f42a8ec@lwn.net>
+	<ddae4540-4202-76bd-fbd7-c891001cc71d@kernel.org>
+In-Reply-To: <ddae4540-4202-76bd-fbd7-c891001cc71d@kernel.org>
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Cc: olof@lxom.net, gregkh@linuxfoundation.org,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [TECH-TOPIC] Review - Code of Conduct: Let's
  revamp it.
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -40,82 +34,61 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Sep 25, 2018 at 10:45 AM Thomas Gleixner <tglx@linutronix.de> wrote:
-> On Tue, 25 Sep 2018, Olof Johansson wrote:
-> > Reaching out to the one who's misbehaving I see more as something
-> > friends will do to each other, not what the community as such is
-> > expected to do. I.e. if I enjoy having Thomas around (I do, but I'm
-> > also looking forward to him not blowing up ever so often), it's worth
-> > checking in to see if everything is OK and if there's anything I can
-> > do to help. Not before someone has checked in with the person at the
-> > receiving end, and I definitely would never expect that person to be
-> > the one checking in with Thomas.
->
-> Let me put that straight.
->
-> Surely everyone has to work on himself and I'm not expecting that the
-> person who got attacked reaches out to the one misbehaving. Obviously it
-> has to be the other way round and the one who misbehaved needs to reach
-> out.
->
-> For me it's part of true excellence when the one who told me to stop it, or
-> a third person, reaches out to me as well.  John Stultz did that to me some
-> time ago, and I really appreciated it. It made a huge difference for me and
-> talking to him about it surely made me reflect deeper and helped me to see
-> where my own defense against my temper broke.
 
-Fully agreed, having someone you can confide in and work through a
-complicated situation together in private helps greatly in
-understanding and improving long term. What really worried me here is
-that we brought this up in the context of a code of conduct -
-codifying the expectation that this should happen doesn't seem a good
-idea to me. The cleanups-after-explosions I've helped with were
-already tons of work, with typing a very carefully edited response in
-public (don't want to make it accidentally worse) and then lots
-chatting with recipients to make sure they're not running away.
-Loading up even more is not something I want to force on anyway. It's
-great though if it happens, maybe as some sort of informal peer
-maintainers group, since that's how we improve as a community.
 
-Aside on the carefully edited response letter, and why that one is so
-hard to get right, and so much exhausting work to type: Showing
-understanding for where someone is coming from is crucial, or your
-mail won't be received. Doing that while still making it crystal clear
-what's not acceptable, while not opening up into an endless argument,
-or legitimizing the offending behaviour through the back door, is very
-often a zero margin balancing act.
+> -----Original Message-----
+> From: Shuah Khan
+>=20
+> On 09/25/2018 07:38 AM, Jonathan Corbet wrote:
+> > On Tue, 25 Sep 2018 13:56:04 +0300
+> > Jani Nikula <jani.nikula@intel.com> wrote:
+> >
+> >> Is the implication that further discussion on this is futile?
+> >>
+> >> Fire-and-forget is not exactly the best approach for rolling out a cod=
+e
+> >> of conduct.
+> >
+> > I doubt anybody is going to forget! :)
+>=20
+> It is disappointing that it had to be committed without following the usu=
+al
+> process. That said, I do support the direction and stating the expectatio=
+ns.
+>=20
+> >
+> > This is only my opinion, but I don't believe that the current CoC is se=
+t
+> > in stone and immune to further changes.  It is something to start with.
+> > I expect we will end up evolving it, like we evolve our other code.  We
+> > will need to figure out how to do that, though; that discussion has not
+> > yet even begun.
+> >
+>=20
+> One of the reasons for starting this thread is to get a clear understandi=
+ng
+> of the intent for next steps and the next steps for involving the communi=
+ty
+> and evolving  the CoC. I hope a concrete plan or some plan emerges out of
+> this
+> discussion.
+>=20
+> Since the way it currently reads, it adds to maintainer responsibilities,
+> it is important to open it up for review by all maintainers as opposed to
+> participants of just the Maintainer Summit which is a very small group.
 
-> There is a - not completely unjustified - fear in the wider community that
-> the CoC could be turned into thought policing. Especially those who grew up
-> in the eastern part of Europe or under any other form of repressive state,
-> those who have second hand experience through relatives and friends and
-> those have been exposed to that in some other context, are very sensitive
-> to this and sentences like:
->
->  "- we crack down hard on anything that might drive away contributors."
->
-> certainly do not make them more comfortable. Adding the unclarified
-> provisions of the CoC to it doesn't help either.
->
-> We're all human and it is part of human nature to fail. Repression does not
-> make that go away. Quite the contrary.
+I am speaking only for myself, but I couldn't agree more, on all points.=20
 
-Yeah this was a bit too much over the top. In practice it involves
-lots and lots of me talking with people in private - I think I
-explained a bunch of that in other, even earlier mails (the thread got
-a bit long at that point, and my attempt at a summary fell somewhat
-short). My empathy stops though when people blame others for the
-consequences of their own actions and expect others to clean up the
-mess they made. Not anywhere here on ksummit-discuss, but I did
-unfortunately run into cases where that baseline understanding
-necessary to work through a situation was entirely missing. If someone
-is consistently refusing to entertain other people's vantage point
-there's not much you can do that both puts a stop to it and doesn't
-involve force of some sorts, like a temporary suspension. But it is,
-and needs to be, a measure of last resort.
+I think Mauro raised some very good points about aspects of the CoC
+being a better fit for a github-style project as opposed to a widely
+distributed e-mail based project.  And certainly the ambiguity regarding th=
+e
+treatment of published e-mails as private information needs to be
+resolved.  So I think it's unquestionable that the CoC will need to change.
 
-Cheers, Daniel
---
-Daniel Vetter
-Software Engineer, Intel Corporation
-+41 (0) 79 365 57 48 - http://blog.ffwll.ch
+But I still don't know what the process for that is, and I hope that
+we'll see some suggestions at Maintainers Summit, that can be discussed
+as a wider community.  I agree that the Maintainer Summit and Plumbers
+doesn't represent all affected community members, and that should
+definitely be taken into account.
+ -- Tim
