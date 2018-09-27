@@ -1,26 +1,34 @@
-Return-Path: <mchehab+samsung@kernel.org>
+Return-Path: <labbott@redhat.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 830B41060
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 14D2D1088
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 26 Sep 2018 20:57:52 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E027727B
+	Thu, 27 Sep 2018 08:30:22 +0000 (UTC)
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
+	[209.85.221.43])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 151212C3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 26 Sep 2018 20:57:48 +0000 (UTC)
-Date: Wed, 26 Sep 2018 17:57:24 -0300
-From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-To: Jason Cooper <jason@lakedaemon.net>
-Message-ID: <20180926175724.7723bb61@coco.lan>
-In-Reply-To: <20180924193107.GM570@io.lakedaemon.net>
+	Thu, 27 Sep 2018 08:30:20 +0000 (UTC)
+Received: by mail-wr1-f43.google.com with SMTP id l10-v6so1607376wrp.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 27 Sep 2018 01:30:20 -0700 (PDT)
+To: "Theodore Y. Ts'o" <tytso@mit.edu>
 References: <cf7638b9-c25d-d47e-f539-192a43268122@kernel.org>
-	<20180924193107.GM570@io.lakedaemon.net>
+	<87tvmdvoaj.fsf@intel.com> <20180925073848.5f42a8ec@lwn.net>
+	<ddae4540-4202-76bd-fbd7-c891001cc71d@kernel.org>
+	<ECADFF3FD767C149AD96A924E7EA6EAF80512DBA@USCULXMSG01.am.sony.com>
+	<6b6933ba-284e-adec-6060-0bf51c4fc7e7@redhat.com>
+	<20180926144703.GC3321@thunk.org>
+From: Laura Abbott <labbott@redhat.com>
+Message-ID: <e3cb7b83-2680-aadb-6c3b-aa6fb0ba6439@redhat.com>
+Date: Thu, 27 Sep 2018 01:30:17 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Cc: olof@lxom.net, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	ksummit-discuss@lists.linuxfoundation.org
+In-Reply-To: <20180926144703.GC3321@thunk.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: ksummit-discuss@lists.linuxfoundation.org, gregkh@linuxfoundation.org,
+	Tim.Bird@sony.com, olof@lxom.net
 Subject: Re: [Ksummit-discuss] [TECH-TOPIC] Review - Code of Conduct: Let's
  revamp it.
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -32,107 +40,39 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Em Mon, 24 Sep 2018 19:31:07 +0000
-Jason Cooper <jason@lakedaemon.net> escreveu:
-
-> All,
->=20
-> On Mon, Sep 24, 2018 at 08:24:07AM -0600, Shuah Khan wrote:
-> > I have been trying to follow various threads on this topic and none of =
-them address
-> > the review of this patch that went in. There is no mistake in the title=
- of this topic.
-> > I do consider this topic to be more general than limited to Maintainer =
-Summit. Hence,
-> > the choice of a wider Technical designation. =20
->=20
-> fwiw, I agree with the insufficient scope, and the lack of public
-> mailinglist discussion.
->=20
-> I'd like to make a drive-by observation (or two), if I may.  The kernel
-> community is *huge* and *active* in comparison to most other projects.
-> It also has a lot more history than most others.  That history isn't
-> stored in a database, only to be accessed through a web page, accepting
-> the single database as canonical.  Rather, the history is stored in many
-> places, accessible by many different methods, and verifiable against
-> other remote copies of the history.
->=20
-> This difference is an understated advantage of the kernel development
-> process.  Once you say "it", you can never refute that you said it.  The
-> history itself provides a conscious check.  As a result, I don't think a
-> CoC in any form is going to cause any sort of material change in anyones
-> behavior.  Rather, it'll just push away valuable and scarce talent.
->=20
-> The second observation is that trying to adopt a single CoC for the
-> _entire_ Linux development community is an exercise in futility.  As
-> Daniel Vetter has mentioned many times in these recent discussions, dri
-> has been happily living under their own CoC for quite some time.  So we
-> can gather a) it works for them, and b) it doesn't bother any other
-> subsystems.
->=20
-> So why are we trying to apply a single CoC to everyone?  Why not let
-> each subsystem / sub-community adopt their own and see how it goes?  A/B
-> test it.  It could either be a footer link for the respective
-> mailinglist, or a link in MAINTAINERS.  Any community not specifying one
-> defaults to the Code of Conflict.
-
-Well, we have a privacy policy for media development that touches some
-of the items covered by the CoC:
-
-	https://linuxtv.org/wiki/index.php/LinuxTVWiki:Privacy_policy
-
-The rationale behind it is very different than the one for the CoC...
-it was added mainly to comply to the new EU legislation.
-
-It is based on Wikipedia privacy policy (with some amendments), as the
-main thing that we host there (where maintainers don't have control) are
-wiki pages.
-
-Yet, while not a CoC, it says things like:
-
-   "LinuxTV is collaborative, with users writing most of the policies and s=
-electing from amongst themselves people to hold certain administrative righ=
-ts. These rights may include access to limited amounts of otherwise nonpubl=
-ic information about recent contributions and activity by other users. They=
- use this access to help protect against vandalism and abuse, fight harassm=
-ent of other users, and generally try to minimize disruptive behavior on th=
-e sites."
-
-In other words, it crosses some lines with this CoC. It also explicitly
-says that:
-
-	"Any information you post publicly on the Wiki or send via e-mail to a dis=
-cussion list is just that =E2=80=93 public. For example, if you put your ma=
-iling address on your talk page, that is public, and not protected by this =
-Policy. And if you edit without registering or logging into your account, y=
-our IP address will be seen publicly. Please think carefully about your des=
-ired level of anonymity before you disclose personal information on your us=
-er page or elsewhere."
-
-That's said, I like the concept of global CoC, but you touched an
-interesting point: it may conflict with already-existing CoC and similar
-documents.
-
-> I'd like to assume the backdoor method the CoC was introduced was purely
-> to avoid a never-ending bikeshed.  And the subsequent threads are
-> evidence that it didn't take a prognosticator to predict the mess.
->=20
-> Perhaps that's an indicator that it shouldn't be done that way.  Maybe
-> approaching the problem on a per-sub-community will work better.  I
-> dunno.
->=20
-> Just my 2 cents.
->=20
->=20
+On 09/26/2018 07:47 AM, Theodore Y. Ts'o wrote:
+> On Wed, Sep 26, 2018 at 01:04:30AM -0700, Laura Abbott wrote:
+>>
+>> Fedora is going through a similar process to revamp its code of conduct.
+>> It's not fully released yet but from talking to some people involved,
+>> they started from the contributor covenant and made some changes and
+>> amendments. Some of the amendments were to clarify the purpose of the
+>> code of conduct. Given Fedora also has a heavily e-mail based workflow,
+>> I think this is a good indication it should be possible to make
+>> modifications to meet our needs.
+> 
+> Is there someone from the Fedora community who is working on this who
+> might be willing to share some private comments, suggestions,
+> reflections, etc. with the TAB?  I imagine Fedora is working on this
+> on their own schedule, and it might not be done before the
+> Maintainer's Summit, but if there is any wisdom, potential pitfalls,
+> concerns, etc., that they might be willing share, I'm sure it would be
+> most helpful.
+> 
+> (Speakinig only for myself.)
+> 
 > Thanks,
->=20
-> Jason.
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+> 
+> 						- Ted
+> 
 
-
+I'll reach out to several of the people involved to see if they
+would be willing to share their insights. In the meantime,
+https://pagure.io/Fedora-Council/tickets/issues?status=Open&tags=code-of-conduct
+is the public tracker if anyone is interested in the types of
+issues Fedora has/is thinking about. In particular, I think
+https://pagure.io/Fedora-Council/tickets/issue/105
+provides a nice summary.
 
 Thanks,
-Mauro
+Laura
