@@ -1,25 +1,27 @@
-Return-Path: <boazharrosh@gmail.com>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5A59966FF
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  2 Oct 2018 16:10:48 +0000 (UTC)
-Received: from mail-yw1-f44.google.com (mail-yw1-f44.google.com
-	[209.85.161.44])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 25401762
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  2 Oct 2018 16:10:46 +0000 (UTC)
-Received: by mail-yw1-f44.google.com with SMTP id v198-v6so963475ywg.12
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 02 Oct 2018 09:10:46 -0700 (PDT)
+Return-Path: <sudeep.holla@arm.com>
+Date: Wed, 3 Oct 2018 15:52:55 +0100
+From: Sudeep Holla <sudeep.holla@arm.com>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <20181003145255.GC12570@e107155-lin>
+References: <20181001140402.0799a8f0@gandalf.local.home>
+	<20181002011856.GA10841@kroah.com>
+	<20181002090713.71b529fe@gandalf.local.home>
+	<CAOesGMhX3PpQMhuvRO8JwATHbLuoYS6hfhDdoYz12eAy4r79NA@mail.gmail.com>
+	<c5546d68-bdcc-dd02-e072-9272d39de504@kernel.org>
+	<20181002161730.GA7119@kroah.com>
+	<20181002163001.GA11068@kroah.com>
+	<20181002183743.78eac32d@coco.lan>
+	<20181003100633.GB12570@e107155-lin>
+	<20181003131353.GB7132@sirena.org.uk>
 MIME-Version: 1.0
-From: Boaz <boazharrosh@gmail.com>
-Date: Tue, 2 Oct 2018 19:10:33 +0300
-Message-ID: <CAPvSq70QMfhF1kwKDVVz14pLP73XvVoJ8DJU7FRciaUg5zxYUA@mail.gmail.com>
-To: ksummit-discuss@lists.linuxfoundation.org
-Content-Type: multipart/alternative; boundary="00000000000011dfb40577412a59"
-Subject: [Ksummit-discuss] [TECH TOPIC] Linux Plumbers 2018: ZUFS - Zero
- Copy User-Mode FileSystem - One year Later
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20181003131353.GB7132@sirena.org.uk>
+Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	ksummit <Ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Moving debugfs file
+ systems into sysfs
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,55 +31,31 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---00000000000011dfb40577412a59
-Content-Type: text/plain; charset="UTF-8"
+On Wed, Oct 03, 2018 at 02:13:53PM +0100, Mark Brown wrote:
+> On Wed, Oct 03, 2018 at 11:06:33AM +0100, Sudeep Holla wrote:
+> > On Tue, Oct 02, 2018 at 06:37:43PM -0300, Mauro Carvalho Chehab wrote:
+> 
+> > > Even if it won't be possible to crash the Kernel or escalate
+> > > privileges, I suspect that several stuff in debugfs should never
+> > > be enabled on production systems, as they may reveal things like
+> > > memory addresses and other stuff that could be used to help someone
+> > > to crack a system.
+> 
+> > I completely agree with that. Recently I reviewed patches to support
+> > power management on some ARM platforms which had complete system clock
+> > control in debugfs. It even had access to many system controls that it
+> > can send to remote system control processor which we really don't want
+> > in production systems.
+> 
+> This is why I've always strongly resisted making it possible to write to
+> the regmap or regulator debugfs files; there is code for writing to the
+> regmap ones but you need to patch the kernel to enable it.
 
-Linux Plumbers 2018: ZUFS - Zero Copy User-Mode FileSystem - One year Later
+Ah, that's better. Next time I see anything around debugfs where
+restricting write is a must, I will suggest something on similar lines
+so that they need that extra tiny patch to get it enabled. Thanks for
+the pointers.
 
-One year after its inception there are real hardened FSs. Real performance
-measurements. and many innovative fixtures. But is it ready for upstream?
-
-Few highlights:
-
-- ALL VFS api working including dax, mmap IOCTL xattrs ACLs ....
-  (Missing quota)
-- IO API changed (From last year)
-- Support for ASYNC operations
-- Support for both pmem and regular block devices
-- Support for private memory pools
-- ZTs multy-channel and dynamic channel allocation
-- And many more ...
-
-In the talk I will give a short architectural and functional overview.
-Then will go over some of the leftover challenges.
-And finally hope to engage in an open discussion of how this project should
-move
-forward to be accepted into the Kernel, gain more users and FS
-implementations.
-
-Cheers
-Boaz
-
---00000000000011dfb40577412a59
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div>Li=
-nux Plumbers 2018: ZUFS - Zero Copy User-Mode FileSystem - One year Later<b=
-r></div><div><br></div><div>One year after its inception there are real har=
-dened FSs. Real performance measurements. and many innovative fixtures. But=
- is it ready for upstream?</div><div><br></div><div>Few highlights:</div><d=
-iv><br></div><div>- ALL VFS api working including dax, mmap IOCTL xattrs AC=
-Ls ....</div><div>=C2=A0 (Missing quota)</div><div>- IO API changed (From l=
-ast year)</div><div>- Support for ASYNC operations</div><div>- Support for =
-both pmem and regular block devices</div><div>- Support for private memory =
-pools</div><div>- ZTs multy-channel and dynamic channel allocation</div><di=
-v>- And many more ...</div><div><br></div><div>In the talk I will give a sh=
-ort architectural and functional overview.</div><div>Then will go over some=
- of the leftover challenges.</div><div>And finally hope to engage in an ope=
-n discussion of how this project should move=C2=A0</div><div>forward to be =
-accepted into the Kernel, gain more users and=C2=A0FS implementations.</div=
-><div><br></div><div>Cheers</div><div>Boaz</div><div><br></div></div></div>=
-</div></div>
-
---00000000000011dfb40577412a59--
+--
+Regards,
+Sudeep
