@@ -1,24 +1,23 @@
-Return-Path: <sudeep.holla@arm.com>
-Date: Wed, 3 Oct 2018 15:52:55 +0100
-From: Sudeep Holla <sudeep.holla@arm.com>
-To: Mark Brown <broonie@kernel.org>
-Message-ID: <20181003145255.GC12570@e107155-lin>
-References: <20181001140402.0799a8f0@gandalf.local.home>
-	<20181002011856.GA10841@kroah.com>
-	<20181002090713.71b529fe@gandalf.local.home>
+Return-Path: <jack@suse.cz>
+Date: Wed, 3 Oct 2018 16:53:51 +0200
+From: Jan Kara <jack@suse.cz>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Message-ID: <20181003145351.GB24030@quack2.suse.cz>
+References: <20181002090713.71b529fe@gandalf.local.home>
 	<CAOesGMhX3PpQMhuvRO8JwATHbLuoYS6hfhDdoYz12eAy4r79NA@mail.gmail.com>
 	<c5546d68-bdcc-dd02-e072-9272d39de504@kernel.org>
 	<20181002161730.GA7119@kroah.com>
 	<20181002163001.GA11068@kroah.com>
 	<20181002183743.78eac32d@coco.lan>
-	<20181003100633.GB12570@e107155-lin>
-	<20181003131353.GB7132@sirena.org.uk>
+	<0e19e6d0-47bd-d57f-8e31-e3521c467fe0@kernel.org>
+	<20181002222238.GA11788@kroah.com>
+	<20181003125916.GB21043@quack2.suse.cz>
+	<20181003134012.GA13071@kroah.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20181003131353.GB7132@sirena.org.uk>
+In-Reply-To: <20181003134012.GA13071@kroah.com>
 Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	ksummit <Ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Moving debugfs file
  systems into sysfs
@@ -31,31 +30,32 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Oct 03, 2018 at 02:13:53PM +0100, Mark Brown wrote:
-> On Wed, Oct 03, 2018 at 11:06:33AM +0100, Sudeep Holla wrote:
-> > On Tue, Oct 02, 2018 at 06:37:43PM -0300, Mauro Carvalho Chehab wrote:
+On Wed 03-10-18 06:40:12, Greg Kroah-Hartman wrote:
+> On Wed, Oct 03, 2018 at 02:59:16PM +0200, Jan Kara wrote:
+> > On Tue 02-10-18 15:22:38, Greg Kroah-Hartman wrote:
+> > > Luckily debugfs was made "root only by default" a while ago, to help
+> > > mitigate this problem.  So while it is present on a number of distros,
+> > > the "attack surface" is greatly reduced.
+> > > 
+> > > That being said, I bet those distros can drop those config options and
+> > > be fine.
+> > 
+> > Not really. We need those configs to be enabled to be able to troubleshoot
+> > customer's problems - e.g., asking customer to enable some trace points or
+> > show some stats from debugfs is pretty common...
 > 
-> > > Even if it won't be possible to crash the Kernel or escalate
-> > > privileges, I suspect that several stuff in debugfs should never
-> > > be enabled on production systems, as they may reveal things like
-> > > memory addresses and other stuff that could be used to help someone
-> > > to crack a system.
-> 
-> > I completely agree with that. Recently I reviewed patches to support
-> > power management on some ARM platforms which had complete system clock
-> > control in debugfs. It even had access to many system controls that it
-> > can send to remote system control processor which we really don't want
-> > in production systems.
-> 
-> This is why I've always strongly resisted making it possible to write to
-> the regmap or regulator debugfs files; there is code for writing to the
-> regmap ones but you need to patch the kernel to enable it.
+> trace points should not be in debugfs.  And what stats are in debugfs
+> that are not availble in other tools?  If you rely on them, shouldn't we
+> move them to a "stable" location so that they can always be accessed?
 
-Ah, that's better. Next time I see anything around debugfs where
-restricting write is a must, I will suggest something on similar lines
-so that they need that extra tiny patch to get it enabled. Thanks for
-the pointers.
+I personally use e.g. stats under bdi/ directory. And I agree with Jiri
+that these things are usually only useful when debugging problems so they
+seem to match debugfs purpose rather well. We would not even need debugfs
+*mounted* all the time I guess (but then what's the difference between
+root-only access currently enforced and not having it mounted, right). But
+we do need to have it compiled into the kernel...
 
---
-Regards,
-Sudeep
+								Honza
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
