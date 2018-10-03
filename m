@@ -1,8 +1,8 @@
-Return-Path: <jack@suse.cz>
-Date: Wed, 3 Oct 2018 14:59:16 +0200
-From: Jan Kara <jack@suse.cz>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Message-ID: <20181003125916.GB21043@quack2.suse.cz>
+Return-Path: <broonie@sirena.org.uk>
+Date: Wed, 3 Oct 2018 14:13:53 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Sudeep Holla <sudeep.holla@arm.com>
+Message-ID: <20181003131353.GB7132@sirena.org.uk>
 References: <20181001140402.0799a8f0@gandalf.local.home>
 	<20181002011856.GA10841@kroah.com>
 	<20181002090713.71b529fe@gandalf.local.home>
@@ -11,13 +11,14 @@ References: <20181001140402.0799a8f0@gandalf.local.home>
 	<20181002161730.GA7119@kroah.com>
 	<20181002163001.GA11068@kroah.com>
 	<20181002183743.78eac32d@coco.lan>
-	<0e19e6d0-47bd-d57f-8e31-e3521c467fe0@kernel.org>
-	<20181002222238.GA11788@kroah.com>
+	<20181003100633.GB12570@e107155-lin>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="DKU6Jbt7q3WqK7+M"
 Content-Disposition: inline
-In-Reply-To: <20181002222238.GA11788@kroah.com>
+In-Reply-To: <20181003100633.GB12570@e107155-lin>
 Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	ksummit <Ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Moving debugfs file
  systems into sysfs
@@ -30,114 +31,43 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue 02-10-18 15:22:38, Greg Kroah-Hartman wrote:
-> On Tue, Oct 02, 2018 at 03:57:30PM -0600, Shuah Khan wrote:
-> > On 10/02/2018 03:37 PM, Mauro Carvalho Chehab wrote:
-> > > Em Tue, 2 Oct 2018 09:30:01 -0700
-> > > Greg Kroah-Hartman <gregkh@linuxfoundation.org> escreveu:
-> > > 
-> > >> On Tue, Oct 02, 2018 at 09:17:30AM -0700, Greg Kroah-Hartman wrote:
-> > >>> On Tue, Oct 02, 2018 at 10:00:29AM -0600, Shuah Khan wrote:  
-> > >>>> On 10/02/2018 08:59 AM, Olof Johansson wrote:  
-> > >>>>> On Tue, Oct 2, 2018 at 6:07 AM Steven Rostedt <rostedt@goodmis.org> wrote:  
-> > >>>>>>
-> > >>>>>> On Mon, 1 Oct 2018 18:18:56 -0700
-> > >>>>>> Greg KH <gregkh@linuxfoundation.org> wrote:
-> > >>>>>>  
-> > >>>>>>> On Mon, Oct 01, 2018 at 02:04:02PM -0400, Steven Rostedt wrote:  
-> > >>>>>>>> At Kernel Recipes, I talked with some people that have mature
-> > >>>>>>>> interfaces in the debugfs directory, but they can not access them on
-> > >>>>>>>> systems that have debugfs disabled. What would be the process to have
-> > >>>>>>>> these systems move out of debugfs? Should they create their own fs and
-> > >>>>>>>> be mounted in /sys/kernel, with a dedicated directory if the file system
-> > >>>>>>>> is enabled in the kernel (I had tracefs do that).
-> > >>>>>>>>
-> > >>>>>>>> Is this something we should discuss at Maintainers Summit? What is the
-> > >>>>>>>> process for mature debugfs directories? What's the justification to
-> > >>>>>>>> have them moved? Is there a better answer for this?  
-> > >>>>>>>
-> > >>>>>>> It's a technical topic, so maintainers summit doesn't make sense.
-> > >>>>>>>
-> > >>>>>>> Stuff in debugfs should NEVER be used for anything "real" or anything
-> > >>>>>>> other than debugging.  So I would argue that that code needs to be fixed
-> > >>>>>>> up now anyway, as most distros are disabling debugfs for the obvious
-> > >>>>>>> reasons (and Android is also turning it off).  
-> > >>>>>>
-> > >>>>>> The funny part is, things used for debugging tend to turn into
-> > >>>>>> something that people want on production systems (tracing,
-> > >>>>>> perf, powertop, etc).
-> > >>>>>>  
-> > >>>>>>>
-> > >>>>>>> As for where to put it, it all depends on exactly what it is, and what
-> > >>>>>>> it does and who uses it.  So it's almost always a case-by-case basis.
-> > >>>>>>>
-> > >>>>>>> Any specific examples you wish to share of code that needs this?
-> > >>>>>>>  
-> > >>>>>>
-> > >>>>>> tracefs was one example, but someone was talking to me at Kernel
-> > >>>>>> Recipes and wanted had another directory in debugfs and wanted it out
-> > >>>>>> as it was stable and wanted it exposed when debugfs is turned off.
-> > >>>>>> Unfortunately, this was discussed at an evening event, and I don't
-> > >>>>>> recall the specifics.  
-> > >>>>>
-> > >>>>> One really useful criteria for graduating some service to sysfs would
-> > >>>>> be to have namespaces and security aspects sorted out for it. Being in
-> > >>>>> debugfs you can ignore all of that.  
-> > >>>>
-> > >>>> Yes. Moving to debugfs service to sysfs would make it more secure. However,
-> > >>>> security is important even if it stays in debugfs.
-> > >>>>
-> > >>>> I don't believe that is safe to have a lower security bar for dbugfs
-> > >>>> interfaces. Not all distros disable debugfs and if debugfs becomes
-> > >>>> vulnerability, it would become target on distros that don't disable.  
-> > >>>
-> > >>> Until about 8 months or so ago, maybe a year, debugfs was totally
-> > >>> insecure and it was very trivial to use to crash the kernel.  Which is
-> > >>> why it is a good idea to lock it down and not mount it on "untrusted"
-> > >>> systems.  
-> > >>
-> > >> Based on a discussion on another thread on a public list, there are
-> > >> still remaining issues with debugfs that can cause major problems.  So
-> > >> no one should ever mount it on an untrusted system still.
-> > >>
-> > >> It is getting better, but the issues are tough to resolve, give us
-> > >> another year or so :)
-> > > 
-> > > Even if it won't be possible to crash the Kernel or escalate
-> > > privileges, I suspect that several stuff in debugfs should never
-> > > be enabled on production systems, as they may reveal things like
-> > > memory addresses and other stuff that could be used to help someone
-> > > to crack a system.
-> > > 
-> > 
-> > Unfortunately distros enable DEBUG_FS. I checked a couple of distro configs.
-> > 
-> > One popular distro enables:
-> > 
-> > CONFIG_BLK_DEBUG_FS=y
-> > CONFIG_KVM_DEBUG_FS=y
-> > CONFIG_DEBUG_FS=y
-> > 
-> > Another one enables:
-> > 
-> > CONFIG_BLK_DEBUG_FS=y
-> > CONFIG_DEBUG_FS=y
-> > 
-> > It looks to me that this message need to be communicated widely so distros can
-> > tighten things up.
-> 
-> Luckily debugfs was made "root only by default" a while ago, to help
-> mitigate this problem.  So while it is present on a number of distros,
-> the "attack surface" is greatly reduced.
-> 
-> That being said, I bet those distros can drop those config options and
-> be fine.
 
-Not really. We need those configs to be enabled to be able to troubleshoot
-customer's problems - e.g., asking customer to enable some trace points or
-show some stats from debugfs is pretty common...
+--DKU6Jbt7q3WqK7+M
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-								Honza
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+On Wed, Oct 03, 2018 at 11:06:33AM +0100, Sudeep Holla wrote:
+> On Tue, Oct 02, 2018 at 06:37:43PM -0300, Mauro Carvalho Chehab wrote:
+
+> > Even if it won't be possible to crash the Kernel or escalate
+> > privileges, I suspect that several stuff in debugfs should never
+> > be enabled on production systems, as they may reveal things like
+> > memory addresses and other stuff that could be used to help someone
+> > to crack a system.
+
+> I completely agree with that. Recently I reviewed patches to support
+> power management on some ARM platforms which had complete system clock
+> control in debugfs. It even had access to many system controls that it
+> can send to remote system control processor which we really don't want
+> in production systems.
+
+This is why I've always strongly resisted making it possible to write to
+the regmap or regulator debugfs files; there is code for writing to the
+regmap ones but you need to patch the kernel to enable it.
+
+--DKU6Jbt7q3WqK7+M
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlu0wJAACgkQJNaLcl1U
+h9ArbAf+NwrKrMdJNg6ObNZsQ1n1TNa3EMGQnQMx4R4a51WqwtghQDXrvfrVFbaJ
+jmZFBX62RmpRKlzOyMdQTynKkhI5oACLyNv8SetwgGWSk4wntq/1MmruhwUqj1Iu
+i6aDii5jZyuPMeTOJfnJlgjiww+6OnY0tVTGKOQU5YlWgylq84qHGnx91cHD3iAn
+YXsUg977+aBO0Ud+kYW05FS7HwoGPjXwbpAb+EOJrduXaV2fIcsx52zRTZLZiegr
+dY9mxvOMHo1HWLEIIRkhvr4v5PpVHTeuLBsKdgNYtlkZes1qII2zF5tZI4ejr4PS
+Yap2/QmyDPavwTxksWNjJL5ShSHIEA==
+=pAYq
+-----END PGP SIGNATURE-----
+
+--DKU6Jbt7q3WqK7+M--
