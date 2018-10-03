@@ -1,24 +1,23 @@
-Return-Path: <broonie@sirena.org.uk>
-Date: Wed, 3 Oct 2018 14:13:53 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Sudeep Holla <sudeep.holla@arm.com>
-Message-ID: <20181003131353.GB7132@sirena.org.uk>
-References: <20181001140402.0799a8f0@gandalf.local.home>
-	<20181002011856.GA10841@kroah.com>
+Return-Path: <gregkh@linuxfoundation.org>
+Date: Wed, 3 Oct 2018 06:40:12 -0700
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Jan Kara <jack@suse.cz>
+Message-ID: <20181003134012.GA13071@kroah.com>
+References: <20181002011856.GA10841@kroah.com>
 	<20181002090713.71b529fe@gandalf.local.home>
 	<CAOesGMhX3PpQMhuvRO8JwATHbLuoYS6hfhDdoYz12eAy4r79NA@mail.gmail.com>
 	<c5546d68-bdcc-dd02-e072-9272d39de504@kernel.org>
 	<20181002161730.GA7119@kroah.com>
 	<20181002163001.GA11068@kroah.com>
 	<20181002183743.78eac32d@coco.lan>
-	<20181003100633.GB12570@e107155-lin>
+	<0e19e6d0-47bd-d57f-8e31-e3521c467fe0@kernel.org>
+	<20181002222238.GA11788@kroah.com>
+	<20181003125916.GB21043@quack2.suse.cz>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="DKU6Jbt7q3WqK7+M"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20181003100633.GB12570@e107155-lin>
+In-Reply-To: <20181003125916.GB21043@quack2.suse.cz>
 Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	ksummit <Ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Moving debugfs file
  systems into sysfs
@@ -31,43 +30,23 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Wed, Oct 03, 2018 at 02:59:16PM +0200, Jan Kara wrote:
+> On Tue 02-10-18 15:22:38, Greg Kroah-Hartman wrote:
+> > Luckily debugfs was made "root only by default" a while ago, to help
+> > mitigate this problem.  So while it is present on a number of distros,
+> > the "attack surface" is greatly reduced.
+> > 
+> > That being said, I bet those distros can drop those config options and
+> > be fine.
+> 
+> Not really. We need those configs to be enabled to be able to troubleshoot
+> customer's problems - e.g., asking customer to enable some trace points or
+> show some stats from debugfs is pretty common...
 
---DKU6Jbt7q3WqK7+M
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+trace points should not be in debugfs.  And what stats are in debugfs
+that are not availble in other tools?  If you rely on them, shouldn't we
+move them to a "stable" location so that they can always be accessed?
 
-On Wed, Oct 03, 2018 at 11:06:33AM +0100, Sudeep Holla wrote:
-> On Tue, Oct 02, 2018 at 06:37:43PM -0300, Mauro Carvalho Chehab wrote:
+thanks,
 
-> > Even if it won't be possible to crash the Kernel or escalate
-> > privileges, I suspect that several stuff in debugfs should never
-> > be enabled on production systems, as they may reveal things like
-> > memory addresses and other stuff that could be used to help someone
-> > to crack a system.
-
-> I completely agree with that. Recently I reviewed patches to support
-> power management on some ARM platforms which had complete system clock
-> control in debugfs. It even had access to many system controls that it
-> can send to remote system control processor which we really don't want
-> in production systems.
-
-This is why I've always strongly resisted making it possible to write to
-the regmap or regulator debugfs files; there is code for writing to the
-regmap ones but you need to patch the kernel to enable it.
-
---DKU6Jbt7q3WqK7+M
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlu0wJAACgkQJNaLcl1U
-h9ArbAf+NwrKrMdJNg6ObNZsQ1n1TNa3EMGQnQMx4R4a51WqwtghQDXrvfrVFbaJ
-jmZFBX62RmpRKlzOyMdQTynKkhI5oACLyNv8SetwgGWSk4wntq/1MmruhwUqj1Iu
-i6aDii5jZyuPMeTOJfnJlgjiww+6OnY0tVTGKOQU5YlWgylq84qHGnx91cHD3iAn
-YXsUg977+aBO0Ud+kYW05FS7HwoGPjXwbpAb+EOJrduXaV2fIcsx52zRTZLZiegr
-dY9mxvOMHo1HWLEIIRkhvr4v5PpVHTeuLBsKdgNYtlkZes1qII2zF5tZI4ejr4PS
-Yap2/QmyDPavwTxksWNjJL5ShSHIEA==
-=pAYq
------END PGP SIGNATURE-----
-
---DKU6Jbt7q3WqK7+M--
+greg k-h
