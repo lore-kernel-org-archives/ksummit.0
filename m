@@ -1,16 +1,25 @@
-Return-Path: <jani.nikula@intel.com>
-From: Jani Nikula <jani.nikula@intel.com>
-To: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-In-Reply-To: <20181002183203.1087fd69@coco.lan>
-References: <20181001140402.0799a8f0@gandalf.local.home>
-	<87va6kkagg.fsf@intel.com> <20181002183203.1087fd69@coco.lan>
-Date: Wed, 03 Oct 2018 09:23:09 +0300
-Message-ID: <87woqzr1ki.fsf@intel.com>
+Return-Path: <Boaz.Harrosh@netapp.com>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0B6A9253
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed,  3 Oct 2018 09:35:58 +0000 (UTC)
+Received: from NAM01-BN3-obe.outbound.protection.outlook.com
+	(mail-bn3nam01on0074.outbound.protection.outlook.com [104.47.33.74])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4CB9512E
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed,  3 Oct 2018 09:35:57 +0000 (UTC)
+From: "Harrosh, Boaz" <Boaz.Harrosh@netapp.com>
+To: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Date: Wed, 3 Oct 2018 09:35:54 +0000
+Message-ID: <MWHPR06MB2896E4C6CE916007BCB66305EEE90@MWHPR06MB2896.namprd06.prod.outlook.com>
+Content-Language: en-US
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain
-Cc: Ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Moving debugfs file
-	systems into sysfs
+Subject: [Ksummit-discuss] [TECH TOPIC] ZUFS - Zero Copy User-Mode
+	FileSystem - One year Later
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -20,66 +29,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, 02 Oct 2018, Mauro Carvalho Chehab <mchehab+samsung@kernel.org> wrote:
-> Em Tue, 02 Oct 2018 11:40:47 +0300
-> Jani Nikula <jani.nikula@intel.com> escreveu:
->
->> On Mon, 01 Oct 2018, Steven Rostedt <rostedt@goodmis.org> wrote:
->> > At Kernel Recipes, I talked with some people that have mature
->> > interfaces in the debugfs directory, but they can not access them on
->> > systems that have debugfs disabled. What would be the process to have
->> > these systems move out of debugfs? Should they create their own fs and
->> > be mounted in /sys/kernel, with a dedicated directory if the file system
->> > is enabled in the kernel (I had tracefs do that).
->> >
->> > Is this something we should discuss at Maintainers Summit? What is the
->> > process for mature debugfs directories? What's the justification to
->> > have them moved? Is there a better answer for this?  
->> 
->> I have a semi-related topic, hopefully not a complete thread
->> hijack... ;)
->> 
->> I think module parameters should primarily be viewed as debug knobs
->> rather than ABI. Things should just work instead of requiring the user
->> to tweak module parameters. Of course, there's the whole spectrum
->> between ABI and "unsafe" module parameters, and parameters get added for
->> a plethora of reasons.
->> 
->> However, all module parameters show up in sysfs instead of, say,
->> debugfs. Many debug options otherwise suitable for debugfs alone are
->> added as module parameters because of the convenience; with just a few
->> lines you can add the module parameter, get the sysfs, and have the
->> value be set before probe. There's nothing that compares, really.
->> 
->> I suppose primarily I'd like to find a convenient way to move module
->> parameters to debugfs, so the other way round than Steven. Do others
->> struggle with this? Any ideas, thoughts, pointers?
->
-> Actually, there are several modprobe parameters on some media
-> drivers that aren't debug-related. On very cheap hardware, sometimes
-> the vendor doesn't put any eeprom at the device, or doesn't care enough
-> to give a PCI or USB ID for his hardware.
->
-> So, several media drivers have modprobe parameters in order to help
-> the module to load the right configuration.
->
-> There are more commonly found at PCI devices, but there are some USB
-> ones that also need those. This is currently found on some really cheap
-> video grabber boards.
->
-> So, moving parameters from sysfs to debugfs is not the right thing
-> to do, for such usecases. Also, we try to avoid touching the existing
-> parameters like that, in order to avoid breaking userspace setups.
+Linux Plumbers 2018: ZUFS - Zero Copy User-Mode FileSystem - One year Later
 
-As I tried to say, there certainly are plenty of legitimate cases like
-this. It's just that there are also plenty of cases where debugfs would
-clearly be the right place, without a module parameter at all, but you
-can't make the debug parameters take effect at probe time. Because you
-obviously need to have the driver register the debugfs files first.
+One year after its inception there are real hardened FSs. Real performance =
+measurements.
+and many innovative fixtures. But is it ready for upstream?
 
-BR,
-Jani.
+Few highlights:
 
+- ALL VFS api working including dax, mmap IOCTL xattrs ACLs ....
+=A0 (Missing quota)
+- IO API changed (From last year)
+- Support for ASYNC operations
+- Support for both pmem and regular block devices
+- Support for private memory pools
+- ZTs multy-channel and dynamic channel allocation
+- And many more ...
 
--- 
-Jani Nikula, Intel Open Source Graphics Center
+In the talk I will give a short architectural and functional overview.
+Then will go over some of the leftover challenges.
+
+And finally hope to engage in an open discussion of how this project should=
+ move forward
+to be accepted into the Kernel, gain more users and FS implementations.
+
+Cheers
+Boaz
