@@ -1,25 +1,24 @@
-Return-Path: <josh@joshtriplett.org>
+Return-Path: <tglx@linutronix.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2873FB94
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6AA7EC20
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  4 Oct 2018 20:57:46 +0000 (UTC)
-Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net
-	[217.70.183.194])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8747E12E
+	Thu,  4 Oct 2018 21:27:40 +0000 (UTC)
+Received: from Galois.linutronix.de (Galois.linutronix.de [146.0.238.70])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C9200196
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  4 Oct 2018 20:57:45 +0000 (UTC)
-Date: Thu, 4 Oct 2018 13:57:37 -0700
-From: Josh Triplett <josh@joshtriplett.org>
-To: Al Viro <viro@ZenIV.linux.org.uk>
-Message-ID: <20181004205648.GB10640@localhost>
+	Thu,  4 Oct 2018 21:27:39 +0000 (UTC)
+Date: Thu, 4 Oct 2018 23:27:33 +0200 (CEST)
+From: Thomas Gleixner <tglx@linutronix.de>
+To: Jonathan Corbet <corbet@lwn.net>
+In-Reply-To: <20181004145631.5d1c3fb2@lwn.net>
+Message-ID: <alpine.DEB.2.21.1810042323350.29948@nanos.tec.linutronix.de>
 References: <CAKON4OxHUoVQ3zso=avoGE35MwWnkGaU13R_qPaw9zAqMVCDxQ@mail.gmail.com>
 	<6108593.JtmfA2IdsK@avalon>
 	<20181004203956.GR32577@ZenIV.linux.org.uk>
+	<20181004145631.5d1c3fb2@lwn.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20181004203956.GR32577@ZenIV.linux.org.uk>
+Content-Type: text/plain; charset=US-ASCII
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] New CoC and Brendan Eich
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -31,43 +30,31 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Oct 04, 2018 at 09:39:57PM +0100, Al Viro wrote:
-> On Thu, Oct 04, 2018 at 09:33:15PM +0300, Laurent Pinchart wrote:
-> 	* contributor Alice gets banned from contributing, for whatever reason
-> 	* Alice finds a roothole and posts a technically valid fix
-> 	* maintainer Bob sees the posting, verifies that the bug is real, that
-> the fix is correct and that the source of that patch is banned.
+On Thu, 4 Oct 2018, Jonathan Corbet wrote:
+> On Thu, 4 Oct 2018 21:39:57 +0100
+> Al Viro <viro@ZenIV.linux.org.uk> wrote:
 > 
-> What should Bob do?  Discuss.
+> > 	* contributor Alice gets banned from contributing, for whatever reason
+> > 	* Alice finds a roothole and posts a technically valid fix
+> > 	* maintainer Bob sees the posting, verifies that the bug is real, that
+> > the fix is correct and that the source of that patch is banned.
+> 
+> So, while remedies under the CoC are yet to be determined in any sort of
+> detail, I don't believe I have heard anybody talk about banning the
+> acceptance of patches from anybody.  Speaking only for myself, I have a
+> hard time seeing that happening in the absence of other sorts of concerns
+> (the event where a would-be contributor started sending under a sock
+> puppet name because nobody would consider his work anymore comes to mind).
+> 
+> What *is* common under CoCs in various projects is banning from specific
+> fora, such as this mailing list.  But that is a different thing and
+> doesn't bring about the scenario described above.
 
-(Presumably they "post" that to some place that isn't part of the Linux
-kernel community, such as a security research group. Also, let's leave
-aside that the above scenario would come after some non-trivial
-likely-private discussion with them, in which they refused to meet the
-standards expected of the kernel community; standing reminder that bans
-aren't typically step 1 of a process.)
+It does. Alice is banned from the mailing list, but still posts the
+roothole fix to LKML and Cc's the maintainer according to the rules. LKML
+drops the post, but the maintainer still gets it. Now what is he supposed
+to do? Ignore it, because he forgot to add Alice to his /dev/null filter?
 
-What do you do when a patch is posted that fixes a real bug but doesn't
-meet patch requirements in other ways? I've seen developers fix up such
-patches themselves, with varying degrees of effort required; I've also
-seen developers reject such patches with a request to fix, and other
-people coming along to clean up the same fix. See also grsecurity
-patches.
+Thanks,
 
-What do you do if some random downstream kernel branch (e.g. a distro or
-vendor kernel) has a useful patch, and you don't expect the person who
-wrote it to contribute it upstream, but it still has a signoff and
-you're willing to do the work yourself?
-
-In general: verify that the patch works, still has the right license,
-has a signoff, etc. (If someone is being particularly vindictive and
-putting irrelevant things in commit messages, etc, then those can easily
-be removed; OTOH, if someone has a patch and doesn't provide a signoff,
-that'd be an orthogonal problem that isn't specific to this situation,
-as you couldn't assume you could incorporate the patch.) Then apply the
-patch as a fix, and include it in their next pull request upstream.
-
-Roughly speaking, I'd treat that situation the same as "what if someone
-has a patch that's otherwise entirely correct, and a now non-functional
-email address that bounces, with no way to reach them", and proceed
-accordingly.
+	tglx
