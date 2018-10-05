@@ -1,31 +1,28 @@
-Return-Path: <shuah@kernel.org>
+Return-Path: <josh@joshtriplett.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A59701C7D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0B53C16A0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  5 Oct 2018 18:10:41 +0000 (UTC)
-Received: from mailout.easymail.ca (mailout.easymail.ca [64.68.200.34])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0E60C78B
+	Fri,  5 Oct 2018 18:28:38 +0000 (UTC)
+Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
+	[217.70.183.196])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4A7B0108
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  5 Oct 2018 18:10:39 +0000 (UTC)
-To: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, clm@fb.com,
-	dan.j.williams@intel.com, Jonathan Corbet <corbet@lwn.net>, olof@lxom.net,
-	rostedt@goodmis.org, torvalds@linux-foundation.org,
-	Shuah Khan <shuah@kernel.org>
-References: <cf7638b9-c25d-d47e-f539-192a43268122@kernel.org>
-	<1538670475.4003.10.camel@HansenPartnership.com>
-From: Shuah Khan <shuah@kernel.org>
-Message-ID: <82d32d94-1312-7d0d-6453-1749f5cec954@kernel.org>
-Date: Fri, 5 Oct 2018 12:10:15 -0600
+	Fri,  5 Oct 2018 18:28:36 +0000 (UTC)
+Date: Fri, 5 Oct 2018 11:28:27 -0700
+From: Josh Triplett <josh@joshtriplett.org>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Message-ID: <20181005182826.GA3981@localhost>
+References: <CAKON4OxHUoVQ3zso=avoGE35MwWnkGaU13R_qPaw9zAqMVCDxQ@mail.gmail.com>
+	<20181005075048.GA24138@localhost> <87efd4px5a.fsf@intel.com>
+	<2795844.PlkHHhbf7z@avalon> <875zygpn10.fsf@intel.com>
+	<1538752634.4380.3.camel@HansenPartnership.com>
 MIME-Version: 1.0
-In-Reply-To: <1538670475.4003.10.camel@HansenPartnership.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Ksummit-discuss] [TECH-TOPIC] Review - Code of Conduct: Let's
- revamp it.
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1538752634.4380.3.camel@HansenPartnership.com>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] New CoC and Brendan Eich
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,38 +32,37 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 10/04/2018 10:27 AM, James Bottomley wrote:
-> On Mon, 2018-09-24 at 08:24 -0600, Shuah Khan wrote:
->> I have been trying to follow various threads on this topic and none
->> of them address the review of this patch that went in. There is no
->> mistake in the title of this topic. I do consider this topic to be
->> more general than limited to Maintainer Summit. Hence, the choice of
->> a wider Technical designation.
->>
->> So I am kicking off a thread to do the review with my comments. I am
->> in general agreement with the spirit of this change to the existing
->> "Code of Conflict".
+On Fri, Oct 05, 2018 at 08:17:14AM -0700, James Bottomley wrote:
+> On Fri, 2018-10-05 at 15:59 +0300, Jani Nikula wrote:
+> > On Fri, 05 Oct 2018, Laurent Pinchart <laurent.pinchart@ideasonboard.
+> > com> wrote:
+> > > There are valid reasons for software to fork, I don't see why there
+> > > could be valid reasons for codes of conduct to fork.
+> > 
+> > Perhaps you're missing a "not" in there?
+> > 
+> > Some of the valid reasons to *not* fork codes of conduct are similar
+> > to why you shouldn't roll your own licenses. First, people don't want
+> > to keep reading and interpreting different texts for different
+> > projects, wondering what this means for them. Just read the familiar
+> > label and you know what's in the box. Second, as a community you can
+> > share the experiences and best practices with other projects using
+> > the same text.
+> > 
+> > I'm not saying we should stick to Contributor Covenant at all cost,
+> > I'm saying pick a suitable tried and tested code of conduct, and
+> > stick with it.
 > 
-> Just as an FYI, the Zephyr project recently included the contributor
-> covenant CoC minus the enforcement clause.  They did a standard github
-> PR for this:
+> As I said on another thread: Zephyr jut adopted the contributor
+> covenant but stripped all the enforcement clauses:
 > 
 > https://github.com/zephyrproject-rtos/zephyr/pull/10356
-> 
-> They note that they may add more enforcement details when the community
-> agrees on them.
-> 
 
-Thanks for the link. It is almost identical to the Code of Conduct that
-went into Linux 4.19-rc4 minus the enforcement section.
+No, they didn't. Someone proposed it, it has not been merged.
 
-It would make sense to remove the enforcement section and discuss and
-add enforcement after the usual patch review process we already have
-in place.
+> I don't think when it comes to CoCs one size fits all so I can see us
+> making local patches that aren't upstream because upstream seems to be
+> concentrating more on the github than mailing list communities.
 
-I personally would prefer amending the CoC in Linux 4.19 removing the
-enforcement details over waiting to discuss at the Maintainer and/or
-Kernel summit and releasing Linux 4.19 with the CoC v1 as it reads now.
-
-thanks,
--- Shuah
+I strongly suspect that upstream would welcome patches that clarify how
+it applies to mailing-list-based communities.
