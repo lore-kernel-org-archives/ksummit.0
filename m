@@ -1,28 +1,27 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 169DE67AA
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B83BF1310
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  5 Oct 2018 15:26:04 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id ADDAF108
+	Fri,  5 Oct 2018 16:03:17 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0AE42108
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  5 Oct 2018 15:26:03 +0000 (UTC)
-Message-ID: <1538753161.4380.5.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Josh Triplett <josh@joshtriplett.org>, Geert Uytterhoeven
-	<geert@linux-m68k.org>
-Date: Fri, 05 Oct 2018 08:26:01 -0700
-In-Reply-To: <20181005075156.GB24138@localhost>
+	Fri,  5 Oct 2018 16:03:16 +0000 (UTC)
+Date: Fri, 5 Oct 2018 12:03:14 -0400
+From: "Theodore Y. Ts'o" <tytso@mit.edu>
+To: Jonathan Corbet <corbet@lwn.net>
+Message-ID: <20181005160314.GA20342@thunk.org>
 References: <CAKON4OxHUoVQ3zso=avoGE35MwWnkGaU13R_qPaw9zAqMVCDxQ@mail.gmail.com>
-	<6108593.JtmfA2IdsK@avalon> <20181004203956.GR32577@ZenIV.linux.org.uk>
-	<20181004205648.GB10640@localhost>
-	<CAMuHMdWXOJL6W-9FodvuKABe=Lw0Or-nuHSEwrv1wRR0sW-hNw@mail.gmail.com>
-	<20181005075156.GB24138@localhost>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+	<6108593.JtmfA2IdsK@avalon>
+	<20181004203956.GR32577@ZenIV.linux.org.uk>
+	<20181004145631.5d1c3fb2@lwn.net>
+	<alpine.DEB.2.21.1810042323350.29948@nanos.tec.linutronix.de>
+	<20181004160414.20c72c21@lwn.net>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20181004160414.20c72c21@lwn.net>
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] New CoC and Brendan Eich
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -34,33 +33,54 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, 2018-10-05 at 00:51 -0700, Josh Triplett wrote:
-> On Fri, Oct 05, 2018 at 09:16:06AM +0200, Geert Uytterhoeven wrote:
-[...]
-> > It's not exactly the same: for the non-functional email address,
-> > you can still fix the issue yourself with a "Reported-by" line,
-> > without violating the rule about publishing addresses, as the
-> > address is no longer valid.
+On Thu, Oct 04, 2018 at 04:04:14PM -0600, Jonathan Corbet wrote:
+> Again, I don't think anybody is envisioning telling maintainers that they
+> cannot accept patches from a given individual over conduct issues, and
+> I've certainly heard no talk of trying to mandate email filters.  I don't
+> understand who you think might be telling the maintainer not to apply such
+> a patch..?
 > 
-> That wasn't the situation as proposed; the situation as proposed
-> involved a patch already written. (And the email address issue was
-> already discussed; an email address attached to a publically posted
-> patch is hardly private information.)
+> One fairly common approach to conduct problems is to have the person
+> involved work through somebody who is willing to deal with them for a
+> while.  This sounds kind of like that sort of scenario.
+> 
+> The community needs to figure out how it wants to handle the disciplinary
+> side of things should we ever have a case where trying to talk to the
+> person involved isn't enough.  I suppose that *could* involve a blanket
+> refusal to accept that person's patches under any circumstances, but I
+> don't think I've ever seen that in the past except in cases where there
+> were issues with the patches themselves.  I would be surprised to see that
+> change.
 
-It's been discussed but I don't think there's been agreement about the
-potential problems.  The problematic piece is specific mention of email
-address as private information.
+It might be helpful to consider that cutting off a contributor has
+happened already, when the netfilter core team, as maintainers,
+collectively made a decision to not accept any patches from a
+copyright troll.  Neither Linus, nor the TAB, nor the LF were involved
+in that decision.  That maintainer team decided to do that on their
+own.  The sky didn't fall down.  No one sued the netfilter core team
+for millions and millions of dollars.  In fact, it seems to me that
+the community as a whole breathed a sign of relief, and we all moved
+on.
 
-To give a more cogent example: it also mentions physical address. 
-However, for anyone who owns their own house physical address is also a
-matter of public record; to find it all I have to do is search the
-county property records which means I can get it as long as I roughly
-know where you live.  I think posting someone's actual address would be
-a CoC violation because it's irrelevant to any patch process I can
-think of and yet for most people it would still be "public
-information".  The intent around that particular clause of the CoC
-seems to be to give enhanced privacy to something that may or may not
-be in the public domain, but it's badly worded to cover stuff that we
-use as part of our everyday process.
+I don't know what the netfilter core team would decide to do if the
+copyright troll submitted a security patch.  It wouldn't be up to me,
+but if they asked them for my advice, I'd tell them they received a
+bug report, and they should fix it.  In this particular case, I'd
+advise them to find a different way to fix the bug, and rewrite it in
+a clean room fashion, because, you know --- copyright troll --- but I
+don't think it's worth it to figure out how to handle every single
+eventuality ahead of time.
 
-James
+Like most personnel matters, it's going to be very case specific, but
+it should be noted that the decision to cut off contributions from the
+copyright troll happened after much provocation.  It was *not*
+something that was done casually, and I'm sure there was a lot careful
+thought, and probably emtional anguish, involved.
+
+People seem to be assuming that this kind of very extreme decision
+happen casually and easily, but it's happened only *once* in over a
+quarter century of Linux kernel development.  And it only got done
+after **substantial** damage had already been inflicted, and it was
+the only way to protect the community.
+
+	  	    	   	       	      - Ted
