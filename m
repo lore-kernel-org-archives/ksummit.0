@@ -1,25 +1,28 @@
-Return-Path: <Tim.Bird@sony.com>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8BCBA6791
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 83F56CBC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  5 Oct 2018 15:15:21 +0000 (UTC)
-Received: from NAM05-DM3-obe.outbound.protection.outlook.com
-	(mail-eopbgr730109.outbound.protection.outlook.com [40.107.73.109])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 074347F4
+	Fri,  5 Oct 2018 15:17:18 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 30B8B6FB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  5 Oct 2018 15:15:20 +0000 (UTC)
-From: <Tim.Bird@sony.com>
-To: <jonsmirl@gmail.com>, <ksummit-discuss@lists.linuxfoundation.org>
-Date: Fri, 5 Oct 2018 15:15:16 +0000
-Message-ID: <ECADFF3FD767C149AD96A924E7EA6EAF8051695A@USCULXMSG01.am.sony.com>
-References: <CAKON4OzAhBVmr_3YNyFetB2yyRXJvMMGw2TqgY0fOjY7zFgUGw@mail.gmail.com>
-In-Reply-To: <CAKON4OzAhBVmr_3YNyFetB2yyRXJvMMGw2TqgY0fOjY7zFgUGw@mail.gmail.com>
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-Subject: Re: [Ksummit-discuss] CoC against corporate entity?
+	Fri,  5 Oct 2018 15:17:18 +0000 (UTC)
+Message-ID: <1538752634.4380.3.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Jani Nikula <jani.nikula@intel.com>, Laurent Pinchart
+	<laurent.pinchart@ideasonboard.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Date: Fri, 05 Oct 2018 08:17:14 -0700
+In-Reply-To: <875zygpn10.fsf@intel.com>
+References: <CAKON4OxHUoVQ3zso=avoGE35MwWnkGaU13R_qPaw9zAqMVCDxQ@mail.gmail.com>
+	<20181005075048.GA24138@localhost> <87efd4px5a.fsf@intel.com>
+	<2795844.PlkHHhbf7z@avalon> <875zygpn10.fsf@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Ksummit-discuss] New CoC and Brendan Eich
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,27 +32,35 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-> -----Original Message-----
-> From: jonsmirl@gmail.com
->=20
-> Can the Contributor Covenant  be applied against a corporate entity?
+On Fri, 2018-10-05 at 15:59 +0300, Jani Nikula wrote:
+> On Fri, 05 Oct 2018, Laurent Pinchart <laurent.pinchart@ideasonboard.
+> com> wrote:
+> > There are valid reasons for software to fork, I don't see why there
+> > could be valid reasons for codes of conduct to fork.
+> 
+> Perhaps you're missing a "not" in there?
+> 
+> Some of the valid reasons to *not* fork codes of conduct are similar
+> to why you shouldn't roll your own licenses. First, people don't want
+> to keep reading and interpreting different texts for different
+> projects, wondering what this means for them. Just read the familiar
+> label and you know what's in the box. Second, as a community you can
+> share the experiences and best practices with other projects using
+> the same text.
+> 
+> I'm not saying we should stick to Contributor Covenant at all cost,
+> I'm saying pick a suitable tried and tested code of conduct, and
+> stick with it.
 
-Speaking for myself.
+As I said on another thread: Zephyr jut adopted the contributor
+covenant but stripped all the enforcement clauses:
 
-No.
+https://github.com/zephyrproject-rtos/zephyr/pull/10356
 
-> How does this impact developers working for that corporation? For
-> example could Google be accused of a violation in China and then all
-> Google developers be banned?
-Google doing something in China is outside the scope of the CoC.
-The CoC scope sections says this: "This Code of Conduct applies both
-within project spaces and in public spaces when an individual is representi=
-ng
-the project or its community."  Whatever Google is doing in China, it's not
-happening within the kernel "project spaces".  And Google is not an individ=
-ual
-representing the kernel project or its community.
+So I think we could modify it to suit our own community as well.
 
-If there is still doubt about the scope, please suggest a wording change
-that would ameliorate your concerns, and it can be discussed.
- -- Tim
+I don't think when it comes to CoCs one size fits all so I can see us
+making local patches that aren't upstream because upstream seems to be
+concentrating more on the github than mailing list communities.
+
+James
