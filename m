@@ -1,26 +1,31 @@
 Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9B49E6B4D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id CF6F26C1B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  6 Oct 2018 21:37:32 +0000 (UTC)
+	Sat,  6 Oct 2018 21:39:26 +0000 (UTC)
 Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
 	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 302CBCA
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7B912CA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  6 Oct 2018 21:37:32 +0000 (UTC)
-Message-ID: <1538861851.4088.7.camel@HansenPartnership.com>
+	Sat,  6 Oct 2018 21:39:26 +0000 (UTC)
+Message-ID: <1538861964.4088.9.camel@HansenPartnership.com>
 From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Sat, 06 Oct 2018 14:37:31 -0700
-In-Reply-To: <1538861738.4088.5.camel@HansenPartnership.com>
-References: <1538861738.4088.5.camel@HansenPartnership.com>
+To: Shuah Khan <shuah@kernel.org>,
+	ksummit-discuss@lists.linuxfoundation.org,  Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>, clm@fb.com, dan.j.williams@intel.com,
+	Jonathan Corbet <corbet@lwn.net>, olof@lxom.net, rostedt@goodmis.org,
+	torvalds@linux-foundation.org
+Date: Sat, 06 Oct 2018 14:39:24 -0700
+In-Reply-To: <82d32d94-1312-7d0d-6453-1749f5cec954@kernel.org>
+References: <cf7638b9-c25d-d47e-f539-192a43268122@kernel.org>
+	<1538670475.4003.10.camel@HansenPartnership.com>
+	<82d32d94-1312-7d0d-6453-1749f5cec954@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Mime-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: linux-kernel <linux-kernel@vger.kernel.org>
-Subject: [Ksummit-discuss] [PATCH 2/2] code-of-conduct: Strip the
- enforcement paragraph pending community discussion
+Subject: Re: [Ksummit-discuss] [TECH-TOPIC] Review - Code of Conduct: Let's
+ revamp it.
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,42 +35,42 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Significant concern has been expressed about the responsibilities outlined in
-the enforcement clause of the new code of conduct.  Since there is concern
-that this becomes binding on the release of the 4.19 kernel, strip the
-enforcement clauses to give the community time to consider and debate how this
-should be handled.
+On Fri, 2018-10-05 at 12:10 -0600, Shuah Khan wrote:
+> On 10/04/2018 10:27 AM, James Bottomley wrote:
+> > On Mon, 2018-09-24 at 08:24 -0600, Shuah Khan wrote:
+> > > I have been trying to follow various threads on this topic and
+> > > none of them address the review of this patch that went in. There
+> > > is no mistake in the title of this topic. I do consider this
+> > > topic to be more general than limited to Maintainer Summit.
+> > > Hence, the choice of a wider Technical designation.
+> > > 
+> > > So I am kicking off a thread to do the review with my comments. I
+> > > am in general agreement with the spirit of this change to the
+> > > existing "Code of Conflict".
+> > 
+> > Just as an FYI, the Zephyr project recently included the
+> > contributor covenant CoC minus the enforcement clause.  They did a
+> > standard github PR for this:
+> > 
+> > https://github.com/zephyrproject-rtos/zephyr/pull/10356
+> > 
+> > They note that they may add more enforcement details when the
+> > community agrees on them.
+> > 
+> 
+> Thanks for the link. It is almost identical to the Code of Conduct
+> that went into Linux 4.19-rc4 minus the enforcement section.
+> 
+> It would make sense to remove the enforcement section and discuss and
+> add enforcement after the usual patch review process we already have
+> in place.
+> 
+> I personally would prefer amending the CoC in Linux 4.19 removing the
+> enforcement details over waiting to discuss at the Maintainer and/or
+> Kernel summit and releasing Linux 4.19 with the CoC v1 as it reads
+> now.
 
-Signed-off-by: James Bottomley <James.Bottomley@HansenPartnership.com>
----
- Documentation/process/code-of-conduct.rst | 15 ---------------
- 1 file changed, 15 deletions(-)
+OK, I took this suggestion and posted it as a concrete patch set to see
+how it flies.
 
-diff --git a/Documentation/process/code-of-conduct.rst b/Documentation/process/code-of-conduct.rst
-index aa40e34e7785..4dd90987305b 100644
---- a/Documentation/process/code-of-conduct.rst
-+++ b/Documentation/process/code-of-conduct.rst
-@@ -59,21 +59,6 @@ address, posting via an official social media account, or acting as an appointed
- representative at an online or offline event. Representation of a project may be
- further defined and clarified by project maintainers.
- 
--Enforcement
--===========
--
--Instances of abusive, harassing, or otherwise unacceptable behavior may be
--reported by contacting the Technical Advisory Board (TAB) at
--<tab@lists.linux-foundation.org>. All complaints will be reviewed and
--investigated and will result in a response that is deemed necessary and
--appropriate to the circumstances. The TAB is obligated to maintain
--confidentiality with regard to the reporter of an incident.  Further details of
--specific enforcement policies may be posted separately.
--
--Maintainers who do not follow or enforce the Code of Conduct in good faith may
--face temporary or permanent repercussions as determined by other members of the
--project’s leadership.
--
- Attribution
- ===========
- 
--- 
-2.13.7
+James
