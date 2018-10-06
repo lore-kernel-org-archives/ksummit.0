@@ -1,31 +1,29 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <Tim.Bird@sony.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id CF6F26C1B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0EB3D6852
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  6 Oct 2018 21:39:26 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7B912CA
+	Sun,  7 Oct 2018 00:11:29 +0000 (UTC)
+Received: from NAM05-BY2-obe.outbound.protection.outlook.com
+	(mail-eopbgr710099.outbound.protection.outlook.com [40.107.71.99])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6D54D784
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  6 Oct 2018 21:39:26 +0000 (UTC)
-Message-ID: <1538861964.4088.9.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Shuah Khan <shuah@kernel.org>,
-	ksummit-discuss@lists.linuxfoundation.org,  Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, clm@fb.com, dan.j.williams@intel.com,
-	Jonathan Corbet <corbet@lwn.net>, olof@lxom.net, rostedt@goodmis.org,
-	torvalds@linux-foundation.org
-Date: Sat, 06 Oct 2018 14:39:24 -0700
-In-Reply-To: <82d32d94-1312-7d0d-6453-1749f5cec954@kernel.org>
-References: <cf7638b9-c25d-d47e-f539-192a43268122@kernel.org>
-	<1538670475.4003.10.camel@HansenPartnership.com>
-	<82d32d94-1312-7d0d-6453-1749f5cec954@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Ksummit-discuss] [TECH-TOPIC] Review - Code of Conduct: Let's
- revamp it.
+	Sat,  6 Oct 2018 21:43:04 +0000 (UTC)
+From: <Tim.Bird@sony.com>
+To: <James.Bottomley@HansenPartnership.com>,
+	<ksummit-discuss@lists.linuxfoundation.org>
+Date: Sat, 6 Oct 2018 21:43:00 +0000
+Message-ID: <ECADFF3FD767C149AD96A924E7EA6EAF80516F31@USCULXMSG01.am.sony.com>
+References: <1538861738.4088.5.camel@HansenPartnership.com>
+	<1538861851.4088.7.camel@HansenPartnership.com>
+In-Reply-To: <1538861851.4088.7.camel@HansenPartnership.com>
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Cc: linux-kernel@vger.kernel.org
+Subject: Re: [Ksummit-discuss] [PATCH 2/2] code-of-conduct: Strip the
+ enforcement paragraph pending community discussion
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,42 +33,43 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, 2018-10-05 at 12:10 -0600, Shuah Khan wrote:
-> On 10/04/2018 10:27 AM, James Bottomley wrote:
-> > On Mon, 2018-09-24 at 08:24 -0600, Shuah Khan wrote:
-> > > I have been trying to follow various threads on this topic and
-> > > none of them address the review of this patch that went in. There
-> > > is no mistake in the title of this topic. I do consider this
-> > > topic to be more general than limited to Maintainer Summit.
-> > > Hence, the choice of a wider Technical designation.
-> > > 
-> > > So I am kicking off a thread to do the review with my comments. I
-> > > am in general agreement with the spirit of this change to the
-> > > existing "Code of Conflict".
-> > 
-> > Just as an FYI, the Zephyr project recently included the
-> > contributor covenant CoC minus the enforcement clause.  They did a
-> > standard github PR for this:
-> > 
-> > https://github.com/zephyrproject-rtos/zephyr/pull/10356
-> > 
-> > They note that they may add more enforcement details when the
-> > community agrees on them.
-> > 
-> 
-> Thanks for the link. It is almost identical to the Code of Conduct
-> that went into Linux 4.19-rc4 minus the enforcement section.
-> 
-> It would make sense to remove the enforcement section and discuss and
-> add enforcement after the usual patch review process we already have
-> in place.
-> 
-> I personally would prefer amending the CoC in Linux 4.19 removing the
-> enforcement details over waiting to discuss at the Maintainer and/or
-> Kernel summit and releasing Linux 4.19 with the CoC v1 as it reads
-> now.
-
-OK, I took this suggestion and posted it as a concrete patch set to see
-how it flies.
-
-James
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBKYW1lcyBCb3R0b21sZXkNCj4g
+DQo+IFNpZ25pZmljYW50IGNvbmNlcm4gaGFzIGJlZW4gZXhwcmVzc2VkIGFib3V0IHRoZSByZXNw
+b25zaWJpbGl0aWVzIG91dGxpbmVkIGluDQo+IHRoZSBlbmZvcmNlbWVudCBjbGF1c2Ugb2YgdGhl
+IG5ldyBjb2RlIG9mIGNvbmR1Y3QuICBTaW5jZSB0aGVyZSBpcyBjb25jZXJuDQo+IHRoYXQgdGhp
+cyBiZWNvbWVzIGJpbmRpbmcgb24gdGhlIHJlbGVhc2Ugb2YgdGhlIDQuMTkga2VybmVsLCBzdHJp
+cCB0aGUNCj4gZW5mb3JjZW1lbnQgY2xhdXNlcyB0byBnaXZlIHRoZSBjb21tdW5pdHkgdGltZSB0
+byBjb25zaWRlciBhbmQgZGViYXRlDQo+IGhvdyB0aGlzDQo+IHNob3VsZCBiZSBoYW5kbGVkLg0K
+PiANCj4gU2lnbmVkLW9mZi1ieTogSmFtZXMgQm90dG9tbGV5DQo+IDxKYW1lcy5Cb3R0b21sZXlA
+SGFuc2VuUGFydG5lcnNoaXAuY29tPg0KPiAtLS0NCj4gIERvY3VtZW50YXRpb24vcHJvY2Vzcy9j
+b2RlLW9mLWNvbmR1Y3QucnN0IHwgMTUgLS0tLS0tLS0tLS0tLS0tDQo+ICAxIGZpbGUgY2hhbmdl
+ZCwgMTUgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9wcm9j
+ZXNzL2NvZGUtb2YtY29uZHVjdC5yc3QNCj4gYi9Eb2N1bWVudGF0aW9uL3Byb2Nlc3MvY29kZS1v
+Zi1jb25kdWN0LnJzdA0KPiBpbmRleCBhYTQwZTM0ZTc3ODUuLjRkZDkwOTg3MzA1YiAxMDA2NDQN
+Cj4gLS0tIGEvRG9jdW1lbnRhdGlvbi9wcm9jZXNzL2NvZGUtb2YtY29uZHVjdC5yc3QNCj4gKysr
+IGIvRG9jdW1lbnRhdGlvbi9wcm9jZXNzL2NvZGUtb2YtY29uZHVjdC5yc3QNCj4gQEAgLTU5LDIx
+ICs1OSw2IEBAIGFkZHJlc3MsIHBvc3RpbmcgdmlhIGFuIG9mZmljaWFsIHNvY2lhbCBtZWRpYSBh
+Y2NvdW50LCBvcg0KPiBhY3RpbmcgYXMgYW4gYXBwb2ludGVkDQo+ICByZXByZXNlbnRhdGl2ZSBh
+dCBhbiBvbmxpbmUgb3Igb2ZmbGluZSBldmVudC4gUmVwcmVzZW50YXRpb24gb2YgYSBwcm9qZWN0
+IG1heQ0KPiBiZQ0KPiAgZnVydGhlciBkZWZpbmVkIGFuZCBjbGFyaWZpZWQgYnkgcHJvamVjdCBt
+YWludGFpbmVycy4NCj4gDQo+IC1FbmZvcmNlbWVudA0KPiAtPT09PT09PT09PT0NCj4gLQ0KPiAt
+SW5zdGFuY2VzIG9mIGFidXNpdmUsIGhhcmFzc2luZywgb3Igb3RoZXJ3aXNlIHVuYWNjZXB0YWJs
+ZSBiZWhhdmlvciBtYXkgYmUNCj4gLXJlcG9ydGVkIGJ5IGNvbnRhY3RpbmcgdGhlIFRlY2huaWNh
+bCBBZHZpc29yeSBCb2FyZCAoVEFCKSBhdA0KPiAtPHRhYkBsaXN0cy5saW51eC1mb3VuZGF0aW9u
+Lm9yZz4uIEFsbCBjb21wbGFpbnRzIHdpbGwgYmUgcmV2aWV3ZWQgYW5kDQo+IC1pbnZlc3RpZ2F0
+ZWQgYW5kIHdpbGwgcmVzdWx0IGluIGEgcmVzcG9uc2UgdGhhdCBpcyBkZWVtZWQgbmVjZXNzYXJ5
+IGFuZA0KPiAtYXBwcm9wcmlhdGUgdG8gdGhlIGNpcmN1bXN0YW5jZXMuIFRoZSBUQUIgaXMgb2Js
+aWdhdGVkIHRvIG1haW50YWluDQo+IC1jb25maWRlbnRpYWxpdHkgd2l0aCByZWdhcmQgdG8gdGhl
+IHJlcG9ydGVyIG9mIGFuIGluY2lkZW50LiAgRnVydGhlciBkZXRhaWxzIG9mDQo+IC1zcGVjaWZp
+YyBlbmZvcmNlbWVudCBwb2xpY2llcyBtYXkgYmUgcG9zdGVkIHNlcGFyYXRlbHkuDQoNCkkgdGhp
+bmsgaXQncyBPSyB0byBsZWF2ZSB0aGUgYWJvdmUgc2VjdGlvbiwgYXMgaXQgZG9lc24ndCBzcGVh
+ayB0bw0KZW5mb3JjZW1lbnQsIGJ1dCByYXRoZXIgaXMganVzdCBhIHNldCBvZiByZXBvcnRpbmcg
+aW5zdHJ1Y3Rpb25zLA0Kd2l0aCBhbiBhc3N1cmFuY2Ugb2YgY29uZmlkZW50aWFsaXR5LiAgVGhp
+cyBzZWVtcyB0byBtZSBub3QgdG8gYmUNCnRoZSBvYmplY3Rpb25hYmxlIHBhcnQgb2YgdGhpcyBz
+ZWN0aW9uLg0KKElPVywgSSB3b3VsZCBvbWl0IHRoaXMgcmVtb3ZhbCBmcm9tIHRoZSBwYXRjaCku
+DQoNCklmIHRoZSBuZXh0IHBhcnQgaXMgaW5kZWVkIHJlbW92ZWQsIHRoZW4gbWF5YmUgdGhlIHNl
+Y3Rpb24NCm5lZWRzIHRvIGJlIHJlbmFtZWQ/DQogLS0gVGltDQoNCj4gLQ0KPiAtTWFpbnRhaW5l
+cnMgd2hvIGRvIG5vdCBmb2xsb3cgb3IgZW5mb3JjZSB0aGUgQ29kZSBvZiBDb25kdWN0IGluIGdv
+b2QgZmFpdGgNCj4gbWF5DQo+IC1mYWNlIHRlbXBvcmFyeSBvciBwZXJtYW5lbnQgcmVwZXJjdXNz
+aW9ucyBhcyBkZXRlcm1pbmVkIGJ5IG90aGVyDQo+IG1lbWJlcnMgb2YgdGhlDQo+IC1wcm9qZWN0
+4oCZcyBsZWFkZXJzaGlwLg0KPiAtDQo+ICBBdHRyaWJ1dGlvbg0KPiAgPT09PT09PT09PT0NCg0K
