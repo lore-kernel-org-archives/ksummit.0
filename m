@@ -1,33 +1,33 @@
 Return-Path: <groeck7@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 48F726A0E
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 484506A41
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  7 Oct 2018 17:53:44 +0000 (UTC)
-Received: from mail-pg1-f193.google.com (mail-pg1-f193.google.com
-	[209.85.215.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E7F32466
+	Sun,  7 Oct 2018 17:56:47 +0000 (UTC)
+Received: from mail-pf1-f194.google.com (mail-pf1-f194.google.com
+	[209.85.210.194])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id EA7C7466
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  7 Oct 2018 17:53:43 +0000 (UTC)
-Received: by mail-pg1-f193.google.com with SMTP id a5-v6so6778774pgv.13
+	Sun,  7 Oct 2018 17:56:46 +0000 (UTC)
+Received: by mail-pf1-f194.google.com with SMTP id f29-v6so4422567pff.5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 07 Oct 2018 10:53:43 -0700 (PDT)
+	Sun, 07 Oct 2018 10:56:46 -0700 (PDT)
 Sender: Guenter Roeck <groeck7@gmail.com>
 To: James Bottomley <James.Bottomley@HansenPartnership.com>,
 	ksummit-discuss@lists.linuxfoundation.org
 References: <1538861738.4088.5.camel@HansenPartnership.com>
-	<1538861799.4088.6.camel@HansenPartnership.com>
+	<1538861851.4088.7.camel@HansenPartnership.com>
 From: Guenter Roeck <linux@roeck-us.net>
-Message-ID: <6f59a5cb-8a23-228c-34a1-5750b50c5c98@roeck-us.net>
-Date: Sun, 7 Oct 2018 10:53:41 -0700
+Message-ID: <a564a1bd-6a11-a075-6d57-8d37bc5953aa@roeck-us.net>
+Date: Sun, 7 Oct 2018 10:56:45 -0700
 MIME-Version: 1.0
-In-Reply-To: <1538861799.4088.6.camel@HansenPartnership.com>
+In-Reply-To: <1538861851.4088.7.camel@HansenPartnership.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 Cc: linux-kernel <linux-kernel@vger.kernel.org>
-Subject: Re: [Ksummit-discuss] [PATCH 1/2] code-of-conduct: Fix the
- ambiguity about collecting email addresses
+Subject: Re: [Ksummit-discuss] [PATCH 2/2] code-of-conduct: Strip the
+ enforcement paragraph pending community discussion
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,38 +37,52 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 10/06/2018 02:36 PM, James Bottomley wrote:
->  From 4a614e9440148894207bef5bf69e74071baceb3b Mon Sep 17 00:00:00 2001
-> From: James Bottomley <James.Bottomley@HansenPartnership.com>
-> Date: Sat, 6 Oct 2018 14:21:56 -0700
-> Subject: [PATCH 1/2] code-of-conduct: Fix the ambiguity about collecting email
->   addresses
-> 
-> The current code of conduct has an ambiguity in the it considers publishing
-> private information such as email addresses unacceptable behaviour.  Since
-> the Linux kernel collects and publishes email addresses as part of the patch
-> process, add an exception clause for email addresses ordinarily collected by
-> the project to correct this ambiguity.
+On 10/06/2018 02:37 PM, James Bottomley wrote:
+> Significant concern has been expressed about the responsibilities outlined in
+> the enforcement clause of the new code of conduct.  Since there is concern
+> that this becomes binding on the release of the 4.19 kernel, strip the
+> enforcement clauses to give the community time to consider and debate how this
+> should be handled.
 > 
 > Signed-off-by: James Bottomley <James.Bottomley@HansenPartnership.com>
 
 Acked-by: Guenter Roeck <linux@roeck-us.net>
 
+Reasoning:
+- The TAB was not elected as enforcement agency.
+- I, as a maintainer, was not consulted when it was decided that I shall be
+   responsible for enforcing the Code of Conduct.
+
+Guenter
+
 > ---
->   Documentation/process/code-of-conduct.rst | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+>   Documentation/process/code-of-conduct.rst | 15 ---------------
+>   1 file changed, 15 deletions(-)
 > 
 > diff --git a/Documentation/process/code-of-conduct.rst b/Documentation/process/code-of-conduct.rst
-> index ab7c24b5478c..aa40e34e7785 100644
+> index aa40e34e7785..4dd90987305b 100644
 > --- a/Documentation/process/code-of-conduct.rst
 > +++ b/Documentation/process/code-of-conduct.rst
-> @@ -31,7 +31,7 @@ Examples of unacceptable behavior by participants include:
->   * Trolling, insulting/derogatory comments, and personal or political attacks
->   * Public or private harassment
->   * Publishing others’ private information, such as a physical or electronic
-> -  address, without explicit permission
-> +  address not ordinarily collected by the project, without explicit permission
->   * Other conduct which could reasonably be considered inappropriate in a
->     professional setting
+> @@ -59,21 +59,6 @@ address, posting via an official social media account, or acting as an appointed
+>   representative at an online or offline event. Representation of a project may be
+>   further defined and clarified by project maintainers.
+>   
+> -Enforcement
+> -===========
+> -
+> -Instances of abusive, harassing, or otherwise unacceptable behavior may be
+> -reported by contacting the Technical Advisory Board (TAB) at
+> -<tab@lists.linux-foundation.org>. All complaints will be reviewed and
+> -investigated and will result in a response that is deemed necessary and
+> -appropriate to the circumstances. The TAB is obligated to maintain
+> -confidentiality with regard to the reporter of an incident.  Further details of
+> -specific enforcement policies may be posted separately.
+> -
+> -Maintainers who do not follow or enforce the Code of Conduct in good faith may
+> -face temporary or permanent repercussions as determined by other members of the
+> -project’s leadership.
+> -
+>   Attribution
+>   ===========
 >   
 > 
