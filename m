@@ -1,28 +1,31 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <geert.uytterhoeven@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6C5C56845
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B6382DB6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  7 Oct 2018 03:33:35 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C6D8434F
+	Sun,  7 Oct 2018 08:25:36 +0000 (UTC)
+Received: from mail-vs1-f66.google.com (mail-vs1-f66.google.com
+	[209.85.217.66])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id AFF41466
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  7 Oct 2018 03:33:32 +0000 (UTC)
-Message-ID: <1538883209.4088.14.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Tim.Bird@sony.com, ksummit-discuss@lists.linuxfoundation.org
-Date: Sat, 06 Oct 2018 20:33:29 -0700
-In-Reply-To: <ECADFF3FD767C149AD96A924E7EA6EAF80516F31@USCULXMSG01.am.sony.com>
+	Sun,  7 Oct 2018 08:25:35 +0000 (UTC)
+Received: by mail-vs1-f66.google.com with SMTP id z130-v6so9757182vsc.7
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sun, 07 Oct 2018 01:25:35 -0700 (PDT)
+MIME-Version: 1.0
 References: <1538861738.4088.5.camel@HansenPartnership.com>
-	<1538861851.4088.7.camel@HansenPartnership.com>
-	<ECADFF3FD767C149AD96A924E7EA6EAF80516F31@USCULXMSG01.am.sony.com>
+	<1538861799.4088.6.camel@HansenPartnership.com>
+In-Reply-To: <1538861799.4088.6.camel@HansenPartnership.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Sun, 7 Oct 2018 10:25:22 +0200
+Message-ID: <CAMuHMdWVVR_-r4K_sx-P+gDWwQ4yS7fAhA=FnL=snqxhd8J7dg@mail.gmail.com>
+To: James Bottomley <James.Bottomley@hansenpartnership.com>
 Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: linux-kernel@vger.kernel.org
-Subject: Re: [Ksummit-discuss] [PATCH 2/2] code-of-conduct: Strip the
- enforcement paragraph pending community discussion
+Content-Transfer-Encoding: quoted-printable
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [PATCH 1/2] code-of-conduct: Fix the
+ ambiguity about collecting email addresses
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,94 +35,63 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, 2018-10-06 at 21:43 +0000, Tim.Bird@sony.com wrote:
-> > -----Original Message-----
-> > From: James Bottomley
-> > 
-> > Significant concern has been expressed about the responsibilities
-> > outlined in the enforcement clause of the new code of
-> > conduct.  Since there is concern that this becomes binding on the
-> > release of the 4.19 kernel, strip the enforcement clauses to give
-> > the community time to consider and debate how this should be
-> > handled.
-> > 
-> > Signed-off-by: James Bottomley
-> > <James.Bottomley@HansenPartnership.com>
-> > ---
-> >  Documentation/process/code-of-conduct.rst | 15 ---------------
-> >  1 file changed, 15 deletions(-)
-> > 
-> > diff --git a/Documentation/process/code-of-conduct.rst
-> > b/Documentation/process/code-of-conduct.rst
-> > index aa40e34e7785..4dd90987305b 100644
-> > --- a/Documentation/process/code-of-conduct.rst
-> > +++ b/Documentation/process/code-of-conduct.rst
-> > @@ -59,21 +59,6 @@ address, posting via an official social media
-> > account, or
-> > acting as an appointed
-> >  representative at an online or offline event. Representation of a
-> > project may
-> > be
-> >  further defined and clarified by project maintainers.
-> > 
-> > -Enforcement
-> > -===========
-> > -
-> > -Instances of abusive, harassing, or otherwise unacceptable
-> > behavior may be
-> > -reported by contacting the Technical Advisory Board (TAB) at
-> > -<tab@lists.linux-foundation.org>. All complaints will be reviewed
-> > and
-> > -investigated and will result in a response that is deemed
-> > necessary and
-> > -appropriate to the circumstances. The TAB is obligated to maintain
-> > -confidentiality with regard to the reporter of an
-> > incident.  Further details of
-> > -specific enforcement policies may be posted separately.
-> 
-> I think it's OK to leave the above section, as it doesn't speak to
-> enforcement, but rather is just a set of reporting instructions,
-> with an assurance of confidentiality.  This seems to me not to be
-> the objectionable part of this section.
-> (IOW, I would omit this removal from the patch).
+Hi James,
 
-So I did think about that, but it struck me that with both paragraphs
-removed, the current CoC is very similar to the status quo: namely
-every subsystem handles their own issues and that's formalised by the
-"Our Responsibilities" section.  That also makes me think that whether
-we want a centralised channel of reporting or enforcement and what it
-should be also ought to be part of the debate.  The TAB was created to
-channel community technical input into the Linux Foundation.  That's
-not to say it can't provide the reporting and arbitration structure,
-but if we're going to do it right we should debate the expansion of its
-duties (and powers).
+Thanks for your patch!
 
-I happen to think that the fact that the TAB cannot compel where it
-cannot persuade is a huge strength of the system because it means
-there's no power structure to subvert if someone were interested in
-using it to try to impose their own viewpoint on the community.  But
-that's just my opinion and I did write the TAB charter, so I'm probably
-biased in this viewpoint.
+On Sat, Oct 6, 2018 at 11:36 PM James Bottomley
+<James.Bottomley@hansenpartnership.com> wrote:
+> From 4a614e9440148894207bef5bf69e74071baceb3b Mon Sep 17 00:00:00 2001
+> From: James Bottomley <James.Bottomley@HansenPartnership.com>
+> Date: Sat, 6 Oct 2018 14:21:56 -0700
+> Subject: [PATCH 1/2] code-of-conduct: Fix the ambiguity about collecting =
+email
+>  addresses
+>
+> The current code of conduct has an ambiguity in the it considers publishi=
+ng
 
-James
+that
 
+> private information such as email addresses unacceptable behaviour.  Sinc=
+e
+> the Linux kernel collects and publishes email addresses as part of the pa=
+tch
+> process, add an exception clause for email addresses ordinarily collected=
+ by
+> the project to correct this ambiguity.
+>
+> Signed-off-by: James Bottomley <James.Bottomley@HansenPartnership.com>
 
-> If the next part is indeed removed, then maybe the section
-> needs to be renamed?
->  -- Tim
-> 
-> > -
-> > -Maintainers who do not follow or enforce the Code of Conduct in
-> > good faith
-> > may
-> > -face temporary or permanent repercussions as determined by other
-> > members of the
-> > -project’s leadership.
-> > -
-> >  Attribution
-> >  ===========
-> 
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+Fixes: 8a104f8b5867c682 ("Code of Conduct: Let's revamp it.")
+
+Acked-by: Geert Uytterhoeven <geert@linux-m68k.org>
+
+> --- a/Documentation/process/code-of-conduct.rst
+> +++ b/Documentation/process/code-of-conduct.rst
+> @@ -31,7 +31,7 @@ Examples of unacceptable behavior by participants inclu=
+de:
+>  * Trolling, insulting/derogatory comments, and personal or political att=
+acks
+>  * Public or private harassment
+>  * Publishing others=E2=80=99 private information, such as a physical or =
+electronic
+> -  address, without explicit permission
+> +  address not ordinarily collected by the project, without explicit perm=
+ission
+>  * Other conduct which could reasonably be considered inappropriate in a
+>    professional setting
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
+.org
+
+In personal conversations with technical people, I call myself a hacker. Bu=
+t
+when I'm talking to journalists I just say "programmer" or something like t=
+hat.
+                                -- Linus Torvalds
