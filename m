@@ -1,31 +1,21 @@
-Return-Path: <geert.uytterhoeven@gmail.com>
+Return-Path: <geert@linux-m68k.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B6382DB6
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9B934D59
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  7 Oct 2018 08:25:36 +0000 (UTC)
-Received: from mail-vs1-f66.google.com (mail-vs1-f66.google.com
-	[209.85.217.66])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id AFF41466
+	Sun,  7 Oct 2018 08:51:55 +0000 (UTC)
+Received: from albert.telenet-ops.be (albert.telenet-ops.be [195.130.137.90])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9E177466
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  7 Oct 2018 08:25:35 +0000 (UTC)
-Received: by mail-vs1-f66.google.com with SMTP id z130-v6so9757182vsc.7
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 07 Oct 2018 01:25:35 -0700 (PDT)
-MIME-Version: 1.0
-References: <1538861738.4088.5.camel@HansenPartnership.com>
-	<1538861799.4088.6.camel@HansenPartnership.com>
-In-Reply-To: <1538861799.4088.6.camel@HansenPartnership.com>
+	Sun,  7 Oct 2018 08:51:54 +0000 (UTC)
 From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Sun, 7 Oct 2018 10:25:22 +0200
-Message-ID: <CAMuHMdWVVR_-r4K_sx-P+gDWwQ4yS7fAhA=FnL=snqxhd8J7dg@mail.gmail.com>
-To: James Bottomley <James.Bottomley@hansenpartnership.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [PATCH 1/2] code-of-conduct: Fix the
- ambiguity about collecting email addresses
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Sun,  7 Oct 2018 10:51:02 +0200
+Message-Id: <20181007085102.17795-1-geert@linux-m68k.org>
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	linux-kernel@vger.kernel.org
+Subject: [Ksummit-discuss] [PATCH] code-of-conduct: Remove explicit list of
+	discrimination factors
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,63 +25,42 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi James,
+Providing an explicit list of discrimination factors may give the false
+impression that discrimination based on other unlisted factors would be
+allowed.
 
-Thanks for your patch!
-
-On Sat, Oct 6, 2018 at 11:36 PM James Bottomley
-<James.Bottomley@hansenpartnership.com> wrote:
-> From 4a614e9440148894207bef5bf69e74071baceb3b Mon Sep 17 00:00:00 2001
-> From: James Bottomley <James.Bottomley@HansenPartnership.com>
-> Date: Sat, 6 Oct 2018 14:21:56 -0700
-> Subject: [PATCH 1/2] code-of-conduct: Fix the ambiguity about collecting =
-email
->  addresses
->
-> The current code of conduct has an ambiguity in the it considers publishi=
-ng
-
-that
-
-> private information such as email addresses unacceptable behaviour.  Sinc=
-e
-> the Linux kernel collects and publishes email addresses as part of the pa=
-tch
-> process, add an exception clause for email addresses ordinarily collected=
- by
-> the project to correct this ambiguity.
->
-> Signed-off-by: James Bottomley <James.Bottomley@HansenPartnership.com>
+Avoid any ambiguity by removing the list, to ensure "a harassment-free
+experience for everyone", period.
 
 Fixes: 8a104f8b5867c682 ("Code of Conduct: Let's revamp it.")
+Signed-off-by: Geert Uytterhoeven <geert@linux-m68k.org>
+---
+The use of "race" may also conflict with the United Nation's views on
+this matter, cfr. e.g. the UNESCO's "Four statements on the race
+question"[1][2] and "Declaration on Race and Racial Prejudice"[3].
 
-Acked-by: Geert Uytterhoeven <geert@linux-m68k.org>
+[1] https://en.wikipedia.org/wiki/The_Race_Question
+[2] http://unesdoc.unesco.org/images/0012/001229/122962eo.pdf
+[3] http://portal.unesco.org/en/ev.php-URL_ID=13161&URL_DO=DO_TOPIC&URL_SECTION=201.html
+---
+ Documentation/process/code-of-conduct.rst | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-> --- a/Documentation/process/code-of-conduct.rst
-> +++ b/Documentation/process/code-of-conduct.rst
-> @@ -31,7 +31,7 @@ Examples of unacceptable behavior by participants inclu=
-de:
->  * Trolling, insulting/derogatory comments, and personal or political att=
-acks
->  * Public or private harassment
->  * Publishing others=E2=80=99 private information, such as a physical or =
-electronic
-> -  address, without explicit permission
-> +  address not ordinarily collected by the project, without explicit perm=
-ission
->  * Other conduct which could reasonably be considered inappropriate in a
->    professional setting
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
-
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+diff --git a/Documentation/process/code-of-conduct.rst b/Documentation/process/code-of-conduct.rst
+index ab7c24b5478c6b30..e472c9f86ff00b34 100644
+--- a/Documentation/process/code-of-conduct.rst
++++ b/Documentation/process/code-of-conduct.rst
+@@ -6,10 +6,7 @@ Our Pledge
+ 
+ In the interest of fostering an open and welcoming environment, we as
+ contributors and maintainers pledge to making participation in our project and
+-our community a harassment-free experience for everyone, regardless of age, body
+-size, disability, ethnicity, sex characteristics, gender identity and
+-expression, level of experience, education, socio-economic status, nationality,
+-personal appearance, race, religion, or sexual identity and orientation.
++our community a harassment-free experience for everyone.
+ 
+ Our Standards
+ =============
+-- 
+2.17.1
