@@ -1,30 +1,33 @@
 Return-Path: <shuah@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C8B3868F0
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4D65B67E2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  7 Oct 2018 15:25:27 +0000 (UTC)
+	Sun,  7 Oct 2018 15:27:24 +0000 (UTC)
 Received: from mailout.easymail.ca (mailout.easymail.ca [64.68.200.34])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3DEDD466
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D0B6A466
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  7 Oct 2018 15:25:27 +0000 (UTC)
-To: Geert Uytterhoeven <geert@linux-m68k.org>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>
-References: <1538861738.4088.5.camel@HansenPartnership.com>
-	<1538861799.4088.6.camel@HansenPartnership.com>
-	<CAMuHMdWVVR_-r4K_sx-P+gDWwQ4yS7fAhA=FnL=snqxhd8J7dg@mail.gmail.com>
+	Sun,  7 Oct 2018 15:27:23 +0000 (UTC)
+To: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, clm@fb.com,
+	dan.j.williams@intel.com, Jonathan Corbet <corbet@lwn.net>, olof@lxom.net,
+	rostedt@goodmis.org, torvalds@linux-foundation.org,
+	Shuah Khan <shuah@kernel.org>
+References: <cf7638b9-c25d-d47e-f539-192a43268122@kernel.org>
+	<1538670475.4003.10.camel@HansenPartnership.com>
+	<82d32d94-1312-7d0d-6453-1749f5cec954@kernel.org>
+	<1538861964.4088.9.camel@HansenPartnership.com>
 From: Shuah Khan <shuah@kernel.org>
-Message-ID: <ceb13d48-66a1-803b-ab8e-3ca86bafbd01@kernel.org>
-Date: Sun, 7 Oct 2018 09:25:11 -0600
+Message-ID: <6d63890f-fa2f-6606-3400-e267f1bbc708@kernel.org>
+Date: Sun, 7 Oct 2018 09:27:07 -0600
 MIME-Version: 1.0
-In-Reply-To: <CAMuHMdWVVR_-r4K_sx-P+gDWwQ4yS7fAhA=FnL=snqxhd8J7dg@mail.gmail.com>
+In-Reply-To: <1538861964.4088.9.camel@HansenPartnership.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [PATCH 1/2] code-of-conduct: Fix the
- ambiguity about collecting email addresses
+Subject: Re: [Ksummit-discuss] [TECH-TOPIC] Review - Code of Conduct: Let's
+ revamp it.
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,52 +37,46 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi James,
-
-Thanks for the patch.
-
-On 10/07/2018 02:25 AM, Geert Uytterhoeven wrote:
-> Hi James,
-> 
-> Thanks for your patch!
-> 
-> On Sat, Oct 6, 2018 at 11:36 PM James Bottomley
-> <James.Bottomley@hansenpartnership.com> wrote:
->> From 4a614e9440148894207bef5bf69e74071baceb3b Mon Sep 17 00:00:00 2001
->> From: James Bottomley <James.Bottomley@HansenPartnership.com>
->> Date: Sat, 6 Oct 2018 14:21:56 -0700
->> Subject: [PATCH 1/2] code-of-conduct: Fix the ambiguity about collecting email
->>  addresses
+On 10/06/2018 03:39 PM, James Bottomley wrote:
+> On Fri, 2018-10-05 at 12:10 -0600, Shuah Khan wrote:
+>> On 10/04/2018 10:27 AM, James Bottomley wrote:
+>>> On Mon, 2018-09-24 at 08:24 -0600, Shuah Khan wrote:
+>>>> I have been trying to follow various threads on this topic and
+>>>> none of them address the review of this patch that went in. There
+>>>> is no mistake in the title of this topic. I do consider this
+>>>> topic to be more general than limited to Maintainer Summit.
+>>>> Hence, the choice of a wider Technical designation.
+>>>>
+>>>> So I am kicking off a thread to do the review with my comments. I
+>>>> am in general agreement with the spirit of this change to the
+>>>> existing "Code of Conflict".
+>>>
+>>> Just as an FYI, the Zephyr project recently included the
+>>> contributor covenant CoC minus the enforcement clause.  They did a
+>>> standard github PR for this:
+>>>
+>>> https://github.com/zephyrproject-rtos/zephyr/pull/10356
+>>>
+>>> They note that they may add more enforcement details when the
+>>> community agrees on them.
+>>>
 >>
->> The current code of conduct has an ambiguity in the it considers publishing
-> 
-> that
-> 
->> private information such as email addresses unacceptable behaviour.  Since
->> the Linux kernel collects and publishes email addresses as part of the patch
->> process, add an exception clause for email addresses ordinarily collected by
->> the project to correct this ambiguity.
+>> Thanks for the link. It is almost identical to the Code of Conduct
+>> that went into Linux 4.19-rc4 minus the enforcement section.
 >>
->> Signed-off-by: James Bottomley <James.Bottomley@HansenPartnership.com>
+>> It would make sense to remove the enforcement section and discuss and
+>> add enforcement after the usual patch review process we already have
+>> in place.
+>>
+>> I personally would prefer amending the CoC in Linux 4.19 removing the
+>> enforcement details over waiting to discuss at the Maintainer and/or
+>> Kernel summit and releasing Linux 4.19 with the CoC v1 as it reads
+>> now.
 > 
-> Fixes: 8a104f8b5867c682 ("Code of Conduct: Let's revamp it.")
-> 
-> Acked-by: Geert Uytterhoeven <geert@linux-m68k.org>
-> 
-
-Acked-by: Shuah Khan <shuah@kernel.org>
-
->> --- a/Documentation/process/code-of-conduct.rst
->> +++ b/Documentation/process/code-of-conduct.rst
->> @@ -31,7 +31,7 @@ Examples of unacceptable behavior by participants include:
->>  * Trolling, insulting/derogatory comments, and personal or political attacks
->>  * Public or private harassment
->>  * Publishing others’ private information, such as a physical or electronic
->> -  address, without explicit permission
->> +  address not ordinarily collected by the project, without explicit permission
->>  * Other conduct which could reasonably be considered inappropriate in a
->>    professional setting
+> OK, I took this suggestion and posted it as a concrete patch set to see
+> how it flies.
 > 
 
-thanks,
+Thanks for sending the patches.
+
 -- Shuah
