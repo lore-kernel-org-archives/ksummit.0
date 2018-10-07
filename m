@@ -1,28 +1,28 @@
-Return-Path: <shuah@kernel.org>
+Return-Path: <daniel.vetter@ffwll.ch>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 10A936918
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D84406994
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  7 Oct 2018 15:32:49 +0000 (UTC)
-Received: from mailout.easymail.ca (mailout.easymail.ca [64.68.200.34])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7BEA2466
+	Sun,  7 Oct 2018 17:11:28 +0000 (UTC)
+Received: from mail-io1-f67.google.com (mail-io1-f67.google.com
+	[209.85.166.67])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4BE736C5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  7 Oct 2018 15:32:48 +0000 (UTC)
-To: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-References: <1538861738.4088.5.camel@HansenPartnership.com>
-	<1538861851.4088.7.camel@HansenPartnership.com>
-From: Shuah Khan <shuah@kernel.org>
-Message-ID: <770159f5-ab59-1a59-4156-c2d92587444d@kernel.org>
-Date: Sun, 7 Oct 2018 09:32:41 -0600
+	Sun,  7 Oct 2018 17:11:28 +0000 (UTC)
+Received: by mail-io1-f67.google.com with SMTP id w16-v6so14190953iom.7
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sun, 07 Oct 2018 10:11:28 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1538861851.4088.7.camel@HansenPartnership.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: linux-kernel <linux-kernel@vger.kernel.org>
-Subject: Re: [Ksummit-discuss] [PATCH 2/2] code-of-conduct: Strip the
- enforcement paragraph pending community discussion
+References: <1538861738.4088.5.camel@HansenPartnership.com>
+In-Reply-To: <1538861738.4088.5.camel@HansenPartnership.com>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Sun, 7 Oct 2018 19:11:14 +0200
+Message-ID: <CAKMK7uFvmXtk=WiZJxGrzQQD1RHv7srA-_e8KdwXZ9Kn5rcmiQ@mail.gmail.com>
+To: James Bottomley <James.Bottomley@hansenpartnership.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [PATCH 0/2] code of conduct fixes
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,50 +32,63 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 10/06/2018 03:37 PM, James Bottomley wrote:
-> Significant concern has been expressed about the responsibilities outlined in
-> the enforcement clause of the new code of conduct.  Since there is concern
-> that this becomes binding on the release of the 4.19 kernel, strip the
-> enforcement clauses to give the community time to consider and debate how this
-> should be handled.
-> 
-> Signed-off-by: James Bottomley <James.Bottomley@HansenPartnership.com>
-> ---
->  Documentation/process/code-of-conduct.rst | 15 ---------------
->  1 file changed, 15 deletions(-)
-> 
-> diff --git a/Documentation/process/code-of-conduct.rst b/Documentation/process/code-of-conduct.rst
-> index aa40e34e7785..4dd90987305b 100644
-> --- a/Documentation/process/code-of-conduct.rst
-> +++ b/Documentation/process/code-of-conduct.rst
-> @@ -59,21 +59,6 @@ address, posting via an official social media account, or acting as an appointed
->  representative at an online or offline event. Representation of a project may be
->  further defined and clarified by project maintainers.
->  
-> -Enforcement
-> -===========
-> -
-> -Instances of abusive, harassing, or otherwise unacceptable behavior may be
-> -reported by contacting the Technical Advisory Board (TAB) at
-> -<tab@lists.linux-foundation.org>. All complaints will be reviewed and
-> -investigated and will result in a response that is deemed necessary and
-> -appropriate to the circumstances. The TAB is obligated to maintain
-> -confidentiality with regard to the reporter of an incident.  Further details of
-> -specific enforcement policies may be posted separately.
-> -
-> -Maintainers who do not follow or enforce the Code of Conduct in good faith may
-> -face temporary or permanent repercussions as determined by other members of the
-> -project’s leadership.
-> -
->  Attribution
->  ===========
->  
-> 
+Hi James,
 
-With the assumption that the enforcement details will be added later after community
-discussion in upcoming releases.
+On Sat, Oct 6, 2018 at 11:36 PM James Bottomley
+<James.Bottomley@hansenpartnership.com> wrote:
+> We've had several threads discussing potential changes to the code of
+> conduct but Mauro is the only person to have proposed an actual patch.
+> In order to move the debate on, I'm presenting two patches, one to fix
+> the email problem Mauro identified and the other to strip the
+> enforcement section pending community discussion as Shuah suggested.
+>
+> I'll take responsibility for collecting any tags people want to add
+> (review/ack/sign off, etc) and sending the patch in as a signed pull
+> request before 4.19 final if they get enough community support.
+>
+> Note, I've sent both patches in as a series to facilitate review and
+> discussion, but they are separable if one is looked on with less favour
+> than the other.
+>
+> It was also a bit unclear which list to send this to, but I finally
+> settled on linux-kernel as the catch all and ksummit-discuss since
+> that's where most of the current discussion is.  I can add other lists
+> as people suggest them.
 
-Acked-by: Shuah Khan <shuah@kernel.org>
+Personally I'm not happy at all with how the new code of conduct was
+rushed in, least because I still don't understand why it happened, but
+also for all the other reasons we've discussed here in the past few
+weeks.
 
-thanks,
--- Shuah
+For all the same reasons I don't think it's a good idea to now rush in
+a few edits, just a few days before the 4.19 release. In my
+experience, and I've discussed code of conducts and their enforcement
+for years even before we implemented the fd.o/dri-devel one, mailing
+lists aren't the best place to have this discussion. Definitely not
+under the time pressure of just a few days to get it all sorted. I
+hope that we can have these discussiones at the maintainer summit and
+kernel summit/plumbers, and will have more clarity in a few weeks
+(probably more likely months).
+
+But I also understand that there's lots of people (me included) who
+don't want to ship a release with the code of conduct in it's current
+in-between state. I think adding a disclaimer at the top, along the
+lines of
+
+"Please note that this code of conduct and it's enforcement are still
+under discussion."
+
+would make this clear and ameliorate the concerns from many people
+about the open questions we still have, at least for now. This would
+give us the time to discuss all the details properly and with all due
+deliberation. I'm travelling next week, so not the right guy to push
+this, but I'd be happy to ack such a patch (or something along the
+same lines). I also believe that this statement is undisputed enough
+that we can gather widespread support for it in the few days left
+until 4.19 ships to make it happen.
+
+Thanks, Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
