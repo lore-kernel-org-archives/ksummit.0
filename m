@@ -1,29 +1,29 @@
-Return-Path: <jonsmirl@gmail.com>
+Return-Path: <daniel.vetter@ffwll.ch>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 254DE69EA
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2B2E869E5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  7 Oct 2018 17:51:10 +0000 (UTC)
-Received: from mail-pl1-f194.google.com (mail-pl1-f194.google.com
-	[209.85.214.194])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A05CB4DA
+	Sun,  7 Oct 2018 17:52:58 +0000 (UTC)
+Received: from mail-io1-f68.google.com (mail-io1-f68.google.com
+	[209.85.166.68])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 82D80466
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  7 Oct 2018 17:51:09 +0000 (UTC)
-Received: by mail-pl1-f194.google.com with SMTP id p25-v6so9012452pli.11
+	Sun,  7 Oct 2018 17:52:57 +0000 (UTC)
+Received: by mail-io1-f68.google.com with SMTP id q4-v6so14233135iob.8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 07 Oct 2018 10:51:09 -0700 (PDT)
+	Sun, 07 Oct 2018 10:52:57 -0700 (PDT)
 MIME-Version: 1.0
 References: <1538861738.4088.5.camel@HansenPartnership.com>
 	<CAKMK7uFvmXtk=WiZJxGrzQQD1RHv7srA-_e8KdwXZ9Kn5rcmiQ@mail.gmail.com>
 	<1538934030.4010.1.camel@HansenPartnership.com>
 In-Reply-To: <1538934030.4010.1.camel@HansenPartnership.com>
-From: "jonsmirl@gmail.com" <jonsmirl@gmail.com>
-Date: Sun, 7 Oct 2018 13:50:57 -0400
-Message-ID: <CAKON4OyztjgTp_AJcrUjpkmT36RY4r-jMzNG75+riOy8U=PTgQ@mail.gmail.com>
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Sun, 7 Oct 2018 19:52:45 +0200
+Message-ID: <CAKMK7uG9pZX5_r_9q5O0+3f1vRjMb8xErBY=oup6RP2QxOunag@mail.gmail.com>
 To: James Bottomley <James.Bottomley@hansenpartnership.com>
 Content-Type: text/plain; charset="UTF-8"
-Cc: lkml <linux-kernel@vger.kernel.org>,
-	ksummit-discuss@lists.linuxfoundation.org
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [PATCH 0/2] code of conduct fixes
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -34,7 +34,7 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sun, Oct 7, 2018 at 1:42 PM James Bottomley
+On Sun, Oct 7, 2018 at 7:40 PM James Bottomley
 <James.Bottomley@hansenpartnership.com> wrote:
 >
 > On Sun, 2018-10-07 at 19:11 +0200, Daniel Vetter wrote:
@@ -73,13 +73,6 @@ On Sun, Oct 7, 2018 at 1:42 PM James Bottomley
 > > rushed in, least because I still don't understand why it happened,
 > > but also for all the other reasons we've discussed here in the past
 > > few weeks.
-
-As far as I know none of the usual open source friendly lawyers have
-reviewed and commented. I suspect this document is on shaky legal
-ground and it needs a vetting from the legal community. For example,
-is the CoC simply guidance or it is a legal contract? I don't know
-enough about the law to answer that.
-
 > >
 > > For all the same reasons I don't think it's a good idea to now rush
 > > in a few edits, just a few days before the 4.19 release. In my
@@ -110,10 +103,24 @@ enough about the law to answer that.
 > but it's not a strong one, so if people want to go for the revert
 > instead of the amendment, I'd be happy to redo the patch series with
 > that.
->
-> James
->
->
+
+I thought about adding something like "meanwhile the old Code of
+Conflict stays in effect", but that already felt like editorializing,
+and so could prevent the big pile of acks I think we need for any such
+change. That's why I tried to limit my suggestion as much as possible
+to stricly undisputed facts only (we _are_ discussing it still after
+all). Personally I don't want to ack or nack any concrete changes
+(including going back to the old one, if temporarily), as long as
+Linus hasn't clarified why this was rushed and why he felt the change
+was necessary.
+
+Long term I'm all for getting this right of course, but figuring out
+what "right" is in the context of the linux kernel community will take
+a while longer than what we have until 4.19 ships (even with the 1
+week extension, just read the -rc7 release announcement)..
+
+Thanks, Daniel
+
 > > would make this clear and ameliorate the concerns from many people
 > > about the open questions we still have, at least for now. This would
 > > give us the time to discuss all the details properly and with all due
@@ -125,13 +132,9 @@ enough about the law to answer that.
 > >
 > > Thanks, Daniel
 >
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
-
 
 
 -- 
-Jon Smirl
-jonsmirl@gmail.com
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
