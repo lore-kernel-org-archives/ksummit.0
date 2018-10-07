@@ -1,28 +1,28 @@
-Return-Path: <daniel.vetter@ffwll.ch>
+Return-Path: <laurent.pinchart@ideasonboard.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D84406994
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7FEF3696A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  7 Oct 2018 17:11:28 +0000 (UTC)
-Received: from mail-io1-f67.google.com (mail-io1-f67.google.com
-	[209.85.166.67])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4BE736C5
+	Sun,  7 Oct 2018 17:18:09 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+	[213.167.242.64])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DA5E96CE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  7 Oct 2018 17:11:28 +0000 (UTC)
-Received: by mail-io1-f67.google.com with SMTP id w16-v6so14190953iom.7
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 07 Oct 2018 10:11:28 -0700 (PDT)
+	Sun,  7 Oct 2018 17:18:08 +0000 (UTC)
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Sun, 07 Oct 2018 20:18:26 +0300
+Message-ID: <1814283.64diKEr4zR@avalon>
+In-Reply-To: <20181007113514.GA21217@localhost>
+References: <20181007085102.17795-1-geert@linux-m68k.org>
+	<20181007113514.GA21217@localhost>
 MIME-Version: 1.0
-References: <1538861738.4088.5.camel@HansenPartnership.com>
-In-Reply-To: <1538861738.4088.5.camel@HansenPartnership.com>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Sun, 7 Oct 2018 19:11:14 +0200
-Message-ID: <CAKMK7uFvmXtk=WiZJxGrzQQD1RHv7srA-_e8KdwXZ9Kn5rcmiQ@mail.gmail.com>
-To: James Bottomley <James.Bottomley@hansenpartnership.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [PATCH 0/2] code of conduct fixes
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [Ksummit-discuss] [PATCH] code-of-conduct: Remove explicit list
+	of discrimination factors
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,63 +32,36 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi James,
+Hi Josh,
 
-On Sat, Oct 6, 2018 at 11:36 PM James Bottomley
-<James.Bottomley@hansenpartnership.com> wrote:
-> We've had several threads discussing potential changes to the code of
-> conduct but Mauro is the only person to have proposed an actual patch.
-> In order to move the debate on, I'm presenting two patches, one to fix
-> the email problem Mauro identified and the other to strip the
-> enforcement section pending community discussion as Shuah suggested.
->
-> I'll take responsibility for collecting any tags people want to add
-> (review/ack/sign off, etc) and sending the patch in as a signed pull
-> request before 4.19 final if they get enough community support.
->
-> Note, I've sent both patches in as a series to facilitate review and
-> discussion, but they are separable if one is looked on with less favour
-> than the other.
->
-> It was also a bit unclear which list to send this to, but I finally
-> settled on linux-kernel as the catch all and ksummit-discuss since
-> that's where most of the current discussion is.  I can add other lists
-> as people suggest them.
+On Sunday, 7 October 2018 14:35:14 EEST Josh Triplett wrote:
+> On Sun, Oct 07, 2018 at 10:51:02AM +0200, Geert Uytterhoeven wrote:
+> > Providing an explicit list of discrimination factors may give the false
+> > impression that discrimination based on other unlisted factors would be
+> > allowed.
+> > 
+> > Avoid any ambiguity by removing the list, to ensure "a harassment-free
+> > experience for everyone", period.
+> 
+> I would suggest reading the commit message that added this in the first
+> place. "Explicit guidelines have demonstrated success in other projects
+> and other areas of the kernel." See also various comparisons of codes of
+> conduct, which make the same point. The point of this list is precisely
+> to serve as one such explicit guideline; removing it would rather defeat
+> the purpose.
+> 
+> In any case, this is not the appropriate place for such patches, any
+> more than it's the place for patches to the GPL.
 
-Personally I'm not happy at all with how the new code of conduct was
-rushed in, least because I still don't understand why it happened, but
-also for all the other reasons we've discussed here in the past few
-weeks.
+So what's an appropriate place to discuss the changes that we would like, 
+*together*, to make to the current document and propose upstream ? As stated 
+in another e-mail in a similar thread, I believe we need to come together and 
+decide on what we want to do. We still have no official forum to do so, and 
+repeatedly telling people that ksummit-discuss and LKML are not the right 
+place won't make the concerns go away. Only by discussing problems will we 
+come to solutions.
 
-For all the same reasons I don't think it's a good idea to now rush in
-a few edits, just a few days before the 4.19 release. In my
-experience, and I've discussed code of conducts and their enforcement
-for years even before we implemented the fd.o/dri-devel one, mailing
-lists aren't the best place to have this discussion. Definitely not
-under the time pressure of just a few days to get it all sorted. I
-hope that we can have these discussiones at the maintainer summit and
-kernel summit/plumbers, and will have more clarity in a few weeks
-(probably more likely months).
-
-But I also understand that there's lots of people (me included) who
-don't want to ship a release with the code of conduct in it's current
-in-between state. I think adding a disclaimer at the top, along the
-lines of
-
-"Please note that this code of conduct and it's enforcement are still
-under discussion."
-
-would make this clear and ameliorate the concerns from many people
-about the open questions we still have, at least for now. This would
-give us the time to discuss all the details properly and with all due
-deliberation. I'm travelling next week, so not the right guy to push
-this, but I'd be happy to ack such a patch (or something along the
-same lines). I also believe that this statement is undisputed enough
-that we can gather widespread support for it in the few days left
-until 4.19 ships to make it happen.
-
-Thanks, Daniel
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-+41 (0) 79 365 57 48 - http://blog.ffwll.ch
+Regards,
+
+Laurent Pinchart
