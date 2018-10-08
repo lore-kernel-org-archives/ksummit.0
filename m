@@ -1,29 +1,31 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <Tim.Bird@sony.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D30C16B71
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2E6436C55
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  8 Oct 2018 12:02:42 +0000 (UTC)
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
-	[172.104.155.198])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5498B6C5
+	Mon,  8 Oct 2018 13:51:18 +0000 (UTC)
+Received: from NAM03-CO1-obe.outbound.protection.outlook.com
+	(mail-co1nam03on0103.outbound.protection.outlook.com [104.47.40.103])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6EBF7709
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  8 Oct 2018 12:02:42 +0000 (UTC)
-Date: Mon, 8 Oct 2018 13:02:36 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Josh Triplett <josh@joshtriplett.org>
-Message-ID: <20181008120236.GD5684@sirena.org.uk>
-References: <20181007085102.17795-1-geert@linux-m68k.org>
-	<20181007113514.GA21217@localhost>
+	Mon,  8 Oct 2018 13:51:17 +0000 (UTC)
+From: <Tim.Bird@sony.com>
+To: <James.Bottomley@HansenPartnership.com>,
+	<ksummit-discuss@lists.linuxfoundation.org>
+Date: Mon, 8 Oct 2018 13:51:12 +0000
+Message-ID: <ECADFF3FD767C149AD96A924E7EA6EAF80517411@USCULXMSG01.am.sony.com>
+References: <1538861738.4088.5.camel@HansenPartnership.com>
+	<1538861851.4088.7.camel@HansenPartnership.com>
+	<ECADFF3FD767C149AD96A924E7EA6EAF80516F31@USCULXMSG01.am.sony.com>
+	<1538883209.4088.14.camel@HansenPartnership.com>
+In-Reply-To: <1538883209.4088.14.camel@HansenPartnership.com>
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="9dgjiU4MmWPVapMU"
-Content-Disposition: inline
-In-Reply-To: <20181007113514.GA21217@localhost>
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	linux-kernel@vger.kernel.org, ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [PATCH] code-of-conduct: Remove explicit list
- of discrimination factors
+Cc: linux-kernel@vger.kernel.org
+Subject: Re: [Ksummit-discuss] [PATCH 2/2] code-of-conduct: Strip the
+ enforcement paragraph pending community discussion
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,54 +35,69 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-
---9dgjiU4MmWPVapMU
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Sun, Oct 07, 2018 at 04:35:14AM -0700, Josh Triplett wrote:
-> On Sun, Oct 07, 2018 at 10:51:02AM +0200, Geert Uytterhoeven wrote:
-> > Providing an explicit list of discrimination factors may give the false
-> > impression that discrimination based on other unlisted factors would be
-> > allowed.
-
-> > Avoid any ambiguity by removing the list, to ensure "a harassment-free
-> > experience for everyone", period.
-
-> I would suggest reading the commit message that added this in the first
-> place. "Explicit guidelines have demonstrated success in other projects
-> and other areas of the kernel." See also various comparisons of codes of
-> conduct, which make the same point. The point of this list is precisely
-> to serve as one such explicit guideline; removing it would rather defeat
-> the purpose.
-
-The Debian code of conduct also omits the explicit list of factors.  In
-their case it was a deliberate decision due to a real fear that people
-involved in and adjacent to the project would try to rules lawyer an
-explict list and wanting to make the code of conduct robust against
-that.  The communities seem similar enough that it's worth thinking
-about for the kernel as well, Debian has had to deal with some serious
-problems in the past so there's some experience behind the decisions
-there.
-
-> In any case, this is not the appropriate place for such patches, any
-> more than it's the place for patches to the GPL.
-
-We do need some way to talk about what we're trying to do here.
-
---9dgjiU4MmWPVapMU
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlu7R1sACgkQJNaLcl1U
-h9DSlgf/TrAjyhsy9c4hZmukCHV26ymNY8mSxDTh5O7+Nuu+GljrpWBax57/Iuye
-TJvuTKYrKvVyHSUxeoiNlBNCzGJumO8zOwQ4T0PcjvbSr3Bb49TcFpU2dVUsrmy6
-wtFG+xd8UujJunnp/2Ij2vLIznOCdijqhiJjZUTG+hm3yUrWNr6r9f+JkZYy7cM8
-+JH+vME2UTErPAQ9iOaSmdTgEClD6ILMzBVLQkZ43CZsz+ppAs0HKL+zBowvULtD
-EG9+0gH84qhM41+7TEufY/H2no1uwsMPalM4DfELJ6K7OqwcO0+uQPjBquriJRAS
-YBZf0ImvUPzNbK1NL0QXdz16lMUmFw==
-=lPR7
------END PGP SIGNATURE-----
-
---9dgjiU4MmWPVapMU--
+DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogSmFtZXMgQm90dG9tbGV5
+IA0KPiBPbiBTYXQsIDIwMTgtMTAtMDYgYXQgMjE6NDMgKzAwMDAsIFRpbS5CaXJkQHNvbnkuY29t
+IHdyb3RlOg0KPiA+ID4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gPiA+IEZyb206IEph
+bWVzIEJvdHRvbWxleQ0KPiA+ID4NCj4gPiA+IFNpZ25pZmljYW50IGNvbmNlcm4gaGFzIGJlZW4g
+ZXhwcmVzc2VkIGFib3V0IHRoZSByZXNwb25zaWJpbGl0aWVzDQo+ID4gPiBvdXRsaW5lZCBpbiB0
+aGUgZW5mb3JjZW1lbnQgY2xhdXNlIG9mIHRoZSBuZXcgY29kZSBvZg0KPiA+ID4gY29uZHVjdC7C
+oMKgU2luY2UgdGhlcmUgaXMgY29uY2VybiB0aGF0IHRoaXMgYmVjb21lcyBiaW5kaW5nIG9uIHRo
+ZQ0KPiA+ID4gcmVsZWFzZSBvZiB0aGUgNC4xOSBrZXJuZWwsIHN0cmlwIHRoZSBlbmZvcmNlbWVu
+dCBjbGF1c2VzIHRvIGdpdmUNCj4gPiA+IHRoZSBjb21tdW5pdHkgdGltZSB0byBjb25zaWRlciBh
+bmQgZGViYXRlIGhvdyB0aGlzIHNob3VsZCBiZQ0KPiA+ID4gaGFuZGxlZC4NCj4gPiA+DQo+ID4g
+PiBTaWduZWQtb2ZmLWJ5OiBKYW1lcyBCb3R0b21sZXkNCj4gPiA+IDxKYW1lcy5Cb3R0b21sZXlA
+SGFuc2VuUGFydG5lcnNoaXAuY29tPg0KPiA+ID4gLS0tDQo+ID4gPiDCoERvY3VtZW50YXRpb24v
+cHJvY2Vzcy9jb2RlLW9mLWNvbmR1Y3QucnN0IHwgMTUgLS0tLS0tLS0tLS0tLS0tDQo+ID4gPiDC
+oDEgZmlsZSBjaGFuZ2VkLCAxNSBkZWxldGlvbnMoLSkNCj4gPiA+DQo+ID4gPiBkaWZmIC0tZ2l0
+IGEvRG9jdW1lbnRhdGlvbi9wcm9jZXNzL2NvZGUtb2YtY29uZHVjdC5yc3QNCj4gPiA+IGIvRG9j
+dW1lbnRhdGlvbi9wcm9jZXNzL2NvZGUtb2YtY29uZHVjdC5yc3QNCj4gPiA+IGluZGV4IGFhNDBl
+MzRlNzc4NS4uNGRkOTA5ODczMDViIDEwMDY0NA0KPiA+ID4gLS0tIGEvRG9jdW1lbnRhdGlvbi9w
+cm9jZXNzL2NvZGUtb2YtY29uZHVjdC5yc3QNCj4gPiA+ICsrKyBiL0RvY3VtZW50YXRpb24vcHJv
+Y2Vzcy9jb2RlLW9mLWNvbmR1Y3QucnN0DQo+ID4gPiBAQCAtNTksMjEgKzU5LDYgQEAgYWRkcmVz
+cywgcG9zdGluZyB2aWEgYW4gb2ZmaWNpYWwgc29jaWFsIG1lZGlhDQo+ID4gPiBhY2NvdW50LCBv
+cg0KPiA+ID4gYWN0aW5nIGFzIGFuIGFwcG9pbnRlZA0KPiA+ID4gwqByZXByZXNlbnRhdGl2ZSBh
+dCBhbiBvbmxpbmUgb3Igb2ZmbGluZSBldmVudC4gUmVwcmVzZW50YXRpb24gb2YgYQ0KPiA+ID4g
+cHJvamVjdCBtYXkNCj4gPiA+IGJlDQo+ID4gPiDCoGZ1cnRoZXIgZGVmaW5lZCBhbmQgY2xhcmlm
+aWVkIGJ5IHByb2plY3QgbWFpbnRhaW5lcnMuDQo+ID4gPg0KPiA+ID4gLUVuZm9yY2VtZW50DQo+
+ID4gPiAtPT09PT09PT09PT0NCj4gPiA+IC0NCj4gPiA+IC1JbnN0YW5jZXMgb2YgYWJ1c2l2ZSwg
+aGFyYXNzaW5nLCBvciBvdGhlcndpc2UgdW5hY2NlcHRhYmxlDQo+ID4gPiBiZWhhdmlvciBtYXkg
+YmUNCj4gPiA+IC1yZXBvcnRlZCBieSBjb250YWN0aW5nIHRoZSBUZWNobmljYWwgQWR2aXNvcnkg
+Qm9hcmQgKFRBQikgYXQNCj4gPiA+IC08dGFiQGxpc3RzLmxpbnV4LWZvdW5kYXRpb24ub3JnPi4g
+QWxsIGNvbXBsYWludHMgd2lsbCBiZSByZXZpZXdlZA0KPiA+ID4gYW5kDQo+ID4gPiAtaW52ZXN0
+aWdhdGVkIGFuZCB3aWxsIHJlc3VsdCBpbiBhIHJlc3BvbnNlIHRoYXQgaXMgZGVlbWVkDQo+ID4g
+PiBuZWNlc3NhcnkgYW5kDQo+ID4gPiAtYXBwcm9wcmlhdGUgdG8gdGhlIGNpcmN1bXN0YW5jZXMu
+IFRoZSBUQUIgaXMgb2JsaWdhdGVkIHRvIG1haW50YWluDQo+ID4gPiAtY29uZmlkZW50aWFsaXR5
+IHdpdGggcmVnYXJkIHRvIHRoZSByZXBvcnRlciBvZiBhbg0KPiA+ID4gaW5jaWRlbnQuwqDCoEZ1
+cnRoZXIgZGV0YWlscyBvZg0KPiA+ID4gLXNwZWNpZmljIGVuZm9yY2VtZW50IHBvbGljaWVzIG1h
+eSBiZSBwb3N0ZWQgc2VwYXJhdGVseS4NCj4gPg0KPiA+IEkgdGhpbmsgaXQncyBPSyB0byBsZWF2
+ZSB0aGUgYWJvdmUgc2VjdGlvbiwgYXMgaXQgZG9lc24ndCBzcGVhayB0bw0KPiA+IGVuZm9yY2Vt
+ZW50LCBidXQgcmF0aGVyIGlzIGp1c3QgYSBzZXQgb2YgcmVwb3J0aW5nIGluc3RydWN0aW9ucywN
+Cj4gPiB3aXRoIGFuIGFzc3VyYW5jZSBvZiBjb25maWRlbnRpYWxpdHkuwqDCoFRoaXMgc2VlbXMg
+dG8gbWUgbm90IHRvIGJlDQo+ID4gdGhlIG9iamVjdGlvbmFibGUgcGFydCBvZiB0aGlzIHNlY3Rp
+b24uDQo+ID4gKElPVywgSSB3b3VsZCBvbWl0IHRoaXMgcmVtb3ZhbCBmcm9tIHRoZSBwYXRjaCku
+DQo+IA0KPiBTbyBJIGRpZCB0aGluayBhYm91dCB0aGF0LCBidXQgaXQgc3RydWNrIG1lIHRoYXQg
+d2l0aCBib3RoIHBhcmFncmFwaHMNCj4gcmVtb3ZlZCwgdGhlIGN1cnJlbnQgQ29DIGlzIHZlcnkg
+c2ltaWxhciB0byB0aGUgc3RhdHVzIHF1bzogbmFtZWx5DQo+IGV2ZXJ5IHN1YnN5c3RlbSBoYW5k
+bGVzIHRoZWlyIG93biBpc3N1ZXMgYW5kIHRoYXQncyBmb3JtYWxpc2VkIGJ5IHRoZQ0KPiAiT3Vy
+IFJlc3BvbnNpYmlsaXRpZXMiIHNlY3Rpb24uICBUaGF0IGFsc28gbWFrZXMgbWUgdGhpbmsgdGhh
+dCB3aGV0aGVyDQo+IHdlIHdhbnQgYSBjZW50cmFsaXNlZCBjaGFubmVsIG9mIHJlcG9ydGluZyBv
+ciBlbmZvcmNlbWVudCBhbmQgd2hhdCBpdA0KPiBzaG91bGQgYmUgYWxzbyBvdWdodCB0byBiZSBw
+YXJ0IG9mIHRoZSBkZWJhdGUuICBUaGUgVEFCIHdhcyBjcmVhdGVkIHRvDQo+IGNoYW5uZWwgY29t
+bXVuaXR5IHRlY2huaWNhbCBpbnB1dCBpbnRvIHRoZSBMaW51eCBGb3VuZGF0aW9uLiAgVGhhdCdz
+DQo+IG5vdCB0byBzYXkgaXQgY2FuJ3QgcHJvdmlkZSB0aGUgcmVwb3J0aW5nIGFuZCBhcmJpdHJh
+dGlvbiBzdHJ1Y3R1cmUsDQo+IGJ1dCBpZiB3ZSdyZSBnb2luZyB0byBkbyBpdCByaWdodCB3ZSBz
+aG91bGQgZGViYXRlIHRoZSBleHBhbnNpb24gb2YgaXRzDQo+IGR1dGllcyAoYW5kIHBvd2Vycyku
+DQoNCldoZW4gdGhlIENvZGUgb2YgQ29uZmxpY3Qgd2FzIGFkb3B0ZWQgMyB5ZWFycyBhZ28sIHdl
+IGFscmVhZHkgY3JlYXRlZA0KdGhlIGNlbnRyYWwgcmVwb3J0aW5nIG1lY2hhbmlzbSwgc28gSSBh
+Y3R1YWxseSB0aGluayBsZWF2aW5nIChpZSBpbmNsdWRpbmcpIHRoZSBhYm92ZQ0KcGFyYWdyYXBo
+IGlzIGNsb3NlciB0byB0aGUgc3RhdHVzIHF1by4gIEkgdGhpbmsgaXQncyB0aGUgZXhwYW5kZWQg
+cG93ZXJzIGFuZA0KZHV0aWVzIChvciBwZXJjZXB0aW9uIHRoZXJlb2YpIHRoYXQgYXJlIGNhdXNp
+bmcgY29uY2VybiBhbmQgSSB0aGluayBkZWJhdGluZw0KdGhvc2UgdG8gY2xhcmlmeSBpbnRlbnQs
+IGFuZCBhZG9wdGluZyBjaGFuZ2VzIGFzIG5lZWRlZCAgdG8gYW1lbGlvcmF0ZSBjb25jZXJucw0K
+aXMgd29ydGh3aGlsZS4NCg0KSSBiZWxpZXZlIHRoYXQgaW4gdGhlIHZhc3QgbWFqb3JpdHkgb2Yg
+Y2FzZXMsIHRoZSBUQUIgd2lsbCBlbmQgdXANCnBlcmZvcm1pbmcgYSBtZWRpYXRvciByb2xlIHRv
+IHNtb290aCBodXJ0IGZlZWxpbmdzIGFuZCByZW1pbmQgYW5kIGVuY291cmFnZQ0KaW1wcm92ZWQg
+Y29tbXVuaWNhdGlvbiAtIHZlcnkgc2ltaWxhciB0byB3aGF0IHdlJ3ZlIGRvbmUgaW4gdGhlIHBh
+c3QuICBJIHJlYWxseQ0KYmVsaWV2ZSB0aGF0IGJhbnMgd2lsbCBjb250aW51ZSB0byBiZSB2ZXJ5
+IGZldyBhbmQgZmFyIGJldHdlZW4sIGFzIHRoZXkgaGF2ZQ0KYmVlbiBoaXN0b3JpY2FsbHkgKEkg
+Y2FuIG9ubHkgdGhpbmsgb2YgMyBpbiB0aGUgcGFzdCBkZWNhZGUuKQ0KIC0tIFRpbQ0KDQo=
