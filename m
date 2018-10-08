@@ -1,28 +1,28 @@
 Return-Path: <mchehab+samsung@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6B3037C9C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id EB9CE734E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  8 Oct 2018 20:23:07 +0000 (UTC)
+	Mon,  8 Oct 2018 21:35:35 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CF7657E9
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0910F808
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  8 Oct 2018 20:23:06 +0000 (UTC)
-Date: Mon, 8 Oct 2018 17:23:03 -0300
+	Mon,  8 Oct 2018 21:35:27 +0000 (UTC)
+Date: Mon, 8 Oct 2018 18:35:17 -0300
 From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Message-ID: <20181008172303.4f06cd94@coco.lan>
-In-Reply-To: <1538861851.4088.7.camel@HansenPartnership.com>
-References: <1538861738.4088.5.camel@HansenPartnership.com>
-	<1538861851.4088.7.camel@HansenPartnership.com>
+To: Rodrigo Vivi <rodrigo.vivi@gmail.com>
+Message-ID: <20181008183423.4bdcaeea@coco.lan>
+In-Reply-To: <CABVU7+t4VDg6p4Kq-P6U+epOOoeiy8E5XJ0gxDAJTyfW7h6Y5Q@mail.gmail.com>
+References: <CAKON4OxHUoVQ3zso=avoGE35MwWnkGaU13R_qPaw9zAqMVCDxQ@mail.gmail.com>
+	<6108593.JtmfA2IdsK@avalon>
+	<CAKON4Owevjg=wyQrxJ4z7x=hUryKGhHkXB=htL5G6MhuruwZ-Q@mail.gmail.com>
+	<CABVU7+t4VDg6p4Kq-P6U+epOOoeiy8E5XJ0gxDAJTyfW7h6Y5Q@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Cc: linux-kernel <linux-kernel@vger.kernel.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [PATCH 2/2] code-of-conduct: Strip the
- enforcement paragraph pending community discussion
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] New CoC and Brendan Eich
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,173 +32,99 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Em Sat, 06 Oct 2018 14:37:31 -0700
-James Bottomley <James.Bottomley@HansenPartnership.com> escreveu:
+Em Thu, 4 Oct 2018 12:21:42 -0700
+Rodrigo Vivi <rodrigo.vivi@gmail.com> escreveu:
 
-> Significant concern has been expressed about the responsibilities outline=
-d in
-> the enforcement clause of the new code of conduct.  Since there is concern
-> that this becomes binding on the release of the 4.19 kernel, strip the
-> enforcement clauses to give the community time to consider and debate how=
- this
-> should be handled.
->=20
-> Signed-off-by: James Bottomley <James.Bottomley@HansenPartnership.com>
+> On Thu, Oct 4, 2018 at 12:06 PM jonsmirl@gmail.com <jonsmirl@gmail.com>
+> wrote:
+> 
+> > On Thu, Oct 4, 2018 at 2:32 PM Laurent Pinchart
+> > <laurent.pinchart@ideasonboard.com> wrote:  
+> > >
+> > > Hi Jon,
+> > >
+> > > On Thursday, 4 October 2018 19:23:33 EEST jonsmirl@gmail.com wrote:  
+> > > > I would highly recommend getting the new CoC reviewed and approved by
+> > > > some of the very smart lawyers that help out the Linux community.  I
+> > > > would also recommend discussing the Brendan Eich situation at Ksummit.
+> > > > A situation like this needs to be planned for since an improper
+> > > > response will make things much worse leading to legal challenges.
+> > > >
+> > > > Some random articles to refresh everyone's memory...
+> > > >  
+> > https://www.telegraph.co.uk/finance/newsbysector/mediatechnologyandtelecoms/  
+> > > >  
+> > digital-media/10743456/Mozilla-chief-Brendan-Eich-steps-down-over-gay-marria  
+> > > > ge-row.html
+> > > >  
+> > https://www.theguardian.com/commentisfree/2014/apr/07/brendan-eich-has-the->
+> > right-to-fight-gay-rights-but-not-to-be-mozillas-ceo  
+> > > > https://www.bbc.com/news/technology-26868536
+> > > >  
+> > https://www.telegraph.co.uk/technology/technology-topics/10745283/Brendan-Ei  
+> > > >  
+> > ch-is-a-homophobe-Im-a-lesbian-and-neither-of-us-deserves-to-lose-our-jobs.h  
+> > > > tml  
+> > >
+> > > We're facing a textbook case that has a probability of generating heated
+> > > discussions no lower than 100%. I remember having a pretty strong  
+> > opinion on  
+> > > the topic when it came under public scrutiny (and while I generally  
+> > don't mind  
+> > > discussing it, I won't disclose that opinion here as that's entirely
+> > > irrelevant). The more interesting part was that waiting for the debate  
+> > to cool  
+> > > down gave me time to think, and realize that what is often perceived as a
+> > > black-and-white situation most often turns out to be more complex than
+> > > initially perceived.
+> > >
+> > > One point that I would like to explore is thus how we can take the time  
+> > needed  
+> > > to solve such matters when the mob is waiting outside of the courtroom  
+> > with  
+> > > tar and feathers. I don't want to discuss here what our response to such  
+> > a  
+> > > case should be, but the process that we should follow to come up with a
+> > > response. It is of paramount importance in my opinion for the body  
+> > tasked with  
+> > > handling those issues to follow a process that ensures it will be able  
+> > to keep  
+> > > a cool head and have enough time available to think the response  
+> > carefully.
+> >
+> > What is going to happen when someone gets fired after being accused of
+> > violating the CoC and they lose $20M in options? INAL but it appears
+> > to me that the CoC has created lawsuit exposure for all of the
+> > maintainers. This CoC really needs to be vetted by the kernel legal
+> > team.
+> >  
+> 
+> you mean If someone gets fired for violating respect to the other human
+> being in public?!
+> I'm afraid this already happen around the world. And I never saw anyone
+> blaming news or social networks for that. The cause of this consequence is
+> on the speech itself, not on the channels....
 
+No, that's not what's written at the letter of the CoC. It is written
+there that:
 
-With my maintainer's hat, my main concern would be solved with this hunk:
+If developer A violates the CoC insulting developer B, the maintainer C is
+responsible to take actions against developer B.
 
-diff --git a/Documentation/process/code-of-conduct.rst b/Documentation/proc=
-ess/code-of-conduct.rst
-index ab7c24b5478c..f07d51129d4b 100644
---- a/Documentation/process/code-of-conduct.rst
-+++ b/Documentation/process/code-of-conduct.rst
-@@ -43,7 +43,7 @@ Maintainers are responsible for clarifying the standards =
-of acceptable behavior
- and are expected to take appropriate and fair corrective action in respons=
-e to
- any instances of unacceptable behavior.
-=20
--Maintainers have the right and responsibility to remove, edit, or reject
-+Maintainers may remove, edit, or reject
- comments, commits, code, wiki edits, issues, and other contributions that =
-are
- not aligned to this Code of Conduct, or to ban temporarily or permanently =
-any
- contributor for other behaviors that they deem inappropriate, threatening,
+If maintainer C doesn't take actions[1], developer B can complain to
+TAB against maintainer C (and not against developer A).
 
-The previous text seems too much legal for my taste.
+In other words, at the light of this CoC, the one that should be held
+into account is not the one that lacked respect. It is someone else
+that was unable to "educate" developer A.
 
-> ---
->  Documentation/process/code-of-conduct.rst | 15 ---------------
->  1 file changed, 15 deletions(-)
->=20
-> diff --git a/Documentation/process/code-of-conduct.rst b/Documentation/pr=
-ocess/code-of-conduct.rst
-> index aa40e34e7785..4dd90987305b 100644
-> --- a/Documentation/process/code-of-conduct.rst
-> +++ b/Documentation/process/code-of-conduct.rst
-> @@ -59,21 +59,6 @@ address, posting via an official social media account,=
- or acting as an appointed
->  representative at an online or offline event. Representation of a projec=
-t may be
->  further defined and clarified by project maintainers.
-> =20
-> -Enforcement
-> -=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> -
-> -Instances of abusive, harassing, or otherwise unacceptable behavior may =
-be
-> -reported by contacting the Technical Advisory Board (TAB) at
-> -<tab@lists.linux-foundation.org>. All complaints will be reviewed and
-> -investigated and will result in a response that is deemed necessary and
-> -appropriate to the circumstances. The TAB is obligated to maintain
-> -confidentiality with regard to the reporter of an incident.  Further det=
-ails of
-> -specific enforcement policies may be posted separately.
-> -
-> -Maintainers who do not follow or enforce the Code of Conduct in good fai=
-th may
-> -face temporary or permanent repercussions as determined by other members=
- of the
-> -project=E2=80=99s leadership.
-> -
->  Attribution
->  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-After looking at the comments, I would just keep TAB as a point of contact
-for CoC violations:
-
-diff --git a/Documentation/process/code-of-conduct.rst b/Documentation/proc=
-ess/code-of-conduct.rst
-index ab7c24b5478c..fa908dbff51c 100644
---- a/Documentation/process/code-of-conduct.rst
-+++ b/Documentation/process/code-of-conduct.rst
-@@ -59,20 +59,12 @@ address, posting via an official social media account, =
-or acting as an appointed
- representative at an online or offline event. Representation of a project =
-may be
- further defined and clarified by project maintainers.
-=20
--Enforcement
--=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-+Reports
-+=3D=3D=3D=3D=3D=3D=3D
-=20
- Instances of abusive, harassing, or otherwise unacceptable behavior may be
- reported by contacting the Technical Advisory Board (TAB) at
--<tab@lists.linux-foundation.org>. All complaints will be reviewed and
--investigated and will result in a response that is deemed necessary and
--appropriate to the circumstances. The TAB is obligated to maintain
--confidentiality with regard to the reporter of an incident.  Further detai=
-ls of
--specific enforcement policies may be posted separately.
--
--Maintainers who do not follow or enforce the Code of Conduct in good faith=
- may
--face temporary or permanent repercussions as determined by other members o=
-f the
--project=E2=80=99s leadership.
-+<tab@lists.linux-foundation.org>.
-=20
- Attribution
- =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-Keeping the rest implicit. This can be revisited after having more
-discussions.
+[1] It should be notice that, even the best good will maintainer
+won't be able to enforce the CoC, as several actions are impossible to
+handle for an e-mail-based workflow: maintainer B can't edit or 
+remove all copies of an email that developer A posted on a public
+mailing list and their mirrors. Even his capability of banning developer A
+is limited, as he usually doesn't maintain the e-mail server. So, he has
+to ask someone else to do that.
 
 Thanks,
 Mauro
-
--
-
-Both hunks are shown below.
-
-
-diff --git a/Documentation/process/code-of-conduct.rst b/Documentation/proc=
-ess/code-of-conduct.rst
-index ab7c24b5478c..df44867a2db5 100644
---- a/Documentation/process/code-of-conduct.rst
-+++ b/Documentation/process/code-of-conduct.rst
-@@ -43,7 +43,7 @@ Maintainers are responsible for clarifying the standards =
-of acceptable behavior
- and are expected to take appropriate and fair corrective action in respons=
-e to
- any instances of unacceptable behavior.
-=20
--Maintainers have the right and responsibility to remove, edit, or reject
-+Maintainers may remove, edit, or reject
- comments, commits, code, wiki edits, issues, and other contributions that =
-are
- not aligned to this Code of Conduct, or to ban temporarily or permanently =
-any
- contributor for other behaviors that they deem inappropriate, threatening,
-@@ -59,20 +59,12 @@ address, posting via an official social media account, =
-or acting as an appointed
- representative at an online or offline event. Representation of a project =
-may be
- further defined and clarified by project maintainers.
-=20
--Enforcement
--=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-+Reports
-+=3D=3D=3D=3D=3D=3D=3D
-=20
- Instances of abusive, harassing, or otherwise unacceptable behavior may be
- reported by contacting the Technical Advisory Board (TAB) at
--<tab@lists.linux-foundation.org>. All complaints will be reviewed and
--investigated and will result in a response that is deemed necessary and
--appropriate to the circumstances. The TAB is obligated to maintain
--confidentiality with regard to the reporter of an incident.  Further detai=
-ls of
--specific enforcement policies may be posted separately.
--
--Maintainers who do not follow or enforce the Code of Conduct in good faith=
- may
--face temporary or permanent repercussions as determined by other members o=
-f the
--project=E2=80=99s leadership.
-+<tab@lists.linux-foundation.org>.
-=20
- Attribution
- =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
