@@ -1,31 +1,31 @@
-Return-Path: <boaz@plexistor.com>
+Return-Path: <geert.uytterhoeven@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id EDF7BC03
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0612ADD1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  8 Oct 2018 07:46:05 +0000 (UTC)
-Received: from mail-wr1-f67.google.com (mail-wr1-f67.google.com
-	[209.85.221.67])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 347D74DA
+	Mon,  8 Oct 2018 08:56:04 +0000 (UTC)
+Received: from mail-vs1-f67.google.com (mail-vs1-f67.google.com
+	[209.85.217.67])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6DFD26CE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  8 Oct 2018 07:46:05 +0000 (UTC)
-Received: by mail-wr1-f67.google.com with SMTP id n1-v6so19614121wrt.10
+	Mon,  8 Oct 2018 08:56:03 +0000 (UTC)
+Received: by mail-vs1-f67.google.com with SMTP id v18-v6so10948978vsl.11
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 08 Oct 2018 00:46:05 -0700 (PDT)
-To: Greg KH <gregkh@linuxfoundation.org>
-References: <MWHPR06MB2896E4C6CE916007BCB66305EEE90@MWHPR06MB2896.namprd06.prod.outlook.com>
-	<20181003110644.GA12451@kroah.com>
-	<MWHPR06MB28965FBD1C86181DD7986C9FEEE90@MWHPR06MB2896.namprd06.prod.outlook.com>
-From: Boaz Harrosh <boaz@plexistor.com>
-Message-ID: <555ef011-7084-affc-6e77-0d70c9eba5b4@plexistor.com>
-Date: Mon, 8 Oct 2018 10:46:00 +0300
+	Mon, 08 Oct 2018 01:56:03 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <MWHPR06MB28965FBD1C86181DD7986C9FEEE90@MWHPR06MB2896.namprd06.prod.outlook.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] ZUFS - Zero Copy User-Mode
- FileSystem - One year Later
+References: <20181007085102.17795-1-geert@linux-m68k.org>
+	<20181007113514.GA21217@localhost>
+In-Reply-To: <20181007113514.GA21217@localhost>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 8 Oct 2018 10:55:50 +0200
+Message-ID: <CAMuHMdVS6QVfg6=-a9+qgnhjT4f1aEMdEm54jKFy7MnSxCj_1g@mail.gmail.com>
+To: Josh Triplett <josh@joshtriplett.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [PATCH] code-of-conduct: Remove explicit list
+ of discrimination factors
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,45 +35,56 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 03/10/18 15:46, Harrosh, Boaz wrote:
-> Greg KH <gregkh@linuxfoundation.org> Wrote:
-> 
->>> On Wed, Oct 03, 2018 at 09:35:54AM +0000, Harrosh, Boaz wrote:
->>> Linux Plumbers 2018: ZUFS - Zero Copy User-Mode FileSystem - One year Later
-> <snap>
-> 
->> Why wouldn't this be better discussed at the file-system-specific
->> conference?  Or have you already done that this year?
->>
->> thanks,
->> greg k-h
-> 
-> Yes I have presented at LSF. It was a full discussion. And, 6 month ago, was
-> very not ready for upstream at that time.
-> 
-> Last plumbers my talk raised a lot of interest, was then at the POC stage.
-> 
-> I would like to present the current status, when code is much more complete
-> and actually ready for clients computers in stability and fixture set.
-> 
-> And try to draw in more community interest and participation. In what I believe
-> is a very Interesting project. Some of the Technics I present are beyond pure FS
-> and demonstrate a new way to communicate with user-mode servers, taking into
-> account cpu-locality and NUMA awareness.
-> 
-> [That said it is all about me sleeping on guard and submitting a plumbers talk proposal
->  to late. So it was suggested I might ask about a Kernel track
-> ]
-> 
+Hi Josh,
 
-Hello Greg, ksummit comity
+On Sun, Oct 7, 2018 at 1:35 PM Josh Triplett <josh@joshtriplett.org> wrote:
+> On Sun, Oct 07, 2018 at 10:51:02AM +0200, Geert Uytterhoeven wrote:
+> > Providing an explicit list of discrimination factors may give the false
+> > impression that discrimination based on other unlisted factors would be
+> > allowed.
+> >
+> > Avoid any ambiguity by removing the list, to ensure "a harassment-free
+> > experience for everyone", period.
+>
+> I would suggest reading the commit message that added this in the first
+> place. "Explicit guidelines have demonstrated success in other projects
+> and other areas of the kernel." See also various comparisons of codes of
 
-Does any one please know when are the list of the Kernel sub-tracks [TECH TOPIC]s
-are set and accepted? I read the "Kernel Summit 2018 planning kick-off" mail
-and it was not clear to me.
+The first paragraph of the commit message (the "why" part) is exactly the
+part we've been waiting for a clarification since the inception of the
+commit...
 
-The reason I ask is because I need to book my flights, pretty soon.
-(Sorry if this is already known information)
+> conduct, which make the same point. The point of this list is precisely
+> to serve as one such explicit guideline; removing it would rather defeat
+> the purpose.
 
-Thanks
-Boaz
+Then (at least) the list should be marked containing examples, cfr. the other
+examples in the document.
+
+> In any case, this is not the appropriate place for such patches, any
+> more than it's the place for patches to the GPL.
+
+There are precedents:
+
+Until recent, the file named "COPYING" (which you referred to in another
+email related to patching the CoC), was a verbatim copy of the GPL, with
+clarifications added at the top.
+
+Documentation/process/code-of-conduct.rst is already a slightly modified
+version of the original.
+
+Now, if amending the CoC locally is not an option, I'm afraid a plain revert
+is the only option, like for any other commit that breaks the userspace ABI
+(Linux kernel developers are also users ;-), until the raised issues have
+been resolved upstream.
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
