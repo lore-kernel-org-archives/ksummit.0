@@ -1,33 +1,30 @@
-Return-Path: <josh@joshtriplett.org>
+Return-Path: <mchehab+samsung@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8962D7ACC
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4472D7B0C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  8 Oct 2018 19:11:49 +0000 (UTC)
-Received: from mslow2.mail.gandi.net (mslow2.mail.gandi.net [217.70.178.242])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 05C6C773
+	Mon,  8 Oct 2018 19:24:04 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+	[198.137.202.133])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D13D96C5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  8 Oct 2018 19:11:48 +0000 (UTC)
-Received: from relay10.mail.gandi.net (unknown [217.70.178.230])
-	by mslow2.mail.gandi.net (Postfix) with ESMTP id 263813A1454
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  8 Oct 2018 21:04:49 +0200 (CEST)
-Date: Mon, 8 Oct 2018 12:04:36 -0700
-From: Josh Triplett <josh@joshtriplett.org>
-To: Chris Mason <clm@fb.com>
-Message-ID: <20181008190435.GA3963@localhost>
+	Mon,  8 Oct 2018 19:24:03 +0000 (UTC)
+Date: Mon, 8 Oct 2018 16:23:57 -0300
+From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Message-ID: <20181008162357.7004ba48@coco.lan>
+In-Reply-To: <1539012620.4344.5.camel@HansenPartnership.com>
 References: <1538861738.4088.5.camel@HansenPartnership.com>
-	<1538861851.4088.7.camel@HansenPartnership.com>
-	<FA87081B-1344-4CC8-8BCC-F00A985719FF@fb.com>
+	<1538861799.4088.6.camel@HansenPartnership.com>
+	<20181008152043.GA5796@localhost>
+	<1539012620.4344.5.camel@HansenPartnership.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <FA87081B-1344-4CC8-8BCC-F00A985719FF@fb.com>
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	linux-kernel <linux-kernel@vger.kernel.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [PATCH 2/2] code-of-conduct: Strip the
- enforcement paragraph pending community discussion
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	linux-kernel <linux-kernel@vger.kernel.org>
+Subject: Re: [Ksummit-discuss] [PATCH 1/2] code-of-conduct: Fix the
+ ambiguity about collecting email addresses
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,37 +34,39 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Oct 08, 2018 at 02:15:25PM -0400, Chris Mason wrote:
-> On 6 Oct 2018, at 17:37, James Bottomley wrote:
-> > Significant concern has been expressed about the responsibilities
-> > outlined in
-> > the enforcement clause of the new code of conduct.  Since there is
-> > concern
-> > that this becomes binding on the release of the 4.19 kernel, strip the
-> > enforcement clauses to give the community time to consider and debate
-> > how this
-> > should be handled.
-> 
-> Even in the places where I don't agree with the discussion about what our
-> code of conduct should be, I love that we're having it.  Removing the
-> enforcement clause basically goes back to the way things were.  We'd be
-> recognizing that we know issues happen, and explicitly stating that when
-> serious events do happen, the community as a whole isn't committing to
-> helping.
-> 
-> It's true there are a lot of questions about how the community resolves
-> problems and holds each other accountable for maintaining any code of
-> conduct.  I think the enforcement section leaves us the room we need to
-> continue discussions and still make it clear that we're making an effort to
-> shift away from the harsh discussions in the past.
+Em Mon, 08 Oct 2018 08:30:20 -0700
+James Bottomley <James.Bottomley@HansenPartnership.com> escreveu:
 
-Emphatically seconded.
+> On Mon, 2018-10-08 at 08:20 -0700, Josh Triplett wrote:
+> > On Sat, Oct 06, 2018 at 02:36:39PM -0700, James Bottomley wrote: =20
+> > > The current code of conduct has an ambiguity in the it considers
+> > > publishing private information such as email addresses unacceptable
+> > > behaviour.=C2=A0=C2=A0Since the Linux kernel collects and publishes e=
+mail
+> > > addresses as part of the patch process, add an exception clause for
+> > > email addresses ordinarily collected by the project to correct this
+> > > ambiguity. =20
+> >=20
+> > Upstream has now adopted a FAQ, which addresses this and many other
+> > questions. See https://www.contributor-covenant.org/faq .
+> >=20
+> > Might I suggest adding that link to the bottom of the document,
+> > instead? (And then, optionally, submitting entries for that FAQ.) =20
+>=20
+> We can debate that as part of everything else, but my personal opinion
+> would be we should never point to an outside document under someone
+> else's control for guidance as to how our community would enforce its
+> own code of conduct.
 
-I absolutely agree that we should to work on the enforcement section
-over time; for instance, I agree that a dedicated team (ideally with
-some training) would be better than vesting this in a technical
-decision-making body.
+Fully agreed on that. The same argument that we use for GPL 2 only
+applies here: we should stick with an specific version of this it, in
+a way that we won't be automatically bound to whatever new version
+of it would say.
 
-But I agree with Chris that we should not remove this entirely. And I
-don't think there's any special significance to this being in the 4.19
-release as compared to an -rc or git HEAD.
+Btw, the term "social contract" is there at the FAQ. At least in
+Brazil, as far as I can tell, there's no distinction of a "social
+contract" and a "contract". From what I understand, both will have
+equal legal value.
+
+Thanks,
+Mauro
