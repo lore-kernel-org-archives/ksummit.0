@@ -1,33 +1,28 @@
-Return-Path: <airlied@gmail.com>
+Return-Path: <josh@joshtriplett.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6EA776BA1
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D074B1D73
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  7 Oct 2018 23:38:14 +0000 (UTC)
-Received: from mail-qt1-f195.google.com (mail-qt1-f195.google.com
-	[209.85.160.195])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 036864DA
+	Mon,  8 Oct 2018 02:29:40 +0000 (UTC)
+Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
+	[217.70.183.198])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 196C57C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  7 Oct 2018 23:38:13 +0000 (UTC)
-Received: by mail-qt1-f195.google.com with SMTP id o17-v6so3343691qtr.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 07 Oct 2018 16:38:13 -0700 (PDT)
+	Mon,  8 Oct 2018 02:29:39 +0000 (UTC)
+Date: Sun, 7 Oct 2018 19:29:32 -0700
+From: Josh Triplett <josh@joshtriplett.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Message-ID: <20181008022931.GB30346@localhost>
+References: <20181007085102.17795-1-geert@linux-m68k.org>
+	<20181007113514.GA21217@localhost> <1814283.64diKEr4zR@avalon>
 MIME-Version: 1.0
-References: <1538861738.4088.5.camel@HansenPartnership.com>
-	<1538861799.4088.6.camel@HansenPartnership.com>
-	<CAPM=9tz3Z=vD6qWUL2boZGEAgMeC_o9euBXFu2V58RHOn6gR9g@mail.gmail.com>
-	<20181007225613.GZ32577@ZenIV.linux.org.uk>
-In-Reply-To: <20181007225613.GZ32577@ZenIV.linux.org.uk>
-From: Dave Airlie <airlied@gmail.com>
-Date: Mon, 8 Oct 2018 09:37:59 +1000
-Message-ID: <CAPM=9tzU_wy77j=sx9u9gFsJp-M4ktH7hLQE5=_wKbow9p+iuQ@mail.gmail.com>
-To: Al Viro <viro@zeniv.linux.org.uk>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1814283.64diKEr4zR@avalon>
 Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	LKML <linux-kernel@vger.kernel.org>,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [PATCH 1/2] code-of-conduct: Fix the
- ambiguity about collecting email addresses
+	linux-kernel@vger.kernel.org, ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [PATCH] code-of-conduct: Remove explicit list
+ of discrimination factors
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,37 +32,42 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 8 Oct 2018 at 08:56, Al Viro <viro@zeniv.linux.org.uk> wrote:
->
-> On Mon, Oct 08, 2018 at 08:25:35AM +1000, Dave Airlie wrote:
->
-> > This isn't a legally binding license or anything, but departing from
-> > the upstream wording makes it tricker to merge new upstream versions
-> > if they are considered appropriate.
->
-> Nicely done, that - gotta love the passive voice use.  Considered appropriate
-> *by* *whom*?
+On Sun, Oct 07, 2018 at 08:18:26PM +0300, Laurent Pinchart wrote:
+> Hi Josh,
+> 
+> On Sunday, 7 October 2018 14:35:14 EEST Josh Triplett wrote:
+> > On Sun, Oct 07, 2018 at 10:51:02AM +0200, Geert Uytterhoeven wrote:
+> > > Providing an explicit list of discrimination factors may give the false
+> > > impression that discrimination based on other unlisted factors would be
+> > > allowed.
+> > > 
+> > > Avoid any ambiguity by removing the list, to ensure "a harassment-free
+> > > experience for everyone", period.
+> > 
+> > I would suggest reading the commit message that added this in the first
+> > place. "Explicit guidelines have demonstrated success in other projects
+> > and other areas of the kernel." See also various comparisons of codes of
+> > conduct, which make the same point. The point of this list is precisely
+> > to serve as one such explicit guideline; removing it would rather defeat
+> > the purpose.
+> > 
+> > In any case, this is not the appropriate place for such patches, any
+> > more than it's the place for patches to the GPL.
+> 
+> So what's an appropriate place to discuss the changes that we would like, 
+> *together*, to make to the current document and propose upstream ?
 
-Good question, do we have a CoC maintainer? Is Linus it, Greg, TAB?
+I didn't say "not the appropriate place to discuss" (ksummit-discuss is
+not ideal but we don't currently have somewhere better), I said "not the
+appropriate place for such patches".
 
-Maybe step one is to find the person who can make changes to the
-kernel CoC (has anyone checked if Linus or Greg will merge this).
-
->
-> Anyway, upstream clearly is a poor fit for Linus kernel community structure
-> - the use of open lists, amount of subprojects, the length of transmission
-> chains into the mainline, total amount of contributors, amount of people
-> elsewhere in the project with occasional forays into any given area, etc.
-> And IIRC the CoC upstream's opinion was that it wouldn't fit.
-
-I think we can try, fixing upstream is a worthy goal for other
-projects in the same position, rather than everyone diverging.
->
-> We can surround it with "explanations" until we get something that more or
-> less fits, but then we'd need to reanalyse them every time an upstream
-> change gets merged.  And the lack of textual conflicts is not a good thing
-> in such situations, obviously.
-
-We do this already for the GPL (hence the GPLv2 only, and syscall exceptions).
-
-Dave.
+The Linux kernel is by no means the only project using the Contributor
+Covenant. In general, we don't encourage people working on significant
+changes to the Linux kernel to work in private for an extended period
+and only pop up when "done"; rather, we encourage people to start
+conversations early and include others in the design. Along the same
+lines, I'd suggest that patches or ideas for patches belong upstream.
+For instance, the idea of clarifying that email addresses already used
+on a public mailing list don't count as "private information" seems like
+a perfectly reasonable suggestion, and one that other projects would
+benefit from as well.
