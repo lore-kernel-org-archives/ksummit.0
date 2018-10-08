@@ -1,31 +1,28 @@
-Return-Path: <Tim.Bird@sony.com>
+Return-Path: <SRS0=uRq0=MU=linuxfoundation.org=gregkh@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2E6436C55
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B2F456C80
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  8 Oct 2018 13:51:18 +0000 (UTC)
-Received: from NAM03-CO1-obe.outbound.protection.outlook.com
-	(mail-co1nam03on0103.outbound.protection.outlook.com [104.47.40.103])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6EBF7709
+	Mon,  8 Oct 2018 14:01:33 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B9E946FB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  8 Oct 2018 13:51:17 +0000 (UTC)
-From: <Tim.Bird@sony.com>
-To: <James.Bottomley@HansenPartnership.com>,
-	<ksummit-discuss@lists.linuxfoundation.org>
-Date: Mon, 8 Oct 2018 13:51:12 +0000
-Message-ID: <ECADFF3FD767C149AD96A924E7EA6EAF80517411@USCULXMSG01.am.sony.com>
-References: <1538861738.4088.5.camel@HansenPartnership.com>
-	<1538861851.4088.7.camel@HansenPartnership.com>
-	<ECADFF3FD767C149AD96A924E7EA6EAF80516F31@USCULXMSG01.am.sony.com>
-	<1538883209.4088.14.camel@HansenPartnership.com>
-In-Reply-To: <1538883209.4088.14.camel@HansenPartnership.com>
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	Mon,  8 Oct 2018 14:01:32 +0000 (UTC)
+Date: Mon, 8 Oct 2018 15:47:02 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Boaz Harrosh <boaz@plexistor.com>
+Message-ID: <20181008134702.GA28057@kroah.com>
+References: <MWHPR06MB2896E4C6CE916007BCB66305EEE90@MWHPR06MB2896.namprd06.prod.outlook.com>
+	<20181003110644.GA12451@kroah.com>
+	<MWHPR06MB28965FBD1C86181DD7986C9FEEE90@MWHPR06MB2896.namprd06.prod.outlook.com>
+	<555ef011-7084-affc-6e77-0d70c9eba5b4@plexistor.com>
 MIME-Version: 1.0
-Cc: linux-kernel@vger.kernel.org
-Subject: Re: [Ksummit-discuss] [PATCH 2/2] code-of-conduct: Strip the
- enforcement paragraph pending community discussion
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <555ef011-7084-affc-6e77-0d70c9eba5b4@plexistor.com>
+Cc: ksummit-discuss <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] ZUFS - Zero Copy User-Mode
+ FileSystem - One year Later
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,69 +32,44 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogSmFtZXMgQm90dG9tbGV5
-IA0KPiBPbiBTYXQsIDIwMTgtMTAtMDYgYXQgMjE6NDMgKzAwMDAsIFRpbS5CaXJkQHNvbnkuY29t
-IHdyb3RlOg0KPiA+ID4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gPiA+IEZyb206IEph
-bWVzIEJvdHRvbWxleQ0KPiA+ID4NCj4gPiA+IFNpZ25pZmljYW50IGNvbmNlcm4gaGFzIGJlZW4g
-ZXhwcmVzc2VkIGFib3V0IHRoZSByZXNwb25zaWJpbGl0aWVzDQo+ID4gPiBvdXRsaW5lZCBpbiB0
-aGUgZW5mb3JjZW1lbnQgY2xhdXNlIG9mIHRoZSBuZXcgY29kZSBvZg0KPiA+ID4gY29uZHVjdC7C
-oMKgU2luY2UgdGhlcmUgaXMgY29uY2VybiB0aGF0IHRoaXMgYmVjb21lcyBiaW5kaW5nIG9uIHRo
-ZQ0KPiA+ID4gcmVsZWFzZSBvZiB0aGUgNC4xOSBrZXJuZWwsIHN0cmlwIHRoZSBlbmZvcmNlbWVu
-dCBjbGF1c2VzIHRvIGdpdmUNCj4gPiA+IHRoZSBjb21tdW5pdHkgdGltZSB0byBjb25zaWRlciBh
-bmQgZGViYXRlIGhvdyB0aGlzIHNob3VsZCBiZQ0KPiA+ID4gaGFuZGxlZC4NCj4gPiA+DQo+ID4g
-PiBTaWduZWQtb2ZmLWJ5OiBKYW1lcyBCb3R0b21sZXkNCj4gPiA+IDxKYW1lcy5Cb3R0b21sZXlA
-SGFuc2VuUGFydG5lcnNoaXAuY29tPg0KPiA+ID4gLS0tDQo+ID4gPiDCoERvY3VtZW50YXRpb24v
-cHJvY2Vzcy9jb2RlLW9mLWNvbmR1Y3QucnN0IHwgMTUgLS0tLS0tLS0tLS0tLS0tDQo+ID4gPiDC
-oDEgZmlsZSBjaGFuZ2VkLCAxNSBkZWxldGlvbnMoLSkNCj4gPiA+DQo+ID4gPiBkaWZmIC0tZ2l0
-IGEvRG9jdW1lbnRhdGlvbi9wcm9jZXNzL2NvZGUtb2YtY29uZHVjdC5yc3QNCj4gPiA+IGIvRG9j
-dW1lbnRhdGlvbi9wcm9jZXNzL2NvZGUtb2YtY29uZHVjdC5yc3QNCj4gPiA+IGluZGV4IGFhNDBl
-MzRlNzc4NS4uNGRkOTA5ODczMDViIDEwMDY0NA0KPiA+ID4gLS0tIGEvRG9jdW1lbnRhdGlvbi9w
-cm9jZXNzL2NvZGUtb2YtY29uZHVjdC5yc3QNCj4gPiA+ICsrKyBiL0RvY3VtZW50YXRpb24vcHJv
-Y2Vzcy9jb2RlLW9mLWNvbmR1Y3QucnN0DQo+ID4gPiBAQCAtNTksMjEgKzU5LDYgQEAgYWRkcmVz
-cywgcG9zdGluZyB2aWEgYW4gb2ZmaWNpYWwgc29jaWFsIG1lZGlhDQo+ID4gPiBhY2NvdW50LCBv
-cg0KPiA+ID4gYWN0aW5nIGFzIGFuIGFwcG9pbnRlZA0KPiA+ID4gwqByZXByZXNlbnRhdGl2ZSBh
-dCBhbiBvbmxpbmUgb3Igb2ZmbGluZSBldmVudC4gUmVwcmVzZW50YXRpb24gb2YgYQ0KPiA+ID4g
-cHJvamVjdCBtYXkNCj4gPiA+IGJlDQo+ID4gPiDCoGZ1cnRoZXIgZGVmaW5lZCBhbmQgY2xhcmlm
-aWVkIGJ5IHByb2plY3QgbWFpbnRhaW5lcnMuDQo+ID4gPg0KPiA+ID4gLUVuZm9yY2VtZW50DQo+
-ID4gPiAtPT09PT09PT09PT0NCj4gPiA+IC0NCj4gPiA+IC1JbnN0YW5jZXMgb2YgYWJ1c2l2ZSwg
-aGFyYXNzaW5nLCBvciBvdGhlcndpc2UgdW5hY2NlcHRhYmxlDQo+ID4gPiBiZWhhdmlvciBtYXkg
-YmUNCj4gPiA+IC1yZXBvcnRlZCBieSBjb250YWN0aW5nIHRoZSBUZWNobmljYWwgQWR2aXNvcnkg
-Qm9hcmQgKFRBQikgYXQNCj4gPiA+IC08dGFiQGxpc3RzLmxpbnV4LWZvdW5kYXRpb24ub3JnPi4g
-QWxsIGNvbXBsYWludHMgd2lsbCBiZSByZXZpZXdlZA0KPiA+ID4gYW5kDQo+ID4gPiAtaW52ZXN0
-aWdhdGVkIGFuZCB3aWxsIHJlc3VsdCBpbiBhIHJlc3BvbnNlIHRoYXQgaXMgZGVlbWVkDQo+ID4g
-PiBuZWNlc3NhcnkgYW5kDQo+ID4gPiAtYXBwcm9wcmlhdGUgdG8gdGhlIGNpcmN1bXN0YW5jZXMu
-IFRoZSBUQUIgaXMgb2JsaWdhdGVkIHRvIG1haW50YWluDQo+ID4gPiAtY29uZmlkZW50aWFsaXR5
-IHdpdGggcmVnYXJkIHRvIHRoZSByZXBvcnRlciBvZiBhbg0KPiA+ID4gaW5jaWRlbnQuwqDCoEZ1
-cnRoZXIgZGV0YWlscyBvZg0KPiA+ID4gLXNwZWNpZmljIGVuZm9yY2VtZW50IHBvbGljaWVzIG1h
-eSBiZSBwb3N0ZWQgc2VwYXJhdGVseS4NCj4gPg0KPiA+IEkgdGhpbmsgaXQncyBPSyB0byBsZWF2
-ZSB0aGUgYWJvdmUgc2VjdGlvbiwgYXMgaXQgZG9lc24ndCBzcGVhayB0bw0KPiA+IGVuZm9yY2Vt
-ZW50LCBidXQgcmF0aGVyIGlzIGp1c3QgYSBzZXQgb2YgcmVwb3J0aW5nIGluc3RydWN0aW9ucywN
-Cj4gPiB3aXRoIGFuIGFzc3VyYW5jZSBvZiBjb25maWRlbnRpYWxpdHkuwqDCoFRoaXMgc2VlbXMg
-dG8gbWUgbm90IHRvIGJlDQo+ID4gdGhlIG9iamVjdGlvbmFibGUgcGFydCBvZiB0aGlzIHNlY3Rp
-b24uDQo+ID4gKElPVywgSSB3b3VsZCBvbWl0IHRoaXMgcmVtb3ZhbCBmcm9tIHRoZSBwYXRjaCku
-DQo+IA0KPiBTbyBJIGRpZCB0aGluayBhYm91dCB0aGF0LCBidXQgaXQgc3RydWNrIG1lIHRoYXQg
-d2l0aCBib3RoIHBhcmFncmFwaHMNCj4gcmVtb3ZlZCwgdGhlIGN1cnJlbnQgQ29DIGlzIHZlcnkg
-c2ltaWxhciB0byB0aGUgc3RhdHVzIHF1bzogbmFtZWx5DQo+IGV2ZXJ5IHN1YnN5c3RlbSBoYW5k
-bGVzIHRoZWlyIG93biBpc3N1ZXMgYW5kIHRoYXQncyBmb3JtYWxpc2VkIGJ5IHRoZQ0KPiAiT3Vy
-IFJlc3BvbnNpYmlsaXRpZXMiIHNlY3Rpb24uICBUaGF0IGFsc28gbWFrZXMgbWUgdGhpbmsgdGhh
-dCB3aGV0aGVyDQo+IHdlIHdhbnQgYSBjZW50cmFsaXNlZCBjaGFubmVsIG9mIHJlcG9ydGluZyBv
-ciBlbmZvcmNlbWVudCBhbmQgd2hhdCBpdA0KPiBzaG91bGQgYmUgYWxzbyBvdWdodCB0byBiZSBw
-YXJ0IG9mIHRoZSBkZWJhdGUuICBUaGUgVEFCIHdhcyBjcmVhdGVkIHRvDQo+IGNoYW5uZWwgY29t
-bXVuaXR5IHRlY2huaWNhbCBpbnB1dCBpbnRvIHRoZSBMaW51eCBGb3VuZGF0aW9uLiAgVGhhdCdz
-DQo+IG5vdCB0byBzYXkgaXQgY2FuJ3QgcHJvdmlkZSB0aGUgcmVwb3J0aW5nIGFuZCBhcmJpdHJh
-dGlvbiBzdHJ1Y3R1cmUsDQo+IGJ1dCBpZiB3ZSdyZSBnb2luZyB0byBkbyBpdCByaWdodCB3ZSBz
-aG91bGQgZGViYXRlIHRoZSBleHBhbnNpb24gb2YgaXRzDQo+IGR1dGllcyAoYW5kIHBvd2Vycyku
-DQoNCldoZW4gdGhlIENvZGUgb2YgQ29uZmxpY3Qgd2FzIGFkb3B0ZWQgMyB5ZWFycyBhZ28sIHdl
-IGFscmVhZHkgY3JlYXRlZA0KdGhlIGNlbnRyYWwgcmVwb3J0aW5nIG1lY2hhbmlzbSwgc28gSSBh
-Y3R1YWxseSB0aGluayBsZWF2aW5nIChpZSBpbmNsdWRpbmcpIHRoZSBhYm92ZQ0KcGFyYWdyYXBo
-IGlzIGNsb3NlciB0byB0aGUgc3RhdHVzIHF1by4gIEkgdGhpbmsgaXQncyB0aGUgZXhwYW5kZWQg
-cG93ZXJzIGFuZA0KZHV0aWVzIChvciBwZXJjZXB0aW9uIHRoZXJlb2YpIHRoYXQgYXJlIGNhdXNp
-bmcgY29uY2VybiBhbmQgSSB0aGluayBkZWJhdGluZw0KdGhvc2UgdG8gY2xhcmlmeSBpbnRlbnQs
-IGFuZCBhZG9wdGluZyBjaGFuZ2VzIGFzIG5lZWRlZCAgdG8gYW1lbGlvcmF0ZSBjb25jZXJucw0K
-aXMgd29ydGh3aGlsZS4NCg0KSSBiZWxpZXZlIHRoYXQgaW4gdGhlIHZhc3QgbWFqb3JpdHkgb2Yg
-Y2FzZXMsIHRoZSBUQUIgd2lsbCBlbmQgdXANCnBlcmZvcm1pbmcgYSBtZWRpYXRvciByb2xlIHRv
-IHNtb290aCBodXJ0IGZlZWxpbmdzIGFuZCByZW1pbmQgYW5kIGVuY291cmFnZQ0KaW1wcm92ZWQg
-Y29tbXVuaWNhdGlvbiAtIHZlcnkgc2ltaWxhciB0byB3aGF0IHdlJ3ZlIGRvbmUgaW4gdGhlIHBh
-c3QuICBJIHJlYWxseQ0KYmVsaWV2ZSB0aGF0IGJhbnMgd2lsbCBjb250aW51ZSB0byBiZSB2ZXJ5
-IGZldyBhbmQgZmFyIGJldHdlZW4sIGFzIHRoZXkgaGF2ZQ0KYmVlbiBoaXN0b3JpY2FsbHkgKEkg
-Y2FuIG9ubHkgdGhpbmsgb2YgMyBpbiB0aGUgcGFzdCBkZWNhZGUuKQ0KIC0tIFRpbQ0KDQo=
+On Mon, Oct 08, 2018 at 10:46:00AM +0300, Boaz Harrosh wrote:
+> On 03/10/18 15:46, Harrosh, Boaz wrote:
+> > Greg KH <gregkh@linuxfoundation.org> Wrote:
+> > 
+> >>> On Wed, Oct 03, 2018 at 09:35:54AM +0000, Harrosh, Boaz wrote:
+> >>> Linux Plumbers 2018: ZUFS - Zero Copy User-Mode FileSystem - One year Later
+> > <snap>
+> > 
+> >> Why wouldn't this be better discussed at the file-system-specific
+> >> conference?  Or have you already done that this year?
+> >>
+> >> thanks,
+> >> greg k-h
+> > 
+> > Yes I have presented at LSF. It was a full discussion. And, 6 month ago, was
+> > very not ready for upstream at that time.
+> > 
+> > Last plumbers my talk raised a lot of interest, was then at the POC stage.
+> > 
+> > I would like to present the current status, when code is much more complete
+> > and actually ready for clients computers in stability and fixture set.
+> > 
+> > And try to draw in more community interest and participation. In what I believe
+> > is a very Interesting project. Some of the Technics I present are beyond pure FS
+> > and demonstrate a new way to communicate with user-mode servers, taking into
+> > account cpu-locality and NUMA awareness.
+> > 
+> > [That said it is all about me sleeping on guard and submitting a plumbers talk proposal
+> >  to late. So it was suggested I might ask about a Kernel track
+> > ]
+> > 
+> 
+> Hello Greg, ksummit comity
+> 
+> Does any one please know when are the list of the Kernel sub-tracks [TECH TOPIC]s
+> are set and accepted? I read the "Kernel Summit 2018 planning kick-off" mail
+> and it was not clear to me.
+
+I do not know when that will be finalized, sorry.
+
+greg k-h
