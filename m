@@ -1,30 +1,29 @@
-Return-Path: <Tim.Bird@sony.com>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BDA466ACA
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A3E5677F9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  8 Oct 2018 17:58:49 +0000 (UTC)
-Received: from NAM02-BL2-obe.outbound.protection.outlook.com
-	(mail-bl2nam02on0129.outbound.protection.outlook.com [104.47.38.129])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4616F784
+	Mon,  8 Oct 2018 18:12:01 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0D6C07E3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  8 Oct 2018 17:58:48 +0000 (UTC)
-From: <Tim.Bird@sony.com>
-To: <James.Bottomley@HansenPartnership.com>,
-	<ksummit-discuss@lists.linuxfoundation.org>
-Date: Mon, 8 Oct 2018 17:58:43 +0000
-Message-ID: <ECADFF3FD767C149AD96A924E7EA6EAF80518843@USCULXMSG01.am.sony.com>
+	Mon,  8 Oct 2018 18:12:00 +0000 (UTC)
+Message-ID: <1539022317.4344.17.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Tim.Bird@sony.com, ksummit-discuss@lists.linuxfoundation.org
+Date: Mon, 08 Oct 2018 11:11:57 -0700
+In-Reply-To: <ECADFF3FD767C149AD96A924E7EA6EAF80518843@USCULXMSG01.am.sony.com>
 References: <1538861738.4088.5.camel@HansenPartnership.com>
 	<1538861851.4088.7.camel@HansenPartnership.com>
 	<ECADFF3FD767C149AD96A924E7EA6EAF80516F31@USCULXMSG01.am.sony.com>
 	<1538883209.4088.14.camel@HansenPartnership.com>
 	<ECADFF3FD767C149AD96A924E7EA6EAF80517411@USCULXMSG01.am.sony.com>
 	<1539007780.4344.3.camel@HansenPartnership.com>
-In-Reply-To: <1539007780.4344.3.camel@HansenPartnership.com>
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
+	<ECADFF3FD767C149AD96A924E7EA6EAF80518843@USCULXMSG01.am.sony.com>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Cc: linux-kernel@vger.kernel.org
 Subject: Re: [Ksummit-discuss] [PATCH 2/2] code-of-conduct: Strip the
  enforcement paragraph pending community discussion
@@ -37,97 +36,131 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBKYW1lcyBCb3R0b21sZXkNCj4g
-DQo+IE9uIE1vbiwgMjAxOC0xMC0wOCBhdCAxMzo1MSArMDAwMCwgVGltLkJpcmRAc29ueS5jb20g
-d3JvdGU6DQo+ID4gPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiA+ID4gRnJvbTogSmFt
-ZXMgQm90dG9tbGV5DQo+ID4gPiBPbiBTYXQsIDIwMTgtMTAtMDYgYXQgMjE6NDMgKzAwMDAsIFRp
-bS5CaXJkQHNvbnkuY29tIHdyb3RlOg0KPiA+ID4gPiA+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0t
-LS0tDQo+ID4gPiA+ID4gRnJvbTogSmFtZXMgQm90dG9tbGV5DQo+ID4gPiA+ID4NCj4gPiA+ID4g
-PiBTaWduaWZpY2FudCBjb25jZXJuIGhhcyBiZWVuIGV4cHJlc3NlZCBhYm91dCB0aGUNCj4gPiA+
-ID4gPiByZXNwb25zaWJpbGl0aWVzIG91dGxpbmVkIGluIHRoZSBlbmZvcmNlbWVudCBjbGF1c2Ug
-b2YgdGhlIG5ldw0KPiA+ID4gPiA+IGNvZGUgb2YgY29uZHVjdC7CoMKgU2luY2UgdGhlcmUgaXMg
-Y29uY2VybiB0aGF0IHRoaXMgYmVjb21lcw0KPiA+ID4gPiA+IGJpbmRpbmcgb24gdGhlIHJlbGVh
-c2Ugb2YgdGhlIDQuMTkga2VybmVsLCBzdHJpcCB0aGUNCj4gPiA+ID4gPiBlbmZvcmNlbWVudCBj
-bGF1c2VzIHRvIGdpdmUgdGhlIGNvbW11bml0eSB0aW1lIHRvIGNvbnNpZGVyIGFuZA0KPiA+ID4g
-PiA+IGRlYmF0ZSBob3cgdGhpcyBzaG91bGQgYmUgaGFuZGxlZC4NCj4gPiA+ID4gPg0KPiA+ID4g
-PiA+IFNpZ25lZC1vZmYtYnk6IEphbWVzIEJvdHRvbWxleQ0KPiA+ID4gPiA+IDxKYW1lcy5Cb3R0
-b21sZXlASGFuc2VuUGFydG5lcnNoaXAuY29tPg0KPiA+ID4gPiA+IC0tLQ0KPiA+ID4gPiA+IMKg
-RG9jdW1lbnRhdGlvbi9wcm9jZXNzL2NvZGUtb2YtY29uZHVjdC5yc3QgfCAxNSAtLS0tLS0tLS0t
-LS0tLS0NCj4gPiA+ID4gPiDCoDEgZmlsZSBjaGFuZ2VkLCAxNSBkZWxldGlvbnMoLSkNCj4gPiA+
-ID4gPg0KPiA+ID4gPiA+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL3Byb2Nlc3MvY29kZS1v
-Zi1jb25kdWN0LnJzdA0KPiA+ID4gPiA+IGIvRG9jdW1lbnRhdGlvbi9wcm9jZXNzL2NvZGUtb2Yt
-Y29uZHVjdC5yc3QNCj4gPiA+ID4gPiBpbmRleCBhYTQwZTM0ZTc3ODUuLjRkZDkwOTg3MzA1YiAx
-MDA2NDQNCj4gPiA+ID4gPiAtLS0gYS9Eb2N1bWVudGF0aW9uL3Byb2Nlc3MvY29kZS1vZi1jb25k
-dWN0LnJzdA0KPiA+ID4gPiA+ICsrKyBiL0RvY3VtZW50YXRpb24vcHJvY2Vzcy9jb2RlLW9mLWNv
-bmR1Y3QucnN0DQo+ID4gPiA+ID4gQEAgLTU5LDIxICs1OSw2IEBAIGFkZHJlc3MsIHBvc3Rpbmcg
-dmlhIGFuIG9mZmljaWFsIHNvY2lhbA0KPiA+ID4gPiA+IG1lZGlhIGFjY291bnQsIG9yIGFjdGlu
-ZyBhcyBhbiBhcHBvaW50ZWTCoHJlcHJlc2VudGF0aXZlIGF0IGFuDQo+ID4gPiA+ID4gb25saW5l
-IG9yIG9mZmxpbmUgZXZlbnQuIFJlcHJlc2VudGF0aW9uIG9mIGEgcHJvamVjdCBtYXkgYmUNCj4g
-PiA+ID4gPiDCoGZ1cnRoZXIgZGVmaW5lZCBhbmQgY2xhcmlmaWVkIGJ5IHByb2plY3QgbWFpbnRh
-aW5lcnMuDQo+ID4gPiA+ID4NCj4gPiA+ID4gPiAtRW5mb3JjZW1lbnQNCj4gPiA+ID4gPiAtPT09
-PT09PT09PT0NCj4gPiA+ID4gPiAtDQo+ID4gPiA+ID4gLUluc3RhbmNlcyBvZiBhYnVzaXZlLCBo
-YXJhc3NpbmcsIG9yIG90aGVyd2lzZSB1bmFjY2VwdGFibGUNCj4gPiA+ID4gPiBiZWhhdmlvciBt
-YXkgYmUNCj4gPiA+ID4gPiAtcmVwb3J0ZWQgYnkgY29udGFjdGluZyB0aGUgVGVjaG5pY2FsIEFk
-dmlzb3J5IEJvYXJkIChUQUIpIGF0DQo+ID4gPiA+ID4gLTx0YWJAbGlzdHMubGludXgtZm91bmRh
-dGlvbi5vcmc+LiBBbGwgY29tcGxhaW50cyB3aWxsIGJlDQo+ID4gPiA+ID4gcmV2aWV3ZWQgYW5k
-DQo+ID4gPiA+ID4gLWludmVzdGlnYXRlZCBhbmQgd2lsbCByZXN1bHQgaW4gYSByZXNwb25zZSB0
-aGF0IGlzIGRlZW1lZA0KPiA+ID4gPiA+IG5lY2Vzc2FyeSBhbmQNCj4gPiA+ID4gPiAtYXBwcm9w
-cmlhdGUgdG8gdGhlIGNpcmN1bXN0YW5jZXMuIFRoZSBUQUIgaXMgb2JsaWdhdGVkIHRvDQo+ID4g
-PiA+ID4gbWFpbnRhaW4NCj4gPiA+ID4gPiAtY29uZmlkZW50aWFsaXR5IHdpdGggcmVnYXJkIHRv
-IHRoZSByZXBvcnRlciBvZiBhbg0KPiA+ID4gPiA+IGluY2lkZW50LsKgwqBGdXJ0aGVyIGRldGFp
-bHMgb2YNCj4gPiA+ID4gPiAtc3BlY2lmaWMgZW5mb3JjZW1lbnQgcG9saWNpZXMgbWF5IGJlIHBv
-c3RlZCBzZXBhcmF0ZWx5Lg0KPiA+ID4gPg0KPiA+ID4gPiBJIHRoaW5rIGl0J3MgT0sgdG8gbGVh
-dmUgdGhlIGFib3ZlIHNlY3Rpb24sIGFzIGl0IGRvZXNuJ3Qgc3BlYWsNCj4gPiA+ID4gdG8gZW5m
-b3JjZW1lbnQsIGJ1dCByYXRoZXIgaXMganVzdCBhIHNldCBvZiByZXBvcnRpbmcNCj4gPiA+ID4g
-aW5zdHJ1Y3Rpb25zLCB3aXRoIGFuIGFzc3VyYW5jZSBvZiBjb25maWRlbnRpYWxpdHkuwqDCoFRo
-aXMgc2VlbXMNCj4gPiA+ID4gdG8gbWUgbm90IHRvIGJlIHRoZSBvYmplY3Rpb25hYmxlIHBhcnQg
-b2YgdGhpcyBzZWN0aW9uLg0KPiA+ID4gPiAoSU9XLCBJIHdvdWxkIG9taXQgdGhpcyByZW1vdmFs
-IGZyb20gdGhlIHBhdGNoKS4NCj4gPiA+DQo+ID4gPiBTbyBJIGRpZCB0aGluayBhYm91dCB0aGF0
-LCBidXQgaXQgc3RydWNrIG1lIHRoYXQgd2l0aCBib3RoDQo+ID4gPiBwYXJhZ3JhcGhzIHJlbW92
-ZWQsIHRoZSBjdXJyZW50IENvQyBpcyB2ZXJ5IHNpbWlsYXIgdG8gdGhlIHN0YXR1cw0KPiA+ID4g
-cXVvOiBuYW1lbHkgZXZlcnkgc3Vic3lzdGVtIGhhbmRsZXMgdGhlaXIgb3duIGlzc3VlcyBhbmQg
-dGhhdCdzDQo+ID4gPiBmb3JtYWxpc2VkIGJ5IHRoZSAiT3VyIFJlc3BvbnNpYmlsaXRpZXMiIHNl
-Y3Rpb24uwqDCoFRoYXQgYWxzbyBtYWtlcw0KPiA+ID4gbWUgdGhpbmsgdGhhdCB3aGV0aGVyIHdl
-IHdhbnQgYSBjZW50cmFsaXNlZCBjaGFubmVsIG9mIHJlcG9ydGluZyBvcg0KPiA+ID4gZW5mb3Jj
-ZW1lbnQgYW5kIHdoYXQgaXQgc2hvdWxkIGJlIGFsc28gb3VnaHQgdG8gYmUgcGFydCBvZiB0aGUN
-Cj4gPiA+IGRlYmF0ZS7CoMKgVGhlIFRBQiB3YXMgY3JlYXRlZCB0byBjaGFubmVsIGNvbW11bml0
-eSB0ZWNobmljYWwgaW5wdXQNCj4gPiA+IGludG8gdGhlIExpbnV4IEZvdW5kYXRpb24uwqDCoFRo
-YXQncyBub3QgdG8gc2F5IGl0IGNhbid0IHByb3ZpZGUgdGhlDQo+ID4gPiByZXBvcnRpbmcgYW5k
-IGFyYml0cmF0aW9uIHN0cnVjdHVyZSwgYnV0IGlmIHdlJ3JlIGdvaW5nIHRvIGRvIGl0DQo+ID4g
-PiByaWdodCB3ZSBzaG91bGQgZGViYXRlIHRoZSBleHBhbnNpb24gb2YgaXRzIGR1dGllcyAoYW5k
-IHBvd2VycykuDQo+ID4NCj4gPiBXaGVuIHRoZSBDb2RlIG9mIENvbmZsaWN0IHdhcyBhZG9wdGVk
-IDMgeWVhcnMgYWdvLCB3ZSBhbHJlYWR5IGNyZWF0ZWQNCj4gPiB0aGUgY2VudHJhbCByZXBvcnRp
-bmcgbWVjaGFuaXNtLCBzbyBJIGFjdHVhbGx5IHRoaW5rIGxlYXZpbmcgKGllDQo+ID4gaW5jbHVk
-aW5nKSB0aGUgYWJvdmUgcGFyYWdyYXBoIGlzIGNsb3NlciB0byB0aGUgc3RhdHVzIHF1by7CoMKg
-SSB0aGluaw0KPiA+IGl0J3MgdGhlIGV4cGFuZGVkIHBvd2VycyBhbmQgZHV0aWVzIChvciBwZXJj
-ZXB0aW9uIHRoZXJlb2YpIHRoYXQgYXJlDQo+ID4gY2F1c2luZyBjb25jZXJuIGFuZCBJIHRoaW5r
-IGRlYmF0aW5nIHRob3NlIHRvIGNsYXJpZnkgaW50ZW50LCBhbmQNCj4gPiBhZG9wdGluZyBjaGFu
-Z2VzIGFzIG5lZWRlZMKgwqB0byBhbWVsaW9yYXRlIGNvbmNlcm5zIGlzIHdvcnRod2hpbGUuDQo+
-IA0KPiBJZiB3ZSB3YW50IHRvIGdvIGJhY2sgdG8gdGhlIHN0YXR1cyBxdW8sIHRoZW4gYSBwbGFp
-biByZXZlcnQgaXMgdGhlDQo+IHBhdGNoIHNlcmllcyBJIHNob3VsZCBzdWJtaXQuDQoNCkxldCBt
-ZSB0cnkgdG8gYmUgbW9yZSBjbGVhci4gIEkgZG9uJ3Qgd2FudCB0byBnbyBiYWNrIHRvIHRoZSBz
-dGF0dXMgcXVvLg0KSSB3YXMgc2F5aW5nIHRoYXQgaWYgd2Uga2VlcCB0aGlzIGRvY3VtZW50LCBi
-dXQgb21pdCB0aGUgY2VudHJhbA0KcmVwb3J0aW5nIG1lY2hhbmlzbSwgdGhhdCBpcyBhIGxhcmdl
-IGRlcGFydHVyZSBmcm9tIHRoZSBzdGF0dXMgcXVvLA0KYmVjYXVzZSB0aGUgQ29kZSBvZiBDb25m
-bGljdCBhbHJlYWR5IGVzdGFibGlzaGVkIHRoYXQuICBBbmQgSSB0aGluaw0KdGhhdCBoYXZpbmcg
-YW4gb21idWRzbWFuLXR5cGUgcm9sZSBzb21ld2hlcmUgaW4gdGhlIGNvbW11bml0eQ0KaXMgYmVu
-ZWZpY2lhbC4NCg0KSSBiZWxpZXZlIHBhcnRzIG9mIHRoZSBDb2RlIG9mIENvbmR1Y3QgYXJlIGFu
-IGltcHJvdmVtZW50IG92ZXIgdGhlDQpDb2RlIG9mIENvbmZsaWN0LCBzbyBteSBwZXJzb25hbCBw
-cmVmZXJlbmNlIHdvdWxkIGJlIHRvIGtlZXAgaXQNCmFuZCB0cnkgdG8gYWRqdXN0IGl0IG1vdmlu
-ZyBmb3J3YXJkLiAgSSB0aGluayB5b3VyIHBhdGNoZXMsIHdpdGggY2xlYXINCnN1Z2dlc3Rpb25z
-IGZvciBpbXByb3ZlbWVudHMgKG9yIGZvciBkZWxldGlvbnMgaW4gdGhlIGNhc2Ugd2hlcmUgd2UN
-CndhbnQgbW9yZSBkZWJhdGUgb24gcGFydGljdWxhciBzZWN0aW9ucyBiZWZvcmUgYWRvcHRpbmcg
-dGhlbSkgaXMNCmEgZ29vZCBhcHByb2FjaCwgYW5kIEkgbGlrZSB0aGF0IHByb2Nlc3MgYXMgb3Bw
-b3NlZCB0byBzdGFydGluZyBvdmVyDQpmcm9tIHNjcmF0Y2guDQoNCj4gDQo+ID4gSSBiZWxpZXZl
-IHRoYXQgaW4gdGhlIHZhc3QgbWFqb3JpdHkgb2YgY2FzZXMsIHRoZSBUQUIgd2lsbCBlbmQgdXAN
-Cj4gPiBwZXJmb3JtaW5nIGEgbWVkaWF0b3Igcm9sZSB0byBzbW9vdGggaHVydCBmZWVsaW5ncyBh
-bmQgcmVtaW5kIGFuZA0KPiA+IGVuY291cmFnZSBpbXByb3ZlZCBjb21tdW5pY2F0aW9uIC0gdmVy
-eSBzaW1pbGFyIHRvIHdoYXQgd2UndmUgZG9uZSBpbg0KPiA+IHRoZSBwYXN0LsKgwqBJIHJlYWxs
-eSBiZWxpZXZlIHRoYXQgYmFucyB3aWxsIGNvbnRpbnVlIHRvIGJlIHZlcnkgZmV3DQo+ID4gYW5k
-IGZhciBiZXR3ZWVuLCBhcyB0aGV5IGhhdmUgYmVlbiBoaXN0b3JpY2FsbHkgKEkgY2FuIG9ubHkg
-dGhpbmsgb2YNCj4gPiAzIGluIHRoZSBwYXN0IGRlY2FkZS4pDQo+IA0KPiBUaGF0IG1pZ2h0IHZl
-cnkgd2VsbCBiZSB0aGUgcG9zaXRpb24gdGhlIGRpc2N1c3Npb24gYXJyaXZlcyBhdDsNCj4gaG93
-ZXZlciwgSSByZWFsbHkgdGhpbmsgbWFraW5nIHRoZSBwcm9jZXNzIGZ1bGx5IHRyYW5zcGFyZW50
-IHRoaXMgdGltZQ0KPiByZXF1aXJlcyBub3QgcHJlanVkZ2luZyB0aGUgb3V0Y29tZS4NCkkgZG9u
-J3QgdW5kZXJzdGFuZCB5b3VyIHBvaW50IGhlcmUuICBDYW4geW91IGVsYWJvcmF0ZT8NCg0KVGhh
-bmtzLA0KIC0tIFRpbQ0K
+On Mon, 2018-10-08 at 17:58 +0000, Tim.Bird@sony.com wrote:
+> > -----Original Message-----
+> > From: James Bottomley
+> > 
+> > On Mon, 2018-10-08 at 13:51 +0000, Tim.Bird@sony.com wrote:
+> > > > -----Original Message-----
+> > > > From: James Bottomley
+> > > > On Sat, 2018-10-06 at 21:43 +0000, Tim.Bird@sony.com wrote:
+> > > > > > -----Original Message-----
+> > > > > > From: James Bottomley
+> > > > > > 
+> > > > > > Significant concern has been expressed about the
+> > > > > > responsibilities outlined in the enforcement clause of the
+> > > > > > new
+> > > > > > code of conduct.  Since there is concern that this becomes
+> > > > > > binding on the release of the 4.19 kernel, strip the
+> > > > > > enforcement clauses to give the community time to consider
+> > > > > > and
+> > > > > > debate how this should be handled.
+> > > > > > 
+> > > > > > Signed-off-by: James Bottomley
+> > > > > > <James.Bottomley@HansenPartnership.com>
+> > > > > > ---
+> > > > > >  Documentation/process/code-of-conduct.rst | 15 ---------
+> > > > > > ------
+> > > > > >  1 file changed, 15 deletions(-)
+> > > > > > 
+> > > > > > diff --git a/Documentation/process/code-of-conduct.rst
+> > > > > > b/Documentation/process/code-of-conduct.rst
+> > > > > > index aa40e34e7785..4dd90987305b 100644
+> > > > > > --- a/Documentation/process/code-of-conduct.rst
+> > > > > > +++ b/Documentation/process/code-of-conduct.rst
+> > > > > > @@ -59,21 +59,6 @@ address, posting via an official social
+> > > > > > media account, or acting as an appointed representative at
+> > > > > > an
+> > > > > > online or offline event. Representation of a project may be
+> > > > > >  further defined and clarified by project maintainers.
+> > > > > > 
+> > > > > > -Enforcement
+> > > > > > -===========
+> > > > > > -
+> > > > > > -Instances of abusive, harassing, or otherwise unacceptable
+> > > > > > behavior may be
+> > > > > > -reported by contacting the Technical Advisory Board (TAB)
+> > > > > > at
+> > > > > > -<tab@lists.linux-foundation.org>. All complaints will be
+> > > > > > reviewed and
+> > > > > > -investigated and will result in a response that is deemed
+> > > > > > necessary and
+> > > > > > -appropriate to the circumstances. The TAB is obligated to
+> > > > > > maintain
+> > > > > > -confidentiality with regard to the reporter of an
+> > > > > > incident.  Further details of
+> > > > > > -specific enforcement policies may be posted separately.
+> > > > > 
+> > > > > I think it's OK to leave the above section, as it doesn't
+> > > > > speak
+> > > > > to enforcement, but rather is just a set of reporting
+> > > > > instructions, with an assurance of confidentiality.  This
+> > > > > seems
+> > > > > to me not to be the objectionable part of this section.
+> > > > > (IOW, I would omit this removal from the patch).
+> > > > 
+> > > > So I did think about that, but it struck me that with both
+> > > > paragraphs removed, the current CoC is very similar to the
+> > > > status quo: namely every subsystem handles their own issues and
+> > > > that's formalised by the "Our Responsibilities" section.  That
+> > > > also makes me think that whether we want a centralised channel
+> > > > of reporting or enforcement and what it should be also ought to
+> > > > be part of the debate.  The TAB was created to channel
+> > > > community technical input into the Linux Foundation.  That's
+> > > > not to say it can't provide the reporting and arbitration
+> > > > structure, but if we're going to do it right we should debate
+> > > > the expansion of its duties (and powers).
+> > > 
+> > > When the Code of Conflict was adopted 3 years ago, we already
+> > > created the central reporting mechanism, so I actually think
+> > > leaving (ie including) the above paragraph is closer to the
+> > > status quo.  I think it's the expanded powers and duties (or
+> > > perception thereof) that are causing concern and I think debating
+> > > those to clarify intent, and adopting changes as needed  to
+> > > ameliorate concerns is worthwhile. 
+> > If we want to go back to the status quo, then a plain revert is the
+> > patch series I should submit.
+> 
+> Let me try to be more clear.  I don't want to go back to the status
+> quo. I was saying that if we keep this document, but omit the central
+> reporting mechanism, that is a large departure from the status quo,
+> because the Code of Conflict already established that.  And I think
+> that having an ombudsman-type role somewhere in the community
+> is beneficial.
+
+The purpose of this patch is not to be the final point but to take us
+up to a useful starting point for Shuah's CoC debate proposal at the
+kernel summit (and beyond).  Shuah asked that I clarify this in the
+commit message, so I will in v2.
+
+> I believe parts of the Code of Conduct are an improvement over the
+> Code of Conflict, so my personal preference would be to keep it
+> and try to adjust it moving forward.  I think your patches, with
+> clear suggestions for improvements (or for deletions in the case
+> where we want more debate on particular sections before adopting
+> them) is a good approach, and I like that process as opposed to
+> starting over from scratch.
+
+OK, so you're happy with the current patch as the starting not the
+ending point?
+
+> > > I believe that in the vast majority of cases, the TAB will end up
+> > > performing a mediator role to smooth hurt feelings and remind and
+> > > encourage improved communication - very similar to what we've
+> > > done in the past.  I really believe that bans will continue to be
+> > > very few and far between, as they have been historically (I can
+> > > only think of 3 in the past decade.)
+> > 
+> > That might very well be the position the discussion arrives at;
+> > however, I really think making the process fully transparent this
+> > time requires not prejudging the outcome.
+> 
+> I don't understand your point here.  Can you elaborate?
+
+Yes: I could foresee an outcome where the kernel community decides to
+vest CoC enforcement in a different body from the TAB, or even in no
+body but an informal maintainers list.  I'm not saying that *will*
+happen, merely that it's an outcome that should not be foreclosed at
+this point.
+
+James
