@@ -1,31 +1,33 @@
-Return-Path: <geert.uytterhoeven@gmail.com>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0612ADD1
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 97D34680B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  8 Oct 2018 08:56:04 +0000 (UTC)
-Received: from mail-vs1-f67.google.com (mail-vs1-f67.google.com
-	[209.85.217.67])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6DFD26CE
+	Mon,  8 Oct 2018 10:14:59 +0000 (UTC)
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+	[172.104.155.198])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D83754DA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  8 Oct 2018 08:56:03 +0000 (UTC)
-Received: by mail-vs1-f67.google.com with SMTP id v18-v6so10948978vsl.11
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 08 Oct 2018 01:56:03 -0700 (PDT)
+	Mon,  8 Oct 2018 10:14:58 +0000 (UTC)
+Date: Mon, 8 Oct 2018 11:14:55 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Dave Airlie <airlied@gmail.com>
+Message-ID: <20181008101455.GC5684@sirena.org.uk>
+References: <1538861738.4088.5.camel@HansenPartnership.com>
+	<1538861799.4088.6.camel@HansenPartnership.com>
+	<CAPM=9tz3Z=vD6qWUL2boZGEAgMeC_o9euBXFu2V58RHOn6gR9g@mail.gmail.com>
+	<20181007225613.GZ32577@ZenIV.linux.org.uk>
+	<CAPM=9tzU_wy77j=sx9u9gFsJp-M4ktH7hLQE5=_wKbow9p+iuQ@mail.gmail.com>
 MIME-Version: 1.0
-References: <20181007085102.17795-1-geert@linux-m68k.org>
-	<20181007113514.GA21217@localhost>
-In-Reply-To: <20181007113514.GA21217@localhost>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 8 Oct 2018 10:55:50 +0200
-Message-ID: <CAMuHMdVS6QVfg6=-a9+qgnhjT4f1aEMdEm54jKFy7MnSxCj_1g@mail.gmail.com>
-To: Josh Triplett <josh@joshtriplett.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="da4uJneut+ArUgXk"
+Content-Disposition: inline
+In-Reply-To: <CAPM=9tzU_wy77j=sx9u9gFsJp-M4ktH7hLQE5=_wKbow9p+iuQ@mail.gmail.com>
 Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [PATCH] code-of-conduct: Remove explicit list
- of discrimination factors
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
+	LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [Ksummit-discuss] [PATCH 1/2] code-of-conduct: Fix the
+ ambiguity about collecting email addresses
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,56 +37,41 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Josh,
 
-On Sun, Oct 7, 2018 at 1:35 PM Josh Triplett <josh@joshtriplett.org> wrote:
-> On Sun, Oct 07, 2018 at 10:51:02AM +0200, Geert Uytterhoeven wrote:
-> > Providing an explicit list of discrimination factors may give the false
-> > impression that discrimination based on other unlisted factors would be
-> > allowed.
-> >
-> > Avoid any ambiguity by removing the list, to ensure "a harassment-free
-> > experience for everyone", period.
->
-> I would suggest reading the commit message that added this in the first
-> place. "Explicit guidelines have demonstrated success in other projects
-> and other areas of the kernel." See also various comparisons of codes of
+--da4uJneut+ArUgXk
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-The first paragraph of the commit message (the "why" part) is exactly the
-part we've been waiting for a clarification since the inception of the
-commit...
+On Mon, Oct 08, 2018 at 09:37:59AM +1000, Dave Airlie wrote:
+> On Mon, 8 Oct 2018 at 08:56, Al Viro <viro@zeniv.linux.org.uk> wrote:
 
-> conduct, which make the same point. The point of this list is precisely
-> to serve as one such explicit guideline; removing it would rather defeat
-> the purpose.
+> > We can surround it with "explanations" until we get something that more or
+> > less fits, but then we'd need to reanalyse them every time an upstream
+> > change gets merged.  And the lack of textual conflicts is not a good thing
+> > in such situations, obviously.
 
-Then (at least) the list should be marked containing examples, cfr. the other
-examples in the document.
+> We do this already for the GPL (hence the GPLv2 only, and syscall exceptions).
 
-> In any case, this is not the appropriate place for such patches, any
-> more than it's the place for patches to the GPL.
+That works reasonably well for licenses because people reading licenses
+tend to do so in a rather detail oriented fashion so it's not that big
+an obstacle to have something that's a bit harder to follow.  It's not
+clear to me that the same thing is going to apply to people reading
+codes of conduct, especially those looking for reassurance from them.
+It might be OK but it's probably worth thinking about.
 
-There are precedents:
+--da4uJneut+ArUgXk
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Until recent, the file named "COPYING" (which you referred to in another
-email related to patching the CoC), was a verbatim copy of the GPL, with
-clarifications added at the top.
+-----BEGIN PGP SIGNATURE-----
 
-Documentation/process/code-of-conduct.rst is already a slightly modified
-version of the original.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlu7Lh4ACgkQJNaLcl1U
+h9BlGgf+Jd5yIlAzK7IXrz8w956FmPTkmDOrFMDyp5IKt/nNOYYYI8LgnvSRysUW
+UF6MJN+yr3cCaKjPAhfdV/IuBojliG5E/ooSqijwKFVB8eGdLQ+4i319T1tpNNcM
+jCb2yfTaVuexPS8fNVEVURre8XF11Z8TvmELROVZN5Eih2EL5BecdZ2gUGtBCM19
+CWwmhrKWOxYcZ4sPuYqWLUo39PSDSEs1EL2QSww6q+E1LT5hkhir+j7X5ehLGqYL
+aHyNJ8haLbPFNn0guJHeGPbZ5D89jb+018UNPcR/xIegxWSHhrylghaV0LiRBtle
+07A7WB0QUzP3ojoGnitbPwPeHJoqeA==
+=hXVf
+-----END PGP SIGNATURE-----
 
-Now, if amending the CoC locally is not an option, I'm afraid a plain revert
-is the only option, like for any other commit that breaks the userspace ABI
-(Linux kernel developers are also users ;-), until the raised issues have
-been resolved upstream.
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+--da4uJneut+ArUgXk--
