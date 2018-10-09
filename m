@@ -1,33 +1,28 @@
-Return-Path: <prvs=382019916a=clm@fb.com>
+Return-Path: <josh@joshtriplett.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 32F1CF39
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4AA241086
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  9 Oct 2018 16:52:41 +0000 (UTC)
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
-	[67.231.145.42])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BA6477C
+	Tue,  9 Oct 2018 18:56:36 +0000 (UTC)
+Received: from relay10.mail.gandi.net (relay10.mail.gandi.net [217.70.178.230])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 68C2C7C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  9 Oct 2018 16:52:40 +0000 (UTC)
-From: Chris Mason <clm@fb.com>
-To: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-Date: Tue, 9 Oct 2018 16:52:36 +0000
-Message-ID: <D9A3A892-FF4B-4A63-99C9-C29C58AB5AAC@fb.com>
-References: <CAKON4OxHUoVQ3zso=avoGE35MwWnkGaU13R_qPaw9zAqMVCDxQ@mail.gmail.com>
-	<6108593.JtmfA2IdsK@avalon>
-	<CAKON4Owevjg=wyQrxJ4z7x=hUryKGhHkXB=htL5G6MhuruwZ-Q@mail.gmail.com>
-	<CABVU7+t4VDg6p4Kq-P6U+epOOoeiy8E5XJ0gxDAJTyfW7h6Y5Q@mail.gmail.com>
-	<20181008183423.4bdcaeea@coco.lan>
-	<CABVU7+uQCcREk1V_SUve64BA8b=Qz0npUJwXgg=eae4H9++mdA@mail.gmail.com>
-	<20181009070736.42b8fea5@coco.lan>
-In-Reply-To: <20181009070736.42b8fea5@coco.lan>
-Content-Language: en-US
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	Tue,  9 Oct 2018 18:56:35 +0000 (UTC)
+Date: Tue, 9 Oct 2018 11:56:23 -0700
+From: Josh Triplett <josh@joshtriplett.org>
+To: Rainer Fiebig <jrf@mailbox.org>
+Message-ID: <20181009185622.GA20960@localhost>
+References: <1538861738.4088.5.camel@HansenPartnership.com>
+	<1538861799.4088.6.camel@HansenPartnership.com>
+	<20181008152043.GA5796@localhost> <1718828.OxLgMoHbrt@siriux>
 MIME-Version: 1.0
-Cc: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] New CoC and Brendan Eich
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1718828.OxLgMoHbrt@siriux>
+Cc: james.bottomley@hansenpartnership.com, linux-kernel@vger.kernel.org,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [PATCH 1/2] code-of-conduct: Fix the
+ ambiguity about collecting email addresses
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,31 +32,25 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 9 Oct 2018, at 6:07, Mauro Carvalho Chehab wrote:
+On Tue, Oct 09, 2018 at 08:29:24PM +0200, Rainer Fiebig wrote:
+> Am Montag, 8. Oktober 2018, 08:20:44 schrieb Josh Triplett:
+> > On Sat, Oct 06, 2018 at 02:36:39PM -0700, James Bottomley wrote:
+> > > The current code of conduct has an ambiguity in the it considers publishing
+> > > private information such as email addresses unacceptable behaviour.  Since
+> > > the Linux kernel collects and publishes email addresses as part of the patch
+> > > process, add an exception clause for email addresses ordinarily collected by
+> > > the project to correct this ambiguity.
+> > 
+> > Upstream has now adopted a FAQ, which addresses this and many other
+> > questions. See https://www.contributor-covenant.org/faq .
+> > 
+> > Might I suggest adding that link to the bottom of the document, instead?
+> > (And then, optionally, submitting entries for that FAQ.)
+> > 
+> 
+> The Code of Conflict has 28 lines, including the heading. 
+> The Code of Conduct has 81 lines, including the heading. And it needs a FAQ. Hm.
 
->> So, a company would fire maintainer for being conniving with an=20
->> harassment
->> or any other unacceptable behavior, right?!
->>
->> So, Developer A shouts racists words, maintainer C doesn't C the=20
->> email.
->> Developer B complains to the TAB against Developer A and Maintainer=20
->> C.
->
-> No. If you read the CoC carefully, you'll see that it doesn't
-> have anything saying that TAB would be taking any action against
-> Developer A. The only person that this CoC who would be punished,
-> on this CoC's "enforcement" section is the maintainer.
-
-The code of conduct asks maintainers to be involved in maintaining=20
-culture as well as code.  It does mention repercussions for maintainers,=20
-but it's important to apply some common sense here.  If you enable=20
-people to send in terrible code, someone is going to talk to you about=20
-your poor decisions.  If you're enabling people to violate the code of=20
-conduct, it's a good idea to sit down and talk about ways to improve the=20
-level of discourse in your subsystem.
-
-The repercussions are most likely going to be working on methods to try=20
-and make things better.  Then if they don't work...trying again.
-
--chris
+Yes, it turns out to be a more complicated problem than it was
+previously oversimplified to. People don't automatically share a common
+understanding.
