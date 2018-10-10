@@ -1,34 +1,23 @@
-Return-Path: <josh@joshtriplett.org>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 280CBCC3
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D86B4CC8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 10 Oct 2018 19:56:47 +0000 (UTC)
-Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
-	[217.70.183.197])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 86823772
+	Wed, 10 Oct 2018 20:07:35 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 76C41772
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 10 Oct 2018 19:56:46 +0000 (UTC)
-Date: Wed, 10 Oct 2018 12:56:34 -0700
-From: Josh Triplett <josh@joshtriplett.org>
-To: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-Message-ID: <20181010195634.GA2031@localhost>
-References: <CABVU7+t4VDg6p4Kq-P6U+epOOoeiy8E5XJ0gxDAJTyfW7h6Y5Q@mail.gmail.com>
-	<20181008183423.4bdcaeea@coco.lan>
-	<CABVU7+uQCcREk1V_SUve64BA8b=Qz0npUJwXgg=eae4H9++mdA@mail.gmail.com>
-	<20181009070736.42b8fea5@coco.lan>
-	<D9A3A892-FF4B-4A63-99C9-C29C58AB5AAC@fb.com>
-	<CAPcyv4hWMZkS0KMVihL5R99nQp6CAG3wkOfF2nWdVLq9w3bOcQ@mail.gmail.com>
-	<CAMuHMdWBWKtZDpdYn0zaWFnF27pnenu6Ha5wq-40QPWE+D-pFQ@mail.gmail.com>
-	<20181010105754.0a46e1b3@coco.lan>
-	<20181010172111.GA17483@localhost>
-	<20181010152811.073c5ca8@coco.lan>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20181010152811.073c5ca8@coco.lan>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] New CoC and Brendan Eich
+	Wed, 10 Oct 2018 20:07:35 +0000 (UTC)
+Message-ID: <1539202053.12644.8.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Wed, 10 Oct 2018 13:07:33 -0700
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Cc: linux-kernel <linux-kernel@vger.kernel.org>
+Subject: [Ksummit-discuss] [PATCH v2 0/3] code of conduct fixes
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,43 +27,46 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Oct 10, 2018 at 03:28:11PM -0300, Mauro Carvalho Chehab wrote:
-> Em Wed, 10 Oct 2018 10:21:11 -0700
-> Josh Triplett <josh@joshtriplett.org> escreveu:
-> 
-> > On Wed, Oct 10, 2018 at 10:57:54AM -0300, Mauro Carvalho Chehab wrote:
-> > > With regards to (2), I have to add that idiomatic expression violations
-> > > are really hard to be detected by non-native English speakers.
-> > > 
-> > > Recently, I wanted to post about exchanging gpg keys on an event
-> > > we'll have. As this is something that I don't commonly organize, I browsed
-> > > the Internet to check the proper term (it is "key chain party" or
-> > > "key signing party"). On my google search, I omitted one of the words on 
-> > > that phase, and discovered an idiomatic expression that could be argued
-> > > as a CoC violation.  
-> > 
-> > Unintentionally using a phrase like that seems easy enough to handle
-> > with a reply (on-list or off, as appropriate) saying "You might wish to
-> > rephrase that as 'key signing party' or similar, because the phrase you
-> > used is also an idiom with risque connotations."
-> > 
-> > To contrast that with the kind of *intentional* issue that would prompt
-> > a less forgiving response (especially if repeated), consider if someone
-> > submitted a script to manage such parties, named it "key-party", and
-> > filled it with other related innuendo, to the point that there's no
-> > doubt they were doing so intentionally. Sounds ridiculous, and yet there
-> > are plenty of examples of that and worse in FOSS history.
-> 
-> Yes, I know that an unintentional mention would have a completely
-> different treatment. 
-> 
-> The point is that, as a maintainer, if one would write a patch with such
-> expression - or whatever other idiomatic sentence that would have a "hidden"
-> meaning inside it for non native speakers - I would probably end by applying
-> it without I even realize about the issue.
+Resend to show accumulated tags and also to add a third patch listing
+the TAB as the reporting point as a few people seem to want.  If it
+gets the same level of support, I'll send it in with the other two.
 
-And the same notion of intent applies there, too. Mistakes happen, and
-when they really are mistakes, that's not a critical issue. I'd assume
-you'd also quickly apply a patch someone sent you to fix it. (By
-contrast with someone who, for instance, might go off on a rant if asked
-to do so.)
+---
+
+Previous cover letter:
+
+
+We've had several threads discussing potential changes to the code of
+conduct but Mauro is the only person to have proposed an actual patch. 
+In order to move the debate on, I'm presenting two patches, one to fix
+the email problem Mauro identified and the other to strip the
+enforcement section pending community discussion as Shuah suggested.
+
+I'll take responsibility for collecting any tags people want to add
+(review/ack/sign off, etc) and sending the patch in as a signed pull
+request before 4.19 final if they get enough community support.
+
+Note, I've sent both patches in as a series to facilitate review and
+discussion, but they are separable if one is looked on with less favour
+than the other.
+
+It was also a bit unclear which list to send this to, but I finally
+settled on linux-kernel as the catch all and ksummit-discuss since
+that's where most of the current discussion is.  I can add other lists
+as people suggest them.
+
+James
+
+---
+
+James Bottomley (3):
+  code-of-conduct: Fix the ambiguity about collecting email addresses
+  code-of-conduct: Strip the enforcement paragraph pending community
+    discussion
+  code-of-conduct: Add back the TAB as the central reporting point
+
+ Documentation/process/code-of-conduct.rst | 13 ++++---------
+ 1 file changed, 4 insertions(+), 9 deletions(-)
+
+-- 
+2.13.7
