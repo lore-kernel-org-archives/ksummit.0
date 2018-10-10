@@ -1,31 +1,34 @@
-Return-Path: <mchehab+samsung@kernel.org>
+Return-Path: <josh@joshtriplett.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2A0B9C21
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4B541C03
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 10 Oct 2018 17:19:24 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6352F7D5
+	Wed, 10 Oct 2018 17:21:20 +0000 (UTC)
+Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
+	[217.70.183.197])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 94F134DA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 10 Oct 2018 17:19:23 +0000 (UTC)
-Date: Wed, 10 Oct 2018 14:19:17 -0300
-From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-To: Alan Cox <gnomes@lxorguk.ukuu.org.uk>
-Message-ID: <20181010141917.611fb5d8@coco.lan>
-In-Reply-To: <20181010165308.187aae51@alans-desktop>
-References: <1538861738.4088.5.camel@HansenPartnership.com>
-	<1538861851.4088.7.camel@HansenPartnership.com>
-	<20181008172303.4f06cd94@coco.lan>
-	<20181010165308.187aae51@alans-desktop>
+	Wed, 10 Oct 2018 17:21:19 +0000 (UTC)
+Date: Wed, 10 Oct 2018 10:21:11 -0700
+From: Josh Triplett <josh@joshtriplett.org>
+To: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+Message-ID: <20181010172111.GA17483@localhost>
+References: <6108593.JtmfA2IdsK@avalon>
+	<CAKON4Owevjg=wyQrxJ4z7x=hUryKGhHkXB=htL5G6MhuruwZ-Q@mail.gmail.com>
+	<CABVU7+t4VDg6p4Kq-P6U+epOOoeiy8E5XJ0gxDAJTyfW7h6Y5Q@mail.gmail.com>
+	<20181008183423.4bdcaeea@coco.lan>
+	<CABVU7+uQCcREk1V_SUve64BA8b=Qz0npUJwXgg=eae4H9++mdA@mail.gmail.com>
+	<20181009070736.42b8fea5@coco.lan>
+	<D9A3A892-FF4B-4A63-99C9-C29C58AB5AAC@fb.com>
+	<CAPcyv4hWMZkS0KMVihL5R99nQp6CAG3wkOfF2nWdVLq9w3bOcQ@mail.gmail.com>
+	<CAMuHMdWBWKtZDpdYn0zaWFnF27pnenu6Ha5wq-40QPWE+D-pFQ@mail.gmail.com>
+	<20181010105754.0a46e1b3@coco.lan>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	linux-kernel <linux-kernel@vger.kernel.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [PATCH 2/2] code-of-conduct: Strip the
- enforcement paragraph pending community discussion
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20181010105754.0a46e1b3@coco.lan>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] New CoC and Brendan Eich
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,33 +38,25 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Em Wed, 10 Oct 2018 16:53:08 +0100
-Alan Cox <gnomes@lxorguk.ukuu.org.uk> escreveu:
-
-> > -Maintainers have the right and responsibility to remove, edit, or reject
-> > +Maintainers may remove, edit, or reject
-> >  comments, commits, code, wiki edits, issues, and other contributions that are
-> >  not aligned to this Code of Conduct, or to ban temporarily or permanently any
-> >  contributor for other behaviors that they deem inappropriate, threatening,
-> > 
-> > The previous text seems too much legal for my taste.
-> >   
+On Wed, Oct 10, 2018 at 10:57:54AM -0300, Mauro Carvalho Chehab wrote:
+> With regards to (2), I have to add that idiomatic expression violations
+> are really hard to be detected by non-native English speakers.
 > 
-> That is just as confusing. Maintainers have the right to remove, edit,
-> reject commits that *are* aligned with the code as well.
+> Recently, I wanted to post about exchanging gpg keys on an event
+> we'll have. As this is something that I don't commonly organize, I browsed
+> the Internet to check the proper term (it is "key chain party" or
+> "key signing party"). On my google search, I omitted one of the words on 
+> that phase, and discovered an idiomatic expression that could be argued
+> as a CoC violation.
 
-Good point. Yeah, a maintainer can do whatever he thinks it is 
-appropriate for a patch - even when it follows the CoC.
+Unintentionally using a phrase like that seems easy enough to handle
+with a reply (on-list or off, as appropriate) saying "You might wish to
+rephrase that as 'key signing party' or similar, because the phrase you
+used is also an idiom with risque connotations."
 
-> So what exactly is the point here ?
-
-The point is "responsibility" - that sounds like it is bounding a legal
-duty to a maintainer.
-
-While this makes sense for Github (as the company doesn't want to be
-responsible for sanitizing every single post), this doesn't work for
-e-mail based workflow, where the message is stored on a distributed
-way, as a maintainer can't "remove, edit or reject" an e-mail.
-
-Thanks,
-Mauro
+To contrast that with the kind of *intentional* issue that would prompt
+a less forgiving response (especially if repeated), consider if someone
+submitted a script to manage such parties, named it "key-party", and
+filled it with other related innuendo, to the point that there's no
+doubt they were doing so intentionally. Sounds ridiculous, and yet there
+are plenty of examples of that and worse in FOSS history.
