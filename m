@@ -1,31 +1,31 @@
-Return-Path: <pavel@ucw.cz>
+Return-Path: <mchehab+samsung@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4FD448CC
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2A0B9C21
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 10 Oct 2018 16:36:08 +0000 (UTC)
-Received: from atrey.karlin.mff.cuni.cz (atrey.karlin.mff.cuni.cz
-	[195.113.26.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8A1127DE
+	Wed, 10 Oct 2018 17:19:24 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+	[198.137.202.133])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6352F7D5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 10 Oct 2018 16:36:06 +0000 (UTC)
-Date: Wed, 10 Oct 2018 18:36:03 +0200
-From: Pavel Machek <pavel@ucw.cz>
-To: Dave Airlie <airlied@gmail.com>
-Message-ID: <20181010163603.GA22306@amd>
+	Wed, 10 Oct 2018 17:19:23 +0000 (UTC)
+Date: Wed, 10 Oct 2018 14:19:17 -0300
+From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+To: Alan Cox <gnomes@lxorguk.ukuu.org.uk>
+Message-ID: <20181010141917.611fb5d8@coco.lan>
+In-Reply-To: <20181010165308.187aae51@alans-desktop>
 References: <1538861738.4088.5.camel@HansenPartnership.com>
-	<1538861799.4088.6.camel@HansenPartnership.com>
-	<CAPM=9tz3Z=vD6qWUL2boZGEAgMeC_o9euBXFu2V58RHOn6gR9g@mail.gmail.com>
+	<1538861851.4088.7.camel@HansenPartnership.com>
+	<20181008172303.4f06cd94@coco.lan>
+	<20181010165308.187aae51@alans-desktop>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="OgqxwSJOaUobr8KG"
-Content-Disposition: inline
-In-Reply-To: <CAPM=9tz3Z=vD6qWUL2boZGEAgMeC_o9euBXFu2V58RHOn6gR9g@mail.gmail.com>
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	LKML <linux-kernel@vger.kernel.org>,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [PATCH 1/2] code-of-conduct: Fix the
- ambiguity about collecting email addresses
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	linux-kernel <linux-kernel@vger.kernel.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [PATCH 2/2] code-of-conduct: Strip the
+ enforcement paragraph pending community discussion
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,63 +35,33 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+Em Wed, 10 Oct 2018 16:53:08 +0100
+Alan Cox <gnomes@lxorguk.ukuu.org.uk> escreveu:
 
---OgqxwSJOaUobr8KG
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> > -Maintainers have the right and responsibility to remove, edit, or reject
+> > +Maintainers may remove, edit, or reject
+> >  comments, commits, code, wiki edits, issues, and other contributions that are
+> >  not aligned to this Code of Conduct, or to ban temporarily or permanently any
+> >  contributor for other behaviors that they deem inappropriate, threatening,
+> > 
+> > The previous text seems too much legal for my taste.
+> >   
+> 
+> That is just as confusing. Maintainers have the right to remove, edit,
+> reject commits that *are* aligned with the code as well.
 
+Good point. Yeah, a maintainer can do whatever he thinks it is 
+appropriate for a patch - even when it follows the CoC.
 
-> > Signed-off-by: James Bottomley <James.Bottomley@HansenPartnership.com>
-> > ---
-> >  Documentation/process/code-of-conduct.rst | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/Documentation/process/code-of-conduct.rst b/Documentation/=
-process/code-of-conduct.rst
-> > index ab7c24b5478c..aa40e34e7785 100644
-> > --- a/Documentation/process/code-of-conduct.rst
-> > +++ b/Documentation/process/code-of-conduct.rst
-> > @@ -31,7 +31,7 @@ Examples of unacceptable behavior by participants inc=
-lude:
-> >  * Trolling, insulting/derogatory comments, and personal or political a=
-ttacks
-> >  * Public or private harassment
-> >  * Publishing others=E2=80=99 private information, such as a physical o=
-r electronic
-> > -  address, without explicit permission
-> > +  address not ordinarily collected by the project, without explicit pe=
-rmission
-> >  * Other conduct which could reasonably be considered inappropriate in a
-> >    professional setting
-> >
->=20
-> I agree we want something like this, the question is whether we want
-> to change the CoC text from upstream, or clarify it in a separate
-> section.
+> So what exactly is the point here ?
 
-If this comes from some kind of "upstream", that should be clearly
-marked so in the document or at least in the git log. I was always
-wondering who created that "useful document".
+The point is "responsibility" - that sounds like it is bounding a legal
+duty to a maintainer.
 
-									Pavel
-(And would still like to know what the background story is.)
-								=09
---=20
-(english) http://www.livejournal.com/~pavelmachek
-(cesky, pictures) http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blo=
-g.html
+While this makes sense for Github (as the company doesn't want to be
+responsible for sanitizing every single post), this doesn't work for
+e-mail based workflow, where the message is stored on a distributed
+way, as a maintainer can't "remove, edit or reject" an e-mail.
 
---OgqxwSJOaUobr8KG
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v1
-
-iEYEARECAAYFAlu+KnMACgkQMOfwapXb+vLCSgCeLER77yWcAxUsoiaQ78cA29ZQ
-J/wAoKhjbDoXy8oP2yAPC1FJGMUmK4ek
-=RW8M
------END PGP SIGNATURE-----
-
---OgqxwSJOaUobr8KG--
+Thanks,
+Mauro
