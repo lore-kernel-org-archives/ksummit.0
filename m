@@ -1,25 +1,35 @@
-Return-Path: <ebiederm@xmission.com>
+Return-Path: <frowand.list@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B23A4B1E
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8FF18B5F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 10 Oct 2018 23:23:50 +0000 (UTC)
-Received: from out01.mta.xmission.com (out01.mta.xmission.com [166.70.13.231])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4E1C934F
+	Wed, 10 Oct 2018 23:36:02 +0000 (UTC)
+Received: from mail-pg1-f193.google.com (mail-pg1-f193.google.com
+	[209.85.215.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1494B773
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 10 Oct 2018 23:23:50 +0000 (UTC)
-From: ebiederm@xmission.com (Eric W. Biederman)
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-References: <1539202053.12644.8.camel@HansenPartnership.com>
-Date: Wed, 10 Oct 2018 18:23:24 -0500
-In-Reply-To: <1539202053.12644.8.camel@HansenPartnership.com> (James
-	Bottomley's message of "Wed, 10 Oct 2018 13:07:33 -0700")
-Message-ID: <87efcxtmhf.fsf@xmission.com>
+	Wed, 10 Oct 2018 23:36:02 +0000 (UTC)
+Received: by mail-pg1-f193.google.com with SMTP id 23-v6so3226974pgc.8
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 10 Oct 2018 16:36:01 -0700 (PDT)
+To: esr@thyrsus.com, Josh Triplett <josh@joshtriplett.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	James Bottomley <James.Bottomley@hansenpartnership.com>,
+	linux-kernel@vger.kernel.org
+References: <20181007085102.17795-1-geert@linux-m68k.org>
+	<f4f7bf39-af34-4375-d6a2-b1f23cad519e@gmail.com>
+	<20181010221611.GA5711@localhost> <20181010223319.GA31256@thyrsus.com>
+From: Frank Rowand <frowand.list@gmail.com>
+Message-ID: <22aae042-5ef3-20df-6960-fc8ae3cd5506@gmail.com>
+Date: Wed, 10 Oct 2018 16:35:58 -0700
 MIME-Version: 1.0
-Content-Type: text/plain
-Cc: linux-kernel <linux-kernel@vger.kernel.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [PATCH v2 0/3] code of conduct fixes
+In-Reply-To: <20181010223319.GA31256@thyrsus.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Ksummit-discuss] [PATCH] code-of-conduct: Remove explicit list
+ of discrimination factors
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,51 +39,32 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-James Bottomley <James.Bottomley@HansenPartnership.com> writes:
-
-> Resend to show accumulated tags and also to add a third patch listing
-> the TAB as the reporting point as a few people seem to want.  If it
-> gets the same level of support, I'll send it in with the other two.
-
-
-There is also:
-
-> Our Responsibilities
-> ====================
+On 10/10/18 15:33, Eric S. Raymond wrote:
+> Josh Triplett <josh@joshtriplett.org>:
+>>> The words removed by this patch are a political statement.
+>>
+>> Choosing not to say those words is a political statement.
 > 
-> Maintainers are responsible for clarifying the standards of acceptable behavior
-> and are expected to take appropriate and fair corrective action in response to
-> any instances of unacceptable behavior.
+> The situation is not symmetrical.  Choosing the protected classes
+> in the CoC is a *change* in its implied politics. 
 > 
-> Maintainers have the right and responsibility to remove, edit, or reject
-> comments, commits, code, wiki edits, issues, and other contributions that are
-> not aligned to this Code of Conduct, or to ban temporarily or permanently any
-> contributor for other behaviors that they deem inappropriate, threatening,
-> offensive, or harmful.
+> It's a change that is, obviously from LKML traffic, very contentious.
+> If this were a tpurely technical matter, it would be described as
+> not backwards-compatible.
+> 
+> It's a change that, I submit, should not have been made without a clear
+> consensus *in favor* of the change.
+> 
+> Our culture has a process for this. It's called RFCs. If we want to
+> designate protected classes to be called out in conductt guidelines,
+> an RFC should be floated first and the change should be made only
+> if rough consensus has been achieved.
+> 
 
-Which is very problematic.
-a) In append only logs like git we can not edit history.
-   Making it a mainters responsibility to edit the history, to do the
-   impossible is a problem.
+Thank you for stating that clearly and concisely Eric.
 
-b) There are no responsibilities of for people who are not Maintainers.
-   That is another problem.
+I will bow out of further discussion on this specific point as I
+have already seen this concept discussed on many threads already
+in recent weeks.
 
-c) The entire tone of the reponsibilities section is out of line with a
-   community where there are no enforcement powers only the power to
-   accept or not accept a patch.  Only the power to persuade not to
-   enforce.
-
-Overall in the discussions I have heard people talking about persuading,
-educating, and not feeding trolls.   Nowhere have I heard people talking
-about policing the community which I understand that responsiblity
-section to be talking about.
-
-Increasingly I am getting the feeling that this document does not the
-linux development community.  Perhaps a revert and trying to come up
-with better language from scratch would be better.
-
-I don't know how to rephrase that reponsibility section but if we don't
-go with the revert something looks like it need sot be done there.
-
-Eric
+-Frank
