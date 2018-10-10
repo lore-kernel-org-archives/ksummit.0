@@ -1,31 +1,31 @@
-Return-Path: <rdunlap@infradead.org>
+Return-Path: <pavel@ucw.cz>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 59B10B50
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4FD448CC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 10 Oct 2018 16:25:38 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 16DF177C
+	Wed, 10 Oct 2018 16:36:08 +0000 (UTC)
+Received: from atrey.karlin.mff.cuni.cz (atrey.karlin.mff.cuni.cz
+	[195.113.26.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8A1127DE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 10 Oct 2018 16:25:38 +0000 (UTC)
-To: Pavel Machek <pavel@ucw.cz>,
-	James Bottomley <James.Bottomley@HansenPartnership.com>
+	Wed, 10 Oct 2018 16:36:06 +0000 (UTC)
+Date: Wed, 10 Oct 2018 18:36:03 +0200
+From: Pavel Machek <pavel@ucw.cz>
+To: Dave Airlie <airlied@gmail.com>
+Message-ID: <20181010163603.GA22306@amd>
 References: <1538861738.4088.5.camel@HansenPartnership.com>
-	<CAKMK7uFvmXtk=WiZJxGrzQQD1RHv7srA-_e8KdwXZ9Kn5rcmiQ@mail.gmail.com>
-	<1538934030.4010.1.camel@HansenPartnership.com>
-	<20181010161256.GB19941@amd>
-From: Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <5e5c745b-5b59-6655-99b1-c40874fdbdf2@infradead.org>
-Date: Wed, 10 Oct 2018 09:25:36 -0700
+	<1538861799.4088.6.camel@HansenPartnership.com>
+	<CAPM=9tz3Z=vD6qWUL2boZGEAgMeC_o9euBXFu2V58RHOn6gR9g@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20181010161256.GB19941@amd>
-Content-Type: text/plain; charset=windows-1252
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="OgqxwSJOaUobr8KG"
+Content-Disposition: inline
+In-Reply-To: <CAPM=9tz3Z=vD6qWUL2boZGEAgMeC_o9euBXFu2V58RHOn6gR9g@mail.gmail.com>
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	LKML <linux-kernel@vger.kernel.org>,
 	ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [PATCH 0/2] code of conduct fixes
+Subject: Re: [Ksummit-discuss] [PATCH 1/2] code-of-conduct: Fix the
+ ambiguity about collecting email addresses
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,39 +35,63 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 10/10/18 9:12 AM, Pavel Machek wrote:
-> Hi!
-> 
->>> Personally I'm not happy at all with how the new code of conduct was
->>> rushed in, least because I still don't understand why it happened,
->>> but also for all the other reasons we've discussed here in the past
->>> few weeks.
-> 
-> These are exactly my thoughts.
 
-Exactly.  We have a process and the 4.19-rc4 CoC patch did not follow it.
+--OgqxwSJOaUobr8KG
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
->>> But I also understand that there's lots of people (me included) who
->>> don't want to ship a release with the code of conduct in it's current
->>> in-between state. I think adding a disclaimer at the top, along the
->>> lines of
->>>
->>> "Please note that this code of conduct and it's enforcement are still
->>> under discussion."
->>
->> I don't disagree with the position, but eliminating our old code of
->> conduct in favour of another we cast doubt on with this disclaimer
->> effectively leaves us with nothing at all, which seems to be a worse
->> situation.  In that case, I think reverting the CoC commit
->> (8a104f8b5867c682) and then restarting the replacement process is
->> better than adding a disclaimer to the new one.
-> 
-> Reverting it then having proper discussion sounds suitable to me.
-> 
-> (And it would be nice to have something on the mailing lists, too, as
-> I probably won't make it to kernel summit this year.)
 
-Ditto.
+> > Signed-off-by: James Bottomley <James.Bottomley@HansenPartnership.com>
+> > ---
+> >  Documentation/process/code-of-conduct.rst | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/Documentation/process/code-of-conduct.rst b/Documentation/=
+process/code-of-conduct.rst
+> > index ab7c24b5478c..aa40e34e7785 100644
+> > --- a/Documentation/process/code-of-conduct.rst
+> > +++ b/Documentation/process/code-of-conduct.rst
+> > @@ -31,7 +31,7 @@ Examples of unacceptable behavior by participants inc=
+lude:
+> >  * Trolling, insulting/derogatory comments, and personal or political a=
+ttacks
+> >  * Public or private harassment
+> >  * Publishing others=E2=80=99 private information, such as a physical o=
+r electronic
+> > -  address, without explicit permission
+> > +  address not ordinarily collected by the project, without explicit pe=
+rmission
+> >  * Other conduct which could reasonably be considered inappropriate in a
+> >    professional setting
+> >
+>=20
+> I agree we want something like this, the question is whether we want
+> to change the CoC text from upstream, or clarify it in a separate
+> section.
 
--- 
-~Randy
+If this comes from some kind of "upstream", that should be clearly
+marked so in the document or at least in the git log. I was always
+wondering who created that "useful document".
+
+									Pavel
+(And would still like to know what the background story is.)
+								=09
+--=20
+(english) http://www.livejournal.com/~pavelmachek
+(cesky, pictures) http://atrey.karlin.mff.cuni.cz/~pavel/picture/horses/blo=
+g.html
+
+--OgqxwSJOaUobr8KG
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iEYEARECAAYFAlu+KnMACgkQMOfwapXb+vLCSgCeLER77yWcAxUsoiaQ78cA29ZQ
+J/wAoKhjbDoXy8oP2yAPC1FJGMUmK4ek
+=RW8M
+-----END PGP SIGNATURE-----
+
+--OgqxwSJOaUobr8KG--
