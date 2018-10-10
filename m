@@ -1,25 +1,30 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <gnomes@lxorguk.ukuu.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 52607CDF
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 766BACD5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 10 Oct 2018 20:09:42 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 038AD772
+	Wed, 10 Oct 2018 20:09:58 +0000 (UTC)
+Received: from fuzix.org (www.llwyncelyn.cymru [82.70.14.225])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 92542772
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 10 Oct 2018 20:09:41 +0000 (UTC)
-Message-ID: <1539202180.12644.10.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Wed, 10 Oct 2018 13:09:40 -0700
-In-Reply-To: <1539202053.12644.8.camel@HansenPartnership.com>
-References: <1539202053.12644.8.camel@HansenPartnership.com>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: linux-kernel <linux-kernel@vger.kernel.org>
-Subject: [Ksummit-discuss] [PATCH v2 2/3] code-of-conduct: Strip the
+	Wed, 10 Oct 2018 20:09:57 +0000 (UTC)
+Date: Wed, 10 Oct 2018 21:09:48 +0100
+From: Alan Cox <gnomes@lxorguk.ukuu.org.uk>
+To: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+Message-ID: <20181010210948.62ed5ce6@alans-desktop>
+In-Reply-To: <20181010141917.611fb5d8@coco.lan>
+References: <1538861738.4088.5.camel@HansenPartnership.com>
+	<1538861851.4088.7.camel@HansenPartnership.com>
+	<20181008172303.4f06cd94@coco.lan>
+	<20181010165308.187aae51@alans-desktop>
+	<20181010141917.611fb5d8@coco.lan>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	linux-kernel <linux-kernel@vger.kernel.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [PATCH 2/2] code-of-conduct: Strip the
  enforcement paragraph pending community discussion
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -30,57 +35,44 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Significant concern has been expressed about the responsibilities outlined in
-the enforcement clause of the new code of conduct.  Since there is concern
-that this becomes binding on the release of the 4.19 kernel, strip the
-enforcement clauses to give the community time to consider and debate how this
-should be handled.
+On Wed, 10 Oct 2018 14:19:17 -0300
+Mauro Carvalho Chehab <mchehab+samsung@kernel.org> wrote:
 
-Note, this patch is expected to be the starting point for a discussion not the
-end point, so there is an expectation that an Enforcement section will be
-added again to our code of conduct once we have sufficient community consensus
-on what it should say.
+> Em Wed, 10 Oct 2018 16:53:08 +0100
+> Alan Cox <gnomes@lxorguk.ukuu.org.uk> escreveu:
+> 
+> > > -Maintainers have the right and responsibility to remove, edit, or reject
+> > > +Maintainers may remove, edit, or reject
+> > >  comments, commits, code, wiki edits, issues, and other contributions that are
+> > >  not aligned to this Code of Conduct, or to ban temporarily or permanently any
+> > >  contributor for other behaviors that they deem inappropriate, threatening,
+> > > 
+> > > The previous text seems too much legal for my taste.
+> > >     
+> > 
+> > That is just as confusing. Maintainers have the right to remove, edit,
+> > reject commits that *are* aligned with the code as well.  
+> 
+> Good point. Yeah, a maintainer can do whatever he thinks it is 
+> appropriate for a patch - even when it follows the CoC.
+> 
+> > So what exactly is the point here ?  
+> 
+> The point is "responsibility" - that sounds like it is bounding a legal
+> duty to a maintainer.
 
-Fixes: 8a104f8b5867c682 ("Code of Conduct: Let's revamp it.")
-Acked-by: Shuah Khan <shuah@kernel.org>
-Acked-by: Guenter Roeck <linux@roeck-us.net>
-Acked-by: Geert Uytterhoeven <geert@linux-m68k.org>
-Reviewed-by: Alan Cox <alan@llwyncelyn.cymru>
-Signed-off-by: James Bottomley <James.Bottomley@HansenPartnership.com>
+If you remove the responsibility aspect you might as well remove the
+entire clause. It doesn't say anything as it's simply a subset of what
+maintainers do anyway.
 
----
+So how about
 
-v2: Added additional commit paragraph clarifying we do expect eventually to
-    have an enforcement section (as requested by Shuah)
----
- Documentation/process/code-of-conduct.rst | 15 ---------------
- 1 file changed, 15 deletions(-)
+"Maintainers should remove, edit or reject..."
 
-diff --git a/Documentation/process/code-of-conduct.rst b/Documentation/process/code-of-conduct.rst
-index aa40e34e7785..4dd90987305b 100644
---- a/Documentation/process/code-of-conduct.rst
-+++ b/Documentation/process/code-of-conduct.rst
-@@ -59,21 +59,6 @@ address, posting via an official social media account, or acting as an appointed
- representative at an online or offline event. Representation of a project may be
- further defined and clarified by project maintainers.
- 
--Enforcement
--===========
--
--Instances of abusive, harassing, or otherwise unacceptable behavior may be
--reported by contacting the Technical Advisory Board (TAB) at
--<tab@lists.linux-foundation.org>. All complaints will be reviewed and
--investigated and will result in a response that is deemed necessary and
--appropriate to the circumstances. The TAB is obligated to maintain
--confidentiality with regard to the reporter of an incident.  Further details of
--specific enforcement policies may be posted separately.
--
--Maintainers who do not follow or enforce the Code of Conduct in good faith may
--face temporary or permanent repercussions as determined by other members of the
--project’s leadership.
--
- Attribution
- ===========
- 
--- 
-2.13.7
+that keeps the sense that there should be pressure against abusive
+behaviour.
+
+except of course someone will attach a zero day exploit and fix to a
+coc-violating rant and then you are a bit stuffed 8)
+
+Alan
