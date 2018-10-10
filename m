@@ -1,36 +1,32 @@
-Return-Path: <airlied@gmail.com>
+Return-Path: <frowand.list@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 035A5C79
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 69457D05
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 10 Oct 2018 20:32:42 +0000 (UTC)
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com
-	[209.85.160.177])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 79F4083F
+	Wed, 10 Oct 2018 20:48:46 +0000 (UTC)
+Received: from mail-pg1-f193.google.com (mail-pg1-f193.google.com
+	[209.85.215.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0FF914DA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 10 Oct 2018 20:32:41 +0000 (UTC)
-Received: by mail-qt1-f177.google.com with SMTP id c56-v6so7299532qtd.11
+	Wed, 10 Oct 2018 20:48:45 +0000 (UTC)
+Received: by mail-pg1-f193.google.com with SMTP id g2-v6so3049429pgu.11
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 10 Oct 2018 13:32:41 -0700 (PDT)
-MIME-Version: 1.0
-References: <1538861738.4088.5.camel@HansenPartnership.com>
-	<1538861851.4088.7.camel@HansenPartnership.com>
-	<20181008172303.4f06cd94@coco.lan>
-	<20181010165308.187aae51@alans-desktop>
-	<20181010141917.611fb5d8@coco.lan>
-	<20181010210948.62ed5ce6@alans-desktop>
-In-Reply-To: <20181010210948.62ed5ce6@alans-desktop>
-From: Dave Airlie <airlied@gmail.com>
-Date: Thu, 11 Oct 2018 06:32:28 +1000
-Message-ID: <CAPM=9tz0rw6WLHcP+ZxL4r_nt0tK_GbpidtYEN7DBxcqioaLMA@mail.gmail.com>
-To: Alan Cox <gnomes@lxorguk.ukuu.org.uk>
-Content-Type: multipart/alternative; boundary="00000000000072bca60577e5c14f"
-Cc: mchehab+samsung@kernel.org,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
-	linux-kernel <linux-kernel@vger.kernel.org>,
+	Wed, 10 Oct 2018 13:48:45 -0700 (PDT)
+To: James Bottomley <James.Bottomley@HansenPartnership.com>,
 	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [PATCH 2/2] code-of-conduct: Strip the
- enforcement paragraph pending community discussion
+References: <1538861738.4088.5.camel@HansenPartnership.com>
+	<1538861799.4088.6.camel@HansenPartnership.com>
+From: Frank Rowand <frowand.list@gmail.com>
+Message-ID: <b1f8939a-220f-b99f-8def-cb2a6551dead@gmail.com>
+Date: Wed, 10 Oct 2018 13:48:43 -0700
+MIME-Version: 1.0
+In-Reply-To: <1538861799.4088.6.camel@HansenPartnership.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Cc: linux-kernel <linux-kernel@vger.kernel.org>
+Subject: Re: [Ksummit-discuss] [PATCH 1/2] code-of-conduct: Fix the
+ ambiguity about collecting email addresses
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,147 +36,49 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---00000000000072bca60577e5c14f
-Content-Type: text/plain; charset="UTF-8"
-
-On Thu., 11 Oct. 2018, 06:11 Alan Cox, <gnomes@lxorguk.ukuu.org.uk> wrote:
-
-> On Wed, 10 Oct 2018 14:19:17 -0300
-> Mauro Carvalho Chehab <mchehab+samsung@kernel.org> wrote:
->
-> > Em Wed, 10 Oct 2018 16:53:08 +0100
-> > Alan Cox <gnomes@lxorguk.ukuu.org.uk> escreveu:
-> >
-> > > > -Maintainers have the right and responsibility to remove, edit, or
-> reject
-> > > > +Maintainers may remove, edit, or reject
-> > > >  comments, commits, code, wiki edits, issues, and other
-> contributions that are
-> > > >  not aligned to this Code of Conduct, or to ban temporarily or
-> permanently any
-> > > >  contributor for other behaviors that they deem inappropriate,
-> threatening,
-> > > >
-> > > > The previous text seems too much legal for my taste.
-> > > >
-> > >
-> > > That is just as confusing. Maintainers have the right to remove, edit,
-> > > reject commits that *are* aligned with the code as well.
-> >
-> > Good point. Yeah, a maintainer can do whatever he thinks it is
-> > appropriate for a patch - even when it follows the CoC.
-> >
-> > > So what exactly is the point here ?
-> >
-> > The point is "responsibility" - that sounds like it is bounding a legal
-> > duty to a maintainer.
->
-> If you remove the responsibility aspect you might as well remove the
-> entire clause. It doesn't say anything as it's simply a subset of what
-> maintainers do anyway.
->
-> So how about
->
-> "Maintainers should remove, edit or reject..."
->
-> that keeps the sense that there should be pressure against abusive
-> behaviour.
->
-> except of course someone will attach a zero day exploit and fix to a
-> coc-violating rant and then you are a bit stuffed 8)
->
-
-Why? You can still talk to the person about their behaviour and suggest
-they modify their behaviour and most likely someone who is an asshole with
-a 0 day won't be posting it to us.
-
-Dave
-
-Dave.
+On 10/06/18 14:36, James Bottomley wrote:
+> From 4a614e9440148894207bef5bf69e74071baceb3b Mon Sep 17 00:00:00 2001
+> From: James Bottomley <James.Bottomley@HansenPartnership.com>
+> Date: Sat, 6 Oct 2018 14:21:56 -0700
+> Subject: [PATCH 1/2] code-of-conduct: Fix the ambiguity about collecting email
+>  addresses
+> 
+> The current code of conduct has an ambiguity in the it considers publishing
+> private information such as email addresses unacceptable behaviour.  Since
+> the Linux kernel collects and publishes email addresses as part of the patch
+> process, add an exception clause for email addresses ordinarily collected by
+> the project to correct this ambiguity.
+> 
+> Signed-off-by: James Bottomley <James.Bottomley@HansenPartnership.com>
+> ---
+>  Documentation/process/code-of-conduct.rst | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/process/code-of-conduct.rst b/Documentation/process/code-of-conduct.rst
+> index ab7c24b5478c..aa40e34e7785 100644
+> --- a/Documentation/process/code-of-conduct.rst
+> +++ b/Documentation/process/code-of-conduct.rst
+> @@ -31,7 +31,7 @@ Examples of unacceptable behavior by participants include:
+>  * Trolling, insulting/derogatory comments, and personal or political attacks
+>  * Public or private harassment
+>  * Publishing others’ private information, such as a physical or electronic
+> -  address, without explicit permission
+> +  address not ordinarily collected by the project, without explicit permission
+>  * Other conduct which could reasonably be considered inappropriate in a
+>    professional setting
 
 
-> Alan
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
->
+My understanding of the concern behind this change is that we should be
+able to use an email address for the current development practices, such
+as Reported-by, Suggested-by, etc tags when the email address was
+provided in what is a public space for the project.  The public space
+is visible to anyone in the world who desires to access it.
 
---00000000000072bca60577e5c14f
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+I do not understand how "ordinarily collected by the project" is equivalent
+to "an email address that was provided in a public space for the project".
+Ordinarily collected could include activities that can be expected to be
+private and not visible to any arbitrary person in the world.
 
-<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr">=
-On Thu., 11 Oct. 2018, 06:11 Alan Cox, &lt;<a href=3D"mailto:gnomes@lxorguk=
-.ukuu.org.uk">gnomes@lxorguk.ukuu.org.uk</a>&gt; wrote:<br></div><blockquot=
-e class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc sol=
-id;padding-left:1ex">On Wed, 10 Oct 2018 14:19:17 -0300<br>
-Mauro Carvalho Chehab &lt;<a href=3D"mailto:mchehab%2Bsamsung@kernel.org" t=
-arget=3D"_blank" rel=3D"noreferrer">mchehab+samsung@kernel.org</a>&gt; wrot=
-e:<br>
-<br>
-&gt; Em Wed, 10 Oct 2018 16:53:08 +0100<br>
-&gt; Alan Cox &lt;<a href=3D"mailto:gnomes@lxorguk.ukuu.org.uk" target=3D"_=
-blank" rel=3D"noreferrer">gnomes@lxorguk.ukuu.org.uk</a>&gt; escreveu:<br>
-&gt; <br>
-&gt; &gt; &gt; -Maintainers have the right and responsibility to remove, ed=
-it, or reject<br>
-&gt; &gt; &gt; +Maintainers may remove, edit, or reject<br>
-&gt; &gt; &gt;=C2=A0 comments, commits, code, wiki edits, issues, and other=
- contributions that are<br>
-&gt; &gt; &gt;=C2=A0 not aligned to this Code of Conduct, or to ban tempora=
-rily or permanently any<br>
-&gt; &gt; &gt;=C2=A0 contributor for other behaviors that they deem inappro=
-priate, threatening,<br>
-&gt; &gt; &gt; <br>
-&gt; &gt; &gt; The previous text seems too much legal for my taste.<br>
-&gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0<br>
-&gt; &gt; <br>
-&gt; &gt; That is just as confusing. Maintainers have the right to remove, =
-edit,<br>
-&gt; &gt; reject commits that *are* aligned with the code as well.=C2=A0 <b=
-r>
-&gt; <br>
-&gt; Good point. Yeah, a maintainer can do whatever he thinks it is <br>
-&gt; appropriate for a patch - even when it follows the CoC.<br>
-&gt; <br>
-&gt; &gt; So what exactly is the point here ?=C2=A0 <br>
-&gt; <br>
-&gt; The point is &quot;responsibility&quot; - that sounds like it is bound=
-ing a legal<br>
-&gt; duty to a maintainer.<br>
-<br>
-If you remove the responsibility aspect you might as well remove the<br>
-entire clause. It doesn&#39;t say anything as it&#39;s simply a subset of w=
-hat<br>
-maintainers do anyway.<br>
-<br>
-So how about<br>
-<br>
-&quot;Maintainers should remove, edit or reject...&quot;<br>
-<br>
-that keeps the sense that there should be pressure against abusive<br>
-behaviour.<br>
-<br>
-except of course someone will attach a zero day exploit and fix to a<br>
-coc-violating rant and then you are a bit stuffed 8)<br></blockquote></div>=
-</div><div dir=3D"auto"><br></div><div dir=3D"auto">Why? You can still talk=
- to the person about their behaviour and suggest they modify their behaviou=
-r and most likely someone who is an asshole with a 0 day won&#39;t be posti=
-ng it to us.</div><div dir=3D"auto"><br></div><div dir=3D"auto">Dave=C2=A0<=
-/div><div dir=3D"auto"><br></div><div dir=3D"auto">Dave.</div><div dir=3D"a=
-uto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote"><blockquote cla=
-ss=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;pa=
-dding-left:1ex">
-<br>
-Alan<br>
-_______________________________________________<br>
-Ksummit-discuss mailing list<br>
-<a href=3D"mailto:Ksummit-discuss@lists.linuxfoundation.org" target=3D"_bla=
-nk" rel=3D"noreferrer">Ksummit-discuss@lists.linuxfoundation.org</a><br>
-<a href=3D"https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discu=
-ss" rel=3D"noreferrer noreferrer" target=3D"_blank">https://lists.linuxfoun=
-dation.org/mailman/listinfo/ksummit-discuss</a><br>
-</blockquote></div></div></div>
+My issue is with the word choice.  I agree with the underlying concept.
 
---00000000000072bca60577e5c14f--
+-Frank
