@@ -1,31 +1,26 @@
-Return-Path: <gnomes@lxorguk.ukuu.org.uk>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 766BACD5
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6D7F5CFC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 10 Oct 2018 20:09:58 +0000 (UTC)
-Received: from fuzix.org (www.llwyncelyn.cymru [82.70.14.225])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 92542772
+	Wed, 10 Oct 2018 20:10:32 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 26DF2772
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 10 Oct 2018 20:09:57 +0000 (UTC)
-Date: Wed, 10 Oct 2018 21:09:48 +0100
-From: Alan Cox <gnomes@lxorguk.ukuu.org.uk>
-To: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-Message-ID: <20181010210948.62ed5ce6@alans-desktop>
-In-Reply-To: <20181010141917.611fb5d8@coco.lan>
-References: <1538861738.4088.5.camel@HansenPartnership.com>
-	<1538861851.4088.7.camel@HansenPartnership.com>
-	<20181008172303.4f06cd94@coco.lan>
-	<20181010165308.187aae51@alans-desktop>
-	<20181010141917.611fb5d8@coco.lan>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+	Wed, 10 Oct 2018 20:10:32 +0000 (UTC)
+Message-ID: <1539202230.12644.12.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Wed, 10 Oct 2018 13:10:30 -0700
+In-Reply-To: <1539202053.12644.8.camel@HansenPartnership.com>
+References: <1539202053.12644.8.camel@HansenPartnership.com>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	linux-kernel <linux-kernel@vger.kernel.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [PATCH 2/2] code-of-conduct: Strip the
- enforcement paragraph pending community discussion
+Cc: linux-kernel <linux-kernel@vger.kernel.org>
+Subject: [Ksummit-discuss] [PATCH v2 3/3] code-of-conduct: Add back the TAB
+ as the central reporting point
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,44 +30,40 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 10 Oct 2018 14:19:17 -0300
-Mauro Carvalho Chehab <mchehab+samsung@kernel.org> wrote:
+Add a Reporting section where the Enforcement section used to be.  The
+intention is still to debate what should go here, but in the meantime, this
+gives us back the central reporting point we had in the old code of conflict.
 
-> Em Wed, 10 Oct 2018 16:53:08 +0100
-> Alan Cox <gnomes@lxorguk.ukuu.org.uk> escreveu:
-> 
-> > > -Maintainers have the right and responsibility to remove, edit, or reject
-> > > +Maintainers may remove, edit, or reject
-> > >  comments, commits, code, wiki edits, issues, and other contributions that are
-> > >  not aligned to this Code of Conduct, or to ban temporarily or permanently any
-> > >  contributor for other behaviors that they deem inappropriate, threatening,
-> > > 
-> > > The previous text seems too much legal for my taste.
-> > >     
-> > 
-> > That is just as confusing. Maintainers have the right to remove, edit,
-> > reject commits that *are* aligned with the code as well.  
-> 
-> Good point. Yeah, a maintainer can do whatever he thinks it is 
-> appropriate for a patch - even when it follows the CoC.
-> 
-> > So what exactly is the point here ?  
-> 
-> The point is "responsibility" - that sounds like it is bounding a legal
-> duty to a maintainer.
+Signed-off-by: James Bottomley <James.Bottomley@HansenPartnership.com>
 
-If you remove the responsibility aspect you might as well remove the
-entire clause. It doesn't say anything as it's simply a subset of what
-maintainers do anyway.
+---
 
-So how about
+v2: Added this patch to allay concerns we were stripping the reporting
+    mechanism entirely.
+---
+ Documentation/process/code-of-conduct.rst | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-"Maintainers should remove, edit or reject..."
-
-that keeps the sense that there should be pressure against abusive
-behaviour.
-
-except of course someone will attach a zero day exploit and fix to a
-coc-violating rant and then you are a bit stuffed 8)
-
-Alan
+diff --git a/Documentation/process/code-of-conduct.rst b/Documentation/process/code-of-conduct.rst
+index 4dd90987305b..2000bdc2a6ad 100644
+--- a/Documentation/process/code-of-conduct.rst
++++ b/Documentation/process/code-of-conduct.rst
+@@ -59,6 +59,16 @@ address, posting via an official social media account, or acting as an appointed
+ representative at an online or offline event. Representation of a project may be
+ further defined and clarified by project maintainers.
+ 
++Reporting
++=========
++
++Instances of abusive, harassing, or otherwise unacceptable behavior may be
++reported by contacting the Technical Advisory Board (TAB) at
++<tab@lists.linux-foundation.org>. All complaints will be reviewed and
++investigated and will result in a response that is deemed necessary and
++appropriate to the circumstances. The TAB is obligated to maintain
++confidentiality with regard to the reporter of an incident.
++
+ Attribution
+ ===========
+ 
+-- 
+2.13.7
