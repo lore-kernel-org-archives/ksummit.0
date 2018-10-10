@@ -1,27 +1,28 @@
-Return-Path: <josh@joshtriplett.org>
+Return-Path: <ebiederm@xmission.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D2D33D4C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8E4D9D4D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 10 Oct 2018 22:16:28 +0000 (UTC)
-Received: from relay10.mail.gandi.net (relay10.mail.gandi.net [217.70.178.230])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0E983775
+	Wed, 10 Oct 2018 22:17:31 +0000 (UTC)
+Received: from out01.mta.xmission.com (out01.mta.xmission.com [166.70.13.231])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3B4C3D0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 10 Oct 2018 22:16:27 +0000 (UTC)
-Date: Wed, 10 Oct 2018 15:16:12 -0700
-From: Josh Triplett <josh@joshtriplett.org>
-To: Frank Rowand <frowand.list@gmail.com>
-Message-ID: <20181010221611.GA5711@localhost>
-References: <20181007085102.17795-1-geert@linux-m68k.org>
-	<f4f7bf39-af34-4375-d6a2-b1f23cad519e@gmail.com>
+	Wed, 10 Oct 2018 22:17:31 +0000 (UTC)
+From: ebiederm@xmission.com (Eric W. Biederman)
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+References: <1539202053.12644.8.camel@HansenPartnership.com>
+	<1539202115.12644.9.camel@HansenPartnership.com>
+Date: Wed, 10 Oct 2018 17:17:04 -0500
+In-Reply-To: <1539202115.12644.9.camel@HansenPartnership.com> (James
+	Bottomley's message of "Wed, 10 Oct 2018 13:08:35 -0700")
+Message-ID: <87bm81v44f.fsf@xmission.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f4f7bf39-af34-4375-d6a2-b1f23cad519e@gmail.com>
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	linux-kernel@vger.kernel.org, ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [PATCH] code-of-conduct: Remove explicit list
- of discrimination factors
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Cc: linux-kernel <linux-kernel@vger.kernel.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [PATCH v2 1/3] code-of-conduct: Fix the
+	ambiguity about collecting email addresses
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,44 +32,45 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Oct 10, 2018 at 01:55:04PM -0700, Frank Rowand wrote:
-> On 10/07/18 01:51, Geert Uytterhoeven wrote:
-> > Providing an explicit list of discrimination factors may give the false
-> > impression that discrimination based on other unlisted factors would be
-> > allowed.
-> > 
-> > Avoid any ambiguity by removing the list, to ensure "a harassment-free
-> > experience for everyone", period.
-[...]
-> > diff --git a/Documentation/process/code-of-conduct.rst b/Documentation/process/code-of-conduct.rst
-> > index ab7c24b5478c6b30..e472c9f86ff00b34 100644
-> > --- a/Documentation/process/code-of-conduct.rst
-> > +++ b/Documentation/process/code-of-conduct.rst
-> > @@ -6,10 +6,7 @@ Our Pledge
-> >  
-> >  In the interest of fostering an open and welcoming environment, we as
-> >  contributors and maintainers pledge to making participation in our project and
-> > -our community a harassment-free experience for everyone, regardless of age, body
-> > -size, disability, ethnicity, sex characteristics, gender identity and
-> > -expression, level of experience, education, socio-economic status, nationality,
-> > -personal appearance, race, religion, or sexual identity and orientation.
-> > +our community a harassment-free experience for everyone.
-> >  
-> >  Our Standards
-> >  =============
-> > 
-> 
-> 
-> The words removed by this patch are a political statement.
+James Bottomley <James.Bottomley@HansenPartnership.com> writes:
 
-Choosing not to say those words is a political statement.
+> The current code of conduct has an ambiguity in the it considers publishi=
+ng
+> private information such as email addresses unacceptable behaviour.  Since
+> the Linux kernel collects and publishes email addresses as part of the pa=
+tch
+> process, add an exception clause for email addresses ordinarily collected=
+ by
+> the project to correct this ambiguity.
 
-See the original commit message for the code of conduct: "Explicit
-guidelines have demonstrated success in other projects and other areas
-of the kernel."
+Acked-by: "Eric W. Biederman" <ebiederm@xmission.com>
 
-And see the FAQ entry at https://www.contributor-covenant.org/faq for
-"The Contributor Covenant explicitly lists a set of protected classes;
-does this make it acceptable to discriminate or make others feel
-unwelcome based on other factors?" (I wrote that FAQ entry and submitted
-it upstream, where it was enthusiastically merged.)
+>
+> Fixes: 8a104f8b5867c682 ("Code of Conduct: Let's revamp it.")
+> Acked-by: Geert Uytterhoeven <geert@linux-m68k.org>
+> Acked-by: Shuah Khan <shuah@kernel.org>
+> Acked-by: Guenter Roeck <linux@roeck-us.net>
+> Reviewed-by: Alan Cox <alan@llwyncelyn.cymru>
+> Reviewed-by: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+> Signed-off-by: James Bottomley <James.Bottomley@HansenPartnership.com>
+> ---
+>  Documentation/process/code-of-conduct.rst | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/Documentation/process/code-of-conduct.rst b/Documentation/pr=
+ocess/code-of-conduct.rst
+> index ab7c24b5478c..aa40e34e7785 100644
+> --- a/Documentation/process/code-of-conduct.rst
+> +++ b/Documentation/process/code-of-conduct.rst
+> @@ -31,7 +31,7 @@ Examples of unacceptable behavior by participants inclu=
+de:
+>  * Trolling, insulting/derogatory comments, and personal or political att=
+acks
+>  * Public or private harassment
+>  * Publishing others=E2=80=99 private information, such as a physical or =
+electronic
+> -  address, without explicit permission
+> +  address not ordinarily collected by the project, without explicit perm=
+ission
+>  * Other conduct which could reasonably be considered inappropriate in a
+>    professional setting
