@@ -1,28 +1,25 @@
 Return-Path: <ebiederm@xmission.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8E4D9D4D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B23A4B1E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 10 Oct 2018 22:17:31 +0000 (UTC)
+	Wed, 10 Oct 2018 23:23:50 +0000 (UTC)
 Received: from out01.mta.xmission.com (out01.mta.xmission.com [166.70.13.231])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3B4C3D0
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4E1C934F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 10 Oct 2018 22:17:31 +0000 (UTC)
+	Wed, 10 Oct 2018 23:23:50 +0000 (UTC)
 From: ebiederm@xmission.com (Eric W. Biederman)
 To: James Bottomley <James.Bottomley@HansenPartnership.com>
 References: <1539202053.12644.8.camel@HansenPartnership.com>
-	<1539202115.12644.9.camel@HansenPartnership.com>
-Date: Wed, 10 Oct 2018 17:17:04 -0500
-In-Reply-To: <1539202115.12644.9.camel@HansenPartnership.com> (James
-	Bottomley's message of "Wed, 10 Oct 2018 13:08:35 -0700")
-Message-ID: <87bm81v44f.fsf@xmission.com>
+Date: Wed, 10 Oct 2018 18:23:24 -0500
+In-Reply-To: <1539202053.12644.8.camel@HansenPartnership.com> (James
+	Bottomley's message of "Wed, 10 Oct 2018 13:07:33 -0700")
+Message-ID: <87efcxtmhf.fsf@xmission.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 Cc: linux-kernel <linux-kernel@vger.kernel.org>,
 	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [PATCH v2 1/3] code-of-conduct: Fix the
-	ambiguity about collecting email addresses
+Subject: Re: [Ksummit-discuss] [PATCH v2 0/3] code of conduct fixes
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,43 +31,49 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 
 James Bottomley <James.Bottomley@HansenPartnership.com> writes:
 
-> The current code of conduct has an ambiguity in the it considers publishi=
-ng
-> private information such as email addresses unacceptable behaviour.  Since
-> the Linux kernel collects and publishes email addresses as part of the pa=
-tch
-> process, add an exception clause for email addresses ordinarily collected=
- by
-> the project to correct this ambiguity.
+> Resend to show accumulated tags and also to add a third patch listing
+> the TAB as the reporting point as a few people seem to want.  If it
+> gets the same level of support, I'll send it in with the other two.
 
-Acked-by: "Eric W. Biederman" <ebiederm@xmission.com>
 
->
-> Fixes: 8a104f8b5867c682 ("Code of Conduct: Let's revamp it.")
-> Acked-by: Geert Uytterhoeven <geert@linux-m68k.org>
-> Acked-by: Shuah Khan <shuah@kernel.org>
-> Acked-by: Guenter Roeck <linux@roeck-us.net>
-> Reviewed-by: Alan Cox <alan@llwyncelyn.cymru>
-> Reviewed-by: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-> Signed-off-by: James Bottomley <James.Bottomley@HansenPartnership.com>
-> ---
->  Documentation/process/code-of-conduct.rst | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/Documentation/process/code-of-conduct.rst b/Documentation/pr=
-ocess/code-of-conduct.rst
-> index ab7c24b5478c..aa40e34e7785 100644
-> --- a/Documentation/process/code-of-conduct.rst
-> +++ b/Documentation/process/code-of-conduct.rst
-> @@ -31,7 +31,7 @@ Examples of unacceptable behavior by participants inclu=
-de:
->  * Trolling, insulting/derogatory comments, and personal or political att=
-acks
->  * Public or private harassment
->  * Publishing others=E2=80=99 private information, such as a physical or =
-electronic
-> -  address, without explicit permission
-> +  address not ordinarily collected by the project, without explicit perm=
-ission
->  * Other conduct which could reasonably be considered inappropriate in a
->    professional setting
+There is also:
+
+> Our Responsibilities
+> ====================
+> 
+> Maintainers are responsible for clarifying the standards of acceptable behavior
+> and are expected to take appropriate and fair corrective action in response to
+> any instances of unacceptable behavior.
+> 
+> Maintainers have the right and responsibility to remove, edit, or reject
+> comments, commits, code, wiki edits, issues, and other contributions that are
+> not aligned to this Code of Conduct, or to ban temporarily or permanently any
+> contributor for other behaviors that they deem inappropriate, threatening,
+> offensive, or harmful.
+
+Which is very problematic.
+a) In append only logs like git we can not edit history.
+   Making it a mainters responsibility to edit the history, to do the
+   impossible is a problem.
+
+b) There are no responsibilities of for people who are not Maintainers.
+   That is another problem.
+
+c) The entire tone of the reponsibilities section is out of line with a
+   community where there are no enforcement powers only the power to
+   accept or not accept a patch.  Only the power to persuade not to
+   enforce.
+
+Overall in the discussions I have heard people talking about persuading,
+educating, and not feeding trolls.   Nowhere have I heard people talking
+about policing the community which I understand that responsiblity
+section to be talking about.
+
+Increasingly I am getting the feeling that this document does not the
+linux development community.  Perhaps a revert and trying to come up
+with better language from scratch would be better.
+
+I don't know how to rephrase that reponsibility section but if we don't
+go with the revert something looks like it need sot be done there.
+
+Eric
