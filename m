@@ -1,28 +1,32 @@
-Return-Path: <mchehab+samsung@kernel.org>
+Return-Path: <geert.uytterhoeven@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5259E9EE
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 231BAA85
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 11 Oct 2018 03:12:01 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C92CCEC
+	Thu, 11 Oct 2018 06:50:35 +0000 (UTC)
+Received: from mail-vs1-f67.google.com (mail-vs1-f67.google.com
+	[209.85.217.67])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5EE07D0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 11 Oct 2018 03:12:00 +0000 (UTC)
-Date: Thu, 11 Oct 2018 00:11:55 -0300
-From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-Message-ID: <20181011001155.4ed20a52@coco.lan>
-In-Reply-To: <1539216001.3462.1.camel@HansenPartnership.com>
-References: <1539202053.12644.8.camel@HansenPartnership.com>
-	<87efcxtmhf.fsf@xmission.com>
-	<1539216001.3462.1.camel@HansenPartnership.com>
+	Thu, 11 Oct 2018 06:50:34 +0000 (UTC)
+Received: by mail-vs1-f67.google.com with SMTP id w194so7487535vsc.11
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 10 Oct 2018 23:50:34 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	linux-kernel <linux-kernel@vger.kernel.org>
-Subject: Re: [Ksummit-discuss] [PATCH v2 0/3] code of conduct fixes
+References: <1539202053.12644.8.camel@HansenPartnership.com>
+	<1539202230.12644.12.camel@HansenPartnership.com>
+	<20181010211313.5a63ce6f@alans-desktop>
+In-Reply-To: <20181010211313.5a63ce6f@alans-desktop>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 11 Oct 2018 08:50:20 +0200
+Message-ID: <CAMuHMdVFpaJf-omEXUGjBv6E_4aXoXWT0QRQ138A+9Zcjv97kQ@mail.gmail.com>
+To: One Thousand Gnomes <gnomes@lxorguk.ukuu.org.uk>
+Content-Type: text/plain; charset="UTF-8"
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [PATCH v2 3/3] code-of-conduct: Add back the
+ TAB as the central reporting point
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,106 +36,23 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Em Wed, 10 Oct 2018 17:00:01 -0700
-James Bottomley <James.Bottomley@HansenPartnership.com> escreveu:
+On Wed, Oct 10, 2018 at 10:14 PM Alan Cox <gnomes@lxorguk.ukuu.org.uk> wrote:
+> On Wed, 10 Oct 2018 13:10:30 -0700
+> > +appropriate to the circumstances. The TAB is obligated to maintain
+> > +confidentiality with regard to the reporter of an incident.
+>
+> I would add (except where required by law.)
 
-> On Wed, 2018-10-10 at 18:23 -0500, Eric W. Biederman wrote:
-> > James Bottomley <James.Bottomley@HansenPartnership.com> writes:
-> >   
-> > > Resend to show accumulated tags and also to add a third patch
-> > > listing the TAB as the reporting point as a few people seem to
-> > > want.  If it gets the same level of support, I'll send it in with
-> > > the other two.  
-> > 
-> > 
-> > There is also:
-> >   
-> > > Our Responsibilities
-> > > ====================
-> > > 
-> > > Maintainers are responsible for clarifying the standards of
-> > > acceptable behavior and are expected to take appropriate and fair
-> > > corrective action in response to any instances of unacceptable
-> > > behavior.
-> > > 
-> > > Maintainers have the right and responsibility to remove, edit, or
-> > > reject comments, commits, code, wiki edits, issues, and other
-> > > contributions that are not aligned to this Code of Conduct, or to
-> > > ban temporarily or permanently any contributor for other behaviors
-> > > that they deem inappropriate, threatening, offensive, or harmful.  
-> > 
-> > Which is very problematic.
-> > a) In append only logs like git we can not edit history.
-> >    Making it a mainters responsibility to edit the history, to do the
-> >    impossible is a problem.  
-> 
-> Git isn't entirely append only.  We can do limited history changes by
-> rebasing.  Some trees do that quite a lot.  Github has this same
-> history problem, so certainly we could amend commits before they hit
-> Linus' tree but after that it isn't "fair corrective action" because it
-> can't be done technically.
+With the above change:
+Acked-by: Geert Uytterhoeven <geert@linux-m68k.org>
 
-We should discuss more about this during MS/KS. Even before pushing upstream, 
-it is a problem on some subsytems, as sub-maintainers and driver developers
-may have issues with rebases.
+Gr{oetje,eeting}s,
 
-I'm sure maintainers will do rebases if they think it is worth enough,
-provided that it won't break things, but rebases should be the exception,
-not the rule.
+                        Geert
 
-So, I would add on a FAQ (or at the CoC itself) that maintainers won't
-do git rebases due to CoC. So, people complaining about CoC violations
-inside patches should reply ASAP, in order for the maintainer to be
-able to see it *before* merging the patch on his tree.
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-> > Overall in the discussions I have heard people talking about
-> > persuading, educating, and not feeding trolls.   Nowhere have I heard
-> > people talking about policing the community which I understand that
-> > responsiblity section to be talking about.  
-> 
-> Policing is the wrong word: no-one has policing power.  However, we
-> still have persuasive power.  The point is there's a reasonable line
-> you can tread as a persuader.  Some very few people simply won't
-> listen, but we have, actually, excluded them before without a code of
-> conduct.
-
-Yes, but this particular CoC assumes that maintainer has policing power.
-
-This needs to be reviewed. For now, I would get rid of
-
-	"have the right and responsibility"
-
-in favor of something lighter:
-
-	"should"
-
-Later we may need something else. 
-
-> 
-> > Increasingly I am getting the feeling that this document does not the
-> > linux development community.  Perhaps a revert and trying to come up
-> > with better language from scratch would be better.  
-> 
-> I'm open to pushing a revert instead. However, I think this one is
-> workable too if interpreted reasonably.
-
-Agreed.
-
-> > I don't know how to rephrase that reponsibility section but if we
-> > don't go with the revert something looks like it need sot be done
-> > there.  
-> 
-> That is an argument for keeping what we have ... these things are
-> difficult to write.
-
-A simple change like the above (plus this /3 patch series) should work for
-now, but, IMHO, this CoC model is too bound to a centralized web-based
-site-hosted development model, lacking ways for it to work with
-de-centralized e-mail based workflows.
-
-For next Kernels, we may need to either replace it by something else
-or do more changes on it, in order for it to make sense with our
-workflow.
-
-Thanks,
-Mauro
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
