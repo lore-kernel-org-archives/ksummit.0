@@ -1,23 +1,23 @@
-Return-Path: <tytso@thunk.org>
+Return-Path: <jikos@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 858A82C1B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5FBA22C94
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 16 Oct 2018 20:51:12 +0000 (UTC)
-Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0F0CDFD
+	Tue, 16 Oct 2018 21:11:21 +0000 (UTC)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2516BFD
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 16 Oct 2018 20:51:11 +0000 (UTC)
-Date: Tue, 16 Oct 2018 16:51:09 -0400
-From: "Theodore Y. Ts'o" <tytso@mit.edu>
-To: Christian Borntraeger <borntraeger@de.ibm.com>
-Message-ID: <20181016205109.GB14947@thunk.org>
+	Tue, 16 Oct 2018 21:11:20 +0000 (UTC)
+Date: Tue, 16 Oct 2018 23:11:17 +0200 (CEST)
+From: Jiri Kosina <jikos@kernel.org>
+To: "Theodore Y. Ts'o" <tytso@mit.edu>
+In-Reply-To: <20181016205109.GB14947@thunk.org>
+Message-ID: <nycvar.YFH.7.76.1810162308110.23511@cbobk.fhfr.pm>
 References: <20181016021254.GA21220@thunk.org>
 	<3af0bf1d-6dea-2736-b4f0-171db8a2d447@de.ibm.com>
+	<20181016205109.GB14947@thunk.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3af0bf1d-6dea-2736-b4f0-171db8a2d447@de.ibm.com>
+Content-Type: text/plain; charset=US-ASCII
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] new topic: regression test infrastructure?
  (was Draft Maintainer's Summit Agenda and Attendees - )
@@ -30,37 +30,20 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Oct 16, 2018 at 09:53:06PM +0200, Christian Borntraeger wrote:
-> 
-> 
-> On 10/16/2018 04:12 AM, Theodore Y. Ts'o wrote:
-> > This is the draft agenda for the Maintainer's Summit which I and the
-> > program committee have come up with:
-> > [..] 
-> > 2:30 TBD
-> > [..]
-> > 4:30 TBD
-> 
-> Does it make sense to talk about existing test infrastructure 
-> (like syzbot,Geert Uytterhoeven and Guenter Roecks reports as well as all the others)
-> What architectures are missing? Is it ok to run tests in-house and only report errors?
-> What test scenarios are missing?
+On Tue, 16 Oct 2018, Theodore Y. Ts'o wrote:
 
-This would probably be better suited at the Kernel Summit track in
-Vancouver next month, as there will be a much larger number of kernel
-developers there.  The Maintainer's Summit is intended to focus much
-more process issues than specific technical questions.
+> Similarly, the question of whether, say, Power, or Z series, or Risc-V 
+> are "missing" are best targetted at the companies which back those 
+> architectures.
 
-Also, some of these questions are best answered by those who can bring
-resources to the table.  For example, it's easy for someone to point
-out that some architecture, like Itanium or pa-risc are "missing".
-But the people to whom we would need to be having that conversation
-would be Intel and HP, respectively, and both would likely say that
-those architectures are obscelent, and so they would probably decline
-to provide those resources.
+At least for SUSE I can say is that we're going to have a decent 
+representation on LPC/KS in Vancouver, and we are one of those who do 
+support power and Z series for (part of) living, so this could eventually 
+be a useful discussion (especially in case other vendors on the same boat 
+are represented there as well).
 
-Similarly, the question of whether, say, Power, or Z series, or Risc-V
-are "missing" are best targetted at the companies which back those
-architectures.
+Thanks,
 
-					- Ted
+-- 
+Jiri Kosina
+SUSE Labs
