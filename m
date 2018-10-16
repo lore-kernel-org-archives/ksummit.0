@@ -1,26 +1,26 @@
 Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 342AE28B8
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B419F28BF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 16 Oct 2018 15:00:18 +0000 (UTC)
+	Tue, 16 Oct 2018 15:13:20 +0000 (UTC)
 Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
 	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CF6826E0
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 609C8784
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 16 Oct 2018 15:00:17 +0000 (UTC)
-Message-ID: <1539702015.2805.10.camel@HansenPartnership.com>
+	Tue, 16 Oct 2018 15:13:20 +0000 (UTC)
+Message-ID: <1539702797.2805.19.camel@HansenPartnership.com>
 From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Tue, 16 Oct 2018 08:00:15 -0700
-In-Reply-To: <1539701820.2805.6.camel@HansenPartnership.com>
-References: <1539701820.2805.6.camel@HansenPartnership.com>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>, Theodore Ts'o <tytso@mit.edu>
+Date: Tue, 16 Oct 2018 08:13:17 -0700
+In-Reply-To: <CAKMK7uHxdmJVAtUDWG-=0-qw9RxaW4bONscmbH4PjDZrgYnBqw@mail.gmail.com>
+References: <20181016021254.GA21220@thunk.org>
+	<CAKMK7uHxdmJVAtUDWG-=0-qw9RxaW4bONscmbH4PjDZrgYnBqw@mail.gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Cc: linux-kernel <linux-kernel@vger.kernel.org>
-Subject: [Ksummit-discuss] [PATCH v3 3/3] code-of-conduct: Add back the TAB
- as the central reporting point
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] Draft Maintainer's Summit Agenda and Attendees
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,46 +30,36 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Add a Reporting section where the Enforcement section used to be.  The
-intention is still to debate what should go here, but in the meantime, this
-gives us back the central reporting point we had in the old code of conflict.
+On Tue, 2018-10-16 at 10:11 +0200, Daniel Vetter wrote:
+> On Tue, Oct 16, 2018 at 4:13 AM Theodore Y. Ts'o <tytso@mit.edu>
+> wrote:
+> > 
+> > This is the draft agenda for the Maintainer's Summit which I and
+> > the program committee have come up with:
+> > 
+> > 12:00 Lunch / CoC: How did we get here report-out / small group
+> > discussion
+> > 12:30 Code of Conduct: next steps
+> 
+> CoC is on the agenda and the one subsystem with actual operational
+> experience with the exact same CoC is not present.
 
-Reviewed-by: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-Reviewed-by: Mauro Carvalho Chehab <mchehab@kernel.org>
-Acked-by: Geert Uytterhoeven <geert@linux-m68k.org>
-Signed-off-by: James Bottomley <James.Bottomley@HansenPartnership.com>
+Given the sudden venue change for the Maintainer summit part, there
+were always going to be people who couldn't make it for one reason or
+another.  The Kernel Summit is still going ahead, as advertised, in
+Vancouver and there's a CoC topic proposed there as well and it will be
+open to everyone also going to the Linux Plumbers Conference.
 
----
+>  And I don't see anyone else from an external community with real
+> experience (or someone who does consulting in this area) invited to
+> fill that gap either.
 
-v2: Added this patch to allay concerns we were stripping the reporting
-    mechanism entirely.
-v3: Add (where required by law) as a qualifier to the confidentiality
-    requirement
----
- Documentation/process/code-of-conduct.rst | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+I don't buy the narrative that you must be a CoC consultant or
+implementor to make a difference.  The kernel communities have been
+getting better for a while and several people on the invitee list have
+had a lot to do with that.  For me, one of the most gratifying things
+to come out of all the fire and fury levelled at us on social media was
+that none of the complainers actually had a recent incident to make an
+issue of ... everything was at least two years old or older.
 
-diff --git a/Documentation/process/code-of-conduct.rst b/Documentation/process/code-of-conduct.rst
-index 4dd90987305b..eec768471a4d 100644
---- a/Documentation/process/code-of-conduct.rst
-+++ b/Documentation/process/code-of-conduct.rst
-@@ -59,6 +59,17 @@ address, posting via an official social media account, or acting as an appointed
- representative at an online or offline event. Representation of a project may be
- further defined and clarified by project maintainers.
- 
-+Reporting
-+=========
-+
-+Instances of abusive, harassing, or otherwise unacceptable behavior may be
-+reported by contacting the Technical Advisory Board (TAB) at
-+<tab@lists.linux-foundation.org>. All complaints will be reviewed and
-+investigated and will result in a response that is deemed necessary and
-+appropriate to the circumstances. The TAB is obligated to maintain
-+confidentiality with regard to the reporter of an incident (except where
-+required by law).
-+
- Attribution
- ===========
- 
--- 
-2.13.7
+James
