@@ -1,27 +1,23 @@
-Return-Path: <daniel.vetter@ffwll.ch>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0067E1F49
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id DE73B2837
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 16 Oct 2018 08:11:43 +0000 (UTC)
-Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com
-	[209.85.222.171])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7227FFD
+	Tue, 16 Oct 2018 14:57:03 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6C844623
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 16 Oct 2018 08:11:42 +0000 (UTC)
-Received: by mail-qk1-f171.google.com with SMTP id p6-v6so13580522qkg.1
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 16 Oct 2018 01:11:42 -0700 (PDT)
-MIME-Version: 1.0
-References: <20181016021254.GA21220@thunk.org>
-In-Reply-To: <20181016021254.GA21220@thunk.org>
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Tue, 16 Oct 2018 10:11:29 +0200
-Message-ID: <CAKMK7uHxdmJVAtUDWG-=0-qw9RxaW4bONscmbH4PjDZrgYnBqw@mail.gmail.com>
-To: "Theodore Ts'o" <tytso@mit.edu>
+	Tue, 16 Oct 2018 14:57:03 +0000 (UTC)
+Message-ID: <1539701820.2805.6.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Tue, 16 Oct 2018 07:57:00 -0700
 Content-Type: text/plain; charset="UTF-8"
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] Draft Maintainer's Summit Agenda and Attendees
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Cc: linux-kernel <linux-kernel@vger.kernel.org>
+Subject: [Ksummit-discuss] [PATCH v3 0/3] code of conduct fixes
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,81 +27,54 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Oct 16, 2018 at 4:13 AM Theodore Y. Ts'o <tytso@mit.edu> wrote:
->
-> This is the draft agenda for the Maintainer's Summit which I and the
-> program committee have come up with:
->
-> 12:00 Lunch / CoC: How did we get here report-out / small group discussion
-> 12:30 Code of Conduct: next steps
+Resend to modify the third patch to add (except where required by law)
+and accumulate more tags
 
-CoC is on the agenda and the one subsystem with actual operational
-experience with the exact same CoC is not present. And I don't see
-anyone else from an external community with real experience (or
-someone who does consulting in this area) invited to fill that gap
-either.
--Daniel
+---
 
-> 1:00 Making making stable kernel releases more helpful for community
->         distros (Laura Abott)
-> 1:30 API replacement / deprecation (Kees Cook)
-> 2:00 Handling of embargoed security issues (Jiri Kosina)
-> 2:30 TBD
-> 3:00 break
-> 3:30 Deprecation / removal of old hardware support (Arnd Bergmann)
-> 4:00 Guidelines for EXPORT_SYMBOL_GPL (Greg K-H)
-> 4:30 TBD
-> 5:00 Maintainer summit feedback - things that went well; what could be
->         better (Ted Ts'o)
-> 5:30 Group Photo
-> 6:45 Walk to restaurant
-> 7:00 Maintainer's Summit Dinner
->
-> Comments or suggestions are welcome.
->
-> Below please find the the current set of attendees.  (There may be a
-> few sponsored attendees that have not yet registered.)
->
-> Andrew Morton
-> Arnd Bergmann
-> Chris Mason
-> Christoph Hellwig
-> Greg KH
-> Herbert Xu
-> James Bottomley
-> Jiri Kosina
-> Jonathan Corbet
-> Kees Cook
-> Laura Abbott
-> Linus Torvalds
-> Marc Zyngier
-> Mark Brown
-> Masahiro Yamada
-> Mauro Carvalho Chehab
-> Michael Ellerman
-> Olof Johansson
-> Palmer Dabbelt
-> Paul McKenney
-> Peter Zijlstra
-> Rafael Wysocki
-> Sasha Levin
-> Stephen Boyd
-> Stephen Rothwell
-> Steven Rostedt
-> Takashi Iwai
-> Theodore Tso
-> Thomas Gleixner
-> Will Deacon
->
->                                         - Ted
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+Previous cover letter:
+
+Resend to show accumulated tags and also to add a third patch listing
+the TAB as the reporting point as a few people seem to want.  If it
+gets the same level of support, I'll send it in with the other two.
+
+---
+
+Previous cover letter:
 
 
+We've had several threads discussing potential changes to the code of
+conduct but Mauro is the only person to have proposed an actual patch. 
+In order to move the debate on, I'm presenting two patches, one to fix
+the email problem Mauro identified and the other to strip the
+enforcement section pending community discussion as Shuah suggested.
+
+I'll take responsibility for collecting any tags people want to add
+(review/ack/sign off, etc) and sending the patch in as a signed pull
+request before 4.19 final if they get enough community support.
+
+Note, I've sent both patches in as a series to facilitate review and
+discussion, but they are separable if one is looked on with less favour
+than the other.
+
+It was also a bit unclear which list to send this to, but I finally
+settled on linux-kernel as the catch all and ksummit-discuss since
+that's where most of the current discussion is.  I can add other lists
+as people suggest them.
+
+James
+
+---
+
+
+James Bottomley (3):
+  code-of-conduct: Fix the ambiguity about collecting email addresses
+  code-of-conduct: Strip the enforcement paragraph pending community
+    discussion
+  code-of-conduct: Add back the TAB as the central reporting point
+
+ Documentation/process/code-of-conduct.rst | 14 +++++---------
+ 1 file changed, 5 insertions(+), 9 deletions(-)
 
 -- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-+41 (0) 79 365 57 48 - http://blog.ffwll.ch
+2.13.7
