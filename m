@@ -1,24 +1,25 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <josh@joshtriplett.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B419F28BF
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D272229EF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 16 Oct 2018 15:13:20 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 609C8784
+	Tue, 16 Oct 2018 18:00:26 +0000 (UTC)
+Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
+	[217.70.183.195])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 33CD2FD
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 16 Oct 2018 15:13:20 +0000 (UTC)
-Message-ID: <1539702797.2805.19.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>, Theodore Ts'o <tytso@mit.edu>
-Date: Tue, 16 Oct 2018 08:13:17 -0700
-In-Reply-To: <CAKMK7uHxdmJVAtUDWG-=0-qw9RxaW4bONscmbH4PjDZrgYnBqw@mail.gmail.com>
+	Tue, 16 Oct 2018 18:00:25 +0000 (UTC)
+Date: Tue, 16 Oct 2018 11:00:10 -0700
+From: Josh Triplett <josh@joshtriplett.org>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>
+Message-ID: <20181016180010.GC4367@localhost>
 References: <20181016021254.GA21220@thunk.org>
 	<CAKMK7uHxdmJVAtUDWG-=0-qw9RxaW4bONscmbH4PjDZrgYnBqw@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+	<1539702797.2805.19.camel@HansenPartnership.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1539702797.2805.19.camel@HansenPartnership.com>
 Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] Draft Maintainer's Summit Agenda and Attendees
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -30,36 +31,19 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, 2018-10-16 at 10:11 +0200, Daniel Vetter wrote:
-> On Tue, Oct 16, 2018 at 4:13 AM Theodore Y. Ts'o <tytso@mit.edu>
-> wrote:
-> > 
-> > This is the draft agenda for the Maintainer's Summit which I and
-> > the program committee have come up with:
-> > 
-> > 12:00 Lunch / CoC: How did we get here report-out / small group
-> > discussion
-> > 12:30 Code of Conduct: next steps
+On Tue, Oct 16, 2018 at 08:13:17AM -0700, James Bottomley wrote:
+> On Tue, 2018-10-16 at 10:11 +0200, Daniel Vetter wrote:
+> >  And I don't see anyone else from an external community with real
+> > experience (or someone who does consulting in this area) invited to
+> > fill that gap either.
 > 
-> CoC is on the agenda and the one subsystem with actual operational
-> experience with the exact same CoC is not present.
+> I don't buy the narrative that you must be a CoC consultant or
+> implementor to make a difference.
 
-Given the sudden venue change for the Maintainer summit part, there
-were always going to be people who couldn't make it for one reason or
-another.  The Kernel Summit is still going ahead, as advertised, in
-Vancouver and there's a CoC topic proposed there as well and it will be
-open to everyone also going to the Linux Plumbers Conference.
-
->  And I don't see anyone else from an external community with real
-> experience (or someone who does consulting in this area) invited to
-> fill that gap either.
-
-I don't buy the narrative that you must be a CoC consultant or
-implementor to make a difference.  The kernel communities have been
-getting better for a while and several people on the invitee list have
-had a lot to do with that.  For me, one of the most gratifying things
-to come out of all the fire and fury levelled at us on social media was
-that none of the complainers actually had a recent incident to make an
-issue of ... everything was at least two years old or older.
-
-James
+We typically don't make major changes in a specialized domain without
+consulting domain experts, to avoid building a solution that won't work
+or ignores well-known issues in that domain. We wouldn't go off and
+build a virtualization subsystem without consulting virtualization
+experts; we wouldn't build a storage subsystem without consulting
+storage experts; we wouldn't hack on a license without consulting legal
+experts; the same applies here.
