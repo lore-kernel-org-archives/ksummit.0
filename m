@@ -1,23 +1,26 @@
 Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id DE73B2837
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0FC9C287C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 16 Oct 2018 14:57:03 +0000 (UTC)
+	Tue, 16 Oct 2018 14:58:19 +0000 (UTC)
 Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
 	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6C844623
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 976C3623
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 16 Oct 2018 14:57:03 +0000 (UTC)
-Message-ID: <1539701820.2805.6.camel@HansenPartnership.com>
+	Tue, 16 Oct 2018 14:58:18 +0000 (UTC)
+Message-ID: <1539701896.2805.7.camel@HansenPartnership.com>
 From: James Bottomley <James.Bottomley@HansenPartnership.com>
 To: ksummit-discuss@lists.linuxfoundation.org
-Date: Tue, 16 Oct 2018 07:57:00 -0700
+Date: Tue, 16 Oct 2018 07:58:16 -0700
+In-Reply-To: <1539701820.2805.6.camel@HansenPartnership.com>
+References: <1539701820.2805.6.camel@HansenPartnership.com>
 Content-Type: text/plain; charset="UTF-8"
 Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Cc: linux-kernel <linux-kernel@vger.kernel.org>
-Subject: [Ksummit-discuss] [PATCH v3 0/3] code of conduct fixes
+Subject: [Ksummit-discuss] [PATCH v3 1/3] code-of-conduct: Fix the ambiguity
+ about collecting email addresses
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -27,54 +30,37 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Resend to modify the third patch to add (except where required by law)
-and accumulate more tags
+The current code of conduct has an ambiguity in the it considers publishing
+private information such as email addresses unacceptable behaviour.  Since
+the Linux kernel collects and publishes email addresses as part of the patch
+process, add an exception clause for email addresses ordinarily collected by
+the project to correct this ambiguity.
 
+Fixes: 8a104f8b5867c682 ("Code of Conduct: Let's revamp it.")
+Acked-by: Geert Uytterhoeven <geert@linux-m68k.org>
+Acked-by: Shuah Khan <shuah@kernel.org>
+Acked-by: Guenter Roeck <linux@roeck-us.net>
+Reviewed-by: Alan Cox <alan@llwyncelyn.cymru>
+Reviewed-by: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+Acked-by: "Eric W. Biederman" <ebiederm@xmission.com>
+Acked-by: Kees Cook <keescook@chromium.org>
+Signed-off-by: James Bottomley <James.Bottomley@HansenPartnership.com>
 ---
+ Documentation/process/code-of-conduct.rst | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Previous cover letter:
-
-Resend to show accumulated tags and also to add a third patch listing
-the TAB as the reporting point as a few people seem to want.  If it
-gets the same level of support, I'll send it in with the other two.
-
----
-
-Previous cover letter:
-
-
-We've had several threads discussing potential changes to the code of
-conduct but Mauro is the only person to have proposed an actual patch. 
-In order to move the debate on, I'm presenting two patches, one to fix
-the email problem Mauro identified and the other to strip the
-enforcement section pending community discussion as Shuah suggested.
-
-I'll take responsibility for collecting any tags people want to add
-(review/ack/sign off, etc) and sending the patch in as a signed pull
-request before 4.19 final if they get enough community support.
-
-Note, I've sent both patches in as a series to facilitate review and
-discussion, but they are separable if one is looked on with less favour
-than the other.
-
-It was also a bit unclear which list to send this to, but I finally
-settled on linux-kernel as the catch all and ksummit-discuss since
-that's where most of the current discussion is.  I can add other lists
-as people suggest them.
-
-James
-
----
-
-
-James Bottomley (3):
-  code-of-conduct: Fix the ambiguity about collecting email addresses
-  code-of-conduct: Strip the enforcement paragraph pending community
-    discussion
-  code-of-conduct: Add back the TAB as the central reporting point
-
- Documentation/process/code-of-conduct.rst | 14 +++++---------
- 1 file changed, 5 insertions(+), 9 deletions(-)
-
+diff --git a/Documentation/process/code-of-conduct.rst b/Documentation/process/code-of-conduct.rst
+index ab7c24b5478c..aa40e34e7785 100644
+--- a/Documentation/process/code-of-conduct.rst
++++ b/Documentation/process/code-of-conduct.rst
+@@ -31,7 +31,7 @@ Examples of unacceptable behavior by participants include:
+ * Trolling, insulting/derogatory comments, and personal or political attacks
+ * Public or private harassment
+ * Publishing others’ private information, such as a physical or electronic
+-  address, without explicit permission
++  address not ordinarily collected by the project, without explicit permission
+ * Other conduct which could reasonably be considered inappropriate in a
+   professional setting
+ 
 -- 
 2.13.7
