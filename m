@@ -1,42 +1,21 @@
-Return-Path: <keescook@chromium.org>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 75CDD23F3
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id EBBB91B44
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 15 Oct 2018 21:02:27 +0000 (UTC)
-Received: from mail-yw1-f67.google.com (mail-yw1-f67.google.com
-	[209.85.161.67])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1AF056CE
+	Tue, 16 Oct 2018 02:12:56 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6FBBF6E0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 15 Oct 2018 21:02:27 +0000 (UTC)
-Received: by mail-yw1-f67.google.com with SMTP id v198-v6so8070299ywg.12
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 15 Oct 2018 14:02:27 -0700 (PDT)
-Received: from mail-yw1-f48.google.com (mail-yw1-f48.google.com.
-	[209.85.161.48]) by smtp.gmail.com with ESMTPSA id
-	x13-v6sm4044796ywj.89.2018.10.15.14.02.24
-	for <ksummit-discuss@lists.linuxfoundation.org>
-	(version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-	Mon, 15 Oct 2018 14:02:24 -0700 (PDT)
-Received: by mail-yw1-f48.google.com with SMTP id v198-v6so8070267ywg.12
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 15 Oct 2018 14:02:24 -0700 (PDT)
+	Tue, 16 Oct 2018 02:12:56 +0000 (UTC)
+Date: Mon, 15 Oct 2018 22:12:54 -0400
+From: "Theodore Y. Ts'o" <tytso@mit.edu>
+To: ksummit-discuss@lists.linuxfoundation.org
+Message-ID: <20181016021254.GA21220@thunk.org>
 MIME-Version: 1.0
-In-Reply-To: <3908561D78D1C84285E8C5FCA982C28F7D40E4F6@ORSMSX107.amr.corp.intel.com>
-References: <1539202053.12644.8.camel@HansenPartnership.com>
-	<1539202180.12644.10.camel@HansenPartnership.com>
-	<3908561D78D1C84285E8C5FCA982C28F7D40E4F6@ORSMSX107.amr.corp.intel.com>
-From: Kees Cook <keescook@chromium.org>
-Date: Mon, 15 Oct 2018 14:02:23 -0700
-Message-ID: <CAGXu5jKKK76KRpujbudHQWwtcRHSKEQwBeGMBJf=31WjdCJA4A@mail.gmail.com>
-To: "Luck, Tony" <tony.luck@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	linux-kernel <linux-kernel@vger.kernel.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [PATCH v2 2/3] code-of-conduct: Strip the
- enforcement paragraph pending community discussion
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Subject: [Ksummit-discuss] Draft Maintainer's Summit Agenda and Attendees
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -46,22 +25,60 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Oct 10, 2018 at 2:04 PM, Luck, Tony <tony.luck@intel.com> wrote:
->> the enforcement clause of the new code of conduct.  Since there is concern
->> that this becomes binding on the release of the 4.19 kernel
->
-> Is there some logic behind that concern? What's magic about the release
-> of 4.19?
+This is the draft agenda for the Maintainer's Summit which I and the
+program committee have come up with:
 
-Greg KH said 4.19 was going to be the next LTS. But, regardless, if we
-view bugs in the CoC as "just bugs", then can't we also include their
-fixes in -stable? It'll land in 4.19.z just like anything else. I
-don't think we need to rush anything into 4.19 -- as so many others
-have said: it's in our best interest to take the time to get the CoC
-right.
+12:00 Lunch / CoC: How did we get here report-out / small group discussion
+12:30 Code of Conduct: next steps
+1:00 Making making stable kernel releases more helpful for community
+        distros (Laura Abott)
+1:30 API replacement / deprecation (Kees Cook)
+2:00 Handling of embargoed security issues (Jiri Kosina)                                           
+2:30 TBD
+3:00 break
+3:30 Deprecation / removal of old hardware support (Arnd Bergmann)
+4:00 Guidelines for EXPORT_SYMBOL_GPL (Greg K-H)
+4:30 TBD
+5:00 Maintainer summit feedback - things that went well; what could be                             
+        better (Ted Ts'o)
+5:30 Group Photo
+6:45 Walk to restaurant
+7:00 Maintainer's Summit Dinner
 
--Kees
+Comments or suggestions are welcome.
 
--- 
+Below please find the the current set of attendees.  (There may be a
+few sponsored attendees that have not yet registered.)
+
+Andrew Morton
+Arnd Bergmann
+Chris Mason
+Christoph Hellwig
+Greg KH
+Herbert Xu
+James Bottomley
+Jiri Kosina
+Jonathan Corbet
 Kees Cook
-Pixel Security
+Laura Abbott
+Linus Torvalds
+Marc Zyngier
+Mark Brown
+Masahiro Yamada
+Mauro Carvalho Chehab
+Michael Ellerman
+Olof Johansson
+Palmer Dabbelt
+Paul McKenney
+Peter Zijlstra
+Rafael Wysocki
+Sasha Levin
+Stephen Boyd
+Stephen Rothwell
+Steven Rostedt
+Takashi Iwai
+Theodore Tso
+Thomas Gleixner
+Will Deacon
+
+					- Ted
