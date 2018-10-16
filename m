@@ -1,29 +1,29 @@
-Return-Path: <prvs=38274ed637=clm@fb.com>
+Return-Path: <Tim.Bird@sony.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id F06782A3B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 82C5F2A3B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 16 Oct 2018 18:37:05 +0000 (UTC)
-Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
-	[67.231.153.30])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8A06E7EB
+	Tue, 16 Oct 2018 18:38:16 +0000 (UTC)
+Received: from NAM01-SN1-obe.outbound.protection.outlook.com
+	(mail-sn1nam01on0093.outbound.protection.outlook.com [104.47.32.93])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E9EA07EB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 16 Oct 2018 18:37:05 +0000 (UTC)
-From: Chris Mason <clm@fb.com>
-To: Mark Brown <broonie@kernel.org>
-Date: Tue, 16 Oct 2018 18:36:52 +0000
-Message-ID: <64DFF478-D006-4823-9A52-11550CD4A525@fb.com>
+	Tue, 16 Oct 2018 18:38:15 +0000 (UTC)
+From: <Tim.Bird@sony.com>
+To: <James.Bottomley@HansenPartnership.com>, <josh@joshtriplett.org>
+Date: Tue, 16 Oct 2018 18:38:10 +0000
+Message-ID: <ECADFF3FD767C149AD96A924E7EA6EAF80523D65@USCULXMSG01.am.sony.com>
 References: <20181016021254.GA21220@thunk.org>
 	<CAKMK7uHxdmJVAtUDWG-=0-qw9RxaW4bONscmbH4PjDZrgYnBqw@mail.gmail.com>
 	<1539702797.2805.19.camel@HansenPartnership.com>
-	<20181016181628.GK7449@sirena.org.uk>
-In-Reply-To: <20181016181628.GK7449@sirena.org.uk>
+	<20181016180010.GC4367@localhost>
+	<1539713962.2805.41.camel@HansenPartnership.com>
+In-Reply-To: <1539713962.2805.41.camel@HansenPartnership.com>
 Content-Language: en-US
-Content-Type: text/plain; charset="iso-8859-1"
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] Draft Maintainer's Summit Agenda and Attendees
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -34,36 +34,59 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 16 Oct 2018, at 14:16, Mark Brown wrote:
+> -----Original Message-----
+> From: James Bottomley
+>=20
+> On Tue, 2018-10-16 at 11:00 -0700, Josh Triplett wrote:
+> > On Tue, Oct 16, 2018 at 08:13:17AM -0700, James Bottomley wrote:
+> > > On Tue, 2018-10-16 at 10:11 +0200, Daniel Vetter wrote:
+> > > >  And I don't see anyone else from an external community with real
+> > > > experience (or someone who does consulting in this area) invited
+> > > > to fill that gap either.
+> > >
+> > > I don't buy the narrative that you must be a CoC consultant or
+> > > implementor to make a difference.
+> >
+> > We typically don't make major changes in a specialized domain without
+> > consulting domain experts, to avoid building a solution that won't
+> > work or ignores well-known issues in that domain. We wouldn't go off
+> > and build a virtualization subsystem without consulting
+> > virtualization experts; we wouldn't build a storage subsystem without
+> > consulting storage experts; we wouldn't hack on a license without
+> > consulting legal experts; the same applies here.
+>=20
+> I notice you carefully cut the part about people who've been active in
+> helping the kernel in this regard already being present;
 
-> On Tue, Oct 16, 2018 at 08:13:17AM -0700, James Bottomley wrote:
->> On Tue, 2018-10-16 at 10:11 +0200, Daniel Vetter wrote:
->
->>>  And I don't see anyone else from an external community with real
->>> experience (or someone who does consulting in this area) invited to
->>> fill that gap either.
->
->> I don't buy the narrative that you must be a CoC consultant or
->> implementor to make a difference.  The kernel communities have been
->> getting better for a while and several people on the invitee list=20
->> have
->> had a lot to do with that.  For me, one of the most gratifying things
+I think that characterizing Joshes response as having "carefully cut" a sec=
+tion
+has a little more implication of mal intent that I'd prefer.  I think you c=
+an reiterate
+your point about having people there that you consider to be domain experts
+present, without this.
 
-I hope that maintainers summit and plumbers are just part of our=20
-continued conversation about all of these issues.  It's really hard to=20
-setup the perfect set of people in the room when we're still working on=20
-all of the questions that need to be asked and finding the best set of=20
-people to work on them.
+> so we do have
+> some domain experts ... plus no external ones have actually been
+> proposed at this point.
 
-[ ... ]
+It seemed pretty obvious to me that Daniel was referring to himself
+or someone else from the subsystem (DRM?) that's already adopted
+the CoC.  But a more explicit recommendation (like a candidate name)
+would add clarity to the discussion.
 
->
-> One of the things we could end up doing at the meeting is deferring=20
-> some
-> of the decision for mailing list or other discussion which would give=20
-> a
-> space for that to happen.
+> We also don't usually listen deferentially to domain experts ...
+> spectre and meltdown would be a case in point here.
 
-Strongly agree here.
+You don't have to be deferential to domain experts to benefit
+from their experience.
 
--chris
+Having said that, I don't think a short face-to-face session is going
+to yield much in the way changes, and the list of invitees was worked
+out already over a long period of time.   And as you stated previously
+there will be other venues (both face-to-face and online) to add input
+to the process.
+
+Personally I don't see much benefit in changing the invitee list at this
+point, and some dangers.  Not everyone who wants to be there can.=20
+That's OK with me.  I'm not invited either.
+ -- Tim
