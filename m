@@ -1,23 +1,22 @@
 Return-Path: <geert@linux-m68k.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 23FF72C81
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3EF262ECC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 17 Oct 2018 08:30:00 +0000 (UTC)
-Received: from baptiste.telenet-ops.be (baptiste.telenet-ops.be
-	[195.130.132.51])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 87BD36E0
+	Wed, 17 Oct 2018 08:31:57 +0000 (UTC)
+Received: from xavier.telenet-ops.be (xavier.telenet-ops.be [195.130.132.52])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 958F86E0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 17 Oct 2018 08:29:59 +0000 (UTC)
+	Wed, 17 Oct 2018 08:31:56 +0000 (UTC)
 From: Geert Uytterhoeven <geert@linux-m68k.org>
 To: ksummit-discuss@lists.linuxfoundation.org
-Date: Wed, 17 Oct 2018 09:19:01 +0200
-Message-Id: <20181017071902.30102-1-geert@linux-m68k.org>
+Date: Wed, 17 Oct 2018 10:26:48 +0200
+Message-Id: <20181017082648.919-1-geert@linux-m68k.org>
 Cc: linux-kernel@vger.kernel.org,
 	James Bottomley <James.Bottomley@hansenpartnership.com>,
 	Tomi Valkeinen <tomi.valkeinen@iki.fi>
-Subject: [Ksummit-discuss] [PATCH] code-of-conduct: Remove explicit list of
-	discrimination factors
+Subject: [Ksummit-discuss] [PATCH v2] code-of-conduct: Remove explicit list
+	of discrimination factors
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,7 +35,13 @@ experience for everyone", period.
 
 Fixes: 8a104f8b5867c682 ("Code of Conduct: Let's revamp it.")
 Signed-off-by: Geert Uytterhoeven <geert@linux-m68k.org>
+Acked-by: Frank Rowand <frowand.list@gmail.com>
+Acked-by: Arnaldo Carvalho de Melo <acme@kernel.org>
+Acked-by: Tomi Valkeinen <tomi.valkeinen@iki.fi>
 ---
+v2:
+  - Add Acked-by.
+
 The use of "race" may also conflict with the United Nation's views on
 this matter, cfr. e.g. the UNESCO's "Four statements on the race
 question"[1][2] and "Declaration on Race and Racial Prejudice"[3].
