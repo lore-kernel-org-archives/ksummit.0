@@ -1,22 +1,28 @@
-Return-Path: <geert@linux-m68k.org>
+Return-Path: <josh@joshtriplett.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3EF262ECC
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id EB82B3300
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 17 Oct 2018 08:31:57 +0000 (UTC)
-Received: from xavier.telenet-ops.be (xavier.telenet-ops.be [195.130.132.52])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 958F86E0
+	Wed, 17 Oct 2018 09:13:32 +0000 (UTC)
+Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
+	[217.70.183.195])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 44000762
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 17 Oct 2018 08:31:56 +0000 (UTC)
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Wed, 17 Oct 2018 10:26:48 +0200
-Message-Id: <20181017082648.919-1-geert@linux-m68k.org>
-Cc: linux-kernel@vger.kernel.org,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Wed, 17 Oct 2018 09:13:32 +0000 (UTC)
+Date: Wed, 17 Oct 2018 02:13:26 -0700
+From: Josh Triplett <josh@joshtriplett.org>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Message-ID: <20181017091325.GA15991@localhost>
+References: <20181017071902.30102-1-geert@linux-m68k.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20181017071902.30102-1-geert@linux-m68k.org>
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	linux-kernel@vger.kernel.org, ksummit-discuss@lists.linuxfoundation.org,
 	Tomi Valkeinen <tomi.valkeinen@iki.fi>
-Subject: [Ksummit-discuss] [PATCH v2] code-of-conduct: Remove explicit list
-	of discrimination factors
+Subject: Re: [Ksummit-discuss] [PATCH] code-of-conduct: Remove explicit list
+ of discrimination factors
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -26,48 +32,20 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Providing an explicit list of discrimination factors may give the false
-impression that discrimination based on other unlisted factors would be
-allowed.
+On Wed, Oct 17, 2018 at 09:19:01AM +0200, Geert Uytterhoeven wrote:
+> Providing an explicit list of discrimination factors may give the false
+> impression that discrimination based on other unlisted factors would be
+> allowed.
 
-Avoid any ambiguity by removing the list, to ensure "a harassment-free
-experience for everyone", period.
+This impression is, in fact, false, as has already been discussed
+elsewhere. I had hoped that discussion would suffice.
 
-Fixes: 8a104f8b5867c682 ("Code of Conduct: Let's revamp it.")
-Signed-off-by: Geert Uytterhoeven <geert@linux-m68k.org>
-Acked-by: Frank Rowand <frowand.list@gmail.com>
-Acked-by: Arnaldo Carvalho de Melo <acme@kernel.org>
-Acked-by: Tomi Valkeinen <tomi.valkeinen@iki.fi>
----
-v2:
-  - Add Acked-by.
+As mentioned there: The original commit explicitly said "Explicit
+guidelines have demonstrated success in other projects and other areas
+of the kernel."; this is precisely the kind of explicit guideline it
+refers to. Listing explicit cases to cover does not imply other cases
+are not covered; it does, however, ensure that the listed cases *are*,
+and helps people know that they're covered.
 
-The use of "race" may also conflict with the United Nation's views on
-this matter, cfr. e.g. the UNESCO's "Four statements on the race
-question"[1][2] and "Declaration on Race and Racial Prejudice"[3].
-
-[1] https://en.wikipedia.org/wiki/The_Race_Question
-[2] http://unesdoc.unesco.org/images/0012/001229/122962eo.pdf
-[3] http://portal.unesco.org/en/ev.php-URL_ID=13161&URL_DO=DO_TOPIC&URL_SECTION=201.html
----
- Documentation/process/code-of-conduct.rst | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
-
-diff --git a/Documentation/process/code-of-conduct.rst b/Documentation/process/code-of-conduct.rst
-index ab7c24b5478c6b30..e472c9f86ff00b34 100644
---- a/Documentation/process/code-of-conduct.rst
-+++ b/Documentation/process/code-of-conduct.rst
-@@ -6,10 +6,7 @@ Our Pledge
- 
- In the interest of fostering an open and welcoming environment, we as
- contributors and maintainers pledge to making participation in our project and
--our community a harassment-free experience for everyone, regardless of age, body
--size, disability, ethnicity, sex characteristics, gender identity and
--expression, level of experience, education, socio-economic status, nationality,
--personal appearance, race, religion, or sexual identity and orientation.
-+our community a harassment-free experience for everyone.
- 
- Our Standards
- =============
--- 
-2.17.1
+This patch is not OK, and defeats one of the purposes of the original
+change.
