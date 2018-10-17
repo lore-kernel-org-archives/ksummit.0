@@ -1,35 +1,32 @@
-Return-Path: <groeck7@gmail.com>
+Return-Path: <bart.vanassche@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 91EF43226
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 9E1FC2F44
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 17 Oct 2018 13:45:25 +0000 (UTC)
-Received: from mail-pf1-f193.google.com (mail-pf1-f193.google.com
-	[209.85.210.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 498CA6E0
+	Wed, 17 Oct 2018 14:37:20 +0000 (UTC)
+Received: from mail-pg1-f193.google.com (mail-pg1-f193.google.com
+	[209.85.215.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7A0F97DE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 17 Oct 2018 13:45:25 +0000 (UTC)
-Received: by mail-pf1-f193.google.com with SMTP id f78-v6so7470457pfe.1
+	Wed, 17 Oct 2018 14:37:18 +0000 (UTC)
+Received: by mail-pg1-f193.google.com with SMTP id f18-v6so12651373pgv.3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 17 Oct 2018 06:45:25 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-To: Josh Triplett <josh@joshtriplett.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>
-References: <20181017071902.30102-1-geert@linux-m68k.org>
-	<20181017091325.GA15991@localhost>
-From: Guenter Roeck <linux@roeck-us.net>
-Message-ID: <c28df7c4-eb3f-3864-862c-edc330a8fce8@roeck-us.net>
-Date: Wed, 17 Oct 2018 06:45:22 -0700
+	Wed, 17 Oct 2018 07:37:18 -0700 (PDT)
+To: Geert Uytterhoeven <geert@linux-m68k.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+References: <20181017082648.919-1-geert@linux-m68k.org>
+From: Bart Van Assche <bvanassche@acm.org>
+Message-ID: <01f49baf-d6ad-5ea6-e9ad-226725404cce@acm.org>
+Date: Wed, 17 Oct 2018 07:37:14 -0700
 MIME-Version: 1.0
-In-Reply-To: <20181017091325.GA15991@localhost>
+In-Reply-To: <20181017082648.919-1-geert@linux-m68k.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	linux-kernel@vger.kernel.org, ksummit-discuss@lists.linuxfoundation.org,
-	Tomi Valkeinen <tomi.valkeinen@iki.fi>
-Subject: Re: [Ksummit-discuss] [PATCH] code-of-conduct: Remove explicit list
- of discrimination factors
+	linux-kernel@vger.kernel.org, Tomi Valkeinen <tomi.valkeinen@iki.fi>
+Subject: Re: [Ksummit-discuss] [PATCH v2] code-of-conduct: Remove explicit
+ list of discrimination factors
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,37 +36,49 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 10/17/2018 02:13 AM, Josh Triplett wrote:
-> On Wed, Oct 17, 2018 at 09:19:01AM +0200, Geert Uytterhoeven wrote:
->> Providing an explicit list of discrimination factors may give the false
->> impression that discrimination based on other unlisted factors would be
->> allowed.
+On 10/17/18 1:26 AM, Geert Uytterhoeven wrote:
+> Providing an explicit list of discrimination factors may give the false
+> impression that discrimination based on other unlisted factors would be
+> allowed.
 > 
-> This impression is, in fact, false, as has already been discussed
-> elsewhere. I had hoped that discussion would suffice.
+> Avoid any ambiguity by removing the list, to ensure "a harassment-free
+> experience for everyone", period.
 > 
-> As mentioned there: The original commit explicitly said "Explicit
-> guidelines have demonstrated success in other projects and other areas
-> of the kernel."; this is precisely the kind of explicit guideline it
-> refers to. Listing explicit cases to cover does not imply other cases
-> are not covered; it does, however, ensure that the listed cases *are*,
-> and helps people know that they're covered.
+> Fixes: 8a104f8b5867c682 ("Code of Conduct: Let's revamp it.")
+> Signed-off-by: Geert Uytterhoeven <geert@linux-m68k.org>
+> Acked-by: Frank Rowand <frowand.list@gmail.com>
+> Acked-by: Arnaldo Carvalho de Melo <acme@kernel.org>
+> Acked-by: Tomi Valkeinen <tomi.valkeinen@iki.fi>
+> ---
+> v2:
+>    - Add Acked-by.
 > 
+> The use of "race" may also conflict with the United Nation's views on
+> this matter, cfr. e.g. the UNESCO's "Four statements on the race
+> question"[1][2] and "Declaration on Race and Racial Prejudice"[3].
+> 
+> [1] https://en.wikipedia.org/wiki/The_Race_Question
+> [2] http://unesdoc.unesco.org/images/0012/001229/122962eo.pdf
+> [3] http://portal.unesco.org/en/ev.php-URL_ID=13161&URL_DO=DO_TOPIC&URL_SECTION=201.html
+> ---
+>   Documentation/process/code-of-conduct.rst | 5 +----
+>   1 file changed, 1 insertion(+), 4 deletions(-)
+> 
+> diff --git a/Documentation/process/code-of-conduct.rst b/Documentation/process/code-of-conduct.rst
+> index ab7c24b5478c6b30..e472c9f86ff00b34 100644
+> --- a/Documentation/process/code-of-conduct.rst
+> +++ b/Documentation/process/code-of-conduct.rst
+> @@ -6,10 +6,7 @@ Our Pledge
+>   
+>   In the interest of fostering an open and welcoming environment, we as
+>   contributors and maintainers pledge to making participation in our project and
+> -our community a harassment-free experience for everyone, regardless of age, body
+> -size, disability, ethnicity, sex characteristics, gender identity and
+> -expression, level of experience, education, socio-economic status, nationality,
+> -personal appearance, race, religion, or sexual identity and orientation.
+> +our community a harassment-free experience for everyone.
+>   
+>   Our Standards
+>   =============
 
-That is really a matter of opinion. Mathematically speaking, your statement
-is incorrect. One may wonder why the list is made explicit without hint
-that it is an example. For example, political or social views are _not_
-listed. Wasn't the same CoC used in other projects to at least try to
-punish individuals with specific political and/or social opinions,
-just for having those opinions and expressing them outside the scope of
-the project ?
-
-> This patch is not OK, and defeats one of the purposes of the original
-> change.
-
-The CoC, as it stands, singles out maintainers for enforcement action.
-Based on your statement, is it correct to assume that this was on
-purpose ? If not, what is the explicit list of purposes of the
-original change ?
-
-Guenter
+Acked-by: Bart Van Assche <bvanassche@acm.org>
