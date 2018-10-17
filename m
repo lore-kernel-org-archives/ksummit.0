@@ -1,31 +1,32 @@
-Return-Path: <shuah@kernel.org>
+Return-Path: <frowand.list@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 12AE22A44
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id EF8442C14
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 17 Oct 2018 01:51:16 +0000 (UTC)
-Received: from mailout.easymail.ca (mailout.easymail.ca [64.68.200.34])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6CD99623
+	Wed, 17 Oct 2018 02:10:41 +0000 (UTC)
+Received: from mail-pg1-f193.google.com (mail-pg1-f193.google.com
+	[209.85.215.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7BCE9712
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 17 Oct 2018 01:51:15 +0000 (UTC)
-To: Tim.Bird@sony.com, mpe@ellerman.id.au, linux@roeck-us.net, tytso@mit.edu
-References: <20181016021254.GA21220@thunk.org>
-	<3af0bf1d-6dea-2736-b4f0-171db8a2d447@de.ibm.com>
-	<20181016205109.GB14947@thunk.org>
-	<20181016211446.GA28549@roeck-us.net>
-	<87a7ndl9io.fsf@concordia.ellerman.id.au>
-	<ECADFF3FD767C149AD96A924E7EA6EAF80523F5B@USCULXMSG01.am.sony.com>
-From: Shuah Khan <shuah@kernel.org>
-Message-ID: <b8189bba-ed43-8d8e-c255-772b9088c1af@kernel.org>
-Date: Tue, 16 Oct 2018 19:51:04 -0600
+	Wed, 17 Oct 2018 02:10:41 +0000 (UTC)
+Received: by mail-pg1-f193.google.com with SMTP id g2-v6so11726661pgu.11
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 16 Oct 2018 19:10:41 -0700 (PDT)
+To: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+References: <1539701820.2805.6.camel@HansenPartnership.com>
+	<1539701896.2805.7.camel@HansenPartnership.com>
+From: Frank Rowand <frowand.list@gmail.com>
+Message-ID: <e332116b-62e8-9930-c263-d022edb5828e@gmail.com>
+Date: Tue, 16 Oct 2018 19:10:39 -0700
 MIME-Version: 1.0
-In-Reply-To: <ECADFF3FD767C149AD96A924E7EA6EAF80523F5B@USCULXMSG01.am.sony.com>
+In-Reply-To: <1539701896.2805.7.camel@HansenPartnership.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] new topic: regression test infrastructure?
- (was Draft Maintainer's Summit Agenda and Attendees - )
+Content-Transfer-Encoding: 8bit
+Cc: linux-kernel <linux-kernel@vger.kernel.org>
+Subject: Re: [Ksummit-discuss] [PATCH v3 1/3] code-of-conduct: Fix the
+ ambiguity about collecting email addresses
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,28 +36,54 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 10/16/2018 07:06 PM, Tim.Bird@sony.com wrote:
+On 10/16/18 07:58, James Bottomley wrote:
+> The current code of conduct has an ambiguity in the it considers publishing
+> private information such as email addresses unacceptable behaviour.  Since
+> the Linux kernel collects and publishes email addresses as part of the patch
+> process, add an exception clause for email addresses ordinarily collected by
+> the project to correct this ambiguity.
 > 
+> Fixes: 8a104f8b5867c682 ("Code of Conduct: Let's revamp it.")
+> Acked-by: Geert Uytterhoeven <geert@linux-m68k.org>
+> Acked-by: Shuah Khan <shuah@kernel.org>
+> Acked-by: Guenter Roeck <linux@roeck-us.net>
+> Reviewed-by: Alan Cox <alan@llwyncelyn.cymru>
+> Reviewed-by: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+> Acked-by: "Eric W. Biederman" <ebiederm@xmission.com>
+> Acked-by: Kees Cook <keescook@chromium.org>
+> Signed-off-by: James Bottomley <James.Bottomley@HansenPartnership.com>
+> ---
+>  Documentation/process/code-of-conduct.rst | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
->> -----Original Message-----
->> From: Michael Ellerman
->>
->> Guenter Roeck <linux@roeck-us.net> writes:
-> ...
->>> In Edinburgh: https://elinux.org/Automated_Testing_Summit
->>
->> Oh cool, first I've heard of it.
->>
->> Mind if I drop in? :)
+> diff --git a/Documentation/process/code-of-conduct.rst b/Documentation/process/code-of-conduct.rst
+> index ab7c24b5478c..aa40e34e7785 100644
+> --- a/Documentation/process/code-of-conduct.rst
+> +++ b/Documentation/process/code-of-conduct.rst
+> @@ -31,7 +31,7 @@ Examples of unacceptable behavior by participants include:
+>  * Trolling, insulting/derogatory comments, and personal or political attacks
+>  * Public or private harassment
+>  * Publishing others’ private information, such as a physical or electronic
+> -  address, without explicit permission
+> +  address not ordinarily collected by the project, without explicit permission
+>  * Other conduct which could reasonably be considered inappropriate in a
+>    professional setting
+>  
 > 
-> We have limited space for this summit, and Kevin and I decided to make it invitation
-> only.  Unfortunately, we've already gone through the invitation process,
-> and we're trying to keep it small.  So unfortunately, at this point, this is not an
-> open event.
 
-Tim! For what its worth, Michael will be a good addition to speak for Kselftest.
-I sent you the slide set and information for you to use. It is nothing like having
-Michael in the room to talk about common framework which he did the foundation work.
+Repeating my comment on version 1:
 
-thanks,
--- Shuah
+My understanding of the concern behind this change is that we should be
+able to use an email address for the current development practices, such
+as Reported-by, Suggested-by, etc tags when the email address was
+provided in what is a public space for the project.  The public space
+is visible to anyone in the world who desires to access it.
+
+I do not understand how "ordinarily collected by the project" is equivalent
+to "an email address that was provided in a public space for the project".
+Ordinarily collected could include activities that can be expected to be
+private and not visible to any arbitrary person in the world.
+
+My issue is with the word choice.  I agree with the underlying concept.
+
+-Frank
