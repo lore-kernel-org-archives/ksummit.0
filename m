@@ -1,35 +1,33 @@
-Return-Path: <joe@perches.com>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A9BD8AA5
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id CC431AD0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 18 Oct 2018 08:13:45 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0185.hostedemail.com
-	[216.40.44.185])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 51971102
+	Thu, 18 Oct 2018 14:56:52 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 76AD47F0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 18 Oct 2018 08:13:42 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
-	[10.5.19.251])
-	by smtpgrave08.hostedemail.com (Postfix) with ESMTP id 0E6A6180184FB
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 17 Oct 2018 16:18:54 +0000 (UTC)
-Message-ID: <d91ebe706108ef8158ab7a251b54396b9e4e3398.camel@perches.com>
-From: Joe Perches <joe@perches.com>
-To: Josh Triplett <josh@joshtriplett.org>, Geert Uytterhoeven
-	<geert@linux-m68k.org>
-Date: Wed, 17 Oct 2018 09:18:48 -0700
-In-Reply-To: <20181017091325.GA15991@localhost>
-References: <20181017071902.30102-1-geert@linux-m68k.org>
-	<20181017091325.GA15991@localhost>
-Content-Type: text/plain; charset="ISO-8859-1"
+	Thu, 18 Oct 2018 14:56:52 +0000 (UTC)
+Message-ID: <1539874609.2845.5.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Frank Rowand <frowand.list@gmail.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Date: Thu, 18 Oct 2018 07:56:49 -0700
+In-Reply-To: <b056cdc3-29de-b6c8-b2a7-67b93b0fd730@gmail.com>
+References: <1539701820.2805.6.camel@HansenPartnership.com>
+	<1539701896.2805.7.camel@HansenPartnership.com>
+	<e332116b-62e8-9930-c263-d022edb5828e@gmail.com>
+	<1539744091.2805.108.camel@HansenPartnership.com>
+	<16a20416-0045-dfe6-d937-63f2f0cff269@gmail.com>
+	<1539803331.3769.62.camel@HansenPartnership.com>
+	<b056cdc3-29de-b6c8-b2a7-67b93b0fd730@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	linux-kernel@vger.kernel.org, ksummit-discuss@lists.linuxfoundation.org,
-	Tomi Valkeinen <tomi.valkeinen@iki.fi>
-Subject: Re: [Ksummit-discuss] [PATCH] code-of-conduct: Remove explicit list
- of discrimination factors
+Cc: linux-kernel <linux-kernel@vger.kernel.org>
+Subject: Re: [Ksummit-discuss] [PATCH v3 1/3] code-of-conduct: Fix the
+ ambiguity about collecting email addresses
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,23 +37,37 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 2018-10-17 at 02:13 -0700, Josh Triplett wrote:
-> On Wed, Oct 17, 2018 at 09:19:01AM +0200, Geert Uytterhoeven wrote:
-> > Providing an explicit list of discrimination factors may give the false
-> > impression that discrimination based on other unlisted factors would be
-> > allowed.
+On Wed, 2018-10-17 at 12:53 -0700, Frank Rowand wrote:
+> On 10/17/18 12:08, James Bottomley wrote:
+[...]
+> > > Trying to understand how you are understanding my comment vs what
+> > > I intended to communicate, it seems to me that you are focused on
+> > > the "where allowed" and I am focused on the "which email
+> > > addresses".
+> > > 
+> > > More clear?  Or am I still not communicating well enough?
+> > 
+> > I think the crux of the disagreement is that you think the carve
+> > out equates to a permission which is not specific enough and I
+> > think it
 > 
-> This impression is, in fact, false, as has already been discussed
-> elsewhere.
+> Nope.  That is a big place where I was not transferring my thoughts
+> to clear communication.  I agree that what I wrote should have been
+> written in terms of carve out instead of permission.
+> 
+> 
+> > doesn't equate to a permission at all, which is why there's no need
+> > to make it more explicit.  Is that a fair characterisation?
+> 
+> Nope.  My concern is "which email addresses".
 
-The use of fact above is instead merely an assertion.
+The idea here was because it's a carve out that doesn't give permission
+and because the permission is ruled by the project contribution
+documents, the carve out should be broad enough to cover anything they
+might say hence "email addresses not ordinarily collected by the
+project" are still included as unacceptable behaviour.
 
->  I had hoped that discussion would suffice.
+Perhaps if you propose the wording you'd like to see it would help
+because there still looks to be some subtlety I'm not getting.
 
-Nope.
-
-> As mentioned there: The original commit explicitly said "Explicit
-> guidelines have demonstrated success in other projects and other areas
-> of the kernel."
-
-Correlation etc...
+James
