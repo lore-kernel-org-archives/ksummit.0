@@ -1,19 +1,19 @@
-Return-Path: <frowand.list@gmail.com>
+Return-Path: <Tim.Bird@sony.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 55EBEB2B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 11416C46
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 18 Oct 2018 19:22:28 +0000 (UTC)
-Received: from mail-pg1-f195.google.com (mail-pg1-f195.google.com
-	[209.85.215.195])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 03E00102
+	Thu, 18 Oct 2018 19:50:00 +0000 (UTC)
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com
+	(mail-bl2nam02on0126.outbound.protection.outlook.com [104.47.38.126])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2C25E7F7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 18 Oct 2018 19:22:27 +0000 (UTC)
-Received: by mail-pg1-f195.google.com with SMTP id f18-v6so14652604pgv.3
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 18 Oct 2018 12:22:27 -0700 (PDT)
-To: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	ksummit-discuss@lists.linuxfoundation.org
+	Thu, 18 Oct 2018 19:49:59 +0000 (UTC)
+From: <Tim.Bird@sony.com>
+To: <frowand.list@gmail.com>, <James.Bottomley@HansenPartnership.com>,
+	<ksummit-discuss@lists.linuxfoundation.org>
+Date: Thu, 18 Oct 2018 19:49:54 +0000
+Message-ID: <ECADFF3FD767C149AD96A924E7EA6EAF805271E5@USCULXMSG01.am.sony.com>
 References: <1539701820.2805.6.camel@HansenPartnership.com>
 	<1539701896.2805.7.camel@HansenPartnership.com>
 	<e332116b-62e8-9930-c263-d022edb5828e@gmail.com>
@@ -22,15 +22,13 @@ References: <1539701820.2805.6.camel@HansenPartnership.com>
 	<1539803331.3769.62.camel@HansenPartnership.com>
 	<b056cdc3-29de-b6c8-b2a7-67b93b0fd730@gmail.com>
 	<1539874609.2845.5.camel@HansenPartnership.com>
-From: Frank Rowand <frowand.list@gmail.com>
-Message-ID: <b9f5376f-d8e8-bfe5-d27e-14c26d4859b8@gmail.com>
-Date: Thu, 18 Oct 2018 12:22:25 -0700
-MIME-Version: 1.0
-In-Reply-To: <1539874609.2845.5.camel@HansenPartnership.com>
-Content-Type: text/plain; charset=utf-8
+	<b9f5376f-d8e8-bfe5-d27e-14c26d4859b8@gmail.com>
+In-Reply-To: <b9f5376f-d8e8-bfe5-d27e-14c26d4859b8@gmail.com>
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: linux-kernel <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Cc: linux-kernel@vger.kernel.org
 Subject: Re: [Ksummit-discuss] [PATCH v3 1/3] code-of-conduct: Fix the
  ambiguity about collecting email addresses
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -42,66 +40,79 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 10/18/18 07:56, James Bottomley wrote:
-> On Wed, 2018-10-17 at 12:53 -0700, Frank Rowand wrote:
->> On 10/17/18 12:08, James Bottomley wrote:
-> [...]
->>>> Trying to understand how you are understanding my comment vs what
->>>> I intended to communicate, it seems to me that you are focused on
->>>> the "where allowed" and I am focused on the "which email
->>>> addresses".
->>>>
->>>> More clear?  Or am I still not communicating well enough?
->>>
->>> I think the crux of the disagreement is that you think the carve
->>> out equates to a permission which is not specific enough and I
->>> think it
->>
->> Nope.  That is a big place where I was not transferring my thoughts
->> to clear communication.  I agree that what I wrote should have been
->> written in terms of carve out instead of permission.
->>
->>
->>> doesn't equate to a permission at all, which is why there's no need
->>> to make it more explicit.  Is that a fair characterisation?
->>
->> Nope.  My concern is "which email addresses".
-> 
-> The idea here was because it's a carve out that doesn't give permission
-> and because the permission is ruled by the project contribution
-> documents, the carve out should be broad enough to cover anything they
-> might say hence "email addresses not ordinarily collected by the
-> project" are still included as unacceptable behaviour.
-> 
-> Perhaps if you propose the wording you'd like to see it would help
-> because there still looks to be some subtlety I'm not getting.
-
-
->From the beginning of the thread:
-
-  > @@ -31,7 +31,7 @@ Examples of unacceptable behavior by participants include:
-  >  * Trolling, insulting/derogatory comments, and personal or political attacks
-  >  * Public or private harassment
-  >  * Publishing others’ private information, such as a physical or electronic
-  > -  address, without explicit permission
-  > +  address not ordinarily collected by the project, without explicit permission
-  >  * Other conduct which could reasonably be considered inappropriate in a
-  >    professional setting
-
-
-Alternative (and I'm sure someone else can probably clean this up a little bit):
-
-+ address that has been provided in a public space for the project, without explicit permission
-
-
-See you in Edinburgh,
-
--Frank
-
-
-> 
-> James
-> 
-> 
-> 
-> 
+DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogRnJhbmsgUm93YW5kDQo+
+IA0KPiBPbiAxMC8xOC8xOCAwNzo1NiwgSmFtZXMgQm90dG9tbGV5IHdyb3RlOg0KPiA+IE9uIFdl
+ZCwgMjAxOC0xMC0xNyBhdCAxMjo1MyAtMDcwMCwgRnJhbmsgUm93YW5kIHdyb3RlOg0KPiA+PiBP
+biAxMC8xNy8xOCAxMjowOCwgSmFtZXMgQm90dG9tbGV5IHdyb3RlOg0KPiA+IFsuLi5dDQo+ID4+
+Pj4gVHJ5aW5nIHRvIHVuZGVyc3RhbmQgaG93IHlvdSBhcmUgdW5kZXJzdGFuZGluZyBteSBjb21t
+ZW50IHZzIHdoYXQNCj4gPj4+PiBJIGludGVuZGVkIHRvIGNvbW11bmljYXRlLCBpdCBzZWVtcyB0
+byBtZSB0aGF0IHlvdSBhcmUgZm9jdXNlZCBvbg0KPiA+Pj4+IHRoZSAid2hlcmUgYWxsb3dlZCIg
+YW5kIEkgYW0gZm9jdXNlZCBvbiB0aGUgIndoaWNoIGVtYWlsDQo+ID4+Pj4gYWRkcmVzc2VzIi4N
+Cj4gPj4+Pg0KPiA+Pj4+IE1vcmUgY2xlYXI/ICBPciBhbSBJIHN0aWxsIG5vdCBjb21tdW5pY2F0
+aW5nIHdlbGwgZW5vdWdoPw0KPiA+Pj4NCj4gPj4+IEkgdGhpbmsgdGhlIGNydXggb2YgdGhlIGRp
+c2FncmVlbWVudCBpcyB0aGF0IHlvdSB0aGluayB0aGUgY2FydmUNCj4gPj4+IG91dCBlcXVhdGVz
+IHRvIGEgcGVybWlzc2lvbiB3aGljaCBpcyBub3Qgc3BlY2lmaWMgZW5vdWdoIGFuZCBJDQo+ID4+
+PiB0aGluayBpdA0KPiA+Pg0KPiA+PiBOb3BlLiAgVGhhdCBpcyBhIGJpZyBwbGFjZSB3aGVyZSBJ
+IHdhcyBub3QgdHJhbnNmZXJyaW5nIG15IHRob3VnaHRzDQo+ID4+IHRvIGNsZWFyIGNvbW11bmlj
+YXRpb24uICBJIGFncmVlIHRoYXQgd2hhdCBJIHdyb3RlIHNob3VsZCBoYXZlIGJlZW4NCj4gPj4g
+d3JpdHRlbiBpbiB0ZXJtcyBvZiBjYXJ2ZSBvdXQgaW5zdGVhZCBvZiBwZXJtaXNzaW9uLg0KPiA+
+Pg0KPiA+Pg0KPiA+Pj4gZG9lc24ndCBlcXVhdGUgdG8gYSBwZXJtaXNzaW9uIGF0IGFsbCwgd2hp
+Y2ggaXMgd2h5IHRoZXJlJ3Mgbm8gbmVlZA0KPiA+Pj4gdG8gbWFrZSBpdCBtb3JlIGV4cGxpY2l0
+LiAgSXMgdGhhdCBhIGZhaXIgY2hhcmFjdGVyaXNhdGlvbj8NCj4gPj4NCj4gPj4gTm9wZS4gIE15
+IGNvbmNlcm4gaXMgIndoaWNoIGVtYWlsIGFkZHJlc3NlcyIuDQo+ID4NCj4gPiBUaGUgaWRlYSBo
+ZXJlIHdhcyBiZWNhdXNlIGl0J3MgYSBjYXJ2ZSBvdXQgdGhhdCBkb2Vzbid0IGdpdmUgcGVybWlz
+c2lvbg0KPiA+IGFuZCBiZWNhdXNlIHRoZSBwZXJtaXNzaW9uIGlzIHJ1bGVkIGJ5IHRoZSBwcm9q
+ZWN0IGNvbnRyaWJ1dGlvbg0KPiA+IGRvY3VtZW50cywgdGhlIGNhcnZlIG91dCBzaG91bGQgYmUg
+YnJvYWQgZW5vdWdoIHRvIGNvdmVyIGFueXRoaW5nIHRoZXkNCj4gPiBtaWdodCBzYXkgaGVuY2Ug
+ImVtYWlsIGFkZHJlc3NlcyBub3Qgb3JkaW5hcmlseSBjb2xsZWN0ZWQgYnkgdGhlDQo+ID4gcHJv
+amVjdCIgYXJlIHN0aWxsIGluY2x1ZGVkIGFzIHVuYWNjZXB0YWJsZSBiZWhhdmlvdXIuDQo+ID4N
+Cj4gPiBQZXJoYXBzIGlmIHlvdSBwcm9wb3NlIHRoZSB3b3JkaW5nIHlvdSdkIGxpa2UgdG8gc2Vl
+IGl0IHdvdWxkIGhlbHANCj4gPiBiZWNhdXNlIHRoZXJlIHN0aWxsIGxvb2tzIHRvIGJlIHNvbWUg
+c3VidGxldHkgSSdtIG5vdCBnZXR0aW5nLg0KPiANCj4gDQo+IEZyb20gdGhlIGJlZ2lubmluZyBv
+ZiB0aGUgdGhyZWFkOg0KPiANCj4gICA+IEBAIC0zMSw3ICszMSw3IEBAIEV4YW1wbGVzIG9mIHVu
+YWNjZXB0YWJsZSBiZWhhdmlvciBieSBwYXJ0aWNpcGFudHMNCj4gaW5jbHVkZToNCj4gICA+ICAq
+IFRyb2xsaW5nLCBpbnN1bHRpbmcvZGVyb2dhdG9yeSBjb21tZW50cywgYW5kIHBlcnNvbmFsIG9y
+IHBvbGl0aWNhbA0KPiBhdHRhY2tzDQo+ICAgPiAgKiBQdWJsaWMgb3IgcHJpdmF0ZSBoYXJhc3Nt
+ZW50DQo+ICAgPiAgKiBQdWJsaXNoaW5nIG90aGVyc+KAmSBwcml2YXRlIGluZm9ybWF0aW9uLCBz
+dWNoIGFzIGEgcGh5c2ljYWwgb3IgZWxlY3Ryb25pYw0KPiAgID4gLSAgYWRkcmVzcywgd2l0aG91
+dCBleHBsaWNpdCBwZXJtaXNzaW9uDQo+ICAgPiArICBhZGRyZXNzIG5vdCBvcmRpbmFyaWx5IGNv
+bGxlY3RlZCBieSB0aGUgcHJvamVjdCwgd2l0aG91dCBleHBsaWNpdA0KPiBwZXJtaXNzaW9uDQo+
+ICAgPiAgKiBPdGhlciBjb25kdWN0IHdoaWNoIGNvdWxkIHJlYXNvbmFibHkgYmUgY29uc2lkZXJl
+ZCBpbmFwcHJvcHJpYXRlIGluIGENCj4gICA+ICAgIHByb2Zlc3Npb25hbCBzZXR0aW5nDQo+IA0K
+PiANCj4gQWx0ZXJuYXRpdmUgKGFuZCBJJ20gc3VyZSBzb21lb25lIGVsc2UgY2FuIHByb2JhYmx5
+IGNsZWFuIHRoaXMgdXAgYSBsaXR0bGUgYml0KToNCj4gDQo+ICsgYWRkcmVzcyB0aGF0IGhhcyBi
+ZWVuIHByb3ZpZGVkIGluIGEgcHVibGljIHNwYWNlIGZvciB0aGUgcHJvamVjdCwgd2l0aG91dA0K
+PiBleHBsaWNpdCBwZXJtaXNzaW9uDQoNClRoaXMgZW5kcyB1cCByZWFkaW5nIGxpa2Ugc286DQoN
+Ci0tLS0NCkV4YW1wbGVzIG9mIHVuYWNjZXB0YWJsZSBiZWhhdmlvciBieSBwYXJ0aWNpcGFudHMg
+aW5jbHVkZToNCi4uLg0KKiBQdWJsaXNoaW5nIG90aGVyc+KAmSBwcml2YXRlIGluZm9ybWF0aW9u
+LCBzdWNoIGFzIGEgcGh5c2ljYWwgb3IgZWxlY3Ryb25pYw0KYWRkcmVzcyB0aGF0IGhhcyBiZWVu
+IHByb3ZpZGVkIGluIGEgcHVibGljIHNwYWNlIGZvciB0aGUgcHJvamVjdCwgd2l0aG91dA0KZXhw
+bGljaXQgcGVybWlzc2lvbi4NCi0tLS0NCg0KSSB0aGluayB0aGF0IGluIGNvbnRleHQsIHlvdSB3
+YW50IGEgJ25vdCcgaW4gdGhlcmUuICBUaGF0IGlzOiB1bmFjY2VwdGFibGUNCmJlaGF2aW9yIGlu
+Y2x1ZGVzIHB1Ymxpc2hpbmcgb3RoZXJzJyBwcml2YXRlIGluZm9ybWF0aW9uLi4uIHRoYXQgaGFz
+ICpub3QqDQpiZWVuIHByb3ZpZGVkIGluIGEgcHVibGljIHNwYWNlLiAgU28sIEkgdGhpbmsgdGhl
+IHN1Z2dlc3RlZCB0ZXh0IG5lZWRzDQpzb21lIGZpeGluZywgSU1ITy4NCg0KSSBsb29rZWQgYXQg
+dGhpcyBpc3N1ZSB1cHN0cmVhbSwgYW5kIGRlY2lkZWQgdG8gbGVhdmUgdGhlIHdvcmRpbmcgaW4N
+CnRoZSBDb0MgaXRzZWxmIGFsb25lIC0gZmF2b3JpbmcgaW5zdGVhZCB0byBhZGQgYSBjbGFyaWZ5
+aW5nIGFkZGl0aW9uDQp0byB0aGUgdXBzdHJlYW0gQ29DIEZBUSwgYWJvdXQgc29tZSBlbWFpbCBh
+ZGRyZXNzZXMgbm90IGJlaW5nDQpwcml2YXRlIGluZm9ybWF0aW9uLg0KDQpUaGUgcmVhc29uIEkg
+dG9vayB0aGF0IGFwcHJvYWNoLCByYXRoZXIgdGhhbiB0cnkgdG8gY2hhbmdlIHRoZSB3b3JkaW5n
+DQppbnNpZGUgdGhlIENvQywgaXMgdGhhdCB0aGUgY3VycmVudCB3b3JkaW5nIHNlZW1zIHRvIG1l
+IHRvIGJlIHN1ZmZpY2llbnQuDQpUaGUgdGhpbmcgdGhhdCBpcyB1bmFjY2VwdGFibGUgaXMgcHVi
+bGlzaGluZyBwcml2YXRlIGluZm9ybWF0aW9uLiAgVGhlICJzdWNoIGFzLi4uIg0KY2xhdXNlIGlz
+IGludGVuZGVkIHRvIGNvbnZleSBleGFtcGxlcyBvZiB0aGUgdHlwZXMgb2YgdGhpbmcgdGhhdCBt
+aWdodA0KdXN1YWxseSBiZSBjb25zaWRlcmVkIHByaXZhdGUgaW5mb3JtYXRpb24uICBCdXQgaXQg
+aXMgbm90IGV4aGF1c3RpdmUsIG5vcg0KaXMgaXQgbmVjZXNzYXJpbHkgY29ycmVjdCwgZGVwZW5k
+aW5nIG9uIHRoZSBjaXJjdW1zdGFuY2VzLiAgSW4gcGFydGljdWxhciwNCmVtYWlsIGFkZHJlc3Nl
+cyBhcmUgc29tZXRpbWVzIHByaXZhdGUgaW5mb3JtYXRpb24gYW5kIHNvbWV0aW1lcyBub3QuDQpJ
+biB0aGUgY29udGV4dCBvZiBrZXJuZWwgZGV2ZWxvcG1lbnQsIG1hbnkgZW1haWwgYWRkcmVzc2Vz
+IGFyZSBub3QgcHJpdmF0ZS4NCg0KSSBhbSBzeW1wYXRoZXRpYyB0byB0aGUgYXJndW1lbnQgdGhh
+dCB3ZSB1c2UgZW1haWxzIGFzIHB1YmxpYyBpbmZvcm1hdGlvbg0Kc28gbXVjaCBpbiBrZXJuZWwg
+ZGV2ZWxvcG1lbnQgcHJvY2Vzc2VzLCB0aGF0IGl0IG1ha2VzIHNlbnNlIHRvIG9taXQgdGhpcyBv
+cg0KcXVhbGlmeSBpdCBtb3JlLg0KDQpNeSBvd24gdmlld3MgYXJlIHRoYXQ6DQoxKSBpZiB3ZSBj
+aGFuZ2UgdGhpcyBsaW5lIGF0IGFsbCwgd2Ugc2hvdWxkIHNpbXBseSBvbWl0IHRoZSAic3VjaCBh
+cy4uLiIgcGFydCBvZg0KdGhlIHBocmFzZSwgYW5kIGxlYXZlIGl0IGF0Og0KDQoqIFB1Ymxpc2hp
+bmcgb3RoZXJz4oCZIHByaXZhdGUgaW5mb3JtYXRpb24gd2l0aG91dCBleHBsaWNpdCBwZXJtaXNz
+aW9uDQoNCmJ1dCBhbHNvDQoyKSBJJ20gT0sgd2l0aCBsZWF2aW5nIHRoZSBwaHJhc2UgYXMgaXMg
+YW5kIGhhbmRsaW5nIHRoZSBjb25jZXJucw0KaW4gYW4gY2xhcmlmeWluZyBkb2N1bWVudC4NCg0K
+SnVzdCBteSAyIGNlbnRzLg0KIC0tIFRpbQ0KDQoNCg0K
