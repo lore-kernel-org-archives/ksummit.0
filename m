@@ -1,28 +1,30 @@
-Return-Path: <gnomes@lxorguk.ukuu.org.uk>
+Return-Path: <geert.uytterhoeven@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 65720AD0
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id AF0A0900
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 20 Oct 2018 18:28:58 +0000 (UTC)
-Received: from fuzix.org (www.llwyncelyn.cymru [82.70.14.225])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C4CE484B
+	Sat, 20 Oct 2018 19:02:10 +0000 (UTC)
+Received: from mail-vs1-f67.google.com (mail-vs1-f67.google.com
+	[209.85.217.67])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 188C1701
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 20 Oct 2018 18:28:57 +0000 (UTC)
-Date: Sat, 20 Oct 2018 19:28:45 +0100
-From: Alan Cox <gnomes@lxorguk.ukuu.org.uk>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Message-ID: <20181020192845.48b8b860@alans-desktop>
-In-Reply-To: <20181020135118.GG32218@kroah.com>
-References: <20181020134908.GA32218@kroah.com>
-	<20181020135118.GG32218@kroah.com>
+	Sat, 20 Oct 2018 19:02:10 +0000 (UTC)
+Received: by mail-vs1-f67.google.com with SMTP id e206so27304992vsd.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sat, 20 Oct 2018 12:02:09 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	Mishi Choudhary <mishi@linux.com>,
-	linux-kernel <linux-kernel@vger.kernel.org>
-Subject: Re: [Ksummit-discuss] [PATCH 6/7] Code of Conduct: Change the
-	contact email address
+References: <20181020134908.GA32218@kroah.com>
+	<20181020135058.GF32218@kroah.com>
+In-Reply-To: <20181020135058.GF32218@kroah.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Sat, 20 Oct 2018 21:01:57 +0200
+Message-ID: <CAMuHMdUR_7GgFL0wqh9AdEq=HWmxPB=HzarEgY5TeLo67+S1LA@mail.gmail.com>
+To: Greg KH <gregkh@linuxfoundation.org>
+Content-Type: text/plain; charset="UTF-8"
+Cc: ksummit-discuss@lists.linuxfoundation.org, mishi@linux.com,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: Re: [Ksummit-discuss] [PATCH 5/7] Code of Conduct Interpretation:
+ Put in the proper URL for the committee
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,32 +34,44 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+Hi Greg,
 
-> +to the circumstances. The Code of Conduct Committee is obligated to
-> +maintain confidentiality with regard to the reporter of an incident.
-> +Further details of specific enforcement policies may be posted
-> +separately.
+On Sat, Oct 20, 2018 at 3:53 PM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+> There was a blank <URL> reference for how to find the Code of Conduct
+> Committee.  Fix that up by pointing it to the correct kernel.org website
+> page location.
+>
+> Acked-by: Chris Mason <clm@fb.com>
+> Acked-by: Olof Johansson <olof@lixom.net>
+> Acked-by: Theodore Ts'o <tytso@mit.edu>
+> Acked-by: Thomas Gleixner <tglx@linutronix.de>
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-Unfortunately by ignoring the other suggestions on this you've left this
-bit broken.
+Thanks for your patch!
 
-The committee can't keep most stuff confidential so it's misleading and
-wrong to imply they can. Data protection law, reporting laws in some
-countries and the like mean that anyone expecting an incident to remain
-confidential from the person it was reported against is living in
-dreamland and are going to get a nasty shock.
+> --- a/Documentation/process/code-of-conduct-interpretation.rst
+> +++ b/Documentation/process/code-of-conduct-interpretation.rst
+> @@ -123,8 +123,9 @@ Enforcement
+>
+>  The address listed in the Code of Conduct goes to the Code of Conduct
+>  Committee.  The exact members receiving these emails at any given time
+> -are listed at <URL>.  Members can not access reports made before they
+> -joined or after they have left the committee.
+> +are listed at https://kernel.org/code-of-conduct.html.  Members can not
+> +access reports made before they joined or after they have left the
+> +committee.
 
-At the very least it should say '(except where required by law)'.
+This seems to be the wrong URL? It just points to the CoC, not to the TAB
+members.
 
-There is a separate issue that serious things should always go to law
-enforcement - you are setting up a policy akin to the one that got the
-catholic church and many others in trouble.
+Gr{oetje,eeting}s,
 
-You should also reserving the right to report serious incidents directly
-to law enforcement. Unless of course you want to be forced to sit on
-multiple reports of physical abuse from different people about
-someone - unable to tell them about each others report, unable to prove
-anything, and in twenty years time having to explain to the media why
-nothing was done.
+                        Geert
 
-Alan
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
