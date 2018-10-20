@@ -1,41 +1,24 @@
-Return-Path: <frowand.list@gmail.com>
+Return-Path: <SRS0=0QPY=NA=linuxfoundation.org=gregkh@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7331F516
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 71EAF9D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 18 Oct 2018 23:07:17 +0000 (UTC)
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
-	[209.85.210.173])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8EF437E9
+	Sat, 20 Oct 2018 13:51:54 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 117D8701
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 18 Oct 2018 23:07:16 +0000 (UTC)
-Received: by mail-pf1-f173.google.com with SMTP id l81-v6so15575994pfg.3
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 18 Oct 2018 16:07:16 -0700 (PDT)
-To: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Tim.Bird@sony.com, ksummit-discuss@lists.linuxfoundation.org
-References: <1539701820.2805.6.camel@HansenPartnership.com>
-	<1539701896.2805.7.camel@HansenPartnership.com>
-	<e332116b-62e8-9930-c263-d022edb5828e@gmail.com>
-	<1539744091.2805.108.camel@HansenPartnership.com>
-	<16a20416-0045-dfe6-d937-63f2f0cff269@gmail.com>
-	<1539803331.3769.62.camel@HansenPartnership.com>
-	<b056cdc3-29de-b6c8-b2a7-67b93b0fd730@gmail.com>
-	<1539874609.2845.5.camel@HansenPartnership.com>
-	<b9f5376f-d8e8-bfe5-d27e-14c26d4859b8@gmail.com>
-	<ECADFF3FD767C149AD96A924E7EA6EAF805271E5@USCULXMSG01.am.sony.com>
-	<1539892678.18970.30.camel@HansenPartnership.com>
-From: Frank Rowand <frowand.list@gmail.com>
-Message-ID: <2adf5ac1-f837-a598-433d-db43459028db@gmail.com>
-Date: Thu, 18 Oct 2018 16:07:14 -0700
+	Sat, 20 Oct 2018 13:51:54 +0000 (UTC)
+Date: Sat, 20 Oct 2018 15:49:08 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: linux-kernel <linux-kernel@vger.kernel.org>
+Message-ID: <20181020134908.GA32218@kroah.com>
 MIME-Version: 1.0
-In-Reply-To: <1539892678.18970.30.camel@HansenPartnership.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: linux-kernel@vger.kernel.org
-Subject: Re: [Ksummit-discuss] [PATCH v3 1/3] code-of-conduct: Fix the
- ambiguity about collecting email addresses
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	Mishi Choudhary <mishi@linux.com>
+Subject: [Ksummit-discuss] [PATCH 0/7] Code of Conduct: Fix some wording,
+ and add an interpretation document
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -45,173 +28,71 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 10/18/18 12:57, James Bottomley wrote:
-> On Thu, 2018-10-18 at 19:49 +0000, Tim.Bird@sony.com wrote:
->>> -----Original Message-----
->>> From: Frank Rowand
->>>
->>> On 10/18/18 07:56, James Bottomley wrote:
->>>> On Wed, 2018-10-17 at 12:53 -0700, Frank Rowand wrote:
->>>>> On 10/17/18 12:08, James Bottomley wrote:
->>>>
->>>> [...]
->>>>>>> Trying to understand how you are understanding my comment
->>>>>>> vs what
->>>>>>> I intended to communicate, it seems to me that you are
->>>>>>> focused on
->>>>>>> the "where allowed" and I am focused on the "which email
->>>>>>> addresses".
->>>>>>>
->>>>>>> More clear?  Or am I still not communicating well enough?
->>>>>>
->>>>>> I think the crux of the disagreement is that you think the
->>>>>> carve
->>>>>> out equates to a permission which is not specific enough and
->>>>>> I
->>>>>> think it
->>>>>
->>>>> Nope.  That is a big place where I was not transferring my
->>>>> thoughts
->>>>> to clear communication.  I agree that what I wrote should have
->>>>> been
->>>>> written in terms of carve out instead of permission.
->>>>>
->>>>>
->>>>>> doesn't equate to a permission at all, which is why there's
->>>>>> no need
->>>>>> to make it more explicit.  Is that a fair characterisation?
->>>>>
->>>>> Nope.  My concern is "which email addresses".
->>>>
->>>> The idea here was because it's a carve out that doesn't give
->>>> permission
->>>> and because the permission is ruled by the project contribution
->>>> documents, the carve out should be broad enough to cover anything
->>>> they
->>>> might say hence "email addresses not ordinarily collected by the
->>>> project" are still included as unacceptable behaviour.
->>>>
->>>> Perhaps if you propose the wording you'd like to see it would
->>>> help
->>>> because there still looks to be some subtlety I'm not getting.
->>>
->>>
->>> From the beginning of the thread:
->>>
->>>   > @@ -31,7 +31,7 @@ Examples of unacceptable behavior by
->>> participants
->>> include:
->>>   >  * Trolling, insulting/derogatory comments, and personal or
->>> political
->>> attacks
->>>   >  * Public or private harassment
->>>   >  * Publishing others’ private information, such as a physical
->>> or electronic
->>>   > -  address, without explicit permission
->>>   > +  address not ordinarily collected by the project, without
->>> explicit
->>> permission
->>>   >  * Other conduct which could reasonably be considered
->>> inappropriate in a
->>>   >    professional setting
->>>
->>>
->>> Alternative (and I'm sure someone else can probably clean this up a
->>> little bit):
->>>
->>> + address that has been provided in a public space for the project,
->>> without explicit permission
->>
->> This ends up reading like so:
->>
->> ----
->> Examples of unacceptable behavior by participants include:
->> ...
->> * Publishing others’ private information, such as a physical or
->> electronic
->> address that has been provided in a public space for the project,
->> without
->> explicit permission.
->> ----
->>
+Hi all,
 
->> I think that in context, you want a 'not' in there.  That is:
+As everyone knows by now, we added a new Code of Conduct to the kernel
+tree a few weeks ago.
 
-Yes, thank you.
+When we did this, it raised a number of questions as to how this would
+affect the kernel community.  To help address these issues, I, and a few
+other kernel developers including the TAB, have come up with the
+following patch series to be added to the tree to both modify the
+existing Code of Conduct to remove a confusing paragraph as well as to
+add a new document to help explain how the Code of Conduct is to be
+interpreted by our community.
+
+I originally sent the first two patches in this series to a lot of
+kernel developers privately, to get their review and comments and see if
+they wanted to ack them.  This is the traditional way we have always
+done for policy documents or other "contentious" issues like the GPLv3
+statement or the "closed kernel modules are bad" statement.  Due to the
+very unexpected way that the original Code of Conduct file was added to
+the tree, a number of developers asked if this series could also be
+posted publicly before they were merged, and so, here they are.
+
+This patch series adds this new document to the kernel tree, as well as
+removes a paragraph from the existing Code of Conduct that was
+bothersome to many maintainers.  It also does a bit of housekeeping
+around these documents to get the documentation links correct as well as
+fix up the email address and other links and add a MAINTAINER entry for
+the files.
+
+Also I would like to publicly thank Mishi Choudhary for being willing to
+serve as a mediator for Code of Conduct issues.  She has a long history
+of working in many open source communities, many much more contentious
+than ours.  For more information about her, please see her wikipedia
+entry:
+	https://en.wikipedia.org/wiki/Mishi_Choudhary
+or take the chance to talk with her at the Plumbers conference in a few
+weeks, as she will be attending that along with almost everyone on the
+TAB as well as many kernel developers and maintainers, myself included.
+
+thanks,
+
+greg k-h
 
 
->> unacceptable behavior includes publishing others' private
->> information... that has *not* been provided in a public space.  So, I
->> think the suggested text needs some fixing, IMHO.
-> 
-> You beat me to this one.  However, there is another issue that I did
-> touch on but perhaps not in this subthread: For those of us who live in
-> the US, our addresses (that's physical and sometimes email) are
-> actually provided in a public space because they're available in the
-> public property records.  That's actually why I chose "not ordinarily
-> collected by the project" as opposed to "not previously provided in the
-> public space" or an equivalent because doxxing in the US is mostly
-> finding this information from public sources and broadcasting it.
 
-That clarification helps a _lot_ in understanding what you have said
-previously in this thread.  Thanks.  :-)
+Chris Mason (1):
+  Code of conduct: Fix wording around maintainers enforcing the code of
+    conduct
 
+Greg Kroah-Hartman (6):
+  Code of Conduct Interpretation: Add document explaining how the Code
+    of Conduct is to be interpreted
+  Code of Conduct Interpretation: Properly reference the TAB correctly
+  Code of Conduct: Provide links between the two documents
+  Code of Conduct Interpretation: Put in the proper URL for the
+    committee
+  Code of Conduct: Change the contact email address
+  MAINTAINERS: Add an entry for the code of conduct
 
->> I looked at this issue upstream, and decided to leave the wording in
->> the CoC itself alone - favoring instead to add a clarifying addition
->> to the upstream CoC FAQ, about some email addresses not being
->> private information.
->>
->> The reason I took that approach, rather than try to change the
->> wording inside the CoC, is that the current wording seems to me to be
->> sufficient. The thing that is unacceptable is publishing private
->> information.  The "such as..." clause is intended to convey examples
->> of the types of thing that might usually be considered private
->> information.  But it is not exhaustive, nor is it necessarily
->> correct, depending on the circumstances.  In particular, email
->> addresses are sometimes private information and sometimes not.
->> In the context of kernel development, many email addresses are not
->> private.
->>
->> I am sympathetic to the argument that we use emails as public
->> information so much in kernel development processes, that it makes
->> sense to omit this or qualify it more.
-> 
-> I think that's the sense of the people who acked this, yes.  Personally
-> I'm happy with a separate clarification in another document, but I can
-> also see the argument that we do need our single CoC to be consistent
-> with our operational method, which is why I proposed the patch.
-> 
->> My own views are that:
->> 1) if we change this line at all, we should simply omit the "such
->> as..." part of the phrase, and leave it at:
->>
->> * Publishing others’ private information without explicit permission
-> 
-> This looks OK to me too ... the problem with the original is that the
-> additional qualification overlaps our normal project method of
-> operation, this solves the issue as well.
+ .../code-of-conduct-interpretation.rst        | 156 ++++++++++++++++++
+ Documentation/process/code-of-conduct.rst     |  25 +--
+ Documentation/process/index.rst               |   1 +
+ MAINTAINERS                                   |   6 +
+ 4 files changed, 178 insertions(+), 10 deletions(-)
+ create mode 100644 Documentation/process/code-of-conduct-interpretation.rst
 
-Looks good to me.
-
--Frank
-
-> 
-> James
-> 
-> 
->> but also
->> 2) I'm OK with leaving the phrase as is and handling the concerns
->> in an clarifying document.
->>
->> Just my 2 cents.
->>  -- Tim
->>
->>
->>
->> _______________________________________________
->> Ksummit-discuss mailing list
->> Ksummit-discuss@lists.linuxfoundation.org
->> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
-> 
-> 
+-- 
+2.19.1
