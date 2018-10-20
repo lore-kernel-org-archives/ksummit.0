@@ -1,32 +1,32 @@
-Return-Path: <trondmy@hammerspace.com>
+Return-Path: <jonsmirl@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 15601B15
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id CAB9DACA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 20 Oct 2018 18:45:31 +0000 (UTC)
-Received: from NAM05-BY2-obe.outbound.protection.outlook.com
-	(mail-eopbgr710125.outbound.protection.outlook.com [40.107.71.125])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 84B6F775
+	Sat, 20 Oct 2018 19:14:33 +0000 (UTC)
+Received: from mail-pf1-f194.google.com (mail-pf1-f194.google.com
+	[209.85.210.194])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CA34E713
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 20 Oct 2018 18:45:30 +0000 (UTC)
-From: Trond Myklebust <trondmy@hammerspace.com>
-To: "gnomes@lxorguk.ukuu.org.uk" <gnomes@lxorguk.ukuu.org.uk>,
-	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
-Date: Sat, 20 Oct 2018 18:45:27 +0000
-Message-ID: <dfabf8b10d3e825c9a7f6c110e042dc72e50217d.camel@hammerspace.com>
+	Sat, 20 Oct 2018 19:14:32 +0000 (UTC)
+Received: by mail-pf1-f194.google.com with SMTP id l81-v6so17988650pfg.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sat, 20 Oct 2018 12:14:32 -0700 (PDT)
+MIME-Version: 1.0
 References: <20181020134908.GA32218@kroah.com>
 	<20181020135118.GG32218@kroah.com>
 	<20181020192845.48b8b860@alans-desktop>
-In-Reply-To: <20181020192845.48b8b860@alans-desktop>
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <CEA9CBF5D54EAB489CB3135840E1CA80@namprd13.prod.outlook.com>
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-Cc: "mishi@linux.com" <mishi@linux.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
+	<dfabf8b10d3e825c9a7f6c110e042dc72e50217d.camel@hammerspace.com>
+In-Reply-To: <dfabf8b10d3e825c9a7f6c110e042dc72e50217d.camel@hammerspace.com>
+From: "jonsmirl@gmail.com" <jonsmirl@gmail.com>
+Date: Sat, 20 Oct 2018 15:14:20 -0400
+Message-ID: <CAKON4OxLLhUkPGGbSF_ZtBC18fzZo44t1gUSsbYA0d2vCPfosg@mail.gmail.com>
+To: trondmy@hammerspace.com
+Content-Type: text/plain; charset="UTF-8"
+Cc: mishi@linux.com, gnomes@lxorguk.ukuu.org.uk,
+	lkml <linux-kernel@vger.kernel.org>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Greg KH <gregkh@linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [PATCH 6/7] Code of Conduct: Change the
  contact email address
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -38,39 +38,70 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-T24gU2F0LCAyMDE4LTEwLTIwIGF0IDE5OjI4ICswMTAwLCBBbGFuIENveCB3cm90ZToNCj4gPiAr
-dG8gdGhlIGNpcmN1bXN0YW5jZXMuIFRoZSBDb2RlIG9mIENvbmR1Y3QgQ29tbWl0dGVlIGlzIG9i
-bGlnYXRlZA0KPiA+IHRvDQo+ID4gK21haW50YWluIGNvbmZpZGVudGlhbGl0eSB3aXRoIHJlZ2Fy
-ZCB0byB0aGUgcmVwb3J0ZXIgb2YgYW4NCj4gPiBpbmNpZGVudC4NCj4gPiArRnVydGhlciBkZXRh
-aWxzIG9mIHNwZWNpZmljIGVuZm9yY2VtZW50IHBvbGljaWVzIG1heSBiZSBwb3N0ZWQNCj4gPiAr
-c2VwYXJhdGVseS4NCj4gDQo+IFVuZm9ydHVuYXRlbHkgYnkgaWdub3JpbmcgdGhlIG90aGVyIHN1
-Z2dlc3Rpb25zIG9uIHRoaXMgeW91J3ZlIGxlZnQNCj4gdGhpcw0KPiBiaXQgYnJva2VuLg0KPiAN
-Cj4gVGhlIGNvbW1pdHRlZSBjYW4ndCBrZWVwIG1vc3Qgc3R1ZmYgY29uZmlkZW50aWFsIHNvIGl0
-J3MgbWlzbGVhZGluZw0KPiBhbmQNCj4gd3JvbmcgdG8gaW1wbHkgdGhleSBjYW4uIERhdGEgcHJv
-dGVjdGlvbiBsYXcsIHJlcG9ydGluZyBsYXdzIGluIHNvbWUNCj4gY291bnRyaWVzIGFuZCB0aGUg
-bGlrZSBtZWFuIHRoYXQgYW55b25lIGV4cGVjdGluZyBhbiBpbmNpZGVudCB0bw0KPiByZW1haW4N
-Cj4gY29uZmlkZW50aWFsIGZyb20gdGhlIHBlcnNvbiBpdCB3YXMgcmVwb3J0ZWQgYWdhaW5zdCBp
-cyBsaXZpbmcgaW4NCj4gZHJlYW1sYW5kIGFuZCBhcmUgZ29pbmcgdG8gZ2V0IGEgbmFzdHkgc2hv
-Y2suDQo+IA0KPiBBdCB0aGUgdmVyeSBsZWFzdCBpdCBzaG91bGQgc2F5ICcoZXhjZXB0IHdoZXJl
-IHJlcXVpcmVkIGJ5IGxhdyknLg0KPiANCj4gVGhlcmUgaXMgYSBzZXBhcmF0ZSBpc3N1ZSB0aGF0
-IHNlcmlvdXMgdGhpbmdzIHNob3VsZCBhbHdheXMgZ28gdG8gbGF3DQo+IGVuZm9yY2VtZW50IC0g
-eW91IGFyZSBzZXR0aW5nIHVwIGEgcG9saWN5IGFraW4gdG8gdGhlIG9uZSB0aGF0IGdvdA0KPiB0
-aGUNCj4gY2F0aG9saWMgY2h1cmNoIGFuZCBtYW55IG90aGVycyBpbiB0cm91YmxlLg0KPiANCj4g
-WW91IHNob3VsZCBhbHNvIHJlc2VydmluZyB0aGUgcmlnaHQgdG8gcmVwb3J0IHNlcmlvdXMgaW5j
-aWRlbnRzDQo+IGRpcmVjdGx5DQo+IHRvIGxhdyBlbmZvcmNlbWVudC4gVW5sZXNzIG9mIGNvdXJz
-ZSB5b3Ugd2FudCB0byBiZSBmb3JjZWQgdG8gc2l0IG9uDQo+IG11bHRpcGxlIHJlcG9ydHMgb2Yg
-cGh5c2ljYWwgYWJ1c2UgZnJvbSBkaWZmZXJlbnQgcGVvcGxlIGFib3V0DQo+IHNvbWVvbmUgLSB1
-bmFibGUgdG8gdGVsbCB0aGVtIGFib3V0IGVhY2ggb3RoZXJzIHJlcG9ydCwgdW5hYmxlIHRvDQo+
-IHByb3ZlDQo+IGFueXRoaW5nLCBhbmQgaW4gdHdlbnR5IHllYXJzIHRpbWUgaGF2aW5nIHRvIGV4
-cGxhaW4gdG8gdGhlIG1lZGlhIHdoeQ0KPiBub3RoaW5nIHdhcyBkb25lLg0KPiANCg0KLi4uYW5k
-IHRoZW4geW91IGdldCBpbnRvIHF1ZXN0aW9ucyBhYm91dCBob3cgdGhpcyBjb21taXR0ZWUgd2ls
-bA0KcmVzcG9uZCB0byBxdWVyaWVzIGZyb20gc2FpZCBsYXcgZW5mb3JjZW1lbnQsIGFuZCBpbmRl
-ZWQgdG8gd2hpY2ggbGVnYWwNCnN5c3RlbXMgdGhlIGNvbW1pdHRlZSB3aWxsIG9yIHdpbGwgbm90
-IHJlcG9ydCBpbmNpZGVudHMuDQoNCldoeSB3b3VsZCB3ZSB3YW50IHRvIGJlIGdvaW5nIGRvd24g
-dGhlIHBhdGggb2YgdHJ5aW5nIHRvIGhhbmRsZSByZXBvcnRzDQphYm91dCAic2VyaW91cyBpbmNp
-ZGVudHMiIGluIHRoZSBmaXJzdCBwbGFjZT8gVGhhdCBzZWVtcyB3YXkgb3V0IG9mDQpzY29wZSBm
-b3IgYSBjb2RlIG9mIGNvbmR1Y3QgYXJiaXRyYXRpb24gc2NoZW1lLiBFdmVuIGF0dGVtcHRpbmcg
-dG8NCmNvdW5zZWwgcGVvcGxlIGFzIHRvIHdoZXRoZXIgb3Igbm90IHRoZXkgc2hvdWxkIHJlcG9y
-dCBpbmNpZGVudHMgY2FuDQpnZXQgeW91IGluIHRyb3VibGUgaW4gbWFueSBwYXJ0cyBvZiB0aGUg
-d29ybGQuDQoNCi0tIA0KVHJvbmQgTXlrbGVidXN0DQpMaW51eCBORlMgY2xpZW50IG1haW50YWlu
-ZXIsIEhhbW1lcnNwYWNlDQp0cm9uZC5teWtsZWJ1c3RAaGFtbWVyc3BhY2UuY29tDQoNCg0K
+On Sat, Oct 20, 2018 at 2:47 PM Trond Myklebust <trondmy@hammerspace.com> wrote:
+>
+> On Sat, 2018-10-20 at 19:28 +0100, Alan Cox wrote:
+> > > +to the circumstances. The Code of Conduct Committee is obligated
+> > > to
+> > > +maintain confidentiality with regard to the reporter of an
+> > > incident.
+> > > +Further details of specific enforcement policies may be posted
+> > > +separately.
+> >
+> > Unfortunately by ignoring the other suggestions on this you've left
+> > this
+> > bit broken.
+> >
+> > The committee can't keep most stuff confidential so it's misleading
+> > and
+> > wrong to imply they can. Data protection law, reporting laws in some
+> > countries and the like mean that anyone expecting an incident to
+> > remain
+> > confidential from the person it was reported against is living in
+> > dreamland and are going to get a nasty shock.
+> >
+> > At the very least it should say '(except where required by law)'.
+> >
+> > There is a separate issue that serious things should always go to law
+> > enforcement - you are setting up a policy akin to the one that got
+> > the
+> > catholic church and many others in trouble.
+> >
+> > You should also reserving the right to report serious incidents
+> > directly
+> > to law enforcement. Unless of course you want to be forced to sit on
+> > multiple reports of physical abuse from different people about
+> > someone - unable to tell them about each others report, unable to
+> > prove
+> > anything, and in twenty years time having to explain to the media why
+> > nothing was done.
+> >
+>
+> ...and then you get into questions about how this committee will
+> respond to queries from said law enforcement, and indeed to which legal
+> systems the committee will or will not report incidents.
+>
+> Why would we want to be going down the path of trying to handle reports
+> about "serious incidents" in the first place? That seems way out of
+> scope for a code of conduct arbitration scheme. Even attempting to
+> counsel people as to whether or not they should report incidents can
+> get you in trouble in many parts of the world.
+>
+
+Which is why the lawyers need to go over this document and I haven't
+seen anything posted from them. In the same vein Mauro is concerned
+that the way this is code is written it is a binding contract in
+Brazil.
+
+
+> --
+> Trond Myklebust
+> Linux NFS client maintainer, Hammerspace
+> trond.myklebust@hammerspace.com
+>
+>
+
+
+--
+Jon Smirl
+jonsmirl@gmail.com
