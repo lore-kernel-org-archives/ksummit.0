@@ -1,30 +1,34 @@
-Return-Path: <geert.uytterhoeven@gmail.com>
+Return-Path: <trondmy@hammerspace.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id AF0A0900
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 15601B15
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 20 Oct 2018 19:02:10 +0000 (UTC)
-Received: from mail-vs1-f67.google.com (mail-vs1-f67.google.com
-	[209.85.217.67])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 188C1701
+	Sat, 20 Oct 2018 18:45:31 +0000 (UTC)
+Received: from NAM05-BY2-obe.outbound.protection.outlook.com
+	(mail-eopbgr710125.outbound.protection.outlook.com [40.107.71.125])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 84B6F775
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 20 Oct 2018 19:02:10 +0000 (UTC)
-Received: by mail-vs1-f67.google.com with SMTP id e206so27304992vsd.0
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 20 Oct 2018 12:02:09 -0700 (PDT)
-MIME-Version: 1.0
+	Sat, 20 Oct 2018 18:45:30 +0000 (UTC)
+From: Trond Myklebust <trondmy@hammerspace.com>
+To: "gnomes@lxorguk.ukuu.org.uk" <gnomes@lxorguk.ukuu.org.uk>,
+	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
+Date: Sat, 20 Oct 2018 18:45:27 +0000
+Message-ID: <dfabf8b10d3e825c9a7f6c110e042dc72e50217d.camel@hammerspace.com>
 References: <20181020134908.GA32218@kroah.com>
-	<20181020135058.GF32218@kroah.com>
-In-Reply-To: <20181020135058.GF32218@kroah.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Sat, 20 Oct 2018 21:01:57 +0200
-Message-ID: <CAMuHMdUR_7GgFL0wqh9AdEq=HWmxPB=HzarEgY5TeLo67+S1LA@mail.gmail.com>
-To: Greg KH <gregkh@linuxfoundation.org>
-Content-Type: text/plain; charset="UTF-8"
-Cc: ksummit-discuss@lists.linuxfoundation.org, mishi@linux.com,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Subject: Re: [Ksummit-discuss] [PATCH 5/7] Code of Conduct Interpretation:
- Put in the proper URL for the committee
+	<20181020135118.GG32218@kroah.com>
+	<20181020192845.48b8b860@alans-desktop>
+In-Reply-To: <20181020192845.48b8b860@alans-desktop>
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <CEA9CBF5D54EAB489CB3135840E1CA80@namprd13.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Cc: "mishi@linux.com" <mishi@linux.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [PATCH 6/7] Code of Conduct: Change the
+ contact email address
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,44 +38,39 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Greg,
-
-On Sat, Oct 20, 2018 at 3:53 PM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
-> There was a blank <URL> reference for how to find the Code of Conduct
-> Committee.  Fix that up by pointing it to the correct kernel.org website
-> page location.
->
-> Acked-by: Chris Mason <clm@fb.com>
-> Acked-by: Olof Johansson <olof@lixom.net>
-> Acked-by: Theodore Ts'o <tytso@mit.edu>
-> Acked-by: Thomas Gleixner <tglx@linutronix.de>
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-
-Thanks for your patch!
-
-> --- a/Documentation/process/code-of-conduct-interpretation.rst
-> +++ b/Documentation/process/code-of-conduct-interpretation.rst
-> @@ -123,8 +123,9 @@ Enforcement
->
->  The address listed in the Code of Conduct goes to the Code of Conduct
->  Committee.  The exact members receiving these emails at any given time
-> -are listed at <URL>.  Members can not access reports made before they
-> -joined or after they have left the committee.
-> +are listed at https://kernel.org/code-of-conduct.html.  Members can not
-> +access reports made before they joined or after they have left the
-> +committee.
-
-This seems to be the wrong URL? It just points to the CoC, not to the TAB
-members.
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+T24gU2F0LCAyMDE4LTEwLTIwIGF0IDE5OjI4ICswMTAwLCBBbGFuIENveCB3cm90ZToNCj4gPiAr
+dG8gdGhlIGNpcmN1bXN0YW5jZXMuIFRoZSBDb2RlIG9mIENvbmR1Y3QgQ29tbWl0dGVlIGlzIG9i
+bGlnYXRlZA0KPiA+IHRvDQo+ID4gK21haW50YWluIGNvbmZpZGVudGlhbGl0eSB3aXRoIHJlZ2Fy
+ZCB0byB0aGUgcmVwb3J0ZXIgb2YgYW4NCj4gPiBpbmNpZGVudC4NCj4gPiArRnVydGhlciBkZXRh
+aWxzIG9mIHNwZWNpZmljIGVuZm9yY2VtZW50IHBvbGljaWVzIG1heSBiZSBwb3N0ZWQNCj4gPiAr
+c2VwYXJhdGVseS4NCj4gDQo+IFVuZm9ydHVuYXRlbHkgYnkgaWdub3JpbmcgdGhlIG90aGVyIHN1
+Z2dlc3Rpb25zIG9uIHRoaXMgeW91J3ZlIGxlZnQNCj4gdGhpcw0KPiBiaXQgYnJva2VuLg0KPiAN
+Cj4gVGhlIGNvbW1pdHRlZSBjYW4ndCBrZWVwIG1vc3Qgc3R1ZmYgY29uZmlkZW50aWFsIHNvIGl0
+J3MgbWlzbGVhZGluZw0KPiBhbmQNCj4gd3JvbmcgdG8gaW1wbHkgdGhleSBjYW4uIERhdGEgcHJv
+dGVjdGlvbiBsYXcsIHJlcG9ydGluZyBsYXdzIGluIHNvbWUNCj4gY291bnRyaWVzIGFuZCB0aGUg
+bGlrZSBtZWFuIHRoYXQgYW55b25lIGV4cGVjdGluZyBhbiBpbmNpZGVudCB0bw0KPiByZW1haW4N
+Cj4gY29uZmlkZW50aWFsIGZyb20gdGhlIHBlcnNvbiBpdCB3YXMgcmVwb3J0ZWQgYWdhaW5zdCBp
+cyBsaXZpbmcgaW4NCj4gZHJlYW1sYW5kIGFuZCBhcmUgZ29pbmcgdG8gZ2V0IGEgbmFzdHkgc2hv
+Y2suDQo+IA0KPiBBdCB0aGUgdmVyeSBsZWFzdCBpdCBzaG91bGQgc2F5ICcoZXhjZXB0IHdoZXJl
+IHJlcXVpcmVkIGJ5IGxhdyknLg0KPiANCj4gVGhlcmUgaXMgYSBzZXBhcmF0ZSBpc3N1ZSB0aGF0
+IHNlcmlvdXMgdGhpbmdzIHNob3VsZCBhbHdheXMgZ28gdG8gbGF3DQo+IGVuZm9yY2VtZW50IC0g
+eW91IGFyZSBzZXR0aW5nIHVwIGEgcG9saWN5IGFraW4gdG8gdGhlIG9uZSB0aGF0IGdvdA0KPiB0
+aGUNCj4gY2F0aG9saWMgY2h1cmNoIGFuZCBtYW55IG90aGVycyBpbiB0cm91YmxlLg0KPiANCj4g
+WW91IHNob3VsZCBhbHNvIHJlc2VydmluZyB0aGUgcmlnaHQgdG8gcmVwb3J0IHNlcmlvdXMgaW5j
+aWRlbnRzDQo+IGRpcmVjdGx5DQo+IHRvIGxhdyBlbmZvcmNlbWVudC4gVW5sZXNzIG9mIGNvdXJz
+ZSB5b3Ugd2FudCB0byBiZSBmb3JjZWQgdG8gc2l0IG9uDQo+IG11bHRpcGxlIHJlcG9ydHMgb2Yg
+cGh5c2ljYWwgYWJ1c2UgZnJvbSBkaWZmZXJlbnQgcGVvcGxlIGFib3V0DQo+IHNvbWVvbmUgLSB1
+bmFibGUgdG8gdGVsbCB0aGVtIGFib3V0IGVhY2ggb3RoZXJzIHJlcG9ydCwgdW5hYmxlIHRvDQo+
+IHByb3ZlDQo+IGFueXRoaW5nLCBhbmQgaW4gdHdlbnR5IHllYXJzIHRpbWUgaGF2aW5nIHRvIGV4
+cGxhaW4gdG8gdGhlIG1lZGlhIHdoeQ0KPiBub3RoaW5nIHdhcyBkb25lLg0KPiANCg0KLi4uYW5k
+IHRoZW4geW91IGdldCBpbnRvIHF1ZXN0aW9ucyBhYm91dCBob3cgdGhpcyBjb21taXR0ZWUgd2ls
+bA0KcmVzcG9uZCB0byBxdWVyaWVzIGZyb20gc2FpZCBsYXcgZW5mb3JjZW1lbnQsIGFuZCBpbmRl
+ZWQgdG8gd2hpY2ggbGVnYWwNCnN5c3RlbXMgdGhlIGNvbW1pdHRlZSB3aWxsIG9yIHdpbGwgbm90
+IHJlcG9ydCBpbmNpZGVudHMuDQoNCldoeSB3b3VsZCB3ZSB3YW50IHRvIGJlIGdvaW5nIGRvd24g
+dGhlIHBhdGggb2YgdHJ5aW5nIHRvIGhhbmRsZSByZXBvcnRzDQphYm91dCAic2VyaW91cyBpbmNp
+ZGVudHMiIGluIHRoZSBmaXJzdCBwbGFjZT8gVGhhdCBzZWVtcyB3YXkgb3V0IG9mDQpzY29wZSBm
+b3IgYSBjb2RlIG9mIGNvbmR1Y3QgYXJiaXRyYXRpb24gc2NoZW1lLiBFdmVuIGF0dGVtcHRpbmcg
+dG8NCmNvdW5zZWwgcGVvcGxlIGFzIHRvIHdoZXRoZXIgb3Igbm90IHRoZXkgc2hvdWxkIHJlcG9y
+dCBpbmNpZGVudHMgY2FuDQpnZXQgeW91IGluIHRyb3VibGUgaW4gbWFueSBwYXJ0cyBvZiB0aGUg
+d29ybGQuDQoNCi0tIA0KVHJvbmQgTXlrbGVidXN0DQpMaW51eCBORlMgY2xpZW50IG1haW50YWlu
+ZXIsIEhhbW1lcnNwYWNlDQp0cm9uZC5teWtsZWJ1c3RAaGFtbWVyc3BhY2UuY29tDQoNCg0K
