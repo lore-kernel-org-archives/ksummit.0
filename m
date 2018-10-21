@@ -1,28 +1,31 @@
-Return-Path: <SRS0=6f/a=NB=linuxfoundation.org=gregkh@kernel.org>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 74E34D27
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6C624D33
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 21 Oct 2018 07:18:24 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1E622A7
+	Sun, 21 Oct 2018 08:28:03 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 202FFA7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 21 Oct 2018 07:18:24 +0000 (UTC)
-Date: Sun, 21 Oct 2018 09:18:21 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Message-ID: <20181021071821.GD11176@kroah.com>
+	Sun, 21 Oct 2018 08:28:03 +0000 (UTC)
+Date: Sun, 21 Oct 2018 04:27:57 -0400
+From: "Theodore Y. Ts'o" <tytso@mit.edu>
+To: "jonsmirl@gmail.com" <jonsmirl@gmail.com>
+Message-ID: <20181021082757.GB1617@thunk.org>
 References: <20181020134908.GA32218@kroah.com>
-	<20181020135058.GF32218@kroah.com>
-	<CAMuHMdUR_7GgFL0wqh9AdEq=HWmxPB=HzarEgY5TeLo67+S1LA@mail.gmail.com>
+	<20181020135118.GG32218@kroah.com>
+	<20181020192845.48b8b860@alans-desktop>
+	<dfabf8b10d3e825c9a7f6c110e042dc72e50217d.camel@hammerspace.com>
+	<CAKON4OxLLhUkPGGbSF_ZtBC18fzZo44t1gUSsbYA0d2vCPfosg@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAMuHMdUR_7GgFL0wqh9AdEq=HWmxPB=HzarEgY5TeLo67+S1LA@mail.gmail.com>
-Cc: mishi@linux.com, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [PATCH 5/7] Code of Conduct Interpretation:
- Put in the proper URL for the committee
+In-Reply-To: <CAKON4OxLLhUkPGGbSF_ZtBC18fzZo44t1gUSsbYA0d2vCPfosg@mail.gmail.com>
+Cc: gnomes@lxorguk.ukuu.org.uk, ksummit-discuss@lists.linuxfoundation.org,
+	mishi@linux.com, Greg KH <gregkh@linuxfoundation.org>,
+	lkml <linux-kernel@vger.kernel.org>, trondmy@hammerspace.com
+Subject: Re: [Ksummit-discuss] [PATCH 6/7] Code of Conduct: Change the
+ contact email address
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,42 +35,15 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, Oct 20, 2018 at 09:01:57PM +0200, Geert Uytterhoeven wrote:
-> Hi Greg,
+On Sat, Oct 20, 2018 at 03:14:20PM -0400, jonsmirl@gmail.com wrote:
 > 
-> On Sat, Oct 20, 2018 at 3:53 PM Greg Kroah-Hartman
-> <gregkh@linuxfoundation.org> wrote:
-> > There was a blank <URL> reference for how to find the Code of Conduct
-> > Committee.  Fix that up by pointing it to the correct kernel.org website
-> > page location.
-> >
-> > Acked-by: Chris Mason <clm@fb.com>
-> > Acked-by: Olof Johansson <olof@lixom.net>
-> > Acked-by: Theodore Ts'o <tytso@mit.edu>
-> > Acked-by: Thomas Gleixner <tglx@linutronix.de>
-> > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> 
-> Thanks for your patch!
-> 
-> > --- a/Documentation/process/code-of-conduct-interpretation.rst
-> > +++ b/Documentation/process/code-of-conduct-interpretation.rst
-> > @@ -123,8 +123,9 @@ Enforcement
-> >
-> >  The address listed in the Code of Conduct goes to the Code of Conduct
-> >  Committee.  The exact members receiving these emails at any given time
-> > -are listed at <URL>.  Members can not access reports made before they
-> > -joined or after they have left the committee.
-> > +are listed at https://kernel.org/code-of-conduct.html.  Members can not
-> > +access reports made before they joined or after they have left the
-> > +committee.
-> 
-> This seems to be the wrong URL? It just points to the CoC, not to the TAB
-> members.
+> Which is why the lawyers need to go over this document and I haven't
+> seen anything posted from them. In the same vein Mauro is concerned
+> that the way this is code is written it is a binding contract in
+> Brazil.
 
-The information at that web page will be updatd "soon" with the
-information about the committee.  Please give us a few more days for
-this, as we are all traveling at the moment...
+My understanding is that lawyers from the Linux Foundation have gone
+over both the CoC and as well as the changes in this patchset, and
+that this happened before they were sent out.
 
-thanks,
-
-greg k-h
+						- Ted
