@@ -1,34 +1,30 @@
-Return-Path: <prvs=38331f2c80=clm@fb.com>
+Return-Path: <neil@brown.name>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 233BDB4A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 26F4241C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 22 Oct 2018 16:29:50 +0000 (UTC)
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
-	[67.231.153.30])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3F434737
+	Mon, 22 Oct 2018 20:26:19 +0000 (UTC)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 353E1623
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 22 Oct 2018 16:29:49 +0000 (UTC)
-Received: from pps.filterd (m0148460.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
-	w9MGPJkf026222 for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 22 Oct 2018 09:29:47 -0700
-Received: from maileast.thefacebook.com ([199.201.65.23])
-	by mx0a-00082601.pphosted.com with ESMTP id 2n9fep0pnp-2
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT)
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 22 Oct 2018 09:29:47 -0700
-From: Chris Mason <clm@fb.com>
-To: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Date: Mon, 22 Oct 2018 16:28:47 +0000
-Message-ID: <C831E03A-A3B5-4189-92AA-EEAB07AC12F5@fb.com>
-Content-Language: en-US
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	Mon, 22 Oct 2018 20:26:18 +0000 (UTC)
+From: NeilBrown <neil@brown.name>
+To: Josh Triplett <josh@joshtriplett.org>
+Date: Tue, 23 Oct 2018 07:26:06 +1100
+In-Reply-To: <20181021222608.GA24845@localhost>
+References: <20181020134908.GA32218@kroah.com>
+	<87y3ar80ac.fsf@notabene.neil.brown.name>
+	<20181021222608.GA24845@localhost>
+Message-ID: <875zxt919d.fsf@notabene.neil.brown.name>
 MIME-Version: 1.0
-Subject: [Ksummit-discuss] Linux Foundation Technical Advisory Board
- Elections -- Call for nominations
+Content-Type: multipart/signed; boundary="=-=-=";
+	micalg=pgp-sha256; protocol="application/pgp-signature"
+Cc: Mishi Choudhary <mishi@linux.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-kernel <linux-kernel@vger.kernel.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] Call to Action Re: [PATCH 0/7] Code of
+	Conduct: Fix some wording, and add an interpretation document
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,70 +34,160 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+--=-=-=
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
 
-Hello everyone,
+On Sun, Oct 21 2018, Josh Triplett wrote:
 
-The Linux Foundation Technical Advisory Board (TAB) serves as the=20
-interface between the kernel development community and the Linux=20
-Foundation. The TAB advises the Foundation on kernel-related matters,=20
-helps member companies learn to work with the community, and works to=20
-resolve community-related problems before they get out of hand.  We're=20
-also working with kernel maintainers to help refine the new code of=20
-conduct, and serving as the initial point of contact for code of conduct=20
-issues.
+> On Mon, Oct 22, 2018 at 08:20:11AM +1100, NeilBrown wrote:
+>> I call on you, Greg:
+>>  - to abandon this divisive attempt to impose a "Code of Conduct"
+>>  - to revert 8a104f8b5867c68
+>>  - to return to your core competence of building a great team around
+>>    a great kernel
+>>=20
+>>  #Isupportreversion
+>>=20
+>> I call on the community to consider what *does* need to be said, about
+>> conduct, to people outside the community and who have recently joined.
+>> What is the document that you would have liked to have read as you were
+>> starting out?  It is all too long ago for me to remember clearly, and so
+>> much has changed.
+>
+> The document I would have liked to have read when starting out is
+> currently checked into the source tree in
+> Documentation/process/code-of-conduct.rst .
 
-The board has ten members, one of whom sits on the Linux Foundation=20
-board of directors.
+I'm curious - what would you have gained by reading that document?
 
-The election to select five TAB members will be held at the 2018 Kernel=20
-Summit in Vancouver, Canada.  The elections will take place at the=20
-conference center on Tuesday November 13th, at 5:30pm.
+>
+> What is your actual concern? Why does it matter so much to you to push
+> back against this code of conduct? What does it say that you so
+> fundamentally object to?
 
-The election will be open to all attendees of all of the Linux=20
-Foundation events taking place that week in Vancouver.  Anyone is=20
-eligible to stand for election, simply send your nomination to:
+Thank you for asking.  The discipline of focusing on an answer to this
+question (rather than being distracted by all the different things that
+are wrong here) has helped me to clarify my thoughts very nicely.
 
-tech-board-discuss at lists.linux-foundation.org
+The current document is upside down.
 
-The deadline for receiving nominations is up until the beginning of the=20
-event where the election is held.
+The whole point of any document like this is to curtail, bypass, or
+redirect the power of the powerful (and thanks to Dave[1] for the "power"
+frame).  We already have plenty of process documents which attempt to give
+power to the weak by explaining how they can be heard.  While those
+documents might have room for improvement in this process, this document
+is quite different - it aims to take power away.
 
-In past years, everyone running for the TAB has given a short speech=20
-before the voting began.  We've received feedback that the speeches add=20
-logistical complexity for the election, and may not be the best=20
-indicator of how well qualified someone is for the TAB.
+The power that the current document describes is the power of having a
+platform on which to speak - through a wiki, through comments, through
+code etc.  It talks about maintainers curtailing that power when it is
+misused.
 
-Instead of speeches, this year we're asking candidates to include=20
-statements about why they would like to participate in the TAB.  These=20
-will be combined into a slideshow running during the election, and=20
-available via a public google doc at this location:
+I argue that regular "participants" in the kernel community have
+virtually no power.  The only "platforms" for speech are lkml (and other
+lists) and bugzilla.  lkml is a cacophony (even Mozart would sound
+terrible if we played all his works at once!) and bugzilla is a ghost
+town.  Neither provide a platform where any central control is needed.
+Every subscriber already filters content themselves, whether by
+unsubscribing, just skimming subject lines, or with more automated
+assistance (and that is not something the community can control, whether
+it wants to or not).
 
-https://goo.gl/rPEc2v
+The only strength that participants have is the value of their
+contribution, and this is only turned into power when they are listened
+to.
 
-Even though the deadline for nominations is right before voting begins,=20
-any statements must be received by Monday November 12th at 5PM Pacific,=20
-so that we have time to setup the slideshow.
+On the other end of the spectrum, Linus has all the power.  Patches are
+the currency of the realm and all power (popularity, voice, voting
+rights) flow from them.  Linus ultimately controls patches and has
+ultimate power (almost - see below)
 
-Current TAB members, and their election year:
+In between are maintainers - they received power from Linus through
+lines of trust, and sometimes pass it on through other lines of trust -
+to sub-maintainers and valued contributors.   They also (noblesse oblige)
+give some power to the poor who they don't know - accepting bug
+reports, giving advice, reviewing patches.
 
-Chris Mason 2016
-H. Peter Anvin 2016
-Olof Johansson 2016
-Rik van Riel	2016
-Dan Williams 2016
+Given the power structure, the document we should be modeling our
+thoughts on is the Magna Carte, where the British barons demanded that
+the King's power be curtailed.
+We don't need a document where the maintainers tell the participants how
+they must behave, but we might need one where the maintainers tell Linus
+how to behave.
 
-Jon Corbet 2017
-Greg Kroah-Hartman 2017
-Steven Rostedt 2017
-Ted Tso	2017
-Tim Bird	2017
+As I said, the current document is upside down.
 
-The five slots from 2016 are all up for election.  As always, please let=20
-us know if you have questions, and please do consider running.
+I would hope that Linus would provide Magna Carte himself, but maybe he
+isn't up to it.  In which case, our job is to draft a document for Linus
+to agree to abide by.  He might want to then make changes, and that is
+*perfect* *fine*.  It is *his* statement to the community on how *he*
+will use the power he has - after all, it is ultimately the whole
+community (well beyond developers) who give Linus the power he has by
+valuing the product he produces (just as farmers ultimately give power
+to the king by putting food on his table to feed him and his soldiers).
 
-Chris Mason, TAB Chair
+Once Linus has adopted such a document, we can look to other
+maintainers to follow suite.  They might choose to use the same
+document, or to write something completely different.  In either case,
+it puts their stance clearly on the table.  People who find the need to
+work with them can have clear expectations, and can decide on the best
+approach, and whether it is worth the effort at all.
 
-[1] TAB members sit for a term of two years, and half of the board is up
-for election every year. Five of the seats are up for election now.
-The other five are halfway through their term and will be up for
-election next year.
+In parallel with these promises (willingly adopted, not imposed), we
+need clear processes for people to follow if they cannot work with a
+maintainer, either because the promise doesn't make them feel safe
+enough, or because the maintainer violates their own promise.
+This isn't about enforcement and repercussions and punishment exactly.
+This is about economics - keeping the patches moving.
+
+If, for example, Linus or Andrew said "if you cannot work with any given
+maintainer, I will consider your patch directly, but you need to point
+to where you tried, and why you failed - or to where the promise is
+inadequate".
+
+Currently if a maintainer is rude to you, there is no where else that
+you can go and *that* is why it hurts.  It isn't the abuse so much as
+the powerlessness associated with it.  If you can (metaphorically) say
+to that maintainer "I don't care about your toilet mouth, you've just
+given me the right to take my petition to caesar" - then the emotional
+response will be quite different to pain.
+
+If Linus is not true to his new-found sensitivity, we might need someone
+(Greg?) to be a co-maintainer, able to accept patches when Linus has a
+relapse.  It might be good form to create this channel anyway, but I
+doubt it would be needed in practice.
+
+So there you have it. The "Code" is upside down.
+We need documents which:
+  - curtail the power of the strong, starting with Linus
+  - are adopted willingly by individuals, not imposed on the community.
+  - provide alternate routes for patch-flow, so that no-one has ultimate
+    power.
+
+Thanks,
+NeilBrown
+#Iobject #Iforgive #Iapologize #Isupportreversion
+
+[1] just a random "Dave"
+
+--=-=-=
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEG8Yp69OQ2HB7X0l6Oeye3VZigbkFAlvOMl8ACgkQOeye3VZi
+gbk3dw//eGtvCdSG9GxoRD9BqtVtdSXzK4NZLX7xm5ZSBA8Yw4WfIuKdkaJesztD
+zoFlKU0FtkKXLS6oarGJ6QNjDgGzjoWvYqHsCED6zsgJoDnbwLov8gi6SD1MaxAB
+PY9RC5/gb9R6jQlWDfI9dj8TE99e6AJNwmvj25AZJ5g5Uc+f1HlUXi7UeP0Wa4hF
+VNhf7mLAHZ6n3q+EfYcueYUG5DX7SaGbusSJ7q4ry3fSkM/5bmcZmrYnFrHYOQKD
+zWTIRzEqVW4OMseRGt0aICAXtfUvGriebfknYvk44+HuGmxTVU015nu3CFPezwcg
+Luug9cCbu5jFxV9HiSWfHLeIeg3gnq4wQCwblLm3GcDfI6CGc7oTZh6ubA5KxfEe
+M/De3vYQDMiNZpX6GVD+ku09cmxZ5xJuRK3j+c2czGBhQPV7+q8/HGWDulqJxgUK
+FoBsXUGa8+2kdC+fXL8u3Q5pg5XIebBinvsEmhz4VwE2eXGbdINyzr7ugOrDVdGK
+AaXV/iMlQ6stsejG2/VgUw9f2NhVoQebMa6EuOiLEFrV5X/CO5O5JoeWfk41jpIE
+9l8holqEF6LK2QTAxBBLMCGB96kiM++PeiVXaJV6yx3hP+rFY3fwY10Vxmcg3Of6
+rtjjFDAbSddiMVmT9m7iux60tUVnOYPwUm43lCX5zzyS6XQCfTM=
+=oQfx
+-----END PGP SIGNATURE-----
+--=-=-=--
