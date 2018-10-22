@@ -1,27 +1,29 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <jrf@mailbox.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id AF35BE7B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 09B90D0E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 23 Oct 2018 09:09:49 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3C6ED784
+	Mon, 22 Oct 2018 09:08:04 +0000 (UTC)
+Received: from mx1.mailbox.org (mx1.mailbox.org [80.241.60.212])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DDF7579F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 23 Oct 2018 09:09:49 +0000 (UTC)
-Message-ID: <1540285779.3347.27.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Greg Kroah-Hartman <greg@kroah.com>
-Date: Tue, 23 Oct 2018 10:09:39 +0100
-In-Reply-To: <20181022211025.GA8911@kroah.com>
-References: <1540066514.3464.22.camel@HansenPartnership.com>
-	<20181022211025.GA8911@kroah.com>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: linux-kernel <linux-kernel@vger.kernel.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [GIT PULL] code of conduct fixes for 4.19-rc8
+	Mon, 22 Oct 2018 09:08:02 +0000 (UTC)
+From: Rainer Fiebig <jrf@mailbox.org>
+To: NeilBrown <neil@brown.name>
+Date: Mon, 22 Oct 2018 11:09:26 +0200
+Message-ID: <1922559.38OmgndT9b@siriux>
+In-Reply-To: <87y3ar80ac.fsf@notabene.neil.brown.name>
+References: <20181020134908.GA32218@kroah.com>
+	<87y3ar80ac.fsf@notabene.neil.brown.name>
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	Mishi Choudhary <mishi@linux.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [Ksummit-discuss] Call to Action Re: [PATCH 0/7] Code of
+	Conduct: Fix some wording, and add an interpretation document
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,74 +33,149 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 2018-10-22 at 22:10 +0100, Greg Kroah-Hartman wrote:
-> On Sat, Oct 20, 2018 at 01:15:14PM -0700, James Bottomley wrote:
-> > This is the series of patches which has been discussed on both
-> > ksummit-discuss and linux-kernel for the past few weeks.  As Shuah
-> > said when kicking off the process, it's designed as a starting
-> > point for the next phase of the discussion, not as the end point,
-> > so it's only really a set of minor updates to further that goal.
-> > 
-> > The merger of the three patches to show the combined effect is
-> > attached below.  However, Greg recently posted the next phase of
-> > the discussion, so people will be asking what the merger of the
-> > series looks like.  Ignoring the non-CoC documents, I think it
-> > looks like this
-> 
-> Sorry for not responding sooner for this, travel and the meeting
-> today took up my time.
-> 
-> Anyway, as we discussed today in the Maintainers summit, let's leave
-> the Code of Conduct text alone for now.
+Am Montag, 22. Oktober 2018, 08:20:11 schrieb NeilBrown:
+> On Sat, Oct 20 2018, Greg Kroah-Hartman wrote:
+> > Hi all,
+> >=20
+> > As everyone knows by now, we added a new Code of Conduct to the ker=
+nel
+> > tree a few weeks ago.
+>=20
+> I wanted to stay detached from all this, but as remaining (publicly)
 
-I still think rejecting this pull request in favour of your own patches
-rather than doing a combination is a process mistake.  However, I do
-believe most people can live with the current status quo.  So I'm not
-going to object further (and I'm grateful for the commitment to try to
-be more transparent and actually follow our own processes next time we
-do something like this that we also arrived at at the Maintainer
-Summit).
+And I didn't expect myself to ever post in this matter again, as I had
+already given up and relegated it to the "waste of precious lifetime"=20=
 
->   It matches what "upstream" has with the exception of removing that
-> one paragraph.
+category. But your initiative and courage deserve support and so:
 
-Um, and adding the interpretation paragraph; that paragraph is one of
-the most significant changes because the interpretation document
-corrals a lot of the potential effects of the undiluted contributor
-covenant.
++1.
 
->   If you have issues with the wording in it, please work with
-> upstream to fix the issues there as hundreds of other projects will
-> benefit with your changes if they are really needed.
+> I call on the community to consider what *does* need to be said, abou=
+t
+> conduct, to people outside the community and who have recently joined=
+.
+> What is the document that you would have liked to have read as you we=
+re
+> starting out?  It is all too long ago for me to remember clearly, and=
+ so
+> much has changed.
 
-Deflection to "upstream" is a bit of a red herring on two counts:
-firstly because we have no commitment to move to later revisions and
-secondly because the interaction of the interpretation document with an
-update is quite a big source of potential conflicts: to properly update
-we'd have to update both documents which means us potentially rewriting
-one or both again.
+On the day the patch came out, I started working on a modified version,=
+=20
+a CoC that I could have lived with. I guess this was my way of dealing=20=
 
-I also think deflection to "upstream" is a social mistake.  If you want
-the community to own the code of conduct, you can't keep telling them
-it's someone else's document.
+with this unfortunate affair.=20
 
-James
+So please find below what I would have submitted for discussion.
+
+Thanks and regards!
+
+Rainer Fiebig
 
 
-> For now, let's let things settle down and not worry about
-> hypothetical situations that might possibly happen in some way or
-> another as we can debate that type of thing endlessly (it's a good
-> skill we have which makes us great kernel developers, but it not
-> always transferrable to other environments).
-> 
-> If real issues do come up in the future, we will address them then,
-> as we always have the option to change and revisit things as needed.
-> 
-> thanks,
-> 
-> greg k-h
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
-> 
+Disclosure
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+My contribution to the Linux kernel is admittedly negligible: I run rc-=
+
+kernels, have reported a few problems, helped to fix them and fixed one=
+=20
+myself. To the extent of the time and effort this took me, I dare to gi=
+ve=20
+my opinion in this matter.=20
+
+---
+
+
+Code of Conduct
++++++++++++++++
+
+The goal of the Linux kernel development process is to maintain and adv=
+ance
+the most robust operating system kernel ever.
+
+Needless to say, views on how to achieve this will differ at times.
+
+In order to keep arguments civilized and to ensure an open, positive=20=
+
+and constructive environment, we have setup guidelines=20
+that participants are expected to comply with:
+
+No bias
+=3D=3D=3D=3D=3D=3D=3D
+
+Nobody must be discriminated or favored due to personal traits like
+- for example - age, gender or ethnicity. They are irrelevant.
+What counts is whether the contribution is in line with a/m goal.
+Any such contribution will be carefully reviewed.
+
+Be excellent to each other
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D
+
+Don't do to others what you don't want others to do to you.
+Straightforward talk is fine. But dissent can be communicated in a=20
+non-destructive manner. And keep in mind that at times it may be *you*=20=
+
+who is dead wrong.
+
+Examples of encouraged behavior:
+
+* Being respectful of differing viewpoints
+* Criticizing constructively, i. e. showing ways for improvement
+* Accepting constructive criticism
+* Focusing on what is best for our goal and the community
+
+Examples of unacceptable behavior:
+
+* Comments intended to insult, depreciate or defame a person
+* Public or private harassment
+* Unwelcome sexual attention or advances
+* Fabricating incriminations by quoting out of context
+* Publishing others=E2=80=99 private information, such as a physical or=
+ electronic
+  address, without explicit permission
+* Promoting political agendas
+* Trolling
+
+Responsibilities
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+All participants are responsible for complying with this Code of Conduc=
+t.
+
+Maintainers are responsible for clarifying the standards of acceptable=20=
+
+behavior and are expected to take appropriate and fair corrective actio=
+n in=20
+response to any instances of obviously unacceptable behavior.
+
+Maintainers have the right to ban temporarily or permanently any contri=
+butor=20
+who's behavior is not aligned to this Code of Conduct.
+
+Arbitration
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+Anyone who feels abused, harassed or affected by otherwise unacceptable=
+=20
+behavior may report this to the Technical Advisory Board (TAB)=20
+at <tab@lists.linux-foundation.org>.=20
+
+All complaints will be reviewed and investigated and will result in a r=
+esponse=20
+that is deemed necessary and appropriate to the circumstances.=20
+
+The TAB is obligated to maintain confidentiality with regard to the rep=
+orter=20
+of an incident.
+
+Further details of specific arbitration policies may be posted separate=
+ly.
+
+Attribution
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+Some elements of this Code of Conduct are derived from the Contributor=20=
+
+Covenant, version 1.4, available at https://www.contributor-covenant.or=
+g/version/1/4/code-of-conduct.html
