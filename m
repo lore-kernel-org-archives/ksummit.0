@@ -1,28 +1,28 @@
-Return-Path: <tytso@thunk.org>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id F181349D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 867A3AD1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 21 Oct 2018 23:37:15 +0000 (UTC)
-Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6E9DE7FA
+	Mon, 22 Oct 2018 11:03:04 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id AF5297A8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 21 Oct 2018 23:37:15 +0000 (UTC)
-Date: Sun, 21 Oct 2018 19:37:09 -0400
-From: "Theodore Y. Ts'o" <tytso@mit.edu>
-To: Josh Triplett <josh@joshtriplett.org>
-Message-ID: <20181021233709.GJ1617@thunk.org>
+	Mon, 22 Oct 2018 11:03:02 +0000 (UTC)
+Message-ID: <1540206166.2815.24.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: NeilBrown <neil@brown.name>, Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>, linux-kernel <linux-kernel@vger.kernel.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>
+Date: Mon, 22 Oct 2018 12:02:46 +0100
+In-Reply-To: <87y3ar80ac.fsf@notabene.neil.brown.name>
 References: <20181020134908.GA32218@kroah.com>
 	<87y3ar80ac.fsf@notabene.neil.brown.name>
-	<20181021222608.GA24845@localhost>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20181021222608.GA24845@localhost>
-Cc: NeilBrown <neil@brown.name>, Mishi Choudhary <mishi@linux.com>,
-	linux-kernel <linux-kernel@vger.kernel.org>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-TaFZnUKXD7/gTOc36swC"
+Mime-Version: 1.0
+Cc: Mishi Choudhary <mishi@linux.com>,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] Call to Action Re: [PATCH 0/7] Code of
  Conduct: Fix some wording, and add an interpretation document
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -34,84 +34,85 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sun, Oct 21, 2018 at 11:26:08PM +0100, Josh Triplett wrote:
-> On Mon, Oct 22, 2018 at 08:20:11AM +1100, NeilBrown wrote:
-> > I call on you, Greg:
-> >  - to abandon this divisive attempt to impose a "Code of Conduct"
-> >  - to revert 8a104f8b5867c68
-> >  - to return to your core competence of building a great team around
-> >    a great kernel
 
-I would point out that Greg did not chose to "impose" a Code of
-Conduct.  That directive came from Linus; the change was signed off by
-Linus, and the choice of the timing came from Linus.  That's why the
-initial commit went in with very minimal review.  This series of
-patches, especially the first two, have a very large number of
-Acked-by sign-offs.  That's because there was a *huge* amount of
-consultation with the top contributors to the kernel (using git
-statistics) before the patch set was posted.
+--=-TaFZnUKXD7/gTOc36swC
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-This level of consultation did not take place before Linus took his
-break during -rc4, precisely because he didn't want people to think
-that Greg did this "behind his back" and so there was no time to do
-the sort of consultations which we did with this patch set.
+On Mon, 2018-10-22 at 08:20 +1100, NeilBrown wrote:
+> On Sat, Oct 20 2018, Greg Kroah-Hartman wrote:
+>=20
+> > Hi all,
+> >=20
+> > As everyone knows by now, we added a new Code of Conduct to the
+> > kernel tree a few weeks ago.
+>=20
+> I wanted to stay detached from all this, but as remaining (publicly)
+> silent might be seen (publicly) as acquiescing, I hereby declare
+> that:
+>    I reject, as illegitimate, this Code and the process by
+>    which it is being "developed".
+>=20
+> It is clear from the surrounding discussions that this is well
+> outside our core competencies.  It will be flawed, it isn't what we
+> need.
+>=20
+> I call on any other community members who reject this process to say
+> so, not to remain silent.
+> #Iobject
 
-(And when I say we, although the TAB was obviously involved, Greg did
-most of the heavy lifting; and this is something that I can say
-definitively Greg did out of a sense of duty, and because he was asked
-to take on this role.  It obviously has *not* been a fun job, and Greg
-has taken a lot of flak.  I, for one, thank Greg for taking on this
-thankless task!)
+Well, I've got to say we really know how to screw up the process by
+ramming this in at the last minute (again):
 
-> (I personally *do* want to see most of the patch series that started
-> this particular thread dropped, because half of it undermines the point
-> of the document. The original commit, however, is a matter of
-> celebration.)
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?=
+id=3D8e630c31a3dfc7f4ab1007f95dd507cb2fe1dda5
 
-Josh, here I think it's clear a very large number of kernel developers
-disagree with you.  Part of the concerns that led to creation of the
-interpretation document was precisely because there was a lot of fear
-mongering from people outside of the kernel development community,
-some of them apparently from the Gamergate brigade.
+So yes, I'll certainly object to our inability to follow an open process.
 
-And so while it is certainly true that a huge number of open source
-projects use the Contributor's Convenant, and you don't see large
-number of people getting "impeached" for stupid stuff from, say, the
-GoLang project, there were a lot of people who *were* afraid that
-perhaps, some of the insane/silly interpretations that had been flying
-around might have actually been true.  Perhaps that's what Neil is so
-worried about.
+> We don't need a "Code of Conduct" nearly as much as we need
+> "Leadership in conduct".  Without the leadership, any code looks like
+> a joke.
 
-For example, it should have been obvious that if code is rejected for
-technical reasons, some shadowy, unacountable group would ***not***
-second guess the reasons for a maintainer's decision and magically
-eject said maintainer from kernel development.  Maintainers still can
-reject code for any technical reason, and in some cases, for good
-non-technical reasons, such as the Netfilter team and code
-contributions from someone who had been deemed, by his deeds, to be a
-copyright troll.  And as always, people who disagree with a
-maintainer's decision to reject a patch can always appeal directly to
-Linus by sending the change to him.
+I do think we need something in document form, though.  Not least
+because we do have a perception problem which having a document helps
+allay, mostly for external not internal perceptions.  As I've said
+several times, we have  been steadily getting better thanks mostly to
+internal people helping drive more civilised discussions and being more
+helpful to new patch submitters.
 
-The Linux kernel adopting the Contributor's Convenant was not going to
-change this.  And certainly people haven't been using the
-Contributor's Convenant to try to force crap ideas or crap code into
-the Go language.  Unfortunately, because the Code of Conduct was
-suddenly dropped in with minimal chance for consultations, that fear
-was out there.  And that's why IMHO, the interpretation document
-became necessary.
+I've also previously pointed out that I really like the debian code of
+conduct:
 
-Ultimately, what we're after is a cultural change that will hopefully
-strengthen the kernel community and make it a better place.  Neil is
-correct that ultimately what's important is not words in a document,
-but how people behave.  And so, if the words were causing a lot of
-anxiety because were afraid that even accidental microagressions would
-cause them to be permanently "impeached", and that failing to nit-pick
-every possible microagression might be grounds for "impeaching" a
-maintainer --- then making it clear that this is not what anyone had
-in mind is a very important thing, since anxiety can lead to people
-actively resist the cultural change which most of us are want and are
-working towards.
+https://www.debian.org/code_of_conduct
 
-Regards,
-						- Ted
+But now that I'm in Edinburgh, I had a conversation with Jeremy
+Allison.  Apparently the Samba community went through almost exactly
+the same thing as were going through now: attempt initially to impose
+the contributor covenant followed by an acrimonious argument (done
+mostly in private).  However, one interesting thing for us might be
+their final endpoint:
+
+https://wiki.samba.org/index.php/How_to_do_Samba:_Nicely
+
+Which, like the debian document is a nicely engineered statement of
+values which is specifically tailored to their community and needs.=20
+The interesting thing is that eventually everyone in Samba agreed to
+this, including the people who initially tried to impose the
+contributor covenant.
+
+James
+
+--=-TaFZnUKXD7/gTOc36swC
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABMIAB0WIQTnYEDbdso9F2cI+arnQslM7pishQUCW82uVwAKCRDnQslM7pis
+hdUkAQDR2/xJd4K6zkWwSHOs8PlnbjdF/oGSchnfVkrmoZJRXQD+Jh0Z8zISqLOO
+NKMV7S3CKJnCTVuxK6LJ6JcD1j20XNM=
+=vlsK
+-----END PGP SIGNATURE-----
+
+--=-TaFZnUKXD7/gTOc36swC--
