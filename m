@@ -1,30 +1,34 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <prvs=38331f2c80=clm@fb.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 867A3AD1
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 233BDB4A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 22 Oct 2018 11:03:04 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id AF5297A8
+	Mon, 22 Oct 2018 16:29:50 +0000 (UTC)
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
+	[67.231.153.30])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3F434737
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 22 Oct 2018 11:03:02 +0000 (UTC)
-Message-ID: <1540206166.2815.24.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: NeilBrown <neil@brown.name>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, linux-kernel <linux-kernel@vger.kernel.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>
-Date: Mon, 22 Oct 2018 12:02:46 +0100
-In-Reply-To: <87y3ar80ac.fsf@notabene.neil.brown.name>
-References: <20181020134908.GA32218@kroah.com>
-	<87y3ar80ac.fsf@notabene.neil.brown.name>
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-TaFZnUKXD7/gTOc36swC"
-Mime-Version: 1.0
-Cc: Mishi Choudhary <mishi@linux.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Call to Action Re: [PATCH 0/7] Code of
- Conduct: Fix some wording, and add an interpretation document
+	Mon, 22 Oct 2018 16:29:49 +0000 (UTC)
+Received: from pps.filterd (m0148460.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+	w9MGPJkf026222 for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 22 Oct 2018 09:29:47 -0700
+Received: from maileast.thefacebook.com ([199.201.65.23])
+	by mx0a-00082601.pphosted.com with ESMTP id 2n9fep0pnp-2
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT)
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 22 Oct 2018 09:29:47 -0700
+From: Chris Mason <clm@fb.com>
+To: "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Date: Mon, 22 Oct 2018 16:28:47 +0000
+Message-ID: <C831E03A-A3B5-4189-92AA-EEAB07AC12F5@fb.com>
+Content-Language: en-US
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Subject: [Ksummit-discuss] Linux Foundation Technical Advisory Board
+ Elections -- Call for nominations
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,84 +39,69 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
---=-TaFZnUKXD7/gTOc36swC
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Hello everyone,
 
-On Mon, 2018-10-22 at 08:20 +1100, NeilBrown wrote:
-> On Sat, Oct 20 2018, Greg Kroah-Hartman wrote:
->=20
-> > Hi all,
-> >=20
-> > As everyone knows by now, we added a new Code of Conduct to the
-> > kernel tree a few weeks ago.
->=20
-> I wanted to stay detached from all this, but as remaining (publicly)
-> silent might be seen (publicly) as acquiescing, I hereby declare
-> that:
->    I reject, as illegitimate, this Code and the process by
->    which it is being "developed".
->=20
-> It is clear from the surrounding discussions that this is well
-> outside our core competencies.  It will be flawed, it isn't what we
-> need.
->=20
-> I call on any other community members who reject this process to say
-> so, not to remain silent.
-> #Iobject
+The Linux Foundation Technical Advisory Board (TAB) serves as the=20
+interface between the kernel development community and the Linux=20
+Foundation. The TAB advises the Foundation on kernel-related matters,=20
+helps member companies learn to work with the community, and works to=20
+resolve community-related problems before they get out of hand.  We're=20
+also working with kernel maintainers to help refine the new code of=20
+conduct, and serving as the initial point of contact for code of conduct=20
+issues.
 
-Well, I've got to say we really know how to screw up the process by
-ramming this in at the last minute (again):
+The board has ten members, one of whom sits on the Linux Foundation=20
+board of directors.
 
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?=
-id=3D8e630c31a3dfc7f4ab1007f95dd507cb2fe1dda5
+The election to select five TAB members will be held at the 2018 Kernel=20
+Summit in Vancouver, Canada.  The elections will take place at the=20
+conference center on Tuesday November 13th, at 5:30pm.
 
-So yes, I'll certainly object to our inability to follow an open process.
+The election will be open to all attendees of all of the Linux=20
+Foundation events taking place that week in Vancouver.  Anyone is=20
+eligible to stand for election, simply send your nomination to:
 
-> We don't need a "Code of Conduct" nearly as much as we need
-> "Leadership in conduct".  Without the leadership, any code looks like
-> a joke.
+tech-board-discuss at lists.linux-foundation.org
 
-I do think we need something in document form, though.  Not least
-because we do have a perception problem which having a document helps
-allay, mostly for external not internal perceptions.  As I've said
-several times, we have  been steadily getting better thanks mostly to
-internal people helping drive more civilised discussions and being more
-helpful to new patch submitters.
+The deadline for receiving nominations is up until the beginning of the=20
+event where the election is held.
 
-I've also previously pointed out that I really like the debian code of
-conduct:
+In past years, everyone running for the TAB has given a short speech=20
+before the voting began.  We've received feedback that the speeches add=20
+logistical complexity for the election, and may not be the best=20
+indicator of how well qualified someone is for the TAB.
 
-https://www.debian.org/code_of_conduct
+Instead of speeches, this year we're asking candidates to include=20
+statements about why they would like to participate in the TAB.  These=20
+will be combined into a slideshow running during the election, and=20
+available via a public google doc at this location:
 
-But now that I'm in Edinburgh, I had a conversation with Jeremy
-Allison.  Apparently the Samba community went through almost exactly
-the same thing as were going through now: attempt initially to impose
-the contributor covenant followed by an acrimonious argument (done
-mostly in private).  However, one interesting thing for us might be
-their final endpoint:
+https://goo.gl/rPEc2v
 
-https://wiki.samba.org/index.php/How_to_do_Samba:_Nicely
+Even though the deadline for nominations is right before voting begins,=20
+any statements must be received by Monday November 12th at 5PM Pacific,=20
+so that we have time to setup the slideshow.
 
-Which, like the debian document is a nicely engineered statement of
-values which is specifically tailored to their community and needs.=20
-The interesting thing is that eventually everyone in Samba agreed to
-this, including the people who initially tried to impose the
-contributor covenant.
+Current TAB members, and their election year:
 
-James
+Chris Mason 2016
+H. Peter Anvin 2016
+Olof Johansson 2016
+Rik van Riel	2016
+Dan Williams 2016
 
---=-TaFZnUKXD7/gTOc36swC
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+Jon Corbet 2017
+Greg Kroah-Hartman 2017
+Steven Rostedt 2017
+Ted Tso	2017
+Tim Bird	2017
 
------BEGIN PGP SIGNATURE-----
+The five slots from 2016 are all up for election.  As always, please let=20
+us know if you have questions, and please do consider running.
 
-iHUEABMIAB0WIQTnYEDbdso9F2cI+arnQslM7pishQUCW82uVwAKCRDnQslM7pis
-hdUkAQDR2/xJd4K6zkWwSHOs8PlnbjdF/oGSchnfVkrmoZJRXQD+Jh0Z8zISqLOO
-NKMV7S3CKJnCTVuxK6LJ6JcD1j20XNM=
-=vlsK
------END PGP SIGNATURE-----
+Chris Mason, TAB Chair
 
---=-TaFZnUKXD7/gTOc36swC--
+[1] TAB members sit for a term of two years, and half of the board is up
+for election every year. Five of the seats are up for election now.
+The other five are halfway through their term and will be up for
+election next year.
