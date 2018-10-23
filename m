@@ -1,30 +1,32 @@
-Return-Path: <joe@perches.com>
-Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
-	[172.17.192.36])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 52079ACA
+Return-Path: <dan.carpenter@oracle.com>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8C78EB16
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 23 Oct 2018 06:10:46 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0199.hostedemail.com
-	[216.40.44.199])
-	by smtp2.linuxfoundation.org (Postfix) with ESMTPS id 3DF811DAB9
+	Tue, 23 Oct 2018 06:27:15 +0000 (UTC)
+Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 203137BE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 23 Oct 2018 06:10:45 +0000 (UTC)
-Message-ID: <a401f973508662fa241b1410e08480884baca606.camel@perches.com>
-From: Joe Perches <joe@perches.com>
-To: Randy Dunlap <rdunlap@infradead.org>, Greg Kroah-Hartman <greg@kroah.com>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>
-Date: Mon, 22 Oct 2018 23:10:40 -0700
-In-Reply-To: <800b68eb-9cf4-9c72-104d-0d4d9ae26ea1@infradead.org>
-References: <1540066514.3464.22.camel@HansenPartnership.com>
-	<20181022211025.GA8911@kroah.com>
-	<23e41205115d317908c63d37a20ee316b44a8404.camel@perches.com>
-	<800b68eb-9cf4-9c72-104d-0d4d9ae26ea1@infradead.org>
-Content-Type: text/plain; charset="ISO-8859-1"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: linux-kernel <linux-kernel@vger.kernel.org>,
+	Tue, 23 Oct 2018 06:27:14 +0000 (UTC)
+Date: Tue, 23 Oct 2018 09:26:52 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: "Theodore Y. Ts'o" <tytso@mit.edu>, NeilBrown <neil@brown.name>,
+	Josh Triplett <josh@joshtriplett.org>, Mishi Choudhary <mishi@linux.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-kernel <linux-kernel@vger.kernel.org>,
 	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [GIT PULL] code of conduct fixes for 4.19-rc8
+Message-ID: <20181023062652.yrns7n67jkuict5n@mwanda>
+References: <20181020134908.GA32218@kroah.com>
+	<87y3ar80ac.fsf@notabene.neil.brown.name>
+	<20181021222608.GA24845@localhost>
+	<875zxt919d.fsf@notabene.neil.brown.name>
+	<20181022224604.GM1617@thunk.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20181022224604.GM1617@thunk.org>
+Subject: Re: [Ksummit-discuss] Call to Action Re: [PATCH 0/7] Code of
+ Conduct: Fix some wording, and add an interpretation document
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,20 +36,36 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 2018-10-22 at 23:05 -0700, Randy Dunlap wrote:
-> On 10/22/18 9:16 PM, Joe Perches wrote:
-> > As James Bottomley has suggested multiple times,
-> > I'd much rather kernel development use the debian
-> > code of conduct verbatim than even this modified one.
+On Mon, Oct 22, 2018 at 06:46:04PM -0400, Theodore Y. Ts'o wrote:
+> Neil,
+> 
+> I disagree with your framing, and thus your analysis, and thus your
+> proposed solution.
+> 
+> On Tue, Oct 23, 2018 at 07:26:06AM +1100, NeilBrown wrote:
+> > If, for example, Linus or Andrew said "if you cannot work with any given
+> > maintainer, I will consider your patch directly, but you need to point
+> > to where you tried, and why you failed - or to where the promise is
+> > inadequate".
 > > 
-> > https://www.debian.org/code_of_conduct
+> > Currently if a maintainer is rude to you, there is no where else that
+> > you can go and *that* is why it hurts.  It isn't the abuse so much as
+> > the powerlessness associated with it.  If you can (metaphorically) say
+> > to that maintainer "I don't care about your toilet mouth, you've just
+> > given me the right to take my petition to caesar" - then the emotional
+> > response will be quite different to pain.
 > 
-> Yes, that and the Samba URL are good.
-> 
-> And it's disappointing how patches from James are acked or reviewed on the
-> mailing lists and then mostly ignored (until the maintainer summit) while
-> other patches are merged into the mainline git tree.
-> 
-> It seems to be very one-sided.
+> No.  That's just not how things work.  Patches don't get rejected
+> because maintainers are being rude.  Patches don't get accepted
+> because they are not of a sufficiently high technical quality.
 
-Perhaps an apt description is 'cabal like'.
+I once sent a bugfix and instead of applying it, the maintainer insulted
+me and rejected it because the subject wasn't in imperative tense and
+because I said "NULL dereference" instead of "NULL pointer dereference."
+
+Ten years back there was a patch rejected because "F*** you, what do
+women know about programming?"  I can't imagine it happening now, but I
+was so shocked by it at the time also...
+
+regards,
+dan carpenter
