@@ -1,27 +1,25 @@
 Return-Path: <neil@brown.name>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 21886182A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2473818C7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 23 Oct 2018 20:45:28 +0000 (UTC)
+	Tue, 23 Oct 2018 21:14:44 +0000 (UTC)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5990EE6
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 49C1E716
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 23 Oct 2018 20:45:27 +0000 (UTC)
+	Tue, 23 Oct 2018 21:14:43 +0000 (UTC)
 From: NeilBrown <neil@brown.name>
-To: Al Viro <viro@ZenIV.linux.org.uk>
-Date: Wed, 24 Oct 2018 07:45:14 +1100
-In-Reply-To: <20181023060059.GW32577@ZenIV.linux.org.uk>
+To: t@thunk.org
+Date: Wed, 24 Oct 2018 08:14:33 +1100
+In-Reply-To: <20181023081144.GN1617@thunk.org>
 References: <20181020134908.GA32218@kroah.com>
 	<87y3ar80ac.fsf@notabene.neil.brown.name>
 	<20181021222608.GA24845@localhost>
 	<875zxt919d.fsf@notabene.neil.brown.name>
 	<20181023033130.GQ32577@ZenIV.linux.org.uk>
 	<87r2gh70ij.fsf@notabene.neil.brown.name>
-	<20181023045247.GV32577@ZenIV.linux.org.uk>
-	<87o9bl6xlo.fsf@notabene.neil.brown.name>
-	<20181023060059.GW32577@ZenIV.linux.org.uk>
-Message-ID: <87in1s75ph.fsf@notabene.neil.brown.name>
+	<20181023081144.GN1617@thunk.org>
+Message-ID: <87ftww74cm.fsf@notabene.neil.brown.name>
 MIME-Version: 1.0
 Content-Type: multipart/signed; boundary="=-=-=";
 	micalg=pgp-sha256; protocol="application/pgp-signature"
@@ -44,97 +42,111 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 Content-Type: text/plain
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 23 2018, Al Viro wrote:
+On Tue, Oct 23 2018, Theodore Y. Ts'o wrote:
 
-> On Tue, Oct 23, 2018 at 04:28:03PM +1100, NeilBrown wrote:
->
->> > If that's a clarification, I'm sorry to say that I understand you even=
- less now.
->> > What are you proposing?  Duopoly?  How do you deal with disagreements?=
-  Fork?
->> > Revert wars?
+> On Tue, Oct 23, 2018 at 03:25:08PM +1100, NeilBrown wrote:
 >>=20
->> We already have team-maintainership arrangements - doing the same thing
->> at the top level should not be that hard to imagine.
->>=20
->> It really about "saying" no.  I suspect all members of a team would come
->> to much the same decision about any given patch, but they might "say" it
->> differently.  One might say "anyone who wrote this should be
->> lobotomised", and the other might say "I see what you are trying to do,
->> but the approach won't work - go look at how we handle XXXX, they have a
->> similar problem".  Neither will accept the patch, and they will probably
->> both accept it after certain changes.  But when one of them is having a
->> bad day, I would like people to have the explicit opportunity to ignore
->> them and talk to the other.  Yes, they'll still get "no" twice, but they=
-'ll
->> also get something approaching sane review least once.
+>> Yes, you could, and you can.  But if it was Linus who was behaving
+>> inappropriately, where did you go then?  This is why I think whatever
+>> "code" we have should be overtly a statement Linus makes about his
+>> behaviour, in the first instance.
 >
-> You still have not answered the question I've asked - what to do in case =
-of
-> real disagreements, seeing that "pass it to Linus for final decision" obv=
-iously
-> doesn't work here.  And while we are at it, what to do in case when "they"
-> _agree_ that patch is unsalvagable?  I'm quite sure that you can think of
-> examples of such...
+> You're still missing the point, and the problem.  The concern was not
+> *that* a patch was rejected, it was in *how* the patch was rejected.
 
-Sorry, things easily get lost in such a wide ranging conversation.
-Handling of real disagreements is not my problem, unless I am a member
-of the maintainership team.  We have maintainership teams which appear
-to work, so they provide an existence-proof that something can be
-achieved.
+That is not a point I am missing.  Of course it is about *how*.
+One form of rejection shows you a path forward, which might be revising
+the patch, and it might be solving your problem in a completely
+different way.
+The other form or rejection leaves you hurting and confused and not
+knowing which way to turn - so you leave.
+One way gives you power to move forward, the other denies it to you.
 
-Were I to have an opportunity to be part of a maintainership team, I
-would probably base any internal agreement necessary on two principles.
-1/ People on the team are reasonably competent, and aren't going to
-  commit anything that all controversial without being quite confident.
-  I would choose to trust.
+> The "problem" has never been about how Linus was treating anyone other
+> than core maintainers; i.e., most of the rants that I can think of (a)
+> happened years of ago, and (b) were directed at the sort of people who
+> were in the room at the Maintainer's Summit yesterday.  Who which, by
+> the way, didn't have a complaint about Linus's recent behavior; in
+> fact, there was general agreement that Linus's behavior has been
+> getting *better* over the last few years.
 
-2/ We commit bad patches often, and when we realize, we fix them.  You
-  and I have both been on both sides of that.  We (the community)
-  even commit quite large mistakes (devfs, control-groups) and the world
-  doesn't end.  Accepting imperfection is a key part of Linus' pragmatic
-  approach, and a key part of the success of Linux.
+The fact that Linus' behaviour has improved (with which I agree) is only
+part of the story.  There is also Linus' reputation which is, I think,
+worse than his behaviour has ever been - partly because he has never
+(until recently) done anything to correct that reputation.
 
-If they agree that the patch is unsalvagable, then they say so -
-politely and with reasons.  It is a right-of-review, not a
-right-of-success.
+Also, it is *not* just about how Linus treats core maintainers, as you
+seem to agree with below (despite your statements above).  To take the
+liberty of quoting from an email on a non-public list that you will have
+seen:
+
+    The unresolved bug was that Linus' conduct, and more importantly the
+    conduct of people that less artfully and less productively emulated
+    his blow ups, were getting further and further away from Linus' own
+    stated ideals on how to treat people.
+
+Linus' example is (apparently) being copied.  That makes it important, I
+think, for him to set an explicit counter-example.
 
 
 >
-> BTW, out of curiosity - when has anyone suggested lobotomies[1]?  I'd lik=
-e to see
-> details - got to be interesting...
+> One of the more important effects of the CoC is that newcomers have a
+> fear about Linux's reputation of having extremely toxic community.
+> There is a narrative that has been constructed that because Linus
+> behaves badly to everyone; and this gives everyone "permission" to
+> behave badly.  Regardless of how true it may have been in the past, I
+> believe that it is largely obsolete today.  And so, the mere existence
+> of a CoC has caused some newcomers to say that they have "already
+> noticed a difference" --- which is IMO mostly the effect of CoC easing
+> fears, as opposed to any real change in Linux community in the past
+> four weeks.
 
-Sorry, it was a deliberately ficticious example.
+If the CoC has really eased fears, then that is clearly good news.  I
+must admit to being a little surprised.
 
-Thanks for showing an interest, it is more than a lot of people are
-doing.
+>
+> I think how it will work out in practice is that the CoC will be more
+> a commitment about what we are holding up as community norms.
+> Unfortunately, for some poeple the term "CoC" apparently acts as
+> trigger language and it brings to mind legal proceedings,
+> unaccountable court-like entities, and hammering people with
+> punishments for petty issues with no appeal or recourse.
+>
+> Perhaps this is why other communities have elected to use terms such
+> as "How to do Samba: Nicely" and "GNU Kind Communication Guidelines".
+
+And doesn't our "code", with an "interpretation" two and a half times as
+long, look clumsy beside these documents??
+
+
+> All of these are trying to solve the same issue, and so my suggestion
+> is let's just wait and see how things go.  If people continue to see
+> that the community has "changed" for the better, and other people see
+> that we're not hammering people with sanctions, but rather reminding
+> each other about the kind of community we aspire to be, it'll all be
+> good.
+>
+
+Thanks for your time,
 NeilBrown
-
->
-> [1] on kernel development lists, that is - I can think of examples in e.g.
-> NANAE circa '98 or so regarding the SGI employees responsible for sendmail
-> setup they used to ship in IRIX, but that was more of a possible explanat=
-ion
-> of the reasons rather than suggested remedy...
 
 --=-=-=
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEG8Yp69OQ2HB7X0l6Oeye3VZigbkFAlvPiFsACgkQOeye3VZi
-gbn7nw/9FdMy4AjQzbWQfWmM5bonCBdC7uM/1Q/rQTu7OtqJ0JCWGxXIz8EYc+b1
-odLqfK/mv7UMGHFulcly8pClL3okIT2UMvIKZyu+u3c/+jpKkp1QS46VXV69Ia0d
-TKEVK2oIoWxvJD65ZBMVyAuldUy82EwPvPUGtJyVDXJqmz271hpMmbjue2hPNDXb
-GwkVwNIXruHRmtEnyZ42DFq8Hh7A8Wtw9Ib565WgqENeyZzbmXVEUA+CKbCgqIb0
-4n6L+rSaBKVk+nAgd4yecGiIzU3rJGbM5Hc+gawrrcmIQ/U47FDTD5yKGp/UbCNV
-kS+X/xQJbrAbHWTu09ko0fn9lIUGsluQlDU30M1KsP8chf3RbmBwqchGshIuq1ea
-jI5IxDWBMj5BTs7a08V26C4kIgJ4w6WuXKjRUqnqTytAF0t6YLPp8/BGuIiyJo13
-0xeqw44Dr4IOmsY/RC6mcISQiAfUfZRr2LeejUGvkLcHiPNu1HOnETbcz1xPRl0K
-+/BfPyEu1msrXsJicML/KKDH9L0SEOqzOcp9zToqworVK2gRSvNFNTPcO9+1o8sp
-fZsvCmnFfdhf/uwfE3PWG0L6ZH8T/OXmj2vRHZn4IHnQvnyvpcDo0nW35LObG6Zp
-Nuy0G3nDZP4VLnoOE7b6A9HVSUaHBQ9nff5MS5nsyQvPxw5pcYU=
-=FBmv
+iQIzBAEBCAAdFiEEG8Yp69OQ2HB7X0l6Oeye3VZigbkFAlvPjzkACgkQOeye3VZi
+gbnf6Q//dlopsrByzbq47MmPfBRLkTugAUp9TgpWmQUw00NtWR3vWKOE6Zv696jL
+KJ1JiQcD5r19DYl9rMsIDmx7qX+O5bCXC0+7U8/KlDd95Tgya5R4Z2lqe86xMGjA
+24vJ2qHGl+0Xd+jGvchmdx5jehv5q+zgt/11CrbRObVwNQvwDeXdm3PHH7nddTIr
+5KGJBZYDXN3OUsabqlcXlDO+0JtIPLCNhMMPuTTWv6x0T2yfTtnXbXtqK25YqSYi
+aEHPusNI3/f0JCho6Qwz8IfdPpcTt2h5ZaOiWv4IuWyAlEir9Z7GTg53WKt2Ncld
+PQlTdHLtWFz07nKOgDAZrcsWO3yoKdSSX7JF4SOIUcyEBv2R+m2dt1LYW6LG5Xw7
+ptOkGTfpu9Fx3caWcG8vskvZPpD1fsCc6Qd3QaWVjSsv7SrVRcYEgQ7aJEc2AlI9
+jkgTH3sycXMvCNRBKlx6TXvk+GSdnyYhFTkrnKYyvzLU8mAKaq0zNWj72334PynQ
+4i+F2HDRcfy6/NCH94KQteNOx0T5nuXqR2IFp1n3gFVlxS3mqKHNa3Lc+uQ2NKRZ
+CYM0zOVjv3mvnUJ9pXTuletRgL3OmIWhAkmuVZcizOXx+NWo+THDdRGIiTeAG/pS
+ocDXfAPxzLvpJrM/LEF+Phh6HjKxoKO5iwyAA5Fw33K7HgIqia4=
+=QpjK
 -----END PGP SIGNATURE-----
 --=-=-=--
