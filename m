@@ -1,27 +1,28 @@
 Return-Path: <jrf@mailbox.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 09B90D0E
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2B7A21267
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 22 Oct 2018 09:08:04 +0000 (UTC)
-Received: from mx1.mailbox.org (mx1.mailbox.org [80.241.60.212])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DDF7579F
+	Tue, 23 Oct 2018 14:21:32 +0000 (UTC)
+Received: from mx2.mailbox.org (mx2.mailbox.org [80.241.60.215])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BCEDD7F5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 22 Oct 2018 09:08:02 +0000 (UTC)
+	Tue, 23 Oct 2018 14:21:30 +0000 (UTC)
 From: Rainer Fiebig <jrf@mailbox.org>
-To: NeilBrown <neil@brown.name>
-Date: Mon, 22 Oct 2018 11:09:26 +0200
-Message-ID: <1922559.38OmgndT9b@siriux>
-In-Reply-To: <87y3ar80ac.fsf@notabene.neil.brown.name>
+To: linux-kernel@vger.kernel.org, t@thunk.org
+Date: Tue, 23 Oct 2018 16:22:54 +0200
+Message-ID: <1917804.q5V88l7eEq@siriux>
+In-Reply-To: <20181023081144.GN1617@thunk.org>
 References: <20181020134908.GA32218@kroah.com>
-	<87y3ar80ac.fsf@notabene.neil.brown.name>
+	<87r2gh70ij.fsf@notabene.neil.brown.name>
+	<20181023081144.GN1617@thunk.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 Cc: ksummit-discuss@lists.linuxfoundation.org,
 	Mishi Choudhary <mishi@linux.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-kernel@vger.kernel.org
+	NeilBrown <neil@brown.name>
 Subject: Re: [Ksummit-discuss] Call to Action Re: [PATCH 0/7] Code of
 	Conduct: Fix some wording, and add an interpretation document
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -33,149 +34,103 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Am Montag, 22. Oktober 2018, 08:20:11 schrieb NeilBrown:
-> On Sat, Oct 20 2018, Greg Kroah-Hartman wrote:
-> > Hi all,
-> >=20
-> > As everyone knows by now, we added a new Code of Conduct to the ker=
-nel
-> > tree a few weeks ago.
->=20
-> I wanted to stay detached from all this, but as remaining (publicly)
+Am Dienstag, 23. Oktober 2018, 04:11:44 schrieb Theodore Y. Ts'o:
+> On Tue, Oct 23, 2018 at 03:25:08PM +1100, NeilBrown wrote:
+> > Yes, you could, and you can.  But if it was Linus who was behaving
+> > inappropriately, where did you go then?  This is why I think whatever
+> > "code" we have should be overtly a statement Linus makes about his
+> > behaviour, in the first instance.
+> 
+> You're still missing the point, and the problem.  The concern was not
+> *that* a patch was rejected, it was in *how* the patch was rejected.
 
-And I didn't expect myself to ever post in this matter again, as I had
-already given up and relegated it to the "waste of precious lifetime"=20=
+And to solve *this* problem a highly controversial and politically charged
+CoC had to be introduced that has already begun to divide the wider
+community? Seems like a bit of an overkill to me.
 
-category. But your initiative and courage deserve support and so:
+And whether that CoC does come with a political agenda or is just being
+*perceived* so, is irrelevant: the perception *is* the reality. And by 
+embracing this CoC, Linux is now being perceived as also supporting the agenda 
+that comes with it. But perhaps that was intended?
 
-+1.
+In my view you now have a new, probably even bigger problem: namely that by
+adopting *this* CoC and by unyieldingly clinging to it, you have alienated 
+many, if not the majority of loyal Linux-users/supporters. 
 
-> I call on the community to consider what *does* need to be said, abou=
-t
-> conduct, to people outside the community and who have recently joined=
-.
-> What is the document that you would have liked to have read as you we=
-re
-> starting out?  It is all too long ago for me to remember clearly, and=
- so
-> much has changed.
+Bad choice and bad timing, now that Linux seemed ready to also take off 
+in the desktop-area.
 
-On the day the patch came out, I started working on a modified version,=
-=20
-a CoC that I could have lived with. I guess this was my way of dealing=20=
+> The "problem" has never been about how Linus was treating anyone other
+> than core maintainers; i.e., most of the rants that I can think of (a)
+> happened years of ago, and (b) were directed at the sort of people who
+> were in the room at the Maintainer's Summit yesterday.  Who which, by
+> the way, didn't have a complaint about Linus's recent behavior; in
+> fact, there was general agreement that Linus's behavior has been
+> getting *better* over the last few years.
+> 
+> One of the more important effects of the CoC is that newcomers have a
+> fear about Linux's reputation of having extremely toxic community.
+> There is a narrative that has been constructed that because Linus
+> behaves badly to everyone; and this gives everyone "permission" to
+> behave badly.  Regardless of how true it may have been in the past, I
+> believe that it is largely obsolete today.  And so, the mere existence
+> of a CoC has caused some newcomers to say that they have "already
+> noticed a difference" --- which is IMO mostly the effect of CoC easing
+> fears, as opposed to any real change in Linux community in the past
+> four weeks.
+> 
 
-with this unfortunate affair.=20
+> I think how it will work out in practice is that the CoC will be more
+> a commitment about what we are holding up as community norms.
+> Unfortunately, for some poeple the term "CoC" apparently acts as
+> trigger language and it brings to mind legal proceedings,
+> unaccountable court-like entities, and hammering people with
+> punishments for petty issues with no appeal or recourse.
+> 
 
-So please find below what I would have submitted for discussion.
+I think you're wrong here. It's not the term "CoC" as such that brings up the 
+negative associations. It is the specific choice of the CoC and its wording 
+that does. And quite a few people have pointed this out already. Mitigations 
+and alternatives had been offered but were ignored.
 
-Thanks and regards!
+> Perhaps this is why other communities have elected to use terms such
+> as "How to do Samba: Nicely" and "GNU Kind Communication Guidelines".
+> All of these are trying to solve the same issue, and so my suggestion
+> is let's just wait and see how things go.  If people continue to see
+> that the community has "changed" for the better, and other people see
+> that we're not hammering people with sanctions, but rather reminding
+> each other about the kind of community we aspire to be, it'll all be
+> good.
+> 
+> 						- Ted
+
+Those other communities have not just chosen other terms but also chosen other 
+approaches and wordings. 
+
+In my view, the Linux-CoC stands for exactly that sort of extreme "Political 
+Correctness" that is infesting our societies and has proven its destructive 
+nature in more than enough instances. For some examples see [1][2][3][4][5].   
+
+To me it feels more and more like the dark times of witch-hunts are back or 
+when it was politically in-correct to say that the earth revolves around the 
+sun. In those days offenders like Galilei were at least offered the choice 
+between recanting and the funeral-pile. Today you may recant but you get 
+publicly burnt anyway.
+
+To see Linux falling for this is a sorry sight.
+
 
 Rainer Fiebig
 
 
-Disclosure
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-My contribution to the Linux kernel is admittedly negligible: I run rc-=
-
-kernels, have reported a few problems, helped to fix them and fixed one=
-=20
-myself. To the extent of the time and effort this took me, I dare to gi=
-ve=20
-my opinion in this matter.=20
-
----
+***
+[1] https://www.ibtimes.co.uk/sacked-nobel-prize-winning-scientist-sir-tim-hunt-gets-backing-eight-fellow-laureates-1507096
+[2] https://www.telegraph.co.uk/news/science/science-news/12057365/Sir-Tim-Hunt-to-leave-Britain-for-Japan-after-sexism-row.html
+[3] https://en.wikipedia.org/wiki/Tim_Hunt#The_toast
+[4] https://www.bbc.com/news/world-europe-45703700
+[5] https://www.bbc.com/news/world-us-canada-45789819
 
 
-Code of Conduct
-+++++++++++++++
-
-The goal of the Linux kernel development process is to maintain and adv=
-ance
-the most robust operating system kernel ever.
-
-Needless to say, views on how to achieve this will differ at times.
-
-In order to keep arguments civilized and to ensure an open, positive=20=
-
-and constructive environment, we have setup guidelines=20
-that participants are expected to comply with:
-
-No bias
-=3D=3D=3D=3D=3D=3D=3D
-
-Nobody must be discriminated or favored due to personal traits like
-- for example - age, gender or ethnicity. They are irrelevant.
-What counts is whether the contribution is in line with a/m goal.
-Any such contribution will be carefully reviewed.
-
-Be excellent to each other
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D
-
-Don't do to others what you don't want others to do to you.
-Straightforward talk is fine. But dissent can be communicated in a=20
-non-destructive manner. And keep in mind that at times it may be *you*=20=
-
-who is dead wrong.
-
-Examples of encouraged behavior:
-
-* Being respectful of differing viewpoints
-* Criticizing constructively, i. e. showing ways for improvement
-* Accepting constructive criticism
-* Focusing on what is best for our goal and the community
-
-Examples of unacceptable behavior:
-
-* Comments intended to insult, depreciate or defame a person
-* Public or private harassment
-* Unwelcome sexual attention or advances
-* Fabricating incriminations by quoting out of context
-* Publishing others=E2=80=99 private information, such as a physical or=
- electronic
-  address, without explicit permission
-* Promoting political agendas
-* Trolling
-
-Responsibilities
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-All participants are responsible for complying with this Code of Conduc=
-t.
-
-Maintainers are responsible for clarifying the standards of acceptable=20=
-
-behavior and are expected to take appropriate and fair corrective actio=
-n in=20
-response to any instances of obviously unacceptable behavior.
-
-Maintainers have the right to ban temporarily or permanently any contri=
-butor=20
-who's behavior is not aligned to this Code of Conduct.
-
-Arbitration
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-Anyone who feels abused, harassed or affected by otherwise unacceptable=
-=20
-behavior may report this to the Technical Advisory Board (TAB)=20
-at <tab@lists.linux-foundation.org>.=20
-
-All complaints will be reviewed and investigated and will result in a r=
-esponse=20
-that is deemed necessary and appropriate to the circumstances.=20
-
-The TAB is obligated to maintain confidentiality with regard to the rep=
-orter=20
-of an incident.
-
-Further details of specific arbitration policies may be posted separate=
-ly.
-
-Attribution
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-Some elements of this Code of Conduct are derived from the Contributor=20=
-
-Covenant, version 1.4, available at https://www.contributor-covenant.or=
-g/version/1/4/code-of-conduct.html
+-- 
+The truth always turns out to be simpler than you thought.
+Richard Feynman
