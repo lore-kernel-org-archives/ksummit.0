@@ -1,26 +1,36 @@
-Return-Path: <tytso@thunk.org>
+Return-Path: <neil@brown.name>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 085D5145B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 21886182A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 23 Oct 2018 15:43:56 +0000 (UTC)
-Date: Tue, 23 Oct 2018 11:43:41 -0400
-From: "Theodore Y. Ts'o" <tytso@mit.edu>
-To: Rainer Fiebig <jrf@mailbox.org>
-Message-ID: <20181023154341.GF6850@thunk.org>
+	Tue, 23 Oct 2018 20:45:28 +0000 (UTC)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5990EE6
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Tue, 23 Oct 2018 20:45:27 +0000 (UTC)
+From: NeilBrown <neil@brown.name>
+To: Al Viro <viro@ZenIV.linux.org.uk>
+Date: Wed, 24 Oct 2018 07:45:14 +1100
+In-Reply-To: <20181023060059.GW32577@ZenIV.linux.org.uk>
 References: <20181020134908.GA32218@kroah.com>
+	<87y3ar80ac.fsf@notabene.neil.brown.name>
+	<20181021222608.GA24845@localhost>
+	<875zxt919d.fsf@notabene.neil.brown.name>
+	<20181023033130.GQ32577@ZenIV.linux.org.uk>
 	<87r2gh70ij.fsf@notabene.neil.brown.name>
-	<20181023081144.GN1617@thunk.org> <1917804.q5V88l7eEq@siriux>
+	<20181023045247.GV32577@ZenIV.linux.org.uk>
+	<87o9bl6xlo.fsf@notabene.neil.brown.name>
+	<20181023060059.GW32577@ZenIV.linux.org.uk>
+Message-ID: <87in1s75ph.fsf@notabene.neil.brown.name>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1917804.q5V88l7eEq@siriux>
+Content-Type: multipart/signed; boundary="=-=-=";
+	micalg=pgp-sha256; protocol="application/pgp-signature"
 Cc: ksummit-discuss@lists.linuxfoundation.org,
 	Mishi Choudhary <mishi@linux.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, t@thunk.org,
-	linux-kernel@vger.kernel.org, NeilBrown <neil@brown.name>
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-kernel <linux-kernel@vger.kernel.org>
 Subject: Re: [Ksummit-discuss] Call to Action Re: [PATCH 0/7] Code of
- Conduct: Fix some wording, and add an interpretation document
+	Conduct: Fix some wording, and add an interpretation document
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,76 +40,101 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Oct 23, 2018 at 04:22:54PM +0200, Rainer Fiebig wrote:
-> 
-> And whether that CoC does come with a political agenda or is just being
-> *perceived* so, is irrelevant: the perception *is* the reality. And by 
-> embracing this CoC, Linux is now being perceived as also supporting the agenda 
-> that comes with it. But perhaps that was intended?
-> 
-> In my view you now have a new, probably even bigger problem: namely that by
-> adopting *this* CoC and by unyieldingly clinging to it, you have alienated 
-> many, if not the majority of loyal Linux-users/supporters.
+--=-=-=
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
 
-Citation Needed: What's your *proof* the majority of Linux
-users/supports have been alienated?  Many people have actually been
-quite supportive of the CoC.
+On Tue, Oct 23 2018, Al Viro wrote:
 
-And perception is a funny thing.  I have no doubt that there are
-people who will claim that some CoC's that might more be acceptable to
-you would be "useless" or "means nothing".  (Note how simply removing
-three lines that troubled ***many*** Maintainers caused Josh to
-complain that it ruined the CoC).  And there are others for whom the
-Contributor's Convenant automatically seems to mean kangaroo courts
-and harsh punishments with no accountability for minor issues.  I
-suspect that both you *and* Josh are unhappy, in opposite directions,
-might be a hint that we've mostly gotten things right.
+> On Tue, Oct 23, 2018 at 04:28:03PM +1100, NeilBrown wrote:
+>
+>> > If that's a clarification, I'm sorry to say that I understand you even=
+ less now.
+>> > What are you proposing?  Duopoly?  How do you deal with disagreements?=
+  Fork?
+>> > Revert wars?
+>>=20
+>> We already have team-maintainership arrangements - doing the same thing
+>> at the top level should not be that hard to imagine.
+>>=20
+>> It really about "saying" no.  I suspect all members of a team would come
+>> to much the same decision about any given patch, but they might "say" it
+>> differently.  One might say "anyone who wrote this should be
+>> lobotomised", and the other might say "I see what you are trying to do,
+>> but the approach won't work - go look at how we handle XXXX, they have a
+>> similar problem".  Neither will accept the patch, and they will probably
+>> both accept it after certain changes.  But when one of them is having a
+>> bad day, I would like people to have the explicit opportunity to ignore
+>> them and talk to the other.  Yes, they'll still get "no" twice, but they=
+'ll
+>> also get something approaching sane review least once.
+>
+> You still have not answered the question I've asked - what to do in case =
+of
+> real disagreements, seeing that "pass it to Linus for final decision" obv=
+iously
+> doesn't work here.  And while we are at it, what to do in case when "they"
+> _agree_ that patch is unsalvagable?  I'm quite sure that you can think of
+> examples of such...
 
-Another example of this is that zero-day testing bot changed its
-message in order to be more welcoming to newcomers.  ("Thank you for
-the patch! Yet something to improve...".)  At the Maintainer's Summit,
-someone from Germany pointed out that in European and especially
-German cultures, being ultra polite is often a signal that the person
-is considered stupid/incompetent, and he actually viewed it the change
-in the testing bot as making it be *less* welcoming, not *more*.  Not
-that he cared, because he has a thick skin and after all, it's only a
-'bot --- but in his view he thought it was quite funny that the change
-was welcomed by some as being an improvement when he viewed it
-completely the other way 'round.
+Sorry, things easily get lost in such a wide ranging conversation.
+Handling of real disagreements is not my problem, unless I am a member
+of the maintainership team.  We have maintainership teams which appear
+to work, so they provide an existence-proof that something can be
+achieved.
 
-Ultimately, we are a world-wide effort, and it's really hard to
-predict or control how people from different cultures will perceive an
-e-mail or some document.  That doesn't mean we shouldn't *try*, and
-there may very well be times when someone will file a complaint for
-what is perceived to be a Code of Conduct which is really a
-misunderstanding due to a cultural mismatch.  (And *obviously* that's
-not a CoC violation either, despite some people trying to spread FUD
-by making the case that it would be.)
+Were I to have an opportunity to be part of a maintainership team, I
+would probably base any internal agreement necessary on two principles.
+1/ People on the team are reasonably competent, and aren't going to
+  commit anything that all controversial without being quite confident.
+  I would choose to trust.
 
-> In my view, the Linux-CoC stands for exactly that sort of extreme "Political 
-> Correctness" that is infesting our societies and has proven its destructive 
-> nature in more than enough instances. For some examples see [1][2][3][4][5].   
-> 
-> To me it feels more and more like the dark times of witch-hunts are back or 
-> when it was politically in-correct to say that the earth revolves around the 
-> sun. In those days offenders like Galilei were at least offered the choice 
-> between recanting and the funeral-pile. Today you may recant but you get 
-> publicly burnt anyway.
+2/ We commit bad patches often, and when we realize, we fix them.  You
+  and I have both been on both sides of that.  We (the community)
+  even commit quite large mistakes (devfs, control-groups) and the world
+  doesn't end.  Accepting imperfection is a key part of Linus' pragmatic
+  approach, and a key part of the success of Linux.
 
-Yeah, and that's precisely the FUD that I'm talking about.  I
-understand that is your view.  Let's see if it's actually true.  I
-haven't seen any witch trials or burnings in the GoLang community,
-which also uses the Contributor hConvenant as their CoC.  Can you be
-open-minded enough to accept the fact that you might be wrong?  And
-are you prepared to change your views if we don't see Maintainers
-getting "impeached" or otherwise burned at the stake in the next year
-or so?
+If they agree that the patch is unsalvagable, then they say so -
+politely and with reasons.  It is a right-of-review, not a
+right-of-success.
 
-And on the flip side, if we continue to have newcomers saying that
-they are feeling more welcomed, I'm hoping that Josh is also open
-minded to understand that the changes the we made didn't completely
-destroy the whole point of the CoC.
 
-Best regards,
+>
+> BTW, out of curiosity - when has anyone suggested lobotomies[1]?  I'd lik=
+e to see
+> details - got to be interesting...
 
-						- Ted
+Sorry, it was a deliberately ficticious example.
+
+Thanks for showing an interest, it is more than a lot of people are
+doing.
+NeilBrown
+
+>
+> [1] on kernel development lists, that is - I can think of examples in e.g.
+> NANAE circa '98 or so regarding the SGI employees responsible for sendmail
+> setup they used to ship in IRIX, but that was more of a possible explanat=
+ion
+> of the reasons rather than suggested remedy...
+
+--=-=-=
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEG8Yp69OQ2HB7X0l6Oeye3VZigbkFAlvPiFsACgkQOeye3VZi
+gbn7nw/9FdMy4AjQzbWQfWmM5bonCBdC7uM/1Q/rQTu7OtqJ0JCWGxXIz8EYc+b1
+odLqfK/mv7UMGHFulcly8pClL3okIT2UMvIKZyu+u3c/+jpKkp1QS46VXV69Ia0d
+TKEVK2oIoWxvJD65ZBMVyAuldUy82EwPvPUGtJyVDXJqmz271hpMmbjue2hPNDXb
+GwkVwNIXruHRmtEnyZ42DFq8Hh7A8Wtw9Ib565WgqENeyZzbmXVEUA+CKbCgqIb0
+4n6L+rSaBKVk+nAgd4yecGiIzU3rJGbM5Hc+gawrrcmIQ/U47FDTD5yKGp/UbCNV
+kS+X/xQJbrAbHWTu09ko0fn9lIUGsluQlDU30M1KsP8chf3RbmBwqchGshIuq1ea
+jI5IxDWBMj5BTs7a08V26C4kIgJ4w6WuXKjRUqnqTytAF0t6YLPp8/BGuIiyJo13
+0xeqw44Dr4IOmsY/RC6mcISQiAfUfZRr2LeejUGvkLcHiPNu1HOnETbcz1xPRl0K
++/BfPyEu1msrXsJicML/KKDH9L0SEOqzOcp9zToqworVK2gRSvNFNTPcO9+1o8sp
+fZsvCmnFfdhf/uwfE3PWG0L6ZH8T/OXmj2vRHZn4IHnQvnyvpcDo0nW35LObG6Zp
+Nuy0G3nDZP4VLnoOE7b6A9HVSUaHBQ9nff5MS5nsyQvPxw5pcYU=
+=FBmv
+-----END PGP SIGNATURE-----
+--=-=-=--
