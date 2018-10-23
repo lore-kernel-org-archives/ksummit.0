@@ -1,36 +1,30 @@
-Return-Path: <viro@ftp.linux.org.uk>
+Return-Path: <rdunlap@infradead.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 796FC7F6
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 63E897F6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 23 Oct 2018 06:01:10 +0000 (UTC)
-Received: from ZenIV.linux.org.uk (zeniv.linux.org.uk [195.92.253.2])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 385DE7DC
+	Tue, 23 Oct 2018 06:05:12 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+	[198.137.202.133])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 00BE77F0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 23 Oct 2018 06:01:09 +0000 (UTC)
-Date: Tue, 23 Oct 2018 07:00:59 +0100
-From: Al Viro <viro@ZenIV.linux.org.uk>
-To: NeilBrown <neil@brown.name>
-Message-ID: <20181023060059.GW32577@ZenIV.linux.org.uk>
-References: <20181020134908.GA32218@kroah.com>
-	<87y3ar80ac.fsf@notabene.neil.brown.name>
-	<20181021222608.GA24845@localhost>
-	<875zxt919d.fsf@notabene.neil.brown.name>
-	<20181023033130.GQ32577@ZenIV.linux.org.uk>
-	<87r2gh70ij.fsf@notabene.neil.brown.name>
-	<20181023045247.GV32577@ZenIV.linux.org.uk>
-	<87o9bl6xlo.fsf@notabene.neil.brown.name>
+	Tue, 23 Oct 2018 06:05:11 +0000 (UTC)
+To: Joe Perches <joe@perches.com>, Greg Kroah-Hartman <greg@kroah.com>,
+	James Bottomley <James.Bottomley@hansenpartnership.com>
+References: <1540066514.3464.22.camel@HansenPartnership.com>
+	<20181022211025.GA8911@kroah.com>
+	<23e41205115d317908c63d37a20ee316b44a8404.camel@perches.com>
+From: Randy Dunlap <rdunlap@infradead.org>
+Message-ID: <800b68eb-9cf4-9c72-104d-0d4d9ae26ea1@infradead.org>
+Date: Mon, 22 Oct 2018 23:05:07 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87o9bl6xlo.fsf@notabene.neil.brown.name>
-Sender: Al Viro <viro@ftp.linux.org.uk>
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	Mishi Choudhary <mishi@linux.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-kernel <linux-kernel@vger.kernel.org>
-Subject: Re: [Ksummit-discuss] Call to Action Re: [PATCH 0/7] Code of
- Conduct: Fix some wording, and add an interpretation document
+In-Reply-To: <23e41205115d317908c63d37a20ee316b44a8404.camel@perches.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: linux-kernel <linux-kernel@vger.kernel.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [GIT PULL] code of conduct fixes for 4.19-rc8
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,36 +34,46 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Oct 23, 2018 at 04:28:03PM +1100, NeilBrown wrote:
-
-> > If that's a clarification, I'm sorry to say that I understand you even less now.
-> > What are you proposing?  Duopoly?  How do you deal with disagreements?  Fork?
-> > Revert wars?
+On 10/22/18 9:16 PM, Joe Perches wrote:
+> On Mon, 2018-10-22 at 22:10 +0100, Greg Kroah-Hartman wrote:
+>> On Sat, Oct 20, 2018 at 01:15:14PM -0700, James Bottomley wrote:
+>>> This is the series of patches which has been discussed on both ksummit-
+>>> discuss and linux-kernel for the past few weeks.  As Shuah said when
+>>> kicking off the process, it's designed as a starting point for the next
+>>> phase of the discussion, not as the end point, so it's only really a
+>>> set of minor updates to further that goal.
+>>>
+>>> The merger of the three patches to show the combined effect is attached
+>>> below.  However, Greg recently posted the next phase of the discussion,
+>>> so people will be asking what the merger of the series looks like. 
+>>> Ignoring the non-CoC documents, I think it looks like this
+>>
+>> Sorry for not responding sooner for this, travel and the meeting today
+>> took up my time.
+>>
+>> Anyway, as we discussed today in the Maintainers summit, let's leave the
+>> Code of Conduct text alone for now.  It matches what "upstream" has with
+>> the exception of removing that one paragraph.  If you have issues with
+>> the wording in it, please work with upstream to fix the issues there as
+>> hundreds of other projects will benefit with your changes if they are
+>> really needed.
 > 
-> We already have team-maintainership arrangements - doing the same thing
-> at the top level should not be that hard to imagine.
+> Given the different development models, that's not
+> a very compelling argument.
 > 
-> It really about "saying" no.  I suspect all members of a team would come
-> to much the same decision about any given patch, but they might "say" it
-> differently.  One might say "anyone who wrote this should be
-> lobotomised", and the other might say "I see what you are trying to do,
-> but the approach won't work - go look at how we handle XXXX, they have a
-> similar problem".  Neither will accept the patch, and they will probably
-> both accept it after certain changes.  But when one of them is having a
-> bad day, I would like people to have the explicit opportunity to ignore
-> them and talk to the other.  Yes, they'll still get "no" twice, but they'll
-> also get something approaching sane review least once.
+> As James Bottomley has suggested multiple times,
+> I'd much rather kernel development use the debian
+> code of conduct verbatim than even this modified one.
+> 
+> https://www.debian.org/code_of_conduct
 
-You still have not answered the question I've asked - what to do in case of
-real disagreements, seeing that "pass it to Linus for final decision" obviously
-doesn't work here.  And while we are at it, what to do in case when "they"
-_agree_ that patch is unsalvagable?  I'm quite sure that you can think of
-examples of such...
+Yes, that and the Samba URL are good.
 
-BTW, out of curiosity - when has anyone suggested lobotomies[1]?  I'd like to see
-details - got to be interesting...
+And it's disappointing how patches from James are acked or reviewed on the
+mailing lists and then mostly ignored (until the maintainer summit) while
+other patches are merged into the mainline git tree.
 
-[1] on kernel development lists, that is - I can think of examples in e.g.
-NANAE circa '98 or so regarding the SGI employees responsible for sendmail
-setup they used to ship in IRIX, but that was more of a possible explanation
-of the reasons rather than suggested remedy...
+It seems to be very one-sided.
+
+-- 
+~Randy
