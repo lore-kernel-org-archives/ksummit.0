@@ -1,17 +1,27 @@
-Return-Path: <neil@brown.name>
+Return-Path: <viro@ftp.linux.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 02DC7232B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5866E2318
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 25 Oct 2018 23:00:52 +0000 (UTC)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 425CD7CB
+	Thu, 25 Oct 2018 23:07:28 +0000 (UTC)
+Received: from ZenIV.linux.org.uk (zeniv.linux.org.uk [195.92.253.2])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F1DBC7CB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 25 Oct 2018 23:00:51 +0000 (UTC)
-From: NeilBrown <neil@brown.name>
-To: esr@thyrsus.com
-Date: Fri, 26 Oct 2018 09:52:42 +1100
-In-Reply-To: <20181025223813.GA5137@thyrsus.com>
+	Thu, 25 Oct 2018 23:07:27 +0000 (UTC)
+Date: Fri, 26 Oct 2018 00:06:56 +0100
+From: Al Viro <viro@ZenIV.linux.org.uk>
+To: esr@thyrsus.com, "Theodore Y. Ts'o" <tytso@mit.edu>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, visionsofalice@redchan.it,
+	linux-kernel <linux-kernel@vger.kernel.org>, rms@gnu.org,
+	bruce@perens.com, moglen@columbia.edu, bkuhn@sfconservancy.org,
+	editor@lwn.net, NeilBrown <neil@brown.name>,
+	Laura Abbott <labbott@redhat.com>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Olof Johansson <olof@lixom.net>, Chris Mason <clm@fb.com>,
+	Mishi Choudhary <mishi@linux.com>, linux-kernel-owner@vger.kernel.org
+Message-ID: <20181025230656.GJ32577@ZenIV.linux.org.uk>
 References: <20181020134908.GA32218@kroah.com>
 	<87y3ar80ac.fsf@notabene.neil.brown.name>
 	<c6bf1877-6e29-50ec-ffa8-314ab35ec9ce@redhat.com>
@@ -20,19 +30,11 @@ References: <20181020134908.GA32218@kroah.com>
 	<20181025193901.GD26403@thyrsus.com>
 	<20181025204718.GB25649@thunk.org>
 	<20181025214123.GA2448@thyrsus.com>
-	<87a7n165h6.fsf@notabene.neil.brown.name>
-	<20181025223813.GA5137@thyrsus.com>
-Message-ID: <871s8d63lx.fsf@notabene.neil.brown.name>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="=-=-=";
-	micalg=pgp-sha256; protocol="application/pgp-signature"
-Cc: linux-kernel-owner@vger.kernel.org, rms@gnu.org,
-	ksummit-discuss@lists.linuxfoundation.org,
-	Mishi Choudhary <mishi@linux.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	bruce@perens.com, linux-kernel <linux-kernel@vger.kernel.org>,
-	bkuhn@sfconservancy.org, editor@lwn.net, moglen@columbia.edu,
-	visionsofalice@redchan.it
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20181025214123.GA2448@thyrsus.com>
+Sender: Al Viro <viro@ftp.linux.org.uk>
 Subject: Re: [Ksummit-discuss] The linux devs can rescind their license
 	grant.
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -44,79 +46,28 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---=-=-=
-Content-Type: text/plain
-Content-Transfer-Encoding: quoted-printable
+On Thu, Oct 25, 2018 at 05:41:23PM -0400, Eric S. Raymond wrote:
 
-On Thu, Oct 25 2018, Eric S. Raymond wrote:
+> I do not have any facts with which to dispute this specific claim.
+> However, I do notice that a significant number of long-time
+> contributors have put themselves in the anti-CoC camp. I note Al Viro
+> as a recent example.
 
-> NeilBrown <neil@brown.name>:
->> I think you are blurring two groups here.
->> Ted describes "anti-CoC dissidents" as people who are advancing an
->> argument about rescinding their license.  This is a smaller groups than
->> the "ant-CoC camp" who don't really like the CoC.  I suspect is it is a
->> much smaller group when restricting to actual copyright holders.
->
-> You may be right that these are semi-distinct groups.  I don't think
-> the distinction makes a lot of difference to my argument, though.
-> Either way, (a) there's been a process failure by the leadership, and
-> (b) the threat of a massive legal disruption is real.
->
->> I am against the CoC as it stands, but rescinding any license is such an
->> enormous over-reaction, I find the concept laughable.
->
-> I'm...not sure I do.  I was going to agree with you that it's a
-> massive overreaction, but then a simple question occurred to me: what
-> else could *I* do if I thought I had a significant stake (I don't; my
-> kernel contributions are minor and old) and felt my interests were
-> damaged?
+*snort*
 
-Reasonable people can certainly see this issue differently.
-My perspective is that I have already gained so much benefit in return
-for my investment that this is little more than a rounding error.  If
-something happened that really did threaten the value of my investment,
-I'm sure there would be so many others who thought so too, that we would be
-able to fork the community.
-
->
-> All this could have been avoided so easily. A felt need for a new Code
-> should not have been followed by the immediate imposition of one,
-> but by a public RFC process and consensus-building - a process in which
-> even those who lost arguments about the construction of the code could
-> know they had been heard.
-
-I do agree about the process failure.  The "immediate imposition" was
-unnecessary and (I think) harmful.
-
-Thanks,
-NeilBrown
-
-
-> --=20
-> 		<a href=3D"http://www.catb.org/~esr/">Eric S. Raymond</a>
->
-> My work is funded by the Internet Civil Engineering Institute: https://ic=
-ei.org
-> Please visit their site and donate: the civilization you save might be yo=
-ur own.
-
---=-=-=
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEG8Yp69OQ2HB7X0l6Oeye3VZigbkFAlvSSToACgkQOeye3VZi
-gbljkhAAqm1TupWfL4DmgMZHocR0/d3O7zDBvYA7ZozB9Btxs9sLLgXHSqGpqTH0
-rnna7YxYCkj1dacMIdGufQoW+VRYadB+5D15LGFXZ8EMqGAC3N760gmaC/SYvbgN
-Dltij4OaJDzvsIkgs+czC+w55t7kuADyjloG6Ahr4vJLp3N+KVO8wRvNdC0zy67x
-xv1AoCpjIT48xxkkwCrXE+F6IzhIr9tHbAWuXCzd8xWqvGRlcj3ozGw/wynO3J3k
-k5bMfOICQ5JE001TzGzZ77xyxuXUtXdN9UXFDCZr2nS77Be0A9IIJ7P+Sl3//PR+
-EQQ181syZvXBnGf6j0wyP09wdBE10KsqdlWn7Kq+1xtysoZWnCWmHyf5c8ETTWxe
-WhO28QoHKDUoC6lkzO7b2A0TuO2BRoV2EorzizhZ8orBRTfDbviEGW+HrxlsI3Th
-r2Pn/4PRO1voIfrNLRTlFgz70QnEFjay71iq4bTOiMYPb90UeEydlg+8fiar/CVe
-AGRIrX9Oozw5LIxsBHxgvZhGL2hXz7rNQH47cEjTl/fJFoq3COWoKuhKUeJjozRA
-XmUzJExR79ASQTG0oVAMHBA8VSv70Ts0QJBRJuelCWGCSdHo2rIAQeN8qL9uzVz5
-tSsb1iztgZ5X/aC/4OGW1un8lRTFVhWXqBD527UjXglvZKPZkog=
-=BHvC
------END PGP SIGNATURE-----
---=-=-=--
+For the record:
+	* CoC is a piss-poor match for the structure of community
+	* Linus had essentially tossed a live grenade into an outhouse on
+his way to vacation, with quite predictable results - all kinds of
+interesting coprophagous fauna dropping by to feed, including cartooneys
+of the sort I hadn't seen since NANAE days.
+	* As idiotic gambits go, "try and revoke the license on my
+contributions, so that they'll have to revoke CoC" is... impressive.
+Sadly, my command of English has turned out to be woefully inadequate,
+and I can't even blame that on not being a native speaker; I'm just as
+incapable of producing a coherent (let alone printable) description of
+that cunning plan in any language, Russian included.  I've tried.  Really.
+	* in case it needs to be spelled out: I am not at all interested
+in that kind of stunts.  One of the reasons I thoroughly despise RMS
+and his bunch is the leverage game they tried to play with GPLv3;
+damned if I'm going to lower myself to their level.
