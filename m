@@ -1,40 +1,29 @@
 Return-Path: <neil@brown.name>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3410922E1
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 070192315
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 25 Oct 2018 22:12:36 +0000 (UTC)
+	Thu, 25 Oct 2018 22:18:31 +0000 (UTC)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 722797DC
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9C0FC7E8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 25 Oct 2018 22:12:35 +0000 (UTC)
+	Thu, 25 Oct 2018 22:18:28 +0000 (UTC)
 From: NeilBrown <neil@brown.name>
-To: esr@thyrsus.com, "Theodore Y. Ts'o" <tytso@mit.edu>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, visionsofalice@redchan.it,
-	linux-kernel <linux-kernel@vger.kernel.org>, rms@gnu.org,
-	bruce@perens.com, moglen@columbia.edu, bkuhn@sfconservancy.org,
-	editor@lwn.net, Laura Abbott <labbott@redhat.com>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Olof Johansson <olof@lixom.net>, Chris Mason <clm@fb.com>,
-	Mishi Choudhary <mishi@linux.com>, linux-kernel-owner@vger.kernel.org
-Date: Fri, 26 Oct 2018 09:12:21 +1100
-In-Reply-To: <20181025214123.GA2448@thyrsus.com>
+To: Rainer Fiebig <jrf@mailbox.org>, linux-kernel@vger.kernel.org
+Date: Fri, 26 Oct 2018 09:18:18 +1100
+In-Reply-To: <2341648.lzjnUGKk1z@siriux>
 References: <20181020134908.GA32218@kroah.com>
 	<87y3ar80ac.fsf@notabene.neil.brown.name>
-	<c6bf1877-6e29-50ec-ffa8-314ab35ec9ce@redhat.com>
-	<185b786a2bd6e8d527dca161dc42e4f1@redchan.it>
-	<20181025081911.GB11343@kroah.com>
-	<20181025193901.GD26403@thyrsus.com>
-	<20181025204718.GB25649@thunk.org>
-	<20181025214123.GA2448@thyrsus.com>
-Message-ID: <87a7n165h6.fsf@notabene.neil.brown.name>
+	<2341648.lzjnUGKk1z@siriux>
+Message-ID: <877ei56579.fsf@notabene.neil.brown.name>
 MIME-Version: 1.0
 Content-Type: multipart/signed; boundary="=-=-=";
 	micalg=pgp-sha256; protocol="application/pgp-signature"
-Subject: Re: [Ksummit-discuss] The linux devs can rescind their license
-	grant.
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	Mishi Choudhary <mishi@linux.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] Call to Action Re: [PATCH 0/7] Code of
+	Conduct: Fix some wording, and add an interpretation document
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -48,90 +37,102 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 Content-Type: text/plain
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 25 2018, Eric S. Raymond wrote:
+On Thu, Oct 25 2018, Rainer Fiebig wrote:
 
-> Theodore Y. Ts'o <tytso@mit.edu>:
->> On Thu, Oct 25, 2018 at 03:39:01PM -0400, Eric S. Raymond wrote:
->> > Under Jacobsen vs. Katzer (535 f 3d 1373 fed cir 2008) authors of
->> > GPLed software have a specific right to relief (including injunctive
->> > relief) against misappropriation of their software. That ruling (which
->> > was the case of first impression on the binding status of the GPL)
->> > reputational damage is *specifically* recognized as grounds for relief.
+> Am Montag, 22. Oktober 2018, 08:20:11 schrieb NeilBrown:
+>> On Sat, Oct 20 2018, Greg Kroah-Hartman wrote:
+>> > Hi all,
+>> >=20
+>> > As everyone knows by now, we added a new Code of Conduct to the kernel
+>> > tree a few weeks ago.
 >>=20
->> I've read the legal briefs, and I'm pretty sure they don't say what
->> you are claiming they say.  Yes, I'm not a lawyer --- but that's OK
->> --- neither are you.
+>> I wanted to stay detached from all this, but as remaining (publicly)
+>> silent might be seen (publicly) as acquiescing, I hereby declare that:
+>>    I reject, as illegitimate, this Code and the process by
+>>    which it is being "developed".
+>>=20
+>> It is clear from the surrounding discussions that this is well outside o=
+ur
+>> core competencies.  It will be flawed, it isn't what we need.
+>>=20
+>> I call on any other community members who reject this process to say so,
+>> not to remain silent.
+>> #Iobject
+>>=20
+>> We don't need a "Code of Conduct" nearly as much as we need "Leadership
+>> in conduct".  Without the leadership, any code looks like a joke.
+>>=20
+> [...]
+>=20=20
+>> I call on you, Greg:
+>>  - to abandon this divisive attempt to impose a "Code of Conduct"
+>>  - to revert 8a104f8b5867c68
 >
-> How much are you willing to gamble on not being wrong?
+> Yes but this seems increasingly unlikely now. However, there may be an=20
+> alternative.
 >
->> The *vast* majority of the "anti-CoC dissidents" who have been
->> advancing this argument, have, as near as I can tell, little or no
->> copyright ownership in the kernel.
+> Jugding by the release-message for 4.19, some people here are fans of=20
+> Monty Python's. No wonder - as those guys are famous for being unrelentin=
+g=20
+> supporters of Political Correctness.
 >
-> I do not have any facts with which to dispute this specific claim.
-> However, I do notice that a significant number of long-time
-> contributors have put themselves in the anti-CoC camp. I note Al Viro
-> as a recent example.
+> So one would be on the safe side if one just supplemented "Our Pledge"=20
+> with this:
+>
+> 	"Everybody has the right to be offended."
+>
+> I think, John Cleese would also welcome this.[1]
+>
+> What do you think?
 
-I think you are blurring two groups here.
-Ted describes "anti-CoC dissidents" as people who are advancing an
-argument about rescinding their license.  This is a smaller groups than
-the "ant-CoC camp" who don't really like the CoC.  I suspect is it is a
-much smaller group when restricting to actual copyright holders.
+I do think that giving certain rights to the community is a good thing:
+=2D the right to tell anyone that their speech is hurtful
+=2D the right to (patch) review by a third party.
 
-I am against the CoC as it stands, but rescinding any license is such an
-enormous over-reaction, I find the concept laughable.
+I don't think the right to be offended really needs to be given.
+Yes, I know it is a joke and I do like Monty Python.  I just don't think
+it is particular helpful in this context. Maybe I missed something.
+For myself, I relinquish my right to be offended.  I just don't do it.
+It doesn't seem to be worth the effort.
 
+Thanks,
 NeilBrown
 
 
 >
-> Even supposing you are right about most of the anti-Coc people being
-> outsiders, a tiny minority of people with a genuine IP stake could do a
-> lot of damage.  I ask again: how much are you willing to gamble on not
-> being wrong?
+> Regards!
 >
-> I definitely do not want to see the kind of explosion we could witness.
-> I think you are making it more likely rather than less by appearing
-> high-handed and dismissive.   Because, whatever the merits of the
-> CoC itself, there has been a process failure here.  It doesn't look
-> good to be defending that failure.
 >
-> A change like the CoC adoption was not a good thing to do without
-> proper public notice, discussion, and consensus-building *beforehand*.
-> This was an unforced error on the part of the leadership group;
-> please, *please* don't compound it by digging in around the error.  Do
-> you really think you're going to win hearts and minds among insider
-> dissidents - people with a genuine stake - by dismissing the
-> opposition as a troll job?
+> Rainer Fiebig
 >
-> Instead of declaiming about "trolls", how about we fix the process
-> failure instead?
+>
+>
+> [1] https://www.dailymail.co.uk/news/article-3427218/Political-correctnes=
+s-killing-comedy-says-John-Cleese-Monty-Python-star-believes-fear-offending=
+-certain-groups-lead-1984-style-society-free-expression-not-allowed.html
+>
+>
 > --=20
-> 		<a href=3D"http://www.catb.org/~esr/">Eric S. Raymond</a>
->
-> My work is funded by the Internet Civil Engineering Institute: https://ic=
-ei.org
-> Please visit their site and donate: the civilization you save might be yo=
-ur own.
+> The truth always turns out to be simpler than you thought.
+> Richard Feynman
 
 --=-=-=
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEG8Yp69OQ2HB7X0l6Oeye3VZigbkFAlvSP8UACgkQOeye3VZi
-gbnBgg//YXyTrRXBoJyJ2fTlvsnSfCK5x4sGdV3Ni/kQ/XVL7A9SjO5ZGgWrZNc3
-HYkAq7Gq4eYBYPB7guAEhnMsX8ctjUf/ryYn/IkXmJ7YrSdzzZrME0q2TVDjoDnZ
-27+l5avDrJVdrUIOYKZOdati2mC4s7eZRegAodIa6JPbYYkQOvckWDqLb0DzFHMj
-bZSWIevDbEG3VOOirAnY/6pUIJEseYyC5mmHefIi3kM1lP6Tm1ANEuhn0xj7yy4d
-0JfdpdaZH7iwABC672nOFRACgx+u7eHVUCRwHjPrkGIEYCkYlpOCe3QFlqZIPJgw
-03vhgQLsdKrm2gT44usGYI2IXN5IlQ7sv8fULc0BbPLnLT7O94Js5hGpyrbiINnq
-7DS04c9EZC8pSx3+rEqoFmqKo0MLJcaaBOXiIkPX4njeTbkxPgnyB7Xp/7HWycrj
-yqKTYmFCG6cFNDz/O7YVT1baCpNF4I8iYpRIXvSCisC/pXx2ZIYDfZwuBYWcbqDc
-+f+vl8/ifdLB2pLLex3gTN+soBFQVX0V+0nXeWFqtkdaT2IML4uig+J7b1t94a56
-4XLNGLdS3q1J62hk8T3GJsZ8YUSBUli91Ux2v0Do18CLjM5gParf4glZwavl9L0Y
-tt8kooluX5EMsCRcqsYWzcbCyTZJ2r3ek7V+R3ZAcnvW7n1HqQ4=
-=0+s7
+iQIzBAEBCAAdFiEEG8Yp69OQ2HB7X0l6Oeye3VZigbkFAlvSQSsACgkQOeye3VZi
+gbkGZw/+Kb+EyDzG/rh08Umewq+93IV7ewkPFBvgyZBER+YtHB4q3JreNPYM/R68
+nbKd0QjJlVPZvQY9x7Wqh3mfWYNqeu+QH5s9IYXtg8NVilcUqZfFknsoO+opRZMW
+7jeD4GkMFGpudXMkxujqKweB/d1m4ZjyTH0FSRfrssDs6WZpu5oRlRFaujU/8fwM
+rqMbi97Vbw9tbQyh27JWh31obfcrh6Ma7kXZ3jaj54g7pJcALeS5r09ZW4EqZHJs
+1weVtysv/fu8GthnmH9/aOWA3kkSUCy/RDcN4xC2MIi4anY4U0WBtPsb1iXzOdLV
++IRMY0It3gUS8Ak/rPDYgjJvyxP9tjmelWAEFk6NcQ6LfzCLMHYQU6xyf5aO+zid
+VbX+LFrffmnVv7PdUOHujStmyGMWKSXE22c/1GNfk+yFOVOe+CQLpQaNFEQOB79Y
+qZC9wt/mVBmsicRiloOCrBUlGInavvSk4gjimO2JXI2nCnIrEYmXAJrg85G6j1vF
+70KlEa4FnTEEcHVnRR3lTAESWwpzOh9+L3kU1fqWpwf6+dNsp+A6iucB/+byQMQr
+ioSNQolgL6bG61b3AlnXOhFhXhEbuftQig7OBS7LchkURHS7/HcivO7KTm9gN2JT
+CY9/BQ/nhHL5uJnY7pl6zM/1HSHw6YEwyhFIQRrZ3QabcWRF9oE=
+=NK6q
 -----END PGP SIGNATURE-----
 --=-=-=--
