@@ -1,29 +1,40 @@
 Return-Path: <neil@brown.name>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 070192315
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 02DC7232B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 25 Oct 2018 22:18:31 +0000 (UTC)
+	Thu, 25 Oct 2018 23:00:52 +0000 (UTC)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9C0FC7E8
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 425CD7CB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 25 Oct 2018 22:18:28 +0000 (UTC)
+	Thu, 25 Oct 2018 23:00:51 +0000 (UTC)
 From: NeilBrown <neil@brown.name>
-To: Rainer Fiebig <jrf@mailbox.org>, linux-kernel@vger.kernel.org
-Date: Fri, 26 Oct 2018 09:18:18 +1100
-In-Reply-To: <2341648.lzjnUGKk1z@siriux>
+To: esr@thyrsus.com
+Date: Fri, 26 Oct 2018 09:52:42 +1100
+In-Reply-To: <20181025223813.GA5137@thyrsus.com>
 References: <20181020134908.GA32218@kroah.com>
 	<87y3ar80ac.fsf@notabene.neil.brown.name>
-	<2341648.lzjnUGKk1z@siriux>
-Message-ID: <877ei56579.fsf@notabene.neil.brown.name>
+	<c6bf1877-6e29-50ec-ffa8-314ab35ec9ce@redhat.com>
+	<185b786a2bd6e8d527dca161dc42e4f1@redchan.it>
+	<20181025081911.GB11343@kroah.com>
+	<20181025193901.GD26403@thyrsus.com>
+	<20181025204718.GB25649@thunk.org>
+	<20181025214123.GA2448@thyrsus.com>
+	<87a7n165h6.fsf@notabene.neil.brown.name>
+	<20181025223813.GA5137@thyrsus.com>
+Message-ID: <871s8d63lx.fsf@notabene.neil.brown.name>
 MIME-Version: 1.0
 Content-Type: multipart/signed; boundary="=-=-=";
 	micalg=pgp-sha256; protocol="application/pgp-signature"
-Cc: ksummit-discuss@lists.linuxfoundation.org,
+Cc: linux-kernel-owner@vger.kernel.org, rms@gnu.org,
+	ksummit-discuss@lists.linuxfoundation.org,
 	Mishi Choudhary <mishi@linux.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] Call to Action Re: [PATCH 0/7] Code of
-	Conduct: Fix some wording, and add an interpretation document
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	bruce@perens.com, linux-kernel <linux-kernel@vger.kernel.org>,
+	bkuhn@sfconservancy.org, editor@lwn.net, moglen@columbia.edu,
+	visionsofalice@redchan.it
+Subject: Re: [Ksummit-discuss] The linux devs can rescind their license
+	grant.
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,102 +48,75 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 Content-Type: text/plain
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 25 2018, Rainer Fiebig wrote:
+On Thu, Oct 25 2018, Eric S. Raymond wrote:
 
-> Am Montag, 22. Oktober 2018, 08:20:11 schrieb NeilBrown:
->> On Sat, Oct 20 2018, Greg Kroah-Hartman wrote:
->> > Hi all,
->> >=20
->> > As everyone knows by now, we added a new Code of Conduct to the kernel
->> > tree a few weeks ago.
->>=20
->> I wanted to stay detached from all this, but as remaining (publicly)
->> silent might be seen (publicly) as acquiescing, I hereby declare that:
->>    I reject, as illegitimate, this Code and the process by
->>    which it is being "developed".
->>=20
->> It is clear from the surrounding discussions that this is well outside o=
-ur
->> core competencies.  It will be flawed, it isn't what we need.
->>=20
->> I call on any other community members who reject this process to say so,
->> not to remain silent.
->> #Iobject
->>=20
->> We don't need a "Code of Conduct" nearly as much as we need "Leadership
->> in conduct".  Without the leadership, any code looks like a joke.
->>=20
-> [...]
->=20=20
->> I call on you, Greg:
->>  - to abandon this divisive attempt to impose a "Code of Conduct"
->>  - to revert 8a104f8b5867c68
+> NeilBrown <neil@brown.name>:
+>> I think you are blurring two groups here.
+>> Ted describes "anti-CoC dissidents" as people who are advancing an
+>> argument about rescinding their license.  This is a smaller groups than
+>> the "ant-CoC camp" who don't really like the CoC.  I suspect is it is a
+>> much smaller group when restricting to actual copyright holders.
 >
-> Yes but this seems increasingly unlikely now. However, there may be an=20
-> alternative.
+> You may be right that these are semi-distinct groups.  I don't think
+> the distinction makes a lot of difference to my argument, though.
+> Either way, (a) there's been a process failure by the leadership, and
+> (b) the threat of a massive legal disruption is real.
 >
-> Jugding by the release-message for 4.19, some people here are fans of=20
-> Monty Python's. No wonder - as those guys are famous for being unrelentin=
-g=20
-> supporters of Political Correctness.
+>> I am against the CoC as it stands, but rescinding any license is such an
+>> enormous over-reaction, I find the concept laughable.
 >
-> So one would be on the safe side if one just supplemented "Our Pledge"=20
-> with this:
->
-> 	"Everybody has the right to be offended."
->
-> I think, John Cleese would also welcome this.[1]
->
-> What do you think?
+> I'm...not sure I do.  I was going to agree with you that it's a
+> massive overreaction, but then a simple question occurred to me: what
+> else could *I* do if I thought I had a significant stake (I don't; my
+> kernel contributions are minor and old) and felt my interests were
+> damaged?
 
-I do think that giving certain rights to the community is a good thing:
-=2D the right to tell anyone that their speech is hurtful
-=2D the right to (patch) review by a third party.
+Reasonable people can certainly see this issue differently.
+My perspective is that I have already gained so much benefit in return
+for my investment that this is little more than a rounding error.  If
+something happened that really did threaten the value of my investment,
+I'm sure there would be so many others who thought so too, that we would be
+able to fork the community.
 
-I don't think the right to be offended really needs to be given.
-Yes, I know it is a joke and I do like Monty Python.  I just don't think
-it is particular helpful in this context. Maybe I missed something.
-For myself, I relinquish my right to be offended.  I just don't do it.
-It doesn't seem to be worth the effort.
+>
+> All this could have been avoided so easily. A felt need for a new Code
+> should not have been followed by the immediate imposition of one,
+> but by a public RFC process and consensus-building - a process in which
+> even those who lost arguments about the construction of the code could
+> know they had been heard.
+
+I do agree about the process failure.  The "immediate imposition" was
+unnecessary and (I think) harmful.
 
 Thanks,
 NeilBrown
 
 
->
-> Regards!
->
->
-> Rainer Fiebig
->
->
->
-> [1] https://www.dailymail.co.uk/news/article-3427218/Political-correctnes=
-s-killing-comedy-says-John-Cleese-Monty-Python-star-believes-fear-offending=
--certain-groups-lead-1984-style-society-free-expression-not-allowed.html
->
->
 > --=20
-> The truth always turns out to be simpler than you thought.
-> Richard Feynman
+> 		<a href=3D"http://www.catb.org/~esr/">Eric S. Raymond</a>
+>
+> My work is funded by the Internet Civil Engineering Institute: https://ic=
+ei.org
+> Please visit their site and donate: the civilization you save might be yo=
+ur own.
 
 --=-=-=
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEG8Yp69OQ2HB7X0l6Oeye3VZigbkFAlvSQSsACgkQOeye3VZi
-gbkGZw/+Kb+EyDzG/rh08Umewq+93IV7ewkPFBvgyZBER+YtHB4q3JreNPYM/R68
-nbKd0QjJlVPZvQY9x7Wqh3mfWYNqeu+QH5s9IYXtg8NVilcUqZfFknsoO+opRZMW
-7jeD4GkMFGpudXMkxujqKweB/d1m4ZjyTH0FSRfrssDs6WZpu5oRlRFaujU/8fwM
-rqMbi97Vbw9tbQyh27JWh31obfcrh6Ma7kXZ3jaj54g7pJcALeS5r09ZW4EqZHJs
-1weVtysv/fu8GthnmH9/aOWA3kkSUCy/RDcN4xC2MIi4anY4U0WBtPsb1iXzOdLV
-+IRMY0It3gUS8Ak/rPDYgjJvyxP9tjmelWAEFk6NcQ6LfzCLMHYQU6xyf5aO+zid
-VbX+LFrffmnVv7PdUOHujStmyGMWKSXE22c/1GNfk+yFOVOe+CQLpQaNFEQOB79Y
-qZC9wt/mVBmsicRiloOCrBUlGInavvSk4gjimO2JXI2nCnIrEYmXAJrg85G6j1vF
-70KlEa4FnTEEcHVnRR3lTAESWwpzOh9+L3kU1fqWpwf6+dNsp+A6iucB/+byQMQr
-ioSNQolgL6bG61b3AlnXOhFhXhEbuftQig7OBS7LchkURHS7/HcivO7KTm9gN2JT
-CY9/BQ/nhHL5uJnY7pl6zM/1HSHw6YEwyhFIQRrZ3QabcWRF9oE=
-=NK6q
+iQIzBAEBCAAdFiEEG8Yp69OQ2HB7X0l6Oeye3VZigbkFAlvSSToACgkQOeye3VZi
+gbljkhAAqm1TupWfL4DmgMZHocR0/d3O7zDBvYA7ZozB9Btxs9sLLgXHSqGpqTH0
+rnna7YxYCkj1dacMIdGufQoW+VRYadB+5D15LGFXZ8EMqGAC3N760gmaC/SYvbgN
+Dltij4OaJDzvsIkgs+czC+w55t7kuADyjloG6Ahr4vJLp3N+KVO8wRvNdC0zy67x
+xv1AoCpjIT48xxkkwCrXE+F6IzhIr9tHbAWuXCzd8xWqvGRlcj3ozGw/wynO3J3k
+k5bMfOICQ5JE001TzGzZ77xyxuXUtXdN9UXFDCZr2nS77Be0A9IIJ7P+Sl3//PR+
+EQQ181syZvXBnGf6j0wyP09wdBE10KsqdlWn7Kq+1xtysoZWnCWmHyf5c8ETTWxe
+WhO28QoHKDUoC6lkzO7b2A0TuO2BRoV2EorzizhZ8orBRTfDbviEGW+HrxlsI3Th
+r2Pn/4PRO1voIfrNLRTlFgz70QnEFjay71iq4bTOiMYPb90UeEydlg+8fiar/CVe
+AGRIrX9Oozw5LIxsBHxgvZhGL2hXz7rNQH47cEjTl/fJFoq3COWoKuhKUeJjozRA
+XmUzJExR79ASQTG0oVAMHBA8VSv70Ts0QJBRJuelCWGCSdHo2rIAQeN8qL9uzVz5
+tSsb1iztgZ5X/aC/4OGW1un8lRTFVhWXqBD527UjXglvZKPZkog=
+=BHvC
 -----END PGP SIGNATURE-----
 --=-=-=--
