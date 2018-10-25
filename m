@@ -1,35 +1,32 @@
-Return-Path: <tytso@thunk.org>
+Return-Path: <neil@brown.name>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id CF46F2118
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7FB6E223E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 25 Oct 2018 20:47:39 +0000 (UTC)
-Date: Thu, 25 Oct 2018 16:47:18 -0400
-From: "Theodore Y. Ts'o" <tytso@mit.edu>
-To: esr@thyrsus.com, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	visionsofalice@redchan.it,
-	linux-kernel <linux-kernel@vger.kernel.org>, rms@gnu.org,
-	bruce@perens.com, moglen@columbia.edu, bkuhn@sfconservancy.org,
-	editor@lwn.net, NeilBrown <neil@brown.name>,
-	Laura Abbott <labbott@redhat.com>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Olof Johansson <olof@lixom.net>, Chris Mason <clm@fb.com>,
-	Mishi Choudhary <mishi@linux.com>, linux-kernel-owner@vger.kernel.org
-Message-ID: <20181025204718.GB25649@thunk.org>
+	Thu, 25 Oct 2018 21:15:05 +0000 (UTC)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BB9E57E2
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 25 Oct 2018 21:15:04 +0000 (UTC)
+From: NeilBrown <neil@brown.name>
+To: Josh Triplett <josh@joshtriplett.org>
+Date: Fri, 26 Oct 2018 08:14:51 +1100
+In-Reply-To: <20181024121622.GA10942@localhost>
 References: <20181020134908.GA32218@kroah.com>
 	<87y3ar80ac.fsf@notabene.neil.brown.name>
-	<c6bf1877-6e29-50ec-ffa8-314ab35ec9ce@redhat.com>
-	<185b786a2bd6e8d527dca161dc42e4f1@redchan.it>
-	<20181025081911.GB11343@kroah.com>
-	<20181025193901.GD26403@thyrsus.com>
+	<20181021222608.GA24845@localhost>
+	<875zxt919d.fsf@notabene.neil.brown.name>
+	<20181024121622.GA10942@localhost>
+Message-ID: <87ftwt6850.fsf@notabene.neil.brown.name>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20181025193901.GD26403@thyrsus.com>
-Subject: Re: [Ksummit-discuss] The linux devs can rescind their license
-	grant.
+Content-Type: multipart/signed; boundary="=-=-=";
+	micalg=pgp-sha256; protocol="application/pgp-signature"
+Cc: Mishi Choudhary <mishi@linux.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-kernel <linux-kernel@vger.kernel.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] Call to Action Re: [PATCH 0/7] Code of
+	Conduct: Fix some wording, and add an interpretation document
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -39,37 +36,84 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Oct 25, 2018 at 03:39:01PM -0400, Eric S. Raymond wrote:
-> 
-> Under Jacobsen vs. Katzer (535 f 3d 1373 fed cir 2008) authors of
-> GPLed software have a specific right to relief (including injunctive
-> relief) against misappropriation of their software. That ruling (which
-> was the case of first impression on the binding status of the GPL)
-> reputational damage is *specifically* recognized as grounds for relief.
+--=-=-=
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
 
-I've read the legal briefs, and I'm pretty sure they don't say what
-you are claiming they say.  Yes, I'm not a lawyer --- but that's OK
---- neither are you.
+On Wed, Oct 24 2018, Josh Triplett wrote:
 
-> The anti-CoC dissidents don't have to rescind their license grant to
-> cause a great deal of trouble.
+> On Tue, Oct 23, 2018 at 07:26:06AM +1100, NeilBrown wrote:
+>> On Sun, Oct 21 2018, Josh Triplett wrote:
+>>=20
+>> > On Mon, Oct 22, 2018 at 08:20:11AM +1100, NeilBrown wrote:
+>> >> I call on you, Greg:
+>> >>  - to abandon this divisive attempt to impose a "Code of Conduct"
+>> >>  - to revert 8a104f8b5867c68
+>> >>  - to return to your core competence of building a great team around
+>> >>    a great kernel
+>> >>=20
+>> >>  #Isupportreversion
+>> >>=20
+>> >> I call on the community to consider what *does* need to be said, about
+>> >> conduct, to people outside the community and who have recently joined.
+>> >> What is the document that you would have liked to have read as you we=
+re
+>> >> starting out?  It is all too long ago for me to remember clearly, and=
+ so
+>> >> much has changed.
+>> >
+>> > The document I would have liked to have read when starting out is
+>> > currently checked into the source tree in
+>> > Documentation/process/code-of-conduct.rst .
+>>=20
+>> I'm curious - what would you have gained by reading that document?
+>
+> I would have then had rather less of a pervasive feeling of "if I make
+> even a single mistake I get made an example of in ways that will feed
+> people's quotes files for years to come".
 
-The *vast* majority of the "anti-CoC dissidents" who have been
-advancing this argument, have, as near as I can tell, little or no
-copyright ownership in the kernel.  They are external trolls who are
-not members of the kernel development community, to the best of my
-belief and knowledge.
+Thanks for your reply.  Certainly feeling safe is important, and having
+clear statements that the community values and promotes psychological
+safety is valuable.
 
-In short; they are adding noise to the conversation, and have been
-presuming that in fact people are going to be regularly and summarily
-ejected from the community.  In short, they are adding FUD, probably
-because they have their own agenda.
+The old "code of conflict" said
+   If however, anyone feels personally abused, threatened, or otherwise
+   uncomfortable due to this process, that is not acceptable.=20
 
-I would recommend that before people respond such provocation
-messages, that they do a quick "git log" and find out whether they
-have in fact contributed code to the kernel at all, and if so, how
-long ago it was.
+would you have not found this a strong enough statement to ward off that
+pervasive feeling?
 
-Regards,
+In the current code, would The "Our Pledge" section have been
+sufficient, or do you think the other sections would have actually
+helped you?
 
-						- Ted
+>
+> See
+> https://hbr.org/2017/08/high-performing-teams-need-psychological-safety-h=
+eres-how-to-create-it
+> for more on the benefits of that.
+
+Thanks for the link.
+
+NeilBrown
+
+--=-=-=
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEG8Yp69OQ2HB7X0l6Oeye3VZigbkFAlvSMkwACgkQOeye3VZi
+gblbqxAAxHLxaEPR964HG/HkxGC7q+P2Eve9bvQII+JykbmmvyUrwmAz97vvk/jo
+yKR5eQWsm/zNQPnLQCHQilF+v35dtE0qOqHCEqcza6aJepB1lTbwx5af2o5ZnkNk
+KA9SSLcfdyYfP8Pq8GpmlS/c+53qNt6OIYhYJngudxbP6VpgysRl79vaAcEHuVfi
+6ToYJzKMm/ZsJLqOQuaTQsvhEmF/e6yrdXFbCCQQzuZAjnwvKKMUkSGpnRaux3wi
+1GTlRJflJKr1rI9XWQptRwfJu0esrH00q2BxuLc2UQqO4FcDpLwpDlJUecXVoClm
+6lXE7cV/pjq7IghfpsCplLHWd7e/3xJWvc4xe9g8jHTbqnTkeCGDAZLEaKPCBTXi
+CSXIoVV/2i80wNONQgUm3OUYg4MXcoOtp/lr/eS0c6OO3xa8BLIKFvgtKjDKxaZP
+yGfe3viXpt1IyRlnli80+79HS4YNc2abM/hQwFhV2eRc04M5nZNfZHp36xVwyYoA
+5qO906UTcBxW2+mz5aY4Zc2PRT6keBkHRAKQuJuQuL1yq/d9oM9rPq/9L+3K2aMS
+8YjlU0Y76lA4B4GKBJ5/nyunLxxYDb5ZM2/QJSXOqGx76pJyTWfki9okjLLyc+Hu
+t2O6b+GoQts7rNwj4G6KPL+Q104u1DVQBX9dClAuVoRwk4TLUQc=
+=qLBs
+-----END PGP SIGNATURE-----
+--=-=-=--
