@@ -1,40 +1,31 @@
-Return-Path: <viro@ftp.linux.org.uk>
+Return-Path: <neil@brown.name>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4380C236F
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E7C712CBA
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 26 Oct 2018 05:49:57 +0000 (UTC)
-Date: Fri, 26 Oct 2018 06:49:36 +0100
-From: Al Viro <viro@ZenIV.linux.org.uk>
-To: esr@thyrsus.com, "Theodore Y. Ts'o" <tytso@mit.edu>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, visionsofalice@redchan.it,
-	linux-kernel <linux-kernel@vger.kernel.org>, rms@gnu.org,
-	bruce@perens.com, moglen@columbia.edu, bkuhn@sfconservancy.org,
-	editor@lwn.net, NeilBrown <neil@brown.name>,
-	Laura Abbott <labbott@redhat.com>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	ksummit-discuss@lists.linuxfoundation.org,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Olof Johansson <olof@lixom.net>, Chris Mason <clm@fb.com>,
-	Mishi Choudhary <mishi@linux.com>, linux-kernel-owner@vger.kernel.org
-Message-ID: <20181026054936.GK32577@ZenIV.linux.org.uk>
+	Fri, 26 Oct 2018 22:40:27 +0000 (UTC)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 96D1B7F0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 26 Oct 2018 22:40:26 +0000 (UTC)
+From: NeilBrown <neil@brown.name>
+To: Rainer Fiebig <jrf@mailbox.org>, linux-kernel@vger.kernel.org
+Date: Sat, 27 Oct 2018 09:40:13 +1100
+In-Reply-To: <ffeb597c-9ca2-cf21-ba52-2146ab20c83a@mailbox.org>
 References: <20181020134908.GA32218@kroah.com>
 	<87y3ar80ac.fsf@notabene.neil.brown.name>
-	<c6bf1877-6e29-50ec-ffa8-314ab35ec9ce@redhat.com>
-	<185b786a2bd6e8d527dca161dc42e4f1@redchan.it>
-	<20181025081911.GB11343@kroah.com>
-	<20181025193901.GD26403@thyrsus.com>
-	<20181025204718.GB25649@thunk.org>
-	<20181025214123.GA2448@thyrsus.com>
-	<20181025230656.GJ32577@ZenIV.linux.org.uk>
-	<20181026022836.GA12924@thyrsus.com>
+	<2341648.lzjnUGKk1z@siriux>
+	<877ei56579.fsf@notabene.neil.brown.name>
+	<ffeb597c-9ca2-cf21-ba52-2146ab20c83a@mailbox.org>
+Message-ID: <87o9bg49iq.fsf@notabene.neil.brown.name>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20181026022836.GA12924@thyrsus.com>
-Sender: Al Viro <viro@ftp.linux.org.uk>
-Subject: Re: [Ksummit-discuss] The linux devs can rescind their license
-	grant.
+Content-Type: multipart/signed; boundary="=-=-=";
+	micalg=pgp-sha256; protocol="application/pgp-signature"
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	Mishi Choudhary <mishi@linux.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] Call to Action Re: [PATCH 0/7] Code of
+	Conduct: Fix some wording, and add an interpretation document
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -44,15 +35,155 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Oct 25, 2018 at 10:28:36PM -0400, Eric S. Raymond wrote:
-> Al Viro <viro@ZenIV.linux.org.uk>:
-> > 	* in case it needs to be spelled out: I am not at all interested
-> > in that kind of stunts.  One of the reasons I thoroughly despise RMS
-> > and his bunch is the leverage game they tried to play with GPLv3;
-> > damned if I'm going to lower myself to their level.
-> 
-> Sorry, I did not mean to imply that you are one with the license-revokers.
-> More like "if even Al Viro thinks you fucked up your process, it would be
-> unwise to dismiss the opposition to the CoC as mere trolls".
+--=-=-=
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
 
-Kindly stop conflating opposition to CoC with that kind of idiocy.
+On Fri, Oct 26 2018, Rainer Fiebig wrote:
+
+> NeilBrown schrieb:
+>> On Thu, Oct 25 2018, Rainer Fiebig wrote:
+>>=20
+>>> Am Montag, 22. Oktober 2018, 08:20:11 schrieb NeilBrown:
+>>>> On Sat, Oct 20 2018, Greg Kroah-Hartman wrote:
+>>>>> Hi all,
+>>>>>
+>>>>> As everyone knows by now, we added a new Code of Conduct to the kernel
+>>>>> tree a few weeks ago.
+>>>>
+>>>> I wanted to stay detached from all this, but as remaining (publicly)
+>>>> silent might be seen (publicly) as acquiescing, I hereby declare that:
+>>>>    I reject, as illegitimate, this Code and the process by
+>>>>    which it is being "developed".
+>>>>
+>>>> It is clear from the surrounding discussions that this is well outside=
+ our
+>>>> core competencies.  It will be flawed, it isn't what we need.
+>>>>
+>>>> I call on any other community members who reject this process to say s=
+o,
+>>>> not to remain silent.
+>>>> #Iobject
+>>>>
+>>>> We don't need a "Code of Conduct" nearly as much as we need "Leadership
+>>>> in conduct".  Without the leadership, any code looks like a joke.
+>>>>
+>>> [...]
+>>>=20=20
+>>>> I call on you, Greg:
+>>>>  - to abandon this divisive attempt to impose a "Code of Conduct"
+>>>>  - to revert 8a104f8b5867c68
+>>>
+>>> Yes but this seems increasingly unlikely now. However, there may be an=
+=20
+>>> alternative.
+>>>
+>>> Jugding by the release-message for 4.19, some people here are fans of=20
+>>> Monty Python's. No wonder - as those guys are famous for being unrelent=
+ing=20
+>>> supporters of Political Correctness.
+>>>
+>>> So one would be on the safe side if one just supplemented "Our Pledge"=
+=20
+>>> with this:
+>>>
+>>> 	"Everybody has the right to be offended."
+>>>
+>>> I think, John Cleese would also welcome this.[1]
+>>>
+>>> What do you think?
+>>=20
+>> I do think that giving certain rights to the community is a good thing:
+>> - the right to tell anyone that their speech is hurtful
+>> - the right to (patch) review by a third party.
+>>=20
+>> I don't think the right to be offended really needs to be given.
+>> Yes, I know it is a joke and I do like Monty Python.  I just don't think
+>> it is particular helpful in this context. Maybe I missed something.
+>
+> Of course it's a joke and iirc it was indeed John Cleese who made it. But=
+ he
+> made it for a reason, out of concern. It has a serious core.
+>
+> The question is: what *is* helpful in this matter?
+>
+> Just saying "this is not helpful" isn't helpful either. It's a well-known
+> killer-phrase that has been used ad nauseam in this discussion. But an
+> alternative is never given. And thus it's just an other way of saying
+> "Eat it. And shut tf up!"
+
+You asked me what I thought, and I told you what I thought.
+If you think differently, you are quite welcome tell us - to explain the
+way in which you think the addition would be helpful.
+
+>
+> Not even *constructive* criticism is helpful. AFAIK I'm the only one here=
+ who
+> came up with a *complete* alternative - ignored. Others provided patches =
+for
+> certain sections - ignored. Data that indicate that this may be detriment=
+al to
+> Linux - ignored. Almost anything that was provided by me or others - igno=
+red.
+
+From=20my perspective, providing a complete alternative is no better than
+what Greg did - provided a "complete" "code of conduct".
+
+Engage in discussion, present your case, make me *want* to read your
+document because you've shown me how it relates to me.
+
+>
+> What kind of community or attitude is this? This feels more like "The Wal=
+l" or
+> North Korea than an Open-Source-project.
+>
+> And what beat everything was to misuse famously politically *in*correct M=
+onty
+> Python to malign criticism of this Political-Correctness-monster. The
+> "People's Front" - message will forever be a prominent exhibit in "Monty
+> Python's Hall of Shame". And the author should be banned from laughing ab=
+out
+> MP-sketches until he recants. Perhaps one should also report this inciden=
+t to
+> the "Ministry of Silly CoCs". ;)
+>
+>> For myself, I relinquish my right to be offended.  I just don't do it.
+>> It doesn't seem to be worth the effort.
+>
+> I don't. John Cleese is a smart guy. And he has a point.
+>
+>
+> OK, thanks for your reply! But I think it's time for me to move on. "Cut =
+your
+> losses", as they say.
+>
+
+Thanks for participating!
+
+NeilBrown
+
+>
+> Good luck and regards!
+>
+> Rainer Fiebig
+
+--=-=-=
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEG8Yp69OQ2HB7X0l6Oeye3VZigbkFAlvTl84ACgkQOeye3VZi
+gblcag/9Go4SFL4hRCnJsYG2C9mJEaobtSUGXVznw4rL3SoZc6DJpI5zv6PnOPpC
+kTZCuOSMOV9/G7OmeX/8hhzwlWIDcuJh1OJHFBVq+bEXY8DENzibWJ3gbS/uF5jK
+M/Jd49aANEw4GfWC7uSqGIjGPjcfeJP3NjR76CEf8KMOb3F883FG/XlUYDJkpKn2
+TpOrub77OlqA859Zowb7e+3wrto3bTocXEvpDgBhYtBkJIMxi3dN+Dc8EFlwxl0K
+Pvl4sGhB1QiO9XwfYQmOZhob0Nw/06d7AheOFBeN2F/HwsD6WozuGyCf136596Dz
+G337HVe0OePYLuHgsW9pIRVR/HtpI2oieFuJE4QePALvw68tefcVBqyf2CZBdpbk
+4vtWMHH1yqGsV0o3UfFIBX0h9Ko4obN43kz3e1ETqe+ljcAs0cCUSUdUEITUX8Es
+TwW7DBWOPm2wdMcTKzTUu+VHcrbY85bMwxV3XTUrEsFIfng26Thyo7OZhjqiCPNP
+PBGPo31c4oFmWMnBj9vjVqzp3rlqhZMyDrvARWcluVfGFBX9ZAAViWdzwmfqeD6N
+CmdvsEDHwHbP0WGjm32LPmNpD169gtu+nkcGA+/Q7eypTRmDGMAy8Gubz0/uFXE7
+oO/4DIFjLP7Cpx4kk2BMVET5xwDZQHyB9V/+1VrFO0aGDbGdhe8=
+=fGFO
+-----END PGP SIGNATURE-----
+--=-=-=--
