@@ -1,31 +1,33 @@
-Return-Path: <neil@brown.name>
+Return-Path: <josh@joshtriplett.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id E7C712CBA
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 221082C79
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 26 Oct 2018 22:40:27 +0000 (UTC)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 96D1B7F0
+	Sat, 27 Oct 2018 01:10:15 +0000 (UTC)
+Received: from relay12.mail.gandi.net (relay12.mail.gandi.net [217.70.178.232])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 466D67E8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 26 Oct 2018 22:40:26 +0000 (UTC)
-From: NeilBrown <neil@brown.name>
-To: Rainer Fiebig <jrf@mailbox.org>, linux-kernel@vger.kernel.org
-Date: Sat, 27 Oct 2018 09:40:13 +1100
-In-Reply-To: <ffeb597c-9ca2-cf21-ba52-2146ab20c83a@mailbox.org>
+	Sat, 27 Oct 2018 01:10:14 +0000 (UTC)
+Date: Sat, 27 Oct 2018 02:10:10 +0100
+From: Josh Triplett <josh@joshtriplett.org>
+To: NeilBrown <neil@brown.name>
+Message-ID: <20181027011010.GA29769@localhost>
 References: <20181020134908.GA32218@kroah.com>
 	<87y3ar80ac.fsf@notabene.neil.brown.name>
-	<2341648.lzjnUGKk1z@siriux>
-	<877ei56579.fsf@notabene.neil.brown.name>
-	<ffeb597c-9ca2-cf21-ba52-2146ab20c83a@mailbox.org>
-Message-ID: <87o9bg49iq.fsf@notabene.neil.brown.name>
+	<20181021222608.GA24845@localhost>
+	<875zxt919d.fsf@notabene.neil.brown.name>
+	<20181024121622.GA10942@localhost>
+	<87ftwt6850.fsf@notabene.neil.brown.name>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="=-=-=";
-	micalg=pgp-sha256; protocol="application/pgp-signature"
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	Mishi Choudhary <mishi@linux.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87ftwt6850.fsf@notabene.neil.brown.name>
+Cc: Mishi Choudhary <mishi@linux.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-kernel <linux-kernel@vger.kernel.org>,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] Call to Action Re: [PATCH 0/7] Code of
-	Conduct: Fix some wording, and add an interpretation document
+ Conduct: Fix some wording, and add an interpretation document
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,155 +37,57 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---=-=-=
-Content-Type: text/plain
-Content-Transfer-Encoding: quoted-printable
+On Fri, Oct 26, 2018 at 08:14:51AM +1100, NeilBrown wrote:
+> On Wed, Oct 24 2018, Josh Triplett wrote:
+> 
+> > On Tue, Oct 23, 2018 at 07:26:06AM +1100, NeilBrown wrote:
+> >> On Sun, Oct 21 2018, Josh Triplett wrote:
+> >> 
+> >> > On Mon, Oct 22, 2018 at 08:20:11AM +1100, NeilBrown wrote:
+> >> >> I call on you, Greg:
+> >> >>  - to abandon this divisive attempt to impose a "Code of Conduct"
+> >> >>  - to revert 8a104f8b5867c68
+> >> >>  - to return to your core competence of building a great team around
+> >> >>    a great kernel
+> >> >> 
+> >> >>  #Isupportreversion
+> >> >> 
+> >> >> I call on the community to consider what *does* need to be said, about
+> >> >> conduct, to people outside the community and who have recently joined.
+> >> >> What is the document that you would have liked to have read as you were
+> >> >> starting out?  It is all too long ago for me to remember clearly, and so
+> >> >> much has changed.
+> >> >
+> >> > The document I would have liked to have read when starting out is
+> >> > currently checked into the source tree in
+> >> > Documentation/process/code-of-conduct.rst .
+> >> 
+> >> I'm curious - what would you have gained by reading that document?
+> >
+> > I would have then had rather less of a pervasive feeling of "if I make
+> > even a single mistake I get made an example of in ways that will feed
+> > people's quotes files for years to come".
+> 
+> Thanks for your reply.  Certainly feeling safe is important, and having
+> clear statements that the community values and promotes psychological
+> safety is valuable.
+> 
+> The old "code of conflict" said
+>    If however, anyone feels personally abused, threatened, or otherwise
+>    uncomfortable due to this process, that is not acceptable. 
+> 
+> would you have not found this a strong enough statement to ward off that
+> pervasive feeling?
 
-On Fri, Oct 26 2018, Rainer Fiebig wrote:
+Not when that document started out effectively saying, in an elaborate
+way, "code > people". (Leaving aside that the more important detail
+would be the community actually acting consistently with the code of
+conduct it espoused.)
 
-> NeilBrown schrieb:
->> On Thu, Oct 25 2018, Rainer Fiebig wrote:
->>=20
->>> Am Montag, 22. Oktober 2018, 08:20:11 schrieb NeilBrown:
->>>> On Sat, Oct 20 2018, Greg Kroah-Hartman wrote:
->>>>> Hi all,
->>>>>
->>>>> As everyone knows by now, we added a new Code of Conduct to the kernel
->>>>> tree a few weeks ago.
->>>>
->>>> I wanted to stay detached from all this, but as remaining (publicly)
->>>> silent might be seen (publicly) as acquiescing, I hereby declare that:
->>>>    I reject, as illegitimate, this Code and the process by
->>>>    which it is being "developed".
->>>>
->>>> It is clear from the surrounding discussions that this is well outside=
- our
->>>> core competencies.  It will be flawed, it isn't what we need.
->>>>
->>>> I call on any other community members who reject this process to say s=
-o,
->>>> not to remain silent.
->>>> #Iobject
->>>>
->>>> We don't need a "Code of Conduct" nearly as much as we need "Leadership
->>>> in conduct".  Without the leadership, any code looks like a joke.
->>>>
->>> [...]
->>>=20=20
->>>> I call on you, Greg:
->>>>  - to abandon this divisive attempt to impose a "Code of Conduct"
->>>>  - to revert 8a104f8b5867c68
->>>
->>> Yes but this seems increasingly unlikely now. However, there may be an=
-=20
->>> alternative.
->>>
->>> Jugding by the release-message for 4.19, some people here are fans of=20
->>> Monty Python's. No wonder - as those guys are famous for being unrelent=
-ing=20
->>> supporters of Political Correctness.
->>>
->>> So one would be on the safe side if one just supplemented "Our Pledge"=
-=20
->>> with this:
->>>
->>> 	"Everybody has the right to be offended."
->>>
->>> I think, John Cleese would also welcome this.[1]
->>>
->>> What do you think?
->>=20
->> I do think that giving certain rights to the community is a good thing:
->> - the right to tell anyone that their speech is hurtful
->> - the right to (patch) review by a third party.
->>=20
->> I don't think the right to be offended really needs to be given.
->> Yes, I know it is a joke and I do like Monty Python.  I just don't think
->> it is particular helpful in this context. Maybe I missed something.
->
-> Of course it's a joke and iirc it was indeed John Cleese who made it. But=
- he
-> made it for a reason, out of concern. It has a serious core.
->
-> The question is: what *is* helpful in this matter?
->
-> Just saying "this is not helpful" isn't helpful either. It's a well-known
-> killer-phrase that has been used ad nauseam in this discussion. But an
-> alternative is never given. And thus it's just an other way of saying
-> "Eat it. And shut tf up!"
+> In the current code, would The "Our Pledge" section have been
+> sufficient, or do you think the other sections would have actually
+> helped you?
 
-You asked me what I thought, and I told you what I thought.
-If you think differently, you are quite welcome tell us - to explain the
-way in which you think the addition would be helpful.
-
->
-> Not even *constructive* criticism is helpful. AFAIK I'm the only one here=
- who
-> came up with a *complete* alternative - ignored. Others provided patches =
-for
-> certain sections - ignored. Data that indicate that this may be detriment=
-al to
-> Linux - ignored. Almost anything that was provided by me or others - igno=
-red.
-
-From=20my perspective, providing a complete alternative is no better than
-what Greg did - provided a "complete" "code of conduct".
-
-Engage in discussion, present your case, make me *want* to read your
-document because you've shown me how it relates to me.
-
->
-> What kind of community or attitude is this? This feels more like "The Wal=
-l" or
-> North Korea than an Open-Source-project.
->
-> And what beat everything was to misuse famously politically *in*correct M=
-onty
-> Python to malign criticism of this Political-Correctness-monster. The
-> "People's Front" - message will forever be a prominent exhibit in "Monty
-> Python's Hall of Shame". And the author should be banned from laughing ab=
-out
-> MP-sketches until he recants. Perhaps one should also report this inciden=
-t to
-> the "Ministry of Silly CoCs". ;)
->
->> For myself, I relinquish my right to be offended.  I just don't do it.
->> It doesn't seem to be worth the effort.
->
-> I don't. John Cleese is a smart guy. And he has a point.
->
->
-> OK, thanks for your reply! But I think it's time for me to move on. "Cut =
-your
-> losses", as they say.
->
-
-Thanks for participating!
-
-NeilBrown
-
->
-> Good luck and regards!
->
-> Rainer Fiebig
-
---=-=-=
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEG8Yp69OQ2HB7X0l6Oeye3VZigbkFAlvTl84ACgkQOeye3VZi
-gblcag/9Go4SFL4hRCnJsYG2C9mJEaobtSUGXVznw4rL3SoZc6DJpI5zv6PnOPpC
-kTZCuOSMOV9/G7OmeX/8hhzwlWIDcuJh1OJHFBVq+bEXY8DENzibWJ3gbS/uF5jK
-M/Jd49aANEw4GfWC7uSqGIjGPjcfeJP3NjR76CEf8KMOb3F883FG/XlUYDJkpKn2
-TpOrub77OlqA859Zowb7e+3wrto3bTocXEvpDgBhYtBkJIMxi3dN+Dc8EFlwxl0K
-Pvl4sGhB1QiO9XwfYQmOZhob0Nw/06d7AheOFBeN2F/HwsD6WozuGyCf136596Dz
-G337HVe0OePYLuHgsW9pIRVR/HtpI2oieFuJE4QePALvw68tefcVBqyf2CZBdpbk
-4vtWMHH1yqGsV0o3UfFIBX0h9Ko4obN43kz3e1ETqe+ljcAs0cCUSUdUEITUX8Es
-TwW7DBWOPm2wdMcTKzTUu+VHcrbY85bMwxV3XTUrEsFIfng26Thyo7OZhjqiCPNP
-PBGPo31c4oFmWMnBj9vjVqzp3rlqhZMyDrvARWcluVfGFBX9ZAAViWdzwmfqeD6N
-CmdvsEDHwHbP0WGjm32LPmNpD169gtu+nkcGA+/Q7eypTRmDGMAy8Gubz0/uFXE7
-oO/4DIFjLP7Cpx4kk2BMVET5xwDZQHyB9V/+1VrFO0aGDbGdhe8=
-=fGFO
------END PGP SIGNATURE-----
---=-=-=--
+"Our Standards" would have been at least as important to me personally,
+as would "Enforcement" (and more importantly, examples of that applying
+in practice and not just as empty words).
