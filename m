@@ -1,40 +1,39 @@
-Return-Path: <Tim.Bird@sony.com>
+Return-Path: <jikos@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id ACDED2E0D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id C82DF236B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 27 Oct 2018 16:18:21 +0000 (UTC)
-Received: from NAM05-CO1-obe.outbound.protection.outlook.com
-	(mail-eopbgr720101.outbound.protection.outlook.com [40.107.72.101])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8CB097FD
+	Sat, 27 Oct 2018 22:09:50 +0000 (UTC)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 45BBE827
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 27 Oct 2018 16:18:20 +0000 (UTC)
-From: <Tim.Bird@sony.com>
-To: <viro@ZenIV.linux.org.uk>, <visionsofalice@redchan.it>
-Date: Sat, 27 Oct 2018 16:18:12 +0000
-Message-ID: <ECADFF3FD767C149AD96A924E7EA6EAF88A2A727@USCULXMSG01.am.sony.com>
+	Sat, 27 Oct 2018 22:09:50 +0000 (UTC)
+Date: Sun, 28 Oct 2018 00:09:44 +0200 (CEST)
+From: Jiri Kosina <jikos@kernel.org>
+To: Tim.Bird@sony.com
+In-Reply-To: <ECADFF3FD767C149AD96A924E7EA6EAF88A2A727@USCULXMSG01.am.sony.com>
+Message-ID: <nycvar.YFH.7.76.1810280000440.23511@cbobk.fhfr.pm>
 References: <20181020134908.GA32218@kroah.com>
 	<87y3ar80ac.fsf@notabene.neil.brown.name>
 	<c6bf1877-6e29-50ec-ffa8-314ab35ec9ce@redhat.com>
 	<185b786a2bd6e8d527dca161dc42e4f1@redchan.it>
-	<20181025081911.GB11343@kroah.com>	<20181025193901.GD26403@thyrsus.com>
-	<20181025204718.GB25649@thunk.org>	<20181025214123.GA2448@thyrsus.com>
+	<20181025081911.GB11343@kroah.com>
+	<20181025193901.GD26403@thyrsus.com>
+	<20181025204718.GB25649@thunk.org> <20181025214123.GA2448@thyrsus.com>
 	<20181025230656.GJ32577@ZenIV.linux.org.uk>
 	<75eb4a46c8a2c1d4a927760fd1f2009d@redchan.it>
 	<20181027073241.GM32577@ZenIV.linux.org.uk>
-In-Reply-To: <20181027073241.GM32577@ZenIV.linux.org.uk>
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	<ECADFF3FD767C149AD96A924E7EA6EAF88A2A727@USCULXMSG01.am.sony.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Cc: linux-kernel-owner@vger.kernel.org, rms@gnu.org,
 	ksummit-discuss@lists.linuxfoundation.org, mishi@linux.com,
 	gregkh@linuxfoundation.org, bruce@perens.com,
 	linux-kernel@vger.kernel.org, esr@thyrsus.com,
-	moglen@columbia.edu, bkuhn@sfconservancy.org, neil@brown.name,
-	editor@lwn.net
-Subject: Re: [Ksummit-discuss] The linux devs can rescind their
-	license	grant.
+	bkuhn@sfconservancy.org, editor@lwn.net, neil@brown.name,
+	moglen@columbia.edu, visionsofalice@redchan.it
+Subject: Re: [Ksummit-discuss] The linux devs can rescind their license
+ grant.
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -44,45 +43,26 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-> -----Original Message-----
-> From: Al Viro
->=20
-> On Sat, Oct 27, 2018 at 06:52:44AM +0000, visionsofalice@redchan.it wrote=
-:
-> > Al: the FSF was so insistent on the adoption of the GPL version 3
-> > because the GPL version 2 is not operative against the grantor.
->=20
-> Anonymous wankstain: sod off and learn to troll properly.  It *is* an art
-> form, and the one you are clearly not up to.
->=20
-> D-.  For the effort and successful use of spellchecker.  The style and
-> contents are about F to E-, unfortunately, so take that in the spirit
-> in which it is offered.  As a participation award, that is.
+On Sat, 27 Oct 2018, Tim.Bird@sony.com wrote:
 
-Al,
-Can you please, even in the face of comments you find irritating, keep your=
- responses
-more civil?  Calling someone a "wankstain" is unprofessional, and we're try=
-ing
-to raise the level of discourse here.
+> Al,
+>
+> Can you please, even in the face of comments you find irritating, keep 
+> your responses more civil?  Calling someone a "wankstain" is 
+> unprofessional
 
->=20
-> *plonk*
-I think this part of the response was sufficient to communicate that you do=
- not
-take the suggestions of the other party seriously.  And it communicates
-to others the right approach.  If someone thinks that another person is act=
-ing in bad
-faith, I think it's better to just stop listening to that person, and let t=
-hat person know
-it, and to let other community members know it.   De-escalation is preferab=
-le to
-engagement when working with someone who is acting in bad faith.
+Tim,
 
-Although I disagree with the approach used in the top portion of this messa=
-ge, I am
-grateful that you are committed to protecting Linux and our development com=
-munity.
+to be completely honest, communicating anonymously doesn't really match my 
+"this is highly professional" standards either, so I don't think we should 
+be losing too much sleep over this particular e-mail exchange.
 
-Regards,
- -- Tim
+CoC explicitly requires us to be reasonably nice to the human being on the 
+other end of the wire, which I whole-heartedly believe is a very noble and 
+nice goal. But you really have to know at least a little bit who's there 
+on the other end. Otherwise failure to communicate might be sort of 
+inevitable.
+
+-- 
+Jiri Kosina
+SUSE Labs
