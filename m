@@ -1,42 +1,34 @@
 Return-Path: <neil@brown.name>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7BD15F2C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D9B35F31
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 28 Oct 2018 21:13:52 +0000 (UTC)
+	Sun, 28 Oct 2018 21:48:43 +0000 (UTC)
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CE0627EC
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 86DFC608
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 28 Oct 2018 21:13:51 +0000 (UTC)
+	Sun, 28 Oct 2018 21:48:42 +0000 (UTC)
 From: NeilBrown <neil@brown.name>
-To: Jiri Kosina <jikos@kernel.org>, Tim.Bird@sony.com
-Date: Mon, 29 Oct 2018 08:13:36 +1100
-In-Reply-To: <nycvar.YFH.7.76.1810280000440.23511@cbobk.fhfr.pm>
+To: Josh Triplett <josh@joshtriplett.org>
+Date: Mon, 29 Oct 2018 08:48:33 +1100
+In-Reply-To: <20181027011010.GA29769@localhost>
 References: <20181020134908.GA32218@kroah.com>
 	<87y3ar80ac.fsf@notabene.neil.brown.name>
-	<c6bf1877-6e29-50ec-ffa8-314ab35ec9ce@redhat.com>
-	<185b786a2bd6e8d527dca161dc42e4f1@redchan.it>
-	<20181025081911.GB11343@kroah.com>
-	<20181025193901.GD26403@thyrsus.com>
-	<20181025204718.GB25649@thunk.org>
-	<20181025214123.GA2448@thyrsus.com>
-	<20181025230656.GJ32577@ZenIV.linux.org.uk>
-	<75eb4a46c8a2c1d4a927760fd1f2009d@redchan.it>
-	<20181027073241.GM32577@ZenIV.linux.org.uk>
-	<ECADFF3FD767C149AD96A924E7EA6EAF88A2A727@USCULXMSG01.am.sony.com>
-	<nycvar.YFH.7.76.1810280000440.23511@cbobk.fhfr.pm>
-Message-ID: <875zxl4vwf.fsf@notabene.neil.brown.name>
+	<20181021222608.GA24845@localhost>
+	<875zxt919d.fsf@notabene.neil.brown.name>
+	<20181024121622.GA10942@localhost>
+	<87ftwt6850.fsf@notabene.neil.brown.name>
+	<20181027011010.GA29769@localhost>
+Message-ID: <8736sp4ua6.fsf@notabene.neil.brown.name>
 MIME-Version: 1.0
 Content-Type: multipart/signed; boundary="=-=-=";
 	micalg=pgp-sha256; protocol="application/pgp-signature"
-Cc: linux-kernel-owner@vger.kernel.org, rms@gnu.org,
-	ksummit-discuss@lists.linuxfoundation.org, mishi@linux.com,
-	gregkh@linuxfoundation.org, bruce@perens.com,
-	linux-kernel@vger.kernel.org, esr@thyrsus.com,
-	bkuhn@sfconservancy.org, editor@lwn.net, moglen@columbia.edu,
-	visionsofalice@redchan.it
-Subject: Re: [Ksummit-discuss] The linux devs can rescind their license
-	grant.
+Cc: Mishi Choudhary <mishi@linux.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-kernel <linux-kernel@vger.kernel.org>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] Call to Action Re: [PATCH 0/7] Code of
+	Conduct: Fix some wording, and add an interpretation document
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -50,76 +42,153 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 Content-Type: text/plain
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Oct 28 2018, Jiri Kosina wrote:
+On Sat, Oct 27 2018, Josh Triplett wrote:
 
-> On Sat, 27 Oct 2018, Tim.Bird@sony.com wrote:
+> On Fri, Oct 26, 2018 at 08:14:51AM +1100, NeilBrown wrote:
+>> On Wed, Oct 24 2018, Josh Triplett wrote:
+>>=20
+>> > On Tue, Oct 23, 2018 at 07:26:06AM +1100, NeilBrown wrote:
+>> >> On Sun, Oct 21 2018, Josh Triplett wrote:
+>> >>=20
+>> >> > On Mon, Oct 22, 2018 at 08:20:11AM +1100, NeilBrown wrote:
+>> >> >> I call on you, Greg:
+>> >> >>  - to abandon this divisive attempt to impose a "Code of Conduct"
+>> >> >>  - to revert 8a104f8b5867c68
+>> >> >>  - to return to your core competence of building a great team arou=
+nd
+>> >> >>    a great kernel
+>> >> >>=20
+>> >> >>  #Isupportreversion
+>> >> >>=20
+>> >> >> I call on the community to consider what *does* need to be said, a=
+bout
+>> >> >> conduct, to people outside the community and who have recently joi=
+ned.
+>> >> >> What is the document that you would have liked to have read as you=
+ were
+>> >> >> starting out?  It is all too long ago for me to remember clearly, =
+and so
+>> >> >> much has changed.
+>> >> >
+>> >> > The document I would have liked to have read when starting out is
+>> >> > currently checked into the source tree in
+>> >> > Documentation/process/code-of-conduct.rst .
+>> >>=20
+>> >> I'm curious - what would you have gained by reading that document?
+>> >
+>> > I would have then had rather less of a pervasive feeling of "if I make
+>> > even a single mistake I get made an example of in ways that will feed
+>> > people's quotes files for years to come".
+>>=20
+>> Thanks for your reply.  Certainly feeling safe is important, and having
+>> clear statements that the community values and promotes psychological
+>> safety is valuable.
+>>=20
+>> The old "code of conflict" said
+>>    If however, anyone feels personally abused, threatened, or otherwise
+>>    uncomfortable due to this process, that is not acceptable.=20
+>>=20
+>> would you have not found this a strong enough statement to ward off that
+>> pervasive feeling?
 >
->> Al,
->>
->> Can you please, even in the face of comments you find irritating, keep=20
->> your responses more civil?  Calling someone a "wankstain" is=20
->> unprofessional
->
-> Tim,
->
-> to be completely honest, communicating anonymously doesn't really match m=
-y=20
-> "this is highly professional" standards either, so I don't think we shoul=
-d=20
-> be losing too much sleep over this particular e-mail exchange.
+> Not when that document started out effectively saying, in an elaborate
+> way, "code > people". (Leaving aside that the more important detail
+> would be the community actually acting consistently with the code of
+> conduct it espoused.)
 
-I agree with Tim here.  It doesn't really matter who (or what) you are
-talking to, what matters is the context in which you are talking.
-
-We seem to be trying to raise the standard of communication within the
-kernel community.  That means all communication.
+I certainly cannot argue with that. .... that those starting words have
+been preserved in the code-of-conduct-interpretation.rst, so we still
+have them.
 
 >
-> CoC explicitly requires us to be reasonably nice to the human being on th=
-e=20
-> other end of the wire, which I whole-heartedly believe is a very noble an=
-d=20
-> nice goal. But you really have to know at least a little bit who's there=
-=20
-> on the other end. Otherwise failure to communicate might be sort of=20
-> inevitable.
+>> In the current code, would The "Our Pledge" section have been
+>> sufficient, or do you think the other sections would have actually
+>> helped you?
+>
+> "Our Standards" would have been at least as important to me personally,
+> as would "Enforcement" (and more importantly, examples of that applying
+> in practice and not just as empty words).
 
-As you know, I think the CoC is a mistake and should be removed.
-But seeing you to play that game:
-1/ code-of-conduct.rst doesn't contain the word "human" at all
-2/ code-of-conduect-interpretation.rst explicitly says
-    We know everyone is human
-  which could be read as implying that you need to treat the other
-  person as human, even if they don't act that way.
+I find it interesting that you appear to particularly value the
+Enforcement section, I particularly dislike it.
+It is also interesting that you seem to fear that it might be "empty
+words", and elsewhere in this thread Laura Abbott wondered
 
-Do you *really* want to use the CoC to support your position?
+   Will those problems actually be handled appropriately when the time
+   comes? I can't actually say for sure
+
+She goes on to opine that trust is needed, but if we really had trust,
+we might not need the code.
+
+None of us, to my knowledge, has credible expertise or demonstrated
+experience in this area, so we might easily become the blind misleading
+the blind.  However I would like to make one more attempt to give
+context and meaning to my dislike for that section.
+
+The approach described seem to be combative rather than conciliatory.
+The first action-step described is to mark a report - to complain.  This
+isn't quite as bad as being litigious, but it seems headed in that
+direction.  I would rather we gave people the power to resolve their own
+issues, rather than an avenue to magnify them but involving others.
+
+Think for a moment about how we resolve technical differences.  I
+acknowledge that we don't always resolve them very well, but when we do
+=2D what techniques seem to work?  We don't have any court to which we can
+apply to resolve our differences, we need to present our case and garner
+support from like-minded people.  To help with that, we do have some
+standards like "no regressions" and "maintainable" and various
+coding-style guidelines.  They don't necessarily answer everything but
+they help.  Over all this, there is a general principle that the person
+who writes the code makes the decisions - "code talks".  The person who
+puts in the effort gets heard more than the person who complains from
+the side lines.  This isn't all perfect, but it largely works, and we
+are familiar with it.
+
+Can we translate any of that experience to the social/harm side of
+things?
+1/ We can have some standards.  We will never all agree on the level
+  of detail needed (but then, we don't all agree on checkpatch.pl
+  either), but anything generally in the right direction would help (I
+  like "Be helpful. Don't be harmful".  "Be kind to each other" is in
+  the interpretation).
+2/ We can voice our support when we see a cause the we agree with,
+  whether it is a revised API, or discomfort with a particular
+  word-choice.
+3/ We can make sure that people who have done valuable work (written a
+  patch, found a bug, etc) have a place where they can be heard, even if
+  they find the need to filter all messages from an unrepentant abuser.
+
+I think our practice, in the technical sphere, has generally been
+towards conciliation, not combat.  I think that is the experience that
+we should try to leverage in the more social sphere.
+
+A useful side-node is that "hurting people hurt people".  If someone
+does hurt you, there is a good chance that they are hurting themselves.
+Do you want to increase that hurt by fighting back?  Would it not be
+better to simply side-step.
 
 Thanks,
 NeilBrown
 
-
->
-> --=20
-> Jiri Kosina
-> SUSE Labs
+=20
 
 --=-=-=
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEG8Yp69OQ2HB7X0l6Oeye3VZigbkFAlvWJoAACgkQOeye3VZi
-gbnOlw/+Jnt1F2qwTPMOymyGTFA3OvodaGar0e7GlOk1rdKj3GElMzNvy8w1c0WJ
-gblwf39Xzaczrhv6fFtd+I7F6SvvCJxC9HgcN2x45wWnqL3dC3jtpJxUDjH7i15f
-PoV9OprAK5l5YY8EHw3chjgvLZxGrn0Iklqz+CF9WIm52L47ZRDPRlspoHfQDrT8
-jIEF5KVwgc85kIuL8/Jp4lXAJ9ESUWUOBVUmRYQPSbWG8rZnUSvkqVy3mXd4ar1c
-lMsD8+naIjWtxsMRHFu4PhF2ium2YiIonq0q4Hurx0oGS0eEYIeIa0YLXig5Eh1Z
-BhYgy2tkF84kmcBFGawnHdn0QW+nvD45rKWWIWRu3KsTgmxXTtpm+7+MJoSbqCRe
-di6c+Siejh5ZDF6zNCZUI8XE6dUWobxa1rMX96d4S0bliMplnwRdRqav5g9V0HS1
-PEQTZP/wnI6mBOKNRXuZiVn6K3O+mJb/ieb4yIUTLXJlWr0lqI77n40zMD0B4HLW
-0LC7W2TC/d7H8EzU4lfNOAn/punwJstnYuevKx3Sq/6tvZnJurjdFvugyt/FVKGS
-whazqEDBljSkm0NqQ5EfwJr3P0xDkLbM3Su8idrObiZvE73nfiVrRB2qVcZSfUoo
-5tBIIWum+UzbyyU4dzuetm1GRbylyMfImRdGtYkU65kSSrAj+r0=
-=KWZW
+iQIzBAEBCAAdFiEEG8Yp69OQ2HB7X0l6Oeye3VZigbkFAlvWLrEACgkQOeye3VZi
+gbmK+w//ZbCiunyMxmKn6YQXpX5LMeFXl5SPS5gujJVK1Lr0u4lT3vA7ZXAoWGIK
+CUiJIlDELFkzdf9Bhi9FiMVEG6vm4mOcCntyPQmNU6PTU3OQ0jjnE0qYzqGcwO6j
+mdwzpEf/UgyjgP+y9KP2TAJ5x8YDjBqoyniSIklT9hrcwxvnXjAusoYQGlZeLds+
+jBT0XJrdCS0E6jxTj7pLifsHMcArX0VE3pseDYNfl6yssrf5ONC//u3Ho3uYBXOF
+lABFS+HgcjHf+QpcJ2SPNyqLwlFfn0OhggWwfhymPjzWnbhfRwKv7pwYqu1fBMsM
+xF9y5nRs+jfduRcqEHbt5Ug/bd1DlBS+/F+5+autW5dwMGwJa8t1M7Xl9ZgwBoqJ
+bbtS87kp3O5LiLz2gpb/DjYWEduEUI2e5r7Job5UMKgkCwILF80CQ69nlMG0iP1d
+G5tpoWm1bdkVi1aJSbG1b4uWT7m9pzIBh6zEhvK8/ZOdZ6wSDm+kGIW8+tZz7A5i
+O79UVbfc916vRA3G108AGMA87KuPGX73juR1bPqoY+Nxw8847DjjA59t444sgQbR
+4KQB0ZAn6DUQjwcBxYKfgKJvOcNCee1GWNN9n3M2P4lTvZQcD9aBd2UJ47hKgW8t
+SAsbrbp5CQzzdV52uNm2LNeef6XXa8C/wFpl9twDImyWsOTDxnQ=
+=RnQp
 -----END PGP SIGNATURE-----
 --=-=-=--
