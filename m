@@ -1,27 +1,26 @@
-Return-Path: <bkuhn@sfconservancy.org>
+Return-Path: <tglx@linutronix.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 210753437
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2244AAB6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 29 Oct 2018 22:48:51 +0000 (UTC)
-Received: from pine.sfconservancy.org (pine.sfconservancy.org [162.242.171.33])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 129C97F6
+	Thu,  1 Nov 2018 13:21:33 +0000 (UTC)
+Received: from Galois.linutronix.de (Galois.linutronix.de [146.0.238.70])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C0AE42C6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 29 Oct 2018 22:48:49 +0000 (UTC)
-From: "Bradley M. Kuhn" <bkuhn@sfconservancy.org>
-To: ksummit-discuss@lists.linuxfoundation.org,
-	linux-kernel <linux-kernel@vger.kernel.org>
-In-Reply-To: <20181025081911.GB11343@kroah.com>
-References: <185b786a2bd6e8d527dca161dc42e4f1@redchan.it>
-	<20181025081911.GB11343@kroah.com>
-Date: Mon, 29 Oct 2018 22:31:46 +0000
-Message-ID: <87a7mwz8od.fsf@ebb.org>
+	Thu,  1 Nov 2018 13:21:32 +0000 (UTC)
+Date: Thu, 1 Nov 2018 14:21:26 +0100 (CET)
+From: Thomas Gleixner <tglx@linutronix.de>
+To: ksummit-discuss@lists.linuxfoundation.org
+Message-ID: <alpine.DEB.2.21.1811011407590.1642@nanos.tec.linutronix.de>
 MIME-Version: 1.0
-Content-Type: text/plain
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, bruce@perens.com,
-	editor@lwn.net
-Subject: Re: [Ksummit-discuss] The linux devs can rescind their license
-	grant.
+Content-Type: text/plain; charset=US-ASCII
+Cc: Dmitry Safonov <dima@arista.com>, Peter Zijlstra <peterz@infradead.org>,
+	Jeff Dike <jdike@addtoit.com>, Oleg Nesterov <oleg@redhat.com>,
+	John Stultz <john.stultz@linaro.org>, Andy Lutomirski <luto@kernel.org>,
+	Cyrill Gorcunov <gorcunov@openvz.org>,
+	Christian Brauner <christian.brauner@ubuntu.com>,
+	Adrian Reber <adrian@lisas.de>, Pavel Emelianov <xemul@virtuozzo.com>
+Subject: [Ksummit-discuss] [TECH-TOPIC] Multiple time domains
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,26 +30,17 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Oct 25, 2018 at 07:56:26AM +0000, visionsofalice@redchan.it wrote:
-> The linux devs can rescind their license grant.
-Greg KH responded on Thu, 25 Oct 2018 09:19:11 +0100:
->> No they can not, please do not keep spreading false information.
+Sorry for the late proposal, but this popped up recently.
 
-I was explicitly cc'ed on this thread by visionsofalice.  I've read the
-whole thread, and the only useful thing I can contribute here is to agree
-with Greg and additionally provide some backup research on the point:
-https://sfconservancy.org/news/2018/sep/26/GPLv2-irrevocability/
+The recent discussion of the proposed time name spaces resulted in a larger
+range of questions how to handle that correctly. Aside of that we have
+other requests of supporting multiple time domains for various reasons,
+e.g. TSN folks in automotive and automation using grand clock masters with
+a completely screwed time base.
 
-Software Freedom Conservancy engaged our legal counsel to write a new
-section for the Copyleft Guide that further explains the irrevocability of
-GPLv2.  We published this when others raised these specious claims back in
-September.  Direct link to new section:
-https://copyleft.org/guide/comprehensive-gpl-guidech8.html#x11-540007.4
+As most of the relevant developers seem to be at LPC, I propose a technical
+session dedicated to discuss the handling of multiple time domains.
 
+Thanks,
 
-HTH,
--- 
-Bradley M. Kuhn
-Distinguished Technologist of Software Freedom Conservancy
-========================================================================
-Become a Conservancy Supporter today: https://sfconservancy.org/supporter
+	tglx
