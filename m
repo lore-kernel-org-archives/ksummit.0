@@ -1,34 +1,33 @@
-Return-Path: <prvs=4846b4906b=clm@fb.com>
+Return-Path: <olof@lixom.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 672232F
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 17FC249F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  4 Nov 2018 17:13:04 +0000 (UTC)
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
-	[67.231.153.30])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 454D876A
+	Tue,  6 Nov 2018 22:16:47 +0000 (UTC)
+Received: from mail-lj1-f195.google.com (mail-lj1-f195.google.com
+	[209.85.208.195])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5332177E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun,  4 Nov 2018 17:13:03 +0000 (UTC)
-Received: from pps.filterd (m0109331.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
-	wA4HCeSI021351 for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 4 Nov 2018 09:13:02 -0800
-Received: from maileast.thefacebook.com ([199.201.65.23])
-	by mx0a-00082601.pphosted.com with ESMTP id 2nh9gmtp55-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT)
+	Tue,  6 Nov 2018 22:16:46 +0000 (UTC)
+Received: by mail-lj1-f195.google.com with SMTP id x85-v6so12978308ljb.2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 04 Nov 2018 09:13:02 -0800
-From: Chris Mason <clm@fb.com>
-To: "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Date: Sun, 4 Nov 2018 17:13:00 +0000
-Message-ID: <EDC0607B-C93B-413E-835B-C7915583FA5E@fb.com>
-Content-Language: en-US
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	Tue, 06 Nov 2018 14:16:46 -0800 (PST)
 MIME-Version: 1.0
-Subject: [Ksummit-discuss] Linux Foundation Technical Advisory Board
- Elections -- Call for nominations
+From: Olof Johansson <olof@lixom.net>
+Date: Tue, 6 Nov 2018 14:16:27 -0800
+Message-ID: <CAOesGMgVPsK9YsV2nGoBptWwtHYv=3yMytLx2_tF_ujS5c5p3Q@mail.gmail.com>
+To: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Cc: rmk@armlinux.org.uk, Kevin Hilman <khilman@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Palmer Dabbelt <palmer@sifive.com>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	linux-gpio@vger.kernel.org, linux-riscv@lists.infradead.org,
+	linux-clk <linux-clk@vger.kernel.org>,
+	Linux ARM Mailing List <linux-arm-kernel@lists.infradead.org>
+Subject: [Ksummit-discuss] [TECH TOPIC] SoC maintainer group
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,72 +37,90 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+Hi KS organizers (and others),
 
-Hello everyone,
+This is a late topic proposal, hopefully there is still time on the agenda.
 
-Friendly reminder that the TAB elections are coming soon:
+We=E2=80=99ve recently been discussing some maintainer model changes as
+described below, and would like a slot to discuss the idea and solicit
+feedback/comments from the others there.
 
-The Linux Foundation Technical Advisory Board (TAB) serves as the=20
-interface between the kernel development community and the Linux=20
-Foundation. The TAB advises the Foundation on kernel-related matters,=20
-helps member companies learn to work with the community, and works to=20
-resolve community-related problems before they get out of hand.  We're=20
-also working with kernel maintainers to help refine the new code of=20
-conduct, and serving as the initial point of contact for code of conduct=20
-issues.
 
-The board has ten members, one of whom sits on the Linux Foundation=20
-board of directors.
+This started with Arnd and I finally being in one place at the same
+time, and talking about how we want to evolve arm-soc maintainership
+moving forward. We've been independently thinking of ways to expand
+the group and making it more self-service for everybody, but there's a
+bunch of tooling needed to make it run smoothly beyond the smaller
+group we have now.
 
-The election to select five TAB members will be held at the 2018 Kernel=20
-Summit in Vancouver, Canada.  The elections will take place at the=20
-conference center on Tuesday November 13th, at 5:30pm.
+In the end, we ended up looking at it from a slightly different angle:
+Right now, when contributors show up with new platform support, the
+first hill they need to climb is figuring out how they need to carve
+up their platform among all the various maintainers, how to make sure
+they're all handshaking on keeping things stable, and get code
+submitted. It's awkward, not well documented and one of the biggest
+overheads we have on our side as well.
 
-The election will be open to all attendees of all of the Linux=20
-Foundation events taking place that week in Vancouver.  Anyone is=20
-eligible to stand for election, simply send your nomination to:
+When we started talking to other maintainers, we're also realizing
+that we are currently duplicating a lot of work. In particular, we
+often all get cc:d on patch series, so we all need to read and filter,
+and assume that other maintainers spot the right patches, etc.
 
-tech-board-discuss at lists.linux-foundation.org
+We have discussed a few different options, and it seems like pooling
+more of the contribution flow to a group of co-maintainers is a useful
+approach. Initially, we're considering the arm-soc platforms, clock
+drivers and pinctrl drivers, which all tend to be affected by new
+platform contributions in this way, and often end up cross-cc:d on
+everything. Additionally, the flow for successfully merging a new
+platform or SoC needs to be documented and advertised. This is true
+whether or not we change the way that maintainers coordinate amongst
+themselves, or whether or not we change the current workflow used by
+platform contributors today.
 
-The deadline for receiving nominations is up until the beginning of the=20
-event where the election is held.
+So, we're planning to change things up a bit. We're starting a new
+group that pools current arm-soc, clk and pinctrl drivers and
+maintainers into one funnel. We'll set up a new mail alias for the
+maintainer group, and one shared patchwork to collect contributions.
+We still expect developers to use existing mailing lists, and we still
+expect for example ARM platform maintainers to keep their workflow of
+collecting patches for their platform like they do today. Down the
+road it might make sense to incorporate other driver subsystems as
+well.
 
-In past years, everyone running for the TAB has given a short speech=20
-before the voting began.  We've received feedback that the speeches add=20
-logistical complexity for the election, and may not be the best=20
-indicator of how well qualified someone is for the TAB.
+Beyond this, we're going to keep a close eye on the drm-misc tree,
+which is exploring a move to gitlab (and working with gitlab on adding
+the features they need to move over). If they get a broad maintainer
+model working well in that environment it could be something we reuse
+for ourselves too.
 
-Instead of speeches, this year we're asking candidates to include=20
-statements about why they would like to participate in the TAB.  These=20
-will be combined into a slideshow running during the election, and=20
-available via a public google doc at this location:
+This group will also take on the responsibility of putting together
+the documentation and expected patch flow for new platform/SoC
+contributors. That documentation will need to evolve a bit over time
+as we try out this new collaboration between maintainers.
 
-https://goo.gl/rPEc2v
+To avoid an appearance of "ARM is taking over all architectures",
+we'll rename this to just the plain "SoC tree/group", and drop ARM
+from the name. As mentioned already initially we're anticipating
+covering ARM (32/64-bit like before) and RISC-V platform areas in a
+similar way. For other older/minor architectures that are
+semi-orphaned, we might pick up code as needed when it affects us,
+depending on maintainer status at the other end.
 
-Even though the deadline for nominations is right before voting begins,=20
-any statements must be received by Monday November 12th at 5PM Pacific,=20
-so that we have time to setup the slideshow.
+We're doing the groundwork now, and will get trees/lists/patchworks
+setup for the next release cycle.
 
-Current TAB members, and their election year:
 
-Chris Mason 2016
-H. Peter Anvin 2016
-Olof Johansson 2016
-Rik van Riel	2016
-Dan Williams 2016
+People involved so far are:
 
-Jon Corbet 2017
-Greg Kroah-Hartman 2017
-Steven Rostedt 2017
-Ted Tso	2017
-Tim Bird	2017
+Olof Johansson (arm-soc)
+Arnd Bergmann (arm-soc)
+Kevin Hilman (arm-soc)
+Mike Turquette (clk)
+Stephen Boyd (clk)
+Linus Walleij (pinctrl + more)
+Mike Brown (gpio/regmap + more)
 
-The five slots from 2016 are all up for election.  As always, please let=20
-us know if you have questions, and please do consider running.
 
-Chris Mason, TAB Chair
+Thanks!
 
-[1] TAB members sit for a term of two years, and half of the board is up
-for election every year. Five of the seats are up for election now.
-The other five are halfway through their term and will be up for
-election next year.
+-Olof (on behalf of the group)
