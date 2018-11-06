@@ -1,32 +1,14 @@
-Return-Path: <laurent.pinchart@ideasonboard.com>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 941D689C
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 Nov 2018 23:32:52 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
-	[213.167.242.64])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4531F7F5
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  6 Nov 2018 23:32:51 +0000 (UTC)
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: ksummit-discuss@lists.linuxfoundation.org
-Date: Wed, 07 Nov 2018 01:32:59 +0200
-Message-ID: <3189677.9XQFCzzJyO@avalon>
-In-Reply-To: <CAOesGMgVPsK9YsV2nGoBptWwtHYv=3yMytLx2_tF_ujS5c5p3Q@mail.gmail.com>
-References: <CAOesGMgVPsK9YsV2nGoBptWwtHYv=3yMytLx2_tF_ujS5c5p3Q@mail.gmail.com>
+Return-Path: <olof@lixom.net>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+References: <340499F8-3113-4C8E-946B-3C33A1C4E3A7@fb.com>
+In-Reply-To: <340499F8-3113-4C8E-946B-3C33A1C4E3A7@fb.com>
+From: Olof Johansson <olof@lixom.net>
+Date: Tue, 6 Nov 2018 15:42:27 -0800
+Message-ID: <CAOesGMgUSBt0HYwGcbOgY3RUmLo29g6xFyyD3ZQZP7R_2da8fg@mail.gmail.com>
+To: ksummit-discuss@lists.linux-foundation.org,
+	Tech Board Discuss <Tech-board-discuss@lists.linux-foundation.org>
 Content-Type: text/plain; charset="UTF-8"
-Cc: rmk@armlinux.org.uk, Kevin Hilman <khilman@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Palmer Dabbelt <palmer@sifive.com>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	linux-gpio@vger.kernel.org, linux-riscv@lists.infradead.org,
-	linux-clk <linux-clk@vger.kernel.org>,
-	Linux ARM Mailing List <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] SoC maintainer group
+Subject: [Ksummit-discuss] TAB nomination
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,105 +18,37 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Olof,
+Hi all,
 
-On Wednesday, 7 November 2018 00:16:27 EET Olof Johansson wrote:
-> Hi KS organizers (and others),
->=20
-> This is a late topic proposal, hopefully there is still time on the agend=
-a.
->=20
-> We=E2=80=99ve recently been discussing some maintainer model changes as
-> described below, and would like a slot to discuss the idea and solicit
-> feedback/comments from the others there.
->=20
->=20
-> This started with Arnd and I finally being in one place at the same
-> time, and talking about how we want to evolve arm-soc maintainership
-> moving forward. We've been independently thinking of ways to expand
-> the group and making it more self-service for everybody, but there's a
-> bunch of tooling needed to make it run smoothly beyond the smaller
-> group we have now.
->=20
-> In the end, we ended up looking at it from a slightly different angle:
-> Right now, when contributors show up with new platform support, the
-> first hill they need to climb is figuring out how they need to carve
-> up their platform among all the various maintainers, how to make sure
-> they're all handshaking on keeping things stable, and get code
-> submitted. It's awkward, not well documented and one of the biggest
-> overheads we have on our side as well.
->=20
-> When we started talking to other maintainers, we're also realizing
-> that we are currently duplicating a lot of work. In particular, we
-> often all get cc:d on patch series, so we all need to read and filter,
-> and assume that other maintainers spot the right patches, etc.
->=20
-> We have discussed a few different options, and it seems like pooling
-> more of the contribution flow to a group of co-maintainers is a useful
-> approach. Initially, we're considering the arm-soc platforms, clock
-> drivers and pinctrl drivers, which all tend to be affected by new
-> platform contributions in this way, and often end up cross-cc:d on
-> everything. Additionally, the flow for successfully merging a new
-> platform or SoC needs to be documented and advertised. This is true
-> whether or not we change the way that maintainers coordinate amongst
-> themselves, or whether or not we change the current workflow used by
-> platform contributors today.
->=20
-> So, we're planning to change things up a bit. We're starting a new
-> group that pools current arm-soc, clk and pinctrl drivers and
-> maintainers into one funnel. We'll set up a new mail alias for the
-> maintainer group, and one shared patchwork to collect contributions.
-> We still expect developers to use existing mailing lists, and we still
-> expect for example ARM platform maintainers to keep their workflow of
-> collecting patches for their platform like they do today. Down the
-> road it might make sense to incorporate other driver subsystems as
-> well.
->=20
-> Beyond this, we're going to keep a close eye on the drm-misc tree,
-> which is exploring a move to gitlab (and working with gitlab on adding
-> the features they need to move over). If they get a broad maintainer
-> model working well in that environment it could be something we reuse
-> for ourselves too.
+My two-year term on the TAB is up this year and I'd like to stand for
+re-election.
 
-gitlab is an umbrella term that covers many features proposed by the produc=
-t.=20
-Are there particular features that you already think you would be intereste=
-d=20
-in, or features that you already know you wouldn't want to use ?
+It's been a somewhat stressful time for the TAB lately, given the Code
+of Conduct changes that we ended up in the middle of, but I've also
+found the work to be meaningful and worthwhile. Some portions of it
+around process and procedures are not yet complete, and I'd like an
+opportunity to see it through.
 
-> This group will also take on the responsibility of putting together
-> the documentation and expected patch flow for new platform/SoC
-> contributors. That documentation will need to evolve a bit over time
-> as we try out this new collaboration between maintainers.
->=20
-> To avoid an appearance of "ARM is taking over all architectures",
-> we'll rename this to just the plain "SoC tree/group", and drop ARM
-> from the name. As mentioned already initially we're anticipating
-> covering ARM (32/64-bit like before) and RISC-V platform areas in a
-> similar way. For other older/minor architectures that are
-> semi-orphaned, we might pick up code as needed when it affects us,
-> depending on maintainer status at the other end.
->=20
-> We're doing the groundwork now, and will get trees/lists/patchworks
-> setup for the next release cycle.
->=20
->=20
-> People involved so far are:
->=20
-> Olof Johansson (arm-soc)
-> Arnd Bergmann (arm-soc)
-> Kevin Hilman (arm-soc)
-> Mike Turquette (clk)
-> Stephen Boyd (clk)
-> Linus Walleij (pinctrl + more)
-> Mike Brown (gpio/regmap + more)
->=20
->=20
-> Thanks!
->=20
-> -Olof (on behalf of the group)
+Specific contributions from me around the code of conduct have been
+the separation of direct TAB and code of conduct work in a cooperative
+way that also provides a second level of checks if needed. I've also
+been pushing for the need for timely anonymous statistics from the
+TAB/committee, with the hope that it will ease off some of the fears
+of the unknown as these changes are made.
 
-=2D-=20
-Regards,
+Besides those recent developments, some of the work I've felt most
+satisfaction from through the years is when I've been able to help get
+companies and other contributors to come in and participate upstream.
+In particular some ARM vendors have come a long way in working with
+the community, even if it is always a work in progress.
 
-Laurent Pinchart
+I've been around the kernel project for about 15 years, and maintainer
+of arm-soc together with Arnd and Kevin for 7 years now. For most of
+this time I've been involved in embedded platforms in some way or
+other, and it's a viewpoint and representation I bring to the TAB that
+hasn't traditionally been heavily represented.
+
+
+Thanks,
+
+-Olof
