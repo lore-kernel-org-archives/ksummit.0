@@ -1,37 +1,23 @@
-Return-Path: <olof@lixom.net>
+Return-Path: <tglx@linutronix.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id CBA49B50
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id C9112B7B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  7 Nov 2018 20:55:09 +0000 (UTC)
-Received: from mail-lj1-f194.google.com (mail-lj1-f194.google.com
-	[209.85.208.194])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D04DF76F
+	Wed,  7 Nov 2018 21:05:59 +0000 (UTC)
+Received: from Galois.linutronix.de (Galois.linutronix.de [146.0.238.70])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 61FE27F5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  7 Nov 2018 20:55:08 +0000 (UTC)
-Received: by mail-lj1-f194.google.com with SMTP id v15-v6so7382979ljh.13
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 07 Nov 2018 12:55:08 -0800 (PST)
+	Wed,  7 Nov 2018 21:05:59 +0000 (UTC)
+Date: Wed, 7 Nov 2018 22:05:55 +0100 (CET)
+From: Thomas Gleixner <tglx@linutronix.de>
+To: "Theodore Y. Ts'o" <tytso@mit.edu>
+In-Reply-To: <20181107174720.GA6135@thunk.org>
+Message-ID: <alpine.DEB.2.21.1811072204520.1666@nanos.tec.linutronix.de>
+References: <20181107174720.GA6135@thunk.org>
 MIME-Version: 1.0
-References: <CAOesGMgVPsK9YsV2nGoBptWwtHYv=3yMytLx2_tF_ujS5c5p3Q@mail.gmail.com>
-	<CAL_Jsq+4d-0_T68r=PWm5ey=NqsCn5j_j1sQ4Kjp1zBz6zgt6A@mail.gmail.com>
-In-Reply-To: <CAL_Jsq+4d-0_T68r=PWm5ey=NqsCn5j_j1sQ4Kjp1zBz6zgt6A@mail.gmail.com>
-From: Olof Johansson <olof@lixom.net>
-Date: Wed, 7 Nov 2018 12:54:54 -0800
-Message-ID: <CAOesGMgUc0r=vw30qw98qggV0P8rEPeJK0ospJdFZq_VTBqyGg@mail.gmail.com>
-To: Rob Herring <robherring2@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Cc: Russell King <rmk@armlinux.org.uk>,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
-	Kevin Hilman <khilman@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Palmer Dabbelt <palmer@sifive.com>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	linux-gpio@vger.kernel.org, linux-riscv@lists.infradead.org,
-	linux-clk <linux-clk@vger.kernel.org>,
-	Linux ARM Mailing List <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] SoC maintainer group
+Content-Type: text/plain; charset=US-ASCII
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] Draft Kernel Summit track agenda
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,106 +27,17 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Nov 7, 2018 at 11:45 AM Rob Herring <robherring2@gmail.com> wrote:
->
-> On Tue, Nov 6, 2018 at 4:17 PM Olof Johansson <olof@lixom.net> wrote:
-> >
-> > Hi KS organizers (and others),
-> >
-> > This is a late topic proposal, hopefully there is still time on the age=
-nda.
-> >
-> > We=E2=80=99ve recently been discussing some maintainer model changes as
-> > described below, and would like a slot to discuss the idea and solicit
-> > feedback/comments from the others there.
-> >
-> >
-> > This started with Arnd and I finally being in one place at the same
-> > time, and talking about how we want to evolve arm-soc maintainership
-> > moving forward. We've been independently thinking of ways to expand
-> > the group and making it more self-service for everybody, but there's a
-> > bunch of tooling needed to make it run smoothly beyond the smaller
-> > group we have now.
-> >
-> > In the end, we ended up looking at it from a slightly different angle:
-> > Right now, when contributors show up with new platform support, the
-> > first hill they need to climb is figuring out how they need to carve
-> > up their platform among all the various maintainers, how to make sure
-> > they're all handshaking on keeping things stable, and get code
-> > submitted. It's awkward, not well documented and one of the biggest
-> > overheads we have on our side as well.
-> >
-> > When we started talking to other maintainers, we're also realizing
-> > that we are currently duplicating a lot of work. In particular, we
-> > often all get cc:d on patch series, so we all need to read and filter,
-> > and assume that other maintainers spot the right patches, etc.
-> >
-> > We have discussed a few different options, and it seems like pooling
-> > more of the contribution flow to a group of co-maintainers is a useful
-> > approach. Initially, we're considering the arm-soc platforms, clock
-> > drivers and pinctrl drivers, which all tend to be affected by new
-> > platform contributions in this way, and often end up cross-cc:d on
-> > everything. Additionally, the flow for successfully merging a new
-> > platform or SoC needs to be documented and advertised. This is true
-> > whether or not we change the way that maintainers coordinate amongst
-> > themselves, or whether or not we change the current workflow used by
-> > platform contributors today.
-> >
-> > So, we're planning to change things up a bit. We're starting a new
-> > group that pools current arm-soc, clk and pinctrl drivers and
-> > maintainers into one funnel. We'll set up a new mail alias for the
-> > maintainer group, and one shared patchwork to collect contributions.
-> > We still expect developers to use existing mailing lists, and we still
-> > expect for example ARM platform maintainers to keep their workflow of
-> > collecting patches for their platform like they do today. Down the
-> > road it might make sense to incorporate other driver subsystems as
-> > well.
->
-> Given that dts files are a large part of what goes into arm-soc, any
-> thoughts on changes to the process around them? I think it would be
-> good if dts files were a bit more decoupled from kernel code changes.
-> Yes, there's the issue with header dependencies to deal with. Ignoring
-> that for a moment, keeping the dts files somewhat separate even if
-> ultimately in the same tree and the same maintainers would be
-> beneficial both for perception and to be able to do validation
-> separately. And if we do ever move things out of the kernel tree, then
-> it's less of a work-flow change. And I'm happy to help out here in
-> whatever way I can.
+Ted,
 
-Yeah, I think we need to find some good balance here that's not quite
-established. I think there's good use in having some sort of superset
-of DT bindings for a platform in-tree, maybe for a reference board or
-similar that customers often create derivatives from, and then find a
-good place for derivative DT contents out of tree. The same applies to
-defconfigs, where I think the ARM64 approach of a superset of "can
-boot everywhere" is useful, and if someone wants to create more
-limited configs for their use case they would be free to do so.
+On Wed, 7 Nov 2018, Theodore Y. Ts'o wrote:
 
-> > Beyond this, we're going to keep a close eye on the drm-misc tree,
-> > which is exploring a move to gitlab (and working with gitlab on adding
-> > the features they need to move over). If they get a broad maintainer
-> > model working well in that environment it could be something we reuse
-> > for ourselves too.
->
-> AIUI for drm-misc, a major goal there is to have more automated checks
-> fed back to submitters which doesn't necessarily have anything to do
-> with maintainers. That's something I want to get in front of for DT
-> schema so we're not fixing things after we've accepted them. So I've
-> been experimenting with gitlab CI and integration with patchwork a bit
-> recently. I have gitlab CI running some tests on binding patches
-> (checkpatch and schema validation), attaching the results to the DT
-> patchwork instance, and updating the patch state. Here is an example
-> patch[1], my patchwork related scripts are here[2], and the CI job is
-> here[3].
+> Here is an initial draft agenda for the Kernel Summit track.  I did my
+> best to avoid potential schedule conflicts, but I'm sure I didn't
+> quite get things completely right.  Please let me know if you spot any
+> problems with conflicts with LPC microconfs or other LPC tracks.
 
-That's really cool, thanks for sharing.
+I didn't spot any obvious ones. That must have been quite some juggling.
 
-Having a place to collect lint/build/test results like this is
-something I've been missing and it seems like patchwork is doing a
-pretty good job there. One of the things that I'm getting excited
-about is to have a shared place to collect all these signals before
-patches are reviewed and applied (or pull requests merged) without
-necessarily adding a lot of potentially noisy email generation.
+Thanks,
 
-
--Olof
+	Thomas
