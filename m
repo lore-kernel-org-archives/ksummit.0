@@ -1,14 +1,31 @@
-Return-Path: <shuah@kernel.org>
-To: ksummit-discuss@lists.linux-foundation.org,
-	Tech-board-discuss@lists.linux-foundation.org
-From: Shuah Khan <shuah@kernel.org>
-Message-ID: <a5575542-5c01-b906-c6c3-6942fc5d961b@kernel.org>
-Date: Wed, 7 Nov 2018 09:54:46 -0700
+Return-Path: <tytso@thunk.org>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id BE0E04A4
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed,  7 Nov 2018 17:17:40 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4F520A4
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed,  7 Nov 2018 17:17:40 +0000 (UTC)
+Date: Wed, 7 Nov 2018 12:17:23 -0500
+From: "Theodore Y. Ts'o" <tytso@mit.edu>
+To: Olof Johansson <olof@lixom.net>
+Message-ID: <20181107171723.GI9919@thunk.org>
+References: <CAOesGMgVPsK9YsV2nGoBptWwtHYv=3yMytLx2_tF_ujS5c5p3Q@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Subject: [Ksummit-discuss]  TAB nomination
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAOesGMgVPsK9YsV2nGoBptWwtHYv=3yMytLx2_tF_ujS5c5p3Q@mail.gmail.com>
+Cc: rmk@armlinux.org.uk, ksummit <ksummit-discuss@lists.linuxfoundation.org>,
+	Kevin Hilman <khilman@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Palmer Dabbelt <palmer@sifive.com>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	linux-gpio@vger.kernel.org, linux-riscv@lists.infradead.org,
+	linux-clk <linux-clk@vger.kernel.org>,
+	Linux ARM Mailing List <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] SoC maintainer group
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -18,45 +35,20 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi All,
+On Tue, Nov 06, 2018 at 02:16:27PM -0800, Olof Johansson wrote:
+> 
+> Olof Johansson (arm-soc)
+> Arnd Bergmann (arm-soc)
+> Kevin Hilman (arm-soc)
+> Mike Turquette (clk)
+> Stephen Boyd (clk)
+> Linus Walleij (pinctrl + more)
+> Mike Brown (gpio/regmap + more)
 
-As an active contributor and maintainer, I enjoy collaborating with talented
-group of developers with diverse backgrounds and expertise. As a maintainer
-and a developer, I have the responsibility to uphold the technical standards
-to make the Linux kernel better in each release.
+Could the poeple listed on this list please list potential schedule conflicts?
 
-I started out as an independent contributor to the Android mainlining effort.
-I maintain Kernel Selftest and USB over IP drivers. My role as a Kselftest
-maintainer has overlaps with several critical kernel sub-systems and
-continues to challenge me to be a good citizen of the community while
-encouraging others to do the same.
+I'm going to assume we should avoid: Andriod uConf, RISC-V uConf,
+Device Tree uConf.  What are other potential conflicts.  I'm going to
+guess this might be "interesting" to schedule.  :-)
 
-During my previous tenure as a TAB member, I contributed to the Linux Kernel
-Community Enforcement Statement work. It was behind the scenes work to explain
-the need for the statement and get developers, maintainers and Corporate
-members to lend their support. It was a very important effort for the
-continued success of the Linux kernel in the industry as the platform for
-open source eco-systems. I am proud to have played an important role in the
-process.
-
-It has been an eventful and challenging couple of months for the Linux
-Community with the recent developments. The Code of Conduct introduction
-and subsequent discussion shined a spotlight on the community.
-
-I have been active and vocal in the efforts to initiate an open discussion
-to review the Code of Conduct to evolve it to allay concerns from the
-community. I strongly believe the CoC is a step in the right direction for
-us as a community to continue to be a welcoming place while maintaining high
-technical and code standards for acceptance.
-
-I am running for TAB to continue the efforts to evolve the CoC process as
-a member of the Technical Advisory board and work towards making the
-community a welcoming place for a diverse group of developers.
-
-I believe I can bring a unique perspective of women in the open source
-community to the TAB. I hope I can count on your support to help represent
-the community.
-
-
-thanks,
--- Shuah
+							- Ted
