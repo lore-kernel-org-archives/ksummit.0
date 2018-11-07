@@ -1,21 +1,39 @@
-Return-Path: <tytso@thunk.org>
+Return-Path: <olof@lixom.net>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7EB8FBAE
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 268CA88D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  7 Nov 2018 17:47:22 +0000 (UTC)
-Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 17746771
+	Wed,  7 Nov 2018 18:47:39 +0000 (UTC)
+Received: from mail-lf1-f67.google.com (mail-lf1-f67.google.com
+	[209.85.167.67])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8526D81B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  7 Nov 2018 17:47:21 +0000 (UTC)
-Date: Wed, 7 Nov 2018 12:47:20 -0500
-From: "Theodore Y. Ts'o" <tytso@mit.edu>
-To: ksummit-discuss@lists.linuxfoundation.org
-Message-ID: <20181107174720.GA6135@thunk.org>
+	Wed,  7 Nov 2018 18:47:38 +0000 (UTC)
+Received: by mail-lf1-f67.google.com with SMTP id v5so7262299lfe.7
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 07 Nov 2018 10:47:38 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Subject: [Ksummit-discuss] Draft Kernel Summit track agenda
+References: <CAOesGMgVPsK9YsV2nGoBptWwtHYv=3yMytLx2_tF_ujS5c5p3Q@mail.gmail.com>
+	<20181107171723.GI9919@thunk.org>
+	<CAOesGMheCcvDQCd+7fyh4yOk4BYDfm2QRqsdawqA_fg8s9YYEQ@mail.gmail.com>
+In-Reply-To: <CAOesGMheCcvDQCd+7fyh4yOk4BYDfm2QRqsdawqA_fg8s9YYEQ@mail.gmail.com>
+From: Olof Johansson <olof@lixom.net>
+Date: Wed, 7 Nov 2018 10:47:24 -0800
+Message-ID: <CAOesGMg+jW7SN2+E_FYbwi8GdNhc8KrEsahB-Nn+AseO6kLGXA@mail.gmail.com>
+To: Theodore Tso <tytso@mit.edu>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	linux-riscv@lists.infradead.org,
+	linux-clk <linux-clk@vger.kernel.org>, linux-gpio@vger.kernel.org,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will.deacon@arm.com>,
+	Palmer Dabbelt <palmer@sifive.com>, Russell King <rmk@armlinux.org.uk>,
+	Linux ARM Mailing List <linux-arm-kernel@lists.infradead.org>,
+	Arnd Bergmann <arnd@arndb.de>, Mark Brown <broonie@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Kevin Hilman <khilman@kernel.org>, Stephen Boyd <sboyd@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] SoC maintainer group
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -25,62 +43,40 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Here is an initial draft agenda for the Kernel Summit track.  I did my
-best to avoid potential schedule conflicts, but I'm sure I didn't
-quite get things completely right.  Please let me know if you spot any
-problems with conflicts with LPC microconfs or other LPC tracks.
+On Wed, Nov 7, 2018 at 9:35 AM Olof Johansson <olof@lixom.net> wrote:
+>
+> On Wed, Nov 7, 2018 at 9:17 AM Theodore Y. Ts'o <tytso@mit.edu> wrote:
+> >
+> > On Tue, Nov 06, 2018 at 02:16:27PM -0800, Olof Johansson wrote:
+> > >
+> > > Olof Johansson (arm-soc)
+> > > Arnd Bergmann (arm-soc)
+> > > Kevin Hilman (arm-soc)
+> > > Mike Turquette (clk)
+> > > Stephen Boyd (clk)
+> > > Linus Walleij (pinctrl + more)
+> > > Mike Brown (gpio/regmap + more)
+> >
+> > Could the poeple listed on this list please list potential schedule conflicts?
+> >
+> > I'm going to assume we should avoid: Andriod uConf, RISC-V uConf,
+> > Device Tree uConf.  What are other potential conflicts.  I'm going to
+> > guess this might be "interesting" to schedule.  :-)
+>
+> Yeah, apologies for adding a bunch of cross-coordination this late too.
+>
+> It's likely going to be conflict-ridden no matter what we do. RISC-V
+> and DT are the main conflicts, Android probably has a bit less.
+>
+> Tuesday afternoon looks least conflict-y when I squint at the
+> schedule, or Thursday afternoon (but ideally not overlapping with
+> Daniel's DRM/gitlab session).
 
-I didn't even try to schedule the SoC maintainer group session --- if
-members of that group have suggestions about preferred times, please
-let me know.
+Ted,
 
-Thanks,
+Can we have 3pm-3:30pm on Thursday? It seems relatively low on
+embedded-related conflicts and at 3  people would have time to migrate
+from Daniel Vetter's gitlab talk if needed.
 
-						- Ted
 
-Tuesday November 13th
-
-9:00 Linux and Code of Conduct (Greg K-H)
-9:45 TBD / Unconference
-10:30 Break
-11:00 virtio as a universal communication format (Michael S. Tsirkin)
-11:45 GCMA: Guaranteed Contiguous Memory Allocator (SeongJae Park)
-12:30 Lunch
-2:00 TBD / Unconference
-2:45 When eBPF meets FUSE: Improving Performance of User File Systems
-	(Ashish Bijlani)
-3:30 Break
-4:00 Building Stable Kernel Trees with Machine Learning
-	(Sasha Levin, Julia Lawall)
-4:45 TBD / Unconference
-
-Wednesday November 14th
-
-9:00 TBD / Unconference
-9:45 Zinc: Minimal Light-weight Kernel Cryptography API
-	(Jason A. Donenfeld)
-10:30 Break
-11:00 An Introduction to RISC-V (Palmer Dabbelt)
-11:45 Clang + Linux (Nick Desaulniers, Greg Hackman)
-12:30 Lunch
-2:00 TBD / Unconference
-2:45 Elivepatch: Flexible Distributed Linux Kernel Live Patching
-	(Alice Ferrazzi)
-3:30 Break
-4:00 TBD / Unconference
-4:45 TBD / Unconference
-
-Thursday November 15th
-
-9:00 TBD / Unconference
-9:45 Filename encoding and case-insensitive filesystems
-	(Gabriel Krisman Bertazi)
-10:30 Break
-11:00 Who stole my CPU? (Leonid Podolny)
-11:45 TBD / Unconference
-12:30 Lunch
-2:00 Concurrency with tools/memory-model (Andrea Parri, Paul McKenney)
-2:45 TBD / Unconference
-3:30 Break
-4:00 Multiple Time Domains (Thomas Gleixner)
-4:45 TBD / Unconference
+-Olof
