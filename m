@@ -1,22 +1,22 @@
-Return-Path: <tglx@linutronix.de>
+Return-Path: <tytso@thunk.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id C9112B7B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8EF53BA9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  7 Nov 2018 21:05:59 +0000 (UTC)
-Received: from Galois.linutronix.de (Galois.linutronix.de [146.0.238.70])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 61FE27F5
+	Wed,  7 Nov 2018 21:53:03 +0000 (UTC)
+Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DE4AF7FF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  7 Nov 2018 21:05:59 +0000 (UTC)
-Date: Wed, 7 Nov 2018 22:05:55 +0100 (CET)
-From: Thomas Gleixner <tglx@linutronix.de>
-To: "Theodore Y. Ts'o" <tytso@mit.edu>
-In-Reply-To: <20181107174720.GA6135@thunk.org>
-Message-ID: <alpine.DEB.2.21.1811072204520.1666@nanos.tec.linutronix.de>
+	Wed,  7 Nov 2018 21:53:02 +0000 (UTC)
+Date: Wed, 7 Nov 2018 16:53:00 -0500
+From: "Theodore Y. Ts'o" <tytso@mit.edu>
+To: ksummit-discuss@lists.linuxfoundation.org
+Message-ID: <20181107215300.GL9919@thunk.org>
 References: <20181107174720.GA6135@thunk.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Cc: ksummit-discuss@lists.linuxfoundation.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20181107174720.GA6135@thunk.org>
 Subject: Re: [Ksummit-discuss] Draft Kernel Summit track agenda
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -27,17 +27,14 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Ted,
+Two more additions to the agenda:
 
-On Wed, 7 Nov 2018, Theodore Y. Ts'o wrote:
 
-> Here is an initial draft agenda for the Kernel Summit track.  I did my
-> best to avoid potential schedule conflicts, but I'm sure I didn't
-> quite get things completely right.  Please let me know if you spot any
-> problems with conflicts with LPC microconfs or other LPC tracks.
+Thuesday, November 13th
 
-I didn't spot any obvious ones. That must have been quite some juggling.
+5:30pm  TAB elections
 
-Thanks,
 
-	Thomas
+Thursday, November 15th
+
+2:45pm SoC maintainer group
