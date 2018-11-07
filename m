@@ -1,14 +1,14 @@
-Return-Path: <olof@lixom.net>
-MIME-Version: 1.0
-References: <340499F8-3113-4C8E-946B-3C33A1C4E3A7@fb.com>
-In-Reply-To: <340499F8-3113-4C8E-946B-3C33A1C4E3A7@fb.com>
-From: Olof Johansson <olof@lixom.net>
-Date: Tue, 6 Nov 2018 15:42:27 -0800
-Message-ID: <CAOesGMgUSBt0HYwGcbOgY3RUmLo29g6xFyyD3ZQZP7R_2da8fg@mail.gmail.com>
+Return-Path: <shuah@kernel.org>
 To: ksummit-discuss@lists.linux-foundation.org,
-	Tech Board Discuss <Tech-board-discuss@lists.linux-foundation.org>
-Content-Type: text/plain; charset="UTF-8"
-Subject: [Ksummit-discuss] TAB nomination
+	Tech-board-discuss@lists.linux-foundation.org
+From: Shuah Khan <shuah@kernel.org>
+Message-ID: <a5575542-5c01-b906-c6c3-6942fc5d961b@kernel.org>
+Date: Wed, 7 Nov 2018 09:54:46 -0700
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Subject: [Ksummit-discuss]  TAB nomination
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -18,37 +18,45 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi all,
+Hi All,
 
-My two-year term on the TAB is up this year and I'd like to stand for
-re-election.
+As an active contributor and maintainer, I enjoy collaborating with talented
+group of developers with diverse backgrounds and expertise. As a maintainer
+and a developer, I have the responsibility to uphold the technical standards
+to make the Linux kernel better in each release.
 
-It's been a somewhat stressful time for the TAB lately, given the Code
-of Conduct changes that we ended up in the middle of, but I've also
-found the work to be meaningful and worthwhile. Some portions of it
-around process and procedures are not yet complete, and I'd like an
-opportunity to see it through.
+I started out as an independent contributor to the Android mainlining effort.
+I maintain Kernel Selftest and USB over IP drivers. My role as a Kselftest
+maintainer has overlaps with several critical kernel sub-systems and
+continues to challenge me to be a good citizen of the community while
+encouraging others to do the same.
 
-Specific contributions from me around the code of conduct have been
-the separation of direct TAB and code of conduct work in a cooperative
-way that also provides a second level of checks if needed. I've also
-been pushing for the need for timely anonymous statistics from the
-TAB/committee, with the hope that it will ease off some of the fears
-of the unknown as these changes are made.
+During my previous tenure as a TAB member, I contributed to the Linux Kernel
+Community Enforcement Statement work. It was behind the scenes work to explain
+the need for the statement and get developers, maintainers and Corporate
+members to lend their support. It was a very important effort for the
+continued success of the Linux kernel in the industry as the platform for
+open source eco-systems. I am proud to have played an important role in the
+process.
 
-Besides those recent developments, some of the work I've felt most
-satisfaction from through the years is when I've been able to help get
-companies and other contributors to come in and participate upstream.
-In particular some ARM vendors have come a long way in working with
-the community, even if it is always a work in progress.
+It has been an eventful and challenging couple of months for the Linux
+Community with the recent developments. The Code of Conduct introduction
+and subsequent discussion shined a spotlight on the community.
 
-I've been around the kernel project for about 15 years, and maintainer
-of arm-soc together with Arnd and Kevin for 7 years now. For most of
-this time I've been involved in embedded platforms in some way or
-other, and it's a viewpoint and representation I bring to the TAB that
-hasn't traditionally been heavily represented.
+I have been active and vocal in the efforts to initiate an open discussion
+to review the Code of Conduct to evolve it to allay concerns from the
+community. I strongly believe the CoC is a step in the right direction for
+us as a community to continue to be a welcoming place while maintaining high
+technical and code standards for acceptance.
+
+I am running for TAB to continue the efforts to evolve the CoC process as
+a member of the Technical Advisory board and work towards making the
+community a welcoming place for a diverse group of developers.
+
+I believe I can bring a unique perspective of women in the open source
+community to the TAB. I hope I can count on your support to help represent
+the community.
 
 
-Thanks,
-
--Olof
+thanks,
+-- Shuah
