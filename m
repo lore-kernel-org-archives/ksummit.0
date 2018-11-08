@@ -1,16 +1,25 @@
-Return-Path: <SRS0=HIuK=NT=goodmis.org=rostedt@kernel.org>
-Date: Thu, 8 Nov 2018 09:42:29 -0500
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Kees Cook via Tech-board-discuss
-	<tech-board-discuss@lists.linux-foundation.org>
-Message-ID: <20181108094229.174aa2ac@gandalf.local.home>
-In-Reply-To: <CAGXu5jKkip3aDzpH2ehuztdxm6_O9PuC1y2+uJckfLL1+tzt1w@mail.gmail.com>
-References: <CAGXu5jKkip3aDzpH2ehuztdxm6_O9PuC1y2+uJckfLL1+tzt1w@mail.gmail.com>
+Return-Path: <SRS0=nC3z=NT=linuxfoundation.org=gregkh@kernel.org>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 31F81B75
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu,  8 Nov 2018 15:40:41 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E6DCF7C3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu,  8 Nov 2018 15:40:40 +0000 (UTC)
+Date: Thu, 8 Nov 2018 07:40:39 -0800
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Boaz Harrosh <boaz@plexistor.com>
+Message-ID: <20181108154039.GA12415@kroah.com>
+References: <20181107174720.GA6135@thunk.org>
+	<d26337cb-a6c8-7f26-25fb-d89c50a69589@plexistor.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linux-foundation.org, Kees Cook <keescook@google.com>
-Subject: Re: [Ksummit-discuss] [Tech-board-discuss] TAB nomination
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d26337cb-a6c8-7f26-25fb-d89c50a69589@plexistor.com>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] Draft Kernel Summit track agenda
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -20,44 +29,20 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, 7 Nov 2018 21:14:12 -0800
-Kees Cook via Tech-board-discuss
-<tech-board-discuss@lists.linux-foundation.org> wrote:
+On Thu, Nov 08, 2018 at 02:28:35PM +0200, Boaz Harrosh wrote:
+> I would like to please ask again for a slot to talk about ZUFS, at one of the TBD
+> slots above?
+> 
+> It is a very big project, that I would love to discuss with the Linux community
+> and developers. I believe it is a very important project in the up coming years.
 
-> Hi,
-> 
-> I'm volunteering to stand for election to the TAB.
-> 
-> My primary concern for the kernel is security. I've been a member of
-> the security@kernel.org response team for 5 years, and I've been
-> herding cats with the Kernel Self-Protection Project for 3 years. I
-> have frequently worked kernel-wide across many subsystems, or many
-> architectures, when helping landing various security defenses. This
-> cross-maintainer work is a unique social and technical challenge, and
-> the topic of "security" is a similarly wide and unique challenge. I'd
-> like to represent both of these concerns on the TAB.
-> 
-> In addition to being an active kernel developer and maintainer, I also
-> bring several "downstream" perspectives on how the kernel is consumed.
-> I understand the concerns of a general purpose distro, having worked
-> on Ubuntu for 5 years. More recently, I know the demands of special
-> purpose device vendors, having worked on Chrome OS, Brillo, and
-> Android over the last 7 years.
-> 
-> I was a reluctant supporter of the Code of Conflict (it did not go far
-> enough), but I was even more unhappy with the sudden Code of Conduct
-> (due to lack of decision transparency and potential for very
-> counter-intuitive interpretations). I am, however, a fan of the base
-> intent and the recent clarifications: I've not enjoyed the times I've
-> been yelled at by Linus, and I have not liked seeing other toxic
-> interactions in the community. I'd like to help make sure the TAB
-> continues to support a positive social dynamic for contributors to the
-> kernel, stays up front about these kinds of changes going forward, and
-> that it is not unduly influenced by external forces.
-> 
-> Thanks for your consideration,
->
+Unconference slots are important, the committees have already picked all
+of the proposed talks for this track, sorry.
 
-Thanks Kees, I added you to the document.
+And didn't you already discuss this at the filesystems conference?
+That's the best place for that, and after that, patches on the list are
+what I think everyone is now waiting for.
 
--- Steve
+thanks,
+
+greg k-h
