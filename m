@@ -1,26 +1,21 @@
-Return-Path: <laura@labbott.name>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 48755892
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 10 Nov 2018 18:44:19 +0000 (UTC)
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com
-	[209.85.215.175])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E1F2F77E
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 10 Nov 2018 18:44:18 +0000 (UTC)
-Received: by mail-pg1-f175.google.com with SMTP id n10-v6so2236460pgv.10
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 10 Nov 2018 10:44:18 -0800 (PST)
-From: Laura Abbott <laura@labbott.name>
-Content-Type: text/plain; charset=us-ascii
+Return-Path: <prvs=4852ab02b7=clm@fb.com>
+From: Chris Mason <clm@fb.com>
+To: Frank Rowand <frowand.list@gmail.com>
+Date: Sat, 10 Nov 2018 19:15:16 +0000
+Message-ID: <0F1E6845-9F6D-46E2-BB52-8B0C2D8103C6@fb.com>
+References: <1541721842.3774.2.camel@HansenPartnership.com>
+	<35402D8E-0294-4E34-BE8B-22BCBC20BF66@fb.com>
+	<c6a1629f-df14-6e02-c995-f99a1f691c6a@gmail.com>
+In-Reply-To: <c6a1629f-df14-6e02-c995-f99a1f691c6a@gmail.com>
+Content-Language: en-US
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
-Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Message-Id: <16D2BBDD-D856-4C94-8B42-4B888531875E@labbott.name>
-Date: Sat, 10 Nov 2018 10:44:12 -0800
-To: tech-board-discuss@lists.linux-foundation.org
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: [Ksummit-discuss] TAB Nomination
+MIME-Version: 1.0
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>, Tech Board
+	Discuss <Tech-board-discuss@lists.linux-foundation.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [Tech-board-discuss]  TAB non-nomination
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,48 +25,55 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-I'd like to nominate myself for the TAB. I sometimes blog about the =
-kernel
-community and this is a chance for me to actually put my money where
-my mouth is.
 
-I've been working in the kernel community long enough at this point that
-people know who I am as a Fedora kernel maintainer and a contributor
-in the security and ARM areas. I also joined the kernel community =
-recently enough
-that I can remember what it was like to be a beginner starting out. I =
-usually
-tell people that I've had a fairly positive experience in the kernel =
-community
-and I'd like to make sure that everyone can have an even better =
-experience.
-The kernel community has certainly grown and changed over the years
-and it's important to both reflect on how far we've come and what else =
-we
-can do to make things better.
 
-I was certainly in favor of seeing a stronger code of conduct as the =
-previous
-code of conflict had deficits in certain areas. I've also learned a lot =
-reading
-the objections people had to both the code of conduct itself and how it
-was implemented. I strongly believe that a strong code of conduct and
-a being a community that values technical excellence are well aligned =
-goals.
-Continuing to discuss these issues transparently is an going to be an =
-important
-point going forward.
+On 9 Nov 2018, at 11:54, Frank Rowand wrote:
 
-The TAB has worked on a number of tricky issues such as malicious GPL
-compliance for the betterment of the kernel community. I'd like to see
-the TAB continue to work on issues like the Code of Conduct and also
-think about what more can be done to work on building up new =
-contributors
-and maintainers to support the existing maintainers. I don't believe I =
-have
-all the answers or will always be right but I look forward to the chance =
-to
-learn and help serve the kernel community.
+> On 11/8/18 7:30 PM, Chris Mason wrote:
+>> On 8 Nov 2018, at 16:04, James Bottomley wrote:
+>>>
+>>> Hind sight, though is always perfect.  At the time, as a TAB member,
+>>> all you saw was a panic driven by both Linus and the Linux=20
+>>> Foundation
+>>> that we needed an updated Kernel CoC ASAP, like today.
+>>
+>> I think panic is the wrong word to attach to Linus' response,=20
+>> especially
+>> around the code of conduct.
+>>
+>>>
+>>> The second mistake was picking the wrong CoC. [ ... ]
+>>>
+>>> The third mistake was dumping the fully formed CoC and a later=20
+>>> update
+>>> into the tree with little to no community input
+>>
+>
+>> The update was entirely based on community input.
+>
+> I am going to try to parse that sentence very carefully and narrowly.
+>
+> If you are saying that the update (that is,=20
+> code-of-conduct-interpretation.rst)
+> then I would agree that the document appears to have been created
+> based on community input.  But that is merely a conjecture on my part
+> since the document was created in a small closed group.
+>
+> If you are saying that the creation of=20
+> code-of-conduct-interpretation.rst
+> was done in a process that was open and visible to the community, then
+> I would disagree.  I don't know if this is what you meant to convey,
+> but it is very easy to interpret the sentence in this way.
+>
 
-Thanks,
-Laura=
+Ted's earlier reply has a good summary, but the part I want to underline=20
+is that we sought out people who strongly disagreed with us, and we did=20
+our best to understand their concerns.  It was important to me that we=20
+give people a private channel to express themselves, especially=20
+considering that the topic at hand was behavior on public lists.
+
+It was a tradeoff, but I was really happy with the number of people who=20
+participated who might otherwise have stayed out of the discussion=20
+completely.
+
+-chris
