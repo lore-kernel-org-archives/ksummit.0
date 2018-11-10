@@ -1,21 +1,24 @@
 Return-Path: <prvs=4852ab02b7=clm@fb.com>
 From: Chris Mason <clm@fb.com>
-To: Frank Rowand <frowand.list@gmail.com>
-Date: Sat, 10 Nov 2018 19:15:16 +0000
-Message-ID: <0F1E6845-9F6D-46E2-BB52-8B0C2D8103C6@fb.com>
+To: Jason Cooper <jason@lakedaemon.net>
+Date: Sat, 10 Nov 2018 19:26:55 +0000
+Message-ID: <2C4B571B-A940-4B41-90C0-D1CE277EAAF0@fb.com>
 References: <1541721842.3774.2.camel@HansenPartnership.com>
 	<35402D8E-0294-4E34-BE8B-22BCBC20BF66@fb.com>
-	<c6a1629f-df14-6e02-c995-f99a1f691c6a@gmail.com>
-In-Reply-To: <c6a1629f-df14-6e02-c995-f99a1f691c6a@gmail.com>
+	<41b03a5b-1af4-0a87-2736-016f79d4d1ca@kernel.org>
+	<20181109190305.GD21078@thunk.org>
+	<20181109201700.GB9256@io.lakedaemon.net>
+In-Reply-To: <20181109201700.GB9256@io.lakedaemon.net>
 Content-Language: en-US
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>, Tech Board
-	Discuss <Tech-board-discuss@lists.linux-foundation.org>,
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
 	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [Tech-board-discuss]  TAB non-nomination
+	<ksummit-discuss@lists.linuxfoundation.org>,
+	Tech Board Discuss <Tech-board-discuss@lists.linux-foundation.org>
+Subject: Re: [Ksummit-discuss] better hot-topic discussion processes was:
+ Re: TAB non-nomination
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -25,55 +28,31 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On 9 Nov 2018, at 12:17, Jason Cooper wrote:
 
-
-On 9 Nov 2018, at 11:54, Frank Rowand wrote:
-
-> On 11/8/18 7:30 PM, Chris Mason wrote:
->> On 8 Nov 2018, at 16:04, James Bottomley wrote:
->>>
->>> Hind sight, though is always perfect.  At the time, as a TAB member,
->>> all you saw was a panic driven by both Linus and the Linux=20
->>> Foundation
->>> that we needed an updated Kernel CoC ASAP, like today.
+> +Kostantin
+>
+> Hi Ted,
+>
+> On Fri, Nov 09, 2018 at 02:03:05PM -0500, Theodore Y. Ts'o wrote:
+>> So what was done with the update to the CoC was that a proposed set of
+>> changes was sent out to the top 200 or so contributors to the kernel,
+>> by git statistics over the past year, asking for their comments and
+>> their sign-offs.  So there *was* community input, and that input did
+>> result in changes to the CoC update.
 >>
->> I think panic is the wrong word to attach to Linus' response,=20
->> especially
->> around the code of conduct.
->>
->>>
->>> The second mistake was picking the wrong CoC. [ ... ]
->>>
->>> The third mistake was dumping the fully formed CoC and a later=20
->>> update
->>> into the tree with little to no community input
->>
+>> Could there be a better process?  I think we're all open to input.  If
+>> someone would like to suggest a better way to handle things, that
+>> would be great.  I will disclose upfront, though, that I will have to
+>> politely disagree with the proposition that completely free and open
+>> discussion is always the magic bullet solution.
 >
->> The update was entirely based on community input.
+> Ok, I'll take a stab at that. :)
 >
-> I am going to try to parse that sentence very carefully and narrowly.
->
-> If you are saying that the update (that is,=20
-> code-of-conduct-interpretation.rst)
-> then I would agree that the document appears to have been created
-> based on community input.  But that is merely a conjecture on my part
-> since the document was created in a small closed group.
->
-> If you are saying that the creation of=20
-> code-of-conduct-interpretation.rst
-> was done in a process that was open and visible to the community, then
-> I would disagree.  I don't know if this is what you meant to convey,
-> but it is very easy to interpret the sentence in this way.
->
+> I'll make the assumption that there was nothing said in the "invited"
+> discussion that the speaker would object to being a matter of public
+> record.
 
-Ted's earlier reply has a good summary, but the part I want to underline=20
-is that we sought out people who strongly disagreed with us, and we did=20
-our best to understand their concerns.  It was important to me that we=20
-give people a private channel to express themselves, especially=20
-considering that the topic at hand was behavior on public lists.
-
-It was a tradeoff, but I was really happy with the number of people who=20
-participated who might otherwise have stayed out of the discussion=20
-completely.
+I'm snipping the rest because you lost me right here ;)
 
 -chris
