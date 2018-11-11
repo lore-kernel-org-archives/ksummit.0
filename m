@@ -1,38 +1,35 @@
-Return-Path: <joe@perches.com>
-Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
-	[172.17.192.36])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 44E27CB0
+Return-Path: <frowand.list@gmail.com>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 02136721
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 11 Nov 2018 00:13:25 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0157.hostedemail.com
-	[216.40.44.157])
-	by smtp2.linuxfoundation.org (Postfix) with ESMTPS id BA6B71DCE2
+	Sun, 11 Nov 2018 03:18:04 +0000 (UTC)
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
+	[209.85.210.174])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8FB9077E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sun, 11 Nov 2018 00:13:24 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
-	[10.5.19.251])
-	by smtpgrave04.hostedemail.com (Postfix) with ESMTP id 89A541801A138
+	Sun, 11 Nov 2018 03:18:03 +0000 (UTC)
+Received: by mail-pf1-f174.google.com with SMTP id u3-v6so277pfm.4
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 10 Nov 2018 21:48:03 +0000 (UTC)
-Message-ID: <5ec49e90721b2cfde6faa3cc0df91759b602e7d8.camel@perches.com>
-From: Joe Perches <joe@perches.com>
-To: "Theodore Y. Ts'o" <tytso@mit.edu>
-Date: Sat, 10 Nov 2018 13:47:57 -0800
-In-Reply-To: <20181110212159.GA12818@thunk.org>
+	Sat, 10 Nov 2018 19:18:03 -0800 (PST)
+To: Chris Mason <clm@fb.com>
 References: <1541721842.3774.2.camel@HansenPartnership.com>
 	<35402D8E-0294-4E34-BE8B-22BCBC20BF66@fb.com>
-	<41b03a5b-1af4-0a87-2736-016f79d4d1ca@kernel.org>
-	<20181109190305.GD21078@thunk.org>
-	<e0ec26aa685f53e741f66e757a2cf29307ce3b7e.camel@perches.com>
-	<20181110212159.GA12818@thunk.org>
-Content-Type: text/plain; charset="ISO-8859-1"
-Mime-Version: 1.0
+	<c6a1629f-df14-6e02-c995-f99a1f691c6a@gmail.com>
+	<0F1E6845-9F6D-46E2-BB52-8B0C2D8103C6@fb.com>
+From: Frank Rowand <frowand.list@gmail.com>
+Message-ID: <3b861369-0fc0-c746-4b1b-047ce903cc30@gmail.com>
+Date: Sat, 10 Nov 2018 19:18:00 -0800
+MIME-Version: 1.0
+In-Reply-To: <0F1E6845-9F6D-46E2-BB52-8B0C2D8103C6@fb.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
 	Tech Board Discuss <Tech-board-discuss@lists.linux-foundation.org>,
 	"ksummit-discuss@lists.linuxfoundation.org"
 	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] TAB non-nomination
+Subject: Re: [Ksummit-discuss] [Tech-board-discuss]  TAB non-nomination
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -42,25 +39,82 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, 2018-11-10 at 16:21 -0500, Theodore Y. Ts'o wrote:
-> On Fri, Nov 09, 2018 at 11:23:26AM -0800, Joe Perches wrote:
-> > I believe that did not happen as described as at least
-> > I was not asked for input/comment/sign-off and I ahm
-> > well within that top 200 or so list.
+On 11/10/18 11:15 AM, Chris Mason wrote:
 > 
-> I'm not sure precisely which metrics Greg used when he created his
-> list, but using "git log --since="July 2017" v4.18" and piping it into
-> the perl script I use to count Signed-off-by, Acked-by, and
-> Reviewed-by, lines, you're about #240; so you're in the top 250, but
-> not the top 200.
+> 
+> On 9 Nov 2018, at 11:54, Frank Rowand wrote:
+> 
+>> On 11/8/18 7:30 PM, Chris Mason wrote:
+>>> On 8 Nov 2018, at 16:04, James Bottomley wrote:
+>>>>
+>>>> Hind sight, though is always perfect.  At the time, as a TAB member,
+>>>> all you saw was a panic driven by both Linus and the Linux 
+>>>> Foundation
+>>>> that we needed an updated Kernel CoC ASAP, like today.
+>>>
+>>> I think panic is the wrong word to attach to Linus' response, 
+>>> especially
+>>> around the code of conduct.
+>>>
+>>>>
+>>>> The second mistake was picking the wrong CoC. [ ... ]
+>>>>
+>>>> The third mistake was dumping the fully formed CoC and a later 
+>>>> update
+>>>> into the tree with little to no community input
+>>>
+>>
+>>> The update was entirely based on community input.
+>>
+>> I am going to try to parse that sentence very carefully and narrowly.
+>>
+>> If you are saying that the update (that is, 
+>> code-of-conduct-interpretation.rst)
+>> then I would agree that the document appears to have been created
+>> based on community input.  But that is merely a conjecture on my part
+>> since the document was created in a small closed group.
+>>
+>> If you are saying that the creation of 
+>> code-of-conduct-interpretation.rst
+>> was done in a process that was open and visible to the community, then
+>> I would disagree.  I don't know if this is what you meant to convey,
+>> but it is very easy to interpret the sentence in this way.
+>>
+> 
+> Ted's earlier reply has a good summary, but the part I want to underline 
+> is that we sought out people who strongly disagreed with us, and we did 
+> our best to understand their concerns.  It was important to me that we 
+> give people a private channel to express themselves, especially 
+> considering that the topic at hand was behavior on public lists.
 
-Acks are nearly useless as a metric.
-Non-primary Sign-offs are less so.
+OK.  So the update was done in an opaque closed fashion, which involved
+soliciting input from some unknown fraction of the community.  Do I
+understand that correctly?
 
-By author is a rather more useful one.
+And I think it would be fair to say that the people who created the
+update were probably aware of the comments of a much larger group of
+people who had participated in the threads on various email lists,
+and also I suspect the comments threads on the related lwn articles.
+So likely also based on input from a (probably) larger fraction of
+the community who had been willing to publicly comment.
 
-$ git shortlog -n -s --since=<foo>
+So based on community input, but the document was not reviewed by the
+broader community, or accepted by the broader community.
 
-Separating whitespace/checkpatch style patches
-from actual defect fixes and other enhancements is,
-of course, a more difficult automation problem.
+Note that my opinion is that code-of-conduct-interpretation.rst is
+a step in a positive direction.  I'm just disappointed that it was
+not submitted through the normal process of review (and no, sending
+a patch to the mail list on Saturday and merging the patch two days
+later on Monday is not normal review, especially when some people
+were traveling to OSS Europe, ELC Europe, and the Maintainers
+Summit that weekend).
+
+-Frank
+
+
+> It was a tradeoff, but I was really happy with the number of people who 
+> participated who might otherwise have stayed out of the discussion 
+> completely.
+> 
+> -chris
+> 
