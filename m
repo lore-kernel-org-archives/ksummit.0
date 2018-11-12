@@ -1,22 +1,23 @@
-Return-Path: <jmorris@namei.org>
-Date: Tue, 13 Nov 2018 04:15:50 +1100 (AEDT)
-From: James Morris <jmorris@namei.org>
-To: "Theodore Y. Ts'o" <tytso@mit.edu>
-In-Reply-To: <20181110212159.GA12818@thunk.org>
-Message-ID: <alpine.LRH.2.21.1811130412460.7992@namei.org>
-References: <1541721842.3774.2.camel@HansenPartnership.com>
-	<35402D8E-0294-4E34-BE8B-22BCBC20BF66@fb.com>
-	<41b03a5b-1af4-0a87-2736-016f79d4d1ca@kernel.org>
-	<20181109190305.GD21078@thunk.org>
-	<e0ec26aa685f53e741f66e757a2cf29307ce3b7e.camel@perches.com>
-	<20181110212159.GA12818@thunk.org>
+Return-Path: <laurent.pinchart@ideasonboard.com>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7E66DBBE
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 12 Nov 2018 20:09:21 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+	[213.167.242.64])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CF8DE858
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 12 Nov 2018 20:09:20 +0000 (UTC)
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: tech-board-discuss@lists.linux-foundation.org
+Date: Mon, 12 Nov 2018 22:09:32 +0200
+Message-ID: <4182231.IhO9L5F7xp@avalon>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>,
-	Tech Board Discuss <Tech-board-discuss@lists.linux-foundation.org>
-Subject: Re: [Ksummit-discuss] TAB non-nomination
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: [Ksummit-discuss] TAB nomination
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -26,23 +27,46 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, 10 Nov 2018, Theodore Y. Ts'o wrote:
+Hello,
 
-> On Fri, Nov 09, 2018 at 11:23:26AM -0800, Joe Perches wrote:
-> > I believe that did not happen as described as at least
-> > I was not asked for input/comment/sign-off and I ahm
-> > well within that top 200 or so list.
-> 
-> I'm not sure precisely which metrics Greg used when he created his
-> list, but using "git log --since="July 2017" v4.18" and piping it into
-> the perl script I use to count Signed-off-by, Acked-by, and
-> Reviewed-by, lines, you're about #240; so you're in the top 250, but
-> not the top 200.
+I would like to stand for the TAB election.
 
-Please also consider maintainers who are pulling in sub-trees without 
-adding signed-off-by to each patch.
+Governance and conduct have recently become a very hot topic in our community. 
+Only the timing should have caught us by surprise, as problems in those areas 
+have been known for a long time. During the past few years I reflected upon 
+those issues and on many occasions discussed them with developers and 
+maintainers from different subsystems. There was a large consensus that we 
+were not doing great, but at the same time helplessness (and sometimes 
+despair) were prevalent. I would like to turn those negative emotions into 
+positive actions to help our community.
 
+While not a political correctness activist, I believe in the balance between 
+freedom of thoughts and expression, and respect and civilized interactions 
+between humans. As such, I would like to improve the feedback and decision 
+processes in the Linux kernel to give everybody a chance to be heard and be 
+part of our community. This is why I would like to stand for the election.
+
+In addition to governance and conduct, I have long thought that our 
+maintenance process is flawed. The Linux kernel has grown over the past 27 
+years in what is largely seen as unique in free software and software in 
+general. With my very first contact with Linux kernel development nearly 20 
+years ago, and my first sizable contribution in 2005, I have witnessed, from 
+the inside, the community evolving. We have collectively brought the Linux 
+kernel into the 21st century and turned this hobbyist project into a 
+professional project without forgetting where we came from. We can't stop 
+there.
+
+The Linux kernel is probably, in most areas, more welcoming today than it has 
+ever been. Despite this, interactions between developers and maintainers 
+generate lots of frustration. On the positive side, this means we have lots of 
+room for improvement. Several subsystems have experimented with alternatives 
+to the historical maintenance scheme, with various levels of success, but we 
+largely remain a hierarchical community with a traditional power structure. I 
+believe we could improve this by giving more power to developers, for the 
+greater good of the community, and would like to bring that vision to the TAB. 
+This is why I would like to stand for the election.
 
 -- 
-James Morris
-<jmorris@namei.org>
+Regards,
+
+Laurent Pinchart
