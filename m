@@ -1,31 +1,25 @@
-Return-Path: <luto@kernel.org>
+Return-Path: <SRS0=MDfK=NY=goodmis.org=rostedt@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id E38B7AD7
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1D72389B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 Nov 2018 06:12:45 +0000 (UTC)
+	Tue, 13 Nov 2018 06:58:57 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 799C47FF
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9C91E81C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 Nov 2018 06:12:45 +0000 (UTC)
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
-	[209.85.221.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id EC64A2084C
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 Nov 2018 06:12:44 +0000 (UTC)
-Received: by mail-wr1-f52.google.com with SMTP id p4so2692559wrt.7
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 12 Nov 2018 22:12:44 -0800 (PST)
+	Tue, 13 Nov 2018 06:58:56 +0000 (UTC)
+Date: Tue, 13 Nov 2018 01:58:52 -0500
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Andy Lutomirski <luto@kernel.org>
+Message-ID: <20181113015852.0ec9297e@vmware.local.home>
+In-Reply-To: <CALCETrX3wM2QdaweXT3JGKU8NTGrgRmxQoh28uqyWkSCfJLcfQ@mail.gmail.com>
+References: <CALCETrX3wM2QdaweXT3JGKU8NTGrgRmxQoh28uqyWkSCfJLcfQ@mail.gmail.com>
 MIME-Version: 1.0
-From: Andy Lutomirski <luto@kernel.org>
-Date: Mon, 12 Nov 2018 22:12:32 -0800
-Message-ID: <CALCETrX3wM2QdaweXT3JGKU8NTGrgRmxQoh28uqyWkSCfJLcfQ@mail.gmail.com>
-To: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
-	Tech-board-discuss@lists.linux-foundation.org
-Content-Type: text/plain; charset="UTF-8"
-Subject: [Ksummit-discuss] TAB nomination
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: Tech-board-discuss@lists.linux-foundation.org,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] TAB nomination
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,64 +29,20 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-[resend -- I tried to send this earlier, but it seems to have
-disappeared into the ether]
+On Mon, 12 Nov 2018 22:12:32 -0800
+Andy Lutomirski <luto@kernel.org> wrote:
 
-I'd like to nominate myself for the TAB.
+> [resend -- I tried to send this earlier, but it seems to have
+> disappeared into the ether]
+> 
 
-I wrote my first kernel patch in 2005 or so when I fixed an obscure
-kernel bug, and I've been contributing to the kernel more seriously
-for about nine years.  In that time, I've been mentored (or perhaps
-groomed) by quite a few kernel developers, I've had my patches
-objected to plenty of times (politely and sometimes less politely),
-I've cleaned up a lot of x86 code and a decent amount of generic code,
-and I've reveiwed a whole lot of other people's code.  In the latter
-endeavor, I've tried to pass the mentoring mentality on -- I do my
-best to treat problematic patches as an opportunity to help their
-authors improve the patches and their own knowledge of the kernel.
+Hi Andy,
 
-I've been a member of the security@kernel.org list for several years,
-and, for better or for worse, I was heavily involved in the very early
-Meltdown mes^Wcoordination effort as well as some other less well
-publicized cross-vendor efforts.  While I believe that the
-security@kernel.org process works quite well for smaller, Linux-only
-security issues, for issues where the reporter reasonably expects
-serious cross-vendor coordination (like Meltdown, Spectre, L1TF, etc),
-I think that some measures could be taken by the Linux Foundation to
-help prepare for a more efficient and less politicized process.  I've
-discussed some of these on previous ksummit-discuss threads, and I
-think that the TAB would be an appropriate venue to explore some of
-these ideas.
+I added you to the Google Doc, but it may be too late for the slides,
+and the ballot (we will have a write in space).
 
-Finally, an obligatory comment about the Code of Conduct.  I was not
-meaningfully involved in most of the CoC process.  I think we ended up
-with a reasonable CoC interpretation document, but I find it
-unfortunate that the kernel now has both the somewhat ill-fitting CoC
-itself as well as the interpretation document.  For contributors who
-are merely trying to follow the rules, it's harder than it ought to be
-to tell what the rules are.  More importantly, I think there's more
-focus on rules than the whole situation really deserved.  When I
-started working on low-level x86 code, I was welcomed quite well by
-the maintainers, but that had nothing to do with their following any
-particular rules, and certainly not because there were rules with
-teeth.  My welcome was good because the maintainers were welcoming --
-they treated my mistakes as learning opportunities and did not insult
-me or reject my contributions out of hand.  This idea doesn't just
-apply to new contributors -- I regularly review patches from
-longstanding kernel programmers who are touching a subsystem that
-they're not familiar with, and I regularly submit patches to parts of
-the kernel that I haven't been heavily involved with.  I try to be
-friendly and helpful when reviewing these types of contribution, and I
-hope for the same treatment in my own contributions.  I would like to
-see more focus on this idea.  If someone reviews a patch or criticizes
-a developer in a way that's less than ideal, I would rather see other
-community members help them see *how* their email was problematic and
-how they could have done better.  In my view, this would be much
-better than merely having a process to determine whether the offending
-email violated a code, let alone whether it was worthy of some sort of
-sanction.
+I didn't see a previous email, nor do I even see this one on the
+tech-board-discuss list. I wonder if it may be because it could be case
+sensitive, and you used a capital T for Tech-board-discuss?
 
-Thank you all for your consideration,
-Andrew Lutomirski
-
-P.S. I won't be at LPC this year.  I hope to make it next year, though.
+-- Steve
