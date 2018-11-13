@@ -1,29 +1,15 @@
 Return-Path: <prvs=4855a86cf8=clm@fb.com>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3C44C892
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 Nov 2018 04:49:05 +0000 (UTC)
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
-	[67.231.145.42])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E5C4F7E3
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 Nov 2018 04:49:04 +0000 (UTC)
 From: Chris Mason <clm@fb.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-Date: Tue, 13 Nov 2018 04:48:56 +0000
-Message-ID: <3F987799-FC7D-4407-9127-E90D3FE7CCA0@fb.com>
-References: <20181113014631.7cf11233@silica.lan>
-	<20181112233153.420e4fa3@vmware.local.home>
-In-Reply-To: <20181112233153.420e4fa3@vmware.local.home>
+To: Tech Board Discuss <tech-board-discuss@lists.linux-foundation.org>, Kernel
+	Summit Discussions <ksummit-discuss@lists.linux-foundation.org>
+Date: Tue, 13 Nov 2018 05:01:05 +0000
+Message-ID: <B0468E8B-FA74-4090-A997-F896D41DE254@fb.com>
 Content-Language: en-US
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <63EAB18575587A40A01FC44D9146CAD2@namprd15.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] TAB Nomination
+Subject: [Ksummit-discuss] (resend) self nomination for TAB elections
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,32 +19,22 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 12 Nov 2018, at 20:31, Steven Rostedt wrote:
-
-> On Tue, 13 Nov 2018 01:46:31 -0200
-> Mauro Carvalho Chehab <mchehab@kernel.org> wrote:
->
->> Hi,
->>
->> I've been actively working at the Linux Kernel since 2005, not only=20
->> as a
->> developer but also maintaining the Media subsystem with due care. At=20
->> the
->> time I started doing it, on my spare time, we started with about 30=20
->> patches
->> merged per Kernel release, having a consistent sustainable  grow=20
->> along this
->> time. We have now about 400-500 patches per merge window, being one=20
->> of the
->> most active development community. I also didn't miss a single merge=20
->> window.
->
-> Hi Mauro,
->
-> I added you to the Google Doc, but it may be too late to get added to
-> the slide show.
-
-Also in the slide show ;)  I'm not sure if Peter has finalized the=20
-ballot yet, but there is a write-in space if not.
-
--chris
+WyByZXNlbmQgYmVjYXVzZSBJIGhhZCBvcmlnaW5hbGx5IG9ubHkgdXNlZCB0aGUgdGVjaC1ib2Fy
+ZC1kaXNjdXNzIGxpc3QgDQpdDQoNCkhlbGxvIGV2ZXJ5b25lLA0KDQpJJ2QgbGlrZSB0byBzdGFu
+ZCBmb3IgZWxlY3Rpb24gYWdhaW4gdGhpcyB5ZWFyLCBhbmQgaG9wZSB0byBzdGF5IGluIG15IA0K
+cG9zaXRpb24gYXMgVEFCIGNoYWlyLiAgVGhlIFRBQiBoYXMgYmVlbiBpbiB0aGUgbmV3cyBtb3Jl
+IHRoYW4gdXN1YWwgDQpsYXRlbHksIGFuZCBJIGRlZXBseSBhcHByZWNpYXRlIHRoZSB0aW1lIGFu
+ZCBlbmVyZ3kgZXZlcnlvbmUgaGFzIHNwZW50IA0KZmluZGluZyBjb21tb24gZ3JvdW5kIGFyb3Vu
+ZCB0aGUgbmV3IGNvZGUgb2YgY29uZHVjdC4NCg0KVGhlcmUgYXJlIG1hbnkgZGlmZmVyZW50IHdv
+cmtpbmcgc3R5bGVzIGFtb25nIHRoZSBrZXJuZWwgcHJvamVjdHMsIGFuZCBJIA0KZmVlbCB0aGUg
+cXVhbGl0eSBvZiBvdXIgY29kZSBpcyBjbG9zZWx5IGxpbmtlZCB0byB0aGUgcXVhbGl0eSBvZiBv
+dXIgDQpjb2xsYWJvcmF0aW9ucy4gIEkgcmVhbGx5IGhvcGUgdGhlIGNvbW11bml0eSBpcyBhYmxl
+IHRvIHVzZSB0aGlzIGRlYmF0ZSANCnRvIGdpdmUgbWFpbnRhaW5lcnMgYW5kIGNvbnRyaWJ1dG9y
+cyBhIGJldHRlciB0b29sYm94IGFyb3VuZCBpbXByb3ZpbmcgDQp0aGUgbGV2ZWwgb2YgZGlzY291
+cnNlIGluIHRoZSBrZXJuZWwuDQoNClNpbmNlIHN0YXJ0aW5nIG9uIHRoZSBrZXJuZWwgZnVsbCB0
+aW1lIGluIDIwMDAsIEnigJl2ZSBtb3N0bHkgd29ya2VkIG9uIA0KZmlsZXN5c3RlbXMgYW5kIHN0
+b3JhZ2UsIGVzcGVjaWFsbHkgb24gdGhlIEJ0cmZzIGZpbGVzeXN0ZW0uICBJ4oCZdmUgDQpzcGVu
+dCB0aGUgbGFzdCBmaXZlIHllYXJzIHdpdGggRmFjZWJvb2vigJlzIGtlcm5lbCB0ZWFtLCBidXQg
+SSd2ZSBhbHNvIA0KaGVsZCBwb3NpdGlvbnMgd2l0aCBGdXNpb24taW8sIE9yYWNsZSBhbmQgU1VT
+RS4NCg0KUGxlYXNlIGZlZWwgZnJlZSB0byBlbWFpbCBtZSB3aXRoIHF1ZXN0aW9ucyBvciBjb21t
+ZW50cy4NCg0KVGhhbmtzLA0KQ2hyaXMNCg==
