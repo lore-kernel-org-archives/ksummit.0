@@ -1,26 +1,29 @@
-Return-Path: <SRS0=MDfK=NY=goodmis.org=rostedt@kernel.org>
+Return-Path: <prvs=4855a86cf8=clm@fb.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 28244B94
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3C44C892
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 Nov 2018 04:33:38 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 69ECA76D
+	Tue, 13 Nov 2018 04:49:05 +0000 (UTC)
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+	[67.231.145.42])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E5C4F7E3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 13 Nov 2018 04:33:36 +0000 (UTC)
-Date: Mon, 12 Nov 2018 23:33:34 -0500
-From: Steven Rostedt <rostedt@goodmis.org>
-To: "H. Peter Anvin" <hpa@zytor.com>
-Message-ID: <20181112233334.05808d00@vmware.local.home>
-In-Reply-To: <4d086805-1d92-26b2-b039-c9e3ca603c67@zytor.com>
-References: <4d086805-1d92-26b2-b039-c9e3ca603c67@zytor.com>
+	Tue, 13 Nov 2018 04:49:04 +0000 (UTC)
+From: Chris Mason <clm@fb.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+Date: Tue, 13 Nov 2018 04:48:56 +0000
+Message-ID: <3F987799-FC7D-4407-9127-E90D3FE7CCA0@fb.com>
+References: <20181113014631.7cf11233@silica.lan>
+	<20181112233153.420e4fa3@vmware.local.home>
+In-Reply-To: <20181112233153.420e4fa3@vmware.local.home>
+Content-Language: en-US
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: tech-board-discuss@lists.linux-foundation.org,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [Tech-board-discuss] Not running for the TAB
-	again this time
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] TAB Nomination
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,25 +33,32 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 12 Nov 2018 18:29:00 -0800
-"H. Peter Anvin" <hpa@zytor.com> wrote:
+On 12 Nov 2018, at 20:31, Steven Rostedt wrote:
 
-> After a lot of consideration I have decided to not run for re-election to the
-> TAB this year. The reason is that I believe that at this particular juncture
-> the TAB doesn't need one more white, male, long-term Linux early enthusiast.
-> Instead I have come to the conclusion that the professionalization of the
-> Linux community that very much need to happen now requires wider representation.
-> 
-> I am grateful for having been trusted to represent the Linux community in this
-> way for the last four years, and I may run again at some point in the future.
-> However, this does not feel to me like the right time to do so.
-> 
-> I would like to urge the community when you cast your ballots to keep this
-> need in mind.
+> On Tue, 13 Nov 2018 01:46:31 -0200
+> Mauro Carvalho Chehab <mchehab@kernel.org> wrote:
+>
+>> Hi,
+>>
+>> I've been actively working at the Linux Kernel since 2005, not only=20
+>> as a
+>> developer but also maintaining the Media subsystem with due care. At=20
+>> the
+>> time I started doing it, on my spare time, we started with about 30=20
+>> patches
+>> merged per Kernel release, having a consistent sustainable  grow=20
+>> along this
+>> time. We have now about 400-500 patches per merge window, being one=20
+>> of the
+>> most active development community. I also didn't miss a single merge=20
+>> window.
+>
+> Hi Mauro,
+>
+> I added you to the Google Doc, but it may be too late to get added to
+> the slide show.
 
-Hi Peter,
+Also in the slide show ;)  I'm not sure if Peter has finalized the=20
+ballot yet, but there is a write-in space if not.
 
-Sorry to hear that you are not going for re-election. Your input to the
-board has been helpful. Thank you for your service.
-
--- Steve
+-chris
