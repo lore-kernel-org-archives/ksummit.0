@@ -1,21 +1,24 @@
-Return-Path: <prvs=485699d0b6=clm@fb.com>
-From: Chris Mason <clm@fb.com>
-To: Jani Nikula <jani.nikula@intel.com>
-Date: Wed, 14 Nov 2018 17:27:02 +0000
-Message-ID: <CB581CD6-5D1C-4C20-9653-055829656444@fb.com>
-References: <c8a1dea8-5902-3fff-53df-6b02604b8b88@zytor.com>
-	<CAA93jw7J3F9c=7wntznCt0t-tf2tiF60GF=-WfKFBwbXdWLzJA@mail.gmail.com>
-	<875zx0j6ek.fsf@intel.com>
-In-Reply-To: <875zx0j6ek.fsf@intel.com>
-Content-Language: en-US
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Return-Path: <broonie@sirena.org.uk>
+Date: Wed, 14 Nov 2018 09:28:55 -0800
+From: Mark Brown <broonie@kernel.org>
+To: "Theodore Y. Ts'o" <tytso@mit.edu>
+Message-ID: <20181114172855.GW2089@sirena.org.uk>
+References: <1541721842.3774.2.camel@HansenPartnership.com>
+	<35402D8E-0294-4E34-BE8B-22BCBC20BF66@fb.com>
+	<c6a1629f-df14-6e02-c995-f99a1f691c6a@gmail.com>
+	<0F1E6845-9F6D-46E2-BB52-8B0C2D8103C6@fb.com>
+	<3b861369-0fc0-c746-4b1b-047ce903cc30@gmail.com>
+	<20181111055728.GC12818@thunk.org>
 MIME-Version: 1.0
-Cc: Tech Board Discuss <tech-board-discuss@lists.linux-foundation.org>, Kernel
-	Summit Discussions <ksummit-discuss@lists.linux-foundation.org>,
-	Dave Taht <dave.taht@gmail.com>
-Subject: Re: [Ksummit-discuss] [Tech-board-discuss] Results: Linux
- Foundation Technical Board Election 2018
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="UJXkkAiHhNbsaLO7"
+Content-Disposition: inline
+In-Reply-To: <20181111055728.GC12818@thunk.org>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Tech Board Discuss <Tech-board-discuss@lists.linux-foundation.org>,
+	"ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [Tech-board-discuss]  TAB non-nomination
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -26,23 +29,49 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
+--UJXkkAiHhNbsaLO7
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 14 Nov 2018, at 2:32, Jani Nikula wrote:
+On Sun, Nov 11, 2018 at 12:57:28AM -0500, Theodore Y. Ts'o wrote:
 
-> On Tue, 13 Nov 2018, Dave Taht <dave.taht@gmail.com> wrote:
->> I just wanted to thank everyone for a pretty well reasoned,=20
->> democratic
->> and *open* election process.
->
-> To play the devil's advocate, the TAB election process is democratic=20
-> and
-> open to anyone travelling to the conference and handing out a few
-> hundred dollars to the Linux Foundation. It's only some approximation=20
-> of
-> democratic and open, and we should not be complacent about that.
+> There seems to be an assumption that a open, public discussion will
+> always give you the best review.  I don't think that's necessarily
+> true.  It can often give you a very biased sample from the poeple who
+> are most stridently on one side of the debate or the other, as well as
+> being biased towards those who believe in the "last post wins" style
+> of debate, since they end up speaking most loudly and posting most
+> frequently and most aggressively.
 
-I do understand your larger point, but it's important to remember the=20
-Linux Foundation maintains a travel fund to help bring community members=20
-to the conferences.
+> I found it very interesting that by explicitly asking the top ranked
+> developers by git statistics for comments and for their sign-off on
+> the various update patches, we got a much broader read on what people
+> thought, and received some very thoughtful comments --- from people
+> who had *not* engaged on the public threads.
 
--chris
+One thing that other organisations that do this sort of consultation
+process (which is very good and useful) do which didn't seem to happen
+here is that they announce that this is going on.  This is useful
+because it helps people know what's going on and can help make the
+public discussion a bit more useful as a result.  If, as is common,
+there's also some way for people to push in comments those can turn up
+useful feedback that people you wouldn't have thought to ask aren't
+comfortable providing in public though you'll also tend to get a lot of
+noise in there as well if it's a contentious area so that's hard work.
+
+--UJXkkAiHhNbsaLO7
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlvsW1QACgkQJNaLcl1U
+h9Co9wf+M7oqFkjyCP4ZPxEX945oAkFRxdzG6tSGTbcdf1/0HQ1u2jTY3brX7k6M
+HV8hR7L5EAKB2K9MgKIMf0+2qRAsrcU2XM0iwQdSwUc+hYUzZCk41UiWuYbvW8Et
+drntJvfx7grs84Jg33Xc6loHzJRDszD+SdIBqfezxc7nlQ+PRB5cPOszleo8Wr9U
+M5q/sh9NAzGpIWZuI22perCbSbMCSeNxMhuyAD5kx5nkDLXkNCTpr0keuorYSY0l
+L/LOmnjKbmzWuhjhBcw2VBn6xUcw3NwDAm2VRx7uwJaY8Aa5z3uBLVxfevsdzxS2
+TZaQZTFh/bx81mm75P9NdNL4OJK/QA==
+=skYt
+-----END PGP SIGNATURE-----
+
+--UJXkkAiHhNbsaLO7--
