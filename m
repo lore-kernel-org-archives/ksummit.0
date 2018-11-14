@@ -1,15 +1,16 @@
-Return-Path: <hpa@zytor.com>
-To: tech-board-discuss@lists.linux-foundation.org
-From: "H. Peter Anvin" <hpa@zytor.com>
-Message-ID: <c8a1dea8-5902-3fff-53df-6b02604b8b88@zytor.com>
-Date: Tue, 13 Nov 2018 18:26:01 -0800
+Return-Path: <dave.taht@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Kernel Summit Discussions <ksummit-discuss@lists.linux-foundation.org>
-Subject: [Ksummit-discuss] Results: Linux Foundation Technical Board
-	Election 2018
+References: <c8a1dea8-5902-3fff-53df-6b02604b8b88@zytor.com>
+In-Reply-To: <c8a1dea8-5902-3fff-53df-6b02604b8b88@zytor.com>
+From: Dave Taht <dave.taht@gmail.com>
+Date: Tue, 13 Nov 2018 19:51:53 -0800
+Message-ID: <CAA93jw7J3F9c=7wntznCt0t-tf2tiF60GF=-WfKFBwbXdWLzJA@mail.gmail.com>
+To: "H. Peter Anvin" <hpa@zytor.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: Tech Board Discuss <tech-board-discuss@lists.linux-foundation.org>,
+	Kernel Summit Discussions <ksummit-discuss@lists.linux-foundation.org>
+Subject: Re: [Ksummit-discuss] [Tech-board-discuss] Results: Linux
+ Foundation Technical Board Election 2018
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -19,23 +20,13 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-The TAB elections are now complete. Thank you to all the candidates for
-putting their names forward, and a big thank you to everyone who helped handle
-the election logistics.
+I just wanted to thank everyone for a pretty well reasoned, democratic
+and *open* election process.
 
-With 95 ballots cast, the top 5 candidates received:
+I'm still burned from what happened with ICANN...
 
-  Chris Mason		67 votes
-  Laura Abbott		62 votes
-  Olof Johansson	53 votes
-  Dan Williams		47 votes
-  Kees Cook		45 votes
+I hope that the TAB continues in its useful role in representing the
+linux community and that 2019 will be a better year. My christmas
+wish:
 
-The next highest voted candidate received 41 votes.
-
-Full results are available on request.
-
-Thanks again to everyone who participated, and congratulations and thank you
-for stepping up to the elected candidates.
-
-	-hpa
+No spectres.
