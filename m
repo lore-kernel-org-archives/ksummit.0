@@ -1,28 +1,25 @@
-Return-Path: <tytso@thunk.org>
+Return-Path: <william.kucharski@oracle.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D5385414
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 405B9A5E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 Nov 2018 19:56:28 +0000 (UTC)
-Received: from imap.thunk.org (imap.thunk.org [74.207.234.97])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7DB8D77E
+	Wed, 14 Nov 2018 22:56:45 +0000 (UTC)
+Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CFE9881B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 Nov 2018 19:56:28 +0000 (UTC)
-Date: Wed, 14 Nov 2018 14:56:25 -0500
-From: "Theodore Y. Ts'o" <tytso@mit.edu>
-To: Boaz Harrosh <boaz@plexistor.com>
-Message-ID: <20181114195625.GE15807@thunk.org>
-References: <823423bc-21f3-7e05-e5f7-a20296974250@plexistor.com>
-	<20181114191413.GD15807@thunk.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20181114191413.GD15807@thunk.org>
-Cc: Megan Phillips <mphillips@linuxfoundation.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TOPIC] ZUFS - Zero Copy User-Mode FileSystem
- - One year Later
+	Wed, 14 Nov 2018 22:56:44 +0000 (UTC)
+Content-Type: text/plain;
+	charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 12.1 \(3445.101.1\))
+From: William Kucharski <william.kucharski@oracle.com>
+In-Reply-To: <CAFhKne8YNpGZbXk-KTN1mA9WBW1=NSVBo7RU0rYX9pbVgfj_Sg@mail.gmail.com>
+Date: Wed, 14 Nov 2018 15:56:37 -0700
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <0AB62846-5A8B-4487-A4F9-1322B2B6E19B@oracle.com>
+References: <CAFhKne8YNpGZbXk-KTN1mA9WBW1=NSVBo7RU0rYX9pbVgfj_Sg@mail.gmail.com>
+To: Matthew Wilcox <willy6545@gmail.com>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TOPIC] XArray
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -32,7 +29,23 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Nov 14, 2018 at 02:14:13PM -0500, Theodore Y. Ts'o wrote:
-> I've scheduled this for Friday, at 9am.
 
-Sorry, I meant *Thursday* at 9am.
+
+> On Nov 13, 2018, at 11:02 AM, Matthew Wilcox <willy6545@gmail.com> =
+wrote:
+>=20
+> Now that the XArray is in, it's time to make use of it. I've got a git =
+tree which converts every current user of the radix tree to the XArray =
+as well as converting some users of the IDA to the XArray.
+>=20
+> The XArray may also be a great replacement for a list_head in your =
+data structure.
+>=20
+> I can also talk about currently inappropriate uses for the XArray and =
+what I might do in future to make the XArray useful for more users.
+
+I hope you'll also cover multi-order usage, e.g. for huge page size =
+support in the page cache.
+
+Thanks!
+    -- Bill=
