@@ -1,27 +1,17 @@
-Return-Path: <linus.walleij@linaro.org>
-Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
-	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 34A5349F
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 Nov 2018 10:03:08 +0000 (UTC)
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
-	[209.85.167.45])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id AC15A13A
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 Nov 2018 10:03:07 +0000 (UTC)
-Received: by mail-lf1-f45.google.com with SMTP id e26so9280831lfc.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 Nov 2018 02:03:07 -0800 (PST)
+Return-Path: <jani.nikula@intel.com>
+From: Jani Nikula <jani.nikula@intel.com>
+To: Dave Taht <dave.taht@gmail.com>, "H. Peter Anvin" <hpa@zytor.com>
+In-Reply-To: <CAA93jw7J3F9c=7wntznCt0t-tf2tiF60GF=-WfKFBwbXdWLzJA@mail.gmail.com>
+References: <c8a1dea8-5902-3fff-53df-6b02604b8b88@zytor.com>
+	<CAA93jw7J3F9c=7wntznCt0t-tf2tiF60GF=-WfKFBwbXdWLzJA@mail.gmail.com>
+Date: Wed, 14 Nov 2018 12:32:51 +0200
+Message-ID: <875zx0j6ek.fsf@intel.com>
 MIME-Version: 1.0
-References: <CAFhKne8YNpGZbXk-KTN1mA9WBW1=NSVBo7RU0rYX9pbVgfj_Sg@mail.gmail.com>
-In-Reply-To: <CAFhKne8YNpGZbXk-KTN1mA9WBW1=NSVBo7RU0rYX9pbVgfj_Sg@mail.gmail.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Wed, 14 Nov 2018 11:02:54 +0100
-Message-ID: <CACRpkdabmP3EhQGiRcg_aJ75U2hpjuLe+uH36i46O+Z=wE2H_Q@mail.gmail.com>
-To: willy6545@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TOPIC] XArray
+Content-Type: text/plain
+Cc: Tech Board Discuss <tech-board-discuss@lists.linux-foundation.org>,
+	Kernel Summit Discussions <ksummit-discuss@lists.linux-foundation.org>
+Subject: Re: [Ksummit-discuss] [Tech-board-discuss] Results: Linux
+	Foundation Technical Board Election 2018
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,21 +21,21 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Nov 13, 2018 at 7:02 PM Matthew Wilcox <willy6545@gmail.com> wrote:
+On Tue, 13 Nov 2018, Dave Taht <dave.taht@gmail.com> wrote:
+> I just wanted to thank everyone for a pretty well reasoned, democratic
+> and *open* election process.
 
-> Now that the XArray is in, it's time to make use of it. I've got a git tree which converts
-> every current user of the radix tree to the XArray as well as converting some
-> users of the IDA to the XArray.
->
-> The XArray may also be a great replacement for a list_head in your data structure.
->
-> I can also talk about currently inappropriate uses for the XArray and what I
-> might do in future to make the XArray useful for more users.
+To play the devil's advocate, the TAB election process is democratic and
+open to anyone travelling to the conference and handing out a few
+hundred dollars to the Linux Foundation. It's only some approximation of
+democratic and open, and we should not be complacent about that.
 
-This sounds like awesome.
+That said, I do applaud all candidates for running, and extend my
+congrats to the elected ones.
 
-I hope there will be an LWN article coming out of this for those of us
-who cannot participate in person.
+BR,
+Jani.
 
-Yours,
-Linus Walleij
+
+-- 
+Jani Nikula, Intel Open Source Graphics Center
