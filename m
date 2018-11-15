@@ -1,28 +1,28 @@
-Return-Path: <julia.lawall@lip6.fr>
+Return-Path: <mchehab@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BE4677A9
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 030818E2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 15 Nov 2018 05:48:49 +0000 (UTC)
-Received: from mail3-relais-sop.national.inria.fr
-	(mail3-relais-sop.national.inria.fr [192.134.164.104])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D231C8B
+	Thu, 15 Nov 2018 05:49:54 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+	[198.137.202.133])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id EC1848B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 15 Nov 2018 05:48:47 +0000 (UTC)
-Date: Wed, 14 Nov 2018 21:48:19 -0800 (PST)
-From: Julia Lawall <julia.lawall@lip6.fr>
+	Thu, 15 Nov 2018 05:49:52 +0000 (UTC)
+Date: Wed, 14 Nov 2018 21:49:22 -0800
+From: Mauro Carvalho Chehab <mchehab@kernel.org>
 To: Dan Williams <dan.j.williams@intel.com>
+Message-ID: <20181114214922.07d31676@silica.lan>
 In-Reply-To: <154225760492.2499188.14152986544451112930.stgit@dwillia2-desk3.amr.corp.intel.com>
-Message-ID: <alpine.DEB.2.21.1811142146230.9620@hadrien>
 References: <154225759358.2499188.15268218778137905050.stgit@dwillia2-desk3.amr.corp.intel.com>
 	<154225760492.2499188.14152986544451112930.stgit@dwillia2-desk3.amr.corp.intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-879360402-1542260907=:9620"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 Cc: ksummit-discuss@lists.linuxfoundation.org, linux-nvdimm@lists.01.org,
 	vishal.l.verma@intel.com, linux-kernel@vger.kernel.org,
 	Steve French <stfrench@microsoft.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Dmitry Vyukov <dvyukov@google.com>, "Tobin C. Harding" <me@tobin.cc>
 Subject: Re: [Ksummit-discuss] [RFC PATCH 2/3] MAINTAINERS,
  Handbook: Subsystem Profile
@@ -35,26 +35,18 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-879360402-1542260907=:9620
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8BIT
-
-
-
-On Wed, 14 Nov 2018, Dan Williams wrote:
+Em Wed, 14 Nov 2018 20:53:25 -0800
+Dan Williams <dan.j.williams@intel.com> escreveu:
 
 > As presented at the 2018 Linux Plumbers conference [1], the Subsystem
 > Profile is proposed as a way to reduce friction between committers and
 > maintainers and perhaps encourage conversations amongst maintainers
 > about best practice policies.
->
+>=20
 > The profile contains short answers to some of the common policy
 > questions a contributor might have, or that a maintainer might consider
 > formalizing. The current list of maintenance policies is:
->
+>=20
 > Overview: General introduction to maintaining the subsystem
 > Core: List of source files considered core
 > Leaf: List of source files that consume core functionality
@@ -64,29 +56,50 @@ On Wed, 14 Nov 2018, Dan Williams wrote:
 > Non-author Ack / Review Tags Required: Patch review economics
 > Test Suite: Pass this suite before requesting inclusion
 > Resubmit Cadence: When to ping the maintainer
+
 > Trusted Reviewers: Help for triaging patches
+
+There is one detail with regards to reviewing process that I'm not sure
+how to express. There are some subsystems with co-maintainers, in the
+sense that all co-maintainers are equally responsible for the subsystem.
+
+There are other cases where there are sub-maintainers. That's, for example,
+the model we use on media. There, we have different sub-maintainers for:
+
+	- V4L2 drivers
+	- Camera Sensors
+	- Remote Controllers
+	- HDMI CEC
+	- DVB
+	- Media Controller
+
+The usual workflow is that they work as both reviewers and committers.
+After they commit a certain amount of patches, they submit for me to
+do a final review. This way, most of media patches have at least two
+SOBs from non-authors.
+
+On this model, a sub-maintainer is more than a trusted reviewer. Not sure
+how to reflect it on this template.
+
+I'll do a better review of the profile when I'll try to write a subsystem
+profile for media.
+
+Regards,
+Mauro
+
 > Time Zone / Office Hours: When might a maintainer be available
 > Checkpatch / Style Cleanups: Policy on pure cleanup patches
 > Off-list review: Request for review gates
 > TODO: Potential development tasks up for grabs, or active focus areas
-
-How about patch subject lines?  What is the formula that should be used to
-transform the name(s) of the affected file(s) into an appropriate suject
-line?
-
-thanks,
-julia
-
-
->
+>=20
 > The goal of the Subsystem Profile is to set expectations for
 > contributors and interim or replacement maintainers for a subsystem.
->
+>=20
 > See Documentation/maintainer/subsystem-profile.rst for more details, and
 > a follow-on example profile for the libnvdimm subsystem.
->
+>=20
 > [1]: https://linuxplumbersconf.org/event/2/contributions/59/
->
+>=20
 > Cc: Jonathan Corbet <corbet@lwn.net>
 > Cc: Thomas Gleixner <tglx@linutronix.de>
 > Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -101,23 +114,26 @@ julia
 > Cc: Dmitry Vyukov <dvyukov@google.com>
 > Signed-off-by: Dan Williams <dan.j.williams@intel.com>
 > ---
->  Documentation/maintainer/index.rst             |    1
->  Documentation/maintainer/subsystem-profile.rst |  145 ++++++++++++++++++++++++
+>  Documentation/maintainer/index.rst             |    1=20
+>  Documentation/maintainer/subsystem-profile.rst |  145 ++++++++++++++++++=
+++++++
 >  MAINTAINERS                                    |    4 +
 >  3 files changed, 150 insertions(+)
 >  create mode 100644 Documentation/maintainer/subsystem-profile.rst
->
-> diff --git a/Documentation/maintainer/index.rst b/Documentation/maintainer/index.rst
+>=20
+> diff --git a/Documentation/maintainer/index.rst b/Documentation/maintaine=
+r/index.rst
 > index 2a14916930cb..1e6b1aaa6024 100644
 > --- a/Documentation/maintainer/index.rst
 > +++ b/Documentation/maintainer/index.rst
 > @@ -11,4 +11,5 @@ additions to this manual.
->
+> =20
 >     configure-git
 >     pull-requests
 > +   subsystem-profile
->
-> diff --git a/Documentation/maintainer/subsystem-profile.rst b/Documentation/maintainer/subsystem-profile.rst
+> =20
+> diff --git a/Documentation/maintainer/subsystem-profile.rst b/Documentati=
+on/maintainer/subsystem-profile.rst
 > new file mode 100644
 > index 000000000000..a74b624e0972
 > --- /dev/null
@@ -126,7 +142,7 @@ julia
 > +.. _subsystemprofile:
 > +
 > +Subsystem Profile
-> +=================
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 > +
 > +The Subsystem Profile is a collection of policy positions that a
 > +maintainer or maintainer team establishes for the their subsystem. While
@@ -149,10 +165,13 @@ julia
 > +--------
 > +In this optional section of the profile provide a free form overview of
 > +the subsystem written as a hand-off document. In other words write a
-> +note to someone that would receive the “keys to the castle” in the event
-> +of extended or unexpected absence. “So, you have recently become the
+> +note to someone that would receive the =E2=80=9Ckeys to the castle=E2=80=
+=9D in the event
+> +of extended or unexpected absence. =E2=80=9CSo, you have recently become=
+ the
 > +maintainer of the XYZ subsystem, condolences, it is a thankless job,
-> +here is the lay of the land.” Details to consider are the extended
+> +here is the lay of the land.=E2=80=9D Details to consider are the extend=
+ed
 > +details that are not included in MAINTAINERS, and not addressed by the
 > +other profile questions below. For example details like, who has access
 > +to the git tree, branches that are pulled into -next, relevant
@@ -174,7 +193,8 @@ julia
 > +Patches or Pull requests
 > +------------------------
 > +Some subsystems allow contributors to send pull requests, most require
-> +mailed patches. State “Patches only”, or “Pull requests accepted”.
+> +mailed patches. State =E2=80=9CPatches only=E2=80=9D, or =E2=80=9CPull r=
+equests accepted=E2=80=9D.
 > +
 > +
 > +Last -rc for new feature submissions
@@ -248,18 +268,22 @@ julia
 > +---------------------------
 > +For subsystems with long standing code bases it is reasonable to decline
 > +to accept pure coding-style fixup patches. This is where you can let
-> +contributors know “Standalone style-cleanups are welcome”,
-> +“Style-cleanups to existing code only welcome with other feature
-> +changes”, or “Standalone style-cleanups to existing code are not
-> +welcome”.
+> +contributors know =E2=80=9CStandalone style-cleanups are welcome=E2=80=
+=9D,
+> +=E2=80=9CStyle-cleanups to existing code only welcome with other feature
+> +changes=E2=80=9D, or =E2=80=9CStandalone style-cleanups to existing code=
+ are not
+> +welcome=E2=80=9D.
 > +
 > +
 > +Off-list review
 > +---------------
 > +A maintainer may optionally require that contributors seek prior review
 > +of patches before initial submission for upstream. For example,
-> +“Developers from organization X, please seek internal review before
-> +requesting upstream review”. This policy identifies occasions where a
+> +=E2=80=9CDevelopers from organization X, please seek internal review bef=
+ore
+> +requesting upstream review=E2=80=9D. This policy identifies occasions wh=
+ere a
 > +maintainer wants to reflect some of the review load back to an
 > +organization.
 > +
@@ -283,10 +307,14 @@ julia
 >  	F: Files and directories with wildcard patterns.
 >  	   A trailing slash includes all files and subdirectory files.
 >  	   F:	drivers/net/	all files in and below drivers/net
->
+>=20
 > _______________________________________________
 > Ksummit-discuss mailing list
 > Ksummit-discuss@lists.linuxfoundation.org
 > https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
->
---8323329-879360402-1542260907=:9620--
+
+
+
+
+Cheers,
+Mauro
