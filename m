@@ -1,36 +1,34 @@
 Return-Path: <geert.uytterhoeven@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A2FBBC9D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4C22E8A5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 15 Nov 2018 07:59:56 +0000 (UTC)
+	Thu, 15 Nov 2018 08:03:24 +0000 (UTC)
 Received: from mail-vs1-f66.google.com (mail-vs1-f66.google.com
 	[209.85.217.66])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2C0C8196
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D77A175B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 15 Nov 2018 07:59:56 +0000 (UTC)
-Received: by mail-vs1-f66.google.com with SMTP id v10so3769502vsv.12
+	Thu, 15 Nov 2018 08:03:23 +0000 (UTC)
+Received: by mail-vs1-f66.google.com with SMTP id p193so10828463vsd.7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 14 Nov 2018 23:59:56 -0800 (PST)
+	Thu, 15 Nov 2018 00:03:23 -0800 (PST)
 MIME-Version: 1.0
 References: <154225759358.2499188.15268218778137905050.stgit@dwillia2-desk3.amr.corp.intel.com>
-	<154225760492.2499188.14152986544451112930.stgit@dwillia2-desk3.amr.corp.intel.com>
-	<alpine.DEB.2.21.1811142146230.9620@hadrien>
-In-Reply-To: <alpine.DEB.2.21.1811142146230.9620@hadrien>
+	<154225761038.2499188.1270468803677883744.stgit@dwillia2-desk3.amr.corp.intel.com>
+In-Reply-To: <154225761038.2499188.1270468803677883744.stgit@dwillia2-desk3.amr.corp.intel.com>
 From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 15 Nov 2018 08:59:43 +0100
-Message-ID: <CAMuHMdVmvCOX6gF0BskQ1NBUpdMZHSBQXpxkx085B9ZKGm0wiA@mail.gmail.com>
-To: Julia Lawall <julia.lawall@lip6.fr>
+Date: Thu, 15 Nov 2018 09:03:11 +0100
+Message-ID: <CAMuHMdVOJsM=66RrnbOzVthsT9=dFRQtL2rv99tCPC02M=hiXw@mail.gmail.com>
+To: Dan Williams <dan.j.williams@intel.com>
 Content-Type: text/plain; charset="UTF-8"
-Cc: ksummit-discuss@lists.linuxfoundation.org,
+Cc: Dave Jiang <dave.jiang@intel.com>,
+	ksummit-discuss@lists.linuxfoundation.org,
 	"linux-nvdimm@lists.01.org" <linux-nvdimm@lists.01.org>,
 	vishal.l.verma@intel.com,
 	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Dmitry Vyukov <dvyukov@google.com>, Greg KH <gregkh@linuxfoundation.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	stfrench@microsoft.com, "Tobin C. Harding" <me@tobin.cc>
-Subject: Re: [Ksummit-discuss] [RFC PATCH 2/3] MAINTAINERS,
- Handbook: Subsystem Profile
+	zwisler@kernel.org
+Subject: Re: [Ksummit-discuss] [RFC PATCH 3/3] libnvdimm,
+ MAINTAINERS: Subsystem Profile
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,41 +38,39 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Hi Julia,
+Hi Dan,
 
-On Thu, Nov 15, 2018 at 6:48 AM Julia Lawall <julia.lawall@lip6.fr> wrote:
-> On Wed, 14 Nov 2018, Dan Williams wrote:
-> > As presented at the 2018 Linux Plumbers conference [1], the Subsystem
-> > Profile is proposed as a way to reduce friction between committers and
-> > maintainers and perhaps encourage conversations amongst maintainers
-> > about best practice policies.
-> >
-> > The profile contains short answers to some of the common policy
-> > questions a contributor might have, or that a maintainer might consider
-> > formalizing. The current list of maintenance policies is:
-> >
-> > Overview: General introduction to maintaining the subsystem
-> > Core: List of source files considered core
-> > Leaf: List of source files that consume core functionality
-> > Patches or Pull requests: Simple statement of expected submission format
-> > Last -rc for new feature submissions: Expected lead time for submissions
-> > Last -rc to merge features: Deadline for merge decisions
-> > Non-author Ack / Review Tags Required: Patch review economics
-> > Test Suite: Pass this suite before requesting inclusion
-> > Resubmit Cadence: When to ping the maintainer
-> > Trusted Reviewers: Help for triaging patches
-> > Time Zone / Office Hours: When might a maintainer be available
-> > Checkpatch / Style Cleanups: Policy on pure cleanup patches
-> > Off-list review: Request for review gates
-> > TODO: Potential development tasks up for grabs, or active focus areas
+On Thu, Nov 15, 2018 at 6:06 AM Dan Williams <dan.j.williams@intel.com> wrote:
+> Document the basic policies of the libnvdimm subsystem and provide a
+> first example of a Subsystem Profile for others to duplicate and edit.
 >
-> How about patch subject lines?  What is the formula that should be used to
-> transform the name(s) of the affected file(s) into an appropriate suject
-> line?
+> Cc: Ross Zwisler <zwisler@kernel.org>
+> Cc: Vishal Verma <vishal.l.verma@intel.com>
+> Cc: Dave Jiang <dave.jiang@intel.com>
+> Signed-off-by: Dan Williams <dan.j.williams@intel.com>
 
-Automating that may be difficult.
-I always use "git log --oneline", and try to derive something sane
-from its output.
+Thanks for your patch!
+
+> --- /dev/null
+> +++ b/Documentation/nvdimm/subsystem-profile.rst
+
+> +Trusted Reviewers
+> +-----------------
+> +Johannes Thumshirn
+> +Toshi Kani
+> +Jeff Moyer
+> +Robert Elliott
+
+Don't you want to add email addresses?
+Only the first one is listed in MAINTAINERS.
+
+> +Time Zone / Office Hours
+> +------------------------
+> +8:00am to 5:00pm Pacific Time Zone
+
+UTC-???
+
+People are not familiar with all time zones.
 
 Gr{oetje,eeting}s,
 
