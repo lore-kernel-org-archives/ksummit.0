@@ -1,33 +1,35 @@
-Return-Path: <Tim.Bird@sony.com>
+Return-Path: <mchehab+samsung@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B8FEEC86
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 38D93E85
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 15 Nov 2018 18:03:58 +0000 (UTC)
-Received: from NAM02-CY1-obe.outbound.protection.outlook.com
-	(mail-eopbgr760103.outbound.protection.outlook.com [40.107.76.103])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 022587C3
+	Thu, 15 Nov 2018 19:09:40 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+	[198.137.202.133])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C7F827C3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 15 Nov 2018 18:03:57 +0000 (UTC)
-From: <Tim.Bird@sony.com>
-To: <jani.nikula@intel.com>, <dan.j.williams@intel.com>,
-	<linux-kernel@vger.kernel.org>
-Date: Thu, 15 Nov 2018 18:03:50 +0000
-Message-ID: <ECADFF3FD767C149AD96A924E7EA6EAF88A40EA1@USCULXMSG01.am.sony.com>
+	Thu, 15 Nov 2018 19:09:39 +0000 (UTC)
+Date: Thu, 15 Nov 2018 11:09:34 -0800
+From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+To: Leon Romanovsky <leon@kernel.org>
+Message-ID: <20181115110919.46978343@silica.lan>
+In-Reply-To: <20181115162008.GO3759@mtr-leonro.mtl.com>
 References: <154225759358.2499188.15268218778137905050.stgit@dwillia2-desk3.amr.corp.intel.com>
-	<154225760492.2499188.14152986544451112930.stgit@dwillia2-desk3.amr.corp.intel.com>
-	<87pnv6ivl7.fsf@intel.com>
-In-Reply-To: <87pnv6ivl7.fsf@intel.com>
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	<154225761038.2499188.1270468803677883744.stgit@dwillia2-desk3.amr.corp.intel.com>
+	<CAMuHMdVOJsM=66RrnbOzVthsT9=dFRQtL2rv99tCPC02M=hiXw@mail.gmail.com>
+	<20181115061036.1575223d@silica.lan>
+	<20181115162008.GO3759@mtr-leonro.mtl.com>
 MIME-Version: 1.0
-Cc: ksummit-discuss@lists.linuxfoundation.org, linux-doc@vger.kernel.org,
-	vishal.l.verma@intel.com, linux-nvdimm@lists.01.org,
-	dvyukov@google.com, gregkh@linuxfoundation.org,
-	mchehab@kernel.org, stfrench@microsoft.com, me@tobin.cc
-Subject: Re: [Ksummit-discuss] [RFC PATCH 2/3] MAINTAINERS,
- Handbook: Subsystem Profile
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: Dave Jiang <dave.jiang@intel.com>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	"linux-nvdimm@lists.01.org" <linux-nvdimm@lists.01.org>,
+	vishal.l.verma@intel.com,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	zwisler@kernel.org
+Subject: Re: [Ksummit-discuss] [RFC PATCH 3/3] libnvdimm,
+ MAINTAINERS: Subsystem Profile
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -37,67 +39,49 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogSmFuaSBOaWt1bGEgb24g
-VGh1cnNkYXksIE5vdmVtYmVyIDE1LCAyMDE4IDEyOjM5IEFNIA0KPiANCj4gQ2M6IGxpbnV4LWRv
-Yw0KPiANCj4gT24gV2VkLCAxNCBOb3YgMjAxOCwgRGFuIFdpbGxpYW1zIDxkYW4uai53aWxsaWFt
-c0BpbnRlbC5jb20+IHdyb3RlOg0KPiA+IEFzIHByZXNlbnRlZCBhdCB0aGUgMjAxOCBMaW51eCBQ
-bHVtYmVycyBjb25mZXJlbmNlIFsxXSwgdGhlIFN1YnN5c3RlbQ0KPiA+IFByb2ZpbGUgaXMgcHJv
-cG9zZWQgYXMgYSB3YXkgdG8gcmVkdWNlIGZyaWN0aW9uIGJldHdlZW4gY29tbWl0dGVycyBhbmQN
-Cj4gPiBtYWludGFpbmVycyBhbmQgcGVyaGFwcyBlbmNvdXJhZ2UgY29udmVyc2F0aW9ucyBhbW9u
-Z3N0IG1haW50YWluZXJzDQo+ID4gYWJvdXQgYmVzdCBwcmFjdGljZSBwb2xpY2llcy4NCj4gPg0K
-PiA+IFRoZSBwcm9maWxlIGNvbnRhaW5zIHNob3J0IGFuc3dlcnMgdG8gc29tZSBvZiB0aGUgY29t
-bW9uIHBvbGljeQ0KPiA+IHF1ZXN0aW9ucyBhIGNvbnRyaWJ1dG9yIG1pZ2h0IGhhdmUsIG9yIHRo
-YXQgYSBtYWludGFpbmVyIG1pZ2h0IGNvbnNpZGVyDQo+ID4gZm9ybWFsaXppbmcuIFRoZSBjdXJy
-ZW50IGxpc3Qgb2YgbWFpbnRlbmFuY2UgcG9saWNpZXMgaXM6DQo+ID4NCj4gPiBPdmVydmlldzog
-R2VuZXJhbCBpbnRyb2R1Y3Rpb24gdG8gbWFpbnRhaW5pbmcgdGhlIHN1YnN5c3RlbQ0KPiA+IENv
-cmU6IExpc3Qgb2Ygc291cmNlIGZpbGVzIGNvbnNpZGVyZWQgY29yZQ0KPiA+IExlYWY6IExpc3Qg
-b2Ygc291cmNlIGZpbGVzIHRoYXQgY29uc3VtZSBjb3JlIGZ1bmN0aW9uYWxpdHkNCj4gPiBQYXRj
-aGVzIG9yIFB1bGwgcmVxdWVzdHM6IFNpbXBsZSBzdGF0ZW1lbnQgb2YgZXhwZWN0ZWQgc3VibWlz
-c2lvbiBmb3JtYXQNCj4gPiBMYXN0IC1yYyBmb3IgbmV3IGZlYXR1cmUgc3VibWlzc2lvbnM6IEV4
-cGVjdGVkIGxlYWQgdGltZSBmb3Igc3VibWlzc2lvbnMNCj4gPiBMYXN0IC1yYyB0byBtZXJnZSBm
-ZWF0dXJlczogRGVhZGxpbmUgZm9yIG1lcmdlIGRlY2lzaW9ucw0KPiA+IE5vbi1hdXRob3IgQWNr
-IC8gUmV2aWV3IFRhZ3MgUmVxdWlyZWQ6IFBhdGNoIHJldmlldyBlY29ub21pY3MNCj4gPiBUZXN0
-IFN1aXRlOiBQYXNzIHRoaXMgc3VpdGUgYmVmb3JlIHJlcXVlc3RpbmcgaW5jbHVzaW9uDQo+ID4g
-UmVzdWJtaXQgQ2FkZW5jZTogV2hlbiB0byBwaW5nIHRoZSBtYWludGFpbmVyDQo+ID4gVHJ1c3Rl
-ZCBSZXZpZXdlcnM6IEhlbHAgZm9yIHRyaWFnaW5nIHBhdGNoZXMNCj4gPiBUaW1lIFpvbmUgLyBP
-ZmZpY2UgSG91cnM6IFdoZW4gbWlnaHQgYSBtYWludGFpbmVyIGJlIGF2YWlsYWJsZQ0KPiA+IENo
-ZWNrcGF0Y2ggLyBTdHlsZSBDbGVhbnVwczogUG9saWN5IG9uIHB1cmUgY2xlYW51cCBwYXRjaGVz
-DQo+ID4gT2ZmLWxpc3QgcmV2aWV3OiBSZXF1ZXN0IGZvciByZXZpZXcgZ2F0ZXMNCj4gPiBUT0RP
-OiBQb3RlbnRpYWwgZGV2ZWxvcG1lbnQgdGFza3MgdXAgZm9yIGdyYWJzLCBvciBhY3RpdmUgZm9j
-dXMgYXJlYXMNCj4gPg0KPiA+IFRoZSBnb2FsIG9mIHRoZSBTdWJzeXN0ZW0gUHJvZmlsZSBpcyB0
-byBzZXQgZXhwZWN0YXRpb25zIGZvcg0KPiA+IGNvbnRyaWJ1dG9ycyBhbmQgaW50ZXJpbSBvciBy
-ZXBsYWNlbWVudCBtYWludGFpbmVycyBmb3IgYSBzdWJzeXN0ZW0uDQo+IA0KPiBGaXJzdCBvZiBh
-bGwsIEkgd2VsY29tZSBkb2N1bWVudGF0aW9uIGVmZm9ydHMgbGlrZSB0aGlzLg0KPiANCj4gVGhl
-IGNvdmVyIGxldHRlciBtYWlubHkgZm9jdXNlcyBvbiB0aGUgbWFpbnRhaW5lciBhc3BlY3QsIGFu
-ZCB0aGUNCj4gZG9jdW1lbnRhdGlvbiBpcyBhZGRlZCB0byB0aGUgbWFpbnRhaW5lciBoYW5kYm9v
-ay4gSG93ZXZlciwgaGVyZSB5b3Ugc2V0DQo+IHRoZSBnb2FsIGFzIHNldHRpbmcgZXhwZWN0YXRp
-b25zIGZvciBjb250cmlidXRvcnMuIFRoZSBleGFtcGxlIG52ZGltbQ0KPiBwcm9maWxlIGluIHBh
-dGNoIDMvMyBhZGRyZXNzZXMgdGhlIHJlYWRlciBhcyBhIG5ldyBtYWludGFpbmVyLCB5ZXQgZ29l
-cw0KPiBvbiB0byBzZXQgZXhwZWN0YXRpb25zIGFsc28gZm9yIGNvbnRyaWJ1dG9ycywgbm90IGp1
-c3QgdGhlIG1haW50YWluZXIuDQo+IA0KPiBJIGRvIHRoaW5rIHRoZSBkb2N1bWVudGF0aW9uIGZv
-ciBjb250cmlidXRvcnMgYW5kIG1haW50YWluZXJzL2NvbW1pdHRlcnMNCj4gc2hvdWxkIGJlIGtl
-cHQgc2VwYXJhdGUuIE1vc3QgY29udHJpYnV0b3JzIHdpbGwgbmV2ZXIgY2FyZSBhYm91dCB0aGUN
-Cj4gZG9jdW1lbnRhdGlvbiBmb3IgdGhlIGxhdHRlci4gV2UgaGF2ZSBEb2N1bWVudGF0aW9uL3By
-b2Nlc3MgZm9yDQo+IGNvbnRyaWJ1dG9ycywgYW5kIEkgdGhpbmsgdGhlIGF1ZGllbmNlIG9mIERv
-Y3VtZW50YXRpb24vbWFpbnRhaW5lcg0KPiBzaG91bGQgYmUgc3RyaWN0bHkgbWFpbnRhaW5lcnMu
-DQo+IA0KPiBJbiBzdW1tYXJ5LCBJIGRvIHRoaW5rIHdlIG5lZWQgYWxsIG9mIHRoZSBkb2N1bWVu
-dGF0aW9uIHlvdSBwcm9wb3NlLCBhbmQNCj4gSSBhcHByZWNpYXRlIHlvdSB0YWtpbmcgdGhpcyBv
-biwgYnV0IEkgdGhpbmsgdGhpcyBzaG91bGQgYmUgc3BsaXQgYnkNCj4gYXVkaWVuY2UuDQoNCkkg
-dGhpbmsgdGhlcmUgaXMgYSBzcGVjdHJ1bSBvZiBhdWRpZW5jZXMgZm9yIHRoaXMgZG9jdW1lbnQs
-IGluY2x1ZGluZyBjb250cmlidXRvcnMsDQpyZXZpZXdlcnMsIGFuZCBtYWludGFpbmVycy4gIFNv
-bWUgb2YgdGhpcyBpbmZvcm1hdGlvbiBkb2N1bWVudHMgIHRoZSAic29jaWFsIEFQSSIgYmV0d2Vl
-bg0KdGhlc2UgZ3JvdXBzLiAgU28sIEkgdGhpbmsgaXQncyBoYW5keSB0byBoYXZlIGl0IGluIG9u
-ZSBwbGFjZSwgdmlld2FibGUgYnkgYWxsIHBhcnRpZXMuDQpIb3dldmVyLCBkZXNpZ25hdGluZyBp
-dGVtcyB0aGF0IGFyZSBvZiBzcGVjaWFsIGludGVyZXN0IHRvIG1haW50YWluZXJzLCBvciByZXZp
-ZXdlcnMNCm9yIGNvbnRyaWJ1dG9ycyBpcyB3b3J0aHdoaWxlLiAgTWF5YmUgaGF2aW5nIHNlY3Rp
-b25zIGluIGEgc2luZ2xlIGRvY3VtZW50IHdvdWxkDQpzZXJ2ZSB0aGF0IHB1cnBvc2U/DQoNClB1
-dCBhbm90aGVyIHdheSwgdGhlcmUgYXJlIHBpZWNlcyBvZiBpbmZvcm1hdGlvbiB0aGF0IGFyZSBh
-biBhZ3JlZW1lbnQgYmV0d2Vlbg0KbWFpbnRhaW5lcnMgYW5kIGNvbnRyaWJ1dG9ycywgdGhhdCBi
-b3RoIHNob3VsZCBwcm9iYWJseSBiZSByZW1pbmRlZCBvZi4gIE1haW50YWluaW5nDQpzdWNoIGlu
-Zm9ybWF0aW9uIGluIDIgcGxhY2VzIHdvdWxkIGJlIGEgcGFpbiwgYW5kIHByb25lIHRvIGdldHRp
-bmcgb3V0LW9mLXN5bmMuDQoNCkFsc28sDQpJIHRoaW5rIG92ZXIgdGltZSB3ZSB3YW50IHRvIGNv
-bnRyaWJ1dG9ycyB0byBmZWVsIGNvbWZvcnRhYmxlIGJlY29taW5nIHJldmlld2Vycw0KYW5kIG1h
-aW50YWluZXJzLCBzbyBpdCdzIGdvb2QgZm9yIHRoZW0gdG8gbGVhcm4gYWJvdXQgdGhlIHByb2Nl
-c3NlcyB0aGF0IHRoZQ0KbWFpbnRhaW5lcnMgYXJlIHVzaW5nLiAgSSBmZWFyIGlmIHdlIGtlcHQg
-dGhlIGluZm9ybWF0aW9uDQppbiByb2xlLXNwZWNpZmljIGRvY3VtZW50cywgaXQgd291bGRuJ3Qg
-cHJvbW90ZSB0aGlzIHByb2dyZXNzaW9uLg0KIC0tIFRpbQ0KDQo=
+Em Thu, 15 Nov 2018 18:20:08 +0200
+Leon Romanovsky <leon@kernel.org> escreveu:
+
+> On Thu, Nov 15, 2018 at 06:10:36AM -0800, Mauro Carvalho Chehab wrote:
+> > Em Thu, 15 Nov 2018 09:03:11 +0100
+> > Geert Uytterhoeven <geert@linux-m68k.org> escreveu:
+> >  
+> > > Hi Dan,
+> > >
+> > > On Thu, Nov 15, 2018 at 6:06 AM Dan Williams <dan.j.williams@intel.com> wrote:  
+> > > > Document the basic policies of the libnvdimm subsystem and provide a
+> > > > first example of a Subsystem Profile for others to duplicate and edit.
+> > > >
+> > > > Cc: Ross Zwisler <zwisler@kernel.org>
+> > > > Cc: Vishal Verma <vishal.l.verma@intel.com>
+> > > > Cc: Dave Jiang <dave.jiang@intel.com>
+> > > > Signed-off-by: Dan Williams <dan.j.williams@intel.com>  
+> > >
+> > > Thanks for your patch!
+> > >  
+> > > > --- /dev/null
+> > > > +++ b/Documentation/nvdimm/subsystem-profile.rst  
+> > >  
+> > > > +Trusted Reviewers
+> > > > +-----------------
+> > > > +Johannes Thumshirn
+> > > > +Toshi Kani
+> > > > +Jeff Moyer
+> > > > +Robert Elliott  
+> > >
+> > > Don't you want to add email addresses?
+> > > Only the first one is listed in MAINTAINERS.  
+> >
+> > IMO, it makes sense to have their e-mails here, in a way that it could
+> > easily be parsed by get_maintainers.pl.  
+> 
+> I personally think that list of "trusted reviewers" makes more harm than
+> good. It creates unneeded negative feelings to those who wanted to be in
+> this list, but for any reason they don't. Those reviewers will feel
+> "untrusted".
+
+Yeah, perhaps something like "most active reviewers" would sound
+better.
+
+Cheers,
+Mauro
