@@ -1,30 +1,32 @@
-Return-Path: <julia.lawall@lip6.fr>
+Return-Path: <mchehab@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3FA3DB4C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A327F8F5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 15 Nov 2018 14:51:14 +0000 (UTC)
-Received: from mail2-relais-roc.national.inria.fr
-	(mail2-relais-roc.national.inria.fr [192.134.164.83])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 04A5A843
+	Thu, 15 Nov 2018 15:44:08 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+	[198.137.202.133])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A2E4984A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 15 Nov 2018 14:51:12 +0000 (UTC)
-Date: Thu, 15 Nov 2018 06:51:07 -0800 (PST)
-From: Julia Lawall <julia.lawall@lip6.fr>
-To: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-In-Reply-To: <20181115063040.11eaef93@silica.lan>
-Message-ID: <alpine.DEB.2.21.1811150649470.2371@hadrien>
+	Thu, 15 Nov 2018 15:44:07 +0000 (UTC)
+Date: Thu, 15 Nov 2018 07:44:03 -0800
+From: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Dan Williams <dan.j.williams@intel.com>
+Message-ID: <20181115074403.45d9a16a@silica.lan>
+In-Reply-To: <154225760492.2499188.14152986544451112930.stgit@dwillia2-desk3.amr.corp.intel.com>
 References: <154225759358.2499188.15268218778137905050.stgit@dwillia2-desk3.amr.corp.intel.com>
-	<154225761038.2499188.1270468803677883744.stgit@dwillia2-desk3.amr.corp.intel.com>
-	<20181115063040.11eaef93@silica.lan>
+	<154225760492.2499188.14152986544451112930.stgit@dwillia2-desk3.amr.corp.intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-510466758-1542293471=:2371"
-Cc: Dave Jiang <dave.jiang@intel.com>,
-	ksummit-discuss@lists.linuxfoundation.org, linux-nvdimm@lists.01.org,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	linux-kernel@vger.kernel.org, Ross Zwisler <zwisler@kernel.org>
-Subject: Re: [Ksummit-discuss] [RFC PATCH 3/3] libnvdimm,
- MAINTAINERS: Subsystem Profile
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: ksummit-discuss@lists.linuxfoundation.org, linux-nvdimm@lists.01.org,
+	vishal.l.verma@intel.com, linux-kernel@vger.kernel.org,
+	Steve French <stfrench@microsoft.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org, Dmitry Vyukov <dvyukov@google.com>, "Tobin C.
+	Harding" <me@tobin.cc>
+Subject: Re: [Ksummit-discuss] [RFC PATCH 2/3] MAINTAINERS,
+ Handbook: Subsystem Profile
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,216 +36,304 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Em Wed, 14 Nov 2018 20:53:25 -0800
+Dan Williams <dan.j.williams@intel.com> escreveu:
 
---8323329-510466758-1542293471=:2371
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8BIT
+> As presented at the 2018 Linux Plumbers conference [1], the Subsystem
+> Profile is proposed as a way to reduce friction between committers and
+> maintainers and perhaps encourage conversations amongst maintainers
+> about best practice policies.
+> 
+> The profile contains short answers to some of the common policy
+> questions a contributor might have, or that a maintainer might consider
+> formalizing. The current list of maintenance policies is:
+> 
+> Overview: General introduction to maintaining the subsystem
+> Core: List of source files considered core
+> Leaf: List of source files that consume core functionality
+> Patches or Pull requests: Simple statement of expected submission format
+> Last -rc for new feature submissions: Expected lead time for submissions
+> Last -rc to merge features: Deadline for merge decisions
+> Non-author Ack / Review Tags Required: Patch review economics
+> Test Suite: Pass this suite before requesting inclusion
+> Resubmit Cadence: When to ping the maintainer
+> Trusted Reviewers: Help for triaging patches
+> Time Zone / Office Hours: When might a maintainer be available
+> Checkpatch / Style Cleanups: Policy on pure cleanup patches
+> Off-list review: Request for review gates
+> TODO: Potential development tasks up for grabs, or active focus areas
+> 
+> The goal of the Subsystem Profile is to set expectations for
+> contributors and interim or replacement maintainers for a subsystem.
+> 
+> See Documentation/maintainer/subsystem-profile.rst for more details, and
+> a follow-on example profile for the libnvdimm subsystem.
+> 
+> [1]: https://linuxplumbersconf.org/event/2/contributions/59/
+> 
+> Cc: Jonathan Corbet <corbet@lwn.net>
+> Cc: Thomas Gleixner <tglx@linutronix.de>
+> Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+> Cc: Steve French <stfrench@microsoft.com>
+> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Cc: Linus Torvalds <torvalds@linux-foundation.org>
+> Cc: Tobin C. Harding <me@tobin.cc>
+> Cc: Olof Johansson <olof@lixom.net>
+> Cc: Martin K. Petersen <martin.petersen@oracle.com>
+> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+> Cc: Joe Perches <joe@perches.com>
+> Cc: Dmitry Vyukov <dvyukov@google.com>
+> Signed-off-by: Dan Williams <dan.j.williams@intel.com>
+
+Ok, I sort of followed the proposed model, adding a documentation for
+the media subsystem using the template.
+
+I'm pretty sure this is incomplete and more work would be needed.
+So, for now, this is just an example.
+
+Also, I didn't test building it on Sphinx (nor added any reference for it
+at MAINTAINERS), as my main goal here was to see how the model would fit
+for us.
+
+I noticed a few issues there:
+
+1) Describing the "core" files. The media subsystem is complex: depending on
+the device type, we have different APIs and different cores. So, our core
+is actually a set of different cores. I ended by adding sub-sections.
+
+Also, several things were not described there. For example, we store
+DVB frontend drivers on an specific directory. We have drivers there organized
+by bus type. So, one directory for I2C, one for USB, one for PCI, ...
+
+It should probably make sense to be able to tell about that.
+
+So, I would actually prefer to have, at the profile, a "files" section,
+instead of "core".
+
+2) As I said before, on media, we have sub-maintainers. Not sure how to
+describe them on this template.
+
+3) I noticed one big missing thing there: in the case of media, we are
+responsible also to maintaining media staging drivers, that goes at
+drivers/staging/media. IMO, it would be important to be able to describe
+who maintains staging stuff - e. g. if the subsystem maintainers prefer
+to let staging up to staging maintainers or if they'll maintain themselves.
+
+In the latter, it probably makes sense to describe any specific thing
+related to it (where staging will be at the tree, are there any special
+rules for them?)
+
+Anyway, RFC patch follows.
+
+-
+
+[PATCH] [RFC] Add a system profile description for media subsystem
+
+This RFC aligns with current Dan's proposal for having subsystem
+specific ruleset stored at the Kernel tree.
+
+On this initial RFC, I opted to not add the reviewers e-mail
+(adding just a "<>") as a boilerplate. If we decide keeping emails
+there, I'll add them.
+
+Signed-off-by: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+
+diff --git a/Documentation/media/subsystem-profile.rst b/Documentation/media/subsystem-profile.rst
+new file mode 100644
+index 000000000000..7a5d6f691d05
+--- /dev/null
++++ b/Documentation/media/subsystem-profile.rst
+@@ -0,0 +1,186 @@
++Media Subsystem Profile
++=======================
++
++Overview
++--------
++
++The media subsystem cover support for a variety of devices: stream
++capture, analog and digital TV, cameras, remote controllers, HDMI CEC
++and media pipeline control.
++
++Both our userspace and Kernel APIs are documented and should be kept in
++sync with the API changes. It means that all patches that add new
++features to the subsystem should also bring changes to the corresponding
++API files.
++
++Also, patches for device drivers that changes the Open Firmware/Device
++Tree bindings should be reviewed by the Device Tree maintainers.
++
++Due to the size and wide scope of the media subsystem, our
++maintainership model is to have sub-maintainers that have a broad
++knowledge of an specific aspect of the subsystem. It is a
++sub-maintainers task to review the patches, providing feedback to users
++if the patches are following the subsystem rules and are properly using
++the media internal and external APIs.
++
++We have a set of compliance tools at https://git.linuxtv.org/v4l-utils.git/
++that should be used in order to check if the drivers are properly
++implementing the media APIs.
++
++Patches for the media subsystem should be sent to the media mailing list
++at linux-media@vger.kernel.org as plain text only e-mail. emails with
++HTML will be automacially rejected by the mail server.
++
++Our workflow is heavily based on Patchwork, meaning that, once a patch
++is submitted, it should appear at:
++
++   - https://patchwork.linuxtv.org/project/linux-media/list/
++
++If it doesn't automatically appear there after a few minutes, then
++probably something got wrong on your submission. Please check if the
++email is in plain text only and if your emailer is not mangling with
++whitespaces before complaining or submit it again.
++
++Core
++----
++
++Documentation
+++++++++++++++
++
++F: Documentation/media
++
++Kernelspace API headers
+++++++++++++++++++++++++
++
++F: include/media/*.h
++
++Digital TV Core
+++++++++++++++++
++
++F: drivers/media/dvb-core
++
++HDMI CEC Core
+++++++++++++++
++
++F: drivers/media/cec
++
++Media Controller Core
+++++++++++++++++++++++
++
++F: drivers/media/media-\*.[ch]
++
++Remote Controller Core
++++++++++++++++++++++++
++
++F: drivers/media/rc/rc-core-priv.h
++F: drivers/media/rc/rc-ir-raw.c
++F: drivers/media/rc/rc-main.c
++F: drivers/media/rc/ir\*-decoder.c
++F: drivers/media/rc/lirc_dev.c
++
++Video4linux Core
++++++++++++++++++
++
++F: drivers/media/v4l2-core
++
++Patches or Pull requests
++------------------------
++
++All patches should be submitted via e-mail for review. We use
++pull requests on our workflow between sub-maintainers and the
++maintainer.
++
++
++Last day for new feature submissions
++------------------------------------
++
++Before -rc5
++
++
++Last day to merge features
++--------------------------
++
++Before -rc7
++
++
++Non-author Ack / Review Tags Required
++-------------------------------------
++
++Not required, but desirable
++
++
++Test Suite
++----------
++
++Use the several *-compliance tools that are part of the v4l-utils
++package.
++
++
++Trusted Reviewers
++-----------------
++
++Sub-maintainers
+++++++++++++++++
++
++At the media subsystem, we have a group of senior developers that are
++responsible for doing the code reviews at the drivers (called
++sub-maintainers), and another senior developer responsible for the
++subsystem as a hole. For core changes, whenever possible, multiple
++media (sub-)maintainers do the review.
++
++The sub-maintainers work on specific areas of the subsystem, as
++described below:
++
++- Sensor drivers
++
++  R: Sakari Ailus <>
++
++- V4L2 drivers
++
++  R: Hans Verkuil <>
++
++- Media controller drivers
++
++  R: Laurent Pinchart <>
++
++- HDMI CEC
++
++- Remote Controllers
++
++  R: Sean Young <>
++
++- Digital TV
++
++  R: Michael Krufky <>
++  R: Sean Young <>
++
++
++Resubmit Cadence
++----------------
++
++Provided that your patch is at https://patchwork.linuxtv.org, it should
++be sooner or later handled, so you don't need to re-submit a patch.
++
++Please notice that the media subsystem is a high traffic one, so it
++could take a while for us to be able to review your patches. Feel free
++to ping if you don't get a feedback on a couple of weeks.
++
++Time Zone / Office Hours
++------------------------
++
++Media developers are distributed all around the globe. So, don't assume
++that we're on your time zone. We usually don't work on local holidays or
++at weekends. Please also notice that, during the Kernel merge window,
++we're usually busy ensuring that everything goes smoothly, meaning that
++we usually have a lot of patches waiting for review just after that. So
++you should expect a higher delay during the merge window and one week
++before/after it.
++
++
++Checkpatch / Style cleanups
++---------------------------
++
++Standalone style-cleanups are welcome, but they should be grouped per
++directory. So, for example, if you're doing a cleanup at drivers
++under drivers/media, please send a single patch for all drivers under
++drivers/media/pci, another one for drivers/media/usb and so on.
 
 
 
-On Thu, 15 Nov 2018, Mauro Carvalho Chehab wrote:
 
-> Em Wed, 14 Nov 2018 20:53:30 -0800
-> Dan Williams <dan.j.williams@intel.com> escreveu:
->
-> > Document the basic policies of the libnvdimm subsystem and provide a
-> > first example of a Subsystem Profile for others to duplicate and edit.
-> >
-> > Cc: Ross Zwisler <zwisler@kernel.org>
-> > Cc: Vishal Verma <vishal.l.verma@intel.com>
-> > Cc: Dave Jiang <dave.jiang@intel.com>
-> > Signed-off-by: Dan Williams <dan.j.williams@intel.com>
-> > ---
-> >  Documentation/nvdimm/subsystem-profile.rst |   86 ++++++++++++++++++++++++++++
-> >  MAINTAINERS                                |    4 +
-> >  2 files changed, 90 insertions(+)
-> >  create mode 100644 Documentation/nvdimm/subsystem-profile.rst
-> >
-> > diff --git a/Documentation/nvdimm/subsystem-profile.rst b/Documentation/nvdimm/subsystem-profile.rst
-> > new file mode 100644
-> > index 000000000000..d3428be7528e
-> > --- /dev/null
-> > +++ b/Documentation/nvdimm/subsystem-profile.rst
->
-> Hmm... would it make sense to add a pointer at maintainer/index.rst (or to some
-> other .rst file) for those profiles too?
->
-> > @@ -0,0 +1,86 @@
-> > +LIBNVDIMM Subsystem Profile
-> > +===========================
-> > +
-> > +Overview
-> > +--------
->
-> A minor nitpick here: I would add a blank line after each topic/subtopic.
->
-> On some cases, Sphinx will do wrong without that blank line, and having
-> some places with that extra line and others without it sounds unbalanced
-> on my eyes ;-)
->
-> > +So, you have recently become a maintainer of the LIBNVDIMM subsystem,
-> > +condolences, it is a thankless job, here is the lay of the land. The git
->
-> My understanding that the main focus of this document is to help people to
-> submit patches to the subsystem.
->
-> With that in mind, I would never start the doc talking only to maintainers,
-> as developers will likely just stop reading it at the above paragraph.
 
-This seems like a good idea.  New maintainers will probably be directed to
-this document by existing maintainers, so they will already have some
-context.  On the other hand, developers may interact with it on their own,
-so it is good that they know immediately that they are in the right place.
-
-julia
-
->
-> > +tree, git.kernel.org/pub/scm/linux/kernel/git/nvdimm/nvdimm.git/, is
-> > +writable by all the individuals listed in LIBNVDIMM section of
-> > +MAINTAINERS. Access is granted per the typical kernel.org account
-> > +management policies. Two branches in that tree are regularly pulled into
-> > +-next, libnvdimm-for-next, and libnvdimm-fixes. The submit rate of
-> > +patches is low, usually enough for one person to handle. There is a
-> > +patchwork instance at
-> > +https://patchwork.kernel.org/project/linux-nvdimm/list/, and it
-> > +historically is only used for ingesting patches and collecting
-> > +ack/review tags, i.e. no expectation to update the patch state after it
-> > +has been dispositioned, or merged.
-> > +
-> > +The most sensitive code area is the ACPI DSM (Device Specific Method)
-> > +path. In addition to the general fragility of an ioctl() ABI the ACPI
-> > +DSM scheme allows any vendor to implement any command without any prior
-> > +review by the ACPI committee. For this reason the LIBNVDIMM system seeks
-> > +to constrain the proliferation of vendor commands and at a minimum
-> > +requires any command support to be publicly documented. Over time the
-> > +submission rate of new vendor-specific commands is falling as more
-> > +commands are defined with named methods in the official ACPI
-> > +specification.
->
-> As Jani pointed, all the above stuff is for maintainers, but several other
-> stuff on this document are for developers. The best would likely to have
-> two separate files.
->
-> However, maintaining it on two separate files could be painful. Maybe
-> we could have an specific section, at the end of the document, with
-> maintainers-specific instructions.
->
-> > +
-> > +LIBNVDIMM sits at the intersection of device-drivers, the block-layer,
-> > +core memory-management, and filesystems. Be sure to re-route memory
-> > +management patches to the -mm tree, and otherwise pull-in fs-devel for
-> > +patches that touch anything related to DAX.
->
-> This is for developers, so it sounds OK!
->
-> > +
-> > +Core
-> > +----
-> > +F: drivers/nvdimm/\*_devs.c
-> > +F: drivers/acpi/nfit/\*.[ch]
-> > +
-> > +
-> > +Patches or Pull requests
-> > +------------------------
-> > +Patches only
-> > +
-> > +
-> > +Last day for new feature submissions
-> > +------------------------------------
-> > +Before -rc5
-> > +
-> > +
-> > +Last day to merge features
-> > +--------------------------
-> > +End of last -rc
-> > +
-> > +
-> > +Non-author Ack / Review Tags Required
-> > +-------------------------------------
-> > +Required
-> > +
-> > +
-> > +Test Suite
-> > +----------
-> > +Run ‘make check’ from https://github.com/pmem/ndctl
-> > +
-> > +
-> > +Trusted Reviewers
-> > +-----------------
-> > +Johannes Thumshirn
-> > +Toshi Kani
-> > +Jeff Moyer
-> > +Robert Elliott
->
-> See my other email commenting about that.
->
-> > +
-> > +
-> > +Resubmit Cadence
-> > +----------------
-> > +8 business days
-> > +
-> > +
-> > +Time Zone / Office Hours
-> > +------------------------
-> > +8:00am to 5:00pm Pacific Time Zone
-> > +
-> > +
-> > +Checkpatch / Style cleanups
-> > +---------------------------
-> > +Standalone style-cleanups are welcome.
-> > diff --git a/MAINTAINERS b/MAINTAINERS
-> > index bb4a83a7684d..ba2beedd4605 100644
-> > --- a/MAINTAINERS
-> > +++ b/MAINTAINERS
-> > @@ -8439,6 +8439,7 @@ M:	Dan Williams <dan.j.williams@intel.com>
-> >  M:	Vishal Verma <vishal.l.verma@intel.com>
-> >  M:	Dave Jiang <dave.jiang@intel.com>
-> >  L:	linux-nvdimm@lists.01.org
-> > +P:	Documentation/nvdimm/subsystem-profile.rst
-> >  Q:	https://patchwork.kernel.org/project/linux-nvdimm/list/
-> >  S:	Supported
-> >  F:	drivers/nvdimm/blk.c
-> > @@ -8450,6 +8451,7 @@ M:	Dan Williams <dan.j.williams@intel.com>
-> >  M:	Ross Zwisler <zwisler@kernel.org>
-> >  M:	Dave Jiang <dave.jiang@intel.com>
-> >  L:	linux-nvdimm@lists.01.org
-> > +P:	Documentation/nvdimm/subsystem-profile.rst
-> >  Q:	https://patchwork.kernel.org/project/linux-nvdimm/list/
-> >  S:	Supported
-> >  F:	drivers/nvdimm/btt*
-> > @@ -8460,6 +8462,7 @@ M:	Dan Williams <dan.j.williams@intel.com>
-> >  M:	Vishal Verma <vishal.l.verma@intel.com>
-> >  M:	Dave Jiang <dave.jiang@intel.com>
-> >  L:	linux-nvdimm@lists.01.org
-> > +P:	Documentation/nvdimm/subsystem-profile.rst
-> >  Q:	https://patchwork.kernel.org/project/linux-nvdimm/list/
-> >  S:	Supported
-> >  F:	drivers/nvdimm/pmem*
-> > @@ -8478,6 +8481,7 @@ M:	Ross Zwisler <zwisler@kernel.org>
-> >  M:	Vishal Verma <vishal.l.verma@intel.com>
-> >  M:	Dave Jiang <dave.jiang@intel.com>
-> >  L:	linux-nvdimm@lists.01.org
-> > +P:	Documentation/nvdimm/subsystem-profile.rst
-> >  Q:	https://patchwork.kernel.org/project/linux-nvdimm/list/
-> >  T:	git git://git.kernel.org/pub/scm/linux/kernel/git/nvdimm/nvdimm.git
-> >  S:	Supported
-> >
-> > _______________________________________________
-> > Ksummit-discuss mailing list
-> > Ksummit-discuss@lists.linuxfoundation.org
-> > https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
->
->
->
->
-> Cheers,
-> Mauro
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
->
---8323329-510466758-1542293471=:2371--
+Cheers,
+Mauro
