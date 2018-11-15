@@ -1,34 +1,33 @@
-Return-Path: <julia.lawall@lip6.fr>
+Return-Path: <mchehab+samsung@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 950A578B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id C3E8E927
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 15 Nov 2018 13:48:03 +0000 (UTC)
-Received: from mail2-relais-roc.national.inria.fr
-	(mail2-relais-roc.national.inria.fr [192.134.164.83])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A1713836
+	Thu, 15 Nov 2018 14:10:52 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+	[198.137.202.133])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 45AE7D0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 15 Nov 2018 13:48:02 +0000 (UTC)
-Date: Thu, 15 Nov 2018 05:47:35 -0800 (PST)
-From: Julia Lawall <julia.lawall@lip6.fr>
+	Thu, 15 Nov 2018 14:10:52 +0000 (UTC)
+Date: Thu, 15 Nov 2018 06:10:36 -0800
+From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
 To: Geert Uytterhoeven <geert@linux-m68k.org>
-In-Reply-To: <CAMuHMdVmvCOX6gF0BskQ1NBUpdMZHSBQXpxkx085B9ZKGm0wiA@mail.gmail.com>
-Message-ID: <alpine.DEB.2.21.1811150544090.2354@hadrien>
+Message-ID: <20181115061036.1575223d@silica.lan>
+In-Reply-To: <CAMuHMdVOJsM=66RrnbOzVthsT9=dFRQtL2rv99tCPC02M=hiXw@mail.gmail.com>
 References: <154225759358.2499188.15268218778137905050.stgit@dwillia2-desk3.amr.corp.intel.com>
-	<154225760492.2499188.14152986544451112930.stgit@dwillia2-desk3.amr.corp.intel.com>
-	<alpine.DEB.2.21.1811142146230.9620@hadrien>
-	<CAMuHMdVmvCOX6gF0BskQ1NBUpdMZHSBQXpxkx085B9ZKGm0wiA@mail.gmail.com>
+	<154225761038.2499188.1270468803677883744.stgit@dwillia2-desk3.amr.corp.intel.com>
+	<CAMuHMdVOJsM=66RrnbOzVthsT9=dFRQtL2rv99tCPC02M=hiXw@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
-Cc: ksummit-discuss@lists.linuxfoundation.org,
+Content-Transfer-Encoding: 7bit
+Cc: Dave Jiang <dave.jiang@intel.com>,
+	ksummit-discuss@lists.linuxfoundation.org,
 	"linux-nvdimm@lists.01.org" <linux-nvdimm@lists.01.org>,
 	vishal.l.verma@intel.com,
 	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Dmitry Vyukov <dvyukov@google.com>, Greg KH <gregkh@linuxfoundation.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	stfrench@microsoft.com, "Tobin C. Harding" <me@tobin.cc>
-Subject: Re: [Ksummit-discuss] [RFC PATCH 2/3] MAINTAINERS,
- Handbook: Subsystem Profile
+	zwisler@kernel.org
+Subject: Re: [Ksummit-discuss] [RFC PATCH 3/3] libnvdimm,
+ MAINTAINERS: Subsystem Profile
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,55 +37,61 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+Em Thu, 15 Nov 2018 09:03:11 +0100
+Geert Uytterhoeven <geert@linux-m68k.org> escreveu:
 
-
-On Thu, 15 Nov 2018, Geert Uytterhoeven wrote:
-
-> Hi Julia,
->
-> On Thu, Nov 15, 2018 at 6:48 AM Julia Lawall <julia.lawall@lip6.fr> wrote:
-> > On Wed, 14 Nov 2018, Dan Williams wrote:
-> > > As presented at the 2018 Linux Plumbers conference [1], the Subsystem
-> > > Profile is proposed as a way to reduce friction between committers and
-> > > maintainers and perhaps encourage conversations amongst maintainers
-> > > about best practice policies.
-> > >
-> > > The profile contains short answers to some of the common policy
-> > > questions a contributor might have, or that a maintainer might consider
-> > > formalizing. The current list of maintenance policies is:
-> > >
-> > > Overview: General introduction to maintaining the subsystem
-> > > Core: List of source files considered core
-> > > Leaf: List of source files that consume core functionality
-> > > Patches or Pull requests: Simple statement of expected submission format
-> > > Last -rc for new feature submissions: Expected lead time for submissions
-> > > Last -rc to merge features: Deadline for merge decisions
-> > > Non-author Ack / Review Tags Required: Patch review economics
-> > > Test Suite: Pass this suite before requesting inclusion
-> > > Resubmit Cadence: When to ping the maintainer
-> > > Trusted Reviewers: Help for triaging patches
-> > > Time Zone / Office Hours: When might a maintainer be available
-> > > Checkpatch / Style Cleanups: Policy on pure cleanup patches
-> > > Off-list review: Request for review gates
-> > > TODO: Potential development tasks up for grabs, or active focus areas
+> Hi Dan,
+> 
+> On Thu, Nov 15, 2018 at 6:06 AM Dan Williams <dan.j.williams@intel.com> wrote:
+> > Document the basic policies of the libnvdimm subsystem and provide a
+> > first example of a Subsystem Profile for others to duplicate and edit.
 > >
-> > How about patch subject lines?  What is the formula that should be used to
-> > transform the name(s) of the affected file(s) into an appropriate suject
-> > line?
->
-> Automating that may be difficult.
-> I always use "git log --oneline", and try to derive something sane
-> from its output.
+> > Cc: Ross Zwisler <zwisler@kernel.org>
+> > Cc: Vishal Verma <vishal.l.verma@intel.com>
+> > Cc: Dave Jiang <dave.jiang@intel.com>
+> > Signed-off-by: Dan Williams <dan.j.williams@intel.com>  
+> 
+> Thanks for your patch!
+> 
+> > --- /dev/null
+> > +++ b/Documentation/nvdimm/subsystem-profile.rst  
+> 
+> > +Trusted Reviewers
+> > +-----------------
+> > +Johannes Thumshirn
+> > +Toshi Kani
+> > +Jeff Moyer
+> > +Robert Elliott  
+> 
+> Don't you want to add email addresses?
+> Only the first one is listed in MAINTAINERS.
 
-Yes, I do likewise.  But there may be some subsystems for which it would
-be possible to come up with a more specific policy.  The advantage of what
-is proposed here is that it is not necessary to come up with a single
-formula that works everywhere.  Even a description in English could be
-helpful.
+IMO, it makes sense to have their e-mails here, in a way that it could
+easily be parsed by get_maintainers.pl.
 
-Other subsystem specific properties such as what tree to work on, whether
-to CC stable, ordering of variables or header files, etc could also be
-useful to mention.  Anything that will cause a maintainer to immediately
-reject a patch for syntactic reasons.
+That's said, IMO a given subsystem should either use the R: tag at
+MAINTAINERS or have a list of reviewers or sub-maintainers here, as
+maintaining duplicated information will be painful.
 
-julia
+If we go to this path, we should probably document it at MAINTAINERS
+file.
+
+> 
+> > +Time Zone / Office Hours
+> > +------------------------
+> > +8:00am to 5:00pm Pacific Time Zone  
+> 
+> UTC-???
+> 
+> People are not familiar with all time zones.
+> 
+> Gr{oetje,eeting}s,
+> 
+>                         Geert
+> 
+
+
+
+
+Cheers,
+Mauro
