@@ -1,34 +1,36 @@
-Return-Path: <rdunlap@infradead.org>
+Return-Path: <dan.j.williams@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D62C1892
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3CB79AF8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 Nov 2018 23:29:12 +0000 (UTC)
-Received: from merlin.infradead.org (merlin.infradead.org [205.233.59.134])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 45AE4D0
+	Fri, 16 Nov 2018 23:44:58 +0000 (UTC)
+Received: from mail-ot1-f66.google.com (mail-ot1-f66.google.com
+	[209.85.210.66])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 78447D0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 Nov 2018 23:29:12 +0000 (UTC)
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Dan Williams <dan.j.williams@intel.com>
-References: <154225759358.2499188.15268218778137905050.stgit@dwillia2-desk3.amr.corp.intel.com>
-	<154225760492.2499188.14152986544451112930.stgit@dwillia2-desk3.amr.corp.intel.com>
-	<20181115074403.45d9a16a@silica.lan>
-From: Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <487ebe2d-1feb-298e-ef88-bf4443311cab@infradead.org>
-Date: Fri, 16 Nov 2018 15:28:56 -0800
+	Fri, 16 Nov 2018 23:44:57 +0000 (UTC)
+Received: by mail-ot1-f66.google.com with SMTP id n46so22897808otb.9
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 16 Nov 2018 15:44:57 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20181115074403.45d9a16a@silica.lan>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org, linux-nvdimm@lists.01.org,
-	vishal.l.verma@intel.com, linux-kernel@vger.kernel.org,
-	Steve French <stfrench@microsoft.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org, Dmitry Vyukov <dvyukov@google.com>,
-	"Tobin C. Harding" <me@tobin.cc>
-Subject: Re: [Ksummit-discuss] [RFC PATCH 2/3] MAINTAINERS,
- Handbook: Subsystem Profile
+References: <154225759358.2499188.15268218778137905050.stgit@dwillia2-desk3.amr.corp.intel.com>
+	<154225761038.2499188.1270468803677883744.stgit@dwillia2-desk3.amr.corp.intel.com>
+	<CAMuHMdVOJsM=66RrnbOzVthsT9=dFRQtL2rv99tCPC02M=hiXw@mail.gmail.com>
+	<20181115061036.1575223d@silica.lan>
+	<20181115162008.GO3759@mtr-leonro.mtl.com>
+	<CABVU7+twSz3OZx7PTO+bS-wfLfTTjZVhRAnhgtcs6KWwntattw@mail.gmail.com>
+In-Reply-To: <CABVU7+twSz3OZx7PTO+bS-wfLfTTjZVhRAnhgtcs6KWwntattw@mail.gmail.com>
+From: Dan Williams <dan.j.williams@intel.com>
+Date: Fri, 16 Nov 2018 15:44:45 -0800
+Message-ID: <CAPcyv4hWK+to6vOSfSdeVMDzUutYwg9=XqshSDzaCf0c-u8jLA@mail.gmail.com>
+To: rodrigo.vivi@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
+	linux-nvdimm <linux-nvdimm@lists.01.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	zwisler@kernel.org, mchehab+samsung@kernel.org
+Subject: Re: [Ksummit-discuss] [RFC PATCH 3/3] libnvdimm,
+ MAINTAINERS: Subsystem Profile
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,250 +40,77 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 11/15/18 7:44 AM, Mauro Carvalho Chehab wrote:
-> 
-> Anyway, RFC patch follows.
-> 
-> -
-> 
-> [PATCH] [RFC] Add a system profile description for media subsystem
-> 
-> This RFC aligns with current Dan's proposal for having subsystem
-> specific ruleset stored at the Kernel tree.
-> 
-> On this initial RFC, I opted to not add the reviewers e-mail
-> (adding just a "<>") as a boilerplate. If we decide keeping emails
-> there, I'll add them.
+On Fri, Nov 16, 2018 at 12:37 PM Rodrigo Vivi <rodrigo.vivi@gmail.com> wrote:
+>
+> On Thu, Nov 15, 2018 at 8:38 AM Leon Romanovsky <leon@kernel.org> wrote:
+> >
+> > On Thu, Nov 15, 2018 at 06:10:36AM -0800, Mauro Carvalho Chehab wrote:
+> > > Em Thu, 15 Nov 2018 09:03:11 +0100
+> > > Geert Uytterhoeven <geert@linux-m68k.org> escreveu:
+> > >
+> > > > Hi Dan,
+> > > >
+> > > > On Thu, Nov 15, 2018 at 6:06 AM Dan Williams <dan.j.williams@intel.com> wrote:
+> > > > > Document the basic policies of the libnvdimm subsystem and provide a
+> > > > > first example of a Subsystem Profile for others to duplicate and edit.
+> > > > >
+> > > > > Cc: Ross Zwisler <zwisler@kernel.org>
+> > > > > Cc: Vishal Verma <vishal.l.verma@intel.com>
+> > > > > Cc: Dave Jiang <dave.jiang@intel.com>
+> > > > > Signed-off-by: Dan Williams <dan.j.williams@intel.com>
+> > > >
+> > > > Thanks for your patch!
+> > > >
+> > > > > --- /dev/null
+> > > > > +++ b/Documentation/nvdimm/subsystem-profile.rst
+> > > >
+> > > > > +Trusted Reviewers
+> > > > > +-----------------
+> > > > > +Johannes Thumshirn
+> > > > > +Toshi Kani
+> > > > > +Jeff Moyer
+> > > > > +Robert Elliott
+> > > >
+> > > > Don't you want to add email addresses?
+> > > > Only the first one is listed in MAINTAINERS.
+> > >
+> > > IMO, it makes sense to have their e-mails here, in a way that it could
+> > > easily be parsed by get_maintainers.pl.
+> >
+> > I personally think that list of "trusted reviewers" makes more harm than
+> > good. It creates unneeded negative feelings to those who wanted to be in
+> > this list, but for any reason they don't. Those reviewers will feel
+> > "untrusted".
+>
+> I'd like to +1 on this concern here. Besides leaving all the other
+> people demotivated.
 
-Hi-
-Here are my comments.
+Yes, that's a valid concern, I overlooked that unfortunate interpretation.
 
-Hopefully the email addresses will be added.  Just having names is a
-half-answer for contact info.
+>
+> A small group of trusted reviewers doesn't scale. People will get overloaded.
+> Or you won't be able to enforce that all patches need to get Reviews.
+>
+> Reviews should be coming from everywhere and commiters and maintainers
+> deciding on what to trust or re-review.
+>
+> Also the list is hard to maintain and keep the lists updated.
 
-> 
-> Signed-off-by: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-> 
-> diff --git a/Documentation/media/subsystem-profile.rst b/Documentation/media/subsystem-profile.rst
-> new file mode 100644
-> index 000000000000..7a5d6f691d05
-> --- /dev/null
-> +++ b/Documentation/media/subsystem-profile.rst
-> @@ -0,0 +1,186 @@
-> +Media Subsystem Profile
-> +=======================
-> +
-> +Overview
-> +--------
-> +
-> +The media subsystem cover support for a variety of devices: stream
+I understand the concern, and as I saw feedback come in I realized
+there were more people that I would add to that reviewer list for
+libnvdimm.
 
-                       covers
+Stepping back the end goal is to have an initial list of recommended
+people to follow up with directly to seek a second opinion, or help in
+cases where a contributor otherwise needs some direction / engagement
+that they are not readily receiving from the maintainer. Typically
+someone just lurks on the mailing list for a few weeks to get a feel
+for who the usual suspects are in the subsystem, but for a new
+contributor identifying those individuals may be difficult.
 
-> +capture, analog and digital TV, cameras, remote controllers, HDMI CEC
-> +and media pipeline control.
-> +
-> +Both our userspace and Kernel APIs are documented and should be kept in
-> +sync with the API changes. It means that all patches that add new
-> +features to the subsystem should also bring changes to the corresponding
-> +API files.
-> +
-> +Also, patches for device drivers that changes the Open Firmware/Device
-> +Tree bindings should be reviewed by the Device Tree maintainers.
-> +
-> +Due to the size and wide scope of the media subsystem, our
-> +maintainership model is to have sub-maintainers that have a broad
-> +knowledge of an specific aspect of the subsystem. It is a
-
-             of a specific
-
-> +sub-maintainers task to review the patches, providing feedback to users
-> +if the patches are following the subsystem rules and are properly using
-> +the media internal and external APIs.
-> +
-> +We have a set of compliance tools at https://git.linuxtv.org/v4l-utils.git/
-> +that should be used in order to check if the drivers are properly
-> +implementing the media APIs.
-> +
-> +Patches for the media subsystem should be sent to the media mailing list
-> +at linux-media@vger.kernel.org as plain text only e-mail. emails with
-
-                               e-mail or email?  Be consistent. (more below)
-
-> +HTML will be automacially rejected by the mail server.
-
-                automatically
-
-> +
-> +Our workflow is heavily based on Patchwork, meaning that, once a patch
-> +is submitted, it should appear at:
-> +
-> +   - https://patchwork.linuxtv.org/project/linux-media/list/
-> +
-> +If it doesn't automatically appear there after a few minutes, then
-> +probably something got wrong on your submission. Please check if the
-> +email is in plain text only and if your emailer is not mangling with
-
-email
-
-> +whitespaces before complaining or submit it again.
-> +
-> +Core
-> +----
-> +
-> +Documentation
-> ++++++++++++++
-> +
-> +F: Documentation/media
-> +
-> +Kernelspace API headers
-> ++++++++++++++++++++++++
-> +
-> +F: include/media/*.h
-> +
-> +Digital TV Core
-> ++++++++++++++++
-> +
-> +F: drivers/media/dvb-core
-> +
-> +HDMI CEC Core
-> ++++++++++++++
-> +
-> +F: drivers/media/cec
-> +
-> +Media Controller Core
-> ++++++++++++++++++++++
-> +
-> +F: drivers/media/media-\*.[ch]
-> +
-> +Remote Controller Core
-> +++++++++++++++++++++++
-> +
-> +F: drivers/media/rc/rc-core-priv.h
-> +F: drivers/media/rc/rc-ir-raw.c
-> +F: drivers/media/rc/rc-main.c
-> +F: drivers/media/rc/ir\*-decoder.c
-> +F: drivers/media/rc/lirc_dev.c
-> +
-> +Video4linux Core
-> +++++++++++++++++
-> +
-> +F: drivers/media/v4l2-core
-> +
-> +Patches or Pull requests
-> +------------------------
-> +
-> +All patches should be submitted via e-mail for review. We use
-
-and e-mail
-
-> +pull requests on our workflow between sub-maintainers and the
-> +maintainer.
-> +
-> +
-> +Last day for new feature submissions
-> +------------------------------------
-> +
-> +Before -rc5
-> +
-> +
-> +Last day to merge features
-> +--------------------------
-> +
-> +Before -rc7
-> +
-> +
-> +Non-author Ack / Review Tags Required
-> +-------------------------------------
-> +
-> +Not required, but desirable
-> +
-> +
-> +Test Suite
-> +----------
-> +
-> +Use the several *-compliance tools that are part of the v4l-utils
-> +package.
-> +
-> +
-> +Trusted Reviewers
-> +-----------------
-> +
-> +Sub-maintainers
-> ++++++++++++++++
-> +
-> +At the media subsystem, we have a group of senior developers that are
-> +responsible for doing the code reviews at the drivers (called
-> +sub-maintainers), and another senior developer responsible for the
-> +subsystem as a hole. For core changes, whenever possible, multiple
-
-             as a whole.
-
-> +media (sub-)maintainers do the review.
-> +
-> +The sub-maintainers work on specific areas of the subsystem, as
-> +described below:
-> +
-> +- Sensor drivers
-> +
-> +  R: Sakari Ailus <>
-> +
-> +- V4L2 drivers
-> +
-> +  R: Hans Verkuil <>
-> +
-> +- Media controller drivers
-> +
-> +  R: Laurent Pinchart <>
-> +
-> +- HDMI CEC
-> +
-> +- Remote Controllers
-> +
-> +  R: Sean Young <>
-> +
-> +- Digital TV
-> +
-> +  R: Michael Krufky <>
-> +  R: Sean Young <>
-> +
-> +
-> +Resubmit Cadence
-> +----------------
-> +
-> +Provided that your patch is at https://patchwork.linuxtv.org, it should
-> +be sooner or later handled, so you don't need to re-submit a patch.
-
-Resubmit or re-submit?  Be consistent.
-
-> +
-> +Please notice that the media subsystem is a high traffic one, so it
-> +could take a while for us to be able to review your patches. Feel free
-> +to ping if you don't get a feedback on a couple of weeks.
-
-                                       in a
-
-> +
-> +Time Zone / Office Hours
-> +------------------------
-> +
-> +Media developers are distributed all around the globe. So, don't assume
-> +that we're on your time zone. We usually don't work on local holidays or
-> +at weekends. Please also notice that, during the Kernel merge window,
-> +we're usually busy ensuring that everything goes smoothly, meaning that
-> +we usually have a lot of patches waiting for review just after that. So
-> +you should expect a higher delay during the merge window and one week
-> +before/after it.
-> +
-> +
-> +Checkpatch / Style cleanups
-> +---------------------------
-> +
-> +Standalone style-cleanups are welcome, but they should be grouped per
-> +directory. So, for example, if you're doing a cleanup at drivers
-> +under drivers/media, please send a single patch for all drivers under
-> +drivers/media/pci, another one for drivers/media/usb and so on.
-
-
-> Cheers.- 
-~Randy
+One of the contributing factors of lack of response to a patchset is
+that they are sent with the implicit expectation that the maintainer
+will get to eventually, and typically other people feel content to sit
+back and watch. If instead a contributor sent a direct mail to a
+"trusted reviewer" saying, "Hey, Alice, Bob seems busy can you help me
+out?" that seems more likely to rope in additional review help.
