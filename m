@@ -1,32 +1,35 @@
-Return-Path: <mchehab@kernel.org>
+Return-Path: <jani.nikula@intel.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2C30BBE4
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4572EA5E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 Nov 2018 12:04:48 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C65D47ED
+	Fri, 16 Nov 2018 12:43:35 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D42B9786
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 16 Nov 2018 12:04:46 +0000 (UTC)
-Date: Fri, 16 Nov 2018 04:04:42 -0800
-From: Mauro Carvalho Chehab <mchehab@kernel.org>
-To: Frank Rowand <frowand.list@gmail.com>
-Message-ID: <20181116040442.3a5ee3b9@silica.lan>
-In-Reply-To: <9f6aece0-da64-78b5-0eda-fe039fc1ad09@gmail.com>
+	Fri, 16 Nov 2018 12:43:34 +0000 (UTC)
+From: Jani Nikula <jani.nikula@intel.com>
+To: Julia Lawall <julia.lawall@lip6.fr>,
+	Geert Uytterhoeven <geert@linux-m68k.org>
+In-Reply-To: <alpine.DEB.2.21.1811150544090.2354@hadrien>
 References: <154225759358.2499188.15268218778137905050.stgit@dwillia2-desk3.amr.corp.intel.com>
 	<154225760492.2499188.14152986544451112930.stgit@dwillia2-desk3.amr.corp.intel.com>
-	<9f6aece0-da64-78b5-0eda-fe039fc1ad09@gmail.com>
+	<alpine.DEB.2.21.1811142146230.9620@hadrien>
+	<CAMuHMdVmvCOX6gF0BskQ1NBUpdMZHSBQXpxkx085B9ZKGm0wiA@mail.gmail.com>
+	<alpine.DEB.2.21.1811150544090.2354@hadrien>
+Date: Fri, 16 Nov 2018 14:44:07 +0200
+Message-ID: <878t1tgpk8.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Cc: ksummit-discuss@lists.linuxfoundation.org, linux-nvdimm@lists.01.org,
-	vishal.l.verma@intel.com, linux-kernel@vger.kernel.org,
-	Dmitry Vyukov <dvyukov@google.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Steve French <stfrench@microsoft.com>, "Tobin C. Harding" <me@tobin.cc>
+Content-Type: text/plain
+Cc: ksummit-discuss@lists.linuxfoundation.org,
+	"linux-nvdimm@lists.01.org" <linux-nvdimm@lists.01.org>,
+	vishal.l.verma@intel.com,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	stfrench@microsoft.com, Greg KH <gregkh@linuxfoundation.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Dmitry Vyukov <dvyukov@google.com>, "Tobin C. Harding" <me@tobin.cc>
 Subject: Re: [Ksummit-discuss] [RFC PATCH 2/3] MAINTAINERS,
- Handbook: Subsystem Profile
+	Handbook: Subsystem Profile
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -36,332 +39,49 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Em Thu, 15 Nov 2018 16:11:59 -0800
-Frank Rowand <frowand.list@gmail.com> escreveu:
+On Thu, 15 Nov 2018, Julia Lawall <julia.lawall@lip6.fr> wrote:
+> On Thu, 15 Nov 2018, Geert Uytterhoeven wrote:
+>
+>> Hi Julia,
+>>
+>> On Thu, Nov 15, 2018 at 6:48 AM Julia Lawall <julia.lawall@lip6.fr> wrote:
+>> > How about patch subject lines?  What is the formula that should be used to
+>> > transform the name(s) of the affected file(s) into an appropriate suject
+>> > line?
+>>
+>> Automating that may be difficult.
+>> I always use "git log --oneline", and try to derive something sane
+>> from its output.
+>
+> Yes, I do likewise.  But there may be some subsystems for which it would
+> be possible to come up with a more specific policy.  The advantage of what
+> is proposed here is that it is not necessary to come up with a single
+> formula that works everywhere.  Even a description in English could be
+> helpful.
 
-> On 11/14/18 8:53 PM, Dan Williams wrote:
-> > As presented at the 2018 Linux Plumbers conference [1], the Subsystem
-> > Profile is proposed as a way to reduce friction between committers and
-> > maintainers and perhaps encourage conversations amongst maintainers
-> > about best practice policies. =20
->=20
-> Thanks for working on this.
->=20
->=20
-> > The profile contains short answers to some of the common policy
-> > questions a contributor might have, or that a maintainer might consider
-> > formalizing. The current list of maintenance policies is:
-> >=20
-> > Overview: General introduction to maintaining the subsystem
-> > Core: List of source files considered core
-> > Leaf: List of source files that consume core functionality
-> > Patches or Pull requests: Simple statement of expected submission format
-> > Last -rc for new feature submissions: Expected lead time for submissions
-> > Last -rc to merge features: Deadline for merge decisions
-> > Non-author Ack / Review Tags Required: Patch review economics
-> > Test Suite: Pass this suite before requesting inclusion
-> > Resubmit Cadence: When to ping the maintainer
-> > Trusted Reviewers: Help for triaging patches
-> > Time Zone / Office Hours: When might a maintainer be available
-> > Checkpatch / Style Cleanups: Policy on pure cleanup patches
-> > Off-list review: Request for review gates
-> > TODO: Potential development tasks up for grabs, or active focus areas
-> >=20
-> > The goal of the Subsystem Profile is to set expectations for
-> > contributors and interim or replacement maintainers for a subsystem.
-> >=20
-> > See Documentation/maintainer/subsystem-profile.rst for more details, and
-> > a follow-on example profile for the libnvdimm subsystem.
-> >=20
-> > [1]: https://linuxplumbersconf.org/event/2/contributions/59/
-> >=20
-> > Cc: Jonathan Corbet <corbet@lwn.net>
-> > Cc: Thomas Gleixner <tglx@linutronix.de>
-> > Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-> > Cc: Steve French <stfrench@microsoft.com>
-> > Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> > Cc: Linus Torvalds <torvalds@linux-foundation.org>
-> > Cc: Tobin C. Harding <me@tobin.cc>
-> > Cc: Olof Johansson <olof@lixom.net>
-> > Cc: Martin K. Petersen <martin.petersen@oracle.com>
-> > Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-> > Cc: Joe Perches <joe@perches.com>
-> > Cc: Dmitry Vyukov <dvyukov@google.com>
-> > Signed-off-by: Dan Williams <dan.j.williams@intel.com>
-> > ---
-> >  Documentation/maintainer/index.rst             |    1=20
-> >  Documentation/maintainer/subsystem-profile.rst |  145 ++++++++++++++++=
-++++++++
-> >  MAINTAINERS                                    |    4 +
-> >  3 files changed, 150 insertions(+)
-> >  create mode 100644 Documentation/maintainer/subsystem-profile.rst
-> >=20
-> > diff --git a/Documentation/maintainer/index.rst b/Documentation/maintai=
-ner/index.rst
-> > index 2a14916930cb..1e6b1aaa6024 100644
-> > --- a/Documentation/maintainer/index.rst
-> > +++ b/Documentation/maintainer/index.rst
-> > @@ -11,4 +11,5 @@ additions to this manual.
-> > =20
-> >     configure-git
-> >     pull-requests
-> > +   subsystem-profile
-> > =20
-> > diff --git a/Documentation/maintainer/subsystem-profile.rst b/Documenta=
-tion/maintainer/subsystem-profile.rst
-> > new file mode 100644
-> > index 000000000000..a74b624e0972
-> > --- /dev/null
-> > +++ b/Documentation/maintainer/subsystem-profile.rst
-> > @@ -0,0 +1,145 @@
-> > +.. _subsystemprofile:
-> > +
-> > +Subsystem Profile
-> > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > +
-> > +The Subsystem Profile is a collection of policy positions that a
-> > +maintainer or maintainer team establishes for the their subsystem. Whi=
-le
-> > +there is a wide range of technical nuance on maintaining disparate
-> > +sections of the kernel, the Subsystem Profile documents a known set of
-> > +major process policies that vary between subsystems.  What follows is a
-> > +list of policy questions a maintainer can answer and include a document
-> > +in the kernel, or on an external website. It advertises to other
-> > +maintainers and contributors the local policy of the subsystem. Some
-> > +sections are optional like "Overview", "Off-list review", and "TODO".
-> > +The others are recommended for all subsystems to address, but no secti=
-on
-> > +is mandatory. In addition there are no wrong answers, just document how
-> > +a subsystem typically operates. Note that the profile follows the
-> > +subsystem not the maintainer, i.e. there is no expectation that a
-> > +maintainer of multiple subsystems deploys the same policy across those
-> > +subsystems.
-> > +
-> > +
-> > +Overview
-> > +--------
-> > +In this optional section of the profile provide a free form overview of
-> > +the subsystem written as a hand-off document. In other words write a
-> > +note to someone that would receive the =E2=80=9Ckeys to the castle=E2=
-=80=9D in the event
-> > +of extended or unexpected absence. =E2=80=9CSo, you have recently beco=
-me the
-> > +maintainer of the XYZ subsystem, condolences, it is a thankless job,
-> > +here is the lay of the land.=E2=80=9D Details to consider are the exte=
-nded
-> > +details that are not included in MAINTAINERS, and not addressed by the
-> > +other profile questions below. For example details like, who has access
-> > +to the git tree, branches that are pulled into -next, relevant
-> > +specifications, issue trackers, and sensitive code areas. If available
-> > +the Overview should link to other subsystem documentation that may
-> > +clarify, re-iterate, emphasize / de-emphasize portions of the global
-> > +process documentation for contributors (CodingStyle, SubmittingPatches,
-> > +etc...).
-> > +
-> > +
-> > +Core
-> > +----
-> > +A list of F: tags (as described by MAINTAINERS) listing what the
-> > +maintainer considers to be core files. The review and lead time
-> > +constraints for 'core' code may be stricter given the increased
-> > +sensitivity and risk of change.
-> > +
-> > +
-> > +Patches or Pull requests
-> > +------------------------
-> > +Some subsystems allow contributors to send pull requests, most require
-> > +mailed patches. State =E2=80=9CPatches only=E2=80=9D, or =E2=80=9CPull=
- requests accepted=E2=80=9D. =20
->=20
-> This may create some confusion if only "Pull requests accepted" is the
-> contents of this section.  My understanding has been that all changes
-> should be available on a mail list for review before being accepted
-> by the maintainer, even if eventually the final version of the series
-> that is accepted is applied by the maintainer as a pull instead of
-> via applying patches.
->=20
-> Is my "must appear on a mail list" understanding correct?
+I quickly cooked up this script to produce the top-5 commit prefixes for
+the given files over the arbitrary last 200 commits. It'll give you a
+pretty good idea if you're even close.
 
-I guess this is true on almost all subsystems that accept pull requests.
+---
+#!/bin/sh
+# usage: subject-prefix FILE [...]
+# show top 5 subject prefixes for FILEs
 
-It could not be true if some subsystem moves to Github/Gitlab.
+git log --format=%s -n 200 -- "$@" |\
+	grep -v "^Merge " |\
+	sed 's/\(.*\):.*/\1/' |\
+	sort | uniq -c | sort -nr | sed 's/ *[0-9]\+ //' |\
+	head -n 5
+---
 
-> > +
-> > +
-> > +Last -rc for new feature submissions
-> > +------------------------------------
-> > +New feature submissions targeting the next merge window should have
-> > +their first posting for consideration before this point. Patches that
-> > +are submitted after this point should be clear that they are targeting
-> > +the NEXT+1 merge window, or should come with sufficient justification
-> > +why they should be considered on an expedited schedule. A general
-> > +guideline is to set expectation with contributors that new feature
-> > +submissions should appear before -rc5. The answer may be different for
-> > +'Core:' files, include a second entry prefixed with 'Core:' if so. =20
->=20
-> I would expect the -rc to vary based on the patch series size, complexity,
-> risk, number of revisions that will occur, how controversial, number of
-> -rc releases before Linus chooses to release, etc.  You would need a
-> crystal ball to predict much of this.  I could see being able to provide
-> a good estimate of this value for a relatively simple patch.
+Someone who knows perl could turn that into a checkpatch check: See if
+the patch subject prefix is one of the top-5 for all files changed by
+the patch, and ask the user to double check if it isn't. Or some
+heuristics thereof.
 
-That's only partially true. I mean, the usual flux is to go up to -rc7.
-After that, the final version is usually merged (except when something
-goes wrong).
+BR,
+Jani.
 
-Anyway, I guess nobody would complain if the maintainers do an exception
-here and accept more patches when they know that the last rc version
-won't be -rc7, but, instead, -rc8 or -rc9.
-
-This is a general ruleset that describes the usual behavior, telling the
-developers the expected behavior. If the maintainers can do more on some
-particular development cycle, it should be fine.
-
->=20
-> > +
-> > +
-> > +Last -rc to merge features
-> > +--------------------------
-> > +Indicate to contributors the point at which an as yet un-applied patch
-> > +set will need to wait for the NEXT+1 merge window. Of course there is =
-no
-> > +obligation to ever except any given patchset, but if the review has not
-> > +concluded by this point the expectation the contributor should wait and
-> > +resubmit for the following merge window. The answer may be different f=
-or
-> > +'Core:' files, include a second entry prefixed with 'Core:' if so. =20
->=20
-> Same comment as for the previous section, with the additional complexity
-> that each unique patch series should bake in -next.
->=20
->=20
-> > +
-> > +
-> > +Non-author Ack / Review Tags Required
-> > +------------------------------------- =20
->=20
-> The title of this section seems a bit different than the description
-> below.  A more aligned title would be something like "Maintainer
-> self-commit review requirements".
->=20
->=20
-> > +Let contributors and other maintainers know whether they can expect to
-> > +see the maintainer self-commit patches without 3rd-party review. Some
-> > +subsystem developer communities are so small as to make this requireme=
-nt
-> > +impractical. Others may have been bootstrapped by a submission of
-> > +self-reviewed code at the outset, but have since moved to a
-> > +non-author review-required stance. This section sets expectations on t=
-he
-> > +code-review economics in the subsystem. For example, can a contributor
-> > +trade review of a maintainer's, or other contributor's patches in
-> > +exchange for consideration of their own. =20
->=20
-> Then another section (which is the one I expected when I slightly
-> mis-read the section title) would be: Review Tags Requirements",
-> which would discuss what type of review is expected, encouraged,
-> or required.
->=20
->=20
-> > +
-> > +
-> > +Test Suite
-> > +----------
-> > +Indicate the test suite all patches are expected to pass before being
-> > +submitted for inclusion consideration.
-> > +
-> > +
-> > +Resubmit Cadence
-> > +----------------
-> > +Define a rate at which a contributor should wait to resubmit a patchset
-> > +that has not yet received comments. A general guideline is to try to
-> > +meet a deadline of 1 - 2 weeks to acknowledge starting consideration f=
-or
-> > +a patch set. =20
->=20
-> Or ping instead of resubmitting?  If you resubmit the same series with
-> an unchanged version then comments could be split across multiple
-> email threads.  If you resubmit the same series with a new version
-> number, the same comment split can occur plus it can be confusing
-> that two versions have the same contents.  I suspect that there may be
-> some maintainers who do prefer a resubmit, but that is just wild
-> conjecture on my part.
-
-That depends on how maintainers handle patches. Those subsystems that
-use patchwork (like media) don't really require anyone to resubmit
-patches. They're all stored there at patchwork database.
-
-My workflow is that, if I receive two patches from the same person with
-the same subject, I simply mark the first one as obsoleted, as usually=20
-the second one is a new version, and reviewers should need some
-time to handle it.=20
-
-In other words, re-sending a patch may actually delay its handling, as
-the second version will be later on my input queue, and I'll grant
-additional time for people to review the second version at the community.
-
->=20
->=20
-> > +
-> > +
-> > +Trusted Reviewers
-> > +-----------------
-> > +While a maintainer / maintainer-team is expected to be reviewer of last
-> > +resort the review load is less onerous when distributed amongst
-> > +contributors and or a trusted set of individuals.  This section is
-> > +distinct from the R: tag (Designated Reviewer). Whereas R: identifies
-> > +reviewers that should always be copied on a patch submission, the
-> > +trusted reviewers here are individuals contributors can reach out to if
-> > +a few 'Resubmit Cadence' intervals have gone by without maintainer
-> > +action, or to otherwise consult for advice. =20
->=20
-> This seems redundant with the MAINTAINERS reviewers list.  It seems like
-> the role specified in this section is more of an ombudsman or developer
-> advocate who can assist with the review and/or accept flow if the
-> maintainer is being slow to respond.
-
-Well, on subsystems that have sub-maintainers, there's no way to point to
-it at MAINTAINERS file.
-
-Also, not sure about others, but I usually avoid touching at existing
-MAINTAINERS file entries. This is a file that everyone touches, so it
-has higher chances of conflicts.
-
-Also, at least on media, we have 5 different API sets (digital TV, V4L2, CE=
-C,
-media controller, remote controller). Yet, all drivers are stored at the
-same place (as a single driver may use multiple APIs).
-
-The reviewers for each API set are different. There isn't a good way
-to explain that inside a MAINTANERS file.
-
->=20
->=20
-> > +
-> > +
-> > +Time Zone / Office Hours
-> > +------------------------
-> > +Let contributors know the time of day when one or more maintainers are
-> > +usually actively monitoring the mailing list. =20
->=20
-> I would strike "actively monitoring the mailing list".  To me, it should
-> be what are the hours of the day that the maintainer might happen to poll
-> (or might receive an interrupt) from the appropriate communications
-> channels (could be IRC, could be email, etc).
->=20
-> For my area, I would want to say something like: I tend to be active
-> between 17:00 UTC (18:00 UTC when daylight savings) and 25:00 (26:00),
-> but often will check for urgent or brief items up until 07:00 (08:00).
-> I interact with email via a poll model.  I interact with IRC via a
-> pull model and often overlook IRC activity for multiple days).
-
-Frankly, for media, I don't think that working hours makes sense. Media=20
-(sub-)maintainers are spread around the globe, on different time zones
-(in US, Brazil and Europe). We also have several active developers in
-Japan, so we may end by having some day reviewers/sub-maintainers from
-there.
-
-At max, we can say that we won't warrant to patches on weekends or holidays.
-
-Cheers,
-Mauro
+-- 
+Jani Nikula, Intel Open Source Graphics Center
