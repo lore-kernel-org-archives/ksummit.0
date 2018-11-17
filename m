@@ -1,30 +1,29 @@
-Return-Path: <robherring2@gmail.com>
+Return-Path: <julia.lawall@lip6.fr>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 465C7415
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id ED779516
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 17 Nov 2018 14:12:33 +0000 (UTC)
-Received: from mail-qk1-f195.google.com (mail-qk1-f195.google.com
-	[209.85.222.195])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A91F27C3
+	Sat, 17 Nov 2018 17:03:50 +0000 (UTC)
+Received: from mail3-relais-sop.national.inria.fr
+	(mail3-relais-sop.national.inria.fr [192.134.164.104])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A1CDD6FB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 17 Nov 2018 14:12:32 +0000 (UTC)
-Received: by mail-qk1-f195.google.com with SMTP id q1so42006749qkf.13
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 17 Nov 2018 06:12:32 -0800 (PST)
-MIME-Version: 1.0
+	Sat, 17 Nov 2018 17:03:49 +0000 (UTC)
+Date: Sat, 17 Nov 2018 09:03:46 -0800 (PST)
+From: Julia Lawall <julia.lawall@lip6.fr>
+To: Rob Herring <robherring2@gmail.com>
+In-Reply-To: <CAL_Jsq+4FbB=wj3L67=KEPb_5e8GinMJaXoB2cW6c23yazeNiw@mail.gmail.com>
+Message-ID: <alpine.DEB.2.21.1811170902330.2558@hadrien>
 References: <154225759358.2499188.15268218778137905050.stgit@dwillia2-desk3.amr.corp.intel.com>
 	<154225760492.2499188.14152986544451112930.stgit@dwillia2-desk3.amr.corp.intel.com>
 	<alpine.DEB.2.21.1811142146230.9620@hadrien>
 	<CAMuHMdVmvCOX6gF0BskQ1NBUpdMZHSBQXpxkx085B9ZKGm0wiA@mail.gmail.com>
-	<alpine.DEB.2.21.1811150544090.2354@hadrien> <878t1tgpk8.fsf@intel.com>
+	<alpine.DEB.2.21.1811150544090.2354@hadrien>
+	<878t1tgpk8.fsf@intel.com>
 	<f08820b05467cc95cc195a2639595c0274c95d69.camel@perches.com>
-In-Reply-To: <f08820b05467cc95cc195a2639595c0274c95d69.camel@perches.com>
-From: Rob Herring <robherring2@gmail.com>
-Date: Sat, 17 Nov 2018 08:12:18 -0600
-Message-ID: <CAL_Jsq+4FbB=wj3L67=KEPb_5e8GinMJaXoB2cW6c23yazeNiw@mail.gmail.com>
-To: Joe Perches <joe@perches.com>
-Content-Type: text/plain; charset="UTF-8"
+	<CAL_Jsq+4FbB=wj3L67=KEPb_5e8GinMJaXoB2cW6c23yazeNiw@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Cc: ksummit-discuss@lists.linuxfoundation.org,
 	linux-nvdimm <linux-nvdimm@lists.01.org>, vishal.l.verma@intel.com,
 	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
@@ -42,54 +41,65 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Nov 16, 2018 at 11:57 AM Joe Perches <joe@perches.com> wrote:
->
-> On Fri, 2018-11-16 at 14:44 +0200, Jani Nikula wrote:
-> > I quickly cooked up this script to produce the top-5 commit prefixes for
-> > the given files over the arbitrary last 200 commits. It'll give you a
-> > pretty good idea if you're even close.
+
+
+On Sat, 17 Nov 2018, Rob Herring wrote:
+
+> On Fri, Nov 16, 2018 at 11:57 AM Joe Perches <joe@perches.com> wrote:
 > >
-> > ---
-> > #!/bin/sh
-> > # usage: subject-prefix FILE [...]
-> > # show top 5 subject prefixes for FILEs
+> > On Fri, 2018-11-16 at 14:44 +0200, Jani Nikula wrote:
+> > > I quickly cooked up this script to produce the top-5 commit prefixes for
+> > > the given files over the arbitrary last 200 commits. It'll give you a
+> > > pretty good idea if you're even close.
+> > >
+> > > ---
+> > > #!/bin/sh
+> > > # usage: subject-prefix FILE [...]
+> > > # show top 5 subject prefixes for FILEs
+> > >
+> > > git log --format=%s -n 200 -- "$@" |\
+> > >       grep -v "^Merge " |\
+>
+> --no-merges in git log can replace this line.
+>
+> > >       sed 's/\(.*\):.*/\1/' |\
+> > >       sort | uniq -c | sort -nr | sed 's/ *[0-9]\+ //' |\
+> > >       head -n 5
+> > > ---
+> > >
+> > > Someone who knows perl could turn that into a checkpatch check: See if
+> > > the patch subject prefix is one of the top-5 for all files changed by
+> > > the patch, and ask the user to double check if it isn't. Or some
+> > > heuristics thereof.
 > >
-> > git log --format=%s -n 200 -- "$@" |\
-> >       grep -v "^Merge " |\
+> > This won't work when a patch contains multiple files
+> > from different paths, or even multiple files from a
+> > single driver.
+>
+> Different paths is often, but not always a sign that patches may need
+> to be split up. Maybe that is something checkpatch should point out.
 
---no-merges in git log can replace this line.
+Between v4.0 and v4.19, 18% of commits touch multiple .c files.  35% of
+commits touch multiple files in general.
 
-> >       sed 's/\(.*\):.*/\1/' |\
-> >       sort | uniq -c | sort -nr | sed 's/ *[0-9]\+ //' |\
-> >       head -n 5
-> > ---
+julia
+
+>
+> > Perhaps it's better to use a generic mechanism like
 > >
-> > Someone who knows perl could turn that into a checkpatch check: See if
-> > the patch subject prefix is one of the top-5 for all files changed by
-> > the patch, and ask the user to double check if it isn't. Or some
-> > heuristics thereof.
+> >         basename $(dirname $filename):
+> >
+> > with some exceptions and add an override patch subject
+> > grammar to appropriate various sections of MAINTAINERS.
 >
-> This won't work when a patch contains multiple files
-> from different paths, or even multiple files from a
-> single driver.
-
-Different paths is often, but not always a sign that patches may need
-to be split up. Maybe that is something checkpatch should point out.
-
-> Perhaps it's better to use a generic mechanism like
+> Perhaps just use the script as a starting point to populate
+> MAINTAINERS as it may never be that accurate.
 >
->         basename $(dirname $filename):
+> > I also think it's better to use a separate script like
+> > scripts/spdxcheck.py and tie any necessary checkpatch
+> > use to that script.
 >
-> with some exceptions and add an override patch subject
-> grammar to appropriate various sections of MAINTAINERS.
-
-Perhaps just use the script as a starting point to populate
-MAINTAINERS as it may never be that accurate.
-
-> I also think it's better to use a separate script like
-> scripts/spdxcheck.py and tie any necessary checkpatch
-> use to that script.
-
-Yes, checkpatch is getting pretty unwieldy.
-
-Rob
+> Yes, checkpatch is getting pretty unwieldy.
+>
+> Rob
+>
