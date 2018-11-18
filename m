@@ -1,37 +1,38 @@
-Return-Path: <julia.lawall@lip6.fr>
+Return-Path: <leon@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id ED779516
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3D01D486
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 17 Nov 2018 17:03:50 +0000 (UTC)
-Received: from mail3-relais-sop.national.inria.fr
-	(mail3-relais-sop.national.inria.fr [192.134.164.104])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A1CDD6FB
+	Sun, 18 Nov 2018 07:00:08 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3F2613F7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 17 Nov 2018 17:03:49 +0000 (UTC)
-Date: Sat, 17 Nov 2018 09:03:46 -0800 (PST)
-From: Julia Lawall <julia.lawall@lip6.fr>
-To: Rob Herring <robherring2@gmail.com>
-In-Reply-To: <CAL_Jsq+4FbB=wj3L67=KEPb_5e8GinMJaXoB2cW6c23yazeNiw@mail.gmail.com>
-Message-ID: <alpine.DEB.2.21.1811170902330.2558@hadrien>
+	Sun, 18 Nov 2018 07:00:07 +0000 (UTC)
+Date: Sun, 18 Nov 2018 09:00:03 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+Message-ID: <20181118070003.GF24359@mtr-leonro.mtl.com>
 References: <154225759358.2499188.15268218778137905050.stgit@dwillia2-desk3.amr.corp.intel.com>
-	<154225760492.2499188.14152986544451112930.stgit@dwillia2-desk3.amr.corp.intel.com>
-	<alpine.DEB.2.21.1811142146230.9620@hadrien>
-	<CAMuHMdVmvCOX6gF0BskQ1NBUpdMZHSBQXpxkx085B9ZKGm0wiA@mail.gmail.com>
-	<alpine.DEB.2.21.1811150544090.2354@hadrien>
-	<878t1tgpk8.fsf@intel.com>
-	<f08820b05467cc95cc195a2639595c0274c95d69.camel@perches.com>
-	<CAL_Jsq+4FbB=wj3L67=KEPb_5e8GinMJaXoB2cW6c23yazeNiw@mail.gmail.com>
+	<154225761038.2499188.1270468803677883744.stgit@dwillia2-desk3.amr.corp.intel.com>
+	<CAMuHMdVOJsM=66RrnbOzVthsT9=dFRQtL2rv99tCPC02M=hiXw@mail.gmail.com>
+	<20181115061036.1575223d@silica.lan>
+	<20181115162008.GO3759@mtr-leonro.mtl.com>
+	<20181115110919.46978343@silica.lan>
+	<20181115193520.GA24359@mtr-leonro.mtl.com>
+	<20181116033258.23992cde@silica.lan>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	linux-nvdimm <linux-nvdimm@lists.01.org>, vishal.l.verma@intel.com,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	stfrench@microsoft.com, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Dmitry Vyukov <dvyukov@google.com>, "Tobin C. Harding" <me@tobin.cc>
-Subject: Re: [Ksummit-discuss] [RFC PATCH 2/3] MAINTAINERS,
- Handbook: Subsystem Profile
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="mrJd9p1Ce66CJMxE"
+Content-Disposition: inline
+In-Reply-To: <20181116033258.23992cde@silica.lan>
+Cc: Dave Jiang <dave.jiang@intel.com>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	"linux-nvdimm@lists.01.org" <linux-nvdimm@lists.01.org>,
+	vishal.l.verma@intel.com,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	zwisler@kernel.org
+Subject: Re: [Ksummit-discuss] [RFC PATCH 3/3] libnvdimm,
+ MAINTAINERS: Subsystem Profile
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -42,64 +43,106 @@ List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-disc
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
 
+--mrJd9p1Ce66CJMxE
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Sat, 17 Nov 2018, Rob Herring wrote:
-
-> On Fri, Nov 16, 2018 at 11:57 AM Joe Perches <joe@perches.com> wrote:
-> >
-> > On Fri, 2018-11-16 at 14:44 +0200, Jani Nikula wrote:
-> > > I quickly cooked up this script to produce the top-5 commit prefixes for
-> > > the given files over the arbitrary last 200 commits. It'll give you a
-> > > pretty good idea if you're even close.
+On Fri, Nov 16, 2018 at 03:33:17AM -0800, Mauro Carvalho Chehab wrote:
+> Em Thu, 15 Nov 2018 21:35:20 +0200
+> Leon Romanovsky <leon@kernel.org> escreveu:
+>
+> > On Thu, Nov 15, 2018 at 11:09:34AM -0800, Mauro Carvalho Chehab wrote:
+> > > Em Thu, 15 Nov 2018 18:20:08 +0200
+> > > Leon Romanovsky <leon@kernel.org> escreveu:
 > > >
-> > > ---
-> > > #!/bin/sh
-> > > # usage: subject-prefix FILE [...]
-> > > # show top 5 subject prefixes for FILEs
+> > > > On Thu, Nov 15, 2018 at 06:10:36AM -0800, Mauro Carvalho Chehab wrote:
+> > > > > Em Thu, 15 Nov 2018 09:03:11 +0100
+> > > > > Geert Uytterhoeven <geert@linux-m68k.org> escreveu:
+> > > > >
+> > > > > > Hi Dan,
+> > > > > >
+> > > > > > On Thu, Nov 15, 2018 at 6:06 AM Dan Williams <dan.j.williams@intel.com> wrote:
+> > > > > > > Document the basic policies of the libnvdimm subsystem and provide a
+> > > > > > > first example of a Subsystem Profile for others to duplicate and edit.
+> > > > > > >
+> > > > > > > Cc: Ross Zwisler <zwisler@kernel.org>
+> > > > > > > Cc: Vishal Verma <vishal.l.verma@intel.com>
+> > > > > > > Cc: Dave Jiang <dave.jiang@intel.com>
+> > > > > > > Signed-off-by: Dan Williams <dan.j.williams@intel.com>
+> > > > > >
+> > > > > > Thanks for your patch!
+> > > > > >
+> > > > > > > --- /dev/null
+> > > > > > > +++ b/Documentation/nvdimm/subsystem-profile.rst
+> > > > > >
+> > > > > > > +Trusted Reviewers
+> > > > > > > +-----------------
+> > > > > > > +Johannes Thumshirn
+> > > > > > > +Toshi Kani
+> > > > > > > +Jeff Moyer
+> > > > > > > +Robert Elliott
+> > > > > >
+> > > > > > Don't you want to add email addresses?
+> > > > > > Only the first one is listed in MAINTAINERS.
+> > > > >
+> > > > > IMO, it makes sense to have their e-mails here, in a way that it could
+> > > > > easily be parsed by get_maintainers.pl.
+> > > >
+> > > > I personally think that list of "trusted reviewers" makes more harm than
+> > > > good. It creates unneeded negative feelings to those who wanted to be in
+> > > > this list, but for any reason they don't. Those reviewers will feel
+> > > > "untrusted".
 > > >
-> > > git log --format=%s -n 200 -- "$@" |\
-> > >       grep -v "^Merge " |\
->
-> --no-merges in git log can replace this line.
->
-> > >       sed 's/\(.*\):.*/\1/' |\
-> > >       sort | uniq -c | sort -nr | sed 's/ *[0-9]\+ //' |\
-> > >       head -n 5
-> > > ---
-> > >
-> > > Someone who knows perl could turn that into a checkpatch check: See if
-> > > the patch subject prefix is one of the top-5 for all files changed by
-> > > the patch, and ask the user to double check if it isn't. Or some
-> > > heuristics thereof.
+> > > Yeah, perhaps something like "most active reviewers" would sound
+> > > better.
 > >
-> > This won't work when a patch contains multiple files
-> > from different paths, or even multiple files from a
-> > single driver.
+> > I would recommend to remove this section at all.
+> > New maintainers won't come out of blue, but will be come
+> > from existing community and such individuals for sure will see
+> > and judge by themselves to whom they trust and to whom not.
 >
-> Different paths is often, but not always a sign that patches may need
-> to be split up. Maybe that is something checkpatch should point out.
+> I see your point, but, on the other hand, having a list with the ones
+> that are actively doing reviews helps newcomers.
+>
+> I would keep, but perhaps it makes sense to add some notice about a
+> criteria about how to be included at the "active reviewers" list,
+> (the criteria probably belongs to the subsystem profile), e. g.
+> something like:
+>
+> 	"Active reviewers are developers that contribute with more than 25
+> 	 patches per year and do more than 50 reviews per year on
+> 	 on patches written for drivers that they're not usual contributors"
 
-Between v4.0 and v4.19, 18% of commits touch multiple .c files.  35% of
-commits touch multiple files in general.
+Someone will need to maintain it and it looks to me like over complication.
+I think that get_maintainer.pl already provides at least part of needed
+information, but definitely not in very intuitive way.
 
-julia
+It is worth to document get_maintainers.pl and update it to create the
+list of "trusted reviewers".
 
->
-> > Perhaps it's better to use a generic mechanism like
-> >
-> >         basename $(dirname $filename):
-> >
-> > with some exceptions and add an override patch subject
-> > grammar to appropriate various sections of MAINTAINERS.
->
-> Perhaps just use the script as a starting point to populate
-> MAINTAINERS as it may never be that accurate.
->
-> > I also think it's better to use a separate script like
-> > scripts/spdxcheck.py and tie any necessary checkpatch
-> > use to that script.
->
-> Yes, checkpatch is getting pretty unwieldy.
->
-> Rob
->
+Thanks
+
+> Cheers,
+> Mauro
+
+--mrJd9p1Ce66CJMxE
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAEBAgAGBQJb8Q3zAAoJEORje4g2clin64cQAL+coaR5IJ3eO+Wnix/Y+6/j
+X9tqw0WOHUtG5pUp4cdi5O9fS24qkjq6W46zpb+EqsFB/lgaD6PbDOEDvKvU/Nm6
+nRJu3bWhiDl4hxYY7YNmmqOydh6IvQ+s1CXdC7r3eUFlUWjL90Zhf2BkHWrlJnMp
+KughstVEnfRgoJhZhVlkfquu6kbVVuYRwLGm57rlJYKLZ8dPlUPhFOTGCrIWflq7
+Gj380JQ4O0k88WnvdVpkFEGVYDxZg6dJOIZ4/V+ghDubIQJg0dJnZ/Sb6DgEJ+sB
+ry8yL0LO6Xa0Tyz7OwCLP+n/s1IhOJW44b4mOf0hRtxtrZnTGIBqENTH2H66WNNq
+tT8lTADTep1nqFAf6/hxDZqBwMcrzKM7/4KiAoltPAQaywFEEVQLv9eu+hcc4l2i
+2GEOQMKz3eC4QY0s+I60xMrqy/CsIDp5tDIAWZ4RmiumOiuPIeLo+8RNu4b0l5TV
+ZtpcMac5Sl07SLRupKB++Wa+5HfL8d8sGZZA+eJ8qimiPyDg7sqq0LJm9sZ0YZrC
+z4LNABKfJ1gsDkC2avL9BD2wGfwnKxnkZADvkgOwf5C/PSIczVMcmBrNVzO0OZqw
+QU+2UnRMLXW8vkXrBBrpa9aJu9vxRB70G3+a5hR8X05lstR57eF+nTMYDdfuQP0h
+Vwxu4GiVTV9xNL9vwbnu
+=WMtp
+-----END PGP SIGNATURE-----
+
+--mrJd9p1Ce66CJMxE--
