@@ -1,43 +1,25 @@
-Return-Path: <joe@perches.com>
-Received: from smtp2.linuxfoundation.org (smtp2.linux-foundation.org
-	[172.17.192.36])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 36DC0B08
+Return-Path: <tytso@mit.edu>
+Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
+	[172.17.192.35])
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D8A38A49
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 26 Nov 2018 17:13:29 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0044.hostedemail.com
-	[216.40.44.44])
-	by smtp2.linuxfoundation.org (Postfix) with ESMTPS id 9BDAB1DC9F
+	Mon, 13 May 2019 23:06:48 +0000 (UTC)
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 328E942D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 26 Nov 2018 17:13:28 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
-	[10.5.19.251])
-	by smtpgrave06.hostedemail.com (Postfix) with ESMTP id D6642800AB78
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 26 Nov 2018 15:55:16 +0000 (UTC)
-Message-ID: <52ff06c49ec35599b3c8edf3bd3d1acbb9397c91.camel@perches.com>
-From: Joe Perches <joe@perches.com>
-To: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>, Jani Nikula
-	<jani.nikula@intel.com>
-Date: Mon, 26 Nov 2018 07:55:10 -0800
-In-Reply-To: <20181126091229.04b5dce0@coco.lan>
-References: <154225759358.2499188.15268218778137905050.stgit@dwillia2-desk3.amr.corp.intel.com>
-	<154225761038.2499188.1270468803677883744.stgit@dwillia2-desk3.amr.corp.intel.com>
-	<CAMuHMdVOJsM=66RrnbOzVthsT9=dFRQtL2rv99tCPC02M=hiXw@mail.gmail.com>
-	<20181115061036.1575223d@silica.lan>
-	<20181115162008.GO3759@mtr-leonro.mtl.com>
-	<CABVU7+twSz3OZx7PTO+bS-wfLfTTjZVhRAnhgtcs6KWwntattw@mail.gmail.com>
-	<CAPcyv4hWK+to6vOSfSdeVMDzUutYwg9=XqshSDzaCf0c-u8jLA@mail.gmail.com>
-	<20181118110324.543edbd8@coco.lan> <8736rwgoem.fsf@intel.com>
-	<20181126091229.04b5dce0@coco.lan>
-Content-Type: text/plain; charset="ISO-8859-1"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: zwisler@kernel.org,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
-	linux-nvdimm <linux-nvdimm@lists.01.org>
-Subject: Re: [Ksummit-discuss] [RFC PATCH 3/3] libnvdimm,
- MAINTAINERS: Subsystem Profile
+	Mon, 13 May 2019 23:06:47 +0000 (UTC)
+Date: Mon, 13 May 2019 19:06:43 -0400
+From: "Theodore Ts'o" <tytso@mit.edu>
+To: linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org, linux-block@vger.kernel.org,
+	netdev@vger.kernel.org, ksummit-discuss@lists.linuxfoundation.org
+Message-ID: <20190513230643.GA4347@mit.edu>
+Reply-To: tytso@mit.edu
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Subject: [Ksummit-discuss] Maintainer's / Kernel Summit 2019 planning
+	kick-off
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -47,38 +29,78 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 2018-11-26 at 09:12 -0200, Mauro Carvalho Chehab wrote:
-> Hi Jani,
-> 
-> Em Tue, 20 Nov 2018 10:10:25 +0200
-> Jani Nikula <jani.nikula@intel.com> escreveu:
-> 
-> > On Sun, 18 Nov 2018, Mauro Carvalho Chehab <mchehab+samsung@kernel.org> wrote:
-> > > Hmm.. Perhaps the subsystem profile should point to IRC channels if any?
-> > > Several subsystems use them in order to provide newbies some directions
-> > > and to discuss other development issues.  
-> > 
-> > MAINTAINERS:
-> > 
-> > 	C: URI for chat protocol, server and channel where developers
-> > 	   usually hang out, for example irc://server/channel.
-> > 
-> > Alas very few subsystems have added that.
-> > 
-> > I actually fear very few subsystems will add a subsystem profile for
-> > that matter.
-> 
-> Sorry for a late reply. In the case of the media subsystem, we
-> actually use 2 different channels, one when the matter is related
-> to digital TV (#linuxtv) and another one for the rest (#v4l), both
-> at freenode.
-> 
-> That's something that wouldn't fit well into MAINTAINERS file, as
-> we can't explain what should be used for each.
-> 
-> So, the way it is it won't work well for us.
+[ Feel free to forward this to other Linux kernel mailing lists as
+  appropriate -- Ted ]
 
-So maybe add a comment to both like:
+This year, the Maintainer's and Kernel Summit will be at the Corinthia
+Hotel in Lisbon, Portugal, September 9th -- 12th.  The Kernel Summit
+will be held as a track during the Linux Plumbers Conference
+September 9th -- 11th.  The Maintainer's Summit will be held
+afterwards, on September 12th.
 
-C:	<URI1>		# only for digital tv #linuxtv
-C:	<URI2>		# everything else
+As in previous years, the "Maintainer's Summit" is an invite-only,
+half-day event, where the primary focus will be process issues around
+Linux Kernel Development.  It will be limited to 30 invitees and a
+handful of sponsored attendees.  This makes it smaller than the first
+few kernel summits (which were limited to around 50 attendees).
+
+The "Kernel Summit" is organized as a track which is run in parallel
+with the other tracks at the Linux Plumber's Conference (LPC), and is
+open to all registered attendees of LPC.
+
+Linus has a generated a list of 18 people to use as a core list.  The
+program committee will pick at least ten people from that list, and
+then use the rest of Linus's list as a starting point of people to be
+considered.  People who suggest topics that should be discussed on the
+Maintainer's summit will also be added to the list for consideration.
+To make topic suggestions for the Maintainer's Summit, please send
+e-mail to the ksummit-discuss@lists.linuxfoundation.org list with a
+subject prefix of [MAINTAINERS SUMMIT].
+
+The other job of the program committee will be to organize the program
+for the Kernel Summit.  The goal of the Kernel Summit track will be to
+provide a forum to discuss specific technical issues that would be
+easier to resolve in person than over e-mail.  The program committee
+will also consider "information sharing" topics if they are clearly of
+interest to the wider development community (i.e., advanced training
+in topics that would be useful to kernel developers).
+
+To suggest a topic for the Kernel Summit, please do two things.
+First, please tag your e-mail with [TECH TOPIC].  As before, please
+use a separate e-mail for each topic, and send the topic suggestions
+to the ksummit-discuss list.
+
+Secondly, please create a topic at the Linux Plumbers Conference
+proposal submission site and target it to the Kernel Summit track.
+For your convenience you can use:
+
+	http://bit.ly/lpc19-submit
+
+Please do both steps.  I'll try to notice if someone forgets one or
+the other, but your chances of making your proposal gets the necessary
+attention and consideration by submiting both to the mailing list and
+the web site.
+
+People who submit topic suggestions before May 31st and which are
+accepted, will be given a free admission to the Linux Plumbers
+Conference.
+
+We will reserving roughly half of the Kernel Summit slots for
+last-minute discussions that will be scheduled during the week of
+Plumber's, in an "unconference style".  This allows ideas that come up
+in hallway discussions, and in the LPC miniconferences, to be given
+scheduled, dedicated times for discussion.
+
+If you were not subscribed on to the kernel-discuss mailing list from
+last year (or if you had removed yourself after the kernel summit),
+you can subscribe to the discuss list using mailman:
+
+   https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+
+The program committee this year is composed of the following people:
+
+Greg Kroah-Hartman
+Jens Axboe
+Jon Corbet
+Ted Ts'o
+Thomas Gleixner
