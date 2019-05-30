@@ -1,22 +1,22 @@
 Return-Path: <tytso@mit.edu>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 527453205
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id E3B4B324A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 30 May 2019 06:09:42 +0000 (UTC)
+	Thu, 30 May 2019 06:12:22 +0000 (UTC)
 Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BCBED826
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 72349821
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 30 May 2019 06:09:41 +0000 (UTC)
-Date: Thu, 30 May 2019 02:09:39 -0400
+	Thu, 30 May 2019 06:12:22 +0000 (UTC)
+Date: Thu, 30 May 2019 02:12:11 -0400
 From: "Theodore Ts'o" <tytso@mit.edu>
 To: ksummit-discuss@lists.linuxfoundation.org
-Message-ID: <20190530060939.GA31454@mit.edu>
+Message-ID: <20190530061211.GA31667@mit.edu>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Cc: Tanish Shinde <tanish.shinde2006@gmail.com>
-Subject: [Ksummit-discuss] [TECH TOPIC] Anatomy Of The Linux Kernel
+Cc: Matthew Wilcox <willy@infradead.org>
+Subject: [Ksummit-discuss] [TECH TOPIC] Maple Tree
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -26,7 +26,8 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-From: Tanish Shinde <tanish.shinde2006@gmail.com>
+From: Liam Howlett <Liam.Howlett@Oracle.com>,
+      Matthew Wilcox <willy@infradead.org>
 
 [ Note: The following abstract was submitted via the Linux Plumbers
   Conference website.  Per the instructions that were posted for the
@@ -41,31 +42,26 @@ From: Tanish Shinde <tanish.shinde2006@gmail.com>
   Maintainer's Summit are still welcome, and the deadline has been
   extended to June 3rd. -- Ted ]
 
-The Linux kernel is the core of a large and complex operating system, and while it's huge, it is well organized in terms of subsystems and layers. In this talk, the viewer explores the general structure of the Linux kernel and gets to know its major subsystems and core interfaces.
+The Red-Black tree and Radix tree are used in many places in the
+kernel to store ranges. Both of these trees have drawbacks when used
+for ranges. The Red-Black tree requires writing your own insertion &
+search code. It is also designed with the assumption that memory
+accesses are cheap, which is no longer true. The Radix tree performs
+acceptably well when ranges are aligned to a power of 2, but has awful
+worst-case performance.
 
-In This Talk We Will Discuss The Following Topics
+The Maple tree is a fast, cache efficient tree with a simple API. It
+supports contiguous ranges efficiently, while suffering only minor
+penalties for discontiguous ranges. Single entries are also supported
+as a range of length one.
 
-* The Fundamental Architecture Of Linux
-* System Call Interface & Process Management
-* Memory Management & The Virtual File System
-* Network Stack & Device Drivers
-* Architecture Dependent Code
+The Maple tree can optionally track free ranges to allow for more
+efficient allocation. In order to allow it to be used as the basis for
+the page cache, it will need support for search marks as well as
+handling reclamation of shadow entries. Other potential users of the
+Maple tree want more than the three search marks currently supported
+by the Radix tree.
 
-This Talk Will Take A Look At The More Base and Core Concepts of
-Linux. We Will Also Discuss Conceptual Architecture and Concrete
-Architecture. This Will Also Serve Refresher Course For Linux
-Enthusiasts and Experts Alike.
-
-This Presentation Will Be Presented At Open Source Summit + KubeCon +
-Cloud Native Con China 2019 and the presentation can be found here
--https://drive.google.com/file/d/13N3giY_DJkDVy91nVtMwLiIe8dbUiTgZ/view?usp=sharing
-
-
-My Links
-
-https://www.github.com/tanishshinde
-https://www.tanishshinde.com
-
-The Presentation is For Linux Hobbyists, Enthusiasts, Experts To
-Understand The Core and Basic Concept Of Linux as it is as important
-as advanced plumbing topics presented in the conference
+We want to discuss requirements with potential users of the Maple
+tree, and to present development since the last Plumbers conference
+where the broad outlines of the tree were first presented.
