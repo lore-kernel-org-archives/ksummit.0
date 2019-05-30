@@ -1,23 +1,22 @@
 Return-Path: <tytso@mit.edu>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B4A7631FA
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 527453205
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 30 May 2019 06:07:30 +0000 (UTC)
+	Thu, 30 May 2019 06:09:42 +0000 (UTC)
 Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 33A9887D
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BCBED826
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 30 May 2019 06:07:30 +0000 (UTC)
-Date: Thu, 30 May 2019 02:07:27 -0400
+	Thu, 30 May 2019 06:09:41 +0000 (UTC)
+Date: Thu, 30 May 2019 02:09:39 -0400
 From: "Theodore Ts'o" <tytso@mit.edu>
 To: ksummit-discuss@lists.linuxfoundation.org
-Message-ID: <20190530060727.GA31283@mit.edu>
+Message-ID: <20190530060939.GA31454@mit.edu>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-Cc: Satya Tangirala <satyat@google.com>
-Subject: [Ksummit-discuss] [TECH TOPIC] Inline Encryption Support
+Cc: Tanish Shinde <tanish.shinde2006@gmail.com>
+Subject: [Ksummit-discuss] [TECH TOPIC] Anatomy Of The Linux Kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -27,7 +26,7 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-From: Satya Tangirala <satyat@google.com>
+From: Tanish Shinde <tanish.shinde2006@gmail.com>
 
 [ Note: The following abstract was submitted via the Linux Plumbers
   Conference website.  Per the instructions that were posted for the
@@ -42,27 +41,31 @@ From: Satya Tangirala <satyat@google.com>
   Maintainer's Summit are still welcome, and the deadline has been
   extended to June 3rd. -- Ted ]
 
-Storage hardware with built-in “inline” encryption support is becoming
-increasingly common, especially on mobile SoCs running Android; it's
-also now part of the UFS and eMMC standards. These devices en/decrypt
-data between the application processor and disk without generating
-disk latency or cpu overhead. Inline encryption hardware can be
-programmed to hold multiple encryption keys simultaneously and can be
-dynamically reprogrammed to use any of these programmed encryption
-keys to en/decrypt a particular request. This makes this new class of
-storage ideal for supporting fscrypt (file-based
-encryption). Unfortunately, there isn’t currently a unified approach
-for supporting inline encryption hardware in the Linux kernel.
+The Linux kernel is the core of a large and complex operating system, and while it's huge, it is well organized in terms of subsystems and layers. In this talk, the viewer explores the general structure of the Linux kernel and gets to know its major subsystems and core interfaces.
 
-We’ve sent out an RFC patchset to add support for inline encryption to
-the block subsystem, UFS driver, f2fs, and fscrypt
-(https://www.spinics.net/lists/linux-block/msg40330.html).  We’ll
-discuss our approach including:
+In This Talk We Will Discuss The Following Topics
 
-How the filesystem communicates an encryption key to inline encryption
-hardware for each struct bio it submits.  How to add support for
-inline encryption to storage drivers.  Support for layered devices
-like device mapper.  A software crypto fallback.  How this work can
-make future encryption tasks cleaner - like metadata encryption,
-file-based encryption on removable storage and the possibility of
-unifying how fscrypt, dm-crypt, and eCryptfs implement encryption.
+* The Fundamental Architecture Of Linux
+* System Call Interface & Process Management
+* Memory Management & The Virtual File System
+* Network Stack & Device Drivers
+* Architecture Dependent Code
+
+This Talk Will Take A Look At The More Base and Core Concepts of
+Linux. We Will Also Discuss Conceptual Architecture and Concrete
+Architecture. This Will Also Serve Refresher Course For Linux
+Enthusiasts and Experts Alike.
+
+This Presentation Will Be Presented At Open Source Summit + KubeCon +
+Cloud Native Con China 2019 and the presentation can be found here
+-https://drive.google.com/file/d/13N3giY_DJkDVy91nVtMwLiIe8dbUiTgZ/view?usp=sharing
+
+
+My Links
+
+https://www.github.com/tanishshinde
+https://www.tanishshinde.com
+
+The Presentation is For Linux Hobbyists, Enthusiasts, Experts To
+Understand The Core and Basic Concept Of Linux as it is as important
+as advanced plumbing topics presented in the conference
