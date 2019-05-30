@@ -1,21 +1,22 @@
 Return-Path: <tytso@mit.edu>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A73C031E1
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3616431E7
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 30 May 2019 05:59:51 +0000 (UTC)
+	Thu, 30 May 2019 06:01:14 +0000 (UTC)
 Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7EA3D880
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B5DAD875
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 30 May 2019 05:59:50 +0000 (UTC)
-Date: Thu, 30 May 2019 01:59:47 -0400
+	Thu, 30 May 2019 06:01:13 +0000 (UTC)
+Date: Thu, 30 May 2019 02:01:11 -0400
 From: "Theodore Ts'o" <tytso@mit.edu>
 To: ksummit-discuss@lists.linuxfoundation.org
-Message-ID: <20190530055947.GA29812@mit.edu>
+Message-ID: <20190530060111.GA30403@mit.edu>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: [Ksummit-discuss] [TECH TOPIC] Linux kernel SMB server (CIFSD)
+Subject: [Ksummit-discuss] [TECH TOPIC] UniLinux -- Unikernelized Linux
+	Exploration
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -25,7 +26,7 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-From: Sergey Senozhatsky <sergey.senozhatsky@gmail.com>
+From: Tiejun Chen <tiejunc@vmware.com>
 
 [ Note: The following abstract was submitted via the Linsux Plumbers
   Conference website.  Per the instructions that were posted for the
@@ -40,15 +41,25 @@ From: Sergey Senozhatsky <sergey.senozhatsky@gmail.com>
   Maintainer's Summit are still welcome, and the deadline has been
   extended to June 3rd. -- Ted ]
 
-CIFSD is a new SMB server implementation for the Linux kernel
-(out of tree, as of this moment), intended to be minimalistic,
-yet providing better performance than user-space analogues.
-This talk will briefly introduce CIFSD, its architecture (high
-level) and its main design goals: outline components, their
-responsibilities and communication protocols.
+Unikernel is relatively a novel software technology that links an
+application with OS in the form of a library and packages them into a
+specialized image that facilitates direct deployment on a
+hypervisor. And the reality is that no matter what we are talking the
+cloud infrastructure, or IoT edge systems, etc, we really need this
+across a variety of areas, buy those existing unikernels have yet to
+gain large popularity. So what if we can convert Linux to Unikernel or
+Unikernel-like? Here I'll talk what challenges Unikernels are facing,
+and discuss my proposal of if-how we could convert Linux as Unikernel
+like to make all kernel and user stuff working only kernel mode, how
+to manage interrupt, how to further reduce memory size and footprint,
+how to improve IO performance with light weight network stack, should
+we support multiple processes in some light weight ways, etc. These
+problem could be addressed but also need to further discuss during
+LPC.
 
-The work is still in progress, we are in pretty early stages,
-so in the second part of the talk we will focus on current state
-of affairs and our future development plans - we are looking at
-possibility to merge CIFSD with the upstream Linux kernel,
-sometime in the future.
+In terms of UniLinux, IoT and Serverless could be a valuable candidate
+to make Unikernel succeed. Meantime, it should be a potential vessel
+by replacing container, because compared to traditional container,
+Unikernel is small, fast and more secure as a lightweight VM. So it is
+really worthy fitting Unilinux into a variety of areas like IoT,
+Serverless and so on.
