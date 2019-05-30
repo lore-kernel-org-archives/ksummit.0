@@ -1,24 +1,27 @@
-Return-Path: <tytso@mit.edu>
+Return-Path: <skhan@linuxfoundation.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 41CD73B42
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 09F2115D5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 30 May 2019 13:54:35 +0000 (UTC)
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 514C87D2
+	Thu, 30 May 2019 22:19:23 +0000 (UTC)
+Received: from mail-it1-f169.google.com (mail-it1-f169.google.com
+	[209.85.166.169])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A7CB8821
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 30 May 2019 13:54:33 +0000 (UTC)
-Date: Thu, 30 May 2019 09:54:31 -0400
-From: "Theodore Ts'o" <tytso@mit.edu>
+	Thu, 30 May 2019 22:19:22 +0000 (UTC)
+Received: by mail-it1-f169.google.com with SMTP id u186so12092173ith.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu, 30 May 2019 15:19:22 -0700 (PDT)
 To: ksummit-discuss@lists.linuxfoundation.org
-Message-ID: <20190530135431.GE2751@mit.edu>
-References: <20190530060111.GA30403@mit.edu>
+From: Shuah Khan <skhan@linuxfoundation.org>
+Message-ID: <96c97a27-83a2-b86c-2880-984c9fa6d4b5@linuxfoundation.org>
+Date: Thu, 30 May 2019 16:19:20 -0600
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20190530060111.GA30403@mit.edu>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] UniLinux -- Unikernelized Linux
- Exploration
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Subject: [Ksummit-discuss] [MAINTAINERS SUMMIT] Talking code or talking in
+	code!
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -28,20 +31,23 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, May 30, 2019 at 02:01:11AM -0400, Theodore Ts'o wrote:
-> From: Tiejun Chen <tiejunc@vmware.com>
-> 
-> Unikernel is relatively a novel software technology that links an
-> application with OS in the form of a library and packages them into a
-> specialized image that facilitates direct deployment on a
-> hypervisor....
+We as a community talk code in emails. Do we talk in code at times? How
+effective are we in communicating with each other?
 
-Tiejun, could you give some details regarding how your proposed
-presentation would differ from the one you gave at the OSS NA in Los
-Angelos?
+I would like to propose a topic to explore our communication styles to
+get a better understanding of how effective we are. I am hoping, we
+could become more productive, if we get some insight into whether or not
+we talk in code while we talk code.
 
-https://ossna2017.sched.com/event/BDpy/unikernels-and-explorations-tiejun-chen-vmware
+We could do this by inviting Isabella Ferreira, PhD Student in Computer
+Engineering, Polytechnique Montréal to tell us about Sentimine,
+which is a plugin on top of the cregit platform focused on analyzing
+communication in open source communities. It will include a short survey
+focused on analyzing a few emails for clarity and perception.
 
-Many thanks!
+I participated in one of her previous presentations and found it a
+useful experiment, as it made me stop and think about my understanding
+and perception of interactions.
 
-						- Ted
+thanks,
+-- Shuah
