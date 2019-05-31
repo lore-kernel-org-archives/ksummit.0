@@ -1,29 +1,29 @@
 Return-Path: <willy6545@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 65C7B113A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 04DE61179
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 May 2019 02:42:48 +0000 (UTC)
-Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com
-	[209.85.167.170])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BB0EA6C5
+	Fri, 31 May 2019 02:51:51 +0000 (UTC)
+Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com
+	[209.85.210.50])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1FAE96C5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 May 2019 02:42:47 +0000 (UTC)
-Received: by mail-oi1-f170.google.com with SMTP id 203so6569367oid.13
+	Fri, 31 May 2019 02:51:49 +0000 (UTC)
+Received: by mail-ot1-f50.google.com with SMTP id l17so7763206otq.1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 30 May 2019 19:42:47 -0700 (PDT)
+	Thu, 30 May 2019 19:51:49 -0700 (PDT)
 MIME-Version: 1.0
-References: <96c97a27-83a2-b86c-2880-984c9fa6d4b5@linuxfoundation.org>
-	<20190531021421.GA8123@mit.edu>
-In-Reply-To: <20190531021421.GA8123@mit.edu>
+References: <20190530060552.GA30920@mit.edu>
+In-Reply-To: <20190530060552.GA30920@mit.edu>
 From: Matthew Wilcox <willy6545@gmail.com>
-Date: Thu, 30 May 2019 22:42:34 -0400
-Message-ID: <CAFhKne_20HD6kQqLcPKncFUmbhQbwj-htWeJ8B0oEn-xRnX6Jg@mail.gmail.com>
+Date: Thu, 30 May 2019 22:51:36 -0400
+Message-ID: <CAFhKne9xf-_QbVOkF_qhOBwDX=mn+6BxLBeSTcbxpYUNZERkmQ@mail.gmail.com>
 To: "Theodore Y. Ts'o" <tytso@mit.edu>
-Content-Type: multipart/alternative; boundary="0000000000003f5b2e058a25f898"
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Talking code or talking
-	in code!
+Content-Type: multipart/alternative; boundary="000000000000833d1f058a261897"
+Cc: Uladzislau Rezki <urezki@gmail.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Reworking of KVA allocator in
+ Linux kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,142 +33,98 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---0000000000003f5b2e058a25f898
+--000000000000833d1f058a261897
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-I'd be interested to know how this compares to Dawn Foster's work that was
-presented last year:
-https://ossna18.sched.com/event/FAON/kernel-mailing-list-collaboration-dawn=
--m-foster-the-scale-factory
+Vlad, I was under the impression this work was complete. Are there any
+remaining issues to discuss?
 
-On Thu., May 30, 2019, 22:15 Theodore Ts'o, <tytso@mit.edu> wrote:
+On Thu., May 30, 2019, 02:15 Theodore Ts'o, <tytso@mit.edu> wrote:
 
-> On Thu, May 30, 2019 at 04:19:20PM -0600, Shuah Khan wrote:
-> > We as a community talk code in emails. Do we talk in code at times? How
-> > effective are we in communicating with each other?
-> >
-> > I would like to propose a topic to explore our communication styles to
-> > get a better understanding of how effective we are. I am hoping, we
-> > could become more productive, if we get some insight into whether or no=
-t
-> > we talk in code while we talk code.
-> >
-> > We could do this by inviting Isabella Ferreira, PhD Student in Computer
-> > Engineering, Polytechnique Montr=C3=A9al to tell us about Sentimine,
-> > which is a plugin on top of the cregit platform focused on analyzing
-> > communication in open source communities. It will include a short surve=
-y
-> > focused on analyzing a few emails for clarity and perception.
+> From: Uladzislau Rezki <urezki@gmail.com>
 >
-> Hi Shuah,
+> [ Note: The following abstract was submitted via the Linsux Plumbers
+>   Conference website.  Per the instructions that were posted for the
+>   Maintainer's / Kernel Summit Call for Proposals[1], the proposal
+>   should also be posted on the ksummit-discuss list, so that people
+>   can comment on the proposal, and perhaps start a discussion before
+>   the summit.
 >
-> If the goal is to get Isabella's ideas more exposure, perhaps it would
-> be better to ask if she would be willing to give a presentation at the
-> more open Kernel Summit track during the LPC?
+>   [1] https://lwn.net/Articles/788378/
 >
-> It would appear that it's fairly early days for her work, from doing
-> some web searching, the only thing I could really find was her 2019
-> Open Source Leadership Summit presentations (slides here[1]) and the
-> more formal academic paper[2].
+>   Please note that topic proposals for both the Kernel Summit and the
+>   Maintainer's Summit are still welcome, and the deadline has been
+>   extended to June 3rd. -- Ted ]
 >
-> [1]
-> https://events.linuxfoundation.org/wp-content/uploads/2018/07/OSS_Summit_=
-Presentation.pdf
-> [2] http://mcis.polymtl.ca/publications/2019/SEMotion_2019.pdf
+> Hello.
 >
-> As near as I can tell the talk was not video recorded; which is a
-> shame, since I wasn't able to pick up from the slide presentation the
-> same kind of excitement that you clearly have over her work.  I was
-> also very confused about how cregit (which analyzes code) mentioned in
-> the last two slides relates to the work described in the first 80% of
-> the slide deck, which appears to be analyzing mailing list text.
+> I would like to give a talk about KVA allocator in the kernel and
+> about improvements i have done.
 >
-> I'd also think that if the goal is to have a conversation about
-> communication styles, having that discussion with a wider circle might
-> be more productive.  Or did you have something in mind about some
-> decision that might get made at the Maintainer's Summit?
+> See below the presentation:
 >
->                                     - Ted
+>
+> ftp://vps418301.ovh.net/incoming/Reworking_of_KVA_allocator_in_Linux_kernel.pdf
+>
+> Thank you in advance!
+>
+> --
+> Vlad Rezki
 > _______________________________________________
 > Ksummit-discuss mailing list
 > Ksummit-discuss@lists.linuxfoundation.org
 > https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
 >
 
---0000000000003f5b2e058a25f898
+--000000000000833d1f058a261897
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"auto">I&#39;d be interested to know how this compares to Dawn F=
-oster&#39;s work that was presented last year:=C2=A0<a href=3D"https://ossn=
-a18.sched.com/event/FAON/kernel-mailing-list-collaboration-dawn-m-foster-th=
-e-scale-factory">https://ossna18.sched.com/event/FAON/kernel-mailing-list-c=
-ollaboration-dawn-m-foster-the-scale-factory</a></div><br><div class=3D"gma=
-il_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Thu., May 30, 2019, 22:1=
-5 Theodore Ts&#39;o, &lt;<a href=3D"mailto:tytso@mit.edu">tytso@mit.edu</a>=
-&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 =
-0 .8ex;border-left:1px #ccc solid;padding-left:1ex">On Thu, May 30, 2019 at=
- 04:19:20PM -0600, Shuah Khan wrote:<br>
-&gt; We as a community talk code in emails. Do we talk in code at times? Ho=
-w<br>
-&gt; effective are we in communicating with each other?<br>
-&gt; <br>
-&gt; I would like to propose a topic to explore our communication styles to=
+<div dir=3D"auto"><div>Vlad, I was under the impression this work was compl=
+ete. Are there any remaining issues to discuss?<br><br><div class=3D"gmail_=
+quote"><div dir=3D"ltr" class=3D"gmail_attr">On Thu., May 30, 2019, 02:15 T=
+heodore Ts&#39;o, &lt;<a href=3D"mailto:tytso@mit.edu">tytso@mit.edu</a>&gt=
+; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .=
+8ex;border-left:1px #ccc solid;padding-left:1ex">From: Uladzislau Rezki &lt=
+;<a href=3D"mailto:urezki@gmail.com" target=3D"_blank" rel=3D"noreferrer">u=
+rezki@gmail.com</a>&gt;<br>
 <br>
-&gt; get a better understanding of how effective we are. I am hoping, we<br=
+[ Note: The following abstract was submitted via the Linsux Plumbers<br>
+=C2=A0 Conference website.=C2=A0 Per the instructions that were posted for =
+the<br>
+=C2=A0 Maintainer&#39;s / Kernel Summit Call for Proposals[1], the proposal=
+<br>
+=C2=A0 should also be posted on the ksummit-discuss list, so that people<br=
 >
-&gt; could become more productive, if we get some insight into whether or n=
-ot<br>
-&gt; we talk in code while we talk code.<br>
-&gt; <br>
-&gt; We could do this by inviting Isabella Ferreira, PhD Student in Compute=
-r<br>
-&gt; Engineering, Polytechnique Montr=C3=A9al to tell us about Sentimine,<b=
+=C2=A0 can comment on the proposal, and perhaps start a discussion before<b=
 r>
-&gt; which is a plugin on top of the cregit platform focused on analyzing<b=
-r>
-&gt; communication in open source communities. It will include a short surv=
-ey<br>
-&gt; focused on analyzing a few emails for clarity and perception.<br>
+=C2=A0 the summit.<br>
 <br>
-Hi Shuah,<br>
+=C2=A0 [1] <a href=3D"https://lwn.net/Articles/788378/" rel=3D"noreferrer n=
+oreferrer" target=3D"_blank">https://lwn.net/Articles/788378/</a><br>
 <br>
-If the goal is to get Isabella&#39;s ideas more exposure, perhaps it would<=
+=C2=A0 Please note that topic proposals for both the Kernel Summit and the<=
 br>
-be better to ask if she would be willing to give a presentation at the<br>
-more open Kernel Summit track during the LPC?<br>
+=C2=A0 Maintainer&#39;s Summit are still welcome, and the deadline has been=
 <br>
-It would appear that it&#39;s fairly early days for her work, from doing<br=
->
-some web searching, the only thing I could really find was her 2019<br>
-Open Source Leadership Summit presentations (slides here[1]) and the<br>
-more formal academic paper[2].<br>
+=C2=A0 extended to June 3rd. -- Ted ]<br>
 <br>
-[1] <a href=3D"https://events.linuxfoundation.org/wp-content/uploads/2018/0=
-7/OSS_Summit_Presentation.pdf" rel=3D"noreferrer noreferrer" target=3D"_bla=
-nk">https://events.linuxfoundation.org/wp-content/uploads/2018/07/OSS_Summi=
-t_Presentation.pdf</a><br>
-[2] <a href=3D"http://mcis.polymtl.ca/publications/2019/SEMotion_2019.pdf" =
-rel=3D"noreferrer noreferrer" target=3D"_blank">http://mcis.polymtl.ca/publ=
-ications/2019/SEMotion_2019.pdf</a><br>
+Hello.<br>
 <br>
-As near as I can tell the talk was not video recorded; which is a<br>
-shame, since I wasn&#39;t able to pick up from the slide presentation the<b=
+I would like to give a talk about KVA allocator in the kernel and<br>
+about improvements i have done.<br>
+<br>
+See below the presentation:<br>
+<br>
+<a href=3D"ftp://vps418301.ovh.net/incoming/Reworking_of_KVA_allocator_in_L=
+inux_kernel.pdf" rel=3D"noreferrer noreferrer" target=3D"_blank">ftp://vps4=
+18301.ovh.net/incoming/Reworking_of_KVA_allocator_in_Linux_kernel.pdf</a><b=
 r>
-same kind of excitement that you clearly have over her work.=C2=A0 I was<br=
->
-also very confused about how cregit (which analyzes code) mentioned in<br>
-the last two slides relates to the work described in the first 80% of<br>
-the slide deck, which appears to be analyzing mailing list text.<br>
 <br>
-I&#39;d also think that if the goal is to have a conversation about<br>
-communication styles, having that discussion with a wider circle might<br>
-be more productive.=C2=A0 Or did you have something in mind about some<br>
-decision that might get made at the Maintainer&#39;s Summit?<br>
+Thank you in advance!<br>
 <br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 - Ted<br>
+--<br>
+Vlad Rezki<br>
 _______________________________________________<br>
 Ksummit-discuss mailing list<br>
 <a href=3D"mailto:Ksummit-discuss@lists.linuxfoundation.org" target=3D"_bla=
@@ -176,6 +132,6 @@ nk" rel=3D"noreferrer">Ksummit-discuss@lists.linuxfoundation.org</a><br>
 <a href=3D"https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discu=
 ss" rel=3D"noreferrer noreferrer" target=3D"_blank">https://lists.linuxfoun=
 dation.org/mailman/listinfo/ksummit-discuss</a><br>
-</blockquote></div>
+</blockquote></div></div></div>
 
---0000000000003f5b2e058a25f898--
+--000000000000833d1f058a261897--
