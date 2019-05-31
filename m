@@ -1,30 +1,33 @@
 Return-Path: <skhan@linuxfoundation.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 16D40166E
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3F4C7F22
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 May 2019 15:56:35 +0000 (UTC)
-Received: from mail-it1-f193.google.com (mail-it1-f193.google.com
-	[209.85.166.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id ADB33823
+	Fri, 31 May 2019 16:34:10 +0000 (UTC)
+Received: from mail-it1-f173.google.com (mail-it1-f173.google.com
+	[209.85.166.173])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6AFF3823
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 May 2019 15:56:34 +0000 (UTC)
-Received: by mail-it1-f193.google.com with SMTP id s16so16042043ita.2
+	Fri, 31 May 2019 16:34:08 +0000 (UTC)
+Received: by mail-it1-f173.google.com with SMTP id u186so16272859ith.0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 May 2019 08:56:34 -0700 (PDT)
-To: Laura Abbott <labbott@redhat.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-References: <0bc02b84-4d9a-59a7-e6c6-a3b602adca73@linuxfoundation.org>
-	<1018c8ba-61a0-c024-cd98-3b82ebd710ec@redhat.com>
+	Fri, 31 May 2019 09:34:08 -0700 (PDT)
+To: Joe Perches <joe@perches.com>, Theodore Ts'o <tytso@mit.edu>
+References: <96c97a27-83a2-b86c-2880-984c9fa6d4b5@linuxfoundation.org>
+	<20190531021421.GA8123@mit.edu>
+	<a88ca2d1-27d7-5b80-3472-7110e7d2158c@linuxfoundation.org>
+	<465097adab87fe60008a826e51ee09a80a03d157.camel@perches.com>
 From: Shuah Khan <skhan@linuxfoundation.org>
-Message-ID: <be1ee3c0-b40d-ca95-6fca-949e06e62f4e@linuxfoundation.org>
-Date: Fri, 31 May 2019 09:56:32 -0600
+Message-ID: <646f1289-52fa-de85-9ce8-cfaa47080c2f@linuxfoundation.org>
+Date: Fri, 31 May 2019 10:34:05 -0600
 MIME-Version: 1.0
-In-Reply-To: <1018c8ba-61a0-c024-cd98-3b82ebd710ec@redhat.com>
+In-Reply-To: <465097adab87fe60008a826e51ee09a80a03d157.camel@perches.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Squashing bugs!
+Content-Transfer-Encoding: 7bit
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Talking code or talking
+ in code!
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,48 +37,27 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 5/31/19 6:01 AM, Laura Abbott wrote:
-> On 5/30/19 7:30 PM, Shuah Khan wrote:
->> I would like to propose a topic to discuss ideas to keep up with Syzbot
->> bugs on an ongoing basis. Good news is, as of this writing, we have 1276
->> fixed, 86 in moderation, and 62 fix pending. However, there are 523 open
->> bugs. A good number of them have been open for longer than 300 days.
->>
->> The oldest one has been open for 537 days. I plan to take a closer at
->> the open bugs to identify areas that might need more help.
->>
->> I have been sending fixes to some of them as I find time like many other
->> developers. In addition, I included syzbot bug analysis as a required
->> contribution in the Linux Kernel Mentorship Program application process.
->> This is for learning debugging skills as well as getting help towards
->> fixing bugs. It has been successful in getting a few fixes in. My goal
->> is  to make these efforts a bit more structured to focus on areas that
->> need help.
->>
->> There are some challenges, the obvious ones being finding time to
->> analyze, reproduce, and fix. Reproducers are available in many cases,
->> and these bugs can be reproduced. Identifying the right fix and fixing
->> is the overwhelming part with the number of outstanding problems.
->>
->> My objective for this topic is to explore and identify areas that might
->> need help in analyzing and fixing bugs in general and especially the
->> ones that have been open for a while. It would help me channel and focus
->> the Mentorship Program efforts and my efforts to help the areas in need.
->>
->> thanks,
->> -- Shuah
+On 5/31/19 10:25 AM, Joe Perches wrote:
+> On Fri, 2019-05-31 at 09:42 -0600, Shuah Khan wrote:
+>> Isabella sent in a proposal for a BOF session at LPC. She is looking
+>> to social her research
 > 
-> I'm interested in this topic for not just syzbot but other bug trackers
-> as well. Fedora gets a steady flow of bugs filed and the three official
-> maintainers do their best to review but sometimes things slip through,
-> especially if we hit a time when several of us are out or traveling.
-> The kernel.org bugzilla also gets a number of bug reports that sometimes
-> get lost. I'd love to see if there's a process that could work for syzbot
-> and other high volume kernel trackers.
+> What does it mean to social her research?
+
+It is supposed to be socialize - In any case, what I meant to say is
+that she is looking for feedback and real data to fine tune her
+research and tool.
+
+> 
+>> and more importantly, she is looking to validate
+>> her analysis engine with real data.
+> 
+> I expect validation will always be a difficult proposition.
+> case in point is the phrase "social her research".
+> 
 > 
 
-I am hoping we can look at all bugs as well. Syzbot happens to be just a
-good starting for me to start this discussion.
+Please see above. It is a typo on my part.
 
 thanks,
 -- Shuah
