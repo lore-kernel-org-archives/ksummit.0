@@ -1,34 +1,30 @@
 Return-Path: <skhan@linuxfoundation.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 3AC8814B8
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 16D40166E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 May 2019 15:54:57 +0000 (UTC)
-Received: from mail-it1-f174.google.com (mail-it1-f174.google.com
-	[209.85.166.174])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CC7F98A6
+	Fri, 31 May 2019 15:56:35 +0000 (UTC)
+Received: from mail-it1-f193.google.com (mail-it1-f193.google.com
+	[209.85.166.193])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id ADB33823
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 May 2019 15:54:56 +0000 (UTC)
-Received: by mail-it1-f174.google.com with SMTP id t184so16500330itf.2
+	Fri, 31 May 2019 15:56:34 +0000 (UTC)
+Received: by mail-it1-f193.google.com with SMTP id s16so16042043ita.2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 31 May 2019 08:54:56 -0700 (PDT)
-To: Laura Abbott <labbott@redhat.com>, Matthew Wilcox <willy6545@gmail.com>,
-	"Theodore Y. Ts'o" <tytso@mit.edu>
-References: <96c97a27-83a2-b86c-2880-984c9fa6d4b5@linuxfoundation.org>
-	<20190531021421.GA8123@mit.edu>
-	<CAFhKne_20HD6kQqLcPKncFUmbhQbwj-htWeJ8B0oEn-xRnX6Jg@mail.gmail.com>
-	<efb83624-8dff-8640-961a-fc48e4fa0974@redhat.com>
+	Fri, 31 May 2019 08:56:34 -0700 (PDT)
+To: Laura Abbott <labbott@redhat.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+References: <0bc02b84-4d9a-59a7-e6c6-a3b602adca73@linuxfoundation.org>
+	<1018c8ba-61a0-c024-cd98-3b82ebd710ec@redhat.com>
 From: Shuah Khan <skhan@linuxfoundation.org>
-Message-ID: <4c3dd7c4-b59d-58d1-376f-5dd1a2a8d119@linuxfoundation.org>
-Date: Fri, 31 May 2019 09:54:54 -0600
+Message-ID: <be1ee3c0-b40d-ca95-6fca-949e06e62f4e@linuxfoundation.org>
+Date: Fri, 31 May 2019 09:56:32 -0600
 MIME-Version: 1.0
-In-Reply-To: <efb83624-8dff-8640-961a-fc48e4fa0974@redhat.com>
+In-Reply-To: <1018c8ba-61a0-c024-cd98-3b82ebd710ec@redhat.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Talking code or talking
- in code!
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Squashing bugs!
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,27 +34,48 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 5/31/19 6:12 AM, Laura Abbott wrote:
-> On 5/30/19 10:42 PM, Matthew Wilcox wrote:
->> I'd be interested to know how this compares to Dawn Foster's work that 
->> was presented last year: 
->> https://ossna18.sched.com/event/FAON/kernel-mailing-list-collaboration-dawn-m-foster-the-scale-factory 
+On 5/31/19 6:01 AM, Laura Abbott wrote:
+> On 5/30/19 7:30 PM, Shuah Khan wrote:
+>> I would like to propose a topic to discuss ideas to keep up with Syzbot
+>> bugs on an ongoing basis. Good news is, as of this writing, we have 1276
+>> fixed, 86 in moderation, and 62 fix pending. However, there are 523 open
+>> bugs. A good number of them have been open for longer than 300 days.
 >>
+>> The oldest one has been open for 537 days. I plan to take a closer at
+>> the open bugs to identify areas that might need more help.
 >>
+>> I have been sending fixes to some of them as I find time like many other
+>> developers. In addition, I included syzbot bug analysis as a required
+>> contribution in the Linux Kernel Mentorship Program application process.
+>> This is for learning debugging skills as well as getting help towards
+>> fixing bugs. It has been successful in getting a few fixes in. My goal
+>> is  to make these efforts a bit more structured to focus on areas that
+>> need help.
+>>
+>> There are some challenges, the obvious ones being finding time to
+>> analyze, reproduce, and fix. Reproducers are available in many cases,
+>> and these bugs can be reproduced. Identifying the right fix and fixing
+>> is the overwhelming part with the number of outstanding problems.
+>>
+>> My objective for this topic is to explore and identify areas that might
+>> need help in analyzing and fixing bugs in general and especially the
+>> ones that have been open for a while. It would help me channel and focus
+>> the Mentorship Program efforts and my efforts to help the areas in need.
+>>
+>> thanks,
+>> -- Shuah
 > 
-> I saw Dawn Fosters's talk a few times. Dawn Foster's work was focused 
-> more on properties
-> effecting communication (companies, time zones etc.) than communication 
-> style
-> from what I remember. I don't think actual sentiment behind the e-mails was
-> covered much. (I could also only be remembering the graphs I saw)
+> I'm interested in this topic for not just syzbot but other bug trackers
+> as well. Fedora gets a steady flow of bugs filed and the three official
+> maintainers do their best to review but sometimes things slip through,
+> especially if we hit a time when several of us are out or traveling.
+> The kernel.org bugzilla also gets a number of bug reports that sometimes
+> get lost. I'd love to see if there's a process that could work for syzbot
+> and other high volume kernel trackers.
 > 
 
-Right. I helped Dawn Foster during her early stages of research.
-
-The focus of her research collaboration across developers from different
-companies with potentially different goals and working remotely with
-people around the globe. It didn't look at sentiment in communication.
+I am hoping we can look at all bugs as well. Syzbot happens to be just a
+good starting for me to start this discussion.
 
 thanks,
 -- Shuah
