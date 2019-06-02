@@ -1,55 +1,26 @@
-Return-Path: <rppt@linux.ibm.com>
+Return-Path: <sashal@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 59D92E51
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 17F882C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  1 Jun 2019 19:53:15 +0000 (UTC)
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
-	[148.163.158.5])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id DB5BEE7
+	Sun,  2 Jun 2019 18:09:15 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B16E019B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  1 Jun 2019 19:53:14 +0000 (UTC)
-Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
-	by mx0b-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
-	x51Jpp4X132733 for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 1 Jun 2019 15:53:13 -0400
-Received: from e06smtp01.uk.ibm.com (e06smtp01.uk.ibm.com [195.75.94.97])
-	by mx0b-001b2d01.pphosted.com with ESMTP id 2sungdpr6j-1
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 01 Jun 2019 15:53:13 -0400
-Received: from localhost
-	by e06smtp01.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use
-	Only! Violators will be prosecuted
-	for <ksummit-discuss@lists.linuxfoundation.org> from
-	<rppt@linux.ibm.com>; Sat, 1 Jun 2019 20:53:12 +0100
-Received: from d06av25.portsmouth.uk.ibm.com (d06av25.portsmouth.uk.ibm.com
-	[9.149.105.61])
-	by b06cxnps4074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with
-	ESMTP id x51Jr9sP42401908
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256
-	verify=OK) for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 1 Jun 2019 19:53:09 GMT
-Received: from d06av25.portsmouth.uk.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 2360011C04A
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  1 Jun 2019 19:53:09 +0000 (GMT)
-Received: from d06av25.portsmouth.uk.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 843F811C04C
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  1 Jun 2019 19:53:08 +0000 (GMT)
-Received: from rapoport-lnx (unknown [9.148.206.175])
-	by d06av25.portsmouth.uk.ibm.com (Postfix) with ESMTPS
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  1 Jun 2019 19:53:08 +0000 (GMT)
-Date: Sat, 1 Jun 2019 22:53:06 +0300
-From: Mike Rapoport <rppt@linux.ibm.com>
-To: ksummit-discuss@lists.linuxfoundation.org
+	Sun,  2 Jun 2019 18:09:14 +0000 (UTC)
+Date: Sun, 2 Jun 2019 14:09:13 -0400
+From: Sasha Levin <sashal@kernel.org>
+To: Laura Abbott <labbott@redhat.com>
+Message-ID: <20190602180913.GR12898@sasha-vm>
+References: <0bc02b84-4d9a-59a7-e6c6-a3b602adca73@linuxfoundation.org>
+	<1018c8ba-61a0-c024-cd98-3b82ebd710ec@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1; format=flowed
 Content-Disposition: inline
-Message-Id: <20190601195305.GB9609@rapoport-lnx>
-Subject: [Ksummit-discuss] [TECH TOPIC] Memory management bits in arch/*
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <1018c8ba-61a0-c024-cd98-3b82ebd710ec@redhat.com>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Squashing bugs!
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -59,38 +30,55 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-There is a lot of similar and duplicated code in architecture specific bits
-of memory management.
+On Fri, May 31, 2019 at 08:01:15AM -0400, Laura Abbott wrote:
+>On 5/30/19 7:30 PM, Shuah Khan wrote:
+>>I would like to propose a topic to discuss ideas to keep up with Syzbot
+>>bugs on an ongoing basis. Good news is, as of this writing, we have 1276
+>>fixed, 86 in moderation, and 62 fix pending. However, there are 523 open
+>>bugs. A good number of them have been open for longer than 300 days.
+>>
+>>The oldest one has been open for 537 days. I plan to take a closer at
+>>the open bugs to identify areas that might need more help.
+>>
+>>I have been sending fixes to some of them as I find time like many other
+>>developers. In addition, I included syzbot bug analysis as a required
+>>contribution in the Linux Kernel Mentorship Program application process.
+>>This is for learning debugging skills as well as getting help towards
+>>fixing bugs. It has been successful in getting a few fixes in. My goal
+>>is  to make these efforts a bit more structured to focus on areas that
+>>need help.
+>>
+>>There are some challenges, the obvious ones being finding time to
+>>analyze, reproduce, and fix. Reproducers are available in many cases,
+>>and these bugs can be reproduced. Identifying the right fix and fixing
+>>is the overwhelming part with the number of outstanding problems.
+>>
+>>My objective for this topic is to explore and identify areas that might
+>>need help in analyzing and fixing bugs in general and especially the
+>>ones that have been open for a while. It would help me channel and focus
+>>the Mentorship Program efforts and my efforts to help the areas in need.
+>>
+>>thanks,
+>>-- Shuah
+>
+>I'm interested in this topic for not just syzbot but other bug trackers
+>as well. Fedora gets a steady flow of bugs filed and the three official
+>maintainers do their best to review but sometimes things slip through,
+>especially if we hit a time when several of us are out or traveling.
+>The kernel.org bugzilla also gets a number of bug reports that sometimes
+>get lost. I'd love to see if there's a process that could work for syzbot
+>and other high volume kernel trackers.
 
-For instance, most architectures have
+Maybe the solution here is to standardize bug reporting bots? A
+bugs@kernel.org mailing list which our various bots could report to with
+a standard format that'll allow users/maintainers to easily filter it to
+get only bugs they care about?
 
-	#define PGALLOC_GFP (GFP_KERNEL | __GFP_ZERO)
+I'd also love to get a concrete solution we could actually go ahead and
+try for a year. It doesn't have to be pretty or perfect, but just
+something we could experiment with and possibly build upon later? We
+keep kicking this can down the road for way too long.
 
-for allocating page table pages and many of them use similar, if not
-identical, implementation of pte_alloc_one*().
-
-But that's only the tip of the iceberg.
-
-There are several early_alloc() or similarily called routines that do
-
-	if (slab_is_available())
-		return kzalloc();
-	else
-		return memblock_alloc();
-
-Some other trivial examples are free_initmem(), free_initrd_mem() which
-were nearly identical accross many architectures until very recently.
-
-More complex cases are per-cpu initialization, passing of memory topology
-to the generic MM, reservation of crash kernel, mmap of vdso etc. They are
-not really duplicated, but still are very similar in at least several
-architectures.
-
-While factoring out the common code is an obvious step to take, I believe
-there is also room for refining arch <-> mm interface to avoid adding extra
-HAVE_ARCH_NO_BOOTMEM^w^wWHAT_NOT and then searching for the ways to get rid
-of them.
-
--- 
-Sincerely yours,
-Mike.
+--
+Thanks,
+Sasha
