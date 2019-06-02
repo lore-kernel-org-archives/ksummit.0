@@ -1,31 +1,31 @@
-Return-Path: <tanishshinde2006@gmail.com>
+Return-Path: <urezki@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 62ACB1622
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A7089927
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  1 Jun 2019 17:52:45 +0000 (UTC)
-Received: from mail-vk1-f196.google.com (mail-vk1-f196.google.com
-	[209.85.221.196])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C78C0E7
+	Sun,  2 Jun 2019 12:05:22 +0000 (UTC)
+Received: from mail-lf1-f68.google.com (mail-lf1-f68.google.com
+	[209.85.167.68])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E62B082B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  1 Jun 2019 17:52:44 +0000 (UTC)
-Received: by mail-vk1-f196.google.com with SMTP id m193so1659918vke.10
+	Sun,  2 Jun 2019 12:05:21 +0000 (UTC)
+Received: by mail-lf1-f68.google.com with SMTP id y198so916424lfa.1
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 01 Jun 2019 10:52:44 -0700 (PDT)
+	Sun, 02 Jun 2019 05:05:21 -0700 (PDT)
+From: Uladzislau Rezki <urezki@gmail.com>
+Date: Sun, 2 Jun 2019 14:05:10 +0200
+To: Matthew Wilcox <willy6545@gmail.com>
+Message-ID: <20190602120510.sivqftjj6fg7s5q3@pc636>
+References: <20190530060552.GA30920@mit.edu>
+	<CAFhKne9xf-_QbVOkF_qhOBwDX=mn+6BxLBeSTcbxpYUNZERkmQ@mail.gmail.com>
 MIME-Version: 1.0
-References: <20190530060939.GA31454@mit.edu>
-	<20190601090224.GB5261@mtr-leonro.mtl.com>
-	<20190601094328.GB1998@kroah.com>
-	<CAFTVhMc6cjQko4pMdK0Vq1wOj+Wv+sSgWzwULhVQQF9+AL02JA@mail.gmail.com>
-In-Reply-To: <CAFTVhMc6cjQko4pMdK0Vq1wOj+Wv+sSgWzwULhVQQF9+AL02JA@mail.gmail.com>
-From: Tanish Shinde <tanishshinde2006@gmail.com>
-Date: Sat, 1 Jun 2019 23:22:32 +0530
-Message-ID: <CAFTVhMen6LqB2p8Ptq0CeUWw9hiJDVU6Z_70yMbQLSG2HbJVOQ@mail.gmail.com>
-To: Greg KH <gregkh@linuxfoundation.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Content-Type: multipart/alternative; boundary="0000000000004d5fcf058a46ccaf"
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Anatomy Of The Linux Kernel
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAFhKne9xf-_QbVOkF_qhOBwDX=mn+6BxLBeSTcbxpYUNZERkmQ@mail.gmail.com>
+Cc: Uladzislau Rezki <urezki@gmail.com>,
+	ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Reworking of KVA allocator in
+ Linux kernel
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,142 +35,108 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
---0000000000004d5fcf058a46ccaf
-Content-Type: text/plain; charset="UTF-8"
+Hello, Matthew.
 
-On Sat, 1 Jun 2019 at 10:26 PM, Tanish Shinde <tanishshinde2006@gmail.com>
-wrote:
-
-> hi
-> I understand that you think that this talk is basic and I could Not Agree
-> More
-> I have taken the time to develop the framework for my next talk
->  Structural Decomposition Of The Linux FileSystem #101
-> Please take this talk into consideration and I believe that this is very
-> high level discussion about the Linux Filesystem, and also tell me your
-> thoughts on it its pretty lengthy and incredibly detailed and requesting to
-> reply as soon as possible
 >
-> Thanking You
-> Tanish Vishal Shinde
+> Vlad, I was under the impression this work was complete.
 >
-> On Sat, 1 Jun 2019 at 21:50, Greg KH <gregkh@linuxfoundation.org> wrote:
+Thank you. Actually there was a discussion once upon a time:
+
+<snip>
+I think our real problem is that we have no data structure that stores
+free VA space.  We have the vmap_area which stores allocated space, but no
+data structure to store free space.
+<snip>
+
+and it was a good argument to start to examine the KVA and its problems :)
+
 >
->> On Sat, Jun 01, 2019 at 12:02:24PM +0300, Leon Romanovsky wrote:
->> > On Thu, May 30, 2019 at 02:09:39AM -0400, Theodore Ts'o wrote:
->> > > From: Tanish Shinde <tanish.shinde2006@gmail.com>
->> > >
->> > > [ Note: The following abstract was submitted via the Linux Plumbers
->> > >   Conference website.  Per the instructions that were posted for the
->> > >   Maintainer's / Kernel Summit Call for Proposals[1], the proposal
->> > >   should also be posted on the ksummit-discuss list, so that people
->> > >   can comment on the proposal, and perhaps start a discussion before
->> > >   the summit.
->> > >
->> > >   [1] https://lwn.net/Articles/788378/
->> > >
->> > >   Please note that topic proposals for both the Kernel Summit and the
->> > >   Maintainer's Summit are still welcome, and the deadline has been
->> > >   extended to June 3rd. -- Ted ]
->> > >
->> > > The Linux kernel is the core of a large and complex operating system,
->> and while it's huge, it is well organized in terms of subsystems and
->> layers. In this talk, the viewer explores the general structure of the
->> Linux kernel and gets to know its major subsystems and core interfaces.
->> > >
->> > > In This Talk We Will Discuss The Following Topics
->> > >
->> > > * The Fundamental Architecture Of Linux
->> > > * System Call Interface & Process Management
->> > > * Memory Management & The Virtual File System
->> > > * Network Stack & Device Drivers
->> > > * Architecture Dependent Code
->> >
->> > IMHO, it is far too beginner topic for LPC and definitely for KS too.
->>
->> I agree, this really is too much of a beginner-oriented talk for this
->> conference.
->>
->> thanks,
->>
->> greg k-h
->>
+> Are there any remaining issues to discuss?
 >
+If we have a look at it from issues point of view, then i do not see them.
+Though, there are some small things i would like to refactor. For instance
+see below:
 
---0000000000004d5fcf058a46ccaf
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+https://lkml.org/lkml/2019/5/28/1040
 
-<div><br></div><div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=
-=3D"gmail_attr">On Sat, 1 Jun 2019 at 10:26 PM, Tanish Shinde &lt;<a href=
-=3D"mailto:tanishshinde2006@gmail.com">tanishshinde2006@gmail.com</a>&gt; w=
-rote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex=
-;border-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><div dir=3D"=
-ltr"><div dir=3D"ltr"><div dir=3D"ltr">hi=C2=A0<div>I understand that you t=
-hink that this talk is basic and I could Not Agree More</div><div>I have ta=
-ken the time to develop the framework for my next talk</div><div>=C2=A0<spa=
-n style=3D"color:rgb(119,119,119);font-family:&quot;Nunito Sans&quot;;font-=
-size:15.600000381469727px;background-color:rgb(238,250,238)">Structural Dec=
-omposition Of The Linux FileSystem #101 =C2=A0</span></div><div>Please take=
- this talk into consideration and I believe that this is very high level di=
-scussion about the Linux Filesystem, and also tell me your thoughts on it i=
-ts pretty lengthy and incredibly detailed and requesting to reply as soon a=
-s possible=C2=A0</div><div><br></div><div>Thanking You</div><div>Tanish Vis=
-hal Shinde</div></div></div></div></div><br><div class=3D"gmail_quote"><div=
- dir=3D"ltr" class=3D"gmail_attr">On Sat, 1 Jun 2019 at 21:50, Greg KH &lt;=
-<a href=3D"mailto:gregkh@linuxfoundation.org" target=3D"_blank">gregkh@linu=
-xfoundation.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" s=
-tyle=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;border-left-style:so=
-lid;border-left-color:rgb(204,204,204);padding-left:1ex">On Sat, Jun 01, 20=
-19 at 12:02:24PM +0300, Leon Romanovsky wrote:<br>
-&gt; On Thu, May 30, 2019 at 02:09:39AM -0400, Theodore Ts&#39;o wrote:<br>
-&gt; &gt; From: Tanish Shinde &lt;<a href=3D"mailto:tanish.shinde2006@gmail=
-.com" target=3D"_blank">tanish.shinde2006@gmail.com</a>&gt;<br>
-&gt; &gt;<br>
-&gt; &gt; [ Note: The following abstract was submitted via the Linux Plumbe=
-rs<br>
-&gt; &gt;=C2=A0 =C2=A0Conference website.=C2=A0 Per the instructions that w=
-ere posted for the<br>
-&gt; &gt;=C2=A0 =C2=A0Maintainer&#39;s / Kernel Summit Call for Proposals[1=
-], the proposal<br>
-&gt; &gt;=C2=A0 =C2=A0should also be posted on the ksummit-discuss list, so=
- that people<br>
-&gt; &gt;=C2=A0 =C2=A0can comment on the proposal, and perhaps start a disc=
-ussion before<br>
-&gt; &gt;=C2=A0 =C2=A0the summit.<br>
-&gt; &gt;<br>
-&gt; &gt;=C2=A0 =C2=A0[1] <a href=3D"https://lwn.net/Articles/788378/" rel=
-=3D"noreferrer" target=3D"_blank">https://lwn.net/Articles/788378/</a><br>
-&gt; &gt;<br>
-&gt; &gt;=C2=A0 =C2=A0Please note that topic proposals for both the Kernel =
-Summit and the<br>
-&gt; &gt;=C2=A0 =C2=A0Maintainer&#39;s Summit are still welcome, and the de=
-adline has been<br>
-&gt; &gt;=C2=A0 =C2=A0extended to June 3rd. -- Ted ]<br>
-&gt; &gt;<br>
-&gt; &gt; The Linux kernel is the core of a large and complex operating sys=
-tem, and while it&#39;s huge, it is well organized in terms of subsystems a=
-nd layers. In this talk, the viewer explores the general structure of the L=
-inux kernel and gets to know its major subsystems and core interfaces.<br>
-&gt; &gt;<br>
-&gt; &gt; In This Talk We Will Discuss The Following Topics<br>
-&gt; &gt;<br>
-&gt; &gt; * The Fundamental Architecture Of Linux<br>
-&gt; &gt; * System Call Interface &amp; Process Management<br>
-&gt; &gt; * Memory Management &amp; The Virtual File System<br>
-&gt; &gt; * Network Stack &amp; Device Drivers<br>
-&gt; &gt; * Architecture Dependent Code<br>
-&gt; <br>
-&gt; IMHO, it is far too beginner topic for LPC and definitely for KS too.<=
-br>
-<br>
-I agree, this really is too much of a beginner-oriented talk for this<br>
-conference.<br>
-<br>
-thanks,<br>
-<br>
-greg k-h<br>
-</blockquote></div>
-</blockquote></div></div>
+Apart from that, there is still a window for improvements. As an example
+i would like to reduce a lock contention. In general it means making of
+the entire logic faster or/+ reworking of locking. Below the perf output
+in case of stressing my box(Intel Xeon 6 physical CPUs, ~3,8Ghz) by running
+6 simultaneous pinned jobs which do random allocations:
 
---0000000000004d5fcf058a46ccaf--
+<snip>
+  49.55%  [kernel]               [k] native_queued_spin_lock_slowpath
+   7.49%  [kernel]               [k] get_page_from_freelist
+   4.65%  [kernel]               [k] alloc_vmap_area
+   4.15%  [kernel]               [k] _raw_spin_lock
+   4.15%  [kernel]               [k] free_unref_page
+   2.80%  [kernel]               [k] __alloc_pages_nodemask
+   2.53%  [kernel]               [k] insert_vmap_area.constprop.48
+   2.47%  [kernel]               [k] vunmap_page_range
+   2.10%  [kernel]               [k] __free_pages
+   1.79%  [kernel]               [k] find_vmap_area
+   1.66%  [kernel]               [k] vmap_page_range_noflush
+   1.29%  [kernel]               [k] alloc_pages_current
+   1.28%  [kernel]               [k] __free_vmap_area
+   1.25%  [kernel]               [k] prep_new_page
+   0.91%  [kernel]               [k] llist_add_batch
+   0.87%  [kernel]               [k] free_vmap_area_noflush
+   0.79%  [kernel]               [k] __vunmap
+   0.67%  [kernel]               [k] free_unref_page_prepare.part.69
+   0.60%  [kernel]               [k] _cond_resched
+<snip>
+
+See below some proposals:
+
+1) we can maintain the pointer to last area we allocate from to have possibility
+of O(1) access to the block if permissive parameters allow that. Something
+like this:
+
+<snip>
+	if (last_free_area.va && vstart == last_free_area.vstart &&
+		align >= last_free_area.align &&
+		size >= last_free_area.size)
+
+	/* Use last cached node and do not lookup from the root of the tree */
+<snip>
+
+2) Get rid of "busy" tree that stores allocated spaces or replaced it by something
+faster. We need it only for mapping va->va_start to vmap_area object when we release it.
+
+3) We can remove vmap_area node from busy tree as soon as an object gets released.
+It becomes possible now, because we allocate from another tree. It will improve
+insertion time into "busy tree", otherwise it stays there until "lazy" logic removes
+it: 
+
+<snip>
+@@ -1754,8 +1754,12 @@ void vm_unmap_ram(const void *mem, unsigned int count)
+                return;
+        }
+ 
+-       va = find_vmap_area(addr);
++       spin_lock(&vmap_area_lock);
++       va = __find_vmap_area(addr);
+        BUG_ON(!va);
++       unlink_va(va, &vmap_area_root);
++       spin_unlock(&vmap_area_lock);
++
+        debug_check_no_locks_freed((void *)va->va_start,
+                                    (va->va_end - va->va_start));
+        free_unmap_vmap_area(va);
+@@ -2162,6 +2166,7 @@ struct vm_struct *remove_vm_area(const void *addr)
+                va->vm = NULL;
+                va->flags &= ~VM_VM_AREA;
+                va->flags |= VM_LAZY_FREE;
++               unlink_va(va, &vmap_area_root);
+                spin_unlock(&vmap_area_lock);
+ 
+                kasan_free_shadow(vm); 
+<snip>
+
+All those things could be discussed over lkml. If there are some higher priority
+topics to discuss i do not want to waste the time and we can drop my proposal topic
+on the Kernel Summit.
+
+--
+Vlad Rezki
