@@ -1,18 +1,18 @@
-Return-Path: <jikos@kernel.org>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id AF6F7E70
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8D916D38
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  3 Jun 2019 21:28:48 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6B58D83A
+	Mon,  3 Jun 2019 22:11:41 +0000 (UTC)
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+	[172.104.155.198])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 651F5A3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  3 Jun 2019 21:28:48 +0000 (UTC)
-Date: Mon, 3 Jun 2019 23:28:45 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-In-Reply-To: <CAHk-=wh1sN4v3a=jfucUYvwdFQUc7ASiYrrbzXzZ3YMerN=7oQ@mail.gmail.com>
-Message-ID: <nycvar.YFH.7.76.1906032326330.27227@cbobk.fhfr.pm>
+	Mon,  3 Jun 2019 22:11:40 +0000 (UTC)
+Date: Mon, 3 Jun 2019 23:11:31 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Sasha Levin <sashal@kernel.org>
+Message-ID: <20190603221131.GE2456@sirena.org.uk>
 References: <0bc02b84-4d9a-59a7-e6c6-a3b602adca73@linuxfoundation.org>
 	<1018c8ba-61a0-c024-cd98-3b82ebd710ec@redhat.com>
 	<20190602180913.GR12898@sasha-vm>
@@ -20,10 +20,11 @@ References: <0bc02b84-4d9a-59a7-e6c6-a3b602adca73@linuxfoundation.org>
 	<20190603180953.GA17954@chatter.i7.local>
 	<CAHk-=wgVYafLVe-ggAyWdC4Fxg7fCvJP5vgkLJSWPQhk_Xi-Cw@mail.gmail.com>
 	<20190603211004.GU12898@sasha-vm>
-	<nycvar.YFH.7.76.1906032311500.27227@cbobk.fhfr.pm>
-	<CAHk-=wh1sN4v3a=jfucUYvwdFQUc7ASiYrrbzXzZ3YMerN=7oQ@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Oh6wehMCKJhhoxlo"
+Content-Disposition: inline
+In-Reply-To: <20190603211004.GU12898@sasha-vm>
 Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Squashing bugs!
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -35,35 +36,50 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 3 Jun 2019, Linus Torvalds wrote:
 
-> > So being able to perform "ok, this is not an issue any more for whatever
-> > reason, I am closing myself as RESOLVED" operation would be really nice to
-> > have feature, which I think is currently missing.
-> 
-> Honestly, syzbot - or some related infrastructure - should just do
-> that automatically.
-> 
-> If the syzbot bug is old, and no longer reproduces with modern
-> kernels, then just close it. No human should waste any time on that.
-> 
-> As you say, syzbot can find things that others find independently, so
-> it's not even a "syzbot didn't get the credit, and didn't close things
-> as a result" issue. It can just as well be "bug was fixed without
-> syzbot being directly involved at all, and the syzbot report is just
-> stale old data".
+--Oh6wehMCKJhhoxlo
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Agreed.
+On Mon, Jun 03, 2019 at 05:10:04PM -0400, Sasha Levin wrote:
 
-At the same time, I definitely don't want this to sound as if syzbot is 
-just reporting random things that people will be fixing anyway. That's 
-definitely not the case in general.
+> Would it make sense to do some bikeshedding around how an ideal email
+> bug report should look like, and then get syzbot and maybe kernelci to
+> switch to using this new format as an experiment?
 
-But the volume is simply so overwhelming, that syzbot needs to be able to 
-cope with the fact that bugs are also fixed independently.
+> A bunch the syzbot/kernelci/etc folks will be at LPC as well, and we'll
+> have the testing & fuzzing MC going on where this can be discussed and
+> agreed on once there is a concrete proposal.
 
-That'll help the state / usefulness of the reported bugs a lot IMO.
+I think we'll find that there's a lot of variation in what's useful to
+report directly in the e-mail and how comes from the particular tests
+that are being done, what's critical information about the environment
+will vary quite a bit and there's going to be taste differences as well.
+A lot of this is a combination of common sense and the reporters being
+able to be responsive to feedback from their users, there's not much
+commonality in the formatting of the existing reports from static
+analysis but they're pretty much all useful (at least the ones I tend to
+get are useful to me).
 
--- 
-Jiri Kosina
-SUSE Labs
+There is the question of tooling to track the bugs between multiple bots
+which would benefit if they were doing standard things but if people are
+working on that rather than trying to serve both humans and computers at
+once we might be better off with some sort of API and providing a URL in
+the emails for the machines to go and look at.
+
+--Oh6wehMCKJhhoxlo
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlz1mxIACgkQJNaLcl1U
+h9DJSAf+Ih1Qzv75oCs2TFhuS90AslRidVRBgH27dsMivpF1dBkN5rPxb7e1CYPX
+7vtNSvn8qbBddd5nTDKUSyXsfEQXA0HeETodkl80RW9bRmBb/Mnfo3rTjg2IzY+g
+WMINJv8dbbnJp+vl7cp7o7CeIGFrgutCW3ecKmNZH27ja2aEl/qpqX+XCSCRH7E3
+drDdsDeftY0Uu3Q0sKgkec+RgR2Qb3NDsjQRbA9PPgz3fVesAtSxCDj1c2Ci4DTR
+ZKvvPsK23vkGa4VXna1GqFo1LNwa1NX65y5r53sUomW0vXsxsmpxqANdJ56YS1r9
+usq5NZ6FlctUMkgROAfp+gjdPeBN7A==
+=1zzp
+-----END PGP SIGNATURE-----
+
+--Oh6wehMCKJhhoxlo--
