@@ -1,26 +1,29 @@
-Return-Path: <jack@suse.cz>
+Return-Path: <broonie@sirena.org.uk>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 924CDB6C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1D918E34
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  3 Jun 2019 10:42:39 +0000 (UTC)
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 93EA086E
+	Mon,  3 Jun 2019 16:20:48 +0000 (UTC)
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+	[172.104.155.198])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 904E2854
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  3 Jun 2019 10:42:38 +0000 (UTC)
-Date: Mon, 3 Jun 2019 12:42:34 +0200
-From: Jan Kara <jack@suse.cz>
-To: Kees Cook <keescook@chromium.org>
-Message-ID: <20190603104234.GD27933@quack2.suse.cz>
-References: <0bc02b84-4d9a-59a7-e6c6-a3b602adca73@linuxfoundation.org>
-	<1018c8ba-61a0-c024-cd98-3b82ebd710ec@redhat.com>
-	<CAJr-aDn+j9gyp-m=uv6mz9WWWdzmphC1pNUcyrfXaZtZ=muS9Q@mail.gmail.com>
+	Mon,  3 Jun 2019 16:20:47 +0000 (UTC)
+Date: Mon, 3 Jun 2019 16:51:02 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Shuah Khan <skhan@linuxfoundation.org>
+Message-ID: <20190603155102.GX2456@sirena.org.uk>
+References: <96c97a27-83a2-b86c-2880-984c9fa6d4b5@linuxfoundation.org>
+	<20190531021421.GA8123@mit.edu>
+	<a88ca2d1-27d7-5b80-3472-7110e7d2158c@linuxfoundation.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Avw2VvEbzfULB0h1"
 Content-Disposition: inline
-In-Reply-To: <CAJr-aDn+j9gyp-m=uv6mz9WWWdzmphC1pNUcyrfXaZtZ=muS9Q@mail.gmail.com>
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Squashing bugs!
+In-Reply-To: <a88ca2d1-27d7-5b80-3472-7110e7d2158c@linuxfoundation.org>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Talking code or talking
+ in code!
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,69 +33,55 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri 31-05-19 15:15:55, Kees Cook wrote:
-> On Fri, May 31, 2019 at 5:02 AM Laura Abbott <labbott@redhat.com> wrote:
-> >
-> > On 5/30/19 7:30 PM, Shuah Khan wrote:
-> > > I would like to propose a topic to discuss ideas to keep up with Syzbot
-> > > bugs on an ongoing basis. Good news is, as of this writing, we have 1276
-> > > fixed, 86 in moderation, and 62 fix pending. However, there are 523 open
-> > > bugs. A good number of them have been open for longer than 300 days.
-> > >
-> > > The oldest one has been open for 537 days. I plan to take a closer at
-> > > the open bugs to identify areas that might need more help.
-> 
-> Many seem to get discussed for a while with people all mostly agreeing
-> on what needs to be done, but then nothing actually materializes.
-> 
-> Now, part of this, I think, is a lack of an "objective" sense of
-> priority for the various bugs on the dashboard. Their frequency of
-> appearance (currently the only thing that really turns red), does not
-> reflect anything about their severity nor reachability. Severity is
-> pretty straight forward: stack smashing, use-after-free, etc are way
-> worse (generally speaking) than crash/hang or WARN(). For
-> reachability, if we could narrow the scope of things a bit more ("this
-> is reachable only by init namespace root", or "only reachable via
-> CAP_NET_ADMIN", or "only with this CONFIG that doesn't appear in any
-> modern distro .config") that would be great.
 
-Yes, I think this would be really useful.
+--Avw2VvEbzfULB0h1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> > > I have been sending fixes to some of them as I find time like many other
-> > > developers. In addition, I included syzbot bug analysis as a required
-> > > contribution in the Linux Kernel Mentorship Program application process.
-> > > This is for learning debugging skills as well as getting help towards
-> > > fixing bugs. It has been successful in getting a few fixes in. My goal
-> > > is  to make these efforts a bit more structured to focus on areas that
-> > > need help.
-> > >
-> > > There are some challenges, the obvious ones being finding time to
-> > > analyze, reproduce, and fix. Reproducers are available in many cases,
-> > > and these bugs can be reproduced. Identifying the right fix and fixing
-> > > is the overwhelming part with the number of outstanding problems.
-> > >
-> > > My objective for this topic is to explore and identify areas that might
-> > > need help in analyzing and fixing bugs in general and especially the
-> > > ones that have been open for a while. It would help me channel and focus
-> > > the Mentorship Program efforts and my efforts to help the areas in need.
-> 
-> What I want to find is a way to fund on-going work in this area. It
-> just does not appear to be working to find funding within various
-> companies to do this kind of sustained bug-hunting. It's a bit of a
-> resource conflict: if a company has kernel developers on staff they
-> tend to want to have them focused on "new things".
+On Fri, May 31, 2019 at 09:42:52AM -0600, Shuah Khan wrote:
 
-Well, not necessarily only "new things". Distros have kernel people that do
-bugfixing but the most focus naturally goes towards bugs customers are
-likely to get exposed to. Triaging through syzbot reports when you have
-enough bugs your customers actually hit thus does not look very appealing
-:) But this goes back to your idea of automated way of classifying bug
-priority. Unpriviledged user triggerable kernel oops in MM is going to get
-more attention than init namespace root triggerable one in some random
-old driver (which is likely to bitrot for long and that's just a reality of
-limited resources)...
+> Let me go over my vision for this time slot at the Maintainers Summit
+> if we choose to add it. This isn't going to be a long deep dive session
+> on the research. I asked Isabella to work with the following outline:
 
-								Honza
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+> - A short summary of Sentimine
+> - A short survey of 2 or 3 emails. We do the survey - I can have her
+>   share the survey format ahead of time. Based on my recollection of
+>   the survey from OSLS presentation, it asks participants to identify
+>   the tone of the email. Positive/negative/neutral.
+> - Isabella compares these results to the tool's analysis. The goal
+>   is to see how far off the tool's analysis from real developers
+>   take on these emails.
+
+Does that need to be done at the summit or could it be done offline with
+the summit attendees (or with a list of people pulled from the active
+developers stats or something for that matter)?  But then...
+
+> In addition, I think the tool should also look at clarity of
+> communication not just tone. To me this is the most useful part for
+> us. My motivation and goal is to explore if we can take this opportunity
+> to influence the direction of this research to look at what would be
+> useful to us as a community.
+
+...it does sound like a useful way of kicking off a discussion.  Perhaps
+the survey could be done in advance and then the discussion jump
+straight on to any differences in evaluation?  I do agree that clarity
+is worth looking at, especially with regard to non-native English
+speakers.
+
+--Avw2VvEbzfULB0h1
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlz1QeYACgkQJNaLcl1U
+h9AEoAf/fpWUAZQip6b/0IwfRAR76/2mF4+aClIm78iU7nh0qnUJcyvx4xy/WgfC
+7nPgGKxAYV6YGUWAwK5kZhZdGwswAOqsJq0x6jL1Ir0pCT7Wy9fKIi8KbXha5684
+wRfjFn4rcAh8e4wpssPkiGtqn72xHXGy2FBnEPNmjrUbHeZfSWhq7YOe378KbbpC
+1N8busSyztR/pi6k5PdB0D44k3wvT9Ad1aGfUkQbGmnhqXLUZ2oBFbKgKmZYRWzh
+IrFr3JzqsdTT3K9a9IgmQ5W61TlNSR8h+vStYMcUhEA0TJeE+kSWwBSMoEUaVx6t
+F1loZoW7rJTegqMJAvu5FsQZ0b6l/A==
+=3i64
+-----END PGP SIGNATURE-----
+
+--Avw2VvEbzfULB0h1--
