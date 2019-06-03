@@ -1,27 +1,28 @@
 Return-Path: <sashal@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D7C5BD99
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id EF27ADC2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  3 Jun 2019 20:59:06 +0000 (UTC)
+	Mon,  3 Jun 2019 21:10:06 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 157ADA3
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D23F6A3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  3 Jun 2019 20:59:05 +0000 (UTC)
-Date: Mon, 3 Jun 2019 16:59:03 -0400
+	Mon,  3 Jun 2019 21:10:05 +0000 (UTC)
+Date: Mon, 3 Jun 2019 17:10:04 -0400
 From: Sasha Levin <sashal@kernel.org>
-To: Shuah Khan <skhan@linuxfoundation.org>
-Message-ID: <20190603205903.GT12898@sasha-vm>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Message-ID: <20190603211004.GU12898@sasha-vm>
 References: <0bc02b84-4d9a-59a7-e6c6-a3b602adca73@linuxfoundation.org>
 	<1018c8ba-61a0-c024-cd98-3b82ebd710ec@redhat.com>
 	<20190602180913.GR12898@sasha-vm>
 	<667d4900-0a9a-d6f8-7012-3c15c2df7da8@linuxfoundation.org>
+	<20190603180953.GA17954@chatter.i7.local>
+	<CAHk-=wgVYafLVe-ggAyWdC4Fxg7fCvJP5vgkLJSWPQhk_Xi-Cw@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1; format=flowed
+Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <667d4900-0a9a-d6f8-7012-3c15c2df7da8@linuxfoundation.org>
-Cc: ksummit-discuss@lists.linuxfoundation.org
+In-Reply-To: <CAHk-=wgVYafLVe-ggAyWdC4Fxg7fCvJP5vgkLJSWPQhk_Xi-Cw@mail.gmail.com>
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Squashing bugs!
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -32,64 +33,56 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, Jun 03, 2019 at 11:25:51AM -0600, Shuah Khan wrote:
->On 6/2/19 12:09 PM, Sasha Levin wrote:
->>On Fri, May 31, 2019 at 08:01:15AM -0400, Laura Abbott wrote:
->>>On 5/30/19 7:30 PM, Shuah Khan wrote:
->>>>I would like to propose a topic to discuss ideas to keep up with Syzbot
->>>>bugs on an ongoing basis. Good news is, as of this writing, we have 1276
->>>>fixed, 86 in moderation, and 62 fix pending. However, there are 523 open
->>>>bugs. A good number of them have been open for longer than 300 days.
->>>>
->>>>The oldest one has been open for 537 days. I plan to take a closer at
->>>>the open bugs to identify areas that might need more help.
->>>>
->>>>I have been sending fixes to some of them as I find time like many other
->>>>developers. In addition, I included syzbot bug analysis as a required
->>>>contribution in the Linux Kernel Mentorship Program application process.
->>>>This is for learning debugging skills as well as getting help towards
->>>>fixing bugs. It has been successful in getting a few fixes in. My goal
->>>>is  to make these efforts a bit more structured to focus on areas that
->>>>need help.
->>>>
->>>>There are some challenges, the obvious ones being finding time to
->>>>analyze, reproduce, and fix. Reproducers are available in many cases,
->>>>and these bugs can be reproduced. Identifying the right fix and fixing
->>>>is the overwhelming part with the number of outstanding problems.
->>>>
->>>>My objective for this topic is to explore and identify areas that might
->>>>need help in analyzing and fixing bugs in general and especially the
->>>>ones that have been open for a while. It would help me channel and focus
->>>>the Mentorship Program efforts and my efforts to help the areas in need.
->>>>
->>>>thanks,
->>>>-- Shuah
->>>
->>>I'm interested in this topic for not just syzbot but other bug trackers
->>>as well. Fedora gets a steady flow of bugs filed and the three official
->>>maintainers do their best to review but sometimes things slip through,
->>>especially if we hit a time when several of us are out or traveling.
->>>The kernel.org bugzilla also gets a number of bug reports that sometimes
->>>get lost. I'd love to see if there's a process that could work for syzbot
->>>and other high volume kernel trackers.
+On Mon, Jun 03, 2019 at 01:48:22PM -0700, Linus Torvalds wrote:
+>On Mon, Jun 3, 2019 at 11:10 AM Konstantin Ryabitsev
+><konstantin@linuxfoundation.org> wrote:
 >>
->>Maybe the solution here is to standardize bug reporting bots? A
->>bugs@kernel.org mailing list which our various bots could report to with
->>a standard format that'll allow users/maintainers to easily filter it to
->>get only bugs they care about?
->>
+>> May I recommend using a project like git-bug [1] instead of a mailing
+>> list?
 >
->Easy to filter and manage is important for usability. I mentioned in my
->response Kees that I am finding it hard to update syzbot bug status to
->mark them as duplicate and/or fixed. The email interface is nice for
->individual bugs, but not very easy when it comes to other actions.
+>I'm not a huge fan of mailing lists only for bug handling, but on the
+>other hand, I do think that a bug handling thing fundamentally needs
+>
+> (a) automatic aging out of bug reports
+>
+> (b) targeted push notifications (ie ractically speaking - email)
+>
+>and that the email part is important. And it can't just be a "hey,
+>something changed". It needs to contain enough information in the
+>email to give a developer sufficient knowledge that the developer
+>knows whether it's even worth it looking deeper at the bug, and
+>looking at the database (in fact, it should contain enough actual
+>information that for simple issues, the developer should go "D'oh!"
+>and just fix the bug).
 
-Sure, there are quite a few drawbacks to the mailing-list-as-bugtracker
-approach, but I feel that we need to start with something and either
-build on top of that or replace it in the future with something better.
+Would it make sense to do some bikeshedding around how an ideal email
+bug report should look like, and then get syzbot and maybe kernelci to
+switch to using this new format as an experiment?
 
-I don't think that there's a bugtracker in existence today that would be
-perfect for our "weird" usecase.
+A bunch the syzbot/kernelci/etc folks will be at LPC as well, and we'll
+have the testing & fuzzing MC going on where this can be discussed and
+agreed on once there is a concrete proposal.
+
+>We went through this with syzbot already, where the notification was
+>too heavy-handed and not useful. It has improved immensely. There's a
+>back-end with lots more data, but the emails have gone from "illegible
+>data" to "pretty informational", and I think it improved peoples
+>reaction to them a lot.
+>
+>Apparently syzbot doesn't do well on the (a) side though. Honestly,
+>any system that just keeps things open for 300+ days has something
+>wrong with it. At some point it needs to be automatically either
+>closed, or re-notified. The "just keep it around" is simply not an
+>option.
+
+My understanding is that syzbot closes a bug once the bot sees an
+annotated commit indicating that it fixes a certain bug. These
+annotations get lost/forgotten/etc so bugs remain open even after they
+were fixed.
+
+Maybe we could sync up our bugtrackers with the kernel's release cycle?
+close all bugs older than a certain kernel version once the
+corresponding stable kernel goes EoL?
 
 --
 Thanks,
