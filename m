@@ -1,29 +1,31 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <skhan@linuxfoundation.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1D918E34
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id CF9E8B6D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  3 Jun 2019 16:20:48 +0000 (UTC)
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
-	[172.104.155.198])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 904E2854
+	Mon,  3 Jun 2019 16:48:19 +0000 (UTC)
+Received: from mail-it1-f196.google.com (mail-it1-f196.google.com
+	[209.85.166.196])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 4BEBBA3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  3 Jun 2019 16:20:47 +0000 (UTC)
-Date: Mon, 3 Jun 2019 16:51:02 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Shuah Khan <skhan@linuxfoundation.org>
-Message-ID: <20190603155102.GX2456@sirena.org.uk>
-References: <96c97a27-83a2-b86c-2880-984c9fa6d4b5@linuxfoundation.org>
-	<20190531021421.GA8123@mit.edu>
-	<a88ca2d1-27d7-5b80-3472-7110e7d2158c@linuxfoundation.org>
+	Mon,  3 Jun 2019 16:48:19 +0000 (UTC)
+Received: by mail-it1-f196.google.com with SMTP id n189so9241505itd.0
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 03 Jun 2019 09:48:19 -0700 (PDT)
+To: Kees Cook <keescook@chromium.org>, Laura Abbott <labbott@redhat.com>
+References: <0bc02b84-4d9a-59a7-e6c6-a3b602adca73@linuxfoundation.org>
+	<1018c8ba-61a0-c024-cd98-3b82ebd710ec@redhat.com>
+	<CAJr-aDn+j9gyp-m=uv6mz9WWWdzmphC1pNUcyrfXaZtZ=muS9Q@mail.gmail.com>
+From: Shuah Khan <skhan@linuxfoundation.org>
+Message-ID: <3027a3b8-659e-ee47-8032-121b5250cd98@linuxfoundation.org>
+Date: Mon, 3 Jun 2019 10:48:16 -0600
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Avw2VvEbzfULB0h1"
-Content-Disposition: inline
-In-Reply-To: <a88ca2d1-27d7-5b80-3472-7110e7d2158c@linuxfoundation.org>
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Talking code or talking
- in code!
+In-Reply-To: <CAJr-aDn+j9gyp-m=uv6mz9WWWdzmphC1pNUcyrfXaZtZ=muS9Q@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Squashing bugs!
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,55 +35,94 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On 5/31/19 4:15 PM, Kees Cook wrote:
+> On Fri, May 31, 2019 at 5:02 AM Laura Abbott <labbott@redhat.com> wrote:
+>>
+>> On 5/30/19 7:30 PM, Shuah Khan wrote:
+>>> I would like to propose a topic to discuss ideas to keep up with Syzbot
+>>> bugs on an ongoing basis. Good news is, as of this writing, we have 1276
+>>> fixed, 86 in moderation, and 62 fix pending. However, there are 523 open
+>>> bugs. A good number of them have been open for longer than 300 days.
+>>>
+>>> The oldest one has been open for 537 days. I plan to take a closer at
+>>> the open bugs to identify areas that might need more help.
+> 
+> Many seem to get discussed for a while with people all mostly agreeing
+> on what needs to be done, but then nothing actually materializes.
+> 
 
---Avw2VvEbzfULB0h1
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Right. My experience with a fix I sent is that there is no agreement
+on how to fix between maintainers. Hence, it is in limbo.
 
-On Fri, May 31, 2019 at 09:42:52AM -0600, Shuah Khan wrote:
+> Now, part of this, I think, is a lack of an "objective" sense of
+> priority for the various bugs on the dashboard. Their frequency of
+> appearance (currently the only thing that really turns red), does not
+> reflect anything about their severity nor reachability. Severity is
+> pretty straight forward: stack smashing, use-after-free, etc are way
+> worse (generally speaking) than crash/hang or WARN(). For
+> reachability, if we could narrow the scope of things a bit more ("this
+> is reachable only by init namespace root", or "only reachable via
+> CAP_NET_ADMIN", or "only with this CONFIG that doesn't appear in any
+> modern distro .config") that would be great.
+> 
 
-> Let me go over my vision for this time slot at the Maintainers Summit
-> if we choose to add it. This isn't going to be a long deep dive session
-> on the research. I asked Isabella to work with the following outline:
+Agree. It is very hard to parse the information to determine priority.
+I have been looking at how often it can be reproduced. In some cases,
+it isn't clear how likely for this bug to be triggered in regular cases.
+This is where syzbot adds value that it stresses error cases.
 
-> - A short summary of Sentimine
-> - A short survey of 2 or 3 emails. We do the survey - I can have her
->   share the survey format ahead of time. Based on my recollection of
->   the survey from OSLS presentation, it asks participants to identify
->   the tone of the email. Positive/negative/neutral.
-> - Isabella compares these results to the tool's analysis. The goal
->   is to see how far off the tool's analysis from real developers
->   take on these emails.
+This one bug I am looking at is in an error leg, which is nice. However,
+syzbot reports are hard to manage. I found 3 instances of the same bug,
+with fix pulled into the mainline associated with one of the 3.
 
-Does that need to be done at the summit or could it be done offline with
-the summit attendees (or with a list of people pulled from the active
-developers stats or something for that matter)?  But then...
+I spent time on Friday to find a quick way to reply to one of them with
+list of IDs. It will be great to have a ID associated with these bugs,
+so I can go say, hey this fix applies to these IDs.
 
-> In addition, I think the tool should also look at clarity of
-> communication not just tone. To me this is the most useful part for
-> us. My motivation and goal is to explore if we can take this opportunity
-> to influence the direction of this research to look at what would be
-> useful to us as a community.
+>>> I have been sending fixes to some of them as I find time like many other
+>>> developers. In addition, I included syzbot bug analysis as a required
+>>> contribution in the Linux Kernel Mentorship Program application process.
+>>> This is for learning debugging skills as well as getting help towards
+>>> fixing bugs. It has been successful in getting a few fixes in. My goal
+>>> is  to make these efforts a bit more structured to focus on areas that
+>>> need help.
+>>>
+>>> There are some challenges, the obvious ones being finding time to
+>>> analyze, reproduce, and fix. Reproducers are available in many cases,
+>>> and these bugs can be reproduced. Identifying the right fix and fixing
+>>> is the overwhelming part with the number of outstanding problems.
+>>>
+>>> My objective for this topic is to explore and identify areas that might
+>>> need help in analyzing and fixing bugs in general and especially the
+>>> ones that have been open for a while. It would help me channel and focus
+>>> the Mentorship Program efforts and my efforts to help the areas in need.
+> 
+> What I want to find is a way to fund on-going work in this area. It
+> just does not appear to be working to find funding within various
+> companies to do this kind of sustained bug-hunting. It's a bit of a
+> resource conflict: if a company has kernel developers on staff they
+> tend to want to have them focused on "new things".
+> 
 
-...it does sound like a useful way of kicking off a discussion.  Perhaps
-the survey could be done in advance and then the discussion jump
-straight on to any differences in evaluation?  I do agree that clarity
-is worth looking at, especially with regard to non-native English
-speakers.
+Yes. This is my concern as well. This is why I am trying to see if we
+can find resources. I would like to start with trying to channel the
+resources from the mentorship program for this. I do know that this
+adds overhead as well. Maybe some low hanging fruit and easy fix type
+bugs can be taken care of using this program and then we can focus our
+expert energies on harder bugs.
 
---Avw2VvEbzfULB0h1
-Content-Type: application/pgp-signature; name="signature.asc"
+>> I'm interested in this topic for not just syzbot but other bug trackers
+>> as well. Fedora gets a steady flow of bugs filed and the three official
+>> maintainers do their best to review but sometimes things slip through,
+>> especially if we hit a time when several of us are out or traveling.
+>> The kernel.org bugzilla also gets a number of bug reports that sometimes
+>> get lost. I'd love to see if there's a process that could work for syzbot
+>> and other high volume kernel trackers.
+> 
 
------BEGIN PGP SIGNATURE-----
+Yes. This is what I am finding. Syzbot or any other bug tracking system
+to be effective, it has to be easy to manage and mark bugs as duplicate,
+closed, fixed. etc.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlz1QeYACgkQJNaLcl1U
-h9AEoAf/fpWUAZQip6b/0IwfRAR76/2mF4+aClIm78iU7nh0qnUJcyvx4xy/WgfC
-7nPgGKxAYV6YGUWAwK5kZhZdGwswAOqsJq0x6jL1Ir0pCT7Wy9fKIi8KbXha5684
-wRfjFn4rcAh8e4wpssPkiGtqn72xHXGy2FBnEPNmjrUbHeZfSWhq7YOe378KbbpC
-1N8busSyztR/pi6k5PdB0D44k3wvT9Ad1aGfUkQbGmnhqXLUZ2oBFbKgKmZYRWzh
-IrFr3JzqsdTT3K9a9IgmQ5W61TlNSR8h+vStYMcUhEA0TJeE+kSWwBSMoEUaVx6t
-F1loZoW7rJTegqMJAvu5FsQZ0b6l/A==
-=3i64
------END PGP SIGNATURE-----
-
---Avw2VvEbzfULB0h1--
+thanks,
+-- Shuah
