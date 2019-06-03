@@ -1,30 +1,27 @@
 Return-Path: <leon@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 31DB3941
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 75D30BDC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  3 Jun 2019 04:48:14 +0000 (UTC)
+	Mon,  3 Jun 2019 05:02:01 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 88523844
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 19B4819B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  3 Jun 2019 04:48:13 +0000 (UTC)
-Date: Mon, 3 Jun 2019 07:48:09 +0300
+	Mon,  3 Jun 2019 05:02:01 +0000 (UTC)
+Date: Mon, 3 Jun 2019 08:01:57 +0300
 From: Leon Romanovsky <leon@kernel.org>
-To: Tanish Shinde <tanishshinde2006@gmail.com>
-Message-ID: <20190603044809.GF5261@mtr-leonro.mtl.com>
-References: <20190530060939.GA31454@mit.edu>
-	<20190601090224.GB5261@mtr-leonro.mtl.com>
-	<20190601094328.GB1998@kroah.com>
-	<CAFTVhMc6cjQko4pMdK0Vq1wOj+Wv+sSgWzwULhVQQF9+AL02JA@mail.gmail.com>
-	<CAFTVhMen6LqB2p8Ptq0CeUWw9hiJDVU6Z_70yMbQLSG2HbJVOQ@mail.gmail.com>
+To: Shuah Khan <skhan@linuxfoundation.org>
+Message-ID: <20190603050157.GG5261@mtr-leonro.mtl.com>
+References: <0bc02b84-4d9a-59a7-e6c6-a3b602adca73@linuxfoundation.org>
+	<1018c8ba-61a0-c024-cd98-3b82ebd710ec@redhat.com>
+	<be1ee3c0-b40d-ca95-6fca-949e06e62f4e@linuxfoundation.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <CAFTVhMen6LqB2p8Ptq0CeUWw9hiJDVU6Z_70yMbQLSG2HbJVOQ@mail.gmail.com>
-Cc: Greg KH <gregkh@linuxfoundation.org>,
-	"ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Anatomy Of The Linux Kernel
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <be1ee3c0-b40d-ca95-6fca-949e06e62f4e@linuxfoundation.org>
+Cc: ksummit-discuss@lists.linuxfoundation.org
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Squashing bugs!
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,23 +31,64 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, Jun 01, 2019 at 11:22:32PM +0530, Tanish Shinde wrote:
-> On Sat, 1 Jun 2019 at 10:26 PM, Tanish Shinde <tanishshinde2006@gmail.com>
-> wrote:
+On Fri, May 31, 2019 at 09:56:32AM -0600, Shuah Khan wrote:
+> On 5/31/19 6:01 AM, Laura Abbott wrote:
+> > On 5/30/19 7:30 PM, Shuah Khan wrote:
+> > > I would like to propose a topic to discuss ideas to keep up with Syzbot
+> > > bugs on an ongoing basis. Good news is, as of this writing, we have 1276
+> > > fixed, 86 in moderation, and 62 fix pending. However, there are 523 open
+> > > bugs. A good number of them have been open for longer than 300 days.
+> > >
+> > > The oldest one has been open for 537 days. I plan to take a closer at
+> > > the open bugs to identify areas that might need more help.
+> > >
+> > > I have been sending fixes to some of them as I find time like many other
+> > > developers. In addition, I included syzbot bug analysis as a required
+> > > contribution in the Linux Kernel Mentorship Program application process.
+> > > This is for learning debugging skills as well as getting help towards
+> > > fixing bugs. It has been successful in getting a few fixes in. My goal
+> > > is  to make these efforts a bit more structured to focus on areas that
+> > > need help.
+> > >
+> > > There are some challenges, the obvious ones being finding time to
+> > > analyze, reproduce, and fix. Reproducers are available in many cases,
+> > > and these bugs can be reproduced. Identifying the right fix and fixing
+> > > is the overwhelming part with the number of outstanding problems.
+> > >
+> > > My objective for this topic is to explore and identify areas that might
+> > > need help in analyzing and fixing bugs in general and especially the
+> > > ones that have been open for a while. It would help me channel and focus
+> > > the Mentorship Program efforts and my efforts to help the areas in need.
+> > >
+> > > thanks,
+> > > -- Shuah
+> >
+> > I'm interested in this topic for not just syzbot but other bug trackers
+> > as well. Fedora gets a steady flow of bugs filed and the three official
+> > maintainers do their best to review but sometimes things slip through,
+> > especially if we hit a time when several of us are out or traveling.
+> > The kernel.org bugzilla also gets a number of bug reports that sometimes
+> > get lost. I'd love to see if there's a process that could work for syzbot
+> > and other high volume kernel trackers.
+> >
 >
-> > hi
-> > I understand that you think that this talk is basic and I could Not Agree
-> > More
-> > I have taken the time to develop the framework for my next talk
-> >  Structural Decomposition Of The Linux FileSystem #101
-> > Please take this talk into consideration and I believe that this is very
-> > high level discussion about the Linux Filesystem, and also tell me your
-> > thoughts on it its pretty lengthy and incredibly detailed and requesting to
-> > reply as soon as possible
+> I am hoping we can look at all bugs as well. Syzbot happens to be just a
+> good starting for me to start this discussion.
 
-https://www.linuxplumbersconf.org/event/4/abstracts/
- The best presentations are not about finished work, but rather problems,
- proposals, or proof-of-concept solutions that require face-to-face
- discussions and debate.
+I would say that single place to see/report/manage all bugs (it can be
+per-subsystem or for whole kernel) and ability to set priority will do
+the trick.
+
+Maybe, it is worth to integrate syzbot dashboard into kernel bugzilla,
+at least for priority.
 
 Thanks
+
+>
+> thanks,
+> -- Shuah
+>
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
