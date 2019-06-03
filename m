@@ -1,27 +1,34 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <skhan@linuxfoundation.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2535DC7D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0D637C51
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  3 Jun 2019 18:30:55 +0000 (UTC)
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
-	[172.104.155.198])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9002A83A
+	Mon,  3 Jun 2019 19:32:31 +0000 (UTC)
+Received: from mail-io1-f41.google.com (mail-io1-f41.google.com
+	[209.85.166.41])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 86F7AA3
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  3 Jun 2019 18:30:54 +0000 (UTC)
-Date: Mon, 3 Jun 2019 19:30:50 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Theodore Ts'o <tytso@mit.edu>
-Message-ID: <20190603183050.GB2456@sirena.org.uk>
-References: <20190530060727.GA31283@mit.edu>
+	Mon,  3 Jun 2019 19:32:30 +0000 (UTC)
+Received: by mail-io1-f41.google.com with SMTP id n5so15315725ioc.7
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 03 Jun 2019 12:32:30 -0700 (PDT)
+To: Sasha Levin <sashal@kernel.org>, Laura Abbott <labbott@redhat.com>,
+	ksummit-discuss@lists.linuxfoundation.org,
+	Shuah Khan <skhan@linuxfoundation.org>
+References: <0bc02b84-4d9a-59a7-e6c6-a3b602adca73@linuxfoundation.org>
+	<1018c8ba-61a0-c024-cd98-3b82ebd710ec@redhat.com>
+	<20190602180913.GR12898@sasha-vm>
+	<667d4900-0a9a-d6f8-7012-3c15c2df7da8@linuxfoundation.org>
+	<20190603180953.GA17954@chatter.i7.local>
+From: Shuah Khan <skhan@linuxfoundation.org>
+Message-ID: <eed50912-0968-ec10-4a40-bc079eed2080@linuxfoundation.org>
+Date: Mon, 3 Jun 2019 13:32:27 -0600
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5FDiZl1vRbLRjwwc"
-Content-Disposition: inline
-In-Reply-To: <20190530060727.GA31283@mit.edu>
-Cc: ksummit-discuss@lists.linuxfoundation.org,
-	Satya Tangirala <satyat@google.com>
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Inline Encryption Support
+In-Reply-To: <20190603180953.GA17954@chatter.i7.local>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Squashing bugs!
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,54 +38,46 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On 6/3/19 12:09 PM, Konstantin Ryabitsev wrote:
+> On Mon, Jun 03, 2019 at 11:25:51AM -0600, Shuah Khan wrote:
+>>>> I'm interested in this topic for not just syzbot but other bug trackers
+>>>> as well. Fedora gets a steady flow of bugs filed and the three official
+>>>> maintainers do their best to review but sometimes things slip through,
+>>>> especially if we hit a time when several of us are out or traveling.
+>>>> The kernel.org bugzilla also gets a number of bug reports that 
+>>>> sometimes
+>>>> get lost. I'd love to see if there's a process that could work for 
+>>>> syzbot
+>>>> and other high volume kernel trackers.
+>>>
+>>> Maybe the solution here is to standardize bug reporting bots? A
+>>> bugs@kernel.org mailing list which our various bots could report to with
+>>> a standard format that'll allow users/maintainers to easily filter it to
+>>> get only bugs they care about?
+>>>
+>>
+>> Easy to filter and manage is important for usability. I mentioned in my
+>> response Kees that I am finding it hard to update syzbot bug status to
+>> mark them as duplicate and/or fixed. The email interface is nice for
+>> individual bugs, but not very easy when it comes to other actions.
+> 
+> May I recommend using a project like git-bug [1] instead of a mailing 
+> list? I am increasingly worried that with mail services being 
+> increasingly centralized across 4-5 major providers we'll soon find it 
+> quite difficult to continue using mailing lists and have them reliably 
+> deliver mail to all participants. Heck, I've been battling with Gmail 
+> over the weekend due to it arbitrarily deciding that Robert Richter is 
+> receiving way too much mail.
+> 
+> Git-bug, on the other hand, is a great internal bug tracker for 
+> automatically generated bug reports -- it already provides the necessary 
+> structured platform, is decentralized, easily clonable and offline-able, 
+> and does not suffer from some mail provider arbitrarily deciding 
+> throttle its traffic for no obvious reason.
+> 
+> .. [1] https://github.com/MichaelMure/git-bug
+> 
 
---5FDiZl1vRbLRjwwc
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thanks for the pointer. I will play with this and see how this works.
 
-On Thu, May 30, 2019 at 02:07:27AM -0400, Theodore Ts'o wrote:
-
-> We=E2=80=99ve sent out an RFC patchset to add support for inline encrypti=
-on to
-> the block subsystem, UFS driver, f2fs, and fscrypt
-> (https://www.spinics.net/lists/linux-block/msg40330.html).  We=E2=80=99ll
-> discuss our approach including:
-
-> How the filesystem communicates an encryption key to inline encryption
-> hardware for each struct bio it submits.  How to add support for
-> inline encryption to storage drivers.  Support for layered devices
-> like device mapper.  A software crypto fallback.  How this work can
-> make future encryption tasks cleaner - like metadata encryption,
-> file-based encryption on removable storage and the possibility of
-> unifying how fscrypt, dm-crypt, and eCryptfs implement encryption.
-> like device mapper.  A software crypto fallback.  How this work can
-> make future encryption tasks cleaner - like metadata encryption,
-> file-based encryption on removable storage and the possibility of
-> unifying how fscrypt, dm-crypt, and eCryptfs implement encryption.
-
-There was some related work done by Linaro on this, specifically for
-adding support for offloading ESSIV in dm-crypt using crypto engines
-(rather than something directly in block hardware) through the existing
-crypto API.  It does seem like something where there's hardware out
-there but no clear idea how to implement support for it in the kernel,
-the big blockers there were IIRC benchmarking requirements and in the
-case of ESSIV handling the fact that everything is in dm-crypt at
-present.
-
---5FDiZl1vRbLRjwwc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlz1Z1oACgkQJNaLcl1U
-h9CFTQf8C7hhrmU3lLjJlsijeHHe+xyzyCOkTDWhhcW7zc8mBXRwTcki00WKANS1
-+N55KPedJtDBiLUditeNw0nF07aWWA9JUYf5Ed+qJL3J+iUMp/Mj3ZHRX3t3WivR
-lx73lNd0BS6I5F95iT78lXzG6nPanOhvzby1qhQK23qUF7dA1gqSIDFqDMBBfjyw
-KED3Akd5J1czvYf0l12NjPBZqLWGBcmwY3DIT9n7LWk95mNl04wn0iPfszPMtLM7
-hgLeKehWdm0VpHm+qysa1ZSCtyo0GPGFOtylwMxtVPmDAck8wS4vZ2wLskS/uP0K
-9O8ksoYWK9nMYXztk8qE826nUseblw==
-=JO9w
------END PGP SIGNATURE-----
-
---5FDiZl1vRbLRjwwc--
+-- Shuah
