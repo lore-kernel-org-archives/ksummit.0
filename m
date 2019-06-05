@@ -1,38 +1,37 @@
 Return-Path: <skhan@linuxfoundation.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 66157D9B
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id B228BDC0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Jun 2019 17:54:43 +0000 (UTC)
-Received: from mail-io1-f53.google.com (mail-io1-f53.google.com
-	[209.85.166.53])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 42EFF34F
+	Wed,  5 Jun 2019 18:16:23 +0000 (UTC)
+Received: from mail-io1-f45.google.com (mail-io1-f45.google.com
+	[209.85.166.45])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5A47A6D6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Jun 2019 17:54:42 +0000 (UTC)
-Received: by mail-io1-f53.google.com with SMTP id m24so7520539ioo.2
+	Wed,  5 Jun 2019 18:16:23 +0000 (UTC)
+Received: by mail-io1-f45.google.com with SMTP id u13so20991811iop.0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 05 Jun 2019 10:54:42 -0700 (PDT)
-To: Linus Torvalds <torvalds@linux-foundation.org>,
-	Sasha Levin <sashal@kernel.org>, Laura Abbott <labbott@redhat.com>,
-	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
-	skhan@linuxfoundation.org
+	Wed, 05 Jun 2019 11:16:23 -0700 (PDT)
+To: Geert Uytterhoeven <geert@linux-m68k.org>, Mark Brown <broonie@kernel.org>
 References: <0bc02b84-4d9a-59a7-e6c6-a3b602adca73@linuxfoundation.org>
 	<1018c8ba-61a0-c024-cd98-3b82ebd710ec@redhat.com>
 	<20190602180913.GR12898@sasha-vm>
 	<667d4900-0a9a-d6f8-7012-3c15c2df7da8@linuxfoundation.org>
 	<20190603180953.GA17954@chatter.i7.local>
 	<CAHk-=wgVYafLVe-ggAyWdC4Fxg7fCvJP5vgkLJSWPQhk_Xi-Cw@mail.gmail.com>
-	<20190604214303.GB17589@chatter.i7.local>
-	<4bc7ff3c-d190-f9a0-5088-9dc99ab7741d@linuxfoundation.org>
-	<20190604222214.GA20929@chatter.i7.local>
+	<20190603211004.GU12898@sasha-vm> <20190603221131.GE2456@sirena.org.uk>
+	<6a90bf6c-e9a4-85eb-527c-c4bc3658e779@linuxfoundation.org>
+	<20190605092717.GK2456@sirena.org.uk>
+	<CAMuHMdV7Sp00r40czj=w8ta5nOMebXmZdzybvzE=V3vuZ-sdCQ@mail.gmail.com>
 From: Shuah Khan <skhan@linuxfoundation.org>
-Message-ID: <93cb1eea-fe5e-2ea7-a3b7-8fbea8769583@linuxfoundation.org>
-Date: Wed, 5 Jun 2019 11:54:40 -0600
+Message-ID: <252a548a-6abe-e422-9c9a-a4d45831f244@linuxfoundation.org>
+Date: Wed, 5 Jun 2019 12:16:21 -0600
 MIME-Version: 1.0
-In-Reply-To: <20190604222214.GA20929@chatter.i7.local>
+In-Reply-To: <CAMuHMdV7Sp00r40czj=w8ta5nOMebXmZdzybvzE=V3vuZ-sdCQ@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Squashing bugs!
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -43,51 +42,49 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 6/4/19 4:22 PM, Konstantin Ryabitsev wrote:
-> On Tue, Jun 04, 2019 at 04:02:21PM -0600, Shuah Khan wrote:
->>>>> May I recommend using a project like git-bug [1] instead of a mailing
->>>>> list?
->>>>
+Hi Mark and Geert,
+
+On 6/5/19 5:48 AM, Geert Uytterhoeven wrote:
+> Hi Mark,
+> 
+> On Wed, Jun 5, 2019 at 11:27 AM Mark Brown <broonie@kernel.org> wrote:
+>> On Tue, Jun 04, 2019 at 11:16:17AM -0600, Shuah Khan wrote:
+>>> - Create a directory under our source tree for bugs. This way bugs
+>>>    stay with the source and we manage them the same way we handle
+>>>    non-runtime objects: Documenation, scripts etc. This can be flat
+>>>    directory or have a sub-dir structure underneath.
+>>>
+>>>    ../bugs similar to ../Documentation
 >>
->> I experimented with git-bug a bit. Doesn't look like it is mature enough
->> for our use. It depends on golang-go
->>
->> I would like to have the option to build from sources, the instructions
->> are rather poor and couldn't build following those.
->>
-
-I was able to compile with "go" under my home directory finally and run 
-a few commands on git-bug repo. There is the next step of trying to see 
-if it works for other repos.
-
-I still have my concerns about dependency on "go" and I would like to 
-get this to work under a non-home directory structure.
-
->> Is there another git-bug like option we can look into?
-> 
-> If there exists one, I'm unaware of it, unfortunately. The right person 
-> to talk to about developing something like this would be the author of 
-> Public-Inbox (Eric Wong), who digs distributed systems and would 
-> probably love working on something like this.
+>> If bugs are tracked in the source tree doesn't that make it difficult
+>> for people to update the bugs?
 > 
 
-Okay.
+Right. It would be harder for users to report bugs. Unless we com up 
+with a way to automate the process of taking user reported generating 
+reports that can be committed.
 
-> However, I have been unsuccessful in getting LF to fund such development 
-> projects, and he's certainly not in a position to work on something like 
-> this for free.
+As I was playing with git-bug, I started to think maybe we can leverage 
+our process to keep bugs in the same repo.
+
+> Indeed. While storing the bug state with the sources sounds like a
+> great idea, it's far from trivial in distributed development:
+>    - Where are bugs reported (added to git)?
+>      In upstream, or in maintainer repos?
+>      At least the tree where a fix is applied should carry the bug report.
+>    - Unless downstream trees merge from upstream on a regular basis,
+>      they won't have all reports for bugs that apply to their trees.
 > 
-> Hey, you work at LF now. Maybe you'll have more luck convincing The 
-> Right People that this is important work that would greatly benefit the 
-> Linux community? :)
+
+My thinking is that we follow the same process of keeping the repos 
+consistent.
+
+> Closing bugs does follow the expected path, though: both fix and bug
+> report update move upstream through a pull request.
 > 
 
-:)
-
-My thoughts on this are: "we needed a solution yesterday" and we can't 
-start building a shelter for rain while its raining. We need some 
-interim solution, even if we choose to explore a long term project 
-development idea.
+This is the value add for me as I proposed the idea. There are lot of 
+logistics to consider as you both pointed out.
 
 thanks,
 -- Shuah
