@@ -1,31 +1,38 @@
-Return-Path: <sashal@kernel.org>
+Return-Path: <skhan@linuxfoundation.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 711127A9
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 66157D9B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Jun 2019 13:19:44 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0ADA986E
+	Wed,  5 Jun 2019 17:54:43 +0000 (UTC)
+Received: from mail-io1-f53.google.com (mail-io1-f53.google.com
+	[209.85.166.53])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 42EFF34F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Jun 2019 13:19:43 +0000 (UTC)
-Date: Wed, 5 Jun 2019 09:19:42 -0400
-From: Sasha Levin <sashal@kernel.org>
-To: Shuah Khan <skhan@linuxfoundation.org>
-Message-ID: <20190605131942.GD29739@sasha-vm>
+	Wed,  5 Jun 2019 17:54:42 +0000 (UTC)
+Received: by mail-io1-f53.google.com with SMTP id m24so7520539ioo.2
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 05 Jun 2019 10:54:42 -0700 (PDT)
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+	Sasha Levin <sashal@kernel.org>, Laura Abbott <labbott@redhat.com>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>,
+	skhan@linuxfoundation.org
 References: <0bc02b84-4d9a-59a7-e6c6-a3b602adca73@linuxfoundation.org>
 	<1018c8ba-61a0-c024-cd98-3b82ebd710ec@redhat.com>
 	<20190602180913.GR12898@sasha-vm>
 	<667d4900-0a9a-d6f8-7012-3c15c2df7da8@linuxfoundation.org>
 	<20190603180953.GA17954@chatter.i7.local>
 	<CAHk-=wgVYafLVe-ggAyWdC4Fxg7fCvJP5vgkLJSWPQhk_Xi-Cw@mail.gmail.com>
-	<20190603211004.GU12898@sasha-vm>
-	<20190603221131.GE2456@sirena.org.uk>
-	<6a90bf6c-e9a4-85eb-527c-c4bc3658e779@linuxfoundation.org>
+	<20190604214303.GB17589@chatter.i7.local>
+	<4bc7ff3c-d190-f9a0-5088-9dc99ab7741d@linuxfoundation.org>
+	<20190604222214.GA20929@chatter.i7.local>
+From: Shuah Khan <skhan@linuxfoundation.org>
+Message-ID: <93cb1eea-fe5e-2ea7-a3b7-8fbea8769583@linuxfoundation.org>
+Date: Wed, 5 Jun 2019 11:54:40 -0600
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <6a90bf6c-e9a4-85eb-527c-c4bc3658e779@linuxfoundation.org>
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+In-Reply-To: <20190604222214.GA20929@chatter.i7.local>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Squashing bugs!
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
@@ -36,87 +43,51 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, Jun 04, 2019 at 11:16:17AM -0600, Shuah Khan wrote:
->On 6/3/19 4:11 PM, Mark Brown wrote:
->>On Mon, Jun 03, 2019 at 05:10:04PM -0400, Sasha Levin wrote:
+On 6/4/19 4:22 PM, Konstantin Ryabitsev wrote:
+> On Tue, Jun 04, 2019 at 04:02:21PM -0600, Shuah Khan wrote:
+>>>>> May I recommend using a project like git-bug [1] instead of a mailing
+>>>>> list?
+>>>>
 >>
->>>Would it make sense to do some bikeshedding around how an ideal email
->>>bug report should look like, and then get syzbot and maybe kernelci to
->>>switch to using this new format as an experiment?
+>> I experimented with git-bug a bit. Doesn't look like it is mature enough
+>> for our use. It depends on golang-go
 >>
->>>A bunch the syzbot/kernelci/etc folks will be at LPC as well, and we'll
->>>have the testing & fuzzing MC going on where this can be discussed and
->>>agreed on once there is a concrete proposal.
+>> I would like to have the option to build from sources, the instructions
+>> are rather poor and couldn't build following those.
 >>
->>I think we'll find that there's a lot of variation in what's useful to
->>report directly in the e-mail and how comes from the particular tests
->>that are being done, what's critical information about the environment
->>will vary quite a bit and there's going to be taste differences as well.
->>A lot of this is a combination of common sense and the reporters being
->>able to be responsive to feedback from their users, there's not much
->>commonality in the formatting of the existing reports from static
->>analysis but they're pretty much all useful (at least the ones I tend to
->>get are useful to me).
->>
->>There is the question of tooling to track the bugs between multiple bots
->>which would benefit if they were doing standard things but if people are
->>working on that rather than trying to serve both humans and computers at
->>once we might be better off with some sort of API and providing a URL in
->>the emails for the machines to go and look at.
->>
->
->I am going to bounce a proposal and brace for impact :)
->
->What do people think about managing bugs the way we handle our
->development workflow?
->
->- Create a directory under our source tree for bugs. This way bugs
->  stay with the source and we manage them the same way we handle
->  non-runtime objects: Documenation, scripts etc. This can be flat
->  directory or have a sub-dir structure underneath.
->
->  ../bugs similar to ../Documentation
 
-I think that having them in the same tree is going to complicate things
-more than it will help.
+I was able to compile with "go" under my home directory finally and run 
+a few commands on git-bug repo. There is the next step of trying to see 
+if it works for other repos.
 
-It would probably be simpler to have this in a separate tree (or as git
-objects inside Linus's tree).
+I still have my concerns about dependency on "go" and I would like to 
+get this to work under a non-home directory structure.
 
->- Associate a mailing list - linux-bugs
->- Define a format in which bugs should be sent to this list and what
->  should be included in the report.
->
->  e.g: [BUG REPORT] sub-system title
->  Failure mode, release, stack trace (if applicable) etc.
+>> Is there another git-bug like option we can look into?
+> 
+> If there exists one, I'm unaware of it, unfortunately. The right person 
+> to talk to about developing something like this would be the author of 
+> Public-Inbox (Eric Wong), who digs distributed systems and would 
+> probably love working on something like this.
+> 
 
-Yes! Hopefully something that is both easily machine readable and human
-readable.
+Okay.
 
->- A group of maintainers/developers (volunteers) take turns to watch
->  this list as a long term plan. Yes, I am proposing a mailing list,
->  consistent with our development model.
+> However, I have been unsuccessful in getting LF to fund such development 
+> projects, and he's certainly not in a position to work on something like 
+> this for free.
+> 
+> Hey, you work at LF now. Maybe you'll have more luck convincing The 
+> Right People that this is important work that would greatly benefit the 
+> Linux community? :)
+> 
 
-I'd be happy to help here.
+:)
 
->- History of the bug including the fix commit ID will be preserved.
->  We will have to figure out what it means to close a bug and general
->  lifetime. There is a big difference between these objects and other
->  source objects. These objects have short lifetime.
->
->I haven't thought through everything yet.
->
->My motivation is that, this way bug reporting and managing will be part
->of our workflow and becomes part of our process. It helps centralize bug
->reports.
+My thoughts on this are: "we needed a solution yesterday" and we can't 
+start building a shelter for rain while its raining. We need some 
+interim solution, even if we choose to explore a long term project 
+development idea.
 
-Having bugs work the same way like patches is a great approach IMHO.
-Being able to git-send-email bugs, or to use our various autmation tools
-for git commits on bugs is really great.
-
-We have a lot of infrastructure written around our existing git/email
-process, so why not leverage it more as you suggest?
-
---
-Thanks,
-Sasha
+thanks,
+-- Shuah
