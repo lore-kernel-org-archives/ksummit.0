@@ -1,32 +1,33 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <geert.uytterhoeven@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 6C4B92F
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 39F642F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Jun 2019 09:27:21 +0000 (UTC)
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
-	[172.104.155.198])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F23B519B
+	Wed,  5 Jun 2019 11:48:25 +0000 (UTC)
+Received: from mail-lf1-f66.google.com (mail-lf1-f66.google.com
+	[209.85.167.66])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E602B19B
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Jun 2019 09:27:20 +0000 (UTC)
-Date: Wed, 5 Jun 2019 10:27:17 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Shuah Khan <skhan@linuxfoundation.org>
-Message-ID: <20190605092717.GK2456@sirena.org.uk>
+	Wed,  5 Jun 2019 11:48:23 +0000 (UTC)
+Received: by mail-lf1-f66.google.com with SMTP id 136so7292194lfa.8
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Wed, 05 Jun 2019 04:48:23 -0700 (PDT)
+MIME-Version: 1.0
 References: <0bc02b84-4d9a-59a7-e6c6-a3b602adca73@linuxfoundation.org>
 	<1018c8ba-61a0-c024-cd98-3b82ebd710ec@redhat.com>
 	<20190602180913.GR12898@sasha-vm>
 	<667d4900-0a9a-d6f8-7012-3c15c2df7da8@linuxfoundation.org>
 	<20190603180953.GA17954@chatter.i7.local>
 	<CAHk-=wgVYafLVe-ggAyWdC4Fxg7fCvJP5vgkLJSWPQhk_Xi-Cw@mail.gmail.com>
-	<20190603211004.GU12898@sasha-vm>
-	<20190603221131.GE2456@sirena.org.uk>
+	<20190603211004.GU12898@sasha-vm> <20190603221131.GE2456@sirena.org.uk>
 	<6a90bf6c-e9a4-85eb-527c-c4bc3658e779@linuxfoundation.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="aJFFgG5QZHt5jcrP"
-Content-Disposition: inline
-In-Reply-To: <6a90bf6c-e9a4-85eb-527c-c4bc3658e779@linuxfoundation.org>
+	<20190605092717.GK2456@sirena.org.uk>
+In-Reply-To: <20190605092717.GK2456@sirena.org.uk>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 5 Jun 2019 13:48:10 +0200
+Message-ID: <CAMuHMdV7Sp00r40czj=w8ta5nOMebXmZdzybvzE=V3vuZ-sdCQ@mail.gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Squashing bugs!
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -38,37 +39,38 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+Hi Mark,
 
---aJFFgG5QZHt5jcrP
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Wed, Jun 5, 2019 at 11:27 AM Mark Brown <broonie@kernel.org> wrote:
+> On Tue, Jun 04, 2019 at 11:16:17AM -0600, Shuah Khan wrote:
+> > - Create a directory under our source tree for bugs. This way bugs
+> >   stay with the source and we manage them the same way we handle
+> >   non-runtime objects: Documenation, scripts etc. This can be flat
+> >   directory or have a sub-dir structure underneath.
+> >
+> >   ../bugs similar to ../Documentation
+>
+> If bugs are tracked in the source tree doesn't that make it difficult
+> for people to update the bugs?
 
-On Tue, Jun 04, 2019 at 11:16:17AM -0600, Shuah Khan wrote:
+Indeed. While storing the bug state with the sources sounds like a
+great idea, it's far from trivial in distributed development:
+  - Where are bugs reported (added to git)?
+    In upstream, or in maintainer repos?
+    At least the tree where a fix is applied should carry the bug report.
+  - Unless downstream trees merge from upstream on a regular basis,
+    they won't have all reports for bugs that apply to their trees.
 
-> - Create a directory under our source tree for bugs. This way bugs
->   stay with the source and we manage them the same way we handle
->   non-runtime objects: Documenation, scripts etc. This can be flat
->   directory or have a sub-dir structure underneath.
->=20
->   ../bugs similar to ../Documentation
+Closing bugs does follow the expected path, though: both fix and bug
+report update move upstream through a pull request.
 
-If bugs are tracked in the source tree doesn't that make it difficult
-for people to update the bugs?
+Gr{oetje,eeting}s,
 
---aJFFgG5QZHt5jcrP
-Content-Type: application/pgp-signature; name="signature.asc"
+                        Geert
 
------BEGIN PGP SIGNATURE-----
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlz3ivAACgkQJNaLcl1U
-h9AefAf/bs5JYGUFrA1aqis27ge1m/nwrQ13hJItVscw39owDqIzu8EK5R2VQ9OB
-wOWIc2v7hFy9GGL4m4xfvCxPTWg0L4vvcc7w3V4MuL0KgbEqp0C6EqztNP9+zmBN
-ijxRtBZVFKBY6TQfGZUXq63LiQbXxrbW+UbqV522Wc53bb0qWK2bQgrFw+k29Quv
-391aGJU0AB061eZIOxVlEJOt7yeR069VFObmddssSAYfVdRT5kCCCulvt9ZFviMU
-XeuJJgoS1jQ1TgB0Rc7NU5Y9KkHZGOWn8oR04p59jmO2D6vlf9BtVk3ThDyNl/k8
-a8eUQjKCRvl5tn6N6eW6FRJp33Rogw==
-=yieP
------END PGP SIGNATURE-----
-
---aJFFgG5QZHt5jcrP--
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
