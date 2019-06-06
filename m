@@ -1,37 +1,39 @@
-Return-Path: <skhan@linuxfoundation.org>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1424ECDE
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1F010CDF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Jun 2019 19:05:30 +0000 (UTC)
-Received: from mail-it1-f196.google.com (mail-it1-f196.google.com
-	[209.85.166.196])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9046A844
+	Thu,  6 Jun 2019 15:48:45 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B7A1B34F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  5 Jun 2019 19:05:29 +0000 (UTC)
-Received: by mail-it1-f196.google.com with SMTP id h9so5266422itk.3
+	Thu,  6 Jun 2019 15:48:44 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+	by bedivere.hansenpartnership.com (Postfix) with ESMTP id 12CF48EE134
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 05 Jun 2019 12:05:29 -0700 (PDT)
-To: Sasha Levin <sashal@kernel.org>
-References: <0bc02b84-4d9a-59a7-e6c6-a3b602adca73@linuxfoundation.org>
-	<1018c8ba-61a0-c024-cd98-3b82ebd710ec@redhat.com>
-	<20190602180913.GR12898@sasha-vm>
-	<667d4900-0a9a-d6f8-7012-3c15c2df7da8@linuxfoundation.org>
-	<20190603180953.GA17954@chatter.i7.local>
-	<CAHk-=wgVYafLVe-ggAyWdC4Fxg7fCvJP5vgkLJSWPQhk_Xi-Cw@mail.gmail.com>
-	<20190603211004.GU12898@sasha-vm> <20190603221131.GE2456@sirena.org.uk>
-	<6a90bf6c-e9a4-85eb-527c-c4bc3658e779@linuxfoundation.org>
-	<20190605131942.GD29739@sasha-vm>
-From: Shuah Khan <skhan@linuxfoundation.org>
-Message-ID: <144cc051-52e8-d6ec-e7fc-6545fc23eab4@linuxfoundation.org>
-Date: Wed, 5 Jun 2019 13:05:25 -0600
-MIME-Version: 1.0
-In-Reply-To: <20190605131942.GD29739@sasha-vm>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Squashing bugs!
+	Thu,  6 Jun 2019 08:48:44 -0700 (PDT)
+Received: from bedivere.hansenpartnership.com ([127.0.0.1])
+	by localhost (bedivere.hansenpartnership.com [127.0.0.1]) (amavisd-new,
+	port 10024) with ESMTP id rTbIAWlgOsrG
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu,  6 Jun 2019 08:48:43 -0700 (PDT)
+Received: from [192.168.140.111] (bzq-164-168-31-206.red.bezeqint.net
+	[31.168.164.206])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by bedivere.hansenpartnership.com (Postfix) with ESMTPSA id A893C8EE0FC
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Thu,  6 Jun 2019 08:48:41 -0700 (PDT)
+Message-ID: <1559836116.15946.27.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: ksummit-discuss@lists.linuxfoundation.org
+Date: Thu, 06 Jun 2019 18:48:36 +0300
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: [Ksummit-discuss] [MAINTAINERS SUMMIT] Pull network and Patch
+	Acceptance Consistency
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -41,99 +43,36 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 6/5/19 7:19 AM, Sasha Levin wrote:
-> On Tue, Jun 04, 2019 at 11:16:17AM -0600, Shuah Khan wrote:
->> On 6/3/19 4:11 PM, Mark Brown wrote:
->>> On Mon, Jun 03, 2019 at 05:10:04PM -0400, Sasha Levin wrote:
->>>
->>>> Would it make sense to do some bikeshedding around how an ideal email
->>>> bug report should look like, and then get syzbot and maybe kernelci to
->>>> switch to using this new format as an experiment?
->>>
->>>> A bunch the syzbot/kernelci/etc folks will be at LPC as well, and we'll
->>>> have the testing & fuzzing MC going on where this can be discussed and
->>>> agreed on once there is a concrete proposal.
->>>
->>> I think we'll find that there's a lot of variation in what's useful to
->>> report directly in the e-mail and how comes from the particular tests
->>> that are being done, what's critical information about the environment
->>> will vary quite a bit and there's going to be taste differences as well.
->>> A lot of this is a combination of common sense and the reporters being
->>> able to be responsive to feedback from their users, there's not much
->>> commonality in the formatting of the existing reports from static
->>> analysis but they're pretty much all useful (at least the ones I tend to
->>> get are useful to me).
->>>
->>> There is the question of tooling to track the bugs between multiple bots
->>> which would benefit if they were doing standard things but if people are
->>> working on that rather than trying to serve both humans and computers at
->>> once we might be better off with some sort of API and providing a URL in
->>> the emails for the machines to go and look at.
->>>
->>
->> I am going to bounce a proposal and brace for impact :)
->>
->> What do people think about managing bugs the way we handle our
->> development workflow?
->>
->> - Create a directory under our source tree for bugs. This way bugs
->>  stay with the source and we manage them the same way we handle
->>  non-runtime objects: Documenation, scripts etc. This can be flat
->>  directory or have a sub-dir structure underneath.
->>
->>  ../bugs similar to ../Documentation
-> 
-> I think that having them in the same tree is going to complicate things
-> more than it will help.
-> 
-> It would probably be simpler to have this in a separate tree (or as git
-> objects inside Linus's tree).
-> 
->> - Associate a mailing list - linux-bugs
->> - Define a format in which bugs should be sent to this list and what
->>  should be included in the report.
->>
->>  e.g: [BUG REPORT] sub-system title
->>  Failure mode, release, stack trace (if applicable) etc.
-> 
-> Yes! Hopefully something that is both easily machine readable and human
-> readable.
-> 
+This is probably best done as two separate topics
 
-Can the AUTO SEL logic be leveraged for updates to bugs?
+1) Pull network: The pull depth is effectively how many pulls your tree
+does before it goes to Linus, so pull depth 0 is sent straight to
+Linus, pull depth 1 is sent to a maintainer who sends to Linus and so
+on.  We've previously spent time discussing how increasing the pull
+depth of the network would reduce the amount of time Linus spends
+handling pull requests.  However, in the areas I play, like security,
+we seem to be moving in the opposite direction (encouraging people to
+go from pull depth 1 to pull depth 0).  If we're deciding to move to a
+flat tree model, where everything is depth 0, that's fine, I just think
+we could do with making a formal decision on it so we don't waste
+energy encouraging greater tree depth.
 
->> - A group of maintainers/developers (volunteers) take turns to watch
->>  this list as a long term plan. Yes, I am proposing a mailing list,
->>  consistent with our development model.
-> 
-> I'd be happy to help here.
-> 
+2) Patch Acceptance Consistency: At the moment, we have very different
+acceptance criteria for patches into the various maintainer trees. 
+Some of these differences are due to deeply held stylistic beliefs, but
+some could be more streamlined to give a more consistent experience to
+beginners who end up doing batch fixes which cross trees and end up
+more confused than anything else.  I'm not proposing to try and unify
+our entire submission process, because that would never fly, but I was
+thinking we could get a few sample maintainer trees to give their
+criteria and then see if we could get any streamlining.  For instance,
+SCSI has a fairly weak "match the current driver" style requirement, a
+reasonably strong get someone else to review it requirement and the
+usual good change log and one patch per substantive change requirement.
+ Other subsystems look similar without the review requirement, some
+have very strict stylistic requirements (reverse christmas tree, one
+variable definition per line, etc).  As I said, the goal wouldn't be to
+ beat up on the unusual requirements but to see if we could agree some
+global baselines that would at least make submission more uniform.
 
-Awesome.
-
->> - History of the bug including the fix commit ID will be preserved.
->>  We will have to figure out what it means to close a bug and general
->>  lifetime. There is a big difference between these objects and other
->>  source objects. These objects have short lifetime.
->>
->> I haven't thought through everything yet.
->>
->> My motivation is that, this way bug reporting and managing will be part
->> of our workflow and becomes part of our process. It helps centralize bug
->> reports.
-> 
-> Having bugs work the same way like patches is a great approach IMHO.
-> Being able to git-send-email bugs, or to use our various autmation tools
-> for git commits on bugs is really great.
-> 
-> We have a lot of infrastructure written around our existing git/email
-> process, so why not leverage it more as you suggest?
-> 
-
-Right. I am hoping we can leverage a lot of our existing tools and 
-processes if we go with the patch process. Maybe be AUTO SEL logic can 
-also be leveraged and extended to generate bugs reports and/or generate 
-updates for bugs.
-
-thanks,
--- Shuah
+James
