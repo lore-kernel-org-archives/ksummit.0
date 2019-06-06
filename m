@@ -1,18 +1,18 @@
 Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 393EC2C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 41489D93
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Jun 2019 16:24:42 +0000 (UTC)
+	Thu,  6 Jun 2019 16:29:35 +0000 (UTC)
 Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
 	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id AD4C4A8
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CFAC2A8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu,  6 Jun 2019 16:24:41 +0000 (UTC)
-Message-ID: <1559838275.3144.6.camel@HansenPartnership.com>
+	Thu,  6 Jun 2019 16:29:34 +0000 (UTC)
+Message-ID: <1559838569.3144.11.camel@HansenPartnership.com>
 From: James Bottomley <James.Bottomley@HansenPartnership.com>
 To: Greg KH <greg@kroah.com>
-Date: Thu, 06 Jun 2019 19:24:35 +0300
+Date: Thu, 06 Jun 2019 19:29:29 +0300
 In-Reply-To: <20190606155846.GA31044@kroah.com>
 References: <1559836116.15946.27.camel@HansenPartnership.com>
 	<20190606155846.GA31044@kroah.com>
@@ -31,51 +31,42 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-[splitting issues to shorten replies]
 On Thu, 2019-06-06 at 17:58 +0200, Greg KH wrote:
-> On Thu, Jun 06, 2019 at 06:48:36PM +0300, James Bottomley wrote:
-> > This is probably best done as two separate topics
-> > 
-> > 1) Pull network: The pull depth is effectively how many pulls your
-> > tree does before it goes to Linus, so pull depth 0 is sent straight
-> > to Linus, pull depth 1 is sent to a maintainer who sends to Linus
-> > and so on.  We've previously spent time discussing how increasing
-> > the pull depth of the network would reduce the amount of time Linus
-> > spends handling pull requests.  However, in the areas I play, like
-> > security, we seem to be moving in the opposite direction
-> > (encouraging people to go from pull depth 1 to pull depth 0).  If
-> > we're deciding to move to a flat tree model, where everything is
-> > depth 0, that's fine, I just think we could do with making a formal
-> > decision on it so we don't waste energy encouraging greater tree
-> > depth.
+> > 2) Patch Acceptance Consistency: At the moment, we have very
+> > different acceptance criteria for patches into the various
+> > maintainer trees.  Some of these differences are due to deeply held
+> > stylistic beliefs, but some could be more streamlined to give a
+> > more consistent experience to beginners who end up doing batch
+> > fixes which cross trees and end up more confused than anything
+> > else.  I'm not proposing to try and unify our entire submission
+> > process, because that would never fly, but I was
+> > thinking we could get a few sample maintainer trees to give their
+> > criteria and then see if we could get any streamlining.  For
+> > instance, SCSI has a fairly weak "match the current driver" style
+> > requirement, a reasonably strong get someone else to review it
+> > requirement and the usual good change log and one patch per
+> > substantive change requirement.  Other subsystems look similar
+> > without the review requirement, some have very strict stylistic
+> > requirements (reverse christmas tree, one variable definition per
+> > line, etc).  As I said, the goal wouldn't be to  beat up on the
+> > unusual requirements but to see if we could agree some global
+> > baselines that would at least make submission more uniform.
 > 
-> That depth "change" was due to the perceived problems that having a
-> deeper pull depth was causing.  To sort that out, Linus asked for
-> things to go directly to him.
+> I thought Dan's "maintainer document" was going to help resolve
+> things like this, both putting in writing just what those rules were,
+> as well as help point out where things might be going too far in one
+> direction or another in a much easier way, as they could be compared.
 
-This seems to go beyond problems with one tree and is becoming a trend.
-
-> It seems like the real issue is the problem with that subsystem
-> collection point, and the fact that the depth changed is a sign that
-> our model works well (i.e. everyone can be routed around.)
-
-I'm not really interested in calling out "problem" maintainers, or
-indeed having another "my patch collection method is better than yours"
-type discussion.  What I was fishing for is whether the general
-impression that greater tree depth is worth striving for is actually
-correct, or we should all give up now and simply accept that the
-current flat tree is the best we can do, and, indeed is the model that
-works best for Linus.  I get the impression this may be the case, but I
-think making sure by having an actual discussion among the interested
-parties who will be at the kernel summit, would be useful.
-
-> So, maybe some work on fixing up subsystems that have problems
-> aggregating things?  Seems like some areas of the kernel do this just
-> fine, perhaps some workflow for the developers involved needs to be
-> adjusted?
-
-As I said, I'm not really that interested in upbraiding the problem
-cases, I'm more interested in discussing the generalities, and what we
-as maintainers should be encouraging.
+Well, um, I can't really comment on a document that doesn't yet exist. 
+However, I can note that the best kernel process documents describe
+what we actually do (mostly because attempting to impose additional
+processes by fiat [or by document] really doesn't go over well) and
+that's orthogonal to what I'm proposing: I'm proposing that we examine
+critically what we currently do and see if there aren't any more areas
+where we could strive for greater consistency and uniformity. 
+Certainly, if Dan's doc exists by KS time it could be a useful input,
+but to effect change in this area requires discussion and agreement by
+the franchise holders (i.e. the maintainers) which is what I'm
+proposing and which KS is the ideal venue to get.
 
 James
