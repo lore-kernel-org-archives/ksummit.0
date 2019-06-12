@@ -1,29 +1,25 @@
-Return-Path: <skhan@linuxfoundation.org>
+Return-Path: <kstewart@linuxfoundation.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5903A2630
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id BC8F2279D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Jun 2019 19:43:49 +0000 (UTC)
-Received: from mail-it1-f182.google.com (mail-it1-f182.google.com
-	[209.85.166.182])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D1370E6
+	Wed, 12 Jun 2019 20:33:52 +0000 (UTC)
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
+	[209.85.167.54])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2CA1379
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Jun 2019 19:43:48 +0000 (UTC)
-Received: by mail-it1-f182.google.com with SMTP id m138so12837188ita.4
+	Wed, 12 Jun 2019 20:33:52 +0000 (UTC)
+Received: by mail-lf1-f54.google.com with SMTP id r15so13227136lfm.11
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Jun 2019 12:43:48 -0700 (PDT)
-To: "Martin K. Petersen" <martin.petersen@oracle.com>
-References: <20190612085405.6045d95d@lwn.net>
-	<f2f4a212-54f4-70a2-5a5d-9d45b3e1b5ae@linuxfoundation.org>
-	<yq1y326d3d0.fsf@oracle.com>
-From: Shuah Khan <skhan@linuxfoundation.org>
-Message-ID: <cba36442-fe83-5c5f-de9c-c0adc0021b0c@linuxfoundation.org>
-Date: Wed, 12 Jun 2019 13:43:46 -0600
+	Wed, 12 Jun 2019 13:33:52 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <yq1y326d3d0.fsf@oracle.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <20190612085405.6045d95d@lwn.net>
+In-Reply-To: <20190612085405.6045d95d@lwn.net>
+From: Kate Stewart <kstewart@linuxfoundation.org>
+Date: Wed, 12 Jun 2019 15:33:36 -0500
+Message-ID: <CAG_66ZTemPnVpjgj3jgM+Ks9L--UkpW1KV5JOoCV0rAXDpqx0A@mail.gmail.com>
+To: Jonathan Corbet <corbet@lwn.net>
+Content-Type: text/plain; charset="UTF-8"
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [TECH TOPIC] Documentation
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -35,23 +31,29 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 6/12/19 1:12 PM, Martin K. Petersen wrote:
-> 
-> Shuah,
-> 
->> I am currently putting together a task list for mentorship program
->> with a goal to create tasks that would more meaningful and helpful
->> instead of whitespace patches.
-> 
-> If somebody is looking for meaningful documentation work, I have a
-> substantial project in need of volunteers: The target stack wiki is
-> stale, unmaintained, and often inaccessible. I would love for somebody
-> to convert all that information to RST so we can stick it in the kernel
-> and keep it in sync with the code changes.
-> 
+On Wed, Jun 12, 2019 at 9:56 AM Jonathan Corbet <corbet@lwn.net> wrote:
+>
+> What could be more fun than talking about kernel documentation?  Things we
+> could get into:
+>
+>  - The state of the RST transition, what remains to be done, whether it's
+>    all just useless churn that makes the documentation worse, etc.
+>
+>  - Things we'd like to improve in the documentation toolchain.
+>
+>  - Overall organization of Documentation/ and moving docs when the need
+>    arises.  It seems I end up fighting about this more than just about
+>    anything else, but I think it's important to organize our docs for the
+>    convenience of the people using them.
+>
+>  - The ultimate vision for kernel docs (for now).  RST conversion and
+>    imposing some organization are important, but they will not,
+>    themselves, give us a coherent set of documentation.  What can we do to
+>    have documentation that is useful, current, and maintainable, rather
+>    than the dusty attic we have now?
 
-Awesome. Please send the project description to me. Feel free to break
-it up as needed. We can chat offline about it.
+Also,  it would be great if we could talk about cleaning up the
+documentation licensing, so it too can have its licenses be
+automatically detected.   :-)
 
-thanks,
--- Shuah
+Kate
