@@ -1,27 +1,29 @@
-Return-Path: <tiejunc@vmware.com>
+Return-Path: <mchehab+samsung@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id D6C212431
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8CFD0DDC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 13 Jun 2019 02:36:35 +0000 (UTC)
-Received: from NAM01-BN3-obe.outbound.protection.outlook.com
-	(mail-eopbgr740047.outbound.protection.outlook.com [40.107.74.47])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0FFAAE6
+	Thu, 13 Jun 2019 13:28:49 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [85.118.1.10])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C124663D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 13 Jun 2019 02:36:34 +0000 (UTC)
-From: Tiejun Chen <tiejunc@vmware.com>
-To: Theodore Ts'o <tytso@mit.edu>, "ksummit-discuss@lists.linuxfoundation.org"
-	<ksummit-discuss@lists.linuxfoundation.org>
-Date: Thu, 13 Jun 2019 02:36:31 +0000
-Message-ID: <BYAPR05MB587886EA9E977866F067424FC5EF0@BYAPR05MB5878.namprd05.prod.outlook.com>
-References: <20190530060111.GA30403@mit.edu> <20190530135431.GE2751@mit.edu>
-In-Reply-To: <20190530135431.GE2751@mit.edu>
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	Thu, 13 Jun 2019 13:28:48 +0000 (UTC)
+Date: Thu, 13 Jun 2019 10:28:39 -0300
+From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+To: Dan Williams <dan.j.williams@intel.com>
+Message-ID: <20190613102839.2b08a959@coco.lan>
+In-Reply-To: <CAPcyv4guyNu5CVhxaAzMM5cq3VaXkcOPgjRTw5wZ2o_G094EmQ@mail.gmail.com>
+References: <1559836116.15946.27.camel@HansenPartnership.com>
+	<20190606155846.GA31044@kroah.com>
+	<1559838569.3144.11.camel@HansenPartnership.com>
+	<CAPcyv4guyNu5CVhxaAzMM5cq3VaXkcOPgjRTw5wZ2o_G094EmQ@mail.gmail.com>
 MIME-Version: 1.0
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] UniLinux -- Unikernelized Linux
- Exploration
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Pull network and Patch
+ Acceptance Consistency
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,47 +33,108 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-SGkgVGVkLA0KDQpMb29rcyBJIG1pc3NlZCB0aGlzIGVtYWlsIHNvIHJlYWxseSBzb3JyeSBmb3Ig
-dGhpcyBkZWxheSByZXNwb25zZS4gV2hlbiBJIHdlbnQgdGhyb3VnaCBrc3VtbWl0LWRpc2N1c3Mg
-dG9kYXkgYW5kIGp1c3Qgbm90aWNlZCB0aGlzIOKYuQ0KDQpPdmVyYWxsLCBJIGRpZG4ndCByZWZh
-Y3RvciB0b28gbXVjaCBpbnRvIHRoZSBiaWcgYXJjaGl0ZWN0dXJlIG9mIG15IHByb3Bvc2FsLiBC
-dXQgSSdkIGxpa2UgdG8gMT4uIGdvIGludG8gc29tZXRoaW5nIGluIGRldGFpbCB3aXRoIHRoZSBw
-YXJ0aWNpcGFudHMgOyAyPi4gdGFsayBhIGxpdHRsZSBiaXQgbmV3IGltcGxlbWVudGF0aW9ucy4g
-U28gYmVzaWRlcyBvZiBteSBvcmlnaW5hbCB2ZXJzaW9uLCB0aGlzIHRpbWUgd2Ugd291bGQgcmV2
-aWV3LWRpc2N1c3MgdGhlbQ0KMS4gIFJlZHVjZSB0aGUgc291cmNlIGNvZGUNCkZvciBleGFtcGxl
-LCBJJ20gdGhpbmtpbmcgaWYgd2UgY2FuIHJlbW92ZSB1bm5lY2Vzc2FyeSBrZXJuZWwgcGFyYW1l
-dGVyIHNlY3Rpb25zIHdoaWxlIGNvbXBpbGluZy4gRnVydGhlcm1vcmUsIHdlIG5lZWQgdG8gZXh0
-ZW5kIHRoaXMgdG8gc3lzY2FsbC4NCjIuICBEZWNvdXBsZSB0aGUgc2NoZWR1bGVyIA0KRG8gd2Ug
-c3RpbGwgbmVlZCB0byBrZWVwIGFsbCBzY2hlZHVsZXJzIHdvcmsgaW4gdGVybXMgb2YgdGhvc2Ug
-dW5pa2VybmVsIGNhc2VzIHJ1bm5pbmcgb25lIHByb2Nlc3M/IEV2ZW4gdGhpcyBwcm9jZXNzIGlz
-IHJ1bm5pbmcgd2l0aCBvbmUgdGhyZWFkIG9yIGZldyB0aHJlYWRzIHNvbWV0aW1lLg0KMy4gIEFu
-eSByZWZhY3RvcnMgdG8gc29tZSB2YWx1YWJsZSB1c2UgY2FzZXMgbGlrZSBhIHNhZmV0eS1jcml0
-aWNhbCBhcHBsaWNhdGlvbi4gV2hhdCBhYm91dCBjbGFzc2lmeWluZyBzeXNjYWxsIHRvIGRpZmZl
-cmVudCBsZXZlbHM/DQo0LiAgT3RoZXJzDQoNCkluc3RlYWQgb2YgbWFraW5nIG91dCBteSBzb2x1
-dGlvbiBzaW1wbHkgZHVyaW5nIHRob3NlIHN1bW1pdHMsIHBsdXMsIGVhY2ggcGFydCBpbiB0aGUg
-b3JpZ2luYWwgdmVyc2lvbiBpcyBub3QgYmUgaW1wbGVtZW50ZWQgZ2VuZXJhbGx5LCBzbyBJIHRo
-aW5rIGtzdW1taXQgaXMgc3VwcG9zZWQgdG8gYSBnb29kIGNoYW5jZSB0byBoZWxwIG1lIGFkZHJl
-c3MgdGhlc2UgY2hhbGxlbmdlcyBwcm9wZXJseS4gU28gdGhpcyB0aW1lLCBpbiB0ZXJtcyBvZiBt
-eSBwcm9wb3NhbCwgSSdtIG9wZW4gdG8gYW55IHRlY2huaWNhbCBzb2x1dGlvbnMuDQoNClRoYW5r
-cw0KVGllanVuIA0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IFRoZW9k
-b3JlIFRzJ28gPHR5dHNvQG1pdC5lZHU+DQo+IFNlbnQ6IFRodXJzZGF5LCBNYXkgMzAsIDIwMTkg
-OTo1NSBQTQ0KPiBUbzoga3N1bW1pdC1kaXNjdXNzQGxpc3RzLmxpbnV4Zm91bmRhdGlvbi5vcmcN
-Cj4gQ2M6IFRpZWp1biBDaGVuIDx0aWVqdW5jQHZtd2FyZS5jb20+DQo+IFN1YmplY3Q6IFJlOiBb
-S3N1bW1pdC1kaXNjdXNzXSBbVEVDSCBUT1BJQ10gVW5pTGludXggLS0gVW5pa2VybmVsaXplZCBM
-aW51eA0KPiBFeHBsb3JhdGlvbg0KPiANCj4gT24gVGh1LCBNYXkgMzAsIDIwMTkgYXQgMDI6MDE6
-MTFBTSAtMDQwMCwgVGhlb2RvcmUgVHMnbyB3cm90ZToNCj4gPiBGcm9tOiBUaWVqdW4gQ2hlbiA8
-dGllanVuY0B2bXdhcmUuY29tPg0KPiA+DQo+ID4gVW5pa2VybmVsIGlzIHJlbGF0aXZlbHkgYSBu
-b3ZlbCBzb2Z0d2FyZSB0ZWNobm9sb2d5IHRoYXQgbGlua3MgYW4NCj4gPiBhcHBsaWNhdGlvbiB3
-aXRoIE9TIGluIHRoZSBmb3JtIG9mIGEgbGlicmFyeSBhbmQgcGFja2FnZXMgdGhlbSBpbnRvIGEN
-Cj4gPiBzcGVjaWFsaXplZCBpbWFnZSB0aGF0IGZhY2lsaXRhdGVzIGRpcmVjdCBkZXBsb3ltZW50
-IG9uIGENCj4gPiBoeXBlcnZpc29yLi4uLg0KPiANCj4gVGllanVuLCBjb3VsZCB5b3UgZ2l2ZSBz
-b21lIGRldGFpbHMgcmVnYXJkaW5nIGhvdyB5b3VyIHByb3Bvc2VkDQo+IHByZXNlbnRhdGlvbiB3
-b3VsZCBkaWZmZXIgZnJvbSB0aGUgb25lIHlvdSBnYXZlIGF0IHRoZSBPU1MgTkEgaW4gTG9zDQo+
-IEFuZ2Vsb3M/DQo+IA0KPiBodHRwczovL25hbTA0LnNhZmVsaW5rcy5wcm90ZWN0aW9uLm91dGxv
-b2suY29tLz91cmw9aHR0cHMlM0ElMkYlMkZvc3NuDQo+IGEyMDE3LnNjaGVkLmNvbSUyRmV2ZW50
-JTJGQkRweSUyRnVuaWtlcm5lbHMtYW5kLWV4cGxvcmF0aW9ucy10aWVqdW4tDQo+IGNoZW4tDQo+
-IHZtd2FyZSZhbXA7ZGF0YT0wMiU3QzAxJTdDdGllanVuYyU0MHZtd2FyZS5jb20lN0MxZTc3Y2Mx
-N2FjNjE0DQo+IDA0NjVhYjQwOGQ2ZTUwNjViZWQlN0NiMzkxMzhjYTNjZWU0YjRhYTRkNmNkODNk
-OWRkNjJmMCU3QzAlN0MwDQo+ICU3QzYzNjk0ODIxMjgxMDUxMzk2MCZhbXA7c2RhdGE9aHpaOU1w
-c1hIeCUyQkVpQWUlMkJySndYQmpXaXd4DQo+IGdBV2RkOGgyNlI2RmNDd1RjJTNEJmFtcDtyZXNl
-cnZlZD0wDQo+IA0KPiBNYW55IHRoYW5rcyENCj4gDQo+IAkJCQkJCS0gVGVkDQo=
+Em Thu, 6 Jun 2019 11:26:20 -0700
+Dan Williams <dan.j.williams@intel.com> escreveu:
+
+> On Thu, Jun 6, 2019 at 9:30 AM James Bottomley
+> <James.Bottomley@hansenpartnership.com> wrote:
+> >
+> > On Thu, 2019-06-06 at 17:58 +0200, Greg KH wrote:  
+> > > > 2) Patch Acceptance Consistency: At the moment, we have very
+> > > > different acceptance criteria for patches into the various
+> > > > maintainer trees.  Some of these differences are due to deeply held
+> > > > stylistic beliefs, but some could be more streamlined to give a
+> > > > more consistent experience to beginners who end up doing batch
+> > > > fixes which cross trees and end up more confused than anything
+> > > > else.  I'm not proposing to try and unify our entire submission
+> > > > process, because that would never fly, but I was
+> > > > thinking we could get a few sample maintainer trees to give their
+> > > > criteria and then see if we could get any streamlining.  For
+> > > > instance, SCSI has a fairly weak "match the current driver" style
+> > > > requirement, a reasonably strong get someone else to review it
+> > > > requirement and the usual good change log and one patch per
+> > > > substantive change requirement.  Other subsystems look similar
+> > > > without the review requirement, some have very strict stylistic
+> > > > requirements (reverse christmas tree, one variable definition per
+> > > > line, etc).  As I said, the goal wouldn't be to  beat up on the
+> > > > unusual requirements but to see if we could agree some global
+> > > > baselines that would at least make submission more uniform.  
+
+Agreed. If all/most subsystems could have a common base of minimal
+requirements, that would make a lot easier for incoming people to
+submit patches on different subsystems.
+
+One of the current problems I face is that people which also work 
+on other related subsystems want to have other maintainer's model 
+applied to the media subsystem, or sometimes submit patches that
+use other coding styles, with doesn't seem to fit to well to the
+way we work.
+
+For example, lately, I started receiving a lot of patches following
+this comment style:
+
+	/* foo
+	 * bar
+	 */
+
+Instead of:
+
+	/*
+	 * foo
+	 * bar
+	 */
+
+with seems to be ok to some subsystems, but it violates the style we
+adopt all over the subsystem.
+
+> > >
+> > > I thought Dan's "maintainer document" was going to help resolve
+> > > things like this, both putting in writing just what those rules were,
+> > > as well as help point out where things might be going too far in one
+> > > direction or another in a much easier way, as they could be compared.  
+> >
+> > Well, um, I can't really comment on a document that doesn't yet exist.
+> > However, I can note that the best kernel process documents describe
+> > what we actually do (mostly because attempting to impose additional
+> > processes by fiat [or by document] really doesn't go over well) and
+> > that's orthogonal to what I'm proposing: I'm proposing that we examine
+> > critically what we currently do and see if there aren't any more areas
+> > where we could strive for greater consistency and uniformity.
+> > Certainly, if Dan's doc exists by KS time it could be a useful input,
+> > but to effect change in this area requires discussion and agreement by
+> > the franchise holders (i.e. the maintainers) which is what I'm
+> > proposing and which KS is the ideal venue to get.  
+> 
+> The doc which has failed to materialize is only meant to be a
+> lightning rod to prompt conversations like this of "how and why are we
+> inconsistent across subsystems?". The lightning rod aspect of the
+> topic partially explains the lack of progress, it needs about the same
+> level of care / attention as a core-mm patchset and I've kept it on
+> the backburner until I could dedicate the necessary time.
+> 
+> That said, I do think moving forward with the document would be
+> necessary pre-work for this conversation.
+
+Yeah, I think it is a good starting point.
+
+> Just the act of putting
+> subsystem specific policies in writing even if they differ would go
+> along way towards making the lives of contributors less fraught with
+> arbitrary peril. Then at ksummit maintainers can compare subsystem
+> notes and arm wrestle for the policies that do or do not need to
+> remain differentiated.
+
+I have a pending followup patch on the top of the Dan's RFC
+patch, describing how we work on media:
+
+	https://patchwork.linuxtv.org/patch/52999/
+
+As I wrote this a while ago, some things could have changed, but
+the basic idea about how we work are documented over there.
+
+> 
+> The conversation and certainly agreement is secondary in my mind to
+> just documenting the local policy for contributors
+
+Thanks,
+Mauro
