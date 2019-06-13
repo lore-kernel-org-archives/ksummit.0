@@ -1,25 +1,31 @@
-Return-Path: <mchehab+samsung@kernel.org>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A730BEA8
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id EB3B3EB0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 13 Jun 2019 14:25:39 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [85.118.1.10])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1C9C176D
+	Thu, 13 Jun 2019 14:35:10 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 685D6174
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Thu, 13 Jun 2019 14:25:39 +0000 (UTC)
-Date: Thu, 13 Jun 2019 11:25:33 -0300
-From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-To: Shuah Khan <skhan@linuxfoundation.org>
-Message-ID: <20190613112533.2176c5d4@coco.lan>
-In-Reply-To: <f2f4a212-54f4-70a2-5a5d-9d45b3e1b5ae@linuxfoundation.org>
-References: <20190612085405.6045d95d@lwn.net>
-	<f2f4a212-54f4-70a2-5a5d-9d45b3e1b5ae@linuxfoundation.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+	Thu, 13 Jun 2019 14:35:10 +0000 (UTC)
+Message-ID: <1560436507.3329.12.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>, "Martin K. Petersen"
+	<martin.petersen@oracle.com>
+Date: Thu, 13 Jun 2019 07:35:07 -0700
+In-Reply-To: <20190613104930.7dc85e13@coco.lan>
+References: <1559836116.15946.27.camel@HansenPartnership.com>
+	<20190606155846.GA31044@kroah.com>
+	<1559838569.3144.11.camel@HansenPartnership.com>
+	<CAPcyv4guyNu5CVhxaAzMM5cq3VaXkcOPgjRTw5wZ2o_G094EmQ@mail.gmail.com>
+	<yq17e9xi24p.fsf@oracle.com> <20190613104930.7dc85e13@coco.lan>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Documentation
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Pull network and Patch
+ Acceptance Consistency
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -29,84 +35,97 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Em Wed, 12 Jun 2019 12:22:55 -0600
-Shuah Khan <skhan@linuxfoundation.org> escreveu:
-
-> On 6/12/19 8:54 AM, Jonathan Corbet wrote:
-> > What could be more fun than talking about kernel documentation?  Things we
-> > could get into:
+On Thu, 2019-06-13 at 10:49 -0300, Mauro Carvalho Chehab wrote:
+> Em Fri, 07 Jun 2019 16:14:46 -0400
+> "Martin K. Petersen" <martin.petersen@oracle.com> escreveu:
+> 
+> > Dan,
 > > 
-> >   - The state of the RST transition, what remains to be done, whether it's
-> >     all just useless churn that makes the documentation worse, etc.
+> > > That said, I do think moving forward with the document would be
+> > > necessary pre-work for this conversation. Just the act of putting
+> > > subsystem specific policies in writing even if they differ would
+> > > go along way towards making the lives of contributors less
+> > > fraught with arbitrary peril.  
 > > 
-> >   - Things we'd like to improve in the documentation toolchain.
+> > I think part of the problem is that some subsystems are older than
+> > others.
 > > 
-> >   - Overall organization of Documentation/ and moving docs when the need
-> >     arises.  It seems I end up fighting about this more than just about
-> >     anything else, but I think it's important to organize our docs for the
-> >     convenience of the people using them.
+> > It is much easier to enforce your favorite bike shed/Xmas tree if
+> > the code is very similar and developed by like-minded people. Or
+> > written in this millennium.
 > > 
-> >   - The ultimate vision for kernel docs (for now).  RST conversion and
-> >     imposing some organization are important, but they will not,
-> >     themselves, give us a coherent set of documentation.  What can we do to
-> >     have documentation that is useful, current, and maintainable, rather
-> >     than the dusty attic we have now?
-> >   
+> > Whereas in SCSI I have 25+ years of changes in coding practices,
+> > numerous vendor drivers influenced by styles in various other
+> > operating systems, etc. to deal with.
+> > 
+> > I try to enforce current best practices on core code because that
+> > is a very limited subset. And one which I can micro-manage. But
+> > trying to enforce similar rules on old crusty stuff which probably
+> > has no active maintainer is fraught with error. Plus things become
+> > completely unreadable if you start mixing new and 25+ year old
+> > style inside a single file.
+> > 
+> > So I am perfectly OK with having policies. But communicating and
+> > enforcing them on a per-subsystem basis is too coarse a granularity
+> > for the reality I have to deal with. Consequently, I think your
+> > MAINTAINERS tagging idea is a good approach.
+> > 
 > 
-> The first step is identifying the ones that are out of date and/or
-> incorrect. I think this is probably the most time consuming part
-> and the second is start updating.
+> That's true, but it doesn't mean that those old style subsystems
+> can't be improved.
 
-I would do just the opposite: convert the documentation, then
-update it.
+It depends: every patch you do to an old driver comes with a risk of
+breakage.  What we've found is even apparently sane patches cause
+breakage which isn't discovered until months later when someone with
+the hardware actually tests.  So the general rule is:
 
-The reason is that, when someone sends a patch to the documentation,
-people tend to look more closely on it, and we start receiving
-updates for it.
+   1. No whitespace/style changes to old drivers without a fix as well
+   2. We might take changes in comments only (spelling updates or licence
+      stuff) and other stuff that provably doesn't alter the binary.
+   3. Fixes which are tested on the actual hardware are welcome.
+   4. Any "obvious" bug fixes which aren't hardware tested really have to
+      be obvious and well inspected (these are the ones that usually cause
+      the problems)
+   5. Systemwide sweeps we do and usually just pray it was right
 
-Ok, this doesn't happen every time, but it is still worth.
+However, if someone comes along with the actual hardware to test and
+wants to take over maintaining it, they pretty much get carte blance to
+do whatever they want (see NCR 5380), so the above only applies to
+unmaintained old drivers.
 
-There's another thing to consider here: there are lots of docs
-written for "stable" subsystems, in the sense that the documented 
-code doesn't change for a lot of time (except for trivial patches
-not directly related to it.
-
-While doing large chunks of code conversion, I noticed that there
-are lots of still valid documents that fit on this.
-
-There's a big issue with those "stable" subsystems: they tend
-to not have any active maintainer anymore. So, there are not
-much people that are willing to actively review patches to it.
-
-So, my advice here is to really invert things:
-
-- do the conversion;
-- find a good place to put the converted the book;
-- add kernel-doc markups to be sure that the symbols will always
-  match upstream;
-- review the remaining content of the docs.
-
-> I am currently putting together a task list for mentorship program
-> with a goal to create tasks that would more meaningful and helpful
-> instead of whitespace patches.
+> In the case of media we have 20+ years of changes. So, the received
+> code had a myriad of different coding styles.
 > 
-> I will gladly add documentation tasks to the list to help improve
-> the documentation.
+> Yet, we do enforce the current coding practices to all new code
+> we receive.
 
-I can surely mentor people interested on doing such tasks.
+We don't.  We enforce style in the existing driver for readability and
+consistency unless you're the maintainer of the driver and wish to
+change it.  Then we'd insist on changing it to kernel style.
 
+> Also, at least at the core (and on some drivers that people use as 
+> reference for new codes), when we receive patches that do a large 
+> amount of changes at the code, and we have some spare time, we run
+> checkpatch.pl at the entire affected file, and we fix the style as
+> much as possible[1].
+
+We have done this, but only if the Maintainer wants to do it.  For
+drivers with no maintainer, we definitely don't.
+
+James
+
+> Yeah, that's painful, but as we do such practices for quite sime
+> time, nowadays the code gets improved and now people tend to do first
+> time  submissions using the current style practices.
 > 
-> thanks,
-> -- Shuah
+> [1] We usually ignore 80 column warnings on legacy code though,
+> as a proper fix would mean to rewrite the code in order to split
+> functions into smaller ones, with could cause regressions.
 > 
-> 
-> 
+> Thanks,
+> Mauro
 > _______________________________________________
 > Ksummit-discuss mailing list
 > Ksummit-discuss@lists.linuxfoundation.org
 > https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
-
-
-
-Thanks,
-Mauro
+> 
