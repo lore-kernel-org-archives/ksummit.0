@@ -1,27 +1,27 @@
-Return-Path: <kstewart@linuxfoundation.org>
+Return-Path: <tiejunc@vmware.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id BC8F2279D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id D6C212431
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Jun 2019 20:33:52 +0000 (UTC)
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
-	[209.85.167.54])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2CA1379
+	Thu, 13 Jun 2019 02:36:35 +0000 (UTC)
+Received: from NAM01-BN3-obe.outbound.protection.outlook.com
+	(mail-eopbgr740047.outbound.protection.outlook.com [40.107.74.47])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 0FFAAE6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Jun 2019 20:33:52 +0000 (UTC)
-Received: by mail-lf1-f54.google.com with SMTP id r15so13227136lfm.11
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 12 Jun 2019 13:33:52 -0700 (PDT)
+	Thu, 13 Jun 2019 02:36:34 +0000 (UTC)
+From: Tiejun Chen <tiejunc@vmware.com>
+To: Theodore Ts'o <tytso@mit.edu>, "ksummit-discuss@lists.linuxfoundation.org"
+	<ksummit-discuss@lists.linuxfoundation.org>
+Date: Thu, 13 Jun 2019 02:36:31 +0000
+Message-ID: <BYAPR05MB587886EA9E977866F067424FC5EF0@BYAPR05MB5878.namprd05.prod.outlook.com>
+References: <20190530060111.GA30403@mit.edu> <20190530135431.GE2751@mit.edu>
+In-Reply-To: <20190530135431.GE2751@mit.edu>
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-References: <20190612085405.6045d95d@lwn.net>
-In-Reply-To: <20190612085405.6045d95d@lwn.net>
-From: Kate Stewart <kstewart@linuxfoundation.org>
-Date: Wed, 12 Jun 2019 15:33:36 -0500
-Message-ID: <CAG_66ZTemPnVpjgj3jgM+Ks9L--UkpW1KV5JOoCV0rAXDpqx0A@mail.gmail.com>
-To: Jonathan Corbet <corbet@lwn.net>
-Content-Type: text/plain; charset="UTF-8"
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Documentation
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] UniLinux -- Unikernelized Linux
+ Exploration
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -31,29 +31,47 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Jun 12, 2019 at 9:56 AM Jonathan Corbet <corbet@lwn.net> wrote:
->
-> What could be more fun than talking about kernel documentation?  Things we
-> could get into:
->
->  - The state of the RST transition, what remains to be done, whether it's
->    all just useless churn that makes the documentation worse, etc.
->
->  - Things we'd like to improve in the documentation toolchain.
->
->  - Overall organization of Documentation/ and moving docs when the need
->    arises.  It seems I end up fighting about this more than just about
->    anything else, but I think it's important to organize our docs for the
->    convenience of the people using them.
->
->  - The ultimate vision for kernel docs (for now).  RST conversion and
->    imposing some organization are important, but they will not,
->    themselves, give us a coherent set of documentation.  What can we do to
->    have documentation that is useful, current, and maintainable, rather
->    than the dusty attic we have now?
-
-Also,  it would be great if we could talk about cleaning up the
-documentation licensing, so it too can have its licenses be
-automatically detected.   :-)
-
-Kate
+SGkgVGVkLA0KDQpMb29rcyBJIG1pc3NlZCB0aGlzIGVtYWlsIHNvIHJlYWxseSBzb3JyeSBmb3Ig
+dGhpcyBkZWxheSByZXNwb25zZS4gV2hlbiBJIHdlbnQgdGhyb3VnaCBrc3VtbWl0LWRpc2N1c3Mg
+dG9kYXkgYW5kIGp1c3Qgbm90aWNlZCB0aGlzIOKYuQ0KDQpPdmVyYWxsLCBJIGRpZG4ndCByZWZh
+Y3RvciB0b28gbXVjaCBpbnRvIHRoZSBiaWcgYXJjaGl0ZWN0dXJlIG9mIG15IHByb3Bvc2FsLiBC
+dXQgSSdkIGxpa2UgdG8gMT4uIGdvIGludG8gc29tZXRoaW5nIGluIGRldGFpbCB3aXRoIHRoZSBw
+YXJ0aWNpcGFudHMgOyAyPi4gdGFsayBhIGxpdHRsZSBiaXQgbmV3IGltcGxlbWVudGF0aW9ucy4g
+U28gYmVzaWRlcyBvZiBteSBvcmlnaW5hbCB2ZXJzaW9uLCB0aGlzIHRpbWUgd2Ugd291bGQgcmV2
+aWV3LWRpc2N1c3MgdGhlbQ0KMS4gIFJlZHVjZSB0aGUgc291cmNlIGNvZGUNCkZvciBleGFtcGxl
+LCBJJ20gdGhpbmtpbmcgaWYgd2UgY2FuIHJlbW92ZSB1bm5lY2Vzc2FyeSBrZXJuZWwgcGFyYW1l
+dGVyIHNlY3Rpb25zIHdoaWxlIGNvbXBpbGluZy4gRnVydGhlcm1vcmUsIHdlIG5lZWQgdG8gZXh0
+ZW5kIHRoaXMgdG8gc3lzY2FsbC4NCjIuICBEZWNvdXBsZSB0aGUgc2NoZWR1bGVyIA0KRG8gd2Ug
+c3RpbGwgbmVlZCB0byBrZWVwIGFsbCBzY2hlZHVsZXJzIHdvcmsgaW4gdGVybXMgb2YgdGhvc2Ug
+dW5pa2VybmVsIGNhc2VzIHJ1bm5pbmcgb25lIHByb2Nlc3M/IEV2ZW4gdGhpcyBwcm9jZXNzIGlz
+IHJ1bm5pbmcgd2l0aCBvbmUgdGhyZWFkIG9yIGZldyB0aHJlYWRzIHNvbWV0aW1lLg0KMy4gIEFu
+eSByZWZhY3RvcnMgdG8gc29tZSB2YWx1YWJsZSB1c2UgY2FzZXMgbGlrZSBhIHNhZmV0eS1jcml0
+aWNhbCBhcHBsaWNhdGlvbi4gV2hhdCBhYm91dCBjbGFzc2lmeWluZyBzeXNjYWxsIHRvIGRpZmZl
+cmVudCBsZXZlbHM/DQo0LiAgT3RoZXJzDQoNCkluc3RlYWQgb2YgbWFraW5nIG91dCBteSBzb2x1
+dGlvbiBzaW1wbHkgZHVyaW5nIHRob3NlIHN1bW1pdHMsIHBsdXMsIGVhY2ggcGFydCBpbiB0aGUg
+b3JpZ2luYWwgdmVyc2lvbiBpcyBub3QgYmUgaW1wbGVtZW50ZWQgZ2VuZXJhbGx5LCBzbyBJIHRo
+aW5rIGtzdW1taXQgaXMgc3VwcG9zZWQgdG8gYSBnb29kIGNoYW5jZSB0byBoZWxwIG1lIGFkZHJl
+c3MgdGhlc2UgY2hhbGxlbmdlcyBwcm9wZXJseS4gU28gdGhpcyB0aW1lLCBpbiB0ZXJtcyBvZiBt
+eSBwcm9wb3NhbCwgSSdtIG9wZW4gdG8gYW55IHRlY2huaWNhbCBzb2x1dGlvbnMuDQoNClRoYW5r
+cw0KVGllanVuIA0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IFRoZW9k
+b3JlIFRzJ28gPHR5dHNvQG1pdC5lZHU+DQo+IFNlbnQ6IFRodXJzZGF5LCBNYXkgMzAsIDIwMTkg
+OTo1NSBQTQ0KPiBUbzoga3N1bW1pdC1kaXNjdXNzQGxpc3RzLmxpbnV4Zm91bmRhdGlvbi5vcmcN
+Cj4gQ2M6IFRpZWp1biBDaGVuIDx0aWVqdW5jQHZtd2FyZS5jb20+DQo+IFN1YmplY3Q6IFJlOiBb
+S3N1bW1pdC1kaXNjdXNzXSBbVEVDSCBUT1BJQ10gVW5pTGludXggLS0gVW5pa2VybmVsaXplZCBM
+aW51eA0KPiBFeHBsb3JhdGlvbg0KPiANCj4gT24gVGh1LCBNYXkgMzAsIDIwMTkgYXQgMDI6MDE6
+MTFBTSAtMDQwMCwgVGhlb2RvcmUgVHMnbyB3cm90ZToNCj4gPiBGcm9tOiBUaWVqdW4gQ2hlbiA8
+dGllanVuY0B2bXdhcmUuY29tPg0KPiA+DQo+ID4gVW5pa2VybmVsIGlzIHJlbGF0aXZlbHkgYSBu
+b3ZlbCBzb2Z0d2FyZSB0ZWNobm9sb2d5IHRoYXQgbGlua3MgYW4NCj4gPiBhcHBsaWNhdGlvbiB3
+aXRoIE9TIGluIHRoZSBmb3JtIG9mIGEgbGlicmFyeSBhbmQgcGFja2FnZXMgdGhlbSBpbnRvIGEN
+Cj4gPiBzcGVjaWFsaXplZCBpbWFnZSB0aGF0IGZhY2lsaXRhdGVzIGRpcmVjdCBkZXBsb3ltZW50
+IG9uIGENCj4gPiBoeXBlcnZpc29yLi4uLg0KPiANCj4gVGllanVuLCBjb3VsZCB5b3UgZ2l2ZSBz
+b21lIGRldGFpbHMgcmVnYXJkaW5nIGhvdyB5b3VyIHByb3Bvc2VkDQo+IHByZXNlbnRhdGlvbiB3
+b3VsZCBkaWZmZXIgZnJvbSB0aGUgb25lIHlvdSBnYXZlIGF0IHRoZSBPU1MgTkEgaW4gTG9zDQo+
+IEFuZ2Vsb3M/DQo+IA0KPiBodHRwczovL25hbTA0LnNhZmVsaW5rcy5wcm90ZWN0aW9uLm91dGxv
+b2suY29tLz91cmw9aHR0cHMlM0ElMkYlMkZvc3NuDQo+IGEyMDE3LnNjaGVkLmNvbSUyRmV2ZW50
+JTJGQkRweSUyRnVuaWtlcm5lbHMtYW5kLWV4cGxvcmF0aW9ucy10aWVqdW4tDQo+IGNoZW4tDQo+
+IHZtd2FyZSZhbXA7ZGF0YT0wMiU3QzAxJTdDdGllanVuYyU0MHZtd2FyZS5jb20lN0MxZTc3Y2Mx
+N2FjNjE0DQo+IDA0NjVhYjQwOGQ2ZTUwNjViZWQlN0NiMzkxMzhjYTNjZWU0YjRhYTRkNmNkODNk
+OWRkNjJmMCU3QzAlN0MwDQo+ICU3QzYzNjk0ODIxMjgxMDUxMzk2MCZhbXA7c2RhdGE9aHpaOU1w
+c1hIeCUyQkVpQWUlMkJySndYQmpXaXd4DQo+IGdBV2RkOGgyNlI2RmNDd1RjJTNEJmFtcDtyZXNl
+cnZlZD0wDQo+IA0KPiBNYW55IHRoYW5rcyENCj4gDQo+IAkJCQkJCS0gVGVkDQo=
