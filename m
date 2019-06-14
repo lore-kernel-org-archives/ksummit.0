@@ -1,30 +1,31 @@
-Return-Path: <mchehab+samsung@kernel.org>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id A2C9D12AD
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 258BD13C5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 14 Jun 2019 15:11:48 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [85.118.1.10])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BFBEE775
+	Fri, 14 Jun 2019 15:23:09 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A137C174
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 14 Jun 2019 15:11:47 +0000 (UTC)
-Date: Fri, 14 Jun 2019 12:11:37 -0300
-From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-To: Greg KH <greg@kroah.com>
-Message-ID: <20190614121137.02b8a6dc@coco.lan>
-In-Reply-To: <20190614135807.GA6573@kroah.com>
+	Fri, 14 Jun 2019 15:23:08 +0000 (UTC)
+Message-ID: <1560525785.27102.16.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>, Greg KH
+	<greg@kroah.com>
+Date: Fri, 14 Jun 2019 08:23:05 -0700
+In-Reply-To: <20190614121137.02b8a6dc@coco.lan>
 References: <1559836116.15946.27.camel@HansenPartnership.com>
 	<20190606155846.GA31044@kroah.com>
 	<1559838275.3144.6.camel@HansenPartnership.com>
 	<20190613105916.66d03adf@coco.lan>
 	<20190614101222.GA4797@pendragon.ideasonboard.com>
-	<20190614102424.3fc40f04@coco.lan>
-	<20190614135807.GA6573@kroah.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+	<20190614102424.3fc40f04@coco.lan> <20190614135807.GA6573@kroah.com>
+	<20190614121137.02b8a6dc@coco.lan>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	media-submaintainers@linuxtv.org, ksummit-discuss@lists.linuxfoundation.org
+Cc: media-submaintainers@linuxtv.org, ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Pull network and Patch
  Acceptance Consistency
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -36,170 +37,38 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Em Fri, 14 Jun 2019 15:58:07 +0200
-Greg KH <greg@kroah.com> escreveu:
-
-> On Fri, Jun 14, 2019 at 10:24:24AM -0300, Mauro Carvalho Chehab wrote:
-> > Em Fri, 14 Jun 2019 13:12:22 +0300
-> > Laurent Pinchart <laurent.pinchart@ideasonboard.com> escreveu:
-> >   
-> > > Hi Mauro,
-> > > 
-> > > On Thu, Jun 13, 2019 at 10:59:16AM -0300, Mauro Carvalho Chehab wrote:  
-> > > > Em Thu, 06 Jun 2019 19:24:35 +0300 James Bottomley escreveu:
-> > > >     
-> > > > > [splitting issues to shorten replies]
-> > > > > On Thu, 2019-06-06 at 17:58 +0200, Greg KH wrote:    
-> > > > >> On Thu, Jun 06, 2019 at 06:48:36PM +0300, James Bottomley wrote:      
-> > > > >>> This is probably best done as two separate topics
-> > > > >>> 
-> > > > >>> 1) Pull network: The pull depth is effectively how many pulls your
-> > > > >>> tree does before it goes to Linus, so pull depth 0 is sent straight
-> > > > >>> to Linus, pull depth 1 is sent to a maintainer who sends to Linus
-> > > > >>> and so on.  We've previously spent time discussing how increasing
-> > > > >>> the pull depth of the network would reduce the amount of time Linus
-> > > > >>> spends handling pull requests.  However, in the areas I play, like
-> > > > >>> security, we seem to be moving in the opposite direction
-> > > > >>> (encouraging people to go from pull depth 1 to pull depth 0).  If
-> > > > >>> we're deciding to move to a flat tree model, where everything is
-> > > > >>> depth 0, that's fine, I just think we could do with making a formal
-> > > > >>> decision on it so we don't waste energy encouraging greater tree
-> > > > >>> depth.      
-> > > > >> 
-> > > > >> That depth "change" was due to the perceived problems that having a
-> > > > >> deeper pull depth was causing.  To sort that out, Linus asked for
-> > > > >> things to go directly to him.      
-> > > > > 
-> > > > > This seems to go beyond problems with one tree and is becoming a trend.
-> > > > >     
-> > > > >> It seems like the real issue is the problem with that subsystem
-> > > > >> collection point, and the fact that the depth changed is a sign that
-> > > > >> our model works well (i.e. everyone can be routed around.)      
-> > > > > 
-> > > > > I'm not really interested in calling out "problem" maintainers, or
-> > > > > indeed having another "my patch collection method is better than yours"
-> > > > > type discussion.  What I was fishing for is whether the general
-> > > > > impression that greater tree depth is worth striving for is actually
-> > > > > correct, or we should all give up now and simply accept that the
-> > > > > current flat tree is the best we can do, and, indeed is the model that
-> > > > > works best for Linus.  I get the impression this may be the case, but I
-> > > > > think making sure by having an actual discussion among the interested
-> > > > > parties who will be at the kernel summit, would be useful.    
-> > > > 
-> > > > On media, we came from a "depth 1" model, moving toward a "depth 2" level: 
-> > > > 
-> > > > patch author -> media/driver maintainer -> subsystem maintainer -> Linus    
-> > > 
-> > > I'd like to use this opportunity to ask again for pull requests to be
-> > > pulled instead of cherry-picked.  
-> > 
-> > There are other forums for discussing internal media maintainership,
-> > like the weekly meetings we have and our own mailing lists.  
+On Fri, 2019-06-14 at 12:11 -0300, Mauro Carvalho Chehab wrote:
+[...]
+> If you think this is relevant to a broader audience, let me reply
+> with a long answer about that. I prepared it and intended to reply to
+> our internal media maintainer's ML (added as c/c). 
 > 
-> You all have weekly meetings?  That's crazy...
-
-Yep, every week we do a meeting, usually taking about 1 hour via irc,
-on this channel:
-
-	https://linuxtv.org/irc/irclogger_logs//media-maint
-
+> Yet, I still think that this is media maintainer's dirty laundry
+> and should be discussed elsewhere ;-)
 > 
-> Anyway, I'll reiterate Laurent here, keeping things as a pull instead of
-> cherry-picking does make things a lot easier for contributors.  I know
-> I'm guilty of it as well as a maintainer, but that's only until I start
-> trusting the submitter.  Once that happens, pulling is _much_ easier as
-> a maintainer instead of individual patches for the usual reason that
-> linux-next has already verified that the sub-tree works properly before
-> I merge it in.
-> 
-> Try it, it might make your load be reduced, it has for me.
+> ---
 
-If you think this is relevant to a broader audience, let me reply with
-a long answer about that. I prepared it and intended to reply to our
-internal media maintainer's ML (added as c/c). 
+So trying not to get into huge email thread, I think this is the key
+point:
 
-Yet, I still think that this is media maintainer's dirty laundry
-and should be discussed elsewhere ;-)
+[...]
+> Currently, I review all accepted patches.
 
----
+This means you effectively have a fully flat tree.  Even if you use
+git, you're using it like an email transmission path.  One of the
+points I was making about deepening the tree is that the maintainer in
+the middle should trust the submaintainer they pull from, so there
+should be no need to review all the patches because of that trust. 
+This is how deepening the tree helps to offload maintainers because
+review is one of the biggest burdens we have and deepening the tree is
+a way to share it.  Without trust, we achieve no offloading and
+therefore no utility from deepening the tree.
 
-Laurent,
+So, to get back to the original question, which was *should* we deepen
+the tree: why don't you feel you can let branches with patches you
+haven't reviewed into your tree?  I've characterised it as a trust
+issue above, but perhaps it isn't. I think this is a key question which
+would help us understand whether a deeper tree model is at all
+possible.
 
-I already explained a few times, including during the last Media Summit,
-but it seems you missed the point.
-
-As shown on our stats:
-	https://linuxtv.org/patchwork_stats.php
-
-We're receiving about 400 to 1000 patches per month, meaning 18 to 45
-patches per working days (22 days/month). From those, we accept about
-100 to 300 patches per month (4.5 to 13.6 patches per day).
-
-Currently, I review all accepted patches.
-
-I have bandwidth to review 4.5 to 13.6 patches per day, not without a lot
-of personal efforts. For that, I use part of my spare time, as I have other
-duties, plus I develop patches myself. So, in order to be able to handle
-those, I typically work almost non-stop starting at 6am and sometimes
-going up to 10pm. Also, when there are too much stuff pending (like on
-busy months), I handle patches also during weekends.
-
-However, 45 patches/day (225 patches per week) is a lot for me to
-review. I can't commit to handle such amount of patches.
-
-That's why I review patches after a first review from the other
-media maintainers. The way I identify the patches I should review is
-when I receive pull requests.
-
-We could do a different workflow. For example, once a media maintainer
-review a patch, it could be delegated to me at patchwork. This would likely 
-increase the time for merging stuff, as the workflow would change from:
-
- +-------+    +------------------+    +---------------+
- | patch | -> | media maintainer | -> | submaintainer | 
- +-------+    +------------------+    +---------------+
-
-to: 
-
- +-------+    +------------------+    +---------------+    +------------------+    +---------------+
- | patch | -> | media maintainer | -> | submaintainer | -> | media maintainer | -> | submaintainer | 
- +-------+    +------------------+    +---------------+    +------------------+    +---------------+
-
-  \------------------------v--------------------------/    \---------------------v------------------/
-			Patchwork                                           Pull Request
-
-The pull request part of the new chain could eventually be (semi-)automated
-by some scripting that would just do a checksum sum at the received patches 
-that were previously reviewed by me. If matches, and if it passes on the 
-usual checks I run for PR patches, it would push on some tree. Still, it 
-would take more time than the previous flow.
-
-Also, as also discussed during the media summit, in order to have such
-kind of automation, we would need to improve our infrastructure, moving
-the tests from a noisy/heated server I have over my desk to some VM
-inside the cloud, once we get funds for it.
-
-In any case, a discussion that affects the patch latency and our internal
-procedures within the media subsystem is something that should be discussed
-with other media mantainers, and not at KS.
-
--
-
-That's said, one day I may not be able to review all accepted patches.
-When this day comes, I'll just apply the pull requests I receive.
-
--
-
-Finally, if you're so interested on improving our maintenance model,
-I beg you: please handle the patches delegated to you:
-
-	https://patchwork.linuxtv.org/project/linux-media/list/?series=&submitter=&state=&q=&archive=&delegate=2510
-
-As we agreed on our media meetings, I handled about ~60 patches that 
-were waiting for your review since 2017 a couple of weeks ago - 
-basically the ones that are not touching the drivers you currently
-maintain, but there are still 23 patches sent between 2013-2018
-over there, plus the 48 patches sent in 2019.
-
-Thanks,
-Mauro
+James
