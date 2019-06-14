@@ -1,26 +1,32 @@
-Return-Path: <bhelgaas@google.com>
+Return-Path: <vbabka@suse.cz>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4A835EA6
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id A2289E31
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 14 Jun 2019 19:54:08 +0000 (UTC)
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
-	[209.85.221.48])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id AABFEE5
+	Fri, 14 Jun 2019 20:56:26 +0000 (UTC)
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F1884174
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 14 Jun 2019 19:54:07 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id p13so3701964wru.10
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 14 Jun 2019 12:54:07 -0700 (PDT)
-MIME-Version: 1.0
+	Fri, 14 Jun 2019 20:56:25 +0000 (UTC)
+To: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
+	Greg KH <greg@kroah.com>
 References: <1559836116.15946.27.camel@HansenPartnership.com>
-In-Reply-To: <1559836116.15946.27.camel@HansenPartnership.com>
-From: Bjorn Helgaas <bhelgaas@google.com>
-Date: Fri, 14 Jun 2019 14:53:50 -0500
-Message-ID: <CAErSpo5WVP_7t_LDBbaJ7bHc_MgkpV=1KYsQx_zULKkjQf3azA@mail.gmail.com>
-To: James Bottomley <James.Bottomley@hansenpartnership.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: ksummit-discuss@lists.linuxfoundation.org
+	<20190606155846.GA31044@kroah.com>
+	<1559838275.3144.6.camel@HansenPartnership.com>
+	<20190613105916.66d03adf@coco.lan>
+	<20190614101222.GA4797@pendragon.ideasonboard.com>
+	<20190614102424.3fc40f04@coco.lan> <20190614135807.GA6573@kroah.com>
+	<20190614121137.02b8a6dc@coco.lan>
+From: Vlastimil Babka <vbabka@suse.cz>
+Message-ID: <e909ca1e-8010-8e5f-d30d-75a4afe6027d@suse.cz>
+Date: Fri, 14 Jun 2019 22:52:52 +0200
+MIME-Version: 1.0
+In-Reply-To: <20190614121137.02b8a6dc@coco.lan>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	media-submaintainers@linuxtv.org, ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Pull network and Patch
  Acceptance Consistency
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -32,27 +38,24 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Thu, Jun 6, 2019 at 10:49 AM James Bottomley
-<James.Bottomley@hansenpartnership.com> wrote:
+On 6/14/19 5:11 PM, Mauro Carvalho Chehab wrote:
 
-> 2) Patch Acceptance Consistency: At the moment, we have very different
-> acceptance criteria for patches into the various maintainer trees.
-> Some of these differences are due to deeply held stylistic beliefs, but
-> some could be more streamlined to give a more consistent experience to
-> beginners who end up doing batch fixes which cross trees and end up
-> more confused than anything else.  I'm not proposing to try and unify
-> our entire submission process, because that would never fly, but I was
-> thinking we could get a few sample maintainer trees to give their
-> criteria and then see if we could get any streamlining.  For instance,
-> SCSI has a fairly weak "match the current driver" style requirement, a
-> reasonably strong get someone else to review it requirement and the
-> usual good change log and one patch per substantive change requirement.
->  Other subsystems look similar without the review requirement, some
-> have very strict stylistic requirements (reverse christmas tree, one
-> variable definition per line, etc).  As I said, the goal wouldn't be to
->  beat up on the unusual requirements but to see if we could agree some
-> global baselines that would at least make submission more uniform.
+> We're receiving about 400 to 1000 patches per month, meaning 18 to 45
+> patches per working days (22 days/month). From those, we accept about
+> 100 to 300 patches per month (4.5 to 13.6 patches per day).
+> 
+> Currently, I review all accepted patches.
 
-The "when in Rome" rule (follow local conventions) would cover a large
-fraction of the style issues without requiring global uniformity or
-even documentation.  I'm amazed at how often it is ignored.
+...
+
+> I typically work almost non-stop starting at 6am and sometimes
+> going up to 10pm. Also, when there are too much stuff pending (like on
+> busy months), I handle patches also during weekends.
+
+...
+
+> That's said, one day I may not be able to review all accepted patches.
+> When this day comes, I'll just apply the pull requests I receive.
+
+I'd say the day should come very soon. This is simply unsustainable and
+unhealthy.
