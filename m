@@ -1,31 +1,29 @@
-Return-Path: <skhan@linuxfoundation.org>
+Return-Path: <bhelgaas@google.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id B5FD11249
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0D9F61441
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 14 Jun 2019 21:40:29 +0000 (UTC)
-Received: from mail-io1-f67.google.com (mail-io1-f67.google.com
-	[209.85.166.67])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9308AE5
+	Fri, 14 Jun 2019 23:21:31 +0000 (UTC)
+Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com
+	[209.85.128.68])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 60A17E5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 14 Jun 2019 21:40:28 +0000 (UTC)
-Received: by mail-io1-f67.google.com with SMTP id i10so8809718iol.13
+	Fri, 14 Jun 2019 23:21:30 +0000 (UTC)
+Received: by mail-wm1-f68.google.com with SMTP id f17so1259801wme.2
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 14 Jun 2019 14:40:28 -0700 (PDT)
-To: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-References: <20190612085405.6045d95d@lwn.net>
-	<f2f4a212-54f4-70a2-5a5d-9d45b3e1b5ae@linuxfoundation.org>
-	<20190613112533.2176c5d4@coco.lan>
-From: Shuah Khan <skhan@linuxfoundation.org>
-Message-ID: <b5af03d3-2286-32e9-f895-776b563df550@linuxfoundation.org>
-Date: Fri, 14 Jun 2019 15:40:26 -0600
+	Fri, 14 Jun 2019 16:21:30 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20190613112533.2176c5d4@coco.lan>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <1559836116.15946.27.camel@HansenPartnership.com>
+	<CAErSpo5WVP_7t_LDBbaJ7bHc_MgkpV=1KYsQx_zULKkjQf3azA@mail.gmail.com>
+In-Reply-To: <CAErSpo5WVP_7t_LDBbaJ7bHc_MgkpV=1KYsQx_zULKkjQf3azA@mail.gmail.com>
+From: Bjorn Helgaas <bhelgaas@google.com>
+Date: Fri, 14 Jun 2019 18:21:15 -0500
+Message-ID: <CAErSpo661k-BSy=LF0kWEyvX-2pNJVCtrsP729MmErTr-hspPQ@mail.gmail.com>
+To: James Bottomley <James.Bottomley@hansenpartnership.com>
+Content-Type: text/plain; charset="UTF-8"
 Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Documentation
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Pull network and Patch
+ Acceptance Consistency
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -35,86 +33,59 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 6/13/19 8:25 AM, Mauro Carvalho Chehab wrote:
-> Em Wed, 12 Jun 2019 12:22:55 -0600
-> Shuah Khan <skhan@linuxfoundation.org> escreveu:
-> 
->> On 6/12/19 8:54 AM, Jonathan Corbet wrote:
->>> What could be more fun than talking about kernel documentation?  Things we
->>> could get into:
->>>
->>>    - The state of the RST transition, what remains to be done, whether it's
->>>      all just useless churn that makes the documentation worse, etc.
->>>
->>>    - Things we'd like to improve in the documentation toolchain.
->>>
->>>    - Overall organization of Documentation/ and moving docs when the need
->>>      arises.  It seems I end up fighting about this more than just about
->>>      anything else, but I think it's important to organize our docs for the
->>>      convenience of the people using them.
->>>
->>>    - The ultimate vision for kernel docs (for now).  RST conversion and
->>>      imposing some organization are important, but they will not,
->>>      themselves, give us a coherent set of documentation.  What can we do to
->>>      have documentation that is useful, current, and maintainable, rather
->>>      than the dusty attic we have now?
->>>    
->>
->> The first step is identifying the ones that are out of date and/or
->> incorrect. I think this is probably the most time consuming part
->> and the second is start updating.
-> 
-> I would do just the opposite: convert the documentation, then
-> update it.
-> 
+On Fri, Jun 14, 2019 at 2:53 PM Bjorn Helgaas <bhelgaas@google.com> wrote:
+>
+> On Thu, Jun 6, 2019 at 10:49 AM James Bottomley
+> <James.Bottomley@hansenpartnership.com> wrote:
+>
+> > 2) Patch Acceptance Consistency: At the moment, we have very different
+> > acceptance criteria for patches into the various maintainer trees.
+> > Some of these differences are due to deeply held stylistic beliefs, but
+> > some could be more streamlined to give a more consistent experience to
+> > beginners who end up doing batch fixes which cross trees and end up
+> > more confused than anything else.  I'm not proposing to try and unify
+> > our entire submission process, because that would never fly, but I was
+> > thinking we could get a few sample maintainer trees to give their
+> > criteria and then see if we could get any streamlining.  For instance,
+> > SCSI has a fairly weak "match the current driver" style requirement, a
+> > reasonably strong get someone else to review it requirement and the
+> > usual good change log and one patch per substantive change requirement.
+> >  Other subsystems look similar without the review requirement, some
+> > have very strict stylistic requirements (reverse christmas tree, one
+> > variable definition per line, etc).  As I said, the goal wouldn't be to
+> >  beat up on the unusual requirements but to see if we could agree some
+> > global baselines that would at least make submission more uniform.
+>
+> The "when in Rome" rule (follow local conventions) would cover a large
+> fraction of the style issues without requiring global uniformity or
+> even documentation.  I'm amazed at how often it is ignored.
 
-Yes. That is fine. I am referring to the outdated part. Converting
-and updating them would work just fine.
+I should have expanded this a little.  Somebody pointed out to me off-list that:
 
-> The reason is that, when someone sends a patch to the documentation,
-> people tend to look more closely on it, and we start receiving
-> updates for it.
-> 
+| I'm NOT amazed at how often undocumented, strange, local style
+|  (and submission and timing) conventions are not followed by new or
+| drive-by contributors to a sub-system.  How would one expect local
+| conventions to be followed by newbies when they conventions
+| are undocumented?
 
+| Many sub-systems have mixed styles. In the past I've wished for
+| documentation as simple as: 'file xyz.c is representative
+| of the preferred style for this sub-system'.
 
-> Ok, this doesn't happen every time, but it is still worth.
-> 
-> There's another thing to consider here: there are lots of docs
-> written for "stable" subsystems, in the sense that the documented
-> code doesn't change for a lot of time (except for trivial patches
-> not directly related to it.
-> 
-> While doing large chunks of code conversion, I noticed that there
-> are lots of still valid documents that fit on this.
-> 
-> There's a big issue with those "stable" subsystems: they tend
-> to not have any active maintainer anymore. So, there are not
-> much people that are willing to actively review patches to it.
-> 
-> So, my advice here is to really invert things:
-> 
-> - do the conversion;
+What I meant was that we should follow the indentation, comment,
+declaration, etc. style of the existing code in the same file.  We
+should also look at the git history of the file and follow the style
+of subject lines and commit logs.
 
-Even this can be made into tasks. If you would like to experiment
-with and see how it works, send me a list of documents that you
-would like to see converted first.
+Even if a subsystem has mixed styles, I think the most important rule
+is that each file should be internally consistent.  If we want to
+unify subsystem style, that's even better, but we should do that with
+subsystem-wide patches that specifically improve consistency, not
+incrementally as a by-product of other patches.
 
-> - find a good place to put the converted the book;
-> - add kernel-doc markups to be sure that the symbols will always
->    match upstream;
-> - review the remaining content of the docs.
-> 
->> I am currently putting together a task list for mentorship program
->> with a goal to create tasks that would more meaningful and helpful
->> instead of whitespace patches.
->>
->> I will gladly add documentation tasks to the list to help improve
->> the documentation.
-> 
-> I can surely mentor people interested on doing such tasks.
-> 
+I'm not necessarily opposed to documenting coding styles, although I
+think per-subsystem coding style rules might a little bit onerous to
+submitters.  If we pay attention to the surrounding code and commit
+history, we can produce good style even without a style guide.
 
-That will be great.
-
-thanks,
--- Shuah
+Bjorn
