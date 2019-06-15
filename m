@@ -1,29 +1,27 @@
-Return-Path: <bhelgaas@google.com>
+Return-Path: <mchehab+samsung@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0D9F61441
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 49C2616C5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 14 Jun 2019 23:21:31 +0000 (UTC)
-Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com
-	[209.85.128.68])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 60A17E5
+	Sat, 15 Jun 2019 00:05:46 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [85.118.1.10])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id A4127E5
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 14 Jun 2019 23:21:30 +0000 (UTC)
-Received: by mail-wm1-f68.google.com with SMTP id f17so1259801wme.2
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 14 Jun 2019 16:21:30 -0700 (PDT)
+	Sat, 15 Jun 2019 00:05:45 +0000 (UTC)
+Date: Fri, 14 Jun 2019 21:05:36 -0300
+From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+To: Shuah Khan <skhan@linuxfoundation.org>
+Message-ID: <20190614210536.312fa988@coco.lan>
+In-Reply-To: <b5af03d3-2286-32e9-f895-776b563df550@linuxfoundation.org>
+References: <20190612085405.6045d95d@lwn.net>
+	<f2f4a212-54f4-70a2-5a5d-9d45b3e1b5ae@linuxfoundation.org>
+	<20190613112533.2176c5d4@coco.lan>
+	<b5af03d3-2286-32e9-f895-776b563df550@linuxfoundation.org>
 MIME-Version: 1.0
-References: <1559836116.15946.27.camel@HansenPartnership.com>
-	<CAErSpo5WVP_7t_LDBbaJ7bHc_MgkpV=1KYsQx_zULKkjQf3azA@mail.gmail.com>
-In-Reply-To: <CAErSpo5WVP_7t_LDBbaJ7bHc_MgkpV=1KYsQx_zULKkjQf3azA@mail.gmail.com>
-From: Bjorn Helgaas <bhelgaas@google.com>
-Date: Fri, 14 Jun 2019 18:21:15 -0500
-Message-ID: <CAErSpo661k-BSy=LF0kWEyvX-2pNJVCtrsP729MmErTr-hspPQ@mail.gmail.com>
-To: James Bottomley <James.Bottomley@hansenpartnership.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Pull network and Patch
- Acceptance Consistency
+Subject: Re: [Ksummit-discuss] [TECH TOPIC] Documentation
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,59 +31,127 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jun 14, 2019 at 2:53 PM Bjorn Helgaas <bhelgaas@google.com> wrote:
->
-> On Thu, Jun 6, 2019 at 10:49 AM James Bottomley
-> <James.Bottomley@hansenpartnership.com> wrote:
->
-> > 2) Patch Acceptance Consistency: At the moment, we have very different
-> > acceptance criteria for patches into the various maintainer trees.
-> > Some of these differences are due to deeply held stylistic beliefs, but
-> > some could be more streamlined to give a more consistent experience to
-> > beginners who end up doing batch fixes which cross trees and end up
-> > more confused than anything else.  I'm not proposing to try and unify
-> > our entire submission process, because that would never fly, but I was
-> > thinking we could get a few sample maintainer trees to give their
-> > criteria and then see if we could get any streamlining.  For instance,
-> > SCSI has a fairly weak "match the current driver" style requirement, a
-> > reasonably strong get someone else to review it requirement and the
-> > usual good change log and one patch per substantive change requirement.
-> >  Other subsystems look similar without the review requirement, some
-> > have very strict stylistic requirements (reverse christmas tree, one
-> > variable definition per line, etc).  As I said, the goal wouldn't be to
-> >  beat up on the unusual requirements but to see if we could agree some
-> > global baselines that would at least make submission more uniform.
->
-> The "when in Rome" rule (follow local conventions) would cover a large
-> fraction of the style issues without requiring global uniformity or
-> even documentation.  I'm amazed at how often it is ignored.
+Em Fri, 14 Jun 2019 15:40:26 -0600
+Shuah Khan <skhan@linuxfoundation.org> escreveu:
 
-I should have expanded this a little.  Somebody pointed out to me off-list that:
+> On 6/13/19 8:25 AM, Mauro Carvalho Chehab wrote:
+> > Em Wed, 12 Jun 2019 12:22:55 -0600
+> > Shuah Khan <skhan@linuxfoundation.org> escreveu:
+> >   
 
-| I'm NOT amazed at how often undocumented, strange, local style
-|  (and submission and timing) conventions are not followed by new or
-| drive-by contributors to a sub-system.  How would one expect local
-| conventions to be followed by newbies when they conventions
-| are undocumented?
+> > So, my advice here is to really invert things:
+> > 
+> > - do the conversion;  
+> 
+> Even this can be made into tasks. If you would like to experiment
+> with and see how it works, send me a list of documents that you
+> would like to see converted first.
 
-| Many sub-systems have mixed styles. In the past I've wished for
-| documentation as simple as: 'file xyz.c is representative
-| of the preferred style for this sub-system'.
+After the patchsets I'm working it:
 
-What I meant was that we should follow the indentation, comment,
-declaration, etc. style of the existing code in the same file.  We
-should also look at the git history of the file and follow the style
-of subject lines and commit logs.
+	https://git.linuxtv.org/mchehab/experimental.git/log/?h=convert_rst_renames_v5
 
-Even if a subsystem has mixed styles, I think the most important rule
-is that each file should be internally consistent.  If we want to
-unify subsystem style, that's even better, but we should do that with
-subsystem-wide patches that specifically improve consistency, not
-incrementally as a by-product of other patches.
+There will be very few directories that doesn't any any .rst file:
 
-I'm not necessarily opposed to documenting coding styles, although I
-think per-subsystem coding style rules might a little bit onerous to
-submitters.  If we pay attention to the surrounding code and commit
-history, we can produce good style even without a style guide.
+$ for i in $(find Documentation/ -name '*.txt' | sed -E "s,(Documentation/[^\/+]+).*,\1,"|uniq|grep -v output |grep -v binding|grep -v devicetree); do if [ "$(find $i -name '*.rst')" == "" ]; then if [ -d $i ]; then echo $i; fi; fi; done
 
-Bjorn
+Documentation/platform
+Documentation/scsi
+Documentation/RCU
+Documentation/cpu-freq
+Documentation/ABI
+Documentation/sphinx
+Documentation/features
+Documentation/acpi
+
+Among those:
+
+- There's nothing to be done at the sphinx directory.
+- The cpu-freq maintainer won't want changes there, as the stuff inside
+  that specific dir is obsolete.
+- If I'm not mistaken, there's already a pending patchset for the
+  acpi directory too.
+- Platform has just a single file, easily convertible to ReST.
+  I suspect that it should be moved to the laptops dir too.
+  I guess I wrote a patch for it, but it seems it got lost on
+  some rebase. Anyway, I can take care of this one.	
+- We are handling the ABI directory on a different way. 
+
+So, I guess that what it was left behind is:
+
+	Documentation/scsi
+	Documentation/RCU
+	Documentation/features
+
+You should notice, however, that there are some other directories
+that have a mix of rst and txt files, with also have some files 
+that could be needing conversion:
+
+$ for i in $(find Documentation/ -name '*.txt' | sed -E "s,(Documentation/[^\/+]+).*,\1,"|uniq|grep -v output |grep -v binding|grep -v devicetree); do if [ -d $i ]; then echo $i; fi; done
+Documentation/device-mapper
+Documentation/sh
+Documentation/trace
+Documentation/misc-devices
+Documentation/arm64
+Documentation/platform
+Documentation/scsi
+Documentation/RCU
+Documentation/virtual
+Documentation/cpu-freq
+Documentation/admin-guide
+Documentation/block
+Documentation/ABI
+Documentation/translations
+Documentation/PCI
+Documentation/filesystems
+Documentation/networking
+Documentation/sphinx
+Documentation/features
+Documentation/netlabel
+Documentation/acpi
+Documentation/crypto
+Documentation/sparc
+
+I suspect that those dirs with contain botn .rst and .txt files are
+in the process of being updated and converted by the subsystem
+maintainers, but double check is needed.
+
+Plus other places where there are files whose filename doesn't have any
+extension at all and could be a text file to be converted:
+
+$ for i in $(find Documentation/  -type f ! -name "*.*" | sed -E "s,(Documentation/[^\/+]+).*,\1,"|uniq|grep -v output |grep -v binding|grep -v devicetree); do if [ -d $i ]; then echo $i; fi; done
+Documentation/misc-devices
+Documentation/target
+Documentation/firmware_class
+Documentation/isdn
+Documentation/media
+Documentation/parisc
+Documentation/spi
+Documentation/scsi
+Documentation/hwmon
+Documentation/EDID
+Documentation/nios2
+Documentation/virtual
+Documentation/i2c
+Documentation/usb
+Documentation/ABI
+Documentation/translations
+Documentation/openrisc
+Documentation/w1
+Documentation/filesystems
+Documentation/networking
+Documentation/auxdisplay
+
+There are a few exceptions that should be kept as plain text
+files. I remember of two such cases:
+
+- a configuration file whose extension is .txt;
+- a dump of chapter extracted from an old arch-specific manual
+  with seems to be provided by its manufacturer.
+
+While the last one could eventually be converted, it sounded
+too much work for too little gain - and a format change may
+eventually require some negotiation with the copyright holder.
+
+Thanks,
+Mauro
