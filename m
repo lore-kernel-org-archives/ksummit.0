@@ -1,29 +1,42 @@
-Return-Path: <mchehab+samsung@kernel.org>
+Return-Path: <geert.uytterhoeven@gmail.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8D60DDD5
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 04914C21
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 17 Jun 2019 17:21:26 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [85.118.1.10])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1633D7E9
+	Mon, 17 Jun 2019 17:24:15 +0000 (UTC)
+Received: from mail-lf1-f66.google.com (mail-lf1-f66.google.com
+	[209.85.167.66])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B7DC27E9
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 17 Jun 2019 17:21:26 +0000 (UTC)
-Date: Mon, 17 Jun 2019 14:21:17 -0300
-From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-To: Shuah Khan <skhan@linuxfoundation.org>, Jonathan Corbet <corbet@lwn.net>
-Message-ID: <20190617142117.76478570@coco.lan>
-In-Reply-To: <20190617071206.64154747@coco.lan>
-References: <20190612085405.6045d95d@lwn.net>
-	<f2f4a212-54f4-70a2-5a5d-9d45b3e1b5ae@linuxfoundation.org>
-	<20190613112533.2176c5d4@coco.lan>
-	<b5af03d3-2286-32e9-f895-776b563df550@linuxfoundation.org>
-	<20190614210536.312fa988@coco.lan>
-	<20190617071206.64154747@coco.lan>
+	Mon, 17 Jun 2019 17:24:13 +0000 (UTC)
+Received: by mail-lf1-f66.google.com with SMTP id z15so7073576lfh.13
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Mon, 17 Jun 2019 10:24:13 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Documentation
+References: <1559836116.15946.27.camel@HansenPartnership.com>
+	<20190606155846.GA31044@kroah.com>
+	<1559838275.3144.6.camel@HansenPartnership.com>
+	<20190613105916.66d03adf@coco.lan>
+	<20190614101222.GA4797@pendragon.ideasonboard.com>
+	<20190614102424.3fc40f04@coco.lan> <20190614135807.GA6573@kroah.com>
+	<20190614121137.02b8a6dc@coco.lan>
+	<20190615110107.GA5974@pendragon.ideasonboard.com>
+	<20190617080315.4d8fd076@coco.lan>
+	<20190617122837.GP5316@sirena.org.uk>
+	<ECADFF3FD767C149AD96A924E7EA6EAF97735B4F@USCULXMSG01.am.sony.com>
+In-Reply-To: <ECADFF3FD767C149AD96A924E7EA6EAF97735B4F@USCULXMSG01.am.sony.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 17 Jun 2019 19:23:56 +0200
+Message-ID: <CAMuHMdWNrPB8Hq8o33ERiDX7g_D8eVhr8WrYRMzeoOKqOQLG-w@mail.gmail.com>
+To: "Bird, Timothy" <Tim.Bird@sony.com>
+Content-Type: text/plain; charset="UTF-8"
+Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
+	James Bottomley <James.Bottomley@hansenpartnership.com>,
+	media-submaintainers@linuxtv.org,
+	Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
+	Dmitry Vyukov <dvyukov@google.com>
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Pull network and Patch
+ Acceptance Consistency
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -33,45 +46,36 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Em Mon, 17 Jun 2019 07:12:06 -0300
-Mauro Carvalho Chehab <mchehab+samsung@kernel.org> escreveu:
+Hi Tim,
 
-Answering myself here...
+On Mon, Jun 17, 2019 at 6:48 PM <Tim.Bird@sony.com> wrote:
+> - I recently saw a very cool system for isolating new warnings (at all levels
+> of W=[0-3]) introduced by a new patch.  This would be a great thing to
+> add to the kernel build system, IMHO, and that's also on my to-do list.
+> - I was very interested in discussions about the mechanism to check whether
+> a patch modified the binary or not.   It would be nice to make this part of
+> the build system as well (something like: "make check-for-binary-change"
+>
+> Both of the latter items require the ability to set a baseline to compare
+> against.  So the usage sequence would be:
+>  - make save-baseline
+>  - <do commit or pull>
+>  - make show-new-warnings
 
-> > 	Documentation/features  
-> 
-> This is actually a special case. I don't think that a plain txt->rst
-> conversion is the right thing to be done here.
-> 
-> IMO, it requires some further discussions.
+https://github.com/geertu/linux-scripts/blob/master/linux-log-diff
 
-> The script should be able to produce valid ReST output on all the
-> above formats, e. g.:
-> 
-> 1) output per feature;
-> 2) output per architecture;
-> 3) output as a matrix feature x architecture.
+linux-log-diff build.log.old build.log.new
 
-I'm actually thinking on something like:
+That's what I use for "Build regressions/improvements in v5.2-rc5"
+https://lore.kernel.org/lkml/20190617071937.22838-1-geert@linux-m68k.org/
 
-1) A page that could be part of a feature documentation
-   (On this example, it documents scheduler ARCH_HAS_MEMBARRIER_SYNC_CORE)
+Gr{oetje,eeting}s,
 
-	https://www.infradead.org/~mchehab/rst_features/feature_membarrier-sync-core.html
+                        Geert
 
-2) A page that could be part of the per-archtecture books
-   (here, arm64 one):
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-	https://www.infradead.org/~mchehab/rst_features/feature_arm64.html
-
-3) A page with a matrix with all architectures and all features:
-
-	https://www.infradead.org/~mchehab/rst_features/feature_matrix.html
-
-I just wrote a patch with such script.
-
-I should be submitting it soon to the ML for review, after some final
-cleanups.
-
-Thanks,
-Mauro
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
