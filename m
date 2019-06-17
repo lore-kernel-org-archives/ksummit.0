@@ -1,18 +1,18 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <mchehab+samsung@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 21DF6265
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2EA70CAF
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 17 Jun 2019 12:28:44 +0000 (UTC)
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
-	[172.104.155.198])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 7241D2C3
+	Mon, 17 Jun 2019 13:31:26 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [85.118.1.10])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 523CA822
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 17 Jun 2019 12:28:43 +0000 (UTC)
-Date: Mon, 17 Jun 2019 13:28:37 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-Message-ID: <20190617122837.GP5316@sirena.org.uk>
+	Mon, 17 Jun 2019 13:31:25 +0000 (UTC)
+Date: Mon, 17 Jun 2019 10:31:15 -0300
+From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Message-ID: <20190617103115.670bf968@coco.lan>
+In-Reply-To: <CAMuHMdUTDNFYJG5i26v5S6=YSHYomcVNaFNeQ=WhQfTOZxNiMw@mail.gmail.com>
 References: <1559836116.15946.27.camel@HansenPartnership.com>
 	<20190606155846.GA31044@kroah.com>
 	<1559838275.3144.6.camel@HansenPartnership.com>
@@ -21,16 +21,19 @@ References: <1559836116.15946.27.camel@HansenPartnership.com>
 	<20190614102424.3fc40f04@coco.lan>
 	<20190614135807.GA6573@kroah.com>
 	<20190614121137.02b8a6dc@coco.lan>
-	<20190615110107.GA5974@pendragon.ideasonboard.com>
-	<20190617080315.4d8fd076@coco.lan>
+	<1560525785.27102.16.camel@HansenPartnership.com>
+	<20190614124305.65eb8dbd@coco.lan>
+	<1560527386.27102.23.camel@HansenPartnership.com>
+	<20190614130456.6c339c01@coco.lan>
+	<1560528994.27102.34.camel@HansenPartnership.com>
+	<20190614144836.0a71ebe5@coco.lan>
+	<CAMuHMdUTDNFYJG5i26v5S6=YSHYomcVNaFNeQ=WhQfTOZxNiMw@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="FTsVDVnBYKo0tCDH"
-Content-Disposition: inline
-In-Reply-To: <20190617080315.4d8fd076@coco.lan>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	media-submaintainers@linuxtv.org, Tim.Bird@sony.com,
-	ksummit-discuss@lists.linuxfoundation.org
+	media-submaintainers@linuxtv.org,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Pull network and Patch
  Acceptance Consistency
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -42,107 +45,176 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+Em Mon, 17 Jun 2019 09:01:06 +0200
+Geert Uytterhoeven <geert@linux-m68k.org> escreveu:
 
---FTsVDVnBYKo0tCDH
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> Hi Mauro,
+> 
+> On Fri, Jun 14, 2019 at 7:48 PM Mauro Carvalho Chehab
+> <mchehab+samsung@kernel.org> wrote:
+> > Em Fri, 14 Jun 2019 09:16:34 -0700
+> > James Bottomley <James.Bottomley@HansenPartnership.com> escreveu:  
+> > > On Fri, 2019-06-14 at 13:04 -0300, Mauro Carvalho Chehab wrote:  
+> > > > Em Fri, 14 Jun 2019 08:49:46 -0700
+> > > > James Bottomley <James.Bottomley@HansenPartnership.com> escreveu:  
+> > > > > Actually, this leads me to the patch acceptance criteria: Is there
+> > > > > value in requiring reviews?  We try to do this in SCSI (usually
+> > > > > only one review), but if all reviewers add a
+> > > > >
+> > > > > Reviewed-by:
+> > > > >
+> > > > > tag, which is accumulated in the tree, your pull machinery can
+> > > > > detect it on all commits in the pull and give you an automated
+> > > > > decision about whether to accept the pull or not.  If you require
+> > > > > two with one from a list of designated reviewers, it can do that as
+> > > > > well (with a bit more complexity in the pull hook script).
+> > > > >
+> > > > > So here's the question: If I help you script this, would you be
+> > > > > willing to accept pull requests in the media tree with this check
+> > > > > in place?  I'm happy to do this because it's an interesting
+> > > > > experiment to see if we can have automation offload work currently
+> > > > > done by humans.  
+> > > >
+> > > > We could experiment something like that, provided that people will be
+> > > > aware that it can be undone if something gets wrong.
+> > > >
+> > > > Yet, as we discussed at the Media Summit, we currently have an
+> > > > issue: our infrastructure lack resources for such kind of
+> > > > automation.  
+> > >
+> > > This one doesn't require an automation infrastructure: the script runs
+> > > as a local pull hook on the machine you accept the pull request from
+> > > (presumably your laptop?)  
+> >
+> > No, I run it on a 40-core HP server that it is below my desk. I turn it on
+> > only when doing patch review (to save power, and because it produces a lot
+> > of heat at the small room I work).
+> >
+> > Right now, I use a script with converts a pull request into a quilt tree.
+> > Then, for each patch there, after a manual review, I run:  
+> 
+> I think this process can be improved/optimized:
+> 
+> >         - checkpatch --strict  
+> 
+> Should have been done by your (trusted) submaintainer that sent you
+> the pull request.
 
-On Mon, Jun 17, 2019 at 08:03:15AM -0300, Mauro Carvalho Chehab wrote:
-> Laurent Pinchart <laurent.pinchart@ideasonboard.com> escreveu:
-> > On Fri, Jun 14, 2019 at 12:11:37PM -0300, Mauro Carvalho Chehab wrote:
+Things are getting better with time, but I still catch issues - with
+seems to indicate that people sometimes forget to run it.
 
-> > > We're receiving about 400 to 1000 patches per month, meaning 18 to 45
-> > > patches per working days (22 days/month). From those, we accept about
-> > > 100 to 300 patches per month (4.5 to 13.6 patches per day).
+On a recent case, I received a few pull requests lacking the SOB from
+the patch author.
 
-> > > Currently, I review all accepted patches. =20
+> 
+> >         - make ARCH=i386  CF=-D__CHECK_ENDIAN__ CONFIG_DEBUG_SECTION_MISMATCH=y C=1 W=1 CHECK='compile_checks' M=drivers/staging/media
+> >         - make ARCH=i386  CF=-D__CHECK_ENDIAN__ CONFIG_DEBUG_SECTION_MISMATCH=y C=1 W=1 CHECK='compile_checks' M=drivers/media
+> >
+> > where compile_checks is this script:
+> >
+> >         #!/bin/bash
+> >         /devel/smatch/smatch -p=kernel $@
+> >         # This is too pedantic and produce lots of false-positives
+> >         #/devel/smatch/smatch --two-passes -- -p=kernel $@
+> >         /devel/sparse/sparse $@  
+> 
+> Should have been done by the various bots, as soon as the public
+> branch for the pull request was updated.
 
-> > As other have said or hinted, this is where things start getting wrong.
-> > As a maintainer your duty isn't to work for 24h a day and review every
-> > single patch. The duty of a maintainer is to help the subsystem stay
-> > healthy and move forward. This can involve lots of technical work, but
-> > it doesn't have to, that can also be delegated (providing, of course,
+True, but we don't have any way, right now, to be able to automatically
+parse the bot results in order only move a patch/pull request to a
+"ready to merge" queue after getting the bot results.
 
-> There are a couple of reasons why I keep doing that. Among them:
+Also, usually, the bots don't build with W=1, as, on most subsystems,
+this cause lots of warnings[1].
 
-> 1) I'd like to follow what's happening at the subsystem. Reviewing the
-> patches allow me to have at least a rough idea about what's happening,
-> with makes easier when we need to discuss about possible changes at
-> the core;
+[1] On media, we have zero warnings with W=1.
 
-> 2) An additional reviewer improves code quality. One of the feedbacks
-> I get from sub-maintainers is that we need more core review. So, I'm
-> doing my part.
+> > (Currently, I review on one screen, while the check script runs on a
+> > terminal on a second screen)  
+> 
+> If all of the above are automated, or already done, you can focus on
+> reviewing on the mailing list, i.e. before the patch is accepted by your
+> submaintainer (the earlier an issue is found, the cheaper it is to fix
+> it).  And you don't have to review everything, review can be done in
+> parallel by multiple persons.
 
-> 3) I like my work.
+Easier said than done.
 
-This doesn't have to be an either/or thing - one of the things that you
-can do is vary how much attention you're paying depending on whatever
-factors are useful (which can be very fuzzy sometimes).  Thinking too
-much about formailzing things can get in the way sometimes, both with
-decision making paralysis and with making things seem scarier for
-contributors who are being asked to take on responsibility.
+We agreed to some infra changes during the last Media Summit with
+the ~20 people that were there, and we're sticking to the plan.
 
-> Also, as I said, this is media dirty laundering: weather I would keep
-> doing patch reviews or not - and how this will work - is something for
-> our internal discussions, and not for KS.
+Trying to rush something before having everything setup due to a demand 
+of a single developer is a terrible idea, as we need to do changes in a
+way that it won't affect the community as a hole.
 
-The specific example is from the media subsystem but these are general
-issues.
+Today's count is that we have ~500 patches queued, Over the last two
+weeks, we handled ~200 patches per week. We need keep up doing our work
+as this is the busiest period over the last 12 months.
 
-> > > Also, as also discussed during the media summit, in order to have such
-> > > kind of automation, we would need to improve our infrastructure, movi=
-ng
-> > > the tests from a noisy/heated server I have over my desk to some VM
-> > > inside the cloud, once we get funds for it. =20
+At the end of June, we upgraded from patchwork 1.0 to 2.1, and we're 
+working towards improving the delegation features on patchwork, in order
+to be able to have more people handling patches there, and to upgrade 
+soon our web server, as it is using a distro that it is going out of 
+support.
 
-> > Sure, and I think this is a topic that would gain from being discussed
-> > with a wider audience. The media subsystem isn't the only one to be
-> > large enough that it would benefit a lot from automation (I would even
-> > argue that all subsystems could benefit from that), so sharing
-> > experiences, and hearing other subsystem's wishes, would be useful here.
+> 
+> > If a patch at the queue fails, the server beeps, and I manually fix
+> > or I complain.  
+> 
+> Should have been fixed before the pull request was sent.
 
-> Maybe.
+Agreed, but we still get build breakages from time to time due to
+bad pull requests.
 
-> Are there any other subsystem currently working to get funding for
-> hosting/automation?
+> 
+> > When the patch series is accepted, for every applied patch, I run
+> > a script that updates the patch status at patchwork, plus the
+> > status of the git pull request.  
+> 
+> There's some WIP automation for this on patchwork.kernel.org, that
+> can update status based on appearance in linux-next.
 
-Not sure if it's specifically what you're looking at but there's stuff
-going on that's at least very adjacent to this, more from the angle of
-providing general infrastructure than subsystem specific things and
-currently mainly foucsed on getting tests run.  To me that sort of
-approach seems good since it avoids duplicated efforts between
-subsystems.
+We do that already since 2013 using our custom scripting.
 
-There's people working on things like KernelCI (people are working on
-expanding to include runtime tests, and there's active efforts on
-securing more funding) and CKI which aren't focused on specific
-subsystems but more on general infrastructure.  Tim Bird (CCed) has been
-pushing on trying to get people working in this area talking to each
-other - there's a mailing list and monthly call:
+> 
+> > When I reject a patch, I update patchwork accordingly.
+> >  
+> > > so  the workflow is you receive a pull
+> > > request, pull it into your tree and if the pull hook finds a bogus
+> > > commit it will reject the pull and tell you why; if the script accepts
+> > > the pull then you do whatever additional checks you like, then push it
+> > > to kernel.org when you're satisfied it didn't break anything.  
+> >
+> > A script that would work for me should do a similar job:
+> >
+> > - apply patch per patch, test with the above programs and check for
+> >   results. If any errors/warnings are returned, mailbomb the involved
+> >   parties for them to rework the pull request, and update the status
+> >   of the git request at patchwork.
+> >
+> > - If the pull request succeeds, update the patches at patchwork, using
+> >   the Patchwork-ID field for the git pull request and the patch diff
+> >   md5sum for the applied patches (and for any past versions of them,
+> >   if the checksum is the same).
+> >
+> > Alternatively (and that's what I actually prefer) is that, when someone
+> > sends a pull request, a CI bot would do the above checks. doing the
+> > mailbomb part and marking the pull request as rejected at patchwork,
+> > delegating to me otherwise.
+> >
+> > This way, I would have to deal only with already verified pull
+> > requests.  
+> 
+> So I think most of the automation is already there?
+> The interfacing with patchwork seems to be the hardest part.
+> 
+> Gr{oetje,eeting}s,
+> 
+>                         Geert
+> 
 
-    https://elinux.org/Automated_Testing
 
-and one of the things people are talking about is what sorts of things
-the kernel community would find useful here so it's probably useful at
-least putting ideas for things that'd be useful in the heads of people
-who are interested in working on the infrastructure and automation end
-of things.
 
---FTsVDVnBYKo0tCDH
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl0Hh3QACgkQJNaLcl1U
-h9D7eAf6AwenwokK+ABVpY7X4eVa95UB2lkoAZ+EaLmv7ZRU3lCZEcaWk8CdLI/1
-daGJSEde1c/x22NxWtsU2bXVjo6SxSGxZjVEm04+NYR46LmEcIrOAdzYht3eE7PG
-J9NBDVaRakviRk+AAmh3vaKRr+VWAeJ6zy8SNzVAjUlO/Lw4HWUDABPaguZQ+Y5s
-lUwUux5Q5qW6PoIjrRe3cipGjG+CHoJc2hJtX2iuNuV6nrgEqmCW/5l8zyqR+5xg
-pm2YgMBSDhMekzNmBkmOoxwIOxIsdchRttwrOz8raL+249piZ95GA/QPvn4MoqBR
-mfLVbDnctsr2F1TuO/Q2Mg6GcCZ1DA==
-=iTuJ
------END PGP SIGNATURE-----
-
---FTsVDVnBYKo0tCDH--
+Thanks,
+Mauro
