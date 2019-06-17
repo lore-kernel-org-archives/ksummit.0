@@ -1,26 +1,21 @@
 Return-Path: <tytso@mit.edu>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 4A2CBD1A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2E046C77
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 17 Jun 2019 13:46:16 +0000 (UTC)
+	Mon, 17 Jun 2019 13:50:37 +0000 (UTC)
 Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id CF13F7DB
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B03E97DB
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon, 17 Jun 2019 13:46:15 +0000 (UTC)
-Date: Mon, 17 Jun 2019 09:45:55 -0400
+	Mon, 17 Jun 2019 13:50:36 +0000 (UTC)
+Date: Mon, 17 Jun 2019 09:50:32 -0400
 From: "Theodore Ts'o" <tytso@mit.edu>
-To: David Howells <dhowells@redhat.com>
-Message-ID: <20190617134555.GB4358@mit.edu>
-References: <20265.1560522079@warthog.procyon.org.uk>
+To: ksummit-discuss@lists.linuxfoundation.org
+Message-ID: <20190617135032.GA20586@mit.edu>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20265.1560522079@warthog.procyon.org.uk>
-Cc: peterz@infradead.org, paulmck@linux.ibm.com, linux@armlinux.org.uk,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [TECH TOPIC] Consistent terminology for ring
- buffers
+Subject: [Ksummit-discuss] [TECH TOPIC] Memory management bits in arch/*
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -30,38 +25,51 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, Jun 14, 2019 at 03:21:19PM +0100, David Howells wrote:
-> 
-> Can we settle on consistent terminology for ring buffers with regard to what
-> we call the producer index and the consumer index?
+From: Mike Rapoport <rppt@linux.ibm.com>
 
-"And all the people said, Amen!"  :-)
+[ Note: The following abstract was submitted via the Linux Plumbers
+  Conference website.  Per the instructions that were posted for the
+  Maintainer's / Kernel Summit Call for Proposals[1], the proposal
+  should also be posted on the ksummit-discuss list, so that people
+  can comment on the proposal, and perhaps start a discussion before
+  the summit.
 
-> In linux/circ_buf.h and Documentation/core-api/circular-buffers.rst and
-> various other places "head" is the index at which insertion occurs and "tail"
-> is the index of the next object to be consumed.
+  [1] https://lwn.net/Articles/788378/
 
-That's certainly my preference; as Rusty said:
+  Please note that topic proposals for both the Kernel Summit and the
+  Maintainer's Summit are still welcome, although if you submit to the
+  Kernel Summit track at this point, please note that you will need to
+  have a registration to the Linux Plumbers Conference to attend.  -- Ted ]
 
-> To quote Russell: "head is where the food goes in, the tail is where the ..."
+There is a lot of similar and duplicated code in architecture specific
+bits of memory management.
 
-I was a bit confused by what you meant by this table?
+For instance, most architectures have
 
-> 	PRODUCER	CONSUMER
-> 	===============	===============
-> 	head		tail
-> 	tail		head
-> 	in		out
-> 	insert		remove
-> 	produce		consume
+	#define PGALLOC_GFP (GFP_KERNEL | __GFP_ZERO)
 
+for allocating page table pages and many of them use similar, if not
+identical, implementation of pte_alloc_one*().
 
-Also, could you please make a submission of this proposal to the
-kernel summit track here as well:
+But that's only the tip of the iceberg.
 
-	http://bit.ly/lpc19-submit
+There are several early_alloc() or similarily called routines that do
 
-That will help us deal with scheduling.  Thanks!!
+	if (slab_is_available())
+	    return kzalloc();
+	else
+	    return memblock_alloc();
 
-						- Ted
-							
+Some other trivial examples are free_initmem(), free_initrd_mem()
+which were nearly identical accross many architectures until very
+recently.
+
+More complex cases are per-cpu initialization, passing of memory
+topology to the generic MM, reservation of crash kernel, mmap of vdso
+etc. They are not really duplicated, but still are very similar in at
+least several architectures.
+
+While factoring out the common code is an obvious step to take, I
+believe there is also room for refining arch <-> mm interface to avoid
+adding extra HAVE_ARCH_NO_BOOTMEM^w^wWHAT_NOT and then searching for the
+ways to get rid of them.
