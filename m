@@ -1,18 +1,19 @@
-Return-Path: <mchehab+samsung@kernel.org>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 488A1BA9
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 90952C51
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 19 Jun 2019 15:19:24 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id BB542E6
+	Wed, 19 Jun 2019 15:46:22 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 1260CE6
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 19 Jun 2019 15:19:23 +0000 (UTC)
-Date: Wed, 19 Jun 2019 12:19:18 -0300
-From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Message-ID: <20190619121918.3d5eb91b@coco.lan>
+	Wed, 19 Jun 2019 15:46:21 +0000 (UTC)
+Message-ID: <1560959179.4729.10.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Mauro Carvalho
+	Chehab <mchehab+samsung@kernel.org>
+Date: Wed, 19 Jun 2019 08:46:19 -0700
 In-Reply-To: <20190619144808.GI21753@pendragon.ideasonboard.com>
 References: <20190614124305.65eb8dbd@coco.lan>
 	<1560527386.27102.23.camel@HansenPartnership.com>
@@ -24,13 +25,12 @@ References: <20190614124305.65eb8dbd@coco.lan>
 	<CAKMK7uEZ0nvSZaOnQGxpghK+Md0YA0xfh+KjiferuJueeHDfwg@mail.gmail.com>
 	<20190619113902.76bd169a@coco.lan>
 	<20190619144808.GI21753@pendragon.ideasonboard.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
-	media-submaintainers@linuxtv.org, kbuild@01.org,
-	Dan Carpenter <dan.carpenter@oracle.com>
+Cc: media-submaintainers@linuxtv.org, kbuild@01.org,
+	Dan Carpenter <dan.carpenter@oracle.com>,
+	ksummit <ksummit-discuss@lists.linuxfoundation.org>
 Subject: Re: [Ksummit-discuss] [media-submaintainers] [MAINTAINERS SUMMIT]
  Pull network and Patch Acceptance Consistency
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -42,73 +42,78 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-Em Wed, 19 Jun 2019 17:48:08 +0300
-Laurent Pinchart <laurent.pinchart@ideasonboard.com> escreveu:
-
+On Wed, 2019-06-19 at 17:48 +0300, Laurent Pinchart wrote:
 > Hi Mauro,
 > 
-> On Wed, Jun 19, 2019 at 11:39:02AM -0300, Mauro Carvalho Chehab wrote:
-> > Em Wed, 19 Jun 2019 10:33:23 +0200 Daniel Vetter escreveu:  
-> > > On Wed, Jun 19, 2019 at 9:56 AM Dan Carpenter wrote:  
-> > > > On Mon, Jun 17, 2019 at 10:31:15AM -0300, Mauro Carvalho Chehab wrote:    
-> > > > > Also, usually, the bots don't build with W=1, as, on most subsystems,
-> > > > > this cause lots of warnings[1].
-> > > > >
-> > > > > [1] On media, we have zero warnings with W=1.  
-> > > >
-> > > > We could ask the kbuild devs if they would consider making W=1 a per
-> > > > tree option.    
+> On Wed, Jun 19, 2019 at 11:39:02AM -0300, Mauro Carvalho Chehab
+> wrote:
+> > Em Wed, 19 Jun 2019 10:33:23 +0200 Daniel Vetter escreveu:
+> > > On Wed, Jun 19, 2019 at 9:56 AM Dan Carpenter wrote:
+> > > > On Mon, Jun 17, 2019 at 10:31:15AM -0300, Mauro Carvalho Chehab
+> > > > wrote:  
+> > > > > Also, usually, the bots don't build with W=1, as, on most
+> > > > > subsystems, this cause lots of warnings[1].
+> > > > > 
+> > > > > [1] On media, we have zero warnings with W=1.
+> > > > 
+> > > > We could ask the kbuild devs if they would consider making W=1
+> > > > a per tree option.  
 > > > 
-> > > No need to ask, just add a Kconfig which sets additional cflags for
-> > > you for your tree and your good. The usual combinatorial testing will
-> > > discover the new warnings. That's at least what we do for i915.ko
-> > > (including -Werror). Gets the job done.  
+> > > No need to ask, just add a Kconfig which sets additional cflags
+> > > for you for your tree and your good. The usual combinatorial
+> > > testing will discover the new warnings. That's at least what we
+> > > do for i915.ko (including -Werror). Gets the job done.
 > > 
-> > While this works, having a W=1 per tree would, IMHO, work better, as,
-> > as new warnings get added to W=1, we'll get those for free.
+> > While this works, having a W=1 per tree would, IMHO, work better,
+> > as, as new warnings get added to W=1, we'll get those for free.
 > > 
 > > -
 > > 
-> > I don't like the idea of having -Werror being automatically added, as
-> > this may cause problems when people try to compile with a different
-> > compiler version - or on some weird architectures.  
+> > I don't like the idea of having -Werror being automatically added,
+> > as this may cause problems when people try to compile with a
+> > different compiler version - or on some weird architectures.
 > 
 > It's not automatic though, if it depends on a Kconfig option that is
 > disabled by default. The built bots can enable it, while users would
 > ignore it. That being said, having it as a per-tree build bot option
 > should work as well.
 
-Having a Kconfig option is OK.
+I really don't think well made build bots would enable this.  The
+problem with -Werror is it's single threaded on the first problem. 
+What a generic build bot wants to do is compile the entire tree and
+then diff the output to find the additional warnings for everything.  I
+could see a tree specific build bot being more interested (until the
+build fails on an unrelated subsystem).
 
-What I'm saying is that I don't like the idea of having something
-like:
+> > Specially on drivers that build with COMPILE_TEST[1], depending on
+> > the architecture they're built, false-positive warnings rise,
+> > specially on unusual architecture with has different defines for
+> > some arch-specific typedefs (signed/unsigned, different integer
+> > type, usage or not of volatile, a different address space, etc).
+> 
+> All my kernel compilation scripts use -Werror, and that does a great
+> job at catching problems. It can be a bit annoying at times when
+> someone introduces a warning, but usually a fix will already be
+> posted when I notice my build breaks. The more we use -Werror
+> globally, the faster those new warnings will be caught.
 
-	ccflags-y := -Werror
+I buy this for small projects, and would own up to using it in my own
+because it's a great way to force contributors not to introduce
+warnings in their patches if the build breaks.  The problem with
+something huge like linux, especially when it is fairly deeply entwined
+with compiler specifics, is twofold:
 
-Unconditionally added on some Makefile. Having it depending on a Kconfig
-option (or manually added with something like "make CFLAGS=-Werror") is OK.
+   1. You're going to force us to annotate all those spurious warnings
+      that we've been ignoring because gcc should get fixed; incorrectly
+      flagged uninitialized variables being the most annoying.
+   2. Different versions of gcc produce different warnings: so now we'll
+      eventually have to target a specific gcc version and not upgrade
+      until we're ready because newer versions come with shiny new
+      warnings.
 
-We had -Werror unconditionally enabled in the past on a couple of
-Makefiles under media.
+That's not to say we should forbid bots and subsystems from doing this,
+that's what we're currently doing with the per-subdir enabling of
+-Werror using subdir-ccflags-y if you look, but we shouldn't globally
+mandate it.
 
--
-
-It sounds, however, that there's not a consensus with that regards, as
-some subsystems enableit unconditionally:
-
-	ccflags-y := -Werror
-
-Others enable when there's some other make option:
-
-	ifeq (, $(findstring -W,$(EXTRA_CFLAGS)))
-		ccflags-y += -Werror
-	endif
-
-And yet other ones have their own subsystem-specific option to
-enable it:
-
-	ccflags-$(CONFIG_PPC_WERROR)  += -Werror
-
-
-Thanks,
-Mauro
+James
