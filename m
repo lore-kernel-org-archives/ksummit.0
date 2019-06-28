@@ -1,36 +1,27 @@
-Return-Path: <philip.li@intel.com>
+Return-Path: <skhan@linuxfoundation.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 818F5B43
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id AECA7CA8
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 19 Jun 2019 08:10:50 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 3470C7DB
+	Fri, 28 Jun 2019 20:11:30 +0000 (UTC)
+Received: from mail-io1-f50.google.com (mail-io1-f50.google.com
+	[209.85.166.50])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 5777613A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 19 Jun 2019 08:10:50 +0000 (UTC)
-Date: Wed, 19 Jun 2019 16:13:02 +0800
-From: Philip Li <philip.li@intel.com>
-To: Dan Carpenter <dan.carpenter@oracle.com>
-Message-ID: <20190619081301.GA19970@intel.com>
-References: <20190614121137.02b8a6dc@coco.lan>
-	<1560525785.27102.16.camel@HansenPartnership.com>
-	<20190614124305.65eb8dbd@coco.lan>
-	<1560527386.27102.23.camel@HansenPartnership.com>
-	<20190614130456.6c339c01@coco.lan>
-	<1560528994.27102.34.camel@HansenPartnership.com>
-	<20190614144836.0a71ebe5@coco.lan>
-	<CAMuHMdUTDNFYJG5i26v5S6=YSHYomcVNaFNeQ=WhQfTOZxNiMw@mail.gmail.com>
-	<20190617103115.670bf968@coco.lan> <20190619075351.GP28859@kadam>
+	Fri, 28 Jun 2019 20:11:30 +0000 (UTC)
+Received: by mail-io1-f50.google.com with SMTP id w25so15078900ioc.8
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Fri, 28 Jun 2019 13:11:30 -0700 (PDT)
+To: ksummit-discuss@lists.linuxfoundation.org
+From: Shuah Khan <skhan@linuxfoundation.org>
+Message-ID: <7b73e1b7-cc34-982d-2a9c-acf62b88da16@linuxfoundation.org>
+Date: Fri, 28 Jun 2019 14:11:28 -0600
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20190619075351.GP28859@kadam>
-Cc: ksummit <ksummit-discuss@lists.linuxfoundation.org>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
-	media-submaintainers@linuxtv.org, kbuild@01.org,
-	Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-Subject: Re: [Ksummit-discuss] [kbuild] [MAINTAINERS SUMMIT] Pull network
- and Patch Acceptance Consistency
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Subject: [Ksummit-discuss] [MAINTAINERS SUMMIT] Patch version changes in
+	commit logs?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -40,24 +31,25 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Jun 19, 2019 at 10:53:51AM +0300, Dan Carpenter wrote:
-> On Mon, Jun 17, 2019 at 10:31:15AM -0300, Mauro Carvalho Chehab wrote:
-> > Also, usually, the bots don't build with W=1, as, on most subsystems,
-> > this cause lots of warnings[1].
-> > 
-> > [1] On media, we have zero warnings with W=1.
-> > 
-> 
-> We could ask the kbuild devs if they would consider making W=1 a per
-> tree option.
-thanks for the suggestion, we can consider this, at least for specific
-repos.
+In a recent patch discussion, I learned that some maintainers would like
+to see patch version changes in the commit log.
 
-> 
-> regards,
-> dan carpenter
-> 
-> _______________________________________________
-> kbuild mailing list
-> kbuild@lists.01.org
-> https://lists.01.org/mailman/listinfo/kbuild
+I went looking in the git log and found a handful of recent commits with
+"Changes since" type information in the commit logs. It appears to be
+maintainer preference and a recent trend.
+
+I see the value in including the information. It can be informative
+and valuable for future work in the area.
+
+Is this something that we would like to see in all commits going 
+forward? If so, updating submitting patch documentation and making
+sure the version information evolves from "informal" to more formal
+nature that fits in with the commit logs would be helpful.
+
+Making sure it doesn't get out of hand and commit logs don't
+become too long to be useful would also be helpful.
+
+Late entry, as I happened to come across this a day or two ago.
+
+thanks,
+-- Shuah
