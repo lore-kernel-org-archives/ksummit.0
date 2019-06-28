@@ -1,24 +1,25 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <wsa@the-dreams.de>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 671A0D82
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 95C26D7F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 28 Jun 2019 21:07:16 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 15B573D0
+	Fri, 28 Jun 2019 21:08:00 +0000 (UTC)
+Received: from pokefinder.org (sauhun.de [88.99.104.3])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTP id 1344713A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 28 Jun 2019 21:07:16 +0000 (UTC)
-Message-ID: <1561756033.3335.22.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Shuah Khan <skhan@linuxfoundation.org>,
-	ksummit-discuss@lists.linuxfoundation.org
-Date: Fri, 28 Jun 2019 14:07:13 -0700
-In-Reply-To: <7b73e1b7-cc34-982d-2a9c-acf62b88da16@linuxfoundation.org>
+	Fri, 28 Jun 2019 21:08:00 +0000 (UTC)
+Date: Fri, 28 Jun 2019 23:07:58 +0200
+From: Wolfram Sang <wsa@the-dreams.de>
+To: "Luck, Tony" <tony.luck@intel.com>
+Message-ID: <20190628210758.GB5956@kunai>
 References: <7b73e1b7-cc34-982d-2a9c-acf62b88da16@linuxfoundation.org>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+	<20190628205102.GA3131@agluck-desk2.amr.corp.intel.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Pd0ReVV5GZGQvF3a"
+Content-Disposition: inline
+In-Reply-To: <20190628205102.GA3131@agluck-desk2.amr.corp.intel.com>
+Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Patch version changes in
  commit logs?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -30,42 +31,49 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Fri, 2019-06-28 at 14:11 -0600, Shuah Khan wrote:
-> In a recent patch discussion, I learned that some maintainers would
-> like to see patch version changes in the commit log.
-> 
-> I went looking in the git log and found a handful of recent commits
-> with "Changes since" type information in the commit logs. It appears
-> to be maintainer preference and a recent trend.
-> 
-> I see the value in including the information. It can be informative
-> and valuable for future work in the area.
-> 
-> Is this something that we would like to see in all commits going 
-> forward? If so, updating submitting patch documentation and making
-> sure the version information evolves from "informal" to more formal
-> nature that fits in with the commit logs would be helpful.
-> 
-> Making sure it doesn't get out of hand and commit logs don't
-> become too long to be useful would also be helpful.
-> 
-> Late entry, as I happened to come across this a day or two ago.
 
-It's always been the policy for most maintainers not to include these. 
-They're usually context dependent like responses to reviews or how the
-series changed because of testing or API changes.  Once they're placed
-into history devoid of context they'll become a distraction rather than
-useful information.
+--Pd0ReVV5GZGQvF3a
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Conversely, if they do contain informative content that's about the
-patch, not external context, that should have been placed into the
-changelog.  So my other fear is that including version text will
-encourage people not to update the original changelog leading to
-potentially confusing changelogs requiring you to wade through all the
-versioning information.
 
-So I prefer we keep the current prevalent behaviour of removing the
-version change information and making sure the relevant parts are
-captured in the latest patch change log.
+> I don't see why someone in the future trying to debug some problem
+> introduced by this commit would care that earlier versions had some
+> spelling mistakes or were missing a Fixes: tag. :-)
+>=20
+> Where substantial changes were made between patch versions it
+> would be useful if the commit logs were adapted to say things like:
+>=20
+>  "We considered using technique X to do this but rejected
+>   it because person Y said it had problem Z"
+>=20
+> That captures for posterity the useful information without
+> bulking up the commit log with the blow-by-blow deltas of
+> how the patch series evolved across 27 versions submitted
+> to the mailing list.
 
-James
+I fully agree.
+
+
+--Pd0ReVV5GZGQvF3a
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAl0WgaoACgkQFA3kzBSg
+KbaSsg//QLSCBC4ToZ0ck5qvHwo45CUPf3ceHPXDd8ZKfjGsfEMoI30Een574SBD
+axHFvzfkA8hvzFGBa6wVlLAVDoHMU1ZlKyXNeu0i2HSXPi2WAlPfy5fmGwH0OMOy
+iWHSG9cGVpO3ytEVCqymy3x46PQXc+PGZ5MzVigo6ZB4sOu5aa5IGoDVoObRf1du
+br2XMHOZ7rDNBc0ECMQwv7eQco6U4Y5tk1rbZ59w4sMwd83JkKaIUn9Ynxw1euCN
+7YbKEoJ+H/pEJ+2F1uMEYduqVeK22S58oxcEI9vHAQUjOBwmgFzyKlGNquaJGI5S
+1oY4kd4S0d55zshCvGHiaOv6DvdWuPUXTtkkUNK4IjUuarFT9j/odJ6ARkjw/a8W
+17JXWaePSgZldQk/oTR/+DvKojXw4EiimNSZgnyOFcbHtV0We2GXKf41SDSG1WsF
+0KxORr+7ThKxVS1YUb0DuHLteJ9a8CeFCNn/faV+cDw+s/IS13Cvd1brPnr1Ce2a
+lAp3FIPhiAUQ+herGsnPnPYxrItzzMJspdVGIywWvhJGvF0XGBfdnLTdqY5qYVUr
+Ktg1jIlwPNjT+MdhKfadhZdBf72DBmTchCmXyoNEK6W9XQZPfg+qXisTJM7y0a33
+8tIv8jJnClzt+TMwNYVvz0XWdvavsjfFYWl8o1ivkIDsCufNh30=
+=Pahz
+-----END PGP SIGNATURE-----
+
+--Pd0ReVV5GZGQvF3a--
