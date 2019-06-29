@@ -1,29 +1,30 @@
-Return-Path: <broonie@sirena.org.uk>
+Return-Path: <andrea.parri@amarulasolutions.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 56013CAC
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 0A4A9C90
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 29 Jun 2019 11:21:00 +0000 (UTC)
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
-	[172.104.155.198])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id D754882F
+	Sat, 29 Jun 2019 13:43:40 +0000 (UTC)
+Received: from mail-wm1-f68.google.com (mail-wm1-f68.google.com
+	[209.85.128.68])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 6235A3D0
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat, 29 Jun 2019 11:20:59 +0000 (UTC)
-Date: Sat, 29 Jun 2019 12:20:55 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Message-ID: <20190629112055.GB2793@sirena.org.uk>
+	Sat, 29 Jun 2019 13:43:38 +0000 (UTC)
+Received: by mail-wm1-f68.google.com with SMTP id s15so11509002wmj.3
+	for <ksummit-discuss@lists.linuxfoundation.org>;
+	Sat, 29 Jun 2019 06:43:38 -0700 (PDT)
+Date: Sat, 29 Jun 2019 15:43:29 +0200
+From: Andrea Parri <andrea.parri@amarulasolutions.com>
+To: Thomas Gleixner <tglx@linutronix.de>
+Message-ID: <20190629134329.GA4620@andrea>
 References: <7b73e1b7-cc34-982d-2a9c-acf62b88da16@linuxfoundation.org>
 	<20190628205102.GA3131@agluck-desk2.amr.corp.intel.com>
-	<s5hzhm0q3p1.wl-tiwai@suse.de>
-	<alpine.DEB.2.21.1906290906080.1802@nanos.tec.linutronix.de>
-	<s5hwoh4q2pn.wl-tiwai@suse.de>
+	<alpine.DEB.2.21.1906290802360.1802@nanos.tec.linutronix.de>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="EuxKj2iCbKjpUGkD"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <s5hwoh4q2pn.wl-tiwai@suse.de>
-Cc: ksummit-discuss@lists.linuxfoundation.org
+In-Reply-To: <alpine.DEB.2.21.1906290802360.1802@nanos.tec.linutronix.de>
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Patch version changes in
  commit logs?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -35,32 +36,62 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+> What's really useful is when the commit has a Link tag:
+> 
+>        https://lore.kernel.org/lkml/$MESSAGE-ID
+> 
+> and if the submitters provide the same kind of link in their V(N)
+> submission pointing to the V(N-1) in the cover letter:
+> 
+>        https://lore.kernel.org/lkml/$MESSAGE-ID-V(N-1)
+> 
+> If it's a single patch the link can be in the patch itself after the ---
+> separator. That allows a quick lookup of the history.
+> 
+> I also really want the change history to be at that place. i.e.
+> 
+>  Subject ....
+> 
+>  changelog text
+> 
+>  Tags...
+>  Signed-off-by: Joe Hacker
+> 
+>  ---
+> 
+>  V3: Fixed typo
+> 
+>  V2: Made it work
+>      https://lore.kernel.org/.... (if single patch)
+> 
+>  ---
+> 
+>  diffstat
+> 
+>  ---
+> 
+>  patch
+> 
+> That way tools just strip the changes section away and the maintainer does
+> not have to handle it manually.
+> 
+> Can we pretty please agree on that format and make it mandatory?
 
---EuxKj2iCbKjpUGkD
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Makes all sense to me.  One question/remark:
 
-On Sat, Jun 29, 2019 at 09:18:28AM +0200, Takashi Iwai wrote:
+Documentation/process/submitting-patches.rst says:
 
-> BTW, can the URL be reached from patchwork?  That'd be really handy.
+ "If the patch follows from a mailing list discussion, give a URL to the
+  mailing list archive; use the https://lkml.kernel.org/ redirector with
+  a ``Message-Id``, to ensure that the links cannot become stale."
 
-Even better, could patchwork add it to the mboxes you download from it
-like acks and so on?  Currently you can get the message ID so it's easy
-to construct the link for things that are on LKML.
+and it does not mention "lore.kernel.org": does this doc want an update?
 
---EuxKj2iCbKjpUGkD
-Content-Type: application/pgp-signature; name="signature.asc"
+FWIW, I've been trying to conform to "lkml.kernel.org"  (which currently
+seems just a redirection to "lore.kernel.org")  since [1], and I do know
+of at least a few subsystems out there recommending such URLs.
 
------BEGIN PGP SIGNATURE-----
+Thanks,
+  Andrea
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl0XSZQACgkQJNaLcl1U
-h9AK/Qf/Wepz0hozLrUGIAoSQeoHNnK9Z0P+e5oAzwM88SHUnPQC96UqjsqKcnDw
-m61wh7BiJQo1UoQxpNTMkO4QTHu/klX4eNTkRbxfTfAxL8NX5n6rw/aYzjndRlt5
-y0dWJ7LQGwvjDulpycyF66fJnCdwHZWfOn8/lCJbT4pCOiTffDBdc43jT3jelNdH
-TNvO6YIv3pQiiBjCGofY9arYLC3gOsUHT7t1MD7YGVsSQw0aIIQimtS/m7LJKByU
-q5E19yBDAS8XS4uJF6RJ4nMzpPXK6xGGrBu/3CWcljcNRkPQCZVnmNsS35v9qWy2
-7SmPn6puDYzH0W5JV15Wb4qKWumDGw==
-=J7hf
------END PGP SIGNATURE-----
-
---EuxKj2iCbKjpUGkD--
+[1] https://lkml.kernel.org/r/20180412115022.GL4043@hirez.programming.kicks-ass.net
