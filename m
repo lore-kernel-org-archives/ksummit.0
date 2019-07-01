@@ -1,26 +1,31 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <SRS0=/x9j=U6=goodmis.org=rostedt@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id ECEEE40B7
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 7E49B490F
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  1 Jul 2019 15:50:17 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 749B1832
+	Mon,  1 Jul 2019 17:27:51 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F4178782
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Mon,  1 Jul 2019 15:50:17 +0000 (UTC)
-Message-ID: <1561996215.3551.49.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Thomas Gleixner <tglx@linutronix.de>, David Howells <dhowells@redhat.com>
-Date: Mon, 01 Jul 2019 08:50:15 -0700
-In-Reply-To: <alpine.DEB.2.21.1907011735341.1802@nanos.tec.linutronix.de>
+	Mon,  1 Jul 2019 17:27:50 +0000 (UTC)
+Date: Mon, 1 Jul 2019 13:27:48 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Thomas Gleixner <tglx@linutronix.de>
+Message-ID: <20190701132748.6d19e011@gandalf.local.home>
+In-Reply-To: <alpine.DEB.2.21.1907010948310.1802@nanos.tec.linutronix.de>
 References: <7b73e1b7-cc34-982d-2a9c-acf62b88da16@linuxfoundation.org>
-	<20263.1561993564@warthog.procyon.org.uk>
-	<alpine.DEB.2.21.1907011735341.1802@nanos.tec.linutronix.de>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
+	<20190628205102.GA3131@agluck-desk2.amr.corp.intel.com>
+	<alpine.DEB.2.21.1906290802360.1802@nanos.tec.linutronix.de>
+	<20190629134329.GA4620@andrea>
+	<alpine.DEB.2.21.1906291714150.1802@nanos.tec.linutronix.de>
+	<20190630163120.GA13925@chatter.i7.local>
+	<20190701072013.GJ3402@hirez.programming.kicks-ass.net>
+	<alpine.DEB.2.21.1907010948310.1802@nanos.tec.linutronix.de>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Cc: ksummit-discuss@lists.linuxfoundation.org
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Patch version changes in
  commit logs?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
@@ -32,73 +37,23 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Mon, 2019-07-01 at 17:40 +0200, Thomas Gleixner wrote:
-> On Mon, 1 Jul 2019, David Howells wrote:
-> 
-> > Shuah Khan <skhan@linuxfoundation.org> wrote:
-> > 
-> > > In a recent patch discussion, I learned that some maintainers
-> > > would like to see patch version changes in the commit log.
-> > > 
-> > > I went looking in the git log and found a handful of recent
-> > > commits with "Changes since" type information in the commit logs.
-> > > It appears to be maintainer preference and a recent trend.
-> > > 
-> > > I see the value in including the information. It can be
-> > > informative and valuable for future work in the area.
-> > > 
-> > > Is this something that we would like to see in all commits going
-> > > forward? If so, updating submitting patch documentation and
-> > > making sure the version information evolves from "informal" to
-> > > more formal nature that fits in with the commit logs would be
-> > > helpful.
-> > > 
-> > > Making sure it doesn't get out of hand and commit logs don't
-> > > become too long to be useful would also be helpful.
-> > 
-> > I put the changelog in the cover note (ie. patch 0) since if
-> > there's more than one patch there may well be changes that span
-> > multiple patches.  Whoever's
-> 
-> That's a pain. I'd have to go back and forth to find that
-> information. If the v$N info is in the patch itself, then it clearly
-> shows what the scope of the change is in that particular patch, e.g.
-> just fixing up the typo or some structural change.
-> 
-> And no, this is not about convenience for the submitter. It's about
-> convenience for the reviewer/maintainer. The goal must be to make
-> their life as simple as possible not the other way round.
+On Mon, 1 Jul 2019 09:49:56 +0200 (CEST)
+Thomas Gleixner <tglx@linutronix.de> wrote:
 
-Wouldn't the contemporaneous reviewer/maintainer be on the actual email
-threads ... so they wouldn't need the references?
-
-I see the Link tag as a useful historical artifact but you seem to
-think it's an essential part of the contemporaneous acceptance.  I've
-definitely been in the situation of having to find patches and
-discussion (usually when next or 0day informs us of a SCSI breakage
-that wasn't sent to our list and I have to find the original to take a
-look) but really, it's not a common occurrence so it's not a huge
-burden to have to use a search facility to find the patch and
-discussion on the list it was originally sent to.
-
-My general impression is that for me it's not contemporaneously very
-useful and cregit seems to cover the historical part, so I'm
-ambivalent about including a Link tag and definitely wouldn't require
-it.
-
-James
-
-
-> > doing the merge could include this in the merge description.
+> > I much prefer https://lkml.kernel.org/r/$msgid over lore, because I can
+> > change it to marc.info with a single character change. And while lore
+> > has improved, the thing is still a horrible horrible ugly site (an
+> > actual fixed frame for the thread overview, and hiding that 'Reply
+> > instructions' and 'LKML Archive on lore.kernel.org' somewhow would
+> > already be a big improvement).  
 > 
-> That does not help for patch series which are applied directly from
-> mail.
-> 
-> Thanks,
-> 
-> 	tglx
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
-> 
+> But lore allows to reference all mailinglists which are archived
+> there, while lkml.k.org is hardcoded to lkml.
+
+That's not true. For example:
+
+ http://lkml.kernel.org/r/20190613122035.7d19f318@gandalf.local.home
+
+Which ends up on the linux-rt-users list, and so does lore/r.
+
+-- Steve
