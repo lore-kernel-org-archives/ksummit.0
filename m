@@ -1,30 +1,32 @@
-Return-Path: <unixbhaskar@gmail.com>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id AEB701A74
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 1FF591C26
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  2 Jul 2019 15:01:30 +0000 (UTC)
-Received: from mail-pl1-f194.google.com (mail-pl1-f194.google.com
-	[209.85.214.194])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 2FE3D834
+	Tue,  2 Jul 2019 15:11:01 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id B7B4987C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  2 Jul 2019 15:01:30 +0000 (UTC)
-Received: by mail-pl1-f194.google.com with SMTP id 9so522183ple.5
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue, 02 Jul 2019 08:01:30 -0700 (PDT)
-Date: Tue, 2 Jul 2019 20:31:07 +0530
-From: Bhaskar Chowdhury <unixbhaskar@gmail.com>
-To: Laura Abbott <laura@labbott.name>
-Message-ID: <20190702150107.GA977@Gentoo>
-References: <5A0ABD9B-34F3-44FE-838E-D66F3BB5D15B@labbott.name>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="ZGiS0Q5IWpPtfppv"
-Content-Disposition: inline
-In-Reply-To: <5A0ABD9B-34F3-44FE-838E-D66F3BB5D15B@labbott.name>
+	Tue,  2 Jul 2019 15:11:00 +0000 (UTC)
+Message-ID: <1562080257.3321.19.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Thomas Gleixner <tglx@linutronix.de>
+Date: Tue, 02 Jul 2019 08:10:57 -0700
+In-Reply-To: <alpine.DEB.2.21.1907021644420.1802@nanos.tec.linutronix.de>
+References: <7b73e1b7-cc34-982d-2a9c-acf62b88da16@linuxfoundation.org>
+	<20263.1561993564@warthog.procyon.org.uk>
+	<alpine.DEB.2.21.1907011735341.1802@nanos.tec.linutronix.de>
+	<1561996215.3551.49.camel@HansenPartnership.com>
+	<alpine.DEB.2.21.1907011945530.1802@nanos.tec.linutronix.de>
+	<1562077203.3321.2.camel@HansenPartnership.com>
+	<alpine.DEB.2.21.1907021644420.1802@nanos.tec.linutronix.de>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] Linux Foundation Technical Advisory Board
- Elections -- Change in Voting Procedures
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Patch version changes in
+ commit logs?
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -34,93 +36,50 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
+On Tue, 2019-07-02 at 16:49 +0200, Thomas Gleixner wrote:
+> On Tue, 2 Jul 2019, James Bottomley wrote:
+> > On Mon, 2019-07-01 at 19:54 +0200, Thomas Gleixner wrote:
+> > > The link to V2 is in both cases in the cover letter. That's
+> > > sufficient. Yes, it might not be necessary, but I just recently
+> > > ended up wasting an hour finding an earlier version because the
+> > > cover letter subject changed slightly. I surely have better
+> > > things to do.
+> > 
+> > I'm not arguing against changelogs in the patches themselves as
+> > long as they're below the commit message --- cutoff.  In fact I
+> > think that's best practice for reviewers.  I'm just arguing making
+> > a link tag mandatory would impose an enforcement burden on a lot of
+> > subsystems which would provide no benefit to them), so I don't mind
+> > it's being optional but it shouldn't be mandatory.
+> 
+> What's the burden exactly?
 
---ZGiS0Q5IWpPtfppv
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
+Not everyone knows what a message ID is or how to find it, so we'd have
+to explain why the patch was rejected (or simply have the maintainer
+add it at commit time, which currently involves some effort).  Quite a
+few of the list archives mangle it so someone would have to notice this
+or unmangle it.
 
-Whoa! awesome! cool ...second paragraph explainig the trouble..thanks a bunch Laura.
+> You mean that people would have to add them manually?
 
-Thanks,
-Bhaskar
+Most email tools don't show you the msgid, so if you're simply doing
+driveby commits now we have to explain to you how to find it ...
+remember linux-scsi isn't currently on lore so we can't just say "use
+the lore archive".
 
-On 10:49 Tue 02 Jul , Laura Abbott wrote:
->On behalf of the Linux Foundation Technical Advisory Board (TAB), I'd like
->to announce that we are making changes to the voting procedures for the
->2019 TAB elections. The one-line summary is that we are looking to move
->to an electronic voting system instead of paper ballots with the purpose
->of giving more members of our community a say in the membership of the TAB.
->
->The longer explanation:
->
->The kernel summit was created as an in-person event for kernel developers to
->meet face-to-face and solve problems. When the TAB was created as part of
->the Linux Foundation, it made sense to have voting for TAB representation
->be part of kernel summit. Today, the kernel community has grown dramatically
->in size with a community across the globe. Attending an in-person event may
->not always be feasible for reasons such as finances, personal obligations, or
->visa issues. This means that developers who cannot attend kernel summit
->don't get a chance to vote for TAB representation. Moving to an online
->voting system would allow for more participation.
->
->The system we are looking at using is the Condorcet Internet Voting Service
->(CIVS) https://civs.cs.cornell.edu . This system was recommended to us
->by other communities who use it for similar board representation. It's
->designed with security and privacy as a priority and source code is available
->under a BSD-like research license (https://github.com/andrewcmyers/civs).
->For 2019, we intend to use the version of CIVS hosted on their servers
->because of serious concerns about the ability of the TAB to develop,
->maintain, and host CIVS. We would welcome support to make this happen in
->future years.
->
->One of the biggest changes with using CIVS is that we will be using ranked
->choice voting. Previously, the voting instructions were to vote for $m out
->of $n candidates. Each vote was treated as equal and the top $m candidates
->won. With ranked choice voting, you now express a preference from 1 to $n
->on how much you want a candidate. The theory is that this allows for
->more accurate and fair voting. The TAB had some discussion about this and
->we did discuss options for going back to our old voting method. In order
->to do this with CIVS, we would have to host our own infrastructure which
->we have decided not to do this year. Condorcet supports multiple voting
->methods and the method we plan to use is Condorcet-IRV. You can read more
->about the theory at https://civs.cs.cornell.edu/rp.html#runoff
->
->While the ultimate goal is to completely eliminate the need for in person
->voting, in the interest of small incremental changes, and avoiding too
->many changes at once, the voting pool is going to be approximately that
->of past years. Kernel summit is co-located with Linux Plumbers once again
->this year. Everyone who is registered for Plumbers will be eligible to
->vote in this years TAB election. The goal for future years is to continue
->to increase the number of eligible voters.
->
->If you have feedback, feel free to speak up here or privately at
->tab@lists.linux-foundation.org. We do intend to do a dry run of the voting
->procedure at a future date before the actual elections. If for some reason
->we run into unforeseen issues with electronic voting, we will use paper
->ballots for voting this year. Our goal is to increase the enfranchisement of
->the Linux kernel development community for TAB elections.
->
->Thanks,
->Laura
->
->_______________________________________________
->Ksummit-discuss mailing list
->Ksummit-discuss@lists.linuxfoundation.org
->https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+There's also a knock on: for this to be useful, the commit series needs
+to be threaded.  I've actually no objection to making this one
+mandatory I'm just noting it's another precursor we need to think
+about.
 
---ZGiS0Q5IWpPtfppv
-Content-Type: application/pgp-signature; name="signature.asc"
+> People who use the link tag today have their homebrewn scripts to add
+> them automatically and it shouldn't be rocket science to add that to
+> git, patchwork whatever.
 
------BEGIN PGP SIGNATURE-----
+So if we find a way of automating this globally, I'm completely happy. 
+However, I would also note that whatever script does this could likely
+also be run by you after the fact to generate the back link, so
+foolproof automation also lessens the need to make this a mandatory
+commit tag.
 
-iQEzBAABCAAdFiEEnwF+nWawchZUPOuwsjqdtxFLKRUFAl0bca8ACgkQsjqdtxFL
-KRU5yggA0nL7VZ1ZsZbaMRwDRR0jumQeCnAb38JpY9crH8VupRhi67St7kBGJ1y/
-afpcJMOpiRHwaYm2o3Xin8iKQf2istcNf4heAm8xYj/0H0WMJkhTBjC2qfHSqp64
-se/HqKxlZR5OCPWfUkub/l7qvuOxaS8m8x2xuBbSC3gtsNBgY7C/WUjWUbb3MFEY
-JYSuIriTFWnfqBTQvIWjV2QZuGe2R24UQR8z+FWuVbeHIByMulbQx9zMh7pL/rrD
-lmLaReVR86EHch2OdCkjHwHFYa0/Ir/0h0gMNlOD11a0Xw8Hs00iWlyqUDFmQaZF
-dUK2+BHHMzqMD11ee5KPbircFVDuzw==
-=9/X1
------END PGP SIGNATURE-----
-
---ZGiS0Q5IWpPtfppv--
+James
