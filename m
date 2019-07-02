@@ -1,18 +1,20 @@
-Return-Path: <tglx@linutronix.de>
+Return-Path: <James.Bottomley@HansenPartnership.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 8B4B61D0A
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 236AF1D47
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  2 Jul 2019 15:49:50 +0000 (UTC)
-Received: from Galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 21D09836
+	Tue,  2 Jul 2019 15:51:56 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
+	[66.63.167.143])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 8D8F487A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Tue,  2 Jul 2019 15:49:50 +0000 (UTC)
-Date: Tue, 2 Jul 2019 17:49:46 +0200 (CEST)
-From: Thomas Gleixner <tglx@linutronix.de>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>
-In-Reply-To: <1562082009.3321.31.camel@HansenPartnership.com>
-Message-ID: <alpine.DEB.2.21.1907021748470.1802@nanos.tec.linutronix.de>
+	Tue,  2 Jul 2019 15:51:55 +0000 (UTC)
+Message-ID: <1562082713.3321.38.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Shuah Khan <skhan@linuxfoundation.org>, Thomas Gleixner
+	<tglx@linutronix.de>
+Date: Tue, 02 Jul 2019 08:51:53 -0700
+In-Reply-To: <37eb32f3-f341-b1d8-293b-c119ae278b4f@linuxfoundation.org>
 References: <7b73e1b7-cc34-982d-2a9c-acf62b88da16@linuxfoundation.org>
 	<20263.1561993564@warthog.procyon.org.uk>
 	<alpine.DEB.2.21.1907011735341.1802@nanos.tec.linutronix.de>
@@ -21,10 +23,11 @@ References: <7b73e1b7-cc34-982d-2a9c-acf62b88da16@linuxfoundation.org>
 	<1562077203.3321.2.camel@HansenPartnership.com>
 	<alpine.DEB.2.21.1907021644420.1802@nanos.tec.linutronix.de>
 	<1562080257.3321.19.camel@HansenPartnership.com>
-	<alpine.DEB.2.21.1907021719320.1802@nanos.tec.linutronix.de>
-	<1562082009.3321.31.camel@HansenPartnership.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+	<1562080696.3321.21.camel@HansenPartnership.com>
+	<37eb32f3-f341-b1d8-293b-c119ae278b4f@linuxfoundation.org>
+Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 Cc: ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Patch version changes in
  commit logs?
@@ -37,33 +40,69 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Tue, 2 Jul 2019, James Bottomley wrote:
-> On Tue, 2019-07-02 at 17:30 +0200, Thomas Gleixner wrote:
-> > 2) Link to a previous version of patch series in the cover letter
+On Tue, 2019-07-02 at 09:39 -0600, Shuah Khan wrote:
+> On 7/2/19 9:18 AM, James Bottomley wrote:
+> > On Tue, 2019-07-02 at 08:10 -0700, James Bottomley wrote:
+> > > On Tue, 2019-07-02 at 16:49 +0200, Thomas Gleixner wrote:
 > > 
-> >    Lot of people provide already links in their cover letter. Many of
-> > them
-> >    unfortunately use lkml.org which is a pain, but it's better than
-> >    nothing.
+> > [...]
+> > > > People who use the link tag today have their homebrewn scripts
+> > > > to add them automatically and it shouldn't be rocket science to
+> > > > add that to git, patchwork whatever.
+> > > 
+> > > So if we find a way of automating this globally, I'm completely
+> > > happy. However, I would also note that whatever script does this
+> > > could likely also be run by you after the fact to generate the
+> > > back link, so foolproof automation also lessens the need to make
+> > > this a mandatory commit tag.
 > > 
-> >    Ideally we can bring people to use the MSG id based links because
-> > they
-> >    do not depend on any particular archive.
+> > Just on this one, it looks like getting git to archive the msgid of
+> > the patch commit would assist any script that goes off and tries to
+> > find patch series and its precursors in the archives, so perhaps
+> > adding that would be the actionable change in all of this?
 > > 
-> >    That needs a bit more education. Proper documentation should solve
-> > that
-> >    over time. If people use lkml.org for the link until they figure
-> > out
-> >    what a message id is, fine.
 > 
-> This is the bit that I think is the problem.  However, if it's optional
-> but recommended I'm happy ... drive by committers won't do it, we don't
-> have to add it for them and likely if they were forced to do a V2 there
-> wasn't much illuminating content in V1 because it's probably process or
-> other trivial changes.
+> Looks like two things are emerging from my original thread that aimed
+> to get clarification on including "Patch revision information" in
+> commit logs.
+> 
+> 1. Judiciously including information from the "Patch revision info."
+>     in the commit log could be valuable. Don't just bloat the commit
+>     log with trivial change history. This is part of patch review
+>     process and will not require any scripting. Maybe an update to
+>     the patch submit guidelines documents.
 
-Yes. I'm not worried about those. It mostly matters for larger patch series.
+Agree, as long as it's what Thomas and I have been discussing: namely
+keeping the version information below the --- permanent history cutoff,
+so it's visible to reviewers but won't become part of the permanent
+patch history when the patch is committed to git.
 
-Thanks,
+I think the bit we're still arguing about is the link to prior series
+as part of this below the line version history.  I agree it's useful,
+but I also think it would be a burden to enforce for every patch
+series.
 
-	tglx
+> 2. Archiving msgid of the patch commit for reference. This one would
+>     require some scripting to make it easier for maintainers.
+
+Yes, I think we all agree on this.  The real question is how.  If we
+make git do it, I think trivially Message-Id: can become part of the
+optional metadata.  Or we could all use commit hooks that add a link
+tag.  Personally I prefer the former because it would be universally
+done with no effort but I recognise it would take time to get the
+ecosystem change to propagate.
+
+James
+
+> There two aren't mutually exclusive and are actionable. Let's distill
+> the thread discussion to the above two items as we discuss further.
+> 
+> thanks,
+> -- Shuah
+> 
+> 
+> _______________________________________________
+> Ksummit-discuss mailing list
+> Ksummit-discuss@lists.linuxfoundation.org
+> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+> 
