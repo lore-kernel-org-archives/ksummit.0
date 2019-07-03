@@ -1,18 +1,19 @@
-Return-Path: <leon@kernel.org>
+Return-Path: <tytso@mit.edu>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5112CF43
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 46A34F0C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  3 Jul 2019 12:40:01 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id E2DB5837
+	Wed,  3 Jul 2019 13:50:22 +0000 (UTC)
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9F1A787A
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  3 Jul 2019 12:39:57 +0000 (UTC)
-Date: Wed, 3 Jul 2019 15:39:54 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Thomas Gleixner <tglx@linutronix.de>
-Message-ID: <20190703123954.GD4727@mtr-leonro.mtl.com>
-References: <1562080696.3321.21.camel@HansenPartnership.com>
+	Wed,  3 Jul 2019 13:50:21 +0000 (UTC)
+Date: Wed, 3 Jul 2019 09:50:12 -0400
+From: "Theodore Ts'o" <tytso@mit.edu>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Message-ID: <20190703135012.GC2041@mit.edu>
+References: <1562080257.3321.19.camel@HansenPartnership.com>
+	<1562080696.3321.21.camel@HansenPartnership.com>
 	<37eb32f3-f341-b1d8-293b-c119ae278b4f@linuxfoundation.org>
 	<1562082713.3321.38.camel@HansenPartnership.com>
 	<201907020926.FB19EDEBCC@keescook>
@@ -21,12 +22,11 @@ References: <1562080696.3321.21.camel@HansenPartnership.com>
 	<1562106408.29304.11.camel@HansenPartnership.com>
 	<20190702224347.GJ3032@mit.edu>
 	<20190703085620.GA5007@pendragon.ideasonboard.com>
-	<alpine.DEB.2.21.1907031104260.1802@nanos.tec.linutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.21.1907031104260.1802@nanos.tec.linutronix.de>
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+In-Reply-To: <20190703085620.GA5007@pendragon.ideasonboard.com>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
 	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Patch version changes in
  commit logs?
@@ -39,67 +39,66 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Jul 03, 2019 at 11:12:11AM +0200, Thomas Gleixner wrote:
-> On Wed, 3 Jul 2019, Laurent Pinchart wrote:
-> > On Tue, Jul 02, 2019 at 06:43:47PM -0400, Theodore Ts'o wrote:
-> > > On Tue, Jul 02, 2019 at 03:26:48PM -0700, James Bottomley wrote:
-> > > > git is our upstream for version control and our upstream has already
-> > > > had this as a feature since 2014.  Trying to go to upstream  5 years
-> > > > later and ask them to change it is likely going to be a singularly
-> > > > unsuccessful exercise, plus even in the unlikely event we can work out
-> > > > how to do it compatibly and without causing confusion and upstream said
-> > > > yes it would take another few years to propagate.
-> > >
-> > > If we really want to use the Link: header, we should be able to do
-> > > this without requiring any changes to git.
-> > >
-> > > Step 1)   git config am.messageid true
-> > > Step 2)   Write and install a .git/hooks/applypatch-msg script which
-> > > 	  looks for Message-Id: and transmogrifies that line to a
-> > > 	  Link: trailer, using the lore.kernel.org URL template
-> > > Step 3)   Document this in Documentation/process.  For bonus points
-> > > 	  create a script which automatically sets up the user's git
-> > > 	  configuration by setting up am.messageid config and
-> > > 	  installing the hook file.
-> > > Step 4)   Profit
-> >
-> > I may have missed the obvious, but while this should work great for
-> > patches applied with git-am, what's the expected workflow for patches
-> > written by the author of a pull request ? I certainly post my own
-> > patches for review on mailing lists, but I don't fetch them back from
-> > the list before sending a pull request. Do we want to move towards a
-> > model where maintainers should retrieve their own patches from the lists
-> > (or from patchwork) ?
->
-> Yes.
->
-> If you just commit, post and then send a pull request later how are you
-> dealing with Reviewed-by/Acked-by/Tested-by replies on the list?
->
-> Either they do not end up in the changelogs or you have to redo the commits
-> anyway. So moving to a always redo from mail/patchwork just unifies the
-> workflow.
->
-> I'm doing that always because I'm way too lazy to collect the tags from
-> replies manually. I just save the whole thread as mbox and let the tools
-> sort it out.
+On Wed, Jul 03, 2019 at 11:56:20AM +0300, Laurent Pinchart wrote:
+> 
+> I may have missed the obvious, but while this should work great for
+> patches applied with git-am, what's the expected workflow for patches
+> written by the author of a pull request ? I certainly post my own
+> patches for review on mailing lists, but I don't fetch them back from
+> the list before sending a pull request. Do we want to move towards a
+> model where maintainers should retrieve their own patches from the lists
+> (or from patchwork) ?
 
-My 2 cents,
+So here's my (Unpopular Puffin?) opinion --- I don't think all patches
+need to have a Link header.  Many don't today, and it's no great
+tragedy.  If you are updating spelling mistakes in kernel
+documentation, or you are fixing compiler, sparse, or Coverity
+warnings, there's generally going to be nothing terribly interesting
+on the e-mail thread anyway.  So why go to extra effort to create the
+link?
 
-I'm doing the same for slightly different reason, I want to be 100% sure
-that posted and reviewed patch equal to applied. So when it is applicable,
-I post my own patches and apply them from mailing list later on to
-shared rdma<->netdev branch.
+The patches where the Link tag will be most interesting are the ones
+that are adding a new feature, or have something that has sparked a
+lot of controversy.  However, today, merely finding the last V22
+version of the patch series doesn't necessarily help you find the V21,
+or V20, or V19, etc., patches.  Most people do *not* send out the V21
+version a 50 patch series as a reply to the V20 --- and that's
+actually a good thing, because it makes the reply chain in a mutt
+reader like mutt be completely unmangeable.
 
-Thanks
+And even if they do, how often will it be useful to go through that
+kind of detailed legislative history, even presuming that it exists?
+So 99% of the time, the tag is going to have very highly limited
+value, just as including in the commit description:
 
->
-> Thanks,
->
-> 	tglx
->
->
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
+v3
+  - Fixed whitespace nits
+
+v2
+ - Used an explicit slab cache instead of kmalloc()
+ - Fixed spelling nit in documentation
+
+is ***really*** not interesting or appropriate.  And putting in a Link
+tag so people can read all of those review comments in all their glory
+is really not going to be all that interesting either.
+
+Personally, if there is a case where it will be useful, it would
+actually be better for developers to summarize the comments, and
+design alternatives, considered and rejected, etc., in a cover letter,
+or better yet in the kernel documentation as part of the design doc
+for a largish feature, and then if it is a cover letter e-mailed out
+to the mailing list, include a link to the URL of the cover letter
+with some text so that a human being reading the commit log will know
+that there is something actually worth their time to read, as opposed
+to being treated to a huge amount of legislative history that, at the
+end of the day, be a complete waste of time to someone trying to debug
+a live production problem causing data outages for their company.
+
+The reality though is this is a lot of extra work we're asking of the
+developer, so this automated fashion is a technological solution to
+something which is really a social problem --- and hopefully there
+will be a few cases where it will actually result in a net benefit.
+
+Regards,
+
+					- Ted
