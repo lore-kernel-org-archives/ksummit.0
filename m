@@ -1,22 +1,19 @@
-Return-Path: <frowand.list@gmail.com>
+Return-Path: <laurent.pinchart@ideasonboard.com>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 23BE6E92
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 5B3F8B9E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  3 Jul 2019 19:11:12 +0000 (UTC)
-Received: from mail-pf1-f193.google.com (mail-pf1-f193.google.com
-	[209.85.210.193])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 9C7EF87B
+	Wed,  3 Jul 2019 22:54:03 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+	[213.167.242.64])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id F1E1E87C
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed,  3 Jul 2019 19:11:11 +0000 (UTC)
-Received: by mail-pf1-f193.google.com with SMTP id j2so1731966pfe.6
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Wed, 03 Jul 2019 12:11:11 -0700 (PDT)
-To: Theodore Ts'o <tytso@mit.edu>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-References: <1562080257.3321.19.camel@HansenPartnership.com>
-	<1562080696.3321.21.camel@HansenPartnership.com>
-	<37eb32f3-f341-b1d8-293b-c119ae278b4f@linuxfoundation.org>
+	Wed,  3 Jul 2019 22:54:01 +0000 (UTC)
+Date: Thu, 4 Jul 2019 01:53:38 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Leon Romanovsky <leon@kernel.org>
+Message-ID: <20190703225338.GQ5007@pendragon.ideasonboard.com>
+References: <37eb32f3-f341-b1d8-293b-c119ae278b4f@linuxfoundation.org>
 	<1562082713.3321.38.camel@HansenPartnership.com>
 	<201907020926.FB19EDEBCC@keescook>
 	<1562103238.3321.66.camel@HansenPartnership.com>
@@ -24,16 +21,13 @@ References: <1562080257.3321.19.camel@HansenPartnership.com>
 	<1562106408.29304.11.camel@HansenPartnership.com>
 	<20190702224347.GJ3032@mit.edu>
 	<20190703085620.GA5007@pendragon.ideasonboard.com>
-	<20190703135012.GC2041@mit.edu>
-From: Frank Rowand <frowand.list@gmail.com>
-Message-ID: <454fdfd3-f45e-e307-c0cb-2dbc91c179e0@gmail.com>
-Date: Wed, 3 Jul 2019 12:11:09 -0700
+	<alpine.DEB.2.21.1907031104260.1802@nanos.tec.linutronix.de>
+	<20190703123954.GD4727@mtr-leonro.mtl.com>
 MIME-Version: 1.0
-In-Reply-To: <20190703135012.GC2041@mit.edu>
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: James Bottomley <James.Bottomley@HansenPartnership.com>,
+Content-Disposition: inline
+In-Reply-To: <20190703123954.GD4727@mtr-leonro.mtl.com>
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
 	ksummit-discuss@lists.linuxfoundation.org
 Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Patch version changes in
  commit logs?
@@ -46,85 +40,81 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On 7/3/19 6:50 AM, Theodore Ts'o wrote:
-> On Wed, Jul 03, 2019 at 11:56:20AM +0300, Laurent Pinchart wrote:
->>
->> I may have missed the obvious, but while this should work great for
->> patches applied with git-am, what's the expected workflow for patches
->> written by the author of a pull request ? I certainly post my own
->> patches for review on mailing lists, but I don't fetch them back from
->> the list before sending a pull request. Do we want to move towards a
->> model where maintainers should retrieve their own patches from the lists
->> (or from patchwork) ?
-> 
-> So here's my (Unpopular Puffin?) opinion --- I don't think all patches
-> need to have a Link header.  Many don't today, and it's no great
-> tragedy.  If you are updating spelling mistakes in kernel
-> documentation, or you are fixing compiler, sparse, or Coverity
-> warnings, there's generally going to be nothing terribly interesting
-> on the e-mail thread anyway.  So why go to extra effort to create the
-> link?
-> 
-> The patches where the Link tag will be most interesting are the ones
-> that are adding a new feature, or have something that has sparked a
-> lot of controversy.  However, today, merely finding the last V22
-> version of the patch series doesn't necessarily help you find the V21,
-> or V20, or V19, etc., patches.  Most people do *not* send out the V21
-> version a 50 patch series as a reply to the V20 --- and that's
-> actually a good thing, because it makes the reply chain in a mutt
-> reader like mutt be completely unmangeable.
-> 
-> And even if they do, how often will it be useful to go through that
-> kind of detailed legislative history, even presuming that it exists?
-> So 99% of the time, the tag is going to have very highly limited
-> value, just as including in the commit description:
-> 
-> v3
->   - Fixed whitespace nits
-> 
-> v2
->  - Used an explicit slab cache instead of kmalloc()
->  - Fixed spelling nit in documentation
-> 
-> is ***really*** not interesting or appropriate.  And putting in a Link
-> tag so people can read all of those review comments in all their glory
-> is really not going to be all that interesting either.
-> 
-> Personally, if there is a case where it will be useful, it would
-> actually be better for developers to summarize the comments, and
-> design alternatives, considered and rejected, etc., in a cover letter,
+Hello,
 
-It would be really nice to have such a summary.  I would encourage
-developers to provide such, but not require it.  It is a lot of
-work to create such a document.
+On Wed, Jul 03, 2019 at 03:39:54PM +0300, Leon Romanovsky wrote:
+> On Wed, Jul 03, 2019 at 11:12:11AM +0200, Thomas Gleixner wrote:
+> > On Wed, 3 Jul 2019, Laurent Pinchart wrote:
+> > > On Tue, Jul 02, 2019 at 06:43:47PM -0400, Theodore Ts'o wrote:
+> > > > On Tue, Jul 02, 2019 at 03:26:48PM -0700, James Bottomley wrote:
+> > > > > git is our upstream for version control and our upstream has already
+> > > > > had this as a feature since 2014.  Trying to go to upstream  5 years
+> > > > > later and ask them to change it is likely going to be a singularly
+> > > > > unsuccessful exercise, plus even in the unlikely event we can work out
+> > > > > how to do it compatibly and without causing confusion and upstream said
+> > > > > yes it would take another few years to propagate.
+> > > >
+> > > > If we really want to use the Link: header, we should be able to do
+> > > > this without requiring any changes to git.
+> > > >
+> > > > Step 1)   git config am.messageid true
+> > > > Step 2)   Write and install a .git/hooks/applypatch-msg script which
+> > > > 	  looks for Message-Id: and transmogrifies that line to a
+> > > > 	  Link: trailer, using the lore.kernel.org URL template
+> > > > Step 3)   Document this in Documentation/process.  For bonus points
+> > > > 	  create a script which automatically sets up the user's git
+> > > > 	  configuration by setting up am.messageid config and
+> > > > 	  installing the hook file.
+> > > > Step 4)   Profit
+> > >
+> > > I may have missed the obvious, but while this should work great for
+> > > patches applied with git-am, what's the expected workflow for patches
+> > > written by the author of a pull request ? I certainly post my own
+> > > patches for review on mailing lists, but I don't fetch them back from
+> > > the list before sending a pull request. Do we want to move towards a
+> > > model where maintainers should retrieve their own patches from the lists
+> > > (or from patchwork) ?
+> >
+> > Yes.
+> >
+> > If you just commit, post and then send a pull request later how are you
+> > dealing with Reviewed-by/Acked-by/Tested-by replies on the list?
+> >
+> > Either they do not end up in the changelogs or you have to redo the commits
+> > anyway. So moving to a always redo from mail/patchwork just unifies the
+> > workflow.
+> >
+> > I'm doing that always because I'm way too lazy to collect the tags from
+> > replies manually. I just save the whole thread as mbox and let the tools
+> > sort it out.
 
-On the other hand, given a choice between the summary and a link to
-the discussion, I would prefer the link to the whole discussion
-because the person writing the summary can not predict what detail
-(that may appear insignificant at the time) is critical to the person
-five years later who is researching the feature.
+I usually pick the tags manually. I started doing so because I was too
+lazy to apply the patches from an mbox :-) Picking them manually
+distributes of time the workload of a final git-am before sending the
+pull request, but it has the nice advantage that I can easily see in my
+local tree which patches still require review.
 
--Frank
+> My 2 cents,
+> 
+> I'm doing the same for slightly different reason, I want to be 100% sure
+> that posted and reviewed patch equal to applied. So when it is applicable,
+> I post my own patches and apply them from mailing list later on to
+> shared rdma<->netdev branch.
 
-> or better yet in the kernel documentation as part of the design doc
-> for a largish feature, and then if it is a cover letter e-mailed out
-> to the mailing list, include a link to the URL of the cover letter
-> with some text so that a human being reading the commit log will know
-> that there is something actually worth their time to read, as opposed
-> to being treated to a huge amount of legislative history that, at the
-> end of the day, be a complete waste of time to someone trying to debug
-> a live production problem causing data outages for their company.
-> 
-> The reality though is this is a lot of extra work we're asking of the
-> developer, so this automated fashion is a technological solution to
-> something which is really a social problem --- and hopefully there
-> will be a few cases where it will actually result in a net benefit.
-> 
-> Regards,
-> 
-> 					- Ted
-> _______________________________________________
-> Ksummit-discuss mailing list
-> Ksummit-discuss@lists.linuxfoundation.org
-> https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss
-> 
+I understand both your and Thomas' rationales, and I know that the DRM
+subsystem has enforced usage of the Link: tag through the dim tool used
+to maintain drm-misc. I initially found it a bit of a burden to have to
+go and retrieve patches from my mail client or from patchwork, but I
+also understand the upside. Should we make it an official recommendation
+recorded in written documentation ?
+
+When time permit I will likely try to see if I can automate retrieval of
+a patch series. Ideally I'd like a script that would take a branch,
+identifies where to get the patches from, and goes and pick them up
+(retaining the history below --- until it's time for the final pull
+request). That may not be too difficult to achieve.
+
+-- 
+Regards,
+
+Laurent Pinchart
