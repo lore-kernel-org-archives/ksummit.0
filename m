@@ -1,40 +1,23 @@
-Return-Path: <linus.walleij@linaro.org>
+Return-Path: <mpe@ellerman.id.au>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id 71FFE110D
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id 2D75513BC
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  5 Jul 2019 09:26:37 +0000 (UTC)
-Received: from mail-lj1-f195.google.com (mail-lj1-f195.google.com
-	[209.85.208.195])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C860B70D
+	Fri,  5 Jul 2019 13:54:22 +0000 (UTC)
+Received: from ozlabs.org (ozlabs.org [203.11.71.1])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 895F488E
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri,  5 Jul 2019 09:26:36 +0000 (UTC)
-Received: by mail-lj1-f195.google.com with SMTP id 16so8565144ljv.10
-	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Fri, 05 Jul 2019 02:26:36 -0700 (PDT)
+	Fri,  5 Jul 2019 13:54:21 +0000 (UTC)
+From: Michael Ellerman <mpe@ellerman.id.au>
+To: Sasha Levin <sashal@kernel.org>, ksummit-discuss@lists.linuxfoundation.org
+In-Reply-To: <20190703013557.GQ11506@sasha-vm>
+References: <20190703013557.GQ11506@sasha-vm>
+Date: Fri, 05 Jul 2019 23:54:11 +1000
+Message-ID: <87lfxc1ta4.fsf@concordia.ellerman.id.au>
 MIME-Version: 1.0
-References: <1562080257.3321.19.camel@HansenPartnership.com>
-	<1562080696.3321.21.camel@HansenPartnership.com>
-	<37eb32f3-f341-b1d8-293b-c119ae278b4f@linuxfoundation.org>
-	<1562082713.3321.38.camel@HansenPartnership.com>
-	<201907020926.FB19EDEBCC@keescook>
-	<1562103238.3321.66.camel@HansenPartnership.com>
-	<alpine.DEB.2.21.1907030000050.1802@nanos.tec.linutronix.de>
-	<1562106408.29304.11.camel@HansenPartnership.com>
-	<20190702224347.GJ3032@mit.edu>
-	<20190703085620.GA5007@pendragon.ideasonboard.com>
-	<20190703135012.GC2041@mit.edu>
-In-Reply-To: <20190703135012.GC2041@mit.edu>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Fri, 5 Jul 2019 11:26:22 +0200
-Message-ID: <CACRpkdbqxwwKxjELS8WXtFHbq3L5b49XoEJjCdUOgRTNLTR_NQ@mail.gmail.com>
-To: "Theodore Ts'o" <tytso@mit.edu>,
-	Marek Szyprowski <m.szyprowski@samsung.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
-	ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Patch version changes in
- commit logs?
+Content-Type: text/plain
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] stable kernel process
+	automation and improvement
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -44,49 +27,69 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Wed, Jul 3, 2019 at 3:51 PM Theodore Ts'o <tytso@mit.edu> wrote:
+Sasha Levin <sashal@kernel.org> writes:
+> Hi folks,
+>
+> If there is interest, I'd like to go over the (minor) changes that went
+> into the -stable kernel process since last year's MS, the various
+> automations we now have, and how we have addressed some of the pain
+> points that came up last year. I'd also love to hear from folks about
+> the issues they're seeing with the process, and if there's anything we
+> can do to make it better.
+>
+> Some of the concerns that were raised during last year's MS (both in the
+> group session as well as in the hallway track) which we've tried to
+> address are:
+>
+>  - Commits missing because authors did not respond to Greg's "FAILED:"
+>    mails.
+>  - Concerns about how well -stable kernels are tested.
+>  - "Fixes for fixes" end up being missed.
+>  - Saner AUTOSEL process.
+>  - Tracking of dropped commits.
 
-> Personally, if there is a case where it will be useful, it would
-> actually be better for developers to summarize the comments, and
-> design alternatives, considered and rejected, etc., in a cover letter,
-> or better yet in the kernel documentation as part of the design doc
-> for a largish feature, and then if it is a cover letter e-mailed out
-> to the mailing list, include a link to the URL of the cover letter
-> with some text so that a human being reading the commit log will know
-> that there is something actually worth their time to read, as opposed
-> to being treated to a huge amount of legislative history that, at the
-> end of the day, be a complete waste of time to someone trying to debug
-> a live production problem causing data outages for their company.
+Yeah definitely interested in this.
 
-I agree. I recently wanted to look into the development history
-of the contiguous memory allocator merged in 2012. This patch set
-went through 24 (!) iterations duly summarized in the cover letter:
-https://lore.kernel.org/lkml/1333462221-3987-1-git-send-email-m.szyprowski@samsung.com/
-it not is on mm/cma.c.
+Especially the tracking part. I have been trying to keep track of
+powerpc commits that need backporting, but haven't really come up with a
+good system. So would be interested in what you and/or others are doing.
 
-The links to the earlier iterations on gmane are dead.
+Something I've been experimenting with is using git notes to mark
+commits that have been fixed by a subsequent commit. This gives you a
+two way link between the fix and the fixed commit, and you can get the
+notes to show up in git log, like:
 
-It is one of the more heroic attempts to fix a very real problem
-with memory management in embedded and mobile,
-the second part of which is hopefully coming to a resolution
-with John Stultz work on the ION destaging (ongoing).
+  commit 1846193b178dcc58435fdc57352db7b74826ef37
+  Author: Michael Ellerman <mpe@ellerman.id.au>
+  Date:   Thu Jul 7 22:54:29 2016 +1000
+  
+      powerpc/xmon: Dump ISA 2.06 SPRs
+      
+      Signed-off-by: Michael Ellerman <mpe@ellerman.id.au>
+  
+  Notes (fixed):
+      Fixed-by: c47a94031e81 ("powerpc/xmon: Fix display of SPRs")
 
-The actual commit in the kernel looks like so:
-git log c64be2bb1c6eb43c838b2c6d57b074078be208dd
 
-I would have to dig them all out of lore one by one to get
-the picture (and I guess I will). The story of CMA is a really
-interesting one, and now it is part of the MM core.
-Documentation/cma is pretty empty.
+I'd like to extend this to the stable trees, so you could have output
+something like:
 
-Asking Michal, Marek and Joonsoo who all worked hard on
-this to summarize the development and make the design
-and evolution of this feature understandable would be a
-pretty big development task in itself so I'm not gonna.
+  commit 1846193b178dcc58435fdc57352db7b74826ef37
+  Author: Michael Ellerman <mpe@ellerman.id.au>
+  Date:   Thu Jul 7 22:54:29 2016 +1000
+  
+      powerpc/xmon: Dump ISA 2.06 SPRs
+      
+      Signed-off-by: Michael Ellerman <mpe@ellerman.id.au>
+  
+  Notes (fixed):
+      Fixed-by: c47a94031e81 ("powerpc/xmon: Fix display of SPRs")
+        v4.9.y: deadbeef0000 ("powerpc/xmon: Fix display of SPRs")
+       v4.10.y: not found
 
-But maybe we should just merge a document with lore
-pointers to Documentation/cma for this feature, and others
-of the same impact?
 
-Yours,
-Linus Walleij
+Git notes are also just blobs, so in theory the processing to generate
+those notes could be done once and pushed to a repo where everyone could
+pull them.
+
+cheers
