@@ -1,34 +1,25 @@
-Return-Path: <James.Bottomley@HansenPartnership.com>
+Return-Path: <leon@kernel.org>
 Received: from smtp1.linuxfoundation.org (smtp1.linux-foundation.org
 	[172.17.192.35])
-	by mail.linuxfoundation.org (Postfix) with ESMTPS id EB3041C9C
+	by mail.linuxfoundation.org (Postfix) with ESMTPS id C3D651DBE
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  6 Jul 2019 14:57:18 +0000 (UTC)
-Received: from bedivere.hansenpartnership.com (bedivere.hansenpartnership.com
-	[66.63.167.143])
-	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id 939C387B
+	Sat,  6 Jul 2019 16:52:34 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp1.linuxfoundation.org (Postfix) with ESMTPS id C701B70D
 	for <ksummit-discuss@lists.linuxfoundation.org>;
-	Sat,  6 Jul 2019 14:57:18 +0000 (UTC)
-Message-ID: <1562425034.3029.3.camel@HansenPartnership.com>
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>, Michael Ellerman
-	<mpe@ellerman.id.au>
-Date: Sat, 06 Jul 2019 07:57:14 -0700
-In-Reply-To: <20190706140215.GD12409@piout.net>
-References: <7b73e1b7-cc34-982d-2a9c-acf62b88da16@linuxfoundation.org>
-	<20190628205102.GA3131@agluck-desk2.amr.corp.intel.com>
-	<s5hzhm0q3p1.wl-tiwai@suse.de>
-	<alpine.DEB.2.21.1906290906080.1802@nanos.tec.linutronix.de>
-	<87y31eov1l.fsf@concordia.ellerman.id.au>
-	<1562250136.3187.3.camel@HansenPartnership.com>
-	<87zhlt17ue.fsf@concordia.ellerman.id.au>
-	<20190706140215.GD12409@piout.net>
-Content-Type: text/plain; charset="UTF-8"
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+	Sat,  6 Jul 2019 16:52:33 +0000 (UTC)
+Date: Sat, 6 Jul 2019 19:52:14 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Wolfram Sang <wsa@the-dreams.de>
+Message-ID: <20190706165214.GB18182@mtr-leonro.mtl.com>
+References: <20190706142738.GA6893@kunai>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20190706142738.GA6893@kunai>
 Cc: ksummit-discuss@lists.linuxfoundation.org
-Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Patch version changes in
- commit logs?
+Subject: Re: [Ksummit-discuss] [MAINTAINERS SUMMIT] Keeping reviews
+	meaningful
 List-Id: <ksummit-discuss.lists.linuxfoundation.org>
 List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=unsubscribe>
@@ -38,27 +29,27 @@ List-Help: <mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=hel
 List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/ksummit-discuss>,
 	<mailto:ksummit-discuss-request@lists.linuxfoundation.org?subject=subscribe>
 
-On Sat, 2019-07-06 at 16:02 +0200, Alexandre Belloni wrote:
-> On 05/07/2019 13:24:57+1000, Michael Ellerman wrote:
-> > James Bottomley <James.Bottomley@HansenPartnership.com> writes:
-> > > Cc: tags are another git artefact.  They're how you tell git-
-> > > send-email 
-> > > where to send copies of the patch for review or notice, but they
-> > > don't
-> > > really provide any intrinsic historical value.
-> > 
-> > Right, but it wasn't clear to me if anyone felt that they *do* have
-> > historical value. Seems not.
-> > 
-> 
-> Some maintainers do think it is useful:
-> 
-> https://lore.kernel.org/lkml/20171128161014.GG27409@jhogan-linux.mips
-> tec.com/
+On Sat, Jul 06, 2019 at 04:27:38PM +0200, Wolfram Sang wrote:
+>
+> In the parts of the Kernel I work with, reviews are usually given by a plain
+> tag. I think this is not enough to keep a good code quality, so I'll start with
+> my theses first:
+>
+> 1) we need a better distinction between Acked-by: and Reviewed-by: and encourage
+>    stricter use of that
 
-Apart from stable, the only other cc I think is historically useful is
-when I'm carrying a patch that impinges on another maintainer's tree
-and they were cc'd for an ack which never arrived.  Then the cc in the
-changelog tells Linus at least we tried.
+Agree
 
-James
+>
+> 2) Reviewed-by should have a description of the review done (and the review not
+>    done)
+
+IMHO, this path of thinking will lead us to less reviews due to an extra
+work and wouldn't bring an extra quality which we want.
+
+Right now, everything is built on trust and it will continue to be after
+we will demand to add extra sentence. It means that we don't fully trust
+in Reviewed-by of one time contributors now and we won't trust in their
+description of their Reviewed-by either.
+
+Thanks
